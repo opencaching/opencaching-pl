@@ -137,6 +137,7 @@ if ($error == false) {
         $sel_region = isset($_POST['region']) ? $_POST['region'] : $default_region;
         $show_all_countries = isset($_POST['show_all_countries']) ? $_POST['show_all_countries'] : 0;
         $show_all_langs = isset($_POST['show_all_langs']) ? $_POST['show_all_langs'] : 0;
+        $altitude = isset($_POST['altitude']) ? $_POST['altitude'] : 0;
 
         //coords
         $lonEW = isset($_POST['lonEW']) ? $_POST['lonEW'] : $default_EW;
@@ -787,6 +788,10 @@ if ($error == false) {
                     mb_send_mail($octeam_email, tr('rrActivateCache_07') . ": " . $name, $email_content, $email_headers);
                     sql("UPDATE sysconfig SET value = value + 1 WHERE name = 'hidden_for_approval'");
                 }
+
+                /* add cache altitude altitude */
+                $geoCache = new \lib\Objects\GeoCache\GeoCache(array('cacheId' => $cache_id));
+                $geoCache->getAltitude()->pickAndStoreAltitude($altitude);
 
                 // redirection
                 tpl_redirect('mycaches.php?status=' . urlencode($sel_status));

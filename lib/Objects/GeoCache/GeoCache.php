@@ -16,6 +16,9 @@ class GeoCache
     private $datePlaced;
     private $cacheLocation = array();
 
+    /* @var $altitude \lib\Objects\GeoCache\Altitude */
+    private $altitude;
+
 	/**
 	 * geocache coordinates object (instance of \lib\Objects\Coordinates\Coordinates class)
 	 * @var $coordinates \lib\Objects\Coordinates\Coordinates
@@ -42,6 +45,7 @@ class GeoCache
         $this->datePlaced = strtotime($cacheDbRow['date_hidden']);
         $this->loadCacheLocation($db);
 		$this->coordinates = new \lib\Objects\Coordinates\Coordinates($cacheDbRow);
+        $this->altitude = new \lib\Objects\GeoCache\Altitude($this);
     }
 
     private function loadCacheLocation()
@@ -71,6 +75,21 @@ class GeoCache
     public function getDatePlaced()
     {
         return $this->datePlaced;
+    }
+
+    public function getCoordinates()
+    {
+        return $this->coordinates;
+    }
+
+    public function getAltitude()
+    {
+        return $this->altitude;
+    }
+
+    public function getCacheId()
+    {
+        return $this->caheId;
     }
 
 }

@@ -592,6 +592,8 @@
             </td>
         </tr>
         <tr><td colspan="2"><div class="buffer"></div></td></tr>
+        <tr><td colspan="2"><div><input type="hidden" name="altitude" id="altitude" value="0" placeholder="TODO: to be filled from gpx by ajax" /></div></td></tr>
+        <tr><td colspan="2"><div class="buffer"></div></td></tr>
         <tr>
             <td><p id="region0" class="content-title-noshade">{{regiononly}}:</p></td>
             <td>
