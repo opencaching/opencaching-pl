@@ -21,7 +21,7 @@
     require_once('./lib/common.inc.php');
     require_once('./lib/search.inc.php');
     require_once('./lib/search-signatures.inc.php');
-    global $dbcSearch, $lang, $TestStartTime, $usr, $config;
+    global $dbcSearch, $lang, $TestStartTime, $usr;
     
     //4test
     $TestStartTime = new DateTime('now');

@@ -17,7 +17,7 @@ if (!isset($rootpath))
 require_once('./lib/common.inc.php');
 require_once('lib/cache_icon.inc.php');
 global $caches_list, $usr, $hide_coords, $cache_menu, $octeam_email, $site_name, $absolute_server_URI, $octeamEmailsSignature;
-global $dynbasepath, $powerTrailModuleSwitchOn, $googlemap_key, $config;
+global $dynbasepath, $powerTrailModuleSwitchOn, $googlemap_key;
 
 function onTheList($theArray, $item)
 {
