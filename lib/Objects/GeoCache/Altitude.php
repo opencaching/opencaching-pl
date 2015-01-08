@@ -1,0 +1,99 @@
+<?php
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+namespace lib\Objects\GeoCache;
+
+/**
+ * Description of Altitude
+ *
+ * @author Łza
+ */
+class Altitude
+{
+
+    /**
+     * altitude in metres obove sea level
+     * @var integer
+     */
+    private $altitude = null;
+
+    /* @var $geoCache \lib\Objects\GeoCache\GeoCache */
+    private $geoCache;
+
+    public function __construct(\lib\Objects\GeoCache\GeoCache $geoCache)
+    {
+        $this->geoCache = $geoCache;
+        $this->loadAltitudeFromDb();
+    }
+
+    private function loadAltitudeFromDb()
+    {
+        $query = 'SELECT `altitude` FROM `caches_additions` WHERE `cache_id` = :1';
+        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db->multiVariableQuery($query, $this->geoCache->getCacheId());
+        $dbResult = $db->dbResultFetchOneRowOnly();
+        $this->altitude = $dbResult['altitude'];
+    }
+
+    /**
+     * Retreive altitude from google Api, set $this->altitude and store it in db.
+     */
+    private function retreiveAltitudeFromGoogleApi()
+    {
+        $googleElevationApiUrl = 'http://maps.googleapis.com/maps/api/elevation/xml?locations=';
+        $latitude = number_format($this->geoCache->getCoordinates()->getLatitude(), 7, '.', '');
+        $longitude = number_format($this->geoCache->getCoordinates()->getLongitude(), 7, '.', '');
+        $url = $googleElevationApiUrl . $latitude . ',' . $longitude;
+        $altitude = simplexml_load_file($url);
+        if ($altitude) {
+            $this->storeAlitudeInDb($altitude);
+            $status = (string) $altitude->status;
+            if ($status !== 'OK') { /* error occured */
+                return;
+            }
+            $altitudeFloat = (float) $altitude->result->elevation;
+            $this->altitude = (int) round($altitudeFloat);
+        }
+    }
+
+    private function storeAlitudeInDb()
+    {
+        $query = 'INSERT INTO `caches_additions` (`cache_id`, `altitude`, `altitude_update_datetime`)
+                        VALUES (:2, :1, NOW()) 
+                        ON DUPLICATE KEY UPDATE
+                        `altitude` = :1, altitude_update_datetime = NOW()';
+        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db->multiVariableQuery($query, $this->altitude, $this->geoCache->getCacheId());
+    }
+
+    /**
+     * retreive geocache alitude from google API, then
+     * compare witch user input altitude.
+     *
+     * If user input altitude to google api altitude difference is less than 50 meters, tread user
+     * input altitude as corect one and use it, otherwise, use google api altitude
+     *
+     * finally store it in db
+     *
+     * @param float $userInputAltitude
+     */
+    public function pickAndStoreAltitude($userInputAltitude)
+    {
+        $this->retreiveAltitudeFromGoogleApi();
+        if ($userInputAltitude < $this->altitude+50 && $userInputAltitude > $this->altitude-50) {
+            $this->altitude = $userInputAltitude;
+        }
+        $this->storeAlitudeInDb($altitude);
+    }
+
+    public function getAltitude()
+    {
+        return $this->altitude;
+    }
+
+}
