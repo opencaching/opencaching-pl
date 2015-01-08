@@ -19,7 +19,7 @@
 </style>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-<script src="/lib/js/jquery.cookie.js"></script>
+<script src="tpl/stdstyle/js/jquery.cookie.js"></script>
 <script>
         $(function() {
         /*var left = 0;

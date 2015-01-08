@@ -17,15 +17,16 @@ require_once($rootpath . 'lib/cachemap3lib.inc.php');
 
 header('Content-Type: text/javascript; charset=UTF-8');
 
-$attributionMap = CacheMap3Lib::generateAttributionMap();
+$cacheMap3Lib = new CacheMap3Lib();
+$attributionMap = $cacheMap3Lib->generateAttributionMap();
 echo 'var attributionMap = ' . $attributionMap . ';';
 echo "\n";
 
-$showMapsWhenMore = CacheMap3Lib::generateShowMapsWhenMore();
+$showMapsWhenMore = $cacheMap3Lib->generateShowMapsWhenMore();
 echo 'var showMapsWhenMore = ' . $showMapsWhenMore . ';';
 echo "\n";
 
-$mapItems = CacheMap3Lib::generateMapItems();
+$mapItems = $cacheMap3Lib->generateMapItems();
 echo 'var mapItems = ' . $mapItems . ';';
 echo "\n\n"; 
 

@@ -10,7 +10,15 @@
 
 class CacheMap3Lib {
     
-    public static function generateAttributionMap()
+    protected function shouldSkip(array $mapItem)
+    {
+        if (isset($mapItem['hidden']) && $mapItem['hidden'] === true){
+            return true;
+        }
+        return false;
+    }
+    
+    public function generateAttributionMap()
     {
         global $config;
         if (!isset($config['mapsConfig'])){
@@ -19,7 +27,7 @@ class CacheMap3Lib {
         $result = '';
         $mapsConfig = $config['mapsConfig'];
         foreach($mapsConfig as $key => $val){
-            if (isset($val['hidden']) && $val['hidden'] === true){
+            if ($this->shouldSkip($val)){
                 continue;
             }
             if (isset($val['attribution'])){
@@ -35,7 +43,7 @@ class CacheMap3Lib {
         
     }
     
-    public static function generateMapItems()
+    public function generateMapItems()
     {
         global $config;
         if (!isset($config['mapsConfig'])){
@@ -44,19 +52,20 @@ class CacheMap3Lib {
         $result = '';
         $mapsConfig = $config['mapsConfig'];
         foreach($mapsConfig as $key => $val){
-            if (isset($val['hidden']) && $val['hidden'] === true){
+            if ($this->shouldSkip($val)){
                 continue;
             }
+                        
             if ($result !== ''){
                 $result .= ",\n";
             }
-            $result .= "\t$key:" . self::generateMapItem($key, $val);
+            $result .= "\t$key:" . $this->generateMapItem($key, $val);
         }
         return "{\n" . $result . "\n}";
         
     }
     
-    public static function generateShowMapsWhenMore()
+    public function generateShowMapsWhenMore()
     {
         global $config;
         if (!isset($config['mapsConfig'])){
@@ -65,7 +74,7 @@ class CacheMap3Lib {
         $result = '';
         $mapsConfig = $config['mapsConfig'];
         foreach($mapsConfig as $key => $val){
-            if (isset($val['hidden']) && $val['hidden'] === true){
+            if ($this->shouldSkip($val)){
                 continue;
             }
             if (!isset($val['showOnlyIfMore'])){
@@ -81,13 +90,14 @@ class CacheMap3Lib {
     }
     
     
-    private static function generateMapItem($key, array $val)
+    private function generateMapItem($key, array $val)
     {
         if (isset($val['imageMapTypeJS'])){
             return 'function(){return ' . $val['imageMapTypeJS'] . ";\n\t}";
         }
         
         unset($val['showOnlyIfMore']);
+        unset($val['showInPowerTrail']);
         unset($val['attribution']);
         
         $outMap = array();
@@ -121,7 +131,7 @@ class CacheMap3Lib {
             $sizes = array();
             if (preg_match('/^([0-9]+)x([0-9]+)$/', $tileSize, $sizes)){
                 $tileSize = 'new google.maps.Size(' . $sizes[1] . ', ' . $sizes[2] . ')';
-            } elseif (self::startsWith($tileSize, 'raw:')){
+            } elseif ($this->startsWith($tileSize, 'raw:')){
                 $tileSize = substr($tileSize, 4);
             }
             
@@ -133,7 +143,7 @@ class CacheMap3Lib {
             if (is_numeric($v) || $v === 'true' || $v === 'false'){
                 $outMap[$k] = $v;
                 $outMapTypes[$k] = 'raw';
-            } elseif (self::startsWith($v, 'raw:')) {
+            } elseif ($this->startsWith($v, 'raw:')) {
                 $v = substr($v, 4);
                 $outMap[$k] = $v;
                 $outMapTypes[$k] = 'raw';
@@ -164,7 +174,7 @@ class CacheMap3Lib {
         return $result;
     }
     
-    private static function startsWith($haystack, $needle)
+    private function startsWith($haystack, $needle)
     {
         $length = strlen($needle);
         return (substr($haystack, 0, $length) === $needle);

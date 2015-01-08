@@ -5,8 +5,9 @@
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/minified/jquery-ui.min.js"></script>
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.datepick-{language4js}.js"></script>
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/timepicker.js"></script>
-
+<script src="tpl/stdstyle/js/jquery.cookie.js" type="text/javascript"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false&amp;language={language4js}"></script>
+<script src="/lib/cachemap3lib.js" type="text/javascript"></script>
 <script type="text/javascript">
             tinymce.init({
             selector: "textarea",
@@ -1171,20 +1172,26 @@
         return false;
     }
     console.log('initialize ');
+    var attributionMap = {attributionMap};
+    var mapItems = {mapItems};
+    var showMapsWhenMore = {showMapsWhenMore};
+    
     var ptMapCenterLat = {mapCenterLat};
     var ptMapCenterLon = {mapCenterLon};
     var mapZoom = {mapZoom};
     var fullCountryMap = {fullCountryMap};
     var caches = [ {ptList4map} ];
-//osm
     var mapTypeIds = [];
     for (var type in google.maps.MapTypeId) {
         mapTypeIds.push(google.maps.MapTypeId[type]);
     }
-    mapTypeIds.push("OSM");
-    mapTypeIds.push("UMP");
-//end osm
-
+    var mapTypeId2 = jQuery.cookie('mapTypeId');
+    for (var mapType in mapItems){
+        if ((!showMapsWhenMore[mapType]) || mapTypeId2 == mapType){
+            mapTypeIds.push(mapType);
+        }
+    }
+    
     var myLatlng = new google.maps.LatLng(ptMapCenterLat, ptMapCenterLon);
     var mapOptions = {
             zoom: mapZoom,
@@ -1197,24 +1204,14 @@
                 mapTypeIds: mapTypeIds
             }
         }
-    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-            var bounds = new google.maps.LatLngBounds();
-            map.mapTypes.set("OSM", new google.maps.ImageMapType({
-            getTileUrl: function(coord, zoom) {
-            return "http://tile.openstreetmap.org/" + zoom + "/" + coord.x + "/" + coord.y + ".png";
-            },
-                    tileSize: new google.maps.Size(256, 256),
-                    name: "OSM",
-                    maxZoom: 18
-            }));
-            map.mapTypes.set("UMP", new google.maps.ImageMapType({
-            getTileUrl: function(coord, zoom) {
-            return "http://1.tiles.ump.waw.pl/ump_tiles/" + zoom + "/" + coord.x + "/" + coord.y + ".png";
-            },
-                    tileSize: new google.maps.Size(256, 256),
-                    name: "UMP",
-                    maxZoom: 18
-            }));
+    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    for (var mapType in mapItems){
+        var mapObj = mapItems[mapType]();
+        map.mapTypes.set(mapType, mapObj);
+    }
+    
+    var bounds = new google.maps.LatLngBounds();
+    
             var infoWindow = new google.maps.InfoWindow;
             var onMarkerClick = function() {
             var markerx = this;
@@ -1238,6 +1235,19 @@
                     google.maps.event.addListener(marker, 'click', onMarkerClick);
             });
             if (fullCountryMap == '0') map.fitBounds(bounds);
+            var attributionDiv = createAttributionDiv();
+            map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(attributionDiv);
+            if (typeof mapTypeId2 != 'undefined' && mapTypeId2 != '' && typeof mapItems[mapTypeId2] != 'undefined'){
+                map.setMapTypeId(mapTypeId2);
+                attributionDiv.innerHTML = attributionMap[mapTypeId2] || '';
+            }
+
+            google.maps.event.addListener(map, "maptypeid_changed", function() {
+                var newMapTypeId = map.getMapTypeId();
+                attributionDiv.innerHTML = attributionMap[newMapTypeId] || '';
+                jQuery.cookie('mapTypeId', newMapTypeId, {expires: 365});
+            });
+            
     }
 
     google.maps.event.addDomListener(window, 'load', initialize);

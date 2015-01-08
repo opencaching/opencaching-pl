@@ -17,6 +17,7 @@ global $lang, $rootpath, $usr, $absolute_server_URI, $cookie;
 //prepare the templates and include all neccessary
 require_once('lib/common.inc.php');
 require_once('lib/cache.php');
+require_once($rootpath . 'lib/cachemap3lib.inc.php');
 
 $_SESSION['powerTrail']['userFounds'] = $usr['userFounds'];
 
@@ -100,6 +101,11 @@ if ($error == false) {
     tpl_set_var('ocWaypoint', $oc_waypoint);
     tpl_set_var('commentsPaginateCount', powerTrailBase::commentsPaginateCount);
 
+    $cacheMap3Lib = new CacheMap3Lib();
+    tpl_set_var('attributionMap', $cacheMap3Lib->generateAttributionMap());
+    tpl_set_var('mapItems', $cacheMap3Lib->generateMapItems());
+    tpl_set_var('showMapsWhenMore', $cacheMap3Lib->generateShowMapsWhenMore());
+    
     if (!$usr)
         tpl_set_var('ptMenu', 'none');
     $ptMenu = new powerTrailMenu($usr);
