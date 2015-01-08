@@ -21,7 +21,7 @@ require_once($rootpath . 'lib/calculation.inc.php');
 require_once('./lib/cache_icon.inc.php');
 require_once($rootpath . 'lib/caches.inc.php');
 require_once($stylepath . '/lib/icons.inc.php');
-global $content, $bUseZip, $sqldebug, $usr;
+global $content, $bUseZip, $sqldebug, $usr, $config;
 global $default_lang, $cache_attrib_jsarray_line, $cache_attrib_img_line;
 global $lang, $language, $dateFormat;
 $database = new dataBase;
@@ -252,10 +252,10 @@ if ($error == false) {
             else
                 $attributes_img .= $line;
         }
-        $line = attr_jsline($cache_attrib_jsarray_line, $options, "99", tr("with_password"), "images/attributes/password.png", "images/attributes/password-no.png", "images/attributes/password-undef.png", 0);
+        $line = attr_jsline($cache_attrib_jsarray_line, $options, "99", tr("with_password"), $config['search-attr-icons']['password'][0], $config['search-attr-icons']['password'][1], $config['search-attr-icons']['password'][2], 0);
         $attributes_jsarray .= ",\n" . $line;
 
-        $line = attr_image($cache_attrib_img_line, $options, "99", tr("with_password"), "images/attributes/password.png", "images/attributes/password-no.png", "images/attributes/password-undef.png", 0);
+        $line = attr_image($cache_attrib_img_line, $options, "99", tr("with_password"), $config['search-attr-icons']['password'][0], $config['search-attr-icons']['password'][1], $config['search-attr-icons']['password'][2], 0);
         $attributes_img .= $line;
 
         tpl_set_var('cache_attrib_list', $attributes_img);

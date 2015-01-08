@@ -21,7 +21,7 @@
     require_once('./lib/common.inc.php');
     require_once('./lib/search.inc.php');
     require_once('./lib/search-signatures.inc.php');
-    global $dbcSearch, $lang, $TestStartTime, $usr;
+    global $dbcSearch, $lang, $TestStartTime, $usr, $config;
     
     //4test
     $TestStartTime = new DateTime('now');
@@ -1178,7 +1178,7 @@ function outputSearchForm($options)
 {
     global $stylepath, $usr, $error_plz, $error_locidnocoords, $error_ort, $error_noort, $error_nofulltext;
     global $default_lang, $search_all_countries, $cache_attrib_jsarray_line, $cache_attrib_img_line;
-    global $lang, $language;
+    global $lang, $language, $config;
 
     //simple mode (only one easy filter)
     $filters = read_file($stylepath . '/search.simple.tpl.php');
@@ -1684,10 +1684,10 @@ function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconun
         else
             $attributes_img .= $line;
     }
-    $line = attr_jsline($cache_attrib_jsarray_line, $options, "99", tr("with_password"), "images/attributes/password.png", "images/attributes/password-no.png", "images/attributes/password-undef.png", 0);
+    $line = attr_jsline($cache_attrib_jsarray_line, $options, "99", tr("with_password"), $config['search-attr-icons']['password'][0], $config['search-attr-icons']['password'][1], $config['search-attr-icons']['password'][2], 0);
     $attributes_jsarray .= ",\n".$line;
 
-    $line = attr_image($cache_attrib_img_line, $options, "99", tr("with_password"), "images/attributes/password.png", "images/attributes/password-no.png", "images/attributes/password-undef.png", 0);
+    $line = attr_image($cache_attrib_img_line, $options, "99", tr("with_password"), $config['search-attr-icons']['password'][0], $config['search-attr-icons']['password'][1], $config['search-attr-icons']['password'][2], 0);
     $attributes_img .= $line;
 
     tpl_set_var('cache_attrib_list', $attributes_img);

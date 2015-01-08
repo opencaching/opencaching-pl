@@ -87,4 +87,17 @@ $config = array(
             'tileSize' => '256x256'
         ), 
     ),
+    /** 
+        customization of cache-attribute icons
+    */
+    'search-attr-icons' => array(
+        'password' => array (
+            // has attribute
+            'images/attributes/password.png',
+            // does not have attribute
+            'images/attributes/password-no.png',
+            // does not care
+            'images/attributes/password-undef.png'
+        )
+    )
 );
