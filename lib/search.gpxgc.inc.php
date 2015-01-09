@@ -218,7 +218,9 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
             $gpxAttribName[44] = 'Wheelchair accessible';
             $gpxAttribID[52] = '60';
             $gpxAttribName[52] = 'Wireless Beacon';
-        $gpxAttribID[82] = '44';
+            $gpxAttribID[61] = '54';
+            $gpxAttribName[61] = 'Abandoned Structure';
+            $gpxAttribID[82] = '44';
             $gpxAttribName[82] = 'Flashlight required';
             $gpxAttribID[83] = '51';
             $gpxAttribName[83] = 'Special Tool Required';
