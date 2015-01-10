@@ -8,7 +8,7 @@
             unlockOnPageLoad: false,
             hideIfBrowserNotSupported: false,
             showStatusElement: true,
-            poweredByGarmin: "Powered by <a href='http://www.opencaching.pl' target='_new'>OpenCaching PL</a>  &  <a href='http://www.garmin.com/products/communicator/' target='_blank'>Garmin Communicator</a>",
+            poweredByGarmin: "Powered by <a href='index.php' target='_new'>{site_name}</a>  &  <a href='http://www.garmin.com/products/communicator/' target='_blank'>Garmin Communicator</a>",
             noDeviceDetectedStatusText: "{{garmin_not_found}}",
             lookingForDevices: "{{garmin_search}}",
             autoFindDevices: false,
