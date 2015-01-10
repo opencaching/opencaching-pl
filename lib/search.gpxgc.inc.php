@@ -216,6 +216,8 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
             $gpxAttribName[41] = 'Recommended for kids';
             $gpxAttribID[44] = '24';
             $gpxAttribName[44] = 'Wheelchair accessible';
+            $gpxAttribID[45] = '40';
+            $gpxAttribName[45] = 'Stealth required';
             $gpxAttribID[52] = '60';
             $gpxAttribName[52] = 'Wireless Beacon';
             $gpxAttribID[61] = '54';
