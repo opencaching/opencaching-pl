@@ -67,7 +67,7 @@ if ($error == false) {
     //cacheid
     $cache_id = 0;
     if (isset($_REQUEST['cacheid'])) {
-        $cache_id = $_REQUEST['cacheid'];
+        $cache_id = (int) $_REQUEST['cacheid'];
     }
 
     //user logged in?
@@ -75,32 +75,24 @@ if ($error == false) {
         $target = urlencode(tpl_get_current_page());
         tpl_redirect('login.php?target=' . $target);
     } else {
+        $dbc = \lib\Database\DataBaseSingleton::Instance();
         $thatquery = "SELECT `user_id`, `name`, `picturescount`, `mp3count`,`type`, `size`, `date_hidden`, `date_activate`, `date_created`, `longitude`, `latitude`, `country`, `terrain`, `difficulty`,
         `desc_languages`, `status`, `search_time`, `way_length`, `logpw`, `wp_gc`, `wp_nc`,`wp_ge`,`wp_tc`,`node`, IFNULL(`cache_location`.`code3`,'') region
         FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id`= `cache_location`.`cache_id`)  WHERE `caches`.`cache_id`=:v1";
-        $params['v1']['value'] = (integer) $cache_id;
-        ;
+        $params['v1']['value'] = $cache_id;
         $params['v1']['data_type'] = 'integer';
-        if (!isset($dbc)) {
-            $dbc = new dataBase();
-        };
         $dbc->paramQuery($thatquery, $params);
         unset($params);
 
         if ($dbc->rowCount() == 1) {
             $cache_record = $dbc->dbResultFetch();
-
             if ($cache_record['user_id'] == $usr['userid'] || $usr['admin']) {
                 $tplname = 'editcache';
-
                 require_once($rootpath . 'lib/caches.inc.php');
                 require($stylepath . '/editcache.inc.php');
-
                 //here we read all used information from the form if submitted, otherwise from DB
-// TODO
                 // wihout virtuals and webcams
                 if (isset($_POST['type'])) {
-
                     if (( ($_POST['type'] == cache::TYPE_VIRTUAL && $cache_record['type'] != cache::TYPE_VIRTUAL ) ||
                             ($_POST['type'] == cache::TYPE_WEBCAM && $cache_record['type'] != cache::TYPE_WEBCAM ) ||
                             // without owncaches
@@ -115,25 +107,20 @@ if ($error == false) {
 
                 $pic_count_check = $cache_record['picturescount'];
                 if ($pic_count_check > 0) {
-
                     if (isset($_POST['pic_seq_select1'])) { // check if in POST mode and in case any picture is attached (re-)update sequence value, providing it was changed - value of pic_seq_change_X)
                         if (!isset($dbc)) {
                             $dbc = new dataBase();
-                        };
+                        }
                         for ($i = 1; $i <= $pic_count_check; $i++) {
                             $this_seq = $_POST['pic_seq_select' . $i]; //get new seqence
                             $this_pic_id = $_POST['pic_seq_id' . $i]; //get picutre ID the new seq is applicable to
                             $this_pic_changed = $_POST['pic_seq_changed' . $i]; //get changed status ("yes" or "no")
                             if (isset($this_seq) && isset($this_pic_id) && $this_pic_changed == "yes") {
-
                                 $thatquery = 'UPDATE `pictures` SET `last_modified`=NOW(), `seq` = :v1 WHERE `id` = :v2';
                                 $params['v1']['value'] = (integer) $this_seq;
-                                ;
                                 $params['v1']['data_type'] = 'integer';
                                 $params['v2']['value'] = (integer) $this_pic_id;
-                                ;
                                 $params['v2']['data_type'] = 'integer';
-
                                 $dbc->paramQuery($thatquery, $params);
                             }
                         }
@@ -143,28 +130,23 @@ if ($error == false) {
                 // mp3 update start
                 $mp3_count_check = $cache_record['mp3count'];
                 if ($mp3_count_check > 0) {
-
                     if (isset($_POST['mp3_seq_select1'])) { // check if in POST mode and in case any mp3 is attached (re-)update sequence value, providing it was changed - value of mp3_seq_change_X)
                         if (!isset($dbc)) {
                             $dbc = new dataBase();
-                        };
+                        }
                         for ($i = 1; $i <= $mp3_count_check; $i++) {
                             $this_seq = $_POST['mp3_seq_select' . $i]; //get new seqence
                             $this_mp3_id = $_POST['mp3_seq_id' . $i]; //get mp3 ID the new seq is applicable to
                             $this_mp3_changed = $_POST['mp3_seq_changed' . $i]; //get changed status ("yes" or "no")
                             if (isset($this_seq) && isset($this_mp3_id) && $this_mp3_changed == "yes") {
-
                                 $thatquery = 'UPDATE `mp3` SET `last_modified`=NOW(), `seq` = :v1 WHERE `id` = :v2';
                                 $params['v1']['value'] = (integer) $this_seq;
-                                ;
                                 $params['v1']['data_type'] = 'integer';
                                 $params['v2']['value'] = (integer) $this_mp3_id;
-                                ;
                                 $params['v2']['data_type'] = 'integer';
-
                                 $dbc->paramQuery($thatquery, $params);
-                            };
-                        };
+                            }
+                        }
                         unset($params);
                     }
                 }
@@ -183,11 +165,9 @@ if ($error == false) {
                         $sel_size = 7;
                     }
                 }
-
                 $cache_hidden_day = isset($_POST['hidden_day']) ? $_POST['hidden_day'] : date('d', strtotime($cache_record['date_hidden']));
                 $cache_hidden_month = isset($_POST['hidden_month']) ? $_POST['hidden_month'] : date('m', strtotime($cache_record['date_hidden']));
                 $cache_hidden_year = isset($_POST['hidden_year']) ? $_POST['hidden_year'] : date('Y', strtotime($cache_record['date_hidden']));
-
                 if (is_null($cache_record['date_activate'])) {
                     $cache_activate_day = isset($_POST['activate_day']) ? $_POST['activate_day'] : date('d');
                     $cache_activate_month = isset($_POST['activate_month']) ? $_POST['activate_month'] : date('m');
@@ -409,32 +389,29 @@ if ($error == false) {
                 }
 
                 // if there is already a cache without container, let it stay this way
-                if ($cache_record['type'] == cache::TYPE_OTHERTYPE && $cache_record['size'] == $CACHESIZE['NO_CONTAINER'])
+                if ($cache_record['type'] == cache::TYPE_OTHERTYPE && $cache_record['size'] == $CACHESIZE['NO_CONTAINER']) {
                     tpl_set_var('other_nobox', 'true');
-                else
+                } else {
                     tpl_set_var('other_nobox', 'false');
+                }
                 // cache-attributes
                 if (isset($_POST['cache_attribs'])) {
                     $cache_attribs = mb_split(';', $_POST['cache_attribs']);
                 } else {
                     // get attribs for this cache from db
-                    //$rs = sql("SELECT `attrib_id` FROM `caches_attributes` WHERE `cache_id`='&1'", $cache_id);
                     $thatquery = "SELECT `attrib_id` FROM `caches_attributes` WHERE `cache_id`=:v1";
                     $params['v1']['value'] = (integer) $cache_id;
-                    ;
                     $params['v1']['data_type'] = 'integer';
                     if (!isset($dbc)) {
                         $dbc = new dataBase();
-                    };
+                    }
                     $dbc->paramQuery($thatquery, $params);
                     unset($params);
                     $cache_attribs_count = $dbc->rowCount();
 
-                    //if(mysql_num_rows($rs) > 0)
                     if ($cache_attribs_count > 0) {
                         $cache_attribs_all = $dbc->dbResultFetchAll();
                         unset($cache_attribs);
-                        //while($record = sql_fetch_array($rs))
                         for ($i = 0; $i < $cache_attribs_count; $i++) {
                             $record = $cache_attribs_all[$i];
                             $cache_attribs[] = $record['attrib_id'];
@@ -443,7 +420,6 @@ if ($error == false) {
                     } else {
                         $cache_attribs = array();
                     }
-                    //mysql_free_result($rs);
                 }
 
                 //try to save to DB?
@@ -451,13 +427,14 @@ if ($error == false) {
                     //all validations ok?
                     if (!($hidden_date_not_ok || $lat_not_ok || $lon_not_ok || $name_not_ok || $time_not_ok || $way_length_not_ok || $size_not_ok || $activate_date_not_ok || $status_not_ok)) {
                         $cache_lat = $coords_lat_h + round($coords_lat_min, 3) / 60;
-                        if ($coords_latNS == 'S')
+                        if ($coords_latNS == 'S'){
                             $cache_lat = -$cache_lat;
+                        }
 
                         $cache_lon = $coords_lon_h + round($coords_lon_min, 3) / 60;
-                        if ($coords_lonEW == 'W')
+                        if ($coords_lonEW == 'W'){
                             $cache_lon = -$cache_lon;
-
+                        }
                         if ($publish == 'now') {
                             $activation_date = 'NULL';
                         } elseif ($publish == 'later') {
@@ -466,8 +443,7 @@ if ($error == false) {
                         } elseif ($publish == 'notnow') {
                             $status = 5;
                             $activation_date = 'NULL';
-                        } else {
-                            // should never happen
+                        } else { // should never happen
                             $activation_date = 'NULL';
                         }
 
@@ -480,8 +456,9 @@ if ($error == false) {
 
                         // if ($cache_country!="PL") $cache_region="0";
                         // check if selected country has no districts, then use $default_region
-                        if ($cache_region == -1)
+                        if ($cache_region == -1) {
                             $cache_region = '0';
+                        }
                         if ($cache_region != "0") {
                             $code3 = $cache_region;
                             $adm3 = sqlValue("SELECT `name` FROM `nuts_codes` WHERE `code`='" . sql_escape($cache_region) . "'", 0);
@@ -501,6 +478,8 @@ if ($error == false) {
                                 sql("INSERT INTO `caches_attributes` (`cache_id`, `attrib_id`) VALUES('&1', '&2')", $cache_id, $cache_attribs[$i] + 0);
                             }
                         }
+
+                        updateAltitudeIfNeeded($cache_record, $cache_id);
 
                         //call eventhandler
                         require_once($rootpath . 'lib/eventhandler.inc.php');
@@ -568,16 +547,17 @@ if ($error == false) {
                 //check if selected country is in list_default
                 if ($show_all_countries == 0) {
                     $rs = sql("SELECT `short` FROM `countries` WHERE (`list_default_" . sql_escape($lang) . "`=1) AND (lower(`short`) = lower('&1'))", $cache_country);
-                    if (mysql_num_rows($rs) == 0)
+                    if (mysql_num_rows($rs) == 0) {
                         $show_all_countries = 1;
+                    }
                 }
 
                 //get the record
-                if ($show_all_countries == 0)
+                if ($show_all_countries == 0) {
                     $rs = sql('SELECT `' . sql_escape($lang) . '`, `short` FROM `countries` WHERE `list_default_' . sql_escape($lang) . '`=1 ORDER BY `sort_' . sql_escape($lang) . '` ASC');
-                else
+                } else {
                     $rs = sql('SELECT `' . sql_escape($lang) . '`, `short` FROM `countries` ORDER BY `sort_' . sql_escape($lang) . '` ASC');
-
+                }
                 for ($i = 0; $i < mysql_num_rows($rs); $i++) {
                     $record = sql_fetch_array($rs);
                     if ($record['short'] == $cache_country) {
@@ -599,30 +579,33 @@ if ($error == false) {
                 if (mysql_num_rows($rs) > 0) {
                     while ($record = sql_fetch_array($rs)) {
                         $line = $cache_attrib_pic;
-
                         $line = mb_ereg_replace('{attrib_id}', $record['id'], $line);
                         $line = mb_ereg_replace('{attrib_text}', $record['text_long'], $line);
-                        if (in_array($record['id'], $cache_attribs))
+                        if (in_array($record['id'], $cache_attribs)) {
                             $line = mb_ereg_replace('{attrib_pic}', $record['icon_large'], $line);
-                        else
+                        } else {
                             $line = mb_ereg_replace('{attrib_pic}', $record['icon_undef'], $line);
+                        }
                         $cache_attrib_list .= $line;
 
                         $line = $cache_attrib_js;
                         $line = mb_ereg_replace('{id}', $record['id'], $line);
-                        if (in_array($record['id'], $cache_attribs))
+                        if (in_array($record['id'], $cache_attribs)) {
                             $line = mb_ereg_replace('{selected}', 1, $line);
-                        else
+                        } else {
                             $line = mb_ereg_replace('{selected}', 0, $line);
+                        }
                         $line = mb_ereg_replace('{img_undef}', $record['icon_undef'], $line);
                         $line = mb_ereg_replace('{img_large}', $record['icon_large'], $line);
-                        if ($cache_attrib_array != '')
+                        if ($cache_attrib_array != ''){
                             $cache_attrib_array .= ',';
+                        }
                         $cache_attrib_array .= $line;
 
                         if (in_array($record['id'], $cache_attribs)) {
-                            if ($cache_attribs_string != '')
+                            if ($cache_attribs_string != ''){
                                 $cache_attribs_string .= ';';
+                            }
                             $cache_attribs_string .= $record['id'];
                         }
                     }
@@ -706,12 +689,11 @@ if ($error == false) {
 
                     $resp = sql("SELECT `desc` FROM `cache_desc` WHERE `cache_id`='&1' AND `language`='&2'", $cache_id, $desclang);
                     $row = sql_fetch_array($resp);
-                    if (mb_strpos($row['desc'], "http://img.groundspeak.com/") !== false)
+                    if (mb_strpos($row['desc'], "http://img.groundspeak.com/") !== false){
                         $gc_com_refs = true;
+                    }
                     sql_free_result($resp);
-
                     $edit_url = 'editdesc.php?cacheid=' . urlencode($cache_id) . '&desclang=' . urlencode($desclang);
-
                     $cache_descs .= '<tr><td colspan="2"><img src="images/flags/' . strtolower($desclang) . '.gif" class="icon16" alt=""  />&nbsp;' . htmlspecialchars(db_LanguageFromShort($desclang), ENT_COMPAT, 'UTF-8') . '&nbsp;&nbsp;<img src="images/actions/edit-16.png" border="0" align="middle" alt="" title="Edit" /> [<a href="' . htmlspecialchars($edit_url, ENT_COMPAT, 'UTF-8') . '" onclick="return check_if_proceed();">' . $edit . '</a>]' . $removedesc . '</td></tr>';
                 }
                 tpl_set_var('cache_descs', $cache_descs);
@@ -752,14 +734,12 @@ if ($error == false) {
                 // show activation form?
                 if ($status_old == $STATUS['NOT_YET_AVAILABLE']) { // status = not yet published
                     $tmp = $activation_form;
-
                     $tmp = mb_ereg_replace('{activate_day}', htmlspecialchars($cache_activate_day, ENT_COMPAT, 'UTF-8'), $tmp);
                     $tmp = mb_ereg_replace('{activate_month}', htmlspecialchars($cache_activate_month, ENT_COMPAT, 'UTF-8'), $tmp);
                     $tmp = mb_ereg_replace('{activate_year}', htmlspecialchars($cache_activate_year, ENT_COMPAT, 'UTF-8'), $tmp);
                     $tmp = mb_ereg_replace('{publish_now_checked}', ($publish == 'now') ? 'checked' : '', $tmp);
                     $tmp = mb_ereg_replace('{publish_later_checked}', ($publish == 'later') ? 'checked' : '', $tmp);
                     $tmp = mb_ereg_replace('{publish_notnow_checked}', ($publish == 'notnow') ? 'checked' : '', $tmp);
-
                     $activation_hours = '';
                     for ($i = 0; $i <= 23; $i++) {
                         if ($cache_activate_hour == $i) {
@@ -789,17 +769,13 @@ if ($error == false) {
                     $thatquery = "SELECT `id`, `url`, `title`, `uuid`, `seq` FROM `pictures` WHERE `object_id`=:v1 AND `object_type`=2 ORDER BY seq, date_created";
                     // requires: ALTER TABLE `pictures` ADD `seq` SMALLINT UNSIGNED NOT NULL DEFAULT '1';
                     $params['v1']['value'] = (integer) $cache_id;
-                    ;
                     $params['v1']['data_type'] = 'integer';
-
                     if (!isset($dbc)) {
                         $dbc = new dataBase();
-                    };
+                    }
                     $dbc->paramQuery($thatquery, $params);
-
                     $rspictures_count = $dbc->rowCount();
                     $rspictures_all = $dbc->dbResultFetchAll();
-
                     $thatquery = "SELECT `seq` FROM `pictures` WHERE `object_id`=:v1 AND `object_type`=2 ORDER BY `seq` DESC"; //get highest seq number for this cache
                     $dbc->paramQuery($thatquery, $params); //params are same as few lines above
                     $max_seq_record = $dbc->dbResultFetch();
@@ -807,25 +783,20 @@ if ($error == false) {
                     $max_seq_number = (isset($max_seq_record ['seq']) ? $max_seq_record ['seq'] : 0);
                     if ($max_seq_number < $rspictures_count) {
                         $max_seq_number = $rspictures_count;
-                    };
+                    }
                     tpl_set_var('def_seq', $max_seq_number + 1); // set default seq for picture to be added (if link is click) - this line updated link to newpic.php)    )
 
                     for ($i = 0; $i < $rspictures_count; $i++) {
                         $tmpline = $pictureline;
-                        //$pic_record = sql_fetch_array($rspictures);
                         $pic_record = $rspictures_all[$i];
-
                         $tmpline = mb_ereg_replace('{seq_drop}', build_drop_seq($i + 1, $pic_record['seq'], $max_seq_number, $pic_record['id'], 'pic'), $tmpline);
-                        // requires: ALTER TABLE `pictures` ADD `seq` SMALLINT UNSIGNED NOT NULL DEFAULT '1';
                         $tmpline = mb_ereg_replace('{link}', htmlspecialchars($pic_record['url'], ENT_COMPAT, 'UTF-8'), $tmpline);
                         $tmpline = mb_ereg_replace('{title}', htmlspecialchars($pic_record['title'], ENT_COMPAT, 'UTF-8'), $tmpline);
                         $tmpline = mb_ereg_replace('{uuid}', htmlspecialchars($pic_record['uuid'], ENT_COMPAT, 'UTF-8'), $tmpline);
-
                         $pictures .= $tmpline;
                     }
 
                     $pictures = mb_ereg_replace('{lines}', $pictures, $picturelines);
-                    //  mysql_free_result($rspictures);
                     tpl_set_var('pictures', $pictures);
                 } else {
                     tpl_set_var('def_seq', 1); //set default sequence to 1 for add picture link (in case there is no picture att all yet))
@@ -838,17 +809,12 @@ if ($error == false) {
                 ) {
                     if ($cache_record['mp3count'] > 0) {
                         $mp3files = '';
-
-                        //$rsmp3 = sql("SELECT `url`, `title`, `uuid` FROM `mp3` WHERE `object_id`='&1' AND `object_type`=2", $cache_id);
                         $thatquery = "SELECT `id`, `url`, `title`, `uuid`, `seq` FROM `mp3` WHERE `object_id`=:v1 AND `object_type`=2 ORDER BY seq, date_created";
-                        // requires: ALTER TABLE `mp3` ADD `seq` SMALLINT UNSIGNED NOT NULL DEFAULT '1';
                         $params['v1']['value'] = (integer) $cache_id;
-                        ;
                         $params['v1']['data_type'] = 'integer';
-
                         if (!isset($dbc)) {
                             $dbc = new dataBase();
-                        };
+                        }
                         $dbc->paramQuery($thatquery, $params);
 
                         $mp3_count = $dbc->rowCount();
@@ -863,22 +829,17 @@ if ($error == false) {
                             $max_seq_number = $mp3_count;
                         };
                         tpl_set_var('def_seq_m', $max_seq_number + 1); // set default seq for mp3 to be added (if link is click) - this line updated link to newmp3.php)  )
-                        //  for ($i = 0; $i < mysql_num_rows($rsmp3); $i++)
                         for ($i = 0; $i < $mp3_count; $i++) {
                             $tmpline1 = $mp3line;
-                            //  $mp3_record = sql_fetch_array($rsmp3);
                             $mp3_record = $mp3_all[$i];
-
                             $tmpline1 = mb_ereg_replace('{seq_drop_mp3}', build_drop_seq($i + 1, $mp3_record['seq'], $max_seq_number, $mp3_record['id'], 'mp3'), $tmpline1);
                             $tmpline1 = mb_ereg_replace('{link}', htmlspecialchars($mp3_record['url'], ENT_COMPAT, 'UTF-8'), $tmpline1);
                             $tmpline1 = mb_ereg_replace('{title}', htmlspecialchars($mp3_record['title'], ENT_COMPAT, 'UTF-8'), $tmpline1);
                             $tmpline1 = mb_ereg_replace('{uuid}', htmlspecialchars($mp3_record['uuid'], ENT_COMPAT, 'UTF-8'), $tmpline1);
-
                             $mp3files .= $tmpline1;
                         }
 
                         $mp3files = mb_ereg_replace('{lines}', $mp3files, $mp3lines);
-                        //mysql_free_result($rsmp3);
                         tpl_set_var('mp3files', $mp3files);
                         tpl_set_var('hidemp3_start', '');
                         tpl_set_var('hidemp3_end', '');
@@ -895,10 +856,11 @@ if ($error == false) {
                 }
 
                 //Add Waypoint
-                if (checkField('waypoint_type', $lang))
+                if (checkField('waypoint_type', $lang)){
                     $lang_db = $lang;
-                else
+                } else{
                     $lang_db = "en";
+                }
 
                 $cache_type = $cache_record['type'];
                 if ($cache_type != cache::TYPE_MOVING) {
@@ -991,20 +953,17 @@ if ($error == false) {
                 tpl_set_var('date_message', ($hidden_date_not_ok == true) ? $date_not_ok_message : '');
                 tpl_set_var('size_message', ($size_not_ok == true) ? $size_not_ok_message : '');
 
-                if ($lon_not_ok || $lat_not_ok || $hidden_date_not_ok || $name_not_ok)
+                if ($lon_not_ok || $lat_not_ok || $hidden_date_not_ok || $name_not_ok){
                     tpl_set_var('general_message', $error_general);
-                else
+                } else {
                     tpl_set_var('general_message', "");
-
+                }
                 tpl_set_var('cacheid_urlencode', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'));
                 tpl_set_var('show_all_countries', $show_all_countries);
                 tpl_set_var('show_all_countries_submit', ($show_all_countries == 0) ? $all_countries_submit : '');
-
                 $st_hours = floor($search_time);
                 $st_minutes = sprintf('%02d', round(($search_time - $st_hours) * 60, 1));
-
                 tpl_set_var('search_time', $st_hours . ':' . $st_minutes);
-
                 tpl_set_var('way_length', $way_length);
                 tpl_set_var('log_pw', htmlspecialchars($log_pw, ENT_COMPAT, 'UTF-8'));
                 tpl_set_var('wp_gc', htmlspecialchars($wp_gc, ENT_COMPAT, 'UTF-8'));
@@ -1012,11 +971,9 @@ if ($error == false) {
                 tpl_set_var('wp_tc', htmlspecialchars($wp_tc, ENT_COMPAT, 'UTF-8'));
                 tpl_set_var('wp_ge', htmlspecialchars($wp_ge, ENT_COMPAT, 'UTF-8'));
                 tpl_set_var('bodyMod', ' onunload="GUnload()"');
-
                 tpl_set_var('reset', $reset);
                 tpl_set_var('submit', $submit);
-            }
-            else {
+            } else {
                 //TODO: not the owner
             }
         } else {
@@ -1025,6 +982,21 @@ if ($error == false) {
     }
 }
 unset($dbc);
+
 //make the template and send it out
 tpl_BuildTemplate();
-?>
+
+
+/**
+ * if coordinates were changed, update altitude
+ * @param array $oldCacheRecord
+ * @param integer $cacheId
+ * @param integer $altitude
+ */
+function updateAltitudeIfNeeded($oldCacheRecord, $cacheId, $altitude = 0){
+    /* add cache altitude altitude */
+    $geoCache = new \lib\Objects\GeoCache\GeoCache(array('cacheId' => $cacheId));
+    if($geoCache->getCoordinates()->getLatitude() != $oldCacheRecord['latitude'] || $geoCache->getCoordinates()->getLongitude() != $oldCacheRecord['longitude']){
+        $geoCache->getAltitude()->pickAndStoreAltitude($altitude);
+    }
+}

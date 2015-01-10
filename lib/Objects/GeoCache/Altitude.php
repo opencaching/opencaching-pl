@@ -88,7 +88,7 @@ class Altitude
         if ($userInputAltitude < $this->altitude+50 && $userInputAltitude > $this->altitude-50) {
             $this->altitude = $userInputAltitude;
         }
-        $this->storeAlitudeInDb($altitude);
+        $this->storeAlitudeInDb();
     }
 
     public function getAltitude()
