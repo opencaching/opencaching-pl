@@ -1,20 +1,20 @@
 <?php
 require_once 'lib/kint/Kint.class.php';
 require_once 'lib/common.inc.php';
-ini_set('max_execution_time', 120);
 error_reporting(-1);
 
-
-
-$medals = new \lib\Controllers\MedalsController();
-if ($medals->config->getMedalsModuleSwitchOn() === true) {
-    $medals->checkAllUsersMedals();
+if(isset($_GET['alt']) && $_GET['alt'] == 1){
+    fillAltitudeTable();
 }
 
-dd($medals);
+function uzupełnianie_medali(){
+    ini_set('max_execution_time', 120);
+    $medals = new \lib\Controllers\MedalsController();
+    if ($medals->config->getMedalsModuleSwitchOn() === true) {
+        $medals->checkAllUsersMedals();
+    }
+}
 
-
-exit;
 
 function fillAltitudeTable()
 {
@@ -26,7 +26,7 @@ function fillAltitudeTable()
         $caches = $db->dbResultFetchAll();
         $gapiStr = 'http://maps.googleapis.com/maps/api/elevation/xml?locations=';
         if (count($caches) === 0) {
-            print 'no caches to process';
+            print 'no more caches to process';
             break;
         }
         foreach ($caches as $key => $cache) {
@@ -42,7 +42,6 @@ function fillAltitudeTable()
             d($url, $altitudes, $caches);
             break;
         }
-        d($url, $altitudes, $caches);
     }
     print '<br><br>' . $cachesAltitudeCount . ' caches altitudes added';
 }
