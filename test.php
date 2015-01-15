@@ -1,10 +1,16 @@
 <?php
+
 require_once 'lib/kint/Kint.class.php';
 require_once 'lib/common.inc.php';
 error_reporting(-1);
 
 if(isset($_GET['alt']) && $_GET['alt'] == 1){
-    fillAltitudeTable();
+    $data = fillAltitudeTable();
+	display($data);
+}
+
+if(isset($_GET['medal']) && $_GET['medal'] == 1){
+	uzupełnianie_medali();
 }
 
 function uzupełnianie_medali(){
@@ -42,8 +48,10 @@ function fillAltitudeTable()
             d($url, $altitudes, $caches);
             break;
         }
+		$result[] = $altitudes;
     }
     print '<br><br>' . $cachesAltitudeCount . ' caches altitudes added';
+	return $result;
 }
 
 function storeAlitudeToDb($altitudes, $caches, &$cachesAltitudeCount)
@@ -51,6 +59,7 @@ function storeAlitudeToDb($altitudes, $caches, &$cachesAltitudeCount)
     $status = (string) $altitudes->status;
     if ($status !== 'OK') {
         print 'error occured';
+		d($caches, $altitudes);
         return;
     }
     $db = \lib\Database\DataBaseSingleton::Instance();
@@ -71,5 +80,65 @@ function storeAlitudeToDb($altitudes, $caches, &$cachesAltitudeCount)
     return $cachesAltitudeCount;
 }
 
+
+
+function display($data){
+?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple markers</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+	  #map-canvas {
+		  width: 400px;
+		  height: 400px;
+        margin: 0px;
+        padding: 0px
+	  }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script>
+function initialize() {
+  var myLatlng = new google.maps.LatLng(50.363882,20.044922);
+  var mapOptions = {
+    zoom: 4,
+    center: myLatlng
+  }
+  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+<?php
+foreach($data as $key => $value){
+	foreach($value->result as $altObj){
+//d($value);
+?>
+	var marker = new google.maps.Marker({
+      position: new google.maps.LatLng(<?= $altObj->location->lat ?>,<?= $altObj->location->lng ?>),
+      map: map,
+      title: 'Altitude: <?= $altObj->elevation ?>'
+	});
+<?php
+}}
+?>
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body>
+    <div id="map-canvas"></div>
+  </body>
+</html>
+
+<?php
+}
+
 // include __DIR__.'/util.sec/notification/run_notify.php';
 // include __DIR__.'/util.sec/geokrety/processGeokretyErrors.php';
+?>
