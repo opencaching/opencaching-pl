@@ -13,6 +13,7 @@ class MedalsController
     const MEDAL_CHILD_GEOGRAPHICAL = 1;
     const MEDAL_CHILD_CACHEFOUND = 2;
     const MEDAL_CHILD_GEOPATHCOMPLETED = 3;
+    const MEDAL_CHILD_MAXALTITUDE = 4;
 
     static $medalTypes = array(
         1 => array(
@@ -58,7 +59,6 @@ class MedalsController
                         ),
                     ),
                 ),
-
             ),
         ),
         2 => array(
@@ -181,7 +181,7 @@ class MedalsController
             'dateIntroduced' => '2014-08-20 10:30:00',
             'conditions' => array(
                 'geoPath' => array(
-                    'ocNodeId' => 2,
+                    'ocNodeId' => array(2),
                     'geoPathId' => 75
                 ),
                 'cacheCountToAward' => array(),
@@ -241,7 +241,91 @@ class MedalsController
                     ),
                 ),
             ),
-        )
+        ),
+        6 => array(
+            'name' => 'Altitude Geocache',
+            'child' => self::MEDAL_CHILD_MAXALTITUDE,
+            'dateIntroduced' => '2005-01-01 00:01:00',
+            'conditions' => array(
+				'ocNodeId' => array (2),
+                'cacheType' => array(
+                    \cache::TYPE_TRADITIONAL,
+                    \cache::TYPE_MULTICACHE,
+                ),
+                'altitudeToAward' => array(
+					 1 => array (
+                        'levelName' => 'Paper',
+                        'altitude' => array(
+                            'found' => 500,
+                            'placed' => -9000,
+                        ),
+                    ),
+                    2 => array (
+                        'levelName' => 'Wooden',
+                        'altitude' => array(
+                            'found' => 700,
+                            'placed' => -9000,
+                        ),
+                    ),
+                    3 => array (
+                        'levelName' => 'Iron',
+                        'altitude' => array(
+                            'found' => 900,
+                            'placed' => -9000,
+                        ),
+                    ),
+                    4 => array (
+                        'levelName' => 'Beril',
+                        'altitude' => array(
+                            'found' => 1100,
+                            'placed' => -9000,
+                        ),
+                    ),
+                    5 => array (
+                        'levelName' => 'Bronze',
+                        'altitude' => array(
+                            'found' => 1300,
+                            'placed' => 500,
+                        ),
+                    ),
+                    6 => array (
+                        'levelName' => 'Silver',
+                        'altitude' => array(
+                            'found' => 1500,
+                            'placed' => 600,
+                        ),
+                    ),
+                    7 => array (
+                        'levelName' => 'Gold',
+                        'altitude' => array(
+                            'found' => 1700,
+                            'placed' => 700,
+                        ),
+                    ),
+                    8 => array (
+                        'levelName' => 'Platinum',
+                        'altitude' => array(
+                            'found' => 1900,
+                            'placed' => 800,
+                        ),
+                    ),
+                    9 => array (
+                        'levelName' => 'Perl',
+                        'altitude' => array(
+                            'found' => 2100,
+                            'placed' => 900,
+                        ),
+                    ),
+                    10 => array (
+                        'levelName' => 'Crystal',
+                        'altitude' => array(
+                            'found' => 2450,
+                            'placed' => 1000,
+                        ),
+					),
+                ),
+            ),
+        ),
     );
     public $config;
 
@@ -302,6 +386,8 @@ class MedalsController
                 return new \lib\Objects\Medals\MedalCachefound($medalDetails);
             case self::MEDAL_CHILD_GEOPATHCOMPLETED:
                 return new \lib\Objects\Medals\MedalGeopathCompleted($medalDetails);
+            case self::MEDAL_CHILD_MAXALTITUDE:
+                return new \lib\Objects\Medals\MedalMaxAltitude($medalDetails);
             default:
                 d('error - undefinied medal');
                 break;
