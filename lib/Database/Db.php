@@ -21,7 +21,7 @@ class dataBase
      *
      * JG 2013-10-20
      */
-    private $debug;
+    private $debug = false;
     private $dbh = null;
     private $rollback_transaction = false;
     private $in_transaction_count = 0;
@@ -547,7 +547,7 @@ class dataBase
             throw new Exception('Not in a transaction');
         }
         $this->in_transaction_count--;
-        $this->endTransaction();
+        return $this->endTransaction();
     }
 
     private function endTransaction()
@@ -562,11 +562,12 @@ class dataBase
                 }
             }
             if ($this->rollback_transaction) {
-                $this->dbh->rollBack();
+                return $this->dbh->rollBack();
             } else {
-                $this->dbh->commit();
+                return $this->dbh->commit();
             }
         }
+        return false;
     }
 
     /**

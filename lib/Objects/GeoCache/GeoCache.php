@@ -11,10 +11,15 @@ class GeoCache
 {
 
     private $caheId;
-    private $cacheType;
+    private $geocacheWaypointId;
     private $cacheName;
+    private $cacheType;
     private $datePlaced;
     private $cacheLocation = array();
+
+
+    /* @var $owner \lib\Objects\User\User */
+    private $owner;
 
     /* @var $altitude \lib\Objects\GeoCache\Altitude */
     private $altitude;
@@ -36,16 +41,19 @@ class GeoCache
         $db = \lib\Database\DataBaseSingleton::Instance();
         if (isset($params['cacheId'])) {
             $this->caheId = (int) $params['cacheId'];
-            $queryById = "SELECT name, type, date_hidden, longitude, latitude FROM `caches` WHERE `cache_id`=:1 LIMIT 1";
+            $queryById = "SELECT name, type, date_hidden, longitude, latitude, wp_oc, user_id FROM `caches` WHERE `cache_id`=:1 LIMIT 1";
             $db->multiVariableQuery($queryById, $this->caheId);
         }
+
         $cacheDbRow = $db->dbResultFetch();
         $this->cacheType = $cacheDbRow['type'];
         $this->cacheName = $cacheDbRow['name'];
+        $this->geocacheWaypointId = $cacheDbRow['wp_oc'];
         $this->datePlaced = strtotime($cacheDbRow['date_hidden']);
         $this->loadCacheLocation($db);
 		$this->coordinates = new \lib\Objects\Coordinates\Coordinates($cacheDbRow);
         $this->altitude = new \lib\Objects\GeoCache\Altitude($this);
+        $this->owner = new \lib\Objects\User\User($cacheDbRow['user_id']);
     }
 
     private function loadCacheLocation()
@@ -90,6 +98,19 @@ class GeoCache
     public function getCacheId()
     {
         return $this->caheId;
+    }
+
+    public function getWaypointId()
+    {
+        return $this->geocacheWaypointId;
+    }
+
+    /**
+     * @return \lib\Objects\User\User
+     */
+    public function getOwner()
+    {
+        return $this->owner;
     }
 
 }

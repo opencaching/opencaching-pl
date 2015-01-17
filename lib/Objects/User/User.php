@@ -15,6 +15,7 @@ class User
     private $foundGeocachesCount;
     private $notFoundGeocachesCount;
     private $hiddenGeocachesCount;
+    private $email;
 
     /* @var $homeCoordinates \lib\Objects\Coordinates\Coordinates */
     private $homeCoordinates;
@@ -48,7 +49,7 @@ class User
     private function loadUserDataFromDb()
     {
         $db = \lib\Database\DataBaseSingleton::Instance();
-        $queryById = "SELECT username, founds_count, notfounds_count, hidden_count, latitude, longitude, country FROM `user` WHERE `user_id`=:1 LIMIT 1";
+        $queryById = "SELECT username, founds_count, notfounds_count, hidden_count, latitude, longitude, country, email FROM `user` WHERE `user_id`=:1 LIMIT 1";
         $db->multiVariableQuery($queryById, $this->userId);
         $userDbRow = $db->dbResultFetch();
         $this->setUserFieldsByUsedDbRow($userDbRow);
@@ -61,6 +62,7 @@ class User
         $this->notFoundGeocachesCount = $userDbRow['notfounds_count'];
         $this->hiddenGeocachesCount = $userDbRow['hidden_count'];
         $this->homeCoordinates = new \lib\Objects\Coordinates\Coordinates($userDbRow);
+        $this->email = $userDbRow['email'];
     }
 
     private function buildMedals()
@@ -78,6 +80,11 @@ class User
     public function getUserId()
     {
         return $this->userId;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
     }
 
 }

@@ -2,52 +2,86 @@
 
 /* * *************************************************************************
  *  You can find the license in the docs directory
- *
- *  Unicode Reminder ăĄă˘
  * ************************************************************************* */
+
 $rootpath = __DIR__ . '/../';
 require_once($rootpath . 'lib/clicompatbase.inc.php');
 require_once($rootpath . 'lib/common.inc.php');
 
-
-/* begin with some constants */
-$sDateformat = 'Y-m-d H:i:s';
-
-/* end with some constants */
-$STEP = array("START" => 0, "AFTER_FIRST_MAIL_SENT" => 1, "AFTER_SECOND_MAIL_SENT" => 2, "ARCH_COMPLETE" => 3);
-
 class AutoArch
 {
+    private $step = array(
+        "START" => 0,
+        "AFTER_FIRST_MAIL_SENT" => 1,
+        "AFTER_SECOND_MAIL_SENT" => 2,
+        "ARCH_COMPLETE" => 3
+    );
 
-    private $absolute_server_URI = null;
-    private $octeamEmailsSignature = null;
+    /**
+     *  @var $ocConfig \lib\Objects\OcConfig\OcConfig
+     */
+    private $ocConfig;
+    private $stylepath;
 
-    public function __construct()
+    public function __construct($stylepath)
     {
-        include 'lib/settings.inc.php';
-        $this->absolute_server_URI = $absolute_server_URI;
-        $this->octeamEmailsSignature = $octeamEmailsSignature;
+        $this->ocConfig = lib\Objects\OcConfig\OcConfig::Instance();
+        $this->stylepath = $stylepath;
     }
 
-    function sendEmail($step, $cacheid)
+  /**
+     * step:
+     *   1: first notification (4 months)
+     *   2: second notification (5 months)
+     *   3: autoarchive finished
+     */
+    public function run()
     {
-        global $STEP, $stylepath, $octeam_email, $site_name;
-        $sql = "SELECT caches.cache_id, caches.name, caches.wp_oc, user.email, user.user_id FROM caches, user WHERE caches.cache_id = " . sql_escape(intval($cacheid)) . " AND user.user_id = caches.user_id";
-        $query = mysql_query($sql);
-        $cache = mysql_fetch_array($query);
+        $this->removeLastEditedCachesFromList();
+        /* @var $db dataBase */
+        $db = \lib\Database\DataBaseSingleton::Instance();
+        $sql = "SELECT cache_id, last_modified FROM caches WHERE status = 2 AND last_modified < now() - interval 4 month";
+        $db->simpleQuery($sql);
+        $chachesToProcess = $db->dbResultFetchAll();
+        foreach ($chachesToProcess as $rs) {
+            // sprawdz w ktorym miejscu procedury znajduje sie skrzynka
+            $step_sql = "SELECT step FROM cache_arch WHERE cache_id = :1 LIMIT 1";
+            $db->multiVariableQuery($step_sql, (int) $rs['cache_id']);
+            $step_array = $db->dbResultFetchOneRowOnly();
+            if ($step_array) {
+                $step = (int) $step_array['step'];
+            } else {
+                $step = $this->step["START"];
+            }
+            if (strtotime($rs['last_modified']) < time() - 6 * 31 * 24 * 60 * 60 && $step == $this->step["AFTER_SECOND_MAIL_SENT"]) {
+                $this->archiveGeocache($rs);
+            } elseif (strtotime($rs['last_modified']) < time() - 5 * 31 * 24 * 60 * 60 && $step == $this->step["AFTER_FIRST_MAIL_SENT"]) {
+                $this->proceedSecondStep($rs);
+            } elseif (strtotime($rs['last_modified']) < time() - 4 * 31 * 24 * 60 * 60 && $step == $this->step["START"]) {
+                $this->proceedFirstStep($rs);
+            }
+        }
 
+    }
+
+
+    private function sendEmail($step, $cacheid)
+    {
+        $octeamEmailAddress = $this->ocConfig->getOcteamEmailAddress();
+        $siteName = $this->ocConfig->getSiteName();
+        $cache = new \lib\Objects\GeoCache\GeoCache(array('cacheId' => (int) $cacheid));
         switch ($step) {
-            case $STEP["START"]:
-                $email_content = read_file($stylepath . '/email/arch1.email');
+            case $this->step["START"]:
+                $email_content = read_file($this->stylepath . '/email/arch1.email');
                 break;
-            case $STEP["AFTER_FIRST_MAIL_SENT"]:
-                $email_content = read_file($stylepath . '/email/arch2.email');
+            case $this->step["AFTER_FIRST_MAIL_SENT"]:
+                $email_content = read_file($this->stylepath . '/email/arch2.email');
                 break;
-            case $STEP["AFTER_SECOND_MAIL_SENT"]:
-                $email_content = read_file($stylepath . '/email/arch3.email');
+            case $this->step["AFTER_SECOND_MAIL_SENT"]:
+                $email_content = read_file($this->stylepath . '/email/arch3.email');
                 break;
         }
-        $email_content = mb_ereg_replace('{server}', $this->absolute_server_URI, $email_content);
+        $email_content = mb_ereg_replace('{server}', $this->ocConfig->getAbsolute_server_URI(), $email_content);
         $email_content = mb_ereg_replace('{autoArchive_01}', tr('autoArchive_01'), $email_content);
         $email_content = mb_ereg_replace('{autoArchive_02}', tr('autoArchive_02'), $email_content);
         $email_content = mb_ereg_replace('{autoArchive_03}', tr('autoArchive_03'), $email_content);
@@ -58,112 +92,102 @@ class AutoArch
         $email_content = mb_ereg_replace('{autoArchive_08}', tr('autoArchive_08'), $email_content);
         $email_content = mb_ereg_replace('{autoArchive_09}', tr('autoArchive_09'), $email_content);
         $email_content = mb_ereg_replace('{autoArchive_10}', tr('autoArchive_10'), $email_content);
-        $email_content = mb_ereg_replace('{cachename}', $cache['name'], $email_content);
-        $email_content = mb_ereg_replace('{cache_wp}', $cache['wp_oc'], $email_content);
+        $email_content = mb_ereg_replace('{cachename}', $cache->getCacheName(), $email_content);
+        $email_content = mb_ereg_replace('{cache_wp}', $cache->getWaypointId(), $email_content);
         $email_content = mb_ereg_replace('{cacheid}', $cacheid, $email_content);
-        $email_content = mb_ereg_replace('{octeamEmailsSignature}', $this->octeamEmailsSignature, $email_content);
+        $email_content = mb_ereg_replace('{octeamEmailsSignature}', $this->ocConfig->getOcteamEmailsSignature(), $email_content);
         $emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
-        $emailheaders .= "From: $site_name <$octeam_email>\r\n";
-        $emailheaders .= "Reply-To: $site_name <$octeam_email>";
-        $status = mb_send_mail($cache['email'], tr('autoArchive_11'), $email_content, $emailheaders);
-        logentry('autoarchive', 6, $cache['user_id'], $cache['cache_id'], 0, 'Sending mail to ' . $cache['email'], array('status' => $status));
+        $emailheaders .= "From: $siteName <$octeamEmailAddress>\r\n";
+        $emailheaders .= "Reply-To: $siteName <$octeamEmailAddress>";
+        $status = mb_send_mail($cache->getOwner()->getEmail(), tr('autoArchive_11'), $email_content, $emailheaders);
+        logentry('autoarchive', 6, $cache->getOwner()->getUserId(), $cache->getCacheId(), 0, 'Sending mail to ' . $cache->getOwner()->getEmail(), array('status' => $status));
     }
 
-    function run()
+    private function loadCachesToProcess()
     {
-        global $STEP, $dblink;
-        /* begin db connect */
-        db_connect();
-        if ($dblink === false) {
-            echo 'Unable to connect to database';
-            exit;
-        }
-
-        /* end db connect */
-        $sql = "SELECT cache_arch.step, caches.cache_id, caches.name, user.username FROM `cache_arch`, caches, user WHERE (step=1 OR step=2 OR step=3) AND (caches.cache_id = cache_arch.cache_id) AND (caches.user_id = user.user_id) ORDER BY step ASC";
-        $query = mysql_query($sql);
-        while ($linia = mysql_fetch_array($query)) {
-            switch ($linia['step']) {
-                case 1:
-//                      echo "Wysłano pierwsze powiadomienie (6 miesięcy).";
-                    break;
-                case 2:
-//                      echo "Wysłano drugie powiadomienie (8 miesięcy).";
-                    break;
-                case 3:
-//                      echo "Autoarchiwizacja zakończona.";
-                    break;
-            }
-//              echo " cache: <a href='http://www.opencaching.pl/viewcache.php?cacheid=".$linia['cache_id']."'>".$linia['name']."</a> użytkownik: ".$linia['username']."<br />";
-        }
-        // anulowanie procedury archiwizacji, jeśli opis skrzynki został zmodyfikowany w ciągu 6 miesięcy
-        $sql = "SELECT caches.cache_id FROM caches, cache_arch WHERE cache_arch.cache_id = caches.cache_id AND last_modified >= now() - interval 4 month";
-        $result = mysql_query($sql);
-        while ($rs = mysql_fetch_array($result)) {
-            $del_sql = "DELETE FROM cache_arch WHERE cache_id = " . intval($rs['cache_id']);
-            //echo "<br />";
-            @mysql_query($del_sql);
-        }
-
-        $sql = "SELECT cache_id, last_modified FROM caches WHERE status = 2 AND last_modified < now() - interval 4 month";
-        $result = mysql_query($sql);
-        while ($rs = mysql_fetch_array($result)) {
-            // sprawdz w ktorym miejscu procedury znajduje sie skrzynka
-            $step_sql = "SELECT step FROM cache_arch WHERE cache_id = " . intval($rs['cache_id']);
-            $step_query = mysql_query($step_sql);
-            if (mysql_num_rows($step_query) > 0) {
-                $step_array = @mysql_fetch_array($step_query);
-                $step = $step_array['step'];
-                //echo "cache ". $rs['cache_id']." jest na stepie ".$step."<br />";
-            } else
-                $step = $STEP["START"];
-            if (strtotime($rs['last_modified']) < time() - 6 * 31 * 24 * 60 * 60 && $step < $STEP["ARCH_COMPLETE"]) {
-                $this->sendEmail($STEP["AFTER_SECOND_MAIL_SENT"], $rs['cache_id']);
-                // wlasnie mija 6 miesiecy od ostatniej modyfikacji - czas zarchiwizować skrzynkę
-                $status_sql = "REPLACE INTO cache_arch (cache_id, step) VALUES (" . intval($rs['cache_id']) . ", " . ($STEP["ARCH_COMPLETE"]) . ")";
-                @mysql_query($status_sql);
-                $arch_sql = "UPDATE caches SET status = 3 WHERE cache_id=" . intval($rs['cache_id']);
-                @mysql_query($arch_sql);
-                $log_uuid = create_uuid();
-                $log_sql = "INSERT INTO cache_logs (cache_id, uuid, user_id, type, date, last_modified, date_created, text, owner_notified, node) VALUES (" . sql_escape(intval($rs['cache_id'])) . ", '" . sql_escape($log_uuid) . "', '-1', 9,NOW(),NOW(), NOW(), '" . sql_escape(tr('autoArchive_12')) . "', 1, 2)";
-                @mysql_query($log_sql);
-            } else if (strtotime($rs['last_modified']) < time() - 5 * 31 * 24 * 60 * 60 && $step < $STEP["AFTER_SECOND_MAIL_SENT"]) {
-                $this->sendEmail($STEP["AFTER_FIRST_MAIL_SENT"], $rs['cache_id']);
-                // wlasnie mija 5 miesiecy od ostatniej modyfikacji - czas wyslac drugie powiadomienie
-                $status_sql = "REPLACE INTO cache_arch (cache_id, step) VALUES (" . sql_escape(intval($rs['cache_id'])) . ", " . sql_escape(($STEP["AFTER_SECOND_MAIL_SENT"])) . ")";
-                @mysql_query($status_sql);
-            } else if (strtotime($rs['last_modified']) < time() - 4 * 31 * 24 * 60 * 60 && $step < $STEP["AFTER_FIRST_MAIL_SENT"]) {
-                $this->sendEmail($STEP["START"], $rs['cache_id']);
-                // wlasnie mija 4 miesiecy od ostatniej modyfikacji - czas wyslac pierwsze powiadomienie
-                $status_sql = "REPLACE INTO cache_arch (cache_id, step) VALUES (" . sql_escape(intval($rs['cache_id'])) . ", " . sql_escape(($STEP["AFTER_FIRST_MAIL_SENT"])) . ")";
-                @mysql_query($status_sql);
-            }
-        }
-        db_disconnect();
+        /* @var $db dataBase */
+        $db = \lib\Database\DataBaseSingleton::Instance();
+        $sqlQuery = "SELECT cache_arch.step, caches.cache_id, caches.name, user.username FROM `cache_arch`, caches, user WHERE (step=1 OR step=2 OR step=3) AND (caches.cache_id = cache_arch.cache_id) AND (caches.user_id = user.user_id) ORDER BY step ASC";
+        $db->simpleQuery($sqlQuery);
+        return $db->dbResultFetchAll();
     }
 
+    /**
+     * anulowanie procedury archiwizacji, jeśli opis skrzynki został zmodyfikowany w ciągu 6 miesięcy
+     */
+    private function removeLastEditedCachesFromList()
+    {
+        /* @var $db dataBase */
+        $db = \lib\Database\DataBaseSingleton::Instance();
+        $cachesToRmQuery = 'SELECT caches.cache_id as cacheId FROM caches, cache_arch WHERE cache_arch.cache_id = caches.cache_id AND last_modified >= now() - interval 4 month ';
+        $db->simpleQuery($cachesToRmQuery);
+        $cachesToRm = $db->dbResultFetchAll();
+        foreach ($cachesToRm as $cacheToRm) {
+            $delSqlQuery = "DELETE FROM cache_arch WHERE cache_id = :1 ";
+            $db->multiVariableQuery($delSqlQuery, (int) $cacheToRm['cacheId']);
+        }
+    }
+
+    /**
+     * 6 months from last 
+     * @param type $rs
+     */
+    private function archiveGeocache($rs)
+    {
+        /* @var $db dataBase */
+        $db = \lib\Database\DataBaseSingleton::Instance();
+        $statusSqlQuery = "REPLACE INTO cache_arch (cache_id, step) VALUES ( :1, :2 )";
+        $archSqlQuery = "UPDATE caches SET status = 3 WHERE cache_id= :1 " ;
+        $logSqlQuery = "INSERT INTO cache_logs (cache_id, uuid, user_id, type, date, last_modified, date_created, text, owner_notified, node) VALUES ( :1, :2, '-1', 9,NOW(),NOW(), NOW(), :3, 1, 2)";
+        $db->beginTransaction();
+        $db->multiVariableQuery($statusSqlQuery, (int) $rs['cache_id'], $this->step["ARCH_COMPLETE"]);
+        $db->multiVariableQuery($archSqlQuery, (int) $rs['cache_id']);
+        $db->multiVariableQuery($logSqlQuery, (int) $rs['cache_id'],  create_uuid(), tr('autoArchive_12'));
+        $transactionResult = $db->commit();
+        if ($transactionResult) {
+            $this->sendEmail($this->step["AFTER_SECOND_MAIL_SENT"], $rs['cache_id']);
+        }
+    }
+
+    /**
+     * second notification
+     * @param type $rs
+     */
+    private function proceedSecondStep($rs)
+    {
+        $this->updateCacheStepInDb($rs, $this->step["AFTER_SECOND_MAIL_SENT"]);
+        $this->sendEmail($this->step["AFTER_FIRST_MAIL_SENT"], $rs['cache_id']);
+    }
+
+    /**
+     * first notification
+     */
+    private function proceedFirstStep($rs)
+    {
+        $this->updateCacheStepInDb($rs, $this->step["AFTER_FIRST_MAIL_SENT"]);
+        $this->sendEmail($this->step["START"], $rs['cache_id']);
+    }
+
+    private function updateCacheStepInDb($rs, $step)
+    {
+        /* @var $db dataBase */
+        $db = \lib\Database\DataBaseSingleton::Instance();
+        $statusSqlQuery = "REPLACE INTO cache_arch (cache_id, step) VALUES (:1, :2 )";
+        $db->multiVariableQuery($statusSqlQuery, (int) $rs['cache_id'], $step);
+    }
+
+    /**
+     * archive all events older than 2 months
+     */
     function ArchEvent()
     {
-        global $dblink;
-        /* begin db connect */
-        db_connect();
-        if ($dblink === false) {
-            echo 'Unable to connect to database';
-            exit;
-        }
-        /* end db connect */
-
-        // archiwizuj wszystkie wydarzenia, które odbyły się dawniej niż 2 miesiące temu
+        /* @var $db dataBase */
+        $db = \lib\Database\DataBaseSingleton::Instance();
         $sql = "UPDATE caches SET status = 3 WHERE status<>3 AND type = 6 AND date_hidden < now() - interval 2 month";
-        @mysql_query($sql);
-
-
-        db_disconnect();
+        $db->simpleQuery($sql);
     }
-
 }
 
-$autoArch = new AutoArch();
+$autoArch = new AutoArch($stylepath);
 $autoArch->run();
 $autoArch->ArchEvent();
-?>

@@ -14,6 +14,10 @@ final class OcConfig
     private $dbDatetimeFormat = 'Y-m-d H:i:s';
     private $datetimeFormat = 'Y-m-d H:i';
     private $ocNodeId = null;
+    private $absolute_server_URI = null;
+    private $octeamEmailsSignature = null;
+    private $octeamEmailAddress;
+    private $siteName;
 
     /**
      * Call this method to get singleton
@@ -38,11 +42,25 @@ final class OcConfig
 
     private function loadConfig()
     {
-        include __dir__ . '/../../settings.inc.php';
+        include __DIR__ . '/../../settings.inc.php';
         $this->medalsModuleSwitchedOn = $config['medalsModuleSwitchedOn'];
         $this->datetimeFormat = $datetimeFormat;
         $this->ocNodeId = $oc_nodeid;
-//       dd($config, $oc_nodeid);
+        $this->absolute_server_URI = $absolute_server_URI;
+        $this->octeamEmailsSignature = $octeamEmailsSignature;
+        $this->octeamEmailAddress = $octeam_email;
+        $this->siteName = $site_name;
+
+    }
+
+    public function getAbsolute_server_URI()
+    {
+        return $this->absolute_server_URI;
+    }
+    
+    public function getOcteamEmailsSignature()
+    {
+        return $this->octeamEmailsSignature;
     }
 
     public function getOcNodeId()
@@ -58,6 +76,17 @@ final class OcConfig
     public function getDbDateTimeFormat()
     {
         return $this->dbDatetimeFormat;
+    }
+    
+
+    public function getSiteName()
+    {
+        return $this->siteName;
+    }
+
+    public function getOcteamEmailAddress()
+    {
+        return $this->octeamEmailAddress;
     }
 
 }
