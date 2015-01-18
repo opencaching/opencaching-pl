@@ -177,19 +177,19 @@ if ($_GET['cacheid'] == '') {
 
     <body onload="<?php echo $include_caches; ?>">
 
-        <?
+        <?php
         if ($_GET['cacheid']) {
         ?>
-        <form action="printcache.php?cacheid=<?print intval($_GET['cacheid']);?>" method="POST">
-            <?
+        <form action="printcache.php?cacheid=<?php print intval($_GET['cacheid']);?>" method="POST">
+            <?php
             } else if ((!isset($_GET['source'])) || ($_GET['source'] != 'mywatches')) {
             ?>
             <form action="printcache.php" method="POST">
-                <?
+                <?php
                 }else{
                 ?>
                 <form action="printcache.php?source=mywatches" method="POST">
-                    <?
+                    <?php
                     }
                     ?>
                     <span class="text_gray">
@@ -207,14 +207,14 @@ if ($_GET['cacheid'] == '') {
                                                                 </div>
                                                                 <input type="submit" name="submit" value="<?php print tr('printcache_09'); ?>">
 
-                                                                    <?
+                                                                    <?php
                                                                     if($_GET['cacheid'] == '')
                                                                     if ((!isset($_GET['source'])) || ($_GET['source'] != 'mywatches')) {
                                                                     ?>
                                                                     &nbsp;&nbsp;&nbsp;
 
                                                                     <input type="submit" name="flush_print_list" value="<?php echo tr("clear_list") . " (" . count($_SESSION['print_list']); ?>)">
-                                                                        <?
+                                                                        <?php
                                                                         }
                                                                         ?>
                                                                         </span>

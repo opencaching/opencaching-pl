@@ -1,4 +1,4 @@
-<?
+<?php
 function run_in_bg($Command, $Priority = 0)
 {
 if($Priority)

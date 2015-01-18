@@ -1,4 +1,4 @@
-<?
+<?php
 $secret = 'dupa231';
 include('commons.php');
 

@@ -1,4 +1,4 @@
-<?
+<?php
 $secret = "dupa231";
 include('commons.php');
 header('Content-Type: application/xhtml+xml; charset=utf-8');
@@ -66,13 +66,13 @@ $_REQUEST = array_map('stripslashes_deep', $_REQUEST);
         </div>
         <div id="navibar">
     <!--<span><a href="">Strona Główna</a></span>-->
-            <?
+            <?php
             include("menu.inc");
             ?>
         </div>
         <p>
 
-            <?
+            <?php
 
             $options = array("input-encoding" => "utf8", "output-encoding" => "utf8", "output-xhtml" => true, "doctype" => "omit", "show-body-only" => true, "char-encoding" => "utf8", "quote-ampersand" => true, "quote-nbsp" => true);
             $text = $_POST['text'];
@@ -175,7 +175,7 @@ $_REQUEST = array_map('stripslashes_deep', $_REQUEST);
 
             ?>
             <form method="post" action="index.php?page=cachevalidator">
-                <textarea name="text" id="validatorarea"><?
+                <textarea name="text" id="validatorarea"><?php
 
 echo htmlspecialchars($str, ENT_NOQUOTES, "UTF-8");
 
@@ -185,7 +185,7 @@ echo htmlspecialchars($str, ENT_NOQUOTES, "UTF-8");
             </form>
         </p>
         <div id="textpreview">
-            <?
+            <?php
             echo $str;
 
 

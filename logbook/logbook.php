@@ -1,4 +1,4 @@
-<?
+<?php
 $secret = "dupa231";
 include('commons.php');
 header('Content-Type: application/xhtml+xml; charset=utf-8');
@@ -96,13 +96,13 @@ echo '<?xml-stylesheet type="text/css" href="style.css"?'.">\n";
         </div>
         <div id="navibar">
     <!--<span><a href="">Strona Główna</a></span>-->
-            <?
+            <?php
             include("menu.inc");
             ?>
         </div>
         <p>
 
-            <?
+            <?php
 
             ?>
 
@@ -121,7 +121,7 @@ echo '<?xml-stylesheet type="text/css" href="style.css"?'.">\n";
                 <form method="get" action="index.php">
                     <label for="logbook_type">Rodzaj: </label>
                     <select name="logbook_type" id="logbook_type" onchange="parentNode.submit();">
-                        <?
+                        <?php
                         $_GET['logbook_type'] = (int)$_GET['logbook_type'];
                         if(!($_GET['logbook_type'] > 0 && (int)$_GET['logbook_type']<= 2)) print '<option value="0" selected="true">Wybierz</option>';?>
                         <option value="1" <?if($_GET['logbook_type'] == 1) print "selected=\"true\"";?>>Logbook A6 Dwustronny</option>
@@ -129,7 +129,7 @@ echo '<?xml-stylesheet type="text/css" href="style.css"?'.">\n";
                     </select>
                 </form>
                 <hr />
-                <?
+                <?php
                 if($_GET['logbook_type'] == 0) {
                 print 'Proszę wybrać typ logbooku.';
                 }

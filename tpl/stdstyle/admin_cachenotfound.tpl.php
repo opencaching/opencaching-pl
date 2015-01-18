@@ -1,4 +1,4 @@
-<?
+<?php
 global $usr;
 ?>
 <!--<form name="optionsform" style="display:inline;">-->

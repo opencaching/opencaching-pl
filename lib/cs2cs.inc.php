@@ -1,4 +1,4 @@
-<?
+<?php
 
 // Unicode Reminder メモ
 
