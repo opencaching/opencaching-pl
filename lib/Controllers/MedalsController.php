@@ -180,8 +180,8 @@ class MedalsController
             'child' => self::MEDAL_CHILD_GEOPATHCOMPLETED,
             'dateIntroduced' => '2014-08-20 10:30:00',
             'conditions' => array(
+                'ocNodeId' => array(1,2,3,4,5,6,7,8,9,10),
                 'geoPath' => array(
-                    'ocNodeId' => array(2),
                     'geoPathId' => 75
                 ),
                 'cacheCountToAward' => array(),
@@ -193,6 +193,7 @@ class MedalsController
             'child' => self::MEDAL_CHILD_GEOGRAPHICAL,
             'dateIntroduced' => '2014-01-23 00:01:00',
             'conditions' => array(
+                'ocNodeId' => array (2,3),
                 'cacheType' => array(
                     \cache::TYPE_TRADITIONAL,
                     \cache::TYPE_MULTICACHE,
@@ -348,7 +349,7 @@ class MedalsController
      */
     public function checkAllUsersMedals()
     {
-        $query = 'SELECT user_id, username, founds_count, notfounds_count, hidden_count, latitude, longitude, country FROM `user` WHERE (`last_login` BETWEEN DATE_SUB(NOW(), INTERVAL 24 HOUR) AND NOW()) ';
+        $query = 'SELECT user_id, username, founds_count, notfounds_count, hidden_count, latitude, longitude, country, email FROM `user` WHERE (`last_login` BETWEEN DATE_SUB(NOW(), INTERVAL 24 HOUR) AND NOW()) ';
         /* @var $db \dataBase */
         $db = \lib\Database\DataBaseSingleton::Instance();
         $db->simpleQuery($query);
