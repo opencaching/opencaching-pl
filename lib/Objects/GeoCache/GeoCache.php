@@ -10,6 +10,17 @@ namespace lib\Objects\GeoCache;
 class GeoCache
 {
 
+    const TYPE_OTHERTYPE = 1;
+    const TYPE_TRADITIONAL = 2;
+    const TYPE_MULTICACHE = 3;
+    const TYPE_VIRTUAL = 4;
+    const TYPE_WEBCAM = 5;
+    const TYPE_EVENT = 6;
+    const TYPE_QUIZ = 7;
+    const TYPE_MOVING = 8;
+    const TYPE_GEOPATHFINAL = 9;
+    const TYPE_OWNCACHE = 10;
+
     private $caheId;
     private $geocacheWaypointId;
     private $cacheName;

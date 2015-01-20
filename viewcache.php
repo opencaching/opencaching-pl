@@ -1,5 +1,6 @@
 <?php
 
+use lib\Objects\GeoCache\GeoCache;
 /* * *************************************************************************
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -212,7 +213,7 @@ if ($error == false) {
         $mod_coord_delete_mode = isset($_POST['resetCoords']);
         $cache_mod_lat = 0;
         $cache_mod_lon = 0;
-        if ($cache_type == cache::TYPE_QUIZ || $cache_type == cache::TYPE_OTHERTYPE || $cache_type == cache::TYPE_MULTICACHE) {
+        if ($cache_type == GeoCache::TYPE_QUIZ || $cache_type == GeoCache::TYPE_OTHERTYPE || $cache_type == GeoCache::TYPE_MULTICACHE) {
 
             $orig_cache_lon = $cache_record['longitude'];
             $orig_cache_lat = $cache_record['latitude'];
@@ -657,7 +658,7 @@ if ($error == false) {
         }
 
 
-        if ($cache_record['type'] == cache::TYPE_EVENT) {
+        if ($cache_record['type'] == GeoCache::TYPE_EVENT) {
             $cache_stats = '';
         } else {
             if (($cache_record['founds'] + $cache_record['notfounds'] + $cache_record['notes']) != 0) {
@@ -792,7 +793,7 @@ if ($error == false) {
         // todo: poszerzyć tabelkę 'caches' (lub stworzyć nową z relacją)
         //       pole dystans, żeby nie trzeba było za każdym razem zliczać
         //       dystansu.
-        if ($cache_record['type'] == cache::TYPE_MOVING) {
+        if ($cache_record['type'] == GeoCache::TYPE_MOVING) {
             tpl_set_var('moved_icon', $moved_icon);
             /* if (!isset($_REQUEST['cacheid'])) $OpencacheID = $cache_id */
             $moved = sqlValue("SELECT COUNT(*) FROM `cache_logs` WHERE type=4 AND cache_logs.deleted='0' AND cache_id='" . $cache_id /* sql_escape($_REQUEST['cacheid']) */ . "'", 0);
@@ -1073,7 +1074,7 @@ if ($error == false) {
         tpl_set_var('score_icon', $score_icon);
         tpl_set_var('save_icon', $save_icon);
         tpl_set_var('search_icon', $search_icon);
-        if ($cache_record['type'] == cache::TYPE_EVENT) {
+        if ($cache_record['type'] == GeoCache::TYPE_EVENT) {
             tpl_set_var('found_icon', $exist_icon);
             tpl_set_var('notfound_icon', $wattend_icon);
 
@@ -1240,7 +1241,7 @@ if ($error == false) {
         $cache_type = $cache_record['type'];
         $waypoints_visible = 0;
         $wp_rsc = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, `waypoint_type`.`&1` wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&2' ORDER BY `stage`,`wp_id`", $lang_db, $cache_id);
-        if (mysql_num_rows($wp_rsc) != 0 && $cache_record['type'] != cache::TYPE_MOVING) { // check status all waypoints
+        if (mysql_num_rows($wp_rsc) != 0 && $cache_record['type'] != GeoCache::TYPE_MOVING) { // check status all waypoints
             for ($i = 0; $i < mysql_num_rows($wp_rsc); $i++) {
                 $wp_check = sql_fetch_array($wp_rsc);
                 if ($wp_check['status'] == 1 || $wp_check['status'] == 2) {
@@ -1786,7 +1787,7 @@ if ($error == false) {
             $tmplog = mb_ereg_replace('{username_aktywnosc}', $tmplog_username_aktywnosc, $tmplog);
 
             // keszyny mobilne by Łza
-            if (($cache_record['type'] == cache::TYPE_MOVING) && ($record['type'] == 4)) {
+            if (($cache_record['type'] == GeoCache::TYPE_MOVING) && ($record['type'] == 4)) {
 
                 $dane_mobilniaka = sql_fetch_array(sql("SELECT `user_id`, `longitude`, `latitude`, `km` FROM `cache_moved` WHERE `log_id` = '&1'", $record['logid']));
 

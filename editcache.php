@@ -1,5 +1,7 @@
 <?php
 
+use lib\Objects\GeoCache\GeoCache;
+
 /* * *************************************************************************
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -10,15 +12,9 @@
  * ************************************************************************* */
 
 /* * **************************************************************************
-
-  Unicode Reminder ăĄă˘
-
   edit a cache listing
-
   used template(s): editcache
-
   GET/POST Parameter: cacheid
-
  * ************************************************************************** */
 
 //prepare the templates and include all neccessary
@@ -93,10 +89,10 @@ if ($error == false) {
                 //here we read all used information from the form if submitted, otherwise from DB
                 // wihout virtuals and webcams
                 if (isset($_POST['type'])) {
-                    if (( ($_POST['type'] == cache::TYPE_VIRTUAL && $cache_record['type'] != cache::TYPE_VIRTUAL ) ||
-                            ($_POST['type'] == cache::TYPE_WEBCAM && $cache_record['type'] != cache::TYPE_WEBCAM ) ||
+                    if (( ($_POST['type'] == GeoCache::TYPE_VIRTUAL && $cache_record['type'] != GeoCache::TYPE_VIRTUAL ) ||
+                            ($_POST['type'] == GeoCache::TYPE_WEBCAM && $cache_record['type'] != GeoCache::TYPE_WEBCAM ) ||
                             // without owncaches
-                            ($_POST['type'] == cache::TYPE_OWNCACHE && $cache_record['type'] != cache::TYPE_OWNCACHE ) ) &&
+                            ($_POST['type'] == GeoCache::TYPE_OWNCACHE && $cache_record['type'] != GeoCache::TYPE_OWNCACHE ) ) &&
                             !$usr['admin']) {
                         $_POST['type'] = $cache_record['type'];
                     }
@@ -153,15 +149,15 @@ if ($error == false) {
                 // mp3 update end()
 
                 if (!isset($_POST['size'])) {
-                    if ($cache_type == cache::TYPE_VIRTUAL || $cache_type == cache::TYPE_WEBCAM ||
-                            $cache_type == cache::TYPE_EVENT) {
+                    if ($cache_type == GeoCache::TYPE_VIRTUAL || $cache_type == GeoCache::TYPE_WEBCAM ||
+                            $cache_type == GeoCache::TYPE_EVENT) {
                         $sel_size = 7;
                     } else {
                         $sel_size = $cache_record['size'];
                     }
                 } else {
                     $sel_size = isset($_POST['size']) ? $_POST['size'] : $cache_record['size'];
-                    if ($cache_type == cache::TYPE_VIRTUAL || $cache_type == cache::TYPE_WEBCAM || $cache_type == cache::TYPE_EVENT) {
+                    if ($cache_type == GeoCache::TYPE_VIRTUAL || $cache_type == GeoCache::TYPE_WEBCAM || $cache_type == GeoCache::TYPE_EVENT) {
                         $sel_size = 7;
                     }
                 }
@@ -372,9 +368,9 @@ if ($error == false) {
                 //check cache size
                 $size_not_ok = false;
                 if ($sel_size != $CACHESIZE['NO_CONTAINER'] &&
-                        ( $cache_type == cache::TYPE_VIRTUAL ||
-                        $cache_type == cache::TYPE_WEBCAM ||
-                        $cache_type == cache::TYPE_EVENT )) {
+                        ( $cache_type == GeoCache::TYPE_VIRTUAL ||
+                        $cache_type == GeoCache::TYPE_WEBCAM ||
+                        $cache_type == GeoCache::TYPE_EVENT )) {
                     $error = true;
                     $size_not_ok = true;
                 }
@@ -382,14 +378,14 @@ if ($error == false) {
 
                 // check if the user haven't changed type to 'without container'
                 if (isset($_POST['type'])) {
-                    if ((($_POST['type'] == cache::TYPE_OTHERTYPE && $cache_record['type'] != cache::TYPE_OTHERTYPE ) || ($_POST['type'] == cache::TYPE_TRADITIONAL ) || ($_POST['type'] == cache::TYPE_MULTICACHE ) || ($_POST['type'] == cache::TYPE_QUIZ ) || ($_POST['type'] == cache::TYPE_MOVING ) ) && $sel_size == $CACHESIZE['NO_CONTAINER']) {
+                    if ((($_POST['type'] == GeoCache::TYPE_OTHERTYPE && $cache_record['type'] != GeoCache::TYPE_OTHERTYPE ) || ($_POST['type'] == GeoCache::TYPE_TRADITIONAL ) || ($_POST['type'] == GeoCache::TYPE_MULTICACHE ) || ($_POST['type'] == GeoCache::TYPE_QUIZ ) || ($_POST['type'] == GeoCache::TYPE_MOVING ) ) && $sel_size == $CACHESIZE['NO_CONTAINER']) {
                         $error = true;
                         $size_not_ok = true;
                     }
                 }
 
                 // if there is already a cache without container, let it stay this way
-                if ($cache_record['type'] == cache::TYPE_OTHERTYPE && $cache_record['size'] == $CACHESIZE['NO_CONTAINER']) {
+                if ($cache_record['type'] == GeoCache::TYPE_OTHERTYPE && $cache_record['size'] == $CACHESIZE['NO_CONTAINER']) {
                     tpl_set_var('other_nobox', 'true');
                 } else {
                     tpl_set_var('other_nobox', 'false');
@@ -803,9 +799,9 @@ if ($error == false) {
                     tpl_set_var('pictures', $nopictures);
                 }
                 //MP3 files only for type of cache:
-                if ($cache_record['type'] == cache::TYPE_OTHERTYPE ||
-                        $cache_record['type'] == cache::TYPE_MULTICACHE ||
-                        $cache_record['type'] == cache::TYPE_QUIZ
+                if ($cache_record['type'] == GeoCache::TYPE_OTHERTYPE ||
+                        $cache_record['type'] == GeoCache::TYPE_MULTICACHE ||
+                        $cache_record['type'] == GeoCache::TYPE_QUIZ
                 ) {
                     if ($cache_record['mp3count'] > 0) {
                         $mp3files = '';
@@ -863,16 +859,16 @@ if ($error == false) {
                 }
 
                 $cache_type = $cache_record['type'];
-                if ($cache_type != cache::TYPE_MOVING) {
+                if ($cache_type != GeoCache::TYPE_MOVING) {
                     tpl_set_var('waypoints_start', '');
                     tpl_set_var('waypoints_end', '');
                     $wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, `waypoint_type`.`&1` wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&2' ORDER BY `stage`,`wp_id`", $lang_db, $cache_id);
                     if (mysql_num_rows($wp_rs) != 0) {
                         $waypoints = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 11px; line-height: 1.6em; color: #000000; ">';
                         $waypoints .= '<tr>';
-                        if ($cache_type == cache::TYPE_OTHERTYPE ||
-                                $cache_type == cache::TYPE_MULTICACHE ||
-                                $cache_type == cache::TYPE_QUIZ) {
+                        if ($cache_type == GeoCache::TYPE_OTHERTYPE ||
+                                $cache_type == GeoCache::TYPE_MULTICACHE ||
+                                $cache_type == GeoCache::TYPE_QUIZ) {
                             $waypoints .= '<th align="center" valign="middle" width="30"><b>' . tr('stage_wp') . '</b></th>';
                         }
 
@@ -889,9 +885,9 @@ if ($error == false) {
                             $tmpline1 = mb_ereg_replace('{lat}', $coords_lat, $tmpline1);
                             $tmpline1 = mb_ereg_replace('{desc}', nl2br($wp_record['desc']), $tmpline1);
                             $tmpline1 = mb_ereg_replace('{wpid}', $wp_record['wp_id'], $tmpline1);
-                            if ($cache_type == cache::TYPE_OTHERTYPE ||
-                                    $cache_type == cache::TYPE_MULTICACHE ||
-                                    $cache_type == cache::TYPE_QUIZ) {
+                            if ($cache_type == GeoCache::TYPE_OTHERTYPE ||
+                                    $cache_type == GeoCache::TYPE_MULTICACHE ||
+                                    $cache_type == GeoCache::TYPE_QUIZ) {
                                 $tmpline1 = mb_ereg_replace('{stagehide_end}', '', $tmpline1);
                                 $tmpline1 = mb_ereg_replace('{stagehide_start}', '', $tmpline1);
 
@@ -995,7 +991,7 @@ tpl_BuildTemplate();
  */
 function updateAltitudeIfNeeded($oldCacheRecord, $cacheId, $altitude = 0){
     /* add cache altitude altitude */
-    $geoCache = new \lib\Objects\GeoCache\GeoCache(array('cacheId' => $cacheId));
+    $geoCache = new GeoCache(array('cacheId' => $cacheId));
     if($geoCache->getCoordinates()->getLatitude() != $oldCacheRecord['latitude'] || $geoCache->getCoordinates()->getLongitude() != $oldCacheRecord['longitude']){
         $geoCache->getAltitude()->pickAndStoreAltitude($altitude);
     }

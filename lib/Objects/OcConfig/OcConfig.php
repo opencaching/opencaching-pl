@@ -9,6 +9,16 @@ namespace lib\Objects\OcConfig;
  */
 final class OcConfig
 {
+    const OCNODE_GERMANY = 1; /* Opencaching Germany http://www.opencaching.de OC */
+    const OCNODE_POLAND = 2; /* Opencaching Poland http://www.opencaching.pl OP */
+    const OCNODE_CZECH = 3; /* Opencaching Czech http://www.opencaching.cz OZ */
+    const OCNODE_DEVELOPER = 4; /* Local Development */
+    const OCNODE_UK = 6; /* Opencaching Great Britain http://www.opencaching.org.uk OK */
+    const OCNODE_SWEDEN = 7; /* Opencaching Sweden http://www.opencaching.se OS =>OC Scandinavia */
+    const OCNODE_USA = 10; /* Opencaching United States http://www.opencaching.us OU */
+    const OCNODE_RUSSIA = 12; /* Opencaching Russia http://www.opencaching.org.ru */
+    const OCNODE_BENELUX = 14; /* Opencaching Nederland http://www.opencaching.nl OB => OC Benelux */
+    const OCNODE_ROMANIA = 16; /* Opencaching Romania http://www.opencaching.ro OR */
 
     private $medalsModuleSwitchedOn = false;
     private $dbDatetimeFormat = 'Y-m-d H:i:s';

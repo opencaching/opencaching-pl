@@ -27,28 +27,20 @@ class MedalMaxAltitude extends Medal implements \lib\Objects\Medals\MedalInterfa
         $db->multiVariableQuery($queryFound, $user->getUserId(), $cacheTypes);
         $foundMaxAltitudeRaw = $db->dbResultFetchOneRowOnly();
 		$foundMaxAltitude = (int) $foundMaxAltitudeRaw['maxAltitude'];
-
 		$queryPlaced = 'SELECT MAX(`altitude`) as maxAltitude FROM `caches`, `caches_additions`
 			WHERE caches.`cache_id` = caches_additions.`cache_id`
 			AND cache.user_id = :1 AND caches.type IN(:2) AND cache.status = :3';
 		$db->multiVariableQuery($queryPlaced, $user->getUserId(), $cacheTypes, \cache::STATUS_READY);
         $placedMaxAltitudeRaw = $db->dbResultFetchOneRowOnly();
 		$placedMaxAltitude = (int) $placedMaxAltitudeRaw['maxAltitude'];
-
-d($user);
 		$this->findLevel($foundMaxAltitude, $placedMaxAltitude);
         $this->storeMedalStatus($user);
     }
 
 	private function findLevel($foundMaxAltitude, $placedMaxAltitude){
 		$this->prizedTime = false;
-
-//dd($placedMaxAltitude, $foundMaxAltitude, $this->conditions['altitudeToAward']);
-
 		foreach($this->conditions['altitudeToAward'] as $levelId => $level) {
-			d($foundMaxAltitude, $level['altitude']['found'], $placedMaxAltitude,$level['altitude']['placed']);
 			if ($foundMaxAltitude >= $level['altitude']['found'] && $placedMaxAltitude >= $level['altitude']['placed']) {
-				d($levelId);
 				$this->level = $levelId;
 				$this->prizedTime = date($this->config->getDbDateTimeFormat());
 			}

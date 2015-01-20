@@ -1,5 +1,7 @@
 <?php
 
+use lib\Objects\GeoCache\GeoCache;
+
 /**
  * class is used for correct coordinates of geopath center point. (point used to represent geoPtah
  * location on map.
@@ -37,7 +39,7 @@ class powerTrail_cCorection
 
     private function process()
     {
-        if($this->cacheType == cache::TYPE_TRADITIONAL || $this->cacheType == cache::TYPE_MULTICACHE){
+        if($this->cacheType == GeoCache::TYPE_TRADITIONAL || $this->cacheType == GeoCache::TYPE_MULTICACHE){
             if(in_array($this->userId, $this->userArray)){
                 $this->updateCoords();
             }
