@@ -19,6 +19,7 @@ return array(
                 GeoCache::TYPE_TRADITIONAL,
                 GeoCache::TYPE_MULTICACHE,
                 GeoCache::TYPE_QUIZ,
+                GeoCache::TYPE_OTHERTYPE,
             ),
             'cacheLocation' => array(
                 'code3' => 'PL21',
@@ -341,7 +342,10 @@ return array(
         'child' => MedalsController::MEDAL_CHILD_MAXALTITUDE,
         'dateIntroduced' => '2005-01-01 00:01:00',
         'conditions' => array(
-            'ocNodeId' => array (OcConfig::OCNODE_POLAND, OcConfig::OCNODE_ROMANIA),
+            'ocNodeId' => array (
+                OcConfig::OCNODE_POLAND,
+                OcConfig::OCNODE_ROMANIA
+            ),
             'cacheType' => array(
                 GeoCache::TYPE_TRADITIONAL,
                 GeoCache::TYPE_MULTICACHE,

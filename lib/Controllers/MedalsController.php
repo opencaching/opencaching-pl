@@ -67,9 +67,6 @@ class MedalsController
             $medalDetails['type'] = $type;
             $medals[] = $this->buildMedalObject($medalDetails);
         }
-
-        dd($medals);
-
         return $medals;
     }
 
