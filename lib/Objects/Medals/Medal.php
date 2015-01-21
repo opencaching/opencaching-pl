@@ -120,8 +120,8 @@ class Medal
 
     private function setImage()
     {
-        $medalsLayout = new \tpl\stdstyle\lib\MedalsLayout();
-        $this->image = $medalsLayout->getImage($this->typeId, $this->level);
+        $path = 'tpl/stdstyle/medals/'.$this->typeId.'/'.$this->level.'.png';
+        $this->image = $path;
     }
 
     public function getImage()

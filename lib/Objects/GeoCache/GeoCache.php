@@ -9,7 +9,6 @@ namespace lib\Objects\GeoCache;
  */
 class GeoCache
 {
-
     const TYPE_OTHERTYPE = 1;
     const TYPE_TRADITIONAL = 2;
     const TYPE_MULTICACHE = 3;
@@ -21,7 +20,7 @@ class GeoCache
     const TYPE_GEOPATHFINAL = 9;
     const TYPE_OWNCACHE = 10;
 
-    private $caheId;
+    private $id;
     private $geocacheWaypointId;
     private $cacheName;
     private $cacheType;
@@ -51,9 +50,9 @@ class GeoCache
     {
         $db = \lib\Database\DataBaseSingleton::Instance();
         if (isset($params['cacheId'])) {
-            $this->caheId = (int) $params['cacheId'];
+            $this->id = (int) $params['cacheId'];
             $queryById = "SELECT name, type, date_hidden, longitude, latitude, wp_oc, user_id FROM `caches` WHERE `cache_id`=:1 LIMIT 1";
-            $db->multiVariableQuery($queryById, $this->caheId);
+            $db->multiVariableQuery($queryById, $this->id);
         }
 
         $cacheDbRow = $db->dbResultFetch();
@@ -71,7 +70,7 @@ class GeoCache
     {
         $db = \lib\Database\DataBaseSingleton::Instance();
         $query = 'SELECT `code1`, `code2`, `code3`, `code4`  FROM `cache_location` WHERE `cache_id` =:1 LIMIT 1';
-        $db->multiVariableQuery($query, $this->caheId);
+        $db->multiVariableQuery($query, $this->id);
         $dbResult = $db->dbResultFetch();
         $this->cacheLocation = $dbResult;
     }
@@ -108,7 +107,7 @@ class GeoCache
 
     public function getCacheId()
     {
-        return $this->caheId;
+        return $this->id;
     }
 
     public function getWaypointId()

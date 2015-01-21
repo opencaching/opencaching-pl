@@ -9,10 +9,10 @@ namespace lib\Controllers;
  */
 class MedalsController
 {
-    const MEDAL_CHILD_GEOGRAPHICAL = 1;
-    const MEDAL_CHILD_CACHEFOUND = 2;
-    const MEDAL_CHILD_GEOPATHCOMPLETED = 3;
-    const MEDAL_CHILD_MAXALTITUDE = 4;
+    const MEDAL_TYPE_REGION = 1;
+    const MEDAL_TYPE_CACHES = 2;
+    const MEDAL_TYPE_GEOPATHCOMPLETED = 3;
+    const MEDAL_TYPE_MAXALTITUDE = 4;
 
     public $config;
 
@@ -73,13 +73,13 @@ class MedalsController
     private function buildMedalObject($medalDetails)
     {
         switch ($medalDetails['child']) {
-            case self::MEDAL_CHILD_GEOGRAPHICAL:
+            case self::MEDAL_TYPE_REGION:
                 return new \lib\Objects\Medals\MedalGeographical($medalDetails);
-            case self::MEDAL_CHILD_CACHEFOUND:
+            case self::MEDAL_TYPE_CACHES:
                 return new \lib\Objects\Medals\MedalCachefound($medalDetails);
-            case self::MEDAL_CHILD_GEOPATHCOMPLETED:
+            case self::MEDAL_TYPE_GEOPATHCOMPLETED:
                 return new \lib\Objects\Medals\MedalGeopathCompleted($medalDetails);
-            case self::MEDAL_CHILD_MAXALTITUDE:
+            case self::MEDAL_TYPE_MAXALTITUDE:
                 return new \lib\Objects\Medals\MedalMaxAltitude($medalDetails);
             default:
                 d('error - undefinied medal');
