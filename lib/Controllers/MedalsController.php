@@ -13,6 +13,7 @@ class MedalsController
     const MEDAL_TYPE_CACHES = 2;
     const MEDAL_TYPE_GEOPATHCOMPLETED = 3;
     const MEDAL_TYPE_MAXALTITUDE = 4;
+    const MEDAL_TYPE_HIGHLAND = 5;
 
     public $config;
 
@@ -72,7 +73,7 @@ class MedalsController
 
     private function buildMedalObject($medalDetails)
     {
-        switch ($medalDetails['child']) {
+        switch ($medalDetails['type']) {
             case self::MEDAL_TYPE_REGION:
                 return new \lib\Objects\Medals\MedalGeographical($medalDetails);
             case self::MEDAL_TYPE_CACHES:

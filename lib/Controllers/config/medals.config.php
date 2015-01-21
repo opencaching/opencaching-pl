@@ -11,7 +11,7 @@ use lib\Objects\Medals\MedalsContainer;
 return array(
     MedalsContainer::REGION_MALOPOLSKA => array(
         'name' => 'regionMalopolska',
-        'child' => MedalsController::MEDAL_TYPE_REGION,
+        'type' => MedalsController::MEDAL_TYPE_REGION,
         'dateIntroduced' => '2006-04-09 10:30:00',
         'conditions' => array(
             'cacheType' => array(
@@ -99,7 +99,7 @@ return array(
     ),
     MedalsContainer::REGION_KRAKOW => array(
         'name' => 'cityKrakow',
-        'child' => MedalsController::MEDAL_TYPE_REGION,
+        'type' => MedalsController::MEDAL_TYPE_REGION,
         'dateIntroduced' => '2006-04-09 10:30:00',
         'conditions' => array(
             'cacheType' => array(
@@ -187,7 +187,7 @@ return array(
     ),
     MedalsContainer::CACHE_TRADITIONAL => array(
         'name' => 'TraditionalCache',
-        'child' => MedalsController::MEDAL_TYPE_CACHES,
+        'type' => MedalsController::MEDAL_TYPE_CACHES,
         'dateIntroduced' => '2005-04-09 10:30:00',
         'conditions' => array(
             'cacheType' => array(
@@ -269,7 +269,7 @@ return array(
     ),
     MedalsContainer::GEOPATH_KOTLINAJELENIOGORSKA => array(
         'name' => 'PTTKDookolaKotlinyJeleniogorskiej',
-        'child' => MedalsController::MEDAL_TYPE_GEOPATHCOMPLETED,
+        'type' => MedalsController::MEDAL_TYPE_GEOPATHCOMPLETED,
         'dateIntroduced' => '2014-08-20 10:30:00',
         'conditions' => array(
             'ocNodeId' => array(OcConfig::OCNODE_POLAND),
@@ -282,7 +282,7 @@ return array(
     ),
     MedalsContainer::REGION_LUBELSKI => array(
         'name' => 'Lubelski Geocaching',
-        'child' => MedalsController::MEDAL_TYPE_REGION,
+        'type' => MedalsController::MEDAL_TYPE_REGION,
         'dateIntroduced' => '2014-01-23 00:01:00',
         'conditions' => array(
             'ocNodeId' => array(OcConfig::OCNODE_POLAND),
@@ -337,7 +337,7 @@ return array(
     ),
     MedalsContainer::MAXALTITUDE_2450 => array(
         'name' => 'AltitudeGeocache',
-        'child' => MedalsController::MEDAL_TYPE_MAXALTITUDE,
+        'type' => MedalsController::MEDAL_TYPE_MAXALTITUDE,
         'dateIntroduced' => '2005-01-01 00:01:00',
         'conditions' => array(
             'ocNodeId' => array(
@@ -347,6 +347,7 @@ return array(
             'cacheType' => array(
                 GeoCache::TYPE_TRADITIONAL,
                 GeoCache::TYPE_MULTICACHE,
+                GeoCache::TYPE_QUIZ,
             ),
             'altitudeToAward' => array(
                 1 => array(
@@ -422,5 +423,95 @@ return array(
             ),
         ),
     ),
+     MedalsContainer::HIGHLAND_9000 => array(
+        'name' => 'HighlandGeocacher',
+        'type' => MedalsController::MEDAL_TYPE_HIGHLAND,
+        'dateIntroduced' => '2005-01-01 00:01:00',
+        'conditions' => array(
+            'ocNodeId' => array(
+                OcConfig::OCNODE_POLAND,
+                OcConfig::OCNODE_ROMANIA
+            ),
+            'cacheType' => array(
+                GeoCache::TYPE_TRADITIONAL,
+                GeoCache::TYPE_MULTICACHE,
+            ),
+            'minimumAltitude' => 700,
+            'cacheCountToAward' => array(
+                1 => array(
+                    'levelName' => 'Paper',
+                    'cacheCount' => array(
+                        'found' => 1,
+                        'placed' => 0,
+                    ),
+                ),
+                2 => array(
+                    'levelName' => 'Wooden',
+                    'cacheCount' => array(
+                        'found' => 5,
+                        'placed' => 0,
+                    ),
+                ),
+                3 => array(
+                    'levelName' => 'Iron',
+                    'cacheCount' => array(
+                        'found' => 10,
+                        'placed' => 0,
+                    ),
+                ),
+                4 => array(
+                    'levelName' => 'Beril',
+                    'cacheCount' => array(
+                        'found' => 20,
+                        'placed' => 1,
+                    ),
+                ),
+                5 => array(
+                    'levelName' => 'Bronze',
+                    'cacheCount' => array(
+                        'found' => 40,
+                        'placed' => 2,
+                    ),
+                ),
+                6 => array(
+                    'levelName' => 'Silver',
+                    'cacheCount' => array(
+                        'found' => 50,
+                        'placed' => 3,
+                    ),
+                ),
+                7 => array(
+                    'levelName' => 'Gold',
+                    'cacheCount' => array(
+                        'found' => 100,
+                        'placed' => 5,
+                    ),
+                ),
+                8 => array(
+                    'levelName' => 'Platinum',
+                    'cacheCount' => array(
+                        'found' => 200,
+                        'placed' => 10,
+                    ),
+                ),
+                9 => array(
+                    'levelName' => 'Perl',
+                    'cacheCount' => array(
+                        'found' => 400,
+                        'placed' => 20,
+                    ),
+                ),
+                10 => array(
+                    'levelName' => 'Crystal',
+                    'cacheCount' => array(
+                        'found' => 800,
+                        'placed' => 40,
+                    ),
+                ),
+            ),
+        ),
+    ),
+
+
 );
 
