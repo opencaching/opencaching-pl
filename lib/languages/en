@@ -2544,3 +2544,4 @@ CachesNotMatchCryteria Any cache doesn't match criteria.
 PageNr Number of page
 Disable Disable
 Enable Enable
+LogPassword Password needed to log entry

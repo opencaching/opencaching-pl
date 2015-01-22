@@ -2105,7 +2105,7 @@ if ($error == false) {
             }
 
             if ($has_password)
-                tpl_set_var('password_req', '<img src="' . $config['search-attr-icons']['password'][0] .'" title="Potrzebne haslo do logu / Password needed to log entry" alt="Potrzebne hasło"/>');
+                tpl_set_var('password_req', '<img src="' . $config['search-attr-icons']['password'][0] .'" title="' . tr('LogPassword') .'" alt="Potrzebne hasło"/>');
             else
                 tpl_set_var('password_req', '');
             tpl_set_var('cache_attributes', $cache_attributes);
