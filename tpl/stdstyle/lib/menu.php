@@ -128,6 +128,14 @@ $menu = array(
                         'filename' => 'cachemap2.php'
                     ),
                     array(
+                        'title' => tr('Flopp_map'),
+                        'menustring' => tr('Flopp_map'),
+                        'visible' => $config['FloppSwithedOn'],
+                        'onlylogged' => true,
+                        'filename' => 'http://www.flopp-caching.de',
+                        'newwindow' => true
+                    ),
+                    array(
                         'title' => tr('logmap_04'),
                         'menustring' => tr('logmap_04'),
                         'siteid' => 'logmap',

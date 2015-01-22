@@ -12,6 +12,8 @@ $config = array(
     'blogMostRecentRecordsUrl' => 'http://blog.opencaching.pl/feed/',
     /** to switch cache map v2 on set true otherwise false */
     'map2SwithedOn' => true,
+    /** to switch flopp's map on set true otherwise false */
+    'FloppSwithedOn' => false,
     /* === Node personalizations === */
 
     /** main logo picture (to be placed in /images/) */
