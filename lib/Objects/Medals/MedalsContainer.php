@@ -16,5 +16,5 @@ class MedalsContainer
     const GEOPATH_KOTLINAJELENIOGORSKA = 4;
     const REGION_LUBELSKI = 5;
     const MAXALTITUDE_2450 = 6;
-    const HIGHLAND_9000 = 7;
+    const HIGHLAND_700 = 7;
 }

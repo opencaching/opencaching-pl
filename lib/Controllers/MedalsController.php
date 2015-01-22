@@ -64,8 +64,8 @@ class MedalsController
 
     private function allMedals()
     {
-        foreach (self::getConfig() as $type => $medalDetails) {
-            $medalDetails['type'] = $type;
+        foreach (self::getConfig() as $medalId => $medalDetails) {
+            $medalDetails['medalId'] = $medalId;
             $medals[] = $this->buildMedalObject($medalDetails);
         }
         return $medals;
@@ -82,8 +82,10 @@ class MedalsController
                 return new \lib\Objects\Medals\MedalGeopathCompleted($medalDetails);
             case self::MEDAL_TYPE_MAXALTITUDE:
                 return new \lib\Objects\Medals\MedalMaxAltitude($medalDetails);
+            case self::MEDAL_TYPE_HIGHLAND:
+                return new \lib\Objects\Medals\MedalHighlandCaches($medalDetails);
             default:
-                d('error - undefinied medal');
+                d('error - undefinied medal, please add your medal type here.');
                 break;
         }
     }

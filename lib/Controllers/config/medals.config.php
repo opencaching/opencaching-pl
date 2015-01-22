@@ -190,6 +190,7 @@ return array(
         'type' => MedalsController::MEDAL_TYPE_CACHES,
         'dateIntroduced' => '2005-04-09 10:30:00',
         'conditions' => array(
+            'ocNodeId' => array(OcConfig::OCNODE_POLAND, OcConfig::OCNODE_BENELUX, OcConfig::OCNODE_ROMANIA),
             'cacheType' => array(
                 GeoCache::TYPE_TRADITIONAL,
             ),
@@ -423,7 +424,7 @@ return array(
             ),
         ),
     ),
-     MedalsContainer::HIGHLAND_9000 => array(
+     MedalsContainer::HIGHLAND_700 => array(
         'name' => 'HighlandGeocacher',
         'type' => MedalsController::MEDAL_TYPE_HIGHLAND,
         'dateIntroduced' => '2005-01-01 00:01:00',
@@ -448,63 +449,63 @@ return array(
                 2 => array(
                     'levelName' => 'Wooden',
                     'cacheCount' => array(
-                        'found' => 5,
+                        'found' => 3,
                         'placed' => 0,
                     ),
                 ),
                 3 => array(
                     'levelName' => 'Iron',
                     'cacheCount' => array(
-                        'found' => 10,
+                        'found' => 5,
                         'placed' => 0,
                     ),
                 ),
                 4 => array(
                     'levelName' => 'Beril',
                     'cacheCount' => array(
-                        'found' => 20,
+                        'found' => 10,
                         'placed' => 1,
                     ),
                 ),
                 5 => array(
                     'levelName' => 'Bronze',
                     'cacheCount' => array(
-                        'found' => 40,
+                        'found' => 20,
                         'placed' => 2,
                     ),
                 ),
                 6 => array(
                     'levelName' => 'Silver',
                     'cacheCount' => array(
-                        'found' => 50,
+                        'found' => 30,
                         'placed' => 3,
                     ),
                 ),
                 7 => array(
                     'levelName' => 'Gold',
                     'cacheCount' => array(
-                        'found' => 100,
+                        'found' => 50,
                         'placed' => 5,
                     ),
                 ),
                 8 => array(
                     'levelName' => 'Platinum',
                     'cacheCount' => array(
-                        'found' => 200,
+                        'found' => 100,
                         'placed' => 10,
                     ),
                 ),
                 9 => array(
                     'levelName' => 'Perl',
                     'cacheCount' => array(
-                        'found' => 400,
+                        'found' => 250,
                         'placed' => 20,
                     ),
                 ),
                 10 => array(
                     'levelName' => 'Crystal',
                     'cacheCount' => array(
-                        'found' => 800,
+                        'found' => 500,
                         'placed' => 40,
                     ),
                 ),

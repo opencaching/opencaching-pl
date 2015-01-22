@@ -20,6 +20,14 @@ class GeoCache
     const TYPE_GEOPATHFINAL = 9;
     const TYPE_OWNCACHE = 10;
 
+    const STATUS_READY = 1;
+    const STATUS_UNAVAILABLE = 2;
+    const STATUS_ARCHIVED = 3;
+    const STATUS_WAITAPPROVERS = 4;
+    const STATUS_NOTYETAVAILABLE = 5;
+    const STATUS_BLOCKED = 6;
+
+
     private $id;
     private $geocacheWaypointId;
     private $cacheName;

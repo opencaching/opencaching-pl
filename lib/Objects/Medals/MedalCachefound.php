@@ -14,24 +14,8 @@ class MedalCachefound extends Medal implements \lib\Objects\Medals\MedalInterfac
     {
         $foundCount = $this->getFoundCacheCount($user);
         $placedCount = $this->getPlacedCacheCount($user);
-        $levelSummary = array();
         $this->prizedTime = false;
-        foreach ($this->conditions['cacheCountToAward'] as $level => $conditions) {
-            if ($foundCount >= $conditions['cacheCount']['found']) {
-                $foundConditionPassed[$level] = true;
-            } else {
-                $foundConditionPassed[$level] = false;
-            }
-            if ($placedCount >= $conditions['cacheCount']['placed']) {
-                $placedConditionPassed[$level] = true;
-            } else {
-                $placedConditionPassed[$level] = false;
-            }
-            $levelSummary[$level] = ($placedConditionPassed[$level] && $foundConditionPassed[$level]);
-            if ($levelSummary[$level] === true) {
-                $this->setMedalPrizedTimeAndAcheivedLevel($level);
-            }
-        }
+        $this->findMedalLevelByCacheCount($foundCount, $placedCount);
         $this->storeMedalStatus($user);
     }
 

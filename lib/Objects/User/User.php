@@ -73,7 +73,7 @@ class User
         $medalsDb = $db->dbResultFetchAll();
         $this->medals = new \ArrayObject;
         foreach ($medalsDb as $medalRow) {
-            $this->medals[] = new \lib\Objects\Medals\Medal(array('prizedTime' => $medalRow['prized_time'], 'type' => (int) $medalRow['medal_type'], 'level' => $medalRow['medal_level']));
+            $this->medals[] = new \lib\Objects\Medals\Medal(array('prizedTime' => $medalRow['prized_time'], 'medalId' => (int) $medalRow['medal_type'], 'level' => $medalRow['medal_level']));
         }
     }
 

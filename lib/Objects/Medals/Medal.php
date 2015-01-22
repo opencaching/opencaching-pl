@@ -10,7 +10,7 @@ namespace lib\Objects\Medals;
 class Medal
 {
 
-    private $typeId;
+    private $medalId;
     protected $level;
     private $image;
     private $name;
@@ -28,8 +28,8 @@ class Medal
      */
     public function __construct($params)
     {
-        $this->typeId = $params['type'];
-        $details = \lib\Controllers\MedalsController::getMedalTypeDetails($this->typeId);
+        $this->medalId = $params['medalId'];
+        $details = \lib\Controllers\MedalsController::getMedalTypeDetails($this->medalId);
         $this->conditions = $details['conditions'];
         $this->name = $details['name'];
         $this->dateIntroduced = $details['dateIntroduced'];
@@ -86,21 +86,21 @@ class Medal
     {
         $query = ' UPDATE `medals` SET `prized_time`= NOW(), `medal_level`=:1 WHERE  `user_id` = :2 AND `medal_type` = :3 ';
         $db = \lib\Database\DataBaseSingleton::Instance();
-        $db->multiVariableQuery($query, $this->level, $user->getUserId(), $this->typeId);
+        $db->multiVariableQuery($query, $this->level, $user->getUserId(), $this->medalId);
     }
 
     private function removeMedalFromUsersMedalsDb(\lib\Objects\User\User $user)
     {
         $query = 'DELETE FROM `medals` WHERE `user_id` = :1 AND `medal_type` = :2';
         $db = \lib\Database\DataBaseSingleton::Instance();
-        $db->multiVariableQuery($query, $user->getUserId(), $this->typeId);
+        $db->multiVariableQuery($query, $user->getUserId(), $this->medalId);
     }
 
     private function addMedalToUserMedalsDb(\lib\Objects\User\User $user)
     {
         $query = 'INSERT INTO `medals`(`user_id`, `medal_type`, `prized_time`, `medal_level`) VALUES (:1, :2, :3, :4)';
         $db = \lib\Database\DataBaseSingleton::Instance();
-        $db->multiVariableQuery($query, $user->getUserId(), $this->typeId, $this->prizedTime, $this->level);
+        $db->multiVariableQuery($query, $user->getUserId(), $this->medalId, $this->prizedTime, $this->level);
     }
 
     private function isCurrentMedalAlreadyPrized(\lib\Objects\User\User $user)
@@ -110,7 +110,7 @@ class Medal
         /* @var $currentMedal \medals\medal */
         while ($iterator->valid()) {
             $currentMedal = $iterator->current();
-            if ($currentMedal->getTypeId() === $this->typeId) { /* current medal */
+            if ($currentMedal->getMedalId() === $this->medalId) { /* current medal */
                 return $currentMedal;
             }
             $iterator->next();
@@ -120,8 +120,41 @@ class Medal
 
     private function setImage()
     {
-        $path = 'tpl/stdstyle/medals/'.$this->typeId.'/'.$this->level.'.png';
-        $this->image = $path;
+        $directory = 'tpl/stdstyle/medals/';
+        $path = $directory . $this->medalId.'/'.$this->level.'.png';
+        if(file_exists($path)){
+            $this->image = $path;
+        } else {
+           $this->image = $directory . 'medalGeneric.png';
+        }
+    }
+
+    /**
+     * For medals, based on cache placed count and cache found count.
+     * Iterate through cacheCountToAward conditions, and set proper medal level
+     * when conditions are met.
+     * @param integer $foundCount
+     * @param integer $placedCount
+     */
+    protected function findMedalLevelByCacheCount($foundCount, $placedCount)
+    {
+        $levelSummary = array();
+        foreach ($this->conditions['cacheCountToAward'] as $level => $conditions) {
+            if ($foundCount >= $conditions['cacheCount']['found']) {
+                $foundConditionPassed[$level] = true;
+            } else {
+                $foundConditionPassed[$level] = false;
+            }
+            if ($placedCount >= $conditions['cacheCount']['placed']) {
+                $placedConditionPassed[$level] = true;
+            } else {
+                $placedConditionPassed[$level] = false;
+            }
+            $levelSummary[$level] = ($placedConditionPassed[$level] && $foundConditionPassed[$level]);
+            if ($levelSummary[$level] === true) {
+                $this->setMedalPrizedTimeAndAcheivedLevel($level);
+            }
+        }
     }
 
     public function getImage()
@@ -129,9 +162,9 @@ class Medal
         return $this->image;
     }
 
-    public function getTypeId()
+    public function getMedalId()
     {
-        return $this->typeId;
+        return $this->medalId;
     }
 
     public function getLevel()
