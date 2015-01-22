@@ -17,4 +17,9 @@ class MedalsContainer
     const REGION_LUBELSKI = 5;
     const MAXALTITUDE_2450 = 6;
     const HIGHLAND_700 = 7;
+    const CACHE_MULTICACHE = 8;
+    const CACHE_QUIZ = 9;
+    const CACHE_OWN = 10;
+    const CACHE_MOVED = 11;
+    const CACHE_EVENT = 12;
 }

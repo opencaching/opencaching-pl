@@ -28,7 +28,7 @@ class MedalCachefound extends Medal implements \lib\Objects\Medals\MedalInterfac
                 . "AND cache_logs.type = :2 "
                 . "AND cache_logs.date > :3 "
                 . "AND caches.type IN (" . $this->buildCacheTypesSqlString() . ")";
-        $db->multiVariableQuery($query, $user->getUserId(), \lib\Objects\GeoCache\GeoCacheLog::LOGTYPE_FOUNDIT, $this->dateIntroduced);
+        $db->multiVariableQuery($query, $user->getUserId(), $this->conditions['logType'], $this->dateIntroduced);
         $dbResult = $db->dbResultFetchOneRowOnly();
         return $dbResult['cacheCount'];
     }
@@ -36,10 +36,10 @@ class MedalCachefound extends Medal implements \lib\Objects\Medals\MedalInterfac
     private function getPlacedCacheCount(\lib\Objects\User\User $user)
     {
         $query = 'SELECT count(caches.cache_id) as cacheCount FROM `caches` '
-                . 'WHERE `caches`.`user_id` = :1 AND `caches`.`status` = :2 AND `caches`.`date_created` > :3 '
-                . 'AND `caches`.`type` IN (' . $this->buildCacheTypesSqlString() . ') ';
+                . 'WHERE `caches`.`user_id` = :1 AND `caches`.`status` IN ( :2 ) AND `caches`.`date_created` > :3 '
+                . 'AND `caches`.`type` IN ( :4 ) ';
         $db = \lib\Database\DataBaseSingleton::Instance();
-        $db->multiVariableQuery($query, $user->getUserId(), \cache::STATUS_READY, $this->dateIntroduced);
+        $db->multiVariableQuery($query, $user->getUserId(), $this->buildCacheStatusSqlString(), $this->dateIntroduced, $this->buildCacheTypesSqlString() );
         $dbResult = $db->dbResultFetchOneRowOnly();
         return $dbResult['cacheCount'];
     }

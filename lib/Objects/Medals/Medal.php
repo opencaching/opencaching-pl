@@ -63,7 +63,7 @@ class Medal
         }
     }
 
-        /**
+    /**
      * generate string witch cache types to be used in sql query
      * @param type $param
      */
@@ -72,6 +72,19 @@ class Medal
         $sqlString = '';
         foreach ($this->conditions['cacheType'] as $cacheType) {
             $sqlString .= $cacheType . ',';
+        }
+        return rtrim($sqlString, ',');
+    }
+
+    /**
+     * generate string witch cache types to be used in sql query
+     * @param type $param
+     */
+    protected function buildCacheStatusSqlString()
+    {
+        $sqlString = '';
+        foreach ($this->conditions['placedCacheStatus'] as $cacheStatus) {
+            $sqlString .= $cacheStatus . ',';
         }
         return rtrim($sqlString, ',');
     }
