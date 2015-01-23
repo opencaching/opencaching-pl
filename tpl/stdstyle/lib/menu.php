@@ -130,6 +130,7 @@ $menu = array(
                     array(
                         'title' => tr('Flopp_map'),
                         'menustring' => tr('Flopp_map'),
+                        'siteid' => 'flopmap2',
                         'visible' => $config['FloppSwithedOn'],
                         'onlylogged' => true,
                         'filename' => 'http://www.flopp-caching.de',
