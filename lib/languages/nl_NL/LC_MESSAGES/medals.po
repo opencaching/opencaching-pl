@@ -1,0 +1,249 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: opencaching-medals\n"
+"POT-Creation-Date: 2015-01-24 11:50+0100\n"
+"PO-Revision-Date: 2015-01-24 21:23+0100\n"
+"Last-Translator: Harrie Klomp <harrie@harrieklomp.be>\n"
+"Language-Team:  <octeam@opencaching.nl>\n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-Basepath: C:\\xampp\\htdocs\\oc\\lib\\Controllers\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Poedit-KeywordsList: _;_e\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: C:\\xampp\\htdocs\\oc\\lib\\Controllers\n"
+"X-Poedit-SearchPath-1: C:\\xampp\\htdocs\\oc\\lib\\Objects\n"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/OcController.php:56
+msgid "level"
+msgstr "Niveau"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/OcController.php:57
+msgid "user"
+msgstr "Gebruiker"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:13
+msgid "regionMalopolska"
+msgstr "Malopolska"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:28
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:116
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:201
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:445
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:530
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:615
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:700
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:785
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:870
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:950
+msgid "paper"
+msgstr "Papier"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:35
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:123
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:208
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:452
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:537
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:622
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:707
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:792
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:877
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:954
+msgid "wooden"
+msgstr "Hout"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:42
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:130
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:215
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:459
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:544
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:629
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:714
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:799
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:884
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:958
+msgid "iron"
+msgstr "Ijzer"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:49
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:137
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:222
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:466
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:551
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:636
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:721
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:806
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:891
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:962
+msgid "beril"
+msgstr "Beril"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:56
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:144
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:229
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:473
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:558
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:643
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:728
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:813
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:898
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:966
+msgid "bronze"
+msgstr "Brons"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:63
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:151
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:236
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:480
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:565
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:650
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:735
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:820
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:905
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:970
+msgid "silver"
+msgstr "Zilver"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:70
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:158
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:243
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:487
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:572
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:657
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:742
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:827
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:912
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:974
+msgid "gold"
+msgstr "Goud"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:77
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:165
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:250
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:494
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:579
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:664
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:749
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:834
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:919
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:978
+msgid "platinum"
+msgstr "Platinum"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:84
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:172
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:257
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:501
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:586
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:671
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:756
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:841
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:926
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:982
+msgid "perl"
+msgstr "Parel"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:91
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:179
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:264
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:508
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:593
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:678
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:763
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:848
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:933
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:986
+msgid "crystal"
+msgstr "Kristal"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:101
+msgid "cityKrakow"
+msgstr "Krakau"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:189
+msgid "TraditionalCache"
+msgstr "Traditionele cacher"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:274
+msgid "PTTK Dookola Kotliny Jeleniogorskiej"
+msgstr ""
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:287
+msgid "Lubelski Geocaching"
+msgstr ""
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:342
+msgid "AltitudeGeocache"
+msgstr "Hoogte cacher"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:357
+msgid "meadow"
+msgstr "Weiland"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:364
+msgid "beech"
+msgstr "Beuk"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:371
+msgid "fir"
+msgstr "Spar"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:378
+msgid "spruce"
+msgstr "Den"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:385
+msgid "pass"
+msgstr "Pas"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:392
+msgid "rowan"
+msgstr "Leisterbes"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:399
+msgid "limba"
+msgstr "Przełęczny"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:406
+msgid "mountain pine"
+msgstr ""
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:413
+msgid "scree"
+msgstr ""
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:420
+msgid "ridge"
+msgstr "Richel"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:430
+msgid "HighlandGeocacher"
+msgstr "Berg cacher"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:518
+msgid "MultiGeocacher"
+msgstr "Multi cacher"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:603
+msgid "QuizGeocacher"
+msgstr "Puzzel cacher"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:688
+msgid "OwnGeocacher"
+msgstr "Eigen cacher"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:773
+msgid "MovingGeocacher"
+msgstr "Bewgende cacher"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:858
+msgid "SocialGeocacher"
+msgstr "Sociale cacher"
+
+#: C:\xampp\htdocs\oc\lib\Controllers/config/medals.config.php:943
+msgid "OldGeocacher"
+msgstr "Oude cacher"
