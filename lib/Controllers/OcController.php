@@ -51,15 +51,16 @@ class OcController
         print '<BR>';
         /* end test*/
 
-
+        $ocConfig = \lib\Objects\OcConfig\OcConfig::Instance();
+        ;
 
 
         $smarty = new \Smarty();
-        $smarty->setCompileDir(__DIR__.'/../../tmp/templates_c');
+        $smarty->setCompileDir($ocConfig->getDynamicFilesPath().'tmp/templates_c');
         $smarty->debugging = true;
         $smarty->caching = false;
         $smarty->setTemplateDir(__DIR__.'/../../tpl/smarty');
-        $smarty->setCacheDir(__DIR__.'/../../tmp/smarty_cache');
+        $smarty->setCacheDir($ocConfig->getDynamicFilesPath().'tmp/smarty_cache');
 
 
         $user = new \lib\Objects\User\User($this->request['userId']);

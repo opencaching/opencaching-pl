@@ -28,6 +28,7 @@ final class OcConfig
     private $octeamEmailsSignature = null;
     private $octeamEmailAddress;
     private $siteName;
+    private $dynamicFilesPath;
 
     /**
      * Call this method to get singleton
@@ -60,7 +61,7 @@ final class OcConfig
         $this->octeamEmailsSignature = $octeamEmailsSignature;
         $this->octeamEmailAddress = $octeam_email;
         $this->siteName = $site_name;
-
+        $this->dynamicFilesPath =  $dynbasepath;
     }
 
     public function getAbsolute_server_URI()
@@ -97,6 +98,11 @@ final class OcConfig
     public function getOcteamEmailAddress()
     {
         return $this->octeamEmailAddress;
+    }
+
+    public function getDynamicFilesPath()
+    {
+        return $this->dynamicFilesPath;
     }
 
 }
