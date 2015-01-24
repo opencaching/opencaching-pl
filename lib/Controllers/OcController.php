@@ -30,12 +30,14 @@ class OcController
     {
 
 
-        /* test */
+        /* lang test */
+        /* get locale from browser */
         $userPrefferedLanguages = explode(';',$_SERVER['HTTP_ACCEPT_LANGUAGE']);
         $mostPrefferedLanguage = explode(',' , $userPrefferedLanguages[0]);
         $locale = str_replace('-', '_', $mostPrefferedLanguage[0]);
 
-        if(isset($_REQUEST['locale'])){
+
+        if(isset($_REQUEST['locale'])){ /* get locale from $_REQUEST*/
             $locale = $_REQUEST['locale'];
         }
 
@@ -49,15 +51,14 @@ class OcController
         textdomain("medals");
         print gettext('level');
         print '<BR>';
-        /* end test*/
+        /* end lang test*/
 
         $ocConfig = \lib\Objects\OcConfig\OcConfig::Instance();
-        ;
 
 
         $smarty = new \Smarty();
         $smarty->setCompileDir($ocConfig->getDynamicFilesPath().'tmp/templates_c');
-        $smarty->debugging = true;
+        $smarty->debugging = false;
         $smarty->caching = false;
         $smarty->setTemplateDir(__DIR__.'/../../tpl/smarty');
         $smarty->setCacheDir($ocConfig->getDynamicFilesPath().'tmp/smarty_cache');
@@ -79,13 +80,12 @@ class OcController
 
         $smartyMedals['tr']['level'] = _('level');
         $smartyMedals['tr']['user']  = _('user');
+        !d($smartyMedals['tr']);
 
 
 
-        $smarty->testInstall();
 
         $smarty->assign("smartyMedals", $smartyMedals);
-        d($smartyMedals, $smarty);
         $smarty->display('medals.tpl');
         
 
