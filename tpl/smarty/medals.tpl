@@ -1,6 +1,7 @@
-{block name=head}
+<head>
     <link href="/tpl/smarty/medals.css" rel="stylesheet" type="text/css"/>
-{/block}
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+</head>
 <div class="mainContainer">
 
     <div class="medalWrapper">
