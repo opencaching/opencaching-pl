@@ -56,9 +56,10 @@ class OcController
 
         $smarty = new \Smarty();
         $smarty->setCompileDir(__DIR__.'/../../tmp/templates_c');
-        $smarty->debugging = false;
+        $smarty->debugging = true;
         $smarty->caching = false;
-        $smarty->addTemplateDir(__DIR__.'/../../tpl/smarty');
+        $smarty->setTemplateDir(__DIR__.'/../../tpl/smarty');
+        $smarty->setCacheDir(__DIR__.'/../../tmp/smarty_cache');
 
 
         $user = new \lib\Objects\User\User($this->request['userId']);
@@ -79,9 +80,11 @@ class OcController
         $smartyMedals['tr']['user']  = _('user');
 
 
-        d($smartyMedals['tr']);
+
+        $smarty->testInstall();
 
         $smarty->assign("smartyMedals", $smartyMedals);
+        d($smartyMedals, $smarty);
         $smarty->display('medals.tpl');
         
 
