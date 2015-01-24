@@ -14,6 +14,7 @@ class MedalsController
     const MEDAL_TYPE_GEOPATHCOMPLETED = 3;
     const MEDAL_TYPE_MAXALTITUDE = 4;
     const MEDAL_TYPE_HIGHLAND = 5;
+    const MEDAL_TYPE_OLDGEOCACHER = 6;
 
     public $config;
 
@@ -71,6 +72,11 @@ class MedalsController
         return $medals;
     }
 
+    /**
+     * medal factory.
+     * @param array $medalDetails
+     * @return \lib\Objects\Medals\MedalGeopathCompleted|\lib\Objects\Medals\MedalMaxAltitude|\lib\Objects\Medals\MedalCachefound|\lib\Objects\Medals\MedalHighlandCaches|\lib\Objects\Medals\MedalOldGeocacher|\lib\Objects\Medals\MedalGeographical
+     */
     private function buildMedalObject($medalDetails)
     {
         switch ($medalDetails['type']) {
@@ -84,8 +90,10 @@ class MedalsController
                 return new \lib\Objects\Medals\MedalMaxAltitude($medalDetails);
             case self::MEDAL_TYPE_HIGHLAND:
                 return new \lib\Objects\Medals\MedalHighlandCaches($medalDetails);
+            case self::MEDAL_TYPE_OLDGEOCACHER:
+                return new \lib\Objects\Medals\MedalOldGeocacher($medalDetails);
             default:
-                d('error - undefinied medal, please add your medal type here.');
+                d('error - undefinied medal, please add your medal to factory type here.');
                 break;
         }
     }

@@ -1,0 +1,37 @@
+.mainContainer{
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    width: 810px;
+    margin:0 auto;
+
+}
+
+.medalWrapper {
+    overflow: hidden;
+    width: 800px;
+
+}
+.medal {
+    width: 170px;
+    padding: 5px;
+    float:left;
+}
+.medalImage{
+    width: 120px;
+    height: 120px;
+    display: block ;
+    margin-left: auto;
+    margin-right: auto;
+}
+.medalName{
+    margin-left: auto;
+    margin-right: auto;
+    width: 120px;
+    text-align: center;
+}
+.medalLevel{
+    margin-left: auto;
+    margin-right: auto;
+    width: 120px;
+    font-size: 12px;
+    text-align: center;
+}

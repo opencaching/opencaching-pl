@@ -38,6 +38,7 @@ class ClassPathDictionary
      * !!! please preserve alphabetical order. !!!
      */
     private static $classDictionary = array(
+        'Smarty' => 'lib/Smarty/libs/Smarty.class.php',
         'cache' => 'lib/cache.php',
         'dataBase' => 'lib/Database/Db.php',
         'MyDB' => 'lib/Database/MyDB.php',
@@ -69,5 +70,8 @@ class ClassPathDictionary
 }
 
 spl_autoload_register(function ($className) {
+    if(strpos($className, 'Smarty_') !== false){ /* ignore smary class autoloading */
+        return;
+    }
     include_once ClassPathDictionary::getClassPath($className);
 });

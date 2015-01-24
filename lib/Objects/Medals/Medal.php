@@ -3,9 +3,9 @@
 namespace lib\Objects\Medals;
 
 /**
- * Description of medal
+ * Medal Factory - abstract interface
  *
- * @author Łza
+ * @author Andrzej 'Łza' Woźniak
  */
 class Medal
 {

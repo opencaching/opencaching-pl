@@ -22,4 +22,5 @@ class MedalsContainer
     const CACHE_OWN = 10;
     const CACHE_MOVED = 11;
     const CACHE_EVENT = 12;
+    const OLDGEOCACHER = 13;
 }

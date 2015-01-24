@@ -60,16 +60,19 @@ class MedalsController
     const MEDAL_TYPE_MAXALTITUDE = 4;
     const MEDAL_TYPE_HIGHLAND = 5;
 ?>
+
+in the same class, add your funbuildMedalObject
+
 constant in Class MedalsContainer
 
-2. Add new class file in lib/Object/Medals => HighlandCaches.php
+2. Add new class file in lib/Object/Medals => MedalHighlandCaches.php
 create class called HighlandCaches. Class have to extends class \lib\Objects\Medals\Medal and implements interface \lib\Objects\Medals\MedalInterface.
 
 example:
 <?php
 namespace lib\Objects\Medals;
 
-class HighlandCaches extends \lib\Objects\Medals\Medal implements \lib\Objects\Medals\MedalInterface
+class MedalHighlandCaches extends \lib\Objects\Medals\Medal implements \lib\Objects\Medals\MedalInterface
 {
     public function checkConditionsForUser(\lib\Objects\User\User $user)
     {
@@ -77,6 +80,15 @@ class HighlandCaches extends \lib\Objects\Medals\Medal implements \lib\Objects\M
     }
 }
 ?>
+
+Back to the MedalsController, and in method buildMedalObject() add to dispatch your class for your medal type:
+
+add:
+<?php
+    case self::MEDAL_TYPE_HIGHLAND:
+        return new \lib\Objects\Medals\MedalHighlandCaches($medalDetails);
+?>
+
 4 Add new medal
 
 open Go to \lib\Objects\Medals\MedalsContainer.php
