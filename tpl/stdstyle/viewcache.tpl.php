@@ -78,7 +78,8 @@
             <b>{coords}</b> <span class="content-title-noshade-size0">(WGS84){mod_cord_info}</span><br />
         </p>
         <p style="line-height: 1.6em;">
-            <img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;{coords_other} <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"><br />
+            <img src="tpl/stdstyle/images/free_icons/mountain.png" class="icon16" width=16 height=16 alt="" title="" align="middle" />&nbsp;{{cache_alt}}: {altitude} {{abovesealevel}}<br />
+            <img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;{coords_other} <img src="tpl/stdstyle/icoords_other}mages/misc/linkicon.png" alt="link"><br />
             <img src="tpl/stdstyle/images/free_icons/world.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{location}}:<b><span style="color: rgb(88,144,168)"> {kraj} {dziubek1} {woj} {dziubek2} {miasto}</span></b><br />
             {distance_cache}
             <img src="tpl/stdstyle/images/free_icons/box.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{cache_type}}: <b>{cachetype}</b><br />
