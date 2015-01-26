@@ -1,7 +1,6 @@
 <?php
 
 use lib\Objects\GeoCache\GeoCache;
-
 /* * *************************************************************************
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -47,13 +46,14 @@ if ($error == false) {
     require($stylepath . '/viewlogs.inc.php');
     require($stylepath . '/smilies.inc.php');
 
-	/* @var $dbc \dataBase */
-	$dbc = \lib\Database\DataBaseSingleton::Instance();
     $cache_id = 0;
     if (isset($_REQUEST['cacheid'])) {
         $cache_id = (int) $_REQUEST['cacheid'];
     } else if (isset($_REQUEST['uuid'])) {
         $uuid = $_REQUEST['uuid'];
+        if (!isset($dbc)) {
+            $dbc = new dataBase();
+        };
         $thatquery = "SELECT `cache_id` FROM `caches` WHERE uuid=:v1 LIMIT 1";
         $params['v1']['value'] = (string) $uuid;
         $params['v1']['data_type'] = 'string';
@@ -73,6 +73,10 @@ if ($error == false) {
             $sql .= 'oc';
 
         $sql .= '=\'' . sql_escape($wp) . '\' LIMIT 1';
+
+        if (!isset($dbc)) {
+            $dbc = new dataBase();
+        };
         $dbc->simpleQuery($sql);
         if ($r = $dbc->dbResultFetch()) {
             $cache_id = $r['cache_id'];
@@ -83,7 +87,7 @@ if ($error == false) {
         $disable_spoiler_view = true; //hide any kind of spoiler if usr not logged in
     } else {
         $disable_spoiler_view = false;
-    }
+    };
     if ($usr == false) {
         tpl_set_var('hidesearchdownloadsection_start', '<!--');
         tpl_set_var('hidesearchdownloadsection_end', '-->');
@@ -102,6 +106,9 @@ if ($error == false) {
             $lang_db = $lang;
         else
             $lang_db = "en";
+        if (!isset($dbc)) {
+            $dbc = new dataBase();
+        };
         $thatquery = "SELECT `caches`.`cache_id` `cache_id`,
                               `caches`.`user_id` `user_id`,
                               `caches`.`status` `status`,
@@ -165,11 +172,13 @@ if ($error == false) {
             $cache_id = 0;
         } else {
             $cache_record = $dbc->dbResultFetch();
-			$geocache = new GeoCache(['cacheId'=>$cache_id]);
         }
 
         // detailed cache access logging
         if (@$enable_cache_access_logs && $cache_id > 0) {
+            if (!isset($dbc)) {
+                $dbc = new dataBase();
+            }
             $user_id = $usr !== false ? $usr['userid'] : null;
             $access_log = @$_SESSION['CACHE_ACCESS_LOG_VC_' . $user_id];
             if ($access_log === null) {
@@ -209,6 +218,12 @@ if ($error == false) {
             $orig_cache_lon = $cache_record['longitude'];
             $orig_cache_lat = $cache_record['latitude'];
             $cache_modifiable = true;
+
+            if (!isset($dbc)) {
+                $dbc = new dataBase();
+            };
+
+
             $thatquery = "SELECT `cache_mod_cords`.`id` AS `mod_cords_id`,
                     `cache_mod_cords`.`longitude` AS `mod_lon`, `cache_mod_cords`.`latitude` AS `mod_lat`
                     FROM `cache_mod_cords` INNER JOIN `caches` ON (`caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND
@@ -220,8 +235,15 @@ if ($error == false) {
             $params['v2']['data_type'] = 'integer';
             $dbc->paramQuery($thatquery, $params);
             unset($params); //clear to avoid overlaping on next paramQuery (if any))
+            /* $rs = sql("SELECT `cache_mod_cords`.`id` AS `mod_cords_id`,
+              `cache_mod_cords`.`longitude` AS `mod_lon`, `cache_mod_cords`.`latitude` AS `mod_lat`
+              FROM `cache_mod_cords` INNER JOIN `caches` ON (`caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND
+              `cache_mod_cords`.`user_id` = &1)
+              WHERE `caches`.`cache_id`='&2'", $usr['userid'], $cache_id);
+             */
             $cache_mod_coords = $dbc->dbResultFetch();
             if ($cache_mod_coords != 0) {
+
                 if ($mod_coord_delete_mode == false) {
                     $orig_coord_info_lon = htmlspecialchars(help_lonToDegreeStr($orig_cache_lon), ENT_COMPAT, 'UTF-8');
                     $orig_coord_info_lat = htmlspecialchars(help_latToDegreeStr($orig_cache_lat), ENT_COMPAT, 'UTF-8');
@@ -229,6 +251,7 @@ if ($error == false) {
                     $cache_record['latitude'] = $cache_mod_coords['mod_lat'];
                 };
             }
+            //mysql_free_result($rs);
             // insert/edit modified coordinates
             if (isset($_POST['modCoords'])) {
                 $coords_lat_h = $_POST['coordmod_lat_degree'];
@@ -287,6 +310,10 @@ if ($error == false) {
                     if ($_POST['coordmod_lonEW'] == 'W')
                         $cache_mod_lon = -$cache_mod_lon;
 
+                    if (!isset($dbc)) {
+                        $dbc = new dataBase();
+                    };
+
                     if ($cache_mod_coords['mod_cords_id'] != null) {  // user modified caches cords earlier
                         $thatquery = "UPDATE `cache_mod_cords` SET `date` = NOW(), `longitude` = :v1, `latitude` = :v2
                                 WHERE `id` = :v3";
@@ -297,6 +324,9 @@ if ($error == false) {
                         $params['v3']['value'] = (integer) $cache_mod_coords['mod_cords_id'];
                         $params['v3']['data_type'] = 'integer';
 
+                        /* sql("UPDATE `cache_mod_cords` SET `date` = NOW(), `longitude` = &1, `latitude` = &2
+                          WHERE `id` = &3", $cache_mod_lon, $cache_mod_lat, $cache_mod_coords['mod_cords_id']);
+                         */
                     } else { // first edit
                         $thatquery = "INSERT INTO `cache_mod_cords` (`cache_id`, `user_id`, `date`, `longitude`, `latitude`) values(:v1, :v2, now(), :v3, :v4)";
                         $params['v1']['value'] = (integer) $cache_id;
@@ -307,9 +337,13 @@ if ($error == false) {
                         $params['v3']['data_type'] = 'string';
                         $params['v4']['value'] = (float) $cache_mod_lat;
                         $params['v4']['data_type'] = 'string';
+
+
+                        /* sql("INSERT INTO `cache_mod_cords` (`cache_id`, `user_id`, `date`, `longitude`, `latitude`) values(&1, &2, now(), &3, &4)",
+                          $cache_id, $usr['userid'], $cache_mod_lon, $cache_mod_lat); */
                     }
                     $dbc->paramQuery($thatquery, $params);
-                    $dbc->reset();
+                    unset($dbc);
                     unset($params);
 
                     $orig_coord_info_lon = htmlspecialchars(help_lonToDegreeStr($orig_cache_lon), ENT_COMPAT, 'UTF-8');
@@ -324,16 +358,20 @@ if ($error == false) {
                 $thatquery = "DELETE FROM `cache_mod_cords` WHERE `id` = :v1";
                 $params['v1']['value'] = (integer) $cache_mod_coords['mod_cords_id'];
                 $params['v1']['data_type'] = 'integer';
-                $dbc = new dataBase();
+                if (!isset($dbc)) {
+                    $dbc = new dataBase();
+                }
                 $dbc->paramQuery($thatquery, $params);
                 unset($params);
+                //sql("DELETE FROM `cache_mod_cords` WHERE `id` = &1", $cache_mod_coords['mod_cords_id']);
             }
         } else {
             $cache_mod_coords = false;
-        }
-        if ($coords_correct) {
+        };
+        unset($dbc);
+        if ($coords_correct)
             tpl_set_var('coords_message', "");
-		}
+
 
         if ($orig_coord_info_lon !== '' && (!$mod_coord_delete_mode)) {
             $orig_coord_info_full = tr('orig_coord_modified_info') . '&#10;' . $orig_coord_info_lat . '&#10;' . $orig_coord_info_lon;
@@ -345,14 +383,14 @@ if ($error == false) {
             } else {
                 tpl_set_var('S_selected', 'selected="selected"');
                 tpl_set_var('N_selected', '');
-            }
+            };
             if ($cache_mod_lon >= 0) {
                 tpl_set_var('E_selected', 'selected="selected"');
                 tpl_set_var('W_selected', '');
             } else {
                 tpl_set_var('W_selected', 'selected="selected"');
                 tpl_set_var('E_selected', '');
-            }
+            };
             tpl_set_var('mod_suffix', '[F]');
         } else {
             tpl_set_var('mod_cord_info', '');
@@ -361,7 +399,9 @@ if ($error == false) {
             tpl_set_var('E_selected', 'selected="selected"');
             tpl_set_var('W_selected', '');
             tpl_set_var('mod_suffix', '');
-        }
+        };
+
+
 
         if ($usr == false || !isset($cache_modifiable)) {
             tpl_set_var('coordsmod_start', '<!--');
@@ -390,6 +430,16 @@ if ($error == false) {
 
         // coordnates modificator -END
         //get last last_modified
+        if (!isset($dbc)) {
+            $dbc = new dataBase();
+        };
+
+        /* $rs = sql("SELECT MAX(`last_modified`) `last_modified` FROM
+          (SELECT `last_modified` FROM `caches` WHERE `cache_id` ='&1'
+          UNION
+          SELECT `last_modified` FROM `cache_desc` WHERE `cache_id` ='&1') `tmp_result`",
+          $cache_id);
+         */
         $thatquery = "SELECT MAX(`last_modified`) `last_modified` FROM
                          (SELECT `last_modified` FROM `caches` WHERE `cache_id` = :v1
                             UNION
@@ -398,13 +448,16 @@ if ($error == false) {
         $params['v1']['data_type'] = 'integer';
         $dbc->paramQuery($thatquery, $params);
         unset($params); //clear to avoid overlaping on next paramQuery (if any))
+        //if (mysql_num_rows($rs) == 0)
         if ($dbc->rowCount() == 0) {
             $cache_id = 0;
         } else {
+            //$lm = sql_fetch_array($rs);
             $lm = $dbc->dbResultFetch();
             $last_modified = strtotime($lm['last_modified']);
             tpl_set_var('last_modified', fixPlMonth(htmlspecialchars(strftime("%d %B %Y", $last_modified), ENT_COMPAT, 'UTF-8')));
         }
+        //mysql_free_result($rs);
         unset($ls);
     }
     if (isset($_REQUEST['print_list']) && $_REQUEST['print_list'] == 'y') {
@@ -455,11 +508,15 @@ if ($error == false) {
             $cache_wp = $cache_record['wp_ge'];
 
         // check if there is geokret in this cache
+        if (!isset($dbc)) {
+            $dbc = new dataBase();
+        };
         $thatquery = "SELECT gk_item.id, name, distancetravelled as distance FROM gk_item INNER JOIN gk_item_waypoint ON (gk_item.id = gk_item_waypoint.id) WHERE gk_item_waypoint.wp = :v1 AND stateid<>1 AND stateid<>4 AND stateid <>5 AND typeid<>2 AND missing=0";
         $params['v1']['value'] = (string) $cache_wp;
         $params['v1']['data_type'] = 'string';
         $dbc->paramQuery($thatquery, $params);
         unset($params); //clear to avoid overlaping on next paramQuery (if any))
+        //if (mysql_num_rows($geokret_query) == 0)
         $geokrety_all_count = $dbc->rowCount();
         if ($geokrety_all_count == 0) {
             // no geokrets in this cache
@@ -777,6 +834,7 @@ if ($error == false) {
         }
         tpl_set_var('cacheid', $cache_id);
         tpl_set_var('cachetype', htmlspecialchars(cache_type_from_id($cache_record['type'], $lang), ENT_COMPAT, 'UTF-8'));
+//          tpl_set_var('icon_cache', htmlspecialchars("$stylepath/images/".$cache_record['icon_large'], ENT_COMPAT, 'UTF-8'));
         $iconname = str_replace("mystery", "quiz", $iconname);
         tpl_set_var('icon_cache', htmlspecialchars("$stylepath/images/$iconname", ENT_COMPAT, 'UTF-8'));
         tpl_set_var('cachesize', htmlspecialchars(cache_size_from_id($cache_record['size'], $lang), ENT_COMPAT, 'UTF-8'));
@@ -792,7 +850,6 @@ if ($error == false) {
         tpl_set_var('list_of_rating_begin', '');
         tpl_set_var('list_of_rating_end', '');
         tpl_set_var('body_scripts', '');
-		tpl_set_var('altitude', $geocache->getAltitude()->getAltitude());
         $rscr = sql("SELECT user.username username FROM `cache_rating` INNER JOIN user ON (cache_rating.user_id = user.user_id) WHERE cache_id=&1 ORDER BY username", $cache_id);
         if ($rscr == false) {
             tpl_set_var('list_of_rating_begin', '');
@@ -1002,9 +1059,12 @@ if ($error == false) {
             tpl_set_var('EditCacheNoteS', '<!--');
         }
         // end personal cache note
+
+
         tpl_set_var('watcher', $cache_record['watcher'] + 0);
         tpl_set_var('ignorer_count', $cache_record['ignorer_count'] + 0);
         tpl_set_var('votes_count', $cache_record['votes_count'] + 0);
+
         tpl_set_var('note_icon', $note_icon);
         tpl_set_var('notes_icon', $notes_icon);
         tpl_set_var('vote_icon', $vote_icon);
@@ -1017,6 +1077,7 @@ if ($error == false) {
         if ($cache_record['type'] == GeoCache::TYPE_EVENT) {
             tpl_set_var('found_icon', $exist_icon);
             tpl_set_var('notfound_icon', $wattend_icon);
+
             $event_attendance_list = mb_ereg_replace('{id}', urlencode($cache_id), $event_attendance_list);
             tpl_set_var('event_attendance_list', $event_attendance_list);
             tpl_set_var('found_text', $event_attended_text);
@@ -1024,6 +1085,7 @@ if ($error == false) {
         } else {
             tpl_set_var('found_icon', $found_icon);
             tpl_set_var('notfound_icon', $notfound_icon);
+
             tpl_set_var('event_attendance_list', '');
             tpl_set_var('found_text', $cache_found_text);
             tpl_set_var('notfound_text', $cache_notfound_text);
@@ -1043,7 +1105,8 @@ if ($error == false) {
                 }
                 $showhidedel_link = str_replace('{thispage}', 'viewcache.php', $showhidedel_link); //$show_del_link is defined in viecache.inc.php - for both viewlogs and viewcashes .php
             }
-        }
+        };
+
 
         tpl_set_var('showhidedel_link', mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $showhidedel_link));
         tpl_set_var('new_log_entry_link', mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $new_log_entry_link));
@@ -1056,6 +1119,8 @@ if ($error == false) {
             $watcher_record = sql_fetch_array($rs);
             tpl_set_var('visits', $watcher_record['count']);
         }
+//START: edit by FelixP - 2013'10
+        //$number_logs=sqlValue("SELECT count(*) number FROM `cache_logs` WHERE `deleted`=0 and `cache_id`='" . sql_escape($cache_record['cache_id']) . "'", 0);
         isset($_SESSION['showdel']) && $_SESSION['showdel'] == 'y' ? $HideDeleted = false : $HideDeleted = true;
         //now include also those deleted due to displaying this type of record for all unless hide_deletions is on
         if (($usr['admin'] == 1) || ($HideDeleted == false)) {
@@ -1066,13 +1131,15 @@ if ($error == false) {
 
         $number_logs_sql = "SELECT count(*) number FROM `cache_logs` WHERE " . $sql_hide_del . " `cache_id`='" . sql_escape($cache_record['cache_id']) . "'";
         $number_logs = sqlValue($number_logs_sql, 0);
+////END: edit by FelixP - 2013'10
+//          if (($cache_record['founds'] + $cache_record['notfounds'] + $cache_record['notes']) > $logs_to_display)
         if ($number_logs > $logs_to_display) {
             tpl_set_var('viewlogs_last', mb_ereg_replace('{cacheid_urlencode}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $viewlogs_last));
             tpl_set_var('viewlogs', mb_ereg_replace('{cacheid_urlencode}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $viewlogs));
             tpl_set_var('viewlogs_start', "");
             tpl_set_var('viewlogs_end', "");
             $viewlogs_from_sql = "SELECT id FROM cache_logs WHERE " . $sql_hide_del . " cache_id=:1 ORDER BY date DESC, id LIMIT " . sql_escape($logs_to_display) . ",1 "; // sorry, bound variables does not work for LIMIT
-            $dbc->reset();
+            $dbc = new dataBase();
             $viewlogs_from = $dbc->multiVariableQueryValue($viewlogs_from_sql, -1, $cache_id);
             tpl_set_var('viewlogs_from', $viewlogs_from);
         } else {
@@ -1245,7 +1312,9 @@ if ($error == false) {
 
 
         // show mp3 files for PodCache
-        if ($cache_record['mp3count'] > 0) {
+        //
+
+            if ($cache_record['mp3count'] > 0) {
 
             if (isset($_REQUEST['mp3_files']) && $_REQUEST['mp3_files'] == 'no')
                 tpl_set_var('mp3_files', "");
@@ -1263,11 +1332,15 @@ if ($error == false) {
 
 
         // show pictures
-        if ($cache_record['picturescount'] == 0 || (isset($_REQUEST['print']) && $_REQUEST['pictures'] == 'no')) {
+        //
+
+            if ($cache_record['picturescount'] == 0 || (isset($_REQUEST['print']) && $_REQUEST['pictures'] == 'no')) {
             tpl_set_var('pictures', '<br />');
             tpl_set_var('hidepictures_start', '<!--');
             tpl_set_var('hidepictures_end', '-->');
         } else {
+            //if(isset($_REQUEST['print']) && $_REQUEST['print'] == 'y')
+            //tpl_set_var('pictures', viewcache_getpicturestable($cache_id, true, true, false, true, $cache_record['picturescount']));
             if (isset($_REQUEST['spoiler_only']) && $_REQUEST['spoiler_only'] == 1)
                 $spoiler_only = true;
             else
@@ -1414,6 +1487,7 @@ if ($error == false) {
         } elseif ($usr == false && $hide_coords) { // hind avaiable but user not logged on
             tpl_set_var('hints', '<span class="notice" style="width:500px;height:44px"  >' . tr('vc_hint_for_logged_only') . '</span> ');
             tpl_set_var('cryptedhints', '');
+
             tpl_set_var("decrypt_link_start", '');
             tpl_set_var("decrypt_link_end", '');
             tpl_set_var("decrypt_table_start", '');
@@ -1468,13 +1542,25 @@ if ($error == false) {
             ;
         }
 
+
+
+//START: edit by FelixP - 2013'10
+        // prepare the last n logs - show logs marked as deleted if admin
+        //
+            //$show_deleted_logs = "";
+        //$show_deleted_logs2 = " AND `cache_logs`.`deleted` = 0 ";
+        //if( $usr['admin'] )
+        //{
         $show_deleted_logs = "`cache_logs`.`deleted` `deleted`,";
         $show_deleted_logs2 = "";
+        //}
         If ($HideDeleted && !$usr['admin']) {
             $show_deleted_logs = "";
             $show_deleted_logs2 = " AND `cache_logs`.`deleted` = 0 ";
-        }
-
+        };
+        if (!isset($dbc)) {
+            $dbc = new dataBase();
+        };
         $thatquery = "SELECT `cache_logs`.`user_id` `userid`,
                                                 " . $show_deleted_logs . "
                               `cache_logs`.`id` `logid`,
@@ -1515,17 +1601,41 @@ if ($error == false) {
         $params['v2']['value'] = (integer) $logs_to_display + 0;
         $params['v2']['data_type'] = 'integer';
 
+
         $dbc->paramQuery($thatquery, $params);
         unset($params); //clear to avoid overlaping on next paramQuery (if any))
 
+
         $logs = '';
+
         $thisdateformat = "%d %B %Y";
         $thisdatetimeformat = "%d %B %Y %H:%M";
+//START: same code ->viewlogs.php / viewcache.php
         $edit_count_date_from = date_create('2005-01-01 00:00');
         $logs_count = $dbc->rowCount();
+        //$logs_count = mysql_num_rows($rs);
+
         $all_rec = $dbc->dbResultFetchAll();
+        //var_dump($all_rec);
+        //unset($dbc); //kill $dbc - possible long execution time due to loop - to be set conditional ($log_count>1)?
+        //$dbc = new dataBase();
+
+        /*
+          $likequery= "SELECT lr.log_id log_id, lr.user_id user_id, u.username username
+          FROM cache_logs cl
+          JOIN log_rating lr on lr.log_id = cl.id
+          JOIN user u on lr.user_id = u.user_id
+          WHERE cl.cache_id = :1
+          ORDER BY lr.log_id";
+
+          $dbc->multiVariableQuery($likequery, $cache_id );
+          $nLikeCount = $dbc->rowCount();
+          $aLikeAllRec = $dbc->dbResultFetchAll();
+         */
 
         for ($i = 0; $i < $logs_count; $i++) {
+            //$record = sql_fetch_array($rs);
+            //$record = $dbc->dbResultFetch();
             $record = $all_rec[$i];
             $record['text_listing'] = ucfirst(tr('logType' . $record['type'])); //add new attrib 'text_listing based on translation (instead of query as before)'
             $show_deleted = "";
@@ -1535,6 +1645,7 @@ if ($error == false) {
                     $show_deleted = "show_deleted";
                     $processed_text = $record['text'];
                 } else {
+                    // Boguś z Polska, 2014-11-15
                     // for 'Needs maintenance', 'Ready to search' and 'Temporarly unavailable' log types
                     if ($record['type'] == 5 || $record['type'] == 10 || $record['type'] == 11) {
                         // hide if user is not logged in
@@ -1562,10 +1673,10 @@ if ($error == false) {
                         if ($delByCOG == false) {
                             $comm_replace.=" " . tr('vl_by_user') . " " . $record['del_by_username'];
                         }
-                    }
+                    };
                     if (isset($record['last_deleted'])) {
                         $comm_replace.=" " . tr('vl_on_date') . " " . fixPlMonth(htmlspecialchars(strftime($thisdateformat, strtotime($record['last_deleted'])), ENT_COMPAT, 'UTF-8'));
-                    }
+                    };
                     $comm_replace.=".";
                     $processed_text = $comm_replace;
                 }
@@ -1573,8 +1684,55 @@ if ($error == false) {
                 $processed_text = $record['text'];
             }
 
+
             // add edit footer if record has been modified
             $record_date_create = date_create($record['date_created']);
+
+
+            //////////////// I Like IT
+            /*
+              $sLikeTxt = "";
+              $sLikeUser = "";
+              $nrLike = 0;
+
+              for( $j = 0; $j < $nLikeCount; $j++ )
+              {
+              $aLikeOneRec = $aLikeAllRec[ $j ];
+              if ( $aLikeOneRec[ "log_id"] <> $record[ "logid"]  )
+              {
+              if ( $nrLike == 0 )
+              continue;
+              else
+              break;
+              }
+
+              $nrLike++;
+              if ( $sLikeUser <> "" )
+              $sLikeUser .= ", ";
+
+              $sLikeUser .= '<a href="viewprofile.php?userid='.$aLikeOneRec["user_id"].'">'.$aLikeOneRec[ "username" ].'</a>';
+              }
+
+
+              if ( $nrLike <> 0 )
+              $sLikeTxt .= "<div style='background-color:#DBE6F1; font-size:10px; border:1px solid #CCCCCC; -moz-border-radius: 5px; -webkit-border-radius: 5px;-khtml-border-radius: 5px;border-radius: 5px;' >";
+
+
+              $sLikeIconTxt = '<a href="javascript:ToChangeLogRating('.$record[ "logid"].',\'viewcache.php\','.$cache_id.')"><img src="tpl/stdstyle/images/blue/recommendation.png" alt="user activity" width="20" height="20" border="0" title="'.tr("like_comment").'"/></a>';
+
+
+              if ( $nrLike <> 0 )
+              $sLikeTxt .= '&nbsp&nbsp'.$sLikeIconTxt.'&nbsp&nbsp'.'<b>'.$nrLike.'</b> '.tr("like_it").' '.$sLikeUser;
+
+              if ( $nrLike <> 0 )
+              $sLikeTxt.= "</div>";
+
+
+              $processed_text .= $sLikeTxt;
+
+
+              ///////////////////////////
+             */
 
             if ($record['edit_count'] > 0) {
                 //check if editted at all
@@ -1605,6 +1763,8 @@ if ($error == false) {
             }
 
             $tmplog = read_file($stylepath . '/viewcache_log.tpl.php');
+//END: same code ->viewlogs.php / viewcache.php
+//END: edit by FelixP - 2013'10
             $tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
             $tmplog_date = fixPlMonth(htmlspecialchars(strftime("%d %B %Y", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'));
             $dateTimeTmpArray = explode(' ', $record['date']);
@@ -1626,18 +1786,19 @@ if ($error == false) {
 
             $tmplog = mb_ereg_replace('{username_aktywnosc}', $tmplog_username_aktywnosc, $tmplog);
 
-            // mobile caches
+            // keszyny mobilne by Łza
             if (($cache_record['type'] == GeoCache::TYPE_MOVING) && ($record['type'] == 4)) {
+
                 $dane_mobilniaka = sql_fetch_array(sql("SELECT `user_id`, `longitude`, `latitude`, `km` FROM `cache_moved` WHERE `log_id` = '&1'", $record['logid']));
+
                 if ($dane_mobilniaka['latitude'] != 0) {
                     $tmplog_kordy_mobilnej = mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_latToDegreeStr($dane_mobilniaka['latitude']), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($dane_mobilniaka['longitude']), ENT_COMPAT, 'UTF-8'));
                     $tmplog = mb_ereg_replace('{kordy_mobilniaka}', $dane_mobilniaka['km'] . ' km [<img src="tpl/stdstyle/images/blue/szczalka_mobile.png" title="' . tr('viewlog_kordy') . '" />' . $tmplog_kordy_mobilnej . ']', $tmplog);
-                } else {
+                } else
                     $tmplog = mb_ereg_replace('{kordy_mobilniaka}', ' ', $tmplog);
-				}
-            } else {
+            } else
                 $tmplog = mb_ereg_replace('{kordy_mobilniaka}', ' ', $tmplog);
-			}
+
             if ($record['text_html'] == 0) {
                 $processed_text = htmlspecialchars($processed_text, ENT_COMPAT, 'UTF-8');
                 $processed_text = help_addHyperlinkToURL($processed_text);
@@ -1654,13 +1815,19 @@ if ($error == false) {
                 $thatquery = "SELECT `url`, `title`, `user_id`, `uuid`, `spoiler` FROM `pictures` WHERE `object_id`= :v1 AND `object_type`=1";
                 $params['v1']['value'] = (integer) $record['logid'];
                 $params['v1']['data_type'] = 'integer';
+
+                if (!isset($dbc)) {
+                    $dbc = new dataBase();
+                };
                 $dbc->paramQuery($thatquery, $params);
                 unset($params);  //clear to avoid overlaping on next paramQuery (if any))
+
                 $rspictures_count = $dbc->rowCount();
                 $rspictures_all = $dbc->dbResultFetchAll();
                 unset($dbc);
 
                 for ($j = 0; $j < $rspictures_count; $j++) {
+                    //$pic_record = sql_fetch_array($rspictures);
                     $pic_record = $rspictures_all[$j];
                     if (!isset($showspoiler))
                         $showspoiler = '';
@@ -1673,7 +1840,7 @@ if ($error == false) {
                         $thisline = mb_ereg_replace('{log_picture_onclick}', "enlarge(this)", $thisline);
                         $thisline = mb_ereg_replace('{link}', $pic_record['url'], $thisline);
                         $thisline = mb_ereg_replace('{longdesc}', str_replace("images/uploads", "upload", $pic_record['url']), $thisline);
-                    }
+                    };
 
                     $thisline = mb_ereg_replace('{imgsrc}', 'thumbs2.php?' . $showspoiler . 'uuid=' . urlencode($pic_record['uuid']), $thisline);
                     $thisline = mb_ereg_replace('{title}', htmlspecialchars($pic_record['title'], ENT_COMPAT, 'UTF-8'), $thisline);
@@ -1684,16 +1851,16 @@ if ($error == false) {
 
                     $logpicturelines .= $thisline;
                 }
+                //mysql_free_result($rspictures);
 
                 $logpicturelines = mb_ereg_replace('{lines}', $logpicturelines, $logpictures);
                 $tmplog = mb_ereg_replace('{logpictures}', $logpicturelines, $tmplog);
-            } else {
+            } else
                 $tmplog = mb_ereg_replace('{logpictures}', '', $tmplog);
-			}
 
-            if (!isset($record['deleted'])) {
+            // logfunktionen erstellen
+            if (!isset($record['deleted']))
                 $record['deleted'] = 0;
-			}
             if ($record['deleted'] != 1 && ((!isset($_REQUEST['print']) || $_REQUEST['print'] != 'y') && (($usr['userid'] == $record['userid']) || ($usr['userid'] == $cache_record['user_id']) || $usr['admin']))) {
                 $tmpFunctions = $functions_start;
 
@@ -1703,17 +1870,24 @@ if ($error == false) {
                 if ($record['type'] != 12 && ($usr['userid'] == $cache_record['user_id'] || $usr['admin'] == false)) {
                     $tmpFunctions .= $remove_log . $functions_middle;
                 }
+// START: Edit by FelixP 2013.11.05
+                //if ($usr['admin']){
                 elseif ($usr['admin']) {
+// END: Edit by FelixP 2013.11.05
                     $tmpFunctions .= $remove_log . $functions_middle;
                 }
 
-                if ($record['deleted'] != 1 && $usr['userid'] == $record['userid']){
+
+                if ($record['deleted'] != 1 && $usr['userid'] == $record['userid'])
                     $tmpFunctions = $tmpFunctions . $functions_middle . $upload_picture;
-				}
+
                 $tmpFunctions .= $functions_end;
+
                 $tmpFunctions = mb_ereg_replace('{logid}', $record['logid'], $tmpFunctions);
+
                 $tmplog = mb_ereg_replace('{logfunctions}', $tmpFunctions, $tmplog);
-            } else {
+            }
+            else {
                 if ($usr['admin']) {
                     $tmpFunctions = $functions_start . $edit_log . $functions_middle . $revertLog . $functions_middle . $functions_end;
                     $tmpFunctions = mb_ereg_replace('{logid}', $record['logid'], $tmpFunctions);
@@ -1722,6 +1896,7 @@ if ($error == false) {
                     $tmplog = mb_ereg_replace('{logfunctions}', '', $tmplog);
                 }
             }
+            //var_dump($record);
             $tmplog = mb_ereg_replace('{show_deleted}', $show_deleted, $tmplog);
             $tmplog = mb_ereg_replace('{username}', $tmplog_username, $tmplog);
             $tmplog = mb_ereg_replace('{userid}', $record['userid'], $tmplog);
@@ -1731,11 +1906,11 @@ if ($error == false) {
             $tmplog = mb_ereg_replace('{logimage}', '<a href="viewlogs.php?logid=' . $record['logid'] . '">' . icon_log_type($record['icon_small'], $record['logid']) . '</a>', $tmplog);
             $tmplog = mb_ereg_replace('{log_id}', $record['logid'], $tmplog);
 
-            if ($record['recommended'] == 1 && $record['type'] == 1){
+            if ($record['recommended'] == 1 && $record['type'] == 1)
                 $tmplog = mb_ereg_replace('{ratingimage}', $rating_picture, $tmplog);
-            } else {
+            else
                 $tmplog = mb_ereg_replace('{ratingimage}', '', $tmplog);
-            }
+
             $logs .= "$tmplog\n";
         }
 
@@ -1777,6 +1952,8 @@ if ($error == false) {
             $ignore_label = tr('ignore_not');
             $ignore_icon = 'images/actions/ignore';
         }
+
+
         mysql_free_result($rs);
 
 
@@ -1905,6 +2082,12 @@ if ($error == false) {
         $has_password = isPasswordRequired($cache_id);
 
         // cache-attributes
+        // TODO: initial check if table cache_attrib is able to handle current language
+        /*
+          $db = new dataBase(TRUE);
+          $initialCheck = $db->multiVariableQuery('SELECT COUNT( * ) FROM cache_attrib WHERE language=:1 ', PL);
+          var_dump($initialCheck); exit;
+         */
         $rs = sql("SELECT `cache_attrib`.`text_long`,
                               `cache_attrib`.`icon_large`
                         FROM  `cache_attrib`, `caches_attributes`
@@ -1922,7 +2105,7 @@ if ($error == false) {
             }
 
             if ($has_password)
-                tpl_set_var('password_req', '<img src="' . $config['search-attr-icons']['password'][0] .'" title="Potrzebne haslo do logu / Password needed to log entry" alt="Potrzebne hasło"/>');
+                tpl_set_var('password_req', '<img src="' . $config['search-attr-icons']['password'][0] .'" title="' . tr('LogPassword') .'" alt="Potrzebne hasło"/>');
             else
                 tpl_set_var('password_req', '');
             tpl_set_var('cache_attributes', $cache_attributes);
@@ -2131,3 +2314,7 @@ if (isset($_REQUEST["posY"])) {
     echo "window.scroll(0," . $_REQUEST["posY"] . ");";
     echo "</script>";
 }
+?>
+
+
+
