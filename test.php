@@ -13,6 +13,10 @@ if(isset($_GET['medal']) && $_GET['medal'] == 1){
 	uzupełnianie_medali();
 }
 
+if(isset($_GET['php']) && $_GET['php'] == 1){
+  phpinfo();
+}
+
 function uzupełnianie_medali(){
     ini_set('max_execution_time', 120);
     $medals = new \lib\Controllers\MedalsController();
