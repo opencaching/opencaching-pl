@@ -577,7 +577,9 @@ class dataBase
     public function closeCursor()
     {
         try {
-            $this->dbData->closeCursor();
+            if(is_object($this->dbData)){ /* hot fix TODO consider why cause fatals */
+                $this->dbData->closeCursor();
+            }
         } catch (Exception $e) {
             // ignore
         }
