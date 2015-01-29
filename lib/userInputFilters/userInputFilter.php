@@ -17,8 +17,16 @@ class userInputFilter
     static private function createConfig()
     {
         global $debug_page;
+        global $dynbasepath;
 
         $config = HTMLPurifier_Config::createDefault();
+
+        // Cache Serializer Path - keep it in area with dynamic files, since the web server needs write permission there
+        $cacheSerializerPath = $dynbasepath . 'lib/htmlpurifier';
+        if (!file_exists($cacheSerializerPath)) {
+            mkdir($cacheSerializerPath, 0777, true);
+        }
+        $config->set('Cache.SerializerPath', $cacheSerializerPath);
 
         // coś jest z CSSem spierdolone, i tyle...?
         $config->def->add('CSS.DefinitionID', null, 'string', true);
