@@ -324,7 +324,6 @@ if ($error == false) {
                 $thatquery = "DELETE FROM `cache_mod_cords` WHERE `id` = :v1";
                 $params['v1']['value'] = (integer) $cache_mod_coords['mod_cords_id'];
                 $params['v1']['data_type'] = 'integer';
-                $dbc = new dataBase();
                 $dbc->paramQuery($thatquery, $params);
                 unset($params);
             }
@@ -1658,7 +1657,6 @@ if ($error == false) {
                 unset($params);  //clear to avoid overlaping on next paramQuery (if any))
                 $rspictures_count = $dbc->rowCount();
                 $rspictures_all = $dbc->dbResultFetchAll();
-                unset($dbc);
 
                 for ($j = 0; $j < $rspictures_count; $j++) {
                     $pic_record = $rspictures_all[$j];
@@ -2116,7 +2114,7 @@ if ($powerTrailModuleSwitchOn && $cache_id != null) {
     $ptHtml = '';
     $ptDisplay = 'none';
 }
-unset($dbc);
+
 tpl_set_var('ptName', $ptHtml);
 tpl_set_var('ptSectionDisplay', $ptDisplay);
 
