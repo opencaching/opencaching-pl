@@ -504,4 +504,12 @@ $mapsConfig = array(
 );
 $config['mapsConfig'] = $mapsConfig;
 
+// map of garmin keys, 
+// key: domain name, value: garmin key value
+// the map may contain only one entry
+$config['garmin-key'] = array(
+        'http://opencaching.pl' => '0fe1300131fcc0e417bb04de798c5acf',
+        'http://www.opencaching.nl' => 'b01f02cba1c000fe034471d2b08044c6'
+);
+
 ?>
