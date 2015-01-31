@@ -75,6 +75,10 @@ $tplname = 'garmin';
 require_once('./lib/common.inc.php');
 require($stylepath . '/garmin.inc.php');
 
+if ($usr == false && $hide_coords) {
+    tpl_errorMsg($tplname, tr('login_message_09'));
+    exit;
+}
 
 $lat = isset($_REQUEST['lat']) ? $_REQUEST['lat'] : '';
 $long = isset($_REQUEST['long']) ? $_REQUEST['long'] : '';
