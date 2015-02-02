@@ -2534,7 +2534,8 @@ CachesNotMatchCryteria Brak skrzynek spełniających warunki
 PageNr Numer strony
 Disable Wyłączone
 Enable Włączone
-LogPassword Potrzebne haslo do logu
+LogPassword Potrzebne haslo do logu!
 Flopp_map Mapa Floppa
 abovesealevel m.npm.
 cache_alt Wysokość
+Given_Recommendations Rekomendowane przez

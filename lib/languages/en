@@ -2544,7 +2544,8 @@ CachesNotMatchCryteria Any cache doesn't match criteria.
 PageNr Number of page
 Disable Disable
 Enable Enable
-LogPassword Password needed to log entry
+LogPassword Password needed to log entry!
 Flopp_map Flopp's map
 abovesealevel m. asl.
 cache_alt Altitude
+Given_Recommendations Recommendations given by 

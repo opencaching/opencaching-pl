@@ -297,7 +297,7 @@ profile_data Profil-Daten
 hidden_caches Hidden-Caches
 found_caches Gefunden Caches
 not_found_caches Nicht gründet
-show schauen
+show zeigen
 lock sperren
 unlock entsperren
 user_stats Benutzer Statistik
@@ -2363,7 +2363,8 @@ Stats_t7_06 Region
 admin_users_remove_logs Entferne alle Logs von diesem Benutzer
 admin_users_verify_all Überprüfe alle neuen Caches für diesen Benutzer
 admin_users_verify_none Überprüfe nicht alle neuen Caches für diesen Benutzer
-LogPassword Passwort benötigt um zu loggen
+LogPassword Passwort benötigt um zu loggen!
 Flopp_map Flopp's karte
 abovesealevel meter
 cache_alt Höhe
+Given_Recommendations Emfehlungen gegeben von

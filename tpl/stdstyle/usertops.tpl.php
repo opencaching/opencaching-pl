@@ -12,7 +12,7 @@
 ?>
 
 <div class="content2-pagetitle">
-    <img src="tpl/stdstyle/images/blue/recommendation.png" class="icon32" alt="Rekomendowane" title="Rekomendowane" align="middle" /> <b>Rekomendowane przez <a href="viewprofile.php?userid={userid}">{username}</a></b></div>
+    <img src="tpl/stdstyle/images/blue/recommendation.png" class="icon32" alt="Rekomendowane" title="Rekomendowane" align="middle" /> <b>{{Given_Recommendations}} <a href="viewprofile.php?userid={userid}">{username}</a></b></div>
 
 <div class="searchdiv">
     <table class="table">
