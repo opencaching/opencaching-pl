@@ -581,7 +581,7 @@ graph_created Grafieken van gemaakte caches
 graph_find Grafieken van gevonden caches
 there_is_no_caches_registered Er zijn nog geen caches gemaakt
 there_is_no_caches_found Er zijn nog geen caches gevonden
-with_password Cache with password
+with_password Cache met logwachtwoord
 user_account gebruikers account
 management_users Beheer de gebruiker
 titles Onderwerp
