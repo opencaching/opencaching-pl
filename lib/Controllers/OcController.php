@@ -44,13 +44,13 @@ class OcController
         $putenv = putenv("LANG=$locale");
         $setlocale = setlocale(LC_ALL, $locale);
 
-        d($locale, $putenv, $setlocale);
+//        d($locale, $putenv, $setlocale);
 
         bindtextdomain("medals", __DIR__.'/../languages');
         bind_textdomain_codeset('medals', 'UTF-8');
         textdomain("medals");
-        print gettext('level');
-        print '<BR>';
+//        print gettext('level');
+//        print '<BR>';
         /* end lang test*/
 
         $ocConfig = \lib\Objects\OcConfig\OcConfig::Instance();
@@ -65,7 +65,7 @@ class OcController
 
 
         $user = new \lib\Objects\User\User($this->request['userId']);
-        d($user, $user->getMedals());
+//        d($user, $user->getMedals());
          /* @var $medal \lib\Objects\Medals\Medal */
         foreach ($user->getMedals() as $medal) {
             $smartyMedals['medals'][] = array(
@@ -80,7 +80,7 @@ class OcController
 
         $smartyMedals['tr']['level'] = _('level');
         $smartyMedals['tr']['user']  = _('user');
-        !d($smartyMedals['tr']);
+//        !d($smartyMedals['tr']);
 
 
 
