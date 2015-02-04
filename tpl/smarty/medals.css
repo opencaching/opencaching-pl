@@ -5,13 +5,16 @@
     height: 220px
 }
 
-.medalWrapper {
-    overflow: hidden;
-    width: 800px;
+.headerDiv {
+    height: 300px;
+}
 
+.medalWrapper {
+    width: 800px;
 }
 .medal {
     width: 170px;
+    height: 200px;
     padding: 5px;
     float:left;
 }
@@ -34,4 +37,55 @@
     width: 120px;
     font-size: 12px;
     text-align: center;
+}
+
+a.tooltips {
+    position: relative;
+    display: inline;
+}
+a.tooltips span {
+    position: absolute;
+    width:160px;
+    color: #000000;
+    background: #D4FFC9;
+    border: 2px solid #6D6D6D;
+    height: 150px;
+    line-height: 68px;
+    text-align: center;
+    visibility: hidden;
+    border-radius: 11px;
+    box-shadow: 6px 5px 9px #68806A;
+}
+a.tooltips span:before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -12px;
+    width: 0; height: 0;
+    border-top: 12px solid #6D6D6D;
+    border-right: 12px solid transparent;
+    border-left: 12px solid transparent;
+}
+a.tooltips span:after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -8px;
+    width: 0; height: 0;
+    border-top: 8px solid #D4FFC9;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+}
+a:hover.tooltips span {
+    visibility: visible;
+    opacity: 0.7;
+    bottom: 150px;
+    left: 50%;
+    z-index: 999;
+}
+
+.tt {
+    opacity: 1;
 }
