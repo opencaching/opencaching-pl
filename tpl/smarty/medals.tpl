@@ -14,7 +14,7 @@
                     {$medal.name}
                 </div>
                 <div class="medalLevel">
-                    {$smartyMedals.tr.level}: {$medal.level}
+                    {$smartyMedals.tr.level}: {$medal.level} {$medal.levelName}
                 </div>
             </div>
         {/foreach}
