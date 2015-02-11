@@ -42,7 +42,7 @@ function call_okapi($usr, $waypoints, $lang, $file_base_name, $zip_part)
                 'alt_wpts' => 'true',
                 'recommendations' => 'desc:count',
                 'latest_logs' => 'true',
-                'lpc' => 'all',
+                'lpc' => 'all', // TODO: is this configurable - somehow, someway - user entered parameter?
                 'my_notes' => isset($usr) ? "desc:text" : "none",
                 'location_source' => 'alt_wpt:user-coords',
                 'location_change_prefix' => '(F)'));

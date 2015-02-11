@@ -662,7 +662,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 
                         // create log list
                         if($options['gpxLogLimit']) {
-                                $gpxLogLimit = 'LIMIT '.$options['gpxLogLimit'].' ';
+                                $gpxLogLimit = 'LIMIT '.(intval($options['gpxLogLimit'])).' '; 
                         } else {
                                 $gpxLogLimit = '';
                         }

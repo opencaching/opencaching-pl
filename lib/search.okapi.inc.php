@@ -23,7 +23,7 @@
   by Boguś z Polska
 
  * ************************************************************************** */
-setlocale(LC_TIME, 'pl_PL.UTF-8');
+setlocale(LC_TIME, 'pl_PL.UTF-8'); // TODO: why it's pl_PL
 global $content, $sqldebug, $usr, $hide_coords, $lang, $dbcSearch;
 
 set_time_limit(1800);
@@ -178,6 +178,7 @@ if ($usr || !$hide_coords) {
 
         $waypoints_tab = array();
         while ($r = $dbcSearch->dbResultFetch()) {
+            // TODO: zalogować dostęp do kesza - o ile nie jest to w okapi
             $waypoints_tab[] = $r['wp_oc'];
         }
         $waypoints = implode("|", $waypoints_tab);

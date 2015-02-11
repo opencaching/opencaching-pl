@@ -27,6 +27,7 @@ function call_okapi($usr, $waypoints, $lang, $file_base_name, $zip_part)
 {
     $okapi_params = array('cache_codes' => $waypoints, 'langpref' => $lang,
         'location_source' => 'alt_wpt:user-coords', 'location_change_prefix' => '(F)');
+    // TODO: limit log entries per geocache?
     if (isset($_GET['format']))
         $okapi_params['caches_format'] = $_GET['format'];
     $okapi_response = \okapi\Facade::service_call('services/caches/formatters/garmin', $usr['userid'], $okapi_params);
