@@ -17,8 +17,8 @@
                             {foreach $info as $cachetype}
                                 <img src="{$geocacheIcons[$cachetype].iconSet.1.iconSmall}">
                             {/foreach}
-                        {elseif $name = 'medalDescription'}
-                            <div class="medalDescription">{$info} </div>
+                        {else if $name == 'medalDescription'}
+                            <div class="medalDescription">{$info} aa </div>
                         {else}
                             <div class="currentLevelInfo">{$name}: {$info} </div>
                         {/if}

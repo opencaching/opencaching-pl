@@ -66,7 +66,7 @@ class OcController
 
         $user = new \lib\Objects\User\User($this->request['userId']);
 //        d($user, $user->getMedals());
-
+        /* @var $medal \lib\Objects\Medals\Medal */
         foreach ($user->getMedals() as $medal) {
             $medal->checkConditionsForUser($user);
             $smartyMedals['medals'][] = array(
@@ -88,7 +88,7 @@ class OcController
             'nextLevelRequirements' => _('Next level Requirements'),
             'currentLevelRequirements' => _('Level achievements'),
             'medalInfo' => _('Medal Profile'),
-            'cacheTypes' => _('Type of caches'),
+            'cacheTypes' => _('Geocache types'),
         );
 
 

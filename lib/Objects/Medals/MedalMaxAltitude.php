@@ -41,7 +41,17 @@ class MedalMaxAltitude extends Medal implements MedalInterface
     }
 
 	public function getLevelInfo($level = null)
-	{}
+	{
+		if($level === null){
+			$level = $this->level;
+		}
+
+		$result = array (
+			_('Minimum found cache altitude') => $this->conditions['altitudeToAward'][$level]['altitude']['found'],
+			_('Minimum placed cache altitude') => $this->conditions['altitudeToAward'][$level]['altitude']['placed'],
+		);
+		return $result;
+	}
 
 	private function findLevel($foundMaxAltitude, $placedMaxAltitude){
 		$this->prizedTime = false;
@@ -51,6 +61,13 @@ class MedalMaxAltitude extends Medal implements MedalInterface
 				$this->prizedTime = date($this->config->getDbDateTimeFormat());
 			}
 		}
+	}
+
+	public function getLevelName($level = null){
+		if($level === null){
+			$level = $this->level;
+		}
+		return $this->conditions['altitudeToAward'][$level]['levelName'];
 	}
 
 }
