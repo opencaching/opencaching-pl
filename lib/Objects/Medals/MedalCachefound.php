@@ -20,8 +20,30 @@ class MedalCachefound extends Medal implements MedalInterface
         $this->storeMedalStatus($user);
     }
 
+    public function getMedalProfile()
+    {
+        $result = array(
+            'medalDescription' => $this->description,
+            'cacheType' => $this->conditions['cacheType'],
+        );
+        return $result;
+    }
+
+
     public function getLevelInfo($level = null)
-    {}
+    {
+        if($level === null){
+            $level = $this->level;
+        }
+
+        $result = array (
+            _('Found caches') => $this->conditions['cacheCountToAward'][$level]['cacheCount']['found'],
+            _('Placed caches') => $this->conditions['cacheCountToAward'][$level]['cacheCount']['placed'],
+        );
+
+
+        return $result;
+    }
 
     private function getFoundCacheCount(User $user)
     {

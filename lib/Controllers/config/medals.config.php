@@ -11,6 +11,7 @@ use lib\Objects\Medals\MedalsContainer;
 return array(
     MedalsContainer::REGION_MALOPOLSKA => array(
         'name' => _('regionMalopolska'),
+        'description' => _('Medal for geocaching in Małopolska'),
         'type' => MedalsController::MEDAL_TYPE_REGION,
         'dateIntroduced' => '2006-04-09 10:30:00',
         'conditions' => array(
@@ -100,6 +101,7 @@ return array(
     ), /* end of medal */
     MedalsContainer::REGION_KRAKOW => array(
         'name' => _('cityKrakow'),
+        'description' => _('Medal for geocaching in Kraków'),
         'type' => MedalsController::MEDAL_TYPE_REGION,
         'dateIntroduced' => '2006-04-09 10:30:00',
         'conditions' => array(
@@ -189,6 +191,7 @@ return array(
     ), /* end of medal */
     MedalsContainer::CACHE_TRADITIONAL => array(
         'name' => _('TraditionalCache'),
+        'description' => _('Medal for traditional caches activity'),
         'type' => MedalsController::MEDAL_TYPE_CACHES,
         'dateIntroduced' => '2005-04-09 10:30:00',
         'conditions' => array(
@@ -274,6 +277,7 @@ return array(
     ), /* end of medal */
     MedalsContainer::GEOPATH_KOTLINAJELENIOGORSKA => array(
         'name' => _('PTTK Dookola Kotliny Jeleniogorskiej'),
+        'description' => _('Medal for receive PTTK badge "PTTK Dookola Kotliny Jeleniogorskiej"'),
         'type' => MedalsController::MEDAL_TYPE_GEOPATHCOMPLETED,
         'dateIntroduced' => '2014-08-20 10:30:00',
         'conditions' => array(
@@ -291,6 +295,7 @@ return array(
     ), /* end of medal */
     MedalsContainer::REGION_LUBELSKI => array(
         'name' => _('Lubelski Geocaching'),
+        'description' => _('Medal for geocaching in Województwo Lubelskie and receive PTTK badge "Lubelski Geocaching"'),
         'type' => MedalsController::MEDAL_TYPE_REGION,
         'dateIntroduced' => '2014-01-23 00:01:00',
         'conditions' => array(
@@ -347,6 +352,7 @@ return array(
     ), /* end of medal */
     MedalsContainer::MAXALTITUDE_2450 => array(
         'name' => _('AltitudeGeocache'),
+        'description' => _('Medal for finding caches at high altitudes'),
         'type' => MedalsController::MEDAL_TYPE_MAXALTITUDE,
         'dateIntroduced' => '2005-01-01 00:01:00',
         'conditions' => array(
@@ -435,6 +441,7 @@ return array(
     ), /* end of medal */
      MedalsContainer::HIGHLAND_700 => array(
         'name' => _('HighlandGeocacher'),
+        'description' => _('Medal for finding mountain caches'),
         'type' => MedalsController::MEDAL_TYPE_HIGHLAND,
         'dateIntroduced' => '2005-01-01 00:01:00',
         'conditions' => array(
@@ -523,6 +530,7 @@ return array(
     ), /* end of medal */
     MedalsContainer::CACHE_MULTICACHE => array(
         'name' => _('MultiGeocacher'),
+        'description' => _('Medal for multicache caches activity'),
         'type' => MedalsController::MEDAL_TYPE_CACHES,
         'dateIntroduced' => '2005-01-01 00:00:01',
         'conditions' => array(
@@ -608,6 +616,7 @@ return array(
     ), /* end of medal */
     MedalsContainer::CACHE_QUIZ => array(
         'name' => _('QuizGeocacher'),
+        'description' => _('Medal for quiz caches activity'),
         'type' => MedalsController::MEDAL_TYPE_CACHES,
         'dateIntroduced' => '2005-01-01 00:00:01',
         'conditions' => array(
@@ -693,6 +702,7 @@ return array(
     ), /* end of medal */
     MedalsContainer::CACHE_OWN => array(
         'name' => _('OwnGeocacher'),
+        'description' => _('Medal for own caches activity'),
         'type' => MedalsController::MEDAL_TYPE_CACHES,
         'dateIntroduced' => '2005-01-01 00:00:01',
         'conditions' => array(
@@ -778,6 +788,7 @@ return array(
     ), /* end of medal */
     MedalsContainer::CACHE_MOVED => array(
         'name' => _('MovingGeocacher'),
+        'description' => _('Medal for transport moving caches'),
         'type' => MedalsController::MEDAL_TYPE_CACHES,
         'dateIntroduced' => '2005-01-01 00:00:01',
         'conditions' => array(
@@ -863,6 +874,7 @@ return array(
     ), /* end of medal */
    MedalsContainer::CACHE_EVENT => array(
         'name' => _('SocialGeocacher'),
+       'description' => _('Medal for event attendance'),
         'type' => MedalsController::MEDAL_TYPE_CACHES,
         'dateIntroduced' => '2005-01-01 00:00:01',
         'conditions' => array(
@@ -948,6 +960,7 @@ return array(
     ), /* end of medal */
     MedalsContainer::OLDGEOCACHER => array(
         'name' => _('OldGeocacher'),
+        'description' => _('Medal for long-time relation to opencaching'),
         'type' => MedalsController::MEDAL_TYPE_OLDGEOCACHER,
         'dateIntroduced' => '2005-01-01 00:00:01',
         'conditions' => array(
@@ -998,6 +1011,7 @@ return array(
     ), /* end of medal */
     MedalsContainer::REGION_BIESZCZADY => array(
         'name' => _('Bieszczady'),
+        'description' => _('Medal for activity in Beskid Niski and Bieszczady'),
         'type' => MedalsController::MEDAL_TYPE_REGION,
         'dateIntroduced' => '2005-01-01 00:00:01',
         'conditions' => array(

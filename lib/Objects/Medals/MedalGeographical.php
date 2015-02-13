@@ -40,14 +40,35 @@ class MedalGeographical extends Medal implements MedalInterface
         $this->storeMedalStatus($user);
     }
 
-    public function getLevelInfo($level)
+    public function getLevelInfo($level = null)
     {
-//        if($level === null){
-//            $level = $this->level;
-//        }
-//        d($this->conditions['cacheCountToAward'][$level]);
-//        $infoStr = _('found').' '. 1;
+        if($level === null){
+            $level = $this->level;
+        }
+
+//        d($this->conditions, $this->conditions['cacheCountToAward'][$level]);
+        $result = array (
+            _('Found caches in region') => $this->conditions['cacheCountToAward'][$level]['cacheCount']['found'],
+            _('Placed caches in region') => $this->conditions['cacheCountToAward'][$level]['cacheCount']['placed'],
+//            _('Types of geocaches') => $this->conditions['cacheType'],
+        );
+
+
+        return $result;
     }
+
+    public function getMedalProfile()
+    {
+        $result = array(
+            'medalDescription' => $this->description,
+            'cacheType' => $this->conditions['cacheType'],
+        );
+        if($this->conditions['minimumAltitude']){
+            $result[_('Minimum altitude')] = $this->conditions['minimumAltitude'];
+        }
+        return $result;
+    }
+
 
     private function getFoundCacheCount(User $user)
     {

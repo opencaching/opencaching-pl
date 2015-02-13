@@ -23,6 +23,8 @@ class MedalOldGeocacher extends Medal implements MedalInterface
     }
     public function getLevelInfo($level = null)
     {}
+
+
     private function getGeocacherDays(User $user)
     {
         $db = \lib\Database\DataBaseSingleton::Instance();

@@ -66,15 +66,17 @@ class OcController
 
         $user = new \lib\Objects\User\User($this->request['userId']);
 //        d($user, $user->getMedals());
-         /* @var $medal \lib\Objects\Medals\Medal */
+
         foreach ($user->getMedals() as $medal) {
             $medal->checkConditionsForUser($user);
             $smartyMedals['medals'][] = array(
                 'imgSrc' => $medal->getImage(),
                 'name' => $medal->getName(),
+                'profile' => $medal->getMedalProfile(),
                 'level' => $medal->getLevel(),
                 'levelName' => $medal->getLevelName(),
-                'levelInfo' => $medal->getLevelInfo(1),
+                'currentLevelInfo' => $medal->getLevelInfo(),
+                'nextLevelInfo' => $medal->getLevelInfo($medal->getLevel()+1),
             );
 
         }
@@ -83,8 +85,14 @@ class OcController
             'level' => _('level'),
             'user'  => _('user'),
             'medals' => _('medals'),
+            'nextLevelRequirements' => _('Next level Requirements'),
+            'currentLevelRequirements' => _('Level achievements'),
+            'medalInfo' => _('Medal Profile'),
+            'cacheTypes' => _('Type of caches'),
         );
 
+
+        $smarty->assign('geocacheIcons', \cache::getCacheIconsSet());
         $smarty->assign('user', $user->getUserInformation());
         $smarty->assign("smartyMedals", $smartyMedals);
         $smarty->display('medals.tpl');

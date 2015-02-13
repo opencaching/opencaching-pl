@@ -16,6 +16,7 @@ class Medal
     protected $level;
     private $image;
     private $name;
+    protected $description;
     protected $dateIntroduced;
     protected $conditions;
     protected $prizedTime = false;
@@ -34,6 +35,7 @@ class Medal
         $details = \lib\Controllers\MedalsController::getMedalConfigByMedalId($this->medalId);
         $this->conditions = $details['conditions'];
         $this->name = $details['name'];
+        $this->description =  $details['description'];
         $this->dateIntroduced = $details['dateIntroduced'];
         if (isset($params['prizedTime'])) {
             $this->prizedTime = $params['prizedTime'];
@@ -41,6 +43,14 @@ class Medal
             $this->setImage();
         }
         $this->config = \lib\Objects\OcConfig\OcConfig::Instance();
+    }
+
+    public function getMedalProfile()
+    {
+        $result = array(
+            'medalDescription' => $this->description,
+        );
+        return $result;
     }
 
     protected function checkConditionsForUser(User $user)

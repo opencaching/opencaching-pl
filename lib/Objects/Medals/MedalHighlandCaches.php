@@ -23,8 +23,16 @@ class MedalHighlandCaches extends Medal implements MedalInterface
     }
 
     public function getLevelInfo($level = null)
-    {}
+    {
+        return array();
+    }
 
+    public function getMedalProfile()
+    {
+        d($this->conditions);
+        $result['cacheType'] = $this->conditions['cacheType'];
+        return $result;
+    }
     private function getFoundCount(User $user)
     {
         $db = \lib\Database\DataBaseSingleton::Instance();

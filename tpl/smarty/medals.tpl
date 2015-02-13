@@ -9,7 +9,31 @@
             <div class="medal">
                 <a class="tooltips" href="#">
                 <img src="{$medal.imgSrc}" class="medalImage" />
-                <span class="tt">Tooltip lorem ypsum dolor</span></a><br>
+                <span class="tt">
+                    <div class="tooltipHeader">{$smartyMedals.tr.medalInfo}:</div>
+                    {foreach $medal.profile as $name => $info}
+                        {if $name == cacheType}
+                            {$smartyMedals.tr.cacheTypes}:
+                            {foreach $info as $cachetype}
+                                <img src="{$geocacheIcons[$cachetype].iconSet.1.iconSmall}">
+                            {/foreach}
+                        {elseif $name = 'medalDescription'}
+                            <div class="medalDescription">{$info} </div>
+                        {else}
+                            <div class="currentLevelInfo">{$name}: {$info} </div>
+                        {/if}
+                    {/foreach}
+                    <hr>
+                    <div class="tooltipHeader">{$smartyMedals.tr.currentLevelRequirements}:</div>
+                    {foreach $medal.currentLevelInfo as $name => $info}
+                        <div class="currentLevelInfo">{$name}: {$info} </div>
+                    {/foreach}
+                    <hr>
+                    <div class="tooltipHeader">{$smartyMedals.tr.nextLevelRequirements}:</div>
+                    {foreach $medal.nextLevelInfo as $name => $info}
+                        <div class="nextLevelInfo">{$name}: {$info} </div>
+                    {/foreach}
+                </span></a><br>
                 <div class="medalName">
                     {$medal.name}
                 </div>

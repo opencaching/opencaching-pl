@@ -47,16 +47,15 @@ a.tooltips {
 }
 a.tooltips span {
     position: absolute;
-    width:160px;
+    width:180px;
     color: #000000;
     background: #D4FFC9;
     border: 2px solid #6D6D6D;
-    height: 150px;
-    line-height: 68px;
     text-align: center;
     visibility: hidden;
     border-radius: 11px;
     box-shadow: 6px 5px 9px #68806A;
+    font-size: 12px;
 }
 a.tooltips span:before {
     content: '';
@@ -82,12 +81,27 @@ a.tooltips span:after {
 }
 a:hover.tooltips span {
     visibility: visible;
-    opacity: 0.7;
+    opacity: 0.9;
     bottom: 150px;
     left: 50%;
     z-index: 999;
 }
 
-.tt {
-    opacity: 1;
+.nextLevelInfo{
+    font-size: 10px;
+    display: block;
+}
+.currentLevelInfo{
+    font-size: 12px;
+    display: block;
+}
+
+.tooltipHeader{
+    font-weight: bold;
+}
+
+.medalDescription{
+    font-size: 13px;
+    font-style: italic;
+    display: block;
 }
