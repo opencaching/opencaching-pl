@@ -2,6 +2,8 @@
 
 namespace lib\Objects\Medals;
 
+use \lib\Objects\User\User;
+use \lib\Database\DataBaseSingleton;
 /**
  * Medal Factory - abstract interface
  *
@@ -29,7 +31,7 @@ class Medal
     public function __construct($params)
     {
         $this->medalId = $params['medalId'];
-        $details = \lib\Controllers\MedalsController::getMedalTypeDetails($this->medalId);
+        $details = \lib\Controllers\MedalsController::getMedalConfigByMedalId($this->medalId);
         $this->conditions = $details['conditions'];
         $this->name = $details['name'];
         $this->dateIntroduced = $details['dateIntroduced'];
@@ -41,16 +43,21 @@ class Medal
         $this->config = \lib\Objects\OcConfig\OcConfig::Instance();
     }
 
-    protected function checkConditionsForUser(\lib\Objects\User\User $user)
+    protected function checkConditionsForUser(User $user)
+    {
+
+    }
+
+    protected function getLevelInfo($level)
     {
 
     }
 
     /**
-     * store in db (or remove) medal awerded for specified user.
-     * @param \lib\user $user
+     * store in db (or remove) medal awarded for specified user.
+     * @param User $user
      */
-    protected function storeMedalStatus(\lib\Objects\User\User $user)
+    protected function storeMedalStatus(User $user)
     {
         $alreadyPrized = $this->isCurrentMedalAlreadyPrized($user);
         if ($this->prizedTime === false && $alreadyPrized) { /* user has no medal, remove it from db */
@@ -65,7 +72,6 @@ class Medal
 
     /**
      * generate string witch cache types to be used in sql query
-     * @param type $param
      */
     protected function buildCacheTypesSqlString()
     {
@@ -78,7 +84,6 @@ class Medal
 
     /**
      * generate string witch cache types to be used in sql query
-     * @param type $param
      */
     protected function buildCacheStatusSqlString()
     {
@@ -95,32 +100,32 @@ class Medal
         $this->level = $level;
     }
 
-    private function updateMedalRowInDb(\lib\Objects\User\User $user)
+    private function updateMedalRowInDb(User $user)
     {
         $query = ' UPDATE `medals` SET `prized_time`= NOW(), `medal_level`=:1 WHERE  `user_id` = :2 AND `medal_type` = :3 ';
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = DataBaseSingleton::Instance();
         $db->multiVariableQuery($query, $this->level, $user->getUserId(), $this->medalId);
     }
 
-    private function removeMedalFromUsersMedalsDb(\lib\Objects\User\User $user)
+    private function removeMedalFromUsersMedalsDb(User $user)
     {
         $query = 'DELETE FROM `medals` WHERE `user_id` = :1 AND `medal_type` = :2';
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = DataBaseSingleton::Instance();
         $db->multiVariableQuery($query, $user->getUserId(), $this->medalId);
     }
 
-    private function addMedalToUserMedalsDb(\lib\Objects\User\User $user)
+    private function addMedalToUserMedalsDb(User $user)
     {
         $query = 'INSERT INTO `medals`(`user_id`, `medal_type`, `prized_time`, `medal_level`) VALUES (:1, :2, :3, :4)';
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = DataBaseSingleton::Instance();
         $db->multiVariableQuery($query, $user->getUserId(), $this->medalId, $this->prizedTime, $this->level);
     }
 
-    private function isCurrentMedalAlreadyPrized(\lib\Objects\User\User $user)
+    private function isCurrentMedalAlreadyPrized(User $user)
     {
         $userMedals = $user->getMedals();
         $iterator = $userMedals->getIterator();
-        /* @var $currentMedal \medals\medal */
+        /* @var $currentMedal \lib\Objects\Medals\Medal */
         while ($iterator->valid()) {
             $currentMedal = $iterator->current();
             if ($currentMedal->getMedalId() === $this->medalId) { /* current medal */
@@ -188,6 +193,13 @@ class Medal
     public function getName()
     {
         return $this->name;
+    }
+
+    public function getLevelName($level = null){
+        if($level === null){
+            $level = $this->level;
+        }
+        return $this->conditions['cacheCountToAward'][$level]['levelName'];
     }
 
 }

@@ -2,6 +2,7 @@
 
 namespace lib\Objects\User;
 
+use lib\Controllers\MedalsController;
 /**
  * Description of user
  *
@@ -12,6 +13,7 @@ class User
 
     private $userId;
     private $userName;
+
     private $foundGeocachesCount;
     private $notFoundGeocachesCount;
     private $hiddenGeocachesCount;
@@ -72,8 +74,10 @@ class User
         $db->multiVariableQuery($query, $this->userId);
         $medalsDb = $db->dbResultFetchAll();
         $this->medals = new \ArrayObject;
+        $medalController = new MedalsController;
         foreach ($medalsDb as $medalRow) {
-            $this->medals[] = new \lib\Objects\Medals\Medal(array('prizedTime' => $medalRow['prized_time'], 'medalId' => (int) $medalRow['medal_type'], 'level' => $medalRow['medal_level']));
+            $this->medals[] = $medalController->getMedal(array('prizedTime' => $medalRow['prized_time'], 'medalId' => (int) $medalRow['medal_type'], 'level' => $medalRow['medal_level']));
+            // $this->medals[] = new \lib\Objects\Medals\Medal(array('prizedTime' => $medalRow['prized_time'], 'medalId' => (int) $medalRow['medal_type'], 'level' => $medalRow['medal_level']));
         }
     }
 
@@ -85,6 +89,21 @@ class User
     public function getEmail()
     {
         return $this->email;
+    }
+
+    public function getUserInformation()
+    {
+        return array(
+            'userName' => $this->userName,
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserName()
+    {
+        return $this->userName;
     }
 
 }

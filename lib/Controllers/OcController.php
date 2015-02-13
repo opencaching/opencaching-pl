@@ -68,23 +68,24 @@ class OcController
 //        d($user, $user->getMedals());
          /* @var $medal \lib\Objects\Medals\Medal */
         foreach ($user->getMedals() as $medal) {
+            $medal->checkConditionsForUser($user);
             $smartyMedals['medals'][] = array(
                 'imgSrc' => $medal->getImage(),
                 'name' => $medal->getName(),
                 'level' => $medal->getLevel(),
+                'levelName' => $medal->getLevelName(),
+                'levelInfo' => $medal->getLevelInfo(1),
             );
+
         }
 
+        $smartyMedals['tr'] = array(
+            'level' => _('level'),
+            'user'  => _('user'),
+            'medals' => _('medals'),
+        );
 
-
-
-        $smartyMedals['tr']['level'] = _('level');
-        $smartyMedals['tr']['user']  = _('user');
-//        !d($smartyMedals['tr']);
-
-
-
-
+        $smarty->assign('user', $user->getUserInformation());
         $smarty->assign("smartyMedals", $smartyMedals);
         $smarty->display('medals.tpl');
         

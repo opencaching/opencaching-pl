@@ -3,7 +3,7 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 </head>
 <div class="mainContainer">
-    <div class="headerDiv"> MEDALE </div>
+    <div class="headerDiv">{$user.userName}: {$smartyMedals.tr.medals} </div>
     <div class="medalWrapper">
         {foreach $smartyMedals.medals as $medal}
             <div class="medal">

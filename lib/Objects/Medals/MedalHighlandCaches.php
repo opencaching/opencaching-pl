@@ -22,6 +22,9 @@ class MedalHighlandCaches extends Medal implements MedalInterface
         $this->storeMedalStatus($user);
     }
 
+    public function getLevelInfo($level = null)
+    {}
+
     private function getFoundCount(User $user)
     {
         $db = \lib\Database\DataBaseSingleton::Instance();

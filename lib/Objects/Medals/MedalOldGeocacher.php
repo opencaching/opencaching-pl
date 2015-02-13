@@ -14,14 +14,15 @@ class MedalOldGeocacher extends Medal implements MedalInterface
     public function checkConditionsForUser(User $user)
     {
         $months = $this->getGeocacherDays($user);
-        foreach ($this->conditions['monthsCountToAward'] as $level => $condition) {
+        foreach ($this->conditions['cacheCountToAward'] as $level => $condition) {
             if($months >= $condition['months']){
                 $this->setMedalPrizedTimeAndAcheivedLevel($level);
             }
         }
         $this->storeMedalStatus($user);
     }
-
+    public function getLevelInfo($level = null)
+    {}
     private function getGeocacherDays(User $user)
     {
         $db = \lib\Database\DataBaseSingleton::Instance();

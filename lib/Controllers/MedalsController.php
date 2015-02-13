@@ -52,10 +52,10 @@ class MedalsController
         d($timeEnd);
     }
 
-    public static function getMedalTypeDetails($medalType)
+    public static function getMedalConfigByMedalId($medalId)
     {
         $medalConfig = self::getConfig();
-        return $medalConfig[$medalType];
+        return $medalConfig[$medalId];
     }
 
     public static function getConfig()
@@ -93,9 +93,16 @@ class MedalsController
             case self::MEDAL_TYPE_OLDGEOCACHER:
                 return new \lib\Objects\Medals\MedalOldGeocacher($medalDetails);
             default:
-                d('error - undefinied medal, please add your medal to factory type here.');
+                d('error - undefined medal, please add your medal to factory type here.');
                 break;
         }
+    }
+
+    public function getMedal($medalDetails)
+    {
+        $medalConfig = self::getMedalConfigByMedalId($medalDetails['medalId']);
+        $medalDetails['type'] = $medalConfig['type'];
+        return $this->buildMedalObject($medalDetails);
     }
 
 }

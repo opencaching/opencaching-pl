@@ -2,17 +2,20 @@
 
 namespace lib\Objects\Medals;
 
+use \lib\Objects\User\User;
+use \lib\Database\DataBaseSingleton;
+
 /**
  * Description of medalGeographical
  *
  * @author Łza
  */
-class MedalGeographical extends Medal implements \lib\Objects\Medals\MedalInterface
+class MedalGeographical extends Medal implements MedalInterface
 {
 
     protected $conditions;
 
-    public function checkConditionsForUser(\lib\Objects\User\User $user)
+    public function checkConditionsForUser(User $user)
     {
         $foundCount = $this->getFoundCacheCount($user);
         $placedCount = $this->getPlacedCacheCount($user);
@@ -37,9 +40,23 @@ class MedalGeographical extends Medal implements \lib\Objects\Medals\MedalInterf
         $this->storeMedalStatus($user);
     }
 
-    private function getFoundCacheCount(\lib\Objects\User\User $user)
+    public function getLevelInfo($level)
     {
-        $db = \lib\Database\DataBaseSingleton::Instance();
+//        if($level === null){
+//            $level = $this->level;
+//        }
+//        d($this->conditions['cacheCountToAward'][$level]);
+//        $infoStr = _('found').' '. 1;
+    }
+
+    private function getFoundCacheCount(User $user)
+    {
+        /* check if is for current medal also altitude condition */
+        if($this->conditions['minimumAltitude']){
+            
+        }
+
+        $db = DataBaseSingleton::Instance();
         $query = "SELECT count(id) as cacheCount FROM cache_logs, caches, cache_location "
                 . "WHERE cache_location.code3 = :1 "
                 . $this->buildLocationCode4QueryString(5)
@@ -59,14 +76,14 @@ class MedalGeographical extends Medal implements \lib\Objects\Medals\MedalInterf
         return $dbResult['cacheCount'];
     }
 
-    private function getPlacedCacheCount(\lib\Objects\User\User $user)
+    private function getPlacedCacheCount(User $user)
     {
         $query = 'SELECT count(caches.cache_id) as cacheCount FROM `caches`, `cache_location` '
                 . 'WHERE `caches`.`user_id` = :1 ' . $this->buildLocationCode4QueryString(5) . ' '
                 . 'AND `caches`.`status` = :2 AND `caches`.`date_created` > :3 AND cache_location.code3 = :4 '
                 . 'AND `caches`.`type` IN (' . $this->buildCacheTypesSqlString() . ') '
                 . 'AND cache_location.cache_id = caches.cache_id ';
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = DataBaseSingleton::Instance();
         $code4 = isset($this->conditions['cacheLocation']['code4']) ? $this->conditions['cacheLocation']['code4'] : false;
         if ($code4) {
             $db->multiVariableQuery($query, $user->getUserId(), \cache::STATUS_READY, $this->dateIntroduced, $this->conditions['cacheLocation']['code3'], $code4);
@@ -87,3 +104,15 @@ class MedalGeographical extends Medal implements \lib\Objects\Medals\MedalInterf
     }
 
 }
+
+/*
+SELECT *  FROM `cache_location`,
+caches_additions
+
+ WHERE `code3` LIKE 'PL32'
+and
+caches_additions.`cache_id` = cache_location.`cache_id`
+and caches_additions.altitude >500
+ *
+ *
+ */

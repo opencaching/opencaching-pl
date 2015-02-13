@@ -23,4 +23,5 @@ class MedalsContainer
     const CACHE_MOVED = 11;
     const CACHE_EVENT = 12;
     const OLDGEOCACHER = 13;
+    const REGION_BIESZCZADY = 14;
 }

@@ -9,6 +9,6 @@ namespace lib\Objects\Medals;
  */
 interface MedalInterface
 {
-
     public function checkConditionsForUser(\lib\Objects\User\User $user);
+    public function getLevelInfo($level);
 }

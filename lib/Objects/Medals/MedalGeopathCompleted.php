@@ -32,4 +32,7 @@ class MedalGeopathCompleted extends Medal implements \lib\Objects\Medals\MedalIn
         $this->storeMedalStatus($user);
     }
 
+    public function getLevelInfo($level = null)
+    {}
+
 }

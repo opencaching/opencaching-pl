@@ -2,6 +2,8 @@
 
 namespace lib\Objects\GeoCache;
 
+use \lib\Database\DataBaseSingleton;
+
 /**
  * Description of geoCache
  *
@@ -56,7 +58,7 @@ class GeoCache
      */
     public function __construct($params)
     {
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = DataBaseSingleton::Instance();
         if (isset($params['cacheId'])) {
             $this->id = (int) $params['cacheId'];
             $queryById = "SELECT name, type, date_hidden, longitude, latitude, wp_oc, user_id FROM `caches` WHERE `cache_id`=:1 LIMIT 1";
@@ -76,7 +78,7 @@ class GeoCache
 
     private function loadCacheLocation()
     {
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = DataBaseSingleton::Instance();
         $query = 'SELECT `code1`, `code2`, `code3`, `code4`  FROM `cache_location` WHERE `cache_id` =:1 LIMIT 1';
         $db->multiVariableQuery($query, $this->id);
         $dbResult = $db->dbResultFetch();
@@ -103,11 +105,17 @@ class GeoCache
         return $this->datePlaced;
     }
 
+    /**
+     * @return \lib\Objects\Coordinates\Coordinates
+     */
     public function getCoordinates()
     {
         return $this->coordinates;
     }
 
+    /**
+     * @return \lib\Objects\GeoCache\Altitude
+     */
     public function getAltitude()
     {
         return $this->altitude;

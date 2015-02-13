@@ -2,24 +2,27 @@
 
 namespace lib\Objects\Medals;
 
+use \lib\Database\DataBaseSingleton;
+use \lib\Objects\User\User;
+
 /**
  * medal to be awarded when use complete specified geopath
  *
  * @author Łza
  */
-class MedalMaxAltitude extends Medal implements \lib\Objects\Medals\MedalInterface
+class MedalMaxAltitude extends Medal implements MedalInterface
 {
 
     protected $conditions;
 
-    public function checkConditionsForUser(\lib\Objects\User\User $user)
+    public function checkConditionsForUser(User $user)
     {
 		if (!in_array($this->config->getOcNodeId(), $this->conditions['ocNodeId'])) { /* this medal is not available in current node */
             return;
         }
 
         /* @var $db \dataBase */
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = DataBaseSingleton::Instance();
 		$queryFound = 'SELECT MAX(`altitude`) as maxAltitude FROM `caches`, `caches_additions`, cache_logs
 			WHERE caches.`cache_id` = caches_additions.`cache_id` AND cache_logs.cache_id = caches.`cache_id`
 			AND cache_logs.type = 1 AND cache_logs.user_id = :1 AND caches.type IN(:2)';
@@ -36,6 +39,9 @@ class MedalMaxAltitude extends Medal implements \lib\Objects\Medals\MedalInterfa
 		$this->findLevel($foundMaxAltitude, $placedMaxAltitude);
         $this->storeMedalStatus($user);
     }
+
+	public function getLevelInfo($level = null)
+	{}
 
 	private function findLevel($foundMaxAltitude, $placedMaxAltitude){
 		$this->prizedTime = false;
