@@ -2,6 +2,8 @@
     <link href="/tpl/smarty/medals.css" rel="stylesheet" type="text/css"/>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 </head>
+<body>
+
 <div class="mainContainer">
     <div class="headerDiv">{$user.userName}: {$smartyMedals.tr.medals} </div>
     <div class="medalWrapper">
@@ -18,9 +20,9 @@
                                 <img src="{$geocacheIcons[$cachetype].iconSet.1.iconSmall}">
                             {/foreach}
                         {else if $name == 'medalDescription'}
-                            <div class="medalDescription">{$info} aa </div>
+                            <div class="medalDescription">{$info}</div>
                         {else}
-                            <div class="currentLevelInfo">{$name}: {$info} </div>
+                            <div class="currentLevelInfo">{$name}: {$info}</div>
                         {/if}
                     {/foreach}
                     <hr>
@@ -45,3 +47,5 @@
     </div>
 
 </div>
+
+</body>

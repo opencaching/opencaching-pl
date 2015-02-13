@@ -1,11 +1,24 @@
+body{
+    background-image: url("Mont_de_Seuc_y_l_Saslong_da_Cod_dal_Fil.jpg");
+    background-attachment:fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
 .mainContainer{
+    background-color: #ffffff;
+    opacity: 0.82;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     width: 810px;
     margin:0 auto;
-    height: 220px
+    height: 500px;
+    display:table;
+    border-radius: 12px;
 }
 
 .headerDiv {
+    padding: 23px;
     font-size: 25px;
     text-align: center;
     height: 200px;
@@ -15,7 +28,7 @@
     width: 800px;
 }
 .medal {
-    width: 170px;
+    width: 190px;
     height: 200px;
     padding: 5px;
     float:left;
@@ -23,9 +36,10 @@
 .medalImage{
     width: 120px;
     height: 120px;
-    display: block ;
+    display: block;
     margin-left: auto;
     margin-right: auto;
+    background-color: #ffffff;
 }
 .medalName{
     margin-left: auto;
@@ -105,3 +119,4 @@ a:hover.tooltips span {
     font-style: italic;
     display: block;
 }
+
