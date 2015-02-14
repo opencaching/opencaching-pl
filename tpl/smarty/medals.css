@@ -1,5 +1,5 @@
 body{
-    background-image: url("Mont_de_Seuc_y_l_Saslong_da_Cod_dal_Fil.jpg");
+
     background-attachment:fixed;
     background-size: cover;
     background-repeat: no-repeat;
@@ -118,5 +118,14 @@ a:hover.tooltips span {
     font-size: 13px;
     font-style: italic;
     display: block;
+}
+
+.photoBackgroundCopyrightFooter{
+    font-size: 9px;
+    color: #FFF;
+    position: fixed;
+    bottom: 5;
+    right: 5;
+    padding-top: 10px;
 }
 

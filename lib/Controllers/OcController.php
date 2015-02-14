@@ -95,8 +95,29 @@ class OcController
         $smarty->assign('geocacheIcons', \cache::getCacheIconsSet());
         $smarty->assign('user', $user->getUserInformation());
         $smarty->assign("smartyMedals", $smartyMedals);
+        $smarty->assign("bgImage", $this->shuffleBackgroundImage());
         $smarty->display('medals.tpl');
         
+
+    }
+
+
+    private function shuffleBackgroundImage(){
+       $month = date('m');
+       switch ($month){
+           case 1: return 'Bredles_y_l_Odles_cun_Sas_Rigais_dinviern.jpg';
+           case 2: return 'Ciampani_dl_Sela_Sellaturme_Sas_Pordoi_Sellajoch_Schutzhutte.jpg';
+           case 3: return 'Gamsblut_Sankt_Christina.jpg';
+           case 4: return 'Stlupec_sun_Resciesa.jpg';
+           case 5: return 'Lilium_Martagon_in_Groden_Jender.jpg';
+           case 6: return 'Creusc_sun_Col_dala_Piere_Gherdeina';
+           case 7: return 'Cansla_dla_Charita_Pic_Gherdeina.jpg';
+           case 8: return 'Bryce_Canyon_USA_october_2012_e.jpg';
+           case 9: return 'Desert_in_Utah_by_Wolfgang_Moroder.jpg';
+           case 10: return 'Mont_de_Seuc_y_l_Saslong_da_Cod_dal_Fil.jpg';
+           case 11: return 'Saslong_downhill_race_track_in_Val_Gardena.jpg';
+           case 12: return 'Lock_Zug_Groden.jpg';
+       }
 
     }
 }

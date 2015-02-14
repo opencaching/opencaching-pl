@@ -2,7 +2,7 @@
     <link href="/tpl/smarty/medals.css" rel="stylesheet" type="text/css"/>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 </head>
-<body>
+<body style="background-image: url('/tpl/smarty/backgrounds/{$bgImage}');">
 
 <div class="mainContainer">
     <div class="headerDiv">{$user.userName}: {$smartyMedals.tr.medals} </div>
@@ -47,5 +47,7 @@
     </div>
 
 </div>
-
+<div class="photoBackgroundCopyrightFooter">
+    This Photo was taken by <a style="color: #FFF" href="http://commons.wikimedia.org/wiki/User:Moroder">Wolfgang Moroder</a>.
+</div>
 </body>
