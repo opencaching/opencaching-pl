@@ -16,11 +16,13 @@
  * ************************************************************************** */
 
 if(isset($_REQUEST['newOc']) && $_REQUEST['newOc'] == 1) {
-    session_start();
-    require_once __DIR__ . '/lib/Controllers/OcController.php';
-    $ocRouter = new \lib\Controllers\OcController();
-    $ocRouter->run($_REQUEST);
-    exit;
+//    temporary disabled
+
+//    session_start();
+//    require_once __DIR__ . '/lib/Controllers/OcController.php';
+//    $ocRouter = new \lib\Controllers\OcController();
+//    $ocRouter->run($_REQUEST);
+//    exit;
 }
 
 
