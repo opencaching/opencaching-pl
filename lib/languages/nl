@@ -623,7 +623,7 @@ latest_logs_by_user Laatste logs van gebruiker
 stat_created_caches Statistieken van gemaakte caches
 not_caches_created  Er zijn nog geen gemaakte caches
 total_owned_caches Totaal aantal eigen caches
-total_owned_caches_adopted Aantal aangeboden adoptie caches
+total_owned_caches_adopted Aantal geadopteerde caches
 total_created_caches Totaal eigen gemaakte caches
 total_created_caches_adopted Aantal aangenomen adoptie caches
 number_temp_caches Aantal tijdelijk niet beschikbare caches
@@ -2407,7 +2407,7 @@ cacheArchived_05 Wanneer er vragen zijn kan er op deze mail gereageerd worden
 Cacheactivated_01 Hallo
 Cacheactivated_02 Je cache
 Cacheactivated_03 is goedgekeurd door het OC Team
-Cacheactivated_04 Je kunt de status van de nieuwe cache op "Beschikbaar" zetten op
+Cacheactivated_04 Je kunt de status van de nieuwe cache op "Beschikbaar" zetten en onderin de "publicatie" aanpassen op
 Cacheactivated_05 Wanneer er vragen zijn kan er op deze mail gereageerd worden
 ForgottenEmail_01 Vergeten e-mail opvragen
 ForgottenEmail_02 Gebruikersnaam
