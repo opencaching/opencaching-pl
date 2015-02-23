@@ -220,6 +220,7 @@
                                             if ({fromlat} != {tolat}) {
                                     bounds = '&fromlat={fromlat}&fromlon={fromlon}&tolat={tolat}&tolon={tolon}';
                                     }
+                                    document.cookie = "forceFullscreenMap=off;"; //remember user decision in cookie
                                     window.location = "cachemap3.php?lat=" + map.getCenter().lat() + "&lon=" + map.getCenter().lng() + "&inputZoom=" + map.getZoom() + "&{searchdata}" + bounds + "{extrauserid}";
                                     });
                                     }
