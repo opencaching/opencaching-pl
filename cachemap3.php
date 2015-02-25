@@ -8,7 +8,7 @@
         //check cookie to allow user to come back to non-full screen mode
         if( document.cookie.indexOf("forceFullscreenMap=off") == -1){
             //touch device + cookie not set => redirect to full screen map
-            window.location = 'cachemap-full.php';
+            window.location = 'cachemap-full.php'+window.location.search;
         }
     }
 </script>
