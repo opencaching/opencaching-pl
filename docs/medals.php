@@ -48,7 +48,9 @@ Class must contain method, which checks conditions for medal specified type.
 Let's say We want add new type of medal, awarded for Geocaching Activity in Mountains
 Let's name it: Mountain Geocacher
 
+-------------------------------------------------------------------------------------------------------------------
 1. Add new type of medal
+-------------------------------------------------------------------------------------------------------------------
 open lib\Controllers\MedalsController.php and declare new medal type: add next constant:
 
 example:
@@ -65,10 +67,14 @@ in the same class, add your funbuildMedalObject
 
 constant in Class MedalsContainer
 
+-------------------------------------------------------------------------------------------------------------------
 2. Add new class file in lib/Object/Medals => MedalHighlandCaches.php
+-------------------------------------------------------------------------------------------------------------------
 create class called HighlandCaches. Class have to extends class \lib\Objects\Medals\Medal and implements interface \lib\Objects\Medals\MedalInterface.
+Remember to overload methods required by template.
 
 example:
+
 <?php
 namespace lib\Objects\Medals;
 
@@ -78,7 +84,13 @@ class MedalHighlandCaches extends \lib\Objects\Medals\Medal implements \lib\Obje
     {
 
     }
+
+    public function getLevelInfo($level = null)
+    {
+
+	}
 }
+
 ?>
 
 Back to the MedalsController, and in method buildMedalObject() add to dispatch your class for your medal type:
@@ -89,8 +101,9 @@ add:
         return new \lib\Objects\Medals\MedalHighlandCaches($medalDetails);
 ?>
 
-4 Add new medal
-
+-------------------------------------------------------------------------------------------------------------------
+3. Add new medal
+-------------------------------------------------------------------------------------------------------------------
 open Go to \lib\Objects\Medals\MedalsContainer.php
 at the bottom of class add new constant 
 
@@ -110,7 +123,9 @@ note: constants MUST be unique, use next available integer instead 7
 
 We have created New Medal type. Now, we have to add new medal.
 
+-------------------------------------------------------------------------------------------------------------------
 4. Add new medal in medal configuration file
+-------------------------------------------------------------------------------------------------------------------
 
 Open lib\Controllers\config\medals.config.php, and at the end add new element of configuration tabale, using your new medal type constant from MedalContainer class as main table key.
 
@@ -176,15 +191,18 @@ example for our mountain medal:
         ),
     ),
 ?>
-
+-------------------------------------------------------------------------------------------------------------------
 5. add medal graphics.
+-------------------------------------------------------------------------------------------------------------------
 create direcotry in tpl/stdstyle/medals/ call it [constantOfYourMedal]
 
 [constantOfYourMedal] is integer, the same as constant you created in MedalsContainer. In this example: HIGHLAND_9000 = 7, so directory name is 7
-place image files for your medal levels named 1.png, 2.png ... n.png. Path to display images will be created automaticly.
+place image files for your medal levels named 1.png, 2.png ... n.png. Images will be displayed automaticly.
 
+
+-------------------------------------------------------------------------------------------------------------------
 6. Program method checking if your medal conditions were met for user.
-
+-------------------------------------------------------------------------------------------------------------------
 Now, we have builded (abstract) new medal type MedalsController::MEDAL_TYPE_HIGHLAND,
 and declared (psihics) medal MedalsContainer::HIGHLAND_9000.
 All we need, to write body of method checkConditionsForUser() in your HighlandCaches class.
@@ -192,7 +210,7 @@ All we need, to write body of method checkConditionsForUser() in your HighlandCa
 Medal Controller daily run function checkAllUsersMedals(). This function perform medal check on each user. 
 Iterate through all medals class, calling method checkConditionsForUser(). All you need is edit your checkConditionsForUser()
 
-6.1 to make your develop works easy, create test script helping you to develop, place it in main oc directory.
+-> 6.1 to make your develop works easy, create test script helping you to develop, place it in main oc directory.
 
 <?php
 
@@ -203,7 +221,9 @@ $medals = new \lib\Controllers\MedalsController();
 $medals->checkAllUsersMedals();
 ?>
 
-6.2 first login as any of end user in your develop opencaching.
+-> 6.2 write checkConditionsForUser() body
+
+first login as any of end user in your develop opencaching.
 then open your class HighlandCaches, add some debug.
 <?php
 public function checkConditionsForUser(\lib\Objects\User\User $user)
@@ -215,17 +235,28 @@ public function checkConditionsForUser(\lib\Objects\User\User $user)
 and run test script. It should output first user object to be check. 
 Now is your creative job to do. You need witchdraw from database all data you need to be checked if user met all conditions for your medal
 
-finally your methode may looks like:
+finally, when user met your conditions, call setMedalPrizedTimeAndAcheivedLevel() methode and storeMedalStatus(). 
+These methodes will set and sore automaticly in db medal and level acheived by user.
+
+That's it!
+
+example: finally your methode may looks like:
 <?php
 public function checkConditionsForUser(\lib\Objects\User\User $user)
 {
 	d($user);
     d($this->conditions); /* displays conditions for current medal from config file */
 
-	$userMetConditionsForMedal = true; /* [true / false] place here code
-                                       * checking if all of $this->conditions were met */
-	$level = 5; /* place here your code checking wchich level for $this->conditions['cacheCountToAward']
-                 * were met */
+	$userMetConditionsForMedal = {
+		// [true / false] place here code
+        // checking if all of $this->conditions were met,
+	}
+
+	$level = {
+		// [integer]
+	    // place here your code checking wchich level for $this->conditions['cacheCountToAward']
+        // were met
+	}
 
 	if($userMetConditionsForMedal){ /* set medal were awarded */
 		$this->setMedalPrizedTimeAndAcheivedLevel($level);
@@ -236,5 +267,7 @@ public function checkConditionsForUser(\lib\Objects\User\User $user)
 }
 ?>
 
-after your script is finished, remeber to remove all dumps (d(), dd()).
+after your script is finished and tested - remeber to remove all dumps (d(), dd()).
 That's it!!
+
+Happy coding!
