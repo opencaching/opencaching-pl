@@ -351,7 +351,7 @@ available_html Beschikbare HTML tags lijst
 additional_enc_info <b><font color="red">Extra </font> versleutelde hint.</b> <i>Geen verplicht veld</i>. Hier kun een een extra hint toevoegen. Informatie om de cache normaal te kunnen vinden dient in de "Omschrijving" beschreven te staan.
 add_photo_newcache Afbeeldingen,foto's, extra waypoints en MP3 bestanden kunnen na het registren van de cache toegevoegt worden.
 search_wildcard_info Use "%" as a wildcard.
-event_hidden_hint Hint: Bij EVENEMENTEN moet in het "Geplaatst op" veld hierbovenb de datum staan wanneer het evenement plaatsvind.
+event_hidden_hint Hint: Bij EVENEMENTEN moet in het "Geplaatst op" veld hierboven de datum staan wanneer het evenement plaatsvind.
 submit_new_cache Publiceren
 publish_now Publiceer nu
 publish_date Publiceer datum
