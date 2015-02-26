@@ -7,8 +7,7 @@ body{
 }
 
 .mainContainer{
-    background-color: #ffffff;
-    opacity: 0.82;
+    background-color: rgba(255,255,255,0.6);
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     width: 810px;
     margin:0 auto;
