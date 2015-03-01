@@ -15,14 +15,12 @@
   parameter(s):     none
  * ************************************************************************** */
 
-if(isset($_REQUEST['newOc']) && $_REQUEST['newOc'] == 1) {
-//    temporary disabled
-
-//    session_start();
-//    require_once __DIR__ . '/lib/Controllers/OcController.php';
-//    $ocRouter = new \lib\Controllers\OcController();
-//    $ocRouter->run($_REQUEST);
-//    exit;
+if(isset($_REQUEST['ocController']) && $_REQUEST['ocController'] == 1) {
+    session_start();
+    require_once __DIR__ . '/lib/Controllers/OcController.php';
+    $ocRouter = new \lib\Controllers\OcController();
+    $ocRouter->run($_REQUEST);
+    exit;
 }
 
 

@@ -101,7 +101,9 @@ class OcController
 
     }
 
-
+    /**
+     * TODO: move it to tpl.
+     */
     private function shuffleBackgroundImage(){
        $month = date('m');
        switch ($month){
