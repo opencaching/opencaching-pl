@@ -1112,6 +1112,7 @@ map_01 show FTFs only!
 map_02 Minimum rating:
 map_03 any rating will do
 map_04 include unrated caches
+map_05 show power trails only
 print_all Print all
 remove_all Remove all
 no_logtype_choosen No logtype choosen!

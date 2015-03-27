@@ -1112,6 +1112,7 @@ map_01 pokaż tylko FTFy!
 map_02 Minimalna ocena:
 map_03 dowolna ocena
 map_04 pokaż również skrzynki bez oceny
+map_05 pokaż tylko skrzynki z geościeżek
 print_all Wydrukuj wszystkie
 remove_all Usuń wszystkie
 no_logtype_choosen Brak typu logu!
