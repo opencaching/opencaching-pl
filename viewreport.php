@@ -226,15 +226,15 @@ if ($error == false && $usr['admin']) {
         $sql = "UPDATE reports SET responsible_id = '" . sql_escape(intval($_POST['respSel'])) . "' WHERE id='" . sql_escape(intval($_REQUEST['reportid'])) . "'";
         @mysql_query($sql);
         if ($_POST['respSel'] != 0)
-            tpl_set_var('confirm_resp_change', "<b><span class='txt-green10'>Nowym prowadzącym problem jest " . getUsername($_POST['respSel']) . ".</span></b>");
+            tpl_set_var('confirm_resp_change', "<b><span class='txt-green10'>" . tr('cache_reports_36') ." ". getUsername($_POST['respSel']) . ".</span></b>");
         else
-            tpl_set_var('confirm_resp_change', "<b><span class='txt-green10'>Nie wybrano prowadzącego problem.</span></b>");
+            tpl_set_var('confirm_resp_change', "<b><span class='txt-green10'>" . tr('cache_reports_37') .".</span></b>");
     }
 
     if (isset($_POST['new_status']) && isset($_REQUEST['reportid'])) {
         $sql = "UPDATE reports SET status='" . sql_escape(intval($_POST['statusSel'])) . "', changed_by='" . sql_escape(intval($usr['userid'])) . "', changed_date='" . sql_escape(date("Y-m-d H:i:s")) . "' WHERE id='" . sql_escape(intval($_REQUEST['reportid'])) . "'";
         @mysql_query($sql);
-        tpl_set_var('confirm_status_change', "<b><span class='txt-green10'>Zmieniono status zgłoszenia na " . writeStatus($_POST['statusSel']) . ".</span></b>");
+        tpl_set_var('confirm_status_change', "<b><span class='txt-green10'>" . tr('cache_reports_38') ." " . writeStatus($_POST['statusSel']) . ".</span></b>");
         if ($_POST['statusSel'] == 3) {
             // jezeli zmieniono status na "zajrzyj tu!", nastepuje rozeslanie maili do rr
             $sql = "SELECT reports.cache_id as cache_id, reports.`type` as `type`, caches.cache_id, caches.name as name FROM reports, caches WHERE reports.id = '" . sql_escape(intval($_REQUEST['reportid'])) . "' AND reports.cache_id = caches.cache_id";
