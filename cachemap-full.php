@@ -215,9 +215,9 @@ if ($usr == false) {
 
     // hide powerTrails filter if powerTrails are disabled in config
     if($powerTrailModuleSwitchOn){
-        tpl_set_var("powerTrails_visibility", "visible");
+        tpl_set_var("powerTrails_display", "");
     } else {
-        tpl_set_var("powerTrails_visibility", "hidden");
+        tpl_set_var("powerTrails_display", "display:none");
     }
 
     tpl_set_var("cachemap_mapper", $cachemap_mapper);

@@ -123,7 +123,7 @@
                 <div>
                     <input class="chbox" id="be_ftf" name="be_ftf" value="1" type="checkbox" {be_ftf_checked} onclick="reload(); check_field()"/><label for="be_ftf">&nbsp;{{map_01}}</label>
                 </div>
-                <div style="visibility:{powerTrails_visibility}">
+                <div style="{powerTrails_display}">
                     <input class="chbox" id="powertrail_only" name="powertrail_only" value="1" type="checkbox" {powertrail_only_checked} onclick="reload()"/><label for="powertrail_only">&nbsp;{{map_05}}</label>
                 </div>
             </td>
