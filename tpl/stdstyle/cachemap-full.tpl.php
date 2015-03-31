@@ -123,6 +123,9 @@
                 <div>
                     <input class="chbox" id="be_ftf" name="be_ftf" value="1" type="checkbox" {be_ftf_checked} onclick="reload(); check_field()"/><label for="be_ftf">&nbsp;{{map_01}}</label>
                 </div>
+                <div style="visibility:{powerTrails_visibility}">
+                    <input class="chbox" id="powertrail_only" name="powertrail_only" value="1" type="checkbox" {powertrail_only_checked} onclick="reload()"/><label for="powertrail_only">&nbsp;{{map_05}}</label>
+                </div>
             </td>
         </tr>
         <tr>
@@ -220,7 +223,7 @@
                                             if ({fromlat} != {tolat}) {
                                     bounds = '&fromlat={fromlat}&fromlon={fromlon}&tolat={tolat}&tolon={tolon}';
                                     }
-                                    document.cookie = "forceFullscreenMap=off;"; //remember user decision in cookie
+                                    document.cookie = "forceFullScreenMap=off;"; //remember user decision in cookie
                                     window.location = "cachemap3.php?lat=" + map.getCenter().lat() + "&lon=" + map.getCenter().lng() + "&inputZoom=" + map.getZoom() + "&{searchdata}" + bounds + "{extrauserid}";
                                     });
                                     }

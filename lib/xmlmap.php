@@ -14,10 +14,10 @@ if (isset($_GET['searchdata']) && preg_match('/^[a-f0-9]+/', $_GET['searchdata']
     $searchdata = $_GET['searchdata'];
 }
 
-$latmin = $_GET['latmin'];
-$latmax = $_GET['latmax'];
-$lonmin = $_GET['lonmin'];
-$lonmax = $_GET['lonmax'];
+$latmin = sql_escape($_GET['latmin']);
+$latmax = sql_escape($_GET['latmax']);
+$lonmin = sql_escape($_GET['lonmin']);
+$lonmax = sql_escape($_GET['lonmax']);
 
 if (($latmin == $latmax) && ($lonmin == $lonmax)) {
     // Special case for showing marker for specific cache - just single coordinate provided
@@ -74,6 +74,10 @@ if (!isset($searchdata)) {
         $hide_by_type .= " AND IF($own_not_attempt, 1, 0)<>1 ";
     if ($_GET['be_ftf'] == "true")
         $hide_by_type .= " AND (IF($own_not_attempt, 1, 0)<>1 AND caches.status=1 AND caches.user_id<>" . $user_id . ") ";
+
+    if ($_GET['powertrail_only'] == "true")
+        $joins[] = "INNER JOIN powerTrail_caches ON powerTrail_caches.cacheId = caches.cache_id";
+
     if ($_GET['h_avail'] == "true")
         $hide_by_type .= " AND caches.status<>1 ";
     if ($_GET['h_temp_unavail'] == "true")
@@ -108,17 +112,19 @@ if (!isset($searchdata)) {
         $h_sel_ignored = "0 as ignored,";
         $h_ignored = "";
     }
+    $joins[] = $h_ignored; 
 
     if ($_GET['h_nogeokret'] == "true")
         $filter_by_type_string .= " AND caches.cache_id IN (SELECT cache_id FROM caches WHERE wp_oc IN (SELECT wp FROM gk_item_waypoint WHERE id IN (SELECT id FROM gk_item WHERE stateid<>1 AND stateid<>4 AND stateid<>5 AND typeid<>2)) OR (wp_gc IN (SELECT wp FROM gk_item_waypoint WHERE id IN (SELECT id FROM gk_item WHERE stateid<>1 AND stateid<> 4 AND typeid<>2)) AND wp_gc <> '') OR (wp_nc IN (SELECT wp FROM gk_item_waypoint WHERE id IN (SELECT id FROM gk_item WHERE stateid<>1 AND stateid<>4 AND typeid<>2)) AND wp_nc <> '')) ";
     else
         $filter_by_type_string = "";
 
-    $sql = "SELECT $h_sel_ignored caches.cache_id, IF($own_not_attempt, 1, 0) as found, caches.name, caches.node, user.username, caches.wp_oc as wp, caches.votes, caches.score, caches.topratings, caches.latitude, caches.longitude, caches.type, caches.size, caches.status as status, datediff(now(), caches.date_hidden) as old, caches.user_id, caches.founds, caches.notfounds FROM user, caches
-    $h_ignored
-    WHERE caches.user_id = user.user_id AND caches.status < 4 AND
-    (caches.latitude BETWEEN $latmin AND $latmax) AND (caches.longitude BETWEEN $lonmin AND $lonmax)
-    " . $hide_by_type . $filter_by_type_string . $score_filter . " LIMIT 1";
+    $sql = "SELECT $h_sel_ignored caches.cache_id, IF($own_not_attempt, 1, 0) as found, caches.name, caches.node, user.username, caches.wp_oc as wp, caches.votes, caches.score, caches.topratings, caches.latitude, caches.longitude, caches.type, caches.size, caches.status as status, datediff(now(), caches.date_hidden) as old, caches.user_id, caches.founds, caches.notfounds 
+            FROM user, caches
+            ".implode(" ",$joins)."
+            WHERE caches.user_id = user.user_id AND caches.status < 4 AND
+                (caches.latitude BETWEEN $latmin AND $latmax) AND (caches.longitude BETWEEN $lonmin AND $lonmax)
+                " . $hide_by_type . $filter_by_type_string . $score_filter . " LIMIT 1";
 
 
     // for foreign caches -------------------------------------------------------------------------------------
@@ -175,10 +181,11 @@ if (!isset($searchdata)) {
         $filter_by_type_string = "";
 
 
-    $sql_foreign = "SELECT foreign_caches.cache_id, foreign_caches.name, foreign_caches.username, foreign_caches.node, foreign_caches.wp_oc as wp, foreign_caches.topratings, foreign_caches.latitude, foreign_caches.longitude, foreign_caches.type, foreign_caches.size, foreign_caches.status as status, datediff(now(), foreign_caches.date_hidden) as old, foreign_caches.founds, foreign_caches.notfounds FROM foreign_caches
-    WHERE foreign_caches.status < 4 AND
-    (foreign_caches.latitude BETWEEN $latmin AND $latmax) AND (foreign_caches.longitude BETWEEN $lonmin AND $lonmax)
-    " . $hide_by_type . $filter_by_type_string . " LIMIT 1";
+    $sql_foreign = "SELECT foreign_caches.cache_id, foreign_caches.name, foreign_caches.username, foreign_caches.node, foreign_caches.wp_oc as wp, foreign_caches.topratings, foreign_caches.latitude, foreign_caches.longitude, foreign_caches.type, foreign_caches.size, foreign_caches.status as status, datediff(now(), foreign_caches.date_hidden) as old, foreign_caches.founds, foreign_caches.notfounds 
+                    FROM foreign_caches
+                    WHERE foreign_caches.status < 4 AND
+                        (foreign_caches.latitude BETWEEN $latmin AND $latmax) AND (foreign_caches.longitude BETWEEN $lonmin AND $lonmax)
+                        " . $hide_by_type . $filter_by_type_string . " LIMIT 1";
 
     if (!($_GET['h_pl'] == "false")) {
         $query = mysql_query($sql);
@@ -194,8 +201,9 @@ if (!isset($searchdata)) {
 
     if (($cache == 0) || ($cache['cache_id'] == ""))
         $cache = $cache_foreign;
-}
-else { // searchdata
+
+} else { // searchdata
+
     mysql_query("CREATE TEMPORARY TABLE cache_ids (id INTEGER PRIMARY KEY) ENGINE=MEMORY;");
     mysql_query("LOAD DATA LOCAL INFILE '" . $dynbasepath . "/searchdata/" . $searchdata . "' INTO TABLE cache_ids FIELDS TERMINATED BY ' '  LINES TERMINATED BY '\\n' (id);");
 
@@ -249,4 +257,3 @@ if (isset($query_foreign)) {
 $writer->endElement();
 $writer->endDocument();
 $writer->flush();
-?>

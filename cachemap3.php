@@ -6,7 +6,7 @@
 
     if (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0)){
         //check cookie to allow user to come back to non-full screen mode
-        if( document.cookie.indexOf("forceFullscreenMap=off") == -1){
+        if( document.cookie.indexOf("forceFullScreenMap=off") == -1){
             //touch device + cookie not set => redirect to full screen map
             window.location = 'cachemap-full.php'+window.location.search;
         }
@@ -48,11 +48,12 @@ function getDBFilter($user_id)
         "map_type" => 1,
         "h_arch" => 0,
         "be_ftf" => 0,
+        "powertrail_only" => 0,
         "min_score" => $MIN_SCORE,
         "max_score" => $MAX_SCORE,
         "h_noscore" => 1
     ); // default filter
-    $query = mysql_query("SELECT * from map_settings WHERE `user_id`=$user_id");
+    $query = mysql_query("SELECT * from map_settings WHERE `user_id`=$user_id LIMIT 1");
     while ($row = mysql_fetch_assoc($query)) {
         $filter["h_u"] = $row['unknown'];
         $filter["h_t"] = $row['traditional'];
@@ -73,6 +74,12 @@ function getDBFilter($user_id)
         $filter["map_type"] = $row['maptype'];
         $filter["h_arch"] = $row['archived'];
         $filter["be_ftf"] = $row['be_ftf'];
+        
+        global $powerTrailModuleSwitchOn;
+        if( $powerTrailModuleSwitchOn===true ){ //skip this setting powerTrails are 
+            $filter["powertrail_only"] = $row['powertrail_only'];
+        }
+        
         $filter["min_score"] = $row['min_score'];
         $filter["max_score"] = $row['max_score'];
         $filter["h_noscore"] = $row['noscore'];
@@ -101,10 +108,8 @@ if ($usr == false) {
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target=' . $target);
 } else {
-    //JG - The debug message: A session had already been started - ignoring session_start()
-    // session_start();
 
-    if (isset($_GET['sc']))
+    if (isset($_GET['sc'])) //TODO: what is it - dead code?
         tpl_set_var('sc', intval($_GET['sc']));
 
     if ($get_userid == '') {
@@ -123,7 +128,7 @@ if ($usr == false) {
         tpl_set_var('circle', "0");
     }
 
-    $rs = mysql_query("SELECT `latitude`, `longitude`, `username` FROM `user` WHERE `user_id`='$user_id'");
+    $rs = mysql_query("SELECT `latitude`, `longitude`, `username` FROM `user` WHERE `user_id`='$user_id' LIMIT 1");
     $record = mysql_fetch_array($rs);
     if (isset($_REQUEST['lat']) && $_REQUEST['lat'] != "" && isset($_REQUEST['lon']) && $_REQUEST['lon'] != "") {
         $coordsXY = $_REQUEST['lat'] . "," . $_REQUEST['lon'];
@@ -176,7 +181,6 @@ if ($usr == false) {
     tpl_set_var("max_sel5", "");
 
     foreach ($filter as $key => $value) {
-
         if ($key == "min_score" || $key == "max_score") {
             if ($key == "min_score")
                 $minmax = "min";
@@ -188,7 +192,14 @@ if ($usr == false) {
             continue;
         }
 
-        if (!($key == "h_avail" || $key == "h_temp_unavail" || $key == "be_ftf" || $key == "map_type" || $key == "h_noscore")) {
+        if ( !(
+                $key == "h_avail" || 
+                $key == "h_temp_unavail" || 
+                $key == "be_ftf" ||
+                $key == "powertrail_only" ||
+                $key == "map_type" || 
+                $key == "h_noscore")
+        ) {
             // workaround for reversed values
             $value = 1 - $value;
         }
@@ -225,6 +236,13 @@ if ($usr == false) {
         tpl_set_var('boundsurl', '');
     }
 
+    // hide powerTrails filter if powerTrails are disabled in config
+    if($powerTrailModuleSwitchOn){
+        tpl_set_var("powerTrails_visibility", "visible");
+    } else {
+        tpl_set_var("powerTrails_visibility", "hidden");
+    }
+
     tpl_set_var("cachemap_mapper", $cachemap_mapper);
 
     /* if( isset( $_POST['submit'] ) )
@@ -247,4 +265,3 @@ if ($usr == false) {
     tpl_set_var('lib_cachemap3_js', "lib/cachemap3." . $cacheMapVersion . ".js");
     tpl_BuildTemplate();
 }
-?>

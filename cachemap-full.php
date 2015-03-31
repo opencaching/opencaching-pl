@@ -11,6 +11,9 @@ function onTheList($theArray, $item)
 
 function getDBFilter($user_id)
 {
+    
+    global $MIN_SCORE, $MAX_SCORE, $powerTrailModuleSwitchOn; //defined in settings.inc/php
+     
     $filter = array("h_u" => 1,
         "h_t" => 1,
         "h_m" => 1,
@@ -30,11 +33,12 @@ function getDBFilter($user_id)
         "map_type" => 1,
         "h_arch" => 0,
         "be_ftf" => 0,
+        "powertrail_only" => 0,
         "min_score" => $MIN_SCORE,
         "max_score" => $MAX_SCORE,
         "h_noscore" => 1
     ); // default filter
-    $query = mysql_query("SELECT * from map_settings WHERE `user_id`=$user_id");
+    $query = mysql_query("SELECT * from map_settings WHERE `user_id`=$user_id LIMIT 1");
     while ($row = mysql_fetch_assoc($query)) {
         $filter["h_u"] = $row['unknown'];
         $filter["h_t"] = $row['traditional'];
@@ -55,6 +59,12 @@ function getDBFilter($user_id)
         $filter["map_type"] = $row['maptype'];
         $filter["h_arch"] = $row['archived'];
         $filter["be_ftf"] = $row['be_ftf'];
+
+        global $powerTrailModuleSwitchOn;
+        if($powerTrailModuleSwitchOn){
+            $filter["powertrail_only"] = $row['powertrail_only']; 
+        }
+
         $filter["min_score"] = $row['min_score'];
         $filter["max_score"] = $row['max_score'];
         $filter["h_noscore"] = $row['noscore'];
@@ -75,17 +85,17 @@ global $language;
 global $lang;
 
 $user_id = '';
+if (isset($_REQUEST['userid']))
+    $get_userid = intval($_REQUEST['userid']);
 
-$get_userid = intval($_REQUEST['userid']);
 //user logged in?
 if ($usr == false) {
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target=' . $target);
 } else {
-    session_start();
 
-
-    tpl_set_var('sc', intval($_GET['sc']));
+    if (isset($_GET['sc'])) //TODO: what is it - dead code?
+        tpl_set_var('sc', intval($_GET['sc']));
 
     if ($get_userid == '') {
         $user_id = $usr['userid'];
@@ -131,9 +141,9 @@ if ($usr == false) {
         $_SESSION['print_list'] = array_values($_SESSION['print_list']);
     }
 
-    tpl_set_var('doopen', $_REQUEST['cacheid'] ? "true" : "false");
+    tpl_set_var('doopen', isset($_REQUEST['cacheid']) ? "true" : "false");
     tpl_set_var('coords', $coordsXY);
-    tpl_set_var('username', $record[username]);
+    tpl_set_var('username', $record['username']);
     tpl_set_var('map_width', isset($_GET['print']) ? ($x_print . "px") : ("99%"));
     tpl_set_var('map_height', isset($_GET['print']) ? $y_print : ("512") . "px");
 
@@ -161,7 +171,13 @@ if ($usr == false) {
             continue;
         }
 
-        if (!($key == "h_avail" || $key == "h_temp_unavail" || $key == "be_ftf" || $key == "map_type" || $key == "h_noscore")) {
+        if (!($key == "h_avail" || 
+              $key == "h_temp_unavail" || 
+              $key == "be_ftf" || 
+              $key == "powertrail_only" || 
+              $key == "map_type" || 
+              $key == "h_noscore")
+        ) {
             // workaround for reversed values
             $value = 1 - $value;
         }
@@ -195,6 +211,13 @@ if ($usr == false) {
         tpl_set_var('tolat', '0');
         tpl_set_var('tolon', '0');
         tpl_set_var('boundsurl', '');
+    }
+
+    // hide powerTrails filter if powerTrails are disabled in config
+    if($powerTrailModuleSwitchOn){
+        tpl_set_var("powerTrails_visibility", "visible");
+    } else {
+        tpl_set_var("powerTrails_visibility", "hidden");
     }
 
     tpl_set_var("cachemap_mapper", $cachemap_mapper);

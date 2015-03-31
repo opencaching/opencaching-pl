@@ -140,6 +140,12 @@ if ($searchdata) {  # Mode 2 - with "searchdata".
         # stay 100% compatible with the previous implementation.
     }
 
+
+    # powertrail_only (hunt for powerTrails) - convert to OKAPI's "powertrail_only" parameter.
+    if ($_GET['powertrail_only'] == "true") {
+        $params['powertrail_only'] = "true";
+    }
+
     # h_nogeokret - Convert to OKAPI's "with_trackables_only" parameter.
 
     if ($_GET['h_nogeokret'] == 'true')

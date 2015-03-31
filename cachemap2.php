@@ -272,7 +272,7 @@ if ($usr == false) {
             var climit = ((document.getElementById("cachelimit").value / 50) - 1);
             var csort = document.getElementById("cachesort").value;
 
-            var queryString = "?maptype=" + mapid + "&cachelimit=" + climit + "&cachesort=" + csort;
+            var queryString = "?map_v=2&maptype=" + mapid + "&cachelimit=" + climit + "&cachesort=" + csort;
             ajaxRequest.open("GET", "cachemapsettings.php" + queryString, false);
             ajaxRequest.send(null);
 
