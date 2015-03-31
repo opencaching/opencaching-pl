@@ -20,6 +20,7 @@
     <input id="h_temp_unavail" name="h_temp_unavail" checked="checked" type="checkbox"  />
     <input id="h_arch" name="h_arch" checked="checked" type="checkbox"  />
     <input id="be_ftf" name="be_ftf" type="checkbox" />
+    <input id="powertrail_only" name="powertrail_only" type="checkbox" />
     <input id="min_score" name="min_score" type="hidden" value="-3" />
     <input id="max_score" name="max_score" type="hidden" value="3.0" />
     <input id="h_noscore" name="h_noscore" checked="checked" type="checkbox" />
