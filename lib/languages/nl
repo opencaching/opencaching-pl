@@ -1112,7 +1112,7 @@ map_01 Toon alleen FTF
 map_02 Minimale score:
 map_03 elke score
 map_04 Toon ook ongewaardeerde caches
-map_05 Toon alleen caches van PowerTrails
+map_05 Toon alleen PowerTrail caches
 print_all Alles afdrukken
 remove_all Alles verwijderen
 no_logtype_choosen Geen logsoort gekozen
