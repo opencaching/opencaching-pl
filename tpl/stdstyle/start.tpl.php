@@ -50,7 +50,7 @@
 </div>
 {display_news}
 <!-- Text container -->
-<p class="main-totalstats">{{total_of_caches}} <span class="content-title-noshade">{total_hiddens}</span> {{active_caches}} <span class="content-title-noshade">{hiddens}</span> | {{number_of_founds}}: <span class="content-title-noshade">{founds}</span> | {{number_of_active_users}}: <span class="content-title-noshade">{users} </span></p>
+<p class="main-totalstats">{{total_of_caches}}: <span class="content-title-noshade">{total_hiddens}</span> {{active_caches}}: <span class="content-title-noshade">{hiddens}</span> | {{number_of_founds}}: <span class="content-title-noshade">{founds}</span> | {{number_of_active_users}}: <span class="content-title-noshade">{users} </span></p>
 <div class="content2-container">
     <div class="content2-container-2col-left" id="new-caches-area">
         <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="Cache" align="middle" />&nbsp;{{newest_caches}}</p>
