@@ -25,6 +25,7 @@
             showReadDataElement: false,
             writeDataButtonText: "{{garmin_write}}",
             showProgressBar: true,
+            getWriteDataFileName: function () { return "{wp_oc}.gpx"; },
             getWriteData: function () {
                 var waypoint = new Garmin.WayPoint("{lat}", "{long}", "0", "{wp_oc}", null, "OC PL: {cachename}", "Geocache", "Traditional", null);
                 var factory = new Garmin.GpsDataFactory();
