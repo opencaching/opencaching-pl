@@ -502,10 +502,10 @@ cache_logged_required Je moet ingelogd zijn om deze cache te loggen of te bewerk
 basic_information Basis informatie.
 rating_poor slecht
 rating_mediocre matig
-rating_avarage redelijk
+rating_avarage gemiddeld
 rating_good goed
 rating_excellent uitstekend
-rating_ge_average redelijk
+rating_ge_average gemiddeld
 rating_ge_good goed
 rating_ge_excellent uitstekend
 score_label Beoordeeld als
