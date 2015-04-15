@@ -261,7 +261,7 @@ bbcode_statpic BBCode voor je statpic
 pmr_message Ik gebruik PMR-radio op kanaal 2
 no_auto_logout Niet automatisch uitloggen na 15 minuten inactivieteit.
 notify_new_caches_radius Notificatie van nieuwe caches binnen
-no_new_caches_notification Notificatiie van nieuwe caches is uitgeschakeld.
+no_new_caches_notification Notificatie van nieuwe caches is uitgeschakeld.
 change_account_data Verander je profiel gegevens
 from_home_coords van je thuis coördinaten
 radius_hint Maximale radius is 150km. Om notificaties uit te schakelen, vul dan <b>0</b> in.
@@ -714,7 +714,7 @@ new_caches_myn New geocaches
 ftf_awaiting Wachtende First to Find caches
 new_logs_myn Laatste logs
 top_recommended Meest aanbevolen caches
-myn_info You do not have a set of coordinates your area. You can do this in your <a href="myprofile.php?action=change"> profile </a>. If you want to have different than the default radius of 35 km setup this in your profile option "Notification." Here is an example set of system coordinates.
+myn_info Er zijn nog geen thuiscoördinaten ingevuld. Dit kan ingevuld worden op je <a href="myprofile.php?action=change"> profiel pagina </a>. Dit kan ook een andere plek in je buurt zijn. Wanneer de standaard radius van 50 km niet voldoet kan ook een andere waarde ingevuld worden bij "Notificatie." 
 search_user Zoek gebruiker
 monthly_stat_founds Monthly statistics of the cache finds
 monthly_stat_founds_user Maandelijkse statistieken gevonden caches
@@ -873,8 +873,8 @@ search_caches_along_route Zoek caches langs een route
 caches_along_route Caches langs de route
 save_gpx Sla op als GPX
 save_gpx_with_photos Sla op als GPX + foto's
-show_gmap Toon op GMAP
-show_list Zoek caches langs een route
+show_gmap Toon caches op kaart
+show_list Toon caches als lijst
 logs_cache_gpx Aantal logs van elke cache in GPX
 min_logs_cache Minimum aantal logs
 marked_grey_search_area Zoekgebied met opgegeven radius is grijs aangegeven
