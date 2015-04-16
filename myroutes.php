@@ -55,7 +55,7 @@ if ($error == false) {
                             <td style="width:62px;" class="myr">' . $routes_record['length'] . ' km</td><td width="2" style="border-right:solid thin #7fa2ca"></td>
                             <td style="width:73px;" class="myr"><a class="links" href="myroutes_search.php?routeid=' . $routes_record['route_id'] . '"><img src="tpl/stdstyle/images/action/16x16-search.png" alt="" title=' . tr("search_caches_along_route") . ' /></a></td><td width="2" style="border-right:solid thin #7fa2ca"></td>
                             <td style="width:53px;" class="myr"><a class="links" href="myroutes_edit.php?routeid=' . $routes_record['route_id'] . '"><img src="images/actions/edit-16.png" alt="" title=' . tr('edit_route') . ' /></a></td><td width="2" style="border-right:solid thin #7fa2ca"></td>
-                            <td style="width:23px;" class="myr"><a class="links" href="myroutes_edit.php?routeid=' . $routes_record['route_id'] . '&delete" onclick="return confirm(\'Do you want to remove this route?\');"><img style="vertical-align: middle;" src="tpl/stdstyle/images/log/16x16-trash.png" alt="" title=' . tr('delete') . ' /></a></td></tr></table></div>';
+                            <td style="width:23px;" class="myr"><a class="links" href="myroutes_edit.php?routeid=' . $routes_record['route_id'] . '&delete" onclick="return confirm(\'' . tr("confirm_remove_route") . '\');"><img style="vertical-align: middle;" src="tpl/stdstyle/images/log/16x16-trash.png" alt="" title=' . tr('delete') . ' /></a></td></tr></table></div>';
             }
             $routes .= '';
 

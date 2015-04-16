@@ -854,6 +854,7 @@ images_cache Images of geocache
 images_logs Images of logs
 show_more Show more
 search_options Search options
+confirm_remove_route Do you want to remove this route?
 myroutes My routes
 add_new_route Add new route
 setup_new_route Set a new route

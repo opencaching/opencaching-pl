@@ -854,6 +854,7 @@ images_cache Obrazki skrzynki
 images_logs Obrazki z logów
 show_more Pokaż więcej
 search_options Opcje wyszukiwania
+confirm_remove_route Czy chcesz usunąć tą trasę?
 myroutes Moje trasy
 add_new_route Dodaj nową trasę
 setup_new_route Wyznacz nową trasę

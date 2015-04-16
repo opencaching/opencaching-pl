@@ -854,6 +854,7 @@ images_cache Afbeeldingen van cache
 images_logs Afbeeldingen van logs
 show_more Toon meer
 search_options Zoekopties
+confirm_remove_route Moet deze route werkelijk verwijderd worden?
 myroutes Mijn routes
 add_new_route Maak nieuwe route
 setup_new_route Maak een nieuwe route
