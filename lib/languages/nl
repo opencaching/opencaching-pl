@@ -867,6 +867,8 @@ route_name Route naam
 route_name_info Geef de route een naam
 file_name_info Geef een KML bestand op
 no_routes Lijst met routes is leeg
+no_route_info Er is geen route opgegeven
+long_route_info De gemaakte route is te lang (" + v + " km). De lengte van een route mag maximaal 200 km zijn.
 radius Radius
 see_desc_myroute Zie beschrijving "mijn routes"
 route_radius Zoek radius

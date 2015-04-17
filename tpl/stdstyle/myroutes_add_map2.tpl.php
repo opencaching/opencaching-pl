@@ -28,7 +28,7 @@
         }
         if (document.myroute_form.distance.value == "")
         {
-            alert("{{Trasa nie została wyznaczona}}");
+            alert("{{no_route_info}}");
             return false;
         } else {
             var len = document.myroute_form.distance.value;
@@ -36,7 +36,7 @@
             var l = lv[0].split(",");
             var v = parseFloat(l[0]);
             if (v > 200) {
-                alert("Wybrana trasa jest za długa (" + v + " km). Maksymalna długość wyznaczonej trasy powinna być do 200 km.");
+                alert("{{long_route_info}}");
                 return false;
             }
         }

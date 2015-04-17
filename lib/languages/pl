@@ -867,6 +867,8 @@ route_name Nazwa trasy
 route_name_info Proszę podać nazwę trasy
 file_name_info Proszę podać nazwę pliku KML
 no_routes Lista tras jest pusta
+no_route_info Trasa nie została wyznaczona
+long_route_info Wybrana trasa jest za długa (" + v + " km). Maksymalna długość wyznaczonej trasy powinna być do 200 km.
 radius Promień
 see_desc_myroute Zobacz opis "Moje trasy"
 route_radius Promień szukania
