@@ -8,7 +8,7 @@
  *
  * ************************************************************************* */
 ?>
-<script language=javascript type='text/javascript'>
+<script language="javascript" type="text/javascript">
     function hidediv() {
         if (document.getElementById) { // DOM3 = IE5, NS6
             document.getElementById('hideshow').style.visibility = 'hidden';
@@ -22,28 +22,21 @@
     }
 </script>
 
-
-
 <div class="line-box">
-
-
-
     <div class="content-title-noshade-size1">
         <img src="{icon_cache}" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}"/>{mod_suffix}{cachename}
         <img src="tpl/stdstyle/images/free_icons/arrow_in.png" class="icon16" alt="" title="" align="middle" />&nbsp;<b>{oc_waypoint}
-            <img src="tpl/stdstyle/images/blue/kompas.png" class="icon16" alt="" title="" />{coords}</b><br/>
+        <img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="" title="" />{coords}</b><br/>
 
-        {difficulty_icon_diff} {difficulty_icon_terr} {short_desc} {{hidden_by}} <a href="viewprofile.php?userid={userid_urlencode}">{owner_name}</a>
+        {difficulty_icon_diff} {difficulty_icon_terr} {short_desc} 
+		{{hidden_by}} <a href="viewprofile.php?userid={userid_urlencode}">{owner_name}</a>
 
         <img src="tpl/stdstyle/images/free_icons/package.png" class="icon16" alt="" title="" align="middle" />&nbsp;<b>{cachesize}</b>
-        {hidetime_start}<img src="tpl/stdstyle/images/free_icons/time.png" class="icon16" alt="" title="" align="middle" />&nbsp; {search_time}&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/arrow_switch.png" class="icon16" alt="" title="" align="middle" />&nbsp; {way_length} {hidetime_end}
-        {score_icon}<b><font color="{scorecolor}">{score}</font></b>
-        {hidelistingsites_start}<br /><img src="tpl/stdstyle/images/free_icons/link.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{listed_also_on}}: {listed_on}{hidelistingsites_end}
-
+        {hidetime_start} <img src="tpl/stdstyle/images/free_icons/time.png" class="icon16" alt="" title="" align="middle" />&nbsp; {search_time}&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/arrow_switch.png" class="icon16" alt="" title="" align="middle" />&nbsp; {way_length} {hidetime_end}
+        {score_icon} <b><font color="{scorecolor}">{score}</font></b>
+        {hidelistingsites_start}<br /><img src="tpl/stdstyle/images/free_icons/link.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{listed_also_on}}: <span class="listed-on">{listed_on}</span>{hidelistingsites_end}
     </div>
-
 </div>
-
 
 <?php
 global $usr, $lang, $hide_coords;
@@ -52,21 +45,18 @@ global $usr, $lang, $hide_coords;
     <p class="content-title-noshade-size1">
         <img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="" />
         {{descriptions}}&nbsp;<br/>{cache_attributes}{password_req}
-    </p></div>
+    </p>
+</div>
 
 <div class="content2-container">
-
     <div id='branding'>{branding}</div>
-
     <div id="description">
-
         <div id="viewcache-description">
-
             {desc}
-
         </div>
     </div>
 </div>
+
 {hidehint_start}
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
@@ -87,6 +77,7 @@ global $usr, $lang, $hide_coords;
     </div>
 </div>
 {hidehint_end}
+
 {CacheNoteS}
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size2">
@@ -94,9 +85,7 @@ global $usr, $lang, $hide_coords;
         {{personal_cache_note}}
     </p>
 </div>
-
 <div class="content2-container">
-
     <table>
         <tr valign="top">
             <td></td>
@@ -109,16 +98,20 @@ global $usr, $lang, $hide_coords;
     </table>
 </div>
 {CacheNoteE}
+
 {waypoints_start}
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
         <img src="tpl/stdstyle/images/blue/compas.png" alt="" />
         {{additional_waypoints}}
-    </p></div>
+    </p>
+</div>
 <p>
     {waypoints_content}
-</p><br/>
+</p>
+<br/>
 {waypoints_end}
+
 {hidenpa_start}
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
@@ -127,12 +120,14 @@ global $usr, $lang, $hide_coords;
         NATURA 2000 obszar
     </p>
 </div>
-<div class="content2-container"><center>
+<div class="content2-container">
+	<center>
         <table width="90%" border="0" style="border-collapse: collapse; font-weight: bold;font-size: 14px; line-height: 1.6em">
             <tr>
                 <td align="center" valign="middle">&nbsp;</td><td align="center" valign="middle">{npa_content}</td><td align="center" valign="middle"><a class="links" href="http://www.natura2000.pl/" target="_blank"><img src="tpl/stdstyle/images/misc/natura2000.png" alt="" title="" /></a></td>
             </tr>
-        </table></center>
+        </table>
+	</center>
 </div>
 {hidenpa_end}
 
@@ -159,7 +154,8 @@ global $usr, $lang, $hide_coords;
     <p class="content-title-noshade-size1">
         <img src="tpl/stdstyle/images/blue/travelbug.png" class="icon32" alt="" />
         Geokrety
-    </p></div>
+    </p>
+</div>
 <div class="content2-container">
     <p>
         {geokrety_content}
@@ -171,7 +167,8 @@ global $usr, $lang, $hide_coords;
     <p class="content-title-noshade-size1">
         <img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt="" />
         {{images}}
-    </p></div>
+    </p>
+</div>
 <div class="content2-container">
     <div id="viewcache-pictures">
         <div id="hideshow">
@@ -180,7 +177,6 @@ global $usr, $lang, $hide_coords;
     </div>
 </div>
 {hidepictures_end}
-
 
 <!-- Text container -->
 <div class="content2-container bg-blue02 logs">
@@ -197,4 +193,3 @@ global $usr, $lang, $hide_coords;
     {logs}
 </div>
 <!-- End Text Container -->
-
