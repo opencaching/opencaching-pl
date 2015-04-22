@@ -241,10 +241,10 @@ list_of_participants Lijst van deelnemers
 show_recommended Toon aanbeveling
 show_all toon alles
 no_choice Selectie niet beschikbaar
-username_incorrect Username is incorrect.
-username_exists This username is already taken.
+username_incorrect Gebruikersnaam is niet geldig.
+username_exists Gebruikersnaam is al in gebruik.
 bad_coordinates Ingevoerde coördinaten zijn niet juist.
-bad_radius Entered radius is invalid.
+bad_radius Ingevulde radius is niet correct.
 your_data Your data
 data_in_profile De volgende informatie is opgeslagen in jouw gebruikersprofiel
 desc_updated Your description has been updated successfully.
@@ -693,7 +693,7 @@ status_wp Waypoint status
 write_wp Waypoint opslaan
 edit_wp Bewerk waypoint
 delete_wp Verwijder waypoint
-delete_wp_confirm Bent u zeker dat u dit wilt waypoint verwijderen?
+delete_wp_confirm Moet dit waypoint werkelijk verwijderd worden?
 show_info_about_wp Zie beschrijving en soorten van extra waypoints
 show_info_for_value Wanneer dit waypoint niet de volgende stap is voor multicache of puzzelcache zet waarde op 0.
 comment_octeam_visible OC Team notities zijn alleen zichtbaar voor OC Team en de cache eigenaar.
@@ -1192,7 +1192,7 @@ event_attendance_02 Op:
 event_attendance_03 Georganiseerd door:
 event_attendance_04 Het evenement:
 event_attendance_05 Aantal deelnemers:
-printcache_00 Verbergen logboek
+printcache_00 Verberg loggegevens
 printcache_01 Toon zonder logs
 printcache_02 Toon laatste logs
 printcache_03 Alle logs
