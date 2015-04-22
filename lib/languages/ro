@@ -387,6 +387,7 @@ pictures fotografii
 search_by_owner Caută după proprietarul geocutiei
 owner_label Proprietar
 finder_label Găsitor
+waypoint_label Cod
 search_by_finder Caută după găsitori
 search_recommendations Recomandări
 search_all_caches toate cutiile
@@ -892,7 +893,7 @@ cacheguides Ghiduri în Geocaching-ului **
 guide Ghid
 guides Ghiduri
 okapi_apps Aplicaţiile tale
-os_times <!-- times -->
+os_times  
 os_kesz Geocutie
 os_autor de
 os_nie_ma_w_os Proprietarul acestei geocutii nu a adăugat opţiunea de a-i verifica coordonatele finale cu OpenChecker
@@ -2546,3 +2547,4 @@ cache_alt Altitudine
 Given_Recommendations Recomandări date de
 waypoint_error1 
 waypoint_error2 Punctul trebuie să fie dat într-unul din următoarele formate: OPxxxx, ORxxxx, OBxxxx, GCxxxxx, NCxxxx
+pagetitle_print Tipărire

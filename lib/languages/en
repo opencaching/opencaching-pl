@@ -387,6 +387,7 @@ pictures pictures
 search_by_owner Search by cache owner
 owner_label Cache owner
 finder_label Finder
+waypoint_label waypoint
 search_by_finder Search by finder
 search_recommendations Recommendations
 search_all_caches all caches
@@ -2560,3 +2561,4 @@ cache_alt Altitude
 Given_Recommendations Recommendations given by 
 waypoint_error1 
 waypoint_error2 Waypoint must be in one of the following formats: OPxxxx, ORxxxx, OBxxxx, GCxxxxx, NCxxxx
+pagetitle_print Printing

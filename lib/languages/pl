@@ -387,6 +387,7 @@ pictures obrazki
 search_by_owner Szukaj według właściciela skrzynki
 owner_label właściciel
 finder_label znalazca
+waypoint_label waypoint
 search_by_finder Szukaj według znalazcy
 search_recommendations Rekomendacje
 search_all_caches wszystkie skrzynki
@@ -2550,3 +2551,4 @@ cache_alt Wysokość
 Given_Recommendations Rekomendowane przez
 waypoint_error1 
 waypoint_error2 Waypoint musi być w jednym z podanych formatów: OPxxxx, ORxxxx, OBxxxx, GCxxxxx, NCxxxx
+pagetitle_print drukowanie

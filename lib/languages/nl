@@ -387,6 +387,7 @@ pictures afbeeldingen
 search_by_owner Zoek op cache eigenaar
 owner_label cache eigenaar
 finder_label vinder
+waypoint_label waypoint
 search_by_finder Zoek op vinder
 search_recommendations Aanbevelingen
 search_all_caches alle caches
