@@ -212,7 +212,7 @@ status_label Stare
 date_hidden_label Data ascunderii
 date_event_label Eveniment Data de începere
 date_created_label Data creării
-last_modified_label Ultima modificare **
+last_modified_label Ultima modificare
 last_modified2_label Ultima modificare ***
 waypoint Punct
 listed_also_on Publicată şi pe
@@ -2207,7 +2207,7 @@ contact_pl_cog_description ***- COG members are listed &gt;&gt;&gt;<a href="{lin
 contact_pl_other_title ***Other
 contact_pl_other_description ***In cases directly regarding OpenCaching PL you could drop an e-mail to <b>ocpl at opencaching.pl</b>. Be patient, receiving a reply may take quite a long.
 contact_ocpl_title ***Polish version of OpenCaching
-contact_ocpl_description_1*** - May 2006 - Polish geocaching service idea, initial development and deployment of OC.PL - Waldek "sp2ong" + a lot of help from his friends.
+contact_ocpl_description_1 ***- May 2006 - Polish geocaching service idea, initial development and deployment of OC.PL - Waldek "sp2ong" + a lot of help from his friends.
 contact_ocpl_description_2 ***- 2011 Wojtek "wrygiel" - Opencaching API author: http://opencaching.pl/okapi
 contact_ocpl_description_3 ***- 2011 Jakub "lecter69" - author of mobile version: http://m.opencaching.pl
 contact_ro_about_title Întrebări despre Opencaching şi Geocaching
@@ -2217,8 +2217,24 @@ contact_ro_other_description Dacă întâmpini probleme legate de funcţionarea 
 contact_ocro_title Opencaching în România: istoric
 contact_ocro_description_1 2011 - Cunoscând deja existenţa serviciului Opencaching în alte ţări, apare ideea unui astfel de serviciu românesc.
 contact_ocro_description_2 aprilie 2014 - Lansarea {site_name} în România, bazat pe proiectul open-source OPENCACHING-PL
+contact_nl_title_1 ***General questions about Opencaching.nl and theme Geocaching.
+contact_nl_desc_1_1 ***For questions about opencaching and theme Geocaching our <a href="http://wiki.opencaching.nl/"> Open Caching Wiki </a> a good place to read a bit. <br/> There is a nice introduction video made which explains in detail what Opencaching.nl and Geocaching is about. Please take a look <a href="https://www.youtube.com/watch?v=_ujk70YhKLA&feature=youtu.be">here</a>.
+contact_nl_desc_1_2 ***If no answer can be found on a certain question you may also look on our <a href="http://forum.opencaching.nl"> forum</a>. Maybe that question has been asked here.
+contact_nl_title_2 ***Cachers who are committed to this site and are members of the OC-Team.
+contact_nl_desc_2_1 ***<a href="http://www.opencaching.nl/viewprofile.php?userid=630"><b>RHCV</b></a> (Ruben): Takes care of the blog page, handles all PR issues, takes care of the Wikipage, approves new caches, etc. etc.'
+contact_nl_desc_2_2 ***<a href="http://www.opencaching.nl/viewprofile.php?userid=3"><b>harrieklomp</b></a> (Harrie): Management of the open cachingsite, takes care of the Wikipage, approves new caches, etc. etc.
+contact_nl_title_3 ***Use of the website, suggestions and criticism.
+contact_nl_desc_3_1 ***For this we have a subforum on <a href="http://forum.opencaching.nl/viewforum.php?f=4">forum.opencaching.nl</a>. Here you find more information for most questions, and if you are interested join our Opencaching-team.
+contact_nl_title_4 ***Opencaching Benelux can also be found on following social media.
+contact_nl_desc_4_1 ***<a href="https://twitter.com/Opencachingnl"><img src="http://www.opencaching.nl/images/social_media/Twitter-32.png" class="icon32" align="middle" /></a> <a href="https://www.facebook.com/groups/opencachingbenelux/"><img src="http://www.opencaching.nl/images/social_media/Facebook-32.png" class="icon32" align="middle" /></a> <a href="https://plus.google.com/u/0/communities/111177041019520838177"><img src="http://www.opencaching.nl/images/social_media/Google-32.png" class="icon32" align="middle" /></a> <a href="https://www.youtube.com/channel/UCLBglwWiI6HRjCwBVLZQfWw"><img src="http://www.opencaching.nl/images/social_media/YouTube-32.png" class="icon32" align="middle" /></a>
+contact_nl_title_5 ***Other
+contact_nl_desc_5_1 ***If the above options does not provide the answer to your question, you also can write directly a mail to <i>opencaching.nl</i> via <a href="mailto:contact@opencaching.nl">contact@opencaching.nl</a>
+contact_nl_desc_5_2 ***Because the volunteers at <i>opencaching.nl</i> do not always have time to answer your questions. So do not be impatient if there is not an immediate answer to a question.
+contact_nl_title_6 ***Donate
+contact_nl_desc_6_1 ***As you can see, you have the opportunity to donate to Opencaching Benelux This would be for the organization a huge help and support and will be appreciated. More info on our <a href="http://forum.opencaching.nl/viewforum.php?f=27"> forum </a> and/or our <a href="http://wiki.opencaching.nl/index.php/Financieel">wiki. </a>
+contact_nl_desc_6_2 ***<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="2QNGQ2WN6A44E"><input type="image" src="https://www.paypalobjects.com/nl_NL/BE/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal, de veilige en complete manier van online betalen."><img alt="" border="0" src="https://www.paypalobjects.com/nl_NL/i/scr/pixel.gif" width="1" height="1"></form>
 newCacheWpTitle Alege Punct
-newCacheWpDesc File contain few waypoints. Pick proper one.
+newCacheWpDesc Fişierul conţine mai multe puncte. Alege punctul dorit.
 logmap_01 De
 logmap_02 Data
 logmap_03 Harta cu ultimele 100 de însemnări
@@ -2243,8 +2259,8 @@ logbook_17 Fără chenar
 logbook_18 Useful when there is difficulty in equal printed on both sides, cut only on odd-numbered pages
 logbook_19 Poreclă
 logbook_20 E-Mail
-logbook_21 Is only used to complete the fields in the logbook
-logbook_22 Preview
+logbook_21 Este folosit doar pentru a completa câmpurile din jurnal*
+logbook_22 Previzualizare
 logbook_23 Generează PDF
 search01 toate regiunile*
 LineChart Linii*
@@ -2265,7 +2281,7 @@ links_06 Altele
 .year . an
 like_comment Îţi place acest comentariu?
 like_it îmi place:
-no_like_it Nobody likes this comment
+no_like_it Nimănui nu-i place în mod special
 Position Poziţie
 fav_com Comentarii favorite
 cacheSize_2 Micro
@@ -2428,15 +2444,100 @@ ocTeamComment_05 Comentariul din partea OC-Team este
 SearchByPlace_01 Locuri găsite
 SearchByPlace_02 Criteriul de căutare a dat rezultate neconcludente. Te rog alege din listă
 GarminZip_01 Colecţie
-GarminZip_02 You are trying to download a ZIP file. Containing the data as GPX with <b><u>pictures</u></b> for {zip_total_cache_count} caches.<br/> Unfortunately, due to the limitation of the server and the alleged dispute file size, in one package ZIP pictures can be contain up to {zip_max_count} caches.<br/> The requested content is divided into several smaller zip files, links to which are below
-GarminZip_03 Limitation of {zip_max_count} cases in a single file is experimental and may be increased
+GarminZip_02 Încerci să descarci un fişier ZIP. Acesta conţine informaţii sub formă de fişier GPX cu <b><u>imagini</u></b> pentru {zip_total_cache_count} geocutii.<br/> Din păcate datorită unor limitări specifice şi a unor dispute legate de dimensiunea maximă a fişierelor, o arhivă ZIP cu poze poate conţine maxim {zip_max_count} geocutii.<br/> Aceste informaţii sunt împărţite în mai multe arhive ZIP mai mici, legăturile pentru a le descărca pe fiecare individual se găsesc mai jos
+GarminZip_03 Limitarea la {zip_max_count} cutii per fişier este experimentală şi poate fi modificată pe viitor
 GarminZip_04 Urmează instrucţiunile de mai jos pentru a încărca geocutiile în GPS-ul tău
 GarminZip_05 Descarcă toate fişierele ZIP de mai sus
 GarminZip_06 Conectează GPS-ul Garmin Montana / Oregon / Dakota / 62/78 / eTrex prin cablu
 GarminZip_07 <b>Dezarhivează</b> toate fişierele şi copiază-le în <b>rădăcina</b> dispozitivului GPS
 GarminZip_08 Notă: trebuie să ai un dispozitiv compatibil (vezi lista de mai jos) cu firmware la zi (numărul din paranteză). Dacă nu vezi pozele, actualizează-ţi software-ul dispozitivului. Pentru mai multe informaţii, vezi
-GarminGgz_02 You are trying to download a GGZ file, containing the data as GPX with additional index (for access speed improvment) for {zip_total_cache_count} caches.<br/> Unfortunately, due to the limitation of the server, one GGZ file can contain up to {zip_max_count} caches.<br/> The requested content is divided into several smaller GGZ files, links to which are below
+GarminGgz_02 Încerci să descarci un fişier GGZ. Acesta conţine informaţii sub formă de fişier GPX cu un index adiţional (pentru imbunătăţirea vitezei de acces) pentru {zip_total_cache_count} geocutii.<br/> Din păcate datorită unor limitări specifice, un fişier GGZ poate conţine maxim {zip_max_count} geocutii.<br/> Informaţiile solicitate sunt împorţite în mai multe fişiere GGZ mai mici, legăturile pentru a le desăcrca pe fiecare individual se găsesc mai jos
 GarminGgz_05 Descarcă toate fişierele GGZ de mai sus
 GarminGgz_06 Conectează GPS-ul Garmin Oregon 6xx prin cablu
-GarminGgz_07 <b>Copy</b> all the files to the directory <b>Garmin/GGZ</b> of device's memory (it can also be a SD card memory)
-GarminZipGgz_02 You are trying to download a ZIP file containing the data as GGZ with <b><u>pictures</u></b> for {zip_total_cache_count} caches.<br/> Unfortunately, due to the limitation of the server and the alleged dispute file size, in one package ZIP pictures can be contain up to {zip_max_count} caches.<br/> The requested content is divided into several smaller zip files, links to which are below
+GarminGgz_07 <b>Copiază</b> toate fişierele în directorul <b>Garmin/GGZ</b> din memoria GPS-ului (poate fi şi pe cardul SD)
+GarminZipGgz_02 Încerci să descarci un fişier ZIP. Acesta conţine informaţii sub formă de fişier GGZ cu <b><u>poze</u></b> pentru {zip_total_cache_count} geocutii.<br/> Din păcate datorită unor limitări specifice şi a unor dispute legate de dimensiunea maximă a fişierelor, o arhivă ZIP cu poze poate conţine maxim {zip_max_count} geocutii.<br/> Aceste informaţii sunt împărţite în mai multe arhive ZIP mai mici, legăturile pentru a le descărca pe fiecare individual se găsesc mai jos
+JpGraph_25121 Lipsă informaţii pentru genera un grafic. Trebuie să existe cel puţin un punct.
+Stats_s3_01 Clasament după găsiri per regiune
+Stats_s3_02 Clasament
+Stats_s3_03 Găsiri
+Stats_s3_04 Geocutie (utilizator)
+Stats_s3a_01 Clasament geocutii după găsiri per regiune
+Stats_s3a_02 Apasă pe numele regiunii pentru a vedea statisticile acelei regiuni
+Stats_s3a_03 Alege o regiune
+Stats_s10_01 Clasament utilizatori după numărul de căutări într-o regiune<br />(Găsite + Negăsite)
+Stats_s10_02 Clasament
+Stats_s10_03 *Număr de însemnări
+Stats_s10_04 Utilizator
+Stats_t3_01 Clasament utilizatori după numărul de geocutii ascunse
+Stats_t3_02 Clasament
+Stats_t3_03 Găsiri
+Stats_t3_04 Utilizator
+Stats_t4_01 Clasament geocutii după numărul de găsiri
+Stats_t4_02 Clasament
+Stats_t4_03 Găsiri
+Stats_t4_04 Utilizator
+Stats_t5_01 Clasament utilizatori după numărul de recomandări primite
+Stats_t5_02 Unde
+Stats_t5_03 *număr recomandări
+Stats_t5_04 total geocutii
+Stats_t5_05 **ratio in
+Stats_t5_06 sau 
+Stats_t5_07 Clasament
+Stats_t5_08 *Număr recomandări
+Stats_t5_09 Utilizator
+Stats_t6_01 *Număr geocutii pe regiune
+Stats_t6_02 *Numai geocutiile active
+Stats_t6_03 Utilizatori, care au ascuns
+Stats_t6_04 *Număr geocutii active
+Stats_t6_05 Apasă pe numele regiunii pentru a vedea statisticile acelei regiuni
+Stats_t6_06 *Număr geocutii
+Stats_t6_07 Regiune
+Stats_t7_01 Activitate pe regiune
+Stats_t7_02 *Număr de căutări (Găsite + Negăsite)
+Stats_t7_03 *Număr utilizatori activi
+Stats_t7_04 Apasă pe numele regiunii pentru a vedea statisticile acelei regiuni
+Stats_t7_05 Număr geocutii căutate**
+Stats_t7_06 Regiune
+history Istoric OC
+admin_users_remove_logs Şterge toate însemnările acestui utilizator
+admin_users_verify_all Verifică toate geocutiile noi ale acestui utilizator
+admin_users_verify_none Nu verifica toate geocutiile noi ale acestui utilizator
+Hidden Ascunsă
+FNC G.N.C
+FoundNotFoundComment Găsită.Negăsită.Comentată
+Found Găsită
+NotFound Negăsită
+Comment Comentată
+F G
+N N
+C C
+Entry Însemnare
+Coordinates Coordonate
+Distance Distanţă
+TT T/T*
+CacheOwner Proprietar
+RecommendationNumber *Numbăr recomandări
+TypeDateLastEntry Tipul, data (şi conţinutul) ultimei însemnări
+LastTypeEntry Tipul ultimei însemnări
+LastEntryDate Data ultimei însemnări
+LastEntryContent Conţinutul ultimei însemnări
+DirectionDistance Direcţie şi distanţă (km)
+TaskTerainDifficulty Dificultate / Teren
+SelectedPositionExport Exportă geocutiile selectate
+Selected Selectate
+pos. *pos.
+AllPosExport Exportă toate geocutiile
+HideCols Ascunde coloane**
+InteractiveSorting Sortare interactivă
+Descending Descrescător
+Ascending Crescător
+MaxSearchRec Numărul geocutiilor depăşeşte 5000. Sortarea interactivă a fost dezactivată.
+CachesNotMatchCryteria Nici o geocutie nu se potriveşte cu criteriile alese.
+PageNr *Număr pagină
+Disable Dezactivează
+Enable Activează
+LogPassword Trebuie să introduci parola pentru a scrie această însemnare!
+Flopp_map Flopp's map
+abovesealevel m. alt.
+cache_alt Altitudine
+Given_Recommendations Recomandări date de
