@@ -12,6 +12,12 @@ body, html {
 #overall {
     margin-top: -32px;
 }
+
+.content-cache {
+	margin-bottom: 0.5em;
+	border-bottom: 0.3em solid #CCC;
+}	
+
 .content2-container, .content3-container {clear: both; float: none; width: 769px; margin: 0px 0px 15px 0px; padding: 0px;}
 .line-box {width:769px; border-bottom: solid 1px rgb(200,200,200); padding-bottom: 7px; margin: 0px 0px 15px 0px;}
 
@@ -58,6 +64,8 @@ P.cache-title {
 	margin: 0;
 	padding: 0;
 	display: inline;
+	font-size: 14pt;
+	font-weight: bold;	
 }	
 .listed-on {
 	font-size: 90%;

@@ -1192,8 +1192,9 @@ event_attendance_02 On:
 event_attendance_03 Organized by:
 event_attendance_04 Event participants:
 event_attendance_05 Number:
-printcache_01 Do not show logs
-printcache_02 Show last logs
+printcache_00 Hide logbook
+printcache_01 Show no logs
+printcache_02 Show recent logs
 printcache_03 All logs
 printcache_04 Do not show pictures
 printcache_05 Show thumbnails

@@ -1469,7 +1469,7 @@ if ($error == false) {
 
         $show_deleted_logs = "`cache_logs`.`deleted` `deleted`,";
         $show_deleted_logs2 = "";
-        If ($HideDeleted && !$usr['admin']) {
+        if ($HideDeleted && !$usr['admin']) {
             $show_deleted_logs = "";
             $show_deleted_logs2 = " AND `cache_logs`.`deleted` = 0 ";
         }
@@ -1742,6 +1742,14 @@ if ($error == false) {
         $logs = mb_ereg_replace('}', '&#0125;', $logs);
 
         tpl_set_var('logs', $logs, true);
+		
+		if (isset($_REQUEST['logbook']) && $_REQUEST['logbook'] == 'no') {
+            tpl_set_var('hidelogbook_start', '<!--');
+            tpl_set_var('hidelogbook_end', '-->');
+		} else {
+            tpl_set_var('hidelogbook_start', '');
+            tpl_set_var('hidelogbook_end', '');
+		}
 
         // action functions
         $edit_action = "";

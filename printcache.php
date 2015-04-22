@@ -143,6 +143,7 @@ if ($_GET['cacheid'] == '') {
         $include_caches_list .= "<div id=\"include" . $id . "\" class=\"content-cache\"></div>";
     }
 
+    $checked_0 = "";
     $checked_1 = "";
     $checked_2 = "";
     $checked_3 = "";
@@ -152,6 +153,8 @@ if ($_GET['cacheid'] == '') {
     $checked_7 = "";
     $checked_8 = "";
 
+    if ($_POST['shownologbook'] == "&logbook=no")
+        $checked_0 = "checked";
     if (!isset($_POST['showlogs']))
         $_POST['showlogs'] = '';
     if ($_POST['showlogs'] == "")
@@ -194,6 +197,7 @@ if ($_GET['cacheid'] == '') {
 				}
 				?>
 				<div>
+					<input type="radio" name="showlogs" id="shownologbook" value="&logbook=no" <?php echo $checked_0; ?>><label for="shownologbook"><?php print tr('printcache_00'); ?></label>
 					<input type="radio" name="showlogs" id="shownologs" value="" <?php echo $checked_1; ?>><label for="shownologs"><?php print tr('printcache_01'); ?></label>
 					<input type="radio" name="showlogs" id="showlogs" value="&showlogs=4" <?php echo $checked_2; ?>><label for="showlogs"><?php print tr('printcache_02'); ?></label>
 					<input type="radio" name="showlogs" id="showalllogs" value="&showlogsall=y" <?php echo $checked_3; ?>><label for="showalllogs"><?php print tr('printcache_03'); ?></label>

@@ -1192,6 +1192,7 @@ event_attendance_02 Op:
 event_attendance_03 Georganiseerd door:
 event_attendance_04 Het evenement:
 event_attendance_05 Aantal deelnemers:
+printcache_00 Verbergen logboek
 printcache_01 Toon zonder logs
 printcache_02 Toon laatste logs
 printcache_03 Alle logs

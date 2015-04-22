@@ -67,15 +67,14 @@ global $usr, $lang, $hide_coords;
     </p>
 </div>
 <div class="content2-container">
-    <div id="viewcache-hints">
-        {hints}
-    </div>
-
     <div style="width:200px;align:right;float:right">
         {decrypt_table_start}
         <font face="Courier" size="2" style="font-family : 'Courier New', FreeMono, Monospace;">A|B|C|D|E|F|G|H|I|J|K|L|M</font><br/>
         <font face="Courier" size="2" style="font-family : 'Courier New', FreeMono, Monospace;">N|O|P|Q|R|S|T|U|V|W|X|Y|Z</font>
         {decrypt_table_end}
+    </div>
+    <div id="viewcache-hints">
+        {hints}
     </div>
 </div>
 {hidehint_end}
@@ -180,6 +179,7 @@ global $usr, $lang, $hide_coords;
 {hidepictures_end}
 
 <!-- Text container -->
+{hidelogbook_start}
 <div class="content2-container bg-blue02 logs">
     <p class="content-title-noshade-size1">
         <img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt=""/>
@@ -193,4 +193,5 @@ global $usr, $lang, $hide_coords;
 <div class="content2-container" id="viewcache-logs">
     {logs}
 </div>
+{hidelogbook_end}
 <!-- End Text Container -->
