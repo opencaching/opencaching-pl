@@ -134,7 +134,8 @@ what_is_geocaching Geocaching. Ce înseamnă?
 registration Înregistrare
 news Noutăţi
 new_caches Geocutii noi
-new_cache Ascunde o geocutie*
+new_cache Ascunde o geocutie
+new_cache2 Ascunde geocutia
 abroad_poland În afara României
 recommended_caches Geocutii recomandate
 new_logs Ultimele însemnări
@@ -670,26 +671,28 @@ back_to_cache Înapoi la geocutie
 cachenotes notiţe
 cache_note Notiţă
 delete Şterge
-edit modifică
+edit Modifică
 cancel Anulează
 no_note Nu am nici o notiţă
 additional_waypoints Puncte suplimentare
 nowp_notice Nu există puncte suplimentare
-stage_wp Stadiu
+stage_wp Etapă
 symbol_wp Simbol
 type_wp Tip
-type_wp2 Tip de punct
+type_wp2 Tip punct
+symbol_wp Simbol
 coordinates_wp Coordonate
 describe_wp Descriere
-add_new_waypoint Adaugă un nou punct
+add_new_waypoint Adaugă un punct
 wp_status1 Arată toate informaţiile pentru acest punct, inclusiv coordonatele
 wp_status2 Arată detaliile acestul punct cu excepţia coordonatelor
 wp_status3 Ascunde acest punct din pagina geocutiei
-number_stage_wp Stadiu #
-status_wp Waypoint status **
-write_wp Adaugă un punct
+number_stage_wp Etapă #
+status_wp Afişare
+write_wp Adaugă punctul
 edit_wp Modifică punctul
 delete_wp Şterge punctul
+delete_wp_confirm Eşti sigur că vrei să ştergi acest punct?
 show_info_about_wp Vezi descrierea şi felurile punctelor suplimentare
 show_info_for_value Dacă punctul nu corespunde cu următorul pas care duce la găsirea geoutiei de tip Multi sau chestionar introdu valoarea 0
 comment_octeam_visible Comentariile Echipei OC pot fi văzute doar de acasta şi de proprietarul geocutiei.
@@ -830,7 +833,7 @@ region_from_coord Detectează zona folosind coordonatele
 select_regions Alege o zonă
 not_applicable Nu se aplică
 input_coord Adaugă coordonatele geocutiei
-waypoints_about_info <a class="links" href="{cache_params_url}" target="_blank">See the description and the kinds of additional waypoints.</a>
+waypoints_about_info <a class="links" href="{cache_params_url}" target="_blank">Vezi tipurile şi descrierea fiecărui tip de punct suplimentar.</a>
 cache_pictures Poza geocutiei
 log_pictures Poza însemnării
 no_title Nu există titlu
@@ -889,25 +892,25 @@ cacheguides Ghiduri în Geocaching-ului **
 guide Ghid
 guides Ghiduri
 okapi_apps Aplicaţiile tale
-os_times timpi **
+os_times <!-- times -->
 os_kesz Geocutie
 os_autor de
-os_nie_ma_w_os Proprietarul acestei geocutii nu a adăugat opţiunea de a-i verifica coordonatele finale cu OpenSprawdzacz
-os_podaj_waypoint Introdu un punct la geocutie (ex.: OP2E48)
+os_nie_ma_w_os Proprietarul acestei geocutii nu a adăugat opţiunea de a-i verifica coordonatele finale cu OpenChecker
+os_podaj_waypoint Introdu un punct la geocutie (ex.: OR2E48)
 os_podaj_twoje Introdu coordonatele finale:
 os_sprawdz Verifică
 os_stopnie Grade
 os_minuty minute
-os_tak_chce Bifând aici permiţi utilizatorilor să verifice coordonatele cu OpenSprawdzacz.
+os_tak_chce Bifând aici permiţi utilizatorilor să verifice coordonatele cu OpenChecker.
 opensprawdzacz_main Proprietarul geocutiei ţi-a dat şansa să verifici dacă ai rezolvat corect puzzle-ul. (coordonatele finale ale geocutiei). Poţi face asta înainte de a pleca în căutare!
 os_pr Încercări
 os_sukc Indicii
-os_proba Ai ajuns la limita **
-os_razy times. Poţi verifica coordonate doar **
-os_razy_srodek de câte ori pe **
-os_razy_koniec minute.
-os_sukces YES!! Ai găsit coordonatele corecte. Felicitări!
-os_fail NO! Răspunsul tău este greşit. Mai verifică o dată calculele.
+os_proba Ai făcut
+os_razy încercări. Poţi verifica coordonate doar de
+os_razy_srodek ori într-o perioadă de
+os_razy_koniec de minute.
+os_sukces DA!! Ai găsit coordonatele corecte. Felicitări!
+os_fail NU! Răspunsul tău este greşit. Mai verifică o dată calculele.
 os_za_godzine Mai verifică-ţi calculele şi încearcă din nou mai târziu (după 1 oră)
 os_komunikat1 Verifică coordonatele geocutiei după puncte:
 os_komunikat2 Alege geocutia din listă ale cărei coordonate vrei sa le verifici:
@@ -2130,7 +2133,7 @@ coordsmod_lat Latitudine
 coordsmod_info_01 Coordonatele utilizatorilor (WGS84)
 coordsmod_info_02 Vrei să revii la coordonatele originale?
 modify_coords Modifică
-reset_coords Anulează*
+reset_coords Anulează
 orig_coord_modified_info Ai introdus propriile tale coordonate - cele originale sunt:
 modified_coord_notice Coordonatele modificate vor fi exportate în fişiere (de ex. GPX, KML etc.)
 srch_Coord_have_been_modified Coordonatele au fost modificate
@@ -2451,7 +2454,7 @@ GarminZip_05 Descarcă toate fişierele ZIP de mai sus
 GarminZip_06 Conectează GPS-ul Garmin Montana / Oregon / Dakota / 62/78 / eTrex prin cablu
 GarminZip_07 <b>Dezarhivează</b> toate fişierele şi copiază-le în <b>rădăcina</b> dispozitivului GPS
 GarminZip_08 Notă: trebuie să ai un dispozitiv compatibil (vezi lista de mai jos) cu firmware la zi (numărul din paranteză). Dacă nu vezi pozele, actualizează-ţi software-ul dispozitivului. Pentru mai multe informaţii, vezi
-GarminGgz_02 Încerci să descarci un fişier GGZ. Acesta conţine informaţii sub formă de fişier GPX cu un index adiţional (pentru imbunătăţirea vitezei de acces) pentru {zip_total_cache_count} geocutii.<br/> Din păcate datorită unor limitări specifice, un fişier GGZ poate conţine maxim {zip_max_count} geocutii.<br/> Informaţiile solicitate sunt împorţite în mai multe fişiere GGZ mai mici, legăturile pentru a le desăcrca pe fiecare individual se găsesc mai jos
+GarminGgz_02 Încerci să descarci un fişier GGZ. Acesta conţine informaţii sub formă de fişier GPX cu un index suplimentar (pentru imbunătăţirea vitezei de acces) pentru {zip_total_cache_count} geocutii.<br/> Din păcate datorită unor limitări specifice, un fişier GGZ poate conţine maxim {zip_max_count} geocutii.<br/> Informaţiile solicitate sunt împorţite în mai multe fişiere GGZ mai mici, legăturile pentru a le desăcrca pe fiecare individual se găsesc mai jos
 GarminGgz_05 Descarcă toate fişierele GGZ de mai sus
 GarminGgz_06 Conectează GPS-ul Garmin Oregon 6xx prin cablu
 GarminGgz_07 <b>Copiază</b> toate fişierele în directorul <b>Garmin/GGZ</b> din memoria GPS-ului (poate fi şi pe cardul SD)
@@ -2516,7 +2519,7 @@ Coordinates Coordonate
 Distance Distanţă
 TT T/T*
 CacheOwner Proprietar
-RecommendationNumber *Numbăr recomandări
+RecommendationNumber Recomandări
 TypeDateLastEntry Tipul, data (şi conţinutul) ultimei însemnări
 LastTypeEntry Tipul ultimei însemnări
 LastEntryDate Data ultimei însemnări
@@ -2525,7 +2528,7 @@ DirectionDistance Direcţie şi distanţă (km)
 TaskTerainDifficulty Dificultate / Teren
 SelectedPositionExport Exportă geocutiile selectate
 Selected Selectate
-pos. *pos.
+pos. *poz.
 AllPosExport Exportă toate geocutiile
 HideCols Ascunde coloane**
 InteractiveSorting Sortare interactivă
@@ -2538,6 +2541,8 @@ Disable Dezactivează
 Enable Activează
 LogPassword Trebuie să introduci parola pentru a scrie această însemnare!
 Flopp_map Flopp's map
-abovesealevel m. alt.
+abovesealevel m
 cache_alt Altitudine
 Given_Recommendations Recomandări date de
+waypoint_error1 
+waypoint_error2 Punctul trebuie să fie dat într-unul din următoarele formate: OPxxxx, ORxxxx, OBxxxx, GCxxxxx, NCxxxx

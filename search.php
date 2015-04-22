@@ -376,7 +376,7 @@
             else
             {
                 if (isset($_REQUEST['showresult'])){
-                    tpl_errorMsg('search', tr("waypoint_error"));
+                    tpl_errorMsg('search', tr("waypoint_error1"));
                 } else {
                     $options['searchtype'] = 'byname';
                     $options['cachename'] = '';
@@ -974,7 +974,7 @@
                 }
                 else
                 {
-                    tpl_errorMsg('search', 'Waypoint musi być w jednym z podanych formatów: OPxxxx, GCxxxxx, NCxxxx');
+                    tpl_errorMsg('search', tr("waypoint_error2"));
                 }
 
                 // additional options

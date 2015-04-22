@@ -135,6 +135,7 @@ registration Register
 news News
 new_caches New caches
 new_cache Hide a cache
+new_cache2 Hide cache
 abroad_poland Out of Poland
 recommended_caches Recommended caches
 new_logs The latest logs
@@ -691,6 +692,7 @@ status_wp Waypoint status
 write_wp Write waypoint
 edit_wp Edit waypoint
 delete_wp Delete waypoint
+delete_wp_confirm Are you sure you want to delete this waypoint?
 show_info_about_wp See the description and the type of additional waypoints
 show_info_for_value If the waypoint is not the next step required to find cache type Multicache or quiz insert the value 0
 comment_octeam_visible OC Team comments are visible for OC Team and the owner of the cache only.
@@ -2556,3 +2558,5 @@ Flopp_map Flopp's map
 abovesealevel m. asl.
 cache_alt Altitude
 Given_Recommendations Recommendations given by 
+waypoint_error1 
+waypoint_error2 Waypoint must be in one of the following formats: OPxxxx, ORxxxx, OBxxxx, GCxxxxx, NCxxxx

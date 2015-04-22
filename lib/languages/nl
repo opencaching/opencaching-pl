@@ -135,6 +135,7 @@ registration Registreren
 news Nieuws
 new_caches Nieuwste caches
 new_cache Maak een cache
+new_cache2 Maak een cache
 abroad_poland Buiten Polen
 recommended_caches Aanbevolen
 new_logs Nieuwste logs
@@ -691,6 +692,7 @@ status_wp Waypoint status
 write_wp Waypoint opslaan
 edit_wp Bewerk waypoint
 delete_wp Verwijder waypoint
+delete_wp_confirm Bent u zeker dat u dit wilt waypoint verwijderen?
 show_info_about_wp Zie beschrijving en soorten van extra waypoints
 show_info_for_value Wanneer dit waypoint niet de volgende stap is voor multicache of puzzelcache zet waarde op 0.
 comment_octeam_visible OC Team notities zijn alleen zichtbaar voor OC Team en de cache eigenaar.

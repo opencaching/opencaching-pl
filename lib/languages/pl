@@ -135,6 +135,7 @@ registration Zarejestruj się
 news Aktualności
 new_caches Najnowsze skrzynki
 new_cache Załóż skrzynkę
+new_cache2 Załóż skrzynkę
 abroad_poland Poza Polską
 recommended_caches Rekomendowane
 new_logs Najnowsze logi
@@ -691,6 +692,7 @@ status_wp Status waypointa
 write_wp Zapisz waypoint
 edit_wp Edycja waypointa
 delete_wp Usuń waypointa
+delete_wp_confirm Czy usunąć ten waypoint?
 show_info_about_wp Zobacz opis i rodzaje dodatkowych waypointów
 show_info_for_value Jeśli ten waypoint nie jest kolejnym etapem wymaganym do odnalezienia skrzynki typu multicache lub quiz wstaw wartość 0.
 comment_octeam_visible Adnotacje COG są widzane tylko przez COG i własciciela skrzynki.
@@ -2546,3 +2548,5 @@ Flopp_map Mapa Floppa
 abovesealevel m.npm.
 cache_alt Wysokość
 Given_Recommendations Rekomendowane przez
+waypoint_error1 
+waypoint_error2 Waypoint musi być w jednym z podanych formatów: OPxxxx, ORxxxx, OBxxxx, GCxxxxx, NCxxxx

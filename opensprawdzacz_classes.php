@@ -219,7 +219,7 @@ class OpensprawdzaczCore
 
         // tpl_set_var("wsp_NS", );
         // tpl_set_var("wsp_EW", );
-        tpl_set_var("twoje_ws", tr('os_twojews') . '<b> ' . $NorS . ' ' . $stopnie_N . '° ' . $minuty_N . '</b>/<b> ' . $EorW . ' ' . $stopnie_E . '° ' . $minuty_E . '</b>');
+        tpl_set_var("twoje_ws", tr('os_twojews') . '<b> ' . $NorS . ' ' . $stopnie_N . '° ' . $minuty_N . '</b> / <b>' . $EorW . ' ' . $stopnie_E . '° ' . $minuty_E . '</b>');
         tpl_set_var("cache_id", $cache_id);
 
         $this->endzik();

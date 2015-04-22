@@ -86,7 +86,7 @@
                             <option value="S"{selLatS}>S</option>
                         </select>
                         &nbsp;<input type="text" name="lat_h" maxlength="2" value="{lat_h}" class="input30" />
-                        &deg;&nbsp;<input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="input50" />&nbsp;'&nbsp;
+                        &deg;&nbsp;<input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="input50" onkeyup="this.value = this.value.replace(/,/g, '.');" />&nbsp;'&nbsp;
                         {lat_message}<br />
                         &nbsp;&nbsp;&nbsp;
                         <select name="lonEW" class="input40">
@@ -94,7 +94,7 @@
                             <option value="W"{selLonW}>W</option>
                         </select>
                         &nbsp;<input type="text" name="lon_h" maxlength="3" value="{lon_h}" class="input30" />
-                        &deg;&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="input50" />&nbsp;'&nbsp;
+                        &deg;&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="input50" onkeyup="this.value = this.value.replace(/,/g, '.');" />&nbsp;'&nbsp;
                         {lon_message}
                     </fieldset>
 
@@ -138,7 +138,7 @@
             <td vAlign="top" align="left" colSpan="2">
                 <button type="submit" name="back" value="back" style="font-size:12px;width:140px"><b>{{cancel}}</b></button>&nbsp;&nbsp;
                 <button type="submit" name="delete" value="delete" onclick="return confirm('Czy usunąć ten waypoint?');" style="font-size:12px;width:140px"><b>{{delete_wp}}</b></button> &nbsp;&nbsp;
-                <button type="submit" name="submit" value="submit" style="font-size:12px;width:140px"><b>{{write_wp}}</b></button>
+                <button type="submit" name="submit" value="submit" style="font-size:12px;width:140px"><b>{{edit_wp}}</b></button>
                 <br /><br /></td>
         </tr>
 

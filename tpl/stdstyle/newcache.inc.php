@@ -17,7 +17,7 @@
 
  * ************************************************************************** */
 
-$submit = tr('new_cache');
+$submit = tr('new_cache2');
 $default_region = '0';
 $show_all = tr('show_all');
 $default_NS = 'N';
