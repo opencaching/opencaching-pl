@@ -182,45 +182,43 @@ if ($_GET['cacheid'] == '') {
         <?php
         if ($_GET['cacheid']) {
         ?>
-        <form action="printcache.php?cacheid=<?php print intval($_GET['cacheid']);?>" method="POST" class="noprint">
+        <form action="printcache.php?cacheid=<?php print intval($_GET['cacheid']);?>" method="POST" class="nodisplay-onprint">
             <?php
             } else if ((!isset($_GET['source'])) || ($_GET['source'] != 'mywatches')) {
             ?>
-            <form action="printcache.php" method="POST" class="noprint">
+            <form action="printcache.php" method="POST" class="nodisplay-onprint">
                 <?php
                 }else{
                 ?>
-                <form action="printcache.php?source=mywatches" method="POST" class="noprint">
+                <form action="printcache.php?source=mywatches" method="POST" class="nodisplay-onprint">
 				<?php
 				}
 				?>
-                    <span class="text_gray">
-                        <div>
-                            <input type="radio" name="showlogs" id="shownologs" value="" <?php echo $checked_1; ?>><label for="shownologs"><?php print tr('printcache_01'); ?></label>
-                            <input type="radio" name="showlogs" id="showlogs" value="&showlogs=4" <?php echo $checked_2; ?>><label for="showlogs"><?php print tr('printcache_02'); ?></label>
-                            <input type="radio" name="showlogs" id="showalllogs" value="&showlogsall=y" <?php echo $checked_3; ?>><label for="showalllogs"><?php print tr('printcache_03'); ?></label>
-                        </div>
-                        <input type="radio" name="showpictures" id="shownopictures" value="&pictures=no" <?php echo $checked_4; ?>><label for="shownopictures"><?php print tr('printcache_04'); ?></label>
-                        <input type="radio" name="showpictures" id="showpictures" value="&pictures=small" <?php echo $checked_5; ?>><label for="showpictures"><?php print tr('printcache_05'); ?></label>
-                        <input type="radio" name="showpictures" id="showallpictures" value="&pictures=big" <?php echo $checked_6; ?>><label for="showallpictures"><?php print tr('printcache_06'); ?></label>
-                        <div>
-                            <input type="checkbox" name="nocrypt" id="nocrypt" value="&nocrypt=1" <?php echo $checked_7; ?>><label for="nocrypt"><?php print tr('printcache_07'); ?></label>&nbsp;&nbsp;&nbsp;
-                            <input type="checkbox" name="spoiler_only" id="spoiler_only" value="&spoiler_only=1" <?php echo $checked_8; ?>><label for="spoiler_only"><?php print tr('printcache_08'); ?></label>&nbsp;&nbsp;&nbsp;
-                        </div>
-                        <input type="submit" name="submit" value="<?php print tr('printcache_09'); ?>">
+					<div>
+						<input type="radio" name="showlogs" id="shownologs" value="" <?php echo $checked_1; ?>><label for="shownologs"><?php print tr('printcache_01'); ?></label>
+						<input type="radio" name="showlogs" id="showlogs" value="&showlogs=4" <?php echo $checked_2; ?>><label for="showlogs"><?php print tr('printcache_02'); ?></label>
+						<input type="radio" name="showlogs" id="showalllogs" value="&showlogsall=y" <?php echo $checked_3; ?>><label for="showalllogs"><?php print tr('printcache_03'); ?></label>
+					</div>
+					<input type="radio" name="showpictures" id="shownopictures" value="&pictures=no" <?php echo $checked_4; ?>><label for="shownopictures"><?php print tr('printcache_04'); ?></label>
+					<input type="radio" name="showpictures" id="showpictures" value="&pictures=small" <?php echo $checked_5; ?>><label for="showpictures"><?php print tr('printcache_05'); ?></label>
+					<input type="radio" name="showpictures" id="showallpictures" value="&pictures=big" <?php echo $checked_6; ?>><label for="showallpictures"><?php print tr('printcache_06'); ?></label>
+					<div>
+						<input type="checkbox" name="nocrypt" id="nocrypt" value="&nocrypt=1" <?php echo $checked_7; ?>><label for="nocrypt"><?php print tr('printcache_07'); ?></label>&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" name="spoiler_only" id="spoiler_only" value="&spoiler_only=1" <?php echo $checked_8; ?>><label for="spoiler_only"><?php print tr('printcache_08'); ?></label>&nbsp;&nbsp;&nbsp;
+					</div>
+					<input type="submit" name="submit" value="<?php print tr('printcache_09'); ?>">
 
-						<?php
-						if($_GET['cacheid'] == '')
-							if ((!isset($_GET['source'])) || ($_GET['source'] != 'mywatches')) {
-						?>
-						&nbsp;&nbsp;&nbsp;
-						<input type="submit" name="flush_print_list" value="<?php echo tr("clear_list") . " (" . count($_SESSION['print_list']); ?>)">
-						<?php
-							}
-						?>
-					</span>
+					<?php
+					if($_GET['cacheid'] == '')
+						if ((!isset($_GET['source'])) || ($_GET['source'] != 'mywatches')) {
+					?>
+					&nbsp;&nbsp;&nbsp;
+					<input type="submit" name="flush_print_list" value="<?php echo tr("clear_list") . " (" . count($_SESSION['print_list']); ?>)">
+					<?php
+						}
+					?>
 				</form>
-				<hr class="noprint">
+				<hr class="nodisplay-onprint">
 				<?php
 				echo $include_caches_list;
 				?>

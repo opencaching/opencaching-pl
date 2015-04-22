@@ -49,4 +49,9 @@ div.frame {
     .text_gray {
         display: none;
     }
+	.nodisplay-onprint {
+    display: none;
+    width:0;
+    height:0;
+	}
 }

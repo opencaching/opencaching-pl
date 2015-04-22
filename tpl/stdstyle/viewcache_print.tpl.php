@@ -183,7 +183,7 @@ global $usr, $lang, $hide_coords;
 
 
 <!-- Text container -->
-<div class="content2-container bg-blue02">
+<div class="content2-container bg-blue02 logs">
     <p class="content-title-noshade-size1">
         <img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt=""/>
         {{log_entries}}
@@ -193,7 +193,7 @@ global $usr, $lang, $hide_coords;
         {note_icon} {notes}x
     </p>
 </div>
-<div class="content2-container" id="viewcache-logs">
+<div class="content2-container logs" id="viewcache-logs">
     {logs}
 </div>
 <!-- End Text Container -->
