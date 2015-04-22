@@ -24,7 +24,9 @@
 
 <div class="line-box">
     <div class="content-title-noshade-size1">
-        <img src="{icon_cache}" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}"/>{mod_suffix}{cachename}
+        <p class="cache-title">
+			<img src="{icon_cache}" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}"/>{mod_suffix}{cachename}
+		</p>	
         <img src="tpl/stdstyle/images/free_icons/arrow_in.png" class="icon16" alt="" title="" align="middle" />&nbsp;<b>{oc_waypoint}
         <img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="" title="" />{coords}</b><br/>
 
@@ -44,12 +46,12 @@ global $usr, $lang, $hide_coords;
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
         <img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="" />
-        {{descriptions}}&nbsp;<br/>{cache_attributes}{password_req}
+        <b>{{descriptions}}</b>&nbsp;<br/>{cache_attributes}{password_req}
     </p>
 </div>
 
 <div class="content2-container">
-    <div id='branding'>{branding}</div>
+    <div id="branding">{branding}</div>
     <div id="description">
         <div id="viewcache-description">
             {desc}
@@ -82,7 +84,7 @@ global $usr, $lang, $hide_coords;
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size2">
         <img src="tpl/stdstyle/images/blue/logs.png" style="align: left; margin-right: 10px;" alt="{{personal_cache_note}}" />
-        {{personal_cache_note}}
+        <b>{{personal_cache_note}}</b>
     </p>
 </div>
 <div class="content2-container">
@@ -103,7 +105,7 @@ global $usr, $lang, $hide_coords;
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
         <img src="tpl/stdstyle/images/blue/compas.png" alt="" />
-        {{additional_waypoints}}
+        <b>{{additional_waypoints}}</b>
     </p>
 </div>
 <p>
@@ -115,9 +117,8 @@ global $usr, $lang, $hide_coords;
 {hidenpa_start}
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
-
         <img src="tpl/stdstyle/images/blue/npav1.png" class="icon32" alt="" />
-        NATURA 2000 obszar
+        <b>{{natura2000}}</b>
     </p>
 </div>
 <div class="content2-container">
@@ -136,7 +137,7 @@ global $usr, $lang, $hide_coords;
 <div  class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
         <img src="tpl/stdstyle/images/blue/signature1.png" class="icon32" alt="" />
-        {{coords_modifier}}
+        <b>{{coords_modifier}}</b>
     </p>
 </div>
 <div class="content2-container">
@@ -153,7 +154,7 @@ global $usr, $lang, $hide_coords;
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
         <img src="tpl/stdstyle/images/blue/travelbug.png" class="icon32" alt="" />
-        Geokrety
+        <b>Geokrety</b>
     </p>
 </div>
 <div class="content2-container">
@@ -166,7 +167,7 @@ global $usr, $lang, $hide_coords;
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
         <img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt="" />
-        {{images}}
+        <b>{{images}}</b>
     </p>
 </div>
 <div class="content2-container">
@@ -182,14 +183,14 @@ global $usr, $lang, $hide_coords;
 <div class="content2-container bg-blue02 logs">
     <p class="content-title-noshade-size1">
         <img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt=""/>
-        {{log_entries}}
+        <b>{{log_entries}}</b>
         &nbsp;&nbsp;
         {found_icon} {founds}x
         {notfound_icon} {notfounds}x
         {note_icon} {notes}x
     </p>
 </div>
-<div class="content2-container logs" id="viewcache-logs">
+<div class="content2-container" id="viewcache-logs">
     {logs}
 </div>
 <!-- End Text Container -->

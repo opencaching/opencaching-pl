@@ -143,7 +143,7 @@ if ($_GET['cacheid'] == '') {
         $include_caches_list .= "<div id=\"include" . $id . "\" class=\"content-cache\"></div>";
     }
 
-    $checked_1 = ""; $display_1 = "";
+    $checked_1 = "";
     $checked_2 = "";
     $checked_3 = "";
     $checked_4 = "";
@@ -154,10 +154,8 @@ if ($_GET['cacheid'] == '') {
 
     if (!isset($_POST['showlogs']))
         $_POST['showlogs'] = '';
-    if ($_POST['showlogs'] == "") {
+    if ($_POST['showlogs'] == "")
         $checked_1 = "checked";
-		$display_1 = "display:none;";
-	}
     if ($_POST['showlogs'] == "&showlogs=4")
         $checked_2 = "checked";
     if ($_POST['showlogs'] == "&showlogsall=y")
@@ -221,20 +219,15 @@ if ($_GET['cacheid'] == '') {
 			</form>
 			<hr class="nodisplay-onprint">
 		</div>	
-				<?php
-				echo $include_caches_list;
-				?>
+		<?php
+		echo $include_caches_list;
+		?>
 
-				<div id="printedcaches">
-					<?php
-					if (isset($content))
-						echo $content;
-					?>
-				</div>
-		<style>
-		.logs {
-		<?php echo $display_1; ?>
-		}
-		</style>
+		<div id="printedcaches">
+			<?php
+			if (isset($content))
+				echo $content;
+			?>
+		</div>
 	</body>
 </html>

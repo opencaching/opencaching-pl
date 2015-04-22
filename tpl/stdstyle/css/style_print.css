@@ -54,6 +54,11 @@ div.frame {
 	vertical-align: middle;
 }
 
+P.cache-title {
+	margin: 0;
+	padding: 0;
+	display: inline;
+}	
 .listed-on {
 	font-size: 90%;
 }
