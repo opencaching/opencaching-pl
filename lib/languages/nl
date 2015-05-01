@@ -1118,7 +1118,7 @@ map_01 Toon alleen FTF
 map_02 Minimale score:
 map_03 elke score
 map_04 Toon ook ongewaardeerde caches
-map_05 Toon alleen PowerTrail caches
+map_05 Toon alleen CacheSerie caches
 print_all Alles afdrukken
 remove_all Alles verwijderen
 no_logtype_choosen Geen logsoort gekozen
@@ -1744,41 +1744,41 @@ ZA Zuid-Afrika
 ZM Zambia
 ZW Zimbabwe
 SU Rusland
-pt001 PowerTrail
-pt002 Voeg toe aan PowerTrail
-pt003 Maak een nieuwe PowerTrail
+pt001 CacheSerie
+pt002 Voeg toe aan CacheSerie
+pt003 Maak een nieuwe CacheSerie
 pt004 Vorm op kaart
 pt005 Verkennen
 pt006 Zichtbaar
 pt007 Niet zichtbaar
-pt008 Naam PowerTrail
-pt009 Soort PowerTrail
+pt008 Naam CacheSerie
+pt009 Soort CacheSerie
 pt010 Zichtbaarheid
-pt011 Beschrijving van PowerTrail
-pt012 Alle PowerTrails
-pt013 Voeg cache toe aan PowerTrail
-pt014 uit deze cache serie gevonden
-pt015 Voortgang van deze PowerTrail
+pt011 Beschrijving van CacheSerie
+pt012 Alle CacheSeries
+pt013 Voeg cache toe aan CacheSerie
+pt014 uit deze CacheSerie gevonden
+pt015 Voortgang van deze CacheSerie
 pt016 van
 pt017 je hebt
-pt018 De PowerTrail is niet zichtbaar (nog niet gepubliceerd, onderhoud, enz)
-pt019 Eigenschappen PowerTrail
-pt020 Caches in PowerTrail
+pt018 De CacheSerie is niet zichtbaar (nog niet gepubliceerd, onderhoud, enz)
+pt019 Eigenschappen CacheSerie
+pt020 Caches in CacheSerie
 pt021 Mijn statistieken van
 pt022 Aantal caches
-pt023 Soort PowerTrail
+pt023 Soort CacheSerie
 pt024 Publicatie datum
 pt025 Eigenaar
 pt026 Sportief
 pt027 Verkennen
 pt028 Gebruikersnaam of gebruikers-id
-pt029 Deze persoon verwijderen uit PowerTrail
+pt029 Deze persoon verwijderen uit CacheSerie
 pt030 Toevoegen/verwijderen
 pt031 Annuleren
 pt032 Toevoegen
 pt033 Verversen
-pt034 Beschrijving PowerTrail
-pt035 PowerTrail
+pt034 Beschrijving CacheSerie
+pt035 CacheSerie
 pt036 Naam
 pt037 Score
 pt038 punten
@@ -1797,7 +1797,7 @@ pt050 Opmerkingen en/of loggen
 pt051 Schrijf opmerking of log
 pt052 Soort log
 pt053 Datum log
-pt054 % nodig om deze PowerTrail te voltooien
+pt054 % nodig om deze CacheSerie te voltooien
 pt055 Wijzigen
 pt056 Opmerking
 pt057 Voltooid
@@ -1805,14 +1805,14 @@ pt058 Volgende reacties
 pt059 Vorige reacties
 pt060 Verander afbeelding
 pt061 Voeg afbeelding uit bestand toe
-pt062 Eigen PowerTrails
+pt062 Eigen CacheSerie
 pt063 Status
 pt064 Wijzig status
 pt065 Voltooid
 pt066 keer
 pt067 Natuur
 pt068 Je moet minimaal
-pt069 caches gevonden hebben om een PowerTrail te kunnen maken
+pt069 caches gevonden hebben om een CacheSerie te kunnen maken
 pt070 Uitstekend
 pt071 Goed
 pt072 Normaal
@@ -1823,23 +1823,23 @@ pt076 Naam (plaatser)
 pt077 Status
 pt078 Waardering
 pt079 Thema
-pt080 Sla nieuwe PowerTrail op
-pt081 PowerTrail moet een naam hebben
-pt082 Er zijn nog geen caches in deze PowerTrail
+pt080 Sla nieuwe CacheSerie op
+pt081 CacheSerie moet een naam hebben
+pt082 Er zijn nog geen caches in deze CacheSerie
 pt083 Ongewaardeerd
 pt084 Geen caches aanwezig
 pt085 Totalen
-pt086 Na het vinden van een bepaalde percentage zal de het mogelijk zijn om deze PowerTrail als voltooid te kunnen loggen.
+pt086 Na het vinden van een bepaalde percentage zal de het mogelijk zijn om deze CacheSerie als voltooid te kunnen loggen.
 pt087 Wat is dit
 pt088 Uitleg
 pt089 <b>Zichtbaar</b> - Voor iedereen zichtbaar <br/> <b>Niet zichtbaar</b> - Alleen zichtbaar voor de maker
-pt090 De soort van de PowerTrail. <b>Vorm op kaart:</b> Bijvoorbeeld interesante plaatsen die een bepaalde vorm op een kaart hebben. <b>Verkennen:</b> Bijvoorbeeld om bepaalde plaatsen in je woonplaats te laten zien. <b>Natuur:</b> Mooie plaatsen die met natuur te maken hebben. <b>Thema:</b> Bijvoorbeeld een thema over een bepaald onderwerp.
+pt090 De soort van de CacheSerie. <b>Vorm op kaart:</b> Bijvoorbeeld interesante plaatsen die een bepaalde vorm op een kaart hebben. <b>Verkennen:</b> Bijvoorbeeld om bepaalde plaatsen in je woonplaats te laten zien. <b>Natuur:</b> Mooie plaatsen die met natuur te maken hebben. <b>Thema:</b> Bijvoorbeeld een thema over een bepaald onderwerp.
 pt091 Verander de naam
 pt092 Voor testdoeleinden alleen beschikbaar voor geselecteerde gebruikers. Verbeteringen doorgeven via rt of Skype
-pt093 Voltooide PowerTrails
-pt094 Deze cache maakt deel uit van PowerTrail
+pt093 Voltooide CacheSeries
+pt094 Deze cache maakt deel uit van CacheSerie
 pt095 Naam cacher
-pt096 Gevonden uit PowerTrail
+pt096 Gevonden uit CacheSerie
 pt097 Percentage gevonden
 pt098 Toon meer statistieken
 pt099 Toon statistieken
@@ -1848,7 +1848,7 @@ pt101 Cache dagen
 pt102 Caches per dag
 pt103 Gevonden
 pt104 Nog doen
-pt105 Er zijn nog geen statistieken voor deze PowerTrail
+pt105 Er zijn nog geen statistieken voor deze CacheSerie
 pt106 Cache grootte
 pt107 Cache soort
 pt108 traditionele cache
@@ -1867,23 +1867,23 @@ pt120 Aantal cachers die serie hebben voltooid
 pt121 Geschatte aantal dagen om te voltooien
 pt122 Andere gegevens
 pt123 Aantal
-pt124 <b>Uitleg:</b> Het vereist minimum (percentage) gevonden caches die door de maker is ingesteld om deze PowerTrail te kunnen loggen.
+pt124 <b>Uitleg:</b> Het vereist minimum (percentage) gevonden caches die door de maker is ingesteld om deze CacheSerie te kunnen loggen.
 pt125 Uitleg
 pt126 Informatie
 pt127 plaatste een
 pt128 Er is een nieuwe melding voor
-pt129 U gebruikt een oudere browser (IE6, IE7, IE8), die niet wordt ondersteund door de module PowerTrail. Deze pagina zal niet goed functioneren, of zijn functies zal aanzienlijk worden verminderd. (U krijgt geen toegang tot het grootste deel van de functionaliteit). Wij adviseren om de nieuwste browsers te gebruiken.  (<a href="https://www.mozilla.org/pl/firefox/new/">FireFox</a>, <a href="http://www.google.pl/intl/pl/chrome/">Chrome</a>, <a href="http://www.opera.com/">Opera</a>)
+pt129 U gebruikt een oudere browser (IE6, IE7, IE8), die niet wordt ondersteund door de module CacheSerie. Deze pagina zal niet goed functioneren, of zijn functies zal aanzienlijk worden verminderd. (U krijgt geen toegang tot het grootste deel van de functionaliteit). Wij adviseren om de nieuwste browsers te gebruiken.  (<a href="https://www.mozilla.org/pl/firefox/new/">FireFox</a>, <a href="http://www.google.pl/intl/pl/chrome/">Chrome</a>, <a href="http://www.opera.com/">Opera</a>)
 pt130 Verwijderen
-pt131 Verwijdering log Powertrail
+pt131 Verwijdering log CacheSerie
 pt132 Verwijderde een log
 pt133 Tekst van deze log is
 pt134 Datum van log (ingevoerd door gebruiker)
 pt135 Totale cachedagen
-pt136 Geografisch middelpunt van deze serie
-pt137 PowerTrail van de dag
+pt136 Geografisch middelpunt van deze CacheSerie
+pt137 CacheSerie van de dag
 pt138 caches
-pt139 PowerTrail
-pt140 Aantal punten in PowerTrail
+pt139 CacheSerie
+pt140 Aantal punten in CacheSerie
 pt141 Caches die gevonden kunnen worden
 pt142 Tijdelijk niet beschikbaar
 pt143 Helaas gearchiveerd
@@ -1898,18 +1898,18 @@ pt151 Bevestig verwijdering van log
 pt152 Reden om de log te verwijderen:
 pt153 Tekst bij verwijdering:
 pt154 tekens
-pt155 Powertrail help
+pt155 CacheSerie help
 pt156 Verwijder een cache
 pt157 Vul het toe te voegen cachewaypoint in en druk op enter
 pt158 Vul het te verwijderen cachewaypoint in en druk op enter
 pt159 Verwijder cache
-pt160 Cache bestaat niet in deze PowerTrail
-pt161 Cache is verwijdert uit deze PowerTrail
-pt162 Cache is toegevoegt aan deze PowerTrail
+pt160 Cache bestaat niet in deze CacheSerie
+pt161 Cache is verwijdert uit deze CacheSerie
+pt162 Cache is toegevoegt aan deze CacheSerie
 pt163 Meer opties
 pt164 Toepassen
 pt165 Alle soorten
-pt166 Kies PowerTrail soort:
+pt166 Kies CacheSerie soort:
 pt167 Sorteer op:
 pt168 Naam
 pt169 Publicatiedatum
@@ -1918,32 +1918,32 @@ pt171 Punten
 pt172 Aantal voltooide
 pt173 Aantal caches
 pt174 Soort
-pt175 Aantal weergegeven PowerTrails
+pt175 Aantal weergegeven CacheSeries
 pt176 Oplopend
 pt177 Aflopend
 pt178 Sorteerwijze
 pt179 Download als
 pt180 caches
 pt181 Hoofdeigenaar
-pt182 Hoofdeigenaar is de persoon die de PowerTrail geregistreerd heeft.
-pt183 Verzoek om cache toe te voegen aan PowerTrail
+pt182 Hoofdeigenaar is de persoon die de CacheSerie geregistreerd heeft.
+pt183 Verzoek om cache toe te voegen aan CacheSerie
 pt184 Hallo
-pt185 er is een verzoek om een cache toe te voegen aan een PowerTrail
+pt185 er is een verzoek om een cache toe te voegen aan een CacheSerie
 pt186 Klik hier om te accepteren
 pt187 Klik hier om te weigeren
 pt188 of kopieer dit adres in een browser
 pt189 Neem bij twijfel contact op met aanvrager
-pt190 Terug naar PowerTrail
-pt191 Bedankt. De cache is nu toegevoegd in de PowerTrail
-pt192 De cache wordt nu in de PowerTrail geplaatst
-pt193 Bevestiging dat cache toegevoegd in de PowerTrail
+pt190 Terug naar CacheSerie
+pt191 Bedankt. De cache is nu toegevoegd in de CacheSerie
+pt192 De cache wordt nu in de CacheSerie geplaatst
+pt193 Bevestiging dat cache toegevoegd in de CacheSerie
 pt194 Sorrie, Je bent niet de eigenaar van deze cache!
 pt195 is verwijderd van cache voorlopige lijst
 pt196 De cache bevind zich niet in de voorlopige lijst (misschien was er al op de link geklikt).
-pt197 De cache was al op de voorlopige lijst geplaatst of staat al in de PowerTrail. Neem contact op met de cache eigenaar.
-pt198 De cache is op een voorlopige lijst geplaatst, de eigenaar zal een email ontvangen met het verzoek. Wanneer de eigenaar akkoord gaat via een aan te klikken link, dan zal deze cache automatisch toegevoegt worden in de PowerTrail.
+pt197 De cache was al op de voorlopige lijst geplaatst of staat al in de CacheSerie. Neem contact op met de cache eigenaar.
+pt198 De cache is op een voorlopige lijst geplaatst, de eigenaar zal een email ontvangen met het verzoek. Wanneer de eigenaar akkoord gaat via een aan te klikken link, dan zal deze cache automatisch toegevoegt worden in de CacheSerie.
 pt199 Informatie:
-pt200 De cache kan niet uit de PowerTrail verwijderd worden (de toewijzing van deze cache in PowerTrail is voltooid, de cache kan eventueel gearchiveerd worden maar niet uit de PowerTrail verwiderd worden).
+pt200 De cache kan niet uit de CacheSerie verwijderd worden (de toewijzing van deze cache in CacheSerie is voltooid, de cache kan eventueel gearchiveerd worden maar niet uit de CacheSerie verwijderd worden).
 pt201 niet actief
 pt202 negeren
 pt203 gemaakte
@@ -1951,34 +1951,34 @@ pt204 gevolgde
 pt205 gevonden
 pt206 Voeg volgende caches toe in GPX
 pt207 GPX filter
-pt208 Beheer PowerTrails
+pt208 Beheer CacheSerie
 pt209 Selecteer
 pt210 Verwijderen van cache
-pt211 Let op! Het verwijderen van deze cache uit de PowerTrail zal ook gevolgen hebben voor de punten van deze PowerTrail wanneer deze gevonden is. Kijk eerst of er een andere oplossing te vinden is. (Eventueel is het archiveren een optie).
+pt211 Let op! Het verwijderen van deze cache uit de CacheSerie zal ook gevolgen hebben voor de punten van deze CacheSerie wanneer deze gevonden is. Kijk eerst of er een andere oplossing te vinden is. (Eventueel is het archiveren een optie).
 pt212 Gearchiveerd
-pt213 PowerTrail openen
-pt214 PowerTrail is beschikbaar
-pt215 PowerTrail is beschikbaar
-pt216 PowerTrail in onderhoud
-pt217 PowerTrail is tijdelijk niet actief
-pt218 PowerTrail is gearchiveerd
+pt213 CacheSerie openen
+pt214 CacheSerie is beschikbaar
+pt215 CacheSerie is beschikbaar
+pt216 CacheSerie in onderhoud
+pt217 CacheSerie is tijdelijk niet actief
+pt218 CacheSerie is gearchiveerd
 pt219 Onderhoud
 pt220 Reden van status verandering
 pt221 Status veranderen
 pt222 Gemaakte caches in
-pt223 PowerTrail
+pt223 CacheSerie
 pt224 Verzamelde punten
 pt225 aantal logs in het GPX bestand
 pt226 voor elke cache. Alleen beschikbaar voor GPX formaat.
-pt227 PowerTrail voldoet niet aan eisen. Is tijdelijk niet beschikbaar tot eigenaar dit verholpen heeft. De reden is:
-pt228 Te weinig caches in PowerTrail
+pt227 CacheSerie voldoet niet aan eisen. Is tijdelijk niet beschikbaar tot eigenaar dit verholpen heeft. De reden is:
+pt228 Te weinig caches in CacheSerie
 pt229 Soort log
 pt230 Datum
 pt231 Tijd
-pt232 Toon ook kleine PowerTrails
-pt233 Toon geen kleine PowerTrails
-pt234 Het is niet mogelijk om dezePowerTrail te voltooien (het vereistde te vinden caches is hoger dan het aantal actieve caches, de PowerTrail eigenaar(s) dienen dit na te kijken).
-pt235 Gebruiker zal PowerTail notificaties ontvangen
+pt232 Toon ook kleine CacheSeries
+pt233 Toon geen kleine CacheSeries
+pt234 Het is niet mogelijk om deze CacheSerie te voltooien (het vereistde te vinden caches is hoger dan het aantal actieve caches, de CacheSerie eigenaar(s) dienen dit na te kijken).
+pt235 Gebruiker zal CacheSerie notificaties ontvangen
 pt236 Deze pagina is alleen beschikbaar voor het oc-team
 statpic_found Gevonden:
 statpic_hidden Geplaatst:
@@ -2286,7 +2286,7 @@ BarChart Bar
 positions Posities
 more10 Er zijn meer dan 10 geselecteerd
 more30 Er zijn meer dan 30 geselecteerd
-pt_cache De cache hoort bij PowerTrail:
+pt_cache De cache hoort bij CacheSerie:
 Help Hulp
 links_01 Linken gerelateerd met Geocaching
 links_02 Andere Geocaching sites
