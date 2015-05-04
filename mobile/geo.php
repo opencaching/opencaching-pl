@@ -6,7 +6,7 @@ function check_wp($wpts)
 {
 
     foreach ($wpts as &$wp) {
-        if (!preg_match("/^OP((\d)|([A-Z])){4}$/", $wp))
+        if (!preg_match("/^O((\d)|([A-Z])){5}$/", $wp))
             return false;
     }
     return true;
