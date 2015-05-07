@@ -9,7 +9,7 @@
  * ************************************************************************* */
 
 // load menu
-global $mnu_bgcolor, $mnu_selmenuitem, $develwarning, $tpl_subtitle, $absolute_server_URI, $mnu_siteid;
+global $mnu_bgcolor, $mnu_selmenuitem, $develwarning, $tpl_subtitle, $absolute_server_URI, $mnu_siteid, $site_name;
 require_once $stylepath . '/lib/menu.php';
 $menu_item_siteid = $tplname;
 if (isset($mnu_siteid)) {
@@ -59,7 +59,7 @@ if (date('m') == 12 || date('m') == 1) {
         <meta http-equiv="pragma" content="no-cache" />
         <meta name="KEYWORDS" content="geocaching, opencaching, skarby, poszukiwania,geocashing, longitude, latitude, utm, coordinates, treasure hunting, treasure, GPS, global positioning system, garmin, magellan, mapping, geo, hiking, outdoors, sport, hunt, stash, cache, geocaching, geocache, cache, treasure, hunting, satellite, navigation, tracking, bugs, travel bugs" />
         <meta http-equiv="cache-control" content="no-cache" />
-        <meta name="author" content="Opencaching.pl " />
+        <meta name="author" content="{site_name}" />
         <meta http-equiv="X-UA-Compatible" content="IE=10" />
 
         <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/style_screen.css" />
