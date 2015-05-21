@@ -8,7 +8,7 @@ Installed phpmyadmin described on http://www.krizna.com/ubuntu/install-phpmyadmi
 Installed GRASS described on http://grasswiki.osgeo.org/wiki/Compile_and_Install_Ubuntu
 Installed extra described on http://www.qgis.org/nl/site/forusers/alldownloads.html#ubuntu
 
-1, Download from http://www.eea.europa.eu/data-and-maps/data/natura-5#tab-gis-data the latest shapefile version Natura2000_end2013_rev1_Shapefile.zip (this version is a ZIP archive 553.7 MB and contains whole Europe) and unzip it in his own map.
+1, Download from http://www.eea.europa.eu/data-and-maps/data/natura-6#tab-gis-data the latest shapefile version Natura2000_end2014_Shapefile.zip (this version is a ZIP archive 641.6 MB and contains whole Europe) and unzip it in his own map.
 
 2, In terminal go to this unzipped map to convert the data to wgs84 with:
 ogr2ogr -f "ESRI Shapefile" -t_srs EPSG:4326 -s_srs EPSG:3035  n2k100l_laea_wgs84.shp  source_shapefile.shp
