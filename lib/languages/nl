@@ -697,7 +697,7 @@ delete_wp_confirm Moet dit waypoint werkelijk verwijderd worden?
 show_info_about_wp Zie beschrijving en soorten van extra waypoints
 show_info_for_value Wanneer dit waypoint niet de volgende stap is voor multicache of puzzelcache zet waarde op 0.
 comment_octeam_visible OC Team notities zijn alleen zichtbaar voor OC Team en de cache eigenaar.
-ready_to_search Cache is gepubliceerd.
+ready_to_search Cache is beschikbaar.
 archived_cache Cache is gearchiveerd.
 temporarily_unavailable De cache is tijdelijk niet beschikbaar.
 blocked_by_octeam De cache is geblokkerd door het OC Team.
