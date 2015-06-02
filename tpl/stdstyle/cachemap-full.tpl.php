@@ -203,7 +203,7 @@
                                     };
                                     window.onload = function() {
 
-                                    attachFullScreenOffControl();
+                                            attachFullScreenOffControl();
                                             attachCacheFilterControl();
                                             attachCurrentPositionControl();
                                             load([
