@@ -1998,12 +1998,12 @@ cacheType_7 Webcam
 cacheType_8 Wirtualna
 cacheType_9 Finał Serii
 cacheType_10 Own cache
-cacheSyze_2 Mikro
-cacheSyze_3 Mała
-cacheSyze_4 Normalna
-cacheSyze_5 Duża
-cacheSyze_6 Bardzo duża
-cacheSyze_7 Bez pojemnika
+cacheSize_2 Mikro
+cacheSize_3 Mała
+cacheSize_4 Normalna
+cacheSize_5 Duża
+cacheSize_6 Bardzo duża
+cacheSize_7 Bez pojemnika
 login_message_01 Już powiadomiony
 login_message_02 Już jesteś zalogowany. Jeśli chcesz zalogować jako inny użytkownik, musisz się najpierw <a href="logout.php">wylogować</a>.</p>
 login_message_03 Zalogowałeś się poprawnie. Teraz będziesz przekierowany na stronę docelową.
@@ -2291,12 +2291,6 @@ like_it os. to lubi:
 no_like_it Nikt jeszcze nie polubił tego komentarza
 Position Pozycja
 fav_com Ulubione komentarze
-cacheSize_2 Mikro
-cacheSize_3 Mała
-cacheSize_4 Normalna
-cacheSize_5 Duża
-cacheSize_6 Bardzo duża
-cacheSize_7 Bez pojemnika
 cacheStatus_1 Gotowa do szukania
 cacheStatus_2 Tymczasowo niedostępna
 cacheStatus_3 Zarchiwizowana

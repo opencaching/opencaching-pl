@@ -1996,12 +1996,12 @@ cacheType_7 Webcam Cache
 cacheType_8 Virtuelle Cache
 cacheType_9 Podcast Cache
 cacheType_10 Eigene Cache
-cacheSyze_2 Mikro
-cacheSyze_3 Klein
-cacheSyze_4 Normal
-cacheSyze_5 größ
-cacheSyze_6 Extra größ
-cacheSyze_7 Kein Behälter
+cacheSize_2 Mikro
+cacheSize_3 Klein
+cacheSize_4 Normal
+cacheSize_5 größ
+cacheSize_6 Extra größ
+cacheSize_7 Kein Behälter
 
 
 
@@ -2272,12 +2272,6 @@ logmap_04 Logkarte
 
 
 
-cacheSize_2 Mikro
-cacheSize_3 Klein
-cacheSize_4 Normal
-cacheSize_5 Groß
-cacheSize_6 Extra Groß
-cacheSize_7 Kein Behälter
 cacheStatus_1 Kann gesucht werden
 cacheStatus_2 Momentan nicht verfügbar
 cacheStatus_3 Archiviert

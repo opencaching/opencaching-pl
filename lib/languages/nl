@@ -1998,12 +1998,12 @@ cacheType_7 Webcam Cache
 cacheType_8 Virtuele Cache
 cacheType_9 Podcast Cache
 cacheType_10 Eigen Cache
-cacheSyze_2 Micro
-cacheSyze_3 Klein
-cacheSyze_4 Normaal
-cacheSyze_5 Groot
-cacheSyze_6 Extra groot
-cacheSyze_7 Geen behuizing
+cacheSize_2 Micro
+cacheSize_3 Klein
+cacheSize_4 Normaal
+cacheSize_5 Groot
+cacheSize_6 Extra groot
+cacheSize_7 Geen behuizing
 login_message_01 Je bent al ingelogt.
 login_message_02 Je bent al ingelogt. Wanneer je als andere gebruiker in wilt loggen, moet je eerst <a href="logout.php">uitloggen</a>.</p>
 login_message_03 Je bent correct ingelogt. Je wordt nu doorgestuurd naar de startpagina.
@@ -2302,12 +2302,6 @@ like_it Vinden dit leuk:
 no_like_it Nog niemand heeft gestemd
 Position Positie
 fav_com Vind ik leuk stemmen
-cacheSize_2 Mikro
-cacheSize_3 Klein
-cacheSize_4 Normaal
-cacheSize_5 Groot
-cacheSize_6 Extra groot
-cacheSize_7 Geen behuizing
 cacheStatus_1 Beschikbaar
 cacheStatus_2 Tijdelijk niet beschikbaar
 cacheStatus_3 Gearchieveerd
