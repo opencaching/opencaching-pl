@@ -68,6 +68,14 @@ $config = array(
         cache::TYPE_OWNCACHE => 1,
     ),
     /**
+     * not allowed cache sizes (user cannot create caches of this sizes).
+     *
+     * Cachesizes must be lib/cache.php constant SIZE_*
+     */
+    'forbidenCacheSizes' => array(
+        //cache::SIZE_MICRO
+    ),
+    /**
      * If set to true, all database queries will be reported in the page
      * output. (Note, that this will cause most of the AJAX actions to stop
      * functioning properly.)
