@@ -72,7 +72,7 @@ $config = array(
      *
      * Cachesizes must be lib/cache.php constant SIZE_*
      */
-    'forbidenCacheSizes' => array(
+    'forbiddenCacheSizes' => array(
         //cache::SIZE_MICRO
     ),
     /**

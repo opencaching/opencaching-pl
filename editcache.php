@@ -639,7 +639,7 @@ if ($error == false) {
                 $types = '';
                 foreach ($cache_types as $type) {
 
-                    // blockforbiden cache types
+                    // blockforbidden cache types
                     if (($type['id'] != $cache_type) && in_array($type['id'], $config['forbidenCacheTypes']) && !$usr['admin']) {
                         continue;
                     }
@@ -662,8 +662,8 @@ if ($error == false) {
                 $sizes = '';
                 foreach ($cache_size as $size) {
 
-                    // blockforbiden cache sizes
-                    if (($size['id'] != $cache_size) && in_array($size['id'], $config['forbidenCacheSizes']) && !$usr['admin']) {
+                    // blockforbidden cache sizes
+                    if (($size['id'] != $cache_size) && in_array($size['id'], $config['forbiddenCacheSizes']) && !$usr['admin']) {
                         continue;
                     }
                     if ($size['id'] == $CACHESIZE['NO_CONTAINER'] && $sel_size != $CACHESIZE['NO_CONTAINER']) {
