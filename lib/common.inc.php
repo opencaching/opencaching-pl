@@ -1528,10 +1528,6 @@ class common
 
         $sizes = '<option value="-1">' . tr('select_one') . '</option>';
         foreach ($cacheSizes as $size) {
-            // blockforbidden cache sizes
-            if (in_array($size, $config['forbiddenCacheSizes']) && !$usr['admin']) {
-                continue;
-            }
             if ($sel_type == 6) {
                 if ($size['id'] == cache::SIZE_NOCONTAINER) {
                     $sizes .= '<option value="' . $size['id'] . '" selected="selected">' . tr($size['translation']) . '</option>';
