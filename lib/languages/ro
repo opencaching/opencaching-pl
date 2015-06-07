@@ -1985,12 +1985,14 @@ cacheType_7 Cameră web
 cacheType_8 Virtuală
 cacheType_9 Podcast
 cacheType_10 Personală
+cacheSize_1 Nano
 cacheSize_2 Micro
 cacheSize_3 Mică
 cacheSize_4 Normală
 cacheSize_5 Mare
 cacheSize_6 Foarte mare
 cacheSize_7 Fără cutie
+cacheSize_8 Nespecificat
 login_message_01 Eşti conectat.
 login_message_02 Eşti conectat. Dacă vrei să te conectezi ca alt utilizator, te rog <a href="logout.php">deconectează-te</a>.</p>
 login_message_03 Te-ai Autentificare cu succes. Vei fi redirecţionat către prima pagină.

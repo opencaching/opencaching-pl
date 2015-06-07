@@ -1998,12 +1998,14 @@ cacheType_7 Webcam
 cacheType_8 Virtual
 cacheType_9 Podcast cache
 cacheType_10 Own cache
+cacheSize_1 Nano
 cacheSize_2 Micro
 cacheSize_3 Small
 cacheSize_4 Normal
 cacheSize_5 Large
 cacheSize_6 Very large
 cacheSize_7 No container
+cacheSize_8 Not specified
 login_message_01 You are logged in.
 login_message_02 You are logged in. If you want to login as another user, please <a href="logout.php">logout</a>.</p>
 login_message_03 You are succesfull logged in. You will be directed to the startpage.
