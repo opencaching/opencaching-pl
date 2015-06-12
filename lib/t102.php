@@ -265,7 +265,7 @@ while ($record = $dbc->dbResultFetch()) {
     $sUserProfil = "viewprofile.php?userid=" . $record['user_id'];
     $sUsername = '<span ' . $record["username"] . $sUserClass . '  onclick="GCTStatsGotoProfil( \\\'' . $sUserProfil . '\\\' )"  onmouseover="Tip(\\\'' . $sProfil . '\\\')" onmouseout="UnTip()"  >' . $record["username"] . '</span><a name="' . $sUUN . '"></a>';
     
-    //$sUsername = str_replace("'", "&#39", $sUsername);
+    $sUsername = str_replace("'", "&#39", $sUsername);
     //$sUUN = str_replace("'", "&#39", $sUUN);
 
     $nPos++;
@@ -274,7 +274,7 @@ while ($record = $dbc->dbResultFetch()) {
             gct.addEmptyRow();
             gct.addToLastRow( 0, $nRanking );
             gct.addToLastRow( 1, $nCount );
-            gct.addToLastRow( 2, \"$sUsername\" );
+            gct.addToLastRow( 2, '$sUsername' );
             gct.addToLastRow( 3, '$sOpis' );
             gct.addToLastRow( 4, \"$sUUN\" );
             gct.addToLastRow( 5, '$sUserID' );
