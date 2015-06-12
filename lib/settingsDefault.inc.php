@@ -8,6 +8,12 @@
 require_once __dir__ . '/cache.php';
 
 $config = array(
+    /**
+     *Add button to a shop. Set true otherwise false 
+     *Add link to the shop of choise.
+     */
+    'showShopButton' => false,
+    'showShopButtonUrl' => 'http://www.shop of choise',
     /** url where xml witch most recent blog enterie are placed */
     'blogMostRecentRecordsUrl' => 'http://blog.opencaching.pl/feed/',
     /** to switch cache map v2 on set true otherwise false */

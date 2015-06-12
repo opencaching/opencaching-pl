@@ -318,6 +318,14 @@ $menu = array(
         'siteid' => 'api'
     ),
     array(
+        'title' => 'shop',
+        'menustring' => 'shop',
+        'siteid' => 'shop',
+        'visible' => $config['showShopButton'],
+        'filename' => $config['showShopButtonUrl'],
+        'newwindow' => 'true'
+    ),
+    array(
         'title' => tr('clipboard'),
         'menustring' => tr('clipboard'),
         'siteid' => 'mylist',
