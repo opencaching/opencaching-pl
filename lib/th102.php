@@ -129,7 +129,7 @@
         $i = 0;
         foreach ($asUserID as $sID) {
             $sName = $aUserName[$sID];
-            //$sName = $sID;
+            $sName = str_replace("'", "&#39", $sName);
             echo "gcl.addColumn('number', '$sName');";
             $aNrColumn[$sID] = $i;
             $i++;

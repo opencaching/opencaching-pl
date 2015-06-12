@@ -222,6 +222,7 @@
 
                 if ($nStart == 1) {
                     $sUserName = $record['username'];
+                    $sUsername = str_replace("'", "&#39", $sUsername);
                     $nUserId = $record['user_id'];
 
                     echo "
