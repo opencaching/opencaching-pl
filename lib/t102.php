@@ -266,7 +266,7 @@ while ($record = $dbc->dbResultFetch()) {
     $sUsername = '<span ' . $record["username"] . $sUserClass . '  onclick="GCTStatsGotoProfil( \\\'' . $sUserProfil . '\\\' )"  onmouseover="Tip(\\\'' . $sProfil . '\\\')" onmouseout="UnTip()"  >' . $record["username"] . '</span><a name="' . $sUUN . '"></a>';
     
     $sUsername = str_replace("'", "&#39", $sUsername);
-    $sUUN = str_replace("'", "&#39", $sUUN);
+    $sUUN = str_replace("'", "", $sUUN);
 
     $nPos++;
 
