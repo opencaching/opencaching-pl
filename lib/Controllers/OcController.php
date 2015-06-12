@@ -112,7 +112,7 @@ class OcController
            case 3: return 'Gamsblut_Sankt_Christina.jpg';
            case 4: return 'Stlupec_sun_Resciesa.jpg';
            case 5: return 'Lilium_Martagon_in_Groden_Jender.jpg';
-           case 6: return 'Creusc_sun_Col_dala_Piere_Gherdeina';
+           case 6: return 'Creusc_sun_Col_dala_Piere_Gherdeina.jpg';
            case 7: return 'Cansla_dla_Charita_Pic_Gherdeina.jpg';
            case 8: return 'Bryce_Canyon_USA_october_2012_e.jpg';
            case 9: return 'Desert_in_Utah_by_Wolfgang_Moroder.jpg';
