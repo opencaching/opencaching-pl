@@ -67,6 +67,7 @@ score Rate
 scored rated
 recommendations recommendations
 recommendation recommendation
+recommended recommended
 created_by Created by
 found found
 founds founds
@@ -1744,6 +1745,7 @@ ZA South Africa
 ZM Zambia
 ZW Zimbabwe
 SU Soviet Union
+pt000 GeoPath
 pt001 GeoPaths
 pt002 belongs to GeoPath
 pt003 New GeoPath

@@ -67,6 +67,7 @@ score Ocena
 scored oceniona
 recommendations rekomendacje
 recommendation rekomendacja
+recommended rekomendowana
 created_by Założona przez
 found znaleziona
 founds znalezione
@@ -1744,6 +1745,7 @@ ZA Republika Południowej Afryki
 ZM Zambia
 ZW Zimbabwe
 SU Rosja
+pt000 Geościeżka
 pt001 GeoŚcieżki
 pt002 nalaży do geoŚcieżki
 pt003 Nowa geoŚcieżka
