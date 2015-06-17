@@ -67,6 +67,7 @@ score Waardering
 scored Gewaardeerd
 recommendations Aanbevelingen
 recommendation Aanbeveling
+recommended Aanbevolen
 created_by Gemaakt door
 found Gevonden
 founds gevonden
@@ -1744,6 +1745,7 @@ ZA Zuid-Afrika
 ZM Zambia
 ZW Zimbabwe
 SU Rusland
+pt000 CacheSerie
 pt001 CacheSerie
 pt002 Voeg toe aan CacheSerie
 pt003 Maak een nieuwe CacheSerie
