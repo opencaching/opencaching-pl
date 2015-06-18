@@ -542,7 +542,7 @@ function writeLanguageFlags($languages)
 }
 
 //read the templates and echo it to the user
-function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false)
+function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemplate=false)
 {
     //template handling vars
     global $stylepath, $tplname, $vars, $langpath, $lang_array, $lang, $language;
@@ -579,6 +579,8 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false)
     //load main template
     if ($minitpl)
         $sCode = read_file($stylepath . '/mini.tpl.php');
+    else if ($noCommonTemplate)
+        $sCode = '{template}';
     else if (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y')
         $sCode = read_file($stylepath . '/main_print.tpl.php');
     else if (isset($_REQUEST['popup']) && $_REQUEST['popup'] == 'y')

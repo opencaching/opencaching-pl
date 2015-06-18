@@ -106,7 +106,6 @@
     
     <?php if( {is_powertrail_part} ){ ?>
     <div id='div_cachePT'>
-       <!-- p><b>{{PowerTrail}}:</b></p -->
        <a style='text-decoration: none;' href='{pt_url}' title='{pt_name}'>       
        <img width="20" height="20" src="{pt_icon}" alt="{{PowerTrail}}" title='{pt_name}' />
        {pt_name}</a>            
