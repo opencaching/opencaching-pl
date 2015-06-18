@@ -2,7 +2,9 @@
 
 namespace lib\Objects\User;
 
-use lib\Controllers\MedalsController;
+use \lib\Controllers\MedalsController;
+use \lib\Database\DataBaseSingleton;
+
 /**
  * Description of user
  *
@@ -21,8 +23,10 @@ class User
 
     /* @var $homeCoordinates \lib\Objects\Coordinates\Coordinates */
     private $homeCoordinates;
-    private $medals;
+    private $medals = null;
     private $country;
+
+    private $profileUrl = null;
 
     /**
      * construct class using $userId (fields will be loaded from db)
@@ -31,20 +35,48 @@ class User
      * @param type $userId - user identifier in db
      * @param type $userDbRow - array - user data taken from db, from table user.
      */
-    public function __construct($userId, $userDbRow = null)
-    {
-        if ($userId && $userDbRow === null) {
-            $this->userId = (int) $userId;
+    public function __construct(array $params)
+    {        
+        if(isset($params['userId'])){
+            $this->userId = (int) $params['userId'];
             $this->loadUserDataFromDb();
-        } else {
-            $this->userId = (int) $userDbRow['user_id'];
-            $this->setUserFieldsByUsedDbRow($userDbRow);
-        }
-        $this->buildMedals();
+        
+        }else if(isset($params['userDbRow'])){        
+            $this->setUserFieldsByUsedDbRow( $params['userDbRow'] );
+        
+        }else if(isset( $params['okapiRow']) ){
+            $this->loadFromOKAPIRsp( $params['okapiRow'] );
+        }   
+        
     }
 
+    public function loadFromOKAPIRsp($okapiRow)
+    {
+        //load user data from row returned by OKAPI
+        foreach ( $okapiRow as $field => $value ){
+            switch($field){
+                case 'uuid':                //geocache owner's user ID,
+                    $this->userId = $value;
+                    break;
+                case 'username':            //name of the user,
+                    $this->userName = $value;
+                    break;
+                case 'profile_url':         //URL of the user profile page,
+                    $this->profileUrl = $value;
+                    break;
+                default:
+                    error_log(__METHOD__.": Unknown field: $field (value: $value)");
+            }
+        }
+    }
+    
     public function getMedals()
     {
+        //medals are not loaded in constructor - check if it is ready
+        if( is_null($this->medals) ){
+            //medals not loaded before - load from DB
+            $this->loadMedalsFromDb();   
+        }        
         return $this->medals;
     }
 
@@ -57,17 +89,34 @@ class User
         $this->setUserFieldsByUsedDbRow($userDbRow);
     }
 
-    private function setUserFieldsByUsedDbRow($userDbRow)
+    private function setUserFieldsByUsedDbRow(array $dbRow)
     {
-        $this->userName = $userDbRow['username'];
-        $this->foundGeocachesCount = $userDbRow['founds_count'];
-        $this->notFoundGeocachesCount = $userDbRow['notfounds_count'];
-        $this->hiddenGeocachesCount = $userDbRow['hidden_count'];
-        $this->homeCoordinates = new \lib\Objects\Coordinates\Coordinates($userDbRow);
-        $this->email = $userDbRow['email'];
+        foreach($dbRow as $key=>$value){
+            switch($key){
+                case 'user_id':         $this->userId = $value; break;
+                case 'username':        $this->userName = $value; break;
+                case 'founds_count':    $this->foundGeocachesCount = $value; break;
+                case 'notfounds_count': $this->notFoundGeocachesCount = $value; break;
+                case 'hidden_count':    $this->hiddenGeocachesCount = $value; break;
+                case 'email':           $this->email = $value; break;
+                case 'country':         $this->country = $value; break;
+                case 'latitude':
+                case 'longitude':
+                    //lat|lon are handling below
+                    break;
+                default:
+                    error_log(__METHOD__.": Unknown column: $key");
+            }
+        }
+
+        //if coordinates are present set the homeCords.
+        if(isset($dbRow['latitude'])&& isset($dbRow['longitude'])){
+            $this->homeCoordinates = 
+                new \lib\Objects\Coordinates\Coordinates( array('dbRow' => $dbRow) );
+        }
     }
 
-    private function buildMedals()
+    public function loadMedalsFromDb()
     {
         $db = \lib\Database\DataBaseSingleton::Instance();
         $query = 'SELECT `medal_type`, `prized_time`, `medal_level` FROM `medals` WHERE `user_id`=:1';
@@ -104,6 +153,10 @@ class User
     public function getUserName()
     {
         return $this->userName;
+    }
+    public function getProfileUrl()
+    {
+        return $this->profileUrl;
     }
 
 }

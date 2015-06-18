@@ -45,7 +45,8 @@ class MedalsController
         $timeStart = microtime();
         $usersToCheck = $db->dbResultFetchAll();
         foreach ($usersToCheck as $userDbRow) {
-            $user = new \lib\Objects\User\User(null, $userDbRow);
+            $user = new \lib\Objects\User\User(array('userDbRow' => $userDbRow));
+            $user->loadMedalsFromDb();
             $this->checkMedalConditions($user);
         }
         $timeEnd = microtime() - $timeStart;

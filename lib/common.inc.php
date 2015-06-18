@@ -462,6 +462,12 @@ function set_cookie_setting($name, $value)
     $cookie->set($name, $value);
 }
 
+//set the global template-name variable
+function tpl_set_tplname($local_tpl_name){
+    global $tplname;
+    $tplname = $local_tpl_name;
+}
+
 //set a template replacement
 //set no_eval true to prevent this contents from php-parsing.
 //Important when replacing something that the user has posted
@@ -670,7 +676,6 @@ function tpl_redirect_absolute($absolute_server_URI)
 function handle_translation_clause($matches)
 {
     $clause = substr($matches[0], 2, strlen($matches[0]) - 4);
-    ;
 
     return tr($clause);
 }

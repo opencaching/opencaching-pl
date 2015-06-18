@@ -29,6 +29,7 @@ final class OcConfig
     private $octeamEmailAddress;
     private $siteName;
     private $dynamicFilesPath;
+    private $powerTrailModuleSwitchOn;
 
     /**
      * Call this method to get singleton
@@ -62,6 +63,7 @@ final class OcConfig
         $this->octeamEmailAddress = $octeam_email;
         $this->siteName = $site_name;
         $this->dynamicFilesPath =  $dynbasepath;
+        $this->powerTrailModuleSwitchOn = $powerTrailModuleSwitchOn;
     }
 
     public function getAbsolute_server_URI()
@@ -103,6 +105,11 @@ final class OcConfig
     public function getDynamicFilesPath()
     {
         return $this->dynamicFilesPath;
+    }
+
+    public function getPowerTrailModuleSwitchOn()
+    {
+        return $this->powerTrailModuleSwitchOn;
     }
 
 }

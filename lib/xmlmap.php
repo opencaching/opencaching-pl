@@ -1,259 +1,366 @@
 <?php
+use lib\Objects\GeoCache\GeoCache;
 
 $rootpath = "../";
-require_once('./common.inc.php');
-require_once($rootpath . 'lib/caches.inc.php');
+require_once ($rootpath . 'lib/common.inc.php');
+require_once ($rootpath . 'okapi/facade.php');
 
-function getUsername($user_id)
+$obj = new tmp_Xmlmap();
+
+/**
+ * TODO: This should be moved to future mapController and I'm going to do it, 
+ * so the name and structure is temporary.
+ * 
+ * This code:
+ *  - found the cache located in requested bbox based on search params
+ *  - returns this cache description in HTML to display in "mapInfo-baloon" or url of the full cache desc.  
+ * 
+ * It can handle params (from url - GET method):
+ * - rspFormat - format of the response - possible values:
+ *    - html - html data to display in the mapInfo baloon
+ *    - url  - only url of the cache (if found); This value is use by default.
+ * - searchdata - the previous search result to looking for a cache in
+ * - latmin, latmax, lonmin, lonmax - bbox cords
+ * - user_id - to identify the user for which the search params are intrepretated
+ * - ...seach_params... - map search params
+ * 
+ * If there is no cache found based on params listed above the empty result is returned.
+ * 
+ * Example of the use case url:
+ * /lib/xmlmap.php?
+ * rspFormat=html
+ * &latmin=54.3845561894001&lonmin=18.529129028320312&latmax=54.387754965527115&lonmax=18.534622192382812
+ * &userid=8428
+ * &h_u=false&h_t=false&h_m=false&h_v=false&h_w=false&h_e=false&h_q=false&h_o=false&h_owncache=false&h_ignored=true&h_own=true
+ * &h_found=true&h_noattempt=false&h_nogeokret=false&h_avail=false&h_temp_unavail=true&h_arch=true&be_ftf=false
+ * &powertrail_only=false&min_score=-3&max_score=3&h_noscore=true&
+ * 
+ */
+class tmp_Xmlmap
 {
-    $sql = "SELECT username FROM user WHERE user_id=" . intval($user_id);
-    return @mysql_result(@mysql_query($sql), 0);
-}
+ 
+    private $search_params = array();
+    private $user_id;
 
-if (isset($_GET['searchdata']) && preg_match('/^[a-f0-9]+/', $_GET['searchdata'])) {
-    $searchdata = $_GET['searchdata'];
-}
-
-$latmin = sql_escape($_GET['latmin']);
-$latmax = sql_escape($_GET['latmax']);
-$lonmin = sql_escape($_GET['lonmin']);
-$lonmax = sql_escape($_GET['lonmax']);
-
-if (($latmin == $latmax) && ($lonmin == $lonmax)) {
-    // Special case for showing marker for specific cache - just single coordinate provided
-    // Use small buffer to handle this case
-    $latmin -= 0.00001;
-    $lonmin -= 0.00001;
-    $latmax += 0.00001;
-    $lonmax += 0.00001;
-}
-
-$user_id = intval($_GET['userid']);
-$username = getUsername($user_id);
-
-header('Content-Type: text/xml');
-
-$writer = new XMLWriter();
-
-$writer->openURI('php://output');
-$writer->startDocument('1.0');
-$writer->setIndent(4);
-$writer->startElement('caches');
-
-if (!isset($searchdata)) {
-
-    if ($_GET['be_ftf'] == "true") {
-        $own_not_attempt = "caches.founds>0";
-        $_GET['h_temp_unavail'] = "true";
-        $_GET['h_arch'] = "true";
-    } else
-        $own_not_attempt = "caches.cache_id IN (SELECT cache_id FROM cache_logs WHERE deleted=0 AND user_id='" . sql_escape($user_id) . "' AND (type=1 OR type=8))";
-
-    $hide_by_type = "";
-    if ($_GET['h_u'] == "true")
-        $hide_by_type .= " AND caches.type<>1 ";
-    if ($_GET['h_t'] == "true")
-        $hide_by_type .= " AND caches.type<>2 ";
-    if ($_GET['h_m'] == "true")
-        $hide_by_type .= " AND caches.type<>3 ";
-    if ($_GET['h_v'] == "true")
-        $hide_by_type .= " AND caches.type<>4 ";
-    if ($_GET['h_w'] == "true")
-        $hide_by_type .= " AND caches.type<>5 ";
-    if ($_GET['h_e'] == "true")
-        $hide_by_type .= " AND caches.type<>6 ";
-    if ($_GET['h_q'] == "true")
-        $hide_by_type .= " AND caches.type<>7 ";
-    if ($_GET['h_o'] == "true")
-        $hide_by_type .= " AND caches.type<>8 ";
-    if ($_GET['h_owncache'] == "true")
-        $hide_by_type .= " AND caches.type<>10 ";
-    if ($_GET['h_own'] == "true")
-        $hide_by_type .= " AND caches.user_id<>" . $user_id . " ";
-    if ($_GET['h_found'] == "true")
-        $hide_by_type .= " AND IF($own_not_attempt, 1, 0)<>1 ";
-    if ($_GET['be_ftf'] == "true")
-        $hide_by_type .= " AND (IF($own_not_attempt, 1, 0)<>1 AND caches.status=1 AND caches.user_id<>" . $user_id . ") ";
-
-    if ($_GET['powertrail_only'] == "true")
-        $joins[] = "INNER JOIN powerTrail_caches ON powerTrail_caches.cacheId = caches.cache_id";
-
-    if ($_GET['h_avail'] == "true")
-        $hide_by_type .= " AND caches.status<>1 ";
-    if ($_GET['h_temp_unavail'] == "true")
-        $hide_by_type .= " AND caches.status<>2 ";
-    if ($_GET['h_arch'] == "true")
-        $hide_by_type .= " AND caches.status<>3 ";
-    if ($_GET['h_noattempt'] == "true")
-        $hide_by_type .= " AND IF($own_not_attempt, 1, 0)=1 ";
-    if ($_GET['h_ignored'] == "true")
-        $hide_by_type .= " AND cache_ignore.id IS NULL ";
-
-    $t = floatval($_GET['min_score']);
-    $min = ($t < 0) ? 1 : (($t < 1) ? 2 : (($t < 1.5) ? 3 : (($t < 2.2) ? 4 : 5)));
-    $t = floatval($_GET['max_score']);
-    $max = ($t < 0.7) ? 1 : (($t < 1.3) ? 2 : (($t < 2.2) ? 3 : (($t < 2.7) ? 4 : 5)));
-    $allow_null = ($_GET['h_noscore'] == "true");
-    if (($min == 1) && ($max == 5) && $allow_null) {
-        $score_filter = "";
-    } else {
-        $divisors = array(-999, -1.0, 0.1, 1.4, 2.2, 999);
-        $min = $divisors[$min - 1];
-        $max = $divisors[$max];
-        $score_filter = " AND ((caches.score >= $min and caches.score < $max and caches.votes >= 3)" .
-                ($allow_null ? " or (caches.votes < 3)" : "") . ")";
+    /**
+     * create the mapinfo-baloon content object 
+     * and start request processing
+     */
+    public function __construct()
+    {        
+        
+        /*
+         * There are two "modes" (see the mapper_okapi for details):
+         * - without "searchdata" - the normal version.
+         * - with "searchdata" - ONLY "searchdata" is taken into account. All other
+         * parameters are ignored.
+         */
+        $searchData = $this->getSearchData();
+        if (! is_null($searchData)) {
+            
+            if (! $this->loadSearchData($searchData)) {
+                die();
+            }
+        } else {
+            if (! $this->parseUrlSearchParams()) {
+                // parseUrlSearchParams returns with error or contradictory set of caches
+                // there is nothing more to do here
+                die();
+            }
+        }
+        
+        $this->getCommonParams();
+        
+        //cache attributes we need from OKAPI...
+        $fields = 'code|name|location|type|size2|' .
+                  'recommendations|rating_votes|rating|' . 
+                  'willattends|status|owner|founds|' . 
+                  'notfounds|internal_id';
+        
+        
+        $params = array();
+        $params['search_method'] = 'services/caches/search/bbox';
+        $params['search_params'] = json_encode($this->search_params);
+        $params['retr_method'] = 'services/caches/geocaches';
+        $params['retr_params'] = '{"fields":"' . $fields . '"}';
+        $params['wrap'] = 'false';
+        
+        switch ($_GET['rspFormat']) {
+            case 'html':
+                $this->htmlFormat($params);
+                return;
+            
+            case 'url':
+            default:
+                $this->getUrlOnly($params);
+                return;
+        }
     }
 
-    // enable searching for ignored caches
-    if ($_GET['h_ignored'] == "true") {
-        $h_sel_ignored = "cache_ignore.id as ignored,";
-        $h_ignored = " LEFT JOIN cache_ignore ON (cache_ignore.user_id=" . $user_id . " AND cache_ignore.cache_id=caches.cache_id) ";
-    } else {
-        $h_sel_ignored = "0 as ignored,";
-        $h_ignored = "";
-    }
-    $joins[] = $h_ignored; 
-
-    if ($_GET['h_nogeokret'] == "true")
-        $filter_by_type_string .= " AND caches.cache_id IN (SELECT cache_id FROM caches WHERE wp_oc IN (SELECT wp FROM gk_item_waypoint WHERE id IN (SELECT id FROM gk_item WHERE stateid<>1 AND stateid<>4 AND stateid<>5 AND typeid<>2)) OR (wp_gc IN (SELECT wp FROM gk_item_waypoint WHERE id IN (SELECT id FROM gk_item WHERE stateid<>1 AND stateid<> 4 AND typeid<>2)) AND wp_gc <> '') OR (wp_nc IN (SELECT wp FROM gk_item_waypoint WHERE id IN (SELECT id FROM gk_item WHERE stateid<>1 AND stateid<>4 AND typeid<>2)) AND wp_nc <> '')) ";
-    else
-        $filter_by_type_string = "";
-
-    $sql = "SELECT $h_sel_ignored caches.cache_id, IF($own_not_attempt, 1, 0) as found, caches.name, caches.node, user.username, caches.wp_oc as wp, caches.votes, caches.score, caches.topratings, caches.latitude, caches.longitude, caches.type, caches.size, caches.status as status, datediff(now(), caches.date_hidden) as old, caches.user_id, caches.founds, caches.notfounds 
-            FROM user, caches
-            ".implode(" ",$joins)."
-            WHERE caches.user_id = user.user_id AND caches.status < 4 AND
-                (caches.latitude BETWEEN $latmin AND $latmax) AND (caches.longitude BETWEEN $lonmin AND $lonmax)
-                " . $hide_by_type . $filter_by_type_string . $score_filter . " LIMIT 1";
-
-
-    // for foreign caches -------------------------------------------------------------------------------------
-
-
-    $hide_by_type = "";
-    if ($_GET['h_u'] == "true")
-        $hide_by_type .= " AND foreign_caches.type<>1 ";
-    if ($_GET['h_t'] == "true")
-        $hide_by_type .= " AND foreign_caches.type<>2 ";
-    if ($_GET['h_m'] == "true")
-        $hide_by_type .= " AND foreign_caches.type<>3 ";
-    if ($_GET['h_v'] == "true")
-        $hide_by_type .= " AND foreign_caches.type<>4 ";
-    if ($_GET['h_w'] == "true")
-        $hide_by_type .= " AND foreign_caches.type<>5 ";
-    if ($_GET['h_e'] == "true")
-        $hide_by_type .= " AND foreign_caches.type<>6 ";
-    if ($_GET['h_q'] == "true")
-        $hide_by_type .= " AND foreign_caches.type<>7 ";
-    if ($_GET['h_o'] == "true")
-        $hide_by_type .= " AND foreign_caches.type<>8 ";
-    if ($_GET['h_owncache'] == "true")
-        $hide_by_type .= " AND foreign_caches.type<>10 ";
-    //if( $_GET['h_own'] == "true" )
-    //  $hide_by_type .= " AND foreign_caches.username<>'".$username."'";
-    //if( $_GET['h_found'] == "true" )
-    //  $hide_by_type .= " AND IF($own_not_attempt, 1, 0)<>1 ";
-    //if( $_GET['be_ftf'] == "true" )
-    //  $hide_by_type .= " AND (IF($own_not_attempt, 1, 0)<>1 AND foreign_caches.status=1 AND foreign_caches.user_id<>".$user_id.") ";
-    if ($_GET['h_avail'] == "true")
-        $hide_by_type .= " AND foreign_caches.status<>1 ";
-    if ($_GET['h_temp_unavail'] == "true")
-        $hide_by_type .= " AND foreign_caches.status<>2 ";
-    if ($_GET['h_arch'] == "true")
-        $hide_by_type .= " AND foreign_caches.status<>3 ";
-    //if( $_GET['h_noattempt'] == "true" )
-    //  $hide_by_type .= " AND IF($own_not_attempt, 1, 0)=1 ";
-    // enable searching for ignored caches
-    /*  if( $_GET['h_ignored'] == "true" )
-      {
-      $h_sel_ignored = "cache_ignore.id as ignored,";
-      $h_ignored = " LEFT JOIN cache_ignore ON (cache_ignore.user_id='$user_id' AND cache_ignore.cache_id=foreign_caches.cache_id) ";
-      }
-      else
-     */ {
-        $h_sel_ignored = "";
-        $h_ignored = "";
+    /**
+     * Find and parse the searchdata key in URL
+     * @return search data key or null if there is no searchdata param
+     */
+    private function getSearchData()
+    {
+        if (isset($_GET['searchdata']) && preg_match('/^[a-f0-9]{6,32}/', $_GET['searchdata']))
+            return $_GET['searchdata'];
+        else
+            return null;
     }
 
-    if ($_GET['h_nogeokret'] == "true")
-        $filter_by_type_string = " AND foreign_caches.cache_id IN (SELECT cache_id FROM foreign_caches WHERE wp_oc IN (SELECT wp FROM gk_item_waypoint WHERE id IN (SELECT id FROM gk_item WHERE stateid<>1 AND stateid<>4 AND typeid<>2)) OR (wp_gc IN (SELECT wp FROM gk_item_waypoint WHERE id IN (SELECT id FROM gk_item WHERE stateid<>1 AND stateid<> 4 AND typeid<>2)) AND wp_gc <> '') OR (wp_nc IN (SELECT wp FROM gk_item_waypoint WHERE id IN (SELECT id FROM gk_item WHERE stateid<>1 AND stateid<>4 AND typeid<>2)) AND wp_nc <> '')) ";
-    else
-        $filter_by_type_string = "";
+    /**
+     * Find and parse the rest of the params from URL
+     */
+    private function getCommonParams()
+    {
+        $this->user_id = $_GET['userid'];
+        
+        $bbox[] = sql_escape($_GET['latmin']);
+        $bbox[] = sql_escape($_GET['lonmin']);
+        $bbox[] = sql_escape($_GET['latmax']);
+        $bbox[] = sql_escape($_GET['lonmax']);
+        
+        $this->search_params['bbox'] = implode('|', $bbox);
+        $this->search_params['limit'] = 1;
+    }
 
+    /**
+     * Parse map filter params and convert it to okapi search params
+     * @return boolean - true on success or false if the search params are 
+     */
+    private function parseUrlSearchParams()
+    {
+        
+        // h_ignored - convert to OKAPI's "exclude_ignored".
+        if ($_GET['h_ignored'] == "true")
+            $this->search_params['exclude_ignored'] = "true";
+            
+        // h_avail, h_temp_unavail, h_arch ("hide available" etc.) - convert to
+        // OKAPI's "status" filter.        
+        $tmp = array();
+        if ($_GET['h_avail'] != "true")
+            $tmp[] = "Available";
+        if ($_GET['h_temp_unavail'] != "true")
+            $tmp[] = "Temporarily unavailable";
+        if ($_GET['h_arch'] != "true")
+            $tmp[] = "Archived";
+        
+        $this->search_params['status'] = implode("|", $tmp);
+        if (count($tmp) == 0)
+            return false; //search params are contradictory
+                              
+        // min_score, max_score - convert to OKAPI's "rating" filter. This code
+        // is weird, because values passed to min_score/max_score are weird...        
+        $t = floatval($_GET['min_score']);
+        $min_rating = ($t < 0) ? "1" : (($t < 1) ? "2" : (($t < 1.5) ? "3" : (($t < 2.2) ? "4" : "5")));
+        $t = floatval($_GET['max_score']);
+        $max_rating = ($t < 0.7) ? "1" : (($t < 1.3) ? "2" : (($t < 2.2) ? "3" : (($t < 2.7) ? "4" : "5")));
+        $this->search_params['rating'] = $min_rating . "-" . $max_rating;
+        unset($t, $min_rating, $max_rating);
+        
+        // h_noscore - convert to OKAPI's "rating" parameter.        
+        if ($_GET['h_noscore'] == "true")
+            $this->search_params['rating'] = $this->search_params['rating'] . "|X";
+            
+        // be_ftf (hunt for FTFs) - convert to OKAPI's "ftf_hunter" parameter.        
+        if ($_GET['be_ftf'] == "true") {
+            $this->search_params['ftf_hunter'] = "true";
+            
+            // Also, override previously set "status" filter. This behavior is
+            // compatible with what previous mapper scripts did.
+            
+            $this->search_params['status'] = "Available";
+            
+            // BTW, if we override "status" parameter, then we should also override
+            // "rating" (all ftfs have "null" for rating). I don't do that though, to
+            // stay 100% compatible with the previous implementation.
+        }
+        
+        // powertrail_only (hunt for powerTrails) - convert to OKAPI's "powertrail_only" parameter.
+        if ($_GET['powertrail_only'] == "true") {
+            $this->search_params['powertrail_only'] = "true";
+        }
+        
+        // h_nogeokret - Convert to OKAPI's "with_trackables_only" parameter.        
+        if ($_GET['h_nogeokret'] == 'true')
+            $this->search_params['with_trackables_only'] = "true";
+            
+        // h_?, where ? is a single letter - hide a specific cache type.
+        // Convert to OKAPI's "type" parameter.        
+        $types_to_hide = array();
+        $mapping = array(
+            'u' => "Other",
+            't' => "Traditional",
+            'm' => "Multi",
+            'v' => "Virtual",
+            'w' => "Webcam",
+            'e' => "Event",
+            'q' => "Quiz",
+            'o' => "Moving",
+            'owncache' => "Own"
+        );
+        // Note: Some are missing!
+        
+        foreach ($mapping as $letter => $type)
+            if (isset($_GET['h_' . $letter]) && ($_GET['h_' . $letter] == "true"))
+                $types_to_hide[] = $type;
+        
+        if (count($types_to_hide) > 0)
+            $this->search_params['type'] = "-" . implode("|", $types_to_hide);
+        unset($types_to_hide, $mapping, $letter, $type);
+        
+        // h_own (hide user's own caches) - convert to OKAPI's "exclude_my_own" parameter.        
+        if ($_GET['h_own'] == "true")
+            $this->search_params['exclude_my_own'] = "true";
+            
+        // h_found, h_noattempt - convert to OKAPI's "found_status" parameter.        
+        $h_found = ($_GET['h_found'] == "true");
+        $h_noattempt = ($_GET['h_noattempt'] == "true");
+        if ($h_found && (! $h_noattempt))
+            $this->search_params['found_status'] = "notfound_only";
+        elseif ((! $h_found) && $h_noattempt)
+            $this->search_params['found_status'] = "found_only";
+        elseif ((! $h_found) && (! $h_noattempt))
+            $this->search_params['found_status'] = "either";
+        else
+            return false; //search params are contradictory
+        
+        return true;
+    }
 
-    $sql_foreign = "SELECT foreign_caches.cache_id, foreign_caches.name, foreign_caches.username, foreign_caches.node, foreign_caches.wp_oc as wp, foreign_caches.topratings, foreign_caches.latitude, foreign_caches.longitude, foreign_caches.type, foreign_caches.size, foreign_caches.status as status, datediff(now(), foreign_caches.date_hidden) as old, foreign_caches.founds, foreign_caches.notfounds 
-                    FROM foreign_caches
-                    WHERE foreign_caches.status < 4 AND
-                        (foreign_caches.latitude BETWEEN $latmin AND $latmax) AND (foreign_caches.longitude BETWEEN $lonmin AND $lonmax)
-                        " . $hide_by_type . $filter_by_type_string . " LIMIT 1";
+    private function loadSearchData($searchData)
+    {
+        \okapi\OkapiErrorHandler::reenable();
+        
+        // We need to transform OC's "searchdata" into OKAPI's "search set".
+        // First, we need to determine if we ALREADY did that.
+        // Note, that this is not exactly thread-efficient. Multiple threads may
+        // do this transformation in the same time. However, this is done only once
+        // for each searchdata, so we will ignore it.
+        
+        $cache_key = "OC_searchdata_" . $searchData;
+        $set_id = \okapi\Cache::get($cache_key);
+        if ($set_id === null) {
+            // Read the searchdata file into a temporary table.
+            
+            $filepath = \okapi\Settings::get('VAR_DIR') . "/searchdata/" . $searchData;
+            \okapi\Db::execute("
+            create temporary table temp_" . $searchData . " (
+                cache_id integer primary key
+            ) engine=memory
+        ");
+            if (file_exists($filepath)) {
+                \okapi\Db::execute("
+                        load data local infile '$filepath'
+                        into table temp_" . $searchData . "
+                fields terminated by ' '
+                lines terminated by '\\n'
+                (cache_id)
+            ");
+            }
+            
+            // Tell OKAPI to import the table into its own internal structures.
+            // Cache it for two hours.
+            
+            $set_info = \okapi\Facade::import_search_set("temp_" . $searchData, 7200, 7200);
+            $set_id = $set_info['set_id'];
+            \okapi\Cache::set($cache_key, $set_id, 7200);
+        }
+        $this->search_params['set_and'] = $set_id;
+        $this->search_params['status'] = "Available|Temporarily unavailable|Archived";
+        
+        \okapi\OkapiErrorHandler::disable();
+        return true;
+    }
 
-    if (!($_GET['h_pl'] == "false")) {
-        $query = mysql_query($sql);
-        $cache = mysql_fetch_array($query);
-    } else
-        $cache = 0;
+    /**
+     * Call OKAPI, parse response and display the results
+     * @param array $params - params of the cache to search and display
+     */
+    private function htmlFormat(array $params)
+    {
+        //call OKAPI
+        $okapi_resp = \okapi\Facade::service_call('services/caches/shortcuts/search_and_retrieve', $this->user_id, $params);
+        
+        if (! is_a($okapi_resp, "ArrayObject")) { // strange OKAPI return !?
+            error_log(__METHOD__.": ERROR: strange OKAPI response - not an ArrayObject");
+            exit(0);
+        }
+        
+        \okapi\OkapiErrorHandler::disable();
+        
+        if ($okapi_resp->count() == 0) {
+            // no caches found
+            exit(0);
+        }
+        
+        // get the first object from the list
+        $geoCache = new \lib\Objects\GeoCache\GeoCache(array(
+            'okapiRow' => array_pop($okapi_resp->getArrayCopy())
+        ));
+        
+        //generate the results
+        tpl_set_tplname('map/map_cacheinfo');
+        
+        tpl_set_var('cache_lat', $geoCache->getCoordinates()->getLatitude());
+        tpl_set_var('cache_lon', $geoCache->getCoordinates()->getLongitude());
+        tpl_set_var('cache_name', $geoCache->getCacheName());        
+        tpl_set_var('cache_icon', $geoCache->getCacheIcon());
+        
+        $is_event = ($geoCache->getCacheType() == $geoCache::TYPE_EVENT ? '1' : '0'); // be aware: booleans not working here
+        tpl_set_var('is_event', $is_event, false);
+               
+        $is_scored = ($geoCache->getRatingId() != 0 && $geoCache->getRatingVotes() > 2) ? '1' : '0';
+        tpl_set_var('is_scored', $is_scored, false);
+        tpl_set_var('rating_desc', tr($geoCache->getRatingDesc()));
+                
+        $is_recommended = ($geoCache->getRecommendations() > 0 ? '1' : '0');
+        tpl_set_var('is_recommended', $is_recommended, false);
+        tpl_set_var('cache_recommendations', $geoCache->getRecommendations(), false);
+        
+        tpl_set_var('cache_code', $geoCache->getWaypointId());
+        tpl_set_var('cache_founds', $geoCache->getFounds());
+        tpl_set_var('cache_not_founds', $geoCache->getNotFounds());
+        tpl_set_var('cache_rating_votes', $geoCache->getRatingVotes());
+        tpl_set_var('cache_willattends', $geoCache->getWillattends());
+        
+        tpl_set_var('cache_url', $geoCache->getCacheUrl());
+        
+        tpl_set_var('user_name', $geoCache->getOwner()->getUserName());
+        tpl_set_var('user_profile', $geoCache->getOwner()->getProfileUrl());
+        
+        tpl_set_var('cache_size_desc', tr($geoCache->getSizeDesc()));
+        
+        $is_powertrail_part = ($geoCache->isPowerTrailPart() ? '1' : '0');
+        tpl_set_var('is_powertrail_part', $is_powertrail_part, false);
+        
+        if ($geoCache->isPowerTrailPart()) {
+            tpl_set_var('pt_name', $geoCache->getPowerTrail()->getName());
+            tpl_set_var('pt_image', $geoCache->getPowerTrail()->getImage());
+            tpl_set_var('pt_icon', $geoCache->getPowerTrail()->getFootIcon());
+            tpl_set_var('pt_url', $geoCache->getPowerTrail()->getPowerTrailUrl());
+        }
+        
+        // make the template and send it out
+        tpl_BuildTemplate(false, true);
+    }
 
-    if (!($_GET['h_de'] == "false")) {
-        $query_foreign = mysql_query($sql_foreign);
-        $cache_foreign = mysql_fetch_array($query_foreign);
-    } else
-        $cache_foreign = 0;
-
-    if (($cache == 0) || ($cache['cache_id'] == ""))
-        $cache = $cache_foreign;
-
-} else { // searchdata
-
-    mysql_query("CREATE TEMPORARY TABLE cache_ids (id INTEGER PRIMARY KEY) ENGINE=MEMORY;");
-    mysql_query("LOAD DATA LOCAL INFILE '" . $dynbasepath . "/searchdata/" . $searchdata . "' INTO TABLE cache_ids FIELDS TERMINATED BY ' '  LINES TERMINATED BY '\\n' (id);");
-
-
-    $own_not_attempt = "caches.cache_id IN (SELECT cache_id FROM cache_logs WHERE deleted=0 AND user_id='" . sql_escape($user_id) . "' AND (type=1 OR type=8))";
-
-    $sql = "SELECT caches.cache_id, IF($own_not_attempt, 1, 0) as found, caches.name, caches.node, user.username, caches.wp_oc as wp, caches.votes, caches.score, caches.topratings, caches.latitude, caches.longitude, caches.type, caches.size, caches.status as status, datediff(now(), caches.date_hidden) as old, caches.user_id, caches.founds, caches.notfounds FROM user, caches
-        WHERE caches.cache_id IN (SELECT * FROM cache_ids) AND caches.user_id = user.user_id AND caches.status < 4 AND
-        (caches.latitude BETWEEN $latmin AND $latmax) AND (caches.longitude BETWEEN $lonmin AND $lonmax) LIMIT 1";
-
-//      print $sql;
-    $query = mysql_query($sql);
-//      print mysql_error() . "\n";
-    $cache = mysql_fetch_array($query);
-    mysql_query("DROP TABLE cache_ids");
+    /**
+     * Call OKAPI to return the URL of the cache based on given params
+     * @param array $params - search params for the okapi call
+     */
+    private function getUrlOnly(array $params)
+    {
+        //we want only cache details page URL from OKAPI
+        $params['retr_params'] = '{"fields":"url"}';
+        
+        //set to get OKAPI response on internall call
+        $params['i_want_okapi_response'] = 'true';
+        
+        //call OKAPI - OKAPI displays the results
+        \okapi\Facade::service_display('services/caches/shortcuts/search_and_retrieve', $this->user_id, $params);
+    }
 }
 
-//while( $cache = mysql_fetch_array($query) )
-{
-    $writer->startElement("cache");
 
-    $writer->writeAttribute('cache_id', $cache['cache_id']);
-    @$writer->writeAttribute('name', addslashes($cache['name']));
-    @$writer->writeAttribute('username', addslashes($cache['username']));
-    $writer->writeAttribute('wp', $cache['wp']);
-    $writer->writeAttribute('votes', $cache['votes']);
-    $writer->writeAttribute('score', score2rating($cache['score']));
-    $writer->writeAttribute('topratings', $cache['topratings']);
-    $writer->writeAttribute('lat', $cache['latitude']);
-    $writer->writeAttribute('lon', $cache['longitude']);
-    $writer->writeAttribute('type', $cache['type']);
-    $writer->writeAttribute('size', htmlspecialchars(cache_size_from_id($cache['size'], $lang), ENT_COMPAT, 'UTF-8'));
-    $writer->writeAttribute('status', $cache['status']);
-    $writer->writeAttribute('user_id', $cache['user_id']);
-    $writer->writeAttribute('founds', $cache['founds']);
-    $writer->writeAttribute('notfounds', $cache['notfounds']);
-    $writer->writeAttribute('node', $cache['node']);
-
-    // End cache
-    $writer->endElement();
-}
-
-if (isset($query)) {
-    mysql_free_result($query);
-}
-if (isset($query_foreign)) {
-    mysql_free_result($query_foreign);
-}
-
-// End caches
-$writer->endElement();
-$writer->endDocument();
-$writer->flush();

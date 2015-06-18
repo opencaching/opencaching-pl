@@ -64,7 +64,8 @@ class OcController
         $smarty->setCacheDir($ocConfig->getDynamicFilesPath().'tmp/smarty_cache');
 
 
-        $user = new \lib\Objects\User\User($this->request['userId']);
+        $user = new \lib\Objects\User\User(array('userId'=> $this->request['userId']));
+        $user->loadMedalsFromDb();
 //        d($user, $user->getMedals());
         /* @var $medal \lib\Objects\Medals\Medal */
         foreach ($user->getMedals() as $medal) {
