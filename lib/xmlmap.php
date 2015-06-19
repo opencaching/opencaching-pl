@@ -41,6 +41,7 @@ class tmp_Xmlmap
  
     private $search_params = array();
     private $user_id;
+    private $rspFormat;
 
     /**
      * create the mapinfo-baloon content object 
@@ -85,7 +86,7 @@ class tmp_Xmlmap
         $params['retr_params'] = '{"fields":"' . $fields . '"}';
         $params['wrap'] = 'false';
         
-        switch ($_GET['rspFormat']) {
+        switch ($this->rspFormat) {
             case 'html':
                 $this->htmlFormat($params);
                 return;
@@ -114,6 +115,10 @@ class tmp_Xmlmap
      */
     private function getCommonParams()
     {
+        
+        if( isset($_GET['rspFormat']) ) //rspFormat can be not set
+            $this->rspFormat = $_GET['rspFormat'];
+        
         $this->user_id = $_GET['userid'];
         
         $bbox[] = sql_escape($_GET['latmin']);
