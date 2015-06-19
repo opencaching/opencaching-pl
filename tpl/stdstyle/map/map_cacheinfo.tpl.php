@@ -9,8 +9,11 @@
 #div_cacheCode {float:right; } 
 #div_cacheParams {float:left; padding-right: 20px }
 #div_cacheCounters {float:right }
+#div_cachePtLabel {
+    float:left; clear: left;
+}
 #div_cachePT {
-    clear:both; padding-left:20px;
+    clear:left; padding-left:20px;
     max-width: 350px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     font-size:12px}
 
@@ -28,9 +31,9 @@
 
     <div id='div_cacheName'>
         <a style='' title='{cache_name}' href='{cache_url}' target='_blank'>
-            <img style='width: 20px; height: 20px; vertical-align: middle;' src='{cache_icon}'/>                       
+            <img style='width: 20px; height: 20px; vertical-align: middle;' src='{cache_icon}'/>
             {cache_name}
-        </a>  
+        </a>
     </div>
 
     <div id='div_cacheCode'>
@@ -38,7 +41,7 @@
         <a href='/viewcache.php?wp={cache_code}&print_list=y' target='_blank'>
             <img src='/images/actions/list-add-16.png' title='{{add_to_list}}' alt='{{add_to_list}}'>
         </a>
-    </div>  
+    </div>
     
 <div style="clear:both; padding-top: 5px"></div>
 
@@ -58,16 +61,11 @@
         </p>    
         <?php } //if-is-scored ?>
         
-        <p>    
+        <p>
             <b>{{owner}}:</b>
             <a href='{user_profile}' style='text-decoration: none;' target='_blank'>{user_name}</a>
         </p>
-        
-        <?php if( {is_powertrail_part} ){ ?>    
-        <p>
-            <b>{{pt000}}:</b>
-        </p>
-        <?php } //if-is-powerTrail-part ?>
+
     </div>
     
     <div id='div_cacheCounters'>
@@ -83,7 +81,7 @@
             <?php } ?>
         </p>
         <p>
-            <img src='/tpl/stdstyle/images/log/16x16-dnf.png' width='10' height='10' />                
+            <img src='/tpl/stdstyle/images/log/16x16-dnf.png' width='10' height='10' />
             <?php //for events founds = attended
                 if(! {is_event} ) { ?> 
                     {cache_not_founds} x {{not_found}}
@@ -91,7 +89,7 @@
                     {cache_willattends} x {{will_attend}}
             <?php } ?>
         </p>
-        <p>        
+        <p>
             <img src='/tpl/stdstyle/images/action/16x16-adddesc.png' width='10' height='10' />
             {cache_rating_votes} x {{scored}}
         </p>
@@ -102,13 +100,21 @@
                     {cache_recommendations} x {{recommended}}
                 </p>
         <?php } //if-is-recommended ?>
-    </div>   
+    </div>
+
+    <?php if( {is_powertrail_part} ){ ?>
+    <div id='div_cachePtLabel'>
+        <p>
+            <b>{{pt000}}:</b>
+        </p>
+    </div>
+    <?php } //if-is-powerTrail-part ?>
     
     <?php if( {is_powertrail_part} ){ ?>
     <div id='div_cachePT'>
-       <a style='text-decoration: none;' href='{pt_url}' title='{pt_name}'>       
+       <a style='text-decoration: none;' href='{pt_url}' title='{pt_name}' target='_blank'>
        <img width="20" height="20" src="{pt_icon}" alt="{{PowerTrail}}" title='{pt_name}' />
-       {pt_name}</a>            
+       {pt_name}</a>
     </div>
     <?php } //if-is-powertrail_part ?>
 
