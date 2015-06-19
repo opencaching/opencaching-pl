@@ -1982,6 +1982,7 @@ pt233 exclude miniGeoPaths
 pt234 Completing the GeoPath is not possible (required number of caches is higher then number of active caches that belongs to the GeoPath - the GeoPath owners should reset the minimum required number or reactivate/archive inactive caches).
 pt235 I want receive geoPaths notification emails
 pt236 Sorry, this page is only available for oc-team
+pt_show_on_main_map Show geoPath caches on main map
 statpic_found Found:
 statpic_hidden Hidden:
 statpic_html_link - Statistics for
