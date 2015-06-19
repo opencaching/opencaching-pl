@@ -42,6 +42,7 @@ class tmp_Xmlmap
     private $search_params = array();
     private $user_id;
     private $rspFormat;
+    private $screenWidth;
 
     /**
      * create the mapinfo-baloon content object 
@@ -119,6 +120,11 @@ class tmp_Xmlmap
         if( isset($_GET['rspFormat']) ) //rspFormat can be not set
             $this->rspFormat = $_GET['rspFormat'];
         
+        if( isset($_GET['screenW']) )
+            $this->screenWidth = (int) $_GET['screenW'];
+        else 
+            $this->screenWidth = 1000;
+             
         $this->user_id = $_GET['userid'];
         
         $bbox[] = sql_escape($_GET['latmin']);
@@ -306,7 +312,11 @@ class tmp_Xmlmap
         ));
         
         //generate the results
-        tpl_set_tplname('map/map_cacheinfo');
+        if( $this->screenWidth < 400 ){
+            tpl_set_tplname('map/map_cacheinfo_small');
+        }else{
+            tpl_set_tplname('map/map_cacheinfo');
+        }
         
         tpl_set_var('cache_lat', $geoCache->getCoordinates()->getLatitude());
         tpl_set_var('cache_lon', $geoCache->getCoordinates()->getLongitude());
