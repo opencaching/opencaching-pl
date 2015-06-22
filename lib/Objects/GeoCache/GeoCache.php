@@ -21,7 +21,7 @@ class GeoCache
     const TYPE_EVENT = 6;
     const TYPE_QUIZ = 7;
     const TYPE_MOVING = 8;
-    const TYPE_GEOPATHFINAL = 9;
+    const TYPE_GEOPATHFINAL = 9;    //TODO: old -podcast- type?
     const TYPE_OWNCACHE = 10;
 
     const STATUS_READY = 1;
@@ -250,7 +250,7 @@ class GeoCache
                 return self::TYPE_MOVING;
             case 'Own':
                 return self::TYPE_OWNCACHE;
-            case 'Unknown type':
+            case 'Other':
                 return self::TYPE_OTHERTYPE;
             default:
                 error_log(__METHOD__ . ' Unknown cache type from OKAPI: ' . $okapiType);
