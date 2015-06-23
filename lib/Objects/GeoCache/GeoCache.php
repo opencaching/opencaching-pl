@@ -95,11 +95,16 @@ class GeoCache
             
             $queryById = "SELECT name, type, date_hidden, longitude, latitude, wp_oc, user_id FROM `caches` WHERE `cache_id`=:1 LIMIT 1";
             $db->multiVariableQuery($queryById, $this->id);
-            
-            $this->loadCacheLocation($db);
-            
+
             $cacheDbRow = $db->dbResultFetch();
-            $this->loadFromRow($cacheDbRow);
+
+            if(is_array($cacheDbRow))
+                $this->loadFromRow($cacheDbRow);
+            else{
+                //TODO: cache-not-found handling?
+            }
+            $this->loadCacheLocation($db);
+
         } else 
             if (isset($params['okapiRow'])) {
                 $this->loadFromOkapiRow($params['okapiRow']);
@@ -172,7 +177,7 @@ class GeoCache
      * 
      * @param array $row            
      */
-    public function loadFromRow($cacheDbRow)
+    public function loadFromRow(array $cacheDbRow)
     {
         $this->cacheType = $cacheDbRow['type'];
         $this->cacheName = $cacheDbRow['name'];
