@@ -85,7 +85,11 @@ class Altitude
     public function pickAndStoreAltitude($userInputAltitude)
     {
         $this->retreiveAltitudeFromGoogleApi();
-        if ($userInputAltitude < $this->altitude+50 && $userInputAltitude > $this->altitude-50) {
+        if ( !is_null($userInputAltitude) && 
+             $userInputAltitude < $this->altitude+50 && 
+             $userInputAltitude > $this->altitude-50
+           ) {
+            
             $this->altitude = $userInputAltitude;
         }
         $this->storeAlitudeInDb();

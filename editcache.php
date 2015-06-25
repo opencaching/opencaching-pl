@@ -995,7 +995,7 @@ tpl_BuildTemplate();
  * @param integer $cacheId
  * @param integer $altitude
  */
-function updateAltitudeIfNeeded($oldCacheRecord, $cacheId, $altitude = 0){
+function updateAltitudeIfNeeded($oldCacheRecord, $cacheId, $altitude = NULL){
     /* add cache altitude altitude */
     $geoCache = new GeoCache(array('cacheId' => $cacheId));
     if($geoCache->getCoordinates()->getLatitude() != $oldCacheRecord['latitude'] || $geoCache->getCoordinates()->getLongitude() != $oldCacheRecord['longitude']){

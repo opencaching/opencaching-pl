@@ -137,7 +137,7 @@ if ($error == false) {
         $sel_region = isset($_POST['region']) ? $_POST['region'] : $default_region;
         $show_all_countries = isset($_POST['show_all_countries']) ? $_POST['show_all_countries'] : 0;
         $show_all_langs = isset($_POST['show_all_langs']) ? $_POST['show_all_langs'] : 0;
-        $altitude = isset($_POST['altitude']) ? $_POST['altitude'] : 0;
+        $altitude = isset($_POST['altitude']) ? $_POST['altitude'] : NULL;
 
         //coords
         $lonEW = isset($_POST['lonEW']) ? $_POST['lonEW'] : $default_EW;
