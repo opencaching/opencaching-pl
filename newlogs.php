@@ -104,6 +104,7 @@ if ($error == false) {
                   caches.type AS cache_type,
                   cache_type.icon_small AS cache_icon_small,
                   log_types.icon_small AS icon_small,
+				  log_types.pl as pl, 
                   IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
                   COUNT(gk_item.id) AS geokret_in,
                  `PowerTrail`.`id` AS PT_ID,
@@ -159,7 +160,7 @@ if ($error == false) {
         };
         $file_content .= '<td width="22">' . $PT_icon . '</td>';
 
-        $file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" /></td>';
+        $file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" title=" ' . $log_record['pl'] . ' " /></td>';
         $cacheicon = myninc::checkCacheStatusByUser($log_record, $usr['userid']);
         $file_content .= '<td width="22">&nbsp;<a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="' . $cacheicon . '" border="0" alt="' . $tr_myn_click_to_view_cache . '" title="' . $tr_myn_click_to_view_cache . '" /></a></td>';
 
