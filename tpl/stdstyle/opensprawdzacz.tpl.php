@@ -167,7 +167,7 @@
                 {{os_podaj_twoje}}:<br/><br/>
                 {{os_stopnie}} N: <input type="text" name="stopnie_N" maxlength="2" size="2" />°
                 {{os_minuty}} N:  <input type="text" name="minuty_N"  maxlength="6" size="5" onkeyup="this.value = this.value.replace(/,/g, '.');" /><br/><br/>
-                {{os_stopnie}} E: <input type="text" name="stopnie_E" maxlength="2" size="2" />°
+                {{os_stopnie}} E: <input type="text" name="stopnie_E" maxlength="3" size="2" />°
                 {{os_minuty}} E:  <input type="text" name="minuty_E"  maxlength="6" size="5" onkeyup="this.value = this.value.replace(/,/g, '.');" /><br/><br/><br/>
                 <button type="submit" name="spr_wsp" value="spr_wsp" style="font-size:14px;width:160px"><b>{{os_sprawdz}}</b></button>
             </form>
