@@ -901,13 +901,13 @@ class Okapi
      * revisions were integers, now they are calculated during the build
      * process and we call them "build numbers".
      */
-    public static $revision = 1080; # This gets replaced in automatically deployed packages
+    public static $revision = 1083; # This gets replaced in automatically deployed packages
 
     /**
      * This is the *actual* Git revision number from which this package has
      * been built.
      */
-    public static $git_revision = 'dcd5a5424e078c34935fac247ea1b7830dd67d06'; # This gets replaced in automatically deployed packages
+    public static $git_revision = 'e068cf660e277b98971bc7353daf452afd62a459'; # This gets replaced in automatically deployed packages
 
 
     private static $okapi_vars = null;
