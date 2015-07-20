@@ -160,7 +160,7 @@ if ($error == false) {
         };
         $file_content .= '<td width="22">' . $PT_icon . '</td>';
 
-        $file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" title=" ' . $log_record['pl'] . ' " /></td>';
+        $file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" title=" ' . tr('logType'.$log_record['log_type']) . ' " /></td>';
         $cacheicon = myninc::checkCacheStatusByUser($log_record, $usr['userid']);
         $file_content .= '<td width="22">&nbsp;<a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="' . $cacheicon . '" border="0" alt="' . $tr_myn_click_to_view_cache . '" title="' . $tr_myn_click_to_view_cache . '" /></a></td>';
 
