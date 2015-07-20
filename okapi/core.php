@@ -229,7 +229,7 @@ class OkapiExceptionHandler
 
         # This if-condition will solve some (but not all) problems when trying to execute
         # OKAPI code from command line;
-        # see http://code.google.com/p/opencaching-api/issues/detail?id=243.
+        # see https://github.com/opencaching/okapi/issues/243.
         if (function_exists('getallheaders'))
         {
             $exception_info .= "--- Request headers ---\n".implode("\n", array_map(
@@ -897,8 +897,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1087;
-    public static $git_revision = '850e090986443e1dbdab9f8f9cd612332be326d7';
+    public static $version_number = 1088;
+    public static $git_revision = '9019be4a147b49b4b061433365f702eb427e3a98';
 
     private static $okapi_vars = null;
 
@@ -2206,7 +2206,7 @@ class OkapiHttpRequest extends OkapiRequest
         # Default implementation of OAuthRequest allows arrays to be passed with
         # multiple references to the same variable ("a=1&a=2&a=3"). This is invalid
         # in OKAPI and should be reported back. See issue 85:
-        # http://code.google.com/p/opencaching-api/issues/detail?id=85
+        # https://github.com/opencaching/okapi/issues/85
 
         if (is_array($value))
             throw new InvalidParam($name, "Make sure you are using '$name' no more than ONCE in your URL.");
