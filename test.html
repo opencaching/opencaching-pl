@@ -1,0 +1,19 @@
+<body>
+<script type="text/javascript" language="javascript">
+function pisz()
+{
+	document.getElementById('www').innerHTML = document.getElementById('a').value;
+}
+</script>
+
+
+<select name="a" id="a" onChange="pisz();">
+<option value="-1">-1</option>
+<option value="-2">-2</option>
+<option value="-3">-3</option>
+<option value="0">0</option>
+<option value="1">1</option>
+</select>
+
+<div id="www">test</div>
+</body>

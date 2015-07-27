@@ -1,0 +1,14 @@
+Witaj %log_owner%,
+
+
+%cache_owner% usunął wpis do logu dla skrzynki "%cache_name%".
+
+Treść usuniętego wpisu:
+%log_entry%
+
+%comment%
+
+
+Opencaching PL Team
+
+http://www.opencaching.pl

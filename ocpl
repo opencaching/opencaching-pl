@@ -1,0 +1,10 @@
+<VirtualHost *>
+
+	ServerName	www.opencaching.pl
+	ServerAlias	opencaching.pl test.opencaching.pl
+	DocumentRoot	/var/www/ocpl
+	Options		-Indexes
+
+	Alias		/images/uploads		/var/www/ocpl-data/images/uploads
+
+</VirtualHost>

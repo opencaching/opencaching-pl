@@ -1,0 +1,205 @@
+<style type="text/css">
+		<!--
+		A:link        {font-family: helvetica, arial, geneva, sans-serif; font-size: x-small; text-decoration: none; color: #0000ff}
+		A:visited     {font-family: helvetica, arial, geneva, sans-serif; font-size: x-small; text-decoration: none; color: #0000ff}
+		A:hover       {font-family: helvetica, arial, geneva, sans-serif; font-size: x-small; text-decoration: underline; color: #FF0000}
+		th            {font-family: helvetica, arial; color : blue; font-size:85%; background : lightgrey; border-right:black solid 1pt; border-bottom:black solid 1pt;}
+		//-->
+		</style><hr><a name="_C_RADARPLOT"><div style="background-color:yellow;font-family:courier new;"></a>CLASS <b>RadarPlot</b></div>
+<i>(Defined in: jpgraph_radar.php : 308)</i><table border=1><tr><td>&nbsp;<a href="RadarPlot.html" style="font-family:arial;font-weight:bold;color:darkblue;">RadarPlot</a>&nbsp;</td></tr><tr><td valign=top>&nbsp;<a href="RadarPlot.html#_RADARPLOT_RADARPLOT">RadarPlot()</a>&nbsp;<br>
+&nbsp;<a href="RadarPlot.html#_RADARPLOT_SETCOLOR">SetColor()</a>&nbsp;<br>
+&nbsp;<a href="RadarPlot.html#_RADARPLOT_SETFILL">SetFill()</a>&nbsp;<br>
+&nbsp;<a href="RadarPlot.html#_RADARPLOT_SETFILLCOLOR">SetFillColor()</a>&nbsp;<br>
+&nbsp;<a href="RadarPlot.html#_RADARPLOT_SETLEGEND">SetLegend()</a>&nbsp;<br>
+&nbsp;<a href="RadarPlot.html#_RADARPLOT_SETLINESTYLE">SetLineStyle()</a>&nbsp;<br>
+&nbsp;<a href="RadarPlot.html#_RADARPLOT_SETLINEWEIGHT">SetLineWeight()</a>&nbsp;<br>
+</td></tr></table>&nbsp;<p><div style="font-weight:bold;font-family:arial;font-size:100%;">Class usage and Overview</div>Create a new spider plot.
+
+A spider plot can only be added to a SpiderGraph <p> &nbsp;
+<div style="font-weight:bold;font-family:arial;font-size:85%;">See also related classes:</div><a href="SpiderGraph.html">SpiderGraph</a> <p> &nbsp;<hr><span style="font-family:arial;font-size:120%;font-weight:bold;">Class Methods</span><hr><p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_RADARPLOT_RADARPLOT"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">RadarPlot</font><font color="#007700">(</font><font color="#0000BB">$data</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Create a new Radar plot</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$data</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Data array</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Creates a new radar plot&nbsp;<br>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$radar&nbsp;</font><font color="#007700">=&nbsp;new&nbsp;</font><font color="#0000BB">RadarPlot</font><font color="#007700">(</font><font color="#0000BB">$data</font><font color="#007700">);</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_RADARPLOT_SETCOLOR"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetColor</font><font color="#007700">(</font><font color="#0000BB">$aColor</font><font color="#007700">,</font><font color="#0000BB">$aFillColor</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Specify color for the plot</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aColor</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Color for line</td></tr>
+
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aFillColor</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">false</font>
+</font>
+</td><td>Fill color</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Set the color for the plot. Note that you can also use the method SetFillColor() to specify the fill color. This non-orthogonality is in place to make the API be more flexible.
+
+&nbsp;<br>
+ &nbsp; <div style="font-weight:bold;font-family:arial;font-size:85%;">See also</div><a href="RadarPlot.html#_RADARPLOT_SETFILLCOLOR">RadarPlot::SetFillColor</a>
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$spideplot</font><font color="#007700">-&gt;</font><font color="#0000BB">SetColor</font><font color="#007700">(</font><font color="#DD0000">'darkred'</font><font color="#007700">,</font><font color="#DD0000">'lightblue'</font><font color="#007700">);<br /></font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_RADARPLOT_SETFILL"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetFill</font><font color="#007700">(</font><font color="#0000BB">$f</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Deprecated. Turn filling on and off</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$f</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">true</font>
+</font>
+</td><td>True=Use fill color and fill plot</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Deprecated. Turn filling on and off. When the fill color is pecified with either SetFillColor() or SetColor() this will tuen on the filling of the plot.
+
+This method might be useful if you programatically have set the colro and later need to disable the fill.&nbsp;<br>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$spiderplot</font><font color="#007700">-&gt;</font><font color="#0000BB">SetFillColor</font><font color="#007700">(</font><font color="#DD0000">'lightblue'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">//&nbsp;...&nbsp;some&nbsp;code<br /><br />//&nbsp;Turn&nbsp;off&nbsp;the&nbsp;fill<br /></font><font color="#007700">if(&nbsp;</font><font color="#0000BB">$doNotFillSpiderPlot&nbsp;</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$spiderplot</font><font color="#007700">-&gt;</font><font color="#0000BB">SetFill</font><font color="#007700">(</font><font color="#0000BB">false</font><font color="#007700">);<br /><br /></font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_RADARPLOT_SETFILLCOLOR"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetFillColor</font><font color="#007700">(</font><font color="#0000BB">$aColor</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Specify fill color for plot</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aColor</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Color</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Specify fill color for plot. 
+
+Note. You can also use SetColor() to specify both fill and line color.&nbsp;<br>
+ &nbsp; <div style="font-weight:bold;font-family:arial;font-size:85%;">See also</div><a href="RadarPlot.html#_RADARPLOT_SETCOLOR">RadarPlot::SetColor</a>
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$spiderplot</font><font color="#007700">-&gt;</font><font color="#0000BB">SetFillColor</font><font color="#007700">(</font><font color="#DD0000">'lightblue'</font><font color="#007700">);</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_RADARPLOT_SETLEGEND"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetLegend</font><font color="#007700">(</font><font color="#0000BB">$legend</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Specify legend text for this plot</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$legend</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Legend string</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Specify legend text for this plot.&nbsp;<br>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$spiderplot</font><font color="#007700">-&gt;</font><font color="#0000BB">SetLegend</font><font color="#007700">(</font><font color="#DD0000">'Stress&nbsp;level'</font><font color="#007700">);</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_RADARPLOT_SETLINESTYLE"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetLineStyle</font><font color="#007700">(</font><font color="#0000BB">$aStyle</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Specify line style for the plot lines</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aStyle</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Line style</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>The line style can be one of
+<ul>
+<li>"solid"
+<li>"dashed"
+<li>"longdashed"
+<li>"dotted"
+</ul>
+&nbsp;<br>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$radarplot</font><font color="#007700">-&gt;</font><font color="#0000BB">SetLineStyle</font><font color="#007700">(</font><font color="#DD0000">'dotted'</font><font color="#007700">);</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_RADARPLOT_SETLINEWEIGHT"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetLineWeight</font><font color="#007700">(</font><font color="#0000BB">$w</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Set line weight</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$w</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Line weight in pixels</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Set line weight.&nbsp;<br>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$spiderplot</font><font color="#007700">-&gt;</font><font color="#0000BB">SetLineWeight</font><font color="#007700">(</font><font color="#0000BB">2</font><font color="#007700">);</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p> <hr> <p>

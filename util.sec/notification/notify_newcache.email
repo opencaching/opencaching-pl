@@ -1,0 +1,21 @@
+Witaj {username},
+
+W zadeklarowanym przez Ciebie promieniu 
+pojawiła się następująca skrzynka:
+
+---
+{user} dnia {date} zarejestrował nową skrzynkę "{cachename}".
+Odległość: {distance} {unit}, kierunek: {bearing}
+Typ: {cachetype}
+Wielkość: {cachesize}
+
+Link: http://www.opencaching.pl/viewcache.php?wp={wp_oc}
+---
+
+Możesz zmienić ustawienia powiadomień 
+na stronie swojego profilu:
+http://www.opencaching.pl/myprofile.php
+
+
+-- 
+Opencaching PL Team

@@ -1,0 +1,33 @@
+order deny,allow
+
+# starypatyk
+allow from 217.153.40.114
+allow from 193.227.105.4
+
+# sp2ong
+allow from 158.75.199.253
+allow from 158.75.199.249
+
+# filips
+allow from 62.121.108.70
+
+#spider
+allow from 81.190.68.229
+
+#trojmiasto
+allow from 89.174.90.227
+
+# OC PL
+allow from 127.0.0.1
+allow from 86.111.241.39
+allow from 86.111.244.117
+allow from 86.111.244.119
+
+deny from all
+
+<FILES index-1.html>
+allow from all
+</FILES>
+
+ErrorDocument 403 /index-1.html
+

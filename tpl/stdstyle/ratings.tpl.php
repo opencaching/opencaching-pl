@@ -1,0 +1,5 @@
+<?php
+	// Wzorzec jest generowany dynamicznie przez skrypt /tpl/stdstyle/etc/write_ratings.inc.php
+	global $dynstylepath;
+	include ($dynstylepath . "ratings.tpl.php");
+?>

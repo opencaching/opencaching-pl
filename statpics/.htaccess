@@ -1,0 +1,2 @@
+RewriteEngine on
+RewriteRule ^([0-9]+)\.jpg$ /ocstats.php?userid=$1 [R,L]

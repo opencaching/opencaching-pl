@@ -1,0 +1,177 @@
+<style type="text/css">
+		<!--
+		A:link        {font-family: helvetica, arial, geneva, sans-serif; font-size: x-small; text-decoration: none; color: #0000ff}
+		A:visited     {font-family: helvetica, arial, geneva, sans-serif; font-size: x-small; text-decoration: none; color: #0000ff}
+		A:hover       {font-family: helvetica, arial, geneva, sans-serif; font-size: x-small; text-decoration: underline; color: #FF0000}
+		th            {font-family: helvetica, arial; color : blue; font-size:85%; background : lightgrey; border-right:black solid 1pt; border-bottom:black solid 1pt;}
+		//-->
+		</style><hr><a name="_C_PLOTLINE"><div style="background-color:yellow;font-family:courier new;"></a>CLASS <b>PlotLine</b></div>
+<i>(Defined in: jpgraph.php : 8506)</i><table border=1><tr><td>&nbsp;<a href="PlotLine.html" style="font-family:arial;font-weight:bold;color:darkblue;">PlotLine</a>&nbsp;</td></tr><tr><td valign=top>&nbsp;<a href="PlotLine.html#_PLOTLINE_PLOTLINE">PlotLine()</a>&nbsp;<br>
+&nbsp;<a href="PlotLine.html#_PLOTLINE_SETCOLOR">SetColor()</a>&nbsp;<br>
+&nbsp;<a href="PlotLine.html#_PLOTLINE_SETDIRECTION">SetDirection()</a>&nbsp;<br>
+&nbsp;<a href="PlotLine.html#_PLOTLINE_SETPOSITION">SetPosition()</a>&nbsp;<br>
+&nbsp;<a href="PlotLine.html#_PLOTLINE_SETWEIGHT">SetWeight()</a>&nbsp;<br>
+</td></tr></table>&nbsp;<p><div style="font-weight:bold;font-family:arial;font-size:100%;">Class usage and Overview</div>A plot line represents a horizontal or vertical line in the plot at an arbitrary position. A plot line can be added to all X-Y types of plots/graphs. <p> &nbsp;
+<div style="font-weight:bold;font-family:arial;font-size:85%;">See also related classes:</div><a href="Graph.html">Graph</a> <p> &nbsp;<hr><span style="font-family:arial;font-size:120%;font-weight:bold;">Class Methods</span><hr><p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_PLOTLINE_PLOTLINE"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">PlotLine</font><font color="#007700">(</font><font color="#0000BB">$aDir</font><font color="#007700">,</font><font color="#0000BB">$aPos</font><font color="#007700">,</font><font color="#0000BB">$aColor</font><font color="#007700">,</font><font color="#0000BB">$aWeight</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Construct a new plot line</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aDir</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">HORIZONTAL</font>
+</font>
+</td><td>Direction, HORIZONTAL or VERTICAL</td></tr>
+
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aPos</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">0</font>
+</font>
+</td><td>Position</td></tr>
+
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aColor</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB"></font><font color="#DD0000">"black"</font><font color="#0000BB"></font>
+</font>
+</td><td>Color</td></tr>
+
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aWeight</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">1</font>
+</font>
+</td><td>Line weight</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Create a new horizontal or vertical line in the graph at a specific position.
+
+The graph can the be added to the graph with a call to the AddLine&nbsp;<br>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB"></font><font color="#FF8000">//&nbsp;Add&nbsp;mark&nbsp;graph&nbsp;with&nbsp;static&nbsp;lines<br /></font><font color="#0000BB">$line&nbsp;</font><font color="#007700">=&nbsp;new&nbsp;</font><font color="#0000BB">PlotLine</font><font color="#007700">(</font><font color="#0000BB">HORIZONTAL</font><font color="#007700">,</font><font color="#0000BB">0</font><font color="#007700">,</font><font color="#DD0000">"black"</font><font color="#007700">,</font><font color="#0000BB">2</font><font color="#007700">);<br /></font><font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">AddLine</font><font color="#007700">(</font><font color="#0000BB">$line</font><font color="#007700">);</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_PLOTLINE_SETCOLOR"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetColor</font><font color="#007700">(</font><font color="#0000BB">$aColor</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Specify color of line</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aColor</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Color</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Set color for line.
+
+Note. Colors can also be set in the creation of a PlotLine
+&nbsp;<br>
+ &nbsp; <div style="font-weight:bold;font-family:arial;font-size:85%;">See also</div><a href="PlotLine.html#_PLOTLINE_PLOTLINE">PlotLine::PlotLine</a>
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$plotline</font><font color="#007700">-&gt;</font><font color="#0000BB">SetColor</font><font color="#007700">(</font><font color="#DD0000">'red'</font><font color="#007700">);<br /></font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_PLOTLINE_SETDIRECTION"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetDirection</font><font color="#007700">(</font><font color="#0000BB">$aDir</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Specify direction of line</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aDir</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Direction, horizontal or vertical line</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Specify direction of line.  Valid arguments are:
+<ul>
+<li> VERTICAL
+<li> HORIZONTAL
+</ul>
+
+Note: Direction can also be specified in the creation of a plot line.
+&nbsp;<br>
+ &nbsp; <div style="font-weight:bold;font-family:arial;font-size:85%;">See also</div><a href="PlotLine.html#_PLOTLINE_PLOTLINE">PlotLine::PlotLine</a>
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$plotline</font><font color="#007700">-&gt;</font><font color="#0000BB">SetDirection</font><font color="#007700">(</font><font color="#0000BB">VERTICAL</font><font color="#007700">);<br /></font><font color="#0000BB">$plotline</font><font color="#007700">-&gt;</font><font color="#0000BB">SetColor</font><font color="#007700">(</font><font color="#DD0000">'red'</font><font color="#007700">);<br /></font><font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">AddLine</font><font color="#007700">(</font><font color="#0000BB">$plotline</font><font color="#007700">);</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_PLOTLINE_SETPOSITION"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetPosition</font><font color="#007700">(</font><font color="#0000BB">$aScalePosition</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Specify position for plot line</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aScalePosition</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Scale position</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Specify position for plot line. If the line is vertical the position is interpretated as the x-coordinate and if it is horizontal then the positoin is interpretatedas the Y-coordinate.
+
+Note: Position can also be specified in the creation of the line.&nbsp;<br>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$plotline</font><font color="#007700">-&gt;</font><font color="#0000BB">SetDirection</font><font color="#007700">(</font><font color="#0000BB">HORIZONTAL</font><font color="#007700">);<br /></font><font color="#0000BB">$plotline</font><font color="#007700">-&gt;</font><font color="#0000BB">SetPosition</font><font color="#007700">(</font><font color="#0000BB">25</font><font color="#007700">);<br /></font><font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">AddLine</font><font color="#007700">(</font><font color="#0000BB">$plotline</font><font color="#007700">);</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_PLOTLINE_SETWEIGHT"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetWeight</font><font color="#007700">(</font><font color="#0000BB">$aWeight</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Specify line weight </i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aWeight</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Line weight in pixels</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Specify line weight.
+
+Note. Line weight can also be specified in the creation of the line.
+&nbsp;<br>
+ &nbsp; <div style="font-weight:bold;font-family:arial;font-size:85%;">See also</div><a href="PlotLine.html#_PLOTLINE_PLOTLINE">PlotLine::PlotLine</a>
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$plotline</font><font color="#007700">-&gt;</font><font color="#0000BB">SetColor</font><font color="#007700">(</font><font color="#DD0000">'red'</font><font color="#007700">);<br /></font><font color="#0000BB">$plotline</font><font color="#007700">-&gt;</font><font color="#0000BB">SetDirection</font><font color="#007700">(</font><font color="#0000BB">VERTICAL</font><font color="#007700">);<br /></font><font color="#0000BB">$plotline</font><font color="#007700">-&gt;</font><font color="#0000BB">SetPosition</font><font color="#007700">(</font><font color="#0000BB">35</font><font color="#007700">);<br /></font><font color="#0000BB">$plotline</font><font color="#007700">-&gt;</font><font color="#0000BB">SetWeight</font><font color="#007700">(</font><font color="#0000BB">2</font><font color="#007700">);<br /><br /></font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p> <hr> <p>

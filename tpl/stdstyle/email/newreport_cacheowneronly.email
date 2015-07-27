@@ -1,0 +1,15 @@
+Dnia %date% użytkownik %submitter% wysłał zgłoszenie problemu.
+
+Dotyczy ono Twojej skrzynki %cache_wp% - %cachename%
+(http://www.opencaching.pl/viewcache.php?cacheid=%cacheid%).
+
+Powód zgłoszenia: %reason%
+
+Treść zgłoszenia:
+------------------ początek ------------------
+%text%
+------------------- koniec -------------------
+
+
+-- 
+OCPL Team

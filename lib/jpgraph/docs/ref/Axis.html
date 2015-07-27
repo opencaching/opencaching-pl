@@ -1,0 +1,1013 @@
+<style type="text/css">
+		<!--
+		A:link        {font-family: helvetica, arial, geneva, sans-serif; font-size: x-small; text-decoration: none; color: #0000ff}
+		A:visited     {font-family: helvetica, arial, geneva, sans-serif; font-size: x-small; text-decoration: none; color: #0000ff}
+		A:hover       {font-family: helvetica, arial, geneva, sans-serif; font-size: x-small; text-decoration: underline; color: #FF0000}
+		th            {font-family: helvetica, arial; color : blue; font-size:85%; background : lightgrey; border-right:black solid 1pt; border-bottom:black solid 1pt;}
+		//-->
+		</style><hr><a name="_C_AXIS"><div style="background-color:yellow;font-family:courier new;"></a>CLASS <b>Axis</b></div>
+<i>(Defined in: jpgraph.php : 3883)</i><table border=1><tr><td>&nbsp;<a href="Axis.html" style="font-family:arial;font-weight:bold;color:darkblue;">Axis</a>&nbsp;</td></tr><tr><td valign=top>&nbsp;<a href="Axis.html#_AXIS_HIDE">Hide()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_HIDEFIRSTLASTLABEL">HideFirstLastLabel()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_HIDEFIRSTTICKLABEL">HideFirstTickLabel()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_HIDELABELS">HideLabels()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_HIDELASTTICKLABEL">HideLastTickLabel()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_HIDELINE">HideLine()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_HIDETICKS">HideTicks()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_HIDEZEROLABEL">HideZeroLabel()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_SETCOLOR">SetColor()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_SETFONT">SetFont()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_SETLABELALIGN">SetLabelAlign()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_SETLABELANGLE">SetLabelAngle()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_SETLABELFORMAT">SetLabelFormat()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_SETLABELFORMATCALLBACK">SetLabelFormatCallback()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_SETLABELFORMATSTRING">SetLabelFormatString()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_SETLABELMARGIN">SetLabelMargin()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_SETLABELPOS">SetLabelPos()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_SETLABELSIDE">SetLabelSide()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_SETMAJTICKPOSITIONS">SetMajTickPositions()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_SETPOS">SetPos()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_SETPOSABSDELTA">SetPosAbsDelta()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_SETTEXTLABELINTERVAL">SetTextLabelInterval()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_SETTEXTTICKINTERVAL">SetTextTickInterval()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_SETTEXTTICKS">SetTextTicks()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_SETTICKDIRECTION">SetTickDirection()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_SETTICKLABELMARGIN">SetTickLabelMargin()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_SETTICKLABELS">SetTickLabels()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_SETTICKPOSITIONS">SetTickPositions()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_SETTICKSIDE">SetTickSide()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_SETTITLE">SetTitle()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_SETTITLEMARGIN">SetTitleMargin()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_SETTITLESIDE">SetTitleSide()</a>&nbsp;<br>
+&nbsp;<a href="Axis.html#_AXIS_SETWEIGHT">SetWeight()</a>&nbsp;<br>
+</td></tr></table>&nbsp;<p><div style="font-weight:bold;font-family:arial;font-size:100%;">Class usage and Overview</div>The Axis class represents either the X or Y axis in a graph. This class is noramlly accessed through the instance variables graph->xaxis, $graph->yaxis, or $graph->y2axis
+
+Public properties:
+<table border=1 width=80%>
+<tr><th width=20%> Name </th><th width=20%> Type </th><th> Description </th></tr>
+
+<tr><td> title </td><td> Text </td><td> Axis title text </td></tr>
+
+<tr><td> scale </td><td> LinearScale/LogScale </td><td> Scale used for axis </td></tr>
+
+</table> <p> &nbsp;
+<div style="font-weight:bold;font-family:arial;font-size:85%;">See also related classes:</div><a href="LinearScale.html">LinearScale</a>, <a href="LogScale.html">LogScale</a> and <a href="Text.html">Text</a> <p> &nbsp;<hr><span style="font-family:arial;font-size:120%;font-weight:bold;">Class Methods</span><hr><p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_HIDE"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">Hide</font><font color="#007700">(</font><font color="#0000BB">$aHide</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Hide the axis</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aHide</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">true</font>
+</font>
+</td><td>Flag.</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>This method is used to hide the axis.&nbsp;<br>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">xaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">Hide</font><font color="#007700">();&nbsp;</font><font color="#FF8000">//&nbsp;Hide&nbsp;xaxis<br /></font><font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">yaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">Hide</font><font color="#007700">();&nbsp;</font><font color="#FF8000">//&nbsp;Hide&nbsp;y-axis<br /></font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_HIDEFIRSTLASTLABEL"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">HideFirstLastLabel</font><font color="#007700">()</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Hide the first and last label on the scale.</i></span><p>
+<br>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Hide the first and last label on the scale. Usefull whe you are using Axis Type of AXSTYLE_BOXIN or AXSTYLE_BOXOUT to avoid the labels to owerwrite a box around the plot.&nbsp;<br>
+ &nbsp; <div style="font-weight:bold;font-family:arial;font-size:85%;">See also</div><a href="Axis.html#_AXIS_HIDEFIRSTTICKLABEL">Axis::HideFirstTickLabel</a> and <a href="Axis.html#_AXIS_HIDELASTTICKLABEL">Axis::HideLastTickLabel</a>
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB"></font><font color="#FF8000">//...<br /></font><font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">SetAxisStyle</font><font color="#007700">(</font><font color="#0000BB">AXSTYLE_BOXOUT</font><font color="#007700">);<br /></font><font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">SetBox</font><font color="#007700">();<br /></font><font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">xaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">HideFirstLastLabel</font><font color="#007700">();<br /></font><font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">yaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">HideFirstLastLabel</font><font color="#007700">();<br /></font><font color="#FF8000">//...<br /></font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_HIDEFIRSTTICKLABEL"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">HideFirstTickLabel</font><font color="#007700">(</font><font color="#0000BB">$aShow</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Hide the first label</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aShow</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">false</font>
+</font>
+</td><td>Flag.</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Calling this method will hide the first label on the axis. This is  usefull when the y axis have negative values and a value on the x-axis would be partially obscured by the values on the y-axis.
+This gets automatically called in this case.
+<p>
+This is probably of less use for the end user of the library.&nbsp;<br>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">xaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">HideFirstTicklabel</font><font color="#007700">()</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_HIDELABELS"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">HideLabels</font><font color="#007700">(</font><font color="#0000BB">$aHide</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Hide all labels on the axis</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aHide</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">true</font>
+</font>
+</td><td>true=Hide all labels</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Hide all labels on the axis but keep tick marks and axis line.&nbsp;<br>
+ &nbsp; <div style="font-weight:bold;font-family:arial;font-size:85%;">See also</div><a href="Axis.html#_AXIS_HIDE">Axis::Hide</a>, <a href="Axis.html#_AXIS_HIDELINE">Axis::HideLine</a> and <a href="Axis.html#_AXIS_HIDETICKS">Axis::HideTicks</a>
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">xaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">HideLabels</font><font color="#007700">()</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_HIDELASTTICKLABEL"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">HideLastTickLabel</font><font color="#007700">(</font><font color="#0000BB">$aShow</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Hide the last tick label on the axis.</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aShow</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">false</font>
+</font>
+</td><td>Flag</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>The mirror of HideFirstTickLabel()&nbsp;<br>
+ &nbsp; <div style="font-weight:bold;font-family:arial;font-size:85%;">See also</div><a href="Axis.html#_AXIS_HIDEFIRSTTICKLABEL">Axis::HideFirstTickLabel</a> and <a href="Axis.html#_AXIS_HIDEFIRSTLASTLABEL">Axis::HideFirstLastLabel</a>
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">xaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">HideLastTickLabel</font><font color="#007700">();</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_HIDELINE"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">HideLine</font><font color="#007700">(</font><font color="#0000BB">$aHide</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>// Hide the actual axis-line, but still print the labels</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aHide</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">true</font>
+</font>
+</td><td>True=Hide axis line</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Hide the line of the axis. This <strong>only</strong> hides the axis-line but will keep the tick marks and labels. If you want to hide the tick marks you should call HideTicks(). To hide the axis completely, line, ticks and labels use Hide().&nbsp;<br>
+ &nbsp; <div style="font-weight:bold;font-family:arial;font-size:85%;">See also</div><a href="Axis.html#_AXIS_HIDETICKS">Axis::HideTicks</a> and <a href="Axis.html#_AXIS_HIDE">Axis::Hide</a>
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB"></font><font color="#FF8000">//&nbsp;Hide&nbsp;line&nbsp;and&nbsp;tick&nbsp;marks<br /></font><font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">yaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">HideLine</font><font color="#007700">();<br /></font><font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">yaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">HideTicks</font><font color="#007700">();<br /></font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_HIDETICKS"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">HideTicks</font><font color="#007700">(</font><font color="#0000BB">$aHideMinor</font><font color="#007700">,</font><font color="#0000BB">$aHideMajor</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Hide minor or major tick marks.</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aHideMinor</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">true</font>
+</font>
+</td><td>True = Hide minor tick marks</td></tr>
+
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aHideMajor</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">true</font>
+</font>
+</td><td>True = Hide major tick marks</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Hide major or minor tick makrs on the axis.&nbsp;<br>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB"></font><font color="#FF8000">//&nbsp;Only&nbsp;display&nbsp;major&nbsp;tick&nbsp;marks<br /></font><font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">yaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">HideTicks</font><font color="#007700">(</font><font color="#0000BB">true</font><font color="#007700">,</font><font color="#0000BB">false</font><font color="#007700">);</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_HIDEZEROLABEL"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">HideZeroLabel</font><font color="#007700">(</font><font color="#0000BB">$aFlag</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Hide zero label</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aFlag</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">true</font>
+</font>
+</td><td>Flag.</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Hide the zero label. Usefull if the axis cross at zero and the label would owerwrite the other axis scale.
+&nbsp;<br>
+ &nbsp; <div style="font-weight:bold;font-family:arial;font-size:85%;">See also</div><a href="Axis.html#_AXIS_HIDEFIRSTTICKLABEL">Axis::HideFirstTickLabel</a>
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">yaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">HideZeroLabel</font><font color="#007700">();<br /></font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_SETCOLOR"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetColor</font><font color="#007700">(</font><font color="#0000BB">$aColor</font><font color="#007700">,</font><font color="#0000BB">$aLabelColor</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Specify color of Axis and it's labels</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aColor</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Color for axis</td></tr>
+
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aLabelColor</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">false</font>
+</font>
+</td><td>Color for labels on axis</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Specifies the color of the axis line as well as the labels on the axis. If the label color is not specified it will be the same as the axis color.&nbsp;<br>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">xaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">SetColor</font><font color="#007700">(</font><font color="#DD0000">'blue'</font><font color="#007700">);<br /></font><font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">yaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">SetColor</font><font color="#007700">(</font><font color="#DD0000">'blue'</font><font color="#007700">,</font><font color="#DD0000">'black'</font><font color="#007700">);</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_SETFONT"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetFont</font><font color="#007700">(</font><font color="#0000BB">$aFamily</font><font color="#007700">,</font><font color="#0000BB">$aStyle</font><font color="#007700">,</font><font color="#0000BB">$aSize</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Set the font for labels on the axis</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aFamily</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Font family</td></tr>
+
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aStyle</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">FS_NORMAL</font>
+</font>
+</td><td>Font style</td></tr>
+
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aSize</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">10</font>
+</font>
+</td><td>Font size</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Specify font for labels on axis. Please note that if you need labels to be rotated an angle other than 0 or 90 you must use TTF fonts and not the builtin fonts (i.e. FF_FONT1, FF_FONT2, FF_FONT3)
+
+&nbsp;<br>
+ &nbsp; <div style="font-weight:bold;font-family:arial;font-size:85%;">See also</div><a href="Axis.html#_AXIS_SETLABELPOS">Axis::SetLabelPos</a> and <a href="Axis.html#_AXIS_SETLABELANGLE">Axis::SetLabelAngle</a>
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">xaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">SetFont</font><font color="#007700">(</font><font color="#0000BB">FF_ARIAL</font><font color="#007700">);</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_SETLABELALIGN"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetLabelAlign</font><font color="#007700">(</font><font color="#0000BB">$aHAlign</font><font color="#007700">,</font><font color="#0000BB">$aVAlign</font><font color="#007700">,</font><font color="#0000BB">$aParagraphAlign</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Specify horizontal and vertical alignment for labels</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aHAlign</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Horizontal alignment</td></tr>
+
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aVAlign</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB"></font><font color="#DD0000">"top"</font><font color="#0000BB"></font>
+</font>
+</td><td>Vertical alignment</td></tr>
+
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aParagraphAlign</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB"></font><font color="#DD0000">'left'</font><font color="#0000BB"></font>
+</font>
+</td><td>paragraph align for multi-line texts</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Specifies the horizontal and vertical alignment for the labels on the axis. The alignment specifies how the labels is adjusted relative to the tickmark.
+<p>
+Note that this is handled automatically but on some occasion there is a genuine need to override the automtic values. For example if the graph is rotated it might be necessary to adjust the alignment to get a visual acceptable label alignment.
+<p>
+Possible horizontal alignment are: 'left', 'center', 'right' <br>
+Possible vertical alignment are: 'top', 'center', 'bottom' <br>
+<p>
+See horizbarex1.php, horizbarex2.php for real life examples.
+&nbsp;<br>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">xaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">SetLabelAlign</font><font color="#007700">(</font><font color="#DD0000">'right'</font><font color="#007700">,</font><font color="#DD0000">'center'</font><font color="#007700">);</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_SETLABELANGLE"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetLabelAngle</font><font color="#007700">(</font><font color="#0000BB">$aAngle</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Specify the angle for the tick labels</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aAngle</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Angle in degrees</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Specify the rotation angle for the labels on the axis.
+<p>
+Note:<br>
+If you want to use any angles other than 0 and 90 degrees you must make sure that the labels are using TTF fonts. Internal fonts only support vertical and horizontal angles.&nbsp;<br>
+ &nbsp; <div style="font-weight:bold;font-family:arial;font-size:85%;">See also</div><a href="Axis.html#_AXIS_SETFONT">Axis::SetFont</a>
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">xaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">SetFont</font><font color="#007700">(</font><font color="#0000BB">FF_ARIAL</font><font color="#007700">,</font><font color="#0000BB">FS_NORMAL</font><font color="#007700">,</font><font color="#0000BB">11</font><font color="#007700">);<br /></font><font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">xaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">SetLabelAngle</font><font color="#007700">(</font><font color="#0000BB">45</font><font color="#007700">);&nbsp;</font><font color="#FF8000">//&nbsp;45&nbsp;degrees&nbsp;angle</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_SETLABELFORMAT"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetLabelFormat</font><font color="#007700">(</font><font color="#0000BB">$aFormStr</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Specify printf() format string for labels</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aFormStr</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Format string</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Specify a printf() format string for the axis labels. if you need more advanced control of the formatting you can install a label format callbacl routine with Axis::SetLabelFormatCallback()&nbsp;<br>
+ &nbsp; <div style="font-weight:bold;font-family:arial;font-size:85%;">See also</div><a href="Axis.html#_AXIS_SETLABELFORMATCALLBACK">Axis::SetLabelFormatCallback</a>
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">xaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">SetLabelFormat</font><font color="#007700">(</font><font color="#DD0000">'%0.1f%%'</font><font color="#007700">);</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_SETLABELFORMATCALLBACK"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetLabelFormatCallback</font><font color="#007700">(</font><font color="#0000BB">$aFuncName</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Specify callback function for labels on axis</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aFuncName</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Callback function</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>This can be used when more advance formatting of the axis labels are required. For example this could be used to format numbers with space or commas betwen the '1000.
+<p>
+The callback routine is called with one argument, the current number to be displayed and should return the number to be displayed.
+<p>
+For simple formatting use SetlabelFormat() to specify a printf() style formatting string.
+<p>
+The callback function specified should can either be a 
+global function or a class method, for example
+
+<pre>
+$SomeClass = new SomeClass(...); 
+... 
+$g->SetXLabelFormatCallback(array($SomeClass,'xLabelCallback'));
+</pre>
+<p>
+There is, however, one caution. Any $this data used within LabelFormatCallbackInDerivedClass MUST BE SET BEFORE SetLabelFormatCallback is invoked! it appears that $this is bound/copied when SetLabelFormatCallback is invoked. Only $this data defined at that time is available within the callback function! Likewise, modifications to $this data AFTER SetLabelFormatCallback have no effect since the $this object used by the callback function has already been bound/copied.
+<p>
+The same issues obtain when the callback function is in a seperate class!
+<p>
+For a full example see barscalecallbackex1.php
+&nbsp;<br>
+ &nbsp; <div style="font-weight:bold;font-family:arial;font-size:85%;">See also</div><a href="Axis.html#_AXIS_SETLABELFORMAT">Axis::SetLabelFormat</a>
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">yLabelFormat</font><font color="#007700">(</font><font color="#0000BB">$aLabel</font><font color="#007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">//&nbsp;Format&nbsp;'1000&nbsp;english&nbsp;style<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">return&nbsp;</font><font color="#0000BB">number_format</font><font color="#007700">(</font><font color="#0000BB">$aLabel</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">//&nbsp;Format&nbsp;'1000&nbsp;french&nbsp;style<br />&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;return&nbsp;number_format($aLabel,&nbsp;2,&nbsp;',',&nbsp;'&nbsp;');<br /></font><font color="#007700">}<br /><br /></font><font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">yaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">SetLabelFormatCallback</font><font color="#007700">(</font><font color="#DD0000">'yLabelFormat'</font><font color="#007700">);<br /><br /></font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_SETLABELFORMATSTRING"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetLabelFormatString</font><font color="#007700">(</font><font color="#0000BB">$aFormStr</font><font color="#007700">,</font><font color="#0000BB">$aDate</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Specify a printf()-style format string for labels.</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aFormStr</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Format string</td></tr>
+
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aDate</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">false</font>
+</font>
+</td><td>No description available</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Synonym for SetLabelFormat().
+Will be deprecated in a future release. Use SetLabelFormat() instead.&nbsp;<br>
+ &nbsp; <div style="font-weight:bold;font-family:arial;font-size:85%;">See also</div><a href="Axis.html#_AXIS_SETLABELFORMAT">Axis::SetLabelFormat</a>
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">xaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">SetLabelFormatString</font><font color="#007700">(</font><font color="#DD0000">'%0.1f%%'</font><font color="#007700">);</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_SETLABELMARGIN"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetLabelMargin</font><font color="#007700">(</font><font color="#0000BB">$aMargin</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Specify margin between labels and tick marks</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aMargin</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Margin in pixels</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Specify margin between labels and tick marks.&nbsp;<br>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">xaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">SetLabelMargin</font><font color="#007700">(</font><font color="#0000BB">15</font><font color="#007700">);<br /></font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_SETLABELPOS"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetLabelPos</font><font color="#007700">(</font><font color="#0000BB">$aSidePos</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Specify what side of the axis labels should be on.</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aSidePos</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Position</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Specify which side the labels should go on. For horizontal axis valid arguments are SIDE_UP, SIDE_DOWN and for vertical axis it is SIDE_LEFT, SIDE_RIGHT.
+<p>
+See topaxisex1.php for an example when this is usefull.
+<p>
+Note: Synonym to SetLabelSide()&nbsp;<br>
+ &nbsp; <div style="font-weight:bold;font-family:arial;font-size:85%;">See also</div><a href="Axis.html#_AXIS_SETTICKSIDE">Axis::SetTickSide</a> and <a href="Axis.html#_AXIS_SETLABELSIDE">Axis::SetLabelSide</a>
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">xaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">SetLabelPos</font><font color="#007700">(</font><font color="#0000BB">SIDE_TOP</font><font color="#007700">);</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_SETLABELSIDE"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetLabelSide</font><font color="#007700">(</font><font color="#0000BB">$aSidePos</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Specify what side of the axis labels should be on.</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aSidePos</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Which side of the axis the labels should be on</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Specify which side the labels should go on. For horizontal axis valid arguments are SIDE_UP, SIDE_DOWN and for vertical axis it is SIDE_LEFT, SIDE_RIGHT.
+<p>
+See topaxisex1.php for an example when this is usefull.
+<p>
+Note: Synonym to SetLabelPos()
+&nbsp;<br>
+ &nbsp; <div style="font-weight:bold;font-family:arial;font-size:85%;">See also</div><a href="Axis.html#_AXIS_SETLABELPOS">Axis::SetLabelPos</a>
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">xaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">SetLabelSide</font><font color="#007700">(</font><font color="#0000BB">SIDE_UP</font><font color="#007700">);</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_SETMAJTICKPOSITIONS"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetMajTickPositions</font><font color="#007700">(</font><font color="#0000BB">$aMajPos</font><font color="#007700">,</font><font color="#0000BB">$aLabels</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>// Manually specify major tick positions and optional labels</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aMajPos</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>No description available</td></tr>
+
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aLabels</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">NULL</font>
+</font>
+</td><td>No description available</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>No description available.<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_SETPOS"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetPos</font><font color="#007700">(</font><font color="#0000BB">$aPosOnOtherScale</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Position for axis line on the "other" scale</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aPosOnOtherScale</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Position in world-coordinate</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Specifies the position of the axis on the other axis. This can be specified as either a numeric value (which gives the absolute position on the other scale). OIt can also be specified as a string value as either 'min' or 'max' which sould position the axis either at the beginning or the end of the opposite axis scale.
+<p>
+See topaxisex1.php for a real life example.&nbsp;<br>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">xaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">SetPos</font><font color="#007700">(</font><font color="#DD0000">'max'</font><font color="#007700">);&nbsp;</font><font color="#FF8000">//&nbsp;Locate&nbsp;x-axis&nbsp;at&nbsp;the&nbsp;top</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_SETPOSABSDELTA"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetPosAbsDelta</font><font color="#007700">(</font><font color="#0000BB">$aDelta</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Position the multiple Y-axis</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aDelta</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Delta in pixels</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Set the position of the Y-axis to be X-pixels delta to the right of the max X-position (used to position the multiple Y-axis)&nbsp;<br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_SETTEXTLABELINTERVAL"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetTextLabelInterval</font><font color="#007700">(</font><font color="#0000BB">$aStep</font><font color="#007700">,</font><font color="#0000BB">$aStart</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Specify interval for for test labels</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aStep</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Intervall</td></tr>
+
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aStart</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">0</font>
+</font>
+</td><td>No description available</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Specify that every $step tick mark should have a label 
+&nbsp;<br>
+ &nbsp; <div style="font-weight:bold;font-family:arial;font-size:85%;">See also</div><a href="Axis.html#_AXIS_SETTICKLABELS">Axis::SetTickLabels</a>
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB"></font><font color="#FF8000">//&nbsp;Only&nbsp;draw&nbsp;labels&nbsp;on&nbsp;every&nbsp;2nd&nbsp;tick&nbsp;mark<br /></font><font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">xaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">SetTextLabelInterval</font><font color="#007700">(</font><font color="#0000BB">2</font><font color="#007700">);</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_SETTEXTTICKINTERVAL"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetTextTickInterval</font><font color="#007700">(</font><font color="#0000BB">$aStep</font><font color="#007700">,</font><font color="#0000BB">$aStart</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Specify what ticks should be displayed  </i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aStep</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Intervall between ticks</td></tr>
+
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aStart</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">0</font>
+</font>
+</td><td>Start tick</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Specify that every $step of the ticks should be displayed starting at $start.
+&nbsp;<br>
+ &nbsp; <div style="font-weight:bold;font-family:arial;font-size:85%;">See also</div><a href="Axis.html#_AXIS_SETTEXTLABELINTERVAL">Axis::SetTextLabelInterval</a> and <a href="Axis.html#_AXIS_SETTEXTTICKS">Axis::SetTextTicks</a>
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">SetTextTickInterval</font><font color="#007700">(</font><font color="#0000BB">1</font><font color="#007700">,</font><font color="#0000BB">2</font><font color="#007700">);</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_SETTEXTTICKS"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetTextTicks</font><font color="#007700">(</font><font color="#0000BB">$step</font><font color="#007700">,</font><font color="#0000BB">$start</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Specify intervall for ticks on a text scale</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$step</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Intervall</td></tr>
+
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$start</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">0</font>
+</font>
+</td><td>Start</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>DEPRECATED FUNCTION: USE SetTextTickInterval() INSTEAD&nbsp;<br>
+ &nbsp; <div style="font-weight:bold;font-family:arial;font-size:85%;">See also</div><a href="Axis.html#_AXIS_SETTEXTTICKINTERVAL">Axis::SetTextTickInterval</a>
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">NA</font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_SETTICKDIRECTION"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetTickDirection</font><font color="#007700">(</font><font color="#0000BB">$aDir</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Specify what side of the axis ticks should be at</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aDir</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Direction</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Specify which side of the axis the tick marks should be on. Valid positions for a horizontal axis are SIDE_TOP, SIDE_BOTTOM and for verticla axis SIDE_LEFT and SIDE_RIGHT.
+<p>
+This is a shortform for accessing the tick method directly via the scale in the axis.
+<p>
+See topaxisex1.php for real life example.&nbsp;<br>
+ &nbsp; <div style="font-weight:bold;font-family:arial;font-size:85%;">See also</div><a href="Axis.html#_AXIS_SETLABELSIDE">Axis::SetLabelSide</a> and <a href="Ticks.html#_TICKS_SETDIRECTION">Ticks::SetDirection</a>
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">xaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">SetTickDirection</font><font color="#007700">(</font><font color="#0000BB">SIDE_TOP</font><font color="#007700">);</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_SETTICKLABELMARGIN"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetTickLabelMargin</font><font color="#007700">(</font><font color="#0000BB">$aMargin</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>How far from the axis should the labels be drawn</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aMargin</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Margin in pixels</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Specify the margin (in pixels) between the axis and the label&nbsp;<br>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">xaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">SetTicklabelmargin</font><font color="#007700">(</font><font color="#0000BB">50</font><font color="#007700">);</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_SETTICKLABELS"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetTickLabels</font><font color="#007700">(</font><font color="#0000BB">$aLabelArray</font><font color="#007700">,</font><font color="#0000BB">$aLabelColorArray</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Specify text labels for the ticks. One label for each data point</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aLabelArray</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Array with labels</td></tr>
+
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aLabelColorArray</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">null</font>
+</font>
+</td><td>Individual colors for each label</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Specify the labels for a text axis. This is used to manually set labels for the x-axis when a text scale has been specified.
+<p>
+If fewer labels than data points are specified then the missing labels will be set to the data points ordinal numbers.
+<p>
+The color argment is an array that can be used to specify individual colors for each of the labels. If fewer colors than labels are specified then the colors will wrap around.
+
+&nbsp;<br>
+ &nbsp; <div style="font-weight:bold;font-family:arial;font-size:85%;">See also</div><a href="Axis.html#_AXIS_SETTEXTLABELINTERVAL">Axis::SetTextLabelInterval</a> and <a href="Axis.html#_AXIS_SETTICKLABELMARGIN">Axis::SetTickLabelMargin</a>
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB"></font><font color="#FF8000">//&nbsp;Set&nbsp;the&nbsp;x-axel&nbsp;to&nbsp;the&nbsp;month&nbsp;of&nbsp;the&nbsp;years&nbsp;using&nbsp;the<br />//&nbsp;gloablly&nbsp;available&nbsp;$gDateLocale<br /><br /></font><font color="#0000BB">$a&nbsp;</font><font color="#007700">=&nbsp;</font><font color="#0000BB">$gDateLocale</font><font color="#007700">-&gt;</font><font color="#0000BB">GetShortMonth</font><font color="#007700">();<br /></font><font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">xaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">SetTickLabels</font><font color="#007700">(</font><font color="#0000BB">$a</font><font color="#007700">);<br /></font><font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">xaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">SetFont</font><font color="#007700">(</font><font color="#0000BB">FF_FONT2</font><font color="#007700">);<br /></font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_SETTICKPOSITIONS"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetTickPositions</font><font color="#007700">(</font><font color="#0000BB">$aMajPos</font><font color="#007700">,</font><font color="#0000BB">$aMinPos</font><font color="#007700">,</font><font color="#0000BB">$aLabels</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>// Manually specify the major and (optional) minor tick position and labels</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aMajPos</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>No description available</td></tr>
+
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aMinPos</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">NULL</font>
+</font>
+</td><td>No description available</td></tr>
+
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aLabels</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">NULL</font>
+</font>
+</td><td>No description available</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>No description available.<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_SETTICKSIDE"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetTickSide</font><font color="#007700">(</font><font color="#0000BB">$aDir</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Specify what side of the axis the ticks should be at</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aDir</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Specify side</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Specify which side of the axis the tick marks should be on. Valid positions for a horizontal axis are SIDE_TOP, SIDE_BOTTOM and for verticla axis SIDE_LEFT and SIDE_RIGHT.
+<p>
+This is a shortform for accessing the tick method directly via the scale in the axis.
+<p>
+See topaxisex1.php for real life example.
+&nbsp;<br>
+ &nbsp; <div style="font-weight:bold;font-family:arial;font-size:85%;">See also</div><a href="Axis.html#_AXIS_SETTICKDIRECTION">Axis::SetTickDirection</a>
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">xaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">SetTickSide</font><font color="#007700">(</font><font color="#0000BB">SIDE_TOP</font><font color="#007700">);</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_SETTITLE"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetTitle</font><font color="#007700">(</font><font color="#0000BB">$aTitle</font><font color="#007700">,</font><font color="#0000BB">$aAdjustAlign</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Title for axis</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aTitle</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Title string</td></tr>
+
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aAdjustAlign</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB"></font><font color="#DD0000">"high"</font><font color="#0000BB"></font>
+</font>
+</td><td>Alignment of title along the axis</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Set the title for the axis. You can specify the alignment as being either "high", "middle" and "low". To adjust the titles font and color you have to access the label instance variable. For example, $graph->xaxis->title->SetFont(FF_FONT2,FS_BOLD)&nbsp;<br>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">xaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">SetTitle</font><font color="#007700">(</font><font color="#DD0000">'Values&nbsp;for&nbsp;2002'</font><font color="#007700">,</font><font color="#DD0000">'middle'</font><font color="#007700">);<br /></font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_SETTITLEMARGIN"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetTitleMargin</font><font color="#007700">(</font><font color="#0000BB">$aMargin</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Specify distance from the axis</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aMargin</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Margin in pixels</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Specify the distance between the axis and the title.&nbsp;<br>
+ &nbsp; <div style="font-weight:bold;font-family:arial;font-size:85%;">See also</div><a href="Axis.html#_AXIS_SETTITLE">Axis::SetTitle</a>
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">SetTitlemargin</font><font color="#007700">(</font><font color="#0000BB">50</font><font color="#007700">);</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_SETTITLESIDE"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetTitleSide</font><font color="#007700">(</font><font color="#0000BB">$aSideOfAxis</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Specify what side of the axis the title should be at</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aSideOfAxis</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Side</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>For horizontal axis the side can be either SIDE_TOP or SIDE_BOTTOM and for vertical axis the position can be either SIDE_LEF or SIDE_RIGHT.
+<p>
+By default x-axis have the title below the axis and y-axis have it on the left and y2 on the right.
+<p>
+See topaxisex1.php for real life example&nbsp;<br>
+ &nbsp; <div style="font-weight:bold;font-family:arial;font-size:85%;">See also</div><a href="Axis.html#_AXIS_SETLABELSIDE">Axis::SetLabelSide</a> and <a href="Axis.html#_AXIS_SETTICKSIDE">Axis::SetTickSide</a>
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">xaxis</font><font color="#007700">-&gt;</font><font color="#0000BB">SetTitleSide</font><font color="#007700">(</font><font color="#0000BB">SIDE_TOP</font><font color="#007700">);<br /></font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p>
+<p>&nbsp; <p> &nbsp; <span style='font-size:110%;'><a name="_AXIS_SETWEIGHT"><div style="border-top:solid black 2pt;background-color:lightblue;font-family:courier new;font-size:90%;font-weight:bold;"><b><font color="#000000">
+<font color="#0000BB"></font><font color="#007700">function&nbsp;</font><font color="#0000BB">SetWeight</font><font color="#007700">(</font><font color="#0000BB">$aWeight</font><font color="#007700">)</font><font color="#0000BB"></font>
+</font>
+</b></div></a></span>
+
+<span style='font-family:arial;font-size:90%;'><i>Weight of axis</i></span><p>
+
+<table cellspacing=0 style='border:black solid 1pt;' width=100%>
+<tr><th width=25%>Argument</th><th width=15%>Default</th><th width=60%>Description</th></tr>
+<tr><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'><font color="#000000">
+<font color="#0000BB">$aWeight</font>
+</font>
+
+</td><td style='border-right:black solid 1pt;font-family:courier;font-size:90%;font-weight:bold;'>&nbsp;</td><td>Weight in pixels</td></tr>
+</table>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;">Description</div>Specify the thickness of the axis in pixels&nbsp;<br>
+
+<div style="font-weight:bold;font-family:arial;font-size:85%;"><p>Example</div><span style="font-family:courier;font-size:85%;"><font color="#000000">
+<font color="#0000BB">$graph</font><font color="#007700">-&gt;</font><font color="#0000BB">SetWeight</font><font color="#007700">(</font><font color="#0000BB">3</font><font color="#007700">);</font><font color="#0000BB"></font>
+</font>
+</span><br>
+<p> <hr> <p>

@@ -1,0 +1,5977 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" version="1.1" creator="EasyGPS 2.3.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.topografix.com/GPX/gpx_overlay/0/3 http://www.topografix.com/GPX/gpx_overlay/0/3/gpx_overlay.xsd http://www.topografix.com/GPX/gpx_modified/0/1 http://www.topografix.com/GPX/gpx_modified/0/1/gpx_modified.xsd http://www.topografix.com/GPX/Private/TopoGrafix/0/3 http://www.topografix.com/GPX/Private/TopoGrafix/0/3/topografix.xsd">
+<metadata>
+<bounds minlat="52.83372000" minlon="18.25052000" maxlat="53.16555000" maxlon="18.99888000"/>
+<extensions>
+<time xmlns="http://www.topografix.com/GPX/gpx_modified/0/1">2007-01-29T17:17:03.140Z</time>
+<active_point xmlns="http://www.topografix.com/GPX/Private/TopoGrafix/0/3" lat="52.91792000" lon="18.56711000">
+</active_point>
+</extensions>
+</metadata>
+<wpt lat="52.91792000" lon="18.56711000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-1</name>
+<cmt>Punkt Geodezyjny</cmt>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<time xmlns="http://www.topografix.com/GPX/gpx_modified/0/1">2007-01-29T17:17:03.140Z</time>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-1</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.07225000" lon="18.51827000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-2</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-2</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.05105000" lon="18.50707000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-4</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-4</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.08920000" lon="18.51570000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-5</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-5</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03499000" lon="18.54325000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-6</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-6</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01242000" lon="18.53381000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-7</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-7</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.00436000" lon="18.52600000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-8</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-8</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.00328000" lon="18.54737000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-9</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-9</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03053000" lon="18.55702000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-10</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-10</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.11649000" lon="18.54359000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-11</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-11</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.10452000" lon="18.55857000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-12</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-12</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.14578000" lon="18.54460000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-13</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-13</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.16112000" lon="18.58835000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-14</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-14</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.16070000" lon="18.63646000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-15</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-15</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.05783000" lon="18.64258000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-16</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-16</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.06027000" lon="18.60612000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-17</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-17</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.06332000" lon="18.58797000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-18</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-18</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.06495000" lon="18.57415000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-19</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-19</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.08053000" lon="18.57715000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-20</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-20</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.07323000" lon="18.61140000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-21</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-21</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.05695000" lon="18.54863000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-22</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-22</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03590000" lon="18.51531000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-23</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-23</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03499000" lon="18.56394000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-24</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-24</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03392000" lon="18.56685000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-25</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-25</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.04673000" lon="18.56544000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-26</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-26</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03862000" lon="18.58395000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-27</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-27</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.02440000" lon="18.54241000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-28</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-28</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01686000" lon="18.53782000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-29</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-29</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.02049000" lon="18.50256000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-30</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-30</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01858000" lon="18.52235000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-31</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-31</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.02899000" lon="18.53359000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-32</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-32</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03036000" lon="18.50098000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-33</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-33</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.04431000" lon="18.54033000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-34</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-34</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.08469000" lon="18.53844000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-35</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-35</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.09119000" lon="18.57039000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-36</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-36</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.10744000" lon="18.51119000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-37</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-37</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.13063000" lon="18.54984000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-38</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-38</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.13778000" lon="18.56230000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-39</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-39</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.12795000" lon="18.52248000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-40</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-40</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.12598000" lon="18.50531000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-41</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-41</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.14958000" lon="18.57428000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-42</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-42</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.15503000" lon="18.60621000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-43</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-43</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.13525000" lon="18.58758000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-44</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-44</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.11838000" lon="18.58505000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-45</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-45</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.11550000" lon="18.61492000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-46</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-46</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.10160000" lon="18.59058000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-47</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-47</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.09061000" lon="18.60363000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-48</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-48</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.06248000" lon="18.55670000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-49</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-49</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.05684000" lon="18.59144000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-50</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-50</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.04519000" lon="18.59526000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-51</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-51</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.04296000" lon="18.61475000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-52</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-52</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.05311000" lon="18.57792000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-53</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-53</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.04819000" lon="18.57584000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-54</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-54</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03742000" lon="18.59713000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-55</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-55</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.00616000" lon="18.58938000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-56</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-56</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.00667000" lon="18.62251000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-57</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-57</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01332000" lon="18.61517000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-58</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-58</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01858000" lon="18.67296000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-59</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-59</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03281000" lon="18.66667000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-60</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-60</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01787000" lon="18.69225000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-61</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-61</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01751000" lon="18.67850000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-62</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-62</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01328000" lon="18.70787000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-63</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-63</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.02448000" lon="18.72937000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-64</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-64</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01144000" lon="18.72397000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-65</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-65</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.04264000" lon="18.72742000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-66</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-66</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03499000" lon="18.72418000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-67</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-67</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.00214000" lon="18.68935000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-68</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-68</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.00862000" lon="18.69051000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-69</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-69</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.00204000" lon="18.71369000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-70</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-70</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.00165000" lon="18.70045000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-71</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-71</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.00161000" lon="18.74203000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-72</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-72</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.04059000" lon="18.73478000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-73</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-73</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03512000" lon="18.69126000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-74</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-74</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.02785000" lon="18.68414000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-75</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-75</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.05568000" lon="18.71388000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-76</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-76</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.06143000" lon="18.69965000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-77</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-77</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.05791000" lon="18.74240000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-78</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-78</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.06461000" lon="18.73512000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-79</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-79</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.07585000" lon="18.71180000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-80</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-80</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.07426000" lon="18.69169000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-81</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-81</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.08049000" lon="18.73302000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-82</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-82</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.08890000" lon="18.71027000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-83</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-83</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.08718000" lon="18.67105000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-84</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-84</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.09634000" lon="18.72600000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-85</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-85</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.09937000" lon="18.69002000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-86</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-86</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.10392000" lon="18.66813000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-87</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-87</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.07686000" lon="18.65627000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-88</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-88</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.11752000" lon="18.67461000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-89</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-89</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.10886000" lon="18.71809000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-90</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-90</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.12001000" lon="18.70113000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-91</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-91</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.12645000" lon="18.65298000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-92</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-92</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.14460000" lon="18.69174000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-93</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-93</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.13911000" lon="18.65888000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-94</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-94</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.15207000" lon="18.71289000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-95</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-95</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.15743000" lon="18.65693000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-96</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-96</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.16555000" lon="18.70122000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-97</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-97</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.15782000" lon="18.74697000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-98</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-98</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.13834000" lon="18.73506000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-99</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-99</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.13675000" lon="18.72448000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-100</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-100</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.12211000" lon="18.73577000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-101</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-101</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.10714000" lon="18.74203000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-102</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-102</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.15859000" lon="18.25481000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-103</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-103</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.14799000" lon="18.29601000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-104</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-104</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.14748000" lon="18.27572000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-105</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-105</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.15880000" lon="18.27940000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-106</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-106</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.15692000" lon="18.33382000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-107</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-107</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.13040000" lon="18.31854000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-108</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-108</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.10902000" lon="18.30224000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-109</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-109</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.10714000" lon="18.25687000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-110</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-110</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.09705000" lon="18.26490000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-111</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-111</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.09328000" lon="18.26447000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-112</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-112</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.10577000" lon="18.31897000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-113</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-113</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.09490000" lon="18.32850000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-114</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-114</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.08031000" lon="18.31992000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-115</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-115</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.08212000" lon="18.27147000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-116</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-116</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.07564000" lon="18.29739000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-117</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-117</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.09122000" lon="18.29704000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-118</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-118</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.06770000" lon="18.32043000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-119</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-119</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.06941000" lon="18.25765000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-120</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-120</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.05088000" lon="18.31803000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-121</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-121</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.04491000" lon="18.28207000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-122</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-122</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01015000" lon="18.29228000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-123</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-123</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03199000" lon="18.31631000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-124</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-124</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.15803000" lon="18.36820000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-125</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-125</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.14271000" lon="18.37785000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-126</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-126</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.13370000" lon="18.34987000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-127</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-127</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.12795000" lon="18.36223000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-128</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-128</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.10993000" lon="18.34687000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-129</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-129</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.10718000" lon="18.37978000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-130</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-130</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.09422000" lon="18.34253000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-131</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-131</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.07697000" lon="18.35687000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-132</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-132</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.04568000" lon="18.37553000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-133</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-133</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03916000" lon="18.34442000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-134</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-134</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01534000" lon="18.36712000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-135</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-135</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.00405000" lon="18.39910000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-136</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-136</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01478000" lon="18.43583000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-137</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-137</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03508000" lon="18.42772000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-138</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-138</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03830000" lon="18.43300000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-139</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-139</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03830000" lon="18.40004000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-140</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-140</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.02873000" lon="18.41987000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-141</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-141</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.09666000" lon="18.42974000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-142</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-142</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.11336000" lon="18.42321000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-143</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-143</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.11684000" lon="18.44570000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-144</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-144</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.11765000" lon="18.39206000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-145</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-145</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.12808000" lon="18.38704000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-146</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-146</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.12735000" lon="18.43802000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-147</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-147</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.14859000" lon="18.42613000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-148</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-148</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.14679000" lon="18.40330000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-149</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-149</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.15949000" lon="18.49282000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-150</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-150</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.15825000" lon="18.45656000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-151</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-151</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.13782000" lon="18.45866000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-152</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-152</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.13640000" lon="18.48733000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-153</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-153</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.14876000" lon="18.47896000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-154</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-154</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.12542000" lon="18.46652000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-155</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-155</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.11349000" lon="18.47072000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-156</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-156</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.10422000" lon="18.46441000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-157</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-157</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.09444000" lon="18.48042000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-158</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-158</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.08388000" lon="18.47076000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-159</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-159</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.04088000" lon="18.47737000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-160</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-160</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.02311000" lon="18.48630000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-161</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-161</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.02070000" lon="18.49767000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-162</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-162</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01247000" lon="18.48420000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-163</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-163</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01045000" lon="18.49785000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-164</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-164</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01933000" lon="18.46304000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-165</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-165</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.02839000" lon="18.49956000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-166</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-166</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.00659000" lon="18.45677000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-167</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-167</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.00066000" lon="18.49458000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-168</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-168</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.98002000" lon="18.25542000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-169</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-169</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.97315000" lon="18.26292000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-170</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-170</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.99938000" lon="18.29722000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-171</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-171</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.99886000" lon="18.32751000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-172</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-172</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.98440000" lon="18.33326000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-173</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-173</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.98195000" lon="18.27584000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-174</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-174</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.96543000" lon="18.26305000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-175</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-175</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.95908000" lon="18.25928000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-176</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-176</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.95109000" lon="18.32683000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-177</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-177</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.96599000" lon="18.33472000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-178</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-178</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.96770000" lon="18.32266000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-179</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-179</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.95105000" lon="18.27408000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-180</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-180</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.93779000" lon="18.26082000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-181</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-181</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.93097000" lon="18.27893000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-182</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-182</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.94788000" lon="18.32369000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-183</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-183</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.93577000" lon="18.30541000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-184</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-184</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.92479000" lon="18.27185000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-185</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-185</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.91814000" lon="18.25052000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-186</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-186</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.91131000" lon="18.28069000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-187</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-187</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.89977000" lon="18.26962000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-188</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-188</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.89664000" lon="18.25215000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-189</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-189</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.88827000" lon="18.25868000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-190</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-190</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.89063000" lon="18.29760000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-191</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-191</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.88964000" lon="18.33781000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-192</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-192</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.90380000" lon="18.30739000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-193</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-193</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.91217000" lon="18.29859000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-194</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-194</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.89741000" lon="18.27396000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-195</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-195</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.91239000" lon="18.25782000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-196</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-196</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.88179000" lon="18.26996000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-197</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-197</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.85990000" lon="18.29764000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-198</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-198</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.86256000" lon="18.34365000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-199</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-199</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.88273000" lon="18.25366000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-200</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-200</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.87900000" lon="18.31640000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-201</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-201</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.86806000" lon="18.31575000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-202</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-202</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.87544000" lon="18.27923000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-203</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-203</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.83711000" lon="18.28597000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-204</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-204</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.85029000" lon="18.27288000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-205</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-205</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.84347000" lon="18.33627000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-206</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-206</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.83535000" lon="18.31786000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-207</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-207</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.84106000" lon="18.27717000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-208</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-208</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.84939000" lon="18.29430000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-209</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-209</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.84098000" lon="18.39652000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-210</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-210</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.84231000" lon="18.41467000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-211</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-211</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.84969000" lon="18.40275000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-212</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-212</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.85265000" lon="18.37236000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-213</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-213</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.86861000" lon="18.37910000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-214</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-214</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.84407000" lon="18.36927000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-215</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-215</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.87814000" lon="18.40759000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-216</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-216</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.87561000" lon="18.35133000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-217</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-217</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.87071000" lon="18.42004000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-218</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-218</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.88651000" lon="18.37772000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-219</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-219</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.89681000" lon="18.40875000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-220</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-220</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.90449000" lon="18.39892000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-221</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-221</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.90668000" lon="18.38442000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-222</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-222</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.91076000" lon="18.38210000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-223</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-223</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.90127000" lon="18.35279000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-224</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-224</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.92067000" lon="18.41249000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-225</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-225</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.91702000" lon="18.37030000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-226</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-226</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.92925000" lon="18.39824000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-227</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-227</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.93509000" lon="18.40193000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-228</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-228</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.94638000" lon="18.36253000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-229</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-229</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.94848000" lon="18.39463000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-230</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-230</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.94835000" lon="18.35652000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-231</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-231</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.97165000" lon="18.39914000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-232</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-232</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.97066000" lon="18.35854000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-233</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-233</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.98839000" lon="18.36777000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-234</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-234</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.99732000" lon="18.35730000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-235</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-235</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.99161000" lon="18.39485000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-236</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-236</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.98393000" lon="18.44008000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-237</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-237</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.96779000" lon="18.42939000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-238</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-238</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.96856000" lon="18.45712000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-239</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-239</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.95221000" lon="18.41060000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-240</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-240</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.95063000" lon="18.44184000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-241</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-241</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.94234000" lon="18.44557000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-242</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-242</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.94513000" lon="18.46802000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-243</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-243</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.94625000" lon="18.47789000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-244</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-244</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.92642000" lon="18.47755000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-245</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-245</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.92569000" lon="18.42884000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-246</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-246</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.92183000" lon="18.43309000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-247</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-247</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.92076000" lon="18.44798000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-248</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-248</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.91453000" lon="18.46180000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-249</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-249</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.90870000" lon="18.44703000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-250</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-250</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.90608000" lon="18.42364000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-251</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-251</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.90955000" lon="18.41613000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-252</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-252</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.90398000" lon="18.46454000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-253</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-253</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.90406000" lon="18.47866000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-254</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-254</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.88046000" lon="18.43570000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-255</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-255</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.88059000" lon="18.42094000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-256</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-256</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.88029000" lon="18.47360000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-257</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-257</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.88771000" lon="18.46081000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-258</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-258</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.89355000" lon="18.44467000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-259</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-259</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.88132000" lon="18.44780000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-259</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-259</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.86333000" lon="18.42978000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-260</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-260</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.85187000" lon="18.47055000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-261</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-261</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.86149000" lon="18.47913000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-262</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-262</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.87067000" lon="18.45901000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-263</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-263</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.84325000" lon="18.46008000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-264</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-264</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.84428000" lon="18.43424000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-265</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-265</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.86291000" lon="18.45433000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-266</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-266</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.83947000" lon="18.49535000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-267</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-267</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.83493000" lon="18.48467000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-268</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-268</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.85128000" lon="18.49879000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-269</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-269</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.88364000" lon="18.49587000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-270</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-270</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.89149000" lon="18.48673000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-271</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-271</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.92569000" lon="18.49965000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-272</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-272</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.94067000" lon="18.48759000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-273</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-273</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.96032000" lon="18.49840000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-274</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-274</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.98702000" lon="18.49917000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-275</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-275</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.98444000" lon="18.52578000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-276</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-276</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.99921000" lon="18.55853000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-277</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-277</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.97243000" lon="18.58913000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-278</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-278</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.96204000" lon="18.54685000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-279</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-279</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.98255000" lon="18.55338000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-280</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-280</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.99839000" lon="18.57402000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-281</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-281</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.96800000" lon="18.54587000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-282</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-282</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.91874000" lon="18.53080000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-283</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-283</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.88209000" lon="18.53441000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-284</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-284</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.86981000" lon="18.50338000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-285</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-285</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.85522000" lon="18.52866000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-286</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-286</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.84231000" lon="18.52711000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-287</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-287</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.83458000" lon="18.56402000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-288</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-288</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.84248000" lon="18.62947000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-289</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-289</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.84767000" lon="18.60204000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-290</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-290</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.85377000" lon="18.62131000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-291</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-291</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.86085000" lon="18.60702000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-292</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-292</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.86389000" lon="18.62912000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-293</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-293</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.90084000" lon="18.61818000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-294</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-294</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.92887000" lon="18.64449000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-295</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-295</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.94848000" lon="18.63307000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-296</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-296</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.99925000" lon="18.60367000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-297</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-297</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.99749000" lon="18.63204000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-298</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-298</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.99118000" lon="18.69860000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-299</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-299</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.99667000" lon="18.70075000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-300</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-300</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.96646000" lon="18.65148000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-301</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-301</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.95346000" lon="18.70182000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-302</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-302</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.94359000" lon="18.66393000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-303</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-303</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.93917000" lon="18.65916000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-304</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-304</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.94157000" lon="18.69744000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-305</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-305</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.92097000" lon="18.69418000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-306</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-306</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.92316000" lon="18.70247000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-307</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-307</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.88501000" lon="18.65822000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-308</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-308</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.86325000" lon="18.65779000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-309</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-309</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.85720000" lon="18.67311000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-310</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-310</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.87385000" lon="18.64796000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-311</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-311</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.84608000" lon="18.66324000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-312</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-312</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.83823000" lon="18.68410000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-313</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-313</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.84733000" lon="18.69968000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-314</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-314</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.83642000" lon="18.72603000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-315</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-315</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.85012000" lon="18.72469000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-316</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-316</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.86372000" lon="18.74062000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-317</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-317</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.86076000" lon="18.70306000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-318</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-318</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.89278000" lon="18.70684000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-319</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-319</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.90805000" lon="18.72281000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-320</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-320</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.92312000" lon="18.72856000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-321</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-321</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.92320000" lon="18.72847000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-323</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-323</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.93281000" lon="18.73332000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-324</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-324</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.94629000" lon="18.71779000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-325</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-325</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.95462000" lon="18.72358000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-326</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-326</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.96616000" lon="18.72195000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-327</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-327</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.98023000" lon="18.70521000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-328</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-328</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.97792000" lon="18.74092000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-329</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-329</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.98783000" lon="18.74044000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-330</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-330</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.98582000" lon="18.79212000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-331</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-331</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.96844000" lon="18.76856000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-332</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-332</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.95633000" lon="18.75795000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-333</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-333</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.96539000" lon="18.81525000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-334</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-334</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.92539000" lon="18.76963000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-335</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-335</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.94105000" lon="18.80426000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-336</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-336</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.94251000" lon="18.78177000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-337</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-337</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.91046000" lon="18.80156000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-338</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-338</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.90586000" lon="18.82606000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-339</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-339</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.89711000" lon="18.81876000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-340</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-340</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.90492000" lon="18.78190000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-341</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-341</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.91071000" lon="18.75242000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-342</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-342</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.89535000" lon="18.76534000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-343</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-343</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.89870000" lon="18.79581000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-345</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-345</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.89681000" lon="18.79297000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-346</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-346</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.90273000" lon="18.77791000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-347</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-347</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.88900000" lon="18.81817000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-348</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-348</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.88561000" lon="18.78113000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-349</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-349</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.87514000" lon="18.82151000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-350</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-350</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.86634000" lon="18.79190000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-351</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-351</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.87140000" lon="18.75250000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-352</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-352</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.87771000" lon="18.76671000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-353</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-353</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.87325000" lon="18.77722000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-354</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-354</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.86518000" lon="18.82482000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-355</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-355</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.84479000" lon="18.78800000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-356</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-356</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.84720000" lon="18.75143000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-357</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-357</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.85805000" lon="18.75611000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-358</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-358</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.84256000" lon="18.81606000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-359</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-359</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.84660000" lon="18.75019000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-360</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-360</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.83990000" lon="18.85889000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-361</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-361</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.85063000" lon="18.86520000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-362</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-362</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.85020000" lon="18.88945000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-363</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-363</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.86295000" lon="18.86267000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-364</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-364</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.85570000" lon="18.83585000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-365</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-365</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.86407000" lon="18.88516000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-366</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-366</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.87071000" lon="18.83988000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-367</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-367</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.87226000" lon="18.85975000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-368</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-368</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.88866000" lon="18.83876000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-369</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-369</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.89252000" lon="18.87940000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-370</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-370</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.92290000" lon="18.84155000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-371</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-371</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.93663000" lon="18.83409000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-372</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-372</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.92848000" lon="18.87310000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-373</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-373</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.95363000" lon="18.88331000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-374</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-374</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.96586000" lon="18.84340000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-375</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-375</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.96569000" lon="18.81516000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-376</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-376</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.96251000" lon="18.88816000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-377</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-377</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.97946000" lon="18.89069000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-378</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-378</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.98590000" lon="18.84924000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-379</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-379</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.98255000" lon="18.82035000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-380</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-380</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.97303000" lon="18.87902000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-381</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-381</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.99375000" lon="18.92138000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-382</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-382</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.98371000" lon="18.96455000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-383</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-383</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.97882000" lon="18.93949000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-384</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-384</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.97050000" lon="18.90434000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-385</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-385</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.95698000" lon="18.92584000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-386</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-386</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.95440000" lon="18.95125000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-387</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-387</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.94861000" lon="18.97918000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-388</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-388</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.95041000" lon="18.91241000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-389</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-389</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.96054000" lon="18.97927000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-390</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-390</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.92938000" lon="18.90382000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-391</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-391</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.93050000" lon="18.93665000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-392</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-392</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.91865000" lon="18.96906000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-393</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-393</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.93174000" lon="18.97760000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-394</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-394</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.89943000" lon="18.91601000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-395</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-395</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.91625000" lon="18.94755000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-396</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-396</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.86716000" lon="18.96300000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-397</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-397</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.86140000" lon="18.91932000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-398</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-398</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.83372000" lon="18.96322000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-399</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-399</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.85149000" lon="18.91056000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-400</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-400</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.83565000" lon="18.91331000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-401</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-401</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.83960000" lon="18.88709000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-402</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-402</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="52.88513000" lon="18.98747000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-403</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-403</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01616000" lon="18.76087000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-404</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-404</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.00938000" lon="18.75285000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-405</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-405</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.00075000" lon="18.75512000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-406</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-406</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.00410000" lon="18.80765000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-407</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-407</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01092000" lon="18.80709000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-408</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-408</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.04165000" lon="18.81739000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-409</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-409</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03650000" lon="18.77533000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-410</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-410</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03075000" lon="18.79508000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-411</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-411</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.04542000" lon="18.77293000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-412</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-412</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.05736000" lon="18.77362000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-413</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-413</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.07019000" lon="18.75851000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-414</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-414</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.08860000" lon="18.75366000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-415</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-415</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.08405000" lon="18.78851000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-416</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-416</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.10649000" lon="18.78293000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-417</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-417</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.09898000" lon="18.75250000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-418</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-418</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.11267000" lon="18.76748000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-419</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-419</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.09238000" lon="18.81147000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-420</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-420</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.12568000" lon="18.76671000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-421</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-421</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.13319000" lon="18.81108000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-422</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-422</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.14022000" lon="18.80894000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-423</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-423</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.13207000" lon="18.75289000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-424</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-424</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.13598000" lon="18.77662000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-425</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-425</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.15615000" lon="18.78130000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-426</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-426</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.14821000" lon="18.76336000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-427</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-427</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.15155000" lon="18.75216000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-428</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-428</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.15954000" lon="18.76173000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-429</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-429</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.15027000" lon="18.79568000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-430</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-430</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.15653000" lon="18.81718000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-431</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-431</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.15979000" lon="18.79654000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-432</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-432</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.15010000" lon="18.81593000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-433</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-433</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.15387000" lon="18.85602000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-434</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-434</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.14692000" lon="18.87237000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-435</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-435</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.14366000" lon="18.89301000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-436</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-436</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.14018000" lon="18.86177000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-437</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-437</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.13653000" lon="18.84048000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-438</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-438</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.13623000" lon="18.85692000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-439</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-439</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.14799000" lon="18.85610000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-440</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-440</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.14743000" lon="18.84357000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-441</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-441</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.15786000" lon="18.84503000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-442</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-442</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.16460000" lon="18.88048000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-443</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-443</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.15280000" lon="18.88455000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-444</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-444</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.14061000" lon="18.90915000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-445</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-445</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.11825000" lon="18.86438000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-446</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-446</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.10289000" lon="18.87520000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-447</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-447</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.09032000" lon="18.86044000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-448</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-448</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.09409000" lon="18.83512000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-449</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-449</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.10680000" lon="18.83666000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-450</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-450</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.10976000" lon="18.90314000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-451</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-451</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.08066000" lon="18.89915000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-452</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-452</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.07834000" lon="18.85430000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-453</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-453</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.07469000" lon="18.89455000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-454</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-454</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.08723000" lon="18.88953000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-455</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-455</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.06718000" lon="18.85310000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-456</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-456</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.06061000" lon="18.88043000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-457</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-457</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.07503000" lon="18.89425000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-458</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-458</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.05590000" lon="18.86052000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-459</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-459</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.05787000" lon="18.84409000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-460</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-460</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.05761000" lon="18.90927000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-461</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-461</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03766000" lon="18.88249000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-462</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-462</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.02980000" lon="18.87833000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-463</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-463</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03139000" lon="18.89799000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-464</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-464</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.04285000" lon="18.89387000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-465</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-465</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.04341000" lon="18.86713000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-466</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-466</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.04907000" lon="18.86469000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-467</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-467</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01487000" lon="18.88249000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-468</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-468</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.00045000" lon="18.88593000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-469</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-469</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.00083000" lon="18.84263000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-470</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-470</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01174000" lon="18.84988000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-471</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-471</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01616000" lon="18.82615000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-472</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-472</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.02452000" lon="18.90666000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-473</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-473</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.00826000" lon="18.90846000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-474</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-474</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.00474000" lon="18.96288000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-475</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-475</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01942000" lon="18.95936000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-476</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-476</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01972000" lon="18.93537000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-478</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-478</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.02985000" lon="18.93755000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-479</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-479</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03358000" lon="18.97601000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-480</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-480</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.04615000" lon="18.94807000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-481</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-481</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03470000" lon="18.91666000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-482</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-482</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03873000" lon="18.97970000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-483</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-483</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03843000" lon="18.94927000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-484</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-484</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.04564000" lon="18.95966000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-485</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-485</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.05100000" lon="18.98897000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-486</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-486</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03749000" lon="18.96180000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-487</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-487</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.05585000" lon="18.96279000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-488</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-488</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.06740000" lon="18.99236000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-489</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-489</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.05804000" lon="18.94275000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-490</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-490</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.11422000" lon="18.96257000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-491</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-491</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.11744000" lon="18.95734000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-492</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-492</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.11988000" lon="18.93172000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-493</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-493</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.13130000" lon="18.91966000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-494</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-494</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.12894000" lon="18.90996000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-495</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-495</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.13104000" lon="18.98459000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-496</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-496</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.12113000" lon="18.99073000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-497</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-497</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.14598000" lon="18.96356000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-498</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-498</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.14602000" lon="18.92910000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-499</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-499</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.13881000" lon="18.93700000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-500</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-500</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.15143000" lon="18.91734000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-501</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-501</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.15782000" lon="18.92970000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-502</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-502</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.16494000" lon="18.95618000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-503</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-503</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.16258000" lon="18.91374000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-504</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-504</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.16417000" lon="18.98699000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-505</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-505</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.16464000" lon="18.99472000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-506</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-506</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01929000" lon="18.99888000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-507</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-507</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.04137000" lon="18.60642000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-508</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-508</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.05006000" lon="18.62389000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-509</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-509</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.04759000" lon="18.64133000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-510</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-510</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03699000" lon="18.63762000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-511</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-511</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03626000" lon="18.65631000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-512</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-512</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.06308000" lon="18.65929000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-513</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-513</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.02169000" lon="18.64807000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-514</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-514</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.00626000" lon="18.70618000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-515</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-515</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.00397000" lon="18.65389000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-516</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-516</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01251000" lon="18.65502000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-517</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-517</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.00071000" lon="18.64393000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-518</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-518</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.00998000" lon="18.63953000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-519</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-519</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01665000" lon="18.58245000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-520</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-520</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.02120000" lon="18.59623000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-521</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-521</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.02075000" lon="18.61213000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-522</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-522</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.02422000" lon="18.63322000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-523</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-523</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.01330000" lon="18.62871000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-524</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-524</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.02877000" lon="18.61112000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-525</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-525</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.04268000" lon="18.51870000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-526</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-526</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.04244000" lon="18.57998000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-527</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-527</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.04914000" lon="18.58138000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-528</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-528</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.04257000" lon="18.74562000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-529</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-529</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.03824000" lon="18.74849000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-530</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-530</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.05577000" lon="18.61854000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-531</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-531</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.06169000" lon="18.61674000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-532</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-532</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.06437000" lon="18.55031000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-533</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-533</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.07023000" lon="18.61691000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-534</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-534</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.07328000" lon="18.63474000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-535</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-535</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.06703000" lon="18.65783000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-536</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-536</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.08827000" lon="18.62078000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-537</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-537</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.09883000" lon="18.62771000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-538</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-538</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.08845000" lon="18.63992000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-539</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-539</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.10733000" lon="18.64219000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-540</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-540</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.10289000" lon="18.62331000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-541</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-541</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.10050000" lon="18.52840000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-542</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-542</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.12016000" lon="18.51089000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-543</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-543</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.12621000" lon="18.62294000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-544</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-544</label_text>
+</label>
+</extensions>
+</wpt>
+<wpt lat="53.12619000" lon="18.56672000">
+<time>2007-01-29T17:12:37.015Z</time>
+<name>PGT-545</name>
+<desc>Punkt Geodezyjny</desc>
+<sym>Geocache</sym>
+<extensions>
+<label xmlns="http://www.topografix.com/GPX/gpx_overlay/0/3">
+<label_text>PGT-545</label_text>
+</label>
+</extensions>
+</wpt>
+<extensions>
+</extensions>
+</gpx>

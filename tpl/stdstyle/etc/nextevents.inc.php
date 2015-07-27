@@ -1,0 +1,2 @@
+<ul><li class="newcache_list_multi" style="margin-bottom:8px;"><img src="tpl/stdstyle/images/cache/22x22-event.png" border="0" width="16" height="16" alt="Cache" title="Cache" />&nbsp;05.09.2009&nbsp;<a href="viewcache.php?cacheid=6926">asdfasd</a> założona przez <a href="viewprofile.php?userid=2619">trojmiasto</a><br/><p class="content-title-noshade">Polska > Pomorskie</p></li>
+</ul>

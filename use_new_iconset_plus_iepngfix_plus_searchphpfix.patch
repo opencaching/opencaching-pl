@@ -1,0 +1,3381 @@
+Index: util/google-earth/caches-de.php
+===================================================================
+--- util/google-earth/caches-de.php	(revision 753)
++++ util/google-earth/caches-de.php	(working copy)
+@@ -127,36 +127,36 @@
+     switch ($r['type'])
+     {
+       case 2:
+-        $icon = 'regular';
+-        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/traditional.gif" alt="Normaler Cache" title="Normaler Cache" />';
++        $icon = 'traditional';
++        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/traditional.png" alt="Normaler Cache" title="Normaler Cache" />';
+         break;
+       case 3:
+         $icon = 'multi';
+-        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/multi.gif" alt="Multicache" title="Multicache" />';
++        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/multi.png" alt="Multicache" title="Multicache" />';
+         break;
+       case 4:
+         $icon = 'virtual';
+-        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/virtual.gif" alt="virtueller Cache" title="virtueller Cache" />';
++        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/virtual.png" alt="virtueller Cache" title="virtueller Cache" />';
+         break;
+       case 5:
+         $icon = 'webcam';
+-        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/webcam.gif" alt="Webcam Cache" title="Webcam Cache" />';
++        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/webcam.png" alt="Webcam Cache" title="Webcam Cache" />';
+         break;
+       case 6:
+         $icon = 'event';
+-        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/event.gif" alt="Event Cache" title="Event Cache" />';
++        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/event.png" alt="Event Cache" title="Event Cache" />';
+         break;
+       case 7:
+-        $icon = 'other';
+-        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/mystery.gif" alt="Event Cache" title="Event Cache" />';
++        $icon = 'quiz';
++        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/quiz.png" alt="Event Cache" title="Event Cache" />';
+         break;
+       case 9:
+-        $icon = 'other';
+-        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/moving.gif" alt="Event Cache" title="Event Cache" />';
++        $icon = 'moving';
++        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/moving.png" alt="Event Cache" title="Event Cache" />';
+         break;
+       default:
+         $icon = 'other';
+-        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/unknown.gif" alt="unbekannter Cachetyp" title="unbekannter Cachetyp" />';
++        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/unknown.png" alt="unbekannter Cachetyp" title="unbekannter Cachetyp" />';
+         break;
+     }
+     $thisline = mb_ereg_replace('{icon}', $icon, $thisline);
+Index: util/google-earth/caches-pl.php
+===================================================================
+--- util/google-earth/caches-pl.php	(revision 753)
++++ util/google-earth/caches-pl.php	(working copy)
+@@ -135,37 +135,36 @@
+     switch ($r['type'])
+     {
+       case 2:
+-        $icon = 'tradi';
+-        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/traditional.gif" alt="Normaler Cache" title="Normaler Cache" />';
++        $icon = 'tradycyjna';
++        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/traditional.png" alt="Tradycyjna" title="Tradycyjna" />';
+         break;
+       case 3:
+         $icon = 'multi';
+-        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/multi.gif" alt="Multicache" title="Multicache" />';
++        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/multi.png" alt="Multicache" title="Multicache" />';
+         break;
+       case 4:
+         $icon = 'virtual';
+-        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/virtual.gif" alt="virtueller Cache" title="virtueller Cache" />';
++        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/virtual.png" alt="Wirtualna" title="Wirtualna" />';
+         break;
+       case 5:
+         $icon = 'webcam';
+-        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/webcam.gif" alt="Webcam Cache" title="Webcam Cache" />';
++        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/webcam.png" alt="Webcam" title="Webcam" />';
+         break;
+       case 6:
+         $icon = 'event';
+-        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/event.gif" alt="Event Cache" title="Event Cache" />';
++        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/event.png" alt="Wydarzenie" title="Wydarzenie" />';
+         break;
+       case 7:
+-        $icon = 'myst';
+-        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/mystery.gif" alt="Event Cache" title="Event Cache" />';
++        $icon = 'quiz';
++        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/quiz.png" alt="Quiz" title="Quiz" />';
+         break;
+       case 9:
+         $icon = 'moving';
+-        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/moving.gif" alt="Event Cache" title="Event Cache" />';
++        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/moving.png" alt="Mobilna" title="Mobilna" />';
+         break;
+-      
+       default:
+         $icon = 'unknown';
+-        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/unknown.gif" alt="unbekannter Cachetyp" title="unbekannter Cachetyp" />';
++        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/unknown.png" alt="Nietypowa" title="Nietypowa" />';
+         break;
+     }
+     $thisline = mb_ereg_replace('{icon}', $icon, $thisline);
+Index: util/google-earth/caches-old.php
+===================================================================
+--- util/google-earth/caches-old.php	(revision 753)
++++ util/google-earth/caches-old.php	(working copy)
+@@ -146,35 +146,35 @@
+     {
+       case 2:
+         $icon = 'regular';
+-        $typeimgurl = '<img src="http://ocpl.geofizyka.pl/tpl/stdstyle/images/cache/traditional.gif" alt="Tradycyjna" title="Tradycyjna" />';
++        $typeimgurl = '<img src="http://ocpl.geofizyka.pl/tpl/stdstyle/images/cache/traditional.png" alt="Tradycyjna" title="Tradycyjna" />';
+         break;
+       case 3:
+         $icon = 'multi';
+-        $typeimgurl = '<img src="http://ocpl.geofizyka.pl/tpl/stdstyle/images/cache/multi.gif" alt="Multicache" title="Multicache" />';
++        $typeimgurl = '<img src="http://ocpl.geofizyka.pl/tpl/stdstyle/images/cache/multi.png" alt="Multicache" title="Multicache" />';
+         break;
+       case 4:
+         $icon = 'virtual';
+-        $typeimgurl = '<img src="http://ocpl.geofizyka.pl/tpl/stdstyle/images/cache/virtual.gif" alt="virtueller Cache" title="Wirtualna" />';
++        $typeimgurl = '<img src="http://ocpl.geofizyka.pl/tpl/stdstyle/images/cache/virtual.png" alt="virtueller Cache" title="Wirtualna" />';
+         break;
+       case 5:
+         $icon = 'webcam';
+-        $typeimgurl = '<img src="http://ocpl.geofizyka.pl/tpl/stdstyle/images/cache/webcam.gif" alt="Webcam Cache" title="Webcam" />';
++        $typeimgurl = '<img src="http://ocpl.geofizyka.pl/tpl/stdstyle/images/cache/webcam.png" alt="Webcam Cache" title="Webcam" />';
+         break;
+       case 6:
+         $icon = 'event';
+-        $typeimgurl = '<img src="http://ocpl.geofizyka.pl/tpl/stdstyle/images/cache/event.gif" alt="Wydarzenie" title="Wydarzenie" />';
++        $typeimgurl = '<img src="http://ocpl.geofizyka.pl/tpl/stdstyle/images/cache/event.png" alt="Wydarzenie" title="Wydarzenie" />';
+         break;
+       case 7:
+         $icon = 'other';
+-        $typeimgurl = '<img src="http://ocpl.geofizyka.pl/tpl/stdstyle/images/cache/mystery.gif" alt="Quiz" title="Quiz" />';
++        $typeimgurl = '<img src="http://ocpl.geofizyka.pl/tpl/stdstyle/images/cache/quiz.png" alt="Quiz" title="Quiz" />';
+         break;
+       case 9:
+         $icon = 'other';
+-        $typeimgurl = '<img src="http://ocpl.geofizyka.pl/tpl/stdstyle/images/cache/moving.gif" alt="Mobilna" title="Mobilna" />';
++        $typeimgurl = '<img src="http://ocpl.geofizyka.pl/tpl/stdstyle/images/cache/moving.png" alt="Mobilna" title="Mobilna" />';
+         break;
+       default:
+         $icon = 'other';
+-        $typeimgurl = '<img src="http://ocpl.geofizyka.pl/tpl/stdstyle/images/cache/unknown.gif" alt="Nieznany typ" title="Nieznany typ" />';
++        $typeimgurl = '<img src="http://ocpl.geofizyka.pl/tpl/stdstyle/images/cache/unknown.png" alt="Nieznany typ" title="Nieznany typ" />';
+         break;
+     }
+     $thisline = str_replace('{icon}', $icon, $thisline);
+Index: util/google-earth/caches-de-new.php
+===================================================================
+--- util/google-earth/caches-de-new.php	(revision 753)
++++ util/google-earth/caches-de-new.php	(working copy)
+@@ -136,36 +136,36 @@
+     {
+       case 2:
+         $icon = 'tradi';
+-        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/traditional.gif" alt="Normaler Cache" title="Normaler Cache" />';
++        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/traditional.png" alt="Normaler Cache" title="Normaler Cache" />';
+         break;
+       case 3:
+         $icon = 'multi';
+-        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/multi.gif" alt="Multicache" title="Multicache" />';
++        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/multi.png" alt="Multicache" title="Multicache" />';
+         break;
+       case 4:
+         $icon = 'virtual';
+-        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/virtual.gif" alt="virtueller Cache" title="virtueller Cache" />';
++        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/virtual.png" alt="virtueller Cache" title="virtueller Cache" />';
+         break;
+       case 5:
+         $icon = 'webcam';
+-        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/webcam.gif" alt="Webcam Cache" title="Webcam Cache" />';
++        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/webcam.png" alt="Webcam Cache" title="Webcam Cache" />';
+         break;
+       case 6:
+         $icon = 'event';
+-        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/event.gif" alt="Event Cache" title="Event Cache" />';
++        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/event.png" alt="Event Cache" title="Event Cache" />';
+         break;
+       case 7:
+-        $icon = 'myst';
+-        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/mystery.gif" alt="Event Cache" title="Event Cache" />';
++        $icon = 'quiz';
++        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/quiz.png" alt="Event Cache" title="Event Cache" />';
+         break;
+       case 9:
+         $icon = 'moving';
+-        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/moving.gif" alt="Event Cache" title="Event Cache" />';
++        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/moving.png" alt="Event Cache" title="Event Cache" />';
+         break;
+       
+       default:
+         $icon = 'unknown';
+-        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/unknown.gif" alt="unbekannter Cachetyp" title="unbekannter Cachetyp" />';
++        $typeimgurl = '<img src="http://www.opencaching.de/tpl/stdstyle/images/cache/unknown.png" alt="unbekannter Cachetyp" title="unbekannter Cachetyp" />';
+         break;
+     }
+     $thisline = mb_ereg_replace('{icon}', $icon, $thisline);
+Index: util/google-earth/caches.php
+===================================================================
+--- util/google-earth/caches.php	(revision 753)
++++ util/google-earth/caches.php	(working copy)
+@@ -135,36 +135,36 @@
+     switch ($r['type'])
+     {
+       case 2:
+-        $icon = 'tradi';
+-        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/traditional.gif" alt="Normaler Cache" title="Normaler Cache" />';
++        $icon = 'traditional';
++        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/traditional.png" alt="Tradycyjna" title="Tradycyjna" />';
+         break;
+       case 3:
+         $icon = 'multi';
+-        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/multi.gif" alt="Multicache" title="Multicache" />';
++        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/multi.png" alt="Multicache" title="Multicache" />';
+         break;
+       case 4:
+         $icon = 'virtual';
+-        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/virtual.gif" alt="virtueller Cache" title="virtueller Cache" />';
++        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/virtual.png" alt="Wirtualna" title="Wirtualna" />';
+         break;
+       case 5:
+         $icon = 'webcam';
+-        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/webcam.gif" alt="Webcam Cache" title="Webcam Cache" />';
++        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/webcam.png" alt="Webcam" title="Webcam" />';
+         break;
+       case 6:
+         $icon = 'event';
+-        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/event.gif" alt="Event Cache" title="Event Cache" />';
++        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/event.png" alt="Wydarzenie" title="Wydarzenie" />';
+         break;
+       case 7:
+-        $icon = 'myst';
+-        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/mystery.gif" alt="Event Cache" title="Event Cache" />';
++        $icon = 'quiz';
++        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/quiz.png" alt="Quiz" title="Quiz" />';
+         break;
+       case 9:
+         $icon = 'moving';
+-        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/moving.gif" alt="Event Cache" title="Event Cache" />';
++        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/moving.png" alt="Mobilna" title="Mobilna" />';
+         break;
+       default:
+         $icon = 'unknown';
+-        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/unknown.gif" alt="unbekannter Cachetyp" title="unbekannter Cachetyp" />';
++        $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/unknown.png" alt="Nietypowa" title="Nietypowa" />';
+         break;
+     }
+     $thisline = mb_ereg_replace('{icon}', $icon, $thisline);
+Index: search.php
+===================================================================
+--- search.php	(revision 753)
++++ search.php	(working copy)
+@@ -1459,12 +1459,27 @@
+ //			$cachetype_options .= '<input type="checkbox" name="cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '" value="1" id="l_cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '" class="checkbox" onclick="javascript:sync_options(this)" /><label for="l_cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record[$default_lang], ENT_COMPAT, 'UTF-8') . '</label>';
+ //		}
+ 
++		$cachetype_icon = str_replace("mystery", "quiz", $cachetype_icon); // mystery is an outdated name, we use 'quiz' now :-)
++		$cachetype_icon_bw = $cachetype_icon;
++		$cachetype_icon    = str_replace(".gif", "-i.png",    $cachetype_icon);
++		$cachetype_icon_bw = str_replace(".gif", "-i-bw.png", $cachetype_icon_bw);
++
++		$hidden_css = "position: absolute; visibility: hidden;"; // css required to hide an image
++
++		// this marks saved user preference for searching, if 1, the cache is by default searched
++		// and thus making the colour image visibile
+ 		if ($options['cachetype'][$c_rec_id] == '1') {
+-			$cachetype_icon = str_replace(".gif", "-i.png", $cachetype_icon);
++			$icon_hidden = "";
++			$icon_bw_hidden = $hidden_css;
+ 		} else {
+-			$cachetype_icon = str_replace(".gif", "-i-bw.png", $cachetype_icon);
++			$icon_hidden = $hidden_css;
++			$icon_bw_hidden = "";
+ 		}
+-		$cachetype_options .= '<img id="cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '" src="' . htmlspecialchars($stylepath . "/images/" . $cachetype_icon, ENT_COMPAT, 'UTF-8') . '" title="' . htmlspecialchars($record[$lang], ENT_COMPAT, 'UTF-8') . '" alt="' . htmlspecialchars($record[$lang], ENT_COMPAT, 'UTF-8') . '" onmousedown="javascript:switchCacheType(\'cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '\')" style="cursor: pointer;" />';
++
++
++		$hidden_css = "position: absolute; visibility: hidden;";
++		$cachetype_options .= '<img id="cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '"    src="' . htmlspecialchars($stylepath . "/images/" . $cachetype_icon   , ENT_COMPAT, 'UTF-8') . '" title="' . htmlspecialchars($record[$lang], ENT_COMPAT, 'UTF-8') . '" alt="' . htmlspecialchars($record[$lang], ENT_COMPAT, 'UTF-8') . '" onmousedown="javascript:switchCacheType(\'cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '\')" style="cursor: pointer;'.$icon_hidden.'" />';
++		$cachetype_options .= '<img id="cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '_bw" src="' . htmlspecialchars($stylepath . "/images/" . $cachetype_icon_bw, ENT_COMPAT, 'UTF-8') . '" title="' . htmlspecialchars($record[$lang], ENT_COMPAT, 'UTF-8') . '" alt="' . htmlspecialchars($record[$lang], ENT_COMPAT, 'UTF-8') . '" onmousedown="javascript:switchCacheType(\'cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '\')" style="cursor: pointer;'.$icon_bw_hidden.'" />';
+ 		if ($i == 2) { $cachetype_options .= '&nbsp;&nbsp;&nbsp;'; }
+ 		$cachetype_options .= "\n";
+ 	}
+Index: tpl/stdstyle/myhome.tpl.php
+===================================================================
+--- tpl/stdstyle/myhome.tpl.php	(revision 753)
++++ tpl/stdstyle/myhome.tpl.php	(working copy)
+@@ -42,7 +42,7 @@
+ 	<tr><td class="spacer" colspan="2"></td></tr>
+ 	<tr>
+ 		<td class="header-small" colspan="2">
+-		<img src="tpl/stdstyle/images/cache/22x22-traditional.gif" width="22" height="22" align="middle" border="0" alt="Logs" title="Logs">&nbsp;
++		<img src="tpl/stdstyle/images/cache/22x22-traditional.png" width="22" height="22" align="middle" border="0" alt="Logs" title="Logs">&nbsp;
+ 		{founds}
+ 		{events}
+ 		<span style="font-weight: 400;">
+@@ -70,7 +70,7 @@
+ 
+ 	<tr>
+ 		<td class="header-small" colspan="2">
+-		<img src="tpl/stdstyle/images/cache/22x22-traditional.gif" width="22" height="22" align="middle" border="0" alt="Caches" title="Caches">&nbsp;
++		<img src="tpl/stdstyle/images/cache/22x22-traditional.png" width="22" height="22" align="middle" border="0" alt="Caches" title="Caches">&nbsp;
+ 		{number_of_your_hiddens}: {hidden}
+ 		<span style="font-weight: 400;">
+ 		[<a href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=byname&amp;ownerid={userid}&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">{show_all}</a>]
+Index: tpl/stdstyle/admin_bulletin_preview.tpl.php
+===================================================================
+--- tpl/stdstyle/admin_bulletin_preview.tpl.php	(revision 753)
++++ tpl/stdstyle/admin_bulletin_preview.tpl.php	(working copy)
+@@ -1,7 +1,7 @@
+ <table class="content">
+ <tr>
+ 	<td class="header">
+-		<img src="tpl/stdstyle/images/cache/traditional.gif" border="0" width="32" height="32" alt="" title="" align="middle"><font size="4">  <b>Wyślij biuletyn</b></font>
++		<img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="" title="" align="middle"><font size="4">  <b>Wyślij biuletyn</b></font>
+ 	</td>
+ </tr>
+ <tr><td class="spacer" colspan="2"></td></tr>
+Index: tpl/stdstyle/start.tpl.php
+===================================================================
+--- tpl/stdstyle/start.tpl.php	(revision 753)
++++ tpl/stdstyle/start.tpl.php	(working copy)
+@@ -100,7 +100,7 @@
+ 		<font color="blue"><a href="/news.php">[{more_news} ...]</a></font>
+ 		</td>
+ 	</tr>
+-	<tr><td colspan="2" class="header"><img src="tpl/stdstyle/images/cache/traditional.gif" border="0" width="32" height="32" alt="Cachesuche" title="Cachesuche" align="middle" /><font size="2">  <b>{newest_caches}</b></font><br/></td></tr>
++	<tr><td colspan="2" class="header"><img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="Cachesuche" title="Cachesuche" align="middle" /><font size="2">  <b>{newest_caches}</b></font><br/></td></tr>
+ 	<tr><td class="spacer"></td></tr>
+ 	<tr>
+ 		<td style="padding-left:16px; padding-bottom:0px;" width="99%">
+@@ -116,7 +116,7 @@
+ 			<b>{total_of_active_caches}: <font color="blue">{hiddens}</font> | {number_of_founds}: <font color="blue">{founds}</font> | {number_of_active_users}: <font color="blue">{users} </font></b>
+ 		</td>
+ 	</tr>
+-	<tr><td colspan="2" class="header"><img src="tpl/stdstyle/images/cache/event.gif" border="0" width="32" height="32" alt="Cachesuche" title="Cachesuche" align="middle" /><font size="2">  <b>{incomming_events}</b></font></td></tr>
++	<tr><td colspan="2" class="header"><img src="tpl/stdstyle/images/cache/event.png" border="0" width="32" height="32" alt="Cachesuche" title="Cachesuche" align="middle" /><font size="2">  <b>{incomming_events}</b></font></td></tr>
+ 	<tr><td class="spacer"></td></tr>
+ 	<tr>
+ 		<td colspan="2" style="padding-left:16px; padding-bottom:16px;">
+Index: tpl/stdstyle/glosowanie_do_rr.tpl.php
+===================================================================
+--- tpl/stdstyle/glosowanie_do_rr.tpl.php	(revision 753)
++++ tpl/stdstyle/glosowanie_do_rr.tpl.php	(working copy)
+@@ -1,7 +1,7 @@
+ <table class="content">
+ <tr>
+ 	<td class="header">
+-		<img src="tpl/stdstyle/images/cache/traditional.gif" border="0" width="32" height="32" alt="" title="" align="middle"><font size="4">  <b>Głosowanie do Rady Rejsu 2009</b></font>
++		<img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="" title="" align="middle"><font size="4">  <b>Głosowanie do Rady Rejsu 2009</b></font>
+ 	</td>
+ </tr>
+ <tr><td class="spacer" colspan="2"></td></tr>
+Index: tpl/stdstyle/images/cache/quiz-s-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/quiz-s-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/16x16-traditional.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/16x16-traditional.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/virtual-d-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/multi-s-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/multi-s-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/virtual-s-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/multi-d-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/drivein-n-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-n-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/event-n-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/multi-d-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-d-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/webcam-d-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/virtual-n-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/virtual-s.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/virtual.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/multi-s.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/multi-n-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/traditional-n-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/unknown-d.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/unknown-d.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/event-a.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-s.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/event-s.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/unknown-n-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/unknown-n-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/quiz-i-bw.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/quiz-i-bw.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/unknown-d-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/unknown-d-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/moving-i.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-a-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/webcam-a-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/moving-d-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/drivein-s-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-s-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/event-s-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/unknown-n-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/unknown-n-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/virtual-d-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/virtual-d-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/unknown-a-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/traditional-s-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mystery-d-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/moving-a-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/unknown-s-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/unknown-s-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/22x22-traditional.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/16x16-virtual.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/16x16-virtual.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/unknown-n.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/virtual-a-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/virtual-a-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/moving-s.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/16x16-mystery.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mystery-a-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/multi-d-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/unknown-s-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/traditional-d-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/traditional-d-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/multi-a-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-a-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/webcam-a-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/traditional-d-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/traditional-d-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/event-s-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/event-s-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/drivein-s-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/traditional-a.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/traditional-s.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/traditional-s.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/traditional-n-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/traditional-n-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/drivein-n.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/traditional-a-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/drivein.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/virtual-i-bw.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/traditional-s-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/moving-a-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/unknown-s-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/unknown-s-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/webcam-n.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/webcam-n.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/traditional.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/unknown-i-bw.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-d-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/virtual-a-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/virtual-a-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/webcam-d.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/traditional-s-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mathe-d.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/16x16-mathe.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mystery-i.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-n-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/webcam-n-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/mystery-a-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/unknown-o-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-rand4.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/quiz-d.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/quiz-d.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/unknown-d-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/16x16-multi.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/16x16-multi.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/unknown.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mystery-a-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/multi-a-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/virtual-n.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/virtual-n.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/quiz-d-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/quiz-d-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/traditional-d-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/traditional-d-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/moving-n-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/multi-n.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/multi-n.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/virtual-d.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/virtual-n-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/virtual-n-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/multi-d.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mystery-s.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mystery-n-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/traditional-a-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/traditional-a-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/event-d.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/event-d.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/mystery-s-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-a-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/event-a-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/event-d-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/unknown-a.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/unknown-a.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/multi-n-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-n-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/webcam-n-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/16x16-unknown.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/16x16-unknown.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/unknown-i.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-s-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/event-s-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/event-d-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-a-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-n.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/moving-d.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/quiz-d-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/quiz-d-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/wydarzenie.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-n-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/moving-n-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/moving-d-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-s-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/webcam-s-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/unknown-a-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/virtual-n-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/virtual-n-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/matematyczna.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/quiz-a-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/quiz-a-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/traditional-a-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/traditional-a-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/unknown-s.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/moving-n-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mystery-n-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/moving-s-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/traditional-d.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/traditional-d.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/multi-n-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/virtual-s-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/virtual-s-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/16x16-webcam.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/16x16-moving.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/drivein-a-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mystery-s-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-a-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/nieznany_typ.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/traditional-n-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/traditional-n-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/24x24-webcam.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/24x24-webcam.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/drivein-s.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-d-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/webcam-d-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/multi-s-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/16x16-event.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-s-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/webcam-s-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/drivein-s-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/traditional-n.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/unknown-a-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mathe-a.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-a.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/webcam.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/webcam-s.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/webcam-s.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/quiz-a-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/quiz-a-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/webcam-n-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/webcam-n-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/mathe-a-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-a-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-rand1.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-n-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/quiz-a.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/quiz-a.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/moving-s-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mathe-d-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-d-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/virtual-d-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/virtual-d-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/mystery-d.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/virtual-s-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/virtual-s-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/quiz-i.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/quiz-i.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/quiz-d-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/quiz-d-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/multi-d-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/multi-d-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/multi-d-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/multi-d-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/mathe-s-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/unknown-n-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-s-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mystery-s-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/virtual-a.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/virtual-s.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/virtual-s.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/virtual-n-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/virtual-n-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/virtual.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/virtual.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/quiz-n-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/quiz-n-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/multi-a.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/multi-n-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/multi-n-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/multi-s.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/multi-s.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/virtual-a-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/quiz-n-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/quiz-n-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/traditional-n-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/traditional-n-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/mystery.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/multi-a-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-a.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/event-a.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/virtual-d-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/multi-s-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-i.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/24x24-virtual.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/24x24-virtual.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/mystery-i-bw.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/multi.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/newevent.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/virtual-s-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/16x16-traditional.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/multi-s-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/unknown-a-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/unknown-a-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/traditional-s-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/traditional-s-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/event-n-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mathe-d-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-d-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/unknown-n.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/unknown-n.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/moving-a.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/unknown-d.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/24x24-event.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/24x24-event.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/event-s.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/unknown-n-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/multi-d-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/multi-d-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/unknown-s-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/unknown-s-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/mathe-a-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/traditional-i-bw.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/unknown-d-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-a-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/24x24-quiz.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/24x24-quiz.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/quiz-n-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/quiz-n-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/event-s-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/unknown-n-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/virtual-d-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/multi-a-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/multi-a-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/traditional-a.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/traditional-a.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/unknown-s-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/16x16-virtual.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-i-bw.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/traditional-a-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/traditional-a-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/virtual-a-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/traditional-i.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/quiz-s-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/quiz-s-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/drivein-d.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/traditional-s-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/traditional-s-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/traditional.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/traditional.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/event-d-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/event-d-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/drivein-d-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/traditional-s-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/traditional-s-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/webcam-d.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/webcam-d.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/event.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/event.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/traditional-d-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/traditional-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mathe-a-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/traditional-d-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-a-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/wirtualna.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/unknown-d-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/unknown-d-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/tradycyjna.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-s-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/traditional-n-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/traditional-s.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/unknown.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/unknown.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/multi-a-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/multi-a-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/event-rand2.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/virtual-d.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/virtual-d.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/unknown-s-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mathe-n.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-n.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mystery-a.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/multi-d.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/multi-d.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/virtual-a-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/24x24-unknown.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/24x24-unknown.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/quiz-s-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/quiz-s-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/quiz-n.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/quiz-n.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/mystery-d-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mathe-n-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-n-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mystery-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/quiz.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/quiz.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/drivein-d-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-d-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/event-d-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/mystery-n-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/16x16-multi.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/multi-n-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/multi-n-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/virtual-n.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/traditional-d-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/16x16-drivein.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/multi-n.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-d-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/event-d-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/drivein-a-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/unknown-d-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/unknown-d-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/event-a-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/event-a-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/virtual-n-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/16x16-quiz.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/16x16-quiz.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/event-n.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/event-n.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/event-i-bw.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/wielokrotna.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-n-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/event-n-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/traditional-a-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-d.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-a-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/unknown-a-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/unknown-a-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/unknown-a.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/unknown-s.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/unknown-s.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/webcam-n-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mathe-n-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mobilna.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/16x16-unknown.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/moving-a-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-s-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/moving-n.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/multi-n-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/multi-n-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/16x16-webcam.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/16x16-webcam.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/moving-s-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-a-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/event-a-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/drivein-a-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-s-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mathe-s-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/virtual-n-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/drivein-a.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/traditional-a-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/multi-s-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/multi-s-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/16x16-event.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/16x16-event.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/traditional-n.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/traditional-n.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/unknown-a-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/unknown-a-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/drivein-d-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/24x24-multi.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/24x24-multi.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/traditional-d.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-a.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/webcam-a.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/virtual-s-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-a-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/webcam-a-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/drivein-n-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-i.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-n-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/event-n-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/drivein-n-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/multi-i-bw.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-d-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/webcam-d-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/24x24-traditional.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/24x24-traditional.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/moving-i-bw.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/traditional-n-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-s-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/webcam-s-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/unknown-n-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/unknown-n-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/virtual-a.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/virtual-a.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/webcam-d-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mathe-d-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-s-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/event-rand3.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mathe-s-owner.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/multi-a.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/multi-a.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/virtual-a-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/virtual-a-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/moving-d-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/quiz-a-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/quiz-a-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/virtual-i.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/multi-a-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/multi-a-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/webcam.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-s.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/webcam-n-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mathe-n-dnf.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mathe-s.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/mathe.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/moving.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/multi-i.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/virtual-d-found.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/virtual-d-found.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/tmp.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/multi-s-owner.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/multi-s-owner.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/mystery-d-found.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/quiz-s.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/quiz-s.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/mystery-n.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: tpl/stdstyle/images/cache/multi.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/multi.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/images/cache/virtual-s-dnf.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: tpl/stdstyle/images/cache/virtual-s-dnf.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: tpl/stdstyle/css/main.css
+===================================================================
+--- tpl/stdstyle/css/main.css	(revision 753)
++++ tpl/stdstyle/css/main.css	(working copy)
+@@ -1,5 +1,9 @@
++
++
+ #SendToGPS { BACKGROUND: #dde3d6; BORDER-RIGHT: #005e9d 2px outset; BORDER-TOP: #000000 1px outset; FONT-WEIGHT: bold; FONT-SIZE: 8pt; PADDING-BOTTOM: 2px; BORDER-LEFT: #000000 1px outset; PADDING-TOP: 2px; BORDER-BOTTOM: #005e9d 2px outset; FONT-FAMILY: verdana }
+ 
++img { behavior: url(iepngfix/iepngfix.htc) }
++
+ .topframe {
+   padding:5px;
+   border:1px solid black;
+@@ -359,6 +363,10 @@
+ 	width:85%;
+ }
+ 
++td {
++position: relative; // iepngfix
++}
++
+ #quicklinksbox
+ {
+ 	width:165px;
+Index: tpl/stdstyle/editcache.tpl.php
+===================================================================
+--- tpl/stdstyle/editcache.tpl.php	(revision 753)
++++ tpl/stdstyle/editcache.tpl.php	(working copy)
+@@ -137,7 +137,7 @@
+ 		<col width="150">
+ 		<col>
+ 	</colgroup>
+-	<tr><td class="header" colspan="2"><img src="tpl/stdstyle/images/cache/traditional.gif" border="0" width="32" height="32" alt="" title="Nowe Cache" align="middle"> <b>Edycja skrzynki <a href="viewcache.php?cacheid={cacheid}">{name}</a></b></td></tr>
++	<tr><td class="header" colspan="2"><img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="" title="Nowe Cache" align="middle"> <b>Edycja skrzynki <a href="viewcache.php?cacheid={cacheid}">{name}</a></b></td></tr>
+ 	{general_message}
+ 	<tr><td class="spacer" colspan="2"></td></tr>
+ 	<tr>
+Index: tpl/stdstyle/admin_searchuser.tpl.php
+===================================================================
+--- tpl/stdstyle/admin_searchuser.tpl.php	(revision 753)
++++ tpl/stdstyle/admin_searchuser.tpl.php	(working copy)
+@@ -3,7 +3,7 @@
+ ?>
+ <form name="optionsform" style="display:inline;" action='admin_searchuser.php' method="POST">
+ <table class="content" border="0" cellspacing="0px" cellpadding="0px">
+-<tr><td class="header"><img src="tpl/stdstyle/images/cache/traditional.gif" border="0" width="32" height="32" alt="" title="" align="middle"><font size="4">  <b>Szukaj użytkownika</b></font></td></tr>
++<tr><td class="header"><img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="" title="" align="middle"><font size="4">  <b>Szukaj użytkownika</b></font></td></tr>
+ <tr><td class="spacer"></td></tr>
+ <tr>
+ 	<td>
+Index: tpl/stdstyle/articles/aboutgc1.tpl.php
+===================================================================
+--- tpl/stdstyle/articles/aboutgc1.tpl.php	(revision 753)
++++ tpl/stdstyle/articles/aboutgc1.tpl.php	(working copy)
+@@ -2,7 +2,7 @@
+ 	<colgroup>
+ 		<col width="100">
+ 	</colgroup>
+-	<tr><td class="header"><img src="tpl/stdstyle/images/cache/traditional.gif" border="0" width="32" height="32" alt="�ber" title="�ber" align="middle"><font size="4">  <b>Co to jest Geocaching?</b></font></td></tr>
++	<tr><td class="header"><img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="�ber" title="�ber" align="middle"><font size="4">  <b>Co to jest Geocaching?</b></font></td></tr>
+ 	<tr><td class="spacer"></td></tr>
+ 	<tr>
+ 		<td>
+Index: tpl/stdstyle/articles/mapa.tpl.php
+===================================================================
+--- tpl/stdstyle/articles/mapa.tpl.php	(revision 753)
++++ tpl/stdstyle/articles/mapa.tpl.php	(working copy)
+@@ -26,6 +26,6 @@
+ <br><br>
+ <b>Legenda:</b>
+ <table>
+-<tr><td><img src=http://opencaching.pl/tpl/stdstyle/images/cache/16x16-traditional.gif>  Tradycyjna</td><td><img src=http://opencaching.pl/tpl/stdstyle/images/cache/16x16-multi.gif>  Multicache</td><td><img src=http://opencaching.pl/tpl/stdstyle/images/cache/16x16-mystery.gif>  Quiz</td><td><img src=http://opencaching.pl/tpl/stdstyle/images/cache/16x16-moving.gif>  Mobilna</td></tr>
+-<tr><td><img src=http://opencaching.pl/tpl/stdstyle/images/cache/16x16-virtual.gif>  Wirtualna</td><td><img src=http://opencaching.pl/tpl/stdstyle/images/cache/16x16-webcam.gif>  Webcam</td><td><img src=http://opencaching.pl/tpl/stdstyle/images/cache/16x16-event.gif>  Wydarzenie</td><td><img src=http://opencaching.pl/tpl/stdstyle/images/cache/16x16-unknown.gif>  Nieznany typ</td></tr>
++<tr><td><img src="http://opencaching.pl/tpl/stdstyle/images/cache/16x16-traditional.png">  Tradycyjna</td><td><img src="http://opencaching.pl/tpl/stdstyle/images/cache/16x16-multi.png">  Multicache</td><td><img src="http://opencaching.pl/tpl/stdstyle/images/cache/16x16-quiz.png">  Quiz</td><td><img src="http://opencaching.pl/tpl/stdstyle/images/cache/16x16-moving.png">  Mobilna</td></tr>
++<tr><td><img src="http://opencaching.pl/tpl/stdstyle/images/cache/16x16-virtual.png">  Wirtualna</td><td><img src="http://opencaching.pl/tpl/stdstyle/images/cache/16x16-webcam.png">  Webcam</td><td><img src="http://opencaching.pl/tpl/stdstyle/images/cache/16x16-event.png">  Wydarzenie</td><td><img src="http://opencaching.pl/tpl/stdstyle/images/cache/16x16-unknown.png">  Nieznany typ</td></tr>
+ </table>
+\ No newline at end of file
+Index: tpl/stdstyle/articles/cacheinfo.tpl.php
+===================================================================
+--- tpl/stdstyle/articles/cacheinfo.tpl.php	(revision 753)
++++ tpl/stdstyle/articles/cacheinfo.tpl.php	(working copy)
+@@ -20,7 +20,7 @@
+ 			<b>Rodzaje skrzynek:</b> Jest kilka interesujących rodzajów skrzynek.
+ 			<table border="0">
+ 				<tr>
+-					<td valign="middle"><img src="tpl/stdstyle/images/cache/traditional.gif" width="32" border="0" height="32" align="left" alt="Tradycyjna skrzynka" title="Tradycyjna skrzynka"></td>
++					<td valign="middle"><img src="tpl/stdstyle/images/cache/traditional.png" width="32" border="0" height="32" align="left" alt="Tradycyjna skrzynka" title="Tradycyjna skrzynka"></td>
+ 					<td><b>Tradycyjna</b>: Na wskazanych współrzędnych skrzynki znajdziesz pojemnik z dziennikiem. Często w pojemniku
+ 					są małe prezenty (CD, breloczek, maskotka itp). Ogólna zasada: jeśli bierzesz rzecz w zamian zostawiasz inną rzecz.
+ 					Jeśli rozmiary skrzynki są mikro wtedy zawiera ona tylko dziennik w którym wpisujesz się.
+@@ -28,39 +28,39 @@
+ 				</tr>
+ 				<tr><td class="spacer"><img src="images/trans.gif" border="0" width="1" height="1" alt="" title=""></td></tr>
+ 				<tr>
+-					<td valign="middle"><img src="tpl/stdstyle/images/cache/multi.gif" width="32" border="0" height="32" align="left" alt="Multi Cache" title="Multi Cache"></td>
++					<td valign="middle"><img src="tpl/stdstyle/images/cache/multi.png" width="32" border="0" height="32" align="left" alt="Multi Cache" title="Multi Cache"></td>
+ 					<td><b>Multicache</b>: Podane współrzędne wskazują pozycje obszaru docelowego na którym znajduje się pierwsza skrzynka. Przed znalezieniem docelowej skrzynki musisz znaleźć inne pośrednie skrzynki, które zawierają kolejne wskazówki o następnym miejscu. Docelowa skrzynka jest to pojemnik zawierający dziennik. <b>Uwaga rejestrujemy tylko pierwszą skrzynkę! Nie rejstruje się skrzynek pośrednich.</b></td>
+ 				</tr>
+ 				<tr><td class="spacer"><img src="images/trans.gif" border="0" width="1" height="1" alt="" title=""></td></tr>
+ 				<tr>
+-					<td valign="middle"><img src="tpl/stdstyle/images/cache/mystery.gif" width="32" border="0" height="32" align="left" alt="Tajemnica" title="Tajemnica"></td>
++					<td valign="middle"><img src="tpl/stdstyle/images/cache/quiz.png" width="32" border="0" height="32" align="left" alt="Quiz" title="Quiz"></td>
+ 					<td><b>Quiz</b>: Tego typu skrzynka może być to dowolna skrzynka (tradycyjna, multi, wirtualna itd.) 
+ 					ale żeby znaleźć docelową skrzynkę należy rozwiązać łamigłówkę, ułożyć puzzle z obrazka.</td>
+ 				</tr>
+ 				<tr><td class="spacer"><img src="images/trans.gif" border="0" width="1" height="1" alt="" title=""></td></tr>
+ 				<tr>
+-					<td valign="middle"><img src="tpl/stdstyle/images/cache/moving.gif" width="32" border="0" height="32" align="left" alt="Mobilna" title="Mobilna"></td>
++					<td valign="middle"><img src="tpl/stdstyle/images/cache/moving.png" width="32" border="0" height="32" align="left" alt="Mobilna" title="Mobilna"></td>
+ 					<td><b>Mobilna</b>: Każdy kto znajdzie skrzynkę przenosi ją na nowe miejsce i <b>nowe współrzędne są publikowane w internetowym LOG'u'</b>.</td>
+ 				</tr>
+ 				<tr><td class="spacer"><img src="images/trans.gif" border="0" width="1" height="1" alt="" title=""></td></tr>
+ 				<tr>
+-					<td valign="middle"><img src="tpl/stdstyle/images/cache/virtual.gif" width="32" border="0" height="32" align="left" alt="Virtualna" title="Virtualna"></td>
++					<td valign="middle"><img src="tpl/stdstyle/images/cache/virtual.png" width="32" border="0" height="32" align="left" alt="Wirtualna" title="Wirtualna"></td>
+ 					<td><b>Wirtualna</b>: Celem nie jest znalezienie pojemnika z dziennikiem ale należy odwiedzić wskazane miejsce gdzie będzie można znaleźć hasło do internetowego LOGu aby dokonać wpisu ZNALEZIONA. Często pod wskazanymi współrzędnymi są to ciekawe miejsca</td>
+ 				</tr>
+ 				<tr><td class="spacer"><img src="images/trans.gif" border="0" width="1" height="1" alt="" title=""></td></tr>
+ 				<tr>
+-					<td valign="middle"><img src="tpl/stdstyle/images/cache/webcam.gif" width="32" border="0" height="32" align="left" alt="Webcam" title="Webcam"></td>
++					<td valign="middle"><img src="tpl/stdstyle/images/cache/webcam.png" width="32" border="0" height="32" align="left" alt="Webcam" title="Webcam"></td>
+ 					<td><b>Webcam</b>: Są to często miejsca gdzie znajdują się kamery umieszczone przez osoby lub agencje które monitorują dany obszar.
+ 					Celem jest zrobienie zdjęcia z tej kamery na którym jesteśmy osobiście. Zadanie to wymaga pomocy przyjaciela który obserwuje obraz z tej kamery
+ 					i zapisze obrazek wtedy kiedy będziesz widzany na tym zdjęciu.</td>
+ 				</tr>
+ 				<tr>
+-					<td valign="middle"><img src="tpl/stdstyle/images/cache/event.gif" width="32" border="0" height="32" align="left" alt="Event" title="Wydarzenie"></td>
++					<td valign="middle"><img src="tpl/stdstyle/images/cache/event.png" width="32" border="0" height="32" align="left" alt="Event" title="Wydarzenie"></td>
+ 					<td><b>Wydarzenie</b>: Zaplanowane spotkanie miłośników geocachingu w zaplanowanym terminie i podanych współrzędnych.</td>
+ 				</tr>
+ 				<tr><td class="spacer"><img src="images/trans.gif" border="0" width="1" height="1" alt="" title=""></td></tr>
+ 				<tr>
+-					<td valign="middle"><img src="tpl/stdstyle/images/cache/unknown.gif" width="32" border="0" height="32" align="left" alt="Inne" title="Inne"></td>
++					<td valign="middle"><img src="tpl/stdstyle/images/cache/unknown.png" width="32" border="0" height="32" align="left" alt="Inne" title="Inne"></td>
+ 					<td><b>Inny typ skrzynki</b>: Wszystkie inne ukryte skrzynki z pojemnikiem których rodzaj nie pasuje do wyżej opisanych.</td>
+ 				</tr>
+ 			</table>
+Index: tpl/stdstyle/articles/aboutgc.tpl.php
+===================================================================
+--- tpl/stdstyle/articles/aboutgc.tpl.php	(revision 753)
++++ tpl/stdstyle/articles/aboutgc.tpl.php	(working copy)
+@@ -2,7 +2,7 @@
+ 	<colgroup>
+ 		<col width="100">
+ 	</colgroup>
+-	<tr><td class="header"><img src="tpl/stdstyle/images/cache/traditional.gif" border="0" width="32" height="32" alt="�ber" title="�ber" align="middle"><font size="4">  <b>Co to jest geocaching?</b></font></td></tr>
++	<tr><td class="header"><img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="�ber" title="�ber" align="middle"><font size="4">  <b>Co to jest geocaching?</b></font></td></tr>
+ 	<tr><td class="spacer"></td></tr>
+ 	<tr>
+ 		<td>
+Index: tpl/stdstyle/searchuser.tpl.php
+===================================================================
+--- tpl/stdstyle/searchuser.tpl.php	(revision 753)
++++ tpl/stdstyle/searchuser.tpl.php	(working copy)
+@@ -3,7 +3,7 @@
+ ?>
+ <form name="optionsform" style="display:inline;" action='searchuser.php' method="POST">
+ <table class="content" border="0" cellspacing="0px" cellpadding="0px">
+-<tr><td class="header"><img src="tpl/stdstyle/images/cache/traditional.gif" border="0" width="32" height="32" alt="" title="" align="middle"><font size="4">  <b>Szukaj użytkownika</b></font></td></tr>
++<tr><td class="header"><img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="" title="" align="middle"><font size="4">  <b>Szukaj użytkownika</b></font></td></tr>
+ <tr><td class="spacer"></td></tr>
+ <tr>
+ 	<td>
+Index: tpl/stdstyle/search.result.caches.tpl.php
+===================================================================
+--- tpl/stdstyle/search.result.caches.tpl.php	(revision 753)
++++ tpl/stdstyle/search.result.caches.tpl.php	(working copy)
+@@ -28,7 +28,7 @@
+ ?>
+ <table class="content" border="0" cellspacing="0px" cellpadding="0px">
+ 	<tr>
+-		<td class="header"><img src="tpl/stdstyle/images/cache/traditional.gif" border="0" width="32" height="32" alt="Wyszukiwanie" title="Suchergebnis" align="middle"> <b>Wyniki poszukiwań. Liczba znalezionych skrzynek:</b> {results_count}</td>
++		<td class="header"><img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="Wyszukiwanie" title="Suchergebnis" align="middle"> <b>Wyniki poszukiwań. Liczba znalezionych skrzynek:</b> {results_count}</td>
+ 		<td class="header" align="right" style="padding-right:1ex;">[<a href="search.php?queryid={queryid}&showresult=0">Szukaj</a>]{safelink}&nbsp;</td>
+ 	</tr>
+ 	<tr><td class="spacer" colspan="2"></td></tr>
+Index: tpl/stdstyle/glosowanie_do_rr_info.tpl.php
+===================================================================
+--- tpl/stdstyle/glosowanie_do_rr_info.tpl.php	(revision 753)
++++ tpl/stdstyle/glosowanie_do_rr_info.tpl.php	(working copy)
+@@ -1,7 +1,7 @@
+ <table class="content">
+ <tr>
+ 	<td class="header">
+-		<img src="tpl/stdstyle/images/cache/traditional.gif" border="0" width="32" height="32" alt="" title="" align="middle"><font size="4">  <b>Głosowanie do Rady Rejsu 2009</b></font>
++		<img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="" title="" align="middle"><font size="4">  <b>Głosowanie do Rady Rejsu 2009</b></font>
+ 	</td>
+ </tr>
+ <tr><td class="spacer" colspan="2"></td></tr>
+Index: tpl/stdstyle/cachemap2.tpl.php
+===================================================================
+--- tpl/stdstyle/cachemap2.tpl.php	(revision 753)
++++ tpl/stdstyle/cachemap2.tpl.php	(working copy)
+@@ -138,25 +138,21 @@
+ 	{
+ 		case "T":
+ 		default:
+-			return "traditional"+statusToImageName(status)+".gif";
+-		case "C":
+-			return "mathe"+statusToImageName(status)+".gif";
+-		case "D":
+-			return "drivein"+statusToImageName(status)+".gif";
++			return "traditional"+statusToImageName(status)+".png";
+ 		case "E":
+-			return "event"+statusToImageName(status)+".gif";
++			return "event"+statusToImageName(status)+".png";
+ 		case "M":
+-			return "multi"+statusToImageName(status)+".gif";
++			return "multi"+statusToImageName(status)+".png";
+ 		case "O":
+-			return "moving"+statusToImageName(status)+".gif";
++			return "moving"+statusToImageName(status)+".png";
+ 		case "Q":
+-			return "mystery"+statusToImageName(status)+".gif";
++			return "quiz"+statusToImageName(status)+".png";
+ 		case "U":
+-			return "unknown"+statusToImageName(status)+".gif";
++			return "unknown"+statusToImageName(status)+".png";
+ 		case "V":
+-			return "virtual"+statusToImageName(status)+".gif";
++			return "virtual"+statusToImageName(status)+".png";
+ 		case "W":
+-			return "webcam"+statusToImageName(status)+".gif";
++			return "webcam"+statusToImageName(status)+".png";
+ 		
+ 		
+ 	}
+Index: tpl/stdstyle/cachemap3.tpl.php
+===================================================================
+--- tpl/stdstyle/cachemap3.tpl.php	(revision 753)
++++ tpl/stdstyle/cachemap3.tpl.php	(working copy)
+@@ -108,26 +108,22 @@
+ 		switch( type )
+ 		{
+ 			case "1":
+-				return "unknown"+statusToImageName(status)+".gif";
++				return "unknown"+statusToImageName(status)+".png";
+ 			case "2":
+ 			default:
+-				return "traditional"+statusToImageName(status)+".gif";
++				return "traditional"+statusToImageName(status)+".png";
+ 			case "3":
+-				return "multi"+statusToImageName(status)+".gif";
++				return "multi"+statusToImageName(status)+".png";
+ 			case "4":
+-				return "virtual"+statusToImageName(status)+".gif";
++				return "virtual"+statusToImageName(status)+".png";
+ 			case "5":
+-				return "webcam"+statusToImageName(status)+".gif";
++				return "webcam"+statusToImageName(status)+".png";
+ 			case "6":
+-				return "event"+statusToImageName(status)+".gif";
++				return "event"+statusToImageName(status)+".png";
+ 			case "7":
+-				return "mystery"+statusToImageName(status)+".gif";
++				return "quiz"+statusToImageName(status)+".png";
+ 			case "8":
+-				return "moving"+statusToImageName(status)+".gif";
+-			//case "C":
+-			//	return "mathe"+statusToImageName(status)+".gif";
+-			//case "D":
+-			//	return "drivein"+statusToImageName(status)+".gif";
++				return "moving"+statusToImageName(status)+".png";
+ 		}
+ 	}
+ 	
+Index: tpl/stdstyle/glosowanie_do_rr_wyniki.tpl.php
+===================================================================
+--- tpl/stdstyle/glosowanie_do_rr_wyniki.tpl.php	(revision 753)
++++ tpl/stdstyle/glosowanie_do_rr_wyniki.tpl.php	(working copy)
+@@ -1,7 +1,7 @@
+ <table class="content">
+ <tr>
+ 	<td class="header">
+-		<img src="tpl/stdstyle/images/cache/traditional.gif" border="0" width="32" height="32" alt="" title="" align="middle"><font size="4">  <b>Głosowanie do Rady Rejsu 2009</b></font>
++		<img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="" title="" align="middle"><font size="4">  <b>Głosowanie do Rady Rejsu 2009</b></font>
+ 	</td>
+ </tr>
+ <tr><td class="spacer" colspan="2"></td></tr>
+Index: tpl/stdstyle/viewprofile.tpl.php
+===================================================================
+--- tpl/stdstyle/viewprofile.tpl.php	(revision 753)
++++ tpl/stdstyle/viewprofile.tpl.php	(working copy)
+@@ -85,7 +85,7 @@
+ 	<tr><td class="spacer" colspan="2"></td></tr>
+ 	<tr>
+ 		<td class="header-small">
+-		<img src="tpl/stdstyle/images/cache/22x22-traditional.gif" width="22" height="22" align="middle" border="0" alt="Logs" title="Logs">&nbsp;{hidden_caches}:</td>
++		<img src="tpl/stdstyle/images/cache/22x22-traditional.png" width="22" height="22" align="middle" border="0" alt="Logs" title="Logs">&nbsp;{hidden_caches}:</td>
+ 		<td class="header-small">{hidden}
+ 			[<a href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=byname&amp;ownerid={userid}&amp;searchbyowner=&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">{show_all}</a>]
+ 
+@@ -119,7 +119,7 @@
+ 
+ 	<tr>
+ 		<td class="header-small">
+-		<img src="tpl/stdstyle/images/cache/22x22-traditional.gif" width="22" height="22" align="middle" border="0" alt="{my_recommendations}" title="{my_recommendations}">&nbsp;{my_recommendations}:</td>
++		<img src="tpl/stdstyle/images/cache/22x22-traditional.png" width="22" height="22" align="middle" border="0" alt="{my_recommendations}" title="{my_recommendations}">&nbsp;{my_recommendations}:</td>
+ 		<td class="header-small" >{recommended} {out_of} {maxrecommended} [<a href="usertops.php?userid={userid}">{show_all}</a>]
+ 		</td>
+ 	</tr>
+Index: tpl/stdstyle/admin_addnews_confirm.tpl.php
+===================================================================
+--- tpl/stdstyle/admin_addnews_confirm.tpl.php	(revision 753)
++++ tpl/stdstyle/admin_addnews_confirm.tpl.php	(working copy)
+@@ -13,7 +13,7 @@
+ <table class="content">
+ <tr>
+ 	<td class="header">
+-		<img src="tpl/stdstyle/images/cache/traditional.gif" border="0" width="32" height="32" alt="" title="" align="middle"><font size="4">  <b>Dodaj newsa</b></font>
++		<img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="" title="" align="middle"><font size="4">  <b>Dodaj newsa</b></font>
+ 	</td>
+ </tr>
+ <tr><td class="spacer" colspan="2"></td></tr>
+Index: tpl/stdstyle/newcache.tpl.php
+===================================================================
+--- tpl/stdstyle/newcache.tpl.php	(revision 753)
++++ tpl/stdstyle/newcache.tpl.php	(working copy)
+@@ -144,7 +144,7 @@
+ 		<col width="200">
+ 		<col>
+ 	</colgroup>
+-	<tr><td class="header" colspan="2"><img src="tpl/stdstyle/images/cache/traditional.gif" border="0" width="32" height="32" alt="" title="{new_cache}" align="middle"><font size="4" <b>{new_cache}</b></font></td></tr>
++	<tr><td class="header" colspan="2"><img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="" title="{new_cache}" align="middle"><font size="4" <b>{new_cache}</b></font></td></tr>
+ 	{general_message}
+ 	<tr><td class="spacer" colspan="2"></td></tr>
+ 	<tr>
+Index: tpl/stdstyle/admin_bulletin.tpl.php
+===================================================================
+--- tpl/stdstyle/admin_bulletin.tpl.php	(revision 753)
++++ tpl/stdstyle/admin_bulletin.tpl.php	(working copy)
+@@ -1,7 +1,7 @@
+ <table class="content">
+ <tr>
+ 	<td class="header">
+-		<img src="tpl/stdstyle/images/cache/traditional.gif" border="0" width="32" height="32" alt="" title="" align="middle"><font size="4">  <b>Wyślij biuletyn</b></font>
++		<img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="" title="" align="middle"><font size="4">  <b>Wyślij biuletyn</b></font>
+ 	</td>
+ </tr>
+ <tr><td class="spacer" colspan="2"></td></tr>
+Index: tpl/stdstyle/search.simple.tpl.php
+===================================================================
+--- tpl/stdstyle/search.simple.tpl.php	(revision 753)
++++ tpl/stdstyle/search.simple.tpl.php	(working copy)
+@@ -215,28 +215,44 @@
+ 
+ function getCachetypeFilter(){
+ 	var cachetype_filter = '';
+-	cachetype_filter = cachetype_filter.concat(document.getElementById('cachetype_1').src.search(/-i.png/) == -1 ? 0 : 1);
+-	cachetype_filter = cachetype_filter.concat(document.getElementById('cachetype_2').src.search(/-i.png/) == -1 ? 0 : 1);
+-	cachetype_filter = cachetype_filter.concat(document.getElementById('cachetype_3').src.search(/-i.png/) == -1 ? 0 : 1);
+-	cachetype_filter = cachetype_filter.concat(document.getElementById('cachetype_4').src.search(/-i.png/) == -1 ? 0 : 1);
+-	cachetype_filter = cachetype_filter.concat(document.getElementById('cachetype_5').src.search(/-i.png/) == -1 ? 0 : 1);
+-	cachetype_filter = cachetype_filter.concat(document.getElementById('cachetype_6').src.search(/-i.png/) == -1 ? 0 : 1);
+-	cachetype_filter = cachetype_filter.concat(document.getElementById('cachetype_7').src.search(/-i.png/) == -1 ? 0 : 1);
+-	cachetype_filter = cachetype_filter.concat(document.getElementById('cachetype_8').src.search(/-i.png/) == -1 ? 0 : 1);
++	cachetype_filter = cachetype_filter.concat(document.getElementById('cachetype_1').style.visibility == 'hidden' ? 0 : 1);
++	cachetype_filter = cachetype_filter.concat(document.getElementById('cachetype_2').style.visibility == 'hidden' ? 0 : 1);
++	cachetype_filter = cachetype_filter.concat(document.getElementById('cachetype_3').style.visibility == 'hidden' ? 0 : 1);
++	cachetype_filter = cachetype_filter.concat(document.getElementById('cachetype_4').style.visibility == 'hidden' ? 0 : 1);
++	cachetype_filter = cachetype_filter.concat(document.getElementById('cachetype_5').style.visibility == 'hidden' ? 0 : 1);
++	cachetype_filter = cachetype_filter.concat(document.getElementById('cachetype_6').style.visibility == 'hidden' ? 0 : 1);
++	cachetype_filter = cachetype_filter.concat(document.getElementById('cachetype_7').style.visibility == 'hidden' ? 0 : 1);
++	cachetype_filter = cachetype_filter.concat(document.getElementById('cachetype_8').style.visibility == 'hidden' ? 0 : 1);
+ 	cachetype_filter = cachetype_filter.concat('0');
+ 	cachetype_filter = cachetype_filter.concat('0');
+ 	return cachetype_filter;
+ }
+ 
++
++var oldPositions = new Array();
+ function switchCacheType(image_name) {
+-	var myRegExp = /-i-bw.png/;
+-	var image_url = document.getElementById(image_name).src;
+-	var matchPos = image_url.search(myRegExp);
+-	if(matchPos != -1) {
+-		document.getElementById(image_name).src = image_url.replace("-i-bw.png", "-i.png");
+-	} else {
+-		document.getElementById(image_name).src = image_url.replace("-i.png", "-i-bw.png");
+-	}
++
++	if(document.getElementById(image_name).style.visibility == 'hidden') {
++		document.getElementById(image_name + "_bw").style.visibility = 'hidden';
++		oldPositions[image_name + "_bw"] = document.getElementById(image_name + "_bw").style.position;
++		document.getElementById(image_name + "_bw").style.position = 'absolute';
++		document.getElementById(image_name).style.visibility = '';
++		if(oldPositions[image_name])
++			document.getElementById(image_name).style.position = oldPositions[image_name];
++		else
++			document.getElementById(image_name).style.position = 'relative';;
++	}
++	else {
++		document.getElementById(image_name).style.visibility = 'hidden';
++		oldPositions[image_name] = document.getElementById(image_name).style.position;
++		document.getElementById(image_name).style.position = 'absolute';
++		document.getElementById(image_name + "_bw").style.visibility = '';
++		if(oldPositions[image_name + "_bw"])
++			document.getElementById(image_name + "_bw").style.position = oldPositions[image_name + "_bw"];
++		else
++			document.getElementById(image_name + "_bw").style.position = 'relative';
++	}
++
+ 	sync_options(null);
+ }
+ 
+@@ -298,7 +314,7 @@
+ 			<col width="200">
+ 			<col>
+ 		</colgroup>
+-		<tr><td class="header" colspan="3"><img src="tpl/stdstyle/images/cache/traditional.gif" border="0" width="32" height="32" alt="Szukanie skrzynek" title="Szukanie skrzynek" align="middle"><font size="4">  <b>{search_cache}</b></font></td></tr>
++		<tr><td class="header" colspan="3"><img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="Szukanie skrzynek" title="Szukanie skrzynek" align="middle"><font size="4">  <b>{search_cache}</b></font></td></tr>
+ 		<tr><td class="spacer" colspan="3"><span id="scriptwarning" class="errormsg">Obsługa JavaScript są wyłączone przez co możesz mieć wiele funkcji obsługi tego serwisu niedostepne.</span></td></tr>
+ 		<tr><td class="spacer" colspan="3"></td></tr>
+ 		<tr>
+Index: tpl/stdstyle/voting.tpl.php
+===================================================================
+--- tpl/stdstyle/voting.tpl.php	(revision 753)
++++ tpl/stdstyle/voting.tpl.php	(working copy)
+@@ -85,7 +85,7 @@
+ 	<tr><td class="spacer" colspan="2"></td></tr>
+ 	<tr>
+ 		<td class="header-small">
+-		<img src="tpl/stdstyle/images/cache/22x22-traditional.gif" width="22" height="22" align="middle" border="0" alt="Logs" title="Logs">&nbsp;Ukryte skrzynki:</td>
++		<img src="tpl/stdstyle/images/cache/22x22-traditional.png" width="22" height="22" align="middle" border="0" alt="Logs" title="Logs">&nbsp;Ukryte skrzynki:</td>
+ 		<td class="header-small">{hidden}
+ 			[<a href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=byname&amp;ownerid={userid}&amp;searchbyowner=">pokaż wszystkie</a>]
+ 
+@@ -119,7 +119,7 @@
+ 
+ 	<tr>
+ 		<td class="header-small">
+-		<img src="tpl/stdstyle/images/cache/22x22-traditional.gif" width="22" height="22" align="middle" border="0" alt="Rekomendowane" title="Rekomendowane">&nbsp;Rekomendowane skrzynki:</td>
++		<img src="tpl/stdstyle/images/cache/22x22-traditional.png" width="22" height="22" align="middle" border="0" alt="Rekomendowane" title="Rekomendowane">&nbsp;Rekomendowane skrzynki:</td>
+ 		<td class="header-small" >{recommended} z możliwych {maxrecommended} [<a href="usertops.php?userid={userid}">pokaż wszystkie</a>]
+ 		</td>
+ 	</tr>
+Index: tpl/stdstyle/admin_bulletin_sent.tpl.php
+===================================================================
+--- tpl/stdstyle/admin_bulletin_sent.tpl.php	(revision 753)
++++ tpl/stdstyle/admin_bulletin_sent.tpl.php	(working copy)
+@@ -1,7 +1,7 @@
+ <table class="content">
+ <tr>
+ 	<td class="header">
+-		<img src="tpl/stdstyle/images/cache/traditional.gif" border="0" width="32" height="32" alt="" title="" align="middle"><font size="4">  <b>Wyślij biuletyn</b></font>
++		<img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="" title="" align="middle"><font size="4">  <b>Wyślij biuletyn</b></font>
+ 	</td>
+ </tr>
+ <tr><td class="spacer" colspan="2"></td></tr>
+Index: tpl/stdstyle/admin_addnews.tpl.php
+===================================================================
+--- tpl/stdstyle/admin_addnews.tpl.php	(revision 753)
++++ tpl/stdstyle/admin_addnews.tpl.php	(working copy)
+@@ -16,7 +16,7 @@
+ <table class="content">
+ <tr>
+ 	<td class="header">
+-		<img src="tpl/stdstyle/images/cache/traditional.gif" border="0" width="32" height="32" alt="" title="" align="middle"><font size="4">  <b>Dodaj newsa</b></font>
++		<img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="" title="" align="middle"><font size="4">  <b>Dodaj newsa</b></font>
+ 	</td>
+ </tr>
+ <tr><td class="spacer" colspan="2"></td></tr>
+Index: tpl/stdstyle/newcaches.tpl.php
+===================================================================
+--- tpl/stdstyle/newcaches.tpl.php	(revision 753)
++++ tpl/stdstyle/newcaches.tpl.php	(working copy)
+@@ -14,7 +14,7 @@
+ 	<colgroup>
+ 		<col width="100">
+ 	</colgroup>
+-	<tr><td class="header" colspan="3"><img src="tpl/stdstyle/images/cache/traditional.gif" border="0" width="32" height="32" alt="Cache" title="Cache" align="middle"><font size="4">  <b>Najnowsze skrzynki</b></font></td></tr>
++	<tr><td class="header" colspan="3"><img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="Cache" title="Cache" align="middle"><font size="4">  <b>Najnowsze skrzynki</b></font></td></tr>
+ 	<tr><td class="spacer"></td></tr>
+ 	<tr>
+ 		<td class="header-small">{pages}</td>
+Index: tpl/stdstyle/etc/write_newcaches.inc.php
+===================================================================
+--- tpl/stdstyle/etc/write_newcaches.inc.php	(revision 753)
++++ tpl/stdstyle/etc/write_newcaches.inc.php	(working copy)
+@@ -178,7 +178,7 @@
+ 			<colgroup>
+ 				<col width="100">
+ 			</colgroup>
+-			<tr><td class="header"><img src="tpl/stdstyle/images/cache/traditional.gif" border="0" width="32" height="32" alt="Cachesuche" title="Cachesuche" align="middle"><font size="4">  <b>Najnowsze skrzynki poza Polską</b></font></td></tr>
++			<tr><td class="header"><img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="Skrzynka" title="Cachesuche" align="middle"><font size="4">  <b>Najnowsze skrzynki poza Polską</b></font></td></tr>
+ 
+ 			';
+ 	if (isset($newcaches))
+@@ -264,7 +264,7 @@
+ 			$thisline = mb_ereg_replace('{userid}', urlencode($record['user_id']), $thisline);
+ 			$thisline = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
+ 			$thisline = mb_ereg_replace('{locationstring}', $locationstring, $thisline);
+-		  $thisline = mb_ereg_replace('{cacheicon}', 'tpl/stdstyle/images/cache/event-rand'.rand(1,4).'.gif', $thisline);
++		  $thisline = mb_ereg_replace('{cacheicon}', 'tpl/stdstyle/images/cache/22x22-event.png', $thisline);
+ 
+ 			$file_content .= $thisline . "\n";
+ 		}
+Index: tpl/stdstyle/etc/ncaches.php
+===================================================================
+--- tpl/stdstyle/etc/ncaches.php	(revision 753)
++++ tpl/stdstyle/etc/ncaches.php	(working copy)
+@@ -131,7 +131,7 @@
+ 			<colgroup>
+ 				<col width="100">
+ 			</colgroup>
+-			<tr><td class="header"><img src="tpl/stdstyle/images/cache/traditional.gif" border="0" width="32" height="32" alt="Cachesuche" title="Cachesuche" align="middle"><font size="4">  <b>Die neuesten Caches ohne Deutschland</b></font></td></tr>
++			<tr><td class="header"><img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="Cachesuche" title="Cachesuche" align="middle"><font size="4">  <b>Die neuesten Caches ohne Deutschland</b></font></td></tr>
+ 			<tr><td class="spacer"></td></tr>
+ 			';
+ 	if (isset($newcaches))
+@@ -217,7 +217,7 @@
+ 			$thisline = mb_ereg_replace('{userid}', urlencode($record['user_id']), $thisline);
+ 			$thisline = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
+ 			$thisline = mb_ereg_replace('{locationstring}', $locationstring, $thisline);
+-		  $thisline = mb_ereg_replace('{cacheicon}', 'tpl/stdstyle/images/cache/event-rand'.rand(1,4).'.gif', $thisline);
++		  $thisline = mb_ereg_replace('{cacheicon}', 'tpl/stdstyle/images/cache/22x22-event.png', $thisline);
+ 
+ 			$file_content .= $thisline . "\n";
+ 		}
+Index: tpl/stdstyle/admin_cachenotfound.tpl.php
+===================================================================
+--- tpl/stdstyle/admin_cachenotfound.tpl.php	(revision 753)
++++ tpl/stdstyle/admin_cachenotfound.tpl.php	(working copy)
+@@ -4,7 +4,7 @@
+ <!--<form name="optionsform" style="display:inline;">-->
+ <form name="optionsform" style="display:inline;" action='admin_cachenotfound.php' method="GET">
+ <table class="content" border="0" cellspacing="0px" cellpadding="0px">
+-<tr><td class="header"><img src="tpl/stdstyle/images/cache/traditional.gif" border="0" width="32" height="32" alt="" title="" align="middle"><font size="4">  <b>Skrzynki nieznalezione</b></font></td></tr>
++<tr><td class="header"><img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="" title="" align="middle"><font size="4">  <b>Skrzynki nieznalezione</b></font></td></tr>
+ <tr><td class="spacer"></td></tr>
+ <tr>
+ 	<td>
+Index: tpl/stdstyle/selectlocid.tpl.php
+===================================================================
+--- tpl/stdstyle/selectlocid.tpl.php	(revision 753)
++++ tpl/stdstyle/selectlocid.tpl.php	(working copy)
+@@ -4,7 +4,7 @@
+ <table border="0" cellspacing="0" cellpadding="0" width="100%">
+ 	<tr>
+ 		<td class="header">
+-			<img src="tpl/stdstyle/images/cache/traditional.gif" border="0" width="32" height="32" alt="Miejsce" title="Miejsce" align="middle">
++			<img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="Miejsce" title="Miejsce" align="middle">
+ 			 <b>Liczba znnalezionych miejsc:</b> {resultscount}
+ 		</td>
+ 	</tr>
+Index: lib/search.kml.inc.php
+===================================================================
+--- lib/search.kml.inc.php	(revision 753)
++++ lib/search.kml.inc.php	(working copy)
+@@ -223,35 +223,35 @@
+ 			{
+ 				case 2:
+ 					$icon = 'tradi';
+-					$typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/traditional.gif" alt="Tradycyjna" title="Tradycyjna" />';
++					$typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/traditional.png" alt="Tradycyjna" title="Tradycyjna" />';
+ 					break;
+ 				case 3:
+ 					$icon = 'multi';
+-					$typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/multi.gif" alt="Multicache" title="Multicache" />';
++					$typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/multi.png" alt="Multicache" title="Multicache" />';
+ 					break;
+ 				case 4:
+ 					$icon = 'virtual';
+-					$typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/virtual.gif" alt="Wirtualna" title="Wirtualna skrzynka" />';
++					$typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/virtual.png" alt="Wirtualna" title="Wirtualna skrzynka" />';
+ 					break;
+ 				case 5:
+ 					$icon = 'webcam';
+-					$typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/webcam.gif" alt="Webcam" title="Webcam" />';
++					$typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/webcam.png" alt="Webcam" title="Webcam" />';
+ 					break;
+ 				case 6:
+ 					$icon = 'event';
+-					$typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/event.gif" alt="Wydarzenie" title="Wydarzenie" />';
++					$typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/event.png" alt="Wydarzenie" title="Wydarzenie" />';
+ 					break;
+ 				case 7:
+ 					$icon = 'myst';
+-					$typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/mystery.gif" alt="Quiz" title="Quiz" />';
++					$typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/quiz.png" alt="Quiz" title="Quiz" />';
+ 					break;
+ 				case 9:
+ 					$icon = 'moving';
+-					$typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/moving.gif" alt="Mobilna" title="Mobilna" />';
++					$typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/moving.png" alt="Mobilna" title="Mobilna" />';
+ 					break;
+ 				default:
+ 					$icon = 'unknown';
+-					$typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/unknown.gif" alt="Nieznany typ" title="Nieznany typ" />';
++					$typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/unknown.png" alt="Nieznany typ" title="Nieznany typ" />';
+ 					break;
+ 			}
+ 			$thisline = str_replace('{icon}', $icon, $thisline);
+Index: lib/search.html.inc.php
+===================================================================
+--- lib/search.html.inc.php	(revision 753)
++++ lib/search.html.inc.php	(working copy)
+@@ -143,7 +143,7 @@
+ 		// sp2ong
+ 
+ 	$ratingA = $caches_record['toprating'];
+-	if ($ratingA > 0) $ratingimg='<img src="/images/rating-star.gif" alt="Rekomendowana" title="Rekomendowana">'; else $ratingimg=''; 
++	if ($ratingA > 0) $ratingimg='<img src="images/rating-star.gif" alt="Rekomendowana" title="Rekomendowana">'; else $ratingimg=''; 
+ 	$tmpline = str_replace('{ratpic}', $ratingimg, $tmpline);
+ $login=0;
+ 	if ($usr == false ) {
+Index: lib/cache_icon.inc.php
+===================================================================
+--- lib/cache_icon.inc.php	(revision 753)
++++ lib/cache_icon.inc.php	(working copy)
+@@ -80,7 +80,7 @@
+ 		
+ 	// cacheicon
+ 	$iconname = mb_eregi_replace("\..*", "", $iconname);
+-	$iconname .= $cacheicon_searchable . $cacheicon_type . ".gif";
++	$iconname .= $cacheicon_searchable . $cacheicon_type . ".png";
+ 
+ return array($iconname, $inactive);
+ }
+Index: xml/ocxmlmap.php
+===================================================================
+--- xml/ocxmlmap.php	(revision 753)
++++ xml/ocxmlmap.php	(working copy)
+@@ -299,62 +299,51 @@
+ <group>
+ <Title>Unknown Type Cache</Title>
+ <Id>Nieznana</Id>
+-<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-unknown.gif]]></BaseIcon>
++<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-unknown.png]]></BaseIcon>
+ </group>
+ 
+ <group>
+ <Title>Traditional Cache</Title>
+ <Id>Tradycyjna</Id>
+-<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-traditional.gif]]></BaseIcon>
++<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-traditional.png]]></BaseIcon>
+ </group>
+ 
+ <Group>
+ <Title>Multi Cache</Title>
+ <Id>Multicache</Id>
+-<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-multi.gif]]></BaseIcon>
++<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-multi.png]]></BaseIcon>
+ </Group>
+ 
+ <group>
+ <Title>Virtual Cache</Title>
+ <Id>Virtual</Id>
+-<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-virtual.gif]]></BaseIcon>
++<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-virtual.png]]></BaseIcon>
+ </group>
+ 
+ <group>
+ <Title>WebCam Cache</Title>
+ <Id>Webcam</Id>
+-<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-webcam.gif]]></BaseIcon>
++<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-webcam.png]]></BaseIcon>
+ </group>
+ <group>
+ 
+ <Title>Event Cache</Title>
+ <Id>Wydarzenie</Id>
+-<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-event.gif]]></BaseIcon>
++<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-event.png]]></BaseIcon>
+ </group>
+ 
+ <group>
+ <Title>Mystery/Quiz Cache</Title>
+ <Id>Quiz</Id>
+-<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-mystery.gif]]></BaseIcon>
++<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-quiz.png]]></BaseIcon>
+ </group>
+ 
+ <group>
+-<Title>Math/Physics Cache</Title>
+-<Id>Matematyczna</Id>
+-<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-mathe.gif]]></BaseIcon>
+-</group>
+-
+-<group>
+ <Title>Mobile Cache</Title>
+ <Id>Mobilna</Id>
+ <BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-moving.gif]]></BaseIcon>
+ </group>
+ 
+-<group>
+-<Title>Drive-in Cache</Title>
+-<Id>Drive-in</Id>
+-<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-drivein.gif]]></BaseIcon>
+-</group>
+ 
+ 
+ </ymaps:Groups>';
+@@ -376,7 +365,7 @@
+     switch ($r['type'])
+     {
+       case 1:
+-        $icon = 'Nieznana';
++        $icon = 'Nietypowa';
+        break;
+     case 2:
+         $icon = 'Tradycyjna';
+@@ -396,15 +385,17 @@
+       case 7:
+         $icon = 'Quiz';
+         break;
+-      case 8:
++/*      case 8:
+         $icon = 'Matenatyczna';
+-        break;
+-      case 9:
++        break;+*/
++      case 9:
+         $icon = 'Mobilna';
+          break;
+-      case 10:
++/*      case 10:
+         $icon = 'Drive-in';
+-       break;
++       break;+*/
+    }
+ $iso2utf8tr = array (
+         "\261"=>"\xc4\x85", /* a */
+Index: xml/ocxmlmapen.php
+===================================================================
+--- xml/ocxmlmapen.php	(revision 753)
++++ xml/ocxmlmapen.php	(working copy)
+@@ -299,64 +299,52 @@
+ <group>
+ <Title>Unknown Type Cache</Title>
+ <Id>Unknown</Id>
+-<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-unknown.gif]]></BaseIcon>
++<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-unknown.png]]></BaseIcon>
+ </group>
+ 
+ <group>
+ <Title>Traditional Cache</Title>
+ <Id>Traditional</Id>
+-<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-traditional.gif]]></BaseIcon>
++<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-traditional.png]]></BaseIcon>
+ </group>
+ 
+ <Group>
+ <Title>Multi Cache</Title>
+ <Id>Multicache</Id>
+-<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-multi.gif]]></BaseIcon>
++<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-multi.png]]></BaseIcon>
+ </Group>
+ 
+ <group>
+ <Title>Virtual Cache</Title>
+ <Id>Virtual</Id>
+-<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-virtual.gif]]></BaseIcon>
++<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-virtual.png]]></BaseIcon>
+ </group>
+ 
+ <group>
+ <Title>WebCam Cache</Title>
+ <Id>Webcam</Id>
+-<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-webcam.gif]]></BaseIcon>
++<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-webcam.png]]></BaseIcon>
+ </group>
+ <group>
+ 
+ <Title>Event Cache</Title>
+ <Id>Event</Id>
+-<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-event.gif]]></BaseIcon>
++<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-event.png]]></BaseIcon>
+ </group>
+ 
+ <group>
+ <Title>Mystery/Quiz Cache</Title>
+ <Id>Quiz</Id>
+-<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-mystery.gif]]></BaseIcon>
++<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-quiz.png]]></BaseIcon>
+ </group>
+ 
+ <group>
+-<Title>Math/Physics Cache</Title>
+-<Id>Mathe/Physics</Id>
+-<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-mathe.gif]]></BaseIcon>
+-</group>
+-
+-<group>
+ <Title>Mobile Cache</Title>
+ <Id>Mobile</Id>
+-<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-moving.gif]]></BaseIcon>
++<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-moving.png]]></BaseIcon>
+ </group>
+ 
+-<group>
+-<Title>Drive-in Cache</Title>
+-<Id>Drive-in</Id>
+-<BaseIcon width="16" height="16"><![CDATA[http://opencaching.pl/tpl/stdstyle/images/cache/16x16-drivein.gif]]></BaseIcon>
+-</group>
+ 
+-
+ </ymaps:Groups>';
+ 
+ 
+@@ -396,15 +384,17 @@
+       case 7:
+         $icon = 'Quiz';
+         break;
+-      case 8:
++/*      case 8:
+         $icon = 'Mathe/Physics';
+-        break;
++        break;+*/
+       case 9:
+         $icon = 'Mobile';
+          break;
+-      case 10:
++/*      case 10:
+         $icon = 'Drive-in';
+-       break;
++       break;+*/
+    }
+ $iso2utf8tr = array (
+         "\261"=>"\xc4\x85", /* a */
