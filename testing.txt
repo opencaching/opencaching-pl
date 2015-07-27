@@ -1,1 +1,0 @@
-This file is temporary. For testing automatic updates after SVN->Git migration..
