@@ -56,7 +56,7 @@ medium_climb Moeilijke klim
 extreme_climb Extreme klim
 horse_path Ruiterpad
 check_tide Controleer getijden
-take_compass Neem kompas mee
+take_compass Neem  kompas mee
 sights Uitzichten
 skeeter draag insectwerende kleding
 tick Teken
@@ -203,7 +203,7 @@ message Logtekst
 register_confirm Registration confirmation
 impressum Over
 user Gebruiker
-user_or_email Gebruiker / e-mail
+user_or_email Gebruiker / E-mail
 password Wachtwoord
 logged_as Ingelogd als
 coords_other Andere coördinaatstelsels
