@@ -126,12 +126,26 @@ class tmp_Xmlmap
             $this->screenWidth = 1000;
              
         $this->user_id = $_GET['userid'];
-        
-        $bbox[] = sql_escape($_GET['latmin']);
-        $bbox[] = sql_escape($_GET['lonmin']);
-        $bbox[] = sql_escape($_GET['latmax']);
-        $bbox[] = sql_escape($_GET['lonmax']);
-        
+
+        $latmin = sql_escape($_GET['latmin']);
+        $lonmin = sql_escape($_GET['lonmin']);
+        $latmax = sql_escape($_GET['latmax']);
+        $lonmax = sql_escape($_GET['lonmax']);
+
+        if (($latmin == $latmax) && ($lonmin == $lonmax)) {
+            // Special case for showing marker for specific cache - just single coordinate provided
+            // Use small buffer to handle this case
+            $latmin -= 0.00001;
+            $lonmin -= 0.00001;
+            $latmax += 0.00001;
+            $lonmax += 0.00001;
+        }
+
+        $bbox[] = $latmin;
+        $bbox[] = $lonmin;
+        $bbox[] = $latmax;
+        $bbox[] = $lonmax;
+
         $this->search_params['bbox'] = implode('|', $bbox);
         $this->search_params['limit'] = 1;
     }

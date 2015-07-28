@@ -18,39 +18,6 @@
     img.dim { opacity: .3; }
 </style>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-<script src="tpl/stdstyle/js/jquery.cookie.js"></script>
-<script>
-        $(function() {
-        /*var left = 0;
-         var $shortcuts = $('#shortcut_icons');
-         $('#cache_types input').each(function() {
-         var $img = $("<img/>");
-         $img.attr('src', $(this).closest('tr').find('img').attr('src'));
-         $img.css('left', left + "px");
-         $img.addClass($(this).attr('name'));
-         $img.data('type', $(this).attr('name'));
-         $shortcuts.append($img);
-         left += 28;
-         });*/
-        var checkbox_changed = function() {
-        var $related = $("." + $(this).attr('name'));
-                if ($(this).is(':checked'))
-                $related.addClass('dim');
-                else
-                $related.removeClass('dim');
-        }
-        $('.opt_table input')
-                .each(checkbox_changed)
-                .change(checkbox_changed);
-                /*$shortcuts.find('img').click(function() {
-                 var $check = $('#' + $(this).data('type'));
-                 $check.prop('checked', !$check.prop('checked'));
-                 $check.each(checkbox_changed);
-                 reload();
-                 });*/
-        });</script>
-
 <div style='margin-right: 6px;' style='position: relative'>
     <div id='shortcut_icons'></div>
     <table style='border: 1px solid #ccc; background: #eee; padding: 3px 6px 3px 8px; width: 100%; margin-bottom: 10px;'>
@@ -194,42 +161,48 @@
     <div style='clear: both'></div>
 </div>
 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+<script src="tpl/stdstyle/js/jquery.cookie.js"></script>
 <script src="{lib_cachemap3_js}" type="text/javascript"></script>
 <script type="text/javascript" language="javascript">
-                                    initial_params = {
-                                    start: {
-                                    cachemap_mapper: "{cachemap_mapper}",
-                                            userid: {userid},
-                                            coords: [{coords}],
-                                            zoom: {zoom},
-                                            map_type: {map_type},
-                                            circle: {circle},
-                                            doopen: {doopen},
-                                            fromlat: {fromlat}, fromlon: {fromlon},
-                                            tolat: {tolat}, tolon: {tolon},
-                                            searchdata: "{searchdata}",
-                                            boundsurl: "{boundsurl}",
-                                            extrauserid: "{extrauserid}",
-                                            moremaptypes: false,
-                                            fullscreen: false,
-                                            largemap: true,
-                                            savesettings: true
-                                    },
-                                            translation: {
-                                            score_label: "{{score_label}}",
-                                                    recommendations: "{{search_recommendations}}",
-                                                    recommendation: "{{recommendation}}",
-                                                    attendends: "{{attendends}}",
-                                                    will_attend: "{{will_attend}}",
-                                                    found: "{{found}}",
-                                                    not_found: "{{not_found}}",
-                                                    size: "{{size}}",
-                                                    created_by: "{{created_by}}",
-                                                    scored: "{{scored}}",
-                                                    add_clipboard: "{{add_to_list}}"
-                                            }
-                                    };
-                                    window.onload = function() {
-                                    load([], document.getElementById("search_control"));
-                                    };
+$(function() {
+
+	var checkbox_changed = function() {
+		var $related = $("." + $(this).attr('name'));
+		if ($(this).is(':checked'))
+			$related.addClass('dim');
+		else
+			$related.removeClass('dim');
+	};
+
+	$('.opt_table input')
+		.each(checkbox_changed)
+		.change(checkbox_changed);
+
+});
+
+initial_params = {
+	start: {
+		cachemap_mapper: "{cachemap_mapper}",
+		userid: {userid},
+		coords: [{coords}],
+		zoom: {zoom},
+		map_type: {map_type},
+		circle: {circle},
+		doopen: {doopen},
+		fromlat: {fromlat}, fromlon: {fromlon},
+		tolat: {tolat}, tolon: {tolon},
+		searchdata: "{searchdata}",
+		boundsurl: "{boundsurl}",
+		extrauserid: "{extrauserid}",
+		moremaptypes: false,
+		fullscreen: false,
+		largemap: true,
+		savesettings: true
+	}
+};
+
+window.onload = function() {
+	load([], document.getElementById("search_control"));
+};
 </script>
