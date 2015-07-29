@@ -316,7 +316,7 @@ additional_information Aufwand
 optional optional
 time_distance_hint Der Aufwand kann natürlich nur geschätzt werden und kann auch je nach Umwelteinflüssen sehr verschieden sein. Solltest du keine ausreichend genauen Angaben machen können, schreibe in beide Felder 0 (Null).  Diese Art von Daten ist beispielsweise nützlich, in <b> multicache</b> oder <b> Veranstaltung</b> Cache-Typen.
 select_one Bitte auswählen!
-waypoint_other_portal_info Diese Wegpunkte dienen zur Generierung entsprechender Links in der Cacheansicht bzw. beim Loggen. Es werden keine Daten automatisch von diesen Cachedatenbanken übernommen. 
+waypoint_other_portal_info Diese Wegpunkte dienen zur Generierung entsprechender Links in der Cacheansicht bzw. beim Loggen. Es werden keine Daten automatisch von diesen Cachedatenbanken übernommen.
 cache_attributes_label Cache-Attribute
 attributes_edit_hint Attribute können auch später geändert werden
 additional_attributes_hint Sie können noch weitere Attribute zu Ihrem Cache's Beschreibung mit diesem Tool:
@@ -350,7 +350,7 @@ no_javascript Ihr Browser unterstützt kein Javascript unterstützt. Sie können
 html_usage Bitte verwenden Sie HTML-Tags nur für die Bearbeitung eines Textes.
 available_html Liste der verfügbaren HTML-Tags
 additional_enc_info <b> <font color="red"> Zusätzliche </font> verschlüsselten Hinweis. </b> <i> Nicht ein Pflichtfeld </i>. Sie können einige weitere Hinweise hier. Informationen erforderlich sind, um eine Cache ist in "Vollständig"-Feld. "	red>Additional</font> encrypted hint.</b> <i>Not a mandatory field</i>. Your can place some additional hints here. Information neccessary to find a cache has to be placed in "Full description" field.
-add_photo_newcache Bilder,extra waypoints und MP3 für diesen Cache können nach dem Anlegen des Caches hinzugefügt werden. 
+add_photo_newcache Bilder,extra waypoints und MP3 für diesen Cache können nach dem Anlegen des Caches hinzugefügt werden.
 search_wildcard_info Verwenden Sie "% "als Platzhalter.
 event_hidden_hint Hinweis: Bei Veranstaltungen, die" versteckte Datum "-Feld sollte ein Tag, an dem die Veranstaltung beginnt
 submit_new_cache Veröffentlichen
@@ -904,8 +904,8 @@ os_tak_chce Auswahl dieser Option können Benutzer die Koordinaten überprüfen 
 opensprawdzacz_main Autor dieser Geocache möglich Validierung die Rätsel lösen (die endgültigen Behälter-Koordinaten), bevor in das Feld!
 os_pr Versuche
 os_sukc Treffern
-os_proba Du erreichst jezt die limiet von 
-os_razy Zullasige Anzahl der Versuche ist 
+os_proba Du erreichst jezt die limiet von
+os_razy Zullasige Anzahl der Versuche ist
 os_razy_srodek versuche innerhalb
 os_razy_koniec minute.
 os_sukces JA! Du hast die richtigen Koordinaten! Herzlichen Glückwunsch.
@@ -1367,7 +1367,7 @@ logType7 Teilgenommem
 logType8 Möchte teilnehmen
 logType9 Cache archivierd
 logType10 Kann gesucht werden
-logType11 Momentan nicht verfügbar 
+logType11 Momentan nicht verfügbar
 logType12 Bemerkung von OC Team
 
 
@@ -1745,7 +1745,7 @@ SU Rusland
 pt000 PowerTrail
 pt001 PowerTrail
 pt002 Hinzufügen Zu PowerTral
-pt003 Neuen PowerTrail eintragen 
+pt003 Neuen PowerTrail eintragen
 pt004 Form auf Karte
 pt005 Erforschen
 pt006 Sichtbar
@@ -2017,7 +2017,7 @@ chowner02 Geocacher
 graph_statistics_01 Statistike von www.{site_name} :: Datum
 graph_statistics_02 Active caches
 graph_statistics_03 Gefundene caches
-graph_statistics_04 Datei ab 
+graph_statistics_04 Datei ab
 graph_statistics_05 Ingesamt gemachte caches:
 graph_statistics_06 Active caches:
 graph_statistics_07 Insgesamt gefundene caches:
@@ -2337,12 +2337,12 @@ Stats_t4_03 Anzahl gefunden
 Stats_t4_04 Benutzer
 Stats_t5_01 Ranking Benutzer durch die Anzahl von empfangenen Empfehlungen
 Stats_t5_02 Wo
-Stats_t5_03 anzahl Empfehlungen 
+Stats_t5_03 anzahl Empfehlungen
 Stats_t5_04 gesamtzahl Caches
-Stats_t5_05 verhältnis in 
+Stats_t5_05 verhältnis in
 Stats_t5_06 oder
 Stats_t5_07 Rangfolge
-Stats_t5_08 Anzahl Empfehlungen 
+Stats_t5_08 Anzahl Empfehlungen
 Stats_t5_09 Benutzer
 Stats_t6_01 Anzahl der Caches pro Region
 Stats_t6_02 Nur aktive Caches

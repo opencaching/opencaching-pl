@@ -22,17 +22,17 @@
     require_once('./lib/search.inc.php');
     require_once('./lib/search-signatures.inc.php');
     global $dbcSearch, $lang, $TestStartTime, $usr;
-    
+
     //4test
     $TestStartTime = new DateTime('now');
-    
+
     $dbcSearch = new dataBase();
     $dbc = new dataBase();
-    
+
     // SQL-Debug?
     $sqldebug = false;
     $sql_debug = $sqldebug;
-    
+
 
     if ($sql_debug == true)
     {
@@ -78,10 +78,10 @@
                 $sqlstr="SELECT COUNT(*) `count` FROM `queries` WHERE id= :1";
                 $dbc->multiVariableQuery($sqlstr, $queryid);
                 $rCount=$dbc->dbResultFetch();
-                
+
                 if ($rCount['count'] == 0)
                     $queryid = 0;
-                
+
                 $dbc->reset();
             }
 
@@ -114,7 +114,7 @@
             //load options from db
             $sqlstr = "SELECT `user_id`, `options` FROM `queries` WHERE id= :1 AND (`user_id`=0 OR `user_id`= :2)";
             $dbc->multiVariableQuery($sqlstr, $queryid, $usr['userid']+0);
-            
+
             if ($dbc->rowCount() == 0)
             {
                 $tplname = 'error';
@@ -126,11 +126,11 @@
             else
             {
                 $record = $dbc->dbResultFetch();
-                              
+
                 $options = unserialize($record['options']);
                 if ($record['user_id'] != 0)
                     $options['userid'] = $record['user_id'];
-                
+
                 $dbc->reset();
 
                 $options['queryid'] = $queryid;
@@ -138,7 +138,7 @@
                 $sqlstr = "UPDATE `queries` SET `last_queried`=NOW() WHERE `id`= :1";
                 $dbc->multiVariableQuery($sqlstr, $queryid );
                 $dbc->reset();
-                        
+
                 // Ă¤nderbare werte Ăźberschreiben
                 if (isset($_REQUEST['output']))
                     $options['output'] =  $_REQUEST['output'];
@@ -161,7 +161,7 @@
                 {
                     $sqlstr = "SELECT `username` FROM `user` WHERE `user_id`= :1";
                     $dbc->multiVariableQuery($sqlstr, $options['finderid'] );
-                    
+
                     if($dbc->rowCount() == 1)
                     {
                         $record_name = $dbc->dbResultFetch();
@@ -177,7 +177,7 @@
                 {
                     $sqlstr="SELECT `username` FROM `user` WHERE `user_id`= :1";
                     $dbc->multiVariableQuery($sqlstr, $options['ownerid'] );
-                    
+
                     if($dbc->rowCount() == 1)
                     {
                         $record_name = $dbc->dbResultFetch();
@@ -438,7 +438,7 @@
         $sqlstr = "DELETE FROM `queries` WHERE `last_queried` < :1 AND `user_id`=0";
         $dbc->multiVariableQuery($sqlstr, $removedate );
         $dbc->reset();
-        
+
         //prepare output
         if(!isset($options['showresult'])) $options['showresult']='0';
         if ($options['showresult'] == 1)
@@ -535,15 +535,15 @@
 
                         // ok, wir haben einen ort ... koordinaten ermitteln
                         $locid = $locid + 0;
-                        
+
                         $sqlstr = "SELECT `lon`, `lat` FROM `geodb_coordinates` WHERE `loc_id`= :1 AND coord_type=200100000";
                         $dbc->multiVariableQuery($sqlstr, $locid );
-                        
+
                         if ( $dbc->rowCount() )
                         {
                             // ok ... wir haben koordinaten ...
                             $r = $dbc->dbResultFetch();
-                            
+
                             $lat = $r['lat'] + 0;
                             $lon = $r['lon'] + 0;
 
@@ -561,29 +561,29 @@
 
                             $lon_rad = $lon * 3.14159 / 180;
                             $lat_rad = $lat * 3.14159 / 180;
-                            
+
                             $sqlstr = 'CREATE TEMPORARY TABLE result_caches ENGINE=MEMORY
                                                     SELECT
                                                         (' . getCalcDistanceSqlFormula($usr !== false,$lon, $lat, $distance, $multiplier[$distance_unit]) . ') `distance`,
                                                         `caches`.`cache_id` `cache_id`
                                                     FROM `caches` FORCE INDEX (`latitude`)
                                                     LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = :1
-                                                    WHERE IFNULL(cache_mod_cords.longitude, `caches`.`longitude`) >  :2 
-                                                        AND IFNULL(cache_mod_cords.longitude, `caches`.`longitude`)  <  :3 
-                                                        AND IFNULL(cache_mod_cords.latitude, `caches`.`latitude`)  > :4 
+                                                    WHERE IFNULL(cache_mod_cords.longitude, `caches`.`longitude`) >  :2
+                                                        AND IFNULL(cache_mod_cords.longitude, `caches`.`longitude`)  <  :3
+                                                        AND IFNULL(cache_mod_cords.latitude, `caches`.`latitude`)  > :4
                                                         AND IFNULL(cache_mod_cords.latitude, `caches`.`latitude`) < :5
                                                     HAVING `distance` < :6';
-                            
-                            
+
+
                             $dbcSearch->multiVariableQuery( $sqlstr, $usr['userid'], ($lon - $max_lon_diff), ($lon + $max_lon_diff), ($lat - $max_lat_diff), ($lat + $max_lat_diff), $distance );
-                            
+
                             $sqlstr = 'ALTER TABLE result_caches ADD PRIMARY KEY ( `cache_id` )';
                             $dbcSearch->simpleQuery( $sqlstr );
-                                                        
+
                             $sql_select[] = '`result_caches`.`cache_id`';
                             $sql_from[] = '`result_caches`, `caches`';
                             $sql_where[] = '`caches`.`cache_id`=`result_caches`.`cache_id`';
-                            
+
                             $dbc->reset();
                         }
                         else
@@ -679,7 +679,7 @@
                                 {
                                     outputUniidSelectionForm('SELECT `uni_id`, `olduni` FROM `tmpuniids`', $options);
                                 }
-                                
+
                                 $dbc->reset();
                             }
                             else
@@ -697,7 +697,7 @@
                         $locid = $locid + 0;
                         $sqlstr="SELECT `lon`, `lat` FROM `gns_locations` WHERE `uni`= :1 LIMIT 1";
                         $dbc->multiVariableQuery($sqlstr, $locid );
-                        
+
                         if ( $dbc->rowCount() )
                         {
                             $r =  $dbc->dbResultFetch();
@@ -707,7 +707,7 @@
                             $lon = $r['lon'] + 0;
 
                             $dbc->reset();
-                            
+
                             $lon_rad = $lon * 3.14159 / 180;
                             $lat_rad = $lat * 3.14159 / 180;
 
@@ -732,17 +732,17 @@
                                                         `caches`.`cache_id` `cache_id`
                                                     FROM `caches` FORCE INDEX (`latitude`)
                                                 LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = :1
-                                                    WHERE IFNULL(cache_mod_cords.longitude, `caches`.`longitude`) >  :2 
-                                                        AND IFNULL(cache_mod_cords.longitude, `caches`.`longitude`)  < :3 
-                                                        AND IFNULL(cache_mod_cords.latitude, `caches`.`latitude`)  >  :4 
-                                                        AND IFNULL(cache_mod_cords.latitude, `caches`.`latitude`) < :5 
+                                                    WHERE IFNULL(cache_mod_cords.longitude, `caches`.`longitude`) >  :2
+                                                        AND IFNULL(cache_mod_cords.longitude, `caches`.`longitude`)  < :3
+                                                        AND IFNULL(cache_mod_cords.latitude, `caches`.`latitude`)  >  :4
+                                                        AND IFNULL(cache_mod_cords.latitude, `caches`.`latitude`) < :5
                                                     HAVING `distance` < :6';
-                            
+
                             $dbcSearch->multiVariableQuery( $sqlstr, $usr['userid'], ($lon - $max_lon_diff), ($lon + $max_lon_diff), ($lat - $max_lat_diff), ($lat + $max_lat_diff), $distance );
-                            
+
                             $sqlstr = 'ALTER TABLE result_caches ADD PRIMARY KEY ( `cache_id` )';
                             $dbcSearch->simpleQuery( $sqlstr );
-                            
+
                             $sql_select[] = '`result_caches`.`cache_id`';
                             $sql_from[] = '`result_caches`, `caches`';
                             $sql_where[] = '`caches`.`cache_id`=`result_caches`.`cache_id`';
@@ -835,7 +835,7 @@
 
                     $lon_rad = $lon * 3.14159 / 180;
                     $lat_rad = $lat * 3.14159 / 180;
-                    
+
                     $sqlstr ='CREATE TEMPORARY TABLE result_caches ENGINE=MEMORY
                     SELECT
                         (' . getCalcDistanceSqlFormula($usr !== false,$lon, $lat, $distance, $multiplier[$distance_unit]) . ') `distance`,
@@ -844,15 +844,15 @@
                         LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = :1
                             WHERE IFNULL(cache_mod_cords.longitude, `caches`.`longitude`) > :2
                                 AND IFNULL(cache_mod_cords.longitude, `caches`.`longitude`)  < :3
-                                AND IFNULL(cache_mod_cords.latitude, `caches`.`latitude`)  > :4 
+                                AND IFNULL(cache_mod_cords.latitude, `caches`.`latitude`)  > :4
                                 AND IFNULL(cache_mod_cords.latitude, `caches`.`latitude`) < :5
                     HAVING `distance` < :6';
 
                     $dbcSearch->multiVariableQuery( $sqlstr, $usr['userid'], ($lon - $max_lon_diff), ($lon + $max_lon_diff), ($lat - $max_lat_diff), ($lat + $max_lat_diff), $distance );
-                    
+
                     $sqlstr = 'ALTER TABLE result_caches ADD PRIMARY KEY ( `cache_id` )';
                     $dbcSearch->simpleQuery( $sqlstr );
-                                        
+
                     $sql_select[] = '`result_caches`.`cache_id`';
                     $sql_from[] = '`result_caches`, `caches`';
                     $sql_where[] = '`caches`.`cache_id`=`result_caches`.`cache_id`';
@@ -883,7 +883,7 @@
                     } else {
                         $cache_bylist = implode(",", $_SESSION['print_list']);
                     }
-                    
+
                     $sql_select[] = '`caches`.`cache_id` `cache_id`';
                     $sql_from[] = '`caches`';
                     $sql_where[] = '`caches`.`cache_id` IN ('. $cache_bylist .')';
@@ -962,7 +962,7 @@
 
                     $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `tmpFTCaches` (`cache_id` int (11) PRIMARY KEY) ' . $sqlFilter);
                     $dbcSearch->reset();
-                    
+
                     $sql_select = array();
                     $sql_from = array();
                     $sql_where = array();
@@ -1164,10 +1164,10 @@
             }
         }
     }
-    
+
     unset($dbc);
     unset($dbcSearch);
-    
+
     /*
     //user logged in?
     }

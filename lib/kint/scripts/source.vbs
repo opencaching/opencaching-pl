@@ -9,7 +9,7 @@
 Dim command, protocol, change_slashes, debug
 Set dirmap = CreateObject("Scripting.Dictionary")
 
-'list of server paths (as regular expressions) 
+'list of server paths (as regular expressions)
 'and matching local paths (as regexp replace strings)
 'use this to replace the beginning of the path
 'if none of the regular expressions match, the script will show an error
@@ -76,5 +76,5 @@ strArgs = Replace(strArgs, "%f", file)
 If debug Then
 	WScript.Echo strArgs
 End If
-Set oShell = CreateObject ("Wscript.Shell") 
+Set oShell = CreateObject ("Wscript.Shell")
 oShell.Run strArgs, 0, false

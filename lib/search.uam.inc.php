@@ -157,11 +157,11 @@ Rekordy (kazdy 362 znaki)
                     // cleanup (old gpxcontent lingers if gpx-download is cancelled by user)
                     $dbcSearch->simpleQuery( 'DROP TEMPORARY TABLE IF EXISTS `wptcontent`');
                     $dbcSearch->reset();
-                    
+
                     // temporäre tabelle erstellen
                     $dbcSearch->simpleQuery( 'CREATE TEMPORARY TABLE `wptcontent` ' . $sql . $sqlLimit);
                     $dbcSearch->reset();
-                    
+
                     $dbcSearch->simpleQuery(  'SELECT COUNT(*) `count` FROM `wptcontent`');
                     $rCount = $dbcSearch->dbResultFetch();
                     $dbcSearch->reset();
@@ -171,7 +171,7 @@ Rekordy (kazdy 362 znaki)
                         $dbcSearch->simpleQuery( 'SELECT `caches`.`wp_oc` `wp_oc` FROM `wptcontent`, `caches` WHERE `wptcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
                         $rName = $rCount = $dbcSearch->dbResultFetch();
                         $dbcSearch->reset();
-    
+
                         $sFilebasename = $rName['wp_oc'];
                     }
         else {

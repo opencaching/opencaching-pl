@@ -14,7 +14,7 @@ class MedalGeopathCompleted extends Medal implements \lib\Objects\Medals\MedalIn
 
     public function checkConditionsForUser(\lib\Objects\User\User $user)
     {
-		if (!in_array($this->config->getOcNodeId(), $this->conditions['ocNodeId'])) { /* this medal is not available in current node */
+        if (!in_array($this->config->getOcNodeId(), $this->conditions['ocNodeId'])) { /* this medal is not available in current node */
             return;
         }
 

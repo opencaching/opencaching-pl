@@ -8,7 +8,7 @@
         die();
 
     $dbc = new dataBase();
-    
+
     $sql = 'SELECT ';
 
     if (isset($lat_rad) && isset($lon_rad))
@@ -79,7 +79,7 @@
                     MIN(`caches`.`longitude`) AS minlongitude, MIN(`caches`.`latitude`) AS minlatitude
                     FROM `caches` WHERE `caches`.`cache_id` IN ('.$sqlFilter.')';
         $dbcSearch->simpleQuery($sqlstr);
-                            
+
         $r = $dbcSearch->dbResultFetch();
         $minlat = $r['minlatitude'];
         $minlon = $r['minlongitude'];

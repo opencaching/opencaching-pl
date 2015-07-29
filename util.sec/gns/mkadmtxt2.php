@@ -37,8 +37,8 @@ $count = 0;
 $force = isset($_GET['force']) && $_GET['force'] == '1';
 $rsLocations = sql(
         "SELECT `UNI`, `CC1`, `ADM1`
-               FROM `gns_locations` 
-              WHERE `DSG` LIKE 'PPL%' 
+               FROM `gns_locations`
+              WHERE `DSG` LIKE 'PPL%'
                 AND `ADM1` is not null" .
         ($force ? '' : ' AND ADMTXT1 is NULL')
 );

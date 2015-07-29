@@ -1240,9 +1240,9 @@ cache_reports_32 Dot. skrzynki
 cache_reports_33 Kopia Twojej wiadomości
 cache_reports_34 bieżących zgłoszeń
 cache_reports_35 archiwum
-cache_reports_36 Nowym prowadzącym problem jest 
+cache_reports_36 Nowym prowadzącym problem jest
 cache_reports_37 Nie wybrano prowadzącego problem
-cache_reports_38 Zmieniono status zgłoszenia na 
+cache_reports_38 Zmieniono status zgłoszenia na
 revert Przywróć
 found_beer_caches skrzynek po piwie
 rating_poor_1A Fekalno-urynalna
@@ -2537,7 +2537,7 @@ pos. poz.
 AllPosExport Eksport wszystkich skrzynek
 HideCols Ukryj kolmny
 InteractiveSorting Interaktywne sortowanie
-Descending Malejąco 
+Descending Malejąco
 Ascending Rosnąco
 MaxSearchRec Ilość wyników przekroczyła 5 000. Tryb interaktywnego sortowania został wyłączony.
 CachesNotMatchCryteria Brak skrzynek spełniających warunki
@@ -2549,7 +2549,7 @@ Flopp_map Mapa Floppa
 abovesealevel m.npm.
 cache_alt Wysokość
 Given_Recommendations Rekomendowane przez
-waypoint_error1 
+waypoint_error1
 waypoint_error2 Waypoint musi być w jednym z podanych formatów: OPxxxx, ORxxxx, OBxxxx, GCxxxxx, NCxxxx
 pagetitle_print drukowanie
 natura2000 NATURA 2000 obszar

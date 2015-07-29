@@ -70,7 +70,7 @@ final class OcConfig
     {
         return $this->absolute_server_URI;
     }
-    
+
     public function getOcteamEmailsSignature()
     {
         return $this->octeamEmailsSignature;
@@ -90,7 +90,7 @@ final class OcConfig
     {
         return $this->dbDatetimeFormat;
     }
-    
+
 
     public function getSiteName()
     {

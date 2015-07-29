@@ -64,7 +64,7 @@ if ( !$SearchWithSort &&  $NrColSortSearch != -1 )
 
 <script type='text/javascript'>
     var gct = new GCT( 'idGTC' );
-    
+
     /* 0 */gct.addColumn('string', "<?php echo $colNameSearch[0]["C"]?>", 'text-align: center; font-size: 12px;');
     /* 1 */gct.addColumn('string', "<?php echo $colNameSearch[1]["C"]?>", 'text-align: center; font-size: 12px;');
     /* 2 */gct.addColumn('string', "<?php echo $colNameSearch[2]["C"]?>", 'font-size: 12px; text-align: left; ');
@@ -72,35 +72,35 @@ if ( !$SearchWithSort &&  $NrColSortSearch != -1 )
     /* 4 */gct.addColumn('string', "<?php echo $colNameSearch[4]["C"]?>", 'font-size: 12px; text-align: left; ');
     /* 5 */gct.addColumn('string', "<?php echo $colNameSearch[5]["C"]?>", 'font-size: 12px; text-align: center; ');
     /* 6 */gct.addColumn('string', "<?php echo $colNameSearch[6]["C"]?>", 'text-align: left; font-size: 12px;');
-    
+
     /* 7 */gct.addColumn('number', "<?php echo $colNameSearch[7]["C"]?>", 'font-size: 12px; text-align: center; color:green; ');
     /* 8 */gct.addColumn('number', "<?php echo $colNameSearch[8]["C"]?>", 'font-size: 12px; text-align: center; color:red; ');
     /* 9 */gct.addColumn('number', "<?php echo $colNameSearch[9]["C"]?>", 'font-size: 12px; text-align: center; color:black; ');
-    
+
     /* 10 */gct.addColumn('number', "<?php echo $colNameSearch[10]["C"]?>", 'font-size: 12px; text-align: center; color:green; font-weight: bold; width: 10px;');
     /* 11 */gct.addColumn('string', "<?php echo $colNameSearch[11]["C"]?>", 'font-size: 12px; text-align: left; width: 88px; ');
-    
+
     /* 12 */gct.addColumn('string', "<?php echo $colNameSearch[12]["C"]?>", 'font-size: 12px; text-align: left;');
     /* 13 */gct.addColumn('string', "<?php echo $colNameSearch[13]["C"]?>", 'font-size: 12px; text-align: left; ');
     /* 14 */gct.addColumn('string', "<?php echo $colNameSearch[14]["C"]?>", 'font-size: 12px; text-align: left; ');
-    
+
     /* 15 */gct.addColumn('string', "<?php echo $colNameSearch[15]["C"]?>", 'font-size: 12px; text-align: left; ');
     /* 16 */gct.addColumn('string', "<?php echo $colNameSearch[16]["C"]?>", 'font-size: 12px; text-align: left; ');
-    
+
     /* 17 */gct.addColumn('string', "<?php echo $colNameSearch[17]["C"]?>", 'font-size: 12px; text-align: left; ');
-    
+
     /* 18 */gct.addColumn('string', "<?php echo $colNameSearch[18]["C"]?>", 'font-size: 12px; text-align: left; ');
-    
+
     gct.hideColumns( [0] );
-     
+
     gct.addChartOption('showRowNumber', true );
     gct.addChartOption('width', '780' );
-    
+
     gct.addVisualOptionVC('headerRow', 'GCT-background-color-white6 GCT-color-black11 GCTalign-center GCT-font-bold GCT-font-size11 ');
     gct.addVisualOptionVC('rowNumberCell', 'GCT-color-none GCT-font-size11 ');
 </script>
 
-<?php 
+<?php
     echo "<script type='text/javascript'>";
 
     if ($SearchWithSort)
@@ -116,8 +116,8 @@ if ( !$SearchWithSort &&  $NrColSortSearch != -1 )
         echo "gct.addChartOption('sort', 'disable' );";
         echo "gct.addChartOption('page', 'disable' );";
     }
-                
-    echo "</script>";            
+
+    echo "</script>";
 ?>
 
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Wyszukiwanie" title="Suchergebnis" align="middle" />&nbsp;{{search_results}} {results_count}</div>
@@ -132,14 +132,14 @@ if ( !$SearchWithSort &&  $NrColSortSearch != -1 )
 <div id='idGTC' align = "left" ></div>
 
 <?php if (!$SearchWithSort) echo "<div class='content-title-noshade'><p align='left'>"; ?>
-{pages} 
+{pages}
 <?php if (!$SearchWithSort) echo "</p></div>";?>
 
-<?php 
+<?php
     if ($SearchWithSort)
         echo "<span style='font-size:10px;'>{{PageNr}} </span><span id='pageNumber' style='font-size:11px; color:green; font-weight:bold'>1</span><br>" ;
 ?>
-    
+
 <br><br>
 
 {results}
@@ -184,8 +184,8 @@ $C18 = fHideColumn( 18, true );
 
 <script type='text/javascript'>
 gct.drawChart();
-gct.addSelectEvent( EventSelectPosFunction ); 
-gct.addPageEvent( EventPageFunction );  
+gct.addSelectEvent( EventSelectPosFunction );
+gct.addPageEvent( EventPageFunction );
 </script>
 
 <?php
@@ -215,13 +215,13 @@ echo "<div class='GCT-div' style='font-size:12px' >
                 <a class='links' onclick='CacheExport(\"zip\")' id='exportZIP' title='Garmin ZIP file ({{format_pict}})  .zip'>GARMIN ({{format_pict}})</a> |
                 <a class='links' onclick='CacheExport(\"ggz\")' id='exportGGZ' title='Garmin .ggz'>GARMIN GGZ</a> <sup style='color:red;text-shadow: 2px 2px 2px rgba(255, 109, 255, 1);'>Beta!</sup> |
                 <a class='links' onclick='CacheExport(\"ggzp\")' id='exportGGZP' title='Garmin ZIP file ({{format_ggz_pict}})  .zip'>GARMIN GGZ ({{format_ggz_pict}})</a> <sup style='color:red;text-shadow: 2px 2px 2px rgba(255, 109, 255, 1);'>Beta!</sup>
-            </td>            
+            </td>
         </tr>
-            
+
             <tr><td colspan=2>&nbsp</td></tr>
             <tr>
                 <td>{{Selected}}:&nbsp;&nbsp;<input type='text' name='SelectedPos' id='SelectedPos' value='0' style='width:25px;text-align:center;color:green; font-weight: bold' readonly >&nbsp;&nbsp;{{pos.}}</td>
-            
+
                 <td><span class='content-title-noshade' style='color:green'>{{format_other}}</span>:<br/>
                 <a class='links' onclick='CacheExport(\"loc\")' id='exportLOC' title='Waypoint .loc'>LOC</a> |
                 <a class='links' onclick='CacheExport(\"kml\")' id='exportKML' title='Google Earth .kml'>KML</a> |
@@ -239,7 +239,7 @@ echo "<div class='GCT-div' style='font-size:12px' >
         <tr>
             <td style='color:green;'>{{AllPosExport}}</td>
             <td></td>
-        </tr>    
+        </tr>
         <tr>
             <td>&nbsp</td>
                      <td>
@@ -267,11 +267,11 @@ echo "<div class='GCT-div' style='font-size:12px' >
                             <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".xml?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"xml\">XML</a>
                         </td>
            </tr>
-                    
+
     </table>
 
 </form>
-</div>"; 
+</div>";
 
 ?>
 <?php
@@ -281,7 +281,7 @@ $googlemaps = "";
 
 
 echo"
-<br>                                                                       
+<br>
 <div class='GCT-div' style='font-size:12px' >
 <form name='HideColumns' style='display:inline;' action='search.php' method='get'>
     <input type='hidden' value='";?>{queryid}<?php echo "' name='queryid' >
@@ -303,20 +303,20 @@ echo"
             <td><input type='checkbox' name='C5' value='1' "; if($C5 == 1) echo "checked"; echo">"; echo $colNameSearch[5]["O"]; echo" </td>
             <td><input type='checkbox' name='C6' value='1' "; if($C6 == 1) echo "checked"; echo">"; echo $colNameSearch[6]["O"]; echo" </td>
         </tr>
-                
+
         <tr>
             <td><input type='checkbox' name='C7' value='1' "; if($C7 == 1) echo "checked"; echo">"; echo $colNameSearch[7]["O"]; echo" </td>
             <td><input type='checkbox' name='C8' value='1' "; if($C8 == 1) echo "checked"; echo">"; echo $colNameSearch[8]["O"]; echo" </td>
             <td><input type='checkbox' name='C9' value='1' "; if($C9 == 1) echo "checked"; echo">"; echo $colNameSearch[9]["O"]; echo" </td>
         </tr>
-                
+
         <tr>
             <td><input type='checkbox' name='C10' value='1' "; if($C10 == 1) echo "checked"; echo">"; echo $colNameSearch[10]["O"]; echo" </td>
             <td><input type='checkbox' name='C11' value='1' "; if($C11 == 1) echo "checked"; echo">"; echo $colNameSearch[11]["O"]; echo" </td>
             <td><input type='checkbox' name='C12' value='1' "; if($C12 == 1) echo "checked"; echo">"; echo $colNameSearch[12]["O"]; echo" </td>
-            
+
         </tr>
-            
+
         <tr>
             <td><input type='checkbox' name='C13' value='1' "; if($C13 == 1) echo "checked"; echo">"; echo $colNameSearch[13]["O"]; echo" </td>
             <td><input type='checkbox' name='C14' value='1' "; if($C14 == 1) echo "checked"; echo">"; echo $colNameSearch[14]["O"]; echo" </td>
@@ -328,32 +328,32 @@ echo"
             <td><input type='checkbox' name='C17' value='1' "; if($C17 == 1) echo "checked"; echo">"; echo $colNameSearch[17]["O"]; echo" </td>
             <td><input type='checkbox' name='C18' value='1' "; if($C18 == 1) echo "checked"; echo">"; echo $colNameSearch[18]["O"]; echo" </td>
          </tr>
-         
-         
+
+
         <tr>
             <td colspan=3>&nbsp</td>
         </tr>
         <tr>
             <td colspan=3 style='color:green;'>{{InteractiveSorting}}</td>
         </tr>
-            
+
         <tr>
          <td colspan=2 >
-            
+
                 <select name='NrColSort'>
                     $selectList
                 </select>
-                
+
                 <input type='radio' name='OrderSortSearch' value='M'"; if ($OrderSortSearch == 'M') echo "checked='checked'"; echo "/>{{Descending}}
                 <input type='radio' name='OrderSortSearch' value='R'"; if ($OrderSortSearch == 'R') echo "checked='checked'"; echo " />{{Ascending}}
-            
+
          </td>
          <td  style='text-align: right'> <button type='submit' name='bHideColumns' />{{save}}</td>
         </tr>
     </table>
 </form>
 </div>
-                                                                    
+
 <br><br><br>";
 
 ?>
@@ -363,7 +363,7 @@ echo"
     document.getElementById("exportZIP").style.cursor = "pointer";
     document.getElementById("exportGGZ").style.cursor = "pointer";
     document.getElementById("exportGGZP").style.cursor = "pointer";
-    
+
     document.getElementById("exportLOC").style.cursor = "pointer";
     document.getElementById("exportKML").style.cursor = "pointer";
     document.getElementById("exportOV2").style.cursor = "pointer";
@@ -373,5 +373,5 @@ echo"
     document.getElementById("exportUAM").style.cursor = "pointer";
     document.getElementById("exportXML").style.cursor = "pointer";
 </script>
- 
+
 <?php echo "<p>" . '{{accept_terms_of_use}}' ." </p>"; ?>

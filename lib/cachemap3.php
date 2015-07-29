@@ -28,7 +28,7 @@ echo "\n";
 
 $mapItems = $cacheMap3Lib->generateMapItems();
 echo 'var mapItems = ' . $mapItems . ';';
-echo "\n\n"; 
+echo "\n\n";
 
 echo read_file(dirname(__FILE__) . '/cachemap3.js');
 ?>

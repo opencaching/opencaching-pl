@@ -36,18 +36,18 @@ class User
      * @param type $userDbRow - array - user data taken from db, from table user.
      */
     public function __construct(array $params)
-    {        
+    {
         if(isset($params['userId'])){
             $this->userId = (int) $params['userId'];
             $this->loadUserDataFromDb();
-        
-        }else if(isset($params['userDbRow'])){        
+
+        }else if(isset($params['userDbRow'])){
             $this->setUserFieldsByUsedDbRow( $params['userDbRow'] );
-        
+
         }else if(isset( $params['okapiRow']) ){
             $this->loadFromOKAPIRsp( $params['okapiRow'] );
-        }   
-        
+        }
+
     }
 
     public function loadFromOKAPIRsp($okapiRow)
@@ -69,14 +69,14 @@ class User
             }
         }
     }
-    
+
     public function getMedals()
     {
         //medals are not loaded in constructor - check if it is ready
         if( is_null($this->medals) ){
             //medals not loaded before - load from DB
-            $this->loadMedalsFromDb();   
-        }        
+            $this->loadMedalsFromDb();
+        }
         return $this->medals;
     }
 
@@ -111,7 +111,7 @@ class User
 
         //if coordinates are present set the homeCords.
         if(isset($dbRow['latitude'])&& isset($dbRow['longitude'])){
-            $this->homeCoordinates = 
+            $this->homeCoordinates =
                 new \lib\Objects\Coordinates\Coordinates( array('dbRow' => $dbRow) );
         }
     }

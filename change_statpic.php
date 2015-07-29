@@ -95,7 +95,7 @@ if ($error == false) {
                 $stmp .= $logo_temp;
             }
             if ($stmp == '') {
-                
+
             } else {
                 tpl_set_var('available_logos', $stmp);
             }

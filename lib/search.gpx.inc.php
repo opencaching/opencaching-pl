@@ -287,7 +287,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
         {
             $rsName = $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc`, `caches`.`name` `name` FROM `gpxcontent`, `caches` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
             $rName = $dbcSearch->dbResultFetch();
-            
+
             if(isset($_GET['realname']) && $_GET['realname'] == 1 )
                 $sFilebasename = str_replace(" ", "", PLConvert('UTF-8','POLSKAWY',$rName['name']));
             else
@@ -343,14 +343,14 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
         $children='';
         $gpxHead = str_replace('{time}', date($gpxTimeFormat, time()), $gpxHead);
         $dbcSearch->simpleQuery('SELECT `gpxcontent`.`cache_id` `cacheid` FROM `gpxcontent`');
-        
+
         while($rs = $dbcSearch->dbResultFetch() )
         {
         $rwp = sql("SELECT  `status` FROM `waypoints` WHERE  `waypoints`.`cache_id`=&1 AND `waypoints`.`status`='1'", $rs['cacheid']);
         if (mysql_num_rows($rwp) != 0) {$children="(HasChildren)";}
         }
         $dbcSearch->reset();
-        
+
         $gpxHead = str_replace('{wpchildren}', $children, $gpxHead);
         append_output($gpxHead);
 

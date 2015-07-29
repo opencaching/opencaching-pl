@@ -218,10 +218,10 @@ class powerTrailController {
 
     private function createNewPowerTrail()
     {
-		if(!isset($_SESSION['user_id'])){ /* user is not logged in */
-			return false;
-		}
-		$this->action = 'createNewSerie';
+        if(!isset($_SESSION['user_id'])){ /* user is not logged in */
+            return false;
+        }
+        $this->action = 'createNewSerie';
         if(isset($_POST['powerTrailName']) && $_POST['powerTrailName'] != '' && $_POST['type'] != 0 && $_POST['status'] != 0 && $_SESSION['powerTrail']['userFounds'] >= powerTrailBase::userMinimumCacheFoundToSetNewPowerTrail())
         {
             $query = "INSERT INTO `PowerTrail`(`name`, `type`, `status`, `dateCreated`, `cacheCount`, `description`, `perccentRequired`) VALUES (:1,:2,:3,NOW(),0,:4,:5)";

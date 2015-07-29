@@ -45,7 +45,7 @@
 
     //prepare the output
     $caches_per_page = 20;
-    
+
     $sql = 'SELECT ';
 
     if (isset($lat_rad) && isset($lon_rad))
@@ -126,13 +126,13 @@
     $sqlLimit .= ' LIMIT ' . $startat . ', ' . $count;
 
     // tempor?re tabelle erstellen
-    
+
     $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `xmlcontent` ' . $sql . $sqlLimit);
     $dbcSearch->reset();
-    
+
     $dbcSearch->simpleQuery('SELECT COUNT(cache_id) `count` FROM ('.$sql.') query');
     $rCount = $dbcSearch->dbResultFetch();
-    
+
 
     // ok, ausgabe starten
 
@@ -154,7 +154,7 @@
     // ok, ausgabe ...
 
     $dbcSearch->simpleQuery('SELECT `xmlcontent`.`cache_id` `cacheid`, `xmlcontent`.`longitude` `longitude`, `xmlcontent`.`latitude` `latitude`, `xmlcontent`.cache_mod_cords_id, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`type` `type_id`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `cache_size`.`'.$lang.'` `size`, `cache_type`.`'.$lang.'` `type`, `cache_status`.`'.$lang.'` `status`, `user`.`username` `username`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`desc_html` `html`, `xmlcontent`.`distance` `distance` FROM `xmlcontent`, `caches`, `user`, `cache_desc`, `cache_type`, `cache_status`, `cache_size` WHERE `xmlcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `xmlcontent`.`user_id`=`user`.`user_id` AND `caches`.`type`=`cache_type`.`id` AND `caches`.`status`=`cache_status`.`id` AND `caches`.`size`=`cache_size`.`id`');
-    
+
     while($r = $dbcSearch->dbResultFetch())
     {
         if (@$enable_cache_access_logs)

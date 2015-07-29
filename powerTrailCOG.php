@@ -9,7 +9,7 @@ if ($error == false) {
     $pt = new powerTrailController($usr);
     $result = $pt->run();
     if ($usr['userid'] == 9067) {
-        
+
     } else {
         if (!(isset($usr['admin']) && $usr['admin'] == 1)) {
             print tr('pt236');

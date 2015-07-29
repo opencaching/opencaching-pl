@@ -98,7 +98,7 @@ class OcController
         $smarty->assign("smartyMedals", $smartyMedals);
         $smarty->assign("bgImage", $this->shuffleBackgroundImage());
         $smarty->display('medals.tpl');
-        
+
 
     }
 

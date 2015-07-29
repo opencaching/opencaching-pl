@@ -139,11 +139,11 @@ setlocale(LC_TIME, 'pl_PL.UTF-8');
                     // cleanup (old gpxcontent lingers if gpx-download is cancelled by user)
                     $dbcSearch->simpleQuery( 'DROP TEMPORARY TABLE IF EXISTS `wptcontent`');
                     $dbcSearch->reset();
-                    
+
                     // temporäre tabelle erstellen
                     $dbcSearch->simpleQuery( 'CREATE TEMPORARY TABLE `wptcontent` ' . $sql . $sqlLimit);
                     $dbcSearch->reset();
-                    
+
                     $dbcSearch->simpleQuery( 'SELECT COUNT(*) `count` FROM `wptcontent`');
                     $rCount = $dbcSearch->dbResultFetch();
                     $dbcSearch->reset();

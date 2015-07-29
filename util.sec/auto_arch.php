@@ -129,7 +129,7 @@ class AutoArch
     }
 
     /**
-     * 6 months from last 
+     * 6 months from last
      * @param type $rs
      */
     private function archiveGeocache($rs)

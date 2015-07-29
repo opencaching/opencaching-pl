@@ -147,7 +147,7 @@ Rekordy (kazdy 362 znaki)
                     // temporäre tabelle erstellen
                     $dbcSearch->simpleQuery( 'CREATE TEMPORARY TABLE `wptcontent` ' . $sql . $sqlLimit);
                     $dbcSearch->reset();
-                    
+
                     $dbcSearch->simpleQuery( 'SELECT COUNT(*) `count` FROM `wptcontent`');
                     $rCount = $dbcSearch->dbResultFetch();
                     $dbcSearch->reset();

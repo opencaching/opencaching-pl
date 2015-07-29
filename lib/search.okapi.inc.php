@@ -100,11 +100,11 @@ if ($usr || !$hide_coords) {
     // cleanup (old zipcontent lingers if zip-download is cancelled by user)
     $dbcSearch->simpleQuery('DROP TEMPORARY TABLE IF EXISTS `zipcontent`');
     $dbcSearch->reset();
-    
+
     // temporäre tabelle erstellen
     $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `zipcontent` ' . $sql . $sqlLimit);
     $dbcSearch->reset();
-    
+
     // echo $sql;
     $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `zipcontent`');
     $rCount = $dbcSearch->dbResultFetch();

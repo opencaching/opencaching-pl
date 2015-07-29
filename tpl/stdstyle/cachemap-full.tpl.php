@@ -159,88 +159,88 @@
 <script type="text/javascript" language="javascript">
 $(function() {
 
-	var checkbox_changed = function() {
-		var $related = $("." + $(this).attr('name'));
-		if ($(this).is(':checked'))
-			$related.addClass('dim');
-		else
-			$related.removeClass('dim');
-	};
+    var checkbox_changed = function() {
+        var $related = $("." + $(this).attr('name'));
+        if ($(this).is(':checked'))
+            $related.addClass('dim');
+        else
+            $related.removeClass('dim');
+    };
 
-	$('.opt_table input')
-		.each(checkbox_changed)
-		.change(checkbox_changed);
+    $('.opt_table input')
+        .each(checkbox_changed)
+        .change(checkbox_changed);
 
 });
 
 initial_params = {
-	start: {
-		cachemap_mapper: "{cachemap_mapper}",
-		userid: {userid},
-		coords: [{coords}],
-		zoom: {zoom},
-		map_type: {map_type},
-		circle: 0, //{circle},
-		doopen: {doopen},
-		fromlat: {fromlat}, fromlon: {fromlon},
-		tolat: {tolat}, tolon: {tolon},
-		searchdata: "{searchdata}",
-		boundsurl: "{boundsurl}",
-		extrauserid: "{extrauserid}",
-		moremaptypes: true,
-		fullscreen: true,
-		largemap: true,
-		savesettings: true
-	}
+    start: {
+        cachemap_mapper: "{cachemap_mapper}",
+        userid: {userid},
+        coords: [{coords}],
+        zoom: {zoom},
+        map_type: {map_type},
+        circle: 0, //{circle},
+        doopen: {doopen},
+        fromlat: {fromlat}, fromlon: {fromlon},
+        tolat: {tolat}, tolon: {tolon},
+        searchdata: "{searchdata}",
+        boundsurl: "{boundsurl}",
+        extrauserid: "{extrauserid}",
+        moremaptypes: true,
+        fullscreen: true,
+        largemap: true,
+        savesettings: true
+    }
 };
 
 window.onload = function() {
-	attachFullScreenOffControl();
-	attachCacheFilterControl();
-	attachCurrentPositionControl();
-	load(
-		[{ position: google.maps.ControlPosition.TOP_LEFT, control: document.getElementById("control_combo") }],
-		document.getElementById("search_control")
-	);
-	// Hack for very small devices - check if the control combo fits in the browser window
-	// If not - shrink the search box
-	var excessPixels = $("#control_combo_table").outerWidth() - window.innerWidth;
-	if (excessPixels > 0) {
-		var oldWidth = $("input.gsc-input").width();
-		$("input.gsc-input").width(oldWidth - excessPixels);
-	};
+    attachFullScreenOffControl();
+    attachCacheFilterControl();
+    attachCurrentPositionControl();
+    load(
+        [{ position: google.maps.ControlPosition.TOP_LEFT, control: document.getElementById("control_combo") }],
+        document.getElementById("search_control")
+    );
+    // Hack for very small devices - check if the control combo fits in the browser window
+    // If not - shrink the search box
+    var excessPixels = $("#control_combo_table").outerWidth() - window.innerWidth;
+    if (excessPixels > 0) {
+        var oldWidth = $("input.gsc-input").width();
+        $("input.gsc-input").width(oldWidth - excessPixels);
+    };
 };
 
 function attachFullScreenOffControl() {
-	google.maps.event.addDomListener(document.getElementById("fullscreen_off"), "click", function() {
-		var bounds = "";
-		if ({fromlat} != {tolat}) {
-			bounds = '&fromlat={fromlat}&fromlon={fromlon}&tolat={tolat}&tolon={tolon}';
-		}
-		document.cookie = "forceFullScreenMap=off;"; //remember user decision in cookie
-		window.location = "cachemap3.php?lat=" + map.getCenter().lat() + "&lon=" + map.getCenter().lng() + "&inputZoom=" + map.getZoom() + "&{searchdata}" + bounds + "{extrauserid}";
-	});
+    google.maps.event.addDomListener(document.getElementById("fullscreen_off"), "click", function() {
+        var bounds = "";
+        if ({fromlat} != {tolat}) {
+            bounds = '&fromlat={fromlat}&fromlon={fromlon}&tolat={tolat}&tolon={tolon}';
+        }
+        document.cookie = "forceFullScreenMap=off;"; //remember user decision in cookie
+        window.location = "cachemap3.php?lat=" + map.getCenter().lat() + "&lon=" + map.getCenter().lng() + "&inputZoom=" + map.getZoom() + "&{searchdata}" + bounds + "{extrauserid}";
+    });
 }
 
 function attachCacheFilterControl() {
-	var filters = document.getElementById("map_filters");
-	google.maps.event.addDomListener(document.getElementById("toggle_filters"), "click", function() {
-		if (filters.style.display == 'none') {
-			filters.style.left = document.getElementById("control_combo").offsetLeft + "px";
-			filters.style.display = '';
-		}
-		else
-			filters.style.display = 'none';
-	});
+    var filters = document.getElementById("map_filters");
+    google.maps.event.addDomListener(document.getElementById("toggle_filters"), "click", function() {
+        if (filters.style.display == 'none') {
+            filters.style.left = document.getElementById("control_combo").offsetLeft + "px";
+            filters.style.display = '';
+        }
+        else
+            filters.style.display = 'none';
+    });
 }
 
 function attachCurrentPositionControl() {
-	if (!("geolocation" in navigator))
-		return;
-	var curr_pos_el = document.getElementById("current_position");
-	curr_pos_el.style.display = "";
-	google.maps.event.addDomListener(curr_pos_el, "click", function() {
-		getCurrentPosition();
-	});
+    if (!("geolocation" in navigator))
+        return;
+    var curr_pos_el = document.getElementById("current_position");
+    curr_pos_el.style.display = "";
+    google.maps.event.addDomListener(curr_pos_el, "click", function() {
+        getCurrentPosition();
+    });
 }
 </script>

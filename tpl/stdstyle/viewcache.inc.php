@@ -27,22 +27,22 @@ if (isset($_REQUEST['showdel'])) {
 if (isset($_REQUEST['print'])) {
     if (isset($_REQUEST['showlogsall'])) {
         $logs_to_display = 999;
-		$logbook_display = 1;
+        $logbook_display = 1;
         $linkargs .= '&amp;showlogsall=y';
     } else if (isset($_REQUEST['showlogs'])) {
         $logs_to_display = intval($_REQUEST['showlogs']);
-		$logbook_display = 1;
+        $logbook_display = 1;
         $linkargs .= '&amp;showlogs=' . htmlspecialchars($logs_to_display, ENT_COMPAT, 'UTF-8');
     } else if (isset($_REQUEST['logbook']) && $_REQUEST['logbook'] == 'no') {
-		$logs_to_display = 0;
-		$logbook_display = 0;
-		$linkargs .= '&amp;logbook=no';
+        $logs_to_display = 0;
+        $logbook_display = 0;
+        $linkargs .= '&amp;logbook=no';
     } else
         $logs_to_display = 0;
-		$logbook_display = 1;
+        $logbook_display = 1;
 } else
     $logs_to_display = 5;
-	$logbook_display = 1;
+    $logbook_display = 1;
 
 // $short_desc_title = 'Charakterisierung: ';
 

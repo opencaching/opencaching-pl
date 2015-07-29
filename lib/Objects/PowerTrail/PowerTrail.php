@@ -21,7 +21,7 @@ class PowerTrail
         if (isset($params['id'])) {
             $this->id = (int) $params['id'];
             $this->loadDataFromDb();
-        } else 
+        } else
             if (isset($params['dbRow'])) {
                 $this->setFieldsByUsedDbRow($params['dbRow']);
             }
@@ -60,7 +60,7 @@ class PowerTrail
         $queryPt = 'SELECT `id`, `name`, `image`, `type` FROM `PowerTrail` WHERE `id` IN ( SELECT `PowerTrailId` FROM `powerTrail_caches` WHERE `cacheId` =:1 ) AND `status` = 1 ';
         $db = DataBaseSingleton::Instance();
         $db->multiVariableQuery($queryPt, $cacheId);
-        
+
         return $db->dbResultFetchAll();
     }
 

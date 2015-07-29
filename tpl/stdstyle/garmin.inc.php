@@ -18,10 +18,10 @@ tpl_set_var('bodyMod', ' onload="load()" onunload="GUnload()"');
 
 $garminKeyStr = '';
 if (isset($config['garmin-key'])){
-	foreach($config['garmin-key'] as $k => $v){
-		$garminKeyStr .= '"'.$k.'", "'.$v.'", ';
-	}
-	$garminKeyStr = rtrim($garminKeyStr, ', ');
+    foreach($config['garmin-key'] as $k => $v){
+        $garminKeyStr .= '"'.$k.'", "'.$v.'", ';
+    }
+    $garminKeyStr = rtrim($garminKeyStr, ', ');
 }
 tpl_set_var('garminKeyStr', $garminKeyStr);
 

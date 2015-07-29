@@ -9,9 +9,9 @@ namespace lib\Objects\User;
  */
 class UserPreferences
 {
-	private $coordinateFormat;
+    private $coordinateFormat;
 
-	public function __construct($params) {
-		
-	}
+    public function __construct($params) {
+
+    }
 }

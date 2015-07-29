@@ -125,7 +125,7 @@ if (isset($_GET['ns']) && isset($_GET['ew']) && isset($_GET['radius']) && isset(
             $lon2 = Deg2Rad($lon2);
 
             if (($ilat1 == $ilat2) && ($ilon1 == $ilon2)) {
-                
+
             } else if ($ilon1 == $ilon2) {
                 if ($ilat1 > $ilat2)
                     $result = 180.0;
@@ -135,7 +135,7 @@ if (isset($_GET['ns']) && isset($_GET['ew']) && isset($_GET['radius']) && isset(
                 $result = Rad2Deg($A);
 
                 if (($ilat2 > $ilat1) && ($ilon2 > $ilon1)) {
-                    
+
                 } else if (($ilat2 < $ilat1) && ($ilon2 < $ilon1)) {
                     $result = 180.0 - $result;
                 } else if (($ilat2 < $ilat1) && ($ilon2 > $ilon1)) {

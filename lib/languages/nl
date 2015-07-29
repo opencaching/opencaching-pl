@@ -718,7 +718,7 @@ new_caches_myn New geocaches
 ftf_awaiting Wachtende First to Find caches
 new_logs_myn Laatste logs
 top_recommended Meest aanbevolen caches
-myn_info Er zijn nog geen thuiscoördinaten ingevuld. Dit kan ingevuld worden op je <a href="myprofile.php?action=change"> profiel pagina </a>. Dit kan ook een andere plek in je buurt zijn. Wanneer de standaard radius van 50 km niet voldoet kan ook een andere waarde ingevuld worden bij "Notificatie." 
+myn_info Er zijn nog geen thuiscoördinaten ingevuld. Dit kan ingevuld worden op je <a href="myprofile.php?action=change"> profiel pagina </a>. Dit kan ook een andere plek in je buurt zijn. Wanneer de standaard radius van 50 km niet voldoet kan ook een andere waarde ingevuld worden bij "Notificatie."
 search_user Zoek gebruiker
 monthly_stat_founds Monthly statistics of the cache finds
 monthly_stat_founds_user Maandelijkse statistieken gevonden caches
@@ -735,7 +735,7 @@ by_cachetype Per cache soort
 by_logtype Per log soort
 stat_geocache Statistieken cache
 does_not_have_stat Er zijn nog geen statistieken
-number_month Aantal per maand 
+number_month Aantal per maand
 stat_problems Statistics OC Team - solved problems
 edit_logentry Bewerk de log
 moved_cache_info If you moved the cache to a new location please enter the new coordinates that will be shown in the log
@@ -1240,9 +1240,9 @@ cache_reports_32 Probleem met cache
 cache_reports_33 Kopie van het bericht
 cache_reports_34 actieve onderwerpen
 cache_reports_35 archief
-cache_reports_36 Geselecteerde behandelaar is 
+cache_reports_36 Geselecteerde behandelaar is
 cache_reports_37 Er is geen behandelaar geselecteerd
-cache_reports_38 Geselecteerde status is 
+cache_reports_38 Geselecteerde status is
 revert Terugzetten
 found_beer_caches Flut cache
 rating_poor_1A Hopeloos
@@ -2018,10 +2018,10 @@ login_message_06 Inloggen mislukt.<br />Ingevoerde naam of e-mail is onjuist.
 login_message_07 Inloggen mislukt.<br />Ingevoerde naam of wachtwoord is onjuist.
 login_message_08 Deze browser ondersteunt geen cookies van {site_name}
 login_message_09 Om deze pagina te openen dient er ingelogt te zijn.
-graph_statistics_01 Statistieken van www.{site_name} :: Datum 
+graph_statistics_01 Statistieken van www.{site_name} :: Datum
 graph_statistics_02 Actieve caches
 graph_statistics_03 Gevonden caches
-graph_statistics_04 Gegevens per 
+graph_statistics_04 Gegevens per
 graph_statistics_05 Geplaatste caches:
 graph_statistics_06 Actieve caches:
 graph_statistics_07 Totaal gevonden caches:
@@ -2165,7 +2165,7 @@ addnews_confirm_03 Terug naar
 addnews_confirm_04 hoofdpagina
 Pos Pos
 Nr Aantal
-Dates Datum 
+Dates Datum
 adm_cachenotfound_01 Toon gemelde caches
 adm_cachenotfound_02 Toon gemelde met verschilende datum
 adm_cachenotfound_03 Niet gevonden
@@ -2545,7 +2545,7 @@ pos. pos.
 AllPosExport Download alle caches
 HideCols Verberg kolommen
 InteractiveSorting Interactieve sortering
-Descending Aflopend 
+Descending Aflopend
 Ascending Oplopend
 MaxSearchRec Aantal caches meer dan 5000. Interactive modus is uitgeschakeld.
 CachesNotMatchCryteria Er zijn geen caches gevonden.

@@ -64,7 +64,7 @@ class Altitude
     private function storeAlitudeInDb()
     {
         $query = 'INSERT INTO `caches_additions` (`cache_id`, `altitude`, `altitude_update_datetime`)
-                        VALUES (:2, :1, NOW()) 
+                        VALUES (:2, :1, NOW())
                         ON DUPLICATE KEY UPDATE
                         `altitude` = :1, altitude_update_datetime = NOW()';
         $db = \lib\Database\DataBaseSingleton::Instance();
@@ -85,11 +85,11 @@ class Altitude
     public function pickAndStoreAltitude($userInputAltitude)
     {
         $this->retreiveAltitudeFromGoogleApi();
-        if ( !is_null($userInputAltitude) && 
-             $userInputAltitude < $this->altitude+50 && 
+        if ( !is_null($userInputAltitude) &&
+             $userInputAltitude < $this->altitude+50 &&
              $userInputAltitude > $this->altitude-50
            ) {
-            
+
             $this->altitude = $userInputAltitude;
         }
         $this->storeAlitudeInDb();

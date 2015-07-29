@@ -5,14 +5,14 @@ namespace lib\Objects\Coordinates;
 /**
  * Coordinates keep and converts geographical coordinates
  * @author Andrzej Lza Wozniak
- * 
+ *
  */
 class Coordinates
 {
 
     /**
      * coordinates in casual decimal format (DD.DDDDDDDD)
-     * 
+     *
      * @var float
      */
     private $latitude = 0;
@@ -20,7 +20,7 @@ class Coordinates
 
     /**
      * Default format from system setting
-     * 
+     *
      * @var string
      */
     private $defaultFormat = self::COORDINATES_FORMAT_DECIMAL;
@@ -43,20 +43,20 @@ class Coordinates
     /**
      *
      * @param array $params - must contain latitude (float) and longitude (float)
-     *            
+     *
      * example of use:
      * $params = array (
      *   latitude => 40.446321
      *   longitude => 79.982321
      * )
      * $coordinates = new \lib\Objects\GeoCache\Coordinates($params);
-     *            
+     *
      */
     public function __construct(array $params)
     {
         if (isset($params['dbRow'])) {
             $this->loadFromDb($params['dbRow']);
-        } else 
+        } else
             if ($params['okapiRow']) {
                 $this->loadFromOkapi($params['okapiRow']);
             }
@@ -64,8 +64,8 @@ class Coordinates
 
     /**
      * Load this class data based on data from DB
-     * 
-     * @param array $dbRow            
+     *
+     * @param array $dbRow
      */
     public function loadFromDb($dbRow)
     {
@@ -79,8 +79,8 @@ class Coordinates
 
     /**
      * Load this class data based on data from OKAPI
-     * 
-     * @param array $okapiLocation            
+     *
+     * @param array $okapiLocation
      */
     public function loadFromOkapi($okapiLocation)
     {
@@ -97,10 +97,10 @@ class Coordinates
      *            (optional) must be one of this class constants: COORDINATES_FORMAT_DECIMAL or COORDINATES_FORMAT_DEG_MIN or COORDINATES_FORMAT_DEG_MIN_SEC
      * @return string example of use:
      *         $latitude = $coordinates->getLatitudeString(\lib\Objects\GeoCache\Coordinates::COORDINATES_FORMAT_DEG_MIN);
-     *        
+     *
      *         example of use:
      *         $latitude = $coordinates->getLatitudeString();
-     *        
+     *
      */
     public function getLatitudeString($format = false)
     {
@@ -122,17 +122,17 @@ class Coordinates
      * returns latitude as string.
      * Result is in format selecdted by param $format. If param $format is not given, result is in default format.
      *
-     * @param integer $format (optional) must be one of this class constants: 
+     * @param integer $format (optional) must be one of this class constants:
      *     COORDINATES_FORMAT_DECIMAL or COORDINATES_FORMAT_DEG_MIN or COORDINATES_FORMAT_DEG_MIN_SEC
-     * 
-     * @return string 
-     * 
+     *
+     * @return string
+     *
      * example of use:
      *   $latitude = $coordinates->getLatitudeString(\lib\Objects\GeoCache\Coordinates::COORDINATES_FORMAT_DEG_MIN);
-     *      
+     *
      * example of use:
      *   $latitude = $coordinates->getLatitudeString();
-     *        
+     *
      */
     public function getLongitudeString($format = false)
     {

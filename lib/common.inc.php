@@ -290,7 +290,7 @@ tpl_set_var('contact_mail', $contact_mail);
 
 // BSz: to make ease use of wikilinks
 foreach($wikiLinks as $key => $value){
-	tpl_set_var('wiki_link_'.$key, $value);
+    tpl_set_var('wiki_link_'.$key, $value);
 }
 
 function score2ratingnum($score)

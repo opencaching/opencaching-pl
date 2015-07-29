@@ -3,13 +3,13 @@ Adding new type of medal
 
 I. Overview
 
-Medal module is designed elastic (can allow unlimited medals diffrent unlimited types). 
+Medal module is designed elastic (can allow unlimited medals diffrent unlimited types).
 
-works on two basic structures: 
+works on two basic structures:
 - abstract 'medal types', representing by separate php classes
 - phisics 'medal', created dynamicly by MedalController on basic of data from configuration table.
 
-Module is designed to allow unlimited number of medals within each medal type. Number of Medal types 
+Module is designed to allow unlimited number of medals within each medal type. Number of Medal types
 is unlimited too.
 
 MedalType1   => medal1
@@ -17,22 +17,22 @@ MedalType1   => medal1
              => medal3
              (...)
              => medaln
-             
+
 MedalType2  => medal(n+1)
             => medal(n+2)
             (...)
             => medal(n+m)
             (...)
-            
+
 MedalTypeX  => medal(n+m+1)
             => medal(n+m+2)
             (...)
-            => medal(n+m+3)            
-             
-It is possible to add new medals of existing medal types without programming skills. 
+            => medal(n+m+3)
+
+It is possible to add new medals of existing medal types without programming skills.
 => If you want add new medal Refer to chapter II
 
-To add new medal type programig will be required. 
+To add new medal type programig will be required.
 
 ===================================================================================================
 II. Steps to create new medal for existing types of medals.
@@ -88,7 +88,7 @@ class MedalHighlandCaches extends \lib\Objects\Medals\Medal implements \lib\Obje
     public function getLevelInfo($level = null)
     {
 
-	}
+    }
 }
 
 ?>
@@ -105,7 +105,7 @@ add:
 3. Add new medal
 -------------------------------------------------------------------------------------------------------------------
 open Go to \lib\Objects\Medals\MedalsContainer.php
-at the bottom of class add new constant 
+at the bottom of class add new constant
 
 example:
 <?php
@@ -115,7 +115,7 @@ class MedalsContainer
     const REGION_KRAKOW = 2;
     (...)
     const MAXALTITUDE_2450 = 6;
-	const HIGHLAND_9000 = 7;       /* add this */
+    const HIGHLAND_9000 = 7;       /* add this */
 }
 ?>
 note: constants MUST be unique, use next available integer instead 7
@@ -129,7 +129,7 @@ We have created New Medal type. Now, we have to add new medal.
 
 Open lib\Controllers\config\medals.config.php, and at the end add new element of configuration tabale, using your new medal type constant from MedalContainer class as main table key.
 
-example 
+example
 <?php
 return array(
     MedalsContainer::REGION_MALOPOLSKA => array( ... ),
@@ -140,7 +140,7 @@ return array(
 Now buld configuration table body for your new medal. Tabe have to contain keys:
     'name' => YourMedalName
     'child' => type of medal, use constant for specified type from MedalsController, f.example MedalsController::MEDAL_TYPE_HIGHLAND
-    'dateIntroduced' => '2005-01-01 00:01:00', 
+    'dateIntroduced' => '2005-01-01 00:01:00',
     'conditions' => array( conditions user have to meet to be awarded. body of this array depends on you )
 
 example for our mountain medal:
@@ -165,14 +165,14 @@ example for our mountain medal:
                     'levelName' => 'Paper',
                     'cacheCount' => array(      /* to get this medal level user have to: */
                         'found' => 1,           /*  found 1 cache */
-                        'placed' => 0,			/*  place 0 caches */
+                        'placed' => 0,          /*  place 0 caches */
                     ),
                 ),
                 2 => array(
                     'levelName' => 'Wooden',
-                    'cacheCount' => array( 		/* to get this medal level user have to: */
-                        'found' => 5,			/*  found 5 cache */
-                        'placed' => 1,			/*  place 1 cache */
+                    'cacheCount' => array(      /* to get this medal level user have to: */
+                        'found' => 5,           /*  found 5 cache */
+                        'placed' => 1,          /*  place 1 cache */
                     ),
                 ),
                 3 => array(
@@ -207,7 +207,7 @@ Now, we have builded (abstract) new medal type MedalsController::MEDAL_TYPE_HIGH
 and declared (psihics) medal MedalsContainer::HIGHLAND_9000.
 All we need, to write body of method checkConditionsForUser() in your HighlandCaches class.
 
-Medal Controller daily run function checkAllUsersMedals(). This function perform medal check on each user. 
+Medal Controller daily run function checkAllUsersMedals(). This function perform medal check on each user.
 Iterate through all medals class, calling method checkConditionsForUser(). All you need is edit your checkConditionsForUser()
 
 -> 6.1 to make your develop works easy, create test script helping you to develop, place it in main oc directory.
@@ -228,14 +228,14 @@ then open your class HighlandCaches, add some debug.
 <?php
 public function checkConditionsForUser(\lib\Objects\User\User $user)
 {
-	dd($user);
+    dd($user);
 }
 ?>
 
-and run test script. It should output first user object to be check. 
+and run test script. It should output first user object to be check.
 Now is your creative job to do. You need witchdraw from database all data you need to be checked if user met all conditions for your medal
 
-finally, when user met your conditions, call setMedalPrizedTimeAndAcheivedLevel() methode and storeMedalStatus(). 
+finally, when user met your conditions, call setMedalPrizedTimeAndAcheivedLevel() methode and storeMedalStatus().
 These methodes will set and sore automaticly in db medal and level acheived by user.
 
 That's it!
@@ -244,26 +244,26 @@ example: finally your methode may looks like:
 <?php
 public function checkConditionsForUser(\lib\Objects\User\User $user)
 {
-	d($user);
+    d($user);
     d($this->conditions); /* displays conditions for current medal from config file */
 
-	$userMetConditionsForMedal = {
-		// [true / false] place here code
+    $userMetConditionsForMedal = {
+        // [true / false] place here code
         // checking if all of $this->conditions were met,
-	}
+    }
 
-	$level = {
-		// [integer]
-	    // place here your code checking wchich level for $this->conditions['cacheCountToAward']
+    $level = {
+        // [integer]
+        // place here your code checking wchich level for $this->conditions['cacheCountToAward']
         // were met
-	}
+    }
 
-	if($userMetConditionsForMedal){ /* set medal were awarded */
-		$this->setMedalPrizedTimeAndAcheivedLevel($level);
-	}
+    if($userMetConditionsForMedal){ /* set medal were awarded */
+        $this->setMedalPrizedTimeAndAcheivedLevel($level);
+    }
 
-	$this->storeMedalStatus($user); /* finally this will automaticly store checking medal result in database */
-	dd($this->prizedTime, $this->level); /* display if medal were prized, stop executing*/
+    $this->storeMedalStatus($user); /* finally this will automaticly store checking medal result in database */
+    dd($this->prizedTime, $this->level); /* display if medal were prized, stop executing*/
 }
 ?>
 

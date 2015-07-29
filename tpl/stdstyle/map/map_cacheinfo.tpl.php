@@ -6,7 +6,7 @@
 #div_cacheName {float:left; font-size:120%;
     max-width: 320px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     padding-right: 10px}
-#div_cacheCode {float:right; } 
+#div_cacheCode {float:right; }
 #div_cacheParams {float:left; padding-right: 20px }
 #div_cacheCounters {float:right }
 #div_cachePtLabel {
@@ -17,8 +17,8 @@
     max-width: 350px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     font-size:12px}
 
-#div_cacheInfo_main a { text-decoration: none } 
-    
+#div_cacheInfo_main a { text-decoration: none }
+
 </style>
 </head>
 <body>
@@ -42,7 +42,7 @@
             <img src='/images/actions/list-add-16.png' title='{{add_to_list}}' alt='{{add_to_list}}'>
         </a>
     </div>
-    
+
 <div style="clear:both; padding-top: 5px"></div>
 
 
@@ -53,28 +53,28 @@
             <b>{{size}}:</b> {cache_size_desc}
         </p>
         <?php } //if-is-event ?>
-            
+
         <?php //there is enough votes => score present
         if( {is_scored} ){ ?>
         <p>
             <b>{{score}}:</b> {rating_desc}
-        </p>    
+        </p>
         <?php } //if-is-scored ?>
-        
+
         <p>
             <b>{{owner}}:</b>
             <a href='{user_profile}' style='text-decoration: none;' target='_blank'>{user_name}</a>
         </p>
 
     </div>
-    
+
     <div id='div_cacheCounters'>
-    
+
         <p>
             <img src='/tpl/stdstyle/images/log/16x16-found.png' width='10' height='10' />
-            {cache_founds} x 
+            {cache_founds} x
             <?php //for events founds = attended
-                if(! {is_event} ) { ?> 
+                if(! {is_event} ) { ?>
                     {{found}}
             <?php } else { ?>
                     {{attendends}}
@@ -83,7 +83,7 @@
         <p>
             <img src='/tpl/stdstyle/images/log/16x16-dnf.png' width='10' height='10' />
             <?php //for events founds = attended
-                if(! {is_event} ) { ?> 
+                if(! {is_event} ) { ?>
                     {cache_not_founds} x {{not_found}}
             <?php } else { ?>
                     {cache_willattends} x {{will_attend}}
@@ -109,7 +109,7 @@
         </p>
     </div>
     <?php } //if-is-powerTrail-part ?>
-    
+
     <?php if( {is_powertrail_part} ){ ?>
     <div id='div_cachePT'>
        <a style='text-decoration: none;' href='{pt_url}' title='{pt_name}' target='_blank'>

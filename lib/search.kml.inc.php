@@ -139,11 +139,11 @@
         // cleanup (old gpxcontent lingers if gpx-download is cancelled by user)
         $dbcSearch->simpleQuery( 'DROP TEMPORARY TABLE IF EXISTS `kmlcontent`');
         $dbcSearch->reset();
-        
+
         // temporäre tabelle erstellen
         $dbcSearch->simpleQuery( 'CREATE TEMPORARY TABLE `kmlcontent` ' . $sql . $sqlLimit, $sqldebug);
         $dbcSearch->reset();
-        
+
         $dbcSearch->simpleQuery( 'SELECT COUNT(*) `count` FROM `kmlcontent`');
         $rCount = $dbcSearch->dbResultFetch();
         $dbcSearch->reset();

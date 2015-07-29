@@ -104,7 +104,7 @@ if ($error == false) {
                   caches.type AS cache_type,
                   cache_type.icon_small AS cache_icon_small,
                   log_types.icon_small AS icon_small,
-				  log_types.pl as pl, 
+                  log_types.pl as pl,
                   IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
                   COUNT(gk_item.id) AS geokret_in,
                  `PowerTrail`.`id` AS PT_ID,

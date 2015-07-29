@@ -25,13 +25,13 @@
 <div class="line-box">
     <div class="content-title-noshade-size1">
         <p class="cache-title">
-			<img src="{icon_cache}" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}" align="absmiddle" />{mod_suffix}{cachename}
-		</p>	
+            <img src="{icon_cache}" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}" align="absmiddle" />{mod_suffix}{cachename}
+        </p>
         <img src="tpl/stdstyle/images/free_icons/arrow_in.png" class="icon16" alt="" title="" />&nbsp;<b>{oc_waypoint}
         <img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="" title=""  align="absmiddle"/>{coords}</b><br/>
 
-        {difficulty_icon_diff} {difficulty_icon_terr} {short_desc} 
-		{{hidden_by}} <a href="viewprofile.php?userid={userid_urlencode}">{owner_name}</a>
+        {difficulty_icon_diff} {difficulty_icon_terr} {short_desc}
+        {{hidden_by}} <a href="viewprofile.php?userid={userid_urlencode}">{owner_name}</a>
 
         <img src="tpl/stdstyle/images/free_icons/package.png" class="icon16" alt="" title="" />&nbsp;<b>{cachesize}</b>
         {hidetime_start} <img src="tpl/stdstyle/images/free_icons/time.png" class="icon16" alt="" title="" />&nbsp; {search_time}&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/arrow_switch.png" class="icon16" alt="" title="" />&nbsp; {way_length} {hidetime_end}
@@ -121,13 +121,13 @@ global $usr, $lang, $hide_coords;
     </p>
 </div>
 <div class="content2-container">
-	<center>
+    <center>
         <table width="90%" border="0" style="border-collapse: collapse; font-weight: bold;font-size: 14px; line-height: 1.6em">
             <tr>
                 <td align="center" valign="middle">&nbsp;</td><td align="center" valign="middle">{npa_content}</td><td align="center" valign="middle"><a class="links" href="http://www.natura2000.pl/" target="_blank"><img src="tpl/stdstyle/images/misc/natura2000.png" alt="" title="" /></a></td>
             </tr>
         </table>
-	</center>
+    </center>
 </div>
 {hidenpa_end}
 

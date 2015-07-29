@@ -145,7 +145,7 @@ $cacheTypeText[10] = "".tr('cacheType_10')."";
         // temporäre tabelle erstellen
         $dbcSearch->simpleQuery( 'CREATE TEMPORARY TABLE `loccontent` ' . $sql . $sqlLimit, $sqldebug);
         $dbcSearch->reset();
-        
+
         $dbcSearch->simpleQuery( 'SELECT COUNT(*) `count` FROM `loccontent`');
         $rCount = $dbcSearch->dbResultFetch();
         $dbcSearch->reset();

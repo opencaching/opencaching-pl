@@ -1240,9 +1240,9 @@ cache_reports_32 Problem with cache
 cache_reports_33 Copy of the message
 cache_reports_34 current issues
 cache_reports_35 archive
-cache_reports_36 Leading is changed to 
+cache_reports_36 Leading is changed to
 cache_reports_37 Leading is not slected
-cache_reports_38 Status is changed to 
+cache_reports_38 Status is changed to
 revert Revert
 found_beer_caches crates of beer
 rating_poor_1A Shitty
@@ -2239,8 +2239,8 @@ contact_ro_about_description_1
 contact_ro_other_title Overige
 contact_ro_other_description
 contact_ocro_title
-contact_ocro_description_1 
-contact_ocro_description_2 
+contact_ocro_description_1
+contact_ocro_description_2
 contact_nl_title_1 General questions about Opencaching.nl and theme Geocaching.
 contact_nl_desc_1_1 For questions about opencaching and theme Geocaching our <a href="http://wiki.opencaching.nl/"> Open Caching Wiki </a> a good place to read a bit. <br/> There is a nice introduction video made which explains in detail what Opencaching.nl and Geocaching is about. Please take a look <a href="https://www.youtube.com/watch?v=_ujk70YhKLA&feature=youtu.be">here</a>.
 contact_nl_desc_1_2 If no answer can be found on a certain question you may also look on our <a href="http://forum.opencaching.nl"> forum</a>. Maybe that question has been asked here.
@@ -2481,7 +2481,7 @@ Stats_s3_03 Finds
 Stats_s3_04 Geocache (username)
 Stats_s3a_01 Cache ranking by finds per region
 Stats_s3a_02 Click on the name of the region to see the statistics in the region
-Stats_s3a_03 Select a region 
+Stats_s3a_03 Select a region
 Stats_s10_01 User Ranking by number of searches in a region<br />(Found + Not found)
 Stats_s10_02 Ranking
 Stats_s10_03 Number of logs
@@ -2499,7 +2499,7 @@ Stats_t5_02 Where
 Stats_t5_03 number of recommendations
 Stats_t5_04 total number of caches
 Stats_t5_05 ratio in
-Stats_t5_06 or 
+Stats_t5_06 or
 Stats_t5_07 Ranking
 Stats_t5_08 Number of recommendations
 Stats_t5_09 Username
@@ -2534,7 +2534,7 @@ Coordinates Coordinates
 Distance Distance
 TT T/T
 CacheOwner Owner of Cache
-RecommendationNumber Number of Recommendation 
+RecommendationNumber Number of Recommendation
 TypeDateLastEntry Type and date (and content) of last entry
 LastTypeEntry Type of last entry
 LastEntryDate Date of last entry
@@ -2547,9 +2547,9 @@ pos. pos.
 AllPosExport Export of all caches
 HideCols Hide columns
 InteractiveSorting Interactive sorting
-Descending Descending 
+Descending Descending
 Ascending Ascending
-MaxSearchRec Number of caches exceeded 5 000. Mode of interactive sorting has been disabled.  
+MaxSearchRec Number of caches exceeded 5 000. Mode of interactive sorting has been disabled.
 CachesNotMatchCryteria Any cache doesn't match criteria.
 PageNr Number of page
 Disable Disable
@@ -2558,8 +2558,8 @@ LogPassword Password needed to log entry!
 Flopp_map Flopp's map
 abovesealevel m. asl.
 cache_alt Altitude
-Given_Recommendations Recommendations given by 
-waypoint_error1 
+Given_Recommendations Recommendations given by
+waypoint_error1
 waypoint_error2 Waypoint must be in one of the following formats: OPxxxx, ORxxxx, OBxxxx, GCxxxxx, NCxxxx
 pagetitle_print Printing
 natura2000 NATURA 2000 (Nature Protected Area)

@@ -48,7 +48,7 @@ class GeoCache
 
     private $sizeId;
     private $ratingId;
-    private $status; 
+    private $status;
 
     private $recommendations;       //number of recom.
     private $founds;
@@ -89,10 +89,10 @@ class GeoCache
     public function __construct(array $params)
     {
         if (isset($params['cacheId'])) { // load from DB if cachId param is set
-            
+
             $db = DataBaseSingleton::Instance();
             $this->id = (int) $params['cacheId'];
-            
+
             $queryById = "SELECT name, type, date_hidden, longitude, latitude, wp_oc, user_id FROM `caches` WHERE `cache_id`=:1 LIMIT 1";
             $db->multiVariableQuery($queryById, $this->id);
 
@@ -105,7 +105,7 @@ class GeoCache
             }
             $this->loadCacheLocation($db);
 
-        } else 
+        } else
             if (isset($params['okapiRow'])) {
                 $this->loadFromOkapiRow($params['okapiRow']);
             }
@@ -113,8 +113,8 @@ class GeoCache
 
     /**
      * Load cache data based on OKAPI response data
-     * 
-     * @param array $okapiRow            
+     *
+     * @param array $okapiRow
      */
     public function loadFromOkapiRow($okapiRow)
     {
@@ -174,8 +174,8 @@ class GeoCache
 
     /**
      * Load object data based on DB data-row
-     * 
-     * @param array $row            
+     *
+     * @param array $row
      */
     public function loadFromRow(array $cacheDbRow)
     {
@@ -183,7 +183,7 @@ class GeoCache
         $this->cacheName = $cacheDbRow['name'];
         $this->geocacheWaypointId = $cacheDbRow['wp_oc'];
         $this->datePlaced = strtotime($cacheDbRow['date_hidden']);
-        
+
         $this->coordinates = new \lib\Objects\Coordinates\Coordinates(array(
             'dbRow' => $cacheDbRow
         ));
@@ -213,7 +213,7 @@ class GeoCache
         if (! OcConfig::Instance()->getPowerTrailModuleSwitchOn()) {
             return false;
         }
-        
+
         if (is_null($this->isPowerTrailPart)) {
             $ptArr = PowerTrail::CheckForPowerTrailByCache($this->id);
             if (count($ptArr) > 0) {
@@ -226,14 +226,14 @@ class GeoCache
                 $this->isPowerTrailPart = false;
             }
         }
-        
+
         return $this->isPowerTrailPart;
-    }    
+    }
 
     /**
      * Returns TypeId of the cache based on OKAPI description
-     * 
-     * @param String $okapiType            
+     *
+     * @param String $okapiType
      * @return int TypeId
      */
     public static function CacheTypeIdFromOkapi($okapiType)
@@ -265,14 +265,14 @@ class GeoCache
 
     /**
      * Returns SizeId of the cache based on OKAPI description
-     * 
-     * @param String $okapiType            
+     *
+     * @param String $okapiType
      * @return int TypeId
      */
     public static function CacheSizeIdFromOkapi($okapiSize)
     {
         switch ($okapiSize) {
-            
+
             case 'none':
                 return self::SIZE_NONE;
             case 'nano':
@@ -297,9 +297,9 @@ class GeoCache
 
     /**
      * Returns the cache status based on the okapi response desc.
-     * 
+     *
      * @param string $okapiStatus
-     * @return string - internal enum 
+     * @return string - internal enum
      */
     public static function CacheStatusIdFromOkapi($okapiStatus)
     {
@@ -318,7 +318,7 @@ class GeoCache
 
     /**
      * Returns the cache size key based on size numeric identifier
-     * 
+     *
      * @param int $sizeId
      * @return string - size key for translation
      */
@@ -346,10 +346,10 @@ class GeoCache
                 return 'size_04';
         }
     }
-    
+
     /**
      * Returns cache reating description based on ratingId
-     * 
+     *
      * @param int $ratingId
      * @return string - rating description key for translation
      */
@@ -371,8 +371,8 @@ class GeoCache
 
     /**
      * Retrurn cache icon based on its type and status
-     * 
-     * @param enum $type 
+     *
+     * @param enum $type
      * @param enum $status
      * @return string - path + filename of the right icon
      */
@@ -393,47 +393,47 @@ class GeoCache
                 $statusPart = "-s";
                 break;
         }
-        
+
         $typePart = "";
         switch ($type) {
             case self::TYPE_OTHERTYPE:
                 $typePart = 'unknown';
                 break;
-            
+
             case self::TYPE_TRADITIONAL:
             default:
                 $typePart = 'traditional';
                 break;
-            
+
             case self::TYPE_MULTICACHE:
                 $typePart = 'multi';
                 break;
-            
+
             case self::TYPE_VIRTUAL:
                 $typePart = 'virtual';
                 break;
-            
+
             case self::TYPE_WEBCAM:
                 $typePart = 'webcam';
                 break;
-            
+
             case self::TYPE_EVENT:
                 $typePart = 'event';
                 break;
-            
+
             case self::TYPE_QUIZ:
                 $typePart = 'quiz';
                 break;
-            
+
             case self::TYPE_MOVING:
                 $typePart = 'moving';
                 break;
-            
+
             case self::TYPE_OWNCACHE:
                 $typePart = 'owncache';
                 break;
         }
-        
+
         return 'tpl/stdstyle/images/cache/' . $typePart . $statusPart . '.png';
     }
 
@@ -441,27 +441,27 @@ class GeoCache
     {
         return $this->powerTrail;
     }
-    
+
     public function getCacheType()
     {
         return $this->cacheType;
     }
-    
+
     public function getCacheLocation()
     {
         return $this->cacheLocation;
     }
-    
+
     public function getCacheName()
     {
         return $this->cacheName;
     }
-    
+
     public function getDatePlaced()
     {
         return $this->datePlaced;
     }
-    
+
     /**
      *
      * @return \lib\Objects\Coordinates\Coordinates
@@ -470,7 +470,7 @@ class GeoCache
     {
         return $this->coordinates;
     }
-    
+
     /**
      *
      * @return \lib\Objects\GeoCache\Altitude
@@ -479,18 +479,18 @@ class GeoCache
     {
         return $this->altitude;
     }
-    
+
     public function getCacheId()
     {
         return $this->id;
     }
-    
+
     public function getWaypointId()
     {
         return $this->geocacheWaypointId;
     }
-    
-    
+
+
     /**
      *
      * @return \lib\Objects\User\User
@@ -499,17 +499,17 @@ class GeoCache
     {
         return $this->owner;
     }
-    
+
     public function getRecommendations()
     {
         return $this->recommendations;
     }
-    
+
     public function getCacheUrl()
     {
         return '/viewcache.php?wp=' . $this->getWaypointId();
     }
-    
+
     public function getFounds()
     {
         return $this->founds;

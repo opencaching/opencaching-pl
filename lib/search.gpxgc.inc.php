@@ -393,7 +393,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                 // temporäre tabelle erstellen
                 $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `gpxcontent` ' . $sql . $sqlLimit);
                 $dbcSearch->reset();
-                
+
                 $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `gpxcontent`');
                 $rCount = $dbcSearch->dbResultFetch();
                 $countGPX = $rCount['count'];
@@ -425,8 +425,8 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                                 }
                         }
                 }
-                
-                
+
+
                 $bUseZip = ($rCount['count'] > 50);
                 $bUseZip = $bUseZip || (isset($_REQUEST['zip']) && ($_REQUEST['zip'] == '1'));
                 $bUseZip = false;
@@ -662,7 +662,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 
                         // create log list
                         if($options['gpxLogLimit']) {
-                                $gpxLogLimit = 'LIMIT '.(intval($options['gpxLogLimit'])).' '; 
+                                $gpxLogLimit = 'LIMIT '.(intval($options['gpxLogLimit'])).' ';
                         } else {
                                 $gpxLogLimit = '';
                         }

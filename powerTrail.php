@@ -105,7 +105,7 @@ if ($error == false) {
     tpl_set_var('attributionMap', $cacheMap3Lib->generateAttributionMap());
     tpl_set_var('mapItems', $cacheMap3Lib->generateMapItems());
     tpl_set_var('showMapsWhenMore', $cacheMap3Lib->generateShowMapsWhenMore());
-    
+
     if (!$usr)
         tpl_set_var('ptMenu', 'none');
     $ptMenu = new powerTrailMenu($usr);

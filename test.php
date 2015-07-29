@@ -6,11 +6,11 @@ error_reporting(-1);
 
 if(isset($_GET['alt']) && $_GET['alt'] == 1){
     $data = fillAltitudeTable();
-	display($data);
+    display($data);
 }
 
 if(isset($_GET['medal']) && $_GET['medal'] == 1){
-	uzupełnianie_medali();
+    uzupełnianie_medali();
 }
 
 if(isset($_GET['php']) && $_GET['php'] == 1){
@@ -52,10 +52,10 @@ function fillAltitudeTable()
             d($url, $altitudes, $caches);
             break;
         }
-		$result[] = $altitudes;
+        $result[] = $altitudes;
     }
     print '<br><br>' . $cachesAltitudeCount . ' caches altitudes added';
-	return $result;
+    return $result;
 }
 
 function storeAlitudeToDb($altitudes, $caches, &$cachesAltitudeCount)
@@ -63,7 +63,7 @@ function storeAlitudeToDb($altitudes, $caches, &$cachesAltitudeCount)
     $status = (string) $altitudes->status;
     if ($status !== 'OK') {
         print 'error occured';
-		d($caches, $altitudes);
+        d($caches, $altitudes);
         return;
     }
     $db = \lib\Database\DataBaseSingleton::Instance();
@@ -100,12 +100,12 @@ function display($data){
         margin: 0px;
         padding: 0px
       }
-	  #map-canvas {
-		  width: 400px;
-		  height: 400px;
+      #map-canvas {
+          width: 400px;
+          height: 400px;
         margin: 0px;
         padding: 0px
-	  }
+      }
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
     <script>
@@ -119,14 +119,14 @@ function initialize() {
 
 <?php
 foreach($data as $key => $value){
-	foreach($value->result as $altObj){
+    foreach($value->result as $altObj){
 //d($value);
 ?>
-	var marker = new google.maps.Marker({
+    var marker = new google.maps.Marker({
       position: new google.maps.LatLng(<?= $altObj->location->lat ?>,<?= $altObj->location->lng ?>),
       map: map,
       title: 'Altitude: <?= $altObj->elevation ?>'
-	});
+    });
 <?php
 }}
 ?>

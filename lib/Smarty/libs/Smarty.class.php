@@ -665,7 +665,7 @@ class Smarty extends Smarty_Internal_TemplateBase
 
     /**
      * Cache of is_file results of loadPlugin()
-     * 
+     *
      * @var array
      */
     public static $_is_file_cache= array();

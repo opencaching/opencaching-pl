@@ -893,7 +893,7 @@ cacheguides Ghiduri în Geocaching-ului **
 guide Ghid
 guides Ghiduri
 okapi_apps Aplicaţiile tale
-os_times  
+os_times
 os_kesz Geocutie
 os_autor de
 os_nie_ma_w_os Proprietarul acestei geocutii nu a adăugat opţiunea de a-i verifica coordonatele finale cu OpenChecker
@@ -2482,7 +2482,7 @@ Stats_t5_02 Unde
 Stats_t5_03 *număr recomandări
 Stats_t5_04 total geocutii
 Stats_t5_05 **ratio in
-Stats_t5_06 sau 
+Stats_t5_06 sau
 Stats_t5_07 Clasament
 Stats_t5_08 *Număr recomandări
 Stats_t5_09 Utilizator
@@ -2542,7 +2542,7 @@ Flopp_map Flopp's map
 abovesealevel m
 cache_alt Altitudine
 Given_Recommendations Recomandări date de
-waypoint_error1 
+waypoint_error1
 waypoint_error2 Punctul trebuie să fie dat într-unul din următoarele formate: OPxxxx, ORxxxx, OBxxxx, GCxxxxx, NCxxxx
 pagetitle_print Tipărire
 natura2000 NATURA 2000 (Rezervaţie Naturală)

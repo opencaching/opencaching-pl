@@ -129,7 +129,7 @@ $cacheTypeText[9] = 'PodCastCache';
         // temporĂ¤re tabelle erstellen
         $dbcSearch->simpleQuery( 'CREATE TEMPORARY TABLE `ov2content` ' . $sql . $sqlLimit);
         $dbcSearch->reset();
-        
+
         $dbcSearch->simpleQuery( 'SELECT COUNT(*) `count` FROM `ov2content`');
         $rCount = $dbcSearch->dbResultFetch();
         $dbcSearch->reset();

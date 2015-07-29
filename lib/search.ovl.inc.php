@@ -119,7 +119,7 @@
         // temporĂ¤re tabelle erstellen
         $dbcSearch->simpleQuery( 'CREATE TEMPORARY TABLE `ovlcontent` ' . $sql . $sqlLimit, $sqldebug);
         $dbcSearch->reset();
-        
+
         $dbcSearch->simpleQuery( 'SELECT COUNT(*) `count` FROM `ovlcontent`');
         $rCount = $dbcSearch->dbResultFetch();
         $dbcSearch->reset();

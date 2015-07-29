@@ -167,42 +167,42 @@
 <script type="text/javascript" language="javascript">
 $(function() {
 
-	var checkbox_changed = function() {
-		var $related = $("." + $(this).attr('name'));
-		if ($(this).is(':checked'))
-			$related.addClass('dim');
-		else
-			$related.removeClass('dim');
-	};
+    var checkbox_changed = function() {
+        var $related = $("." + $(this).attr('name'));
+        if ($(this).is(':checked'))
+            $related.addClass('dim');
+        else
+            $related.removeClass('dim');
+    };
 
-	$('.opt_table input')
-		.each(checkbox_changed)
-		.change(checkbox_changed);
+    $('.opt_table input')
+        .each(checkbox_changed)
+        .change(checkbox_changed);
 
 });
 
 initial_params = {
-	start: {
-		cachemap_mapper: "{cachemap_mapper}",
-		userid: {userid},
-		coords: [{coords}],
-		zoom: {zoom},
-		map_type: {map_type},
-		circle: {circle},
-		doopen: {doopen},
-		fromlat: {fromlat}, fromlon: {fromlon},
-		tolat: {tolat}, tolon: {tolon},
-		searchdata: "{searchdata}",
-		boundsurl: "{boundsurl}",
-		extrauserid: "{extrauserid}",
-		moremaptypes: false,
-		fullscreen: false,
-		largemap: true,
-		savesettings: true
-	}
+    start: {
+        cachemap_mapper: "{cachemap_mapper}",
+        userid: {userid},
+        coords: [{coords}],
+        zoom: {zoom},
+        map_type: {map_type},
+        circle: {circle},
+        doopen: {doopen},
+        fromlat: {fromlat}, fromlon: {fromlon},
+        tolat: {tolat}, tolon: {tolon},
+        searchdata: "{searchdata}",
+        boundsurl: "{boundsurl}",
+        extrauserid: "{extrauserid}",
+        moremaptypes: false,
+        fullscreen: false,
+        largemap: true,
+        savesettings: true
+    }
 };
 
 window.onload = function() {
-	load([], document.getElementById("search_control"));
+    load([], document.getElementById("search_control"));
 };
 </script>

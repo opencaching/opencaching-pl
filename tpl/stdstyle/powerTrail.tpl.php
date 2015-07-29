@@ -1175,7 +1175,7 @@
     var attributionMap = {attributionMap};
     var mapItems = {mapItems};
     var showMapsWhenMore = {showMapsWhenMore};
-    
+
     var ptMapCenterLat = {mapCenterLat};
     var ptMapCenterLon = {mapCenterLon};
     var mapZoom = {mapZoom};
@@ -1191,7 +1191,7 @@
             mapTypeIds.push(mapType);
         }
     }
-    
+
     var myLatlng = new google.maps.LatLng(ptMapCenterLat, ptMapCenterLon);
     var mapOptions = {
             zoom: mapZoom,
@@ -1209,9 +1209,9 @@
         var mapObj = mapItems[mapType]();
         map.mapTypes.set(mapType, mapObj);
     }
-    
+
     var bounds = new google.maps.LatLngBounds();
-    
+
             var infoWindow = new google.maps.InfoWindow;
             var onMarkerClick = function() {
             var markerx = this;
@@ -1247,7 +1247,7 @@
                 attributionDiv.innerHTML = attributionMap[newMapTypeId] || '';
                 jQuery.cookie('mapTypeId', newMapTypeId, {expires: 365});
             });
-            
+
     }
 
     google.maps.event.addDomListener(window, 'load', initialize);

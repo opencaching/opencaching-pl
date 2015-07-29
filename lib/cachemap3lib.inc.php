@@ -9,7 +9,7 @@
 * ************************************************************************** */
 
 class CacheMap3Lib {
-    
+
     protected function shouldSkip(array $mapItem)
     {
         if (isset($mapItem['hidden']) && $mapItem['hidden'] === true){
@@ -17,7 +17,7 @@ class CacheMap3Lib {
         }
         return false;
     }
-    
+
     public function generateAttributionMap()
     {
         global $config;
@@ -40,9 +40,9 @@ class CacheMap3Lib {
             }
         }
         return "{\n" . $result . "\n}";
-        
+
     }
-    
+
     public function generateMapItems()
     {
         global $config;
@@ -55,16 +55,16 @@ class CacheMap3Lib {
             if ($this->shouldSkip($val)){
                 continue;
             }
-                        
+
             if ($result !== ''){
                 $result .= ",\n";
             }
             $result .= "\t$key:" . $this->generateMapItem($key, $val);
         }
         return "{\n" . $result . "\n}";
-        
+
     }
-    
+
     public function generateShowMapsWhenMore()
     {
         global $config;
@@ -86,23 +86,23 @@ class CacheMap3Lib {
             $result .= "\t$key:" . ($val['showOnlyIfMore'] ? 'true' : 'false');
         }
         return "{\n" . $result . "\n}";
-        
+
     }
-    
-    
+
+
     private function generateMapItem($key, array $val)
     {
         if (isset($val['imageMapTypeJS'])){
             return 'function(){return ' . $val['imageMapTypeJS'] . ";\n\t}";
         }
-        
+
         unset($val['showOnlyIfMore']);
         unset($val['showInPowerTrail']);
         unset($val['attribution']);
-        
+
         $outMap = array();
         $outMapTypes = array();
-        
+
         $getTileUrl = '';
         if (isset($val['tileUrlJS'])){
             $getTileUrl = $val['tileUrlJS'];
@@ -110,11 +110,11 @@ class CacheMap3Lib {
             unset($val['tileUrl']);
         } elseif (isset($val['tileUrl'])) {
             $tileUrl = $val['tileUrl'];
-            
+
             $tileUrl = preg_replace('/{([0-9-]*[*]?[0-9]*)z([+*-][0-9]+)?}/', '" + (${1}z${2}) + "', $tileUrl);
             $tileUrl = preg_replace('/{([0-9-]*[*]?[0-9]*)x([+*-][0-9]+)?}/', '" + (${1}p.x${2}) + "', $tileUrl);
             $tileUrl = preg_replace('/{([0-9-]*[*]?[0-9]*)y([+*-][0-9]+)?}/', '" + (${1}p.y${2}) + "', $tileUrl);
-            
+
             unset($val['tileUrl']);
             $getTileUrl = 'function(p,z){return "' . $tileUrl . '";}';
         } else {
@@ -123,7 +123,7 @@ class CacheMap3Lib {
         $outMap['getTileUrl'] = $getTileUrl;
         $outMapTypes['getTileUrl'] = 'raw';
         unset($getTileUrl);
-        
+
         if (isset($val['tileSize'])){
             $tileSize = $val['tileSize'];
             unset($val['tileSize']);
@@ -134,11 +134,11 @@ class CacheMap3Lib {
             } elseif ($this->startsWith($tileSize, 'raw:')){
                 $tileSize = substr($tileSize, 4);
             }
-            
+
             $outMap['tileSize'] = $tileSize;
             $outMapTypes['tileSize'] = 'raw';
         }
-        
+
         foreach($val as $k => $v){
             if (is_numeric($v) || $v === 'true' || $v === 'false'){
                 $outMap[$k] = $v;
@@ -152,13 +152,13 @@ class CacheMap3Lib {
                 $outMapTypes[$k] = 'text';
             }
         }
-        
+
         $result = "function(){return new google.maps.ImageMapType({\n";
         $any = false;
         foreach($outMap as $k => $v){
             $type = isset($outMapTypes[$k]) ? $outMapTypes[$k] : 'text';
             switch($type){
-                case 'raw': 
+                case 'raw':
                     break;
                 case 'text':
                     $v = '\'' . str_replace('\'', '\\\'', $v) . '\'';
@@ -173,7 +173,7 @@ class CacheMap3Lib {
         $result .= "\n\t});}";
         return $result;
     }
-    
+
     private function startsWith($haystack, $needle)
     {
         $length = strlen($needle);

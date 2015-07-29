@@ -117,7 +117,7 @@
     $caches_per_page = 20;
 
     $dbc = new dataBase(false);
-    
+
     $sql = 'SELECT ';
 
     if (isset($lat_rad) && isset($lon_rad))
@@ -192,7 +192,7 @@
     // temporäre tabelle erstellen
     $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `gpxcontent` ' . $sql . $sqlLimit);
     $dbcSearch->reset();
-    
+
     $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `gpxcontent`');
     $rCount = $dbcSearch->dbResultFetch();
     $countGPX = $rCount['count'];

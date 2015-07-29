@@ -40,7 +40,7 @@ tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?s
  * The time-stamp will be stripped by a rewrite rule in lib/.htaccess.
  * */
 $cacheMapVersion = filemtime($rootpath . 'lib/cachemap3.js') % 1000000;
-$cacheMapVersion += filemtime($rootpath . 'lib/cachemap3.php') % 1000000; 
+$cacheMapVersion += filemtime($rootpath . 'lib/cachemap3.php') % 1000000;
 $cacheMapVersion += filemtime($rootpath . 'lib/cachemap3lib.inc.php') % 1000000;
 $cacheMapVersion += filemtime($rootpath . 'lib/settings.inc.php') % 1000000;
 tpl_set_var('lib_cachemap3_js', "lib/cachemap3." . $cacheMapVersion . ".js");

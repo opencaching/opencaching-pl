@@ -504,7 +504,7 @@ $mapsConfig = array(
 );
 $config['mapsConfig'] = $mapsConfig;
 
-// map of garmin keys, 
+// map of garmin keys,
 // key: domain name, value: garmin key value
 // the map may contain only one entry
 $config['garmin-key'] = array(

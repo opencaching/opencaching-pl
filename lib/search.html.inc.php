@@ -32,14 +32,14 @@
 function findColumn( $name, $type = "C" )
 {
     global $colNameSearch;
-    
+
      for( $i = 0; $i < 19; $i++ )
      {
         if ( $colNameSearch[ $i ][ $type ] == $name)
             return $i;
      }
 
-    return -1;     
+    return -1;
 }
 
 
@@ -98,19 +98,19 @@ function fHideColumn( $nr, $set )
 
     return $C;
 }
-    
-    
-    
+
+
+
     global $dbcSearch, $sqldebug, $usr, $lang, $hide_coords, $cookie, $NrColSortSearch, $OrderSortSearch, $SearchWithSort, $TestStartTime;
     require_once($stylepath . '/lib/icons.inc.php');
     require_once('lib/cache_icon.inc.php');
     set_time_limit(1800);
 
     $dbc = new dataBase();
-    
+
     $sNrColumnsSortSearch = "NrColumnsSortSearch";
     $sOrderSortSearch = "OrderSortSearch";
-    
+
     $colNameSearch = array(
                     0 => array("C" => "CacheID", "O" => "CacheID"),
                     1 => array("C" => "", "O" => tr('cache_type')),
@@ -149,16 +149,16 @@ function fHideColumn( $nr, $set )
         $cookie->set( "NCSearch17", "1" );
         $cookie->set( $sNrColumnsSortSearch, "-1" );
         $cookie->set( $sOrderSortSearch, "M" );
-        
-        
+
+
         $cookie->set( $sDefCol4Search, "Y" );
         $cookie->header();
     }
-    
+
     if ( !isset($_REQUEST[ "NrColSort" ] ) )
     {
         $NrColSortSearch = 1;
-    
+
         if ($cookie->is_set( $sNrColumnsSortSearch ) )
             $NrColSortSearch = $cookie->get( $sNrColumnsSortSearch );
         else
@@ -169,13 +169,13 @@ function fHideColumn( $nr, $set )
         $NrColSortSearch = $_REQUEST[ "NrColSort" ];
         $cookie->set( $sNrColumnsSortSearch, $NrColSortSearch );
     }
-    
+
     ////////////////////////////////////
-    
+
     if ( !isset($_REQUEST[ "OrderSortSearch" ] ) )
     {
         $OrderSortSearch = "M";
-    
+
         if ($cookie->is_set( $sOrderSortSearch ) )
             $OrderSortSearch = $cookie->get( $sOrderSortSearch );
         else
@@ -186,12 +186,12 @@ function fHideColumn( $nr, $set )
         $OrderSortSearch = $_REQUEST[ "OrderSortSearch" ];
         $cookie->set( $sOrderSortSearch, $OrderSortSearch );
     }
-    
-    
-    
+
+
+
     $cookie->header();
-        
-    
+
+
     //build sql-list
     $countselect = mb_eregi_replace('^SELECT `cache_id`', 'SELECT COUNT(`cache_id`) `count`', $sqlFilter);
     $countselect = mb_eregi_replace('^SELECT `caches` `cache_id`', 'SELECT COUNT(`caches`.`cache_id`) `count`', $countselect);
@@ -204,7 +204,7 @@ function fHideColumn( $nr, $set )
     $resultcount = $r['count'];
 
     tpl_set_var('results_count', $resultcount );
-    
+
     if ($resultcount <= 5000 && $NrColSortSearch != -1 )
     {
         $SearchWithSort = true;
@@ -219,7 +219,7 @@ function fHideColumn( $nr, $set )
         $caches_per_page = 20;
         $cache_line = tpl_do_translate(read_file($stylepath . '/search.result.caches.row.tpl.php')); //build lines
     }
-    
+
     if ( $resultcount )
         $caches_output = '';
     else
@@ -243,19 +243,19 @@ function fHideColumn( $nr, $set )
         fHideColumn( findColumn( tr('N') ), false ) == 1 &&
         fHideColumn( findColumn( tr('C') ), false ) == 1)
         $CalcFNC = false;
-        
-        
+
+
     $CalcEntry = true;
     if ( fHideColumn( findColumn( tr('Entry') ), false ) == 1)
         $CalcEntry = false;
-    
+
     if ( $CalcSendToGPS )
         $CalcCoordinates = true;
-    
-    if( $CalcDistance )  
+
+    if( $CalcDistance )
        $CalcCoordinates = true;
-        
-    
+
+
     $distance_unit = 'km';
 
     $sql = 'SELECT ';
@@ -276,7 +276,7 @@ function fHideColumn( $nr, $set )
         {
             //get the users home coords
             $dbc->multiVariableQuery( "SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`=:1", $usr['userid'] );
-            $record_coords = $dbc->dbResultFetch(); 
+            $record_coords = $dbc->dbResultFetch();
 
             if ((($record_coords['latitude'] == NULL) || ($record_coords['longitude'] == NULL)) || (($record_coords['latitude'] == 0) || ($record_coords['longitude'] == 0)))
             {
@@ -305,7 +305,7 @@ function fHideColumn( $nr, $set )
     {
         if ( $CalcCoordinates)
             $sql .= ', `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, 0 as cache_mod_cords_id ';
-        
+
        $sql .= ' FROM `caches` ';
     }
     else
@@ -313,11 +313,11 @@ function fHideColumn( $nr, $set )
         if ( $CalcCoordinates)
         {
             $sql .= ', IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`,
-                            `caches`.`latitude`) `latitude`, IFNULL(cache_mod_cords.id,0) as cache_mod_cords_id'; 
-        }       
-                
+                            `caches`.`latitude`) `latitude`, IFNULL(cache_mod_cords.id,0) as cache_mod_cords_id';
+        }
+
         $sql .= ' FROM `caches` ';
-        
+
         if ( $CalcCoordinates)
         {
             $sql .= ' LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = '
@@ -325,12 +325,12 @@ function fHideColumn( $nr, $set )
         }
     }
     $sql .= ' LEFT JOIN cache_desc ON cache_desc.cache_id=caches.cache_id AND cache_desc.language=\''.$lang.'\',
-            `user`, cache_type 
-        WHERE `caches`.`user_id`=`user`.`user_id` 
+            `user`, cache_type
+        WHERE `caches`.`user_id`=`user`.`user_id`
         AND `caches`.`cache_id` IN (' . $sqlFilter . ')
         AND `cache_type`.`id`=`caches`.`type` ';
     $sortby = $options['sort'];
-    
+
     if ( !$SearchWithSort ) //without interactive sort
     {
         if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance'))
@@ -346,7 +346,7 @@ function fHideColumn( $nr, $set )
             $sql .= ' ORDER BY name ASC';
         }
     }
-    
+
     //startat?
     $startat = isset($_REQUEST['startat']) ? $_REQUEST['startat'] : 0;
     if (!is_numeric($startat)) $startat = 0;
@@ -385,7 +385,7 @@ function fHideColumn( $nr, $set )
 
         $tmpline = str_replace('{date_created}', date($dateFormat, strtotime($caches_record['date_created'])), $tmpline);
         $tmpline = str_replace('{date_created_sort}', date($logdateformat_ymd, strtotime($caches_record['date_created'])), $tmpline);
-        
+
         $ratingA = $caches_record['toprating'];
         if ($ratingA > 0) $ratingimg='<img src="images/rating-star.png" alt="'.$tr_Recommended.'" title="'.$tr_Recommended.'" />'; else $ratingimg='';
         $tmpline = str_replace('{toprating}', $ratingA, $tmpline);
@@ -413,13 +413,13 @@ function fHideColumn( $nr, $set )
 
         // sp2ong short_desc ermitteln TODO: nicht die erste sondern die richtige wĂ¤hlen
         $tmpline = str_replace('{wp_oc}', htmlspecialchars($caches_record['wp_oc'], ENT_COMPAT, 'UTF-8'), $tmpline);;
-        
+
         if ( $CalcCoordinates)
         {
             $tmpline = str_replace('{latitude}', htmlspecialchars($caches_record['latitude'], ENT_COMPAT, 'UTF-8'), $tmpline);;
             $tmpline = str_replace('{longitude}', htmlspecialchars($caches_record['longitude'], ENT_COMPAT, 'UTF-8'), $tmpline);;
         }
-        
+
         $tmpline = str_replace('{short_desc}', htmlspecialchars( PrepareText( $caches_record['short_desc'] ), ENT_COMPAT, 'UTF-8'), $tmpline);
 
         $dDiff = abs(dateDiff('d', $caches_record['date_created'], date('Y-m-d')));
@@ -442,23 +442,23 @@ function fHideColumn( $nr, $set )
                     GROUP BY cache_logs.type
                     ORDER BY cache_logs.type ASC';
             $dbc->simpleQuery($sql_liczniki);
-    
+
             $typy_i=0;
-    
+
             while ($row = $dbc->dbResultFetch())
             {
                 $typy[($row['type']-1)] = $row['typy'];
             }
-    
+
             $tmpline = str_replace('{logtypes1}', "<span ".str_pad($typy[0], 5, 0, STR_PAD_LEFT)." style='color:green'>".$typy[0]."</span>.<span style='color:red'>".$typy[1]."</span>.<span style='color:black'>".$typy[2]."</span>", $tmpline);
-            
-            $dbc->reset();                
+
+            $dbc->reset();
         }
         $tmpline = str_replace('{find}',    $typy[0], $tmpline);
         $tmpline = str_replace('{notfind}', $typy[1], $tmpline);
         $tmpline = str_replace('{comment}', $typy[2], $tmpline);
-        
-        
+
+
         // das letzte found suchen
         if ( $CalcEntry )
         {
@@ -471,19 +471,19 @@ function fHideColumn( $nr, $set )
                     AND `log_types`.`id`=`cache_logs`.`type`
                     ORDER BY `cache_logs`.`date` DESC LIMIT 1';
             $dbc->simpleQuery($sql);
-            
+
             if ($row = $dbc->dbResultFetch())
             {
                $tmpline = str_replace('{logimage1}',icon_log_type($row['icon_small'], ""). '<a href=\'viewlogs.php?cacheid='.htmlspecialchars($caches_record['cache_id'], ENT_COMPAT, 'UTF-8').'#'.htmlspecialchars($row['id'], ENT_COMPAT, 'UTF-8').'\'>{gray_s}' .date($logdateformat, strtotime($row['date'])) . '{gray_e}</a>', $tmpline);
-               
+
                $log_text = PrepareText( $row['log_text'] );
-    
+
                $tmpline = str_replace('{logimage2}',"<span='".date($logdateformat_ymd, strtotime($row['date']))."'/>".icon_log_type($row['icon_small'], $log_text).date($dateFormat, strtotime($row['date'])), $tmpline);
                $tmpline = str_replace('{logtype}',icon_log_type($row['icon_small'], $log_text), $tmpline);
                $tmpline = str_replace('{logdate}',date($logdateformat_ymd, strtotime($row['date'])), $tmpline);
                $tmpline = str_replace('{logdesc}',$log_text, $tmpline);
-                
-                
+
+
                $tmpline = str_replace('{logdate1}', "", $tmpline);                                                                                       //
             }
             else
@@ -509,7 +509,7 @@ function fHideColumn( $nr, $set )
             else
                 $tmpline = str_replace('{direction}', '', $tmpline);
         }
-        
+
         $desclangs = '';
         $aLangs = mb_split(',', $caches_record['desc_languages']);
         foreach ($aLangs AS $thislang)
@@ -542,7 +542,7 @@ function fHideColumn( $nr, $set )
         $tmpline = str_replace('{username}', htmlspecialchars($caches_record['username'], ENT_COMPAT, 'UTF-8'), $tmpline);
         $tmpline = str_replace('{usernameBIG}', strtoupper(trChar(htmlspecialchars($caches_record['username'], ENT_COMPAT, 'UTF-8'))), $tmpline);
         $tmpline = str_replace('{CacheID}', $caches_record['cache_id'], $tmpline);
-        
+
         if ( $CalcDistance )
         {
             if( $usr || !$hide_coords)
@@ -554,7 +554,7 @@ function fHideColumn( $nr, $set )
             else
                 $tmpline = str_replace('{distance}', "", $tmpline);
         }
-        
+
         $tmpline = str_replace('{position}', $i + $startat + 1, $tmpline);
 
         // backgroundcolor of line
@@ -589,8 +589,8 @@ function fHideColumn( $nr, $set )
     $TestStopTime = new DateTime('now');
     $insecond = $TestStartTime->diff($TestStopTime);
     tpl_set_var( 'insecond', $insecond->format('%s') );
-    
-    
+
+
     //more than one page?
     if ($startat > 0)
     {
@@ -741,7 +741,7 @@ function PrepareText( $text )
     $log_text = str_replace("'", "-",$log_text);
     $log_text = str_replace("\"", " ",$log_text);
     $log_text = str_replace("\\", " ",$log_text);
-    
+
     return $log_text;
 }
 

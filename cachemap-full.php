@@ -11,9 +11,9 @@ function onTheList($theArray, $item)
 
 function getDBFilter($user_id)
 {
-    
+
     global $MIN_SCORE, $MAX_SCORE, $powerTrailModuleSwitchOn; //defined in settings.inc/php
-     
+
     $filter = array("h_u" => 1,
         "h_t" => 1,
         "h_m" => 1,
@@ -62,7 +62,7 @@ function getDBFilter($user_id)
 
         global $powerTrailModuleSwitchOn;
         if($powerTrailModuleSwitchOn){
-            $filter["powertrail_only"] = $row['powertrail_only']; 
+            $filter["powertrail_only"] = $row['powertrail_only'];
         }
 
         $filter["min_score"] = $row['min_score'];
@@ -109,9 +109,9 @@ if ($usr == false) {
 
     $rs = mysql_query("SELECT `latitude`, `longitude`, `username` FROM `user` WHERE `user_id`='$user_id'");
     $record = mysql_fetch_array($rs);
-    if ( isset( $_REQUEST['lat'] ) && $_REQUEST['lat'] != "" && 
+    if ( isset( $_REQUEST['lat'] ) && $_REQUEST['lat'] != "" &&
          isset( $_REQUEST['lon'] ) && $_REQUEST['lon'] != "" ) {
-        
+
         $coordsXY = $_REQUEST['lat'] . "," . $_REQUEST['lon'];
         $coordsX = $_REQUEST['lat'];
 
@@ -174,11 +174,11 @@ if ($usr == false) {
             continue;
         }
 
-        if (!($key == "h_avail" || 
-              $key == "h_temp_unavail" || 
-              $key == "be_ftf" || 
-              $key == "powertrail_only" || 
-              $key == "map_type" || 
+        if (!($key == "h_avail" ||
+              $key == "h_temp_unavail" ||
+              $key == "be_ftf" ||
+              $key == "powertrail_only" ||
+              $key == "map_type" ||
               $key == "h_noscore")
         ) {
             // workaround for reversed values
@@ -240,7 +240,7 @@ if ($usr == false) {
      * The time-stamp will be stripped by a rewrite rule in lib/.htaccess.
      * */
     $cacheMapVersion = filemtime($rootpath . 'lib/cachemap3.js') % 1000000;
-    $cacheMapVersion += filemtime($rootpath . 'lib/cachemap3.php') % 1000000; 
+    $cacheMapVersion += filemtime($rootpath . 'lib/cachemap3.php') % 1000000;
     $cacheMapVersion += filemtime($rootpath . 'lib/cachemap3lib.inc.php') % 1000000;
     $cacheMapVersion += filemtime($rootpath . 'lib/settings.inc.php') % 1000000;
     tpl_set_var('lib_cachemap3_js', "lib/cachemap3." . $cacheMapVersion . ".js");

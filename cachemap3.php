@@ -74,12 +74,12 @@ function getDBFilter($user_id)
         $filter["map_type"] = $row['maptype'];
         $filter["h_arch"] = $row['archived'];
         $filter["be_ftf"] = $row['be_ftf'];
-        
+
         global $powerTrailModuleSwitchOn;
-        if( $powerTrailModuleSwitchOn===true ){ //skip this setting powerTrails are 
+        if( $powerTrailModuleSwitchOn===true ){ //skip this setting powerTrails are
             $filter["powertrail_only"] = $row['powertrail_only'];
         }
-        
+
         $filter["min_score"] = $row['min_score'];
         $filter["max_score"] = $row['max_score'];
         $filter["h_noscore"] = $row['noscore'];
@@ -193,11 +193,11 @@ if ($usr == false) {
         }
 
         if ( !(
-                $key == "h_avail" || 
-                $key == "h_temp_unavail" || 
+                $key == "h_avail" ||
+                $key == "h_temp_unavail" ||
                 $key == "be_ftf" ||
                 $key == "powertrail_only" ||
-                $key == "map_type" || 
+                $key == "map_type" ||
                 $key == "h_noscore")
         ) {
             // workaround for reversed values
@@ -259,7 +259,7 @@ if ($usr == false) {
      * The time-stamp will be stripped by a rewrite rule in lib/.htaccess.
      * */
     $cacheMapVersion = filemtime($rootpath . 'lib/cachemap3.js') % 1000000;
-    $cacheMapVersion += filemtime($rootpath . 'lib/cachemap3.php') % 1000000; 
+    $cacheMapVersion += filemtime($rootpath . 'lib/cachemap3.php') % 1000000;
     $cacheMapVersion += filemtime($rootpath . 'lib/cachemap3lib.inc.php') % 1000000;
     $cacheMapVersion += filemtime($rootpath . 'lib/settings.inc.php') % 1000000;
     tpl_set_var('lib_cachemap3_js', "lib/cachemap3." . $cacheMapVersion . ".js");

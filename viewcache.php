@@ -47,8 +47,8 @@ if ($error == false) {
     require($stylepath . '/viewlogs.inc.php');
     require($stylepath . '/smilies.inc.php');
 
-	/* @var $dbc \dataBase */
-	$dbc = \lib\Database\DataBaseSingleton::Instance();
+    /* @var $dbc \dataBase */
+    $dbc = \lib\Database\DataBaseSingleton::Instance();
     $cache_id = 0;
     if (isset($_REQUEST['cacheid'])) {
         $cache_id = (int) $_REQUEST['cacheid'];
@@ -165,7 +165,7 @@ if ($error == false) {
             $cache_id = 0;
         } else {
             $cache_record = $dbc->dbResultFetch();
-			$geocache = new GeoCache(array('cacheId'=>$cache_id));
+            $geocache = new GeoCache(array('cacheId'=>$cache_id));
         }
 
         // detailed cache access logging
@@ -332,7 +332,7 @@ if ($error == false) {
         }
         if ($coords_correct) {
             tpl_set_var('coords_message', "");
-		}
+        }
 
         if ($orig_coord_info_lon !== '' && (!$mod_coord_delete_mode)) {
             $orig_coord_info_full = tr('orig_coord_modified_info') . '&#10;' . $orig_coord_info_lat . '&#10;' . $orig_coord_info_lon;
@@ -791,7 +791,7 @@ if ($error == false) {
         tpl_set_var('list_of_rating_begin', '');
         tpl_set_var('list_of_rating_end', '');
         tpl_set_var('body_scripts', '');
-		tpl_set_var('altitude', $geocache->getAltitude()->getAltitude());
+        tpl_set_var('altitude', $geocache->getAltitude()->getAltitude());
         $rscr = sql("SELECT user.username username FROM `cache_rating` INNER JOIN user ON (cache_rating.user_id = user.user_id) WHERE cache_id=&1 ORDER BY username", $cache_id);
         if ($rscr == false) {
             tpl_set_var('list_of_rating_begin', '');
@@ -1633,10 +1633,10 @@ if ($error == false) {
                     $tmplog = mb_ereg_replace('{kordy_mobilniaka}', $dane_mobilniaka['km'] . ' km [<img src="tpl/stdstyle/images/blue/szczalka_mobile.png" title="' . tr('viewlog_kordy') . '" />' . $tmplog_kordy_mobilnej . ']', $tmplog);
                 } else {
                     $tmplog = mb_ereg_replace('{kordy_mobilniaka}', ' ', $tmplog);
-				}
+                }
             } else {
                 $tmplog = mb_ereg_replace('{kordy_mobilniaka}', ' ', $tmplog);
-			}
+            }
             if ($record['text_html'] == 0) {
                 $processed_text = htmlspecialchars($processed_text, ENT_COMPAT, 'UTF-8');
                 $processed_text = help_addHyperlinkToURL($processed_text);
@@ -1687,11 +1687,11 @@ if ($error == false) {
                 $tmplog = mb_ereg_replace('{logpictures}', $logpicturelines, $tmplog);
             } else {
                 $tmplog = mb_ereg_replace('{logpictures}', '', $tmplog);
-			}
+            }
 
             if (!isset($record['deleted'])) {
                 $record['deleted'] = 0;
-			}
+            }
             if ($record['deleted'] != 1 && ((!isset($_REQUEST['print']) || $_REQUEST['print'] != 'y') && (($usr['userid'] == $record['userid']) || ($usr['userid'] == $cache_record['user_id']) || $usr['admin']))) {
                 $tmpFunctions = $functions_start;
 
@@ -1707,7 +1707,7 @@ if ($error == false) {
 
                 if ($record['deleted'] != 1 && $usr['userid'] == $record['userid']){
                     $tmpFunctions = $tmpFunctions . $functions_middle . $upload_picture;
-				}
+                }
                 $tmpFunctions .= $functions_end;
                 $tmpFunctions = mb_ereg_replace('{logid}', $record['logid'], $tmpFunctions);
                 $tmplog = mb_ereg_replace('{logfunctions}', $tmpFunctions, $tmplog);
@@ -1742,14 +1742,14 @@ if ($error == false) {
         $logs = mb_ereg_replace('}', '&#0125;', $logs);
 
         tpl_set_var('logs', $logs, true);
-		
-		if (isset($_REQUEST['logbook']) && $_REQUEST['logbook'] == 'no') {
+
+        if (isset($_REQUEST['logbook']) && $_REQUEST['logbook'] == 'no') {
             tpl_set_var('hidelogbook_start', '<!--');
             tpl_set_var('hidelogbook_end', '-->');
-		} else {
+        } else {
             tpl_set_var('hidelogbook_start', '');
             tpl_set_var('hidelogbook_end', '');
-		}
+        }
 
         // action functions
         $edit_action = "";

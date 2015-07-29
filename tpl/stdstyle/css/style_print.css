@@ -14,9 +14,9 @@ body, html {
 }
 
 .content-cache {
-	margin-bottom: 0.5em;
-	border-bottom: 0.3em solid #CCC;
-}	
+    margin-bottom: 0.5em;
+    border-bottom: 0.3em solid #CCC;
+}
 
 .content2-container, .content3-container {clear: both; float: none; width: 769px; margin: 0px 0px 15px 0px; padding: 0px;}
 .line-box {width:769px; border-bottom: solid 1px rgb(200,200,200); padding-bottom: 7px; margin: 0px 0px 15px 0px;}
@@ -50,25 +50,25 @@ div.frame {
     padding: 2px;
 }
 .icon32 {
-	margin-left: 0.2em;
-	margin-right: 0.2em;
-	vertical-align: middle;
-}	
+    margin-left: 0.2em;
+    margin-right: 0.2em;
+    vertical-align: middle;
+}
 .icon16 {
-	margin-left: 0.1em;
-	margin-right: 0.1em;
-	vertical-align: middle;
+    margin-left: 0.1em;
+    margin-right: 0.1em;
+    vertical-align: middle;
 }
 
 P.cache-title {
-	margin: 0;
-	padding: 0;
-	display: inline;
-	font-size: 14pt;
-	font-weight: bold;	
-}	
+    margin: 0;
+    padding: 0;
+    display: inline;
+    font-size: 14pt;
+    font-weight: bold;
+}
 .listed-on {
-	font-size: 90%;
+    font-size: 90%;
 }
 
 @media print {
@@ -76,9 +76,9 @@ P.cache-title {
     .text_gray {
         display: none;
     }
-	.nodisplay-onprint {
+    .nodisplay-onprint {
     display: none;
     width:0;
     height:0;
-	}
+    }
 }

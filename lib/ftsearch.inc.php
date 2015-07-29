@@ -69,7 +69,7 @@ function ftsearch_hash(&$str)
     global $lang;
 
     $astr = ftsearch_split($str, true);
-    
+
     foreach ($astr AS $k => $s) {
         if (strlen($s) > 2)
             $astr[$k] = sprintf("%u", crc32($s));
@@ -109,7 +109,7 @@ function ftsearch_split(&$str, $simple)
     $str = '';
 
     ftsearch_load_ignores();
-    
+
     for ($i = count($astr) - 1; $i >= 0; $i--) {
         // ignore?
         if ($ftsearch_ignores != "" && array_search(mb_strtolower($astr[$i]), $ftsearch_ignores) !== false)

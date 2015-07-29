@@ -74,7 +74,7 @@ class MedalGeographical extends Medal implements MedalInterface
     {
         /* check if is for current medal also altitude condition */
         if($this->conditions['minimumAltitude']){
-            
+
         }
 
         $db = DataBaseSingleton::Instance();

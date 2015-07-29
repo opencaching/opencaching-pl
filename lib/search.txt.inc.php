@@ -31,7 +31,7 @@
     $cacheSizes = $cache->getCacheSizes();
     $cacheTypesArr = $cache->getCacheTypeIcons();
     $cacheStatusArr = $cache->getCacheStatuses();
-    
+
     $txtLine = "".tr('search_text_01')." {mod_suffix}{cachename} ".tr('search_text_02')." {owner}
 ".tr('search_text_03')." {lat} {lon}
 ".tr('search_text_04')." {status}
@@ -155,7 +155,7 @@ N|O|P|Q|R|S|T|U|V|W|X|Y|Z
         // temporĂ¤re tabelle erstellen
         $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `txtcontent` ' . $sql . $sqlLimit);
         $dbcSearch->reset();
-                
+
         $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `txtcontent`');
         $rCount = $dbcSearch->dbResultFetch();
         $dbcSearch->reset();
