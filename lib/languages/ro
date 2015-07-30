@@ -839,7 +839,8 @@ cache_pictures Poza geocutiei
 log_pictures Poza însemnării
 no_title Nu există titlu
 to_big_data Imaginea este prea mare
-max_size Imaginea poate să aibă maxim 100 KB. Redu dimensiunile sau calitatea.
+max_size Imaginea poate să aibă maxim
+max_size2 MB. Redu dimensiunile sau calitatea.
 bad_format Formatul fişierului nu este acceptat
 bad_format_info Format incorect. Formatele acceptate sunt: BMP, GIF, PNG, JPG. Mărimea sugerată este 480x360 pixeli.
 no_picture Nu există poză
@@ -848,7 +849,8 @@ file_name Numele fişierului
 cache_picture_intro  Trebuie să deţii copyrightul şi să încarci doar pozele relevante pentru geocutie
 spoiler_info Nu arăta această imagine (DĂ DE GOL) - Foloseşte această opţiune dacă poza arată locaţia geocutiei.<br> The picture will only be shown when SPOILER is clicked.
 dont_show Nu arăta această poză
-pictures_intro Formate permise pentru imagini: BMP, GIF, PNG & JPG. JPG este cel mai bun pentru poze.<br />Mărimea maximă 100 KB. Rezoluţie recomandată: 480 x 360 pixeli.
+pictures_intro Formate permise pentru imagini: BMP, GIF, PNG & JPG. JPG este cel mai bun pentru poze.<br />Mărimea maximă
+pictures_intro2 MB. Rezoluţie recomandată: 480 x 360 pixeli.
 add_new_picture Adaugă o nouă poză geocutiei.
 gallery Arată galerie foto
 gallery_short Galerie foto
