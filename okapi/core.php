@@ -512,16 +512,47 @@ class OkapiConsumer extends OAuthConsumer
     public $name;
     public $url;
     public $email;
-    public $admin;
 
-    public function __construct($key, $secret, $name, $url, $email, $admin=false)
+    /**
+     * A set of binary flags indicating "special permissions".
+     *
+     * Some chosen Consumers gain special permissions within OKAPI. These
+     * permissions are set by direct SQL UPDATEs in the database, and are not
+     * part of the official documentation, nor are they backward-compatible.
+     *
+     * Before you grant any of these permissions to any Consumer, make him
+     * aware, that he may loose them at any time (e.g. after OKAPI update)!
+     */
+    private $bflags;
+
+    /**
+     * Allows the consumer to set higher values on the "limit" parameters of
+     * some methods.
+     */
+    const FLAG_SKIP_LIMITS = 1;
+
+    /**
+     * Allows the consumer to call the "services/caches/map/tile" method.
+     */
+    const FLAG_MAPTILE_ACCESS = 2;
+
+    public function __construct($key, $secret, $name, $url, $email, $bflags=0)
     {
         $this->key = $key;
         $this->secret = $secret;
         $this->name = $name;
         $this->url = $url;
         $this->email = $email;
-        $this->admin = $admin;
+        $this->bflags = $bflags;
+    }
+
+    /**
+     * Returns true if the consumer has the given flag set. See class contants
+     * for the list of available flags.
+     */
+    public function hasFlag($flag)
+    {
+        return ($this->bflags & $flag) > 0;
     }
 
     public function __toString()
@@ -897,8 +928,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1095;
-    public static $git_revision = 'edd77fc50411cae12fe0e3b851facaf9ea3e5d1f';
+    public static $version_number = 1098;
+    public static $git_revision = 'db0ee86bd632d26b83048306bd7c6bba8400af13';
 
     private static $okapi_vars = null;
 
@@ -2010,13 +2041,9 @@ class OkapiInternalRequest extends OkapiRequest
         $this->consumer = $consumer;
         $this->token = $token;
         $this->parameters = array();
-        foreach ($parameters as $key => $value){
+        foreach ($parameters as $key => $value)
             if ($value !== null)
                 $this->parameters[$key] = $value;
-            if ($key == "i_want_okapi_response" && $value == 'true'){
-                $this->i_want_okapi_response = true;
-            }
-        }
     }
 
     public function get_parameter($name)
@@ -2146,13 +2173,8 @@ class OkapiHttpRequest extends OkapiRequest
             }
         }
 
-        if (is_object($this->consumer) && $this->consumer->admin)
+        if (is_object($this->consumer) && $this->consumer->hasFlag(OkapiConsumer::FLAG_SKIP_LIMITS))
         {
-            /* Some chosen Consumers gain special permissions within OKAPI.
-             * Currently, there's only a single "admin" flag in the okapi_consumers
-             * table, and there's just a single extra permission to gain, but
-             * the this set of permissions may grow in time. */
-
             $this->skip_limits = true;
         }
 
