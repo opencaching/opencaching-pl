@@ -851,7 +851,7 @@ cache_picture_intro  You sholud have copyrights and upload only pictures relevan
 spoiler_info Do not display thumbnail (SPOILER) - Use this option if the picture shows the location of the cache.<br> The picture will only be shown when SPOILER is clicked.
 dont_show Don't show this picture
 pictures_intro Permitted image formats: BMP, GIF, PNG & JPG. JPG is best for photos.<br />Maximum size
-pictures_intro2 MB. Recommended resolution: 480 x 360 pixels.
+pictures_intro2 MB. Recommended resolution: 640 x 480 pixels.
 add_new_picture Adding a new picture to the cache.
 gallery Show gallery
 gallery_short Gallery
