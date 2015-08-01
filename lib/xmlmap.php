@@ -384,9 +384,6 @@ class tmp_Xmlmap
         //we want only cache details page URL from OKAPI
         $params['retr_params'] = '{"fields":"url"}';
 
-        //set to get OKAPI response on internall call
-        $params['i_want_okapi_response'] = 'true';
-
         //call OKAPI - OKAPI displays the results
         \okapi\Facade::service_display('services/caches/shortcuts/search_and_retrieve', $this->user_id, $params);
     }
