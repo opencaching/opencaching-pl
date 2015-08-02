@@ -62,7 +62,7 @@ if ($error == false) {
                 $dbc->paramQuery($query, $params);
 
                 // Notify OKAPI's replicate module of the change.
-                // Details: https://code.google.com/p/opencaching-api/issues/detail?id=265
+                // Details: https://github.com/opencaching/okapi/issues/265
                 require_once($rootpath . 'okapi/facade.php');
                 \okapi\Facade::schedule_user_entries_check($cache_id, $usr['userid']);
                 \okapi\Facade::disable_error_handling();

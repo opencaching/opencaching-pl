@@ -7,7 +7,7 @@ Usage:
 Simply run this script before you commit your changes to the repository.
 
 Details, questions, feature requests:
-https://code.google.com/p/opencaching-pl/issues/detail?id=23
+https://github.com/opencaching/opencaching-pl/issues/23
 """
 
 import os

@@ -338,7 +338,7 @@ if ($error == false) {
                         sql("DELETE FROM `cache_rating` WHERE `user_id`='&1' AND `cache_id`='&2'", $log_record['user_id'], $log_record['cache_id']);
 
                     // Notify OKAPI's replicate module of the change.
-                    // Details: https://code.google.com/p/opencaching-api/issues/detail?id=265
+                    // Details: https://github.com/opencaching/okapi/issues/265
                     require_once($rootpath . 'okapi/facade.php');
                     \okapi\Facade::schedule_user_entries_check($log_record['cache_id'], $log_record['user_id']);
                     \okapi\Facade::disable_error_handling();

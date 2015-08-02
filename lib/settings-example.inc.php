@@ -371,7 +371,7 @@ $contactDataPL = array(
                 'groupName' => 'Rada Techniczna',
                 'groupDescription' => 'contact_pl_rt_description',
                 'emailAddress' => 'rt at opencaching.pl',
-                'link' => 'https://code.google.com/p/opencaching-pl/people/list'
+                'link' => 'https://code.google.com/p/opencaching-pl/people/list'  # No longer valid!
             ),
             array(
                 'groupName' => 'Centrum Obsługi Geocachera',

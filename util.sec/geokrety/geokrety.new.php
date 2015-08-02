@@ -62,7 +62,7 @@ foreach ($gkxml->geokret as $geokret) {
         ON DUPLICATE KEY UPDATE `name`='" . $name . "', `distancetravelled`='" . $dist . "', `latitude`='" . $lat . "', `longitude`='" . $lon . "', `stateid`='" . $state . "'";
     $query = mysql_query($sql);
 
-    /* Notify OKAPI. http://code.google.com/p/opencaching-api/issues/detail?id=179 */
+    /* Notify OKAPI. https://github.com/opencaching/okapi/issues/179 */
     $rs = mysql_query("SELECT distinct wp FROM gk_item_waypoint WHERE id='" . mysql_real_escape_string($id) . "'");
     $cache_codes = array();
     while ($row = mysql_fetch_array($rs))
@@ -82,7 +82,7 @@ foreach ($gkxml->geokret as $geokret) {
 
 /* cleaning... */
 
-/* Notify OKAPI. http://code.google.com/p/opencaching-api/issues/detail?id=179 */
+/* Notify OKAPI. https://github.com/opencaching/okapi/issues/179 */
 $rs = mysql_query("SELECT distinct wp FROM gk_item_waypoint WHERE id NOT IN (SELECT id FROM gk_item)");
 $cache_codes = array();
 while ($row = mysql_fetch_array($rs))

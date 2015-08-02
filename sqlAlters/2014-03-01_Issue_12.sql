@@ -1,5 +1,5 @@
 -- 2014-03-01 issue #12
--- https://code.google.com/p/opencaching-pl/issues/detail?id=12&colspec=ID%20Type%20Status%20Summary%20Priority%20Component%20Reporter%20Owner%20Modified%20Stars
+-- https://github.com/opencaching/opencaching-pl/issues/12
 -- @author: Andrzej Łza Woźniak
 
 ALTER TABLE `user` CHANGE `no_htmledit_flag` `power_trail_email` TINYINT(1) NOT NULL DEFAULT '1' COMMENT 'sending notification emails from geoPaths module if value = 1';

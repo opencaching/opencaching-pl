@@ -1,6 +1,7 @@
-# The name and location of this scripts should match the location in
-# the following script:
-# https://code.google.com/p/opencaching-pl/source/browse/trunk/post-commit.php
+# WARNING: This template is not up-to-date. We've switch to Git now!
+
+# The name and location of this scripts should match the location mentioned in
+# the /post-commit.php script.
 
 # site name (FQDN)
 SITE_NAME=www.opencaching.xx
