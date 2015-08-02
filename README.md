@@ -1,14 +1,3 @@
-Opencaching
-===========
+Visit our wiki:
 
-opencaching code
-
-http://opencaching.pl / http://opencaching.nl / http://opencaching.ro
-
-Feel free to join!
-
-techniques used:
-- backend: php
-- database: mysql
-- frontend: html / javascript / jquery / ajax
-
+https://github.com/opencaching/opencaching-pl/wiki
