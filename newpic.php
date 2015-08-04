@@ -31,7 +31,7 @@
  * ************************************************************************** */
 
 /* allowed filesize of uploaded pictures in megabytes (MB). (pictures will be resized automaticly) */
-$maximumPictureWeight = 2.7;
+$maximumPictureWeight = 3.5;
 
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
@@ -194,10 +194,10 @@ if ($error == false) {
                         if ($image->getHeight() > $image->getWidth() && $image->getHeight()>640) { //portrait
                             $image->resizeToHeight(640);
                         }
-                        if ($image->getHeight() < $image->getWidth() && $image->getWidth()>480)  {
-                            $image -> resizeToWidth(480);
+                        if ($image->getHeight() <= $image->getWidth() && $image->getWidth()>480)  {
+                            $image -> resizeToWidth(640);
                         }
-                        $image->save($picdir . '/' . $uuid . '.' . $extension);
+                        $image->save($picdir . '/' . $uuid . '.' . $extension, resolveImageTypeByFileExtension($extension));
                         sql("INSERT INTO pictures (`uuid`, `url`, `last_modified`, `title`, `description`, `desc_html`, `date_created`, `last_url_check`, `object_id`, `object_type`, `user_id`,`local`,`spoiler`,`display`,`node`,`seq`) VALUES ('&1', '&2', NOW(), '&3', '', 0, NOW(), NOW(),'&4', '&5', '&6', 1, '&7', '&8', '&9', '&10')", $uuid, $picurl . '/' . $uuid . '.' . $extension, $title, $objectid, $type, $usr['userid'], ($bSpoiler == 1) ? '1' : '0', ($bNoDisplay == 1) ? '0' : '1', $oc_nodeid, $def_seq);
 
                         switch ($type) {
@@ -261,3 +261,18 @@ if ($error == false) {
 
 //make the template and send it out
 tpl_BuildTemplate();
+
+function resolveImageTypeByFileExtension($fileExtension)
+{
+    $extension = strtoupper($fileExtension);
+    switch ($extension){
+        case 'JPG':
+        case 'JPEG':
+            return IMAGETYPE_JPEG;
+        case 'PNG':
+            return IMAGETYPE_PNG;
+        case 'GIF':
+            return IMAGETYPE_GIF;
+    }
+    return IMAGETYPE_JPEG;
+}
