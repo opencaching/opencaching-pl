@@ -619,7 +619,7 @@ filter_out_caches Gebruik filter voor statistieken:
 days_caching Cache dagen
 from_total_days van totale dagen
 average_caches Gemiddelde aantal caches per cachedag
-most_caches Meest gevonden caches op een dag
+most_caches Meest gemaakte caches op een dag
 latest_cache Laatste gevonden cache
 milestones Mijlpalen
 latest_logs_by_user Laatste logs van gebruiker
