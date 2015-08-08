@@ -616,7 +616,8 @@ filter_out_caches Nicht zahlen Statistik für Cache-Typ:
 days_caching Anzahl der "Caching-Tage"
 from_total_days von Anzahl der allen Tage
 average_caches Durschnitt von Caches an "Caching-Tag"
-most_caches Am meisten Caches/Tag
+most_caches_find_day Meist gefundene Caches auf einem Tag
+most_caches_made_day Meist gemachte Caches auf einem Tag
 latest_cache Letzte gefundene Cache
 milestones  Milestones - Meilensteine
 latest_logs_by_user Neueste Log-Einträge eingegebene bei Benutzer

@@ -617,7 +617,8 @@ filter_out_caches Filtre pentru statistici:
 days_caching Zile de căutări
 from_total_days din
 average_caches Media geocutiilor găsite într-o zi
-most_caches Numărul maxim de geocutii găsite într-o zi
+most_caches_find_day Numărul maxim de geocutii găsite într-o zi
+most_caches_made_day
 latest_cache Ultimele geocutii găsite
 milestones Etape importante
 latest_logs_by_user Ultimele însemnări

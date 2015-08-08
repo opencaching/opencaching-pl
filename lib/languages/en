@@ -619,7 +619,8 @@ filter_out_caches Filter for statistics:
 days_caching Caching days
 from_total_days out of
 average_caches Average caches found per one caching day
-most_caches Maximum number of caches found on a single day
+most_caches_find_day Maximum number of caches found on a single day
+most_caches_made_day Maximum number of caches made on a single day
 latest_cache Latest cache found
 milestones Milestones
 latest_logs_by_user Latest log entries

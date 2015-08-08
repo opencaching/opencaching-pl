@@ -255,7 +255,7 @@ if ($error == false) {
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('days_caching') . ':</span> <strong>' . $num_rows . '</strong>&nbsp;' . tr('from_total_days') . ': <strong>' . $ddays['diff'] . '</strong></p>';
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('average_caches') . ':</span> <strong>' . sprintf("%u", $aver2) . '</strong></p>';
             ///dzień keszowania i <strong>' . sprintf("%.1f",$aver1) . '</strong>/dzień
-            $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('most_caches') . ':</span> <strong>' . sprintf("%u", $rc['number']) . '</strong></p>';
+            $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('most_caches_find_day') . ':</span> <strong>' . sprintf("%u", $rc['number']) . '</strong></p>';
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('latest_cache') . ':</span>&nbsp;&nbsp;';
             if (mysql_num_rows($rsfc2) != 0) {
                 $content .= '<strong><a class="links" href="viewcache.php?cacheid=' . $rfc2['cache_id'] . '">' . $rfc2['cache_wp'] . '</a>&nbsp;&nbsp;</strong>(' . $rfc2['data'] . ')</p>';
@@ -493,7 +493,7 @@ if ($error == false) {
 
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('average_caches') . ':</span> <strong>' . sprintf("%u", $aver2) . '</strong></p>';
             //' . sprintf("%.1f",$aver1) . '</strong>/dzień
-            $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('most_caches') . ':</span> <strong>' . sprintf("%u", $rc['number']) . '</strong></p>';
+            $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('most_caches_made_day') . ':</span> <strong>' . sprintf("%u", $rc['number']) . '</strong></p>';
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('latest_created_cache') . ':</span>&nbsp;&nbsp;<strong><a class="links" href="viewcache.php?cacheid=' . $rcc2['cache_id'] . '">' . $rcc2['wp_oc'] . '</a>&nbsp;&nbsp;</strong>(' . $rcc2['data'] . ')</p>';
             $content .= '<br /><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
 
