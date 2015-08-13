@@ -841,7 +841,8 @@ cache_pictures Cache afbeelding
 log_pictures Log afbeelding
 no_title No title
 to_big_data Afbeelding te groot
-max_size Afbeelding is groter dan 150 kb. Reduceer de afmetingen of kwaliteit.
+max_size Afbeelding is groter dan
+max_size2 MB. Reduceer de afmetingen of kwaliteit.
 bad_format Incompatable Incorrect file format
 bad_format_info Incorrect format. Acceptable formats BMP, GIF, PNG, JPG . Suggested size 480 x 360 pixels
 no_picture Afbeelding niet gevonden
@@ -850,7 +851,8 @@ file_name Bestandsnaam
 cache_picture_intro  Dit dient een eigen afbeelding te zijn die met de cache te maken heeft
 spoiler_info Toon geen voorbeeld (SPOILER) - Gebruik deze optie wanneer de afbeelding de locatie van de cache weergeeft.<br> De afbeelding wordt alleen getoont als op SPOILER geklikt wordt.
 dont_show Verberg deze afbeelding
-pictures_intro Toegestane formaten: BMP, GIF, PNG & JPG. JPG is het beste foto's.<br />Maximum grootte 150 KB. Aanbevolen resolutie: 640 x 480 pixels.
+pictures_intro Toegestane formaten: BMP, GIF, PNG & JPG. JPG is het beste foto's.<br />Maximum grootte
+pictures_intro2 MB. Aanbevolen resolutie: 640 x 480 pixels.
 add_new_picture Voeg nieuwe afbeelding toe aan cache
 gallery Toon galerij
 gallery_short Galerij

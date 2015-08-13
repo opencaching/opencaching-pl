@@ -186,8 +186,6 @@ if ($error == false) {
 
         tpl_set_var('showhidedel_link', mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $showhidedel_link));
 
-
-//START: edit by FelixP - 2013'10
         isset($_SESSION['showdel']) && $_SESSION['showdel'] == 'y' ? $HideDeleted = false : $HideDeleted = true;
         $show_deleted_logs = "`cache_logs`.`deleted` `deleted`,";
         $show_deleted_logs2 = "";
@@ -238,41 +236,21 @@ if ($error == false) {
                 " . $show_one_log . "
                 ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`Id` DESC LIMIT :v2, :v3";
         $params['v1']['value'] = (integer) $cache_id;
-        ;
         $params['v1']['data_type'] = 'integer';
         $params['v2']['value'] = (integer) $start;
-        ;
         $params['v2']['data_type'] = 'integer';
         $params['v3']['value'] = (integer) $count;
-        ;
         $params['v3']['data_type'] = 'integer';
         $dbc->paramQuery($thatquery, $params);
         $logs = '';
 
         $thisdateformat = $dateformat;
         $thisdatetimeformat = $datetimeformat;
-//START: same code ->viewlogs.php / viewcache.php
         $edit_count_date_from = date_create('2005-01-01 00:00');
         $logs_count = $dbc->rowCount();
-        //$logs_count = mysql_num_rows($rs);
 
         $all_rec = $dbc->dbResultFetchAll();
-        //var_dump($all_rec);
-        //unset($dbc); //kill $dbc - possible long execution time due to loop - to be set conditional ($log_count>1)?
-        //$dbc = new dataBase();
 
-        /*
-          $likequery= "SELECT lr.log_id log_id, lr.user_id user_id, u.username username
-          FROM cache_logs cl
-          JOIN log_rating lr on lr.log_id = cl.id
-          JOIN user u on lr.user_id = u.user_id
-          WHERE cl.cache_id = :1
-          ORDER BY lr.log_id";
-
-          $dbc->multiVariableQuery($likequery, $cache_id );
-          $nLikeCount = $dbc->rowCount();
-          $aLikeAllRec = $dbc->dbResultFetchAll();
-         */
         for ($i = 0; $i < $logs_count; $i++) {
             //$record = sql_fetch_array($rs);
             //$record = $dbc->dbResultFetch();
@@ -338,54 +316,6 @@ if ($error == false) {
             // add edit footer if record has been modified
             $record_date_create = date_create($record['date_created']);
 
-
-            //////////////// I Like IT
-            /*
-              $sLikeTxt = "";
-              $sLikeIconTxt = "";
-              $sLikeUser = "";
-              $nrLike = 0;
-
-              for( $j = 0; $j < $nLikeCount; $j++ )
-              {
-              $aLikeOneRec = $aLikeAllRec[ $j ];
-              if ( $aLikeOneRec[ "log_id"] <> $record[ "log_id"]  )
-              {
-              if ( $nrLike == 0 )
-              continue;
-              else
-              break;
-              }
-
-              $nrLike++;
-              if ( $sLikeUser <> "" )
-              $sLikeUser .= ", ";
-
-              $sLikeUser .= '<a href="viewprofile.php?userid='.$aLikeOneRec["user_id"].'">'.$aLikeOneRec[ "username" ].'</a>';
-              }
-
-
-              if ( $nrLike <> 0 )
-              $sLikeTxt .= "<div style='background-color:#DBE6F1; font-size:10px; border:1px solid #CCCCCC; -moz-border-radius: 5px; -webkit-border-radius: 5px;-khtml-border-radius: 5px;border-radius: 5px;' >";
-
-
-              $sLikeIconTxt = '<a href="javascript:ToChangeLogRating('.$record[ "log_id"].',\'viewlogs.php\','.$cache_id.')"><img src="tpl/stdstyle/images/blue/recommendation.png" alt="user activity" width="20" height="20" border="0" title="'.tr("like_comment").'"/></a>';
-
-
-              if ( $nrLike <> 0 )
-              $sLikeTxt .= '&nbsp&nbsp'.$sLikeIconTxt.'&nbsp&nbsp'.'<b>'.$nrLike.'</b> '.tr("like_it").' '.$sLikeUser;
-
-              if ( $nrLike <> 0 )
-              $sLikeTxt.= "</div>";
-
-
-              $processed_text .= $sLikeTxt; // XXX do not add any HTML here!
-
-
-              ///////////////////////////
-             */
-
-
             if ($record['edit_count'] > 0) {
                 //check if editted at all
                 $edit_footer = "<div><small>" . tr('vl_Recently_modified_on') . " " . fixPlMonth(htmlspecialchars(strftime($thisdatetimeformat, strtotime($record['last_modified'])), ENT_COMPAT, 'UTF-8'));
@@ -433,10 +363,6 @@ if ($error == false) {
             } else {
                 $tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="' . tr('viewlog_aktywnosc') . ' [' . $record['znalezione'] . '+' . $record['nieznalezione'] . '+' . $record['ukryte'] . ']"/>' . ($record['ukryte'] + $record['znalezione'] + $record['nieznalezione']) . ') ';
             }
-
-            if ($nrLike == 0)
-                $tmplog_username_aktywnosc .= '&nbsp' . $sLikeIconTxt;
-
 
             // hide nick of athor of COG(OC Team) for user
             if ($record['type'] == 12 && !$usr['admin']) {
@@ -520,7 +446,6 @@ if ($error == false) {
                 //END: edit by FelixP - 2013'10
                 $logpicturelines = '';
                 $append_atag = '';
-                //$rspictures = sql("SELECT `url`, `title`, `uuid`, `user_id` FROM `pictures` WHERE `object_id`='&1' AND `object_type`=1", $record['log_id']);
                 if (!isset($dbc)) {
                     $dbc = new dataBase();
                 };
@@ -528,8 +453,8 @@ if ($error == false) {
                 $dbc->multiVariableQuery($thatquery, $record['log_id']);
                 $pic_count = $dbc->rowCount();
                 for ($j = 0; $j < $pic_count; $j++) {
-                    //$pic_record = sql_fetch_array($rspictures);
                     $pic_record = $dbc->dbResultFetch();
+                    d($pic_record);
                     $thisline = $logpictureline;
 
                     if ($disable_spoiler_view && intval($pic_record['spoiler']) == 1) {  // if hide spoiler (due to user not logged in) option is on prevent viewing pic link and show alert
@@ -555,8 +480,6 @@ if ($error == false) {
 
                     $logpicturelines .= $thisline;
                 }
-                //mysql_free_result($rspictures);
-
                 $logpicturelines = mb_ereg_replace('{lines}', $logpicturelines, $logpictures);
                 $tmplog = mb_ereg_replace('{logpictures}', $logpicturelines, $tmplog);
             } else

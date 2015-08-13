@@ -21,8 +21,7 @@ $powerTrailId = $_REQUEST['powerTrailId'];
                 $result = 0;
                 $target_path = $destination_path . $actual_image_name;
 
-                include (__DIR__ . '/SimpleImage.php');
-                $image = new SimpleImage();
+                $image = new \lib\SimpleImage();
                 $image -> load($_FILES['myfile']['tmp_name']);
                 if ($image->getHeight() > $image->getWidth() && $image->getHeight()>250) { //portrait
                     $image->resizeToHeight(250);

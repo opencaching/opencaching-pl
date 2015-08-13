@@ -841,7 +841,8 @@ cache_pictures Obrazk związany z skrzynką
 log_pictures Obrazek dla wpisu w LOGu
 no_title Brak tytułu
 to_big_data Obrazek jest zbyt duży
-max_size Dopuszczalna wielkość obrazka to 100 KB. Zmień rozdzielczść lub zmniejsz jakość obrazka.
+max_size Dopuszczalna wielkość obrazka to
+max_size2 MB. Zmień rozdzielczść lub zmniejsz jakość obrazka.
 bad_format Niepoprawny typ obrazka
 bad_format_info Wysłany plik ma niedozwolony format. Dozwolone formaty to BMP, GIF, PNG i JPG - dla zdjęć zalecany JPG. Dopuszczalna wielkość pliku to 100 KB. Zalecana rozdzielczość to 480 x 360 pikseli.
 no_picture Obrazka nie ma w bazie danych
@@ -850,7 +851,8 @@ file_name Nazwa pliku
 cache_picture_intro UWAGA! Użytkownik musi dbać o to, aby publikowane przez niego w Serwisie treści/zdjęcia nie naruszały obowiązującego prawa oraz przepisów <a href="{wiki_link_rules}">Regulaminu OC PL</a>. W szczególności publikowane przez Użytkownika treści/zdjęcia nie mogą naruszać praw autorskich osób trzecich. Użytkownik odpowiedzialny jest bezpośrednio przed posiadaczami praw autorskich za wszelkie związane naruszenia w zakresie tych praw publikowanymi przez niego w Serwisie obrazki/zdjecia. <br/><br/>Umieszczaj tylko istotne obrazki związane z skrzynką. Nie rób fotoalbumu okolicy.
 spoiler_info Nie pokazuj miniatury (SPOILER) - użyj tej opcji jeśli wgrywasz zdjęcie na którym pokazane jest miejsce ukrycia skrzynki. <br>Dopiero jak ktoś kliknie na SPOILER pokaże mu się wgrany obrazek.
 dont_show Nie pokazuj tego obrazka.
-pictures_intro Następujące formaty są akceptowane: BMP, GIF, PNG i JPG - dla zdjęć rekomendowany format JPG .<br />Maksymalna wielkość pliku dozwolona 100 KB. Zalecane wymiary obrazków: 480 Pixel szerokość i 360 Pixel wysokość. <br />Po potwierdzeniu następna strona, która się pojawi może potrwać chwilę.
+pictures_intro Następujące formaty są akceptowane: BMP, GIF, PNG i JPG - dla zdjęć rekomendowany format JPG .<br />Maksymalna wielkość pliku dozwolona
+pictures_intro2 MB. Zalecane wymiary obrazków: 480 Pixel szerokość i 360 Pixel wysokość. <br />Po potwierdzeniu następna strona, która się pojawi może potrwać chwilę.
 add_new_picture Dodanie nowego obrazka dla skrzynki
 gallery Zobacz galerię
 gallery_short Galeria
