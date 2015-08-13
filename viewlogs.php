@@ -454,7 +454,6 @@ if ($error == false) {
                 $pic_count = $dbc->rowCount();
                 for ($j = 0; $j < $pic_count; $j++) {
                     $pic_record = $dbc->dbResultFetch();
-                    d($pic_record);
                     $thisline = $logpictureline;
 
                     if ($disable_spoiler_view && intval($pic_record['spoiler']) == 1) {  // if hide spoiler (due to user not logged in) option is on prevent viewing pic link and show alert
