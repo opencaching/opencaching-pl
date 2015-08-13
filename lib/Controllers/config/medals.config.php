@@ -1100,6 +1100,96 @@ return array(
             ),
         ),
     ), /* end of medal */
-
+    MedalsContainer::CACHE_OWNER => array(
+        'name' => _('CacheOwner'),
+        'description' => _('Medal for placing caches'),
+        'type' => MedalsController::MEDAL_TYPE_CACHES,
+        'dateIntroduced' => '2005-01-01 00:00:01',
+        'conditions' => array(
+            'ocNodeId' => array(OcConfig::OCNODE_POLAND, OcConfig::OCNODE_BENELUX, OcConfig::OCNODE_ROMANIA),
+            'cacheType' => array(
+                GeoCache::TYPE_MULTICACHE,
+                GeoCache::TYPE_GEOPATHFINAL,
+                GeoCache::TYPE_TRADITIONAL,
+                GeoCache::TYPE_MOVING,
+                GeoCache::TYPE_QUIZ,
+                GeoCache::TYPE_OTHERTYPE,
+            ),
+            'logType' => false,
+            'placedCacheStatus' => array (GeoCache::STATUS_READY),
+            'cacheCountToAward' => array(
+                1 => array(
+                    'levelName' => _('paper'),
+                    'cacheCount' => array(
+                        'found' => 0,
+                        'placed' => 1,
+                    ),
+                ),
+                2 => array(
+                    'levelName' => _('wooden'),
+                    'cacheCount' => array(
+                        'found' => 0,
+                        'placed' => 2,
+                    ),
+                ),
+                3 => array(
+                    'levelName' => _('iron'),
+                    'cacheCount' => array(
+                        'found' => 0,
+                        'placed' => 5,
+                    ),
+                ),
+                4 => array(
+                    'levelName' => _('beril'),
+                    'cacheCount' => array(
+                        'found' => 0,
+                        'placed' => 10,
+                    ),
+                ),
+                5 => array(
+                    'levelName' => _('bronze'),
+                    'cacheCount' => array(
+                        'found' => 0,
+                        'placed' => 20,
+                    ),
+                ),
+                6 => array(
+                    'levelName' => _('silver'),
+                    'cacheCount' => array(
+                        'found' => 0,
+                        'placed' => 30,
+                    ),
+                ),
+                7 => array(
+                    'levelName' => _('gold'),
+                    'cacheCount' => array(
+                        'found' => 0,
+                        'placed' => 50,
+                    ),
+                ),
+                8 => array(
+                    'levelName' => _('platinum'),
+                    'cacheCount' => array(
+                        'found' => 0,
+                        'placed' => 70,
+                    ),
+                ),
+                9 => array(
+                    'levelName' => _('perl'),
+                    'cacheCount' => array(
+                        'found' => 0,
+                        'placed' => 90,
+                    ),
+                ),
+                10 => array(
+                    'levelName' => _('crystal'),
+                    'cacheCount' => array(
+                        'found' => 0,
+                        'placed' => 100,
+                    ),
+                ),
+            ),
+        ),
+    ), /* end of medal */
 );
 

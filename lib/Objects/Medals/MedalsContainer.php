@@ -24,4 +24,5 @@ class MedalsContainer
     const CACHE_EVENT = 12;
     const OLDGEOCACHER = 13;
     const REGION_BIESZCZADY = 14;
+    const CACHE_OWNER = 15;
 }
