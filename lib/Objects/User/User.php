@@ -59,6 +59,7 @@ class User
         $queryById = "SELECT `newcaches_no_limit` as ingnoreGeocacheLimitWhileCreatingNewGeocache FROM `user_settings` WHERE  `user_id` = :1 LIMIT 1";
         $db->multiVariableQuery($queryById, $this->userId);
         $dbRow = $db->dbResultFetch();
+        $db->reset();
         if($dbRow && $dbRow['ingnoreGeocacheLimitWhileCreatingNewGeocache'] == 1){
             $this->ingnoreGeocacheLimitWhileCreatingNewGeocache = true;
         }
@@ -100,7 +101,9 @@ class User
         $queryById = "SELECT username, founds_count, notfounds_count, hidden_count, latitude, longitude, country, email FROM `user` WHERE `user_id`=:1 LIMIT 1";
         $db->multiVariableQuery($queryById, $this->userId);
         $userDbRow = $db->dbResultFetch();
-        $this->setUserFieldsByUsedDbRow($userDbRow);
+        if($userDbRow){
+            $this->setUserFieldsByUsedDbRow($userDbRow);
+        }
     }
 
     private function setUserFieldsByUsedDbRow(array $dbRow)
@@ -109,9 +112,9 @@ class User
             switch($key){
                 case 'user_id':         $this->userId = $value; break;
                 case 'username':        $this->userName = $value; break;
-                case 'founds_count':    $this->foundGeocachesCount = $value; break;
-                case 'notfounds_count': $this->notFoundGeocachesCount = $value; break;
-                case 'hidden_count':    $this->hiddenGeocachesCount = $value; break;
+                case 'founds_count':    $this->foundGeocachesCount = (int) $value; break;
+                case 'notfounds_count': $this->notFoundGeocachesCount = (int) $value; break;
+                case 'hidden_count':    $this->hiddenGeocachesCount = (int) $value; break;
                 case 'email':           $this->email = $value; break;
                 case 'country':         $this->country = $value; break;
                 case 'latitude':
@@ -180,6 +183,15 @@ class User
     {
         return $this->ingnoreGeocacheLimitWhileCreatingNewGeocache;
     }
+
+    /**
+     * @return integer
+     */
+    public function getFoundGeocachesCount()
+    {
+        return $this->foundGeocachesCount;
+    }
+
 
 
 
