@@ -28,6 +28,8 @@ class User
 
     private $profileUrl = null;
 
+    private $ingnoreGeocacheLimitWhileCreatingNewGeocache = false;
+
     /**
      * construct class using $userId (fields will be loaded from db)
      * OR, if you have already user data row fetched from db row ($userDbRow), object is created using this data
@@ -48,6 +50,18 @@ class User
             $this->loadFromOKAPIRsp( $params['okapiRow'] );
         }
 
+    }
+
+
+    public function loadExtendedSettings()
+    {
+        $db = DataBaseSingleton::Instance();
+        $queryById = "SELECT `newcaches_no_limit` as ingnoreGeocacheLimitWhileCreatingNewGeocache FROM `user_settings` WHERE  `user_id` = :1 LIMIT 1";
+        $db->multiVariableQuery($queryById, $this->userId);
+        $dbRow = $db->dbResultFetch();
+        if($dbRow && $dbRow['ingnoreGeocacheLimitWhileCreatingNewGeocache'] == 1){
+            $this->ingnoreGeocacheLimitWhileCreatingNewGeocache = true;
+        }
     }
 
     public function loadFromOKAPIRsp($okapiRow)
@@ -158,5 +172,15 @@ class User
     {
         return $this->profileUrl;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isIngnoreGeocacheLimitWhileCreatingNewGeocache()
+    {
+        return $this->ingnoreGeocacheLimitWhileCreatingNewGeocache;
+    }
+
+
 
 }
