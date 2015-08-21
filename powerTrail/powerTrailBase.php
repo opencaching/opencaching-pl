@@ -487,7 +487,7 @@ class powerTrailBase{
      * check if real cache count in pt is equal stored in db.
      */
     private static function checkCacheCountInPt($pt){
-        $countQuery = 'SELECT count(*) as `cacheCount` FROM `caches` WHERE `cache_id` IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1) AND `status` IN ( 1, 2, 4, 5 )';
+        $countQuery = 'SELECT count(*) as `cacheCount` FROM `caches` WHERE `cache_id` IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1)';
         $db = \lib\Database\DataBaseSingleton::Instance();
         $db->multiVariableQuery($countQuery, $pt['id']);
         $answer = $db->dbResultFetch();
