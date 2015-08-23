@@ -2558,3 +2558,5 @@ pagetitle_print drukowanie
 natura2000 NATURA 2000 obszar
 ignoreFoundLimitRm Usuń możliwość zakładania skrzynek dla użytkownika, który nie osiągnął limitu znalezionych skrzynek
 ignoreFoundLimitAdd Dodaj możliwość zakładania skrzynek dla użytkownika, który nie osiągnął limitu znalezionych skrzynek
+NoDataAvailable Brak danych
+

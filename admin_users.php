@@ -91,7 +91,7 @@ if ($usr['admin']) {
 
 
     if ($record['last_login'] == "0000-00-00 00:00:00") {
-        $userlogin = "Brak danych";
+        $userlogin = tr('NoDataAvailable');
     } else {
         $userlogin = strftime("%d-%m-%Y", strtotime($record['last_login']));
     }

@@ -2568,3 +2568,5 @@ pagetitle_print Printing
 natura2000 NATURA 2000 (Nature Protected Area)
 ignoreFoundLimitRm Remove creating new caches ability for user who did not met found caches limit
 ignoreFoundLimitAdd Add creating new caches ability for user who did not met found caches limit
+NoDataAvailable No data
+
