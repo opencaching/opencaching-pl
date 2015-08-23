@@ -367,7 +367,7 @@
             <td>
                 Geocaching.com: &nbsp;&nbsp;<input type="text" name="wp_gc" value="{wp_gc}" maxlength="7" size="7" onChange="yes_change();"/>
                 Navicache.com: <input type="text" name="wp_nc" value="{wp_nc}" maxlength="6" size="6" onChange="yes_change();"/><br/>
-                OpenCaching.com: <input type="text" name="wp_tc" value="{wp_tc}" maxlength="7" size="7" onChange="yes_change();"/>
+                Terracaching.com: <input type="text" name="wp_tc" value="{wp_tc}" maxlength="7" size="7" onChange="yes_change();"/>
                 &nbsp;GPSGames.org: <input type="text" name="wp_ge" value="{wp_ge}" maxlength="6" size="6" onChange="yes_change();"/>
 
             </td>

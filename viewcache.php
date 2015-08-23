@@ -859,8 +859,8 @@ if ($error == false) {
             if ($cache_record['wp_ge'] != '' && $config['otherSites_gpsgames_org'] == 1)
                 $listed_on[] = '<a href="http://geocaching.gpsgames.org/cgi-bin/ge.pl?wp=' . $cache_record['wp_ge'] . '" target="_blank">GPSgames.org (' . $cache_record['wp_ge'] . ')</a>';
 
-            if ($cache_record['wp_tc'] != '' && $config['otherSites_opencaching_com'] == 1)
-                $listed_on[] = '<a href="http://www.opencaching.com/#geocache/' . $cache_record['wp_tc'] . '" target="_blank">OpenCaching.com (' . $cache_record['wp_tc'] . ')</a>';
+            if ($cache_record['wp_tc'] != '' && $config['otherSites_terracaching_com'] == 1)
+                $listed_on[] = '<a href="http://www.terracaching.com/Cache/' . $cache_record['wp_tc'] . '" target="_blank">Terracaching.com (' . $cache_record['wp_tc'] . ')</a>';
 
             if ($cache_record['wp_nc'] != '' && $config['otherSites_navicache_com'] == 1) {
                 $wpnc = hexdec(mb_substr($cache_record['wp_nc'], 1));
