@@ -28,7 +28,11 @@ if ($error == false) {
         $target = urlencode(tpl_get_current_page());
         tpl_redirect('login.php?target=' . $target);
     } else {
-        $db = new dataBase();
+        $db = \lib\Database\DataBaseSingleton::Instance();
+
+        $user = new \lib\Objects\User\User(array('userId'=>$usr['userid']));
+        $user->loadExtendedSettings();
+
         $default_country = getDefaultCountry($usr, $lang);
         if (isset($_REQUEST['newcache_info'])) {
             $newcache_info = $_REQUEST['newcache_info'];
@@ -46,7 +50,7 @@ if ($error == false) {
         require_once($rootpath . '/lib/caches.inc.php');
         require_once($stylepath . '/newcache.inc.php');
 
-        $rs = sql("SELECT `hide_flag` as hide_flag, `verify_all` as verify_all FROM `user` WHERE `user_id` =  " . sql_escape($usr['userid']));
+        $rs = sql("SELECT `hide_flag` as hide_flag, `verify_all` as verify_all FROM `user` WHERE `user_id` =  " . $user->getUserId());
         $record = sql_fetch_array($rs);
         $hide_flag = $record['hide_flag'];
         $verify_all = $record['verify_all'];
@@ -55,7 +59,6 @@ if ($error == false) {
             // user is banned for creating new caches for some reason
             $tplname = 'newcache_forbidden';
             require_once($rootpath . '/lib/caches.inc.php');
-            //require_once($stylepath . '/' . $tplname . '.inc.php');
         }
 
         // display info for begginner about number of find caches to possible register first cache
@@ -64,7 +67,7 @@ if ($error == false) {
         $num_find_caches = $rec['num_fcaches'];
         tpl_set_var('number_finds_caches', $num_find_caches);
 
-        if ($num_find_caches < $NEED_FIND_LIMIT) {
+        if ($num_find_caches < $NEED_FIND_LIMIT && !$user->isIngnoreGeocacheLimitWhileCreatingNewGeocache()) {
             $tplname = 'newcache_beginner';
             require_once($rootpath . '/lib/caches.inc.php');
         }
