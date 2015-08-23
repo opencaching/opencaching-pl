@@ -46,7 +46,7 @@ $config = array(
     'defaultCountry' => 'PL',
     /* Enable referencing waypoints from other sites */
     'otherSites_geocaching_com' => 1,
-    'otherSites_opencaching_com' => 1,
+    'otherSites_terracaching_com' => 1,
     'otherSites_navicache_com' => 1,
     'otherSites_gpsgames_org' => 1,
     /**
