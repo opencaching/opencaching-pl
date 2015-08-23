@@ -260,7 +260,7 @@
         <tbody>
             <tr>
                 <td>
-                    <a href="http://www.globalcaching.eu">globalcaching.eu</a>
+                    <a href="http://www.qualitycaching.com">qualitycaching.com (BeNeLux only)</a>
                 </td>
             </tr>
             <tr>
