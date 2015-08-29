@@ -863,7 +863,7 @@ if ($error == false) {
                 $listed_on[] = '<a href="http://www.terracaching.com/Cache/' . $cache_record['wp_tc'] . '" target="_blank">Terracaching.com (' . $cache_record['wp_tc'] . ')</a>';
 
             if ($cache_record['wp_qc'] != '' && $config['otherSites_qualitycaching_com'] == 1)
-                $listed_on[] = '<a href="http://www.qualitycaching.com/QCView.aspx?cid=' . $cache_record['qt_tc'] . '" target="_blank">Qualitycaching.com. (' . $cache_record['wp_qc'] . ')</a>';
+                $listed_on[] = '<a href="http://www.qualitycaching.com/QCView.aspx?cid=' . $cache_record['wp_qc'] . '" target="_blank">Qualitycaching.com. (' . $cache_record['wp_qc'] . ')</a>';
 
             if ($cache_record['wp_nc'] != '' && $config['otherSites_navicache_com'] == 1) {
                 $wpnc = hexdec(mb_substr($cache_record['wp_nc'], 1));
