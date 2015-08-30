@@ -69,8 +69,6 @@ if ($error == false) {
             $sql .= 'gc';
         else if (mb_strtoupper(mb_substr($wp, 0, 2)) == 'NC')
             $sql .= 'nc';
-        else if (mb_strtoupper(mb_substr($wp, 0, 2)) == 'QC')
-            $sql .= 'qc';
         else
             $sql .= 'oc';
 
