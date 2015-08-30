@@ -69,6 +69,8 @@ if ($error == false) {
             $sql .= 'gc';
         else if (mb_strtoupper(mb_substr($wp, 0, 2)) == 'NC')
             $sql .= 'nc';
+        else if (mb_strtoupper(mb_substr($wp, 0, 2)) == 'QC')
+            $sql .= 'qc';
         else
             $sql .= 'oc';
 
@@ -120,6 +122,7 @@ if ($error == false) {
                               `caches`.`wp_ge` `wp_ge`,
                               `caches`.`wp_tc` `wp_tc`,
                               `caches`.`wp_nc` `wp_nc`,
+                              `caches`.`wp_qc` `wp_qc`,
                               `caches`.`date_created` `date_created`,
                               `caches`.`difficulty` `difficulty`,
                               `caches`.`terrain` `terrain`,
