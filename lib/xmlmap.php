@@ -158,17 +158,17 @@ class tmp_Xmlmap
     {
 
         // h_ignored - convert to OKAPI's "exclude_ignored".
-        if ($_GET['h_ignored'] == "true")
+        if ( isset($_GET['h_ignored']) && $_GET['h_ignored'] == "true")
             $this->search_params['exclude_ignored'] = "true";
 
         // h_avail, h_temp_unavail, h_arch ("hide available" etc.) - convert to
         // OKAPI's "status" filter.
         $tmp = array();
-        if ($_GET['h_avail'] != "true")
+        if (isset($_GET['h_avail']) && $_GET['h_avail'] != "true")
             $tmp[] = "Available";
-        if ($_GET['h_temp_unavail'] != "true")
+        if (isset($_GET['h_temp_unavail']) && $_GET['h_temp_unavail'] != "true")
             $tmp[] = "Temporarily unavailable";
-        if ($_GET['h_arch'] != "true")
+        if (isset($_GET['h_arch']) && $_GET['h_arch'] != "true")
             $tmp[] = "Archived";
 
         $this->search_params['status'] = implode("|", $tmp);
@@ -185,11 +185,11 @@ class tmp_Xmlmap
         unset($t, $min_rating, $max_rating);
 
         // h_noscore - convert to OKAPI's "rating" parameter.
-        if ($_GET['h_noscore'] == "true")
+        if (isset($_GET['h_noscore']) && $_GET['h_noscore'] == "true")
             $this->search_params['rating'] = $this->search_params['rating'] . "|X";
 
         // be_ftf (hunt for FTFs) - convert to OKAPI's "ftf_hunter" parameter.
-        if ($_GET['be_ftf'] == "true") {
+        if (isset($_GET['be_ftf']) && $_GET['be_ftf'] == "true") {
             $this->search_params['ftf_hunter'] = "true";
 
             // Also, override previously set "status" filter. This behavior is
@@ -203,12 +203,12 @@ class tmp_Xmlmap
         }
 
         // powertrail_only (hunt for powerTrails) - convert to OKAPI's "powertrail_only" parameter.
-        if ($_GET['powertrail_only'] == "true") {
+        if (isset($_GET['powertrail_only']) && $_GET['powertrail_only'] == "true") {
             $this->search_params['powertrail_only'] = "true";
         }
 
         // h_nogeokret - Convert to OKAPI's "with_trackables_only" parameter.
-        if ($_GET['h_nogeokret'] == 'true')
+        if (isset($_GET['h_nogeokret']) && $_GET['h_nogeokret'] == 'true')
             $this->search_params['with_trackables_only'] = "true";
 
         // h_?, where ? is a single letter - hide a specific cache type.
@@ -236,12 +236,12 @@ class tmp_Xmlmap
         unset($types_to_hide, $mapping, $letter, $type);
 
         // h_own (hide user's own caches) - convert to OKAPI's "exclude_my_own" parameter.
-        if ($_GET['h_own'] == "true")
+        if (isset($_GET['h_own']) && $_GET['h_own'] == "true")
             $this->search_params['exclude_my_own'] = "true";
 
         // h_found, h_noattempt - convert to OKAPI's "found_status" parameter.
-        $h_found = ($_GET['h_found'] == "true");
-        $h_noattempt = ($_GET['h_noattempt'] == "true");
+        $h_found = (isset($_GET['h_found']) && $_GET['h_found'] == "true");
+        $h_noattempt = (isset($_GET['h_noattempt']) && $_GET['h_noattempt'] == "true");
         if ($h_found && (! $h_noattempt))
             $this->search_params['found_status'] = "notfound_only";
         elseif ((! $h_found) && $h_noattempt)
