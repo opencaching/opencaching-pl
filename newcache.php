@@ -303,7 +303,7 @@ if ($error == false) {
         tpl_set_var('wp_ge', htmlspecialchars($wp_ge, ENT_COMPAT, 'UTF-8'));
 
         $wp_tc = isset($_POST['wp_tc']) ? $_POST['wp_tc'] : '';
-        tpl_set_var('wp_tc', htmlspecialchars($wp_gc, ENT_COMPAT, 'UTF-8'));
+        tpl_set_var('wp_tc', htmlspecialchars($wp_tc, ENT_COMPAT, 'UTF-8'));
 
         $wp_nc = isset($_POST['wp_nc']) ? $_POST['wp_nc'] : '';
         tpl_set_var('wp_nc', htmlspecialchars($wp_nc, ENT_COMPAT, 'UTF-8'));
