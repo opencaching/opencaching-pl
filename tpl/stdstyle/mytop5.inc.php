@@ -11,6 +11,7 @@
  * ************************************************************************* */
 
 $viewtop5_line = '<tr>'
+        . '<td style="background-color: {bgcolor}"><img src="{cacheicon}" alt="" /></td>'
         . '<td style= "background-color: {bgcolor}"><a href="viewcache.php?cacheid={cacheid}">{cachename}</a></td>'
         . '<td style= "background-color: {bgcolor}">&nbsp</td>'
         . '<td style= "background-color: {bgcolor}"><a href=viewprofile.php?userid={owner_id}>{ownername}</a></td>'

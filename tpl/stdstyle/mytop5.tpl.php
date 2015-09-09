@@ -16,6 +16,7 @@
 <div class="searchdiv">
     <table class = "table">
         <colgroup>
+            <col width="10px"/>
             <col width="500px"/>
             <col width="1px"/>
             <col width="140px"/>
@@ -23,6 +24,7 @@
             <col width="60px"/>
         </colgroup>
         <tr>
+            <td class="content-title-noshade"></td>
             <td class="content-title-noshade">Geocache</td>
             <td class="content-title-noshade">&nbsp</td>
             <td class="content-title-noshade">{{created_by}}</td>

@@ -38,7 +38,6 @@ if ($error == false) {
         $cache_id = isset($_REQUEST['cacheid']) ? $_REQUEST['cacheid'] + 0 : 0;
         if ($cache_id != 0) {
 
-            //$count = sqlValue('SELECT COUNT(*) FROM `cache_rating` WHERE `cache_id`=\''.sql_escape($cache_id).'\' AND `user_id`=\''.sql_escape($usr['userid']).'\'', -1);
             $query = "SELECT cache_id FROM cache_rating WHERE cache_id = :cache_id AND user_id = :user_id ";
             $params = array(
                 "cache_id" => array(
@@ -97,14 +96,9 @@ if ($error == false) {
 
     $i = 0;
     $content = '';
-    /* $rs = sql("   SELECT `cache_rating`.`cache_id` AS `cache_id`, `caches`.`name` AS `cachename`,
-      `user`.`username` AS `ownername`, `user`.`user_id` AS `owner_id`
-      FROM `cache_rating`, `caches` , `user`
-      WHERE `cache_rating`.`cache_id` = `caches`.`cache_id`
-      AND `caches`.`user_id`=`user`.`user_id`
-      AND `cache_rating`.`user_id`='&1' ORDER BY `caches`.`name` ASC", $usr['userid']); */
 
     $query = "  SELECT `cache_rating`.`cache_id` AS `cache_id`, `caches`.`name` AS `cachename`,
+                caches.type as cache_type, caches.user_id,
                 `user`.`username` AS `ownername`, `user`.`user_id` AS `owner_id`
                 FROM `cache_rating`, `caches` , `user`
                 WHERE `cache_rating`.`cache_id` = `caches`.`cache_id`
@@ -124,6 +118,9 @@ if ($error == false) {
         while ($r = $dbc->dbResultFetch()) {
             $thisline = $viewtop5_line;
 
+            $cacheicon = myninc::checkCacheStatusByUser($r, $usr['userid']);
+            
+            $thisline = mb_ereg_replace('{cacheicon}', $cacheicon, $thisline);
             $thisline = mb_ereg_replace('{cachename}', htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8'), $thisline);
             $thisline = mb_ereg_replace('{cacheid}', htmlspecialchars($r['cache_id'], ENT_COMPAT, 'UTF-8'), $thisline);
             $thisline = mb_ereg_replace('{ownername}', htmlspecialchars($r['ownername'], ENT_COMPAT, 'UTF-8'), $thisline);
