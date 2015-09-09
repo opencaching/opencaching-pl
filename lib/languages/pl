@@ -620,7 +620,7 @@ days_caching Liczba dni "keszowania"
 from_total_days z całkowitej ilości dni
 average_caches Średnio skrzynek na dzień "keszowania"
 most_caches_find_day Najwięcej skrzynek/dzień
-most_caches_made_day
+most_caches_made_day Najwięcej założonych skrzynek/dzień
 latest_cache Ostatnia znaleziona skrzynka
 milestones  Milestones "kamienie milowe"
 latest_logs_by_user Najnowsze wpisy do logów wprowadzone przez użytkownika
