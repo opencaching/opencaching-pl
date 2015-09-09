@@ -39,6 +39,13 @@
 .GCTalign-center{ text-align: center; }
 .GCTalign-right{ text-align: right; }
 
+
+.google-visualization-table-div-page [role="button"] .charts-custom-button-inner-box{
+	font-size:10px;
+}
+
+.google-visualization-table-page-numbers{font-size:13px;}
+
 .GCT-border-color-greyD9.google-visualization-table-sorthdr {
     padding-bottom: 10px;
     padding-top: 10px;

@@ -107,8 +107,8 @@ if ( !$SearchWithSort &&  $NrColSortSearch != -1 )
     {
         echo "gct.addChartOption('sortColumn', $NrColSortToSet );";
         echo "gct.addChartOption('sortAscending',"; if ($OrderSortSearch == 'M') echo 'false'; else echo 'true'; echo" );";
-
         echo "gct.addChartOption('pageSize', 20);";
+        echo "gct.addChartOption('pagingSymbols', { prev: '".tr('Prev1')."', next: '".tr('Next1')."' })";
     }
     else
     {
@@ -188,11 +188,6 @@ gct.addSelectEvent( EventSelectPosFunction );
 gct.addPageEvent( EventPageFunction );
 </script>
 
-<?php
-echo "<script type='text/javascript'>";
-echo "gct.addChartOption('pagingSymbols', { prev: '".tr('Prev1')."', next: '".tr('Next1')."' })";
-echo "</script>";
-?>
 
 <?php
 global $usr, $hide_coords, $lang;
