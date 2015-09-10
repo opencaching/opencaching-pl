@@ -183,7 +183,7 @@ if (date('m') == 12 || date('m') == 1) {
                             }
                         }
 //user is admin
-                        if ($usr['admin']) {
+                        if (isset($usr['admin']) && $usr['admin']) {
                             $sql = "SELECT count(status) FROM reports WHERE status = 0";
                             $new_reports = mysql_result(mysql_query($sql), 0);
                             $sql = "SELECT count(status) FROM reports WHERE status = 3";
@@ -238,7 +238,7 @@ if (date('m') == 12 || date('m') == 1) {
                     }
                     ?>
                     <?php
-                    if ($usr['admin']) {
+                    if (isset($usr['admin']) && $usr['admin']) {
                         echo '<ul>';
                         $adminidx = mnu_MainMenuIndexFromPageId($menu, "viewreports");
                         $menu[$adminidx]['visible'] = false;
