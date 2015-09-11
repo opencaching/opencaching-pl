@@ -1,13 +1,5 @@
 <?php
 
-/* * *****************************************************************************
- * ajaxGetRegionsByCountryCode.php
- *
- * retreive regions of specified country from db, generate option list.
- * Maybe in future refactore it just to return region list (array), and build
- * html by calling js function side.
- *
- * *** */
 $rootpath = __DIR__ . DIRECTORY_SEPARATOR;
 require_once $rootpath . 'lib/common.inc.php';
 

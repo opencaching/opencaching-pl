@@ -1,31 +1,5 @@
 <?php
 
-/* * *************************************************************************
-  ./cachemaps.php
-  -------------------
-  begin                : June 17 2006
-  copyright            : (C) 2006 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
-
- * ************************************************************************* */
-
-/* * *************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * ************************************************************************* */
-
-/* * **************************************************************************
-
-  Unicode Reminder メモ
-
-  create receive an image from a wms-mapserver for caches
-
- * ************************************************************************** */
-
 require_once('./lib/common.inc.php');
 if ($error == true)
     redirect_na();
