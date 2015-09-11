@@ -1,33 +1,5 @@
 <?php
 
-/* * *************************************************************************
-  ./editmp3.php
-  -------------------
-  begin                : Do 20. Oct 2005
-  copyright            : (C) 2004 The OpenCaching Group
-
-
- * ************************************************************************* */
-
-/* * *************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * ************************************************************************* */
-
-/* * **************************************************************************
-
-  Unicode Reminder ăĄă˘
-
-  edits a mp3
-
-  userid must be owner of the object referenced by objectid
-
- * ************************************************************************** */
-
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 

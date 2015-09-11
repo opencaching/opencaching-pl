@@ -1,7 +1,5 @@
 <?php
 
-// Unicode Reminder メモ
-
 require('./lib/common.inc.php');
 if ($error) {
     tpl_BuildTemplate();

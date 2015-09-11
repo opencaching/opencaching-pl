@@ -1,20 +1,5 @@
 <?php
 
-/* * *************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * ************************************************************************* */
-
-/* * **************************************************************************
-  Starting page of the OpenCaching website and template usage example
-  used template(s): start
-  parameter(s):     none
- * ************************************************************************** */
-
 if(isset($_REQUEST['ocController']) && $_REQUEST['ocController'] == 1) {
     session_start();
     require_once __DIR__ . '/lib/Controllers/OcController.php';

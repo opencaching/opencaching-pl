@@ -1,4 +1,5 @@
 <?php
+
 require_once('./lib/common.inc.php');
 $no_tpl_build = false;
 if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache_multi_data']))) {
