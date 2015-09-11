@@ -1,22 +1,5 @@
 <?php
 
-/* * *************************************************************************
-  ./mytop5.php
-  -------------------
-  begin                : November 4 2005
-  copyright            : (C) 2005 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
-
- * ************************************************************************* */
-
-/* * **************************************************************************
-
-  Unicode Reminder メモ
-
-  show the list of rated caches
-
- * ************************************************************************** */
-
 require('./lib/common.inc.php');
 require($stylepath . '/mytop5.inc.php');
 
