@@ -1,22 +1,5 @@
 <?php
 
-/* * *************************************************************************
-  ./savequery.php
-  -------------------
-  begin                : November 4 2005
-  copyright            : (C) 2005 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
-
- * ************************************************************************* */
-
-/* * **************************************************************************
-
-  Unicode Reminder メモ
-
-  save the query for the specific user
-
- * ************************************************************************** */
-
 require('./lib/common.inc.php');
 require($stylepath . '/query.inc.php');
 

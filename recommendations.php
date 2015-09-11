@@ -1,22 +1,5 @@
 <?php
 
-/* * *************************************************************************
-  ./recommendations.php
-  -------------------
-  begin                : November 4 2005
-  copyright            : (C) 2005 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
-
- * ************************************************************************* */
-
-/* * **************************************************************************
-
-  Unicode Reminder メモ
-
-  shows recommendations based on the top-ratings
-
- * ************************************************************************** */
-
 require('./lib/common.inc.php');
 require($stylepath . '/recommendations.inc.php');
 
