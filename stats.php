@@ -1,13 +1,5 @@
 <?php
 
-/* * *************************************************************************
- *  You can find the license in the docs directory
- *
- *  Unicode Reminder ??
- *
- *  Display some status information about the server and Opencaching
- * ************************************************************************* */
-
 require('./lib/common.inc.php');
 
 $tops = array();

@@ -1,21 +1,5 @@
 <?php
-/***************************************************************************
-    *
-    *   This program is free software; you can redistribute it and/or modify
-    *   it under the terms of the GNU General Public License as published by
-    *   the Free Software Foundation; either version 2 of the License, or
-    *   (at your option) any later version.
-    *
-    ***************************************************************************/
 
-/****************************************************************************
-
-  search and export page for caches, users, logs and pictures possible output
-  formats are currently XHTML and XML. The search options can be loaded from
-  stored query in the database, dump of the options in HTTP-POST/GET variable
-  or HTML form fields
-
- ****************************************************************************/
     //prepare the templates and include all neccessary
     if (!isset($rootpath)) $rootpath = '';
     require_once('./lib/common.inc.php');

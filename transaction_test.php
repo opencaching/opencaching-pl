@@ -1,7 +1,5 @@
 <?php
 
-//  UTF-8 siąść
-
 function check_database_count($db, $expected, $line)
 {
     echo "<br>Expect <b>$expected</b> row(s)<br>";
