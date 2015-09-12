@@ -1,19 +1,5 @@
 #!/usr/bin/php -q
 <?php
-/* * *************************************************************************
-  ./util/safemode_zip/phpzip.php
-  -------------------
-  begin                : December 22 2005
-  copyright            : (C) 2005 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
-
- * ************************************************************************* */
-
-/* * *************************************************************************
-
-  Wrapper for unix-utilities zip, gzip and bz2
-
- * ************************************************************************* */
 
 $basedir = '/var/www/ocpl-data/download/zip/';
 

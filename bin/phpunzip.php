@@ -1,21 +1,5 @@
 <?php
 
-/* * *************************************************************************
-  ./util/safemode_zip/phpzip.php
-  -------------------
-  begin                : December 22 2005
-  copyright            : (C) 2005 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
-
- * ************************************************************************* */
-
-/* * *************************************************************************
-
-  Wrapper for unix-utilities unzip, gunzip and bunzip2
-
-
- * ************************************************************************* */
-
 $basedir = '/www/opencaching_www/www/download/zip/';
 
 $zipper['zip'] = 'nice --adjustment=19 unzip -qq -nj {src} -d {dst}';
