@@ -1,14 +1,5 @@
 <?php
 
-/* * *************************************************************************
- *  You can find the license in the docs directory
- *
- *  Unicode Reminder ??
- *
- *        AND  `cache_logs`.`date`>'2007-02-21'
- *
- *  Display some status information about the server and Opencaching
- * ************************************************************************* */
 global $lang, $rootpath;
 
 if (!isset($rootpath))

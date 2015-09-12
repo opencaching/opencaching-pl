@@ -1,32 +1,5 @@
 <?php
 
-/* * *************************************************************************
-  ./lib/calculation.inc.php
-  --------------------
-  begin                : Wed October 11 2006
-  copyright            : (C) 2006 The OpenCaching Group
-  forum contact at     : http://develforum.opencaching.de
-
- * ************************************************************************* */
-
-/* * *************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * ************************************************************************* */
-
-/* * **************************************************************************
-
-  Unicode Reminder メモ
-
-  all coordinate calculation related functions
-  Dont include this file by hand - it will be included from clicompatbase.inc.php
-
- * ************************************************************************** */
-
 function calcBearing($lat1, $lon1, $lat2, $lon2)
 {
     // Input sind Breite/Laenge in Altgrad

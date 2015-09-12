@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Use this class whenever you need to validate OR modify users' passwords.
- *
- * Why? See issue #179.
- */
 class PasswordManager
 {
 

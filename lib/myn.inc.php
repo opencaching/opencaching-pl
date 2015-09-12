@@ -1,8 +1,5 @@
 <?php
 
-/**
- * set of functions used in myneighborhood and myn files
- */
 class myninc
 {
 

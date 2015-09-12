@@ -1,7 +1,5 @@
 <?php
 
-// Unicode Reminder メモ
-
 define("CS2CS", "cs2cs");
 
 

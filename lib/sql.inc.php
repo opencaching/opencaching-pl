@@ -1,11 +1,5 @@
 <?php
 
-/*
-  sql("SELECT id FROM &tmpdb.table WHERE a=&1 AND &tmpdb.b='&2'", 12345, 'abc');
-
-  returns: recordset or false
- */
-
 function sql($sql)
 {
     global $rootpath;

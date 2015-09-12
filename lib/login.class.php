@@ -1,36 +1,5 @@
 <?php
 
-/* * *************************************************************************
- *  You can find the license in the docs directory
- *
- *  Unicode Reminder ăĄă˘
- *
- *  This class provides access to the login user data. Informations are
- *  stored in a cookie. Authentication has 2 levels unverified and verified.
- *
- *  Unverified means: In the cookie is a userid and username provided, but
- *                    the system didn't checked if that information is valid.
- *                    This is good enough, if the login information is only
- *                    used to display e.g. the loginbox. There is no
- *                    security-hole if someone cheats the cookie.
- *
- *  Verified means:   In the cookie is a userid and username provided and
- *                    the system checkd the information. A valid login-
- *                    session exists. You have to verify the login-session
- *                    when you read personal informations or write
- *                    logentries, caches etc. to the database.
- *
- *  Methods:
- *    verify()        validate the login-session
- *    try_login()     try to login with the given user/password
- *    logout()        logout the user
- *
- *  Properties:
- *    userid          Integer 0 if no login, userid otherwise
- *    username        String username or ''
- *
- * ************************************************************************* */
-
 define('LOGIN_OK', 0);            // login succeeded
 define('LOGIN_BADUSERPW', 1);     // bad username or password
 define('LOGIN_TOOMUCHLOGINS', 2); // too many logins in short time

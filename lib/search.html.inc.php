@@ -1,33 +1,5 @@
 <?php
     use Zend\Code\Reflection\DocBlock\Tag\ReturnTag;
-/***************************************************************************
-                                                            ./lib/search.html.inc.php
-                                                                -------------------
-            begin                : July 25 2004
-            copyright            : (C) 2004 The OpenCaching Group
-            forum contact at     : http://www.opencaching.com/phpBB2
-
-        ***************************************************************************/
-
-    /***************************************************************************
-        *
-        *   This program is free software; you can redistribute it and/or modify
-        *   it under the terms of the GNU General Public License as published by
-        *   the Free Software Foundation; either version 2 of the License, or
-        *   (at your option) any later version.
-        *
-        ***************************************************************************/
-
-    /****************************************************************************
-
-        Unicode Reminder ăĄă˘
-
-        (X)HTML search output
-
-        TODO: (1) save the options in the database
-              (2) sort the results and the make the final query
-
-    ****************************************************************************/
 
 function findColumn( $name, $type = "C" )
 {

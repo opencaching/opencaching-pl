@@ -1,46 +1,5 @@
 <?php
-        /***************************************************************************
-                ./lib/search.uam.inc.php
-        -------------------
-                        begin                : November 2 2005
-                        copyright            : (C) 2005 The OpenCaching Group
-                        forum contact at     : http://www.opencaching.com/phpBB2
 
-        ***************************************************************************/
-
-        /***************************************************************************
-                *
-                *   This program is free software; you can redistribute it and/or modify
-                *   it under the terms of the GNU General Public License as published by
-                *   the Free Software Foundation; either version 2 of the License, or
-                *   (at your option) any later version.
-                *
-                ***************************************************************************/
-
-        /****************************************************************************
-
-                Unicode Reminder ??
-
-                uam search output
-                based on search.ov2.inc.php and half working uam code by sp2ong
-                by Ar't (c)2007
-
-        ****************************************************************************/
-// setlocale(LC_CTYPE, 'pl_PL');
-
-    /****************************************************************************
-
-8 Naglowek pliku = BB 22 D5 3F + 4 bajty ilosc rekordow 1D 00 00 00 = 29 rekordow
-Rekordy (kazdy 362 znaki)
-8 wspol w uk 1992, 4 bajty Y potem 4 bajty X
-1 Priorytet punktu (0-4)
-64 nazwa punktu
-255 Opis
-1 Czy widoczny na mapie (0 nie 1 tak)
-1 Numer kategorii (99 uzytkownika) ma byc 99
-32 Nazwa kategori usera np Geocaching
-
-    ****************************************************************************/
 //  require_once("./lib/cs2cs.inc.php");
     require_once("./lib/wgs21992.php");
     set_time_limit(1800);

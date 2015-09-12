@@ -1,28 +1,5 @@
 <?php
 
-/* * *************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * ************************************************************************* */
-
-/* * **************************************************************************
-
-  8 Naglowek pliku = BB 22 D5 3F + 4 bajty ilosc rekordow 1D 00 00 00 = 29 rekordow
-  Rekordy (kadzy 362 znaki)
-  8 wspol w uk 1992, 4 bajty Y potem 4 balty X
-  1 Priorytet punktu (0-4)
-  64 nazwa punktu
-  255 Opis
-  1 Czy widoczny na mapie (0 nie 1 tak)
-  1 Numer kategorii (99 uzytkownika) ma byc 99
-  32 Nazwa kategoru usera np Geocaching
-
- * ************************************************************************** */
-require_once("./lib/cs2cs.inc.php");
 global $user, $bUseZip, $sqldebug;
 
 $uamXY = "{lat}{prio}{name}";

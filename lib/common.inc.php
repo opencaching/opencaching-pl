@@ -5,18 +5,7 @@ require_once __DIR__ . '/kint/Kint.class.php'; /* magnificant debug tool */
 if ((!isset($GLOBALS['no-session'])) || ($GLOBALS['no-session'] == false))
     session_start();
 
-/* * *************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * ************************************************************************* */
-
 /* * **************************************************************************
-
-  Unicode Reminder ??
 
   sets up all neccessary variables and handle template and database-things
   also useful functions
