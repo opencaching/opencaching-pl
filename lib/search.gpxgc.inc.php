@@ -179,6 +179,8 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
         if( $usr || !$hide_coords )
         {
             // 1st set of attributes - attributes that correlate to GC attributes
+            $gpxAttribID[6] = '106';
+            $gpxAttribName[6] = 'Only logable at Opencaching';
             $gpxAttribID[12] = '22';
             $gpxAttribName[12] = 'Hunting';
             $gpxAttribID[13] = '39';
