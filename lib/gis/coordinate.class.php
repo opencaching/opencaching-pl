@@ -1,11 +1,5 @@
 <?php
 
-/* * *************************************************************************
- *  You can find the license in the docs directory
- *
- *  Unicode Reminder メモ
- * ************************************************************************* */
-
 define('BIN_CS2CS', '/usr/local/bin/cs2cs');
 
 class coordinate
