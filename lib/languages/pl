@@ -2561,4 +2561,5 @@ ignoreFoundLimitRm Usuń możliwość zakładania skrzynek dla użytkownika, kt�
 ignoreFoundLimitAdd Dodaj możliwość zakładania skrzynek dla użytkownika, który nie osiągnął limitu znalezionych skrzynek
 NoDataAvailable Brak danych
 list_of_titled_caches_is_empty Nie ma skrzynek tygodnia w tej okolicy
-titled_caches Skrzynka tygodnia
+titled_cache Skrzynka tygodnia
+titled_caches Skrzynki tygodnia

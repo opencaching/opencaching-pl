@@ -2571,4 +2571,5 @@ ignoreFoundLimitRm Remove creating new caches ability for user who did not met f
 ignoreFoundLimitAdd Add creating new caches ability for user who did not met found caches limit
 NoDataAvailable No data
 list_of_titled_caches_is_empty There are no titled caches in the specified area 
-titled_caches Skrzynka tygodnia
+titled_cache Titled cache
+titled_caches Titled caches
