@@ -2556,7 +2556,9 @@ waypoint_error1
 waypoint_error2 Waypoint musi być w jednym z podanych formatów: OPxxxx, ORxxxx, OBxxxx, GCxxxxx, NCxxxx
 pagetitle_print drukowanie
 natura2000 NATURA 2000 obszar
+WeekCache Skrzynka tygodnia
 ignoreFoundLimitRm Usuń możliwość zakładania skrzynek dla użytkownika, który nie osiągnął limitu znalezionych skrzynek
 ignoreFoundLimitAdd Dodaj możliwość zakładania skrzynek dla użytkownika, który nie osiągnął limitu znalezionych skrzynek
 NoDataAvailable Brak danych
-
+list_of_titled_caches_is_empty Nie ma skrzynek tygodnia w tej okolicy
+titled_caches Skrzynka tygodnia

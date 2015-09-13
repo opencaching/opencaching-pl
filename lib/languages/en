@@ -2566,7 +2566,9 @@ waypoint_error1
 waypoint_error2 Waypoint must be in one of the following formats: OPxxxx, ORxxxx, OBxxxx, GCxxxxx, NCxxxx
 pagetitle_print Printing
 natura2000 NATURA 2000 (Nature Protected Area)
+WeekCache Cache of the week
 ignoreFoundLimitRm Remove creating new caches ability for user who did not met found caches limit
 ignoreFoundLimitAdd Add creating new caches ability for user who did not met found caches limit
 NoDataAvailable No data
-
+list_of_titled_caches_is_empty There are no titled caches in the specified area 
+titled_caches Skrzynka tygodnia
