@@ -1,8 +1,5 @@
 <?php
-/* * *************************************************************************
-  Unicode Reminder メモ
 
- * ************************************************************************* */
 ?>
 <form action="admin_addnews.php" method="post" enctype="application/x-www-form-urlencoded">
     <input type="hidden" name="submit" value="1" />

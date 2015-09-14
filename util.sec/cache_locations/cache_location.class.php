@@ -1,9 +1,7 @@
 <?php
 
 /* * *************************************************************************
- *  You can find the license in the docs directory
  *
- *  Unicode Reminder メモ
  *
  *  Cleanup the table sys_temptables from entries of dead threads
 

@@ -1,29 +1,5 @@
 <?php
-/* * *************************************************************************
-  ./tpl/stdstyle/myhome.tpl.php
-  -------------------
-  begin                : Mon June 14 2004
-  copyright            : (C) 2004 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
 
- * ************************************************************************* */
-
-/* * *************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * ************************************************************************* */
-
-/* * **************************************************************************
-
-  Unicode Reminder ??
-
-  user home
-
- * ************************************************************************** */
 ?>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/home.png" class="icon32" alt="Moje konto" title="Moje konto" align="left" />&nbsp;{{welcome}}, {username}</div>
 <br/><p style="font-size: 12px;">[<a class="links" href="viewprofile.php?userid={userid}">{{view_your_profile}}</a>]</p><br/><br/>

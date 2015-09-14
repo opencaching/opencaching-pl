@@ -1,7 +1,5 @@
 <?php
 
-// Unicode Reminder メモ
-
 $submit = 'Usun';
 
 $message_title_internal = 'Wewnętrzny błąd servera';

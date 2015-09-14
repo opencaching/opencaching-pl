@@ -1,9 +1,5 @@
 <?php
 
-/* * *************************************************************************
- *  You can find the license in the docs directory
- * ************************************************************************* */
-
 $rootpath = __DIR__ . '/../';
 require_once($rootpath . 'lib/clicompatbase.inc.php');
 require_once($rootpath . 'lib/common.inc.php');

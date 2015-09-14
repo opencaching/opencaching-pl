@@ -1,45 +1,5 @@
 <?php
-/* * *************************************************************************
-  ./tpl/stdstyle/coordinates.tpl.php
-  -------------------
-  begin                : June 24 2004
-  copyright            : (C) 2004 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
 
- * ************************************************************************* */
-
-/* * *************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * ************************************************************************* */
-
-/* * **************************************************************************
-
-  Unicode Reminder メモ
-
-  view a cache
-
-  template replacements:
-
-  lon_float
-  lon_dir
-  lon_deg_int
-  lon_min_int
-  lon_sec_float
-  lon_min_float
-
-  lat_float
-  lat_dir
-  lat_deg_int
-  lat_min_int
-  lat_sec_float
-  lat_min_float
-
- * ************************************************************************** */
 ?>
 
 <p>

@@ -1,10 +1,5 @@
 <?php
 
-/* * *************************************************************************
- *  You can find the license in the docs directory
- *
- *  Unicode Reminder ăĄă˘
- * ************************************************************************* */
 $rootpath = '/www/opencaching_www/www/';
 $rootpath = '../../';
 //require_once($rootpath.'lib/settings.inc.php');

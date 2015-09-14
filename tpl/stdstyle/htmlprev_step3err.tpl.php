@@ -1,29 +1,5 @@
 <?php
-/* * *************************************************************************
-  ./tpl/stdstyle/htmlprev_step3.tpl.php
-  -------------------
-  begin                : October 1 2004
-  copyright            : (C) 2004 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
 
- * ************************************************************************* */
-
-/* * *************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * ************************************************************************* */
-
-/* * **************************************************************************
-
-  Unicode Reminder メモ
-
-  HTML generation and preview
-
- * ************************************************************************** */
 ?>
 <table class="content">
     <tr><td class="header"><img src="tpl/stdstyle/images/misc/32x32-tools.png" class="icon32" alt="HTML-Vorschau" title="HTML-Vorschau" align="middle" /><font size="4">  <b>HTML Vorschau</b></font></td></tr>

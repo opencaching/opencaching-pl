@@ -1,6 +1,5 @@
 <?php
 
-// Unicode Reminder ăĄă˘
 global $site_name, $emailaddr;
 
 $mailfrom = $emailaddr;

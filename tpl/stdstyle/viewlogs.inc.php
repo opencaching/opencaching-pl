@@ -1,22 +1,5 @@
 <?php
 
-/* * *************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * ************************************************************************* */
-
-/* * **************************************************************************
-
-  Unicode Reminder ąść
-
-  set template specific language variables
-
- * ************************************************************************** */
-
 $functions_start = '<br/><img src="images/trans.gif" alt="" title="" class="icon16" />&nbsp;';
 $functions_middle = '&nbsp;';
 $functions_end = '';

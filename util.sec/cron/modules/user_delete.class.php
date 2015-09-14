@@ -1,9 +1,6 @@
 <?php
 
 /* * *************************************************************************
- *  You can find the license in the docs directory
- *
- *  Unicode Reminder メモ
  *
  *  Publish new geocaches that are marked for timed publish
  * ************************************************************************* */

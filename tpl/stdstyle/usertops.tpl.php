@@ -1,14 +1,5 @@
 <?php
-/* * *************************************************************************
-  ./tpl/stdstyle/usertops.tpl.php
-  -------------------
-  begin                : January 16 2007
-  copyright            : (C) 2007 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
 
-  Unicode Reminder メモ
-
- * ************************************************************************* */
 ?>
 
 <div class="content2-pagetitle">

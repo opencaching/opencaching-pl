@@ -1,16 +1,5 @@
 <?php
 
-/* * *************************************************************************
-  ./tpl/stdstyle/recommendations.inc.php
-  -------------------
-  begin                : November 4 2005
-  copyright            : (C) 2005 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
-
-  Unicode Reminder メモ
-
- * ************************************************************************* */
-
 $recommendation_line = '<tr>
                 <td bgcolor="{bgcolor}">{treffer}%</td>
                 <td bgcolor="{bgcolor}">&nbsp;</td>

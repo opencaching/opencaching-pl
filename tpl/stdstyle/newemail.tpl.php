@@ -1,34 +1,5 @@
 <?php
-/* * *************************************************************************
-  ./tpl/stdstyle/newemail.tpl.php
-  -------------------
-  begin                : Mon June 14 2004
-  copyright            : (C) 2004 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
 
- * ************************************************************************* */
-
-/* * *************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * ************************************************************************* */
-
-/* * **************************************************************************
-
-  Unicode Reminder ??
-
-  template replacement(s):
-
-  message
-  email_message
-  code_message
-  new_email
-
- * ************************************************************************** */
 ?>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt="E-Mail-Adres" title="E-Mail-Adres" align="middle" />&nbsp;{{em00}}</div>
 <div class="searchdiv">

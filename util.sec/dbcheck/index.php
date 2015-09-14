@@ -1,19 +1,4 @@
 <?php
-/* * *************************************************************************
-  ./util/dbcheck/index.php
-  -------------------
-  begin                : Fri September 16 2005
-  copyright            : (C) 2005 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
-
- * ************************************************************************* */
-
-/* * *************************************************************************
-
-  Script zur �berpr�fung und Widerherstellung der Datenbank-Konsistenz.
-  Schutz �ber htpasswd!
-
- * ************************************************************************* */
 
 $regex_htmltag = '';
 $regex_entity = '';

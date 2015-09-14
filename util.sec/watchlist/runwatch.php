@@ -2,8 +2,6 @@
 
 /* * *************************************************************************
 
-  Unicode Reminder ăĄă˘
-
   Ggf. muss die Location des php-Binaries angepasst werden.
 
   Dieses Script sucht nach neuen Logs und Caches, die von Usern beobachtet

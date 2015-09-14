@@ -1,11 +1,5 @@
 <?php
 
-/* * *************************************************************************
- *  You can find the license in the docs directory
- *
- *  Unicode Reminder ăĄă˘
- * ************************************************************************* */
-
 $rootpath = '../../';
 require_once($rootpath . 'lib/clicompatbase.inc.php');
 

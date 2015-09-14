@@ -1,13 +1,5 @@
 <?php
-/* * *************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *  UTF-8 ąść
- * ************************************************************************* */
+
 ?>
 <script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="" align="middle"/>&nbsp;{{my_caches_status}}: <font color="black">{cache_stat}</font></div>

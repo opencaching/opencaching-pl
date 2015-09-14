@@ -1,40 +1,5 @@
 <?php
-/* * *************************************************************************
-  ./tpl/stdstyle/newpw.tpl.php
-  -------------------
-  begin                : Mon June 14 2004
-  copyright            : (C) 2004 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
 
- * ************************************************************************* */
-
-/* * *************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * ************************************************************************* */
-
-/* * **************************************************************************
-
-  Unicode Reminder ăĄă˘
-
-  login page
-
-  template replacement(s):
-
-  message         message to display the user
-  email           entered email
-  code     entered code
-  email_message   messages relating to the email
-  code_message    messages relating to the code
-  pw_message      messages relating to the new password
-  changepw        submit string
-  getcode         submit string
-
- * ************************************************************************** */
 ?>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/password.png" class="icon32" alt="" title="{{change_password_msg1}}" align="middle" />&nbsp;{{change_password_msg1}}</div>
 <div class="searchdiv">

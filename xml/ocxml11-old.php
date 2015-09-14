@@ -1,16 +1,5 @@
 <?php
 
-/* * *************************************************************************
-  ./xml/ocxml11.php
-  -------------------
-  begin                : December 27, 2005
-  copyright            : (C) 2005 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
-
-  Unicode Reminder ??
-  New OC PL
- * ************************************************************************* */
-
 /* begin configuration */
 
 $rootpath = '../';

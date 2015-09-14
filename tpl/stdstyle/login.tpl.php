@@ -1,35 +1,5 @@
 <?php
-/* * *************************************************************************
-  ./tpl/stdstyle/login.tpl.php
-  -------------------
-  begin                : Mon June 14 2004
-  copyright            : (C) 2004 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
 
- * ************************************************************************* */
-
-/* * *************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * ************************************************************************* */
-
-/* * **************************************************************************
-
-  Unicode Reminder ăĄă˘
-
-  login page
-
-  template replacement(s):
-
-  username      default username
-  message       message to display the user
-  target        page to display after login
-
- * ************************************************************************** */
 ?>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="" title="Login" align="middle"/>&nbsp;{{login}}</div>
 {message_start}

@@ -1,31 +1,5 @@
 <?php
-/* * *************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * ************************************************************************* */
-/* * **************************************************************************
 
-  Unicode Reminder ??
-
-  register page
-
-  template replacement(s):
-  register                submit button caption
-  reset                   reset button caption
-  tos_message             terms of service message
-  all_countries_submit    submission button to display all countries
-  countries_list          list of countries for <select> tag
-  email_message           email message
-  email                   entered email
-  username_message
-  username
-  show_all_countries      reminder to show all countries
-
- * ************************************************************************** */
 ?>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" alt="" title="{{register_new}}" class="icon32"/>&nbsp;{{register_new}}</div>
 

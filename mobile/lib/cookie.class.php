@@ -1,13 +1,5 @@
 <?php
 
-/* * *************************************************************************
- *  You can find the license in the docs directory
- *
- *  Unicode Reminder メモ
- *
- *  Cookie handling
- * ************************************************************************* */
-
 $cookie = new cookie();
 
 class cookie

@@ -1,5 +1,5 @@
 <?php
-// Unicode Reminder メモ
+
 ?>
 <script type="text/javascript">
 <!--

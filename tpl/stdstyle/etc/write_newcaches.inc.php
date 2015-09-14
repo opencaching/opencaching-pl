@@ -1,23 +1,5 @@
 <?php
 
-/* * *************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * ************************************************************************* */
-
-/* * **************************************************************************
-
-  Unicode Reminder ąś
-
-  writing /html/newcaches.inc.php and /html/start_newcaches.inc.php
-  /html/nextevents.inc.php
-
- * ************************************************************************** */
-
 setlocale(LC_TIME, 'pl_PL.UTF-8');
 
 global $lang, $rootpath;

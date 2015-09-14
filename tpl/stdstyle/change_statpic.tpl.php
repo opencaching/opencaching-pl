@@ -1,28 +1,5 @@
 <?php
-/* * *************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * ************************************************************************* */
 
-/* * **************************************************************************
-
-  Unicode Reminder ??
-
-  the users profile page
-
-  template replacement(s):
-
-  ...statpic_text_message
-  ...statpic_text
-  ...available_logos
-  ...reset
-  ...change_data
-
- * ************************************************************************** */
 ?>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/stat1.png" border="0" align="middle" width="32" height="32" alt=""  />&nbsp;{{choose_statpic}}</div>
 <p class="content-title-noshade-size2">{{statpic_previews}}:</p>

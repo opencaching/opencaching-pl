@@ -1,15 +1,6 @@
 <?php
 
 /* * *************************************************************************
-  ./util/loginbox/loginbox.php
-  -------------------
-  begin                : Sat Oktoboer 8 2005
-  copyright            : (C) 2005 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
-
- * ************************************************************************* */
-
-/* * *************************************************************************
 
   echo the html-code of the loginbox.
   used for cms.opencaching.de

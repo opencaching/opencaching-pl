@@ -1,6 +1,5 @@
 <?php
 
-// Unicode Reminder ??
 $submit = tr('submit');
 
 $pictypedesc_cache = tr('cache_pictures');

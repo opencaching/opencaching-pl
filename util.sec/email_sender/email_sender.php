@@ -1,17 +1,6 @@
 <?php
 
 /* * *************************************************************************
-  ./util/email_user/email_user.php
-  -------------------
-  begin                : Sat September 3 2005
-  copyright            : (C) 2005 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
-
- * ************************************************************************* */
-
-/* * *************************************************************************
-
-  Unicode Reminder ăĄă˘
 
   Ggf. muss die Location des php-Binaries angepasst werden.
 

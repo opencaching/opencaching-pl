@@ -1,22 +1,5 @@
 <?php
 
-/* * *************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * ************************************************************************* */
-
-/* * **************************************************************************
-
-  Unicode Reminder ??
-
-  set template specific variables
-
- * ************************************************************************** */
-
 //$watche = '<tr><td><a href="viewcache.php?cacheid={urlencode_cacheid}">{cachename}</a></td><td>&nbsp;</td><td nowrap style="text-align:center;">{lastfound}</td><td nowrap style="text-align:center;">[<a href="removewatch.php?cacheid={cacheid}&target=mywatches.php">'.tr('delete').'</a>]</td></tr>';
 $watch = '<tr>'
         . '<td style="background-color: {bgcolor}"><img src="{cacheicon}" alt="" /></td>'

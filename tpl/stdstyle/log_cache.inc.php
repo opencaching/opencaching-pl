@@ -1,33 +1,5 @@
 <?php
 
-/* * *************************************************************************
-  ./tpl/stdstyle/log_cache.inc.php
-  -------------------
-  begin                : July 4 2004
-  copyright            : (C) 2004 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
-
- * ************************************************************************* */
-
-/* * *************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * ************************************************************************* */
-
-/* * **************************************************************************
-
-  Unicode Reminder ??
-
-  set template specific language variables
-
-  template replacements:
-
- * ************************************************************************** */
-
 $submit = tr('lxg05');
 $coord_empty_message = '<img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">' . tr('empty_coordinatest') . '</span>';
 $logtext_empty_message = '<img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">' . tr('empty_log_text') . '</span>';

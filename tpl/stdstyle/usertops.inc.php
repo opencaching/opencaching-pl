@@ -1,16 +1,5 @@
 <?php
 
-/* * *************************************************************************
-  ./tpl/stdstyle/usertops.inc.php
-  -------------------
-  begin                : January 16 2007
-  copyright            : (C) 2007 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
-
-  Unicode Reminder メモ
-
- * ************************************************************************* */
-
 $viewtop5_line = '<tr>
                 <td bgcolor="{bgcolor}"><a href="viewcache.php?cacheid={cacheid}">{cachename}</a></td>
                 <td bgcolor="{bgcolor}">&nbsp</td>

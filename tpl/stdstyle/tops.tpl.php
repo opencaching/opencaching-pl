@@ -1,8 +1,4 @@
-{***************************************************************************
-*  You can find the license in the docs directory
-*
-*  Unicode Reminder メモ
-***************************************************************************}
+
 <table width="100%">
     <tr><td class="content2-pagetitle" style="background-color:#E9E9E9;"><img src="tpl/stdstyle/images/misc/32x32-winner.png" class="icon32" alt="{t}Special caches{/t}" title="{t}Special caches{/t}" align="middle" /><font size="4">  <b>{t}Special caches{/t}</b></font></td></tr>
     <tr><td class="spacer"></td></tr>

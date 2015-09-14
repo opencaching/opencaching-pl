@@ -1,21 +1,5 @@
 <?php
-/* * *************************************************************************
-  ./util/deletecache/cache.php
-  -------------------
-  begin                : June 28 2006
-  copyright            : (C) 2006 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
 
- * ************************************************************************* */
-
-/* * *************************************************************************
-
-  Unicode Reminder ??
-
-  Script zum vollständigen entfernen von Benutzern.
-  Schutz über htpasswd!
-
- * ************************************************************************* */
 //prepare the templates and include all neccessary
 
 $rootpath = '../../';

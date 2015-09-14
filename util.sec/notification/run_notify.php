@@ -1,13 +1,5 @@
 <?php
 
-/* * *************************************************************************
-  ./util/notification/run_notify.php
-  -------------------
-  begin                : August 25 2006
-  copyright            : (C) 2006 The OpenCaching Group
-
- * ************************************************************************* */
-
 $rootpath = __dir__ . '/../../';
 require_once($rootpath . 'lib/common.inc.php');
 require_once($rootpath . 'util.sec/notification/settings.inc.php');

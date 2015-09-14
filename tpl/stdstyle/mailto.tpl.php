@@ -1,38 +1,5 @@
 <?php
-/* * *************************************************************************
-  ./tpl/stdstyle/log_cache.tpl.php
-  -------------------
-  begin                : July 4 2004
-  copyright            : (C) 2004 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
 
- * ************************************************************************* */
-
-/* * *************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * ************************************************************************* */
-
-/* * **************************************************************************
-
-  Unicode Reminder ??
-
-  log a cache visit
-
-  template replacements:
-
-  cacheid
-  logtypeoptions
-  logdate
-  logtext
-  reset
-  submit
-
- * ************************************************************************** */
 ?>
 <form action="mailto.php" method="post" enctype="application/x-www-form-urlencoded" name="mailto_form" dir="ltr">
     <input type="hidden" name="userid" value="{userid}"/>

@@ -1,21 +1,4 @@
 <?php
-/* * *************************************************************************
-  ./util/deletecache/cache.php
-  -------------------
-  begin                : November 17 2005
-  copyright            : (C) 2005 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
-
- * ************************************************************************* */
-
-/* * *************************************************************************
-
-  Unicode Reminder ??
-
-  Script zum vollständigen entfernen von Caches.
-  Schutz über htpasswd!
-
- * ************************************************************************* */
 
 $rootpath = '../../';
 header('Content-type: text/html; charset=utf-8');

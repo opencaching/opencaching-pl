@@ -1,13 +1,5 @@
 #!/usr/bin/php -q
 <?php
-/* * *************************************************************************
- *  You can find the license in the docs directory
- *
- *  Unicode Reminder メモ
- *
- *  Import Layer Data from NUTS_RG_03M_2003
- *
- * ************************************************************************* */
 
 //  $opt['rootpath'] = '../../../';
 // chdir to proper directory (needed for cronjobs)

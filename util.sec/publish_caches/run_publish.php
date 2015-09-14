@@ -1,17 +1,6 @@
 <?php
 
 /* * *************************************************************************
-  ./util/publish_caches/run_publish.php
-  -------------------
-  begin                : Sat September 2 2006
-  copyright            : (C) 2005 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
-
- * ************************************************************************* */
-
-/* * *************************************************************************
-
-  Unicode Reminder メモ
 
   Ggf. muss die Location des php-Binaries angepasst werden.
 

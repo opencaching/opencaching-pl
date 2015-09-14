@@ -1,33 +1,5 @@
 <?php
 
-/* * *************************************************************************
-
-  $Id: icons.inc.php,v 1.9 2006/11/11 10:35:48 oliver Exp $
-  $Date: 2006/11/11 10:35:48 $
-  $Revision: 1.9 $
-  begin                : Fr Sept 9 2005
-  copyright            : (C) 2004 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
-
- * ************************************************************************* */
-
-/* * *************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * ************************************************************************* */
-
-/* * **************************************************************************
-
-  Unicode Reminder メモ
-
-  set template specific variables for icons
-
- * ************************************************************************** */
-
 $poweTrailMarkers = powerTrailBase::getPowerTrailTypes();
 
 function icon_log_type($icon_small, $text)
