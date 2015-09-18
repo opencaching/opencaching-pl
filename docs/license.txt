@@ -1,102 +1,98 @@
-﻿
-             Opencaching Network Implementation Version 2.0
+﻿Opencaching-pl licence
+
+License Information, Copyright (C) 2007 - 2015 https://github.com/opencaching/opencaching-pl
+
+This aplication was started in 2007 on base of opencaching.de opensource project. (Copyright (C) 2006, 2007 opencaching.de)
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
 
 
-                                                                  18th July 2007
+In addition to the GNU GPL:
 
- License Information
+You have to name and/or link https://github.com/opencaching/opencaching-pl, opencaching.de to your customers as
+original author of the used parts in your implementation.
 
- Copyright (C) 2006, 2007  opencaching.de
+This license is only valid for the source code and documents stored in the
+public CVS repository. There is a separate license agreement located on
+opencaching sites for data transfer from and to opencaching sites.
 
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
+If you are using this source code to establish a geocache listing service
+or some sort of service which can be compared with it, you agree to
+populate your geocaching data via XML the same way and under the same
+(or less restrictive) conditions as opencaching-pl / opencaching sites does.
 
 
- In addition to the GNU GPL:
+A different license may apply to third party components being used.
 
- You have to name and/or link opencaching.de to your customers as
- original author of the used parts in your implementation.
+List of third party components:
 
- This license is only valid for the source code and documents stored in the
- public CVS repository. There is a separate license agreement located on
- opencaching.de for data transfer from and to opencaching.de.
+1. Smarty : Template Engine
+ http://smarty.php.net
 
- If you are using this source code to establish a geocache listing service
- or some sort of service which can be compared with it, you agree to
- populate your geocaching data via XML the same way and under the same
- (or less restrictive) conditions as opencaching.de does.
+2. Smarty Gettext (modified)
+ http://sourceforge.net/projects/smarty-gettext
 
+3. cracklib
+ http://sourceforge.net/projects/cracklib
 
- A different license may apply to third party components being used.
+4. b2evo captcha
+ http://sourceforge.net/projects/b2evo-captcha
 
- List of third party components:
+5. OpenGeoDB
+ http://sourceforge.net/projects/opengeodb/
 
-  1. Smarty : Template Engine
-     http://smarty.php.net
+6. NGA GEOnet Names Server (GNS)
+ http://earth-info.nga.mil/gns/html/index.html
 
-  2. Smarty Gettext (modified)
-     http://sourceforge.net/projects/smarty-gettext
+7. InputFilter (modified)
+ http://freshmeat.net/projects/inputfilter/
 
-  3. cracklib
-     http://sourceforge.net/projects/cracklib
+8. RFC(2)822 Email Parser by Cal Henderson
+ http://iamcal.com/publish/articles/php/parsing_email
 
-  4. b2evo captcha
-     http://sourceforge.net/projects/b2evo-captcha
+9. ImageCreateFromBMP & ImageBMP
+ http://www.jpexs.com/eng/default/php.html
 
-  5. OpenGeoDB
-     http://sourceforge.net/projects/opengeodb/
+10. PROJ.4 - Cartographic Projections Library
+ http://proj.maptools.org/
 
-  6. NGA GEOnet Names Server (GNS)
-     http://earth-info.nga.mil/gns/html/index.html
+11. NUTS boundaries from Eurostat
+ http://epp.eurostat.ec.europa.eu/portal/page?_pageid=2254,62148876,2254_62153840&_dad=portal&_schema=PORTAL
 
-  7. InputFilter (modified)
-     http://freshmeat.net/projects/inputfilter/
+12. NuSOAP - SOAP Toolkit for PHP
+ http://sourceforge.net/projects/nusoap/
 
-  8. RFC(2)822 Email Parser by Cal Henderson
-     http://iamcal.com/publish/articles/php/parsing_email
+13. FamFamFam Flag
+ http://www.famfamfam.com/lab/icons/flags/
 
-  9. ImageCreateFromBMP & ImageBMP
-     http://www.jpexs.com/eng/default/php.html
+ “Flags” are 247 icons — in GIF and PNG formats — representing
+ most countries in the world as small pixel icons. These flag
+ icons are available for free use for any purpose with no
+ requirement for attribution.
 
- 10. PROJ.4 - Cartographic Projections Library
-     http://proj.maptools.org/
+14. JavaScript, DHTML Tooltips
+ http://www.walterzorn.de/tooltip/tooltip.htm
 
- 11. NUTS boundaries from Eurostat
-     http://epp.eurostat.ec.europa.eu/portal/page?_pageid=2254,62148876,2254_62153840&_dad=portal&_schema=PORTAL
+15. PHP Class: HTML to Plain Text Conversion
+ http://www.chuggnutt.com/html2text.php
 
- 12. NuSOAP - SOAP Toolkit for PHP
-     http://sourceforge.net/projects/nusoap/
+16. Garmin Communicator API
+ https://my.garmin.com/api/communicator/key-generator.jsp
 
- 13. FamFamFam Flag
-     http://www.famfamfam.com/lab/icons/flags/
+17. Prototype JavaScript framework
+ http://www.prototypejs.org/
 
-     “Flags” are 247 icons — in GIF and PNG formats — representing
-     most countries in the world as small pixel icons. These flag
-     icons are available for free use for any purpose with no
-     requirement for attribution.
-
- 14. JavaScript, DHTML Tooltips
-     http://www.walterzorn.de/tooltip/tooltip.htm
-
- 15. PHP Class: HTML to Plain Text Conversion
-     http://www.chuggnutt.com/html2text.php
-
- 16. Garmin Communicator API
-     https://my.garmin.com/api/communicator/key-generator.jsp
-
- 17. Prototype JavaScript framework
-     http://www.prototypejs.org/
-
- 18. In his hands - Font
-     http://www.fontdownloadsfree.com/fonts/1/22/inhishands_inhishan.html
+18. In his hands - Font
+ http://www.fontdownloadsfree.com/fonts/1/22/inhishands_inhishan.html
