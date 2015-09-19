@@ -2,7 +2,7 @@
 
 License Information, Copyright (C) 2007 - 2015 https://github.com/opencaching/opencaching-pl
 
-This aplication was started in 2007 on base of opencaching.de opensource project. (Copyright (C) 2006, 2007 opencaching.de)
+This aplication was started in 2007 on base of opencaching.de opensource project. (Copyright (C) 2005 - 2007 opencaching.de)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
