@@ -174,10 +174,10 @@ if ($error == false) {
 
 
         case 'showSerie':
-            $ptDbRow = $pt->getPowerTrailDbRow();
+            $powerTrail = new lib\Objects\PowerTrail\PowerTrail(array('id' => (int) $_GET['ptrail']));
             $ptOwners = $pt->getPtOwners();
-            $_SESSION['ptName'] = powerTrailBase::clearPtNames($ptDbRow['name']);
-            tpl_set_var('powerTrailId', $ptDbRow['id']);
+            $_SESSION['ptName'] = powerTrailBase::clearPtNames($powerTrail->getName());
+            tpl_set_var('powerTrailId', $powerTrail->getId());
             if (!$usr && $hide_coords) {
                 tpl_set_var('mapOuterdiv', 'none');
             } else {
@@ -187,54 +187,55 @@ if ($error == false) {
                 $userIsOwner = array_key_exists($usr['userid'], $ptOwners);
             else
                 $userIsOwner = false;
-            if ($ptDbRow['status'] == 1 || $userIsOwner) {
+            if ($powerTrail->getStatus() == 1 || $userIsOwner) {
                 $ptTypesArr = powerTrailBase::getPowerTrailTypes();
                 $ptStatusArr = powerTrailBase::getPowerTrailStatus();
                 $stats = $pt->getCountCachesAndUserFoundInPT();
-                $leadingUser = powerTrailBase::getLeadingUser($ptDbRow['id']);
-                if ($ptDbRow['conquestedCount'] > 0)
+                $leadingUser = powerTrailBase::getLeadingUser($powerTrail->getId());
+                if ($powerTrail->getConquestedCount() > 0){
                     $removeCacheButtonDisplay = 'none';
-                else
+                } else {
                     $removeCacheButtonDisplay = 'inline';
-                tpl_set_var('ptStatusSelector', generateStatusSelector($ptDbRow['status']));
+                }
+                tpl_set_var('ptStatusSelector', generateStatusSelector($powerTrail->getStatus()));
                 tpl_set_var('removeCacheButtonDisplay', $removeCacheButtonDisplay);
                 tpl_set_var('leadingUserId', $leadingUser['user_id']);
                 tpl_set_var('leadingUserName', $leadingUser['username']);
                 tpl_set_var('fullCountryMap', '0');
-                tpl_set_var('ptTypeName', tr($ptTypesArr[$ptDbRow['type']]['translate']));
+                tpl_set_var('ptTypeName', tr($ptTypesArr[$powerTrail->getType()]['translate']));
                 tpl_set_var('displaySelectedPowerTrail', 'block');
-                tpl_set_var('powerTrailName', $ptDbRow['name']);
-                tpl_set_var('powerTrailDescription', stripslashes(htmlspecialchars_decode($ptDbRow['description'])));
-                tpl_set_var('displayPtDescriptionUserAction', displayPtDescriptionUserAction($ptDbRow['id']));
-                tpl_set_var('powerTrailDateCreated', substr($ptDbRow['dateCreated'], 0, -9));
-                tpl_set_var('powerTrailCacheCount', $ptDbRow['cacheCount']);
-                tpl_set_var('powerTrailCacheLeft', ($ptDbRow['cacheCount'] - $stats['cachesFoundByUser']));
+                tpl_set_var('powerTrailName', $powerTrail->getName());
+                tpl_set_var('powerTrailDescription', stripslashes(htmlspecialchars_decode($powerTrail->getDescription())));
+                tpl_set_var('displayPtDescriptionUserAction', displayPtDescriptionUserAction($powerTrail->getId()));
+                tpl_set_var('powerTrailDateCreated', $powerTrail->getDateCreated()->format($dateFormat));
+                tpl_set_var('powerTrailCacheCount', $powerTrail->getCacheCount());
+                tpl_set_var('powerTrailCacheLeft', ($powerTrail->getCacheCount() - $stats['cachesFoundByUser']));
                 tpl_set_var('powerTrailOwnerList', displayPtOwnerList($ptOwners));
-                tpl_set_var('date', date('Y-m-d'));
-                tpl_set_var('powerTrailDemandPercent', $ptDbRow['perccentRequired']);
-                tpl_set_var('ptCommentsSelector', displayPtCommentsSelector('commentType', $ptDbRow['perccentRequired'], $pt->getCountCachesAndUserFoundInPT(), $ptDbRow['id'], null, $usr));
-                tpl_set_var('conquestCount', $ptDbRow['conquestedCount']);
-                tpl_set_var('ptPoints', $ptDbRow['points']);
+                tpl_set_var('date', date($dateFormat));
+                tpl_set_var('powerTrailDemandPercent', $powerTrail->getPerccentRequired());
+                tpl_set_var('ptCommentsSelector', displayPtCommentsSelector('commentType', $powerTrail->getPerccentRequired(), $pt->getCountCachesAndUserFoundInPT(), $powerTrail->getId(), null, $usr));
+                tpl_set_var('conquestCount', $powerTrail->getConquestedCount());
+                tpl_set_var('ptPoints', $powerTrail->getPoints());
                 tpl_set_var('cacheFound', $stats['cachesFoundByUser']);
-                tpl_set_var('powerTrailLogo', displayPowerTrailLogo($ptDbRow['id'], $ptDbRow['image']));
+                tpl_set_var('powerTrailLogo', displayPowerTrailLogo($powerTrail->getId(), $powerTrail->getImage()));
                 tpl_set_var('powerTrailserStats', displayPowerTrailserStats($stats));
 
                 //map
                 tpl_set_var('mapInit', 1);
-                tpl_set_var('mapCenterLat', $ptDbRow['centerLatitude']);
-                tpl_set_var('mapCenterLon', $ptDbRow['centerLongitude']);
+                tpl_set_var('mapCenterLat', $powerTrail->getCenterCoordinates()->getLatitude());
+                tpl_set_var('mapCenterLon', $powerTrail->getCenterCoordinates()->getLongitude());
                 tpl_set_var('mapZoom', 11);
-                tpl_set_var('ptList4map', "[" . $ptDbRow["centerLatitude"] . "," . $ptDbRow["centerLongitude"] . ",'" . tr('pt136') . "'],");
+                tpl_set_var('ptList4map', "[" . $powerTrail->getCenterCoordinates()->getLatitude() . "," . $powerTrail->getCenterCoordinates()->getLongitude() . ",'" . tr('pt136') . "'],");
 
                 if ($userIsOwner) {
-                    tpl_set_var('ptStatus', tr($ptStatusArr[$ptDbRow['status']]['translate']));
+                    tpl_set_var('ptStatus', tr($ptStatusArr[$powerTrail->getStatus()]['translate']));
                     tpl_set_var('displayAddCachesButtons', 'block');
                     tpl_set_var('percentDemandUserActions', 'block');
                     tpl_set_var('ptTypeUserActions', '<a href="javascript:void(0)" class="editPtDataButton" onclick="togglePtTypeEdit();">' . tr('pt046') . '</a>');
                     tpl_set_var('ptDateUserActions', '<a href="javascript:void(0)" class="editPtDataButton" onclick="togglePtDateEdit();">' . tr('pt045') . '</a>');
-                    tpl_set_var('cacheCountUserActions', '<a href="javascript:void(0)" class="editPtDataButton" onclick="ajaxCountPtCaches(' . $ptDbRow['id'] . ')">' . tr('pt033') . '</a>');
-                    tpl_set_var('ownerListUserActions', '<a id="dddx" href="javascript:void(0)" class="editPtDataButton" onclick="clickShow(\'addUser\', \'dddx\'); ">' . tr('pt030') . '</a> <span style="display: none" id="addUser">' . tr('pt028') . '<input type="text" id="addNewUser2pt" /><br /><a href="javascript:void(0)" class="editPtDataButton" onclick="cancellAddNewUser2pt()" >' . tr('pt031') . '</a><a href="javascript:void(0)" class="editPtDataButton" onclick="ajaxAddNewUser2pt(' . $ptDbRow['id'] . ')" >' . tr('pt032') . '</a></span>');
-                    tpl_set_var('ptTypesSelector', displayPtTypesSelector('ptType1', $ptDbRow['type']));
+                    tpl_set_var('cacheCountUserActions', '<a href="javascript:void(0)" class="editPtDataButton" onclick="ajaxCountPtCaches(' . $powerTrail->getId() . ')">' . tr('pt033') . '</a>');
+                    tpl_set_var('ownerListUserActions', '<a id="dddx" href="javascript:void(0)" class="editPtDataButton" onclick="clickShow(\'addUser\', \'dddx\'); ">' . tr('pt030') . '</a> <span style="display: none" id="addUser">' . tr('pt028') . '<input type="text" id="addNewUser2pt" /><br /><a href="javascript:void(0)" class="editPtDataButton" onclick="cancellAddNewUser2pt()" >' . tr('pt031') . '</a><a href="javascript:void(0)" class="editPtDataButton" onclick="ajaxAddNewUser2pt(' . $powerTrail->getId() . ')" >' . tr('pt032') . '</a></span>');
+                    tpl_set_var('ptTypesSelector', displayPtTypesSelector('ptType1', $powerTrail->getType()));
                 } else {
                     tpl_set_var('ptStatus', '');
                     tpl_set_var('percentDemandUserActions', 'none');
@@ -247,10 +248,7 @@ if ($error == false) {
                 if ($usr || !$hide_coords) {
                     tpl_set_var('ptList4map', displayAllCachesOfPowerTrail($pt->getAllCachesOfPt(), $pt->getPowerTrailCachesUserLogsByCache()));
                 }
-                // powerTrailController::debug($pt->getPowerTrailDbRow(), __LINE__);
-                // powerTrailController::debug($ptOwners, __LINE__);
             } else {
-
                 tpl_set_var('mapOuterdiv', 'none');
                 tpl_set_var('mainPtInfo', tr('pt018'));
             }

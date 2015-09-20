@@ -52,14 +52,13 @@ class Coordinates
      * $coordinates = new \lib\Objects\GeoCache\Coordinates($params);
      *
      */
-    public function __construct(array $params)
+    public function __construct(array $params = null)
     {
         if (isset($params['dbRow'])) {
             $this->loadFromDb($params['dbRow']);
-        } else
-            if ($params['okapiRow']) {
-                $this->loadFromOkapi($params['okapiRow']);
-            }
+        } elseif ($params['okapiRow']) {
+            $this->loadFromOkapi($params['okapiRow']);
+        }
     }
 
     /**
@@ -159,6 +158,28 @@ class Coordinates
     {
         return $this->longitude;
     }
+
+    /**
+     * @param float $latitude
+     * @return Coordinates
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+        return $this;
+    }
+
+    /**
+     * @param int $longitude
+     * @return Coordinates
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+        return $this;
+    }
+
+
 
     private function convertToDegMin($decimalCoordinate)
     {

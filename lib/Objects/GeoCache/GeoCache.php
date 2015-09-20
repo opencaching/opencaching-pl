@@ -53,6 +53,7 @@ class GeoCache
     private $recommendations;       //number of recom.
     private $founds;
     private $notFounds;
+    private $notesCount;
     private $ratingVotes;
     private $willattends;           //for events only
 
@@ -82,18 +83,24 @@ class GeoCache
     private $powerTrail;
 
     /**
+     * Pointing if geocache is set as power trail final cache.
+     * @var bool
+     */
+    private $isPowerTrailFinalGeocache = false;
+
+    /**
      * @param array $params
      *            'cacheId' => (integer) database cache identifier
      *            'wpId' => (string) geoCache wayPoint (ex. OP21F4)
      */
-    public function __construct(array $params)
+    public function __construct(array $params = array())
     {
         if (isset($params['cacheId'])) { // load from DB if cachId param is set
 
             $db = DataBaseSingleton::Instance();
             $this->id = (int) $params['cacheId'];
 
-            $queryById = "SELECT name, type, date_hidden, longitude, latitude, wp_oc, user_id FROM `caches` WHERE `cache_id`=:1 LIMIT 1";
+            $queryById = "SELECT size, status, founds, notfounds, topratings, votes, notes,  name, type, date_hidden, longitude, latitude, wp_oc, user_id FROM `caches` WHERE `cache_id`=:1 LIMIT 1";
             $db->multiVariableQuery($queryById, $this->id);
 
             $cacheDbRow = $db->dbResultFetch();
@@ -183,7 +190,16 @@ class GeoCache
         $this->cacheName = $cacheDbRow['name'];
         $this->geocacheWaypointId = $cacheDbRow['wp_oc'];
         $this->datePlaced = strtotime($cacheDbRow['date_hidden']);
-
+        if(isset($cacheDbRow['cache_id'])){
+            $this->id = (int) $cacheDbRow['cache_id'];
+        }
+        $this->sizeId = (int) $cacheDbRow['size'];
+        $this->status = (int) $cacheDbRow['status'];
+        $this->founds = (int) $cacheDbRow['founds'];
+        $this->notFounds = (int) $cacheDbRow['notfounds'];
+        $this->recommendations = (int) $cacheDbRow['topratings'];
+        $this->ratingVotes = $cacheDbRow['votes'];
+        $this->notesCount = (int) $cacheDbRow['notes'];
         $this->coordinates = new \lib\Objects\Coordinates\Coordinates(array(
             'dbRow' => $cacheDbRow
         ));
@@ -191,6 +207,7 @@ class GeoCache
         $this->owner = new \lib\Objects\User\User(array(
             'userId' => $cacheDbRow['user_id']
         ));
+        return $this;
     }
 
     private function loadCacheLocation()
@@ -554,4 +571,43 @@ class GeoCache
     {
         return self::CacheSizeDescBySizeId($this->sizeId);
     }
+
+    /**
+     * @param mixed $isPowerTrailPart
+     * @return GeoCache
+     */
+    public function setIsPowerTrailPart($isPowerTrailPart)
+    {
+        $this->isPowerTrailPart = $isPowerTrailPart;
+        return $this;
+    }
+
+    /**
+     * @param PowerTrail $powerTrail
+     */
+    public function setPowerTrail(\lib\Objects\PowerTrail\PowerTrail $powerTrail)
+    {
+        $this->powerTrail = $powerTrail;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isIsPowerTrailFinalGeocache()
+    {
+        return $this->isPowerTrailFinalGeocache;
+    }
+
+    /**
+     * @param boolean $isPowerTrailFinalGeocache
+     * @return GeoCache
+     */
+    public function setIsPowerTrailFinalGeocache($isPowerTrailFinalGeocache)
+    {
+        $this->isPowerTrailFinalGeocache = $isPowerTrailFinalGeocache;
+        return $this;
+    }
+
+
 }
