@@ -3,7 +3,6 @@
 namespace lib\Controllers;
 
 require_once __DIR__ . '/../ClassPathDictionary.php';
-require_once __DIR__ . '/../kint/Kint.class.php'; /* magnificant debug tool */
 
 /**
  * Description of OcController
