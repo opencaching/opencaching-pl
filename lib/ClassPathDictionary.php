@@ -1,5 +1,8 @@
 <?php
 
+/* include composer autoloader */
+require __DIR__ . '/../vendor/autoload.php';
+
 /**
  *  Autoload class solution.
  *
