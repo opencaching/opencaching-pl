@@ -2563,3 +2563,6 @@ NoDataAvailable Brak danych
 list_of_titled_caches_is_empty Nie ma skrzynek tygodnia w tej okolicy
 titled_cache Skrzynka tygodnia
 titled_caches Skrzynki tygodnia
+titled_cache_congratulations <p><img src="tpl/stdstyle/images/free_icons/award_star_gold_1.png" class="icon16" alt="{langTitledCache}" title="{langTitledCache}" />&nbsp Witaj !!! <br/> <br/>&nbsp&nbsp&nbsp&nbspMiło nam poinformować, iż Twoja skrzynka została wybrana skrzynką tygodnia.</p><p><span style="color: #008000;"><strong><br />SERDECZNIE GRATULUJEMY !!!</strong></span><br />Zespół OpenCaching</p>
+
+
