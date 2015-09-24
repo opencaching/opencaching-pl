@@ -4,6 +4,9 @@ global $titled_cache_nr_found;
 
 require_once('./lib/common.inc.php');
 
+if ( !isset( $_REQUEST[ 'CRON' ] ) )
+    exit;
+
 $dbc = new dataBase();
 
 $start_date_alg = date("Y-m-d");
