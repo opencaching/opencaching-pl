@@ -94,6 +94,15 @@
                     x {cache_recommendations}
                 </p>
         <?php } //if-is-recommended ?>
+        
+       <?php //cache is titled
+             if( {is_titled} ) {               ?>
+                <p>
+                    <img width="10" height="10" src='/tpl/stdstyle/images/free_icons/award_star_gold_1.png' alt="{{titled_cache}}" />
+                    {{titled_cache}}
+                </p>
+       <?php } //cache is titled ?>
+       
     </div>
 
     <?php if( {is_powertrail_part} ){ ?>

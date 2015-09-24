@@ -1,5 +1,8 @@
 <?php
 
+
+
+
 ?>
 <script language="javascript" type="text/javascript">
 <!-- hide script from old browsers
@@ -75,6 +78,33 @@
         // include ($dynstylepath . "nextevents.inc.php");
         ?>
     </div>
+
+    
+        <div class="content2-container-2col-left" id="cacheTitled" style="display: {ptDisplay}; width: 100%">
+        
+            <br>
+            <?php global $is_titled;
+            
+                if ($is_titled == '1')
+                {
+                    $tmpTxt = '<p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/TitledCache.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;'.tr("titled_cache").'</p>';                
+                    $tmpTxt .= '<ul style="font-size:11px">';
+                    echo $tmpTxt;
+                } ?>
+                
+                {TitledCaches}
+                
+            <?php    global $is_titled;
+            
+                if ($is_titled == '1')
+                {
+                    $tmpTxt = '<br><p class="links" style="font-size:10px"><a href="cache_titled.php">['.tr("show_more").' ...]</a></p>';                
+                    $tmpTxt .= '</ul><br>';
+                    echo $tmpTxt;
+                }                       
+            ?>
+    </div>
+    
     <div class="content2-container-2col-left" id="ptPromo" style="display: {ptDisplay}; width: 100%">
         <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/050242-blue-jelly-icon-natural-wonders-flower13-sc36_32x32.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{pt137}}</p>
         <?php

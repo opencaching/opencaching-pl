@@ -925,3 +925,12 @@ td.myr{
     { display: none; width:0; height:0; }
     #overall { margin-top: -32px; }
 }
+
+.CacheTitledLog {
+    border-radius: 5px;
+    border: solid 1px grey;
+    background: #F9F9F9;
+    padding:2px 2px 2px 2px;
+    font-size: 11px;
+    font-family: comic sans ms,sans-serif;
+}

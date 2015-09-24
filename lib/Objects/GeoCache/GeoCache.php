@@ -5,7 +5,7 @@ namespace lib\Objects\GeoCache;
 use \lib\Objects\PowerTrail\PowerTrail;
 use \lib\Objects\OcConfig\OcConfig;
 use \lib\Database\DataBaseSingleton;
-
+//use \lib\Objects\GeoCache\CacheTitled;
 /**
  * Description of geoCache
  *
@@ -81,6 +81,9 @@ class GeoCache
      * @var $powerTrail \lib\Objects\PowerTrail\PowerTrail
      */
     private $powerTrail;
+    
+    
+    private $isTitled;
 
     /**
      * Pointing if geocache is set as power trail final cache.
@@ -610,4 +613,15 @@ class GeoCache
     }
 
 
+    
+    public function isTitled()
+    {     
+        //return $this->isTitled = CacheTitled::isTitled($this->id);
+        
+        if (is_null($this->isTitled)) {
+            $this->isTitled = CacheTitled::isTitled($this->id);
+        }
+        return $this->isTitled;
+    }
 }
+

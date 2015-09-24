@@ -2549,3 +2549,4 @@ waypoint_error1
 waypoint_error2 Punctul trebuie să fie dat într-unul din următoarele formate: OPxxxx, ORxxxx, OBxxxx, GCxxxxx, NCxxxx
 pagetitle_print Tipărire
 natura2000 NATURA 2000 (Rezervaţie Naturală)
+titled_cache_congratulations <p><img src="tpl/stdstyle/images/free_icons/award_star_gold_1.png" class="icon16" alt="{langTitledCache}" title="{langTitledCache}" />&nbsp Hello !!! <br/> <br/>&nbsp&nbsp&nbsp&nbspI'm pleased to inform you, that your cache was titled</p><p><span style="color: #008000;"><strong><br />CONGRATULATIONS !!!</strong></span><br />OCTeam</p>

@@ -88,7 +88,7 @@ $config = array(
      * output. (Note, that this will cause most of the AJAX actions to stop
      * functioning properly.)
      */
-    'debugDB' => false,
+    'debugDB' => true,
     /** The filter fragment selecting provinces from nuts_codes table. */
     'provinceNutsCondition' => '`code` like \'PL__\'',
     /**/

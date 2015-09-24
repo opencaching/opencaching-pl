@@ -31,6 +31,8 @@ if ($error == false) {
 
         $fixed_google_map_link = '';
         $marker_offset = 0;
+        
+        $dbcLocCache = new dataBase();
 
         function get_zoom($latitude, $lonMin, $lonMax, $latMin, $latMax)
         {
@@ -75,10 +77,11 @@ if ($error == false) {
 
         function get_marker_positions($latitude, $longitude, $radius, $user_id)
         {
-
+            global $dbcLocCache;
+            
             $markerpos = array();
             $markers = array();
-            $rs = sql("
+            $sqlstr = "
                       SELECT SQL_BUFFER_RESULT `caches`.`cache_id`, `caches`.`longitude`, `caches`.`latitude`, `caches`.`type`
                       FROM local_caches `caches`
                       WHERE `caches`.`type` != 6
@@ -86,10 +89,12 @@ if ($error == false) {
                             AND `caches`.`date_hidden` <= NOW()
                             AND `caches`.`date_created` <= NOW()
                       ORDER BY IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) DESC, `caches`.`cache_id` DESC
-                      LIMIT 0, 10", $latitude, $longitude, $radius);
+                      LIMIT 0, 10";
 
-            for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-                $record = sql_fetch_array($rs);
+            $dbcLocCache->simpleQuery( $sqlstr );
+            
+            for ($i = 0; $i < $dbcLocCache->rowCount(); $i++) {
+                $record = $dbcLocCache->dbResultFetch();
                 $lat = $record['latitude'];
                 $lon = $record['longitude'];
                 $type = $record['type'];
@@ -98,7 +103,7 @@ if ($error == false) {
 
             $markerpos['plain_cache_num'] = count($markers);
 
-            $rs = sql("
+            $sqlstr = "
                       SELECT SQL_BUFFER_RESULT  `caches`.`cache_id`,
                                                 `caches`.`longitude`,
                                                 `caches`.`latitude`,
@@ -108,10 +113,13 @@ if ($error == false) {
                             AND `caches`.`type` = 6
                             AND `caches`.`status` = 1
                         ORDER BY `caches`.`date_hidden` ASC
-                        LIMIT 0, 10", $latitude, $longitude, $radius);
-
-            for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-                $record = sql_fetch_array($rs);
+                        LIMIT 0, 10";
+            
+            $dbcLocCache->simpleQuery( $sqlstr );
+            
+            
+            for ($i = 0; $i < $dbcLocCache->rowCount(); $i++) {
+                $record = $dbcLocCache->dbResultFetch();
                 $lat = $record['latitude'];
                 $lon = $record['longitude'];
                 $type = $record['type'];
@@ -119,7 +127,7 @@ if ($error == false) {
             }
             $markerpos['plain_cache_num2'] = count($markers);
 
-            $rs = sql("
+            $sqlstr = "
                       SELECT SQL_BUFFER_RESULT  `caches`.`cache_id`,
                                                 `caches`.`longitude`,
                                                 `caches`.`latitude`,
@@ -129,9 +137,14 @@ if ($error == false) {
                             AND `caches`.`status` = 1
                             AND `caches`.`founds` = 0
                         ORDER BY `caches`.`date_hidden` DESC, `caches`.`cache_id` DESC
-                        LIMIT 0, 10", $latitude, $longitude, $radius);
-            for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-                $record = sql_fetch_array($rs);
+                        LIMIT 0, 10"; 
+            
+            $dbcLocCache->simpleQuery( $sqlstr );
+            
+            
+            
+            for ($i = 0; $i < $dbcLocCache->rowCount(); $i++) {
+                $record = $dbcLocCache->dbResultFetch();
                 $lat = $record['latitude'];
                 $lon = $record['longitude'];
                 $type = $record['type'];
@@ -237,50 +250,8 @@ if ($error == false) {
         $lon_rad = $lon * 3.14159 / 180;
         $lat_rad = $lat * 3.14159 / 180;
 
-
-        //all target caches are between lat - max_lat_diff and lat + max_lat_diff
-        $max_lat_diff = $distance / 111.12;
-
-        //all target caches are between lon - max_lon_diff and lon + max_lon_diff
-        //TODO: check!!!
-        $max_lon_diff = $distance * 180 / (abs(sin((90 - $lat) * 3.14159 / 180)) * 6378 * 3.14159);
-        sql('DROP TEMPORARY TABLE IF EXISTS local_caches');
-        sql('CREATE TEMPORARY TABLE local_caches ENGINE=MEMORY
-            SELECT
-            (' . getSqlDistanceFormula($lon, $lat, $distance, 1) . ')     AS `distance`,
-            `caches`.`cache_id`         AS `cache_id`,
-            `caches`.`wp_oc`            AS `wp_oc`,
-            `caches`.`type`             AS `type`,
-            `caches`.`name`             AS `name`,
-            `caches`.`longitude`        AS `longitude`,
-            `caches`.`latitude`         AS `latitude`,
-            `caches`.`date_hidden`      AS `date_hidden`,
-            `caches`.`date_created`     AS `date_created`,
-            `caches`.`country`          AS `country`,
-            `caches`.`difficulty`       AS `difficulty`,
-            `caches`.`terrain`          AS `terrain`,
-            `caches`.`founds`           AS `founds`,
-            `caches`.`status`           AS `status`,
-            `caches`.`user_id`          AS `user_id`
-            FROM `caches`
-            WHERE `caches`.`cache_id` NOT IN (SELECT `cache_ignore`.`cache_id` FROM `cache_ignore` WHERE `cache_ignore`.`user_id`=\'' . $user_id . '\')
-                AND caches.status<>4 AND caches.status<>5
-                AND caches.status <>6
-                AND `longitude` > ' . ($lon - $max_lon_diff) . '
-                AND `longitude` < ' . ($lon + $max_lon_diff) . '
-                AND `latitude` > ' . ($lat - $max_lat_diff) . '
-                AND `latitude` < ' . ($lat + $max_lat_diff) . '
-            HAVING `distance` < ' . $distance);
-        sql('ALTER TABLE local_caches
-            ADD PRIMARY KEY ( `cache_id` ),
-            ADD INDEX(`cache_id`),
-            ADD INDEX (`wp_oc`),
-            ADD INDEX(`type`),
-            ADD INDEX(`name`),
-            ADD INDEX(`user_id`),
-            ADD INDEX(`date_hidden`),
-            ADD INDEX(`date_created`)');
-
+        localCachesInc::createLocalCaches($dbcLocCache, $lon, $lat, $distance, $user_id);
+        
         // Read coordinates of the newest caches
         $markerpositions = get_marker_positions($latitude, $longitude, $radius, $user_id);
         // Generate include file for map with new caches
@@ -291,7 +262,7 @@ if ($error == false) {
         /* ===================================================================================== */
 
         //start_newcaches.include
-        $rs = sql("SELECT    `user`.`user_id`            AS `user_id`,
+        $sqlstr = "SELECT    `user`.`user_id`            AS `user_id`,
                             `user`.`username`           AS `username`,
                             `caches`.`cache_id`         AS `cache_id`,
                             `caches`.`name`             AS `name`,
@@ -313,13 +284,16 @@ if ($error == false) {
                     AND `caches`.`date_created` <= NOW()
                     AND     `caches`.`date_hidden` <= NOW()
                  ORDER BY `date` DESC, `caches`.`cache_id` DESC
-                 LIMIT 0 , 11");
+                 LIMIT 0 , 11";
+        
+        $dbcLocCache->simpleQuery( $sqlstr );
 
-        if (mysql_num_rows($rs) > 10) {
+        if ( $dbcLocCache->rowCount() > 10) {
             tpl_set_var('more_caches', '<a class="links" href="myn_newcaches.php">[' . tr("show_more") . '...]</a>');
             $limit = 10;
         } else
-            $limit = mysql_num_rows($rs);
+            $limit = $dbcLocCache->rowCount();
+        
         if ($limit == 0) {
             $file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>" . tr('list_of_caches_is_empty') . "</b></p><br />";
         } else {
@@ -336,7 +310,7 @@ if ($error == false) {
             $file_content = '<table class="myneighborhood">';
 
             for ($i = 0; $i < $limit; $i++) {
-                $record = sql_fetch_array($rs);
+                $record = $dbcLocCache->dbResultFetch();
 
                 $cacheicon = myninc::checkCacheStatusByUser($record, $user_id);
                 $thisline = $cacheline;
@@ -358,14 +332,13 @@ if ($error == false) {
         }
 
         tpl_set_var('new_caches', $file_content);
-        mysql_free_result($rs);
         /* ===================================================================================== */
         /*                          Lista wydarzeń                                               */
         /* ===================================================================================== */
 
         //nextevents.include
 
-        $rss = sql("SELECT   `user`.`user_id`            AS `user_id`,
+        $sqlstr = "SELECT   `user`.`user_id`            AS `user_id`,
                             `user`.`username`           AS `username`,
                             `caches`.`cache_id`         AS `cache_id`,
                             `caches`.`name`             AS `name`,
@@ -388,10 +361,12 @@ if ($error == false) {
                         AND `caches`.`type`=`cache_type`.`id`
                         AND `caches`.`date_hidden` >= curdate()
                   ORDER BY `date_hidden` ASC
-                  LIMIT 0 , 10");
+                  LIMIT 0 , 10";
 
+        $dbcLocCache->simpleQuery( $sqlstr );
+        
         $file_content = '';
-        if (mysql_num_rows($rss) == 0) {
+        if ( $dbcLocCache->rowCount() == 0) {
             $file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>" . tr('list_of_events_is_empty') . "</b></p><br />";
         } else {
             $cacheline = '
@@ -404,8 +379,8 @@ if ($error == false) {
             </tr>';
             $file_content = '<table  class="myneighborhood">';
 
-            for ($i = 0; $i < mysql_num_rows($rss); $i++) {
-                $record = sql_fetch_array($rss);
+            for ($i = 0; $i < $dbcLocCache->rowCount(); $i++) {
+                $record = $dbcLocCache->dbResultFetch();
                 $cacheicon = myninc::checkCacheStatusByUser($record, $user_id);             // $cacheicon =is_event_attended($record['cache_id'], $user_id) ? $cacheTypesIcons[6]['iconSet'][1]['iconSmallFound'] : $cacheTypesIcons[6]['iconSet'][1]['iconSmallFound'] ;
                 $thisline = $cacheline;
                 $thisline = mb_ereg_replace('{nn}', $i + $markerpositions['plain_cache_num'], $thisline);
@@ -424,14 +399,13 @@ if ($error == false) {
         }
 
         tpl_set_var('new_events', $file_content);
-        mysql_free_result($rss);
 
         /* ===================================================================================== */
         /*                          Skrzynki z FTF                                               */
         /* ===================================================================================== */
 
         //start_ftfcaches.include
-        $rs = sql("SELECT    `user`.`user_id`            AS `user_id`,
+        $sqlstr = "SELECT    `user`.`user_id`            AS `user_id`,
                             `user`.`username`           AS `username`,
                             `caches`.`cache_id`         AS `cache_id`,
                             `caches`.`name`             AS `name`,
@@ -451,13 +425,15 @@ if ($error == false) {
                     AND `caches`.`type`=`cache_type`.`id`
                     AND `caches`.`founds`=0
                  ORDER BY `date` DESC, `caches`.`cache_id` DESC
-                 LIMIT 0 , 11");
-
-        if (mysql_num_rows($rs) > 10) {
+                 LIMIT 0 , 11";
+        
+        $dbcLocCache->simpleQuery( $sqlstr );
+        
+        if ( $dbcLocCache->rowCount() > 10) {
             tpl_set_var('more_ftf', '<a class="links" href="myn_ftf.php">[' . tr("show_more") . '...]</a>');
             $limit = 10;
         } else
-            $limit = mysql_num_rows($rs);
+            $limit = $dbcLocCache->rowCount();
 
         if ($limit == 0) {
             $file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>" . tr('list_of_caches_is_empty') . "</b></p><br />";
@@ -473,7 +449,7 @@ if ($error == false) {
             $file_content = '<table  class="myneighborhood"> ';
 
             for ($i = 0; $i < $limit; $i++) {
-                $record = sql_fetch_array($rs);
+                $record = $dbcLocCache->dbResultFetch();
                 $cacheicon = myninc::checkCacheStatusByUser($record, $user_id);
                 $thisline = $cacheline;
                 $thisline = mb_ereg_replace('{nn}', $i + $markerpositions['plain_cache_num2'], $thisline);
@@ -494,29 +470,45 @@ if ($error == false) {
         }
 
         tpl_set_var('ftf_caches', $file_content);
-        mysql_free_result($rs);
 
         /* ===================================================================================== */
         /*                          Najnowsze komentarze                                         */
         /* ===================================================================================== */
 
         // Read just log IDs first - this gets easily optimized
+        $sqlstr = "SELECT cache_logs.id FROM cache_logs
+         WHERE cache_logs.deleted = 0
+        AND cache_logs.cache_id IN (SELECT cache_id FROM local_caches)
+        ORDER BY cache_logs.date_created DESC
+        LIMIT 0, 11";
+        $dbcLocCache->simpleQuery( $sqlstr );
+        
+        if ( $dbcLocCache->rowCount() > 10) {
+        tpl_set_var('more_logs', '<a class="links" href="myn_newlogs.php">[' . tr("show_more") . '...]</a>');
+        } else {
+            tpl_set_var('more_logs', "");
+        }
+        
+        
+        
+        
         $log_ids = '';
-        $rsids = sql("SELECT cache_logs.id FROM cache_logs
+        $sqlstr = "SELECT cache_logs.id FROM cache_logs
                        WHERE cache_logs.deleted = 0
                             AND cache_logs.cache_id IN (SELECT cache_id FROM local_caches)
                             AND cache_logs.date_created >= DATE_SUB(NOW(), INTERVAL 31 DAY)
                        ORDER BY cache_logs.date_created DESC
-                       LIMIT 0, 10");
-
-        for ($i = 0; $i < mysql_num_rows($rsids); $i++) {
-            $idrec = sql_fetch_array($rsids);
+                       LIMIT 0, 10";
+        
+        $dbcLocCache->simpleQuery( $sqlstr );
+        
+        for ($i = 0; $i < $dbcLocCache->rowCount(); $i++) {
+            $idrec = $dbcLocCache->dbResultFetch();
             if (!empty($log_ids)) {
                 $log_ids .= ",";
             }
             $log_ids .= $idrec['id'];
         }
-        mysql_free_result($rsids);
 
         // Ugly hack to avoid modifying code below.
         // When there are no logs to display -> pass dummy value as log id.
@@ -526,7 +518,7 @@ if ($error == false) {
         }
 
         // Now use a set of log IDs to retrieve all other necessary information
-        $rsl = sql("SELECT  cache_logs.id,
+        $sqlstr = "SELECT  cache_logs.id,
                             cache_logs.cache_id        AS cache_id,
                             cache_logs.type            AS log_type,
                             cache_logs.date            AS log_date,
@@ -561,25 +553,14 @@ if ($error == false) {
                    AND caches.cache_id = cache_logs.cache_id
 
                    GROUP BY cache_logs.id
-                   ORDER BY cache_logs.date_created DESC LIMIT 0, 10");
+                   ORDER BY cache_logs.date_created DESC LIMIT 0, 10";
 
-        $rsll = sql("SELECT cache_logs.id FROM cache_logs
-                    WHERE cache_logs.deleted = 0
-                        AND cache_logs.cache_id IN (SELECT cache_id FROM local_caches)
-                    ORDER BY cache_logs.date_created DESC
-                    LIMIT 0, 11");
-
-        if (mysql_num_rows($rsll) > 10) {
-            tpl_set_var('more_logs', '<a class="links" href="myn_newlogs.php">[' . tr("show_more") . '...]</a>');
-        } else {
-            tpl_set_var('more_logs', "");
-        }
-
-        mysql_free_result($rsll);
-
+        $dbcLocCache->simpleQuery( $sqlstr );
+                
+        
         $file_content = '';
 
-        if (mysql_num_rows($rsl) == 0) {
+        if ( $dbcLocCache->rowCount() == 0) {
             $file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>" . tr('list_of_latest_logs_is_empty') . "</b></p><br />";
         } else {
             $cacheline = '
@@ -599,8 +580,8 @@ if ($error == false) {
             $pt_cache_intro_tr = tr('pt_cache');
             $pt_icon_title_tr = tr('pt139');
 
-            for ($i = 0; $i < mysql_num_rows($rsl); $i++) {
-                $log_record = sql_fetch_array($rsl);
+            for ($i = 0; $i < $dbcLocCache->rowCount(); $i++) {
+                $log_record = $dbcLocCache->dbResultFetch();
                 $cacheicon = myninc::checkCacheStatusByUser($log_record, $user_id);
                 $thisline = $cacheline;
 
@@ -659,7 +640,6 @@ if ($error == false) {
             $marker_offset = $marker_offset + $i;
         }
         tpl_set_var('new_logs', $file_content);
-        mysql_free_result($rsl);
     }
 
     /* ===================================================================================== */
@@ -667,7 +647,7 @@ if ($error == false) {
     /* ===================================================================================== */
 
     //start_topcaches.include
-    $rstr = sql("SELECT  `user`.`user_id`                    AS `user_id`,
+    $sqlstr = "SELECT  `user`.`user_id`                    AS `user_id`,
                             `user`.`username`                   AS `username`,
                             `caches`.`cache_id`                 AS `cache_id`,
                             `caches`.`name`                     AS `name`,
@@ -689,13 +669,15 @@ if ($error == false) {
                         AND `caches`.`status`=1
                         AND `caches`.`type`=`cache_type`.`id`
                    GROUP BY `caches`.`cache_id`
-                   ORDER BY `toprate` DESC, `caches`.`name` ASC LIMIT 0 , 11");
-
-    if (mysql_num_rows($rstr) > 10) {
+                   ORDER BY `toprate` DESC, `caches`.`name` ASC LIMIT 0 , 11";
+    
+    $dbcLocCache->simpleQuery( $sqlstr );
+    
+    if ( $dbcLocCache->rowCount() > 10) {
         tpl_set_var('more_topcaches', '<a class="links" href="myn_topcaches.php">[' . tr("show_more") . '...]</a>');
         $limit = 10;
     } else
-        $limit = mysql_num_rows($rstr);
+        $limit = $dbcLocCache->rowCount();
 
     if ($limit == 0) {
         $file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>" . tr('list_of_caches_is_empty') . "</b></p><br />";
@@ -714,7 +696,7 @@ if ($error == false) {
         $file_content = '<table  class="myneighborhood">';
 
         for ($i = 0; $i < $limit; $i++) {
-            $record = sql_fetch_array($rstr);
+            $record = $dbcLocCache->dbResultFetch();
             $cacheicon = myninc::checkCacheStatusByUser($record, $user_id);
             $thisline = $cacheline;
             $thisline = mb_ereg_replace('{nn}', $i + $marker_offset, $thisline);   //TODO: dynamic number
@@ -735,7 +717,84 @@ if ($error == false) {
     }
 
     tpl_set_var('top_caches', $file_content);
-    mysql_free_result($rstr);
+    
+    /* ===================================================================================== */
+    /*                          Skrzynki tygodnia                                            */
+    /* ===================================================================================== */    
+    
+    $sqlstr  = "SELECT 
+                user.user_id        AS user_id,
+                user.username       AS username,
+                caches.cache_id     AS cache_id,
+                caches.name         AS name,
+                cache_titled.date_alg AS date,
+                caches.type         AS cache_type
+                                   
+        FROM cache_titled
+        JOIN local_caches on cache_titled.cache_id = local_caches.cache_id
+        JOIN caches ON cache_titled.cache_id = caches.cache_id
+        JOIN user ON caches.user_id = user.user_id            
+   
+        ORDER BY cache_titled.date_alg DESC LIMIT 0 , 11";
+    
+    $dbcLocCache->simpleQuery( $sqlstr );
+    
+    if ( $dbcLocCache->rowCount() > 9) {
+        tpl_set_var('more_titledCaches', '<a class="links" href="cache_titled.php?type=Local">[' . tr("show_more") . '...]</a>');
+        $limit = 10;
+    } else {
+        tpl_set_var('more_titledCaches', '');
+        $limit = $dbcLocCache->rowCount();
+    }
+    
+    if ($limit == 0) {
+        $Title_titledCaches = "";
+        $End_titledCaches = "";
+        $file_content = "";
+    } else {
+        $Title_titledCaches = '<br>
+        <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/TitledCache.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;'.tr("titled_caches").'</p>';
+        
+        $End_titledCaches = "<br /><br /><br />";
+        
+        $cacheline = '
+                <tr>
+                    <td class="myneighborhood tab_icon"> <img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /></td>
+        
+                    <td class="myneighborhood tab_date"> {date} </td>
+                    <td class="myneighborhood"> <a class="links" href="viewcache.php?cacheid={cacheid}" >{cachename}</a></td>
+        
+                    <td class="myneighborhood tab_arrow"> <img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" /></td>
+                    <td class="myneighborhood tab_user"> <a class="links" href="viewprofile.php?userid={userid}">{username}</a></td>
+                </tr>';
+        $file_content = '<table  class="myneighborhood">';
+        
+        for ($i = 0; $i < $limit; $i++) {
+            $record = $dbcLocCache->dbResultFetch();
+            $cacheicon = myninc::checkCacheStatusByUser($record, $user_id);
+            $thisline = $cacheline;
+            $thisline = mb_ereg_replace('{nn}', $i + $marker_offset, $thisline);   //TODO: dynamic number
+            $thisline = mb_ereg_replace('{date}', htmlspecialchars(date($dateFormat, strtotime($record['date'])), ENT_COMPAT, 'UTF-8'), $thisline);
+            $thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
+            $thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
+            $thisline = mb_ereg_replace('{userid}', urlencode($record['user_id']), $thisline);
+            $thisline = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
+            $thisline = mb_ereg_replace('{cacheicon}', $cacheicon, $thisline);
+        
+            $file_content .= $thisline . "\n";
+        }
+        $file_content .= '</table>';
+        $marker_offset = $i + $marker_offset;
+    }
+
+    
+    tpl_set_var('Title_titledCaches', $Title_titledCaches);
+    tpl_set_var('End_titledCaches', $End_titledCaches);
+    tpl_set_var('titledCaches', $file_content);
+    
+    
+    
+    unset( $dbcLocCache );
 }
 
 // AJAX Chat -shoutbox

@@ -100,6 +100,15 @@
         <br/><br/>
     </div>
     <br />
+    
+        <div class="content2-container-2col-left" id="cacheTitled" style="display: {ptDisplay}; width: 100%">
+        {Title_titledCaches}
+        {titledCaches}
+        {more_titledCaches}        
+        {End_titledCaches}
+    </div>
+
+    
     <div class="content2-container-2col-left local-logs-area">
         <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/recommendation.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;
             {{top_recommended}}
