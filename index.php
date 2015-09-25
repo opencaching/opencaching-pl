@@ -114,7 +114,7 @@ $pattern = "<span style='font-size:13px'><img src='{cacheIcon}' class='icon16' a
         <table class='CacheTitledLog' >
                 <tr><td>{logText}
                 <br><br><img src='images/rating-star.png'/> Autor: <a href='viewprofile.php?userid={logUserId}'><b>{logUserName}<b></a></td></tr>
-        </table><br>";
+        </table><br><br>";
 
 
 
