@@ -95,19 +95,10 @@ JOIN user ON caches.user_id = user.user_id
 JOIN cache_logs ON cache_logs.id = cache_titled.log_id 
 JOIN user logUser ON logUser.user_id = cache_logs.user_id
                
-ORDER BY date_alg DESC
-LIMIT 1";
+ORDER BY date_alg DESC ";
+//LIMIT 1";
 
 $dbc->multiVariableQuery($query, $lang);
-
-/*$pattern = "<li class='newcache_list_multi' style='margin-bottom:8px;'>
-        <img src='{cacheIcon}' class='icon16' alt='Cache' title='Cache' /> {dateAlg} 
-        <a id='newcache1' class='links' href='viewcache.php?cacheid={cacheId}'>{cacheName}</a> "
-        .tr('created_by').
-        " <a class='links' href='viewprofile.php?userid={userId}'>{userName}</a> <br>
-        <p class='content-title-noshade'>{country} > {region}</p>
-        <table class='CacheTitledLog' ><tr><td>{logText}</td></tr></table><br></li>";
-*/
 
 
 $pattern = "<span style='font-size:13px'><img src='{cacheIcon}' class='icon16' alt='Cache' title='Cache' />
@@ -123,7 +114,7 @@ $pattern = "<span style='font-size:13px'><img src='{cacheIcon}' class='icon16' a
         <table class='CacheTitledLog' >
                 <tr><td>{logText}
                 <br><br><img src='images/rating-star.png'/> Autor: <a href='viewprofile.php?userid={logUserId}'><b>{logUserName}<b></a></td></tr>
-        </table>";
+        </table><br>";
 
 
 
