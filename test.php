@@ -1,9 +1,14 @@
 <?php
 
-require_once 'lib/kint/Kint.class.php';
 require_once 'lib/common.inc.php';
+use lib\Controllers\PowerTrailController;
+
 error_reporting(-1);
 
+$powerTrailController = new powerTrailController();
+$powerTrailController->cleanPowerTrailsCronjob();
+
+exit;
 if(isset($_GET['alt']) && $_GET['alt'] == 1){
     $data = fillAltitudeTable();
     display($data);

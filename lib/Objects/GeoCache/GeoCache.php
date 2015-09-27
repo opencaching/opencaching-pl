@@ -54,6 +54,7 @@ class GeoCache
     private $founds;
     private $notFounds;
     private $notesCount;
+    private $score;
     private $ratingVotes;
     private $willattends;           //for events only
 
@@ -103,7 +104,7 @@ class GeoCache
             $db = DataBaseSingleton::Instance();
             $this->id = (int) $params['cacheId'];
 
-            $queryById = "SELECT size, status, founds, notfounds, topratings, votes, notes,  name, type, date_hidden, longitude, latitude, wp_oc, user_id FROM `caches` WHERE `cache_id`=:1 LIMIT 1";
+            $queryById = "SELECT size, status, founds, notfounds, topratings, votes, notes, score  name, type, date_hidden, longitude, latitude, wp_oc, user_id FROM `caches` WHERE `cache_id`=:1 LIMIT 1";
             $db->multiVariableQuery($queryById, $this->id);
 
             $cacheDbRow = $db->dbResultFetch();
@@ -187,29 +188,30 @@ class GeoCache
      *
      * @param array $row
      */
-    public function loadFromRow(array $cacheDbRow)
+    public function loadFromRow(array $geocacheDbRow)
     {
-        $this->cacheType = $cacheDbRow['type'];
-        $this->cacheName = $cacheDbRow['name'];
-        $this->geocacheWaypointId = $cacheDbRow['wp_oc'];
-        $this->datePlaced = strtotime($cacheDbRow['date_hidden']);
-        if(isset($cacheDbRow['cache_id'])){
-            $this->id = (int) $cacheDbRow['cache_id'];
+        $this->cacheType = $geocacheDbRow['type'];
+        $this->cacheName = $geocacheDbRow['name'];
+        $this->geocacheWaypointId = $geocacheDbRow['wp_oc'];
+        $this->datePlaced = strtotime($geocacheDbRow['date_hidden']);
+        if(isset($geocacheDbRow['cache_id'])){
+            $this->id = (int) $geocacheDbRow['cache_id'];
         }
-        $this->sizeId = (int) $cacheDbRow['size'];
-        $this->status = (int) $cacheDbRow['status'];
-        $this->founds = (int) $cacheDbRow['founds'];
-        $this->notFounds = (int) $cacheDbRow['notfounds'];
-        $this->recommendations = (int) $cacheDbRow['topratings'];
-        $this->ratingVotes = $cacheDbRow['votes'];
-        $this->notesCount = (int) $cacheDbRow['notes'];
+        $this->sizeId = (int) $geocacheDbRow['size'];
+        $this->status = (int) $geocacheDbRow['status'];
+        $this->founds = (int) $geocacheDbRow['founds'];
+        $this->notFounds = (int) $geocacheDbRow['notfounds'];
+        $this->recommendations = (int) $geocacheDbRow['topratings'];
+        $this->ratingVotes = $geocacheDbRow['votes'];
+        $this->notesCount = (int) $geocacheDbRow['notes'];
         $this->coordinates = new \lib\Objects\Coordinates\Coordinates(array(
-            'dbRow' => $cacheDbRow
+            'dbRow' => $geocacheDbRow
         ));
         $this->altitude = new \lib\Objects\GeoCache\Altitude($this);
         $this->owner = new \lib\Objects\User\User(array(
-            'userId' => $cacheDbRow['user_id']
+            'userId' => $geocacheDbRow['user_id']
         ));
+        $this->score = $geocacheDbRow['score'];
         return $this;
     }
 
@@ -612,8 +614,22 @@ class GeoCache
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
 
-    
+    /**
+     * @return mixed
+     */
+    public function getScore()
+    {
+        return $this->score;
+    }
+
     public function isTitled()
     {     
         //return $this->isTitled = CacheTitled::isTitled($this->id);

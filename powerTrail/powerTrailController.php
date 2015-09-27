@@ -25,8 +25,6 @@ class powerTrailController {
             $this->action = 'showAllSeries';
         }
 
-        // self::debug($_POST, 'POST', __LINE__);
-        // if(isset($_POST['createNewPowerTrail'])) $this->action = 'createNewPowerTrail';
 
         $this->ptAPI = new powerTrailBase;
         $this->user = $user;
@@ -49,7 +47,7 @@ class powerTrailController {
                 $this->getAllPowerTrails();
                 break;
             case 'showSerie':
-                $this->getPowerTrailCaches();
+                //$this->getPowerTrailCaches();
                 break;
             default:
                 $this->getAllPowerTrails();
@@ -136,36 +134,6 @@ class powerTrailController {
         $this->allSeries = $db->dbResultFetchAll();
     }
 
-    private function getPowerTrailCaches()
-    {
-        $powerTrailId = isset($_REQUEST['ptrail'])?$_REQUEST['ptrail']:0;
-        $db = \lib\Database\DataBaseSingleton::Instance();
-        $ptq = 'SELECT * FROM `PowerTrail` WHERE `id` = :1 LIMIT 1';
-        $db->multiVariableQuery($ptq, $powerTrailId);
-        $this->powerTrailDbRow = $db->dbResultFetch();
-
-        $q = 'SELECT powerTrail_caches.isFinal, caches . * , user.username FROM  `caches` , user, powerTrail_caches WHERE cache_id IN ( SELECT  `cacheId` FROM  `powerTrail_caches` WHERE  `PowerTrailId` =:1) AND user.user_id = caches.user_id AND powerTrail_caches.cacheId = caches.cache_id ORDER BY caches.name';
-        $db->multiVariableQuery($q, $powerTrailId);
-        $this->allCachesOfSelectedPt = $db->dbResultFetchAll();
-
-        $qr = 'SELECT `cache_id`, `date`, `text_html`, `text`  FROM `cache_logs` WHERE `cache_id` IN ( SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` = :1) AND `user_id` = :2 AND `deleted` = 0 AND `type` = 1';
-        isset($_SESSION['user_id']) ? $userId = $_SESSION['user_id'] : $userId = 0;
-        $db->multiVariableQuery($qr, $powerTrailId, $userId);
-        $powerTrailCacheLogsArr = $db->dbResultFetchAll();
-        $powerTrailCachesUserLogsByCache = array();
-        foreach ($powerTrailCacheLogsArr as $log) {
-            $powerTrailCachesUserLogsByCache[$log['cache_id']] = array (
-                'date' => $log['date'],
-                'text_html' => $log['text_html'],
-                'text' => $log['text'],
-            );
-        }
-        // self::debug($powerTrailCacheLogsArr);
-        // self::debug($powerTrailCachesUserLogsByCache);
-        $this->powerTrailCachesUserLogsByCache = $powerTrailCachesUserLogsByCache;
-        $this->findPtOwners($powerTrailId);
-    }
-
     public function getPtOwners()
     {
         return $this->ptOwners;
@@ -176,10 +144,7 @@ class powerTrailController {
         return $this->powerTrailDbRow;
     }
 
-    public function getPowerTrailCachesUserLogsByCache()
-    {
-        return $this->powerTrailCachesUserLogsByCache;
-    }
+
 
     public function getPowerTrailOwn() {
         return $this->areOwnSeries;
@@ -264,19 +229,7 @@ class powerTrailController {
         // self::debug($this->user['userid'], 'user Power Trails', __LINE__);
     }
 
-    public function findPtOwners($powerTrailId){
-        $query = 'SELECT `userId`, `privileages`, username FROM `PowerTrail_owners`, user WHERE `PowerTrailId` = :1 AND PowerTrail_owners.userId = user.user_id';
-        $db = \lib\Database\DataBaseSingleton::Instance();
-        $db->multiVariableQuery($query, $powerTrailId);
-        $owner = $db->dbResultFetchAll();
-        foreach ($owner as $user) {
-            $owners[$user['userId']] = array (
-                'privileages' => $user['privileages'],
-                'username' => $user['username'],
-            );
-        }
-        $this->ptOwners = $owners;
-    }
+
 
     public function debug($var, $name=null, $line=null)
     {

@@ -5,6 +5,7 @@
  */
 require_once __DIR__ . '/../../lib/ClassPathDictionary.php';
 
+use lib\Controllers\PowerTrailController;
 
 $run = new processGeokretyErrors;
 $run->run();
@@ -24,6 +25,8 @@ class processGeokretyErrors
         // geoPaths
         $this->cleanGeoPaths();
         $this->makePt();
+
+        ddd('qniec :-)');
 
         // geoKrety
         $this->getErrors();
@@ -141,8 +144,8 @@ class processGeokretyErrors
 
     private function cleanGeoPaths()
     {
-        require_once __DIR__ . '/../../powerTrail/powerTrailBase.php';
-        powerTrailBase::cleanGeoPaths();
+//        $powerTrailController = new powerTrailController();
+//        $powerTrailController->cleanPowerTrailsCronjob();
     }
 
 }

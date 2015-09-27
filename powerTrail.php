@@ -210,7 +210,7 @@ if ($error == false) {
                 tpl_set_var('powerTrailDateCreated', $powerTrail->getDateCreated()->format($dateFormat));
                 tpl_set_var('powerTrailCacheCount', $powerTrail->getCacheCount());
                 tpl_set_var('powerTrailCacheLeft', ($powerTrail->getCacheCount() - $stats['cachesFoundByUser']));
-                tpl_set_var('powerTrailOwnerList', displayPtOwnerList($ptOwners));
+                tpl_set_var('powerTrailOwnerList', displayPtOwnerList($powerTrail));
                 tpl_set_var('date', date($dateFormat));
                 tpl_set_var('powerTrailDemandPercent', $powerTrail->getPerccentRequired());
                 tpl_set_var('ptCommentsSelector', displayPtCommentsSelector('commentType', $powerTrail->getPerccentRequired(), $pt->getCountCachesAndUserFoundInPT(), $powerTrail->getId(), null, $usr));
@@ -246,7 +246,7 @@ if ($error == false) {
                     tpl_set_var('ownerListUserActions', '');
                 }
                 if ($usr || !$hide_coords) {
-                    tpl_set_var('ptList4map', displayAllCachesOfPowerTrail($pt->getAllCachesOfPt(), $pt->getPowerTrailCachesUserLogsByCache()));
+                    tpl_set_var('ptList4map', displayAllCachesOfPowerTrail($powerTrail));
                 }
             } else {
                 tpl_set_var('mapOuterdiv', 'none');
@@ -354,28 +354,29 @@ function displayPTrails($pTrails, $areOwnSeries)
     return $result;
 }
 
-function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsByCache)
+function displayAllCachesOfPowerTrail(\lib\Objects\PowerTrail\PowerTrail $powerTrail)
 {
     isset($_SESSION['user_id']) ? $userId = $_SESSION['user_id'] : $userId = -9999;
-    $cacheTypesIcons = cache::getCacheIconsSet();
-    //$foundCacheTypesIcons = getFoundCacheTypesIcons($cacheTypesIcons);
-    //$ownerCacheTypesIcons = getOwnerCacheTypesIcons($cacheTypesIcons);
 
+    $powerTrailCachesUserLogsByCache = $powerTrail->getPowerTrailCachesLogsForCurrentUser();
+
+    $cacheTypesIcons = cache::getCacheIconsSet();
+    $pTrailCaches = $powerTrail->getGeocaches();
     $cacheRows = '';
-    foreach ($pTrailCaches as $rowNr => $cache) {
+    /* @var $geocache \lib\Objects\Geocache\Geocache */
+    foreach ($pTrailCaches as $geocache) {
         // avoid crash js on quotas (');
-        $cacheName = str_replace("'", '&#39;', $cache['name']);
-        if (isset($powerTrailCachesUserLogsByCache[$cache['cache_id']]))
-            $image = $cacheTypesIcons[$cache['type']]['iconSet'][1]['iconSmallFound'];
-        elseif ($cache['user_id'] == $userId) {
+        $cacheName = str_replace("'", '&#39;', $geocache->getCacheName());
+        if (isset($powerTrailCachesUserLogsByCache[$geocache->getCacheId()])) {
+            $image = $cacheTypesIcons[$geocache->getCacheType()]['iconSet'][1]['iconSmallFound'];
+        } elseif ($geocache->getOwner()->getUserId() == $userId) {
             $image = $cacheTypesIcons[$cache['type']]['iconSet'][1]['iconSmallOwner'];
-        } else
-            $image = $cacheTypesIcons[$cache['type']]['iconSet'][1]['iconSmall'];
-        $cacheRows .= '[' . $cache['latitude'] . "," . $cache['longitude'] . ",'<a href=" . $cache["wp_oc"] . " target=_new>" . $cacheName . "</a>'," . "'$image','" . $cacheName . "',],";
+        } else {
+            $image = $cacheTypesIcons[$geocache->getCacheType()]['iconSet'][1]['iconSmall'];
+        }
+        $cacheRows .= '[' . $geocache->getCoordinates()->getLatitude() . "," . $geocache->getCoordinates()->getLongitude() . ",'<a href=" . $geocache->getWaypointId() . " target=_new>" . $cacheName . "</a>'," . "'$image','" . $cacheName . "',],";
     }
     $cacheRows = rtrim($cacheRows, ",");
-    // powerTrailController::debug($pTrailCaches);
-    // exit;
     return $cacheRows;
 }
 
@@ -391,14 +392,16 @@ function displayPowerTrailserStats($stats)
     return $stats2display;
 }
 
-function displayPtOwnerList($ptOwners)
+function displayPtOwnerList(\lib\Objects\PowerTrail\PowerTrail $powerTrail)
 {
+    $ptOwners = $powerTrail->getOwners();
     $ownerList = '';
     isset($_SESSION['user_id']) ? $userLogged = $_SESSION['user_id'] : $userLogged = -1;
-    foreach ($ptOwners as $userId => $user) {
-        $ownerList .= '<a href="viewprofile.php?userid=' . $userId . '">' . $user['username'] . '</a>';
-        if ($userId != $userLogged) {
-            $ownerList .= '<span style="display: none" class="removeUserIcon"><img onclick="ajaxRemoveUserFromPt(' . $userId . ');" src="tpl/stdstyle/images/free_icons/cross.png" width=10 title="' . tr('pt029') . '" /></span>, ';
+    /* @var $owner lib\Objects\PowerTrail\Owner*/
+    foreach ($ptOwners as $owner) {
+        $ownerList .= '<a href="viewprofile.php?userid=' . $owner->getUserId() . '">' . $owner->getUserName() . '</a>';
+        if ($owner->getUserId() != $userLogged) {
+            $ownerList .= '<span style="display: none" class="removeUserIcon"><img onclick="ajaxRemoveUserFromPt(' . $owner->getUserId() . ');" src="tpl/stdstyle/images/free_icons/cross.png" width=10 title="' . tr('pt029') . '" /></span>, ';
         } else {
             $ownerList .= ', ';
         }

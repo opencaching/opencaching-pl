@@ -3,19 +3,17 @@ $rootpath = __DIR__.'/../';
 require_once __DIR__.'/../lib/common.inc.php';
 db_disconnect();
 
-$pt = new powerTrailController($usr);
-$pt->run();
-// $ptDbRow = $pt->getPowerTrailDbRow();
-// $ptOwners = $pt->getPtOwners();
+$powerTrail = new \lib\Objects\PowerTrail\PowerTrail(array('id' => (int) $_REQUEST['ptrail']));
 
 if(isset($_REQUEST['choseFinalCaches'])) $choseFinalCaches = true; else $choseFinalCaches = false;
-print displayAllCachesOfPowerTrail($pt->getAllCachesOfPt(), $pt->getPowerTrailCachesUserLogsByCache(), $choseFinalCaches);
+print displayAllCachesOfPowerTrail($powerTrail, $choseFinalCaches);
 
 
 
-function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsByCache, $choseFinalCaches)
+function displayAllCachesOfPowerTrail(\lib\Objects\PowerTrail\PowerTrail $powerTrail, $choseFinalCaches)
 {
-    if(count($pTrailCaches) == 0) return '<br /><br />'.tr('pt082');
+//    $powerTrailCachesUserLogsByCache
+    if(count($powerTrail->getCacheCount()) == 0) return '<br /><br />'.tr('pt082');
 
     $statusIcons = array (
         1 => '/tpl/stdstyle/images/log/16x16-published.png',
@@ -49,15 +47,16 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
     $cacheSize = array (2 => 0,3 => 0,4 => 0,5 => 0,6 => 0,7 => 0,);
     unset($_SESSION['geoPathCacheList']);
     isset($_SESSION['user_id']) ? $userId = $_SESSION['user_id'] : $userId=-9999;
-    foreach ($pTrailCaches as $rowNr => $cache) {
-        $_SESSION['geoPathCacheList'][] = $cache['cache_id'];
-        $totalFounds += $cache['founds'];
-        $totalTopRatings += $cache['topratings'];
-        $cachetypes[$cache['type']]++;
-        $cacheSize[$cache['size']]++;
+    /* @var $geocache lib\Objects\GeoCache\GeoCache*/
+    foreach ($powerTrail->getGeocaches() as $geocache) {
+        $_SESSION['geoPathCacheList'][] = $geocache->getCacheId();
+        $totalFounds += $geocache->getFounds();
+        $totalTopRatings += $geocache->getRecommendations();
+        $cachetypes[$geocache->getCacheType()]++;
+        $cacheSize[$geocache->getSizeId()]++;
          // powerTrailController::debug($cache); exit;
         if($bgcolor == '#eeeeff') $bgcolor = '#ffffff'; else $bgcolor = '#eeeeff';
-        if($cache['isFinal']) {
+        if($geocache->isIsPowerTrailFinalGeocache()) {
             $bgcolor = '#000000';
             $fontColor = '<font color ="#ffffff">';
         } else {
@@ -65,27 +64,29 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
         }
         $cacheRows .= '<tr bgcolor="'.$bgcolor.'">';
         //display icon found/not found depend on current user
-        if (isset($powerTrailCachesUserLogsByCache[$cache['cache_id']])) $cacheRows .= '<td align="center"><img src="'.$cacheTypesIcons[$cache['type']]['iconSet'][1]['iconSmallFound'].'" /></td>';
-        elseif($cache['user_id'] == $userId) $cacheRows .= '<td align="center"><img src="'.$cacheTypesIcons[$cache['type']]['iconSet'][1]['iconSmallOwner'].'" /></td>';
-        else $cacheRows .= '<td align="center"><img src="'.$cacheTypesIcons[$cache['type']]['iconSet'][1]['iconSmall'].'" /></td>';
+        if (isset($powerTrailCachesUserLogsByCache[$geocache->getCacheId()])) $cacheRows .= '<td align="center"><img src="'.$cacheTypesIcons[$geocache->getCacheType()]['iconSet'][1]['iconSmallFound'].'" /></td>';
+        elseif($geocache->getOwner()->getUserId() == $userId) $cacheRows .= '<td align="center"><img src="'.$cacheTypesIcons[$geocache->getCacheType()]['iconSet'][1]['iconSmallOwner'].'" /></td>';
+        else $cacheRows .= '<td align="center"><img src="'.$cacheTypesIcons[$geocache->getCacheType()]['iconSet'][1]['iconSmall'].'" /></td>';
         //cachename, username
-        $cacheRows .= '<td><b><a href="'.$cache['wp_oc'].'">'.$fontColor.$cache['name'].'</b></a> ('.$cache['username'].') ';
-        if($cache['isFinal']) $cacheRows .= '<span class="finalCache">'.tr('pt148').'</span>';
+        $cacheRows .= '<td><b><a href="'.$geocache->getWaypointId().'">'.$fontColor.$geocache->getCacheName().'</b></a> ('.$geocache->getOwner()->getUserName().') ';
+        if($geocache->isIsPowerTrailFinalGeocache()) {
+            $cacheRows .= '<span class="finalCache">'.tr('pt148').'</span>';
+        }
 
         $cacheRows .= '</td>';
         //chose final caches
         if($choseFinalCaches){
-            if($cache['isFinal']) $checked = 'checked = "checked"';
+            if($geocache->isIsPowerTrailFinalGeocache()) $checked = 'checked = "checked"';
             else $checked = '';
-            $cacheRows .= '<td><span class="ownerFinalChoice"><input type="checkbox" id="fcCheckbox'.$cache['cache_id'].'" onclick="setFinalCache('.$cache['cache_id'].')" '.$checked.' /></span></td>';
+            $cacheRows .= '<td><span class="ownerFinalChoice"><input type="checkbox" id="fcCheckbox'.$geocache->getCacheId().'" onclick="setFinalCache('.$geocache->getCacheId().')" '.$checked.' /></span></td>';
         }
         //status
-        $cacheRows .= '<td align="center"><img src="'.$statusIcons[$cache['status']].'" title="'.$statusDesc[$cache['status']].'"/></td>';
+        $cacheRows .= '<td align="center"><img src="'.$statusIcons[$geocache->getStatus()].'" title="'.$statusDesc[$geocache->getStatus()].'"/></td>';
         //FoundCount
-        $cacheRows .= '<td align="center">'.$fontColor.$cache['founds'].'</td>';
+        $cacheRows .= '<td align="center">'.$fontColor.$geocache->getFounds().'</td>';
         //score, toprating
-        $cacheRows .= '<td align="center">'.ratings($cache['score'], $cache['votes']).'</td>';
-        $cacheRows .= '<td align="center">'.$fontColor.$cache['topratings'].'</td>';
+        $cacheRows .= '<td align="center">'.ratings($geocache->getScore(), $geocache->getRatingVotes()).'</td>';
+        $cacheRows .= '<td align="center">'.$fontColor.$geocache->getRecommendations().'</td>';
 
         '</tr>';
     }
@@ -100,7 +101,7 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
     </tr>
     </table>';
     $restCaches = $cachetypes[4] + $cachetypes[5] + $cachetypes[6] + $cachetypes[8] + $cachetypes[9] + $cachetypes[10];
-    $countCaches = count($pTrailCaches);
+    $countCaches = $powerTrail->getCacheCount();
     $restCachesPercent = round(($restCaches * 100)/$countCaches);
     foreach ($cachetypes as $key => $value) {
         $cachePercent[$key] = round(($value * 100)/$countCaches);
@@ -110,8 +111,6 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
     }
     $img = '<table align="center"><tr><td align=center width="50%">'.tr('pt107').'<br /><img src="http://chart.apis.google.com/chart?chs=350x100&chd=t:'.$cachetypes[2].','.$cachetypes[3].','.$cachetypes[7].','.$cachetypes[1].','.$restCaches.'&cht=p3&chl='.$cachetypes[2].'|'.$cachetypes[3].'|'.$cachetypes[7].'|'.$cachetypes[1].'|'.$restCaches.'&chco=00aa00|FFEB0D|0000cc|cccccc|eeeeee&&chdl=%20'.tr('pt108').'%20('.$cachePercent[2].'%)|'.tr('pt109').'%20('.$cachePercent[3].'%)|'.tr('pt110').'%20('.$cachePercent[7].'%)|'.urlencode(tr('pt111')).'%20('.$cachePercent[1].'%)|'.urlencode(tr('pt112')).'%20('.$restCachesPercent.'%)" /></td>';
     $img .= '<td align=center width="50%">'.tr('pt106').'<br /><img src="http://chart.apis.google.com/chart?chs=350x100&chd=t:'.$cacheSize[2].','.$cacheSize[3].','.$cacheSize[4].','.$cacheSize[5].','.$cacheSize[6].'&cht=p3&chl=%20'.$cacheSize[2].'|'.$cacheSize[3].'|'.$cacheSize[4].'|'.$cacheSize[5].'|'.$cacheSize[6].'&chco=0000aa|00aa00|aa0000|aaaa00|00aaaa&&chdl='.urlencode(tr('pt113')).'%20('.$cacheSizePercent[2].'%)|'.urlencode(tr('pt114')).'%20('.$cacheSizePercent[3].'%)|'.urlencode(tr('pt115')).'%20('.$cacheSizePercent[4].'%)|'.urlencode(tr('pt116')).'%20('.$cacheSizePercent[5].'%)|'.urlencode(tr('pt117')).'%20('.$cacheSizePercent[6].'%)" /></td></tr></table><br /><br />';
-    // powerTrailController::debug($pTrailCaches);
-    // exit;
     return $img.$cacheRows;
 }
 

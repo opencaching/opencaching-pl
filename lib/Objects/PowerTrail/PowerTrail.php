@@ -28,8 +28,9 @@ class PowerTrail
     private $conquestedCount;
     private $points;
     private $geocaches;
-    private $owners;
-    
+    private $owners = false;
+
+    private $powerTrailConfiguration;
     
     public function __construct(array $params)
     {
@@ -162,6 +163,18 @@ class PowerTrail
         return $this->geocaches;
     }
 
+    private function loadPtOwners(){
+        $query = 'SELECT `userId`, `privileages`, username FROM `PowerTrail_owners`, user WHERE `PowerTrailId` = :1 AND PowerTrail_owners.userId = user.user_id';
+        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db->multiVariableQuery($query, $this->id);
+        $ownerDb = $db->dbResultFetchAll();
+        foreach ($ownerDb as $user) {
+            $owner = new Owner($user);
+            $owner->setPrivileages($user['privileages']);
+            $this->owners[] = $owner;
+        }
+    }
+
     /**
      * @return mixed
      */
@@ -234,7 +247,122 @@ class PowerTrail
         return $this->centerCoordinates;
     }
 
+    /**
+     * @param mixed $powerTrailConfiguration
+     * @return PowerTrail
+     */
+    public function setPowerTrailConfiguration($powerTrailConfiguration)
+    {
+        $this->powerTrailConfiguration = $powerTrailConfiguration;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOwners()
+    {
+        if(!$this->owners){
+            $this->loadPtOwners();
+        }
+        return $this->owners;
+    }
 
 
 
+    /**
+     * check if real cache count in pt is equal stored in db.
+     */
+    public function checkCacheCount()
+    {
+        $countQuery = 'SELECT count(*) as `cacheCount` FROM `caches` WHERE `cache_id` IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1)';
+        $db = DataBaseSingleton::Instance();
+        $db->multiVariableQuery($countQuery, $this->id);
+        $answer = $db->dbResultFetch();
+        if($answer['cacheCount'] != $this->cacheCount) {
+            $updateQuery = 'UPDATE `PowerTrail` SET `cacheCount` =:1  WHERE `id` = :2 ';
+            $db->multiVariableQuery($updateQuery, $answer['cacheCount'], $this->id);
+        }
+    }
+
+    /**
+     * disable (set status to 4) geoPaths witch has not enough cacheCount.
+     */
+    public function disablePowerTrailBecauseCacheCountTooLow()
+    {
+//        $text = tr('pt227').tr('pt228');
+//        print 'pt #'.$this->id.', caches in pt: '.$this->cacheCount.'; min. caches limit: '. $this->getPtMinCacheCountLimit().'<br>';
+        if($this->cacheCount < $this->getPtMinCacheCountLimit()){
+//            $text .= tr('pt227').tr('pt228');
+            print '[test only] geoPath #<a href="powerTrail.php?ptAction=showSerie&ptrail='.$this->id.'">'.$this->id.'</a> (geoPtah cache count='.$this->cacheCount.' is lower than minimum='.$this->getPtMinCacheCountLimit().') <br/>';
+//            $db = \lib\Database\DataBaseSingleton::Instance();
+//            $queryStatus = 'UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2';
+//            $db->multiVariableQuery($queryStatus, 4, $pt['id']);
+//            $query = 'INSERT INTO `PowerTrail_comments`(`userId`, `PowerTrailId`, `commentType`, `commentText`, `logDateTime`, `dbInsertDateTime`, `deleted`) VALUES
+//            (-1, :1, 4, :2, NOW(), NOW(),0)';
+//            $db->multiVariableQuery($query, $pt['id'], $text);
+//            sendEmail::emailOwners($pt['id'], 4, date('Y-m-d H:i:s'), $text, 'newComment');
+            $result = true;
+        } else {
+            $result = false;
+        }
+        return $result;
+    }
+
+    /**
+     * get minimum cache limit from period of time when ptWas published
+     */
+    private function getPtMinCacheCountLimit()
+    {
+        foreach ($this->powerTrailConfiguration['old'] as $date){ //find interval path was created
+            if ($this->dateCreated->getTimestamp() >= $date['dateFrom'] && $this->dateCreated->getTimestamp() < $date['dateTo']){ // patch was created here
+                return $date['limit'];
+            }
+        }
+        return false;
+    }
+
+    /**
+     * disable geoPaths, when its WIS > active caches count.
+     */
+    public function disableUncompletablePt($serverUrl){
+        $countQuery = 'SELECT count(*) as `cacheCount` FROM `caches` WHERE `cache_id` IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1) AND `status` = 1';
+        $db = DataBaseSingleton::Instance();
+        $db->multiVariableQuery($countQuery, $this->id);
+        $answer = $db->dbResultFetch();
+
+//      print "active cc: ".$answer['cacheCount'].' / required caches: '. (($this->cacheCount*$this->perccentRequired)/100);
+
+        if($answer['cacheCount'] < ($this->cacheCount*$this->perccentRequired)/100) {
+            print '<span style="color: red">[test message only] geoPath #<a href="'.$serverUrl.'powerTrail.php?ptAction=showSerie&ptrail='.$this->id.'">'.$this->id.'</a>should be put in service (uncompletable) cacheCount: '.$answer['cacheCount'].' demand: '. (($this->cacheCount*$this->perccentRequired)/100) . ' </span><br/>';
+
+            //$queryStatus = 'UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2';
+            // $db->multiVariableQuery($queryStatus, 4, $pt['id']);
+            //$query = 'INSERT INTO `PowerTrail_comments`(`userId`, `PowerTrailId`, `commentType`, `commentText`, `logDateTime`, `dbInsertDateTime`, `deleted`) VALUES (-1, :1, 4, :2, NOW(), NOW(),0)';
+//            $text = tr('pt227').tr('pt234');
+            // $db->multiVariableQuery($query, $pt['id'], $text);
+            //emailOwners($pt['id'], 4, date('Y-m-d H:i:s'), $text, 'newComment');
+//            d($text);
+            return true;
+        }
+        return false;
+    }
+
+    public function getPowerTrailCachesLogsForCurrentUser()
+    {
+        $db = DataBaseSingleton::Instance();
+        $qr = 'SELECT `cache_id`, `date`, `text_html`, `text`  FROM `cache_logs` WHERE `cache_id` IN ( SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` = :1) AND `user_id` = :2 AND `deleted` = 0 AND `type` = 1';
+        isset($_SESSION['user_id']) ? $userId = $_SESSION['user_id'] : $userId = 0;
+        $db->multiVariableQuery($qr, $this->id, $userId);
+        $powerTrailCacheLogsArr = $db->dbResultFetchAll();
+        $powerTrailCachesUserLogsByCache = array();
+        foreach ($powerTrailCacheLogsArr as $log) {
+            $powerTrailCachesUserLogsByCache[$log['cache_id']] = array (
+                'date' => $log['date'],
+                'text_html' => $log['text_html'],
+                'text' => $log['text'],
+            );
+        }
+        return $powerTrailCachesUserLogsByCache;
+    }
 }
