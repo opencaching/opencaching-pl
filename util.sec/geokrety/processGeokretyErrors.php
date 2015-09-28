@@ -26,8 +26,6 @@ class processGeokretyErrors
         $this->cleanGeoPaths();
         $this->makePt();
 
-        ddd('qniec :-)');
-
         // geoKrety
         $this->getErrors();
         if ($this->errorNumber == 0) {
