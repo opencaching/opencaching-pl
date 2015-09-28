@@ -27,6 +27,7 @@ class PowerTrail
     private $perccentRequired;
     private $conquestedCount;
     private $points;
+    /* @var $geocaches \lib\Objects\GeoCache\Collection */
     private $geocaches;
     private $owners = false;
 
@@ -150,6 +151,7 @@ class PowerTrail
             $query = 'SELECT powerTrail_caches.isFinal, caches . * , user.username FROM  `caches` , user, powerTrail_caches WHERE cache_id IN ( SELECT  `cacheId` FROM  `powerTrail_caches` WHERE  `PowerTrailId` =:1) AND user.user_id = caches.user_id AND powerTrail_caches.cacheId = caches.cache_id ORDER BY caches.name';
             $db->multiVariableQuery($query, $this->id);
             $geoCachesDbResult = $db->dbResultFetchAll();
+            $geocachesIdArray = array();
             foreach ($geoCachesDbResult as $geoCacheDbRow) {
                 $geocache = new GeoCache();
                 $geocache->loadFromRow($geoCacheDbRow)->setIsPowerTrailPart(true);
@@ -158,7 +160,10 @@ class PowerTrail
                     $geocache->setIsPowerTrailFinalGeocache(true);
                 }
                 $this->geocaches[] = $geocache;
+                $geocachesIdArray[] = $geocache->getCacheId();
             }
+            $this->geocaches->setIsReady(true);
+            $this->geocaches->setGeocachesIdArray($geocachesIdArray);
         }
         return $this->geocaches;
     }
@@ -284,6 +289,21 @@ class PowerTrail
         return false;
     }
 
+    public function getFoundCachsByUser($userId)
+    {
+        $this->getGeocaches();
+        $geocachesIdArray = $this->geocaches->getGeocachesIdArray();
+        $geocachesStr = '';
+        foreach ($geocachesIdArray as $geocacheId) {
+            $geocachesStr .= $geocacheId.',';
+        }
+        $geocachesStr = rtrim($geocachesStr, ',');
+        $query = 'SELECT `cache_id` AS `geocacheId` FROM `cache_logs` WHERE `cache_id` in ('.$geocachesStr.') AND `deleted` = 0 AND `user_id` = :1 AND `type` = "1" ';
+        $db = DataBaseSingleton::Instance();
+        $db->multiVariableQuery($query, (int) $userId);
+        $cachesFoundByUser = $db->dbResultFetchAll();
+        return $cachesFoundByUser;
+    }
     /**
      * check if real cache count in pt is equal stored in db.
      */

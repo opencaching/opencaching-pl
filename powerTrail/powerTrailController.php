@@ -11,8 +11,7 @@ class powerTrailController {
     private $userPTs;
     private $ptAPI;
     private $allSeries;
-    private $allCachesOfSelectedPt;
-    private $powerTrailCachesUserLogsByCache;
+
     private $powerTrailDbRow;
     private $ptOwners;
     private $areOwnSeries = false;
@@ -165,13 +164,6 @@ class powerTrailController {
         return $this->action;
     }
 
-    public function getCountCachesAndUserFoundInPT()
-    {
-        $result['totalCachesCountInPowerTrail'] = count($this->allCachesOfSelectedPt);
-        $result['cachesFoundByUser'] = count($this->powerTrailCachesUserLogsByCache);
-        return $result;
-    }
-
     public function getpowerTrails()
     {
         return $this->allSeries;
@@ -225,8 +217,6 @@ class powerTrailController {
         $db->multiVariableQuery($query, $this->user['userid']);
         $userPTs = $db->dbResultFetchAll();
         $this->userPTs = $userPTs;
-        // self::debug($userPTs, 'user Power Trails', __LINE__);
-        // self::debug($this->user['userid'], 'user Power Trails', __LINE__);
     }
 
 
@@ -239,8 +229,3 @@ class powerTrailController {
         print '</pre>';
     }
 }
-
-
-
-// var_dump($_SESSION);
-// var_dump($usr);

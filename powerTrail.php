@@ -188,7 +188,7 @@ if ($error == false) {
             if ($powerTrail->getStatus() == 1 || $userIsOwner) {
                 $ptTypesArr = powerTrailBase::getPowerTrailTypes();
                 $ptStatusArr = powerTrailBase::getPowerTrailStatus();
-                $stats = $pt->getCountCachesAndUserFoundInPT();
+                $foundCachsByUser = $powerTrail->getFoundCachsByUser($usr['userid']);
                 $leadingUser = powerTrailBase::getLeadingUser($powerTrail->getId());
                 if ($powerTrail->getConquestedCount() > 0){
                     $removeCacheButtonDisplay = 'none';
@@ -204,19 +204,19 @@ if ($error == false) {
                 tpl_set_var('displaySelectedPowerTrail', 'block');
                 tpl_set_var('powerTrailName', $powerTrail->getName());
                 tpl_set_var('powerTrailDescription', stripslashes(htmlspecialchars_decode($powerTrail->getDescription())));
-                tpl_set_var('displayPtDescriptionUserAction', displayPtDescriptionUserAction($powerTrail->getId()));
+                tpl_set_var('displayPtDescriptionUserAction', displayPtDescriptionUserAction($powerTrail));
                 tpl_set_var('powerTrailDateCreated', $powerTrail->getDateCreated()->format($dateFormat));
                 tpl_set_var('powerTrailCacheCount', $powerTrail->getCacheCount());
-                tpl_set_var('powerTrailCacheLeft', ($powerTrail->getCacheCount() - $stats['cachesFoundByUser']));
+                tpl_set_var('powerTrailCacheLeft', ($powerTrail->getCacheCount() - count($foundCachsByUser)));
                 tpl_set_var('powerTrailOwnerList', displayPtOwnerList($powerTrail));
                 tpl_set_var('date', date($dateFormat));
                 tpl_set_var('powerTrailDemandPercent', $powerTrail->getPerccentRequired());
-                tpl_set_var('ptCommentsSelector', displayPtCommentsSelector('commentType', $powerTrail->getPerccentRequired(), $pt->getCountCachesAndUserFoundInPT(), $powerTrail->getId(), null, $usr));
+                tpl_set_var('ptCommentsSelector', displayPtCommentsSelector('commentType', $powerTrail, null, $usr));
                 tpl_set_var('conquestCount', $powerTrail->getConquestedCount());
                 tpl_set_var('ptPoints', $powerTrail->getPoints());
-                tpl_set_var('cacheFound', $stats['cachesFoundByUser']);
+                tpl_set_var('cacheFound', count($foundCachsByUser));
                 tpl_set_var('powerTrailLogo', displayPowerTrailLogo($powerTrail->getId(), $powerTrail->getImage()));
-                tpl_set_var('powerTrailserStats', displayPowerTrailserStats($stats));
+                tpl_set_var('powerTrailserStats', displayPowerTrailserStats($powerTrail, $foundCachsByUser));
 
                 //map
                 tpl_set_var('mapInit', 1);
@@ -378,15 +378,14 @@ function displayAllCachesOfPowerTrail(\lib\Objects\PowerTrail\PowerTrail $powerT
     return $cacheRows;
 }
 
-function displayPowerTrailserStats($stats)
+function displayPowerTrailserStats(\lib\Objects\PowerTrail\PowerTrail $powerTrail, $cachesFoundByUser)
 {
-    if ($stats['totalCachesCountInPowerTrail'] != 0) {
-        $stats2display = round($stats['cachesFoundByUser'] * 100 / $stats['totalCachesCountInPowerTrail'], 2);
+    if ($powerTrail->getCacheCount() != 0) {
+        $stats2display = round(count($cachesFoundByUser) * 100 / $powerTrail->getCacheCount(), 2);
     } else {
         $stats2display = 0;
     }
-    // powerTrailController::debug($stats);
-    $stats2display .= '% (' . tr('pt017') . ' <span style="color: #00aa00"><b>' . $stats['cachesFoundByUser'] . '</b></span> ' . tr('pt016') . ' <span style="color: #0000aa"><b>' . $stats['totalCachesCountInPowerTrail'] . '</b></span> ' . tr('pt014') . ')';
+    $stats2display .= '% (' . tr('pt017') . ' <span style="color: #00aa00"><b>' . count($cachesFoundByUser) . '</b></span> ' . tr('pt016') . ' <span style="color: #0000aa"><b>' . $powerTrail->getCacheCount() . '</b></span> ' . tr('pt014') . ')';
     return $stats2display;
 }
 
@@ -408,11 +407,11 @@ function displayPtOwnerList(\lib\Objects\PowerTrail\PowerTrail $powerTrail)
     return $ownerList;
 }
 
-function displayPtDescriptionUserAction($powerTrailId)
+function displayPtDescriptionUserAction(\lib\Objects\PowerTrail\PowerTrail $powerTrail)
 {
     $result = '';
     if (isset($_SESSION['user_id'])) {
-        if (powerTrailBase::checkIfUserIsPowerTrailOwner($_SESSION['user_id'], $powerTrailId) == 1) {
+        if ( $powerTrail->isUserOwner($_SESSION['user_id']  )) {
             $result = '<a href="javascript:void(0)" id="toggleEditDescButton" class="editPtDataButton" onclick="toggleEditDesc();">' . tr('pt043') . '</a>';
         }
     }
@@ -437,11 +436,13 @@ function displayPtTypesSelector($htmlid, $selectedId = 0, $witchZeroOption = fal
     return $selector;
 }
 
-function displayPtCommentsSelector($htmlid, $percetDemand, $userStats, $ptId, $selectedId = 0, $usr = null)
+function displayPtCommentsSelector($htmlid, \lib\Objects\PowerTrail\PowerTrail $powerTrail, $selectedId = 0, $usr = null)
 {
-
-    if ($userStats['totalCachesCountInPowerTrail'] != 0) {
-        $percentUserFound = round($userStats['cachesFoundByUser'] * 100 / $userStats['totalCachesCountInPowerTrail'], 2);
+    $cachesFoundByUser = $powerTrail->getFoundCachsByUser($usr['userid']);
+    $percetDemand = $powerTrail->getPerccentRequired();
+    $ptId = $powerTrail->getId();
+    if ($powerTrail->getCacheCount() != 0) {
+        $percentUserFound = round(count($cachesFoundByUser) * 100 / $powerTrail->getCacheCount(), 2);
     } else {
         $percentUserFound = 0;
     }

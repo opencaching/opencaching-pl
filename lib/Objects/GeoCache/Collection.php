@@ -39,5 +39,20 @@ class Collection extends \ArrayObject
         return $this;
     }
 
+    /**
+     * @return array
+     */
+    public function getGeocachesIdArray()
+    {
+        return $this->geocachesIdArray;
+    }
+
+
+
+    public function setIsReady($isReady)
+    {
+        $this->isReady = $isReady;
+        return $this;
+    }
 
 }
