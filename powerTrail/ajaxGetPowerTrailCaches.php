@@ -4,7 +4,6 @@ require_once __DIR__.'/../lib/common.inc.php';
 db_disconnect();
 
 $powerTrail = new \lib\Objects\PowerTrail\PowerTrail(array('id' => (int) $_REQUEST['ptrail']));
-
 if(isset($_REQUEST['choseFinalCaches'])) $choseFinalCaches = true; else $choseFinalCaches = false;
 print displayAllCachesOfPowerTrail($powerTrail, $choseFinalCaches);
 
@@ -12,7 +11,14 @@ print displayAllCachesOfPowerTrail($powerTrail, $choseFinalCaches);
 
 function displayAllCachesOfPowerTrail(\lib\Objects\PowerTrail\PowerTrail $powerTrail, $choseFinalCaches)
 {
-//    $powerTrailCachesUserLogsByCache
+    isset($_SESSION['user_id']) ? $userId = $_SESSION['user_id'] : $userId=-9999;
+    $powerTrailCachesUserLogsByCache = $powerTrail->getFoundCachsByUser($userId);
+    $geocacheFoundArr = array();
+    foreach ($powerTrailCachesUserLogsByCache as $geocache) {
+        $geocacheFoundArr[$geocache['geocacheId']] = $geocache;
+    }
+
+
     if(count($powerTrail->getCacheCount()) == 0) return '<br /><br />'.tr('pt082');
 
     $statusIcons = array (
@@ -46,7 +52,7 @@ function displayAllCachesOfPowerTrail(\lib\Objects\PowerTrail\PowerTrail $powerT
     $cachetypes = array (1 => 0,2 => 0,3 => 0,4 => 0,5 => 0,6 => 0,7 => 0,8 => 0,9 => 0,10 => 0,);
     $cacheSize = array (2 => 0,3 => 0,4 => 0,5 => 0,6 => 0,7 => 0,);
     unset($_SESSION['geoPathCacheList']);
-    isset($_SESSION['user_id']) ? $userId = $_SESSION['user_id'] : $userId=-9999;
+
     /* @var $geocache lib\Objects\GeoCache\GeoCache*/
     foreach ($powerTrail->getGeocaches() as $geocache) {
         $_SESSION['geoPathCacheList'][] = $geocache->getCacheId();
@@ -64,7 +70,7 @@ function displayAllCachesOfPowerTrail(\lib\Objects\PowerTrail\PowerTrail $powerT
         }
         $cacheRows .= '<tr bgcolor="'.$bgcolor.'">';
         //display icon found/not found depend on current user
-        if (isset($powerTrailCachesUserLogsByCache[$geocache->getCacheId()])) $cacheRows .= '<td align="center"><img src="'.$cacheTypesIcons[$geocache->getCacheType()]['iconSet'][1]['iconSmallFound'].'" /></td>';
+        if (isset($geocacheFoundArr[$geocache->getCacheId()])) $cacheRows .= '<td align="center"><img src="'.$cacheTypesIcons[$geocache->getCacheType()]['iconSet'][1]['iconSmallFound'].'" /></td>';
         elseif($geocache->getOwner()->getUserId() == $userId) $cacheRows .= '<td align="center"><img src="'.$cacheTypesIcons[$geocache->getCacheType()]['iconSet'][1]['iconSmallOwner'].'" /></td>';
         else $cacheRows .= '<td align="center"><img src="'.$cacheTypesIcons[$geocache->getCacheType()]['iconSet'][1]['iconSmall'].'" /></td>';
         //cachename, username
