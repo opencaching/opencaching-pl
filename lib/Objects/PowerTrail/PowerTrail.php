@@ -268,7 +268,21 @@ class PowerTrail
         return $this->owners;
     }
 
-
+    /**
+     * check if specified user is owner of the powerTrail
+     * @param integer $userId
+     * @return bool
+     */
+    public function isUserOwner($userId)
+    {
+        $owners = $this->getOwners();
+        foreach ($owners as $owner) {
+            if($userId == $owner->getUserId()){
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * check if real cache count in pt is equal stored in db.

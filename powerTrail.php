@@ -183,10 +183,8 @@ if ($error == false) {
             } else {
                 tpl_set_var('mapOuterdiv', 'block');
             }
-            if ($ptOwners)
-                $userIsOwner = array_key_exists($usr['userid'], $ptOwners);
-            else
-                $userIsOwner = false;
+
+            $userIsOwner = $powerTrail->isUserOwner($usr['userid']);
             if ($powerTrail->getStatus() == 1 || $userIsOwner) {
                 $ptTypesArr = powerTrailBase::getPowerTrailTypes();
                 $ptStatusArr = powerTrailBase::getPowerTrailStatus();
@@ -370,7 +368,7 @@ function displayAllCachesOfPowerTrail(\lib\Objects\PowerTrail\PowerTrail $powerT
         if (isset($powerTrailCachesUserLogsByCache[$geocache->getCacheId()])) {
             $image = $cacheTypesIcons[$geocache->getCacheType()]['iconSet'][1]['iconSmallFound'];
         } elseif ($geocache->getOwner()->getUserId() == $userId) {
-            $image = $cacheTypesIcons[$cache['type']]['iconSet'][1]['iconSmallOwner'];
+            $image = $cacheTypesIcons[$geocache->getCacheType()]['iconSet'][1]['iconSmallOwner'];
         } else {
             $image = $cacheTypesIcons[$geocache->getCacheType()]['iconSet'][1]['iconSmall'];
         }
