@@ -233,7 +233,7 @@ if ($usr == false) {
       } */
 
     /* SET YOUR MAP CODE HERE */
-    tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?sensor=true&amp;language=' . $lang . '" type="text/javascript"></script>
+    tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?sensor=true&amp;v=3.21&amp;language=' . $lang . '" type="text/javascript"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">');
     /*
      * Generate dynamic URL to cachemap3.js file, this will make sure it will be reloaded by the browser.

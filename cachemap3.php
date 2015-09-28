@@ -253,7 +253,7 @@ if ($usr == false) {
       } */
 
     /* SET YOUR MAP CODE HERE */
-    tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;language=' . $lang . '" type="text/javascript"></script>');
+    tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;v=3.21&amp;language=' . $lang . '" type="text/javascript"></script>');
     /*
      * Generate dynamic URL to cachemap3.js file, this will make sure it will be reloaded by the browser.
      * The time-stamp will be stripped by a rewrite rule in lib/.htaccess.
