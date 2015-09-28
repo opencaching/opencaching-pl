@@ -104,14 +104,13 @@ class GeoCache
             $db = DataBaseSingleton::Instance();
             $this->id = (int) $params['cacheId'];
 
-            $queryById = "SELECT size, status, founds, notfounds, topratings, votes, notes, score  name, type, date_hidden, longitude, latitude, wp_oc, user_id FROM `caches` WHERE `cache_id`=:1 LIMIT 1";
+            $queryById = "SELECT size, status, founds, notfounds, topratings, votes, notes, score,  name, type, date_hidden, longitude, latitude, wp_oc, user_id FROM `caches` WHERE `cache_id`=:1 LIMIT 1";
             $db->multiVariableQuery($queryById, $this->id);
 
             $cacheDbRow = $db->dbResultFetch();
-
-            if(is_array($cacheDbRow))
+            if(is_array($cacheDbRow)) {
                 $this->loadFromRow($cacheDbRow);
-            else{
+            } else{
                 //TODO: cache-not-found handling?
             }
             $this->loadCacheLocation($db);
