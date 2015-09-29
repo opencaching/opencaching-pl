@@ -199,7 +199,7 @@ class powerTrailBase{
             3 => 3, #Multi
             4 => 1, #Virt.
             5 => 0.2, #ICam.
-            6 => 2.3, #Event
+            6 => 0, #Event
             7 => 4, #Quiz
             8 => 2, #Moving
             9 => 1, #podcast
