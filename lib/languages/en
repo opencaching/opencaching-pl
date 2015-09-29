@@ -2574,3 +2574,4 @@ list_of_titled_caches_is_empty There are no titled caches in the specified area
 titled_cache Titled cache
 titled_caches Titled caches
 titled_cache_congratulations <p><img src="tpl/stdstyle/images/free_icons/award_star_gold_1.png" class="icon16" alt="{langTitledCache}" title="{langTitledCache}" />&nbsp Hello !!! <br/> <br/>&nbsp&nbsp&nbsp&nbspI'm pleased to inform you, that your cache was titled</p><p><span style="color: #008000;"><strong><br />CONGRATULATIONS !!!</strong></span><br />OCTeam</p>
+titled_cache_date Date of<br>titled

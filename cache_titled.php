@@ -1,6 +1,6 @@
 <?php
 
-
+global $dateFormat;
 require_once('./lib/common.inc.php');
 
 
@@ -60,7 +60,8 @@ for( $i = 0; $i < $dbcLocCache->rowCount(); $i++ )
    $userNameRef = str_replace('{userId}', $ownId, $userNameRef );
    $userNameRef = str_replace('{userName}', $userName, $userNameRef );
    
-   $dateAlg = $record[ 'dateAlg' ];
+   $dateAlg = date($dateFormat, strtotime($record[ 'dateAlg' ]));   
+   
    $cacheType = $record[ 'cache_type' ];
    
    $typeIcon ='<img src="{src}" />';

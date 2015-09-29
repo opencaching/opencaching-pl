@@ -26,11 +26,11 @@
 
 <script type='text/javascript'>
     var gct = new GCT('idGTC');
-    gct.addColumn('string', '' ); //0
-    gct.addColumn('string',  'Nazwa', 'font-size: 12px; ' ); //1
-    gct.addColumn('string', 'Region', 'font-size: 12px; ' ); //2
-    gct.addColumn('string', 'Właściciel', 'font-size: 12px; ' ); //3
-    gct.addColumn('string', 'Data<br>wyróżn.', 'font-size: 12px; ' ); //4
+    gct.addColumn('string', '' ); //
+    gct.addColumn('string',  '<?php echo tr("cache_label") ?>', 'font-size: 12px; ' ); //1
+    gct.addColumn('string', '<?php echo tr("region") ?>', 'font-size: 12px; ' ); //2
+    gct.addColumn('string', '<?php echo tr("owner") ?>', 'font-size: 12px; ' ); //3
+    gct.addColumn('string', '<?php echo tr("titled_cache_date") ?>', 'font-size: 12px; ' ); //4
 
     gct.addChartOption('showRowNumber', true );
 
