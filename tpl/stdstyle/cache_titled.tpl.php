@@ -27,7 +27,7 @@
 <script type='text/javascript'>
     var gct = new GCT('idGTC');
     gct.addColumn('string', '' ); //
-    gct.addColumn('string',  '<?php echo tr("cache_label") ?>', 'font-size: 12px; ' ); //1
+    gct.addColumn('string',  '<?php echo tr("geocache") ?>', 'font-size: 12px; ' ); //1
     gct.addColumn('string', '<?php echo tr("region") ?>', 'font-size: 12px; ' ); //2
     gct.addColumn('string', '<?php echo tr("owner") ?>', 'font-size: 12px; ' ); //3
     gct.addColumn('string', '<?php echo tr("titled_cache_date") ?>', 'font-size: 12px; ' ); //4
