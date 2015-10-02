@@ -2566,5 +2566,8 @@ natura2000 NATURA 2000 gebied
 ignoreFoundLimitRm Sta niet toe dat er nieuwe caches gemaakt kunnen worden
 ignoreFoundLimitAdd Sta toe dat er nieuwe caches gemaakt kunnen worden
 NoDataAvailable Geen gegevens
-titled_cache_congratulations <p><img src="tpl/stdstyle/images/free_icons/award_star_gold_1.png" class="icon16" alt="{langTitledCache}" title="{langTitledCache}" />&nbsp Hello !!! <br/> <br/>&nbsp&nbsp&nbsp&nbspI'm pleased to inform you, that your cache was titled</p><p><span style="color: #008000;"><strong><br />CONGRATULATIONS !!!</strong></span><br />OCTeam</p>
-
+list_of_titled_caches_is_empty Er zijn nog geen caches van de naand 
+titled_cache Cache van de maand
+titled_caches Caches van de maand
+titled_cache_congratulations <p><img src="tpl/stdstyle/images/free_icons/award_star_gold_1.png" class="icon16" alt="{langTitledCache}" title="{langTitledCache}" />&nbsp Hallo !!! <br/> <br/>Deze cache is vandaag uitgeroepen tot cache van de maand.</p><p><span style="color: #008000;"><strong><br />GEFELICITEERD!!!</strong></span><br />OC-Team</p>
+titled_cache_date Datum<br>toekenning
