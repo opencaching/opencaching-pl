@@ -50,7 +50,7 @@ class sendEmail
         if (!isset($usr['username']))
             $usr['username'] = 'SYSTEM';
         $mailbody = mb_ereg_replace('{runwatch14}', tr('runwatch14'), $mailbody);
-        $mailbody = mb_ereg_replace('{commentDateTime}', date($siteDateFormat, strtotime($commentDateTime)), $mailbody);
+        $mailbody = mb_ereg_replace('{commentDateTime}', date($siteDateTimeFormat, strtotime($commentDateTime)), $mailbody);
         $mailbody = mb_ereg_replace('{userId}', $usr['userid'], $mailbody);
         $mailbody = mb_ereg_replace('{userName}', $usr['username'], $mailbody);
         $mailbody = mb_ereg_replace('{absolute_server_URI}', $absolute_server_URI, $mailbody);

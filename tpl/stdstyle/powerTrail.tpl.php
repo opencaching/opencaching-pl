@@ -276,7 +276,7 @@
             request = $.ajax({
             url: "powerTrail/ajaxUpdateComment.php",
                     type: "post",
-                    data:{text: newComment, datetime: $('#commentDateTime').val() + ' ' + $('#timepicker').val(), ptId: $('#xmd34nfywr54').val(), commentId: $('#editedCommentId').val(), callingUser: $('#ClickinguserId').val()},
+                    data:{text: newComment, datetime: $('#commentDateTime').val() + '_' + $('#timepicker').val(), ptId: $('#xmd34nfywr54').val(), commentId: $('#editedCommentId').val(), callingUser: $('#ClickinguserId').val()},
             });
             request.done(function (response, textStatus, jqXHR){
             // console.log(response);
