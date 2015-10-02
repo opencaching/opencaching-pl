@@ -2563,6 +2563,7 @@ Given_Recommendations Gegeven aanbevelingen door
 waypoint_error2 Waypoints kunnen in de volgende formaten gezocht worden: OPxxxx, ORxxxx, OBxxxx, GCxxxxx, NCxxxx
 pagetitle_print Cachebeschrijving
 natura2000 NATURA 2000 gebied
+WeekCache Cache van de maand
 ignoreFoundLimitRm Sta niet toe dat er nieuwe caches gemaakt kunnen worden
 ignoreFoundLimitAdd Sta toe dat er nieuwe caches gemaakt kunnen worden
 NoDataAvailable Geen gegevens
