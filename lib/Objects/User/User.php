@@ -41,8 +41,12 @@ class User
     {
         if(isset($params['userId'])){
             $this->userId = (int) $params['userId'];
-            $this->loadUserDataFromDb();
-
+            
+            if(isset($params['fieldsStr']))
+            	$this->loadUserDataFromDb($params['fieldsStr']);
+            else 
+            	$this->loadUserDataFromDb();
+            
         }else if(isset($params['userDbRow'])){
             $this->setUserFieldsByUsedDbRow( $params['userDbRow'] );
 
@@ -95,10 +99,19 @@ class User
         return $this->medals;
     }
 
-    private function loadUserDataFromDb()
+    private function loadUserDataFromDb($fields=null)
     {
         $db = \lib\Database\DataBaseSingleton::Instance();
-        $queryById = "SELECT username, founds_count, notfounds_count, hidden_count, latitude, longitude, country, email FROM `user` WHERE `user_id`=:1 LIMIT 1";
+        
+        if(is_null($fields)){
+        	//default user fields
+        	$queryById = "SELECT username, founds_count, notfounds_count, hidden_count, latitude, longitude, country, email FROM `user` WHERE `user_id`=:1 LIMIT 1";
+        }else{
+        	//only requested fields
+        	$queryById = "SELECT $fields FROM `user` WHERE `user_id`=:1 LIMIT 1";
+        }
+        
+        
         $db->multiVariableQuery($queryById, $this->userId);
         $userDbRow = $db->dbResultFetch();
         if($userDbRow){
@@ -108,6 +121,8 @@ class User
 
     private function setUserFieldsByUsedDbRow(array $dbRow)
     {
+    	$cordsPresent = false;
+    	
         foreach($dbRow as $key=>$value){
             switch($key){
                 case 'user_id':         $this->userId = $value; break;
@@ -119,7 +134,8 @@ class User
                 case 'country':         $this->country = $value; break;
                 case 'latitude':
                 case 'longitude':
-                    //lat|lon are handling below
+                	//lat|lon are handling below
+                	$cordsPresent=true;                    
                     break;
                 default:
                     error_log(__METHOD__.": Unknown column: $key");
@@ -127,7 +143,7 @@ class User
         }
 
         //if coordinates are present set the homeCords.
-        if(isset($dbRow['latitude'])&& isset($dbRow['longitude'])){
+        if($cordsPresent){
             $this->homeCoordinates =
                 new \lib\Objects\Coordinates\Coordinates( array('dbRow' => $dbRow) );
         }
@@ -192,6 +208,12 @@ class User
         return $this->foundGeocachesCount;
     }
 
+    /**
+     * @return \lib\Objects\Coordinates\Coordinates object
+     */
+    public function getHomeCordsObj(){
+    	return $this->homeCoordinates;
+    }
 
 
 

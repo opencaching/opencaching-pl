@@ -44,7 +44,7 @@
     </table>
 </div>
 
-<div id="map_canvas" style="width: {map_width}; height: {map_height}; border: 1px solid #888;"></div>
+<div id="map_canvas" style="width: 99%; height: 512px; border: 1px solid #888;"></div>
 
 <div style='margin: 10px auto'>
     <table id='cache_types' class='opt_table' cellspacing="0" style='float: left'>

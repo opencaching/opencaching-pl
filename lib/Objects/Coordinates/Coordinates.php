@@ -15,9 +15,9 @@ class Coordinates
      *
      * @var float
      */
-    private $latitude = 0;
-    private $longitude = 0;
-
+    private $latitude = NULL;
+    private $longitude = NULL;
+    
     /**
      * Default format from system setting
      *
@@ -68,11 +68,14 @@ class Coordinates
      */
     public function loadFromDb($dbRow)
     {
-        if (isset($dbRow['latitude'])) {
+    	
+        if ( isset($dbRow['latitude'], $dbRow['longitude']) ) {
             $this->latitude = (float) $dbRow['latitude'];
-        }
-        if (isset($dbRow['longitude'])) {
             $this->longitude = (float) $dbRow['longitude'];
+        }else{
+        	//at least one cord is NULL => improper cords
+        	$this->latitude = NULL;
+        	$this->longitude = NULL;
         }
     }
 
@@ -160,6 +163,17 @@ class Coordinates
     }
 
     /**
+     * return true if cords in object are set to reasonable values 
+     */
+    public function areCordsReasonable(){
+    	return ( 
+          	!is_null($this->latitude) && !is_null($this->latitude) &&
+    		$this->latitude >= -90 && $this->latitude <= 90 &&
+    		$this->longitude >= -180 && $this->longitude <= 180
+    	);    	
+    }
+    
+    /**
      * @param float $latitude
      * @return Coordinates
      */
@@ -178,7 +192,6 @@ class Coordinates
         $this->longitude = $longitude;
         return $this;
     }
-
 
 
     private function convertToDegMin($decimalCoordinate)

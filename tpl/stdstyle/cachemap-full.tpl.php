@@ -180,7 +180,7 @@ initial_params = {
         coords: [{coords}],
         zoom: {zoom},
         map_type: {map_type},
-        circle: 0, //{circle},
+        circle: {circle},
         doopen: {doopen},
         fromlat: {fromlat}, fromlon: {fromlon},
         tolat: {tolat}, tolon: {tolon},
