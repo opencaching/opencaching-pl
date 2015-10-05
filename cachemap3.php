@@ -60,7 +60,7 @@ parseCordsAndZoom($userObj);
 parsePrintList();
 
 //parse PowerTrail filter in url
-parsePowerTrailFilter();
+parsePowerTrailFilter(true);
 
 //read from DB map settings and apply to the map
 $filter = getDBFilter($usr['userid']); //logged user or preview user?

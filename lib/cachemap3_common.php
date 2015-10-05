@@ -168,20 +168,60 @@ function parseCordsAndZoom($userObj){
 
 /**
  * This function look for 'pt' param in request and set proper tpl var
+ * @param loadDetails - if set to true name, icon and link etc. 
+ *                        of the geopath will be load to template
  */
-function parsePowerTrailFilter(){
+function parsePowerTrailFilter( $loadDetails = false ){
     global $powerTrailModuleSwitchOn;
     
     if(!$powerTrailModuleSwitchOn){
         //powerTrails disabled in settings.inc.php
         tpl_set_var("powertrail_ids", "");
+        tpl_set_var("pt_filter_enabled", '0', false);
         return;
     }
     
-    if ( isset( $_REQUEST['pt'] ) && 
-            preg_match('/^[0-9\|]+$/', $_REQUEST['pt'] )){
+    if (! isset( $_REQUEST['pt'] ) ||
+            ! preg_match('/^[0-9]+(\|[0-9]+)*$/', $_REQUEST['pt'] )){
+    
+        //no param or improper param value
+        tpl_set_var("pt_filter_enabled", '0', false);
+        return;        
+    }
+    
+    //set powertrails_ids param
+    tpl_set_var("powertrail_ids", $_REQUEST['pt']);
+    
+    if(!$loadDetails){
+        tpl_set_var("pt_filter_enabled", '0', false);
+        return;
+    }
+    
+    //load powertrail details    
+    $powertrailsIds = explode('|', $_REQUEST['pt']);
+    
+    if(!is_array($powertrailsIds) || count($powertrailsIds) == 0){
+        tpl_set_var("pt_filter_enabled", '0', false);
+        return;
+    }
+    
+    tpl_set_var("pt_filter_enabled", '1', false);
+    
+    if( count($powertrailsIds) > 1 ){    
+        //many powertrails are selected  
+        //TODO...
+        tpl_set_var("pt_name", "HowDoYouFindIt - you're hacker! TBD");
+    }else{
+
+        $ptObj = new \lib\Objects\PowerTrail\PowerTrail(
+                array(
+                    'id'=>(int)($powertrailsIds[0]),
+                    'fieldsStr'=>'id,name,type'
+                ));
         
-        tpl_set_var("powertrail_ids", $_REQUEST['pt']);
+        tpl_set_var("pt_url", $ptObj->getPowerTrailUrl());
+        tpl_set_var("pt_name", $ptObj->getName());
+        tpl_set_var("pt_icon", $ptObj->getFootIcon());
     }
 }
 

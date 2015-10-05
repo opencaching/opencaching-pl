@@ -148,7 +148,7 @@ if ($searchdata) {  # Mode 2 - with "searchdata".
 
     # powertrail_ids (only caches from powerTrails with id) - convert to OKAPI's "powertrail_ids" param.
     if ( isset($_GET['powertrail_ids']) && 
-        preg_match('/^[0-9\|]+$/', $_GET['powertrail_ids']) ) {
+        preg_match('/^[0-9]+(\|[0-9]+)*$/', $_GET['powertrail_ids']) ) {
         $params['powertrail_ids'] = $_GET['powertrail_ids'];
     }
 
