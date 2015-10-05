@@ -37,7 +37,12 @@ class PowerTrail
     {
         if (isset($params['id'])) {
             $this->id = (int) $params['id'];
-            $this->loadDataFromDb();
+            
+            if(isset($params['fieldsStr']))
+                $this->loadDataFromDb($params['fieldsStr']);
+            else
+                $this->loadDataFromDb();
+            
         } elseif (isset($params['dbRow'])) {
             $this->setFieldsByUsedDbRow($params['dbRow']);
         } else {
@@ -46,33 +51,59 @@ class PowerTrail
         $this->geocaches = new Collection();
     }
 
-    private function loadDataFromDb()
+    private function loadDataFromDb($fields=null)
     {
         $db = \lib\Database\DataBaseSingleton::Instance();
-        $ptq = 'SELECT * FROM `PowerTrail` WHERE `id` = :1 LIMIT 1';
+
+        if(is_null($fields)){
+            //default select all fields
+            $fields = "*"; 
+        }
+
+        $ptq = "SELECT $fields FROM `PowerTrail` WHERE `id` = :1 LIMIT 1";
         $db->multiVariableQuery($ptq, $this->id);
         $this->setFieldsByUsedDbRow($db->dbResultFetch());
     }
 
     private function setFieldsByUsedDbRow(array $dbRow)
     {
-        $this->centerCoordinates = new Coordinates();
-        $this->centerCoordinates
-                    ->setLatitude($dbRow['centerLatitude'])
-                    ->setLongitude($dbRow['centerLongitude']);
-        $this->id = (int) $dbRow['id'];
-        $this->name = $dbRow['name'];
-        $this->image = $dbRow['image'];
-        $this->type = (int) $dbRow['type'];
-        $this->status = (int) $dbRow['status'];
-        $this->dateCreated = new \DateTime($dbRow['dateCreated']);
-        $this->cacheCount = (int) $dbRow['cacheCount'];
-        $this->description = $dbRow['description'];
-        $this->perccentRequired = $dbRow['perccentRequired'];
-        $this->conquestedCount = (int) $dbRow['conquestedCount'];
-        $this->points = $dbRow['points'];
-
-
+        
+        foreach($dbRow as $key=>$val){
+            switch($key){
+                case 'id':         $this->id = (int) $val;     break;
+                case 'name':     $this->name = $val;            break;
+                case 'image':     $this->image = $val;         break;
+                case 'type':     $this->type = (int) $val;     break;
+                case 'status':     $this->status = (int) $val; break;
+                case 'dateCreated':
+                    $this->dateCreated = new \DateTime($val); break;
+                case 'cacheCount':     
+                    $this->cacheCount = (int) $val;         break;
+                case 'description':     
+                    $this->description = $val;                 break;
+                case 'perccentRequired':
+                        $this->perccentRequired = $val;     break;
+                case 'conquestedCount':
+                        $this->conquestedCount = $val;         break;
+                case 'points':
+                        $this->points = $val;                 break;
+                        
+                case 'centerLatitude':
+                case 'centerLongitude':
+                    //cords are handled below...
+                    break;
+                default:
+                    error_log(__METHOD__.": Unknown column: $key");
+            }
+        }
+        
+        // and the coordinates..
+        if(isset($dbRow['centerLatitude'], $dbRow['centerLongitude'])){ 
+            $this->centerCoordinates = new Coordinates();
+            $this->centerCoordinates
+                        ->setLatitude($dbRow['centerLatitude'])
+                        ->setLongitude($dbRow['centerLongitude']);
+        }
 
     }
 

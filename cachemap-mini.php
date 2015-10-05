@@ -47,7 +47,7 @@ else
 
 
 //parse PowerTrail filter in url
-parsePowerTrailFilter();
+parsePowerTrailFilter(false);
 
 tpl_set_var('doopen', "false"); //donn not open any cache
 tpl_set_var('map_type', "0");   //fixed to default map
