@@ -18,7 +18,7 @@
  *
  * Params in request - all are optional:
  *
- * @param userid - Id of the user from who the map is presented
+ * @param userid - Id of the user, from which point of view the map is presented
  *
  * map location:
  * @param lat,lon - coordinates where the map is centered
@@ -48,16 +48,19 @@ tpl_set_var('userid', $mapForUserId);
     
 //load User data from DB
 $userObj = new \lib\Objects\User\User(
-	array(
-		'userId'=>$mapForUserId,
-		'fieldsStr'=>'user_id,latitude,longitude,username'
-	));
+    array(
+        'userId'=>$mapForUserId,
+        'fieldsStr'=>'user_id,latitude,longitude,username'
+    ));
     
 // parse cords and zoom setings
 parseCordsAndZoom($userObj);
 
 // parse eventually printList changes
 parsePrintList();
+
+//parse PowerTrail filter in url
+parsePowerTrailFilter();
 
 //read from DB map settings and apply to the map
 $filter = getDBFilter($usr['userid']); //logged user or preview user?

@@ -207,6 +207,12 @@ class tmp_Xmlmap
             $this->search_params['powertrail_only'] = "true";
         }
 
+        // powertrail_ids (only caches from powerTrails with id) - convert to OKAPI's "powertrail_ids" param.
+        if ( isset($_GET['powertrail_ids']) &&
+                    preg_match('/^[0-9\|]+$/', $_GET['powertrail_ids']) ) {
+            $this->search_params['powertrail_ids'] = $_GET['powertrail_ids'];
+        }
+
         // h_nogeokret - Convert to OKAPI's "with_trackables_only" parameter.
         if (isset($_GET['h_nogeokret']) && $_GET['h_nogeokret'] == 'true')
             $this->search_params['with_trackables_only'] = "true";

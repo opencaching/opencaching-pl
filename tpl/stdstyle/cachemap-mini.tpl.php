@@ -49,7 +49,8 @@
                     moremaptypes: false,
                     fullscreen: true,
                     largemap: false,
-                    savesettings: false
+                    savesettings: false,
+                    powertrail_ids: "{powertrail_ids}"
             },
                     translation: {
                     score_label: "{{score_label}}",

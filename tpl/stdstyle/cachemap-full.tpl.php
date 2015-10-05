@@ -190,7 +190,8 @@ initial_params = {
         moremaptypes: true,
         fullscreen: true,
         largemap: true,
-        savesettings: true
+        savesettings: true,
+        powertrail_ids: "{powertrail_ids}"
     }
 };
 
@@ -213,12 +214,8 @@ window.onload = function() {
 
 function attachFullScreenOffControl() {
     google.maps.event.addDomListener(document.getElementById("fullscreen_off"), "click", function() {
-        var bounds = "";
-        if ({fromlat} != {tolat}) {
-            bounds = '&fromlat={fromlat}&fromlon={fromlon}&tolat={tolat}&tolon={tolon}';
-        }
-        document.cookie = "forceFullScreenMap=off;"; //remember user decision in cookie
-        window.location = "cachemap3.php?lat=" + map.getCenter().lat() + "&lon=" + map.getCenter().lng() + "&inputZoom=" + map.getZoom() + "&{searchdata}" + bounds + "{extrauserid}";
+        //call function from cachemap3.js
+        fullscreen_off();
     });
 }
 

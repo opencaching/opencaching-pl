@@ -36,7 +36,7 @@
                             {{current_zoom}}:
                             <input type="text" id="zoom" size="2" value="{zoom}" disabled="disabled" style='border: 0; font-weight: bold; font-size: 13px; background: transparent'/>
                         </td>
-                        <td><a onclick="fullscreen();" style='cursor: pointer'><img src="images/fullscreen.png" alt="{{fullscreen}}"/></a></td>
+                        <td><a onclick="fullscreen_on();" style='cursor: pointer'><img src="images/fullscreen.png" alt="{{fullscreen}}"/></a></td>
                         <td><a onclick="generate_new_rand(); reload();" style='cursor: pointer'><img src="images/refresh.png"/></a></td>
                     </tr></table>
             </td>
@@ -198,7 +198,8 @@ initial_params = {
         moremaptypes: false,
         fullscreen: false,
         largemap: true,
-        savesettings: true
+        savesettings: true,
+        powertrail_ids: "{powertrail_ids}"
     }
 };
 

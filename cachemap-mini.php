@@ -33,18 +33,21 @@ tpl_set_var('userid', $mapForUserId);
 if ( isset( $_REQUEST['lat'] ) && $_REQUEST['lat'] != "" &&
      isset( $_REQUEST['lon'] ) && $_REQUEST['lon'] != "" ) {
 
-	//use cords from request
-	tpl_set_var('coords', $_REQUEST['lat'] . "," . $_REQUEST['lon']);
+    //use cords from request
+    tpl_set_var('coords', $_REQUEST['lat'] . "," . $_REQUEST['lon']);
 }else{
-	tpl_set_var('coords', $country_coordinates);
+    tpl_set_var('coords', $country_coordinates);
 }
 
 // zoom param is required here
 if ( isset( $_REQUEST['inputZoom'] ) && $_REQUEST['inputZoom'] != "")
-	tpl_set_var('zoom', $_REQUEST['inputZoom']);
+    tpl_set_var('zoom', $_REQUEST['inputZoom']);
 else
-	tpl_set_var('zoom', $default_country_zoom); //this is default zoom
+    tpl_set_var('zoom', $default_country_zoom); //this is default zoom
 
+
+//parse PowerTrail filter in url
+parsePowerTrailFilter();
 
 tpl_set_var('doopen', "false"); //donn not open any cache
 tpl_set_var('map_type', "0");   //fixed to default map
