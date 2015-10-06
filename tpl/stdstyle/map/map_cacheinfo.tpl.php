@@ -104,8 +104,8 @@
         <?php //cache is titled
              if( {is_titled} ) {               ?>
                 <p>
-                    <img width="10" height="10" src='/tpl/stdstyle/images/free_icons/award_star_gold_1.png' alt="{{titled_cache}}" />
-                    {{titled_cache}}
+                    <img width="10" height="10" src='/tpl/stdstyle/images/free_icons/award_star_gold_1.png' alt="<?php global $titled_cache_period_prefix; $ntitled_cache = $titled_cache_period_prefix.'_titled_cache'; echo tr($ntitled_cache); ?>" />
+                    <?php global $titled_cache_period_prefix; $ntitled_cache = $titled_cache_period_prefix.'_titled_cache'; echo tr($ntitled_cache); ?>
                 </p>
        <?php } //cache is titled ?>
         

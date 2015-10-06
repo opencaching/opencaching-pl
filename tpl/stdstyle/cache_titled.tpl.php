@@ -11,7 +11,7 @@
 <script type='text/javascript' src="lib/js/wz_tooltip.js"></script>
 
 
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/TitledCache.png" class="icon32" alt="Wyszukiwanie" title="Suchergebnis" align="middle" />&nbsp;{{titled_caches}}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/TitledCache.png" class="icon32" alt="Wyszukiwanie" title="Suchergebnis" align="middle" />&nbsp;<?php global $titled_cache_period_prefix; $ntitled_cache = $titled_cache_period_prefix.'_titled_caches'; echo tr($ntitled_cache); ?></div>
 
 <br>
 <br>

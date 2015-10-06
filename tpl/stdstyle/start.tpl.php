@@ -83,11 +83,12 @@
         <div class="content2-container-2col-left" id="cacheTitled" style="display: {ptDisplay}; width: 100%">
         
             <br>
-            <?php global $is_titled;
+            <?php global $is_titled, $titled_cache_period_prefix;
             
                 if ($is_titled == '1')
                 {
-                    $tmpTxt = '<p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/TitledCache.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;'.tr("titled_cache").'</p>';                
+                    $ntitled_cache = $titled_cache_period_prefix.'_titled_cache';
+                    $tmpTxt = '<p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/TitledCache.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;'.tr($ntitled_cache).'</p>';                
                     $tmpTxt .= '<ul style="font-size:11px">';
                     echo $tmpTxt;
                 } ?>

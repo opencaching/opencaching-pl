@@ -8,7 +8,7 @@ if (!isset($rootpath))
 require_once('./lib/common.inc.php');
 require_once('lib/cache_icon.inc.php');
 global $caches_list, $usr, $hide_coords, $cache_menu, $octeam_email, $site_name, $absolute_server_URI, $octeamEmailsSignature;
-global $dynbasepath, $powerTrailModuleSwitchOn, $googlemap_key;
+global $dynbasepath, $powerTrailModuleSwitchOn, $googlemap_key, $titled_cache_period_prefix;
 
 function onTheList($theArray, $item)
 {
@@ -728,7 +728,10 @@ if ($error == false) {
         if ( $cache_record['date_alg'] == '' )
             tpl_set_var('icon_titled', '');
         else
-            tpl_set_var('icon_titled', '<img src="tpl/stdstyle/images/free_icons/award_star_gold_1.png" class="icon16" alt="'.tr("titled_cache").'" title="'.tr("titled_cache").'"/>');
+        {
+            $ntitled_cache = $titled_cache_period_prefix.'_titled_cache';
+            tpl_set_var('icon_titled', '<img src="tpl/stdstyle/images/free_icons/award_star_gold_1.png" class="icon16" alt="'.tr($ntitled_cache).'" title="'.tr($ntitled_cache).'"/>');
+        }
         
         // cache type Mobile add calculate distance
         // todo: poszerzyć tabelkę 'caches' (lub stworzyć nową z relacją)

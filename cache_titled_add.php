@@ -1,6 +1,6 @@
 <?php
 
-global $titled_cache_nr_found;
+global $titled_cache_nr_found, $titled_cache_period_prefix;
 
 require_once('./lib/common.inc.php');
 
@@ -120,12 +120,11 @@ $date_alg = $start_date_alg;
             date_created, owner_notified, node, deleted, encrypt, 
             del_by_user_id, last_deleted, edit_by_user_id, edit_count )
     VALUES ( :1, :2, :3, :4, :5, :6, :7, :8 , :9 , :10, :11, :12, :13, :14, :15, '0', '0', NULL , NULL , NULL , '0' )";
-
+    
     $SystemUser = -1;
     $LogType = 12; //OCTeam
-    $langTitledCache = tr("titled_cache");
-    $msgText = tr("titled_cache_congratulations");
-    $msgText = str_replace(  '{langTitledCache}', $langTitledCache, $msgText );
+    $ntitled_cache = $titled_cache_period_prefix.'_titled_cache_congratulations';
+    $msgText = tr($ntitled_cache);
     $LogUuid = create_uuid();
     
     $dbc->multiVariableQuery($queryLogI, $rec[ "cacheId" ], $SystemUser, $LogType, $date_alg,
