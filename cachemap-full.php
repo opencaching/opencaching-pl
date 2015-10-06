@@ -33,11 +33,10 @@ tpl_set_var('userid', $mapForUserId);
 
 
 //load User data from DB
-$userObj = new \lib\Objects\User\User(
-        array(
-                'userId' => $mapForUserId,
-                'fieldsStr' => 'user_id,latitude,longitude,username'
-        ));
+$userObj = new \lib\Objects\User\User(array(
+    'userId' => $mapForUserId,
+    'fieldsStr' => 'user_id,latitude,longitude,username'
+));
 
 // parse cords and zoom setings
 parseCordsAndZoom($userObj);

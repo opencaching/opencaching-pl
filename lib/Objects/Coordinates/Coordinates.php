@@ -1,9 +1,9 @@
 <?php
-
 namespace lib\Objects\Coordinates;
 
 /**
  * Coordinates keep and converts geographical coordinates
+ *
  * @author Andrzej Lza Wozniak
  *
  */
@@ -15,9 +15,9 @@ class Coordinates
      *
      * @var float
      */
-    private $latitude = NULL;
-    private $longitude = NULL;
-    
+    private $latitude = null;
+    private $longitude = null;
+
     /**
      * Default format from system setting
      *
@@ -42,14 +42,15 @@ class Coordinates
 
     /**
      *
-     * @param array $params - must contain latitude (float) and longitude (float)
+     * @param array $params
+     *            - must contain latitude (float) and longitude (float)
      *
-     * example of use:
-     * $params = array (
-     *   latitude => 40.446321
-     *   longitude => 79.982321
-     * )
-     * $coordinates = new \lib\Objects\GeoCache\Coordinates($params);
+     *            example of use:
+     *            $params = array (
+     *            latitude => 40.446321
+     *            longitude => 79.982321
+     *            )
+     *            $coordinates = new \lib\Objects\GeoCache\Coordinates($params);
      *
      */
     public function __construct(array $params = null)
@@ -68,14 +69,13 @@ class Coordinates
      */
     public function loadFromDb($dbRow)
     {
-    	
-        if ( isset($dbRow['latitude'], $dbRow['longitude']) ) {
+        if (isset($dbRow['latitude'], $dbRow['longitude'])) {
             $this->latitude = (float) $dbRow['latitude'];
             $this->longitude = (float) $dbRow['longitude'];
-        }else{
-        	//at least one cord is NULL => improper cords
-        	$this->latitude = NULL;
-        	$this->longitude = NULL;
+        } else {
+            // at least one cord is NULL => improper cords
+            $this->latitude = null;
+            $this->longitude = null;
         }
     }
 
@@ -124,16 +124,17 @@ class Coordinates
      * returns latitude as string.
      * Result is in format selecdted by param $format. If param $format is not given, result is in default format.
      *
-     * @param integer $format (optional) must be one of this class constants:
-     *     COORDINATES_FORMAT_DECIMAL or COORDINATES_FORMAT_DEG_MIN or COORDINATES_FORMAT_DEG_MIN_SEC
+     * @param integer $format
+     *            (optional) must be one of this class constants:
+     *            COORDINATES_FORMAT_DECIMAL or COORDINATES_FORMAT_DEG_MIN or COORDINATES_FORMAT_DEG_MIN_SEC
      *
-     * @return string
-     *
+     * @return string 
+     * 
      * example of use:
-     *   $latitude = $coordinates->getLatitudeString(\lib\Objects\GeoCache\Coordinates::COORDINATES_FORMAT_DEG_MIN);
+     *         $latitude = $coordinates->getLatitudeString(\lib\Objects\GeoCache\Coordinates::COORDINATES_FORMAT_DEG_MIN);
      *
-     * example of use:
-     *   $latitude = $coordinates->getLatitudeString();
+     *         example of use:
+     *         $latitude = $coordinates->getLatitudeString();
      *
      */
     public function getLongitudeString($format = false)
@@ -163,17 +164,15 @@ class Coordinates
     }
 
     /**
-     * return true if cords in object are set to reasonable values 
+     * return true if cords in object are set to reasonable values
      */
-    public function areCordsReasonable(){
-    	return ( 
-          	!is_null($this->latitude) && !is_null($this->latitude) &&
-    		$this->latitude >= -90 && $this->latitude <= 90 &&
-    		$this->longitude >= -180 && $this->longitude <= 180
-    	);    	
+    public function areCordsReasonable()
+    {
+        return (! is_null($this->latitude) && ! is_null($this->latitude) && $this->latitude >= - 90 && $this->latitude <= 90 && $this->longitude >= - 180 && $this->longitude <= 180);
     }
-    
+
     /**
+     *
      * @param float $latitude
      * @return Coordinates
      */
@@ -184,6 +183,7 @@ class Coordinates
     }
 
     /**
+     *
      * @param int $longitude
      * @return Coordinates
      */
@@ -192,7 +192,6 @@ class Coordinates
         $this->longitude = $longitude;
         return $this;
     }
-
 
     private function convertToDegMin($decimalCoordinate)
     {
@@ -236,4 +235,3 @@ class Coordinates
         }
     }
 }
-
