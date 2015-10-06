@@ -4,6 +4,8 @@
 if (!isset($rootpath))
     $rootpath = '';
 
+global $titled_cache_period_prefix;
+
 //include template handling
 require_once($rootpath . 'lib/common.inc.php');
 require_once($rootpath . 'lib/calculation.inc.php');
@@ -752,8 +754,9 @@ if ($error == false) {
         $End_titledCaches = "";
         $file_content = "";
     } else {
+        $ntitled_cache = $titled_cache_period_prefix.'_titled_caches';
         $Title_titledCaches = '<br>
-        <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/TitledCache.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;'.tr("titled_caches").'</p>';
+        <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/TitledCache.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;'.tr($ntitled_cache).'</p>';
         
         $End_titledCaches = "<br /><br /><br />";
         

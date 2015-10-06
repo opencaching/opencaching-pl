@@ -496,5 +496,5 @@ $config['garmin-key'] = array(
 );
 
 $titled_cache_nr_found=10;
-
+$titled_cache_period_prefix='week';
 ?>

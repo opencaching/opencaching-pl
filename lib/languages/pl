@@ -2561,8 +2561,11 @@ ignoreFoundLimitRm Usuń możliwość zakładania skrzynek dla użytkownika, kt�
 ignoreFoundLimitAdd Dodaj możliwość zakładania skrzynek dla użytkownika, który nie osiągnął limitu znalezionych skrzynek
 NoDataAvailable Brak danych
 list_of_titled_caches_is_empty Nie ma skrzynek tygodnia w tej okolicy
-titled_cache Skrzynka tygodnia
-titled_caches Skrzynki tygodnia
-titled_cache_congratulations <p><img src="tpl/stdstyle/images/free_icons/award_star_gold_1.png" class="icon16" alt="{langTitledCache}" title="{langTitledCache}" />&nbsp Witaj !!! <br/> <br/>&nbsp&nbsp&nbsp&nbspMiło nam poinformować, iż Twoja skrzynka została wybrana skrzynką tygodnia.</p><p><span style="color: #008000;"><strong><br />SERDECZNIE GRATULUJEMY !!!</strong></span><br />Zespół OpenCaching</p>
+week_titled_cache Skrzynka tygodnia
+week_titled_caches Skrzynki tygodnia
+week_titled_cache_congratulations <p><img src="tpl/stdstyle/images/free_icons/award_star_gold_1.png" class="icon16" alt="Skrzynka tygodnia" title="Skrzynka tygodnia" />&nbsp Witaj !!! <br/> <br/>&nbsp&nbsp&nbsp&nbspMiło nam poinformować, iż Twoja skrzynka została wybrana skrzynką tygodnia.</p><p><span style="color: #008000;"><strong><br />SERDECZNIE GRATULUJEMY !!!</strong></span><br />Zespół OpenCaching</p>
+month_titled_cache Skrzynka miesiąca
+month_titled_caches Skrzynki miesiąca
+month_titled_cache_congratulations <p><img src="tpl/stdstyle/images/free_icons/award_star_gold_1.png" class="icon16" alt="Skrzynka miesiąca" title="Skrzynka miesiąca" />&nbsp Witaj !!! <br/> <br/>&nbsp&nbsp&nbsp&nbspMiło nam poinformować, iż Twoja skrzynka została wybrana skrzynką miesiąca.</p><p><span style="color: #008000;"><strong><br />SERDECZNIE GRATULUJEMY !!!</strong></span><br />Zespół OpenCaching</p>
 titled_cache_date Data<br>wyróżnienia
 
