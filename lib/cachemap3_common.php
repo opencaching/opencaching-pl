@@ -302,7 +302,7 @@ function parseSearchData(){
         tpl_set_var('fromlon', floatval($_GET['fromlon']));
         tpl_set_var('tolat', floatval($_GET['tolat']));
         tpl_set_var('tolon', floatval($_GET['tolon']));
-        tpl_set_var('boundsurl', '&amp;fromlat=' . floatval($_GET['fromlat']) . '&amp;fromlon=' . floatval($_GET['fromlon']) . '&amp;tolat=' . floatval($_GET['tolat']) . '&amp;tolon=' . floatval($_GET['tolon']));
+        tpl_set_var('boundsurl', '&fromlat=' . floatval($_GET['fromlat']) . '&fromlon=' . floatval($_GET['fromlon']) . '&tolat=' . floatval($_GET['tolat']) . '&tolon=' . floatval($_GET['tolon']));
     } else {
 
         //there is no searchdata for this map
