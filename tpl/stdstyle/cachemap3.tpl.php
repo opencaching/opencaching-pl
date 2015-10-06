@@ -18,9 +18,9 @@
     img.dim { opacity: .3; }
 </style>
 
-<div style='margin-right: 6px;' style='position: relative'>
+<div style='margin: 0px auto; width:98%'>
     <div id='shortcut_icons'></div>
-    <table style='border: 1px solid #ccc; background: #eee; padding: 3px 6px 3px 8px; width: 100%; margin-bottom: 10px;'>
+    <table style='border: 1px solid #ccc; background: #eee; padding: 3px 6px 3px 8px; width: 100%; margin-bottom: 5px;'>
         <tr>
             <td>
                 <div id="ext_search"><div id="search_control" style="float: left;">
@@ -36,7 +36,7 @@
                             {{current_zoom}}:
                             <input type="text" id="zoom" size="2" value="{zoom}" disabled="disabled" style='border: 0; font-weight: bold; font-size: 13px; background: transparent'/>
                         </td>
-                        <td><a onclick="fullscreen();" style='cursor: pointer'><img src="images/fullscreen.png" alt="{{fullscreen}}"/></a></td>
+                        <td><a onclick="fullscreen_on();" style='cursor: pointer'><img src="images/fullscreen.png" alt="{{fullscreen}}"/></a></td>
                         <td><a onclick="generate_new_rand(); reload();" style='cursor: pointer'><img src="images/refresh.png"/></a></td>
                     </tr></table>
             </td>
@@ -44,10 +44,35 @@
     </table>
 </div>
 
-<div id="map_canvas" style="width: {map_width}; height: {map_height}; border: 1px solid #888;"></div>
+<div id="map_canvas" style="width: 97.5%; margin: 0px auto; height: 512px; border: 1px solid #888;"></div>
 
-<div style='margin: 10px auto'>
-    <table id='cache_types' class='opt_table' cellspacing="0" style='float: left'>
+<div style='margin: 10px 0px'>
+
+    <?php //disable this part of template if pwoerTrail filter is not supported
+        if( {pt_filter_enabled} ) {
+    ?>
+    <table id='powertrail_filter' class='opt_table' cellspacing="0" style='clear: both; margin:5px auto; width:98%'>
+        <tr>
+            <th colspan='2'>{{pt001}}</th>
+        </tr>
+        <tr>
+            <td>
+                <input class="chbox" id="pt_selection" name="pt_selection" value="1"
+                        type="checkbox" checked="checked" onclick="reload()" />&nbsp;
+                <label for="pt_selection" style='display:inline-block; vertical-align:sub; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 300px;'>
+                    <a  href='{pt_url}' title='{pt_name}' target='_blank' style="text-decoration: none">
+                        <img width="20" height="20" src="{pt_icon}" alt="{{pt001}}" title='{pt_name}' />
+                        {pt_name}
+                    </a>
+                </label>
+            </td>
+        </tr>
+    </table>
+    <?php } //if-pt_filter_enabled ?>
+
+
+
+    <table id='cache_types' class='opt_table' cellspacing="0" style='float: left; width:48%; margin:0px 1%'>
         <tr>
             <th colspan='2'>{{hide_caches_type}}:</th>
         </tr>
@@ -99,7 +124,7 @@
         </tr>
     </table>
 
-    <table id='other_options' class='opt_table' cellspacing="0" style='float: left; margin-left: 10px'>
+    <table id='other_options' class='opt_table' cellspacing="0" style='float: right; width:48%; margin:0px 1%'>
         <tr>
             <th colspan='2'>{{hide_caches}}:</th>
         </tr>
@@ -152,9 +177,11 @@
                         </select>
                     </center>
                 </div>
-                <div style='margin-top: 5px'><center>
+                <div style='margin-top: 5px'>
+                    <center>
                         <input class="chbox" id="h_noscore" name="h_noscore" value="1" type="checkbox" {h_noscore_checked} onclick="reload()"/><label for="h_noscore">&nbsp;{{map_04}}</label>
-                    </center></div>
+                    </center>
+                 </div>
             </td>
         </tr>
     </table>
@@ -198,7 +225,8 @@ initial_params = {
         moremaptypes: false,
         fullscreen: false,
         largemap: true,
-        savesettings: true
+        savesettings: true,
+        powertrail_ids: "{powertrail_ids}"
     }
 };
 

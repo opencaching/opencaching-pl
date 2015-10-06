@@ -3,7 +3,7 @@ namespace lib\Objects\PowerTrail;
 
 use \lib\Database\DataBaseSingleton;
 use \lib\Objects\Coordinates\Coordinates;
-use lib\Objects\GeoCache\ Collection;
+use lib\Objects\GeoCache\Collection;
 use lib\Objects\GeoCache\GeoCache;
 
 class PowerTrail
@@ -20,6 +20,7 @@ class PowerTrail
     private $type;
     private $centerCoordinates;
     private $status;
+
     /* @var $dateCreated \DateTime */
     private $dateCreated;
     private $cacheCount;
@@ -27,17 +28,22 @@ class PowerTrail
     private $perccentRequired;
     private $conquestedCount;
     private $points;
+
     /* @var $geocaches \lib\Objects\GeoCache\Collection */
     private $geocaches;
     private $owners = false;
-
     private $powerTrailConfiguration;
-    
+
     public function __construct(array $params)
     {
         if (isset($params['id'])) {
             $this->id = (int) $params['id'];
-            $this->loadDataFromDb();
+
+            if (isset($params['fieldsStr'])) {
+                $this->loadDataFromDb($params['fieldsStr']);
+            } else {
+                $this->loadDataFromDb();
+            }
         } elseif (isset($params['dbRow'])) {
             $this->setFieldsByUsedDbRow($params['dbRow']);
         } else {
@@ -46,34 +52,72 @@ class PowerTrail
         $this->geocaches = new Collection();
     }
 
-    private function loadDataFromDb()
+    private function loadDataFromDb($fields = null)
     {
         $db = \lib\Database\DataBaseSingleton::Instance();
-        $ptq = 'SELECT * FROM `PowerTrail` WHERE `id` = :1 LIMIT 1';
+
+        if (is_null($fields)) {
+            // default select all fields
+            $fields = "*";
+        }
+
+        $ptq = "SELECT $fields FROM `PowerTrail` WHERE `id` = :1 LIMIT 1";
         $db->multiVariableQuery($ptq, $this->id);
         $this->setFieldsByUsedDbRow($db->dbResultFetch());
     }
 
     private function setFieldsByUsedDbRow(array $dbRow)
     {
-        $this->centerCoordinates = new Coordinates();
-        $this->centerCoordinates
-                    ->setLatitude($dbRow['centerLatitude'])
-                    ->setLongitude($dbRow['centerLongitude']);
-        $this->id = (int) $dbRow['id'];
-        $this->name = $dbRow['name'];
-        $this->image = $dbRow['image'];
-        $this->type = (int) $dbRow['type'];
-        $this->status = (int) $dbRow['status'];
-        $this->dateCreated = new \DateTime($dbRow['dateCreated']);
-        $this->cacheCount = (int) $dbRow['cacheCount'];
-        $this->description = $dbRow['description'];
-        $this->perccentRequired = $dbRow['perccentRequired'];
-        $this->conquestedCount = (int) $dbRow['conquestedCount'];
-        $this->points = $dbRow['points'];
+        foreach ($dbRow as $key => $val) {
+            switch ($key) {
+                case 'id':
+                    $this->id = (int) $val;
+                    break;
+                case 'name':
+                    $this->name = $val;
+                    break;
+                case 'image':
+                    $this->image = $val;
+                    break;
+                case 'type':
+                    $this->type = (int) $val;
+                    break;
+                case 'status':
+                    $this->status = (int) $val;
+                    break;
+                case 'dateCreated':
+                    $this->dateCreated = new \DateTime($val);
+                    break;
+                case 'cacheCount':
+                    $this->cacheCount = (int) $val;
+                    break;
+                case 'description':
+                    $this->description = $val;
+                    break;
+                case 'perccentRequired':
+                    $this->perccentRequired = $val;
+                    break;
+                case 'conquestedCount':
+                    $this->conquestedCount = $val;
+                    break;
+                case 'points':
+                    $this->points = $val;
+                    break;
 
+                case 'centerLatitude':
+                case 'centerLongitude':
+                    // cords are handled below...
+                    break;
+                default:
+                    error_log(__METHOD__ . ": Unknown column: $key");
+            }
+        }
 
-
+        // and the coordinates..
+        if (isset($dbRow['centerLatitude'], $dbRow['centerLongitude'])) {
+            $this->centerCoordinates = new Coordinates();
+            $this->centerCoordinates->setLatitude($dbRow['centerLatitude'])->setLongitude($dbRow['centerLongitude']);
+        }
     }
 
     public static function CheckForPowerTrailByCache($cacheId)
@@ -146,7 +190,7 @@ class PowerTrail
      */
     public function getGeocaches()
     {
-        if(!$this->geocaches->isReady()){
+        if (!$this->geocaches->isReady()) {
             $db = DataBaseSingleton::Instance();
             $query = 'SELECT powerTrail_caches.isFinal, caches . * , user.username FROM  `caches` , user, powerTrail_caches WHERE cache_id IN ( SELECT  `cacheId` FROM  `powerTrail_caches` WHERE  `PowerTrailId` =:1) AND user.user_id = caches.user_id AND powerTrail_caches.cacheId = caches.cache_id ORDER BY caches.name';
             $db->multiVariableQuery($query, $this->id);
@@ -156,7 +200,7 @@ class PowerTrail
                 $geocache = new GeoCache();
                 $geocache->loadFromRow($geoCacheDbRow)->setIsPowerTrailPart(true);
                 $geocache->setPowerTrail($this);
-                if($geoCacheDbRow['isFinal'] == 1){
+                if ($geoCacheDbRow['isFinal'] == 1) {
                     $geocache->setIsPowerTrailFinalGeocache(true);
                 }
                 $this->geocaches[] = $geocache;
@@ -168,7 +212,8 @@ class PowerTrail
         return $this->geocaches;
     }
 
-    private function loadPtOwners(){
+    private function loadPtOwners()
+    {
         $query = 'SELECT `userId`, `privileages`, username FROM `PowerTrail_owners`, user WHERE `PowerTrailId` = :1 AND PowerTrail_owners.userId = user.user_id';
         $db = \lib\Database\DataBaseSingleton::Instance();
         $db->multiVariableQuery($query, $this->id);
@@ -267,7 +312,7 @@ class PowerTrail
      */
     public function getOwners()
     {
-        if(!$this->owners){
+        if (!$this->owners) {
             $this->loadPtOwners();
         }
         return $this->owners;
@@ -282,7 +327,7 @@ class PowerTrail
     {
         $owners = $this->getOwners();
         foreach ($owners as $owner) {
-            if($userId == $owner->getUserId()){
+            if ($userId == $owner->getUserId()) {
                 return true;
             }
         }
@@ -313,7 +358,7 @@ class PowerTrail
         $db = DataBaseSingleton::Instance();
         $db->multiVariableQuery($countQuery, $this->id);
         $answer = $db->dbResultFetch();
-        if($answer['cacheCount'] != $this->cacheCount) {
+        if ($answer['cacheCount'] != $this->cacheCount) {
             $updateQuery = 'UPDATE `PowerTrail` SET `cacheCount` =:1  WHERE `id` = :2 ';
             $db->multiVariableQuery($updateQuery, $answer['cacheCount'], $this->id);
         }
@@ -326,7 +371,7 @@ class PowerTrail
     {
 //        $text = tr('pt227').tr('pt228');
 //        print 'pt #'.$this->id.', caches in pt: '.$this->cacheCount.'; min. caches limit: '. $this->getPtMinCacheCountLimit().'<br>';
-        if($this->cacheCount < $this->getPtMinCacheCountLimit()){
+        if ($this->cacheCount < $this->getPtMinCacheCountLimit()) {
 //            $text .= tr('pt227').tr('pt228');
             print '[test only] geoPath #<a href="powerTrail.php?ptAction=showSerie&ptrail='.$this->id.'">'.$this->id.'</a> (geoPtah cache count='.$this->cacheCount.' is lower than minimum='.$this->getPtMinCacheCountLimit().') <br/>';
 //            $db = \lib\Database\DataBaseSingleton::Instance();
@@ -348,8 +393,8 @@ class PowerTrail
      */
     private function getPtMinCacheCountLimit()
     {
-        foreach ($this->powerTrailConfiguration['old'] as $date){ //find interval path was created
-            if ($this->dateCreated->getTimestamp() >= $date['dateFrom'] && $this->dateCreated->getTimestamp() < $date['dateTo']){ // patch was created here
+        foreach ($this->powerTrailConfiguration['old'] as $date) { //find interval path was created
+            if ($this->dateCreated->getTimestamp() >= $date['dateFrom'] && $this->dateCreated->getTimestamp() < $date['dateTo']) { // patch was created here
                 return $date['limit'];
             }
         }
@@ -359,7 +404,8 @@ class PowerTrail
     /**
      * disable geoPaths, when its WIS > active caches count.
      */
-    public function disableUncompletablePt($serverUrl){
+    public function disableUncompletablePt($serverUrl)
+    {
         $countQuery = 'SELECT count(*) as `cacheCount` FROM `caches` WHERE `cache_id` IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1) AND `status` = 1';
         $db = DataBaseSingleton::Instance();
         $db->multiVariableQuery($countQuery, $this->id);
@@ -367,7 +413,7 @@ class PowerTrail
 
 //      print "active cc: ".$answer['cacheCount'].' / required caches: '. (($this->cacheCount*$this->perccentRequired)/100);
 
-        if($answer['cacheCount'] < ($this->cacheCount*$this->perccentRequired)/100) {
+        if ($answer['cacheCount'] < ($this->cacheCount*$this->perccentRequired)/100) {
             print '<span style="color: red">[test message only] geoPath #<a href="'.$serverUrl.'powerTrail.php?ptAction=showSerie&ptrail='.$this->id.'">'.$this->id.'</a>should be put in service (uncompletable) cacheCount: '.$answer['cacheCount'].' demand: '. (($this->cacheCount*$this->perccentRequired)/100) . ' </span><br/>';
 
             //$queryStatus = 'UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2';
