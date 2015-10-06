@@ -2,7 +2,7 @@
     .opt_table input { border: 0; }
     .opt_table { background: #eee; margin: 3px auto; width:100% }
     .opt_table th { background: #888; padding: 3px 8px 5px 8px; font-family: Tahoma; font-size: 13px; font-weight: bold; color: #fff; }
-    .opt_table td { padding: 6px; font-family: Tahoma; font-size: 13px; vertical-align: top; }
+    .opt_table td { padding: 3px 3px 3px 6px; font-family: Tahoma; font-size: 13px; vertical-align: top; }
     .opt_table select { padding: 1px; font-family: Tahoma; font-size: 13px; border: 1px solid #888; }
     .opt_table td.i { position: relative; width: 35px; display: block; }
     .opt_table td.i img { position: absolute; top: 0; }
@@ -18,19 +18,24 @@
     <table id="control_combo_table" style='background: #eee; padding: 3px 0px 3px 8px;'>
         <tr>
             <td>
-                <div id="ext_search"><div id="search_control" style="float: left;">
-                        <table cellspacing="0" cellpadding="0"><tr>
+                <div id="ext_search">
+                    <div id="search_control" style="float: left;">
+                        <table cellspacing="0" cellpadding="0">
+                            <tr>
                                 <td><input id="place_search_text" class="gsc-input" type="text" size="10"></td>
                                 <td><input id="place_search_button" class="gsc-search-button" value="{{search}}" type="button"></td>
                             </tr></table>
-                    </div></div>
+                    </div>
+                </div>
             </td>
             <td>
-                <table style='float: right;'><tr>
+                <table style='float: right;'>
+                    <tr>
                         <td><a id="fullscreen_off" style='cursor: pointer'><img src="images/fullscreen-off.png" title="{{disable_fullscreen}}"/></a></td>
                         <td><a id="current_position" style='cursor: pointer; display: none'><img id="current_position_icon" src="images/map_geolocation_0.png" title="{{where_i_am}}"/></a></td>
                         <td><a id="toggle_filters" style='cursor: pointer'><img src="okapi/static/tilemap/legend_other.png" title="{{toggle_filters}}"/></a></td>
-                    </tr></table>
+                    </tr>
+                </table>
             </td>
         </tr>
     </table>
@@ -164,9 +169,11 @@
                             </select>
                         </center>
                     </div>
-                    <div style='margin-top: 5px'><center>
+                    <div style='margin-top: 5px'>
+                        <center>
                             <input class="chbox" id="h_noscore" name="h_noscore" value="1" type="checkbox" {h_noscore_checked} onclick="reload()"/><label for="h_noscore">&nbsp;{{map_04}}</label>
-                        </center></div>
+                        </center>
+                    </div>
                 </td>
             </tr>
         </table>
