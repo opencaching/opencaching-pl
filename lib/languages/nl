@@ -2567,10 +2567,10 @@ WeekCache Cache van de maand
 ignoreFoundLimitRm Sta niet toe dat er nieuwe caches gemaakt kunnen worden
 ignoreFoundLimitAdd Sta toe dat er nieuwe caches gemaakt kunnen worden
 NoDataAvailable Geen gegevens
-list_of_titled_caches_is_empty Er zijn nog geen caches van de naand 
-week_titled_cache Cache van de maand
-week_titled_caches Caches van de maand
-week_titled_cache_congratulations <p><img src="tpl/stdstyle/images/free_icons/award_star_gold_1.png" class="icon16" alt="{langTitledCache}" title="{langTitledCache}" />&nbsp Hallo !!! <br/> <br/>Deze cache is vandaag uitgeroepen tot cache van de maand.</p><p><span style="color: #008000;"><strong><br />GEFELICITEERD!!!</strong></span><br />OC-Team</p>
+list_of_titled_caches_is_empty Er zijn nog geen caches genomineerd
+week_titled_cache Cache van de week
+week_titled_caches Caches van de week
+week_titled_cache_congratulations <p><img src="tpl/stdstyle/images/free_icons/award_star_gold_1.png" class="icon16" alt="{langTitledCache}" title="{langTitledCache}" />&nbsp Hallo !!! <br/> <br/>Deze cache is vandaag uitgeroepen tot cache van de week.</p><p><span style="color: #008000;"><strong><br />GEFELICITEERD!!!</strong></span><br />OC-Team</p>
 month_titled_cache Cache van de maand
 month_titled_caches Caches van de maand
 month_titled_cache_congratulations <p><img src="tpl/stdstyle/images/free_icons/award_star_gold_1.png" class="icon16" alt="{langTitledCache}" title="{langTitledCache}" />&nbsp Hallo !!! <br/> <br/>Deze cache is vandaag uitgeroepen tot cache van de maand.</p><p><span style="color: #008000;"><strong><br />GEFELICITEERD!!!</strong></span><br />OC-Team</p>
