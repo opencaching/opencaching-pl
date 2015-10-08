@@ -9,7 +9,7 @@ use \lib\Database\DataBaseSingleton;
  *
  * @author Łza
  */
-class User
+class User extends \lib\Objects\BaseObject
 {
 
     private $userId;
@@ -90,6 +90,9 @@ class User
                     error_log(__METHOD__ . ": Unknown field: $field (value: $value)");
             }
         }
+
+        $this->dataLoaded = true; //mark object as containing data
+
     }
 
     public function getMedals()
@@ -114,6 +117,13 @@ class User
         $queryById = "SELECT $fields FROM `user` WHERE `user_id`=:1 LIMIT 1";
 
         $db->multiVariableQuery($queryById, $this->userId);
+
+        if ($db->rowCount() != 1) {
+            //no such user found in DB?
+            $this->dataLoaded = false;  //mark object as NOT containing data
+            return;
+        }
+
         $userDbRow = $db->dbResultFetch();
         if ($userDbRow) {
             $this->setUserFieldsByUsedDbRow($userDbRow);
@@ -163,6 +173,8 @@ class User
                 'dbRow' => $dbRow
             ));
         }
+
+        $this->dataLoaded = true; //mark object as containing data
     }
 
     public function loadMedalsFromDb()
