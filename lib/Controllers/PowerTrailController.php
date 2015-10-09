@@ -7,6 +7,8 @@ use lib\Objects\PowerTrail\PowerTrail;
 
 class PowerTrailController
 {
+	const MINIMUM_PERCENT_REQUIRED = 66.6;
+
     private $config;
     private $serverUrl;
 
