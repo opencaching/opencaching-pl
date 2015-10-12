@@ -35,7 +35,7 @@
     gct.addChartOption('showRowNumber', true );
 
     gct.addChartOption('sortColumn', 4 ); //Data
-    gct.addChartOption('sortAscending', true );
+    gct.addChartOption('sortAscending', false );
     gct.addChartOption('pageSize', 20);
 
     gct.addVisualOptionVC('rowNumberCell', 'GCT-color-none GCT-font-size11 ');
