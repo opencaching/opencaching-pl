@@ -40,18 +40,12 @@ handleUserLogged();
 
 $tplname = 'cachemap3';
 
-// locate userId for which map is displayed
-$mapForUserId = getMapUserId();
-tpl_set_var('userid', $mapForUserId);
-
-// load User data from DB
-$userObj = new \lib\Objects\User\User(array(
-    'userId' => $mapForUserId,
-    'fieldsStr' => 'user_id,latitude,longitude,username'
-));
+// locate user for which map is displayed
+$mapForUserObj = getMapUserObj();
+tpl_set_var('userid', $mapForUserObj->getUserId());
 
 // parse cords and zoom setings
-parseCordsAndZoom($userObj);
+parseCordsAndZoom($mapForUserObj);
 
 // parse eventually printList changes
 parsePrintList();
@@ -66,7 +60,7 @@ setFilterSettings($filter);
 // handle search-data - visualization of search results
 parseSearchData();
 
-tpl_set_var('username', $userObj->getUserName());
+tpl_set_var('username', $mapForUserObj->getUserName());
 setTheRestOfCommonVars();
 
 // ...and lest run template...

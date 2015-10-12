@@ -6,7 +6,7 @@ use \lib\Objects\Coordinates\Coordinates;
 use lib\Objects\GeoCache\Collection;
 use lib\Objects\GeoCache\GeoCache;
 
-class PowerTrail
+class PowerTrail extends \lib\Objects\BaseObject
 {
 
     const TYPE_GEODRAW = 1;
@@ -71,6 +71,13 @@ class PowerTrail
 
         $ptq = "SELECT $fields FROM `PowerTrail` WHERE `id` = :1 LIMIT 1";
         $db->multiVariableQuery($ptq, $this->id);
+
+        if ($db->rowCount() != 1) {
+           //no such powertrail in DB?
+           $this->dataLoaded = false; //mark object as NOT containing data
+           return;
+        }
+
         $this->setFieldsByUsedDbRow($db->dbResultFetch());
     }
 
@@ -126,6 +133,9 @@ class PowerTrail
             $this->centerCoordinates = new Coordinates();
             $this->centerCoordinates->setLatitude($dbRow['centerLatitude'])->setLongitude($dbRow['centerLongitude']);
         }
+
+        $this->dataLoaded = true; //mark object as containing data
+
     }
 
     public static function CheckForPowerTrailByCache($cacheId)
