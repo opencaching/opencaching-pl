@@ -60,7 +60,8 @@ for( $i = 0; $i < $dbcLocCache->rowCount(); $i++ )
    $userNameRef = str_replace('{userId}', $ownId, $userNameRef );
    $userNameRef = str_replace('{userName}', $userName, $userNameRef );
    
-   $dateAlg = date($dateFormat, strtotime($record[ 'dateAlg' ]));   
+   $dateAlg = date($dateFormat, strtotime($record[ 'dateAlg' ]));
+   $dateAlgSort = date("y.m.d", strtotime($record[ 'dateAlg' ]));
    
    $cacheType = $record[ 'cache_type' ];
    
@@ -73,7 +74,7 @@ for( $i = 0; $i < $dbcLocCache->rowCount(); $i++ )
         gct.addToLastRow( 1, '$cacheNameRef' );
         gct.addToLastRow( 2, '$cacheRegion' );        
         gct.addToLastRow( 3, '$userNameRef' );        
-        gct.addToLastRow( 4, '$dateAlg' );
+        gct.addToLastRow( 4, '<span $dateAlgSort/> $dateAlg' );
     ";
 
 }
