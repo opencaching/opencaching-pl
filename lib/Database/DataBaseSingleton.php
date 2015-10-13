@@ -12,6 +12,9 @@ final class DataBaseSingleton
 
     private static $dataBase = null;
 
+    /**
+     * @return \dataBase
+     */
     public static function Instance()
     {
         static $inst = null;
