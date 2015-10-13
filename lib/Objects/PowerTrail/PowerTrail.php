@@ -496,5 +496,20 @@ class PowerTrail extends \lib\Objects\BaseObject
             }
         }
     }
+    function getActiveGeocacheCount()
+    {
+        return $this->activeGeocacheCount;
+    }
+
+    function getArchivedGeocacheCount()
+    {
+        return $this->archivedGeocacheCount;
+    }
+
+    function getUnavailableGeocacheCount()
+    {
+        return $this->unavailableGeocacheCount;
+    }
+
 
 }

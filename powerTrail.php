@@ -207,10 +207,16 @@ if ($error == false) {
                 tpl_set_var('displayPtDescriptionUserAction', displayPtDescriptionUserAction($powerTrail));
                 tpl_set_var('powerTrailDateCreated', $powerTrail->getDateCreated()->format($dateFormat));
                 tpl_set_var('powerTrailCacheCount', $powerTrail->getCacheCount());
+
+                tpl_set_var('powerTrailActiveCacheCount', $powerTrail->getActiveGeocacheCount());
+                tpl_set_var('powerTrailUnavailableCacheCount', $powerTrail->getUnavailableGeocacheCount());
+                tpl_set_var('powerTrailArchivedCacheCount', $powerTrail->getArchivedGeocacheCount());
+
                 tpl_set_var('powerTrailCacheLeft', ($powerTrail->getCacheCount() - count($foundCachsByUser)));
                 tpl_set_var('powerTrailOwnerList', displayPtOwnerList($powerTrail));
                 tpl_set_var('date', date($dateFormat));
                 tpl_set_var('powerTrailDemandPercent', $powerTrail->getPerccentRequired());
+                tpl_set_var('demandPercentMinimum', lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED);
                 tpl_set_var('ptCommentsSelector', displayPtCommentsSelector('commentType', $powerTrail, null, $usr));
                 tpl_set_var('conquestCount', $powerTrail->getConquestedCount());
                 tpl_set_var('ptPoints', $powerTrail->getPoints());

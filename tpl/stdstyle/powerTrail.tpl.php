@@ -1865,7 +1865,7 @@
             </tr>
             <tr>
                 <td class="descTd">{{pt022}}</td>
-                <td><span id="powerTrailCacheCount">{powerTrailCacheCount}</span><img id="cCountOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" /></td>
+                <td><span id="powerTrailCacheCount">{powerTrailCacheCount}</span> (<span style="color: green" title="ActiveGeocaches">{powerTrailActiveCacheCount}</span> / <span style="color: orange" title="UnavailableGeocaches">{powerTrailUnavailableCacheCount}</span> / <span style="color: red" title="ArchivedGeocaches">{powerTrailArchivedCacheCount}</span>) <img id="cCountOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" /></td>
                 <td align="right">
                     <span class="userActions" id="cacheCountUserActions">{cacheCountUserActions}</span>
                     <span style="display: none" id="ajaxLoaderCacheCount"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></span>
@@ -1876,7 +1876,7 @@
                 <td>
                     <span id="powerTrailpercent">{powerTrailDemandPercent}</span>% <img id="percentCountOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
                     <span id="powerTrailpercentEdit" style="display: none">
-                        <input id="demandPercent" onkeypress="return isNumberKey(event);" onkeyup="updateCc();" onchange="updateCc();" type="number" min="10" max="100" value="{powerTrailDemandPercent}" maxlength="3"/>
+                        <input id="demandPercent" onkeypress="return isNumberKey(event);" onkeyup="updateCc();" onchange="updateCc();" type="number" min="{demandPercentMinimum}" max="100" value="{powerTrailDemandPercent}" maxlength="3"/>
                         <a href="javascript:void(0)" onclick="togglePercentSection(); $('#ptPercentCc').html(calculatepercentCc($('#powerTrailpercent').html(), $('#powerTrailCacheCount').html()));" class="editPtDataButton">{{pt031}}</a>
                         <a href="javascript:void(0)" onclick="ajaxUpdateDemandPercent()" class="editPtDataButton">{{pt044}}</a>
                     </span>
