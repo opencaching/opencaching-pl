@@ -7,14 +7,15 @@ use lib\Objects\PowerTrail\PowerTrail;
 
 class PowerTrailController
 {
-	const MINIMUM_PERCENT_REQUIRED = 66.6;
+
+    const MINIMUM_PERCENT_REQUIRED = 66.6;
 
     private $config;
     private $serverUrl;
 
     function __construct()
     {
-        include __DIR__.'/../settings.inc.php';
+        include __DIR__ . '/../settings.inc.php';
         $this->config = $powerTrailMinimumCacheCount;
         $this->serverUrl = $absolute_server_URI;
 
@@ -37,7 +38,7 @@ class PowerTrailController
         foreach ($ptToClean as $dbRow) {
             $powerTrail = new PowerTrail(array('dbRow' => $dbRow));
             $powerTrail->setPowerTrailConfiguration($this->config)->checkCacheCount();
-            if(!$powerTrail->disableUncompletablePt($this->serverUrl)){
+            if (!$powerTrail->disableUncompletablePt($this->serverUrl)) {
                 $powerTrail->disablePowerTrailBecauseCacheCountTooLow();
             }
         }
@@ -50,7 +51,7 @@ class PowerTrailController
         $db = DataBaseSingleton::Instance();
         $archiveAbandonQuery = 'SELECT `id` FROM `PowerTrail` WHERE `id` NOT IN (SELECT PowerTrailId FROM `PowerTrail_owners` WHERE 1 GROUP BY PowerTrailId)';
         $db->simpleQuery($archiveAbandonQuery);
-        if($db->rowCount()>0) { // close all abandon geoPaths
+        if ($db->rowCount() > 0) { // close all abandon geoPaths
             $ptToClose = $db->dbResultFetchAll();
             $updateArr = array();
             foreach ($ptToClose as $pt) {
@@ -69,4 +70,5 @@ class PowerTrailController
         $db->simpleQuery($query);
         $db->reset();
     }
+
 }

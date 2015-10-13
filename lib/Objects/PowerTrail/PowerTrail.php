@@ -1,4 +1,5 @@
 <?php
+
 namespace lib\Objects\PowerTrail;
 
 use \lib\Database\DataBaseSingleton;
@@ -13,11 +14,10 @@ class PowerTrail
     const TYPE_TOURING = 2;
     const TYPE_NATURE = 3;
     const TYPE_TEMATIC = 4;
-
-	const STATUS_OPEN = 1;
-	const STATUS_UNAVAILABLE = 2;
-	const STATUS_CLOSED = 3;
-	const STATUS_INSERVICE = 4;
+    const STATUS_OPEN = 1;
+    const STATUS_UNAVAILABLE = 2;
+    const STATUS_CLOSED = 3;
+    const STATUS_INSERVICE = 4;
 
     private $id;
     private $name;
@@ -29,9 +29,9 @@ class PowerTrail
     /* @var $dateCreated \DateTime */
     private $dateCreated;
     private $cacheCount;
-	private $activeGeocacheCount = 0;
-	private $archivedGeocacheCount = 0;
-	private $unavailableGeocacheCount = 0;
+    private $activeGeocacheCount = 0;
+    private $archivedGeocacheCount = 0;
+    private $unavailableGeocacheCount = 0;
     private $description;
     private $perccentRequired;
     private $conquestedCount;
@@ -216,7 +216,7 @@ class PowerTrail
             }
             $this->geocaches->setIsReady(true);
             $this->geocaches->setGeocachesIdArray($geocachesIdArray);
-			$this->caculateGeocachesCountByStatus();
+            $this->caculateGeocachesCountByStatus();
         }
         return $this->geocaches;
     }
@@ -346,7 +346,7 @@ class PowerTrail
     public function getFoundCachsByUser($userId)
     {
 
-        $query = 'SELECT `cache_id` AS `geocacheId` FROM `cache_logs` WHERE `cache_id` in ('.$this->buildSqlStringOfAllPtGeocachesId().') AND `deleted` = 0 AND `user_id` = :1 AND `type` = "1" ';
+        $query = 'SELECT `cache_id` AS `geocacheId` FROM `cache_logs` WHERE `cache_id` in (' . $this->buildSqlStringOfAllPtGeocachesId() . ') AND `deleted` = 0 AND `user_id` = :1 AND `type` = "1" ';
         $db = DataBaseSingleton::Instance();
         $db->multiVariableQuery($query, (int) $userId);
         $cachesFoundByUser = $db->dbResultFetchAll();
@@ -377,7 +377,7 @@ class PowerTrail
 //        print 'pt #'.$this->id.', caches in pt: '.$this->cacheCount.'; min. caches limit: '. $this->getPtMinCacheCountLimit().'<br>';
         if ($this->cacheCount < $this->getPtMinCacheCountLimit()) {
 //            $text .= tr('pt227').tr('pt228');
-            print '[test only] geoPath #<a href="powerTrail.php?ptAction=showSerie&ptrail='.$this->id.'">'.$this->id.'</a> (geoPtah cache count='.$this->cacheCount.' is lower than minimum='.$this->getPtMinCacheCountLimit().') <br/>';
+            print '[test only] geoPath #<a href="powerTrail.php?ptAction=showSerie&ptrail=' . $this->id . '">' . $this->id . '</a> (geoPtah cache count=' . $this->cacheCount . ' is lower than minimum=' . $this->getPtMinCacheCountLimit() . ') <br/>';
 //            $db = \lib\Database\DataBaseSingleton::Instance();
 //            $queryStatus = 'UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2';
 //            $db->multiVariableQuery($queryStatus, 4, $pt['id']);
@@ -411,28 +411,28 @@ class PowerTrail
     public function disableUncompletablePt($serverUrl)
     {
 
-		$this->getGeocaches();
-		$requiredGeocacheCount = ($this->cacheCount * $this->perccentRequired)/100;
+        $this->getGeocaches();
+        $requiredGeocacheCount = ($this->cacheCount * $this->perccentRequired) / 100;
 
-		if($this->perccentRequired < \lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED){ // disable power trail witch too low percent required
-			print '<span style="color: orange">[test message only] geoPath #<a href="'.$serverUrl.'powerTrail.php?ptAction=showSerie&ptrail='.$this->id.'">'.$this->id.'</a> will be put in service because too low perccentRequired. (Current Percent:'.$this->perccentRequired.' Required: '.\lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED.') </span><br/>';
-		}
+        if ($this->perccentRequired < \lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED) { // disable power trail witch too low percent required
+            print '<span style="color: orange">[test message only] geoPath #<a href="' . $serverUrl . 'powerTrail.php?ptAction=showSerie&ptrail=' . $this->id . '">' . $this->id . '</a> will be put in service because too low perccentRequired. (Current Percent:' . $this->perccentRequired . ' Required: ' . \lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED . ') </span><br/>';
+        }
 
-        if($this->activeGeocacheCount < $requiredGeocacheCount) {
-			if($this->archivedGeocacheCount > $requiredGeocacheCount ){ // close powerTrail permanent
-				print '<span style="color: red">[test message only] geoPath #<a href="'.$serverUrl.'powerTrail.php?ptAction=showSerie&ptrail='.$this->id.'">'.$this->id.'</a> will be closed permanently. Total cache count: '.$this->cacheCount.' / Active geocaches: '.$this->activeGeocacheCount.' / Required: '. $requiredGeocacheCount . '. / Archived geocaches: '.$this->archivedGeocacheCount.' </span><br/>';
-//				$text = tr('pt227').tr('pt234');
-//				ddd($text);
-			}
-			if($this->unavailableGeocacheCount >= ($this->cacheCount - $requiredGeocacheCount) ){ // disable powerTrail for service only
-				print '<span style="color: black">[test message only] geoPath #<a href="'.$serverUrl.'powerTrail.php?ptAction=showSerie&ptrail='.$this->id.'">'.$this->id.'</a> will be put in service (uncompletable) Total cache count: '.$this->cacheCount.' / Active geocaches: '.$this->activeGeocacheCount.' / Required: '. (($this->cacheCount*$this->perccentRequired)/100) . '  / Archived geocaches: '.$this->archivedGeocacheCount.'</span><br/>';
-//				$db->multiVariableQuery('UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2', self::STATUS_INSERVICE, $this->id);
-            //$query = 'INSERT INTO `PowerTrail_comments`(`userId`, `PowerTrailId`, `commentType`, `commentText`, `logDateTime`, `dbInsertDateTime`, `deleted`) VALUES (-1, :1, 4, :2, NOW(), NOW(),0)';
-				$text = tr('pt227').tr('pt234');
-//				d($text);
-            // $db->multiVariableQuery($query, $pt['id'], $text);
-            //emailOwners($pt['id'], 4, date('Y-m-d H:i:s'), $text, 'newComment');
-			}
+        if ($this->activeGeocacheCount < $requiredGeocacheCount) {
+            if ($this->archivedGeocacheCount > $requiredGeocacheCount) { // close powerTrail permanent
+                print '<span style="color: red">[test message only] geoPath #<a href="' . $serverUrl . 'powerTrail.php?ptAction=showSerie&ptrail=' . $this->id . '">' . $this->id . '</a> will be closed permanently. Total cache count: ' . $this->cacheCount . ' / Active geocaches: ' . $this->activeGeocacheCount . ' / Required: ' . $requiredGeocacheCount . '. / Archived geocaches: ' . $this->archivedGeocacheCount . ' </span><br/>';
+//              $text = tr('pt227').tr('pt234');
+//              ddd($text);
+            }
+            if ($this->unavailableGeocacheCount >= ($this->cacheCount - $requiredGeocacheCount)) { // disable powerTrail for service only
+                print '<span style="color: black">[test message only] geoPath #<a href="' . $serverUrl . 'powerTrail.php?ptAction=showSerie&ptrail=' . $this->id . '">' . $this->id . '</a> will be put in service (uncompletable) Total cache count: ' . $this->cacheCount . ' / Active geocaches: ' . $this->activeGeocacheCount . ' / Required: ' . (($this->cacheCount * $this->perccentRequired) / 100) . '  / Archived geocaches: ' . $this->archivedGeocacheCount . '</span><br/>';
+//              $db->multiVariableQuery('UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2', self::STATUS_INSERVICE, $this->id);
+                //$query = 'INSERT INTO `PowerTrail_comments`(`userId`, `PowerTrailId`, `commentType`, `commentText`, `logDateTime`, `dbInsertDateTime`, `deleted`) VALUES (-1, :1, 4, :2, NOW(), NOW(),0)';
+                $text = tr('pt227') . tr('pt234');
+//          d($text);
+                // $db->multiVariableQuery($query, $pt['id'], $text);
+                //emailOwners($pt['id'], 4, date('Y-m-d H:i:s'), $text, 'newComment');
+            }
             return true;
         }
         return false;
@@ -447,7 +447,7 @@ class PowerTrail
         $powerTrailCacheLogsArr = $db->dbResultFetchAll();
         $powerTrailCachesUserLogsByCache = array();
         foreach ($powerTrailCacheLogsArr as $log) {
-            $powerTrailCachesUserLogsByCache[$log['cache_id']] = array (
+            $powerTrailCachesUserLogsByCache[$log['cache_id']] = array(
                 'date' => $log['date'],
                 'text_html' => $log['text_html'],
                 'text' => $log['text'],
@@ -456,35 +456,35 @@ class PowerTrail
         return $powerTrailCachesUserLogsByCache;
     }
 
-	private function buildSqlStringOfAllPtGeocachesId()
-	{
+    private function buildSqlStringOfAllPtGeocachesId()
+    {
         $this->getGeocaches();
         $geocachesIdArray = $this->geocaches->getGeocachesIdArray();
         $geocachesStr = '';
         foreach ($geocachesIdArray as $geocacheId) {
-            $geocachesStr .= $geocacheId.',';
+            $geocachesStr .= $geocacheId . ',';
         }
         return rtrim($geocachesStr, ',');
-	}
+    }
 
-	private function caculateGeocachesCountByStatus()
-	{
-		$this->activeGeocacheCount = 0;
-		$this->archivedGeocacheCount = 0;
-		$this->unavailableGeocacheCount = 0;
-		foreach ($this->geocaches as $geocache){
-			switch ($geocache->getStatus()){
-				case GeoCache::STATUS_READY:
-					$this->activeGeocacheCount++;
-					break;
-				case GeoCache::STATUS_ARCHIVED:
-					$this->archivedGeocacheCount++;
-					break;
-				default:
-					$this->unavailableGeocacheCount++;
-					break;
-			}
-		}
-	}
+    private function caculateGeocachesCountByStatus()
+    {
+        $this->activeGeocacheCount = 0;
+        $this->archivedGeocacheCount = 0;
+        $this->unavailableGeocacheCount = 0;
+        foreach ($this->geocaches as $geocache) {
+            switch ($geocache->getStatus()) {
+                case GeoCache::STATUS_READY:
+                    $this->activeGeocacheCount++;
+                    break;
+                case GeoCache::STATUS_ARCHIVED:
+                    $this->archivedGeocacheCount++;
+                    break;
+                default:
+                    $this->unavailableGeocacheCount++;
+                    break;
+            }
+        }
+    }
 
 }
