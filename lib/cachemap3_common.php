@@ -84,7 +84,7 @@ function getDBFilter($user_id)
 /**
  * parse $_REQUEST['userid'] and return user for which map is displayed
  */
-function getMapUserId()
+function getMapUserObj()
 {
     global $usr; // $usr is set in common.inc.php
 
@@ -92,12 +92,42 @@ function getMapUserId()
     if (isset($_REQUEST['userid'])) {
         $previewUserId = intval($_REQUEST['userid']);
 
-        tpl_set_var('extrauserid', $previewUserId);
-        return $previewUserId;
-    } else {
-        // this is map for logged user
+        // load User data from DB
+        $userObj = new \lib\Objects\User\User(array(
+            'userId' => $previewUserId,
+            'fieldsStr' => 'user_id,latitude,longitude,username'
+        ));
+
+        if ($userObj->isDataLoaded()) {
+            //user found
+            tpl_set_var('extrauserid', $previewUserId);
+            return $userObj;
+        }
+
+        // preview user not found - wrong userId?
+        // ...let's continue for currently logged user
+    }
+
+    // this is map for currently logged user
+
+    // load User data from DB
+    $userObj = new \lib\Objects\User\User(array(
+        'userId' => $usr['userid'],
+        'fieldsStr' => 'user_id,latitude,longitude,username'
+    ));
+
+    if ($userObj->isDataLoaded()) {
+        // user found
         tpl_set_var('extrauserid', "");
-        return $usr['userid'];
+        return $userObj;
+    } else {
+        // currently logged user not found - It should never happen
+
+        // user not logged - redirect to login page...
+        $usr = null;
+        $target = urlencode(tpl_get_current_page());
+        tpl_redirect('login.php?target=' . $target);
+        exit();
     }
 }
 
@@ -128,6 +158,12 @@ function parsePrintList()
     }
 }
 
+/**
+ * This function parse cords and zoom params from request
+ * and load load user cords from DB is necessary
+ *
+ * @param \lib\Objects\User $userObj - user from which point of view map is displayed
+ */
 function parseCordsAndZoom($userObj)
 {
     global $country_coordinates; // from global settings
@@ -144,10 +180,11 @@ function parseCordsAndZoom($userObj)
         }
     } else {
         // no cords in request - try user defaults
-        if ($userObj->getHomeCoordinates()->areCordsReasonable()) {
+        $cords = $userObj->getHomeCoordinates();
+        if (!is_null($cords) && $cords->areCordsReasonable()) {
             // user set proper home cords
-            $lat = $userObj->getHomeCoordinates()->getLatitude();
-            $lon = $userObj->getHomeCoordinates()->getLongitude();
+            $lat = $cords->getLatitude();
+            $lon = $cords->getLongitude();
             tpl_set_var('coords', "$lat,$lon");
 
             tpl_set_var('zoom', 11);
@@ -200,11 +237,10 @@ function parsePowerTrailFilter($loadDetails = false)
         return;
     }
 
-    tpl_set_var("pt_filter_enabled", '1', false);
-
     if (count($powertrailsIds) > 1) {
         // many powertrails are selected
         // TODO...
+        tpl_set_var("pt_filter_enabled", '1', false);
         tpl_set_var("pt_name", "HowDoYouFindIt - you're hacker! TBD");
     } else {
         $ptObj = new \lib\Objects\PowerTrail\PowerTrail(array(
@@ -212,9 +248,15 @@ function parsePowerTrailFilter($loadDetails = false)
             'fieldsStr' => 'id,name,type'
         ));
 
-        tpl_set_var("pt_url", $ptObj->getPowerTrailUrl());
-        tpl_set_var("pt_name", $ptObj->getName());
-        tpl_set_var("pt_icon", $ptObj->getFootIcon());
+        if ($ptObj->isDataLoaded()) {
+            tpl_set_var("pt_filter_enabled", '1', false);
+            tpl_set_var("pt_url", $ptObj->getPowerTrailUrl());
+            tpl_set_var("pt_name", $ptObj->getName());
+            tpl_set_var("pt_icon", $ptObj->getFootIcon());
+        } else {
+            tpl_set_var("pt_filter_enabled", '0', false);
+        }
+
     }
 }
 
@@ -249,7 +291,9 @@ function setFilterSettings($filter)
             continue;
         }
 
-        if (! ($key == "h_avail" || $key == "h_temp_unavail" || $key == "be_ftf" || $key == "powertrail_only" || $key == "map_type" || $key == "h_noscore")) {
+        if (! ($key == "h_avail"  || $key == "h_temp_unavail"  ||
+               $key == "be_ftf"   || $key == "powertrail_only" ||
+               $key == "map_type" || $key == "h_noscore")) {
             // workaround for reversed values
             $value = 1 - $value;
         }
@@ -286,7 +330,10 @@ function parseSearchData()
         tpl_set_var('fromlon', floatval($_GET['fromlon']));
         tpl_set_var('tolat', floatval($_GET['tolat']));
         tpl_set_var('tolon', floatval($_GET['tolon']));
-        tpl_set_var('boundsurl', '&fromlat=' . floatval($_GET['fromlat']) . '&fromlon=' . floatval($_GET['fromlon']) . '&tolat=' . floatval($_GET['tolat']) . '&tolon=' . floatval($_GET['tolon']));
+        tpl_set_var('boundsurl', '&fromlat=' . floatval($_GET['fromlat']) .
+                                 '&fromlon=' . floatval($_GET['fromlon']) .
+                                 '&tolat=' . floatval($_GET['tolat']) .
+                                 '&tolon=' . floatval($_GET['tolon']));
     } else {
         // there is no searchdata for this map
         tpl_set_var('filters_hidden', "");
@@ -320,8 +367,9 @@ function setCommonMap3Vars()
 
     tpl_set_var("cachemap_mapper", $cachemap_mapper);
     /* SET YOUR MAP CODE HERE */
-    tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?v=3.21&amp;language=' . $lang . '" type="text/javascript"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">');
+    tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?v=3.21&amp;language=' . $lang . '" '.
+        'type="text/javascript"></script>' .
+        '<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">');
 
     /*
      * Generate dynamic URL to cachemap3.js file, this will make sure it will be reloaded by the browser.
