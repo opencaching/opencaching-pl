@@ -4,7 +4,7 @@ require_once 'lib/common.inc.php';
 use lib\Controllers\PowerTrailController;
 
 
-ddd('adv');
+
 
 error_reporting(-1);
 
