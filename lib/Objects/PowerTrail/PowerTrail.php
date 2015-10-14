@@ -422,7 +422,7 @@ class PowerTrail extends \lib\Objects\BaseObject
     {
 
         $this->getGeocaches();
-        $requiredGeocacheCount = ($this->cacheCount * $this->perccentRequired) / 100;
+        $requiredGeocacheCount = $this->caclulateRequiredGeocacheCount();
 
         if ($this->perccentRequired < \lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED) { // disable power trail witch too low percent required
             print '<span style="color: orange">[test message only] geoPath #<a href="' . $serverUrl . 'powerTrail.php?ptAction=showSerie&ptrail=' . $this->id . '">' . $this->id . '</a> will be put in service because too low perccentRequired. (Current Percent:' . $this->perccentRequired . ' Required: ' . \lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED . ') </span><br/>';
@@ -446,6 +446,11 @@ class PowerTrail extends \lib\Objects\BaseObject
             return true;
         }
         return false;
+    }
+
+    private function caclulateRequiredGeocacheCount()
+    {
+        return ($this->cacheCount * $this->perccentRequired) / 100;
     }
 
     public function getPowerTrailCachesLogsForCurrentUser()
@@ -511,5 +516,57 @@ class PowerTrail extends \lib\Objects\BaseObject
         return $this->unavailableGeocacheCount;
     }
 
+    /**
+     * 
+     */
+    public function increaseConquestedCount()
+    {
+        $this->conquestedCount++;
+        $db = \lib\Database\DataBaseSingleton::Instance();
+        $query = 'UPDATE `PowerTrail` SET `PowerTrail`.`conquestedCount`= (SELECT COUNT(*) FROM `PowerTrail_comments` WHERE `PowerTrail_comments`.`PowerTrailId` = :1 AND `PowerTrail_comments`.`commentType` = 2 AND `PowerTrail_comments`.`deleted` = 0 ) WHERE `PowerTrail`.`id` = :1 ';
+        $db->multiVariableQuery($query, $this->id);
+    }
 
+    public function isAlreadyConquestedByUser(\lib\Objects\User\User $user)
+    {
+        $db = \lib\Database\DataBaseSingleton::Instance();
+        $mySqlRequest = 'SELECT count(*) AS `ptConquestCount` FROM `PowerTrail_comments` WHERE `commentType` =2 AND `deleted` =0 AND `userId` =:1 AND `PowerTrailId` = :2';
+        $db->multiVariableQuery($mySqlRequest, $user->getUserId(), $this->getId());
+        $mySqlResult = $db->dbResultFetch();
+        if ($mySqlResult['ptConquestCount'] > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setAndStoreStatus($status)
+    {
+        $this->status = $status;
+        $db = \lib\Database\DataBaseSingleton::Instance();
+        $query = 'UPDATE `PowerTrail` SET `status` = :1 WHERE `PowerTrail`.`id` = :2 ';
+        $db->multiVariableQuery($query, $status, $this->id);
+    }
+
+    /**
+     * 
+     * Check if this power trail meet criteria to be opened
+     * 
+     * Criteria:
+     * - percent required > minimum percent required
+     * - active geocahes Count >= required geocache count 
+     * - minimum geocaches count >= required geocaches count set in settings.inc.php
+     * 
+     * @return boolean
+     */
+    public function canBeOpened()
+    {
+        if($this->perccentRequired < \lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED){
+            return false;
+        }
+        if($this->activeGeocacheCount < $this->caclulateRequiredGeocacheCount()){
+            return false;
+        }
+        return true;
+    }
 }
