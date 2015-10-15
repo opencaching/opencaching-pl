@@ -72,7 +72,7 @@ $date_alg = $start_date_alg;
     and cache_titled.cache_id is NULL
     
     ORDER BY RATE DESC, founds DESC, caches.date_created DESC
-    LIMIT 10) as top
+    LIMIT 30) as top
     
     left join
     (
