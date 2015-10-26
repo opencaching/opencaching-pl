@@ -64,7 +64,7 @@ snake Achtung! Schlangen
 generate_code Code generieren
 9keycom Zusätzliche Attribute auf http://www.9key.com/selector.asp
 score Bewerten
-scored Bewertet
+scored bewertet
 recommendations Empfehlungen
 recommendation Empfehlung
 recommended Empfohlen
@@ -154,7 +154,7 @@ collected_queries Gesammelte Anfragen
 watched_caches Beobachtete Caches
 map_watched_caches Karte beobachtete Caches
 settings Einstellungen
-settings_notifications Notifizierung einstellungen
+settings_notifications Benachrichtigungen Einstellungen
 ignored_caches Ignorierte Caches
 my_recommendations Meine Empfehlungen
 search_cache Caches suchen
@@ -205,16 +205,16 @@ user Benutzer
 user_or_email Benutzer / E-Mail-Adresse
 password Passwort
 logged_as Eingeloggt als
-coords_other Koordinaten in andere Systeme
+coords_other Andere Koordinatensysteme
 size Größe
 time Zeitaufwand
 length Wegstrecke
 status_label Status
-date_hidden_label Datum versteckte
+date_hidden_label Versteckt am
 date_event_label Veranstaltungsbeginn
-date_created_label Erstellungsdatum
-last_modified_label Letzte Änderung
-last_modified2_label Letzte Änderung
+date_created_label Erstellt am
+last_modified_label Zuletzt geändert am
+last_modified2_label Zuletzt geändert am
 waypoint Wegpunkte
 listed_also_on Auch auf
 comments Bemerkungen
@@ -391,7 +391,7 @@ search_by_finder Suche nach Benutzer
 search_recommendations Empfehlungen
 search_all_caches alle Caches
 search_recommended_caches Empfehlungen:
-incomming_events Nächsten Events
+incomming_events Nächste Events
 rr_comment_label Anmerkung von OC team
 add_rr_comment Bemerkung OC Team hinzufügen
 remove_rr_comment Bemerkung OC Team löschen
@@ -424,9 +424,9 @@ ozi_path_label Pfad zum Ordner" OP "auf PDA
 ozi_path_info Geeignet für Ozi Explorer-Nutzer mit Filips-Datenbank. Wenn Sie den korrekten Pfad zum "OP" -Ordner, werden Sie zum Download WPT-Dateien als Suchergebnis mit Lokalisierung von Informationen über die Cache-Beschreibung. Danach können Sie auf den Cache auf Ozi Explorer anzeigen, und wählen Sie Öffnen Anlage-Option. Es öffnet sich detaillierte Beschreibung über den Cache. Beispiele: <b>\SDMMC\Baza\</b>, <b>\ Speicherkarte\bf\</b>
 newest_caches Neueste Caches
 total_of_active_caches Total aktiven Caches
-total_of_caches Totale Caches
+total_of_caches Caches insgesamt
 total_moved Total der rüber getragte Caches
-active_caches Active Caches
+active_caches Aktive Caches
 number_of_active_users Aktive Benutzer
 number_of_founds Gefundene Caches
 latest_news Aktuelles
@@ -445,7 +445,7 @@ mp3_files_info PodCasts - MP3 Datei
 utilities Dienstprogramme
 search_geocaches_nearby Cache suchen in Umkreis von 100km
 download_as_file Als Datei download
-accept_terms_of_use Weil downloading diese Datei, akzeptierst du unsere <a href="{wiki_link_rules_en}">Nutztbedigungen</a>.
+accept_terms_of_use Mit dem Download dieser Datei akzeptierst du unsere <a href="{wiki_link_rules_en}">Nutzungsbedigungen</a>.
 find_geocaches_on Geocaches finden an
 searchable ohne eigene und gefundene caches
 all_geocaches alle
@@ -499,7 +499,7 @@ error_usernotactive Konto ist nicht aktiv oder deaktiv.<br />Du kannst deine Kon
 not_registered Not registered? <a href="register.php">Registrieren</a>
 forgotten_your_password Passwort vergessen? <a href="newpw.php">Erinnern mich</a>
 forGottenEmailAddress E-mail adresse vergessen? <a href="remindemail.php">Frage hier deine E-mailadresse</a>
-cache_logged_required Du musst eingeloggt sein, um neue Log-Einträge hinzufügen und auf diesem Cache bedient werden.
+cache_logged_required Du musst eingeloggt sein, um neue Log-Einträge hinzuzufügen oder den Cache zu bearbeiten.
 basic_information Grundlegende Informationen.
 rating_poor schlecht
 rating_mediocre niveaulos
@@ -601,7 +601,7 @@ not_stat_cache Cache hat noch keine Statistik
 recommended_by Cache empfehlt bei
 listing_from_this_page Liste von diese Seite
 show_on_map Auf Karte anzeigen
-list_of_events_is_empty Es gibt keine Veranstaltungen in nähere Zukunft.
+list_of_events_is_empty Es sind keine Events in der nahen Zukunft geplant.
 stat_number_found Statistik der Anzahl von gesuchte Caches
 total_number_found_caches Anzahl der gefundene Caches
 total_dnf_caches Anzahl der nicht gefundene Caches
@@ -663,7 +663,7 @@ history_gk geoKrety besuchen
 cachenotes Notizen
 my_statistics Meine Statistik
 Field_Notes Garmin logdatei
-mycache_note Meine notizen
+mycache_note Meine Notizen
 personal_cache_note Persönliche Notiz
 cache_note_visible Notiz ist nicht sichtbar für andere Benutzer. Notiz wird befestig zur GPX Datei.
 obszary_ochrony_przyrody Naturschutzgebiete
@@ -887,7 +887,7 @@ more_six_month zwischen 6 und 12 Monaten
 more_12_month mehr als 12 Monaten
 unknown ubekannt
 user_not_active Benuzer Konto nicht aktiv
-distance_to_cache Abstand zur Cache
+distance_to_cache Entfernung zum Cache
 cacheguides Geocaching Hilfe mit Freiwilligen
 guide Guide
 guides Guides
@@ -1030,13 +1030,13 @@ date Datum
 
 
 
+mc_beginn_00 Neuen Cache eintragen – Informationen
 
 
 
 
 
-
-latest_blog Letzten Blogeinträge
+latest_blog Aktuelle Blog-Einträge
 geocache Geocache
 
 
@@ -1127,23 +1127,26 @@ choose Wählen
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+nc01 Lieber Benutzer
+nc02 danke, dass du deinen Cache bei {site_name} einträgst. Falls du Hilfe mit dem Verstecken oder Eintragen des Caches brauchst, kannst du unserem <a class="links" href="{wiki_link_main}">Opencaching wiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> nachlesen oder bei größeren Problemen uns direckt unter octeam kontaktieren. Denke daran, dass der Cache auch etwas über dich selbst erzählt. Um einen Cache mit möglichst guter Qualität sicherzustellen, bitten wir dich, dir selbst die folgenden Fragen zu stellen und zu beantworten:<ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">
+nc03 Liegt der Cache an einer Stelle versteckt, an der er nicht gegen Gesetze verstößt, und ist er nicht auf Privatgrund ohne Erlaubnis des Besitzers versteckt?
+nc04 Ist der Cache nicht in einem Nationalpark, einem Naturschutzgebiet, einem Denkmal, einem Friedhof oder einem anderen gesetzlich geschützten Gebiet versteckt?
+nc05 Ist der Abstand zu anderen Caches (150m) eingehalten?
+nc06 Kannst du den Cache warten, solange er auf dieser Webseite eingetragen ist?
+nc07 Ist der Cache so versteckt, dass er auch Nässe und Kälte (Frost) übersteht?
+nc08 Du kannst prüfen, ob in deiner Region ein
+nc09 Hilfe beim Cachen
+nc10 verfügbar ist, der dir beim Anlegen eigener Caches helfen kann.
+nc11 Entspricht der Cache den
+nc12 Nutzungsbedingungen auf {site_name}
+nc13 Bitte mache dich auf mit den Richtlinien
+nc14 Wie lege ich einen Cache an
+nc15 und den
+nc16 Verhaltensregen für Geocacher
+nc17 vertraut
+nc18 Freundliche Grüße,
+nc19 Team {site_name}
+nc20 Ich habe die obenstehenden Informationen gelesen und verstanden und möchte mit dem Eintragen eines Caches fortfahren.
 
 
 
@@ -1988,6 +1991,9 @@ pt_show_on_main_map Zeige PowerTrailcaches auf Hauptarte
 
 
 
+
+cog_user_name OC-Team
+
 region_02 Land
 
 
@@ -2365,7 +2371,7 @@ admin_users_verify_all Überprüfe alle neuen Caches für diesen Benutzer
 admin_users_verify_none Überprüfe nicht alle neuen Caches für diesen Benutzer
 LogPassword Passwort benötigt um zu loggen!
 Flopp_map Flopp's karte
-abovesealevel meter
+abovesealevel Meter
 cache_alt Höhe
 Given_Recommendations Emfehlungen gegeben von
 NoDataAvailable Keine Daten
