@@ -366,12 +366,12 @@ with_all_consequences mit allen Konsequenzen.
 cache_name Cachename
 distance_label Entfernung
 omit_caches Caches ausblenden
-of_owner Besitzer's
+of_owner eigene
 not_active deaktivierte
-observed beobachtet
+observed beobachtete
 from von
 to bis
-with_hidden_score Show-Caches ohne Bewertung
+with_hidden_score Caches ohne Bewertung anzeigen
 search_by_distance Suche nach Umkreis
 search_by_name Suche nach Cachename
 max_distance Maximaler Abstand
@@ -387,6 +387,7 @@ pictures Bilder
 search_by_owner Suche nach Besitzer
 owner_label Besitzer
 finder_label Benutzer
+waypoint_label waypoint
 search_by_finder Suche nach Benutzer
 search_recommendations Empfehlungen
 search_all_caches alle Caches
@@ -432,7 +433,7 @@ number_of_founds Gefundene Caches
 latest_news Aktuelles
 what_do_you_find Wilkommen auf {site_name}
 what_do_you_find_intro_pl Hier finden Sie alles über Geocaching in Polen. Opencaching in Polen wurde im <span class="content-title-noshade"> Mai 2006 </span>. <br/> Dies ist die wichtigste Polen Geocaching Website. Unsere Datenbank an <b> OpenSource Projekt Opencaching </b>.<br/>
-what_do_you_find_intro_nl <b>Willkommen bei opencaching.nl, deine Geocaching-Webseite für die BeNeLux! Diese Webseite hat eine Menge zu bieten und ist völlig kostenlos. Du kannst dir sofort einen Benutzer-Account erstellen und sofort loslegen. Hier findest du die bekannten Cache-Arten, aber wir bieten auch viele spezielle Cachearten wie virtuelle Caches, bewegliche Caches, Webcam-Caches, MP3 (Podcast) und Caches, die ausschließlich hier zu finden sind. </br>Wichtig ist, wie die Caches geprüft werden: deine ersten drei Caches werden durch das OC-Team geprüft. Weitere Caches kannst Du selber unmittelbar freischalten! Ein Klick auf <a href="http://www.opencaching.nl/myneighborhood.php"> Meine Umgebung </a>  verschafft dir einen Überblick über alles, was in deiner Nähe los ist: neue Caches, Caches die auf einen FTF warten, die neuesten Logs usw. </br></br>Sei willkommen und starte deine Suche nach versteckten Caches!</b>
+what_do_you_find_intro_nl <b>Willkommen bei opencaching.nl, deine Geocaching-Webseite für die BeNeLux! Diese Webseite hat eine Menge zu bieten und ist völlig kostenlos. Du kannst dir sofort einen Benutzer-Account erstellen und sofort loslegen. Hier findest du die bekannten Cache-Arten, aber wir bieten auch viele spezielle Cachearten wie virtuelle Caches, bewegliche Caches, Webcam-Caches, MP3 (Podcast) und Caches, die ausschließlich hier zu finden sind. Natürlich möchten wir nur gute und schöne Caches und möglichst keine lieblosen Mikros und Nanos an uninteressanten Plätzen.</br>Wichtig ist, wie die Caches geprüft werden: deine ersten drei Caches werden durch das OC-Team geprüft. Weitere Caches kannst Du selber unmittelbar freischalten! Ein Klick auf <a href="http://www.opencaching.nl/myneighborhood.php"> Meine Umgebung </a>  verschafft dir einen Überblick über alles, was in deiner Nähe los ist: neue Caches, Caches die auf einen FTF warten, die neuesten Logs usw. </br></br>Sei willkommen und starte deine Suche nach versteckten Caches!</b>
 more_news Mehr Nachrichten
 filename_rules {wiki_link_rules_en}
 filename_describe_cache {wiki_link_cacheParams_en}
@@ -580,7 +581,7 @@ graph_created Charts der Caches versteckt
 graph_find Charts der Caches gefunden
 there_is_no_caches_registered Hat noch keine versteckte Cache
 there_is_no_caches_found Hat noch keine Cache gefunden
-with_password Cache mit Passwort
+with_password Cache mit Logpasswort
 user_account Benutzerkonto
 management_users Benutzer management
 titles Titel
@@ -1363,7 +1364,7 @@ register02 Passwort
 register03 Passwort bestätigen
 logType1 Gefunden
 logType2 Nicht gefunden
-logType3 Notitz
+logType3 Notiz
 logType4 verschoben
 logType5 Wartung ist notwendig
 logType6 Wartung ist gemacht
@@ -1840,7 +1841,7 @@ pt079 Thema
 
 
 
-pt094 Dieser Cache ist Teil von PowerTrail
+pt094 Dieser Cache ist Teil der Cache-Serie
 pt095 Name cacher
 
 
