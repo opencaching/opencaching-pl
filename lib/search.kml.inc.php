@@ -2,7 +2,7 @@
 
     ob_start();
 
-    global $bUseZip, $sqldebug, $usr, $hide_coords, $absolute_server_URI, $dbcSearch;
+    global $bUseZip, $sqldebug, $usr, $hide_coords, $absolute_server_URI, $lang, $dbcSearch;
     set_time_limit(1800);
     $kmlLine =
 '
@@ -188,7 +188,7 @@
             icon
         */
 
-        $dbcSearch->simpleQuery( 'SELECT `kmlcontent`.`cache_id` `cacheid`, `kmlcontent`.`longitude` `longitude`, `kmlcontent`.`latitude` `latitude`, `kmlcontent`.cache_mod_cords_id, `kmlcontent`.`type` `type`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `cache_type`.`pl` `typedesc`, `cache_size`.`pl` `sizedesc`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username` FROM `kmlcontent`, `caches`, `cache_type`, `cache_size`, `user` WHERE `kmlcontent`.`cache_id`=`caches`.`cache_id` AND `kmlcontent`.`type`=`cache_type`.`id` AND `kmlcontent`.`size`=`cache_size`.`id` AND `kmlcontent`.`user_id`=`user`.`user_id`', $sqldebug);
+        $dbcSearch->simpleQuery( 'SELECT `kmlcontent`.`cache_id` `cacheid`, `kmlcontent`.`longitude` `longitude`, `kmlcontent`.`latitude` `latitude`, `kmlcontent`.cache_mod_cords_id, `kmlcontent`.`type` `type`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `cache_type`.`'.$lang.'` `typedesc`, `cache_size`.`'.$lang.'` `sizedesc`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username` FROM `kmlcontent`, `caches`, `cache_type`, `cache_size`, `user` WHERE `kmlcontent`.`cache_id`=`caches`.`cache_id` AND `kmlcontent`.`type`=`cache_type`.`id` AND `kmlcontent`.`size`=`cache_size`.`id` AND `kmlcontent`.`user_id`=`user`.`user_id`', $sqldebug);
         while($r = $dbcSearch->dbResultFetch() )
         {
             $thisline = $kmlLine;
