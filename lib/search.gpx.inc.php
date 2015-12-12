@@ -25,15 +25,18 @@
         return $retval;
     }
 
+        // sitename and slogan international handling
+        $nodeDetect = substr($absolute_server_URI,-3,2);
+
     $gpxHead =
 '<?xml version="1.0" encoding="utf-8"?>
 <gpx xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://geocaching.com.au/geocache/1 http://geocaching.com.au/geocache/1/geocache.xsd http://www.gsak.net/xmlv1/5 http://www.gsak.net/xmlv1/5/gsak.xsd"
-     xmlns="http://www.topografix.com/GPX/1/0" version="1.0" creator="OpenCachingPL">
-  <desc>Cache Listing Generated from Opencaching.pl {wpchildren}</desc>
-  <author>OpenCaching.PL</author>
-  <url>http://www.opencaching.pl</url>
-  <urlname>www.opencaching.pl</urlname>
+     xmlns="http://www.topografix.com/GPX/1/0" version="1.0" creator="'.$site_name.'">
+  <desc>Cache Listing Generated from '.$site_name.' {wpchildren}</desc>
+  <author>'.$site_name.'</author>
+  <url>'.$absolute_server_URI.'</url>
+  <urlname>'.$site_name.' - '.tr('oc_subtitle_on_all_pages_'.$nodeDetect).'</urlname>
   <time>{time}</time>
 ';
 
@@ -41,9 +44,9 @@
 '   <wpt lat="{lat}" lon="{lon}">
     <time>{time}</time>
     <name>{waypoint}</name>
-    <desc>{mod_suffix}{cachename} by {owner}, {type_text} ({difficulty}/{terrain})</desc>
-    <src>www.opencaching.pl</src>
-    <url>http://opencaching.pl/viewcache.php?wp={waypoint}</url>
+    <desc>{mod_suffix}{cachename} '.tr('from').' {owner}, {type_text} ({difficulty}/{terrain})</desc>
+    <src>'.$absolute_server_URI.'</src>
+    <url>'.$absolute_server_URI.'viewcache.php?wp={waypoint}</url>
     <urlname>{mod_suffix}{cachename}</urlname>
     <sym>Geocache</sym>
     <type>Geocache|{geocache_type}</type>
@@ -52,9 +55,10 @@
             <owner>{owner}</owner>
             <locale></locale>
             <state>{region}</state>
-            <country>POLSKA</country>
+            <country>{country}</country>
             <type>{type}</type>
             <container>{container}</container>
+            <attributes>{attributes}</attributes>
             <difficulty>{difficulty}</difficulty>
             <terrain>{terrain}</terrain>
             <summary html="false">{shortdesc}</summary>
@@ -71,6 +75,8 @@
     </wpt>
     {cache_waypoints}
 ';
+
+$gpxAttributes = '<attribute id="{attrib_id}" inc="1">{attrib_text_long}</attribute>';
 
 $gpxGeoKrety = '<geokret id="{geokret_id}" ref="{geokret_ref}">
             <gkname>{geokret_name}</gkname>
@@ -89,7 +95,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
     <name>{waypoint} {wp_stage}</name>
     <cmt>{desc}</cmt>
     <desc>{wp_type_name}</desc>
-    <url>http://opencaching.pl/viewcache.php?wp={waypoint}</url>
+    <url>'.$absolute_server_URI.'viewcache.php?wp={waypoint}</url>
     <urlname>{waypoint} {wp_stage}</urlname>
     <sym>{wp_type}</sym>
     <type>Waypoint|{wp_type}</type>
@@ -171,6 +177,56 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 
     if( $usr || !$hide_coords )
         {
+        // 1st set of attributes - attributes that correlate to GC attributes
+        $gpxAttribID[6] = '106';
+        $gpxAttribName[6] = 'Only logable at Opencaching';
+        $gpxAttribID[12] = '22';
+        $gpxAttribName[12] = 'Hunting';
+        $gpxAttribID[13] = '39';
+        $gpxAttribName[13] = 'Thorns';
+        $gpxAttribID[14] = '19';
+        $gpxAttribName[14] = 'Ticks';
+        $gpxAttribID[18] = '25';
+        $gpxAttribName[18] = 'Parking available';
+        $gpxAttribID[25] = '57';
+        $gpxAttribName[25] = 'Significant Hike';
+        $gpxAttribID[30] = '8';
+        $gpxAttribName[30] = 'Point of interest';
+        $gpxAttribID[38] = '13';
+        $gpxAttribName[38] = 'Available at all times';
+        $gpxAttribID[40] = '53';
+        $gpxAttribName[40] = 'Park and Grab';
+        $gpxAttribID[41] = '6';
+        $gpxAttribName[41] = 'Recommended for kids';
+        $gpxAttribID[44] = '24';
+        $gpxAttribName[44] = 'Wheelchair accessible';
+        $gpxAttribID[45] = '40';
+        $gpxAttribName[45] = 'Stealth required';
+        $gpxAttribID[52] = '60';
+        $gpxAttribName[52] = 'Wireless Beacon';
+        $gpxAttribID[61] = '54';
+        $gpxAttribName[61] = 'Abandoned Structure';
+        $gpxAttribID[82] = '44';
+        $gpxAttribName[82] = 'Flashlight required';
+        $gpxAttribID[83] = '51';
+        $gpxAttribName[83] = 'Special Tool Required';
+        $gpxAttribID[85] = '32';
+        $gpxAttribName[85] = 'Bicycles';
+        $gpxAttribID[86] = '4';
+        $gpxAttribName[86] = 'Boat';
+        $gpxAttribID[90] = '23';
+        $gpxAttribName[90] = 'Dangerous area';
+        $gpxAttribID[91] = '14';
+        $gpxAttribName[91] = 'Recommended at night';
+
+        // 2nd set of attributes - OC only attributes, changed ID (+100) to be save in oc-gc-mixed environments
+        //$gpxAttribID[6] = '106';
+        //$gpxAttribName[6] = 'Only loggable at Opencaching';
+        //$gpxAttribID[43] = '143';
+        //$gpxAttribName[43] = 'GeoHotel';
+        //$gpxAttribID[47] = '147';
+        //$gpxAttribName[47] = 'Compass';
+
         //prepare the output
         $caches_per_page = 20;
 
@@ -292,7 +348,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                     $sFilebasename = trim($rName['name']);
                     $sFilebasename = str_replace(" ", "_", $sFilebasename);
                 } else {
-                    $sFilebasename = 'ocpl' . $options['queryid'];
+                    $sFilebasename = ''.$short_sitename.'' . $options['queryid'];
                 }
             }
         }
@@ -379,7 +435,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
             $thisline = str_replace('{waypoint}', $r['waypoint'], $thisline);
             $thisline = str_replace('{cacheid}', $r['cacheid'], $thisline);
             $thisline = str_replace('{cachename}', cleanup_text($r['name']), $thisline);
-            $thisline = str_replace('{country}', $r['country'], $thisline);
+            $thisline = str_replace('{country}', tr($r['country']), $thisline);
             $region = sqlValue("SELECT `adm3` FROM `cache_location` WHERE `cache_id`='" . sql_escape($r['cacheid']) . "'", 0);
             $thisline = str_replace('{region}', $region, $thisline);
 
@@ -395,7 +451,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
             else
                 $thisline = str_replace('{hints}', '<hints>' . cleanup_text($r['hint']) . '</hints>', $thisline);
 
-            $logpw = ($r['logpw']==""?"":"UWAGA! W skrzynce znajduje się hasło - pamiętaj o jego zapisaniu!<br />");
+            $logpw = ($r['logpw']==""?"":"".tr('search_gpxgc_01')." <br />");
             $thisline = str_replace('{shortdesc}', cleanup_text($r['short_desc']), $thisline);
             $thisline = str_replace('{desc}', cleanup_text($logpw.$r['desc']), $thisline);
 
@@ -408,17 +464,37 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                 if (mysql_num_rows($notes_rs) != 0)
                 {
                 $cn = sql_fetch_array($notes_rs);
-            $thisline = str_replace('{personal_cache_note}', cleanup_text("<br/><br/>-- Wlasna notatka do skrzynki: --<br/> ".$cn['desc']."<br/>"), $thisline);
+            $thisline = str_replace('{personal_cache_note}', cleanup_text("<br/><br/>-- ".tr('search_gpxgc_02').": --<br/> ".$cn['desc']."<br/>"), $thisline);
                 } else {$thisline = str_replace('{personal_cache_note}', "", $thisline);}
             } else {$thisline = str_replace('{personal_cache_note}', "", $thisline);}
 
+        // attributes
+        $rsAttributes = sql("SELECT `caches_attributes`.`attrib_id` FROM `caches_attributes` WHERE `caches_attributes`.`cache_id`=&1", $r['cacheid']);
+        $attribentries='';
+        while ($rAttrib = sql_fetch_array($rsAttributes))
+        {
+            if (isset($gpxAttribID[$rAttrib['attrib_id']]))
+            {
+                $thisattribute = $gpxAttributes;
+                $thisattribute_id = $gpxAttribID[$rAttrib['attrib_id']];
+                $thisattribute_name = $gpxAttribName[$rAttrib['attrib_id']];
+
+                $thisattribute = mb_ereg_replace('{attrib_id}', $thisattribute_id, $thisattribute);
+                $thisattribute = mb_ereg_replace('{attrib_text_long}', $thisattribute_name, $thisattribute);
+
+                $attribentries .= $thisattribute . "\n";
+            }
+        }
+        mysql_free_result($rsAttributes);
+        $thisline = str_replace('{attributes}', $attribentries, $thisline);
+
             // start extra info
             $thisextra="";
-            $rsAttributes = sql("SELECT `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long` FROM `caches_attributes`, `cache_attrib` WHERE `caches_attributes`.`cache_id`=&1 AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id` AND `cache_attrib`.`language` = 'PL' ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
+            $rsAttributes = sql("SELECT `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long` FROM `caches_attributes`, `cache_attrib` WHERE `caches_attributes`.`cache_id`=&1 AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id` AND `cache_attrib`.`language` = '$lang' ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
             if (( $r['votes'] > 3 ) || ( $r['topratings'] > 0 ) || (mysql_num_rows($rsAttributes) > 0 )) {
-            $thisextra .= "\n-- Dodatkowe informacje z bazy OC: --\n";
+            $thisextra .= "\n-- ".tr('search_gpxgc_03').": --\n";
                 if (mysql_num_rows($rsAttributes) > 0) {
-                $attributes = 'Atrybuty: ';
+                $attributes = ''.tr('search_gpxgc_04').': ';
             while ($rAttribute = sql_fetch_array($rsAttributes))
             {
                     $attributes .= cleanup_text(xmlentities($rAttribute['text_long']));
@@ -430,10 +506,10 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
             if( $r['votes'] > 3 ){
 
                 $score = cleanup_text(score2rating($r['score']));
-                $thisextra .= "\nOcena skrzynki: " .$score. "\n";
+                $thisextra .= "\n".tr('search_gpxgc_05').": " .$score. "\n";
             }
             if( $r['topratings'] > 0 ){
-            $thisextra .= "Rekomendacje: " .$r['topratings']. "\n";}
+            $thisextra .= "".tr('search_gpxgc_06').": " .$r['topratings']. "\n";}
 
     // NPA - nature protection areas
 
@@ -445,7 +521,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 
             if (mysql_num_rows($rsArea) != 0)
             {
-            $thisextra .="Parki Narodowe/Krajobrazowe: ";
+            $thisextra .="".tr('search_gpxgc_07').": ";
                 while( $npa = mysql_fetch_array($rsArea) )
                 {
                     $thisextra .= $npa['npaname']."  ";
@@ -514,7 +590,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
             $thisline = str_replace('{owner}', xmlentities($r['username']), $thisline);
             $thisline = str_replace('{owner_id}', xmlentities($r['owner_id']), $thisline);
 
-            $rsAttributes = sql("SELECT `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long` FROM `caches_attributes`, `cache_attrib` WHERE `caches_attributes`.`cache_id`=&1 AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id` AND `cache_attrib`.`language` = 'PL' ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
+            $rsAttributes = sql("SELECT `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long` FROM `caches_attributes`, `cache_attrib` WHERE `caches_attributes`.`cache_id`=&1 AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id` AND `cache_attrib`.`language` = '$lang' ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
 
             // create log list
             if($options['gpxLogLimit']) {
