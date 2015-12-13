@@ -13,7 +13,7 @@
  */
 
 if (php_sapi_name() != "cli") {
-    printf ("This script should be run from command-line only.\n");
+    printf("This script should be run from command-line only.\n");
     exit(1);
 }
 
@@ -23,11 +23,10 @@ db_disconnect();
 
 $db = \lib\Database\DataBaseSingleton::Instance();
 
-function remove_watch($cache_id, $user_id)
-{
+function remove_watch($cache_id, $user_id) {
     global $db;
 
-    printf ("Watched cache ID: %s\n", $cache_id);
+    printf("Watched cache ID: %s\n", $cache_id);
 
     $db->beginTransaction();
 
@@ -44,21 +43,26 @@ function remove_watch($cache_id, $user_id)
     $db->commit();
 }
 
+if (!isset($argv[1])) {
+    echo "Usage: php clean_user_notifications.php <username>\n";
+    exit(1);
+}
+
 $user_name = $argv[1];
 
 // Check that user exists
 $user_id = $db->multiVariableQueryValue('SELECT user_id FROM user WHERE username = :1', 0, $user_name);
 if ($user_id == 0) {
-    printf ("User not found: %s\n", $user_name);
+    printf("User not found: %s\n", $user_name);
     exit(2);
 }
 
 // Clean notify radius - to avoid notification about new caches
 $notify_radius = $db->multiVariableQueryValue("SELECT notify_radius FROM user WHERE user_id = :1", -1, $user_id);
-printf ("Notify radius: %skm\n", $notify_radius);
+printf("Notify radius: %skm\n", $notify_radius);
 
 if ($notify_radius > 0) {
-    printf ("Resetting notify radius\n");
+    printf("Resetting notify radius\n");
     $db->multiVariableQuery("UPDATE user SET notify_radius = 0 WHERE user_id = :1", $user_id);
 }
 

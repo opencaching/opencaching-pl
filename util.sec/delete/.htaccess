@@ -1,23 +1,7 @@
 order deny,allow
 
-# starypatyk
-allow from 217.153.40.114
-allow from 62.121.123.245
-
-# sp2ong
-allow from 158.75.199.253
-allow from 158.75.199.249
-
-# filips
-allow from 62.121.108.70
-
-# Limak
-allow from 89.174.198.74
-allow from 93.159.50.226
-
 # OC PL
 allow from 127.0.0.1
-allow from 86.111.241.39
 
 deny from all
 
