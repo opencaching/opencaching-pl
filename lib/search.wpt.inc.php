@@ -2,15 +2,15 @@
 
 setlocale(LC_TIME, 'pl_PL.UTF-8');
 
-        global $content, $bUseZip, $sqldebug, $usr, $hide_coords, $dbcSearch;
+        global $content, $bUseZip, $sqldebug, $usr, $hide_coords, $dbcSearch, $lang;
     set_time_limit(1800);
-        $wptSize[1] = 'Inny'; //'Other'
-        $wptSize[2] = 'Mikro'; //'Micro'
-        $wptSize[3] = 'Mala'; //'Small'
-        $wptSize[4] = 'Normalna'; //'Regular'
-        $wptSize[5] = 'Duza'; //'Large'
-        $wptSize[6] = 'Duza'; //'Large'
-        $wptSize[7] = 'Wirtualna'; //'Virtual'
+        $wptSize[1] = tr('cacheSize_1'); //'Nano'
+        $wptSize[2] = tr('cacheSize_2'); //'Micro'
+        $wptSize[3] = tr('cacheSize_3'); //'Small'
+        $wptSize[4] = tr('cacheSize_4'); //'Regular'
+        $wptSize[5] = tr('cacheSize_5'); //'Large'
+        $wptSize[6] = tr('cacheSize_6'); //'Extra Large'
+        $wptSize[7] = tr('cacheSize_7'); //'Virtual'
 
         $wptType[1] = 'Unknown Cache';
         $wptType[2] = 'Traditional Cache';
@@ -190,7 +190,7 @@ setlocale(LC_TIME, 'pl_PL.UTF-8');
                                     username
                     */
 
-                    $sql = 'SELECT `wptcontent`.`cache_id` `cacheid`, IF(wptcontent.cache_id IN (SELECT cache_id FROM cache_logs WHERE deleted=0 AND user_id='.$usr['userid'].' AND (type=1 OR type=8)),1,0) as found, `wptcontent`.`longitude` `longitude`, `wptcontent`.`latitude` `latitude`, `wptcontent`.cache_mod_cords_id, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`wp_oc` `wp_oc`, `cache_type`.`short` `typedesc`, `cache_size`.`pl` `sizedesc`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username` , `caches`.`size` `size`, `caches`.`status` `status`, `caches`.`type` `type` FROM `wptcontent`, `caches`, `cache_type`, `cache_size`, `user` WHERE `wptcontent`.`cache_id`=`caches`.`cache_id` AND `wptcontent`.`type`=`cache_type`.`id` AND `wptcontent`.`size`=`cache_size`.`id` AND `wptcontent`.`user_id`=`user`.`user_id`';
+                    $sql = 'SELECT `wptcontent`.`cache_id` `cacheid`, IF(wptcontent.cache_id IN (SELECT cache_id FROM cache_logs WHERE deleted=0 AND user_id='.$usr['userid'].' AND (type=1 OR type=8)),1,0) as found, `wptcontent`.`longitude` `longitude`, `wptcontent`.`latitude` `latitude`, `wptcontent`.cache_mod_cords_id, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`wp_oc` `wp_oc`, `cache_type`.`short` `typedesc`, `cache_size`.`'.$lang.'` `sizedesc`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username` , `caches`.`size` `size`, `caches`.`status` `status`, `caches`.`type` `type` FROM `wptcontent`, `caches`, `cache_type`, `cache_size`, `user` WHERE `wptcontent`.`cache_id`=`caches`.`cache_id` AND `wptcontent`.`type`=`cache_type`.`id` AND `wptcontent`.`size`=`cache_size`.`id` AND `wptcontent`.`user_id`=`user`.`user_id`';
 
                     $dbcSearch->simpleQuery( $sql, $sqldebug);
 
