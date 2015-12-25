@@ -74,7 +74,7 @@ if ($usr['admin']) {
         $file_content .= '<td bgcolor=' . $bgcolor . '>' . ($i + 1) . '</td>';
         $file_content .= '<td bgcolor=' . $bgcolor . '><a href="viewcache.php?cacheid=' . htmlspecialchars($record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8') . '</a></td>';
         $file_content .= '<td bgcolor=' . $bgcolor . '>' . htmlspecialchars($record['ilosc'], ENT_COMPAT, 'UTF-8') . '</td>';
-        $file_content .= '<td bgcolor=' . $bgcolor . '><a href="reportcache.php?cacheid=' . htmlspecialchars($record['cache_id'], ENT_COMPAT, 'UTF-8') . '">Zgłoś problem</a></td>';
+        $file_content .= '<td bgcolor=' . $bgcolor . '><a href="reportcache.php?cacheid=' . htmlspecialchars($record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . tr('report_problem') . '</a></td>';
         $file_content .= '</tr>';
     }
 
