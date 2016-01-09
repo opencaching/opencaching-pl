@@ -246,9 +246,9 @@ username_exists Benutzername ist bereits vergeben.
 bad_coordinates Koordinaten sind ungültig.
 bad_radius Der Radius ist ungültig.
 your_data Ihre Daten
-data_in_profile Folgende Informationen sind in deinem Benutzerprofil gespeichert:
+data_in_profile Folgende Informationen sind in deinem Benutzerprofil gespeichert
 desc_updated Ihre Beschreibung wurde erfolgreich aktualisiert.
-gray_field_is_hidden Grau Felder sind nicht sichtbar für andere Nutzer.
+gray_field_is_hidden Graue Felder sind nicht sichtbar für andere Benutzer.
 username_label Benutzername
 country_label Land
 coordinates Koordinaten
@@ -257,12 +257,12 @@ my_description Meine Beschreibung
 other Andere
 registered_since_label Registriert seit
 statpic_label Statistikbild
-html_statpic_link HTML-Code für Ihr Statistikbild
-bbcode_statpic BBCode für Ihr Statistikbild
+html_statpic_link HTML-Code für dein Statistikbild
+bbcode_statpic BBCode für dein Statistikbild
 pmr_message Ich nehme ein PMR-Funkgerät auf Kanal 2 mit zum Cachen.
 no_auto_logout Keine automatische Abmeldung nach 15 Minuten der Inaktivität.
 notify_new_caches_radius Benachrichtigung über neue Caches in
-no_new_caches_notification Benachrichtigung über neue Caches deaktiviert ist.
+no_new_caches_notification Benachrichtigung über neue Caches ist deaktiviert.
 change_account_data Ändern Sie Ihr Profil Daten
 from_home_coords Koordinaten von meinem Haus
 radius_hint Maximale gültig ist 150 km Radius. So schalten Sie die Meldungen aus, geben Sie bitte <b> 0 </ b>.
@@ -272,7 +272,7 @@ watchers Beobachter
 visitors Aufrufe
 view_reports Berichte anzeigen
 report_problem Cache melden
-no_not_published_caches Nein nicht veröffentlicht Caches
+no_not_published_caches Deine nicht veröffentliche Caches
 no_logs Keine Log-Einträge
 no_time_indicated Noch keine Zeit angegeben
 welcome Willkommen
@@ -302,7 +302,7 @@ show zeigen
 lock sperren
 unlock entsperren
 user_stats Benutzer Statistik
-first_cache Du kannst kennenlernen wie wählen Cache Typ, Große, Attribute bei lesen <a href="{wiki_link_cacheParams_en}" target="_blank">basis Information</a>.
+first_cache Du kannst kennen lernen wie wählen Cache Typ, Große, Attribute bei lesen <a href="{wiki_link_cacheParams_en}" target="_blank">basis Information</a>.
 first_cache_approvement Weil es ist eine von Deine 3 Caches, wird sichtbar für alle nach Akzeptanz von Team {site_name}.
 all_cache_approvement Cache wird sichtbar für alle nach Akzeptanz von Team {site_name}.
 name_label Name
@@ -396,10 +396,10 @@ incomming_events Nächste Events
 rr_comment_label Anmerkung von OC team
 add_rr_comment Bemerkung OC Team hinzufügen
 remove_rr_comment Bemerkung OC Team löschen
-get_bulletin Ich möchte Bulletins bekommen
-bulletin_label_yes Nutzer erhalten Bulletins
-bulletin_label_no Nutzer erhalten keine Bulletins
-bulletin Bulletin
+get_bulletin Ich möchte Newslettern bekommen
+bulletin_label_yes Benutzer erhält Newsletter
+bulletin_label_no Benutzer erhält keine Newsletter
+bulletin Newsletter
 user_desc Benutzer Beschreibung
 days_since_first_find_label Tage seit der ersten Cache finden
 days_went_caching_label Tage gang Caching
@@ -421,8 +421,8 @@ h_pl_label Caches von opencaching.pl schauen
 h_de_label Caches von opencaching.de schauen
 h_se_label Caches von opencaching.se schauen
 h_no_label Caches von opencaching.no schauen
-ozi_path_label Pfad zum Ordner" OP "auf PDA
-ozi_path_info Geeignet für Ozi Explorer-Nutzer mit Filips-Datenbank. Wenn Sie den korrekten Pfad zum "OP" -Ordner, werden Sie zum Download WPT-Dateien als Suchergebnis mit Lokalisierung von Informationen über die Cache-Beschreibung. Danach können Sie auf den Cache auf Ozi Explorer anzeigen, und wählen Sie Öffnen Anlage-Option. Es öffnet sich detaillierte Beschreibung über den Cache. Beispiele: <b>\SDMMC\Baza\</b>, <b>\ Speicherkarte\bf\</b>
+ozi_path_label Pfad zum Ordner 'op' auf PDA
+ozi_path_info Gültig für Benutzer des OziExplorer mit Filips-Datenbank: wenn du den korrekten Pfad zum 'op'-Ordner angibst, kannst Du Suchergebnisse als WPT-Datei mit Cache-Beschreibungen herunterladen. Anschließend kannst Du den Cache in der Karte des OziExplorer auswählen und die 'Open Attachement'-Funktion benutzen. Diese öffnet dann detaillierte Informationen über den Cache. Beispiele: <b>\\SDMMC\baza\\</b>, <b>\\Memory card\BF\\</b>
 newest_caches Neueste Caches
 total_of_active_caches Anzahl der aktiven Caches
 total_of_caches Caches insgesamt
@@ -963,7 +963,7 @@ viewlog_aktywnosc Benutzer Aktivität (Summe der Caches - gefunden, nicht gefund
 
 
 
-
+GKApi01 OC Benutzeraccount mit GeoKrety.org vernküpfen
 
 
 
@@ -1005,18 +1005,18 @@ Open_Sprawdzacz OpenChecker
 
 
 
+
+
+
+
+
+
+
+
+
+
 date Datum
-
-
-
-
-
-
-
-
-
-
-
+myprofile01 Benutzer, die Caches angelegt haben oder Logs geschrieben haben, können nicht gelöscht werden. Es ist aber möglich, deinen Account zu deaktivieren. Die persönlichen Informationen in deinem Profil werden dann gelöscht, der Benutzername wird weiter gespeichert. Wenn du deinen Benutzeraccount deaktivieren möchtest, kontaktiere uns bitte (unter Angabe deiner eMail-Adresse)und wir werden dein Benutzerkonto deaktivieren. Danke!
 
 
 
@@ -1883,10 +1883,10 @@ pt126 Information
 
 
 
-pt137 PowerTrail des Tages
+pt137 GeoPath des Tages
 pt138 caches
-pt139 PowerTrail
-pt140 Ahnzal punte in PowerTrail
+pt139 GeoPaths
+pt140 Ahnzal punkte in GeoPath
 
 
 
@@ -1901,7 +1901,7 @@ pt148 Letzte cache
 
 
 
-pt155 PowerTrail Hilfe
+pt155 GeoPath Hilfe
 
 
 
@@ -1912,7 +1912,7 @@ pt155 PowerTrail Hilfe
 pt163 Mehr optionen
 pt164 Anwenden
 pt165 Aller arten
-pt166 Wahle PowerTrail art:
+pt166 Wahle geoPaths art:
 pt167 Sortiere nach
 pt168 Name
 pt169 Veröffentlichung datum
@@ -1921,7 +1921,7 @@ pt171 Punkte
 pt172 Anzahl abgeschlossener
 pt173 Ahnzal Caches
 pt174 Art
-pt175 Ahnzal gezeigte PowerTrail
+pt175 Ahnzal gezeigte GeoPaths
 pt176 Aufsteigend
 pt177 Abfallend
 pt178 Sortiermethode
@@ -1956,7 +1956,7 @@ pt184 Hallo
 
 
 
-pt208 Verwalten PowerTrails
+pt208 Verwalten GeoPaths
 
 
 
@@ -1971,7 +1971,7 @@ pt208 Verwalten PowerTrails
 
 
 
-pt223 PowerTrail
+pt223 GeoPaths
 
 pt225 Einträge im GPX
 
@@ -1980,12 +1980,12 @@ pt225 Einträge im GPX
 
 pt230 Datum
 pt231 Zeit
-pt232 Zeige auch kleine PowerTrails
-pt233 Zeige keine kleine PowerTrails
+pt232 Zeige auch kleine GeoPaths
+pt233 Zeige keine kleine GeoPaths
 
-
+pt235 Ich möchte Benachrichtigungen über GeoPaths erhalten
 pt236 Sorry, Diese Seite ist nur verfügbar für oc-team
-pt_show_on_main_map Zeige PowerTrailcaches auf Hauptarte
+pt_show_on_main_map Zeige GeoPathcaches auf Hauptkarte
 
 
 
