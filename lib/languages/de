@@ -226,7 +226,7 @@ watch_not Nicht beobachten
 ignore Ignorieren
 ignore_not Nicht ignorieren
 decrypt Entschlüsseln
-pictures_included Bilder im Zusammenhang mit dieser Log-Eintrag
+pictures_included Bilder im Zusammenhang mit diesem Log-Eintrag
 attendends Teilgenommen
 will_attend Möchte teilnehmen
 enter_text Geben Sie Text
@@ -424,7 +424,7 @@ h_no_label Caches von opencaching.no schauen
 ozi_path_label Pfad zum Ordner" OP "auf PDA
 ozi_path_info Geeignet für Ozi Explorer-Nutzer mit Filips-Datenbank. Wenn Sie den korrekten Pfad zum "OP" -Ordner, werden Sie zum Download WPT-Dateien als Suchergebnis mit Lokalisierung von Informationen über die Cache-Beschreibung. Danach können Sie auf den Cache auf Ozi Explorer anzeigen, und wählen Sie Öffnen Anlage-Option. Es öffnet sich detaillierte Beschreibung über den Cache. Beispiele: <b>\SDMMC\Baza\</b>, <b>\ Speicherkarte\bf\</b>
 newest_caches Neueste Caches
-total_of_active_caches Total aktiven Caches
+total_of_active_caches Anzahl der aktiven Caches
 total_of_caches Caches insgesamt
 total_moved Total der rüber getragte Caches
 active_caches Aktive Caches
@@ -577,8 +577,8 @@ geocaching_com_foto_info Bitte die Bilder aus geocaching.com nicht verwenden.
 extra_coded_info Zusätzliche Informationen kodiert werden
 statistics_users Benutzer Statistik
 general_stat Allgemeine Statistik
-graph_created Charts der Caches versteckt
-graph_find Charts der Caches gefunden
+graph_created Grafik der gefundenen Caches
+graph_find Grafik der versteckten Caches
 there_is_no_caches_registered Hat noch keine versteckte Cache
 there_is_no_caches_found Hat noch keine Cache gefunden
 with_password Cache mit Logpasswort
@@ -601,42 +601,41 @@ recommended_by Cache empfehlt bei
 listing_from_this_page Liste von diese Seite
 show_on_map Auf Karte anzeigen
 list_of_events_is_empty Es sind keine Events in der nahen Zukunft geplant.
-stat_number_found Statistik der Anzahl von gesuchte Caches
-total_number_found_caches Anzahl der gefundene Caches
-total_dnf_caches Anzahl der nicht gefundene Caches
-total_comments Anzahl der Komentarre in Logs
-total_attended_events Anzahl der Teilnahme in Veranstaltungen
-number_recommendations_given Anzahl der gegebene Emfehlungen
+stat_number_found Fundstatistik
+total_number_found_caches Anzahl gefundener Caches
+total_dnf_caches Anzahl nicht gefundener Caches
+total_comments Anzahl der Komentare
+total_attended_events Teilnahme an Veranstaltungen
+number_recommendations_given Abgegebene Empfehlungen
 number_found_caches Anzahl der gefundene
 shared_place Platzt ex-aequo
 total_amount_loggers Anzahl von Benutzer, die haben gefunden:
 total_amount_logs Anzahl, wieviel Mal Caches gefunden sind:
 filter_out_caches Nicht zahlen Statistik für Cache-Typ:
 days_caching Anzahl der "Caching-Tage"
-from_total_days von Anzahl der allen Tage
-average_caches Durschnitt von Caches an "Caching-Tag"
-most_caches_find_day Meist gefundene Caches auf einem Tag
-most_caches_made_day Meist gemachte Caches auf einem Tag
-latest_cache Letzte gefundene Cache
+from_total_days von Tagen insgesamt
+average_caches Durchschnittliche Funde pro "Caching-Tag"
+most_caches_find_day Meiste Funde an einem Tag
+most_caches_made_day Meiste Funde an einem "Caching-Tag"
+latest_cache Letzter gefundener Cache
 milestones  Milestones - Meilensteine
-latest_logs_by_user Neueste Log-Einträge eingegebene bei Benutzer
-stat_created_caches Statistik der versteckte Caches
-not_caches_created Hat noch keine versteckte Cache
-total_owned_caches Anzahl der allen versteckte Caches
-# translation warning: the above string should be: Number of caches owned, not Number of caches hidden
+latest_logs_by_user Neueste Logs des Benutzers
+stat_created_caches Statistik der versteckten Caches
+not_caches_created Hat noch keine versteckten Caches
+total_owned_caches Anzahl aller versteckten Caches
 total_owned_caches_adopted - including adopted
 total_created_caches Number of caches created by the user
 total_created_caches_adopted - including given to adoption
-number_temp_caches Anzahl der temporär nicht verfügbare Caches
-number_archived_caches Anzal der archivierte Caches
-number_created_events Anzahl der organisierte Veranstaltungen (events)
+number_temp_caches Anzahl der temporär nicht verfügbaren Caches
+number_archived_caches Anzal der archivierten Caches
+number_created_events Anzahl der organisierten Veranstaltungen (events)
 number_obtain_recommendations Anzahl der emfangene Empfehlungen
 for für
 _caches_ Caches
 ratio_recommendations Statistik der empfehlte Caches zur alle
 number_gk_in_caches Anzahl von GeoKret in Caches
-latest_created_cache Neueste versteckte Cache
-latest_logs_in_caches Neueste Log-einträge in Caches von Benutzer
+latest_created_cache Zuletzt versteckter Cache
+latest_logs_in_caches Neueste Log-Einträge in Caches des Benutzers
 caches_waiting_approve Caches erwarten für Verifikation bei OC Team
 caches_blocked Meine gesperrte Caches bei OC Team
 blocked_create_caches ACHTUNG! Deine Möglichkeit für Cache Versteckung ist gesperrt. Bitte um Kontakt mit OC Team rr@opencaching.pl
@@ -1082,6 +1081,30 @@ format_pict GPX mit bilder
 
 
 
+
+user_activity01 Benutzeraktivität
+user_activity02 Anzahl der gefundenen, nicht gefundenen und versteckten Caches
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 size_02 Mikro
 size_03 Klein
 size_04 Normal
@@ -1100,32 +1123,8 @@ size_07 Kein Behälter
 
 
 
+
 choose Wählen
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 nc01 Lieber Benutzer
 nc02 danke, dass du deinen Cache bei {site_name} einträgst. Falls du Hilfe mit dem Verstecken oder Eintragen des Caches brauchst, kannst du unserem <a class="links" href="{wiki_link_main}">Opencaching wiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> nachlesen oder bei größeren Problemen uns direckt unter octeam kontaktieren. Denke daran, dass der Cache auch etwas über dich selbst erzählt. Um einen Cache mit möglichst guter Qualität sicherzustellen, bitten wir dich, dir selbst die folgenden Fragen zu stellen und zu beantworten:<ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">
 nc03 Liegt der Cache an einer Stelle versteckt, an der er nicht gegen Gesetze verstößt, und ist er nicht auf Privatgrund ohne Erlaubnis des Besitzers versteckt?
@@ -2092,12 +2091,12 @@ search_text_16 Persönliche Notiz:
 
 
 
+vl_Recently_modified_on Zuletzt geändert am
+vl_by_user durch
 
-
-
-
-
-
+vl_totally_modified Insgesamt
+vl_count_plural Änderungen
+vl_count_singular Änderung
 
 
 
@@ -2185,11 +2184,11 @@ log_reset_button Text löschen
 
 
 
-
-
-
-
-
+viewprofileFTF Zeige FTFs des Benutzers
+viewprofileDate FTF Datum
+viewprofileTime FTF Uhrzeit
+viewprofileCache Cache Name
+viewprofileTotFtf FTFs insgesamt
 
 
 
