@@ -1,5 +1,4 @@
 -- 2016-01-07 Extend user-description 1024->4096
-
 -- github.com/opencaching/opencaching-pl/issues/218
 -- @author: miklobit
 
