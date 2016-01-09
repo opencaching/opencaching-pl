@@ -58,7 +58,7 @@
         </tr>
         <tr>
             <td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/script.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{my_description}}:</td>
-            <td class="txt-grey07">{description}</td>
+            <td>{description}</td>
         </tr>
         <tr><td class="buffer" colspan="2"></td></tr>
         <tr>
