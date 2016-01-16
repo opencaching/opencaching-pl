@@ -147,9 +147,9 @@ if ($error == false) {
                     $top_cache = 0;
                     $anzahl = ($user_tops + 1 - ($user_founds * rating_percentage / 100)) / (rating_percentage / 100);
                     if ($anzahl > 1) {
-                        $rating_msg = mb_ereg_replace('{anzahl}', "$anzahl Founds", $rating_too_few_founds);
+                        $rating_msg = mb_ereg_replace('{anzahl}', "$anzahl", $rating_too_few_founds);
                     } else {
-                        $rating_msg = mb_ereg_replace('{anzahl}', "$anzahl Found", $rating_too_few_founds);
+                        $rating_msg = mb_ereg_replace('{anzahl}', "$anzahl", $rating_too_few_founds);
                     }
                     $rating_msg .= '<br />' . $rating_maxreached;
                 }
