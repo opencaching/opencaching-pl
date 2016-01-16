@@ -281,6 +281,7 @@ if (date('m') == 12 || date('m') == 1) {
                     </p>
                     <p><a href="http://validator.w3.org/check?uri=referer" title="Validate code as W3C XHTML 1.0 Compliant">W3C XHTML 1.0</a> | <a href="http://jigsaw.w3.org/css-validator/" title="Validate Style Sheet as W3C CSS 2.0 Compliant">W3C CSS 2.0</a></p>
                 </div>
+                <!-- (C) The Open Caching Project ? - 2016 -->
             </div>
         </div>
     </body>
