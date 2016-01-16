@@ -62,7 +62,7 @@ class User extends \lib\Objects\BaseObject
     public function loadExtendedSettings()
     {
         $db = DataBaseSingleton::Instance();
-        $queryById = "SELECT `newcaches_no_limit` AS ingnoreGeocacheLimitWhileCreatingNewGeocache"
+        $queryById = "SELECT `newcaches_no_limit` AS ingnoreGeocacheLimitWhileCreatingNewGeocache "
                    . "FROM `user_settings` WHERE `user_id` = :1 LIMIT 1";
         $db->multiVariableQuery($queryById, $this->userId);
         $dbRow = $db->dbResultFetch();
