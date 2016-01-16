@@ -735,8 +735,8 @@ if ($error == false) {
         FROM cache_titled
         JOIN local_caches on cache_titled.cache_id = local_caches.cache_id
         JOIN caches ON cache_titled.cache_id = caches.cache_id
-        JOIN user ON caches.user_id = user.user_id            
-   
+        JOIN user ON caches.user_id = user.user_id
+        WHERE caches.status=1
         ORDER BY cache_titled.date_alg DESC LIMIT 0 , 11";
     
     $dbcLocCache->simpleQuery( $sqlstr );
