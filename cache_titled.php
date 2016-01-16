@@ -20,7 +20,8 @@ $query="SELECT
     FROM cache_titled 
     JOIN caches on caches.cache_id = cache_titled.cache_id
     JOIN user on user.user_id = caches.user_id
-    JOIN cache_location ON cache_location.cache_id = cache_titled.cache_id";
+    JOIN cache_location ON cache_location.cache_id = cache_titled.cache_id
+    WHERE caches.status=1";
 
 if ( isset( $_REQUEST[ 'type' ] ) )
 {    
