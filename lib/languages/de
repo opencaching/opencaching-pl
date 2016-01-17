@@ -426,7 +426,7 @@ ozi_path_info Gültig für Benutzer des OziExplorer mit Filips-Datenbank: wenn d
 newest_caches Neueste Caches
 total_of_active_caches Anzahl der aktiven Caches
 total_of_caches Caches insgesamt
-total_moved Total der rüber getragte Caches
+total_moved nzahl der bewegten Caches
 active_caches Aktive Caches
 number_of_active_users Aktive Benutzer
 number_of_founds Gefundene Caches
@@ -622,7 +622,7 @@ milestones  Milestones - Meilensteine
 latest_logs_by_user Neueste Logs des Benutzers
 stat_created_caches Statistik der versteckten Caches
 not_caches_created Hat noch keine versteckten Caches
-total_owned_caches Anzahl aller versteckten Caches
+total_owned_caches Anzahl aller eigenen Caches
 total_owned_caches_adopted - including adopted
 total_created_caches Number of caches created by the user
 total_created_caches_adopted - including given to adoption
@@ -1746,42 +1746,42 @@ ZA Südafrika
 ZM Sambia
 ZW Simbabwe
 SU Rusland
-pt000 PowerTrail
-pt001 PowerTrail
+pt000 GeoPath
+pt001 GeoPath
 pt002 Hinzufügen Zu PowerTral
-pt003 Neuen PowerTrail eintragen
+pt003 Neuen GeoPath eintragen
 pt004 Form auf Karte
 pt005 Erforschen
 pt006 Sichtbar
 pt007 nicht sichtbar
-pt008 Name PowerTrail
-pt009 Art PowerTrail
+pt008 Name GeoPath
+pt009 Art GeoPath
 pt010 Sichtbarkeit
-pt011 Beschreibung PowerTrail
-pt012 Alle PowerTrails
-pt013 Cache zu PowerTrail hinfügen
-pt014 aus diese PowerTrail gefunden
-pt015 Fortschritt dieser PowerTrail
+pt011 Beschreibung GeoPath
+pt012 Alle GeoPaths
+pt013 Cache zu GeoPath hinfügen
+pt014 aus diese GeoPath gefunden
+pt015 Fortschritt dieser GeoPath
 pt016 von
 pt017 Du hast
-pt018 Die PowerTrail ist nicht sichtbar (noch nicht veröffentlicht, Wartung, etc.)
-pt019 Eigenschaften PowerTrail
-pt020 Caches in PowerTrail
+pt018 Die GeoPath ist nicht sichtbar (noch nicht veröffentlicht, Wartung, etc.)
+pt019 Eigenschaften GeoPath
+pt020 Caches in GeoPath
 pt021 Meine Statistike von
 pt022 Anzahl Caches
-pt023 Art PowerTrail
+pt023 Art GeoPath
 pt024 Veröffentlichung datum
 pt025 Besitzer
 pt026 Sportlich
 pt027 Erforschen
 pt028 Benutzername oder Benutzer-ID
-pt029 Diese Person Entfernen aus PowerTrail
+pt029 Diese Person Entfernen aus GeoPath
 pt030 Hinzufügen/entfernen
 pt031 Abbrechen
 pt032 Hinzufügen
 pt033 Aktualisieren
-pt034 Bescheibung PowerTrail
-pt035 PowerTrail
+pt034 Bescheibung GeoPath
+pt035 GeoPath
 pt036 Name
 pt037 Score
 pt038 punkte
@@ -1808,14 +1808,14 @@ pt053 Datum log
 
 
 
-pt062 Eigener PowerTrails
+pt062 Eigener GeoPaths
 pt063 Status
 
 
 
 pt067 Natur
 pt068 Du musst mindestens
-pt069 Caches gefunden haben um ein PowerTrial ein zu tragen
+pt069 Caches gefunden haben um ein GeoPath ein zu tragen
 pt070 Ausgezeichnet
 pt071 Gut
 pt072 Normal
@@ -1840,7 +1840,7 @@ pt079 Thema
 
 
 
-pt094 Dieser Cache ist Teil der Cache-Serie
+pt094 Dieser Cache ist Teil der GeoPath
 pt095 Name cacher
 
 
@@ -2255,7 +2255,7 @@ logmap_01 von
 logmap_02 datum
 logmap_03 Karte mit 100 letzte logs
 logmap_04 Logkarte
-pt_cache Dieser Cache ist Teil der Cache-Serie
+pt_cache Dieser Cache ist Teil der GeoPath
 
 
 
