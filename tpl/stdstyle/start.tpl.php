@@ -99,7 +99,7 @@
 
                 if ($is_titled == '1')
                 {
-                    $tmpTxt = '<br><p class="links" style="font-size:10px"><a href="cache_titled.php">['.tr("show_more").' ...]</a></p>';
+                    $tmpTxt = '<br><p class="links" style="font-size:10px"><a href="cache_titled.php">['.tr("show_more_titled_caches").' ...]</a></p>';
                     $tmpTxt .= '</ul><br>';
                     echo $tmpTxt;
                 }
