@@ -2575,3 +2575,4 @@ month_titled_cache Cache van de maand
 month_titled_caches Caches van de maand
 month_titled_cache_congratulations <p><img src="tpl/stdstyle/images/free_icons/award_star_gold_1.png" class="icon16" alt="{langTitledCache}" title="{langTitledCache}" /> Hallo !!! <br/> <br/>Deze cache is vandaag uitgeroepen tot cache van de maand.</p><p><span style="color: #008000;"><strong><br />GEFELICITEERD!!!</strong></span><br />OC-Team</p>
 titled_cache_date Datum<br>toekenning
+show_more_titled_caches Toon meer toegekende caches
