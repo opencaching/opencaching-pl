@@ -14,6 +14,17 @@ if (isset($_SESSION['user_id']) && isset($_GET['wp']) && !empty($_GET['wp'])) {
 
     if (!empty($caches)) {
 
+        // Prevent https://github.com/opencaching/opencaching-pl/issues/228
+        db_query("start transaction");
+        db_query("
+            select 1
+            from cache_logs
+            where
+                user_id = '".mysql_real_escape_string($_SESSION['user_id'])."'
+                and cache_id = '".mysql_real_escape_string($caches['cache_id'])."'
+            for update
+        ");
+
         $query = "select 1 from cache_logs where user_id = '" . $_SESSION['user_id'] . "' and type = '1' and deleted='0' and cache_id ='" . $caches['cache_id'] . "';";
         $wynik = db_query($query);
         $if_found = mysql_fetch_row($wynik);
@@ -129,6 +140,7 @@ if (isset($_SESSION['user_id']) && isset($_GET['wp']) && !empty($_GET['wp'])) {
                         db_query($query);
                     }
                 }
+                db_query("commit");
                 header('Location: ./viewcache.php?wp=' . $wp);
                 exit;
             }

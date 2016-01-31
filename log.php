@@ -95,6 +95,17 @@ if ($error == false) {
             }
         }
 
+        // Prevent https://github.com/opencaching/opencaching-pl/issues/228
+        sql("start transaction");
+        sql("
+            select 1
+            from cache_logs
+            where
+                user_id = '".mysql_real_escape_string($usr['userid'])."'
+                and cache_id = '".mysql_real_escape_string($cache_id)."'
+            for update
+        ");
+
         if ($cache_id != 0) {
             $all_ok = false;
 
@@ -1049,6 +1060,7 @@ if ($error == false) {
         }
     }
 }
+sql("commit");
 if ($no_tpl_build == false) {
     //make the template and send it out
     tpl_set_var('language4js', $lang);
