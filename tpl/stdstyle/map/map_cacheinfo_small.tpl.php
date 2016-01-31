@@ -94,7 +94,7 @@
                     x {cache_recommendations}
                 </p>
         <?php } //if-is-recommended ?>
-        
+
        <?php //cache is titled
              if( {is_titled} ) {               ?>
                 <p>
@@ -102,7 +102,7 @@
                     <?php global $titled_cache_period_prefix; $ntitled_cache = $titled_cache_period_prefix.'_titled_cache'; echo tr($ntitled_cache); ?>
                 </p>
        <?php } //cache is titled ?>
-       
+
     </div>
 
     <?php if( {is_powertrail_part} ){ ?>

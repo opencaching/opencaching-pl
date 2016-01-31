@@ -517,7 +517,7 @@ class PowerTrail extends \lib\Objects\BaseObject
     }
 
     /**
-     * 
+     *
      */
     public function increaseConquestedCount()
     {
@@ -549,14 +549,14 @@ class PowerTrail extends \lib\Objects\BaseObject
     }
 
     /**
-     * 
+     *
      * Check if this power trail meet criteria to be opened
-     * 
+     *
      * Criteria:
      * - percent required > minimum percent required
-     * - active geocahes Count >= required geocache count 
+     * - active geocahes Count >= required geocache count
      * - minimum geocaches count >= required geocaches count set in settings.inc.php
-     * 
+     *
      * @return boolean
      */
     public function canBeOpened()

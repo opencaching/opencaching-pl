@@ -102,7 +102,7 @@ if ($error == false) {
             $thisline = $viewtop5_line;
 
             $cacheicon = myninc::checkCacheStatusByUser($r, $usr['userid']);
-            
+
             $thisline = mb_ereg_replace('{cacheicon}', $cacheicon, $thisline);
             $thisline = mb_ereg_replace('{cachename}', htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8'), $thisline);
             $thisline = mb_ereg_replace('{cacheid}', htmlspecialchars($r['cache_id'], ENT_COMPAT, 'UTF-8'), $thisline);

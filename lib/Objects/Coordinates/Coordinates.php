@@ -128,8 +128,8 @@ class Coordinates
      *            (optional) must be one of this class constants:
      *            COORDINATES_FORMAT_DECIMAL or COORDINATES_FORMAT_DEG_MIN or COORDINATES_FORMAT_DEG_MIN_SEC
      *
-     * @return string 
-     * 
+     * @return string
+     *
      * example of use:
      *         $latitude = $coordinates->getLatitudeString(\lib\Objects\GeoCache\Coordinates::COORDINATES_FORMAT_DEG_MIN);
      *

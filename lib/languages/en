@@ -2570,7 +2570,7 @@ WeekCache Cache of the week
 ignoreFoundLimitRm Remove creating new caches ability for user who did not met found caches limit
 ignoreFoundLimitAdd Add creating new caches ability for user who did not met found caches limit
 NoDataAvailable No data
-list_of_titled_caches_is_empty There are no titled caches in the specified area 
+list_of_titled_caches_is_empty There are no titled caches in the specified area
 week_titled_cache Honored cache of week
 week_titled_caches Honored caches of week
 week_titled_cache_congratulations <p><img src="tpl/stdstyle/images/free_icons/award_star_gold_1.png" class="icon16" alt="Honored cache of week" title="Honored cache of week" />&nbsp Hello !!! <br/> <br/>&nbsp&nbsp&nbsp&nbspI'm pleased to inform you, that your cache became: Honored caches of week</p><p><span style="color: #008000;"><strong><br />CONGRATULATIONS !!!</strong></span><br />OCTeam</p>

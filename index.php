@@ -75,15 +75,15 @@ else
 /////////////////////////////////////////////////////
 //Titled Caches
 ///////////////////////////////////////////////////
-    
+
 $usrid = -1;
 $TitledCaches="";
-$dbc= new dataBase(); 
+$dbc= new dataBase();
 
 if ( $usr != false )
     $usrid = $usr['userid'];
 
-$query = "SELECT caches.cache_id, caches.name cacheName, adm1 cacheCountry, adm3 cacheRegion, caches.type cache_type, 
+$query = "SELECT caches.cache_id, caches.name cacheName, adm1 cacheCountry, adm3 cacheRegion, caches.type cache_type,
         caches.user_id, user.username userName, cache_titled.date_alg, cache_logs.text, cache_desc.short_desc,
         logUser.user_id logUserId, logUser.username logUserName
 FROM cache_titled
@@ -91,26 +91,26 @@ JOIN caches ON cache_titled.cache_id = caches.cache_id
 JOIN cache_desc ON caches.cache_id = cache_desc.cache_id and language=:1
 JOIN cache_location ON caches.cache_id = cache_location.cache_id
 JOIN user ON caches.user_id = user.user_id
-        
-JOIN cache_logs ON cache_logs.id = cache_titled.log_id 
+
+JOIN cache_logs ON cache_logs.id = cache_titled.log_id
 JOIN user logUser ON logUser.user_id = cache_logs.user_id
-               
-ORDER BY date_alg DESC 
+
+ORDER BY date_alg DESC
 LIMIT 1";
 
 $dbc->multiVariableQuery($query, $lang);
 
 
 $pattern = "<span style='font-size:13px'><img src='{cacheIcon}' class='icon16' alt='Cache' title='Cache' />
-        <a href='viewcache.php?cacheid={cacheId}'><b>{cacheName}</b></a></span> 
-        
+        <a href='viewcache.php?cacheid={cacheId}'><b>{cacheName}</b></a></span>
+
         <span style='font-size:11px'> ".tr('hidden_by'). "</span>
         <span style='font-size:13px'><a href='viewprofile.php?userid={userId}'><b>{userName}</b></a></span><br>
-                
+
         <span style='font-size:11px;font-style:italic'>{cacheShortDesc}</span><br>
-                
+
         <span class='content-title-noshade' style='font-size:11px'>{country} > {region}</span>
-        <br><br>        
+        <br><br>
         <table class='CacheTitledLog' >
                 <tr><td>{logText}
                 <br><br><img src='images/rating-star.png'/> Autor: <a href='viewprofile.php?userid={logUserId}'><b>{logUserName}<b></a></td></tr>
@@ -123,7 +123,7 @@ for( $i=0; $i<$dbc->rowCount(); $i++)
 {
    $rec = $dbc->dbResultFetch();
    $line = $pattern;
-   
+
    $line = mb_ereg_replace('{cacheIcon}', myninc::checkCacheStatusByUser($rec, $usrid), $line );
    $line = mb_ereg_replace('{dateAlg}', $rec[ "date_alg" ], $line );
    $line = mb_ereg_replace('{cacheName}', $rec[ "cacheName" ], $line );
@@ -135,14 +135,14 @@ for( $i=0; $i<$dbc->rowCount(); $i++)
    $line = mb_ereg_replace('{cacheShortDesc}', $rec[ "short_desc" ], $line );
    $line = mb_ereg_replace('{logUserId}', $rec[ "logUserId" ], $line );
    $line = mb_ereg_replace('{logUserName}', $rec[ "logUserName" ], $line );
-    
-   
+
+
    $text = mb_ereg_replace( '<p>', '', $rec[ "text" ]);
    $text = mb_ereg_replace( '</p>', '<br>', $text );
-   
+
    $line = mb_ereg_replace('{logText}', $text, $line );
-   
-   
+
+
    $TitledCaches .= $line;
 }
 

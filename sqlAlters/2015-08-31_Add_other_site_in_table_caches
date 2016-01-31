@@ -2,4 +2,4 @@
 -- Adding cachingsite www.qualitycaching.com to database for use only in BeNeLux.
 --
 
-ALTER TABLE `caches` ADD `wp_qc` VARCHAR( 10 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'QualityCaching' AFTER `wp_tc` 
+ALTER TABLE `caches` ADD `wp_qc` VARCHAR( 10 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'QualityCaching' AFTER `wp_tc`

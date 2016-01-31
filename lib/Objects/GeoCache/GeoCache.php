@@ -82,8 +82,8 @@ class GeoCache
      * @var $powerTrail \lib\Objects\PowerTrail\PowerTrail
      */
     private $powerTrail;
-    
-    
+
+
     private $isTitled;
 
     /**
@@ -630,9 +630,9 @@ class GeoCache
     }
 
     public function isTitled()
-    {     
+    {
         //return $this->isTitled = CacheTitled::isTitled($this->id);
-        
+
         if (is_null($this->isTitled)) {
             $this->isTitled = CacheTitled::isTitled($this->id);
         }

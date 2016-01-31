@@ -127,8 +127,8 @@
                 </p>
             </div>
             <div id="viewcache-map" class="content2-container-2col-right"><div class="img-shadow">
-                    <img src="http://maps.googleapis.com/maps/api/staticmap?center={latitude},{longitude}&amp;zoom=8&amp;size=170x170&amp;maptype=terrain&amp;key={googlemap_key}&amp;sensor=false&amp;markers=color:blue%7Clabel:{typeLetter}%7C{latitude},{longitude}&amp;format=png" 
-                         longdesc="ifr::cachemap-mini.php?inputZoom=14&amp;lat={latitude}&amp;lon={longitude}::480::385" 
+                    <img src="http://maps.googleapis.com/maps/api/staticmap?center={latitude},{longitude}&amp;zoom=8&amp;size=170x170&amp;maptype=terrain&amp;key={googlemap_key}&amp;sensor=false&amp;markers=color:blue%7Clabel:{typeLetter}%7C{latitude},{longitude}&amp;format=png"
+                         longdesc="ifr::cachemap-mini.php?inputZoom=14&amp;lat={latitude}&amp;lon={longitude}::480::385"
                          onclick="enlarge(this);" alt="{{map}}" />
                 </div>
             </div>

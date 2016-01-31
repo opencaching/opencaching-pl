@@ -2,7 +2,7 @@
 -- @author: triPPer
 
 
-CREATE TABLE `cache_titled` ( 
+CREATE TABLE `cache_titled` (
 `cache_id` int( 11 ) NOT NULL ,
 `rate` float NOT NULL ,
 `ratio` float NOT NULL ,
@@ -11,5 +11,5 @@ CREATE TABLE `cache_titled` (
 `days` int( 11 ) NOT NULL ,
 `date_alg` date NOT NULL ,
 `log_id` int( 11 ) NOT NULL ,
-PRIMARY KEY ( `cache_id` ) 
+PRIMARY KEY ( `cache_id` )
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;

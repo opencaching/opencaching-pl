@@ -724,7 +724,7 @@ if ($error == false) {
 
         tpl_set_var('cacheid_urlencode', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'));
         tpl_set_var('cachename', htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8'));
-        
+
         if ( $cache_record['date_alg'] == '' )
             tpl_set_var('icon_titled', '');
         else
@@ -732,7 +732,7 @@ if ($error == false) {
             $ntitled_cache = $titled_cache_period_prefix.'_titled_cache';
             tpl_set_var('icon_titled', '<img src="tpl/stdstyle/images/free_icons/award_star_gold_1.png" class="icon16" alt="'.tr($ntitled_cache).'" title="'.tr($ntitled_cache).'"/>');
         }
-        
+
         // cache type Mobile add calculate distance
         // todo: poszerzyć tabelkę 'caches' (lub stworzyć nową z relacją)
         //       pole dystans, żeby nie trzeba było za każdym razem zliczać

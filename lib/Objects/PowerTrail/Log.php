@@ -107,7 +107,7 @@ class Log
         return $this;
     }
 
-    
+
     public function storeInDb()
     {
         $db = DataBaseSingleton::Instance();

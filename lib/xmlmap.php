@@ -325,13 +325,13 @@ class tmp_Xmlmap
             // no caches found
             exit(0);
         }
-        
+
         // get the first object from the list
         $arrayCopy = $okapi_resp->getArrayCopy();
         $geoCache = new \lib\Objects\GeoCache\GeoCache(array(
             'okapiRow' => array_pop($arrayCopy)
         ));
-        
+
         //generate the results
         if( $this->screenWidth < 400 ){
             tpl_set_tplname('map/map_cacheinfo_small');
@@ -350,7 +350,7 @@ class tmp_Xmlmap
         $is_scored = ($geoCache->getRatingId() != 0 && $geoCache->getRatingVotes() > 2) ? '1' : '0';
         tpl_set_var('is_scored', $is_scored, false);
         tpl_set_var('rating_desc', tr($geoCache->getRatingDesc()));
- 
+
         $is_recommended = ($geoCache->getRecommendations() > 0 ? '1' : '0');
         tpl_set_var('is_recommended', $is_recommended, false);
         tpl_set_var('cache_recommendations', $geoCache->getRecommendations(), false);
@@ -381,8 +381,8 @@ class tmp_Xmlmap
         $is_titled =( $geoCache->isTitled()? 'true' : 'false' );
         tpl_set_var('is_titled', $is_titled, false);
         //tpl_set_var('is_titled', $geoCache->isTitled(), false);
-        
-        
+
+
         // make the template and send it out
         tpl_BuildTemplate(false, false, true);
     }
