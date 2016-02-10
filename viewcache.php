@@ -198,7 +198,7 @@ if ($error == false) {
         $mod_coord_delete_mode = isset($_POST['resetCoords']);
         $cache_mod_lat = 0;
         $cache_mod_lon = 0;
-        if ($cache_type == GeoCache::TYPE_QUIZ || $cache_type == GeoCache::TYPE_OTHERTYPE || $cache_type == GeoCache::TYPE_MULTICACHE) {
+        if ($usr != false && ($cache_type == GeoCache::TYPE_QUIZ || $cache_type == GeoCache::TYPE_OTHERTYPE || $cache_type == GeoCache::TYPE_MULTICACHE)) {
 
             $orig_cache_lon = $cache_record['longitude'];
             $orig_cache_lat = $cache_record['latitude'];
