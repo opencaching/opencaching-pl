@@ -3,12 +3,13 @@
 namespace lib\Objects\OcConfig;
 
 /**
- * Description of ocConfig
+ * Settings container
  *
  * @author Andrzej Łza Wozniak
  */
 final class OcConfig
 {
+
     const OCNODE_GERMANY = 1; /* Opencaching Germany http://www.opencaching.de OC */
     const OCNODE_POLAND = 2; /* Opencaching Poland http://www.opencaching.pl OP */
     const OCNODE_CZECH = 3; /* Opencaching Czech http://www.opencaching.cz OZ */
@@ -30,6 +31,17 @@ final class OcConfig
     private $siteName;
     private $dynamicFilesPath;
     private $powerTrailModuleSwitchOn;
+    private $googleMapKey;
+    private $mainPageMapCenterLat;
+    private $mainPageMapCenterLon;
+    private $siteInService = false;
+    private $pagetitle;
+    private $defaultLanguage;
+    private $pictureDirectory;
+    private $pictureUrl;
+    private $contactMail;
+    private $wikiLinks;
+    private $dateFormat;
 
     /**
      * Call this method to get singleton
@@ -62,8 +74,84 @@ final class OcConfig
         $this->octeamEmailsSignature = $octeamEmailsSignature;
         $this->octeamEmailAddress = $octeam_email;
         $this->siteName = $site_name;
-        $this->dynamicFilesPath =  $dynbasepath;
+        $this->dynamicFilesPath = $dynbasepath;
         $this->powerTrailModuleSwitchOn = $powerTrailModuleSwitchOn;
+        $this->googleMapKey = $googlemap_key;
+        $this->mainPageMapCenterLat = $main_page_map_center_lat;
+        $this->mainPageMapCenterLon = $main_page_map_center_lon;
+        $this->siteInService = $site_in_service;
+        $this->pagetitle = $pagetitle;
+        $this->defaultLanguage = $lang;
+        $this->pictureDirectory = $picdir;
+        $this->pictureUrl = $picurl;
+        $this->contactMail = $contact_mail;
+        $this->wikiLinks = $wikiLinks;
+        $this->dateFormat = $dateFormat;
+    }
+
+    function getDateFormat()
+    {
+        return $this->dateFormat;
+    }
+
+    function getDatetimeFormat()
+    {
+        return $this->datetimeFormat;
+    }
+
+    function getWikiLinks()
+    {
+        return $this->wikiLinks;
+    }
+
+        function getContactMail()
+    {
+        return $this->contactMail;
+    }
+
+    function getPictureDirectory()
+    {
+        return $this->pictureDirectory;
+    }
+
+    function getPictureUrl()
+    {
+        return $this->pictureUrl;
+    }
+
+    function getDefaultLanguage()
+    {
+        return $this->defaultLanguage;
+    }
+
+    function getSiteInService()
+    {
+        return $this->siteInService;
+    }
+
+    function getPagetitle()
+    {
+        return $this->pagetitle;
+    }
+
+    function getMedalsModuleSwitchedOn()
+    {
+        return $this->medalsModuleSwitchedOn;
+    }
+
+    function getGoogleMapKey()
+    {
+        return $this->googleMapKey;
+    }
+
+    function getMainPageMapCenterLat()
+    {
+        return $this->mainPageMapCenterLat;
+    }
+
+    function getMainPageMapCenterLon()
+    {
+        return $this->mainPageMapCenterLon;
     }
 
     public function getAbsolute_server_URI()
@@ -90,7 +178,6 @@ final class OcConfig
     {
         return $this->dbDatetimeFormat;
     }
-
 
     public function getSiteName()
     {
