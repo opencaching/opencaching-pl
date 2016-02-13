@@ -170,7 +170,6 @@ $translations = array(
     'login' => 'Přihlášení',
     'logout' => 'Odhlásit',
     'cache_descriptions' => 'Jak popsat box?',
-    'html_preview' => 'Náhled HTML',
     'allowed_html_tags' => 'Povolené HTML tagy',
     'special_caches' => 'Speciální případy',
     'user_ident' => 'Identifikace uživatele',

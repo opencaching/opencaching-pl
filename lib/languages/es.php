@@ -170,7 +170,6 @@ $translations = array(
     'login' => 'Registrarse',
     'logout' => 'Cerrar sesión',
     'cache_descriptions' => '?Cómo describir la caja?',
-    'html_preview' => 'Vista previa en HTML',
     'allowed_html_tags' => 'Etiquetas HTML permitidas',
     'special_caches' => 'Casos especiales',
     'user_ident' => 'Identificación de Usuario',

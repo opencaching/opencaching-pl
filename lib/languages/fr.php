@@ -169,7 +169,6 @@ $translations = array(
     'login' => 'Log',
     'logout' => 'Déconnexion',
     'cache_descriptions' => 'Comment décrire la boîte?',
-    'html_preview' => 'Preview HTML',
     'allowed_html_tags' => 'Allowed HTML tags',
     'special_caches' => 'Cas particuliers',
     'user_ident' => 'Identification de l"utilisateur',

@@ -181,7 +181,6 @@ $translations = array(
     'login' => 'Zaloguj',
     'logout' => 'Wyloguj',
     'cache_descriptions' => 'Jak opisać skrzynkę?',
-    'html_preview' => 'Podgląd HTML',
     'allowed_html_tags' => 'Dozwolone znaczniki HTML',
     'special_caches' => 'Skrzynki specjalne',
     'user_ident' => 'Identyfikacja użytkownika',

@@ -821,36 +821,6 @@ $menu = array(
                         'siteid' => 'articles/cacheinfo'
                     ),
                     array(
-                        'title' => tr('html_preview'),
-                        'menustring' => tr('html_preview'),
-                        'visible' => false,
-                        'filename' => 'htmlprev.php',
-                        'siteid' => 'htmlprev',
-                        'submenu' => array(
-                            array(
-                                'title' => tr('html_preview'),
-                                'menustring' => tr('html_preview'),
-                                'visible' => false,
-                                'filename' => 'htmlprev.php',
-                                'siteid' => 'htmlprev_step2'
-                            ),
-                            array(
-                                'title' => tr('html_preview'),
-                                'menustring' => tr('html_preview'),
-                                'visible' => false,
-                                'filename' => 'htmlprev.php',
-                                'siteid' => 'htmlprev_step3'
-                            ),
-                            array(
-                                'title' => tr('html_preview'),
-                                'menustring' => tr('html_preview'),
-                                'visible' => false,
-                                'filename' => 'htmlprev.php',
-                                'siteid' => 'htmlprev_step3err'
-                            )
-                        )
-                    ),
-                    array(
                         'title' => tr('allowed_html_tags'),
                         'menustring' => tr('allowed_html_tags'),
                         'visible' => true,

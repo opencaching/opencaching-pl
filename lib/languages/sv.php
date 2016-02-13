@@ -168,7 +168,6 @@ $translations = array(
     'login' => 'Logga in',
     'logout' => 'Logout',
     'cache_descriptions' => 'Hur beskriver man en cache?',
-    'html_preview' => 'förhandsgranska HTML',
     'allowed_html_tags' => 'Tillåtna HTML-taggar',
     'special_caches' => 'Special cacher',
     'user_ident' => 'Användarid',

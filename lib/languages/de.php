@@ -180,7 +180,6 @@ $translations = array(
     'login' => 'Login',
     'logout' => 'Abmelden',
     'cache_descriptions' => 'Wie beschreiben Sie einen Cache?',
-    'html_preview' => 'HTML-Vorschau',
     'allowed_html_tags' => 'Erlaubte HTML-Tags',
     'special_caches' => 'Besondere Caches',
     'user_ident' => 'Benutzers Identifikation',

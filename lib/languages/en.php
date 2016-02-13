@@ -181,7 +181,6 @@ $translations = array(
     'login' => 'Login',
     'logout' => 'Logout',
     'cache_descriptions' => 'How to create a cache description?',
-    'html_preview' => 'HTML preview',
     'allowed_html_tags' => 'Allowed HTML tags',
     'special_caches' => 'Special caches',
     'user_ident' => 'User"s identification',

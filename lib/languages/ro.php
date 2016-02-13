@@ -180,7 +180,6 @@ $translations = array(
     'login' => 'Intră în cont',
     'logout' => 'Deconectează-te',
     'cache_descriptions' => 'Cum să descrii o geocutie?',
-    'html_preview' => 'Previzualizare',
     'allowed_html_tags' => 'Elemente HTML permise',
     'special_caches' => 'Geocutii speciale',
     'user_ident' => 'Identificarea utilizatorului',
