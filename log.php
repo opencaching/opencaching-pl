@@ -95,17 +95,6 @@ if ($error == false) {
             }
         }
 
-        // Prevent https://github.com/opencaching/opencaching-pl/issues/228
-        sql("start transaction");
-        sql("
-            select 1
-            from cache_logs
-            where
-                user_id = '".mysql_real_escape_string($usr['userid'])."'
-                and cache_id = '".mysql_real_escape_string($cache_id)."'
-            for update
-        ");
-
         if ($cache_id != 0) {
             $all_ok = false;
 
@@ -701,7 +690,6 @@ if ($error == false) {
                         $regiony = $region->GetRegion($wspolrzedneNS, $wspolrzedneWE);
                         sql("UPDATE `cache_location` SET adm1 = '&2', adm3 = '&3', code1='&4', code3='&5' WHERE cache_id = '&1'", sql_escape($cache_id), $regiony['adm1'], $regiony['adm3'], $regiony['code1'], $regiony['code3']);
                     }
-                    sql("commit");
                     // mobilne by Łza - koniec
                     //inc cache stat and "last found"
                     $rs = sql("SELECT `founds`, `notfounds`, `notes`, `last_found` FROM `caches` WHERE `cache_id`='&1'", sql_escape($cache_id));
