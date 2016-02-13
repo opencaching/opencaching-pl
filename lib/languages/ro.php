@@ -148,7 +148,6 @@ $translations = array(
     'contact' => 'Contactează-ne',
     'my_account' => 'Profilul meu',
     'general' => 'Pagina utilizatorului',
-    'my_logs' => 'Însemnările mele',
     'change_data' => 'Schimbă informaţiile',
     'change_email' => 'Schimbă adresa de e-mail',
     'change_password' => 'Schimbă parola',

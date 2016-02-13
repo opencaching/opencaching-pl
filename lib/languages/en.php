@@ -149,7 +149,6 @@ $translations = array(
     'contact' => 'Contact us',
     'my_account' => 'My Profile',
     'general' => 'User"s Page',
-    'my_logs' => 'My logs',
     'change_data' => 'Change data',
     'change_email' => 'Change e-mail address',
     'change_password' => 'Change password',

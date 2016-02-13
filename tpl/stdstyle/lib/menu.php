@@ -558,13 +558,6 @@ $menu = array(
                 'siteid' => 'myn_topcaches'
             ),
             array(
-                'title' => tr('my_logs'),
-                'menustring' => tr('my_logs'),
-                'visible' => false,
-                'filename' => 'myhome2.php',
-                'siteid' => 'myhome2'
-            ),
-            array(
                 'title' => tr('my_account'),
                 'menustring' => tr('my_account'),
                 'visible' => true,

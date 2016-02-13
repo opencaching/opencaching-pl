@@ -149,7 +149,6 @@ $translations = array(
     'contact' => 'Contact us',
     'my_account' => 'Mijn profiel',
     'general' => 'User"s Page',
-    'my_logs' => 'Mijn logs',
     'change_data' => 'Verander gegevens',
     'change_email' => 'Verander E-mail adres',
     'change_password' => 'Verander wachtwoord',

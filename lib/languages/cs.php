@@ -141,7 +141,6 @@ $translations = array(
     'contact' => 'Kontakt',
     'my_account' => 'Můj účet',
     'general' => 'Obecné',
-    'my_logs' => 'Můj logů',
     'change_data' => 'Změnit',
     'change_email' => 'Změňte svůj e-mail',
     'change_password' => 'Změnit heslo',

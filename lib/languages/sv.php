@@ -139,7 +139,6 @@ $translations = array(
     'contact' => 'Kontakt',
     'my_account' => 'Mitt konto',
     'general' => 'Generellt',
-    'my_logs' => 'Mina loggar',
     'change_data' => 'Ändra uppgifter',
     'change_email' => 'Ändra e-postadress',
     'change_password' => 'Byt lösenord',
