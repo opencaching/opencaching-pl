@@ -1,7 +1,6 @@
 <?php
 
     global $content, $bUseZip, $sqldebug, $usr, $hide_coords,$dbcSearch;
-//  require_once ('util/html2text.php');
     require_once ('lib/common.inc.php');
     set_time_limit(1800);
 
@@ -713,9 +712,6 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
         {
 //          $str= tidy_html_description($str);
           $str = PLConvert('UTF-8','POLSKAWY',$str);
-
-
-//      return html2text($str);
 
           $str = strip_tags($str, "<p><br /><li>");
           // <p> -> nic
