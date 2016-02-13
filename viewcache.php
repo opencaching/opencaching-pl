@@ -2135,8 +2135,6 @@ tpl_set_var('ptSectionDisplay', $ptDisplay);
 
 tpl_BuildTemplate();
 
-echo "<script type='text/javascript' src='lib/js/other.js'></script>";
-
 if (isset($_REQUEST["posY"])) {
     echo "<script type='text/javascript'>";
     echo "window.scroll(0," . $_REQUEST["posY"] . ");";
