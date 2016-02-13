@@ -9,7 +9,6 @@ global $dynbasepath;
 
 // Parameter
 $jpeg_qualitaet = 80;
-//  $fontfile = "./util/fonts/verdana.ttf";
 $fontfile = "./lib/fonts/arial.ttf";
 
 # get userid and style from URL
