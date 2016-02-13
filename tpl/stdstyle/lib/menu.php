@@ -231,14 +231,6 @@ $menu = array(
         'newwindow' => true
     ),
     array(
-        'title' => 'ChatBox',
-        'menustring' => 'ChatBox',
-        'siteid' => 'chatbox',
-        'visible' => false, // Chat disabled because of server performance issues
-        'filename' => 'http://opencaching.pl/chat',
-        'newwindow' => true
-    ),
-    array(
         'title' => 'IRC',
         'menustring' => 'IRC',
         'siteid' => 'irc',

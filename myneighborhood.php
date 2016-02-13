@@ -800,35 +800,6 @@ if ($error == false) {
     unset( $dbcLocCache );
 }
 
-// AJAX Chat -shoutbox
-function getShoutBoxContent()
-{
-    // URL to the chat directory:
-    if (!defined('AJAX_CHAT_URL')) {
-        define('AJAX_CHAT_URL', './chat/');
-    }
-
-    // Path to the chat directory:
-    if (!defined('AJAX_CHAT_PATH')) {
-        define('AJAX_CHAT_PATH', realpath(dirname($_SERVER['SCRIPT_FILENAME']) . '/chat') . '/');
-    }
-
-    // Validate the path to the chat:
-    if (@is_file(AJAX_CHAT_PATH . 'lib/classes.php')) {
-
-        // Include Class libraries:
-        require_once(AJAX_CHAT_PATH . 'lib/classes.php');
-
-        // Initialize the shoutbox:
-        $ajaxChat = new CustomAJAXChatShoutBox();
-
-        // Parse and return the shoutbox template content:
-        return $ajaxChat->getShoutBoxContent();
-    }
-
-    return null;
-}
-
 //make the template and send it out
 tpl_BuildTemplate();
 ?>

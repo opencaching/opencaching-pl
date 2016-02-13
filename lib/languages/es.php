@@ -138,7 +138,6 @@ $translations = array(
     'statistics' => 'Estadísticas',
     'rules' => 'Normas',
     'links' => 'Enlaces',
-    'geochat' => 'Geocaching chat',
     'contact' => 'Contacto',
     'my_account' => 'Mi cuenta',
     'general' => 'General',

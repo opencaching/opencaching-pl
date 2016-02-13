@@ -145,7 +145,6 @@ $translations = array(
     'statistics' => 'Statistici',
     'rules' => 'Reguli',
     'links' => 'Legături utile',
-    'geochat' => 'Cameră de discuţii ***',
     'contact' => 'Contactează-ne',
     'my_account' => 'Profilul meu',
     'general' => 'Pagina utilizatorului',
