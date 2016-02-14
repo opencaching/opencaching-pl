@@ -446,7 +446,7 @@ class Db
         $rs = self::query($query);
         while (true)
         {
-            $values = Db::fetch_array($rs);
+            $values = Db::fetch_row($rs);
             if ($values === false)
                 break;
             array_push($column, $values[0]);
@@ -514,7 +514,7 @@ class Db
                     self::execute("repair table okapi_cache");
                     Okapi::mail_admins(
                         "okapi_cache - Automatic repair",
-                        "Hi.\n\nOkapi detected that okapi_cache table needed ".
+                        "Hi.\n\nOKAPI detected that okapi_cache table needed ".
                         "repairs and it has performed such\nrepairs automatically. ".
                         "However, this should not happen regularly!"
                     );
@@ -526,7 +526,7 @@ class Db
                         self::execute("truncate okapi_cache");
                         Okapi::mail_admins(
                             "okapi_cache was truncated",
-                            "Hi.\n\nOkapi detected that okapi_cache table needed ".
+                            "Hi.\n\nOKAPI detected that okapi_cache table needed ".
                             "repairs, but it failed to repair\nthe table automatically. ".
                             "In order to counteract more severe errors, \nwe have ".
                             "truncated the okapi_cache table to make it alive.\n".
@@ -998,8 +998,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1147;
-    public static $git_revision = 'c33a46f8bd385b7ce967fa8bdb819b651358aedb';
+    public static $version_number = 1148;
+    public static $git_revision = '9c24b5fb56087b553cfc711f9a18e2b3df06ac8b';
 
     private static $okapi_vars = null;
 
@@ -1985,7 +1985,7 @@ class Cache
                 `key` = '".Db::escape_string($key)."'
                 and expires > now()
         ");
-        list($blob, $score) = Db::fetch_array($rs);
+        list($blob, $score) = Db::fetch_row($rs);
         if (!$blob)
             return null;
         if ($score != null)  # Only non-null entries are scored.
