@@ -231,14 +231,6 @@ $menu = array(
         'newwindow' => true
     ),
     array(
-        'title' => 'ChatBox',
-        'menustring' => 'ChatBox',
-        'siteid' => 'chatbox',
-        'visible' => false, // Chat disabled because of server performance issues
-        'filename' => 'http://opencaching.pl/chat',
-        'newwindow' => true
-    ),
-    array(
         'title' => 'IRC',
         'menustring' => 'IRC',
         'siteid' => 'irc',
@@ -566,13 +558,6 @@ $menu = array(
                 'siteid' => 'myn_topcaches'
             ),
             array(
-                'title' => tr('my_logs'),
-                'menustring' => tr('my_logs'),
-                'visible' => false,
-                'filename' => 'myhome2.php',
-                'siteid' => 'myhome2'
-            ),
-            array(
                 'title' => tr('my_account'),
                 'menustring' => tr('my_account'),
                 'visible' => true,
@@ -827,36 +812,6 @@ $menu = array(
                         'visible' => true,
                         'filename' => tr('filename_describe_cache'),
                         'siteid' => 'articles/cacheinfo'
-                    ),
-                    array(
-                        'title' => tr('html_preview'),
-                        'menustring' => tr('html_preview'),
-                        'visible' => false,
-                        'filename' => 'htmlprev.php',
-                        'siteid' => 'htmlprev',
-                        'submenu' => array(
-                            array(
-                                'title' => tr('html_preview'),
-                                'menustring' => tr('html_preview'),
-                                'visible' => false,
-                                'filename' => 'htmlprev.php',
-                                'siteid' => 'htmlprev_step2'
-                            ),
-                            array(
-                                'title' => tr('html_preview'),
-                                'menustring' => tr('html_preview'),
-                                'visible' => false,
-                                'filename' => 'htmlprev.php',
-                                'siteid' => 'htmlprev_step3'
-                            ),
-                            array(
-                                'title' => tr('html_preview'),
-                                'menustring' => tr('html_preview'),
-                                'visible' => false,
-                                'filename' => 'htmlprev.php',
-                                'siteid' => 'htmlprev_step3err'
-                            )
-                        )
                     ),
                     array(
                         'title' => tr('allowed_html_tags'),

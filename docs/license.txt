@@ -85,14 +85,11 @@ List of third party components:
 14. JavaScript, DHTML Tooltips
  http://www.walterzorn.de/tooltip/tooltip.htm
 
-15. PHP Class: HTML to Plain Text Conversion
- http://www.chuggnutt.com/html2text.php
-
-16. Garmin Communicator API
+15. Garmin Communicator API
  https://my.garmin.com/api/communicator/key-generator.jsp
 
-17. Prototype JavaScript framework
+16. Prototype JavaScript framework
  http://www.prototypejs.org/
 
-18. In his hands - Font
+17. In his hands - Font
  http://www.fontdownloadsfree.com/fonts/1/22/inhishands_inhishan.html
