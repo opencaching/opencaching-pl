@@ -2,7 +2,7 @@
 
 ?>
 <script type="text/javascript" src="lib/tinymce4/tinymce.min.js"></script>
-<script src="tpl/stdstyle/js/jquery-2.0.3.js"></script>
+<script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 <script type="text/javascript">
     tinymce.init({
         selector: "#desc",
