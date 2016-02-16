@@ -1964,7 +1964,7 @@ function decrypt(elem){if(elem.nodeType != 3) return; var a = elem.data;if(!rot1
 
 $viewcache_header = '
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-<script type="text/javascript" src="rot13.js"></script>
+<script type="text/javascript" src="lib/js/rot13.js"></script>
     <script type="text/javascript">
 
     google.load("language", "1");
