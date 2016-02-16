@@ -1,0 +1,4608 @@
+{
+    "__comment" : " THIS IS JSON. Try first validator here: http://jsonlint.com/ ",
+    "tables": {
+        "ajax_chat_bans": {
+            "__table_comment": "chat should be removed soon",
+            "userID": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "userName": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "dateTime": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "ip": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "ajax_chat_invitations": {
+            "__table_comment": "chat should be removed soon",
+            "userID": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "channel": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "dateTime": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "ajax_chat_messages": {
+            "__table_comment": "chat should be removed soon",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "userID": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "userName": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "userRole": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "channel": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "dateTime": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "ip": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "text": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "ajax_chat_online": {
+            "__table_comment": "chat should be removed soon",
+            "userID": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "userName": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "userRole": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "channel": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "dateTime": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "ip": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "ajax_chat_users": {
+            "__table_comment": "chat should be removed soon",
+            "userID": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "level": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "approval_status": {
+            "__table_comment": "not need at dev env.",
+            "cache_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "status": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_approval": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "bulletins": {
+            "__table_comment": "not used!",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "content": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "sent": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "caches": {
+            "__table_comment": "",
+            "cache_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "name": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "longitude": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "latitude": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "last_modified": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "okapi_syncbase": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "date_created": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "type": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "status": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "country": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "date_hidden": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "founds": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "notfounds": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "notes": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "images": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "last_found": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "desc_languages": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "size": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "difficulty": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "terrain": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "uuid": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "watcher": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "logpw": {
+                "__comment": "set all cache-passwords to value 'haslo'",
+                "__action": "set-to",
+                "__set_value" : "haslo"
+            },
+            "picturescount": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "mp3count": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "search_time": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "way_length": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "wp_gc": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "wp_nc": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "wp_ge": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "wp_tc": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "wp_oc": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "default_desclang": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "date_activate": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "topratings": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "ignorer_count": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "node": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "votes": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "score": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "need_npa_recalc": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "org_user_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "wp_qc": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "caches_additions": {
+            "__table_comment": "",
+            "cache_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "altitude": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "altitude_update_datetime": {
+                "__comment": "this data is useless at dev. env",
+                "__action": "skip-data"
+            }
+        },
+        "caches_attributes": {
+            "__table_comment": "",
+            "cache_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "attrib_id": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "caches_memory": {
+            "__table_comment": "this tabel is not used",
+            "cache_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "name": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "longitude": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "latitude": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "last_modified": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_created": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "type": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "status": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "country": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_hidden": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "founds": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "notfounds": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "notes": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "images": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "last_found": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "desc_languages": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "size": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "difficulty": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "terrain": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "uuid": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "watcher": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "logpw": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "picturescount": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "mp3count": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "search_time": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "way_length": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "wp_gc": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "wp_nc": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "wp_oc": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "default_desclang": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_activate": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "topratings": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "ignorer_count": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "node": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "votes": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "score": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "need_npa_recalc": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "CACHE_ACCESS_LOGS": {
+            "__table_comment": "not needed in dev env.",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "event_date": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "cache_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "source": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "event": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "ip_addr": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_agent": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "forwarded_for": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "okapi_consumer_key": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "info_text": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "cache_arch": {
+            "__table_comment": "",
+            "cache_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "step": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "cache_attrib": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "language": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "text_short": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "text_long": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "icon_large": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "icon_no": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "icon_undef": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "category": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "default": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "cache_coordinates": {
+            "__table_comment": "used only by old /xml export interface - not need at dev. env.",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "cache_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_modified": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "longitude": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "latitude": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "cache_countries": {
+            "__table_comment": "used only by old /xml export interface - not need at dev. env.",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "cache_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_modified": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "country": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "cache_desc": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "cache_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "language": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "desc": {
+                "__comment": "trim cache desc. for dev env.",
+                "__action":  "trim",
+                "__trim_size": "30"
+            },
+            "desc_html": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "desc_htmledit": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "hint": {
+                "__comment": "Trim hint to the first 10 chars",
+                "__action": "trim",
+                "__trim_size": "10"
+            },
+            "short_desc": {
+                "__comment": "",
+                "__action":  "trim",
+                "__trim_size": "15"
+            },
+            "date_created": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "last_modified": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "uuid": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "node": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "rr_comment": {
+                "__comment": "",
+                "__action": "trim",
+                "__trim_size": "10"
+            }
+        },
+        "cache_ignore": {
+            "__table_comment": "private data - not needed at dev. env.",
+            "cache_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "cache_loc": {
+            "__table_comment": "not used...",
+            "cache_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "latitude": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "longitude": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "lang": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "country": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "adm1": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "adm2": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "cache_location": {
+            "__table_comment": "",
+            "cache_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "last_modified": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "adm1": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "adm2": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "adm3": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "adm4": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "code1": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "code2": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "code3": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "code4": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "cache_logs": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "cache_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "type": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "date": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "text": {
+                "__comment": "",
+                "__action": "trim",
+                "__trim_size": "10"
+            },
+            "text_html": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "text_htmledit": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "last_modified": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "okapi_syncbase": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "uuid": {
+                "__comment": "uuid is not used...",
+                "__action": "skip-data"
+            },
+            "picturescount": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "mp3count": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "date_created": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "owner_notified": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "node": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "deleted": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "encrypt": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "del_by_user_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "edit_by_user_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "edit_count": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "last_deleted": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "cache_maps": {
+            "__table_comment": "not-used",
+            "cache_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "last_refresh": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "cache_mod_cords": {
+            "__table_comment": "private data - skip",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "cache_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "longitude": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "latitude": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "cache_moved": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "cache_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "log_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "date": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "longitude": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "latitude": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "km": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "cache_notes": {
+            "__table_comment": "private data - skip",
+            "note_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "cache_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "desc_html": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "desc": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "cache_npa_areas": {
+            "__table_comment": "",
+            "cache_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "npa_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "parki_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "calculated": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "cache_rating": {
+            "__table_comment": "",
+            "cache_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "cache_size": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "pl": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "en": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "nl": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "cache_status": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "pl": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "en": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "nl": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "cache_titled": {
+            "__table_comment": "",
+            "cache_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "rate": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "ratio": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "rating": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "found": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "days": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "date_alg": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "log_id": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "cache_type": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "sort": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "short": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "pl": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "en": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "icon_large": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "icon_small": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "color": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "nl": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "cache_visits": {
+            "__table_comment": "",
+            "cache_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "user_id_ip": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "count": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "last_visited": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "cache_watches": {
+            "__table_comment": "unneded at dev. env.",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "cache_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "last_executed": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "chowner": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "cache_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "countries": {
+            "__table_comment": "",
+            "country_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "pl": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "en": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "short": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "list_default_pl": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "sort_pl": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "list_default_en": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "sort_en": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "list_default_nl": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "nl": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "sort_nl": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "email_schemas": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "name": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "shortdesc": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "text": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "receiver": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "email_user": {
+            "__table_comment": "private data - skip export",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "ipaddress": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_generated": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "from_user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "from_email": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "to_user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "to_email": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "mail_subject": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "mail_text": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "send_emailaddress": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_sent": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "foreign_caches": {
+            "__table_comment": "relic - used only by mapV2 - skip",
+            "cache_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "username": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "name": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "longitude": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "latitude": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "last_modified": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_created": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "type": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "status": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "country": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_hidden": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "founds": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "notfounds": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "notes": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "images": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "last_found": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "desc_languages": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "size": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "difficulty": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "terrain": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "uuid": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "watcher": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "logpw": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "picturescount": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "search_time": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "way_length": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "wp_gc": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "wp_nc": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "wp_oc": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "default_desclang": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_activate": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "topratings": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "ignorer_count": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "node": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "votes": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "score": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "geodb_areas": {
+            "__table_comment": "probably not needed at dev.env.",
+            "loc_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "area_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "polygon_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "pol_seq_no": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "exclude_area": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "area_type": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "area_subtype": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "coord_type": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "coord_subtype": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "resolution": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "valid_since": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_type_since": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "valid_until": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_type_until": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "geodb_changelog": {
+            "__table_comment": "probably not needed at dev.env.",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "datum": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "beschreibung": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "autor": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "version": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "geodb_coordinates": {
+            "__table_comment": "probably not needed at dev.env.",
+            "loc_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "lon": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "lat": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "coord_type": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "coord_subtype": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "valid_since": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_type_since": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "valid_until": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_type_until": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "geodb_floatdata": {
+            "__table_comment": "probably not needed at dev.env.",
+            "loc_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "float_val": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "float_type": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "float_subtype": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "valid_since": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_type_since": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "valid_until": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_type_until": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "geodb_hierarchies": {
+            "__table_comment": "probably not needed at dev.env.",
+            "loc_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "level": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "id_lvl1": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "id_lvl2": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "id_lvl3": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "id_lvl4": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "id_lvl5": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "id_lvl6": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "id_lvl7": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "id_lvl8": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "id_lvl9": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "valid_since": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_type_since": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "valid_until": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_type_until": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "geodb_intdata": {
+            "__table_comment": "probably not needed at dev.env.",
+            "loc_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "int_val": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "int_type": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "int_subtype": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "valid_since": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_type_since": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "valid_until": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_type_until": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "geodb_locations": {
+            "__table_comment": "",
+            "loc_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "loc_type": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "geodb_polygons": {
+            "__table_comment": "probably not needed at dev.env.",
+            "polygon_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "seq_no": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "lon": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "lat": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "geodb_search": {
+            "__table_comment": "probably not needed at dev.env.",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "loc_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "sort": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "simple": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "simplehash": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "geodb_textdata": {
+            "__table_comment": "probably not needed at dev.env.",
+            "loc_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "text_val": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "text_type": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "text_locale": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "is_native_lang": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "is_default_name": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "valid_since": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_type_since": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "valid_until": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_type_until": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "geodb_type_names": {
+            "__table_comment": "probably not needed at dev.env.",
+            "type_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "type_locale": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "name": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "GeoKretyAPI": {
+            "__table_comment": "private data - skip export",
+            "userID": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "secid": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "GeoKretyAPIerrors": {
+            "__table_comment": "not needed at dev.env.",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "dateTime": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "operationType": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "dataSent": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "response": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "gk_item": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "name": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "description": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "userid": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "datecreated": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "datemodified": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "distancetravelled": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "latitude": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "longitude": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "typeid": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "stateid": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "missing": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "gk_item_type": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "name": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "gk_item_waypoint": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "wp": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "gk_move": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "itemid": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "latitude": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "longitude": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "datemoved": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "datelogged": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "userid": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "comment": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "logtypeid": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "gk_move_type": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "name": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "gk_move_waypoint": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "wp": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "gk_user": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "name": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "gns_locations": {
+            "__table_comment": "not needed at dev.env.",
+            "rc": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "ufi": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "uni": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "lat": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "lon": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "DMS_LAT": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "JOG": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "FC": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "DSG": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "PC": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "CC1": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "ADM1": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "CC2": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "NT": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "LC": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "SHORT_FORM": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "GENERIC": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "SORT_NAME": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "FULL_NAME": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "FULL_NAME_ND": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "ADMTXT1": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "ADMTXT3": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "ADMTXT4": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "ADMTXT2": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "DISPLAY": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "DMS_LONG": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "ELEV": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "FULL_NAME_ND_RG": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "FULL_NAME_RG": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "MGRS": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "MODIFY_DATE": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "NAME_LINK": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "NAME_RANK": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "NM_MODIFY_DATE": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "NOTE": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "POP": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "SORT_NAME_RG": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "TRANSL_CD": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "gns_search": {
+            "__table_comment": "not needed at dev.env.",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "uni_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "sort": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "simple": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "simplehash": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "import_caches_date": {
+            "__table_comment": "not-used",
+            "node_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "updated": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "languages": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "short": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "pl": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "en": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "list_default_pl": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "list_default_en": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "list_default_nl": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "nl": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "logentries": {
+            "__table_comment": "not needed at dev.env.",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "module": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "eventid": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "userid": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "objectid1": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "objectid2": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "logtext": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "details": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "logtime": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "logentries_types": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "module": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "eventname": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "logins": {
+            "__table_comment": "never used!",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "remote_addr": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "success": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "timestamp": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "log_rating": {
+            "__table_comment": "never used!",
+            "log_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "log_types": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "cache_status": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "permission": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "pl": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "en": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "icon_small": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "nl": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "log_types_text": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "log_types_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "lang": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "text_combo": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "text_listing": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "map_settings": {
+            "__table_comment": "user map settings - not needed at dev.env.",
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "unknown": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "traditional": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "multicache": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "virtual": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "webcam": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "event": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "quiz": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "math": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "mobile": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "drivein": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "podcast": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "owncache": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "ignored": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "own": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "found": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "notyetfound": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "geokret": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "showsign": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "showwp": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "active": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "notactive": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "maptype": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "cachelimit": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "cachesort": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "archived": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "be_ftf": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "powertrail_only": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "de": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "pl": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "no": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "se": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "min_score": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "max_score": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "noscore": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "map_settings_v2": {
+            "__table_comment": "user map settings - not needed at dev.env.",
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "unknown": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "traditional": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "multicache": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "virtual": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "webcam": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "event": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "quiz": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "math": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "mobile": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "drivein": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "ignored": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "own": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "found": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "notyetfound": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "geokret": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "showsign": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "active": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "notactive": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "maptype": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "cachelimit": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "cachesort": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "archived": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "be_ftf": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "de": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "pl": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "medals": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "medal_type": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "prized_time": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "medal_level": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "mp3": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "uuid": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "url": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "last_modified": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "title": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "date_created": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "last_url_check": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "object_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "object_type": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "local": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "unknown_format": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "display": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "node": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "seq": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "news": {
+            "__table_comment": "news displayed at main page - not needed at dev.env.",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_posted": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "content": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "topic": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "display": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "news_topics": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "name": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "nodes": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "name": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "url": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "notify_waiting": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "cache_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "type": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "npa_areas": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "linkid": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "sitename": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "sitecode": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "sitetype": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "shape": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "nuts_codes": {
+            "__table_comment": "",
+            "code": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "name": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "nuts_layer": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "level": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "code": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "shape": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "object_types": {
+            "__table_comment": "not used!",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "name": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "okapi_authorizations": {
+            "__table_comment": "",
+            "consumer_key": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "last_access_token": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "okapi_cache": {
+            "__table_comment": "",
+            "key": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "score": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "expires": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "value": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "okapi_cache_logs": {
+            "__table_comment": "",
+            "log_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "consumer_key": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "okapi_cache_reads": {
+            "__table_comment": "",
+            "cache_key": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "okapi_clog": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "data": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "okapi_consumers": {
+            "__table_comment": "",
+            "key": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "name": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "secret": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "url": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "email": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_created": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "bflags": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "okapi_nonces": {
+            "__table_comment": "",
+            "consumer_key": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "nonce_hash": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "timestamp": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "okapi_search_results": {
+            "__table_comment": "",
+            "set_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "cache_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "okapi_search_sets": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "params_hash": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_created": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "expires": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "okapi_stats_hourly": {
+            "__table_comment": "",
+            "consumer_key": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "period_start": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "service_name": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "total_calls": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "http_calls": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "total_runtime": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "http_runtime": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "okapi_stats_temp": {
+            "__table_comment": "",
+            "datetime": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "consumer_key": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "service_name": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "calltype": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "runtime": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "okapi_tile_caches": {
+            "__table_comment": "",
+            "z": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "x": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "y": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "cache_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "z21x": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "z21y": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "status": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "type": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "rating": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "flags": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "name_crc": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "okapi_tile_status": {
+            "__table_comment": "",
+            "z": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "x": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "y": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "status": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "okapi_tokens": {
+            "__table_comment": "",
+            "key": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "secret": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "token_type": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "timestamp": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "consumer_key": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "verifier": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "callback": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "okapi_vars": {
+            "__table_comment": "",
+            "var": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "value": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "opensprawdzacz": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "cache_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "proby": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "sukcesy": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "parkipl": {
+            "__table_comment": "",
+            "OGR_FID": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "SHAPE": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "name": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "type": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "dispclass": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "xcoords": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "ycoords": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "link": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "logo": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "pictures": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "uuid": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "url": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "last_modified": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "title": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "description": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "desc_html": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "date_created": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "last_url_check": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "object_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "object_type": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "thumb_url": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "thumb_last_generated": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "spoiler": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "local": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "unknown_format": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "display": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "node": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "seq": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "PowerTrail": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "name": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "centerLatitude": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "centerLongitude": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "type": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "status": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "dateCreated": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "cacheCount": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "description": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "image": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "perccentRequired": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "conquestedCount": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "points": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "PowerTrail_actionsLog": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "PowerTrailId": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "userId": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "actionDateTime": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "actionType": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "description": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "cacheId": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "PowerTrail_cacheCandidate": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "PowerTrailId": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "cacheId": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "link": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "date": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "powerTrail_caches": {
+            "__table_comment": "",
+            "cacheId": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "PowerTrailId": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "points": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "isFinal": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "PowerTrail_comments": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "userId": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "PowerTrailId": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "commentType": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "commentText": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "logDateTime": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "dbInsertDateTime": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "deleted": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "PowerTrail_owners": {
+            "__table_comment": "",
+            "PowerTrailId": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "userId": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "privileages": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "queries": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "name": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "options": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "uuid": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "filters_count": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "last_queried": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "removed_objects": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "localID": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "uuid": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "type": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "removed_date": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "node": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "reports": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "cache_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "type": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "text": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "note": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "submit_date": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "status": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "changed_by": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "changed_date": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "responsible_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "routes": {
+            "__table_comment": "",
+            "route_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "name": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "description": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "radius": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "length": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "options": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "route_points": {
+            "__table_comment": "",
+            "route_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "point_nr": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "lon": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "lat": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "rr_ocpl_candidates_2009": {
+            "__table_comment": "",
+            "candidate_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "username": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "city": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "rr_ocpl_candidates_2010": {
+            "__table_comment": "",
+            "candidate_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "username": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "city": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "rr_ocpl_candidates_2011": {
+            "__table_comment": "",
+            "candidate_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "username": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "city": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "rr_ocpl_candidates_2012": {
+            "__table_comment": "",
+            "candidate_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "username": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "city": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "rr_ocpl_candidates_2013": {
+            "__table_comment": "",
+            "candidate_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "username": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "city": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "rr_ocpl_candidates_2014": {
+            "__table_comment": "",
+            "candidate_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "username": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "city": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "rr_ocpl_candidates_2015": {
+            "__table_comment": "",
+            "candidate_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "username": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "city": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "rr_ocpl_candidates_2016": {
+            "__table_comment": "",
+            "candidate_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "username": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "city": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "rr_ocpl_vote_2009": {
+            "__table_comment": "",
+            "vote_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "candidate_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "rr_ocpl_vote_2010": {
+            "__table_comment": "",
+            "vote_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "candidate_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "rr_ocpl_vote_2011": {
+            "__table_comment": "",
+            "vote_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "candidate_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "rr_ocpl_vote_2012": {
+            "__table_comment": "",
+            "vote_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "candidate_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "rr_ocpl_vote_2013": {
+            "__table_comment": "",
+            "vote_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "candidate_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "rr_ocpl_vote_2014": {
+            "__table_comment": "",
+            "vote_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "candidate_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "rr_ocpl_vote_2015": {
+            "__table_comment": "",
+            "vote_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "candidate_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "rr_ocpl_vote_2016": {
+            "__table_comment": "",
+            "vote_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "candidate_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "c": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "scores": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "cache_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "user_id": {
+                "__comment": "private data - reset data",
+                "__action": "set-to",
+                "__set_value" : "9"
+            },
+            "score": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "search_doubles": {
+            "__table_comment": "not used",
+            "hash": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "word": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "simple": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "search_ignore": {
+            "__table_comment": "",
+            "word": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "search_index": {
+            "__table_comment": "",
+            "object_type": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "cache_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "hash": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "count": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "search_index_times": {
+            "__table_comment": "",
+            "object_type": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "object_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "last_refresh": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "search_words": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "word": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "simple": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "hash": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "statpics": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "tplpath": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "previewpath": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "description": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "maxtextwidth": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "sysconfig": {
+            "__table_comment": "",
+            "name": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "value": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "sys_cron": {
+            "__table_comment": "",
+            "name": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "last_run": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "sys_logins": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "remote_addr": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "success": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "timestamp": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "sys_menu": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "id_string": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "title": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "menustring": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "access": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "href": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "visible": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "parent": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "position": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "sys_sessions": {
+            "__table_comment": "",
+            "uuid": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "permanent": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "last_login": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "sys_temptables": {
+            "__table_comment": "",
+            "threadid": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "name": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "tmp_user": {
+            "__table_comment": "",
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "user": {
+            "__table_comment": "",
+            "user_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "username": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "password": {
+                "__comment": "",
+                "__action": "set-to",
+                "__set_value" : "ffb1b530c3116b4cd2e75b764c9ba0d647ab53053571a29532dbe8161996fe38540490fbecd45f4a4114d53d6e9bba6fb790a3b86ccda1b61c821ac02c1b53fa"
+            },
+            "email": {
+                "__comment": "",
+                "__action": "set-to",
+                "__set_value" : "user@xx.com"
+            },
+            "latitude": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "longitude": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "last_modified": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "login_faults": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "last_login": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "last_login_mobile": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "login_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "is_active_flag": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "was_loggedin": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "country": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "pmr_flag": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "new_pw_code": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "new_pw_date": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "date_created": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "new_email_code": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "new_email_date": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "new_email": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "post_news": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "hidden_count": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "log_notes_count": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "founds_count": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "notfounds_count": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "uuid": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "uuid_mobile": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "cache_watches": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "permanent_login_flag": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "watchmail_mode": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "watchmail_hour": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "watchmail_nextmail": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "watchmail_day": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "activation_code": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "statpic_logo": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "statpic_text": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "cache_ignores": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "notify_radius": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "admin": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "guru": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "node": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "stat_ban": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "description": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "rules_confirmed": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "get_bulletin": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "ozi_filips": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "hide_flag": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "password_hashing_rounds": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "password_salt": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "power_trail_email": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "verify_all": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "rr_2016_notified_1": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "rr_2016_notified_2": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "user_finds": {
+            "__table_comment": "used only for stats generation",
+            "date": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "number": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "user_nick_history": {
+            "__table_comment": "unneded at dev.env.",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_from": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_to": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "username": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "change_comment": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "change_by_user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "user_settings": {
+            "__table_comment": "",
+            "user_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "newcaches_no_limit": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "watches_notified": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "object_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "object_type": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_processed": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "watches_waiting": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "object_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "object_type": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_added": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "watchtext": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "watchtype": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "watches_waitingtypes": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "watchtype": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "waypoints": {
+            "__table_comment": "skip waipoints - not neccessary at dev. env.",
+            "wp_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "cache_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "longitude": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "latitude": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "type": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "status": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "stage": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "desc": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "opensprawdzacz": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "waypoint_type": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "pl": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "en": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "icon": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "nl": {
+                "__comment": "",
+                "__action": "get-data"
+            }
+        },
+        "xmlsession": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "last_use": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "users": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "caches": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "cachedescs": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "cachelogs": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "pictures": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "removedobjects": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "modified_since": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_created": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "cleaned": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "xmlsession_data": {
+            "__table_comment": "",
+            "session_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "object_type": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "object_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        }
+    }
+}
