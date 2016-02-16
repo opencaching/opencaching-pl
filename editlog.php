@@ -5,10 +5,6 @@ require_once('./lib/common.inc.php');
 require($stylepath . '/smilies.inc.php');
 global $usr;
 
-// Load the TinyMCE compressor class and configuration
-require_once("./lib/tinymce/tiny_mce_gzip.php");
-require_once("./lib/tinymce/config/compressor.php");
-
 //Preprocessing
 if ($error == false) {
     //logid

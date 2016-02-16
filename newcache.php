@@ -187,7 +187,6 @@ if ($error == false) {
             $name = iconv("utf-8", "UTF-8", $name);
         }
 
-        tpl_set_var('use_tinymce', 1);
         tpl_set_var('descMode', 1);
 
         //effort

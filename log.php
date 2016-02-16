@@ -38,11 +38,6 @@ global $rootpath;
 require_once('./lib/common.inc.php');
 require($stylepath . '/smilies.inc.php');
 
-// Load the TinyMCE compressor class and configuration
-require_once("./lib/tinymce/tiny_mce_gzip.php");
-require_once("./lib/tinymce/config/compressor.php");
-
-
 $no_tpl_build = false;
 //Preprocessing
 if ($error == false) {

@@ -3,10 +3,6 @@
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
-// Load the TinyMCE compressor class and configuration
-require_once("./lib/tinymce/tiny_mce_gzip.php");
-require_once("./lib/tinymce/config/compressor.php");
-
 //Preprocessing
 if ($error == false) {
 
@@ -142,11 +138,6 @@ if ($error == false) {
                 tpl_set_var('desclang_name', htmlspecialchars(db_LanguageFromShort($desc_lang), ENT_COMPAT, 'UTF-8'));
                 tpl_set_var('cachename', htmlspecialchars($desc_record['name'], ENT_COMPAT, 'UTF-8'));
 
-
-                // TinyMCE
-                $headers = tpl_get_var('htmlheaders') . "\n";
-                //$headers .= '<script language="javascript" type="text/javascript" src="lib/phpfuncs.js"></script>' . "\n";
-                tpl_set_var('htmlheaders', $headers);
             } else {
                 tpl_redirect('');
             }
