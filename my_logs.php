@@ -20,6 +20,10 @@ if ($error == false) {
         if (isset($_REQUEST['userid'])) {
             $user_id = $_REQUEST['userid'];
             tpl_set_var('userid', $user_id);
+        }else{
+            //no param userid - display data for currently logged user
+            $user_id = $usr['userid'];
+            tpl_set_var('userid', $user_id);
         }
 
         //get the news
@@ -83,12 +87,7 @@ if ($error == false) {
             for ($i = 0; $i < count($from); $i++)
                 $str = str_replace($from[$i], $to[$i], $str);
 
-            return filterevilchars($str);
-        }
-
-        function filterevilchars($str)
-        {
-            return str_replace('[\\x00-\\x09|\\x0A-\\x0E-\\x1F]', '', $str);
+            return str_replace('[\\x00-\\x09|\\x0A-\\x0E-\\x1F]', '', $str); //filterevilchars
         }
 
         $rsGeneralStat = sql("SELECT  username FROM user WHERE user_id=&1", $user_id);
@@ -104,7 +103,7 @@ if ($error == false) {
                 AND `caches`.`status` != 4
                 AND `caches`.`status` != 5
                 AND `caches`.`status` != 6
-                AND `cache_logs`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'");
+                AND `cache_logs`.`user_id`='" . sql_escape($user_id) . "'");
         $total_logs = mysql_result($rs, 0);
         mysql_free_result($rs);
 
@@ -141,7 +140,7 @@ if ($error == false) {
               AND `caches`.`status` != 4
                 AND `caches`.`status` != 5
                 AND `caches`.`status` != 6
-                AND `cache_logs`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'
+                AND `cache_logs`.`user_id`='" . sql_escape($user_id) . "'
             ORDER BY  `cache_logs`.`date_created` DESC
             LIMIT " . intval($start) . ", " . intval($LOGS_PER_PAGE));
         $log_ids = '';
@@ -175,7 +174,7 @@ if ($error == false) {
                             LEFT JOIN   gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
                             LEFT JOIN   gk_item ON gk_item.id = gk_item_waypoint.id AND
                             gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5
-                      WHERE cache_logs.deleted=0 AND cache_logs.id IN (" . $log_ids . ") AND `cache_logs`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'
+                      WHERE cache_logs.deleted=0 AND cache_logs.id IN (" . $log_ids . ") AND `cache_logs`.`user_id`='" . sql_escape($user_id) . "'
 
                        GROUP BY cache_logs.id ORDER BY cache_logs.date_created DESC");
         if (mysql_num_rows($rs) != 0) {
