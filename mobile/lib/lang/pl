@@ -74,7 +74,7 @@ need_archive wymagana archiwizacja
 edit edytuj
 delete usuń
 no_cookie brak obsługi cookie!
-del_question Czy usunąć napewno?
+del_question Czy usunąć na pewno?
 yes tak
 no nie
 not_your_entry To nie jest twój wpis!
@@ -89,7 +89,7 @@ entry_text treść wpisu:
 toprating rekomendacja:
 add dodaj
 no_score bez oceny
-seek_near2 Szukaj szkrzynek w okolicy
+seek_near2 Szukaj skrzynek w okolicy
 cords współrzędne:
 radius promień:
 logentry_title dodaj wpis
