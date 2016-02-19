@@ -47,8 +47,8 @@
                                     {$logtype = $service}
                                 {/if}
                                 {if $logs[i].newtype eq '6'}
-                                    <span style='color: red'>
-                                        {$logtype = $need_archive}
+                                    <span style='color: orange'>
+                                        {$logtype = $made_service}
                                     {/if}
                                     {if $logs[i].newtype eq '7'}
                                         <span style='color: green'>
