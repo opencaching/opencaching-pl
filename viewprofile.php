@@ -176,7 +176,7 @@ if ($error == false) {
             $rfc2 = mysql_fetch_array($rsfc2);
             $rsc = sql("SELECT COUNT(*) number FROM cache_logs WHERE type=1 AND cache_logs.deleted='0' AND user_id=&1 GROUP BY YEAR(`date`), MONTH(`date`), DAY(`date`) ORDER BY number DESC LIMIT 1", $user_id);
             $rc = sql_fetch_array($rsc);
-            $moved = sqlValue("SELECT COUNT(*) FROM `cache_logs` WHERE type=4 AND cache_logs.deleted='0' AND user_id='" . sql_escape($_REQUEST['userid']) . "'", 0);
+            $moved = sqlValue("SELECT COUNT(*) FROM `cache_logs` WHERE type=4 AND cache_logs.deleted='0' AND user_id='" . sql_escape($user_id) . "'", 0);
             $rsncd = sql("SELECT COUNT(*) FROM cache_logs WHERE type=1 AND cache_logs.deleted='0' AND user_id=&1 GROUP BY YEAR(`date`), MONTH(`date`), DAY(`date`)", $user_id);
             $num_rows = mysql_num_rows($rsncd);
             $sql = "SELECT COUNT(*) founds_count
@@ -228,7 +228,7 @@ if ($error == false) {
                 $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' . $user_id . '&amp;searchbyfinder=&amp;logtype=7&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
             }
 
-            $recomendf = sqlValue("SELECT COUNT(*) FROM `cache_rating` WHERE `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
+            $recomendf = sqlValue("SELECT COUNT(*) FROM `cache_rating` WHERE `user_id`='" . sql_escape($user_id) . "'", 0);
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('number_recommendations_given') . ':</span> <strong>' . $recomendf . '</strong>';
 
             if ($recomendf == 0) {
@@ -451,10 +451,10 @@ if ($error == false) {
                 $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;cachetype=1111101111&amp;searchbyowner=&amp;f_inactive=1&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
             }
 
-            $hidden_temp = sqlValue("SELECT COUNT(*) FROM `caches` WHERE status=2 AND `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
+            $hidden_temp = sqlValue("SELECT COUNT(*) FROM `caches` WHERE status=2 AND `user_id`='" . sql_escape($user_id) . "'", 0);
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('number_temp_caches') . ':  </span><strong>' . $hidden_temp . '</strong></p>';
 
-            $hidden_arch = sqlValue("SELECT COUNT(*) FROM `caches` WHERE status=3 AND type <> 6 AND `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
+            $hidden_arch = sqlValue("SELECT COUNT(*) FROM `caches` WHERE status=3 AND type <> 6 AND `user_id`='" . sql_escape($user_id) . "'", 0);
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('number_archived_caches') . ': </span><strong>' . $hidden_arch . '</strong></p>';
 
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('number_created_events') . ':  </span><strong>' . $hidden_event . '</strong>';
@@ -463,8 +463,8 @@ if ($error == false) {
             } else {
                 $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?searchto=searchbyowner&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;f_geokret=0&amp;country=&amp;cachetype=0000010000">' . tr('show') . '</a>]</p>';
             }
-            $recomendr = sqlValue("SELECT COUNT(*) FROM `cache_rating`, caches WHERE `cache_rating`.`cache_id`=`caches`.`cache_id` AND caches.type <> 6 AND `caches`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
-            $recommend_caches = sqlValue("SELECT COUNT(*) FROM caches WHERE `caches`.`topratings` >= 1 AND caches.type <> 6 AND  `caches`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
+            $recomendr = sqlValue("SELECT COUNT(*) FROM `cache_rating`, caches WHERE `cache_rating`.`cache_id`=`caches`.`cache_id` AND caches.type <> 6 AND `caches`.`user_id`='" . sql_escape($user_id) . "'", 0);
+            $recommend_caches = sqlValue("SELECT COUNT(*) FROM caches WHERE `caches`.`topratings` >= 1 AND caches.type <> 6 AND  `caches`.`user_id`='" . sql_escape($user_id) . "'", 0);
             if ($recomendr != 0) {
 
                 $ratio = sprintf("%u", ($recommend_caches / $total_owned_caches) * 100);
@@ -475,7 +475,7 @@ if ($error == false) {
             $numberGK_in_caches = sqlValue("SELECT count(*) FROM gk_item, gk_item_waypoint,caches
                 WHERE gk_item_waypoint.wp = caches.wp_oc AND
                    gk_item.id = gk_item_waypoint.id AND
-                gk_item.stateid <> 1 AND gk_item.stateid <> 4 AND gk_item.stateid <> 5 AND gk_item.typeid <> 2 AND `caches`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
+                gk_item.stateid <> 1 AND gk_item.stateid <> 4 AND gk_item.stateid <> 5 AND gk_item.typeid <> 2 AND `caches`.`user_id`='" . sql_escape($user_id) . "'", 0);
             if ($numberGK_in_caches != 0) {
                 $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('number_gk_in_caches') . ':</span> <strong>' . $numberGK_in_caches . '</strong></p>';
                 $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('days_caching') . ':</span> <strong>' . $num_rows . '</strong> ' . tr('from_total_days') . ': <strong>' . $ddays['diff'] . '</strong></p>';
@@ -618,7 +618,7 @@ if ($error == false) {
 
         //  ----------------- begin  owner section  ----------------------------------
         if ($user_id == $usr['userid'] || $usr['admin']) {
-            $rscheck = sqlValue("SELECT count(*) FROM caches WHERE (status = 4 OR status = 5 OR status = 6) AND `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
+            $rscheck = sqlValue("SELECT count(*) FROM caches WHERE (status = 4 OR status = 5 OR status = 6) AND `user_id`='" . sql_escape($user_id) . "'", 0);
 
             if ($rscheck != 0) {
                 $content .= '<br /><div class="content-title-noshade box-blue">';
