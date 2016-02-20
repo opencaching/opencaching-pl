@@ -12,6 +12,7 @@
         <meta name="Viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
         <link rel="stylesheet" type="text/css" href="../lib/style.css" />
         <script type="text/javascript" src="../lib/script.js"></script>
+        <script type="text/javascript" src="../lib/ga.js"></script>
         {$HeaderContent}
     </head>
 
