@@ -1,4 +1,8 @@
 <?php
+/**
+ * This template is used to display generator of "additional cache attributes"
+ */
+
 if
  ($_POST["cache_icon"] == "TRUE") {
     $atr1 = $_POST["atr1"];

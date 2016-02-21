@@ -1,4 +1,9 @@
 <?php
+/*
+ * This script checks if transactions is working in OC database
+ * This is for test purpose only.
+ *
+ */
 
 function check_database_count($db, $expected, $line)
 {
@@ -16,7 +21,8 @@ function check_database_count($db, $expected, $line)
     }
 }
 
-require_once('./lib/common.inc.php');
+$rootpath = "../";
+require_once('../lib/common.inc.php');
 // ob_start();
 echo '<b>start</b><br>';
 $db = new dataBase();
