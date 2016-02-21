@@ -24,8 +24,10 @@ if (isset($_SESSION['user_id']) && isset($_GET['wp']) && !empty($_GET['wp'])) {
                 and cache_id = '".mysql_real_escape_string($caches['cache_id'])."'
             for update
         ");
-
-        $query = "select 1 from cache_logs where user_id = '" . $_SESSION['user_id'] . "' and type = '1' and deleted='0' and cache_id ='" . $caches['cache_id'] . "';";
+        if ($caches['type'] == 6)
+            $query = "select 1 from cache_logs where user_id = '" . $_SESSION['user_id'] . "' and type = '7' and deleted='0' and cache_id ='" . $caches['cache_id'] . "';";
+        else
+            $query = "select 1 from cache_logs where user_id = '" . $_SESSION['user_id'] . "' and type = '1' and deleted='0' and cache_id ='" . $caches['cache_id'] . "';";
         $wynik = db_query($query);
         $if_found = mysql_fetch_row($wynik);
 
@@ -42,7 +44,7 @@ if (isset($_SESSION['user_id']) && isset($_GET['wp']) && !empty($_GET['wp'])) {
         $przyznanych = mysql_fetch_row($wynik);
 
         $dowykorzystania = $dostepne[0] - $przyznanych[0];
-        if ($dowykorzystania > 0)
+        if ($dowykorzystania > 0 && $caches['type'] != 6)
             $topratingav = 1;
         else
             $topratingav = 0;
@@ -75,7 +77,7 @@ if (isset($_SESSION['user_id']) && isset($_GET['wp']) && !empty($_GET['wp'])) {
                 $tpl->assign('error', '4');
             elseif ($temp_found == 0 && !preg_match("/^((-4)|(-3)|(-1.5)|(0)|(1.5)|(3)){1}$/", $ocena))
                 $tpl->assign('error', '4');
-            elseif ($temp_found == 1 && ($rodzaj == 1 || $rodzaj == 2))
+            elseif ($temp_found == 1 && ($rodzaj == 1 || $rodzaj == 2 || $rodzaj == 7))
                 $tpl->assign('error', '4');
             elseif ($temp_found == 1 && !empty($rekomendacja))
                 $tpl->assign('error', '4');
@@ -160,6 +162,7 @@ else {
 $tpl->assign('topratingav', $topratingav);
 $tpl->assign('temp_found', $temp_found);
 $tpl->assign('cache_name', $caches['name']);
+$tpl->assign('cache_type', $caches['type']);
 $tpl->assign('logpw', $caches['logpw']);
 $tpl->assign('wp_oc', $wp);
 $tpl->assign('date_d', date(d));
