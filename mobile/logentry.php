@@ -33,16 +33,10 @@ if (isset($_SESSION['user_id']) && isset($_GET['wp']) && !empty($_GET['wp'])) {
 
         $temp_found = ($if_found[0] == 1 || $is_mine == 1) ? 1 : 0;
 
-        // OMG, why this query has constaint user_id instead of user_id taken from $_SESSION? Changed by Limak to correct one.
-        // ==== Limak, 10.02.2012 ====
-        //$query= "SELECT floor( founds_count /10 ) FROM user WHERE user_id =10151;";
         $query = "SELECT floor( founds_count /10 ) FROM user WHERE user_id =" . $_SESSION['user_id'] . ";";
         $wynik = db_query($query);
         $dostepne = mysql_fetch_row($wynik);
 
-        // OMG, why this query has constaint user_id instead of user_id taken from $_SESSION? Changed by Limak to correct one.
-        // ==== Limak, 10.02.2012 ====
-        //$query="select count(*) from cache_rating where user_id=10151;";
         $query = "select count(*) from cache_rating where user_id=" . $_SESSION['user_id'] . ";";
         $wynik = db_query($query);
         $przyznanych = mysql_fetch_row($wynik);
