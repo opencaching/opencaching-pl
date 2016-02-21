@@ -60,12 +60,19 @@
 
 
             <select id="rodzaj" name="rodzaj">
-                {if $temp_found eq '0'}
+                {if $temp_found eq '0' && $cache_type !='6'}
                     <option onclick="showextra();" value="1" {if $rodz_select == '1'}selected="selected"{/if}>{$found}</option>
                     <option onclick="hideextra();" value="2" {if $rodz_select == '2'}selected="selected"{/if}>{$notfound}</option>
+                {elseif $temp_found eq '0' && $cache_type =='6'}
+                    <option onclick="showextra();" value="7" {if $rodz_select == '7'}selected="selected"{/if}>{$attended}</option>
+                {/if}
+                {if $cache_type == '6'}
+                    <option onclick="hideextra();" value="8" {if $rodz_select == '8'}selected="selected"{/if}>{$will_attend}</option>
                 {/if}
                 <option onclick="hideextra();" value="3" {if $rodz_select == '3'}selected="selected"{/if}>{$notes}</option>
-                <option onclick="hideextra();" value="5" {if $rodz_select == '5'}selected="selected"{/if}>{$service}</option>
+                {if $cache_type != '6'}
+                    <option onclick="hideextra();" value="5" {if $rodz_select == '5'}selected="selected"{/if}>{$service}</option>
+                {/if}
             </select>
 
             <br/><br/>

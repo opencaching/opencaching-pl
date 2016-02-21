@@ -8,7 +8,7 @@ if (isset($_SESSION['user_id']) && isset($_GET['wp']) && !empty($_GET['wp'])) {
 
     $wp = mysql_real_escape_string($_GET['wp']);
 
-    $query = "select name,cache_id,user_id,votes,score,logpw,votes from caches where wp_oc = '" . $wp . "' and status='1';";
+    $query = "select name,cache_id,user_id,votes,score,logpw,type from caches where wp_oc = '" . $wp . "' and status='1';";
     $wynik = db_query($query);
     $caches = mysql_fetch_assoc($wynik);
 
@@ -24,8 +24,10 @@ if (isset($_SESSION['user_id']) && isset($_GET['wp']) && !empty($_GET['wp'])) {
                 and cache_id = '".mysql_real_escape_string($caches['cache_id'])."'
             for update
         ");
-
-        $query = "select 1 from cache_logs where user_id = '" . $_SESSION['user_id'] . "' and type = '1' and deleted='0' and cache_id ='" . $caches['cache_id'] . "';";
+        if ($caches['type'] == 6)
+            $query = "select 1 from cache_logs where user_id = '" . $_SESSION['user_id'] . "' and type = '7' and deleted='0' and cache_id ='" . $caches['cache_id'] . "';";
+        else
+            $query = "select 1 from cache_logs where user_id = '" . $_SESSION['user_id'] . "' and type = '1' and deleted='0' and cache_id ='" . $caches['cache_id'] . "';";
         $wynik = db_query($query);
         $if_found = mysql_fetch_row($wynik);
 
@@ -33,22 +35,16 @@ if (isset($_SESSION['user_id']) && isset($_GET['wp']) && !empty($_GET['wp'])) {
 
         $temp_found = ($if_found[0] == 1 || $is_mine == 1) ? 1 : 0;
 
-        // OMG, why this query has constaint user_id instead of user_id taken from $_SESSION? Changed by Limak to correct one.
-        // ==== Limak, 10.02.2012 ====
-        //$query= "SELECT floor( founds_count /10 ) FROM user WHERE user_id =10151;";
         $query = "SELECT floor( founds_count /10 ) FROM user WHERE user_id =" . $_SESSION['user_id'] . ";";
         $wynik = db_query($query);
         $dostepne = mysql_fetch_row($wynik);
 
-        // OMG, why this query has constaint user_id instead of user_id taken from $_SESSION? Changed by Limak to correct one.
-        // ==== Limak, 10.02.2012 ====
-        //$query="select count(*) from cache_rating where user_id=10151;";
         $query = "select count(*) from cache_rating where user_id=" . $_SESSION['user_id'] . ";";
         $wynik = db_query($query);
         $przyznanych = mysql_fetch_row($wynik);
 
         $dowykorzystania = $dostepne[0] - $przyznanych[0];
-        if ($dowykorzystania > 0)
+        if ($dowykorzystania > 0 && $caches['type'] != 6)
             $topratingav = 1;
         else
             $topratingav = 0;
@@ -75,11 +71,13 @@ if (isset($_SESSION['user_id']) && isset($_GET['wp']) && !empty($_GET['wp'])) {
                 $tpl->assign('error', '2');
             elseif ($datetime > time())
                 $tpl->assign('error', '3');
-            elseif ($rodzaj < '1' || $rodzaj > '4')
+            elseif (($rodzaj < '1' || $rodzaj > '5') && $caches['type'] != 6)
+                $tpl->assign('error', '4');
+            elseif ($rodzaj != '3' && $rodzaj != '7' && $rodzaj != '8' && $caches['type'] == 6)
                 $tpl->assign('error', '4');
             elseif ($temp_found == 0 && !preg_match("/^((-4)|(-3)|(-1.5)|(0)|(1.5)|(3)){1}$/", $ocena))
                 $tpl->assign('error', '4');
-            elseif ($temp_found == 1 && ($rodzaj == 1 || $rodzaj == 2))
+            elseif ($temp_found == 1 && ($rodzaj == 1 || $rodzaj == 2 || $rodzaj == 7))
                 $tpl->assign('error', '4');
             elseif ($temp_found == 1 && !empty($rekomendacja))
                 $tpl->assign('error', '4');
@@ -112,6 +110,14 @@ if (isset($_SESSION['user_id']) && isset($_GET['wp']) && !empty($_GET['wp'])) {
                         $query = "update caches set notes=notes+1 where cache_id = " . $caches['cache_id'];
                         db_query($query);
                         $query = "update user set log_notes_count=log_notes_count+1 where user_id = " . $_SESSION['user_id'];
+                        db_query($query);
+                        break;
+                    case 7:
+                        $query = "update caches set founds=founds+1 where cache_id = " . $caches['cache_id'];
+                        db_query($query);
+                        break;
+                    case 8:
+                        $query = "update caches set notfounds=notfounds+1 where cache_id = " . $caches['cache_id'];
                         db_query($query);
                         break;
                 }
@@ -156,6 +162,7 @@ else {
 $tpl->assign('topratingav', $topratingav);
 $tpl->assign('temp_found', $temp_found);
 $tpl->assign('cache_name', $caches['name']);
+$tpl->assign('cache_type', $caches['type']);
 $tpl->assign('logpw', $caches['logpw']);
 $tpl->assign('wp_oc', $wp);
 $tpl->assign('date_d', date(d));
