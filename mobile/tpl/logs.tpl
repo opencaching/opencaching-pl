@@ -52,7 +52,7 @@
                                     {/if}
                                     {if $logs[i].newtype eq '7'}
                                         <span style='color: green'>
-                                            {$logtype = $attented}
+                                            {$logtype = $attended}
                                         {/if}
                                         {if $logs[i].newtype eq '8'}
                                             <span style='color: black'>
