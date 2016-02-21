@@ -8,7 +8,7 @@ if (isset($_SESSION['user_id']) && isset($_GET['wp']) && !empty($_GET['wp'])) {
 
     $wp = mysql_real_escape_string($_GET['wp']);
 
-    $query = "select name,cache_id,user_id,votes,score,logpw,votes from caches where wp_oc = '" . $wp . "' and status='1';";
+    $query = "select name,cache_id,user_id,votes,score,logpw,type from caches where wp_oc = '" . $wp . "' and status='1';";
     $wynik = db_query($query);
     $caches = mysql_fetch_assoc($wynik);
 
@@ -75,7 +75,9 @@ if (isset($_SESSION['user_id']) && isset($_GET['wp']) && !empty($_GET['wp'])) {
                 $tpl->assign('error', '2');
             elseif ($datetime > time())
                 $tpl->assign('error', '3');
-            elseif ($rodzaj < '1' || $rodzaj > '4')
+            elseif (($rodzaj < '1' || $rodzaj > '5') && $caches['type'] != 6)
+                $tpl->assign('error', '4');
+            elseif ($rodzaj != '3' && $rodzaj != '7' && $rodzaj != '8' && $caches['type'] == 6)
                 $tpl->assign('error', '4');
             elseif ($temp_found == 0 && !preg_match("/^((-4)|(-3)|(-1.5)|(0)|(1.5)|(3)){1}$/", $ocena))
                 $tpl->assign('error', '4');
@@ -112,6 +114,14 @@ if (isset($_SESSION['user_id']) && isset($_GET['wp']) && !empty($_GET['wp'])) {
                         $query = "update caches set notes=notes+1 where cache_id = " . $caches['cache_id'];
                         db_query($query);
                         $query = "update user set log_notes_count=log_notes_count+1 where user_id = " . $_SESSION['user_id'];
+                        db_query($query);
+                        break;
+                    case 7:
+                        $query = "update caches set founds=founds+1 where cache_id = " . $caches['cache_id'];
+                        db_query($query);
+                        break;
+                    case 8:
+                        $query = "update caches set notfounds=notfounds+1 where cache_id = " . $caches['cache_id'];
                         db_query($query);
                         break;
                 }
