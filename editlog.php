@@ -33,7 +33,7 @@ if ($error == false) {
             }
 
             //is this log from this user?
-            if (($log_record['user_id'] == $usr['userid'] && $log_record['cachestatus'] != 3 && $log_record['cachestatus'] != 4 && $log_record['cachestatus'] != 6) || $usr['admin']) {
+            if (($log_record['user_id'] == $usr['userid'] && $log_record['cachestatus'] != 4 && $log_record['cachestatus'] != 6) || $usr['admin']) {
                 $tplname = 'editlog';
 
                 //load settings
