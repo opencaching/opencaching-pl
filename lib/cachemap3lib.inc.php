@@ -3,17 +3,14 @@
  * This class is used to generate maps description based on maps configuration from settings.inc.php
  *
  */
+use lib\Objects\OcConfig\OcConfig;
+
 class CacheMap3Lib {
 
     public function GenerateAttributionMap()
     {
-        global $config;
-        if (!isset($config['mapsConfig'])){
-            return '{}';
-        }
         $result = '';
-        $mapsConfig = $config['mapsConfig'];
-        foreach($mapsConfig as $key => $val){
+        foreach(OcConfig::MapsConfig() as $key => $val){
             if (self::ShouldSkip($val)){
                 continue;
             }
@@ -32,13 +29,8 @@ class CacheMap3Lib {
 
     public function GenerateMapItems()
     {
-        global $config;
-        if (!isset($config['mapsConfig'])){
-            return '{}';
-        }
         $result = '';
-        $mapsConfig = $config['mapsConfig'];
-        foreach($mapsConfig as $key => $val){
+        foreach(OcConfig::MapsConfig() as $key => $val){
             if (self::ShouldSkip($val)){
                 continue;
             }
@@ -54,13 +46,8 @@ class CacheMap3Lib {
 
     public function GenerateShowMapsWhenMore()
     {
-        global $config;
-        if (!isset($config['mapsConfig'])){
-            return '{}';
-        }
         $result = '';
-        $mapsConfig = $config['mapsConfig'];
-        foreach($mapsConfig as $key => $val){
+        foreach(OcConfig::MapsConfig() as $key => $val){
             if (self::ShouldSkip($val)){
                 continue;
             }
