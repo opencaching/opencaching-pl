@@ -165,10 +165,8 @@ function removelog($log_id, $language, $lang)
                 unset($cache_record);
 
                 if (!(isset($_POST['userid']))) {
-                    //cache anzeigen
-                    $_GET['cacheid'] = $log_record['cache_id'];
-                    $_REQUEST['cacheid'] = $log_record['cache_id'];
-                    require('viewcache.php');
+                    //Cache description showing
+                    tpl_redirect('viewcache.php?cacheid='.$log_record['cache_id']);
                 }
             } else {
                 tpl_set_var('cachename', htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8'));
