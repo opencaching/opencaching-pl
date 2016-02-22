@@ -139,12 +139,12 @@
         } else {
             echo "<b>{{available_maps}}:</b>
             <a target=\"_blank\" href='cachemap3.php?lat=";
-            ?>{latitude}<?php echo "&amp;lon="; ?>{longitude}<?php echo "&amp;cacheid="; ?>{cacheid}<?php echo "&amp;inputZoom=14'>Opencaching.pl</a>,
+            ?>{latitude}<?php echo "&amp;lon="; ?>{longitude}<?php echo "&amp;cacheid="; ?>{cacheid}<?php echo "&amp;inputZoom=14'>Opencaching</a>,
             <a target=\"_blank\" href='http://osmapa.pl?zoom=16&amp;lat="; ?>{latitude}<?php echo "&amp;lon="; ?>{longitude}<?php echo "&amp;o=TFFT&amp;map=1'>OSMapa</a>,
             <a target=\"_blank\" href='http://mapa.ump.waw.pl/ump-www/?zoom=14&amp;lat="; ?>{latitude}<?php echo "&amp;lon="; ?>{longitude}<?php echo "&amp;layers=B00000T&amp;mlat="; ?>{latitude}<?php echo "&amp;mlon="; ?>{longitude}<?php echo "'>UMP</a>, <a target=\"_blank\" href='http://www.zumi.pl/namapie.html?&amp;lat="; ?>{latitude}<?php echo "&amp;long="; ?>{longitude}<?php echo "&amp;type=1&amp;scale=4'>Zumi</a>,<br/>
             <a href=\"http://maps.google.com/maps?hl=UTF-8&q="; ?>{latitude}<?php echo "+"; ?>{longitude}<?php echo '+(' . urlencode($vars['cachename']) . ")\" target=\"_blank\">Google&nbsp;Maps</a>,
             <a href=\"http://mapa.szukacz.pl/?n="; ?>{latitude}<?php echo "&amp;e="; ?>{longitude}<?php
-            echo "&amp;t=Skrzynka%20Geocache\" target=\"_blank\">AutoMapa</a>";
+            echo "&amp;t=Skrzynka%20Geocache\" target=\"_blank\">Szukacz</a>";
         }
         ?>
     </div>
