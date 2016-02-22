@@ -43,7 +43,7 @@
 
     <div id="map_filters" style="display: none;">
 
-        <?php //disable this part of template if pwoerTrail filter is not supported
+        <?php //disable this part of template if powerTrail filter is not supported
             if( {pt_filter_enabled} ) {
         ?>
         <table id='powertrail_filter' class='opt_table' cellspacing="0">
@@ -190,8 +190,56 @@
 <script src="tpl/stdstyle/js/jquery.cookie.js"></script>
 <script src="{lib_cachemap3_js}" type="text/javascript"></script>
 <script type="text/javascript" language="javascript">
-$(function() {
 
+initial_params = { //params for cachemaps3.js
+    cachemap_mapper: "{cachemap_mapper}",
+    userid: {userid},
+    coords: [{coords}],
+    zoom: {zoom},
+    map_type: {map_type},
+    circle: {circle},
+    doopen: {doopen},
+    fromlat: {fromlat}, fromlon: {fromlon},
+    tolat: {tolat}, tolon: {tolon},
+    searchdata: "{searchdata}",
+    boundsurl: "{boundsurl}",
+    extrauserid: "{extrauserid}",
+    moremaptypes: true,
+    fullscreen: true,
+    largemap: true,
+    savesettings: true,
+    powertrail_ids: "{powertrail_ids}",
+    controls: {
+        ctrl_combo: {
+            enabled: true,
+            id: "control_combo",
+            pos: google.maps.ControlPosition.TOP_LEFT
+        },
+        fullscreen: {
+            enabled: true,
+            id: "fullscreen_off"
+        },
+        position: {
+            enabled: true,
+            id: "current_position"
+        },
+        filters:{
+            enabled: true,
+            but_id: "toggle_filters",
+            box_id: "map_filters"
+        },
+        search: {
+            enabled: true,
+            input_id: "place_search_text",
+            but_id: "place_search_button"
+        }
+    }
+};
+
+//$(function() { // this is called when document is ready
+window.onload = function() {
+
+    // add dim to checked input
     var checkbox_changed = function() {
         var $related = $("." + $(this).attr('name'));
         if ($(this).is(':checked'))
@@ -200,77 +248,23 @@ $(function() {
             $related.removeClass('dim');
     };
 
+    // attach checkbox_changed as callback to all inputs
+    // in opt_table to changed event
     $('.opt_table input')
         .each(checkbox_changed)
         .change(checkbox_changed);
 
-});
 
-initial_params = {
-    start: {
-        cachemap_mapper: "{cachemap_mapper}",
-        userid: {userid},
-        coords: [{coords}],
-        zoom: {zoom},
-        map_type: {map_type},
-        circle: {circle},
-        doopen: {doopen},
-        fromlat: {fromlat}, fromlon: {fromlon},
-        tolat: {tolat}, tolon: {tolon},
-        searchdata: "{searchdata}",
-        boundsurl: "{boundsurl}",
-        extrauserid: "{extrauserid}",
-        moremaptypes: true,
-        fullscreen: true,
-        largemap: true,
-        savesettings: true,
-        powertrail_ids: "{powertrail_ids}"
-    }
-};
+    loadOcMap();
 
-window.onload = function() {
-    attachFullScreenOffControl();
-    attachCacheFilterControl();
-    attachCurrentPositionControl();
-    load(
-        [{ position: google.maps.ControlPosition.TOP_LEFT, control: document.getElementById("control_combo") }],
-        document.getElementById("search_control")
-    );
     // Hack for very small devices - check if the control combo fits in the browser window
     // If not - shrink the search box
     var excessPixels = $("#control_combo_table").outerWidth() - window.innerWidth;
     if (excessPixels > 0) {
         var oldWidth = $("input.gsc-input").width();
-        $("input.gsc-input").width(oldWidth - excessPixels);
+        $("input.gsc-input").width( oldWidth - excessPixels );
     };
-};
 
-function attachFullScreenOffControl() {
-    google.maps.event.addDomListener(document.getElementById("fullscreen_off"), "click", function() {
-        //call function from cachemap3.js
-        fullscreen_off();
-    });
 }
 
-function attachCacheFilterControl() {
-    var filters = document.getElementById("map_filters");
-    google.maps.event.addDomListener(document.getElementById("toggle_filters"), "click", function() {
-        if (filters.style.display == 'none') {
-            filters.style.left = document.getElementById("control_combo").offsetLeft + "px";
-            filters.style.display = '';
-        }
-        else
-            filters.style.display = 'none';
-    });
-}
-
-function attachCurrentPositionControl() {
-    if (!("geolocation" in navigator))
-        return;
-    var curr_pos_el = document.getElementById("current_position");
-    curr_pos_el.style.display = "";
-    google.maps.event.addDomListener(curr_pos_el, "click", function() {
-        getCurrentPosition();
-    });
-}
 </script>

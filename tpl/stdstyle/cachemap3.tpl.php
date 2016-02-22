@@ -36,7 +36,8 @@
                             {{current_zoom}}:
                             <input type="text" id="zoom" size="2" value="{zoom}" disabled="disabled" style='border: 0; font-weight: bold; font-size: 13px; background: transparent'/>
                         </td>
-                        <td><a onclick="fullscreen_on();" style='cursor: pointer'><img src="images/fullscreen.png" alt="{{fullscreen}}"/></a></td>
+                        <!-- onclick="fullscreen_on();"  -->
+                        <td><a id="fullscreen_on" style='cursor: pointer'><img src="images/fullscreen.png" alt="{{fullscreen}}"/></a></td>
                         <td><a onclick="generate_new_rand(); reload();" style='cursor: pointer'><img src="images/refresh.png"/></a></td>
                     </tr></table>
             </td>
@@ -192,8 +193,46 @@
 <script src="tpl/stdstyle/js/jquery.cookie.js"></script>
 <script src="{lib_cachemap3_js}" type="text/javascript"></script>
 <script type="text/javascript" language="javascript">
-$(function() {
 
+initial_params = { //params for cachemaps3.js
+    cachemap_mapper: "{cachemap_mapper}",
+    userid: {userid},
+    coords: [{coords}],
+    zoom: {zoom},
+    map_type: {map_type},
+    circle: {circle},
+    doopen: {doopen},
+    fromlat: {fromlat}, fromlon: {fromlon},
+    tolat: {tolat}, tolon: {tolon},
+    searchdata: "{searchdata}",
+    boundsurl: "{boundsurl}",
+    extrauserid: "{extrauserid}",
+    moremaptypes: false,
+    fullscreen: false,
+    largemap: true,
+    savesettings: true,
+    powertrail_ids: "{powertrail_ids}",
+    controls: {
+        fullscreen: {
+            enabled: true,
+            id: "fullscreen_on"
+        },
+        position: {
+            enabled: false,
+            id: "current_position"
+        },
+        search: {
+            enabled: true,
+            input_id: "place_search_text",
+            but_id: "place_search_button"
+        }
+    }
+};
+
+//$( function() { // this is called when document is ready
+window.onload = function() {
+
+    // add dim to checked input
     var checkbox_changed = function() {
         var $related = $("." + $(this).attr('name'));
         if ($(this).is(':checked'))
@@ -202,35 +241,15 @@ $(function() {
             $related.removeClass('dim');
     };
 
+    // attach checkbox_changed as callback to all inputs
+    // in opt_table to changed event
     $('.opt_table input')
         .each(checkbox_changed)
         .change(checkbox_changed);
 
-});
+    //load google maps
+    loadOcMap();
 
-initial_params = {
-    start: {
-        cachemap_mapper: "{cachemap_mapper}",
-        userid: {userid},
-        coords: [{coords}],
-        zoom: {zoom},
-        map_type: {map_type},
-        circle: {circle},
-        doopen: {doopen},
-        fromlat: {fromlat}, fromlon: {fromlon},
-        tolat: {tolat}, tolon: {tolon},
-        searchdata: "{searchdata}",
-        boundsurl: "{boundsurl}",
-        extrauserid: "{extrauserid}",
-        moremaptypes: false,
-        fullscreen: false,
-        largemap: true,
-        savesettings: true,
-        powertrail_ids: "{powertrail_ids}"
-    }
-};
+}
 
-window.onload = function() {
-    load([], document.getElementById("search_control"));
-};
 </script>
