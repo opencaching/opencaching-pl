@@ -101,10 +101,9 @@ if ($error == false) {
     tpl_set_var('ocWaypoint', $oc_waypoint);
     tpl_set_var('commentsPaginateCount', powerTrailBase::commentsPaginateCount);
 
-    $cacheMap3Lib = new CacheMap3Lib();
-    tpl_set_var('attributionMap', $cacheMap3Lib->generateAttributionMap());
-    tpl_set_var('mapItems', $cacheMap3Lib->generateMapItems());
-    tpl_set_var('showMapsWhenMore', $cacheMap3Lib->generateShowMapsWhenMore());
+    tpl_set_var('attributionMap', CacheMap3Lib::GenerateAttributionMap());
+    tpl_set_var('mapItems', CacheMap3Lib::GenerateMapItems());
+    tpl_set_var('showMapsWhenMore', CacheMap3Lib::GenerateShowMapsWhenMore());
 
     if (!$usr)
         tpl_set_var('ptMenu', 'none');

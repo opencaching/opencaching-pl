@@ -8,18 +8,14 @@ require_once($rootpath . 'lib/cachemap3lib.inc.php');
 
 header('Content-Type: text/javascript; charset=UTF-8');
 
-$cacheMap3Lib = new CacheMap3Lib();
-$attributionMap = $cacheMap3Lib->generateAttributionMap();
-echo 'var attributionMap = ' . $attributionMap . ';';
+echo 'var attributionMap = ' . CacheMap3Lib::GenerateAttributionMap() . ';';
 echo "\n";
 
-$showMapsWhenMore = $cacheMap3Lib->generateShowMapsWhenMore();
-echo 'var showMapsWhenMore = ' . $showMapsWhenMore . ';';
+echo 'var showMapsWhenMore = ' . CacheMap3Lib::GenerateShowMapsWhenMore() . ';';
 echo "\n";
 
-$mapItems = $cacheMap3Lib->generateMapItems();
-echo 'var mapItems = ' . $mapItems . ';';
+echo 'var mapItems = ' . CacheMap3Lib::GenerateMapItems() . ';';
 echo "\n\n";
 
 echo read_file(dirname(__FILE__) . '/cachemap3.js');
-?>
+
