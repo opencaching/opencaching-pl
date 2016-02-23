@@ -124,6 +124,19 @@ if ($error == false) {
                 tpl_set_var('lastlogin', tr('more_12_month'));
         }
 
+        // COG Note
+        if($usr['admin'])
+        {
+            if(isset($_POST['save']) && isset($_POST['note_content']))
+                sql("UPDATE `user` SET `cog_note`='&1' WHERE `user_id`='&2'", $_POST['note_content'], $user_id);
+            $content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="Cog Note" title="Cog Note" />&nbsp;&nbsp;&nbsp;' . tr('COG_note') . '</p></div><br /><div class="content2-container">';
+            $note_query = sql("SELECT `user`.`cog_note` AS `user_note`
+                FROM `user`
+                WHERE `user_id`='&1'", $user_id);
+            $record = sql_fetch_array($note_query);
+            $content .= cogNoteForm($record["user_note"], $user_id);
+        }
+
         $ars = sql("SELECT
                     `user`.`hidden_count` AS    `ukryte`,
                     `user`.`founds_count` AS    `znalezione`,
@@ -773,4 +786,30 @@ function myUrlEncode($string)
     return str_replace($entities, $replacements, urlencode($string));
 }
 
+function cogNoteForm($note, $user_id)
+{
+    return '<form action="viewprofile.php?userid='.$user_id.'" method="post" name="user_note">
+            <input type="hidden" name="cacheid" value="{cacheid}" />
+
+            <table id="cache_note1" class="table">
+                <tr valign="top">
+                    <td></td>
+                    <td>
+                        <textarea name="note_content" rows="4" cols="85" style="font-size:13px;">'.$note.'</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="2">
+                        <button type="submit" name="save" value="save" style="width:100px">'.tr('save').'</button>&nbsp;&nbsp;
+                    <img src="tpl/stdstyle/images/misc/16x16-info.png" class="icon16" alt="Info" />
+                    <small>
+                        '.tr('COG_note_visible').'
+                    </small>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>';
+}
 ?>
