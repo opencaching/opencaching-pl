@@ -129,7 +129,7 @@ if ($error == false) {
             if ($page_number == $start)
                 $pages .= '</b>';
         }
-        if ($total_pages > $startat + $PAGES_LISTED)
+        if ($total_pages >= $startat + $PAGES_LISTED)
             $pages .= '<a href="my_logs.php?userid=' . $user_id . '&amp;start=' . (($i - 1) * $LOGS_PER_PAGE) . '">{last_img}</a> ';
         else
             $pages .= '{last_img_inactive}';
