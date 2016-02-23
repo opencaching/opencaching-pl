@@ -121,7 +121,7 @@ if ($error == false) {
             $pages .= '<a href="my_logs.php?userid=' . $user_id . '&amp;start=' . max(0, ($startat - $PAGES_LISTED - 1) * $LOGS_PER_PAGE) . '">{first_img}</a> ';
         else
             $pages .= "{first_img_inactive}";
-        for ($i = max(1, $startat); $i < $startat + $PAGES_LISTED; $i++) {
+        for ($i = max(1, $startat); $i < min($startat + $PAGES_LISTED, $total_pages + 1); $i++) {
             $page_number = ($i - 1) * $LOGS_PER_PAGE;
             if ($page_number == $start)
                 $pages .= '<b>';
@@ -129,7 +129,7 @@ if ($error == false) {
             if ($page_number == $start)
                 $pages .= '</b>';
         }
-        if ($total_pages > $PAGES_LISTED)
+        if ($total_pages > $startat + $PAGES_LISTED)
             $pages .= '<a href="my_logs.php?userid=' . $user_id . '&amp;start=' . (($i - 1) * $LOGS_PER_PAGE) . '">{last_img}</a> ';
         else
             $pages .= '{last_img_inactive}';
