@@ -955,3 +955,13 @@ table.myneighborhood tbody tr:nth-child(odd) {
 div.gm-style {
     font-family: "arial", sans-serif, "Tahoma", "Verdana";
 }
+
+
+.CacheTitledLog {
+    border-radius: 5px;
+    border: solid 1px grey;
+    background: #F9F9F9;
+    padding:2px 2px 2px 2px;
+    font-size: 11px;
+    font-family: comic sans ms,sans-serif;
+}

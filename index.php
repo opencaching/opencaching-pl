@@ -1,4 +1,3 @@
-<link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/style.css" />
 <?php
 
 global $usr;
