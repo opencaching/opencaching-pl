@@ -962,6 +962,7 @@ div.gm-style {
     background: #F9F9F9;
     padding:2px 2px 2px 2px;
     font-size: 11px;
-    font-family: comic sans ms,sans-serif;
+    font-family: "Comic Sans MS", cursive, sans-serif;
     font-weight: bold;
+	font-style: italic;
 }
