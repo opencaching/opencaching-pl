@@ -2568,4 +2568,6 @@ $translations = array(
     'month_titled_cache_congratulations' => '<p><img src="tpl/stdstyle/images/free_icons/award_star_gold_1.png" class="icon16" alt="Skrzynka miesiąca" title="Skrzynka miesiąca" />&nbsp Witaj !!! <br/> <br/>&nbsp&nbsp&nbsp&nbspMiło nam poinformować, iż Twoja skrzynka została wybrana skrzynką miesiąca.</p><p><span style="color: #008000;"><strong><br />SERDECZNIE GRATULUJEMY !!!</strong></span><br />Zespół OpenCaching</p>',
     'titled_cache_date' => 'Data<br>wyróżnienia',
     'show_more_titled_caches' => 'Pokaż więcej Skrzynek Tygodnia',
+    'COG_note' => 'Notatka COG o użytkowniku',
+    'COG_note_visible' => 'Ta sekcja jest widoczna tylko dla członków COG',
 );
