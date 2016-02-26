@@ -10,11 +10,31 @@ if ($usr['admin']) {
         tpl_set_var('userid', $user_id);
     }
 
+    if (checkField('countries', $lang))
+        $lang_db = $lang;
+    else
+        $lang_db = "en";
+
+    $rsuser = sql("SELECT hidden_count, founds_count, log_notes_count, notfounds_count,last_login,
+                                username, date_created,description, email,is_active_flag,
+                                stat_ban,activation_code,hide_flag,countries.$lang_db country, verify_all
+                                FROM `user` LEFT JOIN countries ON (user.country=countries.short) WHERE user_id=&1 ", $user_id);
+
+    $record = sql_fetch_array($rsuser);
+
     $user = new \lib\Objects\User\User(array('userId'=>$_REQUEST['userid']));
     $user->loadExtendedSettings();
 
     if (isset($_GET['stat_ban']) && $_GET['stat_ban'] == 1 && $usr['admin']) {
         $sql = "UPDATE user SET stat_ban = 1 - stat_ban WHERE user_id = " . intval($user_id);
+        if ($record["stat_ban"] == 0) {
+            $record["stat_ban"] = 1;
+            lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user_id, true, lib\Objects\User\AdminNote::BAN_STATS);
+        }
+        else if($record["stat_ban"] == 1) {
+            $record["stat_ban"] = 0;
+            lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user_id, true, lib\Objects\User\AdminNote::UNBAN_STATS);
+        }
         mysql_query($sql);
     }
     if(isset($_GET['hide_flag'])){
@@ -31,10 +51,14 @@ if ($usr['admin']) {
     if(isset($_GET['verify_all'])) {
         if ($_GET['verify_all'] == 1 && $usr['admin']) {
             $sql = "UPDATE user SET verify_all = '1'  WHERE user_id = '" . intval($user_id) . "'";
+            $record["verify_all"] = 1;
+            lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user_id, true, lib\Objects\User\AdminNote::VERIFY_ALL);
             mysql_query($sql) or die(mysql_error());
         }
         if ($_GET['verify_all'] == 0 && $usr['admin']) {
             $sql = "UPDATE user SET verify_all = 0  WHERE user_id = " . intval($user_id);
+            lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user_id, true, lib\Objects\User\AdminNote::NO_VERIFY_ALL);
+            $record["verify_all"] = 0;
             mysql_query($sql);
         }
     }
@@ -48,12 +72,19 @@ if ($usr['admin']) {
         unset ($user);
         $user = new \lib\Objects\User\User(array('userId'=>$_REQUEST['userid']));
         $user->loadExtendedSettings();;
-
     }
 
-
+    //ban
     if (isset($_GET['is_active_flag']) && $_GET['is_active_flag'] == 1 && $usr['admin']) {
         $sql = "UPDATE user SET is_active_flag = 1 - is_active_flag, `activation_code`='' WHERE user_id = " . intval($user_id);
+        if ($record["is_active_flag"] == 0) {
+            $record["is_active_flag"] = 1;
+            lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user_id, true, lib\Objects\User\AdminNote::UNBAN);
+        }
+        else if($record["is_active_flag"] == 1) {
+            $record["is_active_flag"] = 0;
+            lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user_id, true, lib\Objects\User\AdminNote::BAN);
+        }
         mysql_query($sql);
     }
 
@@ -62,17 +93,7 @@ if ($usr['admin']) {
     } else
         tpl_set_var('remove_all_logs', '');
 
-    if (checkField('countries', $lang))
-        $lang_db = $lang;
-    else
-        $lang_db = "en";
 
-    $rsuser = sql("SELECT hidden_count, founds_count, log_notes_count, notfounds_count,last_login,
-                                username, date_created,description, email,is_active_flag,
-                                stat_ban,activation_code,hide_flag,countries.$lang_db country, verify_all
-                                FROM `user` LEFT JOIN countries ON (user.country=countries.short) WHERE user_id=&1 ", $user_id);
-
-    $record = sql_fetch_array($rsuser);
     if (!$record['activation_code']) {
         tpl_set_var('activation_codes', tr('account_is_actived'));
     } else {
@@ -117,8 +138,6 @@ if ($usr['admin']) {
     } else {
         tpl_set_var('ignoreFoundLimit', 'n/d');
     }
-
-
 
 
 // force all caches to be verified - form
