@@ -191,13 +191,13 @@
 <script src="{lib_cachemap3_js}" type="text/javascript"></script>
 <script type="text/javascript" language="javascript">
 
-initial_params = { //params for cachemaps3.js
+var map_params = { //params for cachemaps3.js
     cachemap_mapper: "{cachemap_mapper}",
     userid: {userid},
     coords: [{coords}],
     zoom: {zoom},
     map_type: {map_type},
-    circle: {circle},
+    circle: {circle},   //display 150m circle on the center of map
     doopen: {doopen},
     fromlat: {fromlat}, fromlon: {fromlon},
     tolat: {tolat}, tolon: {tolon},
@@ -205,57 +205,43 @@ initial_params = { //params for cachemaps3.js
     boundsurl: "{boundsurl}",
     extrauserid: "{extrauserid}",
     moremaptypes: true,
-    fullscreen: true,
-    largemap: true,
+    fullscreen: true,   // is this fullscreen map?
+    largemap: true,     // largeMap has more controls...
     savesettings: true,
     powertrail_ids: "{powertrail_ids}",
+    mapCanvasId: 'map_canvas',
+    reload_func: 'reload', //function name to reload oc map
     controls: {
         ctrl_combo: {
-            enabled: true,
             id: "control_combo",
             pos: google.maps.ControlPosition.TOP_LEFT
         },
         fullscreen: {
-            enabled: true,
             id: "fullscreen_off"
         },
         position: {
-            enabled: true,
             id: "current_position"
         },
         filters:{
-            enabled: true,
             but_id: "toggle_filters",
             box_id: "map_filters"
         },
         search: {
-            enabled: true,
             input_id: "place_search_text",
             but_id: "place_search_button"
+        },
+        //zoom_display: {
+        //    id: "zoom"
+        //},
+        position_display: {
+            pos: google.maps.ControlPosition.TOP_LEFT
         }
     }
 };
 
-//$(function() { // this is called when document is ready
 window.onload = function() {
 
-    // add dim to checked input
-    var checkbox_changed = function() {
-        var $related = $("." + $(this).attr('name'));
-        if ($(this).is(':checked'))
-            $related.addClass('dim');
-        else
-            $related.removeClass('dim');
-    };
-
-    // attach checkbox_changed as callback to all inputs
-    // in opt_table to changed event
-    $('.opt_table input')
-        .each(checkbox_changed)
-        .change(checkbox_changed);
-
-
-    loadOcMap();
+    loadOcMap( map_params );
 
     // Hack for very small devices - check if the control combo fits in the browser window
     // If not - shrink the search box

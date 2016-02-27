@@ -33,7 +33,7 @@
 <script src="{lib_cachemap3_js}" type="text/javascript"></script>
 <script type="text/javascript" language="javascript">
 
-initial_params = { //params for cachemaps3.js
+var map_params = { //params for cachemaps3.js
     cachemap_mapper: "{cachemap_mapper}",
     userid: {userid},
     coords: [{coords}],
@@ -51,21 +51,12 @@ initial_params = { //params for cachemaps3.js
     largemap: false,
     savesettings: false,
     powertrail_ids: "{powertrail_ids}",
-    controls: {
-        fullscreen: {
-            enabled: false,
-            id: "fullscreen_off"
-        },
-        position: {
-            enabled: false,
-            id: "current_position"
-        }
-    }
+    mapCanvasId: 'map_canvas',
+    controls: {}
 };
 
-//$( function() { // this is called when document is ready
 window.onload = function() {
-    loadOcMap();
+    loadOcMap(map_params);
 };
 
 </script>

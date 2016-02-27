@@ -194,7 +194,7 @@
 <script src="{lib_cachemap3_js}" type="text/javascript"></script>
 <script type="text/javascript" language="javascript">
 
-initial_params = { //params for cachemaps3.js
+var map_params = { //params for cachemaps3.js
     cachemap_mapper: "{cachemap_mapper}",
     userid: {userid},
     coords: [{coords}],
@@ -212,24 +212,22 @@ initial_params = { //params for cachemaps3.js
     largemap: true,
     savesettings: true,
     powertrail_ids: "{powertrail_ids}",
+    mapCanvasId: 'map_canvas',
+    reload_func: 'reload', //function name to reload oc map
     controls: {
         fullscreen: {
-            enabled: true,
             id: "fullscreen_on"
         },
-        position: {
-            enabled: false,
-            id: "current_position"
-        },
         search: {
-            enabled: true,
             input_id: "place_search_text",
             but_id: "place_search_button"
+        },
+        zoom_display: {
+            id: "zoom"
         }
     }
 };
 
-//$( function() { // this is called when document is ready
 window.onload = function() {
 
     // add dim to checked input
@@ -248,7 +246,7 @@ window.onload = function() {
         .change(checkbox_changed);
 
     //load google maps
-    loadOcMap();
+    loadOcMap( map_params );
 
 }
 

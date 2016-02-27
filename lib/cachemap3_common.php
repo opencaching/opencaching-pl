@@ -18,6 +18,10 @@ function onTheList($theArray, $item)
     return - 1;
 }
 
+/**
+ * Reads user map settings from the DB
+ * @param int $user_id - user identifier
+ */
 function getDBFilter($user_id)
 {
     global $MIN_SCORE, $MAX_SCORE, $powerTrailModuleSwitchOn; // defined in settings.inc/php
@@ -260,7 +264,11 @@ function parsePowerTrailFilter($loadDetails = false)
     }
 }
 
-function setFilterSettings($filter)
+/**
+ * This function set map template variables based on given table
+ * @param array $filter - contains map params to set on template
+ */
+function setFilterSettings(array $filter)
 {
     global $powerTrailModuleSwitchOn;
 
@@ -306,8 +314,8 @@ function setFilterSettings($filter)
 
         tpl_set_var($key . "_checked", $chk);
 
-        if ($key == "map_type") {
-            tpl_set_var($key, $value);
+        if ($key == 'map_type') {
+            tpl_set_var('map_type', $value);
         } else {
             tpl_set_var($key, $value ? "true" : "");
         }
@@ -367,7 +375,7 @@ function setCommonMap3Vars()
 
     tpl_set_var("cachemap_mapper", $cachemap_mapper);
     /* SET YOUR MAP CODE HERE */
-    tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?v=3.21&amp;language=' . $lang . '" '.
+    tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?v=3.22&amp;language=' . $lang . '" '.
         'type="text/javascript"></script>' .
         '<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">');
 
