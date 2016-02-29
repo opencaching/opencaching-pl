@@ -60,7 +60,7 @@ if ($error == false) {
             $filenameparts = mb_split('\\.', $filename);
             $extension = mb_strtolower($filenameparts[count($filenameparts) - 1]);
 
-            if (mb_strpos($picextensions, ';' . $extension . ';') === false) {
+            if (mb_strpos($config['limits']['image']['extension'], ';' . $extension . ';') === false) {
                 sql("UPDATE `pictures` SET `unknown_format`=1 WHERE `uuid`='&1'", $r['uuid']);
 
                 if ($debug == 1)

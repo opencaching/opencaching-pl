@@ -1,8 +1,5 @@
 <?php
 
-/* allowed filesize of uploaded pictures in megabytes (MB). (pictures will be resized automaticly) */
-$maximumPictureWeight = 3.5;
-
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -23,7 +20,7 @@ if ($error == false) {
         $message_title_internal = 'Wewnętrzny błąd serwera';
         $message_internal = 'Wystąpił wewnętrzny błąd serwera, jeśli ten błąd powtarza się prosimy o kontakt na adres ocpl @ opencaching.pl. W celu powtórzenia błędu wskazane byłoby załączenie do tego emial obrazek z opisem sytuacji.';
         $message_title_toobig = tr('to_big_data');
-        $message_toobig = tr('max_size')." $maximumPictureWeight ".tr('max_size2');
+        $message_toobig = tr('max_size') . $config['limits']['image']['filesize'] . tr('max_size2');
         $message_title_wrongext = tr('bad_format');
         $message_wrongext = tr('bad_format_info');
 
@@ -41,7 +38,7 @@ if ($error == false) {
 
         $title = isset($_REQUEST['title']) ? stripslashes($_REQUEST['title']) : '';
 
-        tpl_set_var('maxImageWeight', $maximumPictureWeight);
+        tpl_set_var('maxImageWeight', $config['limits']['image']['filesize']);
         $allok = true;
         if (!is_numeric($objectid))
             $allok = false;
@@ -137,7 +134,7 @@ if ($error == false) {
                         $fna = mb_split('\\.', $_FILES['file']['name']);
                         $extension = mb_strtolower($fna[count($fna) - 1]);
 
-                        if (mb_strpos($picextensions, ';' . $extension . ';') === false) {
+                        if (mb_strpos($config['limits']['image']['extension'], ';' . $extension . ';') === false) {
                             $tplname = 'message';
                             tpl_set_var('messagetitle', $message_title_wrongext);
                             tpl_set_var('message_start', '');
@@ -147,7 +144,7 @@ if ($error == false) {
                             exit;
                         }
 
-                        if ($_FILES['file']['size'] > ($maximumPictureWeight * 1024 * 1024)) { // file too big
+                        if ($_FILES['file']['size'] > ($config['limits']['image']['filesize'] * 1024 * 1024)) { // file too big
                             $tplname = 'message';
                             tpl_set_var('messagetitle', $message_title_toobig);
                             tpl_set_var('message_start', '');
@@ -159,15 +156,22 @@ if ($error == false) {
 
                         $uuid = create_uuid();
 
-                        $image = new \lib\SimpleImage();
-                        $image->load($_FILES['file']['tmp_name']);
-                        if ($image->getHeight() > $image->getWidth() && $image->getHeight()>640) { //portrait
-                            $image->resizeToHeight(640);
-                        }
-                        if ($image->getHeight() <= $image->getWidth() && $image->getWidth()>480)  {
-                            $image -> resizeToWidth(640);
-                        }
-                        $image->save($picdir . '/' . $uuid . '.' . $extension, resolveImageTypeByFileExtension($extension));
+			if ($config['limits']['image']['resize'] == 1) {
+			    // Apply resize to uploaded image
+                    	    $image = new \lib\SimpleImage();
+                    	    $image->load($_FILES['file']['tmp_name']);
+                    	    if ($image->getHeight() > $image->getWidth() && $image->getHeight() > $config['limits']['image']['height']) { //portrait
+                        	$image->resizeToHeight($config['limits']['image']['height']);
+                    	    }
+                    	    if ($image->getHeight() <= $image->getWidth() && $image->getWidth() > $config['limits']['image']['width'])  {
+                        	$image -> resizeToWidth($config['limits']['image']['width']);
+                    	    }
+                    	    $image->save($picdir . '/' . $uuid . '.' . $extension, resolveImageTypeByFileExtension($extension));
+			} else {
+			    // Save uploaded image AS IS
+			    move_uploaded_file($_FILES['file']['tmp_name'], $picdir . '/' . $uuid . '.' . $extension);
+			}
+
                         sql("INSERT INTO pictures (`uuid`, `url`, `last_modified`, `title`, `description`, `desc_html`, `date_created`, `last_url_check`, `object_id`, `object_type`, `user_id`,`local`,`spoiler`,`display`,`node`,`seq`) VALUES ('&1', '&2', NOW(), '&3', '', 0, NOW(), NOW(),'&4', '&5', '&6', 1, '&7', '&8', '&9', '&10')", $uuid, $picurl . '/' . $uuid . '.' . $extension, $title, $objectid, $type, $usr['userid'], ($bSpoiler == 1) ? '1' : '0', ($bNoDisplay == 1) ? '0' : '1', $oc_nodeid, $def_seq);
 
                         switch ($type) {
@@ -195,7 +199,9 @@ if ($error == false) {
                 tpl_set_var('objectid', htmlspecialchars($objectid, ENT_COMPAT, 'UTF-8'));
                 tpl_set_var('def_seq', htmlspecialchars($def_seq, ENT_COMPAT, 'UTF-8')); //update hidden value in newpic.tbl.php
                 tpl_set_var('title', htmlspecialchars($title, ENT_COMPAT, 'UTF-8'));
-                tpl_set_var('maxpicsize', $maxpicsize);
+                tpl_set_var('maxpicsize', $config['limits']['image']['filesize'] * 1024 * 1024);
+                tpl_set_var('maxpicresolution', $config['limits']['image']['pixels_text']);
+                tpl_set_var('picallowedformats', $config['limits']['image']['extension_text']);
                 tpl_set_var('submit', $submit);
                 tpl_set_var('errnotitledesc', '');
                 tpl_set_var('errnopicgivendesc', '');
@@ -206,7 +212,9 @@ if ($error == false) {
                     tpl_set_var('type', htmlspecialchars($type, ENT_COMPAT, 'UTF-8'));
                     tpl_set_var('objectid', htmlspecialchars($objectid, ENT_COMPAT, 'UTF-8'));
                     tpl_set_var('title', htmlspecialchars($title, ENT_COMPAT, 'UTF-8'));
-                    tpl_set_var('maxpicsize', $maxpicsize);
+                    tpl_set_var('maxpicsize', ($config['limits']['image']['filesize'] * 1024 * 1024));
+                    tpl_set_var('maxpicresolution', $config['limits']['image']['pixels_text']);
+                    tpl_set_var('picallowedformats', $config['limits']['image']['extension_text']);
                     tpl_set_var('submit', $submit);
                     tpl_set_var('errnopicgivendesc', '');
                     tpl_set_var('errnotitledesc', '');
