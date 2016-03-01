@@ -21,7 +21,7 @@
     }
     //-->
 </script>
-<h2>spoiler: {spoiler} x</h2>
+
 <form action="newpic.php" method="post" enctype="multipart/form-data" name="newpic_form" dir="ltr" onsubmit="return checkForm();">
     <input type="hidden" name="objectid" value="{objectid}" />
     <input type="hidden" name="type" value="{type}" />
