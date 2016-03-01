@@ -125,7 +125,7 @@ if ($error == false) {
                         $fna = mb_split('\\.', $_FILES['file']['name']);
                         $extension = mb_strtolower($fna[count($fna) - 1]);
 
-                        if (mb_strpos($picextensions, ';' . $extension . ';') === false) {
+                        if (mb_strpos($config['limits']['image']['extension'], ';' . $extension . ';') === false) {
                             $tplname = 'message';
                             tpl_set_var('messagetitle', $message_title_wrongext);
                             tpl_set_var('message_start', '');
@@ -136,7 +136,7 @@ if ($error == false) {
                         }
 
                         // Datei zu groĂź?
-                        if ($_FILES['file']['size'] > $maxpicsize) {
+                        if ($_FILES['file']['size'] > $config['limits']['image']['filesize'] * 1024 * 1024) {
                             $tplname = 'message';
                             tpl_set_var('messagetitle', $message_title_toobig);
                             tpl_set_var('message_start', '');
@@ -148,8 +148,22 @@ if ($error == false) {
 
                         $uuid = create_uuid();
 
-                        // datei verschieben und in DB eintragen
-                        move_uploaded_file($_FILES['file']['tmp_name'], $picdir . '/' . $uuid . '.' . $extension);
+
+	               if ($config['limits']['image']['resize'] == 1) {
+	                   // Apply resize to uploaded image
+	                   $image = new \lib\SimpleImage();
+	                   $image->load($_FILES['file']['tmp_name']);
+	                   if ($image->getHeight() > $image->getWidth() && $image->getHeight() > $config['limits']['image']['height']) { //portrait
+	                       $image->resizeToHeight($config['limits']['image']['height']);
+	                   }
+	                   if ($image->getHeight() <= $image->getWidth() && $image->getWidth() > $config['limits']['image']['width'])  {
+	                       $image -> resizeToWidth($config['limits']['image']['width']);
+	                   }
+	                   $image->save($picdir . '/' . $uuid . '.' . $extension, resolveImageTypeByFileExtension($extension));
+	               } else {
+	                   // Save uploaded image AS IS
+	                   move_uploaded_file($_FILES['file']['tmp_name'], $picdir . '/' . $uuid . '.' . $extension);
+	               }
 
                         /*
                          * [EN] add EXIF (GPS info) to image
@@ -219,7 +233,9 @@ if ($error == false) {
                 tpl_set_var('type', htmlspecialchars($type, ENT_COMPAT, 'UTF-8'));
                 tpl_set_var('objectid', htmlspecialchars($objectid, ENT_COMPAT, 'UTF-8'));
                 tpl_set_var('title', htmlspecialchars($title, ENT_COMPAT, 'UTF-8'));
-                tpl_set_var('maxpicsize', $maxpicsize);
+                tpl_set_var('maxpicsize', $config['limits']['image']['filesize'] * 1024 * 1024);
+		tpl_set_var('maxpicresolution', $config['limits']['image']['pixels_text']);
+		tpl_set_var('picallowedformats', $config['limits']['image']['extension_text']);
                 tpl_set_var('submit', $submit);
 
                 tpl_set_var('errnotitledesc', '');
@@ -232,7 +248,9 @@ if ($error == false) {
                     tpl_set_var('type', htmlspecialchars($type, ENT_COMPAT, 'UTF-8'));
                     tpl_set_var('objectid', htmlspecialchars($objectid, ENT_COMPAT, 'UTF-8'));
                     tpl_set_var('title', htmlspecialchars($title, ENT_COMPAT, 'UTF-8'));
-                    tpl_set_var('maxpicsize', $maxpicsize);
+                    tpl_set_var('maxpicsize', $config['limits']['image']['filesize'] * 1024 * 1024);
+    	    	    tpl_set_var('maxpicresolution', $config['limits']['image']['pixels_text']);
+    	    	    tpl_set_var('picallowedformats', $config['limits']['image']['extension_text']);
                     tpl_set_var('submit', $submit);
 
                     tpl_set_var('errnopicgivendesc', '');
