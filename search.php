@@ -331,7 +331,7 @@
                     $options['waypointtype'] = 'oc';
                     $options['waypoint'] = $ocWP.$options['waypoint'];
                 }
-                elseif ( !mb_ereg_match('(gc[a-f0-9]{4,5})$', mb_strtolower($options['waypoint'])) ) //GC and others - test
+                elseif ( !mb_ereg_match('(gc[a-z0-9]{4,5})$', mb_strtolower($options['waypoint'])) ) //GC and others - test
                 {
                 	$options['waypoint'] = '';
                 }
