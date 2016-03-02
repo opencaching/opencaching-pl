@@ -1119,12 +1119,15 @@ if ($error == false) {
             $desclang = $desclangs[0];
         }
 
-        if (isset($disable_google_translation) && $disable_google_translation)
+        if (isset($disable_google_translation) && $disable_google_translation) {
             $enable_google_translation = false;
-        else if (strtolower($desclang) != $lang && $lang != 'pl')
+        }
+        else if (strtolower($desclang) != $lang && $lang != 'pl') {
             $enable_google_translation = true;
-        else
+        }
+        else {
             $enable_google_translation = false;
+        }
 
         //build langs list
         $langlist = '';
