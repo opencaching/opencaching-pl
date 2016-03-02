@@ -1114,14 +1114,14 @@ if ($error == false) {
             $desclang = $_REQUEST['desclang'];
         }
 
-        $enable_google_translation = false;
-
         //is no description available in the wished language?
         if (array_search($desclang, $desclangs) === false) {
             $desclang = $desclangs[0];
         }
 
-        if (strtolower($desclang) != $lang && $lang != 'pl')
+        if (isset($disable_google_translation) && $disable_google_translation)
+            $enable_google_translation = false;
+        else if (strtolower($desclang) != $lang && $lang != 'pl')
             $enable_google_translation = true;
         else
             $enable_google_translation = false;
