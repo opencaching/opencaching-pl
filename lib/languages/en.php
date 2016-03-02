@@ -828,7 +828,7 @@ $translations = array(
     'online_users_info' => 'based on users active over the past 10 minutes',
     'empty_entry_notice' => '<b>Log Etiquette:</b> Try not to submit empty log entries. Even a ordinary "Thanks" will be enough!',
     'empty_entry_confirm' => 'Do you really want to post an empty log entry?',
-    'empty_mark' => 'Don"t you really want to mark this cache ?',
+    'empty_mark' => 'Don you really not want to mark this cache ?',
     'where_i_am' => 'Where am I',
     'read_info_about_cache_types' => 'Please read information about <a href="{wiki_link_cacheTypes}" target="_blank">Cachetypes</a>',
     'regiononly' => 'Region/Województwo (Poland only)',
