@@ -52,6 +52,10 @@ var map_params = { //params for cachemaps3.js
     savesettings: false,
     powertrail_ids: "{powertrail_ids}",
     mapCanvasId: 'map_canvas',
+    mapTypeControl: {
+        pos: google.maps.ControlPosition.TOP_RIGHT,
+        style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+    },
     controls: {}
 };
 

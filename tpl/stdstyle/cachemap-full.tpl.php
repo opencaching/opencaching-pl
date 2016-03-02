@@ -211,6 +211,10 @@ var map_params = { //params for cachemaps3.js
     powertrail_ids: "{powertrail_ids}",
     mapCanvasId: 'map_canvas',
     reload_func: 'reload', //function name to reload oc map
+    mapTypeControl: {
+        pos: google.maps.ControlPosition.TOP_RIGHT,
+        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
+    },
     controls: {
         ctrl_combo: {
             id: "control_combo",
@@ -230,12 +234,10 @@ var map_params = { //params for cachemaps3.js
             input_id: "place_search_text",
             but_id: "place_search_button"
         },
-        //zoom_display: {
-        //    id: "zoom"
-        //},
         position_display: {
-            pos: google.maps.ControlPosition.TOP_LEFT
+            pos: google.maps.ControlPosition.BOTTOM_CENTER
         }
+
     }
 };
 

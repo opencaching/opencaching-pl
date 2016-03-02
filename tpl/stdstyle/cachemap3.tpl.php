@@ -38,7 +38,7 @@
                         </td>
                         <!-- onclick="fullscreen_on();"  -->
                         <td><a id="fullscreen_on" style='cursor: pointer'><img src="images/fullscreen.png" alt="{{fullscreen}}"/></a></td>
-                        <td><a onclick="generate_new_rand(); reload();" style='cursor: pointer'><img src="images/refresh.png"/></a></td>
+                        <td><a id="refresh_button" style='cursor: pointer'><img src="images/refresh.png"/></a></td>
                     </tr></table>
             </td>
         </tr>
@@ -214,9 +214,16 @@ var map_params = { //params for cachemaps3.js
     powertrail_ids: "{powertrail_ids}",
     mapCanvasId: 'map_canvas',
     reload_func: 'reload', //function name to reload oc map
+    mapTypeControl: {
+        pos: google.maps.ControlPosition.TOP_RIGHT,
+        style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+    },
     controls: {
         fullscreen: {
             id: "fullscreen_on"
+        },
+        refresh_button:{
+            id: "refresh_button"
         },
         search: {
             input_id: "place_search_text",
@@ -224,6 +231,9 @@ var map_params = { //params for cachemaps3.js
         },
         zoom_display: {
             id: "zoom"
+        },
+        position_display: {
+            pos: google.maps.ControlPosition.TOP_LEFT
         }
     }
 };
