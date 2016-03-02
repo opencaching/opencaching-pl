@@ -2,7 +2,6 @@
 
 global $dateFormat;
 require_once ('./lib/common.inc.php');
-db_disconnect();
 
 //Preprocessing
 if ($error == false) {
