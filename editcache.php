@@ -631,7 +631,7 @@ if ($error == false) {
                     if (isset($config['cacheLimitByTypePerUser'][$cache_type]) && $cacheLimitByTypePerUser[$cache_type] >= $config['cacheLimitByTypePerUser'][$cache_type] && !$usr['admin']) {
                         continue;
                     }
-                    if (isset($config['cacheLimitByTypePerUser'][$type['id']]) && $cacheLimitByTypePerUser[$type['id']] >= $config['cacheLimitByTypePerUser'][$type['id']] && !$usr['admin']) {
+                    if (isset($cacheLimitByTypePerUser[$type['id']]) && isset($config['cacheLimitByTypePerUser'][$type['id']]) && $cacheLimitByTypePerUser[$type['id']] >= $config['cacheLimitByTypePerUser'][$type['id']] && !$usr['admin']) {
                         continue;
                     }
 

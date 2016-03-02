@@ -161,15 +161,17 @@ global $lang;
 
 $userid = '';
 
-$get_userid = strip_tags($_REQUEST['userid']);
+if (isset($_REQUEST['userid'])) {
+	$get_userid = strip_tags($_REQUEST['userid']);
+} else {
+	$get_userid = '';
+}
+
 //user logged in?
 if ($usr == false) {
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target=' . $target);
 } else {
-    session_start();
-
-
 
     if ($get_userid == '')
         $userid = $usr['userid'];
@@ -177,7 +179,7 @@ if ($usr == false) {
         $userid = $get_userid;
     $rs = mysql_query("SELECT `latitude`, `longitude`, `username` FROM `user` WHERE `user_id`='$userid'");
     $record = mysql_fetch_array($rs);
-    if (($_REQUEST['lat'] != "" && $_REQUEST['lon'] != "") && ($_REQUEST['lat'] != 0 && $_REQUEST['lon'] != 0)) {
+    if ((isset($_REQUEST['lat']) && isset($_REQUEST['lon']) && $_REQUEST['lat'] != "" && $_REQUEST['lon'] != "") && ($_REQUEST['lat'] != 0 && $_REQUEST['lon'] != 0)) {
         $coordsXY = $_REQUEST['lat'] . "," . $_REQUEST['lon'];
         $coordsX = $_REQUEST['lat'];
         if ($_REQUEST['inputZoom'] != "")
@@ -210,7 +212,7 @@ if ($usr == false) {
     }
 
     tpl_set_var('coords', $coordsXY);
-    tpl_set_var('username', $record[username]);
+    tpl_set_var('username', $record['username']);
 
     $filter = getDBFilter($usr['userid']);
 

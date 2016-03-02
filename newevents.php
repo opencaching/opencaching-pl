@@ -162,11 +162,11 @@ if ($error == false) {
                 }
                 $file_content .= "</tr>";
                 $content .=$file_content;
+                mysql_free_result($rs_log);
             }
         }
     }
 
-    mysql_free_result($rs_log);
     mysql_free_result($rs);
     tpl_set_var('file_content', $content);
 

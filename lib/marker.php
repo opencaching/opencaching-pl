@@ -1,6 +1,5 @@
 <?php
 
-session_start();
 // ini_set ('display_errors', on);
 
 require "../lib/settings.inc.php";

@@ -153,7 +153,7 @@ if ($_GET['cacheid'] == '') {
     $checked_7 = "";
     $checked_8 = "";
 
-    if ($_POST['shownologbook'] == "&logbook=no")
+    if (isset($_POST['shownologbook']) && $_POST['shownologbook'] == "&logbook=no")
         $checked_0 = "checked";
     if (!isset($_POST['showlogs']))
         $_POST['showlogs'] = '';
