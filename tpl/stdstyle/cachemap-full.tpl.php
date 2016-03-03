@@ -224,31 +224,21 @@ var map_params = { //params for cachemaps3.js
             id: "current_position"
         },
         ocFilters:{
-            but_id: "toggle_filters",
-            box_id: "map_filters"
+            buttonId: "toggle_filters",
+            boxId: "map_filters"
         },
         search: {
             input_id: "place_search_text",
             but_id: "place_search_button"
         },
-        cordsUnderCursor: {
+        coordsUnderCursor: {
             pos: google.maps.ControlPosition.BOTTOM_CENTER
         }
     }
 };
 
 window.onload = function() {
-
     loadOcMap( map_params );
-
-    // Hack for very small devices - check if the control combo fits in the browser window
-    // If not - shrink the search box
-    var excessPixels = $("#control_combo_table").outerWidth() - window.innerWidth;
-    if (excessPixels > 0) {
-        var oldWidth = $("input.gsc-input").width();
-        $("input.gsc-input").width( oldWidth - excessPixels );
-    };
-
 }
 
 </script>

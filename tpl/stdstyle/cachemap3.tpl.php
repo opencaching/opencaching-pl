@@ -1,3 +1,16 @@
+<script type='text/javascript'>
+
+    //On touch-screen devices use full-screen map by default
+    //Check for touch device below should be kept in sync with analogous check in lib/cachemap3.js
+
+    if (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0)){
+        //check cookie to allow user to come back to non-full screen mode
+        if( document.cookie.indexOf("forceFullScreenMap=off") == -1){
+            //touch device + cookie not set => redirect to full screen map
+            window.location = 'cachemap-full.php'+window.location.search;
+        }
+    }
+</script>
 <div class="content2-pagetitle">
     <img src="tpl/stdstyle/images/blue/world.png" class="icon32" style='margin: 0 4px 3px 6px'/>
     {{user_map}} <b style='color: #000'>{username}</b>
@@ -206,7 +219,6 @@ var map_params = { //params for cachemaps3.js
     searchdata: "{searchdata}",
     boundsurl: "{boundsurl}",
     extrauserid: "{extrauserid}",
-    moremaptypes: false,
     fullscreen: false,
     savesettings: true,
     powertrail_ids: "{powertrail_ids}",
@@ -214,7 +226,7 @@ var map_params = { //params for cachemaps3.js
     reload_func: 'reload', //function name to reload oc map
     mapTypeControl: {
         pos: google.maps.ControlPosition.TOP_RIGHT,
-        style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
     },
     customControls: {
         fullscreenButton: {
@@ -230,19 +242,17 @@ var map_params = { //params for cachemaps3.js
         zoom_display: {
             id: "zoom"
         },
-        cordsUnderCursor: {
+        coordsUnderCursor: {
             pos: google.maps.ControlPosition.TOP_LEFT
         },
         ocFilters:{
-            box_id: "map_filters"
+            boxId: "map_filters"
         }
     }
 };
 
 window.onload = function() {
-
     loadOcMap( map_params );
-
 }
 
 </script>
