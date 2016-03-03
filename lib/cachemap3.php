@@ -15,9 +15,6 @@ echo "\n\n// --- cachemap3lib.js end ---\n\n";
 echo 'var attributionMap = ' . CacheMap3Lib::GenerateAttributionMap() . ';';
 echo "\n";
 
-echo 'var showMapsWhenMore = ' . CacheMap3Lib::GenerateShowMapsWhenMore() . ';';
-echo "\n";
-
 echo 'var mapItems = ' . CacheMap3Lib::GenerateMapItems() . ';';
 echo "\n\n";
 

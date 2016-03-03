@@ -29,7 +29,6 @@
 <input class="chbox" id="zoom" name="zoom" value="{zoom}" type="hidden" />
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-<script src="tpl/stdstyle/js/jquery.cookie.js"></script>
 <script src="{lib_cachemap3_js}" type="text/javascript"></script>
 <script type="text/javascript" language="javascript">
 
@@ -41,12 +40,9 @@ var map_params = { //params for cachemaps3.js
     map_type: {map_type},
     circle: 0, //{circle},
     doopen: {doopen},
-    //fromlat: {fromlat}, fromlon: {fromlon},
-    //tolat: {tolat}, tolon: {tolon},
     searchdata: "{searchdata}",
     boundsurl: "{boundsurl}",
     extrauserid: "{extrauserid}",
-    moremaptypes: false,
     fullscreen: true,
     savesettings: false,
     powertrail_ids: "{powertrail_ids}",

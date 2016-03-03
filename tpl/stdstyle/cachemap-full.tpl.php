@@ -203,7 +203,6 @@ var map_params = { //params for cachemaps3.js
     searchdata: "{searchdata}",
     boundsurl: "{boundsurl}",
     extrauserid: "{extrauserid}",
-    moremaptypes: true,
     fullscreen: true,   // is this fullscreen map?
     savesettings: true,
     powertrail_ids: "{powertrail_ids}",
