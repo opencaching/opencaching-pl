@@ -165,7 +165,7 @@ class AdminNote
 
     public static function getAllUserNotes($user_id)
     {
-        $results = [];
+        $results = array();
         $i = 0;
         $db = DataBaseSingleton::Instance();
         $query = "SELECT `admin_id`, `cache_id`, `automatic`, `datetime`, `content` FROM `admin_user_notes` WHERE `user_id`=:1 ORDER BY `datetime` DESC";
