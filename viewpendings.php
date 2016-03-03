@@ -194,33 +194,35 @@ if ($error == false && $usr['admin']) {
         } else {
             if (actionRequired($_GET['cacheid'])) {
                 // requires activation
-                if (isset($_GET['confirm']) && $_GET['confirm'] == 1) {
+                if (isset($_GET['confirm']) && isset($_GET['user_id']) && $_GET['confirm'] == 1) {
                     // confirmed - change the status and notify the owner now
                     if (activateCache($_GET['cacheid'])) {
                         assignUserToCase($usr['userid'], $_GET['cacheid']);
                         notifyOwner($_GET['cacheid'], 0);
+                        lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $_GET['user_id'], true, lib\Objects\User\AdminNote::CACHE_PASS, $_GET['cacheid']);
                         $confirm = "<p> " . tr("viewPending_09") . ".</p>";
                     } else {
                         $confirm = "<p> " . tr("viewPending_10") . ".</p>";
                     }
-                } else if (isset($_GET['confirm']) && $_GET['confirm'] == 2) {
+                } else if (isset($_GET['confirm']) && isset($_GET['user_id']) && $_GET['confirm'] == 2) {
                     // declined - change status to archived and notify the owner now
                     if (declineCache($_GET['cacheid'])) {
                         assignUserToCase($usr['userid'], $_GET['cacheid']);
                         notifyOwner($_GET['cacheid'], 1);
+                        lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $_GET['user_id'], true, lib\Objects\User\AdminNote::CACHE_BLOCKED, $_GET['cacheid']);
                         $confirm = "<p> " . tr("viewPending_11") . ".</p>";
                     } else {
                         $confirm = "<p> " . tr("viewPending_12") . ".</p>";
                     }
-                } else if ($_GET['action'] == 1) {
+                } else if ($_GET['action'] == 1 && isset($_GET['user_id'])) {
                     // require confirmation
                     $confirm = "<p> " . tr("viewPending_13") . " \"<a href='viewcache.php?cacheid=" . $_GET['cacheid'] . "'>" . getCachename($_GET['cacheid']) . "</a>\" " . tr("viewPending_14") . " " . getCacheOwnername($_GET['cacheid']) . ". " . tr("viewPending_15") . ".</p>";
-                    $confirm .= "<p><a href='viewpendings.php?cacheid=" . $_GET['cacheid'] . "&amp;confirm=1'>" . tr("viewPending_16") . "</a> |
+                    $confirm .= "<p><a href='viewpendings.php?user_id=".$_GET['user_id']."&amp;cacheid=" . $_GET['cacheid'] . "&amp;confirm=1'>" . tr("viewPending_16") . "</a> |
                         <a href='viewpendings.php'>" . tr("viewPending_17") . "</a></p>";
-                } else if ($_GET['action'] == 2) {
+                } else if ($_GET['action'] == 2 && isset($_GET['user_id'])) {
                     // require confirmation
                     $confirm = "<p> " . tr("viewPending_18") . " \"<a href='viewcache.php?cacheid=" . $_GET['cacheid'] . "'>" . getCachename($_GET['cacheid']) . "</a>\" " . tr("viewPending_14") . " " . getCacheOwnername($_GET['cacheid']) . ". " . tr("viewPending_19") . ".</p>";
-                    $confirm .= "<p><a href='viewpendings.php?cacheid=" . $_GET['cacheid'] . "&amp;confirm=2'>" . tr("viewPending_20") . "</a> |
+                    $confirm .= "<p><a href='viewpendings.php?user_id=".$_GET['user_id']."&amp;cacheid=" . $_GET['cacheid'] . "&amp;confirm=2'>" . tr("viewPending_20") . "</a> |
                         <a href='viewpendings.php'>" . tr("viewPending_17") . "</a></p>";
                 }
                 tpl_set_var('confirm', $confirm);
@@ -256,8 +258,8 @@ if ($error == false && $usr['admin']) {
         $content .= "<td class='" . $bgcolor . "'><a class=\"links\" href='viewcache.php?cacheid=" . $report['cache_id'] . "'>" . nonEmptyCacheName($report['cachename']) . "</a><br/><span style=\"font-weight:bold;font-size:10px;color:blue;\">" . $report['adm3'] . "</span></td>\n";
         $content .= "<td class='" . $bgcolor . "'>" . $report['date_created'] . "</td>\n";
         $content .= "<td class='" . $bgcolor . "'><a class=\"links\" href='viewprofile.php?userid=" . $report['user_id'] . "'>" . $report['username'] . "</a></td>\n";
-        $content .= "<td class='" . $bgcolor . "'><img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?cacheid=" . $report['cache_id'] . "&amp;action=1'>" . tr('accept') . "</a><br/>
-            <img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?cacheid=" . $report['cache_id'] . "&amp;action=2'>" . tr('block') . "</a><br/>
+        $content .= "<td class='" . $bgcolor . "'><img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?user_id=".$report['user_id']."&amp;cacheid=" . $report['cache_id'] . "&amp;action=1'>" . tr('accept') . "</a><br/>
+            <img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?user_id=".$report['user_id']."&amp;cacheid=" . $report['cache_id'] . "&amp;action=2'>" . tr('block') . "</a><br/>
             <img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?cacheid=" . $report['cache_id'] . "&amp;assign=" . $usr['userid'] . "'>" . tr('assign_yourself') . "</a></td>\n";
         $content .= "<td class='" . $bgcolor . "'><a class=\"links\" href='viewprofile.php?userid=" . $assignedUserId . "'>" . getUsername($assignedUserId) . "</a><br/></td>";
         $content .= "</tr>\n";

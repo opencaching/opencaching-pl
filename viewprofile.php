@@ -124,6 +124,18 @@ if ($error == false) {
                 tpl_set_var('lastlogin', tr('more_12_month'));
         }
 
+        // COG Note
+        if($usr['admin']) {
+            $note = new lib\Objects\User\AdminNote();
+            if(isset($_POST['save']) && isset($_POST['note_content']) && $_POST['note_content']!="") {
+                lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user_id, false, $_POST['note_content']);
+                Header("Location: viewprofile.php?userid=".$user_id);
+            }
+            $content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="Cog Note" title="Cog Note" />&nbsp;&nbsp;&nbsp;' . tr('admin_notes') . '</p></div><br /><div class="content2-container">';
+            $content .= adminNoteForm($user_id);
+            $content .= adminNoteTable(lib\Objects\User\AdminNote::getAllUserNotes($user_id));
+        }
+
         $ars = sql("SELECT
                     `user`.`hidden_count` AS    `ukryte`,
                     `user`.`founds_count` AS    `znalezione`,
@@ -773,4 +785,96 @@ function myUrlEncode($string)
     return str_replace($entities, $replacements, urlencode($string));
 }
 
+function adminNoteForm($user_id)
+{
+    return '
+    <form action="viewprofile.php?userid='.$user_id.'" method="post" name="user_note">
+        <input type="hidden" name="cacheid" value="{cacheid}" />
+
+        <table id="cache_note1" class="table">
+            <tr valign="top">
+                <td></td>
+                <td>
+                    <textarea name="note_content" rows="4" cols="85" style="font-size:13px;"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="2">
+                    <button type="submit" name="save" value="save" style="width:100px">'.tr('save').'</button>&nbsp;&nbsp;
+                <img src="tpl/stdstyle/images/misc/16x16-info.png" class="icon16" alt="Info" />
+                <small>
+                    '.tr('admin_notes_visible').'
+                </small>
+                </td>
+            </tr>
+        </table>
+    </form>
+    </div>';
+}
+
+function parseNote($note_content, $automatic, $cache_id = -1) {
+    if($automatic) { //if note is collected automatically
+        $note = tr('admin_notes_'.$note_content); //we get translate
+        if($cache_id != -1){ //if is any cache connected with note
+            $note .= ' <a class="links" href="viewcache.php?cacheid='.$cache_id.'">'.tr('cache').'</a>'; #we create href to that cache
+        }
+    }
+    else {
+        $note = $note_content; //if note is manually we just return this note
+    }
+    return $note;
+}
+
+function adminNoteTable($results){
+    if (!($results)){
+        return '<table style="border-collapse: collapse; font-size: 110%;" width="700" border="1"><tr>
+            <td colspan="4" align="center" bgcolor="#DBE6F1">
+                <b> '. tr("admin_notes_no_infos") .'</b>
+            </td>
+        </tr></table>';
+    }
+    else {
+        $table = '
+    <table style="border-collapse: collapse; font-size: 110%;" width="700" border="1">
+        <tr>
+            <td colspan="4" align="center" bgcolor="#DBE6F1">
+                <b> '. tr("admin_notes_table_title") .'</b>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#EEEDF9">
+                <b> </b>
+            </td>
+            <td bgcolor="#EEEDF9">
+                <b> '. tr("time") .' </b>
+            </td>
+            <td bgcolor="#EEEDF9">
+                <b> '. tr("admin_notes_admin_name") .' </b></td>
+            <td bgcolor="#EEEDF9">
+                <b> '. tr("admin_notes_content"). ' </b>
+            </td>
+        </tr>';
+        foreach ($results as $result) {
+            if($result["automatic"]) {
+                $tr = '<tr><td><img title="'.tr("admin_notes_auto").'" alt="'.tr("admin_notes_auto").'" src="images/info.gif"</td>';
+            } else {
+                $tr = '<tr><td><img title="'.tr("admin_notes_man").'" alt="'.tr("admin_notes_man").'" src="images/ok.gif"</td>';
+            }
+            $tr .= '
+            <td>'.$result["datetime"].'</td>
+            <td><a class="links" href="viewprofile.php?userid='.$result["admin_id"].'">'.$result["admin_username"].'</a></td><td>';
+            if(isset($result["cache_id"])){
+                $tr .= parseNote($result["content"], $result["automatic"], $result["cache_id"]);
+            } else {
+                $tr .= parseNote($result["content"], $result["automatic"]);
+            }
+
+            $tr .= '</td></tr>';
+            $table .= $tr;
+        }
+        $table .= '</table>';
+    }
+    return $table;
+}
 ?>
