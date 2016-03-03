@@ -47,7 +47,7 @@
 
 <div id="map_canvas" style="width: 97.5%; margin: 0px auto; height: 512px; border: 1px solid #888;"></div>
 
-<div style='margin: 10px 0px'>
+<div id="map_filters" style='margin: 10px 0px'>
 
     <?php //disable this part of template if pwoerTrail filter is not supported
         if( {pt_filter_enabled} ) {
@@ -190,7 +190,6 @@
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-<script src="tpl/stdstyle/js/jquery.cookie.js"></script>
 <script src="{lib_cachemap3_js}" type="text/javascript"></script>
 <script type="text/javascript" language="javascript">
 
@@ -209,7 +208,6 @@ var map_params = { //params for cachemaps3.js
     extrauserid: "{extrauserid}",
     moremaptypes: false,
     fullscreen: false,
-    largemap: true,
     savesettings: true,
     powertrail_ids: "{powertrail_ids}",
     mapCanvasId: 'map_canvas',
@@ -218,11 +216,11 @@ var map_params = { //params for cachemaps3.js
         pos: google.maps.ControlPosition.TOP_RIGHT,
         style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
     },
-    controls: {
-        fullscreen: {
+    customControls: {
+        fullscreenButton: {
             id: "fullscreen_on"
         },
-        refresh_button:{
+        refreshButton: {
             id: "refresh_button"
         },
         search: {
@@ -232,30 +230,17 @@ var map_params = { //params for cachemaps3.js
         zoom_display: {
             id: "zoom"
         },
-        position_display: {
+        cordsUnderCursor: {
             pos: google.maps.ControlPosition.TOP_LEFT
+        },
+        ocFilters:{
+            box_id: "map_filters"
         }
     }
 };
 
 window.onload = function() {
 
-    // add dim to checked input
-    var checkbox_changed = function() {
-        var $related = $("." + $(this).attr('name'));
-        if ($(this).is(':checked'))
-            $related.addClass('dim');
-        else
-            $related.removeClass('dim');
-    };
-
-    // attach checkbox_changed as callback to all inputs
-    // in opt_table to changed event
-    $('.opt_table input')
-        .each(checkbox_changed)
-        .change(checkbox_changed);
-
-    //load google maps
     loadOcMap( map_params );
 
 }

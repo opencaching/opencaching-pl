@@ -14,7 +14,7 @@
 <div id="map_canvas" style="width: 100%; height: 100%; position: absolute; top: 0px;">
 </div>
 
-<div id="control_combo">
+<div id="control_combo" style="z-index: 1;" class="noprint">
     <table id="control_combo_table" style='background: #eee; padding: 3px 0px 3px 8px;'>
         <tr>
             <td>
@@ -187,7 +187,6 @@
 <input class="chbox" id="zoom" name="zoom" value="{zoom}" type="hidden" />
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-<script src="tpl/stdstyle/js/jquery.cookie.js"></script>
 <script src="{lib_cachemap3_js}" type="text/javascript"></script>
 <script type="text/javascript" language="javascript">
 
@@ -206,7 +205,6 @@ var map_params = { //params for cachemaps3.js
     extrauserid: "{extrauserid}",
     moremaptypes: true,
     fullscreen: true,   // is this fullscreen map?
-    largemap: true,     // largeMap has more controls...
     savesettings: true,
     powertrail_ids: "{powertrail_ids}",
     mapCanvasId: 'map_canvas',
@@ -215,18 +213,18 @@ var map_params = { //params for cachemaps3.js
         pos: google.maps.ControlPosition.TOP_RIGHT,
         style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
     },
-    controls: {
-        ctrl_combo: {
+    customControls: {
+        ctrlCombo: {
             id: "control_combo",
             pos: google.maps.ControlPosition.TOP_LEFT
         },
-        fullscreen: {
+        fullscreenButton: {
             id: "fullscreen_off"
         },
-        position: {
+        gpsPositionButton: {
             id: "current_position"
         },
-        filters:{
+        ocFilters:{
             but_id: "toggle_filters",
             box_id: "map_filters"
         },
@@ -234,10 +232,9 @@ var map_params = { //params for cachemaps3.js
             input_id: "place_search_text",
             but_id: "place_search_button"
         },
-        position_display: {
+        cordsUnderCursor: {
             pos: google.maps.ControlPosition.BOTTOM_CENTER
         }
-
     }
 };
 
