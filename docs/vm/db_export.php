@@ -589,7 +589,7 @@ function RunExport(){
 
 // check if this script is running from cli - exit otherwise
 if (substr(php_sapi_name(), 0, 3) != 'cli') {
-    echo "ERROR: It should be calling over cli!";
+    echo "ERROR: Thsi script should be call by CLI!";
     exit();
 }
 

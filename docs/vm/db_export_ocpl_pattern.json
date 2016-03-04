@@ -724,7 +724,7 @@
             },
             "uuid": {
                 "__comment": "",
-                "__action": "skip-data"
+                "__action": "get-data"
             },
             "node": {
                 "__comment": "",
@@ -869,8 +869,8 @@
                 "__action": "get-data"
             },
             "uuid": {
-                "__comment": "uuid is not used...",
-                "__action": "skip-data"
+                "__comment": "",
+                "__action": "get-data"
             },
             "picturescount": {
                 "__comment": "",
@@ -1124,58 +1124,58 @@
             "__table_comment": "",
             "id": {
                 "__comment": "",
-                "__action": "skip-data"
+                "__action": "get-data"
             },
             "sort": {
                 "__comment": "",
-                "__action": "skip-data"
+                "__action": "get-data"
             },
             "short": {
                 "__comment": "",
-                "__action": "skip-data"
+                "__action": "get-data"
             },
             "pl": {
                 "__comment": "",
-                "__action": "skip-data"
+                "__action": "get-data"
             },
             "en": {
                 "__comment": "",
-                "__action": "skip-data"
+                "__action": "get-data"
             },
             "icon_large": {
                 "__comment": "",
-                "__action": "skip-data"
+                "__action": "get-data"
             },
             "icon_small": {
                 "__comment": "",
-                "__action": "skip-data"
+                "__action": "get-data"
             },
             "color": {
                 "__comment": "",
-                "__action": "skip-data"
+                "__action": "get-data"
             },
             "nl": {
                 "__comment": "",
-                "__action": "skip-data"
+                "__action": "get-data"
             }
         },
         "cache_visits": {
             "__table_comment": "",
             "cache_id": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             },
             "user_id_ip": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             },
             "count": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             },
             "last_visited": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             }
         },
         "cache_watches": {
@@ -4244,31 +4244,33 @@
             },
             "last_modified": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             },
             "login_faults": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             },
             "last_login": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             },
             "last_login_mobile": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             },
             "login_id": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             },
             "is_active_flag": {
-                "__comment": "",
-                "__action": "get-data"
+                "__comment": "All acounts are active",
+                "__action": "set-to",
+                "__set_value" : "1"
             },
             "was_loggedin": {
-                "__comment": "",
-                "__action": "get-data"
+                "__comment": "All acounts are logged-in",
+                "__action": "set-to",
+                "__set_value" : "1"
             },
             "country": {
                 "__comment": "",
@@ -4280,19 +4282,19 @@
             },
             "new_pw_code": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             },
             "new_pw_date": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             },
             "date_created": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             },
             "new_email_code": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             },
             "new_email_date": {
                 "__comment": "",
@@ -4300,11 +4302,11 @@
             },
             "new_email": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             },
             "post_news": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             },
             "hidden_count": {
                 "__comment": "",
@@ -4356,19 +4358,19 @@
             },
             "activation_code": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             },
             "statpic_logo": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             },
             "statpic_text": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             },
             "cache_ignores": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             },
             "notify_radius": {
                 "__comment": "",
@@ -4388,7 +4390,7 @@
             },
             "stat_ban": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             },
             "description": {
                 "__comment": "",
@@ -4396,15 +4398,15 @@
             },
             "rules_confirmed": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             },
             "get_bulletin": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             },
             "ozi_filips": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             },
             "hide_flag": {
                 "__comment": "",
@@ -4424,15 +4426,15 @@
             },
             "verify_all": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             },
             "rr_2016_notified_1": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             },
             "rr_2016_notified_2": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
             }
         },
         "user_finds": {
