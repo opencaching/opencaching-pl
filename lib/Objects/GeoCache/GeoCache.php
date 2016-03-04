@@ -42,13 +42,13 @@ class GeoCache
 
     private $id;
     private $geocacheWaypointId;
-    private $otherWaypointIds = [
+    private $otherWaypointIds = array(
         'gc' => null,
         'ge' => null,
         'nc' => null,
         'tc' => null,
         'tc' => null,
-    ];
+    );
     private $cacheName;
     private $cacheType;
 
@@ -83,7 +83,7 @@ class GeoCache
     private $descLanguagesList;
     private $mp3count;
     private $picturesCount;
-    
+
     /* @var $owner \lib\Objects\User\User */
     private $founder;
 
@@ -226,12 +226,12 @@ class GeoCache
         $this->cacheType = $geocacheDbRow['type'];
         $this->cacheName = $geocacheDbRow['name'];
         $this->geocacheWaypointId = $geocacheDbRow['wp_oc'];
-        $this->otherWaypointIds = [
+        $this->otherWaypointIds = array(
             'gc' => $geocacheDbRow['wp_gc'],
             'nc' => $geocacheDbRow['wp_nc'],
             'tc' => $geocacheDbRow['wp_tc'],
             'ge' => $geocacheDbRow['wp_ge'],
-        ];
+        );
         $this->datePlaced = new \DateTime($geocacheDbRow['date_hidden']);
         $this->dateCreated = new \DateTime($geocacheDbRow['date_created']);
         if(isset($geocacheDbRow['cache_id'])){
@@ -663,7 +663,7 @@ class GeoCache
         $this->isPowerTrailPart = $isPowerTrailPart;
         return $this;
     }
-	
+
 	public function setFounds($founds)
 	{
 		$this->founds = $founds;
@@ -675,7 +675,7 @@ class GeoCache
 		$this->notFounds = $notFounds;
 		return $this;
 	}
-	
+
 	public function setNotesCount($notesCount)
 	{
 		$this->notesCount = $notesCount;
@@ -698,7 +698,7 @@ class GeoCache
 		return $this;
 	}
 
-	
+
 	    /**
      * @param PowerTrail $powerTrail
      */
@@ -815,7 +815,7 @@ class GeoCache
     {
         return $this->searchTime;
     }
-    
+
     public function getOtherWaypointIds()
     {
         return $this->otherWaypointIds;
@@ -848,7 +848,7 @@ class GeoCache
         }
 
     }
-    
+
     public function getWatchingUsersCount()
     {
         return $this->watchingUsersCount;
@@ -858,7 +858,7 @@ class GeoCache
     {
         return $this->ignoringUsersCount;
     }
-    
+
     public function getDescLanguagesList()
     {
         return $this->descLanguagesList;
