@@ -42,22 +42,53 @@ class GeoCache
 
     private $id;
     private $geocacheWaypointId;
+    private $otherWaypointIds = [
+        'gc' => null,
+        'ge' => null,
+        'nc' => null,
+        'tc' => null,
+        'tc' => null,
+    ];
     private $cacheName;
     private $cacheType;
+
+    /* @var $datePlaced \DateTime */
     private $datePlaced;
+
+    /* @var $datePlaced \DateTime */
+    private $dateCreated;
 
     private $sizeId;
     private $ratingId;
     private $status;
-
+    private $searchTime;
     private $recommendations;       //number of recom.
     private $founds;
     private $notFounds;
     private $notesCount;
+	private $lastFound;
     private $score;
     private $ratingVotes;
+    private $ratingVotesCount;
     private $willattends;           //for events only
+    private $natureRegions = false;
+    private $natura2000Sites = false;
+    private $usersRecomeded = false;
+    private $wayLenght;
+    private $difficulty;
+    private $terrain;
+    private $logPassword = false;
+    private $watchingUsersCount;
+    private $ignoringUsersCount;
+    private $descLanguagesList;
+    private $mp3count;
+    private $picturesCount;
+    
+    /* @var $owner \lib\Objects\User\User */
+    private $founder;
 
+    /* @var $dictionary \cache */
+    public $dictionary;
 
     /* @var $owner \lib\Objects\User\User */
     private $owner;
@@ -104,7 +135,7 @@ class GeoCache
             $db = DataBaseSingleton::Instance();
             $this->id = (int) $params['cacheId'];
 
-            $queryById = "SELECT size, status, founds, notfounds, topratings, votes, notes, score,  name, type, date_hidden, longitude, latitude, wp_oc, user_id FROM `caches` WHERE `cache_id`=:1 LIMIT 1";
+            $queryById = "SELECT size, status, founds, notfounds, topratings, votes, notes, score,  name, type, date_hidden, longitude, latitude, wp_oc, wp_gc, wp_nc, wp_tc, wp_ge, user_id, last_found, difficulty, terrain, way_length, logpw, search_time, date_created, watcher, ignorer_count, org_user_id, desc_languages, mp3count, picturescount FROM `caches` WHERE `cache_id`=:1 LIMIT 1";
             $db->multiVariableQuery($queryById, $this->id);
 
             $cacheDbRow = $db->dbResultFetch();
@@ -115,10 +146,12 @@ class GeoCache
             }
             $this->loadCacheLocation($db);
 
-        } else
+        } else {
             if (isset($params['okapiRow'])) {
                 $this->loadFromOkapiRow($params['okapiRow']);
             }
+        }
+        $this->dictionary = \cache::instance();
     }
 
     /**
@@ -189,10 +222,18 @@ class GeoCache
      */
     public function loadFromRow(array $geocacheDbRow)
     {
+		$this->lastFound = $geocacheDbRow['last_found'];
         $this->cacheType = $geocacheDbRow['type'];
         $this->cacheName = $geocacheDbRow['name'];
         $this->geocacheWaypointId = $geocacheDbRow['wp_oc'];
-        $this->datePlaced = strtotime($geocacheDbRow['date_hidden']);
+        $this->otherWaypointIds = [
+            'gc' => $geocacheDbRow['wp_gc'],
+            'nc' => $geocacheDbRow['wp_nc'],
+            'tc' => $geocacheDbRow['wp_tc'],
+            'ge' => $geocacheDbRow['wp_ge'],
+        ];
+        $this->datePlaced = new \DateTime($geocacheDbRow['date_hidden']);
+        $this->dateCreated = new \DateTime($geocacheDbRow['date_created']);
         if(isset($geocacheDbRow['cache_id'])){
             $this->id = (int) $geocacheDbRow['cache_id'];
         }
@@ -201,15 +242,27 @@ class GeoCache
         $this->founds = (int) $geocacheDbRow['founds'];
         $this->notFounds = (int) $geocacheDbRow['notfounds'];
         $this->recommendations = (int) $geocacheDbRow['topratings'];
-        $this->ratingVotes = $geocacheDbRow['votes'];
+        $this->difficulty = $geocacheDbRow['difficulty'];
+        $this->terrain = $geocacheDbRow['terrain'];
+        $this->logPassword = $geocacheDbRow['logpw'];
+        $this->ratingVotesCount = $geocacheDbRow['votes'];
         $this->notesCount = (int) $geocacheDbRow['notes'];
+        $this->wayLenght = $geocacheDbRow['way_length'];
+        $this->searchTime = $geocacheDbRow['search_time'];
+        $this->searchTime = $geocacheDbRow['search_time'];
+        $this->watchingUsersCount = (int) $geocacheDbRow['watcher'];
+        $this->ignoringUsersCount = (int) $geocacheDbRow['ignorer_count'];
+        $this->descLanguagesList = $geocacheDbRow['desc_languages'];
+        $this->mp3count = (int) $geocacheDbRow['mp3count'];
+        $this->picturesCount = (int) $geocacheDbRow['picturescount'];
         $this->coordinates = new \lib\Objects\Coordinates\Coordinates(array(
             'dbRow' => $geocacheDbRow
         ));
         $this->altitude = new \lib\Objects\GeoCache\Altitude($this);
-        $this->owner = new \lib\Objects\User\User(array(
-            'userId' => $geocacheDbRow['user_id']
-        ));
+        $this->owner = new \lib\Objects\User\User(array('userId' => $geocacheDbRow['user_id']));
+        if($geocacheDbRow['org_user_id'] != ''){
+            $this->founder = new \lib\Objects\User\User(array('userId' => $geocacheDbRow['org_user_id']));
+        }
         $this->score = $geocacheDbRow['score'];
         return $this;
     }
@@ -217,7 +270,7 @@ class GeoCache
     private function loadCacheLocation()
     {
         $db = DataBaseSingleton::Instance();
-        $query = 'SELECT `code1`, `code2`, `code3`, `code4`  FROM `cache_location` WHERE `cache_id` =:1 LIMIT 1';
+        $query = 'SELECT `code1`, `code2`, `code3`, `code4`, adm3, country, country_short  FROM `cache_location` WHERE `cache_id` =:1 LIMIT 1';
         $db->multiVariableQuery($query, $this->id);
         $dbResult = $db->dbResultFetch();
         $this->cacheLocation = $dbResult;
@@ -458,6 +511,18 @@ class GeoCache
         return 'tpl/stdstyle/images/cache/' . $typePart . $statusPart . '.png';
     }
 
+	/**
+	 * perform update on specified elements only.
+	 * @param array $elementsToUpdate
+	 */
+	public function updateGeocacheLogenteriesStats()
+	{
+		$sqlQuery = "UPDATE `caches` SET `last_found`=:1, `founds`=:2, `notfounds`= :3, `notes`= :4 WHERE `cache_id`= :5";
+		$db = \lib\Database\DataBaseSingleton::Instance();
+		$db->multiVariableQuery($sqlQuery, $this->lastFound, $this->founds, $this->notFounds, $this->notesCount, $this->id);
+		$db->reset();
+	}
+
     public function getPowerTrail()
     {
         return $this->powerTrail;
@@ -478,6 +543,10 @@ class GeoCache
         return $this->cacheName;
     }
 
+    /**
+     *
+     * @return \DateTime
+     */
     public function getDatePlaced()
     {
         return $this->datePlaced;
@@ -511,6 +580,15 @@ class GeoCache
         return $this->geocacheWaypointId;
     }
 
+
+    /**
+     *
+     * @return \lib\Objects\User\User
+     */
+    public function getFounder()
+    {
+        return $this->founder;
+    }
 
     /**
      *
@@ -585,8 +663,43 @@ class GeoCache
         $this->isPowerTrailPart = $isPowerTrailPart;
         return $this;
     }
+	
+	public function setFounds($founds)
+	{
+		$this->founds = $founds;
+		return $this;
+	}
 
-    /**
+	public function setNotFounds($notFounds)
+	{
+		$this->notFounds = $notFounds;
+		return $this;
+	}
+	
+	public function setNotesCount($notesCount)
+	{
+		$this->notesCount = $notesCount;
+		return $this;
+	}
+
+	public function getNotesCount()
+	{
+		return $this->notesCount;
+	}
+
+	public function getLastFound()
+	{
+		return $this->lastFound;
+	}
+
+	public function setLastFound($lastFound)
+	{
+		$this->lastFound = $lastFound;
+		return $this;
+	}
+
+	
+	    /**
      * @param PowerTrail $powerTrail
      */
     public function setPowerTrail(\lib\Objects\PowerTrail\PowerTrail $powerTrail)
@@ -631,12 +744,136 @@ class GeoCache
 
     public function isTitled()
     {
-        //return $this->isTitled = CacheTitled::isTitled($this->id);
-
         if (is_null($this->isTitled)) {
             $this->isTitled = CacheTitled::isTitled($this->id);
         }
         return $this->isTitled;
     }
+
+    public function getRatingVotesCount()
+    {
+        return $this->ratingVotesCount;
+    }
+
+    public function getGeocacheWaypointId()
+    {
+        return $this->geocacheWaypointId;
+    }
+
+    // Parki Narodowe , Krajobrazowe
+    public function getNatureRegions()
+    {
+        if($this->natureRegions === false){
+            $db = DataBaseSingleton::Instance();
+            $rsAreasql = "SELECT `parkipl`.`id` AS `npaId`, `parkipl`.`name` AS `npaname`,`parkipl`.`link` AS `npalink`,`parkipl`.`logo` AS `npalogo` FROM `cache_npa_areas` INNER JOIN `parkipl` ON `cache_npa_areas`.`parki_id`=`parkipl`.`id` WHERE `cache_npa_areas`.`cache_id`=:1 AND `cache_npa_areas`.`parki_id`!='0'";
+            $db->multiVariableQuery($rsAreasql, $this->id);
+            $this->natureRegions = $db->dbResultFetchAll();
+        }
+        return $this->natureRegions;
+    }
+
+    public function getNatura2000Sites()
+    {
+        if($this->natura2000Sites === false){
+            $db = DataBaseSingleton::Instance();
+            $sql = "SELECT `npa_areas`.`id` AS `npaId`, `npa_areas`.`linkid` AS `linkid`,`npa_areas`.`sitename` AS `npaSitename`, `npa_areas`.`sitecode` AS `npaSitecode`, `npa_areas`.`sitetype` AS `npaSitetype`
+                    FROM `cache_npa_areas` INNER JOIN `npa_areas` ON `cache_npa_areas`.`npa_id`=`npa_areas`.`id`
+                    WHERE `cache_npa_areas`.`cache_id`=:1 AND `cache_npa_areas`.`npa_id`!='0'";
+            $db->multiVariableQuery($sql, $this->id);
+            $this->natura2000Sites = $db->dbResultFetchAll();
+        }
+        return $this->natura2000Sites;
+    }
+
+    public function getUsersRecomeded()
+    {
+        if($this->usersRecomeded === false) {
+            $db  = DataBaseSingleton::Instance();
+            $sql = "SELECT user.username username FROM `cache_rating` INNER JOIN user ON (cache_rating.user_id = user.user_id) WHERE cache_id=:1 ORDER BY username";
+            $db->multiVariableQuery($sql, $this->id);
+            $this->usersRecomeded = $db->dbResultFetchAll();
+        }
+        return $this->usersRecomeded;
+    }
+
+    public function getDifficulty()
+    {
+        return $this->difficulty;
+    }
+
+    public function getTerrain()
+    {
+        return $this->terrain;
+    }
+
+    public function getWayLenght()
+    {
+        return $this->wayLenght;
+    }
+
+    public function getSearchTime()
+    {
+        return $this->searchTime;
+    }
+    
+    public function getOtherWaypointIds()
+    {
+        return $this->otherWaypointIds;
+    }
+
+    /**
+     *
+     * @return \DateTime
+     */
+    public function getDateCreated()
+    {
+        return $this->dateCreated;
+    }
+
+    public function getLogPassword()
+    {
+        return $this->logPassword;
+    }
+
+    /**
+     * if geocache require password for log entery, return true. otherwse false.
+     * @return boolean
+     */
+    public function hasPassword()
+    {
+        if($this->logPassword === false){
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+    
+    public function getWatchingUsersCount()
+    {
+        return $this->watchingUsersCount;
+    }
+
+    public function getIgnoringUsersCount()
+    {
+        return $this->ignoringUsersCount;
+    }
+    
+    public function getDescLanguagesList()
+    {
+        return $this->descLanguagesList;
+    }
+    public function getMp3count()
+    {
+        return $this->mp3count;
+    }
+
+    public function getPicturesCount()
+    {
+        return $this->picturesCount;
+    }
+
+
+
 }
 

@@ -20,7 +20,7 @@ if ($error == false) {
         $content = "";
         $cachename = $geoCache->getCacheName();
         tpl_set_var('cachename', $cachename);
-        $cachetime = date('Y', $geoCache->getDatePlaced());
+        $cachetime = $geoCache->getDatePlaced()->format('Y');
         $db = \lib\Database\DataBaseSingleton::Instance();
         $rsGeneralStatQuery = 'SELECT count(*) count FROM `cache_logs` WHERE cache_logs.deleted=0 AND (type=1 OR type=2) AND cache_id=:1 ';
         $dbResult = $db->multiVariableQueryValue($rsGeneralStatQuery, 0, $cache_id);
