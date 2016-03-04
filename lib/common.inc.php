@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * class autoloader
+ */
+require_once __DIR__ . '/ClassPathDictionary.php';
+
 if ((!isset($GLOBALS['no-session'])) || ($GLOBALS['no-session'] == false))
     session_start();
 
@@ -182,8 +187,14 @@ if (!isset($thumburl))
 
 
 
-//open a databse connection
-db_connect();
+
+if(substr(PHP_VERSION, 0, 1) >= 7){ // do not open mysql_* database conection for php >= 7
+    $dblink = null;
+} else { //open a databse connection
+    db_connect();
+}
+
+$db = lib\Database\DataBaseSingleton::Instance();
 
 if ($dblink === false) {
     //error while connecting to the database
@@ -221,8 +232,8 @@ if ($dblink === false) {
         //user logged in
         // check for rules confirmation
         if ((strtotime("2008-11-01 00:00:00") <= strtotime(date("Y-m-d h:i:s")))) {
-            $sql = "SELECT `rules_confirmed` FROM `user` WHERE `user_id` = '" . sql_escape(intval($usr['userid'])) . "'";
-            $rules_confirmed = mysql_result(mysql_query($sql), 0);
+            $sql = "SELECT `rules_confirmed` FROM `user` WHERE `user_id` = :1";
+            $rules_confirmed = $db->multiVariableQueryValue($sql, 0, $usr['userid']);
             if ($rules_confirmed == 0) {
                 if (!isset($_SESSION['called_from_confirm']))
                     header("Location: confirm.php");
@@ -239,12 +250,6 @@ if ($dblink === false) {
         $sTmpString = mb_ereg_replace('{logout_cookie}', $_SESSION['logout_cookie'], $sTmpString);
         tpl_set_var('loginbox', $sTmpString);
         unset($sTmpString);
-
-        // check XY home if OK redirect to myn
-        //$latitude =sqlValue("SELECT `latitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
-        //$longitude =sqlValue("SELECT `longitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
-        //if (($longitude!=NULL && $latitude!=NULL) ||($longitude!=0 && $latitude!=0) ) {
-        //header('Location: myneighborhood.php');}
     }
 }
 
@@ -1194,8 +1199,9 @@ function decrypt_text($text)
     return false;
 }
 
-if (isset($usr['userid']))
-    $usr['admin'] = mysql_result(mysql_query("SELECT admin FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'"), 0);
+if (isset($usr['userid'])){
+    $usr['admin'] = $db->multiVariableQueryValue('SELECT admin FROM user WHERE user_id=:1', 0, $usr['userid']);
+}
 
 function checkField($tableName, $columnName)
 {
@@ -1425,11 +1431,6 @@ function get_image_for_interval($folder, $interval = 1800)
     }
     return "";
 }
-
-/**
- * class autoloader
- */
-require_once __DIR__ . '/ClassPathDictionary.php';
 
 /**
  * class witch common methods

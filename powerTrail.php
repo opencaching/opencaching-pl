@@ -16,12 +16,13 @@ global $lang, $rootpath, $usr, $absolute_server_URI, $cookie;
 
 //prepare the templates and include all neccessary
 require_once('lib/common.inc.php');
+$ocConfig = \lib\Objects\OcConfig\OcConfig::Instance();
 require_once('lib/cache.php');
-require_once($rootpath . 'lib/cachemap3lib.inc.php');
+require_once(__DIR__ . '/lib/cachemap3lib.inc.php');
 
 $_SESSION['powerTrail']['userFounds'] = $usr['userFounds'];
 
-if (!$powerTrailModuleSwitchOn) {
+if ($ocConfig->getPowerTrailModuleSwitchOn() === false) {
     header("location: $absolute_server_URI");
 }
 

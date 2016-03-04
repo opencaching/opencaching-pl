@@ -18,48 +18,31 @@
  *
  * ************************************************************************* */
 
-/* * **************************************************************************
-
-  Unicode Reminder ăĄă˘
-
-  handle login, logout and forgotten passwords
-
-  used template(s): login
-  parameter(s):     email       post    email of the login account
-  password    post    password of the login account
-
- * ************************************************************************** */
-
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
 $no_tpl_build = false;
 $message = false;
-
 //Preprocessing
 if ($error == false) {
     //load language specific variables
     require_once($stylepath . '/login.inc.php');
 
     $target = '';
-    if (isset($_REQUEST['target']))
+    if (isset($_REQUEST['target'])){
         $target = $_REQUEST['target'];
-    if ($target == '') {
-        // wenn im REQUEST nix war, guck mal im POST
-        if (isset($_POST['target']))
-            $target = $_POST['target'];
     }
-    if ($target == '')
+    if ($target == '') {
         $target = 'index.php';
+    }
 
     if (isset($_REQUEST['action'])) {
         if ($_REQUEST['action'] == 'cookieverify') {
-            // wir sollten eingeloggt sein ... kucken, ob cookie gesetzt ...
-            if (!isset($_COOKIE[$opt['cookie']['name'] . 'data']))
+            if (!isset($_COOKIE[$opt['cookie']['name'] . 'data'])){
                 tpl_errorMsg('login', $cookies_error);
-            else
+            } else {
                 tpl_redirect($target);
-
+            }
             exit;
         }
     }
@@ -115,7 +98,6 @@ if ($error == false) {
                 $usr['userid'] = $retval;
                 $usr['username'] = auth_UsernameFromID($usr['userid']);
                 tpl_redirect('login.php?action=cookieverify&target=' . urlencode($target));
-                //echo 't='.$target;
                 exit;
             }
         } else if (isset($_REQUEST['target'])) {

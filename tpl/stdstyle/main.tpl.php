@@ -175,14 +175,11 @@ if (date('m') == 12 || date('m') == 1) {
                         }
 //user is admin
                         if (isset($usr['admin']) && $usr['admin']) {
-                            $sql = "SELECT count(status) FROM reports WHERE status = 0";
-                            $new_reports = mysql_result(mysql_query($sql), 0);
-                            $sql = "SELECT count(status) FROM reports WHERE status = 3";
-                            $lookhere_reports = mysql_result(mysql_query($sql), 0);
-                            $sql = "SELECT count(status) FROM reports WHERE status <> 2";
-                            $active_reports = mysql_result(mysql_query($sql), 0);
-                            $sql = "SELECT value FROM sysconfig WHERE name = 'hidden_for_approval'";
-                            $new_pendings = mysql_result(mysql_query($sql), 0);
+                            $db = lib\Database\DataBaseSingleton::Instance();
+                            $new_reports = $db->simpleQueryValue("SELECT count(status) FROM reports WHERE status = 0", 0);
+                            $lookhere_reports = $db->simpleQueryValue("SELECT count(status) FROM reports WHERE status = 3", 0);
+                            $active_reports = $db->simpleQueryValue("SELECT count(status) FROM reports WHERE status <> 2", 0);
+                            $new_pendings = $db->simpleQueryValue("SELECT value FROM sysconfig WHERE name = 'hidden_for_approval'", 0);
                         }
                         if (isset($menu[$pageidx])) {
                             mnu_EchoMainMenu($menu[$pageidx]['siteid']);

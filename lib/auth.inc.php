@@ -16,9 +16,11 @@ define('AUTHERR_USERNOTACTIVE', 4);
 function auth_UsernameFromID($userid)
 {
     //select the right user
-    $rs = sql("SELECT `username` FROM `user` WHERE `user_id`='&1'", $userid);
-    if (mysql_num_rows($rs) > 0) {
-        $record = sql_fetch_array($rs);
+    $db = lib\Database\DataBaseSingleton::Instance();
+    $query = "SELECT `username` FROM `user` WHERE `user_id`=:1 ";
+    $db->multiVariableQuery($query, $userid);
+    if ($db->rowCount() > 0) {
+        $record = $db->dbResultFetchOneRowOnly();
         return $record['username'];
     } else {
         //user not exists
@@ -60,7 +62,9 @@ function auth_user()
 
 function auth_login($user, $password)
 {
+    /*@var $login login*/
     global $login, $autherr;
+
     $retval = $login->try_login($user, $password, null);
 
     switch ($retval) {

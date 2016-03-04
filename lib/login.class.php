@@ -20,9 +20,13 @@ class login
     var $sessionid = '';
     var $verified = false;
     var $admin = false;
+    /*@var $db dataBase */
+    var $db;
 
-    function login()
+    function __construct()
     {
+        $this->db = lib\Database\DataBaseSingleton::Instance();
+
         global $cookie;
 
         if ($cookie->is_set('userid') && $cookie->is_set('username')) {
@@ -40,10 +44,12 @@ class login
                     (($this->permanent == false) && (strtotime($this->lastlogin) + LOGIN_TIME_PERMANENT / 2 < time())))
                 $this->verify();
 
-            if ($this->admin != false)
+            if ($this->admin != false){
                 $this->verify();
-        } else
+            }
+        } else{
             $this->pClear();
+        }
     }
 
     function pClear()
@@ -73,9 +79,9 @@ class login
 
     function verify()
     {
-        if ($this->verified == true)
+        if ($this->verified == true){
             return;
-
+        }
         if ($this->userid == 0) {
             $this->pClear();
             return;
@@ -84,22 +90,27 @@ class login
         $min_lastlogin = date('Y-m-d H:i:s', time() - LOGIN_TIME);
         $min_lastlogin_permanent = date('Y-m-d H:i:s', time() - LOGIN_TIME_PERMANENT);
 
-        $rs = sql("SELECT `sys_sessions`.`last_login`, `user`.`admin` FROM &db.`sys_sessions`, &db.`user` WHERE `sys_sessions`.`user_id`=`user`.`user_id` AND `user`.`is_active_flag`=1 AND `sys_sessions`.`uuid`='&1' AND `sys_sessions`.`user_id`='&2' AND ((`sys_sessions`.`permanent`=1 AND `sys_sessions`.`last_login`>'&3') OR (`sys_sessions`.`permanent`=0 AND `sys_sessions`.`last_login`>'&4'))", $this->sessionid, $this->userid, $min_lastlogin_permanent, $min_lastlogin);
-        if ($rUser = sql_fetch_assoc($rs)) {
+        $query = "SELECT `sys_sessions`.`last_login`, `user`.`admin` FROM `sys_sessions`, `user` WHERE `sys_sessions`.`user_id`=`user`.`user_id` AND `user`.`is_active_flag`=1 AND `sys_sessions`.`uuid`=:1 AND `sys_sessions`.`user_id`=:2 AND ((`sys_sessions`.`permanent`=1 AND `sys_sessions`.`last_login`>:3) OR (`sys_sessions`.`permanent`=0 AND `sys_sessions`.`last_login`>:4))";
+        $this->db->multiVariableQuery($query, $this->sessionid, $this->userid, $min_lastlogin_permanent, $min_lastlogin);
+        if ($rUser = $this->db->dbResultFetchOneRowOnly()) {
             if ((($this->permanent == true) && (strtotime($rUser['last_login']) + LOGIN_TIME / 2 < time())) ||
                     (($this->permanent == false) && (strtotime($rUser['last_login']) + LOGIN_TIME_PERMANENT / 2 < time()))) {
-                sql("UPDATE `sys_sessions` SET `sys_sessions`.`last_login`=NOW() WHERE `sys_sessions`.`uuid`='&1' AND `sys_sessions`.`user_id`='&2'", $this->sessionid, $this->userid);
+                $updateQuery = "UPDATE `sys_sessions` SET `sys_sessions`.`last_login`=NOW() WHERE `sys_sessions`.`uuid`=:1 AND `sys_sessions`.`user_id`=:2 ";
+                $this->db->reset();
+                $this->db->multiVariableQuery($updateQuery, $this->sessionid, $this->userid);
+                $this->db->reset();
                 $rUser['last_login'] = date('Y-m-d H:i:s');
-                sql("UPDATE `user` SET `last_login`=NOW() WHERE `user_id`='&1'", $this->userid);
+                $updateQuery2 = "UPDATE `user` SET `last_login`=NOW() WHERE `user_id`=:1";
+                $this->db->multiVariableQuery($updateQuery2, $this->userid);
             }
 
             $this->lastlogin = $rUser['last_login'];
             $this->admin = ($rUser['admin'] == 1);
             $this->verified = true;
-        } else
+        } else {
             $this->pClear();
-        sql_free_result($rs);
-
+        }
+        $this->db->reset();
         $this->pStoreCookie();
         return;
     }
@@ -109,22 +120,27 @@ class login
         $this->pClear();
 
         // check the number of logins in the last hour ...
-        sql("DELETE FROM `sys_logins` WHERE `timestamp`<'&1'", date('Y-m-d H:i:s', time() - 3600));
-        $logins_count = sqlValue("SELECT COUNT(*) `count` FROM `sys_logins` WHERE `remote_addr`='" . sql_escape($_SERVER['REMOTE_ADDR']) . "'", 0);
-        if ($logins_count > 24)
-            return LOGIN_TOOMUCHLOGINS;
+        $this->db->multiVariableQuery("DELETE FROM `sys_logins` WHERE `timestamp`<:1", date('Y-m-d H:i:s', time() - 3600));
+        $this->db->reset();
+        $logins_count = $this->db->multiVariableQueryValue("SELECT COUNT(*) `count` FROM `sys_logins` WHERE `remote_addr`=:1", 0, $_SERVER['REMOTE_ADDR']);
 
+
+        if ($logins_count > 24){
+            return LOGIN_TOOMUCHLOGINS;
+        }
         // delete old sessions
         $min_lastlogin_permanent = date('Y-m-d H:i:s', time() - LOGIN_TIME_PERMANENT);
-        sql("DELETE FROM `sys_sessions` WHERE `last_login`<'&1'", $min_lastlogin_permanent);
+        $this->db->multiVariableQuery("DELETE FROM `sys_sessions` WHERE `last_login`<:1", $min_lastlogin_permanent);
+        $this->db->reset();
 
         // compare $user with email and username, if both match, use email
-        $rsUser = sql("
+
+        $userQuery = "
             SELECT
                 `user_id`, `username`, 2 AS `prio`, `is_active_flag`,
                 `permanent_login_flag`, `admin`
             FROM `user`
-            WHERE `username` LIKE '&1'
+            WHERE `username` LIKE :1
 
             UNION
 
@@ -133,14 +149,13 @@ class login
                 `permanent_login_flag`, `admin`
             FROM `user`
             WHERE
-                `email` LIKE '&1'
+                `email` LIKE :1
 
             ORDER BY `prio` ASC
             LIMIT 1
-        ", mb_strtolower($user));
-        $rUser = sql_fetch_assoc($rsUser);
-        sql_free_result($rsUser);
-
+        ";
+        $this->db->multiVariableQuery($userQuery, mb_strtolower($user));
+        $rUser = $this->db->dbResultFetchOneRowOnly();
         if ($rUser) {
             /* User exists. Is the password correct? */
 
@@ -151,15 +166,17 @@ class login
         }
 
         if ($rUser) {
-            if ($permanent == null)
+            if ($permanent == null) {
                 $permanent = ($rUser['permanent_login_flag'] == 1);
-
+            }
             // ok, there is a valid login
             if ($rUser['is_active_flag'] != 0) {
                 // begin session
-                $uuid = sqlValue('SELECT UUID()', '');
-                sql("INSERT INTO `sys_sessions` (`uuid`, `user_id`, `permanent`, `last_login`) VALUES ('&1', '&2', '&3', NOW())", $uuid, $rUser['user_id'], ($permanent != false ? 1 : 0));
-                sql("UPDATE `user` SET `last_login`=NOW() WHERE `user_id`='&1'", $rUser['user_id']);
+                $uuid = $this->db->simpleQueryValue('SELECT UUID()', '');
+                $this->db->multiVariableQuery("INSERT INTO `sys_sessions` (`uuid`, `user_id`, `permanent`, `last_login`) VALUES (:1, :2, :3, NOW())", $uuid, $rUser['user_id'], ($permanent != false ? 1 : 0));
+                $this->db->reset();
+                $this->db->multiVariableQuery("UPDATE `user` SET `last_login`=NOW() WHERE `user_id`=:1", $rUser['user_id']);
+                $this->db->reset();
                 $this->userid = $rUser['user_id'];
                 $this->username = $rUser['username'];
                 $this->permanent = $permanent;
@@ -169,15 +186,14 @@ class login
                 $this->verified = true;
 
                 $retval = LOGIN_OK;
-            } else
+            } else {
                 $retval = LOGIN_USERNOTACTIVE;
-        }
-        else {
-            // sorry, bad login
+            }
+        } else { // sorry, bad login
             $retval = LOGIN_BADUSERPW;
         }
-
-        sql("INSERT INTO `sys_logins` (`remote_addr`, `success`, `timestamp`) VALUES ('&1', '&2', NOW())", $_SERVER['REMOTE_ADDR'], ($rUser === false ? 0 : 1));
+        $this->db->multiVariableQuery("INSERT INTO `sys_logins` (`remote_addr`, `success`, `timestamp`) VALUES (:1, :2, NOW())", $_SERVER['REMOTE_ADDR'], ($rUser === false ? 0 : 1));
+        $this->db->reset();
 
         // store to cookie
         $this->pStoreCookie();
@@ -187,11 +203,11 @@ class login
 
     function logout()
     {
-        sql("DELETE FROM `sys_sessions` WHERE `uuid`='&1' AND `user_id`='&2'", $this->sessionid, $this->userid);
+        $sql = "DELETE FROM `sys_sessions` WHERE `uuid`=:1 AND `user_id`=:2";
+        $this->db->multiVariableQuery($sql, $this->sessionid, $this->userid);
+        $this->db->reset();
         $this->pClear();
         $this->pStoreCookie();
     }
 
 }
-
-?>
