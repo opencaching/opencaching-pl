@@ -93,14 +93,26 @@ if ($error == false) {
         if ($cache_id != 0) {
             $all_ok = false;
 
+            if (isset($_SESSION["lastLogSendTime"]) && isset($_SESSION["lastLogDateTime"])) {
+                if (!compareTime($_SESSION["lastLogSendTime"], "PT1H")) { //if last logging time is greater than one hour from now
+                    $proposedDateTime = new DateTime("now"); // lastLogDateTime is overdue
+                }
+                else {
+                    $proposedDateTime = $_SESSION["lastLogDateTime"];
+                }
+            }
+            else {
+                $proposedDateTime = new DateTime("now");
+            }
+
             $log_text = isset($_POST['logtext']) ? ($_POST['logtext']) : '';
             // $log_type = isset($_POST['logtype']) ? ($_POST['logtype']+0) : $default_logtype_id;
             $log_type = isset($_POST['logtype']) ? ($_POST['logtype'] + 0) : -2;
-            $log_date_min = isset($_POST['logmin']) ? ($_POST['logmin'] + 0) : date('i');
-            $log_date_hour = isset($_POST['loghour']) ? ($_POST['loghour'] + 0) : date('H');
-            $log_date_day = isset($_POST['logday']) ? ($_POST['logday'] + 0) : date('d');
-            $log_date_month = isset($_POST['logmonth']) ? ($_POST['logmonth'] + 0) : date('m');
-            $log_date_year = isset($_POST['logyear']) ? ($_POST['logyear'] + 0) : date('Y');
+            $log_date_min = isset($_POST['logmin']) ? ($_POST['logmin'] + 0) : $proposedDateTime->format('i');
+            $log_date_hour = isset($_POST['loghour']) ? ($_POST['loghour'] + 0) : $proposedDateTime->format('H');
+            $log_date_day = isset($_POST['logday']) ? ($_POST['logday'] + 0) : $proposedDateTime->format('d');
+            $log_date_month = isset($_POST['logmonth']) ? ($_POST['logmonth'] + 0) : $proposedDateTime->format('m');
+            $log_date_year = isset($_POST['logyear']) ? ($_POST['logyear'] + 0) : $proposedDateTime->format('Y');
             $top_cache = isset($_POST['rating']) ? $_POST['rating'] + 0 : 0;
 
             // mobilne by Łza
@@ -411,6 +423,15 @@ if ($error == false) {
                 $log_date = date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year));
                 $log_uuid = create_uuid();
 
+                $logDateTime = new DateTime($log_date);
+                if (!compareTime($logDateTime, "PT1H")) { //if logging time is older then now-one_hour
+                    $_SESSION["lastLogDateTime"] = $logDateTime; //we store the time
+                    $_SESSION["lastLogSendTime"] = new DateTime("now");
+                }
+                else {
+                    unset($_SESSION["lastLogSendTime"]); //next time we log with "now" datetime
+                    unset($_SESSION["lastLogDateTime"]);
+                }
 
                 //add logentry to db
                 if ($log_type < 0) {
@@ -1222,4 +1243,12 @@ function recalculateCacheStats($cacheId, $cacheType, $lastFoundQueryString)
 
     $db = new dataBase;
     $db->multiVariableQuery($query, $cacheId);
+}
+
+function compareTime($time_to_check, $interval)
+{
+    $time = new DateTime("now");
+    $time->sub(new DateInterval($interval));
+    $time_diff = $time_to_check->diff($time);
+    return $time_diff->format("%r");
 }
