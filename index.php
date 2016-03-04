@@ -100,7 +100,7 @@ LIMIT 2";
 $dbc->multiVariableQuery($query, $lang);
 
 
-$pattern = "<span style='font-size:13px'><img src='{cacheIcon}' class='icon16' alt='Cache' title='Cache' />
+$pattern = "<br><span style='font-size:13px'><img src='{cacheIcon}' class='icon16' alt='Cache' title='Cache' />
         <a href='viewcache.php?cacheid={cacheId}'><b>{cacheName}</b></a></span>
 
         <span style='font-size:11px'> ".tr('hidden_by'). "</span>
