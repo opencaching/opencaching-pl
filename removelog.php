@@ -175,6 +175,7 @@ function removelog($log_id, $language, $lang)
                 tpl_set_var('logid', htmlspecialchars($log_id, ENT_COMPAT, 'UTF-8'));
                 $log = read_file($stylepath . '/viewcache_log.tpl.php');
                 $log = mb_ereg_replace('{date}', htmlspecialchars(strftime("%d %B %Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8'), $log);
+                $log = mb_ereg_replace('{time}', htmlspecialchars(strftime("%H:%M", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8'), $log);
                 if (isset($log_record['recommended']) && $log_record['recommended'] == 1) {
                     $log = mb_ereg_replace('{ratingimage}', $rating_picture, $log);
                 } else {

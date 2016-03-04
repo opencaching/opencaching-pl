@@ -678,8 +678,10 @@ if ($error == false) {
     if ( $dbcLocCache->rowCount() > 10) {
         tpl_set_var('more_topcaches', '<a class="links" href="myn_topcaches.php">[' . tr("show_more") . '...]</a>');
         $limit = 10;
-    } else
+    } else {
+        tpl_set_var('more_topcaches', '');
         $limit = $dbcLocCache->rowCount();
+    }
 
     if ($limit == 0) {
         $file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>" . tr('list_of_caches_is_empty') . "</b></p><br />";
