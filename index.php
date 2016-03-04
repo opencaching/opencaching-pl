@@ -95,7 +95,7 @@ JOIN cache_logs ON cache_logs.id = cache_titled.log_id
 JOIN user logUser ON logUser.user_id = cache_logs.user_id
 
 ORDER BY date_alg DESC
-LIMIT 1";
+LIMIT 2";
 
 $dbc->multiVariableQuery($query, $lang);
 
