@@ -1,5 +1,6 @@
 <?php
 
+
 global $titled_cache_nr_found, $titled_cache_period_prefix;
 
 require_once('./lib/common.inc.php');
@@ -7,10 +8,31 @@ require_once('./lib/common.inc.php');
 if ( !isset( $_REQUEST[ 'CRON' ] ) )
     exit;
 
-$dbc = new dataBase();
+$dbc = new dataBase( true );
+
+$queryMax = "SELECT max( date_alg ) dataMax FROM cache_titled";        
+$dbc->simpleQuery($queryMax);
+$record = $dbc->dbResultFetch();
+$dataMax = $record["dataMax"];
+
 
 $start_date_alg = date("Y-m-d");
 $date_alg = $start_date_alg;
+
+$dStart = new DateTime($dataMax);
+$dEnd  = new DateTime($date_alg);
+
+$dDiff = $dStart->diff($dEnd);
+
+$securityPeriod = 0;
+if ( $titled_cache_period_prefix == "week" )
+    $securityPeriod = 7;
+if ( $titled_cache_period_prefix == "month" )
+    $securityPeriod = 28;
+
+if ( $dDiff->days < $securityPeriod )
+    exit;
+
 
     $queryS ="
     select

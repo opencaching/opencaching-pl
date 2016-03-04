@@ -32,9 +32,9 @@ logs_title entries
 found found
 notfound not found
 notes note
-service service required
+service needs maintenance
 attended attended
-will_attend I will be attending
+will_attend I will attend
 file_title1 download
 file_title2 Download
 logout_title logout
@@ -72,7 +72,7 @@ cog_note COG comment
 temp_unavailable temporarily unavailable
 ready reday to search
 archived archived
-made_service I made a service
+made_service Maintenance performed
 edit edit
 delete delete
 no_cookie your broswer does not support cookies!
@@ -101,7 +101,7 @@ hack hacking
 wrong_pass wrong password
 my_caches my caches
 stats2 statistics
-reg conditions of use (ext. link)
+reg terms of use (ext. link)
 remove_title delete entry
 stats_title1 statistics
 stats_title2 Statistics

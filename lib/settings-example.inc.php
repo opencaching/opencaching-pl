@@ -187,7 +187,7 @@ $dberrormail = 'rt@localhost';
 // user_id of admin who have more options than COG users to remove all logs or other more options in admin_users.php
 $super_admin_id = '';
 
-$cachemap_mapper = "lib/mapper-okapi.php";
+$cachemap_mapper = "lib/mapper_okapi.php";
 
 //Links to blog page on oc site
 $blogsite_url = 'http://blog.opencaching.pl';
