@@ -332,7 +332,7 @@ if ($error == false) {
                 continue;
             }
             /* apply cache limit by type per user */
-            if (isset($config['cacheLimitByTypePerUser'][$typeId]) && $cacheLimitByTypePerUser[$typeId] >= $config['cacheLimitByTypePerUser'][$typeId]) {
+            if (isset($config['cacheLimitByTypePerUser'][$typeId]) && isset($cacheLimitByTypePerUser[$typeId]) && $cacheLimitByTypePerUser[$typeId] >= $config['cacheLimitByTypePerUser'][$typeId]) {
                 continue;
             }
             if ($typeId == $sel_type) {

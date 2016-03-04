@@ -66,7 +66,7 @@ $tplname = 'viewreports';
 $content = '';
 // tylko dla członków Rady
 if ($error == false && $usr['admin']) {
-    if ($_GET['archiwum'] == 1) {
+    if (isset($_GET['archiwum']) && $_GET['archiwum'] == 1) {
         tpl_set_var('arch_curr', tr("cache_reports_34"));
         tpl_set_var('archiwum', 0);
         $show_archive = " reports.status = 2 AND ";

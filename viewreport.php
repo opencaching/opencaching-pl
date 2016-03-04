@@ -289,7 +289,7 @@ if ($error == false && $usr['admin']) {
         } else {
             $userlogin = strftime("%Y-%m-%d", strtotime(mysql_result($userlogin_query, 0)));
         }
-        $content .= "<tr>";
+        $content = "<tr>";
 
         $content .= "<td><span class='content-title-noshade-size05'>" . $report['report_id'] . "</span></td>";
         $content .= "<td><span class='content-title-noshade-size05'>" . $report['submit_date'] . "</span></td>";
@@ -347,6 +347,7 @@ if ($error == false && $usr['admin']) {
         tpl_set_var('active_form', $active_form);
 
         $actions = '';
+        $mail_actions = '';
         //$actions .= "<li><a href='voting.php?reportid=".$report['report_id']."'>Zarządź głosowanie</a></li>";
         for ($i = 0; $i < 3; $i++)
             $mail_actions .= "<li><a href='viewreport.php?reportid=" . $report['report_id'] . "&amp;mailto=$i'>" . tr('cache_reports_25') . "  " . writeRe($i) . "</a></li>";

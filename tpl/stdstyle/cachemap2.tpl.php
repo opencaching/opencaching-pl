@@ -322,9 +322,10 @@ if ($usr) {
                         var marker = createMarker(point, markers[i]);
                         map.addOverlay(marker);
     <?php
-    $cacheData = getCacheData(intval($_REQUEST['cacheid']));
+    $cache_id = isset($_REQUEST['cacheid']) ? $_REQUEST['cacheid'] + 0 : 0;
+    $cacheData = getCacheData($cache_id);
     ?>
-                var cache_id = <?php echo ($_REQUEST['cacheid'] == '' ? 0 : $_REQUEST['cacheid']); ?>;
+                var cache_id = <?php echo $cache_id; ?>;
                         var cache_name = "<?php echo $cacheData['cachename']; ?>";
                         var cache_owner = "<?php echo $cacheData['username']; ?>";
                         var cache_topratings = <?php echo ($cacheData['topratings'] == '' ? '0' : $cacheData['topratings']); ?>;
@@ -362,7 +363,7 @@ if ($usr) {
                         for (ii = 0; ii < cache_topratings; ii++)
                         print_topratings += gwiazdka;
                 }
-    <?php ((onTheList($_SESSION['print_list'], $_REQUEST['cacheid']) == -1 ) ? $yn = 'y' : $yn = 'n'); ?>
+    <?php ((onTheList($_SESSION['print_list'], $cache_id) == -1 ) ? $yn = 'y' : $yn = 'n'); ?>
 
                 if (markers[i].getAttribute("id") == cache_id)
                 {
@@ -530,7 +531,7 @@ if ($usr) {
                     <input type="hidden" name="cachelimit" id="cachelimit" value="<?php echo (($filter[19] + 1) * 50); ?>">
                     <input type="hidden" name="cachesort" id="cachesort" value="<?php echo $filter[20]; ?>">
     <?php
-    if ($_REQUEST['lat'] == "" || $_REQUEST['lon'] == "") {
+    if (!isset($_REQUEST['lat']) || !isset($_REQUEST['lon']) || $_REQUEST['lat'] == "" || $_REQUEST['lon'] == "") {
         $lat_val = "";
         $lon_val = "";
     } else {

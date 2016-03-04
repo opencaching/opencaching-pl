@@ -12,8 +12,9 @@ if ($_POST['flush_print_list'] != "")
     $_SESSION['print_list'] = array();
 
 //Preprocessing
-if ($_GET['cacheid'] == '') {
-    if ($error == true || !$usr || ((count($_SESSION['print_list']) == 0 ) && ($_GET['source'] != 'mywatches'))) {
+$cache_id = isset($_GET['cacheid']) ? $_GET['cacheid'] + 0 : 0;
+if (!$cache_id) {
+    if ($error == true || !$usr || ((!isset($_SESSION['print_list']) || count($_SESSION['print_list']) == 0) && ($_GET['source'] != 'mywatches'))) {
         header("Location:index.php");
         die();
     }
@@ -89,12 +90,12 @@ if ($_GET['cacheid'] == '') {
     if (!isset($_POST['nocrypt']))
         $_POST['nocrypt'] = '';
 
-    if ($_GET['cacheid'] != "") {
+    if ($cache_id) {
         $showlogs = $_POST['showlogs'];
         $pictures = $_POST['showpictures'] != "" ? $_POST['showpictures'] : "&pictures=no";
         $nocrypt = $_POST['nocrypt'];
         $spoiler_only = $_POST['spoiler_only'];
-    } else if ($_POST['flush_print_list'] != "" || $_POST['submit'] != "") {
+    } else if ($_POST['flush_print_list'] != "" || (isset($_POST['submit']) && $_POST['submit'] != "")) {
         $showlogs = $_POST['showlogs'];
         $pictures = $_POST['showpictures'];
         $nocrypt = $_POST['nocrypt'];
@@ -116,9 +117,9 @@ if ($_GET['cacheid'] == '') {
                 //var_dump($record);
             }
         }
-    } else if ($_GET['cacheid'] != "") {
+    } else if ($cache_id) {
         $caches_list = array();
-        $caches_list[] = $_GET['cacheid'];
+        $caches_list[] = $cache_id;
     } else {
         $caches_list = $_SESSION['print_list'];
     }
@@ -153,7 +154,7 @@ if ($_GET['cacheid'] == '') {
     $checked_7 = "";
     $checked_8 = "";
 
-    if ($_POST['shownologbook'] == "&logbook=no")
+    if (isset($_POST['shownologbook']) && $_POST['shownologbook'] == "&logbook=no")
         $checked_0 = "checked";
     if (!isset($_POST['showlogs']))
         $_POST['showlogs'] = '';
@@ -182,9 +183,9 @@ if ($_GET['cacheid'] == '') {
 
         <div class="nodisplay-onprint">
         <?php
-        if ($_GET['cacheid']) {
+        if ($cache_id) {
         ?>
-        <form action="printcache.php?cacheid=<?php print intval($_GET['cacheid']);?>" method="POST">
+        <form action="printcache.php?cacheid=<?php print $cache_id; ?>" method="POST">
             <?php
             } else if ((!isset($_GET['source'])) || ($_GET['source'] != 'mywatches')) {
             ?>
@@ -212,7 +213,7 @@ if ($_GET['cacheid'] == '') {
                 <input type="submit" name="submit" value="<?php print tr('printcache_09'); ?>">
 
                 <?php
-                if($_GET['cacheid'] == '')
+                if (!$cache_id)
                     if ((!isset($_GET['source'])) || ($_GET['source'] != 'mywatches')) {
                 ?>
                 &nbsp;&nbsp;&nbsp;
