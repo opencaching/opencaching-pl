@@ -79,6 +79,8 @@ $NEED_APPROVE_LIMIT = 3;
 //Debug?
 if (!isset($debug_page))
     $debug_page = false;
+if (!isset($debug))
+    $debug = false;
 $develwarning = '';
 
 //site in service? Set to false when doing bigger work on the database to prevent error's
@@ -244,7 +246,7 @@ $octeam_email = 'cog@localhost';
 
 // name of the sender for user-to-user notofications
 $mailfrom = 'opencaching.pl';
-
+$mailfrom_noreply = 'noreply@opencaching.pl';
 
 // signature of e-mails send by system
 $octeamEmailsSignature = "Pozdrawiamy, Zespół www.opencaching.pl";
