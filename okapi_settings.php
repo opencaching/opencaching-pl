@@ -38,7 +38,7 @@ function get_okapi_settings()
 
         # Copy the rest from settings.inc.php:
 
-        'ADMINS' => array($sql_errormail, 'rygielski@mimuw.edu.pl'),
+        'ADMINS' => array($sql_errormail, 'rygielski@mimuw.edu.pl', 'following@online.de'),
         'FROM_FIELD' => $emailaddr,
         'DEBUG' => $debug_page,
         'DB_SERVER' => $dbserver,
