@@ -7,8 +7,6 @@ if (!isset($rootpath))
 //include template handling
 require_once ($rootpath . 'lib/common.inc.php');
 require_once($stylepath . '/lib/icons.inc.php');
-// this file use only database class. We don't need mysql_ connectors anymore.
-db_disconnect();
 
 //Preprocessing
 if ($error == false) {
