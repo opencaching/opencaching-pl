@@ -24,7 +24,13 @@ $dEnd  = new DateTime($date_alg);
 
 $dDiff = $dStart->diff($dEnd);
 
-if ( $dDiff->days < 7 )
+$securityPeriod = 0;
+if ( $titled_cache_period_prefix == "week" )
+    $securityPeriod = 7;
+if ( $titled_cache_period_prefix == "month" )
+    $securityPeriod = 28;
+
+if ( $dDiff->days < $securityPeriod )
     exit;
 
 
