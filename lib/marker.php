@@ -154,7 +154,7 @@ echo "<?xml version=\"1.0\" encoding=\"" . $ENCODING . "\"?>\n";
 echo "<markers>\n";
 while ($res = mysql_fetch_array($result)) {
 
-    if (onTheList($_SESSION['print_list'], $res['cache_id']) == -1)
+    if (!isset($_REQUEST['print_list']) || onTheList($_SESSION['print_list'], $res['cache_id']) == -1)
         $druk = "druk=\"y\"";
     else
         $druk = "druk=\"n\"";
@@ -212,7 +212,7 @@ $result = mysql_query($sql);
 
 while ($res = mysql_fetch_array($result)) {
 
-    if (onTheList($_SESSION['print_list'], $res['cache_id']) == -1)
+    if (!isset($_REQUEST['print_list']) || onTheList($_SESSION['print_list'], $res['cache_id']) == -1)
         $druk = "druk=\"y\"";
     else
         $druk = "druk=\"n\"";

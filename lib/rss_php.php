@@ -118,6 +118,8 @@ class rss_php
     private function extractDOM($nodeList, $parentNodeName = false)
     {
         $itemCounter = 0;
+        $tempNode = false;
+
         foreach ($nodeList as $values) {
             if (substr($values->nodeName, 0, 1) != '#') {
                 if ($values->nodeName == 'item') {
