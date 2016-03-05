@@ -71,6 +71,11 @@ if ($usr['admin']) {
 
     if(isset($_REQUEST['ignoreFoundLimit']) && $_REQUEST['ignoreFoundLimit'] != ''){
         $newIgnoreFoundLimit = intval($_REQUEST['ignoreFoundLimit']);
+        if ($newIgnoreFoundLimit == 1) {
+            lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user->getUserId(), true, lib\Objects\User\AdminNote::IGNORE_FOUND_LIMIT);
+        } else {
+            lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user->getUserId(), true, lib\Objects\User\AdminNote::IGNORE_FOUND_LIMIT_RM);
+        }
         $db = \lib\Database\DataBaseSingleton::Instance();
         $db->multiVariableQuery('INSERT INTO user_settings (user_id, newcaches_no_limit) VALUES (:2, :1) ON DUPLICATE KEY UPDATE newcaches_no_limit = :1', $newIgnoreFoundLimit, $user->getUserId());
         $db->reset();
