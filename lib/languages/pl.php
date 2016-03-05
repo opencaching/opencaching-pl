@@ -2572,7 +2572,7 @@ $translations = array(
     'admin_notes' => 'Notatki COG o użytkowniku',
     'admin_notes_visible' => 'Ta sekcja jest widoczna tylko dla członków COG',
     'admin_notes_table_title' => 'Aktualnie zgromadzone informacje o użytkowniku',
-    'admin_notes_no_infos' => 'Jeszcze nie zgrodzadzono informacji o tym użytkowniku',
+    'admin_notes_no_infos' => 'Brak dodatkowych informacji o użytkowniku!',
     'admin_notes_content' => 'Treść notatki',
     'admin_notes_man' => 'Notatka utworzona ręcznie',
     'admin_notes_auto' => 'Notka zebrana automatycznie',
@@ -2584,4 +2584,6 @@ $translations = array(
     'admin_notes_6' => 'Użytkownik został odbanowany.',
     'admin_notes_7' => 'Kesz użytkownika pomyślnie przeszedł weryfikację. Czeka na publikację. Link:',
     'admin_notes_8' => 'Kesz użytkownika nie przeszedł weryfikacji COG - został zablokowany. Link:',
+    'admin_notes_9' => 'Użytkownikowi pozwolono na zakładanie keszy mimo limitu znalezień.',
+    'admin_notes_10' => 'Użytkownik znowu musi stosować się do limitu znalezień przy zakładaniu keszy.',
 );
