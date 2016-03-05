@@ -124,15 +124,10 @@ if ($error == false) {
                 tpl_set_var('lastlogin', tr('more_12_month'));
         }
 
-        // COG Note
+        //Admin Note (table only)
         if($usr['admin']) {
-            $note = new lib\Objects\User\AdminNote();
-            if(isset($_POST['save']) && isset($_POST['note_content']) && $_POST['note_content']!="") {
-                lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user_id, false, $_POST['note_content']);
-                Header("Location: viewprofile.php?userid=".$user_id);
-            }
-            $content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="Cog Note" title="Cog Note" />&nbsp;&nbsp;&nbsp;' . tr('admin_notes') . '</p></div><br /><div class="content2-container">';
-            $content .= adminNoteForm($user_id);
+            $content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="Cog Note" title="Cog Note" />&nbsp;&nbsp;&nbsp;' . tr('admin_notes') . '</p></div>';
+            $content .= '<div class="content-title-noshade txt-blue08"><img src="tpl/stdstyle/images/misc/16x16-info.png" class="icon16" alt="Info" /> '.tr('admin_notes_visible').'<br /><img src="tpl/stdstyle/images/blue/arrow.png" class="icon16" alt="Link" /> '.tr('management_users').': <a href="admin_users.php?userid='.$user_id.'"> ['.tr('here').']</a></div><br />';
             $content .= adminNoteTable(lib\Objects\User\AdminNote::getAllUserNotes($user_id));
         }
 
@@ -785,34 +780,6 @@ function myUrlEncode($string)
     return str_replace($entities, $replacements, urlencode($string));
 }
 
-function adminNoteForm($user_id)
-{
-    return '
-    <form action="viewprofile.php?userid='.$user_id.'" method="post" name="user_note">
-        <input type="hidden" name="cacheid" value="{cacheid}" />
-
-        <table id="cache_note1" class="table">
-            <tr valign="top">
-                <td></td>
-                <td>
-                    <textarea name="note_content" rows="4" cols="85" style="font-size:13px;"></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td colspan="2">
-                    <button type="submit" name="save" value="save" style="width:100px">'.tr('save').'</button>&nbsp;&nbsp;
-                <img src="tpl/stdstyle/images/misc/16x16-info.png" class="icon16" alt="Info" />
-                <small>
-                    '.tr('admin_notes_visible').'
-                </small>
-                </td>
-            </tr>
-        </table>
-    </form>
-    </div>';
-}
-
 function parseNote($note_content, $automatic, $cache_id = -1) {
     if($automatic) { //if note is collected automatically
         $note = tr('admin_notes_'.$note_content); //we get translate
@@ -857,9 +824,9 @@ function adminNoteTable($results){
         </tr>';
         foreach ($results as $result) {
             if($result["automatic"]) {
-                $tr = '<tr><td><img title="'.tr("admin_notes_auto").'" alt="'.tr("admin_notes_auto").'" src="images/info.gif"</td>';
+                $tr = '<tr><td><img title="'.tr("admin_notes_auto").'" alt="'.tr("admin_notes_auto").'" width="10" height="10" src="images/info.gif"</td>';
             } else {
-                $tr = '<tr><td><img title="'.tr("admin_notes_man").'" alt="'.tr("admin_notes_man").'" src="images/ok.gif"</td>';
+                $tr = '<tr><td><img title="'.tr("admin_notes_man").'" alt="'.tr("admin_notes_man").'" width="10" height="10" src="images/ok.gif"</td>';
             }
             $tr .= '
             <td>'.$result["datetime"].'</td>

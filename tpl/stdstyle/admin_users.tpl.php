@@ -17,5 +17,24 @@
     <p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<span class="content-title-noshade txt-blue08" >{stat_ban}</span></p>
     {hide_flag}
     {remove_all_logs}
-    <p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<span class="content-title-noshade txt-blue08" >{ignoreFoundLimit}</span></p>
+    {ignoreFoundLimit}
+    <hr></hr>
+    <br />
+    <p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<span class="content-title-noshade txt-blue08" >{form_title}:</span></p>
+    <form action="admin_users.php?userid={userid}" method="post" name="user_note">
+        <table id="cache_note1" class="table">
+            <tr valign="top">
+                <td></td>
+                <td>
+                    <textarea name="note_content" rows="4" cols="85" style="font-size:13px;"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="2">
+                    <button type="submit" name="save" value="save" style="width:100px">{submit_button}</button>
+                </td>
+            </tr>
+        </table>
+    </form>
 </div>

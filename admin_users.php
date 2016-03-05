@@ -25,6 +25,11 @@ if ($usr['admin']) {
     $user = new \lib\Objects\User\User(array('userId'=>$_REQUEST['userid']));
     $user->loadExtendedSettings();
 
+    if(isset($_POST['save']) && isset($_POST['note_content']) && $_POST['note_content']!="") {
+        lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user_id, false, $_POST['note_content']);
+        Header("Location: viewprofile.php?userid=".$user_id);
+    }
+    
     if (isset($_GET['stat_ban']) && $_GET['stat_ban'] == 1 && $usr['admin']) {
         $sql = "UPDATE user SET stat_ban = 1 - stat_ban WHERE user_id = " . intval($user_id);
         if ($record["stat_ban"] == 0) {
@@ -66,6 +71,11 @@ if ($usr['admin']) {
 
     if(isset($_REQUEST['ignoreFoundLimit']) && $_REQUEST['ignoreFoundLimit'] != ''){
         $newIgnoreFoundLimit = intval($_REQUEST['ignoreFoundLimit']);
+        if ($newIgnoreFoundLimit == 1) {
+            lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user->getUserId(), true, lib\Objects\User\AdminNote::IGNORE_FOUND_LIMIT);
+        } else {
+            lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user->getUserId(), true, lib\Objects\User\AdminNote::IGNORE_FOUND_LIMIT_RM);
+        }
         $db = \lib\Database\DataBaseSingleton::Instance();
         $db->multiVariableQuery('INSERT INTO user_settings (user_id, newcaches_no_limit) VALUES (:2, :1) ON DUPLICATE KEY UPDATE newcaches_no_limit = :1', $newIgnoreFoundLimit, $user->getUserId());
         $db->reset();
@@ -133,14 +143,13 @@ if ($usr['admin']) {
         } else {
             $translation = tr('ignoreFoundLimitAdd');
         }
-        $ignoreFoundLimitHtml = '<a href="admin_users.php?userid=' . $user_id . '&amp;ignoreFoundLimit='. (int) !$ignoreFoundLimit .'"><font color="#ff0000">'.$translation.'</font></a><img src="' . $stylepath . '/images/blue/atten-red.png" align="top" alt="" />';
+        $ignoreFoundLimitHtml = '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<span class="content-title-noshade txt-blue08"><a href="admin_users.php?userid=' . $user_id . '&amp;ignoreFoundLimit='. (int) !$ignoreFoundLimit .'"><font color="#ff0000">'.$translation.'</font></a><img src="' . $stylepath . '/images/blue/atten-red.png" align="top" alt="" /></span></p>';
         tpl_set_var('ignoreFoundLimit', $ignoreFoundLimitHtml);
     } else {
-        tpl_set_var('ignoreFoundLimit', 'n/d');
+        tpl_set_var('ignoreFoundLimit', '');
     }
 
-
-// force all caches to be verified - form
+    // force all caches to be verified - form
     $verify_all = $record['verify_all'];
 
     if ($verify_all == 0) {
@@ -148,7 +157,10 @@ if ($usr['admin']) {
     } else {
         tpl_set_var('hide_flag', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="admin_users.php?userid=' . $user_id . '&amp;verify_all=0"><font color="#228b22">' . tr('admin_users_verify_none') . '</font></a>&nbsp;<img src="' . $stylepath . '/images/blue/atten-green.png" align="top" alt="" /></p>');
     }
-
+    
+    tpl_set_var('form_title', tr('admin_notes_content'));
+    tpl_set_var('submit_button', tr('pt032'));
+    
     $tplname = 'admin_users';
     tpl_BuildTemplate();
 }
