@@ -1,0 +1,27 @@
+Table transaction_test
+----------
+
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int(10)     | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(50) | NO   |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+id
+name
+
+
+*************************** 1. row ***************************
+       Table: transaction_test
+Create Table: CREATE TABLE `transaction_test` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+Changelog
+---------

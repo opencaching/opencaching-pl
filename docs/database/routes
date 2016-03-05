@@ -1,0 +1,44 @@
+Table routes
+----------
+
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| route_id    | int(11)      | NO   | PRI | NULL    | auto_increment |
+| user_id     | int(11)      | YES  | MUL | NULL    |                |
+| name        | varchar(60)  | YES  | MUL | NULL    |                |
+| description | varchar(255) | YES  |     | NULL    |                |
+| radius      | float        | YES  |     | NULL    |                |
+| length      | float        | YES  |     | NULL    |                |
+| options     | blob         | NO   |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+route_id
+user_id
+name
+description
+radius
+length
+options
+
+
+*************************** 1. row ***************************
+       Table: routes
+Create Table: CREATE TABLE `routes` (
+  `route_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `name` varchar(60) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `radius` float DEFAULT NULL,
+  `length` float DEFAULT NULL,
+  `options` blob NOT NULL,
+  PRIMARY KEY (`route_id`),
+  KEY `name` (`name`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='routes name'
+
+Changelog
+---------

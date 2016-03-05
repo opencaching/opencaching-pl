@@ -1,0 +1,30 @@
+Table xmlsession_data
+----------
+
++-------------+---------+------+-----+---------+-------+
+| Field       | Type    | Null | Key | Default | Extra |
++-------------+---------+------+-----+---------+-------+
+| session_id  | int(11) | NO   | PRI | 0       |       |
+| object_type | int(11) | NO   | PRI | 0       |       |
+| object_id   | int(11) | NO   | PRI | 0       |       |
++-------------+---------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+session_id
+object_type
+object_id
+
+
+*************************** 1. row ***************************
+       Table: xmlsession_data
+Create Table: CREATE TABLE `xmlsession_data` (
+  `session_id` int(11) NOT NULL DEFAULT '0',
+  `object_type` int(11) NOT NULL DEFAULT '0',
+  `object_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`session_id`,`object_type`,`object_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

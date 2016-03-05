@@ -1,0 +1,36 @@
+Table route_points
+----------
+
++----------+---------+------+-----+---------+-------+
+| Field    | Type    | Null | Key | Default | Extra |
++----------+---------+------+-----+---------+-------+
+| route_id | int(11) | YES  | MUL | NULL    |       |
+| point_nr | int(10) | YES  | MUL | NULL    |       |
+| lon      | double  | YES  | MUL | NULL    |       |
+| lat      | double  | YES  | MUL | NULL    |       |
++----------+---------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+route_id
+point_nr
+lon
+lat
+
+
+*************************** 1. row ***************************
+       Table: route_points
+Create Table: CREATE TABLE `route_points` (
+  `route_id` int(11) DEFAULT NULL,
+  `point_nr` int(10) DEFAULT NULL,
+  `lon` double DEFAULT NULL,
+  `lat` double DEFAULT NULL,
+  KEY `route_id` (`route_id`),
+  KEY `lon` (`lon`,`lat`),
+  KEY `lat` (`lat`),
+  KEY `point_nr` (`point_nr`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='route points'
+
+Changelog
+---------

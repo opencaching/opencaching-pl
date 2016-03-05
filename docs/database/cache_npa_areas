@@ -1,0 +1,33 @@
+Table cache_npa_areas
+----------
+
++------------+------------------+------+-----+---------+-------+
+| Field      | Type             | Null | Key | Default | Extra |
++------------+------------------+------+-----+---------+-------+
+| cache_id   | int(10) unsigned | NO   | PRI | NULL    |       |
+| npa_id     | int(10) unsigned | NO   | PRI | NULL    |       |
+| parki_id   | int(10) unsigned | NO   |     | NULL    |       |
+| calculated | tinyint(1)       | NO   |     | NULL    |       |
++------------+------------------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+cache_id
+npa_id
+parki_id
+calculated
+
+
+*************************** 1. row ***************************
+       Table: cache_npa_areas
+Create Table: CREATE TABLE `cache_npa_areas` (
+  `cache_id` int(10) unsigned NOT NULL,
+  `npa_id` int(10) unsigned NOT NULL,
+  `parki_id` int(10) unsigned NOT NULL,
+  `calculated` tinyint(1) NOT NULL,
+  PRIMARY KEY (`cache_id`,`npa_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

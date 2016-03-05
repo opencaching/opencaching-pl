@@ -1,0 +1,49 @@
+Table cache_moved
+----------
+
++-----------+----------+------+-----+---------+----------------+
+| Field     | Type     | Null | Key | Default | Extra          |
++-----------+----------+------+-----+---------+----------------+
+| id        | int(11)  | NO   | PRI | NULL    | auto_increment |
+| cache_id  | int(11)  | NO   | MUL | NULL    |                |
+| user_id   | int(11)  | NO   |     | NULL    |                |
+| log_id    | int(11)  | YES  | MUL | NULL    |                |
+| date      | datetime | NO   |     | NULL    |                |
+| longitude | double   | NO   | MUL | NULL    |                |
+| latitude  | double   | NO   | MUL | NULL    |                |
+| km        | float    | NO   |     | NULL    |                |
++-----------+----------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+id
+cache_id
+user_id
+log_id
+date
+longitude
+latitude
+km
+
+
+*************************** 1. row ***************************
+       Table: cache_moved
+Create Table: CREATE TABLE `cache_moved` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cache_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `log_id` int(11) DEFAULT NULL,
+  `date` datetime NOT NULL,
+  `longitude` double NOT NULL,
+  `latitude` double NOT NULL,
+  `km` float NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `cache_id` (`cache_id`,`date`),
+  KEY `longitude` (`longitude`),
+  KEY `latitude` (`latitude`),
+  KEY `log_id` (`log_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

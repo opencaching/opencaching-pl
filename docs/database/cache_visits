@@ -1,0 +1,33 @@
+Table cache_visits
+----------
+
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| cache_id     | int(11)     | NO   | PRI | 0       |       |
+| user_id_ip   | varchar(15) | NO   | PRI | 0       |       |
+| count        | int(11)     | NO   |     | 0       |       |
+| last_visited | datetime    | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+cache_id
+user_id_ip
+count
+last_visited
+
+
+*************************** 1. row ***************************
+       Table: cache_visits
+Create Table: CREATE TABLE `cache_visits` (
+  `cache_id` int(11) NOT NULL DEFAULT '0',
+  `user_id_ip` varchar(15) NOT NULL DEFAULT '0',
+  `count` int(11) NOT NULL DEFAULT '0',
+  `last_visited` datetime DEFAULT NULL,
+  PRIMARY KEY (`cache_id`,`user_id_ip`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

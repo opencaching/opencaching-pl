@@ -1,0 +1,27 @@
+Table import_caches_date
+----------
+
++---------+---------+------+-----+---------+-------+
+| Field   | Type    | Null | Key | Default | Extra |
++---------+---------+------+-----+---------+-------+
+| node_id | int(11) | NO   | PRI | NULL    |       |
+| updated | int(11) | NO   |     | NULL    |       |
++---------+---------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+node_id
+updated
+
+
+*************************** 1. row ***************************
+       Table: import_caches_date
+Create Table: CREATE TABLE `import_caches_date` (
+  `node_id` int(11) NOT NULL,
+  `updated` int(11) NOT NULL,
+  PRIMARY KEY (`node_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

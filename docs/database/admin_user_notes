@@ -1,0 +1,42 @@
+Table admin_user_notes
+----------
+
++-----------+---------------+------+-----+-------------------+----------------+
+| Field     | Type          | Null | Key | Default           | Extra          |
++-----------+---------------+------+-----+-------------------+----------------+
+| note_id   | int(11)       | NO   | PRI | NULL              | auto_increment |
+| user_id   | int(11)       | YES  |     | NULL              |                |
+| admin_id  | int(11)       | YES  |     | NULL              |                |
+| cache_id  | int(11)       | YES  |     | NULL              |                |
+| automatic | tinyint(1)    | YES  |     | NULL              |                |
+| datetime  | timestamp     | NO   |     | CURRENT_TIMESTAMP |                |
+| content   | varchar(4096) | YES  |     | NULL              |                |
++-----------+---------------+------+-----+-------------------+----------------+
+
+Column description
+-------------------
+
+note_id
+user_id
+admin_id
+cache_id
+automatic
+datetime
+content
+
+
+*************************** 1. row ***************************
+       Table: admin_user_notes
+Create Table: CREATE TABLE `admin_user_notes` (
+  `note_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `admin_id` int(11) DEFAULT NULL,
+  `cache_id` int(11) DEFAULT NULL,
+  `automatic` tinyint(1) DEFAULT NULL COMMENT 'bool note type',
+  `datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `content` varchar(4096) DEFAULT NULL,
+  PRIMARY KEY (`note_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+Changelog
+---------

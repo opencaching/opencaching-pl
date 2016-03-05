@@ -1,0 +1,50 @@
+Table gk_move
+----------
+
++------------+----------+------+-----+---------+-------+
+| Field      | Type     | Null | Key | Default | Extra |
++------------+----------+------+-----+---------+-------+
+| id         | int(11)  | NO   | PRI | NULL    |       |
+| itemid     | int(11)  | NO   | MUL | NULL    |       |
+| latitude   | double   | NO   |     | NULL    |       |
+| longitude  | double   | NO   |     | NULL    |       |
+| datemoved  | datetime | NO   |     | NULL    |       |
+| datelogged | datetime | NO   |     | NULL    |       |
+| userid     | int(11)  | NO   | MUL | NULL    |       |
+| comment    | longtext | NO   |     | NULL    |       |
+| logtypeid  | int(11)  | NO   |     | NULL    |       |
++------------+----------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+id
+itemid
+latitude
+longitude
+datemoved
+datelogged
+userid
+comment
+logtypeid
+
+
+*************************** 1. row ***************************
+       Table: gk_move
+Create Table: CREATE TABLE `gk_move` (
+  `id` int(11) NOT NULL,
+  `itemid` int(11) NOT NULL,
+  `latitude` double NOT NULL,
+  `longitude` double NOT NULL,
+  `datemoved` datetime NOT NULL,
+  `datelogged` datetime NOT NULL,
+  `userid` int(11) NOT NULL,
+  `comment` longtext NOT NULL,
+  `logtypeid` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `itemid` (`itemid`),
+  KEY `userid` (`userid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

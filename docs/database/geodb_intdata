@@ -1,0 +1,50 @@
+Table geodb_intdata
+----------
+
++-----------------+------------+------+-----+------------+-------+
+| Field           | Type       | Null | Key | Default    | Extra |
++-----------------+------------+------+-----+------------+-------+
+| loc_id          | int(11)    | NO   | MUL | 0          |       |
+| int_val         | bigint(20) | NO   | MUL | 0          |       |
+| int_type        | int(11)    | NO   | MUL | 0          |       |
+| int_subtype     | int(11)    | YES  | MUL | NULL       |       |
+| valid_since     | date       | YES  | MUL | NULL       |       |
+| date_type_since | int(11)    | YES  |     | NULL       |       |
+| valid_until     | date       | NO   | MUL | 0000-00-00 |       |
+| date_type_until | int(11)    | NO   |     | 0          |       |
++-----------------+------------+------+-----+------------+-------+
+
+Column description
+-------------------
+
+loc_id
+int_val
+int_type
+int_subtype
+valid_since
+date_type_since
+valid_until
+date_type_until
+
+
+*************************** 1. row ***************************
+       Table: geodb_intdata
+Create Table: CREATE TABLE `geodb_intdata` (
+  `loc_id` int(11) NOT NULL DEFAULT '0',
+  `int_val` bigint(20) NOT NULL DEFAULT '0',
+  `int_type` int(11) NOT NULL DEFAULT '0',
+  `int_subtype` int(11) DEFAULT NULL,
+  `valid_since` date DEFAULT NULL,
+  `date_type_since` int(11) DEFAULT NULL,
+  `valid_until` date NOT NULL DEFAULT '0000-00-00',
+  `date_type_until` int(11) NOT NULL DEFAULT '0',
+  KEY `int_lid_idx` (`loc_id`),
+  KEY `int_val_idx` (`int_val`),
+  KEY `int_type_idx` (`int_type`),
+  KEY `int_stype_idx` (`int_subtype`),
+  KEY `int_since_idx` (`valid_since`),
+  KEY `int_until_idx` (`valid_until`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+Changelog
+---------

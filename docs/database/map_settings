@@ -1,0 +1,128 @@
+Table map_settings
+----------
+
++-------------+---------+------+-----+---------+-------+
+| Field       | Type    | Null | Key | Default | Extra |
++-------------+---------+------+-----+---------+-------+
+| user_id     | int(11) | NO   | PRI | NULL    |       |
+| unknown     | int(1)  | YES  |     | 1       |       |
+| traditional | int(1)  | YES  |     | 1       |       |
+| multicache  | int(1)  | YES  |     | 1       |       |
+| virtual     | int(1)  | YES  |     | 1       |       |
+| webcam      | int(1)  | YES  |     | 1       |       |
+| event       | int(1)  | YES  |     | 1       |       |
+| quiz        | int(1)  | YES  |     | 1       |       |
+| math        | int(1)  | YES  |     | 1       |       |
+| mobile      | int(1)  | YES  |     | 1       |       |
+| drivein     | int(1)  | YES  |     | 1       |       |
+| podcast     | int(1)  | YES  |     | 1       |       |
+| owncache    | int(1)  | YES  |     | 1       |       |
+| ignored     | int(1)  | YES  |     | 0       |       |
+| own         | int(1)  | YES  |     | 1       |       |
+| found       | int(1)  | YES  |     | 1       |       |
+| notyetfound | int(1)  | YES  |     | 1       |       |
+| geokret     | int(1)  | YES  |     | 1       |       |
+| showsign    | int(1)  | YES  |     | 0       |       |
+| showwp      | int(1)  | NO   |     | 0       |       |
+| active      | int(1)  | YES  |     | 1       |       |
+| notactive   | int(1)  | YES  |     | 0       |       |
+| maptype     | int(1)  | YES  |     | 3       |       |
+| cachelimit  | int(1)  | YES  |     | 4       |       |
+| cachesort   | int(1)  | YES  |     | 1       |       |
+| archived    | int(1)  | YES  |     | 0       |       |
+| be_ftf      | int(1)  | YES  |     | 0       |       |
+| de          | int(1)  | YES  |     | 1       |       |
+| pl          | int(1)  | YES  |     | 1       |       |
+| no          | int(1)  | NO   |     | 0       |       |
+| se          | int(1)  | NO   |     | 0       |       |
+| min_score   | int(1)  | NO   | MUL | -3      |       |
+| max_score   | int(1)  | NO   | MUL | 3       |       |
+| noscore     | int(1)  | NO   |     | 1       |       |
+| ro          | int(1)  | NO   |     | 1       |       |
++-------------+---------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+user_id
+unknown
+traditional
+multicache
+virtual
+webcam
+event
+quiz
+math
+mobile
+drivein
+podcast
+owncache
+ignored
+own
+found
+notyetfound
+geokret
+showsign
+showwp
+active
+notactive
+maptype
+cachelimit
+cachesort
+archived
+be_ftf
+de
+pl
+no
+se
+min_score
+max_score
+noscore
+ro
+
+
+*************************** 1. row ***************************
+       Table: map_settings
+Create Table: CREATE TABLE `map_settings` (
+  `user_id` int(11) NOT NULL,
+  `unknown` int(1) DEFAULT '1',
+  `traditional` int(1) DEFAULT '1',
+  `multicache` int(1) DEFAULT '1',
+  `virtual` int(1) DEFAULT '1',
+  `webcam` int(1) DEFAULT '1',
+  `event` int(1) DEFAULT '1',
+  `quiz` int(1) DEFAULT '1',
+  `math` int(1) DEFAULT '1',
+  `mobile` int(1) DEFAULT '1',
+  `drivein` int(1) DEFAULT '1',
+  `podcast` int(1) DEFAULT '1',
+  `owncache` int(1) DEFAULT '1',
+  `ignored` int(1) DEFAULT '0',
+  `own` int(1) DEFAULT '1',
+  `found` int(1) DEFAULT '1',
+  `notyetfound` int(1) DEFAULT '1',
+  `geokret` int(1) DEFAULT '1',
+  `showsign` int(1) DEFAULT '0',
+  `showwp` int(1) NOT NULL DEFAULT '0',
+  `active` int(1) DEFAULT '1',
+  `notactive` int(1) DEFAULT '0',
+  `maptype` int(1) DEFAULT '3',
+  `cachelimit` int(1) DEFAULT '4',
+  `cachesort` int(1) DEFAULT '1',
+  `archived` int(1) DEFAULT '0',
+  `be_ftf` int(1) DEFAULT '0',
+  `de` int(1) DEFAULT '1',
+  `pl` int(1) DEFAULT '1',
+  `no` int(1) NOT NULL DEFAULT '0',
+  `se` int(1) NOT NULL DEFAULT '0',
+  `min_score` int(1) NOT NULL DEFAULT '-3',
+  `max_score` int(1) NOT NULL DEFAULT '3',
+  `noscore` int(1) NOT NULL DEFAULT '1',
+  `ro` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`user_id`),
+  KEY `min_score` (`min_score`),
+  KEY `max_score` (`max_score`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

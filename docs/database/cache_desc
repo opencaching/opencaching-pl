@@ -1,0 +1,62 @@
+Table cache_desc
+----------
+
++---------------+--------------+------+-----+---------+----------------+
+| Field         | Type         | Null | Key | Default | Extra          |
++---------------+--------------+------+-----+---------+----------------+
+| id            | int(11)      | NO   | PRI | NULL    | auto_increment |
+| cache_id      | int(11)      | YES  | MUL | NULL    |                |
+| language      | char(2)      | YES  |     | NULL    |                |
+| desc          | mediumtext   | YES  |     | NULL    |                |
+| desc_html     | tinyint(1)   | NO   |     | 0       |                |
+| desc_htmledit | tinyint(1)   | NO   |     | 0       |                |
+| hint          | mediumtext   | YES  |     | NULL    |                |
+| short_desc    | varchar(120) | YES  |     | NULL    |                |
+| date_created  | datetime     | NO   |     | NULL    |                |
+| last_modified | datetime     | YES  | MUL | NULL    |                |
+| uuid          | varchar(36)  | YES  |     | NULL    |                |
+| node          | tinyint(4)   | NO   |     | 0       |                |
+| rr_comment    | mediumtext   | NO   |     | NULL    |                |
++---------------+--------------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+id
+cache_id
+language
+desc
+desc_html
+desc_htmledit
+hint
+short_desc
+date_created
+last_modified
+uuid
+node
+rr_comment
+
+
+*************************** 1. row ***************************
+       Table: cache_desc
+Create Table: CREATE TABLE `cache_desc` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cache_id` int(11) DEFAULT NULL,
+  `language` char(2) DEFAULT NULL,
+  `desc` mediumtext,
+  `desc_html` tinyint(1) NOT NULL DEFAULT '0',
+  `desc_htmledit` tinyint(1) NOT NULL DEFAULT '0',
+  `hint` mediumtext,
+  `short_desc` varchar(120) DEFAULT NULL,
+  `date_created` datetime NOT NULL,
+  `last_modified` datetime DEFAULT NULL,
+  `uuid` varchar(36) DEFAULT NULL,
+  `node` tinyint(4) NOT NULL DEFAULT '0',
+  `rr_comment` mediumtext NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `cache_id` (`cache_id`,`language`),
+  KEY `last_modified` (`last_modified`)
+) ENGINE=MyISAM AUTO_INCREMENT=499 DEFAULT CHARSET=utf8
+
+Changelog
+---------

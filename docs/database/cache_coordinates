@@ -1,0 +1,39 @@
+Table cache_coordinates
+----------
+
++---------------+----------+------+-----+---------+----------------+
+| Field         | Type     | Null | Key | Default | Extra          |
++---------------+----------+------+-----+---------+----------------+
+| id            | int(11)  | NO   | PRI | NULL    | auto_increment |
+| cache_id      | int(11)  | NO   | MUL | NULL    |                |
+| date_modified | datetime | NO   |     | NULL    |                |
+| longitude     | double   | NO   | MUL | NULL    |                |
+| latitude      | double   | NO   | MUL | NULL    |                |
++---------------+----------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+id
+cache_id
+date_modified
+longitude
+latitude
+
+
+*************************** 1. row ***************************
+       Table: cache_coordinates
+Create Table: CREATE TABLE `cache_coordinates` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cache_id` int(11) NOT NULL,
+  `date_modified` datetime NOT NULL,
+  `longitude` double NOT NULL,
+  `latitude` double NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `cache_id` (`cache_id`,`date_modified`),
+  KEY `longitude` (`longitude`),
+  KEY `latitude` (`latitude`)
+) ENGINE=MyISAM AUTO_INCREMENT=323 DEFAULT CHARSET=utf8
+
+Changelog
+---------

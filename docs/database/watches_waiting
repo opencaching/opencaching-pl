@@ -1,0 +1,45 @@
+Table watches_waiting
+----------
+
++-------------+------------+------+-----+---------------------+----------------+
+| Field       | Type       | Null | Key | Default             | Extra          |
++-------------+------------+------+-----+---------------------+----------------+
+| id          | int(11)    | NO   | PRI | NULL                | auto_increment |
+| user_id     | int(11)    | NO   | MUL | 0                   |                |
+| object_id   | int(11)    | NO   | MUL | 0                   |                |
+| object_type | int(11)    | NO   |     | 0                   |                |
+| date_added  | datetime   | NO   | MUL | 0000-00-00 00:00:00 |                |
+| watchtext   | mediumtext | NO   |     | NULL                |                |
+| watchtype   | int(11)    | NO   |     | 0                   |                |
++-------------+------------+------+-----+---------------------+----------------+
+
+Column description
+-------------------
+
+id
+user_id
+object_id
+object_type
+date_added
+watchtext
+watchtype
+
+
+*************************** 1. row ***************************
+       Table: watches_waiting
+Create Table: CREATE TABLE `watches_waiting` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `object_id` int(11) NOT NULL DEFAULT '0',
+  `object_type` int(11) NOT NULL DEFAULT '0',
+  `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `watchtext` mediumtext NOT NULL,
+  `watchtype` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `object_id` (`object_id`),
+  KEY `date_added` (`date_added`)
+) ENGINE=MyISAM AUTO_INCREMENT=393 DEFAULT CHARSET=utf8
+
+Changelog
+---------

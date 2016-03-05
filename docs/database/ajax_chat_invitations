@@ -1,0 +1,31 @@
+Table ajax_chat_invitations
+----------
+
++----------+----------+------+-----+---------+-------+
+| Field    | Type     | Null | Key | Default | Extra |
++----------+----------+------+-----+---------+-------+
+| userID   | int(11)  | NO   | PRI | NULL    |       |
+| channel  | int(11)  | NO   | PRI | NULL    |       |
+| dateTime | datetime | NO   | MUL | NULL    |       |
++----------+----------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+userID
+channel
+dateTime
+
+
+*************************** 1. row ***************************
+       Table: ajax_chat_invitations
+Create Table: CREATE TABLE `ajax_chat_invitations` (
+  `userID` int(11) NOT NULL,
+  `channel` int(11) NOT NULL,
+  `dateTime` datetime NOT NULL,
+  PRIMARY KEY (`userID`,`channel`),
+  KEY `dateTime` (`dateTime`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+
+Changelog
+---------

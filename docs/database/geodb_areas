@@ -1,0 +1,66 @@
+Table geodb_areas
+----------
+
++-----------------+-------------+------+-----+------------+-------+
+| Field           | Type        | Null | Key | Default    | Extra |
++-----------------+-------------+------+-----+------------+-------+
+| loc_id          | int(11)     | NO   | PRI | 0          |       |
+| area_id         | int(11)     | NO   | PRI | 0          |       |
+| polygon_id      | int(11)     | YES  | MUL | NULL       |       |
+| pol_seq_no      | int(11)     | NO   |     | 0          |       |
+| exclude_area    | smallint(1) | NO   |     | 0          |       |
+| area_type       | int(11)     | NO   |     | 0          |       |
+| area_subtype    | int(11)     | YES  |     | NULL       |       |
+| coord_type      | int(11)     | NO   |     | 0          |       |
+| coord_subtype   | int(11)     | YES  |     | NULL       |       |
+| resolution      | int(11)     | NO   |     | 0          |       |
+| valid_since     | date        | YES  |     | NULL       |       |
+| date_type_since | int(11)     | YES  |     | NULL       |       |
+| valid_until     | date        | NO   |     | 0000-00-00 |       |
+| date_type_until | int(11)     | NO   |     | 0          |       |
++-----------------+-------------+------+-----+------------+-------+
+
+Column description
+-------------------
+
+loc_id
+area_id
+polygon_id
+pol_seq_no
+exclude_area
+area_type
+area_subtype
+coord_type
+coord_subtype
+resolution
+valid_since
+date_type_since
+valid_until
+date_type_until
+
+
+*************************** 1. row ***************************
+       Table: geodb_areas
+Create Table: CREATE TABLE `geodb_areas` (
+  `loc_id` int(11) NOT NULL DEFAULT '0',
+  `area_id` int(11) NOT NULL DEFAULT '0',
+  `polygon_id` int(11) DEFAULT NULL,
+  `pol_seq_no` int(11) NOT NULL DEFAULT '0',
+  `exclude_area` smallint(1) NOT NULL DEFAULT '0',
+  `area_type` int(11) NOT NULL DEFAULT '0',
+  `area_subtype` int(11) DEFAULT NULL,
+  `coord_type` int(11) NOT NULL DEFAULT '0',
+  `coord_subtype` int(11) DEFAULT NULL,
+  `resolution` int(11) NOT NULL DEFAULT '0',
+  `valid_since` date DEFAULT NULL,
+  `date_type_since` int(11) DEFAULT NULL,
+  `valid_until` date NOT NULL DEFAULT '0000-00-00',
+  `date_type_until` int(11) NOT NULL DEFAULT '0',
+  UNIQUE KEY `loc_id` (`loc_id`,`area_id`),
+  KEY `areas_loc_id_idx` (`loc_id`),
+  KEY `areas_area_id_idx` (`area_id`),
+  KEY `areas_pol_id_idx` (`polygon_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+Changelog
+---------

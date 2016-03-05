@@ -1,0 +1,30 @@
+Table PowerTrail_owners
+----------
+
++--------------+---------+------+-----+---------+-------+
+| Field        | Type    | Null | Key | Default | Extra |
++--------------+---------+------+-----+---------+-------+
+| PowerTrailId | int(11) | NO   | PRI | NULL    |       |
+| userId       | int(11) | NO   | PRI | NULL    |       |
+| privileages  | int(11) | NO   |     | NULL    |       |
++--------------+---------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+PowerTrailId
+userId
+privileages
+
+
+*************************** 1. row ***************************
+       Table: PowerTrail_owners
+Create Table: CREATE TABLE `PowerTrail_owners` (
+  `PowerTrailId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `privileages` int(11) NOT NULL,
+  UNIQUE KEY `PowerTrailId` (`PowerTrailId`,`userId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+Changelog
+---------

@@ -1,0 +1,27 @@
+Table ajax_chat_users
+----------
+
++--------+------------+------+-----+---------+-------+
+| Field  | Type       | Null | Key | Default | Extra |
++--------+------------+------+-----+---------+-------+
+| userID | int(11)    | NO   | PRI | NULL    |       |
+| level  | tinyint(1) | NO   |     | NULL    |       |
++--------+------------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+userID
+level
+
+
+*************************** 1. row ***************************
+       Table: ajax_chat_users
+Create Table: CREATE TABLE `ajax_chat_users` (
+  `userID` int(11) NOT NULL,
+  `level` tinyint(1) NOT NULL,
+  PRIMARY KEY (`userID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='level 0=user,RR=1,RT=2,COG=3,ADMIN=4'
+
+Changelog
+---------

@@ -1,0 +1,30 @@
+Table search_doubles
+----------
+
++--------+------------------+------+-----+---------+-------+
+| Field  | Type             | Null | Key | Default | Extra |
++--------+------------------+------+-----+---------+-------+
+| hash   | int(10) unsigned | NO   | PRI | NULL    |       |
+| word   | varchar(30)      | NO   | PRI | NULL    |       |
+| simple | varchar(30)      | NO   |     | NULL    |       |
++--------+------------------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+hash
+word
+simple
+
+
+*************************** 1. row ***************************
+       Table: search_doubles
+Create Table: CREATE TABLE `search_doubles` (
+  `hash` int(10) unsigned NOT NULL,
+  `word` varchar(30) NOT NULL,
+  `simple` varchar(30) NOT NULL,
+  PRIMARY KEY (`hash`,`word`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

@@ -1,0 +1,45 @@
+Table cache_titled
+----------
+
++----------+---------+------+-----+---------+-------+
+| Field    | Type    | Null | Key | Default | Extra |
++----------+---------+------+-----+---------+-------+
+| cache_id | int(11) | NO   | PRI | NULL    |       |
+| rate     | float   | NO   |     | NULL    |       |
+| ratio    | float   | NO   |     | NULL    |       |
+| rating   | int(11) | NO   |     | NULL    |       |
+| found    | int(11) | NO   |     | NULL    |       |
+| days     | int(11) | NO   |     | NULL    |       |
+| date_alg | date    | NO   |     | NULL    |       |
+| log_id   | int(11) | NO   |     | NULL    |       |
++----------+---------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+cache_id
+rate
+ratio
+rating
+found
+days
+date_alg
+log_id
+
+
+*************************** 1. row ***************************
+       Table: cache_titled
+Create Table: CREATE TABLE `cache_titled` (
+  `cache_id` int(11) NOT NULL,
+  `rate` float NOT NULL,
+  `ratio` float NOT NULL,
+  `rating` int(11) NOT NULL,
+  `found` int(11) NOT NULL,
+  `days` int(11) NOT NULL,
+  `date_alg` date NOT NULL,
+  `log_id` int(11) NOT NULL,
+  PRIMARY KEY (`cache_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+Changelog
+---------

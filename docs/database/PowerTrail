@@ -1,0 +1,60 @@
+Table PowerTrail
+----------
+
++------------------+----------+------+-----+---------+----------------+
+| Field            | Type     | Null | Key | Default | Extra          |
++------------------+----------+------+-----+---------+----------------+
+| id               | int(11)  | NO   | PRI | NULL    | auto_increment |
+| name             | text     | NO   |     | NULL    |                |
+| centerLatitude   | float    | NO   |     | NULL    |                |
+| centerLongitude  | float    | NO   |     | NULL    |                |
+| type             | int(11)  | NO   |     | NULL    |                |
+| status           | int(11)  | NO   |     | NULL    |                |
+| dateCreated      | datetime | NO   |     | NULL    |                |
+| cacheCount       | int(11)  | NO   |     | NULL    |                |
+| description      | text     | NO   |     | NULL    |                |
+| image            | text     | NO   |     | NULL    |                |
+| perccentRequired | int(11)  | NO   |     | NULL    |                |
+| conquestedCount  | int(11)  | NO   |     | NULL    |                |
+| points           | float    | NO   |     | NULL    |                |
++------------------+----------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+id
+name
+centerLatitude
+centerLongitude
+type
+status
+dateCreated
+cacheCount
+description
+image
+perccentRequired
+conquestedCount
+points
+
+
+*************************** 1. row ***************************
+       Table: PowerTrail
+Create Table: CREATE TABLE `PowerTrail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` text NOT NULL,
+  `centerLatitude` float NOT NULL,
+  `centerLongitude` float NOT NULL,
+  `type` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `dateCreated` datetime NOT NULL,
+  `cacheCount` int(11) NOT NULL,
+  `description` text NOT NULL,
+  `image` text NOT NULL,
+  `perccentRequired` int(11) NOT NULL,
+  `conquestedCount` int(11) NOT NULL,
+  `points` float NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+Changelog
+---------

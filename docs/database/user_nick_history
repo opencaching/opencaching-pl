@@ -1,0 +1,43 @@
+Table user_nick_history
+----------
+
++-------------------+-------------+------+-----+---------+----------------+
+| Field             | Type        | Null | Key | Default | Extra          |
++-------------------+-------------+------+-----+---------+----------------+
+| id                | int(11)     | NO   | PRI | NULL    | auto_increment |
+| user_id           | int(11)     | NO   | MUL | NULL    |                |
+| date_from         | datetime    | NO   |     | NULL    |                |
+| date_to           | datetime    | YES  |     | NULL    |                |
+| username          | varchar(60) | NO   |     | NULL    |                |
+| change_comment    | text        | YES  |     | NULL    |                |
+| change_by_user_id | int(11)     | YES  |     | NULL    |                |
++-------------------+-------------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+id
+user_id
+date_from
+date_to
+username
+change_comment
+change_by_user_id
+
+
+*************************** 1. row ***************************
+       Table: user_nick_history
+Create Table: CREATE TABLE `user_nick_history` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `user_id` int(11) NOT NULL COMMENT 'FK to user.user_id',
+  `date_from` datetime NOT NULL COMMENT 'Start date of the nick value',
+  `date_to` datetime DEFAULT NULL COMMENT 'End date of the nick value, NULL if current',
+  `username` varchar(60) NOT NULL COMMENT 'The actual nick in a given period of time',
+  `change_comment` text COMMENT 'Change comment',
+  `change_by_user_id` int(11) DEFAULT NULL COMMENT 'User who changed the nick, FT to user.user_id',
+  PRIMARY KEY (`id`),
+  KEY `user_nick_hist_user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8
+
+Changelog
+---------

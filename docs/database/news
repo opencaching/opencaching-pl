@@ -1,0 +1,37 @@
+Table news
+----------
+
++-------------+----------+------+-----+---------------------+----------------+
+| Field       | Type     | Null | Key | Default             | Extra          |
++-------------+----------+------+-----+---------------------+----------------+
+| id          | int(11)  | NO   | PRI | NULL                | auto_increment |
+| date_posted | datetime | NO   |     | 0000-00-00 00:00:00 |                |
+| content     | text     | NO   |     | NULL                |                |
+| topic       | int(11)  | NO   | MUL | 0                   |                |
+| display     | int(1)   | NO   |     | 0                   |                |
++-------------+----------+------+-----+---------------------+----------------+
+
+Column description
+-------------------
+
+id
+date_posted
+content
+topic
+display
+
+
+*************************** 1. row ***************************
+       Table: news
+Create Table: CREATE TABLE `news` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date_posted` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `content` text NOT NULL,
+  `topic` int(11) NOT NULL DEFAULT '0',
+  `display` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `topic` (`topic`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

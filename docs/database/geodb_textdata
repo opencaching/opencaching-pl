@@ -1,0 +1,58 @@
+Table geodb_textdata
+----------
+
++-----------------+--------------+------+-----+------------+-------+
+| Field           | Type         | Null | Key | Default    | Extra |
++-----------------+--------------+------+-----+------------+-------+
+| loc_id          | int(11)      | NO   | MUL | 0          |       |
+| text_val        | varchar(255) | NO   | MUL |            |       |
+| text_type       | int(11)      | NO   | MUL | 0          |       |
+| text_locale     | varchar(5)   | YES  | MUL | NULL       |       |
+| is_native_lang  | smallint(1)  | YES  | MUL | NULL       |       |
+| is_default_name | smallint(1)  | YES  | MUL | NULL       |       |
+| valid_since     | date         | YES  | MUL | NULL       |       |
+| date_type_since | int(11)      | YES  |     | NULL       |       |
+| valid_until     | date         | NO   | MUL | 0000-00-00 |       |
+| date_type_until | int(11)      | NO   |     | 0          |       |
++-----------------+--------------+------+-----+------------+-------+
+
+Column description
+-------------------
+
+loc_id
+text_val
+text_type
+text_locale
+is_native_lang
+is_default_name
+valid_since
+date_type_since
+valid_until
+date_type_until
+
+
+*************************** 1. row ***************************
+       Table: geodb_textdata
+Create Table: CREATE TABLE `geodb_textdata` (
+  `loc_id` int(11) NOT NULL DEFAULT '0',
+  `text_val` varchar(255) NOT NULL DEFAULT '',
+  `text_type` int(11) NOT NULL DEFAULT '0',
+  `text_locale` varchar(5) DEFAULT NULL,
+  `is_native_lang` smallint(1) DEFAULT NULL,
+  `is_default_name` smallint(1) DEFAULT NULL,
+  `valid_since` date DEFAULT NULL,
+  `date_type_since` int(11) DEFAULT NULL,
+  `valid_until` date NOT NULL DEFAULT '0000-00-00',
+  `date_type_until` int(11) NOT NULL DEFAULT '0',
+  KEY `text_lid_idx` (`loc_id`),
+  KEY `text_val_idx` (`text_val`),
+  KEY `text_type_idx` (`text_type`),
+  KEY `text_locale_idx` (`text_locale`),
+  KEY `text_native_idx` (`is_native_lang`),
+  KEY `text_default_idx` (`is_default_name`),
+  KEY `text_since_idx` (`valid_since`),
+  KEY `text_until_idx` (`valid_until`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+Changelog
+---------

@@ -1,0 +1,33 @@
+Table geodb_type_names
+----------
+
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| type_id     | int(11)      | NO   | PRI | 0       |       |
+| type_locale | varchar(5)   | NO   | PRI |         |       |
+| name        | varchar(255) | NO   | MUL |         |       |
++-------------+--------------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+type_id
+type_locale
+name
+
+
+*************************** 1. row ***************************
+       Table: geodb_type_names
+Create Table: CREATE TABLE `geodb_type_names` (
+  `type_id` int(11) NOT NULL DEFAULT '0',
+  `type_locale` varchar(5) NOT NULL DEFAULT '',
+  `name` varchar(255) NOT NULL DEFAULT '',
+  UNIQUE KEY `type_id` (`type_id`,`type_locale`),
+  KEY `tid_tnames_idx` (`type_id`),
+  KEY `locale_tnames_idx` (`type_locale`),
+  KEY `name_tnames_idx` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+Changelog
+---------

@@ -1,0 +1,36 @@
+Table cache_watches
+----------
+
++---------------+----------+------+-----+---------+----------------+
+| Field         | Type     | Null | Key | Default | Extra          |
++---------------+----------+------+-----+---------+----------------+
+| id            | int(11)  | NO   | PRI | NULL    | auto_increment |
+| cache_id      | int(11)  | NO   | MUL | 0       |                |
+| user_id       | int(11)  | NO   | MUL | 0       |                |
+| last_executed | datetime | YES  |     | NULL    |                |
++---------------+----------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+id
+cache_id
+user_id
+last_executed
+
+
+*************************** 1. row ***************************
+       Table: cache_watches
+Create Table: CREATE TABLE `cache_watches` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cache_id` int(11) NOT NULL DEFAULT '0',
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `last_executed` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `cache_id` (`cache_id`),
+  KEY `user_id` (`user_id`),
+  KEY `cache_id_user_id` (`cache_id`,`user_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=63 DEFAULT CHARSET=utf8
+
+Changelog
+---------

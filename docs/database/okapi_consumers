@@ -1,0 +1,42 @@
+Table okapi_consumers
+----------
+
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| key          | varchar(20)  | NO   | PRI | NULL    |       |
+| name         | varchar(100) | NO   |     | NULL    |       |
+| secret       | varchar(40)  | NO   |     | NULL    |       |
+| url          | varchar(250) | YES  |     | NULL    |       |
+| email        | varchar(70)  | YES  |     | NULL    |       |
+| date_created | datetime     | NO   |     | NULL    |       |
+| bflags       | tinyint(4)   | NO   |     | 0       |       |
++--------------+--------------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+key
+name
+secret
+url
+email
+date_created
+bflags
+
+
+*************************** 1. row ***************************
+       Table: okapi_consumers
+Create Table: CREATE TABLE `okapi_consumers` (
+  `key` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `secret` varchar(40) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `url` varchar(250) DEFAULT NULL,
+  `email` varchar(70) DEFAULT NULL,
+  `date_created` datetime NOT NULL,
+  `bflags` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`key`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

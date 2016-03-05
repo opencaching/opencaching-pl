@@ -1,0 +1,265 @@
+Table user
+----------
+
++-------------------------+---------------+------+-----+---------------------+----------------+
+| Field                   | Type          | Null | Key | Default             | Extra          |
++-------------------------+---------------+------+-----+---------------------+----------------+
+| user_id                 | int(11)       | NO   | PRI | NULL                | auto_increment |
+| username                | varchar(60)   | YES  | MUL | NULL                |                |
+| password                | varchar(512)  | YES  |     | NULL                |                |
+| password_salt           | varchar(10)   | NO   |     |                     |                |
+| password_hashing_rounds | int(10)       | NO   |     | 1                   |                |
+| email                   | varchar(60)   | YES  | UNI | NULL                |                |
+| latitude                | double        | YES  |     | NULL                |                |
+| longitude               | double        | YES  |     | NULL                |                |
+| last_modified           | datetime      | YES  |     | NULL                |                |
+| login_faults            | int(11)       | YES  |     | NULL                |                |
+| last_login              | datetime      | NO   |     | 0000-00-00 00:00:00 |                |
+| last_login_mobile       | datetime      | NO   |     | 0000-00-00 00:00:00 |                |
+| login_id                | varchar(13)   | YES  |     | NULL                |                |
+| is_active_flag          | int(11)       | YES  |     | NULL                |                |
+| was_loggedin            | int(11)       | YES  |     | NULL                |                |
+| country                 | char(2)       | YES  |     | NULL                |                |
+| pmr_flag                | int(11)       | YES  |     | NULL                |                |
+| new_pw_code             | varchar(13)   | YES  |     | NULL                |                |
+| new_pw_date             | int(11)       | YES  |     | NULL                |                |
+| date_created            | datetime      | YES  |     | NULL                |                |
+| new_email_code          | varchar(13)   | YES  |     | NULL                |                |
+| new_email_date          | int(11)       | YES  |     | NULL                |                |
+| new_email               | varchar(60)   | YES  |     | NULL                |                |
+| post_news               | int(11)       | YES  |     | NULL                |                |
+| hidden_count            | int(11)       | YES  | MUL | 0                   |                |
+| log_notes_count         | int(11)       | YES  |     | 0                   |                |
+| founds_count            | int(11)       | YES  | MUL | 0                   |                |
+| notfounds_count         | int(11)       | YES  | MUL | 0                   |                |
+| uuid                    | varchar(36)   | YES  | MUL | NULL                |                |
+| uuid_mobile             | varchar(36)   | YES  |     | NULL                |                |
+| cache_watches           | int(11)       | YES  |     | NULL                |                |
+| permanent_login_flag    | int(11)       | YES  |     | NULL                |                |
+| watchmail_mode          | int(11)       | NO   |     | 1                   |                |
+| watchmail_hour          | int(11)       | NO   |     | 0                   |                |
+| watchmail_nextmail      | datetime      | NO   |     | 0000-00-00 00:00:00 |                |
+| watchmail_day           | int(11)       | NO   |     | 0                   |                |
+| activation_code         | varchar(13)   | NO   |     | NULL                |                |
+| statpic_logo            | int(11)       | NO   |     | 0                   |                |
+| statpic_text            | varchar(30)   | NO   |     | Opencaching         |                |
+| cache_ignores           | int(11)       | YES  |     | 0                   |                |
+| power_trail_email       | tinyint(1)    | NO   |     | 1                   |                |
+| notify_radius           | int(11)       | NO   | MUL | 0                   |                |
+| admin                   | tinyint(1)    | NO   |     | 0                   |                |
+| guru                    | tinyint(1)    | NO   |     | 0                   |                |
+| node                    | tinyint(4)    | NO   |     | 0                   |                |
+| stat_ban                | tinyint(1)    | NO   |     | 0                   |                |
+| description             | varchar(4096) | YES  |     | NULL                |                |
+| rules_confirmed         | int(1)        | NO   |     | 0                   |                |
+| get_bulletin            | tinyint(1)    | NO   |     | 1                   |                |
+| ozi_filips              | varchar(255)  | YES  |     | NULL                |                |
+| hide_flag               | int(1)        | NO   |     | 0                   |                |
+| verify_all              | tinyint(1)    | NO   |     | 0                   |                |
+| cog_note                | varchar(4096) | NO   |     | NULL                |                |
++-------------------------+---------------+------+-----+---------------------+----------------+
+
+Column description
+-------------------
+
+user_id
+	unique numeric ID for each user
+username
+	username, unique for each user. 
+	When registering, these are checked to ensure no duplication exists.
+password
+	user's password in hashed form.
+password_salt
+	FIXME
+password_hashing_rounds
+	FIXME
+email
+	user's email address. 
+	Used for account activation and notifications
+latitude
+	Latitude for user's home location. Stored as DOUBLE floating point value
+	Only filled in when user enters a home location
+longitude
+	Longitude for user's home location. Stored as DOUBLE floating point value
+	Only filled in when user enters a home location
+last_modified
+	FIXME
+login_faults
+	FIXME
+last_login
+	timestamp for last login on the main website
+last_login_mobile
+	timestamp for last login on the mobile website
+login_id
+	FIXME
+is_active_flag
+	Is set to 1 when user is logged in for the first time.
+was_loggedin
+	FIXME
+country
+	user's country of origin. Set at registration time. Can be changed in profile.
+pmr_flag
+	FIXME
+new_pw_code
+	Is set to "12345abcd" when user asks for new password. 
+	Returns to 0 after user use this code via http://opencaching.pl/newpw.php
+new_pw_date
+	Date when new password is asked.
+date_created
+	account creation timestamp
+new_email_code
+	Same as password. Via http://opencaching.pl/newemail.php
+new_email_date
+	Same as password. Via http://opencaching.pl/newemail.php
+new_email
+	Same as password. Via http://opencaching.pl/newemail.php
+post_news
+	FIXME
+hidden_count
+	counter showing the number of caches hidden by this user
+log_notes_count
+	counter showing the number of "write note" logs created by this user
+founds_count
+	counter showing the number of "found" logs by this user
+	FIXME: is this number of "found" logs or number of caches found ? 
+	(case of multiple "found" logs to a cache)
+notfounds_count
+	counter showing the number of "not found" logs by this user
+	FIXME: is this number of "not found" logs or number of caches not found ? 
+	(case of multiple "not found" logs to a cache)
+uuid
+	FIXME: related to login on main website
+uuid_mobile
+	FIXME: related to login on mobile website
+cache_watches
+	counter showing the number of caches watched by this user
+permanent_login_flag
+	flag indicating the auto logout feature. 
+	0 - auto logout after timeout
+	1 - no automatic logout
+watchmail_mode
+	is when user set in userprofile if receiving mail about watchmail. 
+	Other watchmail columns is when user set when he receives mail.
+	FIXME: clarifications needed
+watchmail_hour
+	FIXME
+watchmail_nextmail
+	FIXME
+watchmail_day
+	FIXME
+activation_code
+	FIXME
+statpic_logo
+	FIXME
+statpic_text
+	FIXME
+cache_ignores
+	FIXME
+power_trail_email
+	FIXME
+notify_radius
+	radius around home location for which user receives notifications about
+	cache activities. 
+	FIXME: clarify what sort of notifications
+admin
+	0 - regular user
+	1 - is administrator (has access to OC ADMIN MENU)	
+guru
+	Are users who have more than 20 recommendations and were active in the 
+	last 90 days. 
+	They are shown on http://opencaching.pl/cacheguides.php?lang=en. 
+	This can be set in user profile after 20 recommendations.
+	FIXME: actual data in this column. 
+	FIXME: recommendations refer to geocaches owned by this user are being
+	recommended
+node
+	Opencaching node ID where this user has registered
+stat_ban
+	FIXME
+description
+	self description of the user. Can be set in profile.
+rules_confirmed
+	Flag indicating the user has acknowledge and accepted the rules.
+	Cannot register without setting it.
+	Should be 1 for all registered users.
+get_bulletin
+	Subscribed to information bulletins (sent by administrators)
+ozi_filips
+	FIXME
+hide_flag
+	FIXME
+verify_all
+	If set to 1 all caches published by this user must be approved by oc-team. 
+	Set via admin_users.php. Verify all new caches for this user
+cog_note
+
+
+*************************** 1. row ***************************
+       Table: user
+Create Table: CREATE TABLE `user` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(60) CHARACTER SET utf8 COLLATE utf8_polish_ci DEFAULT NULL,
+  `password` varchar(512) DEFAULT NULL,
+  `password_salt` varchar(10) NOT NULL DEFAULT '',
+  `password_hashing_rounds` int(10) NOT NULL DEFAULT '1',
+  `email` varchar(60) DEFAULT NULL,
+  `latitude` double DEFAULT NULL,
+  `longitude` double DEFAULT NULL,
+  `last_modified` datetime DEFAULT NULL,
+  `login_faults` int(11) DEFAULT NULL,
+  `last_login` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `last_login_mobile` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `login_id` varchar(13) DEFAULT NULL,
+  `is_active_flag` int(11) DEFAULT NULL,
+  `was_loggedin` int(11) DEFAULT NULL,
+  `country` char(2) DEFAULT NULL,
+  `pmr_flag` int(11) DEFAULT NULL,
+  `new_pw_code` varchar(13) DEFAULT NULL,
+  `new_pw_date` int(11) DEFAULT NULL,
+  `date_created` datetime DEFAULT NULL,
+  `new_email_code` varchar(13) DEFAULT NULL,
+  `new_email_date` int(11) DEFAULT NULL,
+  `new_email` varchar(60) DEFAULT NULL,
+  `post_news` int(11) DEFAULT NULL,
+  `hidden_count` int(11) DEFAULT '0',
+  `log_notes_count` int(11) DEFAULT '0',
+  `founds_count` int(11) DEFAULT '0',
+  `notfounds_count` int(11) DEFAULT '0',
+  `uuid` varchar(36) DEFAULT NULL,
+  `uuid_mobile` varchar(36) DEFAULT NULL,
+  `cache_watches` int(11) DEFAULT NULL,
+  `permanent_login_flag` int(11) DEFAULT NULL,
+  `watchmail_mode` int(11) NOT NULL DEFAULT '1',
+  `watchmail_hour` int(11) NOT NULL DEFAULT '0',
+  `watchmail_nextmail` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `watchmail_day` int(11) NOT NULL DEFAULT '0',
+  `activation_code` varchar(13) NOT NULL,
+  `statpic_logo` int(11) NOT NULL DEFAULT '0',
+  `statpic_text` varchar(30) NOT NULL DEFAULT 'Opencaching',
+  `cache_ignores` int(11) DEFAULT '0',
+  `power_trail_email` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'sending notification emails from geoPaths module if value = 1',
+  `notify_radius` int(11) NOT NULL DEFAULT '0',
+  `admin` tinyint(1) NOT NULL DEFAULT '0',
+  `guru` tinyint(1) NOT NULL DEFAULT '0',
+  `node` tinyint(4) NOT NULL DEFAULT '0',
+  `stat_ban` tinyint(1) NOT NULL DEFAULT '0',
+  `description` varchar(4096) DEFAULT NULL,
+  `rules_confirmed` int(1) NOT NULL DEFAULT '0',
+  `get_bulletin` tinyint(1) NOT NULL DEFAULT '1',
+  `ozi_filips` varchar(255) DEFAULT NULL,
+  `hide_flag` int(1) NOT NULL DEFAULT '0',
+  `verify_all` tinyint(1) NOT NULL DEFAULT '0',
+  `cog_note` varchar(4096) NOT NULL COMMENT 'COG note for user',
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `email` (`email`),
+  KEY `notify_radius` (`notify_radius`),
+  KEY `username` (`username`),
+  KEY `hidden_count` (`hidden_count`),
+  KEY `founds_count` (`founds_count`),
+  KEY `notfounds_count` (`notfounds_count`),
+  KEY `uuid` (`uuid`)
+) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8
+
+Changelog
+---------
+2016-03-05: Created by andrixnet. Documentation added. Clarifications by harrieklomp

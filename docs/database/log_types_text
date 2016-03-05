@@ -1,0 +1,38 @@
+Table log_types_text
+----------
+
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| id           | int(11)      | NO   | PRI | NULL    | auto_increment |
+| log_types_id | int(11)      | NO   | MUL | 0       |                |
+| lang         | char(2)      | NO   | MUL | NULL    |                |
+| text_combo   | varchar(255) | NO   |     | NULL    |                |
+| text_listing | varchar(255) | NO   |     | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+id
+log_types_id
+lang
+text_combo
+text_listing
+
+
+*************************** 1. row ***************************
+       Table: log_types_text
+Create Table: CREATE TABLE `log_types_text` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `log_types_id` int(11) NOT NULL DEFAULT '0',
+  `lang` char(2) NOT NULL,
+  `text_combo` varchar(255) NOT NULL,
+  `text_listing` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `lang` (`lang`,`log_types_id`),
+  KEY `log_types_id` (`log_types_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8
+
+Changelog
+---------

@@ -1,0 +1,28 @@
+Table gk_move_type
+----------
+
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int(11)     | NO   | PRI | NULL    |       |
+| name  | varchar(60) | NO   | MUL | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+id
+name
+
+
+*************************** 1. row ***************************
+       Table: gk_move_type
+Create Table: CREATE TABLE `gk_move_type` (
+  `id` int(11) NOT NULL,
+  `name` varchar(60) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `name` (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

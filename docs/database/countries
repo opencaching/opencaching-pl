@@ -1,0 +1,64 @@
+Table countries
+----------
+
++-----------------+--------------+------+-----+---------+----------------+
+| Field           | Type         | Null | Key | Default | Extra          |
++-----------------+--------------+------+-----+---------+----------------+
+| country_id      | int(11)      | NO   | PRI | NULL    | auto_increment |
+| pl              | varchar(128) | NO   |     | NULL    |                |
+| en              | varchar(128) | NO   |     | NULL    |                |
+| nl              | varchar(128) | NO   |     | NULL    |                |
+| short           | char(2)      | NO   | UNI | NULL    |                |
+| list_default_pl | int(1)       | NO   |     | 0       |                |
+| sort_pl         | varchar(128) | NO   |     | NULL    |                |
+| list_default_en | int(1)       | NO   |     | 0       |                |
+| sort_en         | varchar(128) | NO   |     | NULL    |                |
+| list_default_nl | int(1)       | NO   |     | 0       |                |
+| sort_nl         | varchar(128) | NO   |     | NULL    |                |
+| ro              | varchar(128) | NO   |     | NULL    |                |
+| list_default_ro | int(1)       | NO   |     | 0       |                |
+| sort_ro         | varchar(128) | NO   |     | NULL    |                |
++-----------------+--------------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+country_id
+pl
+en
+nl
+short
+list_default_pl
+sort_pl
+list_default_en
+sort_en
+list_default_nl
+sort_nl
+ro
+list_default_ro
+sort_ro
+
+
+*************************** 1. row ***************************
+       Table: countries
+Create Table: CREATE TABLE `countries` (
+  `country_id` int(11) NOT NULL AUTO_INCREMENT,
+  `pl` varchar(128) NOT NULL,
+  `en` varchar(128) NOT NULL,
+  `nl` varchar(128) NOT NULL,
+  `short` char(2) NOT NULL,
+  `list_default_pl` int(1) NOT NULL DEFAULT '0',
+  `sort_pl` varchar(128) NOT NULL,
+  `list_default_en` int(1) NOT NULL DEFAULT '0',
+  `sort_en` varchar(128) NOT NULL,
+  `list_default_nl` int(1) NOT NULL DEFAULT '0',
+  `sort_nl` varchar(128) NOT NULL,
+  `ro` varchar(128) NOT NULL,
+  `list_default_ro` int(1) NOT NULL DEFAULT '0',
+  `sort_ro` varchar(128) NOT NULL,
+  PRIMARY KEY (`country_id`),
+  UNIQUE KEY `short` (`short`)
+) ENGINE=MyISAM AUTO_INCREMENT=235 DEFAULT CHARSET=utf8
+
+Changelog
+---------

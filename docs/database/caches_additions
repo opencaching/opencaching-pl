@@ -1,0 +1,30 @@
+Table caches_additions
+----------
+
++--------------------------+-----------+------+-----+-------------------+-------+
+| Field                    | Type      | Null | Key | Default           | Extra |
++--------------------------+-----------+------+-----+-------------------+-------+
+| cache_id                 | int(11)   | NO   | PRI | NULL              |       |
+| altitude                 | int(11)   | YES  |     | 0                 |       |
+| altitude_update_datetime | timestamp | NO   |     | CURRENT_TIMESTAMP |       |
++--------------------------+-----------+------+-----+-------------------+-------+
+
+Column description
+-------------------
+
+cache_id
+altitude
+altitude_update_datetime
+
+
+*************************** 1. row ***************************
+       Table: caches_additions
+Create Table: CREATE TABLE `caches_additions` (
+  `cache_id` int(11) NOT NULL COMMENT 'geocache identifier (table caches)',
+  `altitude` int(11) DEFAULT '0' COMMENT 'geocache altitude',
+  `altitude_update_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'keep date time of last altitude update',
+  UNIQUE KEY `cache_id` (`cache_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='contain useful but not very important geocache information '
+
+Changelog
+---------

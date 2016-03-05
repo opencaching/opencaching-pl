@@ -1,0 +1,34 @@
+Table search_words
+----------
+
++--------+---------------------+------+-----+---------+----------------+
+| Field  | Type                | Null | Key | Default | Extra          |
++--------+---------------------+------+-----+---------+----------------+
+| id     | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
+| word   | varchar(255)        | NO   |     | NULL    |                |
+| simple | varchar(30)         | NO   |     | NULL    |                |
+| hash   | int(10) unsigned    | NO   | MUL | NULL    |                |
++--------+---------------------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+id
+word
+simple
+hash
+
+
+*************************** 1. row ***************************
+       Table: search_words
+Create Table: CREATE TABLE `search_words` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `word` varchar(255) NOT NULL,
+  `simple` varchar(30) NOT NULL,
+  `hash` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `hash` (`hash`,`word`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

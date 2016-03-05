@@ -1,0 +1,56 @@
+Table email_user
+----------
+
++-------------------+--------------+------+-----+---------------------+----------------+
+| Field             | Type         | Null | Key | Default             | Extra          |
++-------------------+--------------+------+-----+---------------------+----------------+
+| id                | int(11)      | NO   | PRI | NULL                | auto_increment |
+| ipaddress         | varchar(20)  | NO   |     | NULL                |                |
+| date_generated    | datetime     | NO   |     | 0000-00-00 00:00:00 |                |
+| from_user_id      | int(11)      | NO   | MUL | 0                   |                |
+| from_email        | varchar(60)  | NO   |     | NULL                |                |
+| to_user_id        | int(11)      | NO   |     | 0                   |                |
+| to_email          | varchar(60)  | NO   |     | NULL                |                |
+| mail_subject      | varchar(255) | NO   |     | NULL                |                |
+| mail_text         | text         | NO   |     | NULL                |                |
+| send_emailaddress | int(1)       | NO   |     | 0                   |                |
+| date_sent         | datetime     | NO   | MUL | 0000-00-00 00:00:00 |                |
++-------------------+--------------+------+-----+---------------------+----------------+
+
+Column description
+-------------------
+
+id
+ipaddress
+date_generated
+from_user_id
+from_email
+to_user_id
+to_email
+mail_subject
+mail_text
+send_emailaddress
+date_sent
+
+
+*************************** 1. row ***************************
+       Table: email_user
+Create Table: CREATE TABLE `email_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ipaddress` varchar(20) NOT NULL,
+  `date_generated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `from_user_id` int(11) NOT NULL DEFAULT '0',
+  `from_email` varchar(60) NOT NULL,
+  `to_user_id` int(11) NOT NULL DEFAULT '0',
+  `to_email` varchar(60) NOT NULL,
+  `mail_subject` varchar(255) NOT NULL,
+  `mail_text` text NOT NULL,
+  `send_emailaddress` int(1) NOT NULL DEFAULT '0',
+  `date_sent` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `date_sent` (`date_sent`),
+  KEY `from_user_id` (`from_user_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8
+
+Changelog
+---------

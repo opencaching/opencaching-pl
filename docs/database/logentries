@@ -1,0 +1,48 @@
+Table logentries
+----------
+
++-----------+-------------+------+-----+---------------------+----------------+
+| Field     | Type        | Null | Key | Default             | Extra          |
++-----------+-------------+------+-----+---------------------+----------------+
+| id        | int(11)     | NO   | PRI | NULL                | auto_increment |
+| module    | varchar(30) | NO   |     | NULL                |                |
+| eventid   | int(11)     | NO   |     | 0                   |                |
+| userid    | int(11)     | NO   |     | 0                   |                |
+| objectid1 | int(11)     | NO   |     | 0                   |                |
+| objectid2 | int(11)     | NO   |     | 0                   |                |
+| logtext   | mediumtext  | NO   |     | NULL                |                |
+| details   | blob        | NO   |     | NULL                |                |
+| logtime   | datetime    | NO   |     | 0000-00-00 00:00:00 |                |
++-----------+-------------+------+-----+---------------------+----------------+
+
+Column description
+-------------------
+
+id
+module
+eventid
+userid
+objectid1
+objectid2
+logtext
+details
+logtime
+
+
+*************************** 1. row ***************************
+       Table: logentries
+Create Table: CREATE TABLE `logentries` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `module` varchar(30) NOT NULL,
+  `eventid` int(11) NOT NULL DEFAULT '0',
+  `userid` int(11) NOT NULL DEFAULT '0',
+  `objectid1` int(11) NOT NULL DEFAULT '0',
+  `objectid2` int(11) NOT NULL DEFAULT '0',
+  `logtext` mediumtext NOT NULL,
+  `details` blob NOT NULL,
+  `logtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=778 DEFAULT CHARSET=utf8
+
+Changelog
+---------

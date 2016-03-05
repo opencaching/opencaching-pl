@@ -1,0 +1,28 @@
+Table cache_maps
+----------
+
++--------------+----------+------+-----+---------------------+-------+
+| Field        | Type     | Null | Key | Default             | Extra |
++--------------+----------+------+-----+---------------------+-------+
+| cache_id     | int(11)  | NO   | PRI | 0                   |       |
+| last_refresh | datetime | NO   | MUL | 0000-00-00 00:00:00 |       |
++--------------+----------+------+-----+---------------------+-------+
+
+Column description
+-------------------
+
+cache_id
+last_refresh
+
+
+*************************** 1. row ***************************
+       Table: cache_maps
+Create Table: CREATE TABLE `cache_maps` (
+  `cache_id` int(11) NOT NULL DEFAULT '0',
+  `last_refresh` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`cache_id`),
+  KEY `last_refresh` (`last_refresh`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

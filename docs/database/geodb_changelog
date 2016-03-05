@@ -1,0 +1,36 @@
+Table geodb_changelog
+----------
+
++--------------+-------------+------+-----+------------+-------+
+| Field        | Type        | Null | Key | Default    | Extra |
++--------------+-------------+------+-----+------------+-------+
+| id           | int(11)     | NO   | PRI | 0          |       |
+| datum        | date        | NO   |     | 0000-00-00 |       |
+| beschreibung | text        | NO   |     | NULL       |       |
+| autor        | varchar(50) | NO   |     |            |       |
+| version      | varchar(8)  | YES  |     | NULL       |       |
++--------------+-------------+------+-----+------------+-------+
+
+Column description
+-------------------
+
+id
+datum
+beschreibung
+autor
+version
+
+
+*************************** 1. row ***************************
+       Table: geodb_changelog
+Create Table: CREATE TABLE `geodb_changelog` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `datum` date NOT NULL DEFAULT '0000-00-00',
+  `beschreibung` text NOT NULL,
+  `autor` varchar(50) NOT NULL DEFAULT '',
+  `version` varchar(8) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+Changelog
+---------

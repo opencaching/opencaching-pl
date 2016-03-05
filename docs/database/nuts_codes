@@ -1,0 +1,27 @@
+Table nuts_codes
+----------
+
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| code  | varchar(10)  | NO   | PRI | NULL    |       |
+| name  | varchar(120) | NO   |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+code
+name
+
+
+*************************** 1. row ***************************
+       Table: nuts_codes
+Create Table: CREATE TABLE `nuts_codes` (
+  `code` varchar(10) NOT NULL,
+  `name` varchar(120) NOT NULL,
+  PRIMARY KEY (`code`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

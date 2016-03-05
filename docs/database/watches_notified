@@ -1,0 +1,39 @@
+Table watches_notified
+----------
+
++----------------+----------+------+-----+---------------------+----------------+
+| Field          | Type     | Null | Key | Default             | Extra          |
++----------------+----------+------+-----+---------------------+----------------+
+| id             | int(11)  | NO   | PRI | NULL                | auto_increment |
+| user_id        | int(11)  | NO   | MUL | 0                   |                |
+| object_id      | int(11)  | NO   | MUL | 0                   |                |
+| object_type    | int(11)  | NO   |     | 0                   |                |
+| date_processed | datetime | NO   | MUL | 0000-00-00 00:00:00 |                |
++----------------+----------+------+-----+---------------------+----------------+
+
+Column description
+-------------------
+
+id
+user_id
+object_id
+object_type
+date_processed
+
+
+*************************** 1. row ***************************
+       Table: watches_notified
+Create Table: CREATE TABLE `watches_notified` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `object_id` int(11) NOT NULL DEFAULT '0',
+  `object_type` int(11) NOT NULL DEFAULT '0',
+  `date_processed` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`,`object_id`,`object_type`),
+  KEY `object_id` (`object_id`),
+  KEY `date_processed` (`date_processed`)
+) ENGINE=MyISAM AUTO_INCREMENT=393 DEFAULT CHARSET=utf8
+
+Changelog
+---------

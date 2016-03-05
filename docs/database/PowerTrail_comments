@@ -1,0 +1,46 @@
+Table PowerTrail_comments
+----------
+
++------------------+----------+------+-----+---------+----------------+
+| Field            | Type     | Null | Key | Default | Extra          |
++------------------+----------+------+-----+---------+----------------+
+| id               | int(11)  | NO   | PRI | NULL    | auto_increment |
+| userId           | int(11)  | NO   |     | NULL    |                |
+| PowerTrailId     | int(11)  | NO   | MUL | NULL    |                |
+| commentType      | int(11)  | NO   |     | NULL    |                |
+| commentText      | text     | NO   |     | NULL    |                |
+| logDateTime      | datetime | NO   |     | NULL    |                |
+| dbInsertDateTime | datetime | NO   |     | NULL    |                |
+| deleted          | int(11)  | NO   |     | NULL    |                |
++------------------+----------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+id
+userId
+PowerTrailId
+commentType
+commentText
+logDateTime
+dbInsertDateTime
+deleted
+
+
+*************************** 1. row ***************************
+       Table: PowerTrail_comments
+Create Table: CREATE TABLE `PowerTrail_comments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userId` int(11) NOT NULL,
+  `PowerTrailId` int(11) NOT NULL,
+  `commentType` int(11) NOT NULL COMMENT '1 - comment; 2 - conquested;',
+  `commentText` text NOT NULL,
+  `logDateTime` datetime NOT NULL,
+  `dbInsertDateTime` datetime NOT NULL,
+  `deleted` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `PowerTrailId` (`PowerTrailId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+Changelog
+---------

@@ -1,0 +1,27 @@
+Table GeoKretyAPI
+----------
+
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| userID | int(11)      | NO   | PRI | NULL    |       |
+| secid  | varchar(130) | NO   |     | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+userID
+secid
+
+
+*************************** 1. row ***************************
+       Table: GeoKretyAPI
+Create Table: CREATE TABLE `GeoKretyAPI` (
+  `userID` int(11) NOT NULL COMMENT 'opencaching user id',
+  `secid` varchar(130) NOT NULL COMMENT 'user GeoKrety secid ',
+  UNIQUE KEY `userID` (`userID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Table is used to integration OC account with GeoKrety'
+
+Changelog
+---------

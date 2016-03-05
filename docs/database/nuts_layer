@@ -1,0 +1,36 @@
+Table nuts_layer
+----------
+
++-------+------------+------+-----+---------+----------------+
+| Field | Type       | Null | Key | Default | Extra          |
++-------+------------+------+-----+---------+----------------+
+| id    | int(11)    | NO   | PRI | NULL    | auto_increment |
+| level | tinyint(1) | NO   | MUL | NULL    |                |
+| code  | varchar(5) | NO   | UNI | NULL    |                |
+| shape | linestring | NO   | MUL | NULL    |                |
++-------+------------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+id
+level
+code
+shape
+
+
+*************************** 1. row ***************************
+       Table: nuts_layer
+Create Table: CREATE TABLE `nuts_layer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `level` tinyint(1) NOT NULL,
+  `code` varchar(5) NOT NULL,
+  `shape` linestring NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `code` (`code`),
+  KEY `level` (`level`),
+  SPATIAL KEY `shape` (`shape`)
+) ENGINE=MyISAM AUTO_INCREMENT=4897 DEFAULT CHARSET=utf8
+
+Changelog
+---------

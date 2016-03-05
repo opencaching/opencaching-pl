@@ -1,0 +1,33 @@
+Table powerTrail_caches
+----------
+
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| cacheId      | int(11)     | NO   | PRI | NULL    |       |
+| PowerTrailId | int(11)     | NO   | PRI | NULL    |       |
+| points       | float       | NO   |     | NULL    |       |
+| isFinal      | smallint(6) | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+cacheId
+PowerTrailId
+points
+isFinal
+
+
+*************************** 1. row ***************************
+       Table: powerTrail_caches
+Create Table: CREATE TABLE `powerTrail_caches` (
+  `cacheId` int(11) NOT NULL,
+  `PowerTrailId` int(11) NOT NULL,
+  `points` float NOT NULL,
+  `isFinal` smallint(6) NOT NULL COMMENT 'if cache is final cache = 1, not final cache = 0',
+  UNIQUE KEY `cacheId` (`cacheId`,`PowerTrailId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='combain caches witch PowerTrails'
+
+Changelog
+---------

@@ -1,0 +1,36 @@
+Table bulletins
+----------
+
++---------+------------+------+-----+-------------------+----------------+
+| Field   | Type       | Null | Key | Default           | Extra          |
++---------+------------+------+-----+-------------------+----------------+
+| id      | int(11)    | NO   | PRI | NULL              | auto_increment |
+| content | text       | NO   |     | NULL              |                |
+| date    | timestamp  | NO   |     | CURRENT_TIMESTAMP |                |
+| user_id | int(11)    | NO   |     | NULL              |                |
+| sent    | tinyint(1) | NO   |     | 0                 |                |
++---------+------------+------+-----+-------------------+----------------+
+
+Column description
+-------------------
+
+id
+content
+date
+user_id
+sent
+
+
+*************************** 1. row ***************************
+       Table: bulletins
+Create Table: CREATE TABLE `bulletins` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` text NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `user_id` int(11) NOT NULL,
+  `sent` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

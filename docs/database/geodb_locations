@@ -1,0 +1,28 @@
+Table geodb_locations
+----------
+
++----------+---------+------+-----+---------+-------+
+| Field    | Type    | Null | Key | Default | Extra |
++----------+---------+------+-----+---------+-------+
+| loc_id   | int(11) | NO   | PRI | 0       |       |
+| loc_type | int(11) | NO   | MUL | 0       |       |
++----------+---------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+loc_id
+loc_type
+
+
+*************************** 1. row ***************************
+       Table: geodb_locations
+Create Table: CREATE TABLE `geodb_locations` (
+  `loc_id` int(11) NOT NULL DEFAULT '0',
+  `loc_type` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`loc_id`),
+  KEY `loc_type_idx` (`loc_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+Changelog
+---------

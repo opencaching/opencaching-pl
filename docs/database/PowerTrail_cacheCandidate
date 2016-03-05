@@ -1,0 +1,36 @@
+Table PowerTrail_cacheCandidate
+----------
+
++--------------+---------+------+-----+---------+----------------+
+| Field        | Type    | Null | Key | Default | Extra          |
++--------------+---------+------+-----+---------+----------------+
+| id           | int(11) | NO   | PRI | NULL    | auto_increment |
+| PowerTrailId | int(11) | NO   |     | NULL    |                |
+| cacheId      | int(11) | NO   |     | NULL    |                |
+| link         | text    | NO   |     | NULL    |                |
+| date         | date    | NO   |     | NULL    |                |
++--------------+---------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+id
+PowerTrailId
+cacheId
+link
+date
+
+
+*************************** 1. row ***************************
+       Table: PowerTrail_cacheCandidate
+Create Table: CREATE TABLE `PowerTrail_cacheCandidate` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `PowerTrailId` int(11) NOT NULL,
+  `cacheId` int(11) NOT NULL,
+  `link` text NOT NULL,
+  `date` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+Changelog
+---------

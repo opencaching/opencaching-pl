@@ -1,0 +1,54 @@
+Table waypoints
+----------
+
++----------------+--------------+------+-----+---------+----------------+
+| Field          | Type         | Null | Key | Default | Extra          |
++----------------+--------------+------+-----+---------+----------------+
+| wp_id          | int(11)      | NO   | PRI | NULL    | auto_increment |
+| cache_id       | int(11)      | NO   | PRI | 0       |                |
+| longitude      | double       | YES  | MUL | NULL    |                |
+| latitude       | double       | YES  | MUL | NULL    |                |
+| type           | tinyint(1)   | YES  | MUL | NULL    |                |
+| status         | tinyint(1)   | NO   | MUL | 1       |                |
+| stage          | tinyint(1)   | NO   | MUL | 0       |                |
+| desc           | varchar(600) | YES  |     | NULL    |                |
+| opensprawdzacz | binary(1)    | NO   |     | NULL    |                |
++----------------+--------------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+wp_id
+cache_id
+longitude
+latitude
+type
+status
+stage
+desc
+opensprawdzacz
+
+
+*************************** 1. row ***************************
+       Table: waypoints
+Create Table: CREATE TABLE `waypoints` (
+  `wp_id` int(11) NOT NULL AUTO_INCREMENT,
+  `cache_id` int(11) NOT NULL DEFAULT '0',
+  `longitude` double DEFAULT NULL,
+  `latitude` double DEFAULT NULL,
+  `type` tinyint(1) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `stage` tinyint(1) NOT NULL DEFAULT '0',
+  `desc` varchar(600) DEFAULT NULL,
+  `opensprawdzacz` binary(1) NOT NULL,
+  PRIMARY KEY (`wp_id`,`cache_id`),
+  KEY `cache_id` (`cache_id`),
+  KEY `longitude` (`longitude`,`latitude`),
+  KEY `latitude` (`latitude`),
+  KEY `stage` (`stage`),
+  KEY `status` (`status`),
+  KEY `type` (`type`)
+) ENGINE=MyISAM AUTO_INCREMENT=168 DEFAULT CHARSET=utf8 COMMENT='cache waypoints'
+
+Changelog
+---------

@@ -1,0 +1,40 @@
+Table removed_objects
+----------
+
++--------------+-------------+------+-----+---------------------+----------------+
+| Field        | Type        | Null | Key | Default             | Extra          |
++--------------+-------------+------+-----+---------------------+----------------+
+| id           | int(11)     | NO   | PRI | NULL                | auto_increment |
+| localID      | int(11)     | NO   |     | 0                   |                |
+| uuid         | varchar(36) | NO   | UNI | NULL                |                |
+| type         | int(1)      | NO   |     | 0                   |                |
+| removed_date | datetime    | NO   |     | 0000-00-00 00:00:00 |                |
+| node         | tinyint(4)  | NO   |     | 0                   |                |
++--------------+-------------+------+-----+---------------------+----------------+
+
+Column description
+-------------------
+
+id
+localID
+uuid
+type
+removed_date
+node
+
+
+*************************** 1. row ***************************
+       Table: removed_objects
+Create Table: CREATE TABLE `removed_objects` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `localID` int(11) NOT NULL DEFAULT '0',
+  `uuid` varchar(36) NOT NULL,
+  `type` int(1) NOT NULL DEFAULT '0',
+  `removed_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `node` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UUID` (`uuid`)
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8
+
+Changelog
+---------

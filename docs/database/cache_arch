@@ -1,0 +1,27 @@
+Table cache_arch
+----------
+
++----------+---------+------+-----+---------+-------+
+| Field    | Type    | Null | Key | Default | Extra |
++----------+---------+------+-----+---------+-------+
+| cache_id | int(11) | NO   | PRI | NULL    |       |
+| step     | int(11) | NO   |     | NULL    |       |
++----------+---------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+cache_id
+step
+
+
+*************************** 1. row ***************************
+       Table: cache_arch
+Create Table: CREATE TABLE `cache_arch` (
+  `cache_id` int(11) NOT NULL,
+  `step` int(11) NOT NULL,
+  PRIMARY KEY (`cache_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

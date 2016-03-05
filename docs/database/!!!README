@@ -1,0 +1,358 @@
+OPENCACHING-PL table documentation
+==================================
+
+    Files in this directory document the structure in each table.
+
+    How to list all tables:
+
+mysql -Bs -b [OCPL_database] -e 'show tables'
+
+    Each file shows the structure of the respective table and documents
+table purpose, usage and each column purpose and usage.
+
+---------------------------------------------------------------------------
+    Files listing table structures were initially created with the following 
+commands:
+
+###########################################################################
+for x in $(mysql -b [OCPL_database] -Bs -e 'show tables'); do
+    echo "Table $x" > $x;
+    echo "----------" >> $x;
+    echo >> $x;
+    mysql -b [OCPL_database] -t -e "describe ${x}" >> $x;
+    echo >> $x;
+    echo "Column description" >> $x;
+    echo "-------------------" >> $x;
+    echo >> $x;
+    mysql -Bs -e "select COLUMN_NAME from information_schema.COLUMNS where TABLE_SCHEMA='OCPL_database' and TABLE_NAME='${x}'" 	>> $x;
+    echo >> $x;
+    echo >> $x;
+    mysql -b [OCPL_database] -E -e "show create table ${x}" >> $x;
+done
+###########################################################################
+
+    Replace OCPL_database with your actual database name.
+    Further documentation was edited manually. 
+
+*** Please update these documents with each change in the database structure!
+
+---------------------------------------------------------------------------
+List of tables used by OPENCACHING-PL project
+---------------------------------------------------------------------------
+
+Note: this list was initially based on OCRO installation with structure
+updated with project changes on March 5th 2016.
+
+Tables
+======
+
+GeoKretyAPI
+	FIXME
+GeoKretyAPIerrors
+	FIXME
+PowerTrail
+	FIXME
+PowerTrail_actionsLog
+	FIXME
+PowerTrail_cacheCandidate
+	FIXME
+PowerTrail_comments
+	FIXME
+PowerTrail_owners
+	FIXME
+admin_user_notes
+	FIXME
+ajax_chat_bans
+	FIXME: is teh chat still valid?
+ajax_chat_invitations
+	FIXME: is teh chat still valid?
+ajax_chat_messages
+	FIXME: is teh chat still valid?
+ajax_chat_online
+	FIXME: is teh chat still valid?
+ajax_chat_users
+	FIXME: is teh chat still valid?
+approval_status
+	FIXME
+bulletins
+	FIXME
+cache_arch
+	FIXME
+cache_attrib
+	FIXME
+cache_coordinates
+	FIXME
+cache_countries
+	FIXME
+cache_desc
+	FIXME
+cache_ignore
+	FIXME
+cache_loc
+	FIXME
+cache_location
+	FIXME
+cache_logs
+	FIXME
+cache_maps
+	FIXME
+cache_mod_cords
+	FIXME
+cache_moved
+	FIXME
+cache_notes
+	FIXME
+cache_npa_areas
+	FIXME
+cache_rating
+	FIXME
+cache_size
+	FIXME
+cache_status
+	FIXME
+cache_titled
+	FIXME
+cache_type
+	FIXME
+cache_visits
+	FIXME
+cache_watches
+	FIXME
+caches
+	FIXME
+caches_additions
+	FIXME
+caches_attributes
+	FIXME
+caches_memory
+	FIXME
+chowner
+	FIXME
+countries
+	Contains country names as translation strings and definition flags
+	FIXME: is this still valid?
+email_schemas
+	FIXME
+email_user
+	FIXME
+foreign_caches
+	FIXME
+geodb_areas
+	FIXME
+geodb_changelog
+	FIXME
+geodb_coordinates
+	FIXME
+geodb_floatdata
+	FIXME
+geodb_hierarchies
+	FIXME
+geodb_intdata
+	FIXME
+geodb_locations
+	FIXME
+geodb_polygons
+	FIXME
+geodb_search
+	FIXME
+geodb_textdata
+	FIXME
+geodb_type_names
+	FIXME
+gk_item
+	FIXME
+gk_item_type
+	FIXME
+gk_item_waypoint
+	FIXME
+gk_move
+	FIXME
+gk_move_type
+	FIXME
+gk_move_waypoint
+	FIXME
+gk_user
+	FIXME
+gns_locations
+	FIXME
+gns_search
+	FIXME
+import_caches_date
+	FIXME
+languages
+	Contains language name as translated strings and definition flags
+	FIXME: is this still valid?
+log_rating
+	FIXME
+log_types
+	FIXME
+log_types_text
+	FIXME
+logentries
+	FIXME
+logentries_types
+	FIXME
+logins
+	FIXME
+map_settings
+	FIXME
+map_settings_v2
+	FIXME
+medals
+	FIXME
+mp3
+	FIXME
+news
+	FIXME
+news_topics
+	FIXME
+nodes
+	FIXME
+notify_waiting
+	FIXME
+npa_areas
+	Geographical data about Natura 2000 "Nature Protected Areas".
+	Valid in Europe only ???
+nuts_codes
+	Nomenclature of Territorial Units for Statistics (NUTS) codes
+	For Europe only ???
+nuts_layer
+	Nomenclature of Territorial Units for Statistics (NUTS)
+	Geographical data for administrative units defined by NUTS
+object_types
+	FIXME
+okapi_authorizations
+	FIXME: part of OKAPI
+okapi_cache
+	FIXME: part of OKAPI
+okapi_cache_logs
+	FIXME: part of OKAPI
+okapi_cache_reads
+	FIXME: part of OKAPI
+okapi_clog
+	FIXME: part of OKAPI
+okapi_consumers
+	FIXME: part of OKAPI
+okapi_nonces
+	FIXME: part of OKAPI
+okapi_search_results
+	FIXME: part of OKAPI
+okapi_search_sets
+	FIXME: part of OKAPI
+okapi_stats_hourly
+	FIXME: part of OKAPI
+okapi_stats_monthly
+	FIXME: part of OKAPI
+okapi_stats_temp
+	FIXME: part of OKAPI
+okapi_tile_caches
+	FIXME: part of OKAPI
+okapi_tile_status
+	FIXME: part of OKAPI
+okapi_tokens
+	FIXME: part of OKAPI
+okapi_vars
+	FIXME: part of OKAPI
+opensprawdzacz
+	polish specific name. should be renamed.
+	FIXME
+parkipl
+	FIXME
+pictures
+	FIXME
+powerTrail_caches
+	FIXME
+queries
+	FIXME
+removed_objects
+	FIXME
+reports
+	FIXME
+route_points
+	FIXME
+routes
+	FIXME
+rr_ocpl_candidates_2009
+	OCPL community only (related to elections to OCPL RR Team)
+rr_ocpl_candidates_2010
+	OCPL community only (related to elections to OCPL RR Team)
+rr_ocpl_candidates_2011
+	OCPL community only (related to elections to OCPL RR Team)
+rr_ocpl_candidates_2012
+	OCPL community only (related to elections to OCPL RR Team)
+rr_ocpl_candidates_2013
+	OCPL community only (related to elections to OCPL RR Team)
+rr_ocpl_vote_2009
+	OCPL community only (related to elections to OCPL RR Team)
+rr_ocpl_vote_2010
+	OCPL community only (related to elections to OCPL RR Team)
+rr_ocpl_vote_2011
+	OCPL community only (related to elections to OCPL RR Team)
+rr_ocpl_vote_2012
+	OCPL community only (related to elections to OCPL RR Team)
+rr_ocpl_vote_2013
+	OCPL community only (related to elections to OCPL RR Team)
+scores
+	FIXME
+search_doubles
+	FIXME
+search_ignore
+	FIXME
+search_index
+	FIXME
+search_index_times
+	FIXME
+search_words
+	FIXME
+statpics
+	FIXME
+sys_cron
+	FIXME
+sys_logins
+	FIXME
+sys_menu
+	FIXME
+sys_sessions
+	FIXME
+sys_temptables
+	FIXME
+sysconfig
+	system status information (maybe improperly named)
+transaction_test
+	FIXME
+user
+	registered users info
+user_backup_201403032233
+	backup of table user and date of creation. 
+	FIXME: purpose? (seems very old)
+user_finds
+	FIXME
+user_nick_history
+	FIXME: seems a history of username changes
+user_settings
+	FIXME
+userdel
+	FIXME: what is the purpose of this table?
+userold
+	FIXME: what is the purpose of this table?
+watches_notified
+	FIXME
+watches_waiting
+	FIXME
+watches_waitingtypes
+	FIXME
+waypoint_type
+	translation strings and icons defining waypoint types
+	FIXME: is this still valid?
+waypoints
+	Additional waypoints added to a cache
+xmlsession
+	FIXME
+xmlsession_data
+	FIXME
+
+Changelog
+---------
+2016-03-05: created by andrixnet. Documented only what I managed to 
+	investigate so far.
+	

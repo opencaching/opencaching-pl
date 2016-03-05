@@ -1,0 +1,50 @@
+Table cache_attrib
+----------
+
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| id         | int(11)     | NO   | PRI | 0       |       |
+| language   | char(2)     | NO   | PRI | NULL    |       |
+| text_short | varchar(20) | NO   |     | NULL    |       |
+| text_long  | varchar(60) | NO   |     | NULL    |       |
+| icon_large | varchar(60) | NO   |     | NULL    |       |
+| icon_no    | varchar(60) | NO   |     | NULL    |       |
+| icon_undef | varchar(60) | NO   |     | NULL    |       |
+| category   | tinyint(2)  | NO   | MUL | 0       |       |
+| default    | tinyint(1)  | NO   | MUL | 0       |       |
++------------+-------------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+id
+language
+text_short
+text_long
+icon_large
+icon_no
+icon_undef
+category
+default
+
+
+*************************** 1. row ***************************
+       Table: cache_attrib
+Create Table: CREATE TABLE `cache_attrib` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `language` char(2) NOT NULL,
+  `text_short` varchar(20) NOT NULL,
+  `text_long` varchar(60) NOT NULL,
+  `icon_large` varchar(60) NOT NULL,
+  `icon_no` varchar(60) NOT NULL,
+  `icon_undef` varchar(60) NOT NULL,
+  `category` tinyint(2) NOT NULL DEFAULT '0',
+  `default` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`language`,`id`),
+  KEY `category` (`category`,`id`),
+  KEY `default` (`default`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

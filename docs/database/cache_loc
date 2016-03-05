@@ -1,0 +1,42 @@
+Table cache_loc
+----------
+
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| cache_id  | int(11)      | NO   | PRI | NULL    |       |
+| latitude  | double       | NO   |     | NULL    |       |
+| longitude | double       | NO   |     | NULL    |       |
+| lang      | varchar(2)   | NO   | PRI | NULL    |       |
+| country   | varchar(120) | YES  |     | NULL    |       |
+| adm1      | varchar(120) | YES  |     | NULL    |       |
+| adm2      | varchar(120) | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+cache_id
+latitude
+longitude
+lang
+country
+adm1
+adm2
+
+
+*************************** 1. row ***************************
+       Table: cache_loc
+Create Table: CREATE TABLE `cache_loc` (
+  `cache_id` int(11) NOT NULL,
+  `latitude` double NOT NULL,
+  `longitude` double NOT NULL,
+  `lang` varchar(2) CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL,
+  `country` varchar(120) CHARACTER SET utf8 COLLATE utf8_polish_ci DEFAULT NULL,
+  `adm1` varchar(120) CHARACTER SET utf8 COLLATE utf8_polish_ci DEFAULT NULL,
+  `adm2` varchar(120) CHARACTER SET utf8 COLLATE utf8_polish_ci DEFAULT NULL,
+  PRIMARY KEY (`cache_id`,`lang`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+Changelog
+---------

@@ -1,0 +1,33 @@
+Table opensprawdzacz
+----------
+
++----------+---------+------+-----+---------+----------------+
+| Field    | Type    | Null | Key | Default | Extra          |
++----------+---------+------+-----+---------+----------------+
+| id       | int(11) | NO   | PRI | NULL    | auto_increment |
+| cache_id | int(11) | NO   |     | NULL    |                |
+| proby    | int(11) | NO   |     | NULL    |                |
+| sukcesy  | int(11) | NO   |     | NULL    |                |
++----------+---------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+id
+cache_id
+proby
+sukcesy
+
+
+*************************** 1. row ***************************
+       Table: opensprawdzacz
+Create Table: CREATE TABLE `opensprawdzacz` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cache_id` int(11) NOT NULL,
+  `proby` int(11) NOT NULL,
+  `sukcesy` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8
+
+Changelog
+---------

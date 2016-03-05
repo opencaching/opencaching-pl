@@ -1,0 +1,40 @@
+Table npa_areas
+----------
+
++----------+------------------+------+-----+---------+----------------+
+| Field    | Type             | Null | Key | Default | Extra          |
++----------+------------------+------+-----+---------+----------------+
+| id       | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| linkid   | int(4)           | YES  |     | NULL    |                |
+| sitename | varchar(255)     | NO   |     | NULL    |                |
+| sitecode | varchar(255)     | NO   | MUL | NULL    |                |
+| sitetype | char(1)          | NO   |     | NULL    |                |
+| shape    | linestring       | NO   |     | NULL    |                |
++----------+------------------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+id
+linkid
+sitename
+sitecode
+sitetype
+shape
+
+
+*************************** 1. row ***************************
+       Table: npa_areas
+Create Table: CREATE TABLE `npa_areas` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `linkid` int(4) DEFAULT NULL,
+  `sitename` varchar(255) NOT NULL,
+  `sitecode` varchar(255) NOT NULL,
+  `sitetype` char(1) NOT NULL,
+  `shape` linestring NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `shape` (`sitecode`(32))
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

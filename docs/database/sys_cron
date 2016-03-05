@@ -1,0 +1,28 @@
+Table sys_cron
+----------
+
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| name     | varchar(60) | NO   | PRI | NULL    |       |
+| last_run | datetime    | NO   | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+name
+last_run
+
+
+*************************** 1. row ***************************
+       Table: sys_cron
+Create Table: CREATE TABLE `sys_cron` (
+  `name` varchar(60) NOT NULL,
+  `last_run` datetime NOT NULL,
+  PRIMARY KEY (`name`),
+  KEY `last_run` (`last_run`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

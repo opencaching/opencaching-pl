@@ -1,0 +1,110 @@
+Table gns_locations
+----------
+
++--------------+--------------+------+-----+------------+-------+
+| Field        | Type         | Null | Key | Default    | Extra |
++--------------+--------------+------+-----+------------+-------+
+| rc           | tinyint(4)   | NO   | MUL | 0          |       |
+| ufi          | int(11)      | NO   | MUL | 0          |       |
+| uni          | int(11)      | NO   | PRI | 0          |       |
+| lat          | double       | NO   |     | 0          |       |
+| lon          | double       | NO   |     | 0          |       |
+| dms_lat      | int(11)      | NO   |     | 0          |       |
+| dms_lon      | int(11)      | NO   |     | 0          |       |
+| utm          | varchar(4)   | NO   |     | NULL       |       |
+| jog          | varchar(7)   | NO   |     | NULL       |       |
+| fc           | char(1)      | NO   |     | NULL       |       |
+| dsg          | varchar(5)   | NO   |     | NULL       |       |
+| pc           | tinyint(4)   | NO   |     | 0          |       |
+| cc1          | char(2)      | NO   |     | NULL       |       |
+| adm1         | char(2)      | NO   |     | NULL       |       |
+| adm2         | varchar(200) | NO   |     | NULL       |       |
+| dim          | int(11)      | NO   |     | 0          |       |
+| cc2          | char(2)      | NO   |     | NULL       |       |
+| nt           | char(1)      | NO   |     | NULL       |       |
+| lc           | char(2)      | NO   |     | NULL       |       |
+| SHORT_FORM   | varchar(128) | NO   |     | NULL       |       |
+| GENERIC      | varchar(128) | NO   |     | NULL       |       |
+| SORT_NAME    | varchar(200) | NO   |     | NULL       |       |
+| FULL_NAME    | varchar(200) | NO   |     | NULL       |       |
+| FULL_NAME_ND | varchar(200) | NO   |     | NULL       |       |
+| MOD_DATE     | date         | NO   |     | 0000-00-00 |       |
+| admtxt1      | varchar(120) | NO   |     | NULL       |       |
+| admtxt3      | varchar(120) | NO   |     | NULL       |       |
+| admtxt4      | varchar(120) | NO   |     | NULL       |       |
+| admtxt2      | varchar(120) | NO   |     | NULL       |       |
++--------------+--------------+------+-----+------------+-------+
+
+Column description
+-------------------
+
+rc
+ufi
+uni
+lat
+lon
+dms_lat
+dms_lon
+utm
+jog
+fc
+dsg
+pc
+cc1
+adm1
+adm2
+dim
+cc2
+nt
+lc
+SHORT_FORM
+GENERIC
+SORT_NAME
+FULL_NAME
+FULL_NAME_ND
+MOD_DATE
+admtxt1
+admtxt3
+admtxt4
+admtxt2
+
+
+*************************** 1. row ***************************
+       Table: gns_locations
+Create Table: CREATE TABLE `gns_locations` (
+  `rc` tinyint(4) NOT NULL DEFAULT '0',
+  `ufi` int(11) NOT NULL DEFAULT '0',
+  `uni` int(11) NOT NULL DEFAULT '0',
+  `lat` double NOT NULL DEFAULT '0',
+  `lon` double NOT NULL DEFAULT '0',
+  `dms_lat` int(11) NOT NULL DEFAULT '0',
+  `dms_lon` int(11) NOT NULL DEFAULT '0',
+  `utm` varchar(4) NOT NULL,
+  `jog` varchar(7) NOT NULL,
+  `fc` char(1) NOT NULL,
+  `dsg` varchar(5) NOT NULL,
+  `pc` tinyint(4) NOT NULL DEFAULT '0',
+  `cc1` char(2) NOT NULL,
+  `adm1` char(2) NOT NULL,
+  `adm2` varchar(200) NOT NULL,
+  `dim` int(11) NOT NULL DEFAULT '0',
+  `cc2` char(2) NOT NULL,
+  `nt` char(1) NOT NULL,
+  `lc` char(2) NOT NULL,
+  `SHORT_FORM` varchar(128) NOT NULL,
+  `GENERIC` varchar(128) NOT NULL,
+  `SORT_NAME` varchar(200) NOT NULL,
+  `FULL_NAME` varchar(200) NOT NULL,
+  `FULL_NAME_ND` varchar(200) NOT NULL,
+  `MOD_DATE` date NOT NULL DEFAULT '0000-00-00',
+  `admtxt1` varchar(120) NOT NULL,
+  `admtxt3` varchar(120) NOT NULL,
+  `admtxt4` varchar(120) NOT NULL,
+  `admtxt2` varchar(120) NOT NULL,
+  PRIMARY KEY (`uni`),
+  KEY `rc` (`rc`,`fc`,`dsg`,`cc1`),
+  KEY `ufi` (`ufi`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

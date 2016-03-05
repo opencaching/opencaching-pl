@@ -1,0 +1,30 @@
+Table nodes
+----------
+
++-------+--------------+------+-----+---------+----------------+
+| Field | Type         | Null | Key | Default | Extra          |
++-------+--------------+------+-----+---------+----------------+
+| id    | tinyint(4)   | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(60)  | NO   |     | NULL    |                |
+| url   | varchar(260) | NO   |     | NULL    |                |
++-------+--------------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+id
+name
+url
+
+
+*************************** 1. row ***************************
+       Table: nodes
+Create Table: CREATE TABLE `nodes` (
+  `id` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `name` varchar(60) NOT NULL,
+  `url` varchar(260) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8
+
+Changelog
+---------

@@ -1,0 +1,54 @@
+Table okapi_tile_caches
+----------
+
++----------+-----------------------+------+-----+---------+-------+
+| Field    | Type                  | Null | Key | Default | Extra |
++----------+-----------------------+------+-----+---------+-------+
+| z        | tinyint(2)            | NO   | PRI | NULL    |       |
+| x        | mediumint(6) unsigned | NO   | PRI | NULL    |       |
+| y        | mediumint(6) unsigned | NO   | PRI | NULL    |       |
+| cache_id | mediumint(6) unsigned | NO   | PRI | NULL    |       |
+| z21x     | int(10) unsigned      | NO   |     | NULL    |       |
+| z21y     | int(10) unsigned      | NO   |     | NULL    |       |
+| status   | tinyint(1) unsigned   | NO   |     | NULL    |       |
+| type     | tinyint(1) unsigned   | NO   |     | NULL    |       |
+| rating   | tinyint(1) unsigned   | YES  |     | NULL    |       |
+| flags    | tinyint(1) unsigned   | NO   |     | NULL    |       |
+| name_crc | int(10) unsigned      | NO   |     | 0       |       |
++----------+-----------------------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+z
+x
+y
+cache_id
+z21x
+z21y
+status
+type
+rating
+flags
+name_crc
+
+
+*************************** 1. row ***************************
+       Table: okapi_tile_caches
+Create Table: CREATE TABLE `okapi_tile_caches` (
+  `z` tinyint(2) NOT NULL,
+  `x` mediumint(6) unsigned NOT NULL,
+  `y` mediumint(6) unsigned NOT NULL,
+  `cache_id` mediumint(6) unsigned NOT NULL,
+  `z21x` int(10) unsigned NOT NULL,
+  `z21y` int(10) unsigned NOT NULL,
+  `status` tinyint(1) unsigned NOT NULL,
+  `type` tinyint(1) unsigned NOT NULL,
+  `rating` tinyint(1) unsigned DEFAULT NULL,
+  `flags` tinyint(1) unsigned NOT NULL,
+  `name_crc` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`z`,`x`,`y`,`cache_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+Changelog
+---------

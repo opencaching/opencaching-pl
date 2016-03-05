@@ -1,0 +1,54 @@
+Table xmlsession
+----------
+
++----------------+------------+------+-----+---------------------+----------------+
+| Field          | Type       | Null | Key | Default             | Extra          |
++----------------+------------+------+-----+---------------------+----------------+
+| id             | int(11)    | NO   | PRI | NULL                | auto_increment |
+| last_use       | datetime   | NO   |     | 0000-00-00 00:00:00 |                |
+| users          | int(11)    | NO   |     | 0                   |                |
+| caches         | int(11)    | NO   |     | 0                   |                |
+| cachedescs     | int(11)    | NO   |     | 0                   |                |
+| cachelogs      | int(11)    | NO   |     | 0                   |                |
+| pictures       | int(11)    | NO   |     | 0                   |                |
+| removedobjects | int(11)    | NO   |     | 0                   |                |
+| modified_since | datetime   | NO   |     | 0000-00-00 00:00:00 |                |
+| date_created   | datetime   | NO   |     | 0000-00-00 00:00:00 |                |
+| cleaned        | tinyint(4) | NO   |     | 0                   |                |
++----------------+------------+------+-----+---------------------+----------------+
+
+Column description
+-------------------
+
+id
+last_use
+users
+caches
+cachedescs
+cachelogs
+pictures
+removedobjects
+modified_since
+date_created
+cleaned
+
+
+*************************** 1. row ***************************
+       Table: xmlsession
+Create Table: CREATE TABLE `xmlsession` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `last_use` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `users` int(11) NOT NULL DEFAULT '0',
+  `caches` int(11) NOT NULL DEFAULT '0',
+  `cachedescs` int(11) NOT NULL DEFAULT '0',
+  `cachelogs` int(11) NOT NULL DEFAULT '0',
+  `pictures` int(11) NOT NULL DEFAULT '0',
+  `removedobjects` int(11) NOT NULL DEFAULT '0',
+  `modified_since` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `cleaned` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

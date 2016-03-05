@@ -1,0 +1,24 @@
+Table search_ignore
+----------
+
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| word  | varchar(30) | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+word
+
+
+*************************** 1. row ***************************
+       Table: search_ignore
+Create Table: CREATE TABLE `search_ignore` (
+  `word` varchar(30) NOT NULL,
+  PRIMARY KEY (`word`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

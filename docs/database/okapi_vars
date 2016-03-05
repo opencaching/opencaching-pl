@@ -1,0 +1,27 @@
+Table okapi_vars
+----------
+
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| var   | varchar(32) | NO   | PRI | NULL    |       |
+| value | text        | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+var
+value
+
+
+*************************** 1. row ***************************
+       Table: okapi_vars
+Create Table: CREATE TABLE `okapi_vars` (
+  `var` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `value` text,
+  PRIMARY KEY (`var`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

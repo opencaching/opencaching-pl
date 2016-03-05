@@ -1,0 +1,36 @@
+Table statpics
+----------
+
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| id           | int(11)      | NO   | PRI | NULL    | auto_increment |
+| tplpath      | varchar(200) | NO   |     | NULL    |                |
+| previewpath  | varchar(200) | NO   |     | NULL    |                |
+| description  | varchar(80)  | NO   |     | NULL    |                |
+| maxtextwidth | int(11)      | NO   |     | 0       |                |
++--------------+--------------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+id
+tplpath
+previewpath
+description
+maxtextwidth
+
+
+*************************** 1. row ***************************
+       Table: statpics
+Create Table: CREATE TABLE `statpics` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tplpath` varchar(200) NOT NULL,
+  `previewpath` varchar(200) NOT NULL,
+  `description` varchar(80) NOT NULL,
+  `maxtextwidth` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8
+
+Changelog
+---------

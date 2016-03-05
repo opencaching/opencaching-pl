@@ -1,0 +1,42 @@
+Table PowerTrail_actionsLog
+----------
+
++----------------+----------+------+-----+---------+----------------+
+| Field          | Type     | Null | Key | Default | Extra          |
++----------------+----------+------+-----+---------+----------------+
+| id             | int(11)  | NO   | PRI | NULL    | auto_increment |
+| PowerTrailId   | int(11)  | NO   |     | NULL    |                |
+| userId         | int(11)  | NO   |     | NULL    |                |
+| actionDateTime | datetime | NO   |     | NULL    |                |
+| actionType     | int(11)  | NO   |     | NULL    |                |
+| description    | text     | NO   |     | NULL    |                |
+| cacheId        | int(11)  | NO   |     | NULL    |                |
++----------------+----------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+id
+PowerTrailId
+userId
+actionDateTime
+actionType
+description
+cacheId
+
+
+*************************** 1. row ***************************
+       Table: PowerTrail_actionsLog
+Create Table: CREATE TABLE `PowerTrail_actionsLog` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `PowerTrailId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `actionDateTime` datetime NOT NULL,
+  `actionType` int(11) NOT NULL,
+  `description` text NOT NULL,
+  `cacheId` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+Changelog
+---------

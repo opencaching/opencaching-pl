@@ -1,0 +1,27 @@
+Table sysconfig
+----------
+
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| name  | varchar(60) | NO   | PRI | NULL    |       |
+| value | text        | NO   |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+name
+value
+
+
+*************************** 1. row ***************************
+       Table: sysconfig
+Create Table: CREATE TABLE `sysconfig` (
+  `name` varchar(60) NOT NULL,
+  `value` text NOT NULL,
+  PRIMARY KEY (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

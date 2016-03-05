@@ -1,0 +1,51 @@
+Table cache_type
+----------
+
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int(11)     | NO   | PRI | NULL    | auto_increment |
+| sort       | int(11)     | NO   |     | 100     |                |
+| short      | varchar(10) | NO   |     | NULL    |                |
+| pl         | varchar(60) | NO   |     | NULL    |                |
+| en         | varchar(60) | NO   |     | NULL    |                |
+| nl         | varchar(60) | NO   |     | NULL    |                |
+| icon_large | varchar(60) | NO   |     | NULL    |                |
+| icon_small | varchar(60) | NO   |     | NULL    |                |
+| color      | varchar(7)  | NO   |     | NULL    |                |
+| ro         | varchar(60) | NO   |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+id
+sort
+short
+pl
+en
+nl
+icon_large
+icon_small
+color
+ro
+
+
+*************************** 1. row ***************************
+       Table: cache_type
+Create Table: CREATE TABLE `cache_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sort` int(11) NOT NULL DEFAULT '100',
+  `short` varchar(10) NOT NULL,
+  `pl` varchar(60) NOT NULL,
+  `en` varchar(60) NOT NULL,
+  `nl` varchar(60) NOT NULL,
+  `icon_large` varchar(60) NOT NULL,
+  `icon_small` varchar(60) NOT NULL,
+  `color` varchar(7) NOT NULL,
+  `ro` varchar(60) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8
+
+Changelog
+---------

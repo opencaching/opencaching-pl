@@ -1,0 +1,35 @@
+Table sys_logins
+----------
+
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| id          | int(11)     | NO   | PRI | NULL    | auto_increment |
+| remote_addr | varchar(15) | NO   | MUL | NULL    |                |
+| success     | tinyint(1)  | NO   |     | NULL    |                |
+| timestamp   | datetime    | NO   | MUL | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+id
+remote_addr
+success
+timestamp
+
+
+*************************** 1. row ***************************
+       Table: sys_logins
+Create Table: CREATE TABLE `sys_logins` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `remote_addr` varchar(15) NOT NULL,
+  `success` tinyint(1) NOT NULL,
+  `timestamp` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `timestamp` (`timestamp`),
+  KEY `remote_addr` (`remote_addr`)
+) ENGINE=MyISAM AUTO_INCREMENT=1596 DEFAULT CHARSET=utf8
+
+Changelog
+---------

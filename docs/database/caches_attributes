@@ -1,0 +1,28 @@
+Table caches_attributes
+----------
+
++-----------+---------+------+-----+---------+-------+
+| Field     | Type    | Null | Key | Default | Extra |
++-----------+---------+------+-----+---------+-------+
+| cache_id  | int(11) | NO   | PRI | NULL    |       |
+| attrib_id | int(11) | NO   | PRI | NULL    |       |
++-----------+---------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+cache_id
+attrib_id
+
+
+*************************** 1. row ***************************
+       Table: caches_attributes
+Create Table: CREATE TABLE `caches_attributes` (
+  `cache_id` int(11) NOT NULL,
+  `attrib_id` int(11) NOT NULL,
+  PRIMARY KEY (`cache_id`,`attrib_id`),
+  KEY `attrib_id` (`attrib_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

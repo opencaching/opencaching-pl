@@ -1,0 +1,27 @@
+Table okapi_clog
+----------
+
++-------+------------+------+-----+---------+----------------+
+| Field | Type       | Null | Key | Default | Extra          |
++-------+------------+------+-----+---------+----------------+
+| id    | int(10)    | NO   | PRI | NULL    | auto_increment |
+| data  | mediumblob | YES  |     | NULL    |                |
++-------+------------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+id
+data
+
+
+*************************** 1. row ***************************
+       Table: okapi_clog
+Create Table: CREATE TABLE `okapi_clog` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `data` mediumblob,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1453 DEFAULT CHARSET=utf8
+
+Changelog
+---------

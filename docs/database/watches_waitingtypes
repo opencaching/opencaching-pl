@@ -1,0 +1,27 @@
+Table watches_waitingtypes
+----------
+
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| id        | int(11)     | NO   | PRI | NULL    | auto_increment |
+| watchtype | varchar(30) | NO   |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+id
+watchtype
+
+
+*************************** 1. row ***************************
+       Table: watches_waitingtypes
+Create Table: CREATE TABLE `watches_waitingtypes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `watchtype` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8
+
+Changelog
+---------

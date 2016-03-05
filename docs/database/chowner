@@ -1,0 +1,32 @@
+Table chowner
+----------
+
++----------+---------+------+-----+---------+----------------+
+| Field    | Type    | Null | Key | Default | Extra          |
++----------+---------+------+-----+---------+----------------+
+| id       | int(11) | NO   | PRI | NULL    | auto_increment |
+| cache_id | int(11) | NO   | MUL | NULL    |                |
+| user_id  | int(11) | NO   | MUL | NULL    |                |
++----------+---------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+id
+cache_id
+user_id
+
+
+*************************** 1. row ***************************
+       Table: chowner
+Create Table: CREATE TABLE `chowner` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cache_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `chowner_user_id` (`user_id`),
+  KEY `chowner_cache_id` (`cache_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8
+
+Changelog
+---------

@@ -1,0 +1,36 @@
+Table GeoKretyAPIerrors
+----------
+
++---------------+----------+------+-----+---------+----------------+
+| Field         | Type     | Null | Key | Default | Extra          |
++---------------+----------+------+-----+---------+----------------+
+| id            | int(11)  | NO   | PRI | NULL    | auto_increment |
+| dateTime      | datetime | NO   |     | NULL    |                |
+| operationType | int(11)  | NO   |     | NULL    |                |
+| dataSent      | text     | NO   |     | NULL    |                |
+| response      | text     | NO   |     | NULL    |                |
++---------------+----------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+id
+dateTime
+operationType
+dataSent
+response
+
+
+*************************** 1. row ***************************
+       Table: GeoKretyAPIerrors
+Create Table: CREATE TABLE `GeoKretyAPIerrors` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dateTime` datetime NOT NULL,
+  `operationType` int(11) NOT NULL,
+  `dataSent` text NOT NULL,
+  `response` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=134 DEFAULT CHARSET=utf8
+
+Changelog
+---------

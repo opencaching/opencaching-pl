@@ -1,0 +1,53 @@
+Table cache_location
+----------
+
++---------------+------------------+------+-----+---------+-------+
+| Field         | Type             | Null | Key | Default | Extra |
++---------------+------------------+------+-----+---------+-------+
+| cache_id      | int(10) unsigned | NO   | PRI | NULL    |       |
+| last_modified | datetime         | NO   |     | NULL    |       |
+| adm1          | varchar(120)     | YES  | MUL | NULL    |       |
+| adm2          | varchar(120)     | YES  |     | NULL    |       |
+| adm3          | varchar(120)     | YES  |     | NULL    |       |
+| adm4          | varchar(120)     | YES  |     | NULL    |       |
+| code1         | varchar(2)       | YES  | MUL | NULL    |       |
+| code2         | varchar(3)       | YES  |     | NULL    |       |
+| code3         | varchar(4)       | YES  |     | NULL    |       |
+| code4         | varchar(5)       | YES  |     | NULL    |       |
++---------------+------------------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+cache_id
+last_modified
+adm1
+adm2
+adm3
+adm4
+code1
+code2
+code3
+code4
+
+
+*************************** 1. row ***************************
+       Table: cache_location
+Create Table: CREATE TABLE `cache_location` (
+  `cache_id` int(10) unsigned NOT NULL,
+  `last_modified` datetime NOT NULL COMMENT 'via Trigger (cache_location)',
+  `adm1` varchar(120) DEFAULT NULL,
+  `adm2` varchar(120) DEFAULT NULL,
+  `adm3` varchar(120) DEFAULT NULL,
+  `adm4` varchar(120) DEFAULT NULL,
+  `code1` varchar(2) DEFAULT NULL,
+  `code2` varchar(3) DEFAULT NULL,
+  `code3` varchar(4) DEFAULT NULL,
+  `code4` varchar(5) DEFAULT NULL,
+  PRIMARY KEY (`cache_id`),
+  KEY `code1` (`code1`,`code2`,`code3`,`code4`),
+  KEY `adm1` (`adm1`,`adm2`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='via cronjob'
+
+Changelog
+---------

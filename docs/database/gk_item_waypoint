@@ -1,0 +1,28 @@
+Table gk_item_waypoint
+----------
+
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int(11)     | NO   | PRI | NULL    |       |
+| wp    | varchar(10) | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+id
+wp
+
+
+*************************** 1. row ***************************
+       Table: gk_item_waypoint
+Create Table: CREATE TABLE `gk_item_waypoint` (
+  `id` int(11) NOT NULL,
+  `wp` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`,`wp`),
+  KEY `wp` (`wp`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+Changelog
+---------

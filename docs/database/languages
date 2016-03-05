@@ -1,0 +1,52 @@
+Table languages
+----------
+
++-----------------+-------------+------+-----+---------+----------------+
+| Field           | Type        | Null | Key | Default | Extra          |
++-----------------+-------------+------+-----+---------+----------------+
+| id              | int(11)     | NO   | PRI | NULL    | auto_increment |
+| short           | char(2)     | NO   | UNI | NULL    |                |
+| pl              | varchar(60) | NO   |     | NULL    |                |
+| en              | varchar(60) | NO   |     | NULL    |                |
+| nl              | varchar(60) | NO   |     | NULL    |                |
+| list_default_pl | int(1)      | NO   |     | 0       |                |
+| list_default_en | int(1)      | NO   |     | 0       |                |
+| list_default_nl | int(1)      | NO   |     | 0       |                |
+| ro              | varchar(60) | NO   |     | NULL    |                |
+| list_default_ro | int(1)      | NO   |     | 0       |                |
++-----------------+-------------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+id
+short
+pl
+en
+nl
+list_default_pl
+list_default_en
+list_default_nl
+ro
+list_default_ro
+
+
+*************************** 1. row ***************************
+       Table: languages
+Create Table: CREATE TABLE `languages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `short` char(2) NOT NULL,
+  `pl` varchar(60) NOT NULL,
+  `en` varchar(60) NOT NULL,
+  `nl` varchar(60) NOT NULL,
+  `list_default_pl` int(1) NOT NULL DEFAULT '0',
+  `list_default_en` int(1) NOT NULL DEFAULT '0',
+  `list_default_nl` int(1) NOT NULL DEFAULT '0',
+  `ro` varchar(60) NOT NULL,
+  `list_default_ro` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `short` (`short`)
+) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8
+
+Changelog
+---------

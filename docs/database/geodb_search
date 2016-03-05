@@ -1,0 +1,39 @@
+Table geodb_search
+----------
+
++------------+------------------+------+-----+---------+----------------+
+| Field      | Type             | Null | Key | Default | Extra          |
++------------+------------------+------+-----+---------+----------------+
+| id         | int(11)          | NO   | PRI | NULL    | auto_increment |
+| loc_id     | int(11)          | NO   |     | 0       |                |
+| sort       | varchar(255)     | NO   | MUL | NULL    |                |
+| simple     | varchar(255)     | NO   | MUL | NULL    |                |
+| simplehash | int(11) unsigned | NO   | MUL | 0       |                |
++------------+------------------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+id
+loc_id
+sort
+simple
+simplehash
+
+
+*************************** 1. row ***************************
+       Table: geodb_search
+Create Table: CREATE TABLE `geodb_search` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `loc_id` int(11) NOT NULL DEFAULT '0',
+  `sort` varchar(255) NOT NULL,
+  `simple` varchar(255) NOT NULL,
+  `simplehash` int(11) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `sort` (`sort`),
+  KEY `simple` (`simple`),
+  KEY `simplehash` (`simplehash`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------

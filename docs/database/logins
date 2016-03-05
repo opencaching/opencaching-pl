@@ -1,0 +1,36 @@
+Table logins
+----------
+
++-------------+-------------+------+-----+---------------------+----------------+
+| Field       | Type        | Null | Key | Default             | Extra          |
++-------------+-------------+------+-----+---------------------+----------------+
+| id          | int(11)     | NO   | PRI | NULL                | auto_increment |
+| user_id     | int(11)     | NO   |     | 0                   |                |
+| remote_addr | varchar(15) | NO   |     | NULL                |                |
+| success     | int(1)      | NO   |     | 0                   |                |
+| timestamp   | datetime    | NO   |     | 0000-00-00 00:00:00 |                |
++-------------+-------------+------+-----+---------------------+----------------+
+
+Column description
+-------------------
+
+id
+user_id
+remote_addr
+success
+timestamp
+
+
+*************************** 1. row ***************************
+       Table: logins
+Create Table: CREATE TABLE `logins` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `remote_addr` varchar(15) NOT NULL,
+  `success` int(1) NOT NULL DEFAULT '0',
+  `timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------
