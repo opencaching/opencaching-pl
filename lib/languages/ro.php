@@ -2571,4 +2571,6 @@ $translations = array(
     'admin_notes_6' => 'Accesul acestui utilizator este permis.',
     'admin_notes_7' => 'Geocutia acestui utilizator a fost verificată şi acceptată. Legătură:',
     'admin_notes_8' => 'Geocutia acestui utilizator a fost blocată. Legătură:',
+	'admin_notes_9' => 'Utilizatorul nu a găsit numărul minim de geocutii necesar pentru a putea publica o geocutie nouă.',
+	'admin_notes_10' => 'Utilizatorul a găsit numărul minim de geocutii necesar pentru a putea publica o geocutie nouă.',
 );
