@@ -467,7 +467,7 @@ if ($error == false) {
         }
         # end of GeoKretyApi
 
-        if ($geocache->getRatingVotesCount() < 3) {
+        if ($geocache->getRatingVotes() < 3) {
             // DO NOT show cache's score
             $score = "";
             $scorecolor = "";
@@ -558,29 +558,31 @@ if ($error == false) {
         tpl_set_var('miasto', "");
         tpl_set_var('dziubek2', "");
 
-        if (substr(@tr($geocache->getCacheLocation()['code1']), -5) == '-todo')
-            $countryTranslation = $geocache->getCacheLocation()['adm1'];
-        else
-            $countryTranslation = tr($geocache->getCacheLocation()['code1']);
+        $geocacheLocation = $geocache->getCacheLocation();
+        if (substr(@tr($geocacheLocation['code1']), -5) == '-todo'){
+            $countryTranslation = $geocacheLocation['adm1'];
+        } else {
+            $countryTranslation = tr($geocacheLocation['code1']);
+        }
         // if (substr(@tr($cache_record['code3']), -5) == '-todo') $regionTranslation = $cache_record['adm3']; else $regionTranslation = tr($cache_record['code3']);
-        $regionTranslation = $geocache->getCacheLocation()['adm3'];
+        $regionTranslation = $geocacheLocation['adm3'];
 
-        if ($geocache->getCacheLocation() != "") {
+        if ($geocacheLocation != "") {
             tpl_set_var('kraj', $countryTranslation);
         } else {
-            tpl_set_var('kraj', tr($geocache->getCacheLocation()['country_short']));
+            tpl_set_var('kraj', tr($geocacheLocation['country_short']));
         }
-        if ($geocache->getCacheLocation()['code3'] != "") {
-            $woj = $geocache->getCacheLocation()['adm3'];
+        if ($geocacheLocation['code3'] != "") {
+            $woj = $geocacheLocation['adm3'];
             tpl_set_var('woj', $regionTranslation);
         } else {
-            $woj = $geocache->getCacheLocation()['adm2'];
+            $woj = $geocacheLocation['adm2'];
             tpl_set_var('woj', $woj);
         }
         if ($woj == "") {
-            tpl_set_var('woj', $geocache->getCacheLocation()['adm4']);
+            tpl_set_var('woj', $geocacheLocation['adm4']);
         }
-        if ($woj != "" || $geocache->getCacheLocation()['adm3'] != "")
+        if ($woj != "" || $geocacheLocation['adm3'] != "")
             tpl_set_var('dziubek1', ">");
 
         // NPA - nature protection areas
@@ -647,10 +649,9 @@ if ($error == false) {
         tpl_set_var('cacheid_urlencode', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'));
         tpl_set_var('cachename', htmlspecialchars($geocache->getCacheName(), ENT_COMPAT, 'UTF-8'));
 
-        if ( $cache_record['date_alg'] == '' )
+        if ( $cache_record['date_alg'] == '' ){
             tpl_set_var('icon_titled', '');
-        else
-        {
+        } else {
             $ntitled_cache = $titled_cache_period_prefix.'_titled_cache';
             tpl_set_var('icon_titled', '<img src="tpl/stdstyle/images/free_icons/award_star_gold_1.png" class="icon16" alt="'.tr($ntitled_cache).'" title="'.tr($ntitled_cache).'"/>');
         }
@@ -702,7 +703,7 @@ if ($error == false) {
         $geocacheType = $geocache->dictionary->getCacheTypes();
         tpl_set_var('cachetype', htmlspecialchars(tr($geocacheType[$geocache->getCacheType()]['translation']), ENT_COMPAT, 'UTF-8'));
         $iconname = str_replace("mystery", "quiz", $iconname);
-        tpl_set_var('icon_cache', htmlspecialchars("$stylepath/images/$iconname", ENT_COMPAT, 'UTF-8'));
+        tpl_set_var('icon_cache', htmlspecialchars("$stylepath/images/cache/$iconname", ENT_COMPAT, 'UTF-8'));
         tpl_set_var('cachesize', htmlspecialchars(tr($geocache->getSizeDesc()), ENT_COMPAT, 'UTF-8'));
         tpl_set_var('oc_waypoint', htmlspecialchars($geocache->getWaypointId(), ENT_COMPAT, 'UTF-8'));
         if ($geocache->getRecommendations() == 1){
@@ -718,7 +719,6 @@ if ($error == false) {
         tpl_set_var('list_of_rating_end', '');
         tpl_set_var('body_scripts', '');
         tpl_set_var('altitude', $geocache->getAltitude()->getAltitude());
-        
         if (count($geocache->getUsersRecomeded() == 0)) {
             tpl_set_var('list_of_rating_begin', '');
             tpl_set_var('list_of_rating_end', '');
@@ -773,7 +773,7 @@ if ($error == false) {
             }
         }
 
-        tpl_set_var('country', htmlspecialchars($geocache->getCacheLocation()['country']), ENT_COMPAT, 'UTF-8');
+        tpl_set_var('country', htmlspecialchars($geocacheLocation['country']), ENT_COMPAT, 'UTF-8');
 //        tpl_set_var('cache_log_pw', (($cache_record['logpw'] == NULL) || ($cache_record['logpw'] == '')) ? '' : $cache_log_pw);
         tpl_set_var('nocrypt', $no_crypt);
         $hidden_date = $geocache->getDatePlaced()->format($applicationContainer->getOcConfig()->getDatetimeFormat());
@@ -781,19 +781,19 @@ if ($error == false) {
 
         $listed_on = array();
         if ($usr !== false && $usr['userFounds'] >= $config['otherSites_minfinds']) {
-
-            if ($geocache->getOtherWaypointIds()['ge'] != '' && $config['otherSites_gpsgames_org'] == 1){
-                $listed_on[] = '<a href="http://geocaching.gpsgames.org/cgi-bin/ge.pl?wp=' . $geocache->getOtherWaypointIds()['wp_ge'] . '" target="_blank">GPSgames.org (' . $geocache->getOtherWaypointIds()['ge'] . ')</a>';
+            $geocacheOtherWaypoints = $geocache->getOtherWaypointIds();
+            if ($geocacheOtherWaypoints['ge'] != '' && $config['otherSites_gpsgames_org'] == 1){
+                $listed_on[] = '<a href="http://geocaching.gpsgames.org/cgi-bin/ge.pl?wp=' . $geocacheOtherWaypoints['wp_ge'] . '" target="_blank">GPSgames.org (' . $geocacheOtherWaypoints['ge'] . ')</a>';
             }
-            if ($geocache->getOtherWaypointIds()['tc'] != '' && $config['otherSites_terracaching_com'] == 1){
-                $listed_on[] = '<a href="http://play.terracaching.com/Cache/' . $geocache->getOtherWaypointIds()['tc'] . '" target="_blank">Terracaching.com (' . $geocache->getOtherWaypointIds()['tc'] . ')</a>';
+            if ($geocacheOtherWaypoints['tc'] != '' && $config['otherSites_terracaching_com'] == 1){
+                $listed_on[] = '<a href="http://play.terracaching.com/Cache/' . $geocacheOtherWaypoints['tc'] . '" target="_blank">Terracaching.com (' . $geocacheOtherWaypoints['tc'] . ')</a>';
             }
-            if ($geocache->getOtherWaypointIds()['nc'] != '' && $config['otherSites_navicache_com'] == 1) {
-                $wpnc = hexdec(mb_substr($geocache->getOtherWaypointIds()['nc'], 1));
+            if ($geocacheOtherWaypoints['nc'] != '' && $config['otherSites_navicache_com'] == 1) {
+                $wpnc = hexdec(mb_substr($geocacheOtherWaypoints['nc'], 1));
                 $listed_on[] = '<a href="http://www.navicache.com/cgi-bin/db/displaycache2.pl?CacheID=' . $wpnc . '" target="_blank">Navicache.com (' . $wpnc . ')</a>';
             }
-            if ($geocache->getOtherWaypointIds()['gc'] != '' && $config['otherSites_geocaching_com'] == 1){
-                $listed_on[] = '<a href="http://www.geocaching.com/seek/cache_details.aspx?wp=' . $geocache->getOtherWaypointIds()['gc'] . '" target="_blank">Geocaching.com (' . $geocache->getOtherWaypointIds()['gc'] . ')</a>';
+            if ($geocacheOtherWaypoints['gc'] != '' && $config['otherSites_geocaching_com'] == 1){
+                $listed_on[] = '<a href="http://www.geocaching.com/seek/cache_details.aspx?wp=' . $geocacheOtherWaypoints['gc'] . '" target="_blank">Geocaching.com (' . $geocacheOtherWaypoints['gc'] . ')</a>';
             }
         }
         tpl_set_var('listed_on', sizeof($listed_on) == 0 ? $listed_only_oc : implode(", ", $listed_on));
@@ -917,7 +917,7 @@ if ($error == false) {
         // end personal cache note
         tpl_set_var('watcher', $geocache->getWatchingUsersCount());
         tpl_set_var('ignorer_count', $geocache->getIgnoringUsersCount());
-        tpl_set_var('votes_count', $geocache->getratingVotesCount());
+        tpl_set_var('votes_count', $geocache->getratingVotes());
         tpl_set_var('note_icon', $note_icon);
         tpl_set_var('notes_icon', $notes_icon);
         tpl_set_var('vote_icon', $vote_icon);
