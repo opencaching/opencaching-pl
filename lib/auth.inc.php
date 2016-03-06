@@ -36,8 +36,10 @@ function auth_user()
 {
     global $usr, $login;
     $login->verify();
+	$applicationContainer = \lib\Objects\ApplicationContainer::Instance();
 
     if ($login->userid != 0) {   //set up $usr array
+		$applicationContainer->setLoggedUser(new lib\Objects\User\User(array('userId'=>$login->userid)));
         $userRow = getUserRow($login->userid);
         $usr['username'] = $userRow['username'];
         $usr['hiddenCacheCount'] = $userRow['hidden_count'];
@@ -62,9 +64,7 @@ function auth_user()
 
 function auth_login($user, $password)
 {
-    /*@var $login login*/
     global $login, $autherr;
-
     $retval = $login->try_login($user, $password, null);
 
     switch ($retval) {

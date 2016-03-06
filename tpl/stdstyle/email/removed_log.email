@@ -1,14 +1,16 @@
-{removedLog_01} {log_owner},
+<p>{removedLog_01} {log_owner},</p>
 
-
+<p>
 {cache_owner} {removedLog_02} "{cache_name}".
-
-{removedLog_03}:
+</p>
+<p>
+{removedLog_03}:<br />
 {log_entry}
-
+<br /><br />
 {comment}
-
-
+</p>
+<p>
 {octeamEmailsSignature}
-
+<br /><br />
 {removedLog_04}!
+</p>

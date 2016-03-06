@@ -2,8 +2,6 @@
 
 function getCacheIcon($user_id, $cache_id, $cache_status, $cache_userid, $iconname)
 {
-    global $dblink;
-
     $cacheicon_searchable = false;
     $cacheicon_type = "";
     $inactive = false;
@@ -12,9 +10,11 @@ function getCacheIcon($user_id, $cache_id, $cache_status, $cache_userid, $iconna
 
     // mark if found
     if (isset($user_id)) {
+        $db = lib\Database\DataBaseSingleton::Instance();
         $found = 0;
-        $resp = sql("SELECT `type` FROM `cache_logs` WHERE `cache_id`='&1' AND `user_id`='&2' AND `deleted`=&3 ORDER BY `type`", $cache_id, $user_id, 0);
-        while ($row = sql_fetch_assoc($resp)) {
+        $respSql = "SELECT `type` FROM `cache_logs` WHERE `cache_id`=:1 AND `user_id`=:2 AND `deleted`=0 ORDER BY `type`";
+        $db->multiVariableQuery($respSql, $cache_id, $user_id);
+        foreach ($db->dbResultFetchAll() as $row) {
             if ($found <= 0) {
                 switch ($row['type']) {
                     case 1:
