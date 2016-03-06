@@ -69,7 +69,6 @@ class GeoCache
 	private $lastFound;
     private $score;
     private $ratingVotes;
-    private $ratingVotesCount;
     private $willattends;           //for events only
     private $natureRegions = false;
     private $natura2000Sites = false;
@@ -245,7 +244,7 @@ class GeoCache
         $this->difficulty = $geocacheDbRow['difficulty'];
         $this->terrain = $geocacheDbRow['terrain'];
         $this->logPassword = $geocacheDbRow['logpw'];
-        $this->ratingVotesCount = $geocacheDbRow['votes'];
+        $this->ratingVotes = $geocacheDbRow['votes'];
         $this->notesCount = (int) $geocacheDbRow['notes'];
         $this->wayLenght = $geocacheDbRow['way_length'];
         $this->searchTime = $geocacheDbRow['search_time'];
@@ -748,11 +747,6 @@ class GeoCache
             $this->isTitled = CacheTitled::isTitled($this->id);
         }
         return $this->isTitled;
-    }
-
-    public function getRatingVotesCount()
-    {
-        return $this->ratingVotesCount;
     }
 
     public function getGeocacheWaypointId()

@@ -429,7 +429,10 @@
     request = $.ajax({
     url: "powerTrail/ajaxGetPowerTrailCaches.php?ptAction=showSerie&ptrail=" + $('#xmd34nfywr54').val() + getFinal,
             type: "post",
-            data:{projectId: $('#xmd34nfywr54').val()},
+            data:{
+                projectId: $('#xmd34nfywr54').val(),
+                lang: '{language4js}'
+            },
     });
             request.done(function (response, textStatus, jqXHR){
             $('#PowerTrailCaches').html(response);
