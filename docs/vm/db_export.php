@@ -305,7 +305,7 @@ function GetDumpCommand($tableName, array $pattern){
                 
             case TRIM:
                 $trimTo = $colDesc['__trim_size'];
-                $colSql[] = "SUBSTR(`$colName`, 0, $trimTo) AS `$colName`";
+                $colSql[] = "SUBSTR(`$colName`, 1, $trimTo) AS `$colName`";
                 break;
                 
             case ENCIPHER:
