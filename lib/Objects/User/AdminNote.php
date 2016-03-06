@@ -20,6 +20,8 @@ class AdminNote
     const UNBAN = "6";
     const CACHE_PASS = "7";
     const CACHE_BLOCKED = "8";
+    const IGNORE_FOUND_LIMIT = "9";
+    const IGNORE_FOUND_LIMIT_RM = "10";
 
     private $note_id;
     private $user_id;
