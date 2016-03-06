@@ -1,6 +1,37 @@
 {
-    "__comment" : " THIS IS JSON. Try first validator here: http://jsonlint.com/ ",
+    "__comment" : " THIS IS JSON. Try first validate it here: http://jsonlint.com/ ",
     "tables": {
+        "admin_user_notes": {
+            "__table_comment": "",
+            "note_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "admin_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "cache_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "automatic": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "datetime": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "content": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },     
         "ajax_chat_bans": {
             "__table_comment": "chat should be removed soon",
             "userID": {
@@ -3009,6 +3040,41 @@
                 "__action": "skip-data"
             }
         },
+        "okapi_stats_monthly": {
+            "__table_comment": "",
+            "consumer_key": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "period_start": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "service_name": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "total_calls": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "http_calls": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "total_runtime": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "http_runtime": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },        
         "okapi_stats_temp": {
             "__table_comment": "",
             "datetime": {
@@ -4133,6 +4199,17 @@
         "tmp_user": {
             "__table_comment": "",
             "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "transaction_test": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "name": {
                 "__comment": "",
                 "__action": "skip-data"
             }
