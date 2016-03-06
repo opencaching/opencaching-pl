@@ -1,3 +1,16 @@
+<script type='text/javascript'>
+
+    //On touch-screen devices use full-screen map by default
+    //Check for touch device below should be kept in sync with analogous check in lib/cachemap3.js
+
+    if (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0)){
+        //check cookie to allow user to come back to non-full screen mode
+        if( document.cookie.indexOf("forceFullScreenMap=off") == -1){
+            //touch device + cookie not set => redirect to full screen map
+            window.location = 'cachemap-full.php'+window.location.search;
+        }
+    }
+</script>
 <div class="content2-pagetitle">
     <img src="tpl/stdstyle/images/blue/world.png" class="icon32" style='margin: 0 4px 3px 6px'/>
     {{user_map}} <b style='color: #000'>{username}</b>
@@ -36,8 +49,9 @@
                             {{current_zoom}}:
                             <input type="text" id="zoom" size="2" value="{zoom}" disabled="disabled" style='border: 0; font-weight: bold; font-size: 13px; background: transparent'/>
                         </td>
-                        <td><a onclick="fullscreen_on();" style='cursor: pointer'><img src="images/fullscreen.png" alt="{{fullscreen}}"/></a></td>
-                        <td><a onclick="generate_new_rand(); reload();" style='cursor: pointer'><img src="images/refresh.png"/></a></td>
+                        <!-- onclick="fullscreen_on();"  -->
+                        <td><a id="fullscreen_on" style='cursor: pointer'><img src="images/fullscreen.png" alt="{{fullscreen}}"/></a></td>
+                        <td><a id="refresh_button" style='cursor: pointer'><img src="images/refresh.png"/></a></td>
                     </tr></table>
             </td>
         </tr>
@@ -46,7 +60,7 @@
 
 <div id="map_canvas" style="width: 97.5%; margin: 0px auto; height: 512px; border: 1px solid #888;"></div>
 
-<div style='margin: 10px 0px'>
+<div id="map_filters" style='margin: 10px 0px'>
 
     <?php //disable this part of template if pwoerTrail filter is not supported
         if( {pt_filter_enabled} ) {
@@ -189,48 +203,56 @@
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-<script src="tpl/stdstyle/js/jquery.cookie.js"></script>
 <script src="{lib_cachemap3_js}" type="text/javascript"></script>
 <script type="text/javascript" language="javascript">
-$(function() {
 
-    var checkbox_changed = function() {
-        var $related = $("." + $(this).attr('name'));
-        if ($(this).is(':checked'))
-            $related.addClass('dim');
-        else
-            $related.removeClass('dim');
-    };
-
-    $('.opt_table input')
-        .each(checkbox_changed)
-        .change(checkbox_changed);
-
-});
-
-initial_params = {
-    start: {
-        cachemap_mapper: "{cachemap_mapper}",
-        userid: {userid},
-        coords: [{coords}],
-        zoom: {zoom},
-        map_type: {map_type},
-        circle: {circle},
-        doopen: {doopen},
-        fromlat: {fromlat}, fromlon: {fromlon},
-        tolat: {tolat}, tolon: {tolon},
-        searchdata: "{searchdata}",
-        boundsurl: "{boundsurl}",
-        extrauserid: "{extrauserid}",
-        moremaptypes: false,
-        fullscreen: false,
-        largemap: true,
-        savesettings: true,
-        powertrail_ids: "{powertrail_ids}"
+var map_params = { //params for cachemaps3.js
+    cachemap_mapper: "{cachemap_mapper}",
+    userid: {userid},
+    coords: [{coords}],
+    zoom: {zoom},
+    map_type: {map_type},
+    circle: {circle},
+    doopen: {doopen},
+    fromlat: {fromlat}, fromlon: {fromlon},
+    tolat: {tolat}, tolon: {tolon},
+    searchdata: "{searchdata}",
+    boundsurl: "{boundsurl}",
+    extrauserid: "{extrauserid}",
+    fullscreen: false,
+    savesettings: true,
+    powertrail_ids: "{powertrail_ids}",
+    mapCanvasId: 'map_canvas',
+    reload_func: 'reload', //function name to reload oc map
+    mapTypeControl: {
+        pos: google.maps.ControlPosition.TOP_RIGHT,
+        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
+    },
+    customControls: {
+        fullscreenButton: {
+            id: "fullscreen_on"
+        },
+        refreshButton: {
+            id: "refresh_button"
+        },
+        search: {
+            input_id: "place_search_text",
+            but_id: "place_search_button"
+        },
+        zoom_display: {
+            id: "zoom"
+        },
+        coordsUnderCursor: {
+            pos: google.maps.ControlPosition.TOP_LEFT
+        },
+        ocFilters:{
+            boxId: "map_filters"
+        }
     }
 };
 
 window.onload = function() {
-    load([], document.getElementById("search_control"));
-};
+    loadOcMap( map_params );
+}
+
 </script>

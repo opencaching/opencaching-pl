@@ -1,25 +1,17 @@
 <?php
+/**
+ * This class is used to generate maps description based on maps configuration from settings.inc.php
+ *
+ */
+use lib\Objects\OcConfig\OcConfig;
 
 class CacheMap3Lib {
 
-    protected function shouldSkip(array $mapItem)
+    public function GenerateAttributionMap()
     {
-        if (isset($mapItem['hidden']) && $mapItem['hidden'] === true){
-            return true;
-        }
-        return false;
-    }
-
-    public function generateAttributionMap()
-    {
-        global $config;
-        if (!isset($config['mapsConfig'])){
-            return '{}';
-        }
         $result = '';
-        $mapsConfig = $config['mapsConfig'];
-        foreach($mapsConfig as $key => $val){
-            if ($this->shouldSkip($val)){
+        foreach(OcConfig::MapsConfig() as $key => $val){
+            if (self::ShouldSkip($val)){
                 continue;
             }
             if (isset($val['attribution'])){
@@ -35,38 +27,28 @@ class CacheMap3Lib {
 
     }
 
-    public function generateMapItems()
+    public function GenerateMapItems()
     {
-        global $config;
-        if (!isset($config['mapsConfig'])){
-            return '{}';
-        }
         $result = '';
-        $mapsConfig = $config['mapsConfig'];
-        foreach($mapsConfig as $key => $val){
-            if ($this->shouldSkip($val)){
+        foreach(OcConfig::MapsConfig() as $key => $val){
+            if (self::ShouldSkip($val)){
                 continue;
             }
 
             if ($result !== ''){
                 $result .= ",\n";
             }
-            $result .= "\t$key:" . $this->generateMapItem($key, $val);
+            $result .= "\t$key:" . self::GenerateMapItem($key, $val);
         }
         return "{\n" . $result . "\n}";
 
     }
 
-    public function generateShowMapsWhenMore()
+    public function GenerateShowMapsWhenMore()
     {
-        global $config;
-        if (!isset($config['mapsConfig'])){
-            return '{}';
-        }
         $result = '';
-        $mapsConfig = $config['mapsConfig'];
-        foreach($mapsConfig as $key => $val){
-            if ($this->shouldSkip($val)){
+        foreach(OcConfig::MapsConfig() as $key => $val){
+            if (self::ShouldSkip($val)){
                 continue;
             }
             if (!isset($val['showOnlyIfMore'])){
@@ -81,8 +63,19 @@ class CacheMap3Lib {
 
     }
 
+    /**
+     * Check if mapItem is marked to be hidden
+     * @param array $mapItem
+     */
+    protected function ShouldSkip(array $mapItem)
+    {
+        if (isset($mapItem['hidden']) && $mapItem['hidden'] === true){
+            return true;
+        }
+        return false;
+    }
 
-    private function generateMapItem($key, array $val)
+    private function GenerateMapItem($key, array $val)
     {
         if (isset($val['imageMapTypeJS'])){
             return 'function(){return ' . $val['imageMapTypeJS'] . ";\n\t}";
@@ -123,7 +116,7 @@ class CacheMap3Lib {
             $sizes = array();
             if (preg_match('/^([0-9]+)x([0-9]+)$/', $tileSize, $sizes)){
                 $tileSize = 'new google.maps.Size(' . $sizes[1] . ', ' . $sizes[2] . ')';
-            } elseif ($this->startsWith($tileSize, 'raw:')){
+            } elseif (self::StartsWith($tileSize, 'raw:')){
                 $tileSize = substr($tileSize, 4);
             }
 
@@ -135,7 +128,7 @@ class CacheMap3Lib {
             if (is_numeric($v) || $v === 'true' || $v === 'false'){
                 $outMap[$k] = $v;
                 $outMapTypes[$k] = 'raw';
-            } elseif ($this->startsWith($v, 'raw:')) {
+            } elseif (self::StartsWith($v, 'raw:')) {
                 $v = substr($v, 4);
                 $outMap[$k] = $v;
                 $outMapTypes[$k] = 'raw';
@@ -166,7 +159,7 @@ class CacheMap3Lib {
         return $result;
     }
 
-    private function startsWith($haystack, $needle)
+    private function StartsWith($haystack, $needle)
     {
         $length = strlen($needle);
         return (substr($haystack, 0, $length) === $needle);

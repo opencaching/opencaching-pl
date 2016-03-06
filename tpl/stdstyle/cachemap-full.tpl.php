@@ -14,7 +14,7 @@
 <div id="map_canvas" style="width: 100%; height: 100%; position: absolute; top: 0px;">
 </div>
 
-<div id="control_combo">
+<div id="control_combo" style="z-index: 1;" class="noprint">
     <table id="control_combo_table" style='background: #eee; padding: 3px 0px 3px 8px;'>
         <tr>
             <td>
@@ -43,7 +43,7 @@
 
     <div id="map_filters" style="display: none;">
 
-        <?php //disable this part of template if pwoerTrail filter is not supported
+        <?php //disable this part of template if powerTrail filter is not supported
             if( {pt_filter_enabled} ) {
         ?>
         <table id='powertrail_filter' class='opt_table' cellspacing="0">
@@ -187,90 +187,58 @@
 <input class="chbox" id="zoom" name="zoom" value="{zoom}" type="hidden" />
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-<script src="tpl/stdstyle/js/jquery.cookie.js"></script>
 <script src="{lib_cachemap3_js}" type="text/javascript"></script>
 <script type="text/javascript" language="javascript">
-$(function() {
 
-    var checkbox_changed = function() {
-        var $related = $("." + $(this).attr('name'));
-        if ($(this).is(':checked'))
-            $related.addClass('dim');
-        else
-            $related.removeClass('dim');
-    };
-
-    $('.opt_table input')
-        .each(checkbox_changed)
-        .change(checkbox_changed);
-
-});
-
-initial_params = {
-    start: {
-        cachemap_mapper: "{cachemap_mapper}",
-        userid: {userid},
-        coords: [{coords}],
-        zoom: {zoom},
-        map_type: {map_type},
-        circle: {circle},
-        doopen: {doopen},
-        fromlat: {fromlat}, fromlon: {fromlon},
-        tolat: {tolat}, tolon: {tolon},
-        searchdata: "{searchdata}",
-        boundsurl: "{boundsurl}",
-        extrauserid: "{extrauserid}",
-        moremaptypes: true,
-        fullscreen: true,
-        largemap: true,
-        savesettings: true,
-        powertrail_ids: "{powertrail_ids}"
+var map_params = { //params for cachemaps3.js
+    cachemap_mapper: "{cachemap_mapper}",
+    userid: {userid},
+    coords: [{coords}],
+    zoom: {zoom},
+    map_type: {map_type},
+    circle: {circle},   //display 150m circle on the center of map
+    doopen: {doopen},
+    fromlat: {fromlat}, fromlon: {fromlon},
+    tolat: {tolat}, tolon: {tolon},
+    searchdata: "{searchdata}",
+    boundsurl: "{boundsurl}",
+    extrauserid: "{extrauserid}",
+    fullscreen: true,   // is this fullscreen map?
+    savesettings: true,
+    powertrail_ids: "{powertrail_ids}",
+    mapCanvasId: 'map_canvas',
+    reload_func: 'reload', //function name to reload oc map
+    mapTypeControl: {
+        pos: google.maps.ControlPosition.TOP_RIGHT,
+        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
+    },
+    customControls: {
+        ctrlCombo: {
+            id: "control_combo",
+            pos: google.maps.ControlPosition.TOP_LEFT
+        },
+        fullscreenButton: {
+            id: "fullscreen_off"
+        },
+        gpsPositionButton: {
+            id: "current_position"
+        },
+        ocFilters:{
+            buttonId: "toggle_filters",
+            boxId: "map_filters"
+        },
+        search: {
+            input_id: "place_search_text",
+            but_id: "place_search_button"
+        },
+        coordsUnderCursor: {
+            pos: google.maps.ControlPosition.BOTTOM_CENTER
+        }
     }
 };
 
 window.onload = function() {
-    attachFullScreenOffControl();
-    attachCacheFilterControl();
-    attachCurrentPositionControl();
-    load(
-        [{ position: google.maps.ControlPosition.TOP_LEFT, control: document.getElementById("control_combo") }],
-        document.getElementById("search_control")
-    );
-    // Hack for very small devices - check if the control combo fits in the browser window
-    // If not - shrink the search box
-    var excessPixels = $("#control_combo_table").outerWidth() - window.innerWidth;
-    if (excessPixels > 0) {
-        var oldWidth = $("input.gsc-input").width();
-        $("input.gsc-input").width(oldWidth - excessPixels);
-    };
-};
-
-function attachFullScreenOffControl() {
-    google.maps.event.addDomListener(document.getElementById("fullscreen_off"), "click", function() {
-        //call function from cachemap3.js
-        fullscreen_off();
-    });
+    loadOcMap( map_params );
 }
 
-function attachCacheFilterControl() {
-    var filters = document.getElementById("map_filters");
-    google.maps.event.addDomListener(document.getElementById("toggle_filters"), "click", function() {
-        if (filters.style.display == 'none') {
-            filters.style.left = document.getElementById("control_combo").offsetLeft + "px";
-            filters.style.display = '';
-        }
-        else
-            filters.style.display = 'none';
-    });
-}
-
-function attachCurrentPositionControl() {
-    if (!("geolocation" in navigator))
-        return;
-    var curr_pos_el = document.getElementById("current_position");
-    curr_pos_el.style.display = "";
-    google.maps.event.addDomListener(curr_pos_el, "click", function() {
-        getCurrentPosition();
-    });
-}
 </script>

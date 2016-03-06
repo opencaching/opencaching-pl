@@ -42,6 +42,7 @@ final class OcConfig
     private $contactMail;
     private $wikiLinks;
     private $dateFormat;
+    private $mapsConfig;            //settings.inc: $config['mapsConfig']
 
     /**
      * Call this method to get singleton
@@ -87,6 +88,12 @@ final class OcConfig
         $this->contactMail = $contact_mail;
         $this->wikiLinks = $wikiLinks;
         $this->dateFormat = $dateFormat;
+
+        if( isset($config['mapsConfig']) && is_array( $config['mapsConfig'] ) ){
+            $this->mapsConfig = $config['mapsConfig'];
+        }else{
+            $this->mapsConfig = array();
+        }
     }
 
     function getDateFormat()
@@ -197,6 +204,20 @@ final class OcConfig
     public function getPowerTrailModuleSwitchOn()
     {
         return $this->powerTrailModuleSwitchOn;
+    }
+
+    protected function getMapsConfig()
+    {
+        return $this->mapsConfig;
+    }
+
+    /**
+     * get $config['mapsConfig'] from settings.inc.php in a static way
+     * always return an array
+     */
+    public function MapsConfig()
+    {
+        return self::Instance()->getMapsConfig();
     }
 
 }
