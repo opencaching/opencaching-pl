@@ -1,7 +1,3 @@
-<?php
-
-?>
-
 <!-- Text container -->
 {body_scripts}
 
@@ -189,7 +185,6 @@
         {desc_langs}&nbsp;{add_rr_comment}&nbsp;{remove_rr_comment}
     </p></div>
 <div class="content2-container">
-    <div id='branding'>{branding}</div>
     <div id="description">
         <div id="viewcache-description">
             {desc}
