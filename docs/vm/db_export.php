@@ -1,4 +1,11 @@
 <?php
+
+/*
+ * Usage:
+ *   php -f db_export.php | gzip -1 -c > result.sql.gz
+ *
+ */
+
 /* --- Configuration: --- */
 $dbHost = 'localhost';
 $dbUser = 'root';
@@ -8,19 +15,11 @@ $dbName = 'ocpl';
 // file with export pattern
 $exportPatternFile = "./db_export_ocpl_pattern.json";
 
-// directory used for script dumps etc.
-$tmpDir = NULL; //if NULL it is set to: './tmp_db_export_<date-time>'
-
-$resultFile = NULL; //if NULL is set to: './oc_dev_export_<date-time>.sql'
-
 //if TRUE db structure will be attache at the begining of the result file
 define('DB_STRUCT_DUMP', TRUE );
 
 //if TRUE many debug messages are printed
 define('DEBUG', TRUE );
-
-//if TRUE all temporary files created will be removed
-define('CLEANUP', TRUE );
 
 /* ----- Configuration END ----- */
 
@@ -37,10 +36,10 @@ define('TRIM', 'trim');
 define('SQL', 'sql');
 $colActions = array( SKIP_DATA, GET_DATA, SQL, SET_TO, TRIM );
 
-function error($msg){ echo ("\nERROR: $msg\n\n"); }
-function info($msg) { echo ("-i-  $msg\n"); }
-function debug($msg){ if(DEBUG){ echo ("-d-  $msg\n"); } }
-function title($msg){ return "\n\n ----- $msg -----\n\n"; }
+function error($msg){ echo ("\n--ERROR: $msg\n\n"); }
+function info($msg) { echo ("-- -i-  $msg\n"); }
+function debug($msg){ if(DEBUG){ echo ("-- -d-  $msg\n"); } }
+function title($msg){ return "\n\n-- ----- $msg -----\n\n"; }
 
 function perfStat($perfName, $getResult = FALSE){
     global $perfStatsArr;
@@ -280,9 +279,6 @@ function CompareSchemas(array $pattern, array $curr){
 */
 function GetDumpCommand($tableName, array $pattern){
 
-    global $dbUser, $dbPass, $dbHost, $dbName, $tmpDir;
-
-
     //find table pattern
     $table = $pattern['tables'][$tableName];
 
@@ -345,115 +341,17 @@ function GetDumpCommand($tableName, array $pattern){
             $sqlQuery .= ' WHERE '.$whereSql;
         }
 
-        debug("Query for $tableName:\n \t\t$sqlQuery");
-
-        //prefix for print query for debug purpose
-        $qMsg = '';
-        if(DEBUG){
-           $qMsg = "echo '$sqlQuery';";
-        }
-        return "$qMsg mysql -u $dbUser --password=$dbPass -h $dbHost -X -e '$sqlQuery' $dbName 2>&1 1>$tmpDir/$tableName.xml";
-
+        debug("Query for table `$tableName`:");
+        debug("\t\t$sqlQuery");
+        return $sqlQuery;
     }
-}
-
-/*
-    Function looking for xml file with name in format: $tabName.xml
-    This xml file contains the table data exported to xml format by mysql
-    <resultset>
-        <row>
-            <field name=...">row-value</field>
-        </row>
-    </resultset>
-
-    All the data needs to be converted to sql-insert format and appended to $resultFile
-*/
-function ConvertXml2Sql($tabName, $resultFile){
-
-    global $tmpDir;
-
-    debug("\t-conversion date of table: $tabName");
-
-    $resultFileHandler = fopen( $resultFile, "a+");
-    $xmlFile = $tmpDir.'/'.$tabName.'.xml';
-
-    $xml = new XMLReader;
-    if(!$xml->open( $xmlFile, NULL, LIBXML_COMPACT | LIBXML_PARSEHUGE )){
-        error("Can't open XML file: $xmlFile");
-        exit();
-    }
-
-    $colArray = array();
-    while ($xml->read()) {
-
-        if ($xml->nodeType == XMLReader::ELEMENT) {
-            //parse the xml tag
-            switch($xml->name){
-            case 'field':
-                $colName = $xml->getAttribute('name');
-                if(is_null($colName)){
-                    error("Missing attr. 'name' ($tag in $xmlFile)");
-                    exit();
-                }
-                $colVal = $xml->readString();
-                $colArray['`'.$colName.'`'] = "'".html_entity_decode($colVal)."'";
-
-                break;
-            case 'row':
-                if( empty($colArray) ){
-                    //no data - continue
-                    break;
-                }
-                //print previous row to result file
-                $keys = implode(',',array_keys($colArray));
-                $vals = implode(',',$colArray);
-                $insertStr="INSERT INTO $tabName ( $keys ) VALUES ($vals);\n";
-                if( FALSE === fwrite ( $resultFileHandler, $insertStr) ) {
-                    error("Can't write to file: $resultFile");
-                    exit();
-                }
-                //clear the array
-                $colArray = array();
-
-                break;
-            case 'resultset':
-                $tableHeader = "\n\n--- TABLE $tabName ---\n\n";
-                if( FALSE === fwrite ( $resultFileHandler, $tableHeader) ) {
-                    error("Can't write to file: $resultFile");
-                    exit();
-                }
-                break;
-            default:
-                $tag = $xml->name;
-                error("Unsupported tag: $tag in xml: $xmlFile");
-                exit();
-            }//switch
-        }
-    } //while
-
-    //print the last row...
-    if( !empty($colArray) ){
-        //print previous row to result file
-        $keys = implode(',',array_keys($colArray));
-        $vals = implode(',',$colArray);
-        $insertStr="INSERT INTO $tabName ( $keys ) VALUES ($vals);\n";
-        //debug("\t$insertStr;\n");
-        //if( !file_put_contents($resultFile, $insertStr, FILE_APPEND) ){
-        if( FALSE === fwrite ( $resultFileHandler, $insertStr) ) {
-            error("Can't write to file: $resultFile");
-            exit();
-        }
-    }
-
-    $xml->close();
-    fclose ( $resultFileHandler );
 }
 
 function DumpDbStruct(){
-    global $resultFile;
+
     global $dbUser, $dbPass, $dbName;
 
-    $command = "mysqldump --user=$dbUser --password=$dbPass --opt --no-data $dbName > $resultFile";
+    $command = "mysqldump --user=$dbUser --password=$dbPass --opt --no-data $dbName";
 
     //run dump script
     info(title("Dump DB struct"));
@@ -467,139 +365,94 @@ function DumpDbStruct(){
     info(title("Dump DB struct completed"));
 }
 
-function RunExport(){
+function DumpTableData($dumpCommand, $tabName){
 
-    global $dbName, $exportPatternFile;
-    global $tmpDir;
-    global $resultFile;
+    global $db;
 
-    perfStat('global');
-    perfStat('prep');
-
-    //check DB connection
-    checkDb();
-
-    //read pattern file
-    $patternSchema = ReadJsonSchema($exportPatternFile);
-
-    //get DB schema from DB
-    $currSchema = GetCurrentSchemaObj($dbName);
-    if($currSchema===NULL){
-        error("Can't read schema!");
+    //run query
+    $result = $db->query( $dumpCommand );
+    if( $result == FALSE ){
+        error("Can't execute command:\n\n".$dumpCommand);
         exit();
     }
 
-    //check if the pattern is compatible with current schema
-    //if not pattern schema needs to be updated
-    debug(title("Compare schemas started"));
-    CompareSchemas($patternSchema, $currSchema);
-    debug(title("Compare schemas completed"));
 
-    //prepare tmpDir:
-    if( is_null( $tmpDir ) ){
-        $tmpDir = './tmp_db_export_'.date("Y_m_d_H_i_s");
-        mkdir($tmpDir);
-        debug("Temp. dir created: $tmpDir");
-    }
+    //get the list of fields
+    $finfo = $result->fetch_fields();
 
-    //dump DB structure if needed
-    if ( DB_STRUCT_DUMP ){
-        DumpDbStruct();
-    }
+    //take first row
+    $row = $result->fetch_assoc();
+    if(!is_null($row)){
 
-    //prepare dumpScript file
-    $dumpScript = $tmpDir.'/dumpScript.sh';
-    debug("DumpScript: $$dumpScript");
-    if( !file_put_contents($dumpScript, "set -e\n", FILE_APPEND) ){
-        error("Can't write to file: $dumpScript");
-        exit();
-    }
+        $cols = array();
+        foreach ($row as $colName => $val){
+            $cols[] = '`'.$colName.'`';
+        }
 
-    //prepare dump script
-    debug(title("Generating dump commands:"));
-    $exportedTables = array();
-    foreach( $currSchema['tables'] as $tabName => $columns ){
-        $dumpCommand = GetDumpCommand($tabName, $patternSchema);
-        if( $dumpCommand != '' ){
-            if( !file_put_contents($dumpScript, $dumpCommand."\n", FILE_APPEND) ){
-                error("Can't write to file: $dumpScript");
-                exit();
+        //open query
+        echo "INSERT INTO `$tabName` ( " . implode(',', $cols) . ") VALUES \n\t";
+
+        //dump data
+        do {
+            $vals = array();
+            foreach( $row as $val ){
+                $vals[] = "'".addslashes($val)."'";
             }
-        $exportedTables[] = $tabName;
-        }
+
+            echo '(' . implode(',', $vals) . ')';
+
+            $row = $result->fetch_assoc();
+
+            if( $row != NULL ) echo ",\n\t";
+            else echo ";\n" ;
+
+        } while ( $row );
     }
-    info(title("Generating dump commands completed"));
-
-    //set exec-bit @ dumpScript
-    chmod ($dumpScript, 0755);
-
-    perfStat('prep');
-
-    //run dump script
-    info(title("Dump from DB started"));
-    perfStat('db');
-
-    $returnVar = NULL;
-    echo system ( $dumpScript, $returnVar );
-    echo "\n";
-    if( $returnVar != 0 ){
-        exit();
-    }
-    perfStat('db');
-    info(title("Dump from DB completed"));
-
-    //convert from xmldump to sql inserts
-    info(title("Starting conversions from xml dumps to sql insert file"));
-    perfStat('conv');
-
-    foreach( $exportedTables as $tabName ){
-        ConvertXml2Sql($tabName, $resultFile);
-    }
-    perfStat('conv');
-    info(title("Conversions from xml dumps to sql insert file ends"));
-
-
-    //compress the result file
-    info(title("Compress the result file..."));
-    perfStat('bzip');
-    $compressCmd = "bzip2 -9 $resultFile";
-    echo system ( $compressCmd );
-    perfStat('bzip');
-
-    //remove tmp files dir after all
-    if( CLEANUP ){
-        $files = glob($tmpDir.'/*'); // get all file names
-        foreach($files as $file){ // iterate files
-            if(is_file($file))
-                unlink($file); // delete file
-        }
-        rmdir($tmpDir);
-    }
-
-    $perfGlob = perfStat('global', TRUE);
-    $perfDb = perfStat('db', TRUE);
-    $perfConv = perfStat('conv', TRUE);
-    $perfPrep = perfStat('prep', TRUE);
-    $perfBzip = perfStat('bzip', TRUE);
-
-    debug(title("Global perf stats:"));
-    debug("\tGlobal: $perfGlob s.\n\tPreparation: $perfPrep s.\n\tDB operations: $perfDb s.\n\tResults conversions: $perfConv s.\n\tResults compression: $perfBzip s.");
 }
+
 /////////////////////////////////////////
 
 // check if this script is running from cli - exit otherwise
 if (substr(php_sapi_name(), 0, 3) != 'cli') {
-    echo "ERROR: Thsi script should be call by CLI!";
+    echo "ERROR: This script should be called by CLI!";
     exit();
-}
-
-//prepare the result script
-if( is_null( $resultFile )){
-    $resultFile = './oc_dev_export_'.date("Y_m_d_H_i_s").'.sql';
 }
 
 // to dump current schema uncomment this line
 // DumpSchemaJson($currSchema, "./currentSchema.json");
 
-RunExport();
+//check DB connection
+checkDb();
 
+//read pattern file
+$patternSchema = ReadJsonSchema($exportPatternFile);
+
+//get DB schema from DB
+$currSchema = GetCurrentSchemaObj($dbName);
+if($currSchema===NULL){
+    error("Can't read schema!");
+    exit();
+}
+
+//check if the pattern is compatible with current schema
+//if not pattern schema needs to be updated
+debug(title("Compare schemas started"));
+CompareSchemas($patternSchema, $currSchema);
+debug(title("Compare schemas completed"));
+
+//dump DB structure if needed
+if ( DB_STRUCT_DUMP ){
+    DumpDbStruct();
+}
+
+//prepare dump script
+debug(title("Generating data dump:"));
+$exportedTables = array();
+foreach( array_keys($currSchema['tables']) as $tabName ){
+    $dumpCommand = GetDumpCommand($tabName, $patternSchema);
+    if( $dumpCommand != '' ){
+        //execute dump command and create inserts...
+        DumpTableData($dumpCommand, $tabName);
+    }
+}
+info(title("Dump generation completed."));
