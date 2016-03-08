@@ -26,3 +26,7 @@ DROP TABLE cache_loc;
 --
 DROP TABLE cache_maps;
 
+--
+-- logins is never used in code now
+--
+DROP TABLE logins;

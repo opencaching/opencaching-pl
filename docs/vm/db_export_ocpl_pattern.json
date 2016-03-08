@@ -1998,29 +1998,6 @@
                 "__action": "get-data"
             }
         },
-        "logins": {
-            "__table_comment": "never used!",
-            "id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "user_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "remote_addr": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "success": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "timestamp": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
         "log_rating": {
             "__table_comment": "never used!",
             "log_id": {
