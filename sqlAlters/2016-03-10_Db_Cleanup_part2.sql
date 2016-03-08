@@ -27,3 +27,8 @@ DROP TABLE sys_cron;
 -- sys_menu table contains never used in code, static values
 --
 DROP TABLE sys_menu;
+
+--
+-- sys_temptables table is never used in code
+--
+DROP TABLE sys_temptables;
