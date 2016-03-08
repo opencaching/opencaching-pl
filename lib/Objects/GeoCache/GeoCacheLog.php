@@ -4,6 +4,8 @@ namespace lib\Objects\GeoCache;
 
 use lib\Objects\User\User;
 
+use lib\Controllers\Php7Handler;
+
 /**
  * Description of GeoCacheLog
  * 1    Found it    log/16x16-found.png
@@ -51,7 +53,6 @@ class GeoCacheLog
 	private $editByUserId;
 	private $editCount;
 	private $lastDeleted;
-	
 
     public function __construct()
     {
@@ -72,7 +73,7 @@ class GeoCacheLog
 		if(!($this->geoCache instanceof GeoCache)){
 			$this->geoCache = new GeoCache(array('cacheId' => $this->geoCache));
 		}
-		
+
 		return $this->geoCache;
 	}
 
@@ -281,13 +282,13 @@ class GeoCacheLog
 
 	public function setDeleted($deleted)
 	{
-		$this->deleted = boolval($deleted);
+		$this->deleted = Php7Handler::Boolval($deleted);
 		return $this;
 	}
 
 	public function setEncrypt($encrypt)
 	{
-		$this->encrypt = boolval($encrypt);
+		$this->encrypt = Php7Handler::Boolval($encrypt);
 		return $this;
 	}
 
