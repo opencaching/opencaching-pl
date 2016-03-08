@@ -17,3 +17,7 @@ DROP TABLE ajax_chat_users;
 --
 DROP TABLE caches_memory;
 
+--
+-- cache_loc is never used in code now
+--
+DROP TABLE cache_loc;

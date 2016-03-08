@@ -489,37 +489,6 @@
                 "__action": "skip-data"
             }
         },
-        "cache_loc": {
-            "__table_comment": "not used...",
-            "cache_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "latitude": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "longitude": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "lang": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "country": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "adm1": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "adm2": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
         "cache_location": {
             "__table_comment": "",
             "cache_id": {
