@@ -407,7 +407,7 @@ if ($error == false) {
                 $score_not_ok = false;
             }
             if (isset($_POST['submitform']) && ($all_ok == true)) {
-                if ($_POST['r'] >= -3 && $_POST['r'] <= 3 && $mark_as_rated == true) { //mark_as_rated to avoid possbility to set rate to 0,1,2 then change to Comment log type and actually give score (what could take place before!)!
+                if (isset($_POST['r']) && $_POST['r'] >= -3 && $_POST['r'] <= 3 && $mark_as_rated == true) { //mark_as_rated to avoid possbility to set rate to 0,1,2 then change to Comment log type and actually give score (what could take place before!)!
                     // oceniono skrzynkę
                     $sql = "SELECT count(*) FROM scores WHERE user_id='" . sql_escape($usr['userid']) . "' AND cache_id='" . sql_escape(floatval($cache_id)) . "'";
                     $is_scored_query = mysql_query($sql);
