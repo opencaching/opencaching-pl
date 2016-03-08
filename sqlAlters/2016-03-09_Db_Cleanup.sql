@@ -30,3 +30,9 @@ DROP TABLE cache_maps;
 -- logins is never used in code now
 --
 DROP TABLE logins;
+
+--
+-- log_rating was used only in never display statistic
+--
+DROP TABLE log_rating;
+

@@ -1998,21 +1998,6 @@
                 "__action": "get-data"
             }
         },
-        "log_rating": {
-            "__table_comment": "never used!",
-            "log_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "user_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "date": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
         "log_types": {
             "__table_comment": "",
             "id": {

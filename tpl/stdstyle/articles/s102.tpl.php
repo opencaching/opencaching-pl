@@ -33,8 +33,6 @@ if ($sNameOfStat == "NumberOfFinds")
     $sTitleOfStat = " {{ranking_by_number_of_finds_new}} ";
 else if ($sNameOfStat == "MaintenanceOfCaches")
     $sTitleOfStat = " {{ranking_by_maintenace}} ";
-else if ($sNameOfStat == "FavoriteComments")
-    $sTitleOfStat = " {{fav_com}} ";
 else
     $sTitleOfStat = " Ranking ";
 ?>
@@ -159,11 +157,7 @@ global $debug_page;
                 <!-- Begin of User -->
                 <td align="right">
 
-
-
-
                     <?php
-                    if ($sNameOfStat != "FavoriteComments")
                         include("tpl/stdstyle/articles/userfilter.php");
                     ?>
 
@@ -172,21 +166,14 @@ global $debug_page;
             </tr>
         </table>
 
-
-
         <hr style="color: black">
         <br>
 
-
-
-
         <?php
-        if ($sNameOfStat != "FavoriteComments")
             include("tpl/stdstyle/articles/mypositionandcharts.php");
         ?>
 
         <br>
-
 
     </div> <!-- End of GCT-div -->
 
