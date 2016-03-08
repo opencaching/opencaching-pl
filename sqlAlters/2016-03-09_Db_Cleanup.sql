@@ -11,3 +11,9 @@ DROP TABLE ajax_chat_invitations;
 DROP TABLE ajax_chat_messages;
 DROP TABLE ajax_chat_online;
 DROP TABLE ajax_chat_users;
+
+--
+-- caches_memory is never used in code
+--
+DROP TABLE caches_memory;
+
