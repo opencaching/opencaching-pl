@@ -3733,45 +3733,6 @@
                 "__action": "skip-data"
             }
         },
-        "sys_menu": {
-            "__table_comment": "",
-            "id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "id_string": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "title": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "menustring": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "access": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "href": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "visible": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "parent": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "position": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
         "sys_sessions": {
             "__table_comment": "",
             "uuid": {

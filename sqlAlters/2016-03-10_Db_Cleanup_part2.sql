@@ -14,12 +14,16 @@ DROP TABLE nodes;
 DROP TABLE object_types;
 
 --
--- search_doubles table contains never used in code, static values
+-- search_doubles table is never used in code
 --
 DROP TABLE search_doubles;
 
 --
--- search_doubles table contains never used in code, static values
+-- sys_cron table is never used in code
 --
 DROP TABLE sys_cron;
 
+--
+-- sys_menu table contains never used in code, static values
+--
+DROP TABLE sys_menu;
