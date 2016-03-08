@@ -2498,17 +2498,6 @@
                 "__action": "get-data"
             }
         },
-        "object_types": {
-            "__table_comment": "not used!",
-            "id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "name": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
         "okapi_authorizations": {
             "__table_comment": "",
             "consumer_key": {
@@ -3629,21 +3618,6 @@
             "score": {
                 "__comment": "",
                 "__action": "get-data"
-            }
-        },
-        "search_doubles": {
-            "__table_comment": "not used",
-            "hash": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "word": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "simple": {
-                "__comment": "",
-                "__action": "skip-data"
             }
         },
         "search_ignore": {
