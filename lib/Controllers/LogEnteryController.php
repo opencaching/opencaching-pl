@@ -8,7 +8,7 @@ use lib\Objects\OcConfig\OcConfig;
 class LogEnteryController
 {
 
-	private $errors = [];
+	private $errors = array();
 
 	public function removeLogById($logId, $request = null)
 	{
@@ -36,7 +36,7 @@ class LogEnteryController
 		}
 
 		if (( $log->getUser()->getUserId() == $loggedUser->getUserId()) || ($log->getGeoCache()->getOwner()->getUserId() == $loggedUser->getUserId()) || $loggedUser->getIsAdmin()) {
-			EmailController::sendRemoveLogNotification($log, $request);
+			EmailController::sendRemoveLogNotification($log, $request, $loggedUser);
 			$updateQuery = "UPDATE `cache_logs` SET deleted = 1, `del_by_user_id` = :1 , `last_modified`=NOW(), `last_deleted`=NOW() WHERE `cache_logs`.`id`=:2 LIMIT 1";
 			$db = \lib\Database\DataBaseSingleton::Instance();
 			$db->multiVariableQuery($updateQuery, $loggedUser->getUserId(), $log->getId());
@@ -52,7 +52,7 @@ class LogEnteryController
 
 			//call eventhandler
 			require_once(__DIR__ . '/../eventhandler.inc.php');
-			event_remove_log($log->getGeoCache()->getCacheId(), $loggedUser->getUserId());
+            event_remove_log($log->getGeoCache()->getCacheId(), $loggedUser->getUserId());
 
 			$this->updateGeocacheAfterLogRemove($log, $db);
 			$result = true;

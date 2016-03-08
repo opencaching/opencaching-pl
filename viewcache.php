@@ -98,7 +98,6 @@ if ($error == false) {
         //get cache record
         
         $geocache = new GeoCache(array('cacheId'=>$cache_id));
-		d($geocache);
 
         // detailed cache access logging
         if (@$enable_cache_access_logs && $cache_id > 0) {
@@ -120,8 +119,8 @@ if ($error == false) {
             }
         }
 
+        d($geocache);
 
-        //mysql_free_result($rs);
         if ($geocache->getOwner()->getUserId() == $usr['userid'] || $usr['admin']) {
             $show_edit = true;
         } else {
@@ -628,14 +627,10 @@ if ($error == false) {
             tpl_set_var('npa_content', $npa_content);
         }
 
-
-
-       // `cache_type`.`icon_large` `icon_large`,
         $icons = $geocache->dictionary->getCacheTypeIcons();
 
         //cache data
         list($iconname) = getCacheIcon($usr['userid'], $geocache->getCacheId(), $geocache->getStatus(), $geocache->getOwner()->getUserId(), $icons[$geocache->getCacheType()]['icon']);
-
         list($lat_dir, $lat_h, $lat_min) = help_latToArray($geocache->getCoordinates()->getLatitude());
         list($lon_dir, $lon_h, $lon_min) = help_lonToArray($geocache->getCoordinates()->getLongitude());
 
@@ -645,15 +640,14 @@ if ($error == false) {
         tpl_set_var('googlemap_key', $googlemap_key);
         tpl_set_var('map_msg', $map_msg);
         tpl_set_var('typeLetter', typeToLetter($geocache->getCacheType()));
-
         tpl_set_var('cacheid_urlencode', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'));
         tpl_set_var('cachename', htmlspecialchars($geocache->getCacheName(), ENT_COMPAT, 'UTF-8'));
 
-        if ( $cache_record['date_alg'] == '' ){
-            tpl_set_var('icon_titled', '');
-        } else {
+        if ( $geocache->isTitled() ){
             $ntitled_cache = $titled_cache_period_prefix.'_titled_cache';
             tpl_set_var('icon_titled', '<img src="tpl/stdstyle/images/free_icons/award_star_gold_1.png" class="icon16" alt="'.tr($ntitled_cache).'" title="'.tr($ntitled_cache).'"/>');
+        } else {
+            tpl_set_var('icon_titled', '');
         }
 
         // cache type Mobile add calculate distance
@@ -945,7 +939,7 @@ if ($error == false) {
         if (($usr['admin'] == 1)) {
             $showhidedel_link = ""; //no need to hide/show deletion for COG (they always see deletions)
         } else {
-            $del_count = sqlValue("SELECT count(*) number FROM `cache_logs` WHERE `deleted`=1 and `cache_id`='" . sql_escape($cache_record['cache_id']) . "'", 0);
+            $del_count = $dbc->multiVariableQueryValue('SELECT count(*) number FROM `cache_logs` WHERE `deleted`=1 and `cache_id`=:1', 0, $geocache->getCacheId());
             if ($del_count == 0) {
                 $showhidedel_link = ""; //don't show link if no deletion '
             } else {
@@ -984,9 +978,9 @@ if ($error == false) {
             tpl_set_var('viewlogs', mb_ereg_replace('{cacheid_urlencode}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $viewlogs));
             tpl_set_var('viewlogs_start', "");
             tpl_set_var('viewlogs_end', "");
-            $viewlogs_from_sql = "SELECT id FROM cache_logs WHERE " . $sql_hide_del . " cache_id=:1 ORDER BY date DESC, id LIMIT " . sql_escape($logs_to_display) . ",1 "; // sorry, bound variables does not work for LIMIT
+            $viewlogs_from_sql = "SELECT id FROM cache_logs WHERE " . $sql_hide_del . " cache_id=:1 ORDER BY date DESC, id LIMIT :2 ";
             $dbc->reset();
-            $viewlogs_from = $dbc->multiVariableQueryValue($viewlogs_from_sql, -1, $cache_id);
+            $viewlogs_from = $dbc->multiVariableQueryValue($viewlogs_from_sql, -1, $cache_id, $logs_to_display);
             tpl_set_var('viewlogs_from', $viewlogs_from);
         } else {
             tpl_set_var('viewlogs_last', '');

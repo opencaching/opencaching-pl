@@ -2586,4 +2586,5 @@ $translations = array(
     'admin_notes_8' => 'Kesz użytkownika nie przeszedł weryfikacji COG - został zablokowany. Link:',
     'admin_notes_9' => 'Użytkownikowi pozwolono na zakładanie keszy mimo limitu znalezień.',
     'admin_notes_10' => 'Użytkownik znowu musi stosować się do limitu znalezień przy zakładaniu keszy.',
+    'removingLog' => 'Usuwanie wpisu',
 );

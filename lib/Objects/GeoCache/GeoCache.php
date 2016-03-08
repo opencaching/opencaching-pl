@@ -140,7 +140,8 @@ class GeoCache
             $cacheDbRow = $db->dbResultFetch();
             if(is_array($cacheDbRow)) {
                 $this->loadFromRow($cacheDbRow);
-            } else{
+            } else {
+                ddd('geocache not found in db? TODO: cache-not-found handling');
                 //TODO: cache-not-found handling?
             }
             $this->loadCacheLocation($db);
@@ -744,7 +745,7 @@ class GeoCache
     public function isTitled()
     {
         if (is_null($this->isTitled)) {
-            $this->isTitled = CacheTitled::isTitled($this->id);
+            $this->isTitled = CacheTitled::isTitled($this->id) > 0 ? true : false;
         }
         return $this->isTitled;
     }

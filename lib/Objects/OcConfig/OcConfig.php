@@ -42,6 +42,7 @@ final class OcConfig
     private $contactMail;
     private $wikiLinks;
     private $dateFormat;
+    private $noreplyEmailAddress;
     private $mapsConfig;            //settings.inc: $config['mapsConfig']
 
     /**
@@ -88,6 +89,7 @@ final class OcConfig
         $this->contactMail = $contact_mail;
         $this->wikiLinks = $wikiLinks;
         $this->dateFormat = $dateFormat;
+        $this->noreplyEmailAddress = $emailaddr;
 
         if( isset($config['mapsConfig']) && is_array( $config['mapsConfig'] ) ){
             $this->mapsConfig = $config['mapsConfig'];
@@ -208,6 +210,12 @@ final class OcConfig
     {
         return $this->powerTrailModuleSwitchOn;
     }
+    
+    public function getNoreplyEmailAddress()
+    {
+        return $this->noreplyEmailAddress;
+    }
+
 
     /**
      * returns true if google automatic translation is enabled in config

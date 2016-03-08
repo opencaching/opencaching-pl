@@ -2,6 +2,10 @@
 {body_scripts}
 
 {jQueryPopUpWindowscripts}
+
+<script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
+<script src="tpl/stdstyle/js/viewcache.js"></script>
+
 <div id="dialog-message" title="{{GKApi19}}" style="display: {GeoKretyApi_window_display};">
     <p>
         <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>

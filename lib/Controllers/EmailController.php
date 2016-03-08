@@ -13,7 +13,7 @@ class EmailController
 	 * @param GeoCacheLog $log
 	 * @param array $request
 	 */
-	public static function sendRemoveLogNotification(GeoCacheLog $log, $request)
+	public static function sendRemoveLogNotification(GeoCacheLog $log, $request, $loggedUser)
 	{
 		$emailContent = read_file(__DIR__ . '/../../tpl/stdstyle/email/removed_log.email');
 		$message = isset($request['logowner_message']) ? $request['logowner_message'] : '';
@@ -21,7 +21,7 @@ class EmailController
 			$message = tr('removed_message_title') . ":\n---" . "\n" . $message . "\n" . "---";
 		}
 		$emailContent = mb_ereg_replace('{log_owner}', $log->getUser()->getUserName(), $emailContent);
-		$emailContent = mb_ereg_replace('{cache_owner}', $log->getGeoCache()->getOwner()->getUserName(), $emailContent);
+		$emailContent = mb_ereg_replace('{cache_owner}', $loggedUser->getUserName(), $emailContent);
 		$emailContent = mb_ereg_replace('{cache_name}', $log->getGeoCache()->getCacheName(), $emailContent);
 		$emailContent = mb_ereg_replace('{log_entry}', $log->getText(), $emailContent);
 		$emailContent = mb_ereg_replace('{comment}', $message, $emailContent);
@@ -30,12 +30,13 @@ class EmailController
 		$emailContent = mb_ereg_replace('{removedLog_03}', tr('removedLog_03'), $emailContent);
 		$emailContent = mb_ereg_replace('{octeamEmailsSignature}', \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getOcteamEmailsSignature(), $emailContent);
 		$emailContent = mb_ereg_replace('{removedLog_04}', tr('removedLog_04'), $emailContent);
-		$emailaddr = \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getEmailaddr();
+		$emailaddr = \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getNoreplyEmailAddress();
 
-		$emailheaders = "MIME-Version: 1.0\r\n";
-		$emailheaders .= "Content-Type: text/html; charset=utf-8\r\n";
-		$emailheaders .= 'From: "' . \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getSiteName() . '" <' . $emailaddr . '>';
-		mb_send_mail($log->getUser()->getEmail(), tr('removed_message_title') . ":\n---", $emailContent, $emailheaders);
+		$emailheaders = 'MIME-Version: 1.0' . "\r\n";
+		$emailheaders .= 'Content-Type: text/html; charset=utf-8' . "\r\n";
+ 		$emailheaders .= 'From: "' . \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getSiteName() . '" <' . $emailaddr . '>';
+
+		mb_send_mail($log->getUser()->getEmail(), tr('removed_message_title'), $emailContent, $emailheaders);
 	}
 
 

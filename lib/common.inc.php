@@ -5,6 +5,8 @@
  */
 require_once __DIR__ . '/ClassPathDictionary.php';
 
+use lib\Controllers\Php7Handler;
+
 if ((!isset($GLOBALS['no-session'])) || ($GLOBALS['no-session'] == false))
     session_start();
 
@@ -188,11 +190,7 @@ if (!isset($thumburl))
 
 
 
-if(substr(PHP_VERSION, 0, 1) >= 7){ // do not open mysql_* database conection for php >= 7
-    $dblink = null;
-} else { //open a databse connection
-    db_connect();
-}
+Php7Handler::db_connect();
 
 $db = lib\Database\DataBaseSingleton::Instance();
 
@@ -618,8 +616,9 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
 
 
     //disconnect the database
-    if ($dbdisconnect)
-        db_disconnect();
+    if ($dbdisconnect){
+        Php7Handler::db_disconnect();
+    }
 }
 
 function http_write_no_cache()
