@@ -18,3 +18,8 @@ DROP TABLE object_types;
 --
 DROP TABLE search_doubles;
 
+--
+-- search_doubles table contains never used in code, static values
+--
+DROP TABLE sys_cron;
+

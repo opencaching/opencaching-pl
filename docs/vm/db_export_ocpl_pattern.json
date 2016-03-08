@@ -3714,17 +3714,6 @@
                 "__action": "get-data"
             }
         },
-        "sys_cron": {
-            "__table_comment": "",
-            "name": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "last_run": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
         "sys_logins": {
             "__table_comment": "",
             "id": {
