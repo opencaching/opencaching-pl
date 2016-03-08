@@ -173,6 +173,7 @@ while ($res = mysql_fetch_array($result)) {
 $sysres = mysql_query("SELECT count(cache_id) as num FROM caches WHERE (caches.status = 1) AND ((caches.latitude>'" . sql_escape($latSW) . "' AND caches.latitude<'" . sql_escape($latNE) . "') AND (caches.longitude>'" . sql_escape($lonSW) . "' AND caches.longitude<'" . sql_escape($lonNE) . "'));");
 
 if ($res2 = mysql_fetch_array($sysres)) {
+    $pages = '';
     for ($i = 0; $i < $res2['num'] / $PER_PAGE; $i++)
         $pages .= "<a href=\"javascript:load_data(" . $i . ");\">" . ($i + 1) . "</a> ";
     $pages = htmlspecialchars($pages);
