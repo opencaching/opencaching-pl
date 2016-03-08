@@ -2,7 +2,6 @@
 -- There are a few unused tables which probably can be safety removed.
 --
 
-
 --
 -- chat is no more supported
 --
@@ -21,3 +20,9 @@ DROP TABLE caches_memory;
 -- cache_loc is never used in code now
 --
 DROP TABLE cache_loc;
+
+--
+-- cache_maps is never used in code now
+--
+DROP TABLE cache_maps;
+

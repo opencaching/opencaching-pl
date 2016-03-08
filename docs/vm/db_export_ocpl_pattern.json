@@ -624,17 +624,6 @@
                 "__action": "get-data"
             }
         },
-        "cache_maps": {
-            "__table_comment": "not-used",
-            "cache_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "last_refresh": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
         "cache_mod_cords": {
             "__table_comment": "private data - skip",
             "id": {
