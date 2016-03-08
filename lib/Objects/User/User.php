@@ -4,6 +4,8 @@ namespace lib\Objects\User;
 use \lib\Controllers\MedalsController;
 use \lib\Database\DataBaseSingleton;
 
+use lib\Controllers\Php7Handler;
+
 /**
  * Description of user
  *
@@ -164,9 +166,11 @@ class User extends \lib\Objects\BaseObject
                     $cordsPresent = true;
                     break;
 				case 'admin':
-					$this->isAdmin = boolval($value);
+					$this->isAdmin = Php7Handler::Boolval($value);
+					break;
 				case 'guru':
-					$this->isGuide = boolval($value);
+					$this->isGuide = Php7Handler::Boolval($value);
+					break;
                 default:
                     error_log(__METHOD__ . ": Unknown column: $key");
             }
