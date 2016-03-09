@@ -1,6 +1,7 @@
 <?php
 
 use lib\Objects\GeoCache\GeoCache;
+use lib\Objects\OcConfig\OcConfig;
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
@@ -1108,25 +1109,25 @@ if ($error == false) {
         //get description languages
         $desclangs = mb_split(',', $cache_record['desc_languages']);
 
-        $desclang = mb_strtoupper($lang);
-        //is a description language wished?
-        if (isset($_REQUEST['desclang'])) {
-            $desclang = $_REQUEST['desclang'];
-        }
 
-        //is no description available in the wished language?
+        // use cache desc in lang of interface by default
+        $desclang = mb_strtoupper($lang);
+
+        // check if there is a desc in current lang
         if (array_search($desclang, $desclangs) === false) {
             $desclang = $desclangs[0];
+            $enable_google_translation = true; //no desc in current lang - enable translation
         }
 
-        if (isset($disable_google_translation) && $disable_google_translation) {
-            $enable_google_translation = false;
+        // check if user requests other lang of cache desc...
+        if ( isset($_REQUEST['desclang']) && array_search($_REQUEST['desclang'], $desclangs) ) {
+            $desclang = $_REQUEST['desclang'];
+            $enable_google_translation = false; //user wants this lang - disable translations
         }
-        else if (strtolower($desclang) != $lang && $lang != 'pl') {
-            $enable_google_translation = true;
-        }
-        else {
+
+        if ( ! OcConfig::Instance()->isGoogleTranslationEnabled() ){
             $enable_google_translation = false;
+            //TODO: Translation is not available - needs implementation...
         }
 
         //build langs list
@@ -1956,148 +1957,6 @@ if ($error == false) {
 }
 
 //make the template and send it out
-
-$decrypt_script = '
-<script type="text/javascript">
-<!--
-    var last="";var rot13map;function decryptinit(){var a=new Array();var s="abcdefghijklmnopqrstuvwxyz";for(i=0;i<s.length;i++)a[s.charAt(i)]=s.charAt((i+13)%26);for(i=0;i<s.length;i++)a[s.charAt(i).toUpperCase()]=s.charAt((i+13)%26).toUpperCase();return a}
-function decrypt(elem){if(elem.nodeType != 3) return; var a = elem.data;if(!rot13map)rot13map=decryptinit();s="";for(i=0;i<a.length;i++){var b=a.charAt(i);s+=(b>=\'A\'&&b<=\'Z\'||b>=\'a\'&&b<=\'z\'?rot13map[b]:b)}elem.data = s}
--->
-</script>';
-
-$viewcache_header = '
-<script type="text/javascript" src="http://www.google.com/jsapi"></script>
-<script type="text/javascript" src="lib/js/rot13.js"></script>
-    <script type="text/javascript">
-
-    google.load("language", "1");
-
-
-
-    function translateDesc()
-        {
-            var maxlen = 1100;
-            var i=0;
-
-            // tekst do przetlumaczenia
-            var text = document.getElementById("description").innerHTML;
-
-            // tablica wyrazow
-            var splitted = text.split(" ");
-
-            // liczba wyrazow
-            var totallen = splitted.length;
-
-            var toTranslate="";
-            var container = document.getElementById("description");
-            container.innerHTML = "";
-
-            ' . (($enable_google_translation) ? "google.language.getBranding('branding');" : "") . '
-            while( i < totallen )
-            {
-                var loo = splitted[i].length;
-                while(( toTranslate.length + loo) < maxlen )
-                {
-                    toTranslate += " " + splitted[i];
-                    i++;
-                    if( i >= totallen )
-                        break;
-                }
-
-                google.language.translate(toTranslate, "pl", "' . $lang . '", function(result)
-                {
-                //  var container = document.getElementById("description");
-
-                    // poprawki
-                    var toHTML = (result.translation).replace(/[eE]nglish/g, "Polish");
-                    toHTML = toHTML.replace(/[iI]nbox/g, "Geocache");
-                    toHTML = toHTML.replace(/[iI]nboxes/g, "Geocaches");
-                    toHTML = toHTML.replace(/[mM]ailbox/g, "Geocache");
-                    toHTML = toHTML.replace(/[mM]ailboxes/g, "Geocaches");
-                    toHTML = toHTML.replace(/[dD]eutsch/g, "Polnisch");
-                    toHTML = toHTML.replace(/[sS]houlder/g, "shovel");
-
-                    container.innerHTML += toHTML;
-                });
-                toTranslate = "";
-            }
-    }
-
-        function translateHint()
-        {
-            var maxlen = 1100;
-            var i=0;
-
-            // tekst do przetlumaczenia
-            var container = document.getElementById("decrypt-hints");
-            if( container == null )
-                return "";
-            ';
-
-
-if (isset($_REQUEST['nocrypt']))
-    $viewcache_header .= 'var text = container.innerHTML;';
-else
-    $viewcache_header .= 'var text = rot13(container.innerHTML);';
-$viewcache_header .= '
-
-            // tablica wyrazow
-            var splitted = text.split(" ");
-
-            // liczba wyrazow
-            var totallen = splitted.length;
-
-            var toTranslate="";
-            container.innerHTML = "";
-            while( i < totallen )
-            {
-                var loo = splitted[i].length;
-                while(( toTranslate.length + loo) < maxlen )
-                {
-                    toTranslate += " " + splitted[i];
-                    i++;
-                    if( i >= totallen )
-                        break;
-                }
-
-                google.language.translate(toTranslate, "pl", "' . $lang . '", function(result)
-                {
-                    //var container = document.getElementById("description");
-
-                    // poprawki
-                    var toHTML = (result.translation).replace(/[eE]nglish/g, "Polish");
-                    toHTML = toHTML.replace(/[iI]nbox/g, "Geocache");
-                    toHTML = toHTML.replace(/[iI]nboxes/g, "Geocaches");
-                    toHTML = toHTML.replace(/[mM]ailbox/g, "Geocache");
-                    toHTML = toHTML.replace(/[mM]ailboxes/g, "Geocaches");
-                    toHTML = toHTML.replace(/[dD]eutsch/g, "Polnisch");
-                    toHTML = toHTML.replace(/[sS]houlder/g, "shovel");
-                    ';
-if (isset($_REQUEST['nocrypt']))
-    $viewcache_header .= 'container.innerHTML += toHTML;';
-else
-    $viewcache_header .= 'container.innerHTML += rot13(toHTML);';
-
-$viewcache_header .= '
-                });
-                toTranslate = "";
-            }
-    }
-
-            google.setOnLoadCallback(translateDesc);
-            google.setOnLoadCallback(translateHint);
-    </script>
-';
-
-//opencaching.pl
-
-if (!$enable_google_translation) {
-    tpl_set_var('branding', "");
-    tpl_set_var('viewcache_header', $decrypt_script);
-} else {
-    tpl_set_var('branding', "<span class='txt-green07'>Automatic translation thanks to:</span>");
-    tpl_set_var('viewcache_header', $viewcache_header . $decrypt_script);
-}
 
 tpl_set_var('bodyMod', '');
 

@@ -1,6 +1,3 @@
-<?php
-
-?>
 <script language="javascript" type="text/javascript">
     function hidediv() {
         if (document.getElementById) { // DOM3 = IE5, NS6
@@ -44,7 +41,6 @@ global $usr, $lang, $hide_coords;
 </div>
 
 <div class="content2-container">
-    <div id="branding">{branding}</div>
     <div id="description">
         <div id="viewcache-description">
             {desc}

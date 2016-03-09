@@ -94,6 +94,9 @@ final class OcConfig
         }else{
             $this->mapsConfig = array();
         }
+
+        $this->isGoogleTranslationEnabled = !( isset( $disable_google_translation ) && $disable_google_translation );
+
     }
 
     function getDateFormat()
@@ -111,7 +114,7 @@ final class OcConfig
         return $this->wikiLinks;
     }
 
-        function getContactMail()
+    function getContactMail()
     {
         return $this->contactMail;
     }
@@ -204,6 +207,14 @@ final class OcConfig
     public function getPowerTrailModuleSwitchOn()
     {
         return $this->powerTrailModuleSwitchOn;
+    }
+
+    /**
+     * returns true if google automatic translation is enabled in config
+     */
+    public function isGoogleTranslationEnabled()
+    {
+        return $this->isGoogleTranslationEnabled;
     }
 
     protected function getMapsConfig()
