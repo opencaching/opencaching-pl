@@ -2597,5 +2597,5 @@ $translations = array(
     'admin_notes_8' => 'Cache of this user has been blocked. Link:',
 	'admin_notes_9' => 'User has not met the minimum found caches limit to be allowed to create new caches.',
 	'admin_notes_10' => 'User has met the minimum found caches limit to be allowed to create new caches.',
-    'removingLog' => 'log entery removing','
+    'removingLog' => 'log entery removing',
 );
