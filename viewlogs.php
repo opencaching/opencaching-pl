@@ -365,7 +365,7 @@ if ($error == false) {
                 $append_atag = '';
                 if (!isset($dbc)) {
                     $dbc = new dataBase();
-                };
+                }
                 $thatquery = "SELECT `url`, `title`, `uuid`, `user_id`, `spoiler` FROM `pictures` WHERE `object_id`=:1 AND `object_type`=1";
                 $dbc->multiVariableQuery($thatquery, $record['logid']);
                 $pic_count = $dbc->rowCount();

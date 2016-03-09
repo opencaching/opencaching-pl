@@ -35,9 +35,6 @@ var currentLogEnteriessLimit = 10;
 $(window).scroll(function (event) {
     var scroll = $(window).scrollTop();
     var height = $(document).height();
-
-    console.log((height - scroll), logEnteriesCount);
-
     if((height - scroll) < 800 ){
         var logEnteriesCount = parseInt($('#logEnteriesCount').val());
         if(currentLogEnteriessOffset < logEnteriesCount){
@@ -47,7 +44,6 @@ $(window).scroll(function (event) {
 });
 
 function loadLogEnteries(offset, limit){
-    console.log('ladowanie logow');
     var geocacheId = $("#cacheid").val();
     var owner_id = $("#owner_id").val();
     request = $.ajax({
@@ -64,6 +60,5 @@ function loadLogEnteries(offset, limit){
     request.done(function (response, textStatus, jqXHR){
         $("#viewcache-logs").html($("#viewcache-logs").html() + response);
         currentLogEnteriessOffset = currentLogEnteriessOffset + currentLogEnteriessLimit;
-        console.log('zaladowano logów ' + currentLogEnteriessOffset);
     });
 }
