@@ -6,6 +6,11 @@
 <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 <script src="tpl/stdstyle/js/viewcache.js"></script>
 
+<input type="hidden" id="cacheid" value="{cacheid}" />
+<input type="hidden" id="logEnteriesCount" value="{logEnteriesCount}" />
+<input type="hidden" id="owner_id" value="{owner_id}" />
+<input type="hidden" id="includeDeletedLogs" value="{includeDeletedLogs}" />
+
 <div id="dialog-message" title="{{GKApi19}}" style="display: {GeoKretyApi_window_display};">
     <p>
         <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
@@ -532,7 +537,7 @@
         </p>
     </div>
     <div class="content2-container" id="viewcache-logs">
-        {logs}
+        <!-- log enteries - to be loaded dynamicly by ajax -->
     </div>
     {viewlogs_start}
     <div class="content2-container bg-blue02">

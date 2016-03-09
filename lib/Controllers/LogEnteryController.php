@@ -196,5 +196,78 @@ class LogEnteryController
 		return $this->errors;
 	}
 
+    public function loadLogsFromDb($geocacheId, $includeDeletedLogs = false, $offset = 0, $limit = -1 )
+    {
+        $sql = $this->generateGetLogsQuery($includeDeletedLogs);
+        $params = array(
+            'v1' => array(
+                'value' => (integer) $geocacheId,
+                'data_type' => 'integer',
+            ),
+            'v2' => array(
+                'value' => (integer) $limit,
+                'data_type' => 'integer',
+            ),
+            'v3' => array(
+                'value' => (integer) $offset,
+                'data_type' => 'integer',
+            ),
+        );
+        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db->paramQuery($sql, $params);
+        $logEnteries = $db->dbResultFetchAll();
+
+        return $logEnteries;
+    }
+
+    private function generateGetLogsQuery($includeDeletedLogs)
+    {
+        if($includeDeletedLogs){
+            $showDeletedLogsSql = '`cache_logs`.`deleted` `deleted`,';
+            $showDeletedLogsSql2 = '';
+        } else {
+            $showDeletedLogsSql = '';
+            $showDeletedLogsSql2 = ' AND `cache_logs`.`deleted` = 0 ';
+        }
+        return  "SELECT `cache_logs`.`user_id` `userid`, $showDeletedLogsSql
+            `cache_logs`.`id` `logid`,
+            `cache_logs`.`date` `date`,
+            `cache_logs`.`type` `type`,
+            `cache_logs`.`text` `text`,
+            `cache_logs`.`text_html` `text_html`,
+            `cache_logs`.`picturescount` `picturescount`,
+            `cache_logs`.`mp3count` `mp3count`,
+            `cache_logs`.`last_modified` AS `last_modified`,
+            `cache_logs`.`last_deleted` AS `last_deleted`,
+            `cache_logs`.`edit_count` AS `edit_count`,
+            `cache_logs`.`date_created` AS `date_created`,
+            `user`.`username` `username`,
+            `user`.`user_id` `user_id`,
+            `user`.`admin` `admin`,
+            `user`.`hidden_count` AS    `ukryte`,
+            `user`.`founds_count` AS    `znalezione`,
+            `user`.`notfounds_count` AS `nieznalezione`,
+            `u2`.`username` AS `del_by_username`,
+            `u2`.`admin` AS `del_by_admin`,
+            `u3`.`username` AS `edit_by_username`,
+            `u3`.`admin` AS `edit_by_admin`,
+            `log_types`.`icon_small` `icon_small`,
+            `cache_moved`.`longitude` AS `mobile_longitude`,
+            `cache_moved`.`latitude` AS `mobile_latitude`,
+            `cache_moved`.`km` AS `km`,
+
+            IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
+            FROM `cache_logs` INNER JOIN `log_types` ON `cache_logs`.`type`=`log_types`.`id`
+
+            INNER JOIN `user` ON `cache_logs`.`user_id`=`user`.`user_id`
+            LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
+            LEFT JOIN `cache_moved` ON `cache_moved`.`log_id` = `cache_logs`.`id`
+            LEFT JOIN `user` `u2` ON `cache_logs`.`del_by_user_id`=`u2`.`user_id`
+            LEFT JOIN `user` `u3` ON `cache_logs`.`edit_by_user_id`=`u3`.`user_id`
+            WHERE `cache_logs`.`cache_id`=:v1
+                  " . $showDeletedLogsSql2 . "
+            ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC
+            LIMIT :v2 OFFSET :v3";
+    }
 
 }

@@ -119,8 +119,6 @@ if ($error == false) {
             }
         }
 
-        d($geocache);
-
         if ($geocache->getOwner()->getUserId() == $usr['userid'] || $usr['admin']) {
             $show_edit = true;
         } else {
@@ -349,10 +347,12 @@ if ($error == false) {
         $_SESSION['print_list'] = array_values($_SESSION['print_list']);
     }
 
+
+
     if ($cache_id != 0 && (($geocache->getStatus() != 4 && $geocache->getStatus() != 5 && ($geocache->getStatus() != 6 /* || $cache_record['type'] == 6 */)) || $usr['userid'] == $geocache->getOwner()->getUserId() || $usr['admin'] || ( $cache_record['status'] == 4 && $applicationContainer->getLoggedUser()->getIsGuide() ))) {
         //ok, cache is here, let's process
         $owner_id = $geocache->getOwner()->getUserId();
-
+        tpl_set_var('owner_id', $owner_id);
         // check XY home if OK redirect to myn
         if ($usr == true) {
 
@@ -651,22 +651,10 @@ if ($error == false) {
         }
 
         // cache type Mobile add calculate distance
-        // todo: poszerzyć tabelkę 'caches' (lub stworzyć nową z relacją)
-        //       pole dystans, żeby nie trzeba było za każdym razem zliczać
-        //       dystansu.
         if ($geocache->getCacheType() == GeoCache::TYPE_MOVING) {
             tpl_set_var('moved_icon', $moved_icon);
-            /* if (!isset($_REQUEST['cacheid'])) $OpencacheID = $cache_id */
-            $moved = sqlValue("SELECT COUNT(*) FROM `cache_logs` WHERE type=4 AND cache_logs.deleted='0' AND cache_id='" . $cache_id /* sql_escape($_REQUEST['cacheid']) */ . "'", 0);
-
-            // calculate mobile cache distance
-            $dst = mysql_fetch_assoc(mysql_query("SELECT sum(km) AS dystans FROM cache_moved WHERE cache_id=" . $cache_id /* sql_escape($_REQUEST['cacheid']) */));
-            $dystans = round($dst['dystans'], 2);
-
-
-
-            tpl_set_var('dystans', $dystans);
-            tpl_set_var('moved', $moved);
+            tpl_set_var('dystans', $geocache->getDistance());
+            tpl_set_var('moved', $geocache->getMoveCount());
             tpl_set_var('hidemobile_start', '');
             tpl_set_var('hidemobile_end', '');
         } else {
@@ -751,19 +739,19 @@ if ($error == false) {
             tpl_set_var('hidetime_start', '');
             tpl_set_var('hidetime_end', '');
 
-            if (($cache_record['search_time'] == null) || ($cache_record['search_time'] == 0)){
+            if (($geocache->getSearchTime() == null) || ($geocache->getSearchTime() == 0)) {
                 tpl_set_var('search_time', 'b.d.');
-            }else {
-                $time_hours = floor($cache_record['search_time']);
-                $time_min = ($cache_record['search_time'] - $time_hours) * 60;
+            } else {
+                $time_hours = floor($geocache->getSearchTime());
+                $time_min = ($geocache->getSearchTime() - $time_hours) * 60;
                 $time_min = sprintf('%02d', round($time_min, 1));
                 tpl_set_var('search_time', $time_hours . ':' . $time_min . ' h');
             }
 
-            if (($cache_record['way_length'] == null) || ($cache_record['way_length'] == 0)){
+            if (($geocache->getWayLenght() == null) || ($geocache->getWayLenght() == 0)){
                 tpl_set_var('way_length', 'b.d.');
             } else {
-                tpl_set_var('way_length', sprintf('%01.2f km', $cache_record['way_length']));
+                tpl_set_var('way_length', sprintf('%01.2f km', $geocache->getWayLenght()));
             }
         }
 
@@ -973,6 +961,8 @@ if ($error == false) {
 
         $number_logs_sql = "SELECT count(*) number FROM `cache_logs` WHERE " . $sql_hide_del . " `cache_id`=:1 ";
         $number_logs = $dbc->multiVariableQueryValue($number_logs_sql, 0, $geocache->getCacheId());
+        tpl_set_var('logEnteriesCount', $number_logs);
+
         if ($number_logs > $logs_to_display) {
             tpl_set_var('viewlogs_last', mb_ereg_replace('{cacheid_urlencode}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $viewlogs_last));
             tpl_set_var('viewlogs', mb_ereg_replace('{cacheid_urlencode}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $viewlogs));
@@ -1369,285 +1359,17 @@ if ($error == false) {
             tpl_set_var('gallery', $gallery_icon . '&nbsp;' . $rspiclogs . 'x&nbsp;' . mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $gallery_link));
         } else {
             tpl_set_var('gallery', '');
-            ;
         }
 
-        $show_deleted_logs = "`cache_logs`.`deleted` `deleted`,";
-        $show_deleted_logs2 = "";
-        if ($HideDeleted && !$usr['admin']) {
-            $show_deleted_logs = "";
-            $show_deleted_logs2 = " AND `cache_logs`.`deleted` = 0 ";
+        $includeDeletedLogs = false;
+        if ($usr && !$HideDeleted && $usr['admin'] != 1) {
+            $includeDeletedLogs = true;
         }
-
-        $thatquery = "SELECT `cache_logs`.`user_id` `userid`,
-                                                " . $show_deleted_logs . "
-                              `cache_logs`.`id` `logid`,
-                              `cache_logs`.`date` `date`,
-                              `cache_logs`.`type` `type`,
-                              `cache_logs`.`text` `text`,
-                              `cache_logs`.`text_html` `text_html`,
-                              `cache_logs`.`picturescount` `picturescount`,
-                              `cache_logs`.`mp3count` `mp3count`,
-                              `cache_logs`.`last_modified` AS `last_modified`,
-                              `cache_logs`.`last_deleted` AS `last_deleted`,
-                              `cache_logs`.`edit_count` AS `edit_count`,
-                              `cache_logs`.`date_created` AS `date_created`,
-                              `user`.`username` `username`,
-                              `user`.`admin` `admin`,
-                              `user`.`hidden_count` AS    `ukryte`,
-                              `user`.`founds_count` AS    `znalezione`,
-                              `user`.`notfounds_count` AS `nieznalezione`,
-                              `u2`.`username` AS `del_by_username`,
-                              `u2`.`admin` AS `del_by_admin`,
-                              `u3`.`username` AS `edit_by_username`,
-                              `u3`.`admin` AS `edit_by_admin`,
-                              `log_types`.`icon_small` `icon_small`,
-
-                              IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
-                         FROM `cache_logs` INNER JOIN `log_types` ON `cache_logs`.`type`=`log_types`.`id`
-
-                                           INNER JOIN `user` ON `cache_logs`.`user_id`=`user`.`user_id`
-                                           LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
-                                           LEFT JOIN `user` `u2` ON `cache_logs`.`del_by_user_id`=`u2`.`user_id`
-                                           LEFT JOIN `user` `u3` ON `cache_logs`.`edit_by_user_id`=`u3`.`user_id`
-                        WHERE `cache_logs`.`cache_id`=:v1
-                                    " . $show_deleted_logs2 . "
-                     ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC
-                        LIMIT :v2";
-        $params['v1']['value'] = (integer) $cache_id;
-        $params['v1']['data_type'] = 'integer';
-        $params['v2']['value'] = (integer) $logs_to_display + 0;
-        $params['v2']['data_type'] = 'integer';
-
-        $dbc->paramQuery($thatquery, $params);
-        unset($params); //clear to avoid overlaping on next paramQuery (if any))
-
-        $logs = '';
-        $thisdateformat = "%d %B %Y";
-        $thisdatetimeformat = "%d %B %Y %H:%M";
-        $edit_count_date_from = date_create('2005-01-01 00:00');
-        $logs_count = $dbc->rowCount();
-        $all_rec = $dbc->dbResultFetchAll();
-
-        for ($i = 0; $i < $logs_count; $i++) {
-            $record = $all_rec[$i];
-            $record['text_listing'] = ucfirst(tr('logType' . $record['type'])); //add new attrib 'text_listing based on translation (instead of query as before)'
-            $show_deleted = "";
-            $processed_text = "";
-            if (isset($record['deleted']) && $record['deleted']) {
-                if ($usr['admin']) {
-                    $show_deleted = "show_deleted";
-                    $processed_text = $record['text'];
-                } else {
-                    // for 'Needs maintenance', 'Ready to search' and 'Temporarly unavailable' log types
-                    if ($record['type'] == 5 || $record['type'] == 10 || $record['type'] == 11) {
-                        // hide if user is not logged in
-                        if (!isset($usr)) {
-                            continue;
-                        }
-                        // hide if user is neither a geocache owner nor log author
-                        if ($owner_id != $usr['userid'] && $record['userid'] != $usr['userid']) {
-                            continue;
-                        }
-                    }
-
-                    $record['icon_small'] = "log/16x16-trash.png"; //replace record icon with trash icon
-                    $comm_replace = tr('vl_Record_of_type') . " [" . $record['text_listing'] . "] " . tr('vl_deleted');
-                    $record['text_listing'] = tr('vl_Record_deleted'); ////replace type of record
-                    if (isset($record['del_by_username']) && $record['del_by_username']) {
-                        if ($record['del_by_admin'] == 1) { //if deleted by Admin
-                            if (($record['del_by_username'] == $record['username']) && ($record['type'] != 12)) { // show username in case maker and deleter are same and comment is not Commnent by COG
-                                $delByCOG = false;
-                            } else {
-                                $comm_replace.=" " . tr('vl_by_COG');
-                                $delByCOG = true;
-                            }
-                        }
-                        if ($delByCOG == false) {
-                            $comm_replace.=" " . tr('vl_by_user') . " " . $record['del_by_username'];
-                        }
-                    }
-                    if (isset($record['last_deleted'])) {
-                        $comm_replace.=" " . tr('vl_on_date') . " " . fixPlMonth(htmlspecialchars(strftime($thisdateformat, strtotime($record['last_deleted'])), ENT_COMPAT, 'UTF-8'));
-                    }
-                    $comm_replace.=".";
-                    $processed_text = $comm_replace;
-                }
-            } else {
-                $processed_text = $record['text'];
-            }
-
-            // add edit footer if record has been modified
-            $record_date_create = date_create($record['date_created']);
-
-            if ($record['edit_count'] > 0) {
-                //check if editted at all
-                $edit_footer = "<div><small>" . tr('vl_Recently_modified_on') . " " . fixPlMonth(htmlspecialchars(strftime($thisdatetimeformat, strtotime($record['last_modified'])), ENT_COMPAT, 'UTF-8'));
-                if (!$usr['admin'] && isset($record['edit_by_admin'])) {
-                    if ($record['edit_by_username'] == $record['username']) {
-                        $byCOG = false;
-                    } else {
-                        $edit_footer.=" " . tr('vl_by_COG');
-                        $byCOG = true;
-                    }
-                }
-                if (isset($byCOG) && $byCOG == false) {
-                    $edit_footer.=" " . tr('vl_by_user') . " " . $record['edit_by_username'];
-                }
-                if ($record_date_create > $edit_count_date_from) { //check if record created after implementation date (to avoid false readings for record changed before) - actually nor in use
-                    $edit_footer.=" - " . tr('vl_totally_modified') . " " . $record['edit_count'] . " ";
-                    if ($record['edit_count'] > 1) {
-                        $edit_footer.=tr('vl_count_plural');
-                    } else {
-                        $edit_footer.=tr('vl_count_singular');
-                    }
-                }
-
-                $edit_footer.=".</small></div>";
-            } else {
-                $edit_footer = "";
-            }
-
-            $tmplog = read_file($stylepath . '/viewcache_log.tpl.php');
-            $tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
-            $tmplog_date = fixPlMonth(htmlspecialchars(strftime("%d %B %Y", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'));
-            $dateTimeTmpArray = explode(' ', $record['date']);
-            $tmplog = mb_ereg_replace('{time}', substr($dateTimeTmpArray[1], 0, -3), $tmplog);
-            // replace smilies in log-text with images and add hyperlinks
-            // display user activity (by Łza 2012)
-            if ((date('m') == 4) and ( date('d') == 1)) {
-                $tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="' . tr('viewlog_aktywnosc') . '"/>' . rand(1, 9) . ') ';
-            } else {
-                $tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="' . tr('viewlog_aktywnosc') . ' [' . $record['znalezione'] . '+' . $record['nieznalezione'] . '+' . $record['ukryte'] . ']"/>' . ($record['ukryte'] + $record['znalezione'] + $record['nieznalezione']) . ') ';
-            }
-
-            // ukrywanie autora komentarza COG przed zwykłym userem
-            if ($record['type'] == 12 && !$usr['admin']) {
-                $record['userid'] = '0';
-                $tmplog_username_aktywnosc = '';
-                $tmplog_username = tr('cog_user_name');
-            }
-
-            $tmplog = mb_ereg_replace('{username_aktywnosc}', $tmplog_username_aktywnosc, $tmplog);
-
-            // mobile caches
-            if (($geocache->getCacheType() == GeoCache::TYPE_MOVING) && ($record['type'] == 4)) {
-                $dane_mobilniaka = sql_fetch_array(sql("SELECT `user_id`, `longitude`, `latitude`, `km` FROM `cache_moved` WHERE `log_id` = '&1'", $record['logid']));
-                if ($dane_mobilniaka['latitude'] != 0) {
-                    $tmplog_kordy_mobilnej = mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_latToDegreeStr($dane_mobilniaka['latitude']), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($dane_mobilniaka['longitude']), ENT_COMPAT, 'UTF-8'));
-                    $tmplog = mb_ereg_replace('{kordy_mobilniaka}', $dane_mobilniaka['km'] . ' km [<img src="tpl/stdstyle/images/blue/szczalka_mobile.png" title="' . tr('viewlog_kordy') . '" />' . $tmplog_kordy_mobilnej . ']', $tmplog);
-                } else {
-                    $tmplog = mb_ereg_replace('{kordy_mobilniaka}', ' ', $tmplog);
-                }
-            } else {
-                $tmplog = mb_ereg_replace('{kordy_mobilniaka}', ' ', $tmplog);
-            }
-            if ($record['text_html'] == 0) {
-                $processed_text = htmlspecialchars($processed_text, ENT_COMPAT, 'UTF-8');
-                $processed_text = help_addHyperlinkToURL($processed_text);
-            } else {
-                $processed_text = userInputFilter::purifyHtmlStringAndDecodeHtmlSpecialChars($processed_text);
-            }
-            $processed_text = str_replace($smileytext, $smileyimage, $processed_text);
-
-            $tmplog_text = $processed_text . $edit_footer;
-            $tmplog_text = str_replace($smileytext, $smileyimage, $tmplog_text);
-            // pictures
-            if (($record['picturescount'] > 0) && (($record['deleted'] == false) || ($usr['admin']))) { // show pictures if (any added) and ((not deleted) or (user is admin))
-                $logpicturelines = '';
-                $thatquery = "SELECT `url`, `title`, `user_id`, `uuid`, `spoiler` FROM `pictures` WHERE `object_id`= :v1 AND `object_type`=1";
-                $params['v1']['value'] = (integer) $record['logid'];
-                $params['v1']['data_type'] = 'integer';
-                $dbc->paramQuery($thatquery, $params);
-                unset($params);  //clear to avoid overlaping on next paramQuery (if any))
-                $rspictures_count = $dbc->rowCount();
-                $rspictures_all = $dbc->dbResultFetchAll();
-
-                for ($j = 0; $j < $rspictures_count; $j++) {
-                    $pic_record = $rspictures_all[$j];
-                    if (!isset($showspoiler))
-                        $showspoiler = '';
-                    $thisline = $logpictureline;
-                    if ($disable_spoiler_view && intval($pic_record['spoiler']) == 1) {  // if hide spoiler (due to user not logged in) option is on prevent viewing pic link and show alert
-                        $thisline = mb_ereg_replace('{log_picture_onclick}', "alert('" . $spoiler_disable_msg . "'); return false;", $thisline);
-                        $thisline = mb_ereg_replace('{link}', 'index.php', $thisline);
-                        $thisline = mb_ereg_replace('{longdesc}', 'index.php', $thisline);
-                    } else {
-                        $thisline = mb_ereg_replace('{log_picture_onclick}', "enlarge(this)", $thisline);
-                        $thisline = mb_ereg_replace('{link}', $pic_record['url'], $thisline);
-                        $thisline = mb_ereg_replace('{longdesc}', str_replace("images/uploads", "upload", $pic_record['url']), $thisline);
-                    }
-
-                    $thisline = mb_ereg_replace('{imgsrc}', 'thumbs2.php?' . $showspoiler . 'uuid=' . urlencode($pic_record['uuid']), $thisline);
-                    $thisline = mb_ereg_replace('{title}', htmlspecialchars($pic_record['title'], ENT_COMPAT, 'UTF-8'), $thisline);
-                    if ($pic_record['user_id'] == $usr['userid'] || (isset($user['admin']) && $user['admin']))
-                        $thisline = mb_ereg_replace('{functions}', mb_ereg_replace('{uuid}', $pic_record['uuid'], $remove_picture), $thisline);
-                    else
-                        $thisline = mb_ereg_replace('{functions}', '', $thisline);
-
-                    $logpicturelines .= $thisline;
-                }
-
-                $logpicturelines = mb_ereg_replace('{lines}', $logpicturelines, $logpictures);
-                $tmplog = mb_ereg_replace('{logpictures}', $logpicturelines, $tmplog);
-            } else {
-                $tmplog = mb_ereg_replace('{logpictures}', '', $tmplog);
-            }
-
-            if (!isset($record['deleted'])) {
-                $record['deleted'] = 0;
-            }
-            if ($record['deleted'] != 1 && ((!isset($_REQUEST['print']) || $_REQUEST['print'] != 'y') && (($usr['userid'] == $record['userid']) || ($usr['userid'] == $geocache->getOwner()->getUserId()) || $usr['admin']))) {
-                $tmpFunctions = $functions_start;
-
-                if ($usr['userid'] == $record['userid'] || $usr['admin']) {
-                    $tmpFunctions .= $edit_log . $functions_middle;
-                }
-                if ($record['type'] != 12 && ($usr['userid'] == $geocache->getOwner()->getUserId() || $usr['admin'] == false)) {
-                    $tmpFunctions .= $remove_log . $functions_middle;
-                }
-                elseif ($usr['admin']) {
-                    $tmpFunctions .= $remove_log . $functions_middle;
-                }
-
-                if ($record['deleted'] != 1 && $usr['userid'] == $record['userid']){
-                    $tmpFunctions = $tmpFunctions . $functions_middle . $upload_picture;
-                }
-                $tmpFunctions .= $functions_end;
-                $tmpFunctions = mb_ereg_replace('{logid}', $record['logid'], $tmpFunctions);
-               
-                $tmplog = mb_ereg_replace('{logfunctions}', $tmpFunctions, $tmplog);
-            } else {
-                if ($usr['admin']) {
-                    $tmpFunctions = $functions_start . $edit_log . $functions_middle . $revertLog . $functions_middle . $functions_end;
-                    $tmpFunctions = mb_ereg_replace('{logid}', $record['logid'], $tmpFunctions);
-                    $tmplog = mb_ereg_replace('{logfunctions}', $tmpFunctions, $tmplog);
-                } else {
-                    $tmplog = mb_ereg_replace('{logfunctions}', '', $tmplog);
-                }
-            }
-            $tmplog = mb_ereg_replace('{show_deleted}', $show_deleted, $tmplog);
-            $tmplog = mb_ereg_replace('{username}', $tmplog_username, $tmplog);
-            $tmplog = mb_ereg_replace('{userid}', $record['userid'], $tmplog);
-            $tmplog = mb_ereg_replace('{date}', $tmplog_date, $tmplog);
-            $tmplog = mb_ereg_replace('{type}', $record['text_listing'], $tmplog);
-            $tmplog = mb_ereg_replace('{logtext}', $tmplog_text, $tmplog);
-            $tmplog = mb_ereg_replace('{logimage}', '<a href="viewlogs.php?logid=' . $record['logid'] . '">' . icon_log_type($record['icon_small'], $record['logid']) . '</a>', $tmplog);
-            $tmplog = mb_ereg_replace('{log_id}', $record['logid'], $tmplog);
-
-            if ($record['recommended'] == 1 && $record['type'] == 1){
-                $tmplog = mb_ereg_replace('{ratingimage}', $rating_picture, $tmplog);
-            } else {
-                $tmplog = mb_ereg_replace('{ratingimage}', '', $tmplog);
-            }
-            $logs .= "$tmplog\n";
+        if($usr['admin'] == 1){
+            $includeDeletedLogs = true;
         }
+        tpl_set_var('includeDeletedLogs', $includeDeletedLogs ? 1 : 0);
 
-        //replace { and } to prevent replacing
-        $logs = mb_ereg_replace('{', '&#0123;', $logs);
-        $logs = mb_ereg_replace('}', '&#0125;', $logs);
-
-        tpl_set_var('logs', $logs, true);
 
         if (isset($_REQUEST['logbook']) && $_REQUEST['logbook'] == 'no') {
             tpl_set_var('hidelogbook_start', '<!--');

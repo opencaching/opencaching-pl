@@ -9,7 +9,7 @@ if ($error == false) {
     //set here the template to process
     $tplname = 'viewlogs';
 
-    require_once('./lib/caches.inc.php');
+//    require_once('./lib/caches.inc.php');
     require($stylepath . '/lib/icons.inc.php');
     require($stylepath . '/viewcache.inc.php');
     require($stylepath . '/viewlogs.inc.php');
@@ -44,11 +44,10 @@ if ($error == false) {
         $disable_spoiler_view = true; //hide any kind of spoiler if usr not logged in
     } else {
         $disable_spoiler_view = false;
-    };
+    }
     $dbc = new dataBase();
     if ($cache_id != 0) {
         //get cache record
-        //$rs = sql("SELECT `user_id`, `name`, `founds`, `notfounds`, `notes`, `status`, `type` FROM `caches` WHERE `caches`.`cache_id`='&1'", $cache_id);
         $thatquery = "SELECT `user_id`, `name`, `founds`, `notfounds`, `notes`, `status`, `type` FROM `caches` WHERE `caches`.`cache_id`=:1";
         $dbc->multiVariableQuery($thatquery, $cache_id);
 
@@ -56,18 +55,15 @@ if ($error == false) {
         if ($dbc->rowCount() == 0) {
             $cache_id = 0;
         } else {
-            //$cache_record = sql_fetch_array($rs);
             $cache_record = $dbc->dbResultFetch();
             // check if the cache is published, if not only the owner is allowed to view the log
             if (($cache_record['status'] == 4 || $cache_record['status'] == 5 || $cache_record['status'] == 6 ) && ($cache_record['user_id'] != $usr['userid'] && !$usr['admin'])) {
                 $cache_id = 0;
             }
         }
-        //mysql_free_result($rs);
     } else {
 
         //get cache record
-        //$rs = sql("SELECT `cache_logs`.`cache_id`,`caches`.`user_id`, `caches`.`name`, `caches`.`founds`, `caches`.`notfounds`, `caches`.`notes`, `caches`.`status`, `caches`.`type` FROM `caches`,`cache_logs` WHERE `cache_logs`.`id`='&1' AND `caches`.`cache_id`=`cache_logs`.`cache_id` ", $logid);
         $thatquery = "SELECT `cache_logs`.`cache_id`,`caches`.`user_id`, `caches`.`name`, `caches`.`founds`, `caches`.`notfounds`, `caches`.`notes`, `caches`.`status`, `caches`.`type` FROM `caches`,`cache_logs` WHERE `cache_logs`.`id`=:1 AND `caches`.`cache_id`=`cache_logs`.`cache_id` ";
         $dbc->multiVariableQuery($thatquery, $logid);
 
@@ -75,7 +71,6 @@ if ($error == false) {
         if ($dbc->rowCount() == 0) {
             $cache_id = 0;
         } else {
-            //$cache_record = sql_fetch_array($rs);
             $cache_record = $dbc->dbResultFetch();
             // check if the cache is published, if not only the owner is allowed to view the log
             if (($cache_record['status'] == 4 || $cache_record['status'] == 5 || $cache_record['status'] == 6 ) && ($cache_record['user_id'] != $usr['userid'] && !$usr['admin'])) {
@@ -84,7 +79,6 @@ if ($error == false) {
                 $cache_id = $cache_record['cache_id'];
             }
         }
-        //mysql_free_result($rs);
     }
 
 
@@ -137,13 +131,12 @@ if ($error == false) {
         tpl_set_var('total_number_of_logs', htmlspecialchars($cache_record['notes'] + $cache_record['notfounds'] + $cache_record['founds'], ENT_COMPAT, 'UTF-8'));
 
         //check number of pictures in logs
-        $rspiclogs = sqlValue("SELECT COUNT(*) FROM `pictures`,`cache_logs` WHERE `pictures`.`object_id`=`cache_logs`.`id` AND `pictures`.`object_type`=1 AND `cache_logs`.`cache_id`= " . addslashes($cache_id), 0);
+        $rspiclogs = $dbc->multiVariableQueryValue("SELECT COUNT(*) FROM `pictures`,`cache_logs` WHERE `pictures`.`object_id`=`cache_logs`.`id` AND `pictures`.`object_type`=1 AND `cache_logs`.`cache_id`= :1", 0, $cache_id);
 
         if ($rspiclogs != 0) {
-            tpl_set_var('gallery', '<span style="white-space: nowrap;">' . $gallery_icon . '&nbsp;' . $rspiclogs . 'x&nbsp;' . mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $gallery_link) . '</span>');  //todo - move galery link to viewcache.inc.php
+            tpl_set_var('gallery', $gallery_icon . '&nbsp;' . $rspiclogs . 'x&nbsp;' . mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $gallery_link));
         } else {
             tpl_set_var('gallery', '');
-            ;
         }
 
         if (($usr['admin'] == 1) || ($show_one_log != '')) {
@@ -166,74 +159,18 @@ if ($error == false) {
         tpl_set_var('showhidedel_link', mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $showhidedel_link));
 
         isset($_SESSION['showdel']) && $_SESSION['showdel'] == 'y' ? $HideDeleted = false : $HideDeleted = true;
-        $show_deleted_logs = "`cache_logs`.`deleted` `deleted`,";
-        $show_deleted_logs2 = "";
+        $includeDeletedLogs = true;
         If (($HideDeleted && $show_one_log == '' && !$usr['admin'])) { //hide deletions if (hide_deletions opotions is on and this is single_log call=not and user is not COG)
-            $show_deleted_logs = "";
-            $show_deleted_logs2 = " AND `cache_logs`.`deleted` = 0 ";
-        };
-
-        $thatquery = "SELECT `cache_logs`.`user_id` `userid`,
-                    " . $show_deleted_logs . "
-                    `cache_logs`.`id` AS `log_id`,
-                    `cache_logs`.`encrypt` `encrypt`,
-                    `cache_logs`.`picturescount` AS `picturescount`,
-                    `cache_logs`.`user_id` AS `user_id`,
-                    `cache_logs`.`date` AS `date`,
-                    `cache_logs`.`type` AS `type`,
-                    `cache_logs`.`text` AS `text`,
-                    `cache_logs`.`text_html` AS `text_html`,
-                    `cache_logs`.`last_modified` AS `last_modified`,
-                    `cache_logs`.`last_deleted` AS `last_deleted`,
-                    `cache_logs`.`edit_count` AS `edit_count`,
-                    `cache_logs`.`date_created` AS `date_created`,
-                    `user`.`username` AS `username`,
-                    `user`.`hidden_count` AS    `ukryte`,
-                    `user`.`founds_count` AS    `znalezione`,
-                    `user`.`notfounds_count` AS `nieznalezione`,
-                    `user`.`admin` AS `admin`,
-                    `u2`.`username` AS `del_by_username`,
-                    `u2`.`admin` AS `del_by_admin`,
-                    `u3`.`username` AS `edit_by_username`,
-                    `u3`.`admin` AS `edit_by_admin`,
-                    `log_types`.`icon_small` AS `icon_small`,
-                    `cache_moved`.`longitude` AS `mobile_longitude`,
-                    `cache_moved`.`latitude` AS `mobile_latitude`,
-                    `cache_moved`.`km` AS `km`,
-
-                IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
-                FROM `cache_logs`
-                INNER JOIN `log_types` ON `log_types`.`id`=`cache_logs`.`type`
-
-                INNER JOIN `user` ON `user`.`user_id` = `cache_logs`.`user_id`
-                LEFT JOIN `cache_moved` ON `cache_moved`.`log_id` = `cache_logs`.`id`
-                LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
-                LEFT JOIN `user` `u2` ON `cache_logs`.`del_by_user_id`=`u2`.`user_id`
-                LEFT JOIN `user` `u3` ON `cache_logs`.`edit_by_user_id`=`u3`.`user_id`
-                WHERE `cache_logs`.`cache_id`=:v1
-                " . $show_deleted_logs2 . "
-                " . $show_one_log . "
-                ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`Id` DESC LIMIT :v2, :v3";
-        $params['v1']['value'] = (integer) $cache_id;
-        $params['v1']['data_type'] = 'integer';
-        $params['v2']['value'] = (integer) $start;
-        $params['v2']['data_type'] = 'integer';
-        $params['v3']['value'] = (integer) $count;
-        $params['v3']['data_type'] = 'integer';
-        $dbc->paramQuery($thatquery, $params);
+            $includeDeletedLogs = false;
+        }
+        
         $logs = '';
-
         $thisdateformat = $dateformat;
         $thisdatetimeformat = $datetimeformat;
         $edit_count_date_from = date_create('2005-01-01 00:00');
-        $logs_count = $dbc->rowCount();
-
-        $all_rec = $dbc->dbResultFetchAll();
-
-        for ($i = 0; $i < $logs_count; $i++) {
-            //$record = sql_fetch_array($rs);
-            //$record = $dbc->dbResultFetch();
-            $record = $all_rec[$i];
+        $logEnteryController = new \lib\Controllers\LogEnteryController();
+        $logEneries = $logEnteryController->loadLogsFromDb($cache_id, $includeDeletedLogs, 0, 9999);
+        foreach ($logEneries as $record) {
             $record['text_listing'] = ucfirst(tr('logType' . $record['type'])); //add new attrib 'text_listing based on translation (instead of query as before)'
 
             $show_deleted = "";
@@ -375,8 +312,8 @@ if ($error == false) {
             $tmplog = mb_ereg_replace('{date}', $tmplog_date, $tmplog);
             $tmplog = mb_ereg_replace('{type}', $record['text_listing'], $tmplog);
             $tmplog = mb_ereg_replace('{logtext}', $tmplog_text, $tmplog);
-            $tmplog = mb_ereg_replace('{logimage}', '<a href="viewlogs.php?logid=' . $record['log_id'] . '">' . icon_log_type($record['icon_small'], $record['log_id']) . '</a>', $tmplog);
-            $tmplog = mb_ereg_replace('{log_id}', $record['log_id'], $tmplog);
+            $tmplog = mb_ereg_replace('{logimage}', '<a href="viewlogs.php?logid=' . $record['logid'] . '">' . icon_log_type($record['icon_small'], $record['logid']) . '</a>', $tmplog);
+            $tmplog = mb_ereg_replace('{log_id}', $record['logid'], $tmplog);
 
             //$rating_picture
             if ($record['recommended'] == 1 && $record['type'] == 1)
@@ -386,12 +323,13 @@ if ($error == false) {
 
             //user der owner
             $logfunctions = '';
-            $tmpedit = mb_ereg_replace('{logid}', $record['log_id'], $edit_log);
-            $tmpremove = mb_ereg_replace('{logid}', $record['log_id'], $remove_log);
-            $tmpRevert = mb_ereg_replace('{logid}', $record['log_id'], $revertLog);
-            $tmpnewpic = mb_ereg_replace('{logid}', $record['log_id'], $upload_picture);
-            if (!isset($record['deleted']))
+            $tmpedit = mb_ereg_replace('{logid}', $record['logid'], $edit_log);
+            $tmpremove = mb_ereg_replace('{logid}', $record['logid'], $remove_log);
+            $tmpRevert = mb_ereg_replace('{logid}', $record['logid'], $revertLog);
+            $tmpnewpic = mb_ereg_replace('{logid}', $record['logid'], $upload_picture);
+            if (!isset($record['deleted'])){
                 $record['deleted'] = false;
+            }
             if ($record['deleted'] != 1) {
                 if ($record['user_id'] == $usr['userid']) {
                     $logfunctions = $functions_start . $tmpedit . $functions_middle;
@@ -429,7 +367,7 @@ if ($error == false) {
                     $dbc = new dataBase();
                 };
                 $thatquery = "SELECT `url`, `title`, `uuid`, `user_id`, `spoiler` FROM `pictures` WHERE `object_id`=:1 AND `object_type`=1";
-                $dbc->multiVariableQuery($thatquery, $record['log_id']);
+                $dbc->multiVariableQuery($thatquery, $record['logid']);
                 $pic_count = $dbc->rowCount();
                 for ($j = 0; $j < $pic_count; $j++) {
                     $pic_record = $dbc->dbResultFetch();
@@ -468,7 +406,6 @@ if ($error == false) {
         tpl_set_var('logs', $logs);
     }
     else {
-        //display search page
         exit;
     }
 }

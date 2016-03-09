@@ -1,3 +1,4 @@
+
 <script language="javascript" type="text/javascript">
     function hidediv() {
         if (document.getElementById) { // DOM3 = IE5, NS6
@@ -180,7 +181,7 @@ global $usr, $lang, $hide_coords;
     </p>
 </div>
 <div class="content2-container" id="viewcache-logs">
-    {logs}
+    
 </div>
 {hidelogbook_end}
 <!-- End Text Container -->
