@@ -83,7 +83,7 @@ class GeoCacheLog
 	public function getUser()
 	{
 		if(!($this->user instanceof User)){
-			$this->user = new User(['userId' => $this->user]);
+			$this->user = new User(array('userId' => $this->user));
 		}
 		return $this->user;
 	}
