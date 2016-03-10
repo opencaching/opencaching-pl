@@ -53,30 +53,6 @@ if ($error == false) {
             return $zoom;
         }
 
-        function cacheToLocation($cache_id)
-        {
-            global $lang;
-            $res = sql("SELECT cache_loc.country, adm1, adm2 FROM cache_loc INNER JOIN caches ON (cache_loc.cache_id = caches.cache_id)
-                        WHERE cache_loc.cache_id = &1
-                            AND caches.latitude = cache_loc.latitude
-                            AND caches.longitude = cache_loc.longitude
-                            AND lang = '&2'", $cache_id, $lang);
-
-            $rec = sql_fetch_array($res);
-            if (!$rec) {
-                $res = sql("SELECT latitude, longitude FROM caches WHERE caches.cache_id = &1", $cache_id);
-                $rec = sql_fetch_array($res);
-                if (!$rec)
-                    return;
-                $loc = coordToLocationOk($rec['latitude'], $rec['longitude']);
-                sql("INSERT INTO cache_loc VALUES(&1, &2, &3, '&4', '&5', '&6', '&7') ON DUPLICATE KEY UPDATE latitude = &2, longitude = &3", $cache_id, $rec['latitude'], $rec['longitude'], $lang, $loc[0], $loc[1], $loc[2]);
-                return $loc;
-            }
-            else {
-                return array($rec['country'], $rec['adm1'], $rec['adm2']);
-            }
-        }
-
         function get_marker_positions($latitude, $longitude, $radius, $user_id)
         {
             global $dbcLocCache;

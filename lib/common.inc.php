@@ -1280,15 +1280,6 @@ function coordToLocationOk($lat, $lon)
     return array($country, $adm1, $adm2);
 }
 
-function cacheToLocationold($cache_id)
-{
-    $res = sql("SELECT country, adm1, adm2 FROM cache_loc INNER
-            JOIN caches ON (cache_loc.cache_id = caches.cache_id)
-            WHERE cache_loc.cache_id = ?
-            AND caches.latitude = cache_loc.latitude AND caches.longitude = cache_loc.longitude
-            AND lang = ?", $cache_id, $lang);
-}
-
 function typeToLetter($type)
 {
     switch ($type) {

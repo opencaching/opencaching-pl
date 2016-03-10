@@ -32,113 +32,6 @@
                 "__action": "skip-data"
             }
         },     
-        "ajax_chat_bans": {
-            "__table_comment": "chat should be removed soon",
-            "userID": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "userName": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "dateTime": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "ip": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
-        "ajax_chat_invitations": {
-            "__table_comment": "chat should be removed soon",
-            "userID": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "channel": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "dateTime": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
-        "ajax_chat_messages": {
-            "__table_comment": "chat should be removed soon",
-            "id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "userID": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "userName": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "userRole": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "channel": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "dateTime": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "ip": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "text": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
-        "ajax_chat_online": {
-            "__table_comment": "chat should be removed soon",
-            "userID": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "userName": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "userRole": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "channel": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "dateTime": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "ip": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
-        "ajax_chat_users": {
-            "__table_comment": "chat should be removed soon",
-            "userID": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "level": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
         "approval_status": {
             "__table_comment": "not need at dev env.",
             "cache_id": {
@@ -383,161 +276,6 @@
                 "__action": "get-data"
             }
         },
-        "caches_memory": {
-            "__table_comment": "this tabel is not used",
-            "cache_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "user_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "name": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "longitude": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "latitude": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "last_modified": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "date_created": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "type": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "status": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "country": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "date_hidden": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "founds": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "notfounds": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "notes": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "images": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "last_found": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "desc_languages": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "size": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "difficulty": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "terrain": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "uuid": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "watcher": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "logpw": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "picturescount": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "mp3count": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "search_time": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "way_length": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "wp_gc": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "wp_nc": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "wp_oc": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "default_desclang": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "date_activate": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "topratings": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "ignorer_count": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "node": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "votes": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "score": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "need_npa_recalc": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
         "CACHE_ACCESS_LOGS": {
             "__table_comment": "not needed in dev env.",
             "id": {
@@ -751,37 +489,6 @@
                 "__action": "skip-data"
             }
         },
-        "cache_loc": {
-            "__table_comment": "not used...",
-            "cache_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "latitude": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "longitude": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "lang": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "country": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "adm1": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "adm2": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
         "cache_location": {
             "__table_comment": "",
             "cache_id": {
@@ -915,17 +622,6 @@
             "last_deleted": {
                 "__comment": "",
                 "__action": "get-data"
-            }
-        },
-        "cache_maps": {
-            "__table_comment": "not-used",
-            "cache_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "last_refresh": {
-                "__comment": "",
-                "__action": "skip-data"
             }
         },
         "cache_mod_cords": {
@@ -2151,44 +1847,6 @@
                 "__action": "get-data"
             }
         },
-        "logins": {
-            "__table_comment": "never used!",
-            "id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "user_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "remote_addr": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "success": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "timestamp": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
-        "log_rating": {
-            "__table_comment": "never used!",
-            "log_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "user_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "date": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
         "log_types": {
             "__table_comment": "",
             "id": {
@@ -2613,21 +2271,6 @@
                 "__action": "get-data"
             }
         },
-        "nodes": {
-            "__table_comment": "",
-            "id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "name": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "url": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
         "notify_waiting": {
             "__table_comment": "",
             "id": {
@@ -2702,17 +2345,6 @@
             "shape": {
                 "__comment": "",
                 "__action": "get-data"
-            }
-        },
-        "object_types": {
-            "__table_comment": "not used!",
-            "id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "name": {
-                "__comment": "",
-                "__action": "skip-data"
             }
         },
         "okapi_authorizations": {
@@ -3541,139 +3173,6 @@
                 "__action": "skip-data"
             }
         },
-        "rr_ocpl_candidates_2009": {
-            "__table_comment": "",
-            "candidate_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "user_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "username": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "city": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
-        "rr_ocpl_candidates_2010": {
-            "__table_comment": "",
-            "candidate_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "user_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "username": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "city": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
-        "rr_ocpl_candidates_2011": {
-            "__table_comment": "",
-            "candidate_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "user_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "username": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "city": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
-        "rr_ocpl_candidates_2012": {
-            "__table_comment": "",
-            "candidate_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "user_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "username": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "city": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
-        "rr_ocpl_candidates_2013": {
-            "__table_comment": "",
-            "candidate_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "user_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "username": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "city": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
-        "rr_ocpl_candidates_2014": {
-            "__table_comment": "",
-            "candidate_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "user_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "username": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "city": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
-        "rr_ocpl_candidates_2015": {
-            "__table_comment": "",
-            "candidate_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "user_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "username": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "city": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
         "rr_ocpl_candidates_2016": {
             "__table_comment": "",
             "candidate_id": {
@@ -3689,111 +3188,6 @@
                 "__action": "skip-data"
             },
             "city": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
-        "rr_ocpl_vote_2009": {
-            "__table_comment": "",
-            "vote_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "user_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "candidate_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
-        "rr_ocpl_vote_2010": {
-            "__table_comment": "",
-            "vote_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "user_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "candidate_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
-        "rr_ocpl_vote_2011": {
-            "__table_comment": "",
-            "vote_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "user_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "candidate_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
-        "rr_ocpl_vote_2012": {
-            "__table_comment": "",
-            "vote_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "user_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "candidate_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
-        "rr_ocpl_vote_2013": {
-            "__table_comment": "",
-            "vote_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "user_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "candidate_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
-        "rr_ocpl_vote_2014": {
-            "__table_comment": "",
-            "vote_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "user_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "candidate_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
-        "rr_ocpl_vote_2015": {
-            "__table_comment": "",
-            "vote_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "user_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "candidate_id": {
                 "__comment": "",
                 "__action": "skip-data"
             }
@@ -3835,21 +3229,6 @@
             "score": {
                 "__comment": "",
                 "__action": "get-data"
-            }
-        },
-        "search_doubles": {
-            "__table_comment": "not used",
-            "hash": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "word": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "simple": {
-                "__comment": "",
-                "__action": "skip-data"
             }
         },
         "search_ignore": {
@@ -3946,17 +3325,6 @@
                 "__action": "get-data"
             }
         },
-        "sys_cron": {
-            "__table_comment": "",
-            "name": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "last_run": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
         "sys_logins": {
             "__table_comment": "",
             "id": {
@@ -3972,45 +3340,6 @@
                 "__action": "skip-data"
             },
             "timestamp": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
-        "sys_menu": {
-            "__table_comment": "",
-            "id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "id_string": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "title": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "menustring": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "access": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "href": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "visible": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "parent": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "position": {
                 "__comment": "",
                 "__action": "skip-data"
             }
