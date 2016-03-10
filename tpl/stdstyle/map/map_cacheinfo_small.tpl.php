@@ -71,15 +71,22 @@
     <div id='div_cacheCounters'>
 
         <p>
-            <img src='/tpl/stdstyle/images/log/16x16-found.png' width='10' height='10' />
-            x {cache_founds}
+            <?php //for events founds = attended
+            if(! {is_event} ) { ?>
+                <img src='/tpl/stdstyle/images/log/16x16-found.png' width='10' height='10' />
+                x {cache_founds}
+            <?php } else { ?>
+                <img src='/tpl/stdstyle/images/log/16x16-attend.png' width='10' height='10' />
+                x {cache_founds}
+            <?php } ?>
         </p>
         <p>
-            <img src='/tpl/stdstyle/images/log/16x16-dnf.png' width='10' height='10' />
             <?php //for events founds = attended
                 if(! {is_event} ) { ?>
+                <img src='/tpl/stdstyle/images/log/16x16-dnf.png' width='10' height='10' />
                     x {cache_not_founds}
             <?php } else { ?>
+                <img src='/tpl/stdstyle/images/log/16x16-will_attend.png' width='10' height='10' />
                     x {cache_willattends}
             <?php } ?>
         </p>
