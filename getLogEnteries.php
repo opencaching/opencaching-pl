@@ -119,7 +119,7 @@ foreach ($logEneries as $record) {
         if (!isset($byCOG) || $byCOG == false) {
             $edit_footer.=" " . tr('vl_by_user') . " " . $record['edit_by_username'];
         }
-        if ($record_date_create > $edit_count_date_from) { //check if record created after implementation date (to avoid false readings for record changed before) - actually nor in use
+        if ($record_date_create > date_create('2005-01-01 00:00')) { //check if record created after implementation date (to avoid false readings for record changed before) - actually nor in use
             $edit_footer.=" - " . tr('vl_totally_modified') . " " . $record['edit_count'] . " ";
             if ($record['edit_count'] > 1) {
                 $edit_footer.=tr('vl_count_plural');
