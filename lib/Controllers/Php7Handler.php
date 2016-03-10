@@ -55,6 +55,19 @@ class Php7Handler
             return apc_fetch($cacheKey);
         }
     }
+    /**
+     * boolval is present in php > 5.5
+     * @param unknown $val
+     */
+    public static function Boolval($val)
+    {
+        if(self::isPhp7()){
+            return boolval($val);
+        } else {
+            return (bool) $val;;
+        }
+    }
+
 
     private static function isPhp7()
     {
