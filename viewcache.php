@@ -1089,6 +1089,14 @@ if ($error == false) {
                         <th align="center" valign="middle"><b>' . tr('describe_wp') . '</b></th></tr>';
             }
 
+            /* quickFix start */
+            if (checkField('waypoint_type', $lang)){
+                $lang_db = $lang;
+            } else{
+                $lang_db = "en";
+            }
+            /* quickFix end */
+
             $wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, `waypoint_type`.`&1` wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&2' ORDER BY `stage`,`wp_id`", $lang_db, $cache_id);
             for ($i = 0; $i < mysql_num_rows($wp_rs); $i++) {
                 $wp_record = sql_fetch_array($wp_rs);
