@@ -163,11 +163,9 @@ if ($error == false) {
         If (($HideDeleted && $show_one_log == '' && !$usr['admin'])) { //hide deletions if (hide_deletions opotions is on and this is single_log call=not and user is not COG)
             $includeDeletedLogs = false;
         }
-        
+
         $logs = '';
         $thisdateformat = $dateformat;
-        $thisdatetimeformat = $datetimeformat;
-        $edit_count_date_from = date_create('2005-01-01 00:00');
         $logEnteryController = new \lib\Controllers\LogEnteryController();
         $logEneries = $logEnteryController->loadLogsFromDb($cache_id, $includeDeletedLogs, 0, 9999);
         foreach ($logEneries as $record) {
@@ -213,7 +211,7 @@ if ($error == false) {
                                 $delByCOG = true;
                             }
                         }
-                        if ($delByCOG == false) {
+                        if (!isset($delByCOG) || $delByCOG == false) {
                             $comm_replace.=" " . tr('vl_by_user') . " " . $record['del_by_username'];
                         }
                     };
@@ -234,7 +232,7 @@ if ($error == false) {
 
             if ($record['edit_count'] > 0) {
                 //check if editted at all
-                $edit_footer = "<div><small>" . tr('vl_Recently_modified_on') . " " . fixPlMonth(htmlspecialchars(strftime($thisdatetimeformat, strtotime($record['last_modified'])), ENT_COMPAT, 'UTF-8'));
+                $edit_footer = "<div><small>" . tr('vl_Recently_modified_on') . " " . fixPlMonth(htmlspecialchars(strftime($datetimeformat, strtotime($record['last_modified'])), ENT_COMPAT, 'UTF-8'));
                 if (!$usr['admin'] && isset($record['edit_by_admin'])) {
                     if ($record['edit_by_username'] == $record['username']) {
                         $byCOG = false;
@@ -243,10 +241,10 @@ if ($error == false) {
                         $byCOG = true;
                     }
                 }
-                if ($byCOG == false) {
+                if ( !isset($byCOG) || $byCOG == false) {
                     $edit_footer.=" " . tr('vl_by_user') . " " . $record['edit_by_username'];
                 }
-                if ($record_date_create > $edit_count_date_from) { //check if record created after implementation date (to avoid false readings for record changed before) - actually nor in use
+                if ($record_date_create > date_create('2005-01-01 00:00')) { //check if record created after implementation date (to avoid false readings for record changed before) - actually nor in use
                     $edit_footer.=" - " . tr('vl_totally_modified') . " " . $record['edit_count'] . " ";
                     if ($record['edit_count'] > 1) {
                         $edit_footer.=tr('vl_count_plural');

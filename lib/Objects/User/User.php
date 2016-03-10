@@ -38,6 +38,8 @@ class User extends \lib\Objects\BaseObject
 
     private $ingnoreGeocacheLimitWhileCreatingNewGeocache = false;
 
+    private $log_notes_count;
+
     /**
      * construct class using $userId (fields will be loaded from db)
      * OR, if you have already user data row fetched from db row ($userDbRow), object is created using this data
@@ -171,6 +173,9 @@ class User extends \lib\Objects\BaseObject
 				case 'guru':
 					$this->isGuide = Php7Handler::Boolval($value);
 					break;
+				case 'log_notes_count':
+				    $this->log_notes_count = $value;
+				    break;
                 default:
                     error_log(__METHOD__ . ": Unknown column: $key");
             }
