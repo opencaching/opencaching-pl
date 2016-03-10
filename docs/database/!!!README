@@ -62,16 +62,6 @@ PowerTrail_owners
 	FIXME
 admin_user_notes
 	FIXME
-ajax_chat_bans
-	FIXME: is teh chat still valid?
-ajax_chat_invitations
-	FIXME: is teh chat still valid?
-ajax_chat_messages
-	FIXME: is teh chat still valid?
-ajax_chat_online
-	FIXME: is teh chat still valid?
-ajax_chat_users
-	FIXME: is teh chat still valid?
 approval_status
 	FIXME
 bulletins
@@ -88,13 +78,9 @@ cache_desc
 	FIXME
 cache_ignore
 	FIXME
-cache_loc
-	FIXME
 cache_location
 	FIXME
 cache_logs
-	FIXME
-cache_maps
 	FIXME
 cache_mod_cords
 	FIXME
@@ -123,8 +109,6 @@ caches
 caches_additions
 	FIXME
 caches_attributes
-	FIXME
-caches_memory
 	FIXME
 chowner
 	FIXME
@@ -182,8 +166,6 @@ import_caches_date
 languages
 	Contains language name as translated strings and definition flags
 	FIXME: is this still valid?
-log_rating
-	FIXME
 log_types
 	FIXME
 log_types_text
@@ -191,8 +173,6 @@ log_types_text
 logentries
 	FIXME
 logentries_types
-	FIXME
-logins
 	FIXME
 map_settings
 	FIXME
@@ -206,8 +186,6 @@ news
 	FIXME
 news_topics
 	FIXME
-nodes
-	FIXME
 notify_waiting
 	FIXME
 npa_areas
@@ -219,8 +197,6 @@ nuts_codes
 nuts_layer
 	Nomenclature of Territorial Units for Statistics (NUTS)
 	Geographical data for administrative units defined by NUTS
-object_types
-	FIXME
 okapi_authorizations
 	FIXME: part of OKAPI
 okapi_cache
@@ -272,29 +248,7 @@ route_points
 	FIXME
 routes
 	FIXME
-rr_ocpl_candidates_2009
-	OCPL community only (related to elections to OCPL RR Team)
-rr_ocpl_candidates_2010
-	OCPL community only (related to elections to OCPL RR Team)
-rr_ocpl_candidates_2011
-	OCPL community only (related to elections to OCPL RR Team)
-rr_ocpl_candidates_2012
-	OCPL community only (related to elections to OCPL RR Team)
-rr_ocpl_candidates_2013
-	OCPL community only (related to elections to OCPL RR Team)
-rr_ocpl_vote_2009
-	OCPL community only (related to elections to OCPL RR Team)
-rr_ocpl_vote_2010
-	OCPL community only (related to elections to OCPL RR Team)
-rr_ocpl_vote_2011
-	OCPL community only (related to elections to OCPL RR Team)
-rr_ocpl_vote_2012
-	OCPL community only (related to elections to OCPL RR Team)
-rr_ocpl_vote_2013
-	OCPL community only (related to elections to OCPL RR Team)
 scores
-	FIXME
-search_doubles
 	FIXME
 search_ignore
 	FIXME
@@ -306,15 +260,9 @@ search_words
 	FIXME
 statpics
 	FIXME
-sys_cron
-	FIXME
 sys_logins
 	FIXME
-sys_menu
-	FIXME
 sys_sessions
-	FIXME
-sys_temptables
 	FIXME
 sysconfig
 	system status information (maybe improperly named)
