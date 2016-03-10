@@ -407,7 +407,7 @@ if ($error == false) {
                 $score_not_ok = false;
             }
             if (isset($_POST['submitform']) && ($all_ok == true)) {
-                if ($_POST['r'] >= -3 && $_POST['r'] <= 3 && $mark_as_rated == true) { //mark_as_rated to avoid possbility to set rate to 0,1,2 then change to Comment log type and actually give score (what could take place before!)!
+                if (isset($_POST['r']) && $_POST['r'] >= -3 && $_POST['r'] <= 3 && $mark_as_rated == true) { //mark_as_rated to avoid possbility to set rate to 0,1,2 then change to Comment log type and actually give score (what could take place before!)!
                     // oceniono skrzynkę
                     $sql = "SELECT count(*) FROM scores WHERE user_id='" . sql_escape($usr['userid']) . "' AND cache_id='" . sql_escape(floatval($cache_id)) . "'";
                     $is_scored_query = mysql_query($sql);
@@ -441,7 +441,7 @@ if ($error == false) {
                 elseif (!($log_type == 3 && $log_text == "")) {
                     if ($log_type == 1) {
                         /* GeoKretyApi: call method logging selected Geokrets  (by Łza) */
-                        if ($debug) {
+                        if (isset($debug) && $debug) {
                             dataBase::debugOC('#' . __line__ . ' ', $_POST);
                         }
                         $MaxNr = isset($_POST['MaxNr']) ? (int) $_POST['MaxNr'] : 0;
@@ -466,7 +466,7 @@ if ($error == false) {
                                         'app' => 'Opencaching',
                                         'app_ver' => 'PL'
                                     );
-                                    if ($debug) {
+                                    if (isset($debug) && $debug) {
                                         dataBase::debugOC('#' . __line__ . ' ', $GeokretyLogArray);
                                     }
                                     $GeoKretyLogResult[$b] = $LogGeokrety->LogGeokrety($GeokretyLogArray);
@@ -477,7 +477,7 @@ if ($error == false) {
                         }
                         unset($b);
 
-                        if ($debug) {
+                        if (isset($debug) && $debug) {
                             dataBase::debugOC('#' . __line__ . ' ', $GeoKretyLogResult);
                         }
 

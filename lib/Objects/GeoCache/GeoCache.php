@@ -82,6 +82,18 @@ class GeoCache
     private $descLanguagesList;
     private $mp3count;
     private $picturesCount;
+    
+    /**
+     * count of moves for mobile geocaches
+     * @var integer 
+     */
+    private $moveCount = -1;
+
+    /**
+     * mobile cache distance
+     * @var integer
+     */
+    private $distance = -1;
 
     /* @var $owner \lib\Objects\User\User */
     private $founder;
@@ -140,7 +152,8 @@ class GeoCache
             $cacheDbRow = $db->dbResultFetch();
             if(is_array($cacheDbRow)) {
                 $this->loadFromRow($cacheDbRow);
-            } else{
+            } else {
+                ddd('geocache not found in db? TODO: cache-not-found handling');
                 //TODO: cache-not-found handling?
             }
             $this->loadCacheLocation($db);
@@ -747,7 +760,7 @@ class GeoCache
     public function isTitled()
     {
         if (is_null($this->isTitled)) {
-            $this->isTitled = CacheTitled::isTitled($this->id);
+            $this->isTitled = CacheTitled::isTitled($this->id) > 0 ? true : false;
         }
         return $this->isTitled;
     }
@@ -870,7 +883,32 @@ class GeoCache
         return $this->picturesCount;
     }
 
+    public function getMoveCount()
+    {
+        if($this->cacheType === self::TYPE_MOVING && $this->moveCount === -1){
+            $db  = DataBaseSingleton::Instance();
+            $sql = 'SELECT COUNT(*) FROM `cache_logs` WHERE type=4 AND cache_logs.deleted="0" AND cache_id=:1';
+            $this->moveCount = $db->multiVariableQueryValue($sql, 0, $this->id);
+        }
+        return $this->moveCount;
+    }
 
+    /**
+     * get mobile cache distnace.
+     * (calculate mobile cache distance if were not counted before)
+     * @return float
+     */
+    public function getDistance()
+    {
+        if($this->distance === -1){
+            $db  = DataBaseSingleton::Instance();
+            $sql = 'SELECT sum(km) AS dystans FROM cache_moved WHERE cache_id=:1';
+            $db->multiVariableQuery($sql, $this->id);
+            $dst = $db->dbResultFetchOneRowOnly();
+            $this->distance = round($dst['dystans'], 2);
+        }
+        return $this->distance;
+    }
 
 }
 

@@ -127,30 +127,25 @@ function viewcache_getmp3table($cacheid, $mp3count)
 // gibt eine tabelle für viewcache mit thumbnails von allen bildern zurück
 function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = true, $spoiler_only = false, $showspoiler = false, $picturescount, $disable_spoiler = false)
 {
+    $db = \lib\Database\DataBaseSingleton::Instance();
     $retval = '';
-    global $dblink;
     global $thumb_max_width;
     global $thumb_max_height;
     global $spoiler_disable_msg;
     $nCol = 0;
-    if ($spoiler_only)
+    if ($spoiler_only){
         $spoiler_only = 'spoiler=1 AND';
-    else
+    }else{
         $spoiler_only = "";
-    //$sql = 'SELECT uuid, title, url, spoiler FROM pictures WHERE '.$spoiler_only.' object_id=\'' . sql_escape($cacheid) . '\' AND object_type=2 AND display=1 ORDER BY seq, date_created';
-    //requires:ALTER TABLE `pictures` ADD `seq` SMALLINT UNSIGNED NOT NULL DEFAULT '1';
-
-    $sql = 'SELECT uuid, title, url, spoiler FROM pictures WHERE ' . $spoiler_only . ' object_id=\'' . sql_escape($cacheid) . '\' AND object_type=2 AND display=1 ORDER BY seq, date_created';
-    $rs = sql($sql);
+    }
+    $db->multiVariableQuery('SELECT uuid, title, url, spoiler FROM pictures WHERE ' . $spoiler_only . ' object_id=:1 AND object_type=2 AND display=1 ORDER BY seq, date_created', $cacheid);
 
     if ($disable_spoiler == false) {
         $spoiler_onclick = "enlarge(this);";
     } else {
         $spoiler_onclick = "alert('" . $spoiler_disable_msg . "'); return false;";
-    };
-
-    while ($r = sql_fetch_array($rs)) {
-
+    }
+    foreach ($db->dbResultFetchAll() as $key => $r) {
         if ($viewthumbs) {
             if ($nCol == 4) {
                 $nCol = 0;
@@ -206,7 +201,6 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
         }
     }
 
-    mysql_free_result($rs);
     return $retval;
 }
 

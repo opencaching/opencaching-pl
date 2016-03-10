@@ -25,6 +25,22 @@ class OcController
         }
     }
 
+	public function removeLog($request)
+	{
+		$logId = 0;
+		if (isset($request['logid'])) {
+			$logId = intval($request['logid']);
+		}
+
+		$logEnteryController = new LogEnteryController();
+		$result = $logEnteryController->removeLogById($logId);
+
+		return array (
+			'removeLogResult' => $result,
+			'errors' => $logEnteryController->getErrors(),
+		);
+	}
+
     private function userMedals()
     {
 

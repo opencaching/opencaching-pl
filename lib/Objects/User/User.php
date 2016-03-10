@@ -4,6 +4,8 @@ namespace lib\Objects\User;
 use \lib\Controllers\MedalsController;
 use \lib\Database\DataBaseSingleton;
 
+use lib\Controllers\Php7Handler;
+
 /**
  * Description of user
  *
@@ -13,7 +15,8 @@ class User extends \lib\Objects\BaseObject
 {
 
     private $userId;
-
+	private $isAdmin;
+	private $isGuide;
     private $userName;
 
     private $foundGeocachesCount;
@@ -34,6 +37,8 @@ class User extends \lib\Objects\BaseObject
     private $profileUrl = null;
 
     private $ingnoreGeocacheLimitWhileCreatingNewGeocache = false;
+
+    private $log_notes_count;
 
     /**
      * construct class using $userId (fields will be loaded from db)
@@ -111,7 +116,7 @@ class User extends \lib\Objects\BaseObject
 
         if (is_null($fields)) {
             // default user fields
-            $fields = "username, founds_count, notfounds_count, hidden_count, latitude, longitude, country, email";
+            $fields = "username, founds_count, notfounds_count, hidden_count, latitude, longitude, country, email, admin, guru";
         }
 
         $queryById = "SELECT $fields FROM `user` WHERE `user_id`=:1 LIMIT 1";
@@ -162,6 +167,15 @@ class User extends \lib\Objects\BaseObject
                     // lat|lon are handling below
                     $cordsPresent = true;
                     break;
+				case 'admin':
+					$this->isAdmin = Php7Handler::Boolval($value);
+					break;
+				case 'guru':
+					$this->isGuide = Php7Handler::Boolval($value);
+					break;
+				case 'log_notes_count':
+				    $this->log_notes_count = $value;
+				    break;
                 default:
                     error_log(__METHOD__ . ": Unknown column: $key");
             }
@@ -194,6 +208,31 @@ class User extends \lib\Objects\BaseObject
             // $this->medals[] = new \lib\Objects\Medals\Medal(array('prizedTime' => $medalRow['prized_time'], 'medalId' => (int) $medalRow['medal_type'], 'level' => $medalRow['medal_level']));
         }
     }
+
+	/**
+	 * after delete a log it is a good idea to full recalculate stats of user, that can avoid
+	 * possible errors which used to appear when was calculated old method.
+	 *
+	 * by Andrzej Łza Woźniak, 10-2013
+	 *
+	 */
+	public function recalculateAndUpdateStats()
+	{
+		$query = "
+			UPDATE `user`
+			SET `founds_count`   = (SELECT count(*) FROM `cache_logs` WHERE `user_id` =:1 AND TYPE =1 AND `deleted` =0 ),
+				`notfounds_count`= (SELECT count(*) FROM `cache_logs` WHERE `user_id` =:1 AND TYPE =2 AND `deleted` =0 ),
+				`log_notes_count`= (SELECT count(*) FROM `cache_logs` WHERE `user_id` =:1 AND TYPE =3 AND `deleted` =0 )
+			WHERE `user_id` =:1
+		";
+		$db = \lib\Database\DataBaseSingleton::Instance();
+		$db->multiVariableQuery($query, $this->userId);
+		$db->reset();
+		$selectQuery = 'SELECT `founds_count`, `notfounds_count`, `log_notes_count` FROM  `user` WHERE `user_id` =:1';
+		$db->multiVariableQuery($selectQuery, $this->userId);
+		$dbResult = $db->dbResultFetchOneRowOnly();
+		$this->setUserFieldsByUsedDbRow($dbResult);
+	}
 
     public function getUserId()
     {
@@ -252,4 +291,17 @@ class User extends \lib\Objects\BaseObject
     {
         return $this->homeCoordinates;
     }
+
+	public function getIsAdmin()
+	{
+		return $this->isAdmin;
+	}
+
+    function getIsGuide()
+    {
+        return $this->isGuide;
+    }
+
+
+
 }

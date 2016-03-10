@@ -1,5 +1,7 @@
 <?php
 
+use lib\Controllers\Php7Handler;
+
 require_once __dir__ . '/../htmlpurifier/library/HTMLPurifier.auto.php';
 
 /**
@@ -72,7 +74,7 @@ class userInputFilter
         }
         $useCache = !(isset($debug_page) ? $debug_page : false);
         $cache_key = 'HTMLPurifierConfig';
-        $result = $useCache ? apc_fetch($cache_key) : false;
+        $result = $useCache ? Php7Handler::apc_fetch($cache_key) : false;
         if ($result === false) {
             $result = self::createConfig();
             // finalize and lock the config
@@ -81,7 +83,7 @@ class userInputFilter
             $result->getURIDefinition();
 
             if ($useCache) {
-                apc_store($cache_key, $result, 60);  # cache it for 60 seconds
+                Php7Handler::apc_store($cache_key, $result, 60);  # cache it for 60 seconds
             }
         }
         return self::$config = $result;

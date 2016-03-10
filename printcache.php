@@ -185,6 +185,14 @@ if (!$cache_id) {
         <?php
         if ($cache_id) {
         ?>
+        <input type="hidden" id="cacheid" value="<?=$cache_id?>" />
+        <input type="hidden" id="owner_id" value="0" />
+        <input type="hidden" id="logEnteriesCount" value="{logEnteriesCount}" />
+        <input type="hidden" id="showlogs" value="<?=$showlogs ?>" />
+
+        <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
+        <script src="tpl/stdstyle/js/printcache.js"></script>
+
         <form action="printcache.php?cacheid=<?php print $cache_id; ?>" method="POST">
             <?php
             } else if ((!isset($_GET['source'])) || ($_GET['source'] != 'mywatches')) {

@@ -19,11 +19,13 @@ if ($error == false) {
             else
                 tpl_redirect_absolute($imgurl_extern);
 
-        if (($r['spoiler'] == 1) && ($_REQUEST['showspoiler'] != '1'))
+        if ( ($r['spoiler'] == 1) &&
+            (!isset($_REQUEST['showspoiler']) || $_REQUEST['showspoiler'] != '1') ){
             if ($debug == 1)
                 die('Debug: line ' . __LINE__);
             else
                 tpl_redirect_absolute($imgurl_spoiler);
+        }
 
         $imgurl = $r['url'];
         $urlparts = mb_split('/', $imgurl);
