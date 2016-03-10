@@ -76,7 +76,7 @@ if ($error == false) {
                         }
 
 
-			if ($config['limits']['image']['resize'] == 1) {
+			if ($config['limits']['image']['resize'] == 1 && $_FILES['file']['size'] > 102400) {
 			    // Apply resize to uploaded image
 			    $image = new \lib\SimpleImage();
 			    $image->load($_FILES['file']['tmp_name']);
