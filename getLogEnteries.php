@@ -87,7 +87,7 @@ foreach ($logEneries as $record) {
                         $delByCOG = true;
                     }
                 }
-                if ($delByCOG == false) {
+                if (!isset($byCOG) || $delByCOG == false) {
                     $comm_replace.=" " . tr('vl_by_user') . " " . $record['del_by_username'];
                 }
             };
@@ -116,7 +116,7 @@ foreach ($logEneries as $record) {
                 $byCOG = true;
             }
         }
-        if ($byCOG == false) {
+        if (!isset($byCOG) || $byCOG == false) {
             $edit_footer.=" " . tr('vl_by_user') . " " . $record['edit_by_username'];
         }
         if ($record_date_create > $edit_count_date_from) { //check if record created after implementation date (to avoid false readings for record changed before) - actually nor in use
