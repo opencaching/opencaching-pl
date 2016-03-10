@@ -9,7 +9,7 @@ class Cbench
     var $start;
     var $stop;
 
-    function CBench()
+    function __construct()
     {
         $this->start = 0;
         $this->stop = 0;

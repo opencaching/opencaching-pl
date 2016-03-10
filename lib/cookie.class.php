@@ -8,7 +8,7 @@ class cookie
     var $changed = false;
     var $values = array();
 
-    function cookie()
+    function __construct()
     {
         global $opt;
 
