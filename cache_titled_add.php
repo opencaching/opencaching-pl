@@ -8,7 +8,7 @@ require_once('./lib/common.inc.php');
 if ( !isset( $_REQUEST[ 'CRON' ] ) )
     exit;
 
-$dbc = new dataBase( true );
+$dbc = new dataBase();
 
 $queryMax = "SELECT max( date_alg ) dataMax FROM cache_titled";        
 $dbc->simpleQuery($queryMax);
