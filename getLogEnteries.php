@@ -107,7 +107,7 @@ foreach ($logEneries as $record) {
 
     if ($record['edit_count'] > 0) {
         //check if editted at all
-        $edit_footer = "<div><small>" . tr('vl_Recently_modified_on') . " " . fixPlMonth(htmlspecialchars(strftime($thisdatetimeformat, strtotime($record['last_modified'])), ENT_COMPAT, 'UTF-8'));
+        $edit_footer = "<div><small>" . tr('vl_Recently_modified_on') . " " . fixPlMonth(htmlspecialchars(strftime($datetimeformat, strtotime($record['last_modified'])), ENT_COMPAT, 'UTF-8'));
         if (!$usr['admin'] && isset($record['edit_by_admin'])) {
             if ($record['edit_by_username'] == $record['username']) {
                 $byCOG = false;

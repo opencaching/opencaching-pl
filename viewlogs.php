@@ -163,10 +163,9 @@ if ($error == false) {
         If (($HideDeleted && $show_one_log == '' && !$usr['admin'])) { //hide deletions if (hide_deletions opotions is on and this is single_log call=not and user is not COG)
             $includeDeletedLogs = false;
         }
-        
+
         $logs = '';
         $thisdateformat = $dateformat;
-        $thisdatetimeformat = $datetimeformat;
         $edit_count_date_from = date_create('2005-01-01 00:00');
         $logEnteryController = new \lib\Controllers\LogEnteryController();
         $logEneries = $logEnteryController->loadLogsFromDb($cache_id, $includeDeletedLogs, 0, 9999);
@@ -234,7 +233,7 @@ if ($error == false) {
 
             if ($record['edit_count'] > 0) {
                 //check if editted at all
-                $edit_footer = "<div><small>" . tr('vl_Recently_modified_on') . " " . fixPlMonth(htmlspecialchars(strftime($thisdatetimeformat, strtotime($record['last_modified'])), ENT_COMPAT, 'UTF-8'));
+                $edit_footer = "<div><small>" . tr('vl_Recently_modified_on') . " " . fixPlMonth(htmlspecialchars(strftime($datetimeformat, strtotime($record['last_modified'])), ENT_COMPAT, 'UTF-8'));
                 if (!$usr['admin'] && isset($record['edit_by_admin'])) {
                     if ($record['edit_by_username'] == $record['username']) {
                         $byCOG = false;
