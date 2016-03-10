@@ -13,6 +13,8 @@ require_once('lib/cache_icon.inc.php');
 global $caches_list, $usr, $hide_coords, $cache_menu, $octeam_email, $site_name, $absolute_server_URI, $octeamEmailsSignature;
 global $dynbasepath, $powerTrailModuleSwitchOn, $googlemap_key, $titled_cache_period_prefix;
 
+global $config;
+
 $applicationContainer = \lib\Objects\ApplicationContainer::Instance();
 
 function onTheList($theArray, $item)
@@ -36,7 +38,7 @@ if ($error == false) {
     }else{
         $tplname = 'viewcache';
     }
-    
+
     // require_once($rootpath . 'lib/caches.inc.php');
     require_once($stylepath . '/lib/icons.inc.php');
     require($stylepath . '/viewcache.inc.php');
@@ -96,7 +98,7 @@ if ($error == false) {
 
     if ($cache_id != 0) {
         //get cache record
-        
+
         $geocache = new GeoCache(array('cacheId'=>$cache_id));
 
         // detailed cache access logging
@@ -599,7 +601,7 @@ if ($error == false) {
         }
 
         // Natura 200
-       
+
         if (count($geocache->getNatura2000Sites()) > 0) {
             $npa_content .="<table width=\"90%\" border=\"0\" style=\"border-collapse: collapse; font-weight: bold;font-size: 14px; line-height: 1.6em\"><tr>
             <td width=90% align=\"center\" valign=\"middle\"><b>" . tr('npa_info') . " <font color=\"green\">NATURA 2000</font></b>:<br />";
