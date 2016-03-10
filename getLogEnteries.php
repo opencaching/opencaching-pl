@@ -206,7 +206,7 @@ foreach ($logEneries as $record) {
     if ($record['deleted'] != 1) {
         if ($record['user_id'] == $usr['userid']) {
             $logfunctions = $functions_start . $tmpedit . $functions_middle;
-            if ($record['type'] != 12 && ($usr['userid'] == $cache_record['user_id'] || $usr['admin'] == false)) {
+            if ($record['type'] != 12 && ($usr['userid'] == $owner_id || $usr['admin'] == false)) {
                 $logfunctions .=$tmpremove . $functions_middle;
             }
             if ($usr['admin']) {
