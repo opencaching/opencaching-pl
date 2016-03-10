@@ -65,7 +65,12 @@
             <b>{{owner}}:</b>
             <a href='{user_profile}' style='text-decoration: none;' target='_blank'>{user_name}</a>
         </p>
-
+        <?php
+        if( {is_event} ) { ?>
+            <p>
+                <b>{{date_event_label}}:</b> <br /> {start_date}
+            </p>
+        <?php } ?>
     </div>
 
     <div id='div_cacheCounters'>

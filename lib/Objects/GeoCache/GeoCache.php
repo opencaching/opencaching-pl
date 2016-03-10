@@ -208,6 +208,9 @@ class GeoCache
                 case 'internal_id':
                     $this->id = $value;
                     break;
+                case 'date_hidden':
+                    $this->datePlaced = new \DateTime($value);
+                    break;
                 default:
                     error_log("File:" . __METHOD__ . ": Unknown field: $field (value: $value)");
             }

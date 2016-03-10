@@ -77,7 +77,7 @@ class tmp_Xmlmap
         $fields = 'code|name|location|type|size2|' .
                   'recommendations|rating_votes|rating|' .
                   'willattends|status|owner|founds|' .
-                  'notfounds|internal_id';
+                  'notfounds|internal_id|date_hidden';
 
 
         $params = array();
@@ -311,6 +311,7 @@ class tmp_Xmlmap
      */
     private function htmlFormat(array $params)
     {
+        $ocConfig = \lib\Objects\OcConfig\OcConfig::Instance();
         //call OKAPI
         $okapi_resp = \okapi\Facade::service_call('services/caches/shortcuts/search_and_retrieve', $this->user_id, $params);
 
@@ -365,6 +366,7 @@ class tmp_Xmlmap
 
         tpl_set_var('user_name', $geoCache->getOwner()->getUserName());
         tpl_set_var('user_profile', $geoCache->getOwner()->getProfileUrl());
+        tpl_set_var('start_date', $geoCache->getDatePlaced()->format($ocConfig->getDateFormat()));
 
         tpl_set_var('cache_size_desc', tr($geoCache->getSizeDesc()));
 
