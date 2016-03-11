@@ -238,7 +238,7 @@ class GeoCache
     public function loadFromRow(array $geocacheDbRow)
     {
 		$this->lastFound = $geocacheDbRow['last_found'];
-        $this->cacheType = $geocacheDbRow['type'];
+        $this->cacheType = (int) $geocacheDbRow['type'];
         $this->cacheName = $geocacheDbRow['name'];
         $this->geocacheWaypointId = $geocacheDbRow['wp_oc'];
         $this->otherWaypointIds = array(
