@@ -811,11 +811,19 @@ if ($error == false) {
         if ($usr == true) {
             $dbc->multiVariableQuery("SELECT `cache_notes`.`note_id` `note_id`,`cache_notes`.`date` `date`, `cache_notes`.`desc` `desc`, `cache_notes`.`desc_html` `desc_html` FROM `cache_notes` WHERE `cache_notes` .`user_id`=:1 AND `cache_notes`.`cache_id`=:2", $usr['userid'], $cache_id);
             $cacheNotesRowCount = $dbc->rowCount();
+
+            if ($cacheNotesRowCount > 0) {
+                $notes_record = $dbc->dbResultFetchOneRowOnly();
+                $dbc->reset();
+            }
+
             tpl_set_var('note_content', "");
             tpl_set_var('CacheNoteE', '-->');
             tpl_set_var('CacheNoteS', '<!--');
             tpl_set_var('EditCacheNoteE', '');
             tpl_set_var('EditCacheNoteS', '');
+
+            //edit user note...
             if (isset($_POST['edit'])) {
                 tpl_set_var('CacheNoteE', '-->');
                 tpl_set_var('CacheNoteS', '<!--');
@@ -823,8 +831,6 @@ if ($error == false) {
                 tpl_set_var('EditCacheNoteS', '');
 
                 if ($cacheNotesRowCount > 0) {
-                    $notes_record = $dbc->dbResultFetchOneRowOnly();
-                    $dbc->reset();
                     $note = $notes_record['desc'];
                     tpl_set_var('noteid', $notes_record['note_id']);
                 } else {
@@ -833,25 +839,29 @@ if ($error == false) {
                 tpl_set_var('note_content', $note);
             }
 
+            //remove the user note from the cache
             if (isset($_POST['remove'])) {
 
-                $n_record = sql_fetch_array($notes_rs);
-                $note_id = $n_record['note_id'];
-                //remove
-                sql("DELETE FROM `cache_notes` WHERE `note_id`='&1' and user_id='&2'", $note_id, $usr['userid']);
-                //display cache-page
-                tpl_redirect('viewcache.php?cacheid=' . urlencode($cache_id));
-                exit;
+                if ($cacheNotesRowCount > 0) {
+                    $note_id = $notes_record['note_id'];
+                    //remove
+                    sql("DELETE FROM `cache_notes` WHERE `note_id`='&1' and user_id='&2'", $note_id, $usr['userid']);
+                    //display cache-page
+                    tpl_redirect('viewcache.php?cacheid=' . urlencode($cache_id));
+                    exit;
+                }
             }
 
+            //save current value of the user note
             if (isset($_POST['save'])) {
 
                 $cnote = $_POST['note_content'];
                 $cn = strlen($cnote);
 
                 if ($cacheNotesRowCount != 0) {
-                    $n_record = sql_fetch_array($notes_rs);
-                    $note_id = $n_record['note_id'];
+
+                    $note_id = $notes_record['note_id'];
+
                     $dbc->multiVariableQuery("UPDATE `cache_notes` SET `date`=NOW(),`desc`=:1, `desc_html`=:2 WHERE `note_id`=:3", $cnote, '0', $note_id);
                     $dbc->reset();
 
@@ -868,15 +878,13 @@ if ($error == false) {
             }
 
 
-
             if ($cacheNotesRowCount != 0 && (!isset($_POST['edit']) || !isset($_REQUEST['edit']))) {
                 tpl_set_var('CacheNoteE', '');
                 tpl_set_var('CacheNoteS', '');
                 tpl_set_var('EditCacheNoteE', '-->');
                 tpl_set_var('EditCacheNoteS', '<!--');
 
-                $notes_record = $dbc->dbResultFetchOneRowOnly();
-                $dbc->reset();
+
                 $note_desc = $notes_record['desc'];
 
                 if ($notes_record['desc_html'] == '0'){
