@@ -90,6 +90,7 @@ if ($error == false) {
     } else {
         tpl_set_var('hidesearchdownloadsection_start', '');
         tpl_set_var('hidesearchdownloadsection_end', '');
+        tpl_set_var('uType', $usr['admin']);
     }
     $no_crypt = 0;
     if (isset($_REQUEST['nocrypt'])) {

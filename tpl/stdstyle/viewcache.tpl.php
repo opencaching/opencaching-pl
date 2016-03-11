@@ -10,6 +10,7 @@
 <input type="hidden" id="logEnteriesCount" value="{logEnteriesCount}" />
 <input type="hidden" id="owner_id" value="{owner_id}" />
 <input type="hidden" id="includeDeletedLogs" value="{includeDeletedLogs}" />
+<input type="hidden" id="uType" value="{uType}" />
 
 <div id="dialog-message" title="{{GKApi19}}" style="display: {GeoKretyApi_window_display};">
     <p>

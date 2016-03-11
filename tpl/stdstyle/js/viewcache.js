@@ -14,7 +14,13 @@ function rmLog(logId){
     request.done(function (response, textStatus, jqXHR){
         console.log(response);
         if(response.removeLogResult === true){
-            $("#log"+logId).remove();
+            var uType = $("#uType").val();
+            console.log(uType);
+            if(uType == 1){
+                $("#log"+logId).addClass('show_deleted');
+            } else {
+                $("#log"+logId).remove();
+            }
         } else {
            $("#rmLogHrefSection-"+logId).show();
         }
