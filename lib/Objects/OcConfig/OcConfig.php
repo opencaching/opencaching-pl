@@ -245,7 +245,7 @@ final class OcConfig
      * get $config['mapsConfig'] from settings.inc.php in a static way
      * always return an array
      */
-    public static function MapsConfig()
+    public static function mapsConfig()
     {
         return self::instance()->getMapsConfig();
     }

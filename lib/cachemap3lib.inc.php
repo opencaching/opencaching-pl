@@ -10,7 +10,7 @@ class CacheMap3Lib {
     public function GenerateAttributionMap()
     {
         $result = '';
-        foreach(OcConfig::MapsConfig() as $key => $val){
+        foreach(OcConfig::mapsConfig() as $key => $val){
             if (self::ShouldSkip($val)){
                 continue;
             }
@@ -30,7 +30,7 @@ class CacheMap3Lib {
     public function GenerateMapItems()
     {
         $result = '';
-        foreach(OcConfig::MapsConfig() as $key => $val){
+        foreach(OcConfig::mapsConfig() as $key => $val){
             if (self::ShouldSkip($val)){
                 continue;
             }
@@ -47,7 +47,7 @@ class CacheMap3Lib {
     public function GenerateShowMapsWhenMore()
     {
         $result = '';
-        foreach(OcConfig::MapsConfig() as $key => $val){
+        foreach(OcConfig::mapsConfig() as $key => $val){
             if (self::ShouldSkip($val)){
                 continue;
             }
