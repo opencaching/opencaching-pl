@@ -589,7 +589,7 @@ if ($error == false) {
         // NPA - nature protection areas
         $npac = "0";
         $npa_content = '';
-        if(count($geocache->getNatureRegions() > 0)){
+        if(count($geocache->getNatureRegions()) > 0){
             $npa_content .="<table width=\"90%\" border=\"0\" style=\"border-collapse: collapse; font-weight: bold;font-size: 14px; line-height: 1.6em\"><tr>
             <td align=\"center\" valign=\"middle\"><b>" . tr('npa_info') . " <font color=\"green\"></font></b>:<br /></td><td align=\"center\" valign=\"middle\">&nbsp;</td></tr>";
             $npac = "1";
