@@ -285,7 +285,7 @@ class GeoCache
     private function loadCacheLocation()
     {
         $db = DataBaseSingleton::Instance();
-        $query = 'SELECT `code1`, `code2`, `code3`, `code4`, adm3, country, country_short  FROM `cache_location` WHERE `cache_id` =:1 LIMIT 1';
+        $query = 'SELECT `code1`, `code2`, `code3`, `code4`, `adm1`, `adm2`, `adm3`  FROM `cache_location` WHERE `cache_id` =:1 LIMIT 1';
         $db->multiVariableQuery($query, $this->id);
         $dbResult = $db->dbResultFetch();
         $this->cacheLocation = $dbResult;

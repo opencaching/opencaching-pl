@@ -757,7 +757,7 @@ if ($error == false) {
             }
         }
 
-        tpl_set_var('country', htmlspecialchars($geocacheLocation['country']), ENT_COMPAT, 'UTF-8');
+        tpl_set_var('country', htmlspecialchars($geocacheLocation['adm1']), ENT_COMPAT, 'UTF-8');
 //        tpl_set_var('cache_log_pw', (($cache_record['logpw'] == NULL) || ($cache_record['logpw'] == '')) ? '' : $cache_log_pw);
         tpl_set_var('nocrypt', $no_crypt);
         $hidden_date = $geocache->getDatePlaced()->format($applicationContainer->getOcConfig()->getDatetimeFormat());
