@@ -196,9 +196,9 @@ class LogEnteryController
 		return $this->errors;
 	}
 
-    public function loadLogsFromDb($geocacheId, $includeDeletedLogs = false, $offset = 0, $limit = -1 )
+    public function loadLogsFromDb($geocacheId, $includeDeletedLogs = false, $offset = 0, $limit = -1, $logId = false)
     {
-        $sql = $this->generateGetLogsQuery($includeDeletedLogs);
+        $sql = $this->generateGetLogsQuery($includeDeletedLogs, $logId);
         $params = array(
             'v1' => array(
                 'value' => (integer) $geocacheId,
@@ -213,6 +213,12 @@ class LogEnteryController
                 'data_type' => 'integer',
             ),
         );
+        if($logId){
+           $params['v4'] = array(
+                'value' => (integer) $logId,
+                'data_type' => 'integer',
+           );
+        }
         $db = \lib\Database\DataBaseSingleton::Instance();
         $db->paramQuery($sql, $params);
         $logEnteries = $db->dbResultFetchAll();
@@ -220,7 +226,7 @@ class LogEnteryController
         return $logEnteries;
     }
 
-    private function generateGetLogsQuery($includeDeletedLogs)
+    private function generateGetLogsQuery($includeDeletedLogs, $logId)
     {
         if($includeDeletedLogs){
             $showDeletedLogsSql = '`cache_logs`.`deleted` `deleted`,';
@@ -228,6 +234,11 @@ class LogEnteryController
         } else {
             $showDeletedLogsSql = '';
             $showDeletedLogsSql2 = ' AND `cache_logs`.`deleted` = 0 ';
+        }
+        if($logId){
+            $showOneLogSql = " AND `cache_logs`.`id` =:v4 ";
+        } else {
+            $showOneLogSql = '';
         }
         return  "SELECT `cache_logs`.`user_id` `userid`, $showDeletedLogsSql
             `cache_logs`.`id` `logid`,
@@ -265,7 +276,7 @@ class LogEnteryController
             LEFT JOIN `user` `u2` ON `cache_logs`.`del_by_user_id`=`u2`.`user_id`
             LEFT JOIN `user` `u3` ON `cache_logs`.`edit_by_user_id`=`u3`.`user_id`
             WHERE `cache_logs`.`cache_id`=:v1
-                  " . $showDeletedLogsSql2 . "
+                   $showDeletedLogsSql2 $showOneLogSql
             ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC
             LIMIT :v2 OFFSET :v3";
     }

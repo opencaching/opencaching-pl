@@ -22,22 +22,23 @@ if ($error == false) {
     }
     if (isset($_REQUEST['logid'])) {
         $logid = (int) $_REQUEST['logid'];
-        $show_one_log = " AND `cache_logs`.`id` ='" . $logid . "'  ";
     } else {
-        $show_one_log = '';
+        $logid = false;
     }
 
     $start = 0;
     if (isset($_REQUEST['start'])) {
         $start = $_REQUEST['start'];
-        if (!is_numeric($start))
+        if (!is_numeric($start)){
             $start = 0;
+        }
     }
     $count = 99999;
     if (isset($_REQUEST['count'])) {
         $count = $_REQUEST['count'];
-        if (!is_numeric($count))
+        if (!is_numeric($count)){
             $count = 999999;
+        }
     }
 
     if ($usr == false && $hide_coords) {
@@ -88,7 +89,7 @@ if ($error == false) {
         if (@$enable_cache_access_logs) {
             if (!isset($dbc)) {
                 $dbc = new dataBase();
-            };
+            }
             $user_id = $usr !== false ? $usr['userid'] : null;
             $access_log = @$_SESSION['CACHE_ACCESS_LOG_VL_' . $user_id];
             if ($access_log === null) {
@@ -139,10 +140,10 @@ if ($error == false) {
             tpl_set_var('gallery', '');
         }
 
-        if (($usr['admin'] == 1) || ($show_one_log != '')) {
+        if ($usr['admin'] == 1 || $logid) {
             $showhidedel_link = ""; //no need to hide/show deletion icon for COG (they always see deletions) or this is single log call
         } else {
-            $del_count = sqlValue("SELECT count(*) number FROM `cache_logs` WHERE `deleted`=1 and `cache_id`='" . $cache_id . "'", 0);
+            $del_count = $dbc->multiVariableQueryValue("SELECT count(*) number FROM `cache_logs` WHERE `deleted`=1 and `cache_id`=:1", 0, $cache_id);
             if ($del_count == 0) {
                 $showhidedel_link = ""; //don't show link if no deletion '
             } else {
@@ -154,20 +155,24 @@ if ($error == false) {
 
                 $showhidedel_link = str_replace('{thispage}', 'viewlogs.php', $showhidedel_link); //$show_del_link is defined in viecache.inc.php - for both viewlogs and viewcashe .php
             }
-        };
+        }
 
         tpl_set_var('showhidedel_link', mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $showhidedel_link));
 
         isset($_SESSION['showdel']) && $_SESSION['showdel'] == 'y' ? $HideDeleted = false : $HideDeleted = true;
         $includeDeletedLogs = true;
-        If (($HideDeleted && $show_one_log == '' && !$usr['admin'])) { //hide deletions if (hide_deletions opotions is on and this is single_log call=not and user is not COG)
+        If (($HideDeleted && $logid && !$usr['admin'])) { //hide deletions if (hide_deletions opotions is on and this is single_log call=not and user is not COG)
             $includeDeletedLogs = false;
         }
 
         $logs = '';
         $thisdateformat = $dateformat;
         $logEnteryController = new \lib\Controllers\LogEnteryController();
-        $logEneries = $logEnteryController->loadLogsFromDb($cache_id, $includeDeletedLogs, 0, 9999);
+        if($logid){ /* load and display one log only */
+            $logEneries = $logEnteryController->loadLogsFromDb($cache_id, $includeDeletedLogs, 0, 1, $logid);
+        } else {
+            $logEneries = $logEnteryController->loadLogsFromDb($cache_id, $includeDeletedLogs, 0, 9999);
+        }
         foreach ($logEneries as $record) {
             $record['text_listing'] = ucfirst(tr('logType' . $record['type'])); //add new attrib 'text_listing based on translation (instead of query as before)'
 
@@ -214,11 +219,10 @@ if ($error == false) {
                         if (!isset($delByCOG) || $delByCOG == false) {
                             $comm_replace.=" " . tr('vl_by_user') . " " . $record['del_by_username'];
                         }
-                    };
+                    }
                     if (isset($record['last_deleted'])) {
                         $comm_replace.=" " . tr('vl_on_date') . " " . fixPlMonth(htmlspecialchars(strftime($thisdateformat, strtotime($record['last_deleted'])), ENT_COMPAT, 'UTF-8'));
-                        ;
-                    };
+                    }
                     $comm_replace.=".";
                     $processed_text = $comm_replace;
                 }
@@ -379,7 +383,7 @@ if ($error == false) {
                         $thisline = mb_ereg_replace('{log_picture_onclick}', "enlarge(this)", $thisline);
                         $thisline = mb_ereg_replace('{link}', $pic_record['url'], $thisline);
                         $thisline = mb_ereg_replace('{longdesc}', str_replace("images/uploads", "upload", $pic_record['url']), $thisline);
-                    };
+                    }
 
                     $thisline = mb_ereg_replace('{imgsrc}', 'thumbs2.php?' . $showspoiler . 'uuid=' . urlencode($pic_record['uuid']), $thisline);
                     $thisline = mb_ereg_replace('{title}', htmlspecialchars($pic_record['title'], ENT_COMPAT, 'UTF-8'), $thisline);
@@ -416,4 +420,4 @@ if (isset($_REQUEST["posY"])) {
     echo "window.scroll(0," . $_REQUEST["posY"] . ");";
     echo "</script>";
 }
-?>
+

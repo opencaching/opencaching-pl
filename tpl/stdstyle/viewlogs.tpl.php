@@ -1,6 +1,3 @@
-<?php
-
-?>
 <script type="text/javascript">
 <!--
     var rot13tables;
