@@ -1,4 +1,5 @@
-<!-- Text container -->
+<link rel="stylesheet" href="tpl/stdstyle/js/lightbox2/dist/css/lightbox.min.css">
+<script src="tpl/stdstyle/js/lightbox2/dist/js/lightbox-plus-jquery.min.js"></script>
 {body_scripts}
 
 {jQueryPopUpWindowscripts}

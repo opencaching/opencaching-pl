@@ -38,7 +38,15 @@ $function_ignore_not = "<li><a href='removeignore.php?cacheid={cacheid}&amp;targ
 $decrypt_link = '<span style="font-weight:400"><a href="viewcache.php?cacheid={cacheid_urlencode}&amp;nocrypt=1&amp;desclang={desclang}' . $linkargs . '#decrypt-info" onclick="return showHint(event);"><span id="decryptLinkStr">' . tr('decrypt') .'</span><span id="encryptLinkStr" style="display:none">' . tr('encrypt') .'</span></a></span>';
 $pictureline = '<a href="{link}">{title}</a><br />';
 $pictures = '<p>{picturelines}</p>';
-$logpictureline = '<div class="logimage"><div class="img-shadow"><a href="{link}" title="{title}" onclick="return false;"><img src="{imgsrc}" alt="{title}" onclick="{log_picture_onclick}" class="viewlogs-thumbimg" longdesc="{longdesc}"/></a></div><span class="desc">{title}</span>{functions}</div>';
+
+$logpictureline = '<div class="logimage"><div class="img-shadow">'
+        
+         .'<a class="example-image-link" href="{longdesc}" data-lightbox="example-1"><img class="example-image" src="{imgsrc}" alt="{title}" /></a>'
+
+        //. '<a href="{link}" title="{title}" onclick="return false;"><img src="{imgsrc}" alt="{title}" onclick="{log_picture_onclick}" class="viewlogs-thumbimg" longdesc="{longdesc}"/></a>'
+
+        . '</div><span class="desc">{title}</span>{functions}</div>';
+
 $logpictures = '<div class="viewlogs-logpictures"><span class="info">' . tr('pictures_included') . ':</span><div class="allimages">{lines}</div></div><br style="clear: both" />';
 
 // Waypoints line
@@ -176,9 +184,7 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
             if ($reqPrint != 'y') {
 
                 $retval .= '<div class="img-shadow">';
-
-
-                $retval .= '<img src="thumbs.php?' . $showspoiler . 'uuid=' . urlencode($r['uuid']) . '" alt="' . htmlspecialchars($r['title']) . '" title="' . htmlspecialchars($r['title']) . '" onclick="' . $pic_onclick . '" class="viewcache-thumbimg" longdesc="' . str_replace("images/uploads", "upload", $r['url']) . '" />';
+                $retval .= '<a class="example-image-link" href="'.str_replace("images/uploads", "upload", $r['url']).'" data-lightbox="example-1"><img class="example-image" src="thumbs.php?' . $showspoiler . 'uuid=' . urlencode($r['uuid']) . '" alt="' . htmlspecialchars($r['title']) . '" /></a>';
             } else {
                 if ($disable_spoiler == true && $r['spoiler'] == 1) {
                     $retval .= '<div><BR><strong>' . $spoiler_disable_msg . '</strong><BR><BR>';
@@ -186,10 +192,11 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
                     $retval .= '<div class="img-shadow"><a href="' . $r['url'] . '" title="' . htmlspecialchars($r['title']) . '" >';
                     $retval .= '<img src="thumbs.php?' . $showspoiler . 'uuid=' . urlencode($r['uuid']) . '" alt="' . htmlspecialchars($r['title']) . '" title="' . htmlspecialchars($r['title']) . '" /></a>';
                 }
-            };
+            }
             $retval .= '</div>';
-            if ($viewtext)
+            if ($viewtext){
                 $retval .= '<span class="title">' . $r['title'] . '</span>';
+            }
             $retval .= '</div>';
 
             $nCol++;
