@@ -64,10 +64,11 @@ function loadLogEnteries(offset, limit){
     });
 }
 
-function showHint()
+function showHint(event)
 {
     event.preventDefault();
-    $("#decrypt-hints").hide();
-    $("#hintEncrypted").show();
+        $("#decrypt-hints").toggle();
+        $("#hintEncrypted").toggle();
     return false;
 }
+
