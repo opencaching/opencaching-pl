@@ -953,7 +953,11 @@ if ($error == false) {
             $watcher_record = $dbc->dbResultFetchOneRowOnly();
             tpl_set_var('visits', $watcher_record['count']);
         }
-        isset($_SESSION['showdel']) && $_SESSION['showdel'] == 'y' ? $HideDeleted = false : $HideDeleted = true;
+        $HideDeleted = true;
+        if(isset($_SESSION['showdel']) && $_SESSION['showdel'] == 'y'){
+           $HideDeleted = false;
+        }
+
         //now include also those deleted due to displaying this type of record for all unless hide_deletions is on
         if (($usr['admin'] == 1) || ($HideDeleted == false)) {
             $sql_hide_del = "";  //include deleted
