@@ -259,7 +259,7 @@ class GeoCache
         $this->recommendations = (int) $geocacheDbRow['topratings'];
         $this->difficulty = $geocacheDbRow['difficulty'];
         $this->terrain = $geocacheDbRow['terrain'];
-        $this->logPassword = $geocacheDbRow['logpw'];
+        $this->logPassword = $geocacheDbRow['logpw'] != '' ? $geocacheDbRow['logpw'] : false;
         $this->ratingVotes = $geocacheDbRow['votes'];
         $this->notesCount = (int) $geocacheDbRow['notes'];
         $this->wayLenght = $geocacheDbRow['way_length'];
