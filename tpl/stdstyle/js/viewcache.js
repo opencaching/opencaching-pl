@@ -62,3 +62,10 @@ function loadLogEnteries(offset, limit){
         $("#viewcache-logs").html($("#viewcache-logs").html() + response);
     });
 }
+function showHint()
+{
+    event.preventDefault();
+    $("#decrypt-hints").hide();
+    $("#hintEncrypted").show();
+    return false;
+}

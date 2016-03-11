@@ -703,11 +703,11 @@ if ($error == false) {
         tpl_set_var('list_of_rating_end', '');
         tpl_set_var('body_scripts', '');
         tpl_set_var('altitude', $geocache->getAltitude()->getAltitude());
+        tpl_set_var('body_scripts', '<script type="text/javascript" src="lib/js/wz_tooltip.js"></script><script type="text/javascript" src="lib/js/tip_balloon.js"></script><script type="text/javascript" src="lib/js/tip_centerwindow.js"></script>');
         if (count($geocache->getUsersRecomeded() == 0)) {
             tpl_set_var('list_of_rating_begin', '');
             tpl_set_var('list_of_rating_end', '');
         } else { // ToolTips Ballon
-            tpl_set_var('body_scripts', '<script type="text/javascript" src="lib/js/wz_tooltip.js"></script><script type="text/javascript" src="lib/js/tip_balloon.js"></script><script type="text/javascript" src="lib/js/tip_centerwindow.js"></script>');
             $lists = ''; $i=0;
             foreach ($geocache->getUsersRecomeded() as $record) {
                 $i++;
@@ -1302,7 +1302,7 @@ if ($error == false) {
         // show hints
         //
             $hint = $desc_record['hint'];
-
+            tpl_set_var('hintEncrypted', $hint);
         if ($hint == '') {  // no hint - blank all items
             tpl_set_var('cryptedhints', '');
             tpl_set_var('hints', '');

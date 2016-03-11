@@ -252,6 +252,9 @@
     <p id="decrypt-hints">
         {hints}
     </p>
+    <p id="hintEncrypted" style="display: none">
+        {hintEncrypted}
+    </p>
 
     <div style="width:200px;align:right;float:right">
         {decrypt_table_start}
