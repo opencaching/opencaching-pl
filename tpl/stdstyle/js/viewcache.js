@@ -35,7 +35,8 @@ var currentLogEnteriessLimit = 10;
 $(window).scroll(function (event) {
     var scroll = $(window).scrollTop();
     var height = $(document).height();
-    if((height - scroll) < 800 ){
+
+    if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
         var logEnteriesCount = parseInt($('#logEnteriesCount').val());
         if(currentLogEnteriessOffset < logEnteriesCount){
            loadLogEnteries(currentLogEnteriessOffset,currentLogEnteriessLimit);
@@ -62,6 +63,7 @@ function loadLogEnteries(offset, limit){
         $("#viewcache-logs").html($("#viewcache-logs").html() + response);
     });
 }
+
 function showHint()
 {
     event.preventDefault();
