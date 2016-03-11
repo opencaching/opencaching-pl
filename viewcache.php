@@ -1028,7 +1028,7 @@ if ($error == false) {
             $enable_google_translation = false; //user wants this lang - disable translations
         }
 
-        if ( ! OcConfig::Instance()->isGoogleTranslationEnabled() ){
+        if ( ! OcConfig::instance()->isGoogleTranslationEnabled() ){
             $enable_google_translation = false;
             //TODO: Translation is not available - needs implementation...
         }

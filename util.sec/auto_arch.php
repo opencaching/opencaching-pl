@@ -21,7 +21,7 @@ class AutoArch
 
     public function __construct($stylepath)
     {
-        $this->ocConfig = lib\Objects\OcConfig\OcConfig::Instance();
+        $this->ocConfig = lib\Objects\OcConfig\OcConfig::instance();
         $this->stylepath = $stylepath;
     }
 

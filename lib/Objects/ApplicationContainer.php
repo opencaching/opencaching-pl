@@ -21,7 +21,7 @@ final class ApplicationContainer
 
     private function __construct()
     {
-		$this->ocConfig = OcConfig::Instance();
+		$this->ocConfig = OcConfig::instance();
         $this->db = \lib\Database\DataBaseSingleton::Instance();
     }
 
