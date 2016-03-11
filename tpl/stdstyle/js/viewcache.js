@@ -39,6 +39,7 @@ $(window).scroll(function (event) {
         var logEnteriesCount = parseInt($('#logEnteriesCount').val());
         if(currentLogEnteriessOffset < logEnteriesCount){
            loadLogEnteries(currentLogEnteriessOffset,currentLogEnteriessLimit);
+           currentLogEnteriessOffset = currentLogEnteriessOffset + currentLogEnteriessLimit;
         }
     }
 });
@@ -59,6 +60,5 @@ function loadLogEnteries(offset, limit){
     });
     request.done(function (response, textStatus, jqXHR){
         $("#viewcache-logs").html($("#viewcache-logs").html() + response);
-        currentLogEnteriessOffset = currentLogEnteriessOffset + currentLogEnteriessLimit;
     });
 }
