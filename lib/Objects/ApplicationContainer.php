@@ -13,9 +13,16 @@ final class ApplicationContainer
 	private $loggedUser = false;
 	private $ocConfig;
 
+    /**
+     *
+     * @var \dataBase $db
+     */
+    public $db;
+
     private function __construct()
     {
 		$this->ocConfig = OcConfig::Instance();
+        $this->db = \lib\Database\DataBaseSingleton::Instance();
     }
 
 	/**
