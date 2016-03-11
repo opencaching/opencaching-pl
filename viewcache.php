@@ -767,7 +767,7 @@ if ($error == false) {
         if ($usr !== false && $usr['userFounds'] >= $config['otherSites_minfinds']) {
             $geocacheOtherWaypoints = $geocache->getOtherWaypointIds();
             if ($geocacheOtherWaypoints['ge'] != '' && $config['otherSites_gpsgames_org'] == 1){
-                $listed_on[] = '<a href="http://geocaching.gpsgames.org/cgi-bin/ge.pl?wp=' . $geocacheOtherWaypoints['wp_ge'] . '" target="_blank">GPSgames.org (' . $geocacheOtherWaypoints['ge'] . ')</a>';
+                $listed_on[] = '<a href="http://geocaching.gpsgames.org/cgi-bin/ge.pl?wp=' . $geocacheOtherWaypoints['ge'] . '" target="_blank">GPSgames.org (' . $geocacheOtherWaypoints['ge'] . ')</a>';
             }
             if ($geocacheOtherWaypoints['tc'] != '' && $config['otherSites_terracaching_com'] == 1){
                 $listed_on[] = '<a href="http://play.terracaching.com/Cache/' . $geocacheOtherWaypoints['tc'] . '" target="_blank">Terracaching.com (' . $geocacheOtherWaypoints['tc'] . ')</a>';
@@ -1069,9 +1069,9 @@ if ($error == false) {
         // show additional waypoints
         $cache_type = $geocache->getCacheType();
         $waypoints_visible = 0;
-        $dbc->multiVariableQuery("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, `waypoint_type`.en wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`=:1 ORDER BY `stage`,`wp_id`", $cache_id);
+        $dbc->multiVariableQuery("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, `waypoint_type`.en wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`=:1 ORDER BY `stage`,`wp_id`", $geocache->getCacheId());
         $wptCount = $dbc->rowCount();
-        if ($wptCount != 0 && $cache_record['type'] != GeoCache::TYPE_MOVING) { // check status all waypoints
+        if ($wptCount != 0 && $geocache->getCacheType() != GeoCache::TYPE_MOVING) { // check status all waypoints
             foreach ($dbc->dbResultFetchAll() as $wp_check) {
                 if ($wp_check['status'] == 1 || $wp_check['status'] == 2) {
                     $waypoints_visible = 1;
@@ -1097,8 +1097,8 @@ if ($error == false) {
             }
             /* quickFix end */
 
-            $wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, `waypoint_type`.`&1` wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&2' ORDER BY `stage`,`wp_id`", $lang_db, $cache_id);
-            for ($i = 0; $i < mysql_num_rows($wp_rs); $i++) {
+            $dbc->multiVariableQuery("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, `waypoint_type`.:1` wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`=:2 ORDER BY `stage`,`wp_id`", $lang_db, $cache_id);
+            foreach ($dbc->dbResultFetchAll() as $wp_record) {
                 $wp_record = sql_fetch_array($wp_rs);
                 if ($wp_record['status'] != 3) {
                     $tmpline1 = $wpline;    // string in viewcache.inc.php
@@ -1204,8 +1204,8 @@ if ($error == false) {
             $_SESSION['submitted'] = true;
 
             // send notify to owner cache and copy to OC Team
-            $query1 = sql("SELECT `email` FROM `user` WHERE `user_id`='&1'", $cache_record['user_id']);
-            $owner_email = sql_fetch_array($query1);
+            $query1 = "SELECT `email` FROM `user` WHERE `user_id`=:1";
+            $owner_email = $dbc->multiVariableQuery($query1, $geocache->getOwner()->getUserId());
             $sender_email = $usr['email'];
             $email_content = read_file($stylepath . '/email/octeam_comment.email');
             $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
@@ -1551,27 +1551,25 @@ if ($error == false) {
                               `cache_attrib`.`icon_large`
                         FROM  `cache_attrib`, `caches_attributes`
                         WHERE `cache_attrib`.`id`=`caches_attributes`.`attrib_id`
-                          AND `cache_attrib`.`language`='&1'
-                          AND `caches_attributes`.`cache_id`='&2'
-                     ORDER BY `cache_attrib`.`category`, `cache_attrib`.`id`", strtoupper($lang), $cache_id);
+                          AND `cache_attrib`.`language`=:1
+                          AND `caches_attributes`.`cache_id`=:2
+                     ORDER BY `cache_attrib`.`category`, `cache_attrib`.`id`", strtoupper($lang), $geocache->getCacheId());
         $num_of_attributes = $dbc->rowCount();
         if ($num_of_attributes > 0 || $has_password) {
             $cache_attributes = '';
-            if ($num_of_attributes > 0) {
-                while ($record = sql_fetch_array($rs)) {
-                    $cache_attributes .= '<img src="' . htmlspecialchars($record['icon_large'], ENT_COMPAT, 'UTF-8') . '" border="0" title="' . htmlspecialchars($record['text_long'], ENT_COMPAT, 'UTF-8') . '" alt="' . htmlspecialchars($record['text_long'], ENT_COMPAT, 'UTF-8') . '" />&nbsp;';
-                }
+            foreach ($dbc->dbResultFetchAll() as $record) {
+                $cache_attributes .= '<img src="' . htmlspecialchars($record['icon_large'], ENT_COMPAT, 'UTF-8') . '" border="0" title="' . htmlspecialchars($record['text_long'], ENT_COMPAT, 'UTF-8') . '" alt="' . htmlspecialchars($record['text_long'], ENT_COMPAT, 'UTF-8') . '" />&nbsp;';
             }
 
-            if ($has_password)
+            if ($has_password){
                 tpl_set_var('password_req', '<img src="' . $config['search-attr-icons']['password'][0] .'" title="' . tr('LogPassword') .'" alt="Potrzebne hasło"/>');
-            else
+            } else {
                 tpl_set_var('password_req', '');
+            }
             tpl_set_var('cache_attributes', $cache_attributes);
             tpl_set_var('cache_attributes_start', '');
             tpl_set_var('cache_attributes_end', '');
-        }
-        else {
+        } else {
             tpl_set_var('cache_attributes_start', '<!--');
             tpl_set_var('cache_attributes_end', '-->');
             tpl_set_var('cache_attributes', '');
