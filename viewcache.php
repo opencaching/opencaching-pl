@@ -1047,11 +1047,11 @@ if ($error == false) {
                                     `opensprawdzacz`.`proby`,
                                     `opensprawdzacz`.`sukcesy`
                              FROM   `waypoints`,  `opensprawdzacz`
-                             WHERE  `waypoints`.`cache_id` = '&1'
+                             WHERE  `waypoints`.`cache_id` = :1
                              AND    `waypoints`.`type` = 3
                              AND    `waypoints`.`opensprawdzacz` = 1
                              AND    `waypoints`.`cache_id` = `opensprawdzacz`.cache_id
-                             ", $cache_id
+                             ", $geocache->getCacheId()
         );
         if ($dbc->rowCount() != 0) {
             $dane_opensprawdzacza = $dbc->dbResultFetchOneRowOnly();
