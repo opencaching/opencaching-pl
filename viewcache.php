@@ -330,8 +330,8 @@ if ($error == false) {
             $cache_id = 0;
         } else {
             $lm = $dbc->dbResultFetch();
-            $last_modified = strtotime($lm['last_modified']);
-            tpl_set_var('last_modified', fixPlMonth(htmlspecialchars(strftime("%d %B %Y", $last_modified), ENT_COMPAT, 'UTF-8')));
+            $lastModified = new DateTime($lm['last_modified']);
+            tpl_set_var('last_modified', $lastModified->format($applicationContainer->getOcConfig()->getDateFormat()));
         }
         unset($ls);
     }
@@ -760,7 +760,7 @@ if ($error == false) {
         tpl_set_var('country', htmlspecialchars($geocacheLocation['adm1']), ENT_COMPAT, 'UTF-8');
 //        tpl_set_var('cache_log_pw', (($cache_record['logpw'] == NULL) || ($cache_record['logpw'] == '')) ? '' : $cache_log_pw);
         tpl_set_var('nocrypt', $no_crypt);
-        $hidden_date = $geocache->getDatePlaced()->format($applicationContainer->getOcConfig()->getDatetimeFormat());
+        $hidden_date = $geocache->getDatePlaced()->format($applicationContainer->getOcConfig()->getDateFormat());
         tpl_set_var('hidden_date', $hidden_date);
 
         $listed_on = array();
@@ -797,7 +797,7 @@ if ($error == false) {
             tpl_set_var('status', '<span style="color:green;font-weight:bold;">' . htmlspecialchars(tr($st[$geocache->getStatus()]['translation']), ENT_COMPAT, 'UTF-8') . '</span>');
         }
 
-        tpl_set_var('date_created', $geocache->getDateCreated()->format($applicationContainer->getOcConfig()->getDatetimeFormat()));
+        tpl_set_var('date_created', $geocache->getDateCreated()->format($applicationContainer->getOcConfig()->getDateFormat()));
 
         tpl_set_var('difficulty_icon_diff', icon_difficulty("diff", $geocache->getDifficulty()));
         tpl_set_var('difficulty_text_diff', htmlspecialchars(sprintf($difficulty_text_diff, $geocache->getDifficulty() / 2), ENT_COMPAT, 'UTF-8'));
