@@ -546,8 +546,6 @@
     <div class="content2-container bg-blue02">
         <p class="content-title-noshade-size1" id="logs_more_start">
             <img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt=""/>
-            <a href="viewlogs.php?cacheid={cacheid_urlencode}#log{viewlogs_from}" >
-                <img src="tpl/stdstyle/images/action/16x16-showall.png" class="icon16" alt="{{show_all_log_entries_short}}" title="{{show_all_log_entries_short}}"/></a>&nbsp;<a title="{{show_all_log_entries_short}}" href="viewlogs.php?cacheid={cacheid_urlencode}&amp;showlogsall=y#log{viewlogs_from}">{{show_all_log_entries_short}}</a>
         </p>
     </div>
     {viewlogs_end}

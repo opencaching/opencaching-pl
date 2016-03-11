@@ -226,6 +226,7 @@ $translations = array(
     'ignore' => 'Ignoră',
     'ignore_not' => 'Nu ignora',
     'decrypt' => 'Decodează',
+    'encrypt' => 'Criptați',
     'pictures_included' => 'Poze ataşate acestei însemnări',
     'attendends' => 'Am participat',
     'will_attend' => 'Voi participa',

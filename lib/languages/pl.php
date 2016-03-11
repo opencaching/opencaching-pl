@@ -227,6 +227,7 @@ $translations = array(
     'ignore' => 'Ignoruj',
     'ignore_not' => 'Nie ignoruj',
     'decrypt' => 'Odszyfruj',
+    'encrypt' => 'Zaszyfruj',
     'pictures_included' => 'Obrazki do tego wpisu',
     'attendends' => 'Uczestniczyło',
     'will_attend' => 'Będzie uczestniczyć',

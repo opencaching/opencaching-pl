@@ -69,6 +69,8 @@ function showHint(event)
     event.preventDefault();
         $("#decrypt-hints").toggle();
         $("#hintEncrypted").toggle();
+        $("#encryptLinkStr").toggle();
+        $("#decryptLinkStr").toggle();
     return false;
 }
 

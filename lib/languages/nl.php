@@ -227,6 +227,7 @@ $translations = array(
     'ignore' => 'Negeren',
     'ignore_not' => 'Niet negeren',
     'decrypt' => 'Decoderen',
+    'encrypt' => 'Versleutelen',
     'pictures_included' => 'Afbeeldingen in deze log',
     'attendends' => 'Deelgenomen',
     'will_attend' => 'Wil deelnemen',

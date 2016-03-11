@@ -35,7 +35,7 @@ $function_watch = "<li><a href='watchcache.php?cacheid={cacheid}&amp;target=view
 $function_watch_not = "<li><a href='removewatch.php?cacheid={cacheid}&amp;target=viewcache.php%3Fcacheid%3D{cacheid}'>" . tr('watch_not') . "</a></li>";
 $function_ignore = "<li><a href='addignore.php?cacheid={cacheid}&amp;target=viewcache.php%3Fcacheid%3D{cacheid}'>" . tr('ignore') . "</a></li>";
 $function_ignore_not = "<li><a href='removeignore.php?cacheid={cacheid}&amp;target=viewcache.php%3Fcacheid%3D{cacheid}'>" . tr('ignore_not') . "</a></li>";
-$decrypt_link = '<span style="font-weight:400"><a href="viewcache.php?cacheid={cacheid_urlencode}&amp;nocrypt=1&amp;desclang={desclang}' . $linkargs . '#decrypt-info" onclick="return showHint(event);">' . tr('decrypt') .'</a></span>';
+$decrypt_link = '<span style="font-weight:400"><a href="viewcache.php?cacheid={cacheid_urlencode}&amp;nocrypt=1&amp;desclang={desclang}' . $linkargs . '#decrypt-info" onclick="return showHint(event);"><span id="decryptLinkStr">' . tr('decrypt') .'</span><span id="encryptLinkStr" style="display:none">' . tr('encrypt') .'</span></a></span>';
 $pictureline = '<a href="{link}">{title}</a><br />';
 $pictures = '<p>{picturelines}</p>';
 $logpictureline = '<div class="logimage"><div class="img-shadow"><a href="{link}" title="{title}" onclick="return false;"><img src="{imgsrc}" alt="{title}" onclick="{log_picture_onclick}" class="viewlogs-thumbimg" longdesc="{longdesc}"/></a></div><span class="desc">{title}</span>{functions}</div>';
