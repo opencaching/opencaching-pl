@@ -1,5 +1,5 @@
 // remove log by ajax
-function rmLog(logId){
+function rmLog(event, logId){
     event.preventDefault();
     $("#rmLogHrefSection-"+logId).hide();
     $("#rmLogLoader-"+logId).show();
