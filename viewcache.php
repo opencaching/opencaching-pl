@@ -1090,22 +1090,14 @@ if ($error == false) {
                         <th align="center" valign="middle"><b>' . tr('describe_wp') . '</b></th></tr>';
             }
 
-            /* quickFix start */
-            if (checkField('waypoint_type', $lang)){
-                $lang_db = $lang;
-            } else{
-                $lang_db = "en";
-            }
-            /* quickFix end */
-
-            $dbc->multiVariableQuery("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, `waypoint_type`.:1` wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`=:2 ORDER BY `stage`,`wp_id`", $lang_db, $cache_id);
+            $dbc->multiVariableQuery("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`=:1 ORDER BY `stage`,`wp_id`", $geocache->getCacheId());
             foreach ($dbc->dbResultFetchAll() as $wp_record) {
-                $wp_record = sql_fetch_array($wp_rs);
                 if ($wp_record['status'] != 3) {
+                    $wp_record['wp_type'] = tr('wayPointType'.$wp_record['type']);
                     $tmpline1 = $wpline;    // string in viewcache.inc.php
 
                     if ($wp_record['status'] == 1) {
-                        $coords_lat_lon = "<a class=\"links4\" href=\"#\" onclick=\"javascript:window.open('http://www.opencaching.pl/coordinates.php?lat=" . $wp_record['latitude'] . "&amp;lon=" . $wp_record['longitude'] . "&amp;popup=y&amp;wp=" . htmlspecialchars($cache_record['wp_oc'], ENT_COMPAT, 'UTF-8') . "','Koordinatenumrechnung','width=240,height=334,resizable=yes,scrollbars=1'); return event.returnValue=false\">" . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_latToDegreeStr($wp_record['latitude']), ENT_COMPAT, 'UTF-8') . "<br/>" . htmlspecialchars(help_lonToDegreeStr($wp_record['longitude']), ENT_COMPAT, 'UTF-8')) . "</a>";
+                        $coords_lat_lon = "<a class=\"links4\" href=\"#\" onclick=\"javascript:window.open('http://www.opencaching.pl/coordinates.php?lat=" . $wp_record['latitude'] . "&amp;lon=" . $wp_record['longitude'] . "&amp;popup=y&amp;wp=" . htmlspecialchars($geocache->getWaypointId(), ENT_COMPAT, 'UTF-8') . "','Koordinatenumrechnung','width=240,height=334,resizable=yes,scrollbars=1'); return event.returnValue=false\">" . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_latToDegreeStr($wp_record['latitude']), ENT_COMPAT, 'UTF-8') . "<br/>" . htmlspecialchars(help_lonToDegreeStr($wp_record['longitude']), ENT_COMPAT, 'UTF-8')) . "</a>";
                     }
                     if ($wp_record['status'] == 2) {
                         $coords_lat_lon = "N ?? ??????<br />E ?? ??????";

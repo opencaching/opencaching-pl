@@ -2599,4 +2599,10 @@ $translations = array(
     'admin_notes_9' => 'User has not met the minimum found caches limit to be allowed to create new caches.',
     'admin_notes_10' => 'User has met the minimum found caches limit to be allowed to create new caches.',
     'removingLog' => 'removing log entry',
+    'wayPointType-1' => 'Select one waypoint',
+    'wayPointType1' => 'Physical point',
+    'wayPointType2' => 'Virtual point',
+    'wayPointType3' => 'Final location',
+    'wayPointType4' => 'Interesting place',
+    'wayPointType5' => 'Parking area',
 );

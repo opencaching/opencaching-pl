@@ -2588,4 +2588,11 @@ $translations = array(
     'admin_notes_9' => 'Użytkownikowi pozwolono na zakładanie keszy mimo limitu znalezień.',
     'admin_notes_10' => 'Użytkownik znowu musi stosować się do limitu znalezień przy zakładaniu keszy.',
     'removingLog' => 'Usuwanie wpisu',
+    'wayPointType-1' => 'Proszę wybrać typ waypointa',
+    'wayPointType1' => 'Punkt fizyczny',
+    'wayPointType2' => 'Punkt wirtualny',
+    'wayPointType3' => 'Punkt końcowy',
+    'wayPointType4' => 'Interesujące miejsce',
+    'wayPointType5' => 'Parking',
 );
+

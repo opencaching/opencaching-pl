@@ -2596,4 +2596,10 @@ $translations = array(
     'admin_notes_9' => 'Gebruiker dient eerst caches te vinden eer er caches geplaatst kunnen worden',
     'admin_notes_10' => ' Gebruiker hoeft geen caches te vinden om caches te plaatsen ',
     'removingLog' => 'Log word verwijderd',
+    'wayPointType-1' => 'Selecteer een waypoint',
+    'wayPointType1' => 'Fysiek punt',
+    'wayPointType2' => 'Virtueel punt',
+    'wayPointType3' => 'Eindlocatie',
+    'wayPointType4' => 'Interesante plek',
+    'wayPointType5' => 'Parkeerplaats',
 );
