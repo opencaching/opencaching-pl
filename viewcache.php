@@ -1619,7 +1619,7 @@ if ($powerTrailModuleSwitchOn && $cache_id != null) {
 tpl_set_var('ptName', $ptHtml);
 tpl_set_var('ptSectionDisplay', $ptDisplay);
 
-
+tpl_set_var('viewcache_js', "tpl/stdstyle/js/viewcache." . filemtime($rootpath . 'tpl/stdstyle/js/viewcache.js') . ".js");
 
 tpl_BuildTemplate();
 

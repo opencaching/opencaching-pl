@@ -5,7 +5,7 @@
 {jQueryPopUpWindowscripts}
 
 <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
-<script src="tpl/stdstyle/js/viewcache.js"></script>
+<script src="{viewcache_js}"></script>
 
 <input type="hidden" id="cacheid" value="{cacheid}" />
 <input type="hidden" id="logEnteriesCount" value="{logEnteriesCount}" />
