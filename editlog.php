@@ -216,6 +216,16 @@ if ($error == false) {
                     $curr_edit_count = sqlValue("SELECT `edit_count` FROM `cache_logs` WHERE `id`=" . $log_id, 0);
                     //requires ALTER TABLE `cache_logs` ADD `edit_by_user_id` INT NULL , ADD `edit_count` INT NOT NULL DEFAULT '0';
                     $curr_edit_count++;
+
+                    // The following code will update last_modified and edit_count even
+                    // if nothing else is changed in cache_logs. For the case this
+                    // is to be optimized so that last_modified and edit_count are updated
+                    // only if there is a real modification, don't forget to update it also
+                    // if just a recommendation ("rating") is added or withdrawn (which is
+                    // stored in another table)! This is also necessary for proper OKAPI
+                    // replication of log entries
+                    // (see https://github.com/opencaching/okapi/issues/383).
+
                     sql("UPDATE `cache_logs` SET `type`='&1',
                                                      `date`='&2',
                                                      `text`='&3',
