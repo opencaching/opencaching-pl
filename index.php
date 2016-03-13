@@ -87,7 +87,7 @@ $query = "SELECT caches.cache_id, caches.name cacheName, adm1 cacheCountry, adm3
         logUser.user_id logUserId, logUser.username logUserName
 FROM cache_titled
 JOIN caches ON cache_titled.cache_id = caches.cache_id
-JOIN cache_desc ON caches.cache_id = cache_desc.cache_id and language=:1
+LEFT JOIN cache_desc ON caches.cache_id = cache_desc.cache_id and language=:1
 JOIN cache_location ON caches.cache_id = cache_location.cache_id
 JOIN user ON caches.user_id = user.user_id
 
