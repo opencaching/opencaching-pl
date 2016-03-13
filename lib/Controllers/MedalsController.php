@@ -20,7 +20,7 @@ class MedalsController
 
     public function __construct()
     {
-        $this->config = \lib\Objects\OcConfig\OcConfig::Instance();
+        $this->config = \lib\Objects\OcConfig\OcConfig::instance();
     }
 
     public function checkMedalConditions(\lib\Objects\User\User $user)

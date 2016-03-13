@@ -82,10 +82,10 @@ class GeoCache
     private $descLanguagesList;
     private $mp3count;
     private $picturesCount;
-    
+
     /**
      * count of moves for mobile geocaches
-     * @var integer 
+     * @var integer
      */
     private $moveCount = -1;
 
@@ -299,7 +299,7 @@ class GeoCache
      */
     public function isPowerTrailPart()
     {
-        if (! OcConfig::Instance()->getPowerTrailModuleSwitchOn()) {
+        if (! OcConfig::instance()->getPowerTrailModuleSwitchOn()) {
             return false;
         }
 

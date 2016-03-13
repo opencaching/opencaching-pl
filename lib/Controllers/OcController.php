@@ -68,7 +68,7 @@ class OcController
 //        print '<BR>';
         /* end lang test*/
 
-        $ocConfig = \lib\Objects\OcConfig\OcConfig::Instance();
+        $ocConfig = \lib\Objects\OcConfig\OcConfig::instance();
 
 
         $smarty = new \Smarty();

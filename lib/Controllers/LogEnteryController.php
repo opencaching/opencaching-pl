@@ -23,7 +23,7 @@ class LogEnteryController
 			$this->errors[] = 'No such log';
 			return false;
 		}
-		if ($log->getNode() != OcConfig::Instance()->getOcNodeId()) {
+		if ($log->getNode() != OcConfig::instance()->getOcNodeId()) {
 			$this->errors[] = 'Wrong Node';
 			return false;
 		}

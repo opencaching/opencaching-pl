@@ -16,7 +16,7 @@ global $lang, $rootpath, $usr, $absolute_server_URI, $cookie;
 
 //prepare the templates and include all neccessary
 require_once('lib/common.inc.php');
-$ocConfig = \lib\Objects\OcConfig\OcConfig::Instance();
+$ocConfig = \lib\Objects\OcConfig\OcConfig::instance();
 require_once('lib/cache.php');
 require_once(__DIR__ . '/lib/cachemap3lib.inc.php');
 

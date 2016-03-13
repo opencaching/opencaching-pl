@@ -42,7 +42,7 @@ class Medal
             $this->level = (int) $params['level'];
             $this->setImage();
         }
-        $this->config = \lib\Objects\OcConfig\OcConfig::Instance();
+        $this->config = \lib\Objects\OcConfig\OcConfig::instance();
     }
 
     public function getMedalProfile()

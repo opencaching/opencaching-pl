@@ -45,11 +45,17 @@ final class OcConfig
     private $noreplyEmailAddress;
     private $mapsConfig;            //settings.inc: $config['mapsConfig']
 
+    // db config
+    private $dbUser;
+    private $dbPass;
+    private $dbHost;
+    private $dbName;
+
     /**
      * Call this method to get singleton
      * @return ocConfig
      */
-    public static function Instance()
+    public static function instance()
     {
         static $inst = null;
         if ($inst === null) {
@@ -68,7 +74,7 @@ final class OcConfig
 
     private function loadConfig()
     {
-        include __DIR__ . '/../../settings.inc.php';
+        require __DIR__ . '/../../settings.inc.php';
         $this->medalsModuleSwitchedOn = $config['medalsModuleSwitchedOn'];
         $this->datetimeFormat = $datetimeFormat;
         $this->ocNodeId = $oc_nodeid;
@@ -98,6 +104,11 @@ final class OcConfig
         }
 
         $this->isGoogleTranslationEnabled = !( isset( $disable_google_translation ) && $disable_google_translation );
+
+        $this->dbHost = $opt['db']['server'];
+        $this->dbName = $opt['db']['name'];
+        $this->dbUser = $opt['db']['username'];
+        $this->dbPass = $opt['db']['password'];
 
     }
 
@@ -210,7 +221,7 @@ final class OcConfig
     {
         return $this->powerTrailModuleSwitchOn;
     }
-    
+
     public function getNoreplyEmailAddress()
     {
         return $this->noreplyEmailAddress;
@@ -234,9 +245,24 @@ final class OcConfig
      * get $config['mapsConfig'] from settings.inc.php in a static way
      * always return an array
      */
-    public function MapsConfig()
+    public static function mapsConfig()
     {
-        return self::Instance()->getMapsConfig();
+        return self::instance()->getMapsConfig();
     }
 
+    public function getDbUser(){
+        return $this->dbUser;
+    }
+
+    public function getDbPass(){
+        return $this->dbPass;
+    }
+
+    public function getDbHost(){
+        return $this->dbHost;
+    }
+
+    public function getDbName(){
+        return $this->dbName;
+    }
 }

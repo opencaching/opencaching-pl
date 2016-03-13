@@ -311,7 +311,7 @@ class tmp_Xmlmap
      */
     private function htmlFormat(array $params)
     {
-        $ocConfig = \lib\Objects\OcConfig\OcConfig::Instance();
+        $ocConfig = \lib\Objects\OcConfig\OcConfig::instance();
         //call OKAPI
         $okapi_resp = \okapi\Facade::service_call('services/caches/shortcuts/search_and_retrieve', $this->user_id, $params);
 
