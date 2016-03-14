@@ -10,5 +10,4 @@ $remove_log = '<span id="rmLogLoader-{logid}" style="display: none"><img src="tp
 $revertLog = '<img src="tpl/stdstyle/images/free_icons/comment_edit.png" class="icon16"> <a class="links" href="revertlog.php?logid={logid}">' . tr("revert") . '</a> ';
 $upload_picture = '<img src="tpl/stdstyle/images/action/16x16-addimage.png" class="icon16" alt="" title=""/>&nbsp;<a class="links" href="newpic.php?objectid={logid}&amp;type=1">' . tr("add_picture") . '</a>&nbsp;';
 $remove_picture = ' <span class="removepic"><img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="" title=""/><a class="links" href="removepic.php?uuid={uuid}">' . tr("delete") . '</a></span>';
-$rating_picture = '<img src="images/rating-star.png" alt="Rekomendacja" /> '
-?>
+$rating_picture = '<img src="images/rating-star.png" alt="Rekomendacja" /> ';

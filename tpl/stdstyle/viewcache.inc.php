@@ -40,7 +40,7 @@ $pictureline = '<a href="{link}">{title}</a><br />';
 $pictures = '<p>{picturelines}</p>';
 
 $logpictureline = '<div class="logimage"><div class="img-shadow">'
-         .'<a class="example-image-link" href="{longdesc}" data-lightbox="example-1"><img class="example-image" src="{imgsrc}" alt="{title}" /></a>'
+         .'<a class="example-image-link" href="{longdesc}" data-title="{title}" data-lightbox="example-1"><img class="example-image" src="{imgsrc}" alt="{title}" /></a>'
         . '</div><span class="desc">{title}</span>{functions}</div>';
 
 $logpictures = '<div class="viewlogs-logpictures"><span class="info">' . tr('pictures_included') . ':</span><div class="allimages">{lines}</div></div><br style="clear: both" />';
