@@ -371,6 +371,9 @@ if ($error == false) {
                 $thatquery = "SELECT `url`, `title`, `uuid`, `user_id`, `spoiler` FROM `pictures` WHERE `object_id`=:1 AND `object_type`=1";
                 $dbc->multiVariableQuery($thatquery, $record['logid']);
                 $pic_count = $dbc->rowCount();
+                if (!isset($showspoiler)) {
+                    $showspoiler = '';
+                }
                 for ($j = 0; $j < $pic_count; $j++) {
                     $pic_record = $dbc->dbResultFetch();
                     $thisline = $logpictureline;
