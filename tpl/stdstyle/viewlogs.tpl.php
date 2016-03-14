@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="tpl/stdstyle/js/lightbox2/dist/css/lightbox.min.css">
+<script src="tpl/stdstyle/js/lightbox2/dist/js/lightbox-plus-jquery.min.js"></script>
 <script type="text/javascript">
 <!--
     var rot13tables;
