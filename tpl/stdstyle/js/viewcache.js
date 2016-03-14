@@ -39,9 +39,6 @@ var currentLogEnteriessOffset = 0;
 var currentLogEnteriessLimit = 10;
 
 $(window).scroll(function (event) {
-    var scroll = $(window).scrollTop();
-    var height = $(document).height();
-
     if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
         var logEnteriesCount = parseInt($('#logEnteriesCount').val());
         if(currentLogEnteriessOffset < logEnteriesCount){
@@ -57,6 +54,7 @@ function loadLogEnteries(offset, limit){
     request = $.ajax({
         url: "getLogEnteries.php",
         type: "post",
+        async: false,
         data:{
                 offset: offset,
                 limit: limit,
