@@ -47,7 +47,7 @@ if ($debug_page)
 
                 echo '<tr class="bgcolor2">
             <td align="right">
-                <b><a class=links href=articles.php?page=s11&region=' . $record[code] . '>' . $record[name] . '</a></b>&nbsp;&nbsp;
+                <b><a class=links href=articles.php?page=s11&region=' . $record['code'] . '>' . $record['name'] . '</a></b>&nbsp;&nbsp;
             </td>';
             }
 
