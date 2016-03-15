@@ -118,7 +118,7 @@ if ($error == false) {
             };
 
 
-            $thisline = mb_ereg_replace('{imgsrc}', 'thumbs.php?' . $showspoiler . 'uuid=' . urlencode($pic_crecord['uuid']), $thisline);
+            $thisline = mb_ereg_replace('{imgsrc}', 'thumbs.php?uuid=' . urlencode($pic_crecord['uuid']), $thisline);
             $thisline = mb_ereg_replace('{log}', $tmplog_username . ": " . htmlspecialchars($record['text'], ENT_COMPAT, 'UTF-8'), $thisline);
             if ($pic_crecord['title'] == "") {
                 $title = "link";
@@ -166,7 +166,7 @@ if ($error == false) {
             };
 
 
-            $thisline = mb_ereg_replace('{imgsrc}', 'thumbs.php?' . $showspoiler . 'uuid=' . urlencode($pic_record['uuid']), $thisline);
+            $thisline = mb_ereg_replace('{imgsrc}', 'thumbs.php?uuid=' . urlencode($pic_record['uuid']), $thisline);
             $thisline = mb_ereg_replace('{log}', $tmplog_username . " " . htmlspecialchars($record['text'], ENT_COMPAT, 'UTF-8'), $thisline);
             if ($pic_record['title'] == "") {
                 $title = "link";
