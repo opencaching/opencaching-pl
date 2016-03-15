@@ -117,9 +117,8 @@ if ($error == false) {
                 $thisline = mb_ereg_replace('{longdesc}', str_replace("uploads", "uploads", $pic_crecord['url']), $thisline);
             };
 
-
             $thisline = mb_ereg_replace('{imgsrc}', 'thumbs.php?uuid=' . urlencode($pic_crecord['uuid']), $thisline);
-            $thisline = mb_ereg_replace('{log}', $tmplog_username . ": " . htmlspecialchars($record['text'], ENT_COMPAT, 'UTF-8'), $thisline);
+            //$thisline = mb_ereg_replace('{log}', $tmplog_username . ": " . htmlspecialchars($record['text'], ENT_COMPAT, 'UTF-8'), $thisline);
             if ($pic_crecord['title'] == "") {
                 $title = "link";
             } else {
@@ -136,7 +135,7 @@ if ($error == false) {
         $tmplog = $cachepicturelines;
 
 
-        $clogs .= "$tmplog\n";
+        $clogs = "$tmplog\n";
 
         tpl_set_var('cachepictures', $clogs);
 
@@ -167,7 +166,7 @@ if ($error == false) {
 
 
             $thisline = mb_ereg_replace('{imgsrc}', 'thumbs.php?uuid=' . urlencode($pic_record['uuid']), $thisline);
-            $thisline = mb_ereg_replace('{log}', $tmplog_username . " " . htmlspecialchars($record['text'], ENT_COMPAT, 'UTF-8'), $thisline);
+            //$thisline = mb_ereg_replace('{log}', $tmplog_username . " " . htmlspecialchars($record['text'], ENT_COMPAT, 'UTF-8'), $thisline);
             if ($pic_record['title'] == "") {
                 $title = "link";
             } else {
@@ -185,7 +184,7 @@ if ($error == false) {
         $tmplog = $logpicturelines;
 
 
-        $logs .= "$tmplog\n";
+        $logs = "$tmplog\n";
 
         tpl_set_var('logpictures', $logs);
     } else {
