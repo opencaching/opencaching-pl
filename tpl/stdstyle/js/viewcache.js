@@ -15,7 +15,6 @@ function rmLog(event, logId){
         console.log(response);
         if(response.removeLogResult === true){
             var uType = $("#uType").val();
-            console.log(uType);
             if(uType == 1){
                 $("#log"+logId).addClass('show_deleted');
             } else {
@@ -37,6 +36,7 @@ function rmLog(event, logId){
 
 var currentLogEnteriessOffset = 0;
 var currentLogEnteriessLimit = 10;
+var logEnteryUnderExecution = false;
 
 $(window).scroll(function (event) {
     if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
@@ -49,23 +49,26 @@ $(window).scroll(function (event) {
 });
 
 function loadLogEnteries(offset, limit){
-    var geocacheId = $("#cacheid").val();
-    var owner_id = $("#owner_id").val();
-    request = $.ajax({
-        url: "getLogEnteries.php",
-        type: "post",
-        async: false,
-        data:{
-                offset: offset,
-                limit: limit,
-                geocacheId: geocacheId,
-                owner_id: owner_id,
-                includeDeletedLogs: $('#includeDeletedLogs').val()
-        }
-    });
-    request.done(function (response, textStatus, jqXHR){
-        $("#viewcache-logs").html($("#viewcache-logs").html() + response);
-    });
+    if(logEnteryUnderExecution === false){
+        logEnteryUnderExecution = true;
+        var geocacheId = $("#cacheid").val();
+        var owner_id = $("#owner_id").val();
+        request = $.ajax({
+            url: "getLogEnteries.php",
+            type: "post",
+            data:{
+                    offset: offset,
+                    limit: limit,
+                    geocacheId: geocacheId,
+                    owner_id: owner_id,
+                    includeDeletedLogs: $('#includeDeletedLogs').val()
+            }
+        });
+        request.done(function (response, textStatus, jqXHR){
+            $("#viewcache-logs").html($("#viewcache-logs").html() + response);
+            logEnteryUnderExecution = false;
+        });
+    }
 }
 
 function showHint(event)
