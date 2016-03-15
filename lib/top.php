@@ -16,7 +16,7 @@ echo '<center><table style="padding-left:32px; padding-bottom:32px; line-heigh: 
 echo '<tr><td align="center" style="font-size: 16px;"><b>' . tr('index_01') . '</b><br /></td></tr>';
 echo '<tr><td>' . tr('index_02') . '<br /> <br /><img src="images/rating-star.png" border="0" alt="Recommendations" /> ' . tr('index_03') . '<br /><br /><img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="Found" /> ' . tr('index_04') . '<br /><br /> ' . tr('index_05') . '</td></tr>';
 echo '<tr><td align="center"><img src="images/tops-formula.png" border="0" alt="Formula" /></td></tr></table></center>';
-echo '<table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px;line-high: 1.6em; font-size: 12px;" width="97%"><tr><td>&nbsp;</td><td><strong>' . tr(index_06) . '</strong></td><td><img src="images/rating-star.png" border="0" alt="" /></td><td><img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="" /></td><td><strong>Cache</strong></td><td><strong>' . tr('user') . '</strong></td></tr><tr><td colspan="6"><hr></hr></td></tr>';
+echo '<table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px;line-high: 1.6em; font-size: 12px;" width="97%"><tr><td>&nbsp;</td><td><strong>' . tr('index_06') . '</strong></td><td><img src="images/rating-star.png" border="0" alt="" /></td><td><img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="" /></td><td><strong>Cache</strong></td><td><strong>' . tr('user') . '</strong></td></tr><tr><td colspan="6"><hr></hr></td></tr>';
 
 //  mysql_query("SET NAMES 'utf8'");
 // Alle Caches für diese Gruppe finden
@@ -65,20 +65,21 @@ $rsCaches = sql("SELECT `topResult`.`idx`,
 
 $items = array();
 while ($rCaches = sql_fetch_assoc($rsCaches)) {
-    $widthB = round(100 * ($rCaches[idx] / 200) / 1, 0);
+    $widthB = round(100 * ($rCaches['idx'] / 200) / 1, 0);
 
 //  echo $rCaches['idx'] . ' ' . $rCaches['name'] . '<br />';
 //  $line = '<tr><td><a href=http://www.opencaching.pl/viewcache.php?cacheid={cacheid} target=_blank>{name}</a> (<b>{username}</b>)</td><td align=right>&nbsp;(<b>{count}</b>)&nbsp;</td><td><img src=/graphs/images/leftbar.gif /><img src=/graphs/images/mainbar.gif height=14 width={widthB} /><img src=/graphs/images/rightbar.gif /> </td> </tr>';
     $line = '<tr><td>&nbsp;</td><td><span class="content-title-noshade txt-blue08" >{index}</span></td><td><span class="content-title-noshade txt-green10">{rating}</span></td><td><span class="content-title-noshade txt-green10">{fbr}</span></td><td><a class="links" href="viewcache.php?cacheid={cacheid}" target="_blank">{name}</a></td><td><a class="links" href="viewprofile.php?userid={userid}" target="_blank">{username}</a></td></tr>';
-    $line = str_replace('{index}', $rCaches[idx], $line);
-    $line = str_replace('{rating}', $rCaches[ratings], $line);
-    $line = str_replace('{fbr}', $rCaches[founds], $line);
-    $line = str_replace('{far}', $rCaches[foundAfterRating], $line);
-    $line = str_replace('{username}', $rCaches[username], $line);
+
+    $line = str_replace('{index}', $rCaches['idx'], $line);
+    $line = str_replace('{rating}', $rCaches['ratings'], $line);
+    $line = str_replace('{fbr}', $rCaches['founds'], $line);
+    $line = str_replace('{far}', $rCaches['foundAfterRating'], $line);
+    $line = str_replace('{username}', $rCaches['username'], $line);
     $line = str_replace('{widthB}', $widthB, $line);
-    $line = str_replace('{userid}', $rCaches[userid], $line);
-    $line = str_replace('{cacheid}', $rCaches[cache_id], $line);
-    $line = str_replace('{name}', $rCaches[name], $line);
+    $line = str_replace('{userid}', $rCaches['userid'], $line);
+    $line = str_replace('{cacheid}', $rCaches['cache_id'], $line);
+    $line = str_replace('{name}', $rCaches['name'], $line);
     echo $line;
 }
 sql_free_result($rsCaches);

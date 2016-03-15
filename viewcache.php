@@ -1349,7 +1349,6 @@ if ($error == false) {
 
                 //TODO: mark all that isn't ROT13 coded
             } else {
-                $cryptedhints = mb_ereg_replace('{decrypt_link}', '', $cryptedhints);
                 tpl_set_var("decrypt_link_start", "<!--");
                 tpl_set_var("decrypt_link_end", "-->");
                 tpl_set_var("decrypt_table_start", "<!--");
