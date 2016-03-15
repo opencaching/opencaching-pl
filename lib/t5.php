@@ -17,17 +17,21 @@ echo '<tr><td class="bgcolor2" align="right"><b>' . tr('Stats_t5_07') . '</b>&nb
 $l2 = "";
 $licznik = 0;
 while ($linia = sql_fetch_assoc($linie)) {
-    $l1 = $linia[count];
-    $x = sqlValue("SELECT COUNT(*) FROM caches WHERE `caches`.`topratings` >= 1 AND caches.type <> 6 AND caches.user_id='$linia[user_id]'", 0);
-    $y = sqlValue("SELECT COUNT(*) FROM caches WHERE user_id='$linia[user_id]' AND status <> 4 AND status <> 5 AND status <> 6 AND type <> 6", 0);
-    $xy = sprintf("%.u", ($x / $y) * 100);
+    $l1 = $linia['count'];
+    $x = sqlValue("SELECT COUNT(*) FROM caches WHERE `caches`.`topratings` >= 1 AND caches.type <> 6 AND caches.user_id='".$linia['user_id']."'", 0);
+    $y = sqlValue("SELECT COUNT(*) FROM caches WHERE user_id='".$linia['user_id']."' AND status <> 4 AND status <> 5 AND status <> 6 AND type <> 6", 0);
+    if($y!=0){
+        $xy = sprintf("%.u", ($x / $y) * 100);
+    }else{
+        $xy = 0;
+    }
     if ($l2 != $l1) {
         $licznik++;
         echo "</td></tr><tr><td class=\"bgcolor2\" align=\"right\">&nbsp;&nbsp;<b>$licznik</b>&nbsp;&nbsp;</td><td class=\"bgcolor2\" align=\"right\">&nbsp;&nbsp;<b>$l1</b>&nbsp;&nbsp;</td>";
-        echo "<td class=\"bgcolor2\"><a class=\"links\" href=\"viewprofile.php?userid=$linia[user_id]\">" . htmlspecialchars($linia[username]) . " (<font color=\"firebrick\">$xy% - </font><font color=\"green\">$x</font>/<font color=\"blue\">$y</font>)</a>";
+        echo "<td class=\"bgcolor2\"><a class=\"links\" href=\"viewprofile.php?userid=".$linia['user_id']."\">" . htmlspecialchars($linia['username']) . " (<font color=\"firebrick\">$xy% - </font><font color=\"green\">$x</font>/<font color=\"blue\">$y</font>)</a>";
         $l2 = $l1;
     } else {
-        echo ", <a class=\"links\" href=\"viewprofile.php?userid=$linia[user_id]\">" . htmlspecialchars($linia[username]) . " (<font color=\"firebrick\">$xy% - </font><font color=\"green\">$x</font>/<font color=\"blue\">$y</font>)</a>";
+        echo ", <a class=\"links\" href=\"viewprofile.php?userid=".$linia['user_id']."\">" . htmlspecialchars($linia['username']) . " (<font color=\"firebrick\">$xy% - </font><font color=\"green\">$x</font>/<font color=\"blue\">$y</font>)</a>";
     }
 }
 echo '</td></tr></table>' . "\n";
