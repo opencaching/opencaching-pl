@@ -75,7 +75,7 @@ class Email
         if(!empty($this->toAddr))
             $to = implode(',', $this->toAddr);
         else
-            $to=''; //TODO: is it works?
+            $to=''; //TODO: is it work?
 
         $subject = $this->subjectPrefix . $this->subject;
         $message = $this->body;
@@ -165,14 +165,14 @@ class Email
             empty($this->bccAddr) ){
 
                 //no recipient of this email
-                $this->error(__METHOD__.": Trying to send email with no recipients!");
+                $this->error(__METHOD__.": Trying to send email with no recipients.");
                 return false;
         }
 
         //check subject
         if($this->subject == ''){
             //empty subject email
-            $this->error(__METHOD__.": Trying to send email with no recipients!");
+            $this->error(__METHOD__.": Trying to send email without subject.");
             return false;
         }
 

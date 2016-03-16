@@ -51,10 +51,6 @@ final class OcConfig
     private $dbHost;
     private $dbName;
 
-    // system emails
-    private $senderEmailAddr; //$emailaddr
-    private $techAdminsEmailAddr; //$mail_rt
-
     /**
      * Call this method to get singleton
      * @return ocConfig
@@ -271,17 +267,16 @@ final class OcConfig
     }
 
     public static function getSenderEmailAddr(){
-        //TODO
-        //it will be immplemented in a future
-
+        //it will be implemented in a future
+        //currently this is only a stub...
         return 'noreply@opencaching.pl';
     }
+
     public static function getTechAdminsEmailAddr(){
-        //private $techAdminsEmailAddr;
+        //it will be implemented in a future
+        //currently this is only a stub...
         global $mail_rt;
-        //TODO -this is only a fast path to settings
-        //it will be immplemented in a future
+
         return $mail_rt;
     }
-
 }
