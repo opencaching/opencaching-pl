@@ -33,7 +33,6 @@ function get_okapi_settings()
         # OKAPI-specific settings, see okapi/settings.php file.
 
         'OC_BRANCH' => 'oc.pl',
-        'SUPPORTS_LOGTYPE_NEEDS_MAINTENANCE' => true,  # OCPL supports it
         'DATA_LICENSE_URL' => 'http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use',
 
         # Copy the rest from settings.inc.php:
