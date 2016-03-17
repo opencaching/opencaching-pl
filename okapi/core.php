@@ -1003,8 +1003,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1198;
-    public static $git_revision = 'cd1c47daa3598cf3635585d99027c0f4d54506fd';
+    public static $version_number = 1199;
+    public static $git_revision = '1540b35ae330e979c374339b4e6ad46cfaea7970';
 
     private static $okapi_vars = null;
 
@@ -1418,18 +1418,6 @@ class Okapi
                 now()
             );
         ");
-    }
-
-    /**
-     * Aborts if a consumer key has been revoked.
-     */
-    public function failIfKeyRevoked($consumer)
-    {
-        if ($consumer->hasFlag(OkapiConsumer::FLAG_KEY_REVOKED)) {
-            throw new BadRequest("Your application was denied access to the " .
-                Okapi::get_normalized_site_name() . " site " .
-                "(OKAPI consumer key was revoked).");
-        }
     }
 
     /** Return the distance between two geopoints, in meters. */
@@ -2291,6 +2279,11 @@ class OkapiHttpRequest extends OkapiRequest
                     if (!$this->consumer) {
                         throw new InvalidParam('consumer_key', "Consumer does not exist.");
                     }
+                    if ($this->consumer->hasFlag(OkapiConsumer::FLAG_KEY_REVOKED)) {
+                        throw new BadRequest("Your application was denied access to the " .
+                            Okapi::get_normalized_site_name() . " site " .
+                            "(OKAPI consumer key was revoked).");
+                    }
                 }
                 if (($this->opt_min_auth_level == 1) && (!$this->consumer))
                     throw new BadRequest("This method requires the 'consumer_key' argument (Level 1 ".
@@ -2298,11 +2291,8 @@ class OkapiHttpRequest extends OkapiRequest
             }
         }
 
-        if (is_object($this->consumer)) {
-            Okapi::failIfKeyRevoked($this->consumer);
-        }
-
-        if (is_object($this->consumer) && $this->consumer->hasFlag(OkapiConsumer::FLAG_SKIP_LIMITS)) {
+        if (is_object($this->consumer) && $this->consumer->hasFlag(OkapiConsumer::FLAG_SKIP_LIMITS))
+        {
             $this->skip_limits = true;
         }
 
