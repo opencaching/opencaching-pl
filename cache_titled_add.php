@@ -10,7 +10,7 @@ if ( !isset( $_REQUEST[ 'CRON' ] ) )
 
 $dbc = new dataBase();
 
-$queryMax = "SELECT max( date_alg ) dataMax FROM cache_titled";        
+$queryMax = "SELECT max( date_alg ) dataMax FROM cache_titled";
 $dbc->simpleQuery($queryMax);
 $record = $dbc->dbResultFetch();
 $dataMax = $record["dataMax"];

@@ -349,7 +349,7 @@ $translations = array(
     'no_javascript' => 'Ihr Browser unterstützt kein Javascript unterstützt. Sie können nur reinen Text. Zur Aktivierung der HTML-Editor, aktivieren Sie bitte Javascript-Unterstützung.',
     'html_usage' => 'Bitte verwenden Sie HTML-Tags nur für die Bearbeitung eines Textes.',
     'available_html' => 'Liste der verfügbaren HTML-Tags',
-    'additional_enc_info' => '<b> <font color="red"> Zusätzliche </font> verschlüsselten Hinweis. </b> <i> Nicht ein Pflichtfeld </i>. Sie können einige weitere Hinweise hier. Informationen erforderlich sind, um eine Cache ist in "Vollständig"-Feld. "	red>Additional</font> encrypted hint.</b> <i>Not a mandatory field</i>. Your can place some additional hints here. Information neccessary to find a cache has to be placed in "Full description" field.',
+    'additional_enc_info' => '<b> <font color="red"> Zusätzliche </font> verschlüsselten Hinweis. </b> <i> Nicht ein Pflichtfeld </i>. Sie können einige weitere Hinweise hier. Informationen erforderlich sind, um eine Cache ist in "Vollständig"-Feld. " red>Additional</font> encrypted hint.</b> <i>Not a mandatory field</i>. Your can place some additional hints here. Information neccessary to find a cache has to be placed in "Full description" field.',
     'add_photo_newcache' => 'Bilder,extra waypoints und MP3 für diesen Cache können nach dem Anlegen des Caches hinzugefügt werden.',
     'search_wildcard_info' => 'Verwenden Sie "% "als Platzhalter.',
     'event_hidden_hint' => 'Hinweis: Bei Veranstaltungen, die" versteckte Datum "-Feld sollte ein Tag, an dem die Veranstaltung beginnt',

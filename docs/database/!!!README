@@ -11,7 +11,7 @@ mysql -Bs -b [OCPL_database] -e 'show tables'
 table purpose, usage and each column purpose and usage.
 
 ---------------------------------------------------------------------------
-    Files listing table structures were initially created with the following 
+    Files listing table structures were initially created with the following
 commands:
 
 ###########################################################################
@@ -32,7 +32,7 @@ done
 ###########################################################################
 
     Replace OCPL_database with your actual database name.
-    Further documentation was edited manually. 
+    Further documentation was edited manually.
 
 *** Please update these documents with each change in the database structure!
 
@@ -323,7 +323,7 @@ transaction_test
 user
 	registered users info
 user_backup_201403032233
-	backup of table user and date of creation. 
+	backup of table user and date of creation.
 	FIXME: purpose? (seems very old)
 user_finds
 	FIXME
@@ -353,6 +353,5 @@ xmlsession_data
 
 Changelog
 ---------
-2016-03-05: created by andrixnet. Documented only what I managed to 
+2016-03-05: created by andrixnet. Documented only what I managed to
 	investigate so far.
-	

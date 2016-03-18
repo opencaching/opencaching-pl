@@ -65,7 +65,7 @@ Column description
 user_id
 	unique numeric ID for each user
 username
-	username, unique for each user. 
+	username, unique for each user.
 	When registering, these are checked to ensure no duplication exists.
 password
 	user's password in hashed form.
@@ -74,7 +74,7 @@ password_salt
 password_hashing_rounds
 	FIXME
 email
-	user's email address. 
+	user's email address.
 	Used for account activation and notifications
 latitude
 	Latitude for user's home location. Stored as DOUBLE floating point value
@@ -101,7 +101,7 @@ country
 pmr_flag
 	FIXME
 new_pw_code
-	Is set to "12345abcd" when user asks for new password. 
+	Is set to "12345abcd" when user asks for new password.
 	Returns to 0 after user use this code via http://opencaching.pl/newpw.php
 new_pw_date
 	Date when new password is asked.
@@ -121,11 +121,11 @@ log_notes_count
 	counter showing the number of "write note" logs created by this user
 founds_count
 	counter showing the number of "found" logs by this user
-	FIXME: is this number of "found" logs or number of caches found ? 
+	FIXME: is this number of "found" logs or number of caches found ?
 	(case of multiple "found" logs to a cache)
 notfounds_count
 	counter showing the number of "not found" logs by this user
-	FIXME: is this number of "not found" logs or number of caches not found ? 
+	FIXME: is this number of "not found" logs or number of caches not found ?
 	(case of multiple "not found" logs to a cache)
 uuid
 	FIXME: related to login on main website
@@ -134,11 +134,11 @@ uuid_mobile
 cache_watches
 	counter showing the number of caches watched by this user
 permanent_login_flag
-	flag indicating the auto logout feature. 
+	flag indicating the auto logout feature.
 	0 - auto logout after timeout
 	1 - no automatic logout
 watchmail_mode
-	is when user set in userprofile if receiving mail about watchmail. 
+	is when user set in userprofile if receiving mail about watchmail.
 	Other watchmail columns is when user set when he receives mail.
 	FIXME: clarifications needed
 watchmail_hour
@@ -159,17 +159,17 @@ power_trail_email
 	FIXME
 notify_radius
 	radius around home location for which user receives notifications about
-	cache activities. 
+	cache activities.
 	FIXME: clarify what sort of notifications
 admin
 	0 - regular user
-	1 - is administrator (has access to OC ADMIN MENU)	
+	1 - is administrator (has access to OC ADMIN MENU)
 guru
-	Are users who have more than 20 recommendations and were active in the 
-	last 90 days. 
-	They are shown on http://opencaching.pl/cacheguides.php?lang=en. 
+	Are users who have more than 20 recommendations and were active in the
+	last 90 days.
+	They are shown on http://opencaching.pl/cacheguides.php?lang=en.
 	This can be set in user profile after 20 recommendations.
-	FIXME: actual data in this column. 
+	FIXME: actual data in this column.
 	FIXME: recommendations refer to geocaches owned by this user are being
 	recommended
 node
@@ -189,7 +189,7 @@ ozi_filips
 hide_flag
 	FIXME
 verify_all
-	If set to 1 all caches published by this user must be approved by oc-team. 
+	If set to 1 all caches published by this user must be approved by oc-team.
 	Set via admin_users.php. Verify all new caches for this user
 cog_note
 

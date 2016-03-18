@@ -5,10 +5,10 @@ $language = array();
 function load_language_file($lang)
 {
     global $language;
-	$languageFilename = __DIR__ . "/languages/" . $lang.'.php';
+    $languageFilename = __DIR__ . "/languages/" . $lang.'.php';
     if(!file_exists($languageFilename)){
-		return false;
-	}
+        return false;
+    }
     include ($languageFilename);
     $language[$lang] = $translations;
     return true;

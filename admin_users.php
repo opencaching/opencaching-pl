@@ -29,7 +29,7 @@ if ($usr['admin']) {
         lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user_id, false, $_POST['note_content']);
         Header("Location: viewprofile.php?userid=".$user_id);
     }
-    
+
     if (isset($_GET['stat_ban']) && $_GET['stat_ban'] == 1 && $usr['admin']) {
         $sql = "UPDATE user SET stat_ban = 1 - stat_ban WHERE user_id = " . intval($user_id);
         if ($record["stat_ban"] == 0) {
@@ -157,10 +157,10 @@ if ($usr['admin']) {
     } else {
         tpl_set_var('hide_flag', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="admin_users.php?userid=' . $user_id . '&amp;verify_all=0"><font color="#228b22">' . tr('admin_users_verify_none') . '</font></a>&nbsp;<img src="' . $stylepath . '/images/blue/atten-green.png" align="top" alt="" /></p>');
     }
-    
+
     tpl_set_var('form_title', tr('admin_notes_content'));
     tpl_set_var('submit_button', tr('pt032'));
-    
+
     $tplname = 'admin_users';
     tpl_BuildTemplate();
 }

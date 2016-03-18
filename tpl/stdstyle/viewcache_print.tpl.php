@@ -181,7 +181,7 @@ global $usr, $lang, $hide_coords;
     </p>
 </div>
 <div class="content2-container" id="viewcache-logs">
-    
+
 </div>
 {hidelogbook_end}
 <!-- End Text Container -->

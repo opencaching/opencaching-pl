@@ -317,14 +317,14 @@
                 $options['waypoint'] = isset($_REQUEST['waypoint']) ? $_REQUEST['waypoint'] : '';
                 $options['waypoint'] = mb_trim($options['waypoint']);
                 $options['waypointtype'] = mb_strtolower(mb_substr($options['waypoint'], 0, 2));
-                $ocWP=strtolower($GLOBALS['oc_waypoint']);                
+                $ocWP=strtolower($GLOBALS['oc_waypoint']);
                 if ( mb_ereg_match('(oc|'.$ocWP.'[a-z0-9]{4})$', mb_strtolower($options['waypoint'])) ) //O?xxxx
                 {
-                	$options['waypointtype'] = 'oc';
+                    $options['waypointtype'] = 'oc';
                 }
                 elseif ( mb_ereg_match('(n[a-f0-9]{5})$', mb_strtolower($options['waypoint'])) ) //Navicache.com
                 {
-                	$options['waypointtype'] = 'nc';
+                    $options['waypointtype'] = 'nc';
                 }
                 elseif ( mb_ereg_match('([a-zA-Z0-9]{4})$', $options['waypoint']) ) //xxxxx -> O?xxxxx
                 {
@@ -333,7 +333,7 @@
                 }
                 elseif ( !mb_ereg_match('(gc[a-z0-9]{4,5})$', mb_strtolower($options['waypoint'])) ) //GC and others - test
                 {
-                	$options['waypoint'] = '';
+                    $options['waypoint'] = '';
                 }
             }
             elseif (isset($_REQUEST['searchbywatched']))

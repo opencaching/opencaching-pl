@@ -126,7 +126,7 @@ if ($error == false) {
             $show_edit = true;
         } else {
             $show_edit = false;
-		}
+        }
         $orig_coord_info_lon = ''; //use to determine whether icon shall be displayed
         $coords_correct = true;
         $mod_coords_modified = false;

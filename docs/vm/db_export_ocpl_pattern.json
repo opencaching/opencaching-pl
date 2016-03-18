@@ -31,7 +31,7 @@
                 "__comment": "",
                 "__action": "skip-data"
             }
-        },     
+        },
         "approval_status": {
             "__table_comment": "not need at dev env.",
             "cache_id": {
@@ -2555,7 +2555,7 @@
                 "__comment": "",
                 "__action": "skip-data"
             }
-        },        
+        },
         "okapi_stats_temp": {
             "__table_comment": "",
             "datetime": {

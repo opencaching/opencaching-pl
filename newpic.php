@@ -156,21 +156,21 @@ if ($error == false) {
 
                         $uuid = create_uuid();
 
-			if ($config['limits']['image']['resize'] == 1 && $_FILES['file']['size'] > 102400) {
-			    // Apply resize to uploaded image
-                    	    $image = new \lib\SimpleImage();
-                    	    $image->load($_FILES['file']['tmp_name']);
-                    	    if ($image->getHeight() > $image->getWidth() && $image->getHeight() > $config['limits']['image']['height']) { //portrait
-                        	$image->resizeToHeight($config['limits']['image']['height']);
-                    	    }
-                    	    if ($image->getHeight() <= $image->getWidth() && $image->getWidth() > $config['limits']['image']['width'])  {
-                        	$image -> resizeToWidth($config['limits']['image']['width']);
-                    	    }
-                    	    $image->save($picdir . '/' . $uuid . '.' . $extension, resolveImageTypeByFileExtension($extension));
-			} else {
-			    // Save uploaded image AS IS
-			    move_uploaded_file($_FILES['file']['tmp_name'], $picdir . '/' . $uuid . '.' . $extension);
-			}
+            if ($config['limits']['image']['resize'] == 1 && $_FILES['file']['size'] > 102400) {
+                // Apply resize to uploaded image
+                            $image = new \lib\SimpleImage();
+                            $image->load($_FILES['file']['tmp_name']);
+                            if ($image->getHeight() > $image->getWidth() && $image->getHeight() > $config['limits']['image']['height']) { //portrait
+                            $image->resizeToHeight($config['limits']['image']['height']);
+                            }
+                            if ($image->getHeight() <= $image->getWidth() && $image->getWidth() > $config['limits']['image']['width'])  {
+                            $image -> resizeToWidth($config['limits']['image']['width']);
+                            }
+                            $image->save($picdir . '/' . $uuid . '.' . $extension, resolveImageTypeByFileExtension($extension));
+            } else {
+                // Save uploaded image AS IS
+                move_uploaded_file($_FILES['file']['tmp_name'], $picdir . '/' . $uuid . '.' . $extension);
+            }
 
                         sql("INSERT INTO pictures (`uuid`, `url`, `last_modified`, `title`, `description`, `desc_html`, `date_created`, `last_url_check`, `object_id`, `object_type`, `user_id`,`local`,`spoiler`,`display`,`node`,`seq`) VALUES ('&1', '&2', NOW(), '&3', '', 0, NOW(), NOW(),'&4', '&5', '&6', 1, '&7', '&8', '&9', '&10')", $uuid, $picurl . '/' . $uuid . '.' . $extension, $title, $objectid, $type, $usr['userid'], ($bSpoiler == 1) ? '1' : '0', ($bNoDisplay == 1) ? '0' : '1', $oc_nodeid, $def_seq);
 

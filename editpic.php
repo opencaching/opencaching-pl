@@ -76,21 +76,21 @@ if ($error == false) {
                         }
 
 
-			if ($config['limits']['image']['resize'] == 1 && $_FILES['file']['size'] > 102400) {
-			    // Apply resize to uploaded image
-			    $image = new \lib\SimpleImage();
-			    $image->load($_FILES['file']['tmp_name']);
-			    if ($image->getHeight() > $image->getWidth() && $image->getHeight() > $config['limits']['image']['height']) { //portrait
-			        $image->resizeToHeight($config['limits']['image']['height']);
-			    }
-			    if ($image->getHeight() <= $image->getWidth() && $image->getWidth() > $config['limits']['image']['width'])  {
-			        $image -> resizeToWidth($config['limits']['image']['width']);
-			    }
-			    $image->save($picdir . '/' . $uuid . '.' . $extension, resolveImageTypeByFileExtension($extension));
-			} else {
-			    // Save uploaded image AS IS
-			    move_uploaded_file($_FILES['file']['tmp_name'], $picdir . '/' . $uuid . '.' . $extension);
-			}
+            if ($config['limits']['image']['resize'] == 1 && $_FILES['file']['size'] > 102400) {
+                // Apply resize to uploaded image
+                $image = new \lib\SimpleImage();
+                $image->load($_FILES['file']['tmp_name']);
+                if ($image->getHeight() > $image->getWidth() && $image->getHeight() > $config['limits']['image']['height']) { //portrait
+                    $image->resizeToHeight($config['limits']['image']['height']);
+                }
+                if ($image->getHeight() <= $image->getWidth() && $image->getWidth() > $config['limits']['image']['width'])  {
+                    $image -> resizeToWidth($config['limits']['image']['width']);
+                }
+                $image->save($picdir . '/' . $uuid . '.' . $extension, resolveImageTypeByFileExtension($extension));
+            } else {
+                // Save uploaded image AS IS
+                move_uploaded_file($_FILES['file']['tmp_name'], $picdir . '/' . $uuid . '.' . $extension);
+            }
                     }
                 }
 

@@ -120,7 +120,7 @@ $pattern = "<br><span style='font-size:13px'><img src='{cacheIcon}' class='icon1
 
 for( $i=0; $i<$dbc->rowCount(); $i++)
 {
-       
+
    $rec = $dbc->dbResultFetch();
    $line = $pattern;
 

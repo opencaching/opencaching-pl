@@ -10,8 +10,8 @@ final class ApplicationContainer
 
     private static $applicationContainer = null;
 
-	private $loggedUser = false;
-	private $ocConfig;
+    private $loggedUser = false;
+    private $ocConfig;
 
     /**
      *
@@ -21,11 +21,11 @@ final class ApplicationContainer
 
     private function __construct()
     {
-		$this->ocConfig = OcConfig::instance();
+        $this->ocConfig = OcConfig::instance();
         $this->db = \lib\Database\DataBaseSingleton::Instance();
     }
 
-	/**
+    /**
      * @return ApplicationContainer
      */
     public static function Instance()
@@ -37,29 +37,29 @@ final class ApplicationContainer
         return $inst;
     }
 
-	/**
-	 *
-	 * @return User
-	 */
-	public function getLoggedUser()
-	{
-		return $this->loggedUser;
-	}
+    /**
+     *
+     * @return User
+     */
+    public function getLoggedUser()
+    {
+        return $this->loggedUser;
+    }
 
-	public function setLoggedUser(User $loggedUser)
-	{
-		$this->loggedUser = $loggedUser;
-		return $this;
-	}
+    public function setLoggedUser(User $loggedUser)
+    {
+        $this->loggedUser = $loggedUser;
+        return $this;
+    }
 
-	/**
-	 *
-	 * @return OcConfig
-	 */
-	public function getOcConfig()
-	{
-		return $this->ocConfig;
-	}
+    /**
+     *
+     * @return OcConfig
+     */
+    public function getOcConfig()
+    {
+        return $this->ocConfig;
+    }
 
 
 }

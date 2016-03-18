@@ -66,7 +66,7 @@ class GeoCache
     private $founds;
     private $notFounds;
     private $notesCount;
-	private $lastFound;
+    private $lastFound;
     private $score;
     private $ratingVotes;
     private $willattends;           //for events only
@@ -237,7 +237,7 @@ class GeoCache
      */
     public function loadFromRow(array $geocacheDbRow)
     {
-		$this->lastFound = $geocacheDbRow['last_found'];
+        $this->lastFound = $geocacheDbRow['last_found'];
         $this->cacheType = (int) $geocacheDbRow['type'];
         $this->cacheName = $geocacheDbRow['name'];
         $this->geocacheWaypointId = $geocacheDbRow['wp_oc'];
@@ -526,17 +526,17 @@ class GeoCache
         return 'tpl/stdstyle/images/cache/' . $typePart . $statusPart . '.png';
     }
 
-	/**
-	 * perform update on specified elements only.
-	 * @param array $elementsToUpdate
-	 */
-	public function updateGeocacheLogenteriesStats()
-	{
-		$sqlQuery = "UPDATE `caches` SET `last_found`=:1, `founds`=:2, `notfounds`= :3, `notes`= :4 WHERE `cache_id`= :5";
-		$db = \lib\Database\DataBaseSingleton::Instance();
-		$db->multiVariableQuery($sqlQuery, $this->lastFound, $this->founds, $this->notFounds, $this->notesCount, $this->id);
-		$db->reset();
-	}
+    /**
+     * perform update on specified elements only.
+     * @param array $elementsToUpdate
+     */
+    public function updateGeocacheLogenteriesStats()
+    {
+        $sqlQuery = "UPDATE `caches` SET `last_found`=:1, `founds`=:2, `notfounds`= :3, `notes`= :4 WHERE `cache_id`= :5";
+        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db->multiVariableQuery($sqlQuery, $this->lastFound, $this->founds, $this->notFounds, $this->notesCount, $this->id);
+        $db->reset();
+    }
 
     public function getPowerTrail()
     {
@@ -679,42 +679,42 @@ class GeoCache
         return $this;
     }
 
-	public function setFounds($founds)
-	{
-		$this->founds = $founds;
-		return $this;
-	}
+    public function setFounds($founds)
+    {
+        $this->founds = $founds;
+        return $this;
+    }
 
-	public function setNotFounds($notFounds)
-	{
-		$this->notFounds = $notFounds;
-		return $this;
-	}
+    public function setNotFounds($notFounds)
+    {
+        $this->notFounds = $notFounds;
+        return $this;
+    }
 
-	public function setNotesCount($notesCount)
-	{
-		$this->notesCount = $notesCount;
-		return $this;
-	}
+    public function setNotesCount($notesCount)
+    {
+        $this->notesCount = $notesCount;
+        return $this;
+    }
 
-	public function getNotesCount()
-	{
-		return $this->notesCount;
-	}
+    public function getNotesCount()
+    {
+        return $this->notesCount;
+    }
 
-	public function getLastFound()
-	{
-		return $this->lastFound;
-	}
+    public function getLastFound()
+    {
+        return $this->lastFound;
+    }
 
-	public function setLastFound($lastFound)
-	{
-		$this->lastFound = $lastFound;
-		return $this;
-	}
+    public function setLastFound($lastFound)
+    {
+        $this->lastFound = $lastFound;
+        return $this;
+    }
 
 
-	    /**
+        /**
      * @param PowerTrail $powerTrail
      */
     public function setPowerTrail(\lib\Objects\PowerTrail\PowerTrail $powerTrail)

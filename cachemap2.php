@@ -162,9 +162,9 @@ global $lang;
 $userid = '';
 
 if (isset($_REQUEST['userid'])) {
-	$get_userid = strip_tags($_REQUEST['userid']);
+    $get_userid = strip_tags($_REQUEST['userid']);
 } else {
-	$get_userid = '';
+    $get_userid = '';
 }
 
 //user logged in?
