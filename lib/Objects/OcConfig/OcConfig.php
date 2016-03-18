@@ -265,4 +265,18 @@ final class OcConfig
     public function getDbName(){
         return $this->dbName;
     }
+
+    public static function getSenderEmailAddr(){
+        //it will be implemented in a future
+        //currently this is only a stub...
+        return 'noreply@opencaching.pl';
+    }
+
+    public static function getTechAdminsEmailAddr(){
+        //it will be implemented in a future
+        //currently this is only a stub...
+        global $mail_rt;
+
+        return $mail_rt;
+    }
 }
