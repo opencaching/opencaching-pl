@@ -36,7 +36,7 @@ class EmailController
         $emailheaders .= 'Content-Type: text/html; charset=utf-8' . "\r\n";
         $emailheaders .= 'From: "' . \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getSiteName() . '" <' . $emailaddr . '>';
 
-        mb_send_mail($log->getUser()->getEmail(), tr('removed_message_title'), $emailContent, $emailheaders);
+        mb_send_mail($log->getUser()->getEmail(), tr('removed_log_title'), $emailContent, $emailheaders);
     }
 
 
