@@ -1003,8 +1003,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1201;
-    public static $git_revision = 'b0de3c2d658d2b60cfcacff612fedc917fee2457';
+    public static $version_number = 1202;
+    public static $git_revision = 'b4e4e7e401690623f9ea48737a8128afc14c3e62';
 
     private static $okapi_vars = null;
 
@@ -2287,9 +2287,12 @@ class OkapiHttpRequest extends OkapiRequest
         }
 
         if (is_object($this->consumer) && $this->consumer->hasFlag(OkapiConsumer::FLAG_KEY_REVOKED)) {
-            throw new BadRequest("Your application was denied access to the " .
+            throw new InvalidParam(
+                'consumer_key',
+                "Your application was denied access to the " .
                 Okapi::get_normalized_site_name() . " site " .
-                "(OKAPI consumer key was revoked).");
+                "(this consumer key has been revoked)."
+            );
         }
 
         if (is_object($this->consumer) && $this->consumer->hasFlag(OkapiConsumer::FLAG_SKIP_LIMITS)) {
