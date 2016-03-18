@@ -977,8 +977,6 @@ if ($error == false) {
         if ($number_logs > $logs_to_display) {
             tpl_set_var('viewlogs_last', mb_ereg_replace('{cacheid_urlencode}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $viewlogs_last));
             tpl_set_var('viewlogs', mb_ereg_replace('{cacheid_urlencode}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $viewlogs));
-            tpl_set_var('viewlogs_start', "");
-            tpl_set_var('viewlogs_end', "");
             $viewlogs_from_sql = "SELECT id FROM cache_logs WHERE " . $sql_hide_del . " cache_id=:1 ORDER BY date DESC, id LIMIT :2 ";
             $dbc->reset();
             $viewlogs_from = $dbc->multiVariableQueryValue($viewlogs_from_sql, -1, $cache_id, $logs_to_display);
@@ -986,8 +984,6 @@ if ($error == false) {
         } else {
             tpl_set_var('viewlogs_last', '');
             tpl_set_var('viewlogs', '');
-            tpl_set_var('viewlogs_start', "<!--");
-            tpl_set_var('viewlogs_end', "-->");
             tpl_set_var('viewlogs_from', '');
         }
 

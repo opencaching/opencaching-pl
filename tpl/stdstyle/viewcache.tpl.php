@@ -544,11 +544,4 @@
     <div class="content2-container" id="viewcache-logs">
         <!-- log enteries - to be loaded dynamicly by ajax -->
     </div>
-    {viewlogs_start}
-    <div class="content2-container bg-blue02">
-        <p class="content-title-noshade-size1" id="logs_more_start">
-            <img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt=""/>
-        </p>
-    </div>
-    {viewlogs_end}
     <!-- End Text Container -->
