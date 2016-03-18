@@ -49,7 +49,7 @@ if ($debug_page)
             $l2 = "";
             $licznik = 0;
             while ($line = sql_fetch_array($r)) {
-                $l1 = $line[count];
+                $l1 = $line['count'];
                 if ($l2 != $l1) {
                     echo '</td></tr>';
                     $licznik = $licznik + 1;

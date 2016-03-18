@@ -60,6 +60,7 @@ if ($error == false) {
             //powertrail vel geopath variables
             $pt_cache_intro_tr = tr('pt_cache');
             $pt_icon_title_tr = tr('pt139');
+            $file_content ='';
             for ($i = 0; $i < mysql_num_rows($rs); $i++) {
                 $record = sql_fetch_array($rs);
                 //$cacheicon = 'tpl/stdstyle/images/'.getSmallCacheIcon($record['icon_large']);

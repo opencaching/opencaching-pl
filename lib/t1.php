@@ -19,14 +19,14 @@ echo '<tr><td height="2">';
 $l2 = "";
 $licznik = 0;
 while ($line = sql_fetch_array($r)) {
-    $l1 = $line[count];
+    $l1 = $line['count'];
     $licznik++;
     if ($l2 != $l1) {
         echo '</td></tr>';
-        echo '<tr class="bgcolor2"><td align="right">&nbsp;&nbsp;<b>' . $licznik . '</b>&nbsp;&nbsp;</td><td align="right">&nbsp;&nbsp;<b>' . $l1 . '</b>&nbsp;&nbsp;</td><td><a href="viewprofile.php?userid=' . $line[user_id] . '">' . htmlspecialchars($line[username]) . '</a>';
+        echo '<tr class="bgcolor2"><td align="right">&nbsp;&nbsp;<b>' . $licznik . '</b>&nbsp;&nbsp;</td><td align="right">&nbsp;&nbsp;<b>' . $l1 . '</b>&nbsp;&nbsp;</td><td><a href="viewprofile.php?userid=' . $line['user_id'] . '">' . htmlspecialchars($line['username']) . '</a>';
         $l2 = $l1;
     } else {
-        echo ', <a href="viewprofile.php?userid=' . $line[user_id] . '">' . htmlspecialchars($line[username]) . '</a>';
+        echo ', <a href="viewprofile.php?userid=' . $line['user_id'] . '">' . htmlspecialchars($line['username']) . '</a>';
     }
 }
 echo '</table>' . "\n";
