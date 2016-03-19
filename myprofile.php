@@ -1,5 +1,9 @@
 <?php
 
+
+use Utils\Database\XDb;
+
+
 //prepare the templates and include all neccessary
 if (!isset($rootpath)) {
     $rootpath = '';
@@ -7,7 +11,7 @@ if (!isset($rootpath)) {
 require_once('./lib/common.inc.php');
 //Preprocessing
 if ($error == false) {
-    $db = new dataBase;
+    $db = \Utils\Database\OcDb::instance();
     $description = "";
     //user logged in?
     if ($usr == false) {
@@ -24,7 +28,7 @@ if ($error == false) {
         }
         if (isset($_POST['submit'])) {
             $sql = "UPDATE user SET get_bulletin = :1 WHERE user_id = :2 ";
-            $db->multiVariableQuery($sql, intval(sql_escape($_POST['bulletin'])), (int) $usr['userid']);
+            $db->multiVariableQuery($sql, intval(/*sql_escape*/ XDb::xEscape($_POST['bulletin'])), (int) $usr['userid']);
             $db->reset();
         }
         $sql = "SELECT description, get_bulletin FROM user WHERE user_id = :1 LIMIT 1";
@@ -452,7 +456,7 @@ if ($error == false) {
                 }
                 //Country in defaults ?
                 if (($show_all_countries == 0) && ($country != 'XX')) {
-                    $db->multiVariableQuery("SELECT `list_default_" . sql_escape($lang_db) . "` FROM `countries` WHERE `short`=:1", $country);
+                    $db->multiVariableQuery("SELECT `list_default_" . /*sql_escape*/ XDb::xEscape($lang_db) . "` FROM `countries` WHERE `short`=:1", $country);
                     $record2 = $db->dbResultFetch();
                     if ($record2['list_default_' . $lang_db] == 0) {
                         $show_all_countries = 1;
@@ -463,13 +467,13 @@ if ($error == false) {
                 }
 
                 if ($show_all_countries == 1) {
-                    $rs2 = sql("SELECT `&1`, `list_default_" . sql_escape($lang_db) . "`, `short`, `sort_" . sql_escape($lang_db) . "` FROM `countries` ORDER BY `sort_" . sql_escape($lang_db) . '` ASC', $lang_db);
+                    $rs2 = /*sql*/ XDb::xSql("SELECT `".XDb::xEscape($lang_db)."`, `list_default_" . /*sql_escape*/ XDb::xEscape($lang_db) . "`, `short`, `sort_" . /*sql_escape*/ XDb::xEscape($lang_db) . "` FROM `countries` ORDER BY `sort_" . /*sql_escape*/ XDb::xEscape($lang_db) . '` ASC', $lang_db);
                 } else {
-                    $rs2 = sql("SELECT `&1`, `list_default_" . sql_escape($lang_db) . "`, `short`, `sort_" . sql_escape($lang_db) . "` FROM `countries` WHERE `list_default_" . sql_escape($lang_db) . "`=1 ORDER BY `sort_" . sql_escape($lang_db) . '` ASC', $lang_db);
+                    $rs2 = /*sql*/ XDb::xSql("SELECT `".XDb::xEscape($lang_db)."`, `list_default_" . /*sql_escape*/ XDb::xEscape($lang_db) . "`, `short`, `sort_" . /*sql_escape*/ XDb::xEscape($lang_db) . "` FROM `countries` WHERE `list_default_" . /*sql_escape*/ XDb::xEscape($lang_db) . "`=1 ORDER BY `sort_" . /*sql_escape*/ XDb::xEscape($lang_db) . '` ASC', $lang_db);
                 }
 
-                for ($i = 0; $i < mysql_num_rows($rs2); $i++) {
-                    $record2 = sql_fetch_array($rs2);
+                for ($i = 0; $i < /*mysql_num_rows*/ XDb::xNumRows($rs2); $i++) {
+                    $record2 = /*sql_fetch_array*/ XDb::xFetchArray($rs2);
 
                     if ($record2['short'] == $country) {
                         $stmp .= '<option value="' . $record2['short'] . '" selected="selected">' . htmlspecialchars($record2[$lang_db], ENT_COMPAT, 'UTF-8') . "</option>\n";
@@ -477,6 +481,7 @@ if ($error == false) {
                         $stmp .= '<option value="' . $record2['short'] . '">' . htmlspecialchars($record2[$lang_db], ENT_COMPAT, 'UTF-8') . "</option>\n";
                     }
                 }
+                XDb::xFreeResults($rs2);
 
                 tpl_set_var('countrylist', $stmp);
                 unset($stmp);
