@@ -1302,27 +1302,6 @@ function typeToLetter($type)
     }
 }
 
-function wpToId($wp)
-{
-    $ocWP = $GLOBALS['oc_waypoint'];
-    $wpType = mb_substr($wp, 0, 2);
-    switch ($wpType) {
-        case $ocWP:
-            $tab_name = "wp_oc";
-            break;
-        case 'GC':
-            $tab_name = "wp_gc";
-            break;
-        case 'GE':
-            $tab_name = "wp_nc";
-            break;
-        default:
-            return "";
-    }
-    $sql = "SELECT cache_id FROM caches WHERE " . $tab_name . " = '" . sql_escape($wp) . "' LIMIT 1";
-    return mysql_result(mysql_query($sql), 1);
-}
-
 function fixPlMonth($string)
 {
     $string = str_ireplace('styczeń', 'stycznia', $string);
