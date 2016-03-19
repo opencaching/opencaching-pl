@@ -7,6 +7,7 @@
  */
 
 namespace Utils\Database;
+use PDOStatement;
 
 class XDb extends OcDb {
 
@@ -110,6 +111,26 @@ class XDb extends OcDb {
         return $stmt->fetchColumn($colNum);
     }
 
+    /**
+     * This is replacement for sql(...) function call from /lib/clicompatbase.php
+     *
+     * IMPORTANT: additional params needs to be converted from &<1-9> to ? in na proper way!
+     * IMPORTANT: additional params can't be used as table/column name!
+     *
+     * @param unknown $sql
+     * @param ... there can be optional list of params to bind with query
+     */
+    public static function xSql($sql){
+        $db = self::instance();
+        $stmt = $db->prepare($sql);
 
+        //$numargs = func_num_args();
+        $argList = func_get_args();
+        unset( $argList[0] ); //remove first param.
+
+        $stmt->execute($argList);
+        return $stmt;
+
+    }
 
 }
