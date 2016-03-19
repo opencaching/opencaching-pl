@@ -87,6 +87,12 @@ class OcPdo extends PDO
         }
         $email_text .= "\n\n\tEx_Trace:\n\n".$e->getTraceAsString();
 
+        //get short version of the trace
+        $traceStr = '';
+        foreach($e->getTrace() as $trace){
+            $traceStr.= ' | '.$trace['file'].'::'.$trace['line'];
+        }
+
         //send email to RT
         if($sendEmail)
             EmailSender::adminOnErrorMessage($email_text, OcSpamDomain::DB_ERRORS);
@@ -98,11 +104,11 @@ class OcPdo extends PDO
         if($fatal){
             // TODO: How to better handle error - print some nice error page
             // this is fatal error - stop the script
-            trigger_error("OcPdo Error: $message", E_USER_ERROR);
+            trigger_error("OcPdo Error:\n $message. Trace: ".$traceStr, E_USER_ERROR);
             exit;
         }else{
             // non-fatal error: only print warning
-            trigger_error("OcPdo Error: $message", E_USER_WARNING);
+            trigger_error("OcPdo Error: $message. Trace: ".$traceStr, E_USER_WARNING);
         }
     }
 
