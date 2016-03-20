@@ -1,10 +1,9 @@
 <?php
 
+use Utils\Database\XDb;
+
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
-
-//
-
 
 if ($usr['admin']) {
     $options['show_reported'] = isset($_REQUEST['show_reported']) ? $_REQUEST['show_reported'] : 0;
@@ -42,9 +41,7 @@ if ($usr['admin']) {
         $query .= " AND c.cache_id NOT IN (SELECT r.cache_id FROM reports r WHERE r.status <> 2)";
     }
 
-    $query .= " GROUP BY
-                cl.cache_id
-            HAVING";
+    $query .= " GROUP BY cl.cache_id HAVING";
 
     if ($options['show_duplicated'] == 0) {
         $query .= " COUNT(DISTINCT(cl.date)) > 2";
@@ -52,24 +49,21 @@ if ($usr['admin']) {
         $query .= " COUNT(cl.date) > 2";
     }
 
-    $query .= " ORDER BY
-                ilosc DESC,
-                cache_id DESC
-            ";
+    $query .= " ORDER BY ilosc DESC, cache_id DESC";
 
     // Zapytanie do bazy - koniec
 
-    $rs = sql($query);
+    $rs = XDb::xSql($query);
 
     $file_content = '';
 
-    for ($i = 0; $i < mysql_num_rows($rs); $i++) {
+    for ($i = 0; $i < XDb::xNumRows($rs); $i++) {
         if (($i % 2) == 0) {
             $bgcolor = '#eeeeee';
         } else {
             $bgcolor = '#e0e0e0';
         }
-        $record = sql_fetch_array($rs);
+        $record = XDb::xFetchArray($rs);
         $file_content .= '<tr>';
         $file_content .= '<td bgcolor=' . $bgcolor . '>' . ($i + 1) . '</td>';
         $file_content .= '<td bgcolor=' . $bgcolor . '><a href="viewcache.php?cacheid=' . htmlspecialchars($record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8') . '</a></td>';
@@ -78,7 +72,7 @@ if ($usr['admin']) {
         $file_content .= '</tr>';
     }
 
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
 
     tpl_set_var('show_reported', ($options['show_reported'] == '1') ? ' checked="checked"' : '');
     tpl_set_var('show_duplicated', ($options['show_duplicated'] == '1') ? ' checked="checked"' : '');
@@ -88,4 +82,3 @@ if ($usr['admin']) {
     $tplname = 'admin_cachenotfound';
     tpl_BuildTemplate();
 }
-?>
