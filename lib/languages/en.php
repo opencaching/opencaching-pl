@@ -1749,6 +1749,7 @@ $translations = array(
     'ZM' => 'Zambia',
     'ZW' => 'Zimbabwe',
     'SU' => 'Soviet Union',
+    'XX' => 'None (Not set)',
     'pt000' => 'GeoPath',
     'pt001' => 'GeoPaths',
     'pt002' => 'belongs to GeoPath',

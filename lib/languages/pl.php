@@ -1749,6 +1749,7 @@ $translations = array(
     'ZM' => 'Zambia',
     'ZW' => 'Zimbabwe',
     'SU' => 'Rosja',
+    'XX' => 'Brak (Nie ustawiono)',
     'pt000' => 'Geościeżka',
     'pt001' => 'GeoŚcieżki',
     'pt002' => 'nalaży do geoŚcieżki',
