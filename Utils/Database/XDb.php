@@ -66,7 +66,6 @@ class XDb extends OcDb {
         return $value;
     }
 
-
     /**
      * This is replacement for mysql_free_result()
      */
@@ -126,11 +125,23 @@ class XDb extends OcDb {
 
         //$numargs = func_num_args();
         $argList = func_get_args();
-        unset( $argList[0] ); //remove first param.
+        array_shift($argList); //remove first param. = sql query
 
         $stmt->execute($argList);
         return $stmt;
 
+    }
+
+    /**
+     * This is static way of access OcDb::SimpleQueryValue()
+     *
+     * @param unknown $query - sql query
+     * @param unknown $default - default value to return
+     */
+    public static function xSimpleQueryValue($query, $default)
+    {
+        $db = self::instance();
+        return $db->simpleQueryValue($query, $default);
     }
 
 }

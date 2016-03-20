@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Database\XDb;
+
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
     global $rootpath;
@@ -29,47 +31,29 @@ if ($error == false) {
         //get user record
         $userid = $usr['userid'];
         $sql = "SELECT COUNT(*) FROM caches WHERE user_id='$userid'";
-        if ($odp = mysql_query($sql))
-            $hidden_count = mysql_result($odp, 0);
-        else
-            $hidden_count = 0;
+        $hidden_count = XDb::xSimpleQueryValue($sql, 0);
+
 
         $sql = "SELECT COUNT(*) founds_count
                             FROM cache_logs
                             WHERE user_id=$userid AND type=1 AND deleted=0";
-
-        if ($odp = mysql_query($sql))
-            $founds_count = mysql_result($odp, 0);
-        else
-            $founds_count = 0;
+        $founds_count = XDb::xSimpleQueryValue($sql, 0);
 
         $sql = "SELECT COUNT(*) events_count
                             FROM cache_logs
                             WHERE user_id=$userid AND type=7 AND deleted=0";
-
-        if ($odp = mysql_query($sql))
-            $events_count = mysql_result($odp, 0);
-        else
-            $events_count = 0;
+        $events_count = XDb::xSimpleQueryValue($sql, 0);
 
 
         $sql = "SELECT COUNT(*) notfounds_count
                             FROM cache_logs
                             WHERE user_id=$userid AND type=2 AND deleted=0";
-
-        if ($odp = mysql_query($sql))
-            $notfounds_count = mysql_result($odp, 0);
-        else
-            $notfounds_count = 0;
+        $notfounds_count = XDb::xSimpleQueryValue($sql, 0);
 
         $sql = "SELECT COUNT(*) log_notes_count
                             FROM cache_logs
                             WHERE user_id=$userid AND type=3 AND deleted=0";
-
-        if ($odp = mysql_query($sql))
-            $log_notes_count = mysql_result($odp, 0);
-        else
-            $log_notes_count = 0;
+        $log_notes_count = XDb::xSimpleQueryValue($sql, 0);
 
         if ($events_count > 0)
             $events = tr('you_have_participated_in') . " " . $events_count . " " . tr('found_x_events') . ".";
@@ -86,24 +70,25 @@ if ($error == false) {
             tpl_set_var('events', $events);
         }
         //get last logs
-        $rs_logs = sql("
+        $rs_logs = XDb::xSql("
                     SELECT `cache_logs`.`cache_id` `cache_id`, `cache_logs`.`type` `type`, `cache_logs`.`date` `date`, `caches`.`name` `name`,
                         `log_types`.`icon_small`, `log_types_text`.`text_combo`
                     FROM `cache_logs`, `caches`, `log_types`, `log_types_text`
-                    WHERE `cache_logs`.`user_id`='&1'
+                    WHERE `cache_logs`.`user_id`= ?
                     AND `cache_logs`.`cache_id`=`caches`.`cache_id`
                     AND `cache_logs`.`deleted`=0
                     AND `log_types`.`id`=`cache_logs`.`type`
-                    AND `log_types_text`.`log_types_id`=`log_types`.`id` AND `log_types_text`.`lang`='&2'
+                    AND `log_types_text`.`log_types_id`=`log_types`.`id` AND `log_types_text`.`lang`= ?
                     ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`date_created` DESC
                     LIMIT 10", $usr['userid'], $lang);
 
-        if (mysql_num_rows($rs_logs) == 0) {
+        if (XDb::xNumRows($rs_logs) == 0) {
+            d('x');
             tpl_set_var('lastlogs', $no_logs);
         } else {
             $logs = '';
-            for ($i = 0; $i < mysql_num_rows($rs_logs); $i++) {
-                $record_logs = sql_fetch_array($rs_logs);
+            for ($i = 0; $i < XDb::xNumRows($rs_logs); $i++) {
+                $record_logs = XDb::xFetchArray($rs_logs);
 
                 $tmp_log = $log_line;
                 $tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], ucfirst(tr('logType' . $record_logs['type'])) /* $record_logs['text_combo'] */), $tmp_log);
@@ -123,20 +108,20 @@ if ($error == false) {
         else
             $lang_db = "en";
 
-        $rs_caches = sql("  SELECT  `cache_id`, `name`, `date_hidden`, `status`,
-                            `cache_status`.`id` AS `cache_status_id`, `cache_status`.`&1` AS `cache_status_text`
+        $rs_caches = XDb::xSql("  SELECT  `cache_id`, `name`, `date_hidden`, `status`,
+                            `cache_status`.`id` AS `cache_status_id`, `cache_status`.`".XDb::xEscape($lang_db)."` AS `cache_status_text`
                         FROM `caches`, `cache_status`
-                        WHERE `user_id`='&2'
+                        WHERE `user_id`= ?
                           AND `cache_status`.`id`=`caches`.`status`
                           AND `caches`.`status` != 5
                         ORDER BY `date_hidden` DESC, `caches`.`date_created` DESC
-                        LIMIT 20", $lang_db, $usr['userid']);
-        if (mysql_num_rows($rs_caches) == 0) {
+                        LIMIT 20", $usr['userid']);
+        if (XDb::xNumRows($rs_caches) == 0) {
             tpl_set_var('lastcaches', $no_hiddens);
         } else {
             $caches = '';
-            for ($i = 0; $i < mysql_num_rows($rs_caches); $i++) {
-                $record_logs = sql_fetch_array($rs_caches);
+            for ($i = 0; $i < XDb::xNumRows($rs_caches); $i++) {
+                $record_logs = XDb::xFetchArray($rs_caches);
 
                 $tmp_cache = $cache_line;
 
@@ -152,18 +137,23 @@ if ($error == false) {
         }
 
         //get not published caches
-        $rs_caches = sql("  SELECT  `caches`.`cache_id`, `caches`.`name`, `caches`.`date_hidden`, `caches`.`date_activate`, `caches`.`status`, `cache_status`.`&1` AS `cache_status_text`
+        $rs_caches = XDb::xSql("
+                        SELECT  `caches`.`cache_id`, `caches`.`name`,
+                            `caches`.`date_hidden`, `caches`.`date_activate`,
+                            `caches`.`status`,
+                            `cache_status`.`".XDb::xEscape($lang_db)."` AS `cache_status_text`
                         FROM `caches`, `cache_status`
-                        WHERE `user_id`='&2'
+                        WHERE `user_id`= ?
                         AND `cache_status`.`id`=`caches`.`status`
                         AND `caches`.`status` = 5
-                        ORDER BY `date_activate` DESC, `caches`.`date_created` DESC ", $lang_db, $usr['userid']);
-        if (mysql_num_rows($rs_caches) == 0) {
+                        ORDER BY `date_activate` DESC,
+                            `caches`.`date_created` DESC ", $usr['userid']);
+        if (XDb::xNumRows($rs_caches) == 0) {
             tpl_set_var('notpublishedcaches', $no_notpublished);
         } else {
             $caches = '';
-            for ($i = 0; $i < mysql_num_rows($rs_caches); $i++) {
-                $record_caches = sql_fetch_array($rs_caches);
+            for ($i = 0; $i < XDb::xNumRows($rs_caches); $i++) {
+                $record_caches = XDb::xFetchArray($rs_caches);
 
                 $tmp_cache = $cache_notpublished_line;
 
@@ -183,25 +173,27 @@ if ($error == false) {
         }
 
         //get last logs in your caches
-        $rs_logs = sql("
-                    SELECT `cache_logs`.`cache_id` `cache_id`, `cache_logs`.`type` `type`, `cache_logs`.`date` `date`, `caches`.`name` `name`,
-                        `log_types`.`icon_small`, `log_types_text`.`text_combo`, `cache_logs`.`user_id` `user_id`, `user`.`username` `username`
+        $rs_logs = XDb::xSql("
+                    SELECT `cache_logs`.`cache_id` `cache_id`, `cache_logs`.`type` `type`,
+                            `cache_logs`.`date` `date`, `caches`.`name` `name`,
+                            `log_types`.`icon_small`, `log_types_text`.`text_combo`,
+                            `cache_logs`.`user_id` `user_id`, `user`.`username` `username`
                     FROM `cache_logs`, `caches`, `log_types`, `log_types_text`, `user`
-                    WHERE `caches`.`user_id`='&1'
+                    WHERE `caches`.`user_id`= ?
                     AND `cache_logs`.`cache_id`=`caches`.`cache_id`
                     AND `cache_logs`.`deleted`=0
                     AND `user`.`user_id`=`cache_logs`.`user_id`
                     AND `log_types`.`id`=`cache_logs`.`type`
-                    AND `log_types_text`.`log_types_id`=`log_types`.`id` AND `log_types_text`.`lang`='&2'
+                    AND `log_types_text`.`log_types_id`=`log_types`.`id` AND `log_types_text`.`lang`= ?
                     ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`date_created` DESC
                     LIMIT 10", $usr['userid'], $lang);
 
-        if (mysql_num_rows($rs_logs) == 0) {
+        if (XDb::xNumRows($rs_logs) == 0) {
             tpl_set_var('last_logs_in_your_caches', $no_logs);
         } else {
             $logs = '';
-            for ($i = 0; $i < mysql_num_rows($rs_logs); $i++) {
-                $record_logs = sql_fetch_array($rs_logs);
+            for ($i = 0; $i < XDb::xNumRows($rs_logs); $i++) {
+                $record_logs = XDb::xFetchArray($rs_logs);
 
                 $tmp_log = $cache_line_my_caches;
                 $tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], ucfirst(tr('logType' . $record_logs['type'])) /* $record_logs['text_combo'] */), $tmp_log);
@@ -227,8 +219,8 @@ if ($error == false) {
 
         // get number of sent emails
         $emails_sent = '0';
-        $resp = sql("SELECT COUNT(*) AS `emails_sent` FROM `email_user` WHERE `from_user_id`='&1'", $usr['userid']);
-        if ($row = sql_fetch_array($resp))
+        $resp = XDb::xSql("SELECT COUNT(*) AS `emails_sent` FROM `email_user` WHERE `from_user_id`= ?", $usr['userid']);
+        if ($row = XDb::xFetchArray($resp))
             $emails_sent = $row['emails_sent'];
 
         tpl_set_var('emails_sent', $emails_sent);

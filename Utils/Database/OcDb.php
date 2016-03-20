@@ -278,8 +278,8 @@ class OcDb extends OcPdo
         if ( 2 >= count($argList)) {
 
             //only query + default value=> use simpleQuery
-            $e = new PDOException('Improper '.__METHOD__.' using. Too low arguments. Use simpleQueryValue() instead');
-            $this->error('Improper '.__METHOD__.' using', $e, false, false); //skip sending email
+            $e = new PDOException('Improper using of '.__METHOD__.' . Too low arguments. Use simpleQueryValue() instead');
+            $this->error('Improper using of '.__METHOD__, $e, false, false); //skip sending email
 
             return $this->simpleQueryValue($query, $default);
         }
