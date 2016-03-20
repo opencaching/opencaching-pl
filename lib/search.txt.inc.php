@@ -229,7 +229,7 @@ N|O|P|Q|R|S|T|U|V|W|X|Y|Z
             $thisline = str_replace('{{waypoint}}', $r['waypoint'], $thisline);
             $thisline = str_replace('{cacheid}', $r['cacheid'], $thisline);
             $thisline = str_replace('{cachename}', $r['name'], $thisline);
-            $thisline = str_replace('{country}', db_CountryFromShort($r['country']), $thisline);
+            $thisline = str_replace('{country}', tr($r['country']), $thisline);
 
             //modified coords
             if ($r['cache_mod_cords_id'] > 0) {  //check if we have user coords

@@ -350,35 +350,6 @@ function validate_style($style)
 $season = isset($_GET['season']) ? validate_style($_GET['season']) : season();
 tpl_set_var("season", $season);
 
-// Convert from -3..3 to 1..5: update scores set score = (score +3)*5/6+1
-// get the country name from a given shortage
-// on success return the name, otherwise false
-function db_CountryFromShort($countrycode)
-{
-    global $dblink, $lang;
-
-    //no databse connection?
-    if ($dblink === false)
-        return false;
-
-    //select the right record
-    if (checkField('cache_status', $lang))
-        $lang_db = $lang;
-    else
-        $lang_db = "en";
-
-    $rs = sql("SELECT `short`, `&1` FROM `countries` WHERE `short`='&2'", $lang_db, $countrycode);
-    if (mysql_num_rows($rs) > 0) {
-        $record = sql_fetch_array($rs);
-
-        //return the country
-        return $record[$lang_db];
-    } else {
-        //country not found
-        return false;
-    }
-}
-
 // get the language from a given shortage
 // on success return the name, otherwise false
 function db_LanguageFromShort($langcode)

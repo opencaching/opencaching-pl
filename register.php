@@ -105,7 +105,7 @@ if ($error == false) {
                 $email_content = mb_ereg_replace('{registermail16}', tr('registermail16'), $email_content);
                 $email_content = mb_ereg_replace('{user}', $username, $email_content);
                 $email_content = mb_ereg_replace('{email}', $email, $email_content);
-                $country_name = db_CountryFromShort($country);
+                $country_name = tr($country);
                 $email_content = mb_ereg_replace('{country}', $country_name, $email_content);
                 $email_content = mb_ereg_replace('{code}', $activationcode, $email_content);
                 $email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);

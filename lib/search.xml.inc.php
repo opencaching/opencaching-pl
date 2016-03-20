@@ -189,7 +189,7 @@
 
 
         $thisline = str_replace('{cachename}', filterevilchars($r['name']), $thisline);
-        $thisline = str_replace('{country}', db_CountryFromShort($r['country']), $thisline);
+        $thisline = str_replace('{country}', tr($r['country']), $thisline);
 
         if ($r['hint'] == '')
             $thisline = str_replace('{hints}', '', $thisline);
