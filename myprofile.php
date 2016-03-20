@@ -2,6 +2,7 @@
 
 
 use Utils\Database\XDb;
+use lib\Database\DataBaseSingleton;
 
 
 //prepare the templates and include all neccessary
@@ -11,7 +12,7 @@ if (!isset($rootpath)) {
 require_once('./lib/common.inc.php');
 //Preprocessing
 if ($error == false) {
-    $db = \Utils\Database\OcDb::instance();
+    $db = DataBaseSingleton::Instance();
     $description = "";
     //user logged in?
     if ($usr == false) {
