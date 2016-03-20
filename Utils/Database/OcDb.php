@@ -275,18 +275,29 @@ class OcDb extends OcPdo
     public function multiVariableQueryValue($query, $default)
     {
         $argList = func_get_args();
-        if ( 2 <= count($argList)) {
+        if ( 2 >= count($argList)) {
 
             //only query + default value=> use simpleQuery
             $e = new PDOException('Improper '.__METHOD__.' using. Too low arguments. Use simpleQueryValue() instead');
-            $this->error($message, $e, false, false); //skip sending email
+            $this->error('Improper '.__METHOD__.' using', $e, false, false); //skip sending email
 
             return $this->simpleQueryValue($query, $default);
         }
 
         //more params - remove first two from argList and call...
-        $this->multiVariableQuery($query, $default, array_slice($argList, 2));
-        return $this->dbResultFetchValue($default);
+        $this->multiVariableQuery($query, array_slice($argList, 2));
+
+        $result = $this->dbResultFetchValue($default);
+        if ($result) { //we got a reullt from query
+            $value = reset($result);
+            if ($value == null){
+                return $default;
+            }else{
+                return $value;
+            }
+        } else {
+            return $default;
+        }
     }
 
 
