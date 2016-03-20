@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Database\XDb;
+
 class OpensprawdzaczSetup
 
 /**
@@ -77,7 +79,7 @@ class OpensprawdzaczCore
             } else {
                 tpl_set_var("sekcja_4_start", '<!--');
                 tpl_set_var("sekcja_4_stop", '-->');
-                $czasss = $_SESSION['opensprawdzacz_czas'];
+                $czasss = isset($_SESSION['opensprawdzacz_czas'])?$_SESSION['opensprawdzacz_czas']:0;
                 // tpl_set_var("czasss1", $czasss);
                 $_SESSION['opensprawdzacz_licznik'] = $_SESSION['opensprawdzacz_licznik'] + 1;
                 $_SESSION['opensprawdzacz_czas'] = date('U');
@@ -98,11 +100,11 @@ class OpensprawdzaczCore
     {
 
         // get data from post.
-        $stopnie_N = mysql_real_escape_string($_POST['stopnie_N']);
-        $minuty_N = mysql_real_escape_string($_POST['minuty_N']);
-        $stopnie_E = mysql_real_escape_string($_POST['stopnie_E']);
-        $minuty_E = mysql_real_escape_string($_POST['minuty_E']);
-        $cache_id = mysql_real_escape_string($_POST['cacheid']);
+        $stopnie_N = XDb::xEscape($_POST['stopnie_N']);
+        $minuty_N = XDb::xEscape($_POST['minuty_N']);
+        $stopnie_E = XDb::xEscape($_POST['stopnie_E']);
+        $minuty_E = XDb::xEscape($_POST['minuty_E']);
+        $cache_id = XDb::xEscape($_POST['cacheid']);
 
         if ($stopnie_N == '')
             $stopnie_N = 0;
@@ -131,7 +133,7 @@ class OpensprawdzaczCore
         };
 
         // geting data from database
-        $conn = new PDO("mysql:host=" . $opt['db']['server'] . ";dbname=" . $opt['db']['name'], $opt['db']['username'], $opt['db']['password']);
+        $conn = XDb::instance();
         $pyt = "SELECT `waypoints`.`wp_id`,
         `waypoints`.`type`,
         `waypoints`.`longitude`,
@@ -170,7 +172,7 @@ class OpensprawdzaczCore
             $licznik_sukcesow = $dane['sukcesy'] + 1;
 
             try {
-                $pdo = new PDO("mysql:host=" . $opt['db']['server'] . ";dbname=" . $opt['db']['name'], $opt['db']['username'], $opt['db']['password']);
+                $pdo = XDb::instance();
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $updateCounters = $pdo->exec("UPDATE `opensprawdzacz` SET `proby`=" . $licznik_prob . ",`sukcesy`=" . $licznik_sukcesow . "  WHERE `cache_id` = " . $cache_id);
             } catch (PDOException $e) {
@@ -201,7 +203,7 @@ class OpensprawdzaczCore
             //puzzle not solved - restult wrong
 
             try {
-                $pdo = new PDO("mysql:host=" . $opt['db']['server'] . ";dbname=" . $opt['db']['name'], $opt['db']['username'], $opt['db']['password']);
+                $pdo = XDb::instance();
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $updateCounters = $pdo->exec("UPDATE `opensprawdzacz` SET `proby`='$licznik_prob'  WHERE `cache_id` = $cache_id");
             } catch (PDOException $e) {
@@ -243,7 +245,7 @@ class OpensprawdzaczCore
          *
          */
         if (isset($_GET['op_keszynki'])) {
-            $this->cache_wp = mysql_real_escape_string($_GET['op_keszynki']);
+            $this->cache_wp = XDb::xEscape($_GET['op_keszynki']);
             $this->cache_wp = strtoupper($this->cache_wp);
         } else {
             $formularz = '
@@ -256,7 +258,7 @@ class OpensprawdzaczCore
 
 
             if (isset($_GET['sort'])) {
-                $sort_tmp = mysql_real_escape_string($_GET['sort']);
+                $sort_tmp = XDb::xEscape($_GET['sort']);
                 switch ($sort_tmp) {
                     case 'autor':
                         $sortowanie = '`user`.`username`';
@@ -322,7 +324,7 @@ class OpensprawdzaczCore
                 '6' => '<img src="tpl/stdstyle/images/log/16x16-dnf.png" border="0" alt="Zablokowana przez COG">'
             );
 
-            $conn = new PDO("mysql:host=" . $opt['db']['server'] . ";dbname=" . $opt['db']['name'], $opt['db']['username'], $opt['db']['password']);
+            $conn = XDb::instance();
             $conn->query('SET CHARSET utf8');
             $keszynki_opensprawdzacza = $conn->query($zapytajka)->fetchAll();
             $ile_keszynek = count($keszynki_opensprawdzacza);
@@ -346,7 +348,7 @@ class OpensprawdzaczCore
                 $sort = '';
 
             if (isset($_GET["page"]))
-                $tPage = sql_escape($_GET["page"]);
+                $tPage = XDb::xEscape($_GET["page"]);
             else
                 $tPage = 1;
             if ($tPage > 1)
