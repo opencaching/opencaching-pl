@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Database\XDb;
+
 //prepare the templates and include all neccessary
 global $octeamEmailsSignature;
 require_once('./lib/common.inc.php');
@@ -39,9 +41,9 @@ if ($usr['admin']) {
                     $newstext = $myFilter->process($newstext);
                 }
 
-                $rs = sql("SELECT `name` FROM `news_topics` WHERE `id`='&1'", $topicid);
-                $r = sql_fetch_array($rs);
-                mysql_free_result($rs);
+                $rs = XDb::xSql("SELECT `name` FROM `news_topics` WHERE `id`= ? ", $topicid);
+                $r = XDb::xFetchArray($rs);
+                XDb::xFreeResults($rs);
 
                 $newscontent = $tpl_newstopic;
                 $newscontent = mb_ereg_replace('{date}', date('d.m.Y h:i:s', time()), $newscontent);
@@ -50,7 +52,9 @@ if ($usr['admin']) {
                 tpl_set_var('newscontent', $newscontent);
 
                 // in DB schreiben
-                sql("INSERT INTO `news` (`date_posted`, `content`, `topic`, `display`) VALUES (NOW(), '&1', '&2', '&3')", $newstext, $topicid, ($use_news_approving == true) ? 0 : 1);
+                XDb::xSql("INSERT INTO `news` (`date_posted`, `content`, `topic`, `display`)
+                           VALUES (NOW(), ?, ?, ?)",
+                           $newstext, $topicid, ($use_news_approving == true) ? 0 : 1);
 
                 // email versenden
                 if ($use_news_approving == true) {
@@ -81,14 +85,14 @@ if ($usr['admin']) {
 
         // topics erstellen
         $topics = '';
-        $rs = sql("SELECT `id`, `name` FROM `news_topics` ORDER BY `id` ASC");
-        while ($r = sql_fetch_array($rs)) {
+        $rs = XDb::xSql("SELECT `id`, `name` FROM `news_topics` ORDER BY `id` ASC");
+        while ($r = XDb::xFetchArray($rs)) {
             if ($r['id'] == $topicid)
                 $topics .= '<option value="' . $r['id'] . '" selected="selected">' . htmlspecialchars($r['name'], ENT_COMPAT, 'UTF-8') . '</option>' . "\n";
             else
                 $topics .= '<option value="' . $r['id'] . '">' . htmlspecialchars($r['name'], ENT_COMPAT, 'UTF-8') . '</option>' . "\n";
         }
-        mysql_free_result($rs);
+        XDb::xFreeResults($rs);
         tpl_set_var('topics', $topics);
     }
 
