@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Database\XDb;
+
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -10,18 +12,23 @@ if ($error == false) {
 
     if ($usr['userid']) {
         //remove watch
-        sql('DELETE FROM cache_ignore WHERE cache_id=\'' . sql_escape($cache_id) . '\' AND user_id=\'' . sql_escape($usr['userid']) . '\'');
+        XDb::xSql('DELETE FROM cache_ignore
+                   WHERE cache_id=\'' . XDb::xEscape($cache_id) . '\'
+                        AND user_id=\'' . XDb::xEscape($usr['userid']) . '\'');
 
         //remove from caches
-        $rs = sql('SELECT ignorer_count FROM caches WHERE cache_id=\'' . sql_escape($cache_id) . '\'');
-        if (mysql_num_rows($rs) > 0) {
-            $record = mysql_fetch_array($rs);
-            sql('UPDATE caches SET ignorer_count=\'' . ($record['ignorer_count'] - 1) . '\' WHERE cache_id=\'' . sql_escape($cache_id) . '\'');
+        $rs = XDb::xSql('SELECT ignorer_count FROM caches
+                         WHERE cache_id=\'' . XDb::xEscape($cache_id) . '\'');
+        if (XDb::xNumRows($rs) > 0) {
+            $record = XDb::xFetchArray($rs);
+            XDb::xSql('UPDATE caches SET ignorer_count=\'' . ($record['ignorer_count'] - 1) . '\'
+                       WHERE cache_id=\'' . XDb::xEscape($cache_id) . '\'');
 
             //remove from user
-            $rs = sql('SELECT cache_ignores FROM user WHERE user_id=\'' . sql_escape($usr['userid']) . '\'');
-            $record = mysql_fetch_array($rs);
-            sql('UPDATE user SET cache_ignores=\'' . ($record['cache_ignores'] - 1) . '\' WHERE user_id=\'' . sql_escape($usr['userid']) . '\'');
+            $rs = XDb::xSql('SELECT cache_ignores FROM user WHERE user_id=\'' . XDb::xEscape($usr['userid']) . '\'');
+            $record = XDb::xFetchArray($rs);
+            XDb::xSql('UPDATE user SET cache_ignores=\'' . ($record['cache_ignores'] - 1) . '\'
+                       WHERE user_id=\'' . XDb::xEscape($usr['userid']) . '\'');
         }
     }
 
@@ -29,4 +36,3 @@ if ($error == false) {
 }
 
 tpl_BuildTemplate();
-?>
