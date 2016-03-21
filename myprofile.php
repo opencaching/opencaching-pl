@@ -1,9 +1,6 @@
 <?php
 
-
 use Utils\Database\XDb;
-use lib\Database\DataBaseSingleton;
-
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath)) {
@@ -12,7 +9,7 @@ if (!isset($rootpath)) {
 require_once('./lib/common.inc.php');
 //Preprocessing
 if ($error == false) {
-    $db = DataBaseSingleton::Instance();
+    $db = XDb::instance();
     $description = "";
     //user logged in?
     if ($usr == false) {
@@ -27,7 +24,7 @@ if ($error == false) {
             $db->reset();
             tpl_set_var('desc_updated', "<font color='green'>" . tr('desc_updated') . "</font>");
         }
-        if (isset($_POST['submit'])) {
+        if (isset($_POST['submit']) && isset($_POST['bulletin']) ) {
             $sql = "UPDATE user SET get_bulletin = :1 WHERE user_id = :2 ";
             $db->multiVariableQuery($sql, intval(/*sql_escape*/ XDb::xEscape($_POST['bulletin'])), (int) $usr['userid']);
             $db->reset();
