@@ -13,11 +13,14 @@
  *  to do:
  *  1.) validation data from post (should be numeric, but this is not a must - if data is not numeric
  *      we just get result that puzzle solution is incorrect)
- *  2.) convert section 2 to OOP, Mysql querries convert to working with PDO library.
+ *  2.) convert section 2 to OOP.
  *  3.) after succesfull check waypoint (.gpx) generate with final stage coords, downloadable for
  *      GPS devices.
  *  ================================================================================================
  */
+
+use Utils\Database\XDb;
+
 // variables required by opencaching.pl
 global $lang, $rootpath, $usr;
 
@@ -63,7 +66,7 @@ if ($error == false) {
         // todo: zobiektywizować tą sekcję, zapytania przerobić na PDO
 
 
-        $rs = sql("SELECT `caches`.`name`,
+        $rs = XDb::xSql("SELECT `caches`.`name`,
                 `caches`.`cache_id`,
                 `caches`.`type`,
                 `caches`.`user_id`,
@@ -72,7 +75,7 @@ if ($error == false) {
                 FROM   `caches`, `user`, `cache_type`
                 WHERE  `caches`.`user_id` = `user`.`user_id`
                 AND    `caches`.`type` = `cache_type`.`id`
-                AND    `caches`.`wp_oc` = '&1'", $Opensprawdzacz->cache_wp);
+                AND    `caches`.`wp_oc` = ? ", $Opensprawdzacz->cache_wp);
 
 
 
@@ -86,7 +89,7 @@ if ($error == false) {
         tpl_set_var("sekcja_4_start", '<!--');
         tpl_set_var("sekcja_4_stop", '-->');
 
-        $czyjest = mysql_num_rows($rs);
+        $czyjest = XDb::xNumRows($rs);
         if ($czyjest == 0) {
             tpl_set_var("ni_ma_takiego_kesza", tr(ni_ma_takiego_kesza));
             tpl_set_var("sekcja_2_start", '<!--');
@@ -96,7 +99,7 @@ if ($error == false) {
             $Opensprawdzacz->endzik();
         }
 
-        $record = mysql_fetch_array($rs);
+        $record = Xdb::xFetchArray($rs);
         $cache_id = $record['cache_id'];
 
         tpl_set_var("wp_oc", $Opensprawdzacz->cache_wp);
@@ -106,10 +109,10 @@ if ($error == false) {
         tpl_set_var("cachename", $record['name']);
         tpl_set_var("id_uzyszkodnika", $record['user_id']);
 
-        mysql_free_result($rs);
+        Xdb::xFreeResults($rs);
 
 
-        $wp_rs = sql("SELECT `waypoints`.`wp_id`,
+        $wp_rs = XDb::xSql("SELECT `waypoints`.`wp_id`,
                 `waypoints`.`type`,
                 `waypoints`.`longitude`,
                 `waypoints`.`latitude`,
@@ -117,9 +120,9 @@ if ($error == false) {
                 `waypoints`.`type`,
                 `waypoints`.`opensprawdzacz`
                 FROM `waypoints`
-                WHERE `cache_id`='&1' AND `type` = 3 ", $cache_id);
+                WHERE `cache_id`= ? AND `type` = 3 ", $cache_id);
 
-        $wp_record = sql_fetch_array($wp_rs);
+        $wp_record = XDb::xFetchArray($wp_rs);
         if (($wp_record['type'] == 3) && ($wp_record['opensprawdzacz'] == 1)) {
             tpl_set_var("sekcja_formularz_opensprawdzacza_start", '');
             tpl_set_var("sekcja_formularz_opensprawdzacza_stop", '');
@@ -130,7 +133,7 @@ if ($error == false) {
             tpl_set_var("sekcja_formularz_opensprawdzacza_stop", '-->');
         }
     }
-    mysql_free_result($wp_rs);
+    XDb::xFreeResults($wp_rs);
 }
 
 // budujemy kod html ktory zostaje wsylany do przegladraki

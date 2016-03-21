@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Database\XDb;
+
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -28,11 +30,14 @@ if ($error == false) {
         if ($email_not_ok == true) {
             tpl_set_var('email_message', $message_email_notok);
         } else {
-            $rs = sql("SELECT `user_id` `id`, `activation_code` `code` FROM `user` WHERE `email`='&1'", $email);
-            if ($r = sql_fetch_array($rs)) {
+            $rs = XDb::xSql("SELECT `user_id` `id`, `activation_code` `code`
+                        FROM `user` WHERE `email`= ? ", $email);
+            if ($r = XDb::xFetchArray($rs)) {
                 if (($r['code'] == $code) && ($code != '')) {
+                    XDb::xFreeResults($rs);
+
                     // ok, account aktivieren
-                    sql("UPDATE `user` SET `is_active_flag`=1, `activation_code`='' WHERE `user_id`='&1'", $r['id']);
+                    XDb::xSql("UPDATE `user` SET `is_active_flag`=1, `activation_code`='' WHERE `user_id`= ? ", $r['id']);
 
                     $tplname = 'activation_confirm';
                 } else {
@@ -45,7 +50,7 @@ if ($error == false) {
                 tpl_set_var('message_end', '');
                 tpl_set_var('message', $message_no_success);
             }
-            mysql_free_result($rs);
+            XDb::xFreeResults($rs);
         }
     }
 }

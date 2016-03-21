@@ -1,4 +1,7 @@
 <?php
+
+use Utils\Database\XDb;
+
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
     $rootpath = '';
@@ -23,7 +26,7 @@ if (!$cache_id) {
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title><?php echo $tpl_subtitle; ?><?php echo $pagetitle; echo ' - ' . tr('pagetitle_print'); ?></title>
+        <title><?php echo $pagetitle; echo ' - ' . tr('pagetitle_print'); ?></title>
         <meta http-equiv="content-type" content="text/xhtml; charset=UTF-8" />
         <meta http-equiv="Content-Style-Type" content="text/css" />
         <meta http-equiv="Content-Language" content="<?php echo $lang; ?>" />
@@ -108,13 +111,13 @@ if (!$cache_id) {
     }
     if ((isset($_GET['source'])) && ($_GET['source'] == 'mywatches')) {
 
-        $rs = sql("SELECT `cache_watches`.`cache_id` AS `cache_id` FROM `cache_watches` WHERE `cache_watches`.`user_id`='&1'", $usr['userid']);
-        if (mysql_num_rows($rs) > 0) {
+        $rs = XDb::xSql("SELECT `cache_watches`.`cache_id` AS `cache_id`
+                         FROM `cache_watches` WHERE `cache_watches`.`user_id`= ? ", $usr['userid']);
+        if (XDb::xNumRows($rs) > 0) {
             $caches_list = array();
-            for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-                $record = sql_fetch_array($rs);
+            for ($i = 0; $i < XDb::xNumRows($rs); $i++) {
+                $record = XDb::xFetchArray($rs);
                 $caches_list[] = $record['cache_id'];
-                //var_dump($record);
             }
         }
     } else if ($cache_id) {
