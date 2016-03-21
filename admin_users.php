@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Database\XDb;
+
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -15,12 +17,12 @@ if ($usr['admin']) {
     else
         $lang_db = "en";
 
-    $rsuser = sql("SELECT hidden_count, founds_count, log_notes_count, notfounds_count,last_login,
+    $rsuser = XDb::xSql("SELECT hidden_count, founds_count, log_notes_count, notfounds_count,last_login,
                                 username, date_created,description, email,is_active_flag,
                                 stat_ban,activation_code,hide_flag,countries.$lang_db country, verify_all
-                                FROM `user` LEFT JOIN countries ON (user.country=countries.short) WHERE user_id=&1 ", $user_id);
+                                FROM `user` LEFT JOIN countries ON (user.country=countries.short) WHERE user_id=? ", $user_id);
 
-    $record = sql_fetch_array($rsuser);
+    $record = XDb::xFetchArray($rsuser);
 
     $user = new \lib\Objects\User\User(array('userId'=>$_REQUEST['userid']));
     $user->loadExtendedSettings();
@@ -31,7 +33,7 @@ if ($usr['admin']) {
     }
 
     if (isset($_GET['stat_ban']) && $_GET['stat_ban'] == 1 && $usr['admin']) {
-        $sql = "UPDATE user SET stat_ban = 1 - stat_ban WHERE user_id = " . intval($user_id);
+        $q = "UPDATE user SET stat_ban = 1 - stat_ban WHERE user_id = " . intval($user_id);
         if ($record["stat_ban"] == 0) {
             $record["stat_ban"] = 1;
             lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user_id, true, lib\Objects\User\AdminNote::BAN_STATS);
@@ -40,31 +42,31 @@ if ($usr['admin']) {
             $record["stat_ban"] = 0;
             lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user_id, true, lib\Objects\User\AdminNote::UNBAN_STATS);
         }
-        mysql_query($sql);
+        XDb::xQuery($q);
     }
     if(isset($_GET['hide_flag'])){
         if ($_GET['hide_flag'] == 10 && $usr['admin']) {
-            $sql = "UPDATE user SET hide_flag = 10  WHERE user_id = " . intval($user_id);
-            mysql_query($sql);
+            $q = "UPDATE user SET hide_flag = 10  WHERE user_id = " . intval($user_id);
+            XDb::xQuery($q);
         }
         if ($_GET['hide_flag'] == 0 && $usr['admin']) {
-            $sql = "UPDATE user SET hide_flag = 0  WHERE user_id = " . intval($user_id);
-            mysql_query($sql);
+            $q = "UPDATE user SET hide_flag = 0  WHERE user_id = " . intval($user_id);
+            XDb::xQuery($q);
         }
     }
 // force all caches to be verified - sql
     if(isset($_GET['verify_all'])) {
         if ($_GET['verify_all'] == 1 && $usr['admin']) {
-            $sql = "UPDATE user SET verify_all = '1'  WHERE user_id = '" . intval($user_id) . "'";
+            $q = "UPDATE user SET verify_all = '1'  WHERE user_id = '" . intval($user_id) . "'";
             $record["verify_all"] = 1;
             lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user_id, true, lib\Objects\User\AdminNote::VERIFY_ALL);
-            mysql_query($sql) or die(mysql_error());
+            XDb::xQuery($q);
         }
         if ($_GET['verify_all'] == 0 && $usr['admin']) {
-            $sql = "UPDATE user SET verify_all = 0  WHERE user_id = " . intval($user_id);
+            $q = "UPDATE user SET verify_all = 0  WHERE user_id = " . intval($user_id);
             lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user_id, true, lib\Objects\User\AdminNote::NO_VERIFY_ALL);
             $record["verify_all"] = 0;
-            mysql_query($sql);
+            XDb::xQuery($q);
         }
     }
 // end force
@@ -86,7 +88,7 @@ if ($usr['admin']) {
 
     //ban
     if (isset($_GET['is_active_flag']) && $_GET['is_active_flag'] == 1 && $usr['admin']) {
-        $sql = "UPDATE user SET is_active_flag = 1 - is_active_flag, `activation_code`='' WHERE user_id = " . intval($user_id);
+        $q = "UPDATE user SET is_active_flag = 1 - is_active_flag, `activation_code`='' WHERE user_id = " . intval($user_id);
         if ($record["is_active_flag"] == 0) {
             $record["is_active_flag"] = 1;
             lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user_id, true, lib\Objects\User\AdminNote::UNBAN);
@@ -95,7 +97,7 @@ if ($usr['admin']) {
             $record["is_active_flag"] = 0;
             lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user_id, true, lib\Objects\User\AdminNote::BAN);
         }
-        mysql_query($sql);
+        XDb::xQuery($q);
     }
 
     if ($usr['userid'] == $super_admin_id) {
