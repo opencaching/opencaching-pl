@@ -1,4 +1,5 @@
 <?php
+use Utils\Database\XDb;
 /*
   Save last used user map settings in DB
   This is called by ajax request from map scripts.
@@ -31,7 +32,7 @@ if(is_numeric($_GET['map_v']) && ($_GET['map_v'] == 2 )) { //this is request fro
 
     $cachesort = intval($_GET['cachesort']);
 
-    $sql = 'INSERT INTO map_settings_v2
+    $q = 'INSERT INTO map_settings_v2
         (user_id, maptype, cachelimit, cachesort)
     VALUES
         ($userid, $maptype, $cachelimit, $cachesort)
@@ -40,7 +41,7 @@ if(is_numeric($_GET['map_v']) && ($_GET['map_v'] == 2 )) { //this is request fro
         cachelimit = $cachelimit,
         cachesort = $cachesort';
 
-    mysql_query($sql); //TODO: use common function
+    XDb::xQuery($q); //TODO: use common function
 
 
 }else if(isset($_GET['map_v']) && ($_GET['map_v'] == 3 )) { //this is request from map in ver. 3
@@ -101,6 +102,6 @@ if(is_numeric($_GET['map_v']) && ($_GET['map_v'] == 2 )) { //this is request fro
     if( isset($_GET['h_noscore']) )
         $columns[] = 'noscore = '.($_GET['h_noscore'] == 'true' ? 1 : 0);
 
-    $sql = 'REPLACE map_settings SET '. implode(',',$columns);
-    mysql_query($sql); //TODO: use common function
+    $q = 'REPLACE map_settings SET '. implode(',',$columns);
+    XDb::xQuery($q);
 }
