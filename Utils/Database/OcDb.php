@@ -232,32 +232,33 @@ class OcDb extends OcPdo
      */
     public function multiVariableQuery($query)
     {
-        $numargs = func_num_args();
-        $arg_list = func_get_args();
+        $argList = func_get_args(); //get list of params
 
         // check if params are passed as array
-        if ($numargs === 2 && is_array($arg_list[1])) {
-            $arg_list = $arg_list[1];
-            $numargs = count($arg_list) + 1;
+        if (2 === func_num_args() && is_array($argList[1])) {
+            $argList = $argList[1];
+        }else{
+            unset($argList[0]); //remove query from arg. lists (rest are params)
         }
 
         try {
             $this->stmt = $this->prepare($query);
 
-            for ($i = 1; $i < $numargs; $i++) {
-                $this->stmt->bindParam(self::BIND_CHAR . $i, $arg_list[$i]);
+            $i = 1;
+            foreach($argList as $param){
+                $this->stmt->bindValue(self::BIND_CHAR . $i++, $param);
             }
             $this->stmt->setFetchMode(self::FETCH_ASSOC);
             $this->stmt->execute();
         } catch (PDOException $e) {
-
-            $message = 'Query|Params: '.implode(' | ', $arg_list);
+            d($e);
+            $message = 'Query|Params: '.implode(' | ', $argList);
             $this->error($message, $e);
             return false;
         }
 
         if ($this->debug) {
-            self::debugOut(__METHOD__.":\n\nQuery|Params: ".implode(' | ', $arg_list));
+            self::debugOut(__METHOD__.":\n\nQuery|Params: ".implode(' | ', $argList));
         }
         return true;
     }
@@ -278,7 +279,7 @@ class OcDb extends OcPdo
         if ( 2 >= count($argList)) {
 
             //only query + default value=> use simpleQuery
-            $e = new PDOException('Improper using of '.__METHOD__.' . Too low arguments. Use simpleQueryValue() instead');
+            $e = new PDOException('Improper using of '.__METHOD__.' . Too less arguments. Use simpleQueryValue() instead');
             $this->error('Improper using of '.__METHOD__, $e, false, false); //skip sending email
 
             return $this->simpleQueryValue($query, $default);
@@ -287,17 +288,7 @@ class OcDb extends OcPdo
         //more params - remove first two from argList and call...
         $this->multiVariableQuery($query, array_slice($argList, 2));
 
-        $result = $this->dbResultFetchValue($default);
-        if ($result) { //we got a reullt from query
-            $value = reset($result);
-            if ($value == null){
-                return $default;
-            }else{
-                return $value;
-            }
-        } else {
-            return $default;
-        }
+        return $this->dbResultFetchValue($default);
     }
 
 
