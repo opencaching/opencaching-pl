@@ -185,6 +185,7 @@
                 unset($_REQUEST['searchbyort']);
                 unset($_REQUEST['searchbyfulltext']);
                 unset($_REQUEST['searchbywaypoint']);
+                unset($_REQUEST['searchbywaypointname']);
                 $_REQUEST[$_REQUEST['searchto']] = "hoho";
             }
 
@@ -315,6 +316,32 @@
             {
                 $options['searchtype'] = 'bywaypoint';
                 $options['waypoint'] = isset($_REQUEST['waypoint']) ? $_REQUEST['waypoint'] : '';
+                $options['waypoint'] = mb_trim($options['waypoint']);
+                $options['waypointtype'] = mb_strtolower(mb_substr($options['waypoint'], 0, 2));
+                $ocWP=strtolower($GLOBALS['oc_waypoint']);
+                if ( mb_ereg_match('(oc|'.$ocWP.'[a-z0-9]{4})$', mb_strtolower($options['waypoint'])) ) //O?xxxx
+                {
+                    $options['waypointtype'] = 'oc';
+                }
+                elseif ( mb_ereg_match('(n[a-f0-9]{5})$', mb_strtolower($options['waypoint'])) ) //Navicache.com
+                {
+                    $options['waypointtype'] = 'nc';
+                }
+                elseif ( mb_ereg_match('([a-zA-Z0-9]{4})$', $options['waypoint']) ) //xxxxx -> O?xxxxx
+                {
+                    $options['waypointtype'] = 'oc';
+                    $options['waypoint'] = $ocWP.$options['waypoint'];
+                }
+                elseif ( !mb_ereg_match('(gc[a-z0-9]{4,5})$', mb_strtolower($options['waypoint'])) ) //GC and others - test
+                {
+                    $options['waypoint'] = '';
+                }
+            }
+            elseif (isset($_REQUEST['searchbywaypointname']))
+            {
+                $options['searchtype'] = 'bywaypointname';
+                $options['cachename'] = isset($_REQUEST['waypointname']) ? stripslashes($_REQUEST['waypointname']) : '';
+                $options['waypoint'] = isset($_REQUEST['waypointname']) ? $_REQUEST['waypointname'] : '';
                 $options['waypoint'] = mb_trim($options['waypoint']);
                 $options['waypointtype'] = mb_strtolower(mb_substr($options['waypoint'], 0, 2));
                 $ocWP=strtolower($GLOBALS['oc_waypoint']);
@@ -887,6 +914,19 @@
                     $sql_from[] = '`caches`';
                     $sql_where[] = '`caches`.`wp_' . sql_escape($options['waypointtype']) . '`=\'' . sql_escape($options['waypoint']) . '\'';
                 } // end added by bebe
+                elseif ($options['searchtype'] == 'bywaypointname')
+                {
+                    $sql_select[] = '`caches`.`cache_id` `cache_id`';
+                    $sql_from[] = '`caches`';
+                    if ($options['waypoint'] == '')
+                    {
+                        $sql_where[] = '`caches`.`name` LIKE \'%' . sql_escape($options['cachename']) . '%\'';
+                    }
+                    else 
+                    {
+                        $sql_where[] = '`caches`.`name` LIKE \'%' . sql_escape($options['cachename']) . '%\' OR `caches`.`wp_' . sql_escape($options['waypointtype']) . '`=\'' . sql_escape($options['waypoint']) . '\'';
+                    }
+                }
                 elseif ($options['searchtype'] == 'byfulltext')
                 {
                     require_once($rootpath . 'lib/ftsearch.inc.php');

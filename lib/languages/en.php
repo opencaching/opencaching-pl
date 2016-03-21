@@ -390,6 +390,7 @@ $translations = array(
     'owner_label' => 'Cache owner',
     'finder_label' => 'Finder',
     'waypoint_label' => 'waypoint',
+    'waypointname_label' => 'name/waypoint',    
     'search_by_finder' => 'Search by finder',
     'search_recommendations' => 'Recommendations',
     'search_all_caches' => 'all caches',
