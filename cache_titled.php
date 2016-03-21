@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Database\XDb;
+
 global $dateFormat;
 require_once('./lib/common.inc.php');
 
@@ -25,9 +27,9 @@ $query="SELECT
 
 if ( isset( $_REQUEST[ 'type' ] ) )
 {
-    $latitude = sqlValue("SELECT `latitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
-    $longitude = sqlValue("SELECT `longitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
-    $distance = sqlValue("SELECT `notify_radius` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
+    $latitude = XDb::xSimpleQueryValue("SELECT `latitude` FROM user WHERE user_id='" . XDb::xEscape($usr['userid']) . "'", 0);
+    $longitude = XDb::xSimpleQueryValue("SELECT `longitude` FROM user WHERE user_id='" . XDb::xEscape($usr['userid']) . "'", 0);
+    $distance = XDb::xSimpleQueryValue("SELECT `notify_radius` FROM user WHERE user_id='" . XDb::xEscape($usr['userid']) . "'", 0);
 
     localCachesInc::createLocalCaches($dbcLocCache, $longitude, $latitude, $distance, $usrid);
 

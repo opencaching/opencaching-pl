@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Database\XDb;
+
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -21,15 +23,18 @@ if ($usr['admin']) {
         $email_headers .= "Reply-To: " . $mail_rr . "\r\n";
 
         $bulletin = ($_SESSION['bulletin']);
-        $sql = "INSERT INTO bulletins (content, user_id) VALUES ('" . sql_escape($bulletin) . "', " . sql_escape(intval($usr['userid'])) . ")";
-        @mysql_query($sql);
+        $q = "INSERT INTO bulletins (content, user_id)
+                VALUES ('" . XDb::xEscape($bulletin) . "', " . XDb::xEscape(intval($usr['userid'])) . ")";
+
+        XDb::xQuery($q);
+
         $tr_newsletter_removal = tr('newsletter_removal');
         $bulletin .= "\r\n\r\n" . $tr_newsletter_removal . " " . $absolute_server_URI . "myprofile.php?action=change.";
         //get emails
-        $sql = "SELECT `email` FROM `user` WHERE `is_active_flag`=1 AND get_bulletin=1 AND rules_confirmed=1";
-        $query = @mysql_query($sql);
+        $q = "SELECT `email` FROM `user` WHERE `is_active_flag`=1 AND get_bulletin=1 AND rules_confirmed=1";
+        $rs = XDb::xQuery($q);
         $tr_newsletter = $short_sitename . " " . tr('newsletter');
-        while ($email = @mysql_fetch_array($query)) {
+        while ($email = XDb::xFetchArray($rs)) {
 
             mb_send_mail($email['email'], $tr_newsletter . " " . date("Y-m-d"), stripslashes($bulletin), $email_headers);
         }
@@ -45,4 +50,3 @@ if ($usr['admin']) {
         tpl_BuildTemplate();
     }
 }
-?>

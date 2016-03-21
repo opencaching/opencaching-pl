@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Database\XDb;
+
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -10,19 +12,21 @@ if ($error == false) {
 
     if ($usr !== false) {
         //add to caches
-        $rs = mysql_query('SELECT ignorer_count FROM caches WHERE cache_id=\'' . sql_escape($cache_id) . '\'');
-        if (mysql_num_rows($rs) > 0) {
-            $record = mysql_fetch_array($rs);
-            sql('UPDATE caches SET ignorer_count=\'' . ($record['ignorer_count'] + 1) . '\' WHERE cache_id=\'' . sql_escape($cache_id) . '\'');
+        $rs = XDb::xQuery('SELECT ignorer_count FROM caches WHERE cache_id=\'' . XDb::xEscape($cache_id) . '\'');
+        if (XDb::xNumRows($rs) > 0) {
+            $record = Xdb::xFetchArray($rs);
+            XDb::xSql('UPDATE caches SET ignorer_count=\'' . ($record['ignorer_count'] + 1) . '\'
+                       WHERE cache_id=\'' . XDb::xEscape($cache_id) . '\'');
 
             //add watch
-            sql('INSERT INTO `cache_ignore` (`cache_id`, `user_id`) VALUES (\'' . sql_escape($cache_id) . '\', \'' . sql_escape($usr['userid']) . '\')');
+            XDb::xSql('INSERT INTO `cache_ignore` (`cache_id`, `user_id`)
+                       VALUES (\'' . XDb::xEscape($cache_id) . '\', \'' . XDb::xEscape($usr['userid']) . '\')');
 
 
             //add to user
-            $rs = sql('SELECT cache_ignores FROM user WHERE user_id=\'' . sql_escape($usr['userid']) . '\'');
-            $record = mysql_fetch_array($rs);
-            sql('UPDATE user SET cache_ignores=\'' . ($record['cache_ignores'] + 1) . '\' WHERE user_id=\'' . sql_escape($usr['userid']) . '\'');
+            $rs = XDb::xSql('SELECT cache_ignores FROM user WHERE user_id=\'' . XDb::xEscape($usr['userid']) . '\'');
+            $record = XDb::xFetchArray($rs);
+            XDb::xSql('UPDATE user SET cache_ignores=\'' . ($record['cache_ignores'] + 1) . '\' WHERE user_id=\'' . XDb::xEscape($usr['userid']) . '\'');
 
             tpl_redirect($target);
         }
