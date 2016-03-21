@@ -119,17 +119,26 @@ class XDb extends OcDb {
      * @param unknown $sql
      * @param ... there can be optional list of params to bind with query
      */
-    public static function xSql($sql){
+    public static function xSql($query){
         $db = self::instance();
-        $stmt = $db->prepare($sql);
+        try {
+            $stmt = $db->prepare($query);
 
-        //$numargs = func_num_args();
-        $argList = func_get_args();
-        array_shift($argList); //remove first param. = sql query
+            $argList = func_get_args();
+            array_shift($argList); //remove first param. = sql query
 
-        $stmt->execute($argList);
+            $stmt->execute($argList);
+        } catch (PDOException $e) {
+
+            $db->error('Query: '.$query, $e);
+            return false;
+        }
+
+        if ($db->debug) {
+            self::debugOut(__METHOD__.":\n\nQuery: ".$query);
+        }
+
         return $stmt;
-
     }
 
     /**
