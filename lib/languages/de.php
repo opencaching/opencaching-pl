@@ -1746,6 +1746,7 @@ $translations = array(
     'ZM' => 'Sambia',
     'ZW' => 'Simbabwe',
     'SU' => 'Rusland',
+    'XX' => 'Keine (nicht angegeben)',
     'pt000' => 'GeoPath',
     'pt001' => 'GeoPath',
     'pt002' => 'Hinzufügen Zu PowerTral',
