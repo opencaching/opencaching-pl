@@ -135,6 +135,12 @@ class GeoCache
     private $isPowerTrailFinalGeocache = false;
 
     /**
+     *
+     * @var arrayObject
+     */
+    private $waypoints;
+
+    /**
      * @param array $params
      *            'cacheId' => (integer) database cache identifier
      *            'wpId' => (string) geoCache wayPoint (ex. OP21F4)
@@ -233,7 +239,7 @@ class GeoCache
     /**
      * Load object data based on DB data-row
      *
-     * @param array $row
+     * @param array $geocacheDbRow
      */
     public function loadFromRow(array $geocacheDbRow)
     {
@@ -568,7 +574,6 @@ class GeoCache
     }
 
     /**
-     *
      * @return \lib\Objects\Coordinates\Coordinates
      */
     public function getCoordinates()
@@ -909,6 +914,18 @@ class GeoCache
         }
         return $this->distance;
     }
+
+    public function getWaypoints()
+    {
+        if($this->waypoints === null){
+            $this->waypoints = new \ArrayObject();
+            \lib\Controllers\GeocacheController::buildWaypointsForGeocache($this);
+        }
+        return $this->waypoints;
+    }
+
+
+
 
 }
 

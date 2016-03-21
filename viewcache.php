@@ -2,6 +2,7 @@
 
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\OcConfig\OcConfig;
+use lib\Objects\GeoCache\Waypoint;
 
 
 //prepare the templates and include all neccessary
@@ -1094,31 +1095,31 @@ if ($error == false) {
                         <th align="center" valign="middle"><b>' . tr('describe_wp') . '</b></th></tr>';
             }
 
-            $dbc->multiVariableQuery("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`=:1 ORDER BY `stage`,`wp_id`", $geocache->getCacheId());
-            foreach ($dbc->dbResultFetchAll() as $wp_record) {
-                if ($wp_record['status'] != 3) {
-                    $wp_record['wp_type'] = tr('wayPointType'.$wp_record['type']);
+            /*@var $waypoint lib\Objects\GeoCache\Waypoint */
+            foreach ($geocache->getWaypoints() as $waypoint) {
+                if ($waypoint->getStatus() != Waypoint::STATUS_HIDDEN) {
+                    $wpTypeTranslation = tr('wayPointType'.$waypoint->getType());
                     $tmpline1 = $wpline;    // string in viewcache.inc.php
 
-                    if ($wp_record['status'] == 1) {
-                        $coords_lat_lon = "<a class=\"links4\" href=\"#\" onclick=\"javascript:window.open('http://www.opencaching.pl/coordinates.php?lat=" . $wp_record['latitude'] . "&amp;lon=" . $wp_record['longitude'] . "&amp;popup=y&amp;wp=" . htmlspecialchars($geocache->getWaypointId(), ENT_COMPAT, 'UTF-8') . "','Koordinatenumrechnung','width=240,height=334,resizable=yes,scrollbars=1'); return event.returnValue=false\">" . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_latToDegreeStr($wp_record['latitude']), ENT_COMPAT, 'UTF-8') . "<br/>" . htmlspecialchars(help_lonToDegreeStr($wp_record['longitude']), ENT_COMPAT, 'UTF-8')) . "</a>";
+                    if ($waypoint->getStatus() == Waypoint::STATUS_VISIBLE) {
+                        $coords_lat_lon = "<a class=\"links4\" href=\"#\" onclick=\"javascript:window.open('http://www.opencaching.pl/coordinates.php?lat=" . $waypoint->getCoordinates()->getLatitude() . "&amp;lon=" . $waypoint->getCoordinates()->getLongitude() . "&amp;popup=y&amp;wp=" . htmlspecialchars($geocache->getWaypointId(), ENT_COMPAT, 'UTF-8') . "','Koordinatenumrechnung','width=240,height=334,resizable=yes,scrollbars=1'); return event.returnValue=false\">" . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_latToDegreeStr($waypoint->getCoordinates()->getLatitude()), ENT_COMPAT, 'UTF-8') . "<br/>" . htmlspecialchars(help_lonToDegreeStr($waypoint->getCoordinates()->getLongitude()), ENT_COMPAT, 'UTF-8')) . "</a>";
                     }
-                    if ($wp_record['status'] == 2) {
+                    if ($waypoint->getStatus() == Waypoint::STATUS_VISIBLE_HIDDEN_COORDS) {
                         $coords_lat_lon = "N ?? ??????<br />E ?? ??????";
                     }
-                    $tmpline1 = mb_ereg_replace('{wp_icon}', htmlspecialchars($wp_record['wp_icon'], ENT_COMPAT, 'UTF-8'), $tmpline1);
-                    $tmpline1 = mb_ereg_replace('{type}', htmlspecialchars($wp_record['wp_type'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+                    $tmpline1 = mb_ereg_replace('{wp_icon}', htmlspecialchars($waypoint->getIconName(), ENT_COMPAT, 'UTF-8'), $tmpline1);
+                    $tmpline1 = mb_ereg_replace('{type}', htmlspecialchars($wpTypeTranslation, ENT_COMPAT, 'UTF-8'), $tmpline1);
                     $tmpline1 = mb_ereg_replace('{lat_lon}', $coords_lat_lon, $tmpline1);
-                    $tmpline1 = mb_ereg_replace('{desc}', "&nbsp;" . nl2br($wp_record['desc']) . "&nbsp;", $tmpline1);
-                    $tmpline1 = mb_ereg_replace('{wpid}', $wp_record['wp_id'], $tmpline1);
+                    $tmpline1 = mb_ereg_replace('{desc}', "&nbsp;" . nl2br($waypoint->getDescription()) . "&nbsp;", $tmpline1);
+                    $tmpline1 = mb_ereg_replace('{wpid}', $waypoint->getId(), $tmpline1);
 
                     if ($cache_type == 1 || $cache_type == 3 || $cache_type == 7) {
                         $tmpline1 = mb_ereg_replace('{stagehide_end}', '', $tmpline1);
                         $tmpline1 = mb_ereg_replace('{stagehide_start}', '', $tmpline1);
-                        if ($wp_record['stage'] == 0) {
+                        if ($waypoint->getStage() == 0) {
                             $tmpline1 = mb_ereg_replace('{number}', "", $tmpline1);
                         } else {
-                            $tmpline1 = mb_ereg_replace('{number}', $wp_record['stage'], $tmpline1);
+                            $tmpline1 = mb_ereg_replace('{number}', $waypoint->getStage(), $tmpline1);
                         }
                     } else {
                         $tmpline1 = mb_ereg_replace('{stagehide_end}', '-->', $tmpline1);
