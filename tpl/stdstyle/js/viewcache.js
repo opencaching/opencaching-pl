@@ -81,3 +81,9 @@ function showHint(event)
     return false;
 }
 
+function openCgeoWindow(event, ocWaypoint)
+{
+    event.preventDefault();
+    window.open('https://send2.cgeo.org/add.html?cache='+ocWaypoint,'-','width=240,height=240,resizable=yes,scrollbars=1');
+    return false;
+}

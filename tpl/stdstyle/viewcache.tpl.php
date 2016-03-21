@@ -491,33 +491,42 @@
             echo "";
         } else {
             ?>
-            <div>{save_icon}<b> {{download_as_file}}</b><br/>
-                <?php echo "<table class=\"content\" style=\"font-size: 12px; line-height: 1.6em;\">
-            <tr>
-                <td  width=\"350\" align=\"left\" style=\"padding-left:5px;\">
-                    <div class=\"searchdiv\">
-                    <span class=\"content-title-noshade txt-blue08\">{{format_GPX}}</span>:<br/>
-                    <a class=\"links\" href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid="; ?>{cacheid_urlencode}<?php echo "&amp;output=gpxgc\" title=\"GPS Exchange Format .gpx\">GPX</a>&nbsp|&nbsp
-                    <a class=\"links\"  href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid="; ?>{cacheid_urlencode}<?php echo "&amp;output=zip\" title=\"Garmin ZIP file ({{format_pict}})  .zip\">GARMIN ({{format_pict}})</a>
-                    </div>
-                </td>
-                <td width=\"350\" align=\"left\" style=\"padding-left:5px;\">
-                    <div class=\"searchdiv\">
-                    <span class=\"content-title-noshade txt-blue08\">{{format_other}}</span>:<br/>
-                    <a  class=\"links\" href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid="; ?>{cacheid_urlencode}<?php echo "&amp;output=loc\" title=\"Waypoint .loc\">LOC | </a>
-                    <a  class=\"links\" href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid="; ?>{cacheid_urlencode}<?php echo "&amp;output=kml\" title=\"Google Earth .kml\">KML | </a>
-                    <a  class=\"links\" href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid="; ?>{cacheid_urlencode}<?php echo "&amp;output=ov2\" title=\"TomTom POI .ov2\">OV2 | </a>
-                    <a  class=\"links\" href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid="; ?>{cacheid_urlencode}<?php echo "&amp;output=ovl\" title=\"TOP50-Overlay .ovl\">OVL | </a>
-                    <a  class=\"links\" href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid="; ?>{cacheid_urlencode}<?php echo "&amp;output=txt\" title=\"Tekst .txt\">TXT | </a>
-                    <a  class=\"links\" href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid="; ?>{cacheid_urlencode}<?php echo "&amp;output=wpt\" title=\"Oziexplorer .wpt\">WPT | </a>
-                    <a  class=\"links\" href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid="; ?>{cacheid_urlencode}<?php echo "&amp;output=uam\" title=\"AutoMapa .uam\">UAM | </a>
-                    <a  class=\"links\" href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid="; ?>{cacheid_urlencode}<?php echo "&amp;output=xml\" title=\"XML\">XML</a>
-                    </div>
-                </td>
-            </tr>
-        </table>
-            <div class=\"notice buffer\" id=\"viewcache-termsofuse\">"; ?> {{accept_terms_of_use}}<?php
-                echo "</div></div>";
+        <div>{save_icon}<b> {{download_as_file}}</b><br/>
+            <table class="content" style="font-size: 12px; line-height: 1.6em;">
+                <tr>
+                    <td  width="350" align="left" style="padding-left:5px;">
+                        <div class="searchdiv">
+                            <span class="content-title-noshade txt-blue08">{{format_GPX}}</span>:<br/>
+                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid={cacheid_urlencode}&amp;output=gpxgc" title="GPS Exchange Format .gpx">GPX</a>&nbsp|&nbsp
+                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid={cacheid_urlencode}&amp;output=zip" title="Garmin ZIP file ({{format_pict}})  .zip">GARMIN ({{format_pict}})</a>
+                        </div>
+                    </td>
+                    <td width="350" align="left" style="padding-left:5px;">
+                        <div class="searchdiv">
+                            <span class="content-title-noshade txt-blue08">{{format_other}}</span>:<br/>
+                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid={cacheid_urlencode}&amp;output=loc" title="Waypoint .loc">LOC | </a>
+                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid={cacheid_urlencode}&amp;output=kml" title="Google Earth .kml">KML | </a>
+                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid={cacheid_urlencode}&amp;output=ov2" title="TomTom POI .ov2">OV2 | </a>
+                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid={cacheid_urlencode}&amp;output=ovl" title="TOP50-Overlay .ovl">OVL | </a>
+                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid={cacheid_urlencode}&amp;output=txt" title="Tekst .txt">TXT | </a>
+                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid={cacheid_urlencode}&amp;output=wpt" title="Oziexplorer .wpt">WPT | </a>
+                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid={cacheid_urlencode}&amp;output=uam" title="AutoMapa .uam">UAM | </a>
+                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid={cacheid_urlencode}&amp;output=xml" title="XML">XML</a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                     <td  width="350" align="left" style="padding-left:5px;">
+                        <div class="searchdiv">
+                            <span class="content-title-noshade txt-blue08">mobileApps <span style="font-size: 8px;">(Beta)</span></span><br/>
+                            <a class="links" href="#" onclick="openCgeoWindow(event, '{oc_waypoint}')" title="c:geo">send to c:geo</a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="notice buffer" id="viewcache-termsofuse">";  {{accept_terms_of_use}} </div>
+        </div>
+         <?php
             }
             ?>
         </div>
