@@ -32,7 +32,7 @@ if ($error == false) {
                 //add to user
                 XDb::xSql('UPDATE user SET cache_watches=cache_watches+1 WHERE user_id= ? ',$usr['userid']);
             }
-            //tpl_redirect($target);
+            tpl_redirect($target);
         }
     }
 }
