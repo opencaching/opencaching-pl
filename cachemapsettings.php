@@ -32,16 +32,16 @@ if(is_numeric($_GET['map_v']) && ($_GET['map_v'] == 2 )) { //this is request fro
 
     $cachesort = intval($_GET['cachesort']);
 
-    $q = 'INSERT INTO map_settings_v2
+    $q = "INSERT INTO map_settings_v2
         (user_id, maptype, cachelimit, cachesort)
     VALUES
         ($userid, $maptype, $cachelimit, $cachesort)
     ON DUPLICATE KEY UPDATE
         maptype = $maptype,
         cachelimit = $cachelimit,
-        cachesort = $cachesort';
+        cachesort = $cachesort";
 
-    XDb::xQuery($q); //TODO: use common function
+    XDb::xQuery($q);
 
 
 }else if(isset($_GET['map_v']) && ($_GET['map_v'] == 3 )) { //this is request from map in ver. 3
