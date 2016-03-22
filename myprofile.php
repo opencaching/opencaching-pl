@@ -19,18 +19,18 @@ if ($error == false) {
         tpl_set_var('desc_updated', '');
         tpl_set_var('displayGeoPathSection', displayGeoPatchSection('table'));
         if (isset($_POST['description'])) {
-            $sql = "UPDATE user SET description = :1 WHERE user_id=:2";
-            $db->multiVariableQuery($sql, strip_tags($_POST['description']), (int) $usr['userid']);
+            $q = "UPDATE user SET description = :1 WHERE user_id=:2";
+            $db->multiVariableQuery($q, strip_tags($_POST['description']), (int) $usr['userid']);
             $db->reset();
             tpl_set_var('desc_updated', "<font color='green'>" . tr('desc_updated') . "</font>");
         }
         if (isset($_POST['submit']) && isset($_POST['bulletin']) ) {
-            $sql = "UPDATE user SET get_bulletin = :1 WHERE user_id = :2 ";
-            $db->multiVariableQuery($sql, intval(/*sql_escape*/ XDb::xEscape($_POST['bulletin'])), (int) $usr['userid']);
+            $q = "UPDATE user SET get_bulletin = :1 WHERE user_id = :2 ";
+            $db->multiVariableQuery($q, $_POST['bulletin'], $usr['userid']);
             $db->reset();
         }
-        $sql = "SELECT description, get_bulletin FROM user WHERE user_id = :1 LIMIT 1";
-        $db->multiVariableQuery($sql, (int) $usr['userid']);
+        $q = "SELECT description, get_bulletin FROM user WHERE user_id = :1 LIMIT 1";
+        $db->multiVariableQuery($q, (int) $usr['userid']);
         $userinfo = $db->dbResultFetchOneRowOnly();
         $description = $userinfo['description'];
         $bulletin = $userinfo['get_bulletin'];
@@ -54,8 +54,8 @@ if ($error == false) {
             tpl_set_var('guide_start', '<!--');
             tpl_set_var('guide_end', '-->');
         }
-        $sql = "SELECT `guru`,`username`, `email`, `country`, `latitude`, `longitude`, `date_created`, `permanent_login_flag`, `power_trail_email`, `notify_radius`, `ozi_filips` FROM `user` WHERE `user_id`=:1 ";
-        $db->multiVariableQuery($sql, (int) $usr['userid']);
+        $q = "SELECT `guru`,`username`, `email`, `country`, `latitude`, `longitude`, `date_created`, `permanent_login_flag`, `power_trail_email`, `notify_radius`, `ozi_filips` FROM `user` WHERE `user_id`=:1 ";
+        $db->multiVariableQuery($q, $usr['userid']);
         $record = $db->dbResultFetchOneRowOnly();
         if ($record['guru'] == 1) {
             tpl_set_var('guides_start', '');
@@ -278,8 +278,8 @@ if ($error == false) {
                         tpl_set_var('username_message', $error_username_not_ok);
                     } else {
                         if ($username != $usr['username']) {
-                            $sql = "SELECT `username` FROM `user` WHERE `username`=:1";
-                            $db->multiVariableQuery($sql, $username);
+                            $q = "SELECT `username` FROM `user` WHERE `username`=:1";
+                            $db->multiVariableQuery($q, $username);
                             if ($db->rowCount() > 0) {
                                 $username_exists = true;
                                 tpl_set_var('username_message', $error_username_exists);
@@ -317,29 +317,29 @@ if ($error == false) {
                                 $db->reset();
                                 tpl_set_var('GeoKretyApiIntegration', tr('no'));
                             }
-                            $sql = "UPDATE `user` SET `last_modified`=NOW(), `latitude`=:2, `longitude`=:3, `pmr_flag`=:4, `country`=:5, `permanent_login_flag`=:6, `power_trail_email`=:8 , `notify_radius`=:9, `ozi_filips`=:10, `guru`=:1 WHERE `user_id`=:7";
-                            $db->multiVariableQuery($sql, $guide, $latitude, $longitude, 0, $country, $using_permantent_login, (int) $usr['userid'], $geoPathsEmail, $radius, $ozi_path);
+                            $q = "UPDATE `user` SET `last_modified`=NOW(), `latitude`=:2, `longitude`=:3, `pmr_flag`=:4, `country`=:5, `permanent_login_flag`=:6, `power_trail_email`=:8 , `notify_radius`=:9, `ozi_filips`=:10, `guru`=:1 WHERE `user_id`=:7";
+                            $db->multiVariableQuery($q, $guide, $latitude, $longitude, 0, $country, $using_permantent_login, (int) $usr['userid'], $geoPathsEmail, $radius, $ozi_path);
                             $db->reset();
 
                             // update user nick
                             if ($username != $usr['username']) {
                                 $db->beginTransaction();
-                                $sql = "select count(id) from user_nick_history where user_id = :1";
-                                $hist_count = $db->multiVariableQueryValue($sql, 0, (int) $usr['userid']);
+                                $q = "select count(id) from user_nick_history where user_id = :1";
+                                $hist_count = $db->multiVariableQueryValue($q, 0, (int) $usr['userid']);
                                 if ($hist_count == 0) {
                                     // no history at all
-                                    $sql = "insert into user_nick_history (user_id, date_from, date_to, username) select user_id, date_created, now(), username from user where user_id = :1";
-                                    $db->multiVariableQuery($sql, (int) $usr['userid']);
+                                    $q = "insert into user_nick_history (user_id, date_from, date_to, username) select user_id, date_created, now(), username from user where user_id = :1";
+                                    $db->multiVariableQuery($q, (int) $usr['userid']);
                                 } else {
                                     // close previous entry
-                                    $sql = "update user_nick_history set date_to = NOW() where date_to is null and user_id = :1";
-                                    $db->multiVariableQuery($sql, (int) $usr['userid']);
+                                    $q = "update user_nick_history set date_to = NOW() where date_to is null and user_id = :1";
+                                    $db->multiVariableQuery($q, (int) $usr['userid']);
                                 }
                                 // update and save current nick
-                                $sql = "update user set username = :1 where user_id = :2";
-                                $db->multiVariableQuery($sql, $username, (int) $usr['userid']);
-                                $sql = "insert into user_nick_history (user_id, date_from, username) select user_id, now(), username from user where user_id = :1";
-                                $db->multiVariableQuery($sql, (int) $usr['userid']);
+                                $q = "update user set username = :1 where user_id = :2";
+                                $db->multiVariableQuery($q, $username, (int) $usr['userid']);
+                                $q = "insert into user_nick_history (user_id, date_from, username) select user_id, now(), username from user where user_id = :1";
+                                $db->multiVariableQuery($q, (int) $usr['userid']);
                                 $db->commit();
                                 $usr['username'] = $username;
                             }
@@ -454,7 +454,7 @@ if ($error == false) {
                 }
                 //Country in defaults ?
                 if (($show_all_countries == 0) && ($country != 'XX')) {
-                    $db->multiVariableQuery("SELECT `list_default_" . /*sql_escape*/ XDb::xEscape($lang_db) . "` FROM `countries` WHERE `short`=:1", $country);
+                    $db->multiVariableQuery("SELECT `list_default_" . XDb::xEscape($lang_db) . "` FROM `countries` WHERE `short`=:1", $country);
                     $record2 = $db->dbResultFetch();
                     if ($record2['list_default_' . $lang_db] == 0) {
                         $show_all_countries = 1;
@@ -465,13 +465,13 @@ if ($error == false) {
                 }
 
                 if ($show_all_countries == 1) {
-                    $rs2 = /*sql*/ XDb::xSql("SELECT `".XDb::xEscape($lang_db)."`, `list_default_" . /*sql_escape*/ XDb::xEscape($lang_db) . "`, `short`, `sort_" . /*sql_escape*/ XDb::xEscape($lang_db) . "` FROM `countries` ORDER BY `sort_" . /*sql_escape*/ XDb::xEscape($lang_db) . '` ASC', $lang_db);
+                    $rs2 = XDb::xSql("SELECT `".XDb::xEscape($lang_db)."`, `list_default_" . XDb::xEscape($lang_db) . "`, `short`, `sort_" . XDb::xEscape($lang_db) . "` FROM `countries` ORDER BY `sort_" . XDb::xEscape($lang_db) . '` ASC', $lang_db);
                 } else {
-                    $rs2 = /*sql*/ XDb::xSql("SELECT `".XDb::xEscape($lang_db)."`, `list_default_" . /*sql_escape*/ XDb::xEscape($lang_db) . "`, `short`, `sort_" . /*sql_escape*/ XDb::xEscape($lang_db) . "` FROM `countries` WHERE `list_default_" . /*sql_escape*/ XDb::xEscape($lang_db) . "`=1 ORDER BY `sort_" . /*sql_escape*/ XDb::xEscape($lang_db) . '` ASC', $lang_db);
+                    $rs2 = XDb::xSql("SELECT `".XDb::xEscape($lang_db)."`, `list_default_" . XDb::xEscape($lang_db) . "`, `short`, `sort_" . XDb::xEscape($lang_db) . "` FROM `countries` WHERE `list_default_" . /*sql_escape*/ XDb::xEscape($lang_db) . "`=1 ORDER BY `sort_" . XDb::xEscape($lang_db) . '` ASC', $lang_db);
                 }
 
-                for ($i = 0; $i < /*mysql_num_rows*/ XDb::xNumRows($rs2); $i++) {
-                    $record2 = /*sql_fetch_array*/ XDb::xFetchArray($rs2);
+                for ($i = 0; $i < XDb::xNumRows($rs2); $i++) {
+                    $record2 = XDb::xFetchArray($rs2);
 
                     if ($record2['short'] == $country) {
                         $stmp .= '<option value="' . $record2['short'] . '" selected="selected">' . htmlspecialchars($record2[$lang_db], ENT_COMPAT, 'UTF-8') . "</option>\n";
