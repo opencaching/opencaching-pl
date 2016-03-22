@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Database\XDb;
+
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -11,8 +13,8 @@ if ($error == false) {
         tpl_redirect('login.php?target=' . $target);
     } else {
 
-        $rs = sql("SELECT `statpic_text`, `statpic_logo` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
-        $record = sql_fetch_array($rs);
+        $rs = XDb::xSql("SELECT `statpic_text`, `statpic_logo` FROM `user` WHERE `user_id`= ? ", $usr['userid']);
+        $record = XDb::xFetchArray($rs);
 
 
         tpl_set_var('statpic_text', htmlspecialchars($record['statpic_text'], ENT_COMPAT, 'UTF-8'));
@@ -36,7 +38,9 @@ if ($error == false) {
             //try to save
             if (!($statpic_text_not_ok)) {
                 //in DB updaten
-                sql("UPDATE `user` SET `statpic_text`='&1', `statpic_logo`='&2' WHERE `user_id`='&3'", $statpic_text, $statpic_logo, $usr['userid']);
+                XDb::xSql(
+                    "UPDATE `user` SET `statpic_text`= ?, `statpic_logo`= ?
+                     WHERE `user_id`= ? ", $statpic_text, $statpic_logo, $usr['userid']);
 
                 //call eventhandler
                 require_once($rootpath . 'lib/eventhandler.inc.php');
@@ -52,8 +56,8 @@ if ($error == false) {
             $statpic_text = $record['statpic_text'];
 
             $stmp = '';
-            $rs2 = sql('SELECT `id`, `previewpath`, `description` FROM `statpics`');
-            while ($record2 = sql_fetch_array($rs2)) {
+            $rs2 = XDb::xSql('SELECT `id`, `previewpath`, `description` FROM `statpics`');
+            while ($record2 = XDb::xFetchArray($rs2)) {
                 $logo_temp = '<tr><td class="content-title-noshade">{statpic_desc}</td><td><input type="radio" name="statpic_logo" class="radio" value={statpic_id}{statpic_selected}/><img src="{statpic_preview}" align=middle /></td></tr><tr><td class="spacer" colspan="2"></td></tr>';
                 $logo_temp = mb_ereg_replace('{statpic_id}', $record2['id'], $logo_temp);
                 if ($record2['id'] == $using_logo) {
@@ -72,7 +76,7 @@ if ($error == false) {
             }
             unset($stmp);
             unset($logo_temp);
-            mysql_free_result($rs2);
+            XDb::xFreeResults($rs2);
         }
 
         //set buttons
@@ -81,4 +85,3 @@ if ($error == false) {
 
 //make the template and send it out
 tpl_BuildTemplate();
-?>
