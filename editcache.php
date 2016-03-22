@@ -1,6 +1,8 @@
 <?php
 
 use lib\Objects\GeoCache\GeoCache;
+use Utils\Database\XDb;
+use Utils\Database\OcDb;
 
 //prepare the templates and include all neccessary
 global $rootpath;
@@ -38,7 +40,7 @@ function build_drop_seq($item_row, $selected_seq, $max_drop, $thisid, $drop_type
         $ret.='<input type="hidden"  id="' . $drop_type . '_seq_id' . $item_row . '" name="' . $drop_type . '_seq_id' . $item_row . '" value="' . $thisid . '" />
         '; //instert picture/mp3 id into hidden fields - item_row is current order based on current seq values
         $ret.='<input type="hidden" id="' . $drop_type . '_seq_changed' . $item_row . '" name="' . $drop_type . '_seq_changed' . $item_row . '" value="no" />
-        '; // set hidden field - to be changed by javascript to yes - in such case it will trigger sql update
+        '; // set hidden field - to be changed by javascript to yes - in such case it will trigger SQL update
         return $ret;
     };
 }
@@ -56,7 +58,7 @@ if ($error == false) {
         $target = urlencode(tpl_get_current_page());
         tpl_redirect('login.php?target=' . $target);
     } else {
-        $dbc = \lib\Database\DataBaseSingleton::Instance();
+        $dbc = OcDb::instance();
         $thatquery = "SELECT `user_id`, `name`, `picturescount`, `mp3count`,`type`, `size`, `date_hidden`, `date_activate`, `date_created`, `longitude`, `latitude`, `country`, `terrain`, `difficulty`,
         `desc_languages`, `status`, `search_time`, `way_length`, `logpw`, `wp_gc`, `wp_nc`,`wp_ge`,`wp_tc`,`node`, IFNULL(`cache_location`.`code3`,'') region
         FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id`= `cache_location`.`cache_id`)  WHERE `caches`.`cache_id`=:v1";
@@ -420,7 +422,7 @@ if ($error == false) {
                             $activation_date = 'NULL';
                         } elseif ($publish == 'later') {
                             $status = 5;
-                            $activation_date = "'" . sql_escape(date('Y-m-d H:i:s', mktime($cache_activate_hour, 0, 0, $cache_activate_month, $cache_activate_day, $cache_activate_year))) . "'";
+                            $activation_date = "'" . XDb::xEscape(date('Y-m-d H:i:s', mktime($cache_activate_hour, 0, 0, $cache_activate_month, $cache_activate_day, $cache_activate_year))) . "'";
                         } elseif ($publish == 'notnow') {
                             $status = 5;
                             $activation_date = 'NULL';
@@ -429,34 +431,56 @@ if ($error == false) {
                         }
 
                         //save to DB
-                        sql("UPDATE `caches` SET `last_modified`=NOW(), `name`='&1', `longitude`='&2', `latitude`='&3', `type`='&4', `date_hidden`='&5', `country`='&6', `size`='&7', `difficulty`='&8', `terrain`='&9', `status`='&10', `search_time`='&11', `way_length`='&12', `logpw`='&13', `wp_gc`='&14', `wp_nc`='&15', `wp_ge`='&16', `wp_tc`='&17',`date_activate` = $activation_date WHERE `cache_id`='&18'", $cache_name, $cache_lon, $cache_lat, $cache_type, date('Y-m-d', mktime(0, 0, 0, $cache_hidden_month, $cache_hidden_day, $cache_hidden_year)), $cache_country, $sel_size, $cache_difficulty, $cache_terrain, $status, $search_time, $way_length, $log_pw, $wp_gc, $wp_nc, $wp_ge, $wp_tc, $cache_id);
-                        $code1 = $cache_country;
-                        $adm1 = sqlvalue("SELECT `countries`.$lang
-                                          FROM `countries`
-                                          WHERE `countries`.`short`='$code1'", 0);
+                        $x = XDb::xSql(
+                            "UPDATE `caches`
+                             SET `last_modified`=NOW(), `name`=?, `longitude`=?,
+                                 `latitude`=?, `type`=?, `date_hidden`=?,
+                                 `country`=?, `size`=?, `difficulty`=?, `terrain`=?,
+                                 `status`=?, `search_time`=?, `way_length`=?,
+                                 `logpw`=?, `wp_gc`=?, `wp_nc`=?, `wp_ge`=?,
+                                 `wp_tc`=?,`date_activate` = ?
+                             WHERE `cache_id`=?",
+                             $cache_name, $cache_lon, $cache_lat, $cache_type,
+                             date('Y-m-d', mktime(0, 0, 0, $cache_hidden_month, $cache_hidden_day, $cache_hidden_year)),
+                             $cache_country, $sel_size, $cache_difficulty, $cache_terrain, $status,
+                             $search_time, $way_length, $log_pw, $wp_gc, $wp_nc, $wp_ge, $wp_tc,
+                             $activation_date,$cache_id);
 
-                        // if ($cache_country!="PL") $cache_region="0";
+                        $code1 = $cache_country;
+                        $adm1 = XDb::xMultiVariableQueryValue(
+                            "SELECT ".XDb::xEscape($lang).
+                            " FROM `countries`
+                             WHERE `countries`.`short`= :1 ", 0, $code1);
+
                         // check if selected country has no districts, then use $default_region
                         if ($cache_region == -1) {
                             $cache_region = '0';
                         }
                         if ($cache_region != "0") {
                             $code3 = $cache_region;
-                            $adm3 = sqlValue("SELECT `name` FROM `nuts_codes` WHERE `code`='" . sql_escape($cache_region) . "'", 0);
+                            $adm3 = XDb::xMultiVariableQueryValue(
+                                "SELECT `name` FROM `nuts_codes`
+                                 WHERE `code`= :1", 0, $cache_region);
                         } else {
                             $code3 = null;
                             $adm3 = null;
                         }
 
-                        sql("INSERT INTO cache_location (cache_id,adm1,adm3,code1,code3) VALUES ('&1','&2','&3','&4','&5') ON DUPLICATE KEY UPDATE adm1='&2',adm3='&3',code1='&4',code3='&5'", $cache_id, $adm1, $adm3, $code1, $code3);
+                        XDb::xSql("INSERT INTO cache_location (cache_id,adm1,adm3,code1,code3)
+                                   VALUES (?,?,?,?,?)
+                                   ON DUPLICATE KEY UPDATE adm1=?,adm3=?,code1=?,code3=?",
+                                   $cache_id, $adm1, $adm3, $code1, $code3,
+                                              $adm1, $adm3, $code1, $code3);
 
                         // delete old cache-attributes
-                        sql("DELETE FROM `caches_attributes` WHERE `cache_id`='&1'", $cache_id);
+                        XDb::xSql("DELETE FROM `caches_attributes` WHERE `cache_id`=?", $cache_id);
 
                         // insert new cache-attributes
                         for ($i = 0; $i < count($cache_attribs); $i++) {
-                            if (($cache_attribs[$i] + 0) > 0) {
-                                sql("INSERT INTO `caches_attributes` (`cache_id`, `attrib_id`) VALUES('&1', '&2')", $cache_id, $cache_attribs[$i] + 0);
+                            if (($cache_attribs[$i]) > 0) {
+                                XDb::xSql(
+                                    "INSERT INTO `caches_attributes` (`cache_id`, `attrib_id`)
+                                    VALUES(?, ?)", $cache_id, $cache_attribs[$i]);
                             }
                         }
 
@@ -480,8 +504,14 @@ if ($error == false) {
                             // generate automatic log about status cache
                             $log_text = tr('temporarily_unavailable');
                             $log_uuid = create_uuid();
-                            sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
-                                 VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')", $cache_id, $usr['userid'], 11, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
+                            XDb::xSql(
+                                "INSERT INTO `cache_logs` (
+                                    `id`, `cache_id`, `user_id`, `type`, `date`, `text`,
+                                    `text_html`, `text_htmledit`, `date_created`, `last_modified`,
+                                    `uuid`, `node`,`encrypt`)
+                                 VALUES (
+                                    '', ?, ?, ?, NOW(), ?, ?, ?, NOW(), NOW(), ?, ?, ?)",
+                                 $cache_id, $usr['userid'], 11, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
                         }
                         if (( $status_old == $STATUS['READY'] ||
                                 $status_old == $STATUS['TEMP_UNAVAILABLE'] ||
@@ -489,8 +519,14 @@ if ($error == false) {
                             // generate automatic log about status cache
                             $log_text = tr('archived_cache');
                             $log_uuid = create_uuid();
-                            sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
-                                 VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')", $cache_id, $usr['userid'], 9, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
+                            XDb::xSql(
+                                "INSERT INTO `cache_logs` (
+                                    `id`, `cache_id`, `user_id`, `type`, `date`, `text`,
+                                    `text_html`, `text_htmledit`, `date_created`, `last_modified`,
+                                    `uuid`, `node`,`encrypt`)
+                                 VALUES (
+                                    '', ?, ?, ?, NOW(), ?, ?, ?, NOW(), NOW(), ?, ?, ?)",
+                                 $cache_id, $usr['userid'], 9, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
                         }
 
                         if (( $status_old == $STATUS['TEMP_UNAVAILABLE'] ||
@@ -499,8 +535,14 @@ if ($error == false) {
                             // generate automatic log about status cache
                             $log_text = tr('ready_to_search');
                             $log_uuid = create_uuid();
-                            sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
-                                 VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')", $cache_id, $usr['userid'], 10, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
+                            XDb::xSql(
+                                "INSERT INTO `cache_logs` (
+                                    `id`, `cache_id`, `user_id`, `type`, `date`,
+                                    `text`, `text_html`, `text_htmledit`, `date_created`,
+                                    `last_modified`, `uuid`, `node`,`encrypt`)
+                                 VALUES (
+                                    '', ?, ?, ?, NOW(), ?, ?, ?, NOW(), NOW(), ?, ?, ?)",
+                                    $cache_id, $usr['userid'], 10, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
                         }
 
                         if (( $status_old == $STATUS['READY'] ||
@@ -509,8 +551,13 @@ if ($error == false) {
                             // generate automatic log about status cache
                             $log_text = tr('blocked_by_octeam');
                             $log_uuid = create_uuid();
-                            sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
-                                 VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')", $cache_id, $usr['userid'], 12, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
+                            XDb::xSql(
+                                "INSERT INTO `cache_logs` (
+                                    `id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`,
+                                    `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
+                                 VALUES (
+                                    '', ?, ?, ?, NOW(), ?, ?, ?, NOW(), NOW(), ?, ?, ?)",
+                                    $cache_id, $usr['userid'], 12, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
                         }
 
                         //display cache-page
@@ -527,20 +574,28 @@ if ($error == false) {
 
                 //check if selected country is in list_default
                 if ($show_all_countries == 0) {
-                    $rs = sql("SELECT `short` FROM `countries` WHERE (`list_default_" . sql_escape($lang) . "`=1) AND (lower(`short`) = lower('&1'))", $cache_country);
-                    if (mysql_num_rows($rs) == 0) {
+                    $eLang = XDb::xEscape($lang);
+                    $rs = XDb::xSql(
+                        "SELECT `short` FROM `countries`
+                        WHERE (`list_default_$eLang`=1)
+                            AND (lower(`short`) = lower( ? ))", $cache_country);
+                    if (XDb::xNumRows($rs) == 0) {
                         $show_all_countries = 1;
                     }
                 }
 
                 //get the record
+                $eLang = XDb::xEscape($lang);
                 if ($show_all_countries == 0) {
-                    $rs = sql('SELECT `' . sql_escape($lang) . '`, `short` FROM `countries` WHERE `list_default_' . sql_escape($lang) . '`=1 ORDER BY `sort_' . sql_escape($lang) . '` ASC');
+                    $rs = XDb::xSql('SELECT `' . $eLang . '`, `short` FROM `countries`
+                               WHERE `list_default_' . $eLang . '`=1
+                               ORDER BY `sort_' . $eLang . '` ASC');
                 } else {
-                    $rs = sql('SELECT `' . sql_escape($lang) . '`, `short` FROM `countries` ORDER BY `sort_' . sql_escape($lang) . '` ASC');
+                    $rs = XDb::xSql('SELECT `' . $eLang . '`, `short` FROM `countries`
+                               ORDER BY `sort_' . $eLang . '` ASC');
                 }
-                for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-                    $record = sql_fetch_array($rs);
+                for ($i = 0; $i < XDb::xNumRows($rs); $i++) {
+                    $record = XDb::xFetchArray($rs);
                     if ($record['short'] == $cache_country) {
                         $countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . tr(htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8')) . '</option>';
                     } else {
@@ -556,9 +611,10 @@ if ($error == false) {
                 $cache_attrib_array = '';
                 $cache_attribs_string = '';
 
-                $rs = sql("SELECT `id`, `text_long`, `icon_undef`, `icon_large` FROM `cache_attrib` WHERE `language`='&1' ORDER BY `category`, `id`", $default_lang);
-                if (mysql_num_rows($rs) > 0) {
-                    while ($record = sql_fetch_array($rs)) {
+                $rs = XDb::xSql("SELECT `id`, `text_long`, `icon_undef`, `icon_large` FROM `cache_attrib`
+                                 WHERE `language`= ? ORDER BY `category`, `id`", $default_lang);
+                if (XDb::xNumRows($rs) > 0) {
+                    while ($record = XDb::xFetchArray($rs)) {
                         $line = $cache_attrib_pic;
                         $line = mb_ereg_replace('{attrib_id}', $record['id'], $line);
                         $line = mb_ereg_replace('{attrib_text}', $record['text_long'], $line);
@@ -674,12 +730,14 @@ if ($error == false) {
                         $removedesc = '';
                     }
 
-                    $resp = sql("SELECT `desc` FROM `cache_desc` WHERE `cache_id`='&1' AND `language`='&2'", $cache_id, $desclang);
-                    $row = sql_fetch_array($resp);
+                    $resp = XDb::xSql(
+                        "SELECT `desc` FROM `cache_desc`
+                         WHERE `cache_id`=? AND `language`=?", $cache_id, $desclang);
+                    $row = XDb::xFetchArray($resp);
                     if (mb_strpos($row['desc'], "http://img.groundspeak.com/") !== false){
                         $gc_com_refs = true;
                     }
-                    sql_free_result($resp);
+                    XDb::xFreeResults($resp);
                     $edit_url = 'editdesc.php?cacheid=' . urlencode($cache_id) . '&desclang=' . urlencode($desclang);
                     $cache_descs .= '<tr><td colspan="2"><img src="images/flags/' . strtolower($desclang) . '.gif" class="icon16" alt=""  />&nbsp;' . htmlspecialchars(db_LanguageFromShort($desclang), ENT_COMPAT, 'UTF-8') . '&nbsp;&nbsp;<img src="images/actions/edit-16.png" border="0" align="middle" alt="" title="Edit" /> [<a href="' . htmlspecialchars($edit_url, ENT_COMPAT, 'UTF-8') . '" onclick="return check_if_proceed();">' . $edit . '</a>]' . $removedesc . '</td></tr>';
                 }
@@ -751,10 +809,7 @@ if ($error == false) {
 
                 if ($cache_record['picturescount'] > 0) {
                     $pictures = '';
-                    //  $rspictures = sql("SELECT `url`, `title`, `uuid` FROM `pictures` WHERE `object_id`='&1' AND `object_type`=2", $cache_id);
-                    //$thatquery = "SELECT `url`, `title`, `uuid` FROM `pictures` WHERE `object_id`=:v1 AND `object_type`=2";
                     $thatquery = "SELECT `id`, `url`, `title`, `uuid`, `seq` FROM `pictures` WHERE `object_id`=:v1 AND `object_type`=2 ORDER BY seq, date_created";
-                    // requires: ALTER TABLE `pictures` ADD `seq` SMALLINT UNSIGNED NOT NULL DEFAULT '1';
                     $params['v1']['value'] = (integer) $cache_id;
                     $params['v1']['data_type'] = 'integer';
                     if (!isset($dbc)) {
@@ -853,8 +908,13 @@ if ($error == false) {
                 if ($cache_type != GeoCache::TYPE_MOVING) {
                     tpl_set_var('waypoints_start', '');
                     tpl_set_var('waypoints_end', '');
-                    $wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, `waypoint_type`.`&1` wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&2' ORDER BY `stage`,`wp_id`", $lang_db, $cache_id);
-                    if (mysql_num_rows($wp_rs) != 0) {
+                    $eLang = XDb::xEscape($lang);
+                    $wp_rs = XDb::xSql(
+                        "SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`,
+                                `waypoint_type`.`$eLang` wp_type, waypoint_type.icon wp_icon
+                         FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id)
+                         WHERE `cache_id`=? ORDER BY `stage`,`wp_id`", $cache_id);
+                    if (XDb::xNumRows($wp_rs) != 0) {
                         $waypoints = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 11px; line-height: 1.6em; color: #000000; ">';
                         $waypoints .= '<tr>';
                         if ($cache_type == GeoCache::TYPE_OTHERTYPE ||
@@ -864,9 +924,9 @@ if ($error == false) {
                         }
 
                         $waypoints .= '<th width="32"><b>' . tr('symbol_wp') . '</b></th><th width="32"><b>' . tr('type_wp') . '</b></th><th width="32"><b>' . tr('coordinates_wp') . '</b></th><th><b>' . tr('describe_wp') . '</b></th><th width="22"><b>' . tr('status_wp') . '</b></th><th width="22"><b>' . tr('edit') . '</b></th><th width="22"><b>' . tr('delete') . '</b></th></tr>';
-                        for ($i = 0; $i < mysql_num_rows($wp_rs); $i++) {
+                        for ($i = 0; $i < XDb::xNumRows($wp_rs); $i++) {
                             $tmpline1 = $wpline;
-                            $wp_record = sql_fetch_array($wp_rs);
+                            $wp_record = XDb::xFetchArray($wp_rs);
                             $coords_lat = mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_latToDegreeStr($wp_record['latitude']), ENT_COMPAT, 'UTF-8'));
                             $coords_lon = mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($wp_record['longitude']), ENT_COMPAT, 'UTF-8'));
 
@@ -912,7 +972,7 @@ if ($error == false) {
                     } else {
                         tpl_set_var('cache_wp_list', $nowp);
                     }
-                    mysql_free_result($wp_rs);
+                    XDb::xFreeResults($wp_rs);
                 } else {
                     tpl_set_var('waypoints_start', '<!--');
                     tpl_set_var('waypoints_end', '-->');
