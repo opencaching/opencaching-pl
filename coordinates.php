@@ -1,13 +1,12 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 
 $tplname = 'coordinates';
 require_once('./lib/common.inc.php');
-//phpinfo();
-//die();
+
 require($stylepath . '/coordinates.inc.php');
-//require_once("./lib/cs2cs.inc.php");
 require_once("./lib/tm_ll_lib.php");
 
 $lat_float = 0;
@@ -74,9 +73,12 @@ tpl_set_var('wp', '');
 
 $wp = isset($_REQUEST['wp']) ? $_REQUEST['wp'] : '';
 if ($wp != '') {
-    $rs = sql("SELECT `caches`.`name`, `user`.`username` FROM `caches` INNER JOIN `user` ON (`user`.`user_id`=`caches`.`user_id`) WHERE `caches`.`wp_oc`='&1'", $wp);
+    $rs = XDb::xSql(
+        "SELECT `caches`.`name`, `user`.`username`
+         FROM `caches` INNER JOIN `user` ON (`user`.`user_id`=`caches`.`user_id`)
+         WHERE `caches`.`wp_oc`= ? ", $wp);
 
-    if ($r = sql_fetch_array($rs)) {
+    if ($r = XDb::xFetchArray($rs)) {
         tpl_set_var('nocacheid_start', '');
         tpl_set_var('nocacheid_end', '');
 
@@ -88,4 +90,4 @@ if ($wp != '') {
 
 //make the template and send it out
 tpl_BuildTemplate();
-?>
+
