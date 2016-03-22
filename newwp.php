@@ -87,26 +87,29 @@ if ($error == false) {
                 // check if final waypoint alreday exist for this cache
                 $wp_check_final_exist = XDb::xMultiVariableQueryValue(
                     "SELECT COUNT(*) FROM `waypoints`
-                     WHERE `cache_id`= :1 AND type = 3", $cache_id);
+                     WHERE `cache_id`= :1 AND type = 3", false, $cache_id);
+
                 if ($wp_check_final_exist == 1)
                     $pomin = 1;
                 else
                     $pomin = 0;
 
-                foreach (get_wp_types_from_database($cache_record['type']) as $type) {
+                foreach ( get_wp_types_from_database($cache_record['type']) as $type ) {
                     if ($type['id'] == $sel_type) {
                         if (($type['id'] == 3) && ($pomin == 1)) {
 
                         } // if final waypoint alreday exist for this cache do not allow create new waypoint type "final location"
                         else
-                            $types .= '<option value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
+                            $types .= '<option value="' . $type['id'] . '" selected="selected">' .
+                                      htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
                     }
                     else {
                         if (($type['id'] == 3) && ($pomin == 1)) {
 
                         } //// if final waypoint alreday exist for this cache do not allow create new waypoint type "final location"
                         else
-                            $types .= '<option value="' . $type['id'] . '">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
+                            $types .= '<option value="' . $type['id'] . '">' .
+                                      htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
                     }
                 }
 
@@ -315,12 +318,11 @@ if ($error == false) {
                         //add record
 
                         XDb::xSql("INSERT INTO `waypoints` (
-                                                    `wp_id`, `cache_id`,`longitude`,`latitude`,`type` ,
-                                                    `status` ,`stage` ,`desc` ,`opensprawdzacz`
-                                                ) VALUES (
-                                                    '', ?, ?, ?, ?, ?, ?, ?, ?)",
-                            $cache_id, $longitude, $latitude, $sel_type, $wp_status, $wp_stage, $wp_desc, $opensprawdzacz_taknie
-                        );
+                                    `wp_id`, `cache_id`,`longitude`,`latitude`,`type` ,
+                                    `status` ,`stage` ,`desc` ,`opensprawdzacz`)
+                                   VALUES ('', ?, ?, ?, ?, ?, ?, ?, ?)",
+                                   $cache_id, $longitude, $latitude, $sel_type,
+                                   $wp_status, $wp_stage, $wp_desc, $opensprawdzacz_taknie );
 
 
                         XDb::xSql("UPDATE `caches` SET `last_modified`=NOW() WHERE `cache_id`= ? ", $cache_id);
@@ -331,7 +333,7 @@ if ($error == false) {
                         if (($opensprawdzacz_taknie == 1) && ($sel_type == 3)) {
 
                             $proba = XDb::xMultiVariableQueryValue(
-                                "SELECT COUNT(*) FROM `opensprawdzacz` WHERE `cache_id` = :1 ", $cache_id));
+                                "SELECT COUNT(*) FROM `opensprawdzacz` WHERE `cache_id` = :1 ", 0, $cache_id);
 
                             if ($proba == 0) {
                                 XDb::xSql("INSERT INTO `opensprawdzacz`(`id`,  `cache_id`,  `proby`, `sukcesy`)
