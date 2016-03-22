@@ -389,6 +389,7 @@ $translations = array(
     'owner_label' => 'Proprietar',
     'finder_label' => 'Găsitor',
     'waypoint_label' => 'Cod',
+    'waypointname_label' => 'Nume/Cod',
     'search_by_finder' => 'Caută după găsitori',
     'search_recommendations' => 'Recomandări',
     'search_all_caches' => 'toate cutiile',

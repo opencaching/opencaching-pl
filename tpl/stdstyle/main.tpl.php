@@ -129,10 +129,9 @@ if (date('m') == 12 || date('m') == 1) {
                         <div class="site-slogan">
                             <div style="width:100%; text-align:left;">
                                 <p class="search">
-                                    <input type="radio" onclick="chname('waypoint');" name="searchto" id="st_1" value="searchbywaypoint" class="radio" checked="checked"/> <label for="st_1">{{waypoint_label}}</label>&nbsp;&nbsp;
+                                    <input type="radio" onclick="chname('waypointname');" name="searchto" id="st_1" value="searchbywaypointname" class="radio" checked="checked"/> <label for="st_1">{{waypointname_label}}</label>&nbsp;&nbsp;
                                     <input type="radio" onclick="chname('owner');" name="searchto" id="st_2" value="searchbyowner" class="radio" /> <label for="st_2">{{owner_label}}</label>&nbsp;&nbsp;
                                     <input type="radio" onclick="chname('finder');" name="searchto" id="st_3" value="searchbyfinder" class="radio" /> <label for="st_3">{{finder_label}}</label>&nbsp;&nbsp;
-                                    <input type="radio" onclick="chname('cachename');" name="searchto" id="st_4" value="searchbyname" class="radio" /> <label for="st_4">{{cache_label}}</label>&nbsp;&nbsp;
                                     <input type="hidden" name="showresult" value="1"/>
                                     <input type="hidden" name="expert" value="0"/>
                                     <input type="hidden" name="output" value="HTML"/>
@@ -146,7 +145,7 @@ if (date('m') == 12 || date('m') == 1) {
                                 </p>
                             </div>
                             <div style="float:right;  margin-top:3px;">
-                                <input id="search_input" type="text" name="waypoint" class="input100" style="color:gray;" />&nbsp;&nbsp;
+                                <input id="search_input" type="text" name="waypointname" class="input100" style="color:gray;" />&nbsp;&nbsp;
                                 <input type="submit" name="submit" value="{{search}}" class="formbuttons" />
                             </div>
                         </div>

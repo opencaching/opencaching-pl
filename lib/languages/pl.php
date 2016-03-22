@@ -390,6 +390,7 @@ $translations = array(
     'owner_label' => 'właściciel',
     'finder_label' => 'znalazca',
     'waypoint_label' => 'waypoint',
+    'waypointname_label' => 'nazwa/waypoint',
     'search_by_finder' => 'Szukaj według znalazcy',
     'search_recommendations' => 'Rekomendacje',
     'search_all_caches' => 'wszystkie skrzynki',
