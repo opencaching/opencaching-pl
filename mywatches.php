@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Database\OcDb;
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -27,7 +29,7 @@ if ($error == false) {
         tpl_redirect('login.php?target=' . $target);
     } else {
         $tr_COG = tr('cog_user_name');
-        $dbc = new dataBase();
+        $dbc = OcDb::instance();
         $RQ = "";
         if (isset($_REQUEST['rq']))
             $RQ = $_REQUEST['rq'];
@@ -55,12 +57,6 @@ if ($error == false) {
                 }
 
                 if ($bOK == true) {
-                    /* sql("UPDATE `user` SET `watchmail_mode`='&1', `watchmail_hour`='&2', `watchmail_day`='&3' WHERE `user_id`='&4'",
-                      $nMode,
-                      $nHour,
-                      $nDay,
-                      $usr['userid']); */
-
                     $query = "UPDATE `user` SET `watchmail_mode`=:1, `watchmail_hour`=:2, `watchmail_day`=:3 WHERE `user_id`=:4";
                     $dbc->multiVariableQuery($query, $nMode, $nHour, $nDay, $usr['userid']);
 
@@ -71,11 +67,10 @@ if ($error == false) {
             } else
                 tpl_set_var('commit', '');
 
-
-            // einstellungen auslesen
-            $rs = sql("SELECT `watchmail_mode`, `watchmail_hour`, `watchmail_day` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
-            $r = sql_fetch_array($rs);
-            mysql_free_result($rs);
+            $rs = XDb::xSql("SELECT `watchmail_mode`, `watchmail_hour`, `watchmail_day` FROM `user`
+                      WHERE `user_id`=? ", $usr['userid']);
+            $r = XDb::xFetchArray($rs);
+            XDb::xFreeResults($rs);
 
             $tmpOptions = "";
             for ($i = 0; $i < 24; $i++) {
@@ -122,12 +117,12 @@ if ($error == false) {
                 $usrlatitude = 0;
                 $usrlongitude = 0;
 
-                $dbc->multiVariableQuery("SELECT `latitude` FROM user WHERE user_id=:1", sql_escape($usr['userid']));
+                $dbc->multiVariableQuery("SELECT `latitude` FROM user WHERE user_id=:1", $usr['userid']);
                 $record = $dbc->dbResultFetch();
                 if ($dbc->rowCount() && $record["latitude"])
                     $usrlatitude = $record["latitude"];
 
-                $dbc->multiVariableQuery("SELECT `longitude` FROM user WHERE user_id=:1", sql_escape($usr['userid']));
+                $dbc->multiVariableQuery("SELECT `longitude` FROM user WHERE user_id=:1", $usr['userid']);
                 $record = $dbc->dbResultFetch();
                 if ($dbc->rowCount() && $record["longitude"])
                     $usrlongitude = $record["longitude"];
@@ -135,8 +130,6 @@ if ($error == false) {
 
 
             //get all caches watched
-            //$rs = sql("SELECT `cache_watches`.`cache_id` AS `cache_id`, `caches`.`name` AS `name`, `caches`.`last_found` AS `last_found` FROM `cache_watches` INNER JOIN `caches` ON (`cache_watches`.`cache_id`=`caches`.`cache_id`) WHERE `cache_watches`.`user_id`='&1' ORDER BY `caches`.`name`", $usr['userid']);
-            //$query = "SELECT `cache_watches`.`cache_id` AS `cache_id`, `caches`.`name` AS `name`, `caches`.`last_found` AS `last_found` FROM `cache_watches` INNER JOIN `caches` ON (`cache_watches`.`cache_id`=`caches`.`cache_id`) WHERE `cache_watches`.`user_id`= :1 ORDER BY `caches`.`name`";
             $query = "SELECT
                         `cache_watches`.`cache_id` AS `cache_id`,
                         `caches`.`name` AS `name`, `caches`.`last_found` AS `last_found`,
@@ -182,7 +175,6 @@ if ($error == false) {
 
             $dbc->multiVariableQuery($query, $usr['userid']);
 
-            //if (mysql_num_rows($rs) == 0)
             $rowCount = $dbc->rowCount();
             if (!$rowCount) {
                 tpl_set_var('watches', $no_watches);
@@ -204,7 +196,7 @@ if ($error == false) {
                 }
 
                 for ($i = 0; $i < $rowCount; $i++) {
-                    //$record = sql_fetch_array($rs);
+
                     $record = $dbc->dbResultFetch();
 
 
