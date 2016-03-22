@@ -153,4 +153,25 @@ class XDb extends OcDb {
         return $db->simpleQueryValue($query, $default);
     }
 
+    /**
+     * This is a static way of access OcDb::multiVariableQuery()
+     * @param unknown $query
+     * @param ... list of the arguments to query
+     */
+    public static function xMultiVariableQuery($query)
+    {
+
+        $argList = func_get_args(); //get list of params
+
+        // check if params are passed as array
+        if (2 === func_num_args() && is_array($argList[1])) {
+            $argList = $argList[1];
+        }else{
+            //remove query from arg. lists (the rest are params)
+            unset($argList[0]);
+        }
+
+        $db = self::instance();
+        return $db->multiVariableQuery($query, $argList);
+    }
 }

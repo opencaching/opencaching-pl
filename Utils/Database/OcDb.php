@@ -251,13 +251,13 @@ class OcDb extends OcPdo
             $this->stmt->setFetchMode(self::FETCH_ASSOC);
             $this->stmt->execute();
         } catch (PDOException $e) {
-            $message = 'Query|Params: '.implode(' | ', $argList);
+            $message = 'Query|Params: '.$query.' | '.implode(' | ', $argList);
             $this->error($message, $e);
             return false;
         }
 
         if ($this->debug) {
-            self::debugOut(__METHOD__.":\n\nQuery|Params: ".implode(' | ', $argList));
+            self::debugOut(__METHOD__.":\n\nQuery|Params: $query | ".implode(' | ', $argList));
         }
         return true;
     }
