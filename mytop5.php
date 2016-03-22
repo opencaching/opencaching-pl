@@ -39,7 +39,6 @@ if ($error == false) {
             if ($dbc->rowCount() == 0) {
                 // cache is not on top list of this user => ignore
             } else {
-                //sql("DELETE FROM `cache_rating` WHERE `cache_id`='&1' AND `user_id`='&2'", $cache_id, $usr['userid']);
                 $query = "DELETE FROM cache_rating WHERE cache_id = :cache_id AND user_id = :user_id";
                 $dbc->paramQuery($query, $params);
 
@@ -49,7 +48,6 @@ if ($error == false) {
                 \okapi\Facade::schedule_user_entries_check($cache_id, $usr['userid']);
                 \okapi\Facade::disable_error_handling();
 
-                //$cachename = sqlValue('SELECT `name` FROM `caches` WHERE `cache_id`=\''.sql_escape($cache_id).'\'', '-----');
                 $query = "SELECT name FROM caches WHERE cache_id = :cache_id";
                 $params = array(
                     "cache_id" => array(
@@ -118,7 +116,6 @@ if ($error == false) {
             $content .= $thisline;
             $i++;
         }
-        //mysql_free_result($rs);
     }
     else {
         $content = $notop5;
