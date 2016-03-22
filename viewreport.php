@@ -348,7 +348,6 @@ if ($error == false && $usr['admin']) {
 
         $actions = '';
         $mail_actions = '';
-        //$actions .= "<li><a href='voting.php?reportid=".$report['report_id']."'>Zarządź głosowanie</a></li>";
         for ($i = 0; $i < 3; $i++)
             $mail_actions .= "<li><a href='viewreport.php?reportid=" . $report['report_id'] . "&amp;mailto=$i'>" . tr('cache_reports_25') . "  " . writeRe($i) . "</a></li>";
 
