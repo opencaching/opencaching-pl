@@ -312,36 +312,19 @@
                 $options['cacheid'] = isset($_REQUEST['cacheid']) ? $_REQUEST['cacheid'] : 0;
                 if (!is_numeric($options['cacheid'])) $options['cacheid'] = 0;
             }
-            elseif (isset($_REQUEST['searchbywaypoint']))
+            elseif (isset($_REQUEST['searchbywaypoint']) OR isset($_REQUEST['searchbywaypointname']))
             {
-                $options['searchtype'] = 'bywaypoint';
-                $options['waypoint'] = isset($_REQUEST['waypoint']) ? $_REQUEST['waypoint'] : '';
-                $options['waypoint'] = mb_trim($options['waypoint']);
-                $options['waypointtype'] = mb_strtolower(mb_substr($options['waypoint'], 0, 2));
-                $ocWP=strtolower($GLOBALS['oc_waypoint']);
-                if ( mb_ereg_match('(oc|'.$ocWP.'[a-z0-9]{4})$', mb_strtolower($options['waypoint'])) ) //O?xxxx
+                if (isset($_REQUEST['searchbywaypointname']))
                 {
-                    $options['waypointtype'] = 'oc';
+                    $options['searchtype'] = 'bywaypointname';
+                    $options['cachename'] = isset($_REQUEST['waypointname']) ? stripslashes($_REQUEST['waypointname']) : '';
+                    $options['waypoint'] = isset($_REQUEST['waypointname']) ? $_REQUEST['waypointname'] : '';
                 }
-                elseif ( mb_ereg_match('(n[a-f0-9]{5})$', mb_strtolower($options['waypoint'])) ) //Navicache.com
+                else
                 {
-                    $options['waypointtype'] = 'nc';
+                    $options['searchtype'] = 'bywaypoint';                    
+                    $options['waypoint'] = isset($_REQUEST['waypoint']) ? $_REQUEST['waypoint'] : '';
                 }
-                elseif ( mb_ereg_match('([a-zA-Z0-9]{4})$', $options['waypoint']) ) //xxxxx -> O?xxxxx
-                {
-                    $options['waypointtype'] = 'oc';
-                    $options['waypoint'] = $ocWP.$options['waypoint'];
-                }
-                elseif ( !mb_ereg_match('(gc[a-z0-9]{4,5})$', mb_strtolower($options['waypoint'])) ) //GC and others - test
-                {
-                    $options['waypoint'] = '';
-                }
-            }
-            elseif (isset($_REQUEST['searchbywaypointname']))
-            {
-                $options['searchtype'] = 'bywaypointname';
-                $options['cachename'] = isset($_REQUEST['waypointname']) ? stripslashes($_REQUEST['waypointname']) : '';
-                $options['waypoint'] = isset($_REQUEST['waypointname']) ? $_REQUEST['waypointname'] : '';
                 $options['waypoint'] = mb_trim($options['waypoint']);
                 $options['waypointtype'] = mb_strtolower(mb_substr($options['waypoint'], 0, 2));
                 $ocWP=strtolower($GLOBALS['oc_waypoint']);
