@@ -20,18 +20,19 @@ if ($error == false) {
             $cache_id = $_POST['cacheid'];
         }
         tpl_set_var("cacheid", $cache_id);
-        $wp_rs = XDb::xSql("SELECT `stage`,`type` FROM `waypoints`
-                            WHERE `cache_id`= ? AND (type<>4 OR type<>5) ORDER BY `stage` DESC", $cache_id);
 
         $cache_rs = XDb::xSql("SELECT `user_id`, `name`, `type`,  `longitude`, `latitude`,  `status`, `logpw`
                          FROM `caches` WHERE `cache_id`= ? ", $cache_id);
-        if (XDb::xNumRows($cache_rs) == 1) {
-            $cache_record = XDb::xFetchArray($cache_rs);
+
+        if( $cache_record = XDb::xFetchArray($cache_rs)){
 
             tpl_set_var("cache_name", htmlspecialchars($cache_record['name']));
             tpl_set_var("cachetype", htmlspecialchars($cache_record['type']));
-            if (XDb::xNumRows($wp_rs) != 0) {
-                $wp_record = XDb::xFetchArray($wp_rs);
+
+            $wp_rs = XDb::xSql("SELECT `stage`,`type` FROM `waypoints`
+                            WHERE `cache_id`= ? AND (type<>4 OR type<>5) ORDER BY `stage` DESC", $cache_id);
+
+            if( $wp_record = XDb::xFetchArray($wp_rs)){
                 if ($cache_record['type'] == '2' || $cache_record['type'] == '4' || $cache_record['type'] == '5' || $cache_record['type'] == '6' || $cache_record['type'] == '8' || $cache_record['type'] == '9') {
                     $next_stage = 0;
                     $wp_stage = 0;
@@ -84,9 +85,10 @@ if ($error == false) {
                 $types = '';
 //                  if ($cache_record['type'] == '2' || $cache_record['type'] == '6' || $cache_record['type'] == '8' || $cache_record['type'] == '9')
                 // check if final waypoint alreday exist for this cache
-                $wp_check_final_exist = XDb::xSql("SELECT `stage`,`type` FROM `waypoints`
-                                                   WHERE `cache_id`= ? AND type = 3", $cache_id);
-                if (Xdb::xNumRows($wp_check_final_exist) == 1)
+                $wp_check_final_exist = XDb::xMultiVariableQueryValue(
+                    "SELECT COUNT(*) FROM `waypoints`
+                     WHERE `cache_id`= :1 AND type = 3", $cache_id);
+                if ($wp_check_final_exist == 1)
                     $pomin = 1;
                 else
                     $pomin = 0;
@@ -328,7 +330,9 @@ if ($error == false) {
 
                         if (($opensprawdzacz_taknie == 1) && ($sel_type == 3)) {
 
-                            $proba = XDb::xNumRows(XDb::xSql("SELECT `id` FROM `opensprawdzacz` WHERE `cache_id` = ? ", $cache_id));
+                            $proba = XDb::xMultiVariableQueryValue(
+                                "SELECT COUNT(*) FROM `opensprawdzacz` WHERE `cache_id` = :1 ", $cache_id));
+
                             if ($proba == 0) {
                                 XDb::xSql("INSERT INTO `opensprawdzacz`(`id`,  `cache_id`,  `proby`, `sukcesy`)
                                                      VALUES ('', '$cache_id',   0,       0)");

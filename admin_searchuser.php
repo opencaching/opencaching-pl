@@ -15,11 +15,11 @@ if ($usr['admin']) {
     }
 
     if ($options['username'] != '') {
-        $query = "SELECT user_id FROM user WHERE username = '" . XDb::xEscape($options['username']) . "'";
 
-        $rs = XDb::xSql($query);
-        if (XDb::xNumRows($rs) != 0) { // Przekierowanie do profilu użytkownika
-            $record = XDb::xFetchArray($rs);
+        $rs = XDb::xSql(
+            "SELECT user_id FROM user WHERE username = ? LIMIT 1", $options['username']);
+        $record = XDb::xFetchArray($rs);
+        if ($record != false) { // Przekierowanie do profilu użytkownika
             tpl_set_var('username', '');
             tpl_set_var('not_found', '');
             tpl_redirect('admin_users.php?userid=' . htmlspecialchars($record['user_id'], ENT_COMPAT, 'UTF-8'));

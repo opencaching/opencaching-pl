@@ -79,8 +79,7 @@ if ($error == false) {
                        GROUP BY cache_logs.id
                        ORDER BY cache_logs.date_created DESC LIMIT 1", $r['cacheid']);
 
-        if (XDb::xNumRows($rs_log) != 0) {
-            $r_log = XDb::xFetchArray($rs_log);
+        if( $r_log = XDb::xFetchArray($rs_log)){
 
 
             $thisline = mb_ereg_replace('{log_image}', '<img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt="" />', $thisline);

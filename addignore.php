@@ -13,8 +13,8 @@ if ($error == false) {
     if ($usr !== false) {
         //add to caches
         $rs = XDb::xQuery('SELECT ignorer_count FROM caches WHERE cache_id=\'' . XDb::xEscape($cache_id) . '\'');
-        if (XDb::xNumRows($rs) > 0) {
-            $record = Xdb::xFetchArray($rs);
+
+        if($record = Xdb::xFetchArray($rs)){
             XDb::xSql('UPDATE caches SET ignorer_count=\'' . ($record['ignorer_count'] + 1) . '\'
                        WHERE cache_id=\'' . XDb::xEscape($cache_id) . '\'');
 

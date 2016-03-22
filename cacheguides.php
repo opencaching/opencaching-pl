@@ -31,27 +31,28 @@ if ($error == false) {
             tpl_set_var('mapcenterLon', $uLon);
         }
 
-        $rscp = XDb::xSql("SELECT `user`.`latitude` `latitude`,`user`.`longitude` `longitude`,`user`.`username` `username`,
-                        `user`.`user_id` `userid` FROM `user`
-                    WHERE `user`.`guru`!=0
-                        AND (user.user_id IN (
-                            SELECT cache_logs.user_id FROM cache_logs
-                            WHERE `cache_logs`.`type`=1 AND `cache_logs`.`date_created`>DATE_ADD(NOW(), INTERVAL -90 DAY))
-                                OR user.user_id IN (
-                                    SELECT caches.user_id FROM caches
-                                    WHERE (`caches`.`status`=1 OR `caches`.`status`=2
-                                        OR `caches`.`status`=3)
-                                        AND `caches`.`date_created`>DATE_ADD(NOW(), INTERVAL -90 DAY)
-                                    )
-                            )AND `user`.`longitude` IS NOT NULL
-                        AND `user`.`latitude` IS NOT NULL GROUP BY user.username");
-
-        $nrows = XDb::xNumRows($rscp);
-        tpl_set_var('nguides', $nrows);
+        $rscp = XDb::xSql(
+            "SELECT `user`.`latitude` `latitude`,`user`.`longitude` `longitude`,`user`.`username` `username`,
+                    `user`.`user_id` `userid` FROM `user`
+             WHERE `user`.`guru`!=0
+                AND (
+                    user.user_id IN (
+                        SELECT cache_logs.user_id FROM cache_logs
+                        WHERE `cache_logs`.`type`=1 AND `cache_logs`.`date_created`>DATE_ADD(NOW(), INTERVAL -90 DAY)
+                    )
+                    OR user.user_id IN (
+                        SELECT caches.user_id FROM caches
+                        WHERE (`caches`.`status`=1 OR `caches`.`status`=2 OR `caches`.`status`=3)
+                            AND `caches`.`date_created`>DATE_ADD(NOW(), INTERVAL -90 DAY)
+                    )
+                )
+                AND `user`.`longitude` IS NOT NULL
+                AND `user`.`latitude` IS NOT NULL GROUP BY user.username");
 
         $point = "";
-        for ($i = 0; $i < XDb::xNumRows($rscp); $i++) {
-            $record = XDb::xFetchArray($rscp);
+        $nrows = 0;
+        while($record = XDb::xFetchArray($rscp)) {
+            $nrows++;
             $username = $record['username'];
             $y = $record['longitude'];
             $x = $record['latitude'];
@@ -65,6 +66,7 @@ if ($error == false) {
             $point.="addMarker(" . $x . "," . $y . "," . $record['userid'] . ",'" . $username . "'," . $nr['nrecom'] . ");\n";
         }
 
+        tpl_set_var('nguides', $nrows);
         tpl_set_var('points', $point);
 
         XDb::xFreeResults($rscp);
