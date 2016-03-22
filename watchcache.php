@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Database\XDb;
+
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -10,31 +12,29 @@ if ($error == false) {
 
     if ($usr !== false) {
         //add to caches
-        $rs = mysql_query('SELECT watcher FROM caches WHERE cache_id=\'' . sql_escape($cache_id) . '\'');
-        if (mysql_num_rows($rs) > 0) {
-            // sprawdzenie czy user nie obserwuje już keszynki
+        $watchers = XDb::xMultiVariableQueryValue('SELECT watcher FROM caches WHERE cache_id= :1', false, $cache_id);
+
+        if ($watchers !== false) {
             // (check if user is not curently watching specified cache)
-            $id_usera = sql_escape($usr['userid']);
-            $id_keszynki = sql_escape($cache_id);
-            $czy_user_obserwuje_kesz = mysql_num_rows(mysql_query("SELECT `id` FROM `cache_watches` WHERE `cache_id` = $id_keszynki AND `user_id` = $id_usera"));
-            // jeśli tak, dodajemy wpis do bazy
-            // (if so proceed to remove from database)
-            if ($czy_user_obserwuje_kesz < 1) {
-                $record = mysql_fetch_array($rs);
-                sql('UPDATE caches SET watcher=\'' . ($record['watcher'] + 1) . '\' WHERE cache_id=\'' . sql_escape($cache_id) . '\'');
+            $isWatched = XDb::xMultiVariableQueryValue(
+                "SELECT COUNT(*) FROM `cache_watches` WHERE `cache_id` = :1 AND `user_id` = :2", 1, $cache_id, $usr['userid']);
+
+            // if so proceed to add to database
+            if ( $isWatched < 1) {
+
+                // increase this cache watchers count
+                XDb::xSql('UPDATE caches SET watcher=watcher+1  WHERE cache_id= ? ',$cache_id);
 
                 //add watch
-                sql('INSERT INTO `cache_watches` (`cache_id`, `user_id`, `last_executed`) VALUES (\'' . sql_escape($cache_id) . '\', \'' . sql_escape($usr['userid']) . '\', NOW())');
+                XDb::xSql('INSERT INTO `cache_watches` (`cache_id`, `user_id`, `last_executed`) VALUES (?, ?, NOW())',
+                    $cache_id, $usr['userid']);
 
                 //add to user
-                $rs = sql('SELECT cache_watches FROM user WHERE user_id=\'' . sql_escape($usr['userid']) . '\'');
-                $record = mysql_fetch_array($rs);
-                sql('UPDATE user SET cache_watches=\'' . ($record['cache_watches'] + 1) . '\' WHERE user_id=\'' . sql_escape($usr['userid']) . '\'');
+                XDb::xSql('UPDATE user SET cache_watches=cache_watches+1 WHERE user_id= ? ',$usr['userid']);
             }
-            tpl_redirect($target);
+            //tpl_redirect($target);
         }
     }
 }
 
 tpl_BuildTemplate();
-?>
