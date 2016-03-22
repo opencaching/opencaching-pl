@@ -72,6 +72,9 @@
         <?php
         global $dynstylepath;
         $tmpTxt = file_get_contents($dynstylepath . "nextevents.inc.php");
+        if ($tmpTxt == '') {
+            $tmpTxt = tr('list_of_events_is_empty');
+        }
         $tmpTxt = str_replace('hidden_by', tr('org1'), $tmpTxt);
         echo $tmpTxt;
         unset($tmpTxt);

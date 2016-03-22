@@ -157,7 +157,7 @@ $rs = sql("SELECT   `user`.`user_id` `user_id`,
 
 $file_content = '';
 if (mysql_num_rows($rs) == 0) {
-    $file_content = tr("list_of_events_is_empty");
+    $file_content = '';
 } else {
     $cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;<a id="newcache{nn}" class="links" href="viewcache.php?wp={wp}" onmouseover="Lite({nn})" onmouseout="Unlite({nn})">{cachename}</a>&nbsp;hidden_by&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/><b><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></b></li>';
     $file_content = '<ul style="font-size: 11px;">';
