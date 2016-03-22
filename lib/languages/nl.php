@@ -390,6 +390,7 @@ $translations = array(
     'owner_label' => 'cache eigenaar',
     'finder_label' => 'vinder',
     'waypoint_label' => 'waypoint',
+    'waypointname_label' => 'naam/waypoint',
     'search_by_finder' => 'Zoek op vinder',
     'search_recommendations' => 'Aanbevelingen',
     'search_all_caches' => 'alle caches',

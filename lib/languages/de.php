@@ -388,6 +388,7 @@ $translations = array(
     'owner_label' => 'Besitzer',
     'finder_label' => 'Benutzer',
     'waypoint_label' => 'waypoint',
+    'waypointname_label' => 'name/waypoint',
     'search_by_finder' => 'Suche nach Benutzer',
     'search_recommendations' => 'Empfehlungen',
     'search_all_caches' => 'alle Caches',
