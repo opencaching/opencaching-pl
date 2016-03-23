@@ -470,8 +470,7 @@ if ($error == false) {
                     $rs2 = XDb::xSql("SELECT `".XDb::xEscape($lang_db)."`, `list_default_" . XDb::xEscape($lang_db) . "`, `short`, `sort_" . XDb::xEscape($lang_db) . "` FROM `countries` WHERE `list_default_" . /*sql_escape*/ XDb::xEscape($lang_db) . "`=1 ORDER BY `sort_" . XDb::xEscape($lang_db) . '` ASC', $lang_db);
                 }
 
-                for ($i = 0; $i < XDb::xNumRows($rs2); $i++) {
-                    $record2 = XDb::xFetchArray($rs2);
+                while( $record2 = XDb::xFetchArray($rs2) ){
 
                     if ($record2['short'] == $country) {
                         $stmp .= '<option value="' . $record2['short'] . '" selected="selected">' . htmlspecialchars($record2[$lang_db], ENT_COMPAT, 'UTF-8') . "</option>\n";

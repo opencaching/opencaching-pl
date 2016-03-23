@@ -577,9 +577,9 @@ if ($error == false) {
                     $eLang = XDb::xEscape($lang);
                     $rs = XDb::xSql(
                         "SELECT `short` FROM `countries`
-                        WHERE (`list_default_$eLang`=1)
-                            AND (lower(`short`) = lower( ? ))", $cache_country);
-                    if (XDb::xNumRows($rs) == 0) {
+                        WHERE (`list_default_$eLang`=1) AND (lower(`short`) = lower( ? ))",
+                        $cache_country);
+                    if (! XDb::xFetchArray($rs)) {//no records
                         $show_all_countries = 1;
                     }
                 }
@@ -594,8 +594,8 @@ if ($error == false) {
                     $rs = XDb::xSql('SELECT `' . $eLang . '`, `short` FROM `countries`
                                ORDER BY `sort_' . $eLang . '` ASC');
                 }
-                for ($i = 0; $i < XDb::xNumRows($rs); $i++) {
-                    $record = XDb::xFetchArray($rs);
+
+                while($record = XDb::xFetchArray($rs)){
                     if ($record['short'] == $cache_country) {
                         $countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . tr(htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8')) . '</option>';
                     } else {
@@ -613,38 +613,36 @@ if ($error == false) {
 
                 $rs = XDb::xSql("SELECT `id`, `text_long`, `icon_undef`, `icon_large` FROM `cache_attrib`
                                  WHERE `language`= ? ORDER BY `category`, `id`", $default_lang);
-                if (XDb::xNumRows($rs) > 0) {
-                    while ($record = XDb::xFetchArray($rs)) {
-                        $line = $cache_attrib_pic;
-                        $line = mb_ereg_replace('{attrib_id}', $record['id'], $line);
-                        $line = mb_ereg_replace('{attrib_text}', $record['text_long'], $line);
-                        if (in_array($record['id'], $cache_attribs)) {
-                            $line = mb_ereg_replace('{attrib_pic}', $record['icon_large'], $line);
-                        } else {
-                            $line = mb_ereg_replace('{attrib_pic}', $record['icon_undef'], $line);
-                        }
-                        $cache_attrib_list .= $line;
+                while ($record = XDb::xFetchArray($rs)) {
+                    $line = $cache_attrib_pic;
+                    $line = mb_ereg_replace('{attrib_id}', $record['id'], $line);
+                    $line = mb_ereg_replace('{attrib_text}', $record['text_long'], $line);
+                    if (in_array($record['id'], $cache_attribs)) {
+                        $line = mb_ereg_replace('{attrib_pic}', $record['icon_large'], $line);
+                    } else {
+                        $line = mb_ereg_replace('{attrib_pic}', $record['icon_undef'], $line);
+                    }
+                    $cache_attrib_list .= $line;
 
-                        $line = $cache_attrib_js;
-                        $line = mb_ereg_replace('{id}', $record['id'], $line);
-                        if (in_array($record['id'], $cache_attribs)) {
-                            $line = mb_ereg_replace('{selected}', 1, $line);
-                        } else {
-                            $line = mb_ereg_replace('{selected}', 0, $line);
-                        }
-                        $line = mb_ereg_replace('{img_undef}', $record['icon_undef'], $line);
-                        $line = mb_ereg_replace('{img_large}', $record['icon_large'], $line);
-                        if ($cache_attrib_array != ''){
-                            $cache_attrib_array .= ',';
-                        }
-                        $cache_attrib_array .= $line;
+                    $line = $cache_attrib_js;
+                    $line = mb_ereg_replace('{id}', $record['id'], $line);
+                    if (in_array($record['id'], $cache_attribs)) {
+                        $line = mb_ereg_replace('{selected}', 1, $line);
+                    } else {
+                        $line = mb_ereg_replace('{selected}', 0, $line);
+                    }
+                    $line = mb_ereg_replace('{img_undef}', $record['icon_undef'], $line);
+                    $line = mb_ereg_replace('{img_large}', $record['icon_large'], $line);
+                    if ($cache_attrib_array != ''){
+                        $cache_attrib_array .= ',';
+                    }
+                    $cache_attrib_array .= $line;
 
-                        if (in_array($record['id'], $cache_attribs)) {
-                            if ($cache_attribs_string != ''){
-                                $cache_attribs_string .= ';';
-                            }
-                            $cache_attribs_string .= $record['id'];
+                    if (in_array($record['id'], $cache_attribs)) {
+                        if ($cache_attribs_string != ''){
+                            $cache_attribs_string .= ';';
                         }
+                        $cache_attribs_string .= $record['id'];
                     }
                 }
                 tpl_set_var('cache_attrib_list', $cache_attrib_list);
@@ -914,6 +912,7 @@ if ($error == false) {
                                 `waypoint_type`.`$eLang` wp_type, waypoint_type.icon wp_icon
                          FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id)
                          WHERE `cache_id`=? ORDER BY `stage`,`wp_id`", $cache_id);
+
                     if (XDb::xNumRows($wp_rs) != 0) {
                         $waypoints = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 11px; line-height: 1.6em; color: #000000; ">';
                         $waypoints .= '<tr>';
@@ -924,9 +923,10 @@ if ($error == false) {
                         }
 
                         $waypoints .= '<th width="32"><b>' . tr('symbol_wp') . '</b></th><th width="32"><b>' . tr('type_wp') . '</b></th><th width="32"><b>' . tr('coordinates_wp') . '</b></th><th><b>' . tr('describe_wp') . '</b></th><th width="22"><b>' . tr('status_wp') . '</b></th><th width="22"><b>' . tr('edit') . '</b></th><th width="22"><b>' . tr('delete') . '</b></th></tr>';
-                        for ($i = 0; $i < XDb::xNumRows($wp_rs); $i++) {
+
+                        while($wp_record = XDb::xFetchArray($wp_rs)){
                             $tmpline1 = $wpline;
-                            $wp_record = XDb::xFetchArray($wp_rs);
+
                             $coords_lat = mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_latToDegreeStr($wp_record['latitude']), ENT_COMPAT, 'UTF-8'));
                             $coords_lon = mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($wp_record['longitude']), ENT_COMPAT, 'UTF-8'));
 
@@ -963,7 +963,7 @@ if ($error == false) {
                             }
                             $tmpline1 = mb_ereg_replace('{status}', $status_icon, $tmpline1);
                             $waypoints .= $tmpline1;
-                        }
+                        }//while row
                         $waypoints .= '</table>';
                         $waypoints .= '<br/><img src="tpl/stdstyle/images/free_icons/accept.png" class="icon32" alt=""  />&nbsp;<span>' . tr('wp_status1') . '</span>';
                         $waypoints .= '<br/><img src="tpl/stdstyle/images/free_icons/error.png" class="icon32" alt=""  />&nbsp;<span>' . tr('wp_status2') . '</span>';

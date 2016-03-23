@@ -58,14 +58,14 @@ if ($error == false) {
             $file_content = '<tr><td colspan="5"><strong>' . tr('recommendation_rating_none') . '</strong></td></tr>';
         } else {
 
-            tpl_set_var('num_ratings', XDb::xNumRows($rs));
             //powertrail vel geopath variables
             $pt_cache_intro_tr = tr('pt_cache');
             $pt_icon_title_tr = tr('pt139');
 
             $file_content ='';
-            for ($i = 0; $i < XDb::xNumRows($rs); $i++) {
-                $record = XDb::xFetchArray($rs);
+            $rows = 0;
+            while( $record = XDb::xFetchArray($rs)){
+                $rows++;
                 //$cacheicon = 'tpl/stdstyle/images/'.getSmallCacheIcon($record['icon_large']);
 
                 $thisline = $cacheline;
@@ -89,6 +89,8 @@ if ($error == false) {
 
                 $file_content .= $thisline . "\n";
             }
+            tpl_set_var('num_ratings', $rows);
+
         }
     }
 

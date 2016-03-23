@@ -25,18 +25,23 @@ if ($error == false) {
             $wp_id = $_POST['wpid'];
             $remove = 1;
         }
+
         $wp_rs = XDb::xSql("SELECT `wp_id`, `cache_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`,
                               `opensprawdzacz`, `waypoint_type`.`pl` `wp_type`, `waypoint_type`.`icon` `wp_icon`
                       FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `wp_id`= ? ", $wp_id);
 
-        if (XDb::xNumRows($wp_rs) == 1) {
-            $wp_record = XDb::xFetchArray($wp_rs);
+        if ( $wp_record = XDb::xFetchArray($wp_rs) ) {
             $cache_id = $wp_record['cache_id'];
+        }else{
+            //TODO: does it needs error handling?
+            trigger_error("Can't find waypoint with wp_id=".$wp_id, E_USER_ERROR);
+            exit;
         }
+
         $cache_rs = XDb::xSql("SELECT `user_id`, `name`, `type`,  `longitude`, `latitude`,  `status`, `logpw`
-                               FROM `caches` WHERE `cache_id`= ? ", $cache_id);
-        if (XDb::xNumRows($cache_rs) == 1) {
-            $cache_record = XDb::xFetchArray($cache_rs);
+                               FROM `caches` WHERE `cache_id`= ? LIMIT 1", $cache_id);
+
+        if ($cache_record = XDb::xFetchArray($cache_rs)) {
 
             if ($cache_record['type'] == '2' || $cache_record['type'] == '4' ||
                 $cache_record['type'] == '5' || $cache_record['type'] == '6' ||
