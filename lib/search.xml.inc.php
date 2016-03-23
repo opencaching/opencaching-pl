@@ -1,8 +1,7 @@
 <?php
 
-    global $content, $bUseZip, $sqldebug, $dbcSearch;
+    global $content, $bUseZip, $sqldebug, $dbcSearch, $lang;
 
-    $lang = 'PL';
     $encoding = 'UTF-8';
 
     $xmlLine = "    <cache>
@@ -117,14 +116,27 @@
 
     $dbcSearch->simpleQuery('SELECT COUNT(cache_id) `count` FROM ('.$sql.') query');
     $rCount = $dbcSearch->dbResultFetch();
+    $dbcSearch->reset();
 
+    // Filename generation
+    if ($rCount['count'] == 1) {
+            $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc` FROM `xmlcontent`, `caches` WHERE `xmlcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
+            $rName = $dbcSearch->dbResultFetch();
+            $sFilebasename = $rName['wp_oc'];
+            $dbcSearch->reset();
+    } else {
+        if ($options['searchtype'] == 'bywatched') {
+            $sFilebasename = 'watched_caches';
+        } elseif ($options['searchtype'] == 'bylist') {
+            $sFilebasename = 'cache_list';
+        } else {
+                $sFilebasename = 'ocpl' . $options['queryid'];
+        }
+    }
 
-    // ok, ausgabe starten
-
-    if ($sqldebug == false)
-    {
+    if ($sqldebug == false) {
         header("Content-type: application/xml; charset=".$encoding);
-        //header("Content-Disposition: attachment; filename=" . $sFilebasename . ".txt");
+        header("Content-Disposition: attachment; filename=" . $sFilebasename . ".xml");
     }
 
     echo "<?xml version=\"1.0\" encoding=\"".$encoding."\"?>\n";
@@ -135,7 +147,7 @@
     echo "      <startat>" . $startat . "</startat>\n";
     echo "      <perpage>" . $count . "</perpage>\n";
     echo "  </docinfo>\n";
-    $dbcSearch->reset();
+
     // ok, ausgabe ...
 
     $dbcSearch->simpleQuery('SELECT `xmlcontent`.`cache_id` `cacheid`, `xmlcontent`.`longitude` `longitude`, `xmlcontent`.`latitude` `latitude`, `xmlcontent`.cache_mod_cords_id, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`type` `type_id`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `cache_size`.`'.$lang.'` `size`, `cache_type`.`'.$lang.'` `type`, `cache_status`.`'.$lang.'` `status`, `user`.`username` `username`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`desc_html` `html`, `xmlcontent`.`distance` `distance` FROM `xmlcontent`, `caches`, `user`, `cache_desc`, `cache_type`, `cache_status`, `cache_size` WHERE `xmlcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `xmlcontent`.`user_id`=`user`.`user_id` AND `caches`.`type`=`cache_type`.`id` AND `caches`.`status`=`cache_status`.`id` AND `caches`.`size`=`cache_size`.`id`');
