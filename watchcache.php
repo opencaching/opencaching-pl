@@ -5,6 +5,9 @@ use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
+
+d($error, $usr, $stylepath, $tplname, $dblink);
+
 //Preprocessing
 if ($error == false) {
     $cache_id = isset($_REQUEST['cacheid']) ? $_REQUEST['cacheid'] : '';
