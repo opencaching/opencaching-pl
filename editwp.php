@@ -1,9 +1,9 @@
 <?php
 
+use Utils\Database\XDb;
+
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
-
-
 
 //Preprocessing
 if ($error == false) {
@@ -25,17 +25,22 @@ if ($error == false) {
             $wp_id = $_POST['wpid'];
             $remove = 1;
         }
-        $wp_rs = sql("SELECT `wp_id`, `cache_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, `opensprawdzacz`, `waypoint_type`.`pl` `wp_type`, `waypoint_type`.`icon` `wp_icon` FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `wp_id`='&1'", $wp_id);
+        $wp_rs = XDb::xSql("SELECT `wp_id`, `cache_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`,
+                              `opensprawdzacz`, `waypoint_type`.`pl` `wp_type`, `waypoint_type`.`icon` `wp_icon`
+                      FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `wp_id`= ? ", $wp_id);
 
-        if (mysql_num_rows($wp_rs) == 1) {
-            $wp_record = sql_fetch_array($wp_rs);
+        if (XDb::xNumRows($wp_rs) == 1) {
+            $wp_record = XDb::xFetchArray($wp_rs);
             $cache_id = $wp_record['cache_id'];
         }
-        $cache_rs = sql("SELECT `user_id`, `name`, `type`,  `longitude`, `latitude`,  `status`, `logpw` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
-        if (mysql_num_rows($cache_rs) == 1) {
-            $cache_record = sql_fetch_array($cache_rs);
+        $cache_rs = XDb::xSql("SELECT `user_id`, `name`, `type`,  `longitude`, `latitude`,  `status`, `logpw`
+                               FROM `caches` WHERE `cache_id`= ? ", $cache_id);
+        if (XDb::xNumRows($cache_rs) == 1) {
+            $cache_record = XDb::xFetchArray($cache_rs);
 
-            if ($cache_record['type'] == '2' || $cache_record['type'] == '4' || $cache_record['type'] == '5' || $cache_record['type'] == '6' || $cache_record['type'] == '8' || $cache_record['type'] == '9') {
+            if ($cache_record['type'] == '2' || $cache_record['type'] == '4' ||
+                $cache_record['type'] == '5' || $cache_record['type'] == '6' ||
+                $cache_record['type'] == '8' || $cache_record['type'] == '9') {
                 tpl_set_var("start_stage", '<!--');
                 tpl_set_var("end_stage", '-->');
             } else {
@@ -48,8 +53,8 @@ if ($error == false) {
 
                 if ($remove == 1) {
                     //remove
-                    sql("DELETE FROM `waypoints` WHERE `wp_id`='&1'", $wp_id);
-                    sql("UPDATE `caches` SET  `last_modified`=NOW() WHERE `cache_id`='&1'", $cache_id);
+                    XDb::xSql("DELETE FROM `waypoints` WHERE `wp_id`= ? ", $wp_id);
+                    XDb::xSql("UPDATE `caches` SET  `last_modified`=NOW() WHERE `cache_id`= ? ", $cache_id);
                     tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));
                     exit;
                 }
@@ -184,8 +189,8 @@ if ($error == false) {
 
                 if (isset($_POST['back'])) {
                     tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));
-                    mysql_free_result($cache_rs);
-                    mysql_free_result($wp_rs);
+                    XDb::xFreeResults($cache_rs);
+                    XDb::xFreeResults($wp_rs);
                     exit;
                 }
                 //try to save to DB?
@@ -205,23 +210,26 @@ if ($error == false) {
 
 //                          $wp_desc=nl2br($wp_desc);
                         //save to DB
-                        sql("UPDATE `waypoints` SET `longitude`='&1', `latitude`='&2', `type`='&3',`status`='&4', `stage`='&5',`desc`='&6', `opensprawdzacz`='&8' WHERE `wp_id`='&7'", $wp_lon, $wp_lat, $wp_type, $wp_status, $wp_stage, $wp_desc, $wp_id, $opensprawdzacz_taknie);
-                        sql("UPDATE `caches` SET  `last_modified`=NOW() WHERE `cache_id`='&1'", $cache_id);
+                        XDb::xSql("UPDATE `waypoints` SET `longitude`=?, `latitude`=?, `type`=?,`status`=?,
+                                                    `stage`= ?,`desc`= ?, `opensprawdzacz`= ? WHERE `wp_id`= ?",
+                            $wp_lon, $wp_lat, $wp_type, $wp_status, $wp_stage, $wp_desc, $opensprawdzacz_taknie, $wp_id);
+
+                        XDb::xSql("UPDATE `caches` SET  `last_modified`=NOW() WHERE `cache_id`= ? ", $cache_id);
 
                         // ==== opensprawdzacz ===============================================
                         // add/update active status to/in opensprawdzacz table
 
                         if (($opensprawdzacz_taknie == 1) && ($wp_type == 3)) {
-                            $proba = mysql_num_rows(sql("SELECT id FROM `opensprawdzacz` WHERE `cache_id` = '$cache_id'"));
+                            $proba = XDb::xSimpleQueryValue("SELECT count(*) FROM `opensprawdzacz` WHERE `cache_id` = '$cache_id'",'');
                             if ($proba == 0) {
-                                sql("INSERT INTO `opensprawdzacz`(
+                                XDb::xSql("INSERT INTO `opensprawdzacz`(
                                                                     `id`,
                                                                     `cache_id`,
                                                                     `proby`,
                                                                     `sukcesy`)
                                                       VALUES ('', '$cache_id',   0,       0)");
                             }
-                            mysql_free_result($proba);
+
                         }
                         // ==== opensprawdzacz end ===========================================
                         //display cache-page
@@ -256,10 +264,10 @@ if ($error == false) {
                 tpl_set_var("cacheid", htmlspecialchars($wp_record['cache_id']));
                 tpl_set_var("cache_name", htmlspecialchars($cache_record['name']));
             }
-            mysql_free_result($cache_rs);
-            mysql_free_result($wp_rs);
+            XDb::xFreeResults($cache_rs);
+            XDb::xFreeResults($wp_rs);
         }
     }
 }
 tpl_BuildTemplate();
-?>
+

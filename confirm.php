@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Database\XDb;
+
 $_SESSION['called_from_confirm'] = 1;
 
 //prepare the templates and include all neccessary
@@ -8,8 +10,8 @@ require_once('./lib/common.inc.php');
 //Preprocessing
 if ($error == false) {
     // check if user has already confirmed
-    $rs = sql("SELECT `rules_confirmed` FROM `user` WHERE `user_id` = '" . sql_escape(intval($usr['userid'])) . "'");
-    if ($r = sql_fetch_array($rs)) {
+    $rs = XDb::xSql("SELECT `rules_confirmed` FROM `user` WHERE `user_id` = ? ", $usr['userid']);
+    if ($r = XDb::xFetchArray($rs)) {
         if ($r['rules_confirmed'] == 0 && (strtotime("2008-11-01 00:00:00") <= strtotime(date("Y-m-d h:i:s")))) {
             // acceptance neccessary!
             //set here the template to process
@@ -22,7 +24,7 @@ if ($error == false) {
 
             if (isset($_REQUEST['submit'])) {
                 if ($accepted) {
-                    sql("UPDATE `user` SET `rules_confirmed` = 1 WHERE `user_id` = '" . sql_escape(intval($usr['userid'])) . "'");
+                    XDb::xSql("UPDATE `user` SET `rules_confirmed` = 1 WHERE `user_id` = ? ", $usr['userid']);
                     header("Location: index.php");
                 }
             }
@@ -32,4 +34,4 @@ if ($error == false) {
             header("Location: index.php");
     }
 }
-?>
+

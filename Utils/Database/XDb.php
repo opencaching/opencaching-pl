@@ -119,17 +119,26 @@ class XDb extends OcDb {
      * @param unknown $sql
      * @param ... there can be optional list of params to bind with query
      */
-    public static function xSql($sql){
+    public static function xSql($query){
         $db = self::instance();
-        $stmt = $db->prepare($sql);
+        try {
+            $stmt = $db->prepare($query);
 
-        //$numargs = func_num_args();
-        $argList = func_get_args();
-        array_shift($argList); //remove first param. = sql query
+            $argList = func_get_args();
+            array_shift($argList); //remove first param. = sql query
 
-        $stmt->execute($argList);
+            $stmt->execute($argList);
+        } catch (PDOException $e) {
+
+            $db->error('Query: '.$query, $e);
+            return false;
+        }
+
+        if ($db->debug) {
+            self::debugOut(__METHOD__.":\n\nQuery: ".$query);
+        }
+
         return $stmt;
-
     }
 
     /**
@@ -144,4 +153,17 @@ class XDb extends OcDb {
         return $db->simpleQueryValue($query, $default);
     }
 
+    /**
+     * This is static way of access OcDb::SimpleQueryValue()
+     *
+     * @param unknown $query - sql query
+     * @param unknown $default - default value to return
+     */
+    public static function xMultiVariableQueryValue($query, $default)
+    {
+        $params = array_slice(func_get_args(), 2); //skip query + default
+
+        $db = self::instance();
+        return $db->multiVariableQueryValue($query, $default, $params);
+    }
 }

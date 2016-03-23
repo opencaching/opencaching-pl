@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -16,11 +17,11 @@ if ($error == false) {
         tpl_redirect('login.php?target=' . $target);
     } else {
         //user must be the owner of the cache
-        $cache_rs = sql("SELECT `user_id`, `name` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
+        $cache_rs = XDb::xSql("SELECT `user_id`, `name` FROM `caches` WHERE `cache_id`= ? ", $cache_id);
 
-        if (mysql_num_rows($cache_rs) > 0) {
-            $cache_record = sql_fetch_array($cache_rs);
-            mysql_free_result($cache_rs);
+        if (XDb::xNumRows($cache_rs) > 0) {
+            $cache_record = XDb::xFetchArray($cache_rs);
+            XDb::xFreeResults($cache_rs);
 
             if ($cache_record['user_id'] == $usr['userid'] || $usr['admin']) {
                 $tplname = 'newdesc';
@@ -53,26 +54,18 @@ if ($error == false) {
                     }
 
                     //check if the entered language already exists
-                    $desc_rs = sql("SELECT `id` FROM `cache_desc` WHERE `cache_id`='&1' AND `language`='&2'", $cache_id, $sel_lang);
-                    $desc_lang_exists = (mysql_num_rows($desc_rs) > 0);
-                    mysql_free_result($desc_rs);
+                    $desc_rs = XDb::xSql("SELECT `id` FROM `cache_desc`
+                                          WHERE `cache_id`=? AND `language`=?", $cache_id, $sel_lang);
+                    $desc_lang_exists = (XDb::xNumRows($desc_rs) > 0);
+                    XDb::xFetchArray($desc_rs);
 
                     if ($desc_lang_exists == false) {
                         $desc_uuid = create_uuid();
                         //add to DB
-                        sql("INSERT INTO `cache_desc` (
-                                                            `id`,
-                                                            `cache_id`,
-                                                            `language`,
-                                                            `desc`,
-                                                            `desc_html`,
-                                                            `desc_htmledit`,
-                                                            `hint`,
-                                                            `short_desc`,
-                                                            `last_modified`,
-                                                            `uuid`,
-                                                            `node`
-                                                        ) VALUES ('', '&1', '&2', '&3', 2, '&4', '&5', '&6', NOW(), '&7', '&8')", $cache_id, $sel_lang, $desc, '1', nl2br($hints), $short_desc, $desc_uuid, $oc_nodeid);
+                        XDb::xSql("INSERT INTO `cache_desc` (`id`,`cache_id`,`language`,`desc`,`desc_html`,`desc_htmledit`,
+                                                       `hint`,`short_desc`,`last_modified`,`uuid`,`node`)
+                             VALUES ('', ?, ?, ?, 2, ?, ?, ?, NOW(), ?, ?)",
+                             $cache_id, $sel_lang, $desc, '1', nl2br($hints), $short_desc, $desc_uuid, $oc_nodeid);
 
 
                         //update cache-record
@@ -87,21 +80,26 @@ if ($error == false) {
 
                 //build langslist
                 $langoptions = '';
-                $sql_nosellangs = 'SELECT `language` FROM `cache_desc` WHERE `cache_id`=\'' . sql_escape($cache_id) . '\'';
+                $q_nosellangs = 'SELECT `language` FROM `cache_desc` WHERE `cache_id`=\'' . XDb::xEscape($cache_id) . '\'';
 
+                $eLang = XDb::xEscape($lang);
                 if ($show_all_langs == 0) {
-                    $langs_rs = sql('SELECT `&1`, `short` FROM `languages` WHERE `short` NOT IN (' . $sql_nosellangs . ') AND `list_default_' . sql_escape($lang) . '` = 1 ORDER BY `&1` ASC', $lang);
+                    $langs_rs = XDb::xSql("SELECT `$eLang`, `short` FROM `languages`
+                                           WHERE `short` NOT IN (" . $q_nosellangs . ")
+                                                AND `list_default_" . $eLang . "` = 1 ORDER BY `$eLang` ASC");
                 } else {
-                    $langs_rs = sql('SELECT `&1`, `short` FROM `languages` WHERE `short` NOT IN (' . $sql_nosellangs . ') ORDER BY `&1` ASC', $lang);
+                    $langs_rs = XDb::xSql("SELECT `$eLang`, `short` FROM `languages`
+                                           WHERE `short` NOT IN (" . $q_nosellangs . ") ORDER BY `$eLang` ASC");
                 }
 
-                $rs = sql("SELECT COUNT(*) `count` FROM `cache_desc` WHERE `cache_id`='&1' AND `language`='&2'", $cache_id, $sel_lang);
-                $r = sql_fetch_array($rs);
+                $rs = XDb::xSql("SELECT COUNT(*) `count` FROM `cache_desc`
+                           WHERE `cache_id`=? AND `language`=?", $cache_id, $sel_lang);
+                $r = XDb::xFetchArray($rs);
                 $bSelectFirst = ($r['count'] == 1);
-                mysql_free_result($rs);
+                XDb::xFreeResults($rs);
 
-                for ($i = 0; $i < mysql_num_rows($langs_rs); $i++) {
-                    $langs_record = sql_fetch_array($langs_rs);
+                for ($i = 0; $i < XDb::xNumRows($langs_rs); $i++) {
+                    $langs_record = XDb::xFetchArray($langs_rs);
 
                     if (($langs_record['short'] == $sel_lang) || ($bSelectFirst == true)) {
                         $bSelectFirst = false;
@@ -133,7 +131,7 @@ if ($error == false) {
                 tpl_redirect('');
             }
         } else {
-            mysql_free_result($cache_rs);
+            XDb::xFreeResults($cache_rs);
             //TODO: cache not exist
         }
     }
@@ -141,4 +139,3 @@ if ($error == false) {
 
 //make the template and send it out
 tpl_BuildTemplate();
-?>

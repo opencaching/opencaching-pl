@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 require_once('./lib/cache_icon.inc.php');
@@ -24,10 +25,9 @@ if ($error == false) {
         $perpage = 50;
         $startat -= $startat % $perpage;
 
-
-
         //start_ratings.include
-        $rs = sql(' SELECT  `user`.`user_id` `user_id`,
+        $rs = XDb::xQuery(
+            'SELECT  `user`.`user_id` `user_id`,
                 `user`.`username` `username`,
                 `caches`.`cache_id` `cache_id`,
                 `caches`.`name` `name`,
@@ -38,30 +38,34 @@ if ($error == false) {
                 `PowerTrail`.`name` AS PT_name,
                 `PowerTrail`.`type` As PT_type,
                 `PowerTrail`.`image` AS PT_image
-            FROM `caches`
-                 LEFT JOIN `powerTrail_caches` ON `caches`.`cache_id` = `powerTrail_caches`.`cacheId`
-                LEFT JOIN `PowerTrail` ON (`PowerTrail`.`id` = `powerTrail_caches`.`PowerTrailId`  AND `PowerTrail`.`status` = 1)
-            , `user`, `cache_type`, `cache_rating`
-              WHERE `caches`.`user_id`=`user`.`user_id`
-              AND `cache_rating`.`cache_id`=`caches`.`cache_id`
-              AND `caches`.`status`=1  AND `caches`.`type` <> 6
-              AND `caches`.`type`=`cache_type`.`id`
-            GROUP BY `user`.`user_id`, `user`.`username`, `caches`.`cache_id`, `caches`.`name`, `cache_type`.`icon_large`
-            ORDER BY `anzahl` DESC, `caches`.`name` ASC
-            LIMIT ' . ($startat + 0) . ', ' . ($perpage + 0));
+             FROM `caches`
+                LEFT JOIN `powerTrail_caches` ON `caches`.`cache_id` = `powerTrail_caches`.`cacheId`
+                LEFT JOIN `PowerTrail` ON (
+                    `PowerTrail`.`id` = `powerTrail_caches`.`PowerTrailId`  AND `PowerTrail`.`status` = 1),
+                    `user`, `cache_type`, `cache_rating`
+             WHERE `caches`.`user_id`=`user`.`user_id`
+                AND `cache_rating`.`cache_id`=`caches`.`cache_id`
+                AND `caches`.`status`=1  AND `caches`.`type` <> 6
+                AND `caches`.`type`=`cache_type`.`id`
+             GROUP BY `user`.`user_id`, `user`.`username`, `caches`.`cache_id`, `caches`.`name`, `cache_type`.`icon_large`
+             ORDER BY `anzahl` DESC, `caches`.`name` ASC
+             LIMIT '.XDb::xEscape($startat).','.XDb::xEscape($perpage));
+
         $tr_myn_click_to_view_cache = tr('myn_click_to_view_cache');
         $cacheline = '<tr><td>&nbsp;</td><td><span class="content-title-noshade txt-blue08" >{rating_absolute}</span></td><td>{GPicon}</td><td><a class="links" href="viewcache.php?cacheid={cacheid}"><img src="{cacheicon}" class="icon16" alt="' . $tr_myn_click_to_view_cache . '" title="' . $tr_myn_click_to_view_cache . '" /></a></td><td><strong><a class="links" href="viewcache.php?cacheid={cacheid}">{cachename}</a></strong></td><td><strong><a class="links" href="viewprofile.php?userid={userid}">{username}</a></strong></td></tr>';
 
-        if (mysql_num_rows($rs) == 0) {
+        if (XDb::xNumRows($rs) == 0) {
             $file_content = '<tr><td colspan="5"><strong>' . tr('recommendation_rating_none') . '</strong></td></tr>';
         } else {
 
-            tpl_set_var('num_ratings', mysql_num_rows($rs));
+            tpl_set_var('num_ratings', XDb::xNumRows($rs));
             //powertrail vel geopath variables
             $pt_cache_intro_tr = tr('pt_cache');
             $pt_icon_title_tr = tr('pt139');
-            for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-                $record = sql_fetch_array($rs);
+
+            $file_content ='';
+            for ($i = 0; $i < XDb::xNumRows($rs); $i++) {
+                $record = XDb::xFetchArray($rs);
                 //$cacheicon = 'tpl/stdstyle/images/'.getSmallCacheIcon($record['icon_large']);
 
                 $thisline = $cacheline;
@@ -90,13 +94,13 @@ if ($error == false) {
 
     tpl_set_var('content', $file_content);
 
-    $rs = sql('SELECT COUNT(*) `count`
+    $rs = XDb::xQuery('SELECT COUNT(*) `count`
             FROM `caches`
             WHERE caches.`status`=1  AND caches.type <> 6
             AND caches.`topratings`!=0');
-    $r = sql_fetch_array($rs);
+    $r = XDb::xFetchArray($rs);
     $count = $r['count'];
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
 
     $frompage = $startat / 100 - 3;
     if ($frompage < 1)

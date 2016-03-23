@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 require_once('./lib/cache_icon.inc.php');
@@ -12,17 +13,14 @@ global $usr, $dateFormat;
 if ($error == false) {
     //get the news
     $tplname = 'newcaches';
-//      require('tpl/stdstyle/newcaches.inc.php');
     require($stylepath . '/newcaches.inc.php');
 
-    $startat = isset($_REQUEST['startat']) ? $_REQUEST['startat'] : 0;
+    $startat = isset($_REQUEST['startat']) ? XDb::xEscape($_REQUEST['startat']) : 0;
     $startat = $startat + 0;
-
     $perpage = 50;
     $startat -= $startat % $perpage;
 
-    $content = '';
-    $rs = sql('SELECT `caches`.`cache_id` `cacheid`,
+    $rs = XDb::xSql('SELECT `caches`.`cache_id` `cacheid`,
                             `user`.`user_id` `userid`,
                             `user`.`user_id` `user_id`,
                             `caches`.`country` `country`,
@@ -58,24 +56,31 @@ if ($error == false) {
     $pt_cache_intro_tr = tr('pt_cache');
     $pt_icon_title_tr = tr('pt139');
 
-    while ($r = sql_fetch_array($rs)) {
-        $rss = sql("SELECT `pl` `country_name` FROM `countries` WHERE `short` = '&1'", $r['country']);
-        $rr = sql_fetch_array($rss);
+    $content = '';
+    while ($r = XDb::xFetchArray($rs)) {
+        $rss = XDb::xSql("SELECT `pl` `country_name` FROM `countries` WHERE `short` = ? ", $r['country']);
+        $rr = XDb::xFetchArray($rss);
         $thisline = $tpl_line;
 
-        $rs_log = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
+        $rs_log = XDb::xSql(
+                      "SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
                               cache_logs.type AS log_type,
                               cache_logs.date AS log_date,
-                log_types.icon_small AS icon_small, COUNT(gk_item.id) AS geokret_in
-            FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN log_types ON (cache_logs.type = log_types.id)
-                            LEFT JOIN   gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
-                            LEFT JOIN   gk_item ON gk_item.id = gk_item_waypoint.id AND
-                            gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5
-            WHERE cache_logs.deleted=0 AND cache_logs.cache_id=&1
-             GROUP BY cache_logs.id ORDER BY cache_logs.date_created DESC LIMIT 1", $r['cacheid']);
+                              log_types.icon_small AS icon_small,
+                              COUNT(gk_item.id) AS geokret_in
+                       FROM (cache_logs
+                       INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id))
+                       INNER JOIN log_types ON (cache_logs.type = log_types.id)
+                       LEFT JOIN gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
+                       LEFT JOIN gk_item ON gk_item.id = gk_item_waypoint.id
+                            AND gk_item.stateid<>1 AND gk_item.stateid<>4
+                            AND gk_item.typeid<>2 AND gk_item.stateid !=5
+                       WHERE cache_logs.deleted=0 AND cache_logs.cache_id= ?
+                       GROUP BY cache_logs.id
+                       ORDER BY cache_logs.date_created DESC LIMIT 1", $r['cacheid']);
 
-        if (mysql_num_rows($rs_log) != 0) {
-            $r_log = sql_fetch_array($rs_log);
+        if (XDb::xNumRows($rs_log) != 0) {
+            $r_log = XDb::xFetchArray($rs_log);
 
 
             $thisline = mb_ereg_replace('{log_image}', '<img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt="" />', $thisline);
@@ -83,7 +88,7 @@ if ($error == false) {
             $thisline = mb_ereg_replace('{log_image}', '&nbsp;', $thisline);
         }
 
-        if ($r_log['geokret_in'] != 0) {
+        if (isset($r_log) && $r_log['geokret_in'] != 0) {
             $thisline = mb_ereg_replace('{gkimage}', '&nbsp;<img src="images/gk.png" border="0" alt="" title="GeoKret" />', $thisline);
         } else {
             $thisline = mb_ereg_replace('{gkimage}', '&nbsp;', $thisline);
@@ -113,15 +118,12 @@ if ($error == false) {
         $thisline = mb_ereg_replace('{imglink}', $cacheicon, $thisline);
         $thisline = mb_ereg_replace('{country_name}', htmlspecialchars($rr['country_name'], ENT_COMPAT, 'UTF-8'), $thisline);
         $content .= $thisline . "\n";
-        mysql_free_result($rs_log);
+        XDb::xFreeResults($rs_log);
     }
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
     tpl_set_var('newcaches', $content);
 
-    $rs = sql('SELECT COUNT(*) `count` FROM `caches`');
-    $r = sql_fetch_array($rs);
-    $count = $r['count'];
-    mysql_free_result($rs);
+    $count = XDb::xSimpleQueryValue('SELECT COUNT(*) FROM `caches`', 0);
 
     $frompage = $startat / 100 - 3;
     if ($frompage < 1)
@@ -165,4 +167,3 @@ if ($error == false) {
 
 //make the template and send it out
 tpl_BuildTemplate();
-?>

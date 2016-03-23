@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 function onTheList($theArray, $item)
 {
     for ($i = 0; $i < count($theArray); $i++) {
@@ -12,45 +13,36 @@ function onTheList($theArray, $item)
 function getDBFilter($userid)
 {
     $filter = "11111111110111110134100000000000"; // default filter
-    $query = mysql_query("SELECT * from map_settings_v2 WHERE `user_id`=$userid");
-    while ($row = mysql_fetch_assoc($query)) {
+    $query = XDb::xSql("SELECT * from map_settings_v2 WHERE `user_id`= ? ",$userid);
+    while ($row = XDb::xFetchArray($query)) {
         $filter = '';
         foreach ($row as $k => $v) {
             if ($k != 'user_id')
                 $filter .= $v;
         }
     }
-    //echo $filter;
     return $filter;
 }
 
 function setDBFilter($userid, $filter)
 {
-    $sql = "REPLACE INTO map_settings_v2 SET
-                    user_id = $userid,
-                    unknown = $filter[0],
-                    traditional = $filter[1],
-                    multicache = $filter[2],
-                    virtual = $filter[3],
-                    webcam = $filter[4],
-                    event = $filter[5],
-                    quiz = $filter[6],
-                    mobile = $filter[7],
-                    math = $filter[8],
-                    drivein = $filter[9],
-                    ignored = $filter[10],
-                    own = $filter[11],
-                    found = $filter[12],
-                    notyetfound = $filter[13],
-                    geokret = $filter[14],
-                    showsign = $filter[15],
-                    active = $filter[16],
-                    notactive = $filter[17],
-                    maptype = $filter[18],
-                    cachelimit = $filter[19],
-                    cachesort = $filter[20]
-                    ";
-    mysql_query($sql);
+    $q="REPLACE INTO map_settings_v2
+        SET
+        user_id = ?, unknown = ?, traditional = ?,
+        multicache = ?, virtual = ?, webcam = ?,
+        event = ?, quiz = ?, mobile = ?, math = ?,
+        drivein = ?, ignored = ?, own = ?,
+        found = ?, notyetfound = ?, geokret = ?,
+        showsign = ?, active = ?, notactive = ?,
+        maptype = ?, cachelimit = ?, cachesort = ?";
+
+    XDb::xSql(
+        $q, $userid,$filter[0],$filter[1],$filter[2],
+        $filter[3],$filter[4],$filter[5],
+        $filter[6],$filter[7],$filter[8],$filter[9],
+        $filter[10],$filter[11],$filter[12],
+        $filter[13],$filter[14],$filter[15],$filter[16],
+        $filter[17],$filter[18],$filter[19],$filter[20]);
 }
 
 function makeDBFilter()
@@ -143,7 +135,6 @@ function makeDBFilter()
     } else {
         $f .= "1";
     }
-    //echo $f;
     return $f;
 //  ifutmvweqocdIWZANCT
 }
@@ -177,8 +168,10 @@ if ($usr == false) {
         $userid = $usr['userid'];
     else
         $userid = $get_userid;
-    $rs = mysql_query("SELECT `latitude`, `longitude`, `username` FROM `user` WHERE `user_id`='$userid'");
-    $record = mysql_fetch_array($rs);
+    $rs = XDb::xSql("SELECT `latitude`, `longitude`, `username`
+        FROM `user` WHERE `user_id`= ? ", $userid);
+
+    $record = XDb::xFetchArray($rs);
     if ((isset($_REQUEST['lat']) && isset($_REQUEST['lon']) && $_REQUEST['lat'] != "" && $_REQUEST['lon'] != "") && ($_REQUEST['lat'] != 0 && $_REQUEST['lon'] != 0)) {
         $coordsXY = $_REQUEST['lat'] . "," . $_REQUEST['lon'];
         $coordsX = $_REQUEST['lat'];

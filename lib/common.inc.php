@@ -1485,7 +1485,7 @@ class common
     /**
      * @param type $db
      */
-    public static function getUserActiveCacheCountByType(dataBase $db, $userId)
+    public static function getUserActiveCacheCountByType($db, $userId)
     {
         $query = 'SELECT type, count(*) as cacheCount FROM `caches` WHERE `user_id` = :1 AND STATUS !=3 GROUP by type';
         $db->multiVariableQuery($query, $userId);

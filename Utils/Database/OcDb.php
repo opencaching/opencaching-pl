@@ -246,18 +246,20 @@ class OcDb extends OcPdo
 
             $i = 1;
             foreach($argList as $param){
+                //echo "Bind $i = $param <br/>"; //TMP_DEBUG!
                 $this->stmt->bindValue(self::BIND_CHAR . $i++, $param);
             }
             $this->stmt->setFetchMode(self::FETCH_ASSOC);
             $this->stmt->execute();
         } catch (PDOException $e) {
-            $message = 'Query|Params: '.implode(' | ', $argList);
+            //d($e); //TMP_DEBUG!
+            $message = 'Query|Params: '.$query.' | '.implode(' | ', $argList);
             $this->error($message, $e);
             return false;
         }
 
         if ($this->debug) {
-            self::debugOut(__METHOD__.":\n\nQuery|Params: ".implode(' | ', $argList));
+            self::debugOut(__METHOD__.":\n\nQuery|Params: $query | ".implode(' | ', $argList));
         }
         return true;
     }
@@ -275,17 +277,26 @@ class OcDb extends OcPdo
     public function multiVariableQueryValue($query, $default)
     {
         $argList = func_get_args();
-        if ( 2 >= count($argList)) {
+        $numArgs = func_num_args();
+
+        if ( $numArgs <= 2 ) {
 
             //only query + default value=> use simpleQuery
             $e = new PDOException('Improper using of '.__METHOD__.' . Too less arguments. Use simpleQueryValue() instead');
             $this->error('Improper using of '.__METHOD__, $e, false, false); //skip sending email
 
             return $this->simpleQueryValue($query, $default);
+        }else {
+            // check if params are passed as array
+            if ($numArgs == 3  && is_array($argList[2])) {
+                $argList = $argList[2];
+            }else{
+                $argList = array_slice($argList, 2);
+            }
         }
 
         //more params - remove first two from argList and call...
-        $this->multiVariableQuery($query, array_slice($argList, 2));
+        $this->multiVariableQuery($query, $argList);
 
         return $this->dbResultFetchValue($default);
     }

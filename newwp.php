@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 $no_tpl_build = false;
@@ -19,16 +20,18 @@ if ($error == false) {
             $cache_id = $_POST['cacheid'];
         }
         tpl_set_var("cacheid", $cache_id);
-        $wp_rs = sql("SELECT `stage`,`type` FROM `waypoints`  WHERE `cache_id`='&1' AND (type<>4 OR type<>5) ORDER BY `stage` DESC", $cache_id);
+        $wp_rs = XDb::xSql("SELECT `stage`,`type` FROM `waypoints`
+                            WHERE `cache_id`= ? AND (type<>4 OR type<>5) ORDER BY `stage` DESC", $cache_id);
 
-        $cache_rs = sql("SELECT `user_id`, `name`, `type`,  `longitude`, `latitude`,  `status`, `logpw` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
-        if (mysql_num_rows($cache_rs) == 1) {
-            $cache_record = sql_fetch_array($cache_rs);
+        $cache_rs = XDb::xSql("SELECT `user_id`, `name`, `type`,  `longitude`, `latitude`,  `status`, `logpw`
+                         FROM `caches` WHERE `cache_id`= ? ", $cache_id);
+        if (XDb::xNumRows($cache_rs) == 1) {
+            $cache_record = XDb::xFetchArray($cache_rs);
 
             tpl_set_var("cache_name", htmlspecialchars($cache_record['name']));
             tpl_set_var("cachetype", htmlspecialchars($cache_record['type']));
-            if (mysql_num_rows($wp_rs) != 0) {
-                $wp_record = sql_fetch_array($wp_rs);
+            if (XDb::xNumRows($wp_rs) != 0) {
+                $wp_record = XDb::xFetchArray($wp_rs);
                 if ($cache_record['type'] == '2' || $cache_record['type'] == '4' || $cache_record['type'] == '5' || $cache_record['type'] == '6' || $cache_record['type'] == '8' || $cache_record['type'] == '9') {
                     $next_stage = 0;
                     $wp_stage = 0;
@@ -81,8 +84,9 @@ if ($error == false) {
                 $types = '';
 //                  if ($cache_record['type'] == '2' || $cache_record['type'] == '6' || $cache_record['type'] == '8' || $cache_record['type'] == '9')
                 // check if final waypoint alreday exist for this cache
-                $wp_check_final_exist = sql("SELECT `stage`,`type` FROM `waypoints`  WHERE `cache_id`='&1' AND type = 3", $cache_id);
-                if (mysql_num_rows($wp_check_final_exist) == 1)
+                $wp_check_final_exist = XDb::xSql("SELECT `stage`,`type` FROM `waypoints`
+                                                   WHERE `cache_id`= ? AND type = 3", $cache_id);
+                if (Xdb::xNumRows($wp_check_final_exist) == 1)
                     $pomin = 1;
                 else
                     $pomin = 0;
@@ -176,14 +180,14 @@ if ($error == false) {
 
                 if (isset($_POST['back'])) {
                     tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));
-                    mysql_free_result($cache_rs);
-                    mysql_free_result($wp_rs);
+                    XDb::xFreeResults($cache_rs);
+                    XDb::xFreeResults($wp_rs);
                     exit;
                 }
 
                 if (isset($_POST['submitform'])) {
                     //check the entered data
-                    if ($sel_type == '4' || $$sel_type == '5')
+                    if ($sel_type == '4' || $sel_type == '5')
                         $wp_stage = 0;
                     //check coordinates
                     if ($lat_h != '' || $lat_min != '') {
@@ -308,34 +312,28 @@ if ($error == false) {
                     if (!($descwp_not_ok || $lon_not_ok || $lat_not_ok || $type_not_ok)) {
                         //add record
 
-                        sql("INSERT INTO `waypoints` (
-                                                    `wp_id`,
-                                                    `cache_id`,
-                                                    `longitude`,
-                                                    `latitude`,
-                                                    `type` ,
-                                                    `status` ,
-                                                    `stage` ,
-                                                    `desc` ,
-                                                    `opensprawdzacz`
+                        XDb::xSql("INSERT INTO `waypoints` (
+                                                    `wp_id`, `cache_id`,`longitude`,`latitude`,`type` ,
+                                                    `status` ,`stage` ,`desc` ,`opensprawdzacz`
                                                 ) VALUES (
-                                                    '', '&1', '&2', '&3', '&4', '&5', '&6', '&7', '&8')", $cache_id, $longitude, $latitude, $sel_type, $wp_status, $wp_stage, $wp_desc, $opensprawdzacz_taknie
+                                                    '', ?, ?, ?, ?, ?, ?, ?, ?)",
+                            $cache_id, $longitude, $latitude, $sel_type, $wp_status, $wp_stage, $wp_desc, $opensprawdzacz_taknie
                         );
 
 
-                        sql("UPDATE `caches` SET  `last_modified`=NOW() WHERE `cache_id`='&1'", $cache_id);
+                        XDb::xSql("UPDATE `caches` SET `last_modified`=NOW() WHERE `cache_id`= ? ", $cache_id);
 
                         // ==== opensprawdzacz ===============================================
                         // add/update active status to/in opensprawdzacz table
 
                         if (($opensprawdzacz_taknie == 1) && ($sel_type == 3)) {
 
-                            $proba = mysql_num_rows(sql("SELECT `id` FROM `opensprawdzacz` WHERE `cache_id` = '&1'", $cache_id));
+                            $proba = XDb::xNumRows(XDb::xSql("SELECT `id` FROM `opensprawdzacz` WHERE `cache_id` = ? ", $cache_id));
                             if ($proba == 0) {
-                                sql("INSERT INTO `opensprawdzacz`(`id`,  `cache_id`,  `proby`, `sukcesy`)
+                                XDb::xSql("INSERT INTO `opensprawdzacz`(`id`,  `cache_id`,  `proby`, `sukcesy`)
                                                      VALUES ('', '$cache_id',   0,       0)");
                             }
-                            mysql_free_result($proba);
+                            XDb::xFreeResults($proba);
                         }
                         // ==== opensprawdzacz end ===========================================
 
@@ -347,8 +345,8 @@ if ($error == false) {
 
                     // end submit
                 }
-                mysql_free_result($cache_rs);
-                mysql_free_result($wp_rs);
+                XDb::xFreeResults($cache_rs);
+                XDb::xFreeResults($wp_rs);
             } else {
                 $no_tpl_build = true;
             }
@@ -360,4 +358,4 @@ if ($no_tpl_build == false) {
     //make the template and send it out
     tpl_BuildTemplate();
 }
-?>
+
