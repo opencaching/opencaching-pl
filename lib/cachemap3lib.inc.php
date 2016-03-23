@@ -7,7 +7,7 @@ use lib\Objects\OcConfig\OcConfig;
 
 class CacheMap3Lib {
 
-    public function GenerateAttributionMap()
+    public static function GenerateAttributionMap()
     {
         $result = '';
         foreach(OcConfig::mapsConfig() as $key => $val){
@@ -27,7 +27,7 @@ class CacheMap3Lib {
 
     }
 
-    public function GenerateMapItems()
+    public static function GenerateMapItems()
     {
         $result = '';
         foreach(OcConfig::mapsConfig() as $key => $val){
@@ -44,7 +44,7 @@ class CacheMap3Lib {
 
     }
 
-    public function GenerateShowMapsWhenMore()
+    public static function GenerateShowMapsWhenMore()
     {
         $result = '';
         foreach(OcConfig::mapsConfig() as $key => $val){
@@ -67,7 +67,7 @@ class CacheMap3Lib {
      * Check if mapItem is marked to be hidden
      * @param array $mapItem
      */
-    protected function ShouldSkip(array $mapItem)
+    protected static function ShouldSkip(array $mapItem)
     {
         if (isset($mapItem['hidden']) && $mapItem['hidden'] === true){
             return true;
@@ -75,7 +75,7 @@ class CacheMap3Lib {
         return false;
     }
 
-    private function GenerateMapItem($key, array $val)
+    private static function GenerateMapItem($key, array $val)
     {
         if (isset($val['imageMapTypeJS'])){
             return 'function(){return ' . $val['imageMapTypeJS'] . ";\n\t}";
@@ -159,7 +159,7 @@ class CacheMap3Lib {
         return $result;
     }
 
-    private function StartsWith($haystack, $needle)
+    private static function StartsWith($haystack, $needle)
     {
         $length = strlen($needle);
         return (substr($haystack, 0, $length) === $needle);
