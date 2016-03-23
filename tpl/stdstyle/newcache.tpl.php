@@ -679,13 +679,17 @@
         </tr>
         <tr>
             <td colspan="2">
+                <div class="notice" style="width:500px;min-height:24px;height:auto;">{{short_desc_long_text}}</div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
                 <br />
                 <p class="content-title-noshade">{{full_description}}:</p>
                 <br/>
                 {desc_message}
             </td>
         </tr>
-
         <tr>
             <td colspan="2">
                 <span id="scriptwarning" class="errormsg">{{no_javascript}}</span>
@@ -698,18 +702,25 @@
         </tr>
         <tr>
             <td colspan="2">
-                <div class="notice" style="width:500px;min-height:24px;height:auto;"><b><i>{{mandatory_field}}.</i></b> {{full_desc_long_text}} {{description_hint}} {{html_usage}} <a href="articles.php?page=htmltags" target="_BLANK">{{available_html}}</a></div>
+                <div class="notice" style="width:500px;min-height:24px;height:auto;"><b><i>{{mandatory_field}}.</i></b> {{full_desc_long_text}} <br />
+                {{html_usage}} <a href="articles.php?page=htmltags" target="_blank">{{available_html}}</a></div>
+                <div class="notice" style="width:500px;min-height:24px;height:auto;">{{geocaching_com_foto_info}}</div>
             </td>
         </tr>
-        <tr><td colspan="2"><div class="buffer"></div></td></tr>
         <tr>
-            <td colspan="2"><div class="notice" style="width:500px;min-height:24px;height:auto;">{{additional_enc_info}}</div></td>
+            <td colspan="2">
+                <br />
+                <p class="content-title-noshade">{{hint_info}}:</p>
+            </td>
         </tr>
         <tr>
             <td colspan="2">
                 <textarea style="display: none" name="hintaa" id="hintaa"></textarea>
-                <textarea name="hints" id="hints" style="width: 500px; height: 80px;" >{hints}</textarea><br /><br />
+                <textarea name="hints" id="hints" style="width: 500px; height: 80px;" >{hints}</textarea>
             </td>
+        </tr>
+        <tr>
+            <td colspan="2"><div class="notice" style="width:500px;min-height:24px;height:auto;">{{hint_long_text}}</div></td>
         </tr>
         <tr>
             <td colspan="2"><div class="content2-container bg-blue02">
