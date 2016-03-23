@@ -12,9 +12,9 @@ if ($error == false) {
 
     if ($usr !== false) {
         //add to caches
-        $watchers = XDb::xMultiVariableQueryValue('SELECT watcher FROM caches WHERE cache_id= :1', false, $cache_id);
+        $geocacheExist = XDb::xMultiVariableQueryValue('SELECT user_id FROM caches WHERE cache_id= :1', -1,  $cache_id);
 
-        if ($watchers !== false) {
+        if ($geocacheExist > -1) {
             // (check if user is not curently watching specified cache)
             $isWatched = XDb::xMultiVariableQueryValue(
                 "SELECT COUNT(*) FROM `cache_watches` WHERE `cache_id` = :1 AND `user_id` = :2", 1, $cache_id, $usr['userid']);
