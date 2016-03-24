@@ -6,56 +6,56 @@ echo "\n";
         <Style id="tradi">
             <IconStyle>
             <Icon>
-            <href><?php echo $absolute_server_URI; ?>images/ge/tradi.png</href>
+            <href><?php echo $absolute_server_URI; ?>tpl/stdstyle/images/cache/traditional.png</href>
             </Icon>
             </IconStyle>
         </Style>
         <Style id="multi">
             <IconStyle>
             <Icon>
-            <href><?php echo $absolute_server_URI; ?>images/ge/multi.png</href>
+            <href><?php echo $absolute_server_URI; ?>tpl/stdstyle/images/cache/multi.png</href>
             </Icon>
             </IconStyle>
         </Style>
         <Style id="myst">
             <IconStyle>
             <Icon>
-            <href><?php echo $absolute_server_URI; ?>images/ge/myst.png</href>
+            <href><?php echo $absolute_server_URI; ?>tpl/stdstyle/images/cache/quiz.png</href>
             </Icon>
             </IconStyle>
         </Style>
         <Style id="virtual">
             <IconStyle>
             <Icon>
-            <href><?php echo $absolute_server_URI; ?>images/ge/virtual.png</href>
+            <href><?php echo $absolute_server_URI; ?>tpl/stdstyle/images/cache/virtual.png</href>
             </Icon>
             </IconStyle>
         </Style>
         <Style id="webcam">
             <IconStyle>
             <Icon>
-            <href><?php echo $absolute_server_URI; ?>images/ge/webcam.png</href>
+            <href><?php echo $absolute_server_URI; ?>tpl/stdstyle/images/cache/webcam.png</href>
             </Icon>
             </IconStyle>
         </Style>
         <Style id="event">
             <IconStyle>
             <Icon>
-            <href><?php echo $absolute_server_URI; ?>images/ge/event.png</href>
+            <href><?php echo $absolute_server_URI; ?>tpl/stdstyle/images/cache/event.png</href>
             </Icon>
             </IconStyle>
         </Style>
         <Style id="moving">
             <IconStyle>
             <Icon>
-            <href><?php echo $absolute_server_URI; ?>images/ge/moving.png</href>
+            <href><?php echo $absolute_server_URI; ?>tpl/stdstyle/images/cache/moving.png</href>
             </Icon>
             </IconStyle>
         </Style>
         <Style id="unknown">
             <IconStyle>
             <Icon>
-            <href><?php echo $absolute_server_URI; ?>images/ge/unknown.png</href>
+            <href><?php echo $absolute_server_URI; ?>tpl/stdstyle/images/cache/unknown.png</href>
             </Icon>
             </IconStyle>
         </Style>
