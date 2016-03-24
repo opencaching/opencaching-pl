@@ -125,7 +125,7 @@ setlocale(LC_TIME, 'pl_PL.UTF-8');
                     if ($rCount['count'] == 1)
                     {
                                     $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc` FROM `wptcontent`, `caches` WHERE `wptcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
-                                    $rCount = $dbcSearch->dbResultFetch();
+                                    $rName = $dbcSearch->dbResultFetch();
                                     $dbcSearch->reset();
 
                                     $sFilebasename = $rName['wp_oc'];
