@@ -83,12 +83,11 @@ if ($error == false) {
                     LIMIT 10", $usr['userid'], $lang);
 
         if (XDb::xNumRows($rs_logs) == 0) {
-            d('x');
+
             tpl_set_var('lastlogs', $no_logs);
         } else {
             $logs = '';
-            for ($i = 0; $i < XDb::xNumRows($rs_logs); $i++) {
-                $record_logs = XDb::xFetchArray($rs_logs);
+            while( $record_logs = XDb::xFetchArray($rs_logs)){
 
                 $tmp_log = $log_line;
                 $tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], ucfirst(tr('logType' . $record_logs['type'])) /* $record_logs['text_combo'] */), $tmp_log);
@@ -120,8 +119,7 @@ if ($error == false) {
             tpl_set_var('lastcaches', $no_hiddens);
         } else {
             $caches = '';
-            for ($i = 0; $i < XDb::xNumRows($rs_caches); $i++) {
-                $record_logs = XDb::xFetchArray($rs_caches);
+            while($record_logs = XDb::xFetchArray($rs_caches)) {
 
                 $tmp_cache = $cache_line;
 
@@ -152,8 +150,7 @@ if ($error == false) {
             tpl_set_var('notpublishedcaches', $no_notpublished);
         } else {
             $caches = '';
-            for ($i = 0; $i < XDb::xNumRows($rs_caches); $i++) {
-                $record_caches = XDb::xFetchArray($rs_caches);
+            while ($record_caches = XDb::xFetchArray($rs_caches) ){
 
                 $tmp_cache = $cache_notpublished_line;
 
@@ -192,8 +189,8 @@ if ($error == false) {
             tpl_set_var('last_logs_in_your_caches', $no_logs);
         } else {
             $logs = '';
-            for ($i = 0; $i < XDb::xNumRows($rs_logs); $i++) {
-                $record_logs = XDb::xFetchArray($rs_logs);
+
+            while( $record_logs = XDb::xFetchArray($rs_logs) ){
 
                 $tmp_log = $cache_line_my_caches;
                 $tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], ucfirst(tr('logType' . $record_logs['type'])) /* $record_logs['text_combo'] */), $tmp_log);

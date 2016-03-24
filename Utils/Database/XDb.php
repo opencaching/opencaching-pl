@@ -36,6 +36,11 @@ class XDb extends OcDb {
      */
     public static function xNumRows(PDOStatement $stmt)
     {
+
+        /*
+         * WARNING: This "can" NOT WORK for SELECT... queries! Details:
+         * http://php.net/manual/en/pdostatement.rowcount.php
+         */
         return $stmt->rowCount();
     }
 
@@ -124,8 +129,12 @@ class XDb extends OcDb {
         try {
             $stmt = $db->prepare($query);
 
+            //echo "Q: $query </br>"; //TMP_DEBUG!
+
             $argList = func_get_args();
             array_shift($argList); //remove first param. = sql query
+
+            //echo "B: "; print_r($argList); echo "<br/>";  //TMP_DEBUG!
 
             $stmt->execute($argList);
         } catch (PDOException $e) {

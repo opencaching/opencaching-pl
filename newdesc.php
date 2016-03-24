@@ -17,10 +17,9 @@ if ($error == false) {
         tpl_redirect('login.php?target=' . $target);
     } else {
         //user must be the owner of the cache
-        $cache_rs = XDb::xSql("SELECT `user_id`, `name` FROM `caches` WHERE `cache_id`= ? ", $cache_id);
+        $cache_rs = XDb::xSql("SELECT `user_id`, `name` FROM `caches` WHERE `cache_id`= ? LIMIT 1", $cache_id);
 
-        if (XDb::xNumRows($cache_rs) > 0) {
-            $cache_record = XDb::xFetchArray($cache_rs);
+        if( $cache_record = XDb::xFetchArray($cache_rs)){
             XDb::xFreeResults($cache_rs);
 
             if ($cache_record['user_id'] == $usr['userid'] || $usr['admin']) {
@@ -56,8 +55,7 @@ if ($error == false) {
                     //check if the entered language already exists
                     $desc_rs = XDb::xSql("SELECT `id` FROM `cache_desc`
                                           WHERE `cache_id`=? AND `language`=?", $cache_id, $sel_lang);
-                    $desc_lang_exists = (XDb::xNumRows($desc_rs) > 0);
-                    XDb::xFetchArray($desc_rs);
+                    $desc_lang_exists = ( XDb::xFetchArray($desc_rs) != false);
 
                     if ($desc_lang_exists == false) {
                         $desc_uuid = create_uuid();
@@ -98,8 +96,7 @@ if ($error == false) {
                 $bSelectFirst = ($r['count'] == 1);
                 XDb::xFreeResults($rs);
 
-                for ($i = 0; $i < XDb::xNumRows($langs_rs); $i++) {
-                    $langs_record = XDb::xFetchArray($langs_rs);
+                while( $langs_record = XDb::xFetchArray($langs_rs) ){
 
                     if (($langs_record['short'] == $sel_lang) || ($bSelectFirst == true)) {
                         $bSelectFirst = false;

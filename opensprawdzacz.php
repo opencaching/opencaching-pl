@@ -77,8 +77,6 @@ if ($error == false) {
                 AND    `caches`.`type` = `cache_type`.`id`
                 AND    `caches`.`wp_oc` = ? ", $Opensprawdzacz->cache_wp);
 
-
-
         // przekaznie wynikow w postaci zmiennych do pliku z kodem html
         tpl_set_var("sekcja_1_start", '<!--');
         tpl_set_var("sekcja_1_stop", '-->');
@@ -89,8 +87,7 @@ if ($error == false) {
         tpl_set_var("sekcja_4_start", '<!--');
         tpl_set_var("sekcja_4_stop", '-->');
 
-        $czyjest = XDb::xNumRows($rs);
-        if ($czyjest == 0) {
+        if (!$record = Xdb::xFetchArray($rs)) {
             tpl_set_var("ni_ma_takiego_kesza", tr(ni_ma_takiego_kesza));
             tpl_set_var("sekcja_2_start", '<!--');
             tpl_set_var("sekcja_2_stop", '-->');
@@ -99,7 +96,6 @@ if ($error == false) {
             $Opensprawdzacz->endzik();
         }
 
-        $record = Xdb::xFetchArray($rs);
         $cache_id = $record['cache_id'];
 
         tpl_set_var("wp_oc", $Opensprawdzacz->cache_wp);

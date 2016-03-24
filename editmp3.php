@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -21,12 +22,21 @@ if ($error == false) {
 
         if (!$message) {
             // read from databese and check owner
-            if (!$resp = sql("SELECT `mp3`.`display`, `mp3`.`title`, `mp3`.`object_id`, `mp3`.`object_type`, `caches`.`name`, `caches`.`cache_id` FROM `mp3`, `caches`
-                                  WHERE `caches`.`cache_id`=`mp3`.`object_id` AND `mp3`.`uuid`='&1' AND `mp3`.`user_id`='&2' LIMIT 1", $uuid, $usr['userid']))
+
+            $stmt = XDb::xSql(
+                "SELECT `mp3`.`display`, `mp3`.`title`, `mp3`.`object_id`, `mp3`.`object_type`,
+                        `caches`.`name`, `caches`.`cache_id` FROM `mp3`, `caches`
+                WHERE `caches`.`cache_id`=`mp3`.`object_id` AND `mp3`.`uuid`= ? AND `mp3`.`user_id`=? LIMIT 1",
+                $uuid, $usr['userid']);
+
+            if (!$stmt){
+                //query returns error
                 $message = $message_title_internal;
-            else {
-                if (!$row = sql_fetch_array($resp))
+            }else {
+                if (!$row = XDb::xFetchArray($stmt)){
+                    //no records
                     $message = $message_mp3_not_found;
+                }
             }
 
             if (isset($_POST['submit'])) {
@@ -89,11 +99,13 @@ if ($error == false) {
                 if ($row['title'] == "") {
                     tpl_set_var('errnotitledesc', $errnotitledesc);
                 } else {
-                    if (!$resp = sql("UPDATE `mp3`
-                                            SET `title`='&1',
-                                                `display`='&2',
-                                                `last_modified`=NOW()
-                                          WHERE `uuid`='&3'", $row['title'], (($row['display'] == 1) ? '1' : '0'), $uuid))
+
+                    $resp = XDb::xSql(
+                        "UPDATE `mp3` SET `title`= ?, `display`= ?, `last_modified`=NOW() WHERE `uuid`= ? ",
+                         $row['title'], (($row['display'] == 1) ? '1' : '0'), $uuid);
+
+
+                    if (!XDb::xNumRows($resp))
                         $message = $message_title_internal;
 
                     if (!$message)
@@ -137,4 +149,3 @@ if ($error == false) {
 
 //make the template and send it out
 tpl_BuildTemplate();
-?>

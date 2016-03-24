@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 require($stylepath . '/smilies.inc.php');
@@ -19,10 +20,18 @@ if ($error == false) {
         tpl_redirect('login.php?target=' . $target);
     } else {
         //does log with this logid exist?
-        $log_rs = sql("SELECT `cache_logs`.`cache_id` AS `cache_id`, `cache_logs`.`node` AS `node`, `cache_logs`.`text` AS `text`, `cache_logs`.`date` AS `date`, `cache_logs`.`user_id` AS `user_id`, `cache_logs`.`type` AS `logtype`, `cache_logs`.`text_html` AS `text_html`, `cache_logs`.`text_htmledit` AS `text_htmledit`, `caches`.`name` AS `cachename`, `caches`.`status` AS `cachestatus`, `caches`.`type` AS `cachetype`, `caches`.`user_id` AS `cache_user_id`, `caches`.`logpw` as `logpw` FROM `cache_logs` INNER JOIN `caches` ON (`caches`.`cache_id`=`cache_logs`.`cache_id`) WHERE `id`='&1' AND `deleted` = &2", $log_id, 0);
+        $log_rs = XDb::xSql(
+            "SELECT `cache_logs`.`cache_id` AS `cache_id`, `cache_logs`.`node` AS `node`, `cache_logs`.`text` AS `text`,
+                    `cache_logs`.`date` AS `date`, `cache_logs`.`user_id` AS `user_id`, `cache_logs`.`type` AS `logtype`,
+                    `cache_logs`.`text_html` AS `text_html`, `cache_logs`.`text_htmledit` AS `text_htmledit`,
+                    `caches`.`name` AS `cachename`, `caches`.`status` AS `cachestatus`, `caches`.`type` AS `cachetype`,
+                    `caches`.`user_id` AS `cache_user_id`, `caches`.`logpw` as `logpw`
+            FROM `cache_logs` INNER JOIN `caches` ON (`caches`.`cache_id`=`cache_logs`.`cache_id`)
+            WHERE `id`= ? AND `deleted` = ? LIMIT 1", $log_id, 0);
 
-        if (mysql_num_rows($log_rs) > 0) {
-            $log_record = sql_fetch_array($log_rs);
+        $log_record = XDb::xFetchArray($log_rs);
+        if ($log_record) {
+
             require($stylepath . '/editlog.inc.php');
             require_once($rootpath . 'lib/caches.inc.php');
             require($stylepath . '/rating.inc.php');
@@ -57,9 +66,15 @@ if ($error == false) {
                     $log_pw = $log_record['logpw'];
 
                 // check if user has exceeded his top5% limit
-                $is_top = sqlValue("SELECT COUNT(`cache_id`) FROM `cache_rating` WHERE `user_id`='" . sql_escape($log_record['user_id']) . "' AND `cache_id`='" . sql_escape($log_record['cache_id']) . "'", 0);
-                $user_founds = sqlValue("SELECT `founds_count` FROM `user` WHERE `user_id`='" . sql_escape($log_record['user_id']) . "'", 0);
-                $user_tops = sqlValue("SELECT COUNT(`user_id`) FROM `cache_rating` WHERE `user_id`='" . sql_escape($log_record['user_id']) . "'", 0);
+                $is_top = XDb::xMultiVariableQueryValue(
+                    "SELECT COUNT(`cache_id`) FROM `cache_rating`
+                    WHERE `user_id`= :1 AND `cache_id`=:2 ", 0, $log_record['user_id'], $log_record['cache_id']);
+
+                $user_founds = XDb::xMultiVariableQueryValue(
+                    "SELECT `founds_count` FROM `user` WHERE `user_id`= :1 ", 0, $log_record['user_id']);
+
+                $user_tops = XDb::xMultiVariableQueryValue(
+                    "SELECT COUNT(`user_id`) FROM `cache_rating` WHERE `user_id`= :1 ", 0, $log_record['user_id']);
 
                 if ($is_top == 0) {
                     if (($user_founds * rating_percentage / 100) < 1) {
@@ -174,14 +189,16 @@ if ($error == false) {
                     }
                 }
 
-                // not a found log? then ignore the rating
-                $sql = "SELECT count(*) as founds FROM `cache_logs` WHERE user_id='" . sql_escape($log_record['user_id']) . "' AND cache_id='" . sql_escape($log_record['cache_id']) . "' AND type='1' AND deleted=0";
-                $res = mysql_fetch_array(mysql_query($sql));
-                if ($res['founds'] == 0)
+                // not a type-found log? then ignore the rating
+                $founds = XDb::xMultiVariableQueryValue(
+                    "SELECT count(*) as founds FROM `cache_logs`
+                    WHERE user_id=:1 AND cache_id= :2 AND type='1' AND deleted=0",
+                    0, $log_record['user_id'], $log_record['cache_id']);
+
+                if ($founds == 0)
                     if ($log_type != 1 && $log_type != 7 /* && $log_type != 3 */) {
                         $top_cache = 0;
                     }
-
 
                 $pw_not_ok = false;
                 if (($use_log_pw) && $log_type == 1) {
@@ -204,18 +221,14 @@ if ($error == false) {
                       `latitude`=[value-7],
                       `km`=[value-8]
                      */
-                    sql("UPDATE `cache_moved` SET
-                                 `date`='&1'
-                                 WHERE log_id = &2", date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)), $log_id);
+                    XDb::xSql("UPDATE `cache_moved` SET `date`= ? WHERE log_id = ?",
+                        date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
+                        $log_id);
                 }
 
                 //store?
                 if (isset($_POST['submitform']) && $date_not_ok == false && $logtype_not_ok == false && $pw_not_ok == false) {
                     //store changed data
-//START: edit by FelixP - 2013'10
-                    $curr_edit_count = sqlValue("SELECT `edit_count` FROM `cache_logs` WHERE `id`=" . $log_id, 0);
-                    //requires ALTER TABLE `cache_logs` ADD `edit_by_user_id` INT NULL , ADD `edit_count` INT NOT NULL DEFAULT '0';
-                    $curr_edit_count++;
 
                     // The following code will update last_modified and edit_count even
                     // if nothing else is changed in cache_logs. For the case this
@@ -226,32 +239,37 @@ if ($error == false) {
                     // replication of log entries
                     // (see https://github.com/opencaching/okapi/issues/383).
 
-                    sql("UPDATE `cache_logs` SET `type`='&1',
-                                                     `date`='&2',
-                                                     `text`='&3',
-                                                     `text_html`='&4',
-                                                     `text_htmledit`='&5',
-                                                     `last_modified`=NOW(),
-                                                     `edit_by_user_id` = " . $usr['userid'] . " ,
-                                                     `edit_count`=$curr_edit_count
-                                               WHERE `id`='&6'", $log_type, date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)), userInputFilter::purifyHtmlString((($descMode != 1) ? $log_text : nl2br($log_text))), 1, 1, $log_id);
-//requires ALTER TABLE `cache_logs` ADD `edit_by_user_id` INT NULL , ADD `edit_count` INT NOT NULL DEFAULT '0';
-//END: edit by FelixP - 2013'10
+                    XDb::xSql(
+                        "UPDATE `cache_logs`
+                        SET `type`=?, `date`=?, `text`=?, `text_html`=?, `text_htmledit`=?, `last_modified`=NOW(),
+                            `edit_by_user_id` = ?, `edit_count`= edit_count + 1
+                        WHERE `id`=?",
+                            /*1*/$log_type,
+                            /*2*/date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
+                            /*3*/userInputFilter::purifyHtmlString((($descMode != 1) ? $log_text : nl2br($log_text))),
+                            /*4*/1, /*5*/1, $usr['userid'], $log_id);
+
                     //update user-stat if type changed
                     if ($log_record['logtype'] != $log_type) {
-                        $user_rs = sql("SELECT `founds_count`, `notfounds_count`, `log_notes_count` FROM `user` WHERE `user_id`='&1'", $log_record['user_id']);
-                        $user_record = sql_fetch_array($user_rs);
-                        mysql_free_result($user_rs);
+                        $user_rs = XDb::xSql(
+                            "SELECT `founds_count`, `notfounds_count`, `log_notes_count` FROM `user`
+                            WHERE `user_id`=? ", $log_record['user_id']);
+                        $user_record = XDb::xFetchArray($user_rs);
+                        XDb::xFreeResults($user_rs);
+
 
                         if ($log_record['logtype'] == 1 || $log_record['logtype'] == 7) {
                             $user_record['founds_count'] --;
 
                             // recalc scores for this cache
-                            sql("DELETE FROM `scores` WHERE `user_id` = '&1' AND `cache_id` = '&2'", $log_record['user_id'], $log_record['cache_id']);
-                            $sql = "SELECT count(*) FROM scores WHERE cache_id='" . sql_escape($log_record['cache_id']) . "'";
-                            $liczba = mysql_result(mysql_query($sql), 0);
-                            $sql = "SELECT SUM(score) FROM scores WHERE cache_id='" . sql_escape($log_record['cache_id']) . "'";
-                            $suma = @mysql_result(@mysql_query($sql), 0) + 0;
+                            XDb::xSql("DELETE FROM `scores` WHERE `user_id` = ? AND `cache_id` = ?",
+                                $log_record['user_id'], $log_record['cache_id']);
+
+                            $liczba = XDb::xMultiVariableQueryValue(
+                                "SELECT count(*) FROM scores WHERE cache_id=:1", 0, $log_record['cache_id']);
+
+                            $suma = XDb::xMultiVariableQueryValue(
+                                "SELECT SUM(score) FROM scores WHERE cache_id=:1", 0, $log_record['cache_id']);
 
                             // obliczenie nowej sredniej
                             if ($liczba != 0) {
@@ -260,8 +278,9 @@ if ($error == false) {
                                 $srednia = 0;
                             }
 
-                            $sql = "UPDATE caches SET votes='" . sql_escape($liczba) . "', score='" . sql_escape($srednia) . "' WHERE cache_id='" . sql_escape($log_record['cache_id']) . "'";
-                            mysql_query($sql);
+                            XDb::xSql("UPDATE caches SET votes= ?, score= ? WHERE cache_id= ? ",
+                                $liczba, $srednia, $log_record['cache_id']);
+
                         } elseif ($log_record['logtype'] == 2) {
                             $user_record['notfounds_count'] --;
                         } elseif ($log_record['logtype'] == 3) {
@@ -277,16 +296,21 @@ if ($error == false) {
                             $user_record['founds_count'] ++;
                         } elseif ($log_type == 2) {
                             $user_record['notfounds_count'] ++;
-                            if ($res['founds'] <= 1)
+                            if ($founds <= 1)
                                 $top_cache = 0;
                         }
                         elseif ($log_type == 3) {
                             $user_record['log_notes_count'] ++;
-                            if ($res['founds'] <= 1)
+                            if ($founds <= 1)
                                 $top_cache = 0;
                         }
 
-                        sql("UPDATE `user` SET `founds_count`='&1', `notfounds_count`='&2', `log_notes_count`='&3' WHERE `user_id`='&4'", $user_record['founds_count'], $user_record['notfounds_count'], $user_record['log_notes_count'], $log_record['user_id']);
+                        XDb::xSql(
+                            "UPDATE `user` SET `founds_count`=?, `notfounds_count`=?, `log_notes_count`=?
+                            WHERE `user_id`= ?",
+                            $user_record['founds_count'], $user_record['notfounds_count'],
+                            $user_record['log_notes_count'], $log_record['user_id']);
+
                         unset($user_record);
 
                         //call eventhandler
@@ -295,9 +319,12 @@ if ($error == false) {
                     }
 
                     //update cache-stat if type or log_date changed
-                    $cache_rs = sql("SELECT `founds`, `notfounds`, `notes` FROM `caches` WHERE `cache_id`='&1'", $log_record['cache_id']);
-                    $cache_record = sql_fetch_array($cache_rs);
-                    mysql_free_result($cache_rs);
+                    $cache_rs = XDb::xSql(
+                        "SELECT `founds`, `notfounds`, `notes` FROM `caches` WHERE `cache_id`=?",
+                        $log_record['cache_id']);
+
+                    $cache_record = XDb::xFetchArray($cache_rs);
+                    XDb::xFreeResults($cache_rs);
 
                     if ($log_record['logtype'] != $log_type) {
                         if ($log_record['logtype'] == 1 || $log_record['logtype'] == 7) {
@@ -323,10 +350,16 @@ if ($error == false) {
                     }
 
                     // update top-list
-                    if ($top_cache == 1)
-                        sql("INSERT IGNORE INTO `cache_rating` (`user_id`, `cache_id`) VALUES('&1', '&2')", $log_record['user_id'], $log_record['cache_id']);
-                    else
-                        sql("DELETE FROM `cache_rating` WHERE `user_id`='&1' AND `cache_id`='&2'", $log_record['user_id'], $log_record['cache_id']);
+                    if ($top_cache == 1){
+                        XDb::xSql(
+                            "INSERT IGNORE INTO `cache_rating` (`user_id`, `cache_id`)
+                            VALUES(?, ?)", $log_record['user_id'], $log_record['cache_id']);
+                    }else{
+                        XDb::xSql(
+                            "DELETE FROM `cache_rating`
+                            WHERE `user_id`=? AND `cache_id`=?",
+                            $log_record['user_id'], $log_record['cache_id']);
+                    }
 
                     // Notify OKAPI's replicate module of the change.
                     // Details: https://github.com/opencaching/okapi/issues/265
@@ -335,16 +368,16 @@ if ($error == false) {
                     \okapi\Facade::disable_error_handling();
 
                     //Update last found
-                    $lastfound_rs = sql("SELECT MAX(`cache_logs`.`date`) AS `date` FROM `cache_logs` WHERE ((`cache_logs`.`type`=1) AND (`cache_logs`.`cache_id`='&1') AND deleted=&2)", $log_record['cache_id'], 0);
-                    $lastfound_record = sql_fetch_array($lastfound_rs);
+                    $lastFoundDate = XDb::xMultiVariableQueryValue(
+                        "SELECT MAX(`date`) AS `date` FROM `cache_logs`
+                         WHERE `type` = 1 AND `cache_id`= :1 AND deleted = 0",
+                         'NULL', $log_record['cache_id']);
 
-                    if ($lastfound_record['date'] === NULL) {
-                        $lastfound = 'NULL';
-                    } else {
-                        $lastfound = $lastfound_record['date'];
-                    }
+                    XDb::xSql(
+                        "UPDATE `caches` SET `last_found`=?, `founds`=?, `notfounds`=?, `notes`=? WHERE `cache_id`=?",
+                        $lastFoundDate, $cache_record['founds'], $cache_record['notfounds'],
+                        $cache_record['notes'], $log_record['cache_id']);
 
-                    sql("UPDATE `caches` SET `last_found`='&1', `founds`='&2', `notfounds`='&3', `notes`='&4' WHERE `cache_id`='&5'", $lastfound, $cache_record['founds'], $cache_record['notfounds'], $cache_record['notes'], $log_record['cache_id']);
                     unset($cache_record);
 
                     //display cache page
@@ -354,14 +387,22 @@ if ($error == false) {
 
                 // check if user has already found this cache and is not editing the found log (i.e. is able to change another comment's type to 'found')
                 $already_found_in_other_comment = 0;
-                $sql = "SELECT count(*) as founds FROM `cache_logs` WHERE user_id='" . sql_escape($usr['userid']) . "' AND cache_id='" . sql_escape($log_record['cache_id']) . "' AND type='1' AND deleted=0";
-                $res = mysql_fetch_array(mysql_query($sql));
 
-                if ($res['founds'] > 0) {
-                    $sql2 = "SELECT count(*) as founds FROM `cache_logs` WHERE id='" . sql_escape(intval($log_id)) . "' AND type='1' AND deleted=0";
-                    $res2 = mysql_fetch_array(mysql_query($sql2));
-                    if ($res2['founds'] == 0)
+                $founds2 = XDb::xMultiVariableQueryValue(
+                    "SELECT count(*) as founds FROM `cache_logs`
+                    WHERE user_id= :1 AND cache_id= :2 AND type='1' AND deleted=0",
+                    0, $usr['userid'], $log_record['cache_id'] );
+
+                if ($founds2 > 0) {
+
+                    $founds3 = XDb::xMultiVariableQueryValue(
+                        "SELECT count(*) as founds FROM `cache_logs`
+                        WHERE id= :1 AND type=1 AND deleted=0",
+                        0, $log_id );
+
+                    if ($founds3 == 0){
                         $already_found_in_other_comment = 1;
+                    }
                 }
 
                 //build logtypeoptions
@@ -502,4 +543,3 @@ if ($error == false) {
 //make the template and send it out
 tpl_set_var('language4js', $lang);
 tpl_BuildTemplate();
-?>
