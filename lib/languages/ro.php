@@ -352,6 +352,7 @@ $translations = array(
     'html_usage' => 'Te rog foloseşte elemente HTML doar pentru text.',
     'available_html' => 'Lista cu elementele HTML disponibile',
     'hint_long_text' => 'Indiciu opţional, codat. Acesta <b>NU</b> este necesar. <br />Poţi scrie indicii suplimentare aici. Încearcă să fii scurt şi concis.',
+    'hint_instructions' => 'Use only letters from the english alphabet and/or numbers.<br />Anything written within <code>[square brackets]</code> will be shown unencoded.',
     'add_photo_newcache' => 'Fotografii, sunete MP3, etc, pot fi adăugate după ce cutia a fost înregistrată.',
     'search_wildcard_info' => 'Use "%" as a wildcard.***',
     'event_hidden_hint' => 'Pentru evenimente câmpul "data ascunderii" conţine de fapt data de început a evenimentului.',

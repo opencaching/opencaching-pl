@@ -75,6 +75,7 @@
     <div class="buffer"></div>
     <div><textarea name="hints" class="mceNoEditor" cols="80" rows="15">{hints}</textarea></div>
     <div class="notice">{{hint_long_text}}</div>
+    <div class="notice">{{hint_instructions}}</div>
     <div class="buffer"></div>
     <div>
         <input type="reset" name="reset" value="{{reset}}" class="formbuttons"/>&nbsp;&nbsp;

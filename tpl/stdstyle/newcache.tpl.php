@@ -720,7 +720,10 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2"><div class="notice" style="width:500px;min-height:24px;height:auto;">{{hint_long_text}}</div></td>
+            <td colspan="2">
+                <div class="notice" style="width:500px;min-height:24px;height:auto;">{{hint_long_text}}</div>
+                <div class="notice" style="width:500px;min-height:24px;height:auto;">{{hint_instructions}}</div>
+            </td>
         </tr>
         <tr>
             <td colspan="2"><div class="content2-container bg-blue02">

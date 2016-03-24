@@ -352,6 +352,7 @@ $translations = array(
     'html_usage' => 'Gebruik HTML tags voor het bewerken van tekst.',
     'available_html' => 'Beschikbare HTML tags lijst',
     'hint_long_text' => '<b><span style="color:red">Extra</span> versleutelde hint.</b> <i>Geen verplicht veld</i>. Hier kun een een extra hint toevoegen. Informatie om de cache normaal te kunnen vinden dient in de "Omschrijving" beschreven te staan.',
+    'hint_instructions' => 'Gebruik alleen letters van het Engels alfabet en / of cijfers. <br /> Alles wat geschreven in <code>[vierkante haken]</code> wordt weergegeven ongecodeerd.',
     'add_photo_newcache' => 'Afbeeldingen, foto\'s, extra waypoints en MP3 bestanden kunnen na het registren van de cache toegevoegt worden.',
     'search_wildcard_info' => 'Use "%" as a wildcard.',
     'event_hidden_hint' => 'Hint: Bij EVENEMENTEN moet in het "Geplaatst op" veld hierboven de datum staan wanneer het evenement plaatsvind.',
