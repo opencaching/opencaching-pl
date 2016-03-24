@@ -1652,13 +1652,18 @@
     <!--[if IE 7 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]-->
     <!--[if IE 8 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]-->
 
+    <center>
     <div id="ptMenus" style="display: {ptMenu}">
         <ul id="css3menu1" class="topmenu">
             {powerTrailMenu}
         </ul>
     </div>
+    </center>
     <!-- map -->
     <div id="mapOuterdiv" style="display: {mapOuterdiv}">
+        <div style="position: relative; left: 666px; top: 56px; width: 50px;">
+            <a id="fullscreenOn" style="cursor: pointer" href="cachemap-full.php?pt={powerTrailId}"><img src="images/fullscreen.png" alt="Pełny ekran"></a>
+        </div>
         <div id="map-canvas"></div>
     </div>
 
