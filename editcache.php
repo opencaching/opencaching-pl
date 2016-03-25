@@ -151,7 +151,7 @@ if ($error == false) {
                 $cache_hidden_day = isset($_POST['hidden_day']) ? $_POST['hidden_day'] : date('d', strtotime($cache_record['date_hidden']));
                 $cache_hidden_month = isset($_POST['hidden_month']) ? $_POST['hidden_month'] : date('m', strtotime($cache_record['date_hidden']));
                 $cache_hidden_year = isset($_POST['hidden_year']) ? $_POST['hidden_year'] : date('Y', strtotime($cache_record['date_hidden']));
-                if (is_null($cache_record['date_activate'])) {
+                if (is_null($cache_record['date_activate']) || $cache_record['date_activate'] == 0) {
                     $cache_activate_day = isset($_POST['activate_day']) ? $_POST['activate_day'] : date('d');
                     $cache_activate_month = isset($_POST['activate_month']) ? $_POST['activate_month'] : date('m');
                     $cache_activate_year = isset($_POST['activate_year']) ? $_POST['activate_year'] : date('Y');
@@ -183,7 +183,7 @@ if ($error == false) {
                             $publish = 'notnow';
                         }
                     } else {
-                        if (is_null($cache_record['date_activate'])) {
+                        if (is_null($cache_record['date_activate'])|| $cache_record['date_activate'] == 0) {
                             $publish = 'notnow';
                         } else {
                             $publish = 'later';
@@ -438,13 +438,12 @@ if ($error == false) {
                                  `country`=?, `size`=?, `difficulty`=?, `terrain`=?,
                                  `status`=?, `search_time`=?, `way_length`=?,
                                  `logpw`=?, `wp_gc`=?, `wp_nc`=?, `wp_ge`=?,
-                                 `wp_tc`=?,`date_activate` = ?
+                                 `wp_tc`=?,`date_activate` = $activation_date
                              WHERE `cache_id`=?",
                              $cache_name, $cache_lon, $cache_lat, $cache_type,
                              date('Y-m-d', mktime(0, 0, 0, $cache_hidden_month, $cache_hidden_day, $cache_hidden_year)),
                              $cache_country, $sel_size, $cache_difficulty, $cache_terrain, $status,
-                             $search_time, $way_length, $log_pw, $wp_gc, $wp_nc, $wp_ge, $wp_tc,
-                             $activation_date,$cache_id);
+                             $search_time, $way_length, $log_pw, $wp_gc, $wp_nc, $wp_ge, $wp_tc, $cache_id);
 
                         $code1 = $cache_country;
                         $adm1 = XDb::xMultiVariableQueryValue(
