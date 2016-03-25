@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -26,23 +27,23 @@ if ($error == false) {
 
         $send_emailaddress = isset($_REQUEST['send_emailaddress']) ? $_REQUEST['send_emailaddress'] : 0;
 
-        // ok, get data
-        if (!$resp = sql("SELECT `username`, `email` FROM `user` WHERE `user_id`='&1'", $usr['userid']))
-            $message = $message_title_internal;
+        // get sender data
+        $resp = XDb::xSql(
+            "SELECT `username`, `email` FROM `user` WHERE `user_id`= ? LIMIT 1", $usr['userid']);
 
-        if ($row = sql_fetch_array($resp)) {
+        if ($row = XDb::xFetchArray($resp)) {
             $from_username = $row['username'];
             $from_email = $row['email'];
         } else {
             $message = $message_title_internal;
         }
 
-
+        // get reciver data
         if (!$message) {
-            if (!$resp = sql("SELECT `username`, `email` FROM `user` WHERE `user_id`='&1'", $userid))
-                $message = $message_title_internal;
+            $resp = XDb::xSql(
+                "SELECT `username`, `email` FROM `user` WHERE `user_id`= ? ", $userid);
 
-            if ($row = sql_fetch_array($resp)) {
+            if ($row = XDb::xFetchArray($resp)) {
                 $to_username = $row['username'];
                 $to_email = $row['email'];
             } else
@@ -70,7 +71,6 @@ if ($error == false) {
                     $allOk = false;
                 }
 
-
                 if ($allOk) {
                     $subject = mb_ereg_replace('{subject}', $subject, $mailsubject);
                     $subject = mb_ereg_replace('{from_username}', $from_username, $subject);
@@ -82,18 +82,12 @@ if ($error == false) {
                     $text = mb_ereg_replace('{to_email}', $to_email, $text);
                     $text = mb_ereg_replace('{to_username}', $to_username, $text);
 
-                    if (!$resp = sql("INSERT INTO `email_user`
-                                SET `ipaddress`='&1',
-                                        `date_generated`=NOW(),
-                                        `date_sent`='0',
-                                        `from_user_id`='&2',
-                                        `from_email`='&3',
-                                        `to_user_id`='&4',
-                                        `to_email`='&5',
-                                        `mail_subject`='&6',
-                                        `mail_text`='&7',
-                                        `send_emailaddress`='&8'", $_SERVER["REMOTE_ADDR"], $usr['userid'], $from_email, $userid, $to_email, $subject, $text, $send_emailaddress))
-                        $message = $message_title_internal;
+                    XDb::xSql("INSERT INTO `email_user`
+                              SET `ipaddress`=? , `date_generated`=NOW(), `date_sent`='0',
+                                  `from_user_id`= ? , `from_email`=?, `to_user_id`=?,
+                                  `to_email`=?, `mail_subject`=?, `mail_text`=?, `send_emailaddress`=?",
+                              $_SERVER["REMOTE_ADDR"], $usr['userid'], $from_email, $userid,
+                              $to_email, $subject, $text, $send_emailaddress);
 
                     tpl_redirect('mailto.php?userid=' . urlencode($userid) . '&message=' . urlencode($message_sent));
                 }
@@ -127,4 +121,3 @@ if ($error == false) {
 
 //make the template and send it out
 tpl_BuildTemplate();
-?>
