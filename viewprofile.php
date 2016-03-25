@@ -1,5 +1,8 @@
 <?php
 
+use Utils\Database\XDb;
+use Utils\Database\OcDb;
+
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
     $rootpath = '';
@@ -33,10 +36,12 @@ if ($error == false) {
 
         $content = "";
 
-        $database = new dataBase();
+        $database = OcDb::instance();
+
         $rddQuery = "select TO_DAYS(NOW()) - TO_DAYS(`date_created`) `diff` from `user` WHERE user_id=:1 ";
         $database->multiVariableQuery($rddQuery, $user_id);
         $ddays = $database->dbResultFetch();
+
         $query = "SELECT admin, guru, hidden_count, founds_count, is_active_flag, email, password, log_notes_count, notfounds_count, username, last_login, country, date_created, description, hide_flag FROM user WHERE user_id=:1 LIMIT 1";
         $database->multiVariableQuery($query, $user_id);
         $user_record = $database->dbResultFetch();
@@ -70,23 +75,11 @@ if ($error == false) {
 
         $guide_info = '<br/>';
         if ($user_id == $usr['userid']) {
-            // check user can set as Geocaching guide
-            /*
-              $rsnfc = sql("SELECT COUNT(`cache_logs`.`cache_id`) as num_fcaches FROM cache_logs,caches WHERE cache_logs.cache_id=caches.cache_id AND (caches.type='1' OR caches.type='2' OR caches.type='3' OR caches.type='7') AND cache_logs.type='1' AND cache_logs.deleted='0' AND `cache_logs`.`user_id` = ".sql_escape($usr['userid'])."");
-              $rec1 = sql_fetch_array($rsnfc);
-              $num_find_caches = $rec1['num_fcaches'];
-              $rsnc = sql("SELECT COUNT(`caches`.`cache_id`) as num_caches FROM `caches` WHERE `user_id` = ".sql_escape($usr['userid'])."
-              AND (status = 1 OR status=2 OR status=3) AND (caches.type='1' OR caches.type='2' OR caches.type='3' OR caches.type='7')");
-              $rec2 = sql_fetch_array($rsnc);
-              $num_caches = $rec2['num_caches'];
-             */
             // Number of recommendations
-            $nrec = sql("SELECT SUM(topratings) as nrecom FROM caches WHERE `caches`.`user_id`=&1", $usr['userid']);
-            $nr = sql_fetch_array($nrec);
-            $nrecom = $nr['nrecom'];
+            $nrecom = XDb::xMultiVariableQueryValue(
+                "SELECT SUM(topratings) as nrecom FROM caches WHERE `caches`.`user_id`= :1 ",
+                0, $usr['userid'] );
 
-            // old
-            //          if ($num_caches>=5 && $num_find_caches>=5 && $user_record['guru'] ==0 && $user_id == $usr['userid'] )
             // new with recommendations
             if ($nrecom >= 20 && $user_record['guru'] == 0 && $user_id == $usr['userid']) {
                 $guide_info = '<div class="content-title-noshade box-blue"><table><tr><td><img style="margin-right: 10px;margin-left:10px;" src="tpl/stdstyle/images/blue/info-b.png" alt="guide"></td><td>
@@ -131,12 +124,12 @@ if ($error == false) {
             $content .= adminNoteTable(lib\Objects\User\AdminNote::getAllUserNotes($user_id));
         }
 
-        $ars = sql("SELECT
+        $ars = XDb::xSql("SELECT
                     `user`.`hidden_count` AS    `ukryte`,
                     `user`.`founds_count` AS    `znalezione`,
                     `user`.`notfounds_count` AS `nieznalezione`
-                FROM `user` WHERE `user_id`='&1'", $user_id);
-        $record = sql_fetch_array($ars);
+                FROM `user` WHERE `user_id`= ? ", $user_id);
+        $record = XDb::xFetchArray($ars);
         $act = $record['ukryte'] + $record['znalezione'] + $record['nieznalezione'];
 
         if ((date('m') == 4) and ( date('d') == 1)) {
@@ -156,43 +149,60 @@ if ($error == false) {
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt140') . '</span>:&nbsp;<strong>' . powerTrailBase::getUserPoints($user_id) . '</strong> (' . tr('pt093') . ' ' . powerTrailBase::getPoweTrailCompletedCountByUser($user_id) . ')</p>';
             $pointsEarnedForPlacedCaches = powerTrailBase::getOwnerPoints($user_id);
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt224') . '</span>:&nbsp;<strong>' . $pointsEarnedForPlacedCaches['totalPoints'] . '</strong> (' . tr('pt222') . ' ' . $pointsEarnedForPlacedCaches['geoPathCount'] . ' ' . tr('pt223') . ')</p>';
-            //var_dump($a);
-            db_connect(); // db mysql_* connection is switched off in geoPatch module, so re-open it.
         }
 
         //$content .= '</div>';
         // -----------  begin Find section -------------------------------------
-        $rs_seek = sql("SELECT COUNT(*) FROM cache_logs WHERE (type=1 OR type=2) AND cache_logs.deleted='0' AND user_id=&1 GROUP BY YEAR(`date`), MONTH(`date`), DAY(`date`)", $user_id);
-        $seek = mysql_num_rows($rs_seek);
-
         $content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/cache-open.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;' . tr('stat_number_found') . '</p></div><br />';
+
+        $seek = XDb::xMultiVariableQueryValue(
+            "SELECT COUNT(*) FROM cache_logs
+            WHERE (type=1 OR type=2) AND cache_logs.deleted='0' AND user_id= :1
+            GROUP BY YEAR(`date`), MONTH(`date`), DAY(`date`)",
+            0, $user_id);
+
         if ($seek == 0) {
             $content .= '<br /><p> <b>' . tr('not_found_caches') . '</b></p>';
         } else {
-            $sql = "SELECT COUNT(*) events_count
-                            FROM cache_logs
-                            WHERE user_id=$user_id AND type=7 AND deleted=0";
 
-            if ($odp = mysql_query($sql))
-                $events_count = mysql_result($odp, 0);
-            else
-                $events_count = 0;
+            $events_count = XDb::xMultiVariableQueryValue(
+                "SELECT COUNT(*) events_count FROM cache_logs
+                WHERE user_id= :1 AND type=7 AND deleted=0", 0, $user_id );
 
-            $days_since_first_find = @mysql_result(@mysql_query("SELECT datediff(now(), date) as old FROM cache_logs WHERE deleted=0 AND user_id = $user_id AND type=1 ORDER BY date LIMIT 1"), 0);
-            $rsfc2 = sql("SELECT cache_logs.cache_id cache_id,  DATE_FORMAT(cache_logs.date,'%d-%m-%Y') data, caches.wp_oc cache_wp FROM cache_logs, caches WHERE caches.cache_id=cache_logs.cache_id AND cache_logs.type='1' AND cache_logs.user_id=&1 AND cache_logs.deleted='0' ORDER BY cache_logs.date DESC LIMIT 1", $user_id);
-            $rfc2 = mysql_fetch_array($rsfc2);
-            $rsc = sql("SELECT COUNT(*) number FROM cache_logs WHERE type=1 AND cache_logs.deleted='0' AND user_id=&1 GROUP BY YEAR(`date`), MONTH(`date`), DAY(`date`) ORDER BY number DESC LIMIT 1", $user_id);
-            $rc = sql_fetch_array($rsc);
-            $moved = sqlValue("SELECT COUNT(*) FROM `cache_logs` WHERE type=4 AND cache_logs.deleted='0' AND user_id='" . sql_escape($user_id) . "'", 0);
-            $rsncd = sql("SELECT COUNT(*) FROM cache_logs WHERE type=1 AND cache_logs.deleted='0' AND user_id=&1 GROUP BY YEAR(`date`), MONTH(`date`), DAY(`date`)", $user_id);
-            $num_rows = mysql_num_rows($rsncd);
-            $sql = "SELECT COUNT(*) founds_count
-                    FROM cache_logs
-                    WHERE user_id=$user_id AND type=1 AND deleted=0";
-            if ($odp = mysql_query($sql))
-                $found = mysql_result($odp, 0);
-            else
-                $found = 0;
+            $days_since_first_find = XDb::xMultiVariableQueryValue(
+                "SELECT datediff(now(), date) as old FROM cache_logs
+                WHERE deleted=0 AND user_id = :1 AND type=1 ORDER BY date LIMIT 1",
+                0, $user_id);
+
+            $rsfc2 = XDb::xSql(
+                "SELECT cache_logs.cache_id cache_id, DATE_FORMAT(cache_logs.date,'%d-%m-%Y') data, caches.wp_oc cache_wp
+                FROM cache_logs, caches
+                WHERE caches.cache_id=cache_logs.cache_id AND cache_logs.type='1'
+                    AND cache_logs.user_id= ? AND cache_logs.deleted='0'
+                ORDER BY cache_logs.date DESC LIMIT 1", $user_id );
+            $rfc2 = XDb::xFetchArray($rsfc2);
+
+            $rcNumber = XDb::xMultiVariableQueryValue(
+                "SELECT COUNT(*) number FROM cache_logs
+                WHERE type=1 AND cache_logs.deleted='0' AND user_id= :1
+                GROUP BY YEAR(`date`), MONTH(`date`), DAY(`date`)
+                ORDER BY number DESC LIMIT 1", 0, $user_id);
+
+            $moved = XDb::xMultiVariableQueryValue(
+                "SELECT COUNT(*) FROM `cache_logs`
+                WHERE type=4 AND cache_logs.deleted='0' AND user_id= :1",
+                0, $user_id);
+
+            $num_rows = XDb::xMultiVariableQueryValue(
+                "SELECT COUNT(*) FROM cache_logs
+                WHERE type=1 AND cache_logs.deleted='0' AND user_id=:1
+                GROUP BY YEAR(`date`), MONTH(`date`), DAY(`date`)",
+                0, $user_id );
+
+            $found = XDb::xMultiVariableQueryValue(
+                "SELECT COUNT(*) founds_count FROM cache_logs
+                WHERE user_id= :1 AND type=1 AND deleted=0", 0, $user_id);
+
             if ($ddays['diff'] == 0) {
                 $aver1 = 0;
             } else {
@@ -203,7 +213,7 @@ if ($error == false) {
             } else {
                 $aver2 = round(($found / $num_rows), 2);
             }
-            if ((date('m') == 4) and ( date('d') == 1)) {
+            if ((date('m') == 4) and ( date('d') == 1)) { //prima aprilis :)
                 $found = rand(-10, 10);
                 $user_record['notfounds_count'] = rand(666, 9999);
             }
@@ -235,7 +245,9 @@ if ($error == false) {
                 $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' . $user_id . '&amp;searchbyfinder=&amp;logtype=7&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
             }
 
-            $recomendf = sqlValue("SELECT COUNT(*) FROM `cache_rating` WHERE `user_id`='" . sql_escape($user_id) . "'", 0);
+            $recomendf = XDb::xMultiVariableQueryValue(
+                "SELECT COUNT(*) FROM `cache_rating` WHERE `user_id`= :1 ", 0, $user_id);
+
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('number_recommendations_given') . ':</span> <strong>' . $recomendf . '</strong>';
 
             if ($recomendf == 0) {
@@ -252,49 +264,51 @@ if ($error == false) {
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('days_caching') . ':</span> <strong>' . $num_rows . '</strong>&nbsp;' . tr('from_total_days') . ': <strong>' . $ddays['diff'] . '</strong></p>';
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('average_caches') . ':</span> <strong>' . sprintf("%u", $aver2) . '</strong></p>';
             ///dzień keszowania i <strong>' . sprintf("%.1f",$aver1) . '</strong>/dzień
-            $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('most_caches_find_day') . ':</span> <strong>' . sprintf("%u", $rc['number']) . '</strong></p>';
+            $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('most_caches_find_day') . ':</span> <strong>' . sprintf("%u", $rcNumber) . '</strong></p>';
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('latest_cache') . ':</span>&nbsp;&nbsp;';
-            if (mysql_num_rows($rsfc2) != 0) {
+
+            if ( $rfc2 != false ) {
                 $content .= '<strong><a class="links" href="viewcache.php?cacheid=' . $rfc2['cache_id'] . '">' . $rfc2['cache_wp'] . '</a>&nbsp;&nbsp;</strong>(' . $rfc2['data'] . ')</p>';
             } else {
                 $content .= '</p>';
             }
-            $content .= '<br /><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
-            $rsms = sql("SELECT cache_logs.cache_id cache_id,  DATE_FORMAT(cache_logs.date,'%d-%m-%Y') data, caches.wp_oc cache_wp FROM cache_logs, caches WHERE caches.cache_id=cache_logs.cache_id AND cache_logs.type='1' AND cache_logs.user_id=&1 AND cache_logs.deleted='0' ORDER BY cache_logs.date ASC", $user_id);
-            if (mysql_num_rows($rsms) != 0) {
-                if (mysql_num_rows($rsms) < 101) {
-                    for ($i = 0; $i <= mysql_num_rows($rsms); $i += 10) {
-                        $ii = $i;
-                        $is = $i - 1;
-                        if ($i == 0) {
-                            $ii = 1;
-                            $is = 0;
-                        }
-                        mysql_data_seek($rsms, $is);
-                        $rms = mysql_fetch_array($rsms);
-                        $content .= '<tr> <td>' . $ii . '</td><td>' . $rms['data'] . '</td><td><a class="links" href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['cache_wp'] . '</a></td></tr>';
-                    }
-                }
-                if (mysql_num_rows($rsms) > 100) {
-                    for ($i = 0; $i <= mysql_num_rows($rsms); $i += 100) {
-                        $ii = $i;
-                        $is = $i - 1;
-                        if ($i == 0) {
-                            $ii = 1;
-                            $is = 0;
-                        }
-                        mysql_data_seek($rsms, $is);
 
-                        $rms = mysql_fetch_array($rsms);
-                        $content .= '<tr><td>' . $ii . '</td><td>' . $rms['data'] . '</td><td><a class="links" href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['cache_wp'] . '</a></td></tr>';
-                    }
+
+            if( $found >= 10 ){
+                $content .= '<br /><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
+
+                if( $found > 101 ){
+                    $milestone = 100;
+                }else {
+                    $milestone = 10;
                 }
-            }
-            $content .= '</table>';
-            mysql_free_result($rsms);
-            mysql_free_result($rsncd);
-            mysql_free_result($rsc);
-            mysql_free_result($rsfc2);
+
+                $rsms = XDb::xSql(
+                "SET @r = 1;
+                SELECT * FROM
+                (
+                    SELECT *,@r:=@r+1 row FROM (
+
+                        SELECT cache_logs.cache_id cache_id, DATE_FORMAT(cache_logs.date,'%d-%m-%Y') data, caches.wp_oc cache_wp
+                        FROM cache_logs, caches
+                        WHERE caches.cache_id=cache_logs.cache_id AND cache_logs.type='1'
+                        AND cache_logs.user_id= ? AND cache_logs.deleted='0'
+                        ORDER BY cache_logs.date ASC
+
+                    ) B
+                ) A
+                WHERE row % $milestone =1 ORDER BY row ASC", $user_id);
+
+                $rsms->nextRowset(); //to switch to second query results :)
+                while( $rms = XDb::xFetchArray($rsms)) {
+                    $content .= '<tr> <td>' . ($rms['row']-1) . '</td><td>' . $rms['data'] . '</td><td><a class="links" href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['cache_wp'] . '</a></td></tr>';
+                }
+
+                $content .= '</table>';
+                XDb::xFreeResults($rsms);
+            } // $found > 10
+
+            XDb::xFreeResults($rsfc2);
 
             //ftf Ajax
             $content .= '<hr><center>
@@ -306,32 +320,30 @@ if ($error == false) {
             //          if ($user_id == $usr['userid'])
             //          {
 
-            $rs_logs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
-                              cache_logs.type AS log_type,
-                cache_logs.text AS log_text,
-                              DATE_FORMAT(cache_logs.date,'%d-%m-%Y')  AS log_date,
-                              caches.name AS cache_name,
-                caches.wp_oc AS wp_name,
-                              user.username AS user_name,
-                              `cache_logs`.`encrypt` `encrypt`,
-                            cache_logs.user_id AS luser_id,
-                              user.user_id AS user_id,
-                              caches.user_id AS cache_owner,
-                              caches.type AS cache_type,
-                              cache_type.icon_small AS cache_icon_small,
-                              log_types.icon_small AS icon_small,
-                              IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,COUNT(gk_item.id) AS geokret_in
-                      FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id))) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
-                            LEFT JOIN   gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
-                            LEFT JOIN   gk_item ON gk_item.id = gk_item_waypoint.id AND
-                            gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5
-                      WHERE (caches.status=1 OR caches.status=2 OR caches.status=3) AND cache_logs.deleted=0 AND `cache_logs`.`user_id`='&1'
-                      AND cache_logs.type <> 12
-                       GROUP BY cache_logs.id
-                       ORDER BY cache_logs.date_created DESC
+            $rs_logs = XDb::xSql(
+                "SELECT cache_logs.id, cache_logs.cache_id AS cache_id, cache_logs.type AS log_type,
+                    cache_logs.text AS log_text, DATE_FORMAT(cache_logs.date,'%d-%m-%Y')  AS log_date,
+                    caches.name AS cache_name, caches.wp_oc AS wp_name, user.username AS user_name,
+                    `cache_logs`.`encrypt` `encrypt`, cache_logs.user_id AS luser_id,
+                    user.user_id AS user_id, caches.user_id AS cache_owner, caches.type AS cache_type,
+                    cache_type.icon_small AS cache_icon_small, log_types.icon_small AS icon_small,
+                    IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,COUNT(gk_item.id) AS geokret_in
+                FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)))
+                    INNER JOIN user ON (cache_logs.user_id = user.user_id)
+                    INNER JOIN log_types ON (cache_logs.type = log_types.id)
+                    INNER JOIN cache_type ON (caches.type = cache_type.id)
+                    LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id`
+                        AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
+                    LEFT JOIN   gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
+                    LEFT JOIN   gk_item ON gk_item.id = gk_item_waypoint.id
+                        AND gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5
+                    WHERE (caches.status=1 OR caches.status=2 OR caches.status=3) AND cache_logs.deleted=0
+                        AND `cache_logs`.`user_id`= ?  AND cache_logs.type <> 12
+                    GROUP BY cache_logs.id
+                    ORDER BY cache_logs.date_created DESC
                     LIMIT 5", $user_id);
 
-            if (mysql_num_rows($rs_logs) != 0) {
+            if (XDb::xNumRows($rs_logs) != 0) {
 
                 $content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08">' . tr('latest_logs_by_user') . ':</span>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="my_logs.php?userid=' . $user_id . '">' . tr('show_all') . '</a>] ';
                 if ($user_id == $usr['userid'] || $usr['admin']) {
@@ -339,8 +351,7 @@ if ($error == false) {
                 }
                 $content .= '</p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
 
-                for ($i = 0; $i < mysql_num_rows($rs_logs); $i++) {
-                    $record_logs = sql_fetch_array($rs_logs);
+                while( $record_logs = XDb::xFetchArray($rs_logs) ){
                     $tmp_log = $log_line;
                     if ($record_logs['geokret_in'] != '0') {
                         $tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/gk.png" border="0" alt="" title="GeoKret" />', $tmp_log);
@@ -381,7 +392,7 @@ if ($error == false) {
                     $content .= "\n" . $tmp_log;
                 }
                 $content .= '</ul></div>';
-                mysql_free_result($rs_logs);
+                XDb::xFreeResults($rs_logs);
             }
 
             //          }
@@ -395,25 +406,36 @@ if ($error == false) {
         if ($user_record['hidden_count'] == 0) {
             $content .= '<br /><p> <b>' . tr('not_caches_created') . '</b></p>';
         } else {
+
             // nie licz spotkan, skrzynek jeszcze nieaktywnych, zarchiwizowanych i wstrzymanych
-            $sql = "SELECT COUNT(*) FROM caches WHERE user_id='$user_id' AND status <> 2 AND status <> 3 AND status <> 4 AND status <> 5 AND status <> 6 AND type <> 6";
-            if ($odp = mysql_query($sql))
-                $hidden = mysql_result($odp, 0);
-            else
-                $hidden = 0;
-            $sql = "SELECT COUNT(*) FROM caches WHERE user_id='$user_id' AND status <> 4 AND status <> 5 AND status <> 6 AND type=6";
-            if ($odp = mysql_query($sql))
-                $hidden_event = mysql_result($odp, 0);
-            else
-                $hidden_event = 0;
-            $rscc2 = sql("SELECT cache_id, wp_oc, DATE_FORMAT(date_created,'%d-%m-%Y') data FROM caches WHERE status <> 4 AND status <> 5 AND status <> 6 AND user_id=&1 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`) ORDER BY YEAR(`date_created`) DESC, MONTH(`date_created`) DESC, DAY(`date_created`) DESC, HOUR(`date_created`) DESC LIMIT 1", $user_id);
-            $rcc2 = mysql_fetch_array($rscc2);
-            $rsc = sql("SELECT COUNT(*) number FROM caches WHERE status <> 4 AND status <> 5 AND user_id=&1 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`) ORDER BY number DESC LIMIT 1", $user_id);
-            $rc = sql_fetch_array($rsc);
-            $rsncd = sql("SELECT COUNT(*) FROM caches WHERE status <> 5 AND status <> 4 AND user_id=&1 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`)", $user_id);
-            $rsnca = sql("SELECT COUNT(*) FROM caches WHERE status <> 2 AND status <> 3 AND status <> 5 AND status <> 4 AND user_id=&1 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`)", $user_id);
-            $num_rows = mysql_num_rows($rsnca);
-            $num_rows = mysql_num_rows($rsncd);
+            $hidden = XDb::xMultiVariableQueryValue(
+                "SELECT COUNT(*) FROM caches
+                WHERE user_id=:1 AND status <> 2 AND status <> 3 AND status <> 4
+                    AND status <> 5 AND status <> 6 AND type <> 6",
+                0, $user_id);
+
+            $hidden_event = XDb::xMultiVariableQueryValue(
+                "SELECT COUNT(*) FROM caches WHERE user_id= :1 AND status <> 4 AND status <> 5 AND status <> 6 AND type=6",
+                0, $user_id);
+
+            $rscc2 = XDb::xSql(
+                "SELECT cache_id, wp_oc, DATE_FORMAT(date_created,'%d-%m-%Y') data FROM caches
+                WHERE status <> 4 AND status <> 5 AND status <> 6 AND user_id= ?
+                GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`)
+                ORDER BY YEAR(`date_created`) DESC, MONTH(`date_created`) DESC, DAY(`date_created`) DESC, HOUR(`date_created`) DESC LIMIT 1", $user_id);
+            $rcc2 = XDb::xFetchArray($rscc2);
+
+            $rcNumber = XDb::xMultiVariableQueryValue(
+                "SELECT COUNT(*) number FROM caches
+                WHERE status <> 4 AND status <> 5 AND user_id= :1
+                GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`)
+                ORDER BY number DESC LIMIT 1", 0, $user_id);
+
+            $num_rows = XDb::xMultiVariableQueryValue(
+                "SELECT COUNT(*) FROM caches
+                WHERE status <> 2 AND status <> 3 AND status <> 5 AND status <> 4 AND user_id= :1
+                GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`)", 0, $user_id);
+
             if ($ddays['diff'] != 0) {
                 $aver1 = round(($user_record['hidden_count'] / $ddays['diff']), 2);
             } else {
@@ -458,10 +480,14 @@ if ($error == false) {
                 $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;cachetype=1111101111&amp;searchbyowner=&amp;f_inactive=1&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
             }
 
-            $hidden_temp = sqlValue("SELECT COUNT(*) FROM `caches` WHERE status=2 AND `user_id`='" . sql_escape($user_id) . "'", 0);
+            $hidden_temp = XDb::xMultiVariableQueryValue(
+                "SELECT COUNT(*) FROM `caches` WHERE status=2 AND `user_id`= :1", 0, $user_id);
+
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('number_temp_caches') . ':  </span><strong>' . $hidden_temp . '</strong></p>';
 
-            $hidden_arch = sqlValue("SELECT COUNT(*) FROM `caches` WHERE status=3 AND type <> 6 AND `user_id`='" . sql_escape($user_id) . "'", 0);
+            $hidden_arch = XDb::xMultiVariableQueryValue(
+                "SELECT COUNT(*) FROM `caches` WHERE status=3 AND type <> 6 AND `user_id`= :1 ", 0, $user_id);
+
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('number_archived_caches') . ': </span><strong>' . $hidden_arch . '</strong></p>';
 
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('number_created_events') . ':  </span><strong>' . $hidden_event . '</strong>';
@@ -470,19 +496,28 @@ if ($error == false) {
             } else {
                 $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?searchto=searchbyowner&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;f_geokret=0&amp;country=&amp;cachetype=0000010000">' . tr('show') . '</a>]</p>';
             }
-            $recomendr = sqlValue("SELECT COUNT(*) FROM `cache_rating`, caches WHERE `cache_rating`.`cache_id`=`caches`.`cache_id` AND caches.type <> 6 AND `caches`.`user_id`='" . sql_escape($user_id) . "'", 0);
-            $recommend_caches = sqlValue("SELECT COUNT(*) FROM caches WHERE `caches`.`topratings` >= 1 AND caches.type <> 6 AND  `caches`.`user_id`='" . sql_escape($user_id) . "'", 0);
-            if ($recomendr != 0) {
+            $recomendr = XDb::xMultiVariableQueryValue(
+                "SELECT COUNT(*) FROM `cache_rating`, caches
+                WHERE `cache_rating`.`cache_id`=`caches`.`cache_id` AND caches.type <> 6
+                    AND `caches`.`user_id`= :1 ", 0, $user_id);
 
+            $recommend_caches = XDb::xMultiVariableQueryValue(
+                "SELECT COUNT(*) FROM caches
+                WHERE `caches`.`topratings` >= 1 AND caches.type <> 6 AND `caches`.`user_id`= :1 ", 0, $user_id);
+
+            if ($recomendr != 0) {
                 $ratio = sprintf("%u", ($recommend_caches / $total_owned_caches) * 100);
                 $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('number_obtain_recommendations') . ':</span> <strong>' . $recomendr . '</strong> ' . tr('for') . ' <strong>' . $recommend_caches . '</strong> ' . tr('_caches_') . ' &nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;cachetype=1111101111&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;cacherating=1">' . tr('show') . '</a>]</p>
 <p><span class="content-title-noshade txt-blue08">' . tr('ratio_recommendations') . ':</span> <strong>' . $ratio . '%</strong></p>';
             }
 
-            $numberGK_in_caches = sqlValue("SELECT count(*) FROM gk_item, gk_item_waypoint,caches
-                WHERE gk_item_waypoint.wp = caches.wp_oc AND
-                   gk_item.id = gk_item_waypoint.id AND
-                gk_item.stateid <> 1 AND gk_item.stateid <> 4 AND gk_item.stateid <> 5 AND gk_item.typeid <> 2 AND `caches`.`user_id`='" . sql_escape($user_id) . "'", 0);
+            $numberGK_in_caches = XDb::xMultiVariableQueryValue(
+                "SELECT count(*) FROM gk_item, gk_item_waypoint, caches
+                WHERE gk_item_waypoint.wp = caches.wp_oc
+                    AND gk_item.id = gk_item_waypoint.id AND gk_item.stateid <> 1
+                    AND gk_item.stateid <> 4 AND gk_item.stateid <> 5 AND gk_item.typeid <> 2
+                    AND `caches`.`user_id`= :1 ", 0, $user_id);
+
             if ($numberGK_in_caches != 0) {
                 $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('number_gk_in_caches') . ':</span> <strong>' . $numberGK_in_caches . '</strong></p>';
                 $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('days_caching') . ':</span> <strong>' . $num_rows . '</strong> ' . tr('from_total_days') . ': <strong>' . $ddays['diff'] . '</strong></p>';
@@ -490,81 +525,87 @@ if ($error == false) {
 
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('average_caches') . ':</span> <strong>' . sprintf("%u", $aver2) . '</strong></p>';
             //' . sprintf("%.1f",$aver1) . '</strong>/dzień
-            $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('most_caches_made_day') . ':</span> <strong>' . sprintf("%u", $rc['number']) . '</strong></p>';
+            $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('most_caches_made_day') . ':</span> <strong>' . sprintf("%u", $rcNumber) . '</strong></p>';
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('latest_created_cache') . ':</span>&nbsp;&nbsp;<strong><a class="links" href="viewcache.php?cacheid=' . $rcc2['cache_id'] . '">' . $rcc2['wp_oc'] . '</a>&nbsp;&nbsp;</strong>(' . $rcc2['data'] . ')</p>';
-            $content .= '<br /><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
 
-            $rsms = sql("SELECT cache_id, wp_oc, DATE_FORMAT(date_created,'%d-%m-%Y') data FROM caches WHERE user_id=&1 AND status <> 4 AND status <> 5 AND status <> 6 AND type <> 6 ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC, DAY(`date_created`) ASC, HOUR(`date_created`) ASC", $user_id);
-            $rms = mysql_fetch_array($rsms);
-            if (mysql_num_rows($rsms) < 101) {
-                for ($i = 0; $i <= mysql_num_rows($rsms); $i += 10) {
-                    $ii = $i;
-                    $is = $i - 1;
-                    if ($i == 0) {
-                        $ii = 1;
-                        $is = 0;
-                    }
-                    if ($is != 0)
-                        mysql_data_seek($rsms, $is);
-                    $rms = mysql_fetch_array($rsms);
-                    $content .= '<tr> <td>' . $ii . '</td><td>' . $rms['data'] . '</td><td><a class="links" href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['wp_oc'] . '</a></td></tr>';
+            if( $total_created_and_owned_caches >= 10 ){
+                $content .= '<br /><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
+
+                if( $total_created_and_owned_caches > 101 ){
+                    $milestone = 100;
+                }else {
+                    $milestone = 10;
                 }
-            }
-            if (mysql_num_rows($rsms) > 100) {
-                for ($i = 0; $i < mysql_num_rows($rsms); $i += 100) {
-                    $ii = $i;
-                    $is = $i - 1;
-                    if ($i == 0) {
-                        $ii = 1;
-                        $is = 0;
-                    }
-                    mysql_data_seek($rsms, $is);
 
-                    $rms = mysql_fetch_array($rsms);
-                    $content .= '<tr><td>' . $ii . '</td><td>' . $rms['data'] . '</td><td><a class="links" href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['wp_oc'] . '</a></td></tr>';
+                /*
+                 * I don't know why - probably this is a bug,
+                 * but without unset($rsms) query below don't return any results
+                 */
+                unset($rsms);
+                $rsms = XDb::xSql(
+                    "SET @r = 1;
+                    SELECT * FROM
+                    (
+                        SELECT *,@r:=@r+1 row FROM (
+
+                            SELECT cache_id, wp_oc, DATE_FORMAT(date_created,'%d-%m-%Y') data
+                            FROM caches
+                            WHERE user_id= ? AND status <> 4 AND status <> 5 AND status <> 6 AND type <> 6
+                            ORDER BY
+                                YEAR(`date_created`) ASC,
+                                MONTH(`date_created`) ASC,
+                                DAY(`date_created`) ASC,
+                                HOUR(`date_created`) ASC
+
+                        ) B
+                    ) A
+                    WHERE row % $milestone =1 ORDER BY row ASC", $user_id);
+
+                $rsms->nextRowset(); //to switch to second query results :)
+                while( $rms = XDb::xFetchArray($rsms)) {
+                    $content .= '<tr> <td>' . ($rms['row']-1) . '</td><td>' . $rms['data'] . '</td><td><a class="links" href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['wp_oc'] . '</a></td></tr>';
                 }
-            }
-            $content .= '</table>';
-            mysql_free_result($rsms);
-            mysql_free_result($rsncd);
-            mysql_free_result($rsc);
-            mysql_free_result($rscc2);
 
-            $rs_logs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
-                           cache_logs.type AS log_type,
-                           cache_logs.text AS log_text,
-                           DATE_FORMAT(cache_logs.date,'%d-%m-%Y') AS log_date,
-                           caches.name AS cache_name,
-                           caches.wp_oc AS wp_name,
-                           cache_logs.encrypt AS encrypt,
-                           caches.user_id AS cache_owner,
-                           cache_logs.user_id AS luser_id,
-                           user.username AS user_name,
-                           user.user_id AS user_id,
-                           caches.type AS cache_type,
-                           cache_type.icon_small AS cache_icon_small,
-                           log_types.icon_small AS icon_small,
-                              IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`, COUNT(gk_item.id) AS geokret_in
-    FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id))) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
-    LEFT JOIN   gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
-    LEFT JOIN   gk_item ON gk_item.id = gk_item_waypoint.id AND
-    gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5
-                      WHERE (caches.status=1 OR caches.status=2 OR caches.status=3) AND cache_logs.deleted=0 AND `caches`.`user_id`='&1'
-                            AND `cache_logs`.`cache_id`=`caches`.`cache_id`
-                            AND `user`.`user_id`=`cache_logs`.`user_id`
-                            GROUP BY cache_logs.id
-                       ORDER BY `cache_logs`.`date_created` DESC
+                $content .= '</table>';
+                XDb::xFreeResults($rsms);
+            } //$total_created_and_owned_caches > 0
+
+            XDb::xFreeResults($rscc2);
+
+            $rs_logs = XDb::xSql(
+                "SELECT cache_logs.id, cache_logs.cache_id AS cache_id, cache_logs.type AS log_type,
+                        cache_logs.text AS log_text, DATE_FORMAT(cache_logs.date,'%d-%m-%Y') AS log_date,
+                        caches.name AS cache_name, caches.wp_oc AS wp_name, cache_logs.encrypt AS encrypt,
+                        caches.user_id AS cache_owner, cache_logs.user_id AS luser_id, user.username AS user_name,
+                        user.user_id AS user_id, caches.type AS cache_type, cache_type.icon_small AS cache_icon_small,
+                        log_types.icon_small AS icon_small, IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
+                        COUNT(gk_item.id) AS geokret_in
+                FROM ((cache_logs
+                    INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)))
+                    INNER JOIN user ON (cache_logs.user_id = user.user_id)
+                    INNER JOIN log_types ON (cache_logs.type = log_types.id)
+                    INNER JOIN cache_type ON (caches.type = cache_type.id)
+                    LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id`
+                        AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
+                    LEFT JOIN gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
+                    LEFT JOIN gk_item ON gk_item.id = gk_item_waypoint.id
+                        AND gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5
+                    WHERE (caches.status=1 OR caches.status=2 OR caches.status=3) AND cache_logs.deleted=0 AND `caches`.`user_id`='&1'
+                        AND `cache_logs`.`cache_id`=`caches`.`cache_id`
+                        AND `user`.`user_id`=`cache_logs`.`user_id`
+                    GROUP BY cache_logs.id
+                    ORDER BY `cache_logs`.`date_created` DESC
                     LIMIT 5", $user_id);
 
-            if (mysql_num_rows($rs_logs) != 0) {
+            if (XDb::xNumRows($rs_logs) != 0) {
                 $content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08">' . tr('latest_logs_in_caches') . ':</span>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="mycaches_logs.php?userid=' . $user_id . '">' . tr('show_all') . '</a>] ';
                 if ($user_id == $usr['userid'] || $usr['admin']) {
                     $content .= '&nbsp;&nbsp;<a class="links" href="rss/mycaches_logs.xml?userid=' . $user_id . '"><img src=images/rss.gif alt="" /></a>';
                 }
 
                 $content .= '</p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">';
-                for ($i = 0; $i < mysql_num_rows($rs_logs); $i++) {
-                    $record_logs = sql_fetch_array($rs_logs);
+
+                while($record_logs = XDb::xFetchArray($rs_logs)){
 
                     $tmp_log = $cache_line_my_caches;
 
@@ -618,14 +659,16 @@ if ($error == false) {
 
                     $content .= "\n" . $tmp_log;
                 }
-                mysql_free_result($rs_logs);
+                XDb::xFreeResults($rs_logs);
                 $content .= '</ul></div><br />';
             }
         }
 
         //  ----------------- begin  owner section  ----------------------------------
         if ($user_id == $usr['userid'] || $usr['admin']) {
-            $rscheck = sqlValue("SELECT count(*) FROM caches WHERE (status = 4 OR status = 5 OR status = 6) AND `user_id`='" . sql_escape($user_id) . "'", 0);
+            $rscheck = XDb::xMultiVariableQueryValue(
+                "SELECT count(*) FROM caches
+                WHERE (status = 4 OR status = 5 OR status = 6) AND `user_id`= :1", 0, $user_id);
 
             if ($rscheck != 0) {
                 $content .= '<br /><div class="content-title-noshade box-blue">';
@@ -636,19 +679,22 @@ if ($error == false) {
             else
                 $lang_db = "en";
 
-            //get not published caches DATE_FORMAT(`caches`.`date_activate`,'%d-%m-%Y'),
-            $rs_caches1 = sql(" SELECT  `caches`.`cache_id`, `caches`.`name`, `caches`.`date_hidden`, `caches`.`date_activate`, `caches`.`status`, `cache_status`.`&1` AS `cache_status_text`, `caches`.`wp_oc` AS `wp_name`
-                        FROM `caches`, `cache_status`
-                        WHERE `user_id`='&2'
-                        AND `cache_status`.`id`=`caches`.`status`
-                        AND `caches`.`status` = 5
-                        ORDER BY `date_activate` DESC, `caches`.`date_created` DESC ", $lang_db, $user_id);
+            $eLang = XDb::xEscape($lang_db);
 
-            if (mysql_num_rows($rs_caches1) != 0) {
+            //get not published caches DATE_FORMAT(`caches`.`date_activate`,'%d-%m-%Y'),
+            $rs_caches1 = XDb::xSql(
+                "SELECT `caches`.`cache_id`, `caches`.`name`, `caches`.`date_hidden`, `caches`.`date_activate`,
+                        `caches`.`status`, `cache_status`.$eLang AS `cache_status_text`, `caches`.`wp_oc` AS `wp_name`
+                FROM `caches`, `cache_status`
+                WHERE `user_id`= ? AND `cache_status`.`id`=`caches`.`status`
+                    AND `caches`.`status` = 5
+                ORDER BY `date_activate` DESC, `caches`.`date_created` DESC ", $user_id);
+
+            if (XDb::xNumRows($rs_caches1) != 0) {
 
                 $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('not_yet_published') . ':</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
-                for ($i = 0; $i < mysql_num_rows($rs_caches1); $i++) {
-                    $record_caches = sql_fetch_array($rs_caches1);
+
+                while( $record_caches = XDb::xFetchArray($rs_caches1)){
 
                     $tmp_cache = $cache_notpublished_line;
 
@@ -664,7 +710,7 @@ if ($error == false) {
                     $tmp_cache = mb_ereg_replace('{wpname}', htmlspecialchars($record_caches['wp_name'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
                     $content .= "\n" . $tmp_cache;
                 }
-                mysql_free_result($rs_caches1);
+                XDb::xFreeResults($rs_caches1);
                 $content .= '</ul></div>';
             }
             //get waiting to approve caches by OC Team
@@ -674,19 +720,19 @@ if ($error == false) {
             else
                 $lang_db = "en";
 
-            $rs_caches2 = sql(" SELECT  `cache_id`, `name`, DATE_FORMAT(`date_hidden`,'%d-%m-%Y') AS `date`, `status`,
-                            `cache_status`.`id` AS `cache_status_id`, `cache_status`.`&1` AS `cache_status_text`, `caches`.`wp_oc` AS `wp_name`
-                        FROM `caches`, `cache_status`
-                        WHERE `user_id`='&2'
-                          AND `cache_status`.`id`=`caches`.`status`
-                          AND `caches`.`status` = 4
-                        ORDER BY `date_hidden` DESC, `caches`.`date_created` DESC", $lang_db, $user_id);
+            $eLang = XDb::xEscape($lang_db);
 
-            if (mysql_num_rows($rs_caches2) != 0) {
+            $rs_caches2 = XDb::xSql(" SELECT  `cache_id`, `name`, DATE_FORMAT(`date_hidden`,'%d-%m-%Y') AS `date`, `status`,
+                            `cache_status`.`id` AS `cache_status_id`, `cache_status`.$eLang AS `cache_status_text`, `caches`.`wp_oc` AS `wp_name`
+                        FROM `caches`, `cache_status`
+                        WHERE `user_id`= ? AND `cache_status`.`id`=`caches`.`status`
+                          AND `caches`.`status` = 4
+                        ORDER BY `date_hidden` DESC, `caches`.`date_created` DESC", $user_id);
+
+            if (XDb::xNumRows($rs_caches2) != 0) {
                 $content .= '<br /><p><span class="content-title-noshade txt-blue08">' . tr('caches_waiting_approve') . ':</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
 
-                for ($i = 0; $i < mysql_num_rows($rs_caches2); $i++) {
-                    $record_logs = sql_fetch_array($rs_caches2);
+                while( $record_logs = XDb::xFetchArray($rs_caches2) ){
 
                     $tmp_cache = $cache_line;
 
@@ -699,7 +745,7 @@ if ($error == false) {
 
                     $content .= "\n" . $tmp_cache;
                 }
-                mysql_free_result($rs_caches2);
+                XDb::xFreeResults($rs_caches2);
                 $content .= '</ul></div>';
             }
 
@@ -710,19 +756,19 @@ if ($error == false) {
             else
                 $lang_db = "en";
 
-            $rs_caches3 = sql(" SELECT  `cache_id`, `name`, DATE_FORMAT(`date_hidden`,'%d-%m-%Y') AS `date`, `status`,
-                            `cache_status`.`id` AS `cache_status_id`, `cache_status`.`&1` AS `cache_status_text`, `caches`.`wp_oc` AS `wp_name`
-                        FROM `caches`, `cache_status`
-                        WHERE `user_id`='&2'
-                          AND `cache_status`.`id`=`caches`.`status`
-                          AND `caches`.`status` = 6
-                        ORDER BY `date_hidden` DESC, `caches`.`date_created` DESC", $lang_db, $user_id);
+            $eLang = XDb::xEscape($lang_db);
 
-            if (mysql_num_rows($rs_caches3) != 0) {
+            $rs_caches3 = XDb::xSql(
+                "SELECT `cache_id`, `name`, DATE_FORMAT(`date_hidden`,'%d-%m-%Y') AS `date`, `status`,
+                        `cache_status`.`id` AS `cache_status_id`, `cache_status`.$eLang AS `cache_status_text`, `caches`.`wp_oc` AS `wp_name`
+                FROM `caches`, `cache_status`
+                WHERE `user_id`= ? AND `cache_status`.`id`=`caches`.`status` AND `caches`.`status` = 6
+                ORDER BY `date_hidden` DESC, `caches`.`date_created` DESC", $user_id);
+
+            if (XDb::xNumRows($rs_caches3) != 0) {
                 $content .= '<br /><p><span class="content-title-noshade txt-blue08">' . tr('caches_blocked') . ':</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
 
-                for ($i = 0; $i < mysql_num_rows($rs_caches3); $i++) {
-                    $record_logs = sql_fetch_array($rs_caches3);
+                while($record_logs = XDb::xFetchArray($rs_caches3)){
 
                     $tmp_cache = $cache_line;
 
@@ -734,7 +780,7 @@ if ($error == false) {
                     $tmp_cache = mb_ereg_replace('{wpname}', htmlspecialchars($record_logs['wp_name'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
                     $content .= "\n" . $tmp_cache;
                 }
-                mysql_free_result($rs_caches3);
+                XDb::xFreeResults($rs_caches3);
                 $content .= '</ul></div>';
             }
 
@@ -844,4 +890,4 @@ function adminNoteTable($results){
     }
     return $table;
 }
-?>
+

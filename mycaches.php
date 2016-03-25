@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Database\XDb;
+use Utils\Database\OcDb;
 global $lang, $rootpath, $usr, $dateFormat;
 
 if (!isset($rootpath))
@@ -93,24 +95,41 @@ if ($error == false) {
         else
             $lang_db = "en";
 
-        $rs_stat = sqlValue("SELECT cache_status.$lang_db  FROM cache_status WHERE `cache_status`.`id` = '$stat_cache'", 0);
+        $eLang = XDb::xEscape($lang_db);
+
+        $rs_stat = XDb::xMultiVariableQueryValue(
+            "SELECT cache_status.$eLang FROM cache_status WHERE `cache_status`.`id` = :1 ", 0, $stat_cache);
         tpl_set_var('cache_stat', $rs_stat);
-        $ran = sqlValue("SELECT count(cache_id) FROM caches WHERE `caches`.`status` = '1' AND `caches`.`user_id`=$user_id", 0);
+
+        $ran = XDb::xMultiVariableQueryValue(
+            "SELECT count(cache_id) FROM caches WHERE `caches`.`status` = '1' AND `caches`.`user_id`= :1 ", 0, $user_id);
         tpl_set_var('activeN', $ran);
-        $run = sqlValue("SELECT count(cache_id) FROM caches WHERE `caches`.`status` = '2' AND `caches`.`user_id`=$user_id", 0);
+
+        $run = XDb::xMultiVariableQueryValue(
+            "SELECT count(cache_id) FROM caches WHERE `caches`.`status` = '2' AND `caches`.`user_id`= :1", 0, $user_id);
         tpl_set_var('unavailableN', $run);
-        $rarn = sqlValue("SELECT count(cache_id) FROM caches WHERE `caches`.`status` = '3' AND `caches`.`user_id`=$user_id", 0);
+
+        $rarn = XDb::xMultiVariableQueryValue(
+            "SELECT count(cache_id) FROM caches WHERE `caches`.`status` = '3' AND `caches`.`user_id`= :1 ", 0, $user_id);
         tpl_set_var('archivedN', $rarn);
-        $rnpn = sqlValue("SELECT count(cache_id) FROM caches WHERE `caches`.`status` = '5' AND `caches`.`user_id`=$user_id", 0);
+
+        $rnpn = XDb::xMultiVariableQueryValue(
+            "SELECT count(cache_id) FROM caches WHERE `caches`.`status` = '5' AND `caches`.`user_id`= :1 ", 0, $user_id);
         tpl_set_var('notpublishedN', $rnpn);
-        $rapn = sqlValue("SELECT count(cache_id) FROM caches WHERE `caches`.`status` = '4' AND `caches`.`user_id`=$user_id", 0);
+
+        $rapn = XDb::xMultiVariableQueryValue(
+            "SELECT count(cache_id) FROM caches WHERE `caches`.`status` = '4' AND `caches`.`user_id`= :1", 0, $user_id);
         tpl_set_var('approvalN', $rapn);
-        $rbln = sqlValue("SELECT count(cache_id) FROM caches WHERE `caches`.`status` = '6' AND `caches`.`user_id`=$user_id", 0);
+
+        $rbln = XDb::xMultiVariableQueryValue(
+            "SELECT count(cache_id) FROM caches WHERE `caches`.`status` = '6' AND `caches`.`user_id`=:1", 0, $user_id);
         tpl_set_var('blockedN', $rbln);
 
         $LOGS_PER_PAGE = 50;
         $PAGES_LISTED = 10;
-        $total_logs = sqlValue("SELECT count(cache_id) FROM caches WHERE `caches`.`status` = '$stat_cache' AND `caches`.`user_id`=$user_id", 0);
+        $total_logs = XDb::xMultiVariableQueryValue(
+            "SELECT count(cache_id) FROM caches WHERE `caches`.`status` = :1 AND `caches`.`user_id`= :2 ", 0, $stat_cache, $user_id);
+
         $pages = "";
         $total_pages = ceil($total_logs / $LOGS_PER_PAGE);
         if (!isset($_GET['start']) || intval($_GET['start']) < 0 || intval($_GET['start']) > $total_logs)
@@ -221,25 +240,21 @@ if ($error == false) {
             GROUP BY `caches`.`cache_id`
             ORDER BY `$sort_warunek` $sort_txt
             LIMIT " . intval($start) . ", " . intval($LOGS_PER_PAGE);
-        //$params['v1']['value'] = (string) $lang_db;;
-        //$params['v1']['data_type'] = 'string';
+
         $params['user_id']['value'] = (integer) $user_id;
-        ;
         $params['user_id']['data_type'] = 'integer';
         $params['stat_cache']['value'] = (integer) $stat_cache;
-        ;
         $params['stat_cache']['data_type'] = 'integer';
 
         if (!isset($dbc)) {
-            $dbc = new dataBase();
+            $dbc = OcDb::instance();
         };
         $dbc->paramQuery($caches_query, $params);
         unset($params);
         $log_record_all = $dbc->dbResultFetchAll();
-
         $log_record_count = count($log_record_all);
         $file_content = '';
-        //while ($log_record=sql_fetch_assoc($rs))
+
         //prepare second queryt
         $logs_query = "
             SELECT
@@ -293,14 +308,7 @@ if ($error == false) {
                 $tabelka .= intval($dni) . ' ' . tr('days_ago');
             $tabelka .= '&nbsp;</td>';
 
-            /* $rs_logs = sql("SELECT cache_logs.id,  cache_logs.type AS log_type, cache_logs.text AS log_text, DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
-              caches.user_id AS cache_owner, cache_logs.encrypt encrypt, cache_logs.user_id AS luser_id, user.username AS user_name,
-              user.user_id AS user_id, log_types.icon_small AS icon_small, datediff(now(),`cache_logs`.`date_created`) as `ilosc_dni`
-              FROM cache_logs JOIN caches USING (cache_id) JOIN user ON (cache_logs.user_id=user.user_id) JOIN log_types ON (cache_logs.type = log_types.id)
-              WHERE cache_logs.deleted=0 AND `cache_logs`.`cache_id`='&1' ORDER BY `cache_logs`.`date_created` DESC LIMIT 5", $log_record['cache_id']); */
-
             $params['v1']['value'] = (integer) $log_record['cache_id'];
-            ;
             $params['v1']['data_type'] = 'integer';
             $dbc->paramQuery($logs_query, $params);
 
@@ -311,7 +319,6 @@ if ($error == false) {
             $log_entries_all = $dbc->dbResultFetchAll();
             $log_entries_count = count($log_entries_all);
 
-            //while ($logs=sql_fetch_assoc($rs_logs))
             for ($yy = 0; $yy < $log_entries_count; $yy++) {
                 $logs = $log_entries_all [$yy];
                 $tabelka .= '<a class="links" href="viewlogs.php?logid=' . htmlspecialchars($logs['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
@@ -392,4 +399,3 @@ if ($error == false) {
 }
 //make the template and send it out
 tpl_BuildTemplate();
-?>

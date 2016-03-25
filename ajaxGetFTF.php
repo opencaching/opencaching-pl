@@ -1,9 +1,10 @@
 <?php
 
+use Utils\Database\OcDb;
 require_once __DIR__ . '/lib/ClassPathDictionary.php';
 
 $userId = (int) $_REQUEST['id'];
-$database = \lib\Database\DataBaseSingleton::Instance();
+$database = OcDb::instance();
 $ftfQuery = 'SELECT clftf.cache_id, caches.name, clftf.date
 FROM (
     SELECT cache_logs.cache_id, MIN(cache_logs.date) AS date, cache_logs.user_id
