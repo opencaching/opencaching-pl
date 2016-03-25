@@ -274,7 +274,7 @@ if ($error == false) {
             }
 
 
-            if( $found > 10 ){
+            if( $found >= 10 ){
                 $content .= '<br /><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
 
                 if( $found > 101 ){
@@ -528,7 +528,7 @@ if ($error == false) {
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('most_caches_made_day') . ':</span> <strong>' . sprintf("%u", $rcNumber) . '</strong></p>';
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('latest_created_cache') . ':</span>&nbsp;&nbsp;<strong><a class="links" href="viewcache.php?cacheid=' . $rcc2['cache_id'] . '">' . $rcc2['wp_oc'] . '</a>&nbsp;&nbsp;</strong>(' . $rcc2['data'] . ')</p>';
 
-            if( $total_created_and_owned_caches > 10 ){
+            if( $total_created_and_owned_caches >= 10 ){
                 $content .= '<br /><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
 
                 if( $total_created_and_owned_caches > 101 ){
@@ -537,6 +537,11 @@ if ($error == false) {
                     $milestone = 10;
                 }
 
+                /*
+                 * I don't know why - probably this is a bug,
+                 * but without unset($rsms) query below don't return any results
+                 */
+                unset($rsms);
                 $rsms = XDb::xSql(
                     "SET @r = 1;
                     SELECT * FROM
