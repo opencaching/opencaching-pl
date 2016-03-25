@@ -630,7 +630,7 @@
             <td><div class="notice" style="width:500px;height:44px">{{time_distance_hint}}</div><div class="buffer"></div></td>
         </tr>
         <tr>
-            <td><p class="content-title-noshade">{{waypoint}} ({{optional}}):</p></td>
+            <td><p class="content-title-noshade">{{foreign_waypoint}} ({{optional}}):</p></td>
             <td>
                 Geocaching.com: &nbsp;&nbsp;<input type="text" name="wp_gc" value="{wp_gc}" maxlength="7" class="input50"/>
                 Navicache.com: &nbsp;<input type="text" name="wp_nc" value="{wp_nc}" maxlength="6" class="input50"/><br/>
@@ -641,7 +641,7 @@
         </tr>
         <tr>
             <td>&nbsp;</td>
-            <td><div class="notice" style="width:500px;height:44px;">{{waypoint_other_portal_info}}</div><div class="buffer"></div></td>
+            <td><div class="notice" style="width:500px;height:44px;">{{foreign_waypoint_info}}</div><div class="buffer"></div></td>
         </tr>
         <tr>
             <td colspan="2"><div class="content2-container bg-blue02">

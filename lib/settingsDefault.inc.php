@@ -136,3 +136,5 @@ $config['limits']['image']['pixels_text'] = '640 x 480';
 $config['limits']['image']['extension'] = ';jpg;jpeg;gif;png;';
 $config['limits']['image']['extension_text'] = 'JPG, PNG, GIF';
 
+// Minimum distance between caches (physical containers) in meters
+$config['oc']['limits']['proximity'] = 150;
