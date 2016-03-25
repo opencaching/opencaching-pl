@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 
 $tplname = 'region';
@@ -44,14 +45,16 @@ if ($dblink === false) {
 
 $sCode = '';
 
-$rsLayers = sql("SELECT `level`, `code`, AsText(`shape`) AS `geometry` FROM `nuts_layer` WHERE WITHIN(GeomFromText('&1'), `shape`) ORDER BY `level` DESC", 'POINT(' . $lon . ' ' . $lat . ')');
-while ($rLayers = mysql_fetch_assoc($rsLayers)) {
+$rsLayers = XDb::xSql(
+    "SELECT `level`, `code`, AsText(`shape`) AS `geometry` FROM `nuts_layer`
+    WHERE WITHIN(GeomFromText( ? ), `shape`) ORDER BY `level` DESC", 'POINT(' . $lon . ' ' . $lat . ')');
+while ($rLayers = XDb::xFetchArray($rsLayers)) {
     if (gis::ptInLineRing($rLayers['geometry'], 'POINT(' . $lon . ' ' . $lat . ')')) {
         $sCode = $rLayers['code'];
         break;
     }
 }
-mysql_free_result($rsLayers);
+XDb::xFreeResults($rsLayers);
 
 
 if ($sCode != '') {
@@ -69,19 +72,22 @@ if ($sCode != '') {
 
     if (mb_strlen($sCode) == 5) {
         $code4 = $sCode;
-        $adm4 = sqlValue("SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'", 0);
+        $adm4 = XDb::xMultiVariableQueryValue(
+            "SELECT `name` FROM `nuts_codes` WHERE `code`=:1", 0, $sCode);
         $sCode = mb_substr($sCode, 0, 4);
     }
 
     if (mb_strlen($sCode) == 4) {
         $code3 = $sCode;
-        $adm3 = sqlvalue("SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'", 0);
+        $adm3 = XDb::xMultiVariableQueryValue(
+            "SELECT `name` FROM `nuts_codes` WHERE `code`= :1", 0, $sCode);
         $sCode = mb_substr($sCode, 0, 3);
     }
 
     if (mb_strlen($sCode) == 3) {
         $code2 = $sCode;
-        $adm2 = sqlvalue("SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'", 0);
+        $adm2 = XDb::xMultiVariableQueryValue(
+            "SELECT `name` FROM `nuts_codes` WHERE `code`= :1", 0, $sCode);
         $sCode = mb_substr($sCode, 0, 2);
     }
 
@@ -93,13 +99,16 @@ if ($sCode != '') {
         else
             $lang_db = "en";
 
+        $eLang = XDb::xEscape($lang_db);
+
         // try to get localised name first
-        $adm1 = sqlvalue("SELECT `countries`.`$lang`
-                     FROM `countries`
-                    WHERE `countries`.`short`='$sCode'", 0);
+        $adm1 = XDb::xMultiVariableQueryValue(
+            "SELECT `countries`.`$eLang` FROM `countries`
+            WHERE `countries`.`short`= :1 ", 0, $sCode);
 
         if ($adm1 == null)
-            $adm1 = sqlvalue("SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'", 0);
+            $adm1 = XDb::xMultiVariableQueryValue(
+                "SELECT `name` FROM `nuts_codes` WHERE `code`= :1 ", 0, $sCode);
     }
     tpl_set_var('country', $adm1);
     tpl_set_var('region', $adm3);
@@ -129,4 +138,3 @@ if (isset($jsondata['status']) && strtoupper($jsondata['status']) == 'OK') {
 //          tpl_set_var('region_gm', $loc['woj']);
 //make the template and send it out
 tpl_BuildTemplate();
-?>
