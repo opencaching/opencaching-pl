@@ -1,17 +1,11 @@
 <?php
+/**
+ * This script publishes the cache if its activation_date was set
+ */
 
-/* * *************************************************************************
-
-  Ggf. muss die Location des php-Binaries angepasst werden.
-
-  Prueft auf wartende Caches, deren Veröffentlichungszeitpunkt
-  gekommen ist und veröffentlicht sie.
-
- * ************************************************************************* */
-//ini_set ('display_errors', On);
+use Utils\Database\XDb;
 
 $rootpath = '../../';
-require_once($rootpath . 'lib/clicompatbase.inc.php');
 require_once('settings.inc.php');
 require_once($rootpath . 'lib/eventhandler.inc.php');
 
@@ -23,22 +17,24 @@ if ($dblink === false) {
 }
 /* end db connect */
 
-$rsPublish = sql("  SELECT `cache_id`, `user_id`
+$rsPublish = XDb::xSql(
+                "SELECT `cache_id`, `user_id`
                 FROM `caches`
                 WHERE `status` = 5
+                  AND `date_activate` != 0
                   AND `date_activate` <= NOW()");
 
-while ($rPublish = sql_fetch_array($rsPublish)) {
+while ($rPublish = XDb::xFetchArray($rsPublish)) {
     $userid = $rPublish['user_id'];
     $cacheid = $rPublish['cache_id'];
 
     // update cache status to active
-    sql("UPDATE `caches` SET `status`=1, `date_activate`=NULL, `last_modified`=NOW() WHERE `cache_id`='&1'", $cacheid);
+    XDb::xSql("UPDATE `caches` SET `status`=1, `date_activate`=NULL, `last_modified`=NOW() WHERE `cache_id`= ? ", $cacheid);
 
     // send events
     touchCache($cacheid);
     event_new_cache($userid);
     event_notify_new_cache($cacheid);
 }
-mysql_free_result($rsPublish);
-?>
+XDb::xFreeResults($rsPublish);
+
