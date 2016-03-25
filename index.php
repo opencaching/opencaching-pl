@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Database\XDb;
+use Utils\Database\OcDb;
 global $usr;
 
 if(isset($_REQUEST['ocController']) && $_REQUEST['ocController'] == 1) {
@@ -23,30 +25,32 @@ if ($error == false) {
 
     // news
     require($stylepath . '/news.inc.php');
-    $newscontent = '<div class="line-box">';
-    $rs = sql('SELECT `news`.`date_posted` `date`, `news`.`content` `content` FROM `news` WHERE datediff(now(), news.date_posted) <= 31 AND `news`.`display`=1 AND `news`.`topic`=2 ORDER BY `news`.`date_posted` DESC LIMIT 4');
 
-    if (mysql_num_rows($rs) != 0) {
-        $newscontent .= $tpl_newstopic_header;
-    }
-
-    while ($r = sql_fetch_array($rs)) {
-        $news = '<div class="logs" style="width: 750px;">' . $tpl_newstopic_without_topic;
-        $post_date = strtotime($r['date']);
-        $news = mb_ereg_replace('{date}', fixPlMonth(htmlspecialchars(strftime("%d %B %Y", $post_date), ENT_COMPAT, 'UTF-8')), $news);
-        $news = mb_ereg_replace('{message}', $r['content'], $news);
-        $newscontent .= $news . "</div>\n";
-    }
-    $newscontent .= "</div>\n";
-    if (mysql_num_rows($rs) != 0) {
-        tpl_set_var('display_news', $newscontent);
-    } else {
-
-        tpl_set_var('display_news', '');
-    }
-
-    mysql_free_result($rs);
     $newscontent = '';
+
+    $rs = XDb::xSql(
+        'SELECT `news`.`date_posted` `date`, `news`.`content` `content` FROM `news`
+        WHERE datediff(now(), news.date_posted) <= 31 AND `news`.`display`=1 AND `news`.`topic`=2
+        ORDER BY `news`.`date_posted` DESC
+        LIMIT 4');
+
+    if ($r = XDb::xFetchArray($rs)) {
+        $newscontent = '<div class="line-box">';
+        $newscontent .= $tpl_newstopic_header;
+
+        do{
+            $news = '<div class="logs" style="width: 750px;">' . $tpl_newstopic_without_topic;
+            $post_date = strtotime($r['date']);
+            $news = mb_ereg_replace('{date}', fixPlMonth(htmlspecialchars(strftime("%d %B %Y", $post_date), ENT_COMPAT, 'UTF-8')), $news);
+            $news = mb_ereg_replace('{message}', $r['content'], $news);
+            $newscontent .= $news . "</div>\n";
+        }while ($r = XDb::xFetchArray($rs));
+
+        $newscontent .= "</div>\n";
+    }
+    tpl_set_var('display_news', $newscontent);
+
+    XDb::xFreeResults($rs);
 
     global $dynstylepath;
     include ($dynstylepath . "totalstats.inc.php");
@@ -77,7 +81,7 @@ else
 
 $usrid = -1;
 $TitledCaches="";
-$dbc= new dataBase();
+$dbc= OcDb::instance();
 
 if ( $usr != false )
     $usrid = $usr['userid'];
@@ -85,20 +89,17 @@ if ( $usr != false )
 $query = "SELECT caches.cache_id, caches.name cacheName, adm1 cacheCountry, adm3 cacheRegion, caches.type cache_type,
         caches.user_id, user.username userName, cache_titled.date_alg, cache_logs.text, cache_desc.short_desc,
         logUser.user_id logUserId, logUser.username logUserName
-FROM cache_titled
-JOIN caches ON cache_titled.cache_id = caches.cache_id
-LEFT JOIN cache_desc ON caches.cache_id = cache_desc.cache_id and language=:1
-JOIN cache_location ON caches.cache_id = cache_location.cache_id
-JOIN user ON caches.user_id = user.user_id
-
-JOIN cache_logs ON cache_logs.id = cache_titled.log_id
-JOIN user logUser ON logUser.user_id = cache_logs.user_id
-
-ORDER BY date_alg DESC
-LIMIT 1";
+        FROM cache_titled
+            JOIN caches ON cache_titled.cache_id = caches.cache_id
+            LEFT JOIN cache_desc ON caches.cache_id = cache_desc.cache_id and language=:1
+            JOIN cache_location ON caches.cache_id = cache_location.cache_id
+            JOIN user ON caches.user_id = user.user_id
+            JOIN cache_logs ON cache_logs.id = cache_titled.log_id
+            JOIN user logUser ON logUser.user_id = cache_logs.user_id
+        ORDER BY date_alg DESC
+        LIMIT 1";
 
 $dbc->multiVariableQuery($query, $lang);
-
 
 $pattern = "<br><span style='font-size:13px'><img src='{cacheIcon}' class='icon16' alt='Cache' title='Cache' />
         <a href='viewcache.php?cacheid={cacheId}'><b>{cacheName}</b></a></span>
@@ -114,9 +115,6 @@ $pattern = "<br><span style='font-size:13px'><img src='{cacheIcon}' class='icon1
                 <tr><td>{logText}
                 <br><br><img src='images/rating-star.png'/> Autor: <a href='viewprofile.php?userid={logUserId}'><b>{logUserName}<b></a></td></tr>
         </table>";
-
-
-
 
 for( $i=0; $i<$dbc->rowCount(); $i++)
 {
@@ -136,16 +134,13 @@ for( $i=0; $i<$dbc->rowCount(); $i++)
    $line = mb_ereg_replace('{logUserId}', $rec[ "logUserId" ], $line );
    $line = mb_ereg_replace('{logUserName}', $rec[ "logUserName" ], $line );
 
-
    $text = mb_ereg_replace( '<p>', '', $rec[ "text" ]);
    $text = mb_ereg_replace( '</p>', '<br>', $text );
 
    $line = mb_ereg_replace('{logText}', $text, $line );
 
-
    $TitledCaches .= $line;
 }
-
 
 $is_titled = ( $dbc->rowCount()? '1' : '0' );
 if ($is_titled == '0' ) $TitledCaches = '';
@@ -157,7 +152,3 @@ unset( $dbc );
 
 //make the template and send it out
 tpl_BuildTemplate(false);
-
-//not neccessary, call tpl_BuildTemplate with true as argument and the db will be closed there
-db_disconnect();
-?>
