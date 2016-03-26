@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 
 $tplname = 'event_attendance';
@@ -13,25 +14,26 @@ tpl_set_var('owner', '');
 tpl_set_var('cachename', '');
 tpl_set_var('event_date', '');
 
-// id gesetzt?
 
 $cache_id = isset($_REQUEST['id']) ? $_REQUEST['id'] + 0 : 0;
 if ($cache_id != 0) {
-    $rs = sql("SELECT `caches`.`name`, `user`.`username`, `caches`.`date_hidden`
-               FROM `caches`
-               INNER JOIN `user` ON (`user`.`user_id`=`caches`.`user_id`)
-               WHERE `caches`.`cache_id`='&1'", $cache_id);
+    $rs = XDb::xSql(
+            "SELECT `caches`.`name`, `user`.`username`, `caches`.`date_hidden`
+            FROM `caches`
+            INNER JOIN `user` ON (`user`.`user_id`=`caches`.`user_id`)
+            WHERE `caches`.`cache_id`= ? LIMIT 1", $cache_id);
 
-//  $rr = sql("SELECT DATE_FORMAT(`caches`.`date_hidden`,'%Y%m%d') `date_hidden`, DATE_FORMAT(CURDATE(),'%Y%m%d') `date_current` FROM `caches` WHERE `caches`.`cache_id`='&1'", $cache_id);
+    $rr = XDb::xSql(
+        "SELECT `caches`.`date_hidden` `date_hidden`, CURDATE() `date_current`
+        FROM `caches` WHERE `caches`.`cache_id`=? LIMIT 1", $cache_id);
 
-    $rr = sql("SELECT `caches`.`date_hidden` `date_hidden`, CURDATE() `date_current` FROM `caches` WHERE `caches`.`cache_id`='&1'", $cache_id);
+    $dd = XDb::xFetchArray($rr);
 
-    $dd = sql_fetch_array($rr);
     $v1 = strtotime($dd['date_hidden']);
     $v2 = strtotime($dd['date_current']);
-    if ("$v1" < "$v2") {
 
-        if ($r = sql_fetch_array($rs)) {
+    if ("$v1" < "$v2") {
+        if ($r = XDb::xFetchArray($rs)) {
             tpl_set_var('nocacheid_start', '');
             tpl_set_var('nocacheid_end', '');
 
@@ -41,23 +43,23 @@ if ($cache_id != 0) {
         }
 
         // log_type 8 will attended, 7 attended
-
-        $rs = sql("SELECT DISTINCT `user`.`username`
-               FROM `cache_logs`
-               INNER JOIN `user` ON (`user`.`user_id`=`cache_logs`.`user_id`)
-               WHERE `cache_logs`.`type`=7
-                    AND `cache_logs`.`deleted`=0
-                AND `cache_logs`.`cache_id`='&1'
-               ORDER BY `user`.`username`", $cache_id);
+        $rs = XDb::xSql(
+            "SELECT DISTINCT `user`.`username`
+            FROM `cache_logs`
+            INNER JOIN `user` ON (`user`.`user_id`=`cache_logs`.`user_id`)
+            WHERE `cache_logs`.`type`=7
+                AND `cache_logs`.`deleted`=0
+                AND `cache_logs`.`cache_id`=?
+            ORDER BY `user`.`username`", $cache_id);
 
         $attendants = '';
         $count = 0;
-        while ($r = sql_fetch_array($rs)) {
+        while ($r = XDb::xFetchArray($rs)) {
             $attendants .= $r['username'] . '<br />';
             $count++;
         }
     } else {
-        if ($r = sql_fetch_array($rs)) {
+        if ($r = XDb::xFetchArray($rs)) {
             tpl_set_var('nocacheid_start', '');
             tpl_set_var('nocacheid_end', '');
 
@@ -68,16 +70,17 @@ if ($cache_id != 0) {
 
         // log_type 8 will attended, 7 attended
 
-        $rs = sql("SELECT DISTINCT `user`.`username`
+        $rs = XDb::xSql(
+               "SELECT DISTINCT `user`.`username`
                FROM `cache_logs`
                INNER JOIN `user` ON (`user`.`user_id`=`cache_logs`.`user_id`)
                WHERE `cache_logs`.`type`=8
                     AND `cache_logs`.`deleted`=0
-                AND `cache_logs`.`cache_id`='&1'
+                    AND `cache_logs`.`cache_id`= ?
                ORDER BY `user`.`username`", $cache_id);
         $attendants = '';
         $count = 0;
-        while ($r = sql_fetch_array($rs)) {
+        while ($r = XDb::xFetchArray($rs)) {
             $attendants .= $r['username'] . '<br />';
             $count++;
         }
@@ -88,4 +91,3 @@ if ($cache_id != 0) {
 
 //make the template and send it out
 tpl_BuildTemplate();
-?>
