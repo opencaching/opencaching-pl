@@ -4,7 +4,7 @@ global $content, $bUseZip, $sqldebug, $dbcSearch, $lang;
 
 $encoding = 'UTF-8';
 $distance_unit = 'km';
-$xmlLine = "    <cache>
+$xmlLine = chr(239) . chr(187) . chr(191) ."    <cache>
         <name><![CDATA[{mod_suffix}{cachename}]]></name>
         <owner><![CDATA[{owner}]]></owner>
         <id>{cacheid}</id>
