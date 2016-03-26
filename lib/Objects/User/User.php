@@ -2,8 +2,8 @@
 namespace lib\Objects\User;
 
 use \lib\Controllers\MedalsController;
-use \lib\Database\DataBaseSingleton;
-
+use Utils\Database\OcDb;
+use lib\Objects\GeoCache\GeoCache;
 use lib\Controllers\Php7Handler;
 
 /**
@@ -25,6 +25,8 @@ class User extends \lib\Objects\BaseObject
 
     private $hiddenGeocachesCount;
 
+    private $logNotesCount;
+
     private $email;
 
     /* @var $homeCoordinates \lib\Objects\Coordinates\Coordinates */
@@ -38,7 +40,23 @@ class User extends \lib\Objects\BaseObject
 
     private $ingnoreGeocacheLimitWhileCreatingNewGeocache = false;
 
-    private $log_notes_count;
+    /* @var $powerTrailCompleted \ArrayObject() */
+    private $powerTrailCompleted = null;
+
+    /* @var $powerTrailOwed \ArrayObject() */
+    private $powerTrailOwed = null;
+
+    /* @var $geocaches \ArrayObject() */
+    private $geocaches = null;
+
+    /* @var $geocachesNotPublished \ArrayObject() */
+    private $geocachesNotPublished = null;
+
+    /* @var $geocachesWaitAproove \ArrayObject() */
+    private $geocachesWaitAproove = null;
+
+    /* @var $geocachesBlocked \ArrayObject() */
+    private $geocachesBlocked = null;
 
     /**
      * construct class using $userId (fields will be loaded from db)
@@ -66,7 +84,7 @@ class User extends \lib\Objects\BaseObject
 
     public function loadExtendedSettings()
     {
-        $db = DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $queryById = "SELECT `newcaches_no_limit` AS ingnoreGeocacheLimitWhileCreatingNewGeocache "
                    . "FROM `user_settings` WHERE `user_id` = :1 LIMIT 1";
         $db->multiVariableQuery($queryById, $this->userId);
@@ -112,7 +130,7 @@ class User extends \lib\Objects\BaseObject
 
     private function loadDataFromDb($fields = null)
     {
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = OcDb::instance();
 
         if (is_null($fields)) {
             // default user fields
@@ -174,7 +192,7 @@ class User extends \lib\Objects\BaseObject
                     $this->isGuide = Php7Handler::Boolval($value);
                     break;
                 case 'log_notes_count':
-                    $this->log_notes_count = $value;
+                    $this->logNotesCount = $value;
                     break;
                 default:
                     error_log(__METHOD__ . ": Unknown column: $key");
@@ -193,7 +211,7 @@ class User extends \lib\Objects\BaseObject
 
     public function loadMedalsFromDb()
     {
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $query = 'SELECT `medal_type`, `prized_time`, `medal_level` FROM `medals` WHERE `user_id`=:1';
         $db->multiVariableQuery($query, $this->userId);
         $medalsDb = $db->dbResultFetchAll();
@@ -225,7 +243,7 @@ class User extends \lib\Objects\BaseObject
                 `log_notes_count`= (SELECT count(*) FROM `cache_logs` WHERE `user_id` =:1 AND TYPE =3 AND `deleted` =0 )
             WHERE `user_id` =:1
         ";
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $db->multiVariableQuery($query, $this->userId);
         $db->reset();
         $selectQuery = 'SELECT `founds_count`, `notfounds_count`, `log_notes_count` FROM  `user` WHERE `user_id` =:1';
@@ -302,6 +320,122 @@ class User extends \lib\Objects\BaseObject
         return $this->isGuide;
     }
 
+    /**
+     * get all PowerTrails user completed
+     * @return \ArrayObject
+     */
+    public function getPowerTrailCompleted()
+    {
+        if($this->powerTrailCompleted === null) {
+            $this->powerTrailCompleted = new \ArrayObject();
+            $queryPtList = 'SELECT * FROM `PowerTrail` WHERE `id` IN (SELECT `PowerTrailId` FROM `PowerTrail_comments` WHERE `commentType` =2 AND `deleted` =0 AND `userId` =:1 ORDER BY `logDateTime` DESC)';
+            $db = OcDb::instance();
+            $db->multiVariableQuery($queryPtList, $this->userId);
+            $ptList = $db->dbResultFetchAll();
+            foreach ($ptList as $ptRow) {
+                $this->powerTrailCompleted->append(new \lib\Objects\PowerTrail\PowerTrail(array('dbRow' => $ptRow)));
+            }
+        }
+        return $this->powerTrailCompleted;
+    }
 
+    /**
+     * get all PowerTrails user own
+     * @return \ArrayObject
+     */
+    public function getPowerTrailOwed()
+    {
+        if($this->powerTrailOwed === null) {
+            $this->powerTrailOwed = new \ArrayObject();
+            $query = "SELECT * FROM `PowerTrail`, PowerTrail_owners WHERE  PowerTrail_owners.userId = :1 AND PowerTrail_owners.PowerTrailId = PowerTrail.id";
+            $db = OcDb::instance();
+            $db->multiVariableQuery($query, $this->userId);
+            $ptList = $db->dbResultFetchAll();
+            foreach ($ptList as $ptRow) {
+                $this->powerTrailOwed->append(new \lib\Objects\PowerTrail\PowerTrail(array('dbRow' => $ptRow)));
+            }
+        }
+        return $this->powerTrailOwed;
+    }
+
+    public function getGeocaches()
+    {
+        if($this->geocaches === null){
+            $this->geocaches = new \ArrayObject;
+//            $db = DataBaseSingleton::Instance();
+
+            $db = OcDb::instance();
+            $query = "SELECT * FROM `caches` where `user_id` = :1 ";
+            $db->multiVariableQuery($query, $this->userId);
+            foreach ($db->dbResultFetchAll() as $geocacheRow) {
+                $geocache = new GeoCache();
+                $geocache->loadFromRow($geocacheRow);
+                $this->geocaches->append($geocache);
+                if($geocache->getStatus() === GeoCache::STATUS_NOTYETAVAILABLE){
+                    $this->appendNotPublishedGeocache($geocache);
+                }
+                if($geocache->getStatus() === GeoCache::STATUS_WAITAPPROVERS){
+                    $this->appendWaitAprooveGeocache($geocache);
+                }
+                if($geocache->getStatus() === GeoCache::STATUS_BLOCKED){
+                    $this->appendBlockedGeocache($geocache);
+                }
+            }
+        }
+        return $this->geocaches;
+    }
+
+    public function appendNotPublishedGeocache(GeoCache $geocache)
+    {
+        if($this->geocachesNotPublished === null){
+            $this->geocachesNotPublished = new \ArrayObject;
+        }
+        $this->geocachesNotPublished->append($geocache);
+    }
+
+
+
+    public function getGeocachesNotPublished()
+    {
+        if($this->geocachesNotPublished === null){
+            $this->geocachesNotPublished = new \ArrayObject;
+            $this->getGeocaches();
+        }
+        return $this->geocachesNotPublished;
+    }
+
+    public function appendWaitAprooveGeocache(GeoCache $geocache)
+    {
+        if($this->geocachesWaitAproove === null){
+            $this->geocachesWaitAproove = new \ArrayObject;
+        }
+        $this->geocachesWaitAproove->append($geocache);
+    }
+
+    public function getGeocachesWaitAproove()
+    {
+        if($this->geocachesWaitAproove === null){
+            $this->geocachesWaitAproove = new \ArrayObject;
+            $this->getGeocaches();
+        }
+        return $this->geocachesWaitAproove;
+    }
+
+    public function appendBlockedGeocache(GeoCache $geocache)
+    {
+        if($this->geocachesBlocked === null){
+            $this->geocachesBlocked = new \ArrayObject;
+        }
+        $this->geocachesBlocked->append($geocache);
+    }
+
+    public function getGeocachesBlocked()
+    {
+        if($this->geocachesBlocked === null){
+            $this->geocachesBlocked = new \ArrayObject;
+            $this->getGeocaches();
+        }
+        return $this->geocachesBlocked;
+    }
 
 }

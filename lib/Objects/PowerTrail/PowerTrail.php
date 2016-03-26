@@ -92,6 +92,9 @@ class PowerTrail extends \lib\Objects\BaseObject
                     $this->name = $val;
                     break;
                 case 'image':
+                    if($val === ''){ /* no image was loaded by user, set default image */
+                        $val = 'tpl/stdstyle/images/blue/powerTrailGenericLogo.png';
+                    }
                     $this->image = $val;
                     break;
                 case 'type':
@@ -147,10 +150,13 @@ class PowerTrail extends \lib\Objects\BaseObject
         return $db->dbResultFetchAll();
     }
 
-    public static function GetPowerTrailIconsByType($typeId)
+    public static function GetPowerTrailIconsByType($typeId = null)
     {
         $imgPath = '/tpl/stdstyle/images/blue/';
         $icon = '';
+        if($typeId === null){
+            $typeId = $this->type;
+        }
         switch ($typeId) {
             case self::TYPE_GEODRAW:
                 $icon = 'footprintRed.png';

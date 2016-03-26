@@ -5,6 +5,13 @@ use lib\Controllers\PowerTrailController;
 
 
 
+$u = new lib\Objects\User\User(array('userId' => 4029));
+$u->getPowerTrailCompleted();
+$u->getPowerTrailOwed();
+ddd($u);
+
+
+exit;
 
 error_reporting(-1);
 

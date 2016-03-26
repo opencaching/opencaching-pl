@@ -58,6 +58,9 @@ class GeoCache
     /* @var $datePlaced \DateTime */
     private $dateCreated;
 
+    /* @var $dateActivate \DateTime */
+    private $dateActivate;
+
     private $sizeId;
     private $ratingId;
     private $status;
@@ -125,7 +128,6 @@ class GeoCache
      */
     private $powerTrail;
 
-
     private $isTitled;
 
     /**
@@ -152,7 +154,7 @@ class GeoCache
             $db = DataBaseSingleton::Instance();
             $this->id = (int) $params['cacheId'];
 
-            $queryById = "SELECT size, status, founds, notfounds, topratings, votes, notes, score,  name, type, date_hidden, longitude, latitude, wp_oc, wp_gc, wp_nc, wp_tc, wp_ge, user_id, last_found, difficulty, terrain, way_length, logpw, search_time, date_created, watcher, ignorer_count, org_user_id, desc_languages, mp3count, picturescount FROM `caches` WHERE `cache_id`=:1 LIMIT 1";
+            $queryById = "SELECT size, status, founds, notfounds, topratings, votes, notes, score,  name, type, date_hidden, longitude, latitude, wp_oc, wp_gc, wp_nc, wp_tc, wp_ge, user_id, last_found, difficulty, terrain, way_length, logpw, search_time, date_created, watcher, ignorer_count, org_user_id, desc_languages, mp3count, picturescount, date_activate FROM `caches` WHERE `cache_id`=:1 LIMIT 1";
             $db->multiVariableQuery($queryById, $this->id);
 
             $cacheDbRow = $db->dbResultFetch();
@@ -285,6 +287,7 @@ class GeoCache
             $this->founder = new \lib\Objects\User\User(array('userId' => $geocacheDbRow['org_user_id']));
         }
         $this->score = $geocacheDbRow['score'];
+        $this->setDateActivate($geocacheDbRow['date_activate']);
         return $this;
     }
 
@@ -476,6 +479,8 @@ class GeoCache
         $statusPart = "";
         switch ($status) {
             case self::STATUS_UNAVAILABLE:
+            case self::STATUS_NOTYETAVAILABLE:
+            case self::STATUS_WAITAPPROVERS:
                 $statusPart = "-n";
                 break;
             case self::STATUS_ARCHIVED:
@@ -923,9 +928,27 @@ class GeoCache
         }
         return $this->waypoints;
     }
+    
+    /**
+     * @return \DateTime
+     */
+    public function getDateActivate()
+    {
+        return $this->dateActivate;
+    }
 
+    private function setDateActivate($dateActivate)
+    {
+        if($dateActivate != null){
+            $this->dateActivate = new \DateTime($dateActivate);
+        }
+    }
 
-
+    public function getStatusTranslationIdentifier()
+    {
+        $statuses = $this->dictionary->getCacheStatuses();
+        return $statuses[$this->status]['translation'];
+    }
 
 }
 

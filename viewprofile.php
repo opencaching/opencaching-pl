@@ -3,9 +3,12 @@
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 
+use lib\Objects\User\User;
+
 //prepare the templates and include all neccessary
-if (!isset($rootpath))
+if (!isset($rootpath)){
     $rootpath = '';
+}
 require_once ('./lib/common.inc.php');
 global $stat_menu, $mnu_siteid;
 
@@ -16,6 +19,11 @@ if ($error == false) {
         $target = myUrlEncode(tpl_get_current_page());
         tpl_redirect('login.php?target=' . $target);
     } else {
+        $cache_line = '<li style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">{cacheimage}&nbsp;{cachestatus} &nbsp; {date} &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong></li>';
+        $cache_notpublished_line = '<li style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 115%;">{cacheimage}&nbsp;{cachestatus} &nbsp; <a class="links" href="editcache.php?cacheid={cacheid}">{date}</a> &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong></li>';
+        $log_line = '<li style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">{gkimage}&nbsp;{rateimage}&nbsp; {logimage} &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}"><img src="tpl/stdstyle/images/{cacheimage}" border="0" alt="" /></a>&nbsp; {date} &nbsp; <a class="links" href="viewlogs.php?logid={logid}" onmouseover="Tip(\'{logtext}\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong></li>';
+        $cache_line_my_caches = '<li style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">{gkimage}&nbsp; {rateimage} &nbsp;{logimage} &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}"><img src="tpl/stdstyle/images/{cacheimage}" border="0" alt="" /></a>&nbsp; {date} &nbsp; <a class="links" href="viewlogs.php?logid={logid}" onmouseover="Tip(\'{logtext}\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong>&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" />&nbsp; <a class="links" href="viewprofile.php?userid={userid}">{username}</a></li>';
+
         // check for old-style parameters
         if (isset($_REQUEST['userid'])) {
             $user_id = $_REQUEST['userid'];
@@ -23,7 +31,6 @@ if ($error == false) {
             $user_id = $usr['userid'];
         }
         tpl_set_var('userid', $user_id);
-        require ($stylepath . '/viewprofile.inc.php');
         require ($stylepath . '/lib/icons.inc.php');
         $tplname = 'viewprofile';
 
@@ -42,9 +49,11 @@ if ($error == false) {
         $database->multiVariableQuery($rddQuery, $user_id);
         $ddays = $database->dbResultFetch();
 
-        $query = "SELECT admin, guru, hidden_count, founds_count, is_active_flag, email, password, log_notes_count, notfounds_count, username, last_login, country, date_created, description, hide_flag FROM user WHERE user_id=:1 LIMIT 1";
+        $query = "SELECT user_id, admin, guru, hidden_count, founds_count, is_active_flag, email, password, log_notes_count, notfounds_count, username, last_login, country, date_created, description, hide_flag FROM user WHERE user_id=:1 LIMIT 1";
         $database->multiVariableQuery($query, $user_id);
         $user_record = $database->dbResultFetch();
+        $user = new User(array('userDbRow' => $user_record));
+
         tpl_set_var('username', $user_record['username']);
         if ((date('m') == 4) and ( date('d') == 1)) {
             tpl_set_var('username', tr('primaAprilis1'));
@@ -145,9 +154,11 @@ if ($error == false) {
                             <p class="content-title-noshade-size1">
                             <img src="tpl/stdstyle/images/blue/powerTrailGenericLogo.png" width="33" class="icon32" alt="geoPaths" title="geoPaths" />&nbsp' . tr('pt001') . '</div>';
             //geoPaths medals
-            $content .= getPowerTrailsCompletedByUser($user_id);
+            $content .= buildPowerTrailIcons($user->getPowerTrailCompleted());
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt140') . '</span>:&nbsp;<strong>' . powerTrailBase::getUserPoints($user_id) . '</strong> (' . tr('pt093') . ' ' . powerTrailBase::getPoweTrailCompletedCountByUser($user_id) . ')</p>';
             $pointsEarnedForPlacedCaches = powerTrailBase::getOwnerPoints($user_id);
+
+            $content .= buildPowerTrailIcons($user->getPowerTrailOwed());
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt224') . '</span>:&nbsp;<strong>' . $pointsEarnedForPlacedCaches['totalPoints'] . '</strong> (' . tr('pt222') . ' ' . $pointsEarnedForPlacedCaches['geoPathCount'] . ' ' . tr('pt223') . ')</p>';
         }
 
@@ -201,9 +212,7 @@ if ($error == false) {
                 ) AS COUNTS_IN_DAYS",
                 0, $user_id );
 
-            $found = XDb::xMultiVariableQueryValue(
-                "SELECT COUNT(*) founds_count FROM cache_logs
-                WHERE user_id= :1 AND type=1 AND deleted=0", 0, $user_id);
+            $found = $user->getFoundGeocachesCount();
 
             if ($num_rows == 0) {
                 $aver2 = 0;
@@ -669,115 +678,33 @@ if ($error == false) {
                 $content .= '<br /><div class="content-title-noshade box-blue">';
             }
 
-            if (checkField('cache_status', $lang))
-                $lang_db = $lang;
-            else
-                $lang_db = "en";
-
-            $eLang = XDb::xEscape($lang_db);
-
             //get not published caches DATE_FORMAT(`caches`.`date_activate`,'%d-%m-%Y'),
-            $rs_caches1 = XDb::xSql(
-                "SELECT `caches`.`cache_id`, `caches`.`name`, `caches`.`date_hidden`, `caches`.`date_activate`,
-                        `caches`.`status`, `cache_status`.$eLang AS `cache_status_text`, `caches`.`wp_oc` AS `wp_name`
-                FROM `caches`, `cache_status`
-                WHERE `user_id`= ? AND `cache_status`.`id`=`caches`.`status`
-                    AND `caches`.`status` = 5
-                ORDER BY `date_activate` DESC, `caches`.`date_created` DESC ", $user_id);
 
-            if (XDb::xNumRows($rs_caches1) != 0) {
+            $geocachesNotPublished = $user->getGeocachesNotPublished();
 
+            if ($geocachesNotPublished->count() > 0) {
                 $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('not_yet_published') . ':</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
-
-                while( $record_caches = XDb::xFetchArray($rs_caches1)){
-
-                    $tmp_cache = $cache_notpublished_line;
-
-                    $tmp_cache = mb_ereg_replace('{cacheimage}', icon_cache_status($record_caches['status'], $record_caches['cache_status_text']), $tmp_cache);
-                    $tmp_cache = mb_ereg_replace('{cachestatus}', htmlspecialchars($record_caches['cache_status_text'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
-                    $tmp_cache = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($record_caches['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_cache);
-                    if (is_null($record_caches['date_activate'])) {
-                        $tmp_cache = mb_ereg_replace('{date}', $no_time_set, $tmp_cache);
-                    } else {
-                        $tmp_cache = mb_ereg_replace('{date}', $record_caches['date_activate'], $tmp_cache);
-                    }
-                    $tmp_cache = mb_ereg_replace('{cachename}', htmlspecialchars($record_caches['name'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
-                    $tmp_cache = mb_ereg_replace('{wpname}', htmlspecialchars($record_caches['wp_name'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
-                    $content .= "\n" . $tmp_cache;
+                foreach ($geocachesNotPublished as $geocache) {
+                    $content .= "\n" . buildGeocacheHtml($geocache, $cache_notpublished_line);
                 }
-                XDb::xFreeResults($rs_caches1);
                 $content .= '</ul></div>';
             }
-            //get waiting to approve caches by OC Team
-            //get last hidden caches
-            if (checkField('cache_status', $lang))
-                $lang_db = $lang;
-            else
-                $lang_db = "en";
 
-            $eLang = XDb::xEscape($lang_db);
-
-            $rs_caches2 = XDb::xSql(
-                "SELECT  `cache_id`, `name`, DATE_FORMAT(`date_hidden`,'%d-%m-%Y') AS `date`, `status`,
-                         `cache_status`.`id` AS `cache_status_id`, `cache_status`.$eLang AS `cache_status_text`, `caches`.`wp_oc` AS `wp_name`
-                FROM `caches`, `cache_status`
-                WHERE `user_id`= ? AND `cache_status`.`id`=`caches`.`status`
-                    AND `caches`.`status` = 4
-                ORDER BY `date_hidden` DESC, `caches`.`date_created` DESC", $user_id);
-
-            if (XDb::xNumRows($rs_caches2) != 0) {
+            $waitAproveGeocaches = $user->getGeocachesWaitAproove();
+            if ($waitAproveGeocaches->count() > 0) {
                 $content .= '<br /><p><span class="content-title-noshade txt-blue08">' . tr('caches_waiting_approve') . ':</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
-
-                while( $record_logs = XDb::xFetchArray($rs_caches2) ){
-
-                    $tmp_cache = $cache_line;
-
-                    $tmp_cache = mb_ereg_replace('{cacheimage}', icon_cache_status($record_logs['status'], $record_logs['cache_status_text']), $tmp_cache);
-                    $tmp_cache = mb_ereg_replace('{cachestatus}', htmlspecialchars($record_logs['cache_status_text'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
-                    $tmp_cache = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($record_logs['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_cache);
-                    $tmp_cache = mb_ereg_replace('{date}', $record_logs['date'], $tmp_cache);
-                    $tmp_cache = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['name'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
-                    $tmp_cache = mb_ereg_replace('{wpname}', htmlspecialchars($record_logs['wp_name'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
-
-                    $content .= "\n" . $tmp_cache;
+                foreach ($waitAproveGeocaches as $geocache) {
+                    $content .= "\n" . buildGeocacheHtml($geocache, $cache_line);
                 }
-                XDb::xFreeResults($rs_caches2);
                 $content .= '</ul></div>';
             }
 
-            //get blocked caches by OC Team
-            //get last hidden caches
-            if (checkField('cache_status', $lang))
-                $lang_db = $lang;
-            else
-                $lang_db = "en";
-
-            $eLang = XDb::xEscape($lang_db);
-
-            $rs_caches3 = XDb::xSql(
-                "SELECT `cache_id`, `name`, DATE_FORMAT(`date_hidden`,'%d-%m-%Y') AS `date`, `status`,
-                        `cache_status`.`id` AS `cache_status_id`, `cache_status`.$eLang AS `cache_status_text`,
-                        `caches`.`wp_oc` AS `wp_name`
-                FROM `caches`, `cache_status`
-                WHERE `user_id`= ? AND `cache_status`.`id`=`caches`.`status` AND `caches`.`status` = 6
-                ORDER BY `date_hidden` DESC, `caches`.`date_created` DESC", $user_id);
-
-            if (XDb::xNumRows($rs_caches3) != 0) {
+            $geocachesBlocked = $user->getGeocachesBlocked();
+            if ($geocachesBlocked->count() > 0) {
                 $content .= '<br /><p><span class="content-title-noshade txt-blue08">' . tr('caches_blocked') . ':</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
-
-                while($record_logs = XDb::xFetchArray($rs_caches3)){
-
-                    $tmp_cache = $cache_line;
-
-                    $tmp_cache = mb_ereg_replace('{cacheimage}', icon_cache_status($record_logs['status'], $record_logs['cache_status_text']), $tmp_cache);
-                    $tmp_cache = mb_ereg_replace('{cachestatus}', htmlspecialchars($record_logs['cache_status_text'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
-                    $tmp_cache = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($record_logs['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_cache);
-                    $tmp_cache = mb_ereg_replace('{date}', $record_logs['date'], $tmp_cache);
-                    $tmp_cache = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['name'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
-                    $tmp_cache = mb_ereg_replace('{wpname}', htmlspecialchars($record_logs['wp_name'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
-                    $content .= "\n" . $tmp_cache;
+                foreach ($geocachesBlocked as $geocache) {
+                    $content .= "\n" . buildGeocacheHtml($geocache, $cache_line);
                 }
-                XDb::xFreeResults($rs_caches3);
                 $content .= '</ul></div>';
             }
 
@@ -802,16 +729,12 @@ tpl_BuildTemplate();
  * generate html string displaying geoPaths completed by user (power trail) medals
  * @author Andrzej Łza Woźniak, 2013-11-23
  */
-function getPowerTrailsCompletedByUser($userId)
+function buildPowerTrailIcons(ArrayObject $powerTrails)
 {
-    $ptTypes = powerTrailBase::getPowerTrailTypes();
-    $ptCompletedList = powerTrailBase::getPowerTrailsCompletedByUser($userId);
-    // var_dump($ptCompletedList);
     $result = '<table width="100%"><tr><td>';
-    foreach ($ptCompletedList as $pt) {
-        if ($pt['image'] == '')
-            $pt['image'] = 'tpl/stdstyle/images/blue/powerTrailGenericLogo.png';
-        $result .= '<div class="ptMedal"><table style="padding-top: 7px;" align="center" height="51" width="51"><tr><td width=52 height=52 valign="center" align="center"><a title="' . $pt['name'] . '" href="powerTrail.php?ptAction=showSerie&ptrail=' . $pt['id'] . '"><img class="imgPtMedal" src="' . $pt['image'] . '"></a></td></tr><tr><td align="center"><img src="' . $ptTypes[$pt["type"]]['icon'] . '" /></td></tr></table></div><div class="ptMedalSpacer"></div>';
+    /* @var $powertrail \lib\Objects\PowerTrail\PowerTrail */
+    foreach ($powerTrails as $powertrail) {
+        $result .= '<div class="ptMedal"><table style="padding-top: 7px;" align="center" height="51" width="51"><tr><td width=52 height=52 valign="center" align="center"><a title="' . $powertrail->getName() . '" href="powerTrail.php?ptAction=showSerie&ptrail=' . $powertrail->getId() . '"><img class="imgPtMedal" src="' . $powertrail->getImage() . '"></a></td></tr><tr><td align="center"><img src="' . $powertrail->getFootIcon() . '" /></td></tr></table></div><div class="ptMedalSpacer"></div>';
     }
     return $result . '</td></tr><tr><td></td></tr></table><br /><br />';
 }
@@ -886,5 +809,21 @@ function adminNoteTable($results){
         $table .= '</table>';
     }
     return $table;
+}
+
+function buildGeocacheHtml(lib\Objects\GeoCache\GeoCache $geocache, $html)
+{
+    $ocConfig = \lib\Objects\OcConfig\OcConfig::instance();
+    $html = mb_ereg_replace('{cacheimage}', '<img src="'.$geocache->getCacheIcon().'" width="16" />', $html);
+    $html = mb_ereg_replace('{cachestatus}', htmlspecialchars(tr($geocache->getStatusTranslationIdentifier()), ENT_COMPAT, 'UTF-8'), $html);
+    $html = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($geocache->getCacheId()), ENT_COMPAT, 'UTF-8'), $html);
+    if ($geocache->getDateActivate() === null) {
+        $html = mb_ereg_replace('{date}', tr('no_time_indicated'), $html);
+    } else {
+        $html = mb_ereg_replace('{date}', $geocache->getDateActivate()->format($ocConfig->getDateFormat()), $html);
+    }
+    $html = mb_ereg_replace('{cachename}', htmlspecialchars($geocache->getCacheName(), ENT_COMPAT, 'UTF-8'), $html);
+    $html = mb_ereg_replace('{wpname}', htmlspecialchars($geocache->getWaypointId(), ENT_COMPAT, 'UTF-8'), $html);
+    return $html;
 }
 
