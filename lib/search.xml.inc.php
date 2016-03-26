@@ -21,6 +21,7 @@ $xmlLine = "    <cache>
         <country>{country}</country>
         <link><![CDATA[".$absolute_server_URI."viewcache.php?wp={waypoint}]]></link>
         <desc><![CDATA[{shortdesc}]]></desc>
+        <longdesc><![CDATA[{desc}]]></longdesc>
         <hints><![CDATA[{hints}]]></hints>
     </cache>
 ";
@@ -237,10 +238,20 @@ exit;
 
 function html2txt($html)
 {
-    $str = str_replace("\r\n", '', $html);
+    $str = preg_replace('/[[:cntrl:]]/', '', $html);
+    $str = str_replace("\r\n", '', $str);
     $str = str_replace("\n", '', $str);
     $str = str_replace('<br />', "\n", $str);
+    $str = str_replace('<br>', "\n", $str);
+    $str = str_replace('</p>', "\n", $str);
+    $str = str_replace('<li>', "-", $str);
+    $str = str_replace('&quot;', '"', $str);
+    $str = str_replace('&amp;', '&', $str);
+    $str = str_replace('&lt;', '<', $str);
+    $str = str_replace('&gt;', '>', $str);
+    $str = str_replace(']]>', '', $str);
     $str = strip_tags($str);
+
     return $str;
 }
 
