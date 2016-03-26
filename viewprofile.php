@@ -194,25 +194,23 @@ if ($error == false) {
                 0, $user_id);
 
             $num_rows = XDb::xMultiVariableQueryValue(
-                "SELECT COUNT(*) FROM cache_logs
-                WHERE type=1 AND cache_logs.deleted='0' AND user_id=:1
-                GROUP BY YEAR(`date`), MONTH(`date`), DAY(`date`)",
+                "SELECT COUNT(*) FROM (
+                    SELECT COUNT(*) FROM cache_logs
+                    WHERE type=1 AND cache_logs.deleted='0' AND user_id= :1
+                    GROUP BY YEAR(`date`), MONTH(`date`), DAY(`date`)
+                ) AS COUNTS_IN_DAYS",
                 0, $user_id );
 
             $found = XDb::xMultiVariableQueryValue(
                 "SELECT COUNT(*) founds_count FROM cache_logs
                 WHERE user_id= :1 AND type=1 AND deleted=0", 0, $user_id);
 
-            if ($ddays['diff'] == 0) {
-                $aver1 = 0;
-            } else {
-                $aver1 = round(($found / $ddays['diff']), 2);
-            }
             if ($num_rows == 0) {
                 $aver2 = 0;
             } else {
                 $aver2 = round(($found / $num_rows), 2);
             }
+
             if ((date('m') == 4) and ( date('d') == 1)) { //prima aprilis :)
                 $found = rand(-10, 10);
                 $user_record['notfounds_count'] = rand(666, 9999);
@@ -263,7 +261,7 @@ if ($error == false) {
 
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('days_caching') . ':</span> <strong>' . $num_rows . '</strong>&nbsp;' . tr('from_total_days') . ': <strong>' . $ddays['diff'] . '</strong></p>';
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('average_caches') . ':</span> <strong>' . sprintf("%u", $aver2) . '</strong></p>';
-            ///dzień keszowania i <strong>' . sprintf("%.1f",$aver1) . '</strong>/dzień
+
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('most_caches_find_day') . ':</span> <strong>' . sprintf("%u", $rcNumber) . '</strong></p>';
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('latest_cache') . ':</span>&nbsp;&nbsp;';
 
@@ -436,11 +434,6 @@ if ($error == false) {
                 WHERE status <> 2 AND status <> 3 AND status <> 5 AND status <> 4 AND user_id= :1
                 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`)", 0, $user_id);
 
-            if ($ddays['diff'] != 0) {
-                $aver1 = round(($user_record['hidden_count'] / $ddays['diff']), 2);
-            } else {
-                $aver1 = 0;
-            }
             $aver2 = round(($user_record['hidden_count'] / $num_rows), 2);
 
             // total owned
@@ -524,7 +517,7 @@ if ($error == false) {
             }
 
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('average_caches') . ':</span> <strong>' . sprintf("%u", $aver2) . '</strong></p>';
-            //' . sprintf("%.1f",$aver1) . '</strong>/dzień
+
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('most_caches_made_day') . ':</span> <strong>' . sprintf("%u", $rcNumber) . '</strong></p>';
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('latest_created_cache') . ':</span>&nbsp;&nbsp;<strong><a class="links" href="viewcache.php?cacheid=' . $rcc2['cache_id'] . '">' . $rcc2['wp_oc'] . '</a>&nbsp;&nbsp;</strong>(' . $rcc2['data'] . ')</p>';
 
@@ -590,12 +583,14 @@ if ($error == false) {
                     LEFT JOIN gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
                     LEFT JOIN gk_item ON gk_item.id = gk_item_waypoint.id
                         AND gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5
-                    WHERE (caches.status=1 OR caches.status=2 OR caches.status=3) AND cache_logs.deleted=0 AND `caches`.`user_id`='&1'
+                    WHERE (caches.status=1 OR caches.status=2 OR caches.status=3) AND cache_logs.deleted=0 AND `caches`.`user_id`= ?
                         AND `cache_logs`.`cache_id`=`caches`.`cache_id`
                         AND `user`.`user_id`=`cache_logs`.`user_id`
                     GROUP BY cache_logs.id
                     ORDER BY `cache_logs`.`date_created` DESC
                     LIMIT 5", $user_id);
+
+
 
             if (XDb::xNumRows($rs_logs) != 0) {
                 $content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08">' . tr('latest_logs_in_caches') . ':</span>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="mycaches_logs.php?userid=' . $user_id . '">' . tr('show_all') . '</a>] ';
@@ -722,12 +717,13 @@ if ($error == false) {
 
             $eLang = XDb::xEscape($lang_db);
 
-            $rs_caches2 = XDb::xSql(" SELECT  `cache_id`, `name`, DATE_FORMAT(`date_hidden`,'%d-%m-%Y') AS `date`, `status`,
-                            `cache_status`.`id` AS `cache_status_id`, `cache_status`.$eLang AS `cache_status_text`, `caches`.`wp_oc` AS `wp_name`
-                        FROM `caches`, `cache_status`
-                        WHERE `user_id`= ? AND `cache_status`.`id`=`caches`.`status`
-                          AND `caches`.`status` = 4
-                        ORDER BY `date_hidden` DESC, `caches`.`date_created` DESC", $user_id);
+            $rs_caches2 = XDb::xSql(
+                "SELECT  `cache_id`, `name`, DATE_FORMAT(`date_hidden`,'%d-%m-%Y') AS `date`, `status`,
+                         `cache_status`.`id` AS `cache_status_id`, `cache_status`.$eLang AS `cache_status_text`, `caches`.`wp_oc` AS `wp_name`
+                FROM `caches`, `cache_status`
+                WHERE `user_id`= ? AND `cache_status`.`id`=`caches`.`status`
+                    AND `caches`.`status` = 4
+                ORDER BY `date_hidden` DESC, `caches`.`date_created` DESC", $user_id);
 
             if (XDb::xNumRows($rs_caches2) != 0) {
                 $content .= '<br /><p><span class="content-title-noshade txt-blue08">' . tr('caches_waiting_approve') . ':</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
@@ -760,7 +756,8 @@ if ($error == false) {
 
             $rs_caches3 = XDb::xSql(
                 "SELECT `cache_id`, `name`, DATE_FORMAT(`date_hidden`,'%d-%m-%Y') AS `date`, `status`,
-                        `cache_status`.`id` AS `cache_status_id`, `cache_status`.$eLang AS `cache_status_text`, `caches`.`wp_oc` AS `wp_name`
+                        `cache_status`.`id` AS `cache_status_id`, `cache_status`.$eLang AS `cache_status_text`,
+                        `caches`.`wp_oc` AS `wp_name`
                 FROM `caches`, `cache_status`
                 WHERE `user_id`= ? AND `cache_status`.`id`=`caches`.`status` AND `caches`.`status` = 6
                 ORDER BY `date_hidden` DESC, `caches`.`date_created` DESC", $user_id);
