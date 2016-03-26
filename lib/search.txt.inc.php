@@ -17,7 +17,7 @@
 ".tr('search_text_08')." {type}
 ".tr('search_text_09')." {container}
 Z/T: {difficulty}/{terrain}
-Online: $absolute_server_URI/viewcache.php?wp={{waypoint}}
+Online: ".$absolute_server_URI."viewcache.php?wp={{waypoint}}
 
 ".tr('search_text_10')." {shortdesc}
 

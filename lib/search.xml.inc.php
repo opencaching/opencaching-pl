@@ -19,7 +19,7 @@
         <terrain>{terrain}</terrain>
         <size>{container}</size>
         <country>{country}</country>
-        <link><![CDATA[http://www.opencaching.pl/viewcache.php?wp={waypoint}]]></link>
+        <link><![CDATA[".$absolute_server_URI."viewcache.php?wp={waypoint}]]></link>
         <desc><![CDATA[{shortdesc}]]></desc>
         <hints><![CDATA[{hints}]]></hints>
     </cache>
