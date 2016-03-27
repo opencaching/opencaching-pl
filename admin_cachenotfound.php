@@ -57,7 +57,7 @@ if ($usr['admin']) {
 
     $file_content = '';
     $i = 0;
-    while($record = XDb::xFetchArray($rs);)
+    while( $record = XDb::xFetchArray($rs) )
         if (($i % 2) == 0) {
             $bgcolor = '#eeeeee';
         } else {
