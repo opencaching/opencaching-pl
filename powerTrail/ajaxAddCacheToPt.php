@@ -44,13 +44,13 @@ if (isset($_REQUEST['removeByCOG']) && $_SESSION['ptRmByCog'] === 1) {
 }
 
 if (isset($resultPowerTrailId['PowerTrailId']) && $resultPowerTrailId['PowerTrailId'] != 0) {
-    $caheIsAttaschedToPt = true;
+    $geocacheIsAttaschedToPt = true;
 } else {
-    $caheIsAttaschedToPt = false;
+    $geocacheIsAttaschedToPt = false;
 }
 
 if ($rmOtherUserCacheFromPt === true) {
-    if ($caheIsAttaschedToPt === true) {
+    if ($geocacheIsAttaschedToPt === true) {
         removeCacheFromPowerTrail($cacheId, $resultPowerTrailId, $db, $ptAPI);
         recalculate($resultPowerTrailId['PowerTrailId']);
         print 'Removed';
@@ -64,7 +64,7 @@ if ($rmOtherUserCacheFromPt === true) {
 $loggeduserCache = isCacheOwnByLoggedUser($cacheId);
 if (!$loggeduserCache) {
     $isCacheCanditate = isCacheCanditate($projectId, $cacheId);
-    if (!$isCacheCanditate && !$caheIsAttaschedToPt) {
+    if (!$isCacheCanditate && !$geocacheIsAttaschedToPt) {
         addCacheToCacheCandidate($cacheId, $projectId);
     } else {
         print 'cache is already candidate or belongs to other pt';
@@ -79,7 +79,7 @@ if (isset($_REQUEST['calledFromConfirm']) && $_REQUEST['calledFromConfirm'] === 
 
 $ptDbRow = powerTrailBase::getPtDbRow($resultPowerTrailId['PowerTrailId']);
 
-if ($projectId > 0 && $caheIsAttaschedToPt === false) {
+if ($projectId > 0 && $geocacheIsAttaschedToPt === false) {
     addCacheToPowerTrail($cacheId, $projectId, $db, $ptAPI);
 }
 if ($ptDbRow['conquestedCount'] > 0) { // cache bellongs to PT wchcich was 'completed'
@@ -90,7 +90,7 @@ if ($projectId <= 0 && $ptDbRow['conquestedCount'] == 0) {
     recalculate($resultPowerTrailId['PowerTrailId']);
     print 'removed';
 }
-if ($projectId > 0 && $caheIsAttaschedToPt === true && $ptDbRow['conquestedCount'] == 0) {
+if ($projectId > 0 && $geocacheIsAttaschedToPt === true && $ptDbRow['conquestedCount'] == 0) {
     removeCacheFromPowerTrail($cacheId, $resultPowerTrailId, $db, $ptAPI);
     addCacheToPowerTrail($cacheId, $projectId, $db, $ptAPI);
     recalculate($resultPowerTrailId['PowerTrailId']);
@@ -203,11 +203,11 @@ function recalculateOnce()
     // print_r($allCaches);
 }
 
-function isCacheOwnByLoggedUser($caheId)
+function isCacheOwnByLoggedUser($geocacheId)
 {
     $query = 'SELECT  `user_id` AS `userId`  FROM  `caches` WHERE  `cache_id` = :1 LIMIT 1';
     $db = \lib\Database\DataBaseSingleton::Instance();
-    $db->multiVariableQuery($query, $caheId);
+    $db->multiVariableQuery($query, $geocacheId);
     $result = $db->dbResultFetch();
     if ($result['userId'] == $_SESSION['user_id'])
         return true;
