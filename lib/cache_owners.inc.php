@@ -1,12 +1,14 @@
 <?php
 
+use Utils\Database\OcDb;
+
 class OrgCacheOwners
 {
 
     private $db;
     private $verbose;
 
-    function __construct(dataBase $db)
+    function __construct(OcDb $db)
     {
         $this->db = $db;
     }
@@ -93,4 +95,3 @@ class OrgCacheOwners
 
 }
 
-?>
