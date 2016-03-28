@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\OcDb;
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
     $rootpath = '';
@@ -46,13 +47,12 @@ if ($error == false) {
     } else {
         $disable_spoiler_view = false;
     }
-    $dbc = new dataBase();
+    $dbc = OcDb::instance();
     if ($cache_id != 0) {
         //get cache record
         $thatquery = "SELECT `user_id`, `name`, `founds`, `notfounds`, `notes`, `status`, `type` FROM `caches` WHERE `caches`.`cache_id`=:1";
         $dbc->multiVariableQuery($thatquery, $cache_id);
 
-        //if (mysql_num_rows($rs) == 0)
         if ($dbc->rowCount() == 0) {
             $cache_id = 0;
         } else {
@@ -68,7 +68,6 @@ if ($error == false) {
         $thatquery = "SELECT `cache_logs`.`cache_id`,`caches`.`user_id`, `caches`.`name`, `caches`.`founds`, `caches`.`notfounds`, `caches`.`notes`, `caches`.`status`, `caches`.`type` FROM `caches`,`cache_logs` WHERE `cache_logs`.`id`=:1 AND `caches`.`cache_id`=`cache_logs`.`cache_id` ";
         $dbc->multiVariableQuery($thatquery, $logid);
 
-        //if (mysql_num_rows($rs) == 0)
         if ($dbc->rowCount() == 0) {
             $cache_id = 0;
         } else {
@@ -88,7 +87,7 @@ if ($error == false) {
         // detailed cache access logging
         if (@$enable_cache_access_logs) {
             if (!isset($dbc)) {
-                $dbc = new dataBase();
+                $dbc = OcDb::instance();
             }
             $user_id = $usr !== false ? $usr['userid'] : null;
             $access_log = @$_SESSION['CACHE_ACCESS_LOG_VL_' . $user_id];
@@ -366,7 +365,7 @@ if ($error == false) {
                 $logpicturelines = '';
                 $append_atag = '';
                 if (!isset($dbc)) {
-                    $dbc = new dataBase();
+                    $dbc = OcDb::instance();
                 }
                 $thatquery = "SELECT `url`, `title`, `uuid`, `user_id`, `spoiler` FROM `pictures` WHERE `object_id`=:1 AND `object_type`=1";
                 $dbc->multiVariableQuery($thatquery, $record['logid']);
