@@ -36,13 +36,6 @@ tpl_set_var('lon_min_int', $lon_min_int);
 tpl_set_var('lon_sec_float', $lon_sec_float);
 tpl_set_var('lon_min_float', $lon_min_float);
 
-/* begin db connect */
-db_connect();
-if ($dblink === false) {
-    echo 'Unable to connect to database';
-    exit;
-}
-
 $sCode = '';
 
 $rsLayers = XDb::xSql(

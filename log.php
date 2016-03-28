@@ -526,7 +526,7 @@ if ($error == false) {
                     if ($log_type == 4) { // typ logu 4 - przeniesiona
                         ini_set('display_errors', 1);
                         // error_reporting(E_ALL);
-                        // id of last sql entery
+                        // id of last SQL entery
                         $last_id_4_mobile_moved = XDb::xLastInsertId();
 
                         // converting from HH MM.MMM to DD.DDDDDD

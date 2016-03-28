@@ -54,7 +54,7 @@ if ($usr['admin']) {
             XDb::xQuery($q);
         }
     }
-// force all caches to be verified - sql
+// force all caches to be verified - SQL
     if(isset($_GET['verify_all'])) {
         if ($_GET['verify_all'] == 1 && $usr['admin']) {
             $q = "UPDATE user SET verify_all = '1'  WHERE user_id = '" . intval($user_id) . "'";

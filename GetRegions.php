@@ -40,7 +40,7 @@ class GetRegions
 
     /**
      *
-     * @@param array $opt -  database accesing data from opencaching config
+     * @@param array $opt -  DB accesing data from opencaching config
      * @param float $lat geografical latitude (coordinates)
      * @param float $lon geografical longitude (coordinates)
      *
