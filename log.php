@@ -1,14 +1,22 @@
 <?php
 
+use Utils\Database\XDb;
+use Utils\Database\OcDb;
 /* todo:
   create and set up 4 template selector with wybor_WE wybor_NS.
 
+/**
+ * This function returns 1 if cache contains any geokret
  */
 function isGeokretInCache($cacheid)
 {
 
-    $sql = "SELECT wp_oc, wp_gc, wp_nc,wp_ge,wp_tc FROM caches WHERE cache_id = '" . sql_escape(intval($cacheid)) . "'";
-    $cache_record = mysql_fetch_array(mysql_query($sql));
+    $res = XDb::xSql(
+        "SELECT wp_oc, wp_gc, wp_nc, wp_ge, wp_tc
+        FROM caches WHERE cache_id = ? LIMIT 1", $cacheid);
+
+    $cache_record = XDb::xFetchArray($res);
+
     // get cache waypoint
     $cache_wp = '';
     if ($cache_record['wp_oc'] != '')
@@ -22,17 +30,22 @@ function isGeokretInCache($cacheid)
     else if ($cache_record['wp_tc'] != '')
         $cache_wp = $cache_record['wp_tc'];
 
-    $geokret_sql = "SELECT id FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '" . sql_escape($cache_wp) . "') AND stateid<>1 AND stateid<>4 AND stateid <>5 AND typeid<>2";
-    $geokret_query = sql($geokret_sql);
-    if (mysql_num_rows($geokret_query) == 0) {
-        // no geokrets in this cache
+    $gkNum = XDb::xMultiVariableQueryValue(
+        "SELECT COUNT(*) FROM gk_item
+        WHERE id IN (
+            SELECT id FROM gk_item_waypoint
+            WHERE wp = :1
+            )
+            AND stateid<>1 AND stateid<>4
+            AND stateid <>5 AND typeid<>2", 0, $cache_wp);
+
+    if($gkNum == 0){
         return 0;
-    } else
+    }else{
         return 1;
+    }
 }
 
-//     ini_set('display_errors', 1);
-//     error_reporting(E_ALL);
 //prepare the templates and include all neccessary
 global $rootpath;
 require_once('./lib/common.inc.php');
@@ -66,12 +79,12 @@ if ($error == false) {
         $cachename = '';
         if ($cache_id != 0) {
             //get cachename
-            $rs = sql("SELECT `name`, `cache_id`, `user_id`, `logpw`, `wp_oc`,`wp_gc`, `wp_nc`,`wp_ge`,`wp_tc`, `type`, `status` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
+            $rs = XDb::xSql(
+                "SELECT `name`, `cache_id`, `user_id`, `logpw`, `wp_oc`,`wp_gc`, `wp_nc`,`wp_ge`,`wp_tc`, `type`, `status`
+                FROM `caches` WHERE `cache_id`= ? LIMIT 1", $cache_id);
 
-            if (mysql_num_rows($rs) == 0) {
-                $cache_id = 0;
-            } else {
-                $record = sql_fetch_array($rs);
+            if ( $record = XDb::xFetchArray($rs) ) {
+
                 // only OC Team member and the owner allowed to make logs to not published caches
                 if ($record['user_id'] == $usr['userid'] || ($record['status'] != 5 && $record['status'] != 4 && $record['status'] != 6) || $usr['admin']) {
                     $cachename = htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8');
@@ -87,6 +100,8 @@ if ($error == false) {
                 else {
                     $cache_id = 0;
                 }
+            } else {
+                $cache_id = 0;
             }
         }
 
@@ -123,10 +138,16 @@ if ($error == false) {
             $wsp_WE_st = isset($_POST['wsp_WE_st']) ? $_POST['wsp_WE_st'] : null;
             $wsp_WE_min = isset($_POST['wsp_WE_min']) ? $_POST['wsp_WE_min'] : null;
 
-            $is_top = sqlValue("SELECT COUNT(`cache_id`) FROM `cache_rating` WHERE `user_id`='" . sql_escape($usr['userid']) . "' AND `cache_id`='" . sql_escape($cache_id) . "'", 0);
+            $is_top = XDb::xMultiVariableQueryValue(
+                "SELECT COUNT(`cache_id`) FROM `cache_rating`
+                WHERE `user_id`= :1 AND `cache_id`= :2 ", 0, $usr['userid'], $cache_id );
+
             // check if user has exceeded his top5% limit
-            $user_founds = sqlValue("SELECT `founds_count` FROM `user` WHERE `user_id`='" . sql_escape($usr['userid']) . "'", 0);
-            $user_tops = sqlValue("SELECT COUNT(`user_id`) FROM `cache_rating` WHERE `user_id`='" . sql_escape($usr['userid']) . "'", 0);
+            $user_founds = XDb::xMultiVariableQueryValue(
+                "SELECT `founds_count` FROM `user` WHERE `user_id`=:1 LIMIT 1", 0, $usr['userid']);
+
+            $user_tops = XDb::xMultiVariableQueryValue(
+                "SELECT COUNT(`user_id`) FROM `cache_rating` WHERE `user_id`= :1 ", 0, $usr['userid']);
 
             if ($is_top == 0) {
                 if (($user_founds * rating_percentage / 100) < 1) {
@@ -170,27 +191,21 @@ if ($error == false) {
                 $rating_msg = mb_ereg_replace('{curr}', $user_tops, $rating_msg);
             }
 
-// sp2ong 28.I.2010 recommendation all caches except events
             if ($cache_type != 6) {
                 tpl_set_var('rating_message', mb_ereg_replace('{rating_msg}', $rating_msg, $rating_tpl));
             } else {
                 tpl_set_var('rating_message', "");
             }
-            // print mb_ereg_replace('{rating_msg}', $rating_msg, $rating_tpl); exit;
-            // enable backscoring
-            $sql = "SELECT count(*) FROM scores WHERE user_id='" . sql_escape($usr['userid']) . "' AND cache_id='" . sql_escape(intval($cache_id)) . "'";
-            // disable backscoring
-            // $sql = "SELECT count(*) FROM cache_logs WHERE `deleted`=0 AND type='1' AND user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape(intval($cache_id))."'";
-            $is_scored_query = mysql_query($sql);
-//              mysql_result($is_scored_query,0);
-            if (mysql_result($is_scored_query, 0) == 0 && $usr['userid'] != $record['user_id']) {
+
+            $is_scored_query = XDb::xMultiVariableQueryValue(
+                "SELECT count(*) FROM scores WHERE user_id= :1 AND cache_id= :2",
+                0, $usr['userid'], $cache_id);
+
+            if ( $is_scored_query == 0 && $usr['userid'] != $record['user_id']) {
                 $color_table = array("#DD0000", "#F06464", "#DD7700", "#77CC00", "#00DD00");
 
-
-                //  $score = "<select name='r' id = 'r'>
                 $score = '';
                 $line_cnt = 0;
-                //          ";//triPPer 2013-10-28 I added id for onSubmitHandler
 
                 for ($score_radio = $MIN_SCORE; $score_radio <= $MAX_SCORE; $score_radio++) {
 
@@ -204,29 +219,19 @@ if ($error == false) {
                         $checked = ' checked="true"';
                     else
                         $checked = "";
-                    //$score .= "<option value='".$score_radio."' $checked>".$ratingDesc[$score_radio]."</option>";
+
                     $score.= '
                         <label><input type="radio" style="vertical-align: top" name="r" id="r' . $line_cnt . '" value="' . $score_radio . '" onclick="clear_no_score ();"' . $checked . '  /><b><font color="' . $color_table[$line_cnt] . '"><span id="score_lbl_' . $line_cnt . '">' . ucfirst($ratingDesc[$score_radio]) . '</span></font></b></label>&nbsp;&nbsp;' . $break_line;
                     $line_cnt++;
                 }
-                //$score .= "</select>";
-                //var_dump($_POST['r']);
+
                 if (isset($_POST['r']) && $_POST['r'] == -10)
                     $checked = ' checked="true"';
                 else
                     $checked = "";
 
-                //$score .= "<option value='-10' $checked>".tr('do_not_rate')."</option>";
                 $score .= '<BR><label><input type="radio" style="vertical-align: top" name="r" "id="r' . $line_cnt . '" value="-10"' . $checked . ' onclick="encor_no_score ();" /><span id="score_lbl_' . $line_cnt . '">' . tr('do_not_rate') . '</span></label>';
 
-                //$score.= '
-                //<font color="#0011FF"><div id="no_score" name="no_score"> Jeszcze nie oceniono tej skrzynki</div></font>';
-                /*
-                  for( $score_radio=$MIN_SCORE;$score_radio<=$MAX_SCORE;$score_radio++)
-                  $score .= "<td width='14%' align='center'><label style='color:#ffffff;font-weight:bold;font-size:12px;' for='r$score_radio'>".$ratingDesc[$score_radio-1]."</label>";
-                  $score .= "</tr></table>";
-                  $score .= "<input style='border-style:none;background : transparent; color : black' type='radio' name='r' id='r-10' value='-10'><label for='r-10'>".tr('do_not_rate')."</label>";
-                 */
                 $score_header = tr('rate_cache');
                 $display = "block";
             }
@@ -251,7 +256,7 @@ if ($error == false) {
                 tpl_set_var('log_geokret', "");
 
             /* GeoKretApi selector for logging Geokrets using GeoKretyApi */
-            $dbConWpt = New dataBase;
+            $dbConWpt = OcDb::instance();
             $dbConWpt->paramQuery("SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` =:user_id LIMIT 1", array('user_id' => array('value' => $usr['userid'], 'data_type' => 'integer')));
 
             if ($dbConWpt->rowCount() > 0) {
@@ -260,13 +265,10 @@ if ($error == false) {
                 tpl_set_var('GeoKretyApiConfigured', 'block');
                 $databaseResponse = $dbConWpt->dbResultFetch();
                 $secid = $databaseResponse['secid'];
-                unset($dbConWpt);
 
-                $dbConWpt = New dataBase;
                 $dbConWpt->paramQuery("SELECT `wp_oc` FROM `caches` WHERE `cache_id` = :cache_id", array('cache_id' => array('value' => $cache_id, 'data_type' => 'integer')));
                 $cwpt = $dbConWpt->dbResultFetch();
                 $cache_waypt = $cwpt['wp_oc'];
-                unset($dbConWpt);
 
                 $GeoKretSelector = new GeoKretyApi($secid, $cache_waypt);
                 $GKSelect = $GeoKretSelector->MakeGeokretSelector($cachename);
@@ -283,7 +285,6 @@ if ($error == false) {
             // descMode is depreciated. this was description type. Now all description are in html, then always use 3 for back compatibility
             $descMode = 3;
 
-            // fuer alte Versionen von OCProp
             if (isset($_POST['submit']) && !isset($_POST['version2'])) {
                 $descMode = 1;
                 $_POST['submitform'] = $_POST['submit'];
@@ -297,10 +298,7 @@ if ($error == false) {
                 $log_text = $myFilter->process($log_text);
             } else {
                 // escape text
-                //if( $all_ok )
                 $log_text = nl2br(htmlspecialchars($log_text, ENT_COMPAT, 'UTF-8'));
-                //else
-                //$log_text = strip_tags(htmlspecialchars($log_text, ENT_COMPAT, 'UTF-8'));
             }
 
             //setting tpl messages if they should be not visible.
@@ -358,9 +356,12 @@ if ($error == false) {
 
 
             // not a found log? then ignore the rating
-            $sql = "SELECT count(*) as founds FROM `cache_logs` WHERE `deleted`=0 AND user_id='" . sql_escape($usr['userid']) . "' AND cache_id='" . sql_escape($cache_id) . "' AND type='1'";
-            $res = mysql_fetch_array(mysql_query($sql));
-            if ($res['founds'] == 0)
+            $founds = XDb::xMultiVariableQueryValue(
+                "SELECT count(*) as founds FROM `cache_logs`
+                WHERE `deleted`=0 AND user_id= :1 AND cache_id= :2 AND type='1'",
+                0, $usr['userid'], $cache_id);
+
+            if ( $founds == 0)
                 if ($log_type != 1 && $log_type != 7 /* && $log_type != 3 */) {
                     $top_cache = 0;
                 }
@@ -409,13 +410,20 @@ if ($error == false) {
             if (isset($_POST['submitform']) && ($all_ok == true)) {
                 if (isset($_POST['r']) && $_POST['r'] >= -3 && $_POST['r'] <= 3 && $mark_as_rated == true) { //mark_as_rated to avoid possbility to set rate to 0,1,2 then change to Comment log type and actually give score (what could take place before!)!
                     // oceniono skrzynkę
-                    $sql = "SELECT count(*) FROM scores WHERE user_id='" . sql_escape($usr['userid']) . "' AND cache_id='" . sql_escape(floatval($cache_id)) . "'";
-                    $is_scored_query = mysql_query($sql);
-                    if (mysql_result($is_scored_query, 0) == 0 && $usr['userid'] != $record['user_id']) {
-                        $sql = "UPDATE caches SET score=(score*votes+" . sql_escape(floatval($_POST['r'])) . ")/(votes+1), votes=votes+1 WHERE cache_id=" . sql_escape($cache_id);
-                        mysql_query($sql);
-                        $sql = "INSERT INTO scores (user_id, cache_id, score) VALUES('" . sql_escape($usr['userid']) . "', '" . sql_escape(floatval($cache_id)) . "', '" . sql_escape(floatval($_POST['r'])) . "')";
-                        mysql_query($sql);
+
+                    $is_scored_query = XDb::xMultiVariableQueryValue(
+                        "SELECT count(*) FROM scores WHERE user_id= :1 AND cache_id= :2 ",
+                        -1, $usr['userid'], $cache_id);
+
+                    if ( $is_scored_query == 0 && $usr['userid'] != $record['user_id']) {
+
+                        XDb::xSql(
+                            "UPDATE caches SET score=(score*votes+" . XDb::xEscape(floatval($_POST['r'])) . ")/(votes+1), votes=votes+1
+                            WHERE cache_id= ?", $cache_id);
+
+                        XDb::xSql(
+                            "INSERT INTO scores (user_id, cache_id, score) VALUES( ? , ? , ? )",
+                            $usr['userid'], $cache_id, $_POST['r']);
                     }
                 } else {
                     // nie wybrano opcji oceny
@@ -483,45 +491,33 @@ if ($error == false) {
 
                         /* end calling method logging selected Geokrets with GeoKretyApi */
 
-
-
-                        $log_text = sql_escape($log_text);
                         ($descMode != 1) ? $dmde_1 = 1 : $dmde_1 = 0;
                         ($descMode == 3) ? $dmde_2 = 1 : $dmde_2 = 0;
 
-                        $dadadad = mysql_query("INSERT INTO `cache_logs` (
-                                                   `cache_id`,
-                                                   `user_id`,
-                                                   `type`,
-                                                   `date`,
-                                                   `text`,
-                                                   `text_html`,
-                                                   `text_htmledit`,
-                                                   `date_created`,
-                                                   `last_modified`,
-                                                   `uuid`,
-                                                   `node`)
-                               SELECT              '$cache_id',
-                                                   '" . $usr['userid'] . "',
-                                                   '$log_type',
-                                                   '$log_date',
-                                                   '$log_text',
-                                                   '$dmde_1',
-                                                   '$dmde_2',
-                                                   NOW(),
-                                                   NOW(),
-                                                   '$log_uuid',
-                                                   '$oc_nodeid'
-                               FROM  `cache_logs`
-                               WHERE NOT EXISTS (SELECT * FROM `cache_logs`
-                                                  WHERE `type`=1
-                                                    AND `user_id` = '" . $usr['userid'] . "'
-                                                    AND `cache_id` = '$cache_id'
-                                                    AND `deleted` = '0')
-                               LIMIT 1") or die(mysql_error());
+                        // This query INSERT cache_log entry ONLY IF such entry NOT EXISTS
+                        XDb::xSql(
+                            "INSERT INTO `cache_logs` (
+                                `cache_id`, `user_id`, `type`, `date`, `text`,
+                                `text_html`, `text_htmledit`, `date_created`, `last_modified`,
+                                `uuid`, `node`)
+                            SELECT ?, ?, ?, ?, ?, ? ,? ,NOW(), NOW(), ?, ?
+                            FROM  `cache_logs`
+                            WHERE NOT EXISTS (
+                                SELECT * FROM `cache_logs`
+                                WHERE `type`=1 AND `user_id` = ?
+                                    AND `cache_id` = ?
+                                    AND `deleted` = '0')
+                            LIMIT 1",
+                                $cache_id, $usr['userid'], $log_type, $log_date, $log_text,
+                                $dmde_1, $dmde_2, $log_uuid, $oc_nodeid, $usr['userid'], $cache_id
+                            );
+
                     } else {
-                        sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
-                                         VALUES        ('',   '&1',       '&2',      '&3',   '&4',  '&5',   '&6',         '&7', NOW(), NOW(), '&8', '&9')", $cache_id, $usr['userid'], $log_type, $log_date, $log_text, 1, 1, $log_uuid, $oc_nodeid);
+                        XDb::xSql(
+                            "INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`,
+                                         `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
+                            VALUES ('', ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)",
+                            $cache_id, $usr['userid'], $log_type, $log_date, $log_text, 1, 1, $log_uuid, $oc_nodeid);
                     }
 
                     // mobline by Łza (mobile caches)
@@ -531,7 +527,7 @@ if ($error == false) {
                         ini_set('display_errors', 1);
                         // error_reporting(E_ALL);
                         // id of last sql entery
-                        $last_id_4_mobile_moved = mysql_insert_id();
+                        $last_id_4_mobile_moved = XDb::xMultiVariableQueryValue("SELECT Last_INSERT_ID()", 0);
 
                         // converting from HH MM.MMM to DD.DDDDDD
                         $wspolrzedneNS = $wsp_NS_st + round($wsp_NS_min, 3) / 60;
@@ -544,13 +540,14 @@ if ($error == false) {
                         // if it is first log "cache mooved" then move start coordinates from table caches
                         // to table cache_moved and create log type cache_moved, witch description
                         // "depart point" or something like this.
-                        //$count = mysql_result($result, 0);
 
-                        $is_any_cache_movedlog = mysql_result(sql("SELECT COUNT(*) FROM `cache_moved` WHERE `cache_id` ='&1'", sql_escape($cache_id)), 0);
+                        $is_any_cache_movedlog = XDb::xMultiVariableQueryValue(
+                            "SELECT COUNT(*) FROM `cache_moved` WHERE `cache_id` = :1 ", 0, $cache_id);
 
                         if ($is_any_cache_movedlog == 0) {
-                            $tmp_move_query = sql("SELECT `user_id`, `longitude`, `latitude`, `date_hidden` FROM `caches` WHERE `cache_id` ='&1'", sql_escape($cache_id));
-                            $tmp_move_data = mysql_fetch_array($tmp_move_query);
+                            $tmp_move_query = XDb::xSql(
+                                "SELECT `user_id`, `longitude`, `latitude`, `date_hidden` FROM `caches` WHERE `cache_id` = ? ", $cache_id);
+                            $tmp_move_data = XDb::xFetchArray($tmp_move_query);
 
                             // create initial log in cache_logs and copy coords to table caches
                             $init_log_desc = tr('log_mobile_init');
@@ -561,52 +558,30 @@ if ($error == false) {
 
                             $init_log_uuid = create_uuid();
 
-                            sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
-                                      VALUES                   ('',   '&1',       '&2',      '&3',   '&4',   '&5',   '&6',        '&7',             NOW(),           NOW(),          '&8',   '&9')", $cache_id, $init_log_userID, 4, $init_log_date, $init_log_desc, 0, 0, $init_log_uuid, $oc_nodeid
-                            );
-                            $last_id_4_init_log = mysql_insert_id();
-
+                            XDb::xSql(
+                                "INSERT INTO `cache_logs` (
+                                    `id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`,
+                                    `date_created`, `last_modified`, `uuid`, `node`)
+                                VALUES ('', ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)",
+                                $cache_id, $init_log_userID, 4, $init_log_date, $init_log_desc, 0, 0, $init_log_uuid, $oc_nodeid);
 
                             // print $init_log_longitude; exit;
+                            XDb::xSql(
+                                "INSERT INTO `cache_moved`(
+                                    `cache_id`, `user_id`, `log_id`, `date`, `longitude`, `latitude`, `km`)
+                                VALUES ( ?, ?, LAST_INSERT_ID(), ?, ?, ?, '0')",
+                                $cache_id, $init_log_userID, $init_log_date, $init_log_longitude, $init_log_latitude);
 
-                            sql("INSERT INTO `cache_moved`(
-                                                     `cache_id`,
-                                                     `user_id`,
-                                                     `log_id`,
-                                                     `date`,
-                                                     `longitude`,
-                                                     `latitude`,
-                                                     `km`)
-                                             VALUES (
-                                                     '&1',
-                                                     '&2',
-                                                     '&3',
-                                                     '&4',
-                                                     '&5',
-                                                     '&6',
-                                                     '0'
-                                                    )", sql_escape($cache_id), $init_log_userID, $last_id_4_init_log, $init_log_date, $init_log_longitude, $init_log_latitude
-                            );
                             $dystans = sprintf("%.2f", calcDistance($init_log_latitude, $init_log_longitude, $wspolrzedneNS, $wspolrzedneWE));
                         } else {
                             // $log_date - data+czas logu
                             // calculate distance from piervous
-                            $ostatnie_dane_mobilniaka = mysql_fetch_array(mysql_query("
-                                      SELECT
-                                              `id`,
-                                              `user_id`,
-                                              `log_id`,
-                                              `date`,
-                                              `longitude`,
-                                              `latitude`,
-                                              `km`
-                                        FROM  `cache_moved`
-                                        WHERE `cache_id` = '$cache_id'
 
-                                        ORDER BY id DESC
-                                        LIMIT 1
-                                        "
-                            ));
+                            $cData = XDb::xSql(
+                                "SELECT `id`, `user_id`, `log_id`, `date`, `longitude`, `latitude`, `km` FROM  `cache_moved`
+                                WHERE `cache_id` = ? ORDER BY id DESC LIMIT 1", $cache_id );
+                            $ostatnie_dane_mobilniaka = XDb::xFetchArray($cData);
+
                             // jeśli beżący (właśnie wpisywany) log jest ostatnim,
                             // dystans zostanie wpisany do bazy. w przeciwnym wypadku
                             // zmienna zostanie zastąpiona w if-ie
@@ -615,42 +590,24 @@ if ($error == false) {
                             if ($log_date <= $ostatnie_dane_mobilniaka['date']) {
                                 // find nearest log before
 
-                                $najblizszy_log_wczesniej_array = mysql_query("
-                                             SELECT
-                                              `id`,
-                                              `user_id`,
-                                              `log_id`,
-                                              `date`,
-                                              `longitude`,
-                                              `latitude`,
-                                              `km`
-                                             FROM  `cache_moved`
-                                             WHERE `cache_id` = '$cache_id'
-                                             AND   `date` < '$log_date'
-                                             ORDER BY `date` DESC
-                                             LIMIT 1
-                                             "
-                                        ) or die(mysql_error());
+                                $najblizszy_log_wczesniej_array = XDb::xSql(
+                                    "SELECT `id`, `user_id`, `log_id`, `date`, `longitude`, `latitude`, `km`
+                                     FROM  `cache_moved`
+                                     WHERE `cache_id` = ? AND `date` < ?
+                                     ORDER BY `date` DESC
+                                     LIMIT 1", $cache_id, $log_date);
 
-                                $najblizszy_log_wczesniej = mysql_fetch_array($najblizszy_log_wczesniej_array);
+                                $najblizszy_log_wczesniej = XDb::xFetchArray($najblizszy_log_wczesniej_array);
 
                                 // find nearest log after
-                                $najblizszy_log_pozniej = mysql_fetch_array(mysql_query("
-                                             SELECT
-                                              `id`,
-                                              `date`,
-                                              `user_id`,
-                                              `log_id`,
-                                              `longitude`,
-                                              `latitude`,
-                                              `km`
-                                             FROM  `cache_moved`
-                                             WHERE `cache_id` = '$cache_id'
-                                             AND   `date` > '$log_date'
-                                             ORDER BY `date` ASC
-                                             LIMIT 1
-                                             "
-                                ));
+                                $najblizszy_log_pozniej = XDb::xSql(
+                                    "SELECT `id`, `date`, `user_id`, `log_id`, `longitude`, `latitude`, `km`
+                                    FROM  `cache_moved`
+                                    WHERE `cache_id` = ? AND `date` > ?
+                                    ORDER BY `date` ASC
+                                    LIMIT 1", $cache_id, $cache_id);
+
+                                $najblizszy_log_pozniej = XDb::xFetchArray($najblizszy_log_pozniej);
 
                                 print 'mieszanie z datami<br>';
                                 print 'data logu: ' . $log_date
@@ -664,59 +621,57 @@ if ($error == false) {
                                 $najblizszy_log_wczesniej['id'];
 
                                 // dla logu przed obecnym
-                                $najblizszy_log_jeszcze_wczesniej = mysql_fetch_array($najblizszy_log_wczesniej_array);
+                                $najblizszy_log_jeszcze_wczesniej = XDb::xFetchArray($najblizszy_log_wczesniej_array);
                                 $km_logu[$najblizszy_log_wczesniej['id']] = sprintf("%.2f", calcDistance($najblizszy_log_jeszcze_wczesniej['latitude'], $najblizszy_log_jeszcze_wczesniej['longitude'], $najblizszy_log_wczesniej['latitude'], $najblizszy_log_wczesniej['longitude']));
 
                                 // dla logu po obecnym
                                 $km_logu[$najblizszy_log_pozniej['id']] = sprintf("%.2f", calcDistance($wspolrzedneNS, $wspolrzedneWE, $najblizszy_log_pozniej['latitude'], $najblizszy_log_pozniej['longitude']));
 
-                                sql("UPDATE `cache_moved` SET `km`='&1' WHERE id = '&2'", $km_logu[$najblizszy_log_pozniej['id']], $najblizszy_log_pozniej['id']);
-                                sql("UPDATE `cache_moved` SET `km`='&1' WHERE id = '&2'", $km_logu[$najblizszy_log_wczesniej['id']], $najblizszy_log_wczesniej['id']);
+                                XDb::xSql(
+                                    "UPDATE `cache_moved` SET `km`= ? WHERE id = ? ",
+                                    $km_logu[$najblizszy_log_pozniej['id']], $najblizszy_log_pozniej['id']);
+
+                                XDb::xSql(
+                                    "UPDATE `cache_moved` SET `km`= ? WHERE id = ? ",
+                                    $km_logu[$najblizszy_log_wczesniej['id']], $najblizszy_log_wczesniej['id']);
 
                                 // wyliczenie dystansu dla obecnego logu.
                                 $dystans = sprintf("%.2f", calcDistance($najblizszy_log_wczesniej['latitude'], $najblizszy_log_wczesniej['longitude'], $wspolrzedneNS, $wspolrzedneWE));
-                                //print $dystans;
                             }
                         }
                         //
                         // insert into table cache_moved
-                        sql("INSERT INTO `cache_moved`(`id`,
-                                                     `cache_id`,
-                                                     `user_id`,
-                                                     `log_id`,
-                                                     `date`,
-                                                     `longitude`,
-                                                     `latitude`,
-                                                     `km`)
-                                             VALUES ('',
-                                                     '&1',
-                                                     '&2',
-                                                     '&3',
-                                                     '&4',
-                                                     '&5',
-                                                     '&6',
-                                                     '&7'
-                                                    )", sql_escape($cache_id), $usr['userid'], $last_id_4_mobile_moved, $log_date, $wspolrzedneWE, $wspolrzedneNS, $dystans
-                        );
+                        XDb::xSql(
+                            "INSERT INTO `cache_moved`(`id`, `cache_id`, `user_id`, `log_id`, `date`, `longitude`, `latitude`,`km`)
+                            VALUES ('',?,?,?,?,?,?,?)",
+                            $cache_id, $usr['userid'], $last_id_4_mobile_moved, $log_date, $wspolrzedneWE, $wspolrzedneNS, $dystans);
+
                         // update main cache coordinates
-                        sql("UPDATE `caches` SET `longitude` = '&2', `latitude` = '&3'  WHERE `cache_id`='&1'", sql_escape($cache_id), $wspolrzedneWE, $wspolrzedneNS);
+                        XDb::xSql(
+                            "UPDATE `caches` SET `longitude` = ?, `latitude` = ?
+                            WHERE `cache_id`= ? ", $wspolrzedneWE, $wspolrzedneNS, $cache_id);
 
                         // get new region (names and codes) from coordinates and put it into database.
                         $region = new GetRegions();
                         $regiony = $region->GetRegion($wspolrzedneNS, $wspolrzedneWE);
-                        sql("UPDATE `cache_location` SET adm1 = '&2', adm3 = '&3', code1='&4', code3='&5' WHERE cache_id = '&1'", sql_escape($cache_id), $regiony['adm1'], $regiony['adm3'], $regiony['code1'], $regiony['code3']);
+                        XDb::xSql(
+                            "UPDATE `cache_location` SET adm1 = ?, adm3 = ?, code1= ?, code3= ? WHERE cache_id = ? ",
+                            $regiony['adm1'], $regiony['adm3'], $regiony['code1'], $regiony['code3'], $cache_id );
                     }
                     // mobilne by Łza - koniec
                     //inc cache stat and "last found"
-                    $rs = sql("SELECT `founds`, `notfounds`, `notes`, `last_found` FROM `caches` WHERE `cache_id`='&1'", sql_escape($cache_id));
-                    $record = sql_fetch_array($rs);
+                    $rs = XDb::xSql(
+                        "SELECT `founds`, `notfounds`, `notes`, `last_found` FROM `caches`
+                        WHERE `cache_id`= ? ", $cache_id );
+
+                    $record = XDb::xFetchArray($rs);
                     $last_found = '';
                     if ($log_type == 1 || $log_type == 7) {
                         $dlog_date = mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year);
                         if ($record['last_found'] == NULL) {
-                            $last_found = ', `last_found`=\'' . sql_escape(date('Y-m-d H:i:s', $dlog_date)) . '\'';
+                            $last_found = ', `last_found`=\'' . XDb::xEscape(date('Y-m-d H:i:s', $dlog_date)) . '\'';
                         } elseif (strtotime($record['last_found']) < $dlog_date) {
-                            $last_found = ', `last_found`=\'' . sql_escape(date('Y-m-d H:i:s', $dlog_date)) . '\'';
+                            $last_found = ', `last_found`=\'' . XDb::xEscape(date('Y-m-d H:i:s', $dlog_date)) . '\'';
                         }
                     }
                     if ($log_type == 1 || $log_type == 2 || $log_type == 3 || $log_type == 7 || $log_type == 8) {
@@ -724,37 +679,35 @@ if ($error == false) {
                     }
 
                     //inc user stat
-                    $rs = sql("SELECT `log_notes_count`, `founds_count`, `notfounds_count` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
-                    $record = sql_fetch_array($rs);
+                    $rs = XDb::xSql(
+                        "SELECT `log_notes_count`, `founds_count`, `notfounds_count` FROM `user`
+                        WHERE `user_id`= ? ", $usr['userid']);
+                    $record = XDb::xFetchArray($rs);
 
                     if ($log_type == 1 || $log_type == 7) {
-                        $tmpset_var = '`founds_count`=\'' . sql_escape($record['founds_count'] + 1) . '\'';
+                        XDb::xSql("UPDATE `user` SET founds_count=founds_count+1  WHERE `user_id`= ? ", $usr['userid']);
                     } elseif ($log_type == 2) {
-                        $tmpset_var = '`notfounds_count`=\'' . sql_escape($record['notfounds_count'] + 1) . '\'';
+                        XDb::xSql("UPDATE `user` SET notfounds_count=notfounds_count+1 WHERE `user_id`= ? ", $usr['userid']);
                     } elseif ($log_type == 3) {
-                        $tmpset_var = '`log_notes_count`=\'' . sql_escape($record['log_notes_count'] + 1) . '\'';
-                    }
-                    if ($log_type == 1 || $log_type == 2 || $log_type == 3 || $log_type == 7) {
-                        sql("UPDATE `user` SET " . $tmpset_var . " WHERE `user_id`='&1'", sql_escape($usr['userid']));
+                        XDb::xSql("UPDATE `user` SET log_notes_count=log_notes_count+1 WHERE `user_id`= ? ", $usr['userid']);
                     }
 
                     // update cache_status
-                    $rs = sql("SELECT `log_types`.`cache_status` FROM `log_types` WHERE `id`='&1'", sql_escape($log_type));
-                    if ($record = sql_fetch_array($rs)) {
-                        $cache_status = $record['cache_status'];
-                        if ($cache_status != 0) {
-                            $rs = sql("UPDATE `caches` SET `last_modified`=NOW(), `status`='&1' WHERE `cache_id`='&2'", sql_escape($cache_status), sql_escape($cache_id));
+                    $cache_status = XDb::xMultiVariableQueryValue(
+                    	"SELECT `log_types`.`cache_status` FROM `log_types` WHERE `id`= :1 LIMIT 1", 0, $log_type);
+
+					    if ($cache_status != 0) {
+                            $rs = XDb::xSql(
+                                "UPDATE `caches` SET `last_modified`=NOW(), `status`= ?
+                                WHERE `cache_id`= ? ", $cache_status, $cache_id);
                         }
-                    } else {
-                        die("OPS!");
-                    }
 
                     // update top-list
                     if ($log_type == 1 || $log_type == 3) {
                         if ($top_cache == 1)
-                            sql("INSERT IGNORE INTO `cache_rating` (`user_id`, `cache_id`) VALUES('&1', '&2')", $usr['userid'], $cache_id);
+                            XDb::xSql("INSERT IGNORE INTO `cache_rating` (`user_id`, `cache_id`) VALUES(?, ?)", $usr['userid'], $cache_id);
                         else
-                            sql("DELETE FROM `cache_rating` WHERE `user_id`='&1' AND `cache_id`='&2'", $usr['userid'], $cache_id);
+                            XDb::xSql("DELETE FROM `cache_rating` WHERE `user_id`=? AND `cache_id`=?", $usr['userid'], $cache_id);
                     }
 
                     // Notify OKAPI's replicate module of the change.
@@ -769,22 +722,25 @@ if ($error == false) {
                 }
                 //redirect to viewcache
                 $no_tpl_build = true;
-                //include('viewcache.php');
                 tpl_redirect('viewcache.php?cacheid=' . $cache_id);
             }
             else {
-                $sql = "SELECT count(*) as founds FROM `cache_logs` WHERE `deleted`=0 AND user_id='" . sql_escape($usr['userid']) . "' AND cache_id='" . sql_escape($cache_id) . "' AND type = '1'";
-                $res = mysql_fetch_array(mysql_query($sql));
-                $sql = "SELECT status, type FROM `caches` WHERE cache_id='" . sql_escape($cache_id) . "'";
-                $res2 = mysql_fetch_array(mysql_query($sql));
-                $db = new dataBase;
-                $queryEventAttended = "SELECT count(*) as eventAttended FROM `cache_logs` WHERE `deleted`=0 AND user_id=:1 AND cache_id=:2 AND type = '7'";
-                $db->multiVariableQuery($queryEventAttended, $usr['userid'], $cache_id);
-                $eventAttended = $db->dbResultFetch();
 
-                // debug('$res', $res);
-                // debug('$res2', $res2);
-                // debug('$log_types', $log_types);
+                $founds = XDb::xMultiVariableQueryValue(
+                    "SELECT count(*) as founds FROM `cache_logs`
+                    WHERE `deleted`=0 AND user_id= :1 AND cache_id= :2
+                        AND type = '1'", 0, $usr['userid'], $cache_id);
+
+                $rs = XDb::xSql("SELECT status, type FROM `caches` WHERE cache_id= ? LIMIT 1", $cache_id);
+                $res2 = XDb::xFetchArray($rs);
+
+                $db = OcDb::instance();
+                $db->multiVariableQuery(
+                    "SELECT count(*) as eventAttended FROM `cache_logs`
+                    WHERE `deleted`=0 AND user_id=:1 AND cache_id=:2 AND type = '7'",
+                    $usr['userid'], $cache_id);
+
+                $eventAttended = $db->dbResultFetch();
 
                 /*                 * **************
                  * build logtypeoptions
@@ -837,12 +793,10 @@ if ($error == false) {
                     tpl_set_var('display', "none");
                 }
 
-
-
                 foreach ($log_types AS $type) {
                     // do not allow 'finding' or 'not finding' own or archived cache (events can be logged) $res2['status'] == 2 || $res2['status'] == 3
 
-                    if ($res2['type'] != 6 && ($usr['userid'] == $cache_user_id || $res['founds'] > 0 || $res2['status'] == 4 || $res2['status'] == 6)) {
+                    if ($res2['type'] != 6 && ($usr['userid'] == $cache_user_id || $founds > 0 || $res2['status'] == 4 || $res2['status'] == 6)) {
                         //3 = Write a note;
                         if ($usr['admin'] == true && $res2['status'] == 4)
                             $logtypeoptions .= '<option selected="selected" value="3">' . tr('lxg08') . '</option>' . "\n";
@@ -1241,7 +1195,7 @@ function recalculateCacheStats($cacheId, $cacheType, $lastFoundQueryString)
         ";
     }
 
-    $db = new dataBase;
+    $db = OcDb::instance();
     $db->multiVariableQuery($query, $cacheId);
 }
 
