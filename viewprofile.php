@@ -2,7 +2,7 @@
 
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
-
+use lib\Objects\PowerTrail\PowerTrail;
 use lib\Objects\User\User;
 
 //prepare the templates and include all neccessary
@@ -159,7 +159,7 @@ if ($error == false) {
             $pointsEarnedForPlacedCaches = powerTrailBase::getOwnerPoints($user_id);
 
             $content .= buildPowerTrailIcons($user->getPowerTrailOwed());
-            $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt224') . '</span>:&nbsp;<strong>' . $pointsEarnedForPlacedCaches['totalPoints'] . '</strong> (' . tr('pt222') . ' ' . $pointsEarnedForPlacedCaches['geoPathCount'] . ' ' . tr('pt223') . ')</p>';
+            $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt224') . '</span>:&nbsp;<strong>' . $pointsEarnedForPlacedCaches['totalPoints'] . '</strong></p>';
         }
 
         //$content .= '</div>';
@@ -731,12 +731,17 @@ tpl_BuildTemplate();
  */
 function buildPowerTrailIcons(ArrayObject $powerTrails)
 {
+    $allowedPtStatus = array(
+        PowerTrail::STATUS_OPEN, PowerTrail::STATUS_INSERVICE, PowerTrail::STATUS_CLOSED
+    );
     $result = '<table width="100%"><tr><td>';
     /* @var $powertrail \lib\Objects\PowerTrail\PowerTrail */
     foreach ($powerTrails as $powertrail) {
-        $result .= '<div class="ptMedal"><table style="padding-top: 7px;" align="center" height="51" width="51"><tr><td width=52 height=52 valign="center" align="center"><a title="' . $powertrail->getName() . '" href="powerTrail.php?ptAction=showSerie&ptrail=' . $powertrail->getId() . '"><img class="imgPtMedal" src="' . $powertrail->getImage() . '"></a></td></tr><tr><td align="center"><img src="' . $powertrail->getFootIcon() . '" /></td></tr></table></div><div class="ptMedalSpacer"></div>';
+        if(in_array($powertrail->getStatus(), $allowedPtStatus)){
+            $result .= '<div class="ptMedal"><table style="padding-top: 7px;" align="center" height="51" width="51"><tr><td width=52 height=52 valign="center" align="center"><a title="' . $powertrail->getName() . '" href="powerTrail.php?ptAction=showSerie&ptrail=' . $powertrail->getId() . '"><img class="imgPtMedal" src="' . $powertrail->getImage() . '"></a></td></tr><tr><td align="center"><img src="' . $powertrail->getFootIcon() . '" /></td></tr></table></div><div class="ptMedalSpacer"></div>';
+        }
     }
-    return $result . '</td></tr><tr><td></td></tr></table><br /><br />';
+    return $result . '</td></tr></table><br /><br />';
 }
 
 function myUrlEncode($string)
