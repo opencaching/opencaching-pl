@@ -527,7 +527,7 @@ if ($error == false) {
                         ini_set('display_errors', 1);
                         // error_reporting(E_ALL);
                         // id of last sql entery
-                        $last_id_4_mobile_moved = XDb::xMultiVariableQueryValue("SELECT Last_INSERT_ID()", 0);
+                        $last_id_4_mobile_moved = XDb::xLastInsertId();
 
                         // converting from HH MM.MMM to DD.DDDDDD
                         $wspolrzedneNS = $wsp_NS_st + round($wsp_NS_min, 3) / 60;

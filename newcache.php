@@ -1,5 +1,8 @@
 <?php
 
+use Utils\Database\OcDb;
+use Utils\Database\XDb;
+
 //prepare the templates and include all neccessary
 global $site_name, $absolute_server_URI;
 if (!isset($rootpath)) {
@@ -16,7 +19,7 @@ if ($error == false) {
         $target = urlencode(tpl_get_current_page());
         tpl_redirect('login.php?target=' . $target);
     } else {
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = OcDb::instance();
 
         $user = new \lib\Objects\User\User(array('userId'=>$usr['userid']));
         $user->loadExtendedSettings();
@@ -38,8 +41,11 @@ if ($error == false) {
         require_once($rootpath . '/lib/caches.inc.php');
         require_once($stylepath . '/newcache.inc.php');
 
-        $rs = sql("SELECT `hide_flag` as hide_flag, `verify_all` as verify_all FROM `user` WHERE `user_id` =  " . $user->getUserId());
-        $record = sql_fetch_array($rs);
+        $rs = XDb::xSql(
+            "SELECT `hide_flag` as hide_flag, `verify_all` as verify_all FROM `user`
+            WHERE `user_id` = ? ", $user->getUserId());
+
+        $record = XDb::xFetchArray($rs);
         $hide_flag = $record['hide_flag'];
         $verify_all = $record['verify_all'];
 
@@ -50,9 +56,12 @@ if ($error == false) {
         }
 
         // display info for begginner about number of find caches to possible register first cache
-        $rsnfc = sql("SELECT COUNT(`cache_logs`.`cache_id`) as num_fcaches FROM cache_logs,caches WHERE cache_logs.cache_id=caches.cache_id AND (caches.type='1' OR caches.type='2' OR caches.type='3' OR caches.type='7' OR caches.type='8') AND cache_logs.type='1' AND cache_logs.deleted='0' AND `cache_logs`.`user_id` = " . sql_escape($usr['userid']) . "");
-        $rec = sql_fetch_array($rsnfc);
-        $num_find_caches = $rec['num_fcaches'];
+        $num_find_caches = XDb::xMultiVariableQueryValue(
+            "SELECT COUNT(`cache_logs`.`cache_id`) as num_fcaches FROM cache_logs, caches
+            WHERE cache_logs.cache_id=caches.cache_id AND (caches.type='1'
+                OR caches.type='2' OR caches.type='3' OR caches.type='7'
+                OR caches.type='8') AND cache_logs.type='1'
+                AND cache_logs.deleted='0' AND `cache_logs`.`user_id` = :1 ", 0,$usr['userid'] );
         tpl_set_var('number_finds_caches', $num_find_caches);
 
         if ($num_find_caches < $NEED_FIND_LIMIT && !$user->isIngnoreGeocacheLimitWhileCreatingNewGeocache()) {
@@ -62,9 +71,10 @@ if ($error == false) {
 
         $errors = false; // set if there was any errors
 
-        $rsnc = sql("SELECT COUNT(`caches`.`cache_id`) as num_caches FROM `caches` WHERE `user_id` = " . sql_escape($usr['userid']) . "
-                                    AND status = 1");
-        $record = sql_fetch_array($rsnc);
+        $rsnc = XDb::xSql(
+            "SELECT COUNT(`caches`.`cache_id`) as num_caches FROM `caches`
+            WHERE `user_id` = ? AND status = 1", $usr['userid']);
+        $record = XDb::xFetchArray($rsnc);
         $num_caches = $record['num_caches'];
 
         $cacheLimitByTypePerUser = common::getUserActiveCacheCountByType($db, $usr['userid']);
@@ -390,40 +400,42 @@ if ($error == false) {
         $cache_attrib_array = '';
         $cache_attribs_string = '';
 
-        $rs = sql("SELECT `id`, `text_long`, `icon_undef`, `icon_large` FROM `cache_attrib` WHERE `language`='&1' ORDER BY `category`, `id`", $default_lang);
-        if (mysql_num_rows($rs) > 0) {
-            while ($record = sql_fetch_array($rs)) {
-                $line = $cache_attrib_pic;
-                $line = mb_ereg_replace('{attrib_id}', $record['id'], $line);
-                $line = mb_ereg_replace('{attrib_text}', $record['text_long'], $line);
-                if (in_array($record['id'], $cache_attribs)) {
-                    $line = mb_ereg_replace('{attrib_pic}', $record['icon_large'], $line);
-                } else {
-                    $line = mb_ereg_replace('{attrib_pic}', $record['icon_undef'], $line);
-                }
-                $cache_attrib_list .= $line;
-                $line = $cache_attrib_js;
-                $line = mb_ereg_replace('{id}', $record['id'], $line);
-                if (in_array($record['id'], $cache_attribs)) {
-                    $line = mb_ereg_replace('{selected}', 1, $line);
-                } else {
-                    $line = mb_ereg_replace('{selected}', 0, $line);
-                }
-                $line = mb_ereg_replace('{img_undef}', $record['icon_undef'], $line);
-                $line = mb_ereg_replace('{img_large}', $record['icon_large'], $line);
-                if ($cache_attrib_array != '') {
-                    $cache_attrib_array .= ',';
-                }
-                $cache_attrib_array .= $line;
+        $rs = XDb::xSql(
+            "SELECT `id`, `text_long`, `icon_undef`, `icon_large` FROM `cache_attrib`
+            WHERE `language`= ? ORDER BY `category`, `id`", $default_lang);
 
-                if (in_array($record['id'], $cache_attribs)) {
-                    if ($cache_attribs_string != '') {
-                        $cache_attribs_string .= ';';
-                    }
-                    $cache_attribs_string .= $record['id'];
+        while ($record = XDb::xFetchArray($rs)) {
+            $line = $cache_attrib_pic;
+            $line = mb_ereg_replace('{attrib_id}', $record['id'], $line);
+            $line = mb_ereg_replace('{attrib_text}', $record['text_long'], $line);
+            if (in_array($record['id'], $cache_attribs)) {
+                $line = mb_ereg_replace('{attrib_pic}', $record['icon_large'], $line);
+            } else {
+                $line = mb_ereg_replace('{attrib_pic}', $record['icon_undef'], $line);
+            }
+            $cache_attrib_list .= $line;
+            $line = $cache_attrib_js;
+            $line = mb_ereg_replace('{id}', $record['id'], $line);
+            if (in_array($record['id'], $cache_attribs)) {
+                $line = mb_ereg_replace('{selected}', 1, $line);
+            } else {
+                $line = mb_ereg_replace('{selected}', 0, $line);
+            }
+            $line = mb_ereg_replace('{img_undef}', $record['icon_undef'], $line);
+            $line = mb_ereg_replace('{img_large}', $record['icon_large'], $line);
+            if ($cache_attrib_array != '') {
+                $cache_attrib_array .= ',';
+            }
+            $cache_attrib_array .= $line;
+
+            if (in_array($record['id'], $cache_attribs)) {
+                if ($cache_attribs_string != '') {
+                    $cache_attribs_string .= ';';
                 }
+                $cache_attribs_string .= $record['id'];
             }
         }
+
         tpl_set_var('cache_attrib_list', $cache_attrib_list);
         tpl_set_var('jsattributes_array', $cache_attrib_array);
         tpl_set_var('cache_attribs', $cache_attribs_string);
@@ -650,74 +662,67 @@ if ($error == false) {
                     }
 
                     if ($publish == 'now') {
-                        $activation_date = 'NULL';
+                        $activation_date = null;
                         $activation_column = ' ';
                     } elseif ($publish == 'later') {
                         $sel_status = 5;
-                        $activation_date = "'" . date('Y-m-d H:i:s', mktime($activate_hour, 0, 0, $activate_month, $activate_day, $activate_year)) . "'";
+                        $activation_date =
+                            date('Y-m-d H:i:s', mktime($activate_hour, 0, 0, $activate_month, $activate_day, $activate_year));
                     } elseif ($publish == 'notnow') {
                         $sel_status = 5;
-                        $activation_date = 'NULL';
+                        $activation_date = null;
                     } else {
                         // should never happen
-                        $activation_date = 'NULL';
+                        $activation_date = null;
                     }
                 }
                 $cache_uuid = create_uuid();
-                mysql_query("SET NAMES 'utf8'");
+
                 //add record to caches table
-                sql("INSERT INTO `caches` (
-                                                `cache_id`,
-                                                `user_id`,
-                                                `name`,
-                                                `longitude`,
-                                                `latitude`,
-                                                `last_modified`,
-                                                `date_created`,
-                                                `type` ,
-                                                `status` ,
-                                                `country` ,
-                                                `date_hidden` ,
-                                                `date_activate` ,
-                                                `founds` ,
-                                                `notfounds` ,
-                                                `notes` ,
-                                                `last_found` ,
-                                                `size` ,
-                                                `difficulty` ,
-                                                `terrain`,
-                                                `uuid`,
-                                                `logpw`,
-                                                `search_time`,
-                                                `way_length`,
-                                                `wp_gc`,
-                                                `wp_nc`,
-                                                `wp_ge`,
-                                                `wp_tc`,
-                                                `node`
-                                            ) VALUES (
-                                                '', '&1', '&2', '&3', '&4', NOW(), NOW(), '&5', '&6', '&7', '&8', $activation_date, '0', '0', '0', NULL ,
-                                                '&9', '&10', '&11', '&12', '&13', '&14', '&15', '&16', '&17', '&18','&19','&20')", $usr['userid'], $name, $longitude, $latitude, $sel_type, $sel_status, $sel_country, date('Y-m-d', $hidden_date), $sel_size, $difficulty, $terrain, $cache_uuid, $log_pw, $search_time, $way_length, $wp_gc, $wp_nc, $wp_ge, $wp_tc, $oc_nodeid);
-                $cache_id = mysql_insert_id($dblink);
+                XDb::xSql(
+                    "INSERT INTO `caches` (
+                        `cache_id`, `user_id`, `name`, `longitude`, `latitude`, `last_modified`,
+                        `date_created`, `type`, `status`, `country`, `date_hidden`, `date_activate`,
+                        `founds`, `notfounds`, `notes`, `last_found`, `size`, `difficulty`,
+                        `terrain`, `uuid`, `logpw`, `search_time`, `way_length`, `wp_gc`,
+                        `wp_nc`, `wp_ge`, `wp_tc`, `node` )
+                    VALUES (
+                        '', ?, ?, ?, ?, NOW(), NOW(), ?, ?, ?,
+                        ?, ?, '0', '0', '0', NULL, ?, ?, ?, ?,
+                        ?, ?, ?, ?, ?, ?, ?, ?)",
+                    $usr['userid'], $name, $longitude, $latitude, $sel_type, $sel_status, $sel_country,
+                    date('Y-m-d', $hidden_date), $sel_size, $difficulty, $terrain, $activation_date, $cache_uuid, $log_pw,
+                    $search_time, $way_length, $wp_gc, $wp_nc, $wp_ge, $wp_tc, $oc_nodeid);
+
+                $cache_id = XDb::xLastInsertId();
+
                 // insert cache_location
                 $code1 = $sel_country;
-                $adm1 = sqlvalue("SELECT `countries`.$lang
-                                     FROM `countries`
-                                    WHERE `countries`.`short`='$code1'", 0);
+                $eLang = XDb::xEscape($lang);
+                $adm1 = XDb::xMultiVariableQueryValue(
+                    "SELECT `countries`.$eLang FROM `countries`
+                                    WHERE `countries`.`short`= :1 ", 0, $code1);
                 // check if selected country has no districts, then use $default_region
                 if ($sel_region == -1) {
                     $sel_region = $default_region;
                 }
                 if ($sel_region != "0") {
                     $code3 = $sel_region;
-                    $adm3 = sqlValue("SELECT `name` FROM `nuts_codes` WHERE `code`='" . sql_escape($sel_region) . "'", 0);
+                    $adm3 = XDb::xMultiVariableQueryValue(
+                        "SELECT `name` FROM `nuts_codes`
+                        WHERE `code`= :1 ", 0, $sel_region);
                 } else {
                     $code3 = null;
                     $adm3 = null;
                 }
-                sql("INSERT INTO `cache_location` (cache_id,adm1,adm3,code1,code3) VALUES ('&1','&2','&3','&4','&5')", $cache_id, $adm1, $adm3, $code1, $code3);
+                XDb::xSql(
+                    "INSERT INTO `cache_location` (cache_id,adm1,adm3,code1,code3)
+                    VALUES ( ?, ?, ?, ?, ?)",
+                    $cache_id, $adm1, $adm3, $code1, $code3);
+
                 // update cache last modified, it is for work of cache_locations update information
-                sql("UPDATE `caches` SET `last_modified`=NOW() WHERE `cache_id`='&1'", $cache_id);
+                XDb::xSql(
+                    "UPDATE `caches` SET `last_modified`=NOW() WHERE `cache_id`= ? ", $cache_id);
 
                 // waypoint erstellen
                 setCacheWaypoint($cache_id, $oc_waypoint);
@@ -726,23 +731,23 @@ if ($error == false) {
                 //add record to cache_desc table
                 $desc = userInputFilter::purifyHtmlString($desc);
 
-                $query = "INSERT INTO `cache_desc` (
-                                                `cache_id`,
-                                                `language`,
-                                                `desc`,
-                                                `hint`,
-                                                `short_desc`,
-                                                `last_modified`,
-                                                `uuid`,
-                                                `node`
-                                            ) VALUES (:1, :2, :3, :4, :5, NOW(), :6, :7)";
-                $db->multiVariableQuery($query, $cache_id, $sel_lang, $desc, nl2br(htmlspecialchars($hints, ENT_COMPAT, 'UTF-8')), $short_desc, $desc_uuid, $oc_nodeid);
+                $db->multiVariableQuery(
+                    "INSERT INTO `cache_desc` (
+                        `cache_id`, `language`, `desc`, `hint`,
+                        `short_desc`, `last_modified`, `uuid`, `node` )
+                    VALUES (:1, :2, :3, :4, :5, NOW(), :6, :7)",
+                    $cache_id, $sel_lang, $desc,
+                    nl2br(htmlspecialchars($hints, ENT_COMPAT, 'UTF-8')),
+                    $short_desc, $desc_uuid, $oc_nodeid);
+
                 setCacheDefaultDescLang($cache_id);
 
                 // insert cache-attributes
                 for ($i = 0; $i < count($cache_attribs); $i++) {
                     if (($cache_attribs[$i] + 0) > 0) {
-                        sql("INSERT INTO `caches_attributes` (`cache_id`, `attrib_id`) VALUES ('&1', '&2')", $cache_id, $cache_attribs[$i] + 0);
+                        XDb::xSql(
+                            "INSERT INTO `caches_attributes` (`cache_id`, `attrib_id`)
+                            VALUES ( ?, ?)", $cache_id, $cache_attribs[$i]);
                     }
                 }
 
@@ -776,7 +781,9 @@ if ($error == false) {
 
                     //send email to octeam
                     mb_send_mail($octeam_email, tr('rrActivateCache_07') . ": " . $name, $email_content, $email_headers);
-                    sql("UPDATE sysconfig SET value = value + 1 WHERE name = 'hidden_for_approval'");
+                    XDb::xSql(
+                        "UPDATE sysconfig SET value = value + 1
+                        WHERE name = 'hidden_for_approval'");
                 }
 
                 /* add cache altitude altitude */
@@ -814,7 +821,7 @@ function buildDescriptionLanguageSelector($show_all_langs, $lang, $defaultLangug
     if ($show_all_langs == 1) {
         tpl_set_var('show_all_langs', '1');
         tpl_set_var('show_all_langs_submit', '');
-        $db->simpleQuery('SELECT short FROM languages WHERE 1');
+        $db->simpleQuery('SELECT short FROM languages');
         $dbResult = $db->dbResultFetchAll();
         $defaultLangugaeList = array();
         foreach ($dbResult as $langTmp) {

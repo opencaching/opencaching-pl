@@ -129,12 +129,12 @@ class XDb extends OcDb {
         try {
             $stmt = $db->prepare($query);
 
-            //echo "Q: $query </br>"; //TMP_DEBUG!
+            echo "Q: $query </br>"; //TMP_DEBUG!
 
             $argList = func_get_args();
             array_shift($argList); //remove first param. = sql query
 
-            //echo "B: "; print_r($argList); echo "<br/>";  //TMP_DEBUG!
+            echo "B: "; print_r($argList); echo "<br/>";  //TMP_DEBUG!
 
             $stmt->execute($argList);
         } catch (PDOException $e) {
@@ -174,5 +174,15 @@ class XDb extends OcDb {
 
         $db = self::instance();
         return $db->multiVariableQueryValue($query, $default, $params);
+    }
+
+    /**
+     * Returns last inserted Id
+     * Remember, if you use a transaction you should use lastInsertId
+     * BEFORE you commit otherwise it will return 0
+     */
+    public static function xLastInsertId(){
+        $db = self::instance();
+        return $db->lastInsertId();
     }
 }
