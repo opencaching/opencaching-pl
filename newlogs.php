@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Database\OcDb;
+
 global $dateFormat;
 if (!isset($rootpath))
     $rootpath = '';
@@ -7,8 +9,6 @@ if (!isset($rootpath))
 //include template handling
 require_once ($rootpath . 'lib/common.inc.php');
 require_once($stylepath . '/lib/icons.inc.php');
-// this file use only database class. We don't need mysql_ connectors anymore.
-db_disconnect();
 
 //Preprocessing
 if ($error == false) {
@@ -19,7 +19,7 @@ if ($error == false) {
     $PAGES_LISTED = 10;
 
     $rsQuery = "SELECT count(id) FROM cache_logs WHERE deleted=0";
-    $db = new dataBase;
+    $db = OcDb::instance();
     $total_logs = $db->simpleQueryValue($rsQuery, 0);
 
     $pages = "";
