@@ -7,7 +7,7 @@
     $cacheTypesArr = $cache->getCacheTypeIcons();
     $cacheStatusArr = $cache->getCacheStatuses();
 
-    $txtLine = "".tr('search_text_01')." {mod_suffix}{cachename} ".tr('search_text_02')." {owner}
+    $txtLine = chr(239) . chr(187) . chr(191) .tr('search_text_01')." {mod_suffix}{cachename} ".tr('search_text_02')." {owner}
 ".tr('search_text_03')." {lat} {lon}
 ".tr('search_text_04')." {status}
 
