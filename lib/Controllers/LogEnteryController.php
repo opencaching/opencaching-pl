@@ -35,8 +35,10 @@ class LogEnteryController
             return false;
         }
 
-        if (( $log->getUser()->getUserId() == $loggedUser->getUserId()) || ($log->getGeoCache()->getOwner()->getUserId() == $loggedUser->getUserId()) || $loggedUser->getIsAdmin()) {
-            EmailController::sendRemoveLogNotification($log, $request, $loggedUser);
+        if (( $log->getUser()->getUserId() === $loggedUser->getUserId()) || ($log->getGeoCache()->getOwner()->getUserId() == $loggedUser->getUserId()) || $loggedUser->getIsAdmin()) {
+            if($log->getUser()->getUserId() !== $loggedUser->getUserId()){
+                EmailController::sendRemoveLogNotification($log, $request, $loggedUser);
+            }
             $updateQuery = "UPDATE `cache_logs` SET deleted = 1, `del_by_user_id` = :1 , `last_modified`=NOW(), `last_deleted`=NOW() WHERE `cache_logs`.`id`=:2 LIMIT 1";
             $db = \lib\Database\DataBaseSingleton::Instance();
             $db->multiVariableQuery($updateQuery, $loggedUser->getUserId(), $log->getId());

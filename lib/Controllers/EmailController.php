@@ -21,7 +21,10 @@ class EmailController
             $message = tr('removed_message_title') . ":\n---" . "\n" . $message . "\n" . "---";
         }
         $emailContent = mb_ereg_replace('{log_owner}', $log->getUser()->getUserName(), $emailContent);
-        $emailContent = mb_ereg_replace('{cache_owner}', $loggedUser->getUserName(), $emailContent);
+        $emailContent = mb_ereg_replace('{waypointId}', $log->getGeoCache()->getWaypointId(), $emailContent);
+        $emailContent = mb_ereg_replace('{serviceUrl}', \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getSiteName(), $emailContent);
+        $emailContent = mb_ereg_replace('{logRemover}', $loggedUser->getUserName(), $emailContent);
+        $emailContent = mb_ereg_replace('{logRemoverId}', $loggedUser->getUserId(), $emailContent);
         $emailContent = mb_ereg_replace('{cache_name}', $log->getGeoCache()->getCacheName(), $emailContent);
         $emailContent = mb_ereg_replace('{log_entry}', $log->getText(), $emailContent);
         $emailContent = mb_ereg_replace('{comment}', $message, $emailContent);

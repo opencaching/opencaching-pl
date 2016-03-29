@@ -101,7 +101,7 @@ class User extends \lib\Objects\BaseObject
         foreach ($okapiRow as $field => $value) {
             switch ($field) {
                 case 'uuid': // geocache owner's user ID,
-                    $this->userId = $value;
+                    $this->userId = (int) $value;
                     break;
                 case 'username': // name of the user,
                     $this->userName = $value;
@@ -160,7 +160,7 @@ class User extends \lib\Objects\BaseObject
         foreach ($dbRow as $key => $value) {
             switch ($key) {
                 case 'user_id':
-                    $this->userId = $value;
+                    $this->userId = (int) $value;
                     break;
                 case 'username':
                     $this->userName = $value;
@@ -252,11 +252,19 @@ class User extends \lib\Objects\BaseObject
         $this->setUserFieldsByUsedDbRow($dbResult);
     }
 
+    /**
+     * Database user identifier. (Used system-wide)
+     * @return integer
+     */
     public function getUserId()
     {
         return $this->userId;
     }
 
+    /**
+     * user email address
+     * @return string
+     */
     public function getEmail()
     {
         return $this->email;

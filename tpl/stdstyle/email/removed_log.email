@@ -1,14 +1,15 @@
 <p>{removedLog_01} {log_owner},</p>
 
 <p>
-{cache_owner} {removedLog_02} "{cache_name}".
+<a href="http://{serviceUrl}/viewprofile.php?userid={logRemoverId}">{logRemover}</a> {removedLog_02} "{cache_name}" (<a href="http://{serviceUrl}/{waypointId}">{waypointId}</a>).
 </p>
 <p>
 {removedLog_03}:<br />
-{log_entry}
-<br /><br />
-{comment}
 </p>
+<p><i>
+{log_entry}
+</i></p>
+{comment}
 <p>
 {octeamEmailsSignature}
 <br /><br />
