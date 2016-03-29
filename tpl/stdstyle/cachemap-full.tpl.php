@@ -232,7 +232,7 @@ var map_params = { //params for cachemaps3.js
             but_id: "place_search_button"
         },
         coordsUnderCursor: {
-            pos: google.maps.ControlPosition.BOTTOM_CENTER
+            pos: google.maps.ControlPosition.BOTTOM_LEFT
         }
     }
 };
