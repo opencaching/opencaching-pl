@@ -100,11 +100,7 @@ if ($usr['admin']) {
         XDb::xQuery($q);
     }
 
-    if ($usr['userid'] == $super_admin_id) {
-        tpl_set_var('remove_all_logs', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="removelog.php?userid=' . $user_id . '"><font color="#ff0000">' . tr('admin_users_remove_logs') . '</font></a>&nbsp;<img src="' . $stylepath . '/images/blue/atten-red.png" align="top" alt="" /></p>');
-    } else
-        tpl_set_var('remove_all_logs', '');
-
+    tpl_set_var('remove_all_logs', '');
 
     if (!$record['activation_code']) {
         tpl_set_var('activation_codes', tr('account_is_actived'));
