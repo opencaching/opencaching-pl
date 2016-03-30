@@ -541,7 +541,6 @@ $translations = array(
     'no_hidden_caches' => 'There are caches hidden yet',
     'no_log_entries' => 'There are no logs submitted yet',
     'your_newest_log_entries' => 'Your latest logs',
-    'location' => 'Location',
     'stat_picture' => 'Statistics picture',
     'show_in_google_maps' => 'Show on Google Maps',
     'download_for_various_apps' => 'download for various applications',

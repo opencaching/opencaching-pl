@@ -541,7 +541,6 @@ $translations = array(
     'no_hidden_caches' => 'Brak ukrytych skrzynek',
     'no_log_entries' => 'Nie ma wpisów do LOGów',
     'your_newest_log_entries' => 'Twoje najnowsze wpisy w LOGach',
-    'location' => 'Lokalizacja',
     'stat_picture' => 'Obrazek statystyk',
     'show_in_google_maps' => 'Pokaż w Google Maps',
     'download_for_various_apps' => 'Pobierz dla różnych aplikacji',

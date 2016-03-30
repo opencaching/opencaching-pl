@@ -80,7 +80,7 @@
         <p style="line-height: 1.6em;">
             <img src="tpl/stdstyle/images/free_icons/mountain.png" class="icon16" width=16 height=16 alt="" title="" align="middle" />&nbsp;{{cache_alt}}: {altitude} {{abovesealevel}}<br />
             <img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;{coords_other} <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"><br />
-            <img src="tpl/stdstyle/images/free_icons/world.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{location}}:<b><span style="color: rgb(88,144,168)"> {kraj} {dziubek1} {woj} {dziubek2} {miasto}</span></b><br />
+            <img src="tpl/stdstyle/images/free_icons/world.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{region}}:<b><span style="color: rgb(88,144,168)"> {kraj} {dziubek1} {woj} {dziubek2} {miasto}</span></b><br />
             {distance_cache}
             <img src="tpl/stdstyle/images/free_icons/box.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{cache_type}}: <b>{cachetype}</b><br />
             <img src="tpl/stdstyle/images/free_icons/package_green.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{size}}: <b>{cachesize}</b><br />
@@ -524,7 +524,7 @@
                     </td>
                 </tr>
             </table>
-            <div class="notice buffer" id="viewcache-termsofuse">";  {{accept_terms_of_use}} </div>
+            <div class="notice buffer" id="viewcache-termsofuse"> {{accept_terms_of_use}} </div>
         </div>
          <?php
             }

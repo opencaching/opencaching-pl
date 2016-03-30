@@ -496,6 +496,6 @@ $translations = array(
     'add_new_pict' => 'Add new picture',
     'mp3_label' => 'Podcast MP3 for cache type PodCache',
     'add_new_mp3' => 'Add new MP3 file',
-    'location' => 'Location',
+    'region' => 'Region',
     'okapi_apps' => 'Your Apps',
 );
