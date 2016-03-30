@@ -129,12 +129,12 @@ class XDb extends OcDb {
         try {
             $stmt = $db->prepare($query);
 
-            echo "Q: $query </br>"; //TMP_DEBUG!
+            //echo "Q: $query </br>"; //TMP_DEBUG!
 
             $argList = func_get_args();
             array_shift($argList); //remove first param. = sql query
 
-            echo "B: "; print_r($argList); echo "<br/>";  //TMP_DEBUG!
+            //echo "B: "; print_r($argList); echo "<br/>";  //TMP_DEBUG!
 
             $stmt->execute($argList);
         } catch (PDOException $e) {
