@@ -194,6 +194,17 @@ class User extends \lib\Objects\BaseObject
                 case 'log_notes_count':
                     $this->logNotesCount = $value;
                     break;
+
+                /* db fields not used in this class yet*/
+                case 'password':
+                case 'last_login':
+                case 'is_active_flag':
+                case 'hide_flag':
+                case 'date_created':
+                case 'description':
+                    // just skip it...
+                    break;
+
                 default:
                     error_log(__METHOD__ . ": Unknown column: $key");
             }
@@ -347,7 +358,7 @@ class User extends \lib\Objects\BaseObject
     {
         if($this->powerTrailOwed === null) {
             $this->powerTrailOwed = new \ArrayObject();
-            $query = "SELECT * FROM `PowerTrail`, PowerTrail_owners WHERE  PowerTrail_owners.userId = :1 AND PowerTrail_owners.PowerTrailId = PowerTrail.id";
+            $query = "SELECT `PowerTrail`.* FROM `PowerTrail`, PowerTrail_owners WHERE  PowerTrail_owners.userId = :1 AND PowerTrail_owners.PowerTrailId = PowerTrail.id";
             $db = OcDb::instance();
             $db->multiVariableQuery($query, $this->userId);
             $ptList = $db->dbResultFetchAll();
