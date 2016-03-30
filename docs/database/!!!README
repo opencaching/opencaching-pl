@@ -225,8 +225,6 @@ okapi_authorizations
 	FIXME: part of OKAPI
 okapi_cache
 	FIXME: part of OKAPI
-okapi_cache_logs
-	FIXME: part of OKAPI
 okapi_cache_reads
 	FIXME: part of OKAPI
 okapi_clog
@@ -244,6 +242,8 @@ okapi_stats_hourly
 okapi_stats_monthly
 	FIXME: part of OKAPI
 okapi_stats_temp
+	FIXME: part of OKAPI
+okapi_submitted_objects
 	FIXME: part of OKAPI
 okapi_tile_caches
 	FIXME: part of OKAPI

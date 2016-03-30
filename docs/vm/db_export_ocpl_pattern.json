@@ -2381,17 +2381,6 @@
                 "__action": "skip-data"
             }
         },
-        "okapi_cache_logs": {
-            "__table_comment": "",
-            "log_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "consumer_key": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
         "okapi_cache_reads": {
             "__table_comment": "",
             "cache_key": {
@@ -2579,6 +2568,21 @@
                 "__action": "skip-data"
             },
             "runtime": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "okapi_submitted_objects": {
+            "__table_comment": "",
+            "object_type": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "object_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "consumer_key": {
                 "__comment": "",
                 "__action": "skip-data"
             }
