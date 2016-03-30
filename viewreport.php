@@ -137,10 +137,11 @@ if ($error == false && $usr['admin']) {
 
     if (isset($_GET['mailto'])) {
         // show mail form
+        $initText = isset($_POST['init_text']) ? $_POST['init_text'] : '';
         $email_form = "
     <input type='hidden' name='reportid' value='" . intval($_REQUEST['reportid']) . "'>
     <input type='hidden' name='mailto' value='" . intval($_REQUEST['mailto']) . "'>
-    <textarea name='email_content' cols='120' rows='8'>" . $_POST['init_text'] . "</textarea>
+    <textarea name='email_content' cols='120' rows='8'>" . $initText . "</textarea>
     <br />
     <input type='submit' value=" . tr('cache_reports_29') . ">
     <a href='viewreport.php?reportid=" . $_REQUEST['reportid'] . "'>" . tr('cache_reports_30') . "</a>
@@ -211,12 +212,14 @@ if ($error == false && $usr['admin']) {
 
         $note = nl2br(XDb::xEscape($note_content));
         $now = XDb::xEscape(date("Y-m-d H:i:s"));
+        $username = XDb::xEscape($usr['username']);
+
         XDb::xSql(
             "UPDATE reports SET
-                note=CONCAT('[" . $now . "] <b> ? /b>: " . $note . "<br />', note),
-                changed_by= ? , changed_date='" . $now . "'
+                note=CONCAT('[ $now ] <b> $username /b>: $note <br />', note),
+                changed_by= ? , changed_date= '$now'
             WHERE id= ? ",
-            $usr['username'], $usr['userid'], intval($_REQUEST['reportid']));
+            $usr['userid'], intval($_REQUEST['reportid']));
 
     }
 
