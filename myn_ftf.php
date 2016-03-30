@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Database\XDb;
+
 global $lang, $rootpath, $usr, $dateFormat;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
@@ -11,7 +13,7 @@ require_once($stylepath . '/lib/icons.inc.php');
 if ($error == false) { //get the news
     $tplname = 'myn_ftf';
     require($stylepath . '/newcaches.inc.php');
-    $startat = isset($_REQUEST['startat']) ? $_REQUEST['startat'] : 0;
+    $startat = isset($_REQUEST['startat']) ? XDb::xEscape($_REQUEST['startat']) : 0;
     $startat = $startat + 0;
     $perpage = 50;
     $startat -= $startat % $perpage;
@@ -19,8 +21,12 @@ if ($error == false) { //get the news
     //get user record
     $user_id = $usr['userid'];
     tpl_set_var('userid', $user_id);
-    $latitude = sqlValue("SELECT `latitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
-    $longitude = sqlValue("SELECT `longitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
+
+    $stmt = XDb::xSql("SELECT `latitude`, `longitude`,`notify_radius` FROM user WHERE user_id= ? LIMIT 1", $usr['userid']);
+    $row = XDb::xFetchArray($stmt);
+    $latitude = $row['latitude'];
+    $longitude = $row['longitude'];
+    $distance = $row['notify_radius'];
 
     if (($longitude == NULL && $latitude == NULL) || ($longitude == 0 && $latitude == 0)) {
         tpl_set_var('info', '<br><div class="notice" style="line-height: 1.4em;font-size: 120%;"><b>' . tr("myn_info") . '</b></div><br>');
@@ -33,7 +39,7 @@ if ($error == false) { //get the news
     if ($longitude == NULL || $longitude == 0)
         $longitude = 21.00442;
 
-    $distance = sqlValue("SELECT `notify_radius` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
+
     if ($distance == 0)
         $distance = 35;
     $distance_unit = 'km';
@@ -50,36 +56,43 @@ if ($error == false) { //get the news
     //all target caches are between lon - max_lon_diff and lon + max_lon_diff
     //TODO: check!!!
     $max_lon_diff = $distance * 180 / (abs(sin((90 - $lat) * 3.14159 / 180)) * 6378 * 3.14159);
-    sql('DROP TEMPORARY TABLE IF EXISTS local_caches' . $user_id . '');
-    sql('CREATE TEMPORARY TABLE local_caches' . $user_id . ' ENGINE=MEMORY
-                            SELECT
-                                (' . getSqlDistanceFormula($lon, $lat, $distance, $multiplier[$distance_unit]) . ') AS `distance`,
-                                `caches`.`cache_id` AS `cache_id`,
-                                `caches`.`wp_oc` AS `wp_oc`,
-                                `caches`.`type` AS `type`,
-                                `caches`.`name` AS `name`,
-                                `caches`.`longitude` `longitude`,
-                                `caches`.`latitude` `latitude`,
-                                `caches`.`date_hidden` `date_hidden`,
-                                `caches`.`date_created` `date_created`,
-                                `caches`.`country` `country`,
-                                `caches`.`difficulty` `difficulty`,
-                                `caches`.`terrain` `terrain`,
-                                `caches`.`founds` `founds`,
-                                `caches`.`status` `status`,
-                                `caches`.`user_id` `user_id`
-                            FROM `caches`
-                            WHERE `caches`.`cache_id` NOT IN (SELECT `cache_ignore`.`cache_id` FROM `cache_ignore` WHERE `cache_ignore`.`user_id`=\'' . $user_id . '\')  AND caches.status<>4 AND caches.status<>5 AND caches.status <>6
-                                AND `longitude` > ' . ($lon - $max_lon_diff) . '
-                                AND `longitude` < ' . ($lon + $max_lon_diff) . '
-                                AND `latitude` > ' . ($lat - $max_lat_diff) . '
-                                AND `latitude` < ' . ($lat + $max_lat_diff) . '
-                            HAVING `distance` < ' . $distance);
-    sql('ALTER TABLE local_caches' . $user_id . ' ADD PRIMARY KEY ( `cache_id` ),
-    ADD INDEX(`cache_id`), ADD INDEX (`wp_oc`), ADD INDEX(`type`), ADD INDEX(`name`), ADD INDEX(`user_id`), ADD INDEX(`date_hidden`), ADD INDEX(`date_created`)');
+
+    XDb::xSql('DROP TEMPORARY TABLE IF EXISTS local_caches' . XDb::xEscape($user_id) );
+
+    XDb::xSql(
+        'CREATE TEMPORARY TABLE local_caches' . XDb::xEscape($user_id) . ' ENGINE=MEMORY
+            SELECT
+                (' . getSqlDistanceFormula($lon, $lat, $distance, 1 /*$multiplier[$distance_unit]*/) . ') AS `distance`,
+                `cache_id`, `wp_oc`, `type`, `name`, `longitude`, `latitude`, `date_hidden`,
+                `date_created`, `country`, `difficulty`, `terrain`, `founds`, `status`, `user_id`
+            FROM `caches`
+            WHERE `cache_id` NOT IN (
+                SELECT `cache_ignore`.`cache_id` FROM `cache_ignore`
+                WHERE `cache_ignore`.`user_id`= ?
+                )
+                AND caches.status<>4 AND caches.status<>5 AND caches.status <>6
+                AND `longitude` > ' . ($lon - $max_lon_diff) . '
+                AND `longitude` < ' . ($lon + $max_lon_diff) . '
+                AND `latitude` > ' . ($lat - $max_lat_diff) . '
+                AND `latitude` < ' . ($lat + $max_lat_diff) . '
+            HAVING `distance` < ' . $distance,
+            $user_id);
+
+
+    XDb::xSql(
+        'ALTER TABLE local_caches' . XDb::xEscape($user_id) . ' ADD PRIMARY KEY ( `cache_id` ),
+        ADD INDEX(`cache_id`),
+        ADD INDEX (`wp_oc`),
+        ADD INDEX(`type`),
+        ADD INDEX(`name`),
+        ADD INDEX(`user_id`),
+        ADD INDEX(`date_hidden`),
+        ADD INDEX(`date_created`)'
+    );
 
     $file_content = '';
-    $rs = sql('SELECT `user`.`user_id` `userid`,
+    $rs = XDb::xSql(
+        'SELECT `user`.`user_id` `userid`,
             `user`.`username` `username`,
             `caches`.`cache_id` `cacheid`,
             `caches`.`name` `cachename`,
@@ -96,22 +109,23 @@ if ($error == false) { //get the news
             `PowerTrail`.`name` AS PT_name,
             `PowerTrail`.`type` As PT_type,
             `PowerTrail`.`image` AS PT_image
-    FROM local_caches' . $user_id . ' `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`)
+        FROM local_caches' . $user_id . ' `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`)
             LEFT JOIN `powerTrail_caches` ON `caches`.`cache_id` = `powerTrail_caches`.`cacheId`
-            LEFT JOIN `PowerTrail` ON (`PowerTrail`.`id` = `powerTrail_caches`.`PowerTrailId`  AND `PowerTrail`.`status` = 1), `cache_type`
-    WHERE `caches`.`type`!=6
-          AND `caches`.`status`=1
-          AND `caches`.`type`=`cache_type`.`id`
-          AND `caches`.`founds`=0
+            LEFT JOIN `PowerTrail` ON (`PowerTrail`.`id` = `powerTrail_caches`.`PowerTrailId`
+                AND `PowerTrail`.`status` = 1), `cache_type`
+        WHERE `caches`.`type`!=6
+            AND `caches`.`status`=1
+            AND `caches`.`type`=`cache_type`.`id`
+            AND `caches`.`founds`=0
         ORDER BY `date` DESC, `caches`.`cache_id` DESC
-                    LIMIT ' . ($startat + 0) . ', ' . ($perpage + 0));
+        LIMIT ' . ($startat + 0) . ', ' . ($perpage + 0));
 
     $tr_myn_click_to_view_cache = tr('myn_click_to_view_cache');
     //powertrail vel geopath variables
     $pt_cache_intro_tr = tr('pt_cache');
     $pt_icon_title_tr = tr('pt139');
 
-    while ($r = sql_fetch_array($rs)) {
+    while ($r = XDb::xFetchArray($rs)) {
         $file_content .= '<tr>';
         $file_content .= '<td style="width: 90px;">' . date($dateFormat, strtotime($r['date'])) . '</td>';
         $cacheicon = myninc::checkCacheStatusByUser($r, $usr['userid']);
@@ -130,13 +144,11 @@ if ($error == false) { //get the news
         $file_content .= '<td width="32"><b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r['userid'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
         $file_content .= "</tr>";
     }
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
     tpl_set_var('file_content', $file_content);
 
-    $rs = sql('SELECT COUNT(*) `count` FROM (local_caches' . $user_id . ' caches)');
-    $r = sql_fetch_array($rs);
-    $count = $r['count'];
-    mysql_free_result($rs);
+    $count = XDb::xSimpleQueryValue(
+        'SELECT COUNT(*) `count` FROM (local_caches' . XDb::xEscape($user_id) . ' caches)', 0);
 
     $frompage = $startat / 100 - 3;
     if ($frompage < 1)
@@ -180,4 +192,4 @@ if ($error == false) { //get the news
 
 //make the template and send it out
 tpl_BuildTemplate();
-?>
+
