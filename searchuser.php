@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Database\OcDb;
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -16,20 +18,17 @@ if ($error == false) {
             $options['username'] = '';
         }
         if ($options['username'] != '') {
-            //$query = "SELECT user_id, username FROM user WHERE username LIKE '%" . sql_escape($options['username']) . "%' ORDER BY username ASC";;
-            //$rs = sql($query);
 
             $query = "SELECT user_id, username, date_created FROM user WHERE username LIKE :username ORDER BY username ASC";
-            ;
             $params = array(
                 "username" =>
                 array(
-                    "value" => '%' . sql_escape($options['username']) . '%',
+                    "value" => '%' . XDb::xEscape($options['username']) . '%',
                     "data_type" => "string"
                 ),
             );
 
-            $dbc = new dataBase();
+            $dbc = OcDb::instance();
             $dbc->paramQuery($query, $params);
 
             $bgcolor1 = '#eeeeee';
@@ -38,15 +37,11 @@ if ($error == false) {
             $lines = "";
 
             $ilosc = $dbc->rowCount();
-            //if (mysql_num_rows($rs) != 0)
             if ($ilosc != 0) {
                 if ($ilosc == 1) {
                     $record = $dbc->dbResultFetch();
                     tpl_redirect("viewprofile.php?userid=" . $record['user_id']);
                 } else {
-                    //$ilosc=mysql_num_rows($rs);
-                    $linia = "Znaleziono $ilosc kont(a)</BR><UL>";
-                    //while ($record = sql_fetch_array($rs))
                     $i = 0;
                     while ($record = $dbc->dbResultFetch()) {
                         $tmp_line = $line;
@@ -55,8 +50,6 @@ if ($error == false) {
                         $tmp_line = mb_ereg_replace('{user_id}', htmlspecialchars($record['user_id'], ENT_COMPAT, 'UTF-8'), $tmp_line);
                         $tmp_line = mb_ereg_replace('{date_created}', htmlspecialchars(fixPlMonth(strftime($dateformat, strtotime($record['date_created']))), ENT_COMPAT, 'UTF-8'), $tmp_line);
 
-                        //$linia.= "<LI><A HREF='viewprofile.php?userid=" . htmlspecialchars($record['user_id'], ENT_COMPAT, 'UTF-8') . "'>" . htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8') . "</A></LI>";
-
                         $lines .= $tmp_line . "\n";
                         $i++;
                     };
@@ -64,14 +57,12 @@ if ($error == false) {
                     tpl_set_var('lines', $lines);
                     tpl_set_var('username', '');
                     tpl_set_var('not_found', '');
-                    //tpl_set_var('not_found', $linia);
                 }
-            } else { // Nie znaleziono użytkownika
+            } else { // User not found
                 tpl_set_var('username', $options['username']);
                 tpl_set_var('not_found', '<b>' . tr("message_user_not_found") . ': ' . $options['username'] . '</b><br/><br/>');
                 tpl_set_var('lines', '');
             }
-            //mysql_free_result($rs);
             unset($dbc);
         } else {
             tpl_set_var('username', '');
@@ -81,4 +72,3 @@ if ($error == false) {
     }
 }
 tpl_BuildTemplate();
-?>
