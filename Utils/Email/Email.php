@@ -29,6 +29,7 @@ class Email
     private $body_footer=''; //footer of email set in all emails
 
     private $isHtmlEmail;
+    private $isHtmlBody;     // does body of the message needs html formatting
 
     public function __construct(){
         $this->xMailer = phpversion();
@@ -63,6 +64,11 @@ class Email
             // To send HTML mail, the Content-type header must be set
             $headers[] = 'MIME-Version: 1.0';
             $headers[] = 'Content-type: text/html; charset=iso-8859-1';
+
+            if(!$this->isHtmlBody){
+                // format body
+                $this->body = $this->formatToHtml($this->body);
+            }
         }
 
         // Additional headers
@@ -137,8 +143,9 @@ class Email
         $this->subject = $subject;
     }
 
-    public function setBody($body){
+    public function setBody($body, $isHtml=false){
         $this->body = $body;
+        $this->isHtmlBody = $isHtml;
     }
 
     /**
@@ -177,5 +184,18 @@ class Email
         }
 
         return true;
+    }
+
+    /**
+     * prepare the string param to present as HTML message
+     * @param string $string
+     * @return string as HTML
+     */
+    private function formatToHtml($string){
+
+        $string = htmlentities($string, ENT_QUOTES , "UTF-8");
+        $string = '<pre>'.nl2br($string).'</pre>';
+
+        return $string;
     }
 }

@@ -77,16 +77,16 @@ class OcPdo extends PDO
     protected function error(/*PHP7:string*/ $message, PDOException $e=null,
                              /*PHP7:bool*/ $fatal=false, /*PHP7:bool*/ $sendEmail=true){
 
-        $email_text  = "PDO Error: ";
-        $email_text .= "\n\t".$message;
+        $email_text  = "+++ PDO Error +++ ";
+        $email_text .= "\n+++ Debug: ".$message;
         if( !is_null($e) ){
-            $email_text .= "\n\n\tEx_Code: ".$e->getCode();
-            $email_text .= "\n\n\tEx_Msg: ".$e->getMessage();
+            $email_text .= "\n+++ Ex_Code: ".$e->getCode();
+            $email_text .= "\n+++ Ex_Msg: ".$e->getMessage();
         }else{
             //there is no Exception - generate one to get the trace
             $e = new PDOException();
         }
-        $email_text .= "\n\n\tEx_Trace:\n\n".$e->getTraceAsString();
+        $email_text .= "\n+++ Ex_Trace:\n".$e->getTraceAsString();
 
         //get short version of the trace
         $traceStr = '';
