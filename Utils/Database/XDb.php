@@ -175,4 +175,14 @@ class XDb extends OcDb {
         $db = self::instance();
         return $db->multiVariableQueryValue($query, $default, $params);
     }
+
+    /**
+     * Returns last inserted Id
+     * Remember, if you use a transaction you should use lastInsertId
+     * BEFORE you commit otherwise it will return 0
+     */
+    public static function xLastInsertId(){
+        $db = self::instance();
+        return $db->lastInsertId();
+    }
 }
