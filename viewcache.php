@@ -3,6 +3,8 @@
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\GeoCache\Waypoint;
+use Utils\Database\XDb;
+use Utils\Database\OcDb;
 
 
 //prepare the templates and include all neccessary
@@ -46,8 +48,7 @@ if ($error == false) {
     require($stylepath . '/viewlogs.inc.php');
     require($stylepath . '/smilies.inc.php');
 
-    /* @var $dbc \dataBase */
-    $dbc = \lib\Database\DataBaseSingleton::Instance();
+    $dbc = OcDb::instance();
     $cache_id = 0;
     if (isset($_REQUEST['cacheid'])) {
         $cache_id = (int) $_REQUEST['cacheid'];
@@ -63,18 +64,18 @@ if ($error == false) {
     } else if (isset($_REQUEST['wp'])) {
         $wp = $_REQUEST['wp'];
 
-        $sql = 'SELECT `cache_id` FROM `caches` WHERE wp_';
+        $query = 'SELECT `cache_id` FROM `caches` WHERE wp_';
         if (mb_strtoupper(mb_substr($wp, 0, 2)) == 'GC')
-            $sql .= 'gc';
+            $query .= 'gc';
         else if (mb_strtoupper(mb_substr($wp, 0, 2)) == 'NC')
-            $sql .= 'nc';
+            $query .= 'nc';
         else if (mb_strtoupper(mb_substr($wp, 0, 2)) == 'QC')
-            $sql .= 'qc';
+            $query .= 'qc';
         else
-            $sql .= 'oc';
+            $query .= 'oc';
 
-        $sql .= '=:1 LIMIT 1';
-        $dbc->multiVariableQuery($sql, $wp);
+        $query .= '=:1 LIMIT 1';
+        $dbc->multiVariableQuery($query, $wp);
         if ($r = $dbc->dbResultFetch()) {
             $cache_id = $r['cache_id'];
         }
@@ -499,22 +500,22 @@ if ($error == false) {
 
         // begin visit-counter
         // delete cache_visits older 1 day 60*60*24 = 86400
-        $sql = "DELETE FROM `cache_visits` WHERE `cache_id`=&1 AND `user_id_ip` != '0' AND NOW()-`last_visited` > 86400";
-        $dbc->multiVariableQuery($sql, $cache_id);
+        $query = "DELETE FROM `cache_visits` WHERE `cache_id`=:1 AND `user_id_ip` != '0' AND NOW()-`last_visited` > 86400";
+        $dbc->multiVariableQuery($query, $cache_id);
         $dbc->reset();
 
         // first insert record for visit counter if not in db
         $chkuserid = isset($usr['userid']) ? $usr['userid'] : $_SERVER["REMOTE_ADDR"];
 
         // note the visit of this user
-        $sql2 = "INSERT INTO `cache_visits` (`cache_id`, `user_id_ip`, `count`, `last_visited`) VALUES (:1, :2, 1, NOW()) ON DUPLICATE KEY UPDATE `count`=`count`+1";
-        $dbc->multiVariableQuery($sql2,$cache_id, $chkuserid);
+        $query2 = "INSERT INTO `cache_visits` (`cache_id`, `user_id_ip`, `count`, `last_visited`) VALUES (:1, :2, 1, NOW()) ON DUPLICATE KEY UPDATE `count`=`count`+1";
+        $dbc->multiVariableQuery($query2,$cache_id, $chkuserid);
         $dbc->reset();
 
         if ($chkuserid != $owner_id) {
             // increment the counter for this cache
-            $sql3 = "INSERT INTO `cache_visits` (`cache_id`, `user_id_ip`, `count`, `last_visited`) VALUES (:1, '0', 1, NOW()) ON DUPLICATE KEY UPDATE `count`=`count`+1, `last_visited`=NOW()";
-            $dbc->multiVariableQuery($sql3, $cache_id);
+            $query3 = "INSERT INTO `cache_visits` (`cache_id`, `user_id_ip`, `count`, `last_visited`) VALUES (:1, '0', 1, NOW()) ON DUPLICATE KEY UPDATE `count`=`count`+1, `last_visited`=NOW()";
+            $dbc->multiVariableQuery($query3, $cache_id);
         }
         // end visit-counter
         // hide coordinates when user is not logged in
@@ -846,7 +847,8 @@ if ($error == false) {
                 if ($cacheNotesRowCount > 0) {
                     $note_id = $notes_record['note_id'];
                     //remove
-                    sql("DELETE FROM `cache_notes` WHERE `note_id`='&1' and user_id='&2'", $note_id, $usr['userid']);
+                    XDb::xSql(
+                        "DELETE FROM `cache_notes` WHERE `note_id`= ? and user_id= ? ", $note_id, $usr['userid']);
                     //display cache-page
                     tpl_redirect('viewcache.php?cacheid=' . urlencode($cache_id));
                     exit;
@@ -966,21 +968,26 @@ if ($error == false) {
 
         //now include also those deleted due to displaying this type of record for all unless hide_deletions is on
         if (($usr['admin'] == 1) || ($HideDeleted == false)) {
-            $sql_hide_del = "";  //include deleted
+            $query_hide_del = "";  //include deleted
         } else {
-            $sql_hide_del = "`deleted`=0 AND"; //exclude deleted
+            $query_hide_del = "`deleted`=0 AND"; //exclude deleted
         }
 
-        $number_logs_sql = "SELECT count(*) number FROM `cache_logs` WHERE " . $sql_hide_del . " `cache_id`=:1 ";
-        $number_logs = $dbc->multiVariableQueryValue($number_logs_sql, 0, $geocache->getCacheId());
+        $number_logs = $dbc->multiVariableQueryValue(
+            "SELECT count(*) number FROM `cache_logs` WHERE " . $query_hide_del . " `cache_id`=:1 "
+            , 0, $geocache->getCacheId());
+
         tpl_set_var('logEnteriesCount', $number_logs);
 
         if ($number_logs > $logs_to_display) {
             tpl_set_var('viewlogs_last', mb_ereg_replace('{cacheid_urlencode}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $viewlogs_last));
             tpl_set_var('viewlogs', mb_ereg_replace('{cacheid_urlencode}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $viewlogs));
-            $viewlogs_from_sql = "SELECT id FROM cache_logs WHERE " . $sql_hide_del . " cache_id=:1 ORDER BY date DESC, id LIMIT :2 ";
             $dbc->reset();
-            $viewlogs_from = $dbc->multiVariableQueryValue($viewlogs_from_sql, -1, $cache_id, $logs_to_display);
+
+            $viewlogs_from = $dbc->multiVariableQueryValue(
+                "SELECT id FROM cache_logs WHERE " . $query_hide_del . " cache_id=:1 ORDER BY date DESC, id LIMIT :2 "
+                -1, $cache_id, $logs_to_display);
+
             tpl_set_var('viewlogs_from', $viewlogs_from);
         } else {
             tpl_set_var('viewlogs_last', '');
@@ -1194,11 +1201,13 @@ if ($error == false) {
             $comment = nl2br($_POST['rr_comment']);
             $date = date("d-m-Y H:i:s");
             $octeam_comment = '<b><span class="content-title-noshade txt-blue08">' . tr('date') . ': ' . $date . ', ' . tr('add_by') . ' ' . $sender_name . '</span></b><br/>' . $comment;
-            $sql = "UPDATE cache_desc
-                    SET rr_comment=CONCAT('" . sql_escape($octeam_comment) . "<br/><br/>', rr_comment),
-                            last_modified = NOW()
-                    WHERE cache_id='" . sql_escape(intval($cache_id)) . "'";
-            @mysql_query($sql);
+
+            XDb::xSql(
+                "UPDATE cache_desc
+                SET rr_comment = CONCAT('" . XDb::xEscape($octeam_comment) . "<br/><br/>', rr_comment),
+                    last_modified = NOW()
+                WHERE cache_id= ? ", $cache_id);
+
             $_SESSION['submitted'] = true;
 
             // send notify to owner cache and copy to OC Team
@@ -1230,8 +1239,8 @@ if ($error == false) {
 
         // remove OC Team comment
         if ($usr['admin'] && isset($_GET['removerrcomment']) && isset($_GET['cacheid'])) {
-            $sql = "UPDATE cache_desc SET rr_comment='' WHERE cache_id='" . sql_escape(intval($cache_id)) . "'";
-            @mysql_query($sql);
+            XDb::xSql(
+                "UPDATE cache_desc SET rr_comment='' WHERE cache_id= ? ",$cache_id);
         }
 
         // show description

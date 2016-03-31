@@ -266,7 +266,7 @@ if ($error == false) {
                     $lon_not_ok = $lon_min_not_ok || $lon_h_not_ok;
                     $lat_not_ok = $lat_min_not_ok || $lat_h_not_ok;
 
-                    //check if username is in the database
+                    //check if username is in the DB
                     $username_exists = false;
                     $username_not_ok = mb_ereg_match(regex_username, $username) ? false : true;
                     if ($username_not_ok == false) {
@@ -307,7 +307,7 @@ if ($error == false) {
                                 $radius_not_ok ||
                                 $secid_not_ok)) {
 
-                            /* GeoKretyApi - insert or update in database user secid from Geokrety */
+                            /* GeoKretyApi - insert or update in DB user secid from Geokrety */
                             if (strlen($GeoKretyApiSecid) == 128) {
                                 $db->multiVariableQuery("insert into `GeoKretyAPI` (`userID`, `secid`) values (:1, :2) on duplicate key update `secid`=:2", $usr['userid'], $GeoKretyApiSecid);
                                 $db->reset();
@@ -467,7 +467,7 @@ if ($error == false) {
                 if ($show_all_countries == 1) {
                     $rs2 = XDb::xSql("SELECT `".XDb::xEscape($lang_db)."`, `list_default_" . XDb::xEscape($lang_db) . "`, `short`, `sort_" . XDb::xEscape($lang_db) . "` FROM `countries` ORDER BY `sort_" . XDb::xEscape($lang_db) . '` ASC', $lang_db);
                 } else {
-                    $rs2 = XDb::xSql("SELECT `".XDb::xEscape($lang_db)."`, `list_default_" . XDb::xEscape($lang_db) . "`, `short`, `sort_" . XDb::xEscape($lang_db) . "` FROM `countries` WHERE `list_default_" . /*sql_escape*/ XDb::xEscape($lang_db) . "`=1 ORDER BY `sort_" . XDb::xEscape($lang_db) . '` ASC', $lang_db);
+                    $rs2 = XDb::xSql("SELECT `".XDb::xEscape($lang_db)."`, `list_default_" . XDb::xEscape($lang_db) . "`, `short`, `sort_" . XDb::xEscape($lang_db) . "` FROM `countries` WHERE `list_default_" . XDb::xEscape($lang_db) . "`=1 ORDER BY `sort_" . XDb::xEscape($lang_db) . '` ASC', $lang_db);
                 }
 
                 while( $record2 = XDb::xFetchArray($rs2) ){

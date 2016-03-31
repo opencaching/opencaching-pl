@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Database\XDb;
+use Utils\Database\OcDb;
 //prepare the templates and include all neccessary
 require_once (__DIR__ . '/lib/common.inc.php');
 
@@ -21,19 +23,23 @@ if ($error == false) {
             tpl_set_var('print_delete_list', '');
             tpl_set_var('export_list', '');
         } else {
-            $cache_list = implode(",", $_SESSION['print_list']);
-            $rs = sql("SELECT `caches`.`cache_id` AS `cache_id`, `caches`.`name` AS `name`,   `caches`.`type` AS `type`,  `caches`.`last_found` AS `last_found` FROM `caches` WHERE `caches`.`cache_id` IN (" . sql_escape($cache_list) . ") ORDER BY `caches`.`name`");
+            $cache_list = XDb::xEscape( implode(",", $_SESSION['print_list']) );
+            $rs = XDb::xSql(
+                "SELECT `cache_id`, `name`, `type`,`last_found`
+                FROM `caches` WHERE `cache_id` IN ( $cache_list )
+                ORDER BY `name`");
             $list = '';
-            for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-                $record = sql_fetch_array($rs);
-                $tmp_list = $i % 2 == 0 ? $list_e : $list_o;
+            $i = 0;
+            while( $record = XDb::xFetchArray($rs) ){
+                $tmp_list = $i++ % 2 == 0 ? $list_e : $list_o;
+
                 //modified coords
                 if (($record['type'] == '7' || $record['type'] == '1' || $record['type'] == '3' ) &&
                         $usr != false) {  //check if quiz (7) or other(1) or multi (3) and user is logged
                     if (!isset($dbc)) {
-                        $dbc = new dataBase();
+                        $dbc = OcDb::instance();
                     };
-                    $mod_coord_sql = 'SELECT cache_id FROM cache_mod_cords
+                    $mod_coord_q = 'SELECT cache_id FROM cache_mod_cords
                                 WHERE cache_id = :v1 AND user_id =:v2';
 
                     $params['v1']['value'] = (integer) $record ['cache_id'];
@@ -41,7 +47,7 @@ if ($error == false) {
                     $params['v2']['value'] = (integer) $usr['userid'];
                     $params['v2']['data_type'] = 'integer';
 
-                    $dbc->paramQuery($mod_coord_sql, $params);
+                    $dbc->paramQuery($mod_coord_q, $params);
                     Unset($params);
 
                     if ($dbc->rowCount() > 0) {

@@ -439,11 +439,16 @@ if ($error == false) {
                 ORDER BY number DESC LIMIT 1", 0, $user_id);
 
             $num_rows = XDb::xMultiVariableQueryValue(
-                "SELECT COUNT(*) FROM caches
-                WHERE status <> 2 AND status <> 3 AND status <> 5 AND status <> 4 AND user_id= :1
-                GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`)", 0, $user_id);
+                "SELECT COUNT(*) FROM (
+                    SELECT COUNT(*) FROM caches
+                    WHERE status <> 2 AND status <> 3 AND status <> 5 AND status <> 4 AND user_id= :1
+                    GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`)
+                )AS COUNTS_IN_DAYS", 0, $user_id);
 
-            $aver2 = round(($user_record['hidden_count'] / $num_rows), 2);
+            if($num_rows>0)
+                $aver2 = round(($user_record['hidden_count'] / $num_rows), 2);
+            else
+                $aver2 = 0;
 
             // total owned
             $total_owned_caches = $database->multiVariableQueryValue(

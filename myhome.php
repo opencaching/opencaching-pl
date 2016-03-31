@@ -30,30 +30,30 @@ if ($error == false) {
 
         //get user record
         $userid = $usr['userid'];
-        $sql = "SELECT COUNT(*) FROM caches WHERE user_id='$userid'";
-        $hidden_count = XDb::xSimpleQueryValue($sql, 0);
+        $query = "SELECT COUNT(*) FROM caches WHERE user_id='$userid'";
+        $hidden_count = XDb::xSimpleQueryValue($query, 0);
 
 
-        $sql = "SELECT COUNT(*) founds_count
+        $query = "SELECT COUNT(*) founds_count
                             FROM cache_logs
                             WHERE user_id=$userid AND type=1 AND deleted=0";
-        $founds_count = XDb::xSimpleQueryValue($sql, 0);
+        $founds_count = XDb::xSimpleQueryValue($query, 0);
 
-        $sql = "SELECT COUNT(*) events_count
+        $query = "SELECT COUNT(*) events_count
                             FROM cache_logs
                             WHERE user_id=$userid AND type=7 AND deleted=0";
-        $events_count = XDb::xSimpleQueryValue($sql, 0);
+        $events_count = XDb::xSimpleQueryValue($query, 0);
 
 
-        $sql = "SELECT COUNT(*) notfounds_count
+        $query = "SELECT COUNT(*) notfounds_count
                             FROM cache_logs
                             WHERE user_id=$userid AND type=2 AND deleted=0";
-        $notfounds_count = XDb::xSimpleQueryValue($sql, 0);
+        $notfounds_count = XDb::xSimpleQueryValue($query, 0);
 
-        $sql = "SELECT COUNT(*) log_notes_count
+        $query = "SELECT COUNT(*) log_notes_count
                             FROM cache_logs
                             WHERE user_id=$userid AND type=3 AND deleted=0";
-        $log_notes_count = XDb::xSimpleQueryValue($sql, 0);
+        $log_notes_count = XDb::xSimpleQueryValue($query, 0);
 
         if ($events_count > 0)
             $events = tr('you_have_participated_in') . " " . $events_count . " " . tr('found_x_events') . ".";

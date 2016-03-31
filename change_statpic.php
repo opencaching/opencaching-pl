@@ -52,7 +52,7 @@ if ($error == false) {
                 tpl_set_var('statpic_text_message', $error_statpic_text);
             }
         } else {
-            //load from database
+            //load from DB
             $statpic_text = $record['statpic_text'];
 
             $stmp = '';

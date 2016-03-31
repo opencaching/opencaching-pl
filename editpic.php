@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -19,27 +20,29 @@ if ($error == false) {
         if (!$uuid)
             $message = $message_picture_not_found;
 
-        $owner = sqlValue("SELECT `pictures`.`user_id`,`caches`.`cache_id` FROM `pictures`, `caches` WHERE `caches`.`cache_id`=`pictures`.`object_id` AND `pictures`.`uuid`='$uuid' LIMIT 1", 0);
+        $owner = XDb::xMultiVariableQueryValue(
+            "SELECT `user_id` FROM `pictures` WHERE `uuid`= :1 LIMIT 1", 0, $uuid);
 
         if ($usr['admin'] || $owner == $usr['userid']) {
             if (!$message) {
 
 
+                $rs = XDb::xSql(
+                    "SELECT `pictures`.`spoiler`, `pictures`.`display`, `pictures`.`title`, `pictures`.`object_id`,
+                            `pictures`.`object_type`, `caches`.`name`, `caches`.`cache_id`
+                    FROM `pictures`, `caches`
+                    WHERE `caches`.`cache_id`=`pictures`.`object_id` AND `pictures`.`uuid`= ? AND `pictures`.`user_id`= ? LIMIT 1",
+                    $uuid, $owner);
 
-                // read from databese and check owner
-                if (!$resp = sql("SELECT `pictures`.`spoiler`, `pictures`.`display`, `pictures`.`title`, `pictures`.`object_id`, `pictures`.`object_type`, `caches`.`name`, `caches`.`cache_id` FROM `pictures`, `caches`
-                                  WHERE `caches`.`cache_id`=`pictures`.`object_id` AND `pictures`.`uuid`='&1' AND `pictures`.`user_id`='&2' LIMIT 1", $uuid, $owner))
-                    $message = $message_title_internal;
-                else {
-                    if (!$row = sql_fetch_array($resp))
-                        $message = $message_picture_not_found;
+                if( ! $row = XDb::xFetchArray($rs) ){
+                    $message = $message_picture_not_found;
                 }
             }
 
             if (isset($_POST['submit'])) {
 
                 if ($_FILES['file']['name'] != '') {
-                    // kucken, ob die Datei erfolgreich hochgeladen wurde
+                    // if the file has been uploaded successfully
                     if ($_FILES['file']['error'] != 0) {
                         // huch ... keine Ahnung was ich da noch machen soll ?!
                         $tplname = 'message';
@@ -111,16 +114,16 @@ if ($error == false) {
                 if ($row['title'] == "") {
                     tpl_set_var('errnotitledesc', $errnotitledesc);
                 } else {
-                    if (!$resp = sql("UPDATE `pictures`
-                                            SET `title`='&1',
-                                                `display`='&2',
-                                                `spoiler`='&3',
-                                                `last_modified`=NOW()
-                                          WHERE `uuid`='&4'", $row['title'], (($row['display'] == 1) ? '1' : '0'), (($row['spoiler'] == 1) ? '1' : '0'), $uuid))
-                        $message = $message_title_internal;
+                    if (!$resp = XDb::xSql(
+                        "UPDATE `pictures` SET `title`= ?, `display`= ?, `spoiler`= ?, `last_modified` = NOW()
+                        WHERE `uuid`= ? ",
+                        $row['title'], (($row['display'] == 1) ? '1' : '0'), (($row['spoiler'] == 1) ? '1' : '0'), $uuid)){
 
-                    if (!$message)
+                        $message = $message_title_internal;
+                    }
+                    if (!$message){
                         tpl_redirect('editcache.php?cacheid=' . urlencode($row['object_id']));
+                    }
                 }
             }
         }
@@ -161,4 +164,18 @@ if ($error == false) {
 
 //make the template and send it out
 tpl_BuildTemplate();
-?>
+
+function resolveImageTypeByFileExtension($fileExtension)
+{
+    $extension = strtoupper($fileExtension);
+    switch ($extension){
+        case 'JPG':
+        case 'JPEG':
+            return IMAGETYPE_JPEG;
+        case 'PNG':
+            return IMAGETYPE_PNG;
+        case 'GIF':
+            return IMAGETYPE_GIF;
+    }
+    return IMAGETYPE_JPEG;
+}

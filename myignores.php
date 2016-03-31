@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Database\OcDb;
+
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -15,9 +17,8 @@ if ($error == false) {
         $tplname = 'myignores';
         tpl_set_var('title_text', $title_text);
 
-        $dbc = new dataBase();
+        $dbc = OcDb::instance();
         //get all caches ignored
-        //$rs = mysql_query('SELECT `cache_ignore`.`cache_id` AS `cache_id`, `caches`.`name` AS `name`, `caches`.`last_found` AS `last_found` FROM `cache_ignore` INNER JOIN `caches` ON (`cache_ignore`.`cache_id` = `caches`.`cache_id`) WHERE `cache_ignore`.`user_id`=\'' . addslashes($usr['userid']) . '\' ORDER BY `caches`.`name`', $dblink);
         $query = "SELECT `cache_ignore`.`cache_id` AS `cache_id`, `caches`.`name` AS `name`, `caches`.`last_found` AS `last_found` FROM `cache_ignore` INNER JOIN `caches` ON (`cache_ignore`.`cache_id` = `caches`.`cache_id`) WHERE `cache_ignore`.`user_id`= :1 ORDER BY `caches`.`name`";
 
         $dbc->multiVariableQuery($query, $usr['userid']);
@@ -58,4 +59,3 @@ if ($error == false) {
 
 //make the template and send it out
 tpl_BuildTemplate();
-?>
