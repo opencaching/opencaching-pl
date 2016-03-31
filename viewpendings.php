@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 global $bgcolor1, $bgcolor2;
 
 function colorCacheStatus($text, $id)
@@ -25,57 +26,46 @@ function nonEmptyCacheName($cacheName)
 
 function getUsername($userid)
 {
-    $sql = "SELECT username FROM user WHERE user_id='" . sql_escape(intval($userid)) . "'";
-    $query = mysql_query($sql) or die();
-    if (mysql_num_rows($query) > 0)
-        return mysql_result($query, 0);
-    return null;
+    return XDb::xMultiVariableQueryValue(
+        "SELECT username FROM user WHERE user_id= :1 LIMIT 1",
+        null, $userid);
 }
 
 function getCachename($cacheid)
 {
-    $sql = "SELECT name FROM caches WHERE cache_id='" . sql_escape(intval($cacheid)) . "'";
-    $query = mysql_query($sql) or die();
-    if (mysql_num_rows($query) > 0)
-        return mysql_result($query, 0);
-    return null;
+    return XDb::xMultiVariableQueryValue(
+        "SELECT name FROM caches WHERE cache_id= :1 LIMIT 1",
+        null, $cacheid);
 }
 
 function getCacheOwnername($cacheid)
 {
-    $sql = "SELECT user_id FROM caches WHERE cache_id='" . sql_escape(intval($cacheid)) . "'";
-    $query = mysql_query($sql) or die();
-    if (mysql_num_rows($query) > 0)
-        return getUsername(mysql_result($query, 0));
-    return null;
+    return XDb::xMultiVariableQueryValue(
+        "SELECT user_id FROM caches WHERE cache_id= :1 LIMIT 1",
+        null, $cacheid);
 }
 
 function getCacheOwnerId($cacheid)
 {
-    $sql = "SELECT user_id FROM caches WHERE cache_id='" . sql_escape(intval($cacheid)) . "'";
-    $query = mysql_query($sql) or die();
-    if (mysql_num_rows($query) > 0)
-        return mysql_result($query, 0);
-    return null;
+    return XDb::xMultiVariableQueryValue(
+        "SELECT user_id FROM caches WHERE cache_id= :1 LIMIT 1",
+        null, $cacheid);
 }
 
 function actionRequired($cacheid)
 {
     // check if cache requires activation
-    $sql = "SELECT status FROM caches WHERE cache_id='" . sql_escape(intval($cacheid)) . "' AND status = 4";
-    $query = mysql_query($sql) or die();
-    if (mysql_num_rows($query) > 0)
-        return true;
-    return false;
+    return XDb::xMultiVariableQueryValue(
+        "SELECT status FROM caches WHERE cache_id= :1 AND status = 4",
+        null, $cacheid);
 }
 
 function activateCache($cacheid)
 {
     // activate the cache by changing its status to yet unavailable
     if (actionRequired($cacheid)) {
-        $sql = "UPDATE caches SET status = 5 WHERE cache_id='" . sql_escape(intval($cacheid)) . "'";
-        if (mysql_query($sql)) {
-            sql("UPDATE sysconfig SET value = value - 1 WHERE name = 'hidden_for_approval'");
+        if ( XDb::xSql("UPDATE caches SET status = 5 WHERE cache_id= ? ", $cacheid) ) {
+            XDb::xSql("UPDATE sysconfig SET value = value - 1 WHERE name = 'hidden_for_approval'");
             return true;
         } else
             return false;
@@ -87,9 +77,8 @@ function declineCache($cacheid)
 {
     // activate the cache by changing its status to yet unavailable
     if (actionRequired($cacheid)) {
-        $sql = "UPDATE caches SET status = 6 WHERE cache_id='" . sql_escape(intval($cacheid)) . "'";
-        if (mysql_query($sql)) {
-            sql("UPDATE sysconfig SET value = value - 1 WHERE name = 'hidden_for_approval'");
+        if (XDb::xSql("UPDATE caches SET status = 6 WHERE cache_id= ? ", $cacheid)) {
+            XDb::xSql("UPDATE sysconfig SET value = value - 1 WHERE name = 'hidden_for_approval'");
             return true;
         } else
             return false;
@@ -100,24 +89,25 @@ function declineCache($cacheid)
 function getAssignedUserId($cacheid)
 {
     // check if cache requires activation
-    $sql = "SELECT user_id FROM approval_status WHERE cache_id='" . sql_escape(intval($cacheid)) . "'";
-    $query = mysql_query($sql) or die();
-    if (mysql_num_rows($query) > 0)
-        return mysql_result($query, 0);
-    return false;
+    return XDb::xMultiVariableQueryValue(
+        "SELECT user_id FROM approval_status WHERE cache_id= :1 LIMIT 1",
+        false, $cacheid);
 }
 
 function assignUserToCase($userid, $cacheid)
 {
     // check if user is in RR
-    $sql = "SELECT user_id FROM user WHERE admin = 1 AND user_id = '" . sql_escape(intval($userid)) . "'";
-    if (mysql_num_rows(mysql_query($sql)) == 0)
-        return false;
+    if( 0 == XDb::xMultiVariableQueryValue(
+        "SELECT COUNT(user_id) FROM user WHERE admin = 1 AND user_id = :1 ", 0, $userid)){
 
-    $sql = "INSERT INTO approval_status (cache_id, user_id, status, date_approval) VALUES
-                        (" . sql_escape(intval($cacheid)) . ", " . sql_escape(intval($userid)) . ", 2,NOW())
-                        ON DUPLICATE KEY UPDATE user_id = '" . sql_escape(intval($userid)) . "'";
-    $query = mysql_query($sql) or die();
+        return false;
+    }
+
+    XDb::xSql(
+        "INSERT INTO approval_status (cache_id, user_id, status, date_approval)
+        VALUES ( ?, ?, 2, NOW())
+        ON DUPLICATE KEY UPDATE user_id = ?",
+        $cacheid, $userid, $userid);
 }
 
 function notifyOwner($cacheid, $msgType)
@@ -150,8 +140,9 @@ function notifyOwner($cacheid, $msgType)
     $email_content = mb_ereg_replace('{Cacheactivated_04}', tr('Cacheactivated_04'), $email_content);
     $email_content = mb_ereg_replace('{Cacheactivated_05}', tr('Cacheactivated_05'), $email_content);
 
-    $query = sql("SELECT `email` FROM `user` WHERE `user_id`='&1'", $user_id);
-    $owner_email = sql_fetch_array($query);
+
+    $owner_email = XDb::xMultiVariableQueryValue(
+        "SELECT `email` FROM `user` WHERE `user_id`= :1 LIMIT 1", '', $user_id);
 
     if ($msgType == 0) {
         //send email to owner
@@ -161,8 +152,12 @@ function notifyOwner($cacheid, $msgType)
         // generate automatic log about status cache
         $log_text = tr("viewPending_03");
         $log_uuid = create_uuid();
-        sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
-                                     VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')", $cacheid, $usr['userid'], 12, $log_text, 0, 0, $log_uuid, 2, 0);
+        XDb::xSql(
+            "INSERT INTO `cache_logs`
+                (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
+            VALUES ('', ?, ?, '12', NOW(), ?, '0', '0', NOW(), NOW(), ?, '2', '0')",
+            $cacheid, $usr['userid'], $log_text, $log_uuid);
+
     } else {
         //send email to owner
         mb_send_mail($owner_email['email'], tr('viewPending_04') . ": " . $cachename, $email_content, $email_headers);
@@ -172,8 +167,11 @@ function notifyOwner($cacheid, $msgType)
         // generate automatic log about status cache
         $log_text = tr("viewPending_06");
         $log_uuid = create_uuid();
-        sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
-                                     VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')", $cacheid, $usr['userid'], 12, $log_text, 0, 0, $log_uuid, 2, 0);
+        XDb::xSql(
+            "INSERT INTO `cache_logs`
+                (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
+            VALUES ('', ?, ?, ?, NOW(), ?, ?, ?, NOW(), NOW(), ?, ?, ?)",
+            $cacheid, $usr['userid'], 12, $log_text, 0, 0, $log_uuid, 2, 0);
     }
 }
 
@@ -186,7 +184,7 @@ if ($error == false && $usr['admin']) {
     if (isset($_GET['cacheid'])) {
         if (isset($_GET['assign'])) {
             if (assignUserToCase($_GET['assign'], $_GET['cacheid'])) {
-                $confirm = "<p>" . tr("viewPending_07") . " " . getUsername(sql_escape($_GET['assign'])) . " " . tr("viewPending_07") . ".</p>";
+                $confirm = "<p>" . tr("viewPending_07") . " " . getUsername($_GET['assign']) . " " . tr("viewPending_07") . ".</p>";
                 tpl_set_var('confirm', $confirm);
             } else {
                 tpl_set_var('confirm', '');
@@ -233,21 +231,20 @@ if ($error == false && $usr['admin']) {
     } else {
         tpl_set_var('confirm', '');
     }
-    $sql = "SELECT cache_status.id AS cs_id,
-                                     cache_status.pl AS cache_status,
-                                     user.username AS username,
-                                     user.user_id AS user_id,
-                                     caches.cache_id AS cache_id,
-                                     caches.name AS cachename,
-                                    IFNULL(`cache_location`.`adm3`, '') AS `adm3`,
-                                     caches.date_created AS date_created
-                        FROM cache_status, user, (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`)
-                        WHERE cache_status.id = caches.status
-                                    AND caches.user_id = user.user_id
-                                    AND caches.status = 4  ORDER BY caches.date_created DESC";
-    $query = mysql_query($sql) or die("DB error");
+
+    $stmt = XDb::xSql(
+        "SELECT cache_status.id AS cs_id, cache_status.pl AS cache_status, user.username AS username,
+                user.user_id AS user_id, caches.cache_id AS cache_id, caches.name AS cachename,
+                IFNULL(`cache_location`.`adm3`, '') AS `adm3`, caches.date_created AS date_created
+        FROM cache_status, user, (
+            `caches` LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`)
+        WHERE cache_status.id = caches.status
+            AND caches.user_id = user.user_id
+            AND caches.status = 4
+        ORDER BY caches.date_created DESC");
+
     $row_num = 0;
-    while ($report = mysql_fetch_array($query)) {
+    while ($report = XDb::xFetchArray($stmt)) {
         $assignedUserId = getAssignedUserId($report['cache_id']);
         if ($row_num % 2)
             $bgcolor = "bgcolor1";
