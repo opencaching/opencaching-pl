@@ -1,0 +1,31 @@
+Table okapi_submitted_objects
+----------
+
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| object_type  | tinyint(2)  | NO   | PRI | NULL    |       |
+| object_id    | int(11)     | NO   | PRI | NULL    |       |
+| consumer_key | varchar(20) | NO   | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+
+Column description
+-------------------
+
+object_type
+object_id
+consumer_key
+
+
+*************************** 1. row ***************************
+       Table: okapi_submitted_objects
+Create Table: CREATE TABLE `okapi_submitted_objects` (
+  `object_type` tinyint(2) NOT NULL,
+  `object_id` int(11) NOT NULL,
+  `consumer_key` varchar(20) charset ascii collate ascii_bin NOT NULL,
+  PRIMARY KEY  (`object_type`, `object_id`),
+  KEY `by_consumer` (`consumer_key`, `object_type`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+Changelog
+---------
