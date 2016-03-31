@@ -985,7 +985,7 @@ if ($error == false) {
             $dbc->reset();
 
             $viewlogs_from = $dbc->multiVariableQueryValue(
-                "SELECT id FROM cache_logs WHERE " . $query_hide_del . " cache_id=:1 ORDER BY date DESC, id LIMIT :2 "
+                "SELECT id FROM cache_logs WHERE " . $query_hide_del . " cache_id=:1 ORDER BY date DESC, id LIMIT :2 ",
                 -1, $cache_id, $logs_to_display);
 
             tpl_set_var('viewlogs_from', $viewlogs_from);
