@@ -984,12 +984,14 @@ if ($error == false) {
             tpl_set_var('viewlogs', mb_ereg_replace('{cacheid_urlencode}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $viewlogs));
             $dbc->reset();
 
-            //$viewlogs_from = $dbc->multiVariableQueryValue(
-            //    "SELECT id FROM cache_logs WHERE " . $query_hide_del . " cache_id=:1 ORDER BY date DESC, id LIMIT :2 ",
-            //    -1, $cache_id, $logs_to_display);
+            $viewlogs_from = $dbc->multiVariableQueryValue(
+                "SELECT id FROM cache_logs
+                WHERE " . $query_hide_del . " cache_id=:1
+                ORDER BY date DESC, id
+                LIMIT ".XDb::xEscape($logs_to_display),
+                -1, $cache_id );
 
-            //fast fix...
-            tpl_set_var('viewlogs_from', /*$viewlogs_from*/ -1);
+            tpl_set_var('viewlogs_from', $viewlogs_from);
         } else {
             tpl_set_var('viewlogs_last', '');
             tpl_set_var('viewlogs', '');
