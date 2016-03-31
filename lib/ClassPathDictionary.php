@@ -70,7 +70,13 @@ class ClassPathDictionary
             $classPath = substr($classPath, 0, -1) . '.php';
             return $classPath;
         }
-        return __DIR__ . '/../' . self::$classDictionary[$className];
+
+        if( isset(self::$classDictionary[$className]) ){
+            return __DIR__ . '/../' . self::$classDictionary[$className];
+        }else{
+            trigger_error("Classpath can't find: $className", E_USER_WARNING);
+            return null;
+        }
     }
 
 }
@@ -79,5 +85,8 @@ spl_autoload_register(function ($className) {
     if(strpos($className, 'Smarty_') !== false){ /* ignore smary class autoloading */
         return;
     }
-    include_once ClassPathDictionary::getClassPath($className);
+
+    $classFile = ClassPathDictionary::getClassPath($className);
+    if(!is_null($classFile))
+        include_once $classFile;
 });
