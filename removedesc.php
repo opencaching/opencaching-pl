@@ -42,7 +42,7 @@ if ($error == false) {
                         //remove it from cache_desc
                         sql("DELETE FROM `cache_desc` WHERE `cache_id`='&1' AND `language`='&2'", $cache_id, $desclang);
 
-                        //update cache record
+                        // update cache-record, including last modification date
                         setCacheDefaultDescLang($cache_id);
 
                         tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));

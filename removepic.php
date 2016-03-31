@@ -51,7 +51,7 @@ if ($error == false) {
             switch ($type) {
                 // log
                 case 1:
-                    sql("UPDATE `cache_logs` SET `picturescount`=`picturescount`-1 WHERE `id`='&1'", $objectid);
+                    sql("UPDATE `cache_logs` SET `picturescount`=`picturescount`-1, `last_modified`=NOW() WHERE `id`='&1'", $objectid);
 
                     $rs = sql("SELECT `cache_id` FROM `cache_logs` WHERE `deleted`=0 AND `id`='&1'", $objectid);
                     $r = sql_fetch_array($rs);
@@ -62,7 +62,7 @@ if ($error == false) {
 
                 // cache
                 case 2:
-                    sql("UPDATE `caches` SET `picturescount`=`picturescount`-1 WHERE `cache_id`='&1'", $objectid);
+                    sql("UPDATE `caches` SET `picturescount`=`picturescount`-1, `last_modified`=NOW() WHERE `cache_id`='&1'", $objectid);
 
                     tpl_redirect('editcache.php?cacheid=' . urlencode($objectid));
                     break;

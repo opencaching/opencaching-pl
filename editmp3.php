@@ -103,13 +103,32 @@ if ($error == false) {
                     $resp = XDb::xSql(
                         "UPDATE `mp3` SET `title`= ?, `display`= ?, `last_modified`=NOW() WHERE `uuid`= ? ",
                          $row['title'], (($row['display'] == 1) ? '1' : '0'), $uuid);
-
-
-                    if (!XDb::xNumRows($resp))
+                    if (!XDb::xNumRows($resp)) {
                         $message = $message_title_internal;
+                    }
 
-                    if (!$message)
+                    switch ($row['object_type']) {
+                        // log
+                        case 1:
+                            $resp = XDb::xSql(
+                                "UPDATE `cache_logs` SET `last_modified`=NOW() WHERE `id`= ?",
+                                $row['object_id']);
+                            break;
+
+                        // cache
+                        case 2:
+                            $resp = XDb::xSql(
+                                "UPDATE `caches` SET `last_modified`=NOW() WHERE `cache_id`= ?",
+                                $row['object_id']);
+                            break;
+                    }
+                    if (!XDb::xNumRows($resp)) {
+                        $message = $message_title_internal;
+                    }
+
+                    if (!$message) {
                         tpl_redirect('editcache.php?cacheid=' . urlencode($row['object_id']));
+                    }
                 }
             }
         }

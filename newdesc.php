@@ -66,7 +66,7 @@ if ($error == false) {
                              $cache_id, $sel_lang, $desc, '1', nl2br($hints), $short_desc, $desc_uuid, $oc_nodeid);
 
 
-                        //update cache-record
+                        // update cache-record, including last modification date
                         setCacheDefaultDescLang($cache_id);
 
                         tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));

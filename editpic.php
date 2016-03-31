@@ -114,14 +114,26 @@ if ($error == false) {
                 if ($row['title'] == "") {
                     tpl_set_var('errnotitledesc', $errnotitledesc);
                 } else {
-                    if (!$resp = XDb::xSql(
+                    if (!XDb::xSql(
                         "UPDATE `pictures` SET `title`= ?, `display`= ?, `spoiler`= ?, `last_modified` = NOW()
                         WHERE `uuid`= ? ",
-                        $row['title'], (($row['display'] == 1) ? '1' : '0'), (($row['spoiler'] == 1) ? '1' : '0'), $uuid)){
+                        $row['title'], (($row['display'] == 1) ? '1' : '0'), (($row['spoiler'] == 1) ? '1' : '0'), $uuid)) {
 
                         $message = $message_title_internal;
+
+                    } else if ($row['object_type'] == 1) {
+                        // This condition currently is always false, because log pictures cannot
+                        // be edited.
+                        if (!XDb::xSql("UPDATE `cache_logs` SET `last_modified`=NOW() WHERE `id`= ?", $row['object_id'])) {
+                            $message = $message_title_internal;
+                        }
+                    } else if ($row['object_type'] == 2) {
+                        if (!XDb::xSql("UPDATE `caches` SET `last_modified`=NOW() WHERE `cache_id`= ?", $row['object_id'])) {
+                            $message = $message_title_internal;
+                        }
                     }
-                    if (!$message){
+
+                    if (!$message) {
                         tpl_redirect('editcache.php?cacheid=' . urlencode($row['object_id']));
                     }
                 }
