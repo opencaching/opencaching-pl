@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 function delete_statpic($userid)
 {
     global $dynbasepath;
@@ -48,29 +49,31 @@ function event_notify_new_cache($cache_id)
     //prepare the templates and include all neccessary
     require_once($rootpath . 'lib/search.inc.php');
 
-    $rs = sql('SELECT `caches`.`latitude`, `caches`.`longitude`
-           FROM `caches`
-           WHERE `caches`.`cache_id`=&1', $cache_id);
+    $rs = XDb::xSql(
+        'SELECT `caches`.`latitude`, `caches`.`longitude`
+        FROM `caches`
+        WHERE `caches`.`cache_id`= ? ', $cache_id);
 
-    $r = sql_fetch_array($rs);
+    $r = XDb::xFetchArray($rs);
 
     $latFrom = $r['latitude'];
     $lonFrom = $r['longitude'];
 
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
 
     $distanceMultiplier = 1;
 
     // TODO: Seeking pre-select `user`. `latitude` like with max_lon / min_lon / max_lat / min_lat
-    sql('INSERT INTO `notify_waiting` (`id`, `cache_id`, `user_id`, `type`)
-        SELECT NULL, &4, `user`.`user_id`, &5
+    XDb::xSql(
+        'INSERT INTO `notify_waiting` (`id`, `cache_id`, `user_id`, `type`)
+        SELECT NULL, '.XDb::xEscape($cache_id).', `user`.`user_id`, '.XDb::xEscape(notify_new_cache).'
         FROM `user`
         WHERE NOT ISNULL(`user`.`latitude`)
           AND NOT ISNULL(`user`.`longitude`)
           AND `user`.`notify_radius` > 0
-          AND (acos(cos((90-&1) * 3.14159 / 180) * cos((90-`user`.`latitude`) * 3.14159 / 180) +
-              sin((90-&1) * 3.14159 / 180) * sin((90-`user`.`latitude`) * 3.14159 / 180) * cos((&2-`user`.`longitude`) *
-              3.14159 / 180)) * 6370 * &3) <= `user`.`notify_radius`', $latFrom, $lonFrom, $distanceMultiplier, $cache_id, notify_new_cache);
-}
+          AND (acos(cos((90- ? ) * 3.14159 / 180) * cos((90-`user`.`latitude`) * 3.14159 / 180) +
+              sin((90-?) * 3.14159 / 180) * sin((90-`user`.`latitude`) * 3.14159 / 180) * cos(( ? -`user`.`longitude`) *
+              3.14159 / 180)) * 6370 * ?) <= `user`.`notify_radius`',
+        $latFrom, $latFrom, $lonFrom, $distanceMultiplier);
 
-?>
+}
