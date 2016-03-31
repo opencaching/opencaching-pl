@@ -680,18 +680,14 @@ if ($error == false) {
 
                 //add record to caches table
                 XDb::xSql(
-                    "INSERT INTO `caches` (
-                        `cache_id`, `user_id`, `name`, `longitude`, `latitude`, `last_modified`,
-                        `date_created`, `type`, `status`, `country`, `date_hidden`, `date_activate`,
-                        `founds`, `notfounds`, `notes`, `last_found`, `size`, `difficulty`,
-                        `terrain`, `uuid`, `logpw`, `search_time`, `way_length`, `wp_gc`,
-                        `wp_nc`, `wp_ge`, `wp_tc`, `node` )
-                    VALUES (
-                        '', ?, ?, ?, ?, NOW(), NOW(), ?, ?, ?,
-                        ?, ?, '0', '0', '0', NULL, ?, ?, ?, ?,
-                        ?, ?, ?, ?, ?, ?, ?, ?)",
+                    "INSERT INTO `caches` SET
+                        `cache_id` = '', `user_id` = ?, `name` = ?, `longitude` = ?, `latitude` = ?, `last_modified` = NOW(),
+                        `date_created` = NOW(), `type` = ?, `status` = ?, `country` = ?, `date_hidden` = ?, `date_activate` = ?,
+                        `founds` = 0, `notfounds` = 0, `notes` = 0, `last_found` = NULL, `size` = ?, `difficulty` = ?,
+                        `terrain` = ?, `uuid` = ?, `logpw` = ?, `search_time` = ?, `way_length` = ?, `wp_gc` = ?,
+                        `wp_nc` = ?, `wp_ge` = ?, `wp_tc` = ?, `node` = ? ",
                     $usr['userid'], $name, $longitude, $latitude, $sel_type, $sel_status, $sel_country,
-                    date('Y-m-d', $hidden_date), $sel_size, $difficulty, $terrain, $activation_date, $cache_uuid, $log_pw,
+                    date('Y-m-d', $hidden_date), $activation_date, $sel_size, $difficulty, $terrain, $cache_uuid, $log_pw,
                     $search_time, $way_length, $wp_gc, $wp_nc, $wp_ge, $wp_tc, $oc_nodeid);
 
                 $cache_id = XDb::xLastInsertId();
