@@ -30,7 +30,11 @@ if ($error == false) {
 
 
     if ($tit == "ccy") {
-        $rsCreateCachesYear = sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FROM `caches` WHERE status <> 4 AND status <> 5 AND status <> 6 AND user_id=&1 GROUP BY YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC", $user_id);
+        $rsCreateCachesYear = sql(
+            "SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FROM `caches`
+            WHERE status <> 4 AND status <> 5 AND status <> 6 AND user_id=&1
+            GROUP BY YEAR(`date_created`)
+            ORDER BY YEAR(`date_created`) ASC", $user_id);
 
         if ($rsCreateCachesYear !== false) {
             $descibe = tr("annual_stat_created");
@@ -124,7 +128,6 @@ if ($error == false) {
 // Adjust fill color
     $bplot->SetFillColor('steelblue2');
     $graph->Add($bplot);
-
 
 // Setup the titles
     $graph->title->Set($descibe);
