@@ -36,6 +36,10 @@ class OcSpamDomain {
                 //timeout not expired - don't send anything
                 return false;
             }
+        }else{
+            //set permissions to allow touch file for apache|cron scripts
+            touch($lockFile);
+            chmod($lockFile,0666);
         }
 
         touch($lockFile);
