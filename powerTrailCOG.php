@@ -1,5 +1,8 @@
 <?php
 
+use lib\Objects\PowerTrail\PowerTrail;
+use lib\Objects\GeoCache\GeoCache;
+
 $rootpath = __DIR__ . DIRECTORY_SEPARATOR;
 require_once './lib/common.inc.php';
 
@@ -21,15 +24,16 @@ if ($error == false) {
     tpl_set_var('language4js', $lang);
 
     if (isset($_REQUEST['ptSelector'])) {
+        $powerTrail = new PowerTrail(array('id' => $_REQUEST['ptSelector']));
         $_SESSION['ptRmByCog'] = 1;
         $ptData = powerTrailBase::getPtDbRow($_REQUEST['ptSelector']);
         $ptStatus = powerTrailBase::getPowerTrailStatus();
         $ptType = powerTrailBase::getPowerTrailTypes();
 
-        tpl_set_var("ptCaches", preparePtCaches(powerTrailBase::getPtCaches($_REQUEST['ptSelector'])));
-        tpl_set_var("ptStatSelect", generateStatusSelector($ptData['status']));
-        tpl_set_var("ptId", $ptData['id']);
-        tpl_set_var("ptName", $ptData['name']);
+        tpl_set_var("ptCaches", preparePtCaches($powerTrail));
+        tpl_set_var("ptStatSelect", generateStatusSelector($powerTrail->getStatus()));
+        tpl_set_var("ptId", $powerTrail->getId());
+        tpl_set_var("ptName", $powerTrail->getName());
         tpl_set_var("ptType", tr($ptType[$ptData['type']]['translate']));
         tpl_set_var("ptStatus", tr($ptStatus[$ptData['status']]['translate']));
 
@@ -52,20 +56,32 @@ function makePtSelector($ptAll, $id)
     return $selector;
 }
 
-function preparePtCaches($ptCaches)
+function preparePtCaches(PowerTrail $powerTrail)
 {
-    //var_dump($ptCaches);
-    $table = '<table ><tr bgcolor="#cccccc"><td>' . tr('pt036') . '</td><td>' . tr('owner_label') . '</td><td>' . tr('pt210') . '</td></tr>';
+    $table = '<table ><tr bgcolor="#cccccc">'
+            . ' <td>' . tr('pt036') . '</td>'
+            . ' <td>' . tr('owner_label') . '</td>'
+            . ' <td>'. tr('waypoint') . '</td>'
+            . ' <td align="center">' . tr('cache').'<br/>' . tr('number_founds') . '</td>'
+            . ' <td>' . tr('pt210') . '</td>'
+            . '</tr>';
     $color = '#eeeeff';
-    foreach ($ptCaches as $cache) {
-        if ($color == '#eeffee')
+    /* @var $geocache GeoCache */
+    foreach ($powerTrail->getGeocaches() as $geocache) {
+        if ($color == '#eeffee') {
             $color = '#eeeeff';
-        else
+        } else {
             $color = '#eeffee';
-        $table .= '<tr bgcolor="' . $color . '" id="tr' . $cache['cache_id'] . '">
-            <td>' . $cache['name'] . '</td>
-            <td>' . $cache['username'] . '</td>
-            <td><a href="javascript:void(0);" onclick="rmCache(' . $cache['cache_id'] . ');" class="editPtDataButton">' . tr('pt130') . '</a> <img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif"  style="display: none" id="rmCacheLoader' . $cache['cache_id'] . '" /> </td>
+        }
+        if($geocache->getFounds() > 0){
+            $color = 'ffbbbb';
+        }
+        $table .= '<tr bgcolor="' . $color . '" id="tr' . $geocache->getCacheId() . '">
+            <td>' . $geocache->getCacheName() . '</td>
+            <td>' . $geocache->getOwner()->getUserName() . '</td>
+            <td><a href="'.$geocache->getWaypointId().'">' . $geocache->getWaypointId() . '</a></td>
+            <td align="center">' . $geocache->getFounds() . '</td>
+            <td align="center"><a href="javascript:void(0);" onclick="rmCache(' . $geocache->getCacheId() . ');" class="editPtDataButton">' . tr('pt130') . '</a> <img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif"  style="display: none" id="rmCacheLoader' . $geocache->getCacheId() . '" /> </td>
         </tr>';
     }
     $table .= '</table>';
@@ -88,5 +104,3 @@ function generateStatusSelector($currStatus)
     $selector .= '</select>';
     return $selector;
 }
-
-?>
