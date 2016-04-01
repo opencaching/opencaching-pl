@@ -374,18 +374,6 @@ if ($error == false) {
         } else {
             tpl_set_var('distance_cache', '');
         }
-        // get cache waypoint
-//        $cache_wp = '';
-//                $cache_wp = $cache_record['wp_oc'];
-//        else if ($cache_record['wp_gc'] != '')
-//            $cache_wp = $cache_record['wp_gc'];
-//        else if ($cache_record['wp_nc'] != '')
-//            $cache_wp = $cache_record['wp_nc'];
-//        else if ($cache_record['wp_tc'] != '')
-//            $cache_wp = $cache_record['wp_tc'];
-//        else if ($cache_record['wp_ge'] != '')
-//            $cache_wp = $cache_record['wp_ge'];
-
         // check if there is geokret in this cache
         $thatquery = "SELECT gk_item.id, name, distancetravelled as distance FROM gk_item INNER JOIN gk_item_waypoint ON (gk_item.id = gk_item_waypoint.id) WHERE gk_item_waypoint.wp = :v1 AND stateid<>1 AND stateid<>4 AND stateid <>5 AND typeid<>2 AND missing=0";
         $params['v1']['value'] = (string) $geocache->getGeocacheWaypointId();
