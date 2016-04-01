@@ -32,13 +32,14 @@ class OcSpamDomain {
             $lastEmail = filemtime($lockFile);
             $timeout = self::getTimeout($domain);
 
-            if (time() - $last_email < $timeout) {
+            if (time() - $lastEmail < $timeout) {
                 //timeout not expired - don't send anything
                 return false;
             }
         }
 
-        @touch($lock_file);
+        touch($lockFile);
+        clearstatcache(); //clear cached info about this file...
         return true;
     }
 
@@ -79,13 +80,14 @@ class OcSpamDomain {
      */
     private static function getLockFile($domain)
     {
+        $filename = '';
         switch ($domain){
             case self::DB_ERRORS:
-                return '/tmp/ocSpamDomain-db-errors-emails.lock';
+                $filename = 'ocSpamDomain-db-errors-emails.lock';
                 break;
 
             case self::GENERIC_ERRORS:
-                return '/tmp/ocSpamDomain-generic-errors-emails.lock';
+                $filename = 'ocSpamDomain-generic-errors-emails.lock';
                 break;
 
             // Add another domain config here
@@ -94,5 +96,7 @@ class OcSpamDomain {
                 trigger_error(__METHOD__.": Unknown ocSpam domain: ".$domain, E_USER_WARNING);
                 return null;
         }
+
+        return sys_get_temp_dir().'/'.$filename;
     }
 }
