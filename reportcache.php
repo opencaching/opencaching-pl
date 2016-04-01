@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 function reason($reason)
 {
     switch ($reason) {
@@ -26,13 +27,13 @@ if ($usr == true) {
         tpl_set_var('noreason_error', '');
         tpl_set_var('notext_error', '');
         $cacheid = isset($_REQUEST['cacheid']) ? $_REQUEST['cacheid'] + 0 : 0;
-        $sql = "SELECT name, wp_oc, user_id FROM caches WHERE cache_id='" . sql_escape($cacheid) . "'";
-        $query = mysql_query($sql);
 
-        if (mysql_num_rows($query) == 0) {
+        $query = XDb::xSql(
+            "SELECT name, wp_oc, user_id FROM caches WHERE cache_id= ? ", $cacheid);
+
+        if (!$cache = XDb::xFetchArray($query)) {
             $tplname = 'reportcache_nocache';
         } else {
-            $cache = @mysql_fetch_array($query) or die("DB error.");
             tpl_set_var('cachename', htmlspecialchars($cache['name'], ENT_COMPAT, 'UTF-8'));
             tpl_set_var('cacheid', $cacheid);
 
@@ -45,14 +46,18 @@ if ($usr == true) {
                 else {
                     // formularz został wysłany
                     // pobierz adres email zglaszajacego
-                    $query = sql("SELECT `email` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
-                    $cache_reporter = sql_fetch_array($query);
+
+                    $cache_reporter = XDb::xMultiVariableQueryValue(
+                        "SELECT `email` FROM `user` WHERE `user_id`= :1 ", '', $usr['userid']);
 
                     if ($_POST['adresat'] == "rr") {
                         $tplname = 'reportcache_sent';
+
                         // zapisz zgłoszenie w bazie
-                        $sql = "INSERT INTO reports (user_id, cache_id, text, type) VALUES ('" . sql_escape($usr['userid']) . "', '" . sql_escape($cacheid) . "', '" . strip_tags(sql_escape($_POST['text'])) . "', '" . sql_escape(intval($_POST['reason'])) . "' )";
-                        @mysql_query($sql) or die("DB error");
+                        XDb::xSql(
+                            "INSERT INTO reports (user_id, cache_id, text, type)
+                            VALUES ( ? , ? , ? , ? )",
+                            $usr['userid'], $cacheid, strip_tags($_POST['text']), $_POST['reason']);
 
                         // wysłanie powiadomień
                         $email_content = read_file($stylepath . '/email/newreport_octeam.email');
@@ -92,8 +97,8 @@ if ($usr == true) {
                         $email_content = read_file($stylepath . '/email/newreport_cacheowneronly.email');
                     }
 
-                    $query = sql("SELECT `email` FROM `user` WHERE `user_id`='&1'", $cache['user_id']);
-                    $cache_owner = sql_fetch_array($query);
+                    $cache_owner = XDb::xMultiVariableQueryValue(
+                        "SELECT `email` FROM `user` WHERE `user_id`=:1", '', $cache['user_id']);
 
                     $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
                     $email_content = mb_ereg_replace('{reportcache10}', tr('reportcache10'), $email_content);
@@ -152,11 +157,9 @@ if ($usr == true) {
 
                     mb_send_mail($cache_reporter['email'], tr('reportcache09') . " " . $cache['wp_oc'], $email_content, $emailheaders);
 
-                    //echo($cache_owner['email']. "[OC PL] Zgłoszono problem dotyczący Twojej skrzynki". $email_content. $emailheaders);
                 }
             }
         }
     }
     tpl_BuildTemplate();
 }
-?>
