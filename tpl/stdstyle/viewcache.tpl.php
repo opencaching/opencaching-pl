@@ -163,7 +163,7 @@
             
             foreach($config['maps']['external'] as $key => $value){
                 if ( $value == 1 ) {
-                    printf($config['maps']['external'][$key.'_URL'],tpl_get_var('latitude'),tpl_get_var('longitude'),tpl_get_var('cacheid'),urlencode($vars['cachename']),$key);
+                    printf($config['maps']['external'][$key.'_URL'],tpl_get_var('latitude'),tpl_get_var('longitude'),tpl_get_var('cacheid'),tpl_get_var('oc_waypoint'),urlencode($vars['cachename']),$key);
                     echo "&nbsp;\n";
                 }    
             } 

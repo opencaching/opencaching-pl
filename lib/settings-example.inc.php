@@ -517,8 +517,8 @@ $config['maps']['cache_mini_map']['height'] = '385';
  * 
  * The following parameters are available for replacement using 
  * printf style syntax, in this order
- *    1          2         3          4           5
- * latitude, longitude, cache_id, cache_name, link_text
+ *    1          2         3            4           5         6
+ * latitude, longitude, cache_id, cache_code, cache_name, link_text
  *
  * coordinates are float numbers (%f), the rest are strings (%s)
  * cache_name is urlencoded
@@ -530,7 +530,7 @@ $config['maps']['cache_mini_map']['height'] = '385';
 
 /* Example:
  * $config['maps']['external']['MyMap'] = 1; // 1 = enabled; 0 = disabled
- * $config['maps']['external']['MyMap_URL'] = '<a href="http://site/file?lat=%1$f&lon=%2$f&id=%3$s&name=%4$s">%5$s</a>';
+ * $config['maps']['external']['MyMap_URL'] = '<a href="http://site/file?lat=%1$f&lon=%2$f&id=%3$s&name=%5$s">%6$s</a>';
  */
 
 // Enable or disable the predefined external maps below:
@@ -539,6 +539,6 @@ $config['maps']['external']['OSMapa'] = 1;
 $config['maps']['external']['UMP'] = 1;
 $config['maps']['external']['Google Maps'] = 1;
 $config['maps']['external']['Szukacz'] = 1;
-$config['maps']['external']['Flopp\'s Map'] = 1;
+$config['maps']['external']['Flopp\'s Map'] = 0;
  
 ?>
