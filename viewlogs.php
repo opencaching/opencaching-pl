@@ -10,7 +10,7 @@ if ($error == false) {
     //set here the template to process
     $tplname = 'viewlogs';
 
-//    require_once('./lib/caches.inc.php');
+    tpl_set_var('viewcache_js', "tpl/stdstyle/js/viewcache." . filemtime($rootpath . 'tpl/stdstyle/js/viewcache.js') . ".js");
     require($stylepath . '/lib/icons.inc.php');
     require($stylepath . '/viewcache.inc.php');
     require($stylepath . '/viewlogs.inc.php');
