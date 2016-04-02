@@ -475,7 +475,7 @@ if ($error == false) {
             $score = "";
             $scorecolor = "";
             $font_size = "";
-            tpl_set_var('score', "N/A");
+            tpl_set_var('score', tr('not_available'));
             tpl_set_var('scorecolor', "#000000");
         } else {
             // show cache's score
@@ -692,6 +692,7 @@ if ($error == false) {
         tpl_set_var('icon_cache', htmlspecialchars("$stylepath/images/cache/$iconname", ENT_COMPAT, 'UTF-8'));
         tpl_set_var('cachesize', htmlspecialchars(tr($geocache->getSizeDesc()), ENT_COMPAT, 'UTF-8'));
         tpl_set_var('oc_waypoint', htmlspecialchars($geocache->getWaypointId(), ENT_COMPAT, 'UTF-8'));
+        tpl_set_var('absolute_server_URI',$absolute_server_URI);
         if ($geocache->getRecommendations() == 1){
             tpl_set_var('rating_stat', mb_ereg_replace('{ratings}', $geocache->getRecommendations(), $rating_stat_show_singular));
         } elseif ($geocache->getRecommendations() > 1) {
@@ -733,14 +734,14 @@ if ($error == false) {
             tpl_set_var('hidetime_start', '<!-- ');
             tpl_set_var('hidetime_end', ' -->');
 
-            tpl_set_var('search_time', 'b.d.');
-            tpl_set_var('way_length', 'b.d.');
+            tpl_set_var('search_time', tr('not_available'));
+            tpl_set_var('way_length', tr('not_available'));
         } else {
             tpl_set_var('hidetime_start', '');
             tpl_set_var('hidetime_end', '');
 
             if (($geocache->getSearchTime() == null) || ($geocache->getSearchTime() == 0)) {
-                tpl_set_var('search_time', 'b.d.');
+                tpl_set_var('search_time', tr('not_available'));
             } else {
                 $time_hours = floor($geocache->getSearchTime());
                 $time_min = ($geocache->getSearchTime() - $time_hours) * 60;
@@ -749,7 +750,7 @@ if ($error == false) {
             }
 
             if (($geocache->getWayLenght() == null) || ($geocache->getWayLenght() == 0)){
-                tpl_set_var('way_length', 'b.d.');
+                tpl_set_var('way_length', tr('not_available'));
             } else {
                 tpl_set_var('way_length', sprintf('%01.2f km', $geocache->getWayLenght()));
             }
@@ -775,7 +776,7 @@ if ($error == false) {
                 $listed_on[] = '<a href="http://www.navicache.com/cgi-bin/db/displaycache2.pl?CacheID=' . $wpnc . '" target="_blank">Navicache.com (' . $wpnc . ')</a>';
             }
             if ($geocacheOtherWaypoints['gc'] != '' && $config['otherSites_geocaching_com'] == 1){
-                $listed_on[] = '<a href="http://www.geocaching.com/seek/cache_details.aspx?wp=' . $geocacheOtherWaypoints['gc'] . '" target="_blank">Geocaching.com (' . $geocacheOtherWaypoints['gc'] . ')</a>';
+                $listed_on[] = '<a href="http://coord.info/' . $geocacheOtherWaypoints['gc'] . '" target="_blank">Geocaching.com (' . $geocacheOtherWaypoints['gc'] . ')</a> ';
             }
         }
         tpl_set_var('listed_on', sizeof($listed_on) == 0 ? $listed_only_oc : implode(", ", $listed_on));
