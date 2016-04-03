@@ -523,7 +523,7 @@ if ($error == false) {
                     // mobline by Łza (mobile caches)
                     // insert to database.
                     // typ kesza mobilna 8, typ logu == 4
-                    if ($log_type == 4) { // typ logu 4 - przeniesiona
+                    if ($log_type == 4 && $cache_type == 8) { // typ logu 4 - przeniesiona
                         ini_set('display_errors', 1);
                         // error_reporting(E_ALL);
                         // id of last SQL entery
