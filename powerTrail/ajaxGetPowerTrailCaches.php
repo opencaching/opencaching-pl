@@ -133,15 +133,19 @@ function displayAllCachesOfPowerTrail(\lib\Objects\PowerTrail\PowerTrail $powerT
     </table>';
     $restCaches = $cachetypes[4] + $cachetypes[5] + $cachetypes[6] + $cachetypes[8] + $cachetypes[9] + $cachetypes[10];
     $countCaches = $powerTrail->getCacheCount();
-    $restCachesPercent = round(($restCaches * 100) / $countCaches);
-    foreach ($cachetypes as $key => $value) {
-        $cachePercent[$key] = round(($value * 100) / $countCaches);
+    if($countCaches > 0) {
+        $restCachesPercent = round(($restCaches * 100) / $countCaches);
+        foreach ($cachetypes as $key => $value) {
+            $cachePercent[$key] = round(($value * 100) / $countCaches);
+        }
+        foreach ($cacheSize as $key => $value) {
+            $cacheSizePercent[$key] = round(($value * 100) / $countCaches);
+        }
+        $img = '<table align="center"><tr><td align=center width="50%">' . tr2('pt107', $language) . '<br /><img src="http://chart.apis.google.com/chart?chs=350x100&chd=t:' . $cachetypes[2] . ',' . $cachetypes[3] . ',' . $cachetypes[7] . ',' . $cachetypes[1] . ',' . $restCaches . '&cht=p3&chl=' . $cachetypes[2] . '|' . $cachetypes[3] . '|' . $cachetypes[7] . '|' . $cachetypes[1] . '|' . $restCaches . '&chco=00aa00|FFEB0D|0000cc|cccccc|eeeeee&&chdl=%20' . tr2('pt108', $language) . '%20(' . $cachePercent[2] . '%)|' . tr2('pt109', $language) . '%20(' . $cachePercent[3] . '%)|' . tr2('pt110', $language) . '%20(' . $cachePercent[7] . '%)|' . urlencode(tr2('pt111', $language)) . '%20(' . $cachePercent[1] . '%)|' . urlencode(tr2('pt112', $language)) . '%20(' . $restCachesPercent . '%)" /></td>';
+        $img .= '<td align=center width="50%">' . tr2('pt106', $language) . '<br /><img src="http://chart.apis.google.com/chart?chs=350x100&chd=t:' . $cacheSize[2] . ',' . $cacheSize[3] . ',' . $cacheSize[4] . ',' . $cacheSize[5] . ',' . $cacheSize[6] . '&cht=p3&chl=%20' . $cacheSize[2] . '|' . $cacheSize[3] . '|' . $cacheSize[4] . '|' . $cacheSize[5] . '|' . $cacheSize[6] . '&chco=0000aa|00aa00|aa0000|aaaa00|00aaaa&&chdl=' . urlencode(tr2('pt113', $language)) . '%20(' . $cacheSizePercent[2] . '%)|' . urlencode(tr2('pt114', $language)) . '%20(' . $cacheSizePercent[3] . '%)|' . urlencode(tr2('pt115', $language)) . '%20(' . $cacheSizePercent[4] . '%)|' . urlencode(tr2('pt116', $language)) . '%20(' . $cacheSizePercent[5] . '%)|' . urlencode(tr2('pt117', $language)) . '%20(' . $cacheSizePercent[6] . '%)" /></td></tr></table><br /><br />';
+    } else {
+        $img = '';
     }
-    foreach ($cacheSize as $key => $value) {
-        $cacheSizePercent[$key] = round(($value * 100) / $countCaches);
-    }
-    $img = '<table align="center"><tr><td align=center width="50%">' . tr2('pt107', $language) . '<br /><img src="http://chart.apis.google.com/chart?chs=350x100&chd=t:' . $cachetypes[2] . ',' . $cachetypes[3] . ',' . $cachetypes[7] . ',' . $cachetypes[1] . ',' . $restCaches . '&cht=p3&chl=' . $cachetypes[2] . '|' . $cachetypes[3] . '|' . $cachetypes[7] . '|' . $cachetypes[1] . '|' . $restCaches . '&chco=00aa00|FFEB0D|0000cc|cccccc|eeeeee&&chdl=%20' . tr2('pt108', $language) . '%20(' . $cachePercent[2] . '%)|' . tr2('pt109', $language) . '%20(' . $cachePercent[3] . '%)|' . tr2('pt110', $language) . '%20(' . $cachePercent[7] . '%)|' . urlencode(tr2('pt111', $language)) . '%20(' . $cachePercent[1] . '%)|' . urlencode(tr2('pt112', $language)) . '%20(' . $restCachesPercent . '%)" /></td>';
-    $img .= '<td align=center width="50%">' . tr2('pt106', $language) . '<br /><img src="http://chart.apis.google.com/chart?chs=350x100&chd=t:' . $cacheSize[2] . ',' . $cacheSize[3] . ',' . $cacheSize[4] . ',' . $cacheSize[5] . ',' . $cacheSize[6] . '&cht=p3&chl=%20' . $cacheSize[2] . '|' . $cacheSize[3] . '|' . $cacheSize[4] . '|' . $cacheSize[5] . '|' . $cacheSize[6] . '&chco=0000aa|00aa00|aa0000|aaaa00|00aaaa&&chdl=' . urlencode(tr2('pt113', $language)) . '%20(' . $cacheSizePercent[2] . '%)|' . urlencode(tr2('pt114', $language)) . '%20(' . $cacheSizePercent[3] . '%)|' . urlencode(tr2('pt115', $language)) . '%20(' . $cacheSizePercent[4] . '%)|' . urlencode(tr2('pt116', $language)) . '%20(' . $cacheSizePercent[5] . '%)|' . urlencode(tr2('pt117', $language)) . '%20(' . $cacheSizePercent[6] . '%)" /></td></tr></table><br /><br />';
     return $img . $cacheRows;
 }
 
