@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 if (isset($_POST['submitDownloadGpx'])) {
     $fd = "";
     $fd .= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n";
@@ -161,7 +162,7 @@ if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache
         $dane_i = -1;
 
         // parsuje plik
-        $listaKodowOP = '';
+        $listaKodowOP = array();
         foreach ($filecontent as $line) {
             $rec = preg_split('[,]', trim($line), 4);
             if (count($rec) >= 4) {
@@ -170,10 +171,8 @@ if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache
                     $dane_i++;
                     $dane[$dane_i]['kod_str'] = $rec[0];
                     $dane[$dane_i]['typ_kodu'] = $oc_waypoint;
-                    if (strlen($listaKodowOP) > 0) {
-                        $listaKodowOP .= ",";
-                    }
-                    $listaKodowOP .= "'" . $dane[$dane_i]['kod_str'] . "'";
+
+                    $listaKodowOP[] = $dane[$dane_i]['kod_str'];
                     // kod
                     // czas
                     $regex = "/(.+)-(.+)-(.+)T(.+):(.+)Z/";
@@ -195,19 +194,15 @@ if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache
         $_SESSION['log_cache_multi_data'] = $dane;
     }// EOF jesli jest plik wyslany to parsowanie...
 
-
     if (isset($_SESSION['log_cache_multi_data'])) {
         $dane = $_SESSION['log_cache_multi_data'];
 
         // pomocna lista do WHEREa
-        $listaKodowOP = "";
+        $listaKodowOP = array();
         $minTimeStamp = time();
         $maxTimeStamp = 1;
         foreach ($dane as $k => $v) {
-            if (strlen($listaKodowOP) > 0) {
-                $listaKodowOP .= ",";
-            }
-            $listaKodowOP .= "'" . $v['kod_str'] . "'";
+            $listaKodowOP[] = $v['kod_str'];
             if ($v['timestamp'] < $minTimeStamp)
                 $minTimeStamp = $v['timestamp'];
             if ($v['timestamp'] > $maxTimeStamp)
@@ -215,61 +210,61 @@ if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache
         }
 
         // lista identyfikatorow cache ktore znalazlem w bazie
-        $cacheIdList = "";
+        $cacheIdList = array();
 
         // dociagam informacje o nazwie i id skrzynki...
-        if (strlen($listaKodowOP) > 0) {
-            $rs = sql("SELECT c.*,u.`username` FROM `caches` as c LEFT JOIN `user` as u on u.`user_id` = c.`user_id` WHERE c.`wp_oc` IN (" . $listaKodowOP . ")");
-            if (mysql_num_rows($rs) != 0) {
-                $i = 0;
-                //echo "<pre>";
-                while ($i < mysql_num_rows($rs)) {
-                    $record = sql_fetch_assoc($rs);
-                    //print_r($record);
-                    // dodanie dodatkowych info do odpowiedniej skrzynki:
-                    foreach ($dane as $k => $v) {
-                        if ($v['kod_str'] == $record['wp_oc']) {
-                            $v['got_sql_info'] = true;
-                            $v['cache_id'] = $record['cache_id'];
-                            $v['cache_type'] = $record['type'];
-                            $v['cache_name'] = $record['name'];
-                            $v['longitude'] = $record['longitude'];
-                            $v['latitude'] = $record['latitude'];
-                            $v['cache_creator'] = $record['username'];
-                            $v['cache_difficulty'] = $record['difficulty'];
-                            $v['cache_terrain'] = $record['terrain'];
-                            $dane[$k] = $v;
-                            if (strlen($cacheIdList) > 0) {
-                                $cacheIdList .= ",";
-                            }
-                            $cacheIdList .= "'" . $record['cache_id'] . "'";
-                        }
+        if ( count($listaKodowOP) > 0) {
+            $rs = XDb::xSql(
+                "SELECT c.*,u.`username`
+                FROM `caches` as c LEFT JOIN `user` as u ON u.`user_id` = c.`user_id`
+                WHERE c.`wp_oc` IN (" . XDb::xEscape( implode(',',$listaKodowOP )) . ")");
+
+            while ( $record = XDb::xFetchArray($rs) ){
+
+                // dodanie dodatkowych info do odpowiedniej skrzynki:
+                foreach ($dane as $k => $v) {
+                    if ($v['kod_str'] == $record['wp_oc']) {
+                        $v['got_sql_info'] = true;
+                        $v['cache_id'] = $record['cache_id'];
+                        $v['cache_type'] = $record['type'];
+                        $v['cache_name'] = $record['name'];
+                        $v['longitude'] = $record['longitude'];
+                        $v['latitude'] = $record['latitude'];
+                        $v['cache_creator'] = $record['username'];
+                        $v['cache_difficulty'] = $record['difficulty'];
+                        $v['cache_terrain'] = $record['terrain'];
+                        $dane[$k] = $v;
+                        $cacheIdList[] = $record['cache_id'];
                     }
-                    $i++;
                 }
-                //die();
-            }
+            }//while
         }
 
         // dociagam info o ostatniej aktywnosci dla kazdej skrzynki
-        if (strlen($cacheIdList) > 0) {
-            $rs = sql("SELECT c.* FROM (SELECT cache_id, MAX(date) date FROM `cache_logs` WHERE user_id='" . sql_escape($usr['userid']) . "' AND cache_id IN (" . $cacheIdList . ") GROUP BY cache_id) as x INNER JOIN `cache_logs` as c ON c.cache_id = x.cache_id AND c.date = x.date");
-            if (mysql_num_rows($rs) != 0) {
-                $i = 0;
-                while ($i < mysql_num_rows($rs)) {
-                    $record = sql_fetch_array($rs);
-                    foreach ($dane as $k => $v) {
-                        if (isset($v['cache_id']) && $v['cache_id'] == $record['cache_id']) {
-                            $v['got_last_activity'] = true;
-                            $v['last_date'] = substr($record['date'], 0, strlen($record['date']) - 3);
-                            $v['last_status'] = $record['type'];
-                            $dane[$k] = $v;
-                        }
+        if ( count($cacheIdList) > 0) {
+            $rs = XDb::xSql(
+                "SELECT c.*
+                FROM (
+                        SELECT cache_id, MAX(date) date FROM `cache_logs`
+                        WHERE user_id= ?
+                            AND cache_id IN (" . XDb::xEscape(implode(',',$cacheIdList)) . ")
+                        GROUP BY cache_id
+                    ) as x
+                    INNER JOIN `cache_logs` as c ON c.cache_id = x.cache_id
+                        AND c.date = x.date", $usr['userid']);
+
+            while ($record = XDb::xFetchArray($rs)) {
+
+                foreach ($dane as $k => $v) {
+                    if (isset($v['cache_id']) && $v['cache_id'] == $record['cache_id']) {
+                        $v['got_last_activity'] = true;
+                        $v['last_date'] = substr($record['date'], 0, strlen($record['date']) - 3);
+                        $v['last_status'] = $record['type'];
+                        $dane[$k] = $v;
                     }
-                    $i++;
                 }
-            }
-        }
+            }//while
+        }//if
 
 
         // filtrowanie...
