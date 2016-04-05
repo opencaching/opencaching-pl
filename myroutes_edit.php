@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -34,8 +35,13 @@ if ($error == false) {
             exit;
         }
 
-        $route_rs = sql("SELECT `user_id`,`name`, `description`, `radius` FROM `routes` WHERE `route_id`='&1' AND `user_id`='&2'", $route_id, $user_id);
-        $record = sql_fetch_array($route_rs);
+        $route_rs = XDb::xSql(
+            "SELECT `user_id`,`name`, `description`, `radius`
+            FROM `routes`
+            WHERE `route_id`= ? AND `user_id`= ?",
+            $route_id, $user_id);
+
+        $record = XDb::xFetchArray($route_rs);
         tpl_set_var('routes_name', $record['name']);
 
         $rname = isset($_POST['name']) ? $_POST['name'] : '';
@@ -48,8 +54,8 @@ if ($error == false) {
 
             if ($remove == 1) {
                 //remove
-                sql("DELETE FROM `routes` WHERE `route_id`='&1' AND `user_id`='&2'", $route_id, $user_id);
-                sql("DELETE FROM `route_points` WHERE `route_id`='&1'", $route_id);
+                XDb::xSql("DELETE FROM `routes` WHERE `route_id`= ? AND `user_id`= ? ", $route_id, $user_id);
+                XDb::xSql("DELETE FROM `route_points` WHERE `route_id`= ? ", $route_id);
                 tpl_redirect('myroutes.php');
                 exit;
             }
@@ -58,14 +64,16 @@ if ($error == false) {
         // start submit
         if (isset($_POST['submit']) && $remove == 0) {
 
-            sql("UPDATE `routes` SET `name`='&1',`description`='&2',`radius`='&3' WHERE `route_id`='&4'", $rname, $rdesc, $rradius, $route_id);
+            XDb::xSql(
+                "UPDATE `routes` SET `name`= ? ,`description`= ?,`radius`= ?
+                WHERE `route_id`= ? ", $rname, $rdesc, $rradius, $route_id);
 
             if ($_FILES['file']['tmp_name'] != "") {
 
-                sql("DELETE FROM `route_points` WHERE `route_id`='&1'", $route_id);
+                XDb::xSql("DELETE FROM `route_points` WHERE `route_id`= ? ", $route_id);
 
                 $upload_filename = $_FILES['file']['tmp_name'];
-// Read file KML with route
+                // Read file KML with route
                 if (!$error) {
                     exec("/usr/local/bin/gpsbabel -i kml -f " . $upload_filename . " -x interpolate,distance=0.25k -o kml -F " . $upload_filename . "");
                     $xml = simplexml_load_file($upload_filename);
@@ -76,8 +84,9 @@ if ($error == false) {
                             $dis = $folder->description;
                             $dis1 = explode(" ", trim($dis));
                             $len = (float) $dis1[27];
-                            sql("UPDATE `routes` SET `length`='&1' WHERE `route_id`='&2'", $len, $route_id);
-                        }
+                            XDb::xSql(
+                                "UPDATE `routes` SET `length`= ?
+                                WHERE `route_id`= ? ", $len, $route_id);
                     }
 
 
@@ -114,8 +123,10 @@ if ($error == false) {
                 $point_num = 0;
                 foreach ($points as $point) {
                     $point_num++;
-                    $query = "INSERT into route_points (route_id,point_nr,lat,lon)" . "VALUES ($route_id,$point_num," . addslashes($point["lat"]) . "," . addslashes($point["lon"]) . ");";
-                    $result = sql($query);
+                    $result = XDb::xSql(
+                                'INSERT into route_points (route_id, point_nr, lat, lon)
+                                VALUES ( ?, ?, ?, ?)',
+                                $route_id, $route_id, $point['lat'], $point['lon'] );
                 }
             } //end update points
 

@@ -1,12 +1,13 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 require_once($rootpath . 'lib/calculation.inc.php');
 require_once('./lib/cache_icon.inc.php');
 require_once($rootpath . 'lib/caches.inc.php');
 require_once($stylepath . '/lib/icons.inc.php');
-global $content, $bUseZip, $sqldebug, $usr, $config;
+global $content, $bUseZip, $usr, $config;
 global $default_lang, $cache_attrib_jsarray_line, $cache_attrib_img_line;
 global $lang, $language, $dateFormat;
 $database = new dataBase;
@@ -372,25 +373,25 @@ if ($error == false) {
         if (!isset($options['f_userowner']))
             $options['f_userowner'] = '0';
         if ($options['f_userowner'] != 0) {
-            $sql_where[] = '`caches`.`user_id`!=\'' . $usr['userid'] . '\'';
+            $q_where[] = '`caches`.`user_id`!=\'' . $usr['userid'] . '\'';
         }
 
         if (!isset($options['f_userfound']))
             $options['f_userfound'] = '0';
         if ($options['f_userfound'] != 0) {
-            $sql_where[] = '`caches`.`cache_id` NOT IN (SELECT `cache_logs`.`cache_id` FROM `cache_logs` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=\'' . sql_escape($usr['userid']) . '\' AND `cache_logs`.`type` IN (1, 7))';
+            $q_where[] = '`caches`.`cache_id` NOT IN (SELECT `cache_logs`.`cache_id` FROM `cache_logs` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=\'' . XDb::xEscape($usr['userid']) . '\' AND `cache_logs`.`type` IN (1, 7))';
         }
 
         if (!isset($options['f_inactive']))
             $options['f_inactive'] = '0';
         if ($options['f_inactive'] != 0)
-            $sql_where[] = '`caches`.`status`=1';
+            $q_where[] = '`caches`.`status`=1';
 
         if (isset($usr)) {
             if (!isset($options['f_ignored']))
                 $options['f_ignored'] = '0';
             if ($options['f_ignored'] != 0) {
-                $sql_where[] = '`caches`.`cache_id` NOT IN (SELECT `cache_ignore`.`cache_id` FROM `cache_ignore` WHERE `cache_ignore`.`user_id`=\'' . sql_escape($usr['userid']) . '\')';
+                $q_where[] = '`caches`.`cache_id` NOT IN (SELECT `cache_ignore`.`cache_id` FROM `cache_ignore` WHERE `cache_ignore`.`user_id`=\'' . XDb::xEscape($usr['userid']) . '\')';
             }
         }
 
@@ -398,11 +399,11 @@ if ($error == false) {
         if (isset($options['cache_attribs']) && count($options['cache_attribs']) > 0) {
             for ($i = 0; $i < count($options['cache_attribs']); $i++) {
                 if ($options['cache_attribs'][$i] == 99) // special password attribute case
-                    $sql_where[] = '`caches`.`logpw` != ""';
+                    $q_where[] = '`caches`.`logpw` != ""';
                 else {
-                    $sql_from[] = '`caches_attributes` `a' . ($options['cache_attribs'][$i] + 0) . '`';
-                    $sql_where[] = '`a' . ($options['cache_attribs'][$i] + 0) . '`.`cache_id`=`caches`.`cache_id`';
-                    $sql_where[] = '`a' . ($options['cache_attribs'][$i] + 0) . '`.`attrib_id`=' . ($options['cache_attribs'][$i] + 0);
+                    $q_from[] = '`caches_attributes` `a' . ($options['cache_attribs'][$i] + 0) . '`';
+                    $q_where[] = '`a' . ($options['cache_attribs'][$i] + 0) . '`.`cache_id`=`caches`.`cache_id`';
+                    $q_where[] = '`a' . ($options['cache_attribs'][$i] + 0) . '`.`attrib_id`=' . ($options['cache_attribs'][$i] + 0);
                 }
             }
         }
@@ -410,9 +411,9 @@ if ($error == false) {
         if (isset($options['cache_attribs_not']) && count($options['cache_attribs_not']) > 0) {
             for ($i = 0; $i < count($options['cache_attribs_not']); $i++) {
                 if ($options['cache_attribs_not'][$i] == 99) // special password attribute case
-                    $sql_where[] = '`caches`.`logpw` = ""';
+                    $q_where[] = '`caches`.`logpw` = ""';
                 else
-                    $sql_where[] = 'NOT EXISTS (SELECT `caches_attributes`.`cache_id` FROM `caches_attributes` WHERE `caches_attributes`.`cache_id`=`caches`.`cache_id` AND `caches_attributes`.`attrib_id`=\'' . sql_escape($options['cache_attribs_not'][$i]) . '\')';
+                    $q_where[] = 'NOT EXISTS (SELECT `caches_attributes`.`cache_id` FROM `caches_attributes` WHERE `caches_attributes`.`cache_id`=`caches`.`cache_id` AND `caches_attributes`.`attrib_id`=\'' . XDb::xEscape($options['cache_attribs_not'][$i]) . '\')';
             }
         }
 
@@ -452,7 +453,7 @@ if ($error == false) {
         }
 
         if ((sizeof($cachetype) > 0) && (sizeof($cachetype) < 10)) {
-            $sql_where[] = '`caches`.`type` IN (' . sql_escape(implode(",", $cachetype)) . ')';
+            $q_where[] = '`caches`.`type` IN (' . XDb::xEscape(implode(",", $cachetype)) . ')';
         }
 
 
@@ -480,7 +481,7 @@ if ($error == false) {
             $cachesize[] = '7';
         }
         if ((sizeof($cachesize) > 0) && (sizeof($cachesize) < 7)) {
-            $sql_where[] = '`caches`.`size` IN (' . implode(' , ', $cachesize) . ')';
+            $q_where[] = '`caches`.`size` IN (' . implode(' , ', $cachesize) . ')';
         }
 
         if (!isset($options['cachevote_1']) && !isset($options['cachevote_2'])) {
@@ -488,9 +489,9 @@ if ($error == false) {
             $options['cachevote_2'] = '';
         }
         if (( ($options['cachevote_1'] != '') && ($options['cachevote_2'] != '') ) && ( ($options['cachevote_1'] != '0') || ($options['cachevote_2'] != '6') ) && ( (!isset($options['cachenovote'])) || ($options['cachenovote'] != '1') )) {
-            $sql_where[] = '`caches`.`score` BETWEEN \'' . sql_escape($options['cachevote_1']) . '\' AND \'' . sql_escape($options['cachevote_2']) . '\' AND `caches`.`votes` > 3';
+            $q_where[] = '`caches`.`score` BETWEEN \'' . XDb::xEscape($options['cachevote_1']) . '\' AND \'' . XDb::xEscape($options['cachevote_2']) . '\' AND `caches`.`votes` > 3';
         } else if (($options['cachevote_1'] != '') && ($options['cachevote_2'] != '') && ( ($options['cachevote_1'] != '0') || ($options['cachevote_2'] != '6') ) && isset($options['cachenovote']) && ($options['cachenovote'] == '1')) {
-            $sql_where[] = '((`caches`.`score` BETWEEN \'' . sql_escape($options['cachevote_1']) . '\' AND \'' . sql_escape($options['cachevote_2']) . '\' AND `caches`.`votes` > 3) OR (`caches`.`votes` < 4))';
+            $q_where[] = '((`caches`.`score` BETWEEN \'' . XDb::xEscape($options['cachevote_1']) . '\' AND \'' . XDb::xEscape($options['cachevote_2']) . '\' AND `caches`.`votes` > 3) OR (`caches`.`votes` < 4))';
         }
 
         if (!isset($options['cachedifficulty_1']) && !isset($options['cachedifficulty_2'])) {
@@ -498,7 +499,7 @@ if ($error == false) {
             $options['cachedifficulty_2'] = '';
         }
         if ((($options['cachedifficulty_1'] != '') && ($options['cachedifficulty_2'] != '')) && (($options['cachedifficulty_1'] != '1') || ($options['cachedifficulty_2'] != '5'))) {
-            $sql_where[] = '`caches`.`difficulty` BETWEEN \'' . sql_escape($options['cachedifficulty_1'] * 2) . '\' AND \'' . sql_escape($options['cachedifficulty_2'] * 2) . '\'';
+            $q_where[] = '`caches`.`difficulty` BETWEEN \'' . XDb::xEscape($options['cachedifficulty_1'] * 2) . '\' AND \'' . XDb::xEscape($options['cachedifficulty_2'] * 2) . '\'';
         }
 
         if (!isset($options['cacheterrain_1']) && !isset($options['cacheterrain_2'])) {
@@ -507,30 +508,30 @@ if ($error == false) {
         }
 
         if ((($options['cacheterrain_1'] != '') && ($options['cacheterrain_2'] != '')) && (($options['cacheterrain_1'] != '1') || ($options['cacheterrain_2'] != '5'))) {
-            $sql_where[] = '`caches`.`terrain` BETWEEN \'' . sql_escape($options['cacheterrain_1'] * 2) . '\' AND \'' . sql_escape($options['cacheterrain_2'] * 2) . '\'';
+            $q_where[] = '`caches`.`terrain` BETWEEN \'' . XDb::xEscape($options['cacheterrain_1'] * 2) . '\' AND \'' . XDb::xEscape($options['cacheterrain_2'] * 2) . '\'';
         }
 
         if ($options['cacherating'] > 0) {
-            $sql_where[] = '`caches`.`topratings` >= \'' . $options['cacherating'] . '\'';
+            $q_where[] = '`caches`.`topratings` >= \'' . $options['cacherating'] . '\'';
         }
 
         // show only published caches
         //  HIDDEN_FOR_APPROVAL
-        $sql_where[] = '`caches`.`status` != 4';
+        $q_where[] = '`caches`.`status` != 4';
         //  NOT_YET_AVAILABLE
-        $sql_where[] = '`caches`.`status` != 5';
+        $q_where[] = '`caches`.`status` != 5';
         //   BLOCKED
-        $sql_where[] = '`caches`.`status` != 6';
+        $q_where[] = '`caches`.`status` != 6';
         // search byname
-        $sql_select[] = '`caches`.`cache_id` `cache_id`';
+        $q_select[] = '`caches`.`cache_id` `cache_id`';
 
-        $sql_from[] = '`caches`';
+        $q_from[] = '`caches`';
         //do the search
-        $sqlFilter = 'SELECT ' . implode(',', $sql_select) .
-                ' FROM ' . implode(',', $sql_from) .
-                ' WHERE ' . implode(' AND ', $sql_where);
+        $qFilter = 'SELECT ' . implode(',', $q_select) .
+                ' FROM ' . implode(',', $q_from) .
+                ' WHERE ' . implode(' AND ', $q_where);
 
-//echo $sqlFilter;
+//echo $qFilter;
 
         function getPictures($cacheid, $picturescount)
         {
@@ -573,9 +574,7 @@ if ($error == false) {
 
         function append_output($str)
         {
-            global $content, $bUseZip, $sqldebug;
-            if ($sqldebug == true)
-                return;
+            global $content, $bUseZip;
 
             if ($bUseZip == true)
                 $content .= $str;
@@ -810,7 +809,7 @@ if ($error == false) {
             }
 
             // yes, I know that this SQL is a little violation of bound parameters concept, but
-            // first of all, rewrite $sqlFilter to use PDO is terrible job,
+            // first of all, rewrite $qFilter to use PDO is terrible job,
             // second, using IN operator with dynamic list is pain in the ass :( - unless we have better
             // database wrapper to handle that automatically
             $database->simpleQuery("SELECT (" . getSqlDistanceFormula($lon, $lat, 0, 1) . ") `distance`,
@@ -830,7 +829,7 @@ if ($error == false) {
                     WHERE `caches`.`wp_oc` IN('" . implode("', '", $caches_list) . "')
                     AND `caches`.`user_id`=`user`.`user_id`
                         AND `cache_type`.`id`=`caches`.`type`
-                       AND `caches`.`cache_id` IN (" . $sqlFilter . ") ORDER BY distance");
+                       AND `caches`.`cache_id` IN (" . $qFilter . ") ORDER BY distance");
 
             $ncaches = $database->rowCount();
 
@@ -928,7 +927,7 @@ if ($error == false) {
                     'SELECT `caches`.`wp_oc`, `caches`.`cache_id`
                 FROM `caches`
                 WHERE `caches`.`wp_oc` IN(\'' . implode('\', \'', $caches_list) . '\')
-                  AND `caches`.`cache_id` IN (' . $sqlFilter . ')'
+                  AND `caches`.`cache_id` IN (' . $qFilter . ')'
             );
             $waypoints_tab = array();
             $cache_ids_tab = array();
@@ -1156,7 +1155,7 @@ if ($error == false) {
 // create cache list
             $caches_list = caches_along_route($route_id, $distance);
 
-            $sql = ("SELECT
+            $q = ("SELECT
     `caches`.`cache_id` `cache_id`,
     `caches`.`wp_oc` `cache_wp`,
     `caches`.`status` `status`,
@@ -1169,19 +1168,19 @@ if ($error == false) {
     `caches`.`score` `score`,
     `caches`.`topratings` `topratings`
             FROM `caches`
-            WHERE `caches`.`wp_oc` IN('" . implode("', '", $caches_list) . "') AND `caches`.`cache_id` IN (" . $sqlFilter . ")");
+            WHERE `caches`.`wp_oc` IN('" . implode("', '", $caches_list) . "') AND `caches`.`cache_id` IN (" . $qFilter . ")");
 
             // cleanup (old gpxcontent lingers if gpx-download is cancelled by user)
             // BSz: does TEMPORARY TABLES work with PDO? In dataBase class, we are instantinating new PDO
             // object (== new connection) for every query
-            sql('DROP TEMPORARY TABLE IF EXISTS `gpxcontent`');
+            XDb::xSql('DROP TEMPORARY TABLE IF EXISTS `gpxcontent`');
 
             // temporäre tabelle erstellen
-            sql('CREATE TEMPORARY TABLE `gpxcontent` ' . $sql);
+            XDb::xSql('CREATE TEMPORARY TABLE `gpxcontent` ' . $q);
 
-            $rsCount = sql('SELECT COUNT(*) `count` FROM `gpxcontent`');
-            $rCount = sql_fetch_array($rsCount);
-            mysql_free_result($rsCount);
+            $rsCount = XDb::xSql('SELECT COUNT(*) `count` FROM `gpxcontent`');
+            $rCount = XDb::xFetchArray($rsCount);
+            XDb::xFreeResults($rsCount);
 
             $sFilebasename = "myroute";
 
@@ -1197,21 +1196,23 @@ if ($error == false) {
 
             // ok, ausgabe starten
 
-            if ($sqldebug == false) {
-                if ($bUseZip == true) {
-                    header("content-type: application/zip");
-                    header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
-                } else {
-                    header("Content-type: application/gpx");
-                    header("Content-Disposition: attachment; filename=" . $sFilebasename . ".gpx");
-                }
+            if ($bUseZip == true) {
+                header("content-type: application/zip");
+                header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
+            } else {
+                header("Content-type: application/gpx");
+                header("Content-Disposition: attachment; filename=" . $sFilebasename . ".gpx");
             }
+
             $children = '';
             $gpxHead = str_replace('{{time}}', date($gpxTimeFormat, time()), $gpxHead);
-            $rss = sql('SELECT `gpxcontent`.`cache_id` `cacheid` FROM `gpxcontent`');
-            while ($rs = sql_fetch_array($rss)) {
-                $rwp = sql("SELECT  `status` FROM `waypoints` WHERE  `waypoints`.`cache_id`=&1 AND `waypoints`.`status`='1'", $rs['cacheid']);
-                if (mysql_num_rows($rwp) != 0) {
+            $rss = XDb::xSql('SELECT `gpxcontent`.`cache_id` `cacheid` FROM `gpxcontent`');
+            while ($rs = XDb::xFetchArray($rss)) {
+                $rwp = XDb::xSql(
+                    "SELECT  `status` FROM `waypoints`
+                    WHERE  `waypoints`.`cache_id`= ?
+                        AND `waypoints`.`status`='1'", $rs['cacheid']);
+                if ( XDb::xFetchArray($rwp) ) { //has any row...
                     $children = "(HasChildren)";
                 }
             }
@@ -1219,8 +1220,23 @@ if ($error == false) {
             append_output($gpxHead);
 
             // ok, ausgabe ...
-            $rs = sql('SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`, `gpxcontent`.`latitude` `latitude`, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`picturescount` `picturescount`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `caches`.`size` `size`, `caches`.`type` `type`, `caches`.`status` `status`, `user`.`username` `username`, `gpxcontent`.`user_id` `owner_id`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`rr_comment`, `caches`.`logpw`,`caches`.`votes` `votes`,`caches`.`score` `score`, `caches`.`topratings` `topratings` FROM `gpxcontent`, `caches`, `user`, `cache_desc` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `gpxcontent`.`user_id`=`user`.`user_id`');
-            while ($r = sql_fetch_array($rs)) {
+            $rs = XDb::xSql(
+                'SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`,
+                        `gpxcontent`.`latitude` `latitude`, `caches`.`wp_oc` `waypoint`,
+                        `caches`.`date_hidden` `date_hidden`, `caches`.`picturescount` `picturescount`,
+                        `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`,
+                        `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`,
+                        `caches`.`size` `size`, `caches`.`type` `type`, `caches`.`status` `status`,
+                        `user`.`username` `username`, `gpxcontent`.`user_id` `owner_id`, `cache_desc`.`desc` `desc`,
+                        `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`,
+                        `cache_desc`.`rr_comment`, `caches`.`logpw`,`caches`.`votes` `votes`,
+                        `caches`.`score` `score`, `caches`.`topratings` `topratings`
+                FROM `gpxcontent`, `caches`, `user`, `cache_desc`
+                WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id`
+                    AND `caches`.`cache_id`=`cache_desc`.`cache_id`
+                    AND `caches`.`default_desclang`=`cache_desc`.`language`
+                    AND `gpxcontent`.`user_id`=`user`.`user_id`');
+            while ($r = XDb::xFetchArray($rs)) {
                 $thisline = $gpxLine;
                 $lat = sprintf('%01.5f', $r['latitude']);
                 $thisline = str_replace('{lat}', $lat, $thisline);
@@ -1233,8 +1249,8 @@ if ($error == false) {
                 $thisline = str_replace('{{waypoint}}', $r['waypoint'], $thisline);
                 $thisline = str_replace('{cacheid}', $r['cacheid'], $thisline);
                 $thisline = str_replace('{cachename}', cleanup_text($r['name']), $thisline);
-//          $thisline = str_replace('{country}', $r['country'], $thisline);
-                $region = sqlValue("SELECT `adm3` FROM `cache_location` WHERE `cache_id`='" . sql_escape($r['cacheid']) . "'", 0);
+                $region = XDb::xMultiVariableQueryValue(
+                    "SELECT `adm3` FROM `cache_location` WHERE `cache_id`= :1 ", 0, $r['cacheid']);
                 $thisline = str_replace('{region}', $region, $thisline);
 
                 if ($r['hint'] == '')
@@ -1289,66 +1305,65 @@ if ($error == false) {
                 $thisline = str_replace('{owner}', xmlentities($r['username']), $thisline);
                 $thisline = str_replace('{owner_id}', xmlentities($r['owner_id']), $thisline);
 
-                $rsAttributes = sql("SELECT `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long` FROM `caches_attributes`, `cache_attrib` WHERE `caches_attributes`.`cache_id`=&1 AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id` AND `cache_attrib`.`language` = 'PL' ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
+                $rsAttributes = XDb::xSql(
+                    "SELECT `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long`
+                    FROM `caches_attributes`, `cache_attrib`
+                    WHERE `caches_attributes`.`cache_id`= ?
+                        AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id`
+                        AND `cache_attrib`.`language` = 'PL'
+                    ORDER BY `caches_attributes`.`attrib_id`",
+                    $r['cacheid']);
 
                 // logs ermitteln
                 $logentries = '';
 
-                if (( $r['votes'] > 3 ) || ( $r['topratings'] > 0 ) || (mysql_num_rows($rsAttributes) > 0 )) {
-//              $thislog = $gpxLog;
-//              <groundspeak:log id="1">
-//                  <groundspeak:date>{date}</groundspeak:date>
-//                  <groundspeak:type>{type}</groundspeak:type>
-//                  <groundspeak:finder id="{finder_id}">{username}</groundspeak:finder>
-//                  <groundspeak:text encoded="False">{{text}}</groundspeak:text>
-//              </groundspeak:log>
-//              $thislog = str_replace('{id}', "0", $thislog);
-//              $thislog = str_replace('{date}', date("Y-m-d") ."T00:00:00", $thislog);
-//              $thislog = str_replace('{username}', "SYSTEM", $thislog);
-//              $thislog = str_replace('{finder_id}', "0", $thislog);
-//              $thislog = str_replace('{type}', "Write note", $thislog);
-                    // Attributes
+                if (( $r['votes'] > 3 ) || ( $r['topratings'] > 0 )
+                    || ( $rAttribute = XDb::xFetchArray($rsAttributes )) ) {
 
                     $thislogs = '<groundspeak:log id="1">';
                     $thislogs .='<groundspeak:date>' . date("Y-m-d\TH:i:s\Z") . '</groundspeak:date>';
                     $thislogs .='<groundspeak:finder id="0">SYSTEM</groundspeak:finder>';
                     $thislogs .='<groundspeak:text encoded="False">';
-                    if (mysql_num_rows($rsAttributes) > 0) {
+
+                    if($rAttribute != false){
                         $attributes = 'Atrybuty: ';
-                        while ($rAttribute = sql_fetch_array($rsAttributes)) {
+
+                        do{
                             $attributes .= cleanup_text(xmlentities($rAttribute['text_long']));
                             $attributes .= " | ";
-                        }
+                        }while ($rAttribute = XDb::xFetchArray($rsAttributes));
+
                         $thislogs .= $attributes;
                     }
 
                     if ($r['votes'] > 3) {
-
                         $score = cleanup_text(score2rating($r['score']));
                         $thislogs .= "\nOcena skrzynki: " . $score . "\n";
                     }
+
                     if ($r['topratings'] > 0) {
                         $thislogs .= "Rekomendacje: " . $r['topratings'] . "\n";
                     }
-                    $rsArea = sql("SELECT `npa_areas`.`id` AS `npaId`, `npa_areas`.`sitename` AS `npaSitename`, `npa_areas`.`sitecode` AS `npaSitecode`, `npa_areas`.`sitetype` AS `npaSitetype`
-                 FROM `cache_npa_areas`
-           INNER JOIN `npa_areas` ON `cache_npa_areas`.`npa_id`=`npa_areas`.`id`
-                WHERE `cache_npa_areas`.`cache_id`='&1'", $r['cacheid']);
-                    if (mysql_num_rows($rsArea) != 0) {
-                        $thislogs .= "NATURA 2000: ";
-                        while ($npa = mysql_fetch_array($rsArea)) {
-                            $thislogs .= $npa['npaSitename'] . " - " . $npa['npaSitecode'] . ",";
-                        }
-                    }
 
+                    $rsArea = XDb::xSql(
+                        "SELECT `npa_areas`.`id` AS `npaId`, `npa_areas`.`sitename` AS `npaSitename`,
+                                `npa_areas`.`sitecode` AS `npaSitecode`, `npa_areas`.`sitetype` AS `npaSitetype`
+                        FROM `cache_npa_areas`
+                            INNER JOIN `npa_areas` ON `cache_npa_areas`.`npa_id`=`npa_areas`.`id`
+                        WHERE `cache_npa_areas`.`cache_id`= ?", $r['cacheid']);
+
+                    if ( $npa = XDb::xFetchArray($rsArea) ) {
+                        $thislogs .= "NATURA 2000: ";
+                        do{
+                            $thislogs .= $npa['npaSitename'] . " - " . $npa['npaSitecode'] . ",";
+                        }while ( $npa = XDb::xFetchArray($rsArea) );
+                    }
 
                     $thislogs .= '</groundspeak:text></groundspeak:log>';
 
                     $logentries .= $thislogs . "\n";
                 }
                 // set number of logs output
-
-
                 if ($cache_logs != 0 && $logs != 0) {
                     $limit = " LIMIT " . $logs;
                 }
@@ -1356,8 +1371,17 @@ if ($error == false) {
                     $limit = "";
                 }
                 if ($logs != 0 || $cache_logs == 0) {
-                    $rsLogs = sql("SELECT `cache_logs`.`id`, `cache_logs`.`type`, `cache_logs`.`date`, `cache_logs`.`text`, `user`.`username`, `cache_logs`.`user_id` `userid` FROM `cache_logs`, `user` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=`user`.`user_id` AND `cache_logs`.`cache_id`=&1 ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC $limit", $r['cacheid']);
-                    while ($rLog = sql_fetch_array($rsLogs)) {
+                    $rsLogs = XDb::xSql(
+                        "SELECT `cache_logs`.`id`, `cache_logs`.`type`, `cache_logs`.`date`,
+                                `cache_logs`.`text`, `user`.`username`, `cache_logs`.`user_id` `userid`
+                        FROM `cache_logs`, `user`
+                        WHERE `cache_logs`.`deleted`=0
+                            AND `cache_logs`.`user_id`=`user`.`user_id`
+                            AND `cache_logs`.`cache_id`= ?
+                        ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC $limit",
+                        $r['cacheid']);
+
+                    while ($rLog = XDb::xFetchArray($rsLogs)) {
                         $thislog = $gpxLog;
 
                         $thislog = str_replace('{id}', $rLog['id'], $thislog);
@@ -1380,10 +1404,15 @@ if ($error == false) {
                 // Travel Bug GeoKrety
                 $waypoint = $r['waypoint'];
                 $geokrety = '';
-                $geokret_sql = "SELECT id, name FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '" . sql_escape($waypoint) . "') AND stateid<>1 AND stateid<>4 AND stateid <>5 AND typeid<>2";
-                $geokret_query = sql($geokret_sql);
+                $geokret_query = XDb::xSql(
+                    "SELECT id, name FROM gk_item
+                    WHERE
+                        id IN ( SELECT id FROM gk_item_waypoint WHERE wp = ? )
+                        AND stateid<>1 AND stateid<>4
+                        AND stateid <>5 AND typeid<>2",
+                    $waypoint);
 
-                while ($geokret = sql_fetch_array($geokret_query)) {
+                while ($geokret = XDb::xFetchArray($geokret_query)) {
 
                     $thisGeoKret = $gpxGeoKrety;
                     $gk_wp = strtoupper(dechex($geokret['id']));
@@ -1399,8 +1428,15 @@ if ($error == false) {
                 $thisline = str_replace('{geokrety}', $geokrety, $thisline);
 // Waypoints
                 $waypoints = '';
-                $rswp = sql("SELECT  `longitude`, `cache_id`, `latitude`,`desc`,`stage`, `type`, `status`,`waypoint_type`.`pl` `wp_type_name` FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE  `waypoints`.`cache_id`=&1 ORDER BY `waypoints`.`stage`", $r['cacheid']);
-                while ($rwp = sql_fetch_array($rswp)) {
+                $rswp = XDb::xSql(
+                    "SELECT  `longitude`, `cache_id`, `latitude`,`desc`,`stage`, `type`, `status`,
+                             `waypoint_type`.`pl` `wp_type_name`
+                    FROM `waypoints`
+                        INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id)
+                    WHERE  `waypoints`.`cache_id`= ?
+                    ORDER BY `waypoints`.`stage`", $r['cacheid']);
+
+                while ($rwp = XDb::xFetchArray($rswp)) {
                     if ($rwp['status'] == 1) {
                         $thiswp = $gpxWaypoints;
                         $lat = sprintf('%01.5f', $rwp['latitude']);
@@ -1443,19 +1479,15 @@ if ($error == false) {
                 append_output($thisline);
                 ob_flush();
             }
-            mysql_free_result($rs);
+            XDb::xFreeResults($rs);
 
             append_output($gpxFoot);
-
-            if ($sqldebug == true)
-                sqldbg_end();
 
             // phpzip versenden
             if ($bUseZip == true) {
                 $phpzip->add_data($sFilebasename . '.gpx', $content);
                 echo $phpzip->save($sFilebasename . '.zip', 'b');
             }
-
             exit;
         } //end GPX output
     }

@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -30,23 +31,22 @@ if ($error == false) {
         }
         // start submit
         if (isset($_POST['submitform'])) {
-// insert route name
 
-            sql("INSERT INTO `routes` (
-                                                    `route_id`,
-                                                    `user_id`,
-                                                    `name`,
-                                                    `description`,
-                                                    `radius`
-                                                ) VALUES (
-                                                    '', '&1', '&2', '&3', '&4')", $user_id, $name, $desc, $radius);
+            // insert route name
+            XDb::xSql(
+                "INSERT INTO `routes` ( `route_id`, `user_id`, `name`, `description`, `radius` )
+                VALUES ('', ?, ?, ?, ?)",
+                $user_id, $name, $desc, $radius);
 
             $upload_filename = $_FILES['file']['tmp_name'];
 
-// get route_id
-            $route_id = sqlValue("SELECT route_id FROM `routes` WHERE name='$name' AND description='$desc' AND user_id=$user_id", 0);
+            // get route_id
+            $route_id = XDb::xMultiVariableQueryValue(
+                "SELECT route_id FROM `routes`
+                WHERE name=:1 AND description=:2 AND user_id=:3",
+                0, $name, $desc, $user_id);
 
-// Read file KML with route, load in the KML file through the my_routes page, and run that KML file through GPSBABEL which has a tool interpolate data points in the route.
+            // Read file KML with route, load in the KML file through the my_routes page, and run that KML file through GPSBABEL which has a tool interpolate data points in the route.
             if (!$error) {
                 exec("/usr/local/bin/gpsbabel -i kml -f " . $upload_filename . " -x interpolate,distance=0.25k -o kml -F " . $upload_filename . "");
                 $xml = simplexml_load_file($upload_filename);
@@ -57,7 +57,8 @@ if ($error == false) {
                         $dis = $folder->description;
                         $dis1 = explode(" ", trim($dis));
                         $len = (float) $dis1[27];
-                        sql("UPDATE `routes` SET `length`='&1' WHERE `route_id`='&2'", $len, $route_id);
+                        XDb::xSql(
+                            "UPDATE `routes` SET `length`=? WHERE `route_id`=?", $len, $route_id);
                     }
                 }
 
@@ -95,8 +96,10 @@ if ($error == false) {
             $point_num = 0;
             foreach ($points as $point) {
                 $point_num++;
-                $query = "INSERT into route_points (route_id,point_nr,lat,lon)" . "VALUES ($route_id,$point_num," . addslashes($point["lat"]) . "," . addslashes($point["lon"]) . ");";
-                $result = sql($query);
+                $result = XDb::xSql(
+                    "INSERT into route_points (route_id,point_nr,lat,lon)
+                    VALUES (?,?,?,?)",
+                    $route_id, $point_num, $point["lat"], $point["lon"]);
             }
 
             tpl_redirect('myroutes.php');
@@ -107,4 +110,3 @@ if ($error == false) {
 
 //make the template and send it out
 tpl_BuildTemplate();
-?>
