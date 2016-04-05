@@ -453,6 +453,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
             LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id` AND `cache_logs`.`deleted`=0');
     while ($r = sql_fetch_array($rs)) {
         $r['text'] = mb_ereg_replace('<br />', '', $r['text']);
+        $r['text'] = preg_replace('/&amp;#(38|60|62);/', '&#$1;', $r['text']);  // decode OKAPI logs
         $r['text'] = html_entity_decode($r['text'], ENT_COMPAT, 'UTF-8');
 
         fwrite($f, $t1 . '<cachelog>' . "\n");
