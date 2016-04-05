@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 require_once('./lib/common.inc.php');
 $no_tpl_build = false;
 if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache_multi_data']))) {
@@ -44,32 +45,32 @@ if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache
             if (isset($_SESSION['log_cache_multi_filteredData'])) {
                 $dane = $_SESSION['log_cache_multi_filteredData'];
 
-                $cacheIdList = "";
+                $cacheIdList = array();
                 foreach ($dane as $k => $v) {
-                    if (strlen($cacheIdList) > 0) {
-                        $cacheIdList .= ",";
-                    }
-                    $cacheIdList .= "'" . $v['cache_id'] . "'";
+                    $cacheIdList[] = $v['cache_id'];
                 }
 
                 // dociagam info o ostatniej aktywnosci dla kazdej skrzynki
-                if (strlen($cacheIdList) > 0) {
-                    $rs = sql("SELECT c.* FROM (SELECT cache_id, MAX(date) date FROM `cache_logs` WHERE user_id='" . sql_escape($usr['userid']) . "' AND cache_id IN (" . $cacheIdList . ") GROUP BY cache_id) as x INNER JOIN `cache_logs` as c ON c.cache_id = x.cache_id AND c.date = x.date");
-                    if (mysql_num_rows($rs) != 0) {
-                        $i = 0;
-                        while ($i < mysql_num_rows($rs)) {
-                            $record = sql_fetch_array($rs);
-                            foreach ($dane as $k => $v) {
-                                if ($v['cache_id'] == $record['cache_id']) {
-                                    $v['got_last_activity'] = true;
-                                    $v['last_date'] = substr($record['date'], 0, strlen($record['date']) - 3);
-                                    $v['last_status'] = $record['type'];
-                                    $dane[$k] = $v;
-                                }
+                if ( count($cacheIdList) > 0) {
+                    $rs = XDb::xSql(
+                        "SELECT c.* FROM
+                            (
+                                SELECT cache_id, MAX(date) date FROM `cache_logs`
+                                WHERE user_id= ? AND cache_id IN (" . XDb::xEscape( implode(',',$cacheIdList) ) . ")
+                                GROUP BY cache_id
+                            ) as x INNER JOIN `cache_logs` as c ON c.cache_id = x.cache_id
+                                AND c.date = x.date", $usr['userid']  );
+
+                    while( $record = XDb::xFetchArray($rs) ){
+                        foreach ($dane as $k => $v) {
+                            if ($v['cache_id'] == $record['cache_id']) {
+                                $v['got_last_activity'] = true;
+                                $v['last_date'] = substr($record['date'], 0, strlen($record['date']) - 3);
+                                $v['last_status'] = $record['type'];
+                                $dane[$k] = $v;
                             }
-                            $i++;
                         }
-                    }
+                    }//while
                 }
 
 

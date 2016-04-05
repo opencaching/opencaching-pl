@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 global $bgcolor1, $bgcolor2;
 
 function writeReason($type)
@@ -53,11 +54,8 @@ function nonEmptyCacheName($cacheName)
 
 function getUsername($userid)
 {
-    $sql = "SELECT username FROM user WHERE user_id='" . sql_escape(intval($userid)) . "'";
-    $query = mysql_query($sql) or die();
-    if (mysql_num_rows($query) > 0)
-        return mysql_result($query, 0);
-    return null;
+    return XDb::xMultiVariableQueryValue(
+        "SELECT username FROM user WHERE user_id= :1 ", null, $userid );
 }
 
 //prepare the templates and include all neccessary
@@ -77,22 +75,39 @@ if ($error == false && $usr['admin']) {
         $show_archive = " reports.status <> 2 AND ";
         $sorting_order = "DESC";
     }
-    $sql = "SELECT cache_status.id AS cs_id, caches.last_modified AS lastmodified,caches.user_id AS cache_ownerid,cache_status.$lang AS cache_status, reports.id as report_id, reports.user_id as user_id, reports.changed_by as changed_by, reports.changed_date as changed_date, reports.cache_id as cache_id, reports.type as type, reports.text as text, reports.submit_date as submit_date, reports.responsible_id as responsible_id, reports.status as status, user.username as username, user.user_id as user_id, caches.name as cachename,IFNULL(`cache_location`.`adm3`, '') AS `adm3`, caches.status AS c_status FROM cache_status, reports, user, (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`) WHERE cache_status.id = caches.status AND " . sql_escape($show_archive) . " user.user_id = reports.user_id AND caches.cache_id = reports.cache_id ORDER BY submit_date " . sql_escape($sorting_order);
-    $query = mysql_query($sql) or die("DB error");
+
+    $query = XDb::xSql(
+        "SELECT cache_status.id AS cs_id, caches.last_modified AS lastmodified,
+                caches.user_id AS cache_ownerid,cache_status.$lang AS cache_status, reports.id as report_id,
+                reports.user_id as user_id, reports.changed_by as changed_by, reports.changed_date as changed_date,
+                reports.cache_id as cache_id, reports.type as type, reports.text as text,
+                reports.submit_date as submit_date, reports.responsible_id as responsible_id,
+                reports.status as status, user.username as username, user.user_id as user_id,
+                caches.name as cachename,IFNULL(`cache_location`.`adm3`, '') AS `adm3`, caches.status AS c_status
+        FROM cache_status, reports, user, (
+            `caches` LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`
+            )
+        WHERE cache_status.id = caches.status
+            AND " . XDb::xEscape($show_archive) . " user.user_id = reports.user_id
+            AND caches.cache_id = reports.cache_id
+        ORDER BY submit_date " . XDb::xEscape($sorting_order));
+
     $row_num = 0;
-    while ($report = mysql_fetch_array($query)) {
+    while ($report = XDb::xFetchArray($query)) {
         if ($row_num % 2)
             $bgcolor = "bgcolor1";
         else
             $bgcolor = "bgcolor2";
 
         $content .= "<tr>\n";
-        $userloginsql = "SELECT last_login FROM user WHERE user_id='" . sql_escape($report['cache_ownerid']) . "'";
-        $userlogin_query = mysql_query($userloginsql) or die("DB error");
-        if (mysql_result($userlogin_query, 0) == "0000-00-00 00:00:00") {
+
+        $userLastLogin = XDb::xMultiVariableQueryValue(
+            "SELECT last_login FROM user WHERE user_id=:1 ", 0, $report['cache_ownerid']);
+
+        if ($userLastLogin == "0000-00-00 00:00:00") {
             $userlogin = "brak danych lub więcej niż 12 miesięcy temu";
         } else {
-            $userlogin = strftime("%Y-%m-%d", strtotime(mysql_result($userlogin_query, 0)));
+            $userlogin = strftime("%Y-%m-%d", strtotime($userLastLogin));
         }
         if ($usr['userid'] == $report['responsible_id'])
             $addborder = "style='border-width:2px;'";
@@ -116,4 +131,4 @@ else {
     $tplname = 'viewreports_error';
 }
 tpl_BuildTemplate();
-?>
+
