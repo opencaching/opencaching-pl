@@ -2596,5 +2596,6 @@ $translations = array(
     'wayPointType3' => 'Punkt końcowy',
     'wayPointType4' => 'Interesujące miejsce',
     'wayPointType5' => 'Parking',
+    'beginning' => 'Rozpoczęcie',
 );
 

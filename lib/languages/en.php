@@ -2607,4 +2607,6 @@ $translations = array(
     'wayPointType3' => 'Final location',
     'wayPointType4' => 'Interesting place',
     'wayPointType5' => 'Parking area',
+    'beginning' => 'Beginning',
 );
+
