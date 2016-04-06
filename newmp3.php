@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -35,13 +36,13 @@ if ($error == false) {
             switch ($type) {
                 // log
                 case 1:
-                    $rs = sql("SELECT `user_id`, `cache_id` FROM `cache_logs` WHERE `deleted`=0 AND `id`='&1'", $objectid);
+                    $rs = XDb::xSql(
+                        "SELECT `user_id`, `cache_id` FROM `cache_logs`
+                        WHERE `deleted`=0 AND `id`= ? LIMIT 1", $objectid);
 
-                    if (mysql_num_rows($rs) == 0)
+                    if ( ! $r = XDb::xFetchArray($rs))
                         $allok = false;
                     else {
-                        $r = sql_fetch_array($rs);
-
                         if ($r['user_id'] != $usr['userid'])
                             $allok = false;
 
@@ -49,26 +50,27 @@ if ($error == false) {
                         tpl_set_var('cacheid', $cacheid);
                         tpl_set_var('mp3typedesc', $mp3typedesc_log);
 
-                        $rsCache = sql("SELECT `name` FROM `caches` WHERE `cache_id`='&1'", $cacheid);
-                        $rCache = sql_fetch_array($rsCache);
+                        $rCache['name'] = XDb::xMultiVariableQueryValue(
+                            "SELECT `name` FROM `caches` WHERE `cache_id`= :1 LIMIT 1", '-no-name-', $cacheid);
+
                         tpl_set_var('cachename', htmlspecialchars($rCache['name'], ENT_COMPAT, 'UTF-8'));
-                        mysql_free_result($rsCache);
 
                         tpl_set_var('begin_cacheonly', '<!--');
                         tpl_set_var('end_cacheonly', '-->');
                     }
 
-                    mysql_free_result($rs);
+                    XDb::xFreeResults($rs);
                     break;
 
                 // cache
                 case 2:
-                    $rs = sql("SELECT `user_id`, `cache_id`, `name` FROM `caches` WHERE `cache_id`='&1'", $objectid);
+                    $rs = XDb::xSql(
+                        "SELECT `user_id`, `cache_id`, `name` FROM `caches`
+                        WHERE `cache_id`= ? LIMIT 1", $objectid);
 
-                    if (mysql_num_rows($rs) == 0)
+                    if ( !$r = XDb::xFetchArray($rs) )
                         $allok = false;
                     else {
-                        $r = sql_fetch_array($rs);
 
                         tpl_set_var('cachename', htmlspecialchars($r['name'], ENT_COMPAT, 'UTF-8'));
                         tpl_set_var('cacheid', $r['cache_id']);
@@ -81,7 +83,7 @@ if ($error == false) {
                     tpl_set_var('begin_cacheonly', '');
                     tpl_set_var('end_cacheonly', '');
 
-                    mysql_free_result($rs);
+                    XDb::xFreeResults($rs);
                     break;
 
                 default:
@@ -148,32 +150,28 @@ if ($error == false) {
 
                         // datei verschieben und in DB eintragen
                         move_uploaded_file($_FILES['file']['tmp_name'], $mp3dir . '/' . $uuid . '.' . $extension);
-                        sql("INSERT INTO mp3 (`uuid`,
-                                                                                 `url`,
-                                                                                 `last_modified`,
-                                                                                 `title`,
+                        XDb::xSql(
+                            "INSERT INTO mp3 (`uuid`, `url`, `last_modified`, `title`, `date_created`, `last_url_check`,
+                                              `object_id`, `object_type`, `user_id`, `local`, `display`, `node`, `seq`)
+                            VALUES (? , ?, NOW(), ?, NOW(), NOW(), ?, ?, ?, 1, ?, ?, ?)",
+                            $uuid, $mp3url . '/' . $uuid . '.' . $extension, $title, $objectid,
+                            $type, $usr['userid'], ($bNoDisplay == 1) ? '0' : '1', $oc_nodeid, $def_seq_m);
 
-`date_created`,
-                                                                                 `last_url_check`,
-                                                                                 `object_id`,
-                                                                                 `object_type`,
-                                                                                 `user_id`,
-                                                                                 `local`,
-                                                                                 `display`,
-                                                                                 `node`,
-                                                                                 `seq`
-                                                            ) VALUES ('&1', '&2', NOW(), '&3', NOW(), NOW(),'&4', '&5', '&6', 1, '&7', '&8', '&9')", $uuid, $mp3url . '/' . $uuid . '.' . $extension, $title, $objectid, $type, $usr['userid'], ($bNoDisplay == 1) ? '0' : '1', $oc_nodeid, $def_seq_m);
                         switch ($type) {
                             // log
                             case 1:
-                                sql("UPDATE `cache_logs` SET `mp3count`=`mp3count`+1, `last_modified`=NOW() WHERE `id`='&1'", $objectid);
+                                XDb::xSql(
+                                    "UPDATE `cache_logs` SET `mp3count`=`mp3count`+1, `last_modified`=NOW()
+                                    WHERE `id`= ? LIMIT 1", $objectid);
 
                                 tpl_redirect('viewcache.php?cacheid=' . urlencode($cacheid));
                                 break;
 
                             // cache
                             case 2:
-                                sql("UPDATE `caches` SET `mp3count`=`mp3count`+1, `last_modified`=NOW() WHERE `cache_id`='&1'", $objectid);
+                                XDb::xSql(
+                                    "UPDATE `caches` SET `mp3count`=`mp3count`+1, `last_modified`=NOW()
+                                    WHERE `cache_id`= ? LIMIT 1", $objectid);
 
                                 tpl_redirect('editcache.php?cacheid=' . urlencode($objectid));
                                 break;
@@ -229,4 +227,4 @@ if ($error == false) {
 
 //make the template and send it out
 tpl_BuildTemplate();
-?>
+
