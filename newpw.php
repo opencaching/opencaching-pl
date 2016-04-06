@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 global $octeamEmailsSignature, $absolute_server_URI;
 require_once('./lib/common.inc.php');
@@ -32,10 +33,12 @@ if ($error == false) {
             $email = $_POST['email'];
             tpl_set_var('email', htmlspecialchars($email, ENT_COMPAT, 'UTF-8'));
 
-            $rs = sql("SELECT `is_active_flag`, `username` FROM `user` WHERE `email`='&1'", $email);
-            if (mysql_num_rows($rs) > 0) {
+            $rs = XDb::xSql(
+                "SELECT `is_active_flag`, `username` FROM `user` WHERE `email`= ? LIMIT 1", $email);
+
+            if ($record = XDb::xFetchArray($rs) ) {
+
                 //ok, a user with this email does exist
-                $record = sql_fetch_array($rs);
 
                 if ($record['is_active_flag'] != 1) {
                     //no active user with this email exists
@@ -44,7 +47,9 @@ if ($error == false) {
                     $secure_code = PasswordManager::generateRandomString(13);
 
                     //set code in DB
-                    sql("UPDATE `user` SET `new_pw_date`='&1', `new_pw_code`='&2' WHERE `email`='&3'", time(), $secure_code, $email);
+                    XDb::xSql(
+                        "UPDATE `user` SET `new_pw_date`= ? , `new_pw_code`= ?
+                        WHERE `email`= ? LIMIT 1", time(), $secure_code, $email);
 
                     $email_content = read_file($stylepath . '/email/newpw.email');
                     $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
@@ -78,10 +83,12 @@ if ($error == false) {
 
             tpl_set_var('email', htmlspecialchars($email, ENT_COMPAT, 'UTF-8'));
 
-            $rs = sql("SELECT `is_active_flag`, `new_pw_code`, `new_pw_date`, `user_id` FROM `user` WHERE `email`='&1'", $email);
-            if (mysql_num_rows($rs) > 0) {
+            $rs = XDb::xSql(
+                "SELECT `is_active_flag`, `new_pw_code`, `new_pw_date`, `user_id`
+                FROM `user` WHERE `email`= ? LIMIT 1", $email);
+
+            if ($record = XDb::xFetchArray($rs)) {
                 //ok, a user with this email does exist
-                $record = sql_fetch_array($rs);
 
                 if ($record['is_active_flag'] != 1) {
                     //no active user with this email exists
@@ -101,7 +108,9 @@ if ($error == false) {
                                 //set new pw
                                 $pm = new PasswordManager($record['user_id']);
                                 $pm->change($password);
-                                sql("UPDATE `user` SET `new_pw_date`=0, `new_pw_code`=NULL, `last_modified`=NOW() WHERE `email`='&1'", $email);
+                                XDb::xSql(
+                                    "UPDATE `user` SET `new_pw_date`=0, `new_pw_code`=NULL, `last_modified`=NOW()
+                                    WHERE `email`= ? LIMIT 1", $email);
                                 tpl_set_var('message', $pw_changed);
                             }
                         } else {
@@ -123,4 +132,3 @@ if ($error == false) {
 
 //make the template and send it out
 tpl_BuildTemplate();
-?>

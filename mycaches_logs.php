@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 global $lang, $usr, $rootpath, $dateFormat;
 
 if (!isset($rootpath))
@@ -89,24 +90,24 @@ if ($error == false) {
         //get the news
         $tplname = 'mycaches_logs';
         require($stylepath . '/newlogs.inc.php');
-        $rsGeneralStat = sql("SELECT  username FROM user WHERE user_id=&1", $user_id);
 
-        $user_record = sql_fetch_array($rsGeneralStat);
+        $user_record['username'] = XDb::xMultiVariableQueryValue(
+            "SELECT  username FROM user WHERE user_id= :1 LIMIT 1", '-noname-', $user_id);
+
         tpl_set_var('username', $user_record['username']);
-        mysql_free_result($rsGeneralStat);
+
         $LOGS_PER_PAGE = 50;
         $PAGES_LISTED = 10;
 
-        $rs = sql("SELECT count(id) FROM cache_logs, caches
+        $total_logs = XDb::xMultiVariableQueryValue(
+            "SELECT COUNT(id) FROM cache_logs, caches
             WHERE `cache_logs`.`cache_id`=`caches`.`cache_id`
                 AND `cache_logs`.`deleted`=0
-              AND `caches`.`status` != 4
+                AND `caches`.`status` != 4
                 AND `caches`.`status` != 5
                 AND `caches`.`status` != 6
-                AND `caches`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'");
-
-        $total_logs = mysql_result($rs, 0);
-        mysql_free_result($rs);
+                AND `caches`.`user_id`= :1 ",
+            0, $_REQUEST['userid']);
 
         $pages = "";
         $total_pages = ceil($total_logs / $LOGS_PER_PAGE);
@@ -134,56 +135,55 @@ if ($error == false) {
             $pages .= '<a href="mycaches_logs.php?userid=' . $user_id . '&amp;start=' . (($i - 1) * $LOGS_PER_PAGE) . '">{last_img}</a> ';
         else
             $pages .= '{last_img_inactive}';
-        $rs = sql("SELECT `cache_logs`.`id`
+
+        $rs = XDb::xSql(
+            "SELECT `cache_logs`.`id`
             FROM `cache_logs`, `caches`
             WHERE `cache_logs`.`cache_id`=`caches`.`cache_id`
                 AND `cache_logs`.`deleted`=0
-              AND `caches`.`status` != 4
+                AND `caches`.`status` != 4
                 AND `caches`.`status` != 5
                 AND `caches`.`status` != 6
-                AND `caches`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'
+                AND `caches`.`user_id`= ?
             ORDER BY  `cache_logs`.`date_created` DESC
-            LIMIT " . intval($start) . ", " . intval($LOGS_PER_PAGE));
-        $log_ids = '';
+            LIMIT " . intval($start) . ", " . intval($LOGS_PER_PAGE),
+            $_REQUEST['userid'] );
 
-        if (mysql_num_rows($rs) == 0)
-            $log_ids = '0';
+        $log_ids = array();
+        while($record = XDb::xFetchArray($rs)){
+            $log_ids[] = $record['id'];
+        };
+        XDb::xFreeResults($rs);
 
-        for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-            $record = sql_fetch_array($rs);
-            if ($i > 0) {
-                $log_ids .= ', ' . $record['id'];
-            } else {
-                $log_ids = $record['id'];
-            }
-        }
-        mysql_free_result($rs);
+        if( ! empty($log_ids) ){
+            $rs = XDb::xSql(
+                "SELECT cache_logs.id, cache_logs.cache_id AS cache_id, cache_logs.type AS log_type,
+                        cache_logs.text AS log_text, cache_logs.date AS log_date, caches.name AS cache_name,
+                        caches.user_id AS cache_owner, cache_logs.encrypt encrypt, cache_logs.user_id AS luser_id,
+                        user.username AS user_name, user.user_id AS user_id,
+                        caches.wp_oc AS wp_name, caches.type AS cache_type, cache_type.icon_small AS cache_icon_small,
+                        log_types.icon_small AS icon_small,
+                        IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
+                        COUNT(gk_item.id) AS geokret_in
+                FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)))
+                    INNER JOIN user ON (cache_logs.user_id = user.user_id)
+                    INNER JOIN log_types ON (cache_logs.type = log_types.id)
+                    INNER JOIN cache_type ON (caches.type = cache_type.id)
+                    LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id`
+                        AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
+                    LEFT JOIN gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
+                    LEFT JOIN gk_item ON gk_item.id = gk_item_waypoint.id
+                        AND gk_item.stateid<>1 AND gk_item.stateid<>4
+                        AND gk_item.typeid<>2 AND gk_item.stateid !=5
+                WHERE cache_logs.deleted=0
+                    AND cache_logs.id IN (" . implode(',',$log_ids) . ")
+                    AND `caches`.`user_id`= ?
+                GROUP BY cache_logs.id
+                ORDER BY cache_logs.date_created DESC",
+                $_REQUEST['userid']);
 
-        $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
-                              cache_logs.type AS log_type,
-                              cache_logs.text AS log_text,
-                              cache_logs.date AS log_date,
-                              caches.name AS cache_name,
-                              caches.user_id AS cache_owner,
-                             cache_logs.encrypt encrypt,
-                            cache_logs.user_id AS luser_id,
-                                        user.username AS user_name,
-                              user.user_id AS user_id,
-                              caches.wp_oc AS wp_name,
-                              caches.type AS cache_type,
-                              cache_type.icon_small AS cache_icon_small,
-                              log_types.icon_small AS icon_small,
-                              IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,COUNT(gk_item.id) AS geokret_in
-                      FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id))) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
-                            LEFT JOIN   gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
-                            LEFT JOIN   gk_item ON gk_item.id = gk_item_waypoint.id AND
-                            gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5
-                      WHERE cache_logs.deleted=0 AND cache_logs.id IN (" . $log_ids . ") AND `caches`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'
-                       GROUP BY cache_logs.id ORDER BY cache_logs.date_created DESC");
-        if (mysql_num_rows($rs) != 0) {
             $file_content = '';
-            for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-                $log_record = sql_fetch_array($rs);
+            while( $log_record = XDb::xFetchArray($rs) ){
 
                 $file_content .= '<tr>';
                 $file_content .= '<td style="width: 70px;">' . htmlspecialchars(date($dateFormat, strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
@@ -228,9 +228,9 @@ if ($error == false) {
                 $file_content .= '\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
                 $file_content .= '<td><b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
                 $file_content .= "</tr>";
-            }
-        }
 
+            }//while
+        }
         $pages = mb_ereg_replace('{last_img}', $last_img, $pages);
         $pages = mb_ereg_replace('{first_img}', $first_img, $pages);
 
@@ -243,4 +243,4 @@ if ($error == false) {
 }
 //make the template and send it out
 tpl_BuildTemplate();
-?>
+
