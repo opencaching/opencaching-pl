@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 require_once('./lib/cache_icon.inc.php');
@@ -8,7 +9,6 @@ require_once('./lib/cache_icon.inc.php');
 if ($error == false) {
     //get the news
     $tplname = 'newevents';
-//      require('tpl/stdstyle/newcaches.inc.php');
     require($stylepath . '/newcaches.inc.php');
 
     function cleanup_text($str)
@@ -82,28 +82,23 @@ if ($error == false) {
     $content = '';
     $cache_location = '';
     $file_content = '';
-    $rs = sql('SELECT `caches`.`cache_id` `cacheid`,
-                            `user`.`user_id` `userid`,
-                            `caches`.`country` `country`,
-                            `caches`.`name` `cachename`,
-                            `caches`.`wp_oc` `wp_name`,
-                            `user`.`username` `username`,
-                            `caches`.`date_created` `date_created`,
-                            `caches`.`date_hidden` `date_hidden`,
-                            `cache_type`.`icon_large` `icon_large`,
-                            cache_location.adm3 AS state
-                        FROM `caches`, `user`, `cache_type`,cache_location
-                        WHERE date_add(`caches`.`date_hidden`, INTERVAL 2 DAY) >= curdate()
-                        AND cache_location.cache_id=caches.cache_id
-                        AND `caches`.`user_id`=`user`.`user_id`
-                        AND `caches`.`type`=`cache_type`.`id`
-                        AND `caches`.`status` = 1  AND `caches`.`type`=6
-                        ORDER BY `caches`.`date_hidden` ASC,cache_location.adm3 COLLATE utf8_polish_ci ASC
-                        LIMIT ' . ($startat + 0) . ', ' . ($perpage + 0));
+    $rs = XDb::xSql(
+        'SELECT `caches`.`cache_id` `cacheid`, `user`.`user_id` `userid`,
+                `caches`.`country` `country`, `caches`.`name` `cachename`,
+                `caches`.`wp_oc` `wp_name`, `user`.`username` `username`,
+                `caches`.`date_created` `date_created`, `caches`.`date_hidden` `date_hidden`,
+                `cache_type`.`icon_large` `icon_large`, cache_location.adm3 AS state
+        FROM `caches`, `user`, `cache_type`,cache_location
+        WHERE date_add(`caches`.`date_hidden`, INTERVAL 2 DAY) >= curdate()
+            AND cache_location.cache_id=caches.cache_id
+            AND `caches`.`user_id`=`user`.`user_id`
+            AND `caches`.`type`=`cache_type`.`id`
+            AND `caches`.`status` = 1  AND `caches`.`type`=6
+        ORDER BY `caches`.`date_hidden` ASC,cache_location.adm3 COLLATE utf8_polish_ci ASC
+        LIMIT ' . ($startat + 0) . ', ' . ($perpage + 0));
 
-    for ($i = 0; $i < mysql_num_rows($rs); $i++) {
+    while( $record = XDb::xFetchArray($rs) ){
         //group by country
-        $record = sql_fetch_array($rs);
         $newcaches[$record['state']][] = array(
             'name' => $record['cachename'],
             'wp_name' => $record['wp_name'],
@@ -115,8 +110,6 @@ if ($error == false) {
             'icon_large' => $record['icon_large']
         );
     }
-//  uksort($newcaches, 'cmp');
-
 
     if (isset($newcaches)) {
         foreach ($newcaches AS $statename => $state_record) {
@@ -131,20 +124,20 @@ if ($error == false) {
                 $file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($cache_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
                 $file_content .= '<td width="32"><b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($cache_record['userid'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($cache_record['username'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 
-                $rs_log = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
-                cache_logs.text AS log_text,
-                              cache_logs.type AS log_type,
-                              cache_logs.date AS log_date,
-                user.username AS user_name,
-                cache_logs.user_id AS luser_id,
-                user.user_id AS user_id,
-                log_types.icon_small AS icon_small
-                FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id)
-            WHERE cache_logs.deleted=0 AND cache_logs.cache_id=&1
-             GROUP BY cache_logs.id ORDER BY cache_logs.date_created DESC LIMIT 1", $cache_record['cache_id']);
+                $rs_log = XDb::xSql(
+                    "SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
+                            cache_logs.text AS log_text, cache_logs.type AS log_type,
+                            cache_logs.date AS log_date, user.username AS user_name,
+                            cache_logs.user_id AS luser_id, user.user_id AS user_id,
+                            log_types.icon_small AS icon_small
+                    FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id))
+                        INNER JOIN user ON (cache_logs.user_id = user.user_id)
+                        INNER JOIN log_types ON (cache_logs.type = log_types.id)
+                    WHERE cache_logs.deleted=0 AND cache_logs.cache_id= ?
+                    GROUP BY cache_logs.id ORDER BY cache_logs.date_created DESC LIMIT 1",
+                    $cache_record['cache_id']);
 
-                if (mysql_num_rows($rs_log) != 0) {
-                    $r_log = sql_fetch_array($rs_log);
+                if ( $r_log = XDb::xFetchArray($rs_log) ) {
 
                     $file_content .= '<td style="width: 80px;">' . htmlspecialchars(date("d-m-Y", strtotime($r_log['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
 
@@ -162,18 +155,16 @@ if ($error == false) {
                 }
                 $file_content .= "</tr>";
                 $content .=$file_content;
-                mysql_free_result($rs_log);
+                XDb::xFreeResults($rs_log);
             }
         }
     }
 
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
     tpl_set_var('file_content', $content);
 
-    $rs = sql('SELECT COUNT(*) `count` FROM `caches` WHERE type=6 AND status=1');
-    $r = sql_fetch_array($rs);
-    $count = $r['count'];
-    mysql_free_result($rs);
+    $count = XDb::xSimpleQueryValue(
+        'SELECT COUNT(*) `count` FROM `caches` WHERE type=6 AND status=1', 0);
 
     $frompage = $startat / 100 - 3;
     if ($frompage < 1)
@@ -217,4 +208,3 @@ if ($error == false) {
 
 //make the template and send it out
 tpl_BuildTemplate();
-?>
