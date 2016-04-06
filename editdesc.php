@@ -88,7 +88,8 @@ if ($error == false) {
                             WHERE `id`= ? ",
                             $desc, $short_desc, nl2br($hints), $desclang, $descid);
 
-                        // beschreibungssprachen im cache-record aktualisieren
+                        // update description languages in the cache record;
+                        // this also updates the modification date
                         setCacheDefaultDescLang($desc_record['cache_id']);
 
                         // redirect to cachepage

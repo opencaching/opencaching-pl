@@ -50,7 +50,7 @@ if ($error == false) {
                         XDb::xSql(
                             "DELETE FROM `cache_desc` WHERE `cache_id`= ? AND `language`= ? LIMIT 1", $cache_id, $desclang);
 
-                        //update cache record
+                        // update cache-record, including last modification date
                         setCacheDefaultDescLang($cache_id);
 
                         tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));

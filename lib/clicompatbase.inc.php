@@ -155,7 +155,7 @@ function setCacheDefaultDescLang($cacheid)
     else
         $desclang = mb_substr($r['desc_languages'], 0, 2);
 
-    sql("UPDATE `caches` SET `default_desclang`='&1' WHERE cache_id='&2' LIMIT 1", $desclang, $cacheid);
+    sql("UPDATE `caches` SET `default_desclang`='&1', `last_modified`=NOW() WHERE cache_id='&2' LIMIT 1", $desclang, $cacheid);
 }
 
 function setLastFound($cacheid)

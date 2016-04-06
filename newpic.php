@@ -187,7 +187,7 @@ if ($error == false) {
                             // log
                             case 1:
                                 XDb::xSql(
-                                "UPDATE `cache_logs` SET `picturescount`=`picturescount`+1
+                                "UPDATE `cache_logs` SET `picturescount`=`picturescount`+1, `last_modified`=NOW()
                                 WHERE `id`= ?", $objectid);
 
                                 tpl_redirect('viewcache.php?cacheid=' . urlencode($cacheid));
@@ -196,7 +196,7 @@ if ($error == false) {
                             // cache
                             case 2:
                                 XDb::xSql(
-                                "UPDATE `caches` SET `picturescount`=`picturescount`+1
+                                "UPDATE `caches` SET `picturescount`=`picturescount`+1, `last_modified`=NOW()
                                 WHERE `cache_id`= ? LIMIT 1", $objectid);
                                 tpl_redirect('editcache.php?cacheid=' . urlencode($objectid));
                                 break;

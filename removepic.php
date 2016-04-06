@@ -55,7 +55,9 @@ if ($error == false) {
             switch ($type) {
                 // log
                 case 1:
-                    XDb::xSql("UPDATE `cache_logs` SET `picturescount`=`picturescount`-1 WHERE `id`= ? ", $objectid);
+                    XDb::xSql(
+                        "UPDATE `cache_logs` SET `picturescount`=`picturescount`-1, `last_modified`=NOW() 
+                        WHERE `id`= ? ", $objectid);
 
                     $rs = XDb::xSql("SELECT `cache_id` FROM `cache_logs` WHERE `deleted`=0 AND `id`= ? ", $objectid);
                     $r = XDb::xFetchArray($rs);
@@ -66,7 +68,9 @@ if ($error == false) {
 
                 // cache
                 case 2:
-                    XDb::xSql("UPDATE `caches` SET `picturescount`=`picturescount`-1 WHERE `cache_id`= ? ", $objectid);
+                    XDb::xSql(
+                        "UPDATE `caches` SET `picturescount`=`picturescount`-1, `last_modified`=NOW() 
+                        WHERE `cache_id`= ? ", $objectid);
 
                     tpl_redirect('editcache.php?cacheid=' . urlencode($objectid));
                     break;

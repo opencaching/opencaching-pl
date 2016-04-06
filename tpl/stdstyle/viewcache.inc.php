@@ -107,6 +107,7 @@ function viewcache_getmp3table($cacheid, $mp3count)
 {
     global $dblink;
     $nCol = 0;
+    $retval = '';
     $sql = 'SELECT uuid, title, url FROM mp3 WHERE object_id=\'' . sql_escape($cacheid) . '\' AND object_type=2 AND display=1 ORDER BY seq, date_created';
     //requires:ALTER TABLE `mp3` ADD `seq` SMALLINT UNSIGNED NOT NULL DEFAULT '1';
     $rs = sql($sql);
@@ -169,18 +170,14 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
             }
 
             if ($r['spoiler'] == 1) {
-                $pic_onclick = $spoiler_onclick;
                 if ($disable_spoiler == true) {
-                    $r['url'] = 'index.php';
-                }; //hide URL so cannot be viewed
-            } else {
-                $pic_onclick = "enlarge(this);";
-            };
+                    $r['url'] = 'tpl\stdstyle\images\thumb\thumbspoiler.gif';
+                } //hide URL so cannot be viewed
+            }
 
             if ($reqPrint != 'y') {
-
                 $retval .= '<div class="img-shadow">';
-                $retval .= '<a class="example-image-link" href="'.str_replace("images/uploads", "upload", $r['url']).'" data-lightbox="example-1"><img class="example-image" src="thumbs.php?' . $showspoiler . 'uuid=' . urlencode($r['uuid']) . '" alt="' . htmlspecialchars($r['title']) . '" /></a>';
+                $retval .= '<a class="example-image-link" href="'.str_replace("images/uploads", "upload", $r['url']).'" data-lightbox="example-1" data-title="'.htmlspecialchars($r['title']).'"><img class="example-image" src="thumbs.php?' . $showspoiler . 'uuid=' . urlencode($r['uuid']) . '" alt="' . htmlspecialchars($r['title']) . '" /></a>';
             } else {
                 if ($disable_spoiler == true && $r['spoiler'] == 1) {
                     $retval .= '<div><BR><strong>' . $spoiler_disable_msg . '</strong><BR><BR>';
