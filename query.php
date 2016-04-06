@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 require('./lib/common.inc.php');
 require($stylepath . '/query.inc.php');
 
@@ -40,13 +41,10 @@ function deletequery($queryid)
 
     $dbc = new dataBase();
 
-    //$rs = sql("SELECT `id` FROM `queries` WHERE `id`='&1' AND `user_id`='&2'", $queryid, $usr['userid']);
     $query = "SELECT `id` FROM `queries` WHERE `id`=:1 AND `user_id`=:2";
     $dbc->multiVariableQuery($query, $queryid, $usr['userid']);
 
     if ($dbc->rowCount() == 1) {
-        //mysql_free_result($rs);
-        //sql("DELETE FROM `queries` WHERE `id`='&1' LIMIT 1", $queryid);
 
         $query = "DELETE FROM `queries` WHERE `id`=:1 LIMIT 1";
         $dbc->multiVariableQuery($query, $queryid);
@@ -69,12 +67,10 @@ function viewqueries()
 
     $i = 0;
     $content = '';
-    //$rs = sql("SELECT `id`, `name` FROM `queries` WHERE `user_id`='&1' ORDER BY `name` ASC", $usr['userid']);
     $query = "SELECT id, name FROM `queries` WHERE `user_id`=:1 ORDER BY `name` ASC";
     $dbc->multiVariableQuery($query, $usr['userid']);
 
     if ($dbc->rowCount() != 0) {
-        //while ($r = sql_fetch_array($rs))
         while ($r = $dbc->dbResultFetch()) {
             $thisline = $viewquery_line;
 
@@ -89,7 +85,6 @@ function viewqueries()
             $content .= $thisline;
             $i++;
         }
-        //mysql_free_result($rs);
     }
     else {
         $content = $noqueries;
@@ -112,13 +107,15 @@ function savequery($queryid, $queryname, $saveas, $submit, $saveas_queryid)
 
 
     // ok ... checken, ob die query uns gehört und dann speichern
-    $rs = sql("SELECT `user_id` FROM `queries` WHERE `id`='&1' AND (`user_id`=0 OR `user_id`='&2')", $queryid, $usr['userid']);
-    if (mysql_num_rows($rs) == 0) {
+    $rs = XDb::xSql(
+        "SELECT `user_id` FROM `queries` WHERE `id`= ? AND (`user_id`=0 OR `user_id`= ? )",
+        $queryid, $usr['userid']);
+
+    if (false == XDb::xFetchArray($rs)) {
         echo 'fatal error: query not found or permission denied';
         exit;
     }
-    mysql_free_result($rs);
-
+    XDb::xFreeResults($rs);
 
     if ($saveas == false) {
         if (($displayform == false) && ($queryname == '')) {
@@ -126,9 +123,10 @@ function savequery($queryid, $queryname, $saveas, $submit, $saveas_queryid)
             $error_no_name = true;
         } else {
             // prüfen ob name bereits vorhanden
-            $rs = sql("SELECT COUNT(*) `c` FROM `queries` WHERE `user_id`='&1' AND `name`='&2'", $usr['userid'], $queryname);
-            $r = sql_fetch_array($rs);
-            mysql_free_result($rs);
+            $r['c'] = XDb::xMultiVariableQueryValue(
+                "SELECT COUNT(*) `c` FROM `queries`
+                WHERE `user_id`= :1 AND `name`= :2 ",
+                0, $usr['userid'], $queryname);
 
             if ($r['c'] > 0) {
                 $displayform = true;
@@ -140,12 +138,14 @@ function savequery($queryid, $queryname, $saveas, $submit, $saveas_queryid)
             $displayform = true;
         } else {
             // prüfen ob saveas_queryid existiert und uns gehört
-            $rs = sql("SELECT `user_id` FROM `queries` WHERE `id`='&1' AND (`user_id`=0 OR `user_id`='&2')", $saveas_queryid, $usr['userid']);
-            if (mysql_num_rows($rs) == 0) {
+            $rs = XDb::xSql(
+                "SELECT `user_id` FROM `queries` WHERE `id`= ? AND (`user_id`=0 OR `user_id`= ? )",
+                $saveas_queryid, $usr['userid']);
+            if (false = XDb::xFetchArray($stmt)) {
                 echo 'fatal error: saveas_query not found or permission denied';
                 exit;
             }
-            mysql_free_result($rs);
+            XDb::xFreeResults($rs);
         }
     }
 
@@ -165,19 +165,22 @@ function savequery($queryid, $queryname, $saveas, $submit, $saveas_queryid)
 
         // oldqueries auslesen
         $options = '';
-        $rs = sql("SELECT `id`, `name` FROM `queries` WHERE `user_id`='&1' ORDER BY `name` ASC", $usr['userid']);
-        if (mysql_num_rows($rs) == 0) {
+        $rs = XDb::xSql(
+            "SELECT `id`, `name` FROM `queries` WHERE `user_id`= ? ORDER BY `name` ASC",
+            $usr['userid']);
+
+        if (!$r = XDb::xFetchArray($rs)) {
             tpl_set_var('selecttext', $nosaveastext);
             tpl_set_var('oldqueries', '');
         } else {
             tpl_set_var('selecttext', $saveastext);
-            while ($r = sql_fetch_array($rs)) {
+            do{
                 if ($r['id'] == $queryid)
                     $options .= '<option value="' . $r['id'] . '" selected="selected">' . htmlspecialchars($r['name'], ENT_COMPAT, 'UTF-8') . '</option>' . "\n";
                 else
                     $options .= '<option value="' . $r['id'] . '">' . htmlspecialchars($r['name'], ENT_COMPAT, 'UTF-8') . '</option>' . "\n";
-            }
-            mysql_free_result($rs);
+            }while( $r = XDb::xFetchArray($rs) );
+            XDb::xFreeResults($rs);
             tpl_set_var('oldqueries', $options);
         }
 
@@ -185,18 +188,21 @@ function savequery($queryid, $queryname, $saveas, $submit, $saveas_queryid)
         exit;
     }
 
-    $rs = sql("SELECT `options` FROM `queries` WHERE `id`='&1'", $queryid);
-    $r = sql_fetch_array($rs);
-    mysql_free_result($rs);
+    $r['options'] = XDb::xMultiVariableQueryValue(
+        "SELECT `options` FROM `queries` WHERE `id`= :1 LIMIT 1", 0, $queryid);
 
     // ok, speichern
     if ($saveas == true) {
-        sql("UPDATE `queries` SET `options`='&1', `last_queried`=NOW() WHERE `id`='&2'", $r['options'], $saveas_queryid);
+        XDb::xSql(
+            "UPDATE `queries` SET `options`= ?, `last_queried`=NOW() WHERE `id`= ? ",
+            $r['options'], $saveas_queryid);
     } else {
-        sql("INSERT INTO `queries` (`user_id`, `last_queried`, `name`, `uuid`, `options`) VALUES ( '&1', NOW(), '&2', '&3', '&4')", $usr['userid'], $queryname, create_uuid(), $r['options']);
+        XDb::xSql(
+            "INSERT INTO `queries` (`user_id`, `last_queried`, `name`, `uuid`, `options`)
+            VALUES ( ?, NOW(), ?, ?, ?)",
+            $usr['userid'], $queryname, create_uuid(), $r['options']);
     }
 
     tpl_redirect('query.php?action=view');
 }
 
-?>
