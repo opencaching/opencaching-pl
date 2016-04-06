@@ -1,0 +1,58 @@
+Opencaching LOGO in several formats and variants
+------------------------------------------------
+
+This is a rework of the Opencaching logo in vector format done to simplify
+the content and make it more suitable for promotional use. 
+
+- separated "G" and "sun" on their own layers
+- extended the "sun" to for a complete shape
+- ensure proper layer order to obtain correct image
+- used layer duplication to obtain a shadow effect
+- text transformed to curves (does not require having the font(s) installed)
+  (Fonts may be found in the /docs/fonts directory)
+
+Besides the usual benefits of vector format,
+these allow better CAM processing for purposes such as: 
+* using cutter plotter for t-shirt transfers
+* using laser engraving or cutting
+
+Each set contains the following formats: 
+PNG : sample image 312x312px 24bpp + alpha
+PDF : sample image in vector format as PDF document
+EPS : Encapsulated PostScript vector format, suitable for applications such
+      as Adobe Illustrator or Corel Draw
+SVG : Scalable Vector Graphics, suitable for applications such as
+      Inkscape, display in browser (ie Firefox)
+
+
+      
+Variants
+========
+
+Opencaching logo, no effects, without text. Logo only. 
+------------------------------------------------------
+opencaching-logo notext.eps
+opencaching-logo notext.pdf
+opencaching-logo notext.png
+opencaching-logo notext.svg
+
+Opencaching logo, shadow effect, without text. Logo only. 
+---------------------------------------------------------
+opencaching-logo notext _shadow.png
+opencaching-logo notext +shadow.eps
+opencaching-logo notext +shadow.pdf
+opencaching-logo notext +shadow.svg
+
+Opencaching logo, no effects, with text. Logo + text.
+-----------------------------------------------------
+opencaching-logo text.eps
+opencaching-logo text.pdf
+opencaching-logo text.png
+opencaching-logo text.svg
+
+Opencaching logo, shadow effect, with text. Logo + text. 
+--------------------------------------------------------
+opencaching-logo text _shadow.png
+opencaching-logo text +shadow.eps
+opencaching-logo text +shadow.pdf
+opencaching-logo text +shadow.svg
