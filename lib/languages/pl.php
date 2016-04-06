@@ -355,7 +355,7 @@ $translations = array(
     'html_usage' => 'Proszę używać znaczników HTML wyłącznie do formatowania tekstu.',
     'available_html' => 'Wykaz dostępnych znaczników HTML',
     'hint_long_text' => '<b><font color="red">Dodatkowe</font> informacje kodowane.</b> <i>Pole nieobowiązkowe</i>. Tutaj możesz umieścić dodatkowe informacje ułatwiające znalezienie skrzynki. Informacje bez których znalezienie skrzynki nie będzie możliwe, muszą znaleźć się w polu "Pełen opis".',
-    'hint_instructions' => 'Używaj tylko litery z alfabetu angielskiego i / lub cyfr. <br /> Wszystko napisane w ciągu <code>[nawiasach kwadratowych]</code> zostanie pokazane odkodowane.',
+    'hint_instructions' => 'Używaj tylko litery z alfabetu angielskiego i / lub cyfr. <br /> Wszystko napisane w <code>[nawiasach kwadratowych]</code> zostanie pokazane odkodowane.',
     'add_photo_newcache' => 'Obrazki,zdjęcia pliki MP3 można dodać po zarejestrowaniu skrzynki.',
     'search_wildcard_info' => 'Wpisz "%", aby wyszukiwać dowolny ciąg znaków.',
     'event_hidden_hint' => 'Wskazówka: W przypadku skrzynki typu WYDARZENIE data ukrycia to data rozpoczęcia wydarzenia.',
