@@ -202,7 +202,7 @@ if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache
         $minTimeStamp = time();
         $maxTimeStamp = 1;
         foreach ($dane as $k => $v) {
-            $listaKodowOP[] = $v['kod_str'];
+            $listaKodowOP[] = XDb::xEscape($v['kod_str']);
             if ($v['timestamp'] < $minTimeStamp)
                 $minTimeStamp = $v['timestamp'];
             if ($v['timestamp'] > $maxTimeStamp)
@@ -217,7 +217,7 @@ if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache
             $rs = XDb::xSql(
                 "SELECT c.*,u.`username`
                 FROM `caches` as c LEFT JOIN `user` as u ON u.`user_id` = c.`user_id`
-                WHERE c.`wp_oc` IN ('" . XDb::xEscape( implode("','",$listaKodowOP )) . "')");
+                WHERE c.`wp_oc` IN ('" . implode("','",$listaKodowOP ) . "')");
 
             while ( $record = XDb::xFetchArray($rs) ){
 
