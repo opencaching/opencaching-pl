@@ -68,30 +68,9 @@ if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache
                                 $v['last_date'] = substr($record['date'], 0, strlen($record['date']) - 3);
                                 $v['last_status'] = $record['type'];
                                 $dane[$k] = $v;
-                if ( count($cacheIdList) > 0) {
-                    $rs = XDb::xSql(
-                        "SELECT c.*
-                        FROM (
-                                SELECT cache_id, MAX(date) date
-                                FROM `cache_logs`
-                                WHERE user_id= ?
-                                    AND cache_id IN (" . XDb::xEscape(implode(',', $cacheIdList )) . ")
-                                GROUP BY cache_id
-                            ) as x
-                            INNER JOIN `cache_logs` as c ON c.cache_id = x.cache_id
-                                AND c.date = x.date", $usr['userid']);
-
-                    while ( $record = XDb::xFetchArray($rs) ) {
-                        foreach ($dane as $k => $v) {
-                            if ($v['cache_id'] == $record['cache_id']) {
-                                $v['got_last_activity'] = true;
-                                $v['last_date'] = substr($record['date'], 0, strlen($record['date']) - 3);
-                                $v['last_status'] = $record['type'];
-                                $dane[$k] = $v;
                             }
                         }
                     }//while
-
                 }
 
 

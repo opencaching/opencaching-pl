@@ -217,7 +217,7 @@ if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache
             $rs = XDb::xSql(
                 "SELECT c.*,u.`username`
                 FROM `caches` as c LEFT JOIN `user` as u ON u.`user_id` = c.`user_id`
-                WHERE c.`wp_oc` IN (" . XDb::xEscape( implode(',',$listaKodowOP )) . ")");
+                WHERE c.`wp_oc` IN ('" . XDb::xEscape( implode("','",$listaKodowOP )) . "')");
 
             while ( $record = XDb::xFetchArray($rs) ){
 
