@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -37,13 +38,13 @@ if ($error == false) {
             switch ($type) {
                 // log
                 case 1:
-                    $rs = sql("SELECT `user_id`, `cache_id` FROM `cache_logs` WHERE `deleted`=0 AND `id`='&1'", $objectid);
+                    $rs = XDb::xSql(
+                        "SELECT `user_id`, `cache_id` FROM `cache_logs`
+                        WHERE `deleted`=0 AND `id`= ? LIMIT 1", $objectid);
 
-                    if (mysql_num_rows($rs) == 0)
+                    if ( ! $r = XDb::xFetchArray($rs) )
                         $allok = false;
                     else {
-                        $r = sql_fetch_array($rs);
-
                         if ($r['user_id'] != $usr['userid'] && $usr['admin'] == false)
                             $allok = false;
 
@@ -51,26 +52,26 @@ if ($error == false) {
                         tpl_set_var('cacheid', $cacheid);
                         tpl_set_var('pictypedesc', $pictypedesc_log);
 
-                        $rsCache = sql("SELECT `name` FROM `caches` WHERE `cache_id`='&1'", $cacheid);
-                        $rCache = sql_fetch_array($rsCache);
+                        $rCache['name'] = XDb::xMultiVariableQueryValue(
+                            "SELECT `name` FROM `caches` WHERE `cache_id`= :1 LIMIT 1", '-no-name-', $cacheid);
                         tpl_set_var('cachename', htmlspecialchars($rCache['name'], ENT_COMPAT, 'UTF-8'));
-                        mysql_free_result($rsCache);
 
                         tpl_set_var('begin_cacheonly', '<!--');
                         tpl_set_var('end_cacheonly', '-->');
                     }
 
-                    mysql_free_result($rs);
+                    XDb::xFreeResults($rs);
                     break;
 
                 // cache
                 case 2:
-                    $rs = sql("SELECT `user_id`, `cache_id`, `name`, `longitude`, `latitude`, `wp_oc`  FROM `caches` WHERE `cache_id`='&1'", $objectid);
+                    $rs = XDb::xSql(
+                        "SELECT `user_id`, `cache_id`, `name`, `longitude`, `latitude`, `wp_oc`
+                        FROM `caches` WHERE `cache_id`= ? LIMIT 1", $objectid);
 
-                    if (mysql_num_rows($rs) == 0)
+                    if (! $r = XDb::xFetchArray($rs) )
                         $allok = false;
                     else {
-                        $r = sql_fetch_array($rs);
 
                         tpl_set_var('cachename', htmlspecialchars($r['name'], ENT_COMPAT, 'UTF-8'));
                         tpl_set_var('cacheid', $r['cache_id']);
@@ -83,7 +84,7 @@ if ($error == false) {
                     tpl_set_var('begin_cacheonly', '');
                     tpl_set_var('end_cacheonly', '');
 
-                    mysql_free_result($rs);
+                    XDb::xFreeResults($rs);
                     break;
 
                 default:
@@ -189,34 +190,29 @@ if ($error == false) {
                         /*
                          */
 
-                        sql("INSERT INTO pictures (`uuid`,
-                                                                                 `url`,
-                                                                                 `last_modified`,
-                                                                                 `title`,
-                                                                                 `description`,
-                                                                                 `desc_html`,
-                                                                                 `date_created`,
-                                                                                 `last_url_check`,
-                                                                                 `object_id`,
-                                                                                 `object_type`,
-                                                                                 `user_id`,
-                                                                                 `local`,
-                                                                                 `spoiler`,
-                                                                                 `display`,
-                                                                                 `node`
-                                                            ) VALUES ('&1', '&2', NOW(), '&3', '', 0, NOW(), NOW(),'&4', '&5', '&6', 1, '&7', '&8', '&9')", $uuid, $picurl . '/' . $uuid . '.' . $extension, $title, $objectid, $type, $usr['userid'], ($bSpoiler == 1) ? '1' : '0', ($bNoDisplay == 1) ? '0' : '1', $oc_nodeid);
+                        XDb::xSql(
+                            "INSERT INTO pictures (`uuid`, `url`, `last_modified`, `title`, `description`, `desc_html`,
+                                                   `date_created`, `last_url_check`, `object_id`, `object_type`,
+                                                   `user_id`, `local`, `spoiler`, `display`,`node`)
+                            VALUES ( ?, ?, NOW(), ?, '', 0, NOW(), NOW(),?, ?, ?, 1, ?, ?, ?)",
+                            $uuid, $picurl . '/' . $uuid . '.' . $extension, $title, $objectid, $type, $usr['userid'],
+                            ($bSpoiler == 1) ? '1' : '0', ($bNoDisplay == 1) ? '0' : '1', $oc_nodeid);
 
                         switch ($type) {
                             // log
                             case 1:
-                                sql("UPDATE `cache_logs` SET `picturescount`=`picturescount`+1 WHERE `id`='&1'", $objectid);
+                                XDb::xSql(
+                                    "UPDATE `cache_logs` SET `picturescount`=`picturescount`+1
+                                    WHERE `id`= ? LIMIT 1", $objectid);
 
                                 tpl_redirect('viewcache.php?cacheid=' . urlencode($cacheid));
                                 break;
 
                             // cache
                             case 2:
-                                sql("UPDATE `caches` SET `picturescount`=`picturescount`+1 WHERE `cache_id`='&1'", $objectid);
+                                XDb::xSql(
+                                    "UPDATE `caches` SET `picturescount`=`picturescount`+1
+                                    WHERE `cache_id`= ? LIMIT 1", $objectid);
 
                                 tpl_redirect('editcache.php?cacheid=' . urlencode($objectid));
                                 break;
@@ -276,4 +272,4 @@ if ($error == false) {
 
 //make the template and send it out
 tpl_BuildTemplate();
-?>
+
