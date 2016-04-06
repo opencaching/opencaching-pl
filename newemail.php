@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 global $octeamEmailsSignature, $absolute_server_URI;
 require_once('./lib/common.inc.php');
@@ -39,8 +40,9 @@ if ($error == false) {
                 tpl_set_var('email_message', $error_email_not_ok);
             } else {
                 //prüfen, ob email schon in der Datenbank vorhanden
-                $rs = sql("SELECT `username` FROM `user` WHERE `email`='&1'", $new_email);
-                if (mysql_num_rows($rs) > 0) {
+                $rs = XDb::xSql(
+                    "SELECT `username` FROM `user` WHERE `email`= ? ", $new_email);
+                if ( false !== XDb::xFetchArray($rs)) {
                     $email_exists = true;
                     tpl_set_var('email_message', $error_email_exists);
                 }
@@ -52,7 +54,9 @@ if ($error == false) {
                     $secure_code = uniqid('');
 
                     //code in DB eintragen
-                    sql("UPDATE `user` SET `new_email_date`='&1', `new_email_code`='&2', `new_email`='&3' WHERE `user_id`='&4'", time(), $secure_code, $new_email, $usr['userid']);
+                    XDb::xSql(
+                        "UPDATE `user` SET `new_email_date`=?, `new_email_code`=?, `new_email`=?
+                        WHERE `user_id`=?", time(), $secure_code, $new_email, $usr['userid']);
 
                     $email_content = read_file($stylepath . '/email/newemail.email');
                     $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
@@ -74,8 +78,11 @@ if ($error == false) {
                 } else if (isset($_POST['submit_changeemail'])) {
                     $secure_code = $_POST['code'];
 
-                    $rs = sql("SELECT `new_email_code`, `new_email`, `new_email_date` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
-                    $record = sql_fetch_array($rs);
+                    $rs = XDb::xSql(
+                        "SELECT `new_email_code`, `new_email`, `new_email_date` FROM `user` WHERE `user_id`=? ",
+                        $usr['userid']);
+
+                    $record = XDb::xFetchArray($rs);
                     $new_email = $record['new_email'];
                     $new_email_code = $record['new_email_code'];
                     $new_email_date = $record['new_email_date'];
@@ -91,12 +98,17 @@ if ($error == false) {
                         tpl_set_var('code_message', $error_code_timed_out);
                     } else {
                         //check if email exists
-                        $rs = sql("SELECT `username` FROM `user` WHERE `email`='&1'", $new_email);
-                        if (mysql_num_rows($rs) > 0) {
+                        $rs = XDb::xSql(
+                            "SELECT `username` FROM `user` WHERE `email`= ? ", $new_email);
+                        if ( false !== XDb::xFetchArray($rs)) {
                             tpl_set_var('message', $error_email_exists);
                         } else {
                             //neue EMail eintragen
-                            sql("UPDATE `user` SET `new_email_date`=NULL, `new_email_code`=NULL, `new_email`=NULL, `email`='&1', `last_modified`=NOW() WHERE `user_id`='&2'", $new_email, $usr['userid']);
+                            XDb::xSql(
+                                "UPDATE `user` SET `new_email_date`=NULL, `new_email_code`=NULL,
+                                        `new_email`=NULL, `email`= ? , `last_modified`=NOW()
+                                WHERE `user_id`= ? ",
+                                $new_email, $usr['userid']);
 
                             //try to change the email
                             tpl_set_var('message', $email_changed);
@@ -110,4 +122,4 @@ if ($error == false) {
 
 //make the template and send it out
 tpl_BuildTemplate();
-?>
+

@@ -1,6 +1,9 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
+$rootpath = "./";
+
 require_once ('./lib/common.inc.php');
 
 //Preprocessing
@@ -33,16 +36,26 @@ if ($error == false) {
             $route_points = isset($_POST['route_points']) ? explode(" ", $_POST['route_points']) : array();
 
             // insert route name
-            sql("INSERT INTO `routes` (`route_id`, `user_id`, `name`, `description`, `radius`, `length`) VALUES ('', '&1', '&2', '&3', '&4', '&5')", $user_id, $name, $desc, $radius, $length);
+            XDb::xSql(
+                "INSERT INTO `routes` (
+                    `route_id`, `user_id`, `name`, `description`, `radius`, `length`)
+                VALUES ('', ?, ?, ?, ?, ?)",
+                $user_id, $name, $desc, $radius, $length);
 
             // get route_id
-            $route_id = sqlValue("SELECT route_id FROM `routes` WHERE name='$name' AND description='$desc' AND user_id=$user_id", 0);
+            $route_id = XDb::xMultiVariableQueryValue(
+                "SELECT route_id FROM `routes`
+                WHERE name= :1 AND description= :2 AND user_id= :3",
+                0, $name, $desc, $user_id);
 
             $point_num = 0;
             foreach ($route_points as $route_point) {
                 $point_num++;
                 $latlng = explode(",", $route_point);
-                sql("INSERT into route_points (route_id,point_nr,lat,lon) VALUES (&1, &2, &3, &4)", $route_id, $point_num, $latlng[0], $latlng[1]);
+                XDb::xSql(
+                    "INSERT into route_points (route_id,point_nr,lat,lon)
+                    VALUES (?, ?, ?, ?)",
+                    $route_id, $point_num, $latlng[0], $latlng[1]);
             }
 
             tpl_redirect('myroutes.php');
@@ -53,4 +66,4 @@ if ($error == false) {
 tpl_set_var('bodyMod', '');
 //make the template and send it out
 tpl_BuildTemplate();
-?>
+
