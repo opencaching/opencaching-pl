@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\OcDb;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -35,7 +36,7 @@ if ($error == false) {
         $tr_COG = tr('cog_user_name');
         $no_found_date = '---';
 
-        $db = new dataBase();
+        $db = OcDb::instance();
         if (isset($_REQUEST["delete"])) {
             $note_id = $_REQUEST["delete"];
             //remove
@@ -50,8 +51,6 @@ if ($error == false) {
         }
         //else
         {
-
-            //$notes_rs = sql("SELECT `cache_notes`.`cache_id` `cacheid`, `caches`.`name` `cache_name`, `cache_type`.`icon_small` `icon_large` FROM `cache_notes` INNER JOIN caches ON (`caches`.`cache_id` = `cache_notes`.`cache_id`), `cache_type`  WHERE `cache_notes`.`user_id`=&1 AND `cache_type`.`id`=`caches`.`type` GROUP BY `cacheid` ORDER BY `cacheid`,`date` DESC",$userid);
             $query = "
                             SELECT `cache_notes`.`cache_id` `cacheid`,
                                 `cache_notes`.`desc` `notes_desc`,
@@ -147,20 +146,15 @@ if ($error == false) {
                             ORDER BY `cache_name`, log_date DESC";
             $db->multiVariableQuery($query, $userid);
 
-            //if (mysql_num_rows($notes_rs) != 0)
             $count = $db->rowCount();
             if ($count != 0) {
-                //$notes = '<table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.4em; font-size: 13px;" width="95%">';
-                //$notes .= '<tr><td width="22">&nbsp;</td><td><strong>GeoCache</strong></td></tr><tr><td colspan="2"><hr></hr></td></tr>';
                 $notes = "";
                 $bgcolor1 = '#ffffff';
                 $bgcolor2 = '#eeeeee';
 
-                //for ($i = 0; $i < mysql_num_rows($notes_rs); $i++)
                 for ($i = 0; $i < $count; $i++) {
                     $bgcolor = ( $i % 2 ) ? $bgcolor1 : $bgcolor2;
 
-                    //$notes_record = sql_fetch_array($notes_rs);
                     $notes_record = $db->dbResultFetch();
                     $cacheicon = myninc::checkCacheStatusByUser($notes_record, $usr['userid']);
 
@@ -209,15 +203,12 @@ if ($error == false) {
                     $log_text = "<b>" . $notes_record['user_name'] . ":</b><br>" . $log_text;
                     $notes = mb_ereg_replace('{log_text}', $log_text, $notes);
                     $notes_text = CleanSpecChars($notes_record['notes_desc'], 1);
-                    // if ($notes_text=='') {$notes_text='--';};
                     $notes = mb_ereg_replace('{notes_text}', $notes_text, $notes);
                     $notes = mb_ereg_replace('{icon_name}', $notes_record['icon_small'], $notes);
                 }
-                //$notes .= '<tr><td colspan="3"><hr></hr></td></tr></table><br /><br />';
 
 
                 tpl_set_var('notes_content', $notes);
-                //mysql_free_result($notes_rs);
             } else {
                 tpl_set_var('notes_content', '<br/><span style="font-size: 14px;">&nbsp;&nbsp;<strong>' . tr(no_note) . '</strong></span><br/></br/>');
             }
@@ -227,4 +218,3 @@ if ($error == false) {
 }
 
 tpl_BuildTemplate();
-?>
