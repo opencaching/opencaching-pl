@@ -113,6 +113,9 @@ if ($error == false) {
         tpl_set_var('type_message', '');
         tpl_set_var('diff_message', '');
         tpl_set_var('region_message', '');
+        // configuration variables needed in translation strings
+        tpl_set_var('limits_promixity',$config['oc']['limits']['proximity']);
+        tpl_set_var('short_sitename',$short_sitename);
 
         if (!isset($cache_type)) {
             $cache_type = -1;
@@ -187,7 +190,7 @@ if ($error == false) {
             $descMode = 1;
         }
 
-        // fuer alte Versionen von OCProp
+        // for old versions of OCProp
         if (isset($_POST['submit']) && !isset($_POST['version2'])) {
             $descMode = (isset($_POST['desc_html']) && ($_POST['desc_html'] == 1)) ? 2 : 1;
             $_POST['submitform'] = $_POST['submit'];
@@ -228,7 +231,7 @@ if ($error == false) {
         $hints = isset($_POST['hints']) ? $_POST['hints'] : '';
         tpl_set_var('hints', htmlspecialchars($hints, ENT_COMPAT, 'UTF-8'));
 
-        // fuer alte Versionen von OCProp
+        // for old versions of OCProp
         if (isset($_POST['submit']) && !isset($_POST['version2'])) {
             $hints = iconv("utf-8", "UTF-8", $hints);
         }

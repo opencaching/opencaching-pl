@@ -55,7 +55,11 @@
             <td class="content-title-noshade">{{short_description}}:</td>
             <td><input type="text" name="short_desc" maxlength="120" value="{short_desc}" class="input400"/></td>
         </tr>
-        <tr><td class="buffer" colspan="2"></td></tr>
+        <tr>
+            <td colspan="2">
+                <div class="notice" style="width:500px;min-height:24px;height:auto;">{{short_desc_long_text}}</div>
+            </td>
+        </tr>
     </table>
     <div class="buffer"></div>
     <div>
@@ -64,12 +68,14 @@
     <p id="scriptwarning" class="errormsg">{{javascript_edit_info}}</p>
     <p><textarea id="desc" name="desc" class="descMCE" cols="80" rows="15">{desc}</textarea></p>
     <div class="buffer"></div>
-    <div class="notice">{{html_edit_info}}</div>
+    <div class="notice">{{html_usage}} <a href="articles.php?page=htmltags" target="_blank">{{available_html}}</a></div>
     <div class="notice">{{geocaching_com_foto_info}}</div>
     <div class="buffer"></div>
-    <div><p class="content-title-noshade-size1">{{extra_coded_info}}:</p></div>
+    <div><p class="content-title-noshade-size1">{{hint_info}}:</p></div>
     <div class="buffer"></div>
     <div><textarea name="hints" class="mceNoEditor" cols="80" rows="15">{hints}</textarea></div>
+    <div class="notice">{{hint_long_text}}</div>
+    <div class="notice">{{hint_instructions}}</div>
     <div class="buffer"></div>
     <div>
         <input type="reset" name="reset" value="{{reset}}" class="formbuttons"/>&nbsp;&nbsp;

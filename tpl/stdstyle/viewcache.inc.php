@@ -75,7 +75,7 @@ $rating_stat_show_plural = '<img src="images/rating-star.png" alt="{{recommendat
 $found_icon = '<img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="{{found}}"/>';
 $moved_icon = '<img src="tpl/stdstyle/images/log/16x16-moved.png" class="icon16" alt="moved" />';
 $notfound_icon = '<img src="tpl/stdstyle/images/log/16x16-dnf.png" class="icon16" alt="{{not_found}}" />';
-$note_icon = '<img src="tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{comment}}" />';
+$note_icon = '<img src="tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{log_note}}" />';
 $notes_icon = '<img src="tpl/stdstyle/images/free_icons/note_edit.png" class="icon16" alt="" />';
 $vote_icon = '<img src="tpl/stdstyle/images/free_icons/thumb_up.png" class="icon16" alt="" />';
 $gk_icon = '<img src="images/gk.png" class="icon16" alt="" title="GeoKrety visited" />';
