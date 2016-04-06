@@ -1,5 +1,8 @@
 <?php
 
+use Utils\Database\XDb;
+use Utils\Database\OcDb;
+
 require('./lib/common.inc.php');
 require($stylepath . '/usertops.inc.php');
 
@@ -8,43 +11,35 @@ if ($error == false) {
 
     $tplname = 'usertops';
 
-    $rs = sql("SELECT `username` FROM `user` WHERE `user_id`='&1'", $userid);
-    if (mysql_num_rows($rs) == 1) {
-        $r = sql_fetch_array($rs);
-        $username = $r['username'];
+    $username = XDb::xMultiVariableQueryValue(
+        "SELECT `username` FROM `user` WHERE `user_id`= :1 LIMIT 1", null, $userid);
+
+    if(!is_null($username)){
+        // user found
         tpl_set_var('userid', $userid);
         tpl_set_var('username', $username);
-    } else {
+    }else{
+        // user not found
         tpl_set_var('userid', 0);
-        tpl_set_var('username', 'Nicht gefunden');
+        tpl_set_var('username', '-Not Found-');
         $userid = 0;
-        $username = "Nicht gefunden";
+        $username = "-Not found-";
         $notop5 = $user_notfound;
     }
 
     $i = 0;
     $content = '';
-    /* $rs = sql("   SELECT `cache_rating`.`cache_id` AS `cache_id`, `caches`.`name` AS `cachename`,
-      `user`.`username` AS `ownername`, `user`.`user_id` AS `owner_id`
-      FROM `cache_rating`, `caches`, `user`
-      WHERE `cache_rating`.`cache_id` = `caches`.`cache_id`
-      AND `caches`.`user_id`=`user`.`user_id`
-      AND `cache_rating`.`user_id`='&1' ORDER BY `caches`.`name` ASC", $userid); */
 
-    $query = "SELECT `cache_rating`.`cache_id` AS `cache_id`, `caches`.`name` AS `cachename`,
+    $dbc = OcDb::instance();
+    $dbc->multiVariableQuery(
+        "SELECT `cache_rating`.`cache_id` AS `cache_id`, `caches`.`name` AS `cachename`,
                 `user`.`username` AS `ownername`, `user`.`user_id` AS `owner_id`
-                FROM `cache_rating`, `caches`, `user`
-                WHERE `cache_rating`.`cache_id` = `caches`.`cache_id`
-                  AND `caches`.`user_id`=`user`.`user_id`
-                  AND `cache_rating`.`user_id`= :1 ORDER BY `caches`.`name` ASC";
+        FROM `cache_rating`, `caches`, `user`
+        WHERE `cache_rating`.`cache_id` = `caches`.`cache_id`
+            AND `caches`.`user_id`=`user`.`user_id`
+            AND `cache_rating`.`user_id`= :1 ORDER BY `caches`.`name` ASC", $userid);
 
-    $dbc = new dataBase();
-    $dbc->multiVariableQuery($query, $userid);
-
-
-    //if (mysql_num_rows($rs) != 0)
     if ($dbc->rowCount() != 0) {
-//          while ($r = sql_fetch_array($rs))
         while ($r = $dbc->dbResultFetch()) {
             $thisline = $viewtop5_line;
 
@@ -62,7 +57,6 @@ if ($error == false) {
             $i++;
         }
         unset($dbc);
-        //mysql_free_result($rs);
     }
     else {
         $content = mb_ereg_replace('{username}', $username, $notop5);
@@ -71,4 +65,3 @@ if ($error == false) {
     tpl_set_var('top5', $content);
     tpl_BuildTemplate();
 }
-?>

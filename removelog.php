@@ -1,11 +1,8 @@
 <?php
 
-require_once __DIR__.'/lib/common.inc.php';
+require_once __DIR__ . '/lib/common.inc.php';
 
-// $_SESSION['user_id'] = 1;
-// removelog.php?logid=103
-
-if(!isset($_SESSION['user_id'])){
+if (!isset($_SESSION['user_id'])) {
     print 'no hacking please!';
     exit;
 } else {
@@ -14,9 +11,3 @@ if(!isset($_SESSION['user_id'])){
     $result = $ocController->removeLog($request);
     echo json_encode($result);
 }
-
-
-
-
-
-

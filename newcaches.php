@@ -16,7 +16,12 @@ if ($error == false) {
     require($stylepath . '/newcaches.inc.php');
 
     $startat = isset($_REQUEST['startat']) ? XDb::xEscape($_REQUEST['startat']) : 0;
-    $startat = $startat + 0;
+
+    $startat = intval($startat);
+    if( $startat < 0  ){
+        $startat = 0;
+    }
+
     $perpage = 50;
     $startat -= $startat % $perpage;
 
@@ -50,7 +55,7 @@ if ($error == false) {
                         AND `caches`.`status` = 1
                         ORDER BY IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) DESC,
                         `caches`.`cache_id` DESC
-                        LIMIT ' . ($startat + 0) . ', ' . ($perpage + 0));
+                        LIMIT ' . $startat . ', ' . $perpage);
 
     //PowerTrail vel GeoPath variables
     $pt_cache_intro_tr = tr('pt_cache');

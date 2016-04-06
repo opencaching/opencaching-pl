@@ -156,7 +156,7 @@ class LogEnteryController
                 $delQuery = "DELETE FROM `cache_moved` WHERE `log_id`=:1 LIMIT 1";
                 $db->multiVariableQuery($delQuery, $log->getId());
 
-                $getxyQuery = "SELECT `latitude`,`longitude` FROM `cache_moved` WHERE `cache_id`='&1' ORDER BY `date` DESC LIMIT 1";
+                $getxyQuery = "SELECT `latitude`,`longitude` FROM `cache_moved` WHERE `cache_id`=:1 ORDER BY `date` DESC LIMIT 1";
                 $db->multiVariableQuery($getxyQuery, $geoCache->getCacheId());
                 $old_xy = $db->dbResultFetchOneRowOnly();
                 if (($old_xy['longitude'] != '') && ($old_xy['latitude'] != '')) {
