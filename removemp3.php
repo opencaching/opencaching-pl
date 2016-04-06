@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -20,14 +21,14 @@ if ($error == false) {
             $allok = false;
 
         if ($allok == true) {
-            $rs = sql("SELECT `object_type`, `object_id`, `user_id`, `id`, `url` FROM `mp3` WHERE `uuid`='&1'", $uuid);
-            if (mysql_num_rows($rs) == 0)
+            $rs = XDb::xSql("SELECT `object_type`, `object_id`, `user_id`, `id`, `url` FROM `mp3` WHERE `uuid`= ? ", $uuid);
+            if (!$r = XDb::xFetchArray($rs))
                 $allok = false;
         }
 
         if ($allok == true) {
-            $r = sql_fetch_array($rs);
-            mysql_free_result($rs);
+            XDb::xFreeResults($rs);
+
             $type = $r['object_type'];
             $objectid = $r['object_id'];
             $user_id = $r['user_id'];
@@ -45,24 +46,28 @@ if ($error == false) {
 
             // datei und in DB lĂśschen
             @unlink($picdir . '/' . $uuid . '.' . $extension);
-            sql("DELETE FROM `mp3` WHERE `uuid`='&1'", $uuid);
-            sql("INSERT INTO `removed_objects` (`localID`, `uuid`, `type`, `removed_date`, `node`) VALUES ('&1', '&2', 6, NOW(), '&3')", $localid, $uuid, $oc_nodeid);
+            XDb::xSql("DELETE FROM `mp3` WHERE `uuid`= ? LIMIT 1", $uuid);
+            XDb::xSql(
+                "INSERT INTO `removed_objects` (`localID`, `uuid`, `type`, `removed_date`, `node`)
+                VALUES ( ?, ?, 6, NOW(), ?)",
+                $localid, $uuid, $oc_nodeid);
 
             switch ($type) {
                 // log
                 case 1:
-                    sql("UPDATE `cache_logs` SET `mp3count`=`mp3count`-1 WHERE `id`='&1'", $objectid);
+                    XDb::xSql("UPDATE `cache_logs` SET `mp3count`=`mp3count`-1 WHERE `id`= ? ", $objectid);
 
-                    $rs = sql("SELECT `cache_id` FROM `cache_logs` WHERE `deleted`=0 AND `id`='&1'", $objectid);
-                    $r = sql_fetch_array($rs);
-                    mysql_free_result($rs);
+                    $rs = XDb::xSql(
+                        "SELECT `cache_id` FROM `cache_logs` WHERE `deleted`=0 AND `id`= ? ", $objectid);
+                    $r = XDb::xFetchArray($rs);
+                    XDb::xFreeResults($rs);
 
                     tpl_redirect('viewlogs.php?cacheid=' . urlencode($r['cache_id']));
                     break;
 
                 // cache
                 case 2:
-                    sql("UPDATE `caches` SET `mp3count`=`mp3count`-1 WHERE `cache_id`='&1'", $objectid);
+                    XDb::xSql("UPDATE `caches` SET `mp3count`=`mp3count`-1 WHERE `cache_id`= ? ", $objectid);
 
                     tpl_redirect('editcache.php?cacheid=' . urlencode($objectid));
                     break;
@@ -82,4 +87,4 @@ if ($error == false) {
 
 //make the template and send it out
 tpl_BuildTemplate();
-?>
+

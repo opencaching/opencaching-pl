@@ -367,9 +367,8 @@ class OpensprawdzaczCore
             $proby = 0;
             $trafienia = 0;
 
-            // foreach ($keszynki_opensprawdzacza as $dane_keszynek )
             foreach ($result as $dane_keszynek) {
-                // $dane_keszynek = mysql_fetch_array($keszynki_opensprawdzacza);
+
                 $proby = $proby + $dane_keszynek['proby'];
                 $trafienia = $trafienia + $dane_keszynek['sukcesy'];
 
@@ -430,4 +429,3 @@ class OpensprawdzaczCore
 
 }
 
-?>
