@@ -789,13 +789,6 @@ $menu = array(
                         'visible' => false,
                         'filename' => 'query.php?action=save',
                         'siteid' => 'savequery'
-                    ),
-                    array(
-                        'title' => tr('cache_recommendation'),
-                        'menustring' => tr('cache_recommendation'),
-                        'visible' => false,
-                        'filename' => 'recommendations.php',
-                        'siteid' => 'recommendations'
                     )
                 )
             ),
