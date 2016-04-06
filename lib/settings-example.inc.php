@@ -208,6 +208,8 @@ $wikiLinks = array(
     'ratingDesc_en' => $wiki_url.'/index.php/Cache_rating',
     'forBeginers' => $wiki_url.'/index.php/Dla_pocz%C4%85tkuj%C4%85cych',
     'placingCache' => $wiki_url.'/index.php/Zak%C5%82adanie_skrzynki',
+    'makingCaches' => $wiki_url.'/index.php/Jakość_skrzynki',
+    'makingRoutes' => $wiki_url.'/index.php/Moje_trasy',
     'cacheQuality' => $wiki_url.'/index.php/Jako%C5%9B%C4%87_skrzynki',
     'myRoutes' => $wiki_url.'/index.php/Moje_trasy',
     'cacheNotes' => $wiki_url.'/index.php/Notatki_skrzynki',
@@ -227,15 +229,6 @@ $wikiLinks = array(
 $rules_url = 'http://wiki.opencaching.pl/index.php/Regulamin_OC_PL';
 $cache_params_url = 'http://wiki.opencaching.pl/index.php/Parametry_skrzynki';
 $rating_desc_url = 'http://wiki.opencaching.pl/index.php/Oceny_skrzynek';
-$wikiLinks = array(
-    'forBeginers' => 'http://wiki.opencaching.pl/index.php/Dla_początkujących',
-    'placingCache' => 'http://wiki.opencaching.pl/index.php/Zakładanie_skrzynki',
-    'makingCaches' => 'http://wiki.opencaching.pl/index.php/Jakość_skrzynki',
-    'makingRoutes' => 'http://wiki.opencaching.pl/index.php/Moje_trasy',
-    'cacheNotes' => 'http://wiki.opencaching.pl/index.php/Notatki_skrzynki',
-    'extraWaypoints' => 'http://wiki.opencaching.pl/index.php/Dodatkowe_waypointy_w_skrzynce',
-    'cachingCode' => 'http://wiki.opencaching.pl/index.php/Kodeks_geocachera',
-);
 
 $contact_mail = 'ocpl (at) localhost';
 // E-mail address group of people from OC Team who solve problems, verify cache
@@ -499,4 +492,50 @@ $titled_cache_period_prefix='week';
 
 // set this to true to disable automatic translation of cache descs
 $disable_google_translation = false;
+
+/* ************************************************************************
+ * Cache page mini map
+ * ************************************************************************ */
+
+/* Cache page small map, fixed, clickable to open minimap.                  */ 
+// available options are roadmap, terrain, map, satellite, hybrid
+$config['maps']['cache_page_map']['layer'] = 'terrain';
+$config['maps']['cache_page_map']['zoom'] = 8;
+// choose color according to https://developers.google.com/maps/documentation/static-maps/intro#Markers
+$config['maps']['cache_page_map']['marker_color'] = 'blue';
+
+/* Cache page minimap                                                       */
+$config['maps']['cache_mini_map']['zoom'] = 14;
+$config['maps']['cache_mini_map']['width'] = '480';
+$config['maps']['cache_mini_map']['height'] = '385';
+
+/* ************************************************************************
+ * External maps on which to view a cache 
+ * 
+ * The following parameters are available for replacement using 
+ * printf style syntax, in this order
+ *    1          2         3            4           5         6
+ * latitude, longitude, cache_id, cache_code, cache_name, link_text
+ *
+ * coordinates are float numbers (%f), the rest are strings (%s)
+ * cache_name is urlencoded
+ * escape % using %% (printf syntax)
+ * The level 3 key is also used as link_text.
+ *
+ * Use this to define URLs to external mapping sites to display a cache
+ * ************************************************************************ */
+
+/* Example:
+ * $config['maps']['external']['MyMap'] = 1; // 1 = enabled; 0 = disabled
+ * $config['maps']['external']['MyMap_URL'] = '<a href="http://site/file?lat=%1$f&lon=%2$f&id=%3$s&name=%5$s">%6$s</a>';
+ */
+
+// Enable or disable the predefined external maps below:
+$config['maps']['external']['Opencaching'] = 1;
+$config['maps']['external']['OSMapa'] = 1;
+$config['maps']['external']['UMP'] = 1;
+$config['maps']['external']['Google Maps'] = 1;
+$config['maps']['external']['Szukacz'] = 1;
+$config['maps']['external']['Flopp\'s Map'] = 0;
+ 
 ?>

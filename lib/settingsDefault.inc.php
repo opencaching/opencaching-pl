@@ -120,6 +120,61 @@ $config = array(
     )
 );
 
+/* ************************************************************************
+ * Cache page mini map
+ * ************************************************************************ */
+
+/* Cache page small map, fixed, clickable to open minimap.                  */ 
+// available options are roadmap, terrain, map, satellite, hybrid
+$config['maps']['cache_page_map']['layer'] = 'terrain';
+$config['maps']['cache_page_map']['zoom'] = 8;
+// choose color according to https://developers.google.com/maps/documentation/static-maps/intro#Markers
+$config['maps']['cache_page_map']['marker_color'] = 'blue';
+
+/* Cache page minimap                                                       */
+$config['maps']['cache_mini_map']['zoom'] = 14;
+$config['maps']['cache_mini_map']['width'] = '480';
+$config['maps']['cache_mini_map']['height'] = '385';
+
+/* ************************************************************************
+ * External maps on which to view a cache 
+ * 
+ * The following parameters are available for replacement using 
+ * printf style syntax, in this order
+ *    1          2         3            4           5         6
+ * latitude, longitude, cache_id, cache_code, cache_name, link_text
+ *
+ * coordinates are float numbers (%f), the rest are strings (%s)
+ * cache_name is urlencoded
+ * escape % using %% (printf syntax)
+ * The level 3 key is also used as link_text.
+ *
+ * Use this to define URLs to external mapping sites to display a cache
+ * ************************************************************************ */
+
+/* Example:
+ * $config['maps']['external']['MyMap'] = 1; // 1 = enabled; 0 = disabled
+ * $config['maps']['external']['MyMap_URL'] = '<a href="http://site/file?lat=%1$f&lon=%2$f&id=%3$s&name=%5$s">%6$s</a>';
+ */
+$config['maps']['external']['Opencaching'] = 1;
+$config['maps']['external']['Opencaching_URL'] = '<a target="_blank" href="cachemap3.php?lat=%1$f&lon=%2$f&cacheid=%3$s&inputZoom=14">%6$s</a>';
+$config['maps']['external']['OSMapa'] = 1;
+$config['maps']['external']['OSMapa_URL'] = '<a target="_blank" href="http://osmapa.pl?zoom=16&lat=%1$f&lon=%2$f&z=14&o=TFFT&map=1">%6$s</a>';
+$config['maps']['external']['UMP'] = 1;
+$config['maps']['external']['UMP_URL'] = '<a target="_blank" href="http://mapa.ump.waw.pl/ump-www/?zoom=14&lat=%1$f&lon=%2$f&layers=B00000T&mlat=%1$f&mlon=%2$f">%6$s</a>';
+$config['maps']['external']['Google Maps'] = 1;
+$config['maps']['external']['Google Maps_URL'] = '<a target="_blank" href="http://maps.google.com/maps?hl=UTF-8&q=%1$f+%2$f+(%5$s)" >%6$s</a>';
+$config['maps']['external']['Szukacz'] = 1;
+$config['maps']['external']['Szukacz_URL'] = '<a target="_blank" href="http://mapa.szukacz.pl/?n=%1$f&e=%2$f&z=4&t=Skrzynka%%20Geocache">%6$s</a>';
+$config['maps']['external']['Flopp\'s Map'] = 0;
+$config['maps']['external']['Flopp\'s Map_URL'] = '<a target="_blank" href="http://flopp.net/?c=%1$f:%2$f&z=16&t=OSM&f=g&m=&d=&g=%4$s">%6$s</a>';
+
+ 
+ 
+ 
+ 
+ 
+ 
   /** Limit for uplading pictures per node. */
 
 // Image file size limit in MB
@@ -136,3 +191,5 @@ $config['limits']['image']['pixels_text'] = '640 x 480';
 $config['limits']['image']['extension'] = ';jpg;jpeg;gif;png;';
 $config['limits']['image']['extension_text'] = 'JPG, PNG, GIF';
 
+// Minimum distance between caches (physical containers) in meters
+$config['oc']['limits']['proximity'] = 150;

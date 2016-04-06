@@ -45,7 +45,7 @@ if (isset($_REQUEST['inputZoom']) && $_REQUEST['inputZoom'] != "") {
 // parse PowerTrail filter in url
 parsePowerTrailFilter(false);
 
-tpl_set_var('doopen', "false"); // donn not open any cache
+setTheRestOfCommonVars(); // open current cache
 tpl_set_var('map_type', "0"); // fixed to default map
 
 setCommonMap3Vars();

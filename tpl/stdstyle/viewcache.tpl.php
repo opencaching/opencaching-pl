@@ -49,7 +49,7 @@
         </div>
         <div class="content2-container-2col-left" id="cache_name_block">
             <table width="100%"><tr><td valign="top" width="70%">
-                        <span class="content-title-noshade-size5">{cachename} - {oc_waypoint}&nbsp&nbsp&nbsp&nbsp{icon_titled}</span><br />
+                        <span class="content-title-noshade-size5">{cachename} - {oc_waypoint}&nbsp;&nbsp;&nbsp;&nbsp;{icon_titled}</span><br />
                         <p class="content-title-noshade-size1">{short_desc}</p>
                         <p>{{owner}}&nbsp; <a class="links" href="viewprofile.php?userid={userid_urlencode}">{owner_name}</a>
                             {creator_name_start}<br/>{{creator}}&nbsp; <a class="links" href="viewprofile.php?userid={creator_userid}">{creator_name}</a>{creator_name_end}</p>
@@ -80,7 +80,7 @@
         <p style="line-height: 1.6em;">
             <img src="tpl/stdstyle/images/free_icons/mountain.png" class="icon16" width=16 height=16 alt="" title="" align="middle" />&nbsp;{{cache_alt}}: {altitude} {{abovesealevel}}<br />
             <img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;{coords_other} <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"><br />
-            <img src="tpl/stdstyle/images/free_icons/world.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{location}}:<b><span style="color: rgb(88,144,168)"> {kraj} {dziubek1} {woj} {dziubek2} {miasto}</span></b><br />
+            <img src="tpl/stdstyle/images/free_icons/world.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{region}}:<b><span style="color: rgb(88,144,168)"> {kraj} {dziubek1} {woj} {dziubek2} {miasto}</span></b><br />
             {distance_cache}
             <img src="tpl/stdstyle/images/free_icons/box.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{cache_type}}: <b>{cachetype}</b><br />
             <img src="tpl/stdstyle/images/free_icons/package_green.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{size}}: <b>{cachesize}</b><br />
@@ -97,8 +97,8 @@
             ?><br />
             <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{date_created_label}}: {date_created}<br />
             <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{last_modified_label}}: {last_modified}<br />
-            <img src="tpl/stdstyle/images/free_icons/arrow_in.png" class="icon16" alt="" title="" align="middle" />&nbsp;Waypoint: <b>{oc_waypoint}</b><br />
-            {hidelistingsites_start}<img src="tpl/stdstyle/images/free_icons/link.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{listed_also_on}}: {listed_on}<br />{hidelistingsites_end}
+            <img src="tpl/stdstyle/images/free_icons/arrow_in.png" class="icon16" alt="" title="" align="middle" />&nbsp;Waypoint: <b><a href="{absolute_server_URI}{oc_waypoint}">{oc_waypoint}</a></b><br />
+            {hidelistingsites_start}<img src="tpl/stdstyle/images/free_icons/link.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{listed_also_on}}: {listed_on} <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"><br />{hidelistingsites_end}
         </p>
         <?php
         global $usr, $lang, $hide_coords;
@@ -124,7 +124,7 @@
                     {found_icon} {founds} {found_text}<br />
                     {hidemobile_start}{moved_icon} {moved} x {{moved_text}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{dystans}&nbsp;km<br/>{hidemobile_end}
                     {notfound_icon} {notfounds} {notfound_text}<br />
-                    {note_icon} {notes} {{comments}}<br />
+                    {note_icon} {notes} {{log_notes}}<br />
                     {watch_icon} {watcher} {{watchers}}<br />
                     {visit_icon} {visits} {{visitors}}<br />
                     {vote_icon} {votes_count} x {{scored}}<br />
@@ -134,9 +134,24 @@
                 </p>
             </div>
             <div id="viewcache-map" class="content2-container-2col-right"><div class="img-shadow">
-                    <img src="http://maps.googleapis.com/maps/api/staticmap?center={latitude},{longitude}&amp;zoom=8&amp;size=170x170&amp;maptype=terrain&amp;key={googlemap_key}&amp;sensor=false&amp;markers=color:blue%7Clabel:{typeLetter}%7C{latitude},{longitude}&amp;format=png"
-                         longdesc="ifr::cachemap-mini.php?inputZoom=14&amp;lat={latitude}&amp;lon={longitude}::480::385"
-                         onclick="enlarge(this);" alt="{{map}}" />
+                    <?php
+                        printf(
+                        '<img src="http://maps.googleapis.com/maps/api/staticmap?center=%1$f,%2$f&amp;zoom=%6$s&amp;size=170x170&amp;maptype=%5$s&amp;key=%4$s&amp;sensor=false&amp;markers=color:%7$s%%7Clabel:%%7C%1$f,%2$f&amp;format=png"
+                         longdesc="ifr::cachemap-mini.php?inputZoom=%8$s&amp;lat=%1$f&amp;lon=%2$f&amp;cacheid=%3$s::%9$s::%10$s"
+                         onclick="enlarge(this);" alt="%11$s" title="%11$s" />',
+                            tpl_get_var('latitude'),
+                            tpl_get_var('longitude'),
+                            tpl_get_var('cacheid'),
+                            tpl_get_var('googlemap_key'),
+                            $config['maps']['cache_page_map']['layer'],
+                            $config['maps']['cache_page_map']['zoom'],
+                            $config['maps']['cache_page_map']['marker_color'],
+                            $config['maps']['cache_mini_map']['zoom'],
+                            $config['maps']['cache_mini_map']['width'],
+                            $config['maps']['cache_mini_map']['height'],
+                            tr('map')
+                        );
+                    ?>     
                 </div>
             </div>
             <?php
@@ -144,12 +159,14 @@
         if ($usr == false && $hide_coords) {
             echo "";
         } else {
-            echo "<b>{{available_maps}}:</b>
-            <a target=\"_blank\" href='cachemap3.php?lat="; ?>{latitude}<?php echo "&amp;lon="; ?>{longitude}<?php echo "&amp;cacheid="; ?>{cacheid}<?php echo "&amp;inputZoom=14'>Opencaching</a>,
-            <a target=\"_blank\" href='http://osmapa.pl?zoom=16&amp;lat="; ?>{latitude}<?php echo "&amp;lon="; ?>{longitude}<?php echo "&amp;o=TFFT&amp;map=1'>OSMapa</a>,
-            <a target=\"_blank\" href='http://mapa.ump.waw.pl/ump-www/?zoom=14&amp;lat="; ?>{latitude}<?php echo "&amp;lon="; ?>{longitude}<?php echo "&amp;layers=B00000T&amp;mlat="; ?>{latitude}<?php echo "&amp;mlon="; ?>{longitude}<?php echo "'>UMP</a>,
-            <a target=\"_blank\" href=\"http://maps.google.com/maps?hl=UTF-8&q="; ?>{latitude}<?php echo "+"; ?>{longitude}<?php echo '+(' . urlencode($vars['cachename']) . ")\" target=\"_blank\">Google&nbsp;Maps</a>,
-            <a target=\"_blank\" href=\"http://mapa.szukacz.pl/?n="; ?>{latitude}<?php echo "&amp;e="; ?>{longitude}<?php echo "&amp;t=Skrzynka%20Geocache\" target=\"_blank\">Szukacz</a>";
+            echo "<b>{{available_maps}}:</b>&nbsp;\n";
+            
+            foreach($config['maps']['external'] as $key => $value){
+                if ( $value == 1 ) {
+                    printf($config['maps']['external'][$key.'_URL'],tpl_get_var('latitude'),tpl_get_var('longitude'),tpl_get_var('cacheid'),tpl_get_var('oc_waypoint'),urlencode($vars['cachename']),$key);
+                    echo "&nbsp;\n";
+                }    
+            } 
         }
         ?>
     </div>
@@ -258,7 +275,7 @@
         {hintEncrypted}
     </p>
 
-    <div style="width:200px;align:right;float:right">
+    <div style="width:200px;text-align:right;float:right">
         {decrypt_table_start}
         {decrypt_table}
 
@@ -524,7 +541,7 @@
                     </td>
                 </tr>
             </table>
-            <div class="notice buffer" id="viewcache-termsofuse">";  {{accept_terms_of_use}} </div>
+            <div class="notice buffer" id="viewcache-termsofuse"> {{accept_terms_of_use}} </div>
         </div>
          <?php
             }
