@@ -471,7 +471,7 @@ $translations = array(
     'register_msg6' => 'The activation code was sent via E-mail to you. Please follow the instructions within it.',
     'register_msg7' => 'Users which have hidden a cache or logged at least one visit - cannot be deleted. However, it is possible to deactivate such accounts. All your personal data will be removed (including your email address), but your username will be kept. If you want your account to be deactivated contact us at ocpl@opencaching.pl.***',
     'total_distance' => 'Total distance',
-    'send_to_gps' => 'Send a waypoint to your GPS',
+    'send_to_gps' => 'GARMIN GPS',
     'post_new_log' => 'Post new log in reference to',
     'type_of_log' => 'Type of log',
     'date_logged' => 'Date',
@@ -2608,5 +2608,7 @@ $translations = array(
     'wayPointType3' => 'Final location',
     'wayPointType4' => 'Interesting place',
     'wayPointType5' => 'Parking area',
+    'beginning' => 'Beginning',
+    'send_to' => 'Send to',
+    'send_to_cgeo' => 'c:geo',
 );
-
