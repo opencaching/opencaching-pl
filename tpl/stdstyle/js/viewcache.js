@@ -84,6 +84,14 @@ function showHint(event)
 function openCgeoWindow(event, ocWaypoint)
 {
     event.preventDefault();
-    window.open('https://send2.cgeo.org/add.html?cache='+ocWaypoint,'-','width=240,height=240,resizable=yes,scrollbars=1');
+    window.open('https://send2.cgeo.org/add.html?cache='+ocWaypoint,'-','width=240,height=240,resizable=no,scrollbars=0');
+    return false;
+}
+
+function openGarminWindow(event, latitude, longitude, ocWaypoint, cachename)
+{
+    event.preventDefault();
+    window.open('garmin.php?lat='+latitude+'&long='+longitude+'&wp='+ocWaypoint+'&name='+cachename+'&popup=y',
+        'GARMIN','width=450,height=160,resizable=no,scrollbars=0');
     return false;
 }
