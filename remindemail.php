@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 global $octeamEmailsSignature, $absolute_server_URI;
 require_once('./lib/common.inc.php');
@@ -19,12 +20,12 @@ if ($error == false) {
     if (isset($_REQUEST['submit'])) {
         $username = isset($_REQUEST['username']) ? $_REQUEST['username'] : '';
 
-        $rs = sql("SELECT `user_id`, `email`, `username` FROM `user` WHERE `username`='&1'", $username);
-        if (mysql_num_rows($rs) == 0) {
+        $rs = XDb::xSql("SELECT `user_id`, `email`, `username` FROM `user` WHERE `username`= ? LIMIT 1", $username);
+
+        if( !$r = XDb::xFetchArray($rs) ){
             tpl_set_var('username', htmlspecialchars($username, ENT_COMPAT, 'UTF-8'));
             tpl_set_var('username_message', $wrong_username);
         } else {
-            $r = sql_fetch_array($rs);
 
             $email_content = read_file($stylepath . '/email/remindemail.email');
 
@@ -43,7 +44,7 @@ if ($error == false) {
             mb_send_mail($r['email'], $mail_subject, $email_content, $emailheaders);
 
             // logentry($module, $eventid, $userid, $objectid1, $objectid2, $logtext, $details)
-            logentry('remindemail', 3, $r['user_id'], 0, 0, 'Remind-E-Mail-Adress an ' . sql_escape($r['username']) . ' / ' . sql_escape($r['email']), array());
+            logentry('remindemail', 3, $r['user_id'], 0, 0, 'Remind-E-Mail-Adress an ' . $r['username'] . ' / ' . $r['email'] , array());
 
             tpl_set_var('username', htmlspecialchars($username, ENT_COMPAT, 'UTF-8'));
             tpl_set_var('message', $mail_send);
