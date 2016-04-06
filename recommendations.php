@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 require('./lib/common.inc.php');
 require($stylepath . '/recommendations.inc.php');
 
@@ -12,18 +13,18 @@ if ($error == false) {
 
     $i = 0;
     $content = '';
-    $rs = sql(" SELECT  COUNT(`cache_rating`.`cache_id`)/(SELECT `topratings` FROM `caches` WHERE `cache_id`='&1')*100 `treffer`,
-                    `cache_rating`.`cache_id` `cache_id`,
-                    `caches`.`name` `cachename`
-                    FROM `cache_rating`, `caches`
-                WHERE `cache_rating`.`user_id` IN (SELECT `user_id` FROM `cache_rating` WHERE `cache_id`='&1')
-                  AND `cache_rating`.`cache_id` = `caches`.`cache_id`
-                GROUP BY `cache_rating`.`cache_id`, `caches`.`name`
-                ORDER BY `treffer` DESC, `caches`.`name`
-                LIMIT 26", $cache_id);
+    $rs = XDb::xSql(
+        "SELECT COUNT(`cache_rating`.`cache_id`) / ( SELECT `topratings` FROM `caches` WHERE `cache_id`= ? )*100 `treffer`,
+                `cache_rating`.`cache_id` `cache_id`, `caches`.`name` `cachename`
+        FROM `cache_rating`, `caches`
+        WHERE `cache_rating`.`user_id` IN (SELECT `user_id` FROM `cache_rating` WHERE `cache_id`= ? )
+            AND `cache_rating`.`cache_id` = `caches`.`cache_id`
+        GROUP BY `cache_rating`.`cache_id`, `caches`.`name`
+        ORDER BY `treffer` DESC, `caches`.`name`
+        LIMIT 26", $cache_id, $cache_id);
 
-    if (mysql_num_rows($rs) > 1) {
-        while ($r = sql_fetch_array($rs)) {
+    if ($r = XDb::xFetchArray($rs)) {
+        do {
             if ($r['cache_id'] == $cache_id) {
                 tpl_set_var('cachename', '&quot;' . htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8') . '&quot;');
             } else {
@@ -41,18 +42,20 @@ if ($error == false) {
                 $content .= $thisline;
                 $i++;
             }
-        }
-        mysql_free_result($rs);
+        }while ($r = XDb::xFetchArray($rs));
+        XDb::xFreeResults($rs);
     }
     else {
         $content = $norecommendations;
     }
 
-    $thiscache = sqlValue('SELECT `name` FROM `caches` WHERE `cache_id`=\'' . sql_escape($cache_id) . '\'', '-----');
+    $thiscache = XDb::xMultiVariableQueryValue(
+        'SELECT `name` FROM `caches` WHERE `cache_id`= :1 ', '-----', $cache_id);
+
     tpl_set_var('cachename', htmlspecialchars($thiscache, ENT_COMPAT, 'UTF-8'));
     tpl_set_var('cacheid', $cache_id);
 
     tpl_set_var('recommendations', $content);
     tpl_BuildTemplate();
 }
-?>
+
