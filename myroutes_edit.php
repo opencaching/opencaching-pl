@@ -87,6 +87,7 @@ if ($error == false) {
                             XDb::xSql(
                                 "UPDATE `routes` SET `length`= ?
                                 WHERE `route_id`= ? ", $len, $route_id);
+                        }
                     }
 
 
@@ -142,4 +143,4 @@ if ($error == false) {
 
 //make the template and send it out
 tpl_BuildTemplate();
-?>
+
