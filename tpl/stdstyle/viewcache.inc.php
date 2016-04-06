@@ -107,6 +107,7 @@ function viewcache_getmp3table($cacheid, $mp3count)
 {
     global $dblink;
     $nCol = 0;
+    $retval = '';
     $sql = 'SELECT uuid, title, url FROM mp3 WHERE object_id=\'' . sql_escape($cacheid) . '\' AND object_type=2 AND display=1 ORDER BY seq, date_created';
     //requires:ALTER TABLE `mp3` ADD `seq` SMALLINT UNSIGNED NOT NULL DEFAULT '1';
     $rs = sql($sql);

@@ -166,14 +166,14 @@ if ($error == false) {
                         switch ($type) {
                             // log
                             case 1:
-                                sql("UPDATE `cache_logs` SET `mp3count`=`mp3count`+1 WHERE `id`='&1'", $objectid);
+                                sql("UPDATE `cache_logs` SET `mp3count`=`mp3count`+1, `last_modified`=NOW() WHERE `id`='&1'", $objectid);
 
                                 tpl_redirect('viewcache.php?cacheid=' . urlencode($cacheid));
                                 break;
 
                             // cache
                             case 2:
-                                sql("UPDATE `caches` SET `mp3count`=`mp3count`+1 WHERE `cache_id`='&1'", $objectid);
+                                sql("UPDATE `caches` SET `mp3count`=`mp3count`+1, `last_modified`=NOW() WHERE `cache_id`='&1'", $objectid);
 
                                 tpl_redirect('editcache.php?cacheid=' . urlencode($objectid));
                                 break;

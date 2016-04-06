@@ -26,7 +26,6 @@ if ($error == false) {
         if ($usr['admin'] || $owner == $usr['userid']) {
             if (!$message) {
 
-
                 $rs = XDb::xSql(
                     "SELECT `pictures`.`spoiler`, `pictures`.`display`, `pictures`.`title`, `pictures`.`object_id`,
                             `pictures`.`object_type`, `caches`.`name`, `caches`.`cache_id`
@@ -34,17 +33,20 @@ if ($error == false) {
                     WHERE `caches`.`cache_id`=`pictures`.`object_id` AND `pictures`.`uuid`= ? AND `pictures`.`user_id`= ? LIMIT 1",
                     $uuid, $owner);
 
-                if( ! $row = XDb::xFetchArray($rs) ){
+                if (!$row = XDb::xFetchArray($rs)) {
                     $message = $message_picture_not_found;
                 }
             }
+        }
+
+        if (!$message) {
 
             if (isset($_POST['submit'])) {
 
                 if ($_FILES['file']['name'] != '') {
-                    // if the file has been uploaded successfully
+                    // check if the file has been uploaded successfully
                     if ($_FILES['file']['error'] != 0) {
-                        // huch ... keine Ahnung was ich da noch machen soll ?!
+                        // oops ... no idea what I should do now
                         $tplname = 'message';
                         tpl_set_var('messagetitle', $message_title_internal);
                         tpl_set_var('message_start', '');
@@ -53,7 +55,7 @@ if ($error == false) {
                         tpl_BuildTemplate();
                         exit;
                     } else {
-                        // Dateiendung korrekt?
+                        // file extension ok?
                         $fna = mb_split('\\.', $_FILES['file']['name']);
                         $extension = mb_strtolower($fna[count($fna) - 1]);
 
@@ -67,7 +69,7 @@ if ($error == false) {
                             exit;
                         }
 
-                        // Datei zu groĂź?
+                        // file too big?
                         if ($_FILES['file']['size'] > $config['limits']['image']['filesize'] * 1024 * 1024) {
                             $tplname = 'message';
                             tpl_set_var('messagetitle', $message_title_toobig);
@@ -79,21 +81,21 @@ if ($error == false) {
                         }
 
 
-            if ($config['limits']['image']['resize'] == 1 && $_FILES['file']['size'] > 102400) {
-                // Apply resize to uploaded image
-                $image = new \lib\SimpleImage();
-                $image->load($_FILES['file']['tmp_name']);
-                if ($image->getHeight() > $image->getWidth() && $image->getHeight() > $config['limits']['image']['height']) { //portrait
-                    $image->resizeToHeight($config['limits']['image']['height']);
-                }
-                if ($image->getHeight() <= $image->getWidth() && $image->getWidth() > $config['limits']['image']['width'])  {
-                    $image -> resizeToWidth($config['limits']['image']['width']);
-                }
-                $image->save($picdir . '/' . $uuid . '.' . $extension, resolveImageTypeByFileExtension($extension));
-            } else {
-                // Save uploaded image AS IS
-                move_uploaded_file($_FILES['file']['tmp_name'], $picdir . '/' . $uuid . '.' . $extension);
-            }
+                        if ($config['limits']['image']['resize'] == 1 && $_FILES['file']['size'] > 102400) {
+                            // Apply resize to uploaded image
+                            $image = new \lib\SimpleImage();
+                            $image->load($_FILES['file']['tmp_name']);
+                            if ($image->getHeight() > $image->getWidth() && $image->getHeight() > $config['limits']['image']['height']) { //portrait
+                                $image->resizeToHeight($config['limits']['image']['height']);
+                            }
+                            if ($image->getHeight() <= $image->getWidth() && $image->getWidth() > $config['limits']['image']['width'])  {
+                                $image -> resizeToWidth($config['limits']['image']['width']);
+                            }
+                            $image->save($picdir . '/' . $uuid . '.' . $extension, resolveImageTypeByFileExtension($extension));
+                        } else {
+                            // Save uploaded image AS IS
+                            move_uploaded_file($_FILES['file']['tmp_name'], $picdir . '/' . $uuid . '.' . $extension);
+                        }
                     }
                 }
 
@@ -111,19 +113,29 @@ if ($error == false) {
 
                 $row['title'] = isset($_REQUEST['title']) ? stripslashes($_REQUEST['title']) : '';
 
-                if ($row['title'] == "") {
-                    tpl_set_var('errnotitledesc', $errnotitledesc);
-                } else {
-                    if (!$resp = XDb::xSql(
+                if ($row['title']) {
+                    XDb::xSql(
                         "UPDATE `pictures` SET `title`= ?, `display`= ?, `spoiler`= ?, `last_modified` = NOW()
-                        WHERE `uuid`= ? ",
-                        $row['title'], (($row['display'] == 1) ? '1' : '0'), (($row['spoiler'] == 1) ? '1' : '0'), $uuid)){
+                         WHERE `uuid`= ? ",
+                        $row['title'], (($row['display'] == 1) ? '1' : '0'), (($row['spoiler'] == 1) ? '1' : '0'), $uuid);
 
-                        $message = $message_title_internal;
+                    switch ($row['object_type']) {
+                        // log - currently not used, because log pictures cannot be edited
+                        case 1:
+                            XDb::xSql(
+                                "UPDATE `cache_logs` SET `last_modified`=NOW() WHERE `id`= ?",
+                                $row['object_id']);
+                            break;
+
+                        // cache
+                        case 2:
+                            XDb::xSql(
+                                "UPDATE `caches` SET `last_modified`=NOW() WHERE `cache_id`= ?",
+                                $row['object_id']);
+                            break;
                     }
-                    if (!$message){
-                        tpl_redirect('editcache.php?cacheid=' . urlencode($row['object_id']));
-                    }
+
+                    tpl_redirect('editcache.php?cacheid=' . urlencode($row['object_id']));
                 }
             }
         }

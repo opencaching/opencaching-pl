@@ -29,22 +29,25 @@ if ($error == false) {
                 WHERE `caches`.`cache_id`=`mp3`.`object_id` AND `mp3`.`uuid`= ? AND `mp3`.`user_id`=? LIMIT 1",
                 $uuid, $usr['userid']);
 
-            if (!$stmt){
+            if (!$stmt) {
                 //query returns error
                 $message = $message_title_internal;
-            }else {
-                if (!$row = XDb::xFetchArray($stmt)){
+            } else {
+                if (!$row = XDb::xFetchArray($stmt)) {
                     //no records
                     $message = $message_mp3_not_found;
                 }
             }
+        }
+
+        if (!$message) {
 
             if (isset($_POST['submit'])) {
 
                 if ($_FILES['file']['name'] != '') {
-                    // kucken, ob die Datei erfolgreich hochgeladen wurde
+                    // check of the file was uploaded successfully
                     if ($_FILES['file']['error'] != 0) {
-                        // huch ... keine Ahnung was ich da noch machen soll ?!
+                        // oops ... no idea what I should do now
                         $tplname = 'message';
                         tpl_set_var('messagetitle', $message_title_internal);
                         tpl_set_var('message_start', '');
@@ -53,7 +56,7 @@ if ($error == false) {
                         tpl_BuildTemplate();
                         exit;
                     } else {
-                        // Dateiendung korrekt?
+                        // file extension ok?
                         $fna = mb_split('\\.', $_FILES['file']['name']);
                         $extension = mb_strtolower($fna[count($fna) - 1]);
 
@@ -67,7 +70,7 @@ if ($error == false) {
                             exit;
                         }
 
-                        // Datei zu groĂź?
+                        // file too big?
                         if ($_FILES['file']['size'] > $maxmp3size) {
                             $tplname = 'message';
                             tpl_set_var('messagetitle', $message_title_toobig);
@@ -78,8 +81,7 @@ if ($error == false) {
                             exit;
                         }
 
-
-                        // datei verschieben und in DB eintragen
+                        // move file
                         //echo $_FILES['file']['tmp_name'], $mp3dir . '/' . $uuid . '.' . $extension;
                         move_uploaded_file($_FILES['file']['tmp_name'], $mp3dir . '/' . $uuid . '.' . $extension);
                     }
@@ -96,20 +98,29 @@ if ($error == false) {
 
                 $row['title'] = isset($_REQUEST['title']) ? stripslashes($_REQUEST['title']) : '';
 
-                if ($row['title'] == "") {
-                    tpl_set_var('errnotitledesc', $errnotitledesc);
-                } else {
+                if ($row['title']) {
+                    XDb::xSql(
+                        "UPDATE `mp3` SET `title`= ?, `display`= ?, `last_modified`=NOW()
+                         WHERE `uuid`= ? ",
+                        $row['title'], (($row['display'] == 1) ? '1' : '0'), $uuid);
 
-                    $resp = XDb::xSql(
-                        "UPDATE `mp3` SET `title`= ?, `display`= ?, `last_modified`=NOW() WHERE `uuid`= ? ",
-                         $row['title'], (($row['display'] == 1) ? '1' : '0'), $uuid);
+                    switch ($row['object_type']) {
+                        // log - currently not used, because log mp3 cannot be edited
+                        case 1:
+                            XDb::xSql(
+                                "UPDATE `cache_logs` SET `last_modified`=NOW() WHERE `id`= ?",
+                                $row['object_id']);
+                            break;
 
+                        // cache
+                        case 2:
+                            XDb::xSql(
+                                "UPDATE `caches` SET `last_modified`=NOW() WHERE `cache_id`= ?",
+                                $row['object_id']);
+                            break;
+                    }
 
-                    if (!XDb::xNumRows($resp))
-                        $message = $message_title_internal;
-
-                    if (!$message)
-                        tpl_redirect('editcache.php?cacheid=' . urlencode($row['object_id']));
+                    tpl_redirect('editcache.php?cacheid=' . urlencode($row['object_id']));
                 }
             }
         }
