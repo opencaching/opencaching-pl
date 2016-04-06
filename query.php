@@ -141,7 +141,7 @@ function savequery($queryid, $queryname, $saveas, $submit, $saveas_queryid)
             $rs = XDb::xSql(
                 "SELECT `user_id` FROM `queries` WHERE `id`= ? AND (`user_id`=0 OR `user_id`= ? )",
                 $saveas_queryid, $usr['userid']);
-            if (false = XDb::xFetchArray($stmt)) {
+            if (false === XDb::xFetchArray($stmt)) {
                 echo 'fatal error: saveas_query not found or permission denied';
                 exit;
             }
