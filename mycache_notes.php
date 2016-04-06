@@ -210,7 +210,7 @@ if ($error == false) {
 
                 tpl_set_var('notes_content', $notes);
             } else {
-                tpl_set_var('notes_content', '<br/><span style="font-size: 14px;">&nbsp;&nbsp;<strong>' . tr(no_note) . '</strong></span><br/></br/>');
+                tpl_set_var('notes_content', '<br/><span style="font-size: 14px;">&nbsp;&nbsp;<strong>' . tr('no_note') . '</strong></span><br/></br/>');
             }
         }
         unset($db);
