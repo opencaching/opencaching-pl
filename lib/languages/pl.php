@@ -471,7 +471,7 @@ $translations = array(
     'register_msg6' => 'Kod aktywacyjny został wysłany na twój adres E-Mail.<br/>W celu zakończenia procesu rejestracji proszę się kierować instrukcją dostarczoną na twój adres E-Mail.<br/><b>Uwaga! Niektóre serwery pocztowe odrzucają list z kodem aktywacyjnym z serwera OC PL. Jeśli nie otrzymałeś kodu w ciągu najbliższych godzinach prosimy o kontakt na adres <span class="email">{contact_mail}</span> (podaj nazwę użytkownika jaką użyłeś podczas rejestracji)',
     'register_msg7' => 'Użytkownik, który założy lub zrobi wpis do logu nie może być usunięty. Jest możliwa tylko deaktywacja konta. Będą wtedy usunięte wszystkie dane e-mail z profilu ale nazwa użytkownika zostanie zachowana. Jeśli chcesz deaktywować swoje konto skontaktuj się z nami za pomocą swojego konta e-mail, a deaktywujemy Twoje konto. W przypadkach niejasnych prosimy o kontakt <span class="email">{contact_mail}</span>. Dziękujemy.',
     'total_distance' => 'Całkowity dystans',
-    'send_to_gps' => 'Wyślij WayPoint do GPS',
+    'send_to_gps' => 'GARMINa',
     'post_new_log' => 'Wpis do logu skrzynki',
     'type_of_log' => 'Rodzaj wpisu do logu',
     'date_logged' => 'Data',
@@ -2605,5 +2605,8 @@ $translations = array(
     'wayPointType3' => 'Punkt końcowy',
     'wayPointType4' => 'Interesujące miejsce',
     'wayPointType5' => 'Parking',
+    'beginning' => 'Rozpoczęcie',
+    'send_to' => 'Wyślij do',
+    'send_to_cgeo' => 'c:geo',
 );
 

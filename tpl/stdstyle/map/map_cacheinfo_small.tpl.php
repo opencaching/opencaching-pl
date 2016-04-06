@@ -68,7 +68,7 @@
         <?php
         if( {is_event} ) { ?>
             <p>
-                <b>{{date_event_label}}:</b> <br /> {start_date}
+                <b>{{beginning}}: </b>{start_date}
             </p>
         <?php } ?>
     </div>
