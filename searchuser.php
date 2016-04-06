@@ -13,7 +13,7 @@ if ($error == false) {
         tpl_redirect('login.php?target=' . $target);
     } else {
         $tplname = 'searchuser';
-        $options['username'] = isset($_POST['username']) ? $_POST['username'] : '';
+        $options['username'] = isset($_REQUEST['username']) ? $_REQUEST['username'] : '';
         if (!isset($options['username'])) {
             $options['username'] = '';
         }

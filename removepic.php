@@ -29,7 +29,6 @@ if ($error == false) {
         }
 
         if ($allok == true) {
-
             XDb::xFreeResults($rs);
             $type = $r['object_type'];
             $objectid = $r['object_id'];

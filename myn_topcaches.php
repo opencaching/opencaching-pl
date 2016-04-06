@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 global $lang, $rootpath, $usr, $dateFormat;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
@@ -85,8 +86,11 @@ if ($error == false) {
     //get user record
     $user_id = $usr['userid'];
     tpl_set_var('userid', $user_id);
-    $latitude = sqlValue("SELECT `latitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
-    $longitude = sqlValue("SELECT `longitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
+    $latitude = XDb::xMultiVariableQueryValue(
+        "SELECT `latitude` FROM user WHERE user_id= :1 ", 0, $usr['userid']);
+
+    $longitude = XDb::xMultiVariableQueryValue(
+        "SELECT `longitude` FROM user WHERE user_id= :1 ", 0, $usr['userid']);
 
     if (($longitude == NULL && $latitude == NULL) || ($longitude == 0 && $latitude == 0)) {
         tpl_set_var('info', '<br><div class="notice" style="line-height: 1.4em;font-size: 120%;"><b>' . tr("myn_info") . '</b></div><br>');
@@ -99,15 +103,13 @@ if ($error == false) {
     if ($longitude == NULL || $longitude == 0)
         $longitude = 21.00442;
 
-    $distance = sqlValue("SELECT `notify_radius` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
+    $distance = XDb::xMultiVariableQueryValue(
+        "SELECT `notify_radius` FROM user WHERE user_id= :1 ", 0, $usr['userid']);
+
     if ($distance == 0)
         $distance = 35;
     $distance_unit = 'km';
     $radius = $distance;
-
-    //get the users home coords
-//          $rs_coords = sql("SELECT `latitude` `lat`, `longitude` `lon` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
-//          $record_coords = sql_fetch_array($rs_coords);
 
     $lat = $latitude;
     $lon = $longitude;
@@ -121,10 +123,10 @@ if ($error == false) {
     //all target caches are between lon - max_lon_diff and lon + max_lon_diff
     //TODO: check!!!
     $max_lon_diff = $distance * 180 / (abs(sin((90 - $lat) * 3.14159 / 180)) * 6378 * 3.14159);
-    sql('DROP TEMPORARY TABLE IF EXISTS local_caches' . $user_id . '');
-    sql('CREATE TEMPORARY TABLE local_caches' . $user_id . ' ENGINE=MEMORY
+    XDb::xSql('DROP TEMPORARY TABLE IF EXISTS local_caches' . $user_id . '');
+    XDb::xSql('CREATE TEMPORARY TABLE local_caches' . $user_id . ' ENGINE=MEMORY
                                         SELECT
-                                            (' . getSqlDistanceFormula($lon, $lat, $distance /* , $multiplier[$distance_unit], JG 2013-10-25, ta zmienna nie była zainicjowana */) . ') AS `distance`,
+                                            (' . getSqlDistanceFormula($lon, $lat, $distance) . ') AS `distance`,
                                             `caches`.`cache_id` AS `cache_id`,
                                             `caches`.`wp_oc` AS `wp_oc`,
                                             `caches`.`type` AS `type`,
@@ -145,12 +147,13 @@ if ($error == false) {
                                             AND `latitude` > ' . ($lat - $max_lat_diff) . '
                                             AND `latitude` < ' . ($lat + $max_lat_diff) . '
                                         HAVING `distance` < ' . $distance);
-    sql('ALTER TABLE local_caches' . $user_id . ' ADD PRIMARY KEY ( `cache_id` ),
-                ADD INDEX(`cache_id`), ADD INDEX (`wp_oc`), ADD INDEX(`type`), ADD INDEX(`name`), ADD INDEX(`user_id`), ADD INDEX(`date_hidden`), ADD INDEX(`date_created`)');
+    XDb::xSql('ALTER TABLE local_caches' . $user_id . ' ADD PRIMARY KEY ( `cache_id` ),
+               ADD INDEX(`cache_id`), ADD INDEX (`wp_oc`), ADD INDEX(`type`), ADD INDEX(`name`), ADD INDEX(`user_id`), ADD INDEX(`date_hidden`), ADD INDEX(`date_created`)');
 
 
     $file_content = '';
-    $rs = sql('SELECT `user`.`user_id` `userid`,
+    $rs = XDb::xSql(
+        'SELECT `user`.`user_id` `userid`,
                 `user`.`username` `username`,
                 `caches`.`cache_id` `cacheid`,
                 `caches`.`cache_id` `cache_id`,
@@ -187,14 +190,14 @@ if ($error == false) {
     $pt_cache_intro_tr = tr('pt_cache');
     $pt_icon_title_tr = tr('pt139');
 
-    while ($r = sql_fetch_array($rs)) {
+    while ($r = XDb::xFetchArray($rs)) {
         $file_content .= '<tr>';
         $file_content .= '<td style="width: 90px;">' . date($dateFormat, strtotime($r['date'])) . '</td>';
         $file_content .= '<td style="width: 22px;"><span style="font-weight:bold;color: green;">' . $r['toprate'] . '</span></td>';
         $cacheicon = myninc::checkCacheStatusByUser($r, $usr['userid']);
 
         //$file_content .= '<td width="22">&nbsp;<img src="tpl/stdstyle/images/' .getSmallCacheIcon($r['icon_large']) . '" border="0" alt=""/></td>';
-// PowerTrail vel GeoPath icon
+        // PowerTrail vel GeoPath icon
         if (isset($r['PT_ID'])) {
             $PT_icon = icon_geopath_small($r['PT_ID'], $r['PT_image'], $r['PT_name'], $r['PT_type'], $pt_cache_intro_tr, $pt_icon_title_tr);
         } else {
@@ -205,25 +208,31 @@ if ($error == false) {
         $file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cacheid'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
         $file_content .= '<td width="32"><b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r['userid'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 
-        $rs_log = sql("SELECT cache_logs.id AS id, cache_logs.cache_id AS cache_id,
-                              cache_logs.type AS log_type,
-                              DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
-                cache_logs.text AS log_text,
-                caches.user_id AS cache_owner,
-                cache_logs.encrypt encrypt,
-                cache_logs.user_id AS luser_id,
-                              user.username AS user_name,
-                user.user_id AS user_id,
-                log_types.icon_small AS icon_small, COUNT(gk_item.id) AS geokret_in
-            FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id)
-                            LEFT JOIN   gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
-                            LEFT JOIN   gk_item ON gk_item.id = gk_item_waypoint.id AND
-                            gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5
-            WHERE cache_logs.deleted=0 AND cache_logs.cache_id=&1
-             GROUP BY cache_logs.id ORDER BY cache_logs.date_created DESC LIMIT 1", $r['cacheid']);
+        $rs_log = XDb::xSql(
+            "SELECT cache_logs.id AS id, cache_logs.cache_id AS cache_id,
+                    cache_logs.type AS log_type,
+                    DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
+                    cache_logs.text AS log_text,
+                    caches.user_id AS cache_owner,
+                    cache_logs.encrypt encrypt,
+                    cache_logs.user_id AS luser_id,
+                    user.username AS user_name,
+                    user.user_id AS user_id,
+                    log_types.icon_small AS icon_small,
+                    COUNT(gk_item.id) AS geokret_in
+            FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id))
+                INNER JOIN user ON (cache_logs.user_id = user.user_id)
+                INNER JOIN log_types ON (cache_logs.type = log_types.id)
+                LEFT JOIN gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
+                LEFT JOIN gk_item ON gk_item.id = gk_item_waypoint.id
+                    AND gk_item.stateid<>1 AND gk_item.stateid<>4
+                    AND gk_item.typeid<>2 AND gk_item.stateid !=5
+            WHERE cache_logs.deleted=0 AND cache_logs.cache_id= ?
+            GROUP BY cache_logs.id
+            ORDER BY cache_logs.date_created DESC LIMIT 1", $r['cacheid']);
 
-        if (mysql_num_rows($rs_log) != 0) {
-            $r_log = sql_fetch_array($rs_log);
+
+        if($r_log = XDb::xFetchArray($rs_log)){
 
             $file_content .= '<td style="width: 80px;">' . htmlspecialchars(date($dateFormat, strtotime($r_log['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
 
@@ -247,16 +256,13 @@ if ($error == false) {
             $file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"><img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt=""/></a></b></td>';
             $file_content .= '<td>&nbsp;&nbsp;<b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r_log['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r_log['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
         }
-        mysql_free_result($rs_log);
+        XDb::xFreeResults($rs_log);
         $file_content .= "</tr>";
     }
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
     tpl_set_var('file_content', $file_content);
 
-    $rs = sql('SELECT COUNT(*) `count` FROM (local_caches' . $user_id . ' caches)');
-    $r = sql_fetch_array($rs);
-    $count = $r['count'];
-    mysql_free_result($rs);
+    $count = XDb::xSimpleQueryValue('SELECT COUNT(*) `count` FROM (local_caches' . $user_id . ' caches)', 0);
 
     $frompage = $startat / 100 - 3;
     if ($frompage < 1)
