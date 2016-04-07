@@ -30,10 +30,10 @@ while ($linia = XDb::xFetchArray($linie)) {
     if ($l2 != $l1) {
         $licznik++;
         echo "</td></tr><tr><td class=\"bgcolor2\" align=\"right\">&nbsp;&nbsp;<b>$licznik</b>&nbsp;&nbsp;</td><td class=\"bgcolor2\" align=\"right\">&nbsp;&nbsp;<b>$l1</b>&nbsp;&nbsp;</td>";
-        echo "<td class=\"bgcolor2\">$linia['username']";
+        echo "<td class=\"bgcolor2\">".$linia['username'];
         $l2 = $l1;
     } else {
-        echo ", $linia['username']";
+        echo ", ".$linia['username'];
     }
 }
 echo '</td></tr></table>' . "\n";

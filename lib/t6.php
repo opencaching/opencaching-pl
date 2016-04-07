@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 global $lang, $rootpath;
 
 if (!isset($rootpath))
@@ -16,11 +17,27 @@ $cache_key = "t6.php-result-" . $lang;
 $result = apc_fetch($cache_key);
 if ($result === false) {
     ob_start();
-    $rsU = sql('SELECT COUNT(*) `count` FROM (SELECT COUNT(caches.user_id) FROM `caches` WHERE `status`=1 GROUP BY `user_id`) `users_with_founds`');
-    $fC = sql('SELECT COUNT(*) `count` FROM `caches` WHERE `status`=1');
-    $rsUs = mysql_fetch_array($rsU);
-    $fCt = mysql_fetch_array($fC);
-    $rsfCR = sql("SELECT COUNT(*) `count`, `cache_location`.`adm3` region, `cache_location`.`code3` code_region FROM `cache_location` INNER JOIN caches ON cache_location.cache_id=caches.cache_id WHERE `cache_location`.`code1`='PL' AND `caches`.`status`=1 AND `caches`.`type`<>6 AND `cache_location`.`adm3`!='' GROUP BY `cache_location`.`code3` ORDER BY count DESC");
+
+    $rsUs["count"] = XDb::xSimpleQueryValue(
+        'SELECT COUNT(*) `count` FROM
+            (
+                SELECT COUNT(caches.user_id) FROM `caches`
+                WHERE `status`=1 GROUP BY `user_id`
+            ) `users_with_founds`');
+
+    $fCt["count"] = XDb::xSimpleQueryValue(
+        'SELECT COUNT(*) `count` FROM `caches` WHERE `status`=1');
+
+    $rsfCR = XDb::xSql(
+        "SELECT COUNT(*) `count`, `cache_location`.`adm3` region, `cache_location`.`code3` code_region
+        FROM `cache_location`
+            INNER JOIN caches ON cache_location.cache_id=caches.cache_id
+        WHERE `cache_location`.`code1`='PL'
+            AND `caches`.`status`=1 AND `caches`.`type`<>6
+            AND `cache_location`.`adm3`!=''
+        GROUP BY `cache_location`.`code3`
+        ORDER BY count DESC");
+
     echo '<table width="97%"><tr><td align="center"><center><b> ' . tr('Stats_t6_01') . '</b> <br />' . tr('Stats_t6_02') . '<br /> ' . tr('Stats_t6_03') . ': ';
     echo $rsUs["count"];
     echo ' .::. ' . tr('Stats_t6_04') . ': ';
@@ -36,7 +53,7 @@ if ($result === false) {
         </td>
     </tr><tr><td height="2"></td></tr>';
 
-    while ($line = mysql_fetch_array($rsfCR)) {
+    while ($line = XDb::xFetchArray($rsfCR)) {
         echo '<tr class="bgcolor2">
                 <td align="right">
                     &nbsp;&nbsp;<b>' . $line["count"] . '</b>&nbsp;&nbsp;
@@ -48,10 +65,10 @@ if ($result === false) {
 
     echo '</table>' . "\n";
 
-    mysql_free_result($rsfCR);
+    XDb::xFreeResults($rsfCR);
 
     $result = ob_get_clean();
     apc_store($cache_key, $result, 86400);
 }
 print $result;
-?>
+

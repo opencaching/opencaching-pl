@@ -39,12 +39,15 @@ while ($linia = XDb::xFetchArray($linie)) {
             AND status <> 4 AND status <> 5
             AND status <> 6 AND type <> 6",
         0, $linia['user_id']);
+    if($y!=0)
+        $xy = sprintf("%.u", ($x / $y) * 100);
+    else
+        $xy = 0;
 
-    $xy = sprintf("%.u", ($x / $y) * 100);
     if ($l2 != $l1) {
         $licznik++;
         echo "</td></tr><tr><td class=\"bgcolor2\" align=\"right\">&nbsp;&nbsp;<b>$licznik</b>&nbsp;&nbsp;</td><td class=\"bgcolor2\" align=\"right\">&nbsp;&nbsp;<b>$l1</b>&nbsp;&nbsp;</td>";
-        echo "<td class=\"bgcolor2\"><a class=\"links\" href=\"viewprofile.php?userid=$linia['user_id']\">" . htmlspecialchars($linia['username']) . " (<font color=\"firebrick\">$xy% - </font><font color=\"green\">$x</font>/<font color=\"blue\">$y</font>)</a>";
+        echo "<td class=\"bgcolor2\"><a class=\"links\" href=\"viewprofile.php?userid=".$linia['user_id']."\">" . htmlspecialchars($linia['username']) . " (<font color=\"firebrick\">$xy% - </font><font color=\"green\">$x</font>/<font color=\"blue\">$y</font>)</a>";
         $l2 = $l1;
     } else {
         echo ", <a class=\"links\" href=\"viewprofile.php?userid=".$linia['user_id']."\">" . htmlspecialchars($linia['username']) . " (<font color=\"firebrick\">$xy% - </font><font color=\"green\">$x</font>/<font color=\"blue\">$y</font>)</a>";
