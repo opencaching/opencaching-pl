@@ -1,6 +1,9 @@
 <?php
 
-// ini_set ('display_errors', on);
+use Utils\Database\XDb;
+/**
+ * This script is used only by Map_v2 to display markers on the map
+ */
 
 require "../lib/settings.inc.php";
 $rootpath = "../";
@@ -8,7 +11,6 @@ require_once('./common.inc.php');
 
 header('Content-type: text/xml');
 
-//$PER_PAGE = 500;  //number of caches at once on map
 $ENCODING = "UTF-8";
 
 function onTheList($theArray, $item)
@@ -74,14 +76,10 @@ function typeToInt($type)
     }
 }
 
-db_connect();
-
-$latNE = mysql_escape_string($_GET['latNE']);
-$lonNE = mysql_escape_string($_GET['lonNE']);
-$latSW = mysql_escape_string($_GET['latSW']);
-$lonSW = mysql_escape_string($_GET['lonSW']);
-
-//$page = ((int)($_GET['page'])) * $PER_PAGE;
+$latNE = $_GET['latNE'];
+$lonNE = $_GET['lonNE'];
+$latSW = $_GET['latSW'];
+$lonSW = $_GET['lonSW'];
 
 if (!isset($_GET['caches'])) {
     $PER_PAGE = 250;
@@ -115,7 +113,6 @@ $typy = array('u', 't', 'm', 'v', 'w', 'e', 'q', 'o', 'c', 'd', 'I', 'W', 'Z', '
 
 $filter = $_GET['filter'];
 
-//$only_active = " AND caches.status = 1";
 $only_active = " AND (caches.status = 1 OR caches.status = 2)";
 for ($i = 0; $i < strlen($filter); $i++) {
     if ($i < 10) {
@@ -124,17 +121,17 @@ for ($i = 0; $i < strlen($filter); $i++) {
     }
     else {
         if ($i == 10 && $filter[$i] == 0) // I
-            $filter_by_type_string .= " AND cache_id NOT IN (SELECT cache_id FROM cache_ignore WHERE user_id='" . sql_escape($user_id) . "')";
+            $filter_by_type_string .= " AND cache_id NOT IN (SELECT cache_id FROM cache_ignore WHERE user_id='" . XDb::xEscape($user_id) . "')";
 
         if ($i == 11 && $filter[$i] == 0) // W
-            $filter_by_type_string .= " AND cache_id NOT IN (SELECT cache_id FROM caches WHERE user_id='" . sql_escape($user_id) . "')";
+            $filter_by_type_string .= " AND cache_id NOT IN (SELECT cache_id FROM caches WHERE user_id='" . XDb::xEscape($user_id) . "')";
 
         if ($i == 12 && $filter[$i] == 0) // Z
-            $filter_by_type_string .= " AND cache_id NOT IN (SELECT cache_id FROM cache_logs WHERE deleted=0 AND user_id='" . sql_escape($user_id) . "' AND (type='1' OR type='8'))";
+            $filter_by_type_string .= " AND cache_id NOT IN (SELECT cache_id FROM cache_logs WHERE deleted=0 AND user_id='" . XDb::xEscape($user_id) . "' AND (type='1' OR type='8'))";
 
 
         if ($i == 13 && $filter[$i] == 0) // A
-            $filter_by_type_string .= " AND (cache_id IN (SELECT cache_logs.cache_id FROM cache_logs WHERE deleted=0 AND cache_logs.user_id='" . sql_escape($user_id) . "' AND (cache_logs.deleted=0 AND (cache_logs.type='1' OR cache_logs.type='8'))) OR caches.user_id='" . sql_escape($user_id) . "')";
+            $filter_by_type_string .= " AND (cache_id IN (SELECT cache_logs.cache_id FROM cache_logs WHERE deleted=0 AND cache_logs.user_id='" . XDb::xEscape($user_id) . "' AND (cache_logs.deleted=0 AND (cache_logs.type='1' OR cache_logs.type='8'))) OR caches.user_id='" . XDb::xEscape($user_id) . "')";
 
         if ($i == 14 && $filter[$i] == 0) // N
             $filter_by_type_string .= " AND caches.cache_id IN (SELECT cache_id FROM caches WHERE wp_oc IN (SELECT wp FROM gk_item_waypoint WHERE id IN (SELECT id FROM gk_item WHERE stateid<>1 AND stateid<>4 AND typeid<>2)) OR (wp_gc IN (SELECT wp FROM gk_item_waypoint WHERE id IN (SELECT id FROM gk_item WHERE stateid<>1 AND stateid<> 4 AND typeid<>2)) AND wp_gc <> '') OR (wp_nc IN (SELECT wp FROM gk_item_waypoint WHERE id IN (SELECT id FROM gk_item WHERE stateid<>1 AND stateid<>4 AND typeid<>2)) AND wp_nc <> '')) ";
@@ -146,22 +143,48 @@ for ($i = 0; $i < strlen($filter); $i++) {
             $only_active .= " AND caches.status = 2";
     }
 }
-//$only_active = " AND caches.status = 1";
 
-$result = mysql_query("SELECT caches.cache_id, caches.name, user.username, caches.wp_oc as wp, caches.votes, caches.score, caches.topratings, caches.latitude, caches.longitude, caches.type, caches.status as status, datediff(now(), caches.date_hidden) as old, caches.user_id, IF(cache_id IN (SELECT cache_id FROM cache_logs WHERE deleted=0 AND user_id='" . sql_escape($user_id) . "' AND (type=1 OR type=8)), 1, 0) as found FROM user, caches WHERE (caches.user_id = user.user_id) AND ((caches.latitude>'" . sql_escape($latSW) . "' AND caches.latitude<'" . sql_escape($latNE) . "') AND (caches.longitude>'" . sql_escape($lonSW) . "' AND caches.longitude<'" . sql_escape($lonNE) . "')) " . sql_escape($only_active) . " " . ($filter_by_type_string) . " ORDER BY " . sql_escape($ORDERBY) . " LIMIT " . sql_escape($page) . ", " . sql_escape($PER_PAGE));
+$result = XDb::xSql(
+    "SELECT caches.cache_id, caches.name, user.username, caches.wp_oc as wp, caches.votes, caches.score,
+            caches.topratings, caches.latitude, caches.longitude, caches.type, caches.status as status,
+            datediff(now(), caches.date_hidden) as old, caches.user_id,
+            IF(cache_id IN
+                (
+                    SELECT cache_id
+                    FROM cache_logs
+                    WHERE deleted=0 AND user_id= ?
+                        AND (type=1 OR type=8)
+                ), 1, 0
+            ) as found
+    FROM user, caches
+    WHERE (caches.user_id = user.user_id)
+        AND caches.latitude > ? AND caches.latitude < ?
+        AND caches.longitude > ? AND caches.longitude < ?
+        " . XDb::xEscape($only_active) . " " . ($filter_by_type_string) . "
+    ORDER BY " . XDb::xEscape($ORDERBY) . "
+    LIMIT " . XDb::xEscape($page) . ", " . XDb::xEscape($PER_PAGE),
+    $user_id, $latSW, $latNE, $lonSW, $lonNE);
+
 
 echo "<?xml version=\"1.0\" encoding=\"" . $ENCODING . "\"?>\n";
 echo "<markers>\n";
-while ($res = mysql_fetch_array($result)) {
+while ($res = XDb::xFetchArray($result)) {
 
     if (!isset($_REQUEST['print_list']) || onTheList($_SESSION['print_list'], $res['cache_id']) == -1)
         $druk = "druk=\"y\"";
     else
         $druk = "druk=\"n\"";
-    $founds_query = mysql_query("SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = " . sql_escape($res['cache_id']) . " AND (type=1 OR type=8)");
-    $founds = mysql_result($founds_query, 0);
-    $notfounds_query = mysql_query("SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = " . sql_escape($res['cache_id']) . " AND type=2");
-    $notfounds = mysql_result($notfounds_query, 0);
+
+    $founds = XDb::xMultiVariableQueryValue(
+        "SELECT count(*) FROM cache_logs
+        WHERE deleted=0 AND cache_id = :1
+            AND (type=1 OR type=8)",
+        0, $res['cache_id']);
+
+    $notfounds = XDb::xMultiVariableQueryValue(
+        "SELECT count(*) FROM cache_logs
+        WHERE deleted=0 AND cache_id = :1 AND type=2",
+        0, $res['cache_id']);
 
     if ($res['votes'] > 2)
         $score = $res['score'];
@@ -170,15 +193,20 @@ while ($res = mysql_fetch_array($result)) {
     echo "<marker id=\"" . htmlspecialchars($res['cache_id']) . "\" name=\"" . htmlspecialchars($res['name']) . "\" lat=\"" . htmlspecialchars($res['latitude']) . "\" lng=\"" . htmlspecialchars($res['longitude']) . "\" owner=\"" . htmlspecialchars($res['username']) . "\" owner_id=\"" . htmlspecialchars($res['user_id']) . "\" type=\"" . htmlspecialchars(typeLetter($res['type'])) . "\" found=\"" . $res['found'] . "\" old=\"" . htmlspecialchars($res['old']) . "\" score=\"" . htmlspecialchars($score) . "\" topratings=\"" . htmlspecialchars($res['topratings']) . "\"  notfounds=\"" . htmlspecialchars($notfounds) . "\" votes=\"" . htmlspecialchars($res['votes']) . "\" founds=\"" . htmlspecialchars($founds) . "\" status=\"" . htmlspecialchars($res['status']) . "\" wp=\"" . htmlspecialchars($res['wp']) . "\" " . $druk . "/>\n";
 }
 
-$sysres = mysql_query("SELECT count(cache_id) as num FROM caches WHERE (caches.status = 1) AND ((caches.latitude>'" . sql_escape($latSW) . "' AND caches.latitude<'" . sql_escape($latNE) . "') AND (caches.longitude>'" . sql_escape($lonSW) . "' AND caches.longitude<'" . sql_escape($lonNE) . "'));");
+$res2['num'] = XDb::xMultiVariableQueryValue(
+    "SELECT count(cache_id) as num FROM caches
+    WHERE caches.status = 1
+        AND caches.latitude  > :1
+        AND caches.latitude  < :2
+        AND caches.longitude > :3
+        AND caches.longitude < :4 ",
+    0, $latSW, $latNE, $lonSW, $lonNE);
 
-if ($res2 = mysql_fetch_array($sysres)) {
-    $pages = '';
-    for ($i = 0; $i < $res2['num'] / $PER_PAGE; $i++)
-        $pages .= "<a href=\"javascript:load_data(" . $i . ");\">" . ($i + 1) . "</a> ";
-    $pages = htmlspecialchars($pages);
-    echo "<data count=\"" . $res2['num'] . "\" pager=\"" . $pages . "\" />\n";
-}
+$pages = '';
+for ($i = 0; $i < $res2['num'] / $PER_PAGE; $i++)
+    $pages .= "<a href=\"javascript:load_data(" . $i . ");\">" . ($i + 1) . "</a> ";
+$pages = htmlspecialchars($pages);
+echo "<data count=\"" . $res2['num'] . "\" pager=\"" . $pages . "\" />\n";
 
 echo "</markers>";
-?>
+
