@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 /* begin configuration */
 
 $rootpath = '../';
@@ -71,10 +72,11 @@ if (($ziptype != '0') && ($ziptype != 'zip') && ($ziptype != 'gzip') && ($ziptyp
 
 // aufräumen ... 24h nach letztem Abruf bylo 86400
 $cleanerdate = date($sDateformat, time() - 10800);
-$rs = sql("SELECT `id` FROM `xmlsession` WHERE `last_use`<'&1' AND `cleaned`=0", $cleanerdate);
-while ($r = sql_fetch_array($rs)) {
+$rs = XDb::xSql("SELECT `id` FROM `xmlsession` WHERE `last_use`< ? AND `cleaned`=0", $cleanerdate);
+
+while ($r = XDb::xFetchArray($rs)) {
     // xmlsession_data löschen
-    sql('DELETE FROM `xmlsession_data` WHERE `session_id`=&1', $r['id']);
+    XDb::xSql('DELETE FROM `xmlsession_data` WHERE `session_id`= ? ', $r['id']);
 
     // dateien löschen
     $path = $zip_basedir . 'ocxml11/' . $r['id'];
@@ -82,7 +84,7 @@ while ($r = sql_fetch_array($rs)) {
         unlinkrecursiv($path);
 
     // cleaned speichern
-    sql('UPDATE `xmlsession` SET `cleaned`=1 WHERE `id`=&1', $r['id']);
+    XDb::xSql('UPDATE `xmlsession` SET `cleaned`=1 WHERE `id`= ? ', $r['id']);
 }
 
 if (isset($_REQUEST['sessionid'])) {
@@ -149,8 +151,10 @@ else {
     if (isset($_REQUEST['country'])) {
         $country = $_REQUEST['country'];
 
-        if (sqlValue('SELECT COUNT(*) FROM `countries` WHERE `short`=\'' . sql_escape($country) . '\'', 0) != 1)
+        if ( 1 != XDb::xMultiVariableQueryValue(
+                'SELECT COUNT(*) FROM `countries` WHERE `short`= :1', 0, $country) ){
             die('Unknown country');
+        }
 
         $selection['type'] = 1;
         $selection['country'] = $country;
@@ -187,11 +191,12 @@ else {
         $selection['type'] = 3;
         if (isset($_REQUEST['wp'])) {
             $wpl = $_REQUEST['wp'];
-            $selection['cacheid'] = sqlValue("SELECT `cache_id` FROM `caches` WHERE `wp_oc`='$wpl'", 0);
-//           $r =sql_fetch_array($rs);
-//              $selection['cacheid'] = $r['cache_id'];
+            $selection['cacheid'] = XDb::xMultiVariableQueryValue(
+                "SELECT `cache_id` FROM `caches` WHERE `wp_oc`= :1 ", 0, $wpl);
+
         } else if (isset($_REQUEST['uuid'])) {
-            $selection['cacheid'] = sqlValue("SELECT `cache_id` FROM `caches` WHERE `uuid`='" . sql_escape($_REQUEST['uuid']) . "'", 0);
+            $selection['cacheid'] = XDb::xMultiVariableQueryValue(
+                "SELECT `cache_id` FROM `caches` WHERE `uuid`= :1", 0, $_REQUEST['uuid']);
         } else {
             $selection['cacheid'] = $_REQUEST['cacheid'] + 0;
         }
@@ -210,9 +215,11 @@ else {
     $sessionid = startXmlSession($sModifiedSince, $bCache, $bCachedesc, $bCachelog, $bUser, $bPicture, $bRemovedObject, $bPictureFromCachelog, $selection);
 
     if ($usesession == 1) {
-        $rs = sql('SELECT `users`, `caches`, `cachedescs`, `cachelogs`, `pictures`, `removedobjects` FROM `xmlsession` WHERE id=&1', $sessionid);
-        $recordcount = sql_fetch_array($rs);
-        mysql_free_result($rs);
+        $rs = XDb::xSql(
+            'SELECT `users`, `caches`, `cachedescs`, `cachelogs`, `pictures`, `removedobjects`
+            FROM `xmlsession` WHERE id= ?', $sessionid);
+        $recordcount = XDb::xFetchArray($rs);
+        XDb::xFreeResults($rs);
 
         if ($sCharset == 'iso-8859-2')
             header('Content-Type: application/xml; charset=ISO-8859-1');
@@ -247,12 +254,12 @@ else {
     }
     else {
         // return all records
-        sql('CREATE TEMPORARY TABLE `tmpxml_users` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`=&1 AND `object_type`=4', $sessionid);
-        sql('CREATE TEMPORARY TABLE `tmpxml_caches` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`=&1 AND `object_type`=2', $sessionid);
-        sql('CREATE TEMPORARY TABLE `tmpxml_cachedescs` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`=&1 AND `object_type`=3', $sessionid);
-        sql('CREATE TEMPORARY TABLE `tmpxml_cachelogs` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`=&1 AND `object_type`=1', $sessionid);
-        sql('CREATE TEMPORARY TABLE `tmpxml_pictures` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`=&1 AND `object_type`=6', $sessionid);
-        sql('CREATE TEMPORARY TABLE `tmpxml_removedobjects` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`=&1 AND `object_type`=7', $sessionid);
+        XDb::xSql('CREATE TEMPORARY TABLE `tmpxml_users` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`= ? AND `object_type`=4', $sessionid);
+        XDb::xSql('CREATE TEMPORARY TABLE `tmpxml_caches` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`= ? AND `object_type`=2', $sessionid);
+        XDb::xSql('CREATE TEMPORARY TABLE `tmpxml_cachedescs` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`= ? AND `object_type`=3', $sessionid);
+        XDb::xSql('CREATE TEMPORARY TABLE `tmpxml_cachelogs` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`= ? AND `object_type`=1', $sessionid);
+        XDb::xSql('CREATE TEMPORARY TABLE `tmpxml_pictures` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`= ? AND `object_type`=6', $sessionid);
+        XDb::xSql('CREATE TEMPORARY TABLE `tmpxml_removedobjects` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`= ? AND `object_type`=7', $sessionid);
 
         outputXmlFile($sessionid, 0, $bXmlDecl, $bOcXmlTag, $bDocType, $ziptype);
     }
@@ -274,55 +281,48 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
         die('filenr invalid');
 
     /* begin now a few dynamically loaded constants */
-
     $logtypes = array();
-    $rs = sql('SELECT `id`, `pl` FROM log_types');
-    for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-        $r = sql_fetch_array($rs);
+    $rs = XDb::xSql('SELECT `id`, `pl` FROM log_types');
+    while( $r = XDb::xFetchArray($rs) ){
         $logtypes[$r['id']] = $r['pl'];
     }
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
 
     $cachetypes = array();
-    $rs = sql('SELECT `id`, `short`, `pl` FROM cache_type');
-    for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-        $r = sql_fetch_array($rs);
+    $rs = XDb::xSql('SELECT `id`, `short`, `pl` FROM cache_type');
+    while( $r = XDb::xFetchArray($rs) ){
         $cachetypes[$r['id']]['pl'] = $r['pl'];
         $cachetypes[$r['id']]['short'] = $r['short'];
     }
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
 
     $cachestatus = array();
-    $rs = sql('SELECT `id`, `pl` FROM cache_status');
-    for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-        $r = sql_fetch_array($rs);
+    $rs = XDb::xSql('SELECT `id`, `pl` FROM cache_status');
+    while( $r = XDb::xFetchArray($rs) ){
         $cachestatus[$r['id']]['pl'] = $r['pl'];
     }
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
 
     $counties = array();
-    $rs = sql('SELECT `short`, `pl` FROM countries');
-    for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-        $r = sql_fetch_array($rs);
+    $rs = XDb::xSql('SELECT `short`, `pl` FROM countries');
+    while( $r = XDb::xFetchArray($rs) ){
         $counties[$r['short']]['pl'] = $r['pl'];
     }
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
 
     $cachesizes = array();
-    $rs = sql('SELECT `id`, `pl` FROM cache_size');
-    for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-        $r = sql_fetch_array($rs);
+    $rs = XDb::xSql('SELECT `id`, `pl` FROM cache_size');
+    while ( $r = XDb::xFetchArray($rs) ){
         $cachesizes[$r['id']]['pl'] = $r['pl'];
     }
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
 
     $languages = array();
-    $rs = sql('SELECT `short`, `pl` FROM languages');
-    for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-        $r = sql_fetch_array($rs);
+    $rs = XDb::xSql('SELECT `short`, `pl` FROM languages');
+    while( $r = XDb::xFetchArray($rs) ){
         $languages[$r['short']]['pl'] = $r['pl'];
     }
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
 
     $objecttypes['4'] = 'user';
     $objecttypes['2'] = 'cache';
@@ -353,22 +353,31 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
     if ($bDocType == '1')
         fwrite($f, '<!DOCTYPE oc11xml PUBLIC "-//Opencaching Network//DTD OCXml V 1.1//EN" "http://www.opencaching.pl/xml/ocxml11.dtd">' . "\n");
     if ($bOcXmlTag == '1') {
-        $rs = sql('SELECT `date_created`, `modified_since` FROM `xmlsession` WHERE `id`=&1', $sessionid);
-        $r = sql_fetch_array($rs);
+        $rs = XDb::xSql(
+            'SELECT `date_created`, `modified_since` FROM `xmlsession`
+            WHERE `id`= ? LIMIT 1', $sessionid);
+        $r = XDb::xFetchArray($rs);
         fwrite($f, '<oc11xml version="1.1" date="' . date($sDateformat, strtotime($r['date_created'])) . '" since="' . date($sDateformat, strtotime($r['modified_since'])) . '">' . "\n");
-        mysql_free_result($rs);
+        XDb::xFreeResults($rs);
     }
     if ($bAttrlist == '1') {
-        $rs = sql("SELECT `id`, `text_long`, `icon_large`, `icon_no`, `icon_undef` FROM `cache_attrib` WHERE `language`='pl'");
+        $rs = XDb::xSql(
+            "SELECT `id`, `text_long`, `icon_large`, `icon_no`, `icon_undef`
+            FROM `cache_attrib` WHERE `language`='pl'");
         fwrite($f, $t1 . '<attrlist>' . "\n");
-        while ($r = sql_fetch_assoc($rs)) {
+        while ($r = XDb::xFetchArray($rs)) {
             fwrite($f, $t2 . '<attr id="' . $r['id'] . '" icon_large="' . xmlentities($absolute_server_URI . $r['icon_large']) . '" icon_no="' . xmlentities($absolute_server_URI . $r['icon_no']) . '" icon_undef="' . xmlentities($absolute_server_URI . $r['icon_undef']) . '">' . xmlcdata($r['text_long']) . '</attr>' . "\n");
         }
         fwrite($f, $t1 . '</attrlist>' . "\n");
-        sql_free_result($rs);
+        XDb::xFreeResults($rs);
     }
-    $rs = sql('SELECT `user`.`user_id` `id`, `user`.`node` `node`, `user`.`uuid` `uuid`, `user`.`username` `username`, `user`.`pmr_flag` `pmr_flag`, `user`.`date_created` `date_created`, `user`.`last_modified` `last_modified` FROM `tmpxml_users`, `user` WHERE `tmpxml_users`.`id`=`user`.`user_id`');
-    while ($r = sql_fetch_array($rs)) {
+    $rs = XDb::xSql(
+        'SELECT `user`.`user_id` `id`, `user`.`node` `node`, `user`.`uuid` `uuid`, `user`.`username` `username`,
+                `user`.`pmr_flag` `pmr_flag`, `user`.`date_created` `date_created`, `user`.`last_modified` `last_modified`
+        FROM `tmpxml_users`, `user`
+        WHERE `tmpxml_users`.`id`=`user`.`user_id`');
+
+    while ($r = XDb::xFetchArray($rs)) {
         fwrite($f, $t1 . '<user>' . "\n");
 
         fwrite($f, $t2 . '<id id="' . $r['id'] . '" node="' . $r['node'] . '">' . $r['uuid'] . '</id>' . "\n");
@@ -379,9 +388,10 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 
         fwrite($f, $t1 . '</user>' . "\n");
     }
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
 
-    $rs = sql('SELECT `caches`.`cache_id` `id`, `caches`.`uuid` `uuid`, `caches`.`user_id` `user_id`,
+    $rs = XDb::xSql(
+                'SELECT `caches`.`cache_id` `id`, `caches`.`uuid` `uuid`, `caches`.`user_id` `user_id`,
                       `user`.`uuid` `useruuid`, `user`.`username` `username`, `caches`.`name` `name`,
                       `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, `caches`.`type` `type`,
                       `caches`.`country` `country`, `caches`.`size` `size`, `caches`.`desc_languages` `desclanguages`,
@@ -389,10 +399,11 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
                       `caches`.`search_time` `search_time`, `caches`.`wp_gc` `wp_gc`, `caches`.`wp_nc` `wp_nc`,
                       `caches`.`wp_oc` `wp_oc`, `caches`.`date_hidden` `date_hidden`, `caches`.`date_created` `date_created`,
                       `caches`.`last_modified` `last_modified`, `caches`.`status` `status`, `caches`.`node` `node`
-                 FROM `tmpxml_caches`, `caches`, `user` WHERE `tmpxml_caches`.`id`=`caches`.`cache_id` AND `caches`.`user_id`=`user`.`user_id`');
-    while ($r = sql_fetch_array($rs)) {
+                FROM `tmpxml_caches`, `caches`, `user`
+                WHERE `tmpxml_caches`.`id`=`caches`.`cache_id`
+                    AND `caches`.`user_id`=`user`.`user_id`');
+    while ($r = XDb::xFetchArray($rs)) {
         fwrite($f, $t1 . '<cache>' . "\n");
-
         fwrite($f, $t2 . '<id id="' . $r['id'] . '" node="' . $r['node'] . '">' . $r['uuid'] . '</id>' . "\n");
         fwrite($f, $t2 . '<userid id="' . $r['user_id'] . '" uuid="' . $r['useruuid'] . '">' . xmlcdata($r['username']) . '</userid>' . "\n");
         fwrite($f, $t2 . '<name>' . xmlcdata($r['name']) . '</name>' . "\n");
@@ -411,17 +422,29 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
         fwrite($f, $t2 . '<datecreated>' . date($sDateformat, strtotime($r['date_created'])) . '</datecreated>' . "\n");
         fwrite($f, $t2 . '<lastmodified>' . date($sDateformat, strtotime($r['last_modified'])) . '</lastmodified>' . "\n");
 
-        $rsAttributes = sql("SELECT `cache_attrib`.`id`, `cache_attrib`.`text_long` FROM `caches_attributes` INNER JOIN `cache_attrib` ON `caches_attributes`.`attrib_id`=`cache_attrib`.`id` WHERE `language`='pl' AND `caches_attributes`.`cache_id`='&1'", $r['id']);
+        $rsAttributes = XDb::xSql(
+            "SELECT `cache_attrib`.`id`, `cache_attrib`.`text_long`
+            FROM `caches_attributes`
+                INNER JOIN `cache_attrib` ON `caches_attributes`.`attrib_id`=`cache_attrib`.`id`
+            WHERE `language`='pl' AND `caches_attributes`.`cache_id`= ? ", $r['id']);
+
         fwrite($f, $t2 . '<attributes>' . "\n");
-        while ($rAttribute = sql_fetch_assoc($rsAttributes)) {
+        while ($rAttribute = XDb::xFetchArray($rsAttributes)) {
             fwrite($f, $t3 . '<attribute id="' . ($rAttribute['id'] + 0) . '">' . xmlcdata($rAttribute['text_long']) . '</attribute>' . "\n");
         }
         fwrite($f, $t2 . '</attributes>' . "\n");
-        sql_free_result($rsAttributes);
+        XDb::xFreeResults($rsAttributes);
 
-        $rswaypoints = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, waypoint_type.pl wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&1' AND (`status`='1' OR `status`='2') ORDER BY `stage`,`wp_id`", $r['id']);
+        $rswaypoints = XDb::xSql(
+            "SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, waypoint_type.pl wp_type, waypoint_type.icon wp_icon
+            FROM `waypoints`
+                INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id)
+            WHERE `cache_id`= ?
+                AND (`status`='1' OR `status`='2')
+            ORDER BY `stage`,`wp_id`", $r['id']);
+
         fwrite($f, $t2 . '<wpts>' . "\n");
-        while ($rwpt = sql_fetch_assoc($rswaypoints)) {
+        while ($rwpt = XDb::xFetchArray($rswaypoints)) {
             if ($rwpt['status'] == 1) {
                 fwrite($f, $t3 . '<wpt lat="' . sprintf('%01.5f', $rwpt['latitude']) . '" lon="' . sprintf('%01.5f', $rwpt['longitude']) . '">' . "\n");
             } else {
@@ -435,21 +458,21 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
             fwrite($f, $t3 . '</wpt>' . "\n");
         }
         fwrite($f, $t2 . '</wpts>' . "\n");
-        sql_free_result($rswaypoints);
-
-
+        XDb::xFreeResults($rswaypoints);
 
         fwrite($f, $t1 . '</cache>' . "\n");
     }
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
 
-    $rs = sql('SELECT `cache_desc`.`id` `id`, `cache_desc`.`uuid` `uuid`, `cache_desc`.`cache_id` `cache_id`,
+    $rs = XDb::xSql(
+             'SELECT `cache_desc`.`id` `id`, `cache_desc`.`uuid` `uuid`, `cache_desc`.`cache_id` `cache_id`,
                       `cache_desc`.`language` `language`, `cache_desc`.`short_desc` `short_desc`,
                       `cache_desc`.`desc` `desc`, `cache_desc`.`desc_html` `desc_html`, `cache_desc`.`hint` `hint`,
                       `cache_desc`.`last_modified` `last_modified`, `caches`.`uuid` `cacheuuid`, `cache_desc`.`node` `node`
-                 FROM `tmpxml_cachedescs`, `cache_desc`, `caches` WHERE `tmpxml_cachedescs`.`id`=`cache_desc`.`id` AND
-                 `caches`.`cache_id`=`cache_desc`.`cache_id`');
-    while ($r = sql_fetch_array($rs)) {
+             FROM `tmpxml_cachedescs`, `cache_desc`, `caches`
+             WHERE `tmpxml_cachedescs`.`id`=`cache_desc`.`id` AND `caches`.`cache_id`=`cache_desc`.`cache_id`');
+
+    while ($r = XDb::xFetchArray($rs)) {
         fwrite($f, $t1 . '<cachedesc>' . "\n");
 
         fwrite($f, $t2 . '<id id="' . $r['id'] . '" node="' . $r['node'] . '">' . $r['uuid'] . '</id>' . "\n");
@@ -473,20 +496,23 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 
         fwrite($f, $t1 . '</cachedesc>' . "\n");
     }
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
 
-    $rs = sql('SELECT `cache_logs`.`id` `id`, `cache_logs`.`cache_id` `cache_id`, `cache_logs`.`user_id` `user_id`,
-                      `cache_logs`.`type` `type`, `cache_logs`.`date` `date`, `cache_logs`.`text` `text`,
-                      `cache_logs`.`date_created` `date_created`, `cache_logs`.`last_modified` `last_modified`,
-                      `cache_logs`.`uuid` `uuid`, `user`.`username` `username`, `caches`.`uuid` `cacheuuid`,
-                      `user`.`uuid` `useruuid`, `cache_logs`.`node` `node`, IF(NOT ISNULL(`cache_rating`.`cache_id`) AND `cache_logs`.`type`=1, 1, 0) AS `recommended`
-                 FROM `cache_logs`
-           INNER JOIN `tmpxml_cachelogs` ON `cache_logs`.`id`=`tmpxml_cachelogs`.`id`
-           INNER JOIN `user` ON `cache_logs`.`user_id`=`user`.`user_id`
-           INNER JOIN `caches` ON `caches`.`cache_id`=`cache_logs`.`cache_id`
-            LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id` AND   `cache_logs`.`deleted`=0
+    $rs = XDb::xSql(
+        'SELECT `cache_logs`.`id` `id`, `cache_logs`.`cache_id` `cache_id`, `cache_logs`.`user_id` `user_id`,
+                `cache_logs`.`type` `type`, `cache_logs`.`date` `date`, `cache_logs`.`text` `text`,
+                `cache_logs`.`date_created` `date_created`, `cache_logs`.`last_modified` `last_modified`,
+                `cache_logs`.`uuid` `uuid`, `user`.`username` `username`, `caches`.`uuid` `cacheuuid`,
+                `user`.`uuid` `useruuid`, `cache_logs`.`node` `node`,
+                IF(NOT ISNULL(`cache_rating`.`cache_id`) AND `cache_logs`.`type`=1, 1, 0) AS `recommended`
+        FROM `cache_logs`
+            INNER JOIN `tmpxml_cachelogs` ON `cache_logs`.`id`=`tmpxml_cachelogs`.`id`
+            INNER JOIN `user` ON `cache_logs`.`user_id`=`user`.`user_id`
+            INNER JOIN `caches` ON `caches`.`cache_id`=`cache_logs`.`cache_id`
+            LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id`
+                AND `cache_logs`.`user_id`=`cache_rating`.`user_id` AND `cache_logs`.`deleted`=0
                     ');
-    while ($r = sql_fetch_array($rs)) {
+    while ($r = XDb::xFetchArray($rs)) {
         $r['text'] = mb_ereg_replace('<br />', '', $r['text']);
         $r['text'] = preg_replace('/&amp;#(38|60|62);/', '&#$1;', $r['text']);  // decode OKAPI logs
         $r['text'] = html_entity_decode($r['text'], ENT_COMPAT, 'UTF-8');
@@ -502,15 +528,18 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
         fwrite($f, $t2 . '<lastmodified>' . date($sDateformat, strtotime($r['last_modified'])) . '</lastmodified>' . "\n");
         fwrite($f, $t1 . '</cachelog>' . "\n");
     }
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
 
-    $rs = sql('SELECT `pictures`.`id` `id`, `pictures`.`url` `url`, `pictures`.`title` `title`,
-                      `pictures`.`object_id` `object_id`, `pictures`.`object_type` `object_type`,
-                      `pictures`.`date_created` `date_created`, `pictures`.`uuid` `uuid`,
-                      `pictures`.`last_modified` `last_modified`, `pictures`.`display` `display`,
-                      `pictures`.`spoiler` `spoiler`, `pictures`.`node` `node`
-                 FROM `tmpxml_pictures`, `pictures` WHERE `tmpxml_pictures`.`id`=`pictures`.id');
-    while ($r = sql_fetch_array($rs)) {
+    $rs = XDb::xSql(
+        'SELECT `pictures`.`id` `id`, `pictures`.`url` `url`, `pictures`.`title` `title`,
+                `pictures`.`object_id` `object_id`, `pictures`.`object_type` `object_type`,
+                `pictures`.`date_created` `date_created`, `pictures`.`uuid` `uuid`,
+                `pictures`.`last_modified` `last_modified`, `pictures`.`display` `display`,
+                `pictures`.`spoiler` `spoiler`, `pictures`.`node` `node`
+        FROM `tmpxml_pictures`, `pictures`
+        WHERE `tmpxml_pictures`.`id`=`pictures`.id');
+
+    while ($r = XDb::xFetchArray($rs)) {
         fwrite($f, $t1 . '<picture>' . "\n");
         fwrite($f, $t2 . '<id id="' . $r['id'] . '" node="' . $r['node'] . '">' . $r['uuid'] . '</id>' . "\n");
         fwrite($f, $t2 . '<url>' . xmlcdata($r['url']) . '</url>' . "\n");
@@ -521,19 +550,22 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
         fwrite($f, $t2 . '<lastmodified>' . date($sDateformat, strtotime($r['last_modified'])) . '</lastmodified>' . "\n");
         fwrite($f, $t1 . '</picture>' . "\n");
     }
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
 
-    $rs = sql('SELECT `removed_objects`.`id` `id`, `removed_objects`.`localid` `localid`, `removed_objects`.`uuid` `uuid`,
-                      `removed_objects`.`type` `type`, `removed_objects`.`removed_date` `removed_date`, `removed_objects`.`node` `node`
-                 FROM `tmpxml_removedobjects`, `removed_objects` WHERE `removed_objects`.`id`=`tmpxml_removedobjects`.`id`');
-    while ($r = sql_fetch_array($rs)) {
+    $rs = XDb::xSql(
+        'SELECT `removed_objects`.`id` `id`, `removed_objects`.`localid` `localid`, `removed_objects`.`uuid` `uuid`,
+                `removed_objects`.`type` `type`, `removed_objects`.`removed_date` `removed_date`, `removed_objects`.`node` `node`
+        FROM `tmpxml_removedobjects`, `removed_objects`
+        WHERE `removed_objects`.`id`=`tmpxml_removedobjects`.`id`');
+
+    while ($r = XDb::xFetchArray($rs)) {
         fwrite($f, $t1 . '<removedobject>' . "\n");
         fwrite($f, $t2 . '<id id="' . $r['id'] . '" node="' . $r['node'] . '" />' . "\n");
         fwrite($f, $t2 . '<object id="' . $r['localid'] . '" type="' . $r['type'] . '" typename="' . xmlentities($objecttypes[$r['type']]) . '">' . $r['uuid'] . '</object>' . "\n");
         fwrite($f, $t2 . '<removeddate>' . date($sDateformat, strtotime($r['removed_date'])) . '</removeddate>' . "\n");
         fwrite($f, $t1 . '</removedobject>' . "\n");
     }
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
 
     if ($bOcXmlTag == '1')
         fwrite($f, '</oc11xml>' . "\n");
@@ -573,8 +605,10 @@ function startXmlSession($sModifiedSince, $bCache, $bCachedesc, $bCachelog, $bUs
     global $rootpath;
 
     // session anlegen
-    sql('INSERT INTO `xmlsession` (`last_use`, `modified_since`, `date_created`) VALUES (NOW(), \'&1\', NOW())', date('Y-m-d H:i:s', strtotime($sModifiedSince)));
-    $sessionid = mysql_insert_id();
+    XDb::xSql(
+        'INSERT INTO `xmlsession` (`last_use`, `modified_since`, `date_created`)
+        VALUES (NOW(), ?, NOW())', date('Y-m-d H:i:s', strtotime($sModifiedSince)));
+    $sessionid = XDb::xLastInsertId();
 
     $recordcount['caches'] = 0;
     $recordcount['cachedescs'] = 0;
@@ -586,144 +620,210 @@ function startXmlSession($sModifiedSince, $bCache, $bCachedesc, $bCachelog, $bUs
     if ($selection['type'] == 0) {
         // ohne selection
         if ($bCache == 1) {
-            sql("INSERT INTO xmlsession_data (`session_id`, `object_type`, `object_id`)
-                 SELECT &1, 2, `cache_id` FROM `caches` WHERE `last_modified` >= '&2' AND `status`!=5 AND `status`!=6 AND `status`!=4", $sessionid, $sModifiedSince);
-            $recordcount['caches'] = mysql_affected_rows();
+            $stmt = XDb::xSql(
+                "INSERT INTO xmlsession_data (`session_id`, `object_type`, `object_id`)
+                SELECT $sessionid, 2, `cache_id` FROM `caches`
+                WHERE `last_modified` >= ? AND `status`!=5 AND `status`!=6 AND `status`!=4",
+                $sModifiedSince);
+
+            $recordcount['caches'] = XDb::xNumRows($stmt);
         }
 
         if ($bCachedesc == 1) {
-            sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
-                 SELECT &1, 3, `cache_desc`.`id` FROM `cache_desc` INNER JOIN `caches` ON `cache_desc`.`cache_id`=`caches`.`cache_id` WHERE `cache_desc`.`last_modified` >= '&2' AND `caches`.`status`!=5 AND `status`!=6 AND `status`!=4", $sessionid, $sModifiedSince);
-            $recordcount['cachedescs'] = mysql_affected_rows();
+            $stmt = XDb::xSql(
+                "INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
+                 SELECT $sessionid, 3, `cache_desc`.`id`
+                 FROM `cache_desc` INNER JOIN `caches` ON `cache_desc`.`cache_id`=`caches`.`cache_id`
+                 WHERE `cache_desc`.`last_modified` >= ? AND `caches`.`status`!=5
+                    AND `status`!=6 AND `status`!=4",
+                 $sModifiedSince);
+
+            $recordcount['cachedescs'] = XDb::xNumRows($stmt);
         }
 
         if ($bCachelog == 1) {
-            sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
-                 SELECT &1, 1, `cache_logs`.`id` FROM `cache_logs` INNER JOIN `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` WHERE `cache_logs`.`last_modified` >= '&2' AND `caches`.`status`!=5 AND `status`!=6 AND `status`!=4 AND `cache_logs`.`deleted`=0", $sessionid, $sModifiedSince);
-            $recordcount['cachelogs'] = mysql_affected_rows();
+            $stmt = XDb::xSql(
+                "INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
+                 SELECT $sessionid, 1, `cache_logs`.`id`
+                 FROM `cache_logs` INNER JOIN `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id`
+                 WHERE `cache_logs`.`last_modified` >= ? AND `caches`.`status`!=5
+                    AND `status`!=6 AND `status`!=4 AND `cache_logs`.`deleted`=0",
+                 $sModifiedSince);
+
+            $recordcount['cachelogs'] = XDb::xNumRows($stmt);
         }
 
         if ($bUser == 1) {
-            sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
-                 SELECT &1, 4, `user_id` FROM `user` WHERE `last_modified` >= '&2'", $sessionid, $sModifiedSince);
-            $recordcount['users'] = mysql_affected_rows();
+            $stmt = XDb::xSql(
+                "INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
+                 SELECT $sessionid, 4, `user_id` FROM `user` WHERE `last_modified` >= ? ",
+                $sModifiedSince);
+
+            $recordcount['users'] = XDb::xNumRows($stmt);
         }
 
         if ($bPicture == 1) {
-            sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
-                 SELECT &1, 6, `pictures`.`id` FROM `pictures` INNER JOIN
-                                                    `caches` ON `pictures`.`object_type`=2 AND
-                                                                `pictures`.`object_id`=`caches`.`cache_id`
-                                              WHERE `pictures`.`last_modified` >= '&2' AND
-                                                    `caches`.`status`!=5 AND `status`!=6 AND `status`!=4
+            $stmt = XDb::xSql(
+                "INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
+                 SELECT $sessionid, 6, `pictures`.`id`
+                 FROM `pictures`
+                    INNER JOIN `caches` ON `pictures`.`object_type`=2
+                        AND `pictures`.`object_id`=`caches`.`cache_id`
+                 WHERE `pictures`.`last_modified` >= ?
+                    AND `caches`.`status`!=5 AND `status`!=6 AND `status`!=4
                  UNION DISTINCT
-                 SELECT &1, 6, `pictures`.`id` FROM `pictures` INNER JOIN
-                                                    `cache_logs` ON `pictures`.`object_type`=1 AND
-                                                                    `pictures`.`object_id`=`cache_logs`.`id` INNER JOIN
-                                                    `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id`
-                                              WHERE `pictures`.`last_modified` >= '&2' AND
-                                                    `caches`.`status`!=5 AND `status`!=6 AND `caches`.`status`!=4 AND `cache_logs`.`deleted`=0", $sessionid, $sModifiedSince);
-            $recordcount['pictures'] = mysql_affected_rows();
+                 SELECT $sessionid, 6, `pictures`.`id`
+                 FROM `pictures`
+                    INNER JOIN `cache_logs` ON `pictures`.`object_type`=1
+                        AND `pictures`.`object_id`=`cache_logs`.`id`
+                    INNER JOIN `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id`
+                 WHERE `pictures`.`last_modified` >= ?
+                    AND `caches`.`status`!=5 AND `status`!=6 AND `caches`.`status`!=4
+                    AND `cache_logs`.`deleted`=0",
+                $sModifiedSince, $sModifiedSince);
+
+            $recordcount['pictures'] = XDb::xNumRows($stmt);
         }
 
         if ($bRemovedObject == 1) {
-            sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
-                 SELECT &1, 7, `id` FROM `removed_objects` WHERE `removed_date` >= '&2'", $sessionid, $sModifiedSince);
-            $recordcount['removedobjects'] = mysql_affected_rows();
+            $stmt = XDb::xSql(
+                "INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
+                 SELECT $sessionid, 7, `id` FROM `removed_objects`
+                 WHERE `removed_date` >= ? ", $sModifiedSince);
+
+            $recordcount['removedobjects'] = XDb::xNumRows($stmt);
         }
     } else {
-        $sqlWhere = '';
-        $sqlHaving = '';
+        $qWhere = '';
+        $qHaving = '';
 
         if ($selection['type'] == 1) {
-            sql("CREATE TEMPORARY TABLE `tmpxmlSesssionCaches` (`cache_id` int(11), PRIMARY KEY (`cache_id`)) ENGINE=MEMORY
-                 SELECT DISTINCT `cache_countries`.`cache_id` FROM `caches`, `cache_countries` WHERE `caches`.`cache_id`=`cache_countries`.`cache_id` AND `cache_countries`.`country`='&1' AND `caches`.`status`!=5 AND `status`!=6 AND `status`!=4", $selection['country']);
+            XDb::xSql(
+                "CREATE TEMPORARY TABLE `tmpxmlSesssionCaches` (`cache_id` int(11), PRIMARY KEY (`cache_id`)) ENGINE=MEMORY
+                 SELECT DISTINCT `cache_countries`.`cache_id`
+                 FROM `caches`, `cache_countries`
+                 WHERE `caches`.`cache_id`=`cache_countries`.`cache_id` AND `cache_countries`.`country`= ?
+                    AND `caches`.`status`!=5 AND `status`!=6 AND `status`!=4",
+                $selection['country']);
+
         } else if ($selection['type'] == 2) {
             require_once($rootpath . 'lib/search.inc.php');
 
-            $sql = 'CREATE TEMPORARY TABLE `tmpxmlSesssionCaches` (`cache_id` int(11), `distance` double, KEY (`cache_id`)) ENGINE=MEMORY ';
-            $sql .= 'SELECT `cache_coordinates`.`cache_id`, ';
-            $sql .= getSqlDistanceFormula($selection['lon'], $selection['lat'], $selection['distance'], 'cache_coordinates') . ' `distance` ';
-            $sql .= 'FROM `caches`, `cache_coordinates` WHERE ';
-            $sql .= '`cache_coordinates`.`cache_id`=`caches`.`cache_id`';
-            $sql .= ' AND `caches`.`status`!=5 AND `status`!=6 AND `status`!=4';
-            $sql .= ' AND `cache_coordinates`.`latitude` > ' . getMinLat($selection['lon'], $selection['lat'], $selection['distance']);
-            $sql .= ' AND `cache_coordinates`.`latitude` < ' . getMaxLat($selection['lon'], $selection['lat'], $selection['distance']);
-            $sql .= ' AND `cache_coordinates`.`longitude` >' . getMinLon($selection['lon'], $selection['lat'], $selection['distance']);
-            $sql .= ' AND `cache_coordinates`.`longitude` < ' . getMaxLon($selection['lon'], $selection['lat'], $selection['distance']);
-            $sql .= ' HAVING `distance` < ' . ($selection['distance'] + 0);
+            XDb::xSql(
+                'CREATE TEMPORARY TABLE `tmpxmlSesssionCaches` (`cache_id` int(11), `distance` double, KEY (`cache_id`)) ENGINE=MEMORY
+                 SELECT `cache_coordinates`.`cache_id`,'.
+                        getSqlDistanceFormula($selection['lon'], $selection['lat'], $selection['distance'], 'cache_coordinates') . ' `distance`
+                 FROM `caches`, `cache_coordinates`
+                 WHERE `cache_coordinates`.`cache_id`=`caches`.`cache_id` AND `caches`.`status`!=5
+                     AND `status`!=6 AND `status`!=4
+                     AND `cache_coordinates`.`latitude` > ' . getMinLat($selection['lon'], $selection['lat'], $selection['distance']) . '
+                     AND `cache_coordinates`.`latitude` < ' . getMaxLat($selection['lon'], $selection['lat'], $selection['distance']) . '
+                     AND `cache_coordinates`.`longitude` >' . getMinLon($selection['lon'], $selection['lat'], $selection['distance']) . '
+                     AND `cache_coordinates`.`longitude` < ' . getMaxLon($selection['lon'], $selection['lat'], $selection['distance']) . '
+                 HAVING `distance` < ' . ($selection['distance'] + 0) );
 
-            sql($sql);
         } else if ($selection['type'] == 3) {
-            sql("CREATE TEMPORARY TABLE `tmpxmlSesssionCaches` (`cache_id` int(11), PRIMARY KEY (`cache_id`)) ENGINE=MEMORY
-                 SELECT '&1' AS cache_id", $selection['cacheid'] + 0);
+            XDb::xSql(
+                "CREATE TEMPORARY TABLE `tmpxmlSesssionCaches` (`cache_id` int(11), PRIMARY KEY (`cache_id`)) ENGINE=MEMORY
+                 SELECT ". $selection['cacheid'] ." AS cache_id" );
         }
 
         if ($bCache == 1) {
-            sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
-                 SELECT DISTINCT &1, 2, `tmpxmlSesssionCaches`.`cache_id` FROM `tmpxmlSesssionCaches`, `caches`
-                 WHERE `tmpxmlSesssionCaches`.`cache_id`=`caches`.`cache_id` AND `caches`.`last_modified` >= '&2'", $sessionid, $sModifiedSince);
-            $recordcount['caches'] = mysql_affected_rows();
+            $stmt = XDb::xSql(
+                "INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
+                 SELECT DISTINCT $sessionid, 2, `tmpxmlSesssionCaches`.`cache_id`
+                 FROM `tmpxmlSesssionCaches`, `caches`
+                 WHERE `tmpxmlSesssionCaches`.`cache_id`=`caches`.`cache_id`
+                     AND `caches`.`last_modified` >= ? ", $sModifiedSince);
+
+            $recordcount['caches'] = XDb::xNumRows($stmt);
         }
 
         if ($bCachedesc == 1) {
-            sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
-                 SELECT DISTINCT &1, 3, `cache_desc`.`id` FROM `cache_desc`, `tmpxmlSesssionCaches`
-                 WHERE `cache_desc`.`cache_id`=`tmpxmlSesssionCaches`.`cache_id` AND `cache_desc`.`last_modified` >= '&2'", $sessionid, $sModifiedSince);
-            $recordcount['cachedescs'] = mysql_affected_rows();
+            $stmt = XDb::xSql(
+                "INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
+                 SELECT DISTINCT $sessionid, 3, `cache_desc`.`id`
+                 FROM `cache_desc`, `tmpxmlSesssionCaches`
+                 WHERE `cache_desc`.`cache_id`=`tmpxmlSesssionCaches`.`cache_id`
+                     AND `cache_desc`.`last_modified` >= ? ", $sModifiedSince);
+
+            $recordcount['cachedescs'] = XDb::xNumRows($stmt);
         }
 
         if ($bCachelog == 1) {
-            sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
-                 SELECT DISTINCT &1, 1, `cache_logs`.`id` FROM `cache_logs`, `tmpxmlSesssionCaches`
-                 WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`cache_id`=`tmpxmlSesssionCaches`.`cache_id` AND `cache_logs`.`last_modified` >= '&2'", $sessionid, $sModifiedSince);
-            $recordcount['cachelogs'] = mysql_affected_rows();
+            $stmt = XDb::xSql(
+                "INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
+                 SELECT DISTINCT $sessionid, 1, `cache_logs`.`id`
+                 FROM `cache_logs`, `tmpxmlSesssionCaches`
+                 WHERE `cache_logs`.`deleted`=0
+                     AND `cache_logs`.`cache_id`=`tmpxmlSesssionCaches`.`cache_id`
+                     AND `cache_logs`.`last_modified` >= ? ", $sModifiedSince);
+
+            $recordcount['cachelogs'] = XDb::xNumRows($stmt);
         }
 
         if ($bPicture == 1) {
             // cachebilder
-            sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
-                 SELECT DISTINCT &1, 6, `pictures`.`id` FROM `pictures`, `tmpxmlSesssionCaches`
-                 WHERE `pictures`.`object_id`=`tmpxmlSesssionCaches`.`cache_id` AND `pictures`.`object_type`=2 AND
-                       `pictures`.`last_modified` >= '&2'", $sessionid, $sModifiedSince);
-            $recordcount['pictures'] = mysql_affected_rows();
+            $stmt = XDb::xSql(
+                "INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
+                 SELECT DISTINCT $sessionid, 6, `pictures`.`id`
+                 FROM `pictures`, `tmpxmlSesssionCaches`
+                 WHERE `pictures`.`object_id`=`tmpxmlSesssionCaches`.`cache_id`
+                     AND `pictures`.`object_type`=2
+                     AND `pictures`.`last_modified` >= ? ", $sModifiedSince);
+
+            $recordcount['pictures'] = XDb::xNumRows($stmt);
 
             // bilder von logs
             if ($bPictureFromCachelog == 1) {
-                sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
-                     SELECT DISTINCT &1, 6, `pictures`.id FROM `pictures` , `cache_logs`, `tmpxmlSesssionCaches`
-                     WHERE `tmpxmlSesssionCaches`.`cache_id`=`cache_logs`.`cache_id` AND `cache_logs`.`deleted`=0 AND
-                           `pictures`.`object_type`=1 AND `pictures`.`object_id`=`cache_logs`.`id` AND
-                           `pictures`.`last_modified` >= '&2'", $sessionid, $sModifiedSince);
+                $stmt = XDb::xSql(
+                    "INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
+                     SELECT DISTINCT $sessionid, 6, `pictures`.id
+                     FROM `pictures` , `cache_logs`, `tmpxmlSesssionCaches`
+                     WHERE `tmpxmlSesssionCaches`.`cache_id`=`cache_logs`.`cache_id`
+                         AND `cache_logs`.`deleted`=0
+                         AND `pictures`.`object_type`=1
+                         AND `pictures`.`object_id`=`cache_logs`.`id`
+                         AND `pictures`.`last_modified` >= ? ", $sModifiedSince);
 
-                $recordcount['pictures'] += mysql_affected_rows();
+                $recordcount['pictures'] += XDb::xNumRows($stmt);
             }
         }
 
         if ($bRemovedObject == 1) {
-            sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
-                 SELECT DISTINCT &1, 7, `id` FROM `removed_objects` WHERE `removed_date` >= '&2'", $sessionid, $sModifiedSince);
-            $recordcount['removedobjects'] = mysql_affected_rows();
+            $stmt = XDb::xSql(
+                "INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
+                 SELECT DISTINCT $sessionid, 7, `id`
+                 FROM `removed_objects`
+                 WHERE `removed_date` >= ? ", $sModifiedSince);
+
+            $recordcount['removedobjects'] = XDb::xNumRows($stmt);
         }
     }
 
-    sql('UPDATE `xmlsession` SET `caches`=&1, `cachedescs`=&2, `cachelogs`=&3, `users`=&4, `pictures`=&5, `removedobjects`=&6 WHERE `id`=&7 LIMIT 1', $recordcount['caches'], $recordcount['cachedescs'], $recordcount['cachelogs'], $recordcount['users'], $recordcount['pictures'], $recordcount['removedobjects'], $sessionid);
+    XDb::xSql(
+        'UPDATE `xmlsession` SET `caches`= ?, `cachedescs`= ?, `cachelogs`= ?, `users`= ?, `pictures`= ?, `removedobjects`= ?
+        WHERE `id`= ? LIMIT 1',
+        $recordcount['caches'], $recordcount['cachedescs'], $recordcount['cachelogs'], $recordcount['users'],
+        $recordcount['pictures'], $recordcount['removedobjects'], $sessionid);
 
     return $sessionid;
 }
 
 function outputXmlSessionFile($sessionid, $filenr, $bOcXmlTag, $bDocType, $bXmlDecl, $ziptype)
 {
-    sql('UPDATE xmlsession SET last_use=NOW() WHERE id=&1', $sessionid);
+    XDb::xSql('UPDATE xmlsession SET last_use=NOW() WHERE id= ? ', $sessionid);
 
     /* begin calculate which records to transfer */
 
-    $rs = sql('SELECT `users`, `caches`, `cachedescs`, `cachelogs`, `pictures`, `removedobjects` FROM `xmlsession` WHERE `id`=&1 AND `cleaned`=0', $sessionid + 0);
-    if (mysql_num_rows($rs) == 0)
+    $rs = XDb::xSql(
+        'SELECT `users`, `caches`, `cachedescs`, `cachelogs`, `pictures`, `removedobjects`
+        FROM `xmlsession` WHERE `id`= ? AND `cleaned`=0', $sessionid);
+
+    if ( ! $rRecordsCount = XDb::xFetchArray($rs) )
         die('invalid sessionid');
 
-    $rRecordsCount = sql_fetch_assoc($rs);
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
 
     $startat = ($filenr - 1) * 500;
     if (($startat < 0) || ($startat > $rRecordsCount['users'] + $rRecordsCount['caches'] + $rRecordsCount['cachedescs'] + $rRecordsCount['cachelogs'] + $rRecordsCount['pictures'] + $rRecordsCount['removedobjects'] - 1))
@@ -742,9 +842,6 @@ function outputXmlSessionFile($sessionid, $filenr, $bOcXmlTag, $bDocType, $bXmlD
     else
         $endat = $recordnr[6] - $startat;
 
-//  echo $startat . ' ' . $endat . '<br /><br />';
-//  echo '<table>';
-//  echo '<tr><td>sql-start</td><td>sql-count</td><td>count</td><td>begin</td><td>end</td></tr>';
     for ($i = 0; $i < 6; $i++) {
         if (($startat >= $recordnr[$i]) && ($startat + 500 < $recordnr[$i + 1])) {
             if ($recordnr[$i + 1] - $startat > 500)
@@ -770,30 +867,41 @@ function outputXmlSessionFile($sessionid, $filenr, $bOcXmlTag, $bDocType, $bXmlD
         }
         else if (($startat < $recordnr[$i]) && ($startat + 500 >= $recordnr[$i + 1])) {
             $limits[$i] = array('start' => 0, 'count' => $recordnr[$i + 1] - $recordnr[$i]);
-            //$limits[$i] = array('start' => 'd', 'count' => 'd');
         } else
             $limits[$i] = array('start' => '0', 'count' => '0');
 
-//      echo '<tr><td>' . $limits[$i]['start'] . '</td><td>' . $limits[$i]['count'] . '</td><td>' . ($recordnr[$i + 1] - $recordnr[$i]) . '</td><td>' . $recordnr[$i] . '</td><td>' . $recordnr[$i + 1] . '</td></tr>';
     }
-//  echo '</table>';
-//  echo '<a href="ocxml11.php?sessionid=' . $sessionid . '&file=' . ($filenr - 1) . '">Zurück</a><br />';
-//  echo '<a href="ocxml11.php?sessionid=' . $sessionid . '&file=' . ($filenr + 1) . '">Vor</a>';
-
     /* end calculate which records to transfer */
 
-    sql('CREATE TEMPORARY TABLE `tmpxml_users` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`=&1 AND `object_type`=4
-         LIMIT &2, &3', $sessionid, $limits[0]['start'], $limits[0]['count']);
-    sql('CREATE TEMPORARY TABLE `tmpxml_caches` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`=&1 AND `object_type`=2
-         LIMIT &2, &3', $sessionid, $limits[1]['start'], $limits[1]['count']);
-    sql('CREATE TEMPORARY TABLE `tmpxml_cachedescs` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`=&1 AND `object_type`=3
-         LIMIT &2, &3', $sessionid, $limits[2]['start'], $limits[2]['count']);
-    sql('CREATE TEMPORARY TABLE `tmpxml_cachelogs` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`=&1 AND `object_type`=1
-         LIMIT &2, &3', $sessionid, $limits[3]['start'], $limits[3]['count']);
-    sql('CREATE TEMPORARY TABLE `tmpxml_pictures` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`=&1 AND `object_type`=6
-         LIMIT &2, &3', $sessionid, $limits[4]['start'], $limits[4]['count']);
-    sql('CREATE TEMPORARY TABLE `tmpxml_removedobjects` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`=&1 AND `object_type`=7
-         LIMIT &2, &3', $sessionid, $limits[5]['start'], $limits[5]['count']);
+    XDb::xSql(
+        'CREATE TEMPORARY TABLE `tmpxml_users` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id`
+        FROM `xmlsession_data` WHERE `session_id`= ? AND `object_type`=4 LIMIT ' . $limits[0]['start'] . ',' . $limits[0]['count'],
+        $sessionid);
+
+    XDb::xSql(
+        'CREATE TEMPORARY TABLE `tmpxml_caches` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id`
+        FROM `xmlsession_data` WHERE `session_id`= ? AND `object_type`=2 LIMIT ' . $limits[1]['start'] . ',' . $limits[1]['count'],
+        $sessionid);
+
+    XDb::xSql(
+        'CREATE TEMPORARY TABLE `tmpxml_cachedescs` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id`
+        FROM `xmlsession_data` WHERE `session_id`= ? AND `object_type`=3 LIMIT ' . $limits[2]['start'] . ',' . $limits[2]['count'],
+        $sessionid);
+
+    XDb::xSql(
+        'CREATE TEMPORARY TABLE `tmpxml_cachelogs` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id`
+        FROM `xmlsession_data` WHERE `session_id`= ? AND `object_type`=1 LIMIT ' . $limits[3]['start'] . ',' . $limits[3]['count'],
+        $sessionid );
+
+    XDb::xSql(
+        'CREATE TEMPORARY TABLE `tmpxml_pictures` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id`
+        FROM `xmlsession_data` WHERE `session_id`= ? AND `object_type`=6 LIMIT ' . $limits[4]['start'] . ',' . $limits[4]['count'],
+        $sessionid );
+
+    XDb::xSql(
+        'CREATE TEMPORARY TABLE `tmpxml_removedobjects` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id`
+        FROM `xmlsession_data` WHERE `session_id`= ? AND `object_type`=7 LIMIT ' . $limits[5]['start'] . ',' . $limits[5]['count'],
+        $sessionid );
 
     outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $ziptype);
 }
@@ -854,32 +962,21 @@ function object_id2uuid($objectid, $objecttype)
 
 function cache_id2uuid($id)
 {
-    global $dblink;
-
-    $rs = sql("SELECT `uuid` FROM `caches` WHERE `cache_id`='&1'", $id);
-    $r = sql_fetch_array($rs);
-    mysql_free_result($rs);
-    return $r['uuid'];
+    return XDb::xMultiVariableQueryValue(
+        "SELECT `uuid` FROM `caches` WHERE `cache_id`= :1 LIMIT 1", '', $id);
 }
 
 function log_id2uuid($id)
 {
-    global $dblink;
-
-    $rs = sql("SELECT `uuid` FROM `cache_logs` WHERE `cache_logs`.`deleted`=0 AND `id`='&1'", $id);
-    $r = sql_fetch_array($rs);
-    mysql_free_result($rs);
-    return $r['uuid'];
+    return XDb::xMultiVariableQueryValue(
+        "SELECT `uuid` FROM `cache_logs`
+        WHERE `cache_logs`.`deleted`=0 AND `id`= :1 LIMIT 1", '', $id);
 }
 
 function user_id2uuid($id)
 {
-    global $dblink;
-
-    $rs = sql("SELECT `uuid` FROM `user` WHERE `user_id`='&1'", $id);
-    $r = sql_fetch_array($rs);
-    mysql_free_result($rs);
-    return $r['uuid'];
+    return XDb::xMultiVariableQueryValue(
+        "SELECT `uuid` FROM `user` WHERE `user_id`= :1 LIMIT 1", '', $id);
 }
 
 /* end some useful functions */
