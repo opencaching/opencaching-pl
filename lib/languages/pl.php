@@ -8,7 +8,7 @@ $translations = array(
     'Edit' => 'Edycja',
     'back' => 'Wróć',
     'cache_menu' => 'Menu skrzynki',
-    'activation_code_failed' => 'Wystąpił błąd podczas aktywacji konta! Potencjalne przyczyny:<br /> - Kod aktywacyjny lub adres e-mail jest niepoprawny.<br/>- Twoje konto już jest aktywne (próbowałeś się zalogować?)<br />Jeśli po sprawdzeniu poprawności danych problem nadal występuje, proszę zgłosić go na adres <span class="mail">{contact_mail}</span><b> . Koniecznie podaj nazwę użytkownika i adres e-mail pod jakim zarejstrowałeś się w OC PL</b>.',
+    'activation_code_failed' => 'Wystąpił błąd podczas aktywacji konta! Potencjalne przyczyny:<br /> - Kod aktywacyjny lub adres e-mail jest niepoprawny.<br/>- Twoje konto już jest aktywne (próbowałeś się zalogować?)<br /><br />Jeśli po sprawdzeniu poprawności danych problem nadal występuje, proszę zgłosić go na adres <span class="mail">{contact_mail}</span><b> . Koniecznie podaj nazwę użytkownika i adres e-mail pod jakim zarejstrowałeś się w OC PL</b>.',
     'email_incorrect' => 'Podany adres e-mail jest niepoprawny.',
     'account_activation' => 'Aktywacja konta',
     'finish_registration_hint' => 'W celu zakończenia rejestracji musisz potwierdzić adres e-mail oraz wprowadzić kod aktywacyjny.',
