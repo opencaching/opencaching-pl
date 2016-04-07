@@ -84,31 +84,7 @@ if ($error == false) {
                 //generate random password
                 $activationcode = mb_strtoupper(mb_substr(md5(uniqid('')), 0, 13));
 
-                //process email
-                $email_content = read_file($stylepath . '/email/user_activation.email');
-                $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
-                $email_content = mb_ereg_replace('{registermail01}', tr('registermail01'), $email_content);
-                $email_content = mb_ereg_replace('{registermail02}', tr('registermail02'), $email_content);
-                $email_content = mb_ereg_replace('{registermail03}', tr('registermail03'), $email_content);
-                $email_content = mb_ereg_replace('{registermail04}', tr('registermail04'), $email_content);
-                $email_content = mb_ereg_replace('{registermail05}', tr('registermail05'), $email_content);
-                $email_content = mb_ereg_replace('{registermail06}', tr('registermail06'), $email_content);
-                $email_content = mb_ereg_replace('{registermail07}', tr('registermail07'), $email_content);
-                $email_content = mb_ereg_replace('{registermail08}', tr('registermail08'), $email_content);
-                $email_content = mb_ereg_replace('{registermail09}', tr('registermail09'), $email_content);
-                $email_content = mb_ereg_replace('{registermail10}', tr('registermail10'), $email_content);
-                $email_content = mb_ereg_replace('{registermail11}', tr('registermail11'), $email_content);
-                $email_content = mb_ereg_replace('{registermail12}', tr('registermail12'), $email_content);
-                $email_content = mb_ereg_replace('{registermail13}', tr('registermail13'), $email_content);
-                $email_content = mb_ereg_replace('{registermail14}', tr('registermail14'), $email_content);
-                $email_content = mb_ereg_replace('{registermail15}', tr('registermail15'), $email_content);
-                $email_content = mb_ereg_replace('{registermail16}', tr('registermail16'), $email_content);
-                $email_content = mb_ereg_replace('{user}', $username, $email_content);
-                $email_content = mb_ereg_replace('{email}', $email, $email_content);
                 $country_name = tr($country);
-                $email_content = mb_ereg_replace('{country}', $country_name, $email_content);
-                $email_content = mb_ereg_replace('{code}', $activationcode, $email_content);
-                $email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);
 
                 $uuid = create_uuid();
                 if (strtotime("2008-11-01 00:00:00") <= strtotime(date("Y-m-d h:i:s")))

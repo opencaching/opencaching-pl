@@ -4,7 +4,6 @@ $translations = array(
     'main_menu' => 'Main Menu',
     'user_menu' => 'User"s Menu',
     'cache_menu' => 'Cache Menu',
-    'activation_code_failed' => 'Aktivační kód, nebo e-mailová adresa je neplatná. <br/> Aktivovat svůj účet se pokazilo. Prosím zkontrolujte popełniłeś chybu. Pokud problém přetrvává, prosím, zprávu na adresu ocpl (at) opencaching.pl.',
     'email_incorrect' => 'E-mailová adresa je neplatná.',
     'account_activation' => 'Aktivace',
     'finish_registration_hint' => 'Pro dokončení registrace musíte potvrdit svou e-mail a zadejte aktivační kód.',

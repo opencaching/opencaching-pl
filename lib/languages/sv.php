@@ -1,7 +1,6 @@
 <?php
 
 $translations = array(
-    'activation_code_failed' => 'Aktiveringskod eller e-postadress är felaktig. <br> Ditt konto har inte aktiverats. Kontrollera om du har gjort ett misstag. Om problemet kvarstår, vänligen kontakta oss på: ocpl (at) opencaching.pl.',
     'email_incorrect' => 'E-postadressen är felaktig.',
     'new' => 'NEW',
     'account_activation' => 'Kontoaktivering',

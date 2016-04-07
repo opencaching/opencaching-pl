@@ -8,7 +8,6 @@ $translations = array(
     'Edit' => 'Bewerken',
     'back' => 'Terug',
     'cache_menu' => 'Cache Menu',
-    'activation_code_failed' => 'Activatie code of e-mail adres klopt niet.<br/>Je account is niet geactiveerd. Controleer de gegevens. Als het probleem blijft, neem dan contact met ons op via: octeam (at) {site_name}.',
     'email_incorrect' => 'E-mail adres is niet correct.',
     'account_activation' => 'Account activatie',
     'finish_registration_hint' => 'Om het registratie proces te voltooien, moet je je e-mail adres bevestigen en de activatie code invullen.',

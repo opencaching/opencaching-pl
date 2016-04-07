@@ -8,7 +8,6 @@ $translations = array(
     'Edit' => 'Editează',
     'back' => 'Înapoi',
     'cache_menu' => 'Meniul Cutiei',
-    'activation_code_failed' => 'Cod de activare şi/sau adresă de e-mail incorectă!<br/>Contul tău nu a putut fi activat pe baza datelor introduse. Te rugăm să verifici formularul pentru că s-ar putea să conţină greşeli. Dacă ai în continuare probleme, te rugăm să ne contactezi pe adresa de e-mail echipa@opencaching.ro.',
     'email_incorrect' => 'Adresă de e-mail greşită.',
     'account_activation' => 'Activarea contului',
     'finish_registration_hint' => 'Pentru a finaliza procesul de înregistrare, trebuie să confirmi adresa de e-mail şi să introduci codul de activare',
