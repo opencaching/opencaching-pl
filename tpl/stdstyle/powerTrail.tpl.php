@@ -1,4 +1,4 @@
-<link href='http://fonts.googleapis.com/css?family=Shojumaru&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Shojumaru&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 <script type="text/javascript" src="lib/tinymce4/tinymce.min.js"></script>
 <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 <link rel="stylesheet" href="tpl/stdstyle/js/jquery_1.9.2_ocTheme/themes/cupertino/jquery.ui.all.css">
@@ -2072,7 +2072,7 @@ $( document ).ready(function() {
             <tr>
                 <td>
                     {{pt015}}: <br />
-                    <p align="center"><img src="http://chart.apis.google.com/chart?cht=p3&chd=t:{cacheFound},{powerTrailCacheLeft}&chco=00AA00|0000AA&chs=300x120&chl={{pt103}}|{{pt104}}" /><br />
+                    <p align="center"><img src="//chart.apis.google.com/chart?cht=p3&chd=t:{cacheFound},{powerTrailCacheLeft}&chco=00AA00|0000AA&chs=300x120&chl={{pt103}}|{{pt104}}" /><br />
                         {powerTrailserStats}</p>
                 </td>
             </tr>
