@@ -169,12 +169,14 @@ $config['maps']['external']['Szukacz_URL'] = '<a target="_blank" href="http://ma
 $config['maps']['external']['Flopp\'s Map'] = 0;
 $config['maps']['external']['Flopp\'s Map_URL'] = '<a target="_blank" href="http://flopp.net/?c=%1$f:%2$f&z=16&t=OSM&f=g&m=&d=&g=%4$s">%6$s</a>';
 
+ /* ***********************
+  * Search box on top page
+  * ***********************/
  
- 
- 
- 
- 
- 
+$config['quick_search']['byowner'] = false;
+$config['quick_search']['byfinder'] = false;
+$config['quick_search']['byuser'] = true; 
+
   /** Limit for uplading pictures per node. */
 
 // Image file size limit in MB
