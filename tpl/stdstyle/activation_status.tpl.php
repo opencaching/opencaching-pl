@@ -7,7 +7,7 @@
 <div class="errormsg">
     {error_message}
 </div>
-<div class="sucessmsg">
+<div class="successmsg">
     {sucess_message}<br /><br />
 </div>
 {login_url}

@@ -14,7 +14,7 @@ if ($error == false) {
     $code = isset($_REQUEST['code']) ? $_REQUEST['code'] : '';
 
     tpl_set_var('error_message', '');
-    tpl_set_var('sucess_message', '');
+    tpl_set_var('success_message', '');
     tpl_set_var('login_url', '');
 
     if (isset($code) && isset($user)) {
@@ -27,9 +27,8 @@ if ($error == false) {
                     XDb::xFreeResults($rs);
 
                     // ok, we can activate this account
-                    XDb::xSql("UPDATE `user` SET `is_active_flag`=1, `activation_code`='' WHERE `user_id`= ? ",
-                        $r['id']);
-                    tpl_set_var('sucess_message', tr('activation_success'));
+                    XDb::xSql("UPDATE `user` SET `is_active_flag`=1, `activation_code`='' WHERE `user_id`= ? ", $r['id']);
+                    tpl_set_var('success_message', tr('activation_success'));
                     tpl_set_var('login_url', '<a href="login.php">'.tr('goto_login').'</a><br />');
                     //TO DO: send post-activation mail here
                 } else {
