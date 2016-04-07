@@ -16,22 +16,24 @@ class OrgCacheOwners
     public function populateForCache($cache_id)
     {
         $this->verbose = false;
-        $sql = "select cl.id, cl.cache_id, cl.text
-                from cache_logs cl join caches c using (cache_id)
-                where
-                        cl.user_id = -1
-                    and cl.type = 3
-                    and cl.text_html = 1
-                    and (cl.text like '%Przeprowadzono procedurę adopcji skrzynki%'
-                            or cl.text like '%The adoption process has been completed%'
-                            or cl.text like '%Adopţia s-a efectuat%'
-                            or cl.text like '%De adoptie is voltooid%'
-                    )
-                    and c.org_user_id is null
-                    and c.status in (1,2,3)
-                    and cl.cache_id = :1
-                order by cl.id";
-        $this->db->multiVariableQuery($sql, $cache_id);
+
+        $this->db->multiVariableQuery(
+            "SELECT cl.id, cl.cache_id, cl.text
+            FROM cache_logs cl join caches c using (cache_id)
+            WHERE cl.user_id = -1 AND cl.type = 3
+                AND cl.text_html = 1 AND
+                (
+                    cl.text like '%Przeprowadzono procedurę adopcji skrzynki%'
+                    OR cl.text like '%The adoption process has been completed%'
+                    OR cl.text like '%Adopţia s-a efectuat%'
+                    OR cl.text like '%De adoptie is voltooid%'
+                )
+                AND c.org_user_id is null
+                AND c.status in (1,2,3)
+                AND cl.cache_id = :1
+            ORDER by cl.id",
+            $cache_id);
+
         $this->process();
     }
 
@@ -42,24 +44,24 @@ class OrgCacheOwners
         header('Content-Type: text/plain');
         echo "cache_id,log_id,status,user_id,log_text\n";
 
-        $sql = "select cl.id, cl.cache_id, cl.text
-                from cache_logs cl join caches c using (cache_id)
-                where
-                        cl.user_id = -1
-                    and cl.type = 3
-                    and cl.text_html = 1
-                    and (cl.text like '%Przeprowadzono procedurę adopcji skrzynki%'
-                            or cl.text like '%The adoption process has been completed%'
-                            or cl.text like '%Adopţia s-a efectuat%'
-                            or cl.text like '%De adoptie is voltooid%'
-                    )
-                    and c.org_user_id is null
-                    and c.status in (1,2,3)
-                order by cl.id";
-
         set_time_limit(360);
-        $this->db->simpleQuery($sql);
-        $this->process();
+        $this->db->simpleQuery(
+            "SELECT cl.id, cl.cache_id, cl.text
+            FROM cache_logs cl join caches c using (cache_id)
+            WHERE cl.user_id = -1
+                AND cl.type = 3
+                AND cl.text_html = 1
+                AND (
+                    cl.text like '%Przeprowadzono procedurę adopcji skrzynki%'
+                    OR cl.text LIKE '%The adoption process has been completed%'
+                    OR cl.text LIKE '%Adopţia s-a efectuat%'
+                    OR cl.text LIKE '%De adoptie is voltooid%'
+                )
+                AND c.org_user_id is null
+                AND c.status IN (1,2,3)
+            ORDER BY cl.id ");
+
+            $this->process();
         set_time_limit(60);
     }
 
@@ -81,8 +83,10 @@ class OrgCacheOwners
             }
             $org_user_id = $matches[1];
             $new_user_id = $matches[3];
-            $sql = 'update caches set org_user_id = :1 where cache_id = :2 and org_user_id is null';
-            $this->db->multiVariableQuery($sql, $org_user_id, $r['cache_id']);
+
+            $this->db->multiVariableQuery(
+                'UPDATE caches SET org_user_id = :1 WHERE cache_id = :2 AND org_user_id IS null',
+                $org_user_id, $r['cache_id']);
             if ($this->verbose) {
                 if ($this->db->rowCount() > 0) {
                     echo "updated,$org_user_id,\n";
