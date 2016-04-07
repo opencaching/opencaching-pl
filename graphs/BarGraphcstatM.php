@@ -34,7 +34,7 @@ if ($error == false) {
             ORDER BY YEAR(`date`) ASC", $cache_id);
 
         if ($rsCachesFindYear1 !== false) {
-            $descibe = tr("annual_stat");
+            $describe = tr("annual_stat");
             $xtitle = "";
             while ($rfy1 = XDb::xFetchArray($rsCachesFindYear1)) {
                 $y1[] = $rfy1['count'];
@@ -50,7 +50,7 @@ if ($error == false) {
             ORDER BY YEAR(`date`) ASC", $cache_id);
 
         if ($rsCachesFindYear2 !== false) {
-            $descibe = tr("annual_stat");
+            $describe = tr("annual_stat");
             $xtitle = "";
             while ($rfy2 = XDb::xFetchArray($rsCachesFindYear2)) {
                 $y2[] = $rfy2['count'];
@@ -61,7 +61,7 @@ if ($error == false) {
     }
 
     if ($tit == "csm") {
-        $descibe = tr("monthly_stat");
+        $describe = tr("monthly_stat");
         $describe .= $year;
         $xtitle = $year;
         for ($i = 1; $i < 13; $i++) {
@@ -139,7 +139,7 @@ if ($error == false) {
     $graph->Add($gbplot);
 
     $le = "";
-    $graph->title->Set($descibe);
+    $graph->title->Set($describe);
     $graph->xaxis->title->Set($xtitle);
     $graph->yaxis->title->Set($le);
 

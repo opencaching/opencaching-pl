@@ -12,6 +12,9 @@ if ($error == false) {
     if (isset($_REQUEST['userid'])) {
         $user_id = $_REQUEST['userid'];
         tpl_set_var('userid', $user_id);
+    }else{
+        echo "No userid param... exit.";
+        exit;
     }
 
     $user_record['username'] = XDb::xMultiVariableQueryValue(

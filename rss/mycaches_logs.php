@@ -12,6 +12,9 @@ if ($error == false) {
     if (isset($_REQUEST['userid'])) {
         $user_id = $_REQUEST['userid'];
         tpl_set_var('userid', $user_id);
+    }else{
+        echo "No userid param... exit.";
+        exit;
     }
 
     $user_record['username'] = XDb::xMultiVariableQueryValue(
@@ -46,7 +49,7 @@ if ($error == false) {
             LEFT JOIN gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
             LEFT JOIN gk_item ON gk_item.id = gk_item_waypoint.id
                 AND gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5
-        WHERE cache_logs.deleted=0  AND `caches`.`user_id`=&1
+        WHERE cache_logs.deleted=0  AND `caches`.`user_id`=?
         GROUP BY cache_logs.id
         ORDER BY cache_logs.date_created DESC
         LIMIT 20", $lang, $user_id);

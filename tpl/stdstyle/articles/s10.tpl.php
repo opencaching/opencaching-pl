@@ -69,7 +69,7 @@ if ($debug_page)
                         $color = "gray";
                         $banned = " (BAN)";
                     }
-                    $l1 = $line[count];
+                    $l1 = $line['count'];
                     if ($l2 != $l1) {
                         // new rank (finish recent row and start new one)
                         echo '</td></tr>';
@@ -77,11 +77,11 @@ if ($debug_page)
                         echo '<tr class="bgcolor2">' .
                         '<td align="right">&nbsp;&nbsp;<b>' . $rank . '</b>&nbsp;&nbsp;</td>' .
                         '<td align="right">&nbsp;&nbsp;<b>' . $l1 . '</b>&nbsp;&nbsp;</td>' .
-                        '<td><a style="color:' . $color . '" href="viewprofile.php?userid=' . $line[user_id] . '">' . htmlspecialchars($line[username]) . $banned . '</a>';
+                        '<td><a style="color:' . $color . '" href="viewprofile.php?userid=' . $line['user_id'] . '">' . htmlspecialchars($line['username']) . $banned . '</a>';
                         $l2 = $l1;
                     } else {
                         // the same rank (continue row)
-                        echo ', <a style="color:' . $color . '" href="viewprofile.php?userid=' . $line[user_id] . '">' . htmlspecialchars($line[username]) . $banned . '</a>';
+                        echo ', <a style="color:' . $color . '" href="viewprofile.php?userid=' . $line['user_id'] . '">' . htmlspecialchars($line['username']) . $banned . '</a>';
                     }
                     $position++;
                 }

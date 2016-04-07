@@ -26,7 +26,7 @@ $users = XDb::xSimpleQueryValue(
             SELECT DISTINCT `user_id` FROM `cache_logs` WHERE (`type`=1 OR `type`=2) AND `deleted`=0
                 UNION DISTINCT
             SELECT DISTINCT `user_id` FROM `caches`
-        ) AS `t`');
+        ) AS `t`', 0);
 
 $file_content = "<?php\n";
 $file_content .= "tpl_set_var('hiddens', '$hiddens');\n";

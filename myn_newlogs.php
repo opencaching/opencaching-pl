@@ -20,7 +20,7 @@ if ($error == false) {
     $LOGS_PER_PAGE = 50;
     $PAGES_LISTED = 10;
 
-    $total_logs = XDb::xSimpleQueryValue("SELECT COUNT(id) FROM cache_logs WHERE deleted=0");
+    $total_logs = XDb::xSimpleQueryValue("SELECT COUNT(id) FROM cache_logs WHERE deleted=0", 0);
 
     $pages = "";
     $total_pages = ceil($total_logs / $LOGS_PER_PAGE);

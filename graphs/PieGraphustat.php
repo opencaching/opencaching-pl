@@ -49,7 +49,7 @@ if ($error == false) {
         $rsCachesFindYear = XDb::xSql(
             "SELECT COUNT(`caches`.`type`) `count`, `cache_type`.`$lang_db` AS `type`
             FROM `cache_logs`, caches INNER JOIN `cache_type` ON (`caches`.`type`=`cache_type`.`id`)
-            WHERE cache_logs.`deleted`=0 AND cache_logs.user_id=&1 AND cache_logs.`type`='1' AND cache_logs.`cache_id` = caches.cache_id
+            WHERE cache_logs.`deleted`=0 AND cache_logs.user_id=? AND cache_logs.`type`='1' AND cache_logs.`cache_id` = caches.cache_id
             GROUP BY `caches`.`type`
             ORDER BY `count` DESC", $user_id);
 

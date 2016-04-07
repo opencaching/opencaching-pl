@@ -62,15 +62,15 @@ if ($debug_page)
             $l2 = "";
             $licznik = 0;
             while ($line = XDb::xFetchArray($r)) {
-                $l1 = $line[count];
+                $l1 = $line['count'];
                 if ($l2 != $l1) {
                     echo '</td></tr>';
                     $licznik = $licznik + 1;
                     echo "<tr class=\"bgcolor2\"><td align=\"right\">&nbsp;&nbsp;<b>$licznik</b>&nbsp;&nbsp;</td><td align=\"right\">&nbsp;&nbsp;<b>$l1</b>&nbsp;&nbsp;</td>";
-                    echo "<td><a href=viewcache.php?cacheid=$line[cache_id]>$line[name]</a> ($line[username])";
+                    echo "<td><a href=viewcache.php?cacheid=".$line['cache_id'].">".$line['name']."</a> (".$line['username'].")";
                     $l2 = $l1;
                 } else {
-                    echo ", <a href=viewcache.php?cacheid=$line[cache_id]>$line[name]</a> ($line[username])";
+                    echo ", <a href=viewcache.php?cacheid=".$line['cache_id'].">".$line['name']."</a> (".$line['username'].")";
                 }
             }
 

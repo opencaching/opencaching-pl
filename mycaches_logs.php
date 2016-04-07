@@ -21,6 +21,8 @@ if ($error == false) {
         if (isset($_REQUEST['userid'])) {
             $user_id = $_REQUEST['userid'];
             tpl_set_var('userid', $user_id);
+        }else{
+            $user_id = $usr['userid'];
         }
 
         function cleanup_text($str)
@@ -107,7 +109,7 @@ if ($error == false) {
                 AND `caches`.`status` != 5
                 AND `caches`.`status` != 6
                 AND `caches`.`user_id`= :1 ",
-            0, $_REQUEST['userid']);
+            0, $user_id);
 
         $pages = "";
         $total_pages = ceil($total_logs / $LOGS_PER_PAGE);
@@ -147,7 +149,7 @@ if ($error == false) {
                 AND `caches`.`user_id`= ?
             ORDER BY  `cache_logs`.`date_created` DESC
             LIMIT " . intval($start) . ", " . intval($LOGS_PER_PAGE),
-            $_REQUEST['userid'] );
+            $user_id );
 
         $log_ids = array();
         while($record = XDb::xFetchArray($rs)){
@@ -180,7 +182,7 @@ if ($error == false) {
                     AND `caches`.`user_id`= ?
                 GROUP BY cache_logs.id
                 ORDER BY cache_logs.date_created DESC",
-                $_REQUEST['userid']);
+                $user_id);
 
             $file_content = '';
             while( $log_record = XDb::xFetchArray($rs) ){
