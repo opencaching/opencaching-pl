@@ -66,9 +66,9 @@ $founds = XDb::xMultiVariableQueryValue(
         AND cache_id =
             (
                 SELECT cache_id FROM cache_logs
-                WHERE deleted=0 AND id = ?
+                WHERE deleted=0 AND id = :1
             )
-        AND user_id = ? AND type='1'",
+        AND user_id = :2 AND type='1'",
     0, $_REQUEST['logid'], $usr['userid']);
 
 ?>
