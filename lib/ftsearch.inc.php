@@ -297,13 +297,13 @@ function ftsearch_refresh_picture($id)
         FROM `pictures`
             INNER JOIN `caches` ON `pictures`.`object_type`=2
                 AND `caches`.`cache_id`=`pictures`.`object_id`
-        WHERE `pictures`.`id`='&1'
+        WHERE `pictures`.`id`= ?
         UNION DISTINCT
             SELECT `cache_logs`.`cache_id` , `pictures`.`title`, `pictures`.`last_modified`
             FROM `pictures` INNER JOIN `cache_logs` ON `pictures`.`object_type`=1
                 AND `cache_logs`.`id`=`pictures`.`object_id`
             WHERE `cache_logs`.`deleted`=0 AND `pictures`.`id`= ?
-            LIMIT 1", $id);
+            LIMIT 1", $id, $id);
     if ($r = XDb::xFetchArray($rs)) {
         ftsearch_set_entries(6, $id, $r['cache_id'], $r['title'], $r['last_modified']);
     }

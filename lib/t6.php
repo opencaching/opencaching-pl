@@ -23,10 +23,10 @@ if ($result === false) {
             (
                 SELECT COUNT(caches.user_id) FROM `caches`
                 WHERE `status`=1 GROUP BY `user_id`
-            ) `users_with_founds`');
+            ) `users_with_founds`', 0);
 
     $fCt["count"] = XDb::xSimpleQueryValue(
-        'SELECT COUNT(*) `count` FROM `caches` WHERE `status`=1');
+        'SELECT COUNT(*) `count` FROM `caches` WHERE `status`=1', 0);
 
     $rsfCR = XDb::xSql(
         "SELECT COUNT(*) `count`, `cache_location`.`adm3` region, `cache_location`.`code3` code_region
