@@ -85,7 +85,7 @@ if ($error == false) {
                 $activationcode = mb_strtoupper(mb_substr(md5(uniqid('')), 0, 13));
 
                 //process email
-                $email_content = read_file($stylepath . '/email/register.email');
+                $email_content = read_file($stylepath . '/email/user_activation.email');
                 $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
                 $email_content = mb_ereg_replace('{registermail01}', tr('registermail01'), $email_content);
                 $email_content = mb_ereg_replace('{registermail02}', tr('registermail02'), $email_content);
@@ -123,7 +123,7 @@ if ($error == false) {
                                         ) VALUES ('', '&1', '&2', '&3', NULL, NULL, NOW(), '0', '0', '0', '0', '&4', NOW(), '&5', '&6', '&7', &8)", $username, hash('sha512', md5($password)), // WRTODO - could be better
                         $email, $country, $uuid, $activationcode, $oc_nodeid, $rules_conf_req);
 
-                mb_send_mail($email, $register_email_subject, $email_content, $emailheaders);
+                lib\Controllers\EmailController::sendActivationLink($username, $email, $country, $activationcode, $uuid);
 
                 //display confirmationpage
                 $tplname = 'register_confirm';

@@ -1406,6 +1406,7 @@ $translations = array(
     'registermail14' => 'Use the next code to complete your registration:',
     'registermail15' => 'Enter your activation code on the next page:',
     'registermail16' => 'If you don\'t login within the next 14 days, your account will be automatically deleted.',
+    'registermail17' => 'Go to the following address to complete the registration process and activate your account:',
     'activatemail01' => 'The cache',
     'activatemail02' => 'was aproved by the OC Team.',
     'activatenail03' => 'You can change the status to "Ready to be found" on:',

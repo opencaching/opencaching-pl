@@ -42,6 +42,34 @@ class EmailController
         mb_send_mail($log->getUser()->getEmail(), tr('removed_log_title'), $emailContent, $emailheaders);
     }
 
+    public static function sendActivationLink($username, $email, $country_name, $code, $uid)
+    {
+        $emailContent = read_file(__DIR__ . '/../../tpl/stdstyle/email/user_activation.email');
+        $emailContent = mb_ereg_replace('{server}', \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getAbsolute_server_URI(), $emailContent);
+        $emailContent = mb_ereg_replace('{registermail01}', tr('registermail01'), $emailContent);
+        $emailContent = mb_ereg_replace('{registermail02}', tr('registermail02'), $emailContent);
+        $emailContent = mb_ereg_replace('{registermail10}', tr('registermail10'), $emailContent);
+        $emailContent = mb_ereg_replace('{registermail11}', tr('registermail11'), $emailContent);
+        $emailContent = mb_ereg_replace('{registermail12}', tr('registermail12'), $emailContent);
+        $emailContent = mb_ereg_replace('{registermail13}', tr('registermail13'), $emailContent);
+        $emailContent = mb_ereg_replace('{registermail16}', tr('registermail16'), $emailContent);
+        $emailContent = mb_ereg_replace('{registermail17}', tr('registermail17'), $emailContent);
+        $emailContent = mb_ereg_replace('{user}', $username, $emailContent);
+        $emailContent = mb_ereg_replace('{useruid}', $uid, $emailContent);
+        $emailContent = mb_ereg_replace('{email}', $email, $emailContent);
+        $emailContent = mb_ereg_replace('{country}', $country_name, $emailContent);
+        $emailContent = mb_ereg_replace('{code}', $code, $emailContent);
+        $emailContent = mb_ereg_replace('{octeamEmailsSignature}', \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getOcteamEmailsSignature(), $emailContent);
 
+        $emailAddr = \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getNoreplyEmailAddress();
+
+        $emailHeaders = 'MIME-Version: 1.0' . "\r\n";
+        $emailHeaders .= 'Content-Type: text/html; charset=utf-8' . "\r\n";
+        $emailHeaders .= 'From: "' . \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getSiteName() . '" <' . $emailAddr . '>';
+
+        $subject = tr('register_email_subject')." ".\lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getSiteName();
+
+        mb_send_mail($email, $subject, $emailContent, $emailHeaders);
+    }
 
 }
