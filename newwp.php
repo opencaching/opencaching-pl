@@ -339,7 +339,7 @@ if ($error == false) {
                                 XDb::xSql("INSERT INTO `opensprawdzacz`(`id`,  `cache_id`,  `proby`, `sukcesy`)
                                                      VALUES ('', '$cache_id',   0,       0)");
                             }
-                            XDb::xFreeResults($proba);
+
                         }
                         // ==== opensprawdzacz end ===========================================
 
