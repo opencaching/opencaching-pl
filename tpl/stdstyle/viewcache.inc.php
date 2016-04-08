@@ -69,7 +69,6 @@ $event_attended_text = " " . tr('attendends');
 $event_will_attend_text = " " . tr('will_attend');
 $cache_found_text = "x " . tr('found');
 $cache_notfound_text = "x " . tr('not_found');
-$recommend_link = '&nbsp;&nbsp;<a href="recommendations.php?cacheid={cacheid}"/>(' . tr('show_recommended') . ')</a>';
 $rating_stat_show_singular = '<img src="images/rating-star.png" alt="{{recomendation}}" /> {ratings} ' . tr('recommendation') . '<br />';
 $rating_stat_show_plural = '<img src="images/rating-star.png" alt="{{recommendation}}" /> {ratings} ' . tr('recommendations') . '<br />';
 $found_icon = '<img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="{{found}}"/>';

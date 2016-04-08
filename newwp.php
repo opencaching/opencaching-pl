@@ -344,7 +344,6 @@ if ($error == false) {
                         // ==== opensprawdzacz end ===========================================
 
                         tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));
-                        // end of insert to sql
                     } else {
                         tpl_set_var('general_message', $error_general);
                     }
