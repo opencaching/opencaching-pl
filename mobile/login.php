@@ -1,4 +1,5 @@
 <?php
+use Utils\Database\XDb;
 
 require_once("./lib/common.inc.php");
 
@@ -18,10 +19,10 @@ if (!isset($_SESSION['user_id'])) {
 
             $cookie->un_set('test');
 
-            db_connect();
+            
 
-            $username = mysql_real_escape_string($_POST['username']);
-            $pass = mysql_real_escape_string($_POST['pass']);
+            $username = XDb::xEscape($_POST['username']);
+            $pass = XDb::xEscape($_POST['pass']);
 
             $remember = (isset($_POST['remember']) ? 1 : 0);
 

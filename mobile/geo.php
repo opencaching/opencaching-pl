@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Database\XDb;
+
 require_once("./lib/common.inc.php");
 
 function check_wp($wpts)
@@ -18,10 +20,10 @@ if (isset($_GET['wp']) && !empty($_GET['wp']) && isset($_GET['output']) && !empt
         exit;
     }
 
-    db_connect();
+    
 
-    $wpts = explode("|", mysql_real_escape_string($_GET['wp']));
-    $output = mysql_real_escape_string($_GET['output']);
+    $wpts = explode("|", XDb::xEscape($_GET['wp']));
+    $output = XDb::xEscape($_GET['output']);
 
     if (preg_match("/^((gpx)|(gpxgc)|(loc)|(wpt)|(uam)){1}$/", $output)) {
         if (check_wp($wpts)) {
@@ -33,46 +35,46 @@ if (isset($_GET['wp']) && !empty($_GET['wp']) && isset($_GET['output']) && !empt
             foreach ($wpts as &$wp) {
 
                 $query = "select difficulty,terrain,size,status,user_id,type,cache_id,date_hidden,name,latitude,longitude from caches where wp_oc='" . $wp . "'"; //print $query;
-                $wynik = db_query($query);
-                $wiersz = mysql_fetch_assoc($wynik);
+                $wynik = XDb::xSql($query);
+                $wiersz = XDb::xFetchArray($wynik);
 
                 $query = "select user_id,username from user where user_id=" . $wiersz['user_id'];
-                $wynik = db_query($query);
-                $wiersz2 = mysql_fetch_assoc($wynik);
+                $wynik = XDb::xSql($query);
+                $wiersz2 = XDb::xFetchArray($wynik);
 
                 $query = "select en from cache_type where id=" . $wiersz['type'];
-                $wynik = db_query($query);
-                $wiersz3 = mysql_fetch_assoc($wynik);
+                $wynik = XDb::xSql($query);
+                $wiersz3 = XDb::xFetchArray($wynik);
 
                 $query = "select en from cache_status where id=" . $wiersz['status'];
-                $wynik = db_query($query);
-                $wiersz4 = mysql_fetch_assoc($wynik);
+                $wynik = XDb::xSql($query);
+                $wiersz4 = XDb::xFetchArray($wynik);
 
                 $query = "select en from cache_size where id=" . $wiersz['size'];
-                $wynik = db_query($query);
-                $wiersz5 = mysql_fetch_assoc($wynik);
+                $wynik = XDb::xSql($query);
+                $wiersz5 = XDb::xFetchArray($wynik);
 
                 $query = "select short_desc,cache_desc.desc from cache_desc where cache_id=" . $wiersz['cache_id'];
-                $wynik = db_query($query);
-                $wiersz6 = mysql_fetch_assoc($wynik);
+                $wynik = XDb::xSql($query);
+                $wiersz6 = XDb::xFetchArray($wynik);
 
                 $query = "select attrib_id from caches_attributes where cache_id=" . $wiersz['cache_id'];
-                $wynik = db_query($query);
+                $wynik = XDb::xSql($query);
 
-                while ($rekord = mysql_fetch_assoc($wynik)) {
+                while ($rekord = XDb::xFetchArray($wynik)) {
 
                     $query = "select text_long from cache_attrib where id ='" . $rekord['attrib_id'] . "' and language = '" . $lang . "';";
-                    $wynik2 = db_query($query);
-                    $attr = mysql_fetch_row($wynik2);
+                    $wynik2 = XDb::xSql($query);
+                    $attr = XDb::xFetchArray($wynik2);
                     $attr_text .= $attr[0] . " | ";
                     $attr_text = gpxhelper($attr_text);
                 }
 
                 $logs = array();
                 $query = "select cache_logs.text,cache_logs.id,cache_logs.date,user.username,log_types.en from (cache_logs inner join user on cache_logs.user_id = user.user_id) inner join log_types on log_types.id=cache_logs.type where cache_logs.cache_id=" . $wiersz['cache_id'] . " order by cache_logs.id desc";
-                $wynik = db_query($query);
+                $wynik = XDb::xSql($query);
 
-                while ($rekord = mysql_fetch_assoc($wynik)) {
+                while ($rekord = XDb::xFetchArray($wynik)) {
 
                     $rekord2['id'] = $rekord['id'];
                     $rekord2['date'] = date("Y-m-d", strtotime($rekord['date']));
@@ -86,9 +88,9 @@ if (isset($_GET['wp']) && !empty($_GET['wp']) && isset($_GET['output']) && !empt
 
                 $geokrets = array();
                 $query = "select name from gk_item where latitude ='" . $wiersz['latitude'] . "' and longitude='" . $wiersz['longitude'] . "';";
-                $wynik = db_query($query);
+                $wynik = XDb::xSql($query);
 
-                while ($rekord = mysql_fetch_assoc($wynik)) {
+                while ($rekord = XDb::xFetchArray($wynik)) {
 
                     $rekord2['name'] = gpxhelper($rekord['name']);
                     $geokrets[] = $rekord2;
