@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This script is used (can be loaded) by /search.php
+ */
+
+
 function findColumn($name, $type = "C")
 {
     global $colNameSearch;

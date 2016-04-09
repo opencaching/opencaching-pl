@@ -1,5 +1,10 @@
 <?php
+/**
+ * This script is used (can be loaded) by /search.php
+ */
+
 use Utils\Database\XDb;
+
 global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;
 set_time_limit(1800);
 

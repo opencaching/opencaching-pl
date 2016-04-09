@@ -1,4 +1,10 @@
 <?php
+
+/**
+ * This script is used (can be loaded) by /search.php
+ */
+
+
         /***************************************************************************
                 ./lib/search.uam.inc.php
         -------------------

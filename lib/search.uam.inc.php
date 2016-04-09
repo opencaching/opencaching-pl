@@ -1,4 +1,9 @@
 <?php
+/**
+ * This script is used (can be loaded) by /search.php
+ */
+
+
 
 //  require_once("./lib/cs2cs.inc.php");
     require_once("./lib/wgs21992.php");

@@ -1,4 +1,7 @@
 <?php
+/**
+ * This script is used (can be loaded) by /search.php
+ */
 
 use Utils\Database\OcDb;
 

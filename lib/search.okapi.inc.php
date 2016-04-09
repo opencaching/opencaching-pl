@@ -1,6 +1,10 @@
 <?php
+/**
+ * This script is used (can be loaded) by /search.php
+ */
 
 setlocale(LC_TIME, 'pl_PL.UTF-8'); // TODO: why it's pl_PL
+
 global $content, $usr, $hide_coords, $lang, $dbcSearch;
 
 set_time_limit(1800);

@@ -1,4 +1,9 @@
 <?php
+/**
+ * This script is used (can be loaded) by /search.php
+ */
+
+
 
 use Utils\Database\XDb;
 setlocale(LC_TIME, 'pl_PL.UTF-8');
