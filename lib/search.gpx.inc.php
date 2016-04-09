@@ -568,7 +568,7 @@ if ($usr || ! $hide_coords) {
         $lang = XDb::xEscape($lang);
         $rsAttributes = XDb::xSql("SELECT `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long`
                 FROM `caches_attributes`, `cache_attrib`
-                WHERE `caches_attributes`.`cache_id`=&1 AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id`
+                WHERE `caches_attributes`.`cache_id`= ? AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id`
                     AND `cache_attrib`.`language` = '$lang'
                 ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
 
