@@ -1,4 +1,5 @@
 <?php
+use Utils\Database\XDb;
 /**
  * This script is used (can be loaded) by /search.php
  */
@@ -14,46 +15,46 @@ if ($usr || !$hide_coords) {
     //prepare the output
     $caches_per_page = 20;
 
-    $sql = 'SELECT ';
+    $query = 'SELECT ';
 
     if (isset($lat_rad) && isset($lon_rad))
-        $sql .= getCalcDistanceSqlFormula($usr !== false, $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
+        $query .= getCalcDistanceSqlFormula($usr !== false, $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
     else {
         if ($usr === false)
-            $sql .= '0 distance, ';
+            $query .= '0 distance, ';
         else {
             //get the users home coords
-            $rs_coords = sql("SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
-            $record_coords = sql_fetch_array($rs_coords);
+            $rs_coords = XDb::xSql("SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`= ? LIMIT 1", $usr['userid']);
+            $record_coords = XDb::xFetchArray($rs_coords);
 
             if ((($record_coords['latitude'] == NULL) || ($record_coords['longitude'] == NULL)) || (($record_coords['latitude'] == 0) || ($record_coords['longitude'] == 0)))
-                $sql .= '0 distance, ';
+                $query .= '0 distance, ';
             else {
                 $lon_rad = $record_coords['longitude'] * 3.14159 / 180;
                 $lat_rad = $record_coords['latitude'] * 3.14159 / 180;
 
-                $sql .= getCalcDistanceSqlFormula(true, $record_coords['longitude'], $record_coords['latitude'], 0, 1) . ' `distance`, ';
+                $query .= getCalcDistanceSqlFormula(true, $record_coords['longitude'], $record_coords['latitude'], 0, 1) . ' `distance`, ';
             }
-            mysql_free_result($rs_coords);
+            XDb::xFreeResults($rs_coords);
         }
     }
-    $sql .= '`caches`.`cache_id`, `caches`.`wp_oc`';
+    $query .= '`caches`.`cache_id`, `caches`.`wp_oc`';
     if ($usr === false)
-        $sql .= ' FROM `caches` ';
+        $query .= ' FROM `caches` ';
     else {
-        $sql .= ' FROM `caches`
+        $query .= ' FROM `caches`
                       LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = '
                 . $usr['userid'];
     }
-    $sql .= ' WHERE `caches`.`cache_id` IN (' . $queryFilter . ')';
+    $query .= ' WHERE `caches`.`cache_id` IN (' . $queryFilter . ')';
 
     $sortby = $options['sort'];
     if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance'))
-        $sql .= ' ORDER BY distance ASC';
+        $query .= ' ORDER BY distance ASC';
     else if ($sortby == 'bycreated')
-        $sql .= ' ORDER BY date_created DESC';
+        $query .= ' ORDER BY date_created DESC';
     else // by name
-        $sql .= ' ORDER BY name ASC';
+        $query .= ' ORDER BY name ASC';
 
     //startat?
     $startat = isset($_REQUEST['startat']) ? $_REQUEST['startat'] : 0;
@@ -76,17 +77,17 @@ if ($usr || !$hide_coords) {
     if ($count > $maxlimit)
         $count = $maxlimit;
 
-    $sqlLimit = ' LIMIT ' . $startat . ', ' . $count;
+    $queryLimit = ' LIMIT ' . $startat . ', ' . $count;
 
     // cleanup (old zipcontent lingers if zip-download is cancelled by user)
     $dbcSearch->simpleQuery('DROP TEMPORARY TABLE IF EXISTS `zipcontent`');
     $dbcSearch->reset();
 
     // temporäre tabelle erstellen
-    $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `zipcontent` ' . $sql . $sqlLimit);
+    $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `zipcontent` ' . $query . $queryLimit);
     $dbcSearch->reset();
 
-    // echo $sql;
+    // echo $query;
     $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `zipcontent`');
     $rCount = $dbcSearch->dbResultFetch();
     $dbcSearch->reset();
@@ -107,9 +108,11 @@ if ($usr || !$hide_coords) {
         } elseif ($options['searchtype'] == 'bypt') {
             $sFilebasename = $options['gpxPtFileName'];
         } else {
-            $rsName = sql('SELECT `queries`.`name` `name` FROM `queries` WHERE `queries`.`id`= &1 LIMIT 1', $options['queryid']);
-            $rName = sql_fetch_array($rsName);
-            mysql_free_result($rsName);
+            $rsName = XDb::xSql(
+                'SELECT `queries`.`name` `name` FROM `queries` WHERE `queries`.`id`= ? LIMIT 1', $options['queryid']);
+
+            $rName = XDb::xFetchArray($rsName);
+            XDb::xFreeResults($rsName);
             if (isset($rName['name']) && ($rName['name'] != '')) {
                 $sFilebasename = trim($rName['name']);
                 $sFilebasename = str_replace(" ", "_", $sFilebasename);
@@ -190,4 +193,4 @@ if ($usr || !$hide_coords) {
         exit;
     }
 }
-?>
+
