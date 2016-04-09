@@ -259,7 +259,7 @@ if ($CalcDistance)
 
 $distance_unit = 'km';
 
-$$query = 'SELECT ';
+$query = 'SELECT ';
 
 if (isset($lat_rad) && isset($lon_rad)) {
     if ($CalcDistance)

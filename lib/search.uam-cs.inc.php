@@ -50,20 +50,20 @@ if ($usr || ! $hide_coords) {
     // prepare the output
     $caches_per_page = 20;
 
-    $sql = 'SELECT ';
+    $query = 'SELECT ';
 
     if (isset($lat_rad) && isset($lon_rad)) {
-        $sql .= getSqlDistanceFormula($lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
+        $query .= getSqlDistanceFormula($lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
     } else {
         if ($usr === false) {
-            $sql .= '0 distance, ';
+            $query .= '0 distance, ';
         } else {
             // get the users home coords
-            $rs_coords = sql("SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
-            $record_coords = sql_fetch_array($rs_coords);
+            $rs_coords = XDb::xSql("SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`= ? LIMIT 1", $usr['userid']);
+            $record_coords = XDb::xFetchArray($rs_coords);
 
             if ((($record_coords['latitude'] == NULL) || ($record_coords['longitude'] == NULL)) || (($record_coords['latitude'] == 0) || ($record_coords['longitude'] == 0))) {
-                $sql .= '0 distance, ';
+                $query .= '0 distance, ';
             } else {
                 // TODO: load from the users-profile
                 $distance_unit = 'km';
@@ -71,24 +71,24 @@ if ($usr || ! $hide_coords) {
                 $lon_rad = $record_coords['longitude'] * 3.14159 / 180;
                 $lat_rad = $record_coords['latitude'] * 3.14159 / 180;
 
-                $sql .= getSqlDistanceFormula($record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
+                $query .= getSqlDistanceFormula($record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
             }
-            mysql_free_result($rs_coords);
+            XDb::xFreeResults($rs_coords);
         }
     }
-    $sql .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, `caches`.`user_id` `user_id`
+    $query .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, `caches`.`user_id` `user_id`
                                                                     FROM `caches`
                                                                     WHERE `caches`.`cache_id` IN (' . $queryFilter . ')';
 
     $sortby = $options['sort'];
     if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance')) {
-        $sql .= ' ORDER BY distance ASC';
+        $query .= ' ORDER BY distance ASC';
     } else
         if ($sortby == 'bycreated') {
-            $sql .= ' ORDER BY date_created DESC';
+            $query .= ' ORDER BY date_created DESC';
         } else { // by name
 
-            $sql .= ' ORDER BY name ASC';
+            $query .= ' ORDER BY name ASC';
         }
 
     $startat = isset($_REQUEST['startat']) ? $_REQUEST['startat'] : 0;
@@ -111,9 +111,9 @@ if ($usr || ! $hide_coords) {
     if ($count > $maxlimit)
         $count = $maxlimit;
 
-    $sqlLimit = ' LIMIT ' . $startat . ', ' . $count;
+    $queryLimit = ' LIMIT ' . $startat . ', ' . $count;
 
-    $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `wptcontent` ' . $sql . $sqlLimit);
+    $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `wptcontent` ' . $query . $queryLimit);
     $dbcSearch->reset();
 
     $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `wptcontent`');
@@ -147,24 +147,14 @@ if ($usr || ! $hide_coords) {
         header('Content-Disposition: attachment; filename=' . $sFilebasename . '.uam');
     }
 
-    // ok, ausgabe ...
-
-    /*
-     * cacheid
-     * name
-     * lon
-     * lat
-     *
-     * archivedflag
-     * type
-     * size
-     * difficulty
-     * terrain
-     * username
-     */
-
-    $sql = 'SELECT `wptcontent`.`cache_id` `cacheid`, `wptcontent`.`longitude` `longitude`, `wptcontent`.`latitude` `latitude`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`wp_oc` `wp_oc`, `cache_type`.`short` `typedesc`, `cache_size`.`pl` `sizedesc`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username` , `caches`.`size` `size`, `caches`.`type` `type`  FROM `wptcontent`, `caches`, `cache_type`, `cache_size`, `user` WHERE `wptcontent`.`cache_id`=`caches`.`cache_id` AND `wptcontent`.`type`=`cache_type`.`id` AND `wptcontent`.`size`=`cache_size`.`id` AND `wptcontent`.`user_id`=`user`.`user_id`';
-    $dbcSearch->simpleQuery($sql);
+    $dbcSearch->simpleQuery(
+        'SELECT `wptcontent`.`cache_id` `cacheid`, `wptcontent`.`longitude` `longitude`, `wptcontent`.`latitude` `latitude`, `caches`.`date_hidden` `date_hidden`,
+                `caches`.`name` `name`, `caches`.`wp_oc` `wp_oc`, `cache_type`.`short` `typedesc`, `cache_size`.`pl` `sizedesc`,
+                `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username` , `caches`.`size` `size`,
+                `caches`.`type` `type`
+        FROM `wptcontent`, `caches`, `cache_type`, `cache_size`, `user`
+        WHERE `wptcontent`.`cache_id`=`caches`.`cache_id` AND `wptcontent`.`type`=`cache_type`.`id`
+            AND `wptcontent`.`size`=`cache_size`.`id` AND `wptcontent`.`user_id`=`user`.`user_id`');
 
     append_output(pack("ccccl", 0xBB, 0x22, 0xD5, 0x3F, $rCount['count']));
 
@@ -191,7 +181,7 @@ if ($usr || ! $hide_coords) {
         ob_flush();
     }
     $dbcSearch->reset();
-    sql('DROP TABLE `wptcontent` ');
+    XDb::xSql('DROP TABLE `wptcontent` ');
 
     // phpzip versenden
     if ($bUseZip == true) {
