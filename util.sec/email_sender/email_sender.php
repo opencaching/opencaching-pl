@@ -37,6 +37,7 @@ while ($row = XDb::xFetchArray($result)) {
         // Send copy of the message to sender
         mb_send_mail($row['from_email'], $row['mail_subject'], tr('copy_sender') . ":\n" . $row['mail_text'], $headers);
 
-        $upd_result = sql("UPDATE `email_user` SET `mail_text`='[Delivered]', `date_sent`=NOW() WHERE `id`= ? ", $row['id']);
+        $upd_result = XDb::xSql(
+            "UPDATE `email_user` SET `mail_text`='[Delivered]', `date_sent`=NOW() WHERE `id`= ? ", $row['id']);
     }
 }
