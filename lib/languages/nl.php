@@ -1391,7 +1391,6 @@ $translations = array(
     'registermail01' => 'Hallo',
     'registermail02' => 'Welkom op',
     'registermail03' => 'Om te beginnen kun je informatie terug vinden op Opencaching wiki, Deze site is nog niet compleet maar wordt regelmatig aangevuld. Opencaching wiki is beschikbaar op:',
-    'registermail04' => '{wiki_link_main}',
     'registermail05' => 'Als je op zoek bent naar hulp via een interactieve kaart kun je in jouw gebied vrijwilligers vinden die hun hulp aanbieden aan beginnende cachers.',
     'registermail06' => 'Kijk eens op:',
     'registermail07' => 'Maak gebruik van de huidige regel dat er vrij caches geplaats kunnen worden. Wanneer er voldoende caches zijn zal deze regel veranderd worden dat je eerst 10 caches gevonden moet hebben eer je caches mag plaatsen.',

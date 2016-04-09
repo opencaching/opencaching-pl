@@ -1,5 +1,5 @@
 <p>
-{registermail01} <b>{user}</b>
+{registermail01} <b>{user}</b>!
 <br /><br />
 {registermail02} <a href="{server}">{server}</a>
 <br /><br />

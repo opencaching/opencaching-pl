@@ -8,6 +8,6 @@
     {error_message}
 </div>
 <div class="successmsg">
-    {sucess_message}<br /><br />
+    {success_message}<br /><br />
 </div>
 {login_url}

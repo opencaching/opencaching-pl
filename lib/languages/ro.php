@@ -1392,7 +1392,6 @@ $translations = array(
     'registermail01' => 'Bună',
     'registermail02' => 'Bine ai venit pe',
     'registermail03' => 'Pentru început, poţi afla mai multe pe GeoWiki. Poţi accesa GeoWiki la:',
-    'registermail04' => '{wiki_link_main}',
     'registermail05' => '*If you"re looking for help through an interactive map where you can find volunteers who offer their help to beginning cachers.',
     'registermail06' => '*Look at page:',
     'registermail07' => '*Before you register your first cache on OC PL you must find 10 caches of follwing types:traditional, quiz, multicache and unknown type.',
