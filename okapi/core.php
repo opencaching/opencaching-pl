@@ -10,15 +10,15 @@ namespace okapi;
 use Exception;
 use ErrorException;
 use ArrayObject;
-use OAuthServerException;
-use OAuthServer400Exception;
-use OAuthServer401Exception;
-use OAuthMissingParameterException;
-use OAuthConsumer;
-use OAuthToken;
-use OAuthServer;
-use OAuthSignatureMethod_HMAC_SHA1;
-use OAuthRequest;
+use okapi\oauth\OAuthServerException;
+use okapi\oauth\OAuthServer400Exception;
+use okapi\oauth\OAuthServer401Exception;
+use okapi\oauth\OAuthMissingParameterException;
+use okapi\oauth\OAuthConsumer;
+use okapi\oauth\OAuthToken;
+use okapi\oauth\OAuthServer;
+use okapi\oauth\OAuthSignatureMethod_HMAC_SHA1;
+use okapi\oauth\OAuthRequest;
 use okapi\cronjobs\CronJobController;
 
 /** Return an array of email addresses which always get notified on OKAPI errors. */
@@ -1003,8 +1003,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1262;
-    public static $git_revision = '1a2d6a3a3d00177b0fd4357e2a721ac260e1d0ce';
+    public static $version_number = 1263;
+    public static $git_revision = '8c4b8da48e398223aeffd1acd155fab6793e9639';
 
     private static $okapi_vars = null;
 
