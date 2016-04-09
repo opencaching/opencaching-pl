@@ -37,7 +37,7 @@ if ($usr['admin']) {
                     $newstext = htmlspecialchars($newstext, ENT_COMPAT, 'UTF-8');
                 else {
                     require_once($rootpath . 'lib/class.inputfilter.php');
-                    $myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
+                    $myFilter = new OcInputFilter();
                     $newstext = $myFilter->process($newstext);
                 }
 

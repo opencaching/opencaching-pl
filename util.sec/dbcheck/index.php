@@ -25,7 +25,7 @@ if ($action == '') {
     $rs = mysql_query('SELECT `desc` FROM cache_desc WHERE id=\'' . sql_escape($descid) . '\'', $dblink);
     $r = mysql_fetch_array($rs);
 
-    $myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
+    $myFilter = new OcInputFilter();
     $fdesc = $myFilter->process($r['desc']);
 
     echo '<b>- Orginal HTML -</b><br /><br />' . "\n";
@@ -174,7 +174,7 @@ else if ($action == 'recalccachevisits') {
             if ($r['desc_html'] == 1) {
                 // html-beschreibung durch den filter gegangen?
 
-                $myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
+                $myFilter = new OcInputFilter();
                 $fdesc = $myFilter->process($r['desc']);
 
                 if ($fdesc != $r['desc'])

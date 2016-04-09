@@ -883,7 +883,7 @@ if ($error == false) {
                     $note_desc = htmlspecialchars($note_desc, ENT_COMPAT, 'UTF-8');
                 } else {
                     require_once($rootpath . 'lib/class.inputfilter.php');
-                    $myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
+                    $myFilter = new OcInputFilter();
                     $note_desc = $myFilter->process($note_desc);
                 }
                 tpl_set_var('notes_content', nl2br($note_desc));

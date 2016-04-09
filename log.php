@@ -294,7 +294,7 @@ if ($error == false) {
             if ($descMode != 1) {
                 // check input
                 require_once($rootpath . 'lib/class.inputfilter.php');
-                $myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
+                $myFilter = new OcInputFilter();
                 $log_text = $myFilter->process($log_text);
             } else {
                 // escape text
