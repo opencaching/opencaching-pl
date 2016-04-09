@@ -8,4 +8,7 @@ Allow From 46.4.66.184
 # Bogus z Polska
 allow from 194.242.0.188
 
+# allow from private IP range (dev platforms etc)
+allow from 192.168.0.0/16
+
 Deny From All
