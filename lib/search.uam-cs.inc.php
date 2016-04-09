@@ -220,7 +220,6 @@ Rekordy (kazdy 362 znaki)
                                     $lat = $r['latitude'];
                                     $lon = $r['longitude'];
             $utm = cs2cs_1992($lat, $lon);
-    //      $utm = wgs2u1992($lat, $lon);
             $x=(int)$utm[0];
             $y=(int)$utm[1];
                                     $name = PLConvert('UTF-8','POLSKAWY',$r['name']);

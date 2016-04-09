@@ -3,10 +3,8 @@
  * This script is used (can be loaded) by /search.php
  */
 
-
-
 use Utils\Database\XDb;
-setlocale(LC_TIME, 'pl_PL.UTF-8');
+setlocale(LC_TIME, 'pl_PL.UTF-8'); //TODO: Polish locale ??
 
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $lang;
 
