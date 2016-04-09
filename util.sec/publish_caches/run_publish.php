@@ -6,8 +6,7 @@
 use Utils\Database\XDb;
 
 $rootpath = '../../';
-require_once __DIR__ . '/../../lib/ClassPathDictionary.php';
-require_once('settings.inc.php');
+require_once($rootpath . 'lib/ClassPathDictionary.php');
 require_once($rootpath . 'lib/eventhandler.inc.php');
 require_once($rootpath . 'lib/consts.inc.php');
 require_once($rootpath . 'lib/settings.inc.php');

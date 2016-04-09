@@ -9,8 +9,8 @@ use Utils\Database\XDb;
 
 $rootpath = '../../';
 
-require_once(dirname(__FILE__) . '/../../lib/consts.inc.php');
-require_once(dirname(__FILE__) . '/../../lib/common.inc.php');
+require_once($rootpath . 'lib/consts.inc.php');
+require_once($rootpath . 'lib/common.inc.php');
 
 
 $sDateformat = 'Y-m-d H:i:s';
