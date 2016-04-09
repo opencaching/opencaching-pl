@@ -66,7 +66,7 @@ function event_notify_new_cache($cache_id)
     // TODO: Seeking pre-select `user`. `latitude` like with max_lon / min_lon / max_lat / min_lat
     XDb::xSql(
         'INSERT INTO `notify_waiting` (`id`, `cache_id`, `user_id`, `type`)
-        SELECT NULL, '.XDb::xEscape($cache_id).', `user`.`user_id`, '.XDb::xEscape(notify_new_cache).'
+        SELECT NULL, '.XDb::xEscape($cache_id).', `user`.`user_id`, '.NOTIFY_NEW_CACHES.'
         FROM `user`
         WHERE NOT ISNULL(`user`.`latitude`)
           AND NOT ISNULL(`user`.`longitude`)
