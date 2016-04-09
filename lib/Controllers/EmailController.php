@@ -15,7 +15,7 @@ class EmailController
      */
     public static function sendRemoveLogNotification(GeoCacheLog $log, $request, $loggedUser)
     {
-        $emailContent = read_file(__DIR__ . '/../../tpl/stdstyle/email/removed_log.email');
+        $emailContent = read_file(__DIR__ . '/../../tpl/stdstyle/email/removed_log.email.html');
         $message = isset($request['logowner_message']) ? $request['logowner_message'] : '';
         if ($message != '') { //message to logowner
             $message = tr('removed_message_title') . ":\n---" . "\n" . $message . "\n" . "---";
@@ -51,7 +51,7 @@ class EmailController
      */
     public static function sendActivationLink($username, $email, $country_name, $code, $uid)
     {
-        $emailContent = read_file(__DIR__ . '/../../tpl/stdstyle/email/user_activation.email');
+        $emailContent = read_file(__DIR__ . '/../../tpl/stdstyle/email/user_activation.email.html');
         $emailContent = mb_ereg_replace('{server}', \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getAbsolute_server_URI(), $emailContent);
         $emailContent = mb_ereg_replace('{registermail01}', tr('registermail01'), $emailContent);
         $emailContent = mb_ereg_replace('{registermail02}', tr('registermail02'), $emailContent);
@@ -62,6 +62,7 @@ class EmailController
         $emailContent = mb_ereg_replace('{registermail16}', tr('registermail16'), $emailContent);
         $emailContent = mb_ereg_replace('{registermail17}', tr('registermail17'), $emailContent);
         $emailContent = mb_ereg_replace('{user}', $username, $emailContent);
+        $emailContent = mb_ereg_replace('{mailtitle}', tr('register_email_subject'), $emailContent);
         $emailContent = mb_ereg_replace('{useruid}', $uid, $emailContent);
         $emailContent = mb_ereg_replace('{email}', $email, $emailContent);
         $emailContent = mb_ereg_replace('{country}', $country_name, $emailContent);
@@ -85,7 +86,7 @@ class EmailController
      */
     public static function sendPostActivationMail($username, $email)
     {
-        $emailContent = read_file(__DIR__ . '/../../tpl/stdstyle/email/post_activation.email');
+        $emailContent = read_file(__DIR__ . '/../../tpl/stdstyle/email/post_activation.email.html');
         $emailContent = mb_ereg_replace('{server}', \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getAbsolute_server_URI(), $emailContent);
         $emailContent = mb_ereg_replace('{registermail01}', tr('registermail01'), $emailContent);
         $emailContent = mb_ereg_replace('{registermail02}', tr('registermail02'), $emailContent);
@@ -95,6 +96,7 @@ class EmailController
         $emailContent = mb_ereg_replace('{registermail07}', tr('registermail07'), $emailContent);
         $emailContent = mb_ereg_replace('{registermail08}', tr('registermail08'), $emailContent);
         $emailContent = mb_ereg_replace('{user}', $username, $emailContent);
+        $emailContent = mb_ereg_replace('{mailtitle}', tr('post_activation_email_subject'), $emailContent);
         $wikiLinks = \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getWikiLinks();
         $emailContent = mb_ereg_replace('{wikiaddress}', $wikiLinks['forBeginers'], $emailContent);
         $emailContent = mb_ereg_replace('{octeamEmailsSignature}', \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getOcteamEmailsSignature(), $emailContent);
