@@ -67,7 +67,7 @@ $cacheTypeText[9] = 'PodCastCache';
                             . $usr['userid'];
         }
 
-        $sql .= ' WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
+        $sql .= ' WHERE `caches`.`cache_id` IN (' . $queryFilter . ')';
 
         $sortby = $options['sort'];
         if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance'))

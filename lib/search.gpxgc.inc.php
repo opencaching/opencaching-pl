@@ -1,6 +1,6 @@
 <?php
 use Utils\Database\XDb;
-global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $sqlFilter;
+global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $queryFilter;
 set_time_limit(1800);
 
 function getPictures($cacheid, $picturescount)
@@ -265,7 +265,7 @@ if ($usr || ! $hide_coords) {
                 FROM `caches`
                 LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' . $usr['userid'];
     }
-    $query .= ' WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
+    $query .= ' WHERE `caches`.`cache_id` IN (' . $queryFilter . ')';
 
     $sortby = $options['sort'];
     if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance')) {
@@ -313,7 +313,7 @@ if ($usr || ! $hide_coords) {
 
                                         FROM `caches`
                                         LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' . $usr['userid'] . '
-                                        WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
+                                        WHERE `caches`.`cache_id` IN (' . $queryFilter . ')';
 
     $sortby = $options['sort'];
     if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance')) {

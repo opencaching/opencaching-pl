@@ -81,7 +81,7 @@ $cacheTypeText[10] = "".tr('cacheType_10')."";
                         LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = '
                             . $usr['userid'];
         }
-        $sql .= ' WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
+        $sql .= ' WHERE `caches`.`cache_id` IN (' . $queryFilter . ')';
 
         $sortby = $options['sort'];
         if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance'))

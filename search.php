@@ -953,11 +953,11 @@ use Utils\Database\XDb;
                     $sql_from[] = '`caches`';
                     $sql_where[] = '`s1`.`cache_id`=`caches`.`cache_id`';
 
-                    $sqlFilter = 'SELECT DISTINCT ' . implode(',', $sql_select) .
+                    $queryFilter = 'SELECT DISTINCT ' . implode(',', $sql_select) .
                             ' FROM ' . implode(',', $sql_from) .
                             ' WHERE ' . implode(' AND ', $sql_where);
 
-                    $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `tmpFTCaches` (`cache_id` int (11) PRIMARY KEY) ' . $sqlFilter);
+                    $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `tmpFTCaches` (`cache_id` int (11) PRIMARY KEY) ' . $queryFilter);
                     $dbcSearch->reset();
 
                     $sql_select = array();
@@ -1113,7 +1113,7 @@ use Utils\Database\XDb;
                 $group = sizeof($sql_group) ? ' GROUP BY ' . implode(', ', $sql_group) : '';
                 $having = sizeof($sql_having) ? ' HAVING ' . implode(' AND ', $sql_having) : '';
 
-                $sqlFilter = 'SELECT ' . implode(',', $sql_select) .
+                $queryFilter = 'SELECT ' . implode(',', $sql_select) .
                         ' FROM ' . implode(',', $sql_from) .
                         $join .
                         ' WHERE ' . implode(' AND ', $sql_where) .

@@ -58,7 +58,7 @@
         FROM `caches`
         LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' . $usr['userid'];
     }
-    $sql .= ' WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
+    $sql .= ' WHERE `caches`.`cache_id` IN (' . $queryFilter . ')';
 /*              ,AVG(`caches`.`longitude`) AS avglongitude, AVG(`caches`.`latitude`) AS avglatitude*/
 
     $sortby = $options['sort'];
@@ -77,7 +77,7 @@
 
         $sqlstr ='SELECT MAX(`caches`.`longitude`) AS maxlongitude, MAX(`caches`.`latitude`) AS maxlatitude,
                     MIN(`caches`.`longitude`) AS minlongitude, MIN(`caches`.`latitude`) AS minlatitude
-                    FROM `caches` WHERE `caches`.`cache_id` IN ('.$sqlFilter.')';
+                    FROM `caches` WHERE `caches`.`cache_id` IN ('.$queryFilter.')';
         $dbcSearch->simpleQuery($sqlstr);
 
         $r = $dbcSearch->dbResultFetch();

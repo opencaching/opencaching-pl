@@ -59,7 +59,7 @@ function fHideColumn($nr, $set)
     return $C;
 }
 
-global $dbcSearch, $usr, $lang, $hide_coords, $cookie, $NrColSortSearch, $OrderSortSearch, $SearchWithSort, $TestStartTime, $sqlFilter;
+global $dbcSearch, $usr, $lang, $hide_coords, $cookie, $NrColSortSearch, $OrderSortSearch, $SearchWithSort, $TestStartTime, $queryFilter;
 require_once ($stylepath . '/lib/icons.inc.php');
 require_once ('lib/cache_icon.inc.php');
 set_time_limit(1800);
@@ -197,7 +197,7 @@ if (! isset($_REQUEST["OrderSortSearch"])) {
 $cookie->header();
 
 // build SQL-list
-$countselect = mb_eregi_replace('^SELECT `cache_id`', 'SELECT COUNT(`cache_id`) `count`', $sqlFilter);
+$countselect = mb_eregi_replace('^SELECT `cache_id`', 'SELECT COUNT(`cache_id`) `count`', $queryFilter);
 $countselect = mb_eregi_replace('^SELECT `caches` `cache_id`', 'SELECT COUNT(`caches`.`cache_id`) `count`', $countselect);
 $countselect = mb_eregi_replace('^SELECT `caches`.`cache_id` `cache_id`', 'SELECT COUNT(`caches`.`cache_id`) `count`', $countselect);
 $countselect = mb_eregi_replace('^SELECT `result_caches`.`cache_id`', 'SELECT COUNT(`result_caches`.`cache_id`) `count`', $countselect);
@@ -308,7 +308,7 @@ if ($usr === false) {
 $query .= ' LEFT JOIN cache_desc ON cache_desc.cache_id=caches.cache_id AND cache_desc.language=\'' . $lang . '\',
             `user`, cache_type
         WHERE `caches`.`user_id`=`user`.`user_id`
-        AND `caches`.`cache_id` IN (' . $sqlFilter . ')
+        AND `caches`.`cache_id` IN (' . $queryFilter . ')
         AND `cache_type`.`id`=`caches`.`type` ';
 $sortby = $options['sort'];
 

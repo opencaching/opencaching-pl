@@ -4,7 +4,7 @@ use Utils\Database\XDb;
 
 ob_start();
 
-global $bUseZip, $usr, $hide_coords, $absolute_server_URI, $lang, $dbcSearch, $sqlFilter;
+global $bUseZip, $usr, $hide_coords, $absolute_server_URI, $lang, $dbcSearch, $queryFilter;
 set_time_limit(1800);
 $kmlLine = '
 <Placemark>
@@ -67,7 +67,7 @@ if ($usr || ! $hide_coords) {
                             `caches`.`latitude`) `latitude`, IFNULL(cache_mod_cords.id,0) as cache_mod_cords_id FROM `caches`
                         LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' . $usr['userid'];
     }
-    $query .= ' WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
+    $query .= ' WHERE `caches`.`cache_id` IN (' . $queryFilter . ')';
 
     $sortby = $options['sort'];
     if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance')) {

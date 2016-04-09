@@ -109,7 +109,7 @@ Rekordy (kazdy 362 znaki)
                     }
                     $sql .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, `caches`.`user_id` `user_id`
                                                                     FROM `caches`
-                                                                    WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
+                                                                    WHERE `caches`.`cache_id` IN (' . $queryFilter . ')';
 
                     $sortby = $options['sort'];
                     if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance'))
