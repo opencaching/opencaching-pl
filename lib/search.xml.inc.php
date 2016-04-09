@@ -1,6 +1,6 @@
 <?php
 
-global $content, $bUseZip, $sqldebug, $dbcSearch, $lang;
+global $content, $bUseZip, $dbcSearch, $lang;
 
 $encoding = 'UTF-8';
 $distance_unit = 'km';
@@ -124,10 +124,9 @@ if ($rCount['count'] == 1) {
     }
 }
 
-if ($sqldebug == false) {
-    header("Content-type: application/xml; charset=".$encoding);
-    header("Content-Disposition: attachment; filename=" . $sFilebasename . ".xml");
-}
+
+header("Content-type: application/xml; charset=".$encoding);
+header("Content-Disposition: attachment; filename=" . $sFilebasename . ".xml");
 
 echo "<?xml version=\"1.0\" encoding=\"".$encoding."\"?>\n";
 echo "<result>\n";
@@ -229,9 +228,7 @@ $dbcSearch->reset();
 unset($dbc);
 $dbcSearch->simpleQuery('DROP TABLE `xmlcontent` ');
 $dbcSearch->reset();
-if ($sqldebug == true) {
-    sqldbg_end();
-}
+
 echo "</result>\n";
 
 exit;

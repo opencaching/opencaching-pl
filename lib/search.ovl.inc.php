@@ -1,6 +1,6 @@
 <?php
 
-    global $content, $bUseZip, $sqldebug, $hide_coords, $usr, $dbcSearch;
+    global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;
     set_time_limit(1800);
     $ovlLine = "[Symbol {symbolnr1}]\r\nTyp=6\r\nGroup=1\r\nWidth=20\r\nHeight=20\r\nDir=100\r\nArt=1\r\nCol=3\r\nZoom=1\r\nSize=103\r\nArea=2\r\nXKoord={lon}\r\nYKoord={lat}\r\n[Symbol {symbolnr2}]\r\nTyp=2\r\nGroup=1\r\nCol=3\r\nArea=1\r\nZoom=1\r\nSize=130\r\nFont=1\r\nDir=100\r\nXKoord={lonname}\r\nYKoord={latname}\r\nText={mod_suffix}{cachename}\r\n";
     $ovlFoot = "[Overlay]\r\nSymbols={symbolscount}\r\n";
@@ -92,7 +92,7 @@
         $sqlLimit = ' LIMIT ' . $startat . ', ' . $count;
 
         // temporĂ¤re tabelle erstellen
-        $dbcSearch->simpleQuery( 'CREATE TEMPORARY TABLE `ovlcontent` ' . $sql . $sqlLimit, $sqldebug);
+        $dbcSearch->simpleQuery( 'CREATE TEMPORARY TABLE `ovlcontent` ' . $sql . $sqlLimit);
         $dbcSearch->reset();
 
         $dbcSearch->simpleQuery( 'SELECT COUNT(*) `count` FROM `ovlcontent`');
@@ -135,21 +135,17 @@
             $phpzip = new ss_zip('',6);
         }
 
-        // ok, ausgabe starten
-
-        if ($sqldebug == false)
+        if ($bUseZip == true)
         {
-            if ($bUseZip == true)
-            {
-                header("content-type: application/zip");
-                header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
-            }
-            else
-            {
-                header("Content-type: application/ovl");
-                header("Content-Disposition: attachment; filename=" . $sFilebasename . ".ovl");
-            }
+            header("content-type: application/zip");
+            header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
         }
+        else
+        {
+            header("Content-type: application/ovl");
+            header("Content-Disposition: attachment; filename=" . $sFilebasename . ".ovl");
+        }
+
 
         // ok, ausgabe ...
 
@@ -196,8 +192,6 @@
         $ovlFoot = mb_ereg_replace('{symbolscount}', $nr - 1, $ovlFoot);
         append_output($ovlFoot);
 
-        if ($sqldebug == true) sqldbg_end();
-
         // phpzip versenden
         if ($bUseZip == true)
         {
@@ -234,12 +228,10 @@
 
     function append_output($str)
     {
-        global $content, $bUseZip, $sqldebug;
-        if ($sqldebug == true) return;
+        global $content, $bUseZip;
 
         if ($bUseZip == true)
             $content .= $str;
         else
             echo $str;
     }
-?>

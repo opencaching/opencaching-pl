@@ -1,6 +1,6 @@
 <?php
 
-    global $content, $bUseZip, $sqldebug, $usr, $hide_coords,$dbcSearch;
+    global $content, $bUseZip, $usr, $hide_coords, $dbcSearch;
     require_once ('lib/common.inc.php');
     set_time_limit(1800);
 
@@ -10,7 +10,7 @@
         global $thumb_max_width;
         global $thumb_max_height;
 
-        $sql = 'SELECT uuid, title, url, spoiler FROM pictures WHERE object_id=\'' . sql_escape($cacheid) . '\' AND object_type=2 AND display=1 ORDER BY date_created';
+        $sql = 'SELECT uuid, title, url, spoiler FROM pictures WHERE object_id=\'' . XDb::xEscape($cacheid) . '\' AND object_type=2 AND display=1 ORDER BY date_created';
 
 
         $rs = sql($sql);
@@ -362,21 +362,17 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
             $phpzip = new ss_zip('',6);
         }
 
-        // ok, ausgabe starten
-
-        if ($sqldebug == false)
+        if ($bUseZip == true)
         {
-            if ($bUseZip == true)
-            {
-                header("content-type: application/zip");
-                header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
-            }
-            else
-            {
-                header("Content-type: application/gpx");
-                header("Content-Disposition: attachment; filename=" . $sFilebasename . ".gpx");
-            }
+            header("content-type: application/zip");
+            header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
         }
+        else
+        {
+            header("Content-type: application/gpx");
+            header("Content-Disposition: attachment; filename=" . $sFilebasename . ".gpx");
+        }
+
 
         $children='';
         $gpxHead = str_replace('{time}', date($gpxTimeFormat, time()), $gpxHead);
@@ -435,7 +431,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
             $thisline = str_replace('{cacheid}', $r['cacheid'], $thisline);
             $thisline = str_replace('{cachename}', cleanup_text($r['name']), $thisline);
             $thisline = str_replace('{country}', tr($r['country']), $thisline);
-            $region = sqlValue("SELECT `adm3` FROM `cache_location` WHERE `cache_id`='" . sql_escape($r['cacheid']) . "'", 0);
+            $region = sqlValue("SELECT `adm3` FROM `cache_location` WHERE `cache_id`='" . XDb::xEscape($r['cacheid']) . "'", 0);
             $thisline = str_replace('{region}', $region, $thisline);
 
             //modified coords
@@ -623,7 +619,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
             // Travel Bug GeoKrety
             $waypoint = $r['waypoint'];
             $geokrety = '';
-            $geokret_sql = "SELECT gk_item.id AS id, gk_item.name AS name FROM gk_item, gk_item_waypoint WHERE gk_item.id = gk_item_waypoint.id AND gk_item_waypoint.wp = '".sql_escape($waypoint)."' AND gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.stateid <>5 AND gk_item.typeid<>2";
+            $geokret_sql = "SELECT gk_item.id AS id, gk_item.name AS name FROM gk_item, gk_item_waypoint WHERE gk_item.id = gk_item_waypoint.id AND gk_item_waypoint.wp = '".XDb::xEscape($waypoint)."' AND gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.stateid <>5 AND gk_item.typeid<>2";
             $geokret_query = sql($geokret_sql);
 
                 while( $geokret = sql_fetch_array($geokret_query) )
@@ -679,8 +675,6 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
         unset($dbc);
 
         append_output($gpxFoot);
-
-        if ($sqldebug == true) sqldbg_end();
 
         // phpzip versenden
         if ($bUseZip == true)
@@ -744,14 +738,13 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 
     function append_output($str)
     {
-        global $content, $bUseZip, $sqldebug;
-        if ($sqldebug == true) return;
+        global $content, $bUseZip;
 
         if ($bUseZip == true)
             $content .= $str;
         else
             echo $str;
-            }
+    }
     /*
 Funkcja do konwersji polskich znakow miedzy roznymi systemami kodowania.
 Zwraca skonwertowany tekst.

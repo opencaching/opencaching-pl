@@ -1,6 +1,6 @@
 <?php
 
-    global $content, $bUseZip, $sqldebug, $hide_coords, $usr, $dbcSearch;
+    global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;
     set_time_limit(1800);
 $locHead = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <loc version="1.0" src="'.$absolute_server_URI.'">' . "\n";
@@ -118,7 +118,7 @@ $cacheTypeText[10] = "".tr('cacheType_10')."";
         $dbcSearch->simpleQuery( 'DROP TEMPORARY TABLE IF EXISTS `loccontent`');
         $dbcSearch->reset();
         // temporäre tabelle erstellen
-        $dbcSearch->simpleQuery( 'CREATE TEMPORARY TABLE `loccontent` ' . $sql . $sqlLimit, $sqldebug);
+        $dbcSearch->simpleQuery( 'CREATE TEMPORARY TABLE `loccontent` ' . $sql . $sqlLimit);
         $dbcSearch->reset();
 
         $dbcSearch->simpleQuery( 'SELECT COUNT(*) `count` FROM `loccontent`');
@@ -161,20 +161,15 @@ $cacheTypeText[10] = "".tr('cacheType_10')."";
             $phpzip = new ss_zip('',6);
         }
 
-        // ok, ausgabe starten
-
-        if ($sqldebug == false)
+        if ($bUseZip == true)
         {
-            if ($bUseZip == true)
-            {
-                header("content-type: application/zip");
-                header('Content-Disposition: attachment; filename='. $sFilebasename . '.zip');
-            }
-            else
-            {
-                header("Content-type: application/loc");
-                header("Content-Disposition: attachment; filename=" . $sFilebasename . ".loc");
-            }
+            header("content-type: application/zip");
+            header('Content-Disposition: attachment; filename='. $sFilebasename . '.zip');
+        }
+        else
+        {
+            header("Content-type: application/loc");
+            header("Content-Disposition: attachment; filename=" . $sFilebasename . ".loc");
         }
 
         append_output($locHead);
@@ -245,8 +240,6 @@ $cacheTypeText[10] = "".tr('cacheType_10')."";
         unset($dbc);
         append_output($locFoot);
 
-        if ($sqldebug == true) sqldbg_end();
-
         // phpzip versenden
         if ($bUseZip == true)
         {
@@ -274,8 +267,7 @@ $cacheTypeText[10] = "".tr('cacheType_10')."";
 
         function append_output($str)
         {
-            global $content, $bUseZip, $sqldebug;
-            if ($sqldebug == true) return;
+            global $content, $bUseZip;
 
             if ($bUseZip == true)
                 $content .= $str;

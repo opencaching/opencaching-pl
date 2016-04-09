@@ -73,7 +73,7 @@ function fHideColumn( $nr, $set )
 
 
 
-    global $dbcSearch, $sqldebug, $usr, $lang, $hide_coords, $cookie, $NrColSortSearch, $OrderSortSearch, $SearchWithSort, $TestStartTime;
+    global $dbcSearch, $usr, $lang, $hide_coords, $cookie, $NrColSortSearch, $OrderSortSearch, $SearchWithSort, $TestStartTime;
     require_once($stylepath . '/lib/icons.inc.php');
     require_once('lib/cache_icon.inc.php');
     set_time_limit(1800);
@@ -667,10 +667,8 @@ function fHideColumn( $nr, $set )
     }
 
 
-    if ($sqldebug == true)
-        sqldbg_end();
-    else
-        tpl_BuildTemplate();
+
+    tpl_BuildTemplate();
 
 
 function trChar( $word )
@@ -717,4 +715,4 @@ function PrepareText( $text )
     return $log_text;
 }
 
-?>
+

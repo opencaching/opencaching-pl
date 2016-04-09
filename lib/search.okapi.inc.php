@@ -1,7 +1,7 @@
 <?php
 
 setlocale(LC_TIME, 'pl_PL.UTF-8'); // TODO: why it's pl_PL
-global $content, $sqldebug, $usr, $hide_coords, $lang, $dbcSearch;
+global $content, $usr, $hide_coords, $lang, $dbcSearch;
 
 set_time_limit(1800);
 
@@ -161,10 +161,6 @@ if ($usr || !$hide_coords) {
         $waypoints = implode("|", $waypoints_tab);
 
         $dbcSearch->reset();
-
-        // I don't know what this line doing, but other 'search.*.inc.php' files include this.
-        if ($sqldebug == true)
-            sqldbg_end();
 
         if (!isset($_SESSION))
             session_start();# prevent downloading multiple parts at once

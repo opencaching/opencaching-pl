@@ -1,6 +1,6 @@
 <?php
 
-    global $content, $bUseZip, $sqldebug, $usr, $hide_coords, $dbcSearch;
+    global $content, $bUseZip, $usr, $hide_coords, $dbcSearch;
     require_once ('lib/common.inc.php');
     set_time_limit(1800);
 

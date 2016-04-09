@@ -1,6 +1,6 @@
 <?php
 
-    global $content, $bUseZip, $sqldebug, $hide_coords, $usr, $dbcSearch;
+    global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;
     set_time_limit(1800);
 $cacheTypeText[1] = 'Unknown Cache';
 $cacheTypeText[2] = 'Traditional Cache';
@@ -145,21 +145,17 @@ $cacheTypeText[9] = 'PodCastCache';
             $phpzip = new ss_zip('',6);
         }
 
-        // ok, ausgabe starten
-
-        if ($sqldebug == false)
+        if ($bUseZip == true)
         {
-            if ($bUseZip == true)
-            {
-                header("content-type: application/zip");
-                header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
-            }
-            else
-            {
-                header("Content-type: application/ov2");
-                header("Content-Disposition: attachment; filename=" . $sFilebasename . ".ov2");
-            }
+            header("content-type: application/zip");
+            header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
         }
+        else
+        {
+            header("Content-type: application/ov2");
+            header("Content-Disposition: attachment; filename=" . $sFilebasename . ".ov2");
+        }
+
 
         // ok, ausgabe ...
 
@@ -178,7 +174,7 @@ $cacheTypeText[9] = 'PodCastCache';
         */
 
         $sql = 'SELECT `ov2content`.`cache_id` `cacheid`, `ov2content`.`longitude` `longitude`, `ov2content`.`latitude` `latitude`, `ov2content`.cache_mod_cords_id, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`wp_oc` `wp_oc`, `cache_type`.`short` `typedesc`, `cache_size`.`pl` `sizedesc`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username`, `cache_type`.`id` `type_id` FROM `ov2content`, `caches`, `cache_type`, `cache_size`, `user` WHERE `ov2content`.`cache_id`=`caches`.`cache_id` AND `ov2content`.`type`=`cache_type`.`id` AND `ov2content`.`size`=`cache_size`.`id` AND `ov2content`.`user_id`=`user`.`user_id`';
-        $dbcSearch->simpleQuery( $sql, $sqldebug);
+        $dbcSearch->simpleQuery( $sql);
 
         while($r = $dbcSearch->dbResultFetch())
         {
@@ -208,7 +204,6 @@ $cacheTypeText[9] = 'PodCastCache';
         }
         $dbcSearch->reset();
         unset($dbc);
-        if ($sqldebug == true) sqldbg_end();
 
         // phpzip versenden
         if ($bUseZip == true)
@@ -230,8 +225,7 @@ $cacheTypeText[9] = 'PodCastCache';
 
     function append_output($str)
     {
-        global $content, $bUseZip, $sqldebug;
-        if ($sqldebug == true) return;
+        global $content, $bUseZip;
 
         if ($bUseZip == true)
             $content .= $str;

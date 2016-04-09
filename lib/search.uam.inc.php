@@ -3,7 +3,7 @@
 //  require_once("./lib/cs2cs.inc.php");
     require_once("./lib/wgs21992.php");
     set_time_limit(1800);
-        global $content, $bUseZip, $sqldebug, $hide_coords, $usr, $dbcSearch;
+        global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;
 
         $uamSize[1] = 'o'; //'Other'
         $uamSize[2] = 'm'; //'Micro'
@@ -162,20 +162,15 @@
                                     $phpzip = new ss_zip('',6);
                     }
 
-                    // ok, ausgabe starten
-
-                    if ($sqldebug == false)
+                    if ($bUseZip == true)
                     {
-                                    if ($bUseZip == true)
-                                    {
-                                                    header('content-type: application/zip');
-                                                    header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
-                                    }
-                                    else
-                                    {
-                                                    header('Content-type: application/uam');
-                                                    header('Content-Disposition: attachment; filename=' . $sFilebasename . '.uam');
-                                    }
+                                    header('content-type: application/zip');
+                                    header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
+                    }
+                    else
+                    {
+                                    header('Content-type: application/uam');
+                                    header('Content-Disposition: attachment; filename=' . $sFilebasename . '.uam');
                     }
 
                     // ok, ausgabe ...
@@ -195,7 +190,7 @@
                     */
 
                     $sql = 'SELECT `wptcontent`.`cache_id` `cacheid`, `wptcontent`.`longitude` `longitude`, `wptcontent`.`latitude` `latitude`, `wptcontent`.cache_mod_cords_id, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`wp_oc` `wp_oc`, `cache_type`.`short` `typedesc`, `cache_size`.`pl` `sizedesc`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username` , `caches`.`size` `size`, `caches`.`type` `type`  FROM `wptcontent`, `caches`, `cache_type`, `cache_size`, `user` WHERE `wptcontent`.`cache_id`=`caches`.`cache_id` AND `wptcontent`.`type`=`cache_type`.`id` AND `wptcontent`.`size`=`cache_size`.`id` AND `wptcontent`.`user_id`=`user`.`user_id`';
-                    $dbcSearch->simpleQuery( $sql, $sqldebug);
+                    $dbcSearch->simpleQuery( $sql );
 
                     append_output(pack("ccccl",0xBB, 0x22, 0xD5, 0x3F,$rCount['count']));
 
@@ -233,8 +228,6 @@
                     }
                     $dbcSearch->reset();
 
-                    if ($sqldebug == true) sqldbg_end();
-
                     // phpzip versenden
                     if ($bUseZip == true)
                     {
@@ -255,13 +248,12 @@ function convert_string($str)
 
 function append_output($str)
 {
-                global $content, $bUseZip, $sqldebug;
-                if ($sqldebug == true) return;
+    global $content, $bUseZip;
 
-                if ($bUseZip == true)
-                                $content .= $str;
-                else
-                                echo $str;
+    if ($bUseZip == true)
+        $content .= $str;
+    else
+        echo $str;
 }
 
 

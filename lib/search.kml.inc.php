@@ -2,7 +2,7 @@
 
     ob_start();
 
-    global $bUseZip, $sqldebug, $usr, $hide_coords, $absolute_server_URI, $lang, $dbcSearch;
+    global $bUseZip, $usr, $hide_coords, $absolute_server_URI, $lang, $dbcSearch;
     set_time_limit(1800);
     $kmlLine =
 '
@@ -117,7 +117,7 @@
         $dbcSearch->reset();
 
         // temporäre tabelle erstellen
-        $dbcSearch->simpleQuery( 'CREATE TEMPORARY TABLE `kmlcontent` ' . $sql . $sqlLimit, $sqldebug);
+        $dbcSearch->simpleQuery( 'CREATE TEMPORARY TABLE `kmlcontent` ' . $sql . $sqlLimit);
         $dbcSearch->reset();
 
         $dbcSearch->simpleQuery( 'SELECT COUNT(*) `count` FROM `kmlcontent`');
@@ -163,7 +163,7 @@
 
         include ($stylepath . '/search.result.caches.kml.head.tpl.php');
 
-        $dbcSearch->simpleQuery( 'SELECT MIN(`longitude`) `minlon`, MAX(`longitude`) `maxlon`, MIN(`latitude`) `minlat`, MAX(`latitude`) `maxlat` FROM `kmlcontent`', $sqldebug);
+        $dbcSearch->simpleQuery( 'SELECT MIN(`longitude`) `minlon`, MAX(`longitude`) `maxlon`, MIN(`latitude`) `minlat`, MAX(`latitude`) `maxlat` FROM `kmlcontent`');
         $rMinMax = $dbcSearch->dbResultFetch();
         $dbcSearch->reset();
 
@@ -188,7 +188,7 @@
             icon
         */
 
-        $dbcSearch->simpleQuery( 'SELECT `kmlcontent`.`cache_id` `cacheid`, `kmlcontent`.`longitude` `longitude`, `kmlcontent`.`latitude` `latitude`, `kmlcontent`.cache_mod_cords_id, `kmlcontent`.`type` `type`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `cache_type`.`'.$lang.'` `typedesc`, `cache_size`.`'.$lang.'` `sizedesc`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username` FROM `kmlcontent`, `caches`, `cache_type`, `cache_size`, `user` WHERE `kmlcontent`.`cache_id`=`caches`.`cache_id` AND `kmlcontent`.`type`=`cache_type`.`id` AND `kmlcontent`.`size`=`cache_size`.`id` AND `kmlcontent`.`user_id`=`user`.`user_id`', $sqldebug);
+        $dbcSearch->simpleQuery( 'SELECT `kmlcontent`.`cache_id` `cacheid`, `kmlcontent`.`longitude` `longitude`, `kmlcontent`.`latitude` `latitude`, `kmlcontent`.cache_mod_cords_id, `kmlcontent`.`type` `type`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `cache_type`.`'.$lang.'` `typedesc`, `cache_size`.`'.$lang.'` `sizedesc`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username` FROM `kmlcontent`, `caches`, `cache_type`, `cache_size`, `user` WHERE `kmlcontent`.`cache_id`=`caches`.`cache_id` AND `kmlcontent`.`type`=`cache_type`.`id` AND `kmlcontent`.`size`=`cache_size`.`id` AND `kmlcontent`.`user_id`=`user`.`user_id`');
         while($r = $dbcSearch->dbResultFetch() )
         {
             $thisline = $kmlLine;
@@ -282,8 +282,6 @@
         $dbcSearch->reset();
         unset($dbc);
         echo $kmlFoot;
-
-        if ($sqldebug == true) outputSqlDebugForm();
 
         // phpzip versenden
         if ($bUseZip == true)

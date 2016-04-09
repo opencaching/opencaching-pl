@@ -2,7 +2,7 @@
 
 setlocale(LC_TIME, 'pl_PL.UTF-8');
 
-global $content, $bUseZip, $sqldebug, $usr, $hide_coords, $dbcSearch, $lang;
+global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $lang;
 
 set_time_limit(1800);
 
@@ -145,16 +145,14 @@ if( $usr || !$hide_coords ) {
         $phpzip = new ss_zip('',6);
     }
 
-    // ok, ausgabe starten
-    if ($sqldebug == false) {
-        if ($bUseZip == true) {
-            header('content-type: application/zip');
-            header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
-        } else {
-            header('Content-type: application/wpt');
-            header('Content-Disposition: attachment; filename=' . $sFilebasename . '.wpt');
-        }
+    if ($bUseZip == true) {
+        header('content-type: application/zip');
+        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
+    } else {
+        header('Content-type: application/wpt');
+        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.wpt');
     }
+
 
     // ok, ausgabe ...
 
@@ -172,7 +170,7 @@ if( $usr || !$hide_coords ) {
 
     $sql = 'SELECT `wptcontent`.`cache_id` `cacheid`, IF(wptcontent.cache_id IN (SELECT cache_id FROM cache_logs WHERE deleted=0 AND user_id='.$usr['userid'].' AND (type=1 OR type=8)),1,0) as found, `wptcontent`.`longitude` `longitude`, `wptcontent`.`latitude` `latitude`, `wptcontent`.cache_mod_cords_id, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`wp_oc` `wp_oc`, `cache_type`.`short` `typedesc`, `cache_size`.`'.$lang.'` `sizedesc`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username` , `caches`.`size` `size`, `caches`.`status` `status`, `caches`.`type` `type` FROM `wptcontent`, `caches`, `cache_type`, `cache_size`, `user` WHERE `wptcontent`.`cache_id`=`caches`.`cache_id` AND `wptcontent`.`type`=`cache_type`.`id` AND `wptcontent`.`size`=`cache_size`.`id` AND `wptcontent`.`user_id`=`user`.`user_id`';
 
-    $dbcSearch->simpleQuery( $sql, $sqldebug);
+    $dbcSearch->simpleQuery( $sql );
 
     appendOutput("OziExplorer Waypoint File Version 1.1\r\n");
     appendOutput("WGS 84\r\n");
@@ -238,9 +236,7 @@ if( $usr || !$hide_coords ) {
     }
     $dbcSearch->reset();
     unset($cdb);
-    if ($sqldebug == true) {
-        sqldbg_end();
-    }
+
 
      // phpzip versenden
      if ($bUseZip == true) {
@@ -305,10 +301,7 @@ function convertString($str)
 
 function appendOutput($str)
 {
-    global $content, $bUseZip, $sqldebug;
-    if ($sqldebug == true) {
-        return;
-    }
+    global $content, $bUseZip;
 
     if ($bUseZip == true) {
         $content .= $str;

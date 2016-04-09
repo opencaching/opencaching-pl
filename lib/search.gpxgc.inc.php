@@ -1,6 +1,6 @@
 <?php
 
-        global $content, $bUseZip, $sqldebug, $usr, $hide_coords,$dbcSearch;
+        global $content, $bUseZip, $usr, $hide_coords,$dbcSearch;
         set_time_limit(1800);
 
         function getPictures($cacheid, $picturescount)
@@ -422,21 +422,17 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                         $phpzip = new ss_zip('',6);
                 }
 
-                // ok, ausgabe starten
-
-                if ($sqldebug == false)
+                if ($bUseZip == true)
                 {
-                        if ($bUseZip == true)
-                        {
-                                header("content-type: application/zip");
-                                header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
-                        }
-                        else
-                        {
-                                header("Content-type: application/gpx");
-                                header("Content-Disposition: attachment; filename=" . $sFilebasename . ".gpx");
-                        }
+                        header("content-type: application/zip");
+                        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
                 }
+                else
+                {
+                        header("Content-type: application/gpx");
+                        header("Content-Disposition: attachment; filename=" . $sFilebasename . ".gpx");
+                }
+
                 $children='';
                 $gpxHead = str_replace('{{time}}', date($gpxTimeFormat, time()), $gpxHead);
                 $dbcSearch->simpleQuery('SELECT `gpxcontent`.`cache_id` `cacheid` FROM `gpxcontent`');
@@ -741,8 +737,6 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 
                 append_output($gpxFoot);
 
-                if ($sqldebug == true) sqldbg_end();
-
                 // phpzip versenden
                 if ($bUseZip == true)
                 {
@@ -804,14 +798,13 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 
         function append_output($str)
         {
-                global $content, $bUseZip, $sqldebug;
-                if ($sqldebug == true) return;
+                global $content, $bUseZip;
 
                 if ($bUseZip == true)
                         $content .= $str;
                 else
                         echo $str;
-                        }
+        }
         /*
 Funkcja do konwersji polskich znakow miedzy roznymi systemami kodowania.
 Zwraca skonwertowany tekst.
