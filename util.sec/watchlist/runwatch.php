@@ -1,11 +1,11 @@
 <?php
-use Utils\Database\XDb;
 /**
  *
  * This script sends emails notification about new logs to cache owner and watchers
  * It should be called from CRON quite often (to not delay messages)
  *
  */
+use Utils\Database\XDb;
 
 $rootpath = '../../';
 

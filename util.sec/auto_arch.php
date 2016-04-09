@@ -1,7 +1,12 @@
 <?php
+/**
+ * This script handles cache auto archivisation process
+ * It should be called from CRON quite often (to not delay messages)
+ */
+
+use Utils\Database\OcDb;
 
 $rootpath = __DIR__ . '/../';
-require_once($rootpath . 'lib/clicompatbase.inc.php');
 require_once($rootpath . 'lib/common.inc.php');
 
 class AutoArch
@@ -34,15 +39,17 @@ class AutoArch
     public function run()
     {
         $this->removeLastEditedCachesFromList();
-        /* @var $db dataBase */
-        $db = \lib\Database\DataBaseSingleton::Instance();
-        $sql = "SELECT cache_id, last_modified FROM caches WHERE status = 2 AND last_modified < now() - interval 4 month";
-        $db->simpleQuery($sql);
+
+        $db = OcDb::instance();
+
+        $db->simpleQuery(
+            "SELECT cache_id, last_modified FROM caches WHERE status = 2 AND last_modified < now() - interval 4 month");
+
         $chachesToProcess = $db->dbResultFetchAll();
         foreach ($chachesToProcess as $rs) {
-            // sprawdz w ktorym miejscu procedury znajduje sie skrzynka
-            $step_sql = "SELECT step FROM cache_arch WHERE cache_id = :1 LIMIT 1";
-            $db->multiVariableQuery($step_sql, (int) $rs['cache_id']);
+
+            $db->multiVariableQuery(
+                "SELECT step FROM cache_arch WHERE cache_id = :1 LIMIT 1", (int) $rs['cache_id']);
             $step_array = $db->dbResultFetchOneRowOnly();
             if ($step_array) {
                 $step = (int) $step_array['step'];
@@ -57,7 +64,6 @@ class AutoArch
                 $this->proceedFirstStep($rs);
             }
         }
-
     }
 
 
@@ -102,9 +108,15 @@ class AutoArch
     private function loadCachesToProcess()
     {
         /* @var $db dataBase */
-        $db = \lib\Database\DataBaseSingleton::Instance();
-        $sqlQuery = "SELECT cache_arch.step, caches.cache_id, caches.name, user.username FROM `cache_arch`, caches, user WHERE (step=1 OR step=2 OR step=3) AND (caches.cache_id = cache_arch.cache_id) AND (caches.user_id = user.user_id) ORDER BY step ASC";
-        $db->simpleQuery($sqlQuery);
+        $db = OcDb::instance();
+
+        $db->simpleQuery(
+            "SELECT cache_arch.step, caches.cache_id, caches.name, user.username
+            FROM `cache_arch`, caches, user
+            WHERE (step=1 OR step=2 OR step=3)
+                AND (caches.cache_id = cache_arch.cache_id)
+                AND (caches.user_id = user.user_id)
+            ORDER BY step ASC");
         return $db->dbResultFetchAll();
     }
 
@@ -113,13 +125,15 @@ class AutoArch
      */
     private function removeLastEditedCachesFromList()
     {
-        /* @var $db dataBase */
-        $db = \lib\Database\DataBaseSingleton::Instance();
-        $cachesToRmQuery = 'SELECT caches.cache_id as cacheId FROM caches, cache_arch WHERE cache_arch.cache_id = caches.cache_id AND last_modified >= now() - interval 4 month ';
-        $db->simpleQuery($cachesToRmQuery);
+        $db = OcDb::instance();
+
+        $db->simpleQuery(
+            'SELECT caches.cache_id as cacheId FROM caches, cache_arch
+            WHERE cache_arch.cache_id = caches.cache_id
+                AND last_modified >= now() - interval 4 month ');
         $cachesToRm = $db->dbResultFetchAll();
         foreach ($cachesToRm as $cacheToRm) {
-            $delSqlQuery = "DELETE FROM cache_arch WHERE cache_id = :1 ";
+            $delSqlQuery = "DELETE FROM cache_arch WHERE cache_id = :1 LIMIT 1";
             $db->multiVariableQuery($delSqlQuery, (int) $cacheToRm['cacheId']);
         }
     }
@@ -130,17 +144,21 @@ class AutoArch
      */
     private function archiveGeocache($rs)
     {
-        /* @var $db dataBase */
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = OcDb::instance();
+
         $statusSqlQuery = "REPLACE INTO cache_arch (cache_id, step) VALUES ( :1, :2 )";
         $archSqlQuery = "UPDATE caches SET status = 3 WHERE cache_id= :1 " ;
-        $logSqlQuery = "INSERT INTO cache_logs (cache_id, uuid, user_id, type, date, last_modified, date_created, text, owner_notified, node) VALUES ( :1, :2, '-1', 9,NOW(),NOW(), NOW(), :3, 1, 2)";
+        $logSqlQuery = "INSERT INTO cache_logs (cache_id, uuid, user_id, type, date, last_modified,
+                                    date_created, text, owner_notified, node)
+                        VALUES ( :1, :2, '-1', 9,NOW(),NOW(), NOW(), :3, 1, 2)";
+
         $db->beginTransaction();
+
         $db->multiVariableQuery($statusSqlQuery, (int) $rs['cache_id'], $this->step["ARCH_COMPLETE"]);
         $db->multiVariableQuery($archSqlQuery, (int) $rs['cache_id']);
         $db->multiVariableQuery($logSqlQuery, (int) $rs['cache_id'],  create_uuid(), tr('autoArchive_12'));
-        $transactionResult = $db->commit();
-        if ($transactionResult) {
+
+        if ($db->commit()) {
             $this->sendEmail($this->step["AFTER_SECOND_MAIL_SENT"], $rs['cache_id']);
         }
     }
@@ -166,10 +184,9 @@ class AutoArch
 
     private function updateCacheStepInDb($rs, $step)
     {
-        /* @var $db dataBase */
-        $db = \lib\Database\DataBaseSingleton::Instance();
-        $statusSqlQuery = "REPLACE INTO cache_arch (cache_id, step) VALUES (:1, :2 )";
-        $db->multiVariableQuery($statusSqlQuery, (int) $rs['cache_id'], $step);
+        $db = OcDb::instance();
+        $db->multiVariableQuery(
+            "REPLACE INTO cache_arch (cache_id, step) VALUES (:1, :2 )", (int) $rs['cache_id'], $step);
     }
 
     /**
@@ -177,12 +194,13 @@ class AutoArch
      */
     function ArchEvent()
     {
-        /* @var $db dataBase */
-        $db = \lib\Database\DataBaseSingleton::Instance();
-        $sql = "UPDATE caches SET status = 3 WHERE status<>3 AND type = 6 AND date_hidden < now() - interval 2 month";
-        $db->simpleQuery($sql);
+        $db = OcDb::instance();
+        $db->simpleQuery(
+            "UPDATE caches SET status = 3
+            WHERE status<>3 AND type = 6 AND date_hidden < now() - interval 2 month");
     }
 }
+
 
 $autoArch = new AutoArch($stylepath);
 $autoArch->run();
