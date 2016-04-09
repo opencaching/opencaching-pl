@@ -29,7 +29,7 @@ if ($error == false) {
                 $desc = $routes_record['desc'];
                 if ($desc != '') {
                     require_once($rootpath . 'lib/class.inputfilter.php');
-                    $myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
+                    $myFilter = new OcInputFilter();
                     $desc = $myFilter->process($desc);
                 }
                 $routes .= '<div class="listitems">';
