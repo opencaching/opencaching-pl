@@ -1207,7 +1207,7 @@ function coordToLocation($lat, $lon)
 {
     global $lang;
     $xml = "";
-    $file = fopen('http://maps.google.com/maps/geo?q=' . $lat . ',' . $lon . '&output=xml&oe=utf8&sensor=false&key=your_api_key&hl=' . $lang, 'r');
+    $file = fopen('//maps.google.com/maps/geo?q=' . $lat . ',' . $lon . '&output=xml&oe=utf8&sensor=false&key=your_api_key&hl=' . $lang, 'r');
     while (!feof($file)) {
         $xml .= fread($file, 1024);
     }
@@ -1232,7 +1232,7 @@ function coordToLocation($lat, $lon)
 function coordToLocationOk($lat, $lon)
 {
     $xml = "";
-    $file = fopen('http://maps.google.com/maps/geo?q=' . $lat . ',' . $lon . '&output=xml&oe=utf8&sensor=false&key=your_api_key&hl=pl', 'r');
+    $file = fopen('//maps.google.com/maps/geo?q=' . $lat . ',' . $lon . '&output=xml&oe=utf8&sensor=false&key=your_api_key&hl=pl', 'r');
     while (!feof($file)) {
         $xml .= fread($file, 1024);
     }

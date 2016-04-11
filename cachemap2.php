@@ -216,7 +216,7 @@ if ($usr == false) {
     }
 
     /* SET YOUR MAP CODE HERE */
-    tpl_set_var('cachemap_header', '<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=' . $googlemap_key . '" type="text/javascript"></script>
+    tpl_set_var('cachemap_header', '<script src="//maps.google.com/maps?file=api&amp;v=2.x&amp;key=' . $googlemap_key . '" type="text/javascript"></script>
     <script language="JavaScript1.2" type="text/javascript">
     <!--
         window.onbeforeunload = saveMapType;

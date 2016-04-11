@@ -170,7 +170,7 @@ if ($error == false) {
                     else
                         $sel_marker_str = "&amp;markers=color:blue|label:$type|$lat,$lon|";
             }
-            $google_map = "http://maps.google.com/maps/api/staticmap?center=" . $latitude . "," . $longitude . $dzoom . "&amp;size=350x350&amp;maptype=roadmap&amp;key=" . $googlemap_key . "&amp;sensor=false" . $markers_ftf_str . $markers_str . $markers_ev_str . $sel_marker_str;
+            $google_map = "//maps.google.com/maps/api/staticmap?center=" . $latitude . "," . $longitude . $dzoom . "&amp;size=350x350&amp;maptype=roadmap&amp;key=" . $googlemap_key . "&amp;sensor=false" . $markers_ftf_str . $markers_str . $markers_ev_str . $sel_marker_str;
 
             if ($index == -1) {
                 $fixed_google_map_link = $google_map; // store fixed map link to be used with Top Reco and New logs items

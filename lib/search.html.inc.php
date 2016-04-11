@@ -655,8 +655,8 @@ function fHideColumn( $nr, $set )
 
         $domain = substr(trim($absolute_server_URI,'/'),-2,2); // It should be done better
 
-        $google_maps_link = "http://maps.google.$domain/maps?f=q&hl=$lang&geocode=&q=";
-        $google_maps_link_all = "http://maps.google.$domain/maps?f=q&hl=$lang&geocode=&ie=UTF8&z=7&q=";
+        $google_maps_link = "//maps.google.$domain/maps?f=q&hl=$lang&geocode=&q=";
+        $google_maps_link_all = "//maps.google.$domain/maps?f=q&hl=$lang&geocode=&ie=UTF8&z=7&q=";
 
 
         $google_maps_link = htmlentities($google_maps_link).urlencode($google_kml_link);
