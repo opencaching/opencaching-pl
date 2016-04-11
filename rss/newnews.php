@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 global $dateFormat;
 $rootpath = '../';
@@ -17,9 +18,12 @@ if ($error == false) {
         <link>$absolute_server_URI/news.php</link><width>100</width><height>28</height></image>\n";
 
 
-    $rsNews = sql('SELECT `date_posted`, `content` FROM `news` WHERE `topic`=2 AND `display`=1 ORDER BY `date_posted` DESC LIMIT ' . $perpage);
+    $rsNews = XDb::xSql(
+        'SELECT `date_posted`, `content` FROM `news`
+        WHERE `topic`=2 AND `display`=1
+        ORDER BY `date_posted` DESC LIMIT ' . $perpage);
 
-    while ($rNews = sql_fetch_array($rsNews)) {
+    while ($rNews = XDb::xFetchArray($rsNews)) {
         $thisline = "<item>\n<title>{date}</title>\n<description>{message}</description>\n<link>$absolute_server_URI/news.php</link>\n</item>\n";
 
         $thisline = str_replace('{date}', date($dateFormat, strtotime($rNews['date_posted'])), $thisline);
@@ -27,9 +31,8 @@ if ($error == false) {
 
         $content .= $thisline . "\n";
     }
-    mysql_free_result($rsNews);
+    XDb::xFreeResults($rsNews);
     $content .= "</channel>\n</rss>\n";
 
     echo $content;
 }
-?>

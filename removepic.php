@@ -22,8 +22,9 @@ if ($error == false) {
 
         if ($allok == true) {
             $rs = XDb::xSql(
-                "SELECT `object_type`, `object_id`, `user_id`, `id`, `url` FROM `pictures` WHERE `uuid`= ? ", $uuid);
-            if (! $r = XDb::xFetchArray($rs))
+                "SELECT `object_type`, `object_id`, `user_id`, `id`, `url`
+                FROM `pictures` WHERE `uuid`= ? LIMIT 1", $uuid);
+            if (! $r = XDb::xFetchArray($rs) )
                 $allok = false;
         }
 
@@ -46,22 +47,21 @@ if ($error == false) {
 
             // datei und in DB lĂśschen
             @unlink($picdir . '/' . $uuid . '.' . $extension);
-            XDb::xSql("DELETE FROM `pictures` WHERE `uuid`= ? ", $uuid);
+            XDb::xSql("DELETE FROM `pictures` WHERE `uuid`= ? LIMIT 1", $uuid);
             XDb::xSql(
                 "INSERT INTO `removed_objects` (`localID`, `uuid`, `type`, `removed_date`, `node`)
-                VALUES (?, ?, 6, NOW(), ?)",
-                $localid, $uuid, $oc_nodeid);
+                VALUES (?, ?, 6, NOW(), ?)", $localid, $uuid, $oc_nodeid);
 
             switch ($type) {
                 // log
                 case 1:
                     XDb::xSql(
-                        "UPDATE `cache_logs` SET `picturescount`=`picturescount`-1, `last_modified`=NOW() 
-                        WHERE `id`= ? ", $objectid);
+                    "UPDATE `cache_logs` SET `picturescount`=`picturescount`-1, `last_modified`=NOW()
+                    WHERE `id`= ? LIMIT 1", $objectid);
 
-                    $rs = XDb::xSql("SELECT `cache_id` FROM `cache_logs` WHERE `deleted`=0 AND `id`= ? ", $objectid);
-                    $r = XDb::xFetchArray($rs);
-                    XDb::xFreeResults($rs);
+                    $r['cache_id'] = XDb::xMultiVariableQueryValue(
+                                        "SELECT `cache_id` FROM `cache_logs`
+                                        WHERE `deleted`=0 AND `id`= :1 LIMIT 1", 0, $objectid);
 
                     tpl_redirect('viewlogs.php?cacheid=' . urlencode($r['cache_id']));
                     break;
@@ -69,8 +69,8 @@ if ($error == false) {
                 // cache
                 case 2:
                     XDb::xSql(
-                        "UPDATE `caches` SET `picturescount`=`picturescount`-1, `last_modified`=NOW() 
-                        WHERE `cache_id`= ? ", $objectid);
+                        "UPDATE `caches` SET `picturescount`=`picturescount`-1, `last_modified`=NOW()
+                        WHERE `cache_id`= ? LIMIT 1", $objectid);
 
                     tpl_redirect('editcache.php?cacheid=' . urlencode($objectid));
                     break;
@@ -90,4 +90,3 @@ if ($error == false) {
 
 //make the template and send it out
 tpl_BuildTemplate();
-

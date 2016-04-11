@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 /*
   BBOX=2.38443,48.9322,27.7053,55.0289
  */
@@ -33,12 +34,25 @@ if ((abs($lon_from - $lon_to) > 2) || (abs($lat_from - $lat_to) > 2)) {
     $lat_from = $lat_to;
 }
 
-$rs = sql("SELECT `caches`.`cache_id` `cacheid`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, `caches`.`type` `type`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `cache_type`.`pl` `typedesc`, `cache_size`.`pl` `sizedesc`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username` FROM `caches`, `cache_type`, `cache_size`, `user` WHERE `caches`.`type`=`cache_type`.`id` AND `caches`.`size`=`cache_size`.`id` AND `caches`.`user_id`=`user`.`user_id` AND `caches`.`status`=1 AND `caches`.`longitude`>='" . sql_escape($lon_from) . "' AND `caches`.`longitude`<='" . sql_escape($lon_to) . "' AND `caches`.`latitude`>='" . sql_escape($lat_from) . "' AND `caches`.`latitude`<='" . sql_escape($lat_to) . "'");
+$rs = XDb::xSql(
+    "SELECT `caches`.`cache_id` `cacheid`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`,
+            `caches`.`type` `type`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`,
+            `cache_type`.`pl` `typedesc`, `cache_size`.`pl` `sizedesc`, `caches`.`terrain` `terrain`,
+            `caches`.`difficulty` `difficulty`, `user`.`username` `username`
+    FROM `caches`, `cache_type`, `cache_size`, `user`
+    WHERE `caches`.`type`=`cache_type`.`id`
+        AND `caches`.`size`=`cache_size`.`id`
+        AND `caches`.`user_id`=`user`.`user_id`
+        AND `caches`.`status` = 1
+        AND `caches`.`longitude` >= ?
+        AND `caches`.`longitude` <= ?
+        AND `caches`.`latitude` >= ?
+        AND `caches`.`latitude` <= ? ",
+    $lon_from, $lon_to, $lat_from, $lat_to);
 
 /*
   kml processing
  */
-
 $kmlLine = '
 <Placemark>
   <description><![CDATA[<a href="http://www.opencaching.pl/viewcache.php?cacheid={cacheid}">Zobacz szczegóły skrzynki</a><br />Założona przez {username}<br />&nbsp;<br /><table cellspacing="0" cellpadding="0" border="0"><tr><td>{typeimgurl} </td><td>Rodzaj: {type}<br />Wielkość: {{size}}</td></tr><tr><td colspan="2">Zadanie: {difficulty} z 5.0<br />Teren: {terrain} z 5.0</td></tr></table>]]></description>
@@ -128,7 +142,7 @@ $kmlTimeFormat = 'Y-m-d\TH:i:s\Z';
 
 echo $kmlHead;
 
-while ($r = sql_fetch_array($rs)) {
+while ($r = XDb::xFetchArray($rs)) {
     $thisline = $kmlLine;
 
     // icon suchen
@@ -205,7 +219,7 @@ while ($r = sql_fetch_array($rs)) {
 
     echo $thisline;
 }
-mysql_free_result($rs);
+XDb::xFreeResults($rs);
 
 echo $kmlFoot;
 exit;
@@ -229,4 +243,3 @@ function xmlentities($str)
     return $str;
 }
 
-?>
