@@ -35,7 +35,7 @@
             <tr>
                 <td>&nbsp;</td>
                 <td>
-                    <div class="notice" style="width:500px;height:44px;">{{GKApi03}} <a href="http://geokrety.org/mypage.php" target="_new">{{GKApi04}}</a></div>
+                    <div class="notice" style="width:500px;height:44px;">{{GKApi03}} <a href="//geokrety.org/mypage.php" target="_new">{{GKApi04}}</a></div>
                 </td></tr>
 
             <tr><td class="buffer" colspan="2"></td></tr>

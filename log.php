@@ -251,7 +251,7 @@ if ($error == false) {
 
             // check if geokret is in this cache
             if (isGeokretInCache($cache_id)) {
-                tpl_set_var('log_geokret', "<br /><img src=\"images/gk.png\" class=\"icon16\" alt=\"\" title=\"GeoKrety\" align=\"middle\" />&nbsp;<b>" . tr('geokret_log') . " <a href='http://geokrety.org/ruchy.php'>geokrety.org</a></b>");
+                tpl_set_var('log_geokret', "<br /><img src=\"images/gk.png\" class=\"icon16\" alt=\"\" title=\"GeoKrety\" align=\"middle\" />&nbsp;<b>" . tr('geokret_log') . " <a href='//geokrety.org/ruchy.php'>geokrety.org</a></b>");
             } else
                 tpl_set_var('log_geokret', "");
 
@@ -955,7 +955,7 @@ if ($error == false) {
                     $listed_on[] = '<a href="http://www.navicache.com/cgi-bin/db/displaycache2.pl?CacheID=' . $wpnc . '" target="_blank">Navicache.com</a>';
                 }
                 if ($cache_record['wp_gc'] != '')
-                    $listed_on[] = '<a href="http://www.geocaching.com/seek/cache_details.aspx?wp=' . $cache_record['wp_gc'] . '" target="_blank">Geocaching.com</a>';
+                    $listed_on[] = '<a href="//www.geocaching.com/seek/cache_details.aspx?wp=' . $cache_record['wp_gc'] . '" target="_blank">Geocaching.com</a>';
 
 
                 if (sizeof($listed_on)) {

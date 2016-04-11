@@ -99,7 +99,7 @@ $config = array(
     'mapsConfig' => array(
         'OSM' => array(
             'name' => 'OSM',
-            'attribution' => '&copy; <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC BY-SA</a>',
+            'attribution' => '&copy; <a href="//www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors <a href="//creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC BY-SA</a>',
             'tileUrl' => 'http://tile.openstreetmap.org/{z}/{x}/{y}.png',
             'maxZoom' => 18,
             'tileSize' => '256x256'
@@ -163,7 +163,7 @@ $config['maps']['external']['OSMapa_URL'] = '<a target="_blank" href="http://osm
 $config['maps']['external']['UMP'] = 1;
 $config['maps']['external']['UMP_URL'] = '<a target="_blank" href="http://mapa.ump.waw.pl/ump-www/?zoom=14&lat=%1$f&lon=%2$f&layers=B00000T&mlat=%1$f&mlon=%2$f">%6$s</a>';
 $config['maps']['external']['Google Maps'] = 1;
-$config['maps']['external']['Google Maps_URL'] = '<a target="_blank" href="http://maps.google.com/maps?hl=UTF-8&q=%1$f+%2$f+(%5$s)" >%6$s</a>';
+$config['maps']['external']['Google Maps_URL'] = '<a target="_blank" href="//maps.google.com/maps?hl=UTF-8&q=%1$f+%2$f+(%5$s)" >%6$s</a>';
 $config['maps']['external']['Szukacz'] = 1;
 $config['maps']['external']['Szukacz_URL'] = '<a target="_blank" href="http://mapa.szukacz.pl/?n=%1$f&e=%2$f&z=4&t=Skrzynka%%20Geocache">%6$s</a>';
 $config['maps']['external']['Flopp\'s Map'] = 0;

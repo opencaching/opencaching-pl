@@ -57,7 +57,7 @@ while ($rCaches = sql_fetch_assoc($rsCaches)) {
 
 //  echo $rCaches['idx'] . ' ' . $rCaches['name'] . '<br />';
 //  $line = '<tr><td><a href=http://www.opencaching.pl/viewcache.php?cacheid={cacheid} target=_blank>{name}</a> (<b>{username}</b>)</td><td align=right>&nbsp;(<b>{count}</b>)&nbsp;</td><td><img src=/graphs/images/leftbar.gif /><img src=/graphs/images/mainbar.gif height=14 width={widthB} /><img src=/graphs/images/rightbar.gif /> </td> </tr>';
-    $line = '<tr><td width="40px" align="right">{index}</td><td width="40px" align="center">{rating}</td><td  width="60px" align="center">{fbr}&nbsp;({far})</td><td><a href=http://www.opencaching.pl/viewcache.php?cacheid={cacheid} target=_blank>{name}</a> &nbsp;({username})</td></tr>';
+    $line = '<tr><td width="40px" align="right">{index}</td><td width="40px" align="center">{rating}</td><td  width="60px" align="center">{fbr}&nbsp;({far})</td><td><a href=/viewcache.php?cacheid={cacheid} target=_blank>{name}</a> &nbsp;({username})</td></tr>';
     $line = str_replace('{index}', $rCaches[idx], $line);
     $line = str_replace('{rating}', $rCaches[ratings], $line);
     $line = str_replace('{fbr}', $rCaches[founds], $line);
