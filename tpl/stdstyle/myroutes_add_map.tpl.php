@@ -25,7 +25,7 @@
 
 
 
-<script src=" http://maps.google.com/?file=api&v=2.x&key=ABQIAAAAKzfMHoyn1s1VSuNTwlFfzhTqTxhHAgqKNaAck663VX5jr8OSJBQrTiL58t4Rt3olsGRlxSuqVkU5Xg"
+<script src="//maps.google.com/?file=api&v=2.x&key=ABQIAAAAKzfMHoyn1s1VSuNTwlFfzhTqTxhHAgqKNaAck663VX5jr8OSJBQrTiL58t4Rt3olsGRlxSuqVkU5Xg"
 type="text/javascript"></script>
 
 <script type="text/javascript">

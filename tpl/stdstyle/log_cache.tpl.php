@@ -373,7 +373,7 @@ $founds = mysql_result($tmp, 0);
 
                     <div style="display: {GeoKretyApiNotConfigured}; width: 500px; color: red; font-size: 12px;">
                         {{GKApi07}}{{GKApi08}}<br /><br />
-                        1. {{GKApi09}} <a href="http://geokrety.org/mypage.php">{{GKApi04}}</a><br />
+                        1. {{GKApi09}} <a href="//geokrety.org/mypage.php">{{GKApi04}}</a><br />
                         2. {{GKApi10}} <a href="myprofile.php?action=change">{{GKApi04}}</a>  <br />
                     </div>
 

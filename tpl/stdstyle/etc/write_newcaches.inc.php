@@ -23,7 +23,7 @@ $map_height = $main_page_map_height;
 $markerpositions = get_marker_positions();
 
 // Generate include file for map with new caches
-$google_map = sprintf("http://maps.google.com/maps/api/staticmap?center=%F,%F&zoom=%d&size=%dx%d&maptype=roadmap&key=%s&sensor=false", $map_center_lat, $map_center_lon, $map_zoom, $map_width, $map_height, $googlemap_key);
+$google_map = sprintf("//maps.google.com/maps/api/staticmap?center=%F,%F&zoom=%d&size=%dx%d&maptype=roadmap&key=%s&sensor=false", $map_center_lat, $map_center_lon, $map_zoom, $map_width, $map_height, $googlemap_key);
 $file_content = '<img src="' . $google_map . '" id="main-cachemap" name="main-cachemap" alt="{{map}}" />';
 
 // Calculate positions for small and large images highlighting recent caches and events
