@@ -108,10 +108,10 @@ function ftsearch_load_ignores()
     global $ftsearch_ignores_loaded;
 
     if ($ftsearch_ignores_loaded != true) {
-        $rs = sql('SELECT `word` FROM `search_ignore`');
-        while ($r = sql_fetch_assoc($rs))
+        $rs = XDb::xSql('SELECT `word` FROM `search_ignore`');
+        while ($r = XDb::xFetchArray($rs))
             $ftsearch_ignores[] = $r['word'];
-        sql_free_result($rs);
+        XDb::xFreeResults($rs);
 
         $ftsearch_ignores_loaded = true;
     }
@@ -205,78 +205,159 @@ function ftsearch_refresh()
 
 function ftsearch_refresh_all_caches()
 {
-    $rs = sql('SELECT `caches`.`cache_id` FROM `caches` LEFT JOIN `search_index_times` ON `caches`.`cache_id`=`search_index_times`.`object_id` AND 2=`search_index_times`.`object_type` WHERE `caches`.`status`!=5 AND `caches`.`status`!=6 AND `caches`.`status`!= 4 AND ISNULL(`search_index_times`.`object_id`) UNION DISTINCT SELECT `caches`.`cache_id` FROM `caches` INNER JOIN `search_index_times` ON `search_index_times`.`object_type`=2 AND `caches`.`cache_id`=`search_index_times`.`object_id` WHERE `caches`.`last_modified`>`search_index_times`.`last_refresh` AND `caches`.`status`!=5 AND `caches`.`status`!=6 AND `caches`.`status`!=4');
-    while ($r = sql_fetch_assoc($rs))
+    $rs = XDb::xSql(
+        'SELECT `caches`.`cache_id`
+        FROM `caches`
+            LEFT JOIN `search_index_times` ON `caches`.`cache_id`=`search_index_times`.`object_id`
+            AND 2=`search_index_times`.`object_type`
+        WHERE `caches`.`status`!=5 AND `caches`.`status`!=6
+            AND `caches`.`status`!= 4
+            AND ISNULL(`search_index_times`.`object_id`)
+        UNION DISTINCT
+            SELECT `caches`.`cache_id`
+            FROM `caches`
+                INNER JOIN `search_index_times` ON `search_index_times`.`object_type`=2
+                AND `caches`.`cache_id`=`search_index_times`.`object_id`
+            WHERE `caches`.`last_modified`>`search_index_times`.`last_refresh`
+                AND `caches`.`status`!=5 AND `caches`.`status`!=6
+                AND `caches`.`status`!=4');
+
+    while ($r = XDb::xFetchArray($rs))
         ftsearch_refresh_cache($r['cache_id']);
-    sql_free_result($rs);
+    XDb::xFreeResults($rs);
 }
 
 function ftsearch_refresh_cache($cache_id)
 {
-    $rs = sql("SELECT `name`, `last_modified` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
-    if ($r = sql_fetch_assoc($rs)) {
+    $rs = XDb::xSql("SELECT `name`, `last_modified` FROM `caches` WHERE `cache_id`= ? ", $cache_id);
+    if ($r = XDb::xFetchArray($rs)) {
         ftsearch_set_entries(2, $cache_id, $cache_id, $r['name'], $r['last_modified']);
     }
-    sql_free_result($rs);
+    XDb::xFreeResults($rs);
 }
 
 function ftsearch_refresh_all_cache_desc()
 {
-    $rs = sql('SELECT `cache_desc`.`id` FROM `cache_desc` INNER JOIN `caches` ON `caches`.`cache_id`=`cache_desc`.`cache_id` LEFT JOIN `search_index_times` ON `cache_desc`.`id`=`search_index_times`.`object_id` AND 3=`search_index_times`.`object_type` WHERE `caches`.`status`!=5 AND `caches`.`status`!=6 AND `caches`.`status`!= 4 AND ISNULL(`search_index_times`.`object_id`) UNION DISTINCT SELECT `cache_desc`.`id` FROM `cache_desc` INNER JOIN `caches` ON `caches`.`cache_id`=`cache_desc`.`cache_id` INNER JOIN `search_index_times` ON `search_index_times`.`object_type`=3 AND `cache_desc`.`id`=`search_index_times`.`object_id` WHERE `cache_desc`.`last_modified`>`search_index_times`.`last_refresh` AND `caches`.`status`!=5 AND `caches`.`status`!=6 AND `caches`.`status`!= 4');
-    while ($r = sql_fetch_assoc($rs))
+    $rs = XDb::xSql(
+            'SELECT `cache_desc`.`id`
+            FROM `cache_desc`
+                INNER JOIN `caches` ON `caches`.`cache_id`=`cache_desc`.`cache_id`
+                LEFT JOIN `search_index_times` ON `cache_desc`.`id`=`search_index_times`.`object_id`
+                    AND 3=`search_index_times`.`object_type`
+            WHERE `caches`.`status`!=5 AND `caches`.`status`!=6
+                AND `caches`.`status`!= 4 AND ISNULL(`search_index_times`.`object_id`)
+            UNION DISTINCT
+                SELECT `cache_desc`.`id`
+                FROM `cache_desc`
+                    INNER JOIN `caches` ON `caches`.`cache_id`=`cache_desc`.`cache_id`
+                    INNER JOIN `search_index_times` ON `search_index_times`.`object_type`=3
+                        AND `cache_desc`.`id`=`search_index_times`.`object_id`
+                WHERE `cache_desc`.`last_modified`>`search_index_times`.`last_refresh`
+                    AND `caches`.`status`!=5 AND `caches`.`status`!=6
+                    AND `caches`.`status`!= 4');
+    while ($r = XDb::xFetchArray($rs))
         ftsearch_refresh_cache_desc($r['id']);
-    sql_free_result($rs);
+    XDb::xFreeResults($rs);
 }
 
 function ftsearch_refresh_cache_desc($id)
 {
-    $rs = sql("SELECT `cache_id`, `desc`, `last_modified` FROM `cache_desc` WHERE `id`='&1'", $id);
-    if ($r = sql_fetch_assoc($rs)) {
+    $rs = XDb::xSql("SELECT `cache_id`, `desc`, `last_modified` FROM `cache_desc` WHERE `id`= ? ", $id);
+    if ($r = XDb::xFetchArray($rs)) {
         $r['desc'] = ftsearch_strip_html($r['desc']);
         ftsearch_set_entries(3, $id, $r['cache_id'], $r['desc'], $r['last_modified']);
     }
-    sql_free_result($rs);
+    XDb::xFreeResults($rs);
 }
 
 function ftsearch_refresh_all_pictures()
 {
-    $rs = sql('SELECT `pictures`.`id` FROM `pictures` LEFT JOIN `search_index_times` ON `pictures`.`id`=`search_index_times`.`object_id` AND 6=`search_index_times`.`object_type` WHERE ISNULL(`search_index_times`.`object_id`) UNION DISTINCT SELECT `pictures`.`id` FROM `pictures` INNER JOIN `search_index_times` ON `search_index_times`.`object_type`=6 AND `pictures`.`id`=`search_index_times`.`object_id` WHERE `pictures`.`last_modified`>`search_index_times`.`last_refresh`');
-    while ($r = sql_fetch_assoc($rs))
+    $rs = XDb::xSql(
+        'SELECT `pictures`.`id`
+        FROM `pictures`
+            LEFT JOIN `search_index_times` ON `pictures`.`id`=`search_index_times`.`object_id`
+                AND 6=`search_index_times`.`object_type`
+        WHERE ISNULL(`search_index_times`.`object_id`)
+        UNION DISTINCT
+            SELECT `pictures`.`id`
+            FROM `pictures`
+                INNER JOIN `search_index_times` ON `search_index_times`.`object_type`=6
+                    AND `pictures`.`id`=`search_index_times`.`object_id`
+            WHERE `pictures`.`last_modified`>`search_index_times`.`last_refresh`');
+
+    while ($r = XDb::xFetchArray($rs))
         ftsearch_refresh_picture($r['id']);
-    sql_free_result($rs);
+    XDb::xFreeResults($rs);
 }
 
 function ftsearch_refresh_picture($id)
 {
-    $rs = sql("SELECT `caches`.`cache_id`, `pictures`.`title`, `pictures`.`last_modified` FROM `pictures` INNER JOIN `caches` ON `pictures`.`object_type`=2 AND `caches`.`cache_id`=`pictures`.`object_id` WHERE `pictures`.`id`='&1' UNION DISTINCT SELECT `cache_logs`.`cache_id` , `pictures`.`title`, `pictures`.`last_modified` FROM `pictures` INNER JOIN `cache_logs` ON `pictures`.`object_type`=1 AND `cache_logs`.`id`=`pictures`.`object_id` WHERE `cache_logs`.`deleted`=0 AND `pictures`.`id`='&1' LIMIT 1", $id);
-    if ($r = sql_fetch_assoc($rs)) {
+    $rs = XDb::xSql(
+        "SELECT `caches`.`cache_id`, `pictures`.`title`, `pictures`.`last_modified`
+        FROM `pictures`
+            INNER JOIN `caches` ON `pictures`.`object_type`=2
+                AND `caches`.`cache_id`=`pictures`.`object_id`
+        WHERE `pictures`.`id`='&1'
+        UNION DISTINCT
+            SELECT `cache_logs`.`cache_id` , `pictures`.`title`, `pictures`.`last_modified`
+            FROM `pictures` INNER JOIN `cache_logs` ON `pictures`.`object_type`=1
+                AND `cache_logs`.`id`=`pictures`.`object_id`
+            WHERE `cache_logs`.`deleted`=0 AND `pictures`.`id`= ?
+            LIMIT 1", $id);
+    if ($r = XDb::xFetchArray($rs)) {
         ftsearch_set_entries(6, $id, $r['cache_id'], $r['title'], $r['last_modified']);
     }
-    sql_free_result($rs);
+    XDb::xFreeResults($rs);
 }
 
 function ftsearch_refresh_all_cache_logs()
 {
-    $rs = sql('SELECT `cache_logs`.`id` FROM `cache_logs` LEFT JOIN `search_index_times` ON `cache_logs`.`id`=`search_index_times`.`object_id` AND 1=`search_index_times`.`object_type` WHERE ISNULL(`search_index_times`.`object_id`) UNION DISTINCT SELECT `cache_logs`.`id` FROM `cache_logs` INNER JOIN `search_index_times` ON `search_index_times`.`object_type`=1 AND `cache_logs`.`id`=`search_index_times`.`object_id` WHERE `cache_logs`.`last_modified`>`search_index_times`.`last_refresh` AND `cache_logs`.`deleted`=0');
-    while ($r = sql_fetch_assoc($rs))
+    $rs = XDb::xSql(
+        'SELECT `cache_logs`.`id`
+        FROM `cache_logs`
+            LEFT JOIN `search_index_times` ON `cache_logs`.`id`=`search_index_times`.`object_id`
+                AND 1=`search_index_times`.`object_type`
+        WHERE ISNULL(`search_index_times`.`object_id`)
+        UNION DISTINCT
+        SELECT `cache_logs`.`id`
+        FROM `cache_logs`
+            INNER JOIN `search_index_times` ON `search_index_times`.`object_type`=1
+            AND `cache_logs`.`id`=`search_index_times`.`object_id`
+        WHERE `cache_logs`.`last_modified`>`search_index_times`.`last_refresh`
+            AND `cache_logs`.`deleted`=0');
+
+    while ($r = XDb::xFetchArray($rs))
         ftsearch_refresh_cache_logs($r['id']);
-    sql_free_result($rs);
+    XDb::xFreeResults($rs);
 }
 
 function ftsearch_refresh_cache_logs($id)
 {
-    $rs = sql("SELECT `cache_id`, `text`, `last_modified` FROM `cache_logs` WHERE `id`='&1' AND `cache_logs`.`deleted` = &2", $id, 0);
-    if ($r = sql_fetch_assoc($rs)) {
+    $rs = XDb::xSql(
+        "SELECT `cache_id`, `text`, `last_modified`
+        FROM `cache_logs`
+        WHERE `id`= ?
+            AND `cache_logs`.`deleted` = ? ", $id, 0);
+    if ($r = XDb::xFetchArray($rs)) {
         $r['text'] = ftsearch_strip_html($r['text']);
         ftsearch_set_entries(1, $id, $r['cache_id'], $r['text'], $r['last_modified']);
     }
-    sql_free_result($rs);
+    XDb::xFreeResults($rs);
 }
 
 function ftsearch_delete_entries($object_type, $object_id, $cache_id)
 {
-    sql("DELETE FROM `search_index` WHERE `object_type`='&1' AND `cache_id`='&2'", $object_type, $cache_id);
-    sql("DELETE FROM `search_index_times` WHERE `object_type`='&1' AND `object_id`='&2'", $object_type, $object_id);
+    XDb::xSql(
+        "DELETE FROM `search_index`
+        WHERE `object_type`= ?
+            AND `cache_id`= ?",
+        $object_type, $cache_id);
+
+    XDb::xSql(
+        "DELETE FROM `search_index_times`
+        WHERE `object_type`= ?
+            AND `object_id`= ?",
+        $object_type, $object_id);
 }
 
 function ftsearch_set_entries($object_type, $object_id, $cache_id, &$text, $last_modified)
@@ -285,9 +366,16 @@ function ftsearch_set_entries($object_type, $object_id, $cache_id, &$text, $last
 
     $ahash = ftsearch_hash($text);
     foreach ($ahash AS $k => $h) {
-        sql("INSERT DELAYED INTO `search_index` (`object_type`, `cache_id`, `hash`, `count`) VALUES ('&1', '&2', '&3', '&4') ON DUPLICATE KEY UPDATE `count`=`count`+1", $object_type, $cache_id, $h, 1);
+        XDb::xSql(
+            "INSERT DELAYED INTO `search_index` (`object_type`, `cache_id`, `hash`, `count`)
+            VALUES ( ?, ?, ?, ?)
+            ON DUPLICATE KEY UPDATE `count`=`count`+1",
+            $object_type, $cache_id, $h, 1);
     }
-    sql("INSERT INTO `search_index_times` (`object_id`, `object_type`, `last_refresh`) VALUES ('&1', '&2', '&3') ON DUPLICATE KEY UPDATE `last_refresh`='&3'", $object_id, $object_type, $last_modified);
+    XDb::xSql(
+        "INSERT INTO `search_index_times` (`object_id`, `object_type`, `last_refresh`)
+        VALUES (?,?,?) ON DUPLICATE KEY UPDATE `last_refresh`= ? ",
+        $object_id, $object_type, $last_modified, $last_modified);
 }
 
 function ftsearch_strip_html($text)
@@ -303,4 +391,4 @@ function ftsearch_strip_html($text)
     return $text;
 }
 
-?>
+

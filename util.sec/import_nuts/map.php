@@ -5,7 +5,7 @@ $opt['rootpath'] = '../../../';
 
 // chdir to proper directory (needed for cronjobs)
 //  chdir(substr(realpath($_SERVER['PHP_SELF']), 0, strrpos(realpath($_SERVER['PHP_SELF']), '/')));
-require('../lib/web.inc.php');
+require('../lib/common.inc.php');
 sql('USE `ocpl`');
 
 //  require($opt['rootpath'] . 'lib2/cli.inc.php');

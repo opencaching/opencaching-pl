@@ -1,6 +1,7 @@
 <?php
 
-// Sachestatus-ID selected by default
+use Utils\Database\XDb;
+
 $default_cachestatus_id = 1;
 
 $log_types = array();
@@ -27,8 +28,8 @@ function get_log_types_from_database()
     global $dblink;
     $log_types = array();
 
-    $resp = sql("SELECT * FROM log_types ORDER BY id ASC");
-    while ($row = sql_fetch_assoc($resp)) {
+    $resp = XDb::xSql("SELECT * FROM log_types ORDER BY id ASC");
+    while ($row = XDb::xFetchArray($resp)) {
         $log_types[] = $row;
     }
     return $log_types;
@@ -39,8 +40,8 @@ function get_cache_types_from_database()
     global $dblink;
     $cache_types = array();
 
-    $resp = sql("SELECT * FROM cache_type ORDER BY sort ASC");
-    while ($row = sql_fetch_assoc($resp)) {
+    $resp = XDb::xSql("SELECT * FROM cache_type ORDER BY sort ASC");
+    while ($row = XDb::xFetchArray($resp)) {
         $cache_types[] = $row;
     }
     return $cache_types;
@@ -50,14 +51,13 @@ function get_wp_types_from_database($cachetype)
 {
     global $dblink;
     $wp_types = array();
-//  $wp_types[] = array('id' => '-1', 'pl' =>'Proszę wybrać typ', 'en' => 'Select one');
     if ($cachetype == '2' || $cachetype == '4' || $cachetype == '5' || $cachetype == '6' || $cachetype == '9') {
         $param = "id=-1 OR id=4 OR id=5";
     } else {
         $param = "id=-1 OR id=1 OR id=2 OR id=3 OR id=4 OR id=5";
     }
-    $resp = sql("SELECT * FROM waypoint_type WHERE $param ORDER BY id ASC");
-    while ($row = sql_fetch_assoc($resp)) {
+    $resp = XDb::xSql("SELECT * FROM waypoint_type WHERE $param ORDER BY id ASC");
+    while ($row = XDb::xFetchArray($resp)) {
         $wp_types[] = $row;
     }
     return $wp_types;
@@ -68,8 +68,8 @@ function get_cache_status_from_database()
     global $dblink;
     $cache_status = array();
 
-    $resp = sql("SELECT * FROM cache_status ORDER BY id ASC");
-    while ($row = sql_fetch_assoc($resp)) {
+    $resp = XDb::xSql("SELECT * FROM cache_status ORDER BY id ASC");
+    while ($row = XDb::xFetchArray($resp)) {
         $cache_status[] = $row;
     }
     return $cache_status;
@@ -80,8 +80,8 @@ function get_cache_size_from_database()
     global $dblink;
     $cache_size = array();
 
-    $resp = sql("SELECT * FROM cache_size ORDER BY id ASC");
-    while ($row = sql_fetch_assoc($resp)) {
+    $resp = XDb::xSql("SELECT * FROM cache_size ORDER BY id ASC");
+    while ($row = XDb::xFetchArray($resp)) {
         $cache_size[] = $row;
     }
     return $cache_size;
@@ -147,4 +147,4 @@ function cache_status_from_id($id, $lang)
     }
 }
 
-?>
+

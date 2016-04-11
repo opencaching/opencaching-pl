@@ -127,11 +127,11 @@ class LogEnteryController
         $queryDel = "DELETE FROM `scores` WHERE `user_id` = :1 AND `cache_id` = :2 ";
         $db->multiVariableQuery($queryDel, $log->getUser()->getUserId(), $log->getGeoCache()->getCacheId());
 
-        $sqlQuery = "SELECT count(*) FROM scores WHERE cache_id= :1 ";
-        $liczba = $db->multiVariableQueryValue($sqlQuery,0, $log->getGeoCache()->getCacheId());
+        $query = "SELECT count(*) FROM scores WHERE cache_id= :1 ";
+        $liczba = $db->multiVariableQueryValue($query,0, $log->getGeoCache()->getCacheId());
 
-        $sqlQuerySel = "SELECT SUM(score) FROM scores WHERE cache_id= :1 ";
-        $suma = $db->multiVariableQueryValue($sqlQuerySel, 0, $log->getGeoCache()->getCacheId());
+        $querySel = "SELECT SUM(score) FROM scores WHERE cache_id= :1 ";
+        $suma = $db->multiVariableQueryValue($querySel, 0, $log->getGeoCache()->getCacheId());
 
         // obliczenie nowej sredniej
         if ($liczba != 0) {
@@ -140,8 +140,8 @@ class LogEnteryController
             $srednia = 0;
         }
 
-        $sqlUpdateQuery = "UPDATE caches SET votes = :1 , score= :2 WHERE cache_id= :3 ";
-        $db->multiVariableQuery($sqlUpdateQuery, $liczba, $srednia, $log->getGeoCache()->getCacheId());
+        $updateQuery = "UPDATE caches SET votes = :1 , score= :2 WHERE cache_id= :3 ";
+        $db->multiVariableQuery($updateQuery, $liczba, $srednia, $log->getGeoCache()->getCacheId());
     }
 
     private function handleMobileGeocachesAfterLogDelete(GeoCacheLog $log)
@@ -200,7 +200,7 @@ class LogEnteryController
 
     public function loadLogsFromDb($geocacheId, $includeDeletedLogs = false, $offset = 0, $limit = -1, $logId = false)
     {
-        $sql = $this->generateGetLogsQuery($includeDeletedLogs, $logId);
+        $query = $this->generateGetLogsQuery($includeDeletedLogs, $logId);
         $params = array(
             'v1' => array(
                 'value' => (integer) $geocacheId,
@@ -222,7 +222,7 @@ class LogEnteryController
            );
         }
         $db = \lib\Database\DataBaseSingleton::Instance();
-        $db->paramQuery($sql, $params);
+        $db->paramQuery($query, $params);
         $logEnteries = $db->dbResultFetchAll();
 
         return $logEnteries;
