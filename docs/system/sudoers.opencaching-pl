@@ -1,0 +1,8 @@
+# Opencaching automatic update from repository
+
+# allow running without being actually logged in to a real tty
+Defaults:SITE_USER !requiretty
+
+# allow sudo
+
+HTTPD_USER ALL = NOPASSWD: /var/www/ocpl-update.sh
