@@ -35,7 +35,7 @@
             <tr>
                 <td>&nbsp;</td>
                 <td>
-                    <div class="notice" style="width:500px;height:44px;">{{GKApi03}} <a href="//geokrety.org/mypage.php" target="_new">{{GKApi04}}</a></div>
+                    <div class="notice" style="width:500px;height:44px;">{{GKApi03}} <a href="//geokrety.org/mypage.php" target="_blank">{{GKApi04}}</a></div>
                 </td></tr>
 
             <tr><td class="buffer" colspan="2"></td></tr>
@@ -95,7 +95,7 @@
                     <input type="text" name="notify_radius" maxlength="3" value="{notify_radius}" class="input30" />
                     &nbsp;km {{from_home_coords}}.
                     &nbsp;
-                    <div class="errormsg">{notify_message}</div><br/>
+                    <div class="errormsg">{notify_message}</div>
                     <div class="notice" style="width:500px;height:44px;">{{radius_hint}}</div>
                 </td>
             </tr>
@@ -138,12 +138,13 @@
                 <td class="content-title-noshade txt-grey07" valign="top"><img src="tpl/stdstyle/images/free_icons/plugin.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{ozi_path_label}}:</td>
                 <td class="txt-grey07" valign="top"><input type="text" size="46" name="ozi_path" value="{ozi_path}"><br/>
                     <div class="notice" style="width:500px;height:44px;">{{ozi_path_info}}</div>
+                    <div class="notice" style="width:500px;height:44px;">{{ozi_path_info2}}</div>
                 </td>
             </tr>
             <tr><td class="buffer" colspan="2"></td></tr>
             <tr>
                 <td class="content-title-noshade"><img src="tpl/stdstyle/images/free_icons/calendar.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{registered_since_label}}:</td>
-                <td>{registered_since}</td>
+                <td><b>{registered_since}</b></td>
             </tr>
             <tr><td class="buffer" colspan="2"></td></tr>
             <tr>

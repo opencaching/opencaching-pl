@@ -195,3 +195,7 @@ $config['limits']['image']['extension_text'] = 'JPG, PNG, GIF';
 
 // Minimum distance between caches (physical containers) in meters
 $config['oc']['limits']['proximity'] = 150;
+
+// Maximum radius around home coordinates within which user can receive
+// notifications in km
+$config['oc']['limits']['notification_radius'] = 150;

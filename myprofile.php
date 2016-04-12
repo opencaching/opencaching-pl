@@ -74,6 +74,7 @@ if ($error == false) {
         tpl_set_var('coords', htmlspecialchars(help_latToDegreeStr($record['latitude']), ENT_COMPAT, 'UTF-8') . '<br />' . htmlspecialchars(help_lonToDegreeStr($record['longitude']), ENT_COMPAT, 'UTF-8'));
         tpl_set_var('registered_since', fixPlMonth(htmlspecialchars(strftime($dateformat, strtotime($record['date_created'])), ENT_COMPAT, 'UTF-8')));
         tpl_set_var('notify_radius', htmlspecialchars($record['notify_radius'] + 0, ENT_COMPAT, 'UTF-8'));
+        tpl_set_var('notification_radius',$config['oc']['limits']['notification_radius']);
 
         /* GeoKretyApi - display if secid from geokrety is set; (by Łza) */
         $GKAPIKeyQuery = "SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` =:1";
@@ -289,7 +290,7 @@ if ($error == false) {
 
                     if ($radius != '') {
                         $radius = $radius + 0;
-                        $radius_not_ok = (($radius >= 0) && ($radius <= 150)) ? false : true;
+                        $radius_not_ok = (($radius >= 0) && ($radius <= $config['oc']['limits']['notification_radius'])) ? false : true;
                         if ($radius_not_ok) {
                             tpl_set_var('notify_message', $error_radius_not_ok);
                         }

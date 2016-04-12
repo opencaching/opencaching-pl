@@ -73,12 +73,13 @@
         <tr>
             <td class="buffer" colspan="2">
                 <div class="notice" style="height:44px;">{{ozi_path_info}}</div>
+                <div class="notice" style="height:44px;">{{ozi_path_info2}}</div>
             </td>
         </tr>
         <tr><td class="buffer" colspan="2"></td></tr>
         <tr>
             <td class="content-title-noshade"><img src="tpl/stdstyle/images/free_icons/calendar.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{registered_since_label}}:</td>
-            <td>{registered_since}</td>
+            <td><b>{registered_since}</b></td>
         </tr>
         <tr><td class="buffer" colspan="2"></td></tr>
         <tr>
