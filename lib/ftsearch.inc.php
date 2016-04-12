@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Database\XDb;
+
 /* begin conversion rules */
 
 $ftsearch_simplerules[] = array('qu', 'k');
