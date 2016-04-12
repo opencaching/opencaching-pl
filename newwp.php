@@ -339,12 +339,11 @@ if ($error == false) {
                                 XDb::xSql("INSERT INTO `opensprawdzacz`(`id`,  `cache_id`,  `proby`, `sukcesy`)
                                                      VALUES ('', '$cache_id',   0,       0)");
                             }
-                            XDb::xFreeResults($proba);
+
                         }
                         // ==== opensprawdzacz end ===========================================
 
                         tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));
-                        // end of insert to sql
                     } else {
                         tpl_set_var('general_message', $error_general);
                     }

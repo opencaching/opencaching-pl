@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Database\XDb;
+use Utils\Database\OcDb;
 $linkargs = (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y') ? '&amp;print=y' : '';
 $linkargs .= (isset($_REQUEST['nocrypt']) && $_REQUEST['nocrypt'] == '1') ? '&amp;nocrypt=1' : '';
 
@@ -69,7 +71,6 @@ $event_attended_text = " " . tr('attendends');
 $event_will_attend_text = " " . tr('will_attend');
 $cache_found_text = "x " . tr('found');
 $cache_notfound_text = "x " . tr('not_found');
-$recommend_link = '&nbsp;&nbsp;<a href="recommendations.php?cacheid={cacheid}"/>(' . tr('show_recommended') . ')</a>';
 $rating_stat_show_singular = '<img src="images/rating-star.png" alt="{{recomendation}}" /> {ratings} ' . tr('recommendation') . '<br />';
 $rating_stat_show_plural = '<img src="images/rating-star.png" alt="{{recommendation}}" /> {ratings} ' . tr('recommendations') . '<br />';
 $found_icon = '<img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="{{found}}"/>';
@@ -108,10 +109,17 @@ function viewcache_getmp3table($cacheid, $mp3count)
     global $dblink;
     $nCol = 0;
     $retval = '';
-    $sql = 'SELECT uuid, title, url FROM mp3 WHERE object_id=\'' . sql_escape($cacheid) . '\' AND object_type=2 AND display=1 ORDER BY seq, date_created';
-    //requires:ALTER TABLE `mp3` ADD `seq` SMALLINT UNSIGNED NOT NULL DEFAULT '1';
-    $rs = sql($sql);
-    while ($r = sql_fetch_array($rs)) {
+
+    $rs = XDb::xSql(
+        'SELECT uuid, title, url
+        FROM mp3
+        WHERE object_id= ?
+            AND object_type=2
+            AND display=1
+        ORDER BY seq, date_created',
+        $cacheid);
+
+    while ($r = XDb::xFetchArray($rs)) {
         if ($nCol == 4) {
             $nCol = 0;
         }
@@ -125,14 +133,14 @@ function viewcache_getmp3table($cacheid, $mp3count)
         $nCol++;
     }
 
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
     return $retval;
 }
 
 // gibt eine tabelle für viewcache mit thumbnails von allen bildern zurück
 function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = true, $spoiler_only = false, $showspoiler = false, $picturescount, $disable_spoiler = false)
 {
-    $db = \lib\Database\DataBaseSingleton::Instance();
+    $db = OcDb::instance();
     $retval = '';
     global $thumb_max_width;
     global $thumb_max_height;
@@ -143,7 +151,12 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
     }else{
         $spoiler_only = "";
     }
-    $db->multiVariableQuery('SELECT uuid, title, url, spoiler FROM pictures WHERE ' . $spoiler_only . ' object_id=:1 AND object_type=2 AND display=1 ORDER BY seq, date_created', $cacheid);
+    $db->multiVariableQuery('
+        SELECT uuid, title, url, spoiler FROM pictures
+        WHERE ' . $spoiler_only . ' object_id=:1
+            AND object_type=2 AND display=1
+        ORDER BY seq, date_created',
+        $cacheid);
 
     if ($disable_spoiler == false) {
         $spoiler_onclick = "enlarge(this);";
@@ -170,18 +183,14 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
             }
 
             if ($r['spoiler'] == 1) {
-                $pic_onclick = $spoiler_onclick;
                 if ($disable_spoiler == true) {
-                    $r['url'] = 'index.php';
-                }; //hide URL so cannot be viewed
-            } else {
-                $pic_onclick = "enlarge(this);";
-            };
+                    $r['url'] = 'tpl\stdstyle\images\thumb\thumbspoiler.gif';
+                } //hide URL so cannot be viewed
+            }
 
             if ($reqPrint != 'y') {
-
                 $retval .= '<div class="img-shadow">';
-                $retval .= '<a class="example-image-link" href="'.str_replace("images/uploads", "upload", $r['url']).'" data-lightbox="example-1"><img class="example-image" src="thumbs.php?' . $showspoiler . 'uuid=' . urlencode($r['uuid']) . '" alt="' . htmlspecialchars($r['title']) . '" /></a>';
+                $retval .= '<a class="example-image-link" href="'.str_replace("images/uploads", "upload", $r['url']).'" data-lightbox="example-1" data-title="'.htmlspecialchars($r['title']).'"><img class="example-image" src="thumbs.php?' . $showspoiler . 'uuid=' . urlencode($r['uuid']) . '" alt="' . htmlspecialchars($r['title']) . '" /></a>';
             } else {
                 if ($disable_spoiler == true && $r['spoiler'] == 1) {
                     $retval .= '<div><BR><strong>' . $spoiler_disable_msg . '</strong><BR><BR>';
@@ -221,11 +230,14 @@ function viewcache_getfullsizedpicturestable($cacheid, $viewtext = true, $spoile
     else
         $spoiler_only = "";
 
-    $sql = 'SELECT uuid, title, url, spoiler FROM pictures WHERE ' . $spoiler_only . ' object_id=\'' . sql_escape($cacheid) . '\' AND object_type=2 AND display=1 ORDER BY date_created';
-    //if($spoiler_only) $sql .= ' AND spoiler=1 ';
+    $rs = XDb::xSql(
+        'SELECT uuid, title, url, spoiler
+        FROM pictures
+        WHERE ' . $spoiler_only . ' object_id = ?
+            AND object_type=2 AND display=1
+        ORDER BY date_created', $cacheid);
 
-    $rs = sql($sql);
-    while ($r = sql_fetch_array($rs)) {
+    while ($r = XDb::xFetchArray($rs)) {
         $retval .= '<div style="display: block; float: left; margin: 3px;">';
         if ($viewtext)
             $retval .= '<div style=""><p>' . $r['title'] . '</p></div>';
@@ -234,8 +246,8 @@ function viewcache_getfullsizedpicturestable($cacheid, $viewtext = true, $spoile
         $retval .= '</div>';
     }
 
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
     return $retval;
 }
 
-?>
+

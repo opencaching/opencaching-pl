@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 require_once('./lib/common.inc.php');
 ?>
 <link href="tpl/stdstyle/css/confirmCancelButtons.css" type="text/css" rel="stylesheet" />
@@ -126,9 +127,16 @@ require_once('./lib/common.inc.php');
     function _chkFound() {
 
 <?php
-$sql = "SELECT count(cache_id) FROM cache_logs WHERE `deleted`=0 AND cache_id = '" . sql_escape($_REQUEST['cacheid']) . "' AND user_id = '" . sql_escape($usr['userid']) . "' AND type='1'";
-$tmp = sql($sql);
-$founds = mysql_result($tmp, 0);
+
+$founds = XDb::xMultiVariableQueryValue(
+    "SELECT count(cache_id)
+    FROM cache_logs
+    WHERE `deleted`=0
+        AND cache_id = :1
+        AND user_id = :2
+        AND type='1'",
+    0, $_REQUEST['cacheid'], $usr['userid'] );
+
 ?>
 
 
@@ -373,7 +381,7 @@ $founds = mysql_result($tmp, 0);
 
                     <div style="display: {GeoKretyApiNotConfigured}; width: 500px; color: red; font-size: 12px;">
                         {{GKApi07}}{{GKApi08}}<br /><br />
-                        1. {{GKApi09}} <a href="http://geokrety.org/mypage.php">{{GKApi04}}</a><br />
+                        1. {{GKApi09}} <a href="//geokrety.org/mypage.php">{{GKApi04}}</a><br />
                         2. {{GKApi10}} <a href="myprofile.php?action=change">{{GKApi04}}</a>  <br />
                     </div>
 

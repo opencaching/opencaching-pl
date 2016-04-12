@@ -59,7 +59,7 @@ if ($error == false) {
 
             $markerpos = array();
             $markers = array();
-            $sqlstr = "
+            $query = "
                       SELECT SQL_BUFFER_RESULT `caches`.`cache_id`, `caches`.`longitude`, `caches`.`latitude`, `caches`.`type`
                       FROM local_caches `caches`
                       WHERE `caches`.`type` != 6
@@ -69,7 +69,7 @@ if ($error == false) {
                       ORDER BY IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) DESC, `caches`.`cache_id` DESC
                       LIMIT 0, 10";
 
-            $db->simpleQuery( $sqlstr );
+            $db->simpleQuery( $query );
 
             for ($i = 0; $i < $db->rowCount(); $i++) {
                 $record = $db->dbResultFetch();
@@ -81,7 +81,7 @@ if ($error == false) {
 
             $markerpos['plain_cache_num'] = count($markers);
 
-            $sqlstr = "
+            $query = "
                       SELECT SQL_BUFFER_RESULT  `caches`.`cache_id`,
                                                 `caches`.`longitude`,
                                                 `caches`.`latitude`,
@@ -93,7 +93,7 @@ if ($error == false) {
                         ORDER BY `caches`.`date_hidden` ASC
                         LIMIT 0, 10";
 
-            $db->simpleQuery( $sqlstr );
+            $db->simpleQuery( $query );
 
 
             for ($i = 0; $i < $db->rowCount(); $i++) {
@@ -105,7 +105,7 @@ if ($error == false) {
             }
             $markerpos['plain_cache_num2'] = count($markers);
 
-            $sqlstr = "
+            $query = "
                       SELECT SQL_BUFFER_RESULT  `caches`.`cache_id`,
                                                 `caches`.`longitude`,
                                                 `caches`.`latitude`,
@@ -117,7 +117,7 @@ if ($error == false) {
                         ORDER BY `caches`.`date_hidden` DESC, `caches`.`cache_id` DESC
                         LIMIT 0, 10";
 
-            $db->simpleQuery( $sqlstr );
+            $db->simpleQuery( $query );
 
 
 
@@ -170,7 +170,7 @@ if ($error == false) {
                     else
                         $sel_marker_str = "&amp;markers=color:blue|label:$type|$lat,$lon|";
             }
-            $google_map = "http://maps.google.com/maps/api/staticmap?center=" . $latitude . "," . $longitude . $dzoom . "&amp;size=350x350&amp;maptype=roadmap&amp;key=" . $googlemap_key . "&amp;sensor=false" . $markers_ftf_str . $markers_str . $markers_ev_str . $sel_marker_str;
+            $google_map = "//maps.google.com/maps/api/staticmap?center=" . $latitude . "," . $longitude . $dzoom . "&amp;size=350x350&amp;maptype=roadmap&amp;key=" . $googlemap_key . "&amp;sensor=false" . $markers_ftf_str . $markers_str . $markers_ev_str . $sel_marker_str;
 
             if ($index == -1) {
                 $fixed_google_map_link = $google_map; // store fixed map link to be used with Top Reco and New logs items
@@ -242,7 +242,7 @@ if ($error == false) {
         /* ===================================================================================== */
 
         //start_newcaches.include
-        $sqlstr = "SELECT    `user`.`user_id`            AS `user_id`,
+        $query = "SELECT    `user`.`user_id`            AS `user_id`,
                             `user`.`username`           AS `username`,
                             `caches`.`cache_id`         AS `cache_id`,
                             `caches`.`name`             AS `name`,
@@ -266,7 +266,7 @@ if ($error == false) {
                  ORDER BY `date` DESC, `caches`.`cache_id` DESC
                  LIMIT 0 , 11";
 
-        $db->simpleQuery( $sqlstr );
+        $db->simpleQuery( $query );
 
         if ( $db->rowCount() > 10) {
             tpl_set_var('more_caches', '<a class="links" href="myn_newcaches.php">[' . tr("show_more") . '...]</a>');
@@ -318,7 +318,7 @@ if ($error == false) {
 
         //nextevents.include
 
-        $sqlstr = "SELECT   `user`.`user_id`            AS `user_id`,
+        $query = "SELECT    `user`.`user_id`            AS `user_id`,
                             `user`.`username`           AS `username`,
                             `caches`.`cache_id`         AS `cache_id`,
                             `caches`.`name`             AS `name`,
@@ -343,7 +343,7 @@ if ($error == false) {
                   ORDER BY `date_hidden` ASC
                   LIMIT 0 , 10";
 
-        $db->simpleQuery( $sqlstr );
+        $db->simpleQuery( $query );
 
         $file_content = '';
         if ( $db->rowCount() == 0) {
@@ -385,7 +385,7 @@ if ($error == false) {
         /* ===================================================================================== */
 
         //start_ftfcaches.include
-        $sqlstr = "SELECT    `user`.`user_id`            AS `user_id`,
+        $query = "SELECT    `user`.`user_id`            AS `user_id`,
                             `user`.`username`           AS `username`,
                             `caches`.`cache_id`         AS `cache_id`,
                             `caches`.`name`             AS `name`,
@@ -407,7 +407,7 @@ if ($error == false) {
                  ORDER BY `date` DESC, `caches`.`cache_id` DESC
                  LIMIT 0 , 11";
 
-        $db->simpleQuery( $sqlstr );
+        $db->simpleQuery( $query );
 
         if ( $db->rowCount() > 10) {
             tpl_set_var('more_ftf', '<a class="links" href="myn_ftf.php">[' . tr("show_more") . '...]</a>');
@@ -456,12 +456,12 @@ if ($error == false) {
         /* ===================================================================================== */
 
         // Read just log IDs first - this gets easily optimized
-        $sqlstr = "SELECT cache_logs.id FROM cache_logs
+        $query = "SELECT cache_logs.id FROM cache_logs
          WHERE cache_logs.deleted = 0
         AND cache_logs.cache_id IN (SELECT cache_id FROM local_caches)
         ORDER BY cache_logs.date_created DESC
         LIMIT 0, 11";
-        $db->simpleQuery( $sqlstr );
+        $db->simpleQuery( $query );
 
         if ( $db->rowCount() > 10) {
         tpl_set_var('more_logs', '<a class="links" href="myn_newlogs.php">[' . tr("show_more") . '...]</a>');
@@ -473,14 +473,14 @@ if ($error == false) {
 
 
         $log_ids = '';
-        $sqlstr = "SELECT cache_logs.id FROM cache_logs
+        $query = "SELECT cache_logs.id FROM cache_logs
                        WHERE cache_logs.deleted = 0
                             AND cache_logs.cache_id IN (SELECT cache_id FROM local_caches)
                             AND cache_logs.date_created >= DATE_SUB(NOW(), INTERVAL 31 DAY)
                        ORDER BY cache_logs.date_created DESC
                        LIMIT 0, 10";
 
-        $db->simpleQuery( $sqlstr );
+        $db->simpleQuery( $query );
 
         for ($i = 0; $i < $db->rowCount(); $i++) {
             $idrec = $db->dbResultFetch();
@@ -498,7 +498,7 @@ if ($error == false) {
         }
 
         // Now use a set of log IDs to retrieve all other necessary information
-        $sqlstr = "SELECT  cache_logs.id,
+        $query = "SELECT    cache_logs.id,
                             cache_logs.cache_id        AS cache_id,
                             cache_logs.type            AS log_type,
                             cache_logs.date            AS log_date,
@@ -535,7 +535,7 @@ if ($error == false) {
                    GROUP BY cache_logs.id
                    ORDER BY cache_logs.date_created DESC LIMIT 0, 10";
 
-        $db->simpleQuery( $sqlstr );
+        $db->simpleQuery( $query );
 
 
         $file_content = '';
@@ -627,7 +627,7 @@ if ($error == false) {
     /* ===================================================================================== */
 
     //start_topcaches.include
-    $sqlstr = "SELECT  `user`.`user_id`                    AS `user_id`,
+    $query = "SELECT        `user`.`user_id`                    AS `user_id`,
                             `user`.`username`                   AS `username`,
                             `caches`.`cache_id`                 AS `cache_id`,
                             `caches`.`name`                     AS `name`,
@@ -651,7 +651,7 @@ if ($error == false) {
                    GROUP BY `caches`.`cache_id`
                    ORDER BY `toprate` DESC, `caches`.`name` ASC LIMIT 0 , 11";
 
-    $db->simpleQuery( $sqlstr );
+    $db->simpleQuery( $query );
 
     if ( $db->rowCount() > 10) {
         tpl_set_var('more_topcaches', '<a class="links" href="myn_topcaches.php">[' . tr("show_more") . '...]</a>');
@@ -704,7 +704,7 @@ if ($error == false) {
     /*                          Skrzynki tygodnia                                            */
     /* ===================================================================================== */
 
-    $sqlstr  = "SELECT
+    $query  = "SELECT
                 user.user_id        AS user_id,
                 user.username       AS username,
                 caches.cache_id     AS cache_id,
@@ -719,7 +719,7 @@ if ($error == false) {
         WHERE caches.status=1
         ORDER BY cache_titled.date_alg DESC LIMIT 0 , 11";
 
-    $db->simpleQuery( $sqlstr );
+    $db->simpleQuery( $query );
 
     if ( $db->rowCount() > 9) {
         tpl_set_var('more_titledCaches', '<a class="links" href="cache_titled.php?type=Local">[' . tr("show_more") . '...]</a>');

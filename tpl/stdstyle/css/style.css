@@ -48,7 +48,7 @@ body {font-size: 62.5%; margin: 0px auto; padding: 0px; background-color: #ccccc
 
 .site-slogan-container {text-align:right; width: 970px; top: 86px; position: absolute; z-index: 1; overflow: hidden; background-color: transparent;}
 
-.site-slogan {float: right; width: 260px; margin: 0px; padding: 5px; background-image: url(../../../images/darkbluetransparent.png); background-repeat: repeat; font-size: 10px; border-left:1px solid rgb(100,100,100); border-top:1px solid rgb(100,100,100); border-bottom:1px solid rgb(100,100,100);}
+.site-slogan {float: right; width: auto; margin: 0px; padding: 5px; background-image: url(../../../images/darkbluetransparent.png); background-repeat: repeat; font-size: 10px; border-left:1px solid rgb(100,100,100); border-top:1px solid rgb(100,100,100); border-bottom:1px solid rgb(100,100,100);}
 .site-slogan input { background-image: url(../../../images/blank.gif); }
 
 .site-slogan form { background-color: transparent; }

@@ -47,7 +47,7 @@ if ($usr == true) {
                     // formularz został wysłany
                     // pobierz adres email zglaszajacego
 
-                    $cache_reporter = XDb::xMultiVariableQueryValue(
+                    $cache_reporter['email'] = XDb::xMultiVariableQueryValue(
                         "SELECT `email` FROM `user` WHERE `user_id`= :1 ", '', $usr['userid']);
 
                     if ($_POST['adresat'] == "rr") {

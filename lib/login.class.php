@@ -203,8 +203,10 @@ class login
 
     function logout()
     {
-        $sql = "DELETE FROM `sys_sessions` WHERE `uuid`=:1 AND `user_id`=:2";
-        $this->db->multiVariableQuery($sql, $this->sessionid, $this->userid);
+        $this->db->multiVariableQuery(
+            "DELETE FROM `sys_sessions` WHERE `uuid`=:1 AND `user_id`=:2",
+            $this->sessionid, $this->userid);
+
         $this->db->reset();
         $this->pClear();
         $this->pStoreCookie();

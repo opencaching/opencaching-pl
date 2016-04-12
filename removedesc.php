@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -24,23 +25,30 @@ if ($error == false) {
         $target = urlencode(tpl_get_current_page());
         tpl_redirect('login.php?target=' . $target);
     } else {
-        $cache_rs = sql("SELECT `user_id`, `name` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
-        if (mysql_num_rows($cache_rs) == 1) {
-            $cache_record = sql_fetch_array($cache_rs);
+        $cache_rs = XDb::xSql(
+            "SELECT `user_id`, `name` FROM `caches` WHERE `cache_id`= ? LIMIT 1", $cache_id);
+
+        if ( $cache_record = XDb::xFetchArray($cache_rs)) {
 
             if ($cache_record['user_id'] == $usr['userid'] || $usr['admin']) {
-                $desc_rs = sql("SELECT `id`, `uuid` FROM `cache_desc` WHERE `cache_id`='&1' AND `language`='&2'", $cache_id, $desclang);
-                if (mysql_num_rows($desc_rs) == 1) {
-                    $desc_record = sql_fetch_array($desc_rs);
-                    mysql_free_result($desc_rs);
+
+                $desc_rs = XDb::xSql(
+                    "SELECT `id`, `uuid` FROM `cache_desc` WHERE `cache_id`= ? AND `language`= ? LIMIT 1", $cache_id, $desclang);
+                if ($desc_record = XDb::xFetchArray($desc_rs)) {
+
+                    XDb::xFreeResults($desc_rs);
                     require($stylepath . '/removedesc.inc.php');
 
                     if ($remove_commit == 1) {
                         //add to removed_objects
-                        sql("INSERT INTO `removed_objects` (`id`, `localID`, `uuid`, `type`, `removed_date`, `node`) VALUES ('', '&1', '&2', '3', NOW(), '&3')", $desc_record['id'], $desc_record['uuid'], $oc_nodeid);
+                        XDb::xSql(
+                            "INSERT INTO `removed_objects` (`id`, `localID`, `uuid`, `type`, `removed_date`, `node`)
+                            VALUES ('', ?, ?, '3', NOW(), ?)",
+                            $desc_record['id'], $desc_record['uuid'], $oc_nodeid);
 
                         //remove it from cache_desc
-                        sql("DELETE FROM `cache_desc` WHERE `cache_id`='&1' AND `language`='&2'", $cache_id, $desclang);
+                        XDb::xSql(
+                            "DELETE FROM `cache_desc` WHERE `cache_id`= ? AND `language`= ? LIMIT 1", $cache_id, $desclang);
 
                         // update cache-record, including last modification date
                         setCacheDefaultDescLang($cache_id);
@@ -70,4 +78,4 @@ if ($error == false) {
 
 //make the template and send it out
 tpl_BuildTemplate();
-?>
+

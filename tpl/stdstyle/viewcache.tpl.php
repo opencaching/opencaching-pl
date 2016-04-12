@@ -120,13 +120,13 @@
                     {vote_icon} {votes_count} x {{scored}}<br />
                     {score_icon} {{score_label}}: <b><font color="{scorecolor}">{score}</font></b><br />
                     {list_of_rating_begin}{rating_stat}{list_of_rating_end}
-                    {gk_icon} <a class="links" href="http://geokrety.org/szukaj.php?wpt={oc_waypoint}" target="_blank">{{history_gk}}  <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a><br />
+                    {gk_icon} <a class="links" href="//geokrety.org/szukaj.php?wpt={oc_waypoint}" target="_blank">{{history_gk}}  <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a><br />
                 </p>
             </div>
             <div id="viewcache-map" class="content2-container-2col-right"><div class="img-shadow">
                     <?php
                         printf(
-                        '<img src="http://maps.googleapis.com/maps/api/staticmap?center=%1$f,%2$f&amp;zoom=%6$s&amp;size=170x170&amp;maptype=%5$s&amp;key=%4$s&amp;sensor=false&amp;markers=color:%7$s%%7Clabel:%%7C%1$f,%2$f&amp;format=png"
+                        '<img src="//maps.googleapis.com/maps/api/staticmap?center=%1$f,%2$f&amp;zoom=%6$s&amp;size=170x170&amp;maptype=%5$s&amp;key=%4$s&amp;sensor=false&amp;markers=color:%7$s%%7Clabel:%%7C%1$f,%2$f&amp;format=png"
                          longdesc="ifr::cachemap-mini.php?inputZoom=%8$s&amp;lat=%1$f&amp;lon=%2$f&amp;cacheid=%3$s::%9$s::%10$s"
                          onclick="enlarge(this);" alt="%11$s" title="%11$s" />',
                             tpl_get_var('latitude'),
@@ -480,7 +480,7 @@
                 if ($usr == !false && $usr['userFounds'] > 99) {
                     echo
                     "<b>
-                        <a target=\"_blank\" href=\"http://www.geocaching.com/seek/nearest.aspx?origin_lat=";
+                        <a target=\"_blank\" href=\"//www.geocaching.com/seek/nearest.aspx?origin_lat=";
                     ?>{latitude}<?php echo "&amp;origin_long="; ?>{longitude}<?php echo "&amp;dist=100&amp;submit8=Submit\">Geocaching.com</a>&nbsp;&nbsp;&nbsp;
                         <a target=\"_blank\" href=\"http://www.terracaching.com/gmap.cgi#center_lat="; ?>{latitude}<?php echo "&amp;center_lon="; ?>{longitude}<?php echo "&amp;&center_zoom=7&cselect=all&ctselect=all\">TerraCaching.com</a>&nbsp;&nbsp;
                         <a target=\"_blank\" href=\"http://www.navicache.com/cgi-bin/db/distancedp.pl?latNS="; ?>{latNS}<?php echo "&amp;latHours="; ?>{latitude}<?php echo "&amp;longWE="; ?>{lonEW}<?php echo "&amp;longHours="; ?>{longitudeNC}<?php echo "&amp;Distance=100&amp;Units=M\">Navicache.com</a>&nbsp;&nbsp;&nbsp;

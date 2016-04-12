@@ -23,7 +23,7 @@
                     <b>Opencaching Network Sites:</b>
                 </td>
                 <td>
-                    <a href="http://www.opencaching.eu">http://www.opencaching.eu</a>
+                    <a href="http://www.opencaching.eu">www.opencaching.eu</a>
                 </td>
             </tr>
             <tr>
@@ -31,7 +31,7 @@
                     <img src="/images/cs.png" class="icon32" align="middle" /> {{CZ}}
                 </td>
                 <td>
-                    <a href="http://www.opencaching.cz">http://www.opencaching.cz</a>
+                    <a href="http://www.opencaching.cz">www.opencaching.cz</a>
                 </td>
             </tr>
             <tr>
@@ -39,7 +39,7 @@
                     <img src="/images/de.png" class="icon32" align="middle" /> {{DE}}
                 </td>
                 <td>
-                    <a href="http://www.opencaching.de">http://www.opencaching.de</a>
+                    <a href="http://www.opencaching.de">www.opencaching.de</a>
                 </td>
             </tr>
             <tr>
@@ -47,7 +47,7 @@
                     <img src="/images/en.png" class="icon32" align="middle" /> {{GB}}
                 </td>
                 <td>
-                    <a href="http://www.opencaching.org.uk">http://www.opencaching.org.uk</a>
+                    <a href="http://www.opencaching.org.uk">www.opencaching.org.uk</a>
                 </td>
             </tr>
             <tr>
@@ -56,23 +56,23 @@
                 </td>
 
                 <td>
-                    <a href="http://www.opencaching.nl">http://www.opencaching.nl </a>
+                    <a href="http://www.opencaching.nl">www.opencaching.nl </a>
                 </td>
             </tr>
-            <tr>
+<!--            <tr>
                 <td>
                     <img src="/images/no.png" class="icon32" align="middle" /> {{NO}}
                 </td>
                 <td>
-                    <a href="http://www.opencaching.no">http://www.opencaching.no</a>
+                    <a href="http://www.opencaching.no">www.opencaching.no</a>
                 </td>
-            </tr>
+            </tr> -->
             <tr>
                 <td>
                     <img src="/images/pl.png" class="icon32" align="middle" /> {{PL}}
                 </td>
                 <td>
-                    <a href="http://www.opencaching.pl">http://www.opencaching.pl</a>
+                    <a href="http://www.opencaching.pl">www.opencaching.pl</a>
                 </td>
             </tr>
             <tr>
@@ -80,7 +80,7 @@
                     <img src="/images/ro.png" class="icon32" align="middle" /> {{RO}}
                 </td>
                 <td>
-                    <a href="http://www.opencaching.ro">http://www.opencaching.ro</a>
+                    <a href="http://www.opencaching.ro">www.opencaching.ro</a>
                 </td>
             </tr>
             <tr>
@@ -88,7 +88,7 @@
                     <img src="/images/sv.png" class="icon32" align="middle" /> {{SE}}
                 </td>
                 <td>
-                    <a href="http://www.opencaching.se">http://www.opencaching.se </a>
+                    <a href="http://www.opencaching.se">www.opencaching.se</a>
                 </td>
             </tr>
             <tr>
@@ -96,7 +96,7 @@
                     <img src="/images/us.png" class="icon32" align="middle" /> {{US}}
                 </td>
                 <td>
-                    <a href="http://www.opencaching.us">http://www.opencaching.us</a>
+                    <a href="http://www.opencaching.us">www.opencaching.us</a>
                 </td>
             </tr>
         </tbody>
@@ -114,7 +114,7 @@
                     {{AU}}
                 </td>
                 <td>
-                    <a href="http://www.geocaching.com.au/">http://www.geocaching.com.au </a>
+                    <a href="http://www.geocaching.com.au">www.geocaching.com.au</a>
                 </td>
             </tr>
             <tr>
@@ -122,7 +122,7 @@
                     {{HU}}
                 </td>
                 <td>
-                    <a href="http://www.geocaching.hu/">http://www.geocaching.hu</a>
+                    <a href="http://www.geocaching.hu">www.geocaching.hu</a>
                 </td>
             </tr>
             <tr>
@@ -130,7 +130,7 @@
                     {{RO}}
                 </td>
                 <td>
-                    <a href="http://geotrekking.plus.ro/">http://geotrekking.plus.ro/</a>
+                    <a href="http://geotrekking.plus.ro">geotrekking.plus.ro</a>
                 </td>
             </tr>
             <tr>
@@ -138,7 +138,7 @@
                     {{EE}}
                 </td>
                 <td>
-                    <a href="http://www.geopeitus.ee/english.html">http://www.geopeitus.ee</a>
+                    <a href="http://www.geopeitus.ee/english.html">www.geopeitus.ee</a>
                 </td>
             </tr>
             <tr>
@@ -146,7 +146,7 @@
                     {{TR}}
                 </td>
                 <td>
-                    <a href="http://geocachingturkey.com/">http://geocachingturkey.com</a>
+                    <a href="http://geocachingturkey.com">geocachingturkey.com</a>
                 </td>
             </tr>
             <tr>
@@ -154,7 +154,7 @@
                     {{SU}}
                 </td>
                 <td>
-                    <a href="http://www.geocaching.su/">http://www.geocaching.su</a>
+                    <a href="http://www.geocaching.su">www.geocaching.su</a>
                 </td>
             </tr>
             <tr>
@@ -166,10 +166,10 @@
                     {{links_03}}:
                 </td>
                 <td>
-                    <a href="http://www.geocaching.com//">http://www.geocaching.com</a> <br />
-                    <a href="http://www.terracaching.com//">http://www.terracaching.com</a> <br />
-                    <a href="http://geocaching.gpsgames.org/">http://www.gpsgames.org</a> <br />
-                    <a href="http://www.navicache.com/">http://www.navicache.com</a> <br />
+                    <a href="http://www.geocaching.com">www.geocaching.com</a><br />
+                    <a href="http://www.terracaching.com">www.terracaching.com</a><br />
+                    <a href="http://geocaching.gpsgames.org">www.gpsgames.org</a><br />
+                    <a href="http://www.navicache.com">www.navicache.com</a><br />
                 </td>
             </tr>
         </tbody>
@@ -187,19 +187,13 @@
             <tr>
                 <td></td>
                 <td>
-                    <a href="http://www.letterboxing.org/">http://www.letterboxing.org</a>
+                    <a href="http://www.letterboxing.org">www.letterboxing.org</a>
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td>
-                    <a href="http://www.atlasquest.com//">http://www.atlasquest.com</a>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <a href="http://www.letterboxing-germany.de/">http://www.letterboxing-germany.de</a>
+                    <a href="http://www.atlasquest.com">www.atlasquest.com</a>
                 </td>
             </tr>
         </tbody>
@@ -218,37 +212,37 @@
             <tr>
                 <td></td>
                 <td>
-                    <a href="http://www.geokrety.org">http://www.geokrety.org</a>
+                    <a href="http://www.geokrety.org">www.geokrety.org</a>
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td>
-                    <a href="http://www.geofish.net/">http://www.geofish.net</a>
+                    <a href="http://www.geofish.net">www.geofish.net</a>
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td>
-                    <a href="http://www.geocachearmy.com/">http://www.geocachearmy.com</a>
+                    <a href="http://www.geocachearmy.com">www.geocachearmy.com</a>
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td>
-                    <a href="http://www.geolutins.com/langue_valid.php?L=7">http://www.geolutins.com</a>
+                    <a href="http://www.geolutins.com/langue_valid.php?L=7">www.geolutins.com</a>
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td>
-                    <a href="http://www.travelertags.com/">http://www.travelertags.com</a>
+                    <a href="http://www.travelertags.com">www.travelertags.com</a>
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td>
-                    <a href="http://www.pathtags.com/">http://www.pathtags.com</a>
+                    <a href="http://www.pathtags.com">www.pathtags.com</a>
                 </td>
             </tr>
         </tbody>
@@ -265,17 +259,12 @@
             </tr>
             <tr>
                 <td>
-                    <a href="http://www.cistes.net">http://www.cistes.net  </a>
+                    <a href="http://www.cistes.net">www.cistes.net</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="http://onlinegeocacher.com">Magazyn o Geocaching  </a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="http://www.geocachingonline.com/">Geocaching OnLine  </a>
+                    <a href="http://www.geocachingonline.com">Geocaching OnLine</a>
                 </td>
             </tr>
         </tbody>

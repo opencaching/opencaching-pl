@@ -6,6 +6,7 @@
 require_once __DIR__ . '/ClassPathDictionary.php';
 
 use lib\Controllers\Php7Handler;
+use Utils\Database\XDb;
 
 if ((!isset($GLOBALS['no-session'])) || ($GLOBALS['no-session'] == false))
     session_start();
@@ -230,8 +231,11 @@ if ($dblink === false) {
         //user logged in
         // check for rules confirmation
         if ((strtotime("2008-11-01 00:00:00") <= strtotime(date("Y-m-d h:i:s")))) {
-            $sql = "SELECT `rules_confirmed` FROM `user` WHERE `user_id` = :1";
-            $rules_confirmed = $db->multiVariableQueryValue($sql, 0, $usr['userid']);
+
+            $rules_confirmed = $db->multiVariableQueryValue(
+                "SELECT `rules_confirmed` FROM `user` WHERE `user_id` = :1",
+                0, $usr['userid']);
+
             if ($rules_confirmed == 0) {
                 if (!isset($_SESSION['called_from_confirm']))
                     header("Location: confirm.php");
@@ -354,20 +358,20 @@ tpl_set_var("season", $season);
 // on success return the name, otherwise false
 function db_LanguageFromShort($langcode)
 {
-    global $dblink, $lang;
+    global $lang;
 
-    //no databse connection?
-    if ($dblink === false)
-        return false;
+    $lang = XDb::xEscape($lang);
 
     //select the right record
-    $rs = sql("SELECT `short`, `&1` FROM `languages` WHERE `short`='&2'", $lang, $langcode);
-    if (mysql_num_rows($rs) > 0) {
-        $record = sql_fetch_array($rs);
+    $rs = XDb::xSql(
+        "SELECT `short`, `$lang` FROM `languages` WHERE `short`= ? ", $langcode);
+
+    if ( $record = XDb::xFetchArray($rs) ) {
 
         //return the language
         return $record[$lang];
     } else {
+
         //language not found
         return false;
     }
@@ -1120,54 +1124,6 @@ function is_valid_email_address($email)
         return preg_match("!^$addr_spec$!", $email) ? 1 : 0;
 }
 
-function crypt_text($text)
-{
-    global $sql_debug_cryptkey;
-
-    /* Open module, and create IV */
-    $td = mcrypt_module_open('tripledes', '', 'ecb', '');
-    $key = substr($sql_debug_cryptkey, 0, mcrypt_enc_get_key_size($td));
-    $iv_size = mcrypt_enc_get_iv_size($td);
-    $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
-
-    /* Initialize encryption handle */
-    if (mcrypt_generic_init($td, $key, $iv) != -1) {
-        /* Encrypt data */
-        $c_t = mcrypt_generic($td, $text);
-
-        /* Clean up */
-        mcrypt_generic_deinit($td);
-        mcrypt_module_close($td);
-
-        return $c_t;
-    }
-
-    return false;
-}
-
-function decrypt_text($text)
-{
-    global $sql_debug_cryptkey;
-
-    /* Open module, and create IV */
-    $td = mcrypt_module_open('tripledes', '', 'ecb', '');
-    $key = substr($sql_debug_cryptkey, 0, mcrypt_enc_get_key_size($td));
-    $iv_size = mcrypt_enc_get_iv_size($td);
-    $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
-
-    /* Initialize encryption handle */
-    if (mcrypt_generic_init($td, $key, $iv) != -1) {
-        $p_t = mdecrypt_generic($td, $text);
-
-        /* Clean up */
-        mcrypt_generic_deinit($td);
-        mcrypt_module_close($td);
-
-        return $p_t;
-    }
-
-    return false;
-}
 
 if (isset($usr['userid'])){
     $usr['admin'] = $db->multiVariableQueryValue('SELECT admin FROM user WHERE user_id=:1', 0, $usr['userid']);
@@ -1186,69 +1142,6 @@ function checkField($tableName, $columnName)
 
 //end of function
 
-function isPasswordRequired($cache_id)
-{
-    // check if cache is password protected
-    $password_req = sql("SELECT logpw FROM caches WHERE cache_id = &1", sql_escape($cache_id));
-    if (mysql_num_rows($password_req) == 0)
-        return false;
-    $lm = sql_fetch_array($password_req);
-    mysql_free_result($password_req);
-    if ($lm['logpw'] == "")
-        return false;
-    else
-        return true;
-}
-
-// end isPasswordRequired
-//'
-
-function coordToLocation($lat, $lon)
-{
-    global $lang;
-    $xml = "";
-    $file = fopen('http://maps.google.com/maps/geo?q=' . $lat . ',' . $lon . '&output=xml&oe=utf8&sensor=false&key=your_api_key&hl=' . $lang, 'r');
-    while (!feof($file)) {
-        $xml .= fread($file, 1024);
-    }
-    fclose($file);
-
-    $array = xml2ary($xml);
-    for ($i = 0; $i < 20; $i++) {
-        $kraj = $array["kml"]["_c"]["Response"]["_c"]["Placemark"][$i]["_c"]["AddressDetails"]["_c"]["Country"]["_c"]["CountryName"]["_v"];
-        $wojewodztwo = $array["kml"]["_c"]["Response"]["_c"]["Placemark"][$i]["_c"]["AddressDetails"]["_c"]["Country"]["_c"]["AdministrativeArea"]["_c"]["AdministrativeAreaName"]["_v"];
-        $miasto = $array["kml"]["_c"]["Response"]["_c"]["Placemark"][$i]["_c"]["AddressDetails"]["_c"]["Country"]["_c"]["AdministrativeArea"]["_c"]["SubAdministrativeArea"]["_c"]["SubAdministrativeAreaName"]["_v"];
-
-        if ($kraj != "" && $wojewodztwo != "" /* && $miasto != "" */)
-            break;
-    }
-    if ($kraj == "" || $wojewodztwo == "" /* || $miasto == "" */)
-        $dziubek = "";
-    else
-        $dziubek = ">";
-    return array("kraj" => $kraj, "woj" => $wojewodztwo, "miasto" => $miasto, "dziubek" => $dziubek);
-}
-
-function coordToLocationOk($lat, $lon)
-{
-    $xml = "";
-    $file = fopen('http://maps.google.com/maps/geo?q=' . $lat . ',' . $lon . '&output=xml&oe=utf8&sensor=false&key=your_api_key&hl=pl', 'r');
-    while (!feof($file)) {
-        $xml .= fread($file, 1024);
-    }
-    fclose($file);
-
-    $array = xml2ary($xml);
-    for ($i = 0; $i < 20; $i++) {
-        $country = $array["kml"]["_c"]["Response"]["_c"]["Placemark"][$i]["_c"]["AddressDetails"]["_c"]["Country"]["_c"]["CountryName"]["_v"];
-        $adm1 = $array["kml"]["_c"]["Response"]["_c"]["Placemark"][$i]["_c"]["AddressDetails"]["_c"]["Country"]["_c"]["AdministrativeArea"]["_c"]["AdministrativeAreaName"]["_v"];
-        $adm2 = $array["kml"]["_c"]["Response"]["_c"]["Placemark"][$i]["_c"]["AddressDetails"]["_c"]["Country"]["_c"]["AdministrativeArea"]["_c"]["SubAdministrativeArea"]["_c"]["SubAdministrativeAreaName"]["_v"];
-
-        if ($country != "" && $adm1 != "")
-            break;
-    }
-    return array($country, $adm1, $adm2);
-}
 
 function typeToLetter($type)
 {
@@ -1290,27 +1183,9 @@ function fixPlMonth($string)
     return $string;
 }
 
-function run_in_bg($Command, $Priority = 0)
-{
-    if ($Priority)
-        $PID = shell_exec("nohup nice -n $Priority $Command 2> /dev/null & echo $!");
-    else
-        $PID = shell_exec("nohup $Command 2> /dev/null & echo $!");
-    return($PID);
-}
-
-function is_running($PID)
-{
-    exec("ps $PID", $ProcessState);
-    return(count($ProcessState) >= 2);
-}
-
-function wait_for_pid($pid)
-{
-    while (is_running($pid))
-        usleep(100000);
-}
-
+/**
+ * TODO: it seems that this function is used only by loogbook...
+ */
 function encrypt($text, $key)
 {
     $iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
@@ -1318,6 +1193,7 @@ function encrypt($text, $key)
     return base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, $text, MCRYPT_MODE_ECB, $iv));
 }
 
+//TODO: not used anywhere?
 function decrypt($text, $key)
 {
     if (!$text)
@@ -1327,6 +1203,9 @@ function decrypt($text, $key)
     return rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $key, base64_decode($text), MCRYPT_MODE_ECB, $iv), "\0");
 }
 
+/**
+ * TODO: it seems that this function is used only by loogbook...
+ */
 function validate_msg($cookietext)
 {
     if (!ereg("[0-9]+ This is a secret message", $cookietext))
@@ -1337,40 +1216,6 @@ function validate_msg($cookietext)
     return $num;
 }
 
-function get_image_for_interval($folder, $interval = 1800)
-{
-    $extList = array();
-    $extList['gif'] = 'image/gif';
-    $extList['jpg'] = 'image/jpeg';
-    $extList['jpeg'] = 'image/jpeg';
-    $extList['png'] = 'image/png';
-
-    $img = null;
-
-    if (substr($folder, -1) != '/') {
-        $folder = $folder . '/';
-    }
-
-    $fileList = array();
-    $handle = opendir($folder);
-    while (false !== ($file = readdir($handle))) {
-        $file = $folder . $file;
-        if (is_file($file)) {
-            $file_info = pathinfo($file);
-            if (isset($extList[strtolower($file_info['extension'])])) {
-                $fileList[] = $file;
-            }
-        }
-    }
-    closedir($handle);
-
-    if (count($fileList) > 0) {
-        $imageNumber = floor(time() / $interval) % count($fileList);
-        $img = $fileList[$imageNumber];
-        return $img;
-    }
-    return "";
-}
 
 /**
  * class witch common methods
@@ -1392,14 +1237,6 @@ class common
             }
         }
     }
-
-    /* (not used yet - for future use)
-      private $powerTrailModuleSwitchOn = false;
-      public function __construct() {
-      include_once __DIR__.'/settings.inc.php';
-      $this->powerTrailModuleSwitchOn = $powerTrailModuleSwitchOn;
-      }
-     */
 
     public static function cleanupText($str)
     {
@@ -1504,4 +1341,4 @@ class common
 
 }
 
-?>
+

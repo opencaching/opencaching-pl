@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 /* * *************************************************************************
   ./lib/clicompatbase.inc.php
   --------------------
@@ -66,8 +67,10 @@ $emailheaders .= 'From: "' . $emailaddr . '" <' . $emailaddr . '>';
 
 function logentry($module, $eventid, $userid, $objectid1, $objectid2, $logtext, $details)
 {
-    sql("INSERT INTO logentries (`module`, `eventid`, `userid`, `objectid1`, `objectid2`, `logtext`, `details`, `logtime`) VALUES (
-                                                                 '&1', '&2', '&3', '&4', '&5', '&6', '&7', NOW())", $module, $eventid, $userid, $objectid1, $objectid2, $logtext, serialize($details));
+    XDb::xSql(
+        "INSERT INTO logentries (`module`, `eventid`, `userid`, `objectid1`, `objectid2`, `logtext`, `details`, `logtime`)
+        VALUES ( ?, ?, ?, ?, ?, ?, ?, NOW())",
+        $module, $eventid, $userid, $objectid1, $objectid2, $logtext, serialize($details));
 }
 
 //create a "universal unique" replication "identifier"

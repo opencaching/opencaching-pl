@@ -23,8 +23,8 @@ if ($error == false) {
 
         if (($uLat == NULL || $uLat == 0) && ($uLon == NULL || $uLon == 0)) {
             tpl_set_var('mapzoom', 6);
-            tpl_set_var('mapcenterLat', 52.057);
-            tpl_set_var('mapcenterLon', 19.07);
+            tpl_set_var('mapcenterLat', $main_page_map_center_lat);
+            tpl_set_var('mapcenterLon', $main_page_map_center_lon);
         } else {
             tpl_set_var('mapzoom', 11);
             tpl_set_var('mapcenterLat', $uLat);

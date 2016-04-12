@@ -57,7 +57,7 @@ if ($usr['admin']) {
 
     $file_content = '';
     $i = 0;
-    while( $record = XDb::xFetchArray($rs) )
+    while( $record = XDb::xFetchArray($rs) ) {
         if (($i % 2) == 0) {
             $bgcolor = '#eeeeee';
         } else {
@@ -70,7 +70,7 @@ if ($usr['admin']) {
         $file_content .= '<td bgcolor=' . $bgcolor . '><a href="reportcache.php?cacheid=' . htmlspecialchars($record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . tr('report_problem') . '</a></td>';
         $file_content .= '</tr>';
 
-        $i++
+        $i++;
     }
 
     XDb::xFreeResults($rs);

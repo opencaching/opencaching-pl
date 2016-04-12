@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 $allowedtags = mb_split(',', 'a,b,i,p,q,s,u,br,dd,dl,dt,em,h1,h2,h3,h4,h5,h6,hr,li,td,th,tr,tt,ol,ul,big,bdo,col,dfn,del,dir,div,ins,img,kbd,map,pre,sub,sup,var,abbr,area,cite,code,font,menu,marquee,samp,span,small,thead,tfoot,tbody,table,strong,center,strike,acronym,address,caption,isindex,colgroup,fieldset,object,param,embed');
 $allowedattr = mb_split(',', 'marquee,id,src,alt,dir,rel,rev,abbr,axis,char,cite,face,href,lang,name,size,span,type,align,class,clear,color,frame,ismap,rules,scope,shape,start,style,title,value,width,border,coords,height,hspace,nowrap,nohref,target,usemap,vspace,valign,bgcolor,charoff,charset,colspan,compact,headers,noshade,rowspan,summary,longdesc,hreflang,datetime,tabindex,accesskey,background,cellspacing,cellpadding,allowscriptaccess,allowfullscreen,classid,codebase,standby,pluginspage,data');
 
@@ -343,75 +344,7 @@ class InputFilter
         return $source;
     }
 
-    /**
-     * Method to be called by another php script. Processes for SQL injection
-     * @access public
-     * @param Mixed $source - input string/array-of-string to be 'cleaned'
-     * @param Buffer $connection - An open MySQL connection
-     * @return String $source - 'cleaned' version of input parameter
-     */
-    function safeSQL($source, &$connection)
-    {
-        // clean all elements in this array
-        if (is_array($source)) {
-            // filter element for SQL injection
-            foreach ($source as $key => $value)
-                if (is_string($value))
-                    $source[$key] = $this->quoteSmart($this->decode($value), $connection);
 
-            return $source;
-
-            // clean this string
-        }
-        else if (is_string($source)) {
-            // filter source for SQL injection
-            if (is_string($source))
-                return $this->quoteSmart($this->decode($source), $connection);
-
-            // return parameter as given
-        } else
-            return $source;
-    }
-
-    /**
-     * @author Chris Tobin
-     * @author Daniel Morris
-     * @access protected
-     * @param String $source
-     * @param Resource $connection - An open MySQL connection
-     * @return String $source
-     */
-    function quoteSmart($source, &$connection)
-    {
-        // strip slashes
-        if (get_magic_quotes_gpc())
-            $source = stripslashes($source);
-
-        // quote both numeric and text
-        $source = $this->escapeString($source, $connection);
-
-        return $source;
-    }
-
-    /**
-     * @author Chris Tobin
-     * @author Daniel Morris
-     * @access protected
-     * @param String $source
-     * @param Resource $connection - An open MySQL connection
-     * @return String $source
-     */
-    function escapeString($string, &$connection)
-    {
-        // depreciated function
-        if (version_compare(phpversion(), "4.3.0", "<")) {
-            mysql_escape_string($string);
-            // current function
-        } else
-            mysql_real_escape_string($string);
-
-        return $string;
-    }
 
     /**
      * @author Oliver Dietz
@@ -527,5 +460,3 @@ class InputFilter
     }
 
 }
-
-?>

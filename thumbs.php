@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 require_once('./lib/common.inc.php');
 
 $uuid = isset($_REQUEST['uuid']) ? $_REQUEST['uuid'] : '';
@@ -8,10 +9,11 @@ $debug = isset($_REQUEST['debug']) ? $_REQUEST['debug'] : 0;
 if ($error == false) {
     require_once($stylepath . '/thumbs.inc.php');
 
-    $rs = sql("SELECT `local`, `spoiler`, `url`, `thumb_last_generated`, `last_modified`, `unknown_format`, `uuid`, `thumb_url` FROM `pictures` WHERE `uuid`='&1'", $uuid);
-    if (mysql_num_rows($rs) == 1) {
-        $r = sql_fetch_array($rs);
-        mysql_free_result($rs);
+    $rs = XDb::xSql(
+        "SELECT `local`, `spoiler`, `url`, `thumb_last_generated`, `last_modified`, `unknown_format`, `uuid`, `thumb_url`
+        FROM `pictures` WHERE `uuid`= ? LIMIT 1", $uuid);
+
+    if ( $r = XDb::xFetchArray($rs) ) {
 
         if ($r['local'] == 0)
             if ($debug == 1)
@@ -58,7 +60,8 @@ if ($error == false) {
             $extension = mb_strtolower($filenameparts[count($filenameparts) - 1]);
 
             if (mb_strpos($config['limits']['image']['extension'], ';' . $extension . ';') === false) {
-                sql("UPDATE `pictures` SET `unknown_format`=1 WHERE `uuid`='&1'", $r['uuid']);
+                XDb::xSql(
+                    "UPDATE `pictures` SET `unknown_format`=1 WHERE `uuid`= ? LIMIT 1", $r['uuid']);
 
                 if ($debug == 1)
                     die('Debug: line ' . __LINE__);
@@ -88,7 +91,8 @@ if ($error == false) {
             }
 
             if ($im == '') {
-                sql("UPDATE `pictures` SET `unknown_format`=1 WHERE `uuid`='&1'", $r['uuid']);
+                XDb::xSql(
+                    "UPDATE `pictures` SET `unknown_format`=1 WHERE `uuid`= ? LIMIT 1", $r['uuid']);
 
                 if ($debug == 1)
                     die('Debug: line ' . __LINE__);
@@ -142,7 +146,10 @@ if ($error == false) {
                     break;
             }
 
-            sql("UPDATE `pictures` SET `thumb_last_generated`=NOW(), `thumb_url`='&1' WHERE `uuid`='&2'", $thumburl . '/' . mb_substr($filename, 0, 1) . '/' . mb_substr($filename, 1, 1) . '/' . $filename, $r['uuid']);
+            XDb::xSql(
+                "UPDATE `pictures` SET `thumb_last_generated`=NOW(), `thumb_url`= ?
+                WHERE `uuid`= ? LIMIT 1",
+                $thumburl . '/' . mb_substr($filename, 0, 1) . '/' . mb_substr($filename, 1, 1) . '/' . $filename, $r['uuid']);
 
             if ($debug == 1)
                 die($thumburl . '/' . $filename);
@@ -157,7 +164,6 @@ if ($error == false) {
         }
     }
     else {
-        mysql_free_result($rs);
 
         if ($debug == 1)
             die('Debug: line ' . __LINE__);
@@ -168,4 +174,4 @@ if ($error == false) {
 }
 
 tpl_BuildTemplate(false);
-?>
+

@@ -41,8 +41,8 @@ function getCachename($cacheid)
 function getCacheOwnername($cacheid)
 {
     return XDb::xMultiVariableQueryValue(
-        "SELECT user_id FROM caches WHERE cache_id= :1 LIMIT 1",
-        null, $cacheid);
+        "SELECT username FROM user WHERE user_id= :1 LIMIT 1",
+        null, getCacheOwnerId($cacheid));
 }
 
 function getCacheOwnerId($cacheid)

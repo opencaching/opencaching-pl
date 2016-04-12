@@ -112,7 +112,7 @@ if ($sCode != '') {
 
 //From Google
 
-$url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' . $lat . ',' . $lon . '&sensor=false&language=' . $lang;
+$url = '//maps.googleapis.com/maps/api/geocode/json?latlng=' . $lat . ',' . $lon . '&sensor=false&language=' . $lang;
 $data = @file_get_contents($url);
 
 $jsondata = json_decode($data, true);
@@ -127,7 +127,5 @@ if (isset($jsondata['status']) && strtoupper($jsondata['status']) == 'OK') {
     tpl_set_var('region_gm', '');
 }
 
-//          $loc = coordToLocation($lat, $lon);
-//          tpl_set_var('region_gm', $loc['woj']);
 //make the template and send it out
 tpl_BuildTemplate();

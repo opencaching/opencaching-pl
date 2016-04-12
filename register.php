@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
     $rootpath = '';
@@ -51,16 +52,16 @@ if ($error == false) {
             $password_diffs = ($password != $password2);
 
             //check if email is in the database
-            $rs = sql("SELECT `username` FROM `user` WHERE `email`='&1'", $email);
-            if (mysql_num_rows($rs) > 0) {
+            $rs = XDb::xSql("SELECT `username` FROM `user` WHERE `email`= ? ", $email);
+            if (XDb::xFetchArray($rs) > 0) {
                 $email_exists = true;
             } else {
                 $email_exists = false;
             }
 
             //check if username is in the database
-            $rs = sql("SELECT `username` FROM `user` WHERE `username`='&1'", $username);
-            if (mysql_num_rows($rs) > 0) {
+            $rs = XDb::xSql("SELECT `username` FROM `user` WHERE `username`= ? ", $username);
+            if (XDb::xFetchArray($rs) > 0) {
                 $username_exists = true;
             } else {
                 $username_exists = false;
@@ -116,12 +117,14 @@ if ($error == false) {
                 else
                     $rules_conf_req = 0;
                 //insert the user
-                sql("INSERT INTO `user` ( `user_id`, `username`, `password`, `email`, `latitude`,
+                XDb::xSql(
+                    "INSERT INTO `user` ( `user_id`, `username`, `password`, `email`, `latitude`,
                                           `longitude`, `last_modified`, `login_faults`, `login_id`, `is_active_flag`,
                                           `was_loggedin`, `country`, `date_created`,
-                                          `uuid`, `activation_code`, `node`, `rules_confirmed`
-                                        ) VALUES ('', '&1', '&2', '&3', NULL, NULL, NOW(), '0', '0', '0', '0', '&4', NOW(), '&5', '&6', '&7', &8)", $username, hash('sha512', md5($password)), // WRTODO - could be better
-                        $email, $country, $uuid, $activationcode, $oc_nodeid, $rules_conf_req);
+                                          `uuid`, `activation_code`, `node`, `rules_confirmed` )
+                    VALUES ('', ?, ?, ?, NULL, NULL, NOW(), '0', '0', '0', '0', ?, NOW(), ?, ?, ?, ?)",
+                    $username, hash('sha512', md5($password)), // WRTODO - could be better
+                    $email, $country, $uuid, $activationcode, $oc_nodeid, $rules_conf_req);
 
                 mb_send_mail($email, $register_email_subject, $email_content, $emailheaders);
 

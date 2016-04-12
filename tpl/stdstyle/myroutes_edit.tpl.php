@@ -1,18 +1,16 @@
 <?php
-
-?>
-<?php
+use Utils\Database\XDb;
 require_once('./lib/common.inc.php');
 require_once('./lib/class.polylineEncoder.php');
 $route_id = $_REQUEST['routeid'];
 
-$rscp = sql("SELECT `lat` ,`lon`
+$rscp = XDb::xSql("SELECT `lat` ,`lon`
                     FROM `route_points`
-                    WHERE `route_id`='$route_id'");
+                    WHERE `route_id`= ? ", $route_id);
 $p = array();
 $points = array();
-for ($i = 0; $i < mysql_num_rows($rscp); $i++) {
-    $record = sql_fetch_array($rscp);
+for ($i = 0; false != ($record = XDb::xFetchArray($rscp)); $i++) {
+
     $y = $record['lon'];
     $x = $record['lat'];
 

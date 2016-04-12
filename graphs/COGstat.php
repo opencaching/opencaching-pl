@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 $rootpath = '../';
 require('../lib/common.inc.php');
 global $lang;
@@ -37,63 +38,73 @@ if ($error == false) {
     $y4 = array();
     $x4 = array();
 
-    mysql_query("SET NAMES 'utf8'");
-    $rsreports = sql("SELECT count(*) count, responsible_id, username from reports,user WHERE submit_date > '&1' and responsible_id <>0 AND responsible_id != 1883 AND user.user_id=responsible_id GROUP BY responsible_id ORDER  BY username", $start_time);
+    $rsreports = XDb::xSql(
+        "SELECT count(*) count, responsible_id, username FROM reports, user
+        WHERE submit_date > ? and responsible_id <>0 AND responsible_id != 1883 AND user.user_id=responsible_id
+        GROUP BY responsible_id
+        ORDER BY username", $start_time);
 
-    $rsreportsM = sql("SELECT count(*) count, MONTH(`submit_date`) `month` from reports WHERE submit_date > '&1' and responsible_id <>0 AND responsible_id != 1883 GROUP BY MONTH(`submit_date`) , YEAR(`submit_date`) ORDER BY YEAR(`submit_date`) ASC, MONTH(`submit_date`) ASC", $start_time);
+    $rsreportsM = XDb::xSql(
+        "SELECT count(*) count, MONTH(`submit_date`) `month` FROM reports
+        WHERE submit_date > ? and responsible_id <> 0 AND responsible_id != 1883
+        GROUP BY MONTH(`submit_date`), YEAR(`submit_date`)
+        ORDER BY YEAR(`submit_date`) ASC, MONTH(`submit_date`) ASC", $start_time);
 
-    mysql_query("SET NAMES 'utf8'");
-    $rscaches = sql("SELECT count(*) count, username from approval_status,user WHERE user.user_id=approval_status.user_id AND date_approval > '&1' GROUP BY approval_status.user_id ORDER  BY username", $start_time);
+    $rscaches = XDb::xSql(
+        "SELECT count(*) count, username FROM approval_status, user
+        WHERE user.user_id=approval_status.user_id AND date_approval > ?
+        GROUP BY approval_status.user_id
+        ORDER BY username", $start_time);
 
-    $rscachesM = sql("SELECT count(*) count, MONTH(`date_approval`) `month` from approval_status WHERE date_approval > '&1' GROUP BY MONTH(`date_approval`) , YEAR(`date_approval`) ORDER BY YEAR(`date_approval`) ASC, MONTH(`date_approval`) ASC", $start_time);
+    $rscachesM = XDb::xSql(
+        "SELECT count(*) count, MONTH(`date_approval`) `month` FROM approval_status
+        WHERE date_approval > ?
+        GROUP BY MONTH(`date_approval`) , YEAR(`date_approval`)
+        ORDER BY YEAR(`date_approval`) ASC, MONTH(`date_approval`) ASC", $start_time);
 
 
     $xtitle = "";
-    while ($ry = mysql_fetch_array($rsreports)) {
+    while ($ry = XDb::xFetchArray($rsreports)) {
         $y[] = $ry['count'];
         $x[] = $ry['username'];
     }
-    while ($ry2 = mysql_fetch_array($rscaches)) {
+    while ($ry2 = XDb::xFetchArray($rscaches)) {
         $y2[] = $ry2['count'];
         $x2[] = $ry2['username'];
     }
-    while ($ry3 = mysql_fetch_array($rsreportsM)) {
+    while ($ry3 = XDb::xFetchArray($rsreportsM)) {
         $y3[] = $ry3['count'];
         $x3[] = $ry3['month'];
     }
-    while ($ry4 = mysql_fetch_array($rscachesM)) {
+    while ($ry4 = XDb::xFetchArray($rscachesM)) {
         $y4[] = $ry4['count'];
         $x4[] = $ry4['month'];
     }
 
-    mysql_free_result($rsreportsM);
-    mysql_free_result($rsreports);
-    mysql_free_result($rscaches);
-    mysql_free_result($rscachesM);
+    XDb::xFreeResults($rsreportsM);
+    XDb::xFreeResults($rsreports);
+    XDb::xFreeResults($rscaches);
+    XDb::xFreeResults($rscachesM);
 
 
-// Create the graph. These two calls are always required
+    // Create the graph. These two calls are always required
     $graph = new Graph(740, 200, 'auto');
     $graph->SetScale('textint', 0, max($y) + (max($y) * 0.2), 0, 0);
 
-// Add a drop shadow
+    // Add a drop shadow
     $graph->SetShadow();
 
-
-
-// Adjust the margin a bit to make more room for titles
+    // Adjust the margin a bit to make more room for titles
     $graph->SetMargin(50, 30, 30, 40);
 
-// Create a bar pot
+    // Create a bar pot
     $bplot = new BarPlot($y);
 
-// Adjust fill color
+    // Adjust fill color
     $bplot->SetFillColor('steelblue2');
     $graph->Add($bplot);
 
-
-// Setup the titles
-
+    // Setup the titles
     $descibe = iconv('UTF-8', 'ASCII//TRANSLIT', tr("octeam_stat_problems"));
     $graph->title->Set($descibe);
     $graph->xaxis->title->Set($xtitle);
@@ -105,37 +116,32 @@ if ($error == false) {
     $graph->xaxis->title->SetFont(FF_FONT1, FS_BOLD);
     $graph->xaxis->SetFont(FF_ARIAL, FS_NORMAL, 8);
 
-
-
-// Setup the values that are displayed on top of each bar
+    // Setup the values that are displayed on top of each bar
     $bplot->value->Show();
 
-// Must use TTF fonts if we want text at an arbitrary angle
+    // Must use TTF fonts if we want text at an arbitrary angle
     $bplot->value->SetFont(FF_FONT1, FS_BOLD);
     $bplot->value->SetAngle(0);
     $bplot->value->SetFormat('%d');
 
-
-// Create the graph. These two calls are always required
+    // Create the graph. These two calls are always required
     $graph2 = new Graph(740, 200, 'auto');
     $graph2->SetScale('textint', 0, max($y2) + (max($y2) * 0.2), 0, 0);
 
-// Add a drop shadow
+    // Add a drop shadow
     $graph2->SetShadow();
 
-
-// Adjust the margin a bit to make more room for titles
+    // Adjust the margin a bit to make more room for titles
     $graph2->SetMargin(50, 30, 30, 40);
 
-// Create a bar pot
+    // Create a bar pot
     $bplot2 = new BarPlot($y2);
 
-// Adjust fill color
+    // Adjust fill color
     $bplot2->SetFillColor('chartreuse3');
     $graph2->Add($bplot2);
 
-
-// Setup the titles
+    // Setup the titles
     $descibe2 = iconv('UTF-8', 'ASCII//TRANSLIT', tr("octeam_stat_caches"));
     $graph2->title->Set($descibe2);
     $graph2->xaxis->title->Set($xtitle);
@@ -149,36 +155,32 @@ if ($error == false) {
     $graph2->xaxis->title->SetFont(FF_FONT1, FS_BOLD);
     $graph2->xaxis->SetFont(FF_ARIAL, FS_NORMAL, 8);
 
-
-
-// Setup the values that are displayed on top of each bar
+    // Setup the values that are displayed on top of each bar
     $bplot2->value->Show();
 
-// Must use TTF fonts if we want text at an arbitrary angle
+    // Must use TTF fonts if we want text at an arbitrary angle
     $bplot2->value->SetFont(FF_FONT1, FS_BOLD);
     $bplot2->value->SetAngle(0);
     $bplot2->value->SetFormat('%d');
 
-// Create the graph. These two calls are always required
+    // Create the graph. These two calls are always required
     $graph3 = new Graph(740, 200, 'auto');
     $graph3->SetScale('textint', 0, max($y3) + (max($y3) * 0.2), 0, 0);
 
-// Add a drop shadow
+    // Add a drop shadow
     $graph3->SetShadow();
 
-
-// Adjust the margin a bit to make more room for titles
+    // Adjust the margin a bit to make more room for titles
     $graph3->SetMargin(50, 30, 30, 40);
 
-// Create a bar pot
+    // Create a bar pot
     $bplot3 = new BarPlot($y3);
 
-// Adjust fill color
+    // Adjust fill color
     $bplot3->SetFillColor('purple1');
     $graph3->Add($bplot3);
 
-
-// Setup the titles
+    // Setup the titles
     $descibe3 = iconv('UTF-8', 'ASCII//TRANSLIT', tr("octeam_stat_m_problems"));
     $graph3->title->Set($descibe3);
     $graph3->xaxis->title->Set(iconv('UTF-8', 'ASCII//TRANSLIT', tr('number_month')) . '2014/2015');
@@ -189,60 +191,52 @@ if ($error == false) {
     $graph3->yaxis->title->SetFont(FF_FONT1, FS_BOLD);
     $graph3->xaxis->title->SetFont(FF_FONT1, FS_BOLD);
 
-
-// Setup the values that are displayed on top of each bar
+    // Setup the values that are displayed on top of each bar
     $bplot3->value->Show();
 
-// Must use TTF fonts if we want text at an arbitrary angle
+    // Must use TTF fonts if we want text at an arbitrary angle
     $bplot3->value->SetFont(FF_FONT1, FS_BOLD);
     $bplot3->value->SetAngle(0);
     $bplot3->value->SetFormat('%d');
 
-// Create the graph. These two calls are always required
+    // Create the graph. These two calls are always required
     $graph4 = new Graph(740, 200, 'auto');
     $graph4->SetScale('textint', 0, max($y4) + (max($y4) * 0.2), 0, 0);
 
-// Add a drop shadow
+    // Add a drop shadow
     $graph4->SetShadow();
 
-
-// Adjust the margin a bit to make more room for titles
+    // Adjust the margin a bit to make more room for titles
     $graph4->SetMargin(50, 30, 30, 40);
 
-// Create a bar pot
+    // Create a bar pot
     $bplot4 = new BarPlot($y4);
 
-// Adjust fill color
+    // Adjust fill color
     $bplot4->SetFillColor('purple1');
     $graph4->Add($bplot4);
 
-
-// Setup the titles
+    // Setup the titles
     $descibe4 = iconv('UTF-8', 'ASCII//TRANSLIT', tr("octeam_stat_m_caches"));
     $graph4->title->Set($descibe4);
     $graph4->xaxis->title->Set(iconv('UTF-8', 'ASCII//TRANSLIT', tr('number_month')) . '2014/2015');
-//$graph4->xaxis->title->Set($title3);
     $graph4->xaxis->SetTickLabels($x4);
-
-
     $graph4->yaxis->title->Set($ncaches);
-
     $graph4->title->SetFont(FF_FONT1, FS_BOLD);
     $graph4->yaxis->title->SetFont(FF_FONT1, FS_BOLD);
     $graph4->xaxis->title->SetFont(FF_FONT1, FS_BOLD);
 
-
-// Setup the values that are displayed on top of each bar
+    // Setup the values that are displayed on top of each bar
     $bplot4->value->Show();
 
-// Must use TTF fonts if we want text at an arbitrary angle
+    // Must use TTF fonts if we want text at an arbitrary angle
     $bplot4->value->SetFont(FF_FONT1, FS_BOLD);
     $bplot4->value->SetAngle(0);
     $bplot4->value->SetFormat('%d');
 
-//-----------------------
-// Create a multigraph
-//----------------------
+    //-----------------------
+    // Create a multigraph
+    //----------------------
     $mgraph = new MGraph();
     $mgraph->SetMargin(10, 10, 10, 10);
     $mgraph->SetFrame(true, 'darkgray', 2);
@@ -252,4 +246,4 @@ if ($error == false) {
     $mgraph->Add($graph4, 0, 660);
     $mgraph->Stroke();
 }
-?>
+

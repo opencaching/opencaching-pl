@@ -1,20 +1,7 @@
 <?php
 
-  /* begin configuration */
-
+use Utils\Database\XDb;
 require('../lib/settings.inc.php');
-
-/*
-  if you dont want to include the settings.inc.php, these values have to be specified
-  Note that pconnect isn't supported here
-
-  $dbserver = '127.0.0.1';
-  $dbname = 'ocde';
-  $dbusername = 'ocde';
-  $dbpasswd = 'ocde';
- */
-
-/* end configuration */
 
 /* begin with some constants */
 $t1 = "\t";
@@ -27,79 +14,52 @@ $t6 = "\t\t\t\t\t\t";
 $sDateshort = 'Y-m-d';
 $sDateformat = 'Y-m-d H:i:s';
 
-/* end with some constants */
-
-/* begin db connect */
-$bFail = false;
-$dblink = @mysql_connect($dbserver, $dbusername, $dbpasswd);
-if ($dblink != false) {
-    //database connection established ... set the used database
-    if (@mysql_select_db($dbname, $dblink) == false) {
-        $bFail = true;
-        mysql_close($dblink);
-        $dblink = false;
-    }
-} else
-    $bFail = true;
-
-if ($bFail == true) {
-    echo 'Unable to connect to database';
-    exit;
-}
-/* end db connect */
-mysql_query("SET NAMES 'latin2'");
-
 /* begin now a few dynamically loaded constants */
 
-
 $cachetypes = array();
-$rs = mysql_query('SELECT `id`, `short`, `pl` FROM cache_type', $dblink);
-for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-    $r = mysql_fetch_array($rs);
+$rs = XDb::xSql('SELECT `id`, `short`, `pl` FROM cache_type');
+while ( $r = XDb::xFetchArray($rs) ){
     $cachetypes[$r['id']]['pl'] = $r['pl'];
     $cachetypes[$r['id']]['short'] = $r['short'];
 }
-mysql_free_result($rs);
+XDb::xFreeResults($rs);
 
 $cachestatus = array();
-$rs = mysql_query('SELECT `id`, `pl` FROM cache_status', $dblink);
-for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-    $r = mysql_fetch_array($rs);
+$rs = XDb::xSql('SELECT `id`, `pl` FROM cache_status');
+
+while( $r = XDb::xFetchArray($rs) ){
     $cachestatus[$r['id']]['pl'] = $r['pl'];
 }
-mysql_free_result($rs);
+XDb::xFreeResults($rs);
 
 $counties = array();
-$rs = mysql_query('SELECT `short`, `pl` FROM countries', $dblink);
-for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-    $r = mysql_fetch_array($rs);
+$rs = XDb::xSql('SELECT `short`, `pl` FROM countries');
+while ( $r = XDb::xFetchArray($rs) ){
     $counties[$r['short']]['pl'] = $r['pl'];
 }
-mysql_free_result($rs);
+XDb::xFreeResults($rs);
 
 $cachesizes = array();
-$rs = mysql_query('SELECT `id`, `pl` FROM cache_size', $dblink);
-for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-    $r = mysql_fetch_array($rs);
+$rs = XDb::xSql('SELECT `id`, `pl` FROM cache_size');
+while( $r = XDb::xFetchArray($rs) ){
     $cachesizes[$r['id']]['pl'] = $r['pl'];
 }
-mysql_free_result($rs);
+XDb::xFreeResults($rs);
 
 $username = array();
-$rs = mysql_query('SELECT `user_id`, `username` FROM user', $dblink);
-for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-    $r = mysql_fetch_array($rs);
+$rs = XDb::xSql('SELECT `user_id`, `username` FROM user');
+while( $r = XDb::xFetchArray($rs) ){
     $username[$r['user_id']] = $r['username'];
 }
-mysql_free_result($rs);
+XDb::xFreeResults($rs);
 
 $languages = array();
-$rs = mysql_query('SELECT `short`, `pl` FROM languages', $dblink);
-for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-    $r = mysql_fetch_array($rs);
+$rs = XDb::xSql('SELECT `short`, `pl` FROM languages');
+while( $r = XDb::xFetchArray($rs) ){
     $languages[$r['short']]['pl'] = $r['pl'];
 }
-mysql_free_result($rs);
+XDb::xFreeResults($rs);
+
 
 $objecttypes['1'] = 'cachelog';
 $objecttypes['2'] = 'cache';
@@ -205,33 +165,29 @@ $naUsers = array();
 
 if ((($nPrimary == 0) && ($bCaches == 1)) || ($nPrimary == 2)) {
     // Caches
-    $rs = mysql_query('SELECT cache_id id FROM caches WHERE last_modified >= \'' . $sModifiedSince . '\'', $dblink);
-    for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-        $r = mysql_fetch_array($rs);
+    $rs = XDb::xSql('SELECT cache_id id FROM caches WHERE last_modified >= ? ', $sModifiedSince);
+    while( $r = XDb::xFetchArray($rs) ){
         $naCaches[$r['id']] = $r['id'];
     }
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
 }
 
 if ((($nPrimary == 0) && ($bDescs == 1)) || ($nPrimary == 3)) {
     // Cachesdesc
-    mysql_query("SET NAMES 'latin2'");
-    $rs = mysql_query('SELECT id FROM cache_desc WHERE last_modified >= \'' . $sModifiedSince . '\'', $dblink);
-    for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-        $r = mysql_fetch_array($rs);
+    $rs = XDb::xSql('SELECT id FROM cache_desc WHERE last_modified >= ? ', $sModifiedSince);
+    while( $r = XDb::xFetchArray($rs) ){
         $naDescs[$r['id']] = $r['id'];
     }
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
 }
 
 if ((($nPrimary == 0) && ($bUsers == 1)) || ($nPrimary == 4)) {
     // Users
-    $rs = mysql_query('SELECT user_id id FROM user WHERE last_modified >= \'' . $sModifiedSince . '\'', $dblink);
-    for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-        $r = mysql_fetch_array($rs);
+    $rs = XDb::xSql('SELECT user_id id FROM user WHERE last_modified >= ? ', $sModifiedSince);
+    while( $r = XDb::xFetchArray($rs) ){
         $naUsers[$r['id']] = $r['id'];
     }
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
 }
 
 
@@ -303,15 +259,17 @@ echo '<ymaps:Groups>
 
 
 // Caches
-if (count($naCaches) > 0) {
-    $sIds = '';
-    foreach ($naCaches AS $id)
-        $sIds .= ', ' . $id;
-    $sIds = substr($sIds, 2);
+if ( !empty($naCaches) ) {
 
-    $rs = mysql_query('SELECT `cache_id` id, `user_id`, `name`, `longitude`, `latitude`, `date_created`, `type`, `status`, `country`, `date_hidden`, `desc_languages`, `size`, `difficulty`, `terrain`, `uuid`, `last_modified`, `wp_gc`, `wp_nc`, `wp_oc` FROM `caches` WHERE `country`!="AT" AND `status`=1 AND `cache_id` IN (' . $sIds . ')', $dblink);
-    for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-        $r = mysql_fetch_array($rs);
+    $rs = XDb::xSql(
+        'SELECT `cache_id` id, `user_id`, `name`, `longitude`, `latitude`, `date_created`, `type`, `status`,
+                `country`, `date_hidden`, `desc_languages`, `size`, `difficulty`, `terrain`, `uuid`,
+                `last_modified`, `wp_gc`, `wp_nc`, `wp_oc`
+        FROM `caches`
+        WHERE `country`!="AT"
+            AND `status`=1 AND `cache_id` IN (' . implode(',', $sIds) . ')');
+
+    while( $r = XDb::xFetchArray($rs) ){
 
         switch ($r['type']) {
             case 1:
@@ -335,17 +293,9 @@ if (count($naCaches) > 0) {
             case 7:
                 $icon = 'Quiz';
                 break;
-            /*      case 8:
-              $icon = 'Matenatyczna';
-              break;
-             */
             case 9:
                 $icon = 'Mobilna';
                 break;
-            /*      case 10:
-              $icon = 'Drive-in';
-              break;
-             */
         }
         $iso2utf8tr = array(
             "\261" => "\xc4\x85", /* a */
@@ -370,20 +320,17 @@ if (count($naCaches) > 0) {
 
         $iso_string = $r['name'];
         $utf8 = strtr($iso_string, $iso2utf8tr);
-// ' by ' . $username[$r['user_id']] .
+
         echo $t1 . '<item>' . "\n";
         echo $t2 . '<title>' . $r['wp_oc'] . ' - ' . $utf8 . '</title>' . "\n";
         echo $t2 . '<link><![CDATA[http://www.opencaching.pl/viewcache.php?cacheid=' . $r['id'] . ']]></link>' . "\n";
         echo $t2 . '<description>' . 'Zalozona przez: ' . $username[$r['user_id']] . ' .::. Rodzaj: ' . $icon . ' .::. Zadanie: ' . sprintf('%01.1f', $r['difficulty'] / 2) . ' .::. Teren: ' . sprintf('%01.1f', $r['terrain'] / 2) . '</description>' . "\n";
         echo $t2 . '<geo:lat>' . sprintf('%01.5f', $r['latitude']) . '</geo:lat>' . "\n";
         echo $t2 . '<geo:long>' . sprintf('%01.5f', $r['longitude']) . '</geo:long>' . "\n";
-//          echo $t2 . '<ymaps:Address>' . 'Wielkosc: ' . $r['size'] . '</ymaps:Address>' . "\n";
-//          echo $t2 . '<ymaps:CityState>' . 'Zadanie: ' . $r['difficulty'] . '</ymaps:CityState>' . "\n";
-//          echo $t2 . '<ymaps:PhoneNumber>' . 'Teren: ' . $r['terrain'] . '</ymaps:PhoneNumber>' . "\n";
         echo $t2 . '<ymaps:GroupID>' . $icon . '</ymaps:GroupID>' . "\n";
         echo $t1 . '</item>' . "\n";
     }
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
 }
 
 
@@ -422,32 +369,20 @@ function object_id2uuid($objectid, $objecttype)
 
 function cache_id2uuid($id)
 {
-    global $dblink;
-
-    $rs = mysql_query('SELECT uuid FROM caches WHERE cache_id=' . addslashes($id));
-    $r = mysql_fetch_array($rs);
-    mysql_free_result($rs);
-    return $r['uuid'];
+    return XDb::xMultiVariableQueryValue(
+        'SELECT uuid FROM caches WHERE cache_id= :1 LIMIT 1', '', $id );
 }
 
 function log_id2uuid($id)
 {
-    global $dblink;
-
-    $rs = mysql_query('SELECT uuid FROM cache_logs WHERE `cache_logs`.`deleted`=0 AND id=' . addslashes($id));
-    $r = mysql_fetch_array($rs);
-    mysql_free_result($rs);
-    return $r['uuid'];
+    return XDb::xMultiVariableQueryValue(
+        'SELECT uuid FROM cache_logs WHERE `cache_logs`.`deleted`=0 AND id = :1 LIMIT 1', '',$id );
 }
 
 function user_id2uuid($id)
 {
-    global $dblink;
-
-    $rs = mysql_query('SELECT uuid FROM user WHERE user_id=' . addslashes($id));
-    $r = mysql_fetch_array($rs);
-    mysql_free_result($rs);
-    return $r['uuid'];
+    XDb::xMultiVariableQueryValue(
+        'SELECT uuid FROM user WHERE user_id= :1 LIMIT 1', $id );
 }
 
 function htmlentities_iso88592($r)
@@ -459,4 +394,4 @@ function htmlentities_iso88592($r)
 }
 
 /* end some useful functions */
-?>
+
