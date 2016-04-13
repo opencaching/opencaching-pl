@@ -1,17 +1,18 @@
 <?php
+use Utils\Database\XDb;
 
 require_once("./lib/common.inc.php");
 
 if (isset($_SESSION['user_id'])) {
 
-    db_connect();
+    
 
     if (isset($_POST['username_find']) && !empty($_POST['username_find'])) {
 
-        $username_find = mysql_real_escape_string($_POST['username_find']);
+        $username_find = XDb::xEscape($_POST['username_find']);
         $query = "select user_id from user where username = '" . $username_find . "'";
-        $wynik = db_query($query);
-        $wiersz = mysql_fetch_assoc($wynik);
+        $wynik = XDb::xSql($query);
+        $wiersz = XDb::xFetchArray($wynik);
 
         if (empty($wiersz['user_id']))
             $tpl->assign('error', 1);
@@ -21,14 +22,14 @@ if (isset($_SESSION['user_id'])) {
         }
     } elseif (isset($_GET['id']) && !empty($_GET['id']) && preg_match("/^\d+$/", $_GET['id'])) {
 
-        $id = mysql_real_escape_string($_GET['id']);
+        $id = XDb::xEscape($_GET['id']);
         $query = "select username,country,date_created,hidden_count,log_notes_count,notfounds_count  from user where user_id = '" . $id . "'";
-        $wynik = db_query($query);
-        $wiersz = mysql_fetch_assoc($wynik);
+        $wynik = XDb::xSql($query);
+        $wiersz = XDb::xFetchArray($wynik);
 
         $query = "select count(*) from cache_logs where cache_logs.user_id = '" . $id . "' and cache_logs.type = '1' and cache_logs.deleted='0'";
-        $wynik = db_query($query);
-        $wiersz2 = mysql_fetch_row($wynik);
+        $wynik = XDb::xSql($query);
+        $wiersz2 = XDb::xFetchArray($wynik);
 
         if (empty($wiersz['username']))
             $tpl->assign('error', 1);

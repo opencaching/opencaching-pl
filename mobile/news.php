@@ -1,19 +1,19 @@
 <?php
-
+use Utils\Database\XDb;
 require_once("./lib/common.inc.php");
 
-db_connect();
+
 
 function find_news($start, $end)
 {
 
     global $tpl;
     $query = "SELECT id,date_posted,content FROM `news` order by id desc limit " . $start . "," . $end;
-    $wynik = db_query($query);
-    $ile = mysql_num_rows($wynik);
+    $wynik = XDb::xSql($query);
+    $ile = XDb::xNumRows($wynik);
     $znalezione = Array();
 
-    while ($odp2 = mysql_fetch_assoc($wynik)) {
+    while ($odp2 = XDb::xFetchArray($wynik)) {
         $odp['date_posted'] = $odp2['date_posted'];
         //$odp['content']=strip_tags($odp2['content'],'<b></b><p></p><a></a><br><br/>');
         $odp['content'] = html2desc($odp2['content']);
@@ -27,8 +27,8 @@ function find_news($start, $end)
 $na_stronie = 5;
 
 $query = "select count(*) from news";
-$wynik = db_query($query);
-$ile = mysql_fetch_row($wynik);
+$wynik = XDb::xSql($query);
+$ile = XDb::xFetchArray($wynik);
 $ile = $ile[0];
 $tpl->assign('ile', $ile);
 
