@@ -67,6 +67,9 @@ class EmailController
         $emailContent = mb_ereg_replace('{email}', $email, $emailContent);
         $emailContent = mb_ereg_replace('{country}', $country_name, $emailContent);
         $emailContent = mb_ereg_replace('{code}', $code, $emailContent);
+        $emailContent = mb_ereg_replace('{oc_logo}', \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getHeaderLogo(), $emailContent);
+        $emailContent = mb_ereg_replace('{sitename}', \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getSiteName(), $emailContent);
+        $emailContent = mb_ereg_replace('{short_sitename}', \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getShortSiteName(), $emailContent);
         $emailContent = mb_ereg_replace('{octeamEmailsSignature}', \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getOcteamEmailsSignature(), $emailContent);
 
         $emailAddr = \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getNoreplyEmailAddress();
@@ -94,12 +97,31 @@ class EmailController
         $emailContent = mb_ereg_replace('{postactivationmail02}', tr('postactivationmail02'), $emailContent);
         $emailContent = mb_ereg_replace('{postactivationmail03}', tr('postactivationmail03'), $emailContent);
         $emailContent = mb_ereg_replace('{postactivationmail04}', tr('postactivationmail04'), $emailContent);
-        $emailContent = mb_ereg_replace('{postactivationmail05}', tr('postactivationmail05'), $emailContent);
         $emailContent = mb_ereg_replace('{user}', $username, $emailContent);
         $emailContent = mb_ereg_replace('{mailtitle}', tr('post_activation_email_subject'), $emailContent);
         $wikiLinks = \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getWikiLinks();
         $emailContent = mb_ereg_replace('{wikiaddress}', $wikiLinks['forBeginers'], $emailContent);
+        $emailContent = mb_ereg_replace('{sitename}', \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getSiteName(), $emailContent);
+        $emailContent = mb_ereg_replace('{short_sitename}', \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getShortSiteName(), $emailContent);
+        $emailContent = mb_ereg_replace('{oc_logo}', \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getHeaderLogo(), $emailContent);
         $emailContent = mb_ereg_replace('{octeamEmailsSignature}', \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getOcteamEmailsSignature(), $emailContent);
+
+        $needAproveLimit = \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getNeedAproveLimit();
+        $needFindLimit = \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getNeedFindLimit();
+
+        if ($needAproveLimit > 0) {
+            $emailContent = mb_ereg_replace('{postactivationmail05}', tr('postactivationmail05'), $emailContent);
+            $emailContent = mb_ereg_replace('{NEED_APPROVE_LIMIT}',  $needAproveLimit, $emailContent);
+        } else {
+            $emailContent = mb_ereg_replace('{postactivationmail05}', "", $emailContent);
+        }
+
+        if ($needFindLimit > 0) {
+            $emailContent = mb_ereg_replace('{postactivationmail04}', tr('postactivationmail04'), $emailContent);
+            $emailContent = mb_ereg_replace('{NEED_FIND_LIMIT}',  $needFindLimit, $emailContent);
+        } else {
+            $emailContent = mb_ereg_replace('{postactivationmail04}', "", $emailContent);
+        }
 
         $emailAddr = \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getNoreplyEmailAddress();
 
