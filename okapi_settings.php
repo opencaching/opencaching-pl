@@ -36,7 +36,7 @@ function get_okapi_settings()
         # Copy the rest from settings.inc.php:
 
         'DATA_LICENSE_URL' => $config['okapi']['data_license_url'],
-        'ADMINS' => $config['okapi']['admin_emails'],
+        'ADMINS' => ($config['okapi']['admin_emails'] ? $config['okapi']['admin_emails'] : array($sql_errormail, 'rygielski@mimuw.edu.pl', 'following@online.de')),
         'FROM_FIELD' => $emailaddr,
         'DEBUG' => $debug_page,
         'DB_SERVER' => $dbserver,
