@@ -113,7 +113,7 @@ $colNameSearch = array(
     ),
     9 => array(
         "C" => tr('C'),
-        "O" => tr('Comment')
+        "O" => tr('note')
     ),
     10 => array(
         "C" => "<img src='images/rating-star.png'>",
