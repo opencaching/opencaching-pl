@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 global $lang, $rootpath;
 
 if (!isset($rootpath))
@@ -9,8 +10,11 @@ if (!isset($rootpath))
 require_once($rootpath . 'lib/common.inc.php');
 setlocale(LC_TIME, 'pl_PL.UTF-8');
 
-$userscount = sqlValue('SELECT COUNT( DISTINCT user_id) FROM cache_logs WHERE type=1 AND `deleted`=0', 0);
-$cachelogscount = sqlValue('SELECT COUNT(*) FROM `cache_logs` WHERE type=1 AND `deleted`=0', 0);
+$userscount = XDb::xSimpleQueryValue(
+    'SELECT COUNT( DISTINCT user_id) FROM cache_logs WHERE type=1 AND `deleted`=0', 0);
+
+$cachelogscount = XDb::xSimpleQueryValue(
+    'SELECT COUNT(*) FROM `cache_logs` WHERE type=1 AND `deleted`=0', 0);
 
 echo '<center><table width="97%" border="0"><tr><td align="center"><center><b>' . tr('ranking_by_number_of_finds') . '</b><br />' . tr('total_amount_loggers');
 echo $userscount;
@@ -19,10 +23,11 @@ echo $cachelogscount;
 echo '</center></td></tr>';
 echo '<tr><td class="bgcolor2"><b>' . tr('filter_out_caches') . '</b><br /><form action="articles.php" method="GET">';
 
-$res_q = sql('SELECT id, pl FROM cache_type WHERE id != 6');
+$res_q = XDb::xSql('SELECT id, pl FROM cache_type WHERE id != 6');
+
 $no_types = 0;
 $typ = "";
-while ($res = sql_fetch_array($res_q)) {
+while ( $res = XDb::xFetchArray($res_q) ) {
     $no_types++;
     if (isset($_GET[$res['id']]) && $_GET[$res['id']] == 1) {
         $checked = 'checked';
@@ -50,10 +55,12 @@ $a = "SELECT COUNT(*) count, username, stat_ban, user.user_id FROM caches, cache
 
 $cache_key = md5($a);
 $lines = apc_fetch($cache_key);
+
 if ($lines === false) {
-    $r = sql($a);
-    while ($line = sql_fetch_array($r))
+    $r = XDb::xSql( $a );
+    while ( $line = XDb::xFetchArray($r) )
         $lines[] = $line;
+
     unset($r);
     apc_store($cache_key, $lines, 3600);
 }
@@ -99,8 +106,7 @@ foreach ($lines as $line) {
 }
 
 // end table
-//echo "</td></tr>";
 echo "</table>\n";
-?>
+
 
 

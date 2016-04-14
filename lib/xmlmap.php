@@ -127,10 +127,10 @@ class tmp_Xmlmap
 
         $this->user_id = $_GET['userid'];
 
-        $latmin = sql_escape($_GET['latmin']);
-        $lonmin = sql_escape($_GET['lonmin']);
-        $latmax = sql_escape($_GET['latmax']);
-        $lonmax = sql_escape($_GET['lonmax']);
+        $latmin = $_GET['latmin'];
+        $lonmin = $_GET['lonmin'];
+        $latmax = $_GET['latmax'];
+        $lonmax = $_GET['lonmax'];
 
         if (($latmin == $latmax) && ($lonmin == $lonmax)) {
             // Special case for showing marker for specific cache - just single coordinate provided

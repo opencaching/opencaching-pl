@@ -8,8 +8,8 @@ class localCachesInc
         $max_lat_diff = $distance / 111.12;
         $max_lon_diff = $distance * 180 / (abs(sin((90 - $lat) * 3.14159 / 180)) * 6378 * 3.14159);
 
-
-        $sqlstr = 'CREATE TEMPORARY TABLE local_caches ENGINE=MEMORY
+        $dbcLocCache->simpleQuery(
+            'CREATE TEMPORARY TABLE local_caches ENGINE=MEMORY
             SELECT
             (' . getSqlDistanceFormula($lon, $lat, $distance, 1) . ')     AS `distance`,
             `caches`.`cache_id`         AS `cache_id`,
@@ -34,12 +34,10 @@ class localCachesInc
                 AND `longitude` < ' . ($lon + $max_lon_diff) . '
                 AND `latitude` > ' . ($lat - $max_lat_diff) . '
                 AND `latitude` < ' . ($lat + $max_lat_diff) . '
-            HAVING `distance` < ' . $distance;
+            HAVING `distance` < ' . $distance);
 
-        $dbcLocCache->simpleQuery( $sqlstr );
-
-
-        $sqlstr = 'ALTER TABLE local_caches
+        $dbcLocCache->simpleQuery(
+            'ALTER TABLE local_caches
             ADD PRIMARY KEY ( `cache_id` ),
             ADD INDEX(`cache_id`),
             ADD INDEX (`wp_oc`),
@@ -47,11 +45,7 @@ class localCachesInc
             ADD INDEX(`name`),
             ADD INDEX(`user_id`),
             ADD INDEX(`date_hidden`),
-            ADD INDEX(`date_created`)';
-
-        $dbcLocCache->simpleQuery( $sqlstr );
+            ADD INDEX(`date_created`)' );
 
     }
 }
-
-?>

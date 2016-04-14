@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 /*
  *
  * This is common code for mapv3
@@ -51,8 +52,9 @@ function getDBFilter($user_id)
         "max_score" => $MAX_SCORE,
         "h_noscore" => 1
     ); // default filter
-    $query = mysql_query("SELECT * from map_settings WHERE `user_id`=$user_id LIMIT 1");
-    while ($row = mysql_fetch_assoc($query)) {
+
+    $query = XDb::xSql("SELECT * FROM map_settings WHERE `user_id`= ? LIMIT 1", $user_id);
+    while ($row = XDb::xFetchArray($query)) {
         $filter["h_u"] = $row['unknown'];
         $filter["h_t"] = $row['traditional'];
         $filter["h_m"] = $row['multicache'];

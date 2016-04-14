@@ -6,7 +6,7 @@
 //  chdir(substr(realpath($_SERVER['PHP_SELF']), 0, strrpos(realpath($_SERVER['PHP_SELF']), '/')));
 //  require($opt['rootpath'] . 'lib2/cli.inc.php');
 
-require('../lib/web.inc.php');
+require('../lib/common.inc.php');
 sql('USE `ocpl`');
 
 //  sql("DELETE FROM nuts_layer");

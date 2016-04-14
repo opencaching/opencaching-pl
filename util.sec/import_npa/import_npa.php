@@ -1,7 +1,7 @@
 #!/usr/bin/php -q
 <?php
 
-require('../../lib/web.inc.php');
+require('../../lib/common.inc.php');
 sql('USE `ocpl`');
 
 

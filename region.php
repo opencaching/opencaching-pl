@@ -127,7 +127,5 @@ if (isset($jsondata['status']) && strtoupper($jsondata['status']) == 'OK') {
     tpl_set_var('region_gm', '');
 }
 
-//          $loc = coordToLocation($lat, $lon);
-//          tpl_set_var('region_gm', $loc['woj']);
 //make the template and send it out
 tpl_BuildTemplate();

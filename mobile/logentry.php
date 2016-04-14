@@ -1,47 +1,48 @@
 <?php
+use Utils\Database\XDb;
 
 require_once("./lib/common.inc.php");
 
 if (isset($_SESSION['user_id']) && isset($_GET['wp']) && !empty($_GET['wp'])) {
 
-    db_connect();
+    
 
-    $wp = mysql_real_escape_string($_GET['wp']);
+    $wp = XDb::xEscape($_GET['wp']);
 
     $query = "select name,cache_id,user_id,votes,score,logpw,type from caches where wp_oc = '" . $wp . "' and status='1';";
-    $wynik = db_query($query);
-    $caches = mysql_fetch_assoc($wynik);
+    $wynik = XDb::xSql($query);
+    $caches = XDb::xFetchArray($wynik);
 
     if (!empty($caches)) {
 
         // Prevent https://github.com/opencaching/opencaching-pl/issues/228
-        db_query("start transaction");
-        db_query("
+        XDb::xSql("start transaction");
+        XDb::xSql("
             select 1
             from cache_logs
             where
-                user_id = '".mysql_real_escape_string($_SESSION['user_id'])."'
-                and cache_id = '".mysql_real_escape_string($caches['cache_id'])."'
+                user_id = '".XDb::xEscape($_SESSION['user_id'])."'
+                and cache_id = '".XDb::xEscape($caches['cache_id'])."'
             for update
         ");
         if ($caches['type'] == 6)
             $query = "select 1 from cache_logs where user_id = '" . $_SESSION['user_id'] . "' and type = '7' and deleted='0' and cache_id ='" . $caches['cache_id'] . "';";
         else
             $query = "select 1 from cache_logs where user_id = '" . $_SESSION['user_id'] . "' and type = '1' and deleted='0' and cache_id ='" . $caches['cache_id'] . "';";
-        $wynik = db_query($query);
-        $if_found = mysql_fetch_row($wynik);
+        $wynik = XDb::xSql($query);
+        $if_found = XDb::xFetchArray($wynik);
 
         $is_mine = ($_SESSION['user_id'] == $caches['user_id']) ? 1 : 0;
 
         $temp_found = ($if_found[0] == 1 || $is_mine == 1) ? 1 : 0;
 
         $query = "SELECT floor( founds_count /10 ) FROM user WHERE user_id =" . $_SESSION['user_id'] . ";";
-        $wynik = db_query($query);
-        $dostepne = mysql_fetch_row($wynik);
+        $wynik = XDb::xSql($query);
+        $dostepne = XDb::xFetchArray($wynik);
 
         $query = "select count(*) from cache_rating where user_id=" . $_SESSION['user_id'] . ";";
-        $wynik = db_query($query);
-        $przyznanych = mysql_fetch_row($wynik);
+        $wynik = XDb::xSql($query);
+        $przyznanych = XDb::xFetchArray($wynik);
 
         $dowykorzystania = $dostepne[0] - $przyznanych[0];
         if ($dowykorzystania > 0 && $caches['type'] != 6)
@@ -51,16 +52,16 @@ if (isset($_SESSION['user_id']) && isset($_GET['wp']) && !empty($_GET['wp'])) {
 
         if (isset($_POST['entry']) && $_POST['entry'] == 'true') {
 
-            $rodzaj = mysql_real_escape_string($_POST['rodzaj']);
-            $date_d = mysql_real_escape_string($_POST['date_d']);
-            $date_m = mysql_real_escape_string($_POST['date_m']);
-            $date_Y = mysql_real_escape_string($_POST['date_Y']);
-            $date_H = mysql_real_escape_string($_POST['date_H']);
-            $date_i = mysql_real_escape_string($_POST['date_i']);
-            $rekomendacja = mysql_real_escape_string($_POST['rekomendacja']);
-            $ocena = mysql_real_escape_string($_POST['ocena']);
-            $logpw = mysql_real_escape_string($_POST['logpw']);
-            $tekst = mysql_real_escape_string($_POST['tekst']);
+            $rodzaj = XDb::xEscape($_POST['rodzaj']);
+            $date_d = XDb::xEscape($_POST['date_d']);
+            $date_m = XDb::xEscape($_POST['date_m']);
+            $date_Y = XDb::xEscape($_POST['date_Y']);
+            $date_H = XDb::xEscape($_POST['date_H']);
+            $date_i = XDb::xEscape($_POST['date_i']);
+            $rekomendacja = XDb::xEscape($_POST['rekomendacja']);
+            $ocena = XDb::xEscape($_POST['ocena']);
+            $logpw = XDb::xEscape($_POST['logpw']);
+            $tekst = XDb::xEscape($_POST['tekst']);
             $tpl->assign('tresc', $tekst);
             $tpl->assign('rodz_select', $rodzaj);
 
@@ -90,42 +91,42 @@ if (isset($_SESSION['user_id']) && isset($_GET['wp']) && !empty($_GET['wp'])) {
                 $uuid = mb_strtoupper(md5(uniqid(rand(), true)));
                 $query = "insert into cache_logs (uuid, cache_id, user_id, type, date, text, last_modified, date_created, node) ";
                 $query.="values ('" . $uuid . "','" . $caches['cache_id'] . "','" . $_SESSION['user_id'] . "','" . $rodzaj . "','" . $dzis . "','" . $tekst . "',now(),now(), '2');";
-                db_query($query);
+                XDb::xSql($query);
 
                 switch ($rodzaj) {
 
                     case 1:
                         $query = "update caches set founds=founds+1 where cache_id = " . $caches['cache_id'];
-                        db_query($query);
+                        XDb::xSql($query);
                         $query = "update user set founds_count=founds_count+1 where user_id = " . $_SESSION['user_id'];
-                        db_query($query);
+                        XDb::xSql($query);
                         break;
                     case 2:
                         $query = "update caches set notfounds=notfounds+1 where cache_id = " . $caches['cache_id'];
-                        db_query($query);
+                        XDb::xSql($query);
                         $query = "update user set notfounds_count=notfounds_count+1 where user_id = " . $_SESSION['user_id'];
-                        db_query($query);
+                        XDb::xSql($query);
                         break;
                     case 3:
                         $query = "update caches set notes=notes+1 where cache_id = " . $caches['cache_id'];
-                        db_query($query);
+                        XDb::xSql($query);
                         $query = "update user set log_notes_count=log_notes_count+1 where user_id = " . $_SESSION['user_id'];
-                        db_query($query);
+                        XDb::xSql($query);
                         break;
                     case 7:
                         $query = "update caches set founds=founds+1 where cache_id = " . $caches['cache_id'];
-                        db_query($query);
+                        XDb::xSql($query);
                         break;
                     case 8:
                         $query = "update caches set notfounds=notfounds+1 where cache_id = " . $caches['cache_id'];
-                        db_query($query);
+                        XDb::xSql($query);
                         break;
                 }
 
                 if ($rodzaj == 1) {
                     if ($topratingav == 1 && $rekomendacja == 'on') {
                         $query = "insert into cache_rating(cache_id, user_id) values (" . $caches['cache_id'] . "," . $_SESSION['user_id'] . ");";
-                        db_query($query);
+                        XDb::xSql($query);
 
                         // Notify OKAPI's replicate module of the change.
                         // Details: https://github.com/opencaching/okapi/issues/265
@@ -136,17 +137,17 @@ if (isset($_SESSION['user_id']) && isset($_GET['wp']) && !empty($_GET['wp'])) {
                         // don't use this query! This update is generated by trigger "cacheRatingAfterInsert" on MySQL
                         // ==== Limak 10.02.2012 ===
                         //$query="update caches set topratings=topratings+1 where cache_id=".$caches['cache_id'];
-                        //db_query($query);
+                        //XDb::xSql($query);
                     }
                     if ($ocena >= '-3' && $ocena <= '3') {
                         $query = "insert into scores(cache_id,user_id,score) values (" . $caches['cache_id'] . "," . $_SESSION['user_id'] . "," . $ocena . ");";
-                        db_query($query);
+                        XDb::xSql($query);
 
                         $query = "update caches set votes=votes+1 ,score=(SELECT round( avg( score ) , 1 ) FROM scores WHERE cache_id = " . $caches['cache_id'] . ") where cache_id = " . $caches['cache_id'];
-                        db_query($query);
+                        XDb::xSql($query);
                     }
                 }
-                db_query("commit");
+                XDb::xSql("commit");
                 header('Location: ./viewcache.php?wp=' . $wp);
                 exit;
             }
