@@ -4,7 +4,6 @@ $translations = array(
     'main_menu' => 'Main Menu',
     'user_menu' => 'User"s Menu',
     'cache_menu' => 'Cache Menu',
-    'activation_code_failed' => 'Code d"activation ou par e-mail est valide. <br/> Activez votre compte ne va pas. S"il vous plaît vérifier  erreur. Si le probleme persiste, s"il vous plaît signalez-le a l"adresse ocpl (at) opencaching.pl .',
     'email_incorrect' => 'L"adresse e-mail est invalide.',
     'account_activation' => 'Activation',
     'email_address' => 'E-mail',
