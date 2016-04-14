@@ -249,9 +249,9 @@ class User extends \lib\Objects\BaseObject
     {
         $query = "
             UPDATE `user`
-            SET `founds_count`   = (SELECT count(*) FROM `cache_logs` WHERE `user_id` =:1 AND TYPE =1 AND `deleted` =0 ),
-                `notfounds_count`= (SELECT count(*) FROM `cache_logs` WHERE `user_id` =:1 AND TYPE =2 AND `deleted` =0 ),
-                `log_notes_count`= (SELECT count(*) FROM `cache_logs` WHERE `user_id` =:1 AND TYPE =3 AND `deleted` =0 )
+            SET `founds_count`   = (SELECT count(*) FROM `cache_logs` WHERE `user_id` =:1 AND `type` IN (1,7) AND `deleted` =0 ),
+                `notfounds_count`= (SELECT count(*) FROM `cache_logs` WHERE `user_id` =:1 AND `type` =2 AND `deleted` =0 ),
+                `log_notes_count`= (SELECT count(*) FROM `cache_logs` WHERE `user_id` =:1 AND `type` =3 AND `deleted` =0 )
             WHERE `user_id` =:1
         ";
         $db = OcDb::instance();
