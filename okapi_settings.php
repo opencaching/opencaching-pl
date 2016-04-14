@@ -33,11 +33,10 @@ function get_okapi_settings()
         # OKAPI-specific settings, see okapi/settings.php file.
 
         'OC_BRANCH' => 'oc.pl',
-        'DATA_LICENSE_URL' => 'http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use',
-
         # Copy the rest from settings.inc.php:
 
-        'ADMINS' => array($sql_errormail, 'rygielski@mimuw.edu.pl', 'following@online.de'),
+        'DATA_LICENSE_URL' => $config['okapi']['data_license_url'],
+        'ADMINS' => $config['okapi']['admin_emails'],
         'FROM_FIELD' => $emailaddr,
         'DEBUG' => $debug_page,
         'DB_SERVER' => $dbserver,
