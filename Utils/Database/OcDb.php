@@ -17,6 +17,9 @@ class OcDb extends OcPdo
      */
     public function dbResultFetch()
     {
+        if(!is_object($this->stmt)){
+            $this->error("PDO Fetch on non-object!", new PDOEXception("PDO Fetch on non-object!"));
+        }
         return $this->stmt->fetch();
     }
 

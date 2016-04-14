@@ -143,7 +143,7 @@ if ($usr || ! $hide_coords) {
         }
     }
 
-    $bUseZip = ($rCount['count'] > 50);
+    $bUseZip = ( isset($rCount['count']) && $rCount['count'] > 50 );
     $bUseZip = $bUseZip || (isset($_REQUEST['zip']) && ($_REQUEST['zip'] == '1'));
     $bUseZip = false;
     if ($bUseZip == true) {

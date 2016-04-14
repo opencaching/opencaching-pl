@@ -441,7 +441,7 @@ if ($usr || ! $hide_coords) {
             AND `gpxcontent`.`user_id`=`user`.`user_id`');
 
     while ( $r = XDb::xFetchArray($stmt) ) {
-        error_log("a");
+
         if (@$enable_cache_access_logs) {
             if (! isset($dbc)) {
                 $dbc = new dataBase();

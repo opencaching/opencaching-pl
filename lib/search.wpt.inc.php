@@ -162,7 +162,7 @@ if( $usr || !$hide_coords ) {
         header('Content-Disposition: attachment; filename=' . $sFilebasename . '.wpt');
     }
 
-    $dbcSearch->simpleQuery(
+    $stmt = XDb::xSql(
         'SELECT `wptcontent`.`cache_id` `cacheid`, IF(wptcontent.cache_id IN
                 (SELECT cache_id FROM cache_logs WHERE deleted=0 AND user_id='.$usr['userid'].' AND (type=1 OR type=8)),1,0)
                 as found, `wptcontent`.`longitude` `longitude`, `wptcontent`.`latitude` `latitude`, `wptcontent`.cache_mod_cords_id,
@@ -178,7 +178,7 @@ if( $usr || !$hide_coords ) {
     appendOutput("Reserved 2\r\n");
     appendOutput("Reserved 3\r\n");
 
-    while($r = $dbcSearch->dbResultFetch() ) {
+    while($r = XDb::xFetchArray($stmt) ) {
         $lat = sprintf('%01.6f', $r['latitude']);
         $lon = sprintf('%01.6f', $r['longitude']);
 
@@ -245,7 +245,7 @@ if( $usr || !$hide_coords ) {
 
 function convertString($str)
 {
-    $replace = [
+    $replace = array(
         '&lt;' => '', '&gt;' => '', '&#039;' => '', '&amp;' => '',
         '&quot;' => '', 'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'Ae',
         '&Auml;' => 'A', 'Å' => 'A', 'Ā' => 'A', 'Ą' => 'A', 'Ă' => 'A', 'Æ' => 'Ae',
@@ -291,7 +291,7 @@ function convertString($str)
         'т' => 't', 'у' => 'u', 'ф' => 'f', 'х' => 'h', 'ц' => 'c', 'ч' => 'ch',
         'ш' => 'sh', 'щ' => 'sch', 'ъ' => '', 'ы' => 'y', 'ь' => '', 'э' => 'e',
         'ю' => 'yu', 'я' => 'ya'
-    ];
+    );
     return str_replace(array_keys($replace), $replace, $str);
 }
 

@@ -101,7 +101,7 @@ if ($count < 1) {
     $count = 500;
 }
 
-$queryLimit .= ' LIMIT ' . $startat . ', ' . $count;
+$queryLimit = ' LIMIT ' . $startat . ', ' . $count;
 
 $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `xmlcontent` ' . $query . $queryLimit);
 $dbcSearch->reset();
