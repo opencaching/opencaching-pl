@@ -3,7 +3,9 @@
  * This script is used (can be loaded) by /search.php
  */
 
-    global $content, $bUseZip, $hide_coords, $usr, $lang, $dbcSearch;
+use Utils\Database\XDb;
+
+global $content, $bUseZip, $hide_coords, $usr, $lang, $dbcSearch;
 
     set_time_limit(1800);
     $cache = cache::instance();
