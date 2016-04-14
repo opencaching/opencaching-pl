@@ -176,9 +176,9 @@ if( $usr || !$hide_coords ) {
         header("Content-Disposition: attachment; filename=" . $sFilebasename . ".txt");
     }
 
-    $dbcSearch->simpleQuery('SELECT `txtcontent`.`cache_id` `cacheid`, `txtcontent`.`longitude` `longitude`, `txtcontent`.`latitude` `latitude`, `txtcontent`.cache_mod_cords_id, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `cache_size`.`id` `size`, `caches`.`type` `type_id`, `caches`.`status` `status`, `user`.`username` `username`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`desc_html` `html`, `cache_desc`.`rr_comment`, `caches`.`logpw` FROM `txtcontent`, `caches`, `user`, `cache_desc`, `cache_size` WHERE `txtcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `txtcontent`.`user_id`=`user`.`user_id` AND `caches`.`size`=`cache_size`.`id`');
+    $stmt = XDb::xSql('SELECT `txtcontent`.`cache_id` `cacheid`, `txtcontent`.`longitude` `longitude`, `txtcontent`.`latitude` `latitude`, `txtcontent`.cache_mod_cords_id, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `cache_size`.`id` `size`, `caches`.`type` `type_id`, `caches`.`status` `status`, `user`.`username` `username`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`desc_html` `html`, `cache_desc`.`rr_comment`, `caches`.`logpw` FROM `txtcontent`, `caches`, `user`, `cache_desc`, `cache_size` WHERE `txtcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `txtcontent`.`user_id`=`user`.`user_id` AND `caches`.`size`=`cache_size`.`id`');
 
-    while($r = $dbcSearch->dbResultFetch()) {
+    while($r = XDb::xFetchArray($stmt) ) {
         if (@$enable_cache_access_logs) {
             if (!isset($dbc)) {
                 $dbc = new dataBase();
