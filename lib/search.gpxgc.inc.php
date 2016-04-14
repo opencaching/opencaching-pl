@@ -645,7 +645,7 @@ if ($usr || ! $hide_coords) {
             FROM `cache_logs`, `user`
             WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=`user`.`user_id`
                 AND `cache_logs`.`cache_id`= ?
-            ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC" . XDb::xEscape($gpxLogLimit),
+            ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC " . XDb::xEscape($gpxLogLimit),
             $r['cacheid']);
 
         while ($rLog = XDb::xFetchArray($rsLogs)) {
