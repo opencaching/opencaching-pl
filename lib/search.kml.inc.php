@@ -104,7 +104,7 @@ if ($usr || ! $hide_coords) {
     if ($count > $maxlimit)
         $count = $maxlimit;
 
-    $queryLimit .= ' LIMIT ' . $startat . ', ' . $count;
+    $queryLimit = ' LIMIT ' . $startat . ', ' . $count;
 
     // cleanup (old gpxcontent lingers if gpx-download is cancelled by user)
     $dbcSearch->simpleQuery('DROP TEMPORARY TABLE IF EXISTS `kmlcontent`');
@@ -241,7 +241,7 @@ if ($usr || ! $hide_coords) {
             $thisline = str_replace('{mod_suffix}', '', $thisline);
         }
 
-        if (($r['status'] == 2) || ($r['status'] == 3)) {
+        if (isset($r['status']) && (($r['status'] == 2) || ($r['status'] == 3)) ) {
             if ($r['status'] == 2)
                 $thisline = str_replace('{archivedflag}', 'Tymczasowo niedostepna!, ', $thisline);
             else

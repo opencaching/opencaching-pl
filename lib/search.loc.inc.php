@@ -145,7 +145,7 @@ if ($usr || ! $hide_coords) {
     }
 
     $bUseZip = ($rCount['count'] > 200000000000);
-    $bUseZip = $bUseZip || ($_REQUEST['zip'] == '1');
+    $bUseZip = $bUseZip || (isset($_REQUEST['zip']) && $_REQUEST['zip'] == '1');
     $bUseZip = false;
     if ($bUseZip == true) {
         $content = '';
