@@ -1,6 +1,9 @@
 <?php
+/**
+ * This script is used (can be loaded) by /search.php
+ */
 
-global $content, $bUseZip, $sqldebug, $dbcSearch, $lang;
+global $content, $bUseZip, $dbcSearch, $lang;
 
 $encoding = 'UTF-8';
 $distance_unit = 'km';
@@ -31,13 +34,13 @@ $txtLogs = "";
 //prepare the output
 $caches_per_page = 20;
 
-$sql = 'SELECT ';
+$query = 'SELECT ';
 
 if (isset($lat_rad) && isset($lon_rad)) {
-    $sql .= getCalcDistanceSqlFormula($usr !== false, $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
+    $query .= getCalcDistanceSqlFormula($usr !== false, $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
 } else {
     if ($usr === false) {
-        $sql .= '0 distance, ';
+        $query .= '0 distance, ';
     } else {
         //get the users home coords
         if (!isset($dbc)) {
@@ -46,33 +49,33 @@ if (isset($lat_rad) && isset($lon_rad)) {
         $dbc->multiVariableQuery("SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`= :1", $usr['userid'] );
         $record_coords = $dbc->dbResultFetch();
         if ((($record_coords['latitude'] == NULL) || ($record_coords['longitude'] == NULL)) || (($record_coords['latitude'] == 0) || ($record_coords['longitude'] == 0))) {
-            $sql .= '0 distance, ';
+            $query .= '0 distance, ';
         } else {
-            $sql .= getCalcDistanceSqlFormula($usr !== false, $record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
+            $query .= getCalcDistanceSqlFormula($usr !== false, $record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
         }
         $dbc->reset();
     }
 }
 
-$sql .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`,
+$query .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`,
         `caches`.`user_id` `user_id`, ';
 if ($usr === false) {
-    $sql .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, 0 as cache_mod_cords_id FROM `caches` ';
+    $query .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, 0 as cache_mod_cords_id FROM `caches` ';
 } else {
-    $sql .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`,
+    $query .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`,
             `caches`.`latitude`) `latitude`, IFNULL(cache_mod_cords.id,0) as cache_mod_cords_id FROM `caches`
         LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = '
             . $usr['userid'];
 }
-$sql .= ' WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
+$query .= ' WHERE `caches`.`cache_id` IN (' . $queryFilter . ')';
 
 $sortby = $options['sort'];
 if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance')) {
-    $sql .= ' ORDER BY distance ASC';
+    $query .= ' ORDER BY distance ASC';
 } elseif ($sortby == 'bycreated') {
-    $sql .= ' ORDER BY date_created DESC';
+    $query .= ' ORDER BY date_created DESC';
 } else { // by name
-    $sql .= ' ORDER BY name ASC';
+    $query .= ' ORDER BY name ASC';
 }
  //startat?
 $startat = isset($_REQUEST['startat']) ? $_REQUEST['startat'] : 0;
@@ -98,13 +101,12 @@ if ($count < 1) {
     $count = 500;
 }
 
-$sqlLimit .= ' LIMIT ' . $startat . ', ' . $count;
+$queryLimit .= ' LIMIT ' . $startat . ', ' . $count;
 
-// tempor?re tabelle erstellen
-$dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `xmlcontent` ' . $sql . $sqlLimit);
+$dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `xmlcontent` ' . $query . $queryLimit);
 $dbcSearch->reset();
 
-$dbcSearch->simpleQuery('SELECT COUNT(cache_id) `count` FROM ('.$sql.') query');
+$dbcSearch->simpleQuery('SELECT COUNT(cache_id) `count` FROM ('.$query.') query');
 $rCount = $dbcSearch->dbResultFetch();
 $dbcSearch->reset();
 
@@ -124,10 +126,9 @@ if ($rCount['count'] == 1) {
     }
 }
 
-if ($sqldebug == false) {
-    header("Content-type: application/xml; charset=".$encoding);
-    header("Content-Disposition: attachment; filename=" . $sFilebasename . ".xml");
-}
+
+header("Content-type: application/xml; charset=".$encoding);
+header("Content-Disposition: attachment; filename=" . $sFilebasename . ".xml");
 
 echo "<?xml version=\"1.0\" encoding=\"".$encoding."\"?>\n";
 echo "<result>\n";
@@ -229,9 +230,7 @@ $dbcSearch->reset();
 unset($dbc);
 $dbcSearch->simpleQuery('DROP TABLE `xmlcontent` ');
 $dbcSearch->reset();
-if ($sqldebug == true) {
-    sqldbg_end();
-}
+
 echo "</result>\n";
 
 exit;
@@ -277,4 +276,4 @@ function filterevilchars($str)
     $str = preg_replace('/[[:cntrl:]]/', '', $str);
     return $str;
 }
-?>
+

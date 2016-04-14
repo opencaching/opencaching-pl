@@ -48,4 +48,4 @@ function get_pagination_page_title()
 
 // all the logic is done here
 include 'search.okapi.inc.php';
-?>
+
