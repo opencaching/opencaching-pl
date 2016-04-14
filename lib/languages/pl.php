@@ -1079,6 +1079,7 @@ $translations = array(
     'adopt_30' => 'Wystąpił błąd podczas zmiany właściciela skrzynki.',
     'adopt_31' => 'Witaj!\nNowym właścicielem Twojej skrzynki {cacheName} został użytkownik {userName}',
     'adopt_32' => '<font color="blue"><b>Przeprowadzono procedurę adopcji skrzynki. Dotychczasowym właścicielem był {oldUserName}. Nowym właścicielem został użytkownik {newUserName}.</font></b>',
+    'adopt_33' => 'Ten kesz juz należy do podanego użytkownika.',
     'format_GPX' => 'GPX format',
     'format_other' => 'Inne formaty',
     'format_pict' => 'GPX + zdjęcia',
