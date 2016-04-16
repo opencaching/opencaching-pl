@@ -551,6 +551,7 @@ $translations = array(
     'toggle_filters' => 'Przełącz filtry',
     'fullscreen' => 'Pełny ekran',
     'disable_fullscreen' => 'Wyłącz pełny ekran',
+    'refresh_map'=> 'Odśwież mapa',
     'stats' => 'Statystyki',
     'rise_charts' => 'Nasze pnące się wykresy...',
     'region_ranking' => 'Ranking wg województw',

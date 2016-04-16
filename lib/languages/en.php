@@ -551,6 +551,7 @@ $translations = array(
     'toggle_filters' => 'Change filters',
     'fullscreen' => 'Full screen',
     'disable_fullscreen' => 'Turn off full screen',
+    'refresh_map'=> 'Refresh map',
     'stats' => 'Statistics',
     'rise_charts' => 'Our rising charts...',
     'region_ranking' => 'Ranking per region',

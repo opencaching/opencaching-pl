@@ -555,6 +555,7 @@ $translations = array(
     'toggle_filters' => 'Verander filters',
     'fullscreen' => 'Volledig scherm',
     'disable_fullscreen' => 'Terug naar klein scherm',
+    'refresh_map'=> 'Kaart verversen',
     'stats' => 'Statistics',
     'rise_charts' => 'Onze stijgende cijfers',
     'region_ranking' => 'Statistieken per provincie',

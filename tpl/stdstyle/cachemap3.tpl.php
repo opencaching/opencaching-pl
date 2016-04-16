@@ -50,8 +50,8 @@
                             <input type="text" id="zoom" size="2" value="{zoom}" disabled="disabled" style='border: 0; font-weight: bold; font-size: 13px; background: transparent'/>
                         </td>
                         <!-- onclick="fullscreen_on();"  -->
-                        <td><a id="fullscreen_on" style='cursor: pointer'><img src="images/fullscreen.png" alt="{{fullscreen}}"/></a></td>
-                        <td><a id="refresh_button" style='cursor: pointer'><img src="images/refresh.png"/></a></td>
+                        <td><a id="fullscreen_on" style='cursor: pointer'><img src="images/fullscreen.png" title="{{fullscreen}}"/></a></td>
+                        <td><a id="refresh_button" style='cursor: pointer'><img src="images/refresh.png" title="{{refresh_map}}"/></a></td>
                     </tr></table>
             </td>
         </tr>

@@ -32,6 +32,7 @@
                 <table style='float: right;'>
                     <tr>
                         <td><a id="fullscreen_off" style='cursor: pointer'><img src="images/fullscreen-off.png" title="{{disable_fullscreen}}"/></a></td>
+                        <td><a id="refresh_button" style='cursor: pointer'><img src="images/refresh.png" title="{{refresh_map}}"/></a></td>
                         <td><a id="current_position" style='cursor: pointer; display: none'><img id="current_position_icon" src="images/map_geolocation_0.png" title="{{where_i_am}}"/></a></td>
                         <td><a id="toggle_filters" style='cursor: pointer'><img src="okapi/static/tilemap/legend_other.png" title="{{toggle_filters}}"/></a></td>
                     </tr>
@@ -219,6 +220,9 @@ var map_params = { //params for cachemaps3.js
         },
         fullscreenButton: {
             id: "fullscreen_off"
+        },
+        refreshButton: {
+            id: "refresh_button"
         },
         gpsPositionButton: {
             id: "current_position"
