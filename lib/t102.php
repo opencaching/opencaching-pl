@@ -122,13 +122,6 @@ if ($sRD == "R") {
     }
 }
 
-/* if ( $sNameOfStat == "NumberOfFinds" )
-  $sTypeCondition = " and  cl.type=1 ";
-
-  if ( $sNameOfStat == "MaintenanceOfCaches" )
-  $sTypeCondition = " and  cl.type=6 and c.user_id <> cl.user_id ";
- */
-
 
 $dbc = new dataBase();
 
@@ -206,7 +199,7 @@ while ($record = $dbc->dbResultFetch()) {
 
 
     $nCount = $record["count"];
-    $sUUN = $record["UUN"];
+    $sUUN = htmlspecialchars($record["UUN"]);
     $sUserID = $record["user_id"];
     $sDateCr = $record["date_created"];
 
