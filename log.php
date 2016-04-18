@@ -251,7 +251,7 @@ if ($error == false) {
 
             // check if geokret is in this cache
             if (isGeokretInCache($cache_id)) {
-                tpl_set_var('log_geokret', "<br /><img src=\"images/gk.png\" class=\"icon16\" alt=\"\" title=\"GeoKrety\" align=\"middle\" />&nbsp;<b>" . tr('geokret_log') . " <a href='//geokrety.org/ruchy.php'>geokrety.org</a></b>");
+                tpl_set_var('log_geokret', "<br /><img src=\"images/gk.png\" class=\"icon16\" alt=\"\" title=\"GeoKrety\" align=\"middle\" />&nbsp;<b>" . tr('geokret_log') . " <a href='http://geokrety.org/ruchy.php'>geokrety.org</a></b>");
             } else
                 tpl_set_var('log_geokret', "");
 
