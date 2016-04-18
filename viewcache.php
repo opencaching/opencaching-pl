@@ -124,11 +124,20 @@ if ($error == false) {
             }
         }
 
-        if ($geocache->getOwner()->getUserId() == $usr['userid'] || $usr['admin']) {
+        if ($geocache->getOwner()->getUserId() == $usr['userid']) {
             $show_edit = true;
+            $show_ignore = false;
+            $show_watch = false;
         } else {
-            $show_edit = false;
+            if ($usr['admin']) {
+                $show_edit = true;
+            } else {
+                $show_edit = false;
+            }
+            $show_ignore = true;
+            $show_watch = true;
         }
+
         $orig_coord_info_lon = ''; //use to determine whether icon shall be displayed
         $coords_correct = true;
         $mod_coords_modified = false;
@@ -1393,34 +1402,47 @@ if ($error == false) {
         $watch_action = "";
         $ignore_action = "";
         $print_action = "";
+        $is_watched = "";
+        $watch_label = "";
+        $is_ignored = "";
+        $ignore_label = "";
+        $ignore_icon = "";
 
+        //sql request only if we want show 'watch' button for user
+        if($show_watch) {
+            //is this cache watched by this user?
+            $dbc->multiVariableQuery("SELECT * FROM `cache_watches` WHERE `cache_id`=:1 AND `user_id`=:2", $cache_id,
+                $usr['userid']);
+            if ($dbc->rowCount() == 0) {
+                $watch_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_watch);
+                $is_watched = 'watchcache.php?cacheid=' . $cache_id . '&amp;target=viewcache.php%3Fcacheid=' . $cache_id;
+                $watch_label = tr('watch');
+            } else {
+                $watch_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_watch_not);
+                $is_watched = 'removewatch.php?cacheid=' . $cache_id . '&amp;target=viewcache.php%3Fcacheid=' . $cache_id;
+                $watch_label = tr('watch_not');
+            }
+            $dbc->reset();
+        }
 
-        //is this cache watched by this user?
-        $dbc->multiVariableQuery("SELECT * FROM `cache_watches` WHERE `cache_id`=:1 AND `user_id`=:2", $cache_id, $usr['userid']);
-        if ($dbc->rowCount() == 0) {
-            $watch_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_watch);
-            $is_watched = 'watchcache.php?cacheid=' . $cache_id . '&amp;target=viewcache.php%3Fcacheid=' . $cache_id;
-            $watch_label = tr('watch');
-        } else {
-            $watch_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_watch_not);
-            $is_watched = 'removewatch.php?cacheid=' . $cache_id . '&amp;target=viewcache.php%3Fcacheid=' . $cache_id;
-            $watch_label = tr('watch_not');
+        //sql request only if we want show 'ignore' button for user
+        if($show_ignore) {
+            //is this cache ignored by this user?
+            $dbc->multiVariableQuery("SELECT `cache_id` FROM `cache_ignore` WHERE `cache_id`=:1 AND `user_id`=:2",
+                $cache_id, $usr['userid']);
+            if ($dbc->rowCount() == 0) {
+                $ignore_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_ignore);
+                $is_ignored = "addignore.php?cacheid=" . $cache_id . "&amp;target=viewcache.php%3Fcacheid%3D" . $cache_id;
+                $ignore_label = tr('ignore');
+                $ignore_icon = 'images/actions/ignore';
+            } else {
+                $ignore_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_ignore_not);
+                $is_ignored = "removeignore.php?cacheid=" . $cache_id . "&amp;target=viewcache.php%3Fcacheid%3D" . $cache_id;
+                $ignore_label = tr('ignore_not');
+                $ignore_icon = 'images/actions/ignore';
+            }
+            $dbc->reset();
         }
-        $dbc->reset();
-        //is this cache ignored by this user?
-        $dbc->multiVariableQuery("SELECT `cache_id` FROM `cache_ignore` WHERE `cache_id`=:1 AND `user_id`=:2", $cache_id, $usr['userid']);
-        if ($dbc->rowCount() == 0) {
-            $ignore_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_ignore);
-            $is_ignored = "addignore.php?cacheid=" . $cache_id . "&amp;target=viewcache.php%3Fcacheid%3D" . $cache_id;
-            $ignore_label = tr('ignore');
-            $ignore_icon = 'images/actions/ignore';
-        } else {
-            $ignore_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_ignore_not);
-            $is_ignored = "removeignore.php?cacheid=" . $cache_id . "&amp;target=viewcache.php%3Fcacheid%3D" . $cache_id;
-            $ignore_label = tr('ignore_not');
-            $ignore_icon = 'images/actions/ignore';
-        }
-        $dbc->reset();
 
         if ($usr !== false) {
             //user logged in => he can log
@@ -1466,7 +1488,7 @@ if ($error == false) {
                     array(
                         'title' => $watch_label,
                         'menustring' => $watch_label,
-                        'visible' => true,
+                        'visible' => $show_watch,
                         'filename' => $is_watched,
                         'newwindow' => false,
                         'siteid' => 'observe_cache',
@@ -1502,7 +1524,7 @@ if ($error == false) {
                     array(
                         'title' => $ignore_label,
                         'menustring' => $ignore_label,
-                        'visible' => true,
+                        'visible' => $show_ignore,
                         'filename' => $is_ignored,
                         'newwindow' => false,
                         'siteid' => 'ignored_cache',
