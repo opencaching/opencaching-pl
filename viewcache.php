@@ -393,7 +393,7 @@ if ($error == false) {
 
             for ($i = 0; $i < $geokrety_all_count; $i++) {
                 $geokret = $geokrety_all[$i];
-                $geokrety_content .= "<img src=\"/images/geokret.gif\" alt=\"\"/>&nbsp;<a href='//geokrety.org/konkret.php?id=" . $geokret['id'] . "'>" . $geokret['name'] . "</a> - " . tr('total_distance') . ": " . $geokret['distance'] . " km<br/>";
+                $geokrety_content .= "<img src=\"/images/geokret.gif\" alt=\"\"/>&nbsp;<a href='http://geokrety.org/konkret.php?id=" . $geokret['id'] . "'>" . $geokret['name'] . "</a> - " . tr('total_distance') . ": " . $geokret['distance'] . " km<br/>";
             }
             tpl_set_var('geokrety_begin', '');
             tpl_set_var('geokrety_end', '');
