@@ -690,7 +690,6 @@ if ($error == false) {
         tpl_set_var('icon_cache', htmlspecialchars("$stylepath/images/cache/$iconname", ENT_COMPAT, 'UTF-8'));
         tpl_set_var('cachesize', htmlspecialchars(tr($geocache->getSizeDesc()), ENT_COMPAT, 'UTF-8'));
         tpl_set_var('oc_waypoint', htmlspecialchars($geocache->getWaypointId(), ENT_COMPAT, 'UTF-8'));
-        tpl_set_var('absolute_server_URI',$absolute_server_URI);
         if ($geocache->getRecommendations() == 1){
             tpl_set_var('rating_stat', mb_ereg_replace('{ratings}', $geocache->getRecommendations(), $rating_stat_show_singular));
         } elseif ($geocache->getRecommendations() > 1) {
