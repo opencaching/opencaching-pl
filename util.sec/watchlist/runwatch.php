@@ -235,7 +235,7 @@ fclose($lock_file);
  */
 function process_owner_log($user_id, $log_id)
 {
-    global $logowner_text, $absolute_server_URI, $octeamEmailsSignature;
+    global $absolute_server_URI, $octeamEmailsSignature;
 
 
     $rsLog = XDb::xSql(
@@ -255,7 +255,7 @@ function process_owner_log($user_id, $log_id)
     XDb::xFreeResults($rsLog);
 
     $userActivity = $rLog['ch'] + $rLog['cf'] + $rLog['cn'];
-    $watchtext = $logowner_text;
+    $watchtext = read_file(dirname(__FILE__) . '/item.email.html');
     $logtext = $rLog['text'];
     $logtext = preg_replace("/<img[^>]+\>/i", "", $logtext);
 
@@ -297,7 +297,7 @@ function process_owner_log($user_id, $log_id)
  */
 function process_log_watch($user_id, $log_id)
 {
-    global $logwatch_text, $absolute_server_URI;
+    global $absolute_server_URI;
 
     $rsLog = XDb::xSql(
         "SELECT cache_logs.cache_id cache_id, cache_logs.text text, cache_logs.text_html text_html,
@@ -326,7 +326,7 @@ function process_log_watch($user_id, $log_id)
         $recommended = '';
     }
 
-    $watchtext = $logowner_text = read_file(dirname(__FILE__) . '/item.email.html');
+    $watchtext = read_file(dirname(__FILE__) . '/item.email.html');
     $logtext = $rLog['text'];
 
     $logtext = preg_replace("/<img[^>]+\>/i", "", $logtext);
