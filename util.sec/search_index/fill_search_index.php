@@ -1,11 +1,13 @@
 <?php
+/**
+ *
+ * This script refresh indexes used by search script
+ *
+ */
 
-//prepare the templates and include all neccessary
 $rootpath = '../../';
-require_once($rootpath . 'lib/clicompatbase.inc.php');
-require_once($rootpath . 'lib/ftsearch.inc.php');
-
-db_connect();
+require_once $rootpath . '/lib/ClassPathDictionary.php';
+require_once $rootpath . 'lib/ftsearch.inc.php';
 
 ftsearch_refresh();
-?>
+

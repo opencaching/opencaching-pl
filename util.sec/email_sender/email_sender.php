@@ -1,29 +1,22 @@
 <?php
+/**
+ *
+ * This script sends emails which are stored in DB table email_user
+ * Those are for examples:
+ *  - messages sended by user to other user inside OC service
+ *
+ * This script should be called from cron quite often (to not delay messages)
+ */
 
-/* * *************************************************************************
+use Utils\Database\XDb;
 
-  Ggf. muss die Location des php-Binaries angepasst werden.
-
-  Diese Script versendet die am Frontend eingetragenen und in der Table
-  'email_user' zwischengespeicherten Emails an die entsprechenden Adressen.
-
- * ************************************************************************* */
 
 $rootpath = '../../';
 require_once($rootpath . 'lib/common.inc.php');
 
-/* begin db connect */
-db_connect();
-if ($dblink === false) {
-    echo 'Unable to connect to database';
-    exit;
-}
-/* end db connect */
+$result = XDb::xSql('SELECT `id`, `to_email`, `send_emailaddress`, `from_email`, `mail_subject`, `mail_text` FROM `email_user` WHERE `date_sent`=0');
 
-/* begin */
-$result = sql('SELECT `id`, `to_email`, `send_emailaddress`, `from_email`, `mail_subject`, `mail_text` FROM `email_user` WHERE `date_sent`=0');
-
-while ($row = sql_fetch_array($result)) {
+while ($row = XDb::xFetchArray($result)) {
     $headers = '';
     $to_email = ($debug == true) ? $debug_mailto : $row['to_email'];
 
@@ -40,10 +33,11 @@ while ($row = sql_fetch_array($result)) {
     }
 
     if (mb_send_mail($to_email, $row['mail_subject'], $row['mail_text'], $headers)) {
-        // Kopie an Sender
+
+        // Send copy of the message to sender
         mb_send_mail($row['from_email'], $row['mail_subject'], tr('copy_sender') . ":\n" . $row['mail_text'], $headers);
 
-        $upd_result = sql("UPDATE `email_user` SET `mail_text`='[Delivered]', `date_sent`=NOW() WHERE `id`='&1'", $row['id']);
+        $upd_result = XDb::xSql(
+            "UPDATE `email_user` SET `mail_text`='[Delivered]', `date_sent`=NOW() WHERE `id`= ? ", $row['id']);
     }
 }
-?>

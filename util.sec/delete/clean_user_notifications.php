@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\OcDb;
 /*
  * Simple script to disable notifications send by OC server to a specific user.
  * The script is intended for admins only, in cases when the user wants to opt-out
@@ -19,9 +20,8 @@ if (php_sapi_name() != "cli") {
 
 $rootpath = __DIR__ . '/../../';
 require_once __DIR__ . '/../../lib/common.inc.php';
-db_disconnect();
 
-$db = \lib\Database\DataBaseSingleton::Instance();
+$db = OcDb::instance();
 
 function remove_watch($cache_id, $user_id) {
     global $db;

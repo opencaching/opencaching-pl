@@ -231,7 +231,7 @@ function ftsearch_refresh_all_caches()
 
 function ftsearch_refresh_cache($cache_id)
 {
-    $rs = XDb::xSql("SELECT `name`, `last_modified` FROM `caches` WHERE `cache_id`= ? ", $cache_id);
+    $rs = XDb::xSql("SELECT `name`, `last_modified` FROM `caches` WHERE `cache_id`= ? LIMIT 1", $cache_id);
     if ($r = XDb::xFetchArray($rs)) {
         ftsearch_set_entries(2, $cache_id, $cache_id, $r['name'], $r['last_modified']);
     }
@@ -264,7 +264,7 @@ function ftsearch_refresh_all_cache_desc()
 
 function ftsearch_refresh_cache_desc($id)
 {
-    $rs = XDb::xSql("SELECT `cache_id`, `desc`, `last_modified` FROM `cache_desc` WHERE `id`= ? ", $id);
+    $rs = XDb::xSql("SELECT `cache_id`, `desc`, `last_modified` FROM `cache_desc` WHERE `id`= ? LIMIT 1", $id);
     if ($r = XDb::xFetchArray($rs)) {
         $r['desc'] = ftsearch_strip_html($r['desc']);
         ftsearch_set_entries(3, $id, $r['cache_id'], $r['desc'], $r['last_modified']);

@@ -1,28 +1,22 @@
 <?php
-
-/* * *************************************************************************
-
-  Ggf. muss die Location des php-Binaries angepasst werden.
-
-  Dieses Script sucht nach neuen Logs und Caches, die von Usern beobachtet
-  werden und verschickt dann die Emails.
-
- * ************************************************************************* */
+/**
+ *
+ * This script sends emails notification about new logs to cache owner and watchers
+ * It should be called from CRON quite often (to not delay messages)
+ *
+ */
+use Utils\Database\XDb;
 
 $rootpath = '../../';
-require_once(dirname(__FILE__) . '/../../lib/clicompatbase.inc.php');
-require_once('settings.inc.php');
-require_once(dirname(__FILE__) . '/../../lib/consts.inc.php');
-require_once(dirname(__FILE__) . '/../../lib/common.inc.php');
 
+require_once($rootpath . 'lib/consts.inc.php');
+require_once($rootpath . 'lib/common.inc.php');
 
-/* begin with some constants */
 
 $sDateformat = 'Y-m-d H:i:s';
 $mailsubject = tr('runwatch03') . ' ' . $site_name . ': ' . date('Y-m-d H:i:s');
 $nologs = tr('runwatch15');
 
-/* end with some constants */
 
 // Check if another instance of the script is running
 $lock_file = fopen("/tmp/watchlist-runwatch.lock", "w");
@@ -35,73 +29,88 @@ if (!flock($lock_file, LOCK_EX | LOCK_NB)) {
 
 // No other instance - do normal processing
 
-/* begin db connect */
-db_connect();
-if ($dblink === false) {
-    echo 'Unable to connect to database';
-    exit;
-}
-/* end db connect */
-
 $diag_log_file = fopen("/var/log/ocpl/runwatch.log", "a");
 $diag_start_time = microtime(true);
 fprintf($diag_log_file, "start;%s\n", date("Y-m-d H:i:s"));
 
-/* begin owner notifies and cache watches */
-$rsNewLogs = sql("SELECT cache_logs.id log_id, caches.user_id user_id, cache_logs.cache_id cache_id FROM cache_logs, caches WHERE cache_logs.deleted=0 AND cache_logs.cache_id=caches.cache_id AND cache_logs.owner_notified=0");
-for ($i = 0; $i < mysql_num_rows($rsNewLogs); $i++) {
-    $rNewLog = sql_fetch_array($rsNewLogs);
+/* Stage I: Notify
+ * - cache owners
+ * - cache watchers
+ * about new logs in their caches
+ */
+$rsNewLogs = XDb::xSql(
+    "SELECT cache_logs.id log_id, caches.user_id user_id, cache_logs.cache_id cache_id
+    FROM cache_logs, caches
+    WHERE cache_logs.deleted=0
+        AND cache_logs.cache_id=caches.cache_id
+        AND cache_logs.owner_notified=0");
+
+while( $rNewLog = XDb::xFetchArray($rsNewLogs) ){
+
+    //foreach cache with new log entry..
+
     $rNewLog_log_id = $rNewLog['log_id'];
     $rNewLog_user_id = $rNewLog['user_id'];
     $rNewLog_cache_id = $rNewLog['cache_id'];
 
     // Notify owner
-    $rsNotified = sql("SELECT `id` FROM watches_notified WHERE user_id='&1' AND object_id='&2' AND object_type=1", $rNewLog_user_id, $rNewLog_log_id);
-    if (mysql_num_rows($rsNotified) == 0) {
-        // Benachrichtigung speichern
-        sql("INSERT IGNORE INTO `watches_notified` (`user_id`, `object_id`, `object_type`, `date_processed`) VALUES ('&1', '&2', 1, NOW())", $rNewLog_user_id, $rNewLog_log_id);
+    $rsNotified = XDb::xMultiVariableQueryValue(
+        "SELECT COUNT(`id`) FROM watches_notified
+        WHERE user_id= :1
+            AND object_id= :2
+            AND object_type=1",
+        -1, $rNewLog_user_id, $rNewLog_log_id);
+
+    if ( $rsNotified == 0) {
+
+        XDb::xSql(
+            "INSERT IGNORE INTO `watches_notified` (`user_id`, `object_id`, `object_type`, `date_processed`)
+            VALUES ( ?,  ?, 1, NOW())",
+            $rNewLog_user_id, $rNewLog_log_id);
 
         process_owner_log($rNewLog_user_id, $rNewLog_log_id);
     }
-    mysql_free_result($rsNotified);
 
     // Notify watchers
-    $rscw = sql("SELECT user_id FROM cache_watches WHERE cache_id = &1", $rNewLog_cache_id);
-    for ($j = 0; $j < mysql_num_rows($rscw); $j++) {
-        $rcw = sql_fetch_array($rscw);
+    $rscw = XDb::xSql(
+        "SELECT user_id FROM cache_watches WHERE cache_id = ?", $rNewLog_cache_id);
+
+    while( $rcw = XDb::xFetchArray($rscw) ){
+
         $rcw_user_id = $rcw['user_id'];
 
-        // kucken, ob fuer dieses Log schon benachrichtigt wurde
-        $rsNotified = sql("SELECT `id` FROM watches_notified WHERE user_id='&1' AND object_id='&2' AND object_type=1", $rcw_user_id, $rNewLog_log_id);
-        if (mysql_num_rows($rsNotified) == 0) {
-            // Benachrichtigung speichern
-            sql("INSERT IGNORE INTO `watches_notified` (`user_id`, `object_id`, `object_type`, `date_processed`) VALUES ('&1', '&2', 1, NOW())", $rcw_user_id, $rNewLog_log_id);
+        // check if this notification was send before...
+        $rsNotified = XDb::xMultiVariableQueryValue(
+            "SELECT COUNT(`id`) FROM watches_notified
+            WHERE user_id= :1
+                AND object_id= :2
+                AND object_type=1",
+            -1, $rcw_user_id, $rNewLog_log_id);
+
+        if ( $rsNotified == 0) {
+            XDb::xSql(
+                "INSERT IGNORE INTO `watches_notified` (`user_id`, `object_id`, `object_type`, `date_processed`)
+                VALUES ( ?, ?, 1, NOW())",
+                $rcw_user_id, $rNewLog_log_id);
 
             process_log_watch($rcw_user_id, $rNewLog_log_id);
         }
-        mysql_free_result($rsNotified);
     }
-    mysql_free_result($rscw);
+    XDb::xFreeResults($rscw);
 
-    sql("UPDATE cache_logs SET owner_notified=1 WHERE id='&1'", $rNewLog_log_id);
+    XDb::xSql("UPDATE cache_logs SET owner_notified=1 WHERE id= ? LIMIT 1", $rNewLog_log_id);
 }
-mysql_free_result($rsNewLogs);
+
+XDb::xFreeResults($rsNewLogs);
 /* end owner notifies and cache watches */
 
 fprintf($diag_log_file, "after-owner-notifies-cache-watches;%s;%lf\n", date("Y-m-d H:i:s"), microtime(true) - $diag_start_time);
 $diag_start_time = microtime(true);
 
-/* begin send out everything that has to be sent */
 
-/* First phase - send messages to users who have requested immediate notification */
+/* Stage II: begin send out everything that has to be sent */
 
-$rsWatchesUsers = sql('
-        SELECT watches_waiting.id AS id, watches_waiting.watchtext AS watchtext, watches_waiting.watchtype AS watchtype, `user`.user_id AS user_id, `user`.username AS username, `user`.email AS email
-        FROM `user`, watches_waiting
-        WHERE
-            `user`.user_id = watches_waiting.user_id AND
-            `user`.watchmail_mode = 1
-        ORDER BY watches_waiting.user_id, watches_waiting.id DESC');
+/* Stage IIA: send messages to users who have requested immediate notification */
 
 $currUserID = '';
 $currUserName = '';
@@ -109,8 +118,16 @@ $currUserEMail = '';
 $currUserOwnerLogs = '';
 $currUserWatchLogs = '';
 
-for ($i = 0; $i < mysql_num_rows($rsWatchesUsers); $i++) {
-    $rWatchUser = sql_fetch_array($rsWatchesUsers);
+$rsWatchesUsers = XDb::xSql(
+    'SELECT watches_waiting.id AS id, watches_waiting.watchtext AS watchtext, watches_waiting.watchtype AS watchtype,
+            `user`.user_id AS user_id, `user`.username AS username, `user`.email AS email
+    FROM `user`, watches_waiting
+    WHERE `user`.user_id = watches_waiting.user_id
+        AND `user`.watchmail_mode = 1
+    ORDER BY watches_waiting.user_id, watches_waiting.id DESC');
+
+while( $rWatchUser = XDb::xFetchArray($rsWatchesUsers) ){
+
     if ($currUserID != $rWatchUser['user_id']) {
         // Time to send all gathered info for the previous user (if any)
         send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUserEMail, $currUserOwnerLogs, $currUserWatchLogs);
@@ -130,49 +147,57 @@ for ($i = 0; $i < mysql_num_rows($rsWatchesUsers); $i++) {
         $currUserWatchLogs .= $rWatchUser['watchtext'];
     }
 }
-mysql_free_result($rsWatchesUsers);
+XDb::xFreeResults($rsWatchesUsers);
 
 // Send all gathered info for the last user (if any)
 send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUserEMail, $currUserOwnerLogs, $currUserWatchLogs);
 
 
-/* Second phase - check/send messages to users who have requested daily/weekly notification */
+/* Stage IIB: check/send messages to users who have requested daily/weekly notification */
 
-$rsUsers = sql('SELECT user_id, username, email, watchmail_mode, watchmail_hour, watchmail_day, watchmail_nextmail FROM `user` WHERE watchmail_mode IN (0, 2) AND watchmail_nextmail<NOW()');
-for ($i = 0; $i < mysql_num_rows($rsUsers); $i++) {
-    $rUser = sql_fetch_array($rsUsers);
+$rsUsers = XDb::xSql(
+    'SELECT user_id, username, email, watchmail_mode, watchmail_hour, watchmail_day, watchmail_nextmail
+    FROM `user` WHERE watchmail_mode IN (0, 2) AND watchmail_nextmail < NOW()');
+
+while( $rUser = XDb::xFetchArray($rsUsers) ){
 
     if ($rUser['watchmail_nextmail'] != '0000-00-00 00:00:00') {
-        $rsWatches = sql("SELECT COUNT(*) count FROM watches_waiting WHERE user_id='&1'", $rUser['user_id']);
-        if (mysql_num_rows($rsWatches) > 0) {
-            $r = sql_fetch_array($rsWatches);
-            if ($r['count'] > 0) {
-                $currUserID = $rUser['user_id'];
-                $currUserName = $rUser['username'];
-                $currUserEMail = $rUser['email'];
-                $currUserOwnerLogs = '';
-                $currUserWatchLogs = '';
 
-                $rsWatchesOwner = sql("SELECT id, watchtext FROM watches_waiting WHERE user_id='&1' AND watchtype=1 ORDER BY id DESC", $rUser['user_id']);
-                for ($j = 0; $j < mysql_num_rows($rsWatchesOwner); $j++) {
-                    $rWatch = sql_fetch_array($rsWatchesOwner);
-                    $currUserOwnerLogs .= $rWatch['watchtext'];
-                }
-                mysql_free_result($rsWatchesOwner);
+        $r['count'] = XDb::xMultiVariableQueryValue(
+            "SELECT COUNT(*) count FROM watches_waiting WHERE user_id= :1 ", 0, $rUser['user_id']);
 
-                $rsWatchesLog = sql("SELECT id, watchtext FROM watches_waiting WHERE user_id='&1' AND watchtype=2 ORDER BY id DESC", $rUser['user_id']);
-                for ($j = 0; $j < mysql_num_rows($rsWatchesLog); $j++) {
-                    $rWatch = sql_fetch_array($rsWatchesLog);
-                    $currUserWatchLogs .= $rWatch['watchtext'];
-                }
+        if ($r['count'] > 0) {
+            $currUserID = $rUser['user_id'];
+            $currUserName = $rUser['username'];
+            $currUserEMail = $rUser['email'];
+            $currUserOwnerLogs = '';
+            $currUserWatchLogs = '';
 
-                // mail versenden
-                send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUserEMail, $currUserOwnerLogs, $currUserWatchLogs);
+            $rsWatchesOwner = XDb::xSql(
+                "SELECT id, watchtext FROM watches_waiting
+                WHERE user_id= ? AND watchtype=1
+                ORDER BY id DESC", $rUser['user_id']);
+
+            while( $rWatch = XDb::xFetchArray($rsWatchesOwner) ){
+                $currUserOwnerLogs .= $rWatch['watchtext'];
             }
+            XDb::xFreeResults($rsWatchesOwner);
+
+            $rsWatchesLog = XDb::xSql(
+                "SELECT id, watchtext FROM watches_waiting
+                WHERE user_id= ? AND watchtype=2
+                ORDER BY id DESC",
+                $rUser['user_id']);
+
+            while ( $rWatch = XDb::xFetchArray($rsWatchesLog) ){
+                $currUserWatchLogs .= $rWatch['watchtext'];
+            }
+
+            // send mail
+            send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUserEMail, $currUserOwnerLogs, $currUserWatchLogs);
         }
     }
 
-    // Zeitpunkt der naechsten Mail berechnen
     if ($rUser['watchmail_mode'] == 0)
         $nextmail = date($sDateformat, mktime($rUser['watchmail_hour'], 0, 0, date('n'), date('j') + 1, date('Y')));
     elseif ($rUser['watchmail_mode'] == 2) {
@@ -180,19 +205,21 @@ for ($i = 0; $i < mysql_num_rows($rsUsers); $i++) {
         if ($weekday == 0)
             $weekday = 7;
 
-        if ($weekday >= $rUser['watchmail_day'])
-        // We are on or after specified day in the week - next run should be next week
+        if ($weekday >= $rUser['watchmail_day']){
+            // We are on or after specified day in the week - next run should be next week
             $nextmail = date($sDateformat, mktime($rUser['watchmail_hour'], 0, 0, date('n'), date('j') - $weekday + $rUser['watchmail_day'] + 7, date('Y')));
-        else
-        // We are still before specified day in the week - next run should be this week
+        } else {
+            // We are still before specified day in the week - next run should be this week
             $nextmail = date($sDateformat, mktime($rUser['watchmail_hour'], 0, 0, date('n'), date('j') - $weekday + $rUser['watchmail_day'] + 0, date('Y')));
+        }
     }
 
-    sql("UPDATE user SET watchmail_nextmail='&1' WHERE user_id='&2'", $nextmail, $rUser['user_id']);
+    XDb::xSql("UPDATE user SET watchmail_nextmail= ? WHERE user_id= ? LIMIT 1", $nextmail, $rUser['user_id']);
 }
-mysql_free_result($rsUsers);
+XDb::xFreeResults($rsUsers);
 
 /* end send out everything that has to be sent */
+
 
 fprintf($diag_log_file, "after-send-out;%s;%lf\n", date("Y-m-d H:i:s"), microtime(true) - $diag_start_time);
 $diag_start_time = microtime(true);
@@ -201,30 +228,35 @@ fclose($diag_log_file);
 // Release lock
 fclose($lock_file);
 
+/**
+ * This function prepares message to cache owner about new log entry
+ * @param unknown $user_id
+ * @param unknown $log_id
+ */
 function process_owner_log($user_id, $log_id)
 {
-    global $dblink, $logowner_text, $absolute_server_URI, $octeamEmailsSignature;
+    global $logowner_text, $absolute_server_URI, $octeamEmailsSignature;
 
-//  echo "process_owner_log($user_id, $log_id)\n";
 
-    $rsLog = sql("SELECT cache_logs.cache_id cache_id, cache_logs.text text, cache_logs.text_html text_html, cache_logs.date logdate, user.username username, user.hidden_count ch, user.founds_count cf, user.notfounds_count cn, caches.wp_oc wp,caches.name cachename, cache_logs.type type,IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended` FROM `cache_logs` LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`, `user`, `caches` WHERE `cache_logs`.`deleted`=0 AND (cache_logs.user_id = user.user_id) AND (cache_logs.cache_id = caches.cache_id) AND (cache_logs.id ='&1')", $log_id);
-    $rLog = sql_fetch_array($rsLog);
-    mysql_free_result($rsLog);
+    $rsLog = XDb::xSql(
+        "SELECT cache_logs.cache_id cache_id, cache_logs.text text, cache_logs.text_html text_html,
+                cache_logs.date logdate, user.username username, user.hidden_count ch, user.founds_count cf,
+                user.notfounds_count cn, caches.wp_oc wp,caches.name cachename, cache_logs.type type,
+                IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
+        FROM `cache_logs`
+            LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id`
+            AND `cache_logs`.`user_id`=`cache_rating`.`user_id`, `user`, `caches`
+        WHERE `cache_logs`.`deleted`=0 AND (cache_logs.user_id = user.user_id)
+            AND (cache_logs.cache_id = caches.cache_id)
+            AND (cache_logs.id = ? )
+        LIMIT 1", $log_id);
+
+    $rLog = XDb::xFetchArray($rsLog);
+    XDb::xFreeResults($rsLog);
 
     $userActivity = $rLog['ch'] + $rLog['cf'] + $rLog['cn'];
     $watchtext = $logowner_text;
     $logtext = $rLog['text'];
-    /*
-      if ($rLog['text_html'] != 0){
-      $logtext = html_entity_decode($logtext, ENT_COMPAT, 'UTF-8');
-      $logtext = mb_ereg_replace("\r", '', $logtext);
-      $logtext = mb_ereg_replace("\n", '', $logtext);
-      $logtext = mb_ereg_replace('</p>', "</p>\n", $logtext);
-      $logtext = mb_ereg_replace('<br/>', "<br/>\n", $logtext);
-      $logtext = mb_ereg_replace('<br />', "<br />\n", $logtext);
-      $logtext = strip_tags($logtext);
-      }
-     */
     $logtext = preg_replace("/<img[^>]+\>/i", "", $logtext);
 
     $logtypeParams = getLogtypeParams($rLog['type']);
@@ -250,22 +282,38 @@ function process_owner_log($user_id, $log_id)
     $watchtext = mb_ereg_replace('{emailSign}', $octeamEmailsSignature, $watchtext);
     $watchtext = mb_ereg_replace('{userActivity}', $userActivity, $watchtext);
 
-    sql("INSERT IGNORE INTO watches_waiting (`user_id`, `object_id`, `object_type`, `date_added`, `watchtext`, `watchtype`) VALUES (
-                                                                        '&1', '&2', 1, NOW(), '&3', 1)", $user_id, $log_id, $watchtext);
+    XDb::xSql(
+        "INSERT IGNORE INTO watches_waiting (`user_id`, `object_id`, `object_type`, `date_added`, `watchtext`, `watchtype`)
+        VALUES ( ?, ?, 1, NOW(), ?, 1)",
+        $user_id, $log_id, $watchtext);
 
-    // logentry($module, $eventid, $userid, $objectid1, $objectid2, $logtext, $details)
     logentry('watchlist', 1, $user_id, $log_id, 0, $watchtext, array());
 }
 
+/**
+ * This function prepares message to text watcher about new log entry
+ * @param unknown $user_id
+ * @param unknown $log_id
+ */
 function process_log_watch($user_id, $log_id)
 {
-    global $dblink, $logwatch_text, $absolute_server_URI;
+    global $logwatch_text, $absolute_server_URI;
 
-//  echo "process_log_watch($user_id, $log_id)\n";
+    $rsLog = XDb::xSql(
+        "SELECT cache_logs.cache_id cache_id, cache_logs.text text, cache_logs.text_html text_html,
+                cache_logs.date logdate, user.username username, user.hidden_count ch, user.founds_count cf,
+                user.notfounds_count cn, caches.wp_oc wp,caches.name cachename, cache_logs.type type,
+                IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
+        FROM `cache_logs`
+            LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id`
+            AND `cache_logs`.`user_id`=`cache_rating`.`user_id`, `user`, `caches`
+        WHERE `cache_logs`.`deleted`=0 AND (cache_logs.user_id = user.user_id)
+            AND (cache_logs.cache_id = caches.cache_id)
+            AND (cache_logs.id = ?)
+        LIMIT 1", $log_id);
 
-    $rsLog = sql("SELECT cache_logs.cache_id cache_id, cache_logs.text text, cache_logs.text_html text_html, cache_logs.date logdate, user.username username, user.hidden_count ch, user.founds_count cf, user.notfounds_count cn, caches.wp_oc wp,caches.name cachename, cache_logs.type type, IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended` FROM `cache_logs` LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`, `user`, `caches` WHERE `cache_logs`.`deleted`=0 AND (cache_logs.user_id = user.user_id) AND (cache_logs.cache_id = caches.cache_id) AND (cache_logs.id = '&1')", $log_id);
-    $rLog = sql_fetch_array($rsLog);
-    mysql_free_result($rsLog);
+    $rLog = XDb::xFetchArray($rsLog);
+    XDb::xFreeResults($rsLog);
 
     $logtypeParams = getLogtypeParams($rLog['type']);
     if (isset($logtypeParams['username'])) {
@@ -278,19 +326,9 @@ function process_log_watch($user_id, $log_id)
         $recommended = '';
     }
 
-    $watchtext = $logwatch_text;
+    $watchtext = $logowner_text = read_file(dirname(__FILE__) . '/item.email.html');
     $logtext = $rLog['text'];
-    /*
-      if ($rLog['text_html'] != 0){
-      $logtext = html_entity_decode($logtext, ENT_COMPAT, 'UTF-8');
-      $logtext = mb_ereg_replace("\r", '', $logtext);
-      $logtext = mb_ereg_replace("\n", '', $logtext);
-      $logtext = mb_ereg_replace('</p>', "</p>\n", $logtext);
-      $logtext = mb_ereg_replace('<br/>', "<br/>\n", $logtext);
-      $logtext = mb_ereg_replace('<br />', "<br />\n", $logtext);
-      $logtext = strip_tags($logtext);
-      }
-     */
+
     $logtext = preg_replace("/<img[^>]+\>/i", "", $logtext);
 
     $watchtext = mb_ereg_replace('{date}', date('Y-m-d H:i', strtotime($rLog['logdate'])), $watchtext);
@@ -304,20 +342,22 @@ function process_log_watch($user_id, $log_id)
     $watchtext = mb_ereg_replace('{absolute_server_URI}', $absolute_server_URI, $watchtext);
     $watchtext = mb_ereg_replace('{userActivity}', $userActivity, $watchtext);
 
-    sql("INSERT IGNORE INTO watches_waiting (`user_id`, `object_id`, `object_type`, `date_added`, `watchtext`, `watchtype`) VALUES (
-                                                                        '&1', '&2', 1, NOW(), '&3', 2)", $user_id, $log_id, $watchtext);
+    XDb::xSql(
+        "INSERT IGNORE INTO watches_waiting (`user_id`, `object_id`, `object_type`, `date_added`, `watchtext`, `watchtype`)
+        VALUES (?, ?, 1, NOW(), ?, 2)",
+        $user_id, $log_id, $watchtext);
 }
 
 function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUserEMail, $currUserOwnerLogs, $currUserWatchLogs)
 {
-    global $nologs, $debug, $debug_mailto, $mailfrom, $mailsubject, $absolute_server_URI, $octeamEmailsSignature;
+    global $nologs, $watchlistMailfrom, $mailsubject, $absolute_server_URI, $octeamEmailsSignature;
 
     if ($currUserID == '')
         return;
 
     $email_headers = 'MIME-Version: 1.0' . "\r\n";
     $email_headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-    $email_headers .= 'From: "' . $mailfrom . '" <' . $mailfrom . '>';
+    $email_headers .= 'From: "' . $watchlistMailfrom . '" <' . $watchlistMailfrom . '>';
 
     $mailbody = read_file(dirname(__FILE__) . '/watchlist.email.html');
     $mailbody = mb_ereg_replace('{username}', $currUserName, $mailbody);
@@ -365,19 +405,15 @@ function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUs
     $mailbody = mb_ereg_replace('{runwatch14}', tr('runwatch14'), $mailbody);
     $mailbody = mb_ereg_replace('{emailSign}', $octeamEmailsSignature, $mailbody);
 
-    if ($debug == true)
-        $mailadr = $debug_mailto;
-    else
-        $mailadr = $currUserEMail;
+
+    $mailadr = $currUserEMail;
 
     // $mailbody;
     $status = mb_send_mail($mailadr, $mailsubject, $mailbody, $email_headers);
 
-    // logentry($module, $eventid, $userid, $objectid1, $objectid2, $logtext, $details)
     logentry('watchlist', 2, $currUserID, 0, 0, 'Sending mail to ' . $mailadr, array('status' => $status));
 
-    // entries entfernen
-    sql("DELETE FROM watches_waiting WHERE user_id='&1' AND watchtype IN (1, 2)", $currUserID);
+    XDb::xSql("DELETE FROM watches_waiting WHERE user_id= ? AND watchtype IN (1, 2)", $currUserID);
 }
 
 function getLogtypeParams($logType)
@@ -450,4 +486,4 @@ function getLogtypeParams($logType)
     return $logtypeParams;
 }
 
-?>
+

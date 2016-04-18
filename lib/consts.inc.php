@@ -12,7 +12,7 @@ define('cachelist_owner', 1);
 define('cachelist_mod', 2);
 
 // for notifications
-define('notify_new_cache', 1);
+define('NOTIFY_NEW_CACHES', 1);
 
 // for ratings
 define('rating_percentage', 10); // percentage of found caches to be rated
