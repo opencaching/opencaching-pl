@@ -1,7 +1,5 @@
 <?php
 
-use Utils\Database\XDb;
-
 if (!isset($rootpath))
     $rootpath = './';
 
@@ -10,71 +8,8 @@ mb_internal_encoding('UTF-8');
 mb_regex_encoding('UTF-8');
 mb_language('uni');
 
-//create a "universal unique" replication "identifier"
-function create_uuid()
-{
-    $uuid = mb_strtoupper(md5(uniqid(rand(), true)));
 
-    //split into XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX (type VARCHAR 36, case insensitiv)
-    $uuid = mb_substr($uuid, 0, 8) . '-' . mb_substr($uuid, -24);
-    $uuid = mb_substr($uuid, 0, 13) . '-' . mb_substr($uuid, -20);
-    $uuid = mb_substr($uuid, 0, 18) . '-' . mb_substr($uuid, -16);
-    $uuid = mb_substr($uuid, 0, 23) . '-' . mb_substr($uuid, -12);
 
-    return $uuid;
-}
-
-function generateNextWaypoint($currentWP, $ocWP)
-{
-    $wpCharSequence = "0123456789ABCDEFGHJKLMNPQRSTUWXYZ";
-
-    $wpCode = mb_substr($currentWP, 2, 4);
-    if (strcasecmp($wpCode, "8000") < 0) {
-        // Old rule - use hexadecimal wp codes
-        $nNext = dechex(hexdec($wpCode) + 1);
-        while (mb_strlen($nNext) < 4)
-            $nNext = '0' . $nNext;
-        $wpCode = mb_strtoupper($nNext);
-    } else {
-        // New rule - use digits and (almost) full latin alphabet
-        // as defined in $wpCharSequence
-        for ($i = 3; $i >= 0; $i--) {
-            $pos = strpos($wpCharSequence, $wpCode[$i]);
-            if ($pos < strlen($wpCharSequence) - 1) {
-                $wpCode[$i] = $wpCharSequence[$pos + 1];
-                break;
-            } else {
-                $wpCode[$i] = $wpCharSequence[0];
-            }
-        }
-    }
-    return $ocWP . $wpCode;
-}
-
-// set a unique waypoint to this cache
-function setCacheWaypoint($cacheid, $ocWP)
-{
-    $bLoop = true;
-
-    // falls mal was nicht so funktioniert wie es soll ...
-    $nMaxLoop = 10;
-    $nLoop = 0;
-
-    while (($bLoop == true) && ($nLoop < $nMaxLoop)) {
-        $rs = sql('SELECT MAX(`wp_oc`) `maxwp` FROM `caches`');
-        $r = sql_fetch_assoc($rs);
-        mysql_free_result($rs);
-
-        if ($r['maxwp'] == null)
-            $sWP = $ocWP . "0001";
-        else
-            $sWP = generateNextWaypoint($r['maxwp'], $ocWP);
-
-        $bLoop = false;
-        $nLoop++;
-        sql("UPDATE `caches` SET `wp_oc`='&1' WHERE `cache_id`='&2' AND ISNULL(`wp_oc`)", $sWP, $cacheid) || $bLoop = true;
-    }
-}
 
 function setCacheDefaultDescLang($cacheid)
 {
@@ -186,12 +121,6 @@ function setSysConfig($name, $value)
     else
         sql("INSERT INTO `sysconfig` (`name`, `value`) VALUES ('&1', '&2')", $name, $value);
 }
-
-/*
-  sql("SELECT id FROM &tmpdb.table WHERE a=&1 AND &tmpdb.b='&2'", 12345, 'abc');
-
-  returns: recordset or false
- */
 
 function sql($sql)
 {

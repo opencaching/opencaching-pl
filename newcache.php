@@ -838,3 +838,50 @@ function buildDescriptionLanguageSelector($show_all_langs, $lang, $defaultLangug
     }
     tpl_set_var('langoptions', $langsoptions);
 }
+
+
+function generateNextWaypoint($currentWP, $ocWP)
+{
+    $wpCharSequence = "0123456789ABCDEFGHJKLMNPQRSTUWXYZ";
+
+    $wpCode = mb_substr($currentWP, 2, 4);
+    if (strcasecmp($wpCode, "8000") < 0) {
+        // Old rule - use hexadecimal wp codes
+        $nNext = dechex(hexdec($wpCode) + 1);
+        while (mb_strlen($nNext) < 4)
+            $nNext = '0' . $nNext;
+            $wpCode = mb_strtoupper($nNext);
+    } else {
+        // New rule - use digits and (almost) full latin alphabet
+        // as defined in $wpCharSequence
+        for ($i = 3; $i >= 0; $i--) {
+            $pos = strpos($wpCharSequence, $wpCode[$i]);
+            if ($pos < strlen($wpCharSequence) - 1) {
+                $wpCode[$i] = $wpCharSequence[$pos + 1];
+                break;
+            } else {
+                $wpCode[$i] = $wpCharSequence[0];
+            }
+        }
+    }
+    return $ocWP . $wpCode;
+}
+
+// set a unique waypoint to this cache
+function setCacheWaypoint($cacheid, $ocWP)
+{
+
+    $r['maxwp'] = XDb::xSimpleQueryValue(
+        'SELECT MAX(`wp_oc`) `maxwp` FROM `caches`',null);
+
+    if ($r['maxwp'] == null)
+        $sWP = $ocWP . "0001";
+    else
+        $sWP = generateNextWaypoint($r['maxwp'], $ocWP);
+
+    XDb::xSql(
+        "UPDATE `caches` SET `wp_oc`= ?
+        WHERE `cache_id`= ? AND ISNULL(`wp_oc`)",
+        $sWP, $cacheid);
+}
+
