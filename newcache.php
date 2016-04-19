@@ -2,6 +2,7 @@
 
 use Utils\Database\OcDb;
 use Utils\Database\XDb;
+use lib\Objects\GeoCache\GeoCache;
 
 //prepare the templates and include all neccessary
 global $site_name, $absolute_server_URI;
@@ -739,7 +740,7 @@ if ($error == false) {
                     nl2br(htmlspecialchars($hints, ENT_COMPAT, 'UTF-8')),
                     $short_desc, $desc_uuid, $oc_nodeid);
 
-                setCacheDefaultDescLang($cache_id);
+                GeoCache::setCacheDefaultDescLang($cache_id);
 
                 // insert cache-attributes
                 for ($i = 0; $i < count($cache_attribs); $i++) {

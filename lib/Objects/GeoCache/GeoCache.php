@@ -5,6 +5,7 @@ namespace lib\Objects\GeoCache;
 use \lib\Objects\PowerTrail\PowerTrail;
 use \lib\Objects\OcConfig\OcConfig;
 use \lib\Database\DataBaseSingleton;
+use Utils\Database\XDb;
 //use \lib\Objects\GeoCache\CacheTitled;
 /**
  * Description of geoCache
@@ -928,7 +929,7 @@ class GeoCache
         }
         return $this->waypoints;
     }
-    
+
     /**
      * @return \DateTime
      */
@@ -948,6 +949,32 @@ class GeoCache
     {
         $statuses = $this->dictionary->getCacheStatuses();
         return $statuses[$this->status]['translation'];
+    }
+
+    /**
+     * This function is moved from clicompatbase
+     * @param unknown $cacheid
+     */
+    public static function setCacheDefaultDescLang($cacheid){
+
+        $r['desc_languages'] = XDb::xSimpleQueryValue(
+            "SELECT `desc_languages` FROM `caches`
+            WHERE `cache_id`= ? LIMIT 1", null, $cacheid);
+
+        if (mb_strpos($r['desc_languages'], 'PL') !== false)
+            $desclang = 'PL';
+        else if (mb_strpos($r['desc_languages'], 'EN') !== false)
+            $desclang = 'EN';
+        else if ($r['desc_languages'] == '')
+            $desclang = '';
+        else
+            $desclang = mb_substr($r['desc_languages'], 0, 2);
+
+        XDb::xSql(
+            "UPDATE `caches` SET
+                `default_desclang`= ?, `last_modified`=NOW()
+            WHERE cache_id= ? LIMIT 1",
+            $desclang, $cacheid);
     }
 
 }

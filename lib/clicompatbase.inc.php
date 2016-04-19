@@ -9,27 +9,6 @@ mb_regex_encoding('UTF-8');
 mb_language('uni');
 
 
-
-
-function setCacheDefaultDescLang($cacheid)
-{
-    $rs = sql("SELECT `desc_languages` FROM `caches` WHERE `cache_id`='&1'", $cacheid);
-    $r = sql_fetch_array($rs);
-    mysql_free_result($rs);
-
-    if (mb_strpos($r['desc_languages'], 'PL') !== false)
-        $desclang = 'PL';
-    else if (mb_strpos($r['desc_languages'], 'EN') !== false)
-        $desclang = 'EN';
-    else
-    if ($r['desc_languages'] == '')
-        $desclang = '';
-    else
-        $desclang = mb_substr($r['desc_languages'], 0, 2);
-
-    sql("UPDATE `caches` SET `default_desclang`='&1', `last_modified`=NOW() WHERE cache_id='&2' LIMIT 1", $desclang, $cacheid);
-}
-
 function setLastFound($cacheid)
 {
     $rs = sql("SELECT MAX(`date`) `date` FROM `cache_logs` WHERE `cache_id`=&1 AND `type`=&2 AND `deleted`=&3", $cacheid, 1, 0);
