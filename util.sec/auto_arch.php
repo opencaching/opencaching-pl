@@ -5,6 +5,7 @@
  */
 
 use Utils\Database\OcDb;
+use Utils\Log\Log;
 
 $rootpath = __DIR__ . '/../';
 require_once($rootpath . 'lib/common.inc.php');
@@ -102,7 +103,7 @@ class AutoArch
         $emailheaders .= "From: $siteName <$octeamEmailAddress>\r\n";
         $emailheaders .= "Reply-To: $siteName <$octeamEmailAddress>";
         $status = mb_send_mail($cache->getOwner()->getEmail(), tr('autoArchive_11'), $email_content, $emailheaders);
-        logentry('autoarchive', 6, $cache->getOwner()->getUserId(), $cache->getCacheId(), 0, 'Sending mail to ' . $cache->getOwner()->getEmail(), array('status' => $status));
+        Log::logentry('autoarchive', 6, $cache->getOwner()->getUserId(), $cache->getCacheId(), 0, 'Sending mail to ' . $cache->getOwner()->getEmail(), array('status' => $status));
     }
 
     private function loadCachesToProcess()

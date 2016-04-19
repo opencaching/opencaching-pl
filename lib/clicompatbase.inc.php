@@ -10,16 +10,6 @@ mb_internal_encoding('UTF-8');
 mb_regex_encoding('UTF-8');
 mb_language('uni');
 
-
-
-function logentry($module, $eventid, $userid, $objectid1, $objectid2, $logtext, $details)
-{
-    XDb::xSql(
-        "INSERT INTO logentries (`module`, `eventid`, `userid`, `objectid1`, `objectid2`, `logtext`, `details`, `logtime`)
-        VALUES ( ?, ?, ?, ?, ?, ?, ?, NOW())",
-        $module, $eventid, $userid, $objectid1, $objectid2, $logtext, serialize($details));
-}
-
 //create a "universal unique" replication "identifier"
 function create_uuid()
 {

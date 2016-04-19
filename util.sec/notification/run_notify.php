@@ -7,6 +7,7 @@
  */
 
 use Utils\Database\OcDb;
+use Utils\Log\Log;
 
 $rootpath = __dir__ . '/../../';
 require_once($rootpath . 'lib/common.inc.php');
@@ -124,7 +125,7 @@ function process_new_cache($notify)
     $mailadr = $notify['email'];
 
     $status = mb_send_mail($mailadr, $subject, $mailbody, $email_headers);
-    logentry('notify_newcache', 5, $notify['recid'], $notify['cache_id'], 0, 'Sending mail to ' . $mailadr, array('status' => $status));
+    Log::logentry('notify_newcache', 5, $notify['recid'], $notify['cache_id'], 0, 'Sending mail to ' . $mailadr, array('status' => $status));
 
     return 0;
 }

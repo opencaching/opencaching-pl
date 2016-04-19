@@ -6,6 +6,7 @@
  *
  */
 use Utils\Database\XDb;
+use Utils\Log\Log;
 
 $rootpath = '../../';
 
@@ -287,7 +288,7 @@ function process_owner_log($user_id, $log_id)
         VALUES ( ?, ?, 1, NOW(), ?, 1)",
         $user_id, $log_id, $watchtext);
 
-    logentry('watchlist', 1, $user_id, $log_id, 0, $watchtext, array());
+    Log::logentry('watchlist', 1, $user_id, $log_id, 0, $watchtext, array());
 }
 
 /**
@@ -411,7 +412,7 @@ function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUs
     // $mailbody;
     $status = mb_send_mail($mailadr, $mailsubject, $mailbody, $email_headers);
 
-    logentry('watchlist', 2, $currUserID, 0, 0, 'Sending mail to ' . $mailadr, array('status' => $status));
+    Log::logentry('watchlist', 2, $currUserID, 0, 0, 'Sending mail to ' . $mailadr, array('status' => $status));
 
     XDb::xSql("DELETE FROM watches_waiting WHERE user_id= ? AND watchtype IN (1, 2)", $currUserID);
 }
