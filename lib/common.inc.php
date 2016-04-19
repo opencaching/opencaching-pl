@@ -31,10 +31,7 @@ if ((!isset($GLOBALS['no-ob'])) || ($GLOBALS['no-ob'] == false))
 if ((!isset($GLOBALS['oc_waypoint'])) && isset($GLOBALS['ocWP']))
     $GLOBALS['oc_waypoint'] = $GLOBALS['ocWP'];
 
-// we are in HTML-mode ... maybe plain (for CLI scripts)
-global $interface_output;
 global $menu;
-$interface_output = 'html';
 
 //JG - niezainicjowana zmienna, 2013.10.18
 if (!isset($rootpath))

@@ -1,41 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
-/* * *************************************************************************
-  ./lib/clicompatbase.inc.php
-  --------------------
-  begin                : Fri September 16 2005
-  copyright            : (C) 2005 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
 
- * ************************************************************************* */
-
-/* * *************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * ************************************************************************* */
-
-/* * **************************************************************************
-
-  Unicode Reminder ??
-
-  contains functions that are compatible with the php-CLI-scripts under util.
-  Can be included without including common.inc.php, but will be included from
-  common.inc.php.
-
-  Global variables that need to be set up when including without common.inc.php:
-
-  $dblink
-
- * ************************************************************************** */
-
-global $interface_output;
-if (!isset($interface_output))
-    $interface_output = 'plain';
 if (!isset($rootpath))
     $rootpath = './';
 
@@ -417,7 +383,6 @@ function sql_error()
     global $sql_errormail;
     global $emailheaders;
     global $absolute_server_URI;
-    global $interface_output;
     global $dberrormsg;
 
     // sendout email
@@ -426,17 +391,7 @@ function sql_error()
     $email_content .= print_r(debug_backtrace(), true);
     echo $sql_errormail . ' sql_error: ' . $absolute_server_URI . " " . $email_content;
 
-    if ($interface_output == 'html') {
-        // display errorpage
         tpl_errorMsg('sql_error', $dberrormsg);
-        exit;
-    } else if ($interface_output == 'plain') {
-        echo "\n";
-        echo 'sql_error' . "\n";
-        echo '---------' . "\n";
-        echo print_r(debug_backtrace(), true) . "\n";
-        exit;
-    }
 
     die('sql_error');
 }
