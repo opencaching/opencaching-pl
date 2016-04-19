@@ -1178,7 +1178,7 @@ function outputSearchForm($options)
     global $lang, $language, $config;
 
     //simple mode (only one easy filter)
-    $filters = read_file($stylepath . '/search.simple.tpl.php');
+    $filters = file_get_contents($stylepath . '/search.simple.tpl.php');
     tpl_set_var('filters', $filters, false);
     tpl_set_var('formmethod', 'get');
 

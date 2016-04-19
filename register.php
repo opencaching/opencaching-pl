@@ -87,7 +87,7 @@ if ($error == false) {
                 $activationcode = mb_strtoupper(mb_substr(md5(uniqid('')), 0, 13));
 
                 //process email
-                $email_content = read_file($stylepath . '/email/register.email');
+                $email_content = file_get_contents($stylepath . '/email/register.email');
                 $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
                 $email_content = mb_ereg_replace('{registermail01}', tr('registermail01'), $email_content);
                 $email_content = mb_ereg_replace('{registermail02}', tr('registermail02'), $email_content);

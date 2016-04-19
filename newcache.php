@@ -761,7 +761,7 @@ if ($error == false) {
                 }
 
                 if ($needs_approvement) { // notify RR that new cache has to be verified
-                    $email_content = read_file($stylepath . '/email/rr_activate_cache.email');
+                    $email_content = file_get_contents($stylepath . '/email/rr_activate_cache.email');
                     $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
                     $email_content = mb_ereg_replace('{rrActivateCache_01}', tr('rrActivateCache_01'), $email_content);
                     $email_content = mb_ereg_replace('{rrActivateCache_02}', tr('rrActivateCache_02'), $email_content);

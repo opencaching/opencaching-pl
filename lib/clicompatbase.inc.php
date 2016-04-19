@@ -9,19 +9,6 @@ mb_regex_encoding('UTF-8');
 mb_language('uni');
 
 
-// read a file and return it as a string
-// WARNING: no huge files!
-function read_file($file = '')
-{
-    $fh = fopen($file, 'r');
-    if ($fh) {
-        $content = fread($fh, filesize($file));
-    }
-
-    fclose($fh);
-
-    return $content;
-}
 
 // explode with more than one separator
 function explode_multi($str, $sep)

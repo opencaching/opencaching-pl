@@ -130,7 +130,7 @@ require_once($rootpath . 'lib/cookie.class.php');
 //site in service?
 if ($site_in_service == false) {
     header('Content-type: text/html; charset=utf-8');
-    $page_content = read_file($rootpath . 'html/outofservice.tpl.php');
+    $page_content = file_get_contents($rootpath . 'html/outofservice.tpl.php');
     die($page_content);
 }
 
@@ -569,15 +569,15 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
 
     //load main template
     if ($minitpl)
-        $sCode = read_file($stylepath . '/mini.tpl.php');
+        $sCode = file_get_contents($stylepath . '/mini.tpl.php');
     else if ($noCommonTemplate)
         $sCode = '{template}';
     else if (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y')
-        $sCode = read_file($stylepath . '/main_print.tpl.php');
+        $sCode = file_get_contents($stylepath . '/main_print.tpl.php');
     else if (isset($_REQUEST['popup']) && $_REQUEST['popup'] == 'y')
-        $sCode = read_file($stylepath . '/popup.tpl.php');
+        $sCode = file_get_contents($stylepath . '/popup.tpl.php');
     else
-        $sCode = read_file($stylepath . '/main.tpl.php');
+        $sCode = file_get_contents($stylepath . '/main.tpl.php');
     $sCode = '?>' . $sCode . '<?';
 
     //does template exist?
@@ -590,7 +590,7 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
     }
 
     //read the template
-    $sTemplate = read_file($stylepath . '/' . $tplname . '.tpl.php');
+    $sTemplate = file_get_contents($stylepath . '/' . $tplname . '.tpl.php');
     $sCode = mb_ereg_replace('{template}', $sTemplate, $sCode);
 
 

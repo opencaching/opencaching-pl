@@ -256,7 +256,7 @@ function process_owner_log($user_id, $log_id)
     XDb::xFreeResults($rsLog);
 
     $userActivity = $rLog['ch'] + $rLog['cf'] + $rLog['cn'];
-    $watchtext = read_file(dirname(__FILE__) . '/item.email.html');
+    $watchtext = file_get_contents(dirname(__FILE__) . '/item.email.html');
     $logtext = $rLog['text'];
     $logtext = preg_replace("/<img[^>]+\>/i", "", $logtext);
 
@@ -327,7 +327,7 @@ function process_log_watch($user_id, $log_id)
         $recommended = '';
     }
 
-    $watchtext = read_file(dirname(__FILE__) . '/item.email.html');
+    $watchtext = file_get_contents(dirname(__FILE__) . '/item.email.html');
     $logtext = $rLog['text'];
 
     $logtext = preg_replace("/<img[^>]+\>/i", "", $logtext);
@@ -360,7 +360,7 @@ function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUs
     $email_headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
     $email_headers .= 'From: "' . $watchlistMailfrom . '" <' . $watchlistMailfrom . '>';
 
-    $mailbody = read_file(dirname(__FILE__) . '/watchlist.email.html');
+    $mailbody = file_get_contents(dirname(__FILE__) . '/watchlist.email.html');
     $mailbody = mb_ereg_replace('{username}', $currUserName, $mailbody);
     $mailbody = mb_ereg_replace('{absolute_server_URI}', $absolute_server_URI, $mailbody);
 

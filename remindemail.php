@@ -28,7 +28,7 @@ if ($error == false) {
             tpl_set_var('username_message', $wrong_username);
         } else {
 
-            $email_content = read_file($stylepath . '/email/remindemail.email');
+            $email_content = file_get_contents($stylepath . '/email/remindemail.email');
 
             $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
             $email_content = mb_ereg_replace('{ForgottenEmail_07}', tr('ForgottenEmail_07'), $email_content);

@@ -118,9 +118,9 @@ function notifyOwner($cacheid, $msgType)
 
     $cachename = getCachename($cacheid);
     if ($msgType == 0) {
-        $email_content = read_file($stylepath . '/email/activated_cache.email');
+        $email_content = file_get_contents($stylepath . '/email/activated_cache.email');
     } else {
-        $email_content = read_file($stylepath . '/email/archived_cache.email');
+        $email_content = file_get_contents($stylepath . '/email/archived_cache.email');
     }
     $email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
     $email_headers .= "From: $site_name <$octeam_email>\r\n";

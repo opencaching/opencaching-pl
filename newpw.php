@@ -52,7 +52,7 @@ if ($error == false) {
                         "UPDATE `user` SET `new_pw_date`= ? , `new_pw_code`= ?
                         WHERE `email`= ? LIMIT 1", time(), $secure_code, $email);
 
-                    $email_content = read_file($stylepath . '/email/newpw.email');
+                    $email_content = file_get_contents($stylepath . '/email/newpw.email');
                     $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
                     $email_content = mb_ereg_replace('{newPassWord_01}', tr('newPassWord_01'), $email_content);
                     $email_content = mb_ereg_replace('{newPassWord_02}', tr('newPassWord_02'), $email_content);

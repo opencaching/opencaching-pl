@@ -22,7 +22,7 @@ function emailCacheOwner($ptId, $cacheId, $linkCode){
     $headers .= 'Content-type: text/html; charset=UTF-8 ' . "\r\n";
     $headers .= "From: $site_name <".$octeam_email.">\r\n";
     $headers .= "Reply-To: ".$octeam_email. "\r\n";
-    $mailbody = read_file(dirname(__FILE__).'/candidateEmail.html');
+    $mailbody = file_get_contents(dirname(__FILE__).'/candidateEmail.html');
     $mailbody = mb_ereg_replace('{cacheOwnerName}', $cacheData['username'], $mailbody);
     $mailbody = mb_ereg_replace('{ptName}', $ptDbRow['name'], $mailbody);
     $mailbody = mb_ereg_replace('{ptId}', $ptId, $mailbody);

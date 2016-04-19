@@ -19,7 +19,7 @@ class sendEmail
         $headers .= "From: $site_name <" . $watchlistMailfrom . ">\r\n";
         $headers .= "Reply-To: " . $watchlistMailfrom . "\r\n";
 
-        $mailbody = read_file(dirname(__FILE__) . '/commentEmail.html');
+        $mailbody = file_get_contents(dirname(__FILE__) . '/commentEmail.html');
 
         switch ($action) {
             case 'delComment' :
