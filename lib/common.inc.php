@@ -1129,18 +1129,23 @@ if (isset($usr['userid'])){
     $usr['admin'] = $db->multiVariableQueryValue('SELECT admin FROM user WHERE user_id=:1', 0, $usr['userid']);
 }
 
+/**
+ * This function checks if given table contains column of given name
+ * @param unknown $tableName
+ * @param unknown $columnName
+ * @return 1 on success 0 in failure
+ */
 function checkField($tableName, $columnName)
 {
-    global $dbname;
-    $tableFields = mysql_list_fields($dbname, $tableName);
-    for ($i = 0; $i < mysql_num_fields($tableFields); $i++) {
-        if (mysql_field_name($tableFields, $i) == $columnName)
+    $tableName = XDb::xEscape($tableName);
+    $stmt = XDb::xSql("SHOW COLUMNS FROM $tableName" );
+    while( $column = XDb::xFetchArray($stmt)){
+        if( $column['Field'] == $columnName ){
             return 1;
-    } //end of loop
+        }
+    }
     return 0;
 }
-
-//end of function
 
 
 function typeToLetter($type)
