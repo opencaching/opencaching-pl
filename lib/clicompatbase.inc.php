@@ -22,19 +22,6 @@ function sqlValue($sql, $default)
         return $default;
 }
 
-function getSysConfig($name, $default)
-{
-    return sqlValue('SELECT `value` FROM `sysconfig` WHERE `name`=\'' . sql_escape($name) . '\'', $default);
-}
-
-function setSysConfig($name, $value)
-{
-    if (sqlValue('SELECT COUNT(*) FROM sysconfig WHERE name=\'' . sql_escape($name) . '\'', 0) == 1)
-        sql("UPDATE `sysconfig` SET `value`='&1' WHERE `name`='&2' LIMIT 1", $value, $name);
-    else
-        sql("INSERT INTO `sysconfig` (`name`, `value`) VALUES ('&1', '&2')", $name, $value);
-}
-
 function sql($sql)
 {
     global $rootpath;
