@@ -957,9 +957,9 @@ class GeoCache
      */
     public static function setCacheDefaultDescLang($cacheid){
 
-        $r['desc_languages'] = XDb::xSimpleQueryValue(
+        $r['desc_languages'] = XDb::xMultiVariableQueryValue(
             "SELECT `desc_languages` FROM `caches`
-            WHERE `cache_id`= ? LIMIT 1", null, $cacheid);
+            WHERE `cache_id`= :1 LIMIT 1", null, $cacheid);
 
         if (mb_strpos($r['desc_languages'], 'PL') !== false)
             $desclang = 'PL';
