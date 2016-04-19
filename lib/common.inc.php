@@ -119,6 +119,11 @@ if (!isset($rootpath))
 
 require_once($rootpath . 'lib/clicompatbase.inc.php');
 
+//load default webserver-settings and common includes
+require_once($rootpath . 'lib/settings.inc.php');
+require_once($rootpath . 'lib/calculation.inc.php');
+require_once($rootpath . 'lib/consts.inc.php');
+
 // load HTML specific includes
 require_once($rootpath . 'lib/cookie.class.php');
 
@@ -185,7 +190,13 @@ if (!isset($thumburl))
     $thumburl = $picurl . '/thumbs';
 
 
-
+/**
+ * Global $emailheaders from clicompatbase - should be removed from here in future...
+ */
+// prepare EMail-From
+$emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
+$emailheaders = "Content-Transfer-Encoding: 8bit\r\n";
+$emailheaders .= 'From: "' . $emailaddr . '" <' . $emailaddr . '>';
 
 
 Php7Handler::db_connect();

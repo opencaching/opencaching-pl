@@ -11,19 +11,6 @@ mb_regex_encoding('UTF-8');
 mb_language('uni');
 
 
-//load default webserver-settings and common includes
-require_once($rootpath . 'lib/settings.inc.php');
-require_once($rootpath . 'lib/calculation.inc.php');
-require_once($rootpath . 'lib/consts.inc.php');
-
-// sql debugger?
-if (!isset($sql_allow_debug))
-    $sql_allow_debug = 0;
-
-// prepare EMail-From
-$emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
-$emailheaders = "Content-Transfer-Encoding: 8bit\r\n";
-$emailheaders .= 'From: "' . $emailaddr . '" <' . $emailaddr . '>';
 
 function logentry($module, $eventid, $userid, $objectid1, $objectid2, $logtext, $details)
 {
@@ -375,7 +362,7 @@ function sql_error()
         throw new Exception("SQL Error " . mysql_errno() . ": " . mysql_error());
     }
     global $sql_errormail;
-    global $emailheaders;
+
     global $absolute_server_URI;
     global $dberrormsg;
 
@@ -393,14 +380,14 @@ function sql_error()
 function sql_warn($warnmessage)
 {
     global $sql_errormail;
-    global $emailheaders;
+
     global $absolute_server_URI;
 
     $email_content = $warnmessage;
     $email_content .= "\n--------------------\n";
     $email_content .= print_r(debug_backtrace(), true);
 
-    //mb_send_mail($sql_errormail, 'sql_warn: ' . $absolute_server_URI, $email_content, $emailheaders);
+
 }
 
 /*
