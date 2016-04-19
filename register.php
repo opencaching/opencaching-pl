@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\User\User;
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
     $rootpath = '';
@@ -43,12 +44,12 @@ if ($error == false) {
             //try to register
             //validate the entered data
             $email_not_ok = !is_valid_email_address($email);
-            $username_not_ok = mb_ereg_match(regex_username, $username) ? false : true;
+            $username_not_ok = mb_ereg_match(User::REGEX_USERNAME, $username) ? false : true;
             if ($username_not_ok == false) {
                 // username should not be formatted like an email-address
                 $username_not_ok = is_valid_email_address($username);
             }
-            $password_not_ok = mb_ereg_match(regex_password, $password) ? false : true;
+            $password_not_ok = mb_ereg_match(User::REGEX_PASSWORD, $password) ? false : true;
             $password_diffs = ($password != $password2);
 
             //check if email is in the database

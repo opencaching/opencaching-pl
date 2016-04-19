@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\User\User;
 //prepare the templates and include all neccessary
 global $octeamEmailsSignature, $absolute_server_URI;
 require_once('./lib/common.inc.php');
@@ -96,7 +97,7 @@ if ($error == false) {
                 } else {
                     if ($record['new_pw_code'] == $code) {
                         if (time() - $record['new_pw_date'] < 259200) {
-                            if (!mb_ereg_match(regex_password, $password)) {
+                            if (!mb_ereg_match(User::REGEX_PASSWORD, $password)) {
                                 //no valid password
                                 tpl_set_var('code', $code);
                                 tpl_set_var('pw_message', $pw_not_ok);
