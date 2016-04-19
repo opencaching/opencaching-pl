@@ -3,35 +3,6 @@
 if (!isset($rootpath))
     $rootpath = './';
 
-// yepp, we will use UTF-8
-mb_internal_encoding('UTF-8');
-mb_regex_encoding('UTF-8');
-mb_language('uni');
-
-
-
-// explode with more than one separator
-function explode_multi($str, $sep)
-{
-    $ret = array();
-    $nCurPos = 0;
-
-    while ($nCurPos < mb_strlen($str)) {
-        $nNextSep = mb_strlen($str);
-        for ($nSepPos = 0; $nSepPos < mb_strlen($sep); $nSepPos++) {
-            $nThisPos = mb_strpos($str, mb_substr($sep, $nSepPos, 1), $nCurPos);
-            if ($nThisPos !== false)
-                if ($nNextSep > $nThisPos)
-                    $nNextSep = $nThisPos;
-        }
-
-        $ret[] = mb_substr($str, $nCurPos, $nNextSep - $nCurPos);
-
-        $nCurPos = $nNextSep + 1;
-    }
-
-    return $ret;
-}
 
 // called if mysql_query faild, sends email to sysadmin
 function sql_failed($sql)

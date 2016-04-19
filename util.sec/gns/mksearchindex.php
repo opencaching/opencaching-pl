@@ -53,7 +53,7 @@ $rs = sql("SELECT `uni`, `full_name_nd` FROM `gns_locations` WHERE `dsg` LIKE 'P
 while ($r = sql_fetch_array($rs)) {
     $in_count++;
     $simpletexts = search_text2sort($r['full_name_nd']);
-    $simpletextsarray = explode_multi($simpletexts, ' -/,');
+    $simpletextsarray = mb_split(' |-|/|,', $simpletexts);
 
     foreach ($simpletextsarray AS $text) {
         if ($text != '') {

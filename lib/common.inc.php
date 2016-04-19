@@ -43,6 +43,13 @@ $datetimeformat = '%d %B %Y o godz. %H:%M:%S ';
 $dateformat = '%d %B %Y';
 $simpledateformat = '%d.%m.%Y';
 
+// yepp, we will use UTF-8
+mb_internal_encoding('UTF-8');
+mb_regex_encoding('UTF-8');
+mb_language('uni');
+
+
+
 $STATUS = array("READY" => 1,
     "TEMP_UNAVAILABLE" => 2,
     "ARCHIVED" => 3,

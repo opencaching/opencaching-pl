@@ -584,7 +584,8 @@ use Utils\Database\XDb;
 
                             $ort = trim($options['ort']);
                             $simpletexts = search_text2sort($ort);
-                            $simpletextsarray = explode_multi($simpletexts, ' -/,');
+
+                            $simpletextsarray = mb_split(' |-|/|,', $simpletexts);
 
                             $sqlhashes = '';
                             $wordscount = 0;
