@@ -46,7 +46,6 @@ class ClassPathDictionary
         'Smarty' => 'lib/Smarty/libs/Smarty.class.php',
         'cache' => 'lib/cache.php',
         'dataBase' => 'lib/Database/Db.php',
-        'MyDB' => 'lib/Database/MyDB.php',
         'PasswordManager' => 'lib/passwordManager.php',
         'GeoKretyApi' => 'GeoKretyAPI.php',
         'GetRegions' => 'GetRegions.php',
