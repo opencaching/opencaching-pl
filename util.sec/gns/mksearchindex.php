@@ -22,14 +22,6 @@ $rootpath = '../../';
 require_once($rootpath . 'lib/clicompatbase.inc.php');
 require_once($rootpath . 'lib/search.inc.php');
 
-/* begin db connect */
-db_connect();
-if ($dblink === false) {
-    echo 'Unable to connect to database';
-    exit;
-}
-/* end db connect */
-
 /* begin search index rebuild */
 
 $doubleindex['sankt'] = 'st';

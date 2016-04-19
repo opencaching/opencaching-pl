@@ -224,10 +224,11 @@ function create_uuid()
     return $uuid;
 }
 
-Php7Handler::db_connect();
-
 $db = lib\Database\DataBaseSingleton::Instance();
 
+/*
+ * TODO: new Global error handling should be implemented...
+ *
 if ($dblink === false) {
     //error while connecting to the database
     $error = true;
@@ -237,6 +238,7 @@ if ($dblink === false) {
     tpl_set_var('tplname', $tplname);
     $tplname = 'error';
 } else {
+*/
     // include the authentication functions
     require($rootpath . 'lib/auth.inc.php');
 
@@ -286,7 +288,7 @@ if ($dblink === false) {
         tpl_set_var('loginbox', $sTmpString);
         unset($sTmpString);
     }
-}
+//} //TODO
 
 // zeitmessung
 require_once($rootpath . 'lib/bench.inc.php');
@@ -620,13 +622,6 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
 
     //run the template code
     eval($sCode);
-
-
-
-    //disconnect the database
-    if ($dbdisconnect){
-        Php7Handler::db_disconnect();
-    }
 }
 
 function http_write_no_cache()
@@ -1379,4 +1374,32 @@ class common
 
 }
 
+/**
+ * -- This function is moved from clicompatbase --
+ * @param unknown $str
+ */
+function mb_trim($str)
+{
+    $bLoop = true;
+    while ($bLoop == true) {
+        $sPos = mb_substr($str, 0, 1);
+
+        if ($sPos == ' ' || $sPos == "\r" || $sPos == "\n" || $sPos == "\t" || $sPos == "\x0B" || $sPos == "\0")
+            $str = mb_substr($str, 1, mb_strlen($str) - 1);
+            else
+                $bLoop = false;
+    }
+
+    $bLoop = true;
+    while ($bLoop == true) {
+        $sPos = mb_substr($str, -1, 1);
+
+        if ($sPos == ' ' || $sPos == "\r" || $sPos == "\n" || $sPos == "\t" || $sPos == "\x0B" || $sPos == "\0")
+            $str = mb_substr($str, 0, mb_strlen($str) - 1);
+            else
+                $bLoop = false;
+    }
+
+    return $str;
+}
 
