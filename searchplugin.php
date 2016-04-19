@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 require($stylepath . '/searchplugin.inc.php');
@@ -83,10 +84,13 @@ if (($sourceid == 'mozilla-search') && ($userinput != '')) {
                     if ($target == $ocWP) {
                         $target = 'oc';
                     }
-                    $rs = sql("SELECT `cache_id`, `latitude`, `longitude` FROM `caches` WHERE `wp_" . sql_escape($target) . "`='&1'", $searchfor);
-                    $count = mysql_num_rows($rs);
+                    $rs = XDb::xSql(
+                        "SELECT `cache_id`, `latitude`, `longitude` FROM `caches`
+                        WHERE `wp_" . XDb::xEscape($target) . "`= ? ", $searchfor);
+
+                    $count = XDb::xNumRows($rs);
                     if ($count == 1) {
-                        $record = sql_fetch_array($rs);
+                        $record = XDb::xFetchArray($rs);
                         if (isset($_POST['namapie']))
                             $targeturl = 'cachemap2.php?lat=' . $record['latitude'] . '&lon=' . $record['longitude'] . '&cacheid=' . $record['cache_id'];
                         else
@@ -104,7 +108,7 @@ if (($sourceid == 'mozilla-search') && ($userinput != '')) {
                         tpl_BuildTemplate();
                         exit;
                     }
-                    mysql_free_result($rs);
+                    XDb::xFreeResults($rs);
                     unset($count);
                 } else {
                     // wrong waypoint format
