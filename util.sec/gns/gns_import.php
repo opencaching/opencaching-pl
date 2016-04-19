@@ -103,9 +103,9 @@ sql("CREATE TABLE `gns_locations` (
 // TODO: The collate parameter should be instalation dependent.
 
 foreach ($importfiles as $filename)
-    importGns($filename, $dblink);
+    importGns($filename);
 
-function importGns($filename, $dblink)
+function importGns($filename)
 {
     if (isset($_GET['basepath'])) {
         $filename = $_GET['basepath'] . '/' . $filename;
@@ -142,8 +142,8 @@ function importGns($filename, $dblink)
             }
         }
 
-        if (!$resp = sql($sql, $dblink)) {
-            echo mysql_error($dblink);
+        if (!$resp = sql($sql)) {
+            echo mysql_error();
             echo "\n";
         } else {
             $cnt++;

@@ -5,7 +5,6 @@
  */
 require_once __DIR__ . '/ClassPathDictionary.php';
 
-use lib\Controllers\Php7Handler;
 use Utils\Database\XDb;
 
 if ((!isset($GLOBALS['no-session'])) || ($GLOBALS['no-session'] == false))
