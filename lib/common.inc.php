@@ -124,8 +124,6 @@ if (get_magic_quotes_gpc()) {
 if (!isset($rootpath))
     $rootpath = './';
 
-require_once($rootpath . 'lib/clicompatbase.inc.php');
-
 //load default webserver-settings and common includes
 require_once($rootpath . 'lib/settings.inc.php');
 require_once($rootpath . 'lib/calculation.inc.php');

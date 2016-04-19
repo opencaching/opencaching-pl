@@ -19,7 +19,6 @@
  * ************************************************************************* */
 
 $rootpath = '../../';
-require_once($rootpath . 'lib/clicompatbase.inc.php');
 require_once($rootpath . 'lib/search.inc.php');
 require_once($rootpath . 'tpl/stdstyle/selectlocid.inc.php');
 

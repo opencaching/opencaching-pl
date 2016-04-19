@@ -11,7 +11,6 @@ header('Content-Type: text/plain');
 set_time_limit(0);
 
 $rootpath = '../../';
-require_once($rootpath . 'lib/clicompatbase.inc.php');
 require_once($rootpath . 'lib/search.inc.php');
 
 /* begin search index rebuild */

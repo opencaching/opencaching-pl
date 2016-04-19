@@ -41,7 +41,6 @@ header('Content-Type: text/plain');
 set_time_limit(0);
 
 $rootpath = '../../';
-require($rootpath . 'lib/clicompatbase.inc.php');
 
 /* defaults */
 $importfiles = array("pl.txt", "pl_administrative_a.txt",
@@ -51,13 +50,6 @@ $importfiles = array("pl.txt", "pl_administrative_a.txt",
     "ro.txt", "ro_administrative_a.txt"
 ); # first download the file from the URLs above
 
-/* begin db connect */
-db_connect();
-if ($dblink === false) {
-    echo 'Unable to connect to database';
-    exit;
-}
-/* end db connect */
 
 sql("DROP TABLE IF EXISTS `gns_locations` ");
 
