@@ -535,7 +535,6 @@ if ($error == false) {
 
         function getPictures($cacheid, $picturescount)
         {
-            global $dblink;
             global $thumb_max_width;
             global $thumb_max_height;
 

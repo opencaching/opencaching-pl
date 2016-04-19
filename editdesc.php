@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\GeoCache\GeoCache;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -90,7 +91,7 @@ if ($error == false) {
 
                         // update description languages in the cache record;
                         // this also updates the modification date
-                        setCacheDefaultDescLang($desc_record['cache_id']);
+                        GeoCache::setCacheDefaultDescLang($desc_record['cache_id']);
 
                         // redirect to cachepage
                         tpl_redirect('editcache.php?cacheid=' . urlencode($desc_record['cache_id']));

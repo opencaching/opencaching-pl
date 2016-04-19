@@ -20,13 +20,9 @@ class User extends \lib\Objects\BaseObject
     private $userName;
 
     private $foundGeocachesCount;
-
     private $notFoundGeocachesCount;
-
     private $hiddenGeocachesCount;
-
     private $logNotesCount;
-
     private $email;
 
     /* @var $homeCoordinates \lib\Objects\Coordinates\Coordinates */
@@ -57,6 +53,11 @@ class User extends \lib\Objects\BaseObject
 
     /* @var $geocachesBlocked \ArrayObject() */
     private $geocachesBlocked = null;
+
+    const REGEX_USERNAME = '^[a-zA-Z0-9ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ@-][a-zA-ZęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ0-9\.\-=_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\ -=&*+~#]{2,59}$';
+    const REGEX_PASSWORD = '^[a-zA-Z0-9\.\-_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\$&*+~#]{3,60}$';
+
+
 
     /**
      * construct class using $userId (fields will be loaded from db)

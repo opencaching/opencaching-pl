@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\User\User;
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath)) {
@@ -175,7 +176,7 @@ if ($error == false) {
                     tpl_set_var('notify_message', '');
 
                     //validate data
-                    $username_not_ok = mb_ereg_match(regex_username, $username) ? false : true;
+                    $username_not_ok = mb_ereg_match(User::REGEX_USERNAME, $username) ? false : true;
                     if ($username_not_ok == false) { // username should not be formatted like an email-address
                         $username_not_ok = is_valid_email_address($username) ? true : false;
                     }
@@ -268,7 +269,7 @@ if ($error == false) {
 
                     //check if username is in the DB
                     $username_exists = false;
-                    $username_not_ok = mb_ereg_match(regex_username, $username) ? false : true;
+                    $username_not_ok = mb_ereg_match(User::REGEX_USERNAME, $username) ? false : true;
                     if ($username_not_ok == false) {
                         // username should not be formatted like an email-address
                         // exception: $username == $email

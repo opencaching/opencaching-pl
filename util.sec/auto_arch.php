@@ -5,6 +5,7 @@
  */
 
 use Utils\Database\OcDb;
+use Utils\Log\Log;
 
 $rootpath = __DIR__ . '/../';
 require_once($rootpath . 'lib/common.inc.php');
@@ -74,13 +75,13 @@ class AutoArch
         $cache = new \lib\Objects\GeoCache\GeoCache(array('cacheId' => (int) $cacheid));
         switch ($step) {
             case $this->step["START"]:
-                $email_content = read_file($this->stylepath . '/email/arch1.email');
+                $email_content = file_get_contents($this->stylepath . '/email/arch1.email');
                 break;
             case $this->step["AFTER_FIRST_MAIL_SENT"]:
-                $email_content = read_file($this->stylepath . '/email/arch2.email');
+                $email_content = file_get_contents($this->stylepath . '/email/arch2.email');
                 break;
             case $this->step["AFTER_SECOND_MAIL_SENT"]:
-                $email_content = read_file($this->stylepath . '/email/arch3.email');
+                $email_content = file_get_contents($this->stylepath . '/email/arch3.email');
                 break;
         }
         $email_content = mb_ereg_replace('{server}', $this->ocConfig->getAbsolute_server_URI(), $email_content);
@@ -102,7 +103,7 @@ class AutoArch
         $emailheaders .= "From: $siteName <$octeamEmailAddress>\r\n";
         $emailheaders .= "Reply-To: $siteName <$octeamEmailAddress>";
         $status = mb_send_mail($cache->getOwner()->getEmail(), tr('autoArchive_11'), $email_content, $emailheaders);
-        logentry('autoarchive', 6, $cache->getOwner()->getUserId(), $cache->getCacheId(), 0, 'Sending mail to ' . $cache->getOwner()->getEmail(), array('status' => $status));
+        Log::logentry('autoarchive', 6, $cache->getOwner()->getUserId(), $cache->getCacheId(), 0, 'Sending mail to ' . $cache->getOwner()->getEmail(), array('status' => $status));
     }
 
     private function loadCachesToProcess()

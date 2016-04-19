@@ -491,7 +491,8 @@ if ($error == false) {
 
                         // if old status is not yet published and new status is published => notify-event
                         if ($status_old == $STATUS['NOT_YET_AVAILABLE'] && $status != $STATUS['NOT_YET_AVAILABLE']) {
-                            touchCache($cache_id);
+                            GeoCache::touchCache($cache_id);
+
                             // send new cache event
                             event_notify_new_cache($cache_id);
                         }

@@ -5,6 +5,7 @@ namespace lib\Objects\GeoCache;
 use \lib\Objects\PowerTrail\PowerTrail;
 use \lib\Objects\OcConfig\OcConfig;
 use \lib\Database\DataBaseSingleton;
+use Utils\Database\XDb;
 //use \lib\Objects\GeoCache\CacheTitled;
 /**
  * Description of geoCache
@@ -928,7 +929,7 @@ class GeoCache
         }
         return $this->waypoints;
     }
-    
+
     /**
      * @return \DateTime
      */
@@ -948,6 +949,65 @@ class GeoCache
     {
         $statuses = $this->dictionary->getCacheStatuses();
         return $statuses[$this->status]['translation'];
+    }
+
+    /**
+     * This function is moved from clicompatbase
+     * @param unknown $cacheid
+     */
+    public static function setCacheDefaultDescLang($cacheid){
+
+        $r['desc_languages'] = XDb::xSimpleQueryValue(
+            "SELECT `desc_languages` FROM `caches`
+            WHERE `cache_id`= ? LIMIT 1", null, $cacheid);
+
+        if (mb_strpos($r['desc_languages'], 'PL') !== false)
+            $desclang = 'PL';
+        else if (mb_strpos($r['desc_languages'], 'EN') !== false)
+            $desclang = 'EN';
+        else if ($r['desc_languages'] == '')
+            $desclang = '';
+        else
+            $desclang = mb_substr($r['desc_languages'], 0, 2);
+
+        XDb::xSql(
+            "UPDATE `caches` SET
+                `default_desclang`= ?, `last_modified`=NOW()
+            WHERE cache_id= ? LIMIT 1",
+            $desclang, $cacheid);
+    }
+
+
+    /**
+     * update last_modified=NOW() for every object depending on that cacheid
+     *
+     */
+    public static function touchCache($cacheid){
+        XDb::xSql(
+            "UPDATE `caches` SET `last_modified`=NOW() WHERE `cache_id`= ? ", $cacheid);
+        XDb::xSql(
+            "UPDATE `caches`, `cache_logs` SET `cache_logs`.`last_modified`=NOW()
+        WHERE `caches`.`cache_id`=`cache_logs`.`cache_id`
+            AND `caches`.`cache_id`= ? AND `cache_logs`.`deleted`= ? ", $cacheid, 0);
+        XDb::xSql(
+            "UPDATE `caches`, `cache_desc` SET `cache_desc`.`last_modified`=NOW()
+        WHERE `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`cache_id`= ?", $cacheid);
+        XDb::xSql(
+            "UPDATE `caches`, `pictures` SET `pictures`.`last_modified`=NOW()
+        WHERE `caches`.`cache_id`=`pictures`.`object_id` AND `pictures`.`object_type`=2 AND `caches`.`cache_id`= ? ", $cacheid);
+        XDb::xSql(
+            "UPDATE `caches`, `cache_logs`, `pictures` SET `pictures`.`last_modified`=NOW()
+        WHERE `caches`.`cache_id`=`cache_logs`.`cache_id` AND `cache_logs`.`id`=`pictures`.`object_id`
+            AND `pictures`.`object_type`=1 AND `caches`.`cache_id`= ?
+            AND `cache_logs`.`deleted`= ? ", $cacheid, 0);
+        XDb::xSql(
+            "UPDATE `caches`, `mp3` SET `mp3`.`last_modified`=NOW()
+        WHERE `caches`.`cache_id`=`mp3`.`object_id` AND `mp3`.`object_type`=2 AND `caches`.`cache_id`= ? ", $cacheid);
+        XDb::xSql(
+            "UPDATE `caches`, `cache_logs`, `mp3` SET `mp3`.`last_modified`=NOW()
+        WHERE `caches`.`cache_id`=`cache_logs`.`cache_id` AND `cache_logs`.`id`=`mp3`.`object_id`
+            AND `mp3`.`object_type`=1 AND `caches`.`cache_id`= ?
+            AND `cache_logs`.`deleted`= ? ", $cacheid, 0);
     }
 
 }

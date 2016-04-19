@@ -26,7 +26,7 @@ function revertLog($log_id, $language, $lang)
     // set $debug = true to display debug messages (or false to hide).
     $debug = false;
 
-    global $tplname, $usr, $lang, $stylepath, $oc_nodeid, $error_wrong_node, $removed_message_title, $removed_message_end, $emailheaders, $rootpath, $cacheid, $log_record, $cache_types, $cache_size, $cache_status, $dblink;
+    global $tplname, $usr, $lang, $stylepath, $oc_nodeid, $error_wrong_node, $removed_message_title, $removed_message_end, $rootpath, $cacheid, $log_record, $cache_types, $cache_size, $cache_status;
     $logRs = new dataBase($debug);
     $logRsQuery = "SELECT   `cache_logs`.`node` AS `node`, `cache_logs`.`uuid` AS `uuid`, `cache_logs`.`cache_id` AS `cache_id`, `caches`.`user_id` AS `cache_owner_id`,
                             `caches`.`name` AS `cache_name`, `cache_logs`.`text` AS `log_text`, `cache_logs`.`type` AS `log_type`,

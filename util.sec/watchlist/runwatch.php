@@ -6,6 +6,7 @@
  *
  */
 use Utils\Database\XDb;
+use Utils\Log\Log;
 
 $rootpath = '../../';
 
@@ -255,7 +256,7 @@ function process_owner_log($user_id, $log_id)
     XDb::xFreeResults($rsLog);
 
     $userActivity = $rLog['ch'] + $rLog['cf'] + $rLog['cn'];
-    $watchtext = read_file(dirname(__FILE__) . '/item.email.html');
+    $watchtext = file_get_contents(dirname(__FILE__) . '/item.email.html');
     $logtext = $rLog['text'];
     $logtext = preg_replace("/<img[^>]+\>/i", "", $logtext);
 
@@ -287,7 +288,7 @@ function process_owner_log($user_id, $log_id)
         VALUES ( ?, ?, 1, NOW(), ?, 1)",
         $user_id, $log_id, $watchtext);
 
-    logentry('watchlist', 1, $user_id, $log_id, 0, $watchtext, array());
+    Log::logentry('watchlist', 1, $user_id, $log_id, 0, $watchtext, array());
 }
 
 /**
@@ -326,7 +327,7 @@ function process_log_watch($user_id, $log_id)
         $recommended = '';
     }
 
-    $watchtext = read_file(dirname(__FILE__) . '/item.email.html');
+    $watchtext = file_get_contents(dirname(__FILE__) . '/item.email.html');
     $logtext = $rLog['text'];
 
     $logtext = preg_replace("/<img[^>]+\>/i", "", $logtext);
@@ -359,7 +360,7 @@ function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUs
     $email_headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
     $email_headers .= 'From: "' . $watchlistMailfrom . '" <' . $watchlistMailfrom . '>';
 
-    $mailbody = read_file(dirname(__FILE__) . '/watchlist.email.html');
+    $mailbody = file_get_contents(dirname(__FILE__) . '/watchlist.email.html');
     $mailbody = mb_ereg_replace('{username}', $currUserName, $mailbody);
     $mailbody = mb_ereg_replace('{absolute_server_URI}', $absolute_server_URI, $mailbody);
 
@@ -411,7 +412,7 @@ function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUs
     // $mailbody;
     $status = mb_send_mail($mailadr, $mailsubject, $mailbody, $email_headers);
 
-    logentry('watchlist', 2, $currUserID, 0, 0, 'Sending mail to ' . $mailadr, array('status' => $status));
+    Log::logentry('watchlist', 2, $currUserID, 0, 0, 'Sending mail to ' . $mailadr, array('status' => $status));
 
     XDb::xSql("DELETE FROM watches_waiting WHERE user_id= ? AND watchtype IN (1, 2)", $currUserID);
 }

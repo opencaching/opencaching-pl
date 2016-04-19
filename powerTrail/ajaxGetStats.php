@@ -1,7 +1,7 @@
 <?php
 $rootpath = __DIR__.'/../';
 require_once __DIR__.'/../lib/common.inc.php';
-db_disconnect();
+
 
 $db = \lib\Database\DataBaseSingleton::Instance();
 $query = 'SELECT user.username, `userId`

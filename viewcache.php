@@ -1214,7 +1214,7 @@ if ($error == false) {
             $query1 = "SELECT `email` FROM `user` WHERE `user_id`=:1";
             $owner_email = $dbc->multiVariableQuery($query1, $geocache->getOwner()->getUserId());
             $sender_email = $usr['email'];
-            $email_content = read_file($stylepath . '/email/octeam_comment.email');
+            $email_content = file_get_contents($stylepath . '/email/octeam_comment.email');
             $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
             $email_content = mb_ereg_replace('{cachename}', $cache_record['name'], $email_content);
             $email_content = mb_ereg_replace('{cacheid}', $cache_record['cache_id'], $email_content);

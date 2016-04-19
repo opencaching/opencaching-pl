@@ -295,7 +295,7 @@ class coordinate
 
             proc_close($process);
 
-            return explode_multi(mb_trim($stdout), "\t\n ");
+            return mb_split("\t|\n| ", mb_trim($stdout));
         } else
             die("proc_open() failed, command=$command\n");
     }

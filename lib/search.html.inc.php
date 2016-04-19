@@ -218,12 +218,12 @@ if ($resultcount <= 5000 && $NrColSortSearch != - 1) {
     $SearchWithSort = true;
     $tplname = 'search.result.caches'; // prepare the output
     $caches_per_page = 999999;
-    $cache_line = tpl_do_translate(read_file($stylepath . '/search.result.caches.row.tpl.php')); // build lines
+    $cache_line = tpl_do_translate(file_get_contents($stylepath . '/search.result.caches.row.tpl.php')); // build lines
 } else {
     $SearchWithSort = false;
     $tplname = 'search.result.caches'; // without sort
     $caches_per_page = 20;
-    $cache_line = tpl_do_translate(read_file($stylepath . '/search.result.caches.row.tpl.php')); // build lines
+    $cache_line = tpl_do_translate(file_get_contents($stylepath . '/search.result.caches.row.tpl.php')); // build lines
 }
 
 if ($resultcount)

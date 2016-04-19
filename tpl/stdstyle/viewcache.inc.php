@@ -106,7 +106,6 @@ $error_coords_not_ok = '<br/><img src="tpl/stdstyle/images/misc/32x32-impressum.
 // MP3 Files table
 function viewcache_getmp3table($cacheid, $mp3count)
 {
-    global $dblink;
     $nCol = 0;
     $retval = '';
 
@@ -220,7 +219,6 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
 // Hmm, is this references at all?
 function viewcache_getfullsizedpicturestable($cacheid, $viewtext = true, $spoiler_only = false, $picturescount)
 {
-    global $dblink;
     global $thumb_max_width;
     global $thumb_max_height;
 

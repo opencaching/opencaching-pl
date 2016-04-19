@@ -15,7 +15,7 @@ class EmailController
      */
     public static function sendRemoveLogNotification(GeoCacheLog $log, $request, $loggedUser)
     {
-        $emailContent = read_file(__DIR__ . '/../../tpl/stdstyle/email/removed_log.email');
+        $emailContent = file_get_contents(__DIR__ . '/../../tpl/stdstyle/email/removed_log.email');
         $message = isset($request['logowner_message']) ? $request['logowner_message'] : '';
         if ($message != '') { //message to logowner
             $message = tr('removed_message_title') . ":\n---" . "\n" . $message . "\n" . "---";

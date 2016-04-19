@@ -1,7 +1,7 @@
 <?php
 $rootpath = __DIR__.'/../';
 require_once __DIR__.'/../lib/common.inc.php';
-db_disconnect();
+
 $statusArr = powerTrailBase::getPowerTrailStatus();
 
 if(!isset($_SESSION['user_id'])){
