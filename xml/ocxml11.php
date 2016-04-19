@@ -5,7 +5,6 @@ use Utils\Database\XDb;
 
 $rootpath = '../';
 require($rootpath . 'lib/common.inc.php');
-//   require($rootpath . 'lib/clicompatbase.inc.php');
 if ($error == true) {
     echo 'Unable to connect to database';
     exit;

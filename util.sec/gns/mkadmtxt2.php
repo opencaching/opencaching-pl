@@ -1,6 +1,12 @@
 #!/usr/bin/php -q
 <?php
-
+/**
+ * 19.04.2016, kojoty
+ *
+ * This script is obsolate and unmaintenance!!!
+ *
+ *
+ */
 header('Content-Type: text/plain');
 set_time_limit(0);
 

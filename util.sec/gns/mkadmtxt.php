@@ -1,6 +1,12 @@
 #!/usr/bin/php -q
 <?php
-
+/**
+ * 19.04.2016, kojoty
+ *
+ * This script is obsolate and unmaintenance!!!
+ *
+ *
+ */
 /* * *************************************************************************
 
   Ggf. muss die Location des php-Binaries angepasst werden.
