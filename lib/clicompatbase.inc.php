@@ -9,30 +9,6 @@ mb_regex_encoding('UTF-8');
 mb_language('uni');
 
 
-function setLastFound($cacheid)
-{
-    $rs = sql("SELECT MAX(`date`) `date` FROM `cache_logs` WHERE `cache_id`=&1 AND `type`=&2 AND `deleted`=&3", $cacheid, 1, 0);
-    $r = sql_fetch_array($rs);
-    mysql_free_result($rs);
-
-    if ($r['date'] == null)
-        sql("UPDATE `caches` SET `last_found`=null WHERE `cache_id`=&1", $cacheid);
-    else
-        sql("UPDATE `caches` SET `last_found`='&1' WHERE `cache_id`=&2", $r['date'], $cacheid);
-}
-
-// update last_modified=NOW() for every object depending on that cacheid
-function touchCache($cacheid)
-{
-    sql("UPDATE `caches` SET `last_modified`=NOW() WHERE `cache_id`='&1'", $cacheid);
-    sql("UPDATE `caches`, `cache_logs` SET `cache_logs`.`last_modified`=NOW() WHERE `caches`.`cache_id`=`cache_logs`.`cache_id` AND `caches`.`cache_id`='&1' AND `cache_logs`.`deleted`=&2", $cacheid, 0);
-    sql("UPDATE `caches`, `cache_desc` SET `cache_desc`.`last_modified`=NOW() WHERE `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`cache_id`='&1'", $cacheid);
-    sql("UPDATE `caches`, `pictures` SET `pictures`.`last_modified`=NOW() WHERE `caches`.`cache_id`=`pictures`.`object_id` AND `pictures`.`object_type`=2 AND `caches`.`cache_id`='&1'", $cacheid);
-    sql("UPDATE `caches`, `cache_logs`, `pictures` SET `pictures`.`last_modified`=NOW() WHERE `caches`.`cache_id`=`cache_logs`.`cache_id` AND `cache_logs`.`id`=`pictures`.`object_id` AND `pictures`.`object_type`=1 AND `caches`.`cache_id`='&1' AND `cache_logs`.`deleted`=&2", $cacheid, 0);
-    sql("UPDATE `caches`, `mp3` SET `mp3`.`last_modified`=NOW() WHERE `caches`.`cache_id`=`mp3`.`object_id` AND `mp3`.`object_type`=2 AND `caches`.`cache_id`='&1'", $cacheid);
-    sql("UPDATE `caches`, `cache_logs`, `mp3` SET `mp3`.`last_modified`=NOW() WHERE `caches`.`cache_id`=`cache_logs`.`cache_id` AND `cache_logs`.`id`=`mp3`.`object_id` AND `mp3`.`object_type`=1 AND `caches`.`cache_id`='&1' AND `cache_logs`.`deleted`=&2", $cacheid, 0);
-}
-
 // read a file and return it as a string
 // WARNING: no huge files!
 function read_file($file = '')
