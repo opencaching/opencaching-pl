@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\OcDb;
 /**
  * This script is used (can be loaded) by /search.php
  */
@@ -69,7 +70,7 @@ require_once ($stylepath . '/lib/icons.inc.php');
 require_once ('lib/cache_icon.inc.php');
 set_time_limit(1800);
 
-$dbc = new dataBase();
+$dbc = OcDb::instance();
 
 $sNrColumnsSortSearch = "NrColumnsSortSearch";
 $sOrderSortSearch = "OrderSortSearch";

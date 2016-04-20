@@ -146,7 +146,7 @@ use Utils\Database\OcDb;
 ////////////////////////////
 
 
-        $dbc = new dataBase();
+        $dbc = OcDb::instance();
 
         $query = "SELECT year( cl.date) year, month( cl.date ) month, day( cl.date ) day,
          u.username username, u.user_id user_id,

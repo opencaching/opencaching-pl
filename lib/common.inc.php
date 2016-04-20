@@ -6,6 +6,7 @@
 require_once __DIR__ . '/ClassPathDictionary.php';
 
 use Utils\Database\XDb;
+use Utils\Database\OcDb;
 
 if ((!isset($GLOBALS['no-session'])) || ($GLOBALS['no-session'] == false))
     session_start();
@@ -221,7 +222,7 @@ function create_uuid()
     return $uuid;
 }
 
-$db = lib\Database\DataBaseSingleton::Instance();
+$db = OcDb::instance();
 
 /*
  * TODO: new Global error handling should be implemented...

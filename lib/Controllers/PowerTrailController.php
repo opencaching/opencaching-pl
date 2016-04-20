@@ -2,7 +2,6 @@
 
 namespace lib\Controllers;
 
-use lib\Database\DataBaseSingleton;
 use lib\Objects\PowerTrail\PowerTrail;
 use Utils\Database\OcDb;
 
@@ -68,7 +67,7 @@ class PowerTrailController
 
     private function freeCacheCandidates()
     {
-        $db = DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $query = 'DELETE FROM `PowerTrail_cacheCandidate` WHERE `date` < DATE_SUB(curdate(), INTERVAL 2 WEEK)';
         $db->simpleQuery($query);
         $db->reset();

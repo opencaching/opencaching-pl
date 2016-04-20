@@ -4,6 +4,7 @@
  */
 
 use Utils\Database\XDb;
+use Utils\Database\OcDb;
 
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $queryFilter;
 require_once ('lib/common.inc.php');
@@ -380,9 +381,8 @@ if ($usr || ! $hide_coords) {
     $stmt = XDb::xSql('SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`, `gpxcontent`.`latitude` `latitude`, `gpxcontent`.cache_mod_cords_id, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`picturescount` `picturescount`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `caches`.`size` `size`, `caches`.`type` `type`, `caches`.`status` `status`, `user`.`username` `username`, `gpxcontent`.`user_id` `owner_id`,`cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`rr_comment`, `caches`.`logpw`, `caches`.`votes` `votes`, `caches`.`score` `score`, `caches`.`topratings` `topratings` FROM `gpxcontent`, `caches`, `user`, `cache_desc` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `gpxcontent`.`user_id`=`user`.`user_id`');
     while ($r = XDb::xFetchArray($stmt)) {
         if (@$enable_cache_access_logs) {
-            if (! isset($dbc)) {
-                $dbc = new dataBase();
-            }
+
+            $dbc = OcDb::instance();
 
             $cache_id = $r['cacheid'];
             $user_id = $usr !== false ? $usr['userid'] : null;

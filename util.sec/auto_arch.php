@@ -109,7 +109,6 @@ class AutoArch
 
     private function loadCachesToProcess()
     {
-        /* @var $db dataBase */
         $db = OcDb::instance();
 
         $s = $db->simpleQuery(

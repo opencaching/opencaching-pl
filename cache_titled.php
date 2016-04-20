@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use Utils\Database\OcDb;
 
 global $dateFormat;
 require_once('./lib/common.inc.php');
@@ -11,7 +12,7 @@ $usrid = -1;
 if ( $usr != false )
     $usrid = $usr['userid'];
 
-$dbcLocCache = new dataBase();
+$dbcLocCache = OcDb::instance();
 
 $query="SELECT
     caches.type cache_type, caches.name cacheName, caches.cache_id cache_id,

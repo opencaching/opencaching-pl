@@ -11,7 +11,9 @@ require_once($stylepath . '/lib/icons.inc.php');
 global $content, $bUseZip, $usr, $config;
 global $default_lang, $cache_attrib_jsarray_line, $cache_attrib_img_line;
 global $lang, $language, $dateFormat;
-$database = new dataBase;
+
+$database = OcDb::instance();
+
 set_time_limit(1800);
 //Preprocessing
 if ($error == false) {
@@ -760,7 +762,7 @@ if ($error == false) {
 
         function set_route_options($route_id, $options)
         {
-            $database = new dataBase;
+            $database = OcDb::instance();
             $database->paramQuery(
                     'UPDATE `routes` SET `options`=:options WHERE `route_id`=:route_id', array('route_id' => array('value' => $route_id, 'data_type' => 'integer'),
                 'options' => array('value' => serialize($options), 'data_type' => 'string'),

@@ -74,7 +74,7 @@ if (!$loggeduserCache) {
     }
 }
 if (isset($_REQUEST['calledFromConfirm']) && $_REQUEST['calledFromConfirm'] === 1) {
-    addCacheToPowerTrail($cacheId, $projectId, new dataBase(), $ptAPI);
+    addCacheToPowerTrail($cacheId, $projectId, OcDb::instance(), $ptAPI);
     $cacheAddedToPt = true;
     return;
 }

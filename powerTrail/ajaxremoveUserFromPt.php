@@ -1,4 +1,5 @@
 <?php
+use Utils\Database\OcDb;
 session_start();
 if(!isset($_SESSION['user_id'])){
     print 'no hacking please!';
@@ -6,7 +7,7 @@ if(!isset($_SESSION['user_id'])){
 }
 require_once __DIR__.'/../lib/ClassPathDictionary.php';
 $ptAPI = new powerTrailBase;
-$db = \lib\Database\DataBaseSingleton::Instance();
+$db = OcDb::instance();
 
 $projectId = $_REQUEST['projectId'];
 $userId = $_REQUEST['userId'];

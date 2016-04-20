@@ -1,4 +1,5 @@
 <?php
+use Utils\Database\OcDb;
 $rootpath = __DIR__.'/../';
 require_once __DIR__.'/../lib/common.inc.php';
 
@@ -39,7 +40,7 @@ if($ptAPI::checkIfUserIsPowerTrailOwner($_SESSION['user_id'], $powerTrailId) == 
 
     // update geoPatch status
     $query = 'UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2';
-    $db = \lib\Database\DataBaseSingleton::Instance();
+    $db = OcDb::instance();
     $db->multiVariableQuery($query, $newStatus, $powerTrailId);
 
     // add comment

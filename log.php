@@ -454,9 +454,6 @@ if ($error == false) {
                 elseif (!($log_type == 3 && $log_text == "")) {
                     if ($log_type == 1) {
                         /* GeoKretyApi: call method logging selected Geokrets  (by Łza) */
-                        if (isset($debug) && $debug) {
-                            dataBase::debugOC('#' . __line__ . ' ', $_POST);
-                        }
                         $MaxNr = isset($_POST['MaxNr']) ? (int) $_POST['MaxNr'] : 0;
                         if ($MaxNr > 0) {
                             require_once 'GeoKretyAPI.php';
@@ -479,9 +476,6 @@ if ($error == false) {
                                         'app' => 'Opencaching',
                                         'app_ver' => 'PL'
                                     );
-                                    if (isset($debug) && $debug) {
-                                        dataBase::debugOC('#' . __line__ . ' ', $GeokretyLogArray);
-                                    }
                                     $GeoKretyLogResult[$b] = $LogGeokrety->LogGeokrety($GeokretyLogArray);
                                     $b++;
                                 }
@@ -489,10 +483,6 @@ if ($error == false) {
                             $_SESSION['GeoKretyApi'] = serialize($GeoKretyLogResult);
                         }
                         unset($b);
-
-                        if (isset($debug) && $debug) {
-                            dataBase::debugOC('#' . __line__ . ' ', $GeoKretyLogResult);
-                        }
 
                         /* end calling method logging selected Geokrets with GeoKretyApi */
 

@@ -392,8 +392,6 @@ class User extends \lib\Objects\BaseObject
     {
         if($this->geocaches === null){
             $this->geocaches = new \ArrayObject;
-//            $db = DataBaseSingleton::Instance();
-
             $db = OcDb::instance();
 
             $stmt = $db->multiVariableQuery(

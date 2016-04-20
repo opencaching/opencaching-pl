@@ -4,6 +4,7 @@
  */
 
 use Utils\Database\XDb;
+use Utils\Database\OcDb;
 
 global $content, $bUseZip, $hide_coords, $usr, $lang, $dbcSearch;
 
@@ -180,9 +181,9 @@ if( $usr || !$hide_coords ) {
 
     while($r = XDb::xFetchArray($stmt) ) {
         if (@$enable_cache_access_logs) {
-            if (!isset($dbc)) {
-                $dbc = new dataBase();
-            }
+
+            $dbc = OcDb::instance();
+
             $cache_id = $r['cacheid'];
             $user_id = $usr !== false ? $usr['userid'] : null;
             $access_log = @$_SESSION['CACHE_ACCESS_LOG_TXT_'.$user_id];

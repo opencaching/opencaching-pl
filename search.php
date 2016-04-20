@@ -402,7 +402,6 @@ use Utils\Database\XDb;
                         serialize($options));
 
                     $options['queryid'] = XDb::xLastInsertId();
-                    //TODO - add method lastInsertId () to dataBase
                 }
             }
             else

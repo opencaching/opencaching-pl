@@ -92,7 +92,7 @@ if ($error == false) {
                 if ($pic_count_check > 0) {
                     if (isset($_POST['pic_seq_select1'])) { // check if in POST mode and in case any picture is attached (re-)update sequence value, providing it was changed - value of pic_seq_change_X)
                         if (!isset($dbc)) {
-                            $dbc = new dataBase();
+                            $dbc = OcDb::instance();
                         }
                         for ($i = 1; $i <= $pic_count_check; $i++) {
                             $this_seq = $_POST['pic_seq_select' . $i]; //get new seqence
@@ -114,9 +114,8 @@ if ($error == false) {
                 $mp3_count_check = $cache_record['mp3count'];
                 if ($mp3_count_check > 0) {
                     if (isset($_POST['mp3_seq_select1'])) { // check if in POST mode and in case any mp3 is attached (re-)update sequence value, providing it was changed - value of mp3_seq_change_X)
-                        if (!isset($dbc)) {
-                            $dbc = new dataBase();
-                        }
+
+                        $dbc = OcDb::instance();
                         for ($i = 1; $i <= $mp3_count_check; $i++) {
                             $this_seq = $_POST['mp3_seq_select' . $i]; //get new seqence
                             $this_mp3_id = $_POST['mp3_seq_id' . $i]; //get mp3 ID the new seq is applicable to
@@ -385,9 +384,9 @@ if ($error == false) {
                     $thatquery = "SELECT `attrib_id` FROM `caches_attributes` WHERE `cache_id`=:v1";
                     $params['v1']['value'] = (integer) $cache_id;
                     $params['v1']['data_type'] = 'integer';
-                    if (!isset($dbc)) {
-                        $dbc = new dataBase();
-                    }
+
+                    $dbc = OcDb::instance();
+
                     $s = $dbc->paramQuery($thatquery, $params);
                     unset($params);
                     $cache_attribs_count = $dbc->rowCount($s);

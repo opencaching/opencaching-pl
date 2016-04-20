@@ -1,4 +1,5 @@
 <?php
+use Utils\Database\OcDb;
 // ajaxUpdateDemandPercent.php
 session_start();
 if(!isset($_SESSION['user_id'])){
@@ -18,7 +19,7 @@ if($newPercent < \lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED
 // check if user is owner of selected power Trail
 if($ptAPI::checkIfUserIsPowerTrailOwner($_SESSION['user_id'], $powerTrailId) == 1) {
     $query = 'UPDATE `PowerTrail` SET `perccentRequired`= :1 WHERE `id` = :2';
-    $db = \lib\Database\DataBaseSingleton::Instance();
+    $db = OcDb::instance();
     $db->multiVariableQuery($query, $newPercent, $powerTrailId);
     echo $newPercent;
 }

@@ -163,9 +163,9 @@ $stmt = XDb::xSql(
 
 while($r = XDb::xFetchArray($stmt) ) {
     if (@$enable_cache_access_logs) {
-        if (!isset($dbc)) {
-            $dbc = new dataBase();
-        }
+
+        $dbc = OcDb::instance();
+
         $cache_id = $r['cacheid'];
         $user_id = $usr !== false ? $usr['userid'] : null;
         $access_log = @$_SESSION['CACHE_ACCESS_LOG_VC_'.$user_id];

@@ -2,7 +2,6 @@
 
 namespace lib\Objects\PowerTrail;
 
-use \lib\Database\DataBaseSingleton;
 use \lib\Objects\Coordinates\Coordinates;
 use lib\Objects\GeoCache\Collection;
 use lib\Objects\GeoCache\GeoCache;
@@ -403,7 +402,7 @@ class PowerTrail extends \lib\Objects\BaseObject
         if ($this->cacheCount < $this->getPtMinCacheCountLimit()) {
 //            $text .= tr('pt227').tr('pt228');
             print '[test only] geoPath #<a href="powerTrail.php?ptAction=showSerie&ptrail=' . $this->id . '">' . $this->id . '</a> (geoPtah cache count=' . $this->cacheCount . ' is lower than minimum=' . $this->getPtMinCacheCountLimit() . ') <br/>';
-//            $db = \lib\Database\DataBaseSingleton::Instance();
+//            $db = OcDb::instance();
 //            $queryStatus = 'UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2';
 //            $db->multiVariableQuery($queryStatus, 4, $pt['id']);
 //            $query = 'INSERT INTO `PowerTrail_comments`(`userId`, `PowerTrailId`, `commentType`, `commentText`, `logDateTime`, `dbInsertDateTime`, `deleted`) VALUES
@@ -538,7 +537,7 @@ class PowerTrail extends \lib\Objects\BaseObject
     public function increaseConquestedCount()
     {
         $this->conquestedCount++;
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $query = 'UPDATE `PowerTrail` SET `PowerTrail`.`conquestedCount`= (SELECT COUNT(*) FROM `PowerTrail_comments` WHERE `PowerTrail_comments`.`PowerTrailId` = :1 AND `PowerTrail_comments`.`commentType` = 2 AND `PowerTrail_comments`.`deleted` = 0 ) WHERE `PowerTrail`.`id` = :1 ';
         $db->multiVariableQuery($query, $this->id);
     }
@@ -559,7 +558,7 @@ class PowerTrail extends \lib\Objects\BaseObject
     public function setAndStoreStatus($status)
     {
         $this->status = $status;
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $query = 'UPDATE `PowerTrail` SET `status` = :1 WHERE `PowerTrail`.`id` = :2 ';
         $db->multiVariableQuery($query, $status, $this->id);
     }

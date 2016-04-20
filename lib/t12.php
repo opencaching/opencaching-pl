@@ -1,3 +1,6 @@
+<?php
+use Utils\Database\OcDb;
+?>
 <div id='idGTC' ></div>
 
 <script type="text/javascript">
@@ -54,10 +57,8 @@ if ($nIsCondition) {
     $sCondition = "and date >='" . $sData_od . "' and date < '" . $sData_do . "'";
 }
 
+$dbc = OcDb::instance();
 
-
-
-$dbc = new dataBase();
 $query = "SELECT COUNT(*) count, u.username username, u.user_id user_id,
         u.date_created date_created, u.description description
 

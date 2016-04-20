@@ -69,7 +69,7 @@ if ($error == false) {
 function removeDbEntery($code)
 {
 
-    $db = new dataBase;
+    $db = OcDb::instance();
     $query = 'DELETE FROM `PowerTrail_cacheCandidate` WHERE `link` = :1';
     $db->multiVariableQuery($query, $code);
 }

@@ -2,10 +2,7 @@
 
 namespace lib\Objects\PowerTrail;
 
-use \lib\Database\DataBaseSingleton;
-//use \lib\Objects\User\User;
-//use lib\Objects\PowerTrail\PowerTrail;
-
+use Utils\Database\OcDb;
 class Log
 {
     const TYPE_COMMENT = 1;
@@ -110,7 +107,7 @@ class Log
 
     public function storeInDb()
     {
-        $db = DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         if($_REQUEST['type'] == Log::TYPE_CONQUESTED && $this->powerTrail->isAlreadyConquestedByUser($this->user)){ /* atempt to add second 'conquested' log */
             return false;
         }

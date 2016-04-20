@@ -1,3 +1,6 @@
+<?php
+use Utils\Database\OcDb;
+?>
 <html>
     <head>
     </head>
@@ -137,10 +140,7 @@
 
 /////////////////
 
-        $dbc = new dataBase();
-
-        /* $query = "SELECT * FROM cache_logs WHERE deleted=0 "; */
-
+        $dbc = OcDb::instance();
 
         $query = "SELECT distinct " . $sGranulate . "
         FROM
@@ -184,7 +184,7 @@
             $sCondition = " and cl.user_id = '" . $sID . "'";
             $sCondition .= $sDateCondition;
 
-            $dbc = new dataBase();
+            $dbc = OcDb::instance();
 
             $query = "SELECT u.username username, u.user_id user_id,
             " . $sGranulate . ",

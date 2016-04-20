@@ -8,7 +8,6 @@
 
 namespace lib\Objects\User;
 
-use \lib\Database\DataBaseSingleton;
 use Utils\Database\OcDb;
 
 class AdminNote
@@ -139,14 +138,14 @@ class AdminNote
 
     private function addNoteIntoDb()
     {
-        $db = DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $query = "INSERT INTO `admin_user_notes`(`user_id`, `admin_id`, `automatic`, `content`) VALUES (:1, :2, :3, :4)";
         $db->multiVariableQuery($query, $this->getUserId(), $this->getAdminId(), $this->getAutomatic(), $this->getContent());
     }
 
     private function addNoteIntoDbWithCacheId()
     {
-        $db = DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $query = "INSERT INTO `admin_user_notes`(`user_id`, `admin_id`, `cache_id`, `automatic`, `content`) VALUES (:1, :2, :3, :4, :5)";
         $db->multiVariableQuery($query, $this->getUserId(), $this->getAdminId(), $this->getCacheId(), $this->getAutomatic(), $this->getContent());
     }

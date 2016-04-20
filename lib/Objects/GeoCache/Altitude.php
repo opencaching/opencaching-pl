@@ -66,7 +66,7 @@ class Altitude
                         VALUES (:2, :1, NOW())
                         ON DUPLICATE KEY UPDATE
                         `altitude` = :1, altitude_update_datetime = NOW()';
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $db->multiVariableQuery($query, $this->altitude, $this->geoCache->getCacheId());
     }
 

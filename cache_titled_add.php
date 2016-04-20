@@ -1,6 +1,7 @@
 <?php
 
 
+use Utils\Database\OcDb;
 global $titled_cache_nr_found, $titled_cache_period_prefix;
 
 require_once('./lib/common.inc.php');
@@ -8,7 +9,7 @@ require_once('./lib/common.inc.php');
 if ( !isset( $_REQUEST[ 'CRON' ] ) )
     exit;
 
-$dbc = new dataBase();
+$dbc = OcDb::instance();
 
 $queryMax = "SELECT max( date_alg ) dataMax FROM cache_titled";
 $s = $dbc->simpleQuery($queryMax);

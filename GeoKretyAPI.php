@@ -171,8 +171,6 @@ class GeoKretyApi
      */
     public function LogGeokrety($GeokretyArray, $retry = false)
     {
-
-        // dataBase::debugOC('#'.__line__.' ', $this->connectionTimeout);
         if (!$GeokretyArray) { // array from datbase is epmty
             $r['errors'][]['error'] = 'array from datbase is epmty';
             $postdata = '';
@@ -276,7 +274,7 @@ class GeoKretyApi
 
     private function storeErrorsInDb($operationType, $dataSent, $response = null)
     {
-        $db = new dataBase;
+        $db = OcDb::instance();
         $query = "INSERT INTO `GeoKretyAPIerrors`(`dateTime`, `operationType`, `dataSent`, `response`)
                   VALUES (NOW(),:1,:2,:3)";
         $db->multiVariableQuery($query, $operationType, addslashes(serialize($dataSent)), addslashes(serialize($response)));
@@ -296,7 +294,7 @@ class GeoKretyApi
 
     public static function removeDbRows($rowsString)
     {
-        $db = new dataBase;
+        $db = OcDb::instance();
         $query = "DELETE FROM `GeoKretyAPIerrors` WHERE id in ($rowsString)";
         $db->simpleQuery($query);
     }

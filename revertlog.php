@@ -59,7 +59,7 @@ function revertLog($log_id, $language, $lang)
         //cache-owner or log-owner
         if (($log_record['log_user_id'] == $usr['userid']) || ($log_record['cache_owner_id'] == $usr['userid']) || $usr['admin']) {
             // revert the log.
-            $revert = new dataBase($debug);
+            $revert = OcDb::instance();
             $query = "UPDATE `cache_logs` SET deleted = 0 , `last_modified`=NOW() WHERE `cache_logs`.`id`=:log_id LIMIT 1";
             $revert->paramQuery($query, array('log_id' => array('value' => $log_id, 'data_type' => 'i'),));
             unset($revert);
@@ -94,7 +94,7 @@ function revertLog($log_id, $language, $lang)
             event_remove_log($cacheid, $usr['userid'] + 0);
 
             //update cache-stat if type or log_date changed
-            $cachStat = new dataBase($debug);
+            $cachStat = OcDb::instance();
             $query = "SELECT `founds`, `notfounds`, `notes` FROM `caches` WHERE `cache_id`=:var1 LIMIT 1";
             $s = $cachStat->paramQuery($query, array('var1' => array('value' => $log_record['cache_id'], 'data_type' => 'i'),));
             $cache_record = $cachStat->dbResultFetchOneRowOnly($s);
@@ -122,7 +122,7 @@ function revertLog($log_id, $language, $lang)
                 $lastfound = $lastfound_record['date'];
             }
 
-            $updateCache = new dataBase;
+            $updateCache = OcDb::instance();
             $query = "UPDATE `caches` SET `last_found`=:var1, `founds`=:var2, `notfounds`=:var3, `notes`=:var4 WHERE `cache_id`=:var5";
             $params = array(
                 'var1' => array('value' => $lastfound, 'data_type' => 'string'),

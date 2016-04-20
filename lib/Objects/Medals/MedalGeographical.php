@@ -3,7 +3,6 @@
 namespace lib\Objects\Medals;
 
 use \lib\Objects\User\User;
-use \lib\Database\DataBaseSingleton;
 use Utils\Database\OcDb;
 
 /**

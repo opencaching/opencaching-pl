@@ -1,3 +1,6 @@
+<?php
+use Utils\Database\OcDb;
+?>
 
 
 <div id='idGTC' align = "center"> </div>
@@ -123,7 +126,7 @@ if ($sRD == "R") {
 }
 
 
-$dbc = new dataBase();
+$dbc = OcDb::instance();
 
 if ($sNameOfStat == "MaintenanceOfCaches") {
     if ($sDateCondition != "")

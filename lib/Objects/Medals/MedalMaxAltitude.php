@@ -2,7 +2,6 @@
 
 namespace lib\Objects\Medals;
 
-use \lib\Database\DataBaseSingleton;
 use \lib\Objects\User\User;
 use Utils\Database\OcDb;
 

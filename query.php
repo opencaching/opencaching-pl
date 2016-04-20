@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use Utils\Database\OcDb;
 require('./lib/common.inc.php');
 require($stylepath . '/query.inc.php');
 
@@ -39,7 +40,7 @@ function deletequery($queryid)
 {
     global $tplname, $usr;
 
-    $dbc = new dataBase();
+    $dbc = OcDb::instance();
 
     $query = "SELECT `id` FROM `queries` WHERE `id`=:1 AND `user_id`=:2";
     $s = $dbc->multiVariableQuery($query, $queryid, $usr['userid']);
@@ -63,7 +64,7 @@ function viewqueries()
 
     $tplname = 'viewqueries';
 
-    $dbc = new dataBase();
+    $dbc = OcDb::instance();
 
     $i = 0;
     $content = '';

@@ -4,10 +4,9 @@ namespace lib\Objects\GeoCache;
 
 use \lib\Objects\PowerTrail\PowerTrail;
 use \lib\Objects\OcConfig\OcConfig;
-use \lib\Database\DataBaseSingleton;
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
-//use \lib\Objects\GeoCache\CacheTitled;
+
 /**
  * Description of geoCache
  *
@@ -546,7 +545,7 @@ class GeoCache
     public function updateGeocacheLogenteriesStats()
     {
         $sqlQuery = "UPDATE `caches` SET `last_found`=:1, `founds`=:2, `notfounds`= :3, `notes`= :4 WHERE `cache_id`= :5";
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $db->multiVariableQuery($sqlQuery, $this->lastFound, $this->founds, $this->notFounds, $this->notesCount, $this->id);
         $db->reset();
     }
@@ -898,7 +897,7 @@ class GeoCache
     public function getMoveCount()
     {
         if($this->cacheType === self::TYPE_MOVING && $this->moveCount === -1){
-            $db  = DataBaseSingleton::Instance();
+            $db  = OcDb::instance();
             $sql = 'SELECT COUNT(*) FROM `cache_logs` WHERE type=4 AND cache_logs.deleted="0" AND cache_id=:1';
             $this->moveCount = $db->multiVariableQueryValue($sql, 0, $this->id);
         }

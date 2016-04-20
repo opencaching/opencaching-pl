@@ -41,7 +41,7 @@ class LogEnteryController
                 EmailController::sendRemoveLogNotification($log, $request, $loggedUser);
             }
             $updateQuery = "UPDATE `cache_logs` SET deleted = 1, `del_by_user_id` = :1 , `last_modified`=NOW(), `last_deleted`=NOW() WHERE `cache_logs`.`id`=:2 LIMIT 1";
-            $db = \lib\Database\DataBaseSingleton::Instance();
+            $db = OcDb::instance();
             $db->multiVariableQuery($updateQuery, $loggedUser->getUserId(), $log->getId());
             $log->getUser()->recalculateAndUpdateStats();
 
@@ -112,7 +112,7 @@ class LogEnteryController
 
     private function cacheScoreHandlingAfterRemoveLog(GeoCacheLog $log)
     {
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = OcDb::instance();
 
         // remove cache from users top caches, because the found log was deleted for some reason
         $query = "DELETE FROM `cache_rating` WHERE `user_id` = :1 AND `cache_id` = :2 ";
@@ -171,7 +171,7 @@ class LogEnteryController
         }
     }
 
-    private function updateGeocacheAfterLogRemove(GeoCacheLog $log, \dataBase $db)
+    private function updateGeocacheAfterLogRemove(GeoCacheLog $log, OcDb $db)
     {
         $geoCache = $log->getGeoCache();
         if ($log->getType() == GeoCacheLog::LOGTYPE_FOUNDIT || $log->getType() == GeoCacheLog::LOGTYPE_ATTENDED) {

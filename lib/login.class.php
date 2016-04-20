@@ -21,7 +21,6 @@ class login
     var $sessionid = '';
     var $verified = false;
     var $admin = false;
-    /*@var $db dataBase */
     var $db;
 
     function __construct()

@@ -1,4 +1,5 @@
 <?php
+use Utils\Database\OcDb;
 $rootpath = __DIR__.'/../';
 require_once __DIR__.'/../lib/common.inc.php';
 
@@ -10,7 +11,7 @@ foreach ($ptOwners as $owner) {
 }
 $nextSearchStart = $_REQUEST['start'] + $_REQUEST['limit'];
 
-$db = \lib\Database\DataBaseSingleton::Instance();
+$db = OcDb::instance();
 $q = 'SELECT count(*) AS `count` FROM  `PowerTrail_comments`
     WHERE  `PowerTrailId` =:1 AND `deleted` = 0 ';
 $s = $db->multiVariableQuery($q, $_REQUEST['projectId']);
