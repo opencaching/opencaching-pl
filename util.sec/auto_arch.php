@@ -49,9 +49,10 @@ class AutoArch
         $chachesToProcess = $db->dbResultFetchAll();
         foreach ($chachesToProcess as $rs) {
 
-            $db->multiVariableQuery(
+            $s = $db->multiVariableQuery(
                 "SELECT step FROM cache_arch WHERE cache_id = :1 LIMIT 1", (int) $rs['cache_id']);
-            $step_array = $db->dbResultFetchOneRowOnly();
+            $step_array = $db->dbResultFetchOneRowOnly($s);
+
             if ($step_array) {
                 $step = (int) $step_array['step'];
             } else {

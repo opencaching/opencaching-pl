@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\OcDb;
 define('LOGIN_OK', 0);            // login succeeded
 define('LOGIN_BADUSERPW', 1);     // bad username or password
 define('LOGIN_TOOMUCHLOGINS', 2); // too many logins in short time
@@ -25,7 +26,7 @@ class login
 
     function __construct()
     {
-        $this->db = lib\Database\DataBaseSingleton::Instance();
+        $this->db = OcDb::instance();
 
         global $cookie;
 
@@ -91,8 +92,9 @@ class login
         $min_lastlogin_permanent = date('Y-m-d H:i:s', time() - LOGIN_TIME_PERMANENT);
 
         $query = "SELECT `sys_sessions`.`last_login`, `user`.`admin` FROM `sys_sessions`, `user` WHERE `sys_sessions`.`user_id`=`user`.`user_id` AND `user`.`is_active_flag`=1 AND `sys_sessions`.`uuid`=:1 AND `sys_sessions`.`user_id`=:2 AND ((`sys_sessions`.`permanent`=1 AND `sys_sessions`.`last_login`>:3) OR (`sys_sessions`.`permanent`=0 AND `sys_sessions`.`last_login`>:4))";
-        $this->db->multiVariableQuery($query, $this->sessionid, $this->userid, $min_lastlogin_permanent, $min_lastlogin);
-        if ($rUser = $this->db->dbResultFetchOneRowOnly()) {
+        $s = $this->db->multiVariableQuery($query, $this->sessionid, $this->userid, $min_lastlogin_permanent, $min_lastlogin);
+
+        if ($rUser = $this->db->dbResultFetchOneRowOnly($s)) {
             if ((($this->permanent == true) && (strtotime($rUser['last_login']) + LOGIN_TIME / 2 < time())) ||
                     (($this->permanent == false) && (strtotime($rUser['last_login']) + LOGIN_TIME_PERMANENT / 2 < time()))) {
                 $updateQuery = "UPDATE `sys_sessions` SET `sys_sessions`.`last_login`=NOW() WHERE `sys_sessions`.`uuid`=:1 AND `sys_sessions`.`user_id`=:2 ";
@@ -154,8 +156,8 @@ class login
             ORDER BY `prio` ASC
             LIMIT 1
         ";
-        $this->db->multiVariableQuery($userQuery, mb_strtolower($user));
-        $rUser = $this->db->dbResultFetchOneRowOnly();
+        $s = $this->db->multiVariableQuery($userQuery, mb_strtolower($user));
+        $rUser = $this->db->dbResultFetchOneRowOnly($s);
         if ($rUser) {
             /* User exists. Is the password correct? */
 

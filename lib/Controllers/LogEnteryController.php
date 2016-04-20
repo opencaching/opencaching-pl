@@ -4,6 +4,7 @@ namespace lib\Controllers;
 
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\OcConfig\OcConfig;
+use Utils\Database\OcDb;
 
 class LogEnteryController
 {
@@ -73,10 +74,10 @@ class LogEnteryController
      */
     private function buildLog($logId)
     {
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $logQuery = "SELECT * FROM `cache_logs` WHERE `cache_logs`.`id` = :1 LIMIT 1";
-        $db->multiVariableQuery($logQuery, $logId);
-        $logRow = $db->dbResultFetchOneRowOnly();
+        $s = $db->multiVariableQuery($logQuery, $logId);
+        $logRow = $db->dbResultFetchOneRowOnly($s);
 
         $geoCacheLog = false;
         if ($logRow) {
@@ -146,19 +147,19 @@ class LogEnteryController
 
     private function handleMobileGeocachesAfterLogDelete(GeoCacheLog $log)
     {
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $checkcmlQuery = "SELECT `latitude`,`longitude`,`id` FROM `cache_moved` WHERE `log_id`= :1";
-        $db->multiVariableQuery($checkcmlQuery, $log->getId);
-        if ($db->rowCount() != 0) {
-            $xy_log = $db->dbResultFetchOneRowOnly();
+        $s = $db->multiVariableQuery($checkcmlQuery, $log->getId);
+        if ($db->rowCount($s) != 0) {
+            $xy_log = $db->dbResultFetchOneRowOnly($s);
             $geoCache = $log->getGeoCache();
             if ($geoCache->getLatitude() == $xy_log['latitude'] && $geoCache->getLongitude() == $xy_log['longitude']) {
                 $delQuery = "DELETE FROM `cache_moved` WHERE `log_id`=:1 LIMIT 1";
                 $db->multiVariableQuery($delQuery, $log->getId());
 
                 $getxyQuery = "SELECT `latitude`,`longitude` FROM `cache_moved` WHERE `cache_id`=:1 ORDER BY `date` DESC LIMIT 1";
-                $db->multiVariableQuery($getxyQuery, $geoCache->getCacheId());
-                $old_xy = $db->dbResultFetchOneRowOnly();
+                $s = $db->multiVariableQuery($getxyQuery, $geoCache->getCacheId());
+                $old_xy = $db->dbResultFetchOneRowOnly($s);
                 if (($old_xy['longitude'] != '') && ($old_xy['latitude'] != '')) {
                     $updateQuery = "UPDATE `caches` SET `last_modified`=NOW(), `longitude`=:1', `latitude`=:2 WHERE `cache_id`=:3";
                     $db->multiVariableQuery($updateQuery, $old_xy['longitude'], $old_xy['latitude'], $geoCache->getCacheId());
@@ -183,8 +184,8 @@ class LogEnteryController
 
         //Update last found
         $lastfoundQuery = "SELECT MAX(`cache_logs`.`date`) AS `date` FROM `cache_logs` WHERE ((cache_logs.`type`=1) AND (cache_logs.`cache_id`= :1 ))";
-        $db->multiVariableQuery($lastfoundQuery, $geoCache->getCacheId());
-        $lastfoundRecord = $db->dbResultFetchOneRowOnly();
+        $s = $db->multiVariableQuery($lastfoundQuery, $geoCache->getCacheId());
+        $lastfoundRecord = $db->dbResultFetchOneRowOnly($s);
         if ($lastfoundRecord['date'] === NULL) {
             $lastFound = null;
         } else {

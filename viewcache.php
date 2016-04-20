@@ -808,11 +808,11 @@ if ($error == false) {
         // Personal cache notes
         //user logged in?
         if ($usr == true) {
-            $dbc->multiVariableQuery("SELECT `cache_notes`.`note_id` `note_id`,`cache_notes`.`date` `date`, `cache_notes`.`desc` `desc`, `cache_notes`.`desc_html` `desc_html` FROM `cache_notes` WHERE `cache_notes` .`user_id`=:1 AND `cache_notes`.`cache_id`=:2", $usr['userid'], $cache_id);
-            $cacheNotesRowCount = $dbc->rowCount();
+            $s = $dbc->multiVariableQuery("SELECT `cache_notes`.`note_id` `note_id`,`cache_notes`.`date` `date`, `cache_notes`.`desc` `desc`, `cache_notes`.`desc_html` `desc_html` FROM `cache_notes` WHERE `cache_notes` .`user_id`=:1 AND `cache_notes`.`cache_id`=:2", $usr['userid'], $cache_id);
+            $cacheNotesRowCount = $dbc->rowCount($s);
 
             if ($cacheNotesRowCount > 0) {
-                $notes_record = $dbc->dbResultFetchOneRowOnly();
+                $notes_record = $dbc->dbResultFetchOneRowOnly($s);
                 $dbc->reset();
             }
 
@@ -951,11 +951,15 @@ if ($error == false) {
         tpl_set_var('new_log_entry_link', mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $new_log_entry_link));
 
         // number of visits
-        $dbc->multiVariableQuery("SELECT `count` FROM `cache_visits` WHERE `cache_id`=:1 AND `user_id_ip`='0'", $cache_id);
-        if ($dbc->rowCount() == 0){
+        $s = $dbc->multiVariableQuery(
+            "SELECT `count` FROM `cache_visits`
+            WHERE `cache_id`=:1 AND `user_id_ip`='0'",
+            $cache_id);
+
+        if ($dbc->rowCount($s) == 0){
             tpl_set_var('visits', '0');
         } else {
-            $watcher_record = $dbc->dbResultFetchOneRowOnly();
+            $watcher_record = $dbc->dbResultFetchOneRowOnly($s);
             tpl_set_var('visits', $watcher_record['count']);
         }
         $HideDeleted = true;
@@ -1056,18 +1060,18 @@ if ($error == false) {
 
         // ===== opensprawdzacz ========================================================
 
-        $dbc->multiVariableQuery("SELECT `waypoints`.`wp_id` ,
-                                    `opensprawdzacz`.`proby`,
-                                    `opensprawdzacz`.`sukcesy`
-                             FROM   `waypoints`,  `opensprawdzacz`
-                             WHERE  `waypoints`.`cache_id` = :1
-                             AND    `waypoints`.`type` = 3
-                             AND    `waypoints`.`opensprawdzacz` = 1
-                             AND    `waypoints`.`cache_id` = `opensprawdzacz`.cache_id
-                             ", $geocache->getCacheId()
+        $s = $dbc->multiVariableQuery(
+            "SELECT `waypoints`.`wp_id`, `opensprawdzacz`.`proby`,
+                    `opensprawdzacz`.`sukcesy`
+            FROM   `waypoints`,  `opensprawdzacz`
+            WHERE  `waypoints`.`cache_id` = :1
+                AND    `waypoints`.`type` = 3
+                AND    `waypoints`.`opensprawdzacz` = 1
+                AND    `waypoints`.`cache_id` = `opensprawdzacz`.cache_id",
+            $geocache->getCacheId()
         );
-        if ($dbc->rowCount() != 0) {
-            $dane_opensprawdzacza = $dbc->dbResultFetchOneRowOnly();
+        if ($dbc->rowCount($s) != 0) {
+            $dane_opensprawdzacza = $dbc->dbResultFetchOneRowOnly($s);
             tpl_set_var('proby', $dane_opensprawdzacza['proby']);
             tpl_set_var('sukcesy', $dane_opensprawdzacza['sukcesy']);
             tpl_set_var('opensprawdzacz', 'opensprawdzacz');

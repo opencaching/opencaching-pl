@@ -4,6 +4,7 @@ namespace lib\Objects\Medals;
 
 use \lib\Objects\User\User;
 use \lib\Database\DataBaseSingleton;
+use Utils\Database\OcDb;
 
 /**
  * Description of medalGeographical
@@ -77,7 +78,7 @@ class MedalGeographical extends Medal implements MedalInterface
 
         }
 
-        $db = DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $query = "SELECT count(id) as cacheCount FROM cache_logs, caches, cache_location "
                 . "WHERE cache_location.code3 = :1 "
                 . $this->buildLocationCode4QueryString(5)
@@ -89,11 +90,11 @@ class MedalGeographical extends Medal implements MedalInterface
                 . "AND caches.type IN (" . $this->buildCacheTypesSqlString() . ")";
         $code4 = isset($this->conditions['cacheLocation']['code4']) ? $this->conditions['cacheLocation']['code4'] : false;
         if ($code4) {
-            $db->multiVariableQuery($query, $this->conditions['cacheLocation']['code3'], $user->getUserId(), \lib\Objects\GeoCache\GeoCacheLog::LOGTYPE_FOUNDIT, $this->dateIntroduced, $code4);
+            $s = $db->multiVariableQuery($query, $this->conditions['cacheLocation']['code3'], $user->getUserId(), \lib\Objects\GeoCache\GeoCacheLog::LOGTYPE_FOUNDIT, $this->dateIntroduced, $code4);
         } else {
-            $db->multiVariableQuery($query, $this->conditions['cacheLocation']['code3'], $user->getUserId(), \lib\Objects\GeoCache\GeoCacheLog::LOGTYPE_FOUNDIT, $this->dateIntroduced);
+            $s = $db->multiVariableQuery($query, $this->conditions['cacheLocation']['code3'], $user->getUserId(), \lib\Objects\GeoCache\GeoCacheLog::LOGTYPE_FOUNDIT, $this->dateIntroduced);
         }
-        $dbResult = $db->dbResultFetchOneRowOnly();
+        $dbResult = $db->dbResultFetchOneRowOnly($s);
         return $dbResult['cacheCount'];
     }
 
@@ -104,14 +105,14 @@ class MedalGeographical extends Medal implements MedalInterface
                 . 'AND `caches`.`status` = :2 AND `caches`.`date_created` > :3 AND cache_location.code3 = :4 '
                 . 'AND `caches`.`type` IN (' . $this->buildCacheTypesSqlString() . ') '
                 . 'AND cache_location.cache_id = caches.cache_id ';
-        $db = DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $code4 = isset($this->conditions['cacheLocation']['code4']) ? $this->conditions['cacheLocation']['code4'] : false;
         if ($code4) {
-            $db->multiVariableQuery($query, $user->getUserId(), \cache::STATUS_READY, $this->dateIntroduced, $this->conditions['cacheLocation']['code3'], $code4);
+            $s = $db->multiVariableQuery($query, $user->getUserId(), \cache::STATUS_READY, $this->dateIntroduced, $this->conditions['cacheLocation']['code3'], $code4);
         } else {
-            $db->multiVariableQuery($query, $user->getUserId(), \cache::STATUS_READY, $this->dateIntroduced, $this->conditions['cacheLocation']['code3']);
+            $s = $db->multiVariableQuery($query, $user->getUserId(), \cache::STATUS_READY, $this->dateIntroduced, $this->conditions['cacheLocation']['code3']);
         }
-        $dbResult = $db->dbResultFetchOneRowOnly();
+        $dbResult = $db->dbResultFetchOneRowOnly($s);
         return $dbResult['cacheCount'];
     }
 

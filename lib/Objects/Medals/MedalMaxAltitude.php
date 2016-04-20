@@ -4,6 +4,7 @@ namespace lib\Objects\Medals;
 
 use \lib\Database\DataBaseSingleton;
 use \lib\Objects\User\User;
+use Utils\Database\OcDb;
 
 /**
  * medal to be awarded when use complete specified geopath
@@ -21,20 +22,22 @@ class MedalMaxAltitude extends Medal implements MedalInterface
             return;
         }
 
-        /* @var $db \dataBase */
-        $db = DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $queryFound = 'SELECT MAX(`altitude`) as maxAltitude FROM `caches`, `caches_additions`, cache_logs
             WHERE caches.`cache_id` = caches_additions.`cache_id` AND cache_logs.cache_id = caches.`cache_id`
             AND cache_logs.type = 1 AND cache_logs.user_id = :1 AND caches.type IN(:2)';
         $cacheTypes = $this->buildCacheTypesSqlString();
-        $db->multiVariableQuery($queryFound, $user->getUserId(), $cacheTypes);
-        $foundMaxAltitudeRaw = $db->dbResultFetchOneRowOnly();
+
+        $s = $db->multiVariableQuery($queryFound, $user->getUserId(), $cacheTypes);
+        $foundMaxAltitudeRaw = $db->dbResultFetchOneRowOnly($s);
+
         $foundMaxAltitude = (int) $foundMaxAltitudeRaw['maxAltitude'];
         $queryPlaced = 'SELECT MAX(`altitude`) as maxAltitude FROM `caches`, `caches_additions`
             WHERE caches.`cache_id` = caches_additions.`cache_id`
             AND cache.user_id = :1 AND caches.type IN(:2) AND cache.status = :3';
-        $db->multiVariableQuery($queryPlaced, $user->getUserId(), $cacheTypes, \cache::STATUS_READY);
-        $placedMaxAltitudeRaw = $db->dbResultFetchOneRowOnly();
+        $s = $db->multiVariableQuery($queryPlaced, $user->getUserId(), $cacheTypes, \cache::STATUS_READY);
+        $placedMaxAltitudeRaw = $db->dbResultFetchOneRowOnly($s);
+
         $placedMaxAltitude = (int) $placedMaxAltitudeRaw['maxAltitude'];
         $this->findLevel($foundMaxAltitude, $placedMaxAltitude);
         $this->storeMedalStatus($user);

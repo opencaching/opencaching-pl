@@ -31,8 +31,10 @@ if ($error == false) {
             $db->reset();
         }
         $q = "SELECT description, get_bulletin FROM user WHERE user_id = :1 LIMIT 1";
-        $db->multiVariableQuery($q, (int) $usr['userid']);
-        $userinfo = $db->dbResultFetchOneRowOnly();
+
+        $s = $db->multiVariableQuery($q, (int) $usr['userid']);
+        $userinfo = $db->dbResultFetchOneRowOnly($s);
+
         $description = $userinfo['description'];
         $bulletin = $userinfo['get_bulletin'];
         tpl_set_var('bulletin_label', $bulletin == 1 ? (tr('bulletin_label_yes')) : (tr('bulletin_label_no')));
@@ -55,9 +57,12 @@ if ($error == false) {
             tpl_set_var('guide_start', '<!--');
             tpl_set_var('guide_end', '-->');
         }
-        $q = "SELECT `guru`,`username`, `email`, `country`, `latitude`, `longitude`, `date_created`, `permanent_login_flag`, `power_trail_email`, `notify_radius`, `ozi_filips` FROM `user` WHERE `user_id`=:1 ";
-        $db->multiVariableQuery($q, $usr['userid']);
-        $record = $db->dbResultFetchOneRowOnly();
+
+        $s = $db->multiVariableQuery(
+            "SELECT `guru`,`username`, `email`, `country`, `latitude`, `longitude`, `date_created`, `permanent_login_flag`, `power_trail_email`, `notify_radius`, `ozi_filips` FROM `user` WHERE `user_id`=:1 ",
+            $usr['userid']);
+        $record = $db->dbResultFetchOneRowOnly($s);
+
         if ($record['guru'] == 1) {
             tpl_set_var('guides_start', '');
             tpl_set_var('guides_end', '');
@@ -78,13 +83,14 @@ if ($error == false) {
 
         /* GeoKretyApi - display if secid from geokrety is set; (by Łza) */
         $GKAPIKeyQuery = "SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` =:1";
-        $db->multiVariableQuery($GKAPIKeyQuery, $usr['userid']);
-        if ($db->rowCount() > 0) {
+        $s = $db->multiVariableQuery($GKAPIKeyQuery, $usr['userid']);
+        if ($db->rowCount($s) > 0) {
             tpl_set_var('GeoKretyApiIntegration', tr('yes'));
         } else {
             tpl_set_var('GeoKretyApiIntegration', tr('no'));
         }
-        $GKAPIKeyrecord = $db->dbResultFetchOneRowOnly();
+        $GKAPIKeyrecord = $db->dbResultFetchOneRowOnly($s);
+
         tpl_set_var('GeoKretyApiSecid', $GKAPIKeyrecord['secid']);
         if ($record['notify_radius'] + 0 > 0) {
             tpl_set_var('notify', mb_ereg_replace('{radius}', $record['notify_radius'] + 0, $notify_radius_message));

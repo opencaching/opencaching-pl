@@ -3,6 +3,7 @@
 namespace lib\Objects\Medals;
 
 use \lib\Objects\User\User;
+use Utils\Database\OcDb;
 
 /**
  * Medal type HighlandCaches,
@@ -27,10 +28,11 @@ class MedalOldGeocacher extends Medal implements MedalInterface
 
     private function getGeocacherDays(User $user)
     {
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = OcDb::instance();
+
         $query = 'SELECT period_diff(date_format(now(), "%Y%m"), date_format( `date_created`, "%Y%m")) as months FROM `user` WHERE user_id = :1 LIMIT 1';
-        $db->multiVariableQuery($query, $user->getUserId());
-        $dbResult = $db->dbResultFetchOneRowOnly();
+        $s = $db->multiVariableQuery($query, $user->getUserId());
+        $dbResult = $db->dbResultFetchOneRowOnly($s);
         return $dbResult['months'];
     }
 }

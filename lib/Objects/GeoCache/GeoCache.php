@@ -6,6 +6,7 @@ use \lib\Objects\PowerTrail\PowerTrail;
 use \lib\Objects\OcConfig\OcConfig;
 use \lib\Database\DataBaseSingleton;
 use Utils\Database\XDb;
+use Utils\Database\OcDb;
 //use \lib\Objects\GeoCache\CacheTitled;
 /**
  * Description of geoCache
@@ -912,10 +913,10 @@ class GeoCache
     public function getDistance()
     {
         if($this->distance === -1){
-            $db  = DataBaseSingleton::Instance();
+            $db  = OcDb::instance();
             $sql = 'SELECT sum(km) AS dystans FROM cache_moved WHERE cache_id=:1';
-            $db->multiVariableQuery($sql, $this->id);
-            $dst = $db->dbResultFetchOneRowOnly();
+            $s = $db->multiVariableQuery($sql, $this->id);
+            $dst = $db->dbResultFetchOneRowOnly($s);
             $this->distance = round($dst['dystans'], 2);
         }
         return $this->distance;
