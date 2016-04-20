@@ -15,7 +15,7 @@ class EmailController
      */
     public static function sendRemoveLogNotification(GeoCacheLog $log, $request, $loggedUser)
     {
-        $emailContent = read_file(__DIR__ . '/../../tpl/stdstyle/email/removed_log.email.html');
+        $emailContent = file_get_contents(__DIR__ . '/../../tpl/stdstyle/email/removed_log.email.html');
         $message = isset($request['logowner_message']) ? $request['logowner_message'] : '';
         if ($message != '') { //message to logowner
             $message = tr('removed_message_title') . ":\n---" . "\n" . $message . "\n" . "---";
@@ -51,7 +51,7 @@ class EmailController
      */
     public static function sendActivationLink($username, $email, $country_name, $code, $uid)
     {
-        $emailContent = read_file(__DIR__ . '/../../tpl/stdstyle/email/user_activation.email.html');
+        $emailContent = file_get_contents(__DIR__ . '/../../tpl/stdstyle/email/user_activation.email.html');
         $emailContent = mb_ereg_replace('{server}', \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getAbsolute_server_URI(), $emailContent);
         $emailContent = mb_ereg_replace('{registermail01}', tr('registermail01'), $emailContent);
         $emailContent = mb_ereg_replace('{registermail02}', tr('registermail02'), $emailContent);
@@ -89,7 +89,7 @@ class EmailController
      */
     public static function sendPostActivationMail($username, $email)
     {
-        $emailContent = read_file(__DIR__ . '/../../tpl/stdstyle/email/post_activation.email.html');
+        $emailContent = file_get_contents(__DIR__ . '/../../tpl/stdstyle/email/post_activation.email.html');
         $emailContent = mb_ereg_replace('{server}', \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getAbsolute_server_URI(), $emailContent);
         $emailContent = mb_ereg_replace('{registermail01}', tr('registermail01'), $emailContent);
         $emailContent = mb_ereg_replace('{registermail02}', tr('registermail02'), $emailContent);
@@ -133,5 +133,4 @@ class EmailController
 
         mb_send_mail($email, $subject, $emailContent, $emailHeaders);
     }
-
 }

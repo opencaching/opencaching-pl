@@ -302,10 +302,7 @@ final class OcConfig
     {
         return $this->needFindLimit;
     }
-
-    /**
-     * @return mixed
-     */
+    
     public function getNeedAproveLimit()
     {
         return $this->needAproveLimit;
