@@ -4,6 +4,7 @@ namespace lib\Controllers;
 
 use lib\Database\DataBaseSingleton;
 use lib\Objects\PowerTrail\PowerTrail;
+use lib\Objects\PowerTrail\Log;
 
 class PowerTrailController
 {
@@ -23,6 +24,35 @@ class PowerTrailController
             $date['dateFrom'] = strtotime($date['dateFrom']);
             $date['dateTo'] = strtotime($date['dateTo']);
         }
+    }
+
+    public static function getEntryTypes(){
+        return array (
+            Log::TYPE_COMMENT => array ( //comment
+                'translate' => 'pt056',
+                'color' => '#000000',
+            ),
+            Log::TYPE_CONQUESTED => array ( // conquested
+                'translate' => 'pt057',
+                'color' => '#00CC00',
+            ),
+            Log::TYPE_OPENING => array ( // geoPath Publishing
+                'translate' => 'pt214',
+                'color' => '#0000CC',
+            ),
+            Log::TYPE_DISABLING => array ( // geoPath temp. closed
+                'translate' => 'pt216',
+                'color' => '#CC0000',
+            ),
+            Log::TYPE_CLOSING => array ( // geoPath Closure (permanent)
+                'translate' => 'pt213',
+                'color' => '#CC0000',
+            ),
+            Log::TYPE_ADD_WARNING => array ( // oc team comment (permanent)
+                'translate' => 'pt237',
+                'color' => '#CC0000',
+            ),
+        );
     }
 
     /**

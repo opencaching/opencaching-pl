@@ -22,7 +22,9 @@ class Log
     /* @var $powerTrail \lib\Objects\PowerTrail\PowerTrail */
     private $powerTrail;
 
-    /* @var $user \lib\Objects\User\User */
+    /**
+     * @var \lib\Objects\User\User
+     */
     private $user;
 
     /*@var $dateTime \DateTime */
@@ -117,7 +119,9 @@ class Log
         if($this->id){
             ddd('TODO');
         } else {
-            d($this);
+            if($this->type === self::TYPE_ADD_WARNING && $this->user->getIsAdmin() === false){
+                return false; /* regular user is not allowed to add entery of this type */
+            }
             $query = 'INSERT INTO `PowerTrail_comments`(`userId`, `PowerTrailId`, `commentType`, `commentText`, `logDateTime`, `dbInsertDateTime`, `deleted`) VALUES (:1, :2, :3, :4, :5, NOW(),0)';
             $db->multiVariableQuery($query, $this->user->getUserId(), $this->powerTrail->getId(), $this->type, $this->text, $this->dateTime->format('Y-m-d H:i:s'));
             if($this->type == self::TYPE_CONQUESTED){
@@ -125,6 +129,7 @@ class Log
             }
         }
         $this->changePowerTrailStatusAfterLog();
+        return true;
     }
 
     private function changePowerTrailStatusAfterLog()

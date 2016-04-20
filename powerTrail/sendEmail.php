@@ -8,7 +8,7 @@ class sendEmail
         $siteDateTimeFormat = 'Y-m-d H:i';
 
         $owners = powerTrailBase::getPtOwners($ptId);
-        $commentTypes = powerTrailBase::getPowerTrailComments();
+        $commentTypes = lib\Controllers\PowerTrailController::getEntryTypes();
         $ptDbRow = powerTrailBase::getPtDbRow($ptId);
 
         //remove images

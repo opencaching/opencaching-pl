@@ -15,7 +15,7 @@ class User extends \lib\Objects\BaseObject
 {
 
     private $userId;
-    private $isAdmin;
+    private $isAdmin = false;
     private $isGuide;
     private $userName;
 
@@ -330,6 +330,9 @@ class User extends \lib\Objects\BaseObject
         return $this->homeCoordinates;
     }
 
+    /**
+     * @return boolean
+     */
     public function getIsAdmin()
     {
         return $this->isAdmin;
