@@ -44,6 +44,10 @@ final class OcConfig
     private $dateFormat;
     private $noreplyEmailAddress;
     private $mapsConfig;            //settings.inc: $config['mapsConfig']
+    private $headerLogo;
+    private $shortSiteName;
+    private $needFindLimit;
+    private $needAproveLimit;
 
     // db config
     private $dbUser;
@@ -96,6 +100,10 @@ final class OcConfig
         $this->wikiLinks = $wikiLinks;
         $this->dateFormat = $dateFormat;
         $this->noreplyEmailAddress = $emailaddr;
+        $this->headerLogo = $config['headerLogo'];
+        $this->shortSiteName = $short_sitename;
+        $this->needAproveLimit = $NEED_APPROVE_LIMIT;
+        $this->needFindLimit = $NEED_FIND_LIMIT;
 
         if( isset($config['mapsConfig']) && is_array( $config['mapsConfig'] ) ){
             $this->mapsConfig = $config['mapsConfig'];
@@ -278,5 +286,28 @@ final class OcConfig
         global $mail_rt;
 
         return $mail_rt;
+    }
+
+    public function getHeaderLogo()
+    {
+        return $this->headerLogo;
+    }
+
+    public function getShortSiteName()
+    {
+        return $this->shortSiteName;
+    }
+
+    public function getNeedFindLimit()
+    {
+        return $this->needFindLimit;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNeedAproveLimit()
+    {
+        return $this->needAproveLimit;
     }
 }

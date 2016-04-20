@@ -8,7 +8,6 @@ $translations = array(
     'Edit' => 'Bearbeiten',
     'back' => 'zurück',
     'cache_menu' => 'Cache Menu',
-    'activation_code_failed' => 'Der Aktivierungscode oder die E-Mail-Adresse ist nicht korrekt.<br />Die Aktivierung deines Account war nicht erfolgreich.<br />Verwende bitte die E-Mail-Adresse aus der Registrierungsbestätigung, die du per E-Mail bekommen hast.<br />Überprüfe bitte, ob du Dich vertippt hast - sollten die Probleme längere Zeit bestehen, melde sich bitte unter ocpl (at) {site_name}.',
     'email_incorrect' => 'E-Mail-Adresse ist nicht korrekt.',
     'account_activation' => 'Account-Aktivierung',
     'finish_registration_hint' => 'Um die Registrierung abzuschließen, müssen Sie Ihre E-Mail-Adresse und geben Sie den Aktivierungs-Code',
