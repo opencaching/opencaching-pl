@@ -257,17 +257,22 @@ if ($error == false) {
 
             /* GeoKretApi selector for logging Geokrets using GeoKretyApi */
             $dbConWpt = OcDb::instance();
-            $dbConWpt->paramQuery("SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` =:user_id LIMIT 1", array('user_id' => array('value' => $usr['userid'], 'data_type' => 'integer')));
+            $s = $dbConWpt->paramQuery(
+                "SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` =:user_id LIMIT 1",
+                array('user_id' => array('value' => $usr['userid'], 'data_type' => 'integer')));
 
-            if ($dbConWpt->rowCount() > 0) {
+            if ( $databaseResponse = $dbConWpt->dbResultFetchOneRowOnly($s) ) {
 
                 tpl_set_var('GeoKretyApiNotConfigured', 'none');
                 tpl_set_var('GeoKretyApiConfigured', 'block');
-                $databaseResponse = $dbConWpt->dbResultFetch();
+
                 $secid = $databaseResponse['secid'];
 
-                $dbConWpt->paramQuery("SELECT `wp_oc` FROM `caches` WHERE `cache_id` = :cache_id", array('cache_id' => array('value' => $cache_id, 'data_type' => 'integer')));
-                $cwpt = $dbConWpt->dbResultFetch();
+                $rs = $dbConWpt->paramQuery(
+                    "SELECT `wp_oc` FROM `caches` WHERE `cache_id` = :cache_id LIMIT 1",
+                    array('cache_id' => array('value' => $cache_id, 'data_type' => 'integer')));
+
+                $cwpt = $dbConWpt->dbResultFetchOneRowOnly($rs);
                 $cache_waypt = $cwpt['wp_oc'];
 
                 $GeoKretSelector = new GeoKretyApi($secid, $cache_waypt);
@@ -735,12 +740,12 @@ if ($error == false) {
                 $res2 = XDb::xFetchArray($rs);
 
                 $db = OcDb::instance();
-                $db->multiVariableQuery(
+                $s = $db->multiVariableQuery(
                     "SELECT count(*) as eventAttended FROM `cache_logs`
                     WHERE `deleted`=0 AND user_id=:1 AND cache_id=:2 AND type = '7'",
                     $usr['userid'], $cache_id);
 
-                $eventAttended = $db->dbResultFetch();
+                $eventAttended = $db->dbResultFetchOneRowOnly($s);
 
                 /*                 * **************
                  * build logtypeoptions

@@ -1,3 +1,6 @@
+<?php
+use Utils\Database\OcDb;
+?>
 <html>
     <head>
     </head>
@@ -107,18 +110,17 @@
 
 /////////////////
 
-        $dbc = new dataBase();
+        $dbc = OcDb::instance();
 
         $query = "SELECT user_id, username FROM user cl where " . $sConditionUser;
-        $dbc->multiVariableQuery($query);
+        $s = $dbc->multiVariableQuery($query);
 
         $aUserName = array();
 
-        while ($record = $dbc->dbResultFetch()) {
+        while ($record = $dbc->dbResultFetch($s)) {
             $sID = $record['user_id'];
             $aUserName[$sID] = $record['username'];
         }
-        unset($dbc);
 
 ////////////////////
 
@@ -161,8 +163,7 @@
                 "GROUP BY year, month, day, user_id
         order by year, month, day   ";
 
-        $dbc->multiVariableQuery($query);
-
+        $s = $dbc->multiVariableQuery($query);
 
         $nCount = array();
 
@@ -170,12 +171,9 @@
             $anCount[$sID] = 0;
         }
 
-
         echo "<script type='text/javascript'>";
 
-
-
-        while ($record = $dbc->dbResultFetch()) {
+        while ($record = $dbc->dbResultFetch($s)) {
             $nYear = $record['year'];
             $nMonth = $record['month'] - 1;
             $nDay = $record['day'];

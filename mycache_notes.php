@@ -144,9 +144,9 @@ if ($error == false) {
                                         ))
                             GROUP BY `cacheid`
                             ORDER BY `cache_name`, log_date DESC";
-            $db->multiVariableQuery($query, $userid);
+            $s = $db->multiVariableQuery($query, $userid);
 
-            $count = $db->rowCount();
+            $count = $db->rowCount($s);
             if ($count != 0) {
                 $notes = "";
                 $bgcolor1 = '#ffffff';
@@ -155,7 +155,7 @@ if ($error == false) {
                 for ($i = 0; $i < $count; $i++) {
                     $bgcolor = ( $i % 2 ) ? $bgcolor1 : $bgcolor2;
 
-                    $notes_record = $db->dbResultFetch();
+                    $notes_record = $db->dbResultFetch($s);
                     $cacheicon = myninc::checkCacheStatusByUser($notes_record, $usr['userid']);
 
                     $user_coords = '&nbsp;';

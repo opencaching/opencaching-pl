@@ -88,16 +88,16 @@ if ($usr || !$hide_coords) {
     $dbcSearch->reset();
 
     // echo $query;
-    $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `zipcontent`');
-    $rCount = $dbcSearch->dbResultFetch();
-    $dbcSearch->reset();
+    $s = $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `zipcontent`');
+    $rCount = $dbcSearch->dbResultFetchOneRowOnly($s);
 
     $caches_count = $rCount['count'];
 
     if ($rCount['count'] == 1) {
-        $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc` FROM `zipcontent`, `caches` WHERE `zipcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
-        $rName = $dbcSearch->dbResultFetch();
-        $dbcSearch->reset();
+        $s = $dbcSearch->simpleQuery(
+            'SELECT `caches`.`wp_oc` `wp_oc` FROM `zipcontent`, `caches`
+            WHERE `zipcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
+        $rName = $dbcSearch->dbResultFetchOneRowOnly($s);
 
         $sFilebasename = $rName['wp_oc'];
     } else {
@@ -109,7 +109,8 @@ if ($usr || !$hide_coords) {
             $sFilebasename = $options['gpxPtFileName'];
         } else {
             $rsName = XDb::xSql(
-                'SELECT `queries`.`name` `name` FROM `queries` WHERE `queries`.`id`= ? LIMIT 1', $options['queryid']);
+                'SELECT `queries`.`name` `name` FROM `queries` WHERE `queries`.`id`= ? LIMIT 1',
+                $options['queryid']);
 
             $rName = XDb::xFetchArray($rsName);
             XDb::xFreeResults($rsName);
@@ -158,10 +159,10 @@ if ($usr || !$hide_coords) {
         else
             $ziplimit = '';
         // OKAPI need only waypoints
-        $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc` FROM `zipcontent`, `caches` WHERE `zipcontent`.`cache_id`=`caches`.`cache_id`' . $ziplimit);
+        $s = $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc` FROM `zipcontent`, `caches` WHERE `zipcontent`.`cache_id`=`caches`.`cache_id`' . $ziplimit);
 
         $waypoints_tab = array();
-        while ($r = $dbcSearch->dbResultFetch()) {
+        while ($r = $dbcSearch->dbResultFetch($s)) {
             // TODO: zalogować dostęp do kesza - o ile nie jest to w okapi
             $waypoints_tab[] = $r['wp_oc'];
         }

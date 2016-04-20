@@ -114,14 +114,15 @@ if ($usr || ! $hide_coords) {
     $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `kmlcontent` ' . $query . $queryLimit);
     $dbcSearch->reset();
 
-    $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `kmlcontent`');
-    $rCount = $dbcSearch->dbResultFetch();
-    $dbcSearch->reset();
+    $s = $dbcSearch->simpleQuery(
+        'SELECT COUNT(*) `count` FROM `kmlcontent`');
+    $rCount = $dbcSearch->dbResultFetchOneRowOnly($s);
 
     if ($rCount['count'] == 1) {
-        $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc` FROM `kmlcontent`, `caches` WHERE `kmlcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
-        $rName = $dbcSearch->dbResultFetch();
-        $dbcSearch->reset();
+        $s = $dbcSearch->simpleQuery(
+            'SELECT `caches`.`wp_oc` `wp_oc` FROM `kmlcontent`, `caches`
+            WHERE `kmlcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
+        $rName = $dbcSearch->dbResultFetchOneRowOnly($s);
 
         $sFilebasename = $rName['wp_oc'];
     } else {
@@ -157,9 +158,11 @@ if ($usr || ! $hide_coords) {
 
     include ($stylepath . '/search.result.caches.kml.head.tpl.php');
 
-    $dbcSearch->simpleQuery('SELECT MIN(`longitude`) `minlon`, MAX(`longitude`) `maxlon`, MIN(`latitude`) `minlat`, MAX(`latitude`) `maxlat` FROM `kmlcontent`');
-    $rMinMax = $dbcSearch->dbResultFetch();
-    $dbcSearch->reset();
+    $s = $dbcSearch->simpleQuery(
+        'SELECT
+            MIN(`longitude`) `minlon`, MAX(`longitude`) `maxlon`,
+            MIN(`latitude`) `minlat`, MAX(`latitude`) `maxlat` FROM `kmlcontent`');
+    $rMinMax = $dbcSearch->dbResultFetchOneRowOnly($s);
 
     $kmlDetailHead = str_replace('{minlat}', $rMinMax['minlat'], $kmlDetailHead);
     $kmlDetailHead = str_replace('{minlon}', $rMinMax['minlon'], $kmlDetailHead);
@@ -182,8 +185,8 @@ if ($usr || ! $hide_coords) {
      * icon
      */
 
-    $dbcSearch->simpleQuery('SELECT `kmlcontent`.`cache_id` `cacheid`, `kmlcontent`.`longitude` `longitude`, `kmlcontent`.`latitude` `latitude`, `kmlcontent`.cache_mod_cords_id, `kmlcontent`.`type` `type`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `cache_type`.`' . $lang . '` `typedesc`, `cache_size`.`' . $lang . '` `sizedesc`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username` FROM `kmlcontent`, `caches`, `cache_type`, `cache_size`, `user` WHERE `kmlcontent`.`cache_id`=`caches`.`cache_id` AND `kmlcontent`.`type`=`cache_type`.`id` AND `kmlcontent`.`size`=`cache_size`.`id` AND `kmlcontent`.`user_id`=`user`.`user_id`');
-    while ($r = $dbcSearch->dbResultFetch()) {
+    $s = $dbcSearch->simpleQuery('SELECT `kmlcontent`.`cache_id` `cacheid`, `kmlcontent`.`longitude` `longitude`, `kmlcontent`.`latitude` `latitude`, `kmlcontent`.cache_mod_cords_id, `kmlcontent`.`type` `type`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `cache_type`.`' . $lang . '` `typedesc`, `cache_size`.`' . $lang . '` `sizedesc`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username` FROM `kmlcontent`, `caches`, `cache_type`, `cache_size`, `user` WHERE `kmlcontent`.`cache_id`=`caches`.`cache_id` AND `kmlcontent`.`type`=`cache_type`.`id` AND `kmlcontent`.`size`=`cache_size`.`id` AND `kmlcontent`.`user_id`=`user`.`user_id`');
+    while ($r = $dbcSearch->dbResultFetch($s)) {
         $thisline = $kmlLine;
 
         // icon suchen

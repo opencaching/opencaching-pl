@@ -153,23 +153,17 @@
 
 
 
-        $dbc->multiVariableQuery($query);
+        $s = $dbc->multiVariableQuery($query);
 
 
         $aNrColumn = array();
         $i = 0;
 
-
-
-
         echo "<script type='text/javascript'>";
 
-
-        while ($record = $dbc->dbResultFetch()) {
+        while ($record = $dbc->dbResultFetch($s)) {
 
             $nPeriod = $record['period'];
-
-
 
             $aNrColumn[$nPeriod] = $i;
 
@@ -180,13 +174,10 @@
         }
 
 
-
 ////////////////////
-//echo " var chartOpt = gcb.getChartOption();";
-//echo " chartOpt.vAxis.title= '".tr2('NrCaches',$lang)."';";
+
         echo "</script>";
 
-        unset($dbc);
 ////////////////////////////
 
         foreach ($asUserID as $sID) {
@@ -209,14 +200,13 @@
                     . $sCondition .
                     "GROUP BY period";
 
-            $dbc->multiVariableQuery($query);
+            $s = $dbc->multiVariableQuery($query);
 
 
             echo "<script type='text/javascript'>";
 
-
             $nStart = 1;
-            while ($record = $dbc->dbResultFetch()) {
+            while ($record = $dbc->dbResultFetch($s)) {
                 $nPeriod = $record['period'];
                 $nVal = $record['count'];
 

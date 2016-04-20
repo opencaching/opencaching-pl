@@ -20,8 +20,9 @@ $allCaches = $db->dbResultFetchAll($s);
 $newData = powerTrailBase::recalculateCenterAndPoints($allCaches);
 
 $query = 'SELECT count( `cacheId` ) AS cacheCount FROM `powerTrail_caches` WHERE `PowerTrailId` =:1';
-$db->multiVariableQuery($query, $projectId);
-$cacheCountResult = $db->dbResultFetch();
+$s = $db->multiVariableQuery($query, $projectId);
+$cacheCountResult = $db->dbResultFetchOneRowOnly($s);
+
 $cacheCountResult = $cacheCountResult['cacheCount'];
 $updateQuery = 'UPDATE `PowerTrail` SET `cacheCount`= :1,
     `centerLatitude` = '.$newData['avgLat'].',

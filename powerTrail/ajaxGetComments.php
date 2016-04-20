@@ -11,9 +11,10 @@ foreach ($ptOwners as $owner) {
 $nextSearchStart = $_REQUEST['start'] + $_REQUEST['limit'];
 
 $db = \lib\Database\DataBaseSingleton::Instance();
-$q = 'SELECT count(*) AS `count` FROM  `PowerTrail_comments` WHERE  `PowerTrailId` =:1 AND `deleted` = 0 ';
-$db->multiVariableQuery($q, $_REQUEST['projectId']);
-$count = $db->dbResultFetch();
+$q = 'SELECT count(*) AS `count` FROM  `PowerTrail_comments`
+    WHERE  `PowerTrailId` =:1 AND `deleted` = 0 ';
+$s = $db->multiVariableQuery($q, $_REQUEST['projectId']);
+$count = $db->dbResultFetchOneRowOnly($s);
 $count = $count['count'];
 
 $query = 'SELECT * FROM  `PowerTrail_comments`, `user` WHERE  `PowerTrailId` =:variable1 AND `deleted` = 0 AND `PowerTrail_comments`.`userId` = `user`.`user_id` ORDER BY  `logDateTime` DESC LIMIT :variable2 , :variable3   '  ;

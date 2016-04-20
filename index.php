@@ -81,7 +81,7 @@ else
 
 $usrid = -1;
 $TitledCaches="";
-$dbc= OcDb::instance();
+$dbc = OcDb::instance();
 
 if ( $usr != false )
     $usrid = $usr['userid'];
@@ -99,7 +99,7 @@ $query = "SELECT caches.cache_id, caches.name cacheName, adm1 cacheCountry, adm3
         ORDER BY date_alg DESC
         LIMIT 1";
 
-$dbc->multiVariableQuery($query, $lang);
+$s = $dbc->multiVariableQuery($query, $lang);
 
 $pattern = "<br><span style='font-size:13px'><img src='{cacheIcon}' class='icon16' alt='Cache' title='Cache' />
         <a href='viewcache.php?cacheid={cacheId}'><b>{cacheName}</b></a></span>
@@ -116,10 +116,8 @@ $pattern = "<br><span style='font-size:13px'><img src='{cacheIcon}' class='icon1
                 <br><br><img src='images/rating-star.png'/> Autor: <a href='viewprofile.php?userid={logUserId}'><b>{logUserName}<b></a></td></tr>
         </table>";
 
-for( $i=0; $i<$dbc->rowCount(); $i++)
-{
+while( $rec = $dbc->dbResultFetch($s) ) {
 
-   $rec = $dbc->dbResultFetch();
    $line = $pattern;
 
    $line = mb_ereg_replace('{cacheIcon}', myninc::checkCacheStatusByUser($rec, $usrid), $line );
@@ -148,7 +146,6 @@ if ($is_titled == '0' ) $TitledCaches = '';
 tpl_set_var('TitledCaches', $TitledCaches );
 tpl_set_var('is_titled', $is_titled );
 
-unset( $dbc );
 
 //make the template and send it out
 tpl_BuildTemplate(false);

@@ -1,4 +1,5 @@
 <?php
+use Utils\Database\OcDb;
 /*
  * This script checks if transactions is working in OC database
  * This is for test purpose only.
@@ -11,9 +12,9 @@ function check_database_count($db, $expected, $line)
     $count = $db->simpleQueryValue("select count(1) from transaction_test", -1);
     if ($count != $expected) {
         echo "Expected $expected row(s), found $count row(s) in database, line $line!<br>";
-        $db->simpleQuery("select * from transaction_test");
+        $s = $db->simpleQuery("select * from transaction_test");
         echo '<table><tr><th>id</th><th>name</th></tr>';
-        while (($row = $db->dbResultFetch()) !== false) {
+        while (($row = $db->dbResultFetch($s)) !== false) {
             echo "<tr><td>{$row['id']}</td><td>{$row['name']}</td></tr>";
         }
         echo '</table>';
@@ -25,7 +26,7 @@ $rootpath = "../";
 require_once('../lib/common.inc.php');
 // ob_start();
 echo '<b>start</b><br>';
-$db = new dataBase();
+$db = OcDb::instance();
 $db->simpleQuery("drop table if exists transaction_test;");
 $db->simpleQuery("
         create table transaction_test (

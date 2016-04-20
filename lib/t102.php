@@ -162,11 +162,9 @@ if ($sNameOfStat == "NumberOfFinds") {
     JOIN user u ON f.user_id = u.user_id";
 }
 
-$dbc->multiVariableQuery($query);
+$s = $dbc->multiVariableQuery($query);
 
 echo "<script type='text/javascript'>";
-
-
 
 
 $nRanking = 0;
@@ -176,11 +174,7 @@ $nPos = 0;
 $nMyRanking = 0;
 $nMyRealPos = 0;
 
-
-
-
-
-while ($record = $dbc->dbResultFetch()) {
+while ($record = $dbc->dbResultFetch($s)) {
     if ($record["description"] <> "") {
         $sOpis = $record["description"];
 

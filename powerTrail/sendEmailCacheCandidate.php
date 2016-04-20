@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\OcDb;
 require_once __DIR__.'/../lib/ClassPathDictionary.php';
 
 // sendEmailCacheCandidate.php
@@ -11,10 +12,11 @@ function emailCacheOwner($ptId, $cacheId, $linkCode){
     $owners = powerTrailBase::getPtOwners($ptId);
     $ptDbRow = powerTrailBase::getPtDbRow($ptId);
 
-    $query = 'SELECT `caches` . * , `user`.`email`, `user`.`username` FROM `caches` , `user` WHERE `cache_id` =:1 AND `caches`.`user_id` = `user`.`user_id` LIMIT 1';
-    $db = \lib\Database\DataBaseSingleton::Instance();
-    $db->multiVariableQuery($query, $cacheId);
-    $cacheData = $db->dbResultFetch();
+    $query = 'SELECT `caches` . * , `user`.`email`, `user`.`username` FROM `caches` , `user`
+        WHERE `cache_id` =:1 AND `caches`.`user_id` = `user`.`user_id` LIMIT 1';
+    $db = OcDb::instance();
+    $s = $db->multiVariableQuery($query, $cacheId);
+    $cacheData = $db->dbResultFetchOneRowOnly($s);
 
     //remove images
 

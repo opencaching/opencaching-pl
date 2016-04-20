@@ -101,15 +101,16 @@ use Utils\Database\XDb;
         $dbcSearch->simpleQuery( 'CREATE TEMPORARY TABLE `ovlcontent` ' . $query . $queryLimit);
         $dbcSearch->reset();
 
-        $dbcSearch->simpleQuery( 'SELECT COUNT(*) `count` FROM `ovlcontent`');
-        $rCount = $dbcSearch->dbResultFetch();
-        $dbcSearch->reset();
+        $s = $dbcSearch->simpleQuery( 'SELECT COUNT(*) `count` FROM `ovlcontent`');
+        $rCount = $dbcSearch->dbResultFetchOneRowOnly($s);
 
         if ($rCount['count'] == 1)
         {
-            $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc` FROM `ovlcontent`, `caches` WHERE `ovlcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
-            $rName = $rCount = $dbcSearch->dbResultFetch();
-            $dbcSearch->reset();
+            $s = $dbcSearch->simpleQuery(
+                'SELECT `caches`.`wp_oc` `wp_oc` FROM `ovlcontent`, `caches`
+                WHERE `ovlcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
+            $rName = $rCount = $dbcSearch->dbResultFetchOneRowOnly($s);
+
 
             $sFilebasename = $rName['wp_oc'];
         }
@@ -155,8 +156,12 @@ use Utils\Database\XDb;
         }
 
         $nr = 1;
-        $dbcSearch->simpleQuery( 'SELECT `ovlcontent`.`cache_id` `cacheid`, `ovlcontent`.`longitude` `longitude`, `ovlcontent`.`latitude` `latitude`, `ovlcontent`.cache_mod_cords_id, `caches`.`name` `name`, `ovlcontent`.`type` `type` FROM `ovlcontent`, `caches` WHERE `ovlcontent`.`cache_id`=`caches`.`cache_id`');
-        while($r = $dbcSearch->dbResultFetch())
+        $s = dbcSearch->simpleQuery(
+            'SELECT `ovlcontent`.`cache_id` `cacheid`, `ovlcontent`.`longitude` `longitude`,
+                    `ovlcontent`.`latitude` `latitude`, `ovlcontent`.cache_mod_cords_id,
+                    `caches`.`name` `name`, `ovlcontent`.`type` `type` FROM `ovlcontent`, `caches`
+            WHERE `ovlcontent`.`cache_id`=`caches`.`cache_id`');
+        while($r = $dbcSearch->dbResultFetch($s))
         {
             $thisline = $ovlLine;
 
@@ -182,8 +187,8 @@ use Utils\Database\XDb;
             ob_flush();
             $nr += 2;
         }
-        $dbcSearch->reset();
-        unset($dbc);
+        $dbcSearch->reset($s);
+
         $ovlFoot = mb_ereg_replace('{symbolscount}', $nr - 1, $ovlFoot);
         append_output($ovlFoot);
 

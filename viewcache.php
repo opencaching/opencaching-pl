@@ -57,8 +57,8 @@ if ($error == false) {
         $thatquery = "SELECT `cache_id` FROM `caches` WHERE uuid=:v1 LIMIT 1";
         $params['v1']['value'] = (string) $uuid;
         $params['v1']['data_type'] = 'string';
-        $dbc->paramQuery($thatquery, $params);
-        if ($r = $dbc->dbResultFetch()) {
+        $s = $dbc->paramQuery($thatquery, $params);
+        if ($r = $dbc->dbResultFetchOneRowOnly($s)) {
             $cache_id = $r['cache_id'];
         }
     } else if (isset($_REQUEST['wp'])) {
@@ -336,12 +336,12 @@ if ($error == false) {
                             SELECT `last_modified` FROM `cache_desc` WHERE `cache_id` =:v1) `tmp_result`";
         $params['v1']['value'] = (integer) $cache_id;
         $params['v1']['data_type'] = 'integer';
-        $dbc->paramQuery($thatquery, $params);
+        $rs = $dbc->paramQuery($thatquery, $params);
         unset($params); //clear to avoid overlaping on next paramQuery (if any))
-        if ($dbc->rowCount() == 0) {
+        if ($dbc->rowCount($rs) == 0) {
             $cache_id = 0;
         } else {
-            $lm = $dbc->dbResultFetch();
+            $lm = $dbc->dbResultFetch($rs);
             $lastModified = new DateTime($lm['last_modified']);
             tpl_set_var('last_modified', $lastModified->format($applicationContainer->getOcConfig()->getDateFormat()));
         }

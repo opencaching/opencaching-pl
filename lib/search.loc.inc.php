@@ -114,14 +114,16 @@ if ($usr || ! $hide_coords) {
     $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `loccontent` ' . $query . $queryLimit);
     $dbcSearch->reset();
 
-    $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `loccontent`');
-    $rCount = $dbcSearch->dbResultFetch();
-    $dbcSearch->reset();
+    $s = $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `loccontent`');
+    $rCount = $dbcSearch->dbResultFetchOneRowOnly($s);
+
 
     if ($rCount['count'] == 1) {
-        $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc` FROM `loccontent`, `caches` WHERE `loccontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
-        $rName = $dbcSearch->dbResultFetch();
-        $dbcSearch->reset();
+        $s = $dbcSearch->simpleQuery(
+            'SELECT `caches`.`wp_oc` `wp_oc` FROM `loccontent`, `caches`
+            WHERE `loccontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
+        $rName = $dbcSearch->dbResultFetchOneRowOnly($s);
+
 
         $sFilebasename = $rName['wp_oc'];
     } else {
@@ -163,7 +165,7 @@ if ($usr || ! $hide_coords) {
 
     append_output($locHead);
 
-    $dbcSearch->simpleQuery(
+    $s = $dbcSearch->simpleQuery(
         'SELECT `loccontent`.`cache_id` `cacheid`, `loccontent`.`longitude` `longitude`, `loccontent`.`latitude` `latitude`,
                     `loccontent`.cache_mod_cords_id, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`wp_oc` `waypoint`,
                     `cache_type`.`short` `typedesc`, `cache_type`.`id` `type_id`, `cache_size`.`pl` `sizedesc`, `caches`.`terrain` `terrain`,
@@ -173,7 +175,7 @@ if ($usr || ! $hide_coords) {
             AND `loccontent`.`size`=`cache_size`.`id`
             AND `loccontent`.`user_id`=`user`.`user_id`');
 
-    while ($r = $dbcSearch->dbResultFetch()) {
+    while ($r = $dbcSearch->dbResultFetch($s)) {
         $thisline = $locLine;
 
         $lat = sprintf('%01.5f', $r['latitude']);
@@ -207,8 +209,8 @@ if ($usr || ! $hide_coords) {
         append_output($thisline);
         ob_flush();
     }
-    $dbcSearch->reset();
-    unset($dbc);
+    $dbcSearch->reset($s);
+
     append_output($locFoot);
 
     // phpzip versenden

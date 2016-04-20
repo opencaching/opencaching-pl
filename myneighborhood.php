@@ -69,10 +69,8 @@ if ($error == false) {
                       ORDER BY IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) DESC, `caches`.`cache_id` DESC
                       LIMIT 0, 10";
 
-            $db->simpleQuery( $query );
-
-            for ($i = 0; $i < $db->rowCount(); $i++) {
-                $record = $db->dbResultFetch();
+            $s = $db->simpleQuery( $query );
+            while ($record = $db->dbResultFetch($s) ){
                 $lat = $record['latitude'];
                 $lon = $record['longitude'];
                 $type = $record['type'];
@@ -93,11 +91,8 @@ if ($error == false) {
                         ORDER BY `caches`.`date_hidden` ASC
                         LIMIT 0, 10";
 
-            $db->simpleQuery( $query );
-
-
-            for ($i = 0; $i < $db->rowCount(); $i++) {
-                $record = $db->dbResultFetch();
+            $s = $db->simpleQuery( $query );
+            while ( $record = $db->dbResultFetch($s) ){
                 $lat = $record['latitude'];
                 $lon = $record['longitude'];
                 $type = $record['type'];
@@ -117,12 +112,8 @@ if ($error == false) {
                         ORDER BY `caches`.`date_hidden` DESC, `caches`.`cache_id` DESC
                         LIMIT 0, 10";
 
-            $db->simpleQuery( $query );
-
-
-
-            for ($i = 0; $i < $db->rowCount(); $i++) {
-                $record = $db->dbResultFetch();
+            $s = $db->simpleQuery( $query );
+            while ( $record = $db->dbResultFetch($s) ){
                 $lat = $record['latitude'];
                 $lon = $record['longitude'];
                 $type = $record['type'];
@@ -266,13 +257,13 @@ if ($error == false) {
                  ORDER BY `date` DESC, `caches`.`cache_id` DESC
                  LIMIT 0 , 11";
 
-        $db->simpleQuery( $query );
+        $rs = $db->simpleQuery( $query );
 
-        if ( $db->rowCount() > 10) {
+        if ( $db->rowCount($rs) > 10) {
             tpl_set_var('more_caches', '<a class="links" href="myn_newcaches.php">[' . tr("show_more") . '...]</a>');
             $limit = 10;
         } else
-            $limit = $db->rowCount();
+            $limit = $db->rowCount($rs);
 
         if ($limit == 0) {
             $file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>" . tr('list_of_caches_is_empty') . "</b></p><br />";
@@ -290,7 +281,7 @@ if ($error == false) {
             $file_content = '<table class="myneighborhood">';
 
             for ($i = 0; $i < $limit; $i++) {
-                $record = $db->dbResultFetch();
+                $record = $db->dbResultFetch($rs);
 
                 $cacheicon = myninc::checkCacheStatusByUser($record, $user_id);
                 $thisline = $cacheline;

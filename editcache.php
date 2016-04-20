@@ -64,11 +64,11 @@ if ($error == false) {
         FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id`= `cache_location`.`cache_id`)  WHERE `caches`.`cache_id`=:v1";
         $params['v1']['value'] = $cache_id;
         $params['v1']['data_type'] = 'integer';
-        $dbc->paramQuery($thatquery, $params);
+        $s = $dbc->paramQuery($thatquery, $params);
         unset($params);
 
-        if ($dbc->rowCount() == 1) {
-            $cache_record = $dbc->dbResultFetch();
+        if ($cache_record = $dbc->dbResultFetch($s)) {
+
             if ($cache_record['user_id'] == $usr['userid'] || $usr['admin']) {
                 $tplname = 'editcache';
                 require_once($rootpath . 'lib/caches.inc.php');

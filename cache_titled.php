@@ -5,7 +5,6 @@ use Utils\Database\XDb;
 global $dateFormat;
 require_once('./lib/common.inc.php');
 
-
 $tplname = 'cache_titled';
 
 $usrid = -1;
@@ -36,13 +35,13 @@ if ( isset( $_REQUEST[ 'type' ] ) )
     $query .= " JOIN local_caches on cache_titled.cache_id = local_caches.cache_id ";
 }
 
-$dbcLocCache->simpleQuery($query);
+$s = $dbcLocCache->simpleQuery($query);
 
 $content="";
 
-for( $i = 0; $i < $dbcLocCache->rowCount(); $i++ )
+for( $i = 0; $i < $dbcLocCache->rowCount($s); $i++ )
 {
-   $record = $dbcLocCache->dbResultFetch();
+   $record = $dbcLocCache->dbResultFetch($s);
 
    $cacheId = $record[ 'cache_id' ];
    $cacheName = str_replace("'", "-", $record[ 'cacheName' ] );
@@ -84,19 +83,5 @@ for( $i = 0; $i < $dbcLocCache->rowCount(); $i++ )
 
 tpl_set_var( 'contentTable', $content );
 
-unset( $dbc );
-
 tpl_BuildTemplate();
-?>
-
-
-
-
-
-
-
-
-
-
-
 
