@@ -140,7 +140,7 @@ while( $rec = $dbc->dbResultFetch($s) ) {
    $TitledCaches .= $line;
 }
 
-$is_titled = ( $dbc->rowCount()? '1' : '0' );
+$is_titled = ( $dbc->rowCount($s)? '1' : '0' );
 if ($is_titled == '0' ) $TitledCaches = '';
 
 tpl_set_var('TitledCaches', $TitledCaches );

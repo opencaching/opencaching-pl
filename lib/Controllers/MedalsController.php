@@ -42,7 +42,7 @@ class MedalsController
 
         $db = OcDb::instance();
         $s = $db->simpleQuery($query);
-        d($db->rowCount());
+        d($db->rowCount($s));
 
         $timeStart = microtime();
         $usersToCheck = $db->dbResultFetchAll($s);

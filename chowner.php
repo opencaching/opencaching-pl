@@ -235,8 +235,8 @@ if ($error == false && isset($usr['userid'])) {
         if (isset($_GET['accept']) && $_GET['accept'] == 0) {
             // odrzucenie zmiany
             $q = "DELETE FROM chowner WHERE cache_id = :1 AND user_id = :2";
-            $db->multiVariableQuery($q, $_GET['cacheid'], $usr['userid']);
-            if ($db->rowCount() > 0) {
+            $s = $db->multiVariableQuery($q, $_GET['cacheid'], $usr['userid']);
+            if ($db->rowCount($s) > 0) {
                 tpl_set_var("info_msg", tr('adopt_27') . '<br /><br />');
                 $mailContent = tr('adopt_29');
                 $mailContent = str_replace('\n', "\n", $mailContent);
@@ -251,8 +251,8 @@ if ($error == false && isset($usr['userid'])) {
         if (isset($_GET['abort']) && isUserOwner($usr['userid'], $_GET['cacheid'])) {
             // anulowanie procedury przejecia
             $q = "DELETE FROM chowner WHERE cache_id = :1";
-            $db->multiVariableQuery($q, $_GET['cacheid']);
-            if ($db->rowCount() > 0)
+            $s = $db->multiVariableQuery($q, $_GET['cacheid']);
+            if ($db->rowCount($s) > 0)
                 tpl_set_var('info_msg', " " . tr('adopt_16') . " <br /><br />");
             else
                 tpl_set_var('error_msg', " " . tr('adopt_17') . " <br /><br />");

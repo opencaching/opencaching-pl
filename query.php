@@ -42,9 +42,9 @@ function deletequery($queryid)
     $dbc = new dataBase();
 
     $query = "SELECT `id` FROM `queries` WHERE `id`=:1 AND `user_id`=:2";
-    $dbc->multiVariableQuery($query, $queryid, $usr['userid']);
+    $s = $dbc->multiVariableQuery($query, $queryid, $usr['userid']);
 
-    if ($dbc->rowCount() == 1) {
+    if ($dbc->rowCount($s) == 1) {
 
         $query = "DELETE FROM `queries` WHERE `id`=:1 LIMIT 1";
         $dbc->multiVariableQuery($query, $queryid);

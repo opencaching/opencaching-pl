@@ -285,9 +285,9 @@ if ($error == false) {
                         tpl_set_var('username_message', $error_username_not_ok);
                     } else {
                         if ($username != $usr['username']) {
-                            $q = "SELECT `username` FROM `user` WHERE `username`=:1";
-                            $db->multiVariableQuery($q, $username);
-                            if ($db->rowCount() > 0) {
+                            $q = "SELECT `username` FROM `user` WHERE `username`=:1 LIMIT 1";
+                            $s = $db->multiVariableQuery($q, $username);
+                            if ($db->rowCount($s) > 0) {
                                 $username_exists = true;
                                 tpl_set_var('username_message', $error_username_exists);
                             }
@@ -461,8 +461,12 @@ if ($error == false) {
                 }
                 //Country in defaults ?
                 if (($show_all_countries == 0) && ($country != 'XX')) {
-                    $db->multiVariableQuery("SELECT `list_default_" . XDb::xEscape($lang_db) . "` FROM `countries` WHERE `short`=:1", $country);
-                    $record2 = $db->dbResultFetch();
+                    $stmt = $db->multiVariableQuery(
+                        "SELECT `list_default_" . XDb::xEscape($lang_db) . "`
+                        FROM `countries` WHERE `short`=:1 LIMIT 1", $country);
+
+                    $record2 = $db->dbResultFetchOneRowOnly($stmt);
+
                     if ($record2['list_default_' . $lang_db] == 0) {
                         $show_all_countries = 1;
                     } else {

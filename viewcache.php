@@ -75,8 +75,8 @@ if ($error == false) {
             $query .= 'oc';
 
         $query .= '=:1 LIMIT 1';
-        $dbc->multiVariableQuery($query, $wp);
-        if ($r = $dbc->dbResultFetch()) {
+        $s = $dbc->multiVariableQuery($query, $wp);
+        if ( $r = $dbc->dbResultFetchOneRowOnly($s) ) {
             $cache_id = $r['cache_id'];
         }
     }
@@ -159,9 +159,10 @@ if ($error == false) {
             $params['v1']['data_type'] = 'integer';
             $params['v2']['value'] = (integer) $cache_id;
             $params['v2']['data_type'] = 'integer';
-            $dbc->paramQuery($thatquery, $params);
+            $s = $dbc->paramQuery($thatquery, $params);
             unset($params); //clear to avoid overlaping on next paramQuery (if any))
-            $cache_mod_coords = $dbc->dbResultFetch();
+            $cache_mod_coords = $dbc->dbResultFetchOneRowOnly($s);
+
             if ($cache_mod_coords != 0) {
                 if ($mod_coord_delete_mode == false) {
                     $orig_coord_info_lon = htmlspecialchars(help_lonToDegreeStr($orig_cache_lon), ENT_COMPAT, 'UTF-8');
@@ -389,7 +390,7 @@ if ($error == false) {
         $params['v1']['data_type'] = 'string';
         $s = $dbc->paramQuery($thatquery, $params);
         unset($params); //clear to avoid overlaping on next paramQuery (if any))
-        $geokrety_all_count = $dbc->rowCount();
+        $geokrety_all_count = $dbc->rowCount($s);
         if ($geokrety_all_count == 0) {
             // no geokrets in this cache
             tpl_set_var('geokrety_begin', '<!--');
@@ -1092,7 +1093,7 @@ if ($error == false) {
             FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id)
             WHERE `cache_id`=:1 ORDER BY `stage`,`wp_id`", $geocache->getCacheId());
 
-        $wptCount = $dbc->rowCount();
+        $wptCount = $dbc->rowCount($s);
         if ($wptCount != 0 && $geocache->getCacheType() != GeoCache::TYPE_MOVING) { // check status all waypoints
             foreach ($dbc->dbResultFetchAll($s) as $wp_check) {
                 if ($wp_check['status'] == 1 || $wp_check['status'] == 2) {
@@ -1253,10 +1254,11 @@ if ($error == false) {
         }
 
         // show description
-        $query = "SELECT `short_desc`, `desc`, `desc_html`, `hint`, `rr_comment` FROM `cache_desc` WHERE `cache_id`=:1 AND `language`=:2";
-        $dbc->multiVariableQuery($query, $cache_id, $desclang);
-        $desc_record = $dbc->dbResultFetch();
-        $dbc->reset();
+        $query =
+            "SELECT `short_desc`, `desc`, `desc_html`, `hint`, `rr_comment` FROM `cache_desc`
+            WHERE `cache_id`=:1 AND `language`=:2 LIMIT 1";
+        $s = $dbc->multiVariableQuery($query, $cache_id, $desclang);
+        $desc_record = $dbc->dbResultFetchOneRowOnly($s);
 
         $desc_html = $desc_record['desc_html'];
 
@@ -1419,9 +1421,11 @@ if ($error == false) {
         //sql request only if we want show 'watch' button for user
         if($show_watch) {
             //is this cache watched by this user?
-            $dbc->multiVariableQuery("SELECT * FROM `cache_watches` WHERE `cache_id`=:1 AND `user_id`=:2", $cache_id,
-                $usr['userid']);
-            if ($dbc->rowCount() == 0) {
+            $s = $dbc->multiVariableQuery(
+                "SELECT * FROM `cache_watches` WHERE `cache_id`=:1 AND `user_id`=:2 LIMIT 1",
+                $cache_id, $usr['userid']);
+
+            if ($dbc->rowCount($s) == 0) {
                 $watch_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_watch);
                 $is_watched = 'watchcache.php?cacheid=' . $cache_id . '&amp;target=viewcache.php%3Fcacheid=' . $cache_id;
                 $watch_label = tr('watch');
@@ -1436,9 +1440,10 @@ if ($error == false) {
         //sql request only if we want show 'ignore' button for user
         if($show_ignore) {
             //is this cache ignored by this user?
-            $dbc->multiVariableQuery("SELECT `cache_id` FROM `cache_ignore` WHERE `cache_id`=:1 AND `user_id`=:2",
+            $s = $dbc->multiVariableQuery("SELECT `cache_id` FROM `cache_ignore` WHERE `cache_id`=:1 AND `user_id`=:2 LIMIT 1",
                 $cache_id, $usr['userid']);
-            if ($dbc->rowCount() == 0) {
+
+            if ($dbc->rowCount($s) == 0) {
                 $ignore_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_ignore);
                 $is_ignored = "addignore.php?cacheid=" . $cache_id . "&amp;target=viewcache.php%3Fcacheid%3D" . $cache_id;
                 $ignore_label = tr('ignore');
@@ -1575,14 +1580,15 @@ if ($error == false) {
         $has_password = $geocache->hasPassword();
 
         // cache-attributes
-        $s = $dbc->multiVariableQuery("SELECT `cache_attrib`.`text_long`,
-                              `cache_attrib`.`icon_large`
-                        FROM  `cache_attrib`, `caches_attributes`
-                        WHERE `cache_attrib`.`id`=`caches_attributes`.`attrib_id`
-                          AND `cache_attrib`.`language`=:1
-                          AND `caches_attributes`.`cache_id`=:2
-                     ORDER BY `cache_attrib`.`category`, `cache_attrib`.`id`", strtoupper($lang), $geocache->getCacheId());
-        $num_of_attributes = $dbc->rowCount();
+        $s = $dbc->multiVariableQuery(
+            "SELECT `cache_attrib`.`text_long`, `cache_attrib`.`icon_large`
+            FROM  `cache_attrib`, `caches_attributes`
+            WHERE `cache_attrib`.`id`=`caches_attributes`.`attrib_id`
+                AND `cache_attrib`.`language`=:1
+                AND `caches_attributes`.`cache_id`=:2
+            ORDER BY `cache_attrib`.`category`, `cache_attrib`.`id`", strtoupper($lang), $geocache->getCacheId());
+
+        $num_of_attributes = $dbc->rowCount($s);
         if ($num_of_attributes > 0 || $has_password) {
             $cache_attributes = '';
             foreach ($dbc->dbResultFetchAll($s) as $record) {

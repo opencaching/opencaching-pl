@@ -98,7 +98,7 @@ if ($error == false) {
         $params['v1']['data_type'] = 'integer';
         $s = $dbc->paramQuery($thatquery, $params);
         unset($params); //clear to avoid overlaping on next paramQuery (if any))
-        $rscpictures_count = $dbc->rowCount();
+        $rscpictures_count = $dbc->rowCount($s);
 
         if ($rscpictures_count != 0) {
             tpl_set_var('cache_images_start', '');

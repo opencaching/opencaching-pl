@@ -47,10 +47,10 @@ if ($error == false) {
                     $params['v2']['value'] = (integer) $usr['userid'];
                     $params['v2']['data_type'] = 'integer';
 
-                    $dbc->paramQuery($mod_coord_q, $params);
+                    $stmt = $dbc->paramQuery($mod_coord_q, $params);
                     Unset($params);
 
-                    if ($dbc->rowCount() > 0) {
+                    if ($dbc->rowCount($stmt) > 0) {
                         $tmp_list = str_replace('{mod_suffix}', '[F]', $tmp_list);
                     } else {
                         $tmp_list = str_replace('{mod_suffix}', '', $tmp_list);

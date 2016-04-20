@@ -59,7 +59,7 @@ if ($error == false) {
             LIMIT :variable1, :variable2 ";
     $s = $db->paramQuery($rsQuery, array('variable1' => array('value' => intval($start), 'data_type' => 'integer'), 'variable2' => array('value' => intval($LOGS_PER_PAGE), 'data_type' => 'integer'),));
     $log_ids = '';
-    if ($db->rowCount() == 0) {
+    if ($db->rowCount($s) == 0) {
         $log_ids = '0';
     }
 

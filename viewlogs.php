@@ -377,7 +377,7 @@ if ($error == false) {
                 }
                 $thatquery = "SELECT `url`, `title`, `uuid`, `user_id`, `spoiler` FROM `pictures` WHERE `object_id`=:1 AND `object_type`=1";
                 $s = $dbc->multiVariableQuery($thatquery, $record['logid']);
-                $pic_count = $dbc->rowCount();
+                $pic_count = $dbc->rowCount($s);
                 if (!isset($showspoiler)) {
                     $showspoiler = '';
                 }

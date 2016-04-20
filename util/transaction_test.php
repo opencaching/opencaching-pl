@@ -1,5 +1,10 @@
 <?php
 use Utils\Database\OcDb;
+/**
+ * 21.04.2016 kojoty:
+ * This script is unmaintenanced and not working now...
+ */
+
 /*
  * This script checks if transactions is working in OC database
  * This is for test purpose only.
