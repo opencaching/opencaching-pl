@@ -9,6 +9,7 @@
 namespace lib\Objects\User;
 
 use \lib\Database\DataBaseSingleton;
+use Utils\Database\OcDb;
 
 class AdminNote
 {
@@ -169,12 +170,12 @@ class AdminNote
     {
         $results = array();
         $i = 0;
-        $db = DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $query = "SELECT `admin_id`, `cache_id`, `automatic`, `datetime`, `content` FROM `admin_user_notes` WHERE `user_id`=:1 ORDER BY `datetime` DESC";
-        $db->multiVariableQuery($query, $user_id);
+        $s = $db->multiVariableQuery($query, $user_id);
         while (true)
         {
-            $cacheDbRow = $db->dbResultFetch();
+            $cacheDbRow = $db->dbResultFetch($s);
             if(is_array($cacheDbRow)) {
                 $results[$i] = $cacheDbRow;
                 $i++;
@@ -182,8 +183,8 @@ class AdminNote
             else {
                 for ($j=0; $j < $i; $j++) {
                     $query_for_username = "SELECT `username` FROM `user` WHERE `user_id`=:1 LIMIT 1";
-                    $db->multiVariableQuery($query_for_username, $results[$j]["admin_id"]);
-                    $admin_name = $db->dbResultFetch();
+                    $stmt = $db->multiVariableQuery($query_for_username, $results[$j]["admin_id"]);
+                    $admin_name = $db->dbResultFetchOneRowOnly($stmt);
                     $results[$j]["admin_username"] = $admin_name["username"];
                 }
                 return $results;

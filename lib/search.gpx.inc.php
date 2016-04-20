@@ -272,8 +272,7 @@ if ($usr || ! $hide_coords) {
     } else
         if ($sortby == 'bycreated') {
             $query .= ' ORDER BY date_created DESC';
-        } else // by name
-{
+        } else {// by name
             $query .= ' ORDER BY name ASC';
         }
 
@@ -306,14 +305,16 @@ if ($usr || ! $hide_coords) {
     $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `gpxcontent` ' . $query . $queryLimit);
     $dbcSearch->reset();
 
-    $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `gpxcontent`');
-    $rCount = $dbcSearch->dbResultFetch();
+    $s = $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `gpxcontent`');
+    $rCount = $dbcSearch->dbResultFetch($s);
     $countGPX = $rCount['count'];
     $dbcSearch->reset();
 
     if ($countGPX == 1) {
-        $rsName = $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc`, `caches`.`name` `name` FROM `gpxcontent`, `caches` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
-        $rName = $dbcSearch->dbResultFetch();
+        $s = $dbcSearch->simpleQuery(
+            'SELECT `caches`.`wp_oc` `wp_oc`, `caches`.`name` `name` FROM `gpxcontent`, `caches`
+            WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
+        $rName = $dbcSearch->dbResultFetchOneRowOnly($s);
 
         if (isset($_GET['realname']) && $_GET['realname'] == 1)
             $sFilebasename = str_replace(" ", "", PLConvert('UTF-8', 'POLSKAWY', $rName['name']));
@@ -359,9 +360,9 @@ if ($usr || ! $hide_coords) {
 
     $children = '';
     $gpxHead = str_replace('{time}', date($gpxTimeFormat, time()), $gpxHead);
-    $dbcSearch->simpleQuery('SELECT `gpxcontent`.`cache_id` `cacheid` FROM `gpxcontent`');
+    $stmt = $dbcSearch->simpleQuery('SELECT `gpxcontent`.`cache_id` `cacheid` FROM `gpxcontent`');
 
-    while ($rs = $dbcSearch->dbResultFetch()) {
+    while ($rs = $dbcSearch->dbResultFetch($stmt)) {
         $rwp = XDb::xSql(
             "SELECT  `status` FROM `waypoints`
             WHERE  `waypoints`.`cache_id`= ?

@@ -153,13 +153,13 @@ class GeoCache
     {
         if (isset($params['cacheId'])) { // load from DB if cachId param is set
 
-            $db = DataBaseSingleton::Instance();
+            $db = OcDb::instance();
             $this->id = (int) $params['cacheId'];
 
             $queryById = "SELECT size, status, founds, notfounds, topratings, votes, notes, score,  name, type, date_hidden, longitude, latitude, wp_oc, wp_gc, wp_nc, wp_tc, wp_ge, user_id, last_found, difficulty, terrain, way_length, logpw, search_time, date_created, watcher, ignorer_count, org_user_id, desc_languages, mp3count, picturescount, date_activate FROM `caches` WHERE `cache_id`=:1 LIMIT 1";
-            $db->multiVariableQuery($queryById, $this->id);
+            $s = $db->multiVariableQuery($queryById, $this->id);
 
-            $cacheDbRow = $db->dbResultFetch();
+            $cacheDbRow = $db->dbResultFetch($s);
             if(is_array($cacheDbRow)) {
                 $this->loadFromRow($cacheDbRow);
             } else {
@@ -295,10 +295,10 @@ class GeoCache
 
     private function loadCacheLocation()
     {
-        $db = DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $query = 'SELECT `code1`, `code2`, `code3`, `code4`, `adm1`, `adm2`, `adm3`, `adm4`  FROM `cache_location` WHERE `cache_id` =:1 LIMIT 1';
-        $db->multiVariableQuery($query, $this->id);
-        $dbResult = $db->dbResultFetch();
+        $s = $db->multiVariableQuery($query, $this->id);
+        $dbResult = $db->dbResultFetch($s);
         $this->cacheLocation = $dbResult;
     }
 

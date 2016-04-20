@@ -63,7 +63,7 @@ class PowerTrail extends \lib\Objects\BaseObject
 
     private function loadDataFromDb($fields = null)
     {
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = OcDb::instance();
 
         if (is_null($fields)) {
             // default select all fields
@@ -71,15 +71,15 @@ class PowerTrail extends \lib\Objects\BaseObject
         }
 
         $ptq = "SELECT $fields FROM `PowerTrail` WHERE `id` = :1 LIMIT 1";
-        $db->multiVariableQuery($ptq, $this->id);
+        $s = $db->multiVariableQuery($ptq, $this->id);
 
-        if ($db->rowCount() != 1) {
+        if ($db->rowCount($s) != 1) {
            //no such powertrail in DB?
            $this->dataLoaded = false; //mark object as NOT containing data
            return;
         }
 
-        $this->setFieldsByUsedDbRow($db->dbResultFetch());
+        $this->setFieldsByUsedDbRow($db->dbResultFetch($s));
     }
 
     private function setFieldsByUsedDbRow(array $dbRow)
@@ -377,10 +377,16 @@ class PowerTrail extends \lib\Objects\BaseObject
      */
     public function checkCacheCount()
     {
-        $countQuery = 'SELECT count(*) as `cacheCount` FROM `caches` WHERE `cache_id` IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1)';
-        $db = DataBaseSingleton::Instance();
-        $db->multiVariableQuery($countQuery, $this->id);
-        $answer = $db->dbResultFetch();
+
+        $db = OcDb::instance();
+        $s = $db->multiVariableQuery(
+            'SELECT count(*) as `cacheCount` FROM `caches`
+            WHERE `cache_id` IN (
+                SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1
+            )',
+            $this->id);
+
+        $answer = $db->dbResultFetch($s);
         if ($answer['cacheCount'] != $this->cacheCount) {
             $updateQuery = 'UPDATE `PowerTrail` SET `cacheCount` =:1  WHERE `id` = :2 ';
             $db->multiVariableQuery($updateQuery, $answer['cacheCount'], $this->id);
@@ -539,10 +545,10 @@ class PowerTrail extends \lib\Objects\BaseObject
 
     public function isAlreadyConquestedByUser(\lib\Objects\User\User $user)
     {
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $mySqlRequest = 'SELECT count(*) AS `ptConquestCount` FROM `PowerTrail_comments` WHERE `commentType` =2 AND `deleted` =0 AND `userId` =:1 AND `PowerTrailId` = :2';
         $db->multiVariableQuery($mySqlRequest, $user->getUserId(), $this->getId());
-        $mySqlResult = $db->dbResultFetch();
+        $mySqlResult = $db->dbResultFetch($s);
         if ($mySqlResult['ptConquestCount'] > 0) {
             return true;
         } else {

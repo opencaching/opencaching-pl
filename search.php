@@ -3,7 +3,7 @@
 use Utils\Database\OcDb;
 use Utils\Database\XDb;
 
-//prepare the templates and include all neccessary
+    //prepare the templates and include all neccessary
     if (!isset($rootpath)) $rootpath = '';
     require_once('./lib/common.inc.php');
     require_once('./lib/search.inc.php');
@@ -52,13 +52,13 @@ use Utils\Database\XDb;
             {
                 // check if query exists
                 $sqlstr="SELECT COUNT(*) `count` FROM `queries` WHERE id= :1";
-                $dbc->multiVariableQuery($sqlstr, $queryid);
-                $rCount=$dbc->dbResultFetch();
+                $s = $dbc->multiVariableQuery($sqlstr, $queryid);
+                $rCount=$dbc->dbResultFetch($s);
 
                 if ($rCount['count'] == 0)
                     $queryid = 0;
 
-                $dbc->reset();
+                $dbc->reset($s);
             }
 
             if ($queryid == 0)
@@ -89,9 +89,9 @@ use Utils\Database\XDb;
         {
             //load options from db
             $sqlstr = "SELECT `user_id`, `options` FROM `queries` WHERE id= :1 AND (`user_id`=0 OR `user_id`= :2)";
-            $dbc->multiVariableQuery($sqlstr, $queryid, $usr['userid']+0);
+            $s = $dbc->multiVariableQuery($sqlstr, $queryid, $usr['userid']+0);
 
-            if ($dbc->rowCount() == 0)
+            if ($dbc->rowCount($s) == 0)
             {
                 $tplname = 'error';
                 tpl_set_var('tplname', 'search.php');
@@ -101,18 +101,18 @@ use Utils\Database\XDb;
             }
             else
             {
-                $record = $dbc->dbResultFetch();
+                $record = $dbc->dbResultFetch($s);
 
                 $options = unserialize($record['options']);
                 if ($record['user_id'] != 0)
                     $options['userid'] = $record['user_id'];
 
-                $dbc->reset();
+                $dbc->reset($s);
 
                 $options['queryid'] = $queryid;
 
                 $sqlstr = "UPDATE `queries` SET `last_queried`=NOW() WHERE `id`= :1";
-                $dbc->multiVariableQuery($sqlstr, $queryid );
+                $s = $dbc->multiVariableQuery($sqlstr, $queryid );
                 $dbc->reset();
 
                 // Ă¤nderbare werte Ăźberschreiben
