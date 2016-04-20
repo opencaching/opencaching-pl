@@ -163,7 +163,7 @@ if ($usr || ! $hide_coords) {
 
     append_output($locHead);
 
-    $rs = $dbcSearch->simpleQuery(
+    $dbcSearch->simpleQuery(
         'SELECT `loccontent`.`cache_id` `cacheid`, `loccontent`.`longitude` `longitude`, `loccontent`.`latitude` `latitude`,
                     `loccontent`.cache_mod_cords_id, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`wp_oc` `waypoint`,
                     `cache_type`.`short` `typedesc`, `cache_type`.`id` `type_id`, `cache_size`.`pl` `sizedesc`, `caches`.`terrain` `terrain`,

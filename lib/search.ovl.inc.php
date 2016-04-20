@@ -107,7 +107,7 @@ use Utils\Database\XDb;
 
         if ($rCount['count'] == 1)
         {
-            $rsName = $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc` FROM `ovlcontent`, `caches` WHERE `ovlcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
+            $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc` FROM `ovlcontent`, `caches` WHERE `ovlcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
             $rName = $rCount = $dbcSearch->dbResultFetch();
             $dbcSearch->reset();
 
@@ -155,7 +155,7 @@ use Utils\Database\XDb;
         }
 
         $nr = 1;
-        $rs = $dbcSearch->simpleQuery( 'SELECT `ovlcontent`.`cache_id` `cacheid`, `ovlcontent`.`longitude` `longitude`, `ovlcontent`.`latitude` `latitude`, `ovlcontent`.cache_mod_cords_id, `caches`.`name` `name`, `ovlcontent`.`type` `type` FROM `ovlcontent`, `caches` WHERE `ovlcontent`.`cache_id`=`caches`.`cache_id`');
+        $dbcSearch->simpleQuery( 'SELECT `ovlcontent`.`cache_id` `cacheid`, `ovlcontent`.`longitude` `longitude`, `ovlcontent`.`latitude` `latitude`, `ovlcontent`.cache_mod_cords_id, `caches`.`name` `name`, `ovlcontent`.`type` `type` FROM `ovlcontent`, `caches` WHERE `ovlcontent`.`cache_id`=`caches`.`cache_id`');
         while($r = $dbcSearch->dbResultFetch())
         {
             $thisline = $ovlLine;

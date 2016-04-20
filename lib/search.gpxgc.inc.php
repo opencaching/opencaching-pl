@@ -361,7 +361,7 @@ if ($usr || ! $hide_coords) {
     $countGPX = $rCount['count'];
     $dbcSearch->reset();
     if ($countGPX == 1) {
-        $rsName = $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc` FROM `gpxcontent`, `caches` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
+        $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc` FROM `gpxcontent`, `caches` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
         $rName = $dbcSearch->dbResultFetch();
 
         $sFilebasename = $rName['wp_oc'];
