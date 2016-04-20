@@ -68,10 +68,10 @@ function viewqueries()
     $i = 0;
     $content = '';
     $query = "SELECT id, name FROM `queries` WHERE `user_id`=:1 ORDER BY `name` ASC";
-    $dbc->multiVariableQuery($query, $usr['userid']);
+    $s = $dbc->multiVariableQuery($query, $usr['userid']);
 
-    if ($dbc->rowCount() != 0) {
-        while ($r = $dbc->dbResultFetch()) {
+    if ($dbc->rowCount($s) != 0) {
+        while ($r = $dbc->dbResultFetch($s)) {
             $thisline = $viewquery_line;
 
             $thisline = mb_ereg_replace('{queryname}', htmlspecialchars($r['name'], ENT_COMPAT, 'UTF-8'), $thisline);

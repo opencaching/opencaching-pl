@@ -48,7 +48,7 @@ if ($error == false) {
                 \okapi\Facade::schedule_user_entries_check($cache_id, $usr['userid']);
                 \okapi\Facade::disable_error_handling();
 
-                $query = "SELECT name FROM caches WHERE cache_id = :cache_id";
+                $query = "SELECT name FROM caches WHERE cache_id = :cache_id LIMIT 1";
                 $params = array(
                     "cache_id" => array(
                         "value" => $cache_id,
@@ -56,9 +56,8 @@ if ($error == false) {
                 ));
 
                 $cachename = "!!!!!!!";
-                $dbc->paramQuery($query, $params);
-                if ($dbc->rowCount() != 0) {
-                    $res = $dbc->dbResultFetch();
+                $s = $dbc->paramQuery($query, $params);
+                if ( $res = $dbc->dbResultFetchOneRowOnly($s) ){
                     $cachename = $res["name"];
                 } else
                     $cachename = "-----";
@@ -93,10 +92,10 @@ if ($error == false) {
         )
     );
 
-    $dbc->paramQuery($query, $params);
+    $stmt = $dbc->paramQuery($query, $params);
 
-    if ($dbc->rowCount() != 0) {
-        while ($r = $dbc->dbResultFetch()) {
+    if ($dbc->rowCount($stmt) != 0) {
+        while ($r = $dbc->dbResultFetch($stmt)) {
             $thisline = $viewtop5_line;
 
             $cacheicon = myninc::checkCacheStatusByUser($r, $usr['userid']);
