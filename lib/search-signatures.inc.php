@@ -1,5 +1,7 @@
 <?php
 
+use lib\Controllers\Php7Handler;
+
 global $usr;
 
 /**
@@ -44,7 +46,7 @@ class requestSigner
                 $signature = sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
                 $_SESSION['signature'] = $signature;
             }
-            apc_store($signature, $usr, 3600);  # cache it for 1 hour
+            Php7Handler::apc_store($signature, $usr, 3600);  # cache it for 1 hour
             return '&signature=' . $signature;
         } else {
             return '';
