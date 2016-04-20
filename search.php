@@ -58,7 +58,6 @@ use Utils\Database\XDb;
                 if ($rCount['count'] == 0)
                     $queryid = 0;
 
-                $dbc->reset($s);
             }
 
             if ($queryid == 0)
@@ -107,13 +106,10 @@ use Utils\Database\XDb;
                 if ($record['user_id'] != 0)
                     $options['userid'] = $record['user_id'];
 
-                $dbc->reset($s);
-
                 $options['queryid'] = $queryid;
 
                 $sqlstr = "UPDATE `queries` SET `last_queried`=NOW() WHERE `id`= :1";
                 $s = $dbc->multiVariableQuery($sqlstr, $queryid );
-                $dbc->reset();
 
                 // Ă¤nderbare werte Ăźberschreiben
                 if (isset($_REQUEST['output']))
@@ -391,7 +387,6 @@ use Utils\Database\XDb;
                     if ($options['userid'] != 0){
                         $sqlstr = "UPDATE `queries` SET `options`= :1, `last_queried`=NOW() WHERE `id`= :2 AND `user_id`= :3";
                         $dbc->multiVariableQuery($sqlstr, serialize($options), $options['queryid'], $options['userid'] );
-                        $dbc->reset();
                     }
                 }
                 else
@@ -415,7 +410,6 @@ use Utils\Database\XDb;
         $removedate = date('Y-m-d H:i:s', time() - 3600);
         $sqlstr = "DELETE FROM `queries` WHERE `last_queried` < :1 AND `user_id`=0";
         $dbc->multiVariableQuery($sqlstr, $removedate );
-        $dbc->reset();
 
         //prepare output
         if(!isset($options['showresult'])) $options['showresult']='0';
@@ -557,7 +551,6 @@ use Utils\Database\XDb;
                             $sql_from[] = '`result_caches`, `caches`';
                             $sql_where[] = '`caches`.`cache_id`=`result_caches`.`cache_id`';
 
-                            $dbc->reset();
                         }
                         else
                         {
@@ -672,8 +665,6 @@ use Utils\Database\XDb;
 
                             $lat = $r['lat'] + 0;
                             $lon = $r['lon'] + 0;
-
-                            $dbc->reset();
 
                             $lon_rad = $lon * 3.14159 / 180;
                             $lat_rad = $lat * 3.14159 / 180;
@@ -941,7 +932,6 @@ use Utils\Database\XDb;
                             ' WHERE ' . implode(' AND ', $sql_where);
 
                     $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `tmpFTCaches` (`cache_id` int (11) PRIMARY KEY) ' . $queryFilter);
-                    $dbcSearch->reset();
 
                     $sql_select = array();
                     $sql_from = array();

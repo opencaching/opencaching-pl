@@ -109,10 +109,8 @@ if ($usr || ! $hide_coords) {
 
     // cleanup (old gpxcontent lingers if gpx-download is cancelled by user)
     $dbcSearch->simpleQuery('DROP TEMPORARY TABLE IF EXISTS `loccontent`');
-    $dbcSearch->reset();
 
     $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `loccontent` ' . $query . $queryLimit);
-    $dbcSearch->reset();
 
     $s = $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `loccontent`');
     $rCount = $dbcSearch->dbResultFetchOneRowOnly($s);
@@ -209,7 +207,6 @@ if ($usr || ! $hide_coords) {
         append_output($thisline);
         ob_flush();
     }
-    $dbcSearch->reset($s);
 
     append_output($locFoot);
 

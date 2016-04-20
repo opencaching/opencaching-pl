@@ -301,15 +301,12 @@ if ($usr || ! $hide_coords) {
     $queryLimit = ' LIMIT ' . $startat . ', ' . $count;
     // cleanup (old gpxcontent lingers if gpx-download is cancelled by user)
     $dbcSearch->simpleQuery('DROP TEMPORARY TABLE IF EXISTS `gpxcontent`');
-    $dbcSearch->reset();
     // temporäre tabelle erstellen
     $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `gpxcontent` ' . $query . $queryLimit);
-    $dbcSearch->reset();
 
     $s = $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `gpxcontent`');
     $rCount = $dbcSearch->dbResultFetch($s);
     $countGPX = $rCount['count'];
-    $dbcSearch->reset();
 
     if ($countGPX == 1) {
         $s = $dbcSearch->simpleQuery(
@@ -321,7 +318,6 @@ if ($usr || ! $hide_coords) {
             $sFilebasename = str_replace(" ", "", PLConvert('UTF-8', 'POLSKAWY', $rName['name']));
         else
             $sFilebasename = $rName['wp_oc'];
-        $dbcSearch->reset();
     } else {
         if ($options['searchtype'] == 'bywatched') {
             $sFilebasename = 'watched_caches';
@@ -372,7 +368,6 @@ if ($usr || ! $hide_coords) {
             $children = "(HasChildren)";
         }
     }
-    $dbcSearch->reset();
 
     $gpxHead = str_replace('{wpchildren}', $children, $gpxHead);
     append_output($gpxHead);
@@ -683,8 +678,6 @@ if ($usr || ! $hide_coords) {
         append_output($thisline);
         ob_flush();
     }
-    $dbcSearch->reset();
-    unset($dbc);
 
     append_output($gpxFoot);
 

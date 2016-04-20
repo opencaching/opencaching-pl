@@ -22,13 +22,11 @@ if ($error == false) {
         if (isset($_POST['description'])) {
             $q = "UPDATE user SET description = :1 WHERE user_id=:2";
             $db->multiVariableQuery($q, strip_tags($_POST['description']), (int) $usr['userid']);
-            $db->reset();
             tpl_set_var('desc_updated', "<font color='green'>" . tr('desc_updated') . "</font>");
         }
         if (isset($_POST['submit']) && isset($_POST['bulletin']) ) {
             $q = "UPDATE user SET get_bulletin = :1 WHERE user_id = :2 ";
             $db->multiVariableQuery($q, $_POST['bulletin'], $usr['userid']);
-            $db->reset();
         }
         $q = "SELECT description, get_bulletin FROM user WHERE user_id = :1 LIMIT 1";
 
@@ -317,16 +315,13 @@ if ($error == false) {
                             /* GeoKretyApi - insert or update in DB user secid from Geokrety */
                             if (strlen($GeoKretyApiSecid) == 128) {
                                 $db->multiVariableQuery("insert into `GeoKretyAPI` (`userID`, `secid`) values (:1, :2) on duplicate key update `secid`=:2", $usr['userid'], $GeoKretyApiSecid);
-                                $db->reset();
                                 tpl_set_var('GeoKretyApiIntegration', tr('yes'));
                             } elseif ($GeoKretyApiSecid == '') {
                                 $db->multiVariableQuery("DELETE FROM `GeoKretyAPI` WHERE `userID` = :1", $usr['userid']);
-                                $db->reset();
                                 tpl_set_var('GeoKretyApiIntegration', tr('no'));
                             }
                             $q = "UPDATE `user` SET `last_modified`=NOW(), `latitude`=:2, `longitude`=:3, `pmr_flag`=:4, `country`=:5, `permanent_login_flag`=:6, `power_trail_email`=:8 , `notify_radius`=:9, `ozi_filips`=:10, `guru`=:1 WHERE `user_id`=:7";
                             $db->multiVariableQuery($q, $guide, $latitude, $longitude, 0, $country, $using_permantent_login, (int) $usr['userid'], $geoPathsEmail, $radius, $ozi_path);
-                            $db->reset();
 
                             // update user nick
                             if ($username != $usr['username']) {
@@ -472,7 +467,6 @@ if ($error == false) {
                     } else {
                         $show_all_countries = 0;
                     }
-                    $db->reset();
                 }
 
                 if ($show_all_countries == 1) {

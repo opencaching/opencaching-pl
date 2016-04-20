@@ -126,7 +126,6 @@ if( $usr || !$hide_coords ) {
 
     // temporĂ¤re tabelle erstellen
     $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `txtcontent` ' . $query . $queryLimit);
-    $dbcSearch->reset();
 
     $s = $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `txtcontent`');
     $rCount = $dbcSearch->dbResultFetchOneRowOnly($s);
@@ -315,9 +314,7 @@ if( $usr || !$hide_coords ) {
         }
         ob_flush();
     }
-    unset($dbc);
     $dbcSearch->simpleQuery('DROP TABLE `txtcontent` ');
-    $dbcSearch->reset();
 
     // phpzip versenden
     if ($bUseZip == true) {

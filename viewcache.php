@@ -251,7 +251,6 @@ if ($error == false) {
                         $params['v4']['data_type'] = 'string';
                     }
                     $dbc->paramQuery($thatquery, $params);
-                    $dbc->reset();
                     unset($params);
 
                     $orig_coord_info_lon = htmlspecialchars(help_lonToDegreeStr($orig_cache_lon), ENT_COMPAT, 'UTF-8');
@@ -500,7 +499,6 @@ if ($error == false) {
         // delete cache_visits older 1 day 60*60*24 = 86400
         $query = "DELETE FROM `cache_visits` WHERE `cache_id`=:1 AND `user_id_ip` != '0' AND NOW()-`last_visited` > 86400";
         $dbc->multiVariableQuery($query, $cache_id);
-        $dbc->reset();
 
         // first insert record for visit counter if not in db
         $chkuserid = isset($usr['userid']) ? $usr['userid'] : $_SERVER["REMOTE_ADDR"];
@@ -508,7 +506,6 @@ if ($error == false) {
         // note the visit of this user
         $query2 = "INSERT INTO `cache_visits` (`cache_id`, `user_id_ip`, `count`, `last_visited`) VALUES (:1, :2, 1, NOW()) ON DUPLICATE KEY UPDATE `count`=`count`+1";
         $dbc->multiVariableQuery($query2,$cache_id, $chkuserid);
-        $dbc->reset();
 
         if ($chkuserid != $owner_id) {
             // increment the counter for this cache
@@ -814,7 +811,6 @@ if ($error == false) {
 
             if ($cacheNotesRowCount > 0) {
                 $notes_record = $dbc->dbResultFetchOneRowOnly($s);
-                $dbc->reset();
             }
 
             tpl_set_var('note_content', "");
@@ -860,17 +856,12 @@ if ($error == false) {
                 $cn = strlen($cnote);
 
                 if ($cacheNotesRowCount != 0) {
-
                     $note_id = $notes_record['note_id'];
-
                     $dbc->multiVariableQuery("UPDATE `cache_notes` SET `date`=NOW(),`desc`=:1, `desc_html`=:2 WHERE `note_id`=:3", $cnote, '0', $note_id);
-                    $dbc->reset();
-
                 }
 
                 if ($cacheNotesRowCount == 0 && $cn != 0) {
                     $dbc->multiVariableQuery("INSERT INTO `cache_notes` ( `note_id`, `cache_id`, `user_id`, `date`, `desc_html`, `desc`) VALUES ('', :1, :2, NOW(), :3, :4)", $cache_id, $usr['userid'], '0', $cnote);
-                    $dbc->reset();
                 }
 
                 //display cache-page
@@ -984,7 +975,6 @@ if ($error == false) {
         if ($number_logs > $logs_to_display) {
             tpl_set_var('viewlogs_last', mb_ereg_replace('{cacheid_urlencode}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $viewlogs_last));
             tpl_set_var('viewlogs', mb_ereg_replace('{cacheid_urlencode}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $viewlogs));
-            $dbc->reset();
 
             $viewlogs_from = $dbc->multiVariableQueryValue(
                 "SELECT id FROM cache_logs
@@ -1434,7 +1424,6 @@ if ($error == false) {
                 $is_watched = 'removewatch.php?cacheid=' . $cache_id . '&amp;target=viewcache.php%3Fcacheid=' . $cache_id;
                 $watch_label = tr('watch_not');
             }
-            $dbc->reset();
         }
 
         //sql request only if we want show 'ignore' button for user
@@ -1454,7 +1443,6 @@ if ($error == false) {
                 $ignore_label = tr('ignore_not');
                 $ignore_icon = 'images/actions/ignore';
             }
-            $dbc->reset();
         }
 
         if ($usr !== false) {

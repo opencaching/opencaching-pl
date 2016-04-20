@@ -111,11 +111,9 @@ if( $usr || !$hide_coords ) {
 
     // cleanup (old gpxcontent lingers if gpx-download is cancelled by user)
     $dbcSearch->simpleQuery( 'DROP TEMPORARY TABLE IF EXISTS `wptcontent`');
-    $dbcSearch->reset();
 
     // temporäre tabelle erstellen
     $dbcSearch->simpleQuery( 'CREATE TEMPORARY TABLE `wptcontent` ' . $query . $queryLimit);
-    $dbcSearch->reset();
 
     $s = $dbcSearch->simpleQuery( 'SELECT COUNT(*) `count` FROM `wptcontent`');
     $rCount = $dbcSearch->dbResultFetchOneRowOnly($s);
@@ -230,9 +228,6 @@ if( $usr || !$hide_coords ) {
         appendOutput($record);
         ob_flush();
     }
-    $dbcSearch->reset();
-    unset($cdb);
-
 
      // phpzip versenden
      if ($bUseZip == true) {

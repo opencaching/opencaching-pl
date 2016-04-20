@@ -81,11 +81,9 @@ if ($usr || !$hide_coords) {
 
     // cleanup (old zipcontent lingers if zip-download is cancelled by user)
     $dbcSearch->simpleQuery('DROP TEMPORARY TABLE IF EXISTS `zipcontent`');
-    $dbcSearch->reset();
 
     // temporäre tabelle erstellen
     $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `zipcontent` ' . $query . $queryLimit);
-    $dbcSearch->reset();
 
     // echo $query;
     $s = $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `zipcontent`');
@@ -167,8 +165,6 @@ if ($usr || !$hide_coords) {
             $waypoints_tab[] = $r['wp_oc'];
         }
         $waypoints = implode("|", $waypoints_tab);
-
-        $dbcSearch->reset();
 
         if (!isset($_SESSION))
             session_start();# prevent downloading multiple parts at once

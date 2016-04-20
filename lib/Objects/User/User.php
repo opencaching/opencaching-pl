@@ -259,8 +259,7 @@ class User extends \lib\Objects\BaseObject
             WHERE `user_id` =:1
         ";
         $db = OcDb::instance();
-        $stmt = $db->multiVariableQuery($query, $this->userId);
-        $db->reset( $stmt );
+        $db->multiVariableQuery($query, $this->userId);
 
         $stmt = $db->multiVariableQuery(
             'SELECT `founds_count`, `notfounds_count`, `log_notes_count` FROM  `user` WHERE `user_id` =:1',

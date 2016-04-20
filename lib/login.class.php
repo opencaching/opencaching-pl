@@ -96,13 +96,13 @@ class login
         if ($rUser = $this->db->dbResultFetchOneRowOnly($s)) {
             if ((($this->permanent == true) && (strtotime($rUser['last_login']) + LOGIN_TIME / 2 < time())) ||
                     (($this->permanent == false) && (strtotime($rUser['last_login']) + LOGIN_TIME_PERMANENT / 2 < time()))) {
+
                 $updateQuery = "UPDATE `sys_sessions` SET `sys_sessions`.`last_login`=NOW() WHERE `sys_sessions`.`uuid`=:1 AND `sys_sessions`.`user_id`=:2 ";
-                $this->db->reset();
                 $this->db->multiVariableQuery($updateQuery, $this->sessionid, $this->userid);
-                $this->db->reset();
+
                 $rUser['last_login'] = date('Y-m-d H:i:s');
                 $updateQuery2 = "UPDATE `user` SET `last_login`=NOW() WHERE `user_id`=:1";
-                $this->db->multiVariableQuery($updateQuery2, $this->userid);
+                $s = $this->db->multiVariableQuery($updateQuery2, $this->userid);
             }
 
             $this->lastlogin = $rUser['last_login'];
@@ -111,7 +111,6 @@ class login
         } else {
             $this->pClear();
         }
-        $this->db->reset();
         $this->pStoreCookie();
         return;
     }
@@ -122,9 +121,7 @@ class login
 
         // check the number of logins in the last hour ...
         $this->db->multiVariableQuery("DELETE FROM `sys_logins` WHERE `timestamp`<:1", date('Y-m-d H:i:s', time() - 3600));
-        $this->db->reset();
         $logins_count = $this->db->multiVariableQueryValue("SELECT COUNT(*) `count` FROM `sys_logins` WHERE `remote_addr`=:1", 0, $_SERVER['REMOTE_ADDR']);
-
 
         if ($logins_count > 24){
             return LOGIN_TOOMUCHLOGINS;
@@ -132,7 +129,6 @@ class login
         // delete old sessions
         $min_lastlogin_permanent = date('Y-m-d H:i:s', time() - LOGIN_TIME_PERMANENT);
         $this->db->multiVariableQuery("DELETE FROM `sys_sessions` WHERE `last_login`<:1", $min_lastlogin_permanent);
-        $this->db->reset();
 
         // compare $user with email and username, if both match, use email
 
@@ -175,9 +171,7 @@ class login
                 // begin session
                 $uuid = $this->db->simpleQueryValue('SELECT UUID()', '');
                 $this->db->multiVariableQuery("INSERT INTO `sys_sessions` (`uuid`, `user_id`, `permanent`, `last_login`) VALUES (:1, :2, :3, NOW())", $uuid, $rUser['user_id'], ($permanent != false ? 1 : 0));
-                $this->db->reset();
                 $this->db->multiVariableQuery("UPDATE `user` SET `last_login`=NOW() WHERE `user_id`=:1", $rUser['user_id']);
-                $this->db->reset();
                 $this->userid = $rUser['user_id'];
                 $this->username = $rUser['username'];
                 $this->permanent = $permanent;
@@ -194,7 +188,6 @@ class login
             $retval = LOGIN_BADUSERPW;
         }
         $this->db->multiVariableQuery("INSERT INTO `sys_logins` (`remote_addr`, `success`, `timestamp`) VALUES (:1, :2, NOW())", $_SERVER['REMOTE_ADDR'], ($rUser === false ? 0 : 1));
-        $this->db->reset();
 
         // store to cookie
         $this->pStoreCookie();
@@ -208,7 +201,6 @@ class login
             "DELETE FROM `sys_sessions` WHERE `uuid`=:1 AND `user_id`=:2",
             $this->sessionid, $this->userid);
 
-        $this->db->reset();
         $this->pClear();
         $this->pStoreCookie();
     }

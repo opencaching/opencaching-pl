@@ -107,10 +107,8 @@ if ($usr || ! $hide_coords) {
 
     // cleanup (old gpxcontent lingers if gpx-download is cancelled by user)
     $dbcSearch->simpleQuery('DROP TEMPORARY TABLE IF EXISTS `wptcontent`');
-    $dbcSearch->reset();
 
     $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `wptcontent` ' . $query . $queryLimit);
-    $dbcSearch->reset();
 
     $s = $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `wptcontent`');
     $rCount = $dbcSearch->dbResultFetchOneRowOnly($s);
@@ -120,7 +118,6 @@ if ($usr || ! $hide_coords) {
             'SELECT `caches`.`wp_oc` `wp_oc` FROM `wptcontent`, `caches`
             WHERE `wptcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
         $rName = $rCount = $dbcSearch->dbResultFetchOneRowOnly($s);
-        $dbcSearch->reset();
 
         $sFilebasename = $rName['wp_oc'];
     } else {
@@ -204,7 +201,6 @@ if ($usr || ! $hide_coords) {
         append_output($record);
         ob_flush();
     }
-    $dbcSearch->reset();
 
     // phpzip versenden
     if ($bUseZip == true) {

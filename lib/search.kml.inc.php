@@ -108,11 +108,9 @@ if ($usr || ! $hide_coords) {
 
     // cleanup (old gpxcontent lingers if gpx-download is cancelled by user)
     $dbcSearch->simpleQuery('DROP TEMPORARY TABLE IF EXISTS `kmlcontent`');
-    $dbcSearch->reset();
 
     // temporäre tabelle erstellen
     $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `kmlcontent` ' . $query . $queryLimit);
-    $dbcSearch->reset();
 
     $s = $dbcSearch->simpleQuery(
         'SELECT COUNT(*) `count` FROM `kmlcontent`');
@@ -270,8 +268,6 @@ if ($usr || ! $hide_coords) {
         echo $thisline;
         // ob_flush();
     }
-    $dbcSearch->reset();
-    unset($dbc);
     echo $kmlFoot;
 
     // phpzip versenden

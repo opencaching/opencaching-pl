@@ -547,7 +547,6 @@ class GeoCache
         $sqlQuery = "UPDATE `caches` SET `last_found`=:1, `founds`=:2, `notfounds`= :3, `notes`= :4 WHERE `cache_id`= :5";
         $db = OcDb::instance();
         $db->multiVariableQuery($sqlQuery, $this->lastFound, $this->founds, $this->notFounds, $this->notesCount, $this->id);
-        $db->reset();
     }
 
     public function getPowerTrail()

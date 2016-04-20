@@ -100,7 +100,6 @@ if ($usr || ! $hide_coords) {
 
     // temporĂ¤re tabelle erstellen
     $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `ov2content` ' . $query . $queryLimit);
-    $dbcSearch->reset();
 
     $s = $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `ov2content`');
     $rCount = $dbcSearch->dbResultFetchOneRowOnly($s);
@@ -175,7 +174,6 @@ if ($usr || ! $hide_coords) {
         append_output($record);
         ob_flush();
     }
-    $dbcSearch->reset($s);
 
     // phpzip versenden
     if ($bUseZip == true) {

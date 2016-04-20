@@ -109,7 +109,6 @@ if ($count < 1) {
 $queryLimit = ' LIMIT ' . $startat . ', ' . $count;
 
 $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `xmlcontent` ' . $query . $queryLimit);
-$dbcSearch->reset();
 
 $s = $dbcSearch->simpleQuery('SELECT COUNT(cache_id) `count` FROM ('.$query.') query');
 $rCount = $dbcSearch->dbResultFetchOneRowOnly($s);
@@ -122,7 +121,6 @@ if ($rCount['count'] == 1) {
     $rName = $dbcSearch->dbResultFetchOneRowOnly($s);
 
     $sFilebasename = $rName['wp_oc'];
-    $dbcSearch->reset();
 } else {
     if ($options['searchtype'] == 'bywatched') {
         $sFilebasename = 'watched_caches';
@@ -244,10 +242,7 @@ while($r = XDb::xFetchArray($stmt) ) {
 
     echo $thisline;
 }
-$dbcSearch->reset();
-unset($dbc);
 $dbcSearch->simpleQuery('DROP TABLE `xmlcontent` ');
-$dbcSearch->reset();
 
 echo "</result>\n";
 

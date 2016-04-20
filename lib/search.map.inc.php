@@ -88,5 +88,4 @@ while ($r = $dbcSearch->dbResultFetch($stmt)) {
 fclose($f);
 
 tpl_redirect("cachemap3.php?searchdata=" . $hash . "&fromlat=" . $minlat . "&fromlon=" . $minlon . "&tolat=" . $maxlat . "&tolon=" . $maxlon);
-$dbcSearch->reset();
 

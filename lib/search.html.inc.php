@@ -285,7 +285,6 @@ if (isset($lat_rad) && isset($lon_rad)) {
 
             $query .= getCalcDistanceSqlFormula($usr !== false, $record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
         }
-        $dbc->reset();
     }
 }
 $query .= '   `caches`.`name` `name`, `caches`.`status` `status`, `caches`.`wp_oc` `wp_oc`,
@@ -441,7 +440,6 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
 
         $tmpline = str_replace('{logtypes1}', "<span " . str_pad($typy[0], 5, 0, STR_PAD_LEFT) . " style='color:green'>" . $typy[0] . "</span>.<span style='color:red'>" . $typy[1] . "</span>.<span style='color:black'>" . $typy[2] . "</span>", $tmpline);
 
-        $dbc->reset();
     }
     $tmpline = str_replace('{find}', $typy[0], $tmpline);
     $tmpline = str_replace('{notfind}', $typy[1], $tmpline);
@@ -479,7 +477,6 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
             $tmpline = str_replace('{logtype}', "", $tmpline);
             $tmpline = str_replace('{logdesc}', "", $tmpline);
         }
-        $dbc->reset();
     }
     $lastlogs = "";
 

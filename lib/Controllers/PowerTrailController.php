@@ -70,7 +70,6 @@ class PowerTrailController
         $db = OcDb::instance();
         $query = 'DELETE FROM `PowerTrail_cacheCandidate` WHERE `date` < DATE_SUB(curdate(), INTERVAL 2 WEEK)';
         $db->simpleQuery($query);
-        $db->reset();
     }
 
 }

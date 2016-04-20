@@ -99,7 +99,6 @@ use Utils\Database\XDb;
         $queryLimit = ' LIMIT ' . $startat . ', ' . $count;
 
         $dbcSearch->simpleQuery( 'CREATE TEMPORARY TABLE `ovlcontent` ' . $query . $queryLimit);
-        $dbcSearch->reset();
 
         $s = $dbcSearch->simpleQuery( 'SELECT COUNT(*) `count` FROM `ovlcontent`');
         $rCount = $dbcSearch->dbResultFetchOneRowOnly($s);
@@ -187,7 +186,6 @@ use Utils\Database\XDb;
             ob_flush();
             $nr += 2;
         }
-        $dbcSearch->reset($s);
 
         $ovlFoot = mb_ereg_replace('{symbolscount}', $nr - 1, $ovlFoot);
         append_output($ovlFoot);
