@@ -372,13 +372,20 @@ class OcDb extends OcPdo
     // -- THIS CODE WILL BE REMOVED SOON --
 
 
-    // -- THIS CODE WILL BE REMOVED SOON --
-        /**
-         * reset data from prevous results and make class ready for next query
-         */
-        public function reset()
-        {
-            $this->closeCursor();
+
+    /**
+     * reset data from prevous results and make class ready for next query
+     */
+    public function reset( PDOStatement $stmt = null )
+    {
+        if(!is_null($stmt)){
+            return $stmt->rowCount();
         }
-    // -- THIS CODE WILL BE REMOVED SOON --
+
+        // -- THIS CODE WILL BE REMOVED SOON --
+            $this->closeCursor();
+        // -- THIS CODE WILL BE REMOVED SOON --
+
+    }
+
 }

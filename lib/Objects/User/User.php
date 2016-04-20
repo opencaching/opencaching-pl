@@ -88,9 +88,9 @@ class User extends \lib\Objects\BaseObject
         $db = OcDb::instance();
         $queryById = "SELECT `newcaches_no_limit` AS ingnoreGeocacheLimitWhileCreatingNewGeocache "
                    . "FROM `user_settings` WHERE `user_id` = :1 LIMIT 1";
-        $db->multiVariableQuery($queryById, $this->userId);
-        $dbRow = $db->dbResultFetch();
-        $db->reset();
+        $stmt = $db->multiVariableQuery($queryById, $this->userId);
+        $dbRow = $db->dbResultFetchOneRowOnly($stmt);
+
         if ($dbRow && $dbRow['ingnoreGeocacheLimitWhileCreatingNewGeocache'] == 1) {
             $this->ingnoreGeocacheLimitWhileCreatingNewGeocache = true;
         }
@@ -140,15 +140,15 @@ class User extends \lib\Objects\BaseObject
 
         $queryById = "SELECT $fields FROM `user` WHERE `user_id`=:1 LIMIT 1";
 
-        $db->multiVariableQuery($queryById, $this->userId);
+        $stmt = $db->multiVariableQuery($queryById, $this->userId);
 
-        if ($db->rowCount() != 1) {
+        if ($db->rowCount($stmt) != 1) {
             //no such user found in DB?
             $this->dataLoaded = false;  //mark object as NOT containing data
             return;
         }
 
-        $userDbRow = $db->dbResultFetch();
+        $userDbRow = $db->dbResultFetchOneRowOnly($stmt);
         if ($userDbRow) {
             $this->setUserFieldsByUsedDbRow($userDbRow);
         }
@@ -256,11 +256,14 @@ class User extends \lib\Objects\BaseObject
             WHERE `user_id` =:1
         ";
         $db = OcDb::instance();
-        $db->multiVariableQuery($query, $this->userId);
-        $db->reset();
-        $selectQuery = 'SELECT `founds_count`, `notfounds_count`, `log_notes_count` FROM  `user` WHERE `user_id` =:1';
-        $db->multiVariableQuery($selectQuery, $this->userId);
-        $dbResult = $db->dbResultFetchOneRowOnly();
+        $stmt = $db->multiVariableQuery($query, $this->userId);
+        $db->reset( $stmt );
+
+        $stmt = $db->multiVariableQuery(
+            'SELECT `founds_count`, `notfounds_count`, `log_notes_count` FROM  `user` WHERE `user_id` =:1',
+            $this->userId);
+        $dbResult = $db->dbResultFetchOneRowOnly($stmt);
+
         $this->setUserFieldsByUsedDbRow($dbResult);
     }
 
@@ -350,8 +353,9 @@ class User extends \lib\Objects\BaseObject
             $this->powerTrailCompleted = new \ArrayObject();
             $queryPtList = 'SELECT * FROM `PowerTrail` WHERE `id` IN (SELECT `PowerTrailId` FROM `PowerTrail_comments` WHERE `commentType` =2 AND `deleted` =0 AND `userId` =:1 ORDER BY `logDateTime` DESC)';
             $db = OcDb::instance();
-            $db->multiVariableQuery($queryPtList, $this->userId);
-            $ptList = $db->dbResultFetchAll();
+            $stmt = $db->multiVariableQuery($queryPtList, $this->userId);
+            $ptList = $db->dbResultFetchAll($stmt);
+
             foreach ($ptList as $ptRow) {
                 $this->powerTrailCompleted->append(new \lib\Objects\PowerTrail\PowerTrail(array('dbRow' => $ptRow)));
             }
@@ -367,10 +371,13 @@ class User extends \lib\Objects\BaseObject
     {
         if($this->powerTrailOwed === null) {
             $this->powerTrailOwed = new \ArrayObject();
-            $query = "SELECT `PowerTrail`.* FROM `PowerTrail`, PowerTrail_owners WHERE  PowerTrail_owners.userId = :1 AND PowerTrail_owners.PowerTrailId = PowerTrail.id";
+
             $db = OcDb::instance();
-            $db->multiVariableQuery($query, $this->userId);
-            $ptList = $db->dbResultFetchAll();
+            $stmt = $db->multiVariableQuery(
+                "SELECT `PowerTrail`.* FROM `PowerTrail`, PowerTrail_owners WHERE  PowerTrail_owners.userId = :1 AND PowerTrail_owners.PowerTrailId = PowerTrail.id",
+                $this->userId);
+
+            $ptList = $db->dbResultFetchAll( $stmt );
             foreach ($ptList as $ptRow) {
                 $this->powerTrailOwed->append(new \lib\Objects\PowerTrail\PowerTrail(array('dbRow' => $ptRow)));
             }
@@ -385,9 +392,11 @@ class User extends \lib\Objects\BaseObject
 //            $db = DataBaseSingleton::Instance();
 
             $db = OcDb::instance();
-            $query = "SELECT * FROM `caches` where `user_id` = :1 ";
-            $db->multiVariableQuery($query, $this->userId);
-            foreach ($db->dbResultFetchAll() as $geocacheRow) {
+
+            $stmt = $db->multiVariableQuery(
+                "SELECT * FROM `caches` where `user_id` = :1 ", $this->userId);
+
+            foreach ($db->dbResultFetchAll($stmt) as $geocacheRow) {
                 $geocache = new GeoCache();
                 $geocache->loadFromRow($geocacheRow);
                 $this->geocaches->append($geocache);

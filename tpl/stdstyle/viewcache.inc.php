@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
+
 $linkargs = (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y') ? '&amp;print=y' : '';
 $linkargs .= (isset($_REQUEST['nocrypt']) && $_REQUEST['nocrypt'] == '1') ? '&amp;nocrypt=1' : '';
 
@@ -150,7 +151,7 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
     }else{
         $spoiler_only = "";
     }
-    $db->multiVariableQuery('
+    $stmt = $db->multiVariableQuery('
         SELECT uuid, title, url, spoiler FROM pictures
         WHERE ' . $spoiler_only . ' object_id=:1
             AND object_type=2 AND display=1
@@ -162,7 +163,7 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
     } else {
         $spoiler_onclick = "alert('" . $spoiler_disable_msg . "'); return false;";
     }
-    foreach ($db->dbResultFetchAll() as $key => $r) {
+    foreach ($db->dbResultFetchAll($stmt) as $key => $r) {
         if ($viewthumbs) {
             if ($nCol == 4) {
                 $nCol = 0;

@@ -17,7 +17,7 @@ class OrgCacheOwners
     {
         $this->verbose = false;
 
-        $this->db->multiVariableQuery(
+        $stmt = $this->db->multiVariableQuery(
             "SELECT cl.id, cl.cache_id, cl.text
             FROM cache_logs cl join caches c using (cache_id)
             WHERE cl.user_id = -1 AND cl.type = 3
@@ -34,7 +34,7 @@ class OrgCacheOwners
             ORDER by cl.id",
             $cache_id);
 
-        $this->process();
+        $this->process( $stmt );
     }
 
     public function populateAll()
@@ -45,7 +45,7 @@ class OrgCacheOwners
         echo "cache_id,log_id,status,user_id,log_text\n";
 
         set_time_limit(360);
-        $this->db->simpleQuery(
+        $stmt = $this->db->simpleQuery(
             "SELECT cl.id, cl.cache_id, cl.text
             FROM cache_logs cl join caches c using (cache_id)
             WHERE cl.user_id = -1
@@ -61,13 +61,14 @@ class OrgCacheOwners
                 AND c.status IN (1,2,3)
             ORDER BY cl.id ");
 
-            $this->process();
+            $this->process( $stmt );
         set_time_limit(60);
     }
 
-    private function process()
+    private function process(PDOStatement $stmt)
     {
-        $results = $this->db->dbResultFetchAll();
+        $results = $this->db->dbResultFetchAll($stmt);
+
         foreach ($results as $key => $r) {
             if ($this->verbose) {
                 echo $r['cache_id'] . ',' . $r['id'] . ',';
@@ -84,11 +85,12 @@ class OrgCacheOwners
             $org_user_id = $matches[1];
             $new_user_id = $matches[3];
 
-            $this->db->multiVariableQuery(
+            $stmt = $this->db->multiVariableQuery(
                 'UPDATE caches SET org_user_id = :1 WHERE cache_id = :2 AND org_user_id IS null',
                 $org_user_id, $r['cache_id']);
+
             if ($this->verbose) {
-                if ($this->db->rowCount() > 0) {
+                if ($this->db->rowCount( $stmt ) > 0) {
                     echo "updated,$org_user_id,\n";
                 } else {
                     echo "skipped,,\n";

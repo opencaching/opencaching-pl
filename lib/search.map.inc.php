@@ -25,8 +25,8 @@ if (isset($lat_rad) && isset($lon_rad)) {
         $query .= '0 distance, ';
     } else {
         // get the users home coords
-        $dbc->multiVariableQuery("SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`= :1", $usr['userid']);
-        $record_coords = $dbc->dbResultFetch();
+        $stmt = $dbc->multiVariableQuery("SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`= :1 LIMIT 1", $usr['userid']);
+        $record_coords = $dbc->dbResultFetchOneRowOnly($stmt);
 
         if ((($record_coords['latitude'] == NULL) || ($record_coords['longitude'] == NULL)) || (($record_coords['latitude'] == 0) || ($record_coords['longitude'] == 0))) {
             $query .= '0 distance, ';
@@ -39,8 +39,6 @@ if (isset($lat_rad) && isset($lon_rad)) {
 
             $query .= getCalcDistanceSqlFormula($usr !== false, $record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
         }
-        $dbc->reset();
-        unset($dbc);
     }
 }
 $query .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, `caches`.`user_id` `user_id`, ';
@@ -66,23 +64,23 @@ if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance')) {
         $query .= ' ORDER BY name ASC';
     }
 
-$dbcSearch->simpleQuery(
+$rs = $dbcSearch->simpleQuery(
     'SELECT MAX(`caches`.`longitude`) AS maxlongitude, MAX(`caches`.`latitude`) AS maxlatitude,
             MIN(`caches`.`longitude`) AS minlongitude, MIN(`caches`.`latitude`) AS minlatitude
     FROM `caches` WHERE `caches`.`cache_id` IN (' . $queryFilter . ')');
 
-$r = $dbcSearch->dbResultFetch();
+$r = $dbcSearch->dbResultFetchOneRowOnly($rs);
 $minlat = $r['minlatitude'];
 $minlon = $r['minlongitude'];
 $maxlat = $r['maxlatitude'];
 $maxlon = $r['maxlongitude'];
-$dbcSearch->reset();
 
-$dbcSearch->simpleQuery($query);
+
+$stmt = $dbcSearch->simpleQuery($query);
 $cnt = 0;
 $hash = uniqid();
 $f = fopen($dynbasepath . "searchdata/" . $hash, "w");
-while ($r = $dbcSearch->dbResultFetch()) {
+while ($r = $dbcSearch->dbResultFetch($stmt)) {
 
     ++ $cnt;
     fprintf($f, "%s\n", $r['cache_id']);
