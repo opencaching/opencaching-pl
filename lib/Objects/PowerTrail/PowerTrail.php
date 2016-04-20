@@ -6,6 +6,7 @@ use \lib\Database\DataBaseSingleton;
 use \lib\Objects\Coordinates\Coordinates;
 use lib\Objects\GeoCache\Collection;
 use lib\Objects\GeoCache\GeoCache;
+use Utils\Database\OcDb;
 
 class PowerTrail extends \lib\Objects\BaseObject
 {
@@ -144,10 +145,10 @@ class PowerTrail extends \lib\Objects\BaseObject
     public static function CheckForPowerTrailByCache($cacheId)
     {
         $queryPt = 'SELECT `id`, `name`, `image`, `type` FROM `PowerTrail` WHERE `id` IN ( SELECT `PowerTrailId` FROM `powerTrail_caches` WHERE `cacheId` =:1 ) AND `status` = 1 ';
-        $db = DataBaseSingleton::Instance();
-        $db->multiVariableQuery($queryPt, $cacheId);
+        $db = OcDb::instance();
+        $s = $db->multiVariableQuery($queryPt, $cacheId);
 
-        return $db->dbResultFetchAll();
+        return $db->dbResultFetchAll($s);
     }
 
     public static function GetPowerTrailIconsByType($typeId = null)
@@ -215,10 +216,12 @@ class PowerTrail extends \lib\Objects\BaseObject
     public function getGeocaches()
     {
         if (!$this->geocaches->isReady()) {
-            $db = DataBaseSingleton::Instance();
+
+            $db = OcDb::instance();
             $query = 'SELECT powerTrail_caches.isFinal, caches . * , user.username FROM  `caches` , user, powerTrail_caches WHERE cache_id IN ( SELECT  `cacheId` FROM  `powerTrail_caches` WHERE  `PowerTrailId` =:1) AND user.user_id = caches.user_id AND powerTrail_caches.cacheId = caches.cache_id ORDER BY caches.name';
-            $db->multiVariableQuery($query, $this->id);
-            $geoCachesDbResult = $db->dbResultFetchAll();
+            $s = $db->multiVariableQuery($query, $this->id);
+            $geoCachesDbResult = $db->dbResultFetchAll($s);
+
             $geocachesIdArray = array();
             foreach ($geoCachesDbResult as $geoCacheDbRow) {
                 $geocache = new GeoCache();
@@ -240,9 +243,9 @@ class PowerTrail extends \lib\Objects\BaseObject
     private function loadPtOwners()
     {
         $query = 'SELECT `userId`, `privileages`, username FROM `PowerTrail_owners`, user WHERE `PowerTrailId` = :1 AND PowerTrail_owners.userId = user.user_id';
-        $db = \lib\Database\DataBaseSingleton::Instance();
-        $db->multiVariableQuery($query, $this->id);
-        $ownerDb = $db->dbResultFetchAll();
+        $db = OcDb::instance();
+        $s = $db->multiVariableQuery($query, $this->id);
+        $ownerDb = $db->dbResultFetchAll($s);
         foreach ($ownerDb as $user) {
             $owner = new Owner($user);
             $owner->setPrivileages($user['privileages']);
@@ -363,9 +366,9 @@ class PowerTrail extends \lib\Objects\BaseObject
     {
 
         $query = 'SELECT `cache_id` AS `geocacheId` FROM `cache_logs` WHERE `cache_id` in (' . $this->buildSqlStringOfAllPtGeocachesId() . ') AND `deleted` = 0 AND `user_id` = :1 AND `type` = "1" ';
-        $db = DataBaseSingleton::Instance();
-        $db->multiVariableQuery($query, (int) $userId);
-        $cachesFoundByUser = $db->dbResultFetchAll();
+        $db = OcDb::instance();
+        $s = $db->multiVariableQuery($query, (int) $userId);
+        $cachesFoundByUser = $db->dbResultFetchAll($s);
         return $cachesFoundByUser;
     }
 
@@ -461,11 +464,12 @@ class PowerTrail extends \lib\Objects\BaseObject
 
     public function getPowerTrailCachesLogsForCurrentUser()
     {
-        $db = DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $qr = 'SELECT `cache_id`, `date`, `text_html`, `text`  FROM `cache_logs` WHERE `cache_id` IN ( SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` = :1) AND `user_id` = :2 AND `deleted` = 0 AND `type` = 1';
         isset($_SESSION['user_id']) ? $userId = $_SESSION['user_id'] : $userId = 0;
-        $db->multiVariableQuery($qr, $this->id, $userId);
-        $powerTrailCacheLogsArr = $db->dbResultFetchAll();
+        $s = $db->multiVariableQuery($qr, $this->id, $userId);
+        $powerTrailCacheLogsArr = $db->dbResultFetchAll($s);
+
         $powerTrailCachesUserLogsByCache = array();
         foreach ($powerTrailCacheLogsArr as $log) {
             $powerTrailCachesUserLogsByCache[$log['cache_id']] = array(

@@ -786,10 +786,10 @@ class GeoCache
     public function getNatureRegions()
     {
         if($this->natureRegions === false){
-            $db = DataBaseSingleton::Instance();
+            $db = OcDb::instance();
             $rsAreasql = "SELECT `parkipl`.`id` AS `npaId`, `parkipl`.`name` AS `npaname`,`parkipl`.`link` AS `npalink`,`parkipl`.`logo` AS `npalogo` FROM `cache_npa_areas` INNER JOIN `parkipl` ON `cache_npa_areas`.`parki_id`=`parkipl`.`id` WHERE `cache_npa_areas`.`cache_id`=:1 AND `cache_npa_areas`.`parki_id`!='0'";
-            $db->multiVariableQuery($rsAreasql, $this->id);
-            $this->natureRegions = $db->dbResultFetchAll();
+            $s = $db->multiVariableQuery($rsAreasql, $this->id);
+            $this->natureRegions = $db->dbResultFetchAll($s);
         }
         return $this->natureRegions;
     }
@@ -797,12 +797,12 @@ class GeoCache
     public function getNatura2000Sites()
     {
         if($this->natura2000Sites === false){
-            $db = DataBaseSingleton::Instance();
+            $db = OcDb::instance();
             $sql = "SELECT `npa_areas`.`id` AS `npaId`, `npa_areas`.`linkid` AS `linkid`,`npa_areas`.`sitename` AS `npaSitename`, `npa_areas`.`sitecode` AS `npaSitecode`, `npa_areas`.`sitetype` AS `npaSitetype`
                     FROM `cache_npa_areas` INNER JOIN `npa_areas` ON `cache_npa_areas`.`npa_id`=`npa_areas`.`id`
                     WHERE `cache_npa_areas`.`cache_id`=:1 AND `cache_npa_areas`.`npa_id`!='0'";
-            $db->multiVariableQuery($sql, $this->id);
-            $this->natura2000Sites = $db->dbResultFetchAll();
+            $s = $db->multiVariableQuery($sql, $this->id);
+            $this->natura2000Sites = $db->dbResultFetchAll($s);
         }
         return $this->natura2000Sites;
     }
@@ -810,10 +810,10 @@ class GeoCache
     public function getUsersRecomeded()
     {
         if($this->usersRecomeded === false) {
-            $db  = DataBaseSingleton::Instance();
+            $db  = OcDb::instance();
             $sql = "SELECT user.username username FROM `cache_rating` INNER JOIN user ON (cache_rating.user_id = user.user_id) WHERE cache_id=:1 ORDER BY username";
-            $db->multiVariableQuery($sql, $this->id);
-            $this->usersRecomeded = $db->dbResultFetchAll();
+            $s = $db->multiVariableQuery($sql, $this->id);
+            $this->usersRecomeded = $db->dbResultFetchAll($s);
         }
         return $this->usersRecomeded;
     }

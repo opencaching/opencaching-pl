@@ -1,4 +1,5 @@
 <?php
+use Utils\Database\OcDb;
 /**
  *
  */
@@ -70,10 +71,10 @@ class powerTrailBase{
      * @return 0 or 1
      */
     public static function checkIfUserIsPowerTrailOwner($userId, $powerTrailId){
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $query = 'SELECT count(*) AS `checkResult` FROM `PowerTrail_owners` WHERE `PowerTrailId` = :1 AND `userId` = :2' ;
-        $db->multiVariableQuery($query, $powerTrailId, $userId);
-        $result = $db->dbResultFetchAll();
+        $s = $db->multiVariableQuery($query, $powerTrailId, $userId);
+        $result = $db->dbResultFetchAll($s);
         return $result[0]['checkResult'];
     }
 
@@ -272,9 +273,9 @@ class powerTrailBase{
                 AND     `PowerTrail`.`id` = `powerTrail_caches`.`PowerTrailId`
                 AND     `PowerTrail`.`status` != 2
                 GROUP BY `PowerTrailId`';
-        $db = \lib\Database\DataBaseSingleton::Instance();
-        $db->multiVariableQuery($query, $userId);
-        $points = $db->dbResultFetchAll();
+        $db = OcDb::instance();
+        $s = $db->multiVariableQuery($query, $userId);
+        $points = $db->dbResultFetchAll($s);
         $totalPoint = 0;
         $geoPathCount = 0;
         $pointsDetails = array();
@@ -296,16 +297,16 @@ class powerTrailBase{
 
     public static function checkForPowerTrailByCache($cacheId){
         $queryPt = 'SELECT `id`, `name`, `image` FROM `PowerTrail` WHERE `id` IN ( SELECT `PowerTrailId` FROM `powerTrail_caches` WHERE `cacheId` =:1 ) AND `status` = 1 ';
-        $db = \lib\Database\DataBaseSingleton::Instance();
-        $db->multiVariableQuery($queryPt, $cacheId);
-        return $db->dbResultFetchAll();
+        $db = OcDb::instance();
+        $s = $db->multiVariableQuery($queryPt, $cacheId);
+        return $db->dbResultFetchAll($s);
     }
 
     public static function getPtOwners($ptId) {
         $query = 'SELECT user_id, username, email, power_trail_email FROM `user` WHERE user_id IN (SELECT `userId` FROM `PowerTrail_owners` WHERE `PowerTrailId` = :1 ) ';
-        $db = \lib\Database\DataBaseSingleton::Instance();
-        $db->multiVariableQuery($query, $ptId);
-        $dbResult = $db->dbResultFetchAll();
+        $db = OcDb::instance();
+        $s = $db->multiVariableQuery($query, $ptId);
+        $dbResult = $db->dbResultFetchAll($s);
         $result = array();
         foreach ($dbResult as $ptOwner) {
             $result[$ptOwner['user_id']] = $ptOwner;
@@ -385,9 +386,10 @@ class powerTrailBase{
 
     public static function writePromoPt4mainPage($oldPtId){
         $q = 'SELECT * FROM `PowerTrail` WHERE `id` != :1 AND `status` = 1 AND `cacheCount` >= '.self::historicMinimumCacheCount().' ORDER BY `id` ASC';
-        $db = \lib\Database\DataBaseSingleton::Instance();
-        $db->multiVariableQuery($q, $oldPtId);
-        $r = $db->dbResultFetchAll();
+
+        $db = OcDb::instance();
+        $s = $db->multiVariableQuery($q, $oldPtId);
+        $r = $db->dbResultFetchAll($s);
         foreach ($r as $pt) {
             if ($pt['id'] > $oldPtId){
                 return $pt;
@@ -397,18 +399,18 @@ class powerTrailBase{
     }
 
     public static function getPtCaches($PtId){
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $q = 'SELECT powerTrail_caches.isFinal, caches . * , user.username FROM  `caches` , user, powerTrail_caches WHERE cache_id IN ( SELECT  `cacheId` FROM  `powerTrail_caches` WHERE  `PowerTrailId` =:1) AND user.user_id = caches.user_id AND powerTrail_caches.cacheId = caches.cache_id ORDER BY caches.name';
-        $db->multiVariableQuery($q, $PtId);
-        return $db->dbResultFetchAll();
+        $s = $db->multiVariableQuery($q, $PtId);
+        return $db->dbResultFetchAll($s);
     }
 
     public static function getPtCachesIds($PtId){
         $q = 'SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1';
-        $db = \lib\Database\DataBaseSingleton::Instance();
-        $db->multiVariableQuery($q, $PtId);
-        $r = $db->dbResultFetchAll();
-        //return $r;
+        $db = OcDb::instance();
+        $s = $db->multiVariableQuery($q, $PtId);
+        $r = $db->dbResultFetchAll($s);
+
         foreach ($r as $c) {
             $result[] = $c['cacheId'];
         }
@@ -439,8 +441,8 @@ class powerTrailBase{
         $sortBy = 'name';
 
         $q = 'SELECT * FROM `PowerTrail` WHERE cacheCount >= '.self::historicMinimumCacheCount() .' '.$filter.' ORDER BY '.$sortBy.' '.$sortOder.' ';
-        $db = \lib\Database\DataBaseSingleton::Instance();
-        $db->multiVariableQuery($q);
-        return $db->dbResultFetchAll();
+        $db = OcDb::instance();
+        $s = $db->multiVariableQuery($q);
+        return $db->dbResultFetchAll($s);
     }
 }

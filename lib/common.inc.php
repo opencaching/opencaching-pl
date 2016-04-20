@@ -1355,8 +1355,8 @@ class common
     public static function getUserActiveCacheCountByType($db, $userId)
     {
         $query = 'SELECT type, count(*) as cacheCount FROM `caches` WHERE `user_id` = :1 AND STATUS !=3 GROUP by type';
-        $db->multiVariableQuery($query, $userId);
-        $userCacheCountByType = $db->dbResultFetchAll();
+        $s = $db->multiVariableQuery($query, $userId);
+        $userCacheCountByType = $db->dbResultFetchAll($s);
         $cacheLimitByTypePerUser = array();
         foreach ($userCacheCountByType as $cacheCount) {
             $cacheLimitByTypePerUser[$cacheCount['type']] = $cacheCount['cacheCount'];

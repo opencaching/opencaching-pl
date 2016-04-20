@@ -219,14 +219,17 @@ class User extends \lib\Objects\BaseObject
         }
 
         $this->dataLoaded = true; //mark object as containing data
+
     }
 
-    public function loadMedalsFromDb()
-    {
+    public function loadMedalsFromDb(){
+
         $db = OcDb::instance();
+
         $query = 'SELECT `medal_type`, `prized_time`, `medal_level` FROM `medals` WHERE `user_id`=:1';
-        $db->multiVariableQuery($query, $this->userId);
-        $medalsDb = $db->dbResultFetchAll();
+        $s = $db->multiVariableQuery($query, $this->userId);
+        $medalsDb = $db->dbResultFetchAll($s);
+
         $this->medals = new \ArrayObject();
         $medalController = new MedalsController();
         foreach ($medalsDb as $medalRow) {

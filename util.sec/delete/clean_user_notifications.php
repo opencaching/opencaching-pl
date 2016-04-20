@@ -67,8 +67,8 @@ if ($notify_radius > 0) {
 }
 
 // Clean all cache_watches
-$db->multiVariableQuery('SELECT cache_id FROM cache_watches WHERE user_id = :1', $user_id);
-$cache_watches = $db->dbResultFetchAll();
+$s = $db->multiVariableQuery('SELECT cache_id FROM cache_watches WHERE user_id = :1', $user_id);
+$cache_watches = $db->dbResultFetchAll($s);
 foreach ($cache_watches as $watch) {
     remove_watch($watch['cache_id'], $user_id);
 }

@@ -1655,16 +1655,15 @@ function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconun
 
 
     // select attributes depend on specified language.
-    $database = new dataBase(false);
+    $database = OcDb::instance();
     $query = "SELECT `id`, `text_long`, `icon_large`, `icon_no`, `icon_undef`, `category` FROM `cache_attrib` WHERE `language` LIKE :1 ORDER BY `id`";
-    $database->multiVariableQuery($query, strtoupper($lang));
+    $s = $database->multiVariableQuery($query, strtoupper($lang));
     // if specified language is in database
-    if($database->rowCount() <= 0) {
+    if($database->rowCount($s) <= 0) {
          // if we have not specified language in db, just use english.
-        $database->multiVariableQuery($query, 'EN');
+        $s = $database->multiVariableQuery($query, 'EN');
     }
-    $rs = $database->dbResultFetchAll();
-    unset($database);
+    $rs = $database->dbResultFetchAll($s);
 
     foreach ($rs as $record)
     {

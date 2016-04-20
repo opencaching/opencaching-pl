@@ -387,7 +387,7 @@ if ($error == false) {
         $thatquery = "SELECT gk_item.id, name, distancetravelled as distance FROM gk_item INNER JOIN gk_item_waypoint ON (gk_item.id = gk_item_waypoint.id) WHERE gk_item_waypoint.wp = :v1 AND stateid<>1 AND stateid<>4 AND stateid <>5 AND typeid<>2 AND missing=0";
         $params['v1']['value'] = (string) $geocache->getGeocacheWaypointId();
         $params['v1']['data_type'] = 'string';
-        $dbc->paramQuery($thatquery, $params);
+        $s = $dbc->paramQuery($thatquery, $params);
         unset($params); //clear to avoid overlaping on next paramQuery (if any))
         $geokrety_all_count = $dbc->rowCount();
         if ($geokrety_all_count == 0) {
@@ -398,7 +398,7 @@ if ($error == false) {
         } else {
             // geokret is present in this cache
             $geokrety_content = '';
-            $geokrety_all = $dbc->dbResultFetchAll();
+            $geokrety_all = $dbc->dbResultFetchAll($s);
 
             for ($i = 0; $i < $geokrety_all_count; $i++) {
                 $geokret = $geokrety_all[$i];
@@ -1086,10 +1086,15 @@ if ($error == false) {
         // show additional waypoints
         $cache_type = $geocache->getCacheType();
         $waypoints_visible = 0;
-        $dbc->multiVariableQuery("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, `waypoint_type`.en wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`=:1 ORDER BY `stage`,`wp_id`", $geocache->getCacheId());
+        $s = $dbc->multiVariableQuery(
+            "SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`,
+                    `waypoint_type`.en wp_type, waypoint_type.icon wp_icon
+            FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id)
+            WHERE `cache_id`=:1 ORDER BY `stage`,`wp_id`", $geocache->getCacheId());
+
         $wptCount = $dbc->rowCount();
         if ($wptCount != 0 && $geocache->getCacheType() != GeoCache::TYPE_MOVING) { // check status all waypoints
-            foreach ($dbc->dbResultFetchAll() as $wp_check) {
+            foreach ($dbc->dbResultFetchAll($s) as $wp_check) {
                 if ($wp_check['status'] == 1 || $wp_check['status'] == 2) {
                     $waypoints_visible = 1;
                 }
@@ -1570,7 +1575,7 @@ if ($error == false) {
         $has_password = $geocache->hasPassword();
 
         // cache-attributes
-        $dbc->multiVariableQuery("SELECT `cache_attrib`.`text_long`,
+        $s = $dbc->multiVariableQuery("SELECT `cache_attrib`.`text_long`,
                               `cache_attrib`.`icon_large`
                         FROM  `cache_attrib`, `caches_attributes`
                         WHERE `cache_attrib`.`id`=`caches_attributes`.`attrib_id`
@@ -1580,7 +1585,7 @@ if ($error == false) {
         $num_of_attributes = $dbc->rowCount();
         if ($num_of_attributes > 0 || $has_password) {
             $cache_attributes = '';
-            foreach ($dbc->dbResultFetchAll() as $record) {
+            foreach ($dbc->dbResultFetchAll($s) as $record) {
                 $cache_attributes .= '<img src="' . htmlspecialchars($record['icon_large'], ENT_COMPAT, 'UTF-8') . '" border="0" title="' . htmlspecialchars($record['text_long'], ENT_COMPAT, 'UTF-8') . '" alt="' . htmlspecialchars($record['text_long'], ENT_COMPAT, 'UTF-8') . '" />&nbsp;';
             }
 

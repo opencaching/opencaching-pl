@@ -36,7 +36,7 @@ $cacheTypeIcons = $cacheCntainer->getCacheTypeIcons();
 
 $id = 0;
 do {
-    $db->multiVariableQuery(
+    $s = $db->multiVariableQuery(
         "SELECT `notify_waiting`.`id`, `notify_waiting`.`cache_id`, `notify_waiting`.`type`,
                 `user`.`username`, user.user_id as cache_owner_id,
                 user.hidden_count as hidden, user.notfounds_count as dnf, user.founds_count as found,
@@ -52,7 +52,7 @@ do {
         ORDER BY `notify_waiting`.`id`
         LIMIT 0,100", $id);
 
-    $rsNotify = $db->dbResultFetchAll();
+    $rsNotify = $db->dbResultFetchAll($s);
 
     foreach ($rsNotify as $rNotify) {
         $id = $rNotify['id'];

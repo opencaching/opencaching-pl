@@ -388,12 +388,13 @@ if ($error == false) {
                     if (!isset($dbc)) {
                         $dbc = new dataBase();
                     }
-                    $dbc->paramQuery($thatquery, $params);
+                    $s = $dbc->paramQuery($thatquery, $params);
                     unset($params);
-                    $cache_attribs_count = $dbc->rowCount();
+                    $cache_attribs_count = $dbc->rowCount($s);
 
                     if ($cache_attribs_count > 0) {
-                        $cache_attribs_all = $dbc->dbResultFetchAll();
+                        $cache_attribs_all = $dbc->dbResultFetchAll($s);
+
                         unset($cache_attribs);
                         for ($i = 0; $i < $cache_attribs_count; $i++) {
                             $record = $cache_attribs_all[$i];
@@ -810,15 +811,16 @@ if ($error == false) {
                     $thatquery = "SELECT `id`, `url`, `title`, `uuid`, `seq` FROM `pictures` WHERE `object_id`=:v1 AND `object_type`=2 ORDER BY seq, date_created";
                     $params['v1']['value'] = (integer) $cache_id;
                     $params['v1']['data_type'] = 'integer';
-                    if (!isset($dbc)) {
-                        $dbc = new dataBase();
-                    }
-                    $dbc->paramQuery($thatquery, $params);
-                    $rspictures_count = $dbc->rowCount();
-                    $rspictures_all = $dbc->dbResultFetchAll();
+
+                    $dbc = OcDb::instance();
+                    $s = $dbc->paramQuery($thatquery, $params);
+                    $rspictures_count = $dbc->rowCount($s);
+                    $rspictures_all = $dbc->dbResultFetchAll($s);
+
                     $thatquery = "SELECT `seq` FROM `pictures` WHERE `object_id`=:v1 AND `object_type`=2 ORDER BY `seq` DESC"; //get highest seq number for this cache
-                    $dbc->paramQuery($thatquery, $params); //params are same as few lines above
-                    $max_seq_record = $dbc->dbResultFetch();
+                    $s = $dbc->paramQuery($thatquery, $params); //params are same as few lines above
+                    $max_seq_record = $dbc->dbResultFetch($s);
+
                     unset($params);  //clear to avoid overlaping on next paramQuery (if any))
                     $max_seq_number = (isset($max_seq_record ['seq']) ? $max_seq_record ['seq'] : 0);
                     if ($max_seq_number < $rspictures_count) {
@@ -852,18 +854,17 @@ if ($error == false) {
                         $thatquery = "SELECT `id`, `url`, `title`, `uuid`, `seq` FROM `mp3` WHERE `object_id`=:v1 AND `object_type`=2 ORDER BY seq, date_created";
                         $params['v1']['value'] = (integer) $cache_id;
                         $params['v1']['data_type'] = 'integer';
-                        if (!isset($dbc)) {
-                            $dbc = new dataBase();
-                        }
-                        $dbc->paramQuery($thatquery, $params);
 
-                        $mp3_count = $dbc->rowCount();
-                        $mp3_all = $dbc->dbResultFetchAll();
+                        $dbc = OcDb::instance();
+                        $s = $dbc->paramQuery($thatquery, $params);
+                        $mp3_count = $dbc->rowCount($s);
+                        $mp3_all = $dbc->dbResultFetchAll($s);
 
                         $thatquery = "SELECT `seq` FROM `mp3` WHERE `object_id`=:v1 AND `object_type`=2 ORDER BY `seq` DESC"; //get highest seq number for this cache
-                        $dbc->paramQuery($thatquery, $params); //params are same as a few lines above
-                        $max_seq_record = $dbc->dbResultFetch();
+                        $s = $dbc->paramQuery($thatquery, $params); //params are same as a few lines above
+                        $max_seq_record = $dbc->dbResultFetch($s);
                         unset($params);  //clear to avoid overlaping on next paramQuery (if any))
+
                         $max_seq_number = (isset($max_seq_record ['seq']) ? $max_seq_record ['seq'] : 0);
                         if ($max_seq_number < $mp3_count) {
                             $max_seq_number = $mp3_count;

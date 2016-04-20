@@ -23,9 +23,9 @@ $params['variable2']['value'] = (integer) $_REQUEST['start'];;
 $params['variable2']['data_type'] = 'integer';
 $params['variable3']['value'] = (integer) $_REQUEST['limit'];;
 $params['variable3']['data_type'] = 'integer';
-$db->paramQuery($query, $params); // multiVariableQuery($query, $projectId, 0, 8);
-$result = $db->dbResultFetchAll();
-// print_r($result);
+$s = $db->paramQuery($query, $params);
+$result = $db->dbResultFetchAll($s);
+
 if(count($result) == 0) {
     echo '<p><br /><br />' . tr('pt118') .'</p><br /><br />';
     exit;

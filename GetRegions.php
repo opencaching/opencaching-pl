@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\OcDb;
 /** class GetRegions
  *
  * this class find Counrty and region (administation district, for exapmle Poland, woj. Małopolskie)
@@ -56,9 +57,9 @@ class GetRegions
         $sCode = '';
         $tmpqery = "SELECT `level`, `code`, AsText(`shape`) AS `geometry` FROM `nuts_layer` WHERE WITHIN(GeomFromText('POINT($lon  $lat)'), `shape`) ORDER BY `level` DESC";
 
-        $db = new dataBase;
-        $db->simpleQuery($tmpqery);
-        $rsLayers = $db->dbResultFetchAll();
+        $db = OcDb::instance();
+        $s = $db->simpleQuery($tmpqery);
+        $rsLayers = $db->dbResultFetchAll($s);
 
         foreach ($rsLayers as $rLayers) {
             if (gis::ptInLineRing($rLayers['geometry'], 'POINT(' . $lon . ' ' . $lat . ')')) {

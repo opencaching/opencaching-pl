@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\OcDb;
 /**
  * This class contain methods used to communicate with Geokrety, via Geokrety Api
  * (http://geokrety.org/api.php)
@@ -288,10 +289,9 @@ class GeoKretyApi
 
     public static function getErrorsFromDb()
     {
-        $db = new dataBase;
-        $query = "SELECT * FROM `GeoKretyAPIerrors` WHERE 1";
-        $db->simpleQuery($query);
-        return $db->dbResultFetchAll();
+        $db = OcDb::instance();
+        $s = $db->simpleQuery("SELECT * FROM `GeoKretyAPIerrors` WHERE 1");
+        return $db->dbResultFetchAll($s);
     }
 
     public static function removeDbRows($rowsString)

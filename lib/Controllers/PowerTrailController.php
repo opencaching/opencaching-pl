@@ -4,6 +4,7 @@ namespace lib\Controllers;
 
 use lib\Database\DataBaseSingleton;
 use lib\Objects\PowerTrail\PowerTrail;
+use Utils\Database\OcDb;
 
 class PowerTrailController
 {
@@ -32,9 +33,11 @@ class PowerTrailController
     public function cleanPowerTrailsCronjob()
     {
         $getPtQuery = 'SELECT * FROM `PowerTrail` WHERE `status` =1';
-        $db = DataBaseSingleton::Instance();
-        $db->simpleQuery($getPtQuery);
-        $ptToClean = $db->dbResultFetchAll();
+
+        $db = OcDb::instance();
+        $s = $db->simpleQuery($getPtQuery);
+        $ptToClean = $db->dbResultFetchAll($s);
+
         foreach ($ptToClean as $dbRow) {
             $powerTrail = new PowerTrail(array('dbRow' => $dbRow));
             $powerTrail->setPowerTrailConfiguration($this->config)->checkCacheCount();
@@ -48,11 +51,11 @@ class PowerTrailController
 
     private function archiveAbandonPowerTrails()
     {
-        $db = DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $archiveAbandonQuery = 'SELECT `id` FROM `PowerTrail` WHERE `id` NOT IN (SELECT PowerTrailId FROM `PowerTrail_owners` WHERE 1 GROUP BY PowerTrailId)';
-        $db->simpleQuery($archiveAbandonQuery);
-        if ($db->rowCount() > 0) { // close all abandon geoPaths
-            $ptToClose = $db->dbResultFetchAll();
+        $s = $db->simpleQuery($archiveAbandonQuery);
+        if ($db->rowCount($s) > 0) { // close all abandon geoPaths
+            $ptToClose = $db->dbResultFetchAll($s);
             $updateArr = array();
             foreach ($ptToClose as $pt) {
                 array_push($updateArr, $pt['id']);

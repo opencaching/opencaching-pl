@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
+
 if (!isset($rootpath))
     $rootpath = '';
 require_once('./lib/common.inc.php');
@@ -49,16 +50,16 @@ function listUserCaches($userid)
     global $db;
     // lists all approved caches belonging to user
     $q = "SELECT cache_id, name, date_hidden FROM caches WHERE user_id=:1 AND status <> 4 AND type != 10 ORDER BY " . orderBy(@$_GET['orderId']) . " " . orderType(@$_GET['orderType']);
-    $db->multiVariableQuery($q, $userid);
-    return $db->dbResultFetchAll();
+    $s = $db->multiVariableQuery($q, $userid);
+    return $db->dbResultFetchAll($s);
 }
 
 function listPendingCaches($userid)
 {
     global $db;
     $q = "SELECT cache_id, name, date_hidden FROM caches WHERE cache_id IN (SELECT cache_id FROM chowner WHERE user_id = :1)";
-    $db->multiVariableQuery($q, $userid);
-    return $db->dbResultFetchAll();
+    $s = $db->multiVariableQuery($q, $userid);
+    return $db->dbResultFetchAll($s);
 }
 
 function getUsername($userid)

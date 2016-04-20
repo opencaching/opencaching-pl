@@ -182,8 +182,10 @@ if ($error == false) {
         tpl_set_var('all_countries_submit', '<input type="submit" name="show_all_countries_submit" value="' . $allcountries . '" />');
     } else {
         $query = 'SELECT `short` FROM `countries` WHERE 1 ORDER BY `short` ASC';
-        $db->simpleQuery($query);
-        $dbResult = $db->dbResultFetchAll();
+
+        $s = $db->simpleQuery($query);
+        $dbResult = $db->dbResultFetchAll($s);
+
         foreach ($dbResult as $key => $value) {
             $defaultCountryList[] = $value['short'];
         }

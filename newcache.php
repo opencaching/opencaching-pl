@@ -374,8 +374,10 @@ if ($error == false) {
         if ($show_all_countries == 1) {
             tpl_set_var('show_all_countries', '1');
             tpl_set_var('show_all_countries_submit', '');
-            $db->simpleQuery("SELECT `short` FROM `countries` ORDER BY `short` ASC");
-            $dbResult = $db->dbResultFetchAll();
+
+            $s = $db->simpleQuery("SELECT `short` FROM `countries` ORDER BY `short` ASC");
+            $dbResult = $db->dbResultFetchAll($s);
+
             $defaultCountryList = array();
             foreach ($dbResult as $value) {
                 $defaultCountryList[] = $value['short'];
@@ -821,8 +823,10 @@ function buildDescriptionLanguageSelector($show_all_langs, $lang, $defaultLangug
     if ($show_all_langs == 1) {
         tpl_set_var('show_all_langs', '1');
         tpl_set_var('show_all_langs_submit', '');
-        $db->simpleQuery('SELECT short FROM languages');
-        $dbResult = $db->dbResultFetchAll();
+
+        $s = $db->simpleQuery('SELECT short FROM languages');
+        $dbResult = $db->dbResultFetchAll($s);
+
         $defaultLangugaeList = array();
         foreach ($dbResult as $langTmp) {
             $defaultLangugaeList[] = $langTmp['short'];

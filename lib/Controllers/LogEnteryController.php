@@ -222,9 +222,9 @@ class LogEnteryController
                 'data_type' => 'integer',
            );
         }
-        $db = \lib\Database\DataBaseSingleton::Instance();
-        $db->paramQuery($query, $params);
-        $logEnteries = $db->dbResultFetchAll();
+        $db = OcDb::instance();
+        $s = $db->paramQuery($query, $params);
+        $logEnteries = $db->dbResultFetchAll($s);
 
         return $logEnteries;
     }

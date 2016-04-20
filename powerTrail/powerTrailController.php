@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\OcDb;
 /**
  *
  */
@@ -57,9 +58,9 @@ class powerTrailController {
     private function mySeries(){
         // print $_SESSION['user_id'];
         $q = 'SELECT * FROM `PowerTrail` WHERE id IN (SELECT `PowerTrailId` FROM `PowerTrail_owners` WHERE `userId` = :1 ) ORDER BY cacheCount DESC';
-        $db = \lib\Database\DataBaseSingleton::Instance();
-        $db->multiVariableQuery($q, $_SESSION['user_id']);
-        $this->allSeries = $db->dbResultFetchAll();
+        $db = OcDb::instance();
+        $s = $db->multiVariableQuery($q, $_SESSION['user_id']);
+        $this->allSeries = $db->dbResultFetchAll($s);
         $this->action = 'showMySeries';
         $this->areOwnSeries = true;
 
@@ -128,9 +129,9 @@ class powerTrailController {
         }
         if(isset($_REQUEST['historicLimit']) && $_REQUEST['historicLimit']==1) $cacheCountLimit = powerTrailBase::historicMinimumCacheCount(); else $cacheCountLimit = powerTrailBase::minimumCacheCount();
         $q = 'SELECT * FROM `PowerTrail` WHERE `status` = 1 and cacheCount >= :1 '.$filter.' ORDER BY '.$sortBy.' '.$sortOder.' ';
-        $db = \lib\Database\DataBaseSingleton::Instance();
-        $db->multiVariableQuery($q, $cacheCountLimit);
-        $this->allSeries = $db->dbResultFetchAll();
+        $db = OcDb::instance();
+        $s = $db->multiVariableQuery($q, $cacheCountLimit);
+        $this->allSeries = $db->dbResultFetchAll($s);
     }
 
     public function getPtOwners()
@@ -203,19 +204,20 @@ class powerTrailController {
     private function getUserCachesToChose()
     {
         $query = "SELECT cache_id, wp_oc, PowerTrailId, name FROM `caches` LEFT JOIN powerTrail_caches ON powerTrail_caches.cacheId = caches.cache_id WHERE caches.status NOT IN (3,6) AND `user_id` = :1";
-        $db = \lib\Database\DataBaseSingleton::Instance();
-        $db->multiVariableQuery($query, $this->user['userid']);
-        $userCaches = $db->dbResultFetchAll();
-        // self::debug($userCaches, 'user Caches', __LINE__);
+        $db = OcDb::instance();
+        $s = $db->multiVariableQuery($query, $this->user['userid']);
+        $userCaches = $db->dbResultFetchAll($s);
+
         return $userCaches;
     }
 
     private function getUserPTs()
     {
         $query = "SELECT * FROM `PowerTrail`, PowerTrail_owners  WHERE  PowerTrail_owners.userId = :1 AND PowerTrail_owners.PowerTrailId = PowerTrail.id";
-        $db = \lib\Database\DataBaseSingleton::Instance();
-        $db->multiVariableQuery($query, $this->user['userid']);
-        $userPTs = $db->dbResultFetchAll();
+        $db = OcDb::instance();
+        $s = $db->multiVariableQuery($query, $this->user['userid']);
+        $userPTs = $db->dbResultFetchAll($s);
+
         $this->userPTs = $userPTs;
     }
 
