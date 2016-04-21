@@ -3,7 +3,11 @@ $rootpath = __DIR__.'/../';
 require_once __DIR__.'/../lib/common.inc.php';
 
 $appContainer = lib\Objects\ApplicationContainer::Instance();
-$loggedUserId = $appContainer->getLoggedUser()->getUserId();
+if( $appContainer->getLoggedUser() === false){
+    $loggedUserId = -9999;
+} else {
+    $loggedUserId = $appContainer->getLoggedUser()->getUserId();
+}
 
 $commentsArr = lib\Controllers\PowerTrailController::getEntryTypes();
 $ptOwners = powerTrailBase::getPtOwners($_REQUEST['projectId']);

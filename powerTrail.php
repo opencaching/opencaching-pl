@@ -187,7 +187,7 @@ if ($error == false) {
             }
 
             $userIsOwner = $powerTrail->isUserOwner($usr['userid']);
-            if ($powerTrail->getStatus() == 1 || $userIsOwner || $appContainer->getLoggedUser()->getIsAdmin()) {
+            if ($powerTrail->getStatus() == 1 || $userIsOwner || ($appContainer->getLoggedUser() !== false && $appContainer->getLoggedUser()->getIsAdmin())) {
                 $ptTypesArr = powerTrailBase::getPowerTrailTypes();
                 $ptStatusArr = powerTrailBase::getPowerTrailStatus();
                 $foundCachsByUser = $powerTrail->getFoundCachsByUser($usr['userid']);
@@ -447,6 +447,9 @@ function displayPtTypesSelector($htmlid, $selectedId = 0, $witchZeroOption = fal
 function displayPtCommentsSelector($htmlid, \lib\Objects\PowerTrail\PowerTrail $powerTrail, $selectedId = 0, $usr = null)
 {
     $appContainer = lib\Objects\ApplicationContainer::Instance();
+    if($appContainer->getLoggedUser() === false){
+        return '';
+    }
     $cachesFoundByUser = $powerTrail->getFoundCachsByUser($appContainer->getLoggedUser()->getUserId());
     $percetDemand = $powerTrail->getPerccentRequired();
     $ptId = $powerTrail->getId();
