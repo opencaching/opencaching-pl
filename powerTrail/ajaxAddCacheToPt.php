@@ -156,7 +156,7 @@ function addCacheToPowerTrail($cacheId, $projectId, $db, $ptAPI)
     $db->multiVariableQuery(
         'INSERT INTO `PowerTrail_actionsLog`(`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`, `cacheId`)
         VALUES (:1,:2,NOW(),2,:3,:4)',
-        $logQuery, $projectId, $_SESSION['user_id'], $ptAPI->logActionTypes[2]['type'], $cacheId);
+        $projectId, $_SESSION['user_id'], $ptAPI->logActionTypes[2]['type'], $cacheId);
 
     print 'cacheAddedToPt';
 }
