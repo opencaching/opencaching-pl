@@ -243,7 +243,7 @@ foreach ($logEneries as $record) {
             WHERE `object_id`=:1 AND `object_type`=1";
         $s = $dbc->multiVariableQuery($thatquery, $record['logid']);
 
-        while( $pic_record = $dbc->dbResultFetch(s)) {
+        while( $pic_record = $dbc->dbResultFetch($s)) {
 
             if (!isset($showspoiler)){
                $showspoiler = '';
