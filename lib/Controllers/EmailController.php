@@ -96,7 +96,6 @@ class EmailController
         $emailContent = mb_ereg_replace('{postactivationmail01}', tr('postactivationmail01'), $emailContent);
         $emailContent = mb_ereg_replace('{postactivationmail02}', tr('postactivationmail02'), $emailContent);
         $emailContent = mb_ereg_replace('{postactivationmail03}', tr('postactivationmail03'), $emailContent);
-        $emailContent = mb_ereg_replace('{postactivationmail04}', tr('postactivationmail04'), $emailContent);
         $emailContent = mb_ereg_replace('{user}', $username, $emailContent);
         $emailContent = mb_ereg_replace('{mailtitle}', tr('post_activation_email_subject'), $emailContent);
         $wikiLinks = \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getWikiLinks();
