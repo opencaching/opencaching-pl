@@ -3,7 +3,7 @@
 use Utils\Database\OcDb;
 use Utils\Database\XDb;
 
-//prepare the templates and include all neccessary
+    //prepare the templates and include all neccessary
     if (!isset($rootpath)) $rootpath = '';
     require_once('./lib/common.inc.php');
     require_once('./lib/search.inc.php');
@@ -52,13 +52,12 @@ use Utils\Database\XDb;
             {
                 // check if query exists
                 $sqlstr="SELECT COUNT(*) `count` FROM `queries` WHERE id= :1";
-                $dbc->multiVariableQuery($sqlstr, $queryid);
-                $rCount=$dbc->dbResultFetch();
+                $s = $dbc->multiVariableQuery($sqlstr, $queryid);
+                $rCount=$dbc->dbResultFetch($s);
 
                 if ($rCount['count'] == 0)
                     $queryid = 0;
 
-                $dbc->reset();
             }
 
             if ($queryid == 0)
@@ -89,9 +88,9 @@ use Utils\Database\XDb;
         {
             //load options from db
             $sqlstr = "SELECT `user_id`, `options` FROM `queries` WHERE id= :1 AND (`user_id`=0 OR `user_id`= :2)";
-            $dbc->multiVariableQuery($sqlstr, $queryid, $usr['userid']+0);
+            $s = $dbc->multiVariableQuery($sqlstr, $queryid, $usr['userid']+0);
 
-            if ($dbc->rowCount() == 0)
+            if ($dbc->rowCount($s) == 0)
             {
                 $tplname = 'error';
                 tpl_set_var('tplname', 'search.php');
@@ -101,19 +100,16 @@ use Utils\Database\XDb;
             }
             else
             {
-                $record = $dbc->dbResultFetch();
+                $record = $dbc->dbResultFetch($s);
 
                 $options = unserialize($record['options']);
                 if ($record['user_id'] != 0)
                     $options['userid'] = $record['user_id'];
 
-                $dbc->reset();
-
                 $options['queryid'] = $queryid;
 
                 $sqlstr = "UPDATE `queries` SET `last_queried`=NOW() WHERE `id`= :1";
-                $dbc->multiVariableQuery($sqlstr, $queryid );
-                $dbc->reset();
+                $s = $dbc->multiVariableQuery($sqlstr, $queryid );
 
                 // Ă¤nderbare werte Ăźberschreiben
                 if (isset($_REQUEST['output']))
@@ -135,32 +131,30 @@ use Utils\Database\XDb;
                 $options['finderid'] = isset($options['finderid']) ? $options['finderid'] + 0 : 0;
                 if(isset($options['finder']) && $options['finderid'] > 0)
                 {
-                    $sqlstr = "SELECT `username` FROM `user` WHERE `user_id`= :1";
-                    $dbc->multiVariableQuery($sqlstr, $options['finderid'] );
+                    $sqlstr = "SELECT `username` FROM `user` WHERE `user_id`= :1 LIMIT 1";
+                    $s = $dbc->multiVariableQuery($sqlstr, $options['finderid'] );
 
-                    if($dbc->rowCount() == 1)
+                    if($dbc->rowCount($s) == 1)
                     {
-                        $record_name = $dbc->dbResultFetch();
+                        $record_name = $dbc->dbResultFetchOneRowOnly($s);
                         $options['finder'] = $record_name['username'];
                     }
                     unset($record_name);
-                    $dbc->reset();
                 }
 
                 // ownerid in owner umsetzen
                 $options['ownerid'] = isset($options['ownerid']) ? $options['ownerid'] + 0 : 0;
                 if(isset($options['owner']) && $options['ownerid'] > 0)
                 {
-                    $sqlstr="SELECT `username` FROM `user` WHERE `user_id`= :1";
-                    $dbc->multiVariableQuery($sqlstr, $options['ownerid'] );
+                    $sqlstr="SELECT `username` FROM `user` WHERE `user_id`= :1 LIMIT 1";
+                    $s = $dbc->multiVariableQuery($sqlstr, $options['ownerid'] );
 
-                    if($dbc->rowCount() == 1)
+                    if($dbc->rowCount($s) == 1)
                     {
-                        $record_name = $dbc->dbResultFetch();
+                        $record_name = $dbc->dbResultFetchOneRowOnly($s);
                         $options['owner'] = $record_name['username'];
                     }
                     unset($record_name);
-                    $dbc->reset();
                 }
             }
         }
@@ -393,7 +387,6 @@ use Utils\Database\XDb;
                     if ($options['userid'] != 0){
                         $sqlstr = "UPDATE `queries` SET `options`= :1, `last_queried`=NOW() WHERE `id`= :2 AND `user_id`= :3";
                         $dbc->multiVariableQuery($sqlstr, serialize($options), $options['queryid'], $options['userid'] );
-                        $dbc->reset();
                     }
                 }
                 else
@@ -404,7 +397,6 @@ use Utils\Database\XDb;
                         serialize($options));
 
                     $options['queryid'] = XDb::xLastInsertId();
-                    //TODO - add method lastInsertId () to dataBase
                 }
             }
             else
@@ -418,7 +410,6 @@ use Utils\Database\XDb;
         $removedate = date('Y-m-d H:i:s', time() - 3600);
         $sqlstr = "DELETE FROM `queries` WHERE `last_queried` < :1 AND `user_id`=0";
         $dbc->multiVariableQuery($sqlstr, $removedate );
-        $dbc->reset();
 
         //prepare output
         if(!isset($options['showresult'])) $options['showresult']='0';
@@ -488,28 +479,23 @@ use Utils\Database\XDb;
                         {
                             $plz = $options['plz'];
 
-                            $sqlstr = "SELECT `loc_id` FROM `geodb_textdata` WHERE `text_type`=500300000 AND `text_val`= :1 ";
-                            $dbc->multiVariableQuery($sqlstr, XDb::xEscape($plz) );
-                            if ($dbc->rowCount() == 0)
+                            $sqlstr = "SELECT `loc_id` FROM `geodb_textdata` WHERE `text_type`=500300000 AND `text_val`= :1 LIMIT 1";
+                            $s = $dbc->multiVariableQuery($sqlstr, XDb::xEscape($plz) );
+                            if ($dbc->rowCount($s) == 0)
                             {
                                 $options['error_plz'] = true;
                                 outputSearchForm($options);
-                                unset($dbc);
-                                unset($dbcSearch);
                                 exit;
                             }
-                            elseif ($dbc->rowCount() == 1)
+                            elseif ($dbc->rowCount($s) == 1)
                             {
-                                $r = $dbc->dbResultFetch();
+                                $r = $dbc->dbResultFetchOneRowOnly($s);
                                 $locid = $r['loc_id'];
-                                $dbc->reset();
                             }
                             else
                             {
                                 // ok, viele locations ... alle auflisten ...
                                 outputLocidSelectionForm($sqlstr, $options);
-                                unset($dbc);
-                                unset($dbcSearch);
                                 exit;
                             }
                         }
@@ -517,13 +503,13 @@ use Utils\Database\XDb;
                         // ok, wir haben einen ort ... koordinaten ermitteln
                         $locid = $locid + 0;
 
-                        $sqlstr = "SELECT `lon`, `lat` FROM `geodb_coordinates` WHERE `loc_id`= :1 AND coord_type=200100000";
-                        $dbc->multiVariableQuery($sqlstr, $locid );
+                        $sqlstr = "SELECT `lon`, `lat` FROM `geodb_coordinates` WHERE `loc_id`= :1 AND coord_type=200100000 LIMIT 1";
+                        $s = $dbc->multiVariableQuery($sqlstr, $locid );
 
-                        if ( $dbc->rowCount() )
-                        {
+                        if ( $dbc->rowCount($s) ){
+
                             // ok ... wir haben koordinaten ...
-                            $r = $dbc->dbResultFetch();
+                            $r = $dbc->dbResultFetch($s);
 
                             $lat = $r['lat'] + 0;
                             $lon = $r['lon'] + 0;
@@ -565,7 +551,6 @@ use Utils\Database\XDb;
                             $sql_from[] = '`result_caches`, `caches`';
                             $sql_where[] = '`caches`.`cache_id`=`result_caches`.`cache_id`';
 
-                            $dbc->reset();
                         }
                         else
                         {
@@ -642,8 +627,6 @@ use Utils\Database\XDb;
 
                                 $options['error_ort'] = true;
                                 outputSearchForm($options);
-                                unset($dbc);
-                                unset($dbcSearch);
                                 exit;
                             }
                             elseif (XDb::xNumRows($rs) == 1)
@@ -654,22 +637,18 @@ use Utils\Database\XDb;
                                 // wenn keine 100%ige Ăźbereinstimmung nochmals anzeigen
                                 $locid = $r['uni_id'] + 0;
                                 $sqlstr = "SELECT `full_name` FROM `gns_locations` WHERE `uni`= :1 LIMIT 1";
-                                $dbc->multiVariableQuery($sqlstr, $locid );
-                                $rCmp = $dbc->dbResultFetch();
+                                $s = $dbc->multiVariableQuery($sqlstr, $locid );
+                                $rCmp = $dbc->dbResultFetchOneRowOnly($s);
 
                                 if (mb_strtolower($rCmp['full_name']) != mb_strtolower($ort))
                                 {
                                     outputUniidSelectionForm('SELECT `uni_id`, `olduni` FROM `tmpuniids`', $options);
                                 }
-
-                                $dbc->reset();
                             }
                             else
                             {
                                 XDb::xFreeResults($rs);
                                 outputUniidSelectionForm('SELECT `uni_id`, `olduni` FROM `tmpuniids`', $options);
-                                unset($dbc);
-                                unset($dbcSearch);
                                 exit;
                             }
                         }
@@ -678,17 +657,14 @@ use Utils\Database\XDb;
                         // ok, wir haben einen ort ... koordinaten ermitteln
                         $locid = $locid + 0;
                         $sqlstr="SELECT `lon`, `lat` FROM `gns_locations` WHERE `uni`= :1 LIMIT 1";
-                        $dbc->multiVariableQuery($sqlstr, $locid );
+                        $s = $dbc->multiVariableQuery($sqlstr, $locid );
 
-                        if ( $dbc->rowCount() )
-                        {
-                            $r =  $dbc->dbResultFetch();
+                        if ( $r =  $dbc->dbResultFetchOneRowOnly($s) ){
+
                             // ok ... wir haben koordinaten ...
 
                             $lat = $r['lat'] + 0;
                             $lon = $r['lon'] + 0;
-
-                            $dbc->reset();
 
                             $lon_rad = $lon * 3.14159 / 180;
                             $lat_rad = $lat * 3.14159 / 180;
@@ -733,8 +709,6 @@ use Utils\Database\XDb;
                         {
                             $options['error_locidnocoords'] = true;
                             outputSearchForm($options);
-                            unset($dbc);
-                            unset($dbcSearch);
                             exit;
                         }
                     }
@@ -748,11 +722,10 @@ use Utils\Database\XDb;
                     else
                     {
                         //get the userid
-                        $sqlstr = "SELECT `user_id` FROM `user` WHERE `username`= :1";
-                        $dbc->multiVariableQuery($sqlstr, $options['finder'] );
-                        $finder_record = $dbc->dbResultFetch();
+                        $sqlstr = "SELECT `user_id` FROM `user` WHERE `username`= :1 LIMIT 1";
+                        $s = $dbc->multiVariableQuery($sqlstr, $options['finder'] );
+                        $finder_record = $dbc->dbResultFetchOneRowOnly($s);
                         $finder_id = $finder_record['user_id'];
-                        $dbc->reset();
                     }
 
                     $sql_select[] = '`caches`.`cache_id` `cache_id`';
@@ -959,7 +932,6 @@ use Utils\Database\XDb;
                             ' WHERE ' . implode(' AND ', $sql_where);
 
                     $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `tmpFTCaches` (`cache_id` int (11) PRIMARY KEY) ' . $queryFilter);
-                    $dbcSearch->reset();
 
                     $sql_select = array();
                     $sql_from = array();
@@ -1655,16 +1627,15 @@ function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconun
 
 
     // select attributes depend on specified language.
-    $database = new dataBase(false);
+    $database = OcDb::instance();
     $query = "SELECT `id`, `text_long`, `icon_large`, `icon_no`, `icon_undef`, `category` FROM `cache_attrib` WHERE `language` LIKE :1 ORDER BY `id`";
-    $database->multiVariableQuery($query, strtoupper($lang));
+    $s = $database->multiVariableQuery($query, strtoupper($lang));
     // if specified language is in database
-    if($database->rowCount() <= 0) {
+    if($database->rowCount($s) <= 0) {
          // if we have not specified language in db, just use english.
-        $database->multiVariableQuery($query, 'EN');
+        $s = $database->multiVariableQuery($query, 'EN');
     }
-    $rs = $database->dbResultFetchAll();
-    unset($database);
+    $rs = $database->dbResultFetchAll($s);
 
     foreach ($rs as $record)
     {

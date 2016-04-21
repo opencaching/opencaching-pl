@@ -1,5 +1,6 @@
 <?php
 use Utils\Database\XDb;
+use Utils\Database\OcDb;
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $queryFilter;
 set_time_limit(1800);
 
@@ -350,22 +351,19 @@ if ($usr || ! $hide_coords) {
 
     // cleanup (old gpxcontent lingers if gpx-download is cancelled by user)
     $dbcSearch->simpleQuery('DROP TEMPORARY TABLE IF EXISTS `gpxcontent`');
-    $dbcSearch->reset();
 
     // temporäre tabelle erstellen
     $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `gpxcontent` ' . $query . $queryLimit);
-    $dbcSearch->reset();
 
-    $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `gpxcontent`');
-    $rCount = $dbcSearch->dbResultFetch();
+    $s = $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `gpxcontent`');
+    $rCount = $dbcSearch->dbResultFetch($s);
     $countGPX = $rCount['count'];
-    $dbcSearch->reset();
+
     if ($countGPX == 1) {
-        $rsName = $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc` FROM `gpxcontent`, `caches` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
-        $rName = $dbcSearch->dbResultFetch();
+        $s = $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc` FROM `gpxcontent`, `caches` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
+        $rName = $dbcSearch->dbResultFetch($s);
 
         $sFilebasename = $rName['wp_oc'];
-        $dbcSearch->reset();
     } else {
         if ($options['searchtype'] == 'bywatched') {
             $sFilebasename = 'watched_caches';
@@ -407,20 +405,20 @@ if ($usr || ! $hide_coords) {
 
     $children = '';
     $gpxHead = str_replace('{{time}}', date($gpxTimeFormat, time()), $gpxHead);
-    $dbcSearch->simpleQuery('SELECT `gpxcontent`.`cache_id` `cacheid` FROM `gpxcontent`');
-    while ($rs = $dbcSearch->dbResultFetch()) {
+
+    $s = $dbcSearch->simpleQuery('SELECT `gpxcontent`.`cache_id` `cacheid` FROM `gpxcontent`');
+    while ($rs = $dbcSearch->dbResultFetch($s)) {
         $rwp = XDb::xSql(
-            "SELECT  `status` FROM `waypoints` WHERE  `waypoints`.`cache_id`= ? AND `waypoints`.`status`='1'", $rs['cacheid']);
+            "SELECT  `status` FROM `waypoints`
+            WHERE  `waypoints`.`cache_id`= ? AND `waypoints`.`status`='1'", $rs['cacheid']);
 
         if ( XDb::xFetchArray($rwp) ) {
             $children = "(HasChildren)";
         }
     }
-    $dbcSearch->reset();
     $gpxHead = str_replace('{wpchildren}', $children, $gpxHead);
     append_output($gpxHead);
 
-    // ok, ausgabe ...
     $stmt = XDb::xSql(
         'SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`,
                 `gpxcontent`.`latitude` `latitude`, `gpxcontent`.cache_mod_cords_id,
@@ -442,10 +440,9 @@ if ($usr || ! $hide_coords) {
     while ( $r = XDb::xFetchArray($stmt) ) {
 
         if (@$enable_cache_access_logs) {
-            if (! isset($dbc)) {
-                $dbc = new dataBase();
-            }
-            ;
+
+            $dbc = OcDb::instance();
+
             $cache_id = $r['cacheid'];
             $user_id = $usr !== false ? $usr['userid'] : null;
             $access_log = @$_SESSION['CACHE_ACCESS_LOG_GPX_' . $user_id];
@@ -764,8 +761,6 @@ if ($usr || ! $hide_coords) {
         append_output($thisline);
         ob_flush();
     }
-    unset($dbc);
-    $dbcSearch->reset();
 
     append_output($gpxFoot);
 

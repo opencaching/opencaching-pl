@@ -6,6 +6,7 @@
 require_once __DIR__ . '/ClassPathDictionary.php';
 
 use Utils\Database\XDb;
+use Utils\Database\OcDb;
 
 if ((!isset($GLOBALS['no-session'])) || ($GLOBALS['no-session'] == false))
     session_start();
@@ -221,7 +222,7 @@ function create_uuid()
     return $uuid;
 }
 
-$db = lib\Database\DataBaseSingleton::Instance();
+$db = OcDb::instance();
 
 /*
  * TODO: new Global error handling should be implemented...
@@ -1355,8 +1356,8 @@ class common
     public static function getUserActiveCacheCountByType($db, $userId)
     {
         $query = 'SELECT type, count(*) as cacheCount FROM `caches` WHERE `user_id` = :1 AND STATUS !=3 GROUP by type';
-        $db->multiVariableQuery($query, $userId);
-        $userCacheCountByType = $db->dbResultFetchAll();
+        $s = $db->multiVariableQuery($query, $userId);
+        $userCacheCountByType = $db->dbResultFetchAll($s);
         $cacheLimitByTypePerUser = array();
         foreach ($userCacheCountByType as $cacheCount) {
             $cacheLimitByTypePerUser[$cacheCount['type']] = $cacheCount['cacheCount'];

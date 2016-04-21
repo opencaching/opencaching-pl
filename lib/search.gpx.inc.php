@@ -4,6 +4,7 @@
  */
 
 use Utils\Database\XDb;
+use Utils\Database\OcDb;
 
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $queryFilter;
 require_once ('lib/common.inc.php');
@@ -272,8 +273,7 @@ if ($usr || ! $hide_coords) {
     } else
         if ($sortby == 'bycreated') {
             $query .= ' ORDER BY date_created DESC';
-        } else // by name
-{
+        } else {// by name
             $query .= ' ORDER BY name ASC';
         }
 
@@ -301,25 +301,23 @@ if ($usr || ! $hide_coords) {
     $queryLimit = ' LIMIT ' . $startat . ', ' . $count;
     // cleanup (old gpxcontent lingers if gpx-download is cancelled by user)
     $dbcSearch->simpleQuery('DROP TEMPORARY TABLE IF EXISTS `gpxcontent`');
-    $dbcSearch->reset();
     // temporäre tabelle erstellen
     $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `gpxcontent` ' . $query . $queryLimit);
-    $dbcSearch->reset();
 
-    $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `gpxcontent`');
-    $rCount = $dbcSearch->dbResultFetch();
+    $s = $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `gpxcontent`');
+    $rCount = $dbcSearch->dbResultFetch($s);
     $countGPX = $rCount['count'];
-    $dbcSearch->reset();
 
     if ($countGPX == 1) {
-        $rsName = $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc`, `caches`.`name` `name` FROM `gpxcontent`, `caches` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
-        $rName = $dbcSearch->dbResultFetch();
+        $s = $dbcSearch->simpleQuery(
+            'SELECT `caches`.`wp_oc` `wp_oc`, `caches`.`name` `name` FROM `gpxcontent`, `caches`
+            WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
+        $rName = $dbcSearch->dbResultFetchOneRowOnly($s);
 
         if (isset($_GET['realname']) && $_GET['realname'] == 1)
             $sFilebasename = str_replace(" ", "", PLConvert('UTF-8', 'POLSKAWY', $rName['name']));
         else
             $sFilebasename = $rName['wp_oc'];
-        $dbcSearch->reset();
     } else {
         if ($options['searchtype'] == 'bywatched') {
             $sFilebasename = 'watched_caches';
@@ -359,9 +357,9 @@ if ($usr || ! $hide_coords) {
 
     $children = '';
     $gpxHead = str_replace('{time}', date($gpxTimeFormat, time()), $gpxHead);
-    $dbcSearch->simpleQuery('SELECT `gpxcontent`.`cache_id` `cacheid` FROM `gpxcontent`');
+    $stmt = $dbcSearch->simpleQuery('SELECT `gpxcontent`.`cache_id` `cacheid` FROM `gpxcontent`');
 
-    while ($rs = $dbcSearch->dbResultFetch()) {
+    while ($rs = $dbcSearch->dbResultFetch($stmt)) {
         $rwp = XDb::xSql(
             "SELECT  `status` FROM `waypoints`
             WHERE  `waypoints`.`cache_id`= ?
@@ -370,7 +368,6 @@ if ($usr || ! $hide_coords) {
             $children = "(HasChildren)";
         }
     }
-    $dbcSearch->reset();
 
     $gpxHead = str_replace('{wpchildren}', $children, $gpxHead);
     append_output($gpxHead);
@@ -379,9 +376,8 @@ if ($usr || ! $hide_coords) {
     $stmt = XDb::xSql('SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`, `gpxcontent`.`latitude` `latitude`, `gpxcontent`.cache_mod_cords_id, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`picturescount` `picturescount`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `caches`.`size` `size`, `caches`.`type` `type`, `caches`.`status` `status`, `user`.`username` `username`, `gpxcontent`.`user_id` `owner_id`,`cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`rr_comment`, `caches`.`logpw`, `caches`.`votes` `votes`, `caches`.`score` `score`, `caches`.`topratings` `topratings` FROM `gpxcontent`, `caches`, `user`, `cache_desc` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `gpxcontent`.`user_id`=`user`.`user_id`');
     while ($r = XDb::xFetchArray($stmt)) {
         if (@$enable_cache_access_logs) {
-            if (! isset($dbc)) {
-                $dbc = new dataBase();
-            }
+
+            $dbc = OcDb::instance();
 
             $cache_id = $r['cacheid'];
             $user_id = $usr !== false ? $usr['userid'] : null;
@@ -682,8 +678,6 @@ if ($usr || ! $hide_coords) {
         append_output($thisline);
         ob_flush();
     }
-    $dbcSearch->reset();
-    unset($dbc);
 
     append_output($gpxFoot);
 

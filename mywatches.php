@@ -117,14 +117,14 @@ if ($error == false) {
                 $usrlatitude = 0;
                 $usrlongitude = 0;
 
-                $dbc->multiVariableQuery("SELECT `latitude` FROM user WHERE user_id=:1", $usr['userid']);
-                $record = $dbc->dbResultFetch();
-                if ($dbc->rowCount() && $record["latitude"])
+                $s = $dbc->multiVariableQuery(
+                    "SELECT `latitude`, `longitude` FROM user WHERE user_id=:1 LIMIT 1", $usr['userid']);
+                $record = $dbc->dbResultFetchOneRowOnly($s);
+
+                if ($record && $record["latitude"])
                     $usrlatitude = $record["latitude"];
 
-                $dbc->multiVariableQuery("SELECT `longitude` FROM user WHERE user_id=:1", $usr['userid']);
-                $record = $dbc->dbResultFetch();
-                if ($dbc->rowCount() && $record["longitude"])
+                if ($record && $record["longitude"])
                     $usrlongitude = $record["longitude"];
             }
 
@@ -173,9 +173,8 @@ if ($error == false) {
 
 
 
-            $dbc->multiVariableQuery($query, $usr['userid']);
-
-            $rowCount = $dbc->rowCount();
+            $stmt = $dbc->multiVariableQuery($query, $usr['userid']);
+            $rowCount = $dbc->rowCount($stmt);
             if (!$rowCount) {
                 tpl_set_var('watches', $no_watches);
                 tpl_set_var('print_delete_all_watches', '');
@@ -196,9 +195,7 @@ if ($error == false) {
                 }
 
                 for ($i = 0; $i < $rowCount; $i++) {
-
-                    $record = $dbc->dbResultFetch();
-
+                    $record = $dbc->dbResultFetch($stmt);
 
                     if ($RQ == "map") {
                         $rlat = $record['latitude'];

@@ -4,6 +4,7 @@
  */
 
 use Utils\Database\XDb;
+use Utils\Database\OcDb;
 
 global $content, $bUseZip, $hide_coords, $usr, $lang, $dbcSearch;
 
@@ -125,16 +126,15 @@ if( $usr || !$hide_coords ) {
 
     // temporĂ¤re tabelle erstellen
     $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `txtcontent` ' . $query . $queryLimit);
-    $dbcSearch->reset();
 
-    $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `txtcontent`');
-    $rCount = $dbcSearch->dbResultFetch();
-    $dbcSearch->reset();
+    $s = $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `txtcontent`');
+    $rCount = $dbcSearch->dbResultFetchOneRowOnly($s);
 
     if ($rCount['count'] == 1) {
-        $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc` FROM `txtcontent`, `caches` WHERE `txtcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
-        $rName = $dbcSearch->dbResultFetch();
-        $dbcSearch->reset();
+        $s = $dbcSearch->simpleQuery(
+            'SELECT `caches`.`wp_oc` `wp_oc` FROM `txtcontent`, `caches`
+            WHERE `txtcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
+        $rName = $dbcSearch->dbResultFetchOneRowOnly($s);
 
         $sFilebasename = $rName['wp_oc'];
     } else {
@@ -180,9 +180,9 @@ if( $usr || !$hide_coords ) {
 
     while($r = XDb::xFetchArray($stmt) ) {
         if (@$enable_cache_access_logs) {
-            if (!isset($dbc)) {
-                $dbc = new dataBase();
-            }
+
+            $dbc = OcDb::instance();
+
             $cache_id = $r['cacheid'];
             $user_id = $usr !== false ? $usr['userid'] : null;
             $access_log = @$_SESSION['CACHE_ACCESS_LOG_TXT_'.$user_id];
@@ -314,9 +314,7 @@ if( $usr || !$hide_coords ) {
         }
         ob_flush();
     }
-    unset($dbc);
     $dbcSearch->simpleQuery('DROP TABLE `txtcontent` ');
-    $dbcSearch->reset();
 
     // phpzip versenden
     if ($bUseZip == true) {

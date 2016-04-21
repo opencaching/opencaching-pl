@@ -1,4 +1,5 @@
 <?php
+use Utils\Database\OcDb;
 $rootpath = __DIR__.'/../';
 require_once __DIR__.'/../lib/common.inc.php';
 
@@ -17,10 +18,11 @@ foreach ($ptOwners as $owner) {
 }
 $nextSearchStart = $_REQUEST['start'] + $_REQUEST['limit'];
 
-$db = \lib\Database\DataBaseSingleton::Instance();
-$q = 'SELECT count(*) AS `count` FROM  `PowerTrail_comments` WHERE  `PowerTrailId` =:1 AND `deleted` = 0 ';
-$db->multiVariableQuery($q, $_REQUEST['projectId']);
-$count = $db->dbResultFetch();
+$db = OcDb::instance();
+$q = 'SELECT count(*) AS `count` FROM  `PowerTrail_comments`
+    WHERE  `PowerTrailId` =:1 AND `deleted` = 0 ';
+$s = $db->multiVariableQuery($q, $_REQUEST['projectId']);
+$count = $db->dbResultFetchOneRowOnly($s);
 $count = $count['count'];
 
 $query = 'SELECT * FROM  `PowerTrail_comments`, `user` WHERE  `PowerTrailId` =:variable1 AND `deleted` = 0 AND `PowerTrail_comments`.`userId` = `user`.`user_id` ORDER BY  `logDateTime` DESC LIMIT :variable2 , :variable3   '  ;
@@ -30,9 +32,9 @@ $params['variable2']['value'] = (integer) $_REQUEST['start'];;
 $params['variable2']['data_type'] = 'integer';
 $params['variable3']['value'] = (integer) $_REQUEST['limit'];;
 $params['variable3']['data_type'] = 'integer';
-$db->paramQuery($query, $params); // multiVariableQuery($query, $projectId, 0, 8);
-$result = $db->dbResultFetchAll();
-// print_r($result);
+$s = $db->paramQuery($query, $params);
+$result = $db->dbResultFetchAll($s);
+
 if(count($result) == 0) {
     echo '<p><br /><br />' . tr('pt118') .'</p><br /><br />';
     exit;

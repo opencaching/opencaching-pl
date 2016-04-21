@@ -21,8 +21,8 @@ if ($error == false) {
         //get all caches ignored
         $query = "SELECT `cache_ignore`.`cache_id` AS `cache_id`, `caches`.`name` AS `name`, `caches`.`last_found` AS `last_found` FROM `cache_ignore` INNER JOIN `caches` ON (`cache_ignore`.`cache_id` = `caches`.`cache_id`) WHERE `cache_ignore`.`user_id`= :1 ORDER BY `caches`.`name`";
 
-        $dbc->multiVariableQuery($query, $usr['userid']);
-        $rowCount = $dbc->rowCount();
+        $s = $dbc->multiVariableQuery($query, $usr['userid']);
+        $rowCount = $dbc->rowCount($s);
         if ($rowCount == 0) {
             tpl_set_var('no_ignores', $no_ignores);
             tpl_set_var('ignores_caches', '');
@@ -32,8 +32,8 @@ if ($error == false) {
             tpl_set_var('no_ignores', '');
             $ignores = '';
             for ($i = 0; $i < $rowCount; $i++) {
-                $record = $dbc->dbResultFetch();
-                //$tmp_ignore = $i % 2 == 0 ? $ignoree : $ignoreo;
+                $record = $dbc->dbResultFetch($s);
+
                 $bgcolor = ( $i % 2 ) ? $bgcolor1 : $bgcolor2;
                 $tmp_ignore = $ignore;
                 $tmp_ignore = str_replace('{cachename}', htmlspecialchars($record['name']), $tmp_ignore);
@@ -52,8 +52,6 @@ if ($error == false) {
             }
             tpl_set_var('ignores_caches', $ignores);
         }
-
-        unset($dbc);
     }
 }
 

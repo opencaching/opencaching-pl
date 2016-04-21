@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\OcDb;
 /**
  * This script is used (can be loaded) by /search.php
  */
@@ -69,7 +70,7 @@ require_once ($stylepath . '/lib/icons.inc.php');
 require_once ('lib/cache_icon.inc.php');
 set_time_limit(1800);
 
-$dbc = new dataBase();
+$dbc = OcDb::instance();
 
 $sNrColumnsSortSearch = "NrColumnsSortSearch";
 $sOrderSortSearch = "OrderSortSearch";
@@ -208,8 +209,8 @@ $countselect = mb_eregi_replace('^SELECT `caches`.`cache_id` `cache_id`', 'SELEC
 $countselect = mb_eregi_replace('^SELECT `result_caches`.`cache_id`', 'SELECT COUNT(`result_caches`.`cache_id`) `count`', $countselect);
 $countselect = mb_eregi_replace('^SELECT `result_caches`.`cache_id` `cache_id`', 'SELECT COUNT(`result_caches`.`cache_id`) `count`', $countselect);
 
-$dbcSearch->simpleQuery($countselect);
-$r = $dbcSearch->dbResultFetch();
+$s = $dbcSearch->simpleQuery($countselect);
+$r = $dbcSearch->dbResultFetch($s);
 $resultcount = $r['count'];
 
 tpl_set_var('results_count', $resultcount);
@@ -270,8 +271,8 @@ if (isset($lat_rad) && isset($lon_rad)) {
             $query .= '0 distance, ';
     } elseif ($CalcDistance) {
         // get the users home coords
-        $dbc->multiVariableQuery("SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`=:1", $usr['userid']);
-        $record_coords = $dbc->dbResultFetch();
+        $s = $dbc->multiVariableQuery("SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`=:1", $usr['userid']);
+        $record_coords = $dbc->dbResultFetch($s);
 
         if ((($record_coords['latitude'] == NULL) || ($record_coords['longitude'] == NULL)) || (($record_coords['latitude'] == 0) || ($record_coords['longitude'] == 0))) {
             $query .= '0 distance, ';
@@ -284,7 +285,6 @@ if (isset($lat_rad) && isset($lon_rad)) {
 
             $query .= getCalcDistanceSqlFormula($usr !== false, $record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
         }
-        $dbc->reset();
     }
 }
 $query .= '   `caches`.`name` `name`, `caches`.`status` `status`, `caches`.`wp_oc` `wp_oc`,
@@ -339,14 +339,14 @@ if (! is_numeric($caches_per_page))
 $startat = floor($startat / $caches_per_page) * $caches_per_page;
 $query .= ' LIMIT ' . $startat . ', ' . $caches_per_page;
 
-$dbcSearch->simpleQuery($query);
+$s = $dbcSearch->simpleQuery($query);
 
 $tr_Coord_have_been_modified = tr('srch_Coord_have_been_modified');
 $tr_Recommended = tr('srch_Recommended');
 $tr_Send_to_GPS = tr('srch_Send_to_GPS');
 
-for ($i = 0; $i < $dbcSearch->rowCount(); $i ++) {
-    $caches_record = $dbcSearch->dbResultFetch();
+for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
+    $caches_record = $dbcSearch->dbResultFetch($s);
 
     // modified coords
     if ($CalcCoordinates) {
@@ -423,7 +423,7 @@ for ($i = 0; $i < $dbcSearch->rowCount(); $i ++) {
     );
     if ($CalcFNC) {
 
-        $dbc->multiVariableQuery(
+        $rs = $dbc->multiVariableQuery(
             'SELECT count(cache_logs.type) as typy, cache_logs.type as type
             FROM `cache_logs`, `log_types`
             WHERE `cache_logs`.`cache_id`= :1
@@ -434,13 +434,12 @@ for ($i = 0; $i < $dbcSearch->rowCount(); $i ++) {
 
         $typy_i = 0;
 
-        while ($row = $dbc->dbResultFetch()) {
+        while ($row = $dbc->dbResultFetch($rs)) {
             $typy[($row['type'] - 1)] = $row['typy'];
         }
 
         $tmpline = str_replace('{logtypes1}', "<span " . str_pad($typy[0], 5, 0, STR_PAD_LEFT) . " style='color:green'>" . $typy[0] . "</span>.<span style='color:red'>" . $typy[1] . "</span>.<span style='color:black'>" . $typy[2] . "</span>", $tmpline);
 
-        $dbc->reset();
     }
     $tmpline = str_replace('{find}', $typy[0], $tmpline);
     $tmpline = str_replace('{notfind}', $typy[1], $tmpline);
@@ -449,7 +448,7 @@ for ($i = 0; $i < $dbcSearch->rowCount(); $i ++) {
     // das letzte found suchen
     if ($CalcEntry) {
 
-        $dbc->multiVariableQuery(
+        $rs = $dbc->multiVariableQuery(
             'SELECT `cache_logs`.`id` `id`, `cache_logs`.`type` `type`, `cache_logs`.`date` `date`,
                    `log_types`.`icon_small` `icon_small`,
                     cache_logs.text AS log_text
@@ -459,7 +458,7 @@ for ($i = 0; $i < $dbcSearch->rowCount(); $i ++) {
                 AND `log_types`.`id`=`cache_logs`.`type`
             ORDER BY `cache_logs`.`date` DESC LIMIT 1', $caches_record['cache_id']);
 
-        if ($row = $dbc->dbResultFetch()) {
+        if ($row = $dbc->dbResultFetch($rs)) {
             $tmpline = str_replace('{logimage1}', icon_log_type($row['icon_small'], "") . '<a href=\'viewlogs.php?cacheid=' . htmlspecialchars($caches_record['cache_id'], ENT_COMPAT, 'UTF-8') . '#' . htmlspecialchars($row['id'], ENT_COMPAT, 'UTF-8') . '\'>{gray_s}' . date($logdateformat, strtotime($row['date'])) . '{gray_e}</a>', $tmpline);
 
             $log_text = PrepareText($row['log_text']);
@@ -478,7 +477,6 @@ for ($i = 0; $i < $dbcSearch->rowCount(); $i ++) {
             $tmpline = str_replace('{logtype}', "", $tmpline);
             $tmpline = str_replace('{logdesc}', "", $tmpline);
         }
-        $dbc->reset();
     }
     $lastlogs = "";
 

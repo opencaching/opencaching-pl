@@ -100,16 +100,15 @@ if ($usr || ! $hide_coords) {
 
     // temporĂ¤re tabelle erstellen
     $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `ov2content` ' . $query . $queryLimit);
-    $dbcSearch->reset();
 
-    $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `ov2content`');
-    $rCount = $dbcSearch->dbResultFetch();
-    $dbcSearch->reset();
+    $s = $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `ov2content`');
+    $rCount = $dbcSearch->dbResultFetchOneRowOnly($s);
 
     if ($rCount['count'] == 1) {
-        $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc` FROM `ov2content`, `caches` WHERE `ov2content`.`cache_id`=`caches`.`cache_id` LIMIT 1');
-        $rName = $dbcSearch->dbResultFetch();
-        $dbcSearch->reset();
+        $s = $dbcSearch->simpleQuery(
+            'SELECT `caches`.`wp_oc` `wp_oc` FROM `ov2content`, `caches`
+            WHERE `ov2content`.`cache_id`=`caches`.`cache_id` LIMIT 1');
+        $rName = $dbcSearch->dbResultFetchOneRowOnly($s);
 
         $sFilebasename = $rName['wp_oc'];
     } else {
@@ -148,9 +147,9 @@ if ($usr || ! $hide_coords) {
     }
 
     $query = 'SELECT `ov2content`.`cache_id` `cacheid`, `ov2content`.`longitude` `longitude`, `ov2content`.`latitude` `latitude`, `ov2content`.cache_mod_cords_id, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`wp_oc` `wp_oc`, `cache_type`.`short` `typedesc`, `cache_size`.`pl` `sizedesc`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username`, `cache_type`.`id` `type_id` FROM `ov2content`, `caches`, `cache_type`, `cache_size`, `user` WHERE `ov2content`.`cache_id`=`caches`.`cache_id` AND `ov2content`.`type`=`cache_type`.`id` AND `ov2content`.`size`=`cache_size`.`id` AND `ov2content`.`user_id`=`user`.`user_id`';
-    $dbcSearch->simpleQuery($query);
+    $s = $dbcSearch->simpleQuery($query);
 
-    while ($r = $dbcSearch->dbResultFetch()) {
+    while ($r = $dbcSearch->dbResultFetch($s)) {
         $lat = sprintf('%07d', $r['latitude'] * 100000);
         $lon = sprintf('%07d', $r['longitude'] * 100000);
         // modified coords
@@ -175,8 +174,6 @@ if ($usr || ! $hide_coords) {
         append_output($record);
         ob_flush();
     }
-    $dbcSearch->reset();
-    unset($dbc);
 
     // phpzip versenden
     if ($bUseZip == true) {

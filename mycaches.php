@@ -246,12 +246,12 @@ if ($error == false) {
         $params['stat_cache']['value'] = (integer) $stat_cache;
         $params['stat_cache']['data_type'] = 'integer';
 
-        if (!isset($dbc)) {
-            $dbc = OcDb::instance();
-        };
-        $dbc->paramQuery($caches_query, $params);
+
+        $dbc = OcDb::instance();
+        $s = $dbc->paramQuery($caches_query, $params);
         unset($params);
-        $log_record_all = $dbc->dbResultFetchAll();
+        $log_record_all = $dbc->dbResultFetchAll($s);
+
         $log_record_count = count($log_record_all);
         $file_content = '';
 
@@ -310,13 +310,14 @@ if ($error == false) {
 
             $params['v1']['value'] = (integer) $log_record['cache_id'];
             $params['v1']['data_type'] = 'integer';
-            $dbc->paramQuery($logs_query, $params);
+            $s = $dbc->paramQuery($logs_query, $params);
 
             $tabelka .= '<td align=left>';
             $warning = 0;
             $dnf = 0;
             $sprawdzaj = 0;
-            $log_entries_all = $dbc->dbResultFetchAll();
+            $log_entries_all = $dbc->dbResultFetchAll($s);
+
             $log_entries_count = count($log_entries_all);
 
             for ($yy = 0; $yy < $log_entries_count; $yy++) {

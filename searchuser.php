@@ -29,21 +29,21 @@ if ($error == false) {
             );
 
             $dbc = OcDb::instance();
-            $dbc->paramQuery($query, $params);
+            $s = $dbc->paramQuery($query, $params);
 
             $bgcolor1 = '#eeeeee';
             $bgcolor2 = '#ffffff';
             $line = '<tr bgcolor={bgcolor}><td><a href=viewprofile.php?userid={user_id}>{username}</a></td><td>&nbsp;</td><td nowrap style="text-align:center;">{date_created}</td><td nowrap style="text-align:center;"></td></tr>';
             $lines = "";
 
-            $ilosc = $dbc->rowCount();
+            $ilosc = $dbc->rowCount($s);
             if ($ilosc != 0) {
                 if ($ilosc == 1) {
-                    $record = $dbc->dbResultFetch();
+                    $record = $dbc->dbResultFetch($s);
                     tpl_redirect("viewprofile.php?userid=" . $record['user_id']);
                 } else {
                     $i = 0;
-                    while ($record = $dbc->dbResultFetch()) {
+                    while ($record = $dbc->dbResultFetch($s)) {
                         $tmp_line = $line;
                         $tmp_line = mb_ereg_replace('{bgcolor}', ($i % 2 == 0) ? $bgcolor1 : $bgcolor2, $tmp_line);
                         $tmp_line = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $tmp_line);
@@ -63,7 +63,6 @@ if ($error == false) {
                 tpl_set_var('not_found', '<b>' . tr("message_user_not_found") . ': ' . $options['username'] . '</b><br/><br/>');
                 tpl_set_var('lines', '');
             }
-            unset($dbc);
         } else {
             tpl_set_var('username', '');
             tpl_set_var('not_found', '');

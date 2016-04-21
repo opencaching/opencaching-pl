@@ -1,5 +1,6 @@
 <?php
 use Utils\Database\XDb;
+use Utils\Database\OcDb;
 /**
  * This script is used (can be loaded) by /search.php
  */
@@ -45,16 +46,19 @@ if (isset($lat_rad) && isset($lon_rad)) {
     } else {
         //get the users home coords
         if (!isset($dbc)) {
-            $dbc = new dataBase();
+            $dbc = OcDb::instance();
         }
-        $dbc->multiVariableQuery("SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`= :1", $usr['userid'] );
-        $record_coords = $dbc->dbResultFetch();
+        $s = $dbc->multiVariableQuery(
+            "SELECT `latitude`, `longitude` FROM `user`
+            WHERE `user_id`= :1 LIMIT 1", $usr['userid'] );
+        $record_coords = $dbc->dbResultFetchOneRowOnly($s);
+
         if ((($record_coords['latitude'] == NULL) || ($record_coords['longitude'] == NULL)) || (($record_coords['latitude'] == 0) || ($record_coords['longitude'] == 0))) {
             $query .= '0 distance, ';
         } else {
             $query .= getCalcDistanceSqlFormula($usr !== false, $record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
         }
-        $dbc->reset();
+
     }
 }
 
@@ -105,18 +109,18 @@ if ($count < 1) {
 $queryLimit = ' LIMIT ' . $startat . ', ' . $count;
 
 $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `xmlcontent` ' . $query . $queryLimit);
-$dbcSearch->reset();
 
-$dbcSearch->simpleQuery('SELECT COUNT(cache_id) `count` FROM ('.$query.') query');
-$rCount = $dbcSearch->dbResultFetch();
-$dbcSearch->reset();
+$s = $dbcSearch->simpleQuery('SELECT COUNT(cache_id) `count` FROM ('.$query.') query');
+$rCount = $dbcSearch->dbResultFetchOneRowOnly($s);
 
 // Filename generation
 if ($rCount['count'] == 1) {
-    $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc` FROM `xmlcontent`, `caches` WHERE `xmlcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
-    $rName = $dbcSearch->dbResultFetch();
+    $s = $dbcSearch->simpleQuery(
+        'SELECT `caches`.`wp_oc` `wp_oc` FROM `xmlcontent`, `caches`
+        WHERE `xmlcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
+    $rName = $dbcSearch->dbResultFetchOneRowOnly($s);
+
     $sFilebasename = $rName['wp_oc'];
-    $dbcSearch->reset();
 } else {
     if ($options['searchtype'] == 'bywatched') {
         $sFilebasename = 'watched_caches';
@@ -157,9 +161,9 @@ $stmt = XDb::xSql(
 
 while($r = XDb::xFetchArray($stmt) ) {
     if (@$enable_cache_access_logs) {
-        if (!isset($dbc)) {
-            $dbc = new dataBase();
-        }
+
+        $dbc = OcDb::instance();
+
         $cache_id = $r['cacheid'];
         $user_id = $usr !== false ? $usr['userid'] : null;
         $access_log = @$_SESSION['CACHE_ACCESS_LOG_VC_'.$user_id];
@@ -238,10 +242,7 @@ while($r = XDb::xFetchArray($stmt) ) {
 
     echo $thisline;
 }
-$dbcSearch->reset();
-unset($dbc);
 $dbcSearch->simpleQuery('DROP TABLE `xmlcontent` ');
-$dbcSearch->reset();
 
 echo "</result>\n";
 

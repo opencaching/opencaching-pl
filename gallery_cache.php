@@ -88,17 +88,17 @@ if ($error == false) {
 
         $cachepicturelines = '';
         $append_atag = '';
-        if (!isset($dbc)) {
-            $dbc = OcDb::instance();
-        };
+
+        $dbc = OcDb::instance();
+
         $thatquery = "SELECT `pictures`.`url`, `pictures`.`title`, `pictures`.`uuid`, `pictures`.`user_id`,`pictures`.`object_id`, `pictures`.`spoiler` FROM `pictures` WHERE `pictures`.`object_id`=:v1 AND `pictures`.`object_type`=2 ORDER BY `pictures`.`seq`, `pictures`.`date_created` ASC";
         //// requires: ALTER TABLE `pictures` ADD `seq` SMALLINT UNSIGNED NOT NULL DEFAULT '1';
         $params['v1']['value'] = (integer) $cache_id;
         ;
         $params['v1']['data_type'] = 'integer';
-        $dbc->paramQuery($thatquery, $params);
+        $s = $dbc->paramQuery($thatquery, $params);
         unset($params); //clear to avoid overlaping on next paramQuery (if any))
-        $rscpictures_count = $dbc->rowCount();
+        $rscpictures_count = $dbc->rowCount($s);
 
         if ($rscpictures_count != 0) {
             tpl_set_var('cache_images_start', '');
@@ -107,8 +107,9 @@ if ($error == false) {
             tpl_set_var('cache_images_start', '<!--');
             tpl_set_var('cache_images_end', '-->');
         }
-        $rscpictures_all = $dbc->dbResultFetchAll();
+        $rscpictures_all = $dbc->dbResultFetchAll($s);
         unset($dbc);
+
         for ($j = 0; $j < $rscpictures_count; $j++) {
             $pic_crecord = $rscpictures_all[$j];
             $thisline = $cachepicture;

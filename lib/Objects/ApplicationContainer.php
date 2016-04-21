@@ -4,6 +4,7 @@ namespace lib\Objects;
 
 use lib\Objects\User\User;
 use lib\Objects\OcConfig\OcConfig;
+use Utils\Database\OcDb;
 
 final class ApplicationContainer
 {
@@ -13,16 +14,12 @@ final class ApplicationContainer
     private $loggedUser = false;
     private $ocConfig;
 
-    /**
-     *
-     * @var \dataBase $db
-     */
     public $db;
 
     private function __construct()
     {
         $this->ocConfig = OcConfig::instance();
-        $this->db = \lib\Database\DataBaseSingleton::Instance();
+        $this->db = OcDb::instance();
     }
 
     /**

@@ -43,15 +43,16 @@ class AutoArch
 
         $db = OcDb::instance();
 
-        $db->simpleQuery(
+        $s = $db->simpleQuery(
             "SELECT cache_id, last_modified FROM caches WHERE status = 2 AND last_modified < now() - interval 4 month");
 
-        $chachesToProcess = $db->dbResultFetchAll();
+        $chachesToProcess = $db->dbResultFetchAll($s);
         foreach ($chachesToProcess as $rs) {
 
-            $db->multiVariableQuery(
+            $s = $db->multiVariableQuery(
                 "SELECT step FROM cache_arch WHERE cache_id = :1 LIMIT 1", (int) $rs['cache_id']);
-            $step_array = $db->dbResultFetchOneRowOnly();
+            $step_array = $db->dbResultFetchOneRowOnly($s);
+
             if ($step_array) {
                 $step = (int) $step_array['step'];
             } else {
@@ -108,17 +109,16 @@ class AutoArch
 
     private function loadCachesToProcess()
     {
-        /* @var $db dataBase */
         $db = OcDb::instance();
 
-        $db->simpleQuery(
+        $s = $db->simpleQuery(
             "SELECT cache_arch.step, caches.cache_id, caches.name, user.username
             FROM `cache_arch`, caches, user
             WHERE (step=1 OR step=2 OR step=3)
                 AND (caches.cache_id = cache_arch.cache_id)
                 AND (caches.user_id = user.user_id)
             ORDER BY step ASC");
-        return $db->dbResultFetchAll();
+        return $db->dbResultFetchAll($s);
     }
 
     /**
@@ -128,11 +128,11 @@ class AutoArch
     {
         $db = OcDb::instance();
 
-        $db->simpleQuery(
+        $s = $db->simpleQuery(
             'SELECT caches.cache_id as cacheId FROM caches, cache_arch
             WHERE cache_arch.cache_id = caches.cache_id
                 AND last_modified >= now() - interval 4 month ');
-        $cachesToRm = $db->dbResultFetchAll();
+        $cachesToRm = $db->dbResultFetchAll($s);
         foreach ($cachesToRm as $cacheToRm) {
             $delSqlQuery = "DELETE FROM cache_arch WHERE cache_id = :1 LIMIT 1";
             $db->multiVariableQuery($delSqlQuery, (int) $cacheToRm['cacheId']);

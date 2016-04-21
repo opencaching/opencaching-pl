@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\OcDb;
 /**
  * This class contain methods used to communicate with Geokrety, via Geokrety Api
  * (http://geokrety.org/api.php)
@@ -170,8 +171,6 @@ class GeoKretyApi
      */
     public function LogGeokrety($GeokretyArray, $retry = false)
     {
-
-        // dataBase::debugOC('#'.__line__.' ', $this->connectionTimeout);
         if (!$GeokretyArray) { // array from datbase is epmty
             $r['errors'][]['error'] = 'array from datbase is epmty';
             $postdata = '';
@@ -275,7 +274,7 @@ class GeoKretyApi
 
     private function storeErrorsInDb($operationType, $dataSent, $response = null)
     {
-        $db = new dataBase;
+        $db = OcDb::instance();
         $query = "INSERT INTO `GeoKretyAPIerrors`(`dateTime`, `operationType`, `dataSent`, `response`)
                   VALUES (NOW(),:1,:2,:3)";
         $db->multiVariableQuery($query, $operationType, addslashes(serialize($dataSent)), addslashes(serialize($response)));
@@ -288,15 +287,14 @@ class GeoKretyApi
 
     public static function getErrorsFromDb()
     {
-        $db = new dataBase;
-        $query = "SELECT * FROM `GeoKretyAPIerrors` WHERE 1";
-        $db->simpleQuery($query);
-        return $db->dbResultFetchAll();
+        $db = OcDb::instance();
+        $s = $db->simpleQuery("SELECT * FROM `GeoKretyAPIerrors` WHERE 1");
+        return $db->dbResultFetchAll($s);
     }
 
     public static function removeDbRows($rowsString)
     {
-        $db = new dataBase;
+        $db = OcDb::instance();
         $query = "DELETE FROM `GeoKretyAPIerrors` WHERE id in ($rowsString)";
         $db->simpleQuery($query);
     }

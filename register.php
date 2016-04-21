@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use lib\Objects\User\User;
+use Utils\Database\OcDb;
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
     $rootpath = '';
@@ -28,7 +29,7 @@ if ($error == false) {
     tpl_set_var('password_message', '');
     tpl_set_var('show_all_countries', 0);
 
-    $db = new dataBase();
+    $db = OcDb::instance();
     if (isset($_POST['submit']) || isset($_POST['show_all_countries_submit'])) {
         //form load setting
         $display_all_countries = $_POST['allcountries'];
@@ -158,8 +159,10 @@ if ($error == false) {
         tpl_set_var('all_countries_submit', '<input type="submit" name="show_all_countries_submit" value="' . $allcountries . '" />');
     } else {
         $query = 'SELECT `short` FROM `countries` WHERE 1 ORDER BY `short` ASC';
-        $db->simpleQuery($query);
-        $dbResult = $db->dbResultFetchAll();
+
+        $s = $db->simpleQuery($query);
+        $dbResult = $db->dbResultFetchAll($s);
+
         foreach ($dbResult as $key => $value) {
             $defaultCountryList[] = $value['short'];
         }

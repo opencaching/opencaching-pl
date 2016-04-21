@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\OcDb;
 /**
  * text cache founded statistics year 2 year.
  * All caches in database.
@@ -7,7 +8,7 @@
 header('Content-type: text/html; charset=utf-8');
 
 require_once __DIR__ . '/lib/ClassPathDictionary.php';
-$db = new dataBase;
+$db = OcDb::instance();
 
 $query = "SELECT `date_hidden`
 FROM `caches` , cache_location
@@ -22,8 +23,8 @@ WHERE cache_location.cache_id = caches.cache_id
 ORDER BY `date_hidden`
 ";
 
-$db->simpleQuery($query);
-$arr = $db->dbResultFetchAll();
+$s = $db->simpleQuery($query);
+$arr = $db->dbResultFetchAll($s);
 
 print '<pre>';
 // print_r($arr);

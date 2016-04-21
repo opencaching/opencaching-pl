@@ -1,11 +1,12 @@
 <?php
 use Utils\Database\XDb;
+use Utils\Database\OcDb;
 
 require_once("./lib/common.inc.php");
 
 if (isSet($_GET['wp']) && !empty($_GET['wp']) && $_GET['wp'] != "OP") {
 
-    
+
 
     $wp = XDb::xEscape($_GET['wp']);
 
@@ -23,9 +24,9 @@ if (isSet($_GET['wp']) && !empty($_GET['wp']) && $_GET['wp'] != "OP") {
         // detailed cache access logging
         global $enable_cache_access_logs;
         if (@$enable_cache_access_logs) {
-            if (!isset($dbc)) {
-                $dbc = new dataBase();
-            };
+
+            $dbc = OcDb::instance();
+
             $cache_id = $caches['cache_id'];
             $user_id = @$_SESSION['user_id'] > 0 ? $_SESSION['user_id'] : null;
             $access_log = @$_SESSION['CACHE_ACCESS_LOG_VC_' . $user_id];

@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
+
 if (!isset($rootpath))
     $rootpath = '';
 require_once('./lib/common.inc.php');
@@ -49,16 +50,16 @@ function listUserCaches($userid)
     global $db;
     // lists all approved caches belonging to user
     $q = "SELECT cache_id, name, date_hidden FROM caches WHERE user_id=:1 AND status <> 4 AND type != 10 ORDER BY " . orderBy(@$_GET['orderId']) . " " . orderType(@$_GET['orderType']);
-    $db->multiVariableQuery($q, $userid);
-    return $db->dbResultFetchAll();
+    $s = $db->multiVariableQuery($q, $userid);
+    return $db->dbResultFetchAll($s);
 }
 
 function listPendingCaches($userid)
 {
     global $db;
     $q = "SELECT cache_id, name, date_hidden FROM caches WHERE cache_id IN (SELECT cache_id FROM chowner WHERE user_id = :1)";
-    $db->multiVariableQuery($q, $userid);
-    return $db->dbResultFetchAll();
+    $s = $db->multiVariableQuery($q, $userid);
+    return $db->dbResultFetchAll($s);
 }
 
 function getUsername($userid)
@@ -234,8 +235,8 @@ if ($error == false && isset($usr['userid'])) {
         if (isset($_GET['accept']) && $_GET['accept'] == 0) {
             // odrzucenie zmiany
             $q = "DELETE FROM chowner WHERE cache_id = :1 AND user_id = :2";
-            $db->multiVariableQuery($q, $_GET['cacheid'], $usr['userid']);
-            if ($db->rowCount() > 0) {
+            $s = $db->multiVariableQuery($q, $_GET['cacheid'], $usr['userid']);
+            if ($db->rowCount($s) > 0) {
                 tpl_set_var("info_msg", tr('adopt_27') . '<br /><br />');
                 $mailContent = tr('adopt_29');
                 $mailContent = str_replace('\n', "\n", $mailContent);
@@ -250,8 +251,8 @@ if ($error == false && isset($usr['userid'])) {
         if (isset($_GET['abort']) && isUserOwner($usr['userid'], $_GET['cacheid'])) {
             // anulowanie procedury przejecia
             $q = "DELETE FROM chowner WHERE cache_id = :1";
-            $db->multiVariableQuery($q, $_GET['cacheid']);
-            if ($db->rowCount() > 0)
+            $s = $db->multiVariableQuery($q, $_GET['cacheid']);
+            if ($db->rowCount($s) > 0)
                 tpl_set_var('info_msg', " " . tr('adopt_16') . " <br /><br />");
             else
                 tpl_set_var('error_msg', " " . tr('adopt_17') . " <br /><br />");

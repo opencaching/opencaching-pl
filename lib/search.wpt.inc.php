@@ -111,20 +111,18 @@ if( $usr || !$hide_coords ) {
 
     // cleanup (old gpxcontent lingers if gpx-download is cancelled by user)
     $dbcSearch->simpleQuery( 'DROP TEMPORARY TABLE IF EXISTS `wptcontent`');
-    $dbcSearch->reset();
 
     // temporäre tabelle erstellen
     $dbcSearch->simpleQuery( 'CREATE TEMPORARY TABLE `wptcontent` ' . $query . $queryLimit);
-    $dbcSearch->reset();
 
-    $dbcSearch->simpleQuery( 'SELECT COUNT(*) `count` FROM `wptcontent`');
-    $rCount = $dbcSearch->dbResultFetch();
-    $dbcSearch->reset();
+    $s = $dbcSearch->simpleQuery( 'SELECT COUNT(*) `count` FROM `wptcontent`');
+    $rCount = $dbcSearch->dbResultFetchOneRowOnly($s);
 
     if ($rCount['count'] == 1) {
-        $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc` FROM `wptcontent`, `caches` WHERE `wptcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
-        $rName = $dbcSearch->dbResultFetch();
-        $dbcSearch->reset();
+        $s = $dbcSearch->simpleQuery(
+            'SELECT `caches`.`wp_oc` `wp_oc` FROM `wptcontent`, `caches`
+            WHERE `wptcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
+        $rName = $dbcSearch->dbResultFetchOneRowOnly($s);
 
         $sFilebasename = $rName['wp_oc'];
     } elseif ($options['searchtype'] == 'bywatched') {
@@ -230,9 +228,6 @@ if( $usr || !$hide_coords ) {
         appendOutput($record);
         ob_flush();
     }
-    $dbcSearch->reset();
-    unset($cdb);
-
 
      // phpzip versenden
      if ($bUseZip == true) {

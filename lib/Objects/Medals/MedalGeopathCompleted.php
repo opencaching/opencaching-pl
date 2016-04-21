@@ -2,6 +2,7 @@
 
 namespace lib\Objects\Medals;
 
+use Utils\Database\OcDb;
 /**
  * medal to be awarded when use complete specified geopath
  *
@@ -19,10 +20,12 @@ class MedalGeopathCompleted extends Medal implements \lib\Objects\Medals\MedalIn
         }
 
         $query = 'SELECT count(`id`) as `completedLogCount` FROM `PowerTrail_comments` WHERE `deleted` = 0 AND `userId` = :1 AND `PowerTrailId` = :2 ';
-        /* @var $db \dataBase */
-        $db = \lib\Database\DataBaseSingleton::Instance();
-        $db->multiVariableQuery($query, $user->getUserId(), $this->conditions['geoPath']['geoPathId']);
-        $cacheCountArr = $db->dbResultFetchOneRowOnly();
+
+        $db = OcDb::instance();
+
+        $s = $db->multiVariableQuery($query, $user->getUserId(), $this->conditions['geoPath']['geoPathId']);
+        $cacheCountArr = $db->dbResultFetchOneRowOnly($s);
+
         if ($cacheCountArr['completedLogCount'] == 1) {
             $this->prizedTime = date($this->config->getDbDateTimeFormat());
             $this->level = 0;

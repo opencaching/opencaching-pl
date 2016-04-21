@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use Utils\Database\OcDb;
 require('./lib/common.inc.php');
 require($stylepath . '/query.inc.php');
 
@@ -39,12 +40,12 @@ function deletequery($queryid)
 {
     global $tplname, $usr;
 
-    $dbc = new dataBase();
+    $dbc = OcDb::instance();
 
     $query = "SELECT `id` FROM `queries` WHERE `id`=:1 AND `user_id`=:2";
-    $dbc->multiVariableQuery($query, $queryid, $usr['userid']);
+    $s = $dbc->multiVariableQuery($query, $queryid, $usr['userid']);
 
-    if ($dbc->rowCount() == 1) {
+    if ($dbc->rowCount($s) == 1) {
 
         $query = "DELETE FROM `queries` WHERE `id`=:1 LIMIT 1";
         $dbc->multiVariableQuery($query, $queryid);
@@ -63,15 +64,15 @@ function viewqueries()
 
     $tplname = 'viewqueries';
 
-    $dbc = new dataBase();
+    $dbc = OcDb::instance();
 
     $i = 0;
     $content = '';
     $query = "SELECT id, name FROM `queries` WHERE `user_id`=:1 ORDER BY `name` ASC";
-    $dbc->multiVariableQuery($query, $usr['userid']);
+    $s = $dbc->multiVariableQuery($query, $usr['userid']);
 
-    if ($dbc->rowCount() != 0) {
-        while ($r = $dbc->dbResultFetch()) {
+    if ($dbc->rowCount($s) != 0) {
+        while ($r = $dbc->dbResultFetch($s)) {
             $thisline = $viewquery_line;
 
             $thisline = mb_ereg_replace('{queryname}', htmlspecialchars($r['name'], ENT_COMPAT, 'UTF-8'), $thisline);

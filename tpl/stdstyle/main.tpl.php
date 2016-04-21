@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\OcDb;
 // load menu
 global $mnu_bgcolor, $mnu_selmenuitem, $develwarning, $tpl_subtitle, $absolute_server_URI, $mnu_siteid, $site_name;
 require_once $stylepath . '/lib/menu.php';
@@ -174,9 +175,9 @@ if (date('m') == 12 || date('m') == 1) {
                                 $menu[$dowydrukuidx]['menustring'] .= " (" . count($_SESSION['print_list']) . ")";
                             }
                         }
-//user is admin
+                        //user is admin
                         if (isset($usr['admin']) && $usr['admin']) {
-                            $db = lib\Database\DataBaseSingleton::Instance();
+                            $db = OcDb::instance();
                             $new_reports = $db->simpleQueryValue("SELECT count(status) FROM reports WHERE status = 0", 0);
                             $lookhere_reports = $db->simpleQueryValue("SELECT count(status) FROM reports WHERE status = 3", 0);
                             $active_reports = $db->simpleQueryValue("SELECT count(status) FROM reports WHERE status <> 2", 0);
@@ -278,7 +279,7 @@ if (date('m') == 12 || date('m') == 1) {
                     </p>
 <!--
                     <p><a href="http://validator.w3.org/check?uri=referer" title="Validate code as W3C XHTML 1.0 Compliant">W3C XHTML 1.0</a> | <a href="http://jigsaw.w3.org/css-validator/" title="Validate Style Sheet as W3C CSS 2.0 Compliant">W3C CSS 2.0</a></p>
--->                    
+-->
                 </div>
                 <!-- (C) The Open Caching Project ? - 2016 -->
             </div>

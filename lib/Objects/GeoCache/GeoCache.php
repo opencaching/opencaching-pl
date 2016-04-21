@@ -4,9 +4,9 @@ namespace lib\Objects\GeoCache;
 
 use \lib\Objects\PowerTrail\PowerTrail;
 use \lib\Objects\OcConfig\OcConfig;
-use \lib\Database\DataBaseSingleton;
 use Utils\Database\XDb;
-//use \lib\Objects\GeoCache\CacheTitled;
+use Utils\Database\OcDb;
+
 /**
  * Description of geoCache
  *
@@ -152,13 +152,13 @@ class GeoCache
     {
         if (isset($params['cacheId'])) { // load from DB if cachId param is set
 
-            $db = DataBaseSingleton::Instance();
+            $db = OcDb::instance();
             $this->id = (int) $params['cacheId'];
 
             $queryById = "SELECT size, status, founds, notfounds, topratings, votes, notes, score,  name, type, date_hidden, longitude, latitude, wp_oc, wp_gc, wp_nc, wp_tc, wp_ge, user_id, last_found, difficulty, terrain, way_length, logpw, search_time, date_created, watcher, ignorer_count, org_user_id, desc_languages, mp3count, picturescount, date_activate FROM `caches` WHERE `cache_id`=:1 LIMIT 1";
-            $db->multiVariableQuery($queryById, $this->id);
+            $s = $db->multiVariableQuery($queryById, $this->id);
 
-            $cacheDbRow = $db->dbResultFetch();
+            $cacheDbRow = $db->dbResultFetch($s);
             if(is_array($cacheDbRow)) {
                 $this->loadFromRow($cacheDbRow);
             } else {
@@ -294,10 +294,10 @@ class GeoCache
 
     private function loadCacheLocation()
     {
-        $db = DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $query = 'SELECT `code1`, `code2`, `code3`, `code4`, `adm1`, `adm2`, `adm3`, `adm4`  FROM `cache_location` WHERE `cache_id` =:1 LIMIT 1';
-        $db->multiVariableQuery($query, $this->id);
-        $dbResult = $db->dbResultFetch();
+        $s = $db->multiVariableQuery($query, $this->id);
+        $dbResult = $db->dbResultFetch($s);
         $this->cacheLocation = $dbResult;
     }
 
@@ -545,9 +545,8 @@ class GeoCache
     public function updateGeocacheLogenteriesStats()
     {
         $sqlQuery = "UPDATE `caches` SET `last_found`=:1, `founds`=:2, `notfounds`= :3, `notes`= :4 WHERE `cache_id`= :5";
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $db->multiVariableQuery($sqlQuery, $this->lastFound, $this->founds, $this->notFounds, $this->notesCount, $this->id);
-        $db->reset();
     }
 
     public function getPowerTrail()
@@ -785,10 +784,10 @@ class GeoCache
     public function getNatureRegions()
     {
         if($this->natureRegions === false){
-            $db = DataBaseSingleton::Instance();
+            $db = OcDb::instance();
             $rsAreasql = "SELECT `parkipl`.`id` AS `npaId`, `parkipl`.`name` AS `npaname`,`parkipl`.`link` AS `npalink`,`parkipl`.`logo` AS `npalogo` FROM `cache_npa_areas` INNER JOIN `parkipl` ON `cache_npa_areas`.`parki_id`=`parkipl`.`id` WHERE `cache_npa_areas`.`cache_id`=:1 AND `cache_npa_areas`.`parki_id`!='0'";
-            $db->multiVariableQuery($rsAreasql, $this->id);
-            $this->natureRegions = $db->dbResultFetchAll();
+            $s = $db->multiVariableQuery($rsAreasql, $this->id);
+            $this->natureRegions = $db->dbResultFetchAll($s);
         }
         return $this->natureRegions;
     }
@@ -796,12 +795,12 @@ class GeoCache
     public function getNatura2000Sites()
     {
         if($this->natura2000Sites === false){
-            $db = DataBaseSingleton::Instance();
+            $db = OcDb::instance();
             $sql = "SELECT `npa_areas`.`id` AS `npaId`, `npa_areas`.`linkid` AS `linkid`,`npa_areas`.`sitename` AS `npaSitename`, `npa_areas`.`sitecode` AS `npaSitecode`, `npa_areas`.`sitetype` AS `npaSitetype`
                     FROM `cache_npa_areas` INNER JOIN `npa_areas` ON `cache_npa_areas`.`npa_id`=`npa_areas`.`id`
                     WHERE `cache_npa_areas`.`cache_id`=:1 AND `cache_npa_areas`.`npa_id`!='0'";
-            $db->multiVariableQuery($sql, $this->id);
-            $this->natura2000Sites = $db->dbResultFetchAll();
+            $s = $db->multiVariableQuery($sql, $this->id);
+            $this->natura2000Sites = $db->dbResultFetchAll($s);
         }
         return $this->natura2000Sites;
     }
@@ -809,10 +808,10 @@ class GeoCache
     public function getUsersRecomeded()
     {
         if($this->usersRecomeded === false) {
-            $db  = DataBaseSingleton::Instance();
+            $db  = OcDb::instance();
             $sql = "SELECT user.username username FROM `cache_rating` INNER JOIN user ON (cache_rating.user_id = user.user_id) WHERE cache_id=:1 ORDER BY username";
-            $db->multiVariableQuery($sql, $this->id);
-            $this->usersRecomeded = $db->dbResultFetchAll();
+            $s = $db->multiVariableQuery($sql, $this->id);
+            $this->usersRecomeded = $db->dbResultFetchAll($s);
         }
         return $this->usersRecomeded;
     }
@@ -897,7 +896,7 @@ class GeoCache
     public function getMoveCount()
     {
         if($this->cacheType === self::TYPE_MOVING && $this->moveCount === -1){
-            $db  = DataBaseSingleton::Instance();
+            $db  = OcDb::instance();
             $sql = 'SELECT COUNT(*) FROM `cache_logs` WHERE type=4 AND cache_logs.deleted="0" AND cache_id=:1';
             $this->moveCount = $db->multiVariableQueryValue($sql, 0, $this->id);
         }
@@ -912,10 +911,10 @@ class GeoCache
     public function getDistance()
     {
         if($this->distance === -1){
-            $db  = DataBaseSingleton::Instance();
+            $db  = OcDb::instance();
             $sql = 'SELECT sum(km) AS dystans FROM cache_moved WHERE cache_id=:1';
-            $db->multiVariableQuery($sql, $this->id);
-            $dst = $db->dbResultFetchOneRowOnly();
+            $s = $db->multiVariableQuery($sql, $this->id);
+            $dst = $db->dbResultFetchOneRowOnly($s);
             $this->distance = round($dst['dystans'], 2);
         }
         return $this->distance;

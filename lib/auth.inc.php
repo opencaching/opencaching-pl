@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Database\OcDb;
+
 require($rootpath . 'lib/login.class.php');
 
 $autherr = 0;
@@ -16,11 +18,12 @@ define('AUTHERR_USERNOTACTIVE', 4);
 function auth_UsernameFromID($userid)
 {
     //select the right user
-    $db = lib\Database\DataBaseSingleton::Instance();
+    $db = OcDb::instance();
+
     $query = "SELECT `username` FROM `user` WHERE `user_id`=:1 ";
-    $db->multiVariableQuery($query, $userid);
-    if ($db->rowCount() > 0) {
-        $record = $db->dbResultFetchOneRowOnly();
+    $s = $db->multiVariableQuery($query, $userid);
+    if ($db->rowCount($s) > 0) {
+        $record = $db->dbResultFetchOneRowOnly($s);
         return $record['username'];
     } else {
         //user not exists
@@ -108,8 +111,7 @@ function auth_logout()
 
 function getUserRow($userId)
 {
-    require_once __DIR__ . '/Database/Db.php';
-    $db = new dataBase();
-    $db->multiVariableQuery('SELECT username, hidden_count, log_notes_count, founds_count, notfounds_count, email, country, latitude, longitude FROM `user` WHERE `user_id`=:1', $userId);
-    return $db->dbResultFetchOneRowOnly();
+    $db = OcDb::instance();
+    $s = $db->multiVariableQuery('SELECT username, hidden_count, log_notes_count, founds_count, notfounds_count, email, country, latitude, longitude FROM `user` WHERE `user_id`=:1', $userId);
+    return $db->dbResultFetchOneRowOnly($s);
 }

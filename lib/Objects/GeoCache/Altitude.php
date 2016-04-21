@@ -2,6 +2,7 @@
 
 namespace lib\Objects\GeoCache;
 
+use Utils\Database\OcDb;
 /**
  * Description of Altitude
  *
@@ -27,10 +28,14 @@ class Altitude
 
     private function loadAltitudeFromDb()
     {
-        $query = 'SELECT `altitude` FROM `caches_additions` WHERE `cache_id` = :1';
-        $db = \lib\Database\DataBaseSingleton::Instance();
-        $db->multiVariableQuery($query, $this->geoCache->getCacheId());
-        $dbResult = $db->dbResultFetchOneRowOnly();
+        $db = OcDb::instance();
+
+        $s = $db->multiVariableQuery(
+            'SELECT `altitude` FROM `caches_additions` WHERE `cache_id` = :1 LIMIT 1',
+            $this->geoCache->getCacheId());
+
+        $dbResult = $db->dbResultFetchOneRowOnly($s);
+
         $this->altitude = $dbResult['altitude'];
     }
 
@@ -61,7 +66,7 @@ class Altitude
                         VALUES (:2, :1, NOW())
                         ON DUPLICATE KEY UPDATE
                         `altitude` = :1, altitude_update_datetime = NOW()';
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $db->multiVariableQuery($query, $this->altitude, $this->geoCache->getCacheId());
     }
 

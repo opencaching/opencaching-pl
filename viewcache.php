@@ -57,8 +57,8 @@ if ($error == false) {
         $thatquery = "SELECT `cache_id` FROM `caches` WHERE uuid=:v1 LIMIT 1";
         $params['v1']['value'] = (string) $uuid;
         $params['v1']['data_type'] = 'string';
-        $dbc->paramQuery($thatquery, $params);
-        if ($r = $dbc->dbResultFetch()) {
+        $s = $dbc->paramQuery($thatquery, $params);
+        if ($r = $dbc->dbResultFetchOneRowOnly($s)) {
             $cache_id = $r['cache_id'];
         }
     } else if (isset($_REQUEST['wp'])) {
@@ -75,8 +75,8 @@ if ($error == false) {
             $query .= 'oc';
 
         $query .= '=:1 LIMIT 1';
-        $dbc->multiVariableQuery($query, $wp);
-        if ($r = $dbc->dbResultFetch()) {
+        $s = $dbc->multiVariableQuery($query, $wp);
+        if ( $r = $dbc->dbResultFetchOneRowOnly($s) ) {
             $cache_id = $r['cache_id'];
         }
     }
@@ -159,9 +159,10 @@ if ($error == false) {
             $params['v1']['data_type'] = 'integer';
             $params['v2']['value'] = (integer) $cache_id;
             $params['v2']['data_type'] = 'integer';
-            $dbc->paramQuery($thatquery, $params);
+            $s = $dbc->paramQuery($thatquery, $params);
             unset($params); //clear to avoid overlaping on next paramQuery (if any))
-            $cache_mod_coords = $dbc->dbResultFetch();
+            $cache_mod_coords = $dbc->dbResultFetchOneRowOnly($s);
+
             if ($cache_mod_coords != 0) {
                 if ($mod_coord_delete_mode == false) {
                     $orig_coord_info_lon = htmlspecialchars(help_lonToDegreeStr($orig_cache_lon), ENT_COMPAT, 'UTF-8');
@@ -250,7 +251,6 @@ if ($error == false) {
                         $params['v4']['data_type'] = 'string';
                     }
                     $dbc->paramQuery($thatquery, $params);
-                    $dbc->reset();
                     unset($params);
 
                     $orig_coord_info_lon = htmlspecialchars(help_lonToDegreeStr($orig_cache_lon), ENT_COMPAT, 'UTF-8');
@@ -336,12 +336,12 @@ if ($error == false) {
                             SELECT `last_modified` FROM `cache_desc` WHERE `cache_id` =:v1) `tmp_result`";
         $params['v1']['value'] = (integer) $cache_id;
         $params['v1']['data_type'] = 'integer';
-        $dbc->paramQuery($thatquery, $params);
+        $rs = $dbc->paramQuery($thatquery, $params);
         unset($params); //clear to avoid overlaping on next paramQuery (if any))
-        if ($dbc->rowCount() == 0) {
+        if ($dbc->rowCount($rs) == 0) {
             $cache_id = 0;
         } else {
-            $lm = $dbc->dbResultFetch();
+            $lm = $dbc->dbResultFetch($rs);
             $lastModified = new DateTime($lm['last_modified']);
             tpl_set_var('last_modified', $lastModified->format($applicationContainer->getOcConfig()->getDateFormat()));
         }
@@ -387,9 +387,9 @@ if ($error == false) {
         $thatquery = "SELECT gk_item.id, name, distancetravelled as distance FROM gk_item INNER JOIN gk_item_waypoint ON (gk_item.id = gk_item_waypoint.id) WHERE gk_item_waypoint.wp = :v1 AND stateid<>1 AND stateid<>4 AND stateid <>5 AND typeid<>2 AND missing=0";
         $params['v1']['value'] = (string) $geocache->getGeocacheWaypointId();
         $params['v1']['data_type'] = 'string';
-        $dbc->paramQuery($thatquery, $params);
+        $s = $dbc->paramQuery($thatquery, $params);
         unset($params); //clear to avoid overlaping on next paramQuery (if any))
-        $geokrety_all_count = $dbc->rowCount();
+        $geokrety_all_count = $dbc->rowCount($s);
         if ($geokrety_all_count == 0) {
             // no geokrets in this cache
             tpl_set_var('geokrety_begin', '<!--');
@@ -398,7 +398,7 @@ if ($error == false) {
         } else {
             // geokret is present in this cache
             $geokrety_content = '';
-            $geokrety_all = $dbc->dbResultFetchAll();
+            $geokrety_all = $dbc->dbResultFetchAll($s);
 
             for ($i = 0; $i < $geokrety_all_count; $i++) {
                 $geokret = $geokrety_all[$i];
@@ -499,7 +499,6 @@ if ($error == false) {
         // delete cache_visits older 1 day 60*60*24 = 86400
         $query = "DELETE FROM `cache_visits` WHERE `cache_id`=:1 AND `user_id_ip` != '0' AND NOW()-`last_visited` > 86400";
         $dbc->multiVariableQuery($query, $cache_id);
-        $dbc->reset();
 
         // first insert record for visit counter if not in db
         $chkuserid = isset($usr['userid']) ? $usr['userid'] : $_SERVER["REMOTE_ADDR"];
@@ -507,7 +506,6 @@ if ($error == false) {
         // note the visit of this user
         $query2 = "INSERT INTO `cache_visits` (`cache_id`, `user_id_ip`, `count`, `last_visited`) VALUES (:1, :2, 1, NOW()) ON DUPLICATE KEY UPDATE `count`=`count`+1";
         $dbc->multiVariableQuery($query2,$cache_id, $chkuserid);
-        $dbc->reset();
 
         if ($chkuserid != $owner_id) {
             // increment the counter for this cache
@@ -808,12 +806,11 @@ if ($error == false) {
         // Personal cache notes
         //user logged in?
         if ($usr == true) {
-            $dbc->multiVariableQuery("SELECT `cache_notes`.`note_id` `note_id`,`cache_notes`.`date` `date`, `cache_notes`.`desc` `desc`, `cache_notes`.`desc_html` `desc_html` FROM `cache_notes` WHERE `cache_notes` .`user_id`=:1 AND `cache_notes`.`cache_id`=:2", $usr['userid'], $cache_id);
-            $cacheNotesRowCount = $dbc->rowCount();
+            $s = $dbc->multiVariableQuery("SELECT `cache_notes`.`note_id` `note_id`,`cache_notes`.`date` `date`, `cache_notes`.`desc` `desc`, `cache_notes`.`desc_html` `desc_html` FROM `cache_notes` WHERE `cache_notes` .`user_id`=:1 AND `cache_notes`.`cache_id`=:2", $usr['userid'], $cache_id);
+            $cacheNotesRowCount = $dbc->rowCount($s);
 
             if ($cacheNotesRowCount > 0) {
-                $notes_record = $dbc->dbResultFetchOneRowOnly();
-                $dbc->reset();
+                $notes_record = $dbc->dbResultFetchOneRowOnly($s);
             }
 
             tpl_set_var('note_content', "");
@@ -859,17 +856,12 @@ if ($error == false) {
                 $cn = strlen($cnote);
 
                 if ($cacheNotesRowCount != 0) {
-
                     $note_id = $notes_record['note_id'];
-
                     $dbc->multiVariableQuery("UPDATE `cache_notes` SET `date`=NOW(),`desc`=:1, `desc_html`=:2 WHERE `note_id`=:3", $cnote, '0', $note_id);
-                    $dbc->reset();
-
                 }
 
                 if ($cacheNotesRowCount == 0 && $cn != 0) {
                     $dbc->multiVariableQuery("INSERT INTO `cache_notes` ( `note_id`, `cache_id`, `user_id`, `date`, `desc_html`, `desc`) VALUES ('', :1, :2, NOW(), :3, :4)", $cache_id, $usr['userid'], '0', $cnote);
-                    $dbc->reset();
                 }
 
                 //display cache-page
@@ -951,11 +943,15 @@ if ($error == false) {
         tpl_set_var('new_log_entry_link', mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $new_log_entry_link));
 
         // number of visits
-        $dbc->multiVariableQuery("SELECT `count` FROM `cache_visits` WHERE `cache_id`=:1 AND `user_id_ip`='0'", $cache_id);
-        if ($dbc->rowCount() == 0){
+        $s = $dbc->multiVariableQuery(
+            "SELECT `count` FROM `cache_visits`
+            WHERE `cache_id`=:1 AND `user_id_ip`='0'",
+            $cache_id);
+
+        if ($dbc->rowCount($s) == 0){
             tpl_set_var('visits', '0');
         } else {
-            $watcher_record = $dbc->dbResultFetchOneRowOnly();
+            $watcher_record = $dbc->dbResultFetchOneRowOnly($s);
             tpl_set_var('visits', $watcher_record['count']);
         }
         $HideDeleted = true;
@@ -979,7 +975,6 @@ if ($error == false) {
         if ($number_logs > $logs_to_display) {
             tpl_set_var('viewlogs_last', mb_ereg_replace('{cacheid_urlencode}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $viewlogs_last));
             tpl_set_var('viewlogs', mb_ereg_replace('{cacheid_urlencode}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $viewlogs));
-            $dbc->reset();
 
             $viewlogs_from = $dbc->multiVariableQueryValue(
                 "SELECT id FROM cache_logs
@@ -1056,18 +1051,18 @@ if ($error == false) {
 
         // ===== opensprawdzacz ========================================================
 
-        $dbc->multiVariableQuery("SELECT `waypoints`.`wp_id` ,
-                                    `opensprawdzacz`.`proby`,
-                                    `opensprawdzacz`.`sukcesy`
-                             FROM   `waypoints`,  `opensprawdzacz`
-                             WHERE  `waypoints`.`cache_id` = :1
-                             AND    `waypoints`.`type` = 3
-                             AND    `waypoints`.`opensprawdzacz` = 1
-                             AND    `waypoints`.`cache_id` = `opensprawdzacz`.cache_id
-                             ", $geocache->getCacheId()
+        $s = $dbc->multiVariableQuery(
+            "SELECT `waypoints`.`wp_id`, `opensprawdzacz`.`proby`,
+                    `opensprawdzacz`.`sukcesy`
+            FROM   `waypoints`,  `opensprawdzacz`
+            WHERE  `waypoints`.`cache_id` = :1
+                AND    `waypoints`.`type` = 3
+                AND    `waypoints`.`opensprawdzacz` = 1
+                AND    `waypoints`.`cache_id` = `opensprawdzacz`.cache_id",
+            $geocache->getCacheId()
         );
-        if ($dbc->rowCount() != 0) {
-            $dane_opensprawdzacza = $dbc->dbResultFetchOneRowOnly();
+        if ($dbc->rowCount($s) != 0) {
+            $dane_opensprawdzacza = $dbc->dbResultFetchOneRowOnly($s);
             tpl_set_var('proby', $dane_opensprawdzacza['proby']);
             tpl_set_var('sukcesy', $dane_opensprawdzacza['sukcesy']);
             tpl_set_var('opensprawdzacz', 'opensprawdzacz');
@@ -1082,10 +1077,15 @@ if ($error == false) {
         // show additional waypoints
         $cache_type = $geocache->getCacheType();
         $waypoints_visible = 0;
-        $dbc->multiVariableQuery("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, `waypoint_type`.en wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`=:1 ORDER BY `stage`,`wp_id`", $geocache->getCacheId());
-        $wptCount = $dbc->rowCount();
+        $s = $dbc->multiVariableQuery(
+            "SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`,
+                    `waypoint_type`.en wp_type, waypoint_type.icon wp_icon
+            FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id)
+            WHERE `cache_id`=:1 ORDER BY `stage`,`wp_id`", $geocache->getCacheId());
+
+        $wptCount = $dbc->rowCount($s);
         if ($wptCount != 0 && $geocache->getCacheType() != GeoCache::TYPE_MOVING) { // check status all waypoints
-            foreach ($dbc->dbResultFetchAll() as $wp_check) {
+            foreach ($dbc->dbResultFetchAll($s) as $wp_check) {
                 if ($wp_check['status'] == 1 || $wp_check['status'] == 2) {
                     $waypoints_visible = 1;
                 }
@@ -1244,10 +1244,11 @@ if ($error == false) {
         }
 
         // show description
-        $query = "SELECT `short_desc`, `desc`, `desc_html`, `hint`, `rr_comment` FROM `cache_desc` WHERE `cache_id`=:1 AND `language`=:2";
-        $dbc->multiVariableQuery($query, $cache_id, $desclang);
-        $desc_record = $dbc->dbResultFetch();
-        $dbc->reset();
+        $query =
+            "SELECT `short_desc`, `desc`, `desc_html`, `hint`, `rr_comment` FROM `cache_desc`
+            WHERE `cache_id`=:1 AND `language`=:2 LIMIT 1";
+        $s = $dbc->multiVariableQuery($query, $cache_id, $desclang);
+        $desc_record = $dbc->dbResultFetchOneRowOnly($s);
 
         $desc_html = $desc_record['desc_html'];
 
@@ -1410,9 +1411,11 @@ if ($error == false) {
         //sql request only if we want show 'watch' button for user
         if($show_watch) {
             //is this cache watched by this user?
-            $dbc->multiVariableQuery("SELECT * FROM `cache_watches` WHERE `cache_id`=:1 AND `user_id`=:2", $cache_id,
-                $usr['userid']);
-            if ($dbc->rowCount() == 0) {
+            $s = $dbc->multiVariableQuery(
+                "SELECT * FROM `cache_watches` WHERE `cache_id`=:1 AND `user_id`=:2 LIMIT 1",
+                $cache_id, $usr['userid']);
+
+            if ($dbc->rowCount($s) == 0) {
                 $watch_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_watch);
                 $is_watched = 'watchcache.php?cacheid=' . $cache_id . '&amp;target=viewcache.php%3Fcacheid=' . $cache_id;
                 $watch_label = tr('watch');
@@ -1421,15 +1424,15 @@ if ($error == false) {
                 $is_watched = 'removewatch.php?cacheid=' . $cache_id . '&amp;target=viewcache.php%3Fcacheid=' . $cache_id;
                 $watch_label = tr('watch_not');
             }
-            $dbc->reset();
         }
 
         //sql request only if we want show 'ignore' button for user
         if($show_ignore) {
             //is this cache ignored by this user?
-            $dbc->multiVariableQuery("SELECT `cache_id` FROM `cache_ignore` WHERE `cache_id`=:1 AND `user_id`=:2",
+            $s = $dbc->multiVariableQuery("SELECT `cache_id` FROM `cache_ignore` WHERE `cache_id`=:1 AND `user_id`=:2 LIMIT 1",
                 $cache_id, $usr['userid']);
-            if ($dbc->rowCount() == 0) {
+
+            if ($dbc->rowCount($s) == 0) {
                 $ignore_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_ignore);
                 $is_ignored = "addignore.php?cacheid=" . $cache_id . "&amp;target=viewcache.php%3Fcacheid%3D" . $cache_id;
                 $ignore_label = tr('ignore');
@@ -1440,7 +1443,6 @@ if ($error == false) {
                 $ignore_label = tr('ignore_not');
                 $ignore_icon = 'images/actions/ignore';
             }
-            $dbc->reset();
         }
 
         if ($usr !== false) {
@@ -1566,17 +1568,18 @@ if ($error == false) {
         $has_password = $geocache->hasPassword();
 
         // cache-attributes
-        $dbc->multiVariableQuery("SELECT `cache_attrib`.`text_long`,
-                              `cache_attrib`.`icon_large`
-                        FROM  `cache_attrib`, `caches_attributes`
-                        WHERE `cache_attrib`.`id`=`caches_attributes`.`attrib_id`
-                          AND `cache_attrib`.`language`=:1
-                          AND `caches_attributes`.`cache_id`=:2
-                     ORDER BY `cache_attrib`.`category`, `cache_attrib`.`id`", strtoupper($lang), $geocache->getCacheId());
-        $num_of_attributes = $dbc->rowCount();
+        $s = $dbc->multiVariableQuery(
+            "SELECT `cache_attrib`.`text_long`, `cache_attrib`.`icon_large`
+            FROM  `cache_attrib`, `caches_attributes`
+            WHERE `cache_attrib`.`id`=`caches_attributes`.`attrib_id`
+                AND `cache_attrib`.`language`=:1
+                AND `caches_attributes`.`cache_id`=:2
+            ORDER BY `cache_attrib`.`category`, `cache_attrib`.`id`", strtoupper($lang), $geocache->getCacheId());
+
+        $num_of_attributes = $dbc->rowCount($s);
         if ($num_of_attributes > 0 || $has_password) {
             $cache_attributes = '';
-            foreach ($dbc->dbResultFetchAll() as $record) {
+            foreach ($dbc->dbResultFetchAll($s) as $record) {
                 $cache_attributes .= '<img src="' . htmlspecialchars($record['icon_large'], ENT_COMPAT, 'UTF-8') . '" border="0" title="' . htmlspecialchars($record['text_long'], ENT_COMPAT, 'UTF-8') . '" alt="' . htmlspecialchars($record['text_long'], ENT_COMPAT, 'UTF-8') . '" />&nbsp;';
             }
 

@@ -17,9 +17,10 @@ if (is_numeric($userId)) {
 } else {
     $queryParam = ' username LIKE ';
 }
-$query = 'SELECT user_id, username FROM user WHERE ' . $queryParam . ' :1';
-$db->multiVariableQuery($query, $userId);
-$userResult = $db->dbResultFetch();
+$query = 'SELECT user_id, username FROM user WHERE ' . $queryParam . ' :1 LIMIT 1';
+$s = $db->multiVariableQuery($query, $userId);
+$userResult = $db->dbResultFetchOneRowOnly($s);
+
 $addQuery = "INSERT INTO `PowerTrail_owners`(`PowerTrailId`, `userId`, `privileages`) VALUES (:1,:2,:3)";
 $db->multiVariableQuery($addQuery, $projectId, $userResult['user_id'], 1);
 

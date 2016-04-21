@@ -45,13 +45,14 @@ if ($error == false) {
 
         $database = OcDb::instance();
 
-        $rddQuery = "select TO_DAYS(NOW()) - TO_DAYS(`date_created`) `diff` from `user` WHERE user_id=:1 ";
-        $database->multiVariableQuery($rddQuery, $user_id);
-        $ddays = $database->dbResultFetch();
+        $rddQuery = "select TO_DAYS(NOW()) - TO_DAYS(`date_created`) `diff` from `user` WHERE user_id=:1 LIMIT 1";
+        $s = $database->multiVariableQuery($rddQuery, $user_id);
+        $ddays = $database->dbResultFetchOneRowOnly($s);
 
-        $query = "SELECT user_id, admin, guru, hidden_count, founds_count, is_active_flag, email, password, log_notes_count, notfounds_count, username, last_login, country, date_created, description, hide_flag FROM user WHERE user_id=:1 LIMIT 1";
-        $database->multiVariableQuery($query, $user_id);
-        $user_record = $database->dbResultFetch();
+        $query = "SELECT user_id, admin, guru, hidden_count, founds_count, is_active_flag, email, password, log_notes_count, notfounds_count, username, last_login, country, date_created, description, hide_flag
+            FROM user WHERE user_id=:1 LIMIT 1";
+        $s = $database->multiVariableQuery($query, $user_id);
+        $user_record = $database->dbResultFetchOneRowOnly($s);
         $user = new User(array('userDbRow' => $user_record));
 
         tpl_set_var('username', $user_record['username']);

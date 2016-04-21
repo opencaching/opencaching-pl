@@ -1,4 +1,5 @@
 <?php
+use Utils\Database\OcDb;
 $rootpath =  __DIR__ . '/../';
 require_once __DIR__ . '/../lib/common.inc.php';
 
@@ -32,7 +33,7 @@ $powerTrailId = $_REQUEST['powerTrailId'];
                 $image -> save($target_path);
 
                 $query = 'UPDATE `PowerTrail` SET `image`= :1 WHERE `id` = :2';
-                $db = \lib\Database\DataBaseSingleton::Instance();
+                $db = OcDb::instance();
                 $db->multiVariableQuery($query, $picurl.'/'.$actual_image_name, $powerTrailId);
 
                 $result = '<img src="'.$picurl.'/'.$actual_image_name.'?'.rand(1000, 9999).'" />';

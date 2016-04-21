@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\OcDb;
 /** class GetRegions
  *
  * this class find Counrty and region (administation district, for exapmle Poland, woj. Małopolskie)
@@ -56,9 +57,9 @@ class GetRegions
         $sCode = '';
         $tmpqery = "SELECT `level`, `code`, AsText(`shape`) AS `geometry` FROM `nuts_layer` WHERE WITHIN(GeomFromText('POINT($lon  $lat)'), `shape`) ORDER BY `level` DESC";
 
-        $db = new dataBase;
-        $db->simpleQuery($tmpqery);
-        $rsLayers = $db->dbResultFetchAll();
+        $db = OcDb::instance();
+        $s = $db->simpleQuery($tmpqery);
+        $rsLayers = $db->dbResultFetchAll($s);
 
         foreach ($rsLayers as $rLayers) {
             if (gis::ptInLineRing($rLayers['geometry'], 'POINT(' . $lon . ' ' . $lat . ')')) {
@@ -82,9 +83,9 @@ class GetRegions
 
             if (mb_strlen($sCode) == 5) {
                 $code4 = $sCode;
-                $q = "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'";
-                $db->simpleQuery($q);
-                $re = $db->dbResultFetch();
+                $q = "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode' LIMIT 1";
+                $s = $db->simpleQuery($q);
+                $re = $db->dbResultFetchOneRowOnly($s);
                 $adm4 = $re["name"];
                 unset($re, $q);
 
@@ -93,10 +94,10 @@ class GetRegions
 
             if (mb_strlen($sCode) == 4) {
                 $code3 = $sCode;
-                $q = "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'";
+                $q = "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode' LIMIT 1";
 
-                $db->simpleQuery($q);
-                $re = $db->dbResultFetch();
+                $s = $db->simpleQuery($q);
+                $re = $db->dbResultFetchOneRowOnly($s);
 
                 $adm3 = $re["name"];
                 unset($re, $q);
@@ -105,9 +106,9 @@ class GetRegions
 
             if (mb_strlen($sCode) == 3) {
                 $code2 = $sCode;
-                $q = "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'";
-                $db->simpleQuery($q);
-                $re = $db->dbResultFetch();
+                $q = "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode' LIMIT 1";
+                $s = $db->simpleQuery($q);
+                $re = $db->dbResultFetch($s);
                 $adm2 = $re["name"];
                 unset($re, $q);
                 $sCode = mb_substr($sCode, 0, 2);
@@ -117,16 +118,16 @@ class GetRegions
 
                 $code1 = $sCode;
                 // try to get localised name first
-                $q = "SELECT `countries`.`pl` FROM `countries` WHERE `countries`.`short`='$sCode'"; // TODO: country column should be localized
-                $db->simpleQuery($q);
-                $re = $db->dbResultFetch();
+                $q = "SELECT `countries`.`pl` FROM `countries` WHERE `countries`.`short`='$sCode' LIMIT 1"; // TODO: country column should be localized
+                $s = $db->simpleQuery($q);
+                $re = $db->dbResultFetch($s);
                 $adm1 = $re["pl"];
                 unset($re, $q);
 
                 if ($adm1 == null) {
-                    $q = "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'";
-                    $db->simpleQuery($q);
-                    $re = $db->dbResultFetch();
+                    $q = "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode' LIMIT 1";
+                    $s = $db->simpleQuery($q);
+                    $re = $db->dbResultFetch($s);
                     $adm1 = $re["name"];
                     unset($re, $q);
                 }
