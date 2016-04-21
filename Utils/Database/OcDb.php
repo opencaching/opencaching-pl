@@ -6,9 +6,6 @@ use PDOStatement;
 
 class OcDb extends OcPdo
 {
-    // -- THIS CODE WILL BE REMOVED SOON --
-    protected $stmt; //internal PDOStatement
-    // -- THIS CODE WILL BE REMOVED SOON --
 
     const BIND_CHAR = ':'; //
 
@@ -23,12 +20,7 @@ class OcDb extends OcPdo
             return $stmt->fetch();
         }
 
-        // -- THIS CODE WILL BE REMOVED SOON --
-            if(!is_object($this->stmt)){
-                $this->error("PDO Fetch on non-object!", new PDOEXception("PDO Fetch on non-object!"));
-            }
-            return $this->stmt->fetch();
-        // -- THIS CODE WILL BE REMOVED SOON --
+        $this->error('', new PDOException(__METHOD__.': call PDOstatement issue!'));
     }
 
     /**
@@ -42,12 +34,7 @@ class OcDb extends OcPdo
             $stmt->closeCursor();
             return $result;
         }
-
-        // -- THIS CODE WILL BE REMOVED SOON --
-            $result = $this->stmt->fetch();
-            $this->reset();
-            return $result;
-        // -- THIS CODE WILL BE REMOVED SOON --
+        $this->error('', new PDOException(__METHOD__.': call PDOstatement issue!'));
     }
 
     /**
@@ -67,11 +54,7 @@ class OcDb extends OcPdo
             return $result;
         }
 
-        // -- THIS CODE WILL BE REMOVED SOON --
-            $result = $this->stmt->fetchAll();
-            $this->closeCursor();
-            return $result;
-        // -- THIS CODE WILL BE REMOVED SOON --
+        $this->error('', new PDOException(__METHOD__.': call PDOstatement issue!'));
     }
 
     /**
@@ -108,9 +91,7 @@ class OcDb extends OcPdo
             return $stmt->rowCount();
         }
 
-        // -- THIS CODE WILL BE REMOVED SOON --
-            return $this->stmt->rowCount();
-        // -- THIS CODE WILL BE REMOVED SOON --
+        $this->error('', new PDOException(__METHOD__.': call PDOstatement issue!'));
     }
 
     /**
@@ -351,24 +332,5 @@ class OcDb extends OcPdo
     }
 
 
-
-    // -- THIS CODE WILL BE REMOVED SOON --
-        /**
-         * Closes current cursor. Some methods, which drain cursor (like dbResultFetchAll())
-         * or expect only one row (like *QueryValue()) close cursor implicitly.
-         */
-        public function closeCursor()
-        {
-            try{
-
-                if(is_object($this->stmt)){
-                    $this->stmt->closeCursor();
-                }
-                $this->stmt = null;
-            }catch (PDOException $e) {
-                $this->error('Unexpected error on cursor close?!', $e);
-            }
-        }
-    // -- THIS CODE WILL BE REMOVED SOON --
-
 }
+
