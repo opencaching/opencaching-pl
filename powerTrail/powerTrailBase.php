@@ -154,33 +154,8 @@ class powerTrailBase{
 
     }
 
-    /**
-     * here comment types
-     */
-    public static function getPowerTrailComments(){
-        return array (
-            1 => array ( //comment
-                'translate' => 'pt056',
-                'color' => '#000000',
-            ),
-            2 => array ( // conquested
-                'translate' => 'pt057',
-                'color' => '#00CC00',
-            ),
-            3 => array ( // geoPath Publishing
-                'translate' => 'pt214',
-                'color' => '#0000CC',
-            ),
-            4 => array ( // geoPath temp. closed
-                'translate' => 'pt216',
-                'color' => '#CC0000',
-            ),
-            5 => array ( // geoPath Closure (permanent)
-                'translate' => 'pt213',
-                'color' => '#CC0000',
-            ),
-        );
-    }
+
+
 
     public static function cacheSizePoints() {
         return array (

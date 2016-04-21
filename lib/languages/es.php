@@ -4,7 +4,6 @@ $translations = array(
     'main_menu' => 'Main Menu',
     'user_menu' => 'User"s Menu',
     'cache_menu' => 'Cache Menu',
-    'activation_code_failed' => 'Código de activación o dirección de correo electrónico no es válida. <br/> Active su cuenta ha fallado. Por favor, compruebe error. Si el problema persiste, por favor repórtelo a la dirección ocpl (a) opencaching.pl.',
     'email_incorrect' => 'Su dirección de correo electrónico no es válida .',
     'account_activation' => 'Activación',
     'finish_registration_hint' => 'A fin de completar el registro debes confirmar tu correo electrónico, e introduzca el código de activación.',

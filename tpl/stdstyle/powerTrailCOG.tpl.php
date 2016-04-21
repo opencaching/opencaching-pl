@@ -42,12 +42,17 @@
     });
 
     function chgStatus() {
+        var newComment = tinyMCE.activeEditor.getContent();
         $('#ptStatSelectSpan').hide();
         $('#ajaxLoaderStatus').show();
         request = $.ajax({
             url: "powerTrail/ajaxUpdateStatus.php",
             type: "post",
-            data: {projectId: $('#ptId').val(), newStatus: $('#ptStatusSelector').val(), commentTxt: $('#reason').val()},
+            data: {
+                projectId: $('#ptId').val(),
+                newStatus: $('#ptStatusSelector').val(),
+                commentTxt: newComment
+            }
         });
 
         // callback handler that will be called on success
@@ -301,7 +306,7 @@
         display: none;
         border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
         border:1px solid #337fed;
-        width: 400px;
+        width: 600px;
         padding-top: 5px;
         padding-bottom: 5px;
         padding-left: 20px;
@@ -355,9 +360,10 @@
                 <td>{{pt040}}</td>
                 <td><span id="ptStatus">{ptStatus}</span>
                     <div id="ptStatSelectSpan" style="display: none;">
-                        {{pt221}}<br><hr>
-                        <input id="reason" size="200" type="text" maxlength="1000" placeholder="{{pt220}}"/><br>
-                        {ptStatSelect}
+                        <span style="color:red;">{{pt221}}</span><br><hr>
+                        {{pt238}}: {ptStatSelect}<br /><br />
+                        <textarea id="reason" size="200" maxlength="1000">{{pt220}}</textarea>
+                       <!-- <input id="reason" size="200" type="text" maxlength="1000" placeholder="{{pt220}}"/><br> -->
                         <a id="stbtn2" href="javascript:void(0);" onclick="$('#stbtn1').show();
                                 $('#ptStatus').show();
                                 $('#ptStatSelectSpan').hide();" class="editPtDataButton">{{pt031}}</a>

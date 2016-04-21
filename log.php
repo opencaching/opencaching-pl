@@ -519,6 +519,7 @@ if ($error == false) {
                     // insert to database.
                     // typ kesza mobilna 8, typ logu == 4
                     if ($log_type == 4 && $cache_type == 8) { // typ logu 4 - przeniesiona
+                        $doNotUpdateCoordinates = false;
                         ini_set('display_errors', 1);
                         // error_reporting(E_ALL);
                         // id of last SQL entery
@@ -581,10 +582,11 @@ if ($error == false) {
                             // dystans zostanie wpisany do bazy. w przeciwnym wypadku
                             // zmienna zostanie zastąpiona w if-ie
                             $dystans = sprintf("%.2f", calcDistance($ostatnie_dane_mobilniaka['latitude'], $ostatnie_dane_mobilniaka['longitude'], $wspolrzedneNS, $wspolrzedneWE));
-                            // check if log date is beetwen, or last
-                            if ($log_date <= $ostatnie_dane_mobilniaka['date']) {
+                            $logDatetime = new DateTime($log_date);
+                            $lastLogDateTime = new DateTime($ostatnie_dane_mobilniaka['date']);
+                            if ($logDatetime <= $lastLogDateTime) { // check if log date is beetwen, or last
                                 // find nearest log before
-
+                                $doNotUpdateCoordinates = true;
                                 $najblizszy_log_wczesniej_array = XDb::xSql(
                                     "SELECT `id`, `user_id`, `log_id`, `date`, `longitude`, `latitude`, `km`
                                      FROM  `cache_moved`
@@ -604,14 +606,6 @@ if ($error == false) {
 
                                 $najblizszy_log_pozniej = XDb::xFetchArray($najblizszy_log_pozniej);
 
-                                print 'mieszanie z datami<br>';
-                                print 'data logu: ' . $log_date
-                                        . '<br><br>ostatnia (najpozniejsza) data logu ($ostatnie_dane_mobilniaka): ' . $ostatnie_dane_mobilniaka['date']
-                                        . '<br>data wcześniejszego logu ($najblizszy_log_wczesniej): ' . $najblizszy_log_wczesniej['date']
-                                        . '<br>data późniejszego logu ($najblizszy_log_pozniej):' . $najblizszy_log_pozniej['date']
-                                ;
-
-                                // Report all PHP errors
                                 // wyliczenie zapisac w bazie dystans z obu wierszy modyfikowanych logow
                                 $najblizszy_log_wczesniej['id'];
 
@@ -634,7 +628,8 @@ if ($error == false) {
                                 $dystans = sprintf("%.2f", calcDistance($najblizszy_log_wczesniej['latitude'], $najblizszy_log_wczesniej['longitude'], $wspolrzedneNS, $wspolrzedneWE));
                             }
                         }
-                        //
+                        
+                        if($doNotUpdateCoordinates === false){ // update main cache coordinates
                         // insert into table cache_moved
                         XDb::xSql(
                             "INSERT INTO `cache_moved`(`id`, `cache_id`, `user_id`, `log_id`, `date`, `longitude`, `latitude`,`km`)
@@ -652,6 +647,7 @@ if ($error == false) {
                         XDb::xSql(
                             "UPDATE `cache_location` SET adm1 = ?, adm3 = ?, code1= ?, code3= ? WHERE cache_id = ? ",
                             $regiony['adm1'], $regiony['adm3'], $regiony['code1'], $regiony['code3'], $cache_id );
+                        }
                     }
                     // mobilne by Łza - koniec
                     //inc cache stat and "last found"
@@ -707,9 +703,9 @@ if ($error == false) {
 
                     // Notify OKAPI's replicate module of the change.
                     // Details: https://github.com/opencaching/okapi/issues/265
-                    require_once($rootpath . 'okapi/facade.php');
-                    \okapi\Facade::schedule_user_entries_check($cache_id, $usr['userid']);
-                    \okapi\Facade::disable_error_handling();
+//                    require_once($rootpath . 'okapi/facade.php');
+//                    \okapi\Facade::schedule_user_entries_check($cache_id, $usr['userid']);
+//                    \okapi\Facade::disable_error_handling();
 
                     //call eventhandler
                     require_once($rootpath . 'lib/eventhandler.inc.php');
@@ -883,18 +879,11 @@ if ($error == false) {
                         }
                     }
 
-
-
-
-                    if (checkField('log_types', $lang))
+                    if (isset($type[$lang])){
                         $lang_db = $lang;
-                    else
+                    } else {
                         $lang_db = "en";
-
-
-
-                    // $logtypeoptions .= '<option value="' . $type['id'] . '" >' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>' . "\n";
-
+                    }
 
                     if ($type['id'] == $log_type) {
                         $logtypeoptions .= '<option value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>' . "\n";
