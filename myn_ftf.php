@@ -15,7 +15,7 @@ if ($error == false) { //get the news
     require($stylepath . '/newcaches.inc.php');
     $startat = isset($_REQUEST['startat']) ? XDb::xEscape($_REQUEST['startat']) : 0;
     
-    if( $startat < 0) $startar = 0; //fast workaround on issue with negative limit value
+    if( $startat < 0) $startat = 0; //fast workaround on issue with negative limit value
     
     $startat = $startat + 0;
     $perpage = 50;
