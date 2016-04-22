@@ -457,7 +457,7 @@ $translations = array(
     'security_code' => 'Security code',
     'change_password' => 'Change password',
     'logoutsuccess' => 'Logout was successful',
-    'error_usernotactive' => 'Yor account is not active or deactive.<br />Your account you can activate<a href=activation.php>click here</a>Aktywować.',
+    'error_usernotactive' => 'Yor account is not active or deactive.',
     'not_registered' => 'Not registered? <a href="register.php">Register</a>',
     'forgotten_your_password' => 'Forgot your e-mail? <a href="newpw.php">Remind me</a>',
     'cache_logged_required' => 'You have to be logged to add new log entries and operate on this cache.',

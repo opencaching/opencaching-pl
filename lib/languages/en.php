@@ -505,7 +505,7 @@ $translations = array(
     'security_code' => 'Security code',
     'change_password_msg1' => 'Change password',
     'logoutsuccess' => 'Successfully logged out',
-    'error_usernotactive' => 'Yor account is not activated.<br />You can activate it <a href=activation.php>here</a>.',
+    'error_usernotactive' => 'Yor account is not activated.',
     'not_registered' => 'Not registered? <a href="register.php">Register</a>',
     'forgotten_your_password' => 'Forgot your password? <a href="newpw.php">Remind me</a>',
     'forGottenEmailAddress' => 'Forgotten your E-mail? <a href="remindemail.php"> Ask it here',

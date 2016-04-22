@@ -496,7 +496,7 @@ $translations = array(
     'security_code' => 'Sicherheitskode',
     'change_password' => 'Passwort ändern',
     'logoutsuccess' => 'Abmeldung war erfolgreich',
-    'error_usernotactive' => 'Konto ist nicht aktiv oder deaktiv.<br />Du kannst deine Konto aktivieren<a href=activation.php>hier klicken</a>aktivieren.',
+    'error_usernotactive' => 'Konto ist nicht aktiv oder deaktiv.',
     'not_registered' => 'Not registered? <a href="register.php">Registrieren</a>',
     'forgotten_your_password' => 'Passwort vergessen? <a href="newpw.php">Erinnern mich</a>',
     'forGottenEmailAddress' => 'E-mail adresse vergessen? <a href="remindemail.php">Frage hier deine E-mailadresse</a>',

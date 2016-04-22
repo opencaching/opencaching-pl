@@ -506,7 +506,7 @@ $translations = array(
     'security_code' => 'Security code',
     'change_password_msg1' => 'Verander wachtwoord',
     'logoutsuccess' => 'Succesvol uitgelogt',
-    'error_usernotactive' => 'Dit account is niet actief of gedeactiveerd.<br />Het account kan <a href=activation.php> hier </a>geactieveerd worden.',
+    'error_usernotactive' => 'Dit account is niet actief of gedeactiveerd.',
     'not_registered' => 'Niet geregistreerd? <a href="register.php">Registeer</a>',
     'forgotten_your_password' => 'Wachtwoord vergeten? <a href="newpw.php">Vraag nieuw wachtwoord aan</a>',
     'forGottenEmailAddress' => 'E-mail vergeten? <a href="remindemail.php">Vraag het E-mailadres op</a>',
