@@ -505,7 +505,7 @@ $translations = array(
     'security_code' => 'Kod aktywacyjny',
     'change_password_msg1' => 'Zmiana hasła',
     'logoutsuccess' => 'Wylogowanie przebiegło z powodzeniem',
-    'error_usernotactive' => 'Twoje konto nie było aktywowane jeszcze lub było ponownie zdeaktywowane.<br />Konto możesz <a href=activation.php>TUTAJ</a>Aktywować.',
+    'error_usernotactive' => 'Twoje konto nie było jeszcze aktywowane lub zostało dezaktywowane.',
     'not_registered' => 'Chcesz się zarejestrować? <a href="register.php">Rejestracja</a>',
     'forgotten_your_password' => 'Zapomniałeś hasła? <a href="newpw.php">Nowe hasło</a>',
     'forGottenEmailAddress' => 'Zapomniałeś adresu e-mail? <a href="remindemail.php"> Przypomnij',

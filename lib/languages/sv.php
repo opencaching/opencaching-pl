@@ -467,7 +467,7 @@ $translations = array(
     'security_code' => 'Säkerhetskod',
     'change_password' => 'Byt lösenord',
     'logoutsuccess' => 'Utloggad',
-    'error_usernotactive' => 'Ditt konto inte är aktivt eller avaktiverat. <br /> Du kan aktivera ditt konto genom att <a href=activation.php>klicka här</a>.',
+    'error_usernotactive' => 'Ditt konto inte är aktivt eller avaktiverat.',
     'not_registered' => 'Inte registrerad? <a href=register.php>Registrera dig</a>',
     'forgotten_your_password' => 'Glömt ditt lösenord? <a href=newpw.php>Påminn mig</a>',
     'basic_information' => 'Basic information.',
