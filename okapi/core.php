@@ -1003,8 +1003,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1273;
-    public static $git_revision = 'cdc23c86745966134d3c144372a3c00a898389ed';
+    public static $version_number = 1274;
+    public static $git_revision = 'c38f041dc3fd7bd2ad938e77398265ed43957f96';
 
     private static $okapi_vars = null;
 
@@ -1196,13 +1196,11 @@ class Okapi
             16 => "OCRO",  // OR
         );
         $oc_node_id = Settings::get("OC_NODE_ID");
-        if (!isset($mapping[$oc_node_id])) {
-            throw new Exception(
-                "OKAPI's OC_NODE_ID settings has an invalid value. Please ".
-                "contact OKAPI developers if you need help with this."
-            );
+        if (isset($mapping[$oc_node_id])) {
+            return $mapping[$oc_node_id];
+        } else {
+            return "OTHER";
         }
-        return $mapping[$oc_node_id];
     }
 
     /**
