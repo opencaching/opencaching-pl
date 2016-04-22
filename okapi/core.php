@@ -1003,8 +1003,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1270;
-    public static $git_revision = '187a9de9d26929b8a49c34a754a611d5171ab0a5';
+    public static $version_number = 1273;
+    public static $git_revision = 'cdc23c86745966134d3c144372a3c00a898389ed';
 
     private static $okapi_vars = null;
 
@@ -1178,6 +1178,31 @@ class Okapi
         } else {
             return "DEVELSITE";
         }
+    }
+
+    /**
+     * OC "node codes" were introduced in issue #417. These are equivalent to
+     * OC_NODE_IDs, but are easier to remember. They are used internally only,
+     * they SHOULD NOT be exposed to external developers.
+     */
+    public static function get_node_code()
+    {
+        $mapping = array(
+            1 => "OCDE",  // OC
+            2 => "OCPL",  // OP
+            6 => "OCORGUK",  // OK
+            10 => "OCUS",  // OU
+            14 => "OCNL",  // OB? OC?
+            16 => "OCRO",  // OR
+        );
+        $oc_node_id = Settings::get("OC_NODE_ID");
+        if (!isset($mapping[$oc_node_id])) {
+            throw new Exception(
+                "OKAPI's OC_NODE_ID settings has an invalid value. Please ".
+                "contact OKAPI developers if you need help with this."
+            );
+        }
+        return $mapping[$oc_node_id];
     }
 
     /**
