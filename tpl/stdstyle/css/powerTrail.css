@@ -370,3 +370,7 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
     padding-right: 20px;
 }
 
+.powerTrailLogo {
+    max-width: 250px;
+}
+

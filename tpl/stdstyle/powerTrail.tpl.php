@@ -1439,7 +1439,7 @@ $( document ).ready(function() {
             <table border=0 width=100%>
                 <tr>
                     <td width=251>
-                        <table style="height: 250px; width: 250px;"><tr><td valign="center" align="center"><span id="powerTrailLogo"><img src="{powerTrailLogo}" /></span></td></tr></table>
+                        <table style="height: 250px; width: 250px;"><tr><td valign="center" align="center"><span id="powerTrailLogo"><img class="powerTrailLogo" src="{powerTrailLogo}" /></span></td></tr></table>
                         <img style="display: none" id="ajaxLoaderLogo" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
                     </td>
                     <td align="center">
