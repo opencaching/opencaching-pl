@@ -547,7 +547,7 @@ class PowerTrail extends \lib\Objects\BaseObject
     {
         $db = OcDb::instance();
         $mySqlRequest = 'SELECT count(*) AS `ptConquestCount` FROM `PowerTrail_comments` WHERE `commentType` =2 AND `deleted` =0 AND `userId` =:1 AND `PowerTrailId` = :2';
-        $db->multiVariableQuery($mySqlRequest, $user->getUserId(), $this->getId());
+        $s = $db->multiVariableQuery($mySqlRequest, $user->getUserId(), $this->getId());
         $mySqlResult = $db->dbResultFetch($s);
         if ($mySqlResult['ptConquestCount'] > 0) {
             return true;
