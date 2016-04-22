@@ -37,7 +37,9 @@ class PowerTrail extends \lib\Objects\BaseObject
     private $conquestedCount;
     private $points;
 
-    /* @var $geocaches \lib\Objects\GeoCache\Collection */
+    /**
+     *  @var \lib\Objects\GeoCache\Collection
+     */
     private $geocaches;
     private $owners = false;
     private $powerTrailConfiguration;
@@ -363,11 +365,15 @@ class PowerTrail extends \lib\Objects\BaseObject
 
     public function getFoundCachsByUser($userId)
     {
+        $cachesFoundByUser = array();
+        $sqlInStString = $this->buildSqlStringOfAllPtGeocachesId();
+        if($sqlInStString !== ''){
+            $query = 'SELECT `cache_id` AS `geocacheId` FROM `cache_logs` WHERE `cache_id` in (' . $sqlInStString . ') AND `deleted` = 0 AND `user_id` = :1 AND `type` = "1" ';
+            $db = OcDb::instance();
+            $s = $db->multiVariableQuery($query, (int) $userId);
+            $cachesFoundByUser = $db->dbResultFetchAll($s);
+        }
 
-        $query = 'SELECT `cache_id` AS `geocacheId` FROM `cache_logs` WHERE `cache_id` in (' . $this->buildSqlStringOfAllPtGeocachesId() . ') AND `deleted` = 0 AND `user_id` = :1 AND `type` = "1" ';
-        $db = OcDb::instance();
-        $s = $db->multiVariableQuery($query, (int) $userId);
-        $cachesFoundByUser = $db->dbResultFetchAll($s);
         return $cachesFoundByUser;
     }
 
