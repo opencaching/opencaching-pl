@@ -1003,8 +1003,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1282;
-    public static $git_revision = 'e25e53859c6263382d4e38a4d9aa64f2142d06ff';
+    public static $version_number = 1283;
+    public static $git_revision = '75ab139d289ff2aab9c58d5b2f9b13226f0994e8';
 
     private static $okapi_vars = null;
 
@@ -1256,10 +1256,17 @@ class Okapi
                 );
                 break;
             case 'OCDE':
-                $urls = array(
-                    "http://www.opencaching.de/okapi/",
-                    "https://www.opencaching.de/okapi/",
-                );
+                if (in_array(Settings::get('OC_NODE_ID'), array(4,5))) {
+                    $urls = array(
+                        preg_replace("/^https:/", "http:", Settings::get('SITE_URL')) . 'okapi/',
+                        preg_replace("/^http:/", "https:", Settings::get('SITE_URL')) . 'okapi/',
+                    );
+                } else {
+                    $urls = array(
+                        "http://www.opencaching.de/okapi/",
+                        "https://www.opencaching.de/okapi/",
+                    );
+                }
                 break;
             case 'OCNL':
                 $urls = array(
