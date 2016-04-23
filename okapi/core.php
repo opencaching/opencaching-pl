@@ -1003,8 +1003,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1283;
-    public static $git_revision = '75ab139d289ff2aab9c58d5b2f9b13226f0994e8';
+    public static $version_number = 1285;
+    public static $git_revision = '0b41dc2d3545c97ff5b9494808b0b9f82db105c6';
 
     private static $okapi_vars = null;
 
@@ -1183,11 +1183,12 @@ class Okapi
     /**
      * Return a "schema code" of this OC site.
      *
-     * While there are only two primary OC_BRANCHes (OCPL and OCDE), each
-     * OCPL-based site has a separate schema of attributes, cache types, log
-     * types, etc. Some of these OCPL-based sites even have slightly different
-     * database structures. This method returns a unique internal code which
-     * helps to differentiate between all these sites.
+     * While there are only two primary OC_BRANCHes (OCPL and OCDE), sites
+     * based on the same branch may have a different schema of attributes,
+     * cache types, log types, or even database structures. This method returns
+     * a unique internal code which identifies a set of sites that share the
+     * same schema. As all OCPL-based sites currently have different attribute
+     * sets, there is a separate schema for each OCPL site.
      *
      * These values are used internally only, they SHOULD NOT be exposed to
      * external developers!
@@ -1246,7 +1247,11 @@ class Okapi
         /* Currently, there are no config settings which would let us allow
          * to determine the proper values for this list. So, we need to have it
          * hardcoded. (Perhaps we should move this to etc/installations.xml?
-         * But this wouldn't be efficient...) */
+         * But this wouldn't be efficient...)
+         *
+         * TODO: Replace "self::get_oc_schema_code()" by something better.
+         *       Base URls depend on installations, not on schemas.
+         */
 
         switch (self::get_oc_schema_code()) {
             case 'OCPL':
