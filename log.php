@@ -509,9 +509,9 @@ if ($error == false) {
 
                     } else {
                         XDb::xSql(
-                            "INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`,
+                            "INSERT INTO `cache_logs` (`cache_id`, `user_id`, `type`, `date`, `text`, `text_html`,
                                          `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
-                            VALUES ('', ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)",
+                            VALUES ( ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)",
                             $cache_id, $usr['userid'], $log_type, $log_date, $log_text, 1, 1, $log_uuid, $oc_nodeid);
                     }
 
@@ -628,7 +628,7 @@ if ($error == false) {
                                 $dystans = sprintf("%.2f", calcDistance($najblizszy_log_wczesniej['latitude'], $najblizszy_log_wczesniej['longitude'], $wspolrzedneNS, $wspolrzedneWE));
                             }
                         }
-                        
+
                         if($doNotUpdateCoordinates === false){ // update main cache coordinates
                         // insert into table cache_moved
                         XDb::xSql(
