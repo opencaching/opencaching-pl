@@ -1,7 +1,5 @@
 <?php
-
-?>
-<?php
+global $rootpath;
 require_once('./lib/common.inc.php');
 require_once('./lib/class.polylineEncoder.php');
 $route_id = $_REQUEST['routeid'];

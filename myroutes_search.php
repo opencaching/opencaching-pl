@@ -2,7 +2,10 @@
 
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
+
 //prepare the templates and include all neccessary
+global $rootpath;
+
 require_once('./lib/common.inc.php');
 require_once($rootpath . 'lib/calculation.inc.php');
 require_once('./lib/cache_icon.inc.php');
@@ -555,7 +558,7 @@ if ($error == false) {
                 WHERE object_id=:1 AND object_type=2 AND display=1
                 ORDER BY date_created', $cacheid
             );
-
+            $retval = '';
             while ($r = $database->dbResultFetch($s)) {
                 $retval .= '&lt;img src="' . $r['url'] . '"&gt;&lt;br&gt;' . cleanup_text($r['title']) . '&lt;br&gt;';
             }
@@ -746,7 +749,11 @@ if ($error == false) {
                 foreach ($points as $point) {
                     $route_distance = cache_distances($point["lat"], $point["lon"], $list["lat"], $list["lon"]);
                     if ($route_distance <= $distance) {
-                        if (!$inter_cache_list[$list['waypoint']]) {
+                        if (! (
+                                isset($inter_cache_list[$list['waypoint']])
+                                && $inter_cache_list[$list['waypoint']]
+                               ) )
+                        {
                             $final_cache_list[] = $list['waypoint'];
                             $inter_cache_list[$list['waypoint']] = $list['waypoint'];
                             break;
@@ -849,6 +856,7 @@ if ($error == false) {
             $point = "";
 
             $database_inner = OcDb::instance();
+            $file_content = '';
             while ($r = $database->dbResultFetch($s)) {
 
                 if (isset($_POST['submit_map'])) {
@@ -857,6 +865,7 @@ if ($error == false) {
                     $point.=sprintf("addMarker(%s,%s,'%s',%s,'%s','%s','%s',%s);\n", $x, $y, getSmallCacheIcon($r['icon_large']), $r[cacheid], addslashes($r[cachename]), $r[wp_oc], addslashes($r[username]), $r[topratings]);
                     tpl_set_var('points', $point);
                 } else {
+
                     $file_content .= '<tr>';
                     $file_content .= '<td style="width: 90px;">' . date($dateFormat, strtotime($r['date'])) . '</td>';
                     //      $file_content .= '<td style="width: 22px;"><span style="font-weight:bold;color: blue;">'.sprintf("%01.1f",$r['distance']). '</span></td>';
@@ -915,7 +924,6 @@ if ($error == false) {
                     $file_content .= "</tr>";
                 }
             }
-
             tpl_set_var('file_content', $file_content);
             if (isset($_POST['submit_map'])) {
                 $tplname = 'myroutes_result_map';
@@ -1323,9 +1331,8 @@ if ($error == false) {
 
                 // logs ermitteln
                 $logentries = '';
-
-                if (( $r['votes'] > 3 ) || ( $r['topratings'] > 0 )
-                    || ( $rAttribute = XDb::xFetchArray($rsAttributes )) ) {
+                $rAttribute = XDb::xFetchArray($rsAttributes);
+                if ( ($r['votes'] > 3) || ($r['topratings'] > 0) || $rAttribute ) {
 
                     $thislogs = '<groundspeak:log id="1">';
                     $thislogs .='<groundspeak:date>' . date("Y-m-d\TH:i:s\Z") . '</groundspeak:date>';
