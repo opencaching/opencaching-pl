@@ -1,12 +1,5 @@
 <?php
-
 require_once 'lib/common.inc.php';
+echo "TEST:<hr/>";
 
-use lib\Controllers\PowerTrailController;
-
-error_reporting(-1);
-
-$powerTrailController = new powerTrailController();
-$powerTrailController->cleanPowerTrailsCronjob();
-
-
+echo "<hr/>END!";
