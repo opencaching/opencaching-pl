@@ -1,7 +1,8 @@
 <?php
 
+use Utils\Database\OcDb;
 $rootpath = '../';
-require_once($rootpath . 'lib/clicompatbase.inc.php');
+
 require_once __DIR__ . '/../lib/ClassPathDictionary.php';
 
 class RepairCacheScores
@@ -9,10 +10,9 @@ class RepairCacheScores
 
     function run()
     {
-        $db = new dataBase();
-        $db->switchDebug(false);
-
         $sql = "SELECT cache_id, status FROM caches";
+
+        $db = OcDb::instance();
 
         $params = array();
         if (isset($_GET['cache_id'])) {
@@ -21,9 +21,9 @@ class RepairCacheScores
             $params['cache_id']['data_type'] = 'integer';
         }
 
+        $s = $db->paramQuery($sql, $params);
+        $caches = $db->dbResultFetchAll($s);
 
-        $db->paramQuery($sql, $params);
-        $caches = $db->dbResultFetchAll();
         set_time_limit(3600);
         $total_touched = 0;
         foreach ($caches as $cache) {
@@ -39,9 +39,9 @@ class RepairCacheScores
                 )", $cache_id, $cache_id);
 
             // zliczenie ocen po usunieciu
-            $db->multiVariableQuery(
+            $s = $db->multiVariableQuery(
                     "SELECT avg(score) as avg_score, count(score) as votes FROM scores WHERE cache_id = :1", $cache_id);
-            $row = $db->dbResultFetch();
+            $row = $db->dbResultFetch($s);
             if ($row == false) {
                 $liczba = 0;
                 $srednia = 0;
@@ -54,8 +54,6 @@ class RepairCacheScores
                 }
             }
             unset($row);
-            $db->closeCursor();
-
 
             // repair founds
             $founds = $db->multiVariableQueryValue(
@@ -116,8 +114,8 @@ class RepairCacheScores
             $params['new_ignorers']['data_type'] = 'integer';
             $params['cache_id']['value'] = intval($cache_id);
             $params['cache_id']['data_type'] = 'integer';
-            $db->paramQuery($sql, $params);
-            if ($db->rowCount() > 0) {
+            $s = $db->paramQuery($sql, $params);
+            if ($db->rowCount($s) > 0) {
                 echo "<b>cache_id=$cache_id</b><br>";
                 echo "ratings=$liczba<br>rating=$srednia<br>";
                 echo "founds=$founds<br>notfounds=$notfounds<br>";
@@ -125,11 +123,9 @@ class RepairCacheScores
                 echo "ignorers=$ignorers<br>";
                 $total_touched++;
             }
-            $db->closeCursor();
         }
 
         set_time_limit(60);
-        unset($db);
         echo "-----------------------------------<br>total_touched=$total_touched<br>";
     }
 
@@ -137,4 +133,4 @@ class RepairCacheScores
 
 $rcs = new RepairCacheScores();
 $rcs->run();
-?>
+
