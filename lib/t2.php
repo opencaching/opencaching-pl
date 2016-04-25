@@ -47,11 +47,27 @@ echo '<br/><input type="submit" value=' . tr('filter') . '>';
 echo '</form></td></tr></table>';
 echo '<table border="1" bgcolor="white" width="97%" style="font-size:11px; line-height:1.6em;">' . "\n";
 
-$a = "SELECT COUNT(*) count, username, stat_ban, user.user_id FROM caches, cache_logs, user " .
-        "WHERE `cache_logs`.`deleted`=0 AND cache_logs.user_id=user.user_id AND cache_logs.type=1 AND cache_logs.cache_id = caches.cache_id " . $typ . " " .
-        "GROUP BY user.user_id " .
-        "ORDER BY 1 DESC, user.username ASC";
 
+if( $typ == '' ) { //without cache-type filter
+    $a = "SELECT COUNT(*) count, username, stat_ban, user.user_id
+          FROM cache_logs, user
+          WHERE `cache_logs`.`deleted`=0
+            AND cache_logs.user_id=user.user_id
+            AND cache_logs.type=1
+          GROUP BY user.user_id
+          ORDER BY 1 DESC, user.username ASC";
+
+} else { //with cache-type filter : very expensive!!!
+    $a = "SELECT COUNT(*) count, username, stat_ban, user.user_id
+          FROM caches, cache_logs, user
+          WHERE `cache_logs`.`deleted`=0
+            AND cache_logs.user_id=user.user_id
+            AND cache_logs.type=1
+            AND cache_logs.cache_id = caches.cache_id
+            $typ
+          GROUP BY user.user_id
+          ORDER BY 1 DESC, user.username ASC";
+}
 
 $cache_key = md5($a);
 $lines = apc_fetch($cache_key);
