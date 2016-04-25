@@ -6,3 +6,7 @@
 .buildpath
 .project
 ocpl-dynamic-files
+
+#ignore *Local configurations files
+/Config/*Local.php
+
