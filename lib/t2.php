@@ -31,7 +31,11 @@ while ( $res = XDb::xFetchArray($res_q) ) {
     $no_types++;
     if (isset($_GET[$res['id']]) && $_GET[$res['id']] == 1) {
         $checked = 'checked';
-        $typ .= " AND caches.type <> " . $res['id'];
+        if ($typ == ''){
+            $typ = ' AND caches.type NOT IN (' . $res['id'];
+        } else {
+            $typ .= ', ' . $res['id'];
+        }
     } else
         $checked = '';
 
@@ -41,6 +45,11 @@ while ( $res = XDb::xFetchArray($res_q) ) {
     if ($no_types == 5)
         echo '<br />';
 }
+
+if ($typ != ''){
+    $typ .= ')';
+}
+
 echo '<input type="hidden" name="page" value="s2">';
 echo '<br/><input type="submit" value=' . tr('filter') . '>';
 
