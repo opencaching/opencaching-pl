@@ -13,13 +13,13 @@
 
 namespace Config;
 
-class ExampleDefaultsPL extends ExampleDefaults
+class XExampleDefaultsRO extends XExampleDefaults
 {
     /**
      * Here we define OCPL specific override of default value of simple var exampleVar1
      */
-    public function getExampleVar1(){
-        return 'example1-PL-override';
+    public function getXExampleVar1(){
+        return 'Xexample1-RO-override';
     }
 
     /**

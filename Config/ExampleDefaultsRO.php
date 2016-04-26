@@ -13,16 +13,16 @@
 
 namespace Config;
 
-abstract class ExampleDefaultsRO extends ExampleDefaults
+class ExampleDefaultsRO extends ExampleDefaults
 {
     /**
      * Here we define OCPL specific override of default value of simple var exampleVar1
      */
-    public static function getExampleVar1(){
+    public function getExampleVar1(){
         return 'example1-PL-override';
     }
 
-    public static function getExampleVar3(){
+    public function getExampleVar3(){
         $default = parent::getExampleVar3();
         $default['specific-OCRO-key'] = 'specific-OCRO-value';
 

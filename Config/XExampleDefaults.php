@@ -12,29 +12,29 @@
 
 namespace Config;
 
-class ExampleDefaults
+class XExampleDefaults
 {
     /**
      * Here we define default value of simple var exampleVar1
      */
-    public function getExampleVar1(){
-        return 'example1';
+    public function getXExampleVar1(){
+        return 'Xexample1';
     }
 
     /**
      * Here we define default value of simple var exampleVar2
      */
-    public function getExampleVar2(){
-        return 'example2';
+    public function getXExampleVar2(){
+        return 'Xexample2';
     }
 
     /**
      * Here we define default value of array var exampleVar2
      */
-    public function getExampleVar3(){
+    public function getXExampleVar3(){
         return array(
-                    'key31'  => 'value31',
-                    'key32'  => 'value32'
+                    'Xkey31'  => 'Xvalue31',
+                    'Xkey32'  => 'Xvalue32'
                 );
     }
 
