@@ -130,33 +130,6 @@ class powerTrailBase{
         return $ret;
     }
 
-
-
-    /**
-     * here power Trail status
-     */
-    public static function getPowerTrailStatus(){
-        return array (
-            1 => array ( // public
-                'translate' => 'pt006',
-            ),
-            2 => array ( // not yet available
-                'translate' => 'pt007',
-            ),
-            4 => array ( // service
-                'translate' => 'pt219',
-            ),
-            3 => array ( // archived
-                'translate' => 'pt212',
-            ),
-
-        );
-
-    }
-
-
-
-
     public static function cacheSizePoints() {
         return array (
         2 => 2.5,   # Micro

@@ -3,6 +3,7 @@
 namespace lib\Objects\PowerTrail;
 
 use Utils\Database\OcDb;
+
 class Log
 {
     const TYPE_COMMENT = 1;

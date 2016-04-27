@@ -27,7 +27,7 @@ if ($error == false) {
         $powerTrail = new PowerTrail(array('id' => $_REQUEST['ptSelector']));
         $_SESSION['ptRmByCog'] = 1;
         $ptData = powerTrailBase::getPtDbRow($_REQUEST['ptSelector']);
-        $ptStatus = powerTrailBase::getPowerTrailStatus();
+        $ptStatus = \lib\Controllers\PowerTrailController::getPowerTrailStatus();
         $ptType = powerTrailBase::getPowerTrailTypes();
 
         tpl_set_var("ptCaches", preparePtCaches($powerTrail));
@@ -91,7 +91,7 @@ function preparePtCaches(PowerTrail $powerTrail)
 function generateStatusSelector($currStatus)
 {
     $selector = '<select id="ptStatusSelector">';
-    foreach (powerTrailBase::getPowerTrailStatus() as $val => $desc) {
+    foreach (\lib\Controllers\PowerTrailController::getPowerTrailStatus() as $val => $desc) {
         if ($val == $currStatus)
             $selected = 'selected="selected"';
         else

@@ -274,9 +274,15 @@
             $('#addCe2').hide();
             $('#addCeLoader').show();
             request = $.ajax({
-            url: "powerTrail/ajaxUpdateComment.php",
-                    type: "post",
-                    data:{text: newComment, datetime: $('#commentDateTime').val() + '_' + $('#timepicker').val(), ptId: $('#xmd34nfywr54').val(), commentId: $('#editedCommentId').val(), callingUser: $('#ClickinguserId').val()},
+                url: "powerTrail/ajaxUpdateComment.php",
+                type: "post",
+                data:{
+                    text: newComment,
+                    datetime: $('#commentDateTime').val() + '_' + $('#timepicker').val(),
+                    ptId: $('#xmd34nfywr54').val(),
+                    commentId: $('#editedCommentId').val(),
+                    callingUser: $('#ClickinguserId').val()
+                },
             });
             request.done(function (response, textStatus, jqXHR){
             // console.log(response);
@@ -464,32 +470,48 @@
 
     function ajaxUpdateStatus(){
 
-    $('#ptStatusEdit').hide();
+        $('#ptStatusEdit').hide();
             $('#ajaxLoaderStatus').show();
             request = $.ajax({
-            url: "powerTrail/ajaxUpdateStatus.php",
-                    type: "post",
-                    data:{projectId: $('#xmd34nfywr54').val(), newStatus: $('#ptStatusSelector').val() },
+                url: "powerTrail/ajaxUpdateStatus.php",
+                type: "post",
+                dataType: 'json',
+                data: {
+                    projectId: $('#xmd34nfywr54').val(),
+                    newStatus: $('#ptStatusSelector').val()
+                },
             });
+            
             // callback handler that will be called on success
             request.done(function (response, textStatus, jqXHR){
-            if (response != 'error'){
-            ajaxGetComments(0, {commentsPaginateCount});
-                    toggleStatusEdit();
+                console.log(response);
+                toggleStatusEdit();
+                if (response.updateStatusResult === true){
+                    ajaxGetComments(0, {commentsPaginateCount});
                     $('#StatusOKimg').show();
                     $(function() {
-                    setTimeout(function() {
-                    $('#StatusOKimg').fadeOut(800);
-                    }, 801);
+                        setTimeout(function() {
+                            $('#StatusOKimg').fadeOut(1000);
+                        }, 1001);
                     });
-                    $('#ptStatus').html(response);
-            }
+                } else if (response.updateStatusResult === false) {
+                    $('.StatusNOKimg').show();
+                    $('#statusErrMessage').html(response.message);
+                    $(function() {
+                        setTimeout(function() {
+                            $('.StatusNOKimg').fadeOut(2000);
+                        }, 2001);
+                    });
+                }
+                $('#ptStatus').html(response.currentStatusTranslation);
             });
+
             request.fail(function (jqXHR, textStatus, errorThrown){
-            toggleStatusEdit();
+                toggleStatusEdit();
             });
+
             request.always(function () {
-            $('#ajaxLoaderStatus').hide();
+                $('#ajaxLoaderStatus').hide();
             });
     }
 
@@ -1491,6 +1513,7 @@ $( document ).ready(function() {
                             {ptStatus}
                         </span>
                         <img id="StatusOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+                        <img  style="display: none" class="StatusNOKimg" src="tpl/stdstyle/images/free_icons/exclamation.png"><span style="display: none" id="statusErrMessage" class="StatusNOKimg"></span>
                         <span id="ptStatusEdit" style="display: none">
                             {ptStatusSelector}
                             <a href="javascript:void(0)" onclick="toggleStatusEdit();" class="editPtDataButton">{{pt031}}</a>
