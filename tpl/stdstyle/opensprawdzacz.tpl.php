@@ -190,15 +190,19 @@
         <br/>
 
         <div class="searchdiv">
-            <table class="content"><tr><td>{ikonka_yesno}</td>
+            <table class="content">
+                <tr>
+                    <td>{ikonka_yesno}</td>
                     <td class="content">
                         {test1}<br><br>
 
                         {wynik}
-                        {twoje_ws}<BR><BR>
+                        {twoje_ws}<br><br>
                         {save_mod_coord}<br>
+                        <p><i>{waypoint_desc}</i></p>
                     </td>
-                </tr></table>
+                </tr>
+            </table>
 
 
             <p><br /><br /><br /><br /></p>

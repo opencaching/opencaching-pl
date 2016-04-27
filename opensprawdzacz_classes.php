@@ -68,11 +68,12 @@ class OpensprawdzaczCore
                     tpl_set_var("licznik_zgadywan", $_SESSION["opensprawdzacz_licznik"]);
                     tpl_set_var("test1", tr(os_zgad));
                     tpl_set_var("wynik", '');
-                    tpl_set_var("ikonka_yesno", '<image src="tpl/stdstyle/images/blue/opensprawdzacz_stop.png" />');
+                    tpl_set_var("ikonka_yesno", '<img src="tpl/stdstyle/images/blue/opensprawdzacz_stop.png" />');
                     tpl_set_var("sekcja_4_start", '');
                     tpl_set_var("sekcja_4_stop", '');
                     tpl_set_var("twoje_ws", tr('os_ma_max') . ' ' . $ile_prob . ' ' . tr('os_ma_na') . ' ' . $limit_czasu . ' ' . tr('os_godzine') . '<br /> ' . tr('os_mus') . ' ' . $czas_jaki_uplynal . ' ' . tr('os_minut_end'));
                     tpl_set_var("save_mod_coord", '');
+                    tpl_set_var("waypoint_desc",'');
                     $this->endzik();
                     // goto endzik;
                 }
@@ -140,6 +141,7 @@ class OpensprawdzaczCore
         `waypoints`.`latitude`,
         `waypoints`.`status`,
         `waypoints`.`type`,
+        `waypoints`.`desc`,
         `waypoints`.`opensprawdzacz`,
         `opensprawdzacz`.`proby`,
         `opensprawdzacz`.`sukcesy`,
@@ -197,8 +199,9 @@ class OpensprawdzaczCore
             };
 
             tpl_set_var("test1", tr('os_sukces'));
-            tpl_set_var("ikonka_yesno", '<image src="tpl/stdstyle/images/blue/opensprawdzacz_tak.png" />');
+            tpl_set_var("ikonka_yesno", '<img src="tpl/stdstyle/images/blue/opensprawdzacz_tak.png" />');
             tpl_set_var("save_mod_coord", $post_viewcache_form);
+            tpl_set_var("waypoint_desc",$dane['desc']);
         } else {
             //puzzle not solved - restult wrong
 
@@ -211,8 +214,9 @@ class OpensprawdzaczCore
                 exit;
             }
             tpl_set_var("test1", tr('os_fail'));
-            tpl_set_var("ikonka_yesno", '<image src="tpl/stdstyle/images/blue/opensprawdzacz_nie.png" />');
+            tpl_set_var("ikonka_yesno", '<img src="tpl/stdstyle/images/blue/opensprawdzacz_nie.png" />');
             tpl_set_var("save_mod_coord", '');
+            tpl_set_var("waypoint_desc",'');
         }
         //tpl_set_var("wynik", $wspolrzedneN.'/'.$wspolrzedneN_wzorcowe.'<br>'.$wspolrzedneE.'/'. $wspolrzedneE_wzorcowe);
         tpl_set_var("wynik", '');
