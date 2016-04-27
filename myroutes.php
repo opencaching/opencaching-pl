@@ -2,6 +2,8 @@
 
 use Utils\Database\XDb;
 //prepare the templates and include all neccessary
+global $rootpath;
+
 require_once('./lib/common.inc.php');
 
 //Preprocessing

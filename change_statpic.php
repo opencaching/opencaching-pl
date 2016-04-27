@@ -33,6 +33,7 @@ if ($error == false) {
             tpl_set_var('statpic_logo', $statpic_logo);
 
             //validate data
+            define('regex_statpic_text', '^[a-zA-Z0-9\.\-_ ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ@äüöÄÜÖß=)(\/\\\&*\$+~#!§%;,-?:\[\]{}123\'\"`\|µ°]{0,29}$');
             $statpic_text_not_ok = mb_ereg_match(regex_statpic_text, $statpic_text) ? false : true;
 
             //try to save

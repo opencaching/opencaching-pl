@@ -1,6 +1,7 @@
 <?php
 
 
+use Utils\Database\OcDb;
 global $titled_cache_nr_found, $titled_cache_period_prefix;
 
 require_once('./lib/common.inc.php');
@@ -8,11 +9,11 @@ require_once('./lib/common.inc.php');
 if ( !isset( $_REQUEST[ 'CRON' ] ) )
     exit;
 
-$dbc = new dataBase();
+$dbc = OcDb::instance();
 
 $queryMax = "SELECT max( date_alg ) dataMax FROM cache_titled";
-$dbc->simpleQuery($queryMax);
-$record = $dbc->dbResultFetch();
+$s = $dbc->simpleQuery($queryMax);
+$record = $dbc->dbResultFetchOneRowOnly($s);
 $dataMax = $record["dataMax"];
 
 
@@ -105,8 +106,8 @@ if ( $dDiff->days < $securityPeriod )
     order by nrTinR, cFounds DESC, cDateCrt, RATE DESC
     ";
 
-    $dbc->multiVariableQuery($queryS, $date_alg, $titled_cache_nr_found );
-    $rec = $dbc->dbResultFetch();
+    $s = $dbc->multiVariableQuery($queryS, $date_alg, $titled_cache_nr_found );
+    $rec = $dbc->dbResultFetch($s);
 
 
     $queryL = "
@@ -124,8 +125,8 @@ if ( $dDiff->days < $securityPeriod )
             ORDER BY length(cl.text) DESC LIMIT 1 )
     ) as i";
 
-    $dbc->multiVariableQuery($queryL, $rec[ "cacheId" ] );
-    $recL = $dbc->dbResultFetch();
+    $s = $dbc->multiVariableQuery($queryL, $rec[ "cacheId" ] );
+    $recL = $dbc->dbResultFetchOneRowOnly($s);
 
     $queryI = "INSERT INTO cache_titled
         (cache_id, rate, ratio, rating, found, days, date_alg, log_id)

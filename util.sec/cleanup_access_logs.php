@@ -1,8 +1,8 @@
 <?php
 
+use Utils\Database\XDb;
 $rootpath = '../';
-require_once($rootpath . 'lib/clicompatbase.inc.php');
-require_once($rootpath . 'lib/db.php');
+
 require_once __DIR__ . '/../lib/ClassPathDictionary.php';
 
 class CleanupAccessLogs
@@ -10,15 +10,12 @@ class CleanupAccessLogs
 
     function run()
     {
-        $db = new dataBase();
-        $db->switchDebug(false);
 
         $sql = "delete from CACHE_ACCESS_LOGS where date_sub(now(), INTERVAL 5 DAY) > event_date";
 
         set_time_limit(360);
-        $db->simpleQuery($sql);
-
-        $total_deleted = $db->rowCount();
+        $s = XDb::xSql($sql);
+        $total_deleted = XDb::xNumRows($s);
 
         set_time_limit(60);
         unset($db);
@@ -29,4 +26,4 @@ class CleanupAccessLogs
 
 $cal = new CleanupAccessLogs();
 $cal->run();
-?>
+

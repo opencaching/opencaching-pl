@@ -64,11 +64,11 @@ if ($error == false) {
         FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id`= `cache_location`.`cache_id`)  WHERE `caches`.`cache_id`=:v1";
         $params['v1']['value'] = $cache_id;
         $params['v1']['data_type'] = 'integer';
-        $dbc->paramQuery($thatquery, $params);
+        $s = $dbc->paramQuery($thatquery, $params);
         unset($params);
 
-        if ($dbc->rowCount() == 1) {
-            $cache_record = $dbc->dbResultFetch();
+        if ($cache_record = $dbc->dbResultFetch($s)) {
+
             if ($cache_record['user_id'] == $usr['userid'] || $usr['admin']) {
                 $tplname = 'editcache';
                 require_once($rootpath . 'lib/caches.inc.php');
@@ -92,7 +92,7 @@ if ($error == false) {
                 if ($pic_count_check > 0) {
                     if (isset($_POST['pic_seq_select1'])) { // check if in POST mode and in case any picture is attached (re-)update sequence value, providing it was changed - value of pic_seq_change_X)
                         if (!isset($dbc)) {
-                            $dbc = new dataBase();
+                            $dbc = OcDb::instance();
                         }
                         for ($i = 1; $i <= $pic_count_check; $i++) {
                             $this_seq = $_POST['pic_seq_select' . $i]; //get new seqence
@@ -114,9 +114,8 @@ if ($error == false) {
                 $mp3_count_check = $cache_record['mp3count'];
                 if ($mp3_count_check > 0) {
                     if (isset($_POST['mp3_seq_select1'])) { // check if in POST mode and in case any mp3 is attached (re-)update sequence value, providing it was changed - value of mp3_seq_change_X)
-                        if (!isset($dbc)) {
-                            $dbc = new dataBase();
-                        }
+
+                        $dbc = OcDb::instance();
                         for ($i = 1; $i <= $mp3_count_check; $i++) {
                             $this_seq = $_POST['mp3_seq_select' . $i]; //get new seqence
                             $this_mp3_id = $_POST['mp3_seq_id' . $i]; //get mp3 ID the new seq is applicable to
@@ -385,15 +384,16 @@ if ($error == false) {
                     $thatquery = "SELECT `attrib_id` FROM `caches_attributes` WHERE `cache_id`=:v1";
                     $params['v1']['value'] = (integer) $cache_id;
                     $params['v1']['data_type'] = 'integer';
-                    if (!isset($dbc)) {
-                        $dbc = new dataBase();
-                    }
-                    $dbc->paramQuery($thatquery, $params);
+
+                    $dbc = OcDb::instance();
+
+                    $s = $dbc->paramQuery($thatquery, $params);
                     unset($params);
-                    $cache_attribs_count = $dbc->rowCount();
+                    $cache_attribs_count = $dbc->rowCount($s);
 
                     if ($cache_attribs_count > 0) {
-                        $cache_attribs_all = $dbc->dbResultFetchAll();
+                        $cache_attribs_all = $dbc->dbResultFetchAll($s);
+
                         unset($cache_attribs);
                         for ($i = 0; $i < $cache_attribs_count; $i++) {
                             $record = $cache_attribs_all[$i];
@@ -491,7 +491,8 @@ if ($error == false) {
 
                         // if old status is not yet published and new status is published => notify-event
                         if ($status_old == $STATUS['NOT_YET_AVAILABLE'] && $status != $STATUS['NOT_YET_AVAILABLE']) {
-                            touchCache($cache_id);
+                            GeoCache::touchCache($cache_id);
+
                             // send new cache event
                             event_notify_new_cache($cache_id);
                         }
@@ -809,15 +810,16 @@ if ($error == false) {
                     $thatquery = "SELECT `id`, `url`, `title`, `uuid`, `seq` FROM `pictures` WHERE `object_id`=:v1 AND `object_type`=2 ORDER BY seq, date_created";
                     $params['v1']['value'] = (integer) $cache_id;
                     $params['v1']['data_type'] = 'integer';
-                    if (!isset($dbc)) {
-                        $dbc = new dataBase();
-                    }
-                    $dbc->paramQuery($thatquery, $params);
-                    $rspictures_count = $dbc->rowCount();
-                    $rspictures_all = $dbc->dbResultFetchAll();
+
+                    $dbc = OcDb::instance();
+                    $s = $dbc->paramQuery($thatquery, $params);
+                    $rspictures_count = $dbc->rowCount($s);
+                    $rspictures_all = $dbc->dbResultFetchAll($s);
+
                     $thatquery = "SELECT `seq` FROM `pictures` WHERE `object_id`=:v1 AND `object_type`=2 ORDER BY `seq` DESC"; //get highest seq number for this cache
-                    $dbc->paramQuery($thatquery, $params); //params are same as few lines above
-                    $max_seq_record = $dbc->dbResultFetch();
+                    $s = $dbc->paramQuery($thatquery, $params); //params are same as few lines above
+                    $max_seq_record = $dbc->dbResultFetch($s);
+
                     unset($params);  //clear to avoid overlaping on next paramQuery (if any))
                     $max_seq_number = (isset($max_seq_record ['seq']) ? $max_seq_record ['seq'] : 0);
                     if ($max_seq_number < $rspictures_count) {
@@ -851,18 +853,17 @@ if ($error == false) {
                         $thatquery = "SELECT `id`, `url`, `title`, `uuid`, `seq` FROM `mp3` WHERE `object_id`=:v1 AND `object_type`=2 ORDER BY seq, date_created";
                         $params['v1']['value'] = (integer) $cache_id;
                         $params['v1']['data_type'] = 'integer';
-                        if (!isset($dbc)) {
-                            $dbc = new dataBase();
-                        }
-                        $dbc->paramQuery($thatquery, $params);
 
-                        $mp3_count = $dbc->rowCount();
-                        $mp3_all = $dbc->dbResultFetchAll();
+                        $dbc = OcDb::instance();
+                        $s = $dbc->paramQuery($thatquery, $params);
+                        $mp3_count = $dbc->rowCount($s);
+                        $mp3_all = $dbc->dbResultFetchAll($s);
 
                         $thatquery = "SELECT `seq` FROM `mp3` WHERE `object_id`=:v1 AND `object_type`=2 ORDER BY `seq` DESC"; //get highest seq number for this cache
-                        $dbc->paramQuery($thatquery, $params); //params are same as a few lines above
-                        $max_seq_record = $dbc->dbResultFetch();
+                        $s = $dbc->paramQuery($thatquery, $params); //params are same as a few lines above
+                        $max_seq_record = $dbc->dbResultFetch($s);
                         unset($params);  //clear to avoid overlaping on next paramQuery (if any))
+
                         $max_seq_number = (isset($max_seq_record ['seq']) ? $max_seq_record ['seq'] : 0);
                         if ($max_seq_number < $mp3_count) {
                             $max_seq_number = $mp3_count;

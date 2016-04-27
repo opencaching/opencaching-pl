@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\OcDb;
 //confirmCacheCandidate.php
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
@@ -26,10 +27,12 @@ if ($error == false) {
         // check if logged user is a cache owner
         $code = $_REQUEST['code'];
         $ownerDecision = (int) $_REQUEST['result'];
-        $query = 'SELECT * FROM `PowerTrail_cacheCandidate`, caches WHERE `link` = :1 AND PowerTrail_cacheCandidate.CacheId = caches.cache_id';
-        $db = new dataBase;
-        $db->multiVariableQuery($query, $code);
-        $dbData = $db->dbResultFetch();
+        $query = 'SELECT * FROM `PowerTrail_cacheCandidate`, caches
+            WHERE `link` = :1 AND PowerTrail_cacheCandidate.CacheId = caches.cache_id';
+        $db = OcDb::instance();
+        $s = $db->multiVariableQuery($query, $code);
+        $dbData = $db->dbResultFetch($s);
+
         if ($dbData === false) { // record not found
             tpl_set_var('noRecord', 'block');
         } else {
@@ -66,7 +69,7 @@ if ($error == false) {
 function removeDbEntery($code)
 {
 
-    $db = new dataBase;
+    $db = OcDb::instance();
     $query = 'DELETE FROM `PowerTrail_cacheCandidate` WHERE `link` = :1';
     $db->multiVariableQuery($query, $code);
 }

@@ -57,9 +57,9 @@ if ($error == false) {
             AND `caches`.`status` IN (1, 2, 3)
             ORDER BY  `cache_logs`.`date_created` DESC
             LIMIT :variable1, :variable2 ";
-    $db->paramQuery($rsQuery, array('variable1' => array('value' => intval($start), 'data_type' => 'integer'), 'variable2' => array('value' => intval($LOGS_PER_PAGE), 'data_type' => 'integer'),));
+    $s = $db->paramQuery($rsQuery, array('variable1' => array('value' => intval($start), 'data_type' => 'integer'), 'variable2' => array('value' => intval($LOGS_PER_PAGE), 'data_type' => 'integer'),));
     $log_ids = '';
-    if ($db->rowCount() == 0) {
+    if ($db->rowCount($s) == 0) {
         $log_ids = '0';
     }
 
@@ -67,59 +67,54 @@ if ($error == false) {
     $pt_cache_intro_tr = tr('pt_cache');
     $pt_icon_title_tr = tr('pt139');
 
-    for ($i = 0; $i < $db->rowCount(); $i++) {
-        $record = $db->dbResultFetch();
-        if ($i > 0) {
-            $log_ids .= ', ' . $record['id'];
-        } else {
-            $log_ids = $record['id'];
-        }
+    $log_ids = array();
+    while( $record = $db->dbResultFetch($s) ){
+        $log_ids[] = $record['id'];
     }
-
-    $rsQuery = "SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
-                  cache_logs.type AS log_type,
-                  cache_logs.date AS log_date,
-                 `cache_logs`.`encrypt` `encrypt`,
-                  cache_logs.user_id AS luser_id,
-                  cache_logs.text AS log_text,
-                  cache_logs.text_html AS text_html,
-                  caches.name AS cache_name,
-                  caches.user_id AS cache_owner,
-                  user.username AS user_name,
-                  caches.user_id AS user_id,
-                  user.user_id AS xuser_id,
-                  caches.wp_oc AS wp_name,
-                  caches.type AS cache_type,
-                  cache_type.icon_small AS cache_icon_small,
-                  log_types.icon_small AS icon_small,
-                  log_types.pl as pl,
-                  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
-                  COUNT(gk_item.id) AS geokret_in,
-                 `PowerTrail`.`id` AS PT_ID,
-                 `PowerTrail`.`name` AS PT_name,
-                 `PowerTrail`.`type` As PT_type,
-                 `PowerTrail`.`image` AS PT_image
-                  FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
-                  LEFT JOIN gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
-                  LEFT JOIN gk_item ON gk_item.id = gk_item_waypoint.id AND
-
-                  gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5
-                  LEFT JOIN `powerTrail_caches` ON cache_logs.cache_id = `powerTrail_caches`.`cacheId`
-                  LEFT JOIN `PowerTrail` ON `PowerTrail`.`id` = `powerTrail_caches`.`PowerTrailId`  AND `PowerTrail`.`status` = 1
-                  WHERE cache_logs.deleted=0 AND cache_logs.id IN ($log_ids) AND cache_logs.cache_id=caches.cache_id AND caches.status<> 4 AND caches.status<> 5 AND caches.status<> 6
-                  GROUP BY cache_logs.id
-                  ORDER BY cache_logs.date_created DESC";
 
     $file_content = '';
     $tr_myn_click_to_view_cache = tr('myn_click_to_view_cache');
     $bgColor = '#eeeeee';
-    $db->simpleQuery($rsQuery);
-    for ($i = 0; $i < $db->rowCount(); $i++) {
+    $s = $db->simpleQuery(
+        "SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
+                cache_logs.type AS log_type, cache_logs.date AS log_date, `cache_logs`.`encrypt` `encrypt`,
+                cache_logs.user_id AS luser_id, cache_logs.text AS log_text,
+                cache_logs.text_html AS text_html, caches.name AS cache_name,
+                caches.user_id AS cache_owner, user.username AS user_name,
+                caches.user_id AS user_id, user.user_id AS xuser_id,
+                caches.wp_oc AS wp_name, caches.type AS cache_type,
+                cache_type.icon_small AS cache_icon_small, log_types.icon_small AS icon_small,
+                log_types.pl as pl,
+                IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
+                COUNT(gk_item.id) AS geokret_in, `PowerTrail`.`id` AS PT_ID,
+                `PowerTrail`.`name` AS PT_name, `PowerTrail`.`type` As PT_type,
+                `PowerTrail`.`image` AS PT_image
+        FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id))
+            INNER JOIN user ON (cache_logs.user_id = user.user_id)
+            INNER JOIN log_types ON (cache_logs.type = log_types.id)
+            INNER JOIN cache_type ON (caches.type = cache_type.id)
+            LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id`
+                AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
+            LEFT JOIN gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
+            LEFT JOIN gk_item ON gk_item.id = gk_item_waypoint.id
+                AND gk_item.stateid<>1 AND gk_item.stateid<>4
+                AND gk_item.typeid<>2 AND gk_item.stateid !=5
+            LEFT JOIN `powerTrail_caches` ON cache_logs.cache_id = `powerTrail_caches`.`cacheId`
+            LEFT JOIN `PowerTrail` ON `PowerTrail`.`id` = `powerTrail_caches`.`PowerTrailId`  AND `PowerTrail`.`status` = 1
+        WHERE cache_logs.deleted=0
+            AND cache_logs.id IN (" .implode(',',$log_ids). ")
+            AND cache_logs.cache_id=caches.cache_id
+            AND caches.status<> 4 AND caches.status<> 5
+            AND caches.status<> 6
+        GROUP BY cache_logs.id
+        ORDER BY cache_logs.date_created DESC");
+
+    while ( $log_record = $db->dbResultFetch($s) ) {
         if ($bgColor == '#eeeeee')
             $bgColor = '#ffffff';
         else
             $bgColor = '#eeeeee';
-        $log_record = $db->dbResultFetch();
+
         $file_content .= '<tr bgcolor="' . $bgColor . '">';
         $file_content .= '<td style="width: 70px;">' . htmlspecialchars(date($dateFormat, strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
         if ($log_record['geokret_in'] != '0') {

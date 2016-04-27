@@ -1,8 +1,16 @@
 <?php
+use Utils\Database\OcDb;
 $rootpath = __DIR__.'/../';
 require_once __DIR__.'/../lib/common.inc.php';
-db_disconnect();
-$commentsArr = powerTrailBase::getPowerTrailComments();
+
+$appContainer = lib\Objects\ApplicationContainer::Instance();
+if( $appContainer->getLoggedUser() === false){
+    $loggedUserId = -9999;
+} else {
+    $loggedUserId = $appContainer->getLoggedUser()->getUserId();
+}
+
+$commentsArr = lib\Controllers\PowerTrailController::getEntryTypes();
 $ptOwners = powerTrailBase::getPtOwners($_REQUEST['projectId']);
 $paginateCount = powerTrailBase::commentsPaginateCount;
 foreach ($ptOwners as $owner) {
@@ -10,10 +18,11 @@ foreach ($ptOwners as $owner) {
 }
 $nextSearchStart = $_REQUEST['start'] + $_REQUEST['limit'];
 
-$db = \lib\Database\DataBaseSingleton::Instance();
-$q = 'SELECT count(*) AS `count` FROM  `PowerTrail_comments` WHERE  `PowerTrailId` =:1 AND `deleted` = 0 ';
-$db->multiVariableQuery($q, $_REQUEST['projectId']);
-$count = $db->dbResultFetch();
+$db = OcDb::instance();
+$q = 'SELECT count(*) AS `count` FROM  `PowerTrail_comments`
+    WHERE  `PowerTrailId` =:1 AND `deleted` = 0 ';
+$s = $db->multiVariableQuery($q, $_REQUEST['projectId']);
+$count = $db->dbResultFetchOneRowOnly($s);
 $count = $count['count'];
 
 $query = 'SELECT * FROM  `PowerTrail_comments`, `user` WHERE  `PowerTrailId` =:variable1 AND `deleted` = 0 AND `PowerTrail_comments`.`userId` = `user`.`user_id` ORDER BY  `logDateTime` DESC LIMIT :variable2 , :variable3   '  ;
@@ -23,15 +32,17 @@ $params['variable2']['value'] = (integer) $_REQUEST['start'];;
 $params['variable2']['data_type'] = 'integer';
 $params['variable3']['value'] = (integer) $_REQUEST['limit'];;
 $params['variable3']['data_type'] = 'integer';
-$db->paramQuery($query, $params); // multiVariableQuery($query, $projectId, 0, 8);
-$result = $db->dbResultFetchAll();
-// print_r($result);
+$s = $db->paramQuery($query, $params);
+$result = $db->dbResultFetchAll($s);
+
 if(count($result) == 0) {
     echo '<p><br /><br />' . tr('pt118') .'</p><br /><br />';
     exit;
 }
 // build to display
 $toDisplay = '<table id="commentsTable" cellspacing="0">';
+
+
 foreach ($result as $key => $dbEntery) {
     $userActivity = $dbEntery['hidden_count'] + $dbEntery['founds_count'] + $dbEntery['notfounds_count'];
     $logDateTime = explode(' ', $dbEntery['logDateTime']);
@@ -40,15 +51,15 @@ foreach ($result as $key => $dbEntery) {
         <td colspan="3" class="commentHead">
             <span class="CommentDate" id="CommentDate-'.$dbEntery['id'].'">'. $logDateTime[0].'</span><span class="commentTime" id="commentTime-'.$dbEntery['id'].'">'.substr($logDateTime[1],0,-3).'</span><a href="viewprofile.php?userid='.$dbEntery['userId'].'"><b>'.$dbEntery['username'].'</b></a> (<img height="13" src="tpl/stdstyle/images/blue/thunder_ico.png" /><font size="-1">'.$userActivity.'</font>)
             - <span style="color: '.$commentsArr[$dbEntery['commentType']]['color'].';">'. tr($commentsArr[$dbEntery['commentType']]['translate']).'</span>';
-    if(isset($_SESSION['user_id'])){
+    if(isset($loggedUserId)){
         $toDisplay .= '<span class="editDeleteComment">';
-        if(($_SESSION['user_id'] == $dbEntery['userId'] || in_array($_SESSION['user_id'], $ownersIdArray))&&$dbEntery['userId']!=-1&&$dbEntery['commentType']!=3&&$dbEntery['commentType']!=4&&$dbEntery['commentType']!=5) {
-            $toDisplay .= '<img src="tpl/stdstyle/images/free_icons/cross.png" /><a href="javascript:void(0);" onclick="deleteComment('.$dbEntery['id'].','.$_SESSION['user_id'].')">'.tr('pt130').'</a>';
+        if(($loggedUserId == $dbEntery['userId'] || in_array($loggedUserId, $ownersIdArray))&&$dbEntery['userId']!=-1&&$dbEntery['commentType']!=3&&$dbEntery['commentType']!=4&&$dbEntery['commentType']!=5&&$dbEntery['commentType']!=6) {
+            $toDisplay .= '<img src="tpl/stdstyle/images/free_icons/cross.png" /><a href="javascript:void(0);" onclick="deleteComment('.$dbEntery['id'].','.$loggedUserId.')">'.tr('pt130').'</a>';
         }
-        if($_SESSION['user_id'] == $dbEntery['userId']) {
+        if($loggedUserId == $dbEntery['userId']) {
                 $toDisplay .= '
                     <img src="tpl/stdstyle/images/free_icons/pencil.png" />
-                    <a href="javascript:void(0);" onclick="editComment('.$dbEntery['id'].','.$_SESSION['user_id'].')">'.tr('pt145').'</a>';
+                    <a href="javascript:void(0);" onclick="editComment('.$dbEntery['id'].','.$loggedUserId.')">'.tr('pt145').'</a>';
             }
         $toDisplay .= '</span>';
     }
@@ -90,4 +101,3 @@ function paginate($totalPagesCount, $startNow){
     }
 return $displayStr;
 }
-?>

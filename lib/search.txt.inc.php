@@ -1,6 +1,13 @@
 <?php
+/**
+ * This script is used (can be loaded) by /search.php
+ */
 
-    global $content, $bUseZip, $sqldebug, $hide_coords, $usr, $lang, $dbcSearch;
+use Utils\Database\XDb;
+use Utils\Database\OcDb;
+
+global $content, $bUseZip, $hide_coords, $usr, $lang, $dbcSearch;
+
     set_time_limit(1800);
     $cache = cache::instance();
     $cacheSizes = $cache->getCacheSizes();
@@ -49,46 +56,46 @@ if( $usr || !$hide_coords ) {
     //prepare the output
     $caches_per_page = 20;
 
-    $sql = 'SELECT ';
+    $query = 'SELECT ';
 
     if (isset($lat_rad) && isset($lon_rad)) {
-        $sql .= getCalcDistanceSqlFormula($usr !== false, $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
+        $query .= getCalcDistanceSqlFormula($usr !== false, $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
     } else {
         if ($usr === false) {
-            $sql .= '0 distance, ';
+            $query .= '0 distance, ';
         } else {
             //get the users home coords
             if ((($usr['latitude'] == NULL) || ($usr['longitude'] == NULL)) || (($usr['latitude'] == 0) || ($usr['longitude'] == 0))) {
-                $sql .= '0 distance, ';
+                $query .= '0 distance, ';
             } else {
                 $distance_unit = 'km';
 
                 $lon_rad = $usr['longitude'] * 3.14159 / 180;
                 $lat_rad = $usr['latitude'] * 3.14159 / 180;
 
-                $sql .= getCalcDistanceSqlFormula($usr !== false, $usr['longitude'], $usr['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
+                $query .= getCalcDistanceSqlFormula($usr !== false, $usr['longitude'], $usr['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
             }
         }
     }
-    $sql .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, `caches`.`user_id` `user_id`, ';
+    $query .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, `caches`.`user_id` `user_id`, ';
     if ($usr === false) {
-        $sql .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, 0 as cache_mod_cords_id
+        $query .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, 0 as cache_mod_cords_id
                 FROM `caches` ';
     } else {
-        $sql .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`,
+        $query .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`,
                   `caches`.`latitude`) `latitude`, IFNULL(cache_mod_cords.id,0) as cache_mod_cords_id FROM `caches`
                   LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = '
                   . $usr['userid'];
     }
-    $sql .= ' WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
+    $query .= ' WHERE `caches`.`cache_id` IN (' . $queryFilter . ')';
 
     $sortby = $options['sort'];
     if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance')) {
-        $sql .= ' ORDER BY distance ASC';
+        $query .= ' ORDER BY distance ASC';
     } elseif ($sortby == 'bycreated') {
-       $sql .= ' ORDER BY date_created DESC';
+       $query .= ' ORDER BY date_created DESC';
     } else { // by name
-        $sql .= ' ORDER BY name ASC';
+        $query .= ' ORDER BY name ASC';
     }
 
     //startat?
@@ -115,20 +122,19 @@ if( $usr || !$hide_coords ) {
         $count = $maxlimit;
     }
 
-    $sqlLimit = ' LIMIT ' . $startat . ', ' . $count;
+    $queryLimit = ' LIMIT ' . $startat . ', ' . $count;
 
     // temporĂ¤re tabelle erstellen
-    $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `txtcontent` ' . $sql . $sqlLimit);
-    $dbcSearch->reset();
+    $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `txtcontent` ' . $query . $queryLimit);
 
-    $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `txtcontent`');
-    $rCount = $dbcSearch->dbResultFetch();
-    $dbcSearch->reset();
+    $s = $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `txtcontent`');
+    $rCount = $dbcSearch->dbResultFetchOneRowOnly($s);
 
     if ($rCount['count'] == 1) {
-        $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc` FROM `txtcontent`, `caches` WHERE `txtcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
-        $rName = $dbcSearch->dbResultFetch();
-        $dbcSearch->reset();
+        $s = $dbcSearch->simpleQuery(
+            'SELECT `caches`.`wp_oc` `wp_oc` FROM `txtcontent`, `caches`
+            WHERE `txtcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
+        $rName = $dbcSearch->dbResultFetchOneRowOnly($s);
 
         $sFilebasename = $rName['wp_oc'];
     } else {
@@ -137,9 +143,12 @@ if( $usr || !$hide_coords ) {
         } elseif ($options['searchtype'] == 'bylist') {
             $sFilebasename = 'cache_list';
         } else {
-            $rsName = sql('SELECT `queries`.`name` `name` FROM `queries` WHERE `queries`.`id`= &1 LIMIT 1', $options['queryid']);
-            $rName = sql_fetch_array($rsName);
-            mysql_free_result($rsName);
+            $rsName = XDb::xSql(
+                'SELECT `queries`.`name` `name` FROM `queries`
+                WHERE `queries`.`id`= ? LIMIT 1', $options['queryid']);
+
+            $rName = XDb::xFetchArray($rsName);
+            XDb::xFreeResults($rsName);
             if (isset($rName['name']) && ($rName['name'] != '')) {
                 $sFilebasename = trim($rName['name']);
                 $sFilebasename = str_replace(" ", "_", $sFilebasename);
@@ -158,24 +167,22 @@ if( $usr || !$hide_coords ) {
         $phpzip = new ss_zip('',6);
     }
 
-    // ok, ausgabe starten
-    if ($sqldebug == false) {
-        if ($bUseZip == true) {
-            header("content-type: application/zip");
-            header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
-        } else {
-            header("Content-type: text/plain");
-            header("Content-Disposition: attachment; filename=" . $sFilebasename . ".txt");
-        }
+
+    if ($bUseZip == true) {
+        header("content-type: application/zip");
+        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
+    } else {
+        header("Content-type: text/plain");
+        header("Content-Disposition: attachment; filename=" . $sFilebasename . ".txt");
     }
 
-    $dbcSearch->simpleQuery('SELECT `txtcontent`.`cache_id` `cacheid`, `txtcontent`.`longitude` `longitude`, `txtcontent`.`latitude` `latitude`, `txtcontent`.cache_mod_cords_id, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `cache_size`.`id` `size`, `caches`.`type` `type_id`, `caches`.`status` `status`, `user`.`username` `username`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`desc_html` `html`, `cache_desc`.`rr_comment`, `caches`.`logpw` FROM `txtcontent`, `caches`, `user`, `cache_desc`, `cache_size` WHERE `txtcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `txtcontent`.`user_id`=`user`.`user_id` AND `caches`.`size`=`cache_size`.`id`');
+    $stmt = XDb::xSql('SELECT `txtcontent`.`cache_id` `cacheid`, `txtcontent`.`longitude` `longitude`, `txtcontent`.`latitude` `latitude`, `txtcontent`.cache_mod_cords_id, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `cache_size`.`id` `size`, `caches`.`type` `type_id`, `caches`.`status` `status`, `user`.`username` `username`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`desc_html` `html`, `cache_desc`.`rr_comment`, `caches`.`logpw` FROM `txtcontent`, `caches`, `user`, `cache_desc`, `cache_size` WHERE `txtcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `txtcontent`.`user_id`=`user`.`user_id` AND `caches`.`size`=`cache_size`.`id`');
 
-    while($r = $dbcSearch->dbResultFetch()) {
+    while($r = XDb::xFetchArray($stmt) ) {
         if (@$enable_cache_access_logs) {
-            if (!isset($dbc)) {
-                $dbc = new dataBase();
-            }
+
+            $dbc = OcDb::instance();
+
             $cache_id = $r['cacheid'];
             $user_id = $usr !== false ? $usr['userid'] : null;
             $access_log = @$_SESSION['CACHE_ACCESS_LOG_TXT_'.$user_id];
@@ -238,9 +245,12 @@ if( $usr || !$hide_coords ) {
         }
 
         if ($usr == true) {
-            $notes_rs = sql("SELECT  `cache_notes`.`desc` `desc` FROM `cache_notes` WHERE `cache_notes` .`user_id`=&1 AND `cache_notes`.`cache_id`=&2", $usr['userid'],$r['cacheid']);
-            if (mysql_num_rows($notes_rs) != 0) {
-                $cn = sql_fetch_array($notes_rs);
+            $notes_rs = XDb::xSql(
+                "SELECT  `cache_notes`.`desc` `desc` FROM `cache_notes`
+                WHERE `cache_notes` .`user_id`= ? AND `cache_notes`.`cache_id`= ? ",
+                $usr['userid'], $r['cacheid']);
+
+            if ( $cn = XDb::xFetchArray($notes_rs) ) {
                 $thisline = str_replace('{personal_cache_note}', html2txt("<br/><br/>-- ".tr('search_text_16')." --<br/> ".$cn['desc']."<br/>"), $thisline);
             } else {
                 $thisline = str_replace('{personal_cache_note}', "", $thisline);
@@ -266,10 +276,16 @@ if( $usr || !$hide_coords ) {
 
         $thisline = str_replace('{owner}', $r['username'], $thisline);
 
-        // logs ermitteln
+
         $logentries = '';
-        $rsLogs = sql("SELECT `cache_logs`.`id`, `cache_logs`.`text_html`, `cache_logs`.`type`, `cache_logs`.`date`, `cache_logs`.`text`, `user`.`username` FROM `cache_logs`, `user` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=`user`.`user_id`AND `cache_logs`.`cache_id`=&1 ORDER BY `cache_logs`.`date` DESC LIMIT 20", $r['cacheid']);
-        while ($rLog = sql_fetch_array($rsLogs)) {
+        $rsLogs = XDb::xSql(
+            "SELECT `cache_logs`.`id`, `cache_logs`.`text_html`, `cache_logs`.`type`, `cache_logs`.`date`, `cache_logs`.`text`, `user`.`username`
+            FROM `cache_logs`, `user`
+            WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=`user`.`user_id`
+                AND `cache_logs`.`cache_id`= ?
+            ORDER BY `cache_logs`.`date` DESC LIMIT 20", $r['cacheid']);
+
+        while ($rLog = XDb::xFetchArray($rsLogs)) {
             $thislog = $txtLogs;
 
             $thislog = str_replace('{id}', $rLog['id'], $thislog);
@@ -298,12 +314,7 @@ if( $usr || !$hide_coords ) {
         }
         ob_flush();
     }
-    unset($dbc);
     $dbcSearch->simpleQuery('DROP TABLE `txtcontent` ');
-    $dbcSearch->reset();
-    if ($sqldebug == true) {
-        sqldbg_end();
-    }
 
     // phpzip versenden
     if ($bUseZip == true) {
@@ -334,4 +345,4 @@ function lf2crlf($str)
 {
     return str_replace("\r\r\n" ,"\r\n" , str_replace("\n" ,"\r\n" , $str));
 }
-?>
+

@@ -1,6 +1,11 @@
 <?php
+/**
+ * This script is used (can be loaded) by /search.php
+ */
 
-    global $content, $bUseZip, $sqldebug, $hide_coords, $usr, $dbcSearch;
+use Utils\Database\XDb;
+
+    global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;
     set_time_limit(1800);
     $ovlLine = "[Symbol {symbolnr1}]\r\nTyp=6\r\nGroup=1\r\nWidth=20\r\nHeight=20\r\nDir=100\r\nArt=1\r\nCol=3\r\nZoom=1\r\nSize=103\r\nArea=2\r\nXKoord={lon}\r\nYKoord={lat}\r\n[Symbol {symbolnr2}]\r\nTyp=2\r\nGroup=1\r\nCol=3\r\nArea=1\r\nZoom=1\r\nSize=130\r\nFont=1\r\nDir=100\r\nXKoord={lonname}\r\nYKoord={latname}\r\nText={mod_suffix}{cachename}\r\n";
     $ovlFoot = "[Overlay]\r\nSymbols={symbolscount}\r\n";
@@ -10,27 +15,29 @@
         //prepare the output
         $caches_per_page = 20;
 
-        $sql = 'SELECT ';
+        $query = 'SELECT ';
 
         if (isset($lat_rad) && isset($lon_rad))
         {
-            $sql .= getSqlDistanceFormula($lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
+            $query .= getSqlDistanceFormula($lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
         }
         else
         {
             if ($usr === false)
             {
-                $sql .= '0 distance, ';
+                $query .= '0 distance, ';
             }
             else
             {
                 //get the users home coords
-                $rs_coords = sql("SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
-                $record_coords = sql_fetch_array($rs_coords);
+                $rs_coords = XDb::xSql(
+                    "SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`= ? ", $usr['userid']);
+
+                $record_coords = XDb::xFetchArray($rs_coords);
 
                 if ((($record_coords['latitude'] == NULL) || ($record_coords['longitude'] == NULL)) || (($record_coords['latitude'] == 0) || ($record_coords['longitude'] == 0)))
                 {
-                    $sql .= '0 distance, ';
+                    $query .= '0 distance, ';
                 }
                 else
                 {
@@ -40,37 +47,37 @@
                     $lon_rad = $record_coords['longitude'] * 3.14159 / 180;
                     $lat_rad = $record_coords['latitude'] * 3.14159 / 180;
 
-                    $sql .= getSqlDistanceFormula($record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
+                    $query .= getSqlDistanceFormula($record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
                 }
-                mysql_free_result($rs_coords);
+                XDb::xFreeResults($rs_coords);
             }
         }
         if ($usr === false)
         {
-            $sql .= ' `caches`.`cache_id`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, 0 as cache_mod_cords_id, `caches`.`type` `type`
+            $query .= ' `caches`.`cache_id`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, 0 as cache_mod_cords_id, `caches`.`type` `type`
                     FROM `caches` ';
         }
         else
         {
-            $sql .= ' `caches`.`cache_id`, IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`,
+            $query .= ' `caches`.`cache_id`, IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`,
                             `caches`.`latitude`) `latitude`, IFNULL(cache_mod_cords.id,0) as cache_mod_cords_id, `caches`.`type` `type` FROM `caches`
                         LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = '
                             . $usr['userid'];
         }
-        $sql .= ' WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
+        $query .= ' WHERE `caches`.`cache_id` IN (' . $queryFilter . ')';
 
         $sortby = $options['sort'];
         if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance'))
         {
-            $sql .= ' ORDER BY distance ASC';
+            $query .= ' ORDER BY distance ASC';
         }
         else if ($sortby == 'bycreated')
         {
-            $sql .= ' ORDER BY date_created DESC';
+            $query .= ' ORDER BY date_created DESC';
         }
         else // by name
         {
-            $sql .= ' ORDER BY name ASC';
+            $query .= ' ORDER BY name ASC';
         }
 
         //startat?
@@ -89,21 +96,20 @@
         if ($count < 1) $count = 1;
         if ($count > $maxlimit) $count = $maxlimit;
 
-        $sqlLimit = ' LIMIT ' . $startat . ', ' . $count;
+        $queryLimit = ' LIMIT ' . $startat . ', ' . $count;
 
-        // temporĂ¤re tabelle erstellen
-        $dbcSearch->simpleQuery( 'CREATE TEMPORARY TABLE `ovlcontent` ' . $sql . $sqlLimit, $sqldebug);
-        $dbcSearch->reset();
+        $dbcSearch->simpleQuery( 'CREATE TEMPORARY TABLE `ovlcontent` ' . $query . $queryLimit);
 
-        $dbcSearch->simpleQuery( 'SELECT COUNT(*) `count` FROM `ovlcontent`');
-        $rCount = $dbcSearch->dbResultFetch();
-        $dbcSearch->reset();
+        $s = $dbcSearch->simpleQuery( 'SELECT COUNT(*) `count` FROM `ovlcontent`');
+        $rCount = $dbcSearch->dbResultFetchOneRowOnly($s);
 
         if ($rCount['count'] == 1)
         {
-            $rsName = $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc` FROM `ovlcontent`, `caches` WHERE `ovlcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
-            $rName = $rCount = $dbcSearch->dbResultFetch();
-            $dbcSearch->reset();
+            $s = $dbcSearch->simpleQuery(
+                'SELECT `caches`.`wp_oc` `wp_oc` FROM `ovlcontent`, `caches`
+                WHERE `ovlcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
+            $rName = $rCount = $dbcSearch->dbResultFetchOneRowOnly($s);
+
 
             $sFilebasename = $rName['wp_oc'];
         }
@@ -113,9 +119,11 @@
             } elseif ($options['searchtype'] == 'bylist') {
                 $sFilebasename = 'cache_list';
             } else {
-                $rsName = sql('SELECT `queries`.`name` `name` FROM `queries` WHERE `queries`.`id`= &1 LIMIT 1', $options['queryid']);
-                $rName = sql_fetch_array($rsName);
-                mysql_free_result($rsName);
+                $rsName = XDb::xSql(
+                    'SELECT `queries`.`name` `name` FROM `queries` WHERE `queries`.`id`= ? LIMIT 1', $options['queryid']);
+
+                $rName = XDb::xFetchArray($rsName);
+                XDb::xFreeResults($rsName);
                 if (isset($rName['name']) && ($rName['name'] != '')) {
                     $sFilebasename = trim($rName['name']);
                     $sFilebasename = str_replace(" ", "_", $sFilebasename);
@@ -135,37 +143,24 @@
             $phpzip = new ss_zip('',6);
         }
 
-        // ok, ausgabe starten
-
-        if ($sqldebug == false)
+        if ($bUseZip == true)
         {
-            if ($bUseZip == true)
-            {
-                header("content-type: application/zip");
-                header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
-            }
-            else
-            {
-                header("Content-type: application/ovl");
-                header("Content-Disposition: attachment; filename=" . $sFilebasename . ".ovl");
-            }
+            header("content-type: application/zip");
+            header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
+        }
+        else
+        {
+            header("Content-type: application/ovl");
+            header("Content-Disposition: attachment; filename=" . $sFilebasename . ".ovl");
         }
 
-        // ok, ausgabe ...
-
-    /*
-        {symbolnr1}
-        {lon}
-        {lat}
-        {symbolnr2}
-        {lonname}
-        {latname}
-        {cachename}
-    */
-
         $nr = 1;
-        $rs = $dbcSearch->simpleQuery( 'SELECT `ovlcontent`.`cache_id` `cacheid`, `ovlcontent`.`longitude` `longitude`, `ovlcontent`.`latitude` `latitude`, `ovlcontent`.cache_mod_cords_id, `caches`.`name` `name`, `ovlcontent`.`type` `type` FROM `ovlcontent`, `caches` WHERE `ovlcontent`.`cache_id`=`caches`.`cache_id`');
-        while($r = $dbcSearch->dbResultFetch())
+        $s = dbcSearch->simpleQuery(
+            'SELECT `ovlcontent`.`cache_id` `cacheid`, `ovlcontent`.`longitude` `longitude`,
+                    `ovlcontent`.`latitude` `latitude`, `ovlcontent`.cache_mod_cords_id,
+                    `caches`.`name` `name`, `ovlcontent`.`type` `type` FROM `ovlcontent`, `caches`
+            WHERE `ovlcontent`.`cache_id`=`caches`.`cache_id`');
+        while($r = $dbcSearch->dbResultFetch($s))
         {
             $thisline = $ovlLine;
 
@@ -191,12 +186,9 @@
             ob_flush();
             $nr += 2;
         }
-        $dbcSearch->reset();
-        unset($dbc);
+
         $ovlFoot = mb_ereg_replace('{symbolscount}', $nr - 1, $ovlFoot);
         append_output($ovlFoot);
-
-        if ($sqldebug == true) sqldbg_end();
 
         // phpzip versenden
         if ($bUseZip == true)
@@ -234,12 +226,10 @@
 
     function append_output($str)
     {
-        global $content, $bUseZip, $sqldebug;
-        if ($sqldebug == true) return;
+        global $content, $bUseZip;
 
         if ($bUseZip == true)
             $content .= $str;
         else
             echo $str;
     }
-?>

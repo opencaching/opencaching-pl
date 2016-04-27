@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
+
 $linkargs = (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y') ? '&amp;print=y' : '';
 $linkargs .= (isset($_REQUEST['nocrypt']) && $_REQUEST['nocrypt'] == '1') ? '&amp;nocrypt=1' : '';
 
@@ -106,7 +107,6 @@ $error_coords_not_ok = '<br/><img src="tpl/stdstyle/images/misc/32x32-impressum.
 // MP3 Files table
 function viewcache_getmp3table($cacheid, $mp3count)
 {
-    global $dblink;
     $nCol = 0;
     $retval = '';
 
@@ -151,7 +151,7 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
     }else{
         $spoiler_only = "";
     }
-    $db->multiVariableQuery('
+    $stmt = $db->multiVariableQuery('
         SELECT uuid, title, url, spoiler FROM pictures
         WHERE ' . $spoiler_only . ' object_id=:1
             AND object_type=2 AND display=1
@@ -163,7 +163,7 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
     } else {
         $spoiler_onclick = "alert('" . $spoiler_disable_msg . "'); return false;";
     }
-    foreach ($db->dbResultFetchAll() as $key => $r) {
+    foreach ($db->dbResultFetchAll($stmt) as $key => $r) {
         if ($viewthumbs) {
             if ($nCol == 4) {
                 $nCol = 0;
@@ -220,7 +220,6 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
 // Hmm, is this references at all?
 function viewcache_getfullsizedpicturestable($cacheid, $viewtext = true, $spoiler_only = false, $picturescount)
 {
-    global $dblink;
     global $thumb_max_width;
     global $thumb_max_height;
 

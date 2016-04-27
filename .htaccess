@@ -1,5 +1,8 @@
 RewriteEngine on
 
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [NE,R=301,L]
+
 RewriteBase /
 
 RewriteRule ^search\.(gpx|kml|loc|ov2|ovl|txt|wpt|uam|xml|zip|ggz)$ search.php?%{QUERY_STRING} [NC]

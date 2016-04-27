@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\OcDb;
 /*
  * Simple script to delete user account. The script is intended for admins only,
  * in cases when the user wants to opt-out and no activity has been recorded.
@@ -12,12 +13,6 @@
  *
  */
 
-/*
-  begin                : June 28 2006
-  copyright            : (C) 2006 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
-*/
-
 if (php_sapi_name() != "cli") {
     printf("This script should be run from command-line only.\n");
     exit(1);
@@ -25,12 +20,11 @@ if (php_sapi_name() != "cli") {
 
 $rootpath = __DIR__ . '/../../';
 require_once __DIR__ . '/../../lib/common.inc.php';
-db_disconnect();
 
-$db = \lib\Database\DataBaseSingleton::Instance();
+
+$db = OcDb::instance();
 
 function remove_watch($cache_id, $user_id) {
-    global $db;
 
     printf("Watched cache ID: %s\n", $cache_id);
 
@@ -94,8 +88,8 @@ $db->multiVariableQuery(
 $db->multiVariableQuery('DELETE FROM queries WHERE user_id = :1', $user_id);
 
 // Clean all cache_watches
-$db->multiVariableQuery('SELECT cache_id FROM cache_watches WHERE user_id = :1', $user_id);
-$cache_watches = $db->dbResultFetchAll();
+$s = $db->multiVariableQuery('SELECT cache_id FROM cache_watches WHERE user_id = :1', $user_id);
+$cache_watches = $db->dbResultFetchAll($s);
 foreach ($cache_watches as $watch) {
     remove_watch($watch['cache_id'], $user_id);
 }

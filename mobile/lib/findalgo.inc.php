@@ -1,5 +1,9 @@
 <?php
 
+use Utils\Database\XDb;
+
+require_once('../lib/ClassPathDictionary.php');
+
 global $action;
 
 if (isSet($_GET['nazwa']) && !empty($_GET['nazwa']) ||
@@ -7,7 +11,7 @@ if (isSet($_GET['nazwa']) && !empty($_GET['nazwa']) ||
         isSet($_GET['owner']) && !empty($_GET['owner']) ||
         isSet($_GET['finder']) && !empty($_GET['finder'])) {
 
-    db_connect();
+    
 
     function find_news($start, $end)
     {
@@ -19,21 +23,21 @@ if (isSet($_GET['nazwa']) && !empty($_GET['nazwa']) ||
         global $znalezione;
 
         if (isSet($_GET['nazwa'])) {
-            $nazwa = mysql_real_escape_string($_GET['nazwa']);
+            $nazwa = XDb::xEscape($_GET['nazwa']);
             $query = "select votes,cache_id,name, status, score, latitude, longitude, wp_oc, user_id, type from caches where name like '%" . $nazwa . "%' and caches.status in ('1','2','3') order by name limit " . $start . "," . $end;
             $czykilka = 1;
             $url = "./find.php?nazwa=" . $nazwa;
         }
 
         if (isSet($_GET['wp'])) {
-            $wp = mysql_real_escape_string($_GET['wp']);
+            $wp = XDb::xEscape($_GET['wp']);
             $query = "select votes,cache_id,name, status, score, latitude, longitude, wp_oc, user_id, type from caches where wp_oc = '" . $wp . "' and caches.status in ('1','2','3') order by name limit " . $start . "," . $end;
             $czykilka = 0;
             $url = "./find.php?wp=" . $wp;
         }
 
         if (isSet($_GET['owner'])) {
-            $owner = mysql_real_escape_string($_GET['owner']);
+            $owner = XDb::xEscape($_GET['owner']);
             $query = "select votes,cache_id,name, status, score, latitude, longitude, wp_oc, user_id, type from caches where user_id = (select user_id from user where username ='";
             $query .= $owner . "') and caches.status in ('1','2','3') order by name limit " . $start . "," . $end;
             $czykilka = 1;
@@ -41,21 +45,21 @@ if (isSet($_GET['nazwa']) && !empty($_GET['nazwa']) ||
         }
 
         if (isSet($_GET['finder'])) {
-            $finder = mysql_real_escape_string($_GET['finder']);
+            $finder = XDb::xEscape($_GET['finder']);
             $query = "select caches.votes,caches.cache_id,name, status, score, latitude, longitude, wp_oc, caches.user_id, caches.type from caches inner join cache_logs on caches.cache_id=cache_logs.cache_id where cache_logs.user_id = (select user.user_id from user where username ='";
             $query .= $finder . "') and cache_logs.type = '1' and cache_logs.deleted=0 and caches.status in ('1','2','3') order by cache_logs.id desc limit " . $start . "," . $end;
             $czykilka = 1;
             $url = "./find.php?finder=" . $finder;
         }
 
-        $wynik = db_query($query);
-        $ilewyn = mysql_num_rows($wynik);
+        $wynik = XDb::xSql($query);
+        $ilewyn = XDb::xNumRows($wynik);
 
 
         if ($czykilka == 0) {
             if ($ilewyn > 0) {
                 global $address;
-                $wiersz = mysql_fetch_assoc($wynik);
+                $wiersz = XDb::xFetchArray($wynik);
                 $adres = "./" . $address . ".php?wp=" . $wiersz['wp_oc'];
                 header('Location: ' . $adres);
                 exit;
@@ -68,29 +72,29 @@ if (isSet($_GET['nazwa']) && !empty($_GET['nazwa']) ||
 
             $znalezione = array();
 
-            while ($rekord = mysql_fetch_assoc($wynik)) {
+            while ($rekord = XDb::xFetchArray($wynik)) {
 
                 if (isset($_SESSION['user_id'])) {
                     $query2 = "select 1 from cache_logs where user_id = '" . $_SESSION['user_id'] . "' and type = '1' and deleted='0' and cache_id ='" . $rekord['cache_id'] . "';";
-                    $wynik2 = db_query($query2);
-                    $if_found = mysql_fetch_row($wynik2);
+                    $wynik2 = XDb::xSql($query2);
+                    $if_found = XDb::xFetchArray($wynik2);
 
                     if ($if_found[0] != '1') {
                         $query2 = "select 2 from cache_logs where user_id = '" . $_SESSION['user_id'] . "' and type = '2' and deleted='0' and cache_id ='" . $rekord['cache_id'] . "';";
-                        $wynik2 = db_query($query2);
-                        $if_found = mysql_fetch_row($wynik2);
+                        $wynik2 = XDb::xSql($query2);
+                        $if_found = XDb::xFetchArray($wynik2);
                     }
 
                     $if_found = $if_found[0];
                 }
 
                 $query = "select username from user where user_id = " . $rekord['user_id'] . ";";
-                $wynik2 = db_query($query);
-                $wiersz = mysql_fetch_assoc($wynik2);
+                $wynik2 = XDb::xSql($query);
+                $wiersz = XDb::xFetchArray($wynik2);
 
                 $query = "select " . $lang . " from cache_type where id = " . $rekord['type'] . ";";
-                $wynik2 = db_query($query);
-                $wiersz2 = mysql_fetch_row($wynik2);
+                $wynik2 = XDb::xSql($query);
+                $wiersz2 = XDb::xFetchArray($wynik2);
 
 
                 if ($rekord['votes'] > 3)
@@ -119,36 +123,36 @@ if (isSet($_GET['nazwa']) && !empty($_GET['nazwa']) ||
         $na_stronie = 10;
 
         if (isSet($_GET['nazwa'])) {
-            $nazwa = mysql_real_escape_string($_GET['nazwa']);
+            $nazwa = XDb::xEscape($_GET['nazwa']);
             $query2 = "select wp_oc from caches where name like '%" . $nazwa . "%' and caches.status in ('1','2','3')";
-            $wynik = db_query($query2);
-            $ile = mysql_num_rows($wynik);
+            $wynik = XDb::xSql($query2);
+            $ile = XDb::xNumRows($wynik);
         }
 
         if (isSet($_GET['wp'])) {
-            $wp = mysql_real_escape_string($_GET['wp']);
+            $wp = XDb::xEscape($_GET['wp']);
             $query2 = "select wp_oc from caches where wp_oc = '" . $wp . "' and caches.status in ('1','2','3')";
-            $wynik = db_query($query2);
-            $ile = mysql_num_rows($wynik);
+            $wynik = XDb::xSql($query2);
+            $ile = XDb::xNumRows($wynik);
         }
 
         if (isSet($_GET['owner'])) {
-            $owner = mysql_real_escape_string($_GET['owner']);
+            $owner = XDb::xEscape($_GET['owner']);
             $query2 = "select wp_oc from caches where user_id = (select user_id from user where username ='";
             $query2 .= $owner . "') and caches.status in ('1','2','3')";
-            $wynik = db_query($query2);
-            $ile = mysql_num_rows($wynik);
+            $wynik = XDb::xSql($query2);
+            $ile = XDb::xNumRows($wynik);
         }
 
         if (isSet($_GET['finder'])) {
-            $finder = mysql_real_escape_string($_GET['finder']);
+            $finder = XDb::xEscape($_GET['finder']);
             $query2 = "select DISTINCT wp_oc from caches inner join cache_logs on caches.cache_id = cache_logs.cache_id where cache_logs.user_id = (select user.user_id from user where username ='";
             $query2 .= $finder . "') and cache_logs.type = '1' and cache_logs.deleted='0' and caches.status in ('1','2','3')";
-            $wynik = db_query($query2);
-            $ile = mysql_num_rows($wynik);
+            $wynik = XDb::xSql($query2);
+            $ile = XDb::xNumRows($wynik);
         }
 
-        while ($rekord = mysql_fetch_assoc($wynik))
+        while ($rekord = XDb::xFetchArray($wynik))
             $lista[] = $rekord['wp_oc'];
 
         $tpl->assign('lista', $lista);

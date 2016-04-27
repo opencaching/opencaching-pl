@@ -25,7 +25,6 @@ $cache_size = get_cache_size_from_database();
 
 function get_log_types_from_database()
 {
-    global $dblink;
     $log_types = array();
 
     $resp = XDb::xSql("SELECT * FROM log_types ORDER BY id ASC");
@@ -37,7 +36,6 @@ function get_log_types_from_database()
 
 function get_cache_types_from_database()
 {
-    global $dblink;
     $cache_types = array();
 
     $resp = XDb::xSql("SELECT * FROM cache_type ORDER BY sort ASC");
@@ -49,7 +47,6 @@ function get_cache_types_from_database()
 
 function get_wp_types_from_database($cachetype)
 {
-    global $dblink;
     $wp_types = array();
     if ($cachetype == '2' || $cachetype == '4' || $cachetype == '5' || $cachetype == '6' || $cachetype == '9') {
         $param = "id=-1 OR id=4 OR id=5";
@@ -65,7 +62,6 @@ function get_wp_types_from_database($cachetype)
 
 function get_cache_status_from_database()
 {
-    global $dblink;
     $cache_status = array();
 
     $resp = XDb::xSql("SELECT * FROM cache_status ORDER BY id ASC");
@@ -77,7 +73,6 @@ function get_cache_status_from_database()
 
 function get_cache_size_from_database()
 {
-    global $dblink;
     $cache_size = array();
 
     $resp = XDb::xSql("SELECT * FROM cache_size ORDER BY id ASC");

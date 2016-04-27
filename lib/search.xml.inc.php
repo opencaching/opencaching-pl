@@ -1,6 +1,11 @@
 <?php
+use Utils\Database\XDb;
+use Utils\Database\OcDb;
+/**
+ * This script is used (can be loaded) by /search.php
+ */
 
-global $content, $bUseZip, $sqldebug, $dbcSearch, $lang;
+global $content, $bUseZip, $dbcSearch, $lang;
 
 $encoding = 'UTF-8';
 $distance_unit = 'km';
@@ -31,48 +36,51 @@ $txtLogs = "";
 //prepare the output
 $caches_per_page = 20;
 
-$sql = 'SELECT ';
+$query = 'SELECT ';
 
 if (isset($lat_rad) && isset($lon_rad)) {
-    $sql .= getCalcDistanceSqlFormula($usr !== false, $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
+    $query .= getCalcDistanceSqlFormula($usr !== false, $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
 } else {
     if ($usr === false) {
-        $sql .= '0 distance, ';
+        $query .= '0 distance, ';
     } else {
         //get the users home coords
         if (!isset($dbc)) {
-            $dbc = new dataBase();
+            $dbc = OcDb::instance();
         }
-        $dbc->multiVariableQuery("SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`= :1", $usr['userid'] );
-        $record_coords = $dbc->dbResultFetch();
+        $s = $dbc->multiVariableQuery(
+            "SELECT `latitude`, `longitude` FROM `user`
+            WHERE `user_id`= :1 LIMIT 1", $usr['userid'] );
+        $record_coords = $dbc->dbResultFetchOneRowOnly($s);
+
         if ((($record_coords['latitude'] == NULL) || ($record_coords['longitude'] == NULL)) || (($record_coords['latitude'] == 0) || ($record_coords['longitude'] == 0))) {
-            $sql .= '0 distance, ';
+            $query .= '0 distance, ';
         } else {
-            $sql .= getCalcDistanceSqlFormula($usr !== false, $record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
+            $query .= getCalcDistanceSqlFormula($usr !== false, $record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
         }
-        $dbc->reset();
+
     }
 }
 
-$sql .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`,
+$query .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`,
         `caches`.`user_id` `user_id`, ';
 if ($usr === false) {
-    $sql .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, 0 as cache_mod_cords_id FROM `caches` ';
+    $query .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, 0 as cache_mod_cords_id FROM `caches` ';
 } else {
-    $sql .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`,
+    $query .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`,
             `caches`.`latitude`) `latitude`, IFNULL(cache_mod_cords.id,0) as cache_mod_cords_id FROM `caches`
         LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = '
             . $usr['userid'];
 }
-$sql .= ' WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
+$query .= ' WHERE `caches`.`cache_id` IN (' . $queryFilter . ')';
 
 $sortby = $options['sort'];
 if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance')) {
-    $sql .= ' ORDER BY distance ASC';
+    $query .= ' ORDER BY distance ASC';
 } elseif ($sortby == 'bycreated') {
-    $sql .= ' ORDER BY date_created DESC';
+    $query .= ' ORDER BY date_created DESC';
 } else { // by name
-    $sql .= ' ORDER BY name ASC';
+    $query .= ' ORDER BY name ASC';
 }
  //startat?
 $startat = isset($_REQUEST['startat']) ? $_REQUEST['startat'] : 0;
@@ -98,22 +106,21 @@ if ($count < 1) {
     $count = 500;
 }
 
-$sqlLimit .= ' LIMIT ' . $startat . ', ' . $count;
+$queryLimit = ' LIMIT ' . $startat . ', ' . $count;
 
-// tempor?re tabelle erstellen
-$dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `xmlcontent` ' . $sql . $sqlLimit);
-$dbcSearch->reset();
+$dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `xmlcontent` ' . $query . $queryLimit);
 
-$dbcSearch->simpleQuery('SELECT COUNT(cache_id) `count` FROM ('.$sql.') query');
-$rCount = $dbcSearch->dbResultFetch();
-$dbcSearch->reset();
+$s = $dbcSearch->simpleQuery('SELECT COUNT(cache_id) `count` FROM ('.$query.') query');
+$rCount = $dbcSearch->dbResultFetchOneRowOnly($s);
 
 // Filename generation
 if ($rCount['count'] == 1) {
-    $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc` FROM `xmlcontent`, `caches` WHERE `xmlcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
-    $rName = $dbcSearch->dbResultFetch();
+    $s = $dbcSearch->simpleQuery(
+        'SELECT `caches`.`wp_oc` `wp_oc` FROM `xmlcontent`, `caches`
+        WHERE `xmlcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
+    $rName = $dbcSearch->dbResultFetchOneRowOnly($s);
+
     $sFilebasename = $rName['wp_oc'];
-    $dbcSearch->reset();
 } else {
     if ($options['searchtype'] == 'bywatched') {
         $sFilebasename = 'watched_caches';
@@ -124,10 +131,9 @@ if ($rCount['count'] == 1) {
     }
 }
 
-if ($sqldebug == false) {
-    header("Content-type: application/xml; charset=".$encoding);
-    header("Content-Disposition: attachment; filename=" . $sFilebasename . ".xml");
-}
+
+header("Content-type: application/xml; charset=".$encoding);
+header("Content-Disposition: attachment; filename=" . $sFilebasename . ".xml");
 
 echo "<?xml version=\"1.0\" encoding=\"".$encoding."\"?>\n";
 echo "<result>\n";
@@ -138,15 +144,26 @@ echo "      <startat>" . $startat . "</startat>\n";
 echo "      <perpage>" . $count . "</perpage>\n";
 echo "  </docinfo>\n";
 
-// ok, ausgabe ...
 
-$dbcSearch->simpleQuery('SELECT `xmlcontent`.`cache_id` `cacheid`, `xmlcontent`.`longitude` `longitude`, `xmlcontent`.`latitude` `latitude`, `xmlcontent`.cache_mod_cords_id, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`type` `type_id`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `cache_size`.`'.$lang.'` `size`, `cache_type`.`'.$lang.'` `type`, `cache_status`.`'.$lang.'` `status`, `user`.`username` `username`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`desc_html` `html`, `xmlcontent`.`distance` `distance` FROM `xmlcontent`, `caches`, `user`, `cache_desc`, `cache_type`, `cache_status`, `cache_size` WHERE `xmlcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `xmlcontent`.`user_id`=`user`.`user_id` AND `caches`.`type`=`cache_type`.`id` AND `caches`.`status`=`cache_status`.`id` AND `caches`.`size`=`cache_size`.`id`');
+$stmt = XDb::xSql(
+    'SELECT `xmlcontent`.`cache_id` `cacheid`, `xmlcontent`.`longitude` `longitude`, `xmlcontent`.`latitude` `latitude`,
+            `xmlcontent`.cache_mod_cords_id, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`,
+            `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`type` `type_id`, `caches`.`terrain` `terrain`,
+            `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`,
+            `cache_size`.`'.$lang.'` `size`, `cache_type`.`'.$lang.'` `type`, `cache_status`.`'.$lang.'` `status`,
+            `user`.`username` `username`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`,
+            `cache_desc`.`hint` `hint`, `cache_desc`.`desc_html` `html`, `xmlcontent`.`distance` `distance`
+    FROM `xmlcontent`, `caches`, `user`, `cache_desc`, `cache_type`, `cache_status`, `cache_size`
+    WHERE `xmlcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id`
+        AND `caches`.`default_desclang`=`cache_desc`.`language`
+        AND `xmlcontent`.`user_id`=`user`.`user_id` AND `caches`.`type`=`cache_type`.`id`
+        AND `caches`.`status`=`cache_status`.`id` AND `caches`.`size`=`cache_size`.`id`');
 
-while($r = $dbcSearch->dbResultFetch()) {
+while($r = XDb::xFetchArray($stmt) ) {
     if (@$enable_cache_access_logs) {
-        if (!isset($dbc)) {
-            $dbc = new dataBase();
-        }
+
+        $dbc = OcDb::instance();
+
         $cache_id = $r['cacheid'];
         $user_id = $usr !== false ? $usr['userid'] : null;
         $access_log = @$_SESSION['CACHE_ACCESS_LOG_VC_'.$user_id];
@@ -225,13 +242,8 @@ while($r = $dbcSearch->dbResultFetch()) {
 
     echo $thisline;
 }
-$dbcSearch->reset();
-unset($dbc);
 $dbcSearch->simpleQuery('DROP TABLE `xmlcontent` ');
-$dbcSearch->reset();
-if ($sqldebug == true) {
-    sqldbg_end();
-}
+
 echo "</result>\n";
 
 exit;
@@ -277,4 +289,4 @@ function filterevilchars($str)
     $str = preg_replace('/[[:cntrl:]]/', '', $str);
     return $str;
 }
-?>
+

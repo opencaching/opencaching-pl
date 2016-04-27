@@ -1,7 +1,7 @@
 <?php
 
+use Utils\Database\OcDb;
 $rootpath = '../';
-require_once($rootpath . 'lib/clicompatbase.inc.php');
 require_once __DIR__ . '/../lib/ClassPathDictionary.php';
 
 class RepairUserScores
@@ -9,8 +9,7 @@ class RepairUserScores
 
     function run()
     {
-        $db = new dataBase();
-        $db->switchDebug(false);
+        $db = OcDb::instance();
 
         $sql = "SELECT user_id FROM user where user_id >= 0 ";
 
@@ -22,8 +21,9 @@ class RepairUserScores
         }
 
 
-        $db->paramQuery($sql, $params);
-        $users = $db->dbResultFetchAll();
+        $s = $db->paramQuery($sql, $params);
+        $users = $db->dbResultFetchAll($s);
+
         set_time_limit(3600);
         $total_touched = 0;
         foreach ($users as $user) {
@@ -85,15 +85,14 @@ class RepairUserScores
             $params['new_cache_watches']['data_type'] = 'integer';
             $params['user_id']['value'] = intval($user_id);
             $params['user_id']['data_type'] = 'integer';
-            $db->paramQuery($sql, $params);
-            if ($db->rowCount() > 0) {
+            $s = $db->paramQuery($sql, $params);
+            if ($db->rowCount($s) > 0) {
                 echo "<b>user_id=$user_id</b><br>";
                 echo "hidden_count=$hidden_count<br>cache_ignores=$cache_ignores<br>";
                 echo "log_notes_count=$log_notes_count<br>founds_count=$founds_count<br>";
                 echo "notfounds_count=$notfounds_count<br>cache_watches=$cache_watches<br>";
                 $total_touched++;
             }
-            $db->closeCursor();
         }
 
         set_time_limit(60);
@@ -105,4 +104,4 @@ class RepairUserScores
 
 $rus = new RepairUserScores();
 $rus->run();
-?>
+

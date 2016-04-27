@@ -2,8 +2,9 @@
 
 namespace lib\Objects\Medals;
 
-use \lib\Database\DataBaseSingleton;
+
 use \lib\Objects\User\User;
+use Utils\Database\OcDb;
 /**
  * Description of medalGeographical
  * @author Łza
@@ -47,15 +48,15 @@ class MedalCachefound extends Medal implements MedalInterface
 
     private function getFoundCacheCount(User $user)
     {
-        $db = DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $query = "SELECT count(id) as cacheCount FROM cache_logs, caches "
                 . "WHERE cache_logs.cache_id = caches.cache_id "
                 . "AND cache_logs.user_id = :1 "
                 . "AND cache_logs.type = :2 "
                 . "AND cache_logs.date > :3 "
                 . "AND caches.type IN (" . $this->buildCacheTypesSqlString() . ")";
-        $db->multiVariableQuery($query, $user->getUserId(), $this->conditions['logType'], $this->dateIntroduced);
-        $dbResult = $db->dbResultFetchOneRowOnly();
+        $s = $db->multiVariableQuery($query, $user->getUserId(), $this->conditions['logType'], $this->dateIntroduced);
+        $dbResult = $db->dbResultFetchOneRowOnly($s);
         return $dbResult['cacheCount'];
     }
 
@@ -64,9 +65,9 @@ class MedalCachefound extends Medal implements MedalInterface
         $query = 'SELECT count(caches.cache_id) as cacheCount FROM `caches` '
                 . 'WHERE `caches`.`user_id` = :1 AND `caches`.`status` IN ( :2 ) AND `caches`.`date_created` > :3 '
                 . 'AND `caches`.`type` IN ( :4 ) ';
-        $db = DataBaseSingleton::Instance();
-        $db->multiVariableQuery($query, $user->getUserId(), $this->buildCacheStatusSqlString(), $this->dateIntroduced, $this->buildCacheTypesSqlString() );
-        $dbResult = $db->dbResultFetchOneRowOnly();
+        $db = OcDb::instance();
+        $s = $db->multiVariableQuery($query, $user->getUserId(), $this->buildCacheStatusSqlString(), $this->dateIntroduced, $this->buildCacheTypesSqlString() );
+        $dbResult = $db->dbResultFetchOneRowOnly($s);
         return $dbResult['cacheCount'];
     }
 

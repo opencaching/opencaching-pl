@@ -17,6 +17,8 @@ global $lang, $rootpath, $usr, $absolute_server_URI, $cookie;
 //prepare the templates and include all neccessary
 require_once('lib/common.inc.php');
 $ocConfig = \lib\Objects\OcConfig\OcConfig::instance();
+$appContainer = lib\Objects\ApplicationContainer::Instance();
+
 require_once('lib/cache.php');
 require_once(__DIR__ . '/lib/cachemap3lib.inc.php');
 
@@ -185,7 +187,7 @@ if ($error == false) {
             }
 
             $userIsOwner = $powerTrail->isUserOwner($usr['userid']);
-            if ($powerTrail->getStatus() == 1 || $userIsOwner) {
+            if ($powerTrail->getStatus() == 1 || $userIsOwner || ($appContainer->getLoggedUser() !== false && $appContainer->getLoggedUser()->getIsAdmin())) {
                 $ptTypesArr = powerTrailBase::getPowerTrailTypes();
                 $ptStatusArr = powerTrailBase::getPowerTrailStatus();
                 $foundCachsByUser = $powerTrail->getFoundCachsByUser($usr['userid']);
@@ -444,7 +446,11 @@ function displayPtTypesSelector($htmlid, $selectedId = 0, $witchZeroOption = fal
 
 function displayPtCommentsSelector($htmlid, \lib\Objects\PowerTrail\PowerTrail $powerTrail, $selectedId = 0, $usr = null)
 {
-    $cachesFoundByUser = $powerTrail->getFoundCachsByUser($usr['userid']);
+    $appContainer = lib\Objects\ApplicationContainer::Instance();
+    if($appContainer->getLoggedUser() === false){
+        return '';
+    }
+    $cachesFoundByUser = $powerTrail->getFoundCachsByUser($appContainer->getLoggedUser()->getUserId());
     $percetDemand = $powerTrail->getPerccentRequired();
     $ptId = $powerTrail->getId();
     if ($powerTrail->getCacheCount() != 0) {
@@ -452,25 +458,35 @@ function displayPtCommentsSelector($htmlid, \lib\Objects\PowerTrail\PowerTrail $
     } else {
         $percentUserFound = 0;
     }
-    $commentsArr = powerTrailBase::getPowerTrailComments();
+    $commentsArr = lib\Controllers\PowerTrailController::getEntryTypes();
+
     $ptOwners = powerTrailBase::getPtOwners($ptId);
     $selector = '<select id="' . $htmlid . '" name="' . $htmlid . '">';
+
+
     foreach ($commentsArr as $id => $type) {
         if ($id == 2) {
-            if ($percentUserFound < $percetDemand || powerTrailBase::checkUserConquestedPt($_SESSION['user_id'], $ptId) > 0) {
+            if ($percentUserFound < $percetDemand || powerTrailBase::checkUserConquestedPt($appContainer->getLoggedUser()->getUserId(), $ptId) > 0) {
                 continue;
             }
             $selected = 'selected="selected"';
         }
 
-        if (!isset($ptOwners[$usr['userid']]) && ($id == 3 || $id == 4 || $id == 5)) {
+        if (!isset($ptOwners[$appContainer->getLoggedUser()->getUserId()]) && ($id == 3 || $id == 4 || $id == 5)) {
+            continue;
+        }
+        if($id === \lib\Objects\PowerTrail\Log::TYPE_ADD_WARNING && $appContainer->getLoggedUser()->getIsAdmin() === false){
             continue;
         }
 
-        if (!isset($selected))
+        if (!isset($selected)){
             $selected = '';
-        if ($selectedId == $id)
+        }
+        if ($selectedId == $id){
             $selected = 'selected';
+        }
+
+
         $selector .= '<option value="' . $id . '" ' . $selected . '>' . tr($type['translate']) . '</option>';
         unset($selected);
     }

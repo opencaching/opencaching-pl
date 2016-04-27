@@ -1,8 +1,8 @@
 <?php
 
+use Utils\Database\OcDb;
 global $dateFormat;
 require_once ('./lib/common.inc.php');
-db_disconnect();
 
 //Preprocessing
 if ($error == false) {
@@ -13,17 +13,22 @@ if ($error == false) {
     } else {
         $tplname = 'logmap';
 
-        $db = new dataBase;
-        $query = "SELECT `cache_logs`.`id` FROM `cache_logs`, `caches` WHERE `cache_logs`.`cache_id`=`caches`.`cache_id` AND `cache_logs`.`deleted`=0 AND `caches`.`status` IN (1, 2, 3) AND `cache_logs`.`type` IN (1,2,3,4,5) ORDER BY  `cache_logs`.`date_created` DESC LIMIT 100";
-        $db->simpleQuery($query);
-        $cacheLogsCount = $db->rowCount();
+        $db = OcDb::instance();
+        $s = $db->simpleQuery(
+            "SELECT `cache_logs`.`id` FROM `cache_logs`, `caches`
+            WHERE `cache_logs`.`cache_id`=`caches`.`cache_id`
+                AND `cache_logs`.`deleted`=0 AND `caches`.`status` IN (1, 2, 3)
+                AND `cache_logs`.`type` IN (1,2,3,4,5)
+            ORDER BY  `cache_logs`.`date_created` DESC
+            LIMIT 100");
+        $cacheLogsCount = $db->rowCount($s);
 
         $log_ids = '';
         if ($cacheLogsCount == 0)
             $log_ids = '0';
 
         for ($i = 0; $i < $cacheLogsCount; $i++) {
-            $record = $db->dbResultFetch();
+            $record = $db->dbResultFetch($s);
             if ($i > 0) {
                 $log_ids .= ', ' . $record['id'];
             } else {
@@ -31,28 +36,22 @@ if ($error == false) {
             }
         }
 
-        $query = "SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
-                         cache_logs.type AS log_type,
-                         cache_logs.date AS log_date,
-                         cache_logs.user_id AS luser_id,
-                         caches.name AS cache_name,
-                         caches.wp_oc AS wp,
-                         user.username AS username,
-                         `caches`.`latitude` `latitude`,
-                         `caches`.`longitude` `longitude`,
-                         caches.type AS cache_type,
-                         cache_type.icon_small AS cache_icon_small,
-                         log_types.icon_small AS icon_small
-                         FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id)
-                         WHERE cache_logs.deleted=0 AND cache_logs.id IN ( $log_ids )
-                         AND cache_logs.cache_id=caches.cache_id
-                         AND caches.status<> 4 AND caches.status<> 5 AND caches.status<> 6
-                         GROUP BY cache_logs.id
-                         ORDER BY cache_logs.date_created DESC";
-        $db->simpleQuery($query);
+        $s = $db->simpleQuery(
+            "SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
+                    cache_logs.type AS log_type, cache_logs.date AS log_date,
+                    cache_logs.user_id AS luser_id, caches.name AS cache_name,
+                    caches.wp_oc AS wp, user.username AS username,
+                    `caches`.`latitude` `latitude`, `caches`.`longitude` `longitude`,
+                    caches.type AS cache_type, cache_type.icon_small AS cache_icon_small,
+                    log_types.icon_small AS icon_small
+            FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id)
+            WHERE cache_logs.deleted=0 AND cache_logs.id IN ( $log_ids )
+                AND cache_logs.cache_id=caches.cache_id
+                AND caches.status<> 4 AND caches.status<> 5 AND caches.status<> 6
+            GROUP BY cache_logs.id
+            ORDER BY cache_logs.date_created DESC");
         $point = "";
-        for ($i = 0; $i < $db->rowCount(); $i++) {
-            $record = $db->dbResultFetch();
+        while( $record = $db->dbResultFetch($s) ){
             $username = $record['username'];
             $y = $record['longitude'];
             $x = $record['latitude'];

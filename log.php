@@ -251,23 +251,28 @@ if ($error == false) {
 
             // check if geokret is in this cache
             if (isGeokretInCache($cache_id)) {
-                tpl_set_var('log_geokret', "<br /><img src=\"images/gk.png\" class=\"icon16\" alt=\"\" title=\"GeoKrety\" align=\"middle\" />&nbsp;<b>" . tr('geokret_log') . " <a href='//geokrety.org/ruchy.php'>geokrety.org</a></b>");
+                tpl_set_var('log_geokret', "<br /><img src=\"images/gk.png\" class=\"icon16\" alt=\"\" title=\"GeoKrety\" align=\"middle\" />&nbsp;<b>" . tr('geokret_log') . " <a href='http://geokrety.org/ruchy.php'>geokrety.org</a></b>");
             } else
                 tpl_set_var('log_geokret', "");
 
             /* GeoKretApi selector for logging Geokrets using GeoKretyApi */
             $dbConWpt = OcDb::instance();
-            $dbConWpt->paramQuery("SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` =:user_id LIMIT 1", array('user_id' => array('value' => $usr['userid'], 'data_type' => 'integer')));
+            $s = $dbConWpt->paramQuery(
+                "SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` =:user_id LIMIT 1",
+                array('user_id' => array('value' => $usr['userid'], 'data_type' => 'integer')));
 
-            if ($dbConWpt->rowCount() > 0) {
+            if ( $databaseResponse = $dbConWpt->dbResultFetchOneRowOnly($s) ) {
 
                 tpl_set_var('GeoKretyApiNotConfigured', 'none');
                 tpl_set_var('GeoKretyApiConfigured', 'block');
-                $databaseResponse = $dbConWpt->dbResultFetch();
+
                 $secid = $databaseResponse['secid'];
 
-                $dbConWpt->paramQuery("SELECT `wp_oc` FROM `caches` WHERE `cache_id` = :cache_id", array('cache_id' => array('value' => $cache_id, 'data_type' => 'integer')));
-                $cwpt = $dbConWpt->dbResultFetch();
+                $rs = $dbConWpt->paramQuery(
+                    "SELECT `wp_oc` FROM `caches` WHERE `cache_id` = :cache_id LIMIT 1",
+                    array('cache_id' => array('value' => $cache_id, 'data_type' => 'integer')));
+
+                $cwpt = $dbConWpt->dbResultFetchOneRowOnly($rs);
                 $cache_waypt = $cwpt['wp_oc'];
 
                 $GeoKretSelector = new GeoKretyApi($secid, $cache_waypt);
@@ -449,9 +454,6 @@ if ($error == false) {
                 elseif (!($log_type == 3 && $log_text == "")) {
                     if ($log_type == 1) {
                         /* GeoKretyApi: call method logging selected Geokrets  (by Łza) */
-                        if (isset($debug) && $debug) {
-                            dataBase::debugOC('#' . __line__ . ' ', $_POST);
-                        }
                         $MaxNr = isset($_POST['MaxNr']) ? (int) $_POST['MaxNr'] : 0;
                         if ($MaxNr > 0) {
                             require_once 'GeoKretyAPI.php';
@@ -474,9 +476,6 @@ if ($error == false) {
                                         'app' => 'Opencaching',
                                         'app_ver' => 'PL'
                                     );
-                                    if (isset($debug) && $debug) {
-                                        dataBase::debugOC('#' . __line__ . ' ', $GeokretyLogArray);
-                                    }
                                     $GeoKretyLogResult[$b] = $LogGeokrety->LogGeokrety($GeokretyLogArray);
                                     $b++;
                                 }
@@ -484,10 +483,6 @@ if ($error == false) {
                             $_SESSION['GeoKretyApi'] = serialize($GeoKretyLogResult);
                         }
                         unset($b);
-
-                        if (isset($debug) && $debug) {
-                            dataBase::debugOC('#' . __line__ . ' ', $GeoKretyLogResult);
-                        }
 
                         /* end calling method logging selected Geokrets with GeoKretyApi */
 
@@ -514,9 +509,9 @@ if ($error == false) {
 
                     } else {
                         XDb::xSql(
-                            "INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`,
+                            "INSERT INTO `cache_logs` (`cache_id`, `user_id`, `type`, `date`, `text`, `text_html`,
                                          `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
-                            VALUES ('', ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)",
+                            VALUES ( ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)",
                             $cache_id, $usr['userid'], $log_type, $log_date, $log_text, 1, 1, $log_uuid, $oc_nodeid);
                     }
 
@@ -524,6 +519,7 @@ if ($error == false) {
                     // insert to database.
                     // typ kesza mobilna 8, typ logu == 4
                     if ($log_type == 4 && $cache_type == 8) { // typ logu 4 - przeniesiona
+                        $doNotUpdateCoordinates = false;
                         ini_set('display_errors', 1);
                         // error_reporting(E_ALL);
                         // id of last SQL entery
@@ -586,10 +582,11 @@ if ($error == false) {
                             // dystans zostanie wpisany do bazy. w przeciwnym wypadku
                             // zmienna zostanie zastąpiona w if-ie
                             $dystans = sprintf("%.2f", calcDistance($ostatnie_dane_mobilniaka['latitude'], $ostatnie_dane_mobilniaka['longitude'], $wspolrzedneNS, $wspolrzedneWE));
-                            // check if log date is beetwen, or last
-                            if ($log_date <= $ostatnie_dane_mobilniaka['date']) {
+                            $logDatetime = new DateTime($log_date);
+                            $lastLogDateTime = new DateTime($ostatnie_dane_mobilniaka['date']);
+                            if ($logDatetime <= $lastLogDateTime) { // check if log date is beetwen, or last
                                 // find nearest log before
-
+                                $doNotUpdateCoordinates = true;
                                 $najblizszy_log_wczesniej_array = XDb::xSql(
                                     "SELECT `id`, `user_id`, `log_id`, `date`, `longitude`, `latitude`, `km`
                                      FROM  `cache_moved`
@@ -609,14 +606,6 @@ if ($error == false) {
 
                                 $najblizszy_log_pozniej = XDb::xFetchArray($najblizszy_log_pozniej);
 
-                                print 'mieszanie z datami<br>';
-                                print 'data logu: ' . $log_date
-                                        . '<br><br>ostatnia (najpozniejsza) data logu ($ostatnie_dane_mobilniaka): ' . $ostatnie_dane_mobilniaka['date']
-                                        . '<br>data wcześniejszego logu ($najblizszy_log_wczesniej): ' . $najblizszy_log_wczesniej['date']
-                                        . '<br>data późniejszego logu ($najblizszy_log_pozniej):' . $najblizszy_log_pozniej['date']
-                                ;
-
-                                // Report all PHP errors
                                 // wyliczenie zapisac w bazie dystans z obu wierszy modyfikowanych logow
                                 $najblizszy_log_wczesniej['id'];
 
@@ -639,7 +628,8 @@ if ($error == false) {
                                 $dystans = sprintf("%.2f", calcDistance($najblizszy_log_wczesniej['latitude'], $najblizszy_log_wczesniej['longitude'], $wspolrzedneNS, $wspolrzedneWE));
                             }
                         }
-                        //
+
+                        if($doNotUpdateCoordinates === false){ // update main cache coordinates
                         // insert into table cache_moved
                         XDb::xSql(
                             "INSERT INTO `cache_moved`(`id`, `cache_id`, `user_id`, `log_id`, `date`, `longitude`, `latitude`,`km`)
@@ -657,6 +647,7 @@ if ($error == false) {
                         XDb::xSql(
                             "UPDATE `cache_location` SET adm1 = ?, adm3 = ?, code1= ?, code3= ? WHERE cache_id = ? ",
                             $regiony['adm1'], $regiony['adm3'], $regiony['code1'], $regiony['code3'], $cache_id );
+                        }
                     }
                     // mobilne by Łza - koniec
                     //inc cache stat and "last found"
@@ -712,9 +703,9 @@ if ($error == false) {
 
                     // Notify OKAPI's replicate module of the change.
                     // Details: https://github.com/opencaching/okapi/issues/265
-                    require_once($rootpath . 'okapi/facade.php');
-                    \okapi\Facade::schedule_user_entries_check($cache_id, $usr['userid']);
-                    \okapi\Facade::disable_error_handling();
+//                    require_once($rootpath . 'okapi/facade.php');
+//                    \okapi\Facade::schedule_user_entries_check($cache_id, $usr['userid']);
+//                    \okapi\Facade::disable_error_handling();
 
                     //call eventhandler
                     require_once($rootpath . 'lib/eventhandler.inc.php');
@@ -735,12 +726,12 @@ if ($error == false) {
                 $res2 = XDb::xFetchArray($rs);
 
                 $db = OcDb::instance();
-                $db->multiVariableQuery(
+                $s = $db->multiVariableQuery(
                     "SELECT count(*) as eventAttended FROM `cache_logs`
                     WHERE `deleted`=0 AND user_id=:1 AND cache_id=:2 AND type = '7'",
                     $usr['userid'], $cache_id);
 
-                $eventAttended = $db->dbResultFetch();
+                $eventAttended = $db->dbResultFetchOneRowOnly($s);
 
                 /*                 * **************
                  * build logtypeoptions
@@ -888,18 +879,11 @@ if ($error == false) {
                         }
                     }
 
-
-
-
-                    if (checkField('log_types', $lang))
+                    if (isset($type[$lang])){
                         $lang_db = $lang;
-                    else
+                    } else {
                         $lang_db = "en";
-
-
-
-                    // $logtypeoptions .= '<option value="' . $type['id'] . '" >' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>' . "\n";
-
+                    }
 
                     if ($type['id'] == $log_type) {
                         $logtypeoptions .= '<option value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>' . "\n";

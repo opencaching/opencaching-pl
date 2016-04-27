@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\User\User;
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath)) {
@@ -21,17 +22,17 @@ if ($error == false) {
         if (isset($_POST['description'])) {
             $q = "UPDATE user SET description = :1 WHERE user_id=:2";
             $db->multiVariableQuery($q, strip_tags($_POST['description']), (int) $usr['userid']);
-            $db->reset();
             tpl_set_var('desc_updated', "<font color='green'>" . tr('desc_updated') . "</font>");
         }
         if (isset($_POST['submit']) && isset($_POST['bulletin']) ) {
             $q = "UPDATE user SET get_bulletin = :1 WHERE user_id = :2 ";
             $db->multiVariableQuery($q, $_POST['bulletin'], $usr['userid']);
-            $db->reset();
         }
         $q = "SELECT description, get_bulletin FROM user WHERE user_id = :1 LIMIT 1";
-        $db->multiVariableQuery($q, (int) $usr['userid']);
-        $userinfo = $db->dbResultFetchOneRowOnly();
+
+        $s = $db->multiVariableQuery($q, (int) $usr['userid']);
+        $userinfo = $db->dbResultFetchOneRowOnly($s);
+
         $description = $userinfo['description'];
         $bulletin = $userinfo['get_bulletin'];
         tpl_set_var('bulletin_label', $bulletin == 1 ? (tr('bulletin_label_yes')) : (tr('bulletin_label_no')));
@@ -54,9 +55,12 @@ if ($error == false) {
             tpl_set_var('guide_start', '<!--');
             tpl_set_var('guide_end', '-->');
         }
-        $q = "SELECT `guru`,`username`, `email`, `country`, `latitude`, `longitude`, `date_created`, `permanent_login_flag`, `power_trail_email`, `notify_radius`, `ozi_filips` FROM `user` WHERE `user_id`=:1 ";
-        $db->multiVariableQuery($q, $usr['userid']);
-        $record = $db->dbResultFetchOneRowOnly();
+
+        $s = $db->multiVariableQuery(
+            "SELECT `guru`,`username`, `email`, `country`, `latitude`, `longitude`, `date_created`, `permanent_login_flag`, `power_trail_email`, `notify_radius`, `ozi_filips` FROM `user` WHERE `user_id`=:1 ",
+            $usr['userid']);
+        $record = $db->dbResultFetchOneRowOnly($s);
+
         if ($record['guru'] == 1) {
             tpl_set_var('guides_start', '');
             tpl_set_var('guides_end', '');
@@ -78,13 +82,14 @@ if ($error == false) {
 
         /* GeoKretyApi - display if secid from geokrety is set; (by Łza) */
         $GKAPIKeyQuery = "SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` =:1";
-        $db->multiVariableQuery($GKAPIKeyQuery, $usr['userid']);
-        if ($db->rowCount() > 0) {
+        $s = $db->multiVariableQuery($GKAPIKeyQuery, $usr['userid']);
+        if ($db->rowCount($s) > 0) {
             tpl_set_var('GeoKretyApiIntegration', tr('yes'));
         } else {
             tpl_set_var('GeoKretyApiIntegration', tr('no'));
         }
-        $GKAPIKeyrecord = $db->dbResultFetchOneRowOnly();
+        $GKAPIKeyrecord = $db->dbResultFetchOneRowOnly($s);
+
         tpl_set_var('GeoKretyApiSecid', $GKAPIKeyrecord['secid']);
         if ($record['notify_radius'] + 0 > 0) {
             tpl_set_var('notify', mb_ereg_replace('{radius}', $record['notify_radius'] + 0, $notify_radius_message));
@@ -176,7 +181,7 @@ if ($error == false) {
                     tpl_set_var('notify_message', '');
 
                     //validate data
-                    $username_not_ok = mb_ereg_match(regex_username, $username) ? false : true;
+                    $username_not_ok = mb_ereg_match(User::REGEX_USERNAME, $username) ? false : true;
                     if ($username_not_ok == false) { // username should not be formatted like an email-address
                         $username_not_ok = is_valid_email_address($username) ? true : false;
                     }
@@ -269,7 +274,7 @@ if ($error == false) {
 
                     //check if username is in the DB
                     $username_exists = false;
-                    $username_not_ok = mb_ereg_match(regex_username, $username) ? false : true;
+                    $username_not_ok = mb_ereg_match(User::REGEX_USERNAME, $username) ? false : true;
                     if ($username_not_ok == false) {
                         // username should not be formatted like an email-address
                         // exception: $username == $email
@@ -279,9 +284,9 @@ if ($error == false) {
                         tpl_set_var('username_message', $error_username_not_ok);
                     } else {
                         if ($username != $usr['username']) {
-                            $q = "SELECT `username` FROM `user` WHERE `username`=:1";
-                            $db->multiVariableQuery($q, $username);
-                            if ($db->rowCount() > 0) {
+                            $q = "SELECT `username` FROM `user` WHERE `username`=:1 LIMIT 1";
+                            $s = $db->multiVariableQuery($q, $username);
+                            if ($db->rowCount($s) > 0) {
                                 $username_exists = true;
                                 tpl_set_var('username_message', $error_username_exists);
                             }
@@ -311,16 +316,13 @@ if ($error == false) {
                             /* GeoKretyApi - insert or update in DB user secid from Geokrety */
                             if (strlen($GeoKretyApiSecid) == 128) {
                                 $db->multiVariableQuery("insert into `GeoKretyAPI` (`userID`, `secid`) values (:1, :2) on duplicate key update `secid`=:2", $usr['userid'], $GeoKretyApiSecid);
-                                $db->reset();
                                 tpl_set_var('GeoKretyApiIntegration', tr('yes'));
                             } elseif ($GeoKretyApiSecid == '') {
                                 $db->multiVariableQuery("DELETE FROM `GeoKretyAPI` WHERE `userID` = :1", $usr['userid']);
-                                $db->reset();
                                 tpl_set_var('GeoKretyApiIntegration', tr('no'));
                             }
                             $q = "UPDATE `user` SET `last_modified`=NOW(), `latitude`=:2, `longitude`=:3, `pmr_flag`=:4, `country`=:5, `permanent_login_flag`=:6, `power_trail_email`=:8 , `notify_radius`=:9, `ozi_filips`=:10, `guru`=:1 WHERE `user_id`=:7";
                             $db->multiVariableQuery($q, $guide, $latitude, $longitude, 0, $country, $using_permantent_login, (int) $usr['userid'], $geoPathsEmail, $radius, $ozi_path);
-                            $db->reset();
 
                             // update user nick
                             if ($username != $usr['username']) {
@@ -455,14 +457,17 @@ if ($error == false) {
                 }
                 //Country in defaults ?
                 if (($show_all_countries == 0) && ($country != 'XX')) {
-                    $db->multiVariableQuery("SELECT `list_default_" . XDb::xEscape($lang_db) . "` FROM `countries` WHERE `short`=:1", $country);
-                    $record2 = $db->dbResultFetch();
+                    $stmt = $db->multiVariableQuery(
+                        "SELECT `list_default_" . XDb::xEscape($lang_db) . "`
+                        FROM `countries` WHERE `short`=:1 LIMIT 1", $country);
+
+                    $record2 = $db->dbResultFetchOneRowOnly($stmt);
+
                     if ($record2['list_default_' . $lang_db] == 0) {
                         $show_all_countries = 1;
                     } else {
                         $show_all_countries = 0;
                     }
-                    $db->reset();
                 }
 
                 if ($show_all_countries == 1) {

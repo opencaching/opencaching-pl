@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\OcDb;
 require_once('./lib/common.inc.php');
 require($stylepath . '/lib/icons.inc.php');
 require($stylepath . '/viewcache.inc.php');
@@ -135,7 +136,7 @@ foreach ($logEneries as $record) {
 
 
 
-    $tmplog = read_file($stylepath . '/viewcache_log.tpl.php');
+    $tmplog = file_get_contents($stylepath . '/viewcache_log.tpl.php');
 //END: same code ->viewlogs.php / viewcache.php
     $tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
     $tmplog_date = fixPlMonth(htmlspecialchars(strftime($dateformat, strtotime($record['date'])), ENT_COMPAT, 'UTF-8'));
@@ -236,17 +237,18 @@ foreach ($logEneries as $record) {
         //END: edit by FelixP - 2013'10
         $logpicturelines = '';
         $append_atag = '';
-        if (!isset($dbc)) {
-            $dbc = new dataBase();
-        }
-        $thatquery = "SELECT `url`, `title`, `uuid`, `user_id`, `spoiler` FROM `pictures` WHERE `object_id`=:1 AND `object_type`=1";
-        $dbc->multiVariableQuery($thatquery, $record['logid']);
-        $pic_count = $dbc->rowCount();
-        for ($j = 0; $j < $pic_count; $j++) {
+
+        $dbc = OcDb::instance();
+        $thatquery = "SELECT `url`, `title`, `uuid`, `user_id`, `spoiler` FROM `pictures`
+            WHERE `object_id`=:1 AND `object_type`=1";
+        $s = $dbc->multiVariableQuery($thatquery, $record['logid']);
+
+        while( $pic_record = $dbc->dbResultFetch($s)) {
+
             if (!isset($showspoiler)){
                $showspoiler = '';
             }
-            $pic_record = $dbc->dbResultFetch();
+
             $thisline = $logpictureline;
 
             if ($disable_spoiler_view && intval($pic_record['spoiler']) == 1) {  // if hide spoiler (due to user not logged in) option is on prevent viewing pic link and show alert

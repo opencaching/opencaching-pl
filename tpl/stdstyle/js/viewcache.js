@@ -1,35 +1,36 @@
 // remove log by ajax
 function rmLog(event, logId){
-    event.preventDefault();
-    $("#rmLogHrefSection-"+logId).hide();
-    $("#rmLogLoader-"+logId).show();
-    request = $.ajax({
-        url: "removelog.php",
-        type: "post",
-        dataType: 'json',
-        data:{
-                logid: logId
-        }
-    });
-    request.done(function (response, textStatus, jqXHR){
-        console.log(response);
-        if(response.removeLogResult === true){
-            var uType = $("#uType").val();
-            if(uType == 1){
-                $("#log"+logId).addClass('show_deleted');
-            } else {
-                $("#log"+logId).remove();
+    if(confirm( confirmRmLogTranslation )){
+        event.preventDefault();
+        $("#rmLogHrefSection-"+logId).hide();
+        $("#rmLogLoader-"+logId).show();
+        request = $.ajax({
+            url: "removelog.php",
+            type: "post",
+            dataType: 'json',
+            data:{
+                    logid: logId
             }
-        } else {
-           $("#rmLogHrefSection-"+logId).show();
-        }
-    });
+        });
+        request.done(function (response, textStatus, jqXHR){
+            console.log(response);
+            if(response.removeLogResult === true){
+                var uType = $("#uType").val();
+                if(uType == 1){
+                    $("#log"+logId).addClass('show_deleted');
+                } else {
+                    $("#log"+logId).remove();
+                }
+            } else {
+               $("#rmLogHrefSection-"+logId).show();
+            }
+        });
 
-    request.always(function () {
-        $("#rmLogLoader-"+logId).hide();
-        $("#rmLogHrefSection"+logId).show();
-    });
-
+        request.always(function () {
+            $("#rmLogLoader-"+logId).hide();
+            $("#rmLogHrefSection"+logId).show();
+        });
+    }
     return false;
 }
 

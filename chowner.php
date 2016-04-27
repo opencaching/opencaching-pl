@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
+
 if (!isset($rootpath))
     $rootpath = '';
 require_once('./lib/common.inc.php');
@@ -49,16 +50,16 @@ function listUserCaches($userid)
     global $db;
     // lists all approved caches belonging to user
     $q = "SELECT cache_id, name, date_hidden FROM caches WHERE user_id=:1 AND status <> 4 AND type != 10 ORDER BY " . orderBy(@$_GET['orderId']) . " " . orderType(@$_GET['orderType']);
-    $db->multiVariableQuery($q, $userid);
-    return $db->dbResultFetchAll();
+    $s = $db->multiVariableQuery($q, $userid);
+    return $db->dbResultFetchAll($s);
 }
 
 function listPendingCaches($userid)
 {
     global $db;
     $q = "SELECT cache_id, name, date_hidden FROM caches WHERE cache_id IN (SELECT cache_id FROM chowner WHERE user_id = :1)";
-    $db->multiVariableQuery($q, $userid);
-    return $db->dbResultFetchAll();
+    $s = $db->multiVariableQuery($q, $userid);
+    return $db->dbResultFetchAll($s);
 }
 
 function getUsername($userid)
@@ -105,9 +106,8 @@ function isUserOwner($userid, $cacheid)
 
 function doesUserExist($username)
 {
-    global $db;
-    $q = "SELECT user_id FROM user WHERE username=:1";
-    return $db->multiVariableQueryValue($q, 0, $username);
+    return XDb::xMultiVariableQueryValue(
+        "SELECT user_id FROM user WHERE username= :1 ", 0, $username);
 }
 
 function isRequestPending($cacheid)
@@ -148,14 +148,21 @@ if ($error == false && isset($usr['userid'])) {
     tpl_set_var('cacheList', "");
 
     // wybor wlasciciela - mozna zmieniac tylko swoje skrzynki... chyba, ze jest sie czlonkiem oc team
-    if (isset($_GET['cacheid']) && (isUserOwner($usr['userid'], $_GET['cacheid']) && !isset($_GET['abort']) && !isset($_GET['accept']))) {
+    if (
+        isset($_GET['cacheid']) &&
+        ( isUserOwner( $usr['userid'], $_GET['cacheid'] ) &&
+        !isset($_GET['abort']) && !isset($_GET['accept']))) {
+
         tpl_set_var('cachename', getCacheName($_GET['cacheid']));
         tpl_set_var('cacheid', $_GET['cacheid']);
         $tplname = "chowner_chooseuser";
     } else {
+
+        //change of the owner accepted
         if (isset($_GET['accept']) && $_GET['accept'] == 1) {
             $q = "SELECT count(id) FROM chowner WHERE cache_id = :1 AND user_id = :2";
             $potwierdzenie = $db->multiVariableQueryValue($q, 0, $_GET['cacheid'], $usr['userid']);
+
             if ($potwierdzenie > 0) {
                 // zmiana wlasciciela
                 tpl_set_var("error_msg", tr('adopt_30'));
@@ -223,11 +230,13 @@ if ($error == false && isset($usr['userid'])) {
                 mb_send_mail_2(getUserEmail($oldOwnerId), tr('adopt_18'), $mailContent, emailHeaders());
             }
         }
+
+        //change of the owner refused
         if (isset($_GET['accept']) && $_GET['accept'] == 0) {
             // odrzucenie zmiany
             $q = "DELETE FROM chowner WHERE cache_id = :1 AND user_id = :2";
-            $db->multiVariableQuery($q, $_GET['cacheid'], $usr['userid']);
-            if ($db->rowCount() > 0) {
+            $s = $db->multiVariableQuery($q, $_GET['cacheid'], $usr['userid']);
+            if ($db->rowCount($s) > 0) {
                 tpl_set_var("info_msg", tr('adopt_27') . '<br /><br />');
                 $mailContent = tr('adopt_29');
                 $mailContent = str_replace('\n', "\n", $mailContent);
@@ -238,11 +247,12 @@ if ($error == false && isset($usr['userid'])) {
                 tpl_set_var("error_msg", tr('adopt_30') . '<br /><br />');
         }
 
+
         if (isset($_GET['abort']) && isUserOwner($usr['userid'], $_GET['cacheid'])) {
             // anulowanie procedury przejecia
             $q = "DELETE FROM chowner WHERE cache_id = :1";
-            $db->multiVariableQuery($q, $_GET['cacheid']);
-            if ($db->rowCount() > 0)
+            $s = $db->multiVariableQuery($q, $_GET['cacheid']);
+            if ($db->rowCount($s) > 0)
                 tpl_set_var('info_msg', " " . tr('adopt_16') . " <br /><br />");
             else
                 tpl_set_var('error_msg', " " . tr('adopt_17') . " <br /><br />");
@@ -269,15 +279,20 @@ if ($error == false && isset($usr['userid'])) {
             tpl_set_var('acceptList', $acceptList);
         }
 
+        //user for adoption is selected
         if (isset($_POST['username'])) {
-            if (doesUserExist($_POST['username']) > 0) {
-                // przekazywanie samemu sobie
-                //if( $usr['username'] == $_POST['username'] )
-                //  tpl_set_var('error_msg', "Nie możesz przekazać skrzynki samemu sobie...<br /><br />");
-                //else
-                {
+
+            $newUserId = doesUserExist($_POST['username']);
+
+            if ( $newUserId > 0) {
+                // check if selected user not own this cache...
+                $ownerId = getCacheOwner($_REQUEST['cacheid']);
+                if( $ownerId == $newUserId ){
+                    tpl_set_var('error_msg', tr('adopt_33') . '<br /><br />');
+
+                } else {
                     // uzytkownik istnieje, mozna kontynuowac procedure
-                    $newUserId = doesUserExist($_POST['username']);
+
                     $q = "INSERT INTO chowner (cache_id, user_id) VALUES ( ?, ?)";
                     $stmt = XDb::xSql($q, $_REQUEST['cacheid'], $newUserId);
                     if (XDb::xNumRows($stmt) > 0) {
@@ -290,8 +305,8 @@ if ($error == false && isset($usr['userid'])) {
                     } else
                         tpl_set_var('error_msg', tr('adopt_22') . '<br /><br />');
                 }
-            }
-            else {
+
+            } else {
                 $message = tr('adopt_23');
                 $message = str_replace('{userName}', $_POST['username'], $message);
                 tpl_set_var('error_msg', $message . '<br /><br />');

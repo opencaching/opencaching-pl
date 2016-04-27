@@ -1,23 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: £za
- * Date: 2015-09-20
- * Time: 19:37
- */
 
 namespace lib\Objects\GeoCache;
 
-
 class Collection extends \ArrayObject
 {
-    private $isReady = false;
 
+    private $isReady = false;
     private $geocachesIdArray = array();
 
     public function append($geoCache)
     {
-        if($geoCache instanceof GeoCache){
+        if ($geoCache instanceof GeoCache) {
             parent::append($geoCache);
             $this->isReady = true;
         }
@@ -46,8 +39,6 @@ class Collection extends \ArrayObject
     {
         return $this->geocachesIdArray;
     }
-
-
 
     public function setIsReady($isReady)
     {

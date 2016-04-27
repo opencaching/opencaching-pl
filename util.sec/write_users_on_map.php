@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 global $lang, $rootpath;
 $lang = 'en';
 
@@ -10,17 +11,15 @@ if (!isset($rootpath))
 require_once($rootpath . 'lib/common.inc.php');
 require_once($rootpath . 'lib/cache_icon.inc.php');
 
-//$red2 = imagecolorallocate ($im2, 255,0,0);
-
-$rs = sql(" SELECT latitude, longitude, date_created FROM user ORDER BY `date_created`");
+$rs = XDb::xSql("SELECT latitude, longitude, date_created FROM user ORDER BY `date_created`");
 $im = imagecreatefromjpeg("mapa.jpg");
 $blue = imagecolorallocate($im, 0, 0, 255);
 $green = imagecolorallocate($im, 0, 255, 0);
 $l = 0;
-$no_users = mysql_num_rows($rs);
+$no_users = XDb::xNumRows($rs);
 for ($i = 0; $i < $no_users; $i++) {
 
-    $record = sql_fetch_array($rs);
+    $record = XDb::xFetchArray($rs);
     $long = $record['longitude'];
     $lat = $record['latitude'];
 
@@ -59,4 +58,4 @@ function latlon_to_pix($lat, $lon)
     return array("x" => round($x), "y" => round($y));
 }
 
-?>
+

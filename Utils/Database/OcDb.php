@@ -2,11 +2,10 @@
 
 namespace Utils\Database;
 use PDOException;
+use PDOStatement;
 
 class OcDb extends OcPdo
 {
-
-    protected $stmt; //internal PDOStatement
 
     const BIND_CHAR = ':'; //
 
@@ -15,20 +14,27 @@ class OcDb extends OcPdo
      * The data is returned as an array indexed by column name, as returned in your
      * SQL SELECT
      */
-    public function dbResultFetch()
+    public function dbResultFetch( PDOStatement $stmt = null )
     {
-        return $this->stmt->fetch();
+        if(!is_null($stmt)){
+            return $stmt->fetch();
+        }
+
+        $this->error('', new PDOException(__METHOD__.': call PDOstatement issue!'));
     }
 
     /**
      * for queries witch LIMIT 1 return only one row
      * and reset database class preparing it for next job.
      */
-    public function dbResultFetchOneRowOnly()
+    public function dbResultFetchOneRowOnly( PDOStatement $stmt = null )
     {
-        $result = $this->stmt->fetch();
-        $this->reset();
-        return $result;
+        if(!is_null($stmt)){
+            $result = $stmt->fetch();
+            $stmt->closeCursor();
+            return $result;
+        }
+        $this->error('', new PDOException(__METHOD__.': call PDOstatement issue!'));
     }
 
     /**
@@ -40,21 +46,28 @@ class OcDb extends OcPdo
      *
      * @return all rows from result as complex array.
      */
-    public function dbResultFetchAll()
+    public function dbResultFetchAll( PDOStatement $stmt = null )
     {
-        $result = $this->stmt->fetchAll();
-        $this->closeCursor();
-        return $result;
+        if(!is_null($stmt)){
+            $result = $stmt->fetchAll();
+            $stmt->closeCursor();
+            return $result;
+        }
+
+        $this->error('', new PDOException(__METHOD__.': call PDOstatement issue!'));
     }
 
     /**
      * This method returns the value from first column of first row in statement
      *
+     * @param PDOStatement $stmt -
      * @param unknown $default - default value to return if there is no results
      */
-    protected function dbResultFetchValue($default){
-        $row = $this->dbResultFetch();
-        $this->closeCursor();
+    protected function dbResultFetchValue( PDOStatement $stmt, $default){
+
+        $row = $this->dbResultFetch($stmt);
+        $stmt->closeCursor();
+
         if ($row) {
             $value = reset($row);
             if ($value == null){
@@ -72,9 +85,13 @@ class OcDb extends OcPdo
      * @return number of row in results (i.e. number of rows returned by SQL SELECT)
      * or the number of rows affected by the last DELETE, INSERT, or UPDATE statement
      */
-    public function rowCount()
+    public function rowCount( PDOStatement $stmt = null )
     {
-        return $this->stmt->rowCount();
+        if(!is_null($stmt)){
+            return $stmt->rowCount();
+        }
+
+        $this->error('', new PDOException(__METHOD__.': call PDOstatement issue!'));
     }
 
     /**
@@ -83,26 +100,30 @@ class OcDb extends OcPdo
      * For queries with variables use paramQery method
      *
      * @param string $query
-     * @return true, if the query succeeded; false, if there was SQL error
+     * @return PDOStatement obj, if the query succeeded; null otherwise
      */
     public function simpleQuery($query)
     {
         try {
-            $this->stmt = $this->prepare($query);
-            $this->stmt->setFetchMode(self::FETCH_ASSOC);
-            $this->stmt->execute();
+            $stmt = $this->prepare($query);
+            $stmt->setFetchMode(self::FETCH_ASSOC);
+            $stmt->execute();
 
         } catch (PDOException $e) {
 
             $this->error('Query: '.$query, $e);
-            return false;
+            return null;
         }
 
         if ($this->debug) {
             self::debugOut(__METHOD__.":\n\nQuery: ".$query);
         }
 
-        return true;
+        // -- THIS CODE WILL BE REMOVED SOON --
+            $this->stmt = $stmt;
+        // -- THIS CODE WILL BE REMOVED SOON --
+
+        return $stmt;
     }
 
     /**
@@ -116,8 +137,8 @@ class OcDb extends OcPdo
      */
     public function simpleQueryValue($query, $default)
     {
-        $this->simpleQuery($query);
-        return $this->dbResultFetchValue($default);
+        $stmt = $this->simpleQuery($query);
+        return $this->dbResultFetchValue($stmt, $default);
     }
 
 
@@ -145,55 +166,59 @@ class OcDb extends OcPdo
      * - 'large'                    Represents the SQL large object data type.
      * - 'recordset'                Represents a recordset type. Not currently supported by any drivers.
      *
-     * @return true, if the query succeeded; false, if there was SQL error
+     * @return PDOStatement obj, if the query succeeded; null otherwise
      */
     public function paramQuery(/*PHP7: string*/ $query, array $params)
     {
         try {
-            $this->stmt = $this->prepare($query);
+            $stmt = $this->prepare($query);
 
             foreach ($params as $key => $val) {
                 switch ($val['data_type']) {
                     case 'integer':
                     case 'int':
                     case 'i':
-                        $this->stmt->bindParam($key, $val['value'], self::PARAM_INT);
+                        $stmt->bindParam($key, $val['value'], self::PARAM_INT);
                         break;
                     case 'boolean':
-                        $this->stmt->bindParam($key, $val['value'], self::PARAM_BOOL);
+                        $stmt->bindParam($key, $val['value'], self::PARAM_BOOL);
                         break;
                     case 'string':
                     case 'str':
                     case 's':
-                        $this->stmt->bindParam($key, $val['value'], self::PARAM_STR);
+                        $stmt->bindParam($key, $val['value'], self::PARAM_STR);
                         break;
                     case 'null':
-                        $this->stmt->bindParam($key, $val['value'], self::PARAM_NULL);
+                        $stmt->bindParam($key, $val['value'], self::PARAM_NULL);
                         break;
                     case 'large':
-                        $this->stmt->bindParam($key, $val['value'], self::PARAM_LOB);
+                        $stmt->bindParam($key, $val['value'], self::PARAM_LOB);
                         break;
                     case 'recordset':
-                        $this->stmt->bindParam($key, $val['value'], self::PARAM_STMT);
+                        $stmt->bindParam($key, $val['value'], self::PARAM_STMT);
                         break;
                     default:
-                        return false;
+                        return null;
                 }
             }
 
-            $this->stmt->setFetchMode(self::FETCH_ASSOC);
-            $this->stmt->execute();
+            $stmt->setFetchMode(self::FETCH_ASSOC);
+            $stmt->execute();
 
         } catch (PDOException $e) {
 
             $this->error("Query:\n$query\n\nParams:\n".implode(' | ', $params), $e);
-            return false;
+            return null;
         }
         if ($this->debug) {
             self::debugOut(__METHOD__.":\n\nQuery:\n$query\n\nParams:\n".implode(' | ', $params));
         }
 
-        return true;
+        // -- THIS CODE WILL BE REMOVED SOON --
+            $this->stmt = $stmt;
+        // -- THIS CODE WILL BE REMOVED SOON --
+
+        return $stmt;
     }
 
     /**
@@ -209,8 +234,8 @@ class OcDb extends OcPdo
      */
     public function paramQueryValue($query, $default, array $params)
     {
-        $this->paramQuery($query, $params);
-        return $this->dbResultFetchValue($default);
+        $stmt = $this->paramQuery($query, $params);
+        return $this->dbResultFetchValue($stmt, $default);
     }
 
     /**
@@ -228,7 +253,7 @@ class OcDb extends OcPdo
      * multiVariableQuery($query, $param1, $param2 )
      * ----------------------------------------------------------------------------------
      *
-     * @return true, if the query succeeded; false, if there was SQL error
+     * @return PDOStatement obj, if the query succeeded; null otherwise
      */
     public function multiVariableQuery($query)
     {
@@ -242,26 +267,31 @@ class OcDb extends OcPdo
         }
 
         try {
-            $this->stmt = $this->prepare($query);
+            $stmt = $this->prepare($query);
 
             $i = 1;
             foreach($argList as $param){
                 //echo "Bind $i = $param <br/>"; //TMP_DEBUG!
-                $this->stmt->bindValue(self::BIND_CHAR . $i++, $param);
+                $stmt->bindValue(self::BIND_CHAR . $i++, $param);
             }
-            $this->stmt->setFetchMode(self::FETCH_ASSOC);
-            $this->stmt->execute();
+            $stmt->setFetchMode(self::FETCH_ASSOC);
+            $stmt->execute();
         } catch (PDOException $e) {
             //d($e); //TMP_DEBUG!
             $message = 'Query|Params: '.$query.' | '.implode(' | ', $argList);
             $this->error($message, $e);
-            return false;
+            return null;
         }
 
         if ($this->debug) {
             self::debugOut(__METHOD__.":\n\nQuery|Params: $query | ".implode(' | ', $argList));
         }
-        return true;
+
+        // -- THIS CODE WILL BE REMOVED SOON --
+        $this->stmt = $stmt;
+        // -- THIS CODE WILL BE REMOVED SOON --
+
+        return $stmt;
     }
 
 
@@ -296,35 +326,11 @@ class OcDb extends OcPdo
         }
 
         //more params - remove first two from argList and call...
-        $this->multiVariableQuery($query, $argList);
+        $stmt = $this->multiVariableQuery($query, $argList);
 
-        return $this->dbResultFetchValue($default);
+        return $this->dbResultFetchValue($stmt, $default);
     }
 
-
-    /**
-     * Closes current cursor. Some methods, which drain cursor (like dbResultFetchAll())
-     * or expect only one row (like *QueryValue()) close cursor implicitly.
-     */
-    public function closeCursor()
-    {
-        try{
-
-            if(is_object($this->stmt)){
-                $this->stmt->closeCursor();
-            }
-            $this->stmt = null;
-        }catch (PDOException $e) {
-            $this->error('Unexpected error on cursor close?!', $e);
-        }
-    }
-
-    /**
-     * reset data from prevous results and make class ready for next query
-     */
-    public function reset()
-    {
-        $this->closeCursor();
-    }
 
 }
+

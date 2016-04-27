@@ -1,6 +1,8 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\User\User;
+use Utils\Database\OcDb;
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
     $rootpath = '';
@@ -27,7 +29,7 @@ if ($error == false) {
     tpl_set_var('password_message', '');
     tpl_set_var('show_all_countries', 0);
 
-    $db = new dataBase();
+    $db = OcDb::instance();
     if (isset($_POST['submit']) || isset($_POST['show_all_countries_submit'])) {
         //form load setting
         $display_all_countries = $_POST['allcountries'];
@@ -43,12 +45,12 @@ if ($error == false) {
             //try to register
             //validate the entered data
             $email_not_ok = !is_valid_email_address($email);
-            $username_not_ok = mb_ereg_match(regex_username, $username) ? false : true;
+            $username_not_ok = mb_ereg_match(User::REGEX_USERNAME, $username) ? false : true;
             if ($username_not_ok == false) {
                 // username should not be formatted like an email-address
                 $username_not_ok = is_valid_email_address($username);
             }
-            $password_not_ok = mb_ereg_match(regex_password, $password) ? false : true;
+            $password_not_ok = mb_ereg_match(User::REGEX_PASSWORD, $password) ? false : true;
             $password_diffs = ($password != $password2);
 
             //check if email is in the database
@@ -85,31 +87,7 @@ if ($error == false) {
                 //generate random password
                 $activationcode = mb_strtoupper(mb_substr(md5(uniqid('')), 0, 13));
 
-                //process email
-                $email_content = read_file($stylepath . '/email/register.email');
-                $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
-                $email_content = mb_ereg_replace('{registermail01}', tr('registermail01'), $email_content);
-                $email_content = mb_ereg_replace('{registermail02}', tr('registermail02'), $email_content);
-                $email_content = mb_ereg_replace('{registermail03}', tr('registermail03'), $email_content);
-                $email_content = mb_ereg_replace('{registermail04}', tr('registermail04'), $email_content);
-                $email_content = mb_ereg_replace('{registermail05}', tr('registermail05'), $email_content);
-                $email_content = mb_ereg_replace('{registermail06}', tr('registermail06'), $email_content);
-                $email_content = mb_ereg_replace('{registermail07}', tr('registermail07'), $email_content);
-                $email_content = mb_ereg_replace('{registermail08}', tr('registermail08'), $email_content);
-                $email_content = mb_ereg_replace('{registermail09}', tr('registermail09'), $email_content);
-                $email_content = mb_ereg_replace('{registermail10}', tr('registermail10'), $email_content);
-                $email_content = mb_ereg_replace('{registermail11}', tr('registermail11'), $email_content);
-                $email_content = mb_ereg_replace('{registermail12}', tr('registermail12'), $email_content);
-                $email_content = mb_ereg_replace('{registermail13}', tr('registermail13'), $email_content);
-                $email_content = mb_ereg_replace('{registermail14}', tr('registermail14'), $email_content);
-                $email_content = mb_ereg_replace('{registermail15}', tr('registermail15'), $email_content);
-                $email_content = mb_ereg_replace('{registermail16}', tr('registermail16'), $email_content);
-                $email_content = mb_ereg_replace('{user}', $username, $email_content);
-                $email_content = mb_ereg_replace('{email}', $email, $email_content);
                 $country_name = tr($country);
-                $email_content = mb_ereg_replace('{country}', $country_name, $email_content);
-                $email_content = mb_ereg_replace('{code}', $activationcode, $email_content);
-                $email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);
 
                 $uuid = create_uuid();
                 if (strtotime("2008-11-01 00:00:00") <= strtotime(date("Y-m-d h:i:s")))
@@ -126,7 +104,7 @@ if ($error == false) {
                     $username, hash('sha512', md5($password)), // WRTODO - could be better
                     $email, $country, $uuid, $activationcode, $oc_nodeid, $rules_conf_req);
 
-                mb_send_mail($email, $register_email_subject, $email_content, $emailheaders);
+                lib\Controllers\EmailController::sendActivationLink($username, $email, $country, $activationcode, $uuid);
 
                 //display confirmationpage
                 $tplname = 'register_confirm';
@@ -181,8 +159,10 @@ if ($error == false) {
         tpl_set_var('all_countries_submit', '<input type="submit" name="show_all_countries_submit" value="' . $allcountries . '" />');
     } else {
         $query = 'SELECT `short` FROM `countries` WHERE 1 ORDER BY `short` ASC';
-        $db->simpleQuery($query);
-        $dbResult = $db->dbResultFetchAll();
+
+        $s = $db->simpleQuery($query);
+        $dbResult = $db->dbResultFetchAll($s);
+
         foreach ($dbResult as $key => $value) {
             $defaultCountryList[] = $value['short'];
         }

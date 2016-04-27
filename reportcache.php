@@ -60,7 +60,7 @@ if ($usr == true) {
                             $usr['userid'], $cacheid, strip_tags($_POST['text']), $_POST['reason']);
 
                         // wysłanie powiadomień
-                        $email_content = read_file($stylepath . '/email/newreport_octeam.email');
+                        $email_content = file_get_contents($stylepath . '/email/newreport_octeam.email');
 
                         $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
                         $email_content = mb_ereg_replace('{reportcache10}', tr('reportcache10'), $email_content);
@@ -92,9 +92,9 @@ if ($usr == true) {
                         $tplname = 'reportcache_sent_owner';
                     //get email address of cache owner
                     if ($_POST['adresat'] == "rr") {
-                        $email_content = read_file($stylepath . '/email/newreport_cacheowner.email');
+                        $email_content = file_get_contents($stylepath . '/email/newreport_cacheowner.email');
                     } else {
-                        $email_content = read_file($stylepath . '/email/newreport_cacheowneronly.email');
+                        $email_content = file_get_contents($stylepath . '/email/newreport_cacheowneronly.email');
                     }
 
                     $cache_owner = XDb::xMultiVariableQueryValue(
@@ -138,7 +138,7 @@ if ($usr == true) {
                     // send email to cache reporter
                     $emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
                     $emailheaders .= "From: " . $site_name . " <$octeam_email>\r\n";
-                    $email_content = read_file($stylepath . '/email/newreport_reporter.email');
+                    $email_content = file_get_contents($stylepath . '/email/newreport_reporter.email');
                     $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
                     $email_content = mb_ereg_replace('{reportcache10}', tr('reportcache10'), $email_content);
                     $email_content = mb_ereg_replace('{reportcache11}', tr('reportcache11'), $email_content);

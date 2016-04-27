@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\OcDb;
 require_once __DIR__.'/../lib/ClassPathDictionary.php';
 
 // sendEmailCacheCandidate.php
@@ -11,10 +12,11 @@ function emailCacheOwner($ptId, $cacheId, $linkCode){
     $owners = powerTrailBase::getPtOwners($ptId);
     $ptDbRow = powerTrailBase::getPtDbRow($ptId);
 
-    $query = 'SELECT `caches` . * , `user`.`email`, `user`.`username` FROM `caches` , `user` WHERE `cache_id` =:1 AND `caches`.`user_id` = `user`.`user_id` LIMIT 1';
-    $db = \lib\Database\DataBaseSingleton::Instance();
-    $db->multiVariableQuery($query, $cacheId);
-    $cacheData = $db->dbResultFetch();
+    $query = 'SELECT `caches` . * , `user`.`email`, `user`.`username` FROM `caches` , `user`
+        WHERE `cache_id` =:1 AND `caches`.`user_id` = `user`.`user_id` LIMIT 1';
+    $db = OcDb::instance();
+    $s = $db->multiVariableQuery($query, $cacheId);
+    $cacheData = $db->dbResultFetchOneRowOnly($s);
 
     //remove images
 
@@ -22,7 +24,7 @@ function emailCacheOwner($ptId, $cacheId, $linkCode){
     $headers .= 'Content-type: text/html; charset=UTF-8 ' . "\r\n";
     $headers .= "From: $site_name <".$octeam_email.">\r\n";
     $headers .= "Reply-To: ".$octeam_email. "\r\n";
-    $mailbody = read_file(dirname(__FILE__).'/candidateEmail.html');
+    $mailbody = file_get_contents(dirname(__FILE__).'/candidateEmail.html');
     $mailbody = mb_ereg_replace('{cacheOwnerName}', $cacheData['username'], $mailbody);
     $mailbody = mb_ereg_replace('{ptName}', $ptDbRow['name'], $mailbody);
     $mailbody = mb_ereg_replace('{ptId}', $ptId, $mailbody);

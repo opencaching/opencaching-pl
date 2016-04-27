@@ -216,7 +216,7 @@ if ($error == false && $usr['admin']) {
 
         XDb::xSql(
             "UPDATE reports SET
-                note=CONCAT('[ $now ] <b> $username /b>: $note <br />', note),
+                note=CONCAT('[ $now ] <b> $username </b>: $note <br />', note),
                 changed_by= ? , changed_date= '$now'
             WHERE id= ? ",
             $usr['userid'], intval($_REQUEST['reportid']));

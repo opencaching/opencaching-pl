@@ -1,13 +1,14 @@
 <?php
+use Utils\Database\XDb;
 
 require_once("./lib/common.inc.php");
 
-$wp = mysql_real_escape_string($_GET['wp']);
+$wp = XDb::xEscape($_GET['wp']);
 
-db_connect();
+
 $query = "select name,latitude,longitude from caches where wp_oc = '" . $wp . "'";
-$wynik = db_query($query);
-$wiersz = mysql_fetch_assoc($wynik);
+$wynik = XDb::xSql($query);
+$wiersz = XDb::xFetchArray($wynik);
 
 $name = $wiersz['name'];
 $lat = $wiersz['latitude'];

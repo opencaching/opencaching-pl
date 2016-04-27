@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\GeoCache\GeoCache;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -67,7 +68,7 @@ if ($error == false) {
 
 
                         // update cache-record, including last modification date
-                        setCacheDefaultDescLang($cache_id);
+                        GeoCache::setCacheDefaultDescLang($cache_id);
 
                         tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));
                         exit;

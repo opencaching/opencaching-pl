@@ -1,5 +1,8 @@
 <?php
 
+use Utils\Database\OcDb;
+use Utils\Database\XDb;
+
     //prepare the templates and include all neccessary
     if (!isset($rootpath)) $rootpath = '';
     require_once('./lib/common.inc.php');
@@ -10,19 +13,8 @@
     //4test
     $TestStartTime = new DateTime('now');
 
-    $dbcSearch = new dataBase();
-    $dbc = new dataBase();
-
-    // SQL-Debug?
-    $sqldebug = false;
-    $sql_debug = $sqldebug;
-
-
-    if ($sql_debug == true)
-    {
-        require_once('./lib/sqldebugger.inc.php');
-        sqldbg_begin();
-    }
+    $dbcSearch = OcDb::instance();
+    $dbc = OcDb::instance();
 
     // extract user data for KML search
     $usr = requestSigner::extract_user($usr);
@@ -60,35 +52,34 @@
             {
                 // check if query exists
                 $sqlstr="SELECT COUNT(*) `count` FROM `queries` WHERE id= :1";
-                $dbc->multiVariableQuery($sqlstr, $queryid);
-                $rCount=$dbc->dbResultFetch();
+                $s = $dbc->multiVariableQuery($sqlstr, $queryid);
+                $rCount=$dbc->dbResultFetch($s);
 
                 if ($rCount['count'] == 0)
                     $queryid = 0;
 
-                $dbc->reset();
             }
 
             if ($queryid == 0)
             {
                 // das Suchformular wird initialisiert (keine Vorbelegungen vorhanden)
                 $_REQUEST['cache_attribs'] = '';
-                $rs = sql('SELECT `id` FROM `cache_attrib` WHERE `default`=1');
-                while ($r = sql_fetch_assoc($rs))
+                $rs = XDb::xSql('SELECT `id` FROM `cache_attrib` WHERE `default`=1');
+                while ($r = XDb::xFetchArray($rs))
                 {
                     if ($_REQUEST['cache_attribs'] != '') $_REQUEST['cache_attribs'] .= ';';
                     $_REQUEST['cache_attribs'] .= $r['id'];
                 }
-                mysql_free_result($rs);
+                XDb::xFreeResults($rs);
 
                 $_REQUEST['cache_attribs_not'] = '';
-                $rs = sql('SELECT `id` FROM `cache_attrib` WHERE `default`=2');
-                while ($r = sql_fetch_assoc($rs))
+                $rs = XDb::xSql('SELECT `id` FROM `cache_attrib` WHERE `default`=2');
+                while ($r = XDb::xFetchArray($rs))
                 {
                     if ($_REQUEST['cache_attribs_not'] != '') $_REQUEST['cache_attribs_not'] .= ';';
                     $_REQUEST['cache_attribs_not'] .= $r['id'];
                 }
-                mysql_free_result($rs);
+                XDb::xFreeResults($rs);
             }
         }
         $queryid = $queryid + 0;
@@ -97,9 +88,9 @@
         {
             //load options from db
             $sqlstr = "SELECT `user_id`, `options` FROM `queries` WHERE id= :1 AND (`user_id`=0 OR `user_id`= :2)";
-            $dbc->multiVariableQuery($sqlstr, $queryid, $usr['userid']+0);
+            $s = $dbc->multiVariableQuery($sqlstr, $queryid, $usr['userid']+0);
 
-            if ($dbc->rowCount() == 0)
+            if ($dbc->rowCount($s) == 0)
             {
                 $tplname = 'error';
                 tpl_set_var('tplname', 'search.php');
@@ -109,19 +100,16 @@
             }
             else
             {
-                $record = $dbc->dbResultFetch();
+                $record = $dbc->dbResultFetch($s);
 
                 $options = unserialize($record['options']);
                 if ($record['user_id'] != 0)
                     $options['userid'] = $record['user_id'];
 
-                $dbc->reset();
-
                 $options['queryid'] = $queryid;
 
                 $sqlstr = "UPDATE `queries` SET `last_queried`=NOW() WHERE `id`= :1";
-                $dbc->multiVariableQuery($sqlstr, $queryid );
-                $dbc->reset();
+                $s = $dbc->multiVariableQuery($sqlstr, $queryid );
 
                 // Ă¤nderbare werte Ăźberschreiben
                 if (isset($_REQUEST['output']))
@@ -143,32 +131,30 @@
                 $options['finderid'] = isset($options['finderid']) ? $options['finderid'] + 0 : 0;
                 if(isset($options['finder']) && $options['finderid'] > 0)
                 {
-                    $sqlstr = "SELECT `username` FROM `user` WHERE `user_id`= :1";
-                    $dbc->multiVariableQuery($sqlstr, $options['finderid'] );
+                    $sqlstr = "SELECT `username` FROM `user` WHERE `user_id`= :1 LIMIT 1";
+                    $s = $dbc->multiVariableQuery($sqlstr, $options['finderid'] );
 
-                    if($dbc->rowCount() == 1)
+                    if($dbc->rowCount($s) == 1)
                     {
-                        $record_name = $dbc->dbResultFetch();
+                        $record_name = $dbc->dbResultFetchOneRowOnly($s);
                         $options['finder'] = $record_name['username'];
                     }
                     unset($record_name);
-                    $dbc->reset();
                 }
 
                 // ownerid in owner umsetzen
                 $options['ownerid'] = isset($options['ownerid']) ? $options['ownerid'] + 0 : 0;
                 if(isset($options['owner']) && $options['ownerid'] > 0)
                 {
-                    $sqlstr="SELECT `username` FROM `user` WHERE `user_id`= :1";
-                    $dbc->multiVariableQuery($sqlstr, $options['ownerid'] );
+                    $sqlstr="SELECT `username` FROM `user` WHERE `user_id`= :1 LIMIT 1";
+                    $s = $dbc->multiVariableQuery($sqlstr, $options['ownerid'] );
 
-                    if($dbc->rowCount() == 1)
+                    if($dbc->rowCount($s) == 1)
                     {
-                        $record_name = $dbc->dbResultFetch();
+                        $record_name = $dbc->dbResultFetchOneRowOnly($s);
                         $options['owner'] = $record_name['username'];
                     }
                     unset($record_name);
-                    $dbc->reset();
                 }
             }
         }
@@ -322,7 +308,7 @@
                 }
                 else
                 {
-                    $options['searchtype'] = 'bywaypoint';                    
+                    $options['searchtype'] = 'bywaypoint';
                     $options['waypoint'] = isset($_REQUEST['waypoint']) ? $_REQUEST['waypoint'] : '';
                 }
                 $options['waypoint'] = mb_trim($options['waypoint']);
@@ -401,14 +387,16 @@
                     if ($options['userid'] != 0){
                         $sqlstr = "UPDATE `queries` SET `options`= :1, `last_queried`=NOW() WHERE `id`= :2 AND `user_id`= :3";
                         $dbc->multiVariableQuery($sqlstr, serialize($options), $options['queryid'], $options['userid'] );
-                        $dbc->reset();
                     }
                 }
                 else
                 {
-                    sql('INSERT INTO `queries` (`user_id`, `options`, `uuid`, `last_queried`) VALUES (0, \'&1\', UUID(), NOW())', serialize($options));
-                    $options['queryid'] = mysql_insert_id();
-                    //TODO - add method lastInsertId () to dataBase
+                    XDb::xSql(
+                        'INSERT INTO `queries` (`user_id`, `options`, `uuid`, `last_queried`)
+                        VALUES (0, ?, UUID(), NOW())',
+                        serialize($options));
+
+                    $options['queryid'] = XDb::xLastInsertId();
                 }
             }
             else
@@ -422,7 +410,6 @@
         $removedate = date('Y-m-d H:i:s', time() - 3600);
         $sqlstr = "DELETE FROM `queries` WHERE `last_queried` < :1 AND `user_id`=0";
         $dbc->multiVariableQuery($sqlstr, $removedate );
-        $dbc->reset();
 
         //prepare output
         if(!isset($options['showresult'])) $options['showresult']='0';
@@ -464,7 +451,7 @@
                 {
                     $sql_select[] = '`caches`.`cache_id` `cache_id`';
                     $sql_from[] = '`caches`';
-                    $sql_where[] = '`caches`.`name` LIKE \'%' . sql_escape($options['cachename']) . '%\'';
+                    $sql_where[] = '`caches`.`name` LIKE \'%' . XDb::xEscape($options['cachename']) . '%\'';
                 }
                 elseif ($options['searchtype'] == 'byowner')
                 {
@@ -472,14 +459,14 @@
                     {
                         $sql_select[] = '`caches`.`cache_id` `cache_id`';
                         $sql_from[] = '`caches`';
-                        $sql_where[] = '`user_id`=\'' . sql_escape($options['ownerid']) . '\'';
+                        $sql_where[] = '`user_id`=\'' . XDb::xEscape($options['ownerid']) . '\'';
                     }
                     else
                     {
                         $sql_select[] = '`caches`.`cache_id` `cache_id`';
                         $sql_from[] = '`caches`, `user`';
                         $sql_where[] = '`caches`.`user_id`=`user`.`user_id`';
-                        $sql_where[] = '`user`.`username`=\'' . sql_escape($options['owner']) . '\'';
+                        $sql_where[] = '`user`.`username`=\'' . XDb::xEscape($options['owner']) . '\'';
                     }
                 }
                 elseif (($options['searchtype'] == 'byplz') || ($options['searchtype'] == 'byort'))
@@ -492,28 +479,23 @@
                         {
                             $plz = $options['plz'];
 
-                            $sqlstr = "SELECT `loc_id` FROM `geodb_textdata` WHERE `text_type`=500300000 AND `text_val`= :1 ";
-                            $dbc->multiVariableQuery($sqlstr, sql_escape($plz) );
-                            if ($dbc->rowCount() == 0)
+                            $sqlstr = "SELECT `loc_id` FROM `geodb_textdata` WHERE `text_type`=500300000 AND `text_val`= :1 LIMIT 1";
+                            $s = $dbc->multiVariableQuery($sqlstr, XDb::xEscape($plz) );
+                            if ($dbc->rowCount($s) == 0)
                             {
                                 $options['error_plz'] = true;
                                 outputSearchForm($options);
-                                unset($dbc);
-                                unset($dbcSearch);
                                 exit;
                             }
-                            elseif ($dbc->rowCount() == 1)
+                            elseif ($dbc->rowCount($s) == 1)
                             {
-                                $r = $dbc->dbResultFetch();
+                                $r = $dbc->dbResultFetchOneRowOnly($s);
                                 $locid = $r['loc_id'];
-                                $dbc->reset();
                             }
                             else
                             {
                                 // ok, viele locations ... alle auflisten ...
                                 outputLocidSelectionForm($sqlstr, $options);
-                                unset($dbc);
-                                unset($dbcSearch);
                                 exit;
                             }
                         }
@@ -521,13 +503,13 @@
                         // ok, wir haben einen ort ... koordinaten ermitteln
                         $locid = $locid + 0;
 
-                        $sqlstr = "SELECT `lon`, `lat` FROM `geodb_coordinates` WHERE `loc_id`= :1 AND coord_type=200100000";
-                        $dbc->multiVariableQuery($sqlstr, $locid );
+                        $sqlstr = "SELECT `lon`, `lat` FROM `geodb_coordinates` WHERE `loc_id`= :1 AND coord_type=200100000 LIMIT 1";
+                        $s = $dbc->multiVariableQuery($sqlstr, $locid );
 
-                        if ( $dbc->rowCount() )
-                        {
+                        if ( $dbc->rowCount($s) ){
+
                             // ok ... wir haben koordinaten ...
-                            $r = $dbc->dbResultFetch();
+                            $r = $dbc->dbResultFetch($s);
 
                             $lat = $r['lat'] + 0;
                             $lon = $r['lon'] + 0;
@@ -569,7 +551,6 @@
                             $sql_from[] = '`result_caches`, `caches`';
                             $sql_where[] = '`caches`.`cache_id`=`result_caches`.`cache_id`';
 
-                            $dbc->reset();
                         }
                         else
                         {
@@ -588,7 +569,8 @@
 
                             $ort = trim($options['ort']);
                             $simpletexts = search_text2sort($ort);
-                            $simpletextsarray = explode_multi($simpletexts, ' -/,');
+
+                            $simpletextsarray = mb_split(' |-|/|,', $simpletexts);
 
                             $sqlhashes = '';
                             $wordscount = 0;
@@ -612,67 +594,61 @@
                             }
 
                             // temporĂ¤re tabelle erstellen und dann eintrĂ¤ge entfernen, die nicht mindestens so oft vorkommen wie worte gegeben wurden
-                            sql('CREATE TEMPORARY TABLE tmpuniids (`uni_id` int(11) NOT NULL, `cnt` int(11) NOT NULL, `olduni` int(11) NOT NULL, `simplehash` int(11) NOT NULL) ENGINE=MEMORY SELECT `gns_search`.`uni_id` `uni_id`, 0 `cnt`, 0 `olduni`, `simplehash` FROM `gns_search` WHERE ' . $sqlhashes);
-                            sql('ALTER TABLE `tmpuniids` ADD INDEX (`uni_id`)');
+                            XDb::xSql('CREATE TEMPORARY TABLE tmpuniids (`uni_id` int(11) NOT NULL, `cnt` int(11) NOT NULL, `olduni` int(11) NOT NULL, `simplehash` int(11) NOT NULL) ENGINE=MEMORY SELECT `gns_search`.`uni_id` `uni_id`, 0 `cnt`, 0 `olduni`, `simplehash` FROM `gns_search` WHERE ' . $sqlhashes);
+                            XDb::xSql('ALTER TABLE `tmpuniids` ADD INDEX (`uni_id`)');
 //  BUGFIX: dieser Code sollte nur ausgefĂźhrt werden, wenn mehr als ein Suchbegriff eingegeben wurde
 //                  damit alle EintrĂ¤ge gefiltert, die nicht alle Suchbegriffe enthalten
 //                  nun wird dieser Quellcode auch ausgefĂźhrt, um mehrfache uni_id's zu filtern
 //          Notwendig, wenn nach Baden gesucht wird => Baden-Baden war doppelt in der Liste
 //                          if ($wordscount > 1)
 //                          {
-                                sql('CREATE TEMPORARY TABLE `tmpuniids2` (`uni_id` int(11) NOT NULL, `cnt` int(11) NOT NULL, `olduni` int(11) NOT NULL) ENGINE=MEMORY SELECT `uni_id`, COUNT(*) `cnt`, 0 olduni FROM `tmpuniids` GROUP BY `uni_id` HAVING `cnt` >= ' . $wordscount);
-                                sql('ALTER TABLE `tmpuniids2` ADD INDEX (`uni_id`)');
-                                sql('DROP TABLE `tmpuniids`');
-                                sql('ALTER TABLE `tmpuniids2` RENAME `tmpuniids`');
+                                XDb::xSql('CREATE TEMPORARY TABLE `tmpuniids2` (`uni_id` int(11) NOT NULL, `cnt` int(11) NOT NULL, `olduni` int(11) NOT NULL) ENGINE=MEMORY SELECT `uni_id`, COUNT(*) `cnt`, 0 olduni FROM `tmpuniids` GROUP BY `uni_id` HAVING `cnt` >= ' . $wordscount);
+                                XDb::xSql('ALTER TABLE `tmpuniids2` ADD INDEX (`uni_id`)');
+                                XDb::xSql('DROP TABLE `tmpuniids`');
+                                XDb::xSql('ALTER TABLE `tmpuniids2` RENAME `tmpuniids`');
 //                          }
 
 //    add: SELECT g2.uni FROM `tmpuniids` JOIN gns_locations g1 ON tmpuniids.uni_id=g1.uni JOIN gns_locations g2 ON g1.ufi=g2.ufi WHERE g1.nt!='N' AND g2.nt='N'
 // remove: SELECT g1.uni FROM `tmpuniids` JOIN gns_locations g1 ON tmpuniids.uni_id=g1.uni JOIN gns_locations g2 ON g1.ufi=g2.ufi WHERE g1.nt!='N' AND g2.nt='N'
 
                             // und jetzt noch alle englischen bezeichnungen durch deutsche ersetzen (wo mĂśglich) ...
-                            sql('CREATE TEMPORARY TABLE `tmpuniidsAdd` (`uni` int(11) NOT NULL, `olduni` int(11) NOT NULL, PRIMARY KEY  (`uni`)) ENGINE=MEMORY SELECT g2.uni uni, g1.uni olduni FROM `tmpuniids` JOIN gns_locations g1 ON tmpuniids.uni_id=g1.uni JOIN gns_locations g2 ON g1.ufi=g2.ufi WHERE g1.nt!=\'N\' AND g2.nt=\'N\' GROUP BY uni');
-                            sql('CREATE TEMPORARY TABLE `tmpuniidsRemove` (`uni` int(11) NOT NULL, PRIMARY KEY  (`uni`)) ENGINE=MEMORY SELECT DISTINCT g1.uni uni FROM `tmpuniids` JOIN gns_locations g1 ON tmpuniids.uni_id=g1.uni JOIN gns_locations g2 ON g1.ufi=g2.ufi WHERE g1.nt!=\'N\' AND g2.nt=\'N\'');
-                            sql('DELETE FROM tmpuniids WHERE uni_id IN (SELECT uni FROM tmpuniidsRemove)');
-                            sql('DELETE FROM tmpuniidsAdd WHERE uni IN (SELECT uni_id FROM tmpuniids)');
-                            sql('INSERT INTO tmpuniids (uni_id, olduni) SELECT uni, olduni FROM tmpuniidsAdd');
-                            sql('DROP TABLE tmpuniidsAdd');
-                            sql('DROP TABLE tmpuniidsRemove');
+                            XDb::xSql('CREATE TEMPORARY TABLE `tmpuniidsAdd` (`uni` int(11) NOT NULL, `olduni` int(11) NOT NULL, PRIMARY KEY  (`uni`)) ENGINE=MEMORY SELECT g2.uni uni, g1.uni olduni FROM `tmpuniids` JOIN gns_locations g1 ON tmpuniids.uni_id=g1.uni JOIN gns_locations g2 ON g1.ufi=g2.ufi WHERE g1.nt!=\'N\' AND g2.nt=\'N\' GROUP BY uni');
+                            XDb::xSql('CREATE TEMPORARY TABLE `tmpuniidsRemove` (`uni` int(11) NOT NULL, PRIMARY KEY  (`uni`)) ENGINE=MEMORY SELECT DISTINCT g1.uni uni FROM `tmpuniids` JOIN gns_locations g1 ON tmpuniids.uni_id=g1.uni JOIN gns_locations g2 ON g1.ufi=g2.ufi WHERE g1.nt!=\'N\' AND g2.nt=\'N\'');
+                            XDb::xSql('DELETE FROM tmpuniids WHERE uni_id IN (SELECT uni FROM tmpuniidsRemove)');
+                            XDb::xSql('DELETE FROM tmpuniidsAdd WHERE uni IN (SELECT uni_id FROM tmpuniids)');
+                            XDb::xSql('INSERT INTO tmpuniids (uni_id, olduni) SELECT uni, olduni FROM tmpuniidsAdd');
+                            XDb::xSql('DROP TABLE tmpuniidsAdd');
+                            XDb::xSql('DROP TABLE tmpuniidsRemove');
 
-                            $rs = sql('SELECT `uni_id` FROM tmpuniids');
-                            if (mysql_num_rows($rs) == 0)
+                            $rs = XDb::xSql('SELECT `uni_id` FROM tmpuniids');
+                            if (XDb::xNumRows($rs) == 0)
                             {
-                                mysql_free_result($rs);
+                                XDb::xFreeResults($rs);
 
                                 $options['error_ort'] = true;
                                 outputSearchForm($options);
-                                unset($dbc);
-                                unset($dbcSearch);
                                 exit;
                             }
-                            elseif (mysql_num_rows($rs) == 1)
+                            elseif (XDb::xNumRows($rs) == 1)
                             {
-                                $r = sql_fetch_array($rs);
-                                mysql_free_result($rs);
+                                $r = XDb::xFetchArray($rs);
+                                XDb::xFreeResults($rs);
 
                                 // wenn keine 100%ige Ăźbereinstimmung nochmals anzeigen
                                 $locid = $r['uni_id'] + 0;
                                 $sqlstr = "SELECT `full_name` FROM `gns_locations` WHERE `uni`= :1 LIMIT 1";
-                                $dbc->multiVariableQuery($sqlstr, $locid );
-                                $rCmp = $dbc->dbResultFetch();
+                                $s = $dbc->multiVariableQuery($sqlstr, $locid );
+                                $rCmp = $dbc->dbResultFetchOneRowOnly($s);
 
                                 if (mb_strtolower($rCmp['full_name']) != mb_strtolower($ort))
                                 {
                                     outputUniidSelectionForm('SELECT `uni_id`, `olduni` FROM `tmpuniids`', $options);
                                 }
-
-                                $dbc->reset();
                             }
                             else
                             {
-                                mysql_free_result($rs);
+                                XDb::xFreeResults($rs);
                                 outputUniidSelectionForm('SELECT `uni_id`, `olduni` FROM `tmpuniids`', $options);
-                                unset($dbc);
-                                unset($dbcSearch);
                                 exit;
                             }
                         }
@@ -681,17 +657,14 @@
                         // ok, wir haben einen ort ... koordinaten ermitteln
                         $locid = $locid + 0;
                         $sqlstr="SELECT `lon`, `lat` FROM `gns_locations` WHERE `uni`= :1 LIMIT 1";
-                        $dbc->multiVariableQuery($sqlstr, $locid );
+                        $s = $dbc->multiVariableQuery($sqlstr, $locid );
 
-                        if ( $dbc->rowCount() )
-                        {
-                            $r =  $dbc->dbResultFetch();
+                        if ( $r =  $dbc->dbResultFetchOneRowOnly($s) ){
+
                             // ok ... wir haben koordinaten ...
 
                             $lat = $r['lat'] + 0;
                             $lon = $r['lon'] + 0;
-
-                            $dbc->reset();
 
                             $lon_rad = $lon * 3.14159 / 180;
                             $lat_rad = $lat * 3.14159 / 180;
@@ -736,8 +709,6 @@
                         {
                             $options['error_locidnocoords'] = true;
                             outputSearchForm($options);
-                            unset($dbc);
-                            unset($dbcSearch);
                             exit;
                         }
                     }
@@ -751,17 +722,16 @@
                     else
                     {
                         //get the userid
-                        $sqlstr = "SELECT `user_id` FROM `user` WHERE `username`= :1";
-                        $dbc->multiVariableQuery($sqlstr, $options['finder'] );
-                        $finder_record = $dbc->dbResultFetch();
+                        $sqlstr = "SELECT `user_id` FROM `user` WHERE `username`= :1 LIMIT 1";
+                        $s = $dbc->multiVariableQuery($sqlstr, $options['finder'] );
+                        $finder_record = $dbc->dbResultFetchOneRowOnly($s);
                         $finder_id = $finder_record['user_id'];
-                        $dbc->reset();
                     }
 
                     $sql_select[] = '`caches`.`cache_id` `cache_id`';
                     $sql_from[] = '`caches`, `cache_logs`';
                     $sql_where[] = '`caches`.`cache_id`=`cache_logs`.`cache_id`';
-                    $sql_where[] = '`cache_logs`.`user_id`=\'' . sql_escape($finder_id) . '\'';
+                    $sql_where[] = '`cache_logs`.`user_id`=\'' . XDb::xEscape($finder_id) . '\'';
                     $sql_where[] = '`cache_logs`.`deleted`=0';
                     if( $options['logtype'] == "" )
                         $sql_where[] = '(`cache_logs`.`type`=1 OR `cache_logs`.`type`=7)'; // found und attended
@@ -846,13 +816,13 @@
                 {
                     $sql_select[] = '`caches`.`cache_id` `cache_id`';
                     $sql_from[] = '`caches`';
-                    $sql_where[] = '`caches`.`cache_id`=\'' . sql_escape($options['cacheid']) . '\'';
+                    $sql_where[] = '`caches`.`cache_id`=\'' . XDb::xEscape($options['cacheid']) . '\'';
                 }
                 elseif ($options['searchtype'] == 'bywatched')
                 {
                     $sql_select[] = '`caches`.`cache_id` `cache_id`';
                     $sql_from[] = '`caches`';
-                    $sql_where[] = '`caches`.`cache_id` IN ( SELECT `cache_watches`.`cache_id` FROM `cache_watches` WHERE `cache_watches`.`user_id` =  \'' . sql_escape($usr['userid']) . '\' )';
+                    $sql_where[] = '`caches`.`cache_id` IN ( SELECT `cache_watches`.`cache_id` FROM `cache_watches` WHERE `cache_watches`.`user_id` =  \'' . XDb::xEscape($usr['userid']) . '\' )';
                 }
                 elseif ($options['searchtype'] == 'bylist')
                 {
@@ -861,7 +831,10 @@
                         $cache_bylist = $_REQUEST['SearchCacheID'];
                     } else
                     if (isset($options['cache_ids'])){
-                        $cache_bylist = implode(',', array_map('mysql_real_escape_string', $options['cache_ids']));
+                        foreach($options['cache_ids'] as $key=>$val ){
+                            $options['cache_ids'][$key] = XDb::xEscape($val);
+                        }
+                        $cache_bylist = implode(',', $options['cache_ids']);
                     } else
                     if (count($_SESSION['print_list']) == 0) {
                         $cache_bylist = -1;
@@ -895,7 +868,7 @@
                 {
                     $sql_select[] = '`caches`.`cache_id` `cache_id`';
                     $sql_from[] = '`caches`';
-                    $sql_where[] = '`caches`.`wp_' . sql_escape($options['waypointtype']) . '`=\'' . sql_escape($options['waypoint']) . '\'';
+                    $sql_where[] = '`caches`.`wp_' . XDb::xEscape($options['waypointtype']) . '`=\'' . XDb::xEscape($options['waypoint']) . '\'';
                 } // end added by bebe
                 elseif ($options['searchtype'] == 'bywaypointname')
                 {
@@ -903,11 +876,11 @@
                     $sql_from[] = '`caches`';
                     if ($options['waypoint'] == '')
                     {
-                        $sql_where[] = '`caches`.`name` LIKE \'%' . sql_escape($options['cachename']) . '%\'';
+                        $sql_where[] = '`caches`.`name` LIKE \'%' . XDb::xEscape($options['cachename']) . '%\'';
                     }
-                    else 
+                    else
                     {
-                        $sql_where[] = '`caches`.`name` LIKE \'%' . sql_escape($options['cachename']) . '%\' OR `caches`.`wp_' . sql_escape($options['waypointtype']) . '`=\'' . sql_escape($options['waypoint']) . '\'';
+                        $sql_where[] = '`caches`.`name` LIKE \'%' . XDb::xEscape($options['cachename']) . '%\' OR `caches`.`wp_' . XDb::xEscape($options['waypointtype']) . '`=\'' . XDb::xEscape($options['waypoint']) . '\'';
                     }
                 }
                 elseif ($options['searchtype'] == 'byfulltext')
@@ -945,7 +918,7 @@
                         if ($n > 1)
                             $sql_where[] = '`s' . ($n-1) . '`.`cache_id`=`s' . $n . '`.`cache_id`';
 
-                        $sql_where[] = '`s' . $n . '`.`hash`=\'' . sql_escape($h) . '\'';
+                        $sql_where[] = '`s' . $n . '`.`hash`=\'' . XDb::xEscape($h) . '\'';
                         $sql_where[] = '`s' . $n . '`.`object_type` IN (' . implode(',', $ft_types) . ')';
 
                         $n++;
@@ -954,12 +927,11 @@
                     $sql_from[] = '`caches`';
                     $sql_where[] = '`s1`.`cache_id`=`caches`.`cache_id`';
 
-                    $sqlFilter = 'SELECT DISTINCT ' . implode(',', $sql_select) .
+                    $queryFilter = 'SELECT DISTINCT ' . implode(',', $sql_select) .
                             ' FROM ' . implode(',', $sql_from) .
                             ' WHERE ' . implode(' AND ', $sql_where);
 
-                    $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `tmpFTCaches` (`cache_id` int (11) PRIMARY KEY) ' . $sqlFilter);
-                    $dbcSearch->reset();
+                    $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `tmpFTCaches` (`cache_id` int (11) PRIMARY KEY) ' . $queryFilter);
 
                     $sql_select = array();
                     $sql_from = array();
@@ -982,7 +954,7 @@
                 if(!isset($options['f_userfound'])) $options['f_userfound']='0';
                 if($options['f_userfound'] != 0)
                 {
-                    $sql_where[] = '`caches`.`cache_id` NOT IN (SELECT `cache_logs`.`cache_id` FROM `cache_logs` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=\'' . sql_escape($usr['userid']) . '\' AND `cache_logs`.`type` IN (1, 7))';
+                    $sql_where[] = '`caches`.`cache_id` NOT IN (SELECT `cache_logs`.`cache_id` FROM `cache_logs` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=\'' . XDb::xEscape($usr['userid']) . '\' AND `cache_logs`.`type` IN (1, 7))';
                 }
 
                 if(!isset($options['f_geokret'])) $options['f_geokret']='0';
@@ -997,25 +969,25 @@
                     if(!isset($options['f_ignored'])) $options['f_ignored']='0';
                     if($options['f_ignored'] != 0)
                     {
-                        $sql_where[] = '`caches`.`cache_id` NOT IN (SELECT `cache_ignore`.`cache_id` FROM `cache_ignore` WHERE `cache_ignore`.`user_id`=\'' . sql_escape($usr['userid']) . '\')';
+                        $sql_where[] = '`caches`.`cache_id` NOT IN (SELECT `cache_ignore`.`cache_id` FROM `cache_ignore` WHERE `cache_ignore`.`user_id`=\'' . XDb::xEscape($usr['userid']) . '\')';
                     }
                     if(!isset($options['f_watched'])) $options['f_watched']='0';
                     if($options['f_watched'] != 0)
                     {
-                        $sql_where[] = '`caches`.`cache_id` NOT IN (SELECT `cache_watches`.`cache_id` FROM `cache_watches` WHERE `cache_watches`.`user_id`=\'' . sql_escape($usr['userid']) . '\')';
+                        $sql_where[] = '`caches`.`cache_id` NOT IN (SELECT `cache_watches`.`cache_id` FROM `cache_watches` WHERE `cache_watches`.`user_id`=\'' . XDb::xEscape($usr['userid']) . '\')';
                     }
                 }
 
                 if(!isset($options['country'])) $options['country']='';
                 if($options['country'] != '')
                 {
-                    $sql_where[] = '`caches`.`country`=\'' . sql_escape($options['country']) . '\'';
+                    $sql_where[] = '`caches`.`country`=\'' . XDb::xEscape($options['country']) . '\'';
                 }
 
                 if(!isset($options['region'])) $options['region']='';
                 if($options['region'] != '')
                 {
-                    $sql_where[] = '`caches`.`cache_id` IN (SELECT `cache_location`.`cache_id` FROM `cache_location` WHERE `cache_location`.`code3`=\'' . sql_escape($options['region']) . '\')';
+                    $sql_where[] = '`caches`.`cache_id` IN (SELECT `cache_location`.`cache_id` FROM `cache_location` WHERE `cache_location`.`code3`=\'' . XDb::xEscape($options['region']) . '\')';
                 }
 
                 if(!isset($options['cachetype'])) $options['cachetype']='111111111';
@@ -1033,7 +1005,7 @@
                     }
 
                     if (count($c_type) >= 1) {
-                        $sql_where[] = '`caches`.`type` IN (' . sql_escape(implode(",", $c_type)) . ')';
+                        $sql_where[] = '`caches`.`type` IN (' . XDb::xEscape(implode(",", $c_type)) . ')';
                     }
                 }
                 if(isset($options['cache_attribs']) && count($options['cache_attribs']) > 0)
@@ -1057,7 +1029,7 @@
                         if($options['cache_attribs_not'][$i] == 99) // special password attribute case
                             $sql_where[] = '`caches`.`logpw` = ""';
                         else
-                            $sql_where[] = 'NOT EXISTS (SELECT `caches_attributes`.`cache_id` FROM `caches_attributes` WHERE `caches_attributes`.`cache_id`=`caches`.`cache_id` AND `caches_attributes`.`attrib_id`=\'' . sql_escape($options['cache_attribs_not'][$i]) . '\')';
+                            $sql_where[] = 'NOT EXISTS (SELECT `caches_attributes`.`cache_id` FROM `caches_attributes` WHERE `caches_attributes`.`cache_id`=`caches`.`cache_id` AND `caches_attributes`.`attrib_id`=\'' . XDb::xEscape($options['cache_attribs_not'][$i]) . '\')';
                     }
                 }
 
@@ -1081,9 +1053,9 @@
                 }
                 if( ( ($options['cachevote_1'] != '') && ($options['cachevote_2'] != '') ) && ( ($options['cachevote_1'] != '0') || ($options['cachevote_2'] != '6') ) && ( (!isset($options['cachenovote'])) || ($options['cachenovote'] != '1') ) )
                 {
-                    $sql_where[] = '`caches`.`score` BETWEEN \'' . sql_escape($options['cachevote_1']) . '\' AND \'' . sql_escape($options['cachevote_2']) . '\' AND `caches`.`votes` > 3';
+                    $sql_where[] = '`caches`.`score` BETWEEN \'' . XDb::xEscape($options['cachevote_1']) . '\' AND \'' . XDb::xEscape($options['cachevote_2']) . '\' AND `caches`.`votes` > 3';
                 } else if ( ($options['cachevote_1'] != '') && ($options['cachevote_2'] != '') && ( ($options['cachevote_1'] != '0') || ($options['cachevote_2'] != '6') ) && isset($options['cachenovote']) && ($options['cachenovote'] == '1') )  {
-                    $sql_where[] = '((`caches`.`score` BETWEEN \'' . sql_escape($options['cachevote_1']) . '\' AND \'' . sql_escape($options['cachevote_2']) . '\' AND `caches`.`votes` > 3) OR (`caches`.`votes` < 4))';
+                    $sql_where[] = '((`caches`.`score` BETWEEN \'' . XDb::xEscape($options['cachevote_1']) . '\' AND \'' . XDb::xEscape($options['cachevote_2']) . '\' AND `caches`.`votes` > 3) OR (`caches`.`votes` < 4))';
                 }
 
                 if(!isset($options['cachedifficulty_1']) && !isset($options['cachedifficulty_2'])) {
@@ -1092,7 +1064,7 @@
                 }
                 if((($options['cachedifficulty_1'] != '') && ($options['cachedifficulty_2'] != '')) && (($options['cachedifficulty_1'] != '1') || ($options['cachedifficulty_2'] != '5')))
                 {
-                    $sql_where[] = '`caches`.`difficulty` BETWEEN \'' . sql_escape($options['cachedifficulty_1'] * 2) . '\' AND \'' . sql_escape($options['cachedifficulty_2'] * 2) . '\'';
+                    $sql_where[] = '`caches`.`difficulty` BETWEEN \'' . XDb::xEscape($options['cachedifficulty_1'] * 2) . '\' AND \'' . XDb::xEscape($options['cachedifficulty_2'] * 2) . '\'';
                 }
 
                 if(!isset($options['cacheterrain_1']) && !isset($options['cacheterrain_2'])) {
@@ -1102,7 +1074,7 @@
 
                 if((($options['cacheterrain_1'] != '') && ($options['cacheterrain_2'] != '')) && (($options['cacheterrain_1'] != '1') || ($options['cacheterrain_2'] != '5')))
                 {
-                    $sql_where[] = '`caches`.`terrain` BETWEEN \'' . sql_escape($options['cacheterrain_1'] * 2) . '\' AND \'' . sql_escape($options['cacheterrain_2'] * 2) . '\'';
+                    $sql_where[] = '`caches`.`terrain` BETWEEN \'' . XDb::xEscape($options['cacheterrain_1'] * 2) . '\' AND \'' . XDb::xEscape($options['cacheterrain_2'] * 2) . '\'';
                 }
 
                 if($options['cacherating'] > 0) {
@@ -1114,7 +1086,7 @@
                 $group = sizeof($sql_group) ? ' GROUP BY ' . implode(', ', $sql_group) : '';
                 $having = sizeof($sql_having) ? ' HAVING ' . implode(' AND ', $sql_having) : '';
 
-                $sqlFilter = 'SELECT ' . implode(',', $sql_select) .
+                $queryFilter = 'SELECT ' . implode(',', $sql_select) .
                         ' FROM ' . implode(',', $sql_from) .
                         $join .
                         ' WHERE ' . implode(' AND ', $sql_where) .
@@ -1179,7 +1151,7 @@ function outputSearchForm($options)
     global $lang, $language, $config;
 
     //simple mode (only one easy filter)
-    $filters = read_file($stylepath . '/search.simple.tpl.php');
+    $filters = file_get_contents($stylepath . '/search.simple.tpl.php');
     tpl_set_var('filters', $filters, false);
     tpl_set_var('formmethod', 'get');
 
@@ -1386,11 +1358,11 @@ function outputSearchForm($options)
     {
         if ($usr !== false)
         {
-            $rs = sql('SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`=\'' . sql_escape($usr['userid']) . '\'');
-            $record = sql_fetch_array($rs);
+            $rs = XDb::xSql('SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`=\'' . XDb::xEscape($usr['userid']) . '\'');
+            $record = XDb::xFetchArray($rs);
             $lon = $record['longitude'];
             $lat = $record['latitude'];
-            mysql_free_result($rs);
+            XDb::xFreeResults($rs);
 
             if ($lon < 0)
             {
@@ -1501,11 +1473,11 @@ function outputSearchForm($options)
 
     //countryoptions
     $countriesoptions = $search_all_countries;
-    $rs = sql('SELECT `short` FROM `countries` WHERE `short` IN (SELECT DISTINCT `country` FROM `caches`) ');
+    $rs = XDb::xSql('SELECT `short` FROM `countries` WHERE `short` IN (SELECT DISTINCT `country` FROM `caches`) ');
 
-    for ($i = 0; $i < mysql_num_rows($rs); $i++)
+    for ($i = 0; $i < XDb::xNumRows($rs); $i++)
     {
-        $record = sql_fetch_array($rs);
+        $record = XDb::xFetchArray($rs);
         if ($record['short'] == $options['country'])
             $countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars(tr($record['short']), ENT_COMPAT, 'UTF-8') . '</option>';
         else
@@ -1524,14 +1496,14 @@ function outputSearchForm($options)
     // Typ skrzynki
     $cachetype_options = '';
                 if(checkField('cache_type',$lang) )
-                    $lang_db = $lang;
+                    $lang_db = XDb::xEscape($lang);
                 else
                     $lang_db = "en";
 
-    $rs = sql('SELECT `id`, `&1`, `icon_large` FROM `cache_type` ORDER BY `sort`', $lang_db);
-    for ($i = 0; $i < mysql_num_rows($rs); $i++)
+    $rs = XDb::xSql("SELECT `id`, `$lang_db`, `icon_large` FROM `cache_type` ORDER BY `sort`");
+    for ($i = 0; $i < XDb::xNumRows($rs); $i++)
     {
-        $record = sql_fetch_array($rs);
+        $record = XDb::xFetchArray($rs);
 
         /*
         if ($record['id'] == $options['cachetype'])
@@ -1583,14 +1555,14 @@ function outputSearchForm($options)
 
     $cachesize_options = '';
                 if(checkField('cache_size',$lang) )
-                    $lang_db = $lang;
+                    $lang_db = XDb::xEscape($lang);
                 else
                     $lang_db = "en";
 
-    $rs = sql('SELECT `id`, `&1` FROM `cache_size` ORDER BY `id`', $lang_db);
-    for ($i = 0; $i < mysql_num_rows($rs); $i++)
+    $rs = XDb::xSql("SELECT `id`, `$lang_db` FROM `cache_size` ORDER BY `id`");
+    for ($i = 0; $i < XDb::xNumRows($rs); $i++)
     {
-        $record = sql_fetch_array($rs);
+        $record = XDb::xFetchArray($rs);
 
         $cachesize_options .= '<input type="checkbox" name="cachesize_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '" value="1" id="l_cachesize_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '" class="checkbox" onclick="javascript:sync_options(this)" checked="checked" /><label for="l_cachesize_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '</label>';
 
@@ -1655,16 +1627,15 @@ function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconun
 
 
     // select attributes depend on specified language.
-    $database = new dataBase(false);
+    $database = OcDb::instance();
     $query = "SELECT `id`, `text_long`, `icon_large`, `icon_no`, `icon_undef`, `category` FROM `cache_attrib` WHERE `language` LIKE :1 ORDER BY `id`";
-    $database->multiVariableQuery($query, strtoupper($lang));
+    $s = $database->multiVariableQuery($query, strtoupper($lang));
     // if specified language is in database
-    if($database->rowCount() <= 0) {
+    if($database->rowCount($s) <= 0) {
          // if we have not specified language in db, just use english.
-        $database->multiVariableQuery($query, 'EN');
+        $s = $database->multiVariableQuery($query, 'EN');
     }
-    $rs = $database->dbResultFetchAll();
-    unset($database);
+    $rs = $database->dbResultFetchAll($s);
 
     foreach ($rs as $record)
     {
@@ -1782,16 +1753,16 @@ function outputUniidSelectionForm($uniSql, $urlparams)
     }
     $urlparamString .= '';
 
-    sql('CREATE TEMPORARY TABLE `uniids` ENGINE=MEMORY ' . $uniSql);
-    sql('ALTER TABLE `uniids` ADD PRIMARY KEY (`uni_id`)');
+    XDb::xSql('CREATE TEMPORARY TABLE `uniids` ENGINE=MEMORY ' . $uniSql);
+    XDb::xSql('ALTER TABLE `uniids` ADD PRIMARY KEY (`uni_id`)');
 
     // locidsite
     $locidsite = isset($_REQUEST['locidsite']) ? $_REQUEST['locidsite'] : 0;
     if (!is_numeric($locidsite)) $locidsite = 0;
 
-    $rsCount = sql('SELECT COUNT(*) `count` FROM `uniids`');
-    $rCount = sql_fetch_array($rsCount);
-    mysql_free_result($rsCount);
+    $rsCount = XDb::xSql('SELECT COUNT(*) `count` FROM `uniids`');
+    $rCount = XDb::xFetchArray($rsCount);
+    XDb::xFreeResults($rsCount);
 
     tpl_set_var('resultscount', $rCount['count']);
 
@@ -1840,11 +1811,11 @@ function outputUniidSelectionForm($uniSql, $urlparams)
 
     tpl_set_var('pages', $pages);
 
-    $rs = sql('SELECT `gns_locations`.`rc` `rc`, `gns_locations`.`cc1` `cc1`, `gns_locations`.`admtxt1` `admtxt1`, `gns_locations`.`admtxt2` `admtxt2`, `gns_locations`.`admtxt3` `admtxt3`, `gns_locations`.`admtxt4` `admtxt4`, `gns_locations`.`uni` `uni_id`, `gns_locations`.`lon` `lon`, `gns_locations`.`lat` `lat`, `gns_locations`.`full_name` `full_name`, `uniids`.`olduni` `olduni` FROM `gns_locations`, `uniids` WHERE `uniids`.`uni_id`=`gns_locations`.`uni` ORDER BY `gns_locations`.`full_name`, `gns_locations`.`admtxt1` ASC LIMIT ' . ($locidsite * 20) . ', 20');
+    $rs = XDb::xSql('SELECT `gns_locations`.`rc` `rc`, `gns_locations`.`cc1` `cc1`, `gns_locations`.`admtxt1` `admtxt1`, `gns_locations`.`admtxt2` `admtxt2`, `gns_locations`.`admtxt3` `admtxt3`, `gns_locations`.`admtxt4` `admtxt4`, `gns_locations`.`uni` `uni_id`, `gns_locations`.`lon` `lon`, `gns_locations`.`lat` `lat`, `gns_locations`.`full_name` `full_name`, `uniids`.`olduni` `olduni` FROM `gns_locations`, `uniids` WHERE `uniids`.`uni_id`=`gns_locations`.`uni` ORDER BY `gns_locations`.`full_name`, `gns_locations`.`admtxt1` ASC LIMIT ' . ($locidsite * 20) . ', 20');
 
     $nr = $locidsite * 20 + 1;
     $locations = '';
-    while ($r = sql_fetch_array($rs))
+    while ($r = XDb::xFetchArray($rs))
     {
         $thislocation = $locline;
 
@@ -1883,10 +1854,10 @@ function outputUniidSelectionForm($uniSql, $urlparams)
             $thissecloc = $secondlocationname;
 
             $r['olduni'] = $r['olduni'] + 0;
-            $rsSecLoc = sql('SELECT full_name FROM gns_locations WHERE uni=' . $r['olduni']);
-            $rSecLoc = sql_fetch_assoc($rsSecLoc);
+            $rsSecLoc = XDb::xSql('SELECT full_name FROM gns_locations WHERE uni=' . $r['olduni']);
+            $rSecLoc = XDb::xFetchArray($rsSecLoc);
             $thissecloc = mb_ereg_replace('{secondlocationname}', htmlspecialchars($rSecLoc['full_name'], ENT_COMPAT, 'UTF-8'), $thissecloc);
-            mysql_free_result($rsSecLoc);
+            XDb::xFreeResults($rsSecLoc);
 
             $thislocation = mb_ereg_replace('{secondlocationname}', $thissecloc, $thislocation);
         }
@@ -1906,7 +1877,7 @@ function outputUniidSelectionForm($uniSql, $urlparams)
         $nr++;
         $locations .= $thislocation . "\n";
     }
-    mysql_free_result($rs);
+    XDb::xFreeResults($rs);
 
     tpl_set_var('locations', $locations);
 
@@ -1951,14 +1922,14 @@ function outputLocidSelectionForm($locSql, $urlparams)
     }
     $urlparamString .= '&locid={locid}';
 
-    sql('CREATE TEMPORARY TABLE `locids` ENGINE=MEMORY ' . $locSql);
-    sql('ALTER TABLE `locids` ADD PRIMARY KEY (`loc_id`)');
+    XDb::xSql('CREATE TEMPORARY TABLE `locids` ENGINE=MEMORY ' . $locSql);
+    XDb::xSql('ALTER TABLE `locids` ADD PRIMARY KEY (`loc_id`)');
 
-    $rs = sql('SELECT `geodb_textdata`.`loc_id` `loc_id`, `geodb_textdata`.`text_val` `text_val` FROM `geodb_textdata`, `locids` WHERE `locids`.`loc_id`=`geodb_textdata`.`loc_id` AND `geodb_textdata`.`text_type`=500100000 ORDER BY `text_val`');
+    $rs = XDb::xSql('SELECT `geodb_textdata`.`loc_id` `loc_id`, `geodb_textdata`.`text_val` `text_val` FROM `geodb_textdata`, `locids` WHERE `locids`.`loc_id`=`geodb_textdata`.`loc_id` AND `geodb_textdata`.`text_type`=500100000 ORDER BY `text_val`');
 
     $nr = 1;
     $locations = '';
-    while ($r = sql_fetch_array($rs))
+    while ($r = XDb::xFetchArray($rs))
     {
         $thislocation = $locline;
 
@@ -1977,8 +1948,8 @@ function outputLocidSelectionForm($locSql, $urlparams)
 
         // koordinaten ermitteln
         $r['loc_id'] = $r['loc_id'] + 0;
-        $rsCoords = sql('SELECT `lon`, `lat` FROM `geodb_coordinates` WHERE loc_id=' . $r['loc_id'] . ' LIMIT 1');
-        if ($rCoords = sql_fetch_array($rsCoords))
+        $rsCoords = XDb::xSql('SELECT `lon`, `lat` FROM `geodb_coordinates` WHERE loc_id=' . $r['loc_id'] . ' LIMIT 1');
+        if ($rCoords = XDb::xFetchArray($rsCoords))
             $coordString = help_latToDegreeStr($rCoords['lat']) . ' ' . help_lonToDegreeStr($rCoords['lon']);
         else
             $coordString = '[keine Koordinaten vorhanden]';
@@ -2000,7 +1971,7 @@ function outputLocidSelectionForm($locSql, $urlparams)
     }
     tpl_set_var('locations', $locations);
 
-    tpl_set_var('resultscount', mysql_num_rows($rs));
+    tpl_set_var('resultscount', XDb::xNumRows($rs));
     tpl_set_var('pages', $first_img_inactive.' '.$prev_img_inactive.' 1 '.$next_img_inactive.' '.$last_img_inactive);
     tpl_BuildTemplate();
     exit;

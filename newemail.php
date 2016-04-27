@@ -58,7 +58,7 @@ if ($error == false) {
                         "UPDATE `user` SET `new_email_date`=?, `new_email_code`=?, `new_email`=?
                         WHERE `user_id`=?", time(), $secure_code, $new_email, $usr['userid']);
 
-                    $email_content = read_file($stylepath . '/email/newemail.email');
+                    $email_content = file_get_contents($stylepath . '/email/newemail.email');
                     $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
                     $email_content = mb_ereg_replace('{newEmailAddr_01}', tr('newEmailAddr_01'), $email_content);
                     $email_content = mb_ereg_replace('{newEmailAddr_02}', tr('newEmailAddr_02'), $email_content);

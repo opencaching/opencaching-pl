@@ -1,7 +1,11 @@
 <?php
 
 use Utils\Database\XDb;
+use Utils\Database\OcDb;
+
 //prepare the templates and include all neccessary
+global $rootpath;
+
 require_once('./lib/common.inc.php');
 require_once($rootpath . 'lib/calculation.inc.php');
 require_once('./lib/cache_icon.inc.php');
@@ -10,7 +14,9 @@ require_once($stylepath . '/lib/icons.inc.php');
 global $content, $bUseZip, $usr, $config;
 global $default_lang, $cache_attrib_jsarray_line, $cache_attrib_img_line;
 global $lang, $language, $dateFormat;
-$database = new dataBase;
+
+$database = OcDb::instance();
+
 set_time_limit(1800);
 //Preprocessing
 if ($error == false) {
@@ -36,20 +42,26 @@ if ($error == false) {
 
         tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?libraries=geometry&amp;sensor=false&amp;language=' . $lang . '" type="text/javascript"></script>');
 
-        $database->paramQuery(
-                'SELECT `user_id`,`name`, `description`, `radius`, `options` FROM `routes` WHERE `route_id`=:route_id AND `user_id`=:user_id', array('user_id' => array('value' => $user_id, 'data_type' => 'integer'),
-            'route_id' => array('value' => $route_id, 'data_type' => 'integer'))
+        $s = $database->paramQuery(
+                'SELECT `user_id`,`name`, `description`, `radius`, `options` FROM `routes`
+                WHERE `route_id`=:route_id AND `user_id`=:user_id
+                LIMIT 1',
+                array('user_id' => array('value' => $user_id, 'data_type' => 'integer'),
+                'route_id' => array('value' => $route_id, 'data_type' => 'integer'))
         );
-        $record = $database->dbResultFetch();
+        $record = $database->dbResultFetchOneRowOnly($s);
         $distance = $record['radius'];
         tpl_set_var('routes_name', $record['name']);
         tpl_set_var('distance', $record['radius']);
         tpl_set_var('routeid', $route_id);
-        $database->paramQuery(
-                'SELECT  length(`options`) `optsize`, `options` FROM `routes` WHERE `route_id`=:route_id AND `user_id`=:user_id', array('user_id' => array('value' => $user_id, 'data_type' => 'integer'),
+        $s = $database->paramQuery(
+            'SELECT  length(`options`) `optsize`, `options` FROM `routes`
+            WHERE `route_id`=:route_id AND `user_id`=:user_id
+            LIMIT 1',
+            array('user_id' => array('value' => $user_id, 'data_type' => 'integer'),
             'route_id' => array('value' => $route_id, 'data_type' => 'integer'))
         );
-        $rec = $database->dbResultFetch();
+        $rec = $database->dbResultFetchOneRowOnly($s);
         $optsize = $rec['optsize'];
 
 
@@ -217,11 +229,13 @@ if ($error == false) {
         $attributes_img = '';
         $attributesCat2_img = '';
 
-        $database->multiVariableQuery(
-                'SELECT `id`, `text_long`, `icon_large`, `icon_no`, `icon_undef`, `category` FROM `cache_attrib` WHERE `language`=:1 ORDER BY `id`', $lang_attribute
+        $s = $database->multiVariableQuery(
+            'SELECT `id`, `text_long`, `icon_large`, `icon_no`, `icon_undef`, `category`
+            FROM `cache_attrib`
+            WHERE `language`=:1 ORDER BY `id`', $lang_attribute
         );
 
-        while ($record = $database->dbResultFetch()) {
+        while ($record = $database->dbResultFetch($s)) {
 
             // icon specified
             $line = attr_jsline($cache_attrib_jsarray_line, $options, $record['id'], $record['text_long'], $record['icon_large'], $record['icon_no'], $record['icon_undef'], $record['category']);
@@ -535,16 +549,17 @@ if ($error == false) {
 
         function getPictures($cacheid, $picturescount)
         {
-            global $dblink;
             global $thumb_max_width;
             global $thumb_max_height;
 
-            $database = new dataBase;
-            $database->multiVariableQuery(
-                    'SELECT uuid, title, url, spoiler FROM pictures WHERE object_id=:1 AND object_type=2 AND display=1 ORDER BY date_created', $cacheid
+            $database = OcDb::instance();
+            $s = $database->multiVariableQuery(
+                'SELECT uuid, title, url, spoiler FROM pictures
+                WHERE object_id=:1 AND object_type=2 AND display=1
+                ORDER BY date_created', $cacheid
             );
-
-            while ($r = $database->dbResultFetch()) {
+            $retval = '';
+            while ($r = $database->dbResultFetch($s)) {
                 $retval .= '&lt;img src="' . $r['url'] . '"&gt;&lt;br&gt;' . cleanup_text($r['title']) . '&lt;br&gt;';
             }
 
@@ -580,30 +595,6 @@ if ($error == false) {
                 $content .= $str;
             else
                 echo $str;
-        }
-
-        function PlConvert($source, $dest, $tekst)
-        {
-            $source = strtoupper($source);
-            $dest = strtoupper($dest);
-            if ($source == $dest)
-                return $tekst;
-
-            $chars['POLSKAWY'] = array('a', 'c', 'e', 'l', 'n', 'o', 's', 'z', 'z', 'A', 'C', 'E', 'L', 'N', 'O', 'S', 'Z', 'Z');
-            $chars['ISO-8859-2'] = array("\xB1", "\xE6", "\xEA", "\xB3", "\xF1", "\xF3", "\xB6", "\xBC", "\xBF", "\xA1", "\xC6", "\xCA", "\xA3", "\xD1", "\xD3", "\xA6", "\xAC", "\xAF");
-            $chars['WINDOWS-1250'] = array("\xB9", "\xE6", "\xEA", "\xB3", "\xF1", "\xF3", "\x9C", "\x9F", "\xBF", "\xA5", "\xC6", "\xCA", "\xA3", "\xD1", "\xD3", "\x8C", "\x8F", "\xAF");
-            $chars['UTF-8'] = array('ą', 'ć', 'ę', 'ł', 'ń', 'ó', 'ś', 'ź', 'ż', 'Ą', 'Ć', 'Ę', 'Ł', 'Ń', 'Ó', 'Ś', 'Ź', 'Ż');
-            $chars['ENTITIES'] = array('ą', 'ć', 'ę', 'ł', 'ń', 'ó', 'ś', 'ź', 'ż', 'Ą', 'Ć', 'Ę', 'Ł', 'Ń', 'Ó', 'Ś', 'Ź', 'Ż');
-
-            if (!isset($chars[$source]))
-                return false;
-            if (!isset($chars[$dest]))
-                return false;
-
-            $tekst = str_replace('a', 'a', $tekst);
-            $tekst = str_replace('é', 'e', $tekst);
-
-            return str_replace($chars[$source], $chars[$dest], $tekst);
         }
 
         function cleanup_text($str)
@@ -700,14 +691,16 @@ if ($error == false) {
             $smallestLon = 0;
             $largestLon = 0;
 
-            $database = new dataBase;
-            $database->multiVariableQuery(
-                    'SELECT min(`route_points`.`lat`) `smallest_lat`,
-            max(`route_points`.`lat`) `largest_lat`,
-            min(`route_points`.`lon`) `smallest_lon`,
-            max(`route_points`.`lon`) `largest_lon`
-        FROM `route_points` WHERE `route_id`=:1', $route_id);
-            $data = $database->dbResultFetch();
+            $database = OcDb::instance();
+
+            $s = $database->multiVariableQuery(
+                'SELECT min(`route_points`.`lat`) `smallest_lat`,
+                        max(`route_points`.`lat`) `largest_lat`,
+                        min(`route_points`.`lon`) `smallest_lon`,
+                        max(`route_points`.`lon`) `largest_lon`
+                FROM `route_points` WHERE `route_id`=:1', $route_id);
+            $data = $database->dbResultFetchOneRowOnly($s);
+
             if ($data) {
                 $smallestLat = $data['smallest_lat'];
                 $largestLat = $data['largest_lat'];
@@ -728,29 +721,39 @@ if ($error == false) {
             tpl_set_var('mapcenterLat', $mapcenterLat);
             tpl_set_var('mapcenterLon', $mapcenterLon);
 
-            $database->multiVariableQuery(
-                    'SELECT wp_oc waypoint, latitude lat, longitude lon FROM caches
-          WHERE latitude>:1
-            AND latitude<:2
-            AND longitude>:3
-            AND longitude<:4
-            AND status not in (3, 4, 5, 6)', $bounds_min_lat, $bounds_max_lat, $bounds_min_lon, $bounds_max_lon);
-            while ($row = $database->dbResultFetch()) {
+            $s = $database->multiVariableQuery(
+                'SELECT wp_oc waypoint, latitude lat, longitude lon FROM caches
+                WHERE latitude>:1
+                    AND latitude<:2
+                    AND longitude>:3
+                    AND longitude<:4
+                    AND status not in (3, 4, 5, 6)',
+                $bounds_min_lat, $bounds_max_lat, $bounds_min_lon, $bounds_max_lon);
+
+            while ($row = $database->dbResultFetch($s)) {
                 $initial_cache_list[] = array("waypoint" => $row['waypoint'], "lat" => $row['lat'], "lon" => $row['lon']);
             }
+
             $points = array();
-            $database->paramQuery(
-                    'SELECT * FROM route_points WHERE route_id = :route_id  ORDER BY point_nr', array('route_id' => array('value' => $route_id, 'data_type' => 'integer'))
+            $s = $database->paramQuery(
+                'SELECT * FROM route_points
+                WHERE route_id = :route_id
+                ORDER BY point_nr',
+                array('route_id' => array('value' => $route_id, 'data_type' => 'integer'))
             );
 
-            while ($row = $database->dbResultFetch()) {
+            while ($row = $database->dbResultFetch($s)) {
                 $points[] = array("lat" => $row["lat"], "lon" => $row["lon"]);
             }
             foreach ($initial_cache_list as $list) {
                 foreach ($points as $point) {
                     $route_distance = cache_distances($point["lat"], $point["lon"], $list["lat"], $list["lon"]);
                     if ($route_distance <= $distance) {
-                        if (!$inter_cache_list[$list['waypoint']]) {
+                        if (! (
+                                isset($inter_cache_list[$list['waypoint']])
+                                && $inter_cache_list[$list['waypoint']]
+                               ) )
+                        {
                             $final_cache_list[] = $list['waypoint'];
                             $inter_cache_list[$list['waypoint']] = $list['waypoint'];
                             break;
@@ -766,7 +769,7 @@ if ($error == false) {
 
         function set_route_options($route_id, $options)
         {
-            $database = new dataBase;
+            $database = OcDb::instance();
             $database->paramQuery(
                     'UPDATE `routes` SET `options`=:options WHERE `route_id`=:route_id', array('route_id' => array('value' => $route_id, 'data_type' => 'integer'),
                 'options' => array('value' => serialize($options), 'data_type' => 'string'),
@@ -784,10 +787,13 @@ if ($error == false) {
         }
 
         if (isset($_POST['submit']) || isset($_POST['submit_map'])) {
-            $database->paramQuery(
-                    'SELECT `user_id`,`name`, `description`, `radius` FROM `routes` WHERE `route_id`=:route_id', array('route_id' => array('value' => $route_id, 'data_type' => 'integer'))
+            $s = $database->paramQuery(
+                'SELECT `user_id`,`name`, `description`, `radius` FROM `routes`
+                WHERE `route_id`=:route_id LIMIT 1',
+                array('route_id' => array('value' => $route_id, 'data_type' => 'integer'))
             );
-            $record = $database->dbResultFetch();
+            $record = $database->dbResultFetchOneRowOnly($s);
+
             $distance = $record['radius'];
             tpl_set_var('route_name', $record['name']);
 
@@ -799,10 +805,13 @@ if ($error == false) {
             // get first point of route to calculate distance to cache and sort list by distance
             $lon = 0;
             $lat = 0;
-            $database->paramQuery(
-                    'SELECT `route_points`.`lat`, `route_points`.`lon` FROM `route_points` WHERE `route_id`=:route_id ORDER BY `route_points`.`point_nr` LIMIT 1', array('route_id' => array('value' => $route_id, 'data_type' => 'integer'))
+            $s = $database->paramQuery(
+                'SELECT `route_points`.`lat`, `route_points`.`lon` FROM `route_points`
+                WHERE `route_id`=:route_id ORDER BY `route_points`.`point_nr` LIMIT 1',
+                array('route_id' => array('value' => $route_id, 'data_type' => 'integer'))
             );
-            $record = $database->dbResultFetch();
+            $record = $database->dbResultFetchOneRowOnly($s);
+
             if ($record) {
                 $lon = $record['lon'];
                 $lat = $record['lat'];
@@ -812,26 +821,28 @@ if ($error == false) {
             // first of all, rewrite $qFilter to use PDO is terrible job,
             // second, using IN operator with dynamic list is pain in the ass :( - unless we have better
             // database wrapper to handle that automatically
-            $database->simpleQuery("SELECT (" . getSqlDistanceFormula($lon, $lat, 0, 1) . ") `distance`,
-                            `caches`.`cache_id` `cacheid`,
-                            `user`.`user_id` `userid`,
-                            `caches`.`type` `type`,
-                            `caches`.`name` `cachename`,
-                            `caches`.`latitude` `latitude`,
-                            `caches`.`longitude` `longitude`,
-                            `caches`.`wp_oc` `wp_oc`,
-                            `user`.`username` `username`,
-                            `caches`.`date_created` `date_created`,
-                            `caches`.`date_hidden` `date`,
-                            `cache_type`.`icon_large` `icon_large`,
-                            `caches`.`topratings` `topratings`
-                    FROM `caches`,`user`, `cache_type`
-                    WHERE `caches`.`wp_oc` IN('" . implode("', '", $caches_list) . "')
+            $s = $database->simpleQuery(
+                "SELECT (" . getSqlDistanceFormula($lon, $lat, 0, 1) . ") `distance`,
+                    `caches`.`cache_id` `cacheid`,
+                    `user`.`user_id` `userid`,
+                    `caches`.`type` `type`,
+                    `caches`.`name` `cachename`,
+                    `caches`.`latitude` `latitude`,
+                    `caches`.`longitude` `longitude`,
+                    `caches`.`wp_oc` `wp_oc`,
+                    `user`.`username` `username`,
+                    `caches`.`date_created` `date_created`,
+                    `caches`.`date_hidden` `date`,
+                    `cache_type`.`icon_large` `icon_large`,
+                    `caches`.`topratings` `topratings`
+                FROM `caches`,`user`, `cache_type`
+                WHERE `caches`.`wp_oc` IN('" . implode("', '", $caches_list) . "')
                     AND `caches`.`user_id`=`user`.`user_id`
-                        AND `cache_type`.`id`=`caches`.`type`
-                       AND `caches`.`cache_id` IN (" . $qFilter . ") ORDER BY distance");
+                    AND `cache_type`.`id`=`caches`.`type`
+                    AND `caches`.`cache_id` IN (" . $qFilter . ")
+                ORDER BY distance");
 
-            $ncaches = $database->rowCount();
+            $ncaches = $database->rowCount($s);
 
             tpl_set_var('number_caches', $ncaches);
             if ($ncaches == 0) {
@@ -844,8 +855,9 @@ if ($error == false) {
             }
             $point = "";
 
-            $database_inner = new dataBase;
-            while ($r = $database->dbResultFetch()) {
+            $database_inner = OcDb::instance();
+            $file_content = '';
+            while ($r = $database->dbResultFetch($s)) {
 
                 if (isset($_POST['submit_map'])) {
                     $y = $r['longitude'];
@@ -853,6 +865,7 @@ if ($error == false) {
                     $point.=sprintf("addMarker(%s,%s,'%s',%s,'%s','%s','%s',%s);\n", $x, $y, getSmallCacheIcon($r['icon_large']), $r[cacheid], addslashes($r[cachename]), $r[wp_oc], addslashes($r[username]), $r[topratings]);
                     tpl_set_var('points', $point);
                 } else {
+
                     $file_content .= '<tr>';
                     $file_content .= '<td style="width: 90px;">' . date($dateFormat, strtotime($r['date'])) . '</td>';
                     //      $file_content .= '<td style="width: 22px;"><span style="font-weight:bold;color: blue;">'.sprintf("%01.1f",$r['distance']). '</span></td>';
@@ -865,26 +878,27 @@ if ($error == false) {
                     $file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cacheid'], ENT_COMPAT, 'UTF-8') . '" target="_blank" >' . htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
                     $file_content .= '<td width="32"><b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r['userid'], ENT_COMPAT, 'UTF-8') . '"  target="_blank">' . htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 
-                    $database_inner->multiVariableQuery(
-                            'SELECT cache_logs.id AS id, cache_logs.cache_id AS cache_id,
-                            cache_logs.type AS log_type,
-                            DATE_FORMAT(cache_logs.date,\'%Y-%m-%d\') AS log_date,
-                            cache_logs.text AS log_text,
-                            caches.user_id AS cache_owner,
-                            cache_logs.encrypt encrypt,
-                            cache_logs.user_id AS luser_id,
-                            user.username AS user_name,
-                            user.user_id AS user_id,
-                            log_types.icon_small AS icon_small, COUNT(gk_item.id) AS geokret_in
+                    $rs = $database_inner->multiVariableQuery(
+                        'SELECT cache_logs.id AS id, cache_logs.cache_id AS cache_id,
+                                cache_logs.type AS log_type,
+                                DATE_FORMAT(cache_logs.date,\'%Y-%m-%d\') AS log_date,
+                                cache_logs.text AS log_text,
+                                caches.user_id AS cache_owner,
+                                cache_logs.encrypt encrypt,
+                                cache_logs.user_id AS luser_id,
+                                user.username AS user_name,
+                                user.user_id AS user_id,
+                                log_types.icon_small AS icon_small, COUNT(gk_item.id) AS geokret_in
                         FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id)
                             LEFT JOIN   gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
                             LEFT JOIN   gk_item ON gk_item.id = gk_item_waypoint.id AND
                                 gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5
                         WHERE cache_logs.deleted=0 AND cache_logs.cache_id=:1
-                        GROUP BY cache_logs.id ORDER BY cache_logs.date_created DESC LIMIT 1', $r['cacheid']);
+                        GROUP BY cache_logs.id
+                        ORDER BY cache_logs.date_created DESC LIMIT 1', $r['cacheid']);
 
-                    if ($database_inner->rowCount() != 0) {
-                        $r_log = $database_inner->dbResultFetch();
+                    if ($r_log = $database_inner->dbResultFetchOneRowOnly($rs)) {
+
                         $file_content .= '<td style="width: 80px;">' . htmlspecialchars(date($dateFormat, strtotime($r_log['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
 
                         $file_content .= '<td width="22"><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($r_log['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
@@ -910,8 +924,6 @@ if ($error == false) {
                     $file_content .= "</tr>";
                 }
             }
-            unset($database_inner);
-
             tpl_set_var('file_content', $file_content);
             if (isset($_POST['submit_map'])) {
                 $tplname = 'myroutes_result_map';
@@ -923,15 +935,15 @@ if ($error == false) {
         if (isset($_POST['submit_gpx_with_photos'])) {
             // create cache list
             $caches_list = caches_along_route($route_id, $distance);
-            $database->simpleQuery(
-                    'SELECT `caches`.`wp_oc`, `caches`.`cache_id`
+            $stmt = $database->simpleQuery(
+                'SELECT `caches`.`wp_oc`, `caches`.`cache_id`
                 FROM `caches`
                 WHERE `caches`.`wp_oc` IN(\'' . implode('\', \'', $caches_list) . '\')
-                  AND `caches`.`cache_id` IN (' . $qFilter . ')'
+                    AND `caches`.`cache_id` IN (' . $qFilter . ')'
             );
             $waypoints_tab = array();
             $cache_ids_tab = array();
-            while ($r = $database->dbResultFetch()) {
+            while ($r = $database->dbResultFetch($stmt)) {
                 $waypoints_tab[] = $r['wp_oc'];
                 $cache_ids_tab[] = $r['cache_id'];
             }
@@ -1003,10 +1015,13 @@ if ($error == false) {
 
 
         if (isset($_POST['submit_gpx'])) {
-            $database->paramQuery(
-                    'SELECT `user_id`,`name`, `description`, `radius` FROM `routes` WHERE `route_id`=:route_id', array('route_id' => array('value' => $route_id, 'data_type' => 'integer'))
+            $stmt = $database->paramQuery(
+                'SELECT `user_id`,`name`, `description`, `radius` FROM `routes`
+                WHERE `route_id`=:route_id LIMIT 1',
+                array('route_id' => array('value' => $route_id, 'data_type' => 'integer'))
             );
-            $record = $database->dbResultFetch();
+            $record = $database->dbResultFetchOneRowOnly($stmt);
+
             $distance = $record['radius'];
             tpl_set_var('route_name', $record['name']);
             $gpxHead = '<?xml version="1.0" encoding="utf-8"?>
@@ -1316,9 +1331,8 @@ if ($error == false) {
 
                 // logs ermitteln
                 $logentries = '';
-
-                if (( $r['votes'] > 3 ) || ( $r['topratings'] > 0 )
-                    || ( $rAttribute = XDb::xFetchArray($rsAttributes )) ) {
+                $rAttribute = XDb::xFetchArray($rsAttributes);
+                if ( ($r['votes'] > 3) || ($r['topratings'] > 0) || $rAttribute ) {
 
                     $thislogs = '<groundspeak:log id="1">';
                     $thislogs .='<groundspeak:date>' . date("Y-m-d\TH:i:s\Z") . '</groundspeak:date>';

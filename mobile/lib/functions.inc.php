@@ -1,28 +1,6 @@
 <?php
 
-function db_connect()
-{
-    global $dbserver, $dbusername, $dbpasswd, $dbname;
-    @mysql_connect($dbserver, $dbusername, $dbpasswd) or
-            die('MySQL error #1');
-    @mysql_select_db($dbname) or
-            die('MySQL error #2');
-
-    //uwaga!
-    @mysql_query('SET CHARACTER SET utf8') or
-            die('MySQL error #3');
-
-    //uwaga!
-    @mysql_query('SET collation_connection = utf8_general_ci') or
-            die('MySQL error #4');
-}
-
-function db_query($query)
-{
-    $wynik = mysql_query($query)
-            or die('MySQL query error');
-    return $wynik;
-}
+require_once('../lib/ClassPathDictionary.php');
 
 function cords2($cord)
 {

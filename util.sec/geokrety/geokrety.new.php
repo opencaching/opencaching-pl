@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\XDb;
 /* * *************************************************************************
   ./util.sec/geokrety/geokrety.new.php
   --------------------
@@ -17,20 +18,15 @@
  * ************************************************************************* */
 
 $rootpath = '../../';
-require_once($rootpath . 'lib/clicompatbase.inc.php');
+require_once($rootpath . 'lib/ClassPathDictionary.php');
 require_once($rootpath . 'okapi/facade.php');
 \okapi\Facade::disable_error_handling();
 
 /* database connection */
-db_connect();
-if ($dblink === false) {
-    echo 'Unable to connect to database';
-    exit;
-}
 
 /* last synchro check */
-$sql = "SELECT value FROM sysconfig WHERE name='geokrety_lastupdate'";
-$last_updated = mysql_result(mysql_query($sql), 0);
+$last_updated = XDb::xSimpleQueryValue(
+    "SELECT value FROM sysconfig WHERE name='geokrety_lastupdate'", 0);
 $modifiedsince = strtotime($last_updated);
 
 /* new OC dedicated geokrety XML export */
@@ -50,32 +46,40 @@ if (!$gkxml) {
 /* read geokrety data */
 foreach ($gkxml->geokret as $geokret) {
     /* for safety */
-    $id = sql_escape($geokret['id']);
-    $name = sql_escape($geokret->name);
-    $dist = sql_escape($geokret->distancetravelled);
-    $state = sql_escape($geokret->state);
-    $lat = sql_escape($geokret->position['latitude']);
-    $lon = sql_escape($geokret->position['longitude']);
+    $id = XDb::xEscape($geokret['id']);
+    $name = XDb::xEscape($geokret->name);
+    $dist = XDb::xEscape($geokret->distancetravelled);
+    $state = XDb::xEscape($geokret->state);
+    $lat = XDb::xEscape($geokret->position['latitude']);
+    $lon = XDb::xEscape($geokret->position['longitude']);
 
     /* geokrety info update */
-    $sql = "INSERT INTO gk_item (`id`, `name`, `distancetravelled`, `latitude`, `longitude`, `stateid`) VALUES ('" . $id . "', '" . $name . "', '" . $dist . "', '" . $lat . "', '" . $lon . "','" . $state . "')
-        ON DUPLICATE KEY UPDATE `name`='" . $name . "', `distancetravelled`='" . $dist . "', `latitude`='" . $lat . "', `longitude`='" . $lon . "', `stateid`='" . $state . "'";
-    $query = mysql_query($sql);
+    $query = XDb::xSql(
+        "INSERT INTO gk_item (`id`, `name`, `distancetravelled`, `latitude`, `longitude`, `stateid`)
+        VALUES ('" . $id . "', '" . $name . "', '" . $dist . "', '" . $lat . "', '" . $lon . "','" . $state . "')
+        ON DUPLICATE KEY UPDATE `name`='" . $name . "', `distancetravelled`='" . $dist . "',
+                                `latitude`='" . $lat . "', `longitude`='" . $lon . "',
+                                `stateid`='" . $state . "'");
 
     /* Notify OKAPI. https://github.com/opencaching/okapi/issues/179 */
-    $rs = mysql_query("SELECT distinct wp FROM gk_item_waypoint WHERE id='" . mysql_real_escape_string($id) . "'");
+    $rs = XDb::xSql(
+        "SELECT distinct wp FROM gk_item_waypoint
+        WHERE id='" . XDb::xEscape($id) . "'");
     $cache_codes = array();
-    while ($row = mysql_fetch_array($rs))
+    while ($row = XDb::xFetchArray($rs))
         $cache_codes[] = $row[0];
     \okapi\Facade::schedule_geocache_check($cache_codes);
 
     /* waypoints update */
-    sql("DELETE FROM gk_item_waypoint WHERE id='&1'", $id);
+    XDb::xSql("DELETE FROM gk_item_waypoint WHERE id= ?", $id);
     foreach ($geokret->waypoints as $waypoint) {
-        $wp = sql_escape($waypoint->waypoint);
+        $wp = XDb::xEscape($waypoint->waypoint);
         if ($wp != '') {
-            $sql = "INSERT INTO gk_item_waypoint (id, wp) VALUES ('" . $id . "', '" . $wp . "') ON DUPLICATE KEY UPDATE wp='" . $wp . "'";
-            mysql_query($sql);
+
+            XDb::xSql(
+                "INSERT INTO gk_item_waypoint (id, wp)
+                VALUES ('" . $id . "', '" . $wp . "')
+                ON DUPLICATE KEY UPDATE wp='" . $wp . "'");
         }
     }
 }
@@ -83,14 +87,15 @@ foreach ($gkxml->geokret as $geokret) {
 /* cleaning... */
 
 /* Notify OKAPI. https://github.com/opencaching/okapi/issues/179 */
-$rs = mysql_query("SELECT distinct wp FROM gk_item_waypoint WHERE id NOT IN (SELECT id FROM gk_item)");
+$rs = XDb::xSql("SELECT distinct wp FROM gk_item_waypoint WHERE id NOT IN (SELECT id FROM gk_item)");
 $cache_codes = array();
-while ($row = mysql_fetch_array($rs))
+while ($row = XDb::xFetchArray($rs))
     $cache_codes[] = $row[0];
 \okapi\Facade::schedule_geocache_check($cache_codes);
 
-sql("DELETE FROM gk_item_waypoint WHERE id NOT IN (SELECT id FROM gk_item)");
+XDb::xSql("DELETE FROM gk_item_waypoint WHERE id NOT IN (SELECT id FROM gk_item)");
 
 /* last synchro update */
-sql("UPDATE sysconfig SET value = '" . sql_escape($gkxml['date']) . "' WHERE name='geokrety_lastupdate'");
-?>
+XDb::xSql(
+    "UPDATE sysconfig SET value = '" . XDb::xEscape($gkxml['date']) . "'
+    WHERE name='geokrety_lastupdate'");

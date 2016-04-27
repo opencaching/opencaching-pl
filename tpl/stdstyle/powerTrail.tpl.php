@@ -1266,380 +1266,11 @@ $( document ).ready(function() {
 // -->
 </script>
 
-<style>
-
-    .info {
-        color: blue;
-        font-size: 8px;
-    }
-
-    table, th, td
-    {
-        font-size: 12px;
-    }
-
-    table.statsTable td{
-        padding-left: 5px;
-        padding-right: 5px;
-    }
-    table.statsTable th{
-        padding-left: 5px;
-        padding-right: 5px;
-        border-bottom: solid 2px;
-        border-color: #000044;
-        background-color:#0088CC;
-        color: #FFFFCC;
-
-    }
-    table.statsTable th:not(:last-child), table.statsTable td:not(:last-child){
-        border-right: solid 1px;
-    }
-
-    table.ptCacheTable th{
-        padding-left: 5px;
-        padding-right: 5px;
-        border-bottom: solid 2px;
-        background-color:#0088CC;
-        color: #FFFFCC;
-    }
-
-
-    table.ptCacheTable th:first-child, table.statsTable th:first-child{
-        -moz-border-top-left-radius: 5px;
-        -webkit-border-top-left-radius: 5px;
-        border-top-left-radius: 5px;
-    }
-    table.ptCacheTable th:last-child, table.statsTable th:last-child{
-        -moz-border-top-right-radius: 5px;
-        -webkit-border-top-right-radius: 5px;
-        border-top-right-radius: 5px;
-    }
-
-    #powerTrailName{
-        font-size: 36px;
-        color:#000088;
-        font-family: Shojumaru;
-    }
-
-    .CommentDate {
-        font-size: 11px;
-        padding-left: 2px;
-        padding-right: 2px;
-    }
-    .commentTime {
-        font-size: 8px;
-        padding-left: 2px;
-        padding-right: 15px;
-    }
-
-    .commentContent{
-        border-left: 1px solid #2F2727;
-        padding-left: 15px;
-        padding-right: 20px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        max-width:550px;
-        height:auto;
-    }
-
-    .commentHead{
-        padding-top: 5px;
-        font-family: verdana;
-        font-size: 13px;
-        padding-left: 10px;
-        background-color: #FFFFFF; background-repeat: repeat-y;
-
-        border-left: 1px solid #2F2727;
-        border-top: 1px solid #2F2727;
-
-        background: -webkit-gradient(linear, left top, right top, from(#DDDDDD), to(#FFFFFF));
-        background: -webkit-linear-gradient(left, #DDDDDD  #FFFFFF);
-        background: -moz-linear-gradient(left, #DDDDDD, #FFFFFF);
-        background: -ms-linear-gradient(left, #DDDDDD, #FFFFFF);
-        background: -o-linear-gradient(left, #DDDDDD, #FFFFFF);
-
-        -moz-border-top-left-radius: 10px;
-        -webkit-border-top-left-radius: 10px;
-        border-top-left-radius: 10px;
-    }
-
-    #commentsTable{
-        width: 95%;
-    }
-
-    .linearBg1 {
-        height: 25px;
-        color: #E7E5DC;
-        font-family: verdana;
-        font-size: 12px;
-        font-weight: bold;
-        padding-left:8px;
-        background-color: #1a82f7; background-repeat: repeat-y;
-        background: -webkit-gradient(linear, left top, right top, from(#1a82f7), to(#2F2727));
-        background: -webkit-linear-gradient(left, #2F2727, #1a82f7);
-        background: -moz-linear-gradient(left, #2F2727, #1a82f7);
-        background: -ms-linear-gradient(left, #2F2727, #1a82f7);
-        background: -o-linear-gradient(left, #2F2727, #1a82f7);
-        -moz-border-top-right-radius: 8px;
-        -webkit-border-top-right-radius: 8px;
-        border-top-right-radius: 8px;
-    }
-    .linearBg2 {
-        height: 1px;
-        padding-left:8px;
-        background-color: #1a82f7; background-repeat: repeat-y;
-        background: -webkit-gradient(linear, left top, right top, from(#1a82f7), to(#2F2727));
-        background: -webkit-linear-gradient(left, #2F2727, #1a82f7);
-        background: -moz-linear-gradient(left, #2F2727, #1a82f7);
-        background: -ms-linear-gradient(left, #2F2727, #1a82f7);
-        background: -o-linear-gradient(left, #2F2727, #1a82f7);
-    }
-    .userActions {
-        font-family: verdana;
-        font-size: 9px;
-    }
-    .inlineTd{
-        padding:15px;
-    }
-    .ptTd{
-        font-family: verdana;
-        font-size: 12px;
-        text-align:center;
-    }
-
-    #toLowUserFound {
-        padding-top: 50px;
-        padding-left: 75px;
-        font-size: 16px;
-        color:#EE0000;
-    }
-
-    /* quite nice blue buttons */
-    .editPtDataButton {
-        -moz-box-shadow:inset 0px 1px 0px 0px #97c4fe;
-        -webkit-box-shadow:inset 0px 1px 0px 0px #97c4fe;
-        box-shadow:inset 0px 1px 0px 0px #97c4fe;
-        background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #3d94f6), color-stop(1, #1e62d0) );
-        background:-moz-linear-gradient( center top, #3d94f6 5%, #1e62d0 100% );
-        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#3d94f6', endColorstr='#1e62d0');
-        background-color:#3d94f6;
-        -moz-border-radius:6px;
-        -webkit-border-radius:6px;
-        border-radius:6px;
-        border:1px solid #337fed;
-        display:inline-block;
-        color:#ffffff !important;
-        font-family:arial;
-        font-size:11px;
-        font-weight:normal;
-        padding:0px 16px;
-        text-decoration:none !important;
-        text-shadow:1px 1px 0px #1570cd;
-    }.editPtDataButton:hover {
-        background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #1e62d0), color-stop(1, #3d94f6) );
-        background:-moz-linear-gradient( center top, #1e62d0 5%, #3d94f6 100% );
-        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#1e62d0', endColorstr='#3d94f6');
-        background-color:#1e62d0;
-    }.editPtDataButton:active {
-        position:relative;
-        top:1px;
-    }
-    /* This imageless css button was generated by CSSButtonGenerator.com */
-
-    .paginateButton {
-        -moz-box-shadow:inset 0px 1px 0px 0px #97c4fe;
-        -webkit-box-shadow:inset 0px 1px 0px 0px #97c4fe;
-        box-shadow:inset 0px 1px 0px 0px #97c4fe;
-        background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #3d94f6), color-stop(1, #1e62d0) );
-        background:-moz-linear-gradient( center top, #3d94f6 5%, #1e62d0 100% );
-        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#3d94f6', endColorstr='#1e62d0');
-        background-color:#3d94f6;
-        -moz-border-radius:6px;
-        -webkit-border-radius:6px;
-        border-radius:6px;
-        border:1px solid #337fed;
-        display:inline-block;
-        color:#ffffff !important;
-        font-family:verdana;
-        font-size:10px;
-        font-weight:normal;
-        padding:0px 2.5px;
-        text-decoration:none !important;
-        text-shadow:1px 1px 0px #1570cd;
-    }.paginateButton:hover {
-        background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #1e62d0), color-stop(1, #3d94f6) );
-        background:-moz-linear-gradient( center top, #1e62d0 5%, #3d94f6 100% );
-        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#1e62d0', endColorstr='#3d94f6');
-        background-color:#1e62d0;
-    }.paginateButton:active {
-        position:relative;
-        top:1px;
-    }
-
-    .currentPaginateButton {
-        -moz-box-shadow:inset 0px 1px 0px 0px #97c4fe;
-        -webkit-box-shadow:inset 0px 1px 0px 0px #97c4fe;
-        box-shadow:inset 0px 1px 0px 0px #97c4fe;
-        background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dddddd), color-stop(1, #555555) );
-        background:-moz-linear-gradient( center top, #bbbbbb 5%, #444444 100% );
-        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#aaaaaa', endColorstr='#333333');
-        background-color:#000000;
-        -moz-border-radius:6px;
-        -webkit-border-radius:6px;
-        border-radius:6px;
-        border:1px solid #666666;
-        display:inline-block;
-        color:#ffffff !important;
-        font-family:verdana;
-        font-size:10px;
-        font-weight:normal;
-        padding:0px 2.5px;
-        text-decoration:none !important;
-        text-shadow:1px 1px 0px #1570cd;
-    }.currentPaginateButton:hover {
-        background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #aaaaaa), color-stop(1, #222222) );
-        background:-moz-linear-gradient( center top, #bbbbbb 5%, #444444 100% );
-        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#999999', endColorstr='#111111');
-        background-color:#000000;
-    }.currentPaginateButton:active {
-        position:relative;
-        top:1px;
-    }
-
-    /* sexy tooltips */
-    .tooltip {
-        border-bottom: 1px dotted #000000; color: #000000; outline: none;
-        cursor: help; text-decoration: none;
-        position: relative;
-    }
-    .tooltip span {
-        margin-left: -999em;
-        position: absolute;
-    }
-    .tooltip:hover span {
-        border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
-        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.1); -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
-        font-family: Calibri, Tahoma, Geneva, sans-serif;
-        position: absolute; left: 1em; top: 2em; z-index: 99;
-        margin-left: 0; width: 250px;
-    }
-    .tooltip:hover img {
-        border: 0; margin: -10px 0 0 -55px;
-        float: left; position: absolute;
-    }
-    .tooltip:hover em {
-        font-family: Candara, Tahoma, Geneva, sans-serif; font-size: 1.2em; font-weight: bold;
-        display: block; padding: 0.2em 0 0.6em 0;
-    }
-    .classic { padding: 0.8em 1em; }
-    .custom { padding: 0.5em 0.8em 0.8em 2em; }
-    * html a:hover { background: transparent; }
-    .classic {background: #FFFFAA; border: 1px solid #FFAD33; }
-    .critical { background: #FFCCAA; border: 1px solid #FF3334; }
-    .help { background: #9FDAEE; border: 1px solid #2BB0D7; }
-    .info { background: #9FDAEE; border: 1px solid #2BB0D7; }
-    .warning { background: #FFFFAA; border: 1px solid #FFAD33; }
-    /*sexy toltips end*/
-
-    #powerTrailDescription img {
-        max-width:550px;
-        height:auto;
-    }
-
-    #oldIE{
-        color: red;
-        border: solid 1px;
-        border-color: red;
-        padding: 10px;
-        width:90%;
-    }
-
-    .editDeleteComment {
-        float:right
-    }
-
-    #map-canvas, #map_canvas {
-        margin-top: 20px;
-        height: 460px;
-        width: 500px;
-        margin-left: auto;
-        margin-right: auto;
-        padding: 20px;
-        border: 1px solid #0051B9
-    }
-    #mapOuterdiv{
-        margin-left: auto;
-        margin-right: auto;
-    }
-    #ptMenus{
-        width: 99%;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .descTd{
-        padding-left: 10px;
-        padding-top: 3px;
-    }
-
-    .finalCache{
-        color:#66CC00;
-        font-size: 11px;
-        float: right;
-        font-weight: bold;
-    }
-
-    .mapCloud {
-        padding-left: 10px;
-        padding-right: 10px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-    }
-
-    .searchCacheSection{
-        border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
-        border:1px solid #337fed;
-        height: 80px;
-        padding: 5px;
-    }
-    .padding1{
-        padding: 1px;
-    }
-    .displayOptionsClass{
-        border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
-        border:1px solid #337fed;
-        width: 80%;
-        padding: 5px;
-    }
-    #messageDiv{
-        display: none;
-        border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
-        border:1px solid #337fed;
-        width: 80%;
-        padding: 5px;
-    }
-    #gpxOptions{
-        margin-left: auto;
-        margin-right: auto;
-        overflow: hidden;
-        display: none;
-        border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
-        border:1px solid #337fed;
-        width: 40%;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-
-</style>
+<link rel="stylesheet" href="tpl/stdstyle/css/powerTrail.css" type="text/css" />
 <link rel="stylesheet" href="tpl/stdstyle/css/ptMenuCss/style.css" type="text/css" /><style type="text/css">._css3m{display:none}</style>
 
 <body>
-
-
-
     <input type="hidden" id="xmd34nfywr54" value="{powerTrailId}">
-
     <br/><br/>
     <!-- deleting entery comfirmation dialog  -->
     <div id="dialog-form" title="{{pt151}}" style="display: none">
@@ -1650,472 +1281,473 @@ $( document ).ready(function() {
     </div>
 
     <div id="oldIE" style="display: none">{{pt129}}</div>
-
-    <div class="content2-pagetitle">
-        <img src="tpl/stdstyle/images/blue/050242-blue-jelly-icon-natural-wonders-flower13-sc36_32x32.png" class="icon32" alt="geocache" title="geocache" align="middle" />
-        {{pt001}}
-    </div>
-
-    <!--[if IE 6 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]-->
-    <!--[if IE 7 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]-->
-    <!--[if IE 8 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]-->
-
-    <center>
-    <div id="ptMenus" style="display: {ptMenu}">
-        <ul id="css3menu1" class="topmenu">
-            {powerTrailMenu}
-        </ul>
-    </div>
-    </center>
-    <!-- map -->
-    <div id="mapOuterdiv" style="display: {mapOuterdiv}">
-        <div style="position: relative; left: 666px; top: 56px; width: 50px;">
-            <a id="fullscreenOn" style="cursor: pointer" href="cachemap-full.php?pt={powerTrailId}&lat={mapCenterLat}&lon={mapCenterLon}&calledFromPt=1" ><img src="images/fullscreen.png" alt="Pełny ekran"></a>
+    <div id="powerTrailContentWraper">
+        <div class="content2-pagetitle">
+            <img src="tpl/stdstyle/images/blue/050242-blue-jelly-icon-natural-wonders-flower13-sc36_32x32.png" class="icon32" alt="geocache" title="geocache" align="middle" />
+            {{pt001}}
         </div>
-        <div id="map-canvas"></div>
-    </div>
 
-    <div style="display: {displayCreateNewPowerTrailForm}">
-        <form name="createNewPowerTrail" id="createNewPowerTrail" action="powerTrail.php?ptAction=createNewPowerTrail" method="post">
-            <table>
+        <!--[if IE 6 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]-->
+        <!--[if IE 7 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]-->
+        <!--[if IE 8 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]-->
+
+        <center>
+        <div id="ptMenus" style="display: {ptMenu}">
+            <ul id="css3menu1" class="topmenu">
+                {powerTrailMenu}
+            </ul>
+        </div>
+        </center>
+        <!-- map -->
+        <div id="mapOuterdiv" style="display: {mapOuterdiv}">
+            <div style="position: relative; left: 666px; top: 56px; width: 50px;">
+                <a id="fullscreenOn" style="cursor: pointer" href="cachemap-full.php?pt={powerTrailId}&lat={mapCenterLat}&lon={mapCenterLon}&calledFromPt=1" ><img src="images/fullscreen.png" alt="Pełny ekran"></a>
+            </div>
+            <div id="map-canvas"></div>
+        </div>
+
+        <div style="display: {displayCreateNewPowerTrailForm}">
+            <form name="createNewPowerTrail" id="createNewPowerTrail" action="powerTrail.php?ptAction=createNewPowerTrail" method="post">
+                <table>
+                    <tr>
+                        <td>{{pt008}} </td>
+                        <td><input type="text" name="powerTrailName" id="fPowerTrailName" /></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{pt009}}
+                            <a class="tooltip" href="javascript:void(0);">{{pt087}}?<span class="custom help"><img src="tpl/stdstyle/images/toltipsImages/Help.png" alt="Help" height="48" width="48" /><em>{{pt088}}</em>{{pt090}}</span></a>
+                        </td>
+                        <td>
+                            {ptTypeSelector}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{pt010}}
+                            <a class="tooltip" href="javascript:void(0);">{{pt087}}?<span class="custom help"><img src="tpl/stdstyle/images/toltipsImages/Help.png" alt="Help" height="48" width="48" /><em>{{pt088}}</em>{{pt089}}</span></a>
+                        </td>
+                        <td>
+                            <select name="status">
+                                <option value="1">{{pt006}}</option>
+                                <option value="2">{{pt007}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{pt054}}
+                            <br /><a class="tooltip" href="javascript:void(0);">{{pt087}}?<span class="custom help"><img src="tpl/stdstyle/images/toltipsImages/Help.png" alt="Help" height="48" width="48" /><em>{{pt088}}</em>{{pt086}}</span></a>
+                        </td>
+                        <td>
+                            <input name="dPercent" onkeypress="return isNumberKey(event)" type="number" min="10" max="100" value="50" maxlength="3"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{pt011}}</td>
+                        <td>
+                            <textarea name="description"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="hidden" value="{{submit}}" name="createNewPowerTrailBtn" /><br />
+                            <a href="javascript:void(0);" onclick="$('#createNewPowerTrail').submit()"; class="editPtDataButton">{{pt080}}</a>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+        <div style="display: {displayToLowUserFound}" id="toLowUserFound"><img src="tpl/stdstyle/images/toltipsImages/Critical.png" /> {{pt068}} {CFrequirment} {{pt069}} </div>
+
+        <div style="display: {displayUserCaches};">
+            <div class="searchdiv">
+                <table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.4em; font-size: 13px;" width="95%">
+                    <tr>
+                        <td>waypoint</td>
+                        <td>{{cache_name}}</td>
+                        <td>{{pt002}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="7"><img src="tpl/stdstyle/images/blue/dot_blue.png" height="1" width="100%"/></td>
+                    </tr>
+                    {keszynki}
+                    <tr>
+                        <td colspan="7"><img src="tpl/stdstyle/images/blue/dot_blue.png" height="5" width="100%"/></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div style="display: {nocachess}">({{pt084}})</div>
+
+        <div style="display: {displayPowerTrails}">
+            <table border=0 width=100%>
                 <tr>
-                    <td>{{pt008}} </td>
-                    <td><input type="text" name="powerTrailName" id="fPowerTrailName" /></td>
+                    <td colspan="8" class="linearBg1">{{pt035}}</td>
+                </tr>
+                <tr id="filtersTr" style="display: {filtersTrDisplay};">
+                    <td colspan="8" align="center">
+                        <div class="displayOptionsClass" id="displayOptionsButton">
+                            {{pt175}}: {displayedPowerTrailsCount}
+                            <a href="javascript:void(0)" style="float: right;" onclick="showDisplayOptions()" class="editPtDataButton">{{pt163}}</a>
+                        </div>
+                        <div id="displayOptions" class="displayOptionsClass" style="display: none">
+                            <form id="dOptionForm" name="dOptionForm" action="powerTrail.php" method="get">
+                                <input type="hidden" id="historicLimit" name="historicLimit" value="{historicLimit}"/>
+                                <table>
+                                    <tr>
+                                        <td>{{pt166}}</td>
+                                        <td>{ptTypeSelector2}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{pt167}}</td>
+                                        <td>{sortSelector}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{pt178}}</td>
+                                        <td>{sortDirSelector}</td>
+                                    </tr>
+                                </table>
+                                <a href="javascript:void(0)" id="confirmDisplayOptionsButton" onclick="document.dOptionForm.submit();" class="editPtDataButton">{{pt164}}</a>
+                                <a href="javascript:void(0)" id="displayOptionsButton" onclick="showDisplayOptions()" class="editPtDataButton">{{pt031}}</a>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="ptTd">{{pt036}}</th>
+                    <th class="ptTd">{{pt039}}</th>
+                    <th class="ptTd">{statusOrPoints}</th>
+                    <th class="ptTd">{{pt041}}</th>
+                    <th class="ptTd">{{pt042}}</th>
+                    <th class="ptTd">{{pt057}}</th>
+                </tr>
+                {PowerTrails}
+                <tr><td colspan="6" align="right"><a class="editPtDataButton" href="{historicLimitHref}">{switchMiniPT}</a></td></tr>
+            </table>
+        </div>
+
+        <!-- display single Power trail and all conected infos -->
+
+        <br /><br />
+        <p>{mainPtInfo}</p>
+
+        <div style="display: {displaySelectedPowerTrail}">
+
+            <table border=0 width=100%>
+                <tr>
+                    <td width=251>
+                        <table style="height: 250px; width: 250px;"><tr><td valign="center" align="center"><span id="powerTrailLogo"><img class="powerTrailLogo" src="{powerTrailLogo}" /></span></td></tr></table>
+                        <img style="display: none" id="ajaxLoaderLogo" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+                    </td>
+                    <td align="center">
+                        <span id="powerTrailName">{powerTrailName}</span> <img id="NameOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" /> <!-- [ ? TU WSTAWIĆ MAPĘ ? ] -->
+                    </td>
                 </tr>
                 <tr>
                     <td>
-                        {{pt009}}
-                        <a class="tooltip" href="javascript:void(0);">{{pt087}}?<span class="custom help"><img src="tpl/stdstyle/images/toltipsImages/Help.png" alt="Help" height="48" width="48" /><em>{{pt088}}</em>{{pt090}}</span></a>
+                        <p align="center" id="toggleImageEditButton" style="display: {displayAddCachesButtons}">
+                            <a href="javascript:void(0)" onclick="toggleImageEdit()" class="editPtDataButton">{{pt060}}</a>
+                        </p>
+                        <span id="newImage" style="display: none">
+                            <form action="powerTrail/ajaxImage.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
+                                <p id="f1_upload_form" align="center"><br/>
+                                    File: <input name="myfile" type="file" size="30" />
+                                    <input type="hidden" name="powerTrailId" value="{powerTrailId}">
+                                    <a href="javascript:void(0)" onclick="cancellImage()" class="editPtDataButton">{{pt031}}</a>
+                                    <a href="javascript:void(0)" onclick="$(this).closest('form').submit()" class="editPtDataButton">{{pt044}}</a>
+                                </p>
+                                <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
+                        </span>
                     </td>
                     <td>
-                        {ptTypeSelector}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        {{pt010}}
-                        <a class="tooltip" href="javascript:void(0);">{{pt087}}?<span class="custom help"><img src="tpl/stdstyle/images/toltipsImages/Help.png" alt="Help" height="48" width="48" /><em>{{pt088}}</em>{{pt089}}</span></a>
-                    </td>
-                    <td>
-                        <select name="status">
-                            <option value="1">{{pt006}}</option>
-                            <option value="2">{{pt007}}</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        {{pt054}}
-                        <br /><a class="tooltip" href="javascript:void(0);">{{pt087}}?<span class="custom help"><img src="tpl/stdstyle/images/toltipsImages/Help.png" alt="Help" height="48" width="48" /><em>{{pt088}}</em>{{pt086}}</span></a>
-                    </td>
-                    <td>
-                        <input name="dPercent" onkeypress="return isNumberKey(event)" type="number" min="10" max="100" value="50" maxlength="3"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>{{pt011}}</td>
-                    <td>
-                        <textarea name="description"></textarea>
+                        <p align="center">
+                            <span id="toggleNameEditButton" style="display: {displayAddCachesButtons}">
+                                <a href="javascript:void(0)" onclick="toggleNameEdit()" class="editPtDataButton">{{pt091}}</a>
+                            </span>
+                            <img id="nameAjaxLoader" style="display: none" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+                            <span id="editPtName" style="display: none">
+                                <input type="text" id="ptName" value="{powerTrailName}" />
+                                <a href="javascript:void(0)" onclick="cancellEditName()" class="editPtDataButton">{{pt031}}</a>
+                                <a href="javascript:void(0)" onclick="ajaxUpdateName()" class="editPtDataButton">{{pt044}}</a>
+                            </span>
+                        </p>
                     </td>
                 </tr>
                 <tr>
-                    <td></td>
+                    <td colspan="3" class="linearBg1">{{pt019}}</td>
+                </tr>
+                <tr>
+                    <td class="descTd">{{pt181}} <a class="tooltip" href="javascript:void(0);"><i style="color: blue;">(?)</i><span class="custom help"><img src="tpl/stdstyle/images/toltipsImages/Help.png" alt="Help" height="48" width="48" /><em>{{pt181}}</em>{{pt182}}</span></a></td>
+                    <td><a href="viewprofile.php?userid={leadingUserId}">{leadingUserName}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="descTd"><div style="display: {displayAddCachesButtons}">{{pt063}}</div></td>
                     <td>
-                        <input type="hidden" value="{{submit}}" name="createNewPowerTrailBtn" /><br />
-                        <a href="javascript:void(0);" onclick="$('#createNewPowerTrail').submit()"; class="editPtDataButton">{{pt080}}</a>
+                        <span id="ptStatus" style="display: {displayAddCachesButtons}">
+                            {ptStatus}
+                        </span>
+                        <img id="StatusOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+                        <span id="ptStatusEdit" style="display: none">
+                            {ptStatusSelector}
+                            <a href="javascript:void(0)" onclick="toggleStatusEdit();" class="editPtDataButton">{{pt031}}</a>
+                            <a href="javascript:void(0)" onclick="ajaxUpdateStatus();" class="editPtDataButton">{{pt044}}</a>
+                        </span>
+                    </td>
+                    <td align="right" width="120">
+                        <a href="javascript:void(0)" style="display: {displayAddCachesButtons}" id="ptStatusButton" onclick="toggleStatusEdit()" class="editPtDataButton">{{pt064}}</a>
+                        <span style="display: none" id="ajaxLoaderStatus"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="descTd">{{pt065}}</td>
+                    <td><span id="conquestCount">{conquestCount}</span> {{pt066}}</td>
+                </tr>
+                <tr>
+                    <td class="descTd">{{pt037}}</td>
+                    <td><span id="conquestCount">{ptPoints}</span> {{pt038}}</td>
+                </tr>
+                <tr>
+                    <td class="descTd">{{pt022}}</td>
+                    <td><span id="powerTrailCacheCount">{powerTrailCacheCount}</span> (<span style="color: green" title="ActiveGeocaches">{powerTrailActiveCacheCount}</span> / <span style="color: orange" title="UnavailableGeocaches">{powerTrailUnavailableCacheCount}</span> / <span style="color: red" title="ArchivedGeocaches">{powerTrailArchivedCacheCount}</span>) <img id="cCountOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" /></td>
+                    <td align="right">
+                        <span class="userActions" id="cacheCountUserActions">{cacheCountUserActions}</span>
+                        <span style="display: none" id="ajaxLoaderCacheCount"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="descTd">{{pt054}}</td>
+                    <td>
+                        <span id="powerTrailpercent">{powerTrailDemandPercent}</span>% <img id="percentCountOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+                        <span id="powerTrailpercentEdit" style="display: none">
+                            <input id="demandPercent" onkeypress="return isNumberKey(event);" onkeyup="updateCc();" onchange="updateCc();" type="number" min="{demandPercentMinimum}" max="100" value="{powerTrailDemandPercent}" maxlength="3"/>
+                            <a href="javascript:void(0)" onclick="togglePercentSection(); $('#ptPercentCc').html(calculatepercentCc($('#powerTrailpercent').html(), $('#powerTrailCacheCount').html()));" class="editPtDataButton">{{pt031}}</a>
+                            <a href="javascript:void(0)" onclick="ajaxUpdateDemandPercent()" class="editPtDataButton">{{pt044}}</a>
+                        </span>
+                        (<span id="ptPercentCc"></span> {{pt180}})
+                        <img id="ptPercentOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+                    </td>
+                    <td align="right">
+                        <span class="userActions" id="percentDemandUserActions" style="display: {percentDemandUserActions}">
+                            <a href="javascript:void(0)" onclick="togglePercentSection()" class="editPtDataButton">{{pt055}}</a>
+                        </span>
+                        <span style="display: none" id="ajaxLoaderPercentDemand"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="descTd">{{pt023}}</td>
+                    <td>
+                        <span id="ptTypeName">{ptTypeName}</span>
+                        <img id="ptTypeOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+                        <div id="ptTypeNameEdit" style="display: none">
+                            {ptTypesSelector}
+                            <a href="javascript:void(0)" onclick="ajaxUpdatType()" class="editPtDataButton">{{pt044}}</a>
+                        </div>
+                    </td>
+                    <td align="right">
+                        <span class="userActions" id="ptTypeUserActionsDiv">{ptTypeUserActions}</span>
+                        <img style="display: none" id="ajaxLoaderType" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="descTd">{{pt024}}</td>
+                    <td>
+                        <span id="powerTrailDateCreated">{powerTrailDateCreated}</span>
+                        <img id="ptDateOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+                        <span id="powerTrailDateCreatedEdit" style="display: none">
+                            <input id="powerTrailDateCreatedInput" type="text" value="{powerTrailDateCreated}" maxlength="10" />
+                            <a href="javascript:void(0)" id="editDateSaveButton" onclick="ajaxUpdateDateCancel()" class="editPtDataButton">{{pt031}}</a>
+                            <a href="javascript:void(0)" id="editDateSaveButton" onclick="ajaxUpdateDate()" class="editPtDataButton">{{pt044}}</a>
+                        </span>
+                    </td>
+                    <td align="right">
+                        <span class="userActions" id="ptDateUserActionsDiv">{ptDateUserActions}</span>
+                        <img style="display: none" id="ajaxLoaderPtDate" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="descTd">{{pt025}}</td>
+                    <td>
+                        <span id="powerTrailOwnerList">{powerTrailOwnerList}</span>
+                        <img id="ownerListOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+                    </td>
+                    <td align="right">
+                        <span class="userActions" id="ownerListUserActions">{ownerListUserActions}</span>
+                        <span style="display: none" id="ajaxLoaderOwnerList"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3" class="linearBg1">{{pt034}}</td>
+                </tr>
+                <tr>
+                    <td class="inlineTd" colspan="2"><span id="ptdesc"></div>
+                            <div id="powerTrailDescription">{powerTrailDescription}</div>
+                            <div id="powerTrailDescriptionEdit" style="display: none">
+                                <textarea id="descriptionEdit" name="descriptionEdit">{powerTrailDescription}</textarea>
+                            </div>
+                    </td>
+                    <td align="right" valign="bottom">
+                        {displayPtDescriptionUserAction}
+                        <span style="display: none" id="ajaxLoaderDescription"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></span>
+                        <a href="javascript:void(0)" id="editDescCancelButton" style="display: none" onclick="cancelDescEdit()" class="editPtDataButton">{{pt031}}</a>
+                        <br /> <br />
+                        <a href="javascript:void(0)" id="editDescSaveButton" style="display: none" onclick="ajaxUpdatePtDescription()" class="editPtDataButton">{{pt044}}</a>
+                        <img id="descOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
                     </td>
                 </tr>
             </table>
-        </form>
-    </div>
 
-    <div style="display: {displayToLowUserFound}" id="toLowUserFound"><img src="tpl/stdstyle/images/toltipsImages/Critical.png" /> {{pt068}} {CFrequirment} {{pt069}} </div>
+            <table border=0 width=100%>
+                <tr>
+                    <td class="linearBg1">{{pt020}} {powerTrailName}</td>
+                </tr>
+                <tr style="display: {gpxOptionsTrDisplay}">
+                    <td>
+                        <div id="gpxOptions">
+                            <p>{{pt206}}:</p><hr>
+                            <input id="f_inactive"  type="checkbox" name="f_inactive"  checked="checked" /> {{pt201}} <br/>
+                            <input id="f_ignored"   type="checkbox" name="f_ignored"   checked="checked" /> {{pt202}} <br/>
+                            <input id="f_userowner" type="checkbox" name="f_userowner" checked="checked" /> {{pt203}} <br/>
+                            <input id="f_watched"   type="checkbox" name="f_watched"   checked="checked" /> {{pt204}} <br/>
+                            <input id="f_userfound" type="checkbox" name="f_userfound" checked="checked" /> {{pt205}} <br/>
+                            {{pt225}}*: <input id="gpxLogLimit" name="gpxLogLimit"  type="range" step="1" style="border: none;" onchange="$('#gpxLogLimitCurrent').html(this.value);" oninput="$('#gpxLogLimitCurrent').html(this.value);" min="1"  value="5" max="50" /> <span id="gpxLogLimitCurrent" style="font-size: 10px; font-weight: bold">5</span>
+                            <br/><br/> <span style="font-size: 7px;">*) - {{pt226}}</span>
+                            <input id="showresult"  type="hidden"   name="showresult" value="1">
+                            <input id="count"       type="hidden"   name="count"      value="max">
+                            <input id="ptId"        type="hidden"   name="ptId"       value="{powerTrailId}">
+                            <input id="output"      type="hidden"   name="output"     value="gpxgc">
+                            <a href="javascript:void(0)" style="float: right;" onclick="$('#gpxOptions').fadeOut(600); $(function(){setTimeout(function(){$('#gpxSection').fadeIn(800); }, 801); });" class="editPtDataButton"/>OK</a>
+                        </div>
 
-    <div style="display: {displayUserCaches};">
-        <div class="searchdiv">
-            <table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.4em; font-size: 13px;" width="95%">
-                <tr>
-                    <td>waypoint</td>
-                    <td>{{cache_name}}</td>
-                    <td>{{pt002}}</td>
+                        <div id="gpxSection" align="right" style="padding-top: 10px; padding-bottom: 10px; padding-right: 5px; width=100%;">
+                            <a href="javascript:void(0)" style="float: left;" onclick="$('#gpxSection').fadeOut(800); $(function(){setTimeout(function(){$('#gpxOptions').fadeIn(800); }, 801); });" class="editPtDataButton"/>{{pt207}}</a>
+                            {{pt179}}:
+                            <a href="javascript:void(0)" onclick="getGpx('gpxgc');" class="editPtDataButton">GPX</a>&nbsp;<a href="javascript:void(0)" onclick="getGpx('zip');" class="editPtDataButton">GARMIN ({{format_pict}})</a>
+                        </div>
+                    </td>
                 </tr>
-                <tr>
-                    <td colspan="7"><img src="tpl/stdstyle/images/blue/dot_blue.png" height="1" width="100%"/></td>
-                </tr>
-                {keszynki}
-                <tr>
-                    <td colspan="7"><img src="tpl/stdstyle/images/blue/dot_blue.png" height="5" width="100%"/></td>
+                <tr style="display: {gpxOptionsTrDisplay}">
+                    <td class="linearBg2"></td>
                 </tr>
             </table>
-        </div>
-    </div>
-    <div style="display: {nocachess}">({{pt084}})</div>
 
-    <div style="display: {displayPowerTrails}">
-        <table border=0 width=100%>
-            <tr>
-                <td colspan="8" class="linearBg1">{{pt035}}</td>
-            </tr>
-            <tr id="filtersTr" style="display: {filtersTrDisplay};">
-                <td colspan="8" align="center">
-                    <div class="displayOptionsClass" id="displayOptionsButton">
-                        {{pt175}}: {displayedPowerTrailsCount}
-                        <a href="javascript:void(0)" style="float: right;" onclick="showDisplayOptions()" class="editPtDataButton">{{pt163}}</a>
-                    </div>
-                    <div id="displayOptions" class="displayOptionsClass" style="display: none">
-                        <form id="dOptionForm" name="dOptionForm" action="powerTrail.php" method="get">
-                            <input type="hidden" id="historicLimit" name="historicLimit" value="{historicLimit}"/>
-                            <table>
+            <span id="PowerTrailCaches"></span>
+            <img id="cachesLoader" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+
+            <table border="0" width="90%" align="center">
+                <tr>
+                    <td colspan="2">
+                        <div id="searchCacheSection" class="searchCacheSection" style="display: none">
+                            {{pt157}}:<br /><br />
+                            <input onkeyup="checkCacheByWpt('')" size="6" id="CacheWaypoint" type="text" maxlength="6" value="{ocWaypoint}" />
+                            <img style="display: none" id="AloaderNewCacheSearch" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+                            <span id="newCacheName"></span>
+                            <input type="hidden" id="newCacheNameId" value="-1">
+                            <br/><br/><a href="javascript:void(0)" id="newCache2ptAddButton" style="display: none" onclick="ajaxAddOtherUserCache()" class="editPtDataButton">{{pt047}}</a>
+                            <a href="javascript:void(0)" id="toggleSearchCacheSection1" style="display: none" onclick="toggleSearchCacheSection()" class="editPtDataButton">{{pt031}}</a>
+                        </div>
+
+                        <div id="searchCacheSectionRm" class="searchCacheSection" style="display: none">
+                            {{pt158}}:<br /><br />
+                            <input onkeyup="checkCacheByWpt(2)" size="6" id="CacheWaypoint2" type="text" maxlength="6" value="{ocWaypoint}" />
+                            <img style="display: none" id="AloaderNewCacheSearch2" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+                            <span id="newCacheName2"></span>
+                            <input type="hidden" id="newCacheNameId2" value="-1">
+                            <br/><br/><a href="javascript:void(0)" id="newCache2ptAddButton2" style="display: none" onclick="ajaxRmOtherUserCache()" class="editPtDataButton">{{pt159}}</a>
+                            <a href="javascript:void(0)" id="toggleSearchCacheSectionRm" style="display: none" onclick="toggleSearchCacheSection2()" class="editPtDataButton">{{pt031}}</a>
+                        </div>
+
+                        <img style="display: none" id="AloaderNewCacheAdding" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+                        <img id="AloaderNewCacheAddingOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+
+
+                        <div id="messageDiv">
+                            <table border="0">
                                 <tr>
-                                    <td>{{pt166}}</td>
-                                    <td>{ptTypeSelector2}</td>
+                                    <td rowspan="2">
+                                        <img id="AloaderNewCacheAddingNOKimg" style="display: none" src="tpl/stdstyle/images/log/16x16-dnf.png" />
+                                        <img id="AloaderNewCacheAddingIimg" style="display: none" src="tpl/stdstyle/images/misc/16x16-info.png" />
+                                    </td>
+                                    <td>
+                                        {{pt199}}
+                                        <img id="closeMessage" onclick="$('#messageDiv').fadeOut(600);" style="float:right;" src="tpl/stdstyle/images/free_icons/cross.png" />
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>{{pt167}}</td>
-                                    <td>{sortSelector}</td>
-                                </tr>
-                                <tr>
-                                    <td>{{pt178}}</td>
-                                    <td>{sortDirSelector}</td>
+                                    <td>
+                                        <span id="message"></span>
+                                    </td>
                                 </tr>
                             </table>
-                            <a href="javascript:void(0)" id="confirmDisplayOptionsButton" onclick="document.dOptionForm.submit();" class="editPtDataButton">{{pt164}}</a>
-                            <a href="javascript:void(0)" id="displayOptionsButton" onclick="showDisplayOptions()" class="editPtDataButton">{{pt031}}</a>
-                        </form>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th class="ptTd">{{pt036}}</th>
-                <th class="ptTd">{{pt039}}</th>
-                <th class="ptTd">{statusOrPoints}</th>
-                <th class="ptTd">{{pt041}}</th>
-                <th class="ptTd">{{pt042}}</th>
-                <th class="ptTd">{{pt057}}</th>
-            </tr>
-            {PowerTrails}
-            <tr><td colspan="6" align="right"><a class="editPtDataButton" href="{historicLimitHref}">{switchMiniPT}</a></td></tr>
-        </table>
-    </div>
 
-    <!-- display single Power trail and all conected infos -->
-
-    <br /><br />
-    <p>{mainPtInfo}</p>
-
-    <div style="display: {displaySelectedPowerTrail}">
-
-        <table border=0 width=100%>
-            <tr>
-                <td width=251>
-                    <table style="height: 250px; width: 250px;"><tr><td valign="center" align="center"><span id="powerTrailLogo"><img src="{powerTrailLogo}" /></span></td></tr></table>
-                    <img style="display: none" id="ajaxLoaderLogo" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
-                </td>
-                <td align="center">
-                    <span id="powerTrailName">{powerTrailName}</span> <img id="NameOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" /> <!-- [ ? TU WSTAWIĆ MAPĘ ? ] -->
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p align="center" id="toggleImageEditButton" style="display: {displayAddCachesButtons}">
-                        <a href="javascript:void(0)" onclick="toggleImageEdit()" class="editPtDataButton">{{pt060}}</a>
-                    </p>
-                    <span id="newImage" style="display: none">
-                        <form action="powerTrail/ajaxImage.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
-                            <p id="f1_upload_form" align="center"><br/>
-                                File: <input name="myfile" type="file" size="30" />
-                                <input type="hidden" name="powerTrailId" value="{powerTrailId}">
-                                <a href="javascript:void(0)" onclick="cancellImage()" class="editPtDataButton">{{pt031}}</a>
-                                <a href="javascript:void(0)" onclick="$(this).closest('form').submit()" class="editPtDataButton">{{pt044}}</a>
-                            </p>
-                            <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
-                    </span>
-                </td>
-                <td>
-                    <p align="center">
-                        <span id="toggleNameEditButton" style="display: {displayAddCachesButtons}">
-                            <a href="javascript:void(0)" onclick="toggleNameEdit()" class="editPtDataButton">{{pt091}}</a>
-                        </span>
-                        <img id="nameAjaxLoader" style="display: none" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
-                        <span id="editPtName" style="display: none">
-                            <input type="text" id="ptName" value="{powerTrailName}" />
-                            <a href="javascript:void(0)" onclick="cancellEditName()" class="editPtDataButton">{{pt031}}</a>
-                            <a href="javascript:void(0)" onclick="ajaxUpdateName()" class="editPtDataButton">{{pt044}}</a>
-                        </span>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3" class="linearBg1">{{pt019}}</td>
-            </tr>
-            <tr>
-                <td class="descTd">{{pt181}} <a class="tooltip" href="javascript:void(0);"><i style="color: blue;">(?)</i><span class="custom help"><img src="tpl/stdstyle/images/toltipsImages/Help.png" alt="Help" height="48" width="48" /><em>{{pt181}}</em>{{pt182}}</span></a></td>
-                <td><a href="viewprofile.php?userid={leadingUserId}">{leadingUserName}</a>
-                </td>
-            </tr>
-            <tr>
-                <td class="descTd"><div style="display: {displayAddCachesButtons}">{{pt063}}</div></td>
-                <td>
-                    <span id="ptStatus" style="display: {displayAddCachesButtons}">
-                        {ptStatus}
-                    </span>
-                    <img id="StatusOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
-                    <span id="ptStatusEdit" style="display: none">
-                        {ptStatusSelector}
-                        <a href="javascript:void(0)" onclick="toggleStatusEdit();" class="editPtDataButton">{{pt031}}</a>
-                        <a href="javascript:void(0)" onclick="ajaxUpdateStatus();" class="editPtDataButton">{{pt044}}</a>
-                    </span>
-                </td>
-                <td align="right" width="120">
-                    <a href="javascript:void(0)" style="display: {displayAddCachesButtons}" id="ptStatusButton" onclick="toggleStatusEdit()" class="editPtDataButton">{{pt064}}</a>
-                    <span style="display: none" id="ajaxLoaderStatus"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></span>
-                </td>
-            </tr>
-            <tr>
-                <td class="descTd">{{pt065}}</td>
-                <td><span id="conquestCount">{conquestCount}</span> {{pt066}}</td>
-            </tr>
-            <tr>
-                <td class="descTd">{{pt037}}</td>
-                <td><span id="conquestCount">{ptPoints}</span> {{pt038}}</td>
-            </tr>
-            <tr>
-                <td class="descTd">{{pt022}}</td>
-                <td><span id="powerTrailCacheCount">{powerTrailCacheCount}</span> (<span style="color: green" title="ActiveGeocaches">{powerTrailActiveCacheCount}</span> / <span style="color: orange" title="UnavailableGeocaches">{powerTrailUnavailableCacheCount}</span> / <span style="color: red" title="ArchivedGeocaches">{powerTrailArchivedCacheCount}</span>) <img id="cCountOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" /></td>
-                <td align="right">
-                    <span class="userActions" id="cacheCountUserActions">{cacheCountUserActions}</span>
-                    <span style="display: none" id="ajaxLoaderCacheCount"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></span>
-                </td>
-            </tr>
-            <tr>
-                <td class="descTd">{{pt054}}</td>
-                <td>
-                    <span id="powerTrailpercent">{powerTrailDemandPercent}</span>% <img id="percentCountOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
-                    <span id="powerTrailpercentEdit" style="display: none">
-                        <input id="demandPercent" onkeypress="return isNumberKey(event);" onkeyup="updateCc();" onchange="updateCc();" type="number" min="{demandPercentMinimum}" max="100" value="{powerTrailDemandPercent}" maxlength="3"/>
-                        <a href="javascript:void(0)" onclick="togglePercentSection(); $('#ptPercentCc').html(calculatepercentCc($('#powerTrailpercent').html(), $('#powerTrailCacheCount').html()));" class="editPtDataButton">{{pt031}}</a>
-                        <a href="javascript:void(0)" onclick="ajaxUpdateDemandPercent()" class="editPtDataButton">{{pt044}}</a>
-                    </span>
-                    (<span id="ptPercentCc"></span> {{pt180}})
-                    <img id="ptPercentOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
-                </td>
-                <td align="right">
-                    <span class="userActions" id="percentDemandUserActions" style="display: {percentDemandUserActions}">
-                        <a href="javascript:void(0)" onclick="togglePercentSection()" class="editPtDataButton">{{pt055}}</a>
-                    </span>
-                    <span style="display: none" id="ajaxLoaderPercentDemand"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></span>
-                </td>
-            </tr>
-            <tr>
-                <td class="descTd">{{pt023}}</td>
-                <td>
-                    <span id="ptTypeName">{ptTypeName}</span>
-                    <img id="ptTypeOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
-                    <div id="ptTypeNameEdit" style="display: none">
-                        {ptTypesSelector}
-                        <a href="javascript:void(0)" onclick="ajaxUpdatType()" class="editPtDataButton">{{pt044}}</a>
-                    </div>
-                </td>
-                <td align="right">
-                    <span class="userActions" id="ptTypeUserActionsDiv">{ptTypeUserActions}</span>
-                    <img style="display: none" id="ajaxLoaderType" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
-                </td>
-            </tr>
-            <tr>
-                <td class="descTd">{{pt024}}</td>
-                <td>
-                    <span id="powerTrailDateCreated">{powerTrailDateCreated}</span>
-                    <img id="ptDateOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
-                    <span id="powerTrailDateCreatedEdit" style="display: none">
-                        <input id="powerTrailDateCreatedInput" type="text" value="{powerTrailDateCreated}" maxlength="10" />
-                        <a href="javascript:void(0)" id="editDateSaveButton" onclick="ajaxUpdateDateCancel()" class="editPtDataButton">{{pt031}}</a>
-                        <a href="javascript:void(0)" id="editDateSaveButton" onclick="ajaxUpdateDate()" class="editPtDataButton">{{pt044}}</a>
-                    </span>
-                </td>
-                <td align="right">
-                    <span class="userActions" id="ptDateUserActionsDiv">{ptDateUserActions}</span>
-                    <img style="display: none" id="ajaxLoaderPtDate" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
-                </td>
-            </tr>
-            <tr>
-                <td class="descTd">{{pt025}}</td>
-                <td>
-                    <span id="powerTrailOwnerList">{powerTrailOwnerList}</span>
-                    <img id="ownerListOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
-                </td>
-                <td align="right">
-                    <span class="userActions" id="ownerListUserActions">{ownerListUserActions}</span>
-                    <span style="display: none" id="ajaxLoaderOwnerList"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td colspan="3" class="linearBg1">{{pt034}}</td>
-            </tr>
-            <tr>
-                <td class="inlineTd" colspan="2"><span id="ptdesc"></div>
-                        <div id="powerTrailDescription">{powerTrailDescription}</div>
-                        <div id="powerTrailDescriptionEdit" style="display: none">
-                            <textarea id="descriptionEdit" name="descriptionEdit">{powerTrailDescription}</textarea>
                         </div>
-                </td>
-                <td align="right" valign="bottom">
-                    {displayPtDescriptionUserAction}
-                    <span style="display: none" id="ajaxLoaderDescription"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></span>
-                    <a href="javascript:void(0)" id="editDescCancelButton" style="display: none" onclick="cancelDescEdit()" class="editPtDataButton">{{pt031}}</a>
-                    <br /> <br />
-                    <a href="javascript:void(0)" id="editDescSaveButton" style="display: none" onclick="ajaxUpdatePtDescription()" class="editPtDataButton">{{pt044}}</a>
-                    <img id="descOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
-                </td>
-            </tr>
-        </table>
+                    </td>
+                    <td align="right">
+                        <div style="display: {displayAddCachesButtons}">
+                            <div class="padding1"><a href="powerTrail.php?ptAction=selectCaches" id="toggleSearchCacheSection0" class="editPtDataButton">{{pt049}}</a></div>
+                            <div class="padding1"><a href="javascript:void(0)" id="finalCachesbtn" onclick="reloadWithFinalsChoice();" class="editPtDataButton">{{pt149}}</a></div>
+                            <div class="padding1"><a href="javascript:void(0)" id="toggleSearchCacheSection2" onclick="toggleSearchCacheSection()" class="editPtDataButton">{{pt048}}</a><span id="removeCacheButton" style="display: {removeCacheButtonDisplay};">&nbsp;<a href="javascript:void(0)" id="toggleSearchCacheSection3" onclick="toggleSearchCacheSection2()" class="editPtDataButton">{{pt156}}</a></span></div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
 
-        <table border=0 width=100%>
-            <tr>
-                <td class="linearBg1">{{pt020}} {powerTrailName}</td>
-            </tr>
-            <tr style="display: {gpxOptionsTrDisplay}">
-                <td>
-                    <div id="gpxOptions">
-                        <p>{{pt206}}:</p><hr>
-                        <input id="f_inactive"  type="checkbox" name="f_inactive"  checked="checked" /> {{pt201}} <br/>
-                        <input id="f_ignored"   type="checkbox" name="f_ignored"   checked="checked" /> {{pt202}} <br/>
-                        <input id="f_userowner" type="checkbox" name="f_userowner" checked="checked" /> {{pt203}} <br/>
-                        <input id="f_watched"   type="checkbox" name="f_watched"   checked="checked" /> {{pt204}} <br/>
-                        <input id="f_userfound" type="checkbox" name="f_userfound" checked="checked" /> {{pt205}} <br/>
-                        {{pt225}}*: <input id="gpxLogLimit" name="gpxLogLimit"  type="range" step="1" style="border: none;" onchange="$('#gpxLogLimitCurrent').html(this.value);" oninput="$('#gpxLogLimitCurrent').html(this.value);" min="1"  value="5" max="50" /> <span id="gpxLogLimitCurrent" style="font-size: 10px; font-weight: bold">5</span>
-                        <br/><br/> <span style="font-size: 7px;">*) - {{pt226}}</span>
-                        <input id="showresult"  type="hidden"   name="showresult" value="1">
-                        <input id="count"       type="hidden"   name="count"      value="max">
-                        <input id="ptId"        type="hidden"   name="ptId"       value="{powerTrailId}">
-                        <input id="output"      type="hidden"   name="output"     value="gpxgc">
-                        <a href="javascript:void(0)" style="float: right;" onclick="$('#gpxOptions').fadeOut(600); $(function(){setTimeout(function(){$('#gpxSection').fadeIn(800); }, 801); });" class="editPtDataButton"/>OK</a>
-                    </div>
+            <table border=0 width=100% style="{statsOptionsDisplay}">
+                <tr>
+                    <td class="linearBg1">{{pt099}} {powerTrailName}</td>
+                </tr>
+                <tr>
+                    <td>
+                        {{pt015}}: <br />
+                        <p align="center"><img src="//chart.apis.google.com/chart?cht=p3&chd=t:{cacheFound},{powerTrailCacheLeft}&chco=00AA00|0000AA&chs=300x120&chl={{pt103}}|{{pt104}}" /><br />
+                            {powerTrailserStats}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div id="ptStatsContainer"></div>
+                        <a href="javascript:void(0)" id="showPtStatsButton" onclick="ajaxGetPtStats()" class="editPtDataButton">{{pt098}}</a>
+                        <img id="ptStatsLoader" style="display: none" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+                        <img id="ptStatsOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+                        <br /><br />
+                        <a href="javascript:void(0)" id="hidePtStatsButton" onclick="ptStatsHide()" class="editPtDataButton" style="display: none">{{pt100}}</a>
+                    </td>
+                </tr>
+            </table>
 
-                    <div id="gpxSection" align="right" style="padding-top: 10px; padding-bottom: 10px; padding-right: 5px; width=100%;">
-                        <a href="javascript:void(0)" style="float: left;" onclick="$('#gpxSection').fadeOut(800); $(function(){setTimeout(function(){$('#gpxOptions').fadeIn(800); }, 801); });" class="editPtDataButton"/>{{pt207}}</a>
-                        {{pt179}}:
-                        <a href="javascript:void(0)" onclick="getGpx('gpxgc');" class="editPtDataButton">GPX</a>&nbsp;<a href="javascript:void(0)" onclick="getGpx('zip');" class="editPtDataButton">GARMIN ({{format_pict}})</a>
-                    </div>
-                </td>
-            </tr>
-            <tr style="display: {gpxOptionsTrDisplay}">
-                <td class="linearBg2"></td>
-            </tr>
-        </table>
-
-        <span id="PowerTrailCaches"></span>
-        <img id="cachesLoader" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
-
-        <table border="0" width="90%" align="center">
-            <tr>
-                <td colspan="2">
-                    <div id="searchCacheSection" class="searchCacheSection" style="display: none">
-                        {{pt157}}:<br /><br />
-                        <input onkeyup="checkCacheByWpt('')" size="6" id="CacheWaypoint" type="text" maxlength="6" value="{ocWaypoint}" />
-                        <img style="display: none" id="AloaderNewCacheSearch" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
-                        <span id="newCacheName"></span>
-                        <input type="hidden" id="newCacheNameId" value="-1">
-                        <br/><br/><a href="javascript:void(0)" id="newCache2ptAddButton" style="display: none" onclick="ajaxAddOtherUserCache()" class="editPtDataButton">{{pt047}}</a>
-                        <a href="javascript:void(0)" id="toggleSearchCacheSection1" style="display: none" onclick="toggleSearchCacheSection()" class="editPtDataButton">{{pt031}}</a>
-                    </div>
-
-                    <div id="searchCacheSectionRm" class="searchCacheSection" style="display: none">
-                        {{pt158}}:<br /><br />
-                        <input onkeyup="checkCacheByWpt(2)" size="6" id="CacheWaypoint2" type="text" maxlength="6" value="{ocWaypoint}" />
-                        <img style="display: none" id="AloaderNewCacheSearch2" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
-                        <span id="newCacheName2"></span>
-                        <input type="hidden" id="newCacheNameId2" value="-1">
-                        <br/><br/><a href="javascript:void(0)" id="newCache2ptAddButton2" style="display: none" onclick="ajaxRmOtherUserCache()" class="editPtDataButton">{{pt159}}</a>
-                        <a href="javascript:void(0)" id="toggleSearchCacheSectionRm" style="display: none" onclick="toggleSearchCacheSection2()" class="editPtDataButton">{{pt031}}</a>
-                    </div>
-
-                    <img style="display: none" id="AloaderNewCacheAdding" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
-                    <img id="AloaderNewCacheAddingOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+            <!-- power Trail comments -->
+            <table border=0 width=100%>
+                <tr>
+                    <td class="linearBg1">{{pt050}}</td>
+                </tr>
+            </table>
 
 
-                    <div id="messageDiv">
-                        <table border="0">
-                            <tr>
-                                <td rowspan="2">
-                                    <img id="AloaderNewCacheAddingNOKimg" style="display: none" src="tpl/stdstyle/images/log/16x16-dnf.png" />
-                                    <img id="AloaderNewCacheAddingIimg" style="display: none" src="tpl/stdstyle/images/misc/16x16-info.png" />
-                                </td>
-                                <td>
-                                    {{pt199}}
-                                    <img id="closeMessage" onclick="$('#messageDiv').fadeOut(600);" style="float:right;" src="tpl/stdstyle/images/free_icons/cross.png" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span id="message"></span>
-                                </td>
-                            </tr>
-                        </table>
+            <span id="ptComments">
+                <img id="commentsLoader" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+            </span>
+            <div id="animateHere"></div>
+            <p style="display: {displayAddCommentSection}" align="right"><a href="javascript:void(0)" id="toggleAddComment" onclick="toggleAddComment()" class="editPtDataButton">{{pt051}}</a>&nbsp; </p>
+            <div id="addComment" style="display: none">
+                <input type="hidden" id="editedCommentId" value="0" />
+                <input type="hidden" id="ClickinguserId" value="0" />
+                <textarea id="addCommentTxtArea"></textarea><br /><br />
+                {{pt229}} {ptCommentsSelector}
+                <br /><br />
+                {{pt230}} <input type="text" id="commentDateTime" value="{date}">
+                {{pt231}} <input type="text" id="timepicker" value="0:01" style="width:50px;">
+                <br /><br />
+                <img id="addCeLoader" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" style="display: none;" />
+                <a id="addC1" href="javascript:void(0)" onclick="toggleAddComment();" class="editPtDataButton">{{pt031}}</a>
+                <a id="addC2" href="javascript:void(0)" onclick="ajaxAddComment();" class="editPtDataButton">{{pt044}}</a>
+                <a id="addCe1" href="javascript:void(0)" onclick="toggleEditComment();" class="editPtDataButton" style="display: none" >{{pt031}}</a>
+                <a id="addCe2" href="javascript:void(0)" onclick="ajaxUpdateComment();" class="editPtDataButton" style="display: none">{{pt044}}</a>
+                <br /><br />
+            </div>
 
-                    </div>
-                </td>
-                <td align="right">
-                    <div style="display: {displayAddCachesButtons}">
-                        <div class="padding1"><a href="powerTrail.php?ptAction=selectCaches" id="toggleSearchCacheSection0" class="editPtDataButton">{{pt049}}</a></div>
-                        <div class="padding1"><a href="javascript:void(0)" id="finalCachesbtn" onclick="reloadWithFinalsChoice();" class="editPtDataButton">{{pt149}}</a></div>
-                        <div class="padding1"><a href="javascript:void(0)" id="toggleSearchCacheSection2" onclick="toggleSearchCacheSection()" class="editPtDataButton">{{pt048}}</a><span id="removeCacheButton" style="display: {removeCacheButtonDisplay};">&nbsp;<a href="javascript:void(0)" id="toggleSearchCacheSection3" onclick="toggleSearchCacheSection2()" class="editPtDataButton">{{pt156}}</a></span></div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-
-        <table border=0 width=100% style="{statsOptionsDisplay}">
-            <tr>
-                <td class="linearBg1">{{pt099}} {powerTrailName}</td>
-            </tr>
-            <tr>
-                <td>
-                    {{pt015}}: <br />
-                    <p align="center"><img src="//chart.apis.google.com/chart?cht=p3&chd=t:{cacheFound},{powerTrailCacheLeft}&chco=00AA00|0000AA&chs=300x120&chl={{pt103}}|{{pt104}}" /><br />
-                        {powerTrailserStats}</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div id="ptStatsContainer"></div>
-                    <a href="javascript:void(0)" id="showPtStatsButton" onclick="ajaxGetPtStats()" class="editPtDataButton">{{pt098}}</a>
-                    <img id="ptStatsLoader" style="display: none" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
-                    <img id="ptStatsOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
-                    <br /><br />
-                    <a href="javascript:void(0)" id="hidePtStatsButton" onclick="ptStatsHide()" class="editPtDataButton" style="display: none">{{pt100}}</a>
-                </td>
-            </tr>
-        </table>
-
-        <!-- power Trail comments -->
-        <table border=0 width=100%>
-            <tr>
-                <td class="linearBg1">{{pt050}}</td>
-            </tr>
-        </table>
-
-
-        <span id="ptComments">
-            <img id="commentsLoader" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
-        </span>
-        <div id="animateHere"></div>
-        <p style="display: {displayAddCommentSection}" align="right"><a href="javascript:void(0)" id="toggleAddComment" onclick="toggleAddComment()" class="editPtDataButton">{{pt051}}</a>&nbsp; </p>
-        <div id="addComment" style="display: none">
-            <input type="hidden" id="editedCommentId" value="0" />
-            <input type="hidden" id="ClickinguserId" value="0" />
-            <textarea id="addCommentTxtArea"></textarea><br /><br />
-            {{pt229}} {ptCommentsSelector}
-            <br /><br />
-            {{pt230}} <input type="text" id="commentDateTime" value="{date}">
-            {{pt231}} <input type="text" id="timepicker" value="0:01" style="width:50px;">
-            <br /><br />
-            <img id="addCeLoader" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" style="display: none;" />
-            <a id="addC1" href="javascript:void(0)" onclick="toggleAddComment();" class="editPtDataButton">{{pt031}}</a>
-            <a id="addC2" href="javascript:void(0)" onclick="ajaxAddComment();" class="editPtDataButton">{{pt044}}</a>
-            <a id="addCe1" href="javascript:void(0)" onclick="toggleEditComment();" class="editPtDataButton" style="display: none" >{{pt031}}</a>
-            <a id="addCe2" href="javascript:void(0)" onclick="ajaxUpdateComment();" class="editPtDataButton" style="display: none">{{pt044}}</a>
-            <br /><br />
         </div>
-
-    </div>
+</div>

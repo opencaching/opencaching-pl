@@ -2,10 +2,10 @@
 
 namespace lib\Objects\PowerTrail;
 
-use \lib\Database\DataBaseSingleton;
 use \lib\Objects\Coordinates\Coordinates;
 use lib\Objects\GeoCache\Collection;
 use lib\Objects\GeoCache\GeoCache;
+use Utils\Database\OcDb;
 
 class PowerTrail extends \lib\Objects\BaseObject
 {
@@ -37,7 +37,9 @@ class PowerTrail extends \lib\Objects\BaseObject
     private $conquestedCount;
     private $points;
 
-    /* @var $geocaches \lib\Objects\GeoCache\Collection */
+    /**
+     *  @var \lib\Objects\GeoCache\Collection
+     */
     private $geocaches;
     private $owners = false;
     private $powerTrailConfiguration;
@@ -62,7 +64,7 @@ class PowerTrail extends \lib\Objects\BaseObject
 
     private function loadDataFromDb($fields = null)
     {
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = OcDb::instance();
 
         if (is_null($fields)) {
             // default select all fields
@@ -70,15 +72,15 @@ class PowerTrail extends \lib\Objects\BaseObject
         }
 
         $ptq = "SELECT $fields FROM `PowerTrail` WHERE `id` = :1 LIMIT 1";
-        $db->multiVariableQuery($ptq, $this->id);
+        $s = $db->multiVariableQuery($ptq, $this->id);
 
-        if ($db->rowCount() != 1) {
+        if ($db->rowCount($s) != 1) {
            //no such powertrail in DB?
            $this->dataLoaded = false; //mark object as NOT containing data
            return;
         }
 
-        $this->setFieldsByUsedDbRow($db->dbResultFetch());
+        $this->setFieldsByUsedDbRow($db->dbResultFetch($s));
     }
 
     private function setFieldsByUsedDbRow(array $dbRow)
@@ -144,10 +146,10 @@ class PowerTrail extends \lib\Objects\BaseObject
     public static function CheckForPowerTrailByCache($cacheId)
     {
         $queryPt = 'SELECT `id`, `name`, `image`, `type` FROM `PowerTrail` WHERE `id` IN ( SELECT `PowerTrailId` FROM `powerTrail_caches` WHERE `cacheId` =:1 ) AND `status` = 1 ';
-        $db = DataBaseSingleton::Instance();
-        $db->multiVariableQuery($queryPt, $cacheId);
+        $db = OcDb::instance();
+        $s = $db->multiVariableQuery($queryPt, $cacheId);
 
-        return $db->dbResultFetchAll();
+        return $db->dbResultFetchAll($s);
     }
 
     public static function GetPowerTrailIconsByType($typeId = null)
@@ -215,10 +217,12 @@ class PowerTrail extends \lib\Objects\BaseObject
     public function getGeocaches()
     {
         if (!$this->geocaches->isReady()) {
-            $db = DataBaseSingleton::Instance();
+
+            $db = OcDb::instance();
             $query = 'SELECT powerTrail_caches.isFinal, caches . * , user.username FROM  `caches` , user, powerTrail_caches WHERE cache_id IN ( SELECT  `cacheId` FROM  `powerTrail_caches` WHERE  `PowerTrailId` =:1) AND user.user_id = caches.user_id AND powerTrail_caches.cacheId = caches.cache_id ORDER BY caches.name';
-            $db->multiVariableQuery($query, $this->id);
-            $geoCachesDbResult = $db->dbResultFetchAll();
+            $s = $db->multiVariableQuery($query, $this->id);
+            $geoCachesDbResult = $db->dbResultFetchAll($s);
+
             $geocachesIdArray = array();
             foreach ($geoCachesDbResult as $geoCacheDbRow) {
                 $geocache = new GeoCache();
@@ -240,9 +244,9 @@ class PowerTrail extends \lib\Objects\BaseObject
     private function loadPtOwners()
     {
         $query = 'SELECT `userId`, `privileages`, username FROM `PowerTrail_owners`, user WHERE `PowerTrailId` = :1 AND PowerTrail_owners.userId = user.user_id';
-        $db = \lib\Database\DataBaseSingleton::Instance();
-        $db->multiVariableQuery($query, $this->id);
-        $ownerDb = $db->dbResultFetchAll();
+        $db = OcDb::instance();
+        $s = $db->multiVariableQuery($query, $this->id);
+        $ownerDb = $db->dbResultFetchAll($s);
         foreach ($ownerDb as $user) {
             $owner = new Owner($user);
             $owner->setPrivileages($user['privileages']);
@@ -361,11 +365,15 @@ class PowerTrail extends \lib\Objects\BaseObject
 
     public function getFoundCachsByUser($userId)
     {
+        $cachesFoundByUser = array();
+        $sqlInStString = $this->buildSqlStringOfAllPtGeocachesId();
+        if($sqlInStString !== ''){
+            $query = 'SELECT `cache_id` AS `geocacheId` FROM `cache_logs` WHERE `cache_id` in (' . $sqlInStString . ') AND `deleted` = 0 AND `user_id` = :1 AND `type` = "1" ';
+            $db = OcDb::instance();
+            $s = $db->multiVariableQuery($query, (int) $userId);
+            $cachesFoundByUser = $db->dbResultFetchAll($s);
+        }
 
-        $query = 'SELECT `cache_id` AS `geocacheId` FROM `cache_logs` WHERE `cache_id` in (' . $this->buildSqlStringOfAllPtGeocachesId() . ') AND `deleted` = 0 AND `user_id` = :1 AND `type` = "1" ';
-        $db = DataBaseSingleton::Instance();
-        $db->multiVariableQuery($query, (int) $userId);
-        $cachesFoundByUser = $db->dbResultFetchAll();
         return $cachesFoundByUser;
     }
 
@@ -374,10 +382,16 @@ class PowerTrail extends \lib\Objects\BaseObject
      */
     public function checkCacheCount()
     {
-        $countQuery = 'SELECT count(*) as `cacheCount` FROM `caches` WHERE `cache_id` IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1)';
-        $db = DataBaseSingleton::Instance();
-        $db->multiVariableQuery($countQuery, $this->id);
-        $answer = $db->dbResultFetch();
+
+        $db = OcDb::instance();
+        $s = $db->multiVariableQuery(
+            'SELECT count(*) as `cacheCount` FROM `caches`
+            WHERE `cache_id` IN (
+                SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1
+            )',
+            $this->id);
+
+        $answer = $db->dbResultFetch($s);
         if ($answer['cacheCount'] != $this->cacheCount) {
             $updateQuery = 'UPDATE `PowerTrail` SET `cacheCount` =:1  WHERE `id` = :2 ';
             $db->multiVariableQuery($updateQuery, $answer['cacheCount'], $this->id);
@@ -393,8 +407,9 @@ class PowerTrail extends \lib\Objects\BaseObject
 //        print 'pt #'.$this->id.', caches in pt: '.$this->cacheCount.'; min. caches limit: '. $this->getPtMinCacheCountLimit().'<br>';
         if ($this->cacheCount < $this->getPtMinCacheCountLimit()) {
 //            $text .= tr('pt227').tr('pt228');
-            print '[test only] geoPath #<a href="powerTrail.php?ptAction=showSerie&ptrail=' . $this->id . '">' . $this->id . '</a> (geoPtah cache count=' . $this->cacheCount . ' is lower than minimum=' . $this->getPtMinCacheCountLimit() . ') <br/>';
-//            $db = \lib\Database\DataBaseSingleton::Instance();
+
+            print '[test only] geoPath #<a href="powerTrail.php?ptAction=showSerie&ptrail=' . $this->id . '">' . $this->id .' '. $this->name . ' </a> (geoPtah cache count=' . $this->cacheCount . ' is lower than minimum=' . $this->getPtMinCacheCountLimit() . ') <br/>';
+//            $db = OcDb::instance();
 //            $queryStatus = 'UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2';
 //            $db->multiVariableQuery($queryStatus, 4, $pt['id']);
 //            $query = 'INSERT INTO `PowerTrail_comments`(`userId`, `PowerTrailId`, `commentType`, `commentText`, `logDateTime`, `dbInsertDateTime`, `deleted`) VALUES
@@ -431,17 +446,17 @@ class PowerTrail extends \lib\Objects\BaseObject
         $requiredGeocacheCount = $this->caclulateRequiredGeocacheCount();
 
         if ($this->perccentRequired < \lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED) { // disable power trail witch too low percent required
-            print '<span style="color: orange"> geoPath #<a href="' . $serverUrl . 'powerTrail.php?ptAction=showSerie&ptrail=' . $this->id . '">' . $this->id . '</a> will be put in service because too low perccentRequired. (Current Percent:' . $this->perccentRequired . ' Required: ' . \lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED . ') [<a href="' . $serverUrl . '/powerTrailCOG.php?ptSelector=' . $this->id . '">cog link</a>]</span><br/>';
+            print '<span style="color: orange"> geoPath #<a href="' . $serverUrl . 'powerTrail.php?ptAction=showSerie&ptrail=' . $this->id . '">' . $this->id .' '. $this->name . '</a> will be put in service because too low perccentRequired. (Current Percent:' . $this->perccentRequired . ' Required: ' . \lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED . ') [<a href="' . $serverUrl . '/powerTrailCOG.php?ptSelector=' . $this->id . '">cog link</a>]</span><br/>';
         }
 
         if ($this->activeGeocacheCount < $requiredGeocacheCount) {
             if ($this->archivedGeocacheCount > $requiredGeocacheCount) { // close powerTrail permanent
-                print '<span style="color: red"> geoPath #<a href="' . $serverUrl . 'powerTrail.php?ptAction=showSerie&ptrail=' . $this->id . '">' . $this->id . '</a> will be closed permanently. Total cache count: ' . $this->cacheCount . ' / Active geocaches: ' . $this->activeGeocacheCount . ' / Required: ' . $requiredGeocacheCount . '. / Archived geocaches: ' . $this->archivedGeocacheCount . ' [<a href="' . $serverUrl . '/powerTrailCOG.php?ptSelector=' . $this->id . '">cog link</a>]</span><br/>';
+                print '<span style="color: red"> geoPath #<a href="' . $serverUrl . 'powerTrail.php?ptAction=showSerie&ptrail=' . $this->id . '">' . $this->id .' '. $this->name . '</a> will be closed permanently. Total cache count: ' . $this->cacheCount . ' / Active geocaches: ' . $this->activeGeocacheCount . ' / Required: ' . $requiredGeocacheCount . '. / Archived geocaches: ' . $this->archivedGeocacheCount . ' [<a href="' . $serverUrl . '/powerTrailCOG.php?ptSelector=' . $this->id . '">cog link</a>]</span><br/>';
 //              $text = tr('pt227').tr('pt234');
 //              ddd($text);
             }
             if ($this->unavailableGeocacheCount >= ($this->cacheCount - $requiredGeocacheCount)) { // disable powerTrail for service only
-                print '<span style="color: black"> geoPath #<a href="' . $serverUrl . 'powerTrail.php?ptAction=showSerie&ptrail=' . $this->id . '">' . $this->id . '</a> will be put in service (uncompletable) Total cache count: ' . $this->cacheCount . ' / Active geocaches: ' . $this->activeGeocacheCount . ' / Required: ' . (($this->cacheCount * $this->perccentRequired) / 100) . '  / Archived geocaches: ' . $this->archivedGeocacheCount . ' [<a href="' . $serverUrl . '/powerTrailCOG.php?ptSelector=' . $this->id . '">cog link</a>]</span><br/>';
+                print '<span style="color: black"> geoPath #<a href="' . $serverUrl . 'powerTrail.php?ptAction=showSerie&ptrail=' . $this->id . '">' . $this->id .' '. $this->name . '</a> will be put in service (uncompletable) Total cache count: ' . $this->cacheCount . ' / Active geocaches: ' . $this->activeGeocacheCount . ' / Required: ' . (($this->cacheCount * $this->perccentRequired) / 100) . '  / Archived geocaches: ' . $this->archivedGeocacheCount . ' [<a href="' . $serverUrl . '/powerTrailCOG.php?ptSelector=' . $this->id . '">cog link</a>]</span><br/>';
 //              $db->multiVariableQuery('UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2', self::STATUS_INSERVICE, $this->id);
                 //$query = 'INSERT INTO `PowerTrail_comments`(`userId`, `PowerTrailId`, `commentType`, `commentText`, `logDateTime`, `dbInsertDateTime`, `deleted`) VALUES (-1, :1, 4, :2, NOW(), NOW(),0)';
                 $text = tr('pt227') . tr('pt234');
@@ -461,11 +476,12 @@ class PowerTrail extends \lib\Objects\BaseObject
 
     public function getPowerTrailCachesLogsForCurrentUser()
     {
-        $db = DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $qr = 'SELECT `cache_id`, `date`, `text_html`, `text`  FROM `cache_logs` WHERE `cache_id` IN ( SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` = :1) AND `user_id` = :2 AND `deleted` = 0 AND `type` = 1';
         isset($_SESSION['user_id']) ? $userId = $_SESSION['user_id'] : $userId = 0;
-        $db->multiVariableQuery($qr, $this->id, $userId);
-        $powerTrailCacheLogsArr = $db->dbResultFetchAll();
+        $s = $db->multiVariableQuery($qr, $this->id, $userId);
+        $powerTrailCacheLogsArr = $db->dbResultFetchAll($s);
+
         $powerTrailCachesUserLogsByCache = array();
         foreach ($powerTrailCacheLogsArr as $log) {
             $powerTrailCachesUserLogsByCache[$log['cache_id']] = array(
@@ -528,17 +544,17 @@ class PowerTrail extends \lib\Objects\BaseObject
     public function increaseConquestedCount()
     {
         $this->conquestedCount++;
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $query = 'UPDATE `PowerTrail` SET `PowerTrail`.`conquestedCount`= (SELECT COUNT(*) FROM `PowerTrail_comments` WHERE `PowerTrail_comments`.`PowerTrailId` = :1 AND `PowerTrail_comments`.`commentType` = 2 AND `PowerTrail_comments`.`deleted` = 0 ) WHERE `PowerTrail`.`id` = :1 ';
         $db->multiVariableQuery($query, $this->id);
     }
 
     public function isAlreadyConquestedByUser(\lib\Objects\User\User $user)
     {
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $mySqlRequest = 'SELECT count(*) AS `ptConquestCount` FROM `PowerTrail_comments` WHERE `commentType` =2 AND `deleted` =0 AND `userId` =:1 AND `PowerTrailId` = :2';
-        $db->multiVariableQuery($mySqlRequest, $user->getUserId(), $this->getId());
-        $mySqlResult = $db->dbResultFetch();
+        $s = $db->multiVariableQuery($mySqlRequest, $user->getUserId(), $this->getId());
+        $mySqlResult = $db->dbResultFetch($s);
         if ($mySqlResult['ptConquestCount'] > 0) {
             return true;
         } else {
@@ -549,7 +565,7 @@ class PowerTrail extends \lib\Objects\BaseObject
     public function setAndStoreStatus($status)
     {
         $this->status = $status;
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $query = 'UPDATE `PowerTrail` SET `status` = :1 WHERE `PowerTrail`.`id` = :2 ';
         $db->multiVariableQuery($query, $status, $this->id);
     }

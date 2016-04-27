@@ -16,8 +16,8 @@ FROM (
 WHERE clftf.user_id = :1
 ORDER BY clftf.date';
 
-$database->multiVariableQuery($ftfQuery, $userId);
-$ftfResult = $database->dbResultFetchAll();
+$s = $database->multiVariableQuery($ftfQuery, $userId);
+$ftfResult = $database->dbResultFetchAll($s);
 
 print json_encode($ftfResult);
 

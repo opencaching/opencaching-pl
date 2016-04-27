@@ -1,3 +1,6 @@
+<?php
+use Utils\Database\OcDb;
+?>
 <html>
     <head>
     </head>
@@ -137,10 +140,7 @@
 
 /////////////////
 
-        $dbc = new dataBase();
-
-        /* $query = "SELECT * FROM cache_logs WHERE deleted=0 "; */
-
+        $dbc = OcDb::instance();
 
         $query = "SELECT distinct " . $sGranulate . "
         FROM
@@ -153,23 +153,17 @@
 
 
 
-        $dbc->multiVariableQuery($query);
+        $s = $dbc->multiVariableQuery($query);
 
 
         $aNrColumn = array();
         $i = 0;
 
-
-
-
         echo "<script type='text/javascript'>";
 
-
-        while ($record = $dbc->dbResultFetch()) {
+        while ($record = $dbc->dbResultFetch($s)) {
 
             $nPeriod = $record['period'];
-
-
 
             $aNrColumn[$nPeriod] = $i;
 
@@ -180,20 +174,17 @@
         }
 
 
-
 ////////////////////
-//echo " var chartOpt = gcb.getChartOption();";
-//echo " chartOpt.vAxis.title= '".tr2('NrCaches',$lang)."';";
+
         echo "</script>";
 
-        unset($dbc);
 ////////////////////////////
 
         foreach ($asUserID as $sID) {
             $sCondition = " and cl.user_id = '" . $sID . "'";
             $sCondition .= $sDateCondition;
 
-            $dbc = new dataBase();
+            $dbc = OcDb::instance();
 
             $query = "SELECT u.username username, u.user_id user_id,
             " . $sGranulate . ",
@@ -209,14 +200,13 @@
                     . $sCondition .
                     "GROUP BY period";
 
-            $dbc->multiVariableQuery($query);
+            $s = $dbc->multiVariableQuery($query);
 
 
             echo "<script type='text/javascript'>";
 
-
             $nStart = 1;
-            while ($record = $dbc->dbResultFetch()) {
+            while ($record = $dbc->dbResultFetch($s)) {
                 $nPeriod = $record['period'];
                 $nVal = $record['count'];
 

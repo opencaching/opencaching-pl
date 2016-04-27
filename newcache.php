@@ -2,6 +2,7 @@
 
 use Utils\Database\OcDb;
 use Utils\Database\XDb;
+use lib\Objects\GeoCache\GeoCache;
 
 //prepare the templates and include all neccessary
 global $site_name, $absolute_server_URI;
@@ -373,8 +374,10 @@ if ($error == false) {
         if ($show_all_countries == 1) {
             tpl_set_var('show_all_countries', '1');
             tpl_set_var('show_all_countries_submit', '');
-            $db->simpleQuery("SELECT `short` FROM `countries` ORDER BY `short` ASC");
-            $dbResult = $db->dbResultFetchAll();
+
+            $s = $db->simpleQuery("SELECT `short` FROM `countries` ORDER BY `short` ASC");
+            $dbResult = $db->dbResultFetchAll($s);
+
             $defaultCountryList = array();
             foreach ($dbResult as $value) {
                 $defaultCountryList[] = $value['short'];
@@ -686,7 +689,7 @@ if ($error == false) {
                     "INSERT INTO `caches` SET
                         `cache_id` = '', `user_id` = ?, `name` = ?, `longitude` = ?, `latitude` = ?, `last_modified` = NOW(),
                         `date_created` = NOW(), `type` = ?, `status` = ?, `country` = ?, `date_hidden` = ?, `date_activate` = ?,
-                        `founds` = 0, `notfounds` = 0, `notes` = 0, `last_found` = NULL, `size` = ?, `difficulty` = ?,
+                        `founds` = 0, `notfounds` = 0, `watcher` = 0, `notes` = 0, `last_found` = NULL, `size` = ?, `difficulty` = ?,
                         `terrain` = ?, `uuid` = ?, `logpw` = ?, `search_time` = ?, `way_length` = ?, `wp_gc` = ?,
                         `wp_nc` = ?, `wp_ge` = ?, `wp_tc` = ?, `node` = ? ",
                     $usr['userid'], $name, $longitude, $latitude, $sel_type, $sel_status, $sel_country,
@@ -739,7 +742,7 @@ if ($error == false) {
                     nl2br(htmlspecialchars($hints, ENT_COMPAT, 'UTF-8')),
                     $short_desc, $desc_uuid, $oc_nodeid);
 
-                setCacheDefaultDescLang($cache_id);
+                GeoCache::setCacheDefaultDescLang($cache_id);
 
                 // insert cache-attributes
                 for ($i = 0; $i < count($cache_attribs); $i++) {
@@ -760,7 +763,7 @@ if ($error == false) {
                 }
 
                 if ($needs_approvement) { // notify RR that new cache has to be verified
-                    $email_content = read_file($stylepath . '/email/rr_activate_cache.email');
+                    $email_content = file_get_contents($stylepath . '/email/rr_activate_cache.email');
                     $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
                     $email_content = mb_ereg_replace('{rrActivateCache_01}', tr('rrActivateCache_01'), $email_content);
                     $email_content = mb_ereg_replace('{rrActivateCache_02}', tr('rrActivateCache_02'), $email_content);
@@ -820,8 +823,10 @@ function buildDescriptionLanguageSelector($show_all_langs, $lang, $defaultLangug
     if ($show_all_langs == 1) {
         tpl_set_var('show_all_langs', '1');
         tpl_set_var('show_all_langs_submit', '');
-        $db->simpleQuery('SELECT short FROM languages');
-        $dbResult = $db->dbResultFetchAll();
+
+        $s = $db->simpleQuery('SELECT short FROM languages');
+        $dbResult = $db->dbResultFetchAll($s);
+
         $defaultLangugaeList = array();
         foreach ($dbResult as $langTmp) {
             $defaultLangugaeList[] = $langTmp['short'];
@@ -838,3 +843,50 @@ function buildDescriptionLanguageSelector($show_all_langs, $lang, $defaultLangug
     }
     tpl_set_var('langoptions', $langsoptions);
 }
+
+
+function generateNextWaypoint($currentWP, $ocWP)
+{
+    $wpCharSequence = "0123456789ABCDEFGHJKLMNPQRSTUWXYZ";
+
+    $wpCode = mb_substr($currentWP, 2, 4);
+    if (strcasecmp($wpCode, "8000") < 0) {
+        // Old rule - use hexadecimal wp codes
+        $nNext = dechex(hexdec($wpCode) + 1);
+        while (mb_strlen($nNext) < 4)
+            $nNext = '0' . $nNext;
+            $wpCode = mb_strtoupper($nNext);
+    } else {
+        // New rule - use digits and (almost) full latin alphabet
+        // as defined in $wpCharSequence
+        for ($i = 3; $i >= 0; $i--) {
+            $pos = strpos($wpCharSequence, $wpCode[$i]);
+            if ($pos < strlen($wpCharSequence) - 1) {
+                $wpCode[$i] = $wpCharSequence[$pos + 1];
+                break;
+            } else {
+                $wpCode[$i] = $wpCharSequence[0];
+            }
+        }
+    }
+    return $ocWP . $wpCode;
+}
+
+// set a unique waypoint to this cache
+function setCacheWaypoint($cacheid, $ocWP)
+{
+
+    $r['maxwp'] = XDb::xSimpleQueryValue(
+        'SELECT MAX(`wp_oc`) `maxwp` FROM `caches`',null);
+
+    if ($r['maxwp'] == null)
+        $sWP = $ocWP . "0001";
+    else
+        $sWP = generateNextWaypoint($r['maxwp'], $ocWP);
+
+    XDb::xSql(
+        "UPDATE `caches` SET `wp_oc`= ?
+        WHERE `cache_id`= ? AND ISNULL(`wp_oc`)",
+        $sWP, $cacheid);
+}
+

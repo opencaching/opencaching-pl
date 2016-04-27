@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use Utils\Database\OcDb;
 
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
@@ -78,10 +79,9 @@ if ($usr['admin']) {
         } else {
             lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user->getUserId(), true, lib\Objects\User\AdminNote::IGNORE_FOUND_LIMIT_RM);
         }
-        $db = \lib\Database\DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $db->multiVariableQuery('INSERT INTO user_settings (user_id, newcaches_no_limit) VALUES (:2, :1) ON DUPLICATE KEY UPDATE newcaches_no_limit = :1', $newIgnoreFoundLimit, $user->getUserId());
-        $db->reset();
-        unset ($user);
+
         $user = new \lib\Objects\User\User(array('userId'=>$_REQUEST['userid']));
         $user->loadExtendedSettings();;
     }

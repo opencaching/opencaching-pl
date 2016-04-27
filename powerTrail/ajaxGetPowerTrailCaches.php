@@ -1,9 +1,5 @@
 <?php
 
-//$rootpath = __DIR__.'/../';
-//require_once __DIR__.'/../lib/common.inc.php';
-//db_disconnect();
-
 require_once __DIR__ . '/../lib/ClassPathDictionary.php';
 require_once __DIR__ . '/../lib/language.inc.php';
 

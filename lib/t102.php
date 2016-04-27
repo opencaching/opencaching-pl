@@ -1,3 +1,6 @@
+<?php
+use Utils\Database\OcDb;
+?>
 
 
 <div id='idGTC' align = "center"> </div>
@@ -122,15 +125,8 @@ if ($sRD == "R") {
     }
 }
 
-/* if ( $sNameOfStat == "NumberOfFinds" )
-  $sTypeCondition = " and  cl.type=1 ";
 
-  if ( $sNameOfStat == "MaintenanceOfCaches" )
-  $sTypeCondition = " and  cl.type=6 and c.user_id <> cl.user_id ";
- */
-
-
-$dbc = new dataBase();
+$dbc = OcDb::instance();
 
 if ($sNameOfStat == "MaintenanceOfCaches") {
     if ($sDateCondition != "")
@@ -169,11 +165,9 @@ if ($sNameOfStat == "NumberOfFinds") {
     JOIN user u ON f.user_id = u.user_id";
 }
 
-$dbc->multiVariableQuery($query);
+$s = $dbc->multiVariableQuery($query);
 
 echo "<script type='text/javascript'>";
-
-
 
 
 $nRanking = 0;
@@ -183,11 +177,7 @@ $nPos = 0;
 $nMyRanking = 0;
 $nMyRealPos = 0;
 
-
-
-
-
-while ($record = $dbc->dbResultFetch()) {
+while ($record = $dbc->dbResultFetch($s)) {
     if ($record["description"] <> "") {
         $sOpis = $record["description"];
 
@@ -206,7 +196,7 @@ while ($record = $dbc->dbResultFetch()) {
 
 
     $nCount = $record["count"];
-    $sUUN = $record["UUN"];
+    $sUUN = htmlspecialchars($record["UUN"]);
     $sUserID = $record["user_id"];
     $sDateCr = $record["date_created"];
 

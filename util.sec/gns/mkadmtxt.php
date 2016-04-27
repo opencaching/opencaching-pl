@@ -1,6 +1,12 @@
 #!/usr/bin/php -q
 <?php
-
+/**
+ * 19.04.2016, kojoty
+ *
+ * This script is obsolate and unmaintenance!!!
+ *
+ *
+ */
 /* * *************************************************************************
 
   Ggf. muss die Location des php-Binaries angepasst werden.
@@ -13,17 +19,8 @@
  * ************************************************************************* */
 
 $rootpath = '../../';
-require_once($rootpath . 'lib/clicompatbase.inc.php');
 require_once($rootpath . 'lib/search.inc.php');
 require_once($rootpath . 'tpl/stdstyle/selectlocid.inc.php');
-
-/* begin db connect */
-db_connect();
-if ($dblink === false) {
-    echo 'Unable to connect to database';
-    exit;
-}
-/* end db connect */
 
 /* begin search index rebuild */
 

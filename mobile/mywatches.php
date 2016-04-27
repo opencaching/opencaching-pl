@@ -1,10 +1,10 @@
 <?php
-
+use Utils\Database\XDb;
 require_once("./lib/common.inc.php");
 
 if (isset($_SESSION['user_id'])) {
 
-    db_connect();
+    
 
     function find_news($start, $end)
     {
@@ -15,39 +15,39 @@ if (isset($_SESSION['user_id'])) {
         global $znalezione;
 
         $query = "select cache_id from cache_watches where user_id=" . $_SESSION['user_id'] . " limit " . $start . "," . $end;
-        $wynik = db_query($query);
-        $ile2 = mysql_num_rows($wynik);
+        $wynik = XDb::xSql($query);
+        $ile2 = XDb::xNumRows($wynik);
 
         if ($ile2 > 0) {
             $znalezione = array();
-            while ($rek = mysql_fetch_assoc($wynik)) {
+            while ($rek = XDb::xFetchArray($wynik)) {
 
                 $query = "select status,cache_id,name, score, latitude, longitude, wp_oc, user_id, type from caches where cache_id=" . $rek['cache_id'] . " order by name";
-                $wynik2 = db_query($query);
+                $wynik2 = XDb::xSql($query);
 
-                while ($rekord = mysql_fetch_assoc($wynik2)) {
+                while ($rekord = XDb::xFetchArray($wynik2)) {
 
                     if (isset($_SESSION['user_id'])) {
                         $query2 = "select 1 from cache_logs where user_id = '" . $_SESSION['user_id'] . "' and type = '1' and deleted='0' and cache_id ='" . $rekord['cache_id'] . "';";
-                        $wynik2 = db_query($query2);
-                        $if_found = mysql_fetch_row($wynik2);
+                        $wynik2 = XDb::xSql($query2);
+                        $if_found = XDb::xFetchArray($wynik2);
 
                         if ($if_found[0] != '1') {
                             $query2 = "select 2 from cache_logs where user_id = '" . $_SESSION['user_id'] . "' and type = '2' and deleted='0' and cache_id ='" . $rekord['cache_id'] . "';";
-                            $wynik2 = db_query($query2);
-                            $if_found = mysql_fetch_row($wynik2);
+                            $wynik2 = XDb::xSql($query2);
+                            $if_found = XDb::xFetchArray($wynik2);
                         }
 
                         $if_found = $if_found[0];
                     }
 
                     $query = "select username from user where user_id = " . $rekord['user_id'] . ";";
-                    $wynik2 = db_query($query);
-                    $wiersz = mysql_fetch_assoc($wynik2);
+                    $wynik2 = XDb::xSql($query);
+                    $wiersz = XDb::xFetchArray($wynik2);
 
                     $query = "select " . $lang . " from cache_type where id = " . $rekord['type'] . ";";
-                    $wynik2 = db_query($query);
-                    $wiersz2 = mysql_fetch_row($wynik2);
+                    $wynik2 = XDb::xSql($query);
+                    $wiersz2 = XDb::xFetchArray($wynik2);
                     $rekord['if_found'] = $if_found;
                     $rekord['username'] = $wiersz['username'];
 
@@ -62,10 +62,10 @@ if (isset($_SESSION['user_id'])) {
     }
 
     $query = "select wp_oc from caches inner join cache_watches on caches.cache_id=cache_watches.cache_id where cache_watches.user_id=" . $_SESSION['user_id'];
-    $wynik = db_query($query);
-    $ile = mysql_num_rows($wynik);
+    $wynik = XDb::xSql($query);
+    $ile = XDb::xNumRows($wynik);
 
-    while ($rekord = mysql_fetch_assoc($wynik))
+    while ($rekord = XDb::xFetchArray($wynik))
         $lista[] = $rekord['wp_oc'];
 
     $tpl->assign('lista', $lista);

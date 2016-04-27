@@ -5,8 +5,8 @@
  */
 require_once __DIR__ . '/ClassPathDictionary.php';
 
-use lib\Controllers\Php7Handler;
 use Utils\Database\XDb;
+use Utils\Database\OcDb;
 
 if ((!isset($GLOBALS['no-session'])) || ($GLOBALS['no-session'] == false))
     session_start();
@@ -31,10 +31,7 @@ if ((!isset($GLOBALS['no-ob'])) || ($GLOBALS['no-ob'] == false))
 if ((!isset($GLOBALS['oc_waypoint'])) && isset($GLOBALS['ocWP']))
     $GLOBALS['oc_waypoint'] = $GLOBALS['ocWP'];
 
-// we are in HTML-mode ... maybe plain (for CLI scripts)
-global $interface_output;
 global $menu;
-$interface_output = 'html';
 
 //JG - niezainicjowana zmienna, 2013.10.18
 if (!isset($rootpath))
@@ -45,6 +42,13 @@ $lang_array = available_languages(); //array("pl", "en", "sv", "de", "cs", "fr",
 $datetimeformat = '%d %B %Y o godz. %H:%M:%S ';
 $dateformat = '%d %B %Y';
 $simpledateformat = '%d.%m.%Y';
+
+// yepp, we will use UTF-8
+mb_internal_encoding('UTF-8');
+mb_regex_encoding('UTF-8');
+mb_language('uni');
+
+
 
 $STATUS = array("READY" => 1,
     "TEMP_UNAVAILABLE" => 2,
@@ -120,7 +124,10 @@ if (get_magic_quotes_gpc()) {
 if (!isset($rootpath))
     $rootpath = './';
 
-require_once($rootpath . 'lib/clicompatbase.inc.php');
+//load default webserver-settings and common includes
+require_once($rootpath . 'lib/settings.inc.php');
+require_once($rootpath . 'lib/calculation.inc.php');
+require_once($rootpath . 'lib/consts.inc.php');
 
 // load HTML specific includes
 require_once($rootpath . 'lib/cookie.class.php');
@@ -128,7 +135,7 @@ require_once($rootpath . 'lib/cookie.class.php');
 //site in service?
 if ($site_in_service == false) {
     header('Content-type: text/html; charset=utf-8');
-    $page_content = read_file($rootpath . 'html/outofservice.tpl.php');
+    $page_content = file_get_contents($rootpath . 'html/outofservice.tpl.php');
     die($page_content);
 }
 
@@ -188,13 +195,38 @@ if (!isset($thumburl))
     $thumburl = $picurl . '/thumbs';
 
 
+/**
+ * Global $emailheaders from clicompatbase - should be removed from here in future...
+ */
+// prepare EMail-From
+$emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
+$emailheaders = "Content-Transfer-Encoding: 8bit\r\n";
+$emailheaders .= 'From: "' . $emailaddr . '" <' . $emailaddr . '>';
 
 
+/**
+ * -- This script is moved here from clicompatbase - should be removed from here in the future --
+ *
+ * Create a "universal unique" replication "identifier"
+ */
+function create_uuid()
+{
+    $uuid = mb_strtoupper(md5(uniqid(rand(), true)));
 
-Php7Handler::db_connect();
+    //split into XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX (type VARCHAR 36, case insensitiv)
+    $uuid = mb_substr($uuid, 0, 8) . '-' . mb_substr($uuid, -24);
+    $uuid = mb_substr($uuid, 0, 13) . '-' . mb_substr($uuid, -20);
+    $uuid = mb_substr($uuid, 0, 18) . '-' . mb_substr($uuid, -16);
+    $uuid = mb_substr($uuid, 0, 23) . '-' . mb_substr($uuid, -12);
 
-$db = lib\Database\DataBaseSingleton::Instance();
+    return $uuid;
+}
 
+$db = OcDb::instance();
+
+/*
+ * TODO: new Global error handling should be implemented...
+ *
 if ($dblink === false) {
     //error while connecting to the database
     $error = true;
@@ -204,6 +236,7 @@ if ($dblink === false) {
     tpl_set_var('tplname', $tplname);
     $tplname = 'error';
 } else {
+*/
     // include the authentication functions
     require($rootpath . 'lib/auth.inc.php');
 
@@ -253,7 +286,7 @@ if ($dblink === false) {
         tpl_set_var('loginbox', $sTmpString);
         unset($sTmpString);
     }
-}
+//} //TODO
 
 // zeitmessung
 require_once($rootpath . 'lib/bench.inc.php');
@@ -543,15 +576,15 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
 
     //load main template
     if ($minitpl)
-        $sCode = read_file($stylepath . '/mini.tpl.php');
+        $sCode = file_get_contents($stylepath . '/mini.tpl.php');
     else if ($noCommonTemplate)
         $sCode = '{template}';
     else if (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y')
-        $sCode = read_file($stylepath . '/main_print.tpl.php');
+        $sCode = file_get_contents($stylepath . '/main_print.tpl.php');
     else if (isset($_REQUEST['popup']) && $_REQUEST['popup'] == 'y')
-        $sCode = read_file($stylepath . '/popup.tpl.php');
+        $sCode = file_get_contents($stylepath . '/popup.tpl.php');
     else
-        $sCode = read_file($stylepath . '/main.tpl.php');
+        $sCode = file_get_contents($stylepath . '/main.tpl.php');
     $sCode = '?>' . $sCode . '<?';
 
     //does template exist?
@@ -564,7 +597,7 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
     }
 
     //read the template
-    $sTemplate = read_file($stylepath . '/' . $tplname . '.tpl.php');
+    $sTemplate = file_get_contents($stylepath . '/' . $tplname . '.tpl.php');
     $sCode = mb_ereg_replace('{template}', $sTemplate, $sCode);
 
 
@@ -587,13 +620,6 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
 
     //run the template code
     eval($sCode);
-
-
-
-    //disconnect the database
-    if ($dbdisconnect){
-        Php7Handler::db_disconnect();
-    }
 }
 
 function http_write_no_cache()
@@ -1129,18 +1155,23 @@ if (isset($usr['userid'])){
     $usr['admin'] = $db->multiVariableQueryValue('SELECT admin FROM user WHERE user_id=:1', 0, $usr['userid']);
 }
 
+/**
+ * This function checks if given table contains column of given name
+ * @param unknown $tableName
+ * @param unknown $columnName
+ * @return 1 on success 0 in failure
+ */
 function checkField($tableName, $columnName)
 {
-    global $dbname;
-    $tableFields = mysql_list_fields($dbname, $tableName);
-    for ($i = 0; $i < mysql_num_fields($tableFields); $i++) {
-        if (mysql_field_name($tableFields, $i) == $columnName)
+    $tableName = XDb::xEscape($tableName);
+    $stmt = XDb::xSql("SHOW COLUMNS FROM $tableName" );
+    while( $column = XDb::xFetchArray($stmt)){
+        if( $column['Field'] == $columnName ){
             return 1;
-    } //end of loop
+        }
+    }
     return 0;
 }
-
-//end of function
 
 
 function typeToLetter($type)
@@ -1325,8 +1356,8 @@ class common
     public static function getUserActiveCacheCountByType($db, $userId)
     {
         $query = 'SELECT type, count(*) as cacheCount FROM `caches` WHERE `user_id` = :1 AND STATUS !=3 GROUP by type';
-        $db->multiVariableQuery($query, $userId);
-        $userCacheCountByType = $db->dbResultFetchAll();
+        $s = $db->multiVariableQuery($query, $userId);
+        $userCacheCountByType = $db->dbResultFetchAll($s);
         $cacheLimitByTypePerUser = array();
         foreach ($userCacheCountByType as $cacheCount) {
             $cacheLimitByTypePerUser[$cacheCount['type']] = $cacheCount['cacheCount'];
@@ -1341,4 +1372,32 @@ class common
 
 }
 
+/**
+ * -- This function is moved from clicompatbase --
+ * @param unknown $str
+ */
+function mb_trim($str)
+{
+    $bLoop = true;
+    while ($bLoop == true) {
+        $sPos = mb_substr($str, 0, 1);
+
+        if ($sPos == ' ' || $sPos == "\r" || $sPos == "\n" || $sPos == "\t" || $sPos == "\x0B" || $sPos == "\0")
+            $str = mb_substr($str, 1, mb_strlen($str) - 1);
+            else
+                $bLoop = false;
+    }
+
+    $bLoop = true;
+    while ($bLoop == true) {
+        $sPos = mb_substr($str, -1, 1);
+
+        if ($sPos == ' ' || $sPos == "\r" || $sPos == "\n" || $sPos == "\t" || $sPos == "\x0B" || $sPos == "\0")
+            $str = mb_substr($str, 0, mb_strlen($str) - 1);
+            else
+                $bLoop = false;
+    }
+
+    return $str;
+}
 

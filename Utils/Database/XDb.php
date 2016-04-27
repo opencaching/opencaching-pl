@@ -94,29 +94,6 @@ class XDb extends OcDb {
     }
 
     /**
-     * This is replacement for mysql_fetch_row()
-     *
-     * @param PDOStatement $stmt
-     * @return array row in style PDO::FETCH_NUM
-     */
-    public static function xFetchRow(PDOStatement $stmt)
-    {
-        return $stmt->fetch(self::FETCH_NUM); //PDO::FETCH_NUM
-    }
-
-    /**
-     * This is replacement for mysql_result()
-     *
-     * @param PDOStatement $stmt
-     * @param int $colNum - index of the column in result
-     * @return string value from the column at index $colNum
-     */
-    public static function xResult(PDOStatement $stmt, $colNum)
-    {
-        return $stmt->fetchColumn($colNum);
-    }
-
-    /**
      * This is replacement for sql(...) function call from /lib/clicompatbase.php
      *
      * IMPORTANT: additional params needs to be converted from &<1-9> to ? in na proper way!
@@ -141,7 +118,7 @@ class XDb extends OcDb {
         } catch (PDOException $e) {
 
             $db->error('Query: '.$query, $e);
-            return false;
+            return null;
         }
 
         if ($db->debug) {

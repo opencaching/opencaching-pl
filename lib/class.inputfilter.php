@@ -1,6 +1,5 @@
 <?php
 
-use Utils\Database\XDb;
 $allowedtags = mb_split(',', 'a,b,i,p,q,s,u,br,dd,dl,dt,em,h1,h2,h3,h4,h5,h6,hr,li,td,th,tr,tt,ol,ul,big,bdo,col,dfn,del,dir,div,ins,img,kbd,map,pre,sub,sup,var,abbr,area,cite,code,font,menu,marquee,samp,span,small,thead,tfoot,tbody,table,strong,center,strike,acronym,address,caption,isindex,colgroup,fieldset,object,param,embed');
 $allowedattr = mb_split(',', 'marquee,id,src,alt,dir,rel,rev,abbr,axis,char,cite,face,href,lang,name,size,span,type,align,class,clear,color,frame,ismap,rules,scope,shape,start,style,title,value,width,border,coords,height,hspace,nowrap,nohref,target,usemap,vspace,valign,bgcolor,charoff,charset,colspan,compact,headers,noshade,rowspan,summary,longdesc,hreflang,datetime,tabindex,accesskey,background,cellspacing,cellpadding,allowscriptaccess,allowfullscreen,classid,codebase,standby,pluginspage,data');
 
@@ -35,7 +34,7 @@ class InputFilter
      * @param int $xssAuto - 0= only auto clean essentials, 1= allow clean blacklisted tags/attr
      */
 
-    function inputFilter($tagsArray = array(), $attrArray = array(), $tagsMethod = 0, $attrMethod = 0, $xssAuto = 1)
+    function __construct($tagsArray = array(), $attrArray = array(), $tagsMethod = 0, $attrMethod = 0, $xssAuto = 1)
     {
         // make sure user defined arrays are in lowercase
         for ($i = 0; $i < count($tagsArray); $i++)

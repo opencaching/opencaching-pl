@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use Utils\Log\Log;
 //prepare the templates and include all neccessary
 global $octeamEmailsSignature, $absolute_server_URI;
 require_once('./lib/common.inc.php');
@@ -27,7 +28,7 @@ if ($error == false) {
             tpl_set_var('username_message', $wrong_username);
         } else {
 
-            $email_content = read_file($stylepath . '/email/remindemail.email');
+            $email_content = file_get_contents($stylepath . '/email/remindemail.email');
 
             $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
             $email_content = mb_ereg_replace('{ForgottenEmail_07}', tr('ForgottenEmail_07'), $email_content);
@@ -43,8 +44,7 @@ if ($error == false) {
             // ok, mail verschicken
             mb_send_mail($r['email'], $mail_subject, $email_content, $emailheaders);
 
-            // logentry($module, $eventid, $userid, $objectid1, $objectid2, $logtext, $details)
-            logentry('remindemail', 3, $r['user_id'], 0, 0, 'Remind-E-Mail-Adress an ' . $r['username'] . ' / ' . $r['email'] , array());
+            Log::logentry('remindemail', 3, $r['user_id'], 0, 0, 'Remind-E-Mail-Adress an ' . $r['username'] . ' / ' . $r['email'] , array());
 
             tpl_set_var('username', htmlspecialchars($username, ENT_COMPAT, 'UTF-8'));
             tpl_set_var('message', $mail_send);

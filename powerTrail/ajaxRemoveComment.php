@@ -1,4 +1,5 @@
 <?php
+use Utils\Database\OcDb;
 $rootpath = __DIR__.'/../';
 require_once __DIR__.'/../lib/common.inc.php';
 if(!isset($_SESSION['user_id'])){
@@ -20,7 +21,7 @@ $commentDbRow = powerTrailBase::getSingleComment($commentId);
 // check if user is owner of selected power Trail
 if(powerTrailBase::checkIfUserIsPowerTrailOwner($_SESSION['user_id'], $powerTrailId) == 1 || $commentDbRow['userId'] == $callingUser) {
     $query = 'UPDATE `PowerTrail_comments` SET `deleted` = 1 WHERE `id` = :1';
-    $db = \lib\Database\DataBaseSingleton::Instance();
+    $db = OcDb::instance();
     $db->multiVariableQuery($query, $commentId);
     if($commentDbRow['commentType'] == 2){
         print '2';

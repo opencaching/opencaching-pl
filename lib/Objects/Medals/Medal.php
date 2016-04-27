@@ -3,7 +3,8 @@
 namespace lib\Objects\Medals;
 
 use \lib\Objects\User\User;
-use \lib\Database\DataBaseSingleton;
+use Utils\Database\OcDb;
+
 /**
  * Medal Factory - abstract interface
  *
@@ -113,21 +114,21 @@ class Medal
     private function updateMedalRowInDb(User $user)
     {
         $query = ' UPDATE `medals` SET `prized_time`= NOW(), `medal_level`=:1 WHERE  `user_id` = :2 AND `medal_type` = :3 ';
-        $db = DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $db->multiVariableQuery($query, $this->level, $user->getUserId(), $this->medalId);
     }
 
     private function removeMedalFromUsersMedalsDb(User $user)
     {
         $query = 'DELETE FROM `medals` WHERE `user_id` = :1 AND `medal_type` = :2';
-        $db = DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $db->multiVariableQuery($query, $user->getUserId(), $this->medalId);
     }
 
     private function addMedalToUserMedalsDb(User $user)
     {
         $query = 'INSERT INTO `medals`(`user_id`, `medal_type`, `prized_time`, `medal_level`) VALUES (:1, :2, :3, :4)';
-        $db = DataBaseSingleton::Instance();
+        $db = OcDb::instance();
         $db->multiVariableQuery($query, $user->getUserId(), $this->medalId, $this->prizedTime, $this->level);
     }
 

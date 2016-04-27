@@ -17,8 +17,8 @@ class GeocacheController
     public static function buildWaypointsForGeocache(GeoCache $geoCache)
     {
         $db = OcDb::instance();
-        $db->multiVariableQuery("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage` FROM `waypoints` WHERE `cache_id`=:1 ORDER BY `stage`,`wp_id`", $geoCache->getCacheId());
-        foreach ($db->dbResultFetchAll() as $wpRecord) {
+        $stmt = $db->multiVariableQuery("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage` FROM `waypoints` WHERE `cache_id`=:1 ORDER BY `stage`,`wp_id`", $geoCache->getCacheId());
+        foreach ($db->dbResultFetchAll( $stmt ) as $wpRecord) {
             $waypoint = new Waypoint();
             $waypoint->setCoordinates(new Coordinates(array('dbRow' => $wpRecord)))
                     ->setDescription($wpRecord['desc'])

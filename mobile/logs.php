@@ -1,4 +1,6 @@
 <?php
+use Utils\Database\XDb;
+use Utils\Database\OcDb;
 
 require_once("./lib/common.inc.php");
 
@@ -9,23 +11,23 @@ function find_news($start, $end)
     global $lang;
     global $znalezione;
 
-    $wp = mysql_real_escape_string($_GET['wp']);
+    $wp = XDb::xEscape($_GET['wp']);
 
     $query = "select id,type,user_id,date,text,deleted from cache_logs where cache_id = (select cache_id from caches where wp_oc = '" . $wp . "') order by date desc limit " . $start . "," . $end;
-    $wynik = db_query($query);
+    $wynik = XDb::xSql($query);
 
     $query = "select name,cache_id from caches where cache_id = (select cache_id from caches where wp_oc = '" . $wp . "');";
-    $wynik2 = db_query($query);
-    $caches = mysql_fetch_assoc($wynik2);
+    $wynik2 = XDb::xSql($query);
+    $caches = XDb::xFetchArray($wynik2);
 
     $tpl->assign("name", $caches['name']);
 
     // detailed cache access logging
     global $enable_cache_access_logs;
     if (@$enable_cache_access_logs) {
-        if (!isset($dbc)) {
-            $dbc = new dataBase();
-        };
+
+        $dbc = OcDb::instance();
+
         $cache_id = $caches['cache_id'];
         $user_id = @$_SESSION['user_id'] > 0 ? $_SESSION['user_id'] : null;
         $access_log = @$_SESSION['CACHE_ACCESS_LOG_VL_' . $user_id];
@@ -48,13 +50,13 @@ function find_news($start, $end)
 
     $znalezione = array();
 
-    while ($logs = mysql_fetch_assoc($wynik)) {
+    while ($logs = XDb::xFetchArray($wynik)) {
 
         if ($logs['deleted'] == 0) {
 
             $query = "select username from user where user_id = '" . $logs['user_id'] . "';";
-            $wynik3 = db_query($query);
-            $user = mysql_fetch_row($wynik3);
+            $wynik3 = XDb::xSql($query);
+            $user = XDb::xFetchArray($wynik3);
 
             $logs2['id'] = $logs['id'];
             $logs2['user_id'] = $logs['user_id'];
@@ -73,15 +75,15 @@ function find_news($start, $end)
 
 if (isSet($_GET['wp']) && !empty($_GET['wp']) && $_GET['wp'] != "OP") {
 
-    db_connect();
 
-    $wp = mysql_real_escape_string($_GET['wp']);
+
+    $wp = XDb::xEscape($_GET['wp']);
 
     $na_stronie = 10;
 
     $query = "select count(*) from cache_logs where cache_id = (select cache_id from caches where wp_oc = '" . $wp . "') and deleted='0' order by date desc;";
-    $wynik = db_query($query);
-    $ile = mysql_fetch_row($wynik);
+    $wynik = XDb::xSql($query);
+    $ile = XDb::xFetchArray($wynik);
     $ile = $ile[0];
 
     $url = $_SERVER['REQUEST_URI'];

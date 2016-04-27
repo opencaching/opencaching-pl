@@ -1,6 +1,8 @@
 <?php
 
 use lib\Objects\GeoCache\GeoCache;
+use Utils\Database\OcDb;
+use Utils\Database\XDb;
 
 /**
  * ajaxAddCacheToPt.php
@@ -29,12 +31,12 @@ isset($_REQUEST['projectId']) ? $projectId = $_REQUEST['projectId'] : exit;
 isset($_REQUEST['cacheId']) ? $cacheId = (int) $_REQUEST['cacheId'] : exit;
 isset($_REQUEST['rmOtherUserCacheFromPt']) ? $rmOtherUserCacheFromPt = true : $rmOtherUserCacheFromPt = false;
 
-$db = Utils\Database\OcDb::instance();
+$db = OcDb::instance();
 
 // check if cache is already cannected with any power trail
-$query = 'SELECT `PowerTrailId` FROM `powerTrail_caches` WHERE `cacheId` = :1';
-$db->multiVariableQuery($query, $cacheId);
-$resultPowerTrailId = $db->dbResultFetch();
+$resultPowerTrailId['PowerTrailId'] = XDb::xMultiVariableQueryValue(
+    'SELECT `PowerTrailId` FROM `powerTrail_caches` WHERE `cacheId` = :1',
+    false, $cacheId);
 
 if (isset($_REQUEST['removeByCOG']) && $_SESSION['ptRmByCog'] === 1) {
     removeCacheFromPowerTrail($cacheId, $resultPowerTrailId, $db, $ptAPI);
@@ -72,7 +74,7 @@ if (!$loggeduserCache) {
     }
 }
 if (isset($_REQUEST['calledFromConfirm']) && $_REQUEST['calledFromConfirm'] === 1) {
-    addCacheToPowerTrail($cacheId, $projectId, new dataBase(), $ptAPI);
+    addCacheToPowerTrail($cacheId, $projectId, OcDb::instance(), $ptAPI);
     $cacheAddedToPt = true;
     return;
 }
@@ -116,45 +118,74 @@ function addCacheToPowerTrail($cacheId, $projectId, $db, $ptAPI)
     if (geocacheStatusCheck($cacheId) === false) {
         return false;
     }
-    $query = 'INSERT INTO `powerTrail_caches`(`cacheId`, `PowerTrailId`, `points`) VALUES (:1,:2,:3) ON DUPLICATE KEY UPDATE PowerTrailId=VALUES(PowerTrailId)';
-    $db->multiVariableQuery($query, $cacheId, $projectId, getCachePoints($cacheId));
-    $queryInsertedCacheData = 'SELECT longitude, latitude FROM caches WHERE cache_id = :1 LIMIT 1';
-    $db->multiVariableQuery($queryInsertedCacheData, $cacheId);
-    $insertedCacheData = $db->dbResultFetch();
-    $db->multiVariableQuery('SELECT centerLatitude, centerLongitude FROM PowerTrail WHERE `id` = :1 LIMIT 1', $projectId);
-    $result = $db->dbResultFetch();
+
+    $db->multiVariableQuery(
+        'INSERT INTO `powerTrail_caches`(`cacheId`, `PowerTrailId`, `points`)
+        VALUES (:1,:2,:3) ON DUPLICATE KEY UPDATE PowerTrailId=VALUES(PowerTrailId)',
+        $cacheId, $projectId, getCachePoints($cacheId));
+
+    $stmt = $db->multiVariableQuery(
+        'SELECT longitude, latitude FROM caches WHERE cache_id = :1 LIMIT 1',
+        $cacheId);
+    $insertedCacheData = $db->dbResultFetchOneRowOnly($stmt);
+
+    $stmt = $db->multiVariableQuery(
+        'SELECT centerLatitude, centerLongitude FROM PowerTrail WHERE `id` = :1 LIMIT 1',
+        $projectId);
+
+    $result = $db->dbResultFetch($stmt);
+
     $cachePoints = getCachePoints($cacheId);
     if ($result['centerLatitude'] == 0 && $result['centerLongitude'] == 0) {
-        $query = '  UPDATE  `PowerTrail` SET `cacheCount`=`cacheCount`+1, `centerLatitude` = :2, `centerLongitude` = :3, `points` = :4 WHERE   `id` = :1';
-        $db->multiVariableQuery($query, $projectId, $insertedCacheData['latitude'], $insertedCacheData['longitude'], $cachePoints);
+
+        $db->multiVariableQuery(
+            'UPDATE `PowerTrail`
+            SET `cacheCount`=`cacheCount`+1, `centerLatitude` = :2, `centerLongitude` = :3, `points` = :4
+            WHERE `id` = :1',
+            $projectId, $insertedCacheData['latitude'], $insertedCacheData['longitude'], $cachePoints);
+
     } else {
-        $query = 'UPDATE    `PowerTrail` SET `cacheCount`=`cacheCount`+1,
-                            `centerLatitude` = (`centerLatitude` + ' . $insertedCacheData['latitude'] . ')/2,
-                            `centerLongitude` = (`centerLongitude` + ' . $insertedCacheData['longitude'] . ')/2,
-                            `points` = `points` + ' . $cachePoints . '
-                    WHERE   `id` = :1';
+        $query = 'UPDATE `PowerTrail` SET `cacheCount`=`cacheCount`+1,
+                         `centerLatitude` = (`centerLatitude` + ' . $insertedCacheData['latitude'] . ')/2,
+                         `centerLongitude` = (`centerLongitude` + ' . $insertedCacheData['longitude'] . ')/2,
+                         `points` = `points` + ' . $cachePoints . '
+                 WHERE `id` = :1';
         $db->multiVariableQuery($query, $projectId);
     }
 
-    $logQuery = 'INSERT INTO `PowerTrail_actionsLog`(`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`, `cacheId`) VALUES (:1,:2,NOW(),2,:3,:4)';
-    $db->multiVariableQuery($logQuery, $projectId, $_SESSION['user_id'], $ptAPI->logActionTypes[2]['type'], $cacheId);
+    $db->multiVariableQuery(
+        'INSERT INTO `PowerTrail_actionsLog`(`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`, `cacheId`)
+        VALUES (:1,:2,NOW(),2,:3,:4)',
+        $projectId, $_SESSION['user_id'], $ptAPI->logActionTypes[2]['type'], $cacheId);
+
     print 'cacheAddedToPt';
 }
 
 function removeCacheFromPowerTrail($cacheId, $resultPowerTrailId, $db, $ptAPI)
 {
-    $db->multiVariableQuery('DELETE FROM `powerTrail_caches` WHERE `cacheId` = :1 AND `PowerTrailId` = :2', $cacheId, $resultPowerTrailId['PowerTrailId']);
-    $db->multiVariableQuery('UPDATE `PowerTrail` SET `cacheCount`=`cacheCount`-1 WHERE `id` = :1', $resultPowerTrailId['PowerTrailId']);
-    $logQuery = 'INSERT INTO `PowerTrail_actionsLog`(`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`, `cacheId`) VALUES (:1,:2,NOW(),3,:3,:4)';
-    $db->multiVariableQuery($logQuery, $resultPowerTrailId['PowerTrailId'], $_SESSION['user_id'], $ptAPI->logActionTypes[3]['type'], $cacheId);
+    $db->multiVariableQuery(
+        'DELETE FROM `powerTrail_caches` WHERE `cacheId` = :1 AND `PowerTrailId` = :2',
+        $cacheId, $resultPowerTrailId['PowerTrailId']);
+
+    $db->multiVariableQuery(
+        'UPDATE `PowerTrail` SET `cacheCount`=`cacheCount`-1 WHERE `id` = :1',
+        $resultPowerTrailId['PowerTrailId']);
+
+    $db->multiVariableQuery(
+        'INSERT INTO `PowerTrail_actionsLog`(`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`, `cacheId`)
+        VALUES (:1,:2,NOW(),3,:3,:4)',
+        $resultPowerTrailId['PowerTrailId'], $_SESSION['user_id'], $ptAPI->logActionTypes[3]['type'], $cacheId);
 }
 
 function getCachePoints($cacheId)
 {
-    $db = \lib\Database\DataBaseSingleton::Instance();
-    $queryCacheData = 'SELECT * FROM caches WHERE cache_id = :1 LIMIT 1';
-    $db->multiVariableQuery($queryCacheData, $cacheId);
-    $cacheData = $db->dbResultFetch();
+    $db = OcDb::instance();
+
+    $stmt = $db->multiVariableQuery(
+        'SELECT * FROM caches WHERE cache_id = :1 LIMIT 1',
+        $cacheId);
+    $cacheData = $db->dbResultFetch($stmt);
+
     $typePoints = powerTrailBase::cacheTypePoints();
     $sizePoints = powerTrailBase::cacheSizePoints();
     $typePoints = $typePoints[$cacheData['type']];
@@ -173,13 +204,17 @@ function getCachePoints($cacheId)
 
 function recalculate($projectId)
 {
-    $allCachesQuery = 'SELECT * FROM `caches` where `cache_id` IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1 )';
-    $db = \lib\Database\DataBaseSingleton::Instance();
-    $db->multiVariableQuery($allCachesQuery, $projectId);
-    $allCaches = $db->dbResultFetchAll();
+    $db = OcDb::instance();
+    $stmt = $db->multiVariableQuery(
+        'SELECT * FROM `caches` where `cache_id` IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1 )',
+        $projectId);
+    $allCaches = $db->dbResultFetchAll($stmt);
+
     $newData = powerTrailBase::recalculateCenterAndPoints($allCaches);
-    $updateQuery = 'UPDATE `PowerTrail` SET `cacheCount`= :1, `centerLatitude` = :3, `centerLongitude` = :4, `points` = :5 WHERE `id` = :2';
-    $db->multiVariableQuery($updateQuery, $newData['cacheCount'], $projectId, $newData['avgLat'], $newData['avgLon'], $newData['points']);
+
+    $db->multiVariableQuery(
+        'UPDATE `PowerTrail` SET `cacheCount`= :1, `centerLatitude` = :3, `centerLongitude` = :4, `points` = :5 WHERE `id` = :2',
+        $newData['cacheCount'], $projectId, $newData['avgLat'], $newData['avgLon'], $newData['points']);
 }
 
 /**
@@ -188,27 +223,33 @@ function recalculate($projectId)
  */
 function recalculateOnce()
 {
-    $allCachesQuery = 'SELECT * FROM `caches` where `cache_id` IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE 1)';
-    $db = \lib\Database\DataBaseSingleton::Instance();
-    $db->multiVariableQuery($allCachesQuery);
-    $allCaches = $db->dbResultFetchAll();
+    $db = OcDb::instance();
+
+    $stmt = $db->multiVariableQuery(
+        'SELECT * FROM `caches` where `cache_id` IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE 1)');
+
+    $allCaches = $db->dbResultFetchAll($stmt);
 
     foreach ($allCaches as $cache) {
         $cachePoints = powerTrailBase::getCachePoints($cache);
-        $updateQuery = 'UPDATE `powerTrail_caches` SET `points`=:1 WHERE `cacheId`=:2';
-        $db->multiVariableQuery($updateQuery, $cachePoints, $cache['cache_id']);
+
+        $db->multiVariableQuery(
+            'UPDATE `powerTrail_caches` SET `points`=:1 WHERE `cacheId`=:2',
+            $cachePoints, $cache['cache_id']);
+
         print $cache['wp_oc'] . ' updated ' . $cachePoints . '<br/>';
     }
-    // print '<pre>';
-    // print_r($allCaches);
 }
 
 function isCacheOwnByLoggedUser($geocacheId)
 {
-    $query = 'SELECT  `user_id` AS `userId`  FROM  `caches` WHERE  `cache_id` = :1 LIMIT 1';
-    $db = \lib\Database\DataBaseSingleton::Instance();
-    $db->multiVariableQuery($query, $geocacheId);
-    $result = $db->dbResultFetch();
+
+    $db = OcDb::instance();
+    $stmt = $db->multiVariableQuery(
+        'SELECT  `user_id` AS `userId`  FROM  `caches` WHERE  `cache_id` = :1 LIMIT 1',
+        $geocacheId);
+    $result = $db->dbResultFetch($stmt);
+
     if ($result['userId'] == $_SESSION['user_id'])
         return true;
     else
@@ -217,10 +258,13 @@ function isCacheOwnByLoggedUser($geocacheId)
 
 function isCacheCanditate($ptId, $cacheId)
 {
-    $q = "SELECT count(*) AS `c` FROM `PowerTrail_cacheCandidate` WHERE `PowerTrailId` = :1 AND `cacheId` =:2";
-    $db = \lib\Database\DataBaseSingleton::Instance();
-    $db->multiVariableQuery($q, $ptId, $cacheId);
-    $result = $db->dbResultFetch();
+
+    $db = OcDb::instance();
+    $stmt = $db->multiVariableQuery(
+        "SELECT count(*) AS `c` FROM `PowerTrail_cacheCandidate` WHERE `PowerTrailId` = :1 AND `cacheId` =:2",
+        $ptId, $cacheId);
+    $result = $db->dbResultFetch($stmt);
+
     if ($result['c'] > 0)
         return true;
     else
@@ -230,10 +274,11 @@ function isCacheCanditate($ptId, $cacheId)
 function addCacheToCacheCandidate($cacheId, $ptId)
 {
     $linkCode = randomPassword(50);
-    $q = "INSERT INTO `PowerTrail_cacheCandidate`(`PowerTrailId`, `cacheId`, `link`, `date`) VALUES (:1,:2,:3,NOW())";
 
-    $db = \lib\Database\DataBaseSingleton::Instance();
-    $db->multiVariableQuery($q, $ptId, $cacheId, $linkCode);
+    $db = OcDb::instance();
+    $db->multiVariableQuery(
+        "INSERT INTO `PowerTrail_cacheCandidate`(`PowerTrailId`, `cacheId`, `link`, `date`) VALUES (:1,:2,:3,NOW())",
+        $ptId, $cacheId, $linkCode);
 
     require_once 'sendEmailCacheCandidate.php';
     emailCacheOwner($ptId, $cacheId, $linkCode);

@@ -1,15 +1,17 @@
 <?php
 
+use Utils\Database\OcDb;
+
 $rootpath = __DIR__ . DIRECTORY_SEPARATOR;
 require_once $rootpath . 'lib/common.inc.php';
 
-$db = new dataBase;
+$db = OcDb::instance();
 $countryCode = addslashes($_REQUEST['countryCode']);
 $selectedRegion = $_REQUEST['selectedRegion'];
 
 $query = "SELECT `code`, `name` FROM `nuts_codes` WHERE `code` LIKE '" . $countryCode . "__' ORDER BY `name` COLLATE utf8_polish_ci ASC";
-$db->simpleQuery($query);
-$regons = $db->dbResultFetchAll();
+$s = $db->simpleQuery($query);
+$regons = $db->dbResultFetchAll($s);
 if (count($regons) == 0) {
     if (isset($_REQUEST['searchForm']) && $_REQUEST['searchForm'] == 1) {
         $regionoptions = '<option value="">' . tr('search01') . '</option>';

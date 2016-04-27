@@ -1,4 +1,5 @@
 <?php
+use Utils\Database\OcDb;
 $rootpath = __DIR__.'/../';
 require_once __DIR__.'/../lib/common.inc.php';
 if(!isset($_SESSION['user_id'])){
@@ -17,7 +18,7 @@ $q = '
         `userId` =:5
 ';
 $text = htmlspecialchars($_REQUEST['text']);
-$db = \lib\Database\DataBaseSingleton::Instance();
+$db = OcDb::instance();
 $db->multiVariableQuery(
     $q,
     $text,  # :1

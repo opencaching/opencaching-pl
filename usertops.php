@@ -31,7 +31,7 @@ if ($error == false) {
     $content = '';
 
     $dbc = OcDb::instance();
-    $dbc->multiVariableQuery(
+    $s = $dbc->multiVariableQuery(
         "SELECT `cache_rating`.`cache_id` AS `cache_id`, `caches`.`name` AS `cachename`,
                 `user`.`username` AS `ownername`, `user`.`user_id` AS `owner_id`
         FROM `cache_rating`, `caches`, `user`
@@ -39,8 +39,8 @@ if ($error == false) {
             AND `caches`.`user_id`=`user`.`user_id`
             AND `cache_rating`.`user_id`= :1 ORDER BY `caches`.`name` ASC", $userid);
 
-    if ($dbc->rowCount() != 0) {
-        while ($r = $dbc->dbResultFetch()) {
+    if ($dbc->rowCount($s) != 0) {
+        while ($r = $dbc->dbResultFetch($s)) {
             $thisline = $viewtop5_line;
 
             $thisline = mb_ereg_replace('{cachename}', htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8'), $thisline);
@@ -56,7 +56,6 @@ if ($error == false) {
             $content .= $thisline;
             $i++;
         }
-        unset($dbc);
     }
     else {
         $content = mb_ereg_replace('{username}', $username, $notop5);

@@ -50,13 +50,15 @@ if ($error == false) {
     $dbc = OcDb::instance();
     if ($cache_id != 0) {
         //get cache record
-        $thatquery = "SELECT `user_id`, `name`, `founds`, `notfounds`, `notes`, `status`, `type` FROM `caches` WHERE `caches`.`cache_id`=:1";
-        $dbc->multiVariableQuery($thatquery, $cache_id);
 
-        if ($dbc->rowCount() == 0) {
+        $s = $dbc->multiVariableQuery(
+            "SELECT `user_id`, `name`, `founds`, `notfounds`, `notes`, `status`, `type` FROM `caches`
+            WHERE `caches`.`cache_id`=:1 LIMIT 1", $cache_id);
+
+        if ($dbc->rowCount($s) == 0) {
             $cache_id = 0;
         } else {
-            $cache_record = $dbc->dbResultFetch();
+            $cache_record = $dbc->dbResultFetchOneRowOnly($s);
             // check if the cache is published, if not only the owner is allowed to view the log
             if (($cache_record['status'] == 4 || $cache_record['status'] == 5 || $cache_record['status'] == 6 ) && ($cache_record['user_id'] != $usr['userid'] && !$usr['admin'])) {
                 $cache_id = 0;
@@ -65,13 +67,19 @@ if ($error == false) {
     } else {
 
         //get cache record
-        $thatquery = "SELECT `cache_logs`.`cache_id`,`caches`.`user_id`, `caches`.`name`, `caches`.`founds`, `caches`.`notfounds`, `caches`.`notes`, `caches`.`status`, `caches`.`type` FROM `caches`,`cache_logs` WHERE `cache_logs`.`id`=:1 AND `caches`.`cache_id`=`cache_logs`.`cache_id` ";
-        $dbc->multiVariableQuery($thatquery, $logid);
 
-        if ($dbc->rowCount() == 0) {
+        $s = $dbc->multiVariableQuery(
+            "SELECT `cache_logs`.`cache_id`,`caches`.`user_id`, `caches`.`name`, `caches`.`founds`,
+                    `caches`.`notfounds`, `caches`.`notes`, `caches`.`status`, `caches`.`type`
+            FROM `caches`,`cache_logs`
+            WHERE `cache_logs`.`id`=:1
+                AND `caches`.`cache_id`=`cache_logs`.`cache_id`
+            LIMIT 1", $logid);
+
+        if ($dbc->rowCount($s) == 0) {
             $cache_id = 0;
         } else {
-            $cache_record = $dbc->dbResultFetch();
+            $cache_record = $dbc->dbResultFetchOneRowOnly($s);
             // check if the cache is published, if not only the owner is allowed to view the log
             if (($cache_record['status'] == 4 || $cache_record['status'] == 5 || $cache_record['status'] == 6 ) && ($cache_record['user_id'] != $usr['userid'] && !$usr['admin'])) {
                 $cache_id = 0;
@@ -263,7 +271,7 @@ if ($error == false) {
 
 
 
-            $tmplog = read_file($stylepath . '/viewcache_log.tpl.php');
+            $tmplog = file_get_contents($stylepath . '/viewcache_log.tpl.php');
 //END: same code ->viewlogs.php / viewcache.php
             $tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
             $tmplog_date = fixPlMonth(htmlspecialchars(strftime($dateformat, strtotime($record['date'])), ENT_COMPAT, 'UTF-8'));
@@ -368,13 +376,13 @@ if ($error == false) {
                     $dbc = OcDb::instance();
                 }
                 $thatquery = "SELECT `url`, `title`, `uuid`, `user_id`, `spoiler` FROM `pictures` WHERE `object_id`=:1 AND `object_type`=1";
-                $dbc->multiVariableQuery($thatquery, $record['logid']);
-                $pic_count = $dbc->rowCount();
+                $s = $dbc->multiVariableQuery($thatquery, $record['logid']);
+                $pic_count = $dbc->rowCount($s);
                 if (!isset($showspoiler)) {
                     $showspoiler = '';
                 }
-                for ($j = 0; $j < $pic_count; $j++) {
-                    $pic_record = $dbc->dbResultFetch();
+                while ( $pic_record = $dbc->dbResultFetch($s) ){
+
                     $thisline = $logpictureline;
 
                     if ($disable_spoiler_view && intval($pic_record['spoiler']) == 1) {  // if hide spoiler (due to user not logged in) option is on prevent viewing pic link and show alert

@@ -1,8 +1,12 @@
 <?php
+/**
+ * This script is used (can be loaded) by /search.php
+ */
 
-setlocale(LC_TIME, 'pl_PL.UTF-8');
+use Utils\Database\XDb;
+setlocale(LC_TIME, 'pl_PL.UTF-8'); //TODO: Polish locale ??
 
-global $content, $bUseZip, $sqldebug, $usr, $hide_coords, $dbcSearch, $lang;
+global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $lang;
 
 set_time_limit(1800);
 
@@ -28,49 +32,52 @@ if( $usr || !$hide_coords ) {
     //prepare the output
     $caches_per_page = 20;
 
-    $sql = 'SELECT ';
+    $query = 'SELECT ';
 
     if (isset($lat_rad) && isset($lon_rad)) {
-        $sql .= getCalcDistanceSqlFormula($usr !== false, $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
+        $query .= getCalcDistanceSqlFormula($usr !== false, $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
     } elseif ($usr === false) {
-        $sql .= '0 distance, ';
+        $query .= '0 distance, ';
     } else {
         //get the users home coords
-        $rs_coords = sql("SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
-        $record_coords = sql_fetch_array($rs_coords);
+        $rs_coords = XDb::xSql(
+            "SELECT `latitude`, `longitude` FROM `user`
+            WHERE `user_id`= ? ", $usr['userid']);
+
+        $record_coords = XDb::xFetchArray($rs_coords);
 
         if ((($record_coords['latitude'] == NULL) || ($record_coords['longitude'] == NULL)) || (($record_coords['latitude'] == 0) || ($record_coords['longitude'] == 0))) {
-            $sql .= '0 distance, ';
+            $query .= '0 distance, ';
         } else {
             //TODO: load from the users-profile
             $distance_unit = 'km';
             $lon_rad = $record_coords['longitude'] * 3.14159 / 180;
             $lat_rad = $record_coords['latitude'] * 3.14159 / 180;
 
-            $sql .= getCalcDistanceSqlFormula($usr !== false, $record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
+            $query .= getCalcDistanceSqlFormula($usr !== false, $record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
         }
-        mysql_free_result($rs_coords);
+        XDb::xFreeResults($rs_coords);
     }
 
-    $sql .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`,
+    $query .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`,
         `caches`.`user_id` `user_id`, ';
     if ($usr === false) {
-        $sql .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, 0 as cache_mod_cords_id FROM `caches` ';
+        $query .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, 0 as cache_mod_cords_id FROM `caches` ';
     } else {
-        $sql .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`,
+        $query .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`,
             `caches`.`latitude`) `latitude`, IFNULL(cache_mod_cords.id,0) as cache_mod_cords_id FROM `caches`
             LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = '
             . $usr['userid'];
     }
-    $sql .= ' WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
+    $query .= ' WHERE `caches`.`cache_id` IN (' . $queryFilter . ')';
 
     $sortby = $options['sort'];
     if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance')) {
-        $sql .= ' ORDER BY distance ASC';
+        $query .= ' ORDER BY distance ASC';
     } elseif ($sortby == 'bycreated') {
-        $sql .= ' ORDER BY date_created DESC';
+        $query .= ' ORDER BY date_created DESC';
     } else { // by name
-        $sql .= ' ORDER BY name ASC';
+        $query .= ' ORDER BY name ASC';
     }
 
     //startat?
@@ -100,24 +107,22 @@ if( $usr || !$hide_coords ) {
         $count = $maxlimit;
     }
 
-    $sqlLimit = ' LIMIT ' . $startat . ', ' . $count;
+    $queryLimit = ' LIMIT ' . $startat . ', ' . $count;
 
     // cleanup (old gpxcontent lingers if gpx-download is cancelled by user)
     $dbcSearch->simpleQuery( 'DROP TEMPORARY TABLE IF EXISTS `wptcontent`');
-    $dbcSearch->reset();
 
     // temporäre tabelle erstellen
-    $dbcSearch->simpleQuery( 'CREATE TEMPORARY TABLE `wptcontent` ' . $sql . $sqlLimit);
-    $dbcSearch->reset();
+    $dbcSearch->simpleQuery( 'CREATE TEMPORARY TABLE `wptcontent` ' . $query . $queryLimit);
 
-    $dbcSearch->simpleQuery( 'SELECT COUNT(*) `count` FROM `wptcontent`');
-    $rCount = $dbcSearch->dbResultFetch();
-    $dbcSearch->reset();
+    $s = $dbcSearch->simpleQuery( 'SELECT COUNT(*) `count` FROM `wptcontent`');
+    $rCount = $dbcSearch->dbResultFetchOneRowOnly($s);
 
     if ($rCount['count'] == 1) {
-        $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc` FROM `wptcontent`, `caches` WHERE `wptcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
-        $rName = $dbcSearch->dbResultFetch();
-        $dbcSearch->reset();
+        $s = $dbcSearch->simpleQuery(
+            'SELECT `caches`.`wp_oc` `wp_oc` FROM `wptcontent`, `caches`
+            WHERE `wptcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
+        $rName = $dbcSearch->dbResultFetchOneRowOnly($s);
 
         $sFilebasename = $rName['wp_oc'];
     } elseif ($options['searchtype'] == 'bywatched') {
@@ -125,9 +130,11 @@ if( $usr || !$hide_coords ) {
     } elseif ($options['searchtype'] == 'bylist') {
         $sFilebasename = 'cache_list';
     } else {
-        $rsName = sql('SELECT `queries`.`name` `name` FROM `queries` WHERE `queries`.`id`= &1 LIMIT 1', $options['queryid']);
-        $rName = sql_fetch_array($rsName);
-        mysql_free_result($rsName);
+        $rsName = XDb::xSql(
+            'SELECT `queries`.`name` `name` FROM `queries`
+            WHERE `queries`.`id`= ? LIMIT 1', $options['queryid']);
+        $rName = XDb::xFetchArray($rsName);
+        XDb::xFreeResults($rsName);
         if (isset($rName['name']) && ($rName['name'] != '')) {
             $sFilebasename = trim($rName['name']);
             $sFilebasename = str_replace(" ", "_", $sFilebasename);
@@ -145,41 +152,31 @@ if( $usr || !$hide_coords ) {
         $phpzip = new ss_zip('',6);
     }
 
-    // ok, ausgabe starten
-    if ($sqldebug == false) {
-        if ($bUseZip == true) {
-            header('content-type: application/zip');
-            header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
-        } else {
-            header('Content-type: application/wpt');
-            header('Content-Disposition: attachment; filename=' . $sFilebasename . '.wpt');
-        }
+    if ($bUseZip == true) {
+        header('content-type: application/zip');
+        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
+    } else {
+        header('Content-type: application/wpt');
+        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.wpt');
     }
 
-    // ok, ausgabe ...
-
-/*                                  cacheid
-                                    name
-                                    lon
-                                    lat
-
-                                    archivedflag
-                                    type
-                                    size
-                                    difficulty
-                                    terrain
-                                    username  */
-
-    $sql = 'SELECT `wptcontent`.`cache_id` `cacheid`, IF(wptcontent.cache_id IN (SELECT cache_id FROM cache_logs WHERE deleted=0 AND user_id='.$usr['userid'].' AND (type=1 OR type=8)),1,0) as found, `wptcontent`.`longitude` `longitude`, `wptcontent`.`latitude` `latitude`, `wptcontent`.cache_mod_cords_id, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`wp_oc` `wp_oc`, `cache_type`.`short` `typedesc`, `cache_size`.`'.$lang.'` `sizedesc`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username` , `caches`.`size` `size`, `caches`.`status` `status`, `caches`.`type` `type` FROM `wptcontent`, `caches`, `cache_type`, `cache_size`, `user` WHERE `wptcontent`.`cache_id`=`caches`.`cache_id` AND `wptcontent`.`type`=`cache_type`.`id` AND `wptcontent`.`size`=`cache_size`.`id` AND `wptcontent`.`user_id`=`user`.`user_id`';
-
-    $dbcSearch->simpleQuery( $sql, $sqldebug);
+    $stmt = XDb::xSql(
+        'SELECT `wptcontent`.`cache_id` `cacheid`, IF(wptcontent.cache_id IN
+                (SELECT cache_id FROM cache_logs WHERE deleted=0 AND user_id='.$usr['userid'].' AND (type=1 OR type=8)),1,0)
+                as found, `wptcontent`.`longitude` `longitude`, `wptcontent`.`latitude` `latitude`, `wptcontent`.cache_mod_cords_id,
+                `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`wp_oc` `wp_oc`, `cache_type`.`short` `typedesc`,
+                `cache_size`.`'.$lang.'` `sizedesc`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username` ,
+                `caches`.`size` `size`, `caches`.`status` `status`, `caches`.`type` `type` FROM `wptcontent`, `caches`, `cache_type`, `cache_size`, `user`
+        WHERE `wptcontent`.`cache_id`=`caches`.`cache_id`
+            AND `wptcontent`.`type`=`cache_type`.`id` AND `wptcontent`.`size`=`cache_size`.`id`
+            AND `wptcontent`.`user_id`=`user`.`user_id`' );
 
     appendOutput("OziExplorer Waypoint File Version 1.1\r\n");
     appendOutput("WGS 84\r\n");
     appendOutput("Reserved 2\r\n");
     appendOutput("Reserved 3\r\n");
 
-    while($r = $dbcSearch->dbResultFetch() ) {
+    while($r = XDb::xFetchArray($stmt) ) {
         $lat = sprintf('%01.6f', $r['latitude']);
         $lon = sprintf('%01.6f', $r['longitude']);
 
@@ -198,9 +195,9 @@ if( $usr || !$hide_coords ) {
         $terrain = sprintf('%01.1f', $r['terrain'] / 2);
         $cacheid = $r['wp_oc'];
         $id = $r['cacheid'];
-        $sql_u = "SELECT user_id FROM caches WHERE cache_id = ".intval($id);
+
         $date_hidden = $r['date_hidden'];
-        $userid = @mysql_result(@mysql_query($sql_u),0);
+        $userid = XDb::xMultiVariableQueryValue("SELECT user_id FROM caches WHERE cache_id = :1 LIMIT 1",0, $id);
 
         $kolor = 16776960;
         if ($userid == $usr['userid']) {
@@ -212,8 +209,11 @@ if( $usr || !$hide_coords ) {
         if ($r['found']) {
             $kolor = 65535;
         }
-        $sss= "SELECT ozi_filips FROM user WHERE user_id=".$usr['userid'];
-        $r['ozi_filips']=@mysql_result(@mysql_query($sss),0);
+        $sss=
+
+        $r['ozi_filips']= XDb::xMultiVariableQueryValue(
+            "SELECT ozi_filips FROM user WHERE user_id= :1 LIMIT 1", null, $usr['userid']);
+
         if($r['ozi_filips']!=""||$r['ozi_filips']!=null) {
             $attach = $r['ozi_filips']."\\op\\".$r['wp_oc'][2]."\\".$r['wp_oc'][3]."\\".$r['wp_oc'][4].$r['wp_oc'][5].".html";
         } else {
@@ -221,25 +221,12 @@ if( $usr || !$hide_coords ) {
         }
         // remove double slashes
         $attach = str_replace("\\\\", "\\", $attach);
-        //$line = $name . " by " . $username . " - " . $type . " (" . $difficulty . "/" . $terrain . ")";
         $line = "$cacheid / D:$difficulty / T:$terrain / Size: $size";
-//        Ograniczenie opisu do 40 znakow
-//        if (strlen($line) > 40) {
-//            $line = substr($line, 0, 40);
-//        }
-//        $wpt_date = floor((strtotime(substr($date_hidden,0,10)) - strtotime("1970-01-01")) / (60*60*24)) + 25570;
-//        number,name,lat,lon,date,symbol,stat, map form, fcolor,bcolor,desc(40),p direct,g disp,prox,alit,fsize,fstyle,symb size,prox,prox,prox
-//        $record  = "-1,$cacheid,$lat,$lon,$wpt_date,0,1,4,0,16777215,$line,0,0,0,-777,8,0,17,0,10.0,2,$attach,,\r\n";
 
         $record  = "-1,$name,$lat,$lon,,117,1,4,0,$kolor,$line,0,0,0, -777,8,0,17,0,10.0,2,$attach,,\r\n";
 
         appendOutput($record);
         ob_flush();
-    }
-    $dbcSearch->reset();
-    unset($cdb);
-    if ($sqldebug == true) {
-        sqldbg_end();
     }
 
      // phpzip versenden
@@ -253,7 +240,7 @@ if( $usr || !$hide_coords ) {
 
 function convertString($str)
 {
-    $replace = [
+    $replace = array(
         '&lt;' => '', '&gt;' => '', '&#039;' => '', '&amp;' => '',
         '&quot;' => '', 'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'Ae',
         '&Auml;' => 'A', 'Å' => 'A', 'Ā' => 'A', 'Ą' => 'A', 'Ă' => 'A', 'Æ' => 'Ae',
@@ -299,16 +286,13 @@ function convertString($str)
         'т' => 't', 'у' => 'u', 'ф' => 'f', 'х' => 'h', 'ц' => 'c', 'ч' => 'ch',
         'ш' => 'sh', 'щ' => 'sch', 'ъ' => '', 'ы' => 'y', 'ь' => '', 'э' => 'e',
         'ю' => 'yu', 'я' => 'ya'
-    ];
+    );
     return str_replace(array_keys($replace), $replace, $str);
 }
 
 function appendOutput($str)
 {
-    global $content, $bUseZip, $sqldebug;
-    if ($sqldebug == true) {
-        return;
-    }
+    global $content, $bUseZip;
 
     if ($bUseZip == true) {
         $content .= $str;
@@ -317,4 +301,3 @@ function appendOutput($str)
     }
 }
 
-?>

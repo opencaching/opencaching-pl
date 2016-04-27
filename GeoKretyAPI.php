@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\OcDb;
 /**
  * This class contain methods used to communicate with Geokrety, via Geokrety Api
  * (http://geokrety.org/api.php)
@@ -40,7 +41,7 @@ class GeoKretyApi
      */
     private function TakeUserGeokrets()
     {
-        $url = "//geokrety.org/export2.php?secid=$this->secid&inventory=1";
+        $url = "http://geokrety.org/export2.php?secid=$this->secid&inventory=1";
         $xml = $this->connect($url, $this->operationTypes[__FUNCTION__]);
         libxml_use_internal_errors(true);
         if ($xml) {
@@ -64,7 +65,7 @@ class GeoKretyApi
      */
     private function TakeGeoKretsInCache()
     {
-        $url = "//geokrety.org/export2.php?wpt=$this->cacheWpt";
+        $url = "http://geokrety.org/export2.php?wpt=$this->cacheWpt";
         $xml = $this->connect($url, $this->operationTypes[__FUNCTION__]);
 
         if ($xml) {
@@ -92,7 +93,7 @@ class GeoKretyApi
         $lista = tr('GKApi23') . ': ' . count($krety->geokrety->geokret) . '<br>';
         $lista .= '<table>';
         foreach ($krety->geokrety->geokret as $kret) {
-            $lista .= '<tr><td></td><td><a href="//geokrety.org/konkret.php?id=' . $kret->attributes()->id . '">' . $kret . '</a></td></tr>';
+            $lista .= '<tr><td></td><td><a href="http://geokrety.org/konkret.php?id=' . $kret->attributes()->id . '">' . $kret . '</a></td></tr>';
         }
         $lista .= '</table>';
         echo $lista;
@@ -117,7 +118,7 @@ class GeoKretyApi
             $MaxNr++;
             $selector .= '<tr>
                             <td>
-                              <a href="//geokrety.org/konkret.php?id=' . $kret->attributes()->id . '">' . $kret . '</a>
+                              <a href="http://geokrety.org/konkret.php?id=' . $kret->attributes()->id . '">' . $kret . '</a>
                             </td>
                             <td>
                               <select id="GeoKretSelector' . $MaxNr . '" name="GeoKretIDAction' . $MaxNr . '[action]" onchange="GkActionMoved(' . $MaxNr . ')"><option value="-1">' . tr('GKApi13') . '</option><option value="0">' . tr('GKApi12') . '</option><option value="5">' . tr('GKApi14') . '</option></select>
@@ -147,7 +148,7 @@ class GeoKretyApi
             $MaxNr++;
             $selector .= '<tr>
                             <td>
-                              <a href="//geokrety.org/konkret.php?id=' . $kret->attributes()->id . '">' . $kret . '</a>
+                              <a href="http://geokrety.org/konkret.php?id=' . $kret->attributes()->id . '">' . $kret . '</a>
                             </td>
                             <td>
                               <select id="GeoKretSelector' . $MaxNr . '" name="GeoKretIDAction' . $MaxNr . '[action]" onchange="GkActionMoved(' . $MaxNr . ')"><option value="-1">' . tr('GKApi13') . '</option><option value="1">' . tr('GKApi15') . '</option><option value="2">' . tr('GKApi16') . '</option><option value="3">' . tr('GKApi17') . '</option></select>
@@ -170,8 +171,6 @@ class GeoKretyApi
      */
     public function LogGeokrety($GeokretyArray, $retry = false)
     {
-
-        // dataBase::debugOC('#'.__line__.' ', $this->connectionTimeout);
         if (!$GeokretyArray) { // array from datbase is epmty
             $r['errors'][]['error'] = 'array from datbase is epmty';
             $postdata = '';
@@ -188,7 +187,7 @@ class GeoKretyApi
         );
 
         $context = stream_context_create($opts);
-        @$result = file_get_contents('//geokrety.org/ruchy.php', false, $context);
+        @$result = file_get_contents('http://geokrety.org/ruchy.php', false, $context);
         // print $result;
         // print '----------<pre>'; print_r($resultarray); print '</pre>-------------';
 
@@ -275,7 +274,7 @@ class GeoKretyApi
 
     private function storeErrorsInDb($operationType, $dataSent, $response = null)
     {
-        $db = new dataBase;
+        $db = OcDb::instance();
         $query = "INSERT INTO `GeoKretyAPIerrors`(`dateTime`, `operationType`, `dataSent`, `response`)
                   VALUES (NOW(),:1,:2,:3)";
         $db->multiVariableQuery($query, $operationType, addslashes(serialize($dataSent)), addslashes(serialize($response)));
@@ -288,15 +287,14 @@ class GeoKretyApi
 
     public static function getErrorsFromDb()
     {
-        $db = new dataBase;
-        $query = "SELECT * FROM `GeoKretyAPIerrors` WHERE 1";
-        $db->simpleQuery($query);
-        return $db->dbResultFetchAll();
+        $db = OcDb::instance();
+        $s = $db->simpleQuery("SELECT * FROM `GeoKretyAPIerrors` WHERE 1");
+        return $db->dbResultFetchAll($s);
     }
 
     public static function removeDbRows($rowsString)
     {
-        $db = new dataBase;
+        $db = OcDb::instance();
         $query = "DELETE FROM `GeoKretyAPIerrors` WHERE id in ($rowsString)";
         $db->simpleQuery($query);
     }

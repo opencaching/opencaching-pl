@@ -13,23 +13,6 @@ class Php7Handler
 {
     private static $isPhp7;
 
-    public static function db_connect()
-    {
-        global $dblink;
-        if(self::isPhp7()){
-            $dblink = null;
-        } else { //open mysql databse connection
-            db_connect();
-        }
-    }
-
-    public static function db_disconnect()
-    {
-        if(!self::isPhp7()){
-            db_disconnect();
-        }
-    }
-
     /**
      * apcu library 5.x for php 7 have no more functions apc_*
      * Uses apcu_* instead

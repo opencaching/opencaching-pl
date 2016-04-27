@@ -1,7 +1,8 @@
 <?php
+use Utils\Database\OcDb;
 $rootpath = __DIR__.'/../';
 require_once __DIR__.'/../lib/common.inc.php';
-db_disconnect();
+
 
 $ptId = (int) $_REQUEST['ptId'];
 $ptTotalCacheesCount = powerTrailBase::getPtCacheCount($ptId);
@@ -33,11 +34,10 @@ ORDER BY `FoundCount` DESC, `username` ASC
 
 ";
 
-$db = \lib\Database\DataBaseSingleton::Instance();
-$db->multiVariableQuery($q, $ptId);
-$statsArr = $db->dbResultFetchAll();
+$db = OcDb::instance();
+$s = $db->multiVariableQuery($q, $ptId);
+$statsArr = $db->dbResultFetchAll($s);
 
-// echo '<pre>'; var_dump($ptTotalCacheesCount, $statsArr);
 if(count($statsArr) == 0){ // no result!
     print tr('pt105');
     exit;

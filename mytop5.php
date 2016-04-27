@@ -1,5 +1,6 @@
 <?php
 
+use Utils\Database\OcDb;
 require('./lib/common.inc.php');
 require($stylepath . '/mytop5.inc.php');
 
@@ -15,7 +16,7 @@ if ($error == false) {
 
     tpl_set_var('msg_delete', '');
 
-    $dbc = new dataBase();
+    $dbc = OcDb::instance();
 
     if ($action == 'delete') {
         $cache_id = isset($_REQUEST['cacheid']) ? $_REQUEST['cacheid'] + 0 : 0;
@@ -33,10 +34,9 @@ if ($error == false) {
                 )
             );
 
+            $s = $dbc->paramQuery($query, $params);
 
-            $dbc->paramQuery($query, $params);
-
-            if ($dbc->rowCount() == 0) {
+            if ($dbc->rowCount($s) == 0) {
                 // cache is not on top list of this user => ignore
             } else {
                 $query = "DELETE FROM cache_rating WHERE cache_id = :cache_id AND user_id = :user_id";
@@ -48,7 +48,7 @@ if ($error == false) {
                 \okapi\Facade::schedule_user_entries_check($cache_id, $usr['userid']);
                 \okapi\Facade::disable_error_handling();
 
-                $query = "SELECT name FROM caches WHERE cache_id = :cache_id";
+                $query = "SELECT name FROM caches WHERE cache_id = :cache_id LIMIT 1";
                 $params = array(
                     "cache_id" => array(
                         "value" => $cache_id,
@@ -56,9 +56,8 @@ if ($error == false) {
                 ));
 
                 $cachename = "!!!!!!!";
-                $dbc->paramQuery($query, $params);
-                if ($dbc->rowCount() != 0) {
-                    $res = $dbc->dbResultFetch();
+                $s = $dbc->paramQuery($query, $params);
+                if ( $res = $dbc->dbResultFetchOneRowOnly($s) ){
                     $cachename = $res["name"];
                 } else
                     $cachename = "-----";
@@ -93,10 +92,10 @@ if ($error == false) {
         )
     );
 
-    $dbc->paramQuery($query, $params);
+    $stmt = $dbc->paramQuery($query, $params);
 
-    if ($dbc->rowCount() != 0) {
-        while ($r = $dbc->dbResultFetch()) {
+    if ($dbc->rowCount($stmt) != 0) {
+        while ($r = $dbc->dbResultFetch($stmt)) {
             $thisline = $viewtop5_line;
 
             $cacheicon = myninc::checkCacheStatusByUser($r, $usr['userid']);

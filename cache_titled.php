@@ -1,10 +1,10 @@
 <?php
 
 use Utils\Database\XDb;
+use Utils\Database\OcDb;
 
 global $dateFormat;
 require_once('./lib/common.inc.php');
-
 
 $tplname = 'cache_titled';
 
@@ -12,7 +12,7 @@ $usrid = -1;
 if ( $usr != false )
     $usrid = $usr['userid'];
 
-$dbcLocCache = new dataBase();
+$dbcLocCache = OcDb::instance();
 
 $query="SELECT
     caches.type cache_type, caches.name cacheName, caches.cache_id cache_id,
@@ -36,13 +36,13 @@ if ( isset( $_REQUEST[ 'type' ] ) )
     $query .= " JOIN local_caches on cache_titled.cache_id = local_caches.cache_id ";
 }
 
-$dbcLocCache->simpleQuery($query);
+$s = $dbcLocCache->simpleQuery($query);
 
 $content="";
 
-for( $i = 0; $i < $dbcLocCache->rowCount(); $i++ )
+for( $i = 0; $i < $dbcLocCache->rowCount($s); $i++ )
 {
-   $record = $dbcLocCache->dbResultFetch();
+   $record = $dbcLocCache->dbResultFetch($s);
 
    $cacheId = $record[ 'cache_id' ];
    $cacheName = str_replace("'", "-", $record[ 'cacheName' ] );
@@ -84,19 +84,5 @@ for( $i = 0; $i < $dbcLocCache->rowCount(); $i++ )
 
 tpl_set_var( 'contentTable', $content );
 
-unset( $dbc );
-
 tpl_BuildTemplate();
-?>
-
-
-
-
-
-
-
-
-
-
-
 

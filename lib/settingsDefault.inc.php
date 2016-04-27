@@ -199,3 +199,11 @@ $config['oc']['limits']['proximity'] = 150;
 // Maximum radius around home coordinates within which user can receive
 // notifications in km
 $config['oc']['limits']['notification_radius'] = 150;
+
+/*
+ * OKAPI settings
+ */
+
+$config['okapi']['data_license_url'] = 'http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use';
+$config['okapi']['admin_emails'] = false;
+// $config['okapi']['admin_emails'] = array('rygielski@mimuw.edu.pl', 'following@online.de');

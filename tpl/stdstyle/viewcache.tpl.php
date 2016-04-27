@@ -5,6 +5,9 @@
 {jQueryPopUpWindowscripts}
 
 <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
+<script>
+    var confirmRmLogTranslation = '{{confirm_remove_log}}';
+</script>
 <script src="{viewcache_js}"></script>
 
 <input type="hidden" id="cacheid" value="{cacheid}" />
@@ -97,7 +100,6 @@
             ?><br />
             <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{date_created_label}}: {date_created}<br />
             <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{last_modified_label}}: {last_modified}<br />
-            <img src="tpl/stdstyle/images/free_icons/arrow_in.png" class="icon16" alt="" title="" align="middle" />&nbsp;Waypoint: <b><a href="{absolute_server_URI}{oc_waypoint}">{oc_waypoint}</a></b><br />
             {hidelistingsites_start}<img src="tpl/stdstyle/images/free_icons/link.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{listed_also_on}}: {listed_on} <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"><br />{hidelistingsites_end}
         </p>
     </div>
@@ -120,7 +122,7 @@
                     {vote_icon} {votes_count} x {{scored}}<br />
                     {score_icon} {{score_label}}: <b><font color="{scorecolor}">{score}</font></b><br />
                     {list_of_rating_begin}{rating_stat}{list_of_rating_end}
-                    {gk_icon} <a class="links" href="//geokrety.org/szukaj.php?wpt={oc_waypoint}" target="_blank">{{history_gk}}  <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a><br />
+                    {gk_icon} <a class="links" href="http://geokrety.org/szukaj.php?wpt={oc_waypoint}" target="_blank">{{history_gk}}  <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a><br />
                 </p>
             </div>
             <div id="viewcache-map" class="content2-container-2col-right"><div class="img-shadow">

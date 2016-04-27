@@ -1,17 +1,19 @@
 <?php
+use Utils\Database\XDb;
+use Utils\Database\OcDb;
 
 require_once("./lib/common.inc.php");
 
 if (isSet($_GET['wp']) && !empty($_GET['wp']) && $_GET['wp'] != "OP") {
 
-    db_connect();
 
-    $wp = mysql_real_escape_string($_GET['wp']);
+
+    $wp = XDb::xEscape($_GET['wp']);
 
     $query = "select votes,cache_id,topratings,user_id,type,size,status,cache_id,name,longitude,latitude,date_hidden,wp_oc,score,founds,notfounds,notes,picturescount";
     $query .= " from caches where wp_oc = '" . $wp . "';";
-    $wynik = db_query($query);
-    $caches = mysql_fetch_assoc($wynik);
+    $wynik = XDb::xSql($query);
+    $caches = XDb::xFetchArray($wynik);
 
     // dodałem sprawdzanie statusu
     if (empty($caches) || $caches['status'] == 4 || $caches['status'] == 5 || $caches['status'] == 6)
@@ -22,9 +24,9 @@ if (isSet($_GET['wp']) && !empty($_GET['wp']) && $_GET['wp'] != "OP") {
         // detailed cache access logging
         global $enable_cache_access_logs;
         if (@$enable_cache_access_logs) {
-            if (!isset($dbc)) {
-                $dbc = new dataBase();
-            };
+
+            $dbc = OcDb::instance();
+
             $cache_id = $caches['cache_id'];
             $user_id = @$_SESSION['user_id'] > 0 ? $_SESSION['user_id'] : null;
             $access_log = @$_SESSION['CACHE_ACCESS_LOG_VC_' . $user_id];
@@ -45,17 +47,17 @@ if (isSet($_GET['wp']) && !empty($_GET['wp']) && $_GET['wp'] != "OP") {
         }
 
         $query = "select username from user where user_id = " . $caches['user_id'] . ";";
-        $wynik = db_query($query);
-        $user = mysql_fetch_row($wynik);
+        $wynik = XDb::xSql($query);
+        $user = XDb::xFetchArray($wynik);
 
         $query = "select cache_desc.desc,hint,short_desc from cache_desc where cache_id ='" . $caches['cache_id'] . '\'';
         $query.=' order by field(`language`, \'pl\', \'en\', \'de\', \'nl\') ASC;';
 
-        $wynik = db_query($query);
+        $wynik = XDb::xSql($query);
 
         $i = 0;
 
-        while ($rekord = mysql_fetch_assoc($wynik)) {
+        while ($rekord = XDb::xFetchArray($wynik)) {
 
             if ($i > 0)
                 $cache_desc['desc'].="<br/><br/>";
@@ -71,29 +73,29 @@ if (isSet($_GET['wp']) && !empty($_GET['wp']) && $_GET['wp'] != "OP") {
         }
 
         $query = "select attrib_id from caches_attributes where cache_id ='" . $caches['cache_id'] . '\';';
-        $cache_attributes = db_query($query);
+        $cache_attributes = XDb::xSql($query);
 
         $query = "select " . $lang . " from cache_type where id =" . $caches['type'] . ';';
-        $wynik = db_query($query);
-        $cache_type = mysql_fetch_row($wynik);
+        $wynik = XDb::xSql($query);
+        $cache_type = XDb::xFetchArray($wynik);
 
         $query = "select " . $lang . " from cache_size where id =" . $caches['size'] . ';';
-        $wynik = db_query($query);
-        $cache_size = mysql_fetch_row($wynik);
+        $wynik = XDb::xSql($query);
+        $cache_size = XDb::xFetchArray($wynik);
 
         $query = "select " . $lang . " from cache_status where id =" . $caches['status'] . ';';
-        $wynik = db_query($query);
-        $cache_status = mysql_fetch_row($wynik);
+        $wynik = XDb::xSql($query);
+        $cache_status = XDb::xFetchArray($wynik);
 
         if (isset($_SESSION['user_id'])) {
             $query2 = "select 1 from cache_logs where user_id = '" . $_SESSION['user_id'] . "' and type = '1' and deleted='0' and cache_id ='" . $caches['cache_id'] . "';";
-            $wynik2 = db_query($query2);
-            $if_found = mysql_fetch_row($wynik2);
+            $wynik2 = XDb::xSql($query2);
+            $if_found = XDb::xFetchArray($wynik2);
 
             if ($if_found[0] != '1') {
                 $query2 = "select 2 from cache_logs where user_id = '" . $_SESSION['user_id'] . "' and type = '2' and deleted='0' and cache_id ='" . $caches['cache_id'] . "';";
-                $wynik2 = db_query($query2);
-                $if_found = mysql_fetch_row($wynik2);
+                $wynik2 = XDb::xSql($query2);
+                $if_found = XDb::xFetchArray($wynik2);
             }
 
             $if_found = $if_found[0];
@@ -110,8 +112,8 @@ if (isSet($_GET['wp']) && !empty($_GET['wp']) && $_GET['wp'] != "OP") {
 
         if (isset($_SESSION['user_id'])) {
             $query3 = "select id from cache_watches where user_id = '" . $_SESSION['user_id'] . "' and cache_id ='" . $caches['cache_id'] . "';";
-            $wynik3 = db_query($query3);
-            $watched = mysql_fetch_row($wynik3);
+            $wynik3 = XDb::xSql($query3);
+            $watched = XDb::xFetchArray($wynik3);
             $watched = $watched[0];
             if (!empty($watched))
                 $cache_info['watched'] = $watched;
@@ -148,11 +150,11 @@ if (isSet($_GET['wp']) && !empty($_GET['wp']) && $_GET['wp'] != "OP") {
         if ($caches['picturescount'] > 0) {
 
             $query = "select url, title, spoiler from pictures where object_id = '" . $caches['cache_id'] . "' and display=1 and object_type=2;";
-            $wynik = db_query($query);
+            $wynik = XDb::xSql($query);
 
             $znalezione = array();
 
-            while ($rekord = mysql_fetch_assoc($wynik))
+            while ($rekord = XDb::xFetchArray($wynik))
                 $photos[] = $rekord;
 
             $tpl->assign("photos_list", $photos);
@@ -162,11 +164,11 @@ if (isSet($_GET['wp']) && !empty($_GET['wp']) && $_GET['wp'] != "OP") {
 
             $attr_text = "";
 
-            while ($rekord = mysql_fetch_assoc($cache_attributes)) {
+            while ($rekord = XDb::xFetchArray($cache_attributes)) {
 
                 $query = "select text_long from cache_attrib where id ='" . $rekord['attrib_id'] . "' and language = '" . $lang . "';";
-                $wynik = db_query($query);
-                $attr = mysql_fetch_row($wynik);
+                $wynik = XDb::xSql($query);
+                $attr = XDb::xFetchArray($wynik);
                 $attr_text .= "\\n" . $attr[0] . "\\n";
             }
 
@@ -177,9 +179,9 @@ if (isSet($_GET['wp']) && !empty($_GET['wp']) && $_GET['wp'] != "OP") {
 
 //          $query="select name,distancetravelled from gk_item where latitude ='".$caches['latitude']."' and longitude='".$caches['longitude']."';";
         $query = "SELECT gk_item.id, name, distancetravelled FROM gk_item INNER JOIN gk_item_waypoint ON (gk_item.id = gk_item_waypoint.id) WHERE gk_item_waypoint.wp = '" . $caches['wp_oc'] . "' AND stateid<>1 AND stateid<>4 AND stateid <>5 AND typeid<>2 AND missing=0";
-        $wynik = db_query($query);
-        //print mysql_num_rows($wynik);
-        while ($rekord = mysql_fetch_assoc($wynik)) {
+        $wynik = XDb::xSql($query);
+        //print XDb::xNumRows($wynik);
+        while ($rekord = XDb::xFetchArray($wynik)) {
             //print $rekord['name'];
             $gk.=$rekord['name'] . " - " . $rekord['distancetravelled'] . " km\\n\\n";
         }

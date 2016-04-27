@@ -89,7 +89,7 @@ if (!isset($site_in_service))
 
 //if you are running this site on a other domain than staging.opencaching.de, you can set
 //this in private_db.inc.php, but don't forget the ending /
-$absolute_server_URI = 'http://localhost/';
+$absolute_server_URI = '//localhost/';
 
 // EMail address of the sender
 if (!isset($emailaddr))
@@ -103,7 +103,7 @@ $dynstylepath = $dynbasepath . 'tpl/stdstyle/html/';
 if (!isset($picdir))
     $picdir = $dynbasepath . 'images/uploads';
 if (!isset($picurl))
-    $picurl = 'http://localhost/images/uploads';
+    $picurl = '//localhost/images/uploads';
 
 // Thumbsize
 $thumb_max_width = 175;
@@ -116,7 +116,7 @@ $thumb2_max_height = 64;
 if (!isset($mp3dir))
     $mp3dir = $dynbasepath . 'mp3';
 if (!isset($mp3url))
-    $mp3url = 'http://localhost/mp3';
+    $mp3url = '//localhost/mp3';
 
 // maximal size of mp3 for PodCache 5 Mb ?
 if (!isset($maxmp3size))
@@ -435,7 +435,7 @@ $defaultCountryList = array("AT", "BE", "BY", "BG", "HR", "CZ", "DK", "EE", "FI"
 
 $mapsConfig = array(
     'OSMapa' => array(
-        'attribution' => '&copy; <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC BY-SA</a> | Hosting:<a href="http://trail.pl/" target="_blank">trail.pl</a> i <a href="http://centuria.pl/" target="_blank">centuria.pl</a>',
+        'attribution' => '&copy; <a href="//www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors <a href="//creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC BY-SA</a> | Hosting:<a href="http://trail.pl/" target="_blank">trail.pl</a> i <a href="http://centuria.pl/" target="_blank">centuria.pl</a>',
         'name' => 'OSMapa',
         'tileUrl' => 'http://tile.openstreetmap.pl/osmapa.pl/{z}/{x}/{y}.png',
         'maxZoom' => 18,
@@ -443,7 +443,7 @@ $mapsConfig = array(
     ),
     'OSM' => array(
         'name' => 'OSM',
-        'attribution' => '&copy; <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC BY-SA</a>',
+        'attribution' => '&copy; <a href="//www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors <a href="//creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC BY-SA</a>',
         'tileUrl' => 'http://tile.openstreetmap.org/{z}/{x}/{y}.png',
         'maxZoom' => 18,
         'tileSize' => '256x256',

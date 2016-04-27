@@ -1,0 +1,377 @@
+/*
+   layout styles for power trail module.
+
+    Created on : 2016-04-22, 11:19:02
+    Author     : Łza
+*/
+#powerTrailContentWraper {
+    width: 780px;
+    overflow: hidden;
+}
+
+.info {
+    color: blue;
+    font-size: 8px;
+}
+
+table, th, td
+{
+    font-size: 12px;
+}
+
+table.statsTable td{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+table.statsTable th{
+    padding-left: 5px;
+    padding-right: 5px;
+    border-bottom: solid 2px;
+    border-color: #000044;
+    background-color:#0088CC;
+    color: #FFFFCC;
+
+}
+table.statsTable th:not(:last-child), table.statsTable td:not(:last-child){
+    border-right: solid 1px;
+}
+
+table.ptCacheTable th{
+    padding-left: 5px;
+    padding-right: 5px;
+    border-bottom: solid 2px;
+    background-color:#0088CC;
+    color: #FFFFCC;
+}
+
+table.ptCacheTable th:first-child, table.statsTable th:first-child{
+    -moz-border-top-left-radius: 5px;
+    -webkit-border-top-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+table.ptCacheTable th:last-child, table.statsTable th:last-child{
+    -moz-border-top-right-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+#powerTrailName{
+    font-size: 36px;
+    color:#000088;
+    font-family: Shojumaru;
+}
+
+.CommentDate {
+    font-size: 11px;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+.commentTime {
+    font-size: 8px;
+    padding-left: 2px;
+    padding-right: 15px;
+}
+
+.commentContent{
+    border-left: 1px solid #2F2727;
+    padding-left: 15px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    max-width:550px;
+    height:auto;
+}
+
+.commentHead{
+    padding-top: 5px;
+    font-family: verdana;
+    font-size: 13px;
+    padding-left: 10px;
+    background-color: #FFFFFF; background-repeat: repeat-y;
+
+    border-left: 1px solid #2F2727;
+    border-top: 1px solid #2F2727;
+
+    background: -webkit-gradient(linear, left top, right top, from(#DDDDDD), to(#FFFFFF));
+    background: -webkit-linear-gradient(left, #DDDDDD  #FFFFFF);
+    background: -moz-linear-gradient(left, #DDDDDD, #FFFFFF);
+    background: -ms-linear-gradient(left, #DDDDDD, #FFFFFF);
+    background: -o-linear-gradient(left, #DDDDDD, #FFFFFF);
+
+    -moz-border-top-left-radius: 10px;
+    -webkit-border-top-left-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+#commentsTable{
+    width: 95%;
+}
+
+.linearBg1 {
+    height: 25px;
+    color: #E7E5DC;
+    font-family: verdana;
+    font-size: 12px;
+    font-weight: bold;
+    padding-left:8px;
+    background-color: #1a82f7; background-repeat: repeat-y;
+    background: -webkit-gradient(linear, left top, right top, from(#1a82f7), to(#2F2727));
+    background: -webkit-linear-gradient(left, #2F2727, #1a82f7);
+    background: -moz-linear-gradient(left, #2F2727, #1a82f7);
+    background: -ms-linear-gradient(left, #2F2727, #1a82f7);
+    background: -o-linear-gradient(left, #2F2727, #1a82f7);
+    -moz-border-top-right-radius: 8px;
+    -webkit-border-top-right-radius: 8px;
+    border-top-right-radius: 8px;
+}
+.linearBg2 {
+    height: 1px;
+    padding-left:8px;
+    background-color: #1a82f7; background-repeat: repeat-y;
+    background: -webkit-gradient(linear, left top, right top, from(#1a82f7), to(#2F2727));
+    background: -webkit-linear-gradient(left, #2F2727, #1a82f7);
+    background: -moz-linear-gradient(left, #2F2727, #1a82f7);
+    background: -ms-linear-gradient(left, #2F2727, #1a82f7);
+    background: -o-linear-gradient(left, #2F2727, #1a82f7);
+}
+.userActions {
+    font-family: verdana;
+    font-size: 9px;
+}
+.inlineTd{
+    padding:15px;
+}
+.ptTd{
+    font-family: verdana;
+    font-size: 12px;
+    text-align:center;
+}
+
+#toLowUserFound {
+    padding-top: 50px;
+    padding-left: 75px;
+    font-size: 16px;
+    color:#EE0000;
+}
+
+/* quite nice blue buttons */
+.editPtDataButton {
+    -moz-box-shadow:inset 0px 1px 0px 0px #97c4fe;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #97c4fe;
+    box-shadow:inset 0px 1px 0px 0px #97c4fe;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #3d94f6), color-stop(1, #1e62d0) );
+    background:-moz-linear-gradient( center top, #3d94f6 5%, #1e62d0 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#3d94f6', endColorstr='#1e62d0');
+    background-color:#3d94f6;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    border:1px solid #337fed;
+    display:inline-block;
+    color:#ffffff !important;
+    font-family:arial;
+    font-size:11px;
+    font-weight:normal;
+    padding:0px 16px;
+    text-decoration:none !important;
+    text-shadow:1px 1px 0px #1570cd;
+}.editPtDataButton:hover {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #1e62d0), color-stop(1, #3d94f6) );
+    background:-moz-linear-gradient( center top, #1e62d0 5%, #3d94f6 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#1e62d0', endColorstr='#3d94f6');
+    background-color:#1e62d0;
+}.editPtDataButton:active {
+    position:relative;
+    top:1px;
+}
+/* This imageless css button was generated by CSSButtonGenerator.com */
+
+.paginateButton {
+    -moz-box-shadow:inset 0px 1px 0px 0px #97c4fe;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #97c4fe;
+    box-shadow:inset 0px 1px 0px 0px #97c4fe;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #3d94f6), color-stop(1, #1e62d0) );
+    background:-moz-linear-gradient( center top, #3d94f6 5%, #1e62d0 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#3d94f6', endColorstr='#1e62d0');
+    background-color:#3d94f6;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    border:1px solid #337fed;
+    display:inline-block;
+    color:#ffffff !important;
+    font-family:verdana;
+    font-size:10px;
+    font-weight:normal;
+    padding:0px 2.5px;
+    text-decoration:none !important;
+    text-shadow:1px 1px 0px #1570cd;
+}.paginateButton:hover {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #1e62d0), color-stop(1, #3d94f6) );
+    background:-moz-linear-gradient( center top, #1e62d0 5%, #3d94f6 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#1e62d0', endColorstr='#3d94f6');
+    background-color:#1e62d0;
+}.paginateButton:active {
+    position:relative;
+    top:1px;
+}
+
+.currentPaginateButton {
+    -moz-box-shadow:inset 0px 1px 0px 0px #97c4fe;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #97c4fe;
+    box-shadow:inset 0px 1px 0px 0px #97c4fe;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dddddd), color-stop(1, #555555) );
+    background:-moz-linear-gradient( center top, #bbbbbb 5%, #444444 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#aaaaaa', endColorstr='#333333');
+    background-color:#000000;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    border:1px solid #666666;
+    display:inline-block;
+    color:#ffffff !important;
+    font-family:verdana;
+    font-size:10px;
+    font-weight:normal;
+    padding:0px 2.5px;
+    text-decoration:none !important;
+    text-shadow:1px 1px 0px #1570cd;
+}.currentPaginateButton:hover {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #aaaaaa), color-stop(1, #222222) );
+    background:-moz-linear-gradient( center top, #bbbbbb 5%, #444444 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#999999', endColorstr='#111111');
+    background-color:#000000;
+}.currentPaginateButton:active {
+    position:relative;
+    top:1px;
+}
+
+/* sexy tooltips */
+.tooltip {
+    border-bottom: 1px dotted #000000; color: #000000; outline: none;
+    cursor: help; text-decoration: none;
+    position: relative;
+}
+.tooltip span {
+    margin-left: -999em;
+    position: absolute;
+}
+.tooltip:hover span {
+    border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.1); -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
+    font-family: Calibri, Tahoma, Geneva, sans-serif;
+    position: absolute; left: 1em; top: 2em; z-index: 99;
+    margin-left: 0; width: 250px;
+}
+.tooltip:hover img {
+    border: 0; margin: -10px 0 0 -55px;
+    float: left; position: absolute;
+}
+.tooltip:hover em {
+    font-family: Candara, Tahoma, Geneva, sans-serif; font-size: 1.2em; font-weight: bold;
+    display: block; padding: 0.2em 0 0.6em 0;
+}
+.classic { padding: 0.8em 1em; }
+.custom { padding: 0.5em 0.8em 0.8em 2em; }
+* html a:hover { background: transparent; }
+.classic {background: #FFFFAA; border: 1px solid #FFAD33; }
+.critical { background: #FFCCAA; border: 1px solid #FF3334; }
+.help { background: #9FDAEE; border: 1px solid #2BB0D7; }
+.info { background: #9FDAEE; border: 1px solid #2BB0D7; }
+.warning { background: #FFFFAA; border: 1px solid #FFAD33; }
+/*sexy toltips end*/
+
+#powerTrailDescription img {
+    max-width:550px;
+    height:auto;
+}
+
+#oldIE{
+    color: red;
+    border: solid 1px;
+    border-color: red;
+    padding: 10px;
+    width:90%;
+}
+
+.editDeleteComment {
+    float:right
+}
+
+#map-canvas, #map_canvas {
+    margin-top: 20px;
+    height: 460px;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    border: 1px solid #0051B9
+}
+#mapOuterdiv{
+    margin-left: auto;
+    margin-right: auto;
+}
+#ptMenus{
+    width: 99%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.descTd{
+    padding-left: 10px;
+    padding-top: 3px;
+}
+
+.finalCache{
+    color:#66CC00;
+    font-size: 11px;
+    float: right;
+    font-weight: bold;
+}
+
+.mapCloud {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.searchCacheSection{
+    border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+    border:1px solid #337fed;
+    height: 80px;
+    padding: 5px;
+}
+.padding1{
+    padding: 1px;
+}
+.displayOptionsClass{
+    border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+    border:1px solid #337fed;
+    width: 80%;
+    padding: 5px;
+}
+#messageDiv{
+    display: none;
+    border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+    border:1px solid #337fed;
+    width: 80%;
+    padding: 5px;
+}
+#gpxOptions{
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    display: none;
+    border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+    border:1px solid #337fed;
+    width: 40%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.powerTrailLogo {
+    max-width: 250px;
+}
+

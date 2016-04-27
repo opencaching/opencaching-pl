@@ -58,7 +58,7 @@ if ($usr['admin']) {
 
                 // email versenden
                 if ($use_news_approving == true) {
-                    $mailcontent = read_file($stylepath . '/email/newstopic.email');
+                    $mailcontent = file_get_contents($stylepath . '/email/newstopic.email');
                     $mailcontent = mb_ereg_replace('{email}', $email, $mailcontent);
                     $mailcontent = mb_ereg_replace('{date}', date('d.m.Y H:i:s', time()), $mailcontent);
                     $mailcontent = mb_ereg_replace('{newsconent}', $newstext, $mailcontent);
