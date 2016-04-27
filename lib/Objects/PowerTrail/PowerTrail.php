@@ -600,7 +600,10 @@ class PowerTrail extends \lib\Objects\BaseObject
             return false;
         }
         if($this->activeGeocacheCount < $this->caclulateRequiredGeocacheCount()){
-            
+            return false;
+        }
+        $appContainer = \lib\Objects\ApplicationContainer::Instance();
+        if($this->status === self::STATUS_CLOSED && $appContainer->getLoggedUser()->getIsAdmin() === false){
             return false;
         }
         return true;

@@ -475,6 +475,11 @@ function displayPtCommentsSelector($htmlid, \lib\Objects\PowerTrail\PowerTrail $
         if (!isset($ptOwners[$appContainer->getLoggedUser()->getUserId()]) && ($id == 3 || $id == 4 || $id == 5)) {
             continue;
         }
+
+        if($id == 3 && $powerTrail->canBeOpened() === false && $powerTrail->getStatus() != \lib\Objects\PowerTrail\PowerTrail::STATUS_OPEN){ /* this PT cannot be opened */
+            continue;
+        }
+
         if($id === \lib\Objects\PowerTrail\Log::TYPE_ADD_WARNING && $appContainer->getLoggedUser()->getIsAdmin() === false){
             continue;
         }
