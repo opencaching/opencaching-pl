@@ -18,7 +18,10 @@ if ($error == false) {
         $bml_id = 0;
         tpl_set_var('title_text', $standard_title);
 
-        if ( !isset($_SESSION['print_list']) || count($_SESSION['print_list']) == 0) {
+        if ( !isset($_SESSION['print_list']) || 
+             !is_array($_SESSION['print_list']) || 
+             empty($_SESSION['print_list']) ) {
+
             tpl_set_var('list', $no_list);
             tpl_set_var('print_delete_list', '');
             tpl_set_var('export_list', '');
