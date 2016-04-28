@@ -5,7 +5,6 @@ require_once('./lib/common.inc.php');
 ?>
 <link href="tpl/stdstyle/css/confirmCancelButtons.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript">
-<!--
     function subs_days(days_number) {
         //alert('ok');
         var d_day = document.getElementById('logday').value;
@@ -230,7 +229,6 @@ $founds = XDb::xMultiVariableQueryValue(
             document.getElementById(mvd6).disabled = true;
         }
     }
-//-->
 
     function formDefault(theInput) {
         if (theInput.value == '') {
@@ -267,10 +265,6 @@ $founds = XDb::xMultiVariableQueryValue(
             GKBox.style.display = "block";
         }
     }
-
-
-
-
 </script>
 
 <script type="text/javascript" src="lib/tinymce4/tinymce.min.js"></script>
@@ -480,8 +474,7 @@ $founds = XDb::xMultiVariableQueryValue(
         </table>
     </div>
 </form>
-<script language="javascript" type="text/javascript">
-<!--
+<script type="text/javascript">
     handle_score_note();
     function highlight_score_labels() {
         var score_rates = document.getElementsByName('r');
@@ -536,7 +529,4 @@ $founds = XDb::xMultiVariableQueryValue(
         document.getElementById('no_score').innerHTML = "{score_note_innitial}";
         highlight_score_labels();
     }
-
-
-//-->
 </script>

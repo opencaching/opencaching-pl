@@ -4,7 +4,6 @@ use Utils\Database\XDb;
 ?>
 <link href="tpl/stdstyle/css/confirmCancelButtons.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript">
-<!--
 
     function subs_days(days_number) {
         //alert('ok');
@@ -136,7 +135,6 @@ $founds = XDb::xMultiVariableQueryValue(
 //    } else {document.getElementById(el).style.display='none';}
     }
 
-//-->
 </script>
 
 <script type="text/javascript" src="lib/tinymce4/tinymce.min.js"></script>

@@ -2,7 +2,6 @@
 
 ?>
 <script type="text/javascript">
-<!--
     function checkForm()
     {
 
@@ -24,7 +23,6 @@
 
         return true;
     }
-    //-->
 </script>
 
 

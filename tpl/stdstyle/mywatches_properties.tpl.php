@@ -2,7 +2,6 @@
 
 ?>
 <script type="text/javascript">
-<!--
     function intervalChanged()
     {
         var interval = document.getElementById('interval');
@@ -27,7 +26,6 @@
                 break;
         }
     }
-//-->
 </script>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/clock.png" class="icon32" alt=""  />&nbsp;{{settings_notifications}}</div>
 <div class="searchdiv">
@@ -75,8 +73,6 @@
     </form>
 </div>
 <script type="text/javascript">
-<!--
     intervalChanged();
-//-->
 </script>
 

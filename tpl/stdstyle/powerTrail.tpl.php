@@ -30,7 +30,6 @@
                     ],
             });</script>
 <script type="text/javascript">
-<!--
             $(function() {
             $.datepicker.setDefaults($.datepicker.regional['pl']);
                     $('#powerTrailDateCreatedInput').datepicker({
@@ -1285,7 +1284,6 @@ $( document ).ready(function() {
 
     google.maps.event.addDomListener(window, 'load', initialize);
             /* maps end */
-// -->
 </script>
 
 <link rel="stylesheet" href="tpl/stdstyle/css/powerTrail.css" type="text/css" />

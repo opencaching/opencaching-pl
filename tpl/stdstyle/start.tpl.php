@@ -4,8 +4,7 @@
 
 
 ?>
-<script language="javascript" type="text/javascript">
-<!-- hide script from old browsers
+<script type="text/javascript">
 
 //detect browser:
     if ((navigator.appName == "Netscape" && parseInt(navigator.appVersion) >= 3) || parseInt(navigator.appVersion) >= 4) {
@@ -33,7 +32,6 @@
         }
     }
 
-//end hiding -->
 </script>
 
 <!-- Page title -->

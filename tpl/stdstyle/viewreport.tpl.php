@@ -1,4 +1,4 @@
-<script language="javascript" type="text/javascript">
+<script type="text/javascript">
     function addtext(obj)
     {
         var newtext = obj.value;

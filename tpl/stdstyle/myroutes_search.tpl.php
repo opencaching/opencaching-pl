@@ -1,8 +1,7 @@
 <?php
 
 ?>
-<script language="javascript" type="text/javascript">
-<!--
+<script type="text/javascript">
     var mnAttributesShowCat2 = 1;
     var maAttributes = new Array({attributes_jsarray});
 
@@ -128,7 +127,6 @@
         else
             showAttributesCat2();
     }
-//-->
 </script>
 
 

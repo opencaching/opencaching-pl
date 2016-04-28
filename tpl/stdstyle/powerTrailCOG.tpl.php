@@ -27,7 +27,6 @@
     });
 </script>
 <script type="text/javascript">
-<!--
     $(function () {
         $.datepicker.setDefaults($.datepicker.regional['pl']);
         $('#powerTrailDateCreatedInput').datepicker({

@@ -2,7 +2,6 @@
 
 ?>
 <script type="text/javascript">
-<!--
     function checkForm()
     {
         if (document.myroute_form.name.value == "")
@@ -20,7 +19,6 @@
 
         return true;
     }
-    //-->
 </script>
 
 

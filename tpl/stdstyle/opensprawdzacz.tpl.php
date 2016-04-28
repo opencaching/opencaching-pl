@@ -1,7 +1,6 @@
 <?php ?>
 
 <script type="text/javascript">
-<!--
     function clearForms()
     {
         var i;
@@ -40,7 +39,6 @@
             cialo.style.display = "none";
         }
     }
-// -->
 </script>
 
 <body onLoad="clearForms()" onUnload="clearForms()">

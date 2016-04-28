@@ -82,7 +82,7 @@ if (date('m') == 12 || date('m') == 1) {
         ?>
 
 
-        <script language="javascript" type="text/javascript">
+        <script type="text/javascript">
             function chname(newName,searchPage) {
                 document.getElementById("search_input").name = newName;
                 document.getElementById("search_form").action = searchPage;
