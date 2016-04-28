@@ -183,6 +183,9 @@ $config['quick_search']['byuser'] = true;
 $config['limits']['image']['filesize'] = 3.5;
 // Resize large images ? (1=yes; 0=no)
 $config['limits']['image']['resize'] = 1;
+// If resize large images = 1
+// only resize files larger then this, in MB
+$config['limits']['image']['resize_larger'] = 0.1;
 // Image maximum width in pixels (aspect ratio preserved)
 $config['limits']['image']['width'] = 640;
 // Image maximum height in pixels (aspect ratio preserved)
