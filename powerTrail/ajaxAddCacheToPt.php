@@ -110,6 +110,15 @@ function geocacheStatusCheck($cacheId)
         print 'geocache of this status cannot be added';
         return false;
     }
+    $forbidenGeocacheTypes = array(
+        GeoCache::TYPE_EVENT,
+        GeoCache::TYPE_OWNCACHE,
+        GeoCache::TYPE_WEBCAM,
+    );
+    if (in_array($geocache->getCacheType(), $forbidenGeocacheTypes)) {
+        print 'geocache of this type cannot be added';
+        return false;
+    } 
     return true;
 }
 
