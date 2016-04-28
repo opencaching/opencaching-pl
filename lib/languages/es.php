@@ -131,7 +131,6 @@ $translations = array(
     'news' => 'Noticias',
     'new_caches' => 'La nueva caja',
     'new_cache' => 'La nueva caja',
-    'abroad_poland' => 'Además de Polonia',
     'recommended_caches' => 'Cajas recomienda',
     'new_logs' => 'Últimas registros',
     'statistics' => 'Estadísticas',

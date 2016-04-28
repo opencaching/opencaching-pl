@@ -130,7 +130,6 @@ $translations = array(
     'news' => 'News',
     'new_caches' => 'La derniere boîte',
     'new_cache' => 'La nouvelle boîte',
-    'abroad_poland' => 'En plus de la Pologne',
     'recommended_caches' => 'Boxes recommandé',
     'new_logs' => 'Dernieres logs',
     'statistics' => 'Statistiques',

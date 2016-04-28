@@ -129,7 +129,6 @@ $translations = array(
     'news' => 'Nyheter',
     'new_caches' => 'Nya cacher',
     'new_cache' => 'Registrera ny cache',
-    'abroad_poland' => 'Utanför Polen',
     'recommended_caches' => 'Rekommenderade cacher',
     'new_logs' => 'Senaste loggar',
     'statistics' => 'Statistik',

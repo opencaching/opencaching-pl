@@ -131,7 +131,6 @@ $translations = array(
     'news' => 'Zprávy',
     'new_caches' => 'Nejmladší políčko',
     'new_cache' => 'Nové kolonku',
-    'abroad_poland' => 'Kromě Polsko',
     'recommended_caches' => 'Krabice doporučené',
     'new_logs' => 'Poslední logů',
     'statistics' => 'Statistiky',
