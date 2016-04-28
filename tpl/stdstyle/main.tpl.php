@@ -69,8 +69,8 @@ if (date('m') == 12 || date('m') == 1) {
         {cachemap_header}
         {viewcache_header}
         {ga_script_header}
-        <script type='text/javascript' src = 'lib/js/ga.js'></script>
-        <script type='text/javascript' src = 'lib/js/CookiesInfo.js'></script>
+        <script type='text/javascript' src='lib/js/ga.js'></script>
+        <script type='text/javascript' src='lib/js/CookiesInfo.js'></script>
 
 
     </head>
