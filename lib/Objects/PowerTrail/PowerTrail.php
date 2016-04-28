@@ -564,10 +564,22 @@ class PowerTrail extends \lib\Objects\BaseObject
 
     public function setAndStoreStatus($status)
     {
-        $this->status = $status;
-        $db = OcDb::instance();
-        $query = 'UPDATE `PowerTrail` SET `status` = :1 WHERE `PowerTrail`.`id` = :2 ';
-        $db->multiVariableQuery($query, $status, $this->id);
+        if($status == self::STATUS_OPEN && $this->canBeOpened() === false){
+            $result = array (
+                'updateStatusResult' => false,
+                'message' => tr('pt240'),
+            );
+        } else {
+            $this->status = $status;
+            $db = OcDb::instance();
+            $query = 'UPDATE `PowerTrail` SET `status` = :1 WHERE `PowerTrail`.`id` = :2 ';
+            $db->multiVariableQuery($query, $status, $this->id);
+            $result = array (
+                'updateStatusResult' => true,
+                'message' => tr('pt239'),
+            );
+        }
+        return $result;
     }
 
     /**
@@ -583,12 +595,23 @@ class PowerTrail extends \lib\Objects\BaseObject
      */
     public function canBeOpened()
     {
+        $this->getGeocaches();
         if($this->perccentRequired < \lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED){
             return false;
         }
         if($this->activeGeocacheCount < $this->caclulateRequiredGeocacheCount()){
             return false;
         }
+        $appContainer = \lib\Objects\ApplicationContainer::Instance();
+        if($this->status === self::STATUS_CLOSED && $appContainer->getLoggedUser()->getIsAdmin() === false){
+            return false;
+        }
         return true;
+    }
+
+    public function getStatusTranslation()
+    {
+        $statusTranslationArray = \lib\Controllers\PowerTrailController::getPowerTrailStatus();
+        return tr($statusTranslationArray[$this->status]['translate']);
     }
 }

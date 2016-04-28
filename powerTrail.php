@@ -189,7 +189,7 @@ if ($error == false) {
             $userIsOwner = $powerTrail->isUserOwner($usr['userid']);
             if ($powerTrail->getStatus() == 1 || $userIsOwner || ($appContainer->getLoggedUser() !== false && $appContainer->getLoggedUser()->getIsAdmin())) {
                 $ptTypesArr = powerTrailBase::getPowerTrailTypes();
-                $ptStatusArr = powerTrailBase::getPowerTrailStatus();
+                $ptStatusArr = \lib\Controllers\PowerTrailController::getPowerTrailStatus();
                 $foundCachsByUser = $powerTrail->getFoundCachsByUser($usr['userid']);
                 $leadingUser = powerTrailBase::getLeadingUser($powerTrail->getId());
                 if ($powerTrail->getConquestedCount() > 0){
@@ -329,7 +329,7 @@ function displayPTrails($pTrails, $areOwnSeries)
 
 
     $ptTypes = powerTrailBase::getPowerTrailTypes();
-    $ptStatus = powerTrailBase::getPowerTrailStatus();
+    $ptStatus = \lib\Controllers\PowerTrailController::getPowerTrailStatus();
 
     $result = '';
     $dataForMap = '';
@@ -475,6 +475,11 @@ function displayPtCommentsSelector($htmlid, \lib\Objects\PowerTrail\PowerTrail $
         if (!isset($ptOwners[$appContainer->getLoggedUser()->getUserId()]) && ($id == 3 || $id == 4 || $id == 5)) {
             continue;
         }
+
+        if($id == 3 && $powerTrail->canBeOpened() === false && $powerTrail->getStatus() != \lib\Objects\PowerTrail\PowerTrail::STATUS_OPEN){ /* this PT cannot be opened */
+            continue;
+        }
+
         if($id === \lib\Objects\PowerTrail\Log::TYPE_ADD_WARNING && $appContainer->getLoggedUser()->getIsAdmin() === false){
             continue;
         }
@@ -545,7 +550,7 @@ function generateStatusSelector($currStatus)
     if ($currStatus == 3) { //permanently closed
         $selector .= '<option value="3">' . tr('pt212') . '</option>';
     } else {
-        foreach (powerTrailBase::getPowerTrailStatus() as $val => $desc) {
+        foreach (\lib\Controllers\PowerTrailController::getPowerTrailStatus() as $val => $desc) {
             if ($val == $currStatus)
                 $selected = 'selected="selected"';
             else
