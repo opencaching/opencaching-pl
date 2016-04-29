@@ -3,6 +3,7 @@
 use Utils\Database\XDb;
 use lib\Objects\User\User;
 use Utils\Database\OcDb;
+use Utils\Email\EmailSender;
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
     $rootpath = '';
@@ -104,7 +105,8 @@ if ($error == false) {
                     $username, hash('sha512', md5($password)), // WRTODO - could be better
                     $email, $country, $uuid, $activationcode, $oc_nodeid, $rules_conf_req);
 
-                lib\Controllers\EmailController::sendActivationLink($username, $email, $country, $activationcode, $uuid);
+                EmailSender::sendActivationMessage(__DIR__ . '/tpl/stdstyle/email/user_activation.email.html',
+                    $username, $country, $activationcode, $email, $uuid);
 
                 //display confirmationpage
                 $tplname = 'register_confirm';

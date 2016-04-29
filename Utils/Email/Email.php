@@ -25,8 +25,6 @@ class Email
     private $subject='';
 
     private $body='';
-    private $body_header=''; //header of message set in all emails
-    private $body_footer=''; //footer of email set in all emails
 
     private $isHtmlEmail;
     private $isHtmlBody;     // does body of the message needs html formatting
@@ -63,7 +61,7 @@ class Email
         if($this->isHtmlEmail){
             // To send HTML mail, the Content-type header must be set
             $headers[] = 'MIME-Version: 1.0';
-            $headers[] = 'Content-type: text/html; charset=iso-8859-1';
+            $headers[] = 'Content-type: text/html; charset=utf-8';
 
             if(!$this->isHtmlBody){
                 // format body
@@ -76,7 +74,7 @@ class Email
             $headers[] = 'Cc: ' . implode(',',$this->ccAddr);
 
         if(!empty($this->bccAddr))
-            $headers[] = 'Bcc: ' .implode(',',$this->bccAddr);;
+            $headers[] = 'Bcc: ' .implode(',',$this->bccAddr);
 
         if(!empty($this->toAddr))
             $to = implode(',', $this->toAddr);

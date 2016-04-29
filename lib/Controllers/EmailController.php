@@ -45,47 +45,6 @@ class EmailController
     /**
      * @param $username
      * @param $email
-     * @param $country_name
-     * @param $code
-     * @param $uid
-     */
-    public static function sendActivationLink($username, $email, $country_name, $code, $uid)
-    {
-        $emailContent = file_get_contents(__DIR__ . '/../../tpl/stdstyle/email/user_activation.email.html');
-        $emailContent = mb_ereg_replace('{server}', \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getAbsolute_server_URI(), $emailContent);
-        $emailContent = mb_ereg_replace('{registermail01}', tr('registermail01'), $emailContent);
-        $emailContent = mb_ereg_replace('{registermail02}', tr('registermail02'), $emailContent);
-        $emailContent = mb_ereg_replace('{useractivationmail1}', tr('useractivationmail1'), $emailContent);
-        $emailContent = mb_ereg_replace('{useractivationmail2}', tr('useractivationmail2'), $emailContent);
-        $emailContent = mb_ereg_replace('{useractivationmail3}', tr('useractivationmail3'), $emailContent);
-        $emailContent = mb_ereg_replace('{useractivationmail4}', tr('useractivationmail4'), $emailContent);
-        $emailContent = mb_ereg_replace('{useractivationmail5}', tr('useractivationmail5'), $emailContent);
-        $emailContent = mb_ereg_replace('{useractivationmail6}', tr('useractivationmail6'), $emailContent);
-        $emailContent = mb_ereg_replace('{user}', $username, $emailContent);
-        $emailContent = mb_ereg_replace('{mailtitle}', tr('register_email_subject'), $emailContent);
-        $emailContent = mb_ereg_replace('{useruid}', $uid, $emailContent);
-        $emailContent = mb_ereg_replace('{email}', $email, $emailContent);
-        $emailContent = mb_ereg_replace('{country}', $country_name, $emailContent);
-        $emailContent = mb_ereg_replace('{code}', $code, $emailContent);
-        $emailContent = mb_ereg_replace('{oc_logo}', \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getHeaderLogo(), $emailContent);
-        $emailContent = mb_ereg_replace('{sitename}', \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getSiteName(), $emailContent);
-        $emailContent = mb_ereg_replace('{short_sitename}', \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getShortSiteName(), $emailContent);
-        $emailContent = mb_ereg_replace('{octeamEmailsSignature}', \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getOcteamEmailsSignature(), $emailContent);
-
-        $emailAddr = \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getNoreplyEmailAddress();
-
-        $emailHeaders = 'MIME-Version: 1.0' . "\r\n";
-        $emailHeaders .= 'Content-Type: text/html; charset=utf-8' . "\r\n";
-        $emailHeaders .= 'From: "' . \lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getSiteName() . '" <' . $emailAddr . '>';
-
-        $subject = tr('register_email_subject')." ".\lib\Objects\ApplicationContainer::Instance()->getOcConfig()->getSiteName();
-
-        mb_send_mail($email, $subject, $emailContent, $emailHeaders);
-    }
-
-    /**
-     * @param $username
-     * @param $email
      */
     public static function sendPostActivationMail($username, $email)
     {
