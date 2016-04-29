@@ -12,7 +12,9 @@ Column description
 -------------------
 
 userID
+    key: user id in users table
 secid
+    GeoKrety SECID (from user's profile on geokrety.org)
 
 
 *************************** 1. row ***************************
