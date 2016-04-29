@@ -3177,44 +3177,6 @@
                 "__action": "skip-data"
             }
         },
-        "rr_ocpl_candidates_2016": {
-            "__table_comment": "",
-            "candidate_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "user_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "username": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "city": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
-        "rr_ocpl_vote_2016": {
-            "__table_comment": "",
-            "vote_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "user_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "candidate_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "c": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
         "scores": {
             "__table_comment": "",
             "id": {
@@ -3607,14 +3569,6 @@
                 "__action": "get-data"
             },
             "verify_all": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "rr_2016_notified_1": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "rr_2016_notified_2": {
                 "__comment": "",
                 "__action": "skip-data"
             }
