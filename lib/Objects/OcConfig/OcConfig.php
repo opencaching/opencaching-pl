@@ -130,9 +130,9 @@ final class OcConfig
         return $this->datetimeFormat;
     }
 
-    function getWikiLinks()
+    public static function getWikiLinks()
     {
-        return $this->wikiLinks;
+        return self::instance()->wikiLinks;
     }
 
     function getContactMail()
@@ -292,13 +292,13 @@ final class OcConfig
         return self::instance()->shortSiteName;
     }
 
-    public function getNeedFindLimit()
+    public static function getNeedFindLimit()
     {
-        return $this->needFindLimit;
+        return self::instance()->needFindLimit;
     }
     
-    public function getNeedAproveLimit()
+    public static function getNeedAproveLimit()
     {
-        return $this->needAproveLimit;
+        return self::instance()->needAproveLimit;
     }
 }

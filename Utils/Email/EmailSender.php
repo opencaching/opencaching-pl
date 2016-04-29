@@ -45,6 +45,14 @@ class EmailSender
         }
     }
 
+    /**
+     * @param $emailTemplateFile
+     * @param $username
+     * @param $country
+     * @param $code
+     * @param $newUserEmailAddress
+     * @param $uuid
+     */
     public static function sendActivationMessage($emailTemplateFile, $username, $country, $code, $newUserEmailAddress, $uuid) {
         $formattedMessage = new EmailFormatter($emailTemplateFile);
         $formattedMessage->setVariable("registermail01", tr("registermail01"));
@@ -69,6 +77,51 @@ class EmailSender
         $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
         $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
         $email->setSubject(tr('register_email_subject'));
+        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->send();
+    }
+
+    /**
+     * @param $emailTemplateFile
+     * @param $username
+     * @param $userEmailAddress
+     */
+    public static function sendPostActivationMail($emailTemplateFile, $username, $userEmailAddress) {
+        $formattedMessage = new EmailFormatter($emailTemplateFile);
+        $formattedMessage->setVariable("server", OcConfig::getAbsolute_server_URI());
+        $formattedMessage->setVariable("registermail01", tr("registermail01"));
+        $formattedMessage->setVariable("postactivationmail01", tr("postactivationmail01"));
+        $formattedMessage->setVariable("postactivationmail02", tr("postactivationmail02"));
+        $formattedMessage->setVariable("postactivationmail03", tr("postactivationmail03"));
+        $formattedMessage->setVariable("user", $username);
+        $wikiLinks = OcConfig::getWikiLinks();
+        $formattedMessage->setVariable("wikiaddress", $wikiLinks['forBeginers']);
+        $formattedMessage->setVariable("sitename", OcConfig::getSiteName());
+
+        $needAproveLimit = OcConfig::getNeedAproveLimit();
+        $needFindLimit = OcConfig::getNeedFindLimit();
+
+        if ($needAproveLimit > 0) {
+            $formattedMessage->setVariable("postactivationmail05", tr('postactivationmail05'));
+            $formattedMessage->setVariable("NEED_APPROVE_LIMIT", $needAproveLimit);
+        } else {
+            $formattedMessage->setVariable("postactivationmail05", "");
+        }
+
+        if ($needFindLimit > 0) {
+            $formattedMessage->setVariable("postactivationmail04", tr('postactivationmail04'));
+            $formattedMessage->setVariable("NEED_FIND_LIMIT", $needFindLimit);
+        } else {
+            $formattedMessage->setVariable("postactivationmail04", "");
+        }
+
+        $formattedMessage->addFooterAndHeader($username);
+
+        $email = new Email();
+        $email->addToAddr($userEmailAddress);
+        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
+        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
+        $email->setSubject(tr('post_activation_email_subject'));
         $email->setBody($formattedMessage->getEmailContent(), true);
         $email->send();
     }
