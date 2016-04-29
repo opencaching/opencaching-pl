@@ -9,7 +9,6 @@
 
 namespace Utils\Email;
 
-use lib\Objects\ApplicationContainer;
 use lib\Objects\OcConfig\OcConfig;
 
 class EmailSender
@@ -36,7 +35,7 @@ class EmailSender
 
         $email->addToAddr( OcConfig::getTechAdminsEmailAddr());
         $email->setReplyToAddr( OcConfig::getTechAdminsEmailAddr());
-        $email->setFromAddr( OcConfig::getSenderEmailAddr());
+        $email->setFromAddr( OcConfig::getNoreplyEmailAddress());
 
         $email->setSubject('[Oc Admin Email] Error in domain: '.$spamDomain); //TODO
         $email->setBody($message);
@@ -60,15 +59,15 @@ class EmailSender
         $formattedMessage->setVariable("country", $country);
         $formattedMessage->setVariable("email", $newUserEmailAddress);
         $formattedMessage->setVariable("useruid", $uuid);
-        $formattedMessage->setVariable("server", ApplicationContainer::Instance()->getOcConfig()->getAbsolute_server_URI());
-        $formattedMessage->setVariable("sitename", ApplicationContainer::Instance()->getOcConfig()->getSiteName());
+        $formattedMessage->setVariable("server", OcConfig::getAbsolute_server_URI());
+        $formattedMessage->setVariable("sitename", OcConfig::getSiteName());
 
         $formattedMessage->addFooterAndHeader($username);
 
         $email = new Email();
         $email->addToAddr($newUserEmailAddress);
-        $email->setReplyToAddr(ApplicationContainer::Instance()->getOcConfig()->getNoreplyEmailAddress());
-        $email->setFromAddr(ApplicationContainer::Instance()->getOcConfig()->getNoreplyEmailAddress());
+        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
+        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
         $email->setSubject(tr('register_email_subject'));
         $email->setBody($formattedMessage->getEmailContent(), true);
         $email->send();

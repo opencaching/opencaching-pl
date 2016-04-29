@@ -7,7 +7,8 @@
  */
 
 namespace Utils\Email;
-use lib\Objects\ApplicationContainer;
+use lib\Objects\OcConfig\OcConfig;
+
 
 class EmailFormatter {
     private $emailContent;
@@ -32,12 +33,12 @@ class EmailFormatter {
         $footer = new EmailFormatter(__DIR__ . "/../../tpl/stdstyle/email/ocFooter.email.html");
         $header = new EmailFormatter(__DIR__ . "/../../tpl/stdstyle/email/ocHeader.email.html");
 
-        $footer->setVariable("octeamEmailsSignature", ApplicationContainer::Instance()->getOcConfig()->getOcteamEmailsSignature());
+        $footer->setVariable("octeamEmailsSignature", OcConfig::getOcteamEmailsSignature());
 
-        $header->setVariable("server", ApplicationContainer::Instance()->getOcConfig()->getAbsolute_server_URI());
-        $header->setVariable("oc_logo", ApplicationContainer::Instance()->getOcConfig()->getHeaderLogo());
-        $header->setVariable("sitename", ApplicationContainer::Instance()->getOcConfig()->getSiteName());
-        $header->setVariable("short_sitename", ApplicationContainer::Instance()->getOcConfig()->getShortSiteName());
+        $header->setVariable("server", OcConfig::getAbsolute_server_URI());
+        $header->setVariable("oc_logo", OcConfig::getHeaderLogo());
+        $header->setVariable("sitename", OcConfig::getSiteName());
+        $header->setVariable("short_sitename", OcConfig::getShortSiteName());
         $header->setVariable("welcome", tr("welcome"));
         $header->setVariable("user", $username);
 
