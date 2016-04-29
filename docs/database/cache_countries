@@ -14,9 +14,13 @@ Column description
 -------------------
 
 id
+    primary key
 cache_id
+    key: cache id in caches table
 date_modified
+    last modification date
 country
+    2 letter country code
 
 
 *************************** 1. row ***************************
