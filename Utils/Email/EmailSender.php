@@ -69,7 +69,7 @@ class EmailSender
         $email->addToAddr($newUserEmailAddress);
         $email->setReplyToAddr(ApplicationContainer::Instance()->getOcConfig()->getNoreplyEmailAddress());
         $email->setFromAddr(ApplicationContainer::Instance()->getOcConfig()->getNoreplyEmailAddress());
-        $email->setSubject(tr('register_email_subject')." ".ApplicationContainer::Instance()->getOcConfig()->getSiteName());
+        $email->setSubject(tr('register_email_subject'));
         $email->setBody($formattedMessage->getEmailContent(), true);
         $email->send();
     }
