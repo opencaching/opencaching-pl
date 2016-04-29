@@ -14,9 +14,13 @@ Column description
 -------------------
 
 id
+    primary key
 cache_id
+    key: cache id in caches table
 proby
+    counter: number of attempts
 sukcesy
+    counter: number of successful attempts
 
 
 *************************** 1. row ***************************

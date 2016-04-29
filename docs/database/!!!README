@@ -47,7 +47,7 @@ Tables
 ======
 
 GeoKretyAPI
-	FIXME
+	Users who have added their GeoKrety SEC_ID to their profile (for interfacing with geokrety.org)
 GeoKretyAPIerrors
 	FIXME
 PowerTrail
@@ -62,72 +62,62 @@ PowerTrail_owners
 	FIXME
 admin_user_notes
 	FIXME
-ajax_chat_bans
-	FIXME: is teh chat still valid?
-ajax_chat_invitations
-	FIXME: is teh chat still valid?
-ajax_chat_messages
-	FIXME: is teh chat still valid?
-ajax_chat_online
-	FIXME: is teh chat still valid?
-ajax_chat_users
-	FIXME: is teh chat still valid?
 approval_status
 	FIXME
 bulletins
 	FIXME
 cache_arch
-	FIXME
+	Archived caches
 cache_attrib
-	FIXME
+	Define cache attributes and translations. 
+    DEPRECATED by https://github.com/opencaching/opencaching-pl/issues/462
 cache_coordinates
-	FIXME
+	Cache coordinates and last modification date on coordinates
 cache_countries
-	FIXME
+	Cache country and last modification date on country
 cache_desc
-	FIXME
+	Cache descriptions in various languages (as published by users)
 cache_ignore
 	FIXME
-cache_loc
-	FIXME
 cache_location
-	FIXME
+	Cache location according to NUTS data
+    FIXME: contains incomplete data
 cache_logs
-	FIXME
-cache_maps
-	FIXME
+	Cache log entries
 cache_mod_cords
-	FIXME
+	Caches with modified coordinates
+    FIXME: what kind of modifications does it refer to?
 cache_moved
 	FIXME
 cache_notes
-	FIXME
+	Personal notes for caches
 cache_npa_areas
-	FIXME
+	List cache belonging to NPA area(s)
 cache_rating
-	FIXME
+	Cache rating
+    FIXME: only cache_id and user_id?
 cache_size
-	FIXME
+	Definitions for cache sizes and translations
+    DEPRECATED, should be moved to code and table removed as of https://github.com/opencaching/opencaching-pl/issues/474
 cache_status
-	FIXME
+	Definitions for cache status
 cache_titled
 	FIXME
 cache_type
-	FIXME
+	Definitions for cache types.
+    DEPRECATED, should be moved to code and table removed as of https://github.com/opencaching/opencaching-pl/issues/474
 cache_visits
 	FIXME
 cache_watches
 	FIXME
 caches
-	FIXME
+	Geocaches
 caches_additions
-	FIXME
+	cache altitude and date of last modification
 caches_attributes
-	FIXME
-caches_memory
-	FIXME
+	Attributes assigned to caches
 chowner
-	FIXME
+	Caches offered for adoption
 countries
 	Contains country names as translation strings and definition flags
 	FIXME: is this still valid?
@@ -162,13 +152,13 @@ geodb_type_names
 gk_item
 	FIXME
 gk_item_type
-	FIXME
+	Definitions for GeoKrety type.
 gk_item_waypoint
 	FIXME
 gk_move
 	FIXME
 gk_move_type
-	FIXME
+	Definitions for GeoKrety log types (actions that can be performed with a GeoKret)
 gk_move_waypoint
 	FIXME
 gk_user
@@ -182,17 +172,15 @@ import_caches_date
 languages
 	Contains language name as translated strings and definition flags
 	FIXME: is this still valid?
-log_rating
-	FIXME
 log_types
-	FIXME
+	Definitions for log types
+    FIXME: is this still valid?
 log_types_text
-	FIXME
+	Translation strings for log types as defined in log_types table
+    FIXME: is this still valid?
 logentries
 	FIXME
 logentries_types
-	FIXME
-logins
 	FIXME
 map_settings
 	FIXME
@@ -206,8 +194,6 @@ news
 	FIXME
 news_topics
 	FIXME
-nodes
-	FIXME
 notify_waiting
 	FIXME
 npa_areas
@@ -219,8 +205,6 @@ nuts_codes
 nuts_layer
 	Nomenclature of Territorial Units for Statistics (NUTS)
 	Geographical data for administrative units defined by NUTS
-object_types
-	FIXME
 okapi_authorizations
 	FIXME: part of OKAPI
 okapi_cache
@@ -255,15 +239,15 @@ okapi_vars
 	FIXME: part of OKAPI
 opensprawdzacz
 	polish specific name. should be renamed.
-	FIXME
+	OpenChecker enabled caches and attempt statistics
 parkipl
 	FIXME
 pictures
-	FIXME
+	Uploaded images
 powerTrail_caches
 	FIXME
 queries
-	FIXME
+	Saved searches by users
 removed_objects
 	FIXME
 reports
@@ -272,29 +256,7 @@ route_points
 	FIXME
 routes
 	FIXME
-rr_ocpl_candidates_2009
-	OCPL community only (related to elections to OCPL RR Team)
-rr_ocpl_candidates_2010
-	OCPL community only (related to elections to OCPL RR Team)
-rr_ocpl_candidates_2011
-	OCPL community only (related to elections to OCPL RR Team)
-rr_ocpl_candidates_2012
-	OCPL community only (related to elections to OCPL RR Team)
-rr_ocpl_candidates_2013
-	OCPL community only (related to elections to OCPL RR Team)
-rr_ocpl_vote_2009
-	OCPL community only (related to elections to OCPL RR Team)
-rr_ocpl_vote_2010
-	OCPL community only (related to elections to OCPL RR Team)
-rr_ocpl_vote_2011
-	OCPL community only (related to elections to OCPL RR Team)
-rr_ocpl_vote_2012
-	OCPL community only (related to elections to OCPL RR Team)
-rr_ocpl_vote_2013
-	OCPL community only (related to elections to OCPL RR Team)
 scores
-	FIXME
-search_doubles
 	FIXME
 search_ignore
 	FIXME
@@ -306,15 +268,9 @@ search_words
 	FIXME
 statpics
 	FIXME
-sys_cron
-	FIXME
 sys_logins
 	FIXME
-sys_menu
-	FIXME
 sys_sessions
-	FIXME
-sys_temptables
 	FIXME
 sysconfig
 	system status information (maybe improperly named)

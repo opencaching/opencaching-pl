@@ -13,8 +13,11 @@ Column description
 -------------------
 
 id
+    primary key
 cache_id
+    key: geocache id in caches table
 user_id
+    key: user to receive cache
 
 
 *************************** 1. row ***************************
