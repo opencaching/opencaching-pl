@@ -58,7 +58,7 @@ if(is_numeric($_GET['map_v']) && ($_GET['map_v'] == 2 )) { //this is request fro
     if( isset($_GET['h_m']) )
         $columns[] = 'multicache = '.($_GET['h_m'] == 'true' ? 0 : 1);
     if( isset($_GET['h_v']) )
-        $columns[] = 'virtual = '.($_GET['h_v'] == 'true' ? 0 : 1);
+        $columns[] = '`virtual` = '.($_GET['h_v'] == 'true' ? 0 : 1);
     if( isset($_GET['h_w']) )
         $columns[] = 'webcam = '.($_GET['h_w'] == 'true' ? 0 : 1);
     if( isset($_GET['h_e']) )
