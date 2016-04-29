@@ -2357,10 +2357,8 @@ $translations = array(
     'errtpl04' => 'Error info',
     'newpicjs01' => 'Please enter image name',
     'newpicjs02' => 'Please enter image source',
-    'removedLog_01' => 'Hello',
-    'removedLog_02' => 'has removed your logentry from the cache',
-    'removedLog_03' => 'Contents of the log was',
-    'removedLog_04' => 'This message is auto-generated - please do not reply',
+    'removedLog_01' => 'has removed your logentry from the cache',
+    'removedLog_02' => 'Contents of the log was',
     'notify_newCache_01' => 'Hello',
     'notify_newCache_02' => 'There a new cache was placed in your area',
     'notify_newCache_03' => 'has placed on',
@@ -2616,5 +2614,6 @@ $translations = array(
     'useractivationmail4' => 'Country:',
     'useractivationmail5' => 'Go to the following address to complete the registration process and activate your account:',
     'useractivationmail6' => 'If you don\'t activate your account within the next 14 days, your account will be automatically deleted.',
+    'mail_auto_generated' => 'This message is auto-generated - please do not reply.',
 );
 

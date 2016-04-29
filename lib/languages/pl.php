@@ -2355,10 +2355,8 @@ $translations = array(
     'errtpl04' => 'Informacja o błędzie',
     'newpicjs01' => 'Proszę nadać nazwę obrazkowi',
     'newpicjs02' => 'Proszę podać źródło obrazka',
-    'removedLog_01' => 'Witaj',
-    'removedLog_02' => 'usunął wpis do logu dla skrzynki',
-    'removedLog_03' => 'Treść usuniętego wpisu',
-    'removedLog_04' => 'Ten list jest generowany automatycznie i prosimy na niego nie odpowiadać',
+    'removedLog_01' => 'usunął wpis do logu dla skrzynki',
+    'removedLog_02' => 'Treść usuniętego wpisu',
     'notify_newCache_01' => 'Witaj',
     'notify_newCache_02' => 'W zadeklarowanym przez Ciebie promieniu pojawiła się następująca skrzynka',
     'notify_newCache_03' => 'dnia',
@@ -2613,5 +2611,6 @@ $translations = array(
     'useractivationmail4' => 'Kraj:',
     'useractivationmail5' => 'Przejdź na poniższy adres aby dokończyć proces rejestracji i aktywować swoje konto:',
     'useractivationmail6' => 'Jeśli w ciągu 14 dni od rejestracji nie aktywujesz swojego konta, to zostanie ono automatycznie usunięte.',
+    'mail_auto_generated' => 'Ten list jest generowany automatycznie i prosimy na niego nie odpowiadać.',
 );
 

@@ -28,12 +28,18 @@ class EmailFormatter {
 
     /**
      * @param $username //because we always write to somebody with oc nick
+     * @param bool $automatically //if you don't want to add 'mail_auto_generated' text into footer - set it to false
      */
-    public function addFooterAndHeader($username) {
+    public function addFooterAndHeader($username, $automatically=true) {
         $footer = new EmailFormatter(__DIR__ . "/../../tpl/stdstyle/email/ocFooter.email.html");
         $header = new EmailFormatter(__DIR__ . "/../../tpl/stdstyle/email/ocHeader.email.html");
 
         $footer->setVariable("octeamEmailsSignature", OcConfig::getOcteamEmailsSignature());
+        if($automatically) {
+            $footer->setVariable("mail_auto_generated", tr("mail_auto_generated"));
+        } else {
+            $footer->setVariable("mail_auto_generated", "");
+        }
 
         $header->setVariable("server", OcConfig::getAbsolute_server_URI());
         $header->setVariable("oc_logo", OcConfig::getHeaderLogo());

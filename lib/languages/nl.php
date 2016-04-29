@@ -2356,10 +2356,8 @@ $translations = array(
     'errtpl04' => 'Fout informatie',
     'newpicjs01' => 'Vul afbeeldingnaam in',
     'newpicjs02' => 'Vul afbeeldinglocatie in',
-    'removedLog_01' => 'Hallo',
-    'removedLog_02' => 'heeft je log verwijderd van cache',
-    'removedLog_03' => 'Inhoud van de log was',
-    'removedLog_04' => 'Dit bericht is automatisch gegenereerd, gelieve niet te reageren',
+    'removedLog_01' => 'heeft je log verwijderd van cache',
+    'removedLog_02' => 'Inhoud van de log was',
     'notify_newCache_01' => 'Hallo',
     'notify_newCache_02' => 'Er is net een nieuwe cache gemeld in jouw ingestelde zoekradius',
     'notify_newCache_03' => 'heeft op',
@@ -2612,5 +2610,6 @@ $translations = array(
     'useractivationmail4' => 'Land:',
     'useractivationmail5' => 'Ga naar het volgende adres om de registratie te activeren te voltooien:',
     'useractivationmail6' => 'Indien binnen 14 dagen na de registratie niet aangemeldt wordt, zal dit gemaakte account automatisch worden verwijderd.',
+    'mail_auto_generated' => 'Dit bericht is automatisch gegenereerd, gelieve niet te reageren.',
 );
 

@@ -9,7 +9,9 @@
 
 namespace Utils\Email;
 
+use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\OcConfig\OcConfig;
+use lib\Objects\User\User;
 
 class EmailSender
 {
@@ -122,6 +124,30 @@ class EmailSender
         $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
         $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
         $email->setSubject(tr('post_activation_email_subject'));
+        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->send();
+    }
+
+    public static function sendRemoveLogNotification($emailTemplateFile, GeoCacheLog $log, User $loggedUser)
+    {
+        $formattedMessage = new EmailFormatter($emailTemplateFile);
+        $formattedMessage->setVariable("log_owner", $log->getUser()->getUserName());
+        $formattedMessage->setVariable("waypointId", $log->getGeoCache()->getWaypointId());
+        $formattedMessage->setVariable("serviceUrl", OcConfig::getAbsolute_server_URI());
+        $formattedMessage->setVariable("logRemover", $loggedUser->getUserName());
+        $formattedMessage->setVariable("logRemoverId", $loggedUser->getUserId());
+        $formattedMessage->setVariable("cache_name", $log->getGeoCache()->getCacheName());
+        $formattedMessage->setVariable("log_entry", $log->getText());
+        $formattedMessage->setVariable("removedLog_01", tr('removedLog_01'));
+        $formattedMessage->setVariable("removedLog_02", tr('removedLog_02'));
+
+        $formattedMessage->addFooterAndHeader($log->getUser()->getUserName());
+
+        $email = new Email();
+        $email->addToAddr($log->getUser()->getEmail());
+        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
+        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
+        $email->setSubject(tr('removed_log_title'));
         $email->setBody($formattedMessage->getEmailContent(), true);
         $email->send();
     }
