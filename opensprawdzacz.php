@@ -86,6 +86,8 @@ if ($error == false) {
         tpl_set_var("sekcja_3_stop", '-->');
         tpl_set_var("sekcja_4_start", '<!--');
         tpl_set_var("sekcja_4_stop", '-->');
+        tpl_set_var("waypoint_desc_start", '<!--');
+        tpl_set_var("waypoint_desc_stop", '-->');
 
         if (!$record = Xdb::xFetchArray($rs)) {
             tpl_set_var("ni_ma_takiego_kesza", tr(ni_ma_takiego_kesza));

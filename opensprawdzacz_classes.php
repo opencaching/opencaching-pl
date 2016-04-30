@@ -23,6 +23,7 @@ class OpensprawdzaczSetup
 
 // end of init Opensprawdzacz setup.
 
+// This should be part of a site-wide library (?)
 class convertLangLat
 {
 
@@ -46,6 +47,8 @@ class OpensprawdzaczCore
         tpl_set_var("sekcja_2_stop", '-->');
         tpl_set_var("sekcja_1_start", '<!--');
         tpl_set_var("sekcja_1_stop", '-->');
+        tpl_set_var("waypoint_desc_start", '<!--');
+        tpl_set_var("waypoint_desc_stop", '-->');
         tpl_set_var("ile_prob", $OpensprawdzaczSetup->ile_prob);
         tpl_set_var("ile_czasu", $OpensprawdzaczSetup->limit_czasu);
 
@@ -66,7 +69,7 @@ class OpensprawdzaczCore
                     // $_SESSION['opensprawdzacz_czas'] = date('U');
                     $czas_jaki_uplynal = round(60 - ($czas_jaki_uplynal / 60));
                     tpl_set_var("licznik_zgadywan", $_SESSION["opensprawdzacz_licznik"]);
-                    tpl_set_var("test1", tr(os_zgad));
+                    tpl_set_var("test1", tr('os_zgad'));
                     tpl_set_var("wynik", '');
                     tpl_set_var("ikonka_yesno", '<img src="tpl/stdstyle/images/blue/opensprawdzacz_stop.png" />');
                     tpl_set_var("sekcja_4_start", '');
@@ -185,7 +188,7 @@ class OpensprawdzaczCore
 
             if ($dane['type'] == 7) {  //only for quiz type for time being
                 $post_viewcache_form = '<form name="post_coord" action="viewcache.php?cacheid=' . $cache_id . '" method="post">
-                                            <input type="submit" name="modCoords" value="' . tr('os_modify_coords_button') . '" />
+                                            <button type="submit" name="modCoords" value="modCoords" style="font-size:14px;">' . tr('os_modify_coords_button') . '</button>
                                             <input type="hidden" name="coordmod_lat_degree" value="' . $stopnie_N . '"/>
                                             <input type="hidden" name="coordmod_lon_degree" value="' . $stopnie_E . '"/>
                                             <input type="hidden" name="coordmod_lat" value="' . $minuty_N . '"/>
@@ -197,11 +200,22 @@ class OpensprawdzaczCore
             } else {
                 $post_viewcache_form = '';
             };
+            
+            // to be redone with configs
+            global $config;
 
             tpl_set_var("test1", tr('os_sukces'));
             tpl_set_var("ikonka_yesno", '<img src="tpl/stdstyle/images/blue/opensprawdzacz_tak.png" />');
             tpl_set_var("save_mod_coord", $post_viewcache_form);
-            tpl_set_var("waypoint_desc",$dane['desc']);
+            if ($config['oc']['options']['show_final'] == 1) {
+                tpl_set_var("waypoint_desc",$dane['desc']);
+                tpl_set_var("waypoint_desc_start", '');
+                tpl_set_var("waypoint_desc_stop", '');
+            } else {
+                tpl_set_var("waypoint_desc",'');
+                tpl_set_var("waypoint_desc_start", '<!--');
+                tpl_set_var("waypoint_desc_stop", '-->');
+            }    
         } else {
             //puzzle not solved - restult wrong
 

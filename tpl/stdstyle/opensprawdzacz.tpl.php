@@ -1,49 +1,49 @@
 <?php ?>
 
 <script type="text/javascript">
-<!--
-    function clearForms()
-    {
-        var i;
-        for (i = 0; (i < document.forms.length); i++) {
-            document.forms[i].reset();
-        }
+function clearForms() {
+    var i;
+    for (i = 0; (i < document.forms.length); i++) {
+        document.forms[i].reset();
     }
+}
 
-    function toggle() {
-        var ele = document.getElementById("toggleText");
-        var text = document.getElementById("displayText1");
-        var text2 = document.getElementById("displayText2");
-        var os_tytul = document.getElementById("os_tytul");
-        var help_link1 = document.getElementById("help_link1");
-        var help_link2 = document.getElementById("help_link2");
-        var cialo = document.getElementById("cialo");
+if (window.addEventListener) {
+    window.addEventListener('load', clearForms, false);
+    window.addEventListener('unload', clearForms, false);
+} else if (window.attachEvent) {
+    window.attachEvent('onload', clearForms);
+    window.attachEvent('onunload', clearForms);
+}
 
-        if (ele.style.display == "block")
-        {
-            ele.style.display = "none";
-            // os_tytul.style.display = "block";
-            text.innerHTML = "{{os_zobo}}";
-            text2.innerHTML = "{{os_zobo}}";
-            help_link1.style.display = "block";
-            help_link2.style.display = "none";
-            cialo.style.display = "block";
-        }
-        else
-        {
-            ele.style.display = "block";
-            // os_tytul.style.display = "none";
-            text.innerHTML = "{{os_powrot}}";
-            text2.innerHTML = "{{os_powrot}}";
-            help_link1.style.display = "none";
-            help_link2.style.display = "block";
-            cialo.style.display = "none";
-        }
+function toggle() {
+    var ele = document.getElementById("toggleText");
+    var text = document.getElementById("displayText1");
+    var text2 = document.getElementById("displayText2");
+    var os_tytul = document.getElementById("os_tytul");
+    var help_link1 = document.getElementById("help_link1");
+    var help_link2 = document.getElementById("help_link2");
+    var cialo = document.getElementById("cialo");
+
+    if (ele.style.display == "block") {
+        ele.style.display = "none";
+        // os_tytul.style.display = "block";
+        text.innerHTML = "{{os_zobo}}";
+        text2.innerHTML = "{{os_zobo}}";
+        help_link1.style.display = "block";
+        help_link2.style.display = "none";
+        cialo.style.display = "block";
+    } else {
+        ele.style.display = "block";
+        // os_tytul.style.display = "none";
+        text.innerHTML = "{{os_powrot}}";
+        text2.innerHTML = "{{os_powrot}}";
+        help_link1.style.display = "none";
+        help_link2.style.display = "block";
+        cialo.style.display = "none";
     }
-// -->
+}
 </script>
-
-<body onLoad="clearForms()" onUnload="clearForms()">
 
     <div class="content2-pagetitle">
         <img src="tpl/stdstyle/images/blue/opensprawdzacz32x32.png" class="icon32" alt="geocache" title="geocache" align="middle" />
@@ -194,12 +194,16 @@
                 <tr>
                     <td>{ikonka_yesno}</td>
                     <td class="content">
-                        {test1}<br><br>
+                        <h4>{test1}</h4>
 
                         {wynik}
-                        {twoje_ws}<br><br>
-                        {save_mod_coord}<br>
-                        <p><i>{waypoint_desc}</i></p>
+                        <p>{twoje_ws}</p>
+                        {waypoint_desc_start}
+                        <div class="notice" style="width:100%">{{os_desc}}</div> 
+                        <p style="border:1px #999 dotted; padding: 0.5em;"><i>{waypoint_desc}</i></p>
+                        {waypoint_desc_stop}
+                        <br />
+                        {save_mod_coord}                        
                     </td>
                 </tr>
             </table>

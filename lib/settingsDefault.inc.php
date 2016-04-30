@@ -196,6 +196,12 @@ $config['limits']['image']['extension_text'] = 'JPG, PNG, GIF';
 // Minimum distance between caches (physical containers) in meters
 $config['oc']['limits']['proximity'] = 150;
 
+// *** OC options *********************************************************
+
+// enable showing final waypoint description when correct coordinates
+// entered in OpenChecker
+$config['oc']['options']['show_final'] = 0;
+
 /*
  * OKAPI settings
  */
