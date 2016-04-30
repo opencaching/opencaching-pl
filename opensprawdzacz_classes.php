@@ -47,8 +47,6 @@ class OpensprawdzaczCore
         tpl_set_var("sekcja_2_stop", '-->');
         tpl_set_var("sekcja_1_start", '<!--');
         tpl_set_var("sekcja_1_stop", '-->');
-        tpl_set_var("waypoint_desc_start", '<!--');
-        tpl_set_var("waypoint_desc_stop", '-->');
         tpl_set_var("ile_prob", $OpensprawdzaczSetup->ile_prob);
         tpl_set_var("ile_czasu", $OpensprawdzaczSetup->limit_czasu);
 
@@ -209,12 +207,8 @@ class OpensprawdzaczCore
             tpl_set_var("save_mod_coord", $post_viewcache_form);
             if ($config['oc']['options']['show_final'] == 1) {
                 tpl_set_var("waypoint_desc",$dane['desc']);
-                tpl_set_var("waypoint_desc_start", '');
-                tpl_set_var("waypoint_desc_stop", '');
             } else {
                 tpl_set_var("waypoint_desc",'');
-                tpl_set_var("waypoint_desc_start", '<!--');
-                tpl_set_var("waypoint_desc_stop", '-->');
             }    
         } else {
             //puzzle not solved - restult wrong

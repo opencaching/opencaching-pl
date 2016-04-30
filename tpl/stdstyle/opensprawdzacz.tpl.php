@@ -198,10 +198,15 @@ function toggle() {
 
                         {wynik}
                         <p>{twoje_ws}</p>
-                        {waypoint_desc_start}
+
+                        <?php 
+                        if ($config['oc']['options']['show_final'] == 1 && tpl_get_var('waypoint_desc') != '') { 
+                        // not elegant, but how to completely remove from template otherwise
+                        ?>        
                         <div class="notice" style="width:100%">{{os_desc}}</div> 
                         <p style="border:1px #999 dotted; padding: 0.5em;"><i>{waypoint_desc}</i></p>
-                        {waypoint_desc_stop}
+                        <?php } ?>
+
                         <br />
                         {save_mod_coord}                        
                     </td>
