@@ -2612,5 +2612,6 @@ $translations = array(
     'useractivationmail5' => 'Przejdź na poniższy adres aby dokończyć proces rejestracji i aktywować swoje konto:',
     'useractivationmail6' => 'Jeśli w ciągu 14 dni od rejestracji nie aktywujesz swojego konta, to zostanie ono automatycznie usunięte.',
     'mail_auto_generated' => 'Ten list jest generowany automatycznie i prosimy na niego nie odpowiadać.',
+    'mail_header_hi' => 'Witaj',
 );
 

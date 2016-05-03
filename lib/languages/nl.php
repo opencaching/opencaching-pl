@@ -2611,5 +2611,6 @@ $translations = array(
     'useractivationmail5' => 'Ga naar het volgende adres om de registratie te activeren te voltooien:',
     'useractivationmail6' => 'Indien binnen 14 dagen na de registratie niet aangemeldt wordt, zal dit gemaakte account automatisch worden verwijderd.',
     'mail_auto_generated' => 'Dit bericht is automatisch gegenereerd, gelieve niet te reageren.',
+    'mail_header_hi' => 'Hallo',
 );
 

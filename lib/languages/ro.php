@@ -2615,4 +2615,5 @@ $translations = array(
     'useractivationmail5' => 'Apasă pe următoarea adresă pentru a confirma înregistrarea şi a-ţi activa contul:',
     'useractivationmail6' => 'Dacă nu activezi contul în următoarele 14 zile, acesta va fi şters automat.',
     'mail_auto_generated' => 'Acesta mesaj este generat automat. Te rog nu răspunde.',
+    'mail_header_hi' => 'Bună',
 );
