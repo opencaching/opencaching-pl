@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $translations = array(
     'main_menu' => 'Menu główne',
