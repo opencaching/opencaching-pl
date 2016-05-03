@@ -148,12 +148,14 @@ class Email
 
     /**
      * returns TRUE is given emailAddress has proper format
+     * @param $emailAddress
+     * @return bool
      */
     public static function isValidEmail($emailAddress)
     {
-        //if( false === filter_var($emailAddress, FILTER_VALIDATE_EMAIL) ){
-        //    return false;
-        //}
+        if( false === filter_var($emailAddress, FILTER_VALIDATE_EMAIL)) {
+            return false;
+        }
         return true;
     }
 

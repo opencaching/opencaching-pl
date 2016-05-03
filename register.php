@@ -3,6 +3,7 @@
 use Utils\Database\XDb;
 use lib\Objects\User\User;
 use Utils\Database\OcDb;
+use Utils\Email\Email;
 use Utils\Email\EmailSender;
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
@@ -45,11 +46,11 @@ if ($error == false) {
         if (isset($_POST['submit'])) {
             //try to register
             //validate the entered data
-            $email_not_ok = !is_valid_email_address($email);
+            $email_not_ok = !Email::isValidEmail($email);
             $username_not_ok = mb_ereg_match(User::REGEX_USERNAME, $username) ? false : true;
             if ($username_not_ok == false) {
                 // username should not be formatted like an email-address
-                $username_not_ok = is_valid_email_address($username);
+                $username_not_ok = Email::isValidEmail($username);
             }
             $password_not_ok = mb_ereg_match(User::REGEX_PASSWORD, $password) ? false : true;
             $password_diffs = ($password != $password2);
