@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use Utils\Email\Email;
 
 //prepare the templates and include all neccessary
 global $octeamEmailsSignature;
@@ -27,7 +28,7 @@ if ($usr['admin']) {
         tpl_set_var('email_error', '');
 
         if (isset($_REQUEST['submit'])) {
-            $emailok = is_valid_email_address($email) ? true : false;
+            $emailok = Email::isValidEmail($email);
 
             if ($emailok == true) {
                 // filtern und ausgabe vorbereiten

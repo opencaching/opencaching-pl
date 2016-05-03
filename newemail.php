@@ -1,6 +1,8 @@
 <?php
 
 use Utils\Database\XDb;
+use Utils\Email\Email;
+
 //prepare the templates and include all neccessary
 global $octeamEmailsSignature, $absolute_server_URI;
 require_once('./lib/common.inc.php');
@@ -35,7 +37,7 @@ if ($error == false) {
             $email_exists = false;
             $new_email_not_ok = false;
 
-            if (!is_valid_email_address($new_email)) {
+            if (!Email::isValidEmail($new_email)) {
                 $new_email_not_ok = true;
                 tpl_set_var('email_message', $error_email_not_ok);
             } else {

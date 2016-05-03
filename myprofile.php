@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use lib\Objects\User\User;
+use Utils\Email\Email;
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath)) {
@@ -182,7 +183,7 @@ if ($error == false) {
                     //validate data
                     $username_not_ok = mb_ereg_match(User::REGEX_USERNAME, $username) ? false : true;
                     if ($username_not_ok == false) { // username should not be formatted like an email-address
-                        $username_not_ok = is_valid_email_address($username) ? true : false;
+                        $username_not_ok = Email::isValidEmail($email);
                     }
 
                     /* GeoKretyApi validate secid */
@@ -277,7 +278,7 @@ if ($error == false) {
                     if ($username_not_ok == false) {
                         // username should not be formatted like an email-address
                         // exception: $username == $email
-                        $username_not_ok = is_valid_email_address($username) ? true : false;
+                        $username_not_ok = Email::isValidEmail($email);
                     }
                     if ($username_not_ok) {
                         tpl_set_var('username_message', $error_username_not_ok);
