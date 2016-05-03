@@ -130,9 +130,9 @@ final class OcConfig
         return $this->datetimeFormat;
     }
 
-    function getWikiLinks()
+    public static function getWikiLinks()
     {
-        return $this->wikiLinks;
+        return self::instance()->wikiLinks;
     }
 
     function getContactMail()
@@ -185,14 +185,14 @@ final class OcConfig
         return $this->mainPageMapCenterLon;
     }
 
-    public function getAbsolute_server_URI()
+    public static function getAbsolute_server_URI()
     {
-        return $this->absolute_server_URI;
+        return self::instance()->absolute_server_URI;
     }
 
-    public function getOcteamEmailsSignature()
+    public static function getOcteamEmailsSignature()
     {
-        return $this->octeamEmailsSignature;
+        return self::instance()->octeamEmailsSignature;
     }
 
     public function getOcNodeId()
@@ -210,9 +210,9 @@ final class OcConfig
         return $this->dbDatetimeFormat;
     }
 
-    public function getSiteName()
+    public static function getSiteName()
     {
-        return $this->siteName;
+        return self::instance()->siteName;
     }
 
     public function getOcteamEmailAddress()
@@ -230,9 +230,9 @@ final class OcConfig
         return $this->powerTrailModuleSwitchOn;
     }
 
-    public function getNoreplyEmailAddress()
+    public static function getNoreplyEmailAddress()
     {
-        return $this->noreplyEmailAddress;
+        return self::instance()->instance()->noreplyEmailAddress;
     }
 
 
@@ -274,12 +274,6 @@ final class OcConfig
         return $this->dbName;
     }
 
-    public static function getSenderEmailAddr(){
-        //it will be implemented in a future
-        //currently this is only a stub...
-        return 'noreply@opencaching.pl';
-    }
-
     public static function getTechAdminsEmailAddr(){
         //it will be implemented in a future
         //currently this is only a stub...
@@ -288,23 +282,23 @@ final class OcConfig
         return $mail_rt;
     }
 
-    public function getHeaderLogo()
+    public static function getHeaderLogo()
     {
-        return $this->headerLogo;
+        return self::instance()->headerLogo;
     }
 
-    public function getShortSiteName()
+    public static function getShortSiteName()
     {
-        return $this->shortSiteName;
+        return self::instance()->shortSiteName;
     }
 
-    public function getNeedFindLimit()
+    public static function getNeedFindLimit()
     {
-        return $this->needFindLimit;
+        return self::instance()->needFindLimit;
     }
     
-    public function getNeedAproveLimit()
+    public static function getNeedAproveLimit()
     {
-        return $this->needAproveLimit;
+        return self::instance()->needAproveLimit;
     }
 }
