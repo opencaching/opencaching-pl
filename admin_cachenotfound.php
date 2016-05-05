@@ -5,6 +5,41 @@ use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
+/*
+ * kojoty: This is temporary workaround for OCPL
+ * Because we need this fix but to do it 'well' I need more time :)
+ *
+ * - I'm going to change it soon...
+ */
+if( $short_sitename == 'OC PL' ){
+
+    $GLOBALS['regions'] = array(
+            'PL52' => 'opolskie',
+            'PL12' => 'mazowieckie',
+            'PL11' => 'łódzkie',
+            'PL63' => 'pomorskie',
+            'PL62' => 'warmińsko-mazurskie',
+            'PL61' => 'kujawsko-pomorskie',
+            'PL51' => 'dolnośląskie',
+            'PL43' => 'lubuskie',
+            'PL42' => 'zachodniopomorskie',
+            'PL41' => 'wielkopolskie',
+            'PL34' => 'podlaskie',
+            'PL33' => 'świętokrzyskie',
+            'PL32' => 'podkarpackie',
+            'PL31' => 'lubelskie',
+            'PL22' => 'śląskie',
+            'PL21' => 'małopolskie',
+            'NON_PL' => 'zagraniczne',
+            'XXX' => 'polskie-nie-ustalone'
+            );
+
+}else{
+    //OC !PL
+    $GLOBALS['regions'] = array(); //temporary empty list
+    tpl_set_var('region_name', 'all country'); //temporary
+}
+
 if ($usr['admin']) {
 
     if( isset($_REQUEST['show_reported']) ){
@@ -23,26 +58,58 @@ if ($usr['admin']) {
         $distinct = 'DISTINCT';
     }
 
+    if( isset($_REQUEST['regionSel']) ){
+        $region = $_REQUEST['regionSel'];
+
+        if( !isset($GLOBALS['regions'][$region])) {
+            $region = 'PL12'; //TODO: mazowieckie by default ?
+        }
+
+        tpl_set_var('region_name', $GLOBALS['regions'][$region]); //temporary
+
+        if($region === 'XXX'){
+            //polish caches with no-region set
+            $regionCondition = "AND loc.code3 = NULL";
+            $countryCondition = "AND loc.code1 = 'PL'";
+        }else if($region === 'NON_PL'){
+            $regionCondition = "";
+            $countryCondition = "AND loc.code1 <> 'PL'";
+        }else{
+            $regionCondition = "AND loc.code3 = '$region'";
+            $countryCondition = "";
+        }
+
+    }else{
+
+        if( $short_sitename == 'OC PL' ){
+            $regionCondition = "AND 1 = 0"; //block all results if region is not select
+            $countryCondition = "";
+            tpl_set_var('region_name', 'Wybierz region!'); //temporary solution
+
+        }else{
+            $regionCondition = "";
+            $countryCondition = "";
+            tpl_set_var('region_name', '');
+        }
+    }
+
     $query = "
         SELECT COUNT( $distinct(cl.date) ) ilosc, c.cache_id, c.name
-        FROM cache_logs cl, caches c
+        FROM cache_logs cl, caches c, cache_location loc
         WHERE c.cache_id = cl.cache_id
-            AND c.status = 1 /* status:active */
+            AND c.cache_id = loc.cache_id
+            $regionCondition    /* cache location region - for example: 'AND loc.code3 = NULL' */
+            $countryCondition   /* cache location country - for example: 'AND loc.code1 <> PL' */
+            AND c.status = 1    /* status:active */
             AND cl.deleted = 0
-            AND cl.type = 2 /* type=not-found*/
+            AND cl.type = 2     /* type=not-found*/
             AND cl.date > (
                     /* log date is newer than cache 'last_modified' */
                     IFNULL( c.last_modified, str_to_date('2000-01-01', '%Y-%m-%d'))
-                    /*SELECT IFNULL( c1.last_modified, str_to_date('2000-01-01', '%Y-%m-%d'))
-                    FROM caches c1
-                    WHERE c1.cache_id = c.cache_id*/
                 )
             AND cl.date > (
                     /* log date is newer than cache 'last_found' */
                     IFNULL(c.last_found, str_to_date('2000-01-01', '%Y-%m-%d'))
-                    /*SELECT IFNULL(c2.last_found, str_to_date('2000-01-01', '%Y-%m-%d'))
-                    FROM caches c2
-                    WHERE c2.cache_id = c.cache_id*/
                 )
             AND cl.date > (
                     /* log date is newer than last author comment */
@@ -57,8 +124,6 @@ if ($usr['admin']) {
 
         GROUP BY cl.cache_id HAVING COUNT( $distinct(cl.date) ) > 2
         ORDER BY ilosc DESC, cache_id DESC ";
-
-    d($query);
 
     $rs = XDb::xSql($query);
 

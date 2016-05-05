@@ -2170,6 +2170,7 @@ $translations = array(
     'adm_cachenotfound_02' => 'Show reported with different dates',
     'adm_cachenotfound_03' => 'Not found',
     'adm_cachenotfound_04' => 'Report problem',
+    'adm_cachenotfound_05' => 'Report for region',
     'error3KCharsExcedeed' => 'Description length limit exceeded (max 300 000 chars).',
     'edDescShowAll' => 'Show all',
     'lngExist' => 'Cache description in this language already exists.',

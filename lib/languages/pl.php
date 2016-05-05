@@ -2168,6 +2168,7 @@ $translations = array(
     'adm_cachenotfound_02' => 'Pokaż nieznalezienia z tą samą datą',
     'adm_cachenotfound_03' => 'Nieznalezienia',
     'adm_cachenotfound_04' => 'Zgłoś problem',
+    'adm_cachenotfound_05' => 'Raport dla regionu',
     'error3KCharsExcedeed' => 'Opis jest zbyt długi (maksymalnie 300 tysięcy znaków).',
     'edDescShowAll' => 'Pokaż wszystkie',
     'lngExist' => 'Już w tym języku jest opis skrzynki',
