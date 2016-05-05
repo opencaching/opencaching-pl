@@ -41,4 +41,4 @@ then
 else
     echo "-> /dev/sda5 is NOT a swap partition on your system, skipping this step."
 fi
-echo "Done. (You're ready for `sudo shutdown -P 0`)"
+echo "Done. (You're ready for 'sudo shutdown -P 0')"
