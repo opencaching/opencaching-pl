@@ -88,14 +88,14 @@ if ($error == false) {
 
 
     // Create the graph. These two calls are always required
-    $graph = new Graph(740, 200, 'auto');
+    $graph = new Graph(740, 250, 'auto');
     $graph->SetScale('textint', 0, max($y) + (max($y) * 0.2), 0, 0);
 
     // Add a drop shadow
     $graph->SetShadow();
 
     // Adjust the margin a bit to make more room for titles
-    $graph->SetMargin(50, 30, 30, 40);
+    $graph->SetMargin(50, 30, 30, 70);
 
     // Create a bar pot
     $bplot = new BarPlot($y);
@@ -109,6 +109,7 @@ if ($error == false) {
     $graph->title->Set($descibe);
     $graph->xaxis->title->Set($xtitle);
     $graph->xaxis->SetTickLabels($x);
+    $graph->xaxis->SetLabelAngle(40);
     $noproblems = iconv('UTF-8', 'ASCII//TRANSLIT', tr('number_problems'));
     $graph->yaxis->title->Set($noproblems);
     $graph->title->SetFont(FF_FONT1, FS_BOLD);
@@ -124,15 +125,17 @@ if ($error == false) {
     $bplot->value->SetAngle(0);
     $bplot->value->SetFormat('%d');
 
+
+
     // Create the graph. These two calls are always required
-    $graph2 = new Graph(740, 200, 'auto');
+    $graph2 = new Graph(740, 250, 'auto');
     $graph2->SetScale('textint', 0, max($y2) + (max($y2) * 0.2), 0, 0);
 
     // Add a drop shadow
     $graph2->SetShadow();
 
     // Adjust the margin a bit to make more room for titles
-    $graph2->SetMargin(50, 30, 30, 40);
+    $graph2->SetMargin(50, 30, 30, 70);
 
     // Create a bar pot
     $bplot2 = new BarPlot($y2);
@@ -146,6 +149,7 @@ if ($error == false) {
     $graph2->title->Set($descibe2);
     $graph2->xaxis->title->Set($xtitle);
     $graph2->xaxis->SetTickLabels($x2);
+    $graph2->xaxis->SetLabelAngle(40);
 
     $ncaches = iconv('UTF-8', 'ASCII//TRANSLIT', tr('number_caches'));
     $graph2->yaxis->title->Set($ncaches);
@@ -241,9 +245,9 @@ if ($error == false) {
     $mgraph->SetMargin(10, 10, 10, 10);
     $mgraph->SetFrame(true, 'darkgray', 2);
     $mgraph->Add($graph);
-    $mgraph->Add($graph3, 0, 220);
-    $mgraph->Add($graph2, 0, 440);
-    $mgraph->Add($graph4, 0, 660);
+    $mgraph->Add($graph3, 0, 270);
+    $mgraph->Add($graph2, 0, 490);
+    $mgraph->Add($graph4, 0, 760);
     $mgraph->Stroke();
 }
 
