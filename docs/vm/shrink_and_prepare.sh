@@ -1,7 +1,7 @@
 # Use this script before publishing new version od OCPL-DEVEL VM.
 
 echo "Checking local uncommited changes..."
-if [ `svn st /srv/ocpl | wc -l` -gt 0 ]
+if [ `sudo git status /srv/ocpl --porcelain | wc -l` -gt 0 ]
 then
     echo "UNCOMMITED CHANGES DETECTED. CANCELLED."
     exit 1
