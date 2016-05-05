@@ -391,10 +391,19 @@ class Db
             PDO::MYSQL_ATTR_LOCAL_INFILE => true,
         );
 
-        /* Older PHP versions do not support the 'charset' DSN option. */
+        /* Collect extra SET statements - to be executed upon (re)connect. */
+        $extras = array();
 
+        /* Older PHP versions do not support the 'charset' DSN option. */
         if ($dsnarr['charset'] and version_compare(PHP_VERSION, '5.3.6', '<')) {
-            $options[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES ' . $dsnarr['charset'];
+            $extras[] = 'NAMES ' . $dsnarr['charset'];
+        }
+
+        /* See here: https://github.com/opencaching/okapi/issues/425 */
+        $extras[] = "session sql_mode=(select replace(@@sql_mode,'ONLY_FULL_GROUP_BY',''))";
+
+        if (count($extras) > 0) {
+            $options[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET '.implode(", ", $extras);
         }
 
         $dsnpairs = array();
@@ -1045,8 +1054,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1300;
-    public static $git_revision = '2d34af19908ce35b228249dfe7ff11fdd13ce237';
+    public static $version_number = 1301;
+    public static $git_revision = '4026ce9201e256b3de93ab08892751eb49e7f0b8';
 
     private static $okapi_vars = null;
 
