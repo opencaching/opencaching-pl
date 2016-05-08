@@ -2,7 +2,6 @@
 
 ?>
 <script type="text/javascript">
-<!--
     function checkForm()
     {
         if (document.editmp3_form.title.value == "")
@@ -18,7 +17,7 @@
         }
 
         return true;
-    }//-->
+    }
 </script>
 
 <form action="editmp3.php" method="post" enctype="multipart/form-data" name="editmp3_form" dir="ltr" onsubmit="return checkForm();">

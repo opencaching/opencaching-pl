@@ -33,7 +33,6 @@
             });</script>
 
 <script type="text/javascript">
-<!--
 
             $(function() {
             $("#waypointsToChose").dialog({
@@ -392,9 +391,8 @@
     }
 
 
-//-->
 </script>
-<script type="text/javascript"><!--
+<script type="text/javascript">
     function nearbycache()
     {
     var latNS = document.forms['newcacheform'].latNS.value;
@@ -432,8 +430,8 @@
     return false;
     }
 
-//--></script>
-<script type="text/javascript"><!--
+</script>
+<script type="text/javascript">
     function nearbycachemapOC()
     {
     var lat_h = document.forms['newcacheform'].lat_h.value;
@@ -453,7 +451,8 @@
     } else {
     window.open('/cachemap3.php?circle=1&inputZoom=17&lat=' + lat + '&lon=' + lon); }
     return false;
-    }//--></script>
+    }
+</script>
 
 
 <style>

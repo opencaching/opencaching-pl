@@ -2,7 +2,6 @@
 
 ?>
 <script type="text/javascript">
-<!--
     var mnAttributesShowCat2 = 1;
     var maAttributes = new Array({attributes_jsarray});
     var firstBtnClicked = false;
@@ -351,7 +350,6 @@
 
 
 
-//-->
 </script>
 
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Szukanie skrzynek" title="Szukanie skrzynek" align="middle"/><img src="tpl/stdstyle/images/blue/search3.png" class="icon32" alt="Szukanie skrzynek" title="Szukanie skrzynek" align="middle"/>&nbsp;{{search_cache}}</div>
@@ -533,8 +531,7 @@
         </table>
     </form>
 
-    <script language="javascript" type="text/javascript">
-        <!--
+    <script type="text/javascript">
         document.getElementById("scriptwarning").firstChild.nodeValue = "";
 
         // erweiterte attribute ausblenden, falls kein erweitertes attribute selektiert
@@ -551,7 +548,6 @@
 
         if (bHide == true)
             hideAttributesCat2();
-        //-->
     </script>
 
 

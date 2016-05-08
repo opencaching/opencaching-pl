@@ -3,7 +3,6 @@
 ?>
 <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 <script type="text/javascript">
-<!--
     $(function () {
         chkcountry2();
     });
@@ -200,7 +199,6 @@
     }
 
 
-//-->
 </script>
 
 <!--[if IE 6 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]-->
@@ -473,7 +471,5 @@
     </table>
 </form>
 <script type="text/javascript">
-<!--
     _chkVirtual();
-//-->
 </script>

@@ -2,7 +2,6 @@
 
 ?>
 <script type="text/javascript">
-<!--
     function _chkType()
     {
         var nextstage = document.forms['waypoints_form'].nextstage.value;
@@ -33,7 +32,6 @@
 
         return false;
     }
-//-->
 </script>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" />&nbsp;{{edit_wp}} {{for_cache}}: <font color="black">{cache_name}</font></div>
 {general_message}

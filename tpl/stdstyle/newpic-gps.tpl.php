@@ -2,7 +2,6 @@
 
 ?>
 <script type="text/javascript">
-<!--
     function checkForm()
     {
         if (document.newpic_form.title.value == "")
@@ -19,7 +18,6 @@
 
         return true;
     }
-    //-->
 </script>
 <form action="newpic-gps.php" method="post" enctype="multipart/form-data" name="newpic_form" dir="ltr" onsubmit="return checkForm();">
     <input type="hidden" name="objectid" value="{objectid}" />

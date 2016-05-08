@@ -2,7 +2,6 @@
 
 ?>
 <script type="text/javascript">
-<!--
     function checkForm()
     {
         if (document.editpic_form.title.value == "")
@@ -18,7 +17,7 @@
         }
 
         return true;
-    }//-->
+    }
 </script>
 
 <form action="editpic.php" method="post" enctype="multipart/form-data" name="editpic_form" dir="ltr" onsubmit="return checkForm();">

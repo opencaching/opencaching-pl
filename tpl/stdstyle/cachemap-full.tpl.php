@@ -185,7 +185,7 @@
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script src="{lib_cachemap3_js}" type="text/javascript"></script>
-<script type="text/javascript" language="javascript">
+<script type="text/javascript">
 
 var map_params = { //params for cachemaps3.js
     cachemap_mapper: "{cachemap_mapper}",

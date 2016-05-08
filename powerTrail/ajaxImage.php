@@ -42,4 +42,4 @@ $powerTrailId = $_REQUEST['powerTrailId'];
     }
 ?>
 
-<script language="javascript" type="text/javascript">window.top.window.stopUpload(<?php echo "'".$result."'"; ?>);</script>
+<script type="text/javascript">window.top.window.stopUpload(<?php echo "'".$result."'"; ?>);</script>

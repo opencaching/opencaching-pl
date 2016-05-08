@@ -2,8 +2,7 @@
 
 ?>
 <script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
-<script language="javascript" type="text/javascript">
-    <!-- hide script from old browsers
+<script type="text/javascript">
     var map_image_cache;
 
     //detect browser:
@@ -48,7 +47,6 @@
         }
     }
 
-    //end hiding -->
 </script>
 
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/home.png" class="icon32" alt="" title="" align="middle"/>&nbsp;

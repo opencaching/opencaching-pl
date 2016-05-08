@@ -2,8 +2,7 @@
 
 ?>
 <script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
-<script language="javascript" type="text/javascript">
-<!--
+<script type="text/javascript">
 
     function check_logs() {
         if (document.myroute_form.cache_log[1].checked == true) {
@@ -30,7 +29,6 @@
         }
         document.forms['myroute_form'].logs.value = nlogs;
     }
-//-->
 </script>
 
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/route.png" class="icon32" alt="" />&nbsp;{{caches_along_route}} ({number_caches}): <span style="color: black;font-size:13px;">{routes_name} ({{radius}} {distance} km)</span></div>

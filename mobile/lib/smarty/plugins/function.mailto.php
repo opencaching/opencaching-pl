@@ -118,12 +118,10 @@ function smarty_function_mailto($params, $template)
         }
 
         $_ret = "<script type=\"text/javascript\" language=\"javascript\">\n";
-        $_ret .= "<!--\n";
         $_ret .= "{document.write(String.fromCharCode(";
         $_ret .= implode(',', $ord);
         $_ret .= "))";
         $_ret .= "}\n";
-        $_ret .= "//-->\n";
         $_ret .= "</script>\n";
 
         return $_ret;
