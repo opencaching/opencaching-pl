@@ -23,6 +23,7 @@ class OpensprawdzaczSetup
 
 // end of init Opensprawdzacz setup.
 
+// This should be part of a site-wide library (?)
 class convertLangLat
 {
 
@@ -66,13 +67,14 @@ class OpensprawdzaczCore
                     // $_SESSION['opensprawdzacz_czas'] = date('U');
                     $czas_jaki_uplynal = round(60 - ($czas_jaki_uplynal / 60));
                     tpl_set_var("licznik_zgadywan", $_SESSION["opensprawdzacz_licznik"]);
-                    tpl_set_var("test1", tr(os_zgad));
+                    tpl_set_var("test1", tr('os_zgad'));
                     tpl_set_var("wynik", '');
-                    tpl_set_var("ikonka_yesno", '<image src="tpl/stdstyle/images/blue/opensprawdzacz_stop.png" />');
+                    tpl_set_var("ikonka_yesno", '<img src="tpl/stdstyle/images/blue/opensprawdzacz_stop.png" />');
                     tpl_set_var("sekcja_4_start", '');
                     tpl_set_var("sekcja_4_stop", '');
                     tpl_set_var("twoje_ws", tr('os_ma_max') . ' ' . $ile_prob . ' ' . tr('os_ma_na') . ' ' . $limit_czasu . ' ' . tr('os_godzine') . '<br /> ' . tr('os_mus') . ' ' . $czas_jaki_uplynal . ' ' . tr('os_minut_end'));
                     tpl_set_var("save_mod_coord", '');
+                    tpl_set_var("waypoint_desc",'');
                     $this->endzik();
                     // goto endzik;
                 }
@@ -140,6 +142,7 @@ class OpensprawdzaczCore
         `waypoints`.`latitude`,
         `waypoints`.`status`,
         `waypoints`.`type`,
+        `waypoints`.`desc`,
         `waypoints`.`opensprawdzacz`,
         `opensprawdzacz`.`proby`,
         `opensprawdzacz`.`sukcesy`,
@@ -183,7 +186,7 @@ class OpensprawdzaczCore
 
             if ($dane['type'] == 7) {  //only for quiz type for time being
                 $post_viewcache_form = '<form name="post_coord" action="viewcache.php?cacheid=' . $cache_id . '" method="post">
-                                            <input type="submit" name="modCoords" value="' . tr('os_modify_coords_button') . '" />
+                                            <button type="submit" name="modCoords" value="modCoords" style="font-size:14px;">' . tr('os_modify_coords_button') . '</button>
                                             <input type="hidden" name="coordmod_lat_degree" value="' . $stopnie_N . '"/>
                                             <input type="hidden" name="coordmod_lon_degree" value="' . $stopnie_E . '"/>
                                             <input type="hidden" name="coordmod_lat" value="' . $minuty_N . '"/>
@@ -195,10 +198,18 @@ class OpensprawdzaczCore
             } else {
                 $post_viewcache_form = '';
             };
+            
+            // to be redone with configs
+            global $config;
 
             tpl_set_var("test1", tr('os_sukces'));
-            tpl_set_var("ikonka_yesno", '<image src="tpl/stdstyle/images/blue/opensprawdzacz_tak.png" />');
+            tpl_set_var("ikonka_yesno", '<img src="tpl/stdstyle/images/blue/opensprawdzacz_tak.png" />');
             tpl_set_var("save_mod_coord", $post_viewcache_form);
+            if ($config['oc']['options']['show_final'] == 1) {
+                tpl_set_var("waypoint_desc",$dane['desc']);
+            } else {
+                tpl_set_var("waypoint_desc",'');
+            }    
         } else {
             //puzzle not solved - restult wrong
 
@@ -211,8 +222,9 @@ class OpensprawdzaczCore
                 exit;
             }
             tpl_set_var("test1", tr('os_fail'));
-            tpl_set_var("ikonka_yesno", '<image src="tpl/stdstyle/images/blue/opensprawdzacz_nie.png" />');
+            tpl_set_var("ikonka_yesno", '<img src="tpl/stdstyle/images/blue/opensprawdzacz_nie.png" />');
             tpl_set_var("save_mod_coord", '');
+            tpl_set_var("waypoint_desc",'');
         }
         //tpl_set_var("wynik", $wspolrzedneN.'/'.$wspolrzedneN_wzorcowe.'<br>'.$wspolrzedneE.'/'. $wspolrzedneE_wzorcowe);
         tpl_set_var("wynik", '');
