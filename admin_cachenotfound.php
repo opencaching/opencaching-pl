@@ -47,7 +47,8 @@ if ($usr['admin']) {
         $skipReported = '';
     }else{
         tpl_set_var('show_reported', '');
-        $skipReported = 'AND c.cache_id NOT IN ( SELECT r.cache_id FROM reports r WHERE r.status <> 2 )';
+        //$skipReported = 'AND c.cache_id NOT IN ( SELECT r.cache_id FROM reports r WHERE r.status <> 2 )';
+        $skipReported = ''; //temporary disable because of mysql perf...
     }
 
     if ( isset($_REQUEST['show_duplicated']) ){
