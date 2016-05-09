@@ -5,53 +5,125 @@ use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
+/*
+ * kojoty: This is temporary workaround for OCPL
+ * Because we need this fix but to do it 'well' I need more time :)
+ *
+ * - I'm going to change it soon...
+ */
+if( $short_sitename == 'OC PL' ){
+
+    $GLOBALS['regions'] = array(
+            'PL52' => 'opolskie',
+            'PL12' => 'mazowieckie',
+            'PL11' => 'łódzkie',
+            'PL63' => 'pomorskie',
+            'PL62' => 'warmińsko-mazurskie',
+            'PL61' => 'kujawsko-pomorskie',
+            'PL51' => 'dolnośląskie',
+            'PL43' => 'lubuskie',
+            'PL42' => 'zachodniopomorskie',
+            'PL41' => 'wielkopolskie',
+            'PL34' => 'podlaskie',
+            'PL33' => 'świętokrzyskie',
+            'PL32' => 'podkarpackie',
+            'PL31' => 'lubelskie',
+            'PL22' => 'śląskie',
+            'PL21' => 'małopolskie',
+            'NON_PL' => 'zagraniczne',
+            'XXX' => 'polskie-nie-ustalone'
+            );
+
+}else{
+    //OC !PL
+    $GLOBALS['regions'] = array(); //temporary empty list
+    tpl_set_var('region_name', 'all country'); //temporary
+}
+
 if ($usr['admin']) {
-    $options['show_reported'] = isset($_REQUEST['show_reported']) ? $_REQUEST['show_reported'] : 0;
-    $options['show_duplicated'] = isset($_REQUEST['show_duplicated']) ? $_REQUEST['show_duplicated'] : 0;
 
-    if (!isset($options['show_reported'])) {
-        $options['show_reported'] = 0;
-    }
-    if (!isset($options['show_duplicated'])) {
-        $options['show_duplicated'] = 0;
-    }
-
-    // Zapytanie do bazy - początek
-
-    $query = "SELECT ";
-
-    if ($options['show_duplicated'] == 0) {
-        $query .= " COUNT(DISTINCT(cl.date)) ilosc, c.cache_id, c.name";
-    } else {
-        $query .= " COUNT(cl.date) ilosc, c.cache_id, c.name";
+    if( isset($_REQUEST['show_reported']) ){
+        tpl_set_var('show_reported', ($_REQUEST['show_reported'] == '1') ? ' checked="checked"' : '');
+        $skipReported = '';
+    }else{
+        tpl_set_var('show_reported', '');
+        $skipReported = 'AND c.cache_id NOT IN ( SELECT r.cache_id FROM reports r WHERE r.status <> 2 )';
     }
 
-    $query .= " FROM
-                cache_logs cl, caches c
-            WHERE
-                c.cache_id = cl.cache_id
-                AND c.status =1
-                AND cl.deleted = 0
-                AND cl.type = 2
-                AND cl.date > (SELECT IFNULL(c1.last_modified, str_to_date('2000-01-01', '%Y-%m-%d')) FROM caches c1 WHERE c1.cache_id = c.cache_id)
-                AND cl.date > (SELECT IFNULL(c2.last_found, str_to_date('2000-01-01', '%Y-%m-%d')) FROM caches c2 WHERE c2.cache_id = c.cache_id)
-                AND cl.date > (SELECT IFNULL(MAX(cl1.date), str_to_date('2000-01-01', '%Y-%m-%d')) FROM cache_logs cl1 where cl1.user_id = c.user_id AND cl1.cache_id = c.cache_id AND cl1.type = 3)";
-
-    if ($options['show_reported'] == 0) {
-        $query .= " AND c.cache_id NOT IN (SELECT r.cache_id FROM reports r WHERE r.status <> 2)";
+    if ( isset($_REQUEST['show_duplicated']) ){
+        tpl_set_var('show_duplicated', ($_REQUEST['show_duplicated'] == '1') ? ' checked="checked"' : '');
+        $distinct = '';
+    }else{
+        tpl_set_var('show_duplicated', '');
+        $distinct = 'DISTINCT';
     }
 
-    $query .= " GROUP BY cl.cache_id HAVING";
+    if( isset($_REQUEST['regionSel']) ){
+        $region = $_REQUEST['regionSel'];
 
-    if ($options['show_duplicated'] == 0) {
-        $query .= " COUNT(DISTINCT(cl.date)) > 2";
-    } else {
-        $query .= " COUNT(cl.date) > 2";
+        if( !isset($GLOBALS['regions'][$region])) {
+            $region = 'PL12'; //TODO: mazowieckie by default ?
+        }
+
+        tpl_set_var('region_name', $GLOBALS['regions'][$region]); //temporary
+
+        if($region === 'XXX'){
+            //polish caches with no-region set
+            $regionCondition = "AND loc.code3 = NULL";
+            $countryCondition = "AND loc.code1 = 'PL'";
+        }else if($region === 'NON_PL'){
+            $regionCondition = "";
+            $countryCondition = "AND loc.code1 <> 'PL'";
+        }else{
+            $regionCondition = "AND loc.code3 = '$region'";
+            $countryCondition = "";
+        }
+
+    }else{
+
+        if( $short_sitename == 'OC PL' ){
+            $regionCondition = "AND 1 = 0"; //block all results if region is not select
+            $countryCondition = "";
+            tpl_set_var('region_name', 'Wybierz region!'); //temporary solution
+
+        }else{
+            $regionCondition = "";
+            $countryCondition = "";
+            tpl_set_var('region_name', '');
+        }
     }
 
-    $query .= " ORDER BY ilosc DESC, cache_id DESC";
+    $query = "
+        SELECT COUNT( $distinct(cl.date) ) ilosc, c.cache_id, c.name
+        FROM cache_logs cl, caches c, cache_location loc
+        WHERE c.cache_id = cl.cache_id
+            AND c.cache_id = loc.cache_id
+            $regionCondition    /* cache location region - for example: 'AND loc.code3 = NULL' */
+            $countryCondition   /* cache location country - for example: 'AND loc.code1 <> PL' */
+            AND c.status = 1    /* status:active */
+            AND cl.deleted = 0
+            AND cl.type = 2     /* type=not-found*/
+            AND cl.date > (
+                    /* log date is newer than cache 'last_modified' */
+                    IFNULL( c.last_modified, str_to_date('2000-01-01', '%Y-%m-%d'))
+                )
+            AND cl.date > (
+                    /* log date is newer than cache 'last_found' */
+                    IFNULL(c.last_found, str_to_date('2000-01-01', '%Y-%m-%d'))
+                )
+            AND cl.date > (
+                    /* log date is newer than last author comment */
+                    SELECT IFNULL( MAX(cl1.date), str_to_date('2000-01-01', '%Y-%m-%d'))
+                    FROM cache_logs cl1
+                    WHERE cl1.cache_id = c.cache_id
+                        AND cl1.user_id = c.user_id
+                        AND cl1.type = 3 /* log-comment */
+                )
+            $skipReported /* = skip reported caches:
+            AND c.cache_id NOT IN ( SELECT r.cache_id FROM reports r WHERE r.status <> 2 ) */
 
-    // Zapytanie do bazy - koniec
+        GROUP BY cl.cache_id HAVING COUNT( $distinct(cl.date) ) > 2
+        ORDER BY ilosc DESC, cache_id DESC ";
 
     $rs = XDb::xSql($query);
 
@@ -74,9 +146,6 @@ if ($usr['admin']) {
     }
 
     XDb::xFreeResults($rs);
-
-    tpl_set_var('show_reported', ($options['show_reported'] == '1') ? ' checked="checked"' : '');
-    tpl_set_var('show_duplicated', ($options['show_duplicated'] == '1') ? ' checked="checked"' : '');
 
     tpl_set_var('results', $file_content);
 
