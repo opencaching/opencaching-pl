@@ -2220,7 +2220,7 @@ $translations = array(
     'add_newmp3' => 'Dodaj MP3',
     'newCacheWpClose' => 'Zamknij',
     'contact_pl_about_title' => 'Zadawanie pytań o Geocaching',
-    'contact_pl_about_description_1' => 'Chciałbyś się dowiedzieć coś więc	ej o Geocaching? Znajdziesz to na stronie <a href="{wiki_link_main}">OpenGeoWiki</a>.',
+    'contact_pl_about_description_1' => 'Chciałbyś się dowiedzieć coś więcej o Geocaching? Znajdziesz to na stronie <a href="{wiki_link_main}">OpenGeoWiki</a>.',
     'contact_pl_about_description_2' => 'Chciałbyś wymienić swoje uwagi zadać pytania innym, masz pomysł albo sugestie poprawy działania projektu <i>Opencaching</i>, chcesz pomóc w rozwoju projektu? Z wszystkimi tymi sprawami możesz pisać na <a href="https://forum.opencaching.pl">Forum</a>.',
     'contact_pl_about_team' => 'OpenCaching PL Team',
     'contact_pl_rr_description' => '- Skład Rady Rejsu patrz &gt;&gt;&gt;<a href="{link}">TUTAJ</a>&lt;&lt;&lt;',
