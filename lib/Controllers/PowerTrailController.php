@@ -61,12 +61,11 @@ class PowerTrailController
      */
     public function cleanPowerTrailsCronjob()
     {
+        /* disabled until full automated geopaths-calening machine works finished
         $getPtQuery = 'SELECT * FROM `PowerTrail` WHERE `status` =1';
-
         $db = OcDb::instance();
         $s = $db->simpleQuery($getPtQuery);
         $ptToClean = $db->dbResultFetchAll($s);
-
         foreach ($ptToClean as $dbRow) {
             $powerTrail = new PowerTrail(array('dbRow' => $dbRow));
             $powerTrail->setPowerTrailConfiguration($this->config)->checkCacheCount();
@@ -74,6 +73,7 @@ class PowerTrailController
                 $powerTrail->disablePowerTrailBecauseCacheCountTooLow();
             }
         }
+        */
         $this->archiveAbandonPowerTrails();
         $this->freeCacheCandidates();
     }

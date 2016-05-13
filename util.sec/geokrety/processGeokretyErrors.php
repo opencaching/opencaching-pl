@@ -142,8 +142,8 @@ class processGeokretyErrors
 
     private function cleanGeoPaths()
     {
-//        $powerTrailController = new powerTrailController();
-//        $powerTrailController->cleanPowerTrailsCronjob();
+        $powerTrailController = new PowerTrailController();
+        $powerTrailController->cleanPowerTrailsCronjob();
     }
 
 }
