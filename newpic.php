@@ -16,18 +16,25 @@ if ($error == false) {
         $submit = tr('submit');
         $pictypedesc_cache = tr('add_new_picture');
         $pictypedesc_log = tr('log_pictures');
-        $errnotitledesc = '<span class="errormsg">' . tr('no_title') . '</span>';
-        $errnopicgivendesc = '<span class="errormsg">Brak nazwy pliku</span>';
-        $message_title_internal = 'Wewnętrzny błąd serwera';
-        $message_internal = 'Wystąpił wewnętrzny błąd serwera, jeśli ten błąd powtarza się prosimy o kontakt na adres ocpl @ opencaching.pl. W celu powtórzenia błędu wskazane byłoby załączenie do tego emial obrazek z opisem sytuacji.';
-        $message_title_toobig = tr('to_big_data');
-        $message_toobig = tr('max_size') . $config['limits']['image']['filesize'] . tr('max_size2');
-        $message_title_wrongext = tr('bad_format');
-        $message_wrongext = tr('bad_format_info');
+        $errnotitledesc = '<span class="errormsg">' . tr('image_err_no_title') . '</span>';
+        $errnopicgivendesc = '<span class="errormsg">' . tr('image_err_no_file') . '</span>';
+        $message_title_internal = tr('file_err_internal_title');
+        $message_internal = tr('file_err_internal_desc');
+
+        tpl_set_var('maxpicsizeMB', $config['limits']['image']['filesize']);
+        tpl_set_var('maxpicsize',   $config['limits']['image']['filesize'] * 1024 * 1024);
+        tpl_set_var('maxpicresolution', $config['limits']['image']['pixels_text']);
+        tpl_set_var('picallowedformats', $config['limits']['image']['extension_text']);
+
+        $message_title_toobig = tr('image_err_too_big');
+        $message_toobig = tr('image_max_size');
+        $message_title_wrongext = tr('image_bad_format');
+        $message_wrongext = tr('image_bad_format_info');
+
 
         $objectid = isset($_REQUEST['objectid']) ? $_REQUEST['objectid'] : 0;
         $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : -1;
-        $def_seq = isset($_REQUEST['def_seq']) ? $_REQUEST['def_seq'] : 1; // set up defaul seq for newly added picture
+        $def_seq = isset($_REQUEST['def_seq']) ? $_REQUEST['def_seq'] : 1; // set up default seq for newly added picture
 
         $bSpoiler = isset($_REQUEST['spoiler']) ? $_REQUEST['spoiler'] : 0;
         if (($bSpoiler != 0) && ($bSpoiler != 1)) {
@@ -39,7 +46,6 @@ if ($error == false) {
 
         $title = isset($_REQUEST['title']) ? stripslashes($_REQUEST['title']) : '';
 
-        tpl_set_var('maxImageWeight', $config['limits']['image']['filesize']);
         $allok = true;
         if (!is_numeric($objectid))
             $allok = false;
@@ -145,7 +151,8 @@ if ($error == false) {
                             exit;
                         }
 
-                        if ($_FILES['file']['size'] > ($config['limits']['image']['filesize'] * 1024 * 1024)) { // file too big
+                        if ($_FILES['file']['size'] > ( round($config['limits']['image']['filesize'] * 1024 * 1024) )) { 
+                            // file too big
                             $tplname = 'message';
                             tpl_set_var('messagetitle', $message_title_toobig);
                             tpl_set_var('message_start', '');
@@ -157,7 +164,7 @@ if ($error == false) {
 
                         $uuid = create_uuid();
 
-                        if ($config['limits']['image']['resize'] == 1 && $_FILES['file']['size'] > 102400) {
+                        if ($config['limits']['image']['resize'] == 1 && $_FILES['file']['size'] > round($config['limits']['image']['resize_larger'] * 1024 * 1024) ) {
                             // Apply resize to uploaded image
                             $image = new \lib\SimpleImage();
                             $image->load($_FILES['file']['tmp_name']);
@@ -211,11 +218,8 @@ if ($error == false) {
                 tpl_set_var('spoilerchecked', ($bSpoiler == 1) ? ' checked="checked"' : '');
                 tpl_set_var('type', htmlspecialchars($type, ENT_COMPAT, 'UTF-8'));
                 tpl_set_var('objectid', htmlspecialchars($objectid, ENT_COMPAT, 'UTF-8'));
-                tpl_set_var('def_seq', htmlspecialchars($def_seq, ENT_COMPAT, 'UTF-8')); //update hidden value in newpic.tbl.php
+                tpl_set_var('def_seq', htmlspecialchars($def_seq, ENT_COMPAT, 'UTF-8')); //update hidden value in newpic.tpl.php
                 tpl_set_var('title', htmlspecialchars($title, ENT_COMPAT, 'UTF-8'));
-                tpl_set_var('maxpicsize', $config['limits']['image']['filesize'] * 1024 * 1024);
-                tpl_set_var('maxpicresolution', $config['limits']['image']['pixels_text']);
-                tpl_set_var('picallowedformats', $config['limits']['image']['extension_text']);
                 tpl_set_var('submit', $submit);
                 tpl_set_var('errnotitledesc', '');
                 tpl_set_var('errnopicgivendesc', '');
@@ -226,9 +230,6 @@ if ($error == false) {
                     tpl_set_var('type', htmlspecialchars($type, ENT_COMPAT, 'UTF-8'));
                     tpl_set_var('objectid', htmlspecialchars($objectid, ENT_COMPAT, 'UTF-8'));
                     tpl_set_var('title', htmlspecialchars($title, ENT_COMPAT, 'UTF-8'));
-                    tpl_set_var('maxpicsize', ($config['limits']['image']['filesize'] * 1024 * 1024));
-                    tpl_set_var('maxpicresolution', $config['limits']['image']['pixels_text']);
-                    tpl_set_var('picallowedformats', $config['limits']['image']['extension_text']);
                     tpl_set_var('submit', $submit);
                     tpl_set_var('errnopicgivendesc', '');
                     tpl_set_var('errnotitledesc', '');

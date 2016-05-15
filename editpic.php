@@ -69,8 +69,8 @@ if ($error == false) {
                             exit;
                         }
 
-                        // file too big?
-                        if ($_FILES['file']['size'] > $config['limits']['image']['filesize'] * 1024 * 1024) {
+                        if ($_FILES['file']['size'] > round($config['limits']['image']['filesize'] * 1024 * 1024) ) {
+                            // file too big
                             $tplname = 'message';
                             tpl_set_var('messagetitle', $message_title_toobig);
                             tpl_set_var('message_start', '');
@@ -81,7 +81,7 @@ if ($error == false) {
                         }
 
 
-                        if ($config['limits']['image']['resize'] == 1 && $_FILES['file']['size'] > 102400) {
+                        if ($config['limits']['image']['resize'] == 1 && $_FILES['file']['size'] > round($config['limits']['image']['resize_larger'] * 1024 * 1024) ) {
                             // Apply resize to uploaded image
                             $image = new \lib\SimpleImage();
                             $image->load($_FILES['file']['tmp_name']);
