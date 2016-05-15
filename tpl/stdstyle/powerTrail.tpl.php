@@ -1426,8 +1426,16 @@ $( document ).ready(function() {
                                         <td>{sortSelector}</td>
                                     </tr>
                                     <tr>
-                                        <td>{{pt178}}</td>
+                                        <td>{{pt178}}:</td>
                                         <td>{sortDirSelector}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{pt242}}:</td>
+                                        <td>{myPowerTrailsBool}</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>{gainedPowerTrailsBool}</td>
                                     </tr>
                                 </table>
                                 <a href="javascript:void(0)" id="confirmDisplayOptionsButton" onclick="document.dOptionForm.submit();" class="editPtDataButton">{{pt164}}</a>

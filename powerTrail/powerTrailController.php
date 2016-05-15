@@ -127,8 +127,26 @@ class powerTrailController {
         } else {
             $sortOder = 'DESC';
         }
-        if(isset($_REQUEST['historicLimit']) && $_REQUEST['historicLimit']==1) $cacheCountLimit = powerTrailBase::historicMinimumCacheCount(); else $cacheCountLimit = powerTrailBase::minimumCacheCount();
-        $q = 'SELECT * FROM `PowerTrail` WHERE `status` = 1 and cacheCount >= :1 '.$filter.' ORDER BY '.$sortBy.' '.$sortOder.' ';
+        if(isset($_REQUEST['historicLimit']) && $_REQUEST['historicLimit']==1) {
+            $cacheCountLimit = powerTrailBase::historicMinimumCacheCount();
+        } else {
+            $cacheCountLimit = powerTrailBase::minimumCacheCount();
+        }
+        $userid = $this->user['userid'];
+        if(isset($_REQUEST['myPowerTrailsBool'])) {
+            $myTrailsCondition = "and `id` NOT IN (SELECT `PowerTrailId` FROM `PowerTrail_owners`
+            WHERE `userId` = $userid)";
+        } else {
+            $myTrailsCondition = "";
+        }
+        if(isset($_REQUEST['gainedPowerTrailsBool'])) {
+            $gainedTrailsCondition = "and `id` NOT IN (SELECT `PowerTrailId` FROM `PowerTrail_comments`
+            WHERE `userId` = $userid and `commentType` = 2)";
+        } else {
+            $gainedTrailsCondition = "";
+        }
+        $q = 'SELECT * FROM `PowerTrail` WHERE `status` = 1 '.$myTrailsCondition.' '.$gainedTrailsCondition.'
+        and cacheCount >= :1 '.$filter.' ORDER BY '.$sortBy.' '.$sortOder.' ';
         $db = OcDb::instance();
         $s = $db->multiVariableQuery($q, $cacheCountLimit);
         $this->allSeries = $db->dbResultFetchAll($s);
@@ -143,8 +161,6 @@ class powerTrailController {
     {
         return $this->powerTrailDbRow;
     }
-
-
 
     public function getPowerTrailOwn() {
         return $this->areOwnSeries;

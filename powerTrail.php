@@ -31,7 +31,8 @@ if ($ocConfig->getPowerTrailModuleSwitchOn() === false) {
 $firePtMenu = true;
 //Preprocessing
 if ($error == false) {
-    if (isset($_REQUEST['sortBy']) || isset($_REQUEST['filter']) || isset($_REQUEST['sortDir'])) {
+    if (isset($_REQUEST['sortBy']) || isset($_REQUEST['filter']) || isset($_REQUEST['sortDir'])
+    || isset($_REQUEST['myPowerTrailsBool']) || isset($_REQUEST['gainedPowerTrailsBool'])) {
         saveCookie($cookie);
     } else {
         if ($cookie->is_set("ptSrBy"))
@@ -46,6 +47,14 @@ if ($error == false) {
             $_REQUEST['sortDir'] = $cookie->get("ptSrDr");
         else
             $_REQUEST['sortDir'] = 'desc';
+        if ($cookie->is_set("ptMyBool"))
+            $_REQUEST['myPowerTrailsBool'] = $cookie->get("ptMyBool");
+        else
+            $_REQUEST['myPowerTrailsBool'] = 'off';
+        if ($cookie->is_set("ptGaBool"))
+            $_REQUEST['gainedPowerTrailsBool'] = $cookie->get("ptGaBool");
+        else
+            $_REQUEST['gainedPowerTrailsBool'] = 'off';
     }
 
     $tplname = 'powerTrail';
@@ -136,6 +145,8 @@ if ($error == false) {
             tpl_set_var('ptTypeSelector2', displayPtTypesSelector('filter', $_REQUEST['filter'], true));
             tpl_set_var('sortSelector', getSortBySelector($_REQUEST['sortBy']));
             tpl_set_var('sortDirSelector', getSortDirSelector($_REQUEST['sortDir']));
+            tpl_set_var('myPowerTrailsBool', generateCheckbox('myPowerTrailsBool',$_REQUEST['myPowerTrailsBool'],'pt243'));
+            tpl_set_var('gainedPowerTrailsBool', generateCheckbox('gainedPowerTrailsBool',$_REQUEST['gainedPowerTrailsBool'],'pt244'));
             tpl_set_var('displayedPowerTrailsCount', $pt->getDisplayedPowerTrailsCount());
             tpl_set_var('mapCenterLat', $main_page_map_center_lat);
             tpl_set_var('mapCenterLon', $main_page_map_center_lon);
@@ -544,6 +555,15 @@ function generateSelector($array, $sel, $name)
     return $selector;
 }
 
+function generateCheckbox($name, $val, $tr) {
+    if ($val === 'on') {
+        $checked="checked";
+    } else {
+        $checked = "";
+    }
+    return '<input type="checkbox" name="'. $name .'" '. $checked .'> '.tr($tr);
+}
+
 function generateStatusSelector($currStatus)
 {
     $selector = '<select id="ptStatusSelector">';
@@ -570,6 +590,8 @@ function saveCookie($cookie)
     $cookie->set("ptFltr", $_REQUEST['filter']);
     $cookie->set("ptSrBy", $_REQUEST['sortBy']);
     $cookie->set("ptSrDr", $_REQUEST['sortDir']);
+    $cookie->set("ptGaBool", $_REQUEST['gainedPowerTrailsBool']);
+    $cookie->set("ptMyBool", $_REQUEST['myPowerTrailsBool']);
 }
 
 ?>
