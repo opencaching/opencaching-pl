@@ -183,6 +183,9 @@ $config['quick_search']['byuser'] = true;
 $config['limits']['image']['filesize'] = 3.5;
 // Resize large images ? (1=yes; 0=no)
 $config['limits']['image']['resize'] = 1;
+// If resize large images = 1
+// only resize files larger then this, in MB
+$config['limits']['image']['resize_larger'] = 0.1;
 // Image maximum width in pixels (aspect ratio preserved)
 $config['limits']['image']['width'] = 640;
 // Image maximum height in pixels (aspect ratio preserved)
@@ -195,6 +198,10 @@ $config['limits']['image']['extension_text'] = 'JPG, PNG, GIF';
 
 // Minimum distance between caches (physical containers) in meters
 $config['oc']['limits']['proximity'] = 150;
+
+// Maximum radius around home coordinates within which user can receive
+// notifications in km
+$config['oc']['limits']['notification_radius'] = 150;
 
 /*
  * OKAPI settings
