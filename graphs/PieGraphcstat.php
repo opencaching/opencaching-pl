@@ -72,7 +72,7 @@ if ($error == false) {
         $y[] = $ry['count'];
         $x[] = $ry['type'];
     } else {
-        $x[] = tr("comment");
+        $x[] = tr("log_note");
     }
 
     XDb::xFreeResults($rsCSF);
@@ -100,7 +100,7 @@ if ($error == false) {
     $p1->SetCenter(0.25, 0.52);
     $f = tr("found");
     $dnf = tr("not_found");
-    $com = tr("comment");
+    $com = tr("log_note");
 
     // Setup slice labels and move them into the plot
     $xx = array($f, $dnf, $com);
