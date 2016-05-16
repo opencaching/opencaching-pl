@@ -133,13 +133,13 @@ class powerTrailController {
             $cacheCountLimit = powerTrailBase::minimumCacheCount();
         }
         $userid = $this->user['userid'];
-        if(isset($_REQUEST['myPowerTrailsBool'])) {
+        if(isset($_REQUEST['myPowerTrailsBool']) && isset($userid)) {
             $myTrailsCondition = "and `id` NOT IN (SELECT `PowerTrailId` FROM `PowerTrail_owners`
             WHERE `userId` = $userid)";
         } else {
             $myTrailsCondition = "";
         }
-        if(isset($_REQUEST['gainedPowerTrailsBool'])) {
+        if(isset($_REQUEST['gainedPowerTrailsBool']) && isset($userid)) {
             $gainedTrailsCondition = "and `id` NOT IN (SELECT `PowerTrailId` FROM `PowerTrail_comments`
             WHERE `userId` = $userid and `commentType` = 2)";
         } else {
