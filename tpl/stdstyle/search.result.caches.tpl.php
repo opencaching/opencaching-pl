@@ -54,7 +54,7 @@ if ( !$SearchWithSort &&  $NrColSortSearch != -1 )
     /* 9 */gct.addColumn('number', "<?php echo $colNameSearch[9]["C"]?>", 'font-size: 12px; text-align: center; color:black; ');
 
     /* 10 */gct.addColumn('number', "<?php echo $colNameSearch[10]["C"]?>", 'font-size: 12px; text-align: center; color:green; font-weight: bold; width: 10px;');
-    /* 11 */gct.addColumn('string', "<?php echo $colNameSearch[11]["C"]?>", 'font-size: 12px; text-align: left; width: 88px; ');
+    /* 11 */gct.addColumn('string', "<?php echo $colNameSearch[11]["C"]?>", 'font-size: 12px; text-align: left; width: 90px; ');
 
     /* 12 */gct.addColumn('string', "<?php echo $colNameSearch[12]["C"]?>", 'font-size: 12px; text-align: left;');
     /* 13 */gct.addColumn('string', "<?php echo $colNameSearch[13]["C"]?>", 'font-size: 12px; text-align: left; ');
