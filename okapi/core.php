@@ -168,7 +168,7 @@ class OkapiExceptionHandler
                         $last_email = 0;
                     }
                     if (time() - $last_email < 3600) {
-                        # Send no more than one per hour.
+                        # Send no more than one mail per hour.
                         return;
                     }
                     @touch($lock_file);
@@ -1003,8 +1003,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1305;
-    public static $git_revision = 'd6a7885f5aeee511555ca54a7fc850c73c51121f';
+    public static $version_number = 1306;
+    public static $git_revision = '6ccee1d5f834dc276872ce3c05ced4863a1be709';
 
     private static $okapi_vars = null;
 
