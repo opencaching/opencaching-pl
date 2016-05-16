@@ -404,9 +404,12 @@ if ($error == false) {
                         $cache_attribs = array();
                     }
                 }
-
                 //try to save to DB?
                 if (isset($_POST['submit'])) {
+                    //prevent un archiving cache by non-admin users
+                    if($status_old == $STATUS['ARCHIVED'] && !$usr['admin'] && $status!=$STATUS['ARCHIVED']) {
+                        $status_not_ok = true;
+                    }
                     //all validations ok?
                     if (!($hidden_date_not_ok || $lat_not_ok || $lon_not_ok || $name_not_ok || $time_not_ok || $way_length_not_ok || $size_not_ok || $activate_date_not_ok || $status_not_ok)) {
                         $cache_lat = $coords_lat_h + round($coords_lat_min, 3) / 60;
