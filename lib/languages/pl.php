@@ -331,7 +331,6 @@ $translations = array(
     'descriptions' => 'Opis',
     'language' => 'Język',
     'other_languages_desc' => 'Opisy w innych językach możesz wprowadzić po rejestracji skrzynki - poprzez jej edycję.',
-    'short_desc_label' => 'Krótki opis',
     'error_new_cache' => 'Wystąpiły błędy. Proszę poprawić zaznaczone pola!',
     'time_incorrect' => 'Podany czas jest niepoprawny',
     'distance_incorrect' => 'Podano odległość w niepoprawnym formacie. Prawidłowy format: aa.aaa',

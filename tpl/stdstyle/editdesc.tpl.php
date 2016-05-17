@@ -65,6 +65,7 @@
     <div>
         <p class="content-title-noshade-size1">{{full_description}}:{desc_err}</p>
     </div>
+    <div class="buffer"></div>
     <p id="scriptwarning" class="errormsg">{{javascript_edit_info}}</p>
     <p><textarea id="desc" name="desc" class="descMCE" cols="80" rows="15">{desc}</textarea></p>
     <div class="buffer"></div>

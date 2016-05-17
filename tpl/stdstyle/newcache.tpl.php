@@ -673,7 +673,7 @@
         </tr>
         <tr><td colspan="2"><div class="notice" style="width:500px;height:44px;">{{other_languages_desc}}</div></td></tr>
         <tr>
-            <td><p class="content-title-noshade">{{short_desc_label}}:</p></td>
+            <td><p class="content-title-noshade">{{short_description}}:</p></td>
             <td><input type="text" name="short_desc" maxlength="120" value="{short_desc}" class="input400"/></td>
         </tr>
         <tr>
@@ -685,7 +685,6 @@
             <td colspan="2">
                 <br />
                 <p class="content-title-noshade">{{full_description}}:</p>
-                <br/>
                 {desc_message}
             </td>
         </tr>

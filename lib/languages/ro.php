@@ -331,7 +331,6 @@ $translations = array(
     'descriptions' => 'Descriere',
     'language' => 'Limbă',
     'other_languages_desc' => 'Poţi adăuga descrieri în alte limbi mai târziu (după ce geocutia a fost înregistrată).',
-    'short_desc_label' => 'Rezumat (max. 120 caractere)',
     'error_new_cache' => 'Există cel puţin o eroare. Verifică şi corectează câmpurile scoase în evidenţă.',
     'time_incorrect' => 'Oră greşită',
     'distance_incorrect' => 'Distanţă greşită. Formatul corect este: aa.aaa',

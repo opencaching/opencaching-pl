@@ -330,7 +330,6 @@ $translations = array(
     'descriptions' => 'Beschrijving',
     'language' => 'Taal',
     'other_languages_desc' => 'Beschrijvingen in andere talen kunnen na aanmelden van de cache toegevoegd worden.',
-    'short_desc_label' => 'Korte omschrijving',
     'error_new_cache' => 'Een of meer velden fout of niet ingevuld. Corrigeer de aangegeven velden!',
     'time_incorrect' => 'Incorrecte tijd',
     'distance_incorrect' => 'Incorrecte afstand. Invoer formaat: aa.aaa',
