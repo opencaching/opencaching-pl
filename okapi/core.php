@@ -167,8 +167,8 @@ class OkapiExceptionHandler
                         # Assume this is the first email.
                         $last_email = 0;
                     }
-                    if (time() - $last_email < 3600) {
-                        # Send no more than one mail per hour.
+                    if (time() - $last_email < 60) {
+                        # Send no more than one per minute.
                         return;
                     }
                     @touch($lock_file);
@@ -176,7 +176,7 @@ class OkapiExceptionHandler
                     $admin_email = implode(", ", get_admin_emails());
                     $sender_email = class_exists("okapi\\Settings") ? Settings::get('FROM_FIELD') : 'root@localhost';
                     $subject = "Fatal error mode: ".$subject;
-                    $message = "Fatal error mode: OKAPI will send at most ONE message per hour.\n\n".$message;
+                    $message = "Fatal error mode: OKAPI will send at most ONE message per minute.\n\n".$message;
                     $headers = (
                         "Content-Type: text/plain; charset=utf-8\n".
                         "From: OKAPI <$sender_email>\n".
@@ -1003,8 +1003,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1306;
-    public static $git_revision = '6ccee1d5f834dc276872ce3c05ced4863a1be709';
+    public static $version_number = 1307;
+    public static $git_revision = '0c31a29d20b65b01b08e29ce1d9bd679e2c2e500';
 
     private static $okapi_vars = null;
 
