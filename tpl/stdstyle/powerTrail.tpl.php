@@ -1412,6 +1412,7 @@ $( document ).ready(function() {
                         <div class="displayOptionsClass" id="displayOptionsButton">
                             {{pt175}}: {displayedPowerTrailsCount}
                             <a href="javascript:void(0)" style="float: right;" onclick="showDisplayOptions()" class="editPtDataButton">{{pt163}}</a>
+                            <a class="editPtDataButton" style="float: right;" href="{historicLimitHref}">{switchMiniPT}</a>
                         </div>
                         <div id="displayOptions" class="displayOptionsClass" style="display: none">
                             <form id="dOptionForm" name="dOptionForm" action="powerTrail.php" method="get">
@@ -1429,11 +1430,11 @@ $( document ).ready(function() {
                                         <td>{{pt178}}:</td>
                                         <td>{sortDirSelector}</td>
                                     </tr>
-                                    <tr>
+                                    <tr style="{statsOptionsDisplay}">
                                         <td>{{pt242}}:</td>
                                         <td>{myPowerTrailsBool}</td>
                                     </tr>
-                                    <tr>
+                                    <tr style="{statsOptionsDisplay}">
                                         <td></td>
                                         <td>{gainedPowerTrailsBool}</td>
                                     </tr>
@@ -1453,7 +1454,6 @@ $( document ).ready(function() {
                     <th class="ptTd">{{pt057}}</th>
                 </tr>
                 {PowerTrails}
-                <tr><td colspan="6" align="right"><a class="editPtDataButton" href="{historicLimitHref}">{switchMiniPT}</a></td></tr>
             </table>
         </div>
 
