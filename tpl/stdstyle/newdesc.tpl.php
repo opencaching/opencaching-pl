@@ -88,7 +88,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <textarea name="hints" class="hint mceNoEditor">{hints}</textarea>
+                <textarea name="hints" class="hint mceNoEditor" cols="80" rows="3">{hints}</textarea>
             </td>
         </tr>
         <tr><td class="spacer" colspan="2"></td></tr>

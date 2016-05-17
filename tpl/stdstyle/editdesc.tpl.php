@@ -73,7 +73,7 @@
     <div class="buffer"></div>
     <div><p class="content-title-noshade-size1">{{hint_info}}:</p></div>
     <div class="buffer"></div>
-    <div><textarea name="hints" class="mceNoEditor" cols="80" rows="15">{hints}</textarea></div>
+    <div><textarea name="hints" class="hint mceNoEditor" cols="80" rows="3">{hints}</textarea></div>
     <div class="notice">{{hint_long_text}}</div>
     <div class="notice">{{hint_instructions}}</div>
     <div class="buffer"></div>

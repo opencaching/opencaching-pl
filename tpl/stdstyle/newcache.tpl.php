@@ -715,7 +715,7 @@
         <tr>
             <td colspan="2">
                 <textarea style="display: none" name="hintaa" id="hintaa"></textarea>
-                <textarea name="hints" id="hints" style="width: 500px; height: 80px;" >{hints}</textarea>
+                <textarea name="hints" class="hint" id="hints" cols="80" rows="3">{hints}</textarea>
             </td>
         </tr>
         <tr>
