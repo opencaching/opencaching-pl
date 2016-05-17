@@ -33,7 +33,7 @@
 
 
 
-<form action="newdesc.php" method="post" enctype="application/x-www-form-urlencoded" name="newdescform" dir="ltr">
+<form action="newdesc.php" method="post" enctype="application/x-www-form-urlencoded" name="newdesc_form" dir="ltr">
     <input type="hidden" name="cacheid" value="{cacheid}"/>
     <input type="hidden" name="show_all_langs" value="{show_all_langs}"/>
     <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="" align="middle" />&nbsp;{{make_new_description}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></div>
