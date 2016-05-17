@@ -45,7 +45,7 @@ class EmailFormatter {
         $header->setVariable("oc_logo", OcConfig::getHeaderLogo());
         $header->setVariable("sitename", OcConfig::getSiteName());
         $header->setVariable("short_sitename", OcConfig::getShortSiteName());
-        $header->setVariable("welcome", tr("welcome"));
+        $header->setVariable("mail_header_hi", tr("mail_header_hi"));
         $header->setVariable("user", $username);
 
         $this->emailContent = $header->getEmailContent() . $this->emailContent . $footer->getEmailContent();
