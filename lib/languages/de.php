@@ -169,6 +169,7 @@ $translations = array(
     'new_desc' => 'Beschreibung hinzufügen',
     'edit_desc' => 'Beschreibung ändern',
     'remove_desc' => 'Beschreibung entfernen',
+    'remove_description' => 'Remove description from:',
     'search_loc' => 'Suche nach Ort',
     'search_results' => 'Suchergebnisse',
     'show_log' => 'Logschauen',

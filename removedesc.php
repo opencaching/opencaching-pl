@@ -62,7 +62,9 @@ if ($error == false) {
 
                         tpl_set_var('desclang_name', db_LanguageFromShort($desclang));
                         tpl_set_var('cachename', htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8'));
+                        tpl_set_var('cacheid', htmlspecialchars($cache_id, ENT_COMPAT, 'UTF-8'));
                         tpl_set_var('cacheid_urlencode', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'));
+                        tpl_set_var('desclang', htmlspecialchars($desclang, ENT_COMPAT, 'UTF-8'));
                         tpl_set_var('desclang_urlencode', htmlspecialchars(urlencode($desclang), ENT_COMPAT, 'UTF-8'));
                     }
                 } else {
