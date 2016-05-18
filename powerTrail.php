@@ -32,7 +32,8 @@ $firePtMenu = true;
 //Preprocessing
 if ($error == false) {
     if (isset($_REQUEST['sortBy']) || isset($_REQUEST['filter']) || isset($_REQUEST['sortDir'])
-    || isset($_REQUEST['myPowerTrailsBool']) || isset($_REQUEST['gainedPowerTrailsBool'])) {
+    || isset($_REQUEST['myPowerTrailsBool']) || isset($_REQUEST['gainedPowerTrailsBool']) ||
+    isset($_REQUEST['miniPowerTrailsBool'])) {
         saveCookie($cookie);
     } else {
         if ($cookie->is_set("ptSrBy"))
@@ -55,6 +56,10 @@ if ($error == false) {
             $_REQUEST['gainedPowerTrailsBool'] = $cookie->get("ptGaBool");
         else
             $_REQUEST['gainedPowerTrailsBool'] = 'off';
+        if ($cookie->is_set("ptMiniBool"))
+            $_REQUEST['miniPowerTrailsBool'] = $cookie->get("ptMiniBool");
+        else
+            $_REQUEST['miniPowerTrailsBool'] = 'on';
     }
 
     $tplname = 'powerTrail';
@@ -76,15 +81,6 @@ if ($error == false) {
         tpl_set_var('displayAddCommentSection', 'block');
     else
         tpl_set_var('displayAddCommentSection', 'none');
-    if (isset($_REQUEST['historicLimit']) && $_REQUEST['historicLimit'] == 1) {
-        tpl_set_var('historicLimitHref', 'powerTrail.php');
-        tpl_set_var('switchMiniPT', tr('pt233'));
-        tpl_set_var('historicLimit', 1);
-    } else {
-        tpl_set_var('historicLimitHref', 'powerTrail.php?historicLimit=1');
-        tpl_set_var('switchMiniPT', tr('pt232'));
-        tpl_set_var('historicLimit', 0);
-    }
     tpl_set_var('nocachess', 'none');
     tpl_set_var('displayCreateNewPowerTrailForm', 'none');
     tpl_set_var('displayUserCaches', 'none');
@@ -147,6 +143,7 @@ if ($error == false) {
             tpl_set_var('sortDirSelector', getSortDirSelector($_REQUEST['sortDir']));
             tpl_set_var('myPowerTrailsBool', generateCheckbox('myPowerTrailsBool',$_REQUEST['myPowerTrailsBool'],'pt243'));
             tpl_set_var('gainedPowerTrailsBool', generateCheckbox('gainedPowerTrailsBool',$_REQUEST['gainedPowerTrailsBool'],'pt244'));
+            tpl_set_var('miniPowerTrailsBool', generateCheckbox('miniPowerTrailsBool',$_REQUEST['miniPowerTrailsBool'],'pt233'));
             tpl_set_var('displayedPowerTrailsCount', $pt->getDisplayedPowerTrailsCount());
             tpl_set_var('mapCenterLat', $main_page_map_center_lat);
             tpl_set_var('mapCenterLon', $main_page_map_center_lon);
@@ -592,6 +589,7 @@ function saveCookie($cookie)
     $cookie->set("ptSrDr", $_REQUEST['sortDir']);
     $cookie->set("ptGaBool", $_REQUEST['gainedPowerTrailsBool']);
     $cookie->set("ptMyBool", $_REQUEST['myPowerTrailsBool']);
+    $cookie->set("ptMiniBool", $_REQUEST['miniPowerTrailsBool']);
 }
 
 ?>
