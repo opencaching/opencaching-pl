@@ -974,7 +974,9 @@ if ($error == false) {
                     );
                 } else {
                     $database->paramQuery(
-                            'INSERT INTO `queries` (`user_id`, `last_queried`, `uuid`, `options`) VALUES ( 0, NOW(), UUID(), :options)', array('options' => array('value' => $options_text, 'data_type' => 'large'))
+                            'INSERT INTO `queries` (`user_id`, `name`, `last_queried`, `uuid`, `options`)
+                            VALUES ( 0, "", NOW(), UUID(), :options)',
+                            array('options' => array('value' => $options_text, 'data_type' => 'large'))
                     );
                     $queryid = $database->lastInsertId();
                 }

@@ -392,8 +392,8 @@ use Utils\Database\XDb;
                 else
                 {
                     XDb::xSql(
-                        'INSERT INTO `queries` (`user_id`, `options`, `uuid`, `last_queried`)
-                        VALUES (0, ?, UUID(), NOW())',
+                        'INSERT INTO `queries` (`user_id`, `name`, `options`, `uuid`, `last_queried`)
+                        VALUES (0, "", ?, UUID(), NOW())',
                         serialize($options));
 
                     $options['queryid'] = XDb::xLastInsertId();
