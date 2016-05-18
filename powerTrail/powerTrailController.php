@@ -127,10 +127,10 @@ class powerTrailController {
         } else {
             $sortOder = 'DESC';
         }
-        if(isset($_REQUEST['miniPowerTrailsBool'])) {
-            $cacheCountLimit = powerTrailBase::minimumCacheCount();
-        } else {
+        if(isset($_REQUEST['historicLimit']) && $_REQUEST['historicLimit']==1) {
             $cacheCountLimit = powerTrailBase::historicMinimumCacheCount();
+        } else {
+            $cacheCountLimit = powerTrailBase::minimumCacheCount();
         }
         $userid = $this->user['userid'];
         if(isset($_REQUEST['myPowerTrailsBool']) && isset($userid)) {
