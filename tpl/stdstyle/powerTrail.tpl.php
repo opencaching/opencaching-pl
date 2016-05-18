@@ -1412,11 +1412,9 @@ $( document ).ready(function() {
                         <div class="displayOptionsClass" id="displayOptionsButton">
                             {{pt175}}: {displayedPowerTrailsCount}
                             <a href="javascript:void(0)" style="float: right;" onclick="showDisplayOptions()" class="editPtDataButton">{{pt163}}</a>
-                            <a class="editPtDataButton" style="float: right;" href="{historicLimitHref}">{switchMiniPT}</a>
                         </div>
                         <div id="displayOptions" class="displayOptionsClass" style="display: none">
                             <form id="dOptionForm" name="dOptionForm" action="powerTrail.php" method="get">
-                                <input type="hidden" id="historicLimit" name="historicLimit" value="{historicLimit}"/>
                                 <table>
                                     <tr>
                                         <td>{{pt166}}</td>
@@ -1437,6 +1435,10 @@ $( document ).ready(function() {
                                     <tr style="{statsOptionsDisplay}">
                                         <td></td>
                                         <td>{gainedPowerTrailsBool}</td>
+                                    </tr>
+                                    <tr style="{statsOptionsDisplay}">
+                                        <td></td>
+                                        <td>{miniPowerTrailsBool}</td>
                                     </tr>
                                 </table>
                                 <a href="javascript:void(0)" id="confirmDisplayOptionsButton" onclick="document.dOptionForm.submit();" class="editPtDataButton">{{pt164}}</a>
