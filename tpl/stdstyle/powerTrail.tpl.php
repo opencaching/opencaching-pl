@@ -1428,18 +1428,19 @@ $( document ).ready(function() {
                                         <td>{{pt178}}:</td>
                                         <td>{sortDirSelector}</td>
                                     </tr>
-                                    <tr style="{statsOptionsDisplay}">
+                                    <tr>
                                         <td>{{pt242}}:</td>
+                                        <td>{miniPowerTrailsBool}</td>
+                                    </tr>
+                                    <tr style="{statsOptionsDisplay}">
+                                        <td></td>
                                         <td>{myPowerTrailsBool}</td>
                                     </tr>
                                     <tr style="{statsOptionsDisplay}">
                                         <td></td>
                                         <td>{gainedPowerTrailsBool}</td>
                                     </tr>
-                                    <tr style="{statsOptionsDisplay}">
-                                        <td></td>
-                                        <td>{miniPowerTrailsBool}</td>
-                                    </tr>
+
                                 </table>
                                 <a href="javascript:void(0)" id="confirmDisplayOptionsButton" onclick="document.dOptionForm.submit();" class="editPtDataButton">{{pt164}}</a>
                                 <a href="javascript:void(0)" id="displayOptionsButton" onclick="showDisplayOptions()" class="editPtDataButton">{{pt031}}</a>

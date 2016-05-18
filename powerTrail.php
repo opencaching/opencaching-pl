@@ -59,7 +59,7 @@ if ($error == false) {
         if ($cookie->is_set("ptMiniBool"))
             $_REQUEST['miniPowerTrailsBool'] = $cookie->get("ptMiniBool");
         else
-            $_REQUEST['miniPowerTrailsBool'] = 'on';
+            $_REQUEST['miniPowerTrailsBool'] = 'off';
     }
 
     $tplname = 'powerTrail';
