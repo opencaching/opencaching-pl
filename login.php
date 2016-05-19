@@ -93,7 +93,6 @@ if ($error == false) {
                 $usr = false;
             } else {
                 //login ok
-                session_start();
                 $_SESSION['print_list'] = array();
                 $usr['userid'] = $retval;
                 $usr['username'] = auth_UsernameFromID($usr['userid']);
