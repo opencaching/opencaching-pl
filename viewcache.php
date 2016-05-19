@@ -1001,7 +1001,9 @@ if ($error == false) {
         tpl_set_var('owner_name', htmlspecialchars($geocache->getOwner()->getUserName(), ENT_COMPAT, 'UTF-8'));
         tpl_set_var('userid_urlencode', htmlspecialchars(urlencode($geocache->getOwner()->getUserId()), ENT_COMPAT, 'UTF-8'));
 
-        if ($geocache->getFounder() == null || $geocache->getFounder() == $geocache->getOwner()->getUserId()) {
+        if ($geocache->getFounder() == null ||
+            $geocache->getFounder()->getUserId() == $geocache->getOwner()->getUserId()) {
+
             tpl_set_var('creator_name_start', '<!--');
             tpl_set_var('creator_name_end', '-->');
         } else {
