@@ -290,11 +290,12 @@ $BlogSwitchOn = true;
 
 // enable detailed cache access logging
 //$enable_cache_access_logs = true;
-// OC specific email addresses for international use.
-$mail_cog = 'cog@opencaching.pl';
-$mail_rt = 'rt@opencaching.pl';
-$mail_rr = 'rr@opencaching.pl';
-$mail_oc = 'ocpl@opencaching.pl';
+
+// OC specific email addresses for international use - here version for OC.PL.
+$mail_cog = 'cog@opencaching.pl';   // OCPL: reviewers and regional service for cachers
+$mail_rt = 'rt@opencaching.pl';     // OCPL: technical contact
+$mail_rr = 'rr@opencaching.pl';     // OCPL: unused; former RR - to remove
+$mail_oc = 'ocpl@opencaching.pl';   // OCPL: general contact
 
 
 //Short sitename for international use.
@@ -497,7 +498,7 @@ $disable_google_translation = false;
  * Cache page mini map
  * ************************************************************************ */
 
-/* Cache page small map, fixed, clickable to open minimap.                  */ 
+/* Cache page small map, fixed, clickable to open minimap.                  */
 // available options are roadmap, terrain, map, satellite, hybrid
 $config['maps']['cache_page_map']['layer'] = 'terrain';
 $config['maps']['cache_page_map']['zoom'] = 8;
@@ -510,9 +511,9 @@ $config['maps']['cache_mini_map']['width'] = '480';
 $config['maps']['cache_mini_map']['height'] = '385';
 
 /* ************************************************************************
- * External maps on which to view a cache 
- * 
- * The following parameters are available for replacement using 
+ * External maps on which to view a cache
+ *
+ * The following parameters are available for replacement using
  * printf style syntax, in this order
  *    1          2         3            4           5         6
  * latitude, longitude, cache_id, cache_code, cache_name, link_text
@@ -537,5 +538,5 @@ $config['maps']['external']['UMP'] = 1;
 $config['maps']['external']['Google Maps'] = 1;
 $config['maps']['external']['Szukacz'] = 1;
 $config['maps']['external']['Flopp\'s Map'] = 0;
- 
+
 ?>

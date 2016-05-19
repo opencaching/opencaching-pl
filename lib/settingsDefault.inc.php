@@ -7,6 +7,14 @@
 
 require_once __dir__ . '/cache.php';
 
+// OC specific email addresses for international use
+// override in settings.inc.php to values you want to locally use
+
+$mail_cog = 'cog@localhost';    // OCPL COG = reviewers and regional service for cachers
+$mail_rt = 'root@localhost';    // OCPL technical contact
+$mail_rr = 'rr@localhost';      // unused; former OCPL RR - to remove
+$mail_oc = 'ocpl@localhost';    // OCPL general contact
+
 $config = array(
     /**
      *Add button to a shop. Set true otherwise false
@@ -124,7 +132,7 @@ $config = array(
  * Cache page mini map
  * ************************************************************************ */
 
-/* Cache page small map, fixed, clickable to open minimap.                  */ 
+/* Cache page small map, fixed, clickable to open minimap.                  */
 // available options are roadmap, terrain, map, satellite, hybrid
 $config['maps']['cache_page_map']['layer'] = 'terrain';
 $config['maps']['cache_page_map']['zoom'] = 8;
@@ -137,9 +145,9 @@ $config['maps']['cache_mini_map']['width'] = '480';
 $config['maps']['cache_mini_map']['height'] = '385';
 
 /* ************************************************************************
- * External maps on which to view a cache 
- * 
- * The following parameters are available for replacement using 
+ * External maps on which to view a cache
+ *
+ * The following parameters are available for replacement using
  * printf style syntax, in this order
  *    1          2         3            4           5         6
  * latitude, longitude, cache_id, cache_code, cache_name, link_text
@@ -172,10 +180,10 @@ $config['maps']['external']['Flopp\'s Map_URL'] = '<a target="_blank" href="http
  /* ***********************
   * Search box on top page
   * ***********************/
- 
+
 $config['quick_search']['byowner'] = false;
 $config['quick_search']['byfinder'] = false;
-$config['quick_search']['byuser'] = true; 
+$config['quick_search']['byuser'] = true;
 
   /** Limit for uplading pictures per node. */
 
