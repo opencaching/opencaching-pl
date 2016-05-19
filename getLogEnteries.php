@@ -29,7 +29,7 @@ if(isset($_REQUEST['limit']) && $_REQUEST['limit'] != ''){
 }
 
 
-
+global $hide_coords;
 if ($usr == false && $hide_coords) {
     $disable_spoiler_view = true; //hide any kind of spoiler if usr not logged in
 } else {
