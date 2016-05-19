@@ -144,9 +144,9 @@ if ($sNameOfStat == "MaintenanceOfCaches") {
             . $sDateCondition .
             "GROUP BY u.user_id
         ORDER BY count DESC, u.username ASC";
-}
 
-if ($sNameOfStat == "NumberOfFinds") {
+}else if ($sNameOfStat == "NumberOfFinds") {
+
     if ($sDateCondition != "")
         $sDateCondition = " WHERE " . $sDateCondition;
 
@@ -163,6 +163,9 @@ if ($sNameOfStat == "NumberOfFinds") {
     ORDER BY c DESC
     ) AS f
     JOIN user u ON f.user_id = u.user_id";
+} else {
+    //strange $sNameOfStat
+    exit;
 }
 
 $s = $dbc->multiVariableQuery($query);
@@ -248,6 +251,4 @@ echo "document.FilterDate.DateTo.value = '" . $sData_do . "';";
 echo "</script>";
 
 unset($dbc);
-?>
-
 
