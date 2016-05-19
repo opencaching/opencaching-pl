@@ -28,13 +28,13 @@ function setDBFilter($userid, $filter)
 {
     $q="REPLACE INTO map_settings_v2
         SET
-        user_id = ?, unknown = ?, traditional = ?,
-        multicache = ?, virtual = ?, webcam = ?,
-        event = ?, quiz = ?, mobile = ?, math = ?,
-        drivein = ?, ignored = ?, own = ?,
-        found = ?, notyetfound = ?, geokret = ?,
-        showsign = ?, active = ?, notactive = ?,
-        maptype = ?, cachelimit = ?, cachesort = ?";
+        `user_id` = ?, `unknown` = ?, `traditional` = ?,
+        `multicache` = ?, `virtual` = ?, `webcam` = ?,
+        `event` = ?, `quiz` = ?, `mobile` = ?, `math` = ?,
+        `drivein` = ?, `ignored` = ?, `own` = ?,
+        `found` = ?, `notyetfound` = ?, `geokret` = ?,
+        `showsign` = ?, `active` = ?, `notactive` = ?,
+        `maptype` = ?, `cachelimit` = ?, `cachesort` = ?";
 
     XDb::xSql(
         $q, $userid,$filter[0],$filter[1],$filter[2],
