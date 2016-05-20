@@ -108,7 +108,10 @@ if ($error == false) {
                         'INSERT INTO CACHE_ACCESS_LOGS
                             (event_date, cache_id, user_id, source, event, ip_addr, user_agent, forwarded_for)
                          VALUES
-                            (NOW(), :1, :2, \'B\', \'view_logs\', :3, :4, :5)', $cache_id, $user_id, $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT'], $_SERVER['HTTP_X_FORWARDED_FOR']
+                            (NOW(), :1, :2, \'B\', \'view_logs\', :3, :4, :5)',
+                        $cache_id, $user_id, $_SERVER['REMOTE_ADDR'],
+                        $_SERVER['HTTP_USER_AGENT'],
+                        ( isset($_SERVER['HTTP_X_FORWARDED_FOR'])?$_SERVER['HTTP_X_FORWARDED_FOR']:'' )
                 );
                 $access_log[$cache_id] = true;
                 $_SESSION['CACHE_ACCESS_LOG_VL_' . $user_id] = $access_log;

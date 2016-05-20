@@ -66,6 +66,7 @@ $tplname = 'garmin';
 require_once('./lib/common.inc.php');
 require($stylepath . '/garmin.inc.php');
 
+global $hide_coords;
 if ($usr == false && $hide_coords) {
     tpl_errorMsg($tplname, tr('login_message_09'));
     exit;

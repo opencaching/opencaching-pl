@@ -23,6 +23,7 @@ if ($error == false) {
         $cache_id = $_REQUEST['cacheid'];
     }
 
+    global $hide_coords;
     if ($usr == false && $hide_coords) {
         $disable_spoiler_view = true; //hide any kind of spoiler if usr not logged in
     } else {

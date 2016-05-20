@@ -105,6 +105,7 @@
     </div>
     <div class="content2-container-2col-right" id="viewcache-maptypes">
         <?php
+        global $hide_coords;
         if ($usr == false && $hide_coords) {
             ?>
             {map_msg}
@@ -143,22 +144,23 @@
                             $config['maps']['cache_mini_map']['height'],
                             tr('map')
                         );
-                    ?>     
+                    ?>
                 </div>
             </div>
             <?php
         }
+        global $hide_coords;
         if ($usr == false && $hide_coords) {
             echo "";
         } else {
             echo "<b>{{available_maps}}:</b>&nbsp;\n";
-            
+
             foreach($config['maps']['external'] as $key => $value){
                 if ( $value == 1 ) {
                     printf($config['maps']['external'][$key.'_URL'],tpl_get_var('latitude'),tpl_get_var('longitude'),tpl_get_var('cacheid'),tpl_get_var('oc_waypoint'),urlencode($vars['cachename']),$key);
                     echo "&nbsp;\n";
-                }    
-            } 
+                }
+            }
         }
         ?>
     </div>
@@ -496,6 +498,7 @@
             </span>
         </div><hr style="color: blue;"/>
         <?php
+        global $hide_coords;
         if ($usr == false && $hide_coords) { // hide downloading gpx etc if user is not logged
             echo "";
         } else {
