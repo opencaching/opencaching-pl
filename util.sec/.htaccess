@@ -1,8 +1,13 @@
 Allow From 127.0.0.1
-Allow From 86.111.244.117
-Allow From 86.111.244.119
-Allow From 158.75.199.253
+
+#opencaching.pl
+Allow From 46.248.162.18
+Allow From 46.248.162.33
+
+#opencaching.ro
 Allow From 89.33.126.190
+
+#opencaching.nl
 Allow From 46.4.66.184
 
 # Bogus z Polska
