@@ -60,19 +60,11 @@ foreach ($logEneries as $record) {
             if ($record['type'] == 5 || $record['type'] == 10 || $record['type'] == 11) {
                 // hide if user is not logged in
                 if (!isset($usr)) {
-                    if ($show_one_log != '') {
-                        exit;
-                    } else {
-                        continue;
-                    }
+                    continue;
                 }
                 // hide if user is neither a geocache owner nor log author
                 if ($owner_id != $usr['userid'] && $record['userid'] != $usr['userid']) {
-                    if ($show_one_log != '') {
-                        exit;
-                    } else {
-                        continue;
-                    }
+                    continue;
                 }
             }
 
