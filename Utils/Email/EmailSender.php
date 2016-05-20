@@ -9,6 +9,7 @@
 
 namespace Utils\Email;
 
+use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\User\User;
@@ -150,5 +151,42 @@ class EmailSender
         $email->setSubject(tr('removed_log_title'));
         $email->setBody($formattedMessage->getEmailContent(), true);
         $email->send();
+    }
+
+    public static function sendNotifyOfOcTeamCommentToCache($emailTemplateFile, GeoCache $cache, $adminId, $adminName,
+        $message) {
+
+        $formattedMessage = new EmailFormatter($emailTemplateFile);
+        $formattedMessage->setVariable("ocTeamComment_01", tr("ocTeamComment_01"));
+        $formattedMessage->setVariable("ocTeamComment_02", tr("ocTeamComment_02"));
+        $formattedMessage->setVariable("ocTeamComment_03", tr("ocTeamComment_03"));
+        $formattedMessage->setVariable("ocTeamComment_04", tr("ocTeamComment_04"));
+        $formattedMessage->setVariable("ocTeamComment_05", tr("ocTeamComment_05"));
+        $formattedMessage->setVariable("waypointId", $cache->getWaypointId());
+        $formattedMessage->setVariable("cachename", $cache->getCacheName());
+        $formattedMessage->setVariable("octeam_comment", $message);
+        $formattedMessage->setVariable("adminName", $adminName);
+        $formattedMessage->setVariable("adminId", $adminId);
+        $formattedMessage->setVariable("server", OcConfig::getAbsolute_server_URI());
+
+        $formattedMessage->addFooterAndHeader($cache->getOwner()->getUserName(), false);
+
+        $email = new Email();
+        $email->addToAddr($cache->getOwner()->getEmail());
+        $email->setReplyToAddr(OcConfig::getCogEmailAddress());
+        $email->setFromAddr(OcConfig::getCogEmailAddress());
+        $email->setSubject(tr('octeam_comment_subject'));
+        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->send();
+
+        //Send copy to COG
+        $emailCOG = new Email();
+        $emailCOG->addToAddr(OcConfig::getCogEmailAddress());
+        $emailCOG->setReplyToAddr(OcConfig::getCogEmailAddress());
+        $emailCOG->setFromAddr(OcConfig::getCogEmailAddress());
+        $emailCOG->setSubject(tr('octeam_comment_subject_copy').' '.$adminName);
+        $emailCOG->setBody($formattedMessage->getEmailContent(), true);
+        $emailCOG->send();
+
     }
 }

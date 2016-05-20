@@ -10,6 +10,8 @@
 
 namespace Utils\Email;
 
+use lib\Objects\OcConfig\OcConfig;
+
 class Email
 {
     private $toAddr = array();
@@ -17,6 +19,7 @@ class Email
     private $bccAddr = array();
 
     private $fromAddr;
+    private $senderName;
     private $replyToAddr;
 
     private $xMailer;
@@ -37,6 +40,8 @@ class Email
         $this->subjectPrefix = '';
         $this->body_header = '';
         $this->body_footer = '';
+
+        $this->senderName = OcConfig::getSiteName();
     }
 
     /**
@@ -48,13 +53,11 @@ class Email
         if(! $this->isEmailValid() ){
             return false;
         }
-
         // Each line of message should be separated with a CRLF (\r\n).
         // Lines should not be larger than 70 characters.
         //TODO:...
         //wordwrap($message, 70, "\r\n");
-
-        $headers[] = 'From: '. $this->fromAddr;
+        $headers[] = 'From: '. $this->senderName .' <'.$this->fromAddr.'>';
         $headers[] = 'Reply-To: '. $this->replyToAddr;
         $headers[] = 'X-Mailer: PHP/' . $this->xMailer;
 
@@ -197,5 +200,15 @@ class Email
         $string = '<pre>'.nl2br($string).'</pre>';
 
         return $string;
+    }
+
+    public function getSenderName()
+    {
+        return $this->senderName;
+    }
+
+    public function setSenderName($senderName)
+    {
+        $this->senderName = $senderName;
     }
 }

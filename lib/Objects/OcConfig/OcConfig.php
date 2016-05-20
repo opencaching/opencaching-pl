@@ -48,6 +48,7 @@ final class OcConfig
     private $shortSiteName;
     private $needFindLimit;
     private $needAproveLimit;
+    private $cogEmailAddress;
 
     // db config
     private $dbUser;
@@ -85,6 +86,7 @@ final class OcConfig
         $this->absolute_server_URI = $absolute_server_URI;
         $this->octeamEmailsSignature = $octeamEmailsSignature;
         $this->octeamEmailAddress = $octeam_email;
+        $this->cogEmailAddress = $mail_cog;
         $this->siteName = $site_name;
         $this->dynamicFilesPath = $dynbasepath;
         $this->powerTrailModuleSwitchOn = $powerTrailModuleSwitchOn;
@@ -300,5 +302,10 @@ final class OcConfig
     public static function getNeedAproveLimit()
     {
         return self::instance()->needAproveLimit;
+    }
+
+    public static function getCogEmailAddress()
+    {
+        return self::instance()->cogEmailAddress;
     }
 }
