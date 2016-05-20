@@ -36,7 +36,8 @@ if ((abs($lon_from - $lon_to) > 2) || (abs($lat_from - $lat_to) > 2)) {
 
 $rs = XDb::xSql(
     "SELECT `caches`.`cache_id` `cacheid`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`,
-            `caches`.`type` `type`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`,
+            `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`date_hidden` `date_hidden`,
+            `caches`.`name` `name`,
             `cache_type`.`pl` `typedesc`, `cache_size`.`pl` `sizedesc`, `caches`.`terrain` `terrain`,
             `caches`.`difficulty` `difficulty`, `user`.`username` `username`
     FROM `caches`, `cache_type`, `cache_size`, `user`
