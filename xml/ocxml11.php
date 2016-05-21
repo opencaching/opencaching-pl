@@ -270,7 +270,7 @@ exit;
 
 function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $ziptype)
 {
-    global $zip_basedir, $zip_wwwdir, $sDateformat, $sDateshort, $t1, $t2, $safemode_zip, $safemode_zip, $sCharset, $bAttrlist, $absolute_server_URI;
+    global $zip_basedir, $zip_wwwdir, $sDateformat, $sDateshort, $t1, $t2, $t3, $safemode_zip, $safemode_zip, $sCharset, $bAttrlist, $absolute_server_URI;
     // alle records aus tmpxml_* übertragen
 
     if (!mb_ereg_match('^[0-9]{1,11}', $sessionid))
