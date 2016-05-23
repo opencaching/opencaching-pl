@@ -38,7 +38,7 @@ class EmailFormatter {
         if($automatically) {
             $footer->setVariable("mail_auto_generated", tr("mail_auto_generated"));
         } else {
-            $footer->setVariable("mail_auto_generated", "");
+            $footer->setVariable("mail_auto_generated", tr("mailto_08"));
         }
 
         $header->setVariable("server", OcConfig::getAbsolute_server_URI());

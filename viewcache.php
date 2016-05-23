@@ -5,6 +5,8 @@ use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\GeoCache\Waypoint;
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
+use Utils\Email\EmailSender;
+
 
 
 //prepare the templates and include all neccessary
@@ -1215,31 +1217,9 @@ if ($error == false) {
 
             $_SESSION['submitted'] = true;
 
-            // send notify to owner cache and copy to OC Team
-            $query1 = "SELECT `email` FROM `user` WHERE `user_id`=:1";
-            $owner_email = $dbc->multiVariableQuery($query1, $geocache->getOwner()->getUserId());
-            $sender_email = $usr['email'];
-            $email_content = file_get_contents($stylepath . '/email/octeam_comment.email');
-            $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
-            $email_content = mb_ereg_replace('{cachename}', $cache_record['name'], $email_content);
-            $email_content = mb_ereg_replace('{cacheid}', $cache_record['cache_id'], $email_content);
-            $email_content = mb_ereg_replace('{octeam_comment}', $_POST['rr_comment'], $email_content);
-            $email_content = mb_ereg_replace('{sender}', $sender_name, $email_content);
-            $email_content = mb_ereg_replace('{ocTeamComment_01}', tr('ocTeamComment_01'), $email_content);
-            $email_content = mb_ereg_replace('{ocTeamComment_02}', tr('ocTeamComment_02'), $email_content);
-            $email_content = mb_ereg_replace('{ocTeamComment_03}', tr('ocTeamComment_03'), $email_content);
-            $email_content = mb_ereg_replace('{ocTeamComment_04}', tr('ocTeamComment_04'), $email_content);
-            $email_content = mb_ereg_replace('{ocTeamComment_05}', tr('ocTeamComment_05'), $email_content);
-            $email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);
-            $email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
-            $email_headers .= "From: $site_name <" . $octeam_email . ">\r\n";
-            $email_headers .= "Reply-To: " . $octeam_email . "\r\n";
-            //send email to owner
-            $subject = tr('octeam_comment_subject');
-            mb_send_mail($owner_email['email'], $subject . ": " . $cache_record['name'], $email_content, $email_headers);
-            //send copy email to OC Team
-            $subject_copy = tr('octeam_comment_subject_copy');
-            mb_send_mail($sender_email, $subject . " " . $cache_record['name'], $subject_copy . " " . $sender_name . ":\n\n" . $email_content, $email_headers);
+
+            EmailSender::sendNotifyOfOcTeamCommentToCache(__DIR__ . '/tpl/stdstyle/email/octeam_comment.email.html',
+                $geocache, $usr['userid'], $usr['username'], $_POST['rr_comment']);
         }
 
         // remove OC Team comment
