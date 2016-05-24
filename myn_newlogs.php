@@ -149,6 +149,7 @@ if ($error == false) {
     }
     XDb::xFreeResults($rs);
 
+    $file_content = '';
     if(!empty($log_ids)){
         $rs = XDb::xSql(
                     'SELECT   cache_logs.id, cache_logs.cache_id          AS cache_id,
@@ -187,7 +188,7 @@ if ($error == false) {
                     GROUP BY cache_logs.id
                     ORDER BY cache_logs.date_created DESC');
 
-        $file_content = '';
+
         $tr_myn_click_to_view_cache = tr('myn_click_to_view_cache');
         $bgColor = '#eeeeee';
         //PowerTrail vel GeoPath variables
