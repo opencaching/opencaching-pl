@@ -1,7 +1,7 @@
 RewriteEngine on
 
-#RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-#RewriteRule ^(.*)$ http://%1/$1 [NE,R=301,L]
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [NE,R=301,L]
 
 RewriteBase /
 
