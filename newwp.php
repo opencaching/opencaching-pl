@@ -147,15 +147,18 @@ if ($error == false) {
                 // =============== openchecker =======================================================
                 // is variable $_POST['openchecker'] exist then $OpenChecker_present should be set up as 1
                 // otherwise $OpenChecker_present should be set up as 0
-                if (isset($_POST['openchecker']) && $config['module']['openchecker']['enabled']) {
-                    $OpenChecker_present = 1;
-                    tpl_set_var('openchecker_checked', 'checked=""');
+                if ($config['module']['openchecker']['enabled']) {
                     tpl_set_var('openchecker_start','');
                     tpl_set_var('openchecker_end','');
                 } else {
-                    $OpenChecker_present = 0;
                     tpl_set_var('openchecker_start','<!--');
                     tpl_set_var('openchecker_end','-->');
+                }    
+                if (isset($_POST['openchecker'])) {
+                    $OpenChecker_present = 1;
+                    tpl_set_var('openchecker_checked', 'checked=""');
+                } else {
+                    $OpenChecker_present = 0;
                 }    
                 // hides or shows openchecker checkbox depend on type of waypoint
                 if ($sel_type == 3 && $config['module']['openchecker']['enabled'])

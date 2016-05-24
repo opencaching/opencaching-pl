@@ -134,7 +134,7 @@ $config = array(
  */
 
 // *** OpenChecker ********************************************************
-$config['module']['openchecker']['enabled'] = false;
+$config['module']['openchecker']['enabled'] = true;
 // Limit number of checks
 $config['module']['openchecker']['limit'] = 10;
 // Time period for checks limit (minutes)
