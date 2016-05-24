@@ -129,6 +129,20 @@ $config = array(
 );
 
 /* ************************************************************************
+ * Modules
+ * Activate and configure modules.
+ */
+
+// *** OpenChecker ********************************************************
+$config['module']['openchecker']['enabled'] = false;
+// Limit number of checks
+$config['module']['openchecker']['limit'] = 10;
+// Time period for checks limit (minutes)
+$config['module']['openchecker']['time'] = 60;
+// Pagination - how many caches per page
+$config['module']['openchecker']['page'] = 25;
+
+/* ************************************************************************
  * Cache page mini map
  * ************************************************************************ */
 

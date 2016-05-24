@@ -1056,31 +1056,33 @@ if ($error == false) {
 
         tpl_set_var('desc_langs', $langlist);
 
-        // ===== opensprawdzacz ========================================================
-
-        $s = $dbc->multiVariableQuery(
-            "SELECT `waypoints`.`wp_id`, `opensprawdzacz`.`proby`,
-                    `opensprawdzacz`.`sukcesy`
-            FROM   `waypoints`,  `opensprawdzacz`
-            WHERE  `waypoints`.`cache_id` = :1
-                AND    `waypoints`.`type` = 3
-                AND    `waypoints`.`opensprawdzacz` = 1
-                AND    `waypoints`.`cache_id` = `opensprawdzacz`.cache_id",
-            $geocache->getCacheId()
-        );
-        if ($dbc->rowCount($s) != 0) {
-            $dane_opensprawdzacza = $dbc->dbResultFetchOneRowOnly($s);
-            tpl_set_var('proby', $dane_opensprawdzacza['proby']);
-            tpl_set_var('sukcesy', $dane_opensprawdzacza['sukcesy']);
-            tpl_set_var('opensprawdzacz', 'opensprawdzacz');
-            tpl_set_var('opensprawdzacz_end', '');
-            tpl_set_var('opensprawdzacz_start', '');
+        // ===== openchecker ========================================================
+        if ( $config['module']['openchecker']['enabled'] ) {
+            $s = $dbc->multiVariableQuery(
+                "SELECT `waypoints`.`wp_id`, `opensprawdzacz`.`proby`,
+                        `opensprawdzacz`.`sukcesy`
+                FROM   `waypoints`,  `opensprawdzacz`
+                WHERE  `waypoints`.`cache_id` = :1
+                    AND    `waypoints`.`type` = 3
+                    AND    `waypoints`.`opensprawdzacz` = 1
+                    AND    `waypoints`.`cache_id` = `opensprawdzacz`.cache_id",
+                $geocache->getCacheId()
+            );
+            if ($dbc->rowCount($s) != 0 && $config['module']['openchecker']['enabled']) {
+                $openchecker_data = $dbc->dbResultFetchOneRowOnly($s);
+                tpl_set_var('attempts_counter', $openchecker_data['proby']);
+                tpl_set_var('hits_counter', $openchecker_data['sukcesy']);
+                tpl_set_var('openchecker_end', '');
+                tpl_set_var('openchecker_start', '');
+            } else {
+                tpl_set_var('openchecker_end', '-->');
+                tpl_set_var('openchecker_start', '<!--');
+            } 
         } else {
-            tpl_set_var('opensprawdzacz', 'brak danych do opensprawdzacza');
-            tpl_set_var('opensprawdzacz_end', '-->');
-            tpl_set_var('opensprawdzacz_start', '<!--');
-        }
-        // ===== opensprawdzacz end ====================================================
+            tpl_set_var('openchecker_end', '-->');
+            tpl_set_var('openchecker_start', '<!--');
+        }        
+        // ===== openchecker end ====================================================
         // show additional waypoints
         $cache_type = $geocache->getCacheType();
         $waypoints_visible = 0;

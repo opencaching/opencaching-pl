@@ -82,23 +82,28 @@ if ($error == false) {
                 }
                 tpl_set_var('typeoptions', $types);
 
-                // ===== opensprawdzacz =====================================================
-                // hide or show opensprawdzacz section if type of waypoint is "final location"
-                if ($wp_type == 3)
-                    tpl_set_var('opensprawdzacz_display', 'block');
-                else
-                    tpl_set_var('opensprawdzacz_display', 'none');
+                // ===== openchecker =====================================================
+                // hide or show openchecker section if type of waypoint is "final location"
+                if ($wp_type == 3 && $config['module']['openchecker']['enabled']) {
+                    tpl_set_var('openchecker_display', 'block');
+                    tpl_set_var('openchecker_start','');
+                    tpl_set_var('openchecker_end','');
+                } else {
+                    tpl_set_var('openchecker_display', 'none');
+                    tpl_set_var('openchecker_start','<!--');
+                    tpl_set_var('openchecker_end','-->');
+                }    
                 // checks checkbox if in database is checked.
                 if ($wp_record['opensprawdzacz'] == 1) {
-                    tpl_set_var('opensprawdzacz_checked', 'checked=""');
+                    tpl_set_var('openchecker_checked', 'checked=""');
                 } else {
-                    tpl_set_var('opensprawdzacz_checked', '');
+                    tpl_set_var('openchecker_checked', '');
                 }
-                if (isset($_POST['oprawdzacz']))
-                    $opensprawdzacz_taknie = 1;
+                if (isset($_POST['openchecker']) && $config['module']['openchecker']['enabled'])
+                    $OpenChecker_present = 1;
                 else
-                    $opensprawdzacz_taknie = 0;
-                // ==== opensprawdzacz end ====================================================
+                    $OpenChecker_present = 0;
+                // ==== openchecker end ====================================================
 
                 if (isset($_POST['latNS'])) {
                     //get coords from post-form
@@ -217,14 +222,14 @@ if ($error == false) {
                         //save to DB
                         XDb::xSql("UPDATE `waypoints` SET `longitude`=?, `latitude`=?, `type`=?,`status`=?,
                                                     `stage`= ?,`desc`= ?, `opensprawdzacz`= ? WHERE `wp_id`= ?",
-                            $wp_lon, $wp_lat, $wp_type, $wp_status, $wp_stage, $wp_desc, $opensprawdzacz_taknie, $wp_id);
+                            $wp_lon, $wp_lat, $wp_type, $wp_status, $wp_stage, $wp_desc, $OpenChecker_present, $wp_id);
 
                         XDb::xSql("UPDATE `caches` SET  `last_modified`=NOW() WHERE `cache_id`= ? ", $cache_id);
 
-                        // ==== opensprawdzacz ===============================================
+                        // ==== openchecker ===============================================
                         // add/update active status to/in opensprawdzacz table
 
-                        if (($opensprawdzacz_taknie == 1) && ($wp_type == 3)) {
+                        if (($OpenChecker_present == 1) && ($wp_type == 3)) {
                             $proba = XDb::xSimpleQueryValue("SELECT count(*) FROM `opensprawdzacz` WHERE `cache_id` = '$cache_id'",'');
                             if ($proba == 0) {
                                 XDb::xSql("INSERT INTO `opensprawdzacz`(
@@ -236,7 +241,7 @@ if ($error == false) {
                             }
 
                         }
-                        // ==== opensprawdzacz end ===========================================
+                        // ==== openchecker end ===========================================
                         //display cache-page
                         tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));
                         exit;
