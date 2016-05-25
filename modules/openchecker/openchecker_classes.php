@@ -126,8 +126,8 @@ class OpenCheckerCore
 
         // converting from HH MM.MMM to DD.DDDDDD
 
-        $wspolN = new convertLangLat($degrees_N, $minutes_N);
-        $wspolE = new convertLangLat($degrees_E, $minutes_E);
+        $coordN = new convertLangLat($degrees_N, $minutes_N);
+        $coordE = new convertLangLat($degrees_E, $minutes_E);
 
         //setting long & lat. signs
         if ($degrees_N >= 0) {
@@ -143,7 +143,7 @@ class OpenCheckerCore
 
         // geting data from database
         $conn = XDb::instance();
-        $pyt = "SELECT `waypoints`.`wp_id`,
+        $query = "SELECT `waypoints`.`wp_id`,
         `waypoints`.`type`,
         `waypoints`.`longitude`,
         `waypoints`.`latitude`,
@@ -161,29 +161,29 @@ class OpenCheckerCore
         AND `waypoints`.`cache_id`= `caches`.`cache_id`
         ";
 
-        $data = $conn->query($pyt);
+        $data = $conn->query($query);
         $data = $data->fetch(PDO::FETCH_ASSOC);
 
         $attempts_counter = $data['proby'] + 1;
 
-        $wspolrzedneN_wzorcowe = $data['latitude'];
-        $wspolrzedneE_wzorcowe = $data['longitude'];
+        $$coordN_master = $data['latitude'];
+        $$coordE_master = $data['longitude'];
 
 
         // comparing data from post with data from database
         if (
-                (($wspolrzedneN_wzorcowe - $wspolN->CoordsDecimal) < 0.00001) &&
-                (($wspolrzedneN_wzorcowe - $wspolN->CoordsDecimal) > -0.00001) &&
-                (($wspolrzedneE_wzorcowe - $wspolE->CoordsDecimal) < 0.00001) &&
-                (($wspolrzedneE_wzorcowe - $wspolE->CoordsDecimal) > -0.00001)
+                (($$coordN_master - $coordN->CoordsDecimal) < 0.00001) &&
+                (($$coordN_master - $coordN->CoordsDecimal) > -0.00001) &&
+                (($$coordE_master - $coordE->CoordsDecimal) < 0.00001) &&
+                (($$coordE_master - $coordE->CoordsDecimal) > -0.00001)
         ) {
             //puzzle solved - result ok
-            $licznik_sukcesow = $data['sukcesy'] + 1;
+            $hits_counter = $data['sukcesy'] + 1;
 
             try {
                 $pdo = XDb::instance();
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $updateCounters = $pdo->exec("UPDATE `opensprawdzacz` SET `proby`=" . $attempts_counter . ",`sukcesy`=" . $licznik_sukcesow . "  WHERE `cache_id` = " . $cache_id);
+                $updateCounters = $pdo->exec("UPDATE `opensprawdzacz` SET `proby`=" . $attempts_counter . ",`sukcesy`=" . $hits_counter . "  WHERE `cache_id` = " . $cache_id);
             } catch (PDOException $e) {
                 echo "Error PDO Library: ($OpenCheckerSetup->scriptname) " . $e->getMessage();
                 exit;
@@ -223,7 +223,7 @@ class OpenCheckerCore
             tpl_set_var("image_yesno", '<image src="tpl/stdstyle/images/blue/openchecker_no.png" />');
             tpl_set_var("save_mod_coord", '');
         }
-        //tpl_set_var("score", $wspolrzedneN.'/'.$wspolrzedneN_wzorcowe.'<br>'.$wspolrzedneE.'/'. $wspolrzedneE_wzorcowe);
+        //tpl_set_var("score", $wspolrzedneN.'/'.$$coordN_master.'<br>'.$wspolrzedneE.'/'. $$coordE_master);
         tpl_set_var("score", '');
 
 
