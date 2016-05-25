@@ -141,6 +141,8 @@ $config['module']['openchecker']['limit'] = 10;
 $config['module']['openchecker']['time'] = 60;
 // Pagination - how many caches per page
 $config['module']['openchecker']['page'] = 25;
+// Show final waypoint description when user got correct answer?
+$config['module']['openchecker']['show_final'] = true;
 
 /* ************************************************************************
  * Cache page mini map

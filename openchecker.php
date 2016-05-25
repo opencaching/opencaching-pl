@@ -14,17 +14,17 @@
  *  1.) validation data from post (should be numeric, but this is not a must - if data is not numeric
  *      we just get result that puzzle solution is incorrect)
  *  2.) convert section 2 to OOP.
- *  3.) after succesfull check waypoint (.gpx) generate with final stage coords, downloadable for
+ *  3.) after succesfull check, provide (.gpx) download with final stage coords, downloadable for
  *      GPS devices.
  *  4.) store checks in database rather then session (logging out resets your attempts count)
  *  5.) rename database tables and fields according to https://github.com/opencaching/opencaching-pl/issues/649
- *  6.) apply cache types object
- *  7.) apply cache status properly
- *  8.) remove / rewrite LIMIT 0,1000 ?
+ *  6.) remove / rewrite LIMIT 0,1000 ?
  *  ================================================================================================
  */
 
 use Utils\Database\XDb;
+use lib\Objects\GeoCache\GeoCache;
+use lib\Objects\GeoCache\Waypoint;
 
 // variables required by opencaching.pl
 global $lang, $rootpath, $usr;
@@ -43,8 +43,8 @@ if ($error == false) {
         tpl_redirect('login.php?target=' . $target);
     } elseif ( $config['module']['openchecker']['enabled'] == false ) {
         tpl_redirect('index.php');
-    } else {    
-        
+    } else {
+
         // specify template in tpl/stdstyle/
         $tplname = 'openchecker';
 
@@ -63,7 +63,7 @@ if ($error == false) {
          */
         if (isset($_POST['degrees_N'])) {
             $OpenChecker->BruteForceCheck($OpenCheckerSetup);
-            $OpenChecker->CoordsComparing($opt);
+            $OpenChecker->CoordsComparing($OpenCheckerSetup, $opt);
         }
 
         $OpenChecker->DisplayAllOpenCheckerCaches($OpenCheckerSetup, $opt);
@@ -122,10 +122,10 @@ if ($error == false) {
                 `waypoints`.`type`,
                 `waypoints`.`opensprawdzacz`
                 FROM `waypoints`
-                WHERE `cache_id`= ? AND `type` = 3 ", $cache_id);
+                WHERE `cache_id`= ? AND `type` = " . Waypoint::TYPE_FINAL, $cache_id);
 
         $wp_record = XDb::xFetchArray($wp_rs);
-        if (($wp_record['type'] == 3) && ($wp_record['opensprawdzacz'] == 1)) {
+        if (($wp_record['type'] == Waypoint::TYPE_FINAL) && ($wp_record['opensprawdzacz'] == 1)) {
             tpl_set_var("section_openchecker_form_start", '');
             tpl_set_var("section_openchecker_form_stop", '');
             tpl_set_var("openchecker_not_enabled", '');

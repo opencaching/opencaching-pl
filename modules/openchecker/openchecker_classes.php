@@ -1,22 +1,25 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\GeoCache\GeoCache;
+use lib\Objects\GeoCache\Waypoint;
 
-class OpenCheckerSetup
+class OpenCheckerSetup {
 
 /**
  * initial setup - setting default values used in OpenChecker
  */
-{
+
+    var $scriptname;
     var $count_limit;
     var $time_limit;
     var $caches_on_page;
-    
-    function __construct()
-    {
+    var $show_wpt_desc;
+
+    function __construct() {
         $this->scriptname = 'openchecker.php';
-        include __DIR__.'/../../lib/settings.inc.php'; 
-        
+        include __DIR__.'/../../lib/settings.inc.php';
+
         // Limit number of checks
         // how many times a user can try his answer
         $this->count_limit = $config['module']['openchecker']['limit'];
@@ -24,30 +27,26 @@ class OpenCheckerSetup
         // Minimum time that must elapse before next attempt is allowed.
         $this->time_limit = $config['module']['openchecker']['time'];
         // how many caches per page (list of caches with openchecker)
-        $this->caches_on_page = $config['module']['openchecker']['page'];   
+        $this->caches_on_page = $config['module']['openchecker']['page'];
+        // Show final waypoint description when user got correct answer?
+        $this->show_wpt_desc = $config['module']['openchecker']['show_final'];
     }
-
 }
 
 // end of init OpenChecker setup.
 
-class convertLangLat
-{
+class convertLongLat {
 
     var $CoordsDecimal;
 
-    function __construct($degree, $minutes)
-    {
+    function __construct($degree, $minutes) {
         $this->CoordsDecimal = $degree + $minutes / 60;
     }
-
 }
 
-class OpenCheckerCore
-{
+class OpenCheckerCore {
 
-    public function BruteForceCheck($OpenCheckerSetup)
-    {
+    public function BruteForceCheck($OpenCheckerSetup) {
         tpl_set_var("section_3_start", '');
         tpl_set_var("section_3_stop", '');
         tpl_set_var("section_2_start", '<!--');
@@ -61,18 +60,18 @@ class OpenCheckerCore
          *  check how many times user tried to guess answer
          *   (anti brute force)
          */
+        $now = date('U');
         if (isset($_SESSION['openchecker_counter'])) {
+            // Too many attempts?
             if ($_SESSION['openchecker_counter'] >= $OpenCheckerSetup->count_limit) {
                 $last_attempt = $_SESSION['openchecker_time'];
-                $now = date('U');
                 $elapsed_time = $now - $last_attempt;
-                tpl_set_var("time_counter1", $elapsed_time);
                 if ($elapsed_time > $OpenCheckerSetup->time_limit * 60) {
+                    // time expired, reset
                     $_SESSION['openchecker_counter'] = 1;
                     $_SESSION['openchecker_time'] = $now;
                 } else {
-                    // $_SESSION['openchecker_time'] = date('U');
-                    $elapsed_time = round(60 - ($elapsed_time / 60));
+                    $elapsed_time = round($OpenCheckerSetup->time_limit - ($elapsed_time / 60));
                     tpl_set_var("elapsed_time",$elapsed_time);
                     tpl_set_var("attempts_counter", $_SESSION["openchecker_counter"]);
                     tpl_set_var("result_title", tr(openchecker_attempts_too_many));
@@ -82,31 +81,36 @@ class OpenCheckerCore
                     tpl_set_var("section_4_start", '');
                     tpl_set_var("section_4_stop", '');
                     tpl_set_var("save_mod_coord", '');
+                    tpl_set_var("waypoint_desc", '');
                     $this->Finalize();
-                    // goto Finalize;
                 }
             } else {
                 tpl_set_var("section_4_start", '<!--');
                 tpl_set_var("section_4_stop", '-->');
-                $time_counter = isset($_SESSION['openchecker_time'])?$_SESSION['openchecker_time']:0;
-                // tpl_set_var("time_counter1", $time_counter);
-                $_SESSION['openchecker_counter'] = $_SESSION['openchecker_counter'] + 1;
-                $_SESSION['openchecker_time'] = date('U');
-                $time_counter = ($_SESSION['openchecker_time'] - $time_counter);
+                $last_attempt = isset($_SESSION['openchecker_time'])?$_SESSION['openchecker_time']:0;
+                $elapsed_time = $now - $last_attempt;
+                if ($elapsed_time > $OpenCheckerSetup->time_limit * 60) {
+                    // time expired, reset count
+                    $_SESSION['openchecker_counter'] = 1;
+                    $_SESSION['openchecker_time'] = $now;
+                } else {
+                    // increment attempts, update time
+                    $_SESSION['openchecker_counter'] = $_SESSION['openchecker_counter'] + 1;
+                    $_SESSION['openchecker_time'] = $now;
+                }
                 tpl_set_var("attempts_counter", $_SESSION["openchecker_counter"]);
-                tpl_set_var("time_counter1", $time_counter);
-                // tpl_set_var("time_counter2", $_SESSION['openchecker_time']);
             }
         } else {
+            // initialize limits for this user's profile
             $_SESSION['openchecker_counter'] = 1;
+            $_SESSION['openchecker_time'] = $now;
             tpl_set_var("attempts_counter", $_SESSION["openchecker_counter"]);
             tpl_set_var("section_4_start", '<!--');
             tpl_set_var("section_4_stop", '-->');
         }
     }
 
-    public function CoordsComparing($opt)
-    {
+    public function CoordsComparing($OpenCheckerSetup, $opt) {
 
         // get data from post.
         $degrees_N = XDb::xEscape($_POST['degrees_N']);
@@ -126,8 +130,8 @@ class OpenCheckerCore
 
         // converting from HH MM.MMM to DD.DDDDDD
 
-        $coordN = new convertLangLat($degrees_N, $minutes_N);
-        $coordE = new convertLangLat($degrees_E, $minutes_E);
+        $coordN = new convertLongLat($degrees_N, $minutes_N);
+        $coordE = new convertLongLat($degrees_E, $minutes_E);
 
         //setting long & lat. signs
         if ($degrees_N >= 0) {
@@ -149,14 +153,15 @@ class OpenCheckerCore
         `waypoints`.`latitude`,
         `waypoints`.`status`,
         `waypoints`.`type`,
+        `waypoints`.`desc`,
         `waypoints`.`opensprawdzacz`,
         `opensprawdzacz`.`proby`,
         `opensprawdzacz`.`sukcesy`,
-        `caches`.`type`
+        `caches`.`type` as `cache_type`
         FROM   `waypoints`, `opensprawdzacz`, `caches`
         WHERE  `waypoints`.`cache_id`='$cache_id'
         AND `waypoints`.`opensprawdzacz` = 1
-        AND `waypoints`.`type` = 3
+        AND `waypoints`.`type` = " . Waypoint::TYPE_FINAL . "
         AND `waypoints`.`cache_id`= `opensprawdzacz`.`cache_id`
         AND `waypoints`.`cache_id`= `caches`.`cache_id`
         ";
@@ -166,16 +171,16 @@ class OpenCheckerCore
 
         $attempts_counter = $data['proby'] + 1;
 
-        $$coordN_master = $data['latitude'];
-        $$coordE_master = $data['longitude'];
+        $coordN_master = $data['latitude'];
+        $coordE_master = $data['longitude'];
 
 
         // comparing data from post with data from database
         if (
-                (($$coordN_master - $coordN->CoordsDecimal) < 0.00001) &&
-                (($$coordN_master - $coordN->CoordsDecimal) > -0.00001) &&
-                (($$coordE_master - $coordE->CoordsDecimal) < 0.00001) &&
-                (($$coordE_master - $coordE->CoordsDecimal) > -0.00001)
+                (($coordN_master - $coordN->CoordsDecimal) < 0.00001) &&
+                (($coordN_master - $coordN->CoordsDecimal) > -0.00001) &&
+                (($coordE_master - $coordE->CoordsDecimal) < 0.00001) &&
+                (($coordE_master - $coordE->CoordsDecimal) > -0.00001)
         ) {
             //puzzle solved - result ok
             $hits_counter = $data['sukcesy'] + 1;
@@ -189,25 +194,42 @@ class OpenCheckerCore
                 exit;
             }
 
-
-            if ($data['type'] == 7) {  //only for quiz type for time being
-                $post_viewcache_form = '<form name="post_coord" action="viewcache.php?cacheid=' . $cache_id . '" method="post">
-                                            <input type="submit" name="modCoords" value="' . tr('os_modify_coords_button') . '" />
-                                            <input type="hidden" name="coordmod_lat_degree" value="' . $degrees_N . '"/>
-                                            <input type="hidden" name="coordmod_lon_degree" value="' . $degrees_E . '"/>
-                                            <input type="hidden" name="coordmod_lat" value="' . $minutes_N . '"/>
-                                            <input type="hidden" name="coordmod_lon" value="' . $minutes_E . '"/>
-                                            <input type="hidden" name="coordmod_latNS" value="' . $NorS . '"/>
-                                            <input type="hidden" name="coordmod_lonEW" value="' . $EorW . '"/>
-                                            <input type="hidden" name="save_requester" value="OpenChecker"/>
-                                            </form>';
+            if (
+                $data['cache_type'] == GeoCache::TYPE_QUIZ ||
+                $data['cache_type'] == GeoCache::TYPE_OTHERTYPE ||
+                $data['cache_type'] == GeoCache::TYPE_MULTICACHE
+            ) {
+                $post_viewcache_form = '
+    <form name="post_coord" action="viewcache.php?cacheid=' . $cache_id . '" method="post">
+        <button type="submit" name="modCoords" value="modCoords" style="font-size:14px;">' . tr('openchecker_modify_coords_button') . '</button>
+        <input type="hidden" name="coordmod_lat_degree" value="' . $degrees_N . '"/>
+        <input type="hidden" name="coordmod_lon_degree" value="' . $degrees_E . '"/>
+        <input type="hidden" name="coordmod_lat" value="' . $minutes_N . '"/>
+        <input type="hidden" name="coordmod_lon" value="' . $minutes_E . '"/>
+        <input type="hidden" name="coordmod_latNS" value="' . $NorS . '"/>
+        <input type="hidden" name="coordmod_lonEW" value="' . $EorW . '"/>
+        <input type="hidden" name="save_requester" value="OpenChecker"/>
+    </form>
+                ';
             } else {
                 $post_viewcache_form = '';
-            };
+            }
 
             tpl_set_var("result_title", tr('openchecker_success'));
             tpl_set_var("image_yesno", '<image src="tpl/stdstyle/images/blue/openchecker_yes.png" />');
             tpl_set_var("save_mod_coord", $post_viewcache_form);
+            if ($OpenCheckerSetup->show_wpt_desc) {
+                $desc = '
+    <p>&nbsp;</p>
+    <div class="notice" style="width:100%">' . tr('openchecker_final_desc') . '</div>
+    <div>
+        <p>' . nl2br($data['desc'],true) . '</p>
+    </div>
+                ';
+                tpl_set_var('waypoint_desc', $desc);
+            } else {
+                tpl_set_var('waypoint_desc','');
+            }
         } else {
             //puzzle not solved - wrong result
 
@@ -222,11 +244,10 @@ class OpenCheckerCore
             tpl_set_var("result_title", tr('openchecker_fail'));
             tpl_set_var("image_yesno", '<image src="tpl/stdstyle/images/blue/openchecker_no.png" />');
             tpl_set_var("save_mod_coord", '');
+            tpl_set_var("waypoint_desc",'');
         }
         //tpl_set_var("score", $wspolrzedneN.'/'.$$coordN_master.'<br>'.$wspolrzedneE.'/'. $$coordE_master);
         tpl_set_var("score", '');
-
-
 
         // tpl_set_var("wsp_NS", );
         // tpl_set_var("wsp_EW", );
@@ -237,8 +258,7 @@ class OpenCheckerCore
         // goto Finalize;
     }
 
-    public function DisplayAllOpenCheckerCaches($OpenCheckerSetup, $opt)
-    {
+    public function DisplayAllOpenCheckerCaches($OpenCheckerSetup, $opt) {
         /**
          * Displays initial form for cache waypoint (OXxxxx) input
          *
@@ -258,13 +278,12 @@ class OpenCheckerCore
             $this->cache_wp = strtoupper($this->cache_wp);
         } else {
             $openchecker_form = '
-                    <form action="' . $OpenCheckerSetup->scriptname . '" method="get">
-                    ' . tr('openchecker_waypoint') . ':
-                            <input type="text" name="wp" maxlength="6"/>
-                            <button type="submit" name="submit" value="' . tr('openchecker_check') . '" style="font-size:14px;width:160px"><b>' . tr('openchecker_check') . '</b></button>
-                    </form>
-                                    ';
-
+    <form action="' . $OpenCheckerSetup->scriptname . '" method="get">
+    ' . tr('openchecker_waypoint') . ':
+            <input type="text" name="wp" maxlength="6"/>
+            <button type="submit" name="submit" value="' . tr('openchecker_check') . '" style="font-size:14px;width:160px"><b>' . tr('openchecker_check') . '</b></button>
+    </form>
+            ';
 
             if (isset($_GET['sort'])) {
                 $sort_tmp = XDb::xEscape($_GET['sort']);
@@ -294,7 +313,6 @@ class OpenCheckerCore
 
 
             $openchecker_query = "
-
         SELECT `waypoints`.`cache_id`,
         `waypoints`.`type`,
         `waypoints`.`stage`,
@@ -309,20 +327,21 @@ class OpenCheckerCore
         `cache_type`.`icon_small`,
         `opensprawdzacz`.`proby`,
         `opensprawdzacz`.`sukcesy`
-        FROM   
+        FROM
             `caches`
             LEFT JOIN `waypoints` ON (`caches`.`cache_id` = `waypoints`.`cache_id`)
             LEFT JOIN `opensprawdzacz` ON (`waypoints`.`cache_id` = `opensprawdzacz`.`cache_id`)
             LEFT JOIN `user` ON (`user`.`user_id` = `caches`.`user_id`)
             LEFT JOIN `cache_type` ON (`cache_type`.`id` = `caches`.`type`)
-        WHERE   
+        WHERE
             `waypoints`.`opensprawdzacz` = 1
-            AND `waypoints`.`type` = 3
-            and `caches`.`status` in (1,2)
+            AND `waypoints`.`type` = " . Waypoint::TYPE_FINAL . "
+            and (`caches`.`status` = " . GeoCache::STATUS_READY . " || `caches`.`status` = " . GeoCache::STATUS_UNAVAILABLE . ")
         ORDER BY   $sort_column
         LIMIT   0, 1000
         ";
-/* 
+
+/*
  * Only show active (available and temporarily disabled) caches from SQL query to
  * obtain correct counters
  */
@@ -340,7 +359,6 @@ class OpenCheckerCore
             $conn->query('SET CHARSET utf8');
             $openchecker_caches = $conn->query($openchecker_query)->fetchAll();
             $openchecker_caches_count = count($openchecker_caches);
-
 
             $pag = new Pagination();
 
@@ -368,13 +386,11 @@ class OpenCheckerCore
             if ($tPage < count($numbers))
                 $pagination .= '<a href="' . $OpenCheckerSetup->scriptname . '?page=' . ($tPage + 1) . $sort . '">[' . tr('openchecker_page_next') . ' &gt;]</a> ';
 
-
             $caches_table = '';
             $attempts = 0;
             $hits = 0;
 
             foreach ($result as $cache_data) {
-
                 $attempts = $attempts + $cache_data['proby'];
                 $hits = $hits + $cache_data['sukcesy'];
 
@@ -402,7 +418,7 @@ class OpenCheckerCore
         </tr>
         <tr>
             <td></td>
-            <td colspan="2" align="right">' 
+            <td colspan="2" align="right">'
                 . tr('openchecker_legend') .
                 '
             </td>
@@ -438,11 +454,9 @@ class OpenCheckerCore
         }
     }
 
-    public function Finalize()
-    {
+    public function Finalize() {
         tpl_BuildTemplate();
         exit;
     }
 
 }
-

@@ -1,47 +1,43 @@
 <?php ?>
 
 <script type="text/javascript">
-    function clearForms()
-    {
-        var i;
-        for (i = 0; (i < document.forms.length); i++) {
-            document.forms[i].reset();
-        }
+function clearForms() {
+    var i;
+    for (i = 0; (i < document.forms.length); i++) {
+        document.forms[i].reset();
     }
+}
 
-    function toggle() {
-        var ele = document.getElementById("toggleText");
-        var text = document.getElementById("displayText1");
-        var text2 = document.getElementById("displayText2");
-        var text3 = document.getElementById("displayText3");
-        var help_link1 = document.getElementById("help_link1");
-        var help_link2 = document.getElementById("help_link2");
-        var help_link3 = document.getElementById("help_link3");
-        var help_block = document.getElementById("help_block");
+function toggle() {
+    var ele = document.getElementById("toggleText");
+    var text = document.getElementById("displayText1");
+    var text2 = document.getElementById("displayText2");
+    var text3 = document.getElementById("displayText3");
+    var help_link1 = document.getElementById("help_link1");
+    var help_link2 = document.getElementById("help_link2");
+    var help_link3 = document.getElementById("help_link3");
+    var help_block = document.getElementById("help_block");
 
-        if (ele.style.display == "block")
-        {
-            ele.style.display = "none";
-            text.innerHTML = "{{openchecker_info}}";
-            text2.innerHTML = "{{openchecker_info}}";
-            text3.innerHTML = "{{openchecker_info}}";
-            help_link1.style.display = "block";
-            help_link2.style.display = "none";
-            help_link3.style.display = "none";
-            help_block.style.display = "block";
-        }
-        else
-        {
-            ele.style.display = "block";
-            text.innerHTML = "{{openchecker_back}}";
-            text2.innerHTML = "{{openchecker_back}}";
-            text3.innerHTML = "{{openchecker_back}}";
-            help_link1.style.display = "none";
-            help_link2.style.display = "block";
-            help_link3.style.display = "block";
-            help_block.style.display = "none";
-        }
+    if (ele.style.display == "block") {
+        ele.style.display = "none";
+        text.innerHTML = "{{openchecker_info}}";
+        text2.innerHTML = "{{openchecker_info}}";
+        text3.innerHTML = "{{openchecker_info}}";
+        help_link1.style.display = "block";
+        help_link2.style.display = "none";
+        help_link3.style.display = "none";
+        help_block.style.display = "block";
+    } else {
+        ele.style.display = "block";
+        text.innerHTML = "{{openchecker_back}}";
+        text2.innerHTML = "{{openchecker_back}}";
+        text3.innerHTML = "{{openchecker_back}}";
+        help_link1.style.display = "none";
+        help_link2.style.display = "block";
+        help_link3.style.display = "block";
+        help_block.style.display = "none";
     }
+}
 </script>
 
 <body onLoad="clearForms()" onUnload="clearForms()">
@@ -199,7 +195,10 @@
                         <h2 class="errormsg">{result_title}</h2>
                         <p>&nbsp;</p>
                         {score}
-                        {result_text}
+                        <p>{result_text}</p>
+
+                        {waypoint_desc}
+
                         <p>&nbsp;</p>
                         {save_mod_coord}
                     </td>
@@ -210,7 +209,7 @@
             <p>&nbsp;</p>
             <p>&nbsp;</p>
             <p>
-                {{openchecker_attempts_01}} {attempts_counter} {{openchecker_attempts_02}} {count_limit} 
+                {{openchecker_attempts_01}} {attempts_counter} {{openchecker_attempts_02}} {count_limit}
                 {{openchecker_attempts_03}} {time_limit} {{openchecker_attempts_04}}
             </p>
         </div>
@@ -231,4 +230,3 @@
         {section_5_stop}
 
     </div>
-
