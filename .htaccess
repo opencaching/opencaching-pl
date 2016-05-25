@@ -1,23 +1,12 @@
 RewriteEngine on
 
-RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-RewriteRule ^(.*)$ http://%1/$1 [NE,R=301,L]
-
 RewriteBase /
 
 RewriteRule ^search\.(gpx|kml|loc|ov2|ovl|txt|wpt|uam|xml|zip|ggz)$ search.php?%{QUERY_STRING} [NC]
 RewriteRule ^ocpl(\d+)\.(gpx|kml|loc|ov2|ovl|txt|wpt|uam|xml|zip|ggz)$ search.php?queryid=$1&output=$2&%{QUERY_STRING} [NC]
 RewriteRule ^ocplgpx(\d+)\.(gpx)$ search.php?queryid=$1&output=gpxgc&%{QUERY_STRING} [NC]
-RewriteRule ^/wiki(.*)$ http://wiki.opencaching.pl$1 [R,L]
 RewriteRule ^/statpics/([0-9]+)\.jpg$ ocstats.php?userid=$1 [R,L]
 
-RewriteCond %{HTTP_HOST} \.nl$ [NC]
-RewriteRule ^(OB[0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z])$ viewcache.php?wp=$1 [R=301,L,NC]
-
-RewriteCond %{HTTP_HOST} \.pl$ [NC]
-RewriteRule ^(OP[0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z])$ viewcache.php?wp=$1 [R=301,L,NC] 
-
-RewriteCond %{HTTP_HOST} \.ro$ [NC]
-RewriteRule ^(OR[0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z])$ viewcache.php?wp=$1 [R=301,L,NC] 
+RewriteRule ^(O[A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z])$ viewcache.php?wp=$1 [R=301,L,NC]
 
 FileETag None
