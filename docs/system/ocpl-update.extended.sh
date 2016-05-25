@@ -4,81 +4,48 @@
 # the following script:
 # https://github.com/opencaching/opencaching-pl/blob/master/post-commit.php
 
-###########################################################################
-# Site configuration
-###########################################################################
-
-# site name (FQDN)
+# site name, FQDN, not URL
 SITE_NAME=YOUR_OPENCACHING_HOSTNAME
-
 # hosting root directory
 SITE_ROOT=/path/to/OPENCACHING-PL
-
 # user owner of the files.
 # must have primary group same as webserver user
-SITE_USER=oc_UNIX_OWNER
+SITE_USER=oc_user
+# sudo command to run the update as SITE_USER
+# comment it if unused
+SUDO_CMD="sudo -u ${SITE_USER}"
 
 # repository
 REPO=https://github.com/opencaching/opencaching-pl.git
 # branch
 BRANCH=master
-
-###########################################################################
-# Options
-###########################################################################
+# update command
+CMD="git pull --rebase"
+CMD_PRE="git stash"
+CMD_POST="git stash pop"
 
 # set to 1 to log updates
 DO_LOG=1
 # define log facility and level
 LOG_LEVEL="-p cron.info"
 # set to 1 to preserve local changes
-KEEP_LOCAL=1
-# set to 1 to show modified files in log
-SHOW_MODIFIED=1
+KEEP_LOCAL=0
 
-###########################################################################
-
-# update command
-CMD="git pull --rebase"
-CMD_PRE="git stash"
-CMD_POST="git stash pop"
-CMD_BASE="git merge-base HEAD ${BRANCH}"
-CMD_DIFF="git diff --stat --no-color"
-
-# sudo command to run the update as SITE_USER
-# comment it if unused
-SUDO_CMD="sudo -u ${SITE_USER}"
-
-###########################################################################
 # Updating $SITE_NAME at $SITE_ROOT ...
-###########################################################################
 
-if [ "$DO_LOG" == "1" ]; then
-    (
+if [ "$DO_LOG" == "1" ]; then 
+    ( 
     cd ${SITE_ROOT}
-    echo "--- Updating ${SITE_NAME}..."				| logger ${LOG_LEVEL}
+    echo "Updating ${SITE_NAME}..."				| logger ${LOG_LEVEL}
     # run update command(s)
     if [ "$KEEP_LOCAL" == "1" ]; then
 	${SUDO_CMD} ${CMD_PRE} 2>&1 > /dev/null
     fi
 
-    if [ "$SHOW_MODIFIED" == "1" ]; then
-	# obtain current HEAD commit hash
-	OLD_BASE=$( ${SUDO_CMD} ${CMD_BASE} )
-    fi
-
     # repository update
     ${SUDO_CMD} ${CMD} ${REPO} ${BRANCH} 2>&1			| logger ${LOG_LEVEL}
-    echo 							| logger ${LOG_LEVEL}
 
-    if [ "$SHOW_MODIFIED" == "1" ]; then
-	# obtain current HEAD commit hash
-	NEW_BASE=$( ${SUDO_CMD} ${CMD_BASE} )
-
-	# show modified files
-	echo "- GIT modified files:"				| logger ${LOG_LEVEL}
-	${SUDO_CMD} ${CMD_DIFF} $NEW_BASE $OLD_BASE		| logger ${LOG_LEVEL}
-    fi
+#    echo "- GIT status and conflicts (if any)."			| logger ${LOG_LEVEL}
 
     if [ "$KEEP_LOCAL" == "1" ]; then
 	${SUDO_CMD} ${CMD_POST} 2>&1 > /dev/null
@@ -93,7 +60,7 @@ if [ "$DO_LOG" == "1" ]; then
     echo 							| logger ${LOG_LEVEL}
     )
 else
-    (
+    ( 
     cd ${SITE_ROOT}
     # run update command(s) (no logging)
     if [ "$KEEP_LOCAL" == "1" ]; then
