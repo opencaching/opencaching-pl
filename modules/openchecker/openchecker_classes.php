@@ -74,7 +74,7 @@ class OpenCheckerCore {
                     $elapsed_time = round($OpenCheckerSetup->time_limit - ($elapsed_time / 60));
                     tpl_set_var("elapsed_time",$elapsed_time);
                     tpl_set_var("attempts_counter", $_SESSION["openchecker_counter"]);
-                    tpl_set_var("result_title", tr(openchecker_attempts_too_many));
+                    tpl_set_var("result_title", tr('openchecker_attempts_too_many'));
                     tpl_set_var("score", '');
                     tpl_set_var("image_yesno", '<image src="tpl/stdstyle/images/blue/openchecker_stop.png" />');
                     tpl_set_var("result_text", tr('openchecker_attempts_info_01') . ' ' . $OpenCheckerSetup->count_limit . ' ' . tr('openchecker_attempts_info_02') . ' ' . $OpenCheckerSetup->time_limit . ' ' . tr('openchecker_attempts_info_03') . '<br />' . tr('openchecker_attempts_info_04') . ' ' . $elapsed_time . ' ' . tr('openchecker_attempts_info_05'));
@@ -110,7 +110,7 @@ class OpenCheckerCore {
         }
     }
 
-    public function CoordsComparing($OpenCheckerSetup, $opt) {
+    public function CoordsComparing($OpenCheckerSetup) {
 
         // get data from post.
         $degrees_N = XDb::xEscape($_POST['degrees_N']);
@@ -118,6 +118,42 @@ class OpenCheckerCore {
         $degrees_E = XDb::xEscape($_POST['degrees_E']);
         $minutes_E = XDb::xEscape($_POST['minutes_E']);
         $cache_id = XDb::xEscape($_POST['cacheid']);
+
+        $rs = XDb::xSql("SELECT `caches`.`name`,
+                `caches`.`cache_id`,
+                `caches`.`type`,
+                `caches`.`user_id`,
+                `caches`.`wp_oc`,
+                `cache_type`.`icon_large`,
+                `user`.`username`
+                FROM   `caches`, `user`, `cache_type`
+                WHERE  `caches`.`user_id` = `user`.`user_id`
+                AND    `caches`.`type` = `cache_type`.`id`
+                AND    `caches`.`cache_id` = ? ", $cache_id);
+
+        tpl_set_var("section_2_start", '');
+        tpl_set_var("section_2_stop", '');
+        tpl_set_var("section_openchecker_form_start", '<!--');
+        tpl_set_var("section_openchecker_form_stop", '-->');
+        tpl_set_var("openchecker_not_enabled", '');
+
+        if (!$record = Xdb::xFetchArray($rs)) {
+            tpl_set_var("openchecker_wrong_cache", tr(openchecker_wrong_cache));
+            tpl_set_var("section_2_start", '<!--');
+            tpl_set_var("section_2_stop", '-->');
+            tpl_set_var("section_5_start", '');
+            tpl_set_var("section_5_stop", '');
+            $this->Finalize();
+        }
+
+        tpl_set_var("wp_oc", $record['wp_oc']);
+        tpl_set_var("cache_icon", '<img src="tpl/stdstyle/images/' . $record['icon_large'] . '" />');
+        tpl_set_var("cacheid", $cache_id);
+        tpl_set_var("user_name", $record['username']);
+        tpl_set_var("cachename", $record['name']);
+        tpl_set_var("user_id", $record['user_id']);
+
+        Xdb::xFreeResults($rs);
 
         if ($degrees_N == '')
             $degrees_N = 0;
@@ -258,7 +294,7 @@ class OpenCheckerCore {
         // goto Finalize;
     }
 
-    public function DisplayAllOpenCheckerCaches($OpenCheckerSetup, $opt) {
+    public function DisplayAllOpenCheckerCaches($OpenCheckerSetup) {
         /**
          * Displays initial form for cache waypoint (OXxxxx) input
          *
@@ -284,6 +320,8 @@ class OpenCheckerCore {
             <button type="submit" name="submit" value="' . tr('openchecker_check') . '" style="font-size:14px;width:160px"><b>' . tr('openchecker_check') . '</b></button>
     </form>
             ';
+            tpl_set_var("section_2_start", '<!--');
+            tpl_set_var("section_2_stop", '-->');
 
             if (isset($_GET['sort'])) {
                 $sort_tmp = XDb::xEscape($_GET['sort']);
@@ -432,15 +470,12 @@ class OpenCheckerCore {
             <td align="center">' . $attempts . '</td>
             <td align="center">' . $hits . '</td>
         </tr>
-    </table>
             ';
 
-            $caches_table .= '<br /><p align="center">' . $pagination . '</p>';
+            $caches_table .= '<tr><td colspan="7"><br /><p align="center">' . $pagination . '</p></td></tr>';
 
             tpl_set_var("section_1_start", '');
             tpl_set_var("section_1_stop", '');
-            tpl_set_var("section_2_start", '<!--');
-            tpl_set_var("section_2_stop", '-->');
             tpl_set_var("section_3_start", '<!--');
             tpl_set_var("section_3_stop", '-->');
             tpl_set_var("section_4_start", '<!--');

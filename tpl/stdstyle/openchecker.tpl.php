@@ -97,7 +97,7 @@ function toggle() {
             </p>
         </div>
 
-        <p>{openchecker_form}</p>
+        <div>{openchecker_form}</div>
         <div class="content2-container bg-blue02">
             <p class="content-title-noshade-size1">
                 <img src="tpl/stdstyle/images/blue/empty.png" alt="" align="middle" />
@@ -129,20 +129,19 @@ function toggle() {
             </table>
         </div>
 
-        <p></p>
+        <p>&nbsp;</p>
         {section_1_stop}
 
         {section_2_start}
+        <div class="content2-container bg-blue02">
+            <p class="content-title-noshade-size1">
+                <img src="tpl/stdstyle/images/blue/empty.png" alt="" align="middle" />
+                {{openchecker_form}}
+            </p>
+        </div>
         <div class="searchdiv">
             <br/>
-            <div class="content2-container bg-blue02">
-                <p class="content-title-noshade-size1">
-                    <img src="tpl/stdstyle/images/blue/openchecker_32x32.png" class="icon32" alt="" />
-                    {{openchecker_form}}
-                </p>
-            </div>
-
-            <p>
+          
             <table width="99%">
                 <tr>
                     <td width="40">{cache_icon}</td>
@@ -157,7 +156,6 @@ function toggle() {
                 <tr>
                     <td colspan="4"><img src="tpl/stdstyle/images/blue/dot_blue.png" height="1" width="100%"/></td></tr>
             </table>
-            </p>
 
             <p class="errormsg">{openchecker_not_enabled}</p>
             {section_openchecker_form_start}
@@ -171,9 +169,7 @@ function toggle() {
                 {{openchecker_minutes}} E:  <input type="text" name="minutes_E"  maxlength="6" size="5" onkeyup="this.value = this.value.replace(/,/g, '.'); this.selectionStart = this.selectionEnd = this.value.length;" /><br/><br/><br/>
                 <button type="submit" name="submit" value="{{openchecker_check}}" style="font-size:14px;width:160px"><b>{{openchecker_check}}</b></button>
             </form>
-
             {section_openchecker_form_stop}
-            </br />
         </div>
         {section_2_stop}
 

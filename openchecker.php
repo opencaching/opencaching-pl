@@ -63,10 +63,10 @@ if ($error == false) {
          */
         if (isset($_POST['degrees_N'])) {
             $OpenChecker->BruteForceCheck($OpenCheckerSetup);
-            $OpenChecker->CoordsComparing($OpenCheckerSetup, $opt);
+            $OpenChecker->CoordsComparing($OpenCheckerSetup);
         }
 
-        $OpenChecker->DisplayAllOpenCheckerCaches($OpenCheckerSetup, $opt);
+        $OpenChecker->DisplayAllOpenCheckerCaches($OpenCheckerSetup);
 
         // section 2 (display cache data and coordinate entry form)
 
@@ -112,7 +112,6 @@ if ($error == false) {
         tpl_set_var("user_id", $record['user_id']);
 
         Xdb::xFreeResults($rs);
-
 
         $wp_rs = XDb::xSql("SELECT `waypoints`.`wp_id`,
                 `waypoints`.`type`,
