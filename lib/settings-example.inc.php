@@ -3,6 +3,10 @@
 require __DIR__ . '/settingsDefault.inc.php';
 
 //Replace localhost to you own domain site
+
+// define timezone (newer versions of PHP require it)
+date_default_timezone_set('Europe/Warsaw');
+
 //relative path to the root directory
 if (!isset($rootpath))
     $rootpath = './';
