@@ -45,11 +45,6 @@ function get_okapi_settings()
         'DB_PASSWORD' => $dbpasswd,
         'SITELANG' => $lang,
         'SITE_URL' => $absolute_server_URI,
-        'ORIGIN_URL' => (
-            isset($origin_oc_url) ? $origin_oc_url :
-            ($oc_nodeid == 14) ? "http://www.opencaching.nl/" :
-            "http://opencaching.pl/"
-        ),
         'VAR_DIR' => rtrim($dynbasepath, '/'),
         'IMAGES_DIR' => rtrim($picdir, '/'),
         'IMAGES_URL' => rtrim($picurl, '/').'/',
