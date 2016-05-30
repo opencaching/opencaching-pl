@@ -205,7 +205,8 @@
         <img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="" />
         {{descriptions}}&nbsp;&nbsp;
         {desc_langs}&nbsp;{add_rr_comment}&nbsp;{remove_rr_comment}
-    </p></div>
+    </p>
+</div>
 <div class="content2-container">
     <div id="description">
         <div id="viewcache-description">
@@ -216,22 +217,28 @@
 <!-- End Text Container -->
 <!-- Text container -->
 
-<!-- sekcja opensprawdzacza -->
-{opensprawdzacz_start}
-
+<!-- OpenChecker container -->
+{openchecker_start}
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
-        <img src="tpl/stdstyle/images/blue/opensprawdzacz32x32.png" class="icon32" alt="" />
-        {{Open_Sprawdzacz}}
-    </p></div>
-<p>
-    {{opensprawdzacz_main}}<br/><br/>
-    <a href="opensprawdzacz.php?op_keszynki={oc_waypoint}">{{os_sprawdz}}</a><br/><br/>
-</p>
-<p>{{statistics}}:
-    {{os_pr}}: {proby} {{os_times}}, {{os_sukc}}: {sukcesy} {{os_times}}.
-    {opensprawdzacz_end}
-    <!-- koniec sekcji opensprawdzacza -->
+        <img src="tpl/stdstyle/images/blue/openchecker_32x32.png" class="icon32" alt="" />
+        {{openchecker_name}}
+    </p>
+</div>
+<div class="content2-container">
+    <p>
+        {{openchecker_enabled}}<br/><br/>
+        <form method="get" action="openchecker.php">
+            <button name="wp" value="{oc_waypoint}" style="font-size:14px;width:160px"><b>{{openchecker_check}}</b></button>
+        </form>
+        <br/><br/>
+    </p>
+    <p>{{statistics}}:
+        {{openchecker_tries}}: {attempts_counter} {{openchecker_times}}, {{openchecker_hits}}: {hits_counter} {{openchecker_times}}.
+    </p>    
+</div>    
+{openchecker_end}
+<!-- END OpenChecker container -->
 
     {waypoints_start}
 <div class="content2-container bg-blue02">

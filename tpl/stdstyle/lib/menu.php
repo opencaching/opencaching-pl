@@ -659,11 +659,11 @@ $menu = array(
                 'filename' => 'searchuser.php'
             ),
             array(
-                'title' => tr('Open_Sprawdzacz'),
-                'menustring' => tr('Open_Sprawdzacz'),
-                'visible' => true,
-                'filename' => 'opensprawdzacz.php',
-                'siteid' => 'opensprawdzacz'
+                'title' => tr('openchecker_name'),
+                'menustring' => tr('openchecker_name'),
+                'visible' => $config['module']['openchecker']['enabled'],
+                'filename' => 'openchecker.php',
+                'siteid' => 'openchecker'
             ),
             array(
                 'title' => tr('okapi_apps'),

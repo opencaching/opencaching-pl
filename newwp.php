@@ -144,20 +144,28 @@ if ($error == false) {
                 $lat_min = isset($_POST['lat_min']) ? $_POST['lat_min'] : '00.000';
                 tpl_set_var('lat_min', htmlspecialchars($lat_min, ENT_COMPAT, 'UTF-8'));
 
-                // =============== opensprawdzacz =======================================================
-                // is variable $_POST['oprawdzacz'] exist then $opensprawdzacz_taknie should be set up as 1
-                // otherwise $opensprawdzacz_taknie should be set up as 0
-                if (isset($_POST['oprawdzacz'])) {
-                    $opensprawdzacz_taknie = 1;
-                    tpl_set_var('opensprawdzacz_checked', 'checked=""');
-                } else
-                    $opensprawdzacz_taknie = 0;
-                // hides or shows opensprawdzacz checkbox depend on type of waypoint
-                if ($sel_type == 3)
-                    tpl_set_var('opensprawdzacz_display', 'block');
+                // =============== openchecker =======================================================
+                // is variable $_POST['openchecker'] exist then $OpenChecker_present should be set up as 1
+                // otherwise $OpenChecker_present should be set up as 0
+                if ($config['module']['openchecker']['enabled']) {
+                    tpl_set_var('openchecker_start','');
+                    tpl_set_var('openchecker_end','');
+                } else {
+                    tpl_set_var('openchecker_start','<!--');
+                    tpl_set_var('openchecker_end','-->');
+                }    
+                if (isset($_POST['openchecker'])) {
+                    $OpenChecker_present = 1;
+                    tpl_set_var('openchecker_checked', 'checked=""');
+                } else {
+                    $OpenChecker_present = 0;
+                }    
+                // hides or shows openchecker checkbox depend on type of waypoint
+                if ($sel_type == 3 && $config['module']['openchecker']['enabled'])
+                    tpl_set_var('openchecker_display', 'block');
                 else
-                    tpl_set_var('opensprawdzacz_display', 'none');
-                //================ opensprawdzacz end ===================================================
+                    tpl_set_var('openchecker_display', 'none');
+                //================ openchecker end ===================================================
                 //stage
                 $wp_stage = isset($_POST['stage']) ? $_POST['stage'] : '0';
 
@@ -322,15 +330,15 @@ if ($error == false) {
                                     `status` ,`stage` ,`desc` ,`opensprawdzacz`)
                                    VALUES ('', ?, ?, ?, ?, ?, ?, ?, ?)",
                                    $cache_id, $longitude, $latitude, $sel_type,
-                                   $wp_status, $wp_stage, $wp_desc, $opensprawdzacz_taknie );
+                                   $wp_status, $wp_stage, $wp_desc, $OpenChecker_present );
 
 
                         XDb::xSql("UPDATE `caches` SET `last_modified`=NOW() WHERE `cache_id`= ? ", $cache_id);
 
-                        // ==== opensprawdzacz ===============================================
+                        // ==== openchecker ===============================================
                         // add/update active status to/in opensprawdzacz table
 
-                        if (($opensprawdzacz_taknie == 1) && ($sel_type == 3)) {
+                        if (($OpenChecker_present == 1) && ($sel_type == 3)) {
 
                             $proba = XDb::xMultiVariableQueryValue(
                                 "SELECT COUNT(*) FROM `opensprawdzacz` WHERE `cache_id` = :1 ", 0, $cache_id);
@@ -341,7 +349,7 @@ if ($error == false) {
                             }
 
                         }
-                        // ==== opensprawdzacz end ===========================================
+                        // ==== openchecker end ===========================================
 
                         tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));
                     } else {
