@@ -377,7 +377,7 @@ function setCommonMap3Vars()
 
     tpl_set_var("cachemap_mapper", $cachemap_mapper);
     /* SET YOUR MAP CODE HERE */
-    tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?v=3.22&amp;language=' . $lang . '" '.
+    tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?v=3.24&amp;language=' . $lang . '" '.
         'type="text/javascript"></script>' .
         '<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">');
 
