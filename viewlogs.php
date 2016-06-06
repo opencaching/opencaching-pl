@@ -192,6 +192,14 @@ if ($error == false) {
                 if ($usr['admin']) {
                     $show_deleted = "show_deleted";
                     $processed_text = $record['text'];
+                    $processed_text .= "[" . tr('vl_Record_deleted');
+                    if (isset($record['del_by_username']) && $record['del_by_username']) {
+                        $processed_text .= " " . tr('vl_by_user') . " " . $record['del_by_username'];
+                    }
+                    if (isset($record['last_deleted'])) {
+                        $processed_text .=" " . tr('vl_on_date') . " " . fixPlMonth(htmlspecialchars(strftime($thisdateformat, strtotime($record['last_deleted'])), ENT_COMPAT, 'UTF-8'));
+                    }
+                    $processed_text .= "]";
                 } else {
                     // Boguś z Polska, 2014-11-15
                     // for 'Needs maintenance', 'Ready to search' and 'Temporarly unavailable' log types
