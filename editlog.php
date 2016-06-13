@@ -42,7 +42,7 @@ if ($error == false) {
             }
 
             //is this log from this user?
-            if (($log_record['user_id'] == $usr['userid'] && $log_record['cachestatus'] != 4 && $log_record['cachestatus'] != 6) || $usr['admin']) {
+            if (($log_record['user_id'] == $usr['userid'] && $log_record['cachestatus'] != 4 && $log_record['cachestatus'] != 6)) {
                 $tplname = 'editlog';
 
                 //load settings
@@ -106,13 +106,6 @@ if ($error == false) {
                 } else {
                     if ($cache_user_id != $usr['userid']) {
                         $rating_msg = mb_ereg_replace('{chk_sel}', ' checked', $rating_allowed . '<br />' . $rating_stat);
-
-                        // COG nie może dawać reko edytując czyjś log
-                        // (Łza)
-                        if (($usr['admin']) && ($log_record['user_id'] != $usr['userid'])) {
-                            $rating_msg = mb_ereg_replace('{chk_dis}', ' disabled', $rating_own . '(COG nie może rekomendować edytując log)<br />' . $rating_stat);
-                        }
-                        // koniec COG nie może dawać reko edytując czyjś log
                     } else {
                         $rating_msg = mb_ereg_replace('{chk_dis}', ' disabled', $rating_own . '<br />' . $rating_stat);
                     }
@@ -409,7 +402,7 @@ if ($error == false) {
                 $logtypeoptions = '';
                 foreach ($log_types AS $type) {
                     // skip if permission=O ???? and not owner
-                    if ($type['permission'] == 'B' && $log_record['user_id'] != $cache_user_id && $usr['admin'] == false)
+                    if ($type['permission'] == 'B' && $log_record['user_id'] != $cache_user_id)
                         continue;
 
                     if ($log_record['logtype'] != $type['id'] && $log_record['cachestatus'] != 1)
@@ -417,57 +410,28 @@ if ($error == false) {
                     if ($log_record['logtype'] != $type['id'] && $log_record['cachestatus'] == 1 && $log_record['user_id'] == $cache_user_id)
                         continue;
                     if ($already_found_in_other_comment) {
-                        if ($usr['admin']) {
-                            // skip found/notfound if the cache is an event or user has already found this cache or it is not ready to search
-                            if ($type['id'] == 1 || $type['id'] == 2 || $type['id'] == 7 || $type['id'] == 8) {
-                                continue;
-                            }
-                        } else {
-                            if ($usr['admin'] == false && ($type['id'] == 1 || $type['id'] == 2 || $type['id'] == 7 || $type['id'] == 8 || $type['id'] == 9 || $type['id'] == 10 || $type['id'] == 11 || $type['id'] == 12)) {
-                                continue;
-                            }
+                        if ($type['id'] == 1 || $type['id'] == 2 || $type['id'] == 7 || $type['id'] == 8 || $type['id'] == 9 || $type['id'] == 10 || $type['id'] == 11 || $type['id'] == 12) {
+                            continue;
                         }
                     }
                     if ($cache_type == 6 || $cache_type == 8) {
                         if ($cache_type == 6) {
-                            if ($usr['admin']) {
-                                if ($type['id'] == 1 || $type['id'] == 2 || $type['id'] == 4 || $type['id'] == 5) {
-                                    continue;
-                                }
-                            } else {
-                                if ($usr['admin'] == false && ($type['id'] == 1 || $type['id'] == 2 || $type['id'] == 4 || $type['id'] == 5 || $type['id'] == 9 || $type['id'] == 10 || $type['id'] == 11 || $type['id'] == 12)) {
-                                    continue;
-                                }
+                            if ($type['id'] == 1 || $type['id'] == 2 || $type['id'] == 4 || $type['id'] == 5 || $type['id'] == 9 || $type['id'] == 10 || $type['id'] == 11 || $type['id'] == 12) {
+                                continue;
                             }
                         }
 
                         if ($cache_type == 8) {
-                            if ($usr['admin']) {
-
-                                if ($type['id'] == 7 || $type['id'] == 8) {
-                                    continue;
-                                }
-                            } else {
-                                if ($type['id'] == 7 || $type['id'] == 8 || $type['id'] == 9 || $type['id'] == 12) {
-                                    continue;
-                                }
+                            if ($type['id'] == 7 || $type['id'] == 8 || $type['id'] == 9 || $type['id'] == 12) {
+                                continue;
                             }
                         }
                     } else {
-
-                        if ($usr['admin']) {
-                            if ($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8) {
-                                continue;
-                            }
-                        } else {
-
-                            if ($log_record['user_id'] == $cache_user_id && $usr['admin'] == false && ($type['id'] == 1 || $type['id'] == 2 || $type['id'] == 4 || $type['id'] == 5 || $type['id'] == 7 || $type['id'] == 8 || $type['id'] == 12 )) {
-                                continue;
-                            }
-
-                            if ($log_record['user_id'] != $cache_user_id && $usr['admin'] == false && ($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8 || $type['id'] == 9 || $type['id'] == 10 || $type['id'] == 11 || $type['id'] == 12)) {
-                                continue;
-                            }
+                        if ($log_record['user_id'] == $cache_user_id && ($type['id'] == 1 || $type['id'] == 2 || $type['id'] == 4 || $type['id'] == 5 || $type['id'] == 7 || $type['id'] == 8 || $type['id'] == 12 )) {
+                            continue;
+                        }
+                        if ($log_record['user_id'] != $cache_user_id && ($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8 || $type['id'] == 9 || $type['id'] == 10 || $type['id'] == 11 || $type['id'] == 12)) {
+                            continue;
                         }
                     }
 

@@ -357,8 +357,8 @@ if ($error == false) {
                                 $dnf++;           // jesli DNF zwieksz licznik
                             if ($logs['log_type'] == 5)
                                 $warning = 1;       // zgloszono potrzebe serwisu
-                            if ($logs['log_type'] == 1)
-                                $sprawdzaj = 1;     // skrzynka znaleziona wiec nie trzeba szukac DNF
+                            if ($logs['log_type'] == 1 || $logs['log_type'] == 6)
+                                $sprawdzaj = 1;     // skrzynka znaleziona lub po serwisie wiec nie trzeba szukac DNF
                         } else {
                             if ($logs['log_type'] == 5)
                                 $warning = 1;       // zgloszono potrzebe serwisu
