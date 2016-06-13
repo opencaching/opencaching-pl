@@ -255,7 +255,7 @@ function process_owner_log($user_id, $log_id)
     $rLog = XDb::xFetchArray($rsLog);
     XDb::xFreeResults($rsLog);
 
-    $userActivity = $rLog['ch'] + $rLog['cf'] + $rLog['cn'];
+//    $userActivity = $rLog['ch'] + $rLog['cf'] + $rLog['cn'];
     $watchtext = file_get_contents(dirname(__FILE__) . '/item.email.html');
     $logtext = $rLog['text'];
     $logtext = preg_replace("/<img[^>]+\>/i", "", $logtext);
@@ -281,7 +281,7 @@ function process_owner_log($user_id, $log_id)
     $watchtext = mb_ereg_replace('{runwatch02}', tr('runwatch02'), $watchtext);
     $watchtext = mb_ereg_replace('{absolute_server_URI}', $absolute_server_URI, $watchtext);
     $watchtext = mb_ereg_replace('{emailSign}', $octeamEmailsSignature, $watchtext);
-    $watchtext = mb_ereg_replace('{userActivity}', $userActivity, $watchtext);
+//    $watchtext = mb_ereg_replace('{userActivity}', $userActivity, $watchtext);
 
     XDb::xSql(
         "INSERT IGNORE INTO watches_waiting (`user_id`, `object_id`, `object_type`, `date_added`, `watchtext`, `watchtype`)
@@ -341,7 +341,7 @@ function process_log_watch($user_id, $log_id)
     $watchtext = mb_ereg_replace('{logtypeColor}', $logtypeParams['logtypeColor'], $watchtext);
     $watchtext = mb_ereg_replace('{runwatch02}', tr('runwatch02'), $watchtext);
     $watchtext = mb_ereg_replace('{absolute_server_URI}', $absolute_server_URI, $watchtext);
-    $watchtext = mb_ereg_replace('{userActivity}', $userActivity, $watchtext);
+//    $watchtext = mb_ereg_replace('{userActivity}', $userActivity, $watchtext);
 
     XDb::xSql(
         "INSERT IGNORE INTO watches_waiting (`user_id`, `object_id`, `object_type`, `date_added`, `watchtext`, `watchtype`)
