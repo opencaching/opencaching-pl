@@ -142,7 +142,7 @@ if ($searchdata) {  # Mode 2 - with "searchdata".
 
 
     # powertrail_only (hunt for powerTrails) - convert to OKAPI's "powertrail_only" parameter.
-    if ($_GET['powertrail_only'] == "true") {
+    if (isset($_GET['powertrail_only']) && $_GET['powertrail_only'] == "true") {
         $params['powertrail_only'] = "true";
     }
 
