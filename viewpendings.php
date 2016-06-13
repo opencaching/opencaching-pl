@@ -141,7 +141,7 @@ function notifyOwner($cacheid, $msgType)
     $email_content = mb_ereg_replace('{Cacheactivated_05}', tr('Cacheactivated_05'), $email_content);
 
 
-    $owner_email = XDb::xMultiVariableQueryValue(
+    $owner_email['email'] = XDb::xMultiVariableQueryValue(
         "SELECT `email` FROM `user` WHERE `user_id`= :1 LIMIT 1", '', $user_id);
 
     if ($msgType == 0) {

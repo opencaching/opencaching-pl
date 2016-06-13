@@ -368,7 +368,7 @@ if ($error == false) {
 
 
 
-    if ($cache_id != 0 && (($geocache->getStatus() != 4 && $geocache->getStatus() != 5 && ($geocache->getStatus() != 6 /* || $cache_record['type'] == 6 */)) || $usr['userid'] == $geocache->getOwner()->getUserId() || $usr['admin'] || ( $cache_record['status'] == 4 && $applicationContainer->getLoggedUser()->getIsGuide() ))) {
+    if ($cache_id != 0 && (($geocache->getStatus() != 4 && $geocache->getStatus() != 5 && ($geocache->getStatus() != 6 /* || $cache_record['type'] == 6 */)) || $usr['userid'] == $geocache->getOwner()->getUserId() || $usr['admin'] || ( $geocache->getStatus() == 4 && $applicationContainer->getLoggedUser()->getIsGuide() ))) {
         //ok, cache is here, let's process
         $owner_id = $geocache->getOwner()->getUserId();
         tpl_set_var('owner_id', $owner_id);

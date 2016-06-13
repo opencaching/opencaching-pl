@@ -94,7 +94,7 @@ if ($error == false) {
         tpl_set_var("section_4_stop", '-->');
 
         if (!$record = Xdb::xFetchArray($rs)) {
-            tpl_set_var("openchecker_wrong_cache", tr(openchecker_wrong_cache));
+            tpl_set_var("openchecker_wrong_cache", tr('openchecker_wrong_cache'));
             tpl_set_var("section_2_start", '<!--');
             tpl_set_var("section_2_stop", '-->');
             tpl_set_var("section_5_start", '');
