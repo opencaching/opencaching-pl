@@ -216,7 +216,7 @@ foreach ($logEneries as $record) {
 
             $logfunctions .= $tmpnewpic . $functions_end;
         } else if ($usr['admin']) {
-            $logfunctions = $functions_start . $tmpedit . $functions_middle . $tmpremove . $functions_middle . $functions_end;
+            $logfunctions = $functions_start . $tmpremove . $functions_middle . $functions_end;
         } elseif ($owner_id == $usr['userid']) {
 
             $logfunctions = $functions_start;
@@ -226,7 +226,7 @@ foreach ($logEneries as $record) {
             $logfunctions .= $functions_end;
         }
     } else if ($usr['admin']) {
-        $logfunctions = $functions_start . $tmpedit . $functions_middle . $tmpRevert . $functions_middle . $functions_end;
+        $logfunctions = $functions_start . $tmpRevert . $functions_middle . $functions_end;
     }
 
     $tmplog = mb_ereg_replace('{logfunctions}', $logfunctions, $tmplog);
