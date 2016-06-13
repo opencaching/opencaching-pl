@@ -97,7 +97,7 @@ if ($usr == true) {
                         $email_content = file_get_contents($stylepath . '/email/newreport_cacheowneronly.email');
                     }
 
-                    $cache_owner = XDb::xMultiVariableQueryValue(
+                    $cache_owner['email'] = XDb::xMultiVariableQueryValue(
                         "SELECT `email` FROM `user` WHERE `user_id`=:1", '', $cache['user_id']);
 
                     $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
