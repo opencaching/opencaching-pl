@@ -1224,9 +1224,10 @@
             scaleControl: {scaleControl},
             center: myLatlng,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
-            mapTypeControlOptions: {
-                mapTypeIds: mapTypeIds
-            }
+            // non-google maps are disabled because of Google API restrictions with Google Content displaying on non-Google maps
+            //mapTypeControlOptions: {
+            //    mapTypeIds: mapTypeIds
+            //}
         }
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     for (var mapType in mapItems){
