@@ -211,7 +211,7 @@
     <input type="hidden" name="show_all_countries" value="{show_all_countries}"/>
     <input type="hidden" id ="any_changes" name="any_changes" value="no"/>
 
-    <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" />&nbsp;{{edit_cache}} &#8211; {name}</div>
+    <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" />&nbsp;{{edit_cache}} &#8211; <a href="viewcache.php?cacheid={cacheid}">{name}</a></div>
     {general_message}
     <div class="buffer"></div>
     <div class="content2-container bg-blue02">

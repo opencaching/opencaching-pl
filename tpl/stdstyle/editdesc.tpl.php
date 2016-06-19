@@ -32,7 +32,7 @@
 </script>
 
 
-<form name="descform" action="editdesc.php" method="post" enctype="application/x-www-form-urlencoded" id="editcache_form" dir="ltr">
+<form name="descform" action="editdesc.php" method="post" enctype="application/x-www-form-urlencoded" id="editdesc_form" dir="ltr">
     <input type="hidden" name="post" value="1"/>
     <input type="hidden" name="descid" value="{descid}"/>
     <input type="hidden" name="show_all_langs_value" value="{show_all_langs_value}"/>
@@ -65,6 +65,7 @@
     <div>
         <p class="content-title-noshade-size1">{{full_description}}:{desc_err}</p>
     </div>
+    <div class="buffer"></div>
     <p id="scriptwarning" class="errormsg">{{javascript_edit_info}}</p>
     <p><textarea id="desc" name="desc" class="descMCE" cols="80" rows="15">{desc}</textarea></p>
     <div class="buffer"></div>
@@ -73,7 +74,7 @@
     <div class="buffer"></div>
     <div><p class="content-title-noshade-size1">{{hint_info}}:</p></div>
     <div class="buffer"></div>
-    <div><textarea name="hints" class="mceNoEditor" cols="80" rows="15">{hints}</textarea></div>
+    <div><textarea name="hints" class="hint mceNoEditor" cols="80" rows="3">{hints}</textarea></div>
     <div class="notice">{{hint_long_text}}</div>
     <div class="notice">{{hint_instructions}}</div>
     <div class="buffer"></div>

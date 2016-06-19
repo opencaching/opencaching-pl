@@ -33,18 +33,17 @@
 
 
 
-<form action="newdesc.php" method="post" enctype="application/x-www-form-urlencoded" name="newdescform" dir="ltr">
+<form action="newdesc.php" method="post" enctype="application/x-www-form-urlencoded" name="newdesc_form" dir="ltr">
     <input type="hidden" name="cacheid" value="{cacheid}"/>
     <input type="hidden" name="show_all_langs" value="{show_all_langs}"/>
-    <table class="content">
+    <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="" align="middle" />&nbsp;{{make_new_description}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></div>
+    <table class="table">
         <colgroup>
             <col width="100">
             <col>
         </colgroup>
-        <tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="" title="New Cache" align="middle" /> <b>{{make_new_description}} <a href="viewcache.php?cacheid={cacheid}">{name}</a></b></td></tr>
-        <tr><td class="spacer" colspan="2"></td></tr>
         <tr>
-            <td>{{language}}:</td>
+            <td class="content-title-noshade">{{language}}:</td>
             <td>
                 <select name="desc_lang">
                     {langoptions}
@@ -52,54 +51,39 @@
                 {show_all_langs_submit} {lang_message}
             </td>
         </tr>
-        <tr><td class="spacer" colspan="2"></td></tr>
+        <tr><td class="buffer" colspan="2"></td></tr>
 
         <tr>
-            <td>{{short_desc_label}}:</td>
-            <td><input type="text" name="short_desc" maxlength="120" value="{short_desc}" class="input400" /></td>
-        </tr>
-        <tr><td class="spacer" colspan="2"></td></tr>
-        <tr>
-            <td colspan="2">{{full_description}}:</td>
-        </tr>
-
-        <tr>
-            <td colspan="2">
-                <span id="scriptwarning" class="errormsg">{{no_javascript}}</span>
-            </td>
+            <td class="content-title-noshade">{{short_description}}:</td>
+            <td><input type="text" name="short_desc" maxlength="120" value="{short_desc}" class="input400"/></td>
         </tr>
         <tr>
             <td colspan="2">
-                <textarea id="desc" name="desc" cols="80" rows="15">{desc}</textarea>
-            </td>
-        </tr>
-        <tr><td class="spacer" colspan="2"></td></tr>
-        <tr>
-            <td class="help" colspan="2">
-                <img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwagi" title="Uwagi" /> {{html_edit_info}}.<br />
-                <img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwagi" title="Uwagi" />
-                {{geocaching_com_foto_info}}
-            </td>
-        </tr>
-        <tr><td class="spacer" colspan="2"></td></tr>
-
-        <tr>
-            <td colspan="2">{{extra_coded_info}}:</td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <textarea name="hints" class="hint mceNoEditor">{hints}</textarea>
-            </td>
-        </tr>
-        <tr><td class="spacer" colspan="2"></td></tr>
-        <tr><td class="spacer" colspan="2"></td></tr>
-
-        <tr>
-            <td class="header-small" colspan="2">
-                <input type="reset" name="reset" value="{{reset}}" class="formbuttons" />&nbsp;&nbsp;
-                <input type="submit" name="submitform" value="{submit}" class="formbuttons" />
+                <div class="notice" style="width:500px;min-height:24px;height:auto;">{{short_desc_long_text}}</div>
             </td>
         </tr>
     </table>
+    <div class="buffer"></div>
+    <div>
+        <p class="content-title-noshade-size1">{{full_description}}:{desc_err}</p>
+    </div>
+    <div class="buffer"></div>
+    <p id="scriptwarning" class="errormsg">{{javascript_edit_info}}</p>
+    <p><textarea id="desc" name="desc" class="descMCE" cols="80" rows="15">{desc}</textarea></p>
+    <div class="buffer"></div>
+    <div class="notice">{{html_usage}} <a href="articles.php?page=htmltags" target="_blank">{{available_html}}</a></div>
+    <div class="notice">{{geocaching_com_foto_info}}</div>
+    <div class="buffer"></div>
+    <div><p class="content-title-noshade-size1">{{hint_info}}:</p></div>
+    <div class="buffer"></div>
+    <div><textarea name="hints" class="hint mceNoEditor" cols="80" rows="3">{hints}</textarea></div>
+    <div class="notice">{{hint_long_text}}</div>
+    <div class="notice">{{hint_instructions}}</div>
+    <div class="buffer"></div>
+    <div>
+        <input type="reset" name="reset" value="{{reset}}" class="formbuttons"/>&nbsp;&nbsp;
+        <input type="submit" name="submitform" value="{{submit}}" class="formbuttons"/>
+    </div>
+    <div class="buffer"></div>
 </form>
 

@@ -291,9 +291,9 @@ textarea {          border:1px solid black;
                     padding:1px;
                     font-size:11px; }
 
-textarea.cachedesc {width:600px; height:500px; }    /* only cacheeditor */
-textarea.hint {     width:600px; height:200px; }    /* only cacheditor */
-textarea.logs {     width:600px; height:300px; }    /* only logeditor */
+textarea.cachedesc {width:600px; height:500px; }    /* only cache_editor */
+textarea.hint {     width:600px; }                  /* only cache_editor */
+textarea.logs {     width:600px; height:300px; }    /* only log_editor */
 
 
 select {            border:0px;

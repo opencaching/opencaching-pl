@@ -26,7 +26,9 @@ if ($error == false) {
             if ($cache_record['user_id'] == $usr['userid'] || $usr['admin']) {
                 $tplname = 'newdesc';
 
-                $submit = tr('submit');
+                tpl_set_var('desc_err', '');
+                $show_all_langs = false; 
+
                 $default_lang = 'PL';
 
                 $lang_message = '<br/><span class="errormsg">' . tr('lngExist') . '</span>';
@@ -112,7 +114,7 @@ if ($error == false) {
                 unset($langs_rs);
 
                 //here we set the template vars
-                tpl_set_var('name', htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8'));
+                tpl_set_var('cachename', htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8'));
                 tpl_set_var('cacheid', htmlspecialchars($cache_id, ENT_COMPAT, 'UTF-8'));
 
                 tpl_set_var('lang_message', $desc_lang_exists ? $lang_message : '');
@@ -123,7 +125,6 @@ if ($error == false) {
                 tpl_set_var('desc', htmlspecialchars($desc, ENT_COMPAT, 'UTF-8'), true);
                 tpl_set_var('hints', $hints);
 
-                tpl_set_var('submit', $submit);
                 tpl_set_var('language4js', $lang);
             } else {
                 tpl_redirect('');
