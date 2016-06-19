@@ -149,15 +149,13 @@ if ($error == false) {
             $user_tops = XDb::xMultiVariableQueryValue(
                 "SELECT COUNT(`user_id`) FROM `cache_rating` WHERE `user_id`= :1 ", 0, $usr['userid']);
 
-            if ($is_top == 0) {
-                if (($user_founds * rating_percentage / 100) < 1) {
+            if ($is_top == 0) { //not-yet-recommended
+                
+            	if ( ($user_founds * rating_percentage / 100) < 1) { // user doesn't have enough founds to recommend anything
                     $top_cache = 0;
-                    $anzahl = (1 - ($user_founds * rating_percentage / 100)) / (rating_percentage / 100);
-                    if ($anzahl > 1) {
-                        $rating_msg = mb_ereg_replace('{anzahl}', "$anzahl", $rating_too_few_founds);
-                    } else {
-                        $rating_msg = mb_ereg_replace('{anzahl}', "$anzahl", $rating_too_few_founds);
-                    }
+                    $recommendationsNr = 100 / rating_percentage - $user_founds;
+                    $rating_msg = mb_ereg_replace('{recommendationsNr}', "$recommendationsNr", $rating_too_few_founds);
+                    
                 } elseif ($user_tops < floor($user_founds * rating_percentage / 100)) {
                     // this user can recommend this cache
                     if ($cache_user_id != $usr['userid']) {
@@ -172,13 +170,11 @@ if ($error == false) {
                     $rating_msg = mb_ereg_replace('{max}', floor($user_founds * rating_percentage / 100), $rating_msg);
                     $rating_msg = mb_ereg_replace('{curr}', $user_tops, $rating_msg);
                 } else {
+                	// user needs more caches for next recomendation 
                     $top_cache = 0;
-                    $anzahl = ($user_tops + 1 - ($user_founds * rating_percentage / 100)) / (rating_percentage / 100);
-                    if ($anzahl > 1) {
-                        $rating_msg = mb_ereg_replace('{anzahl}', "$anzahl", $rating_too_few_founds);
-                    } else {
-                        $rating_msg = mb_ereg_replace('{anzahl}', "$anzahl", $rating_too_few_founds);
-                    }
+                    $recommendationsNr = ((1+$user_tops) * 100 / rating_percentage ) - $user_founds;
+                    $rating_msg = mb_ereg_replace('{recommendationsNr}', "$recommendationsNr", $rating_too_few_founds);
+                    
                     $rating_msg .= '<br />' . $rating_maxreached;
                 }
             } else {

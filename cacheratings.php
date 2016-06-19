@@ -33,7 +33,7 @@ if ($error == false) {
                 `caches`.`name` `name`,
                 `caches`.`type` AS `cache_type`,
                 `cache_type`.`icon_large` `icon_large`,
-                count(`cache_rating`.`cache_id`) as `anzahl`,
+                count(`cache_rating`.`cache_id`) as `recommendationsNr`,
                 `PowerTrail`.`id` AS PT_ID,
                 `PowerTrail`.`name` AS PT_name,
                 `PowerTrail`.`type` As PT_type,
@@ -48,7 +48,7 @@ if ($error == false) {
                 AND `caches`.`status`=1  AND `caches`.`type` <> 6
                 AND `caches`.`type`=`cache_type`.`id`
              GROUP BY `user`.`user_id`, `user`.`username`, `caches`.`cache_id`, `caches`.`name`, `cache_type`.`icon_large`
-             ORDER BY `anzahl` DESC, `caches`.`name` ASC
+             ORDER BY `recommendationsNr` DESC, `caches`.`name` ASC
              LIMIT '.XDb::xEscape($startat).','.XDb::xEscape($perpage));
 
         $tr_myn_click_to_view_cache = tr('myn_click_to_view_cache');
@@ -81,7 +81,7 @@ if ($error == false) {
 
                 $thisline = mb_ereg_replace('{userid}', urlencode($record['user_id']), $thisline);
                 $thisline = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
-                $thisline = mb_ereg_replace('{rating_absolute}', $record['anzahl'], $thisline);
+                $thisline = mb_ereg_replace('{rating_absolute}', $record['recommendationsNr'], $thisline);
 
                 $cacheicon = myninc::checkCacheStatusByUser($record, $usr['userid']);
 

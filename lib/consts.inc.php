@@ -16,4 +16,4 @@ define('NOTIFY_NEW_CACHES', 1);
 
 // for ratings
 define('rating_percentage', 10); // percentage of found caches to be rated
-?>
+

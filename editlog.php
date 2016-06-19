@@ -79,12 +79,9 @@ if ($error == false) {
                 if ($is_top == 0) {
                     if (($user_founds * rating_percentage / 100) < 1) {
                         $top_cache = 0;
-                        $anzahl = (1 - ($user_founds * rating_percentage / 100)) / (rating_percentage / 100);
-                        if ($anzahl > 1) {
-                            $rating_msg = mb_ereg_replace('{anzahl}', "$anzahl", $rating_too_few_founds);
-                        } else {
-                            $rating_msg = mb_ereg_replace('{anzahl}', "$anzahl", $rating_too_few_founds);
-                        }
+                        $recommendationsNr = 100 / rating_percentage - $user_founds;
+                        $rating_msg = mb_ereg_replace('{recommendationsNr}', "$recommendationsNr", $rating_too_few_founds);
+                        
                     } elseif ($user_tops < floor($user_founds * rating_percentage / 100)) {
                         if ($cache_user_id != $usr['userid']) {
                             $rating_msg = mb_ereg_replace('{chk_sel}', '', $rating_allowed . '<br />' . $rating_stat);
@@ -95,12 +92,9 @@ if ($error == false) {
                         $rating_msg = mb_ereg_replace('{curr}', $user_tops, $rating_msg);
                     } else {
                         $top_cache = 0;
-                        $anzahl = ($user_tops + 1 - ($user_founds * rating_percentage / 100)) / (rating_percentage / 100);
-                        if ($anzahl > 1) {
-                            $rating_msg = mb_ereg_replace('{anzahl}', "$anzahl", $rating_too_few_founds);
-                        } else {
-                            $rating_msg = mb_ereg_replace('{anzahl}', "$anzahl", $rating_too_few_founds);
-                        }
+                        $recommendationsNr = ((1+$user_tops) * 100 / rating_percentage ) - $user_founds;
+                        $rating_msg = mb_ereg_replace('{recommendationsNr}', "$recommendationsNr", $rating_too_few_founds);
+                        
                         $rating_msg .= '<br />' . $rating_maxreached;
                     }
                 } else {
