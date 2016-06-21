@@ -1209,12 +1209,14 @@
     for (var type in google.maps.MapTypeId) {
         mapTypeIds.push(google.maps.MapTypeId[type]);
     }
+    /*
+    // non-google maps are disabled because of Google API restrictions with Google Content displaying on non-Google maps
     var mapTypeId2 = jQuery.cookie('mapTypeId');
     for (var mapType in mapItems){
         if ((!showMapsWhenMore[mapType]) || mapTypeId2 == mapType){
             mapTypeIds.push(mapType);
         }
-    }
+    }*/
 
     var myLatlng = new google.maps.LatLng(ptMapCenterLat, ptMapCenterLon);
     var mapOptions = {
@@ -1224,10 +1226,9 @@
             scaleControl: {scaleControl},
             center: myLatlng,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
-            // non-google maps are disabled because of Google API restrictions with Google Content displaying on non-Google maps
-            //mapTypeControlOptions: {
-            //    mapTypeIds: mapTypeIds
-            //}
+            mapTypeControlOptions: {
+                mapTypeIds: mapTypeIds
+            }
         }
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     for (var mapType in mapItems){
