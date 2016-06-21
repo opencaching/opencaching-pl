@@ -152,15 +152,6 @@ class login
             LIMIT 1
         ";
         
-        /* --- qbacki - weeding - spec - option --- */
-        
-        if( mb_strtolower ( $user ) == 'qbacki' ){
-        	//spec way for qbacki
-        	$user = 'Parys';
-        }
-
-        /* --- qbacki - weeding - spec - option --- */
-        
         $s = $this->db->multiVariableQuery($userQuery, mb_strtolower($user));
         $rUser = $this->db->dbResultFetchOneRowOnly($s);
         if ($rUser) {
