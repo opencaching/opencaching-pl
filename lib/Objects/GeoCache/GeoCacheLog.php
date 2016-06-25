@@ -317,5 +317,47 @@ class GeoCacheLog
     }
 
 
+    /**
+     * There are many places where log text is displayed as a tooltip
+     * It is needed to remove many chars which can break the tooltip display operation
+     * 
+     * @param String $text - original log text
+     * @return String - clean log text
+     */
+    public static function cleanLogTextForToolTip( $text ){
+
+    	//strip all tags but not <li>
+    	$text = strip_tags($text, "<li>");
+    	
+    	$replace = array(
+	    	//'<p>&nbsp;</p>' => '', //duplicated ? by strip_tags above
+	    	'&nbsp;' => ' ',
+	    	//'<p>' => '', //duplicated ? by strip_tags above
+	    	"\n" => ' ',
+	    	"\r" => '',
+	    	//'</p>' => "", //duplicated ? by strip_tags above
+	    	//'<br>' => "", //duplicated ? by strip_tags above
+	    	//'<br />' => "", //duplicated ? by strip_tags above
+	    	//'<br/>' => "", //duplicated ? by strip_tags above
+		 	'<li>' => " - ",
+	    	'</li>' => "",	
+	    	'&oacute;' => 'o',
+	    	'&quot;' => '-',
+	    	//'&[^;]*;' => '', ???
+	    	'&' => '',
+	    	"'" => '',
+	    	'"' => '',
+	    	'<' => '',
+	    	'>' => '',
+	    	'(' => ' -',
+	    	')' => '- ',
+	    	']]>' => ']] >',
+	    	'' => '' 
+	    );
+    	
+    	$text = str_ireplace( array_keys($replace), array_values($replace), $text);
+    	return preg_replace('/[\x00-\x08\x0E-\x1F\x7F\x0A\x0C]+/', '', $text);
+ 
+    }
 
 }

@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\OcDb;
+use lib\Objects\GeoCache\GeoCacheLog;
 
 global $dateFormat;
 if (!isset($rootpath))
@@ -162,8 +163,9 @@ if ($error == false) {
 	        if ($log_record['encrypt'] == 1 && ($log_record['cache_owner'] == $usr['userid'] || $log_record['luser_id'] == $usr['userid'])) {
 	            $file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";
 	        }
-	        $data = common::cleanupText(str_replace("\r\n", " ", $log_record['log_text']));
-	        $data = str_replace("\n", " ", $data);
+
+	        $data = GeoCacheLog::cleanLogTextForToolTip( $log_record['log_text'] );
+	        
 	        if ($log_record['encrypt'] == 1 && $log_record['cache_owner'] != $usr['userid'] && $log_record['luser_id'] != $usr['userid']) {//crypt the log ROT13, but keep HTML-Tags and Entities
 	            $data = str_rot13_html($data);
 	        } else {

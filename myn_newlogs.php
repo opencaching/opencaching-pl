@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\GeoCache\GeoCacheLog;
 global $lang, $rootpath, $usr, $dateFormat;
 
 if (!isset($rootpath))
@@ -252,8 +253,8 @@ if ($error == false) {
             if ($log_record['encrypt'] == 1 && ($log_record['cache_owner'] == $usr['userid'] || $log_record['luser_id'] == $usr['userid'])) {
                 $file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";
             }
-            $data = cleanup_text(str_replace("\r\n", " ", $log_record['log_text']));
-            $data = str_replace("\n", " ", $data);
+            $data = GeoCacheLog::cleanLogTextForToolTip( $log_record['log_text'] );
+
             if ($log_record['encrypt'] == 1 && $log_record['cache_owner'] != $usr['userid'] && $log_record['luser_id'] != $usr['userid']) {
                 $data = str_rot13_html($data);
             } else {
@@ -277,64 +278,6 @@ if ($error == false) {
 
     tpl_set_var('file_content', $file_content);
     tpl_set_var('pages', $pages);
-}
-
-function cleanup_text($str)
-{
-
-    $str = strip_tags($str, "<li>");
-    $from[] = '<p>&nbsp;</p>';
-    $to[] = '';
-    $from[] = '&nbsp;';
-    $to[] = ' ';
-    $from[] = '<p>';
-    $to[] = '';
-    $from[] = '\n';
-    $to[] = '';
-    $from[] = '\r';
-    $to[] = '';
-    $from[] = '</p>';
-    $to[] = "";
-    $from[] = '<br>';
-    $to[] = "";
-    $from[] = '<br />';
-    $to[] = "";
-    $from[] = '<br/>';
-    $to[] = "";
-    $from[] = '<li>';
-    $to[] = " - ";
-    $from[] = '</li>';
-    $to[] = "";
-    $from[] = '&oacute;';
-    $to[] = 'o';
-    $from[] = '&quot;';
-    $to[] = '"';
-    $from[] = '&[^;]*;';
-    $to[] = '';
-    $from[] = '&';
-    $to[] = '';
-    $from[] = '\'';
-    $to[] = '';
-    $from[] = '"';
-    $to[] = '';
-    $from[] = '<';
-    $to[] = '';
-    $from[] = '>';
-    $to[] = '';
-    $from[] = ']]>';
-    $to[] = ']] >';
-    $from[] = '';
-    $to[] = '';
-
-    for ($i = 0; $i < count($from); $i++)
-        $str = str_replace($from[$i], $to[$i], $str);
-
-    return filterevilchars($str);
-}
-
-function filterevilchars($str)
-{
-    return str_replace('[\\x00-\\x09|\\x0A-\\x0E-\\x1F]', '', $str);
 }
 
 function cmp($a, $b)

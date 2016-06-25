@@ -1082,61 +1082,6 @@ class common
         }
     }
 
-    public static function cleanupText($str)
-    {
-        $str = strip_tags($str, "<li>");
-        $from[] = '<p>&nbsp;</p>';
-        $to[] = '';
-        $from[] = '&nbsp;';
-        $to[] = ' ';
-        $from[] = '<p>';
-        $to[] = '';
-        $from[] = '\n';
-        $to[] = '';
-        $from[] = '\r';
-        $to[] = '';
-        $from[] = '</p>';
-        $to[] = "";
-        $from[] = '<br>';
-        $to[] = "";
-        $from[] = '<br />';
-        $to[] = "";
-        $from[] = '<br/>';
-        $to[] = "";
-        $from[] = '<li>';
-        $to[] = " - ";
-        $from[] = '</li>';
-        $to[] = "";
-        $from[] = '&oacute;';
-        $to[] = 'o';
-        $from[] = '&quot;';
-        $to[] = '"';
-        $from[] = '&[^;]*;';
-        $to[] = '';
-        $from[] = '(';
-        $to[] = '[';
-        $from[] = ')';
-        $to[] = ']';
-        $from[] = '&';
-        $to[] = '';
-        $from[] = '\'';
-        $to[] = '';
-        $from[] = '"';
-        $to[] = '';
-        $from[] = '<';
-        $to[] = '';
-        $from[] = '>';
-        $to[] = '';
-        $from[] = ']]>';
-        $to[] = ']] >';
-        $from[] = '';
-        $to[] = '';
-        for ($i = 0; $i < count($from); $i++) {
-            $str = str_replace($from[$i], $to[$i], $str);
-        }
-        return self::filterevilchars($str);
-    }
-
     public static function buildCacheSizeSelector($sel_type, $sel_size)
     {
         $cache = cache::instance();
@@ -1176,11 +1121,6 @@ class common
             $cacheLimitByTypePerUser[$cacheCount['type']] = $cacheCount['cacheCount'];
         }
         return $cacheLimitByTypePerUser;
-    }
-
-    private static function filterevilchars($str)
-    {
-        return str_replace('[\\x00-\\x09|\\x0A-\\x0E-\\x1F]', '', $str);
     }
 
 }

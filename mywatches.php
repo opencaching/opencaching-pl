@@ -280,15 +280,6 @@ if ($error == false) {
 
                         $tmp_watch = mb_ereg_replace('{icon_name}', $record['icon_small'], $tmp_watch);
 
-                        /* $log_text  = htmlspecialchars( $record[ 'log_text'], ENT_COMPAT, 'UTF-8');
-                          $log_text = str_replace("\r\n", " ",$log_text);
-                          $log_text = str_replace("\n", " ",$log_text);
-                          $log_text = str_replace("'", "-",$log_text);
-                          $log_text = str_replace("\"", " ",$log_text); */
-
-                        //$log_text = str_replace("\r", " ",$log_text);
-                        //$log_text = cleanup_text(str_replace("\r\n", " ", $log_text ));
-                        //$log_text = str_rot13_html($log_text);
                         if ($record['log_type'] == 12 && !$usr['admin']) {
                             $record['user_id'] = '0';
                             $record['user_name'] = $tr_COG;

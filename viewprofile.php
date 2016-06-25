@@ -4,6 +4,7 @@ use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use lib\Objects\PowerTrail\PowerTrail;
 use lib\Objects\User\User;
+use lib\Objects\GeoCache\GeoCacheLog;
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath)){
@@ -387,8 +388,9 @@ if ($error == false) {
                     if ($record_logs['encrypt'] == 1 && ($record_logs['cache_owner'] == $usr['userid'] || $record_logs['luser_id'] == $usr['userid'])) {
                         $logtext .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";
                     }
-                    $data_text = common::cleanupText(str_replace("\r\n", " ", $record_logs['log_text']));
-                    $data_text = str_replace("\n", " ", $data_text);
+                    
+                    $data_text = GeoCacheLog::cleanLogTextForToolTip( $record_logs['log_text'] );
+                    
                     if ($record_logs['encrypt'] == 1 && $record_logs['cache_owner'] != $usr['userid'] && $record_logs['luser_id'] != $usr['userid']) {//crypt the log ROT13, but keep HTML-Tags and Entities
                         $data_text = str_rot13_html($data_text);
                     } else {
@@ -656,8 +658,9 @@ if ($error == false) {
                     if ($record_logs['encrypt'] == 1 && ($record_logs['cache_owner'] == $usr['userid'] || $record_logs['luser_id'] == $usr['userid'])) {
                         $logtext .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";
                     }
-                    $data_text = common::cleanupText(str_replace("\r\n", " ", $record_logs['log_text']));
-                    $data_text = str_replace("\n", " ", $data_text);
+                    
+                    $data_text = GeoCacheLog::cleanLogTextForToolTip( $record_logs['log_text'] );
+                    
                     if ($record_logs['encrypt'] == 1 && $record_logs['cache_owner'] != $usr['userid'] && $record_logs['luser_id'] != $usr['userid']) {//crypt the log ROT13, but keep HTML-Tags and Entities
                         $data_text = str_rot13_html($data_text);
                     } else {
