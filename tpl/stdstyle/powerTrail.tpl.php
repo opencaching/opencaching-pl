@@ -1433,11 +1433,11 @@ $( document ).ready(function() {
                                         <td>{sortDirSelector}</td>
                                     </tr>
                                     <tr style="{statsOptionsDisplay}">
-                                        <td>{{pt242}}:</td>
+                                        <td>{{pt243}}:</td>
                                         <td>{gainedPowerTrailsBool}</td>
                                     </tr>
                                     <tr style="{statsOptionsDisplay}">
-                                        <td></td>
+                                        <td>{{pt242}}:</td>
                                         <td>{myPowerTrailsBool}</td>
                                     </tr>
 				</table>
