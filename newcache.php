@@ -736,11 +736,11 @@ if ($error == false) {
                 $db->multiVariableQuery(
                     "INSERT INTO `cache_desc` (
                         `cache_id`, `language`, `desc`, `hint`,
-                        `short_desc`, `last_modified`, `uuid`, `node` )
-                    VALUES (:1, :2, :3, :4, :5, NOW(), :6, :7)",
+                        `short_desc`, `last_modified`, `uuid`, `node`, `rr_comment` )
+                    VALUES (:1, :2, :3, :4, :5, NOW(), :6, :7, :8)",
                     $cache_id, $sel_lang, $desc,
                     nl2br(htmlspecialchars($hints, ENT_COMPAT, 'UTF-8')),
-                    $short_desc, $desc_uuid, $oc_nodeid);
+                    $short_desc, $desc_uuid, $oc_nodeid, '');
 
                 GeoCache::setCacheDefaultDescLang($cache_id);
 
