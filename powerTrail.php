@@ -50,11 +50,11 @@ if ($error == false) {
         if ($cookie->is_set("ptMyBool"))
             $_REQUEST['myPowerTrailsBool'] = $cookie->get("ptMyBool");
         else
-            $_REQUEST['myPowerTrailsBool'] = 'off';
+            $_REQUEST['myPowerTrailsBool'] = 'no';
         if ($cookie->is_set("ptGaBool"))
             $_REQUEST['gainedPowerTrailsBool'] = $cookie->get("ptGaBool");
         else
-            $_REQUEST['gainedPowerTrailsBool'] = 'off';
+            $_REQUEST['gainedPowerTrailsBool'] = 'no';
     }
 
     $tplname = 'powerTrail';
@@ -145,8 +145,8 @@ if ($error == false) {
             tpl_set_var('ptTypeSelector2', displayPtTypesSelector('filter', $_REQUEST['filter'], true));
             tpl_set_var('sortSelector', getSortBySelector($_REQUEST['sortBy']));
             tpl_set_var('sortDirSelector', getSortDirSelector($_REQUEST['sortDir']));
-            tpl_set_var('myPowerTrailsBool', generateCheckbox('myPowerTrailsBool',$_REQUEST['myPowerTrailsBool'],'pt243'));
-            tpl_set_var('gainedPowerTrailsBool', generateCheckbox('gainedPowerTrailsBool',$_REQUEST['gainedPowerTrailsBool'],'pt244'));
+            tpl_set_var('myPowerTrailsBool', getMyPowerTrailsSelector($_REQUEST['myPowerTrailsBool']));
+            tpl_set_var('gainedPowerTrailsBool', getGainedPowerTrailsSelector($_REQUEST['gainedPowerTrailsBool']));
             tpl_set_var('displayedPowerTrailsCount', $pt->getDisplayedPowerTrailsCount());
             tpl_set_var('mapCenterLat', $main_page_map_center_lat);
             tpl_set_var('mapCenterLon', $main_page_map_center_lon);
@@ -543,6 +543,24 @@ function getSortDirSelector($sel)
     return generateSelector($arr, $sel, 'sortDir');
 }
 
+function getGainedPowerTrailsSelector($sel)
+{
+    $arr = array(
+        1 => array('val' => 'no', 'tr' => 'no'),
+        2 => array('val' => 'yes', 'tr' => 'yes'),
+    );
+    return generateSelector($arr, $sel, 'gainedPowerTrailsBool');
+}
+
+function getMyPowerTrailsSelector($sel)
+{
+    $arr = array(
+        1 => array('val' => 'no', 'tr' => 'no'),
+        2 => array('val' => 'yes', 'tr' => 'yes'),
+    );
+    return generateSelector($arr, $sel, 'myPowerTrailsBool');
+}
+
 function generateSelector($array, $sel, $name)
 {
     $selector = '<select id="' . $name . '" name="' . $name . '">';
@@ -553,15 +571,6 @@ function generateSelector($array, $sel, $name)
             $selector .= '<option value="' . $opt['val'] . '">' . tr($opt['tr']) . '</option>';
     }
     return $selector;
-}
-
-function generateCheckbox($name, $val, $tr) {
-    if ($val === 'on') {
-        $checked="checked";
-    } else {
-        $checked = "";
-    }
-    return '<input type="checkbox" name="'. $name .'" '. $checked .'> '.tr($tr);
 }
 
 function generateStatusSelector($currStatus)
