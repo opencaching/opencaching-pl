@@ -127,7 +127,7 @@ class powerTrailController {
         } else {
             $sortOder = 'DESC';
         }
-        if(isset($_REQUEST['historicLimit']) && $_REQUEST['historicLimit']==1) {
+        if(isset($_REQUEST['historicLimitBool']) && $_REQUEST['historicLimitBool']==="no") {
             $cacheCountLimit = powerTrailBase::historicMinimumCacheCount();
         } else {
             $cacheCountLimit = powerTrailBase::minimumCacheCount();

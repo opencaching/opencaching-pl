@@ -32,7 +32,7 @@ $firePtMenu = true;
 //Preprocessing
 if ($error == false) {
     if (isset($_REQUEST['sortBy']) || isset($_REQUEST['filter']) || isset($_REQUEST['sortDir'])
-    || isset($_REQUEST['myPowerTrailsBool']) || isset($_REQUEST['gainedPowerTrailsBool'])) {
+    || isset($_REQUEST['myPowerTrailsBool']) || isset($_REQUEST['gainedPowerTrailsBool']) || isset($_REQUEST['historicLimitBool'])){
         saveCookie($cookie);
     } else {
         if ($cookie->is_set("ptSrBy"))
@@ -55,6 +55,10 @@ if ($error == false) {
             $_REQUEST['gainedPowerTrailsBool'] = $cookie->get("ptGaBool");
         else
             $_REQUEST['gainedPowerTrailsBool'] = 'no';
+        if ($cookie->is_set("ptMiniBool"))
+            $_REQUEST['historicLimitBool'] = $cookie->get("ptMiniBool");
+        else
+            $_REQUEST['historicLimitBool'] = 'no';
     }
 
     $tplname = 'powerTrail';
@@ -147,6 +151,7 @@ if ($error == false) {
             tpl_set_var('sortDirSelector', getSortDirSelector($_REQUEST['sortDir']));
             tpl_set_var('myPowerTrailsBool', getMyPowerTrailsSelector($_REQUEST['myPowerTrailsBool']));
             tpl_set_var('gainedPowerTrailsBool', getGainedPowerTrailsSelector($_REQUEST['gainedPowerTrailsBool']));
+            tpl_set_var('historicLimitBool', getMiniPowerTrailSelector($_REQUEST['historicLimitBool']));
             tpl_set_var('displayedPowerTrailsCount', $pt->getDisplayedPowerTrailsCount());
             tpl_set_var('mapCenterLat', $main_page_map_center_lat);
             tpl_set_var('mapCenterLon', $main_page_map_center_lon);
@@ -561,6 +566,15 @@ function getMyPowerTrailsSelector($sel)
     return generateSelector($arr, $sel, 'myPowerTrailsBool');
 }
 
+function getMiniPowerTrailSelector($sel)
+{
+    $arr = array(
+        1 => array('val' => 'no', 'tr' => 'no'),
+        2 => array('val' => 'yes', 'tr' => 'yes'),
+    );
+    return generateSelector($arr, $sel, 'historicLimitBool');
+}
+
 function generateSelector($array, $sel, $name)
 {
     $selector = '<select id="' . $name . '" name="' . $name . '">';
@@ -601,6 +615,7 @@ function saveCookie($cookie)
     $cookie->set("ptSrDr", $_REQUEST['sortDir']);
     $cookie->set("ptGaBool", $_REQUEST['gainedPowerTrailsBool']);
     $cookie->set("ptMyBool", $_REQUEST['myPowerTrailsBool']);
+    $cookie->set("ptMiniBool", $_REQUEST['historicLimitBool']);
 }
 
 ?>
