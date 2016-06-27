@@ -1219,9 +1219,8 @@ if ($error == false) {
 
             $_SESSION['submitted'] = true;
 
-
             EmailSender::sendNotifyOfOcTeamCommentToCache(__DIR__ . '/tpl/stdstyle/email/octeam_comment.email.html',
-                $geocache, $usr['userid'], $usr['username'], $_POST['rr_comment']);
+                $geocache, $usr['userid'], $usr['username'], nl2br($_POST['rr_comment']));
         }
 
         // remove OC Team comment
