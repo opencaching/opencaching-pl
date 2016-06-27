@@ -1,6 +1,8 @@
 <?php
 
 
+use lib\Objects\GeoCache\GeoCacheLog;
+
 if (!isset($rootpath))
     $rootpath = '';
 
@@ -595,11 +597,11 @@ if ($error == false) {
                 $thisline = mb_ereg_replace('{username}', htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'), $thisline);
 
                 $logtext = '<b>' . $log_record['user_name'] . '</b>: &nbsp;';
-                $data_text = common::cleanupText(str_replace("\r\n", " ", $log_record['log_text']));
-                $data_text = str_replace("\n", " ", $data_text);
+                $data_text = GeoCacheLog::cleanLogTextForToolTip( $log_record['log_text'] );
+                
                 $logtext .= "<br/>";
 
-                $logtext .=$data_text;
+                $logtext .= $data_text;
                 $thisline = mb_ereg_replace('{log_text}', htmlspecialchars($logtext, ENT_COMPAT, 'UTF-8'), $thisline);
                 $thisline = mb_ereg_replace('{logicon}', "tpl/stdstyle/images/" . $log_record['icon_small'], $thisline);
                 $thisline = mb_ereg_replace('{cacheicon}', $cacheicon, $thisline);

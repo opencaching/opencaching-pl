@@ -604,9 +604,9 @@ if ($error == false) {
             $to[] = ' ';
             $from[] = '<p>';
             $to[] = '';
-            $from[] = '\n';
+            $from[] = "\n";
             $to[] = '';
-            $from[] = '\r';
+            $from[] = "\r";
             $to[] = '';
             $from[] = '</p>';
             $to[] = "";
@@ -631,7 +631,7 @@ if ($error == false) {
 
             $from[] = '&';
             $to[] = '';
-            $from[] = '\'';
+            $from[] = "'";
             $to[] = '';
             $from[] = '"';
             $to[] = '';

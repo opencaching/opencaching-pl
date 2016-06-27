@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
+use lib\Objects\GeoCache\GeoCacheLog;
 global $lang, $rootpath, $usr, $dateFormat;
 
 if (!isset($rootpath))
@@ -30,65 +31,6 @@ if ($error == false) {
         //get the news
         $tplname = 'mycaches';
         require($stylepath . '/newlogs.inc.php');
-
-        function cleanup_text($str)
-        {
-            $from[] = '<p>&nbsp;</p>';
-            $to[] = '';
-            $str = strip_tags($str, "<li>");
-            $from[] = '&nbsp;';
-            $to[] = ' ';
-            $from[] = '<p>';
-            $to[] = '';
-            $from[] = '\n';
-            $to[] = '';
-            $from[] = '\r';
-            $to[] = '';
-            $from[] = '</p>';
-            $to[] = "";
-            $from[] = '<br>';
-            $to[] = "";
-            $from[] = '<br />';
-            $to[] = "";
-            $from[] = '<br/>';
-            $to[] = "";
-            $from[] = '<li>';
-            $to[] = " - ";
-            $from[] = '</li>';
-            $to[] = "";
-            $from[] = '&oacute;';
-            $to[] = 'o';
-            $from[] = '&quot;';
-            $to[] = '"';
-            $from[] = '&[^;]*;';
-            $to[] = '';
-            $from[] = '&';
-            $to[] = '';
-            $from[] = '\'';
-            $to[] = '';
-            $from[] = '"';
-            $to[] = '';
-            $from[] = '<';
-            $to[] = '';
-            $from[] = '>';
-            $to[] = '';
-            $from[] = '(';
-            $to[] = ' -';
-            $from[] = ')';
-            $to[] = '- ';
-            $from[] = ']]>';
-            $to[] = ']] >';
-            $from[] = '';
-            $to[] = '';
-            for ($i = 0; $i < count($from); $i++)
-                $str = str_replace($from[$i], $to[$i], $str);
-            return filterevilchars($str);
-        }
-
-        function filterevilchars($str)
-        {
-            return str_replace('[\\x00-\\x09|\\x0A-\\x0E-\\x1F]', '', $str);
-        }
 
         if (checkField('cache_status', $lang))
             $lang_db = $lang;
@@ -331,8 +273,8 @@ if ($error == false) {
                 if ($logs['encrypt'] == 1 && ($logs['cache_owner'] == $usr['userid'] || $logs['luser_id'] == $usr['userid'])) {
                     $tabelka .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";
                 }
-                $data = cleanup_text(str_replace("\r\n", " ", $logs['log_text']));
-                $data = str_replace("\n", " ", $data);
+                $data = GeoCacheLog::cleanLogTextForToolTip( $logs['log_text'] );
+
                 if ($logs['encrypt'] == 1 && $logs['cache_owner'] != $usr['userid'] && $logs['luser_id'] != $usr['userid']) {
                     //crypt the log ROT13, but keep HTML-Tags and Entities
                     $data = str_rot13_html($data);

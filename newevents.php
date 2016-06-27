@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\GeoCache\GeoCacheLog;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 require_once('./lib/cache_icon.inc.php');
@@ -10,68 +11,6 @@ if ($error == false) {
     //get the news
     $tplname = 'newevents';
     require($stylepath . '/newcaches.inc.php');
-
-    function cleanup_text($str)
-    {
-        $str = strip_tags($str, "<li>");
-        $from[] = '&nbsp;';
-        $to[] = ' ';
-        $from[] = '<p>';
-        $to[] = '';
-        $from[] = '\n';
-        $to[] = '';
-        $from[] = '\r';
-        $to[] = '';
-        $from[] = '</p>';
-        $to[] = "";
-        $from[] = '<br>';
-        $to[] = "";
-        $from[] = '<br />';
-        $to[] = "";
-        $from[] = '<br/>';
-        $to[] = "";
-
-        $from[] = '<li>';
-        $to[] = " - ";
-        $from[] = '</li>';
-        $to[] = "";
-
-        $from[] = '&oacute;';
-        $to[] = 'o';
-        $from[] = '&quot;';
-        $to[] = '"';
-        $from[] = '&[^;]*;';
-        $to[] = '';
-
-        $from[] = '&';
-        $to[] = '';
-        $from[] = '\'';
-        $to[] = '';
-        $from[] = '"';
-        $to[] = '';
-        $from[] = '<';
-        $to[] = '';
-        $from[] = '>';
-        $to[] = '';
-        $from[] = '(';
-        $to[] = ' -';
-        $from[] = ')';
-        $to[] = '- ';
-        $from[] = ']]>';
-        $to[] = ']] >';
-        $from[] = '';
-        $to[] = '';
-
-        for ($i = 0; $i < count($from); $i++)
-            $str = str_replace($from[$i], $to[$i], $str);
-
-        return filterevilchars($str);
-    }
-
-    function filterevilchars($str)
-    {
-        return str_replace('[\\x00-\\x09|\\x0A-\\x0E-\\x1F]', '', $str);
-    }
 
     $startat = isset($_REQUEST['startat']) ? $_REQUEST['startat'] : 0;
     $startat = $startat + 0;
@@ -145,9 +84,9 @@ if ($error == false) {
 
                     $file_content .= '<b>' . $r_log['user_name'] . '</b>:&nbsp;';
 
-                    $data = cleanup_text(str_replace("\r\n", " ", $r_log['log_text']));
-                    $data = str_replace("\n", " ", $data);
-                    $file_content .=$data;
+                    $data = GeoCacheLog::cleanLogTextForToolTip( $r_log['log_text'] );
+                    
+                    $file_content .= $data;
                     $file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"><img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt=""/></a></b></td>';
                     $file_content .= '<td>&nbsp;&nbsp;<b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r_log['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r_log['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
                 } else {

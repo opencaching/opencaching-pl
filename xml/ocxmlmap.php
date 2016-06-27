@@ -341,22 +341,6 @@ if ($bOcXmlTag == '1')
 
 /* begin some useful functions */
 
-function filterevilchars($str)
-{
-    $evilchars = array(173 => 173, 160 => 160, 157 => 157, 144 => 144, 143 => 143,
-        141 => 141, 129 => 129, 127 => 127, 31 => 31, 30 => 30,
-        29 => 29, 28 => 28, 27 => 27, 26 => 26, 25 => 25, 24 => 24,
-        23 => 23, 22 => 22, 21 => 21, 20 => 20, 19 => 19, 18 => 18,
-        17 => 17, 16 => 16, 15 => 15, 14 => 14, 12 => 12, 11 => 11,
-        9 => 9, 8 => 8, 7 => 7, 6 => 6, 5 => 5, 4 => 4, 3 => 3,
-        2 => 2, 1 => 1, 0 => 0);
-
-    foreach ($evilchars AS $ascii)
-        $str = str_replace(chr($ascii), '', $str);
-
-    return $str;
-}
-
 function object_id2uuid($objectid, $objecttype)
 {
     if ($objecttype == '1')

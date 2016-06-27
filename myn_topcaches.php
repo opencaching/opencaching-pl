@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\GeoCache\GeoCacheLog;
 global $lang, $rootpath, $usr, $dateFormat;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
@@ -22,68 +23,6 @@ if ($error == false) {
 
     $perpage = 50;
     $startat -= $startat % $perpage;
-
-    function cleanup_text($str)
-    {
-        $str = strip_tags($str, "<li>");
-        $from[] = '&nbsp;';
-        $to[] = ' ';
-        $from[] = '<p>';
-        $to[] = '';
-        $from[] = '\n';
-        $to[] = '';
-        $from[] = '\r';
-        $to[] = '';
-        $from[] = '</p>';
-        $to[] = "";
-        $from[] = '<br>';
-        $to[] = "";
-        $from[] = '<br />';
-        $to[] = "";
-        $from[] = '<br/>';
-        $to[] = "";
-
-        $from[] = '<li>';
-        $to[] = " - ";
-        $from[] = '</li>';
-        $to[] = "";
-
-        $from[] = '&oacute;';
-        $to[] = 'o';
-        $from[] = '&quot;';
-        $to[] = '"';
-        $from[] = '&[^;]*;';
-        $to[] = '';
-
-        $from[] = '&';
-        $to[] = '';
-        $from[] = '\'';
-        $to[] = '';
-        $from[] = '"';
-        $to[] = '';
-        $from[] = '<';
-        $to[] = '';
-        $from[] = '>';
-        $to[] = '';
-        $from[] = '(';
-        $to[] = ' -';
-        $from[] = ')';
-        $to[] = '- ';
-        $from[] = ']]>';
-        $to[] = ']] >';
-        $from[] = '';
-        $to[] = '';
-
-        for ($i = 0; $i < count($from); $i++)
-            $str = str_replace($from[$i], $to[$i], $str);
-
-        return filterevilchars($str);
-    }
-
-    function filterevilchars($str)
-    {
-        return str_replace('[\\x00-\\x09|\\x0A-\\x0E-\\x1F]', '', $str);
-    }
 
     //get user record
     $user_id = $usr['userid'];
@@ -247,14 +186,14 @@ if ($error == false) {
             if ($r_log['encrypt'] == 1 && ($r_log['cache_owner'] == $usr['userid'] || $r_log['luser_id'] == $usr['userid'])) {
                 $file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";
             }
-            $data = cleanup_text(str_replace("\r\n", " ", $r_log['log_text']));
-            $data = str_replace("\n", " ", $data);
+            $data = GeoCacheLog::cleanLogTextForToolTip( $r_log['log_text'] );
+
             if ($r_log['encrypt'] == 1 && $r_log['cache_owner'] != $usr['userid'] && $r_log['luser_id'] != $usr['userid']) {//crypt the log ROT13, but keep HTML-Tags and Entities
                 $data = str_rot13_html($data);
             } else {
                 $file_content .= "<br/>";
             }
-            $file_content .=$data;
+            $file_content .= $data;
             $file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"><img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt=""/></a></b></td>';
             $file_content .= '<td>&nbsp;&nbsp;<b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r_log['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r_log['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
         }
