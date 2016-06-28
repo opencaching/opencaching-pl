@@ -401,7 +401,7 @@ if ($error == false) {
 
                     if ($log_record['logtype'] != $type['id'] && $log_record['cachestatus'] != 1)
                         continue;
-                    if ($log_record['logtype'] != $type['id'] && $log_record['cachestatus'] == 1 && $log_record['user_id'] == $cache_user_id)
+                    if ($log_record['logtype'] != $type['id'] && $log_record['cachestatus'] == 1 && $log_record['user_id'] == $cache_user_id && $type['id'] != 3 && $type['id'] != 6)
                         continue;
                     if ($already_found_in_other_comment) {
                         if ($type['id'] == 1 || $type['id'] == 2 || $type['id'] == 7 || $type['id'] == 8 || $type['id'] == 9 || $type['id'] == 10 || $type['id'] == 11 || $type['id'] == 12) {
