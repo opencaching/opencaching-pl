@@ -306,7 +306,7 @@ if ($error == false) {
 
                     ) B
                 ) A
-                WHERE row % $milestone =1 ORDER BY row ASC", $user_id);
+                WHERE row=2 OR row % $milestone =1 ORDER BY row ASC", $user_id);
 
                 $rsms->nextRowset(); //to switch to second query results :)
                 while( $rms = XDb::xFetchArray($rsms)) {
@@ -569,7 +569,7 @@ if ($error == false) {
 
                         ) B
                     ) A
-                    WHERE row % $milestone =1 ORDER BY row ASC", $user_id);
+                    WHERE row=2 OR row % $milestone =1 ORDER BY row ASC", $user_id);
 
                 $rsms->nextRowset(); //to switch to second query results :)
                 while( $rms = XDb::xFetchArray($rsms)) {
