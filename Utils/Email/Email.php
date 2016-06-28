@@ -84,7 +84,7 @@ class Email
         else
             $to=''; //TODO: is it work?
 
-        $subject = $this->subjectPrefix . $this->subject;
+        $subject = $this->subjectPrefix . " " . $this->subject;
         $message = $this->body;
 
         return mb_send_mail($to, $subject, $message, implode("\r\n", $headers));
@@ -137,6 +137,14 @@ class Email
         }else{
             $this->error(__METHOD__.': improper email address: '. $addr);
             return false;
+        }
+    }
+
+    public function addSubjectPrefix($newPrefix) {
+        if (empty($newPrefix) || $newPrefix == "") { //because somebody may want to turn off the global prefix in config
+            return;
+        } else {
+            $this->subjectPrefix = $this->subjectPrefix ."[" . $newPrefix . "]";
         }
     }
 

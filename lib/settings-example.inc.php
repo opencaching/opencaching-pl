@@ -543,4 +543,10 @@ $config['maps']['external']['Google Maps'] = 1;
 $config['maps']['external']['Szukacz'] = 1;
 $config['maps']['external']['Flopp\'s Map'] = 0;
 
+//To all mails send from our service we can add few prefixes:
+//If you don't want use global prefixes just set $value=""
+//Prefix for all mails sent to users:
+$subject_prefix_for_site_mails = "OCXX";
+//Prefix for all notification and mails sent to cache reviewers
+$subject_prefix_for_reviewers_mails = "R-Team";
 ?>

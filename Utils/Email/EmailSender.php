@@ -40,7 +40,8 @@ class EmailSender
         $email->setReplyToAddr( OcConfig::getTechAdminsEmailAddr());
         $email->setFromAddr( OcConfig::getNoreplyEmailAddress());
 
-        $email->setSubject('[Oc Admin Email] Error in domain: '.$spamDomain); //TODO
+        $email->addSubjectPrefix("OC Admin Email");
+        $email->setSubject('Error in domain: '.$spamDomain); //TODO
         $email->setBody($message);
 
         if( ! $email->send() ){
@@ -79,6 +80,7 @@ class EmailSender
         $email->addToAddr($newUserEmailAddress);
         $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
         $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
+        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
         $email->setSubject(tr('register_email_subject'));
         $email->setBody($formattedMessage->getEmailContent(), true);
         $email->send();
@@ -124,6 +126,7 @@ class EmailSender
         $email->addToAddr($userEmailAddress);
         $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
         $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
+        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
         $email->setSubject(tr('post_activation_email_subject'));
         $email->setBody($formattedMessage->getEmailContent(), true);
         $email->send();
@@ -148,6 +151,7 @@ class EmailSender
         $email->addToAddr($log->getUser()->getEmail());
         $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
         $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
+        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
         $email->setSubject(tr('removed_log_title'));
         $email->setBody($formattedMessage->getEmailContent(), true);
         $email->send();
@@ -175,6 +179,7 @@ class EmailSender
         $email->addToAddr($cache->getOwner()->getEmail());
         $email->setReplyToAddr(OcConfig::getCogEmailAddress());
         $email->setFromAddr(OcConfig::getCogEmailAddress());
+        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
         $email->setSubject(tr('octeam_comment_subject'));
         $email->setBody($formattedMessage->getEmailContent(), true);
         $email->send();
@@ -184,6 +189,7 @@ class EmailSender
         $emailCOG->addToAddr(OcConfig::getCogEmailAddress());
         $emailCOG->setReplyToAddr(OcConfig::getCogEmailAddress());
         $emailCOG->setFromAddr(OcConfig::getCogEmailAddress());
+        $emailCOG->addSubjectPrefix(OcConfig::getMailSubjectPrefixForReviewers());
         $emailCOG->setSubject(tr('octeam_comment_subject_copy').' '.$adminName);
         $emailCOG->setBody($formattedMessage->getEmailContent(), true);
         $emailCOG->send();
