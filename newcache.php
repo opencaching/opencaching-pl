@@ -783,9 +783,6 @@ if ($error == false) {
 
                     //send email to octeam
                     mb_send_mail($octeam_email, tr('rrActivateCache_07') . ": " . $name, $email_content, $email_headers);
-                    XDb::xSql(
-                        "UPDATE sysconfig SET value = value + 1
-                        WHERE name = 'hidden_for_approval'");
                 }
 
                 /* add cache altitude altitude */

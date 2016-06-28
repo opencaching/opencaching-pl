@@ -65,7 +65,6 @@ function activateCache($cacheid)
     // activate the cache by changing its status to yet unavailable
     if (actionRequired($cacheid)) {
         if ( XDb::xSql("UPDATE caches SET status = 5 WHERE cache_id= ? ", $cacheid) ) {
-            XDb::xSql("UPDATE sysconfig SET value = value - 1 WHERE name = 'hidden_for_approval'");
             return true;
         } else
             return false;
@@ -78,7 +77,6 @@ function declineCache($cacheid)
     // activate the cache by changing its status to yet unavailable
     if (actionRequired($cacheid)) {
         if (XDb::xSql("UPDATE caches SET status = 6 WHERE cache_id= ? ", $cacheid)) {
-            XDb::xSql("UPDATE sysconfig SET value = value - 1 WHERE name = 'hidden_for_approval'");
             return true;
         } else
             return false;
