@@ -239,7 +239,8 @@ if (date('m') == 12 || date('m') == 1) {
                             $menu[$adminidx]["submenu"][$zgloszeniaidx]['menustring'] .= " (" . $new_reports . "/" . $active_reports . ")";
                         $zgloszeniaidx = mnu_MainMenuIndexFromPageId($menu[$adminidx]["submenu"], "viewpendings");
                         if ($new_pendings > 0)
-                            $menu[$adminidx]["submenu"][$zgloszeniaidx]['menustring'] .= " (" . $in_review_count . "/" . $new_pendings .  ")";
+                            $waitingForAssigne = $new_pendings - $in_review_count;
+                            $menu[$adminidx]["submenu"][$zgloszeniaidx]['menustring'] .= " (" . $waitingForAssigne . "/" . $new_pendings .  ")";
                         mnu_EchoSubMenu($menu[$adminidx]['submenu'], $menu_item_siteid, 1, false);
                         echo '</ul>';
                     }
