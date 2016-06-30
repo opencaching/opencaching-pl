@@ -181,7 +181,8 @@ if (date('m') == 12 || date('m') == 1) {
                             $new_reports = $db->simpleQueryValue("SELECT count(status) FROM reports WHERE status = 0", 0);
                             $lookhere_reports = $db->simpleQueryValue("SELECT count(status) FROM reports WHERE status = 3", 0);
                             $active_reports = $db->simpleQueryValue("SELECT count(status) FROM reports WHERE status <> 2", 0);
-                            $new_pendings = $db->simpleQueryValue("SELECT value FROM sysconfig WHERE name = 'hidden_for_approval'", 0);
+                            $new_pendings = $db->simpleQueryValue("SELECT COUNT(status) FROM caches WHERE status = 4", 0);
+                            $in_review_count = $db->simpleQueryValue("SELECT COUNT(*) FROM caches JOIN approval_status ON approval_status.cache_id = caches.cache_id WHERE caches.status =4");
                         }
                         if (isset($menu[$pageidx])) {
                             mnu_EchoMainMenu($menu[$pageidx]['siteid']);
@@ -238,7 +239,7 @@ if (date('m') == 12 || date('m') == 1) {
                             $menu[$adminidx]["submenu"][$zgloszeniaidx]['menustring'] .= " (" . $new_reports . "/" . $active_reports . ")";
                         $zgloszeniaidx = mnu_MainMenuIndexFromPageId($menu[$adminidx]["submenu"], "viewpendings");
                         if ($new_pendings > 0)
-                            $menu[$adminidx]["submenu"][$zgloszeniaidx]['menustring'] .= " (" . $new_pendings . ")";
+                            $menu[$adminidx]["submenu"][$zgloszeniaidx]['menustring'] .= " (" . $in_review_count . "/" . $new_pendings .  ")";
                         mnu_EchoSubMenu($menu[$adminidx]['submenu'], $menu_item_siteid, 1, false);
                         echo '</ul>';
                     }
