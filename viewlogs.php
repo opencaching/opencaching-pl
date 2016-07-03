@@ -247,17 +247,12 @@ if ($error == false) {
             if ($record['edit_count'] > 0) {
                 //check if editted at all
                 $edit_footer = "<div><small>" . tr('vl_Recently_modified_on') . " " . fixPlMonth(htmlspecialchars(strftime($datetimeformat, strtotime($record['last_modified'])), ENT_COMPAT, 'UTF-8'));
-                if (!$usr['admin'] && isset($record['edit_by_admin'])) {
-                    if ($record['edit_by_username'] == $record['username']) {
-                        $byCOG = false;
-                    } else {
-                        $edit_footer.=" " . tr('vl_by_COG');
-                        $byCOG = true;
-                    }
-                }
-                if ( !isset($byCOG) || $byCOG == false) {
+                if (!$usr['admin'] && $record['edit_by_admin'] == true && $record['type'] == 12) {
+                    $edit_footer.=" " . tr('vl_by_COG');
+                } else {
                     $edit_footer.=" " . tr('vl_by_user') . " " . $record['edit_by_username'];
                 }
+
                 if ($record_date_create > date_create('2005-01-01 00:00')) { //check if record created after implementation date (to avoid false readings for record changed before) - actually nor in use
                     $edit_footer.=" - " . tr('vl_totally_modified') . " " . $record['edit_count'] . " ";
                     if ($record['edit_count'] > 1) {
