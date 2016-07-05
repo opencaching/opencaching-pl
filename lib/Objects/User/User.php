@@ -6,6 +6,7 @@ use Utils\Database\OcDb;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Controllers\Php7Handler;
 use Utils\Database\XDb;
+use lib\Objects\OcConfig\OcConfig;
 
 /**
  * Description of user
@@ -35,7 +36,7 @@ class User extends \lib\Objects\BaseObject
 
     private $profileUrl = null;
 
-    private $ingnoreGeocacheLimitWhileCreatingNewGeocache = false;
+    private $ingnoreGeocacheLimitWhileCreatingNewGeocache = null;
 
     /* @var $powerTrailCompleted \ArrayObject() */
     private $powerTrailCompleted = null;
@@ -56,6 +57,8 @@ class User extends \lib\Objects\BaseObject
     private $geocachesBlocked = null;
 
     private $eventsAttendsCount = null;
+    
+    private $verifyAll = null;
 
     const REGEX_USERNAME = '^[a-zA-Z0-9ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ@-][a-zA-ZęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ0-9\.\-=_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\ -=&*+~#]{2,59}$';
     const REGEX_PASSWORD = '^[a-zA-Z0-9\.\-_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\$&*+~#]{3,60}$';
@@ -69,19 +72,49 @@ class User extends \lib\Objects\BaseObject
      */
     public function __construct(array $params)
     {
+
+        if (isset($params['fieldsStr'])) {
+            //get selected columns only
+            $fields = $params['fieldsStr'];
+        } else {
+            //default column list loaded from DB
+            $fields = "user_id, username, founds_count, notfounds_count,
+                       hidden_count, latitude, longitude, country,
+                       email, admin, guru, verify_all";
+        }
+
         if (isset($params['userId'])) {
             $this->userId = (int) $params['userId'];
+            $this->loadDataFromDb($fields);
 
-            if (isset($params['fieldsStr'])) {
-                $this->loadDataFromDb($params['fieldsStr']);
-            } else {
-                $this->loadDataFromDb();
-            }
+        } elseif (isset($params['username'])) {
+            $this->loadDataFromDbByUsername($params['username'], $fields);
+
         } elseif (isset($params['userDbRow'])) {
-                $this->setUserFieldsByUsedDbRow($params['userDbRow']);
+            $this->setUserFieldsByUsedDbRow($params['userDbRow']);
+
         } elseif (isset($params['okapiRow'])) {
-                    $this->loadFromOKAPIRsp($params['okapiRow']);
+            $this->loadFromOKAPIRsp($params['okapiRow']);
+
         }
+    }
+
+    /**
+     * Factory
+     * @param unknown $username
+     * @return \lib\Objects\User\User object
+     */
+    public static function fromUsernameFactory($username){
+        return new self( array('username' => $username) );
+    }
+
+    /**
+     * Factory
+     * @param unknown $username
+     * @return \lib\Objects\User\User object
+     */
+    public static function fromUserIdFactory($userId){
+        return new self( array('userId' => $userId) );
     }
 
     public function loadExtendedSettings()
@@ -94,6 +127,8 @@ class User extends \lib\Objects\BaseObject
 
         if ($dbRow && $dbRow['ingnoreGeocacheLimitWhileCreatingNewGeocache'] == 1) {
             $this->ingnoreGeocacheLimitWhileCreatingNewGeocache = true;
+        }else{
+            $this->ingnoreGeocacheLimitWhileCreatingNewGeocache = false;
         }
     }
 
@@ -130,14 +165,23 @@ class User extends \lib\Objects\BaseObject
         return $this->medals;
     }
 
-    private function loadDataFromDb($fields = null)
-    {
-        $db = OcDb::instance();
+    private function loadDataFromDbByUsername($username, $fields){
 
-        if (is_null($fields)) {
-            // default user fields
-            $fields = "username, founds_count, notfounds_count, hidden_count, latitude, longitude, country, email, admin, guru";
+        $db = OcDb::instance();
+        $queryById = "SELECT $fields FROM `user` WHERE `username` = :1 LIMIT 1";
+
+        $stmt = $db->multiVariableQuery($queryById, $username);
+
+        if( $userDbRow = $db->dbResultFetch($stmt) ){
+            $this->setUserFieldsByUsedDbRow($userDbRow);
+        }else{
+            $this->dataLoaded = false;
         }
+    }
+
+    private function loadDataFromDb($fields){
+
+        $db = OcDb::instance();
 
         $queryById = "SELECT $fields FROM `user` WHERE `user_id`=:1 LIMIT 1";
 
@@ -196,6 +240,9 @@ class User extends \lib\Objects\BaseObject
                 case 'log_notes_count':
                     $this->logNotesCount = $value;
                     break;
+                case 'verify_all':
+                    $this->verifyAll = $value;
+                    break;
 
                 /* db fields not used in this class yet*/
                 case 'password':
@@ -214,13 +261,10 @@ class User extends \lib\Objects\BaseObject
 
         // if coordinates are present set the homeCords.
         if ($cordsPresent) {
-            $this->homeCoordinates = new \lib\Objects\Coordinates\Coordinates(array(
-                'dbRow' => $dbRow
-            ));
+            $this->homeCoordinates =
+                new \lib\Objects\Coordinates\Coordinates(array('dbRow' => $dbRow));
         }
-
-        $this->dataLoaded = true; //mark object as containing data
-
+        $this->dataLoaded = true; // mark object as containing data
     }
 
     public function loadMedalsFromDb(){
@@ -315,6 +359,11 @@ class User extends \lib\Objects\BaseObject
      */
     public function isIngnoreGeocacheLimitWhileCreatingNewGeocache()
     {
+
+        if( is_null( $this->ingnoreGeocacheLimitWhileCreatingNewGeocache )){
+            $this->loadExtendedSettings();
+        }
+
         return $this->ingnoreGeocacheLimitWhileCreatingNewGeocache;
     }
 
@@ -418,6 +467,8 @@ class User extends \lib\Objects\BaseObject
         return $this->geocaches;
     }
 
+
+
     public function appendNotPublishedGeocache(GeoCache $geocache)
     {
         if($this->geocachesNotPublished === null){
@@ -467,6 +518,83 @@ class User extends \lib\Objects\BaseObject
             $this->getGeocaches();
         }
         return $this->geocachesBlocked;
+    }
+
+    public function getVerifyAll(){
+        return $this->verifyAll;
+    }
+
+    /**
+     * This function return true if user:
+     * - own less than 3 (APPROVE_LIMIT) active caches
+     * - has 'verify-all' flag set by COG/admins
+     * -
+     */
+    public function isUnderCacheVerification(){
+
+        if( $this->getVerifyAll() == 1 ){
+            return true;
+        }
+
+        //get published geocaches count
+        $activeCachesNum = XDb::xMultiVariableQueryValue(
+            "SELECT COUNT(*) FROM `caches`
+             WHERE `user_id` = :1 AND status = 1",
+             0, $this->getUserId());
+
+        if($activeCachesNum < OcConfig::getNeedAproveLimit()){
+
+            return true;
+        }
+
+
+        return false;
+
+    }
+
+    /**
+     * Returns true if user is able to create new cache:
+     * - when found more than X caches
+     * - is
+     */
+    public function canCreateNewCache(){
+
+        // calculate found caches number
+        $num_find_caches = XDb::xMultiVariableQueryValue(
+            "SELECT COUNT(`cache_logs`.`cache_id`) as num_fcaches
+             FROM cache_logs, caches
+             WHERE cache_logs.cache_id=caches.cache_id
+                AND caches.type IN (1,2,3,7,8)
+                AND cache_logs.type=1
+                AND cache_logs.deleted=0
+                AND `cache_logs`.`user_id` = :1 ",
+                0, $this->getUserId() );
+
+
+        if ($num_find_caches < OcConfig::getNeedFindLimit() &&
+            !$this->isIngnoreGeocacheLimitWhileCreatingNewGeocache()){
+
+
+            return false;
+        }
+
+        return true;
+
+    }
+
+    /*
+     * This function return true if user is allowed to adopt caches
+     * This means when:
+     * - is not under verification
+     * - has rights to create new cache
+     */
+    public function isAdoptionApplicable(){
+
+        if( $this->canCreateNewCache() && !$this->isUnderCacheVerification() ){
+
+            return true;
+        }
+        return false;
     }
 
     /**

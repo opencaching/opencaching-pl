@@ -23,7 +23,7 @@ if ($error == false) {
         $db = OcDb::instance();
 
         $user = new \lib\Objects\User\User(array('userId'=>$usr['userid']));
-        $user->loadExtendedSettings();
+
 
         $default_country = getDefaultCountry($usr, $lang);
         if (isset($_REQUEST['newcache_info'])) {

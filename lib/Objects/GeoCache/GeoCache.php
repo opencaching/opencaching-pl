@@ -6,6 +6,7 @@ use \lib\Objects\PowerTrail\PowerTrail;
 use \lib\Objects\OcConfig\OcConfig;
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
+use lib\Objects\User\User;
 
 /**
  * Description of geoCache
@@ -105,6 +106,8 @@ class GeoCache
     /* @var $dictionary \cache */
     public $dictionary;
 
+    private $ownerId;
+
     /* @var $owner \lib\Objects\User\User */
     private $owner;
 
@@ -174,6 +177,17 @@ class GeoCache
         }
         $this->dictionary = \cache::instance();
     }
+
+    /**
+     * Factory
+     * @param unknown $cacheId
+     * @return \lib\Objects\GeoCache object
+     */
+    public static function fromCacheIdFactory($cacheId){
+        return new self( array('cacheId' => $cacheId) );
+    }
+
+
 
     /**
      * Load cache data based on OKAPI response data
@@ -283,7 +297,10 @@ class GeoCache
             'dbRow' => $geocacheDbRow
         ));
         $this->altitude = new \lib\Objects\GeoCache\Altitude($this);
-        $this->owner = new \lib\Objects\User\User(array('userId' => $geocacheDbRow['user_id']));
+
+        $this->ownerId = (int) $geocacheDbRow['user_id'];
+        $this->owner = null; //reset owner data
+
         if($geocacheDbRow['org_user_id'] != ''){
             $this->founder = new \lib\Objects\User\User(array('userId' => $geocacheDbRow['org_user_id']));
         }
@@ -615,12 +632,20 @@ class GeoCache
         return $this->founder;
     }
 
+    public function getOwnerId()
+    {
+        return $this->ownerId;
+    }
+
     /**
      *
-     * @return \lib\Objects\User\User
+     * @return User
      */
     public function getOwner()
     {
+        if( is_null($this->owner) )
+            $this->owner = User::fromUserIdFactory( $this->getOwnerId() );
+
         return $this->owner;
     }
 

@@ -189,4 +189,8 @@ class EmailSender
         $emailCOG->send();
 
     }
+    
+    public static function sendAdoptionMessage(){
+        
+    }
 }
