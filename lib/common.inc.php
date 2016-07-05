@@ -496,6 +496,7 @@ function tpl_clear_vars()
     unset($GLOBALS['no_eval_vars']);
 }
 
+/* TODO: NOT USED ANYWHERE...
 //page function replaces {functionsbox} in main template
 function tpl_set_page_function($id, $html_code)
 {
@@ -515,6 +516,7 @@ function tpl_clear_page_functions()
 {
     unset($GLOBALS['page_functions']);
 }
+*/
 
 function writeLanguageFlags($languages)
 {
@@ -539,15 +541,31 @@ function writeLanguageFlags($languages)
     return $language_flags;
 }
 
+// TODO: set PHP var which can be accessed inside tpl file
+function setViewVar($name, $value){
+
+    //TODO: this should be redesign to further View class
+    global $view;
+    if(!isset($view)){
+        $view = new stdClass();
+    }
+
+    $view->$name = $value;
+}
+
 //read the templates and echo it to the user
 function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemplate=false)
 {
     //template handling vars
-    global $stylepath, $tplname, $vars, $langpath, $lang_array, $lang, $language;
+    global $stylepath, $tplname, $vars, $langpath, $lang_array, $lang, $language, $menu, $config, $usr;
+
+    // object
+    global $view;
+
     //language specific expression
     global $error_pagenotexist;
     //only for debbuging
-    global $b, $bScriptExecution;
+    global $bScriptExecution;
 
     $bScriptExecution->Stop();
     tpl_set_var('scripttime', sprintf('%1.3f', $bScriptExecution->Diff()));
@@ -585,7 +603,6 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
         $sCode = file_get_contents($stylepath . '/popup.tpl.php');
     else
         $sCode = file_get_contents($stylepath . '/main.tpl.php');
-    $sCode = '?>' . $sCode . '<?';
 
     //does template exist?
     if (!file_exists($stylepath . '/' . $tplname . '.tpl.php')) {
@@ -599,9 +616,6 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
     //read the template
     $sTemplate = file_get_contents($stylepath . '/' . $tplname . '.tpl.php');
     $sCode = mb_ereg_replace('{template}', $sTemplate, $sCode);
-
-
-
 
 
     //process the template replacements
@@ -619,7 +633,7 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
     header('Content-type: text/html; charset=utf-8');
 
     //run the template code
-    eval($sCode);
+    eval('?>'.$sCode);
 }
 
 function http_write_no_cache()
@@ -894,15 +908,6 @@ function str_rot13_html($str)
     }
 
     return $retval;
-}
-
-if (!function_exists("stripos")) {
-
-    function stripos($str, $needle, $pos)
-    {
-        return mb_strpos(mb_strtolower($str), mb_strtolower($needle), $pos);
-    }
-
 }
 
 function help_addHyperlinkToURL($text)

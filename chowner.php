@@ -1,14 +1,392 @@
 <?php
+/**
+ * This script allow user to:
+ * - create adoption offer
+ * - accept or refuse offer from other users
+ * - abort adoption offer created before
+ *
+ */
+
 
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
+use lib\Objects\User\User;
+use lib\Objects\GeoCache\GeoCache;
 
-if (!isset($rootpath))
-    $rootpath = '';
-require_once('./lib/common.inc.php');
+require_once 'lib/common.inc.php';
 
-$db = OcDb::instance();
+class ChownerController
+{
 
+    // common error and info message displayed as an actions results
+    private $infoMsg = '';
+    private $errorMsg = '';
+
+    /* @var lib\Objects\User\User $userObj */
+    private $userObj;
+
+    /* @var Utils\Database\OcDb $db */
+    private $db;
+
+    public function __construct(){
+
+        global $error;
+        global $usr;
+
+        // check if user is authorized
+        if ($error != false && !isset($usr['userid'])) {
+            // redirect non-logged users
+            header("Location: index.php");
+            return;
+        }
+
+        $this->userObj = User::fromUserIdFactory($usr['userid']);
+        $this->db = OcDb::instance();
+
+        if( isset($_GET['action']) ){
+
+            if( isset ( $_REQUEST['cacheid'] ) ){
+
+                // retrive cache information
+                /* @var $cacheObj lib\Objects\GeoCache\GeoCache */
+                $cacheObj = GeoCache::fromCacheIdFactory( $_REQUEST['cacheid'] );
+
+                switch($_GET['action']){
+                    case 'accept':
+                        $this->actionAccept($cacheObj);
+                        break;
+                    case 'refuse':
+                        $this->actionRefuse($cacheObj);
+                        break;
+                    case 'abort':
+                        $this->actionAbort($cacheObj);
+                        break;
+                    case 'selectUser':
+                        $this->actionSelectUser($cacheObj);
+                        break;
+                    case 'addAdoptionOffer':
+                        if( isset( $_POST['username'] ) ){
+
+                            /* @var User */
+                            $newUserObj = User::fromUsernameFactory($_POST['username']);
+                            if (! $newUserObj->isDataLoaded()) {
+
+                                // no such user or different error during loading from DB
+                                $this->errorMsg = str_replace('{userName}', $_POST['username'], tr('adopt_23'));
+
+                            } else {
+                                $this->actionAddAdoptionOffer($newUserObj, $cacheObj);
+                            }
+
+                        }else{
+                            $this->errorMsg = str_replace('{userName}', $_POST['username'], tr('adopt_23'));
+                        }
+                        break;
+                    default:
+                        header("Location: chowner.php");
+                        exit;
+                }
+            }else{
+                header("Location: chowner.php");
+                exit;
+            }
+        }
+
+        //display main view after all...
+        $this->mainView();
+    }
+
+    /**
+     * accept geocache
+     */
+    private function actionAccept(GeoCache $cacheObj){
+
+        //check if current user is able to accept cache and has this offer
+        if( ! $this->userObj->isAdoptionApplicable() ||
+            ! $this->checkOffer($cacheObj, $this->userObj)
+        ){
+            // it shouldn't happens - someone try to hack smth?!
+
+            // redirect to main script
+            header("Location: chowner.php");
+            return;
+        }
+
+        // zmiana wlasciciela
+        $this->db->beginTransaction();
+
+        // populate org cache user for this cache
+        //TODO: this is strange... needs investigation
+        global $rootpath;
+        require_once ($rootpath . 'lib/cache_owners.inc.php');
+        $pco = new OrgCacheOwners($this->db);
+        $pco->populateForCache( $cacheObj->getCacheId() );
+
+        // remove all adoption offers for this cache in DB
+        $this->db->multiVariableQuery(
+            "DELETE FROM chowner WHERE cache_id = :1", $cacheObj->getCacheId());
+
+        // update owner and org_user_id fields for the cache
+        $oldOwner = User::fromUserIdFactory($cacheObj->getOwnerId());
+
+        $this->db->multiVariableQuery(
+            "UPDATE caches SET user_id = :2, org_user_id = IF(org_user_id IS NULL, :3, org_user_id) WHERE cache_id= :1",
+            $cacheObj->getCacheId(), $this->userObj->getUserId(), $oldOwner->getUserId());
+
+        // update owner for pictures
+        $this->db->multiVariableQuery(
+            "UPDATE pictures SET user_id = :2 WHERE object_id = :1",
+            $cacheObj->getCacheId(), $this->userObj->getUserId());
+
+        // this should be kept consistent by a trigger
+        // $q = "UPDATE user SET hidden_count = hidden_count - 1 WHERE user_id = $oldUserId";
+        // $q = "UPDATE user SET hidden_count = hidden_count + 1 WHERE user_id = $newUserId";
+
+        // put log into cache logs.
+        $logMessage = tr('adopt_32');
+
+        $oldUserName = ' <a href="' . $GLOBALS['absolute_server_URI'] . 'viewprofile.php?userid=' . $oldOwner->getUserId() . '">' . $oldOwner->getUserName() . '</a> ';
+        $newUserName = ' <a href="' . $GLOBALS['absolute_server_URI'] . 'viewprofile.php?userid=' . $this->userObj->getUserId() . '">' . $this->userObj->getUserName() . '</a>';
+
+        $logMessage = str_replace('{oldUserName}', $oldUserName, $logMessage);
+        $logMessage = str_replace('{newUserName}', $newUserName, $logMessage);
+
+        $this->db->multiVariableQuery(
+            "INSERT INTO cache_logs SET
+                            cache_id = :1,
+                            user_id = -1,
+                            type = 3,
+                            date = NOW(),
+                            text= :2,
+                            text_html = 1,
+                            text_htmledit = 1,
+                            date_created = NOW(),
+                            last_modified = NOW(),
+                            uuid = :3,
+                            node = :4",
+
+            $cacheObj->getCacheId(), $logMessage, create_uuid(), $GLOBALS['oc_nodeid'] );
+
+        $this->db->commit();
+
+        $message = tr('adopt_15');
+        $message = str_replace('{cacheName}', $cacheObj->getCacheName(), $message);
+        $this->infoMsg = $message;
+
+
+        //TODO: redesign to use EmailSender
+        $mailContent = tr('adopt_31');
+        $mailContent = str_replace('\n', "\n", $mailContent);
+        $mailContent = str_replace('{userName}', $this->userObj->getUserName(), $mailContent);
+        $mailContent = str_replace('{cacheName}', $cacheObj->getCacheName(), $mailContent);
+        mb_send_mail_2( $oldOwner->getEmail(), tr('adopt_18'), $mailContent, emailHeaders());
+
+    }
+
+    /**
+     * adoption offer was refused
+     */
+    private function actionRefuse(GeoCache $cacheObj){
+
+        // first check if this offer can be refused by this user
+        if(!$this->checkOffer($cacheObj, $this->userObj)){
+            // it shouldn't happens - someone try to hack smth?!
+
+            // redirect to main script
+            header("Location: chowner.php");
+            return;
+        }
+
+        // user refused to adopt this cache
+        $s = $this->db->multiVariableQuery(
+            "DELETE FROM chowner WHERE cache_id = :1", $cacheObj->getCacheId());
+
+        $oldOwner = User::fromUserIdFactory($cacheObj->getOwnerId());
+
+        //TODO: redesign to use EmailSender
+        $mailContent = tr('adopt_29');
+        $mailContent = str_replace('\n', "\n", $mailContent);
+        $mailContent = str_replace('{userName}', $this->userObj->getUserName(), $mailContent);
+        $mailContent = str_replace('{cacheName}', $cacheObj->getCacheName(), $mailContent);
+        mb_send_mail_2( $oldOwner->getEmail(), tr('adopt_28'), $mailContent, emailHeaders());
+
+        $this->infoMsg = tr('adopt_27');
+    }
+
+    /**
+     * adoption offer was canceled
+     */
+    private function actionAbort(GeoCache $cacheObj){
+
+        // check if current user is an owner of selected cache
+        if( $this->userObj->getUserId() == $cacheObj->getOwnerId() ){
+
+            // old owner of the cache cancel adoption offer
+            $s = $this->db->multiVariableQuery(
+                "DELETE FROM chowner WHERE cache_id = :1", $cacheObj->getCacheId() );
+
+            $this->infoMsg = tr('adopt_16');
+        }else{
+            $this->errorMsg = tr('adopt_35_notOwner');
+        }
+    }
+
+    /**
+     * user created new adoption offer - save it!
+     */
+    private function actionAddAdoptionOffer(User $newUserObj, GeoCache $cacheObj){
+        //first check if current user is an owner of cache for adoption
+        if( $this->userObj->getUserId() != $cacheObj->getOwnerId() ){
+            //it shouldn't happens - someone hack us?!
+
+            // redirect to main script
+            header("Location: chowner.php");
+            return;
+        }
+
+        // check if the new owner is not the old owner :)
+        if( $newUserObj->getUserId() == $cacheObj->getOwnerId() ){
+            $this->errorMsg = tr('adopt_33');
+
+        } else {
+
+            // user exists and is not current owner of this cache
+
+            //check if user is able to adopt caches
+            if(!$newUserObj->isAdoptionApplicable()){
+                $this->errorMsg = tr('adopt_34');
+                return;
+            }
+
+            //check if there is no such offer
+            if( $this->checkOffer( $cacheObj )) {
+                $this->errorMsg = "There is such adoption offer already!";
+                return;
+            }
+
+            $stmt = XDb::xSql(
+                "INSERT INTO chowner (cache_id, user_id) VALUES ( ?, ?)",
+                $cacheObj->getCacheId(), $newUserObj->getUserId());
+
+            if (XDb::xNumRows($stmt) > 0) {
+
+                //TODO: redesign to use EmailSender
+                $mailContent = tr('adopt_26');
+                $mailContent = str_replace('\n', "\n", $mailContent);
+                $mailContent = str_replace('{userName}', $this->userObj->getUserName(), $mailContent);
+                $mailContent = str_replace('{cacheName}', $cacheObj->getCacheName(), $mailContent);
+                mb_send_mail_2($newUserObj->getEmail(), tr('adopt_25'), $mailContent, emailHeaders());
+
+                $this->infoMsg = tr('adopt_24');
+            } else {
+                $this->errorMsg = tr('adopt_22');
+            }
+        }
+    }
+
+    /**
+     *  Display view which allow to select user for the new cache adoption offer
+     *  TODO: it should be done in dialog instead of new view
+     */
+    private function actionSelectUser(GeoCache $cacheObj){
+
+        tpl_set_var ( 'cachename', $cacheObj->getCacheName() );
+        tpl_set_var ( 'cacheid', $cacheObj->getCacheId() );
+        tpl_set_tplname('chowner_chooseuser');
+
+        tpl_BuildTemplate();
+        exit;
+    }
+
+    /**
+     * This is default view - print list of adoption offers for current user + caches owned by current user
+     */
+    public function mainView(){
+
+        // print list of caches which are offered for current user
+        if ( $this->userObj->isAdoptionApplicable() ){
+
+            // there are caches which are waiting for this user adoption decision
+            setViewVar('adoptionOffers', $this->getAdoptionOffers() );
+
+        }else{
+            // there are caches which are waiting for this user adoption decision
+            setViewVar('adoptionOffers',  null);
+            $this->infoMsg = tr('adopt_02');
+        }
+
+        // print list of caches own by current user which user can offer for adoption
+
+        setViewVar('userCaches', $this->getUserCaches() );
+
+        tpl_set_tplname('chowner');
+
+        setViewVar('errorMsg', $this->errorMsg);
+        setViewVar('infoMsg', $this->infoMsg);
+
+        tpl_BuildTemplate();
+    }
+
+
+    /**
+     * // check if there is an adoption offer for this cache and this user
+     *
+     * @param GeoCache $cacheObj -
+     * @param User $userObj - optional
+     */
+    private function checkOffer(GeoCache $cacheObj, User $userObj = null ){
+
+        if($userObj == null){
+            $offers = $this->db->multiVariableQueryValue(
+                "SELECT COUNT(*) FROM chowner WHERE cache_id = :1 LIMIT 1",
+                0, $cacheObj->getCacheId() );
+        }else{
+            $offers = $this->db->multiVariableQueryValue(
+                "SELECT COUNT(*) FROM chowner WHERE cache_id = :1 AND user_id = :2 LIMIT 1",
+                0, $cacheObj->getCacheId(), $userObj->getUserId() );
+        }
+        return ( $offers> 0 )?true:false;
+    }
+
+    private function getUserCaches(){
+
+        // lists all approved caches belonging to user + id of adoption offer (if present)
+        $rs = $this->db->multiVariableQuery(
+            "SELECT c.cache_id, name, chowner.id AS adoptionOfferId, username AS offeredToUserName
+             FROM caches AS c LEFT JOIN chowner
+                ON chowner.cache_id = c.cache_id
+                LEFT JOIN user ON chowner.user_id = user.user_id
+             WHERE c.user_id= :1
+                AND status <> 4
+                AND type != 10
+             ORDER BY name",
+            $this->userObj->getUserId() );
+
+        return $this->db->dbResultFetchAll($rs);
+    }
+
+    private function getAdoptionOffers(){
+
+        $rs = $this->db->multiVariableQuery(
+            "SELECT cache_id, name, date_hidden, username AS offeredFromUserName
+            FROM caches LEFT JOIN user
+                ON caches.user_id = user.user_id
+            WHERE cache_id IN (
+                SELECT cache_id FROM chowner WHERE user_id = :1
+            )",
+            $this->userObj->getUserId());
+
+        return $this->db->dbResultFetchAll($rs);
+    }
+}
+
+// temporary call from here
+new ChownerController();
+
+
+
+
+//TODO:  functions below should be removed soon
 function mb_send_mail_2($to, $subject, $content, $headers)
 {
     global $debug_page;
@@ -17,112 +395,6 @@ function mb_send_mail_2($to, $subject, $content, $headers)
     } else {
         mb_send_mail($to, $subject, $content, $headers);
     }
-}
-
-function orderBy($orderId)
-{
-    switch ($orderId) {
-        case "0":
-            return "name";
-        case "1":
-            return "date_hidden";
-        /* case "2":
-          return "type";
-          case "3":
-          return "status"; */
-        default:
-            return "name";
-    }
-}
-
-function orderType($orderType)
-{
-    switch ($orderType) {
-        case "0":
-            return "DESC";
-        default:
-            return "ASC";
-    }
-}
-
-function listUserCaches($userid)
-{
-    global $db;
-    // lists all approved caches belonging to user
-    $q = "SELECT cache_id, name, date_hidden FROM caches WHERE user_id=:1 AND status <> 4 AND type != 10 ORDER BY " . orderBy(@$_GET['orderId']) . " " . orderType(@$_GET['orderType']);
-    $s = $db->multiVariableQuery($q, $userid);
-    return $db->dbResultFetchAll($s);
-}
-
-function listPendingCaches($userid)
-{
-    global $db;
-    $q = "SELECT cache_id, name, date_hidden FROM caches WHERE cache_id IN (SELECT cache_id FROM chowner WHERE user_id = :1)";
-    $s = $db->multiVariableQuery($q, $userid);
-    return $db->dbResultFetchAll($s);
-}
-
-function getUsername($userid)
-{
-    global $db;
-    $q = "SELECT username FROM user WHERE user_id=:1";
-    return $db->multiVariableQueryValue($q, -1, $userid);
-}
-
-function getUserEmail($userid)
-{
-    global $db;
-    $q = "SELECT email FROM user WHERE user_id=:1";
-    return $db->multiVariableQueryValue($q, -1, $userid);
-}
-
-function getCacheName($cacheid)
-{
-    global $db;
-    $q = "SELECT name FROM caches WHERE cache_id=:1";
-    return $db->multiVariableQueryValue($q, -1, $cacheid);
-}
-
-function isCachePublished($cacheid)
-{
-    global $db;
-    $q = 'SELECT count(cache_id) FROM caches WHERE cache_id=:1 AND status in (1,2,3)';
-    return $db->multiVariableQueryValue($q, 0, $cacheid) > 0;
-}
-
-function getCacheOwner($cacheid)
-{
-    global $db;
-    $q = "SELECT user_id FROM caches WHERE cache_id=:1";
-    return $db->multiVariableQueryValue($q, -1, $cacheid);
-}
-
-function isUserOwner($userid, $cacheid)
-{
-    global $db;
-    $q = "SELECT count(cache_id) FROM caches WHERE cache_id=:1 AND user_id=:2";
-    return $db->multiVariableQueryValue($q, 0, $cacheid, $userid);
-}
-
-function doesUserExist($username)
-{
-    return XDb::xMultiVariableQueryValue(
-        "SELECT user_id FROM user WHERE username= :1 ", 0, $username);
-}
-
-function isRequestPending($cacheid)
-{
-    global $db;
-    // czy skrzynka cacheid juz oczekuje na zmiane wlasciciela?
-    $q = "SELECT count(id) FROM chowner WHERE cache_id=:1";
-    return $db->multiVariableQueryValue($q, -1, $cacheid);
-}
-
-function isAcceptanceNeeded($userid)
-{
-    global $db;
-    $q = "SELECT count(id) FROM chowner WHERE user_id=:1";
-    return $db->multiVariableQueryValue($q, -1, $userid);
 }
 
 function emailHeaders()
@@ -134,211 +406,3 @@ function emailHeaders()
     return $email_headers;
 }
 
-//prepare the templates and include all neccessary
-
-$tplname = 'chowner';
-
-// tylko dla zalogowanych
-if ($error == false && isset($usr['userid'])) {
-    tpl_set_var('error_msg', "");
-    tpl_set_var('info_msg', "");
-    tpl_set_var('start_przejmij', "<!--");
-    tpl_set_var('end_przejmij', "-->");
-    tpl_set_var('acceptList', "");
-    tpl_set_var('cacheList', "");
-
-    // wybor wlasciciela - mozna zmieniac tylko swoje skrzynki... chyba, ze jest sie czlonkiem oc team
-    if (
-        isset($_GET['cacheid']) &&
-        ( isUserOwner( $usr['userid'], $_GET['cacheid'] ) &&
-        !isset($_GET['abort']) && !isset($_GET['accept']))) {
-
-        tpl_set_var('cachename', getCacheName($_GET['cacheid']));
-        tpl_set_var('cacheid', $_GET['cacheid']);
-        $tplname = "chowner_chooseuser";
-    } else {
-
-        //change of the owner accepted
-        if (isset($_GET['accept']) && $_GET['accept'] == 1) {
-            $q = "SELECT count(id) FROM chowner WHERE cache_id = :1 AND user_id = :2";
-            $potwierdzenie = $db->multiVariableQueryValue($q, 0, $_GET['cacheid'], $usr['userid']);
-
-            if ($potwierdzenie > 0) {
-                // zmiana wlasciciela
-                tpl_set_var("error_msg", tr('adopt_30'));
-                tpl_set_var("info_msg", "");
-
-                $db->beginTransaction();
-
-                require_once($rootpath . 'lib/cache_owners.inc.php');
-                $pco = new OrgCacheOwners($db);
-                $pco->populateForCache($_GET['cacheid']);
-
-                $oldOwnerId = getCacheOwner($_GET['cacheid']);
-                $isCachePublished = isCachePublished($_GET['cacheid']);
-
-                $q = "DELETE FROM chowner WHERE cache_id = :1 AND user_id = :2";
-                $db->multiVariableQuery($q, $_GET['cacheid'], $usr['userid']);
-
-                if ($isCachePublished) {
-                    $q = "UPDATE caches SET user_id = :2, org_user_id = IF(org_user_id IS NULL, :3, org_user_id) WHERE cache_id= :1";
-                    $db->multiVariableQuery($q, $_GET['cacheid'], $usr['userid'], $oldOwnerId);
-                } else {
-                    $q = "UPDATE caches SET user_id = :2 WHERE cache_id= :1";
-                    $db->multiVariableQuery($q, $_GET['cacheid'], $usr['userid']);
-                }
-                $q = "UPDATE pictures SET user_id = :2 WHERE object_id = :1";
-                $db->multiVariableQuery($q, $_GET['cacheid'], $usr['userid']);
-
-                // this should be kept consistent by a trigger
-                //$q = "UPDATE user SET hidden_count = hidden_count - 1 WHERE user_id = :1";
-                //$db->multiVariableQuery($q, $oldOwnerId);
-                //$q = "UPDATE user SET hidden_count = hidden_count + 1 WHERE user_id = :1";
-                //$db->multiVariableQuery($q, $usr['userid']);
-                // ... but it's not
-                //$q = "UPDATE user SET hidden_count = (select count(cache_id) from caches where status in (1,2,3) and user_id = :user_id) WHERE user_id = :user_id";
-                //foreach(array($oldOwnerId, $usr['userid']) as $key => $user_id){
-                //    $params = array();
-                //    $params['user_id']['value'] = $user_id;
-                //    $params['user_id']['data_type'] = 'string';
-                //    $db->paramQuery($q, $params);
-                //}
-                // put log into cache logs.
-                if ($isCachePublished) {
-                    $logMessage = tr('adopt_32');
-                    $oldUserName = ' <a href="' . $absolute_server_URI . 'viewprofile.php?userid=' . $oldOwnerId . '">' . getUsername($oldOwnerId) . '</a> ';
-                    $newUserName = ' <a href="' . $absolute_server_URI . 'viewprofile.php?userid=' . $usr['userid'] . '">' . getUsername($usr['userid']) . '</a>';
-
-                    $logMessage = str_replace('{oldUserName}', $oldUserName, $logMessage);
-                    $logMessage = str_replace('{newUserName}', $newUserName, $logMessage);
-
-                    $q = 'INSERT INTO cache_logs(cache_id, user_id, type, date, text, text_html, text_htmledit, date_created, last_modified, uuid, node)
-                                VALUES                (:1,       -1,      3,    NOW(), :2,  1,         1,             NOW(),        NOW(),         :3,   :4)';
-                    $db->multiVariableQuery($q, $_GET['cacheid'], $logMessage, create_uuid(), $oc_nodeid);
-                }
-                $db->commit();
-
-                $message = tr('adopt_15');
-                $message = str_replace('{cacheName}', getCacheName($_GET['cacheid']), $message);
-                tpl_set_var('error_msg', $message . '<br /><br />');
-                tpl_set_var("error_msg", "");
-
-                $mailContent = tr('adopt_31');
-                $mailContent = str_replace('\n', "\n", $mailContent);
-                $mailContent = str_replace('{userName}', $usr['username'], $mailContent);
-                $mailContent = str_replace('{cacheName}', getCacheName($_GET['cacheid']), $mailContent);
-                mb_send_mail_2(getUserEmail($oldOwnerId), tr('adopt_18'), $mailContent, emailHeaders());
-            }
-        }
-
-        //change of the owner refused
-        if (isset($_GET['accept']) && $_GET['accept'] == 0) {
-            // odrzucenie zmiany
-            $q = "DELETE FROM chowner WHERE cache_id = :1 AND user_id = :2";
-            $s = $db->multiVariableQuery($q, $_GET['cacheid'], $usr['userid']);
-            if ($db->rowCount($s) > 0) {
-                tpl_set_var("info_msg", tr('adopt_27') . '<br /><br />');
-                $mailContent = tr('adopt_29');
-                $mailContent = str_replace('\n', "\n", $mailContent);
-                $mailContent = str_replace('{userName}', $usr['username'], $mailContent);
-                $mailContent = str_replace('{cacheName}', getCacheName($_REQUEST['cacheid']), $mailContent);
-                mb_send_mail_2(getUserEmail($oldOwnerId), tr('adopt_28'), $mailContent, emailHeaders());
-            } else
-                tpl_set_var("error_msg", tr('adopt_30') . '<br /><br />');
-        }
-
-
-        if (isset($_GET['abort']) && isUserOwner($usr['userid'], $_GET['cacheid'])) {
-            // anulowanie procedury przejecia
-            $q = "DELETE FROM chowner WHERE cache_id = :1";
-            $s = $db->multiVariableQuery($q, $_GET['cacheid']);
-            if ($db->rowCount($s) > 0)
-                tpl_set_var('info_msg', " " . tr('adopt_16') . " <br /><br />");
-            else
-                tpl_set_var('error_msg', " " . tr('adopt_17') . " <br /><br />");
-        }
-
-        if (isAcceptanceNeeded($usr['userid'])) {
-            // skrzynka czeka na moja akceptacje
-            tpl_set_var('start_przejmij', "");
-            tpl_set_var('end_przejmij', "");
-            $acceptList = '';
-            foreach (listPendingCaches($usr['userid']) as $cache) {
-                $acceptList .= "<tr><td>";
-                $acceptList .= "<a href='viewcache.php?cacheid=" . $cache['cache_id'] . "'>";
-                $acceptList .= $cache['name'] . "</a>";
-                $acceptList .= " <a href='chowner.php?cacheid=" . $cache['cache_id'] . "&accept=1'>[<font color='green'>" . tr('adopt_12') . "</font>]</a>";
-                $acceptList .= " <a href='chowner.php?cacheid=" . $cache['cache_id'] . "&accept=0'>[<font color='#ff0000'>" . tr('adopt_13') . "</font>]</a>";
-
-
-                $acceptList .= "</td>
-                    <td>" . strftime($dateformat, strtotime($cache['date_hidden'])) . "</td>
-                    </tr>
-                    ";
-            }
-            tpl_set_var('acceptList', $acceptList);
-        }
-
-        //user for adoption is selected
-        if (isset($_POST['username'])) {
-
-            $newUserId = doesUserExist($_POST['username']);
-
-            if ( $newUserId > 0) {
-                // check if selected user not own this cache...
-                $ownerId = getCacheOwner($_REQUEST['cacheid']);
-                if( $ownerId == $newUserId ){
-                    tpl_set_var('error_msg', tr('adopt_33') . '<br /><br />');
-
-                } else {
-                    // uzytkownik istnieje, mozna kontynuowac procedure
-
-                    $q = "INSERT INTO chowner (cache_id, user_id) VALUES ( ?, ?)";
-                    $stmt = XDb::xSql($q, $_REQUEST['cacheid'], $newUserId);
-                    if (XDb::xNumRows($stmt) > 0) {
-                        tpl_set_var('info_msg', ' ' . tr('adopt_24') . ' <br /><br />');
-                        $mailContent = tr('adopt_26');
-                        $mailContent = str_replace('\n', "\n", $mailContent);
-                        $mailContent = str_replace('{userName}', $usr['username'], $mailContent);
-                        $mailContent = str_replace('{cacheName}', getCacheName($_REQUEST['cacheid']), $mailContent);
-                        mb_send_mail_2(getUserEmail($newUserId), tr('adopt_25'), $mailContent, emailHeaders());
-                    } else
-                        tpl_set_var('error_msg', tr('adopt_22') . '<br /><br />');
-                }
-
-            } else {
-                $message = tr('adopt_23');
-                $message = str_replace('{userName}', $_POST['username'], $message);
-                tpl_set_var('error_msg', $message . '<br /><br />');
-            }
-        }
-        // strona glowna - wybor skrzynki
-        $cacheList = '';
-        $bgColor = '#ffffff';
-        foreach (listUserCaches($usr['userid']) as $cache) {
-            if ($bgColor == '#ffffff')
-                $bgColor = '#eeffee';
-            else
-                $bgColor = '#ffffff';
-            $cacheList .= '<tr bgcolor="' . $bgColor . '">
-                <td>
-                ';
-            if (!isRequestPending($cache['cache_id']))
-                $cacheList .= "<a href='chowner.php?cacheid=" . $cache['cache_id'] . "'>";
-            $cacheList .= $cache['name'];
-            if (isRequestPending($cache['cache_id'])) {
-                $cacheList .= "</a> <a href='chowner.php?cacheid=" . $cache['cache_id'] . "&abort=1'>[<font color='#ff0000'>" . tr('adopt_14') . "</font>]";
-            }
-            $cacheList .= "</a>";
-
-            $cacheList .= "</td>
-                <td>" . strftime($dateformat, strtotime($cache['date_hidden'])) . "</td>
-                </tr>
-                ";
-        }
-        tpl_set_var('cacheList', $cacheList);
-    }
-    tpl_BuildTemplate();
-} else
-    header("Location: index.php");
-?>
