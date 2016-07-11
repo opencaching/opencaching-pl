@@ -30,7 +30,7 @@ if ($error == false) {
 
         //get the news
         $tplname = 'my_logs';
-        tpl_set_var('latest_logs_cache', 'Najnowsze logi wprowadzone');
+        tpl_set_var('latest_logs_cache', tr('latest_logs'));
         require($stylepath . '/newlogs.inc.php');
 
         $username = XDb::xMultiVariableQueryValue(
