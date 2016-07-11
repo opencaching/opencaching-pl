@@ -30,7 +30,7 @@ if ($error == false) {
 
         //get the news
         $tplname = 'my_logs';
-        tpl_set_var('latest_logs_cache', 'Skrzynki znalezione');
+        tpl_set_var('latest_logs_cache', tr('found_caches'));
         require($stylepath . '/newlogs.inc.php');
 
         $username = XDb::xMultiVariableQueryValue(
