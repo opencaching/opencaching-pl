@@ -182,7 +182,7 @@ if (date('m') == 12 || date('m') == 1) {
                             $lookhere_reports = $db->simpleQueryValue("SELECT count(status) FROM reports WHERE status = 3", 0);
                             $active_reports = $db->simpleQueryValue("SELECT count(status) FROM reports WHERE status <> 2", 0);
                             $new_pendings = $db->simpleQueryValue("SELECT COUNT(status) FROM caches WHERE status = 4", 0);
-                            $in_review_count = $db->simpleQueryValue("SELECT COUNT(*) FROM caches JOIN approval_status ON approval_status.cache_id = caches.cache_id WHERE caches.status =4");
+                            $in_review_count = $db->simpleQueryValue("SELECT COUNT(*) FROM caches JOIN approval_status ON approval_status.cache_id = caches.cache_id WHERE caches.status = 4", 0);
                         }
                         if (isset($menu[$pageidx])) {
                             mnu_EchoMainMenu($menu[$pageidx]['siteid']);

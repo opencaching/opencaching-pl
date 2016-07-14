@@ -455,6 +455,7 @@ if ($error == false) {
                             require_once 'GeoKretyAPI.php';
                             $LogGeokrety = New GeoKretyApi($secid, $cache_waypt);
                             $b = 1;
+                            $GeoKretyLogResult = array();
                             for ($i = 1; $i < $MaxNr + 1; $i++) {
                                 if ($_POST['GeoKretIDAction' . $i]['action'] > -1) {
                                     $GeokretyLogArray = array(
