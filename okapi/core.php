@@ -11,6 +11,7 @@ use Exception;
 use ErrorException;
 use ArrayObject;
 use Pdo;
+use PDOException;
 use okapi\oauth\OAuthServerException;
 use okapi\oauth\OAuthServer400Exception;
 use okapi\oauth\OAuthServer401Exception;
@@ -1046,8 +1047,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1326;
-    public static $git_revision = 'e26f42cfbbd793706cf7b21c9f1fe0ede9df644e';
+    public static $version_number = 1327;
+    public static $git_revision = '482af9801bbb80f652040da2ae44186eeedee525';
 
     private static $okapi_vars = null;
 
