@@ -211,6 +211,7 @@ class OkapiExceptionHandler
     public static function get_exception_info($e)
     {
         $exception_info = "===== ERROR MESSAGE =====\n"
+            .get_class($e).":\n"
             .trim(self::removeSensitiveData($e->getMessage()))
             ."\n=========================\n\n";
         if ($e instanceof FatalError)
@@ -1045,8 +1046,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1325;
-    public static $git_revision = 'dac0bffcc7bb16355ea75f8a07185568a53ab4f3';
+    public static $version_number = 1326;
+    public static $git_revision = 'e26f42cfbbd793706cf7b21c9f1fe0ede9df644e';
 
     private static $okapi_vars = null;
 
