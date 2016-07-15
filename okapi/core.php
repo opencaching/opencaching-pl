@@ -1084,8 +1084,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1330;
-    public static $git_revision = '528b41fa1beca4498f54f558f1e88a596f916855';
+    public static $version_number = 1331;
+    public static $git_revision = '86146b157e33b94b814d07533a672da025172cb7';
 
     private static $okapi_vars = null;
 
@@ -1434,14 +1434,20 @@ class Okapi
         if ($nearest_event + 0 <= time())
         {
             require_once($GLOBALS['rootpath']."okapi/cronjobs.php");
-            $nearest_event = CronJobController::run_jobs('pre-request');
-            Okapi::set_var("cron_nearest_event", $nearest_event);
+            try {
+                $nearest_event = CronJobController::run_jobs('pre-request');
+                Okapi::set_var("cron_nearest_event", $nearest_event);
+            } catch (\okapi\cronjobs\JobsAlreadyInProgress $e) {
+                // Ignore.
+            }
         }
     }
 
     /**
      * Check if any cron-5 cronjobs are scheduled to execute and execute
      * them if needed. Reschedule for new executions.
+     *
+     * If other thread is currently handling the jobs, then do nothing.
      */
     public static function execute_cron5_cronjobs()
     {
@@ -1451,8 +1457,12 @@ class Okapi
             set_time_limit(0);
             ignore_user_abort(true);
             require_once($GLOBALS['rootpath']."okapi/cronjobs.php");
-            $nearest_event = CronJobController::run_jobs('cron-5');
-            Okapi::set_var("cron_nearest_event", $nearest_event);
+            try {
+                $nearest_event = CronJobController::run_jobs('cron-5');
+                Okapi::set_var("cron_nearest_event", $nearest_event);
+            } catch (\okapi\cronjobs\JobsAlreadyInProgress $e) {
+                // Ignore.
+            }
         }
     }
 
