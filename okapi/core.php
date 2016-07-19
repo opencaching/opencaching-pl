@@ -1084,8 +1084,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1331;
-    public static $git_revision = '86146b157e33b94b814d07533a672da025172cb7';
+    public static $version_number = 1332;
+    public static $git_revision = '17cc49b6dba7385013f5c27dedfa0d52103877dc';
 
     private static $okapi_vars = null;
 
@@ -1163,8 +1163,8 @@ class Okapi
     {
         # Make sure we're not sending HUGE emails.
 
-        if (strlen($message) > 10000) {
-            $message = substr($message, 0, 10000)."\n\n...(message clipped at 10k chars)\n";
+        if (strlen($message) > 100000) {
+            $message = substr($message, 0, 100000)."\n\n...(message clipped at 100k chars)\n";
         }
 
         # Make sure we're not spamming.
