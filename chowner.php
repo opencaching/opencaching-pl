@@ -1,5 +1,6 @@
 <?php
 
+use lib\Objects\User\User;
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 
@@ -283,13 +284,14 @@ if ($error == false && isset($usr['userid'])) {
         if (isset($_POST['username'])) {
 
             $newUserId = doesUserExist($_POST['username']);
-
+            $user = new User(array('userId'=>$newUserId));
             if ( $newUserId > 0) {
                 // check if selected user not own this cache...
                 $ownerId = getCacheOwner($_REQUEST['cacheid']);
-                if( $ownerId == $newUserId ){
+                if( $ownerId == $newUserId ) {
                     tpl_set_var('error_msg', tr('adopt_33') . '<br /><br />');
-
+                } else if (!$user->canUserAdoptCache()){
+                    tpl_set_var('error_msg', tr('adopt_34') . '<br /><br />');
                 } else {
                     // uzytkownik istnieje, mozna kontynuowac procedure
 

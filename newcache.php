@@ -72,21 +72,15 @@ if ($error == false) {
 
         $errors = false; // set if there was any errors
 
-        $rsnc = XDb::xSql(
-            "SELECT COUNT(`caches`.`cache_id`) as num_caches FROM `caches`
-            WHERE `user_id` = ? AND status = 1", $usr['userid']);
-        $record = XDb::xFetchArray($rsnc);
-        $num_caches = $record['num_caches'];
-
         $cacheLimitByTypePerUser = common::getUserActiveCacheCountByType($db, $usr['userid']);
 
-        if ($num_caches < $NEED_APPROVE_LIMIT) {
+        if ($user->userNeedsCacheApprovement()) {
             // user needs approvement for first 3 caches to be published
             $needs_approvement = true;
             tpl_set_var('hide_publish_start', '<!--');
             tpl_set_var('hide_publish_end', '-->');
             tpl_set_var('approvement_note', '<div class="notice"><font color="red"><b>' . tr('first_cache_approvement') . '</b></font></div>');
-        } else if ($verify_all == 1) {
+        } else if ($user->getVerifyEveryCache()) {
             $needs_approvement = true;
             tpl_set_var('hide_publish_start', '<!--');
             tpl_set_var('hide_publish_end', '-->');

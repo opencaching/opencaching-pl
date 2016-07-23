@@ -2,9 +2,11 @@
 namespace lib\Objects\User;
 
 use \lib\Controllers\MedalsController;
+use lib\Objects\OcConfig\OcConfig;
 use Utils\Database\OcDb;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Controllers\Php7Handler;
+use Utils\Database\XDb;
 
 /**
  * Description of user
@@ -35,6 +37,8 @@ class User extends \lib\Objects\BaseObject
     private $profileUrl = null;
 
     private $ingnoreGeocacheLimitWhileCreatingNewGeocache = false;
+
+    private $verifyEveryCache = false;
 
     /* @var $powerTrailCompleted \ArrayObject() */
     private $powerTrailCompleted = null;
@@ -135,7 +139,7 @@ class User extends \lib\Objects\BaseObject
 
         if (is_null($fields)) {
             // default user fields
-            $fields = "username, founds_count, notfounds_count, hidden_count, latitude, longitude, country, email, admin, guru";
+            $fields = "username, founds_count, notfounds_count, hidden_count, latitude, longitude, country, email, admin, guru, verify_all";
         }
 
         $queryById = "SELECT $fields FROM `user` WHERE `user_id`=:1 LIMIT 1";
@@ -194,6 +198,9 @@ class User extends \lib\Objects\BaseObject
                     break;
                 case 'log_notes_count':
                     $this->logNotesCount = $value;
+                    break;
+                case 'verify_all':
+                    $this->verifyEveryCache = $value;
                     break;
 
                 /* db fields not used in this class yet*/
@@ -349,6 +356,14 @@ class User extends \lib\Objects\BaseObject
     }
 
     /**
+     * @return boolean
+     */
+    public function getVerifyEveryCache()
+    {
+        return $this->verifyEveryCache;
+    }
+
+    /**
      * get all PowerTrails user completed
      * @return \ArrayObject
      */
@@ -425,8 +440,6 @@ class User extends \lib\Objects\BaseObject
         $this->geocachesNotPublished->append($geocache);
     }
 
-
-
     public function getGeocachesNotPublished()
     {
         if($this->geocachesNotPublished === null){
@@ -468,6 +481,29 @@ class User extends \lib\Objects\BaseObject
             $this->getGeocaches();
         }
         return $this->geocachesBlocked;
+    }
+
+    /**
+     * Function returns true when user want to create new cache and the count
+     * of active cache is smaller then $NEED_APPROVE_LIMIT in server config
+     * @return true/false
+     */
+    public function userNeedsCacheApprovement() {
+        $q = XDb::xSql(
+            "SELECT COUNT(`caches`.`cache_id`) as num_caches FROM `caches`
+            WHERE `user_id` = ? AND status = 1", $this->userId);
+        $record = XDb::xFetchArray($q);
+        $num_caches = $record['num_caches'];
+        if ($num_caches < OcConfig::getNeedAproveLimit()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public function canUserAdoptCache() {
+        return !($this->userNeedsCacheApprovement() || $this->getVerifyEveryCache());
     }
 
 }
