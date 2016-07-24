@@ -862,7 +862,7 @@ if ($error == false) {
                 if (isset($_POST['submit_map'])) {
                     $y = $r['longitude'];
                     $x = $r['latitude'];
-                    $point.=sprintf("addMarker(%s,%s,'%s',%s,'%s','%s','%s',%s);\n", $x, $y, getSmallCacheIcon($r['icon_large']), $r[cacheid], addslashes($r[cachename]), $r[wp_oc], addslashes($r[username]), $r[topratings]);
+                    $point.=sprintf("addMarker(%s,%s,'%s',%s,'%s','%s','%s',%s);\n", $x, $y, getSmallCacheIcon($r['icon_large']), $r['cacheid'], addslashes($r['cachename']), $r['wp_oc'], addslashes($r['username']), $r['topratings']);
                     tpl_set_var('points', $point);
                 } else {
 

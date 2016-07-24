@@ -1,4 +1,6 @@
 <?php
+use Utils\Database\XDb;
+
 global $rootpath;
 require_once('./lib/common.inc.php');
 require_once('./lib/class.polylineEncoder.php');
