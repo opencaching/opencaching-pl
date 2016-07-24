@@ -16,4 +16,4 @@ UPDATE `caches` SET `watcher` = 0 WHERE `watcher` IS NULL;
 --
 
 -- recalculate user stats
-UPDATE `user` SET `founds_count` = (SELECT count(*) FROM `cache_logs` WHERE `cache_logs`.`user_id` = `user`.`user_id` AND `type` IN (1,7) AND `deleted` =0 );
+UPDATE `user` SET `founds_count` = (SELECT count(*) FROM `cache_logs` WHERE `cache_logs`.`user_id` = `user`.`user_id` AND `type` =1 AND `deleted` =0 );
