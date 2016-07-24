@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\User\User;
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
@@ -30,30 +31,12 @@ if ($error == false) {
 
         //get user record
         $userid = $usr['userid'];
-        $query = "SELECT COUNT(*) FROM caches WHERE user_id='$userid'";
-        $hidden_count = XDb::xSimpleQueryValue($query, 0);
-
-
-        $query = "SELECT COUNT(*) founds_count
-                            FROM cache_logs
-                            WHERE user_id=$userid AND type=1 AND deleted=0";
-        $founds_count = XDb::xSimpleQueryValue($query, 0);
-
-        $query = "SELECT COUNT(*) events_count
-                            FROM cache_logs
-                            WHERE user_id=$userid AND type=7 AND deleted=0";
-        $events_count = XDb::xSimpleQueryValue($query, 0);
-
-
-        $query = "SELECT COUNT(*) notfounds_count
-                            FROM cache_logs
-                            WHERE user_id=$userid AND type=2 AND deleted=0";
-        $notfounds_count = XDb::xSimpleQueryValue($query, 0);
-
-        $query = "SELECT COUNT(*) log_notes_count
-                            FROM cache_logs
-                            WHERE user_id=$userid AND type=3 AND deleted=0";
-        $log_notes_count = XDb::xSimpleQueryValue($query, 0);
+        $user = new User(array('userId' => $userid));
+        $hidden_count=$user->getHiddenGeocachesCount();
+        $founds_count=$user->getFoundGeocachesCount();
+        $events_count=$user->getEventsFounds();
+        $notfounds_count=$user->getNotFoundGeocachesCount();
+        $log_notes_count=$user->getLogNotesCount();
 
         if ($events_count > 0)
             $events = tr('you_have_participated_in') . " " . $events_count . " " . tr('found_x_events') . ".";

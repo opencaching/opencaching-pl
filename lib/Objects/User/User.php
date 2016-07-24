@@ -5,6 +5,7 @@ use \lib\Controllers\MedalsController;
 use Utils\Database\OcDb;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Controllers\Php7Handler;
+use Utils\Database\XDb;
 
 /**
  * Description of user
@@ -54,10 +55,10 @@ class User extends \lib\Objects\BaseObject
     /* @var $geocachesBlocked \ArrayObject() */
     private $geocachesBlocked = null;
 
+    private $eventsFounds = null;
+
     const REGEX_USERNAME = '^[a-zA-Z0-9ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ@-][a-zA-ZęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ0-9\.\-=_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\ -=&*+~#]{2,59}$';
     const REGEX_PASSWORD = '^[a-zA-Z0-9\.\-_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\$&*+~#]{3,60}$';
-
-
 
     /**
      * construct class using $userId (fields will be loaded from db)
@@ -152,6 +153,11 @@ class User extends \lib\Objects\BaseObject
         if ($userDbRow) {
             $this->setUserFieldsByUsedDbRow($userDbRow);
         }
+
+        $this->eventsFounds = XDb::xSimpleQueryValue("SELECT COUNT(*) events_count
+                            FROM cache_logs
+                            WHERE user_id=".$this->userId." AND type=7 AND deleted=0", 0);
+
     }
 
     private function setUserFieldsByUsedDbRow(array $dbRow)
@@ -425,8 +431,6 @@ class User extends \lib\Objects\BaseObject
         $this->geocachesNotPublished->append($geocache);
     }
 
-
-
     public function getGeocachesNotPublished()
     {
         if($this->geocachesNotPublished === null){
@@ -470,4 +474,35 @@ class User extends \lib\Objects\BaseObject
         return $this->geocachesBlocked;
     }
 
+    /**
+     * @return integer
+     */
+    public function getEventsFounds()
+    {
+        return $this->eventsFounds;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getHiddenGeocachesCount()
+    {
+        return $this->hiddenGeocachesCount;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getNotFoundGeocachesCount()
+    {
+        return $this->notFoundGeocachesCount;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getLogNotesCount()
+    {
+        return $this->logNotesCount;
+    }
 }
