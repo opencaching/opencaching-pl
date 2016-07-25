@@ -52,6 +52,8 @@ class PolylineEncoder
      */
     public function encode($points)
     {
+        $dists = [];
+        $absMaxDist=0;
         if (count($points) > 2) {
             $stack[] = array(0, count($points) - 1);
             while (count($stack) > 0) {
@@ -126,6 +128,8 @@ class PolylineEncoder
 
     private function createEncodings($points, $dists)
     {
+        $plat=0; $plng=0;
+        $encoded_points="";
         for ($i = 0; $i < count($points); $i++) {
             if (isset($dists[$i]) || $i == 0 || $i == count($points) - 1) {
                 $point = $points[$i];
@@ -145,6 +149,7 @@ class PolylineEncoder
 
     private function encodeLevels($points, $dists, $absMaxDist)
     {
+        $encoded_levels = "";
         if ($this->forceEndpoints) {
             $encoded_levels .= $this->encodeNumber($this->numLevels - 1);
         } else {
@@ -165,6 +170,7 @@ class PolylineEncoder
 
     private function encodeNumber($num)
     {
+        $encodeString = "";
         while ($num >= 0x20) {
             $nextValue = (0x20 | ($num & 0x1f)) + 63;
             $encodeString .= chr($nextValue);

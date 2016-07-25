@@ -24,7 +24,7 @@ if ($error == false) {
 
         if ( $routes_record = XDb::xFetchArray($route_rs) ) {
 
-            $routes .= '<div class="headitems">';
+            $routes  = '<div class="headitems">';
             $routes .= '<div style="width:80px;" class="myr">' . tr('route_name') . '</div><div class="ver">&nbsp;</div><div style="width:295px;" class="myr">&nbsp;' . tr('route_desc') . '</div><div class="ver">&nbsp;</div><div style="width:60px;" class="myr">&nbsp;' . tr('radius') . '</div><div class="ver">&nbsp;</div><div style="width:60px;" class="myr">&nbsp;' . tr('length') . '</div><div class="ver">&nbsp;</div><div style="width:70px;" class="myr">&nbsp;' . tr('caches') . '</div><div class="ver">&nbsp;</div><div style="width:50px;" class="myr">' . tr('edit') . '</div><div class="ver">&nbsp;</div><div style="width:20px;" class="myr">&nbsp;' . tr('delete') . '</div></div>';
 
             do{
