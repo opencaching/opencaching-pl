@@ -1084,8 +1084,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1334;
-    public static $git_revision = 'e5c1dfe278f387cf2d90eb4a5471134ee25168ef';
+    public static $version_number = 1337;
+    public static $git_revision = 'f911bd9783ef74d5d2d93a89aedaab129a835059';
 
     private static $okapi_vars = null;
 
@@ -2167,6 +2167,22 @@ class Okapi
                 } else {
                     return $val;
                 }
+        }
+    }
+
+    /**
+     * Some pages should be visible only to OKAPI developers (e.g. frequent
+     * stats generation may reduce OKAPI responsiveness). This method verifies
+     * that the requester is a developer. If he isn't, it die()s.
+     */
+    public static function require_developer_cookie() {
+        if (
+            (!isset($_COOKIE['okapi_devel_key']))
+            || (md5($_COOKIE['okapi_devel_key']) != '5753f318c1495c01637f7f6b7fc9c5db')
+        ) {
+            header("Content-Type: text/plain; charset=utf-8");
+            print "I need a cookie!";
+            die();
         }
     }
 
