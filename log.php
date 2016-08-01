@@ -150,12 +150,12 @@ if ($error == false) {
                 "SELECT COUNT(`user_id`) FROM `cache_rating` WHERE `user_id`= :1 ", 0, $usr['userid']);
 
             if ($is_top == 0) { //not-yet-recommended
-                
+
             	if ( ($user_founds * rating_percentage / 100) < 1) { // user doesn't have enough founds to recommend anything
                     $top_cache = 0;
                     $recommendationsNr = 100 / rating_percentage - $user_founds;
                     $rating_msg = mb_ereg_replace('{recommendationsNr}', "$recommendationsNr", $rating_too_few_founds);
-                    
+
                 } elseif ($user_tops < floor($user_founds * rating_percentage / 100)) {
                     // this user can recommend this cache
                     if ($cache_user_id != $usr['userid']) {
@@ -170,11 +170,11 @@ if ($error == false) {
                     $rating_msg = mb_ereg_replace('{max}', floor($user_founds * rating_percentage / 100), $rating_msg);
                     $rating_msg = mb_ereg_replace('{curr}', $user_tops, $rating_msg);
                 } else {
-                	// user needs more caches for next recomendation 
+                	// user needs more caches for next recomendation
                     $top_cache = 0;
                     $recommendationsNr = ((1+$user_tops) * 100 / rating_percentage ) - $user_founds;
                     $rating_msg = mb_ereg_replace('{recommendationsNr}', "$recommendationsNr", $rating_too_few_founds);
-                    
+
                     $rating_msg .= '<br />' . $rating_maxreached;
                 }
             } else {
@@ -891,7 +891,7 @@ if ($error == false) {
 
 
                 //set tpl vars
-                tpl_set_var('cachename', htmlspecialchars($cachename, ENT_COMPAT, 'UTF-8'));
+                tpl_set_var('cachename', $cachename); //TODO: do we need htmlspecialchars here ?!
                 tpl_set_var('cacheid', htmlspecialchars($cache_id, ENT_COMPAT, 'UTF-8'));
                 tpl_set_var('logmin', htmlspecialchars($log_date_min, ENT_COMPAT, 'UTF-8'));
                 tpl_set_var('loghour', htmlspecialchars($log_date_hour, ENT_COMPAT, 'UTF-8'));
