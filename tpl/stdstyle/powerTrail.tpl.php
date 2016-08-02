@@ -1737,7 +1737,7 @@ $( document ).ready(function() {
                 <tr>
                     <td>
                         {{pt015}}: <br />
-                        <p align="center"><img src="//chart.apis.google.com/chart?cht=p3&chd=t:{cacheFound},{powerTrailCacheLeft}&chco=00AA00|0000AA&chs=300x120&chl={{pt103}}|{{pt104}}" /><br />
+                        <p align="center"><img src="http://chart.apis.google.com/chart?cht=p3&chd=t:{cacheFound},{powerTrailCacheLeft}&chco=00AA00|0000AA&chs=300x120&chl={{pt103}}|{{pt104}}" /><br />
                             {powerTrailserStats}</p>
                     </td>
                 </tr>
