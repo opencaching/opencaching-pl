@@ -55,7 +55,7 @@ class User extends \lib\Objects\BaseObject
     /* @var $geocachesBlocked \ArrayObject() */
     private $geocachesBlocked = null;
 
-    private $eventsFounds = null;
+    private $eventsAttendsCount = null;
 
     const REGEX_USERNAME = '^[a-zA-Z0-9ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ@-][a-zA-ZęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ0-9\.\-=_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\ -=&*+~#]{2,59}$';
     const REGEX_PASSWORD = '^[a-zA-Z0-9\.\-_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\$&*+~#]{3,60}$';
@@ -153,11 +153,6 @@ class User extends \lib\Objects\BaseObject
         if ($userDbRow) {
             $this->setUserFieldsByUsedDbRow($userDbRow);
         }
-
-        $this->eventsFounds = XDb::xSimpleQueryValue("SELECT COUNT(*) events_count
-                            FROM cache_logs
-                            WHERE user_id=".$this->userId." AND type=7 AND deleted=0", 0);
-
     }
 
     private function setUserFieldsByUsedDbRow(array $dbRow)
@@ -477,9 +472,14 @@ class User extends \lib\Objects\BaseObject
     /**
      * @return integer
      */
-    public function getEventsFounds()
+    public function getEventsAttendsCount()
     {
-        return $this->eventsFounds;
+        if($this->eventsAttendsCount == null) {
+            $this->eventsAttendsCount = XDb::xSimpleQueryValue("SELECT COUNT(*) events_count
+                            FROM cache_logs
+                            WHERE user_id=".$this->userId." AND type=7 AND deleted=0", 0);
+        }
+        return $this->eventsAttendsCount;
     }
 
     /**

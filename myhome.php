@@ -34,7 +34,7 @@ if ($error == false) {
         $user = new User(array('userId' => $userid));
         $hidden_count=$user->getHiddenGeocachesCount();
         $founds_count=$user->getFoundGeocachesCount();
-        $events_count=$user->getEventsFounds();
+        $events_count=$user->getEventsAttendsCount();
         $notfounds_count=$user->getNotFoundGeocachesCount();
         $log_notes_count=$user->getLogNotesCount();
 
