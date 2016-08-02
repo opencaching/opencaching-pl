@@ -46,13 +46,13 @@ if ($error == false) {
                             AND `caches`.`date_created`>DATE_ADD(NOW(), INTERVAL -90 DAY)
                     )
                 )
+                AND `user`.`is_active_flag` != 0
                 AND `user`.`longitude` IS NOT NULL
                 AND `user`.`latitude` IS NOT NULL GROUP BY user.username");
 
         $point = "";
         $nrows = 0;
         while($record = XDb::xFetchArray($rscp)) {
-            $nrows++;
             $username = $record['username'];
             $y = $record['longitude'];
             $x = $record['latitude'];
@@ -63,7 +63,10 @@ if ($error == false) {
                                     AND caches.status<>6
                                     AND `caches`.`user_id`= ? ", $record['userid']);
             $nr = XDb::xFetchArray($nrec);
-            $point.="addMarker(" . $x . "," . $y . "," . $record['userid'] . ",'" . $username . "'," . $nr['nrecom'] . ");\n";
+            if ($nr['nrecom'] != NULL && $nr['nrecom'] >= 20) {
+                $point.="addMarker(" . $x . "," . $y . "," . $record['userid'] . ",'" . $username . "'," . $nr['nrecom'] . ");\n";
+                $nrows++;
+            }
         }
 
         tpl_set_var('nguides', $nrows);
@@ -78,4 +81,3 @@ if ($error == false) {
 
 tpl_set_var('serverURL', $absolute_server_URI);
 tpl_BuildTemplate();
-
