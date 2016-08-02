@@ -5,6 +5,7 @@ use \lib\Controllers\MedalsController;
 use Utils\Database\OcDb;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Controllers\Php7Handler;
+use Utils\Database\XDb;
 
 /**
  * Description of user
@@ -54,10 +55,10 @@ class User extends \lib\Objects\BaseObject
     /* @var $geocachesBlocked \ArrayObject() */
     private $geocachesBlocked = null;
 
+    private $eventsAttendsCount = null;
+
     const REGEX_USERNAME = '^[a-zA-Z0-9ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ@-][a-zA-ZęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ0-9\.\-=_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\ -=&*+~#]{2,59}$';
     const REGEX_PASSWORD = '^[a-zA-Z0-9\.\-_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\$&*+~#]{3,60}$';
-
-
 
     /**
      * construct class using $userId (fields will be loaded from db)
@@ -253,7 +254,7 @@ class User extends \lib\Objects\BaseObject
     {
         $query = "
             UPDATE `user`
-            SET `founds_count`   = (SELECT count(*) FROM `cache_logs` WHERE `user_id` =:1 AND `type` IN (1,7) AND `deleted` =0 ),
+            SET `founds_count`   = (SELECT count(*) FROM `cache_logs` WHERE `user_id` =:1 AND `type` =1 AND `deleted` =0 ),
                 `notfounds_count`= (SELECT count(*) FROM `cache_logs` WHERE `user_id` =:1 AND `type` =2 AND `deleted` =0 ),
                 `log_notes_count`= (SELECT count(*) FROM `cache_logs` WHERE `user_id` =:1 AND `type` =3 AND `deleted` =0 )
             WHERE `user_id` =:1
@@ -425,8 +426,6 @@ class User extends \lib\Objects\BaseObject
         $this->geocachesNotPublished->append($geocache);
     }
 
-
-
     public function getGeocachesNotPublished()
     {
         if($this->geocachesNotPublished === null){
@@ -470,4 +469,40 @@ class User extends \lib\Objects\BaseObject
         return $this->geocachesBlocked;
     }
 
+    /**
+     * @return integer
+     */
+    public function getEventsAttendsCount()
+    {
+        if($this->eventsAttendsCount == null) {
+            $this->eventsAttendsCount = XDb::xSimpleQueryValue("SELECT COUNT(*) events_count
+                            FROM cache_logs
+                            WHERE user_id=".$this->userId." AND type=7 AND deleted=0", 0);
+        }
+        return $this->eventsAttendsCount;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getHiddenGeocachesCount()
+    {
+        return $this->hiddenGeocachesCount;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getNotFoundGeocachesCount()
+    {
+        return $this->notFoundGeocachesCount;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getLogNotesCount()
+    {
+        return $this->logNotesCount;
+    }
 }
