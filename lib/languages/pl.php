@@ -1985,6 +1985,7 @@ $translations = array(
     'pt241' => 'Nie masz uprawnień, by zmienić status!',
     'pt242' => 'Ukryj moje własne',
     'pt243' => 'Ukryj zdobyte',
+    'pt244' => 'Zablokowana przez COG',
     'pt_show_on_main_map' => 'Pokaż kesze tej geościeżki na mapie głównej',
     'statpic_found' => 'Znalazł:',
     'statpic_hidden' => 'Ukrył:',

@@ -34,6 +34,7 @@ function displayAllCachesOfPowerTrail(\lib\Objects\PowerTrail\PowerTrail $powerT
         2 => '/tpl/stdstyle/images/log/16x16-temporary.png',
         3 => '/tpl/stdstyle/images/log/16x16-trash.png',
         5 => '/tpl/stdstyle/images/log/16x16-need-maintenance.png',
+        6 => '/tpl/stdstyle/images/log/16x16-stop.png'
     );
 
     $statusDesc = array(
@@ -41,6 +42,7 @@ function displayAllCachesOfPowerTrail(\lib\Objects\PowerTrail\PowerTrail $powerT
         2 => tr2('pt142', $language),
         3 => tr2('pt143', $language),
         5 => tr2('pt144', $language),
+        6 => tr2('pt244', $language)
     );
 
     $cacheTypesIcons = cache::getCacheIconsSet();

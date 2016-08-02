@@ -1984,6 +1984,7 @@ $translations = array(
     'pt241' => 'No privileages to change status!',
     'pt242' => 'Verbergen mijn eigen',
     'pt243' => 'Verbergen opgedaan',
+    'pt244' => 'Geblokkeerd door OC Team',
     'pt_show_on_main_map' => 'Toon GeoPath op hoofdkaart',
     'statpic_found' => 'Gevonden:',
     'statpic_hidden' => 'Geplaatst:',

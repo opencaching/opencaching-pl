@@ -1985,6 +1985,7 @@ $translations = array(
     'pt241' => 'No privileages to change status!',
     'pt242' => 'Hide my own',
     'pt243' => 'Hide gained',
+    'pt244' => 'Blocked by OC Team',
     'pt_show_on_main_map' => 'Show geoPath caches on main map',
     'statpic_found' => 'Găsite:',
     'statpic_hidden' => 'Ascunse:',
