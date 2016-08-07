@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\OcDb;
+use Utils\Gis\Gis;
 /**
  * This script is used (can be loaded) by /search.php
  */
@@ -483,7 +484,13 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
     if ($CalcDistance) {
         // und jetzt noch die Richtung ...
         if ($caches_record['distance'] > 0 && ($usr || ! $hide_coords)) {
-            $tmpline = str_replace('{direction}', Bearing2Text(calcBearing($lat_rad / 3.14159 * 180, $lon_rad / 3.14159 * 180, $caches_record['latitude'], $caches_record['longitude']), 1), $tmpline);
+            $tmpline = str_replace('{direction}',
+                Gis::bearing2Text(
+                    Gis::calcBearing(
+                        $lat_rad / M_PI * 180, $lon_rad / M_PI * 180,
+                        $caches_record['latitude'],
+                        $caches_record['longitude']), 1),
+                    $tmpline);
         } else
             $tmpline = str_replace('{direction}', '', $tmpline);
     }

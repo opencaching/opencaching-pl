@@ -2622,5 +2622,6 @@ $translations = array(
     'useractivationmail6' => 'If you don\'t activate your account within the next 14 days, your account will be automatically deleted.',
     'mail_auto_generated' => 'This message is auto-generated - please do not reply.',
     'mail_header_hi' => 'Hello',
+    'myp_title' => 'My province'
 );
 

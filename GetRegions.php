@@ -1,6 +1,8 @@
 <?php
 
 use Utils\Database\OcDb;
+use Utils\Gis\Gis;
+
 /** class GetRegions
  *
  * this class find Counrty and region (administation district, for exapmle Poland, woj. Małopolskie)
@@ -62,7 +64,7 @@ class GetRegions
         $rsLayers = $db->dbResultFetchAll($s);
 
         foreach ($rsLayers as $rLayers) {
-            if (gis::ptInLineRing($rLayers['geometry'], 'POINT(' . $lon . ' ' . $lat . ')')) {
+            if (Gis::ptInLineRing($rLayers['geometry'], 'POINT(' . $lon . ' ' . $lat . ')')) {
                 $sCode = $rLayers['code'];
                 break;
             }

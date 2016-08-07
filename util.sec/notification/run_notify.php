@@ -8,6 +8,7 @@
 
 use Utils\Database\OcDb;
 use Utils\Log\Log;
+use Utils\Gis\Gis;
 
 $rootpath = __dir__ . '/../../';
 require_once($rootpath . 'lib/common.inc.php');
@@ -91,9 +92,9 @@ function process_new_cache($notify)
     $mailbody = mb_ereg_replace('{wp_oc}', $notify['wp_oc'], $mailbody);
     $mailbody = mb_ereg_replace('{user}', htmlspecialchars($notify['username'], ENT_COMPAT, 'UTF-8'), $mailbody);
     $mailbody = mb_ereg_replace('{cachename}', htmlspecialchars($notify['cachename'], ENT_COMPAT, 'UTF-8'), $mailbody);
-    $mailbody = mb_ereg_replace('{distance}', round(calcDistance($notify['lat1'], $notify['lon1'], $notify['lat2'], $notify['lon2'], 1), 1), $mailbody);
+    $mailbody = mb_ereg_replace('{distance}', round(Gis::distance($notify['lat1'], $notify['lon1'], $notify['lat2'], $notify['lon2'], 1), 1), $mailbody);
     $mailbody = mb_ereg_replace('{unit}', 'km', $mailbody);
-    $mailbody = mb_ereg_replace('{bearing}', Bearing2Text(calcBearing($notify['lat1'], $notify['lon1'], $notify['lat2'], $notify['lon2'])), $mailbody);
+    $mailbody = mb_ereg_replace('{bearing}', Gis::bearing2Text(Gis::calcBearing($notify['lat1'], $notify['lon1'], $notify['lat2'], $notify['lon2'])), $mailbody);
     $mailbody = mb_ereg_replace('{cachetype}', tr($cacheTypes[$notify['cachetype']]['translation']), $mailbody);
     $mailbody = mb_ereg_replace('{cachesize}', tr($cacheSizes[$notify['cachesize']]['translation']), $mailbody);
     $mailbody = mb_ereg_replace('{server}', $absolute_server_URI, $mailbody);

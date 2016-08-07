@@ -4,6 +4,7 @@
  */
 
 use Utils\Database\XDb;
+use Utils\Gis;
 
 /*
  *
@@ -27,7 +28,6 @@ use Utils\Database\XDb;
  *
  */
 $rootpath = '../../';
-require_once ($rootpath . 'lib/gis/gis.class.php');
 require_once ($rootpath . 'lib/common.inc.php');
 
 global $lang;
@@ -54,7 +54,7 @@ while ($rCache = XDb::xFetchArray($rsCache)) {
 
     while ($rLayers = XDb::xFetchArray($rsLayers)) {
 
-        if ( gis::ptInLineRing(
+        if ( Gis::ptInLineRing(
                 $rLayers['geometry'],
                 'POINT(' . $rCache['longitude'] . ' ' . $rCache['latitude'] . ')') ) {
             $sCode = $rLayers['code'];
