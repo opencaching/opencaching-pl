@@ -106,7 +106,7 @@ a:hover, a:visited, a:link, a:active {
 
       <li>
         <a href='viewcache.php?cacheid=<?=$cache['cache_id']?>'>
-          <?=$cache['name']?><?=$cache['offeredFromUserName']?>:&nbsp;&nbsp;
+          <?=$cache['name']?>&nbsp;[<?=$cache['offeredFromUserName']?>]:&nbsp;&nbsp;
         </a>
         <a href='chowner.php?cacheid=<?=$cache['cache_id']?>&action=accept'>
           <span class="badge accept">{{adopt_12}}</span>
