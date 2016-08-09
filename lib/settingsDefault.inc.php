@@ -234,3 +234,7 @@ $config['oc']['limits']['notification_radius'] = 150;
 $config['okapi']['data_license_url'] = 'http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use';
 $config['okapi']['admin_emails'] = false;
 // $config['okapi']['admin_emails'] = array('rygielski@mimuw.edu.pl', 'following@online.de');
+
+// Number of minutes to edit cache log without increment the "edit_count" field. Usefull eg. to correct spelling errors.
+// https://github.com/opencaching/opencaching-pl/issues/696
+$config['cache_log']['edit_time'] = 5;

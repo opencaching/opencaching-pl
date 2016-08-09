@@ -24,8 +24,8 @@ if ($error == false) {
             "SELECT `cache_logs`.`cache_id` AS `cache_id`, `cache_logs`.`node` AS `node`, `cache_logs`.`text` AS `text`,
                     `cache_logs`.`date` AS `date`, `cache_logs`.`user_id` AS `user_id`, `cache_logs`.`type` AS `logtype`,
                     `cache_logs`.`text_html` AS `text_html`, `cache_logs`.`text_htmledit` AS `text_htmledit`,
-                    `caches`.`name` AS `cachename`, `caches`.`status` AS `cachestatus`, `caches`.`type` AS `cachetype`,
-                    `caches`.`user_id` AS `cache_user_id`, `caches`.`logpw` as `logpw`
+                    `cache_logs`.`last_modified` AS `last_modified`, `caches`.`name` AS `cachename`, `caches`.`status` AS `cachestatus`,
+                    `caches`.`type` AS `cachetype`, `caches`.`user_id` AS `cache_user_id`, `caches`.`logpw` as `logpw`
             FROM `cache_logs` INNER JOIN `caches` ON (`caches`.`cache_id`=`cache_logs`.`cache_id`)
             WHERE `id`= ? AND `deleted` = ? LIMIT 1", $log_id, 0);
 
@@ -217,17 +217,31 @@ if ($error == false) {
                 if (isset($_POST['submitform']) && $date_not_ok == false && $logtype_not_ok == false && $pw_not_ok == false) {
                     //store changed data
 
-                    // The following code will update last_modified and edit_count even
+                    // The following code will update last_modified even
                     // if nothing else is changed in cache_logs. For the case this
-                    // is to be optimized so that last_modified and edit_count are updated
+                    // is to be optimized so that last_modified is updated
                     // only if there is a real modification, don't forget to update it also
                     // if just a recommendation ("rating") is added or withdrawn (which is
                     // stored in another table)! This is also necessary for proper OKAPI
                     // replication of log entries
                     // (see https://github.com/opencaching/okapi/issues/383).
 
-                    XDb::xSql(
-                        "UPDATE `cache_logs`
+                    // check if log is edited less than $config['cache_log']['edit_time'] minutes ago
+                    // if yes - don't change edit_count field
+                    // https://github.com/opencaching/opencaching-pl/issues/696
+                    if (floor((time() - strtotime($log_record['last_modified'])) / 60) <= $config['cache_log']['edit_time']) {
+                        XDb::xSql(
+                            "UPDATE `cache_logs`
+                        SET `type`=?, `date`=?, `text`=?, `text_html`=?, `text_htmledit`=?, `last_modified`=NOW(),
+                            `edit_by_user_id` = ?
+                        WHERE `id`=?",
+                            /*1*/$log_type,
+                            /*2*/date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
+                            /*3*/userInputFilter::purifyHtmlString((($descMode != 1) ? $log_text : nl2br($log_text))),
+                            /*4*/1, /*5*/1, $usr['userid'], $log_id);
+                    } else {
+                        XDb::xSql(
+                            "UPDATE `cache_logs`
                         SET `type`=?, `date`=?, `text`=?, `text_html`=?, `text_htmledit`=?, `last_modified`=NOW(),
                             `edit_by_user_id` = ?, `edit_count`= edit_count + 1
                         WHERE `id`=?",
@@ -235,6 +249,7 @@ if ($error == false) {
                             /*2*/date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
                             /*3*/userInputFilter::purifyHtmlString((($descMode != 1) ? $log_text : nl2br($log_text))),
                             /*4*/1, /*5*/1, $usr['userid'], $log_id);
+                    }
 
                     //update user-stat if type changed
                     if ($log_record['logtype'] != $log_type) {
