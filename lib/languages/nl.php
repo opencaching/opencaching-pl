@@ -8,6 +8,7 @@ $translations = array(
     'Edit' => 'Bewerken',
     'back' => 'Terug',
     'cache_menu' => 'Cache Menu',
+
     'email_incorrect' => 'E-mail adres is niet correct.',
     'account_activation' => 'Account activatie',
     'finish_registration_hint' => 'Om het registratie proces te voltooien, moet je je e-mail adres bevestigen en de activatie code invullen.',
@@ -853,6 +854,7 @@ $translations = array(
     'image_max_size2' => 'MB. Reduceer de afmetingen of kwaliteit.',
     'image_bad_format' => 'Bestand wordt niet ondersteund',
     'bad_format_info' => 'Bestand wordt niet ondersteund. Geaccepteerde bestand zijn: {picallowedformats}. Aanbevolen resolutie: {maxpicresolution} pixels',
+
     'no_picture' => 'Afbeelding niet gevonden',
     'title_picture' => 'Titel',
     'file_name' => 'Bestandsnaam',
@@ -908,6 +910,7 @@ $translations = array(
     'guides' => 'Cache hulp',
     'okapi_apps' => 'jouw Apps',
     'openchecker_name' => 'OpenChecker',
+    'openchecker_count' => 'Caches in OpenChecker:',
     'openchecker_legend' => 'Caches in OpenChecker, legenda',
     'openchecker_page_next' => 'Volgende',
     'openchecker_page_prev' => 'Vorige',
