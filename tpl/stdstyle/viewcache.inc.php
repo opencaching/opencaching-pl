@@ -236,6 +236,7 @@ function viewcache_getfullsizedpicturestable($cacheid, $viewtext = true, $spoile
             AND object_type=2 AND display=1
         ORDER BY date_created', $cacheid);
 
+    $retval = '';
     while ($r = XDb::xFetchArray($rs)) {
         $retval .= '<div style="display: block; float: left; margin: 3px;">';
         if ($viewtext)
@@ -248,5 +249,3 @@ function viewcache_getfullsizedpicturestable($cacheid, $viewtext = true, $spoile
     XDb::xFreeResults($rs);
     return $retval;
 }
-
-
