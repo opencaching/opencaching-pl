@@ -1109,6 +1109,7 @@ $translations = array(
     'report_10' => 'Andere reden',
     'report_11' => 'Commentaar (verplicht)',
     'report_12' => 'Het rapport is verzonden. Het opencaching team zal het probleem onderzoeken en passende maatregelen nemen.',
+    'report_13' => 'I certify that before submitting the report, I contacted the owner of the cache.',
     'route_01' => 'Startpunt',
     'route_02' => 'Eindpunt',
     'route_03' => 'Wis route',

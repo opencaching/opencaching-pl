@@ -1,3 +1,4 @@
+    <script src="{reportcache_js}"></script>
 <form action="reportcache.php" method="post">
     <input type="hidden" name="cacheid" value="{cacheid}"/>
     <table class="content">
@@ -11,8 +12,8 @@
             </td></tr>
         <tr><td colspan="2">
                 <b>{{report_02}}</b><br />
-                <input type="radio" name="adresat" id="adresat1" value="owner" checked="checked" /><label for="adresat1">{{report_03}}</label><br />
-                <input type="radio" name="adresat" id="adresat2" value="rr" /><label for="adresat2">{{report_04}}</label>
+                <input onclick="hiddeCheck()" type="radio" name="adresat" id="adresat1" value="owner" checked="checked" /><label for="adresat1">{{report_03}}</label><br />
+                <input onclick="showCheck()" type="radio" name="adresat" id="adresat2" value="rr" /><label for="adresat2">{{report_04}}</label><br />
                 <br />
                 <font color="#ff0000">{{report_05}}
                 <br /><br />
@@ -47,8 +48,10 @@
 
         <tr>
             <td class="header-small" colspan="2">
+                <input style="visibility:hidden;" onclick="statementChange()" type="checkbox" id="statement">
+                <label style="visibility:hidden;" for="statement" id="statement_label">{{report_13}}</label><br /><br />
                 <input type="reset" name="cancel" value={{reset}} class="formbuttons"/>&nbsp;&nbsp;
-                <input type="submit" name="ok" value={{submit}} zgłoszenie" class="formbuttons"/>
+                <input id="sender" type="submit" name="ok" value={{submit}} zgłoszenie" class="formbuttons"/>
             </td>
         </tr>
 
