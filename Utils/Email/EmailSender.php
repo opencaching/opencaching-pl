@@ -193,10 +193,62 @@ class EmailSender
         $emailCOG->setSubject(tr('octeam_comment_subject_copy').' '.$adminName);
         $emailCOG->setBody($formattedMessage->getEmailContent(), true);
         $emailCOG->send();
-
     }
-    
-    public static function sendAdoptionMessage(){
-        
+
+    public static function sendAdoptionOffer($emailTemplateFile, $cacheName, $newOwnerUserName,
+        $oldOwnerUserName, $userEmail) {
+        $formattedMessage = new EmailFormatter($emailTemplateFile);
+        $formattedMessage->setVariable("adoptOffer01", tr("adopt_26"));
+        $formattedMessage->setVariable("userName", '<b>'.$oldOwnerUserName.'</b>');
+        $formattedMessage->setVariable("cacheName", '<b>'.$cacheName.'</b>');
+
+        $formattedMessage->addFooterAndHeader($newOwnerUserName);
+
+        $email = new Email();
+        $email->addToAddr($userEmail);
+        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
+        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
+        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
+        $email->setSubject(tr('adopt_25'));
+        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->send();
+    }
+
+    public static function sendAdoptionSuccessMessage($emailTemplateFile, $cacheName, $newOwnerUserName,
+        $oldOwnerUserName, $oldOwnerEmail) {
+        $formattedMessage = new EmailFormatter($emailTemplateFile);
+        $formattedMessage->setVariable("adoptSuccess01", tr("adopt_31"));
+        $formattedMessage->setVariable("userName", '<b>'.$newOwnerUserName.'</b>');
+        $formattedMessage->setVariable("cacheName", '<b>'.$cacheName.'</b>');
+
+        $formattedMessage->addFooterAndHeader($oldOwnerUserName);
+
+        $email = new Email();
+        $email->addToAddr($oldOwnerEmail);
+        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
+        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
+        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
+        $email->setSubject(tr('adopt_18'));
+        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->send();
+    }
+
+    public static function sendAdoptionRefusedMessage($emailTemplateFile, $cacheName, $newOwnerUserName,
+        $oldOwnerUserName, $oldOwnerEmail) {
+        $formattedMessage = new EmailFormatter($emailTemplateFile);
+        $formattedMessage->setVariable("adoptRefused01", tr("adopt_29"));
+        $formattedMessage->setVariable("userName", '<b>'.$newOwnerUserName.'</b>');
+        $formattedMessage->setVariable("cacheName", '<b>'.$cacheName.'</b>');
+
+        $formattedMessage->addFooterAndHeader($oldOwnerUserName);
+
+        $email = new Email();
+        $email->addToAddr($oldOwnerEmail);
+        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
+        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
+        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
+        $email->setSubject(tr('adopt_28'));
+        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->send();
     }
 }

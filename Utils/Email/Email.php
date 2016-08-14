@@ -164,6 +164,11 @@ class Email
      */
     public static function isValidEmail($emailAddress)
     {
+        //TODO(mzylowski): Remove this if, when email refactoring will be finished:
+        if ($emailAddress == "user@ocpl-devel") {
+            return true;
+        } //debugging purposes
+
         if( false === filter_var($emailAddress, FILTER_VALIDATE_EMAIL)) {
             return false;
         }
