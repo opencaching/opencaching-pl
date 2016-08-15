@@ -1084,8 +1084,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1338;
-    public static $git_revision = '5e29f2e4421553312b085993c1fdab9e97d10363';
+    public static $version_number = 1339;
+    public static $git_revision = '5560aab7f1f9c4e56c6a598d2f17c92d04654581';
 
     private static $okapi_vars = null;
 
@@ -2183,6 +2183,21 @@ class Okapi
             header("Content-Type: text/plain; charset=utf-8");
             print "I need a cookie!";
             die();
+        }
+    }
+
+    /**
+     * Update the "last activity" field of the user. As explained in #337, it is stored
+     * in `last_login` column and is needed for some reports. As explained in #439, it
+     * shouldn't be updated automatically on each Level 3 request (because some of these
+     * requests are not necessarilly initiated by the user).
+     */
+    public static function update_user_activity($request) {
+        if ($request && $request->token && $request->token->token_type == "access") {
+            Db::execute("
+                update user set last_login=now()
+                where user_id='".Db::escape_string($request->token->user_id)."'
+            ");
         }
     }
 
