@@ -1103,6 +1103,7 @@ $translations = array(
     'report_10' => 'Alt motiv',
     'report_11' => 'Comentariu (obligatoriu)',
     'report_12' => 'Raportul a fost trimis. Echipa-Opencaching va cerceta situaţia şi va lua măsurile necesare.',
+    'report_13' => 'I certify that before submitting the report, I contacted the owner of the cache.',
     'route_01' => 'Punct de pornire',
     'route_02' => 'Punct final',
     'route_03' => 'Şterge ruta',

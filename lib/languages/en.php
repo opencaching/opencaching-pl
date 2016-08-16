@@ -1109,6 +1109,7 @@ $translations = array(
     'report_10' => 'Other reason',
     'report_11' => 'Comment (required)',
     'report_12' => 'Report has been send. the OC team will investigate the issue and take appropriate action.',
+    'report_13' => 'I certify that before submitting the report, I contacted the owner of the cache.',
     'route_01' => 'Startpoint',
     'route_02' => 'Endpoint',
     'route_03' => 'Delete route',
