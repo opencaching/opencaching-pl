@@ -49,6 +49,8 @@ final class OcConfig
     private $needFindLimit;
     private $needAproveLimit;
     private $cogEmailAddress;
+    private $mailSubjectPrefixForSite;
+    private $mailSubjectPrefixForReviewers;
 
     // db config
     private $dbUser;
@@ -106,6 +108,8 @@ final class OcConfig
         $this->shortSiteName = $short_sitename;
         $this->needAproveLimit = $NEED_APPROVE_LIMIT;
         $this->needFindLimit = $NEED_FIND_LIMIT;
+        $this->mailSubjectPrefixForSite = $subject_prefix_for_site_mails;
+        $this->mailSubjectPrefixForReviewers = $subject_prefix_for_reviewers_mails;
 
         if( isset($config['mapsConfig']) && is_array( $config['mapsConfig'] ) ){
             $this->mapsConfig = $config['mapsConfig'];
@@ -284,28 +288,31 @@ final class OcConfig
         return $mail_rt;
     }
 
-    public static function getHeaderLogo()
-    {
+    public static function getHeaderLogo() {
         return self::instance()->headerLogo;
     }
 
-    public static function getShortSiteName()
-    {
+    public static function getShortSiteName() {
         return self::instance()->shortSiteName;
     }
 
-    public static function getNeedFindLimit()
-    {
+    public static function getNeedFindLimit() {
         return self::instance()->needFindLimit;
     }
     
-    public static function getNeedAproveLimit()
-    {
+    public static function getNeedAproveLimit() {
         return self::instance()->needAproveLimit;
     }
 
-    public static function getCogEmailAddress()
-    {
+    public static function getCogEmailAddress() {
         return self::instance()->cogEmailAddress;
+    }
+
+    public static function getMailSubjectPrefixForSite() {
+        return self::instance()->mailSubjectPrefixForSite;
+    }
+
+    public static function getMailSubjectPrefixForReviewers() {
+        return self::instance()->mailSubjectPrefixForReviewers;
     }
 }

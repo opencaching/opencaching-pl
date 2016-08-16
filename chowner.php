@@ -12,6 +12,7 @@ use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use lib\Objects\User\User;
 use lib\Objects\GeoCache\GeoCache;
+use Utils\Email\EmailSender;
 
 require_once 'lib/common.inc.php';
 
@@ -112,7 +113,7 @@ class ChownerController
             return;
         }
 
-        // zmiana wlasciciela
+        // owner changing
         $this->db->beginTransaction();
 
         // populate org cache user for this cache
@@ -173,13 +174,8 @@ class ChownerController
         $message = str_replace('{cacheName}', $cacheObj->getCacheName(), $message);
         $this->infoMsg = $message;
 
-
-        //TODO: redesign to use EmailSender
-        $mailContent = tr('adopt_31');
-        $mailContent = str_replace('\n', "\n", $mailContent);
-        $mailContent = str_replace('{userName}', $this->userObj->getUserName(), $mailContent);
-        $mailContent = str_replace('{cacheName}', $cacheObj->getCacheName(), $mailContent);
-        mb_send_mail_2( $oldOwner->getEmail(), tr('adopt_18'), $mailContent, emailHeaders());
+        EmailSender::sendAdoptionSuccessMessage(__DIR__ . '/tpl/stdstyle/email/adoption.email.html',
+        $cacheObj->getCacheName(), $this->userObj->getUserName(), $oldOwner->getUserName(), $oldOwner->getEmail());
 
     }
 
@@ -203,14 +199,9 @@ class ChownerController
 
         $oldOwner = User::fromUserIdFactory($cacheObj->getOwnerId());
 
-        //TODO: redesign to use EmailSender
-        $mailContent = tr('adopt_29');
-        $mailContent = str_replace('\n', "\n", $mailContent);
-        $mailContent = str_replace('{userName}', $this->userObj->getUserName(), $mailContent);
-        $mailContent = str_replace('{cacheName}', $cacheObj->getCacheName(), $mailContent);
-        mb_send_mail_2( $oldOwner->getEmail(), tr('adopt_28'), $mailContent, emailHeaders());
-
         $this->infoMsg = tr('adopt_27');
+        EmailSender::sendAdoptionRefusedMessage(__DIR__ . '/tpl/stdstyle/email/adoption.email.html',
+            $cacheObj->getCacheName(), $this->userObj->getUserName(), $oldOwner->getUserName(), $oldOwner->getEmail());
     }
 
     /**
@@ -269,14 +260,8 @@ class ChownerController
                 $cacheObj->getCacheId(), $newUserObj->getUserId());
 
             if (XDb::xNumRows($stmt) > 0) {
-
-                //TODO: redesign to use EmailSender
-                $mailContent = tr('adopt_26');
-                $mailContent = str_replace('\n', "\n", $mailContent);
-                $mailContent = str_replace('{userName}', $this->userObj->getUserName(), $mailContent);
-                $mailContent = str_replace('{cacheName}', $cacheObj->getCacheName(), $mailContent);
-                mb_send_mail_2($newUserObj->getEmail(), tr('adopt_25'), $mailContent, emailHeaders());
-
+                EmailSender::sendAdoptionOffer(__DIR__ . '/tpl/stdstyle/email/adoption.email.html', $cacheObj->getCacheName(),
+                    $newUserObj->getUserName(), $this->userObj->getUserName(), $newUserObj->getEmail());
                 $this->infoMsg = tr('adopt_24');
             } else {
                 $this->errorMsg = tr('adopt_22');
@@ -333,6 +318,7 @@ class ChownerController
      *
      * @param GeoCache $cacheObj -
      * @param User $userObj - optional
+     * @return bool
      */
     private function checkOffer(GeoCache $cacheObj, User $userObj = null ){
 
@@ -382,27 +368,3 @@ class ChownerController
 
 // temporary call from here
 new ChownerController();
-
-
-
-
-//TODO:  functions below should be removed soon
-function mb_send_mail_2($to, $subject, $content, $headers)
-{
-    global $debug_page;
-    if ($debug_page) {
-        echo "<pre>mail\nto: $to\nsubject: $subject\n$content</pre>";
-    } else {
-        mb_send_mail($to, $subject, $content, $headers);
-    }
-}
-
-function emailHeaders()
-{
-    global $usr, $site_name, $octeam_email;
-    $email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
-    $email_headers .= "From: $site_name <$octeam_email>\r\n";
-    $email_headers .= "Reply-To: " . $usr['email'] . "\r\n";
-    return $email_headers;
-}
-

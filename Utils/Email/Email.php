@@ -84,7 +84,7 @@ class Email
         else
             $to=''; //TODO: is it work?
 
-        $subject = $this->subjectPrefix . $this->subject;
+        $subject = $this->subjectPrefix . " " . $this->subject;
         $message = $this->body;
 
         return mb_send_mail($to, $subject, $message, implode("\r\n", $headers));
@@ -140,6 +140,14 @@ class Email
         }
     }
 
+    public function addSubjectPrefix($newPrefix) {
+        if (empty($newPrefix) || $newPrefix == "") { //because somebody may want to turn off the global prefix in config
+            return;
+        } else {
+            $this->subjectPrefix = $this->subjectPrefix ."[" . $newPrefix . "]";
+        }
+    }
+
     public function setSubject($subject){
         $this->subject = $subject;
     }
@@ -156,6 +164,11 @@ class Email
      */
     public static function isValidEmail($emailAddress)
     {
+        //TODO(mzylowski): Remove this if, when email refactoring will be finished:
+        if ($emailAddress == "user@ocpl-devel") {
+            return true;
+        } //debugging purposes
+
         if( false === filter_var($emailAddress, FILTER_VALIDATE_EMAIL)) {
             return false;
         }

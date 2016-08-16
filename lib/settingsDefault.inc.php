@@ -238,3 +238,6 @@ $config['okapi']['admin_emails'] = false;
 // Number of minutes to edit cache log without increment the "edit_count" field. Usefull eg. to correct spelling errors.
 // https://github.com/opencaching/opencaching-pl/issues/696
 $config['cache_log']['edit_time'] = 5;
+
+$subject_prefix_for_site_mails = "OCXX";
+$subject_prefix_for_reviewers_mails = "";
