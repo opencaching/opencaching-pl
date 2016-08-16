@@ -174,7 +174,7 @@ class ChownerController
         $message = str_replace('{cacheName}', $cacheObj->getCacheName(), $message);
         $this->infoMsg = $message;
 
-        EmailSender::sendAdoptionSuccessMessage(__DIR__ . '/tpl/stdstyle/email/adoptionSuccess.email.html',
+        EmailSender::sendAdoptionSuccessMessage(__DIR__ . '/tpl/stdstyle/email/adoption.email.html',
         $cacheObj->getCacheName(), $this->userObj->getUserName(), $oldOwner->getUserName(), $oldOwner->getEmail());
 
     }
@@ -200,7 +200,7 @@ class ChownerController
         $oldOwner = User::fromUserIdFactory($cacheObj->getOwnerId());
 
         $this->infoMsg = tr('adopt_27');
-        EmailSender::sendAdoptionRefusedMessage(__DIR__ . '/tpl/stdstyle/email/adoptionRefused.email.html',
+        EmailSender::sendAdoptionRefusedMessage(__DIR__ . '/tpl/stdstyle/email/adoption.email.html',
             $cacheObj->getCacheName(), $this->userObj->getUserName(), $oldOwner->getUserName(), $oldOwner->getEmail());
     }
 
@@ -260,7 +260,7 @@ class ChownerController
                 $cacheObj->getCacheId(), $newUserObj->getUserId());
 
             if (XDb::xNumRows($stmt) > 0) {
-                EmailSender::sendAdoptionOffer(__DIR__ . '/tpl/stdstyle/email/adoptionOffer.email.html', $cacheObj->getCacheName(),
+                EmailSender::sendAdoptionOffer(__DIR__ . '/tpl/stdstyle/email/adoption.email.html', $cacheObj->getCacheName(),
                     $newUserObj->getUserName(), $this->userObj->getUserName(), $newUserObj->getEmail());
                 $this->infoMsg = tr('adopt_24');
             } else {

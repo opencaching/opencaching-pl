@@ -198,7 +198,7 @@ class EmailSender
     public static function sendAdoptionOffer($emailTemplateFile, $cacheName, $newOwnerUserName,
         $oldOwnerUserName, $userEmail) {
         $formattedMessage = new EmailFormatter($emailTemplateFile);
-        $formattedMessage->setVariable("adoptOffer01", tr("adopt_26"));
+        $formattedMessage->setVariable("adopt01", tr("adopt_26"));
         $formattedMessage->setVariable("userName", '<b>'.$oldOwnerUserName.'</b>');
         $formattedMessage->setVariable("cacheName", '<b>'.$cacheName.'</b>');
 
@@ -217,7 +217,7 @@ class EmailSender
     public static function sendAdoptionSuccessMessage($emailTemplateFile, $cacheName, $newOwnerUserName,
         $oldOwnerUserName, $oldOwnerEmail) {
         $formattedMessage = new EmailFormatter($emailTemplateFile);
-        $formattedMessage->setVariable("adoptSuccess01", tr("adopt_31"));
+        $formattedMessage->setVariable("adopt01", tr("adopt_31"));
         $formattedMessage->setVariable("userName", '<b>'.$newOwnerUserName.'</b>');
         $formattedMessage->setVariable("cacheName", '<b>'.$cacheName.'</b>');
 
@@ -236,7 +236,7 @@ class EmailSender
     public static function sendAdoptionRefusedMessage($emailTemplateFile, $cacheName, $newOwnerUserName,
         $oldOwnerUserName, $oldOwnerEmail) {
         $formattedMessage = new EmailFormatter($emailTemplateFile);
-        $formattedMessage->setVariable("adoptRefused01", tr("adopt_29"));
+        $formattedMessage->setVariable("adopt01", tr("adopt_29"));
         $formattedMessage->setVariable("userName", '<b>'.$newOwnerUserName.'</b>');
         $formattedMessage->setVariable("cacheName", '<b>'.$cacheName.'</b>');
 
