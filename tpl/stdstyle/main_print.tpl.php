@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title><?php echo $tpl_subtitle; ?>{title}</title>
+        <title><?php echo isset($tpl_subtitle) ? $tpl_subtitle : ''; ?>{title}</title>
         <meta http-equiv="content-type" content="text/xhtml; charset=UTF-8" />
         <meta http-equiv="Content-Style-Type" content="text/css" />
         <meta http-equiv="Content-Language" content="{lang}" />
