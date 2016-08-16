@@ -26,6 +26,7 @@ if ($usr == true) {
         $tplname = 'reportcache';
         tpl_set_var('noreason_error', '');
         tpl_set_var('notext_error', '');
+        tpl_set_var('reportcache_js', 'tpl/stdstyle/js/reportcache.js');
         $cacheid = isset($_REQUEST['cacheid']) ? $_REQUEST['cacheid'] + 0 : 0;
 
         $query = XDb::xSql(
@@ -38,12 +39,9 @@ if ($usr == true) {
             tpl_set_var('cacheid', $cacheid);
 
             if (isset($_POST['ok'])) {
-                if ($_POST['text'] == "") {
-                    tpl_set_var('notext_error', '&nbsp;<b><font size="1" color="#ff0000">' . tr('reportcache05') . '.</font></b>');
-                    $tplname = 'reportcache_notext';
-                } else if ($_POST['reason'] == 0)
+                if ($_POST['text'] == "" || $_POST['reason'] == 0) {
                     tpl_set_var('noreason_error', '&nbsp;<b><font size="1" color="#ff0000">' . tr('reportcache06') . '.</font></b>');
-                else {
+                } else {
                     // formularz został wysłany
                     // pobierz adres email zglaszajacego
 
