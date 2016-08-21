@@ -70,12 +70,6 @@ $functionsbox_end_tag = '';
 
 $tpl_subtitle = '';
 
-//other vars
-//  $login_required = '<p style="margin-top:0px;margin-left:0px;width:550px;background-color:#e5e5e5;border:1px solid black;text-align:left;padding:3px 8px 3px 8px;">Um die von dir aufgerufene Seite anzuzeigen, musst du eingeloggt sein!</p>';
-$login_required = 'Strona którą wywołałeś wymaga zalogowania się!';
-
-$dberrormsg = 'Błąd instrukcji bazy danych.';
-
 $error_prefix = '<span class="errormsg">';
 $error_suffix = '</span>';
-?>
+

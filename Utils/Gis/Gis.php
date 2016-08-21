@@ -180,7 +180,7 @@ class Gis
         $distance = acos(
             cos((90 - $latFrom) * M_PI / 180) * cos((90 - $latTo) * M_PI / 180) +
             sin((90 - $latFrom) * M_PI / 180) * sin((90 - $latTo) * M_PI / 180) *
-            cos(($lonFrom - $lonTo) * M_PI / 180)) * EQUATORIAL_RADIUS * $distanceMultiplier;
+            cos(($lonFrom - $lonTo) * M_PI / 180)) * self::EQUATORIAL_RADIUS * $distanceMultiplier;
 
         if ($distance < 0) $distance = 0;
 
