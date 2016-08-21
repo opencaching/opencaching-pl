@@ -261,7 +261,11 @@ if ($error == false && $usr['admin']) {
         $assignedUserId = getAssignedUserId($report['cache_id']);
         
         if (!$assignedUserId && new DateTime($report['date_created']) < new DateTime('5 days ago')) {
+            //set alert for forgotten cache
             $trstyle = "alert";
+        } else if ($usr['userid'] == $assignedUserId) {
+            //hightlight caches assigned to current user 
+            $trstyle = "highlighted";
         } else {
             $trstyle = "";
         }
