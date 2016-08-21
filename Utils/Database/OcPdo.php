@@ -132,7 +132,7 @@ class OcPdo extends PDO
      *
      * Returns instance of itself.
      *
-     * @return OcPdo object
+     * @return OcDb object
      */
     public static function instance()
     {
