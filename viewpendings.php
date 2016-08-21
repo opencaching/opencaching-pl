@@ -259,19 +259,26 @@ if ($error == false && $usr['admin']) {
     $row_num = 0;
     while ($report = XDb::xFetchArray($stmt)) {
         $assignedUserId = getAssignedUserId($report['cache_id']);
+        
+        if (!$assignedUserId && new DateTime($report['date_created']) < new DateTime('5 days ago')) {
+            $trstyle = "alert";
+        } else {
+            $trstyle = "";
+        }
+        
         if ($row_num % 2)
             $bgcolor = "bgcolor1";
         else
             $bgcolor = "bgcolor2";
 
-        $content .= "<tr>\n";
+        $content .= "<tr class='". $trstyle."'>\n";
         $content .= "<td class='" . $bgcolor . "'>
                         <a href='viewcache.php?cacheid=" . $report['cache_id'] . "'>" . nonEmptyCacheName($report['cachename']) . "</a><br/>
                            <a class=\"links\" href='viewprofile.php?userid=" . $report['user_id'] . "'>" . $report['username'] . "</a><br/>
                         <span style=\"font-weight:bold;font-size:10px;color:blue;\">" . $report['adm3'] . "</span>
                     </td>\n";
         
-        $content .= "<td class='" . $bgcolor . "'> " . $report['date_created'] . "</td>\n";
+        $content .= "<td class='alertable " . $bgcolor . "'> " . $report['date_created'] . "</td>\n";
         
         $content .= "<td class='" . $bgcolor . "'>". $report['last_log_date'] . "<br/>
                 <a class=\"links truncated\" href='viewprofile.php?userid=" . $report['last_log_author'] . "'>" . $report['last_log_username'] . "</a><br/>

@@ -26,6 +26,9 @@ body                { font-size: 62.5%; margin: 0px auto; padding: 0px; backgrou
 /* search results */
 .bgcolor1 { background-color: rgb(255,255,255);}
 .bgcolor2 { background-color: rgb(219,230,241);}
+.alert .bgcolor1 { background-color: #f2dede;}
+.alert .bgcolor2 { background-color: #F9D1D3;}
+.alert .alertable { color: #DB242E;font-weight: bold;}
 
 /*-----------------------------------*/
 /* 2.1 - Sitename, slogan and banner */
