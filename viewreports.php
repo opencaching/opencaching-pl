@@ -94,12 +94,23 @@ if ($error == false && $usr['admin']) {
 
     $row_num = 0;
     while ($report = XDb::xFetchArray($query)) {
+        $assignedUserId = $report['responsible_id'];
+        if (!$assignedUserId && new DateTime($report['submit_date']) < new DateTime('5 days ago')) {
+            //set alert for forgotten report
+            $trstyle = "alert";
+        } else if ($usr['userid'] == $assignedUserId) {
+            //hightlight reports assigned to current user
+            $trstyle = "highlighted";
+        } else {
+            $trstyle = "";
+        }
+        
         if ($row_num % 2)
             $bgcolor = "bgcolor1";
         else
             $bgcolor = "bgcolor2";
 
-        $content .= "<tr>\n";
+        $content .= "<tr class='".$trstyle."'>\n";
 
         $userLastLogin = XDb::xMultiVariableQueryValue(
             "SELECT last_login FROM user WHERE user_id=:1 ", 0, $report['cache_ownerid']);
@@ -109,19 +120,16 @@ if ($error == false && $usr['admin']) {
         } else {
             $userlogin = strftime("%Y-%m-%d", strtotime($userLastLogin));
         }
-        if ($usr['userid'] == $report['responsible_id'])
-            $addborder = "style='border-width:2px;'";
-        else
-            $addborder = "";
-        $content .= "<td " . $addborder . " class='" . $bgcolor . "'><span class='content-title-noshade-size05'>" . $report['report_id'] . "</span></td>\n";
-        $content .= "<td " . $addborder . " class='" . $bgcolor . "'><span class='content-title-noshade-size05'>" . $report['submit_date'] . "</span></td>\n";
-        $content .= "<td " . $addborder . " class='" . $bgcolor . "'><a class='content-title-noshade-size04' title=\"Skrzynka ostatnio modyfikowana: " . strftime("%Y-%m-%d", strtotime($report['lastmodified'])) . "\" href='viewcache.php?cacheid=" . $report['cache_id'] . "'>" . nonEmptyCacheName($report['cachename']) . "</a> <br/> <a title=\"Użytkownik logowal się ostatnio: " . $userlogin . "\" class=\"links\" href=\"viewprofile.php?userid=" . $report['cache_ownerid'] . "\">" . getUsername($report['cache_ownerid']) . "</a><br/><span style=\"font-weight:bold;font-size:10px;color:blue;\">" . $report['adm3'] . "</span></td>\n";
-        $content .= "<td " . $addborder . " class='" . $bgcolor . "'><span class='content-title-noshade-size05'>" . colorCacheStatus($report['cache_status'], $report['c_status']) . "</span></td>\n";
-        $content .= "<td " . $addborder . " class='" . $bgcolor . "'><a class='content-title-noshade-size05' href='viewreport.php?reportid=" . $report['report_id'] . "'>" . writeReason($report['type']) . "</a></td></font>\n";
-        $content .= "<td " . $addborder . " class='" . $bgcolor . "'><a class='content-title-noshade-size05' href='viewprofile.php?userid=" . $report['user_id'] . "'>" . $report['username'] . "</a></td>\n";
-        $content .= "<td " . $addborder . " class='" . $bgcolor . "'><a class='content-title-noshade-size05' href='viewprofile.php?userid=" . $report['responsible_id'] . "'>" . getUsername($report['responsible_id']) . "</a></td>\n";
-        $content .= "<td " . $addborder . " class='" . $bgcolor . "' width='60'><span class='content-title-noshade-size05'>" . writeStatus($report['status']) . "</span></td>\n";
-        $content .= "<td " . $addborder . " class='" . $bgcolor . "'><span class='content-title-noshade-size05'>" . ($report['changed_by'] == '0' ? '' : (getUsername($report['changed_by']) . '<br/>(' . ($report['changed_date']) . ')')) . "</span></td>\n";
+
+        $content .= "<td class='" . $bgcolor . "'><span class='content-title-noshade-size05'>" . $report['report_id'] . "</span></td>\n";
+        $content .= "<td class='" . $bgcolor . "'><span class='alertable content-title-noshade-size05'>" . $report['submit_date'] . "</span></td>\n";
+        $content .= "<td class='" . $bgcolor . "'><a class='content-title-noshade-size04' title=\"Skrzynka ostatnio modyfikowana: " . strftime("%Y-%m-%d", strtotime($report['lastmodified'])) . "\" href='viewcache.php?cacheid=" . $report['cache_id'] . "'>" . nonEmptyCacheName($report['cachename']) . "</a> <br/> <a title=\"Użytkownik logowal się ostatnio: " . $userlogin . "\" class=\"links\" href=\"viewprofile.php?userid=" . $report['cache_ownerid'] . "\">" . getUsername($report['cache_ownerid']) . "</a><br/><span style=\"font-weight:bold;font-size:10px;color:blue;\">" . $report['adm3'] . "</span></td>\n";
+        $content .= "<td class='" . $bgcolor . "'><span class='content-title-noshade-size05'>" . colorCacheStatus($report['cache_status'], $report['c_status']) . "</span></td>\n";
+        $content .= "<td class='" . $bgcolor . "'><a class='content-title-noshade-size05' href='viewreport.php?reportid=" . $report['report_id'] . "'>" . writeReason($report['type']) . "</a></td></font>\n";
+        $content .= "<td class='" . $bgcolor . "'><a class='content-title-noshade-size05' href='viewprofile.php?userid=" . $report['user_id'] . "'>" . $report['username'] . "</a></td>\n";
+        $content .= "<td class='" . $bgcolor . "'><a class='content-title-noshade-size05' href='viewprofile.php?userid=" . $report['responsible_id'] . "'>" . getUsername($report['responsible_id']) . "</a></td>\n";
+        $content .= "<td class='" . $bgcolor . "' width='60'><span class='content-title-noshade-size05'>" . writeStatus($report['status']) . "</span></td>\n";
+        $content .= "<td class='" . $bgcolor . "'><span class='content-title-noshade-size05'>" . ($report['changed_by'] == '0' ? '' : (getUsername($report['changed_by']) . '<br/>(' . ($report['changed_date']) . ')')) . "</span></td>\n";
         $content .= "</tr>\n";
         $row_num++;
     }

@@ -231,28 +231,62 @@ if ($error == false && $usr['admin']) {
     }
 
     $stmt = XDb::xSql(
-        "SELECT cache_status.id AS cs_id, cache_status.pl AS cache_status, user.username AS username,
-                user.user_id AS user_id, caches.cache_id AS cache_id, caches.name AS cachename,
-                IFNULL(`cache_location`.`adm3`, '') AS `adm3`, caches.date_created AS date_created
-        FROM cache_status, user, (
-            `caches` LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`)
+        "SELECT cache_status.id AS cs_id, cache_status.pl AS cache_status,
+                cache_owner.username AS username, cache_owner.user_id AS user_id,
+                caches.cache_id AS cache_id, caches.name AS cachename,
+                IFNULL(`cache_location`.`adm3`, '') AS `adm3`, caches.date_created AS date_created,
+                last_log.id AS last_log_id, last_log.date AS last_log_date,
+                last_log.user_id AS last_log_author, log_author.username AS last_log_username,
+                last_log.text AS last_log_text
+        FROM cache_status, `caches`
+        LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`
+        LEFT JOIN (
+            SELECT id, cache_id, text, user_id, date
+            FROM cache_logs logs
+            WHERE date = (SELECT MAX(date) FROM cache_logs WHERE cache_id = logs.cache_id)
+            ) AS last_log ON caches.cache_id = last_log.cache_id
+           LEFT JOIN user AS cache_owner
+               ON caches.user_id = cache_owner.user_id
+           LEFT JOIN user AS log_author
+               ON last_log.user_id = log_author.user_id
         WHERE cache_status.id = caches.status
-            AND caches.user_id = user.user_id
-            AND caches.status = 4
+        AND caches.status = 4
+        GROUP BY caches.cache_id
         ORDER BY caches.date_created DESC");
 
     $row_num = 0;
     while ($report = XDb::xFetchArray($stmt)) {
         $assignedUserId = getAssignedUserId($report['cache_id']);
+        
+        if (!$assignedUserId && new DateTime($report['date_created']) < new DateTime('5 days ago')) {
+            //set alert for forgotten cache
+            $trstyle = "alert";
+        } else if ($usr['userid'] == $assignedUserId) {
+            //hightlight caches assigned to current user 
+            $trstyle = "highlighted";
+        } else {
+            $trstyle = "";
+        }
+        
         if ($row_num % 2)
             $bgcolor = "bgcolor1";
         else
             $bgcolor = "bgcolor2";
 
-        $content .= "<tr>\n";
-        $content .= "<td class='" . $bgcolor . "'><a class=\"links\" href='viewcache.php?cacheid=" . $report['cache_id'] . "'>" . nonEmptyCacheName($report['cachename']) . "</a><br/><span style=\"font-weight:bold;font-size:10px;color:blue;\">" . $report['adm3'] . "</span></td>\n";
-        $content .= "<td class='" . $bgcolor . "'>" . $report['date_created'] . "</td>\n";
-        $content .= "<td class='" . $bgcolor . "'><a class=\"links\" href='viewprofile.php?userid=" . $report['user_id'] . "'>" . $report['username'] . "</a></td>\n";
+        $content .= "<tr class='". $trstyle."'>\n";
+        $content .= "<td class='" . $bgcolor . "'>
+                        <a href='viewcache.php?cacheid=" . $report['cache_id'] . "'>" . nonEmptyCacheName($report['cachename']) . "</a><br/>
+                           <a class=\"links\" href='viewprofile.php?userid=" . $report['user_id'] . "'>" . $report['username'] . "</a><br/>
+                        <span style=\"font-weight:bold;font-size:10px;color:blue;\">" . $report['adm3'] . "</span>
+                    </td>\n";
+        
+        $content .= "<td class='alertable " . $bgcolor . "'> " . $report['date_created'] . "</td>\n";
+        
+        $content .= "<td class='" . $bgcolor . "'>". $report['last_log_date'] . "<br/>
+                <a class=\"links truncated\" href='viewprofile.php?userid=" . $report['last_log_author'] . "'>" . $report['last_log_username'] . "</a><br/>
+                <a class=\"truncated\" href='viewlogs.php?logid=". $report['last_log_id'] ."' title='". strip_tags($report['last_log_text']) ."'>". strip_tags($report['last_log_text']) . "</a>
+                </td>\n";
+        
         $content .= "<td class='" . $bgcolor . "'><img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?user_id=".$report['user_id']."&amp;cacheid=" . $report['cache_id'] . "&amp;action=1'>" . tr('accept') . "</a><br/>
             <img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?user_id=".$report['user_id']."&amp;cacheid=" . $report['cache_id'] . "&amp;action=2'>" . tr('block') . "</a><br/>
             <img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?cacheid=" . $report['cache_id'] . "&amp;assign=" . $usr['userid'] . "'>" . tr('assign_yourself') . "</a></td>\n";
@@ -266,6 +300,6 @@ else {
     $tplname = 'viewpendings_error';
 }
 tpl_BuildTemplate();
-?>
+
 
 
