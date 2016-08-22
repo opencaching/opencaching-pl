@@ -6,6 +6,7 @@ use lib\Objects\GeoCache\Waypoint;
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use Utils\Email\EmailSender;
+use Utils\Gis\Gis;
 
 
 
@@ -380,7 +381,7 @@ if ($error == false) {
 
             if (($ulon != NULL && $ulat != NULL) || ($ulon != 0 && $ulat != 0)) {
 
-                $distancecache = sprintf("%.2f", calcDistance($ulat, $ulon, $geocache->getCoordinates()->getLatitude(), $geocache->getCoordinates()->getLongitude()));
+                $distancecache = sprintf("%.2f", Gis::distance($ulat, $ulon, $geocache->getCoordinates()->getLatitude(), $geocache->getCoordinates()->getLongitude()));
                 tpl_set_var('distance_cache', '<img src="tpl/stdstyle/images/free_icons/car.png" class="icon16" alt="distance" title="" align="middle" />&nbsp;' . tr('distance_to_cache') . ': <b>' . $distancecache . ' km</b><br />');
             } else {
                 tpl_set_var('distance_cache', '');
@@ -1077,11 +1078,11 @@ if ($error == false) {
             } else {
                 tpl_set_var('openchecker_end', '-->');
                 tpl_set_var('openchecker_start', '<!--');
-            } 
+            }
         } else {
             tpl_set_var('openchecker_end', '-->');
             tpl_set_var('openchecker_start', '<!--');
-        }        
+        }
         // ===== openchecker end ====================================================
         // show additional waypoints
         $cache_type = $geocache->getCacheType();

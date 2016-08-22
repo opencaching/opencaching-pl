@@ -8,8 +8,8 @@ $opt['rootpath'] = '../../../';
 require('../lib/common.inc.php');
 sql('USE `ocpl`');
 
-//  require($opt['rootpath'] . 'lib2/cli.inc.php');
-require('../lib2/logic/coordinate.class.php');
+// require($opt['rootpath'] . 'lib2/cli.inc.php');
+// require('../lib2/logic/coordinate.class.php'); //TOOD: ???
 
 $nXMin = 5.5;
 $nXMax = 15.5;
@@ -59,4 +59,4 @@ while ($rBez = mysql_fetch_assoc($rsBez)) {
 mysql_free_result($rsBez);
 
 imagegif($img, 'map.gif');
-?>
+

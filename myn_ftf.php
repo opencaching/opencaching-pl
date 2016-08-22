@@ -14,9 +14,9 @@ if ($error == false) { //get the news
     $tplname = 'myn_ftf';
     require($stylepath . '/newcaches.inc.php');
     $startat = isset($_REQUEST['startat']) ? XDb::xEscape($_REQUEST['startat']) : 0;
-    
+
     if( $startat < 0) $startat = 0; //fast workaround on issue with negative limit value
-    
+
     $startat = $startat + 0;
     $perpage = 50;
     $startat -= $startat % $perpage;
@@ -50,15 +50,14 @@ if ($error == false) { //get the news
 
     $lat = $latitude;
     $lon = $longitude;
-    $lon_rad = $lon * 3.14159 / 180;
-    $lat_rad = $lat * 3.14159 / 180;
+
 
     //all target caches are between lat - max_lat_diff and lat + max_lat_diff
-    $max_lat_diff = $distance / 111.12;
+    $max_lat_diff = Gis::distanceInDegreesLat($distance);
 
     //all target caches are between lon - max_lon_diff and lon + max_lon_diff
     //TODO: check!!!
-    $max_lon_diff = $distance * 180 / (abs(sin((90 - $lat) * 3.14159 / 180)) * 6378 * 3.14159);
+    $max_lon_diff = Gis::distanceInDegreesLon($distance, $lat);
 
     XDb::xSql('DROP TEMPORARY TABLE IF EXISTS local_caches' . XDb::xEscape($user_id) );
 

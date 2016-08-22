@@ -71,9 +71,9 @@ function event_notify_new_cache($cache_id)
         WHERE NOT ISNULL(`user`.`latitude`)
           AND NOT ISNULL(`user`.`longitude`)
           AND `user`.`notify_radius` > 0
-          AND (acos(cos((90- ? ) * 3.14159 / 180) * cos((90-`user`.`latitude`) * 3.14159 / 180) +
-              sin((90-?) * 3.14159 / 180) * sin((90-`user`.`latitude`) * 3.14159 / 180) * cos(( ? -`user`.`longitude`) *
-              3.14159 / 180)) * 6370 * ?) <= `user`.`notify_radius`',
+          AND (acos(cos((90 - ? ) * PI() / 180) * cos((90-`user`.`latitude`) * PI() / 180) +
+              sin((90-?) * PI() / 180) * sin((90-`user`.`latitude`) * PI() / 180) * cos(( ? -`user`.`longitude`) *
+              PI() / 180)) * 6370 * ?) <= `user`.`notify_radius`',
         $latFrom, $latFrom, $lonFrom, $distanceMultiplier);
 
 }

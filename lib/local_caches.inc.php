@@ -1,12 +1,25 @@
 <?php
+use Utils\Gis\Gis;
+
 require_once('lib/calculation.inc.php');
 
 class localCachesInc
 {
+
+    /**
+     * Create the temp. table contains caches closer to point lat/lon than distance [in km].
+     * Caches ignored by given userId are skipped from the list;
+     *
+     * @param unknown $dbcLocCache
+     * @param unknown $lon
+     * @param unknown $lat
+     * @param unknown $distance
+     * @param unknown $user_id
+     */
     public static function createLocalCaches( $dbcLocCache, $lon, $lat, $distance, $user_id )
     {
-        $max_lat_diff = $distance / 111.12;
-        $max_lon_diff = $distance * 180 / (abs(sin((90 - $lat) * 3.14159 / 180)) * 6378 * 3.14159);
+        $max_lat_diff = Gis::distanceInDegreesLat($distance);
+        $max_lon_diff = Gis::distanceInDegreesLon($distance, $lat);
 
         $dbcLocCache->simpleQuery(
             'CREATE TEMPORARY TABLE local_caches ENGINE=MEMORY

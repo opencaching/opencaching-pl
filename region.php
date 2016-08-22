@@ -1,6 +1,8 @@
 <?php
 
 use Utils\Database\XDb;
+use Utils\Gis\Gis;
+
 //prepare the templates and include all neccessary
 
 $tplname = 'region';
@@ -41,7 +43,7 @@ $rsLayers = XDb::xSql(
     "SELECT `level`, `code`, AsText(`shape`) AS `geometry` FROM `nuts_layer`
     WHERE WITHIN(GeomFromText( ? ), `shape`) ORDER BY `level` DESC", 'POINT(' . $lon . ' ' . $lat . ')');
 while ($rLayers = XDb::xFetchArray($rsLayers)) {
-    if (gis::ptInLineRing($rLayers['geometry'], 'POINT(' . $lon . ' ' . $lat . ')')) {
+    if (Gis::ptInLineRing($rLayers['geometry'], 'POINT(' . $lon . ' ' . $lat . ')')) {
         $sCode = $rLayers['code'];
         break;
     }

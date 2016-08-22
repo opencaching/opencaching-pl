@@ -220,8 +220,6 @@ if ($error == false) {
         //get the users home coords
         $lat = $latitude;
         $lon = $longitude;
-        $lon_rad = $lon * 3.14159 / 180;
-        $lat_rad = $lat * 3.14159 / 180;
 
         localCachesInc::createLocalCaches($db, $lon, $lat, $distance, $user_id);
 
@@ -598,7 +596,7 @@ if ($error == false) {
 
                 $logtext = '<b>' . $log_record['user_name'] . '</b>: &nbsp;';
                 $data_text = GeoCacheLog::cleanLogTextForToolTip( $log_record['log_text'] );
-                
+
                 $logtext .= "<br/>";
 
                 $logtext .= $data_text;

@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
+use Utils\Gis\Gis;
 /* todo:
   create and set up 4 template selector with wybor_WE wybor_NS.
 
@@ -565,7 +566,7 @@ if ($error == false) {
                                 VALUES ( ?, ?, LAST_INSERT_ID(), ?, ?, ?, '0')",
                                 $cache_id, $init_log_userID, $init_log_date, $init_log_longitude, $init_log_latitude);
 
-                            $dystans = sprintf("%.2f", calcDistance($init_log_latitude, $init_log_longitude, $wspolrzedneNS, $wspolrzedneWE));
+                            $dystans = sprintf("%.2f", Gis::distance($init_log_latitude, $init_log_longitude, $wspolrzedneNS, $wspolrzedneWE));
                         } else {
                             // $log_date - data+czas logu
                             // calculate distance from piervous
@@ -578,7 +579,7 @@ if ($error == false) {
                             // jeśli beżący (właśnie wpisywany) log jest ostatnim,
                             // dystans zostanie wpisany do bazy. w przeciwnym wypadku
                             // zmienna zostanie zastąpiona w if-ie
-                            $dystans = sprintf("%.2f", calcDistance($ostatnie_dane_mobilniaka['latitude'], $ostatnie_dane_mobilniaka['longitude'], $wspolrzedneNS, $wspolrzedneWE));
+                            $dystans = sprintf("%.2f", Gis::distance($ostatnie_dane_mobilniaka['latitude'], $ostatnie_dane_mobilniaka['longitude'], $wspolrzedneNS, $wspolrzedneWE));
                             $logDatetime = new DateTime($log_date);
                             $lastLogDateTime = new DateTime($ostatnie_dane_mobilniaka['date']);
                             if ($logDatetime <= $lastLogDateTime) { // check if log date is beetwen, or last
@@ -608,10 +609,10 @@ if ($error == false) {
 
                                 // dla logu przed obecnym
                                 $najblizszy_log_jeszcze_wczesniej = XDb::xFetchArray($najblizszy_log_wczesniej_array);
-                                $km_logu[$najblizszy_log_wczesniej['id']] = sprintf("%.2f", calcDistance($najblizszy_log_jeszcze_wczesniej['latitude'], $najblizszy_log_jeszcze_wczesniej['longitude'], $najblizszy_log_wczesniej['latitude'], $najblizszy_log_wczesniej['longitude']));
+                                $km_logu[$najblizszy_log_wczesniej['id']] = sprintf("%.2f", Gis::distance($najblizszy_log_jeszcze_wczesniej['latitude'], $najblizszy_log_jeszcze_wczesniej['longitude'], $najblizszy_log_wczesniej['latitude'], $najblizszy_log_wczesniej['longitude']));
 
                                 // dla logu po obecnym
-                                $km_logu[$najblizszy_log_pozniej['id']] = sprintf("%.2f", calcDistance($wspolrzedneNS, $wspolrzedneWE, $najblizszy_log_pozniej['latitude'], $najblizszy_log_pozniej['longitude']));
+                                $km_logu[$najblizszy_log_pozniej['id']] = sprintf("%.2f", Gis::distance($wspolrzedneNS, $wspolrzedneWE, $najblizszy_log_pozniej['latitude'], $najblizszy_log_pozniej['longitude']));
 
                                 XDb::xSql(
                                     "UPDATE `cache_moved` SET `km`= ? WHERE id = ? ",
@@ -622,7 +623,7 @@ if ($error == false) {
                                     $km_logu[$najblizszy_log_wczesniej['id']], $najblizszy_log_wczesniej['id']);
 
                                 // wyliczenie dystansu dla obecnego logu.
-                                $dystans = sprintf("%.2f", calcDistance($najblizszy_log_wczesniej['latitude'], $najblizszy_log_wczesniej['longitude'], $wspolrzedneNS, $wspolrzedneWE));
+                                $dystans = sprintf("%.2f", Gis::distance($najblizszy_log_wczesniej['latitude'], $najblizszy_log_wczesniej['longitude'], $wspolrzedneNS, $wspolrzedneWE));
                             }
                         }
 

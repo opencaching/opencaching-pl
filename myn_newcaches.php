@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCacheLog;
+use Utils\Gis\Gis;
 global $lang, $rootpath, $usr, $dateFormat;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
@@ -53,16 +54,13 @@ if ($error == false) {
 
     $lat = $latitude;
     $lon = $longitude;
-    $lon_rad = $lon * 3.14159 / 180;
-    $lat_rad = $lat * 3.14159 / 180;
-
 
     //all target caches are between lat - max_lat_diff and lat + max_lat_diff
-    $max_lat_diff = $distance / 111.12;
+    $max_lat_diff = Gis::distanceInDegreesLat($distance);
 
     //all target caches are between lon - max_lon_diff and lon + max_lon_diff
-    //TODO: check!!!
-    $max_lon_diff = $distance * 180 / (abs(sin((90 - $lat) * 3.14159 / 180)) * 6378 * 3.14159);
+    $max_lon_diff = Gis::distanceInDegreesLon($distance, $lat);
+
     XDb::xSql('DROP TEMPORARY TABLE IF EXISTS local_caches' . $user_id . '');
     XDb::xSql(
         'CREATE TEMPORARY TABLE local_caches' . $user_id . ' ENGINE=MEMORY
