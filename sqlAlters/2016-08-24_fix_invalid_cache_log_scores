@@ -1,0 +1,4 @@
+--
+-- Related with: https://github.com/opencaching/opencaching-pl/issues/737
+--
+UPDATE `scores` SET `score` = -0.5 WHERE `score` = 0.5;
