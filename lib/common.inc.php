@@ -302,7 +302,7 @@ function new2oldscore($score)
     else if ($score == 2)
         return 0.7;
     else if ($score == 1)
-        return 0.5;
+        return -0.5;
     else
         return -2.0;
 }
