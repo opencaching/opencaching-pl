@@ -288,16 +288,16 @@
                     <td class="content-title-noshade">
                         {{from}} <select name="cachevote_1" onchange="javascript:sync_options(this)">
                             <option value="-3" {cvf6}>{{rating_poor}}</option>
-                            <option value="0.5" {cvf1}>{{rating_mediocre}}</option>
-                            <option value="1.2" {cvf2}>{{rating_avarage}}</option>
-                            <option value="2" {cvf4}>{{rating_good}}</option>
-                            <option value="2.5" {cvf5}>{{rating_excellent}}</option>
+                            <option value="-1" {cvf1}>{{rating_mediocre}}</option>
+                            <option value="0.1" {cvf2}>{{rating_avarage}}</option>
+                            <option value="1.4" {cvf4}>{{rating_good}}</option>
+                            <option value="2.2" {cvf5}>{{rating_excellent}}</option>
                         </select>
                         {{to}} <select name="cachevote_2" onchange="javascript:sync_options(this)">
-                            <option value="0.499" {cvt1}>{{rating_poor}}</option>
-                            <option value="1.199" {cvt2}>{{rating_mediocre}}</option>
-                            <option value="1.999" {cvt4}>{{rating_avarage}}</option>
-                            <option value="2.499" {cvt5}>{{rating_good}}</option>
+                            <option value="-0.999" {cvt1}>{{rating_poor}}</option>
+                            <option value="0.099" {cvt2}>{{rating_mediocre}}</option>
+                            <option value="1.399" {cvt4}>{{rating_avarage}}</option>
+                            <option value="2.199" {cvt5}>{{rating_good}}</option>
                             <option value="3.000" {cvt6}>{{rating_excellent}}</option>
                         </select>
                         <input type="checkbox" name="cachenovote" value="1" id="l_cachenovote" class="checkbox" onclick="javascript:sync_options(this)" {cachev}/><label for="l_cachenovote">{{with_hidden_score}}</label>
