@@ -458,16 +458,16 @@
                 <td class="content-title-noshade">
                     {{from}} <select name="cachevote_1" onchange="javascript:sync_options(this)">
                         <option value="-3">{{rating_poor}}</option>
-                        <option value="0.5">{{rating_mediocre}}</option>
-                        <option value="1.2">{{rating_avarage}}</option>
-                        <option value="2">{{rating_good}}</option>
-                        <option value="2.5">{{rating_excellent}}</option>
+                        <option value="-1">{{rating_mediocre}}</option>
+                        <option value="0.1">{{rating_avarage}}</option>
+                        <option value="1.4">{{rating_good}}</option>
+                        <option value="2.2">{{rating_excellent}}</option>
                     </select>
                     {{to}} <select name="cachevote_2" onchange="javascript:sync_options(this)">
-                        <option value="0.499">{{rating_poor}}</option>
-                        <option value="1.199">{{rating_mediocre}}</option>
-                        <option value="1.999">{{rating_avarage}}</option>
-                        <option value="2.499">{{rating_good}}</option>
+                        <option value="-0.999">{{rating_poor}}</option>
+                        <option value="0.099">{{rating_mediocre}}</option>
+                        <option value="1.399">{{rating_avarage}}</option>
+                        <option value="2.199">{{rating_good}}</option>
                         <option value="3.000" selected="selected">{{rating_excellent}}</option>
                     </select>
                     <input type="checkbox" name="cachenovote" value="1" id="l_cachenovote" class="checkbox" onclick="javascript:sync_options(this)" checked="checked"/><label for="l_cachenovote">{{with_hidden_score}}</label>
