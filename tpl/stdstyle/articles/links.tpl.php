@@ -264,6 +264,11 @@
             </tr>
             <tr>
                 <td>
+                    <a href="http://geocachen.be/">Geocachen.be</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <a href="http://www.geocachingonline.com">Geocaching OnLine</a>
                 </td>
             </tr>
