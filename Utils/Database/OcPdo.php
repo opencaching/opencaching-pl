@@ -106,10 +106,12 @@ class OcPdo extends PDO
             // TODO: How to better handle error - print some nice error page
             // this is fatal error - stop the script
             trigger_error("OcPdo Error:\n $message. Trace: ".$traceStr, E_USER_ERROR);
+            error_log("Db message:".$e->getMessage());
             exit;
         }else{
             // non-fatal error: only print warning
             trigger_error("OcPdo Error: $message. Trace: ".$traceStr, E_USER_WARNING);
+            error_log("Db message:".$e->getMessage());
         }
     }
 
