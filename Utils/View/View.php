@@ -46,7 +46,7 @@ class View {
             return;
         }
 
-        $func = require($this->_chunksDir.$chunkName.'.php');
+        $func = require($this->_chunksDir.$chunkName.'.tpl.php');
         $funcName = $chunkName.'Chunk';
         $this->$funcName = $func;
     }

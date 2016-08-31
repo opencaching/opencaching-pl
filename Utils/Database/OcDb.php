@@ -46,10 +46,15 @@ class OcDb extends OcPdo
      *
      * @return all rows from result as complex array.
      */
-    public function dbResultFetchAll( PDOStatement $stmt = null )
+    public function dbResultFetchAll(
+        PDOStatement $stmt = null, $fetchStyle = null )
     {
         if(!is_null($stmt)){
-            $result = $stmt->fetchAll();
+            if(is_null($fetchStyle)){
+                $result = $stmt->fetchAll();
+            }else{
+                $result = $stmt->fetchAll($fetchStyle);
+            }
             $stmt->closeCursor();
             return $result;
         }

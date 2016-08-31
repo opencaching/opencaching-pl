@@ -106,6 +106,20 @@ function icon_geopath_small($ptID, $ptImg, $ptName, $ptType, $pt_cache_intro_tr,
     return $PT_icon;
 }
 
+/**
+ * Just return PT icon by PT-type
+ *
+ * @param unknown $ptType
+ * @return string|NULL|unknown
+ */
+function getPtIconByType($ptType){
+    global $poweTrailMarkers;
+
+    if(!empty($ptType)){
+        return $poweTrailMarkers[$ptType]['icon'];
+    }
+}
+
 //function icon_rating($founds, $topratings)
 //{
 //  global $stylepath;
