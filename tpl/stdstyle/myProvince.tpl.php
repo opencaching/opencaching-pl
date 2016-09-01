@@ -4,7 +4,7 @@
 
 <div class="content2-pagetitle">
   <img src="tpl/stdstyle/images/blue/home.png" class="icon32" alt="" title="" align="middle"/>
-  &nbsp;{{myProvince_title}}
+  &nbsp;{{myProvince_title}}: <?=$view->provinceName?>
 </div>
 
 

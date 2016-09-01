@@ -1,6 +1,7 @@
 <?php
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\ChunkModels\ListOfCaches;
+use Utils\Gis\Region;
 
 if (! isset($rootpath))
     $rootpath = '';
@@ -36,7 +37,30 @@ $view = tpl_getView();
 // load chunk 'list of caches'
 $view->loadChunk('listOfCaches');
 
-$province = 'PL63'; //TODO
+if( !isset($_GET['province']) ||
+    !Region::checkProvinceCode($_GET['province']) ){
+
+        echo "<p><b>[temporary error message] There is no 'province' parameter in url or this parameter value is wrong!</b></p>";
+
+        echo "<p>Check wiki page for proper region codes:
+            <a href='https://en.wikipedia.org/wiki/Nomenclature_of_Territorial_Units_for_Statistics'>
+            https://en.wikipedia.org/wiki/Nomenclature_of_Territorial_Units_for_Statistics</a></p>";
+
+        echo "<p>For Poland it can be found here:<a href='https://pl.wikipedia.org/wiki/Jednostki_NUTS_w_Polsce'>
+            https://pl.wikipedia.org/wiki/Jednostki_NUTS_w_Polsce</a></p>";
+
+        echo "<p>For example proper URL for Pomorskie voivodeship in Poland is:
+            <a href='myProvince.php?province=PL63'>
+            https://opencaching.pl/myProvince.php?province=PL63</a></p>";
+
+        echo "<p>Note: Only NUTS level-2 codes are supported now!</p>";
+        exit;
+}
+
+
+$province = $_GET['province'];
+$view->setVar('provinceName', Region::getRegionName($province));
+
 
 $db->multiVariableQuery(
     "CREATE TEMPORARY TABLE province_caches ENGINE=MEMORY
