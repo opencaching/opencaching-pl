@@ -2619,6 +2619,12 @@ $translations = array(
     'useractivationmail6' => 'Jeśli w ciągu 14 dni od rejestracji nie aktywujesz swojego konta, to zostanie ono automatycznie usunięte.',
     'mail_auto_generated' => 'Ten list jest generowany automatycznie i prosimy na niego nie odpowiadać.',
     'mail_header_hi' => 'Witaj',
-    'myProvince_title' => 'Moje województwo'
+    'myProvince_title' => 'Moje województwo',
+    'pagination_first' => 'Pierwsza strona',
+    'pagination_left' => 'Poprzednie strony',
+    'pagination_right' => 'Następne strony',
+    'pagination_page' => 'Strona',
+    'pagination_last' => 'Ostatnia strona'
+
 );
 
