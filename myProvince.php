@@ -237,13 +237,17 @@ if(is_null($lastLogsIds) || empty($lastLogsIds)){
 
 // Now use a set of log IDs to retrieve all other necessary information
 $rs = $db->simpleQuery(
-    "SELECT cl.id, cl.cache_id, cl.type AS log_type,
+    "SELECT
+        cl.id, cl.cache_id, cl.type AS log_type,
         cl.date AS log_date, cl.text AS log_text,
-        cl.text_html, c.name AS cache_name,
-        u.username, u.user_id AS luser_id,
+        cl.text_html,
+
+        c.name AS cache_name,
         c.wp_oc AS wp_name, c.type AS cache_type,
-        c.longitude, c.latitude,
-        c.user_id,
+        c.longitude, c.latitude, c.user_id,
+
+        u.username, u.user_id AS luser_id,
+
         log_types.icon_small,
         IF(ISNULL(cr.cache_id), 0, 1) AS `recommended`,
         COUNT(gk_item.id) AS geokret_in,

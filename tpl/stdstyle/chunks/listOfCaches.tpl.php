@@ -1,7 +1,15 @@
 <?php
+
 /**
- * TODO:
- * @param unknown $v
+ * This chunk allow to display list of caches.
+ * Data should be stored in ListOfCaches object param
+ *
+ * Check myProvince.php for example of use it.
+ * Note that this code is used in many places
+ * so be carefull before changes.
+ *
+ * @param ListOfCaches $m
+ *
  */
 use lib\Objects\ChunkModels\ListOfCaches;
 

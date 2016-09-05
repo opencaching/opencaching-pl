@@ -1,7 +1,10 @@
 <?php
-
+/**
+ * This class represents model of data for ListOfCaches chunk.
+ * Check myProvince.php for example of use it.
+ *
+ */
 namespace lib\Objects\ChunkModels;
-
 
 class ListOfCaches{
 
