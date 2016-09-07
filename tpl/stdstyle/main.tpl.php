@@ -1,37 +1,32 @@
 <?php
 
 use Utils\Database\OcDb;
+
 // load menu
-global $mnu_bgcolor, $mnu_selmenuitem, $develwarning, $tpl_subtitle, $absolute_server_URI, $mnu_siteid, $site_name;
+global $mnu_selmenuitem, $tpl_subtitle, $absolute_server_URI, $mnu_siteid /* which menu item should be highlighted */, $site_name;
+
 require_once $stylepath . '/lib/menu.php';
+
+// decide which menu item should be selected
 $menu_item_siteid = $tplname;
-if (isset($mnu_siteid)) {
+if ( isset($mnu_siteid) ) {
     $menu_item_siteid = $mnu_siteid;
 }
+
 $pageidx = mnu_MainMenuIndexFromPageId($menu, $menu_item_siteid);
 
-if (isset($menu[$pageidx]['navicolor'])) {
-    $mnu_bgcolor = $menu[$pageidx]['navicolor'];
-} else {
-    $mnu_bgcolor = '#D5D9FF';
-}
-if ($tplname != 'start')
+// add selected menu item as a apendix to site title (tpl_subtitle) (?)
+if ($tplname != 'start'){
     $tpl_subtitle .= htmlspecialchars($mnu_selmenuitem['title'] . ' - ', ENT_COMPAT, 'UTF-8');
+}
 
-
-// sitename and slogan iternational handling
-// print $_SERVER['SERVER_NAME'] ;
-// print '   ';
-// $domain = substr($_SERVER['HTTP_HOST'],-2,2);
-// exit;
-
+//detect OC node to handle logo translation
 $nodeDetect = substr($absolute_server_URI, -3, 2);
-
-
 $logo1 = tr('oc_on_all_pages_top_' . $nodeDetect);
 $logo2 = tr('oc_subtitle_on_all_pages_' . $nodeDetect);
 $logo3 = $config['headerLogo'];
 
+// prima-aprilis
 if ((date('m') == 4) and ( date('d') == 1)) {
     $logo1 = tr('oc_on_all_pages_top_1A');
     $logo2 = tr('oc_subtitle_on_all_pages_1A');
@@ -41,6 +36,8 @@ if ((date('m') == 4) and ( date('d') == 1)) {
 if (date('m') == 12 || date('m') == 1) {
     $logo3 = $config['headerLogoWinter'];
 }
+
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
@@ -48,58 +45,56 @@ if (date('m') == 12 || date('m') == 1) {
     <head>
         <meta http-equiv="content-type" content="aplication:xhtml+xml; charset=UTF-8" />
         <meta http-equiv="Content-Language" content="{lang}" />
-        <meta http-equiv="gallerimg" content="no" />
+
         <meta http-equiv="pragma" content="no-cache" />
-        <meta name="KEYWORDS" content="geocaching, opencaching, skarby, poszukiwania,geocashing, longitude, latitude, utm, coordinates, treasure hunting, treasure, GPS, global positioning system, garmin, magellan, mapping, geo, hiking, outdoors, sport, hunt, stash, cache, geocaching, geocache, cache, treasure, hunting, satellite, navigation, tracking, bugs, travel bugs" />
+        <meta name="keywords" content="geocaching, opencaching, skarby, poszukiwania,geocashing, longitude, latitude, utm, coordinates, treasure hunting, treasure, GPS, global positioning system, garmin, magellan, mapping, geo, hiking, outdoors, sport, hunt, stash, cache, geocaching, geocache, cache, treasure, hunting, satellite, navigation, tracking, bugs, travel bugs" />
         <meta http-equiv="cache-control" content="no-cache" />
         <meta name="author" content="{site_name}" />
-        <meta http-equiv="X-UA-Compatible" content="IE=10" />
 
         <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/style_screen.css" />
         <link rel="stylesheet" type="text/css" media="print" href="tpl/stdstyle/css/style_print.css" />
         <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/style_{season}.css" />
 
-        <link rel="shortcut icon" href="/images/<?php print $config['headerFavicon']; ?>" />
+        <link rel="shortcut icon" href="/images/<?=$config['headerFavicon']?>" />
         <link rel="apple-touch-icon-precomposed" href="/images/oc_logo_144.png" />
 
+        <title><?=$tpl_subtitle?>{title}</title>
+
         <script type="text/javascript" src="lib/enlargeit/enlargeit.js"></script>
-        <title><?php echo $tpl_subtitle; ?>{title}</title>
+
 
         {htmlheaders}
         {cachemap_header}
         {viewcache_header}
-        {ga_script_header}
+
         <script type='text/javascript' src='lib/js/ga.js'></script>
+
         <script type='text/javascript' src='lib/js/CookiesInfo.js'></script>
-
-
-    </head>
-    <body {bodyMod}>
-
-
-        <?php
-        echo "<script type='text/javascript'>WHSetText('" . tr('cookiesInfo') . "');</script>";
-        ?>
-
+        <script type='text/javascript'>WHSetText('{{cookiesInfo}}');</script>
 
         <script type="text/javascript">
+            // this is used by search widget
             function chname(newName,searchPage) {
                 document.getElementById("search_input").name = newName;
                 document.getElementById("search_form").action = searchPage;
                 return false;
             }
         </script>
+
+    </head>
+    <body {bodyMod}>
+
         <div id="overall">
             <div class="page-container-1" style="position: relative;">
                 <div id="bg1">&nbsp;</div>
                 <div id="bg2">&nbsp;</div>
                 <!-- HEADER -->
                 <!-- OC-Logo -->
-                <div><img src="/images/<?php print $logo3; ?>" alt="" style="margin-top:5px; margin-left:3px;" /></div>
+                <div><img src="/images/<?=$logo3?>" alt="" style="margin-top:5px; margin-left:3px;" /></div>
                 <!-- Sitename -->
                 <div class="site-name">
-                    <p class="title"><a href="index.php"><?php print $logo1; ?></a></p>
-                    <p class="subtitle"><a href="index.php"><?php print $logo2; ?></a></p>
+                    <p class="title"><a href="index.php"><?=$logo1?></a></p>
+                    <p class="subtitle"><a href="index.php"><?=$logo2?></a></p>
                 </div>
                 <!-- Flag navigations -->
                 <div class="navflag-container">
@@ -109,21 +104,6 @@ if (date('m') == 12 || date('m') == 1) {
                         </ul>
                     </div>
                 </div>
-                <!-- google plus recos
-                        <script type="text/javascript">
-                          (function() {
-                            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-                            po.src = 'https://apis.google.com/js/plusone.js';
-                            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-                          })();
-                            window.___gcfg = {
-                            lang: '{language4js}',
-                            parsetags: 'onload',
-                            size: 'small'
-                          };
-                        </script>
-                        <g:plusone size="small"></g:plusone>
-                -->
 
                 <!-- Site slogan -->
                 <div class="site-slogan-container">
@@ -154,16 +134,19 @@ if (date('m') == 12 || date('m') == 1) {
                         </div>
                     </form>
                 </div>
+
                 <!-- Navigation Level 1 -->
                 <div class="nav1-container">
                     <div class="nav1" style="text-align:right;margin-right:20px;">
                         {loginbox}
                     </div>
                 </div>
+
                 <!-- Header banner     -->
                 <div class="header">
                     <div style="width:970px; padding-top:1px;"><img src="./images/head/rotator.php" alt="" style="border:0px;" /></div>
                 </div>
+
                 <!-- Navigation Level 2 -->
                 <div class="nav2">
                     <ul>
@@ -175,29 +158,23 @@ if (date('m') == 12 || date('m') == 1) {
                                 $menu[$dowydrukuidx]['menustring'] .= " (" . count($_SESSION['print_list']) . ")";
                             }
                         }
-                        //user is admin
-                        if (isset($usr['admin']) && $usr['admin']) {
-                            $db = OcDb::instance();
-                            $new_reports = $db->simpleQueryValue("SELECT count(status) FROM reports WHERE status = 0", 0);
-                            $lookhere_reports = $db->simpleQueryValue("SELECT count(status) FROM reports WHERE status = 3", 0);
-                            $active_reports = $db->simpleQueryValue("SELECT count(status) FROM reports WHERE status <> 2", 0);
-                            $new_pendings = $db->simpleQueryValue("SELECT COUNT(status) FROM caches WHERE status = 4", 0);
-                            $in_review_count = $db->simpleQueryValue("SELECT COUNT(*) FROM caches JOIN approval_status ON approval_status.cache_id = caches.cache_id WHERE caches.status = 4", 0);
-                        }
+
                         if (isset($menu[$pageidx])) {
                             mnu_EchoMainMenu($menu[$pageidx]['siteid']);
                         }
                         ?>
                     </ul>
                 </div>
+
                 <!-- Buffer after header -->
                 <div class="buffer" style="height:30px;"></div>
+
                 <!-- NAVIGATION -->
                 <!-- Navigation Level 3 -->
 
                 <div class="nav3">
                     <?php
-//Main menu
+                    //Main menu
                     $mainmenuidx = mnu_MainMenuIndexFromPageId($menu, "start");
                     if (isset($menu[$mainmenuidx]['submenu'])) {
                         $registeridx = mnu_MainMenuIndexFromPageId($menu[$mainmenuidx]["submenu"], "register");
@@ -210,8 +187,7 @@ if (date('m') == 12 || date('m') == 1) {
                         mnu_EchoSubMenu($menu[$mainmenuidx]['submenu'], $menu_item_siteid, 1, false);
                         echo '</ul>';
                     }
-                    ?>
-                    <?php
+
                     if ($usr && isset($_SESSION['user_id'])) {
                         $myhomeidx = mnu_MainMenuIndexFromPageId($menu, "myhome");
                         $myprofileidx = mnu_MainMenuIndexFromPageId($menu[$myhomeidx]["submenu"], "myprofile");
@@ -227,61 +203,72 @@ if (date('m') == 12 || date('m') == 1) {
                         mnu_EchoSubMenu($menu[$myhomeidx]['submenu'], $menu_item_siteid, 1, false);
                         echo '</ul>';
                     }
-                    ?>
-                    <?php
+
                     if (isset($usr['admin']) && $usr['admin']) {
-                        echo '<ul>';
+                        $db = OcDb::instance();
+                        $new_reports = $db->simpleQueryValue("SELECT count(status) FROM reports WHERE status = 0", 0);
+                        $active_reports = $db->simpleQueryValue("SELECT count(status) FROM reports WHERE status <> 2", 0);
+                        $new_pendings = $db->simpleQueryValue("SELECT COUNT(status) FROM caches WHERE status = 4", 0);
+                        $in_review_count = $db->simpleQueryValue(
+                            "SELECT COUNT(*) FROM caches JOIN approval_status ON approval_status.cache_id = caches.cache_id
+                            WHERE caches.status = 4", 0);
+
                         $adminidx = mnu_MainMenuIndexFromPageId($menu, "viewreports");
                         $menu[$adminidx]['visible'] = false;
-                        echo '<li class="title">' . $menu[$adminidx]["title"] . '</li>';
                         $zgloszeniaidx = mnu_MainMenuIndexFromPageId($menu[$adminidx]["submenu"], "viewreports");
-                        if ($active_reports > 0)
+                        if ($active_reports > 0){
                             $menu[$adminidx]["submenu"][$zgloszeniaidx]['menustring'] .= " (" . $new_reports . "/" . $active_reports . ")";
+                        }
                         $zgloszeniaidx = mnu_MainMenuIndexFromPageId($menu[$adminidx]["submenu"], "viewpendings");
-                        if ($new_pendings > 0)
+                        if ($new_pendings > 0){
                             $waitingForAssigne = $new_pendings - $in_review_count;
-                            $menu[$adminidx]["submenu"][$zgloszeniaidx]['menustring'] .= " (" . $waitingForAssigne . "/" . $new_pendings .  ")";
-                        mnu_EchoSubMenu($menu[$adminidx]['submenu'], $menu_item_siteid, 1, false);
-                        echo '</ul>';
-                    }
-                    ?>
+                        }
+                        $menu[$adminidx]["submenu"][$zgloszeniaidx]['menustring'] .= " (" . $waitingForAssigne . "/" . $new_pendings .  ")";
+                        ?>
+
+                        <ul>
+                          <li class="title"><?=$menu[$adminidx]["title"]?></li>
+                          <?php mnu_EchoSubMenu($menu[$adminidx]['submenu'], $menu_item_siteid, 1, false); ?>
+                        </ul>
+
+                    <?php } //admin ?>
 
                     <!-- Main title -->
                 </div>
 
-
-
                 <!--     CONTENT -->
                 <div class="content2">
-
                     {template}
                 </div>
+
                 <!-- FOOTER -->
                 <div class="footer">
+
                     <?php
-                    global $usr, $onlineusers;
-                    if ($usr == true && $onlineusers == 1) {
-                        echo '<p><span class="txt-black">&nbsp;&nbsp;{{online_users}} (</span><span class="txt-white">';
-                        global $dynstylepath;
-                        include ($dynstylepath . "nonlusers.txt");
-                        echo '</span><span class="txt-black">) - {{online_users_info}}:</span>&nbsp;<br /><center>
-                            <div><span class="txt-white;" style="margin-left: 5px;margin-right: 5px;text-align: center; width: 800px;">';
-                        global $dynstylepath;
-                        include ($dynstylepath . "onlineusers.html");
-                        echo '</span></div></center></p><br />';
-                    }
-                    ?>
+                    global $usr, $onlineusers, $dynstylepath;
+                    if ($usr == true && $onlineusers == 1) { ?>
+                        <p>
+                          <span class="txt-black">{{online_users}} (</span>
+                          <span class="txt-white">
+                            <?php include ($dynstylepath . "nonlusers.txt"); ?>
+                          </span>
+                          <span class="txt-black">) - {{online_users_info}}:</span>
+                          <div style="text-align:center">
+                            <span class="txt-white;" style="margin-left: 5px; margin-right: 5px; width: 800px;">
+                              <?php include ($dynstylepath . "onlineusers.html"); ?>
+                            </span>
+                          </div>
+                        </p>
+                    <?php } ?>
+
                     <p>
                         <a href="articles.php?page=impressum">{{impressum}}</a> |
                         <a href="articles.php?page=history">{{history}}</a> |
                         <a href="articles.php?page=contact">{{contact}}</a> |
                         <a href="/index.php?page=sitemap">{{main_page}}</a> |
                         <a href="/okapi/">API</a><br />
-                        {runtime}
                     </p>
-<!--
-                    <p><a href="http://validator.w3.org/check?uri=referer" title="Validate code as W3C XHTML 1.0 Compliant">W3C XHTML 1.0</a> | <a href="http://jigsaw.w3.org/css-validator/" title="Validate Style Sheet as W3C CSS 2.0 Compliant">W3C CSS 2.0</a></p>
--->
+
                 </div>
                 <!-- (C) The Open Caching Project ? - 2016 -->
             </div>
