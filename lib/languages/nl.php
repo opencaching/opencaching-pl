@@ -2523,6 +2523,9 @@ $translations = array(
     'admin_users_remove_logs' => 'Verwijder alle logs van deze gebruiker',
     'admin_users_verify_all' => 'Contoleer alle nieuwe caches van deze gebruiker',
     'admin_users_verify_none' => 'Controleer niet alle nieuwe caches van deze gebruiker',
+
+
+
     'Hidden' => 'Verborgen',
     'FNC' => 'G.N.C',
     'FoundNotFoundComment' => 'Gevonden-Niet gevonden-Commentaar',
@@ -2578,7 +2581,7 @@ $translations = array(
     'month_titled_cache_congratulations' => '<p><img src="tpl/stdstyle/images/free_icons/award_star_gold_1.png" class="icon16" alt="{langTitledCache}" title="{langTitledCache}" /> Hallo !!! <br/> <br/>Deze cache is vandaag uitgeroepen tot cache van de maand.</p><p><span style="color: #008000;"><strong><br />GEFELICITEERD!!!</strong></span><br />OC Team</p>',
     'titled_cache_date' => 'Datum<br>toekenning',
     'show_more_titled_caches' => 'Toon meer toegekende caches',
- 'admin_notes_admin_name' => 'Naam Admin',
+    'admin_notes_admin_name' => 'Naam Admin',
     'admin_notes' => 'Admin notitie over gebruiker',
     'admin_notes_visible' => 'Dit is alleen zichtbaar voor Admins',
     'admin_notes_table_title' => 'Huidige informatie over gebruiker',
@@ -2609,15 +2612,21 @@ $translations = array(
     'postactivationmail01' => 'Om te beginnen kun je informatie terug vinden op Opencaching wiki, Deze site is nog niet compleet maar wordt regelmatig aangevuld. Opencaching wiki is beschikbaar op:',
     'postactivationmail02' => 'Als je op zoek bent naar hulp via een interactieve kaart kun je in jouw gebied vrijwilligers vinden die hun hulp aanbieden aan beginnende cachers.',
     'postactivationmail03' => 'Kijk eens op:',
-    'postactivationmail04' => 'Voordat je de eerste cache kunt plaatsen op {site_name} dien je eerst {NEED_FIND_LIMIT} caches gevonden te hebben zoals: traditional, quiz, multicache en ander soort.',
+    'postactivationmail04' => 'Voordat je de eerste cache kunt plaatsen op {site_name} dien je eerst {NEED_FIND_LIMIT} caches gevonden te hebben zoals: traditional, quiz, multicache en andere soorten.',
     'postactivationmail05' => 'Je eerste {NEED_APPROVE_LIMIT} nieuwe caches zullen door het OC Team gekeurd worden.',
     'useractivationmail1' => 'Wij hebben de volgende informatie opgeslagen voor registratie:',
     'useractivationmail2' => 'E-mail adres:',
     'useractivationmail3' => 'Gebruikersnaam:',
     'useractivationmail4' => 'Land:',
-    'useractivationmail5' => 'Ga naar het volgende adres om de registratie te activeren te voltooien:',
+    'useractivationmail5' => 'Ga naar het volgende adres om de registratie te activeren en te voltooien:',
     'useractivationmail6' => 'Indien binnen 14 dagen na de registratie niet aangemeld wordt, zal dit gemaakte account automatisch worden verwijderd.',
     'mail_auto_generated' => 'Dit bericht is automatisch gegenereerd, gelieve niet te reageren.',
     'mail_header_hi' => 'Hallo',
+    'myProvince_title' => 'Mijn provincie',
+    'pagination_first' => 'Eerste pagina',
+    'pagination_left' => 'Vorige pagina\'s',
+    'pagination_right' => 'Volgende pagina\'s',
+    'pagination_page' => 'Pagina',
+    'pagination_last' => 'Laaste pagina'
 );
 
