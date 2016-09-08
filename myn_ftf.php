@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use Utils\Gis\Gis;
 
 global $lang, $rootpath, $usr, $dateFormat;
 //prepare the templates and include all neccessary
