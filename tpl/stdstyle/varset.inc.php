@@ -6,14 +6,12 @@ tpl_set_var('lang', $lang);
 tpl_set_var('style', $style);
 tpl_set_var('loginbox', '&nbsp;');
 tpl_set_var('functionsbox', '<a href="index.php?page=search">{{search}}</a> | <a href="index.php?page=sitemap">{{main_page}}</a>');
-tpl_set_var('runtime', '');
 tpl_set_var('bodyMod', '');
 
 
 tpl_set_var('cachemap_js', '');
 tpl_set_var('cachemap_header', '');
 tpl_set_var('viewcache_header', '');
-tpl_set_var('ga_script_header', '');
 
 
 tpl_set_var('cachemap_count', '0');

@@ -910,7 +910,7 @@ function mnu_EchoMainMenu($selmenuid)
 
 function mnu_EchoSubMenu($menustructure, $pageid, $level, $bHasSubmenu)
 {
-    global $mnu_bgcolor;
+
     global $usr;
 
     if (!$bHasSubmenu) {
