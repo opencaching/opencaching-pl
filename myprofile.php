@@ -181,12 +181,6 @@ if ($error == false) {
                     tpl_set_var('lon_message', '');
                     tpl_set_var('notify_message', '');
 
-                    //validate data
-                    $username_not_ok = mb_ereg_match(User::REGEX_USERNAME, $username) ? false : true;
-                    if ($username_not_ok == false) { // username should not be formatted like an email-address
-                        $username_not_ok = Email::isValidEmail($email);
-                    }
-
                     /* GeoKretyApi validate secid */
                     if ((strlen($GeoKretyApiSecid) != 128)) {
                         tpl_set_var('secid_message', tr('GKApi11'));
@@ -276,11 +270,7 @@ if ($error == false) {
                     //check if username is in the DB
                     $username_exists = false;
                     $username_not_ok = mb_ereg_match(User::REGEX_USERNAME, $username) ? false : true;
-                    if ($username_not_ok == false) {
-                        // username should not be formatted like an email-address
-                        // exception: $username == $email
-                        $username_not_ok = Email::isValidEmail($email);
-                    }
+
                     if ($username_not_ok) {
                         tpl_set_var('username_message', $error_username_not_ok);
                     } else {

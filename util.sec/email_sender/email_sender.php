@@ -2,7 +2,7 @@
 /**
  *
  * This script sends emails which are stored in DB table email_user
- * Those are for examples:
+ * Those are for example:
  *  - messages sended by user to other user inside OC service
  *
  * This script should be called from cron quite often (to not delay messages)
@@ -16,11 +16,17 @@ require_once($rootpath . 'lib/common.inc.php');
 
 $result = XDb::xSql('SELECT `id`, `to_email`, `send_emailaddress`, `from_email`, `mail_subject`, `mail_text` FROM `email_user` WHERE `date_sent`=0');
 
+global $debug, $mailfrom_noreply;
+if(!isset($mailfrom_noreply)){
+    $mailfrom_noreply = 'noreply@' . $mailfrom;
+}
+
 while ($row = XDb::xFetchArray($result)) {
     $headers = '';
-    $to_email = ($debug == true) ? $debug_mailto : $row['to_email'];
 
-    if ($row['send_emailaddress'] == '1') { // send emailaddress
+    $to_email = ( isset($debug) && $debug == true) ? $debug_mailto : $row['to_email'];
+
+    if ($row['send_emailaddress'] == '1') { // send email address of the user
         $headers = "Content-Type: text/plain; charset=utf-8\n";
         $headers .= 'From: "' . $mailfrom . '" <' . $emailaddr . ">\n";
         $headers .= 'Return-Path: ' . $row['from_email'] . "\n";
