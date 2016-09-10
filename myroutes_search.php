@@ -1242,7 +1242,7 @@ if ($error == false) {
                         `gpxcontent`.`latitude` `latitude`, `caches`.`wp_oc` `waypoint`,
                         `caches`.`date_hidden` `date_hidden`, `caches`.`picturescount` `picturescount`,
                         `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`,
-                        `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`,
+                        `caches`.`difficulty` `difficulty`
                         `caches`.`size` `size`, `caches`.`type` `type`, `caches`.`status` `status`,
                         `user`.`username` `username`, `gpxcontent`.`user_id` `owner_id`, `cache_desc`.`desc` `desc`,
                         `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`,
