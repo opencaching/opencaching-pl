@@ -149,7 +149,8 @@ function displayAllCachesOfPowerTrail(\lib\Objects\PowerTrail\PowerTrail $powerT
 
 function ratings($score, $votes)
 {
-    $language = $_POST['lang'];
+    $language = isset($_POST['lang']) ? $_POST['lang'] : 'en';
+
     if ($votes < 3) {
         return '<span style="color: gray">' . tr2('pt083', $language) . '</span>';
     }
