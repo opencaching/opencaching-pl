@@ -7,7 +7,6 @@ use Utils\Gis\Gis;
 
 $tplname = 'region';
 
-require_once('./lib/gis/gis.class.php');
 require_once('./lib/common.inc.php');
 
 $lat_float = 0;

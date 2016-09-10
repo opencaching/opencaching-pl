@@ -51,8 +51,6 @@ class GetRegions
      */
     public function GetRegion($lat, $lon)
     {
-        require_once(__DIR__ . '/lib/gis/gis.class.php');
-
         $lat_float = (float) $lat;
         $lon_float = (float) $lon;
 
