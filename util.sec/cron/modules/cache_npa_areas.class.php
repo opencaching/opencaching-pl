@@ -9,7 +9,6 @@
  */
 use Utils\Database\XDb;
 $rootpath = '../../../';
-require_once($rootpath . 'lib/gis/gis.class.php');
 require_once($rootpath . 'lib/common.inc.php');
 
 
