@@ -318,8 +318,7 @@ if ($usr) {
         }
 
         var request = GXmlHttp.create();
-                //request.open("GET", "http://www.opencaching.pl/lib/marker.php?klaun="+user+"&latNE="+latNE+"&lonNE="+lonNE+"&latSW="+latSW+"&lonSW="+lonSW+"&page="+page+"&caches="+caches+"&order="+order, true);
-                request.open("GET", "lib/marker.php?klaun=" + user + "&latNE=" + latNE + "&lonNE=" + lonNE + "&latSW=" + latSW + "&lonSW=" + lonSW + "&page=" + page + "&caches=" + caches + "&order=" + order + "&filter=" + filter, true);
+                request.open("GET", "lib/marker.php?u=" + user + "&latNE=" + latNE + "&lonNE=" + lonNE + "&latSW=" + latSW + "&lonSW=" + lonSW + "&page=" + page + "&caches=" + caches + "&order=" + order + "&filter=" + filter, true);
                 request.onreadystatechange = function () {
                 if (request.readyState == 4) {
                 var xmlDoc = request.responseXML;
