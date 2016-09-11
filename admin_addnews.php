@@ -69,6 +69,7 @@ if ($usr['admin']) {
                     $mailcontent = mb_ereg_replace('{newNewsTopic_04}', tr('newNewsTopic_04'), $mailcontent);
                     $mailcontent = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $mailcontent);
 
+                    //TODO: use Email() class here...
                     mb_send_mail($news_approver_email, $email_subject, $mailcontent, $emailheaders);
                 }
 
