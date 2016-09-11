@@ -16,7 +16,8 @@ print displayAllCachesOfPowerTrail($powerTrail, $choseFinalCaches);
 
 function displayAllCachesOfPowerTrail(\lib\Objects\PowerTrail\PowerTrail $powerTrail, $choseFinalCaches)
 {
-    $language = $_POST['lang'];
+    $language = isset($_POST['lang']) ? $_POST['lang'] : 'en';
+
     $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : -9999;
     $powerTrailCachesUserLogsByCache = $powerTrail->getFoundCachsByUser($userId);
     $geocacheFoundArr = array();
