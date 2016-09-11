@@ -996,8 +996,7 @@ if ($error == false) {
             }
         } // end if( cache_id != 0 )
         else {
-            // cache_id = 0
-            header('Location: viewcache.php?cacheid=' . $_GET['cacheid']);
+            tpl_errorMsg('log_cache', "Improper cache id param!");
         }
     }
 }
