@@ -5,11 +5,15 @@ use Utils\Database\XDb;
  * This script is used only by Map_v2 to display markers on the map
  */
 
-require "../lib/settings.inc.php";
 $rootpath = "../";
 require_once('./common.inc.php');
 
-header('Content-type: text/xml');
+if ($usr == false) {
+    echo "Error... User not logged!";
+    exit;
+}
+
+
 
 $ENCODING = "UTF-8";
 
@@ -76,6 +80,7 @@ function typeToInt($type)
     }
 }
 
+
 $latNE = $_GET['latNE'];
 $lonNE = $_GET['lonNE'];
 $latSW = $_GET['latSW'];
@@ -90,9 +95,29 @@ if (!isset($_GET['caches'])) {
     if ($PER_PAGE > 500)
         $PER_PAGE = 500;
 }
+
+/*
+http://local.opencaching.pl/lib/marker.php?
+klaun=1&
+latNE=53.39933109811506&
+lonNE=18.60064679362017&
+latSW=52.90520838678868&
+lonSW=17.52673321940142&
+page=0&
+caches=[object%20CacheStorage]&
+order=1&
+filter=11111111111111111111111111111111001111111100001111
+*/
+
 $page = ((int) ($_GET['page'])) * $PER_PAGE;
 
-$user_id = (int) $_GET['klaun'];
+if(!isset($_GET['u']) || $_GET['u'] != $usr['userid']){
+    echo "Error... Different user?!";
+    echo "u1: ". $_GET['u']." u2: ".$usr['userid'];
+    exit;
+}
+
+$user_id = (int) $_GET['u'];
 
 switch ($_GET['order']) {
     case "1":
@@ -166,6 +191,7 @@ $result = XDb::xSql(
     $user_id, $latSW, $latNE, $lonSW, $lonNE);
 
 
+header('Content-type: text/xml');
 echo "<?xml version=\"1.0\" encoding=\"" . $ENCODING . "\"?>\n";
 echo "<markers>\n";
 while ($res = XDb::xFetchArray($result)) {

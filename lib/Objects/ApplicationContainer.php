@@ -11,7 +11,7 @@ final class ApplicationContainer
 
     private static $applicationContainer = null;
 
-    private $loggedUser = false;
+    private $loggedUser = null;
     private $ocConfig;
 
     public $db;

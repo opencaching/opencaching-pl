@@ -158,8 +158,8 @@ class GeoCache
             $db = OcDb::instance();
             $this->id = (int) $params['cacheId'];
 
-            $queryById = "SELECT size, status, founds, notfounds, topratings, votes, notes, score,  name, type, date_hidden, longitude, latitude, wp_oc, wp_gc, wp_nc, wp_tc, wp_ge, user_id, last_found, difficulty, terrain, way_length, logpw, search_time, date_created, watcher, ignorer_count, org_user_id, desc_languages, mp3count, picturescount, date_activate FROM `caches` WHERE `cache_id`=:1 LIMIT 1";
-            $s = $db->multiVariableQuery($queryById, $this->id);
+            //find cache by Id
+            $s = $db->multiVariableQuery("SELECT * FROM caches WHERE cache_id = :1 LIMIT 1", $this->id);
 
             $cacheDbRow = $db->dbResultFetch($s);
             if(is_array($cacheDbRow)) {
@@ -999,6 +999,20 @@ class GeoCache
                 `default_desclang`= ?, `last_modified`=NOW()
             WHERE cache_id= ? LIMIT 1",
             $desclang, $cacheid);
+    }
+
+    /**
+     * Returns the list of cache descriptions and its languages
+     *
+     * @param unknown $cacheId
+     */
+    public static function getDescriptions($cacheId){
+        $rs = XDb::xSql("SELECT `id` AS desc_id, language FROM cache_desc WHERE cache_id = ?", $cacheId);
+        $result = array();
+        while($row = XDb::xFetchArray($rs)){
+            $result[$row['desc_id']] = $row['language'];
+        }
+        return $result;
     }
 
 

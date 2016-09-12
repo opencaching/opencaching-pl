@@ -59,9 +59,14 @@ if ($error == false) {
         tpl_redirect('login.php?target=' . $target);
     } else {
         $dbc = OcDb::instance();
-        $thatquery = "SELECT `user_id`, `name`, `picturescount`, `mp3count`,`type`, `size`, `date_hidden`, `date_activate`, `date_created`, `longitude`, `latitude`, `country`, `terrain`, `difficulty`,
-        `desc_languages`, `status`, `search_time`, `way_length`, `logpw`, `wp_gc`, `wp_nc`,`wp_ge`,`wp_tc`,`node`, IFNULL(`cache_location`.`code3`,'') region
-        FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id`= `cache_location`.`cache_id`)  WHERE `caches`.`cache_id`=:v1";
+        $thatquery =
+            "SELECT user_id, name, picturescount, mp3count, type, size, date_hidden, date_activate, date_created, longitude, latitude,
+                    country, terrain, difficulty, status, search_time, way_length, logpw, wp_gc, wp_nc, wp_ge, wp_tc, node,
+                    IFNULL(`cache_location`.`code3`,'') region
+            FROM `caches`
+                LEFT JOIN `cache_location` ON `caches`.`cache_id`= `cache_location`.`cache_id`
+            WHERE `caches`.`cache_id`=:v1";
+
         $params['v1']['value'] = $cache_id;
         $params['v1']['data_type'] = 'integer';
         $s = $dbc->paramQuery($thatquery, $params);
@@ -719,38 +724,34 @@ if ($error == false) {
                 }
                 tpl_set_var('sizeoptions', $sizes);
 
-                //Cachedescs
-                $desclangs = mb_split(',', $cache_record['desc_languages']);
+                // Display cache descriptions list
+                $descList = GeoCache::getDescriptions($cache_id);
                 $cache_descs = '';
-                $gc_com_refs = false;
-                foreach ($desclangs AS $desclang) {
-                    if (count($desclangs) > 1) {
-                        $remove_url = 'removedesc.php?cacheid=' . urlencode($cache_id) . '&desclang=' . urlencode($desclang);
-                        $removedesc = '&nbsp;<img src="tpl/stdstyle/images/log/16x16-trash.png" border="0" align="middle" class="icon16" alt="" title="Delete" />[<a href="' . htmlspecialchars($remove_url, ENT_COMPAT, 'UTF-8') . '" onclick="return check_if_proceed();">' . $remove . '</a>]';
+                foreach ($descList AS $descId => $descLang) {
+
+                    if (count($descList) > 1) {
+                        $remove_url = 'removedesc.php?cacheid=' . urlencode($cache_id) . '&desclang=' . urlencode($descLang);
+                        $removedesc = '&nbsp;<img src="tpl/stdstyle/images/log/16x16-trash.png" border="0" align="middle" class="icon16" alt="" title="Delete" />[
+                            <a href="' . htmlspecialchars($remove_url, ENT_COMPAT, 'UTF-8') . '" onclick="return check_if_proceed();">' . tr('delete') . '</a>]';
                     } else {
                         $removedesc = '';
                     }
 
-                    $resp = XDb::xSql(
-                        "SELECT `desc` FROM `cache_desc`
-                         WHERE `cache_id`=? AND `language`=?", $cache_id, $desclang);
-                    $row = XDb::xFetchArray($resp);
-                    if (mb_strpos($row['desc'], "http://img.groundspeak.com/") !== false){
-                        $gc_com_refs = true;
-                    }
-                    XDb::xFreeResults($resp);
-                    $edit_url = 'editdesc.php?cacheid=' . urlencode($cache_id) . '&desclang=' . urlencode($desclang);
-                    $cache_descs .= '<tr><td colspan="2"><img src="images/flags/' . strtolower($desclang) . '.gif" class="icon16" alt=""  />&nbsp;' . htmlspecialchars(db_LanguageFromShort($desclang), ENT_COMPAT, 'UTF-8') . '&nbsp;&nbsp;<img src="images/actions/edit-16.png" border="0" align="middle" alt="" title="Edit" /> [<a href="' . htmlspecialchars($edit_url, ENT_COMPAT, 'UTF-8') . '" onclick="return check_if_proceed();">' . $edit . '</a>]' . $removedesc . '</td></tr>';
+                    $edit_url = 'editdesc.php?descid='.$descId;
+                    $cache_descs .=
+                        '<tr>
+                            <td colspan="2">
+                                <img src="images/flags/' . strtolower($descLang) . '.gif" class="icon16" alt=""  />
+                                    &nbsp;' . htmlspecialchars(db_LanguageFromShort($descLang), ENT_COMPAT, 'UTF-8') . '&nbsp;&nbsp;
+                                <img src="images/actions/edit-16.png" border="0" align="middle" alt="" title="Edit" />
+                                [<a href="' . htmlspecialchars($edit_url, ENT_COMPAT, 'UTF-8') . '" onclick="return check_if_proceed();">' . tr('edit') . '</a>]' .
+                                $removedesc .
+                            '</td>
+                         </tr>';
                 }
-                tpl_set_var('cache_descs', $cache_descs);
 
-                if ($gc_com_refs) {
-                    tpl_set_var('gc_com_refs_start', "");
-                    tpl_set_var('gc_com_refs_end', "");
-                } else {
-                    tpl_set_var('gc_com_refs_start', "<!--");
-                    tpl_set_var('gc_com_refs_end', "-->");
-                }
+
+                tpl_set_var('cache_descs', $cache_descs);
 
                 //Status
                 $statusoptions = '';

@@ -4,7 +4,7 @@ $rootpath = __DIR__.'/../';
 require_once __DIR__.'/../lib/common.inc.php';
 
 $appContainer = lib\Objects\ApplicationContainer::Instance();
-if( $appContainer->getLoggedUser() === false){
+if( $appContainer->getLoggedUser() === null){
     $loggedUserId = -9999;
 } else {
     $loggedUserId = $appContainer->getLoggedUser()->getUserId();

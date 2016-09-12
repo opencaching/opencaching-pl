@@ -79,10 +79,13 @@ class Email
         if(!empty($this->bccAddr))
             $headers[] = 'Bcc: ' .implode(',',$this->bccAddr);
 
-        if(!empty($this->toAddr))
+        if(!empty($this->toAddr)){
             $to = implode(',', $this->toAddr);
-        else
-            $to=''; //TODO: is it work?
+        } else {
+            $to = OcConfig::getNoreplyEmailAddress();
+            $this->error(__METHOD__.": Setting dummy TO address: $to");
+
+        }
 
         $subject = $this->subjectPrefix . " " . $this->subject;
         $message = $this->body;
@@ -177,6 +180,10 @@ class Email
 
     private function error($message, Exception $e=null){
         //TODO:
+        if(!is_null($e)){
+            error_log(__METHOD__.": Stack trace:");
+            error_log($e->getTraceAsString());
+        }
         trigger_error($message, E_USER_NOTICE);
     }
 

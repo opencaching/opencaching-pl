@@ -369,12 +369,27 @@ if ($error == false) {
 
 
 
-    if ($cache_id != 0 && (($geocache->getStatus() != 4 && $geocache->getStatus() != 5 && ($geocache->getStatus() != 6 /* || $cache_record['type'] == 6 */)) || $usr['userid'] == $geocache->getOwner()->getUserId() || $usr['admin'] || ( $geocache->getStatus() == 4 && $applicationContainer->getLoggedUser()->getIsGuide() ))) {
+    if ( /* check if coords should be displayed */
+        $cache_id != 0 &&
+        (
+            (
+                $geocache->getStatus() != GeoCache::STATUS_WAITAPPROVERS &&
+                $geocache->getStatus() != GeoCache::STATUS_NOTYETAVAILABLE &&
+                $geocache->getStatus() != GeoCache::STATUS_BLOCKED
+            ) ||
+            $usr['userid'] == $geocache->getOwner()->getUserId() ||
+            $usr['admin'] ||
+            ( $geocache->getStatus() == GeoCache::STATUS_WAITAPPROVERS &&
+              !is_null($applicationContainer->getLoggedUser()) &&
+              $applicationContainer->getLoggedUser()->getIsGuide() )
+            )
+        ) {
+
         //ok, cache is here, let's process
         $owner_id = $geocache->getOwner()->getUserId();
         tpl_set_var('owner_id', $owner_id);
         // check XY home if OK redirect to myn
-        if ($usr == true) {
+        if (!is_null($applicationContainer->getLoggedUser())) {
 
             $ulat = $applicationContainer->getLoggedUser()->getHomeCoordinates()->getLatitude();
             $ulon = $applicationContainer->getLoggedUser()->getHomeCoordinates()->getLongitude();
@@ -389,6 +404,7 @@ if ($error == false) {
         } else {
             tpl_set_var('distance_cache', '');
         }
+
         // check if there is geokret in this cache
         $thatquery = "SELECT gk_item.id, name, distancetravelled as distance FROM gk_item INNER JOIN gk_item_waypoint ON (gk_item.id = gk_item_waypoint.id) WHERE gk_item_waypoint.wp = :v1 AND stateid<>1 AND stateid<>4 AND stateid <>5 AND typeid<>2 AND missing=0";
         $params['v1']['value'] = (string) $geocache->getGeocacheWaypointId();

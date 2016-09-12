@@ -382,10 +382,6 @@
         </tr>
         <tr><td class="buffer" colspan="2"></td></tr>
         {cache_descs}
-        {gc_com_refs_start}
-        <tr><td colspan="2"><img src="tpl/stdstyle/images/misc/16x16-info.gif" border="0" width="15" height="11" alt="" title=""/><span style="color:red">.</span>
-            </td></tr>
-        {gc_com_refs_end}
         <tr><td class="buffer" colspan="2"></td></tr>
         {waypoints_start}
         <tr>

@@ -9,6 +9,7 @@
  */
 
 use Utils\Database\XDb;
+use lib\Objects\OcConfig\OcConfig;
 
 
 $rootpath = '../../';
@@ -18,7 +19,7 @@ $result = XDb::xSql('SELECT `id`, `to_email`, `send_emailaddress`, `from_email`,
 
 global $debug, $mailfrom_noreply;
 if(!isset($mailfrom_noreply)){
-    $mailfrom_noreply = 'noreply@' . $mailfrom;
+    $mailfrom_noreply = OcConfig::getNoreplyEmailAddress();
 }
 
 while ($row = XDb::xFetchArray($result)) {

@@ -32,7 +32,7 @@ class LogEnteryController
 
         $loggedUser = \lib\Objects\ApplicationContainer::Instance()->getLoggedUser();
 
-        if($loggedUser === false){
+        if($loggedUser === null){
             $this->errors[] = 'User is not looged-in';
             return false;
         }
