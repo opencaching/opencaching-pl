@@ -42,7 +42,10 @@ while ($row = XDb::xFetchArray($result)) {
     if (mb_send_mail($to_email, $row['mail_subject'], $row['mail_text'], $headers)) {
 
         // Send copy of the message to sender
-        mb_send_mail($row['from_email'], $row['mail_subject'], tr('copy_sender') . ":\n" . $row['mail_text'], $headers);
+        // TODO: EMail clss should be use here...
+        if( !mb_send_mail($row['from_email'], $row['mail_subject'], tr('copy_sender') . ":\n" . $row['mail_text'], $headers)){
+            error_log(__FILE__.':'.__LINE__.': Mail sending failure: to:'.$row['from_email']);
+        }
 
         $upd_result = XDb::xSql(
             "UPDATE `email_user` SET `mail_text`='[Delivered]', `date_sent`=NOW() WHERE `id`= ? ", $row['id']);
