@@ -47,7 +47,7 @@ class Php7Handler
         if(self::isPhp7()){
             return boolval($val);
         } else {
-            return (bool) $val;;
+            return (bool) $val;
         }
     }
 
