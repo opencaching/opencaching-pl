@@ -69,7 +69,10 @@ class sendEmail
         foreach ($owners as $owner) {
             $to = $owner['email'];
             if($owner['power_trail_email'] == 1){
-                mb_send_mail($to, $subject, $mailbody, $headers);
+                //TODO: Email class should be used here in future...
+                if(! mb_send_mail($to, $subject, $mailbody, $headers)){
+                    error_log(__FILE__.':'.__LINE__.': Mail sending failure: to:'.$to);
+                }
             }
             if ($commentOwnerId && $commentOwnerId == $owner["user_id"]) {
                 $doNotSendEmailToCommentAuthor = true;
@@ -78,7 +81,9 @@ class sendEmail
         if ($commentOwnerId && !$doNotSendEmailToCommentAuthor) {
             $userDetails = powerTrailBase::getUserDetails($commentOwnerId);
             if($userDetails['power_trail_email']) {
-                mb_send_mail($userDetails['email'], $subject, $mailbody, $headers);
+                if(! mb_send_mail($userDetails['email'], $subject, $mailbody, $headers)){
+                    error_log(__FILE__.':'.__LINE__.': Mail sending failure: to:'.$userDetails['email']);
+                }
             }
         }
         //for debug only

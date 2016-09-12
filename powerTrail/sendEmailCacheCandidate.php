@@ -45,7 +45,9 @@ function emailCacheOwner($ptId, $cacheId, $linkCode){
     $mailbody = mb_ereg_replace('{pt188}', tr('pt188'), $mailbody);
     $mailbody = mb_ereg_replace('{pt190}', tr('pt190'), $mailbody);
 
-    mb_send_mail($cacheData['email'], tr('pt183'), $mailbody, $headers);
+    if(! mb_send_mail($cacheData['email'], tr('pt183'), $mailbody, $headers)){
+        error_log(__FILE__.':'.__LINE__.': Mail sending failure: to:'.$cacheData['email']);
+    }
 
     // for debug only
     // mb_send_mail('lza@tlen.pl', tr('pt183'), $mailbody, $headers);
