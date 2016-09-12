@@ -108,8 +108,10 @@ caches=[object%20CacheStorage]&
 order=1&
 filter=11111111111111111111111111111111001111111100001111
 */
-
-$page = ((int) ($_GET['page'])) * $PER_PAGE;
+$page = 0;
+if(isset($_GET['page'])){
+    $page = ((int) ($_GET['page'])) * $PER_PAGE;
+}
 
 if( !isset($_GET['u']) || $_GET['u'] != $usr['userid']){
     echo "Error... No user given of user different than logged user?!";
