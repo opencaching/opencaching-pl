@@ -111,9 +111,8 @@ filter=11111111111111111111111111111111001111111100001111
 
 $page = ((int) ($_GET['page'])) * $PER_PAGE;
 
-if(!isset($_GET['u']) || $_GET['u'] != $usr['userid']){
-    echo "Error... Different user?!";
-    echo "u1: ". $_GET['u']." u2: ".$usr['userid'];
+if( !isset($_GET['u']) || $_GET['u'] != $usr['userid']){
+    echo "Error... No user given of user different than logged user?!";
     exit;
 }
 
