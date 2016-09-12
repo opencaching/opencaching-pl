@@ -25,18 +25,20 @@ $db = OcDb::instance();
 
 // inline options
 $shortopts = "u:";
+$shortopts .= "h";
 $longopts  = array(
     "userId:"           // No value
 );
 $options = getopt($shortopts, $longopts);
 
 
-if(isset($options['h'])){
+if( isset($options['h']) ){
     printUsageAndExit();
 }
 
-$userName = isset($options['u'])?$options['u']:null;
-$userId = isset($options['userId'])?$options['userId']:null;
+
+$userName = isset($options['u']) ?            $options['u']     : null;
+$userId =   isset($options['userId']) ? (int) $options['userId']: null;
 
 if( is_null($userId) && is_null($userName) ){
     echo "Error: No param given?!\n\n";
@@ -62,6 +64,7 @@ if(is_null($userId)){
         exit(2);
     }
 }
+
 
 // Clean notify radius - to avoid notification about new caches
 $notify_radius = $db->multiVariableQueryValue("SELECT notify_radius FROM user WHERE user_id = :1", -1, $userId);
