@@ -1,8 +1,15 @@
 <?php
+/**
+ * This script prints form which allow calculation of the cache difficulty and terein ratio.
+ * This can be usefull in cache creation / edition.
+ */
+
 if ($_SERVER["QUERY_STRING"] == "source") {
     header("Content-Type: text/plain");
     readfile($_SERVER["SCRIPT_FILENAME"]);
-} elseif ($_POST["Rating"] == "TRUE") {
+
+} elseif ( isset($_POST["Rating"]) && $_POST["Rating"] == "TRUE") {
+
     $Equipment = $_POST["Equipment"];
     $Night = $_POST["Night"];
     $Length = $_POST["Length"];
