@@ -35,7 +35,7 @@ if ( $desc_record = XDb::xFetchArray($desc_rs) ) {
     $desc_lang = $desc_record['language'];
     $cache_id = $desc_record['cache_id'];
 
-    if ($desc_record['user_id'] != $usr['userid'] || !$usr['admin']) {
+    if ($desc_record['user_id'] != $usr['userid'] && !$usr['admin']) {
         tpl_errorMsg('editdesc', "You're not an owner of this cache!");
         exit;
     }
