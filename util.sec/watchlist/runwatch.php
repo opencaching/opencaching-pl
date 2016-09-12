@@ -411,7 +411,9 @@ function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUs
 
     // $mailbody;
     $status = mb_send_mail($mailadr, $mailsubject, $mailbody, $email_headers);
-
+    if(!$status){
+        error_log(__FILE__.':'.__LINE__.': Mail sending failure: to:'.$mailadr);
+    }
     Log::logentry('watchlist', 2, $currUserID, 0, 0, 'Sending mail to ' . $mailadr, array('status' => $status));
 
     XDb::xSql("DELETE FROM watches_waiting WHERE user_id= ? AND watchtype IN (1, 2)", $currUserID);

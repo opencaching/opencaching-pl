@@ -126,6 +126,9 @@ function process_new_cache($notify)
     $mailadr = $notify['email'];
 
     $status = mb_send_mail($mailadr, $subject, $mailbody, $email_headers);
+    if(!$status){
+        error_log(__FILE__.':'.__LINE__.': Mail sending failure: to:'.$mailadr);
+    }
     Log::logentry('notify_newcache', 5, $notify['recid'], $notify['cache_id'], 0, 'Sending mail to ' . $mailadr, array('status' => $status));
 
     return 0;
