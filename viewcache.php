@@ -355,8 +355,10 @@ if ($error == false) {
     }
     if (isset($_REQUEST['print_list']) && $_REQUEST['print_list'] == 'y') {
         // add cache to print (do not duplicate items)
-        if (count($_SESSION['print_list']) == 0)
+        if ( !isset($_SESSION['print_list']) || count($_SESSION['print_list']) == 0){
             $_SESSION['print_list'] = array();
+        }
+
         if (onTheList($_SESSION['print_list'], $cache_id) == -1)
             array_push($_SESSION['print_list'], $cache_id);
     }

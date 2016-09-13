@@ -49,5 +49,7 @@ while ($row = XDb::xFetchArray($result)) {
 
         $upd_result = XDb::xSql(
             "UPDATE `email_user` SET `mail_text`='[Delivered]', `date_sent`=NOW() WHERE `id`= ? ", $row['id']);
+    }else{
+        error_log(__FILE__.':'.__LINE__.': Mail sending failure: to:'.$row['from_email']);
     }
 }
