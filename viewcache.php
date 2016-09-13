@@ -1292,7 +1292,7 @@ if ($error == false) {
             if ($desc_record['rr_comment'] == "")
                 tpl_set_var('remove_rr_comment', '');
             else
-                tpl_set_var('remove_rr_comment', '[<a href="viewcache.php?cacheid=' . $cache_id . '&amp;removerrcomment=1" onclick="return confirm(\'Czy usunąć wszystkie adnotacje?\');">' . tr('remove_rr_comment') . '</a>]');
+                tpl_set_var('remove_rr_comment', '[<a href="viewcache.php?cacheid=' . $cache_id . '&amp;removerrcomment=1" onclick="return confirm(\'' . tr("confirm_remove_rr_comment") . '\');">' . tr('remove_rr_comment') . '</a>]');
         }
         else {
             tpl_set_var('add_rr_comment', '');
