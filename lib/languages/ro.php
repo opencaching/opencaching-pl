@@ -846,7 +846,7 @@ $translations = array(
     'input_coord' => 'Please input coordinates location of cache',
     'waypoints_about_info' => '<a class="links" href="{wiki_link_additionalWaypoints}" target="_blank">See the description and types of additional waypoints.</a>',
     'cache_pictures' => 'Geocache picture',
-    'log_pictures' => 'confirm_remove_rr_comment' => 'Are you sure you want to delete this comment?', 'Log picture',
+-   'log_pictures' => 'Log picture',
     'image_err_no_title' => 'Lipsă titlu pentru această imagine',
     'image_err_no_file' => 'Lipsă fişier imagine',
     'image_err_too_big' => 'Fişier prea mare',
