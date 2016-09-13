@@ -404,6 +404,7 @@ $translations = array(
     'rr_comment_label' => 'Opmerking van OC Team',
     'add_rr_comment' => 'Geef OC Team opmerking',
     'remove_rr_comment' => 'Verwijder OC Team opmerkingen',
+    'confirm_remove_rr_comment' => 'Moet deze opmerking werkelijk verwijderd worden?',
     'get_bulletin' => 'Ik wil bulletins ontvangen',
     'bulletin_label_yes' => 'Gebruiker zal bulletins ontvangen',
     'bulletin_label_no' => 'Gebruiker zal geen bulletins ontvangen',

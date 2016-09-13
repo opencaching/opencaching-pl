@@ -404,6 +404,7 @@ $translations = array(
     'rr_comment_label' => 'Adnotacje Centrum Obsługi Geocachera OC PL',
     'add_rr_comment' => 'Dodaj komentarz do adnotacji COG',
     'remove_rr_comment' => 'Usuń adnotacje COG',
+    'confirm_remove_rr_comment' => 'Czy usunąć wszystkie adnotacje?',
     'get_bulletin' => 'Chcę otrzymywać biuletyny informacyjne',
     'bulletin_label_yes' => 'Użytkownik będzie otrzymywał biuletyny informacyjne',
     'bulletin_label_no' => 'Użytkownik nie będzie otrzymywał biuletynów informacyjnych',
