@@ -151,8 +151,8 @@ class PaginationModel {
         // add "left markers" on the list
         if($leftPage > 1){
 
-            $destPage = $this->currentPage - $this->pagesListSize;
-            if($destPage<0){
+            $destPage = $this->currentPage - 1;
+            if($destPage<=0){
                 $destPage=1;
             }
             // "<<" mark
@@ -177,7 +177,7 @@ class PaginationModel {
         }
 
         // calculate page number under '>' marker
-        $destPage = $this->currentPage + $this->pagesListSize;
+        $destPage = $this->currentPage + 1;
         if( !is_null($lastPage) ){
 
             if($lastPage > $rightPage){
