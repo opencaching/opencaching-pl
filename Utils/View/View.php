@@ -34,9 +34,9 @@ class View {
 
     /**
      * Load chunk by given name.
-     * Chunk should be a anonymous function
-     * definded in file of the same name in tpl/stdstyle/chunks
-     * It can be then call in template file by $view->$chunkName
+     * Chunk should be an anonymous function
+     * defined in file of the same name in tpl/stdstyle/chunks
+     * It can be then called in template file by $view->$chunkName
      *
      * @param string $chunkName
      */
