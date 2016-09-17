@@ -213,13 +213,13 @@ if ($error == false && $usr['admin']) {
                 } else if ($_GET['action'] == 1 && isset($_GET['user_id'])) {
                     // require confirmation
                     $confirm = "<p> " . tr("viewPending_13") . " \"<a href='viewcache.php?cacheid=" . $_GET['cacheid'] . "'>" . getCachename($_GET['cacheid']) . "</a>\" " . tr("viewPending_14") . " " . getCacheOwnername($_GET['cacheid']) . ". " . tr("viewPending_15") . ".</p>";
-                    $confirm .= "<p><a href='viewpendings.php?user_id=".$_GET['user_id']."&amp;cacheid=" . $_GET['cacheid'] . "&amp;confirm=1'>" . tr("viewPending_16") . "</a> |
-                        <a href='viewpendings.php'>" . tr("viewPending_17") . "</a></p>";
+                    $confirm .= "<p><a class='btn btn-success' href='viewpendings.php?user_id=".$_GET['user_id']."&amp;cacheid=" . $_GET['cacheid'] . "&amp;confirm=1'>" . tr("viewPending_16") . "</a>
+                        <a class='btn btn-default' href='viewpendings.php'>" . tr("viewPending_17") . "</a></p>";
                 } else if ($_GET['action'] == 2 && isset($_GET['user_id'])) {
                     // require confirmation
                     $confirm = "<p> " . tr("viewPending_18") . " \"<a href='viewcache.php?cacheid=" . $_GET['cacheid'] . "'>" . getCachename($_GET['cacheid']) . "</a>\" " . tr("viewPending_14") . " " . getCacheOwnername($_GET['cacheid']) . ". " . tr("viewPending_19") . ".</p>";
-                    $confirm .= "<p><a href='viewpendings.php?user_id=".$_GET['user_id']."&amp;cacheid=" . $_GET['cacheid'] . "&amp;confirm=2'>" . tr("viewPending_20") . "</a> |
-                        <a href='viewpendings.php'>" . tr("viewPending_17") . "</a></p>";
+                    $confirm .= "<p><a class='btn btn-danger' href='viewpendings.php?user_id=".$_GET['user_id']."&amp;cacheid=" . $_GET['cacheid'] . "&amp;confirm=2'>" . tr("viewPending_20") . "</a>
+                        <a class='btn btn-default' href='viewpendings.php'>" . tr("viewPending_17") . "</a></p>";
                 }
                 tpl_set_var('confirm', $confirm);
             } else {

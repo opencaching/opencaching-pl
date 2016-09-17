@@ -225,7 +225,6 @@ ul.linklist-indent      { margin: -0.3em 0px 0.5em 0px; padding: 0px 0px 0px 10p
 .footer a:hover                                                                                                                     { color: rgb(0,0,0); text-decoration: none;}
 .content1 a, .content2 a, .content3 a, .sidebar-txtbox-noshade a, .sidebar-txtbox-shade a                                           { color: rgb(75,75,75); text-decoration: underline;}
 .content1 a:hover, .content2 a:hover, .content3 a:hover, .sidebar-txtbox-noshade a:hover, .sidebar-txtbox-shade a:hover             { color: rgb(0,0,0); text-decoration: none;}
-.content1 a:visited, .content2 a:visited, .content3 a:visited, .sidebar-txtbox-noshade a:visited, .sidebar-txtbox-shade a:visited   { color: rgb(130,75,150);}
 
 /*******************************/
 /* SECTION 7 - GENERIC CLASSES */
@@ -440,6 +439,70 @@ ul.linklist-indent      { margin: -0.3em 0px 0.5em 0px; padding: 0px 0px 0px 10p
 .hide               { display: none;}
 br                  { clear: none;}
 
+/*****************************/
+/* BUTTONS */
+/*****************************/
+.btn {
+    display: inline-block;
+    box-sizing:border-box;
+    padding: 6px 11px;
+    margin: 5px 0;
+    border-radius: 3px;
+    border: 1px solid;
+    font-size: 14px;
+}
+a.btn {
+    text-decoration: none;
+}
+
+.btn.btn-default {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+.btn.btn-default:hover {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+
+.btn.btn-primary {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+
+.btn.btn-primary:hover {
+    color: #fff;
+    background-color: #286090;
+    border-color: #204d74;
+}
+
+.btn.btn-success {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+.btn.btn-success:hover {
+    color: #fff;
+    background-color: #449d44;
+    border-color: #398439;
+}
+
+.btn.btn-danger {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+.btn.btn-danger:hover {
+    color: #fff;
+    background-color: #c9302c;
+    border-color: #ac2925;
+}
+
 /* styles for inputfields */
 input               { border:1px solid black;    background-color:white;    padding:1px; font-size:11px;color: black;}
 *.input20           { width:20px;}  /* day,month */
@@ -637,7 +700,6 @@ a.links:link {
 
 a.links:visited {
     font-weight:bold;
-    color: purple;
     text-decoration:none;
 }
 
@@ -667,7 +729,6 @@ a.links-onlusers:active {
 }
 
 a.links-onlusers:hover {
-    color:purple;
     text-decoration: underline;
 }
 a.links2:link {
