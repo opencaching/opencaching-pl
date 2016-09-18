@@ -23,7 +23,7 @@
             <tr>
                 <td>&nbsp;</td>
                 <td>
-                    <input type="submit" name="submit_getcode" value="{getcode}" class="formbuttons" />
+                    <input type="submit" name="submit_getcode" value="{getcode}" class="btn btn-primary btn-xs" />
                 </td>
             </tr>
         </table>
@@ -41,7 +41,7 @@
             </tr>
         </table>
         <div class="buffer"></div>
-        <input type="reset" name="reset" value="{{reset}}" class="formbuttons" />&nbsp;&nbsp;
-        <input type="submit" name="submit_changeemail" value="{change_email}" class="formbuttons" />
+        <input type="reset" name="reset" value="{reset}" class="btn btn-default" />&nbsp;&nbsp;
+        <input type="submit" name="submit_changeemail" value="{change_email}" class="btn btn-primary" />
     </form>
 </div>

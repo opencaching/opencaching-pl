@@ -149,7 +149,7 @@
             <tr><td class="buffer" colspan="2"></td></tr>
             <tr>
                 <td colspan="2">
-                    <button type="submit" name="submit" value="{{change}}" style="font-size:14px;width:160px"><b>{{change}}</b></button>
+                    <button type="submit" name="submit" value="{{change}}" class="btn btn-primary">{{change}}</button>
 
                 </td>
             </tr>

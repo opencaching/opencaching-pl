@@ -23,8 +23,8 @@
         <tr><td class="buffer" colspan="2"></td></tr>
         <tr>
             <td colspan="2">
-                <input type="reset" name="reset" value="{{reset}}" class="formbuttons"/>&nbsp;&nbsp;
-                <input type="submit" name="submit" value="{{change}}" class="formbuttons"/>
+                <input type="reset" name="reset" value="{{reset}}" class="btn btn-default"/>&nbsp;&nbsp;
+                <input type="submit" name="submit" value="{{change}}" class="btn btn-primary"/>
             </td>
         </tr>
     </form>

@@ -68,7 +68,7 @@
 
         <div class="buffer"></div>
 
-        <button type="submit" name="submit" id="submit" value="{{submit}}" style="font-size:12px;width:140px;"/><b>{{store}}</b></button>
+        <button type="submit" name="submit" id="submit" value="{{submit}}" class="btn btn-primary"/>{{store}}</button>
 
     </form>
 </div>

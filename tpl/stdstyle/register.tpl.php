@@ -46,7 +46,7 @@
     </div>
 
     <div>
-        <input type="reset" name="reset" value="{{register04}}" class="formbuttons"/>&nbsp;&nbsp;
-        <input type="submit" name="submit" value="{{registration}}" class="formbuttons"/>
+        <input type="reset" name="reset" value="{{register04}}" class="btn btn-default"/>&nbsp;&nbsp;
+        <input type="submit" name="submit" value="{{registration}}" class="btn btn-primary"/>
     </div>
 </form>

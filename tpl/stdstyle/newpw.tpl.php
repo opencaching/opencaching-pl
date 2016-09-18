@@ -24,7 +24,7 @@
             <tr>
                 <td width="150px">&nbsp;</td>
                 <td>
-                    <input type="submit" name="submit_getcode" value="{getcode}" class="formbuttons" />
+                    <input type="submit" name="submit_getcode" value="{getcode}" class="btn btn-primary btn-xs" />
                 </td>
             </tr>
         </table>
@@ -69,8 +69,8 @@
             <tr>
                 <td class="header-small" colspan="2">
                     <div class="buffer"></div>
-                    <input type="reset" name="cancel" value="{reset}" class="formbuttons" />&nbsp;&nbsp;
-                    <input type="submit" name="submit_changepw" value="{changepw}" class="formbuttons" />
+                    <input type="reset" name="cancel" value="{reset}" class="btn btn-default" />&nbsp;&nbsp;
+                    <input type="submit" name="submit_changepw" value="{changepw}" class="btn btn-primary" />
                 </td>
             </tr>
         </table>

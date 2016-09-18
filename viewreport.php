@@ -143,8 +143,8 @@ if ($error == false && $usr['admin']) {
     <input type='hidden' name='mailto' value='" . intval($_REQUEST['mailto']) . "'>
     <textarea name='email_content' cols='120' rows='8'>" . $initText . "</textarea>
     <br />
-    <input type='submit' value=" . tr('cache_reports_29') . ">
-    <a href='viewreport.php?reportid=" . $_REQUEST['reportid'] . "'>" . tr('cache_reports_30') . "</a>
+    <input class='btn btn-primary btn-xs' type='submit' value=" . tr('cache_reports_29') . ">
+    <a class='btn btn-default btn-xs' href='viewreport.php?reportid=" . $_REQUEST['reportid'] . "'>" . tr('cache_reports_30') . "</a>
     <br/>
 ";
         $email_form .= getSchemas($_REQUEST['mailto']);
@@ -339,7 +339,7 @@ if ($error == false && $usr['admin']) {
                 $selected = "";
             $content .= "<option value='" . $admins['user_id'] . "' $selected>" . $admins['username'] . "</option>";
         }
-        $content .= "</select><br /><input type='submit' name='new_resp' value=" . tr('cache_reports_20') . ">";
+        $content .= "</select><br /><input class='btn btn-default btn-xs' type='submit' name='new_resp' value=" . tr('cache_reports_20') . ">";
         $content .= "</td>";
 
         $content .= "<td>";
@@ -353,7 +353,7 @@ if ($error == false && $usr['admin']) {
             $content .= "<option value='" . $i . "' $selected>" . writeStatus($i) . "</option>";
         }
 
-        $content .= "</select><br /><input type='hidden' name='reportid' value='" . $report['report_id'] . "'><input type='submit' name='new_status' value=" . tr('cache_reports_20') . ">";
+        $content .= "</select><br /><input type='hidden' name='reportid' value='" . $report['report_id'] . "'><input class='btn btn-default btn-xs' type='submit' name='new_status' value=" . tr('cache_reports_20') . ">";
 
         $content .= "</td>";
         $content .= "<td><span class='content-title-noshade-size05'>" . ($report['changed_by'] == '0' ? '' : (getUsername($report['changed_by']) . '<br/>(' . ($report['changed_date']) . ')')) . "</span></td>\n";
@@ -365,11 +365,11 @@ if ($error == false && $usr['admin']) {
         tpl_set_var('perform_action_lbl', tr('cache_reports_22'));
 
         if (!isset($_GET['mailto'])) {
-            $active_form = "<input type='hidden' name='reportid' value='" . intval($_REQUEST['reportid']) . "'/><textarea name='note' cols='80' rows='5'></textarea><br /><input type='submit' value=" . tr('cache_reports_23') . ">&nbsp;" . $saved;
+            $active_form = "<input type='hidden' name='reportid' value='" . intval($_REQUEST['reportid']) . "'/><textarea name='note' cols='80' rows='5'></textarea><br /><input class='btn btn-default btn-xs' type='submit' value=" . tr('cache_reports_23') . ">&nbsp;" . $saved;
             tpl_set_var('note_lbl', tr("cache_reports_24"));
         } else {
             // display email form
-            tpl_set_var('note_lbl', tr("cache_reports_25") . writeRe($_REQUEST['mailto']));
+            tpl_set_var('note_lbl', tr("cache_reports_25") . " " . writeRe($_REQUEST['mailto']));
             $active_form = $email_form;
         }
         tpl_set_var('note_area', nl2br($report['note']));

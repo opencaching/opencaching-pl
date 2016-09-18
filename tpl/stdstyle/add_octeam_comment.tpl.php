@@ -11,8 +11,8 @@
                 <input type='hidden' name='cacheid' value='{cacheid}' />
                 <textarea name='rr_comment' cols='80' rows='15'></textarea>
                 <br/><br/>
-                <button type="submit" value="Dodaj komentarz" style="font-size:12px;width:140px"><b>{{send}}</b></button>&nbsp;&nbsp;
-                <button type="button" style="font-weight:bold;font-size:12px;" onclick="window.location.href = 'viewcache.php?cacheid={cacheid}'">{{cancel}}</button>
+                <button type="submit" value="Dodaj komentarz" class="btn btn-primary">{{send}}</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-default" onclick="window.location.href = 'viewcache.php?cacheid={cacheid}'">{{cancel}}</button>
             </form>
         </td>
     </tr>
