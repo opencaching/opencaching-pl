@@ -159,7 +159,7 @@ if ($error == false) {
     }
 
     if ($display_all_countries == 0) {
-        tpl_set_var('all_countries_submit', '<input type="submit" name="show_all_countries_submit" value="' . $allcountries . '" />');
+        tpl_set_var('all_countries_submit', '<input class="btn btn-default btn-xs" type="submit" name="show_all_countries_submit" value="' . $allcountries . '" />');
     } else {
         $query = 'SELECT `short` FROM `countries` WHERE 1 ORDER BY `short` ASC';
 

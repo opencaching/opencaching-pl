@@ -79,8 +79,8 @@
     <div class="notice">{{hint_instructions}}</div>
     <div class="buffer"></div>
     <div>
-        <input type="reset" name="reset" value="{{reset}}" class="formbuttons"/>&nbsp;&nbsp;
-        <input type="submit" name="submitform" value="{{submit}}" class="formbuttons"/>
+        <input type="reset" name="reset" value="{{reset}}" class="btn btn-default"/>&nbsp;&nbsp;
+        <input type="submit" name="submitform" value="{{submit}}" class="btn btn-primary"/>
     </div>
     <div class="buffer"></div>
 </form>

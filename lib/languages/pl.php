@@ -1137,7 +1137,11 @@ $translations = array(
     'no_logtype_choosen' => 'Brak typu logu!',
     'choose' => 'Wybierz',
     'nc01' => 'Drogi Użytkowniku',
+<<<<<<< HEAD
+    'nc02' => 'Dziękujemy za to, że chcesz zarejestrować swoja skrzynkę w serwisie opencaching.pl. Jeśli potrzebujesz pomocy w ukryciu lub rejestracji skrzynki, proszę zapoznaj się z informacjami zawartymi w <a class="links" href="{wiki_link_main}">OpenGeoWiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> lub skontaktuj się z Centrum Obsługi Geocacher’a - adres e-mail: cog@opencaching.pl. Pamiętaj, że Twoja skrzynka świadczy o Tobie. Na pewno zależy Ci na tym, by była jak najlepszej jakości, a w związku z tym prosimy o to, abyś odpowiedział sobie samodzielnie na poniższe pytania:',
+=======
     'nc02' => 'Dziękujemy za to, że chcesz zarejestrować swoja skrzynkę w serwisie {site_name}. Jeśli potrzebujesz pomocy w ukryciu lub rejestracji skrzynki, proszę zapoznaj się z informacjami zawartymi w <a class="links" href="{wiki_link_main}">OpenGeoWiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> lub skontaktuj się z Centrum Obsługi Geocacher’a - adres e-mail: cog@opencaching.pl. Pamiętaj, że Twoja skrzynka świadczy o Tobie. Na pewno zależy Ci na tym, by była jak najlepszej jakości, a w związku z tym prosimy o to, abyś odpowiedział sobie samodzielnie na poniższe pytania :<ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">',
+>>>>>>> origin/master
     'nc03' => 'Czy skrzynka jest ulokowana w miejscu zgodnym z prawem, nie jest umieszczona na terenie prywatnym bez zgody jego właściciela?',
     'nc04' => 'Czy skrzynka nie jest ulokowana na terenie Parku Narodowego, Rezerwatu, zabytku, cmentarza lub innego obszaru chronionego prawem?',
     'nc05' => 'Czy w najbliższej okolicy znajdują się już inne skrzynki, czy zachowana jest minimalna odległość 150 m?',
@@ -1151,7 +1155,7 @@ $translations = array(
     'nc13' => 'Prosimy zapoznaj się z Poradnikiem',
     'nc14' => 'Jak założyć skrzynkę',
     'nc15' => 'oraz',
-    'nc16' => 'Kodeksem Geocacher"a',
+    'nc16' => 'Kodeksem Geocacher\'a',
     'nc17' => 'na naszym OpenGeoWiki',
     'nc18' => 'Pozdrawiamy',
     'nc19' => 'Społeczność {site_name}',
@@ -1878,7 +1882,7 @@ $translations = array(
     'pt132' => 'usunął wpis typu',
     'pt133' => 'treść wpisu',
     'pt134' => 'data wpisu (podana przez użytkownika)',
-    'pt135' => 'keszerzy "zmarnowali" łącznie keszo-dni',
+    'pt135' => 'keszerzy poświęcili łącznie keszo-dni',
     'pt136' => 'geograficzny środek geoŚcieżki',
     'pt137' => 'GeoŚcieżka dnia',
     'pt138' => 'skrzynek',

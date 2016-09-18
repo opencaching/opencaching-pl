@@ -50,8 +50,8 @@
             <td class="header-small" colspan="2">
                 <input style="visibility:hidden;" onclick="statementChange()" type="checkbox" id="statement">
                 <label style="visibility:hidden;" for="statement" id="statement_label">{{report_13}}</label><br /><br />
-                <input type="reset" name="cancel" value={{reset}} class="formbuttons"/>&nbsp;&nbsp;
-                <input id="sender" type="submit" name="ok" value={{submit}} zgłoszenie" class="formbuttons"/>
+                <input type="reset" name="cancel" value={{reset}} class="btn btn-default"/>&nbsp;&nbsp;
+                <input id="sender" type="submit" name="ok" value={{submit}} zgłoszenie" class="btn btn-primary"/>
             </td>
         </tr>
 

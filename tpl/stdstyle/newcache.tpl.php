@@ -501,7 +501,7 @@
             <form action="newcacheAjaxWaypointUploader.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
                 <p id="f1_upload_form"><br/>
                     <input name="myfile" type="file" size="30" />
-                    <input type="submit" value="{{newcache_upload}}"/>
+                    <input class="btn btn-default btn-xs" type="submit" value="{{newcache_upload}}"/>
                 </p>
                 <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
             </form>
@@ -558,7 +558,7 @@
                     </select>
                     &nbsp;<input type="text" id="lat_h"  name="lat_h" maxlength="2" value="{lat_h}" class="input30" onchange="checkRegion()"/>
                     &deg;&nbsp;<input type="text" id="lat_min" name="lat_min" maxlength="6" value="{lat_min}" class="input50" onkeyup="this.value = this.value.replace(/,/g, '.');" onchange="checkRegion()" />&nbsp;'&nbsp;
-                    <button onclick="return nearbycachemapOC()">{{check_nearby_caches_map}}</button>
+                    <button class="btn btn-default btn-xs" onclick="return nearbycachemapOC()">{{check_nearby_caches_map}}</button>
                     {lat_message}<br />
                     &nbsp;&nbsp;&nbsp;
                     <select name="lonEW" id="lonEW" class="input40">
@@ -567,7 +567,7 @@
                     </select>
                     &nbsp;<input type="text" id="lon_h" name="lon_h" maxlength="3" value="{lon_h}" class="input30" onchange="checkRegion()" />
                     &deg;&nbsp;<input type="text" id="lon_min" name="lon_min" maxlength="6" value="{lon_min}" class="input50" onkeyup="this.value = this.value.replace(/,/g, '.');" onchange="checkRegion()" />&nbsp;'&nbsp;
-                    <button onclick="return nearbycache()">{{check_nearby_caches}}</button><br />
+                    <button class="btn btn-default btn-xs" onclick="return nearbycache()">{{check_nearby_caches}}</button><br />
                     {lon_message}</fieldset>
             </td>
         </tr>
@@ -592,7 +592,7 @@
                 <!-- <select name="region" id="region1" class="input200" onchange="javascript:chkcountry()" > --></select>
                 <select name="region" id="region1" class="input200" >
 
-                </select>&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/help.png" class="icon16" id="region2" alt=""/>&nbsp;<button id="region3" onclick="return extractregion()">{{region_from_coord}}</button>
+                </select>&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/help.png" class="icon16" id="region2" alt=""/>&nbsp;<button class="btn btn-default btn-xs" id="region3" onclick="return extractregion()">{{region_from_coord}}</button>
                 <img id="regionAjaxLoader" style="display: none" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
                 {region_message}
             </td>
@@ -778,7 +778,7 @@
         <tr><td colspan="2"><div class="errormsg"><br />{{creating_cache}}<br /><br /></div></td></tr>
         <tr>
             <td colspan="2">
-                <button type="submit" name="submitform" value="{submit}" style="font-size:14px;width:160px"><b>{submit}</b></button>
+                <button type="submit" name="submitform" value="{submit}" class="btn btn-primary">{submit}</button>
 
                 <br /><br /></td>
         </tr>

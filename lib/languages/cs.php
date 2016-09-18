@@ -1335,7 +1335,7 @@ $translations = array(
     'no_logtype_choosen' => 'No logtype choosen!',
     'choose' => 'Select',
     'nc01' => 'Dear User',
-    'nc02' => 'Thank you for registering your cache at {site_name}. If you need help with hiding or registering the cache, please read the information at <a class="links" href="{wiki_link_main}">OpenGeoWiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> or contact the Centre of the Service of Geocachers - email address: cog@opencaching.pl. Remember that your cache tells also something about you. For sure you are concerned about its best quality and due to that fact we ask you to answer yourself the following questions:*** <ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">',
+    'nc02' => 'Thank you for registering your cache at {site_name}. If you need help with hiding or registering the cache, please read the information at <a class="links" href="{wiki_link_main}">OpenGeoWiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> or contact the Centre of the Service of Geocachers - email address: cog@opencaching.pl. Remember that your cache tells also something about you. For sure you are concerned about its best quality and due to that fact we ask you to answer yourself the following questions:***',
     'nc03' => 'Is the cache located in place that doesn\'t violate the law, isn\'t it hidden o private property without the permission of its owner?',
     'nc04' => 'Is the cache located within a National Park, a reservation, cemetery or some other area protected by law?',
     'nc05' => 'Are there any other caches in the area, is the miminum 150 meter distance preserved?***',

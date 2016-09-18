@@ -10,7 +10,7 @@
             <form action='admin_bulletin.php' method='POST'>
                 <textarea name='bulletin' cols='80' rows='15'></textarea>
                 <br />
-                <button type="submit"  value="Wyślij biuletyn" style="font-size:12px;width:140px;"/><b>{{send}}</b></button>
+                <button type="submit"  value="Wyślij biuletyn" class="btn btn-primary"/>{{send}}</button>
 
             </form>
         </td>
