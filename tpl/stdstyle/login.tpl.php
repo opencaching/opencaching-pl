@@ -13,17 +13,17 @@
             <col width="150" />
             <col />
         </colgroup>
-        <tr>
+        <tr class="form-group-sm">
             <td class="content-title-noshade">{{user_or_email}}:</td>
-            <td><input name="email" maxlength="80" type="text" value="{username}" class="input150" /></td>
+            <td><input name="email" maxlength="80" type="text" value="{username}" class="form-control input150" /></td>
         </tr>
-        <tr>
+        <tr class="form-group-sm">
             <td class="content-title-noshade">{{password}}:</td>
-            <td><input name="password" maxlength="60" type="password" value="" class="input150" /></td>
+            <td><input name="password" maxlength="60" type="password" value="" class="form-control input150" /></td>
         </tr>
     </table>
-    <input type="reset" name="reset" value="{{reset}}" class="formbuttons" />&nbsp;&nbsp;
-    <input type="submit" name="LogMeIn" value="{{login}}" class="formbuttons" />
+    <input type="reset" name="reset" value="{{reset}}" class="btn btn-default" />&nbsp;&nbsp;
+    <input type="submit" name="LogMeIn" value="{{login}}" class="btn btn-primary" />
 </form>
 <p class="content-title-noshade">{{not_registered}}<br />
 

@@ -15,7 +15,7 @@ $type_not_ok_message = '<br/><img src="tpl/stdstyle/images/misc/32x32-impressum.
 $size_not_ok_message = '<br/><img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">' . tr('size_incorrect') . '</span>';
 $diff_not_ok_message = '<br/><img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">' . tr('diff_incorrect') . '</span>';
 $sizemismatch_message = '<br/><img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">' . tr('virtual_cache_size') . '</span>';
-$all_countries_submit = '<input class="btn btn-default btn-xs" type="submit" name="show_all_countries_submit" value="' . tr('show_all_countries') . '"/>';
+$all_countries_submit = '<input class="btn btn-default btn-sm" type="submit" name="show_all_countries_submit" value="' . tr('show_all_countries') . '"/>';
 
 $status_message = '&nbsp;<span class="errormsg">' . tr('status_incorrect') . '</span>';
 $nopictures = '<tr><td colspan="2"><div class="notice">' . tr('no_pictures_yet') . '</div></td></tr>';

@@ -338,7 +338,7 @@
 
     <div style="display: {selPtDiv}">
         <form action="powerTrailCOG.php" id="selPt">
-            {ptSelector} <a href="javascript:void(0);" onclick="$('#selPt').submit()"; class="btn btn-default btn-xs">{{pt209}}</a>
+            {ptSelector} <a href="javascript:void(0);" onclick="$('#selPt').submit()"; class="btn btn-default btn-sm">{{pt209}}</a>
         </form>
     </div>
 

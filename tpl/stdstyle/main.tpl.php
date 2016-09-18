@@ -127,9 +127,9 @@ if (date('m') == 12 || date('m') == 1) {
                                     <input type="hidden" name="f_geokret" value="0"/>
                                 </p>
                             </div>
-                            <div style="float:right;  margin-top:3px;">
-                                <input id="search_input" type="text" name="waypointname" class="input100" style="color:gray;" />&nbsp;&nbsp;
-                                <input type="submit" name="submit" value="{{search}}" class="formbuttons" />
+                            <div style="float:right;" class="form-group-xs">
+                                <input id="search_input" type="text" name="waypointname" class="form-control input100" style="color:gray;" />
+                                <input type="submit" name="submit" value="{{search}}" class="btn btn-default btn-xs" />
                             </div>
                         </div>
                     </form>

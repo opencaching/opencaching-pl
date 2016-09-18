@@ -109,10 +109,10 @@ a:hover, a:visited, a:link, a:active {
           <?=$cache['name']?>&nbsp;[<?=$cache['offeredFromUserName']?>]:&nbsp;&nbsp;
         </a>
         <a href='chowner.php?cacheid=<?=$cache['cache_id']?>&action=accept'>
-          <span class="btn btn-success btn-xs">{{adopt_12}}</span>
+          <span class="btn btn-success btn-sm">{{adopt_12}}</span>
         </a>
         <a href='chowner.php?cacheid=<?=$cache['cache_id']?>&action=refuse'>
-          <span class="btn btn-danger btn-xs">{{adopt_13}}</span>
+          <span class="btn btn-danger btn-sm">{{adopt_13}}</span>
         </a>
       </li>
 
@@ -150,7 +150,7 @@ a:hover, a:visited, a:link, a:active {
                 <!-- cache offered for adoption - offer can be aborted -->
                 <?=$cache['name']?>
                 <a href='chowner.php?cacheid=<?=$cache['cache_id']?>&action=abort'>
-                  <span class="btn btn-danger btn-xs">{{adopt_14}} -> <?=$cache['offeredToUserName']?></span>
+                  <span class="btn btn-danger btn-sm">{{adopt_14}} -> <?=$cache['offeredToUserName']?></span>
                 </a>
 
               <?php } else { ?>

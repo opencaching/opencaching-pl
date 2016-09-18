@@ -11,10 +11,10 @@
             <col width="200">
             <col>
         </colgroup>
-        <tr>
+        <tr class="form-group-sm">
             <td class="content-title-noshade">{{user_statpic_text}}:</td>
             <td>
-                <input type="text" name="statpic_text" maxlength="30" value="{statpic_text}" class="input200"/>
+                <input type="text" name="statpic_text" maxlength="30" value="{statpic_text}" class="form-control input200"/>
                 {{statpic_text_message}}
             </td>
         </tr>

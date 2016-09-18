@@ -306,7 +306,7 @@
                 <select name="region" id="region1" class="input200" onChange="yes_change();">
 
                 </select>
-                &nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/help.png" class="icon16" alt=""/>&nbsp;<button class="btn btn-default btn-xs" onclick="return extractregion()">{{region_from_coord}}</button>
+                &nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/help.png" class="icon16" alt=""/>&nbsp;<button class="btn btn-default btn-sm" onclick="return extractregion()">{{region_from_coord}}</button>
 
             </td>
         </tr>
