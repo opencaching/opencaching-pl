@@ -32,7 +32,7 @@
     {commit}
     <form action="mywatches.php" method="post" enctype="application/x-www-form-urlencoded" name="forgot_pw_form" dir="ltr" style="display: inline;">
         <input type="hidden" name="rq" value="properties">
-        <table class="table">
+        <table class="table" class="form-group-sm">
             <colgroup>
                 <col width="150">
                 <col>
@@ -41,7 +41,7 @@
             <tr>
                 <td class="content-title-noshade">{{send}}:</td>
                 <td>
-                    <select id="interval" name="interval" onChange="intervalChanged();" class="input120">
+                    <select id="interval" name="interval" onChange="intervalChanged();" class="form-control input200">
                         {intervalls}
                     </select>
                 </td>
@@ -50,7 +50,7 @@
             <tr>
                 <td class="content-title-noshade">{{hour}}</td>
                 <td>
-                    <select id="hour" name="hour">
+                    <select id="hour" name="hour" class="form-control input120">
                         {houroptions}
                     </select>
                 </td>
@@ -59,7 +59,7 @@
             <tr>
                 <td class="content-title-noshade">{{weekday}}</td>
                 <td>
-                    <select id="weekday" name="weekday" class="input100">
+                    <select id="weekday" name="weekday" class="form-control input200">
                         {weekdays}
                     </select>
                 </td>

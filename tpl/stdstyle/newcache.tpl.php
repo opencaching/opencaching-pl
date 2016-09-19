@@ -492,7 +492,7 @@
         <col width="180"/>
         <col/>
     </colgroup>
-    <tr>
+    <tr class="form-group-sm">
         <td>
             <p class="content-title-noshade">{{newcache_import_wpt}}</p>
         </td>
@@ -500,7 +500,7 @@
             <div id="wptInfo" style="display: none; color: #006600; font-weight: bold;">{{newcache_import_wpt_ok}}</div>
             <form action="newcacheAjaxWaypointUploader.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
                 <p id="f1_upload_form"><br/>
-                    <input name="myfile" type="file" size="30" />
+                    <input name="myfile" class="form-control input200" type="file" size="30" />
                     <input class="btn btn-default btn-sm" type="submit" value="{{newcache_upload}}"/>
                 </p>
                 <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
@@ -522,15 +522,15 @@
         <input type="hidden" id="cache_attribs" name="cache_attribs" value="{cache_attribs}" />
         <input id="descMode" type="hidden" name="descMode" value="1" />
 
-        <tr>
+        <tr class="form-group-sm">
             <td><p class="content-title-noshade">{{name_label}}:</p></td>
-            <td><input type="text" name="name" id="name" value="{name}" maxlength="60" class="input400"/>{name_message}</td>
+            <td><input type="text" name="name" id="name" value="{name}" maxlength="60" class="form-control input400"/>{name_message}</td>
         </tr>
         <tr><td class="buffer" colspan="2"></td></tr>
-        <tr>
+        <tr class="form-group-sm">
             <td><p class="content-title-noshade">{{cache_type}}:</p></td>
             <td>
-                <select name="type" id="cacheType" class="input200" onchange="return _chkVirtual()">
+                <select name="type" id="cacheType" class="form-control input200" onchange="return _chkVirtual()">
                     {typeoptions}
                 </select>&nbsp;&nbsp;<img id="actionicons" name="actionicon" src="" align="top" alt="">{type_message}
             </td>
@@ -538,10 +538,10 @@
         <tr><td>&nbsp;</td>
             <td><div class="notice" style="width:500px;height:44px;">{{read_info_about_cache_types}}</div>
             </td></tr>
-        <tr>
+        <tr class="form-group-sm">
             <td><p class="content-title-noshade">{{cache_size}}:</p></td>
             <td>
-                <select name="size" id="size" class="input200" onchange="return _chkVirtual()" {is_disabled_size}>
+                <select name="size" id="size" class="form-control input200" onchange="return _chkVirtual()" {is_disabled_size}>
                     {sizeoptions}
                 </select>{size_message}
             </td>
@@ -550,23 +550,23 @@
         <tr>
             <td valign="top"><p class="content-title-noshade">{{coordinates}}:</p></td>
             <td class="content-title-noshade">
-                <fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FAFBDF;">
+                <fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FAFBDF;" class="form-group-sm">
                     <legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>&nbsp;&nbsp;&nbsp;
-                    <select name="latNS" id="latNS" class="input40">
+                    <select name="latNS" id="latNS" class="form-control input50">
                         <option value="N"{latNsel}>N</option>
                         <option value="S"{latSsel}>S</option>
                     </select>
-                    &nbsp;<input type="text" id="lat_h"  name="lat_h" maxlength="2" value="{lat_h}" class="input30" onchange="checkRegion()"/>
-                    &deg;&nbsp;<input type="text" id="lat_min" name="lat_min" maxlength="6" value="{lat_min}" class="input50" onkeyup="this.value = this.value.replace(/,/g, '.');" onchange="checkRegion()" />&nbsp;'&nbsp;
+                    &nbsp;<input type="text" id="lat_h"  name="lat_h" maxlength="2" value="{lat_h}" class="form-control input30" onchange="checkRegion()"/>
+                    &deg;&nbsp;<input type="text" id="lat_min" name="lat_min" maxlength="6" value="{lat_min}" class="form-control input50" onkeyup="this.value = this.value.replace(/,/g, '.');" onchange="checkRegion()" />&nbsp;'&nbsp;
                     <button class="btn btn-default btn-sm" onclick="return nearbycachemapOC()">{{check_nearby_caches_map}}</button>
                     {lat_message}<br />
                     &nbsp;&nbsp;&nbsp;
-                    <select name="lonEW" id="lonEW" class="input40">
+                    <select name="lonEW" id="lonEW" class="form-control input50">
                         <option value="W"{lonWsel}>W</option>
                         <option value="E"{lonEsel}>E</option>
                     </select>
-                    &nbsp;<input type="text" id="lon_h" name="lon_h" maxlength="3" value="{lon_h}" class="input30" onchange="checkRegion()" />
-                    &deg;&nbsp;<input type="text" id="lon_min" name="lon_min" maxlength="6" value="{lon_min}" class="input50" onkeyup="this.value = this.value.replace(/,/g, '.');" onchange="checkRegion()" />&nbsp;'&nbsp;
+                    &nbsp;<input type="text" id="lon_h" name="lon_h" maxlength="3" value="{lon_h}" class="form-control input30" onchange="checkRegion()" />
+                    &deg;&nbsp;<input type="text" id="lon_min" name="lon_min" maxlength="6" value="{lon_min}" class="form-control input50" onkeyup="this.value = this.value.replace(/,/g, '.');" onchange="checkRegion()" />&nbsp;'&nbsp;
                     <button class="btn btn-default btn-sm" onclick="return nearbycache()">{{check_nearby_caches}}</button><br />
                     {lon_message}</fieldset>
             </td>
@@ -574,10 +574,10 @@
         <tr><td>&nbsp;</td>
             <td><div class="notice" style="width:500px;height:44px;">{{check_nearby_caches_info}}</div>
             </td></tr>
-        <tr>
+        <tr class="form-group-sm">
             <td><p class="content-title-noshade">{{country_label}}:</p></td>
             <td>
-                <select name="country"  id="country" class="input200" onchange="javascript:chkcountry2()">
+                <select name="country"  id="country" class="form-control input200" onchange="javascript:chkcountry2()">
                     {countryoptions}
                 </select>
                 {show_all_countries_submit}
@@ -586,11 +586,11 @@
         <tr><td colspan="2"><div class="buffer"></div></td></tr>
         <tr><td colspan="2"><div><input type="hidden" name="altitude" id="altitude" value="0" placeholder="TODO: to be filled from gpx by ajax" /></div></td></tr>
         <tr><td colspan="2"><div class="buffer"></div></td></tr>
-        <tr>
+        <tr class="form-group-sm">
             <td><p id="region0" class="content-title-noshade">{{regiononly}}:</p></td>
             <td>
                 <!-- <select name="region" id="region1" class="input200" onchange="javascript:chkcountry()" > --></select>
-                <select name="region" id="region1" class="input200" >
+                <select name="region" id="region1" class="form-control input200" >
 
                 </select>&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/help.png" class="icon16" id="region2" alt=""/>&nbsp;<button class="btn btn-default btn-sm" id="region3" onclick="return extractregion()">{{region_from_coord}}</button>
                 <img id="regionAjaxLoader" style="display: none" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
@@ -598,14 +598,14 @@
             </td>
         </tr>
         <tr><td colspan="2"><div class="buffer"></div></td></tr>
-        <tr><td><p class="content-title-noshade">{{difficulty_level}}:</p></td>
+        <tr class="form-group-sm"><td><p class="content-title-noshade">{{difficulty_level}}:</p></td>
             <td>
                 {{task_difficulty}}:
-                <select name="difficulty" class="input60">
+                <select name="difficulty" class="form-control input100">
                     {difficulty_options}
                 </select>&nbsp;&nbsp;
                 {{terrain_difficulty}}:
-                <select name="terrain" class="input60">
+                <select name="terrain" class="form-control input100">
                     {terrain_options}
                 </select>{diff_message}
             </td>
@@ -615,26 +615,26 @@
             <td><div class="notice" style="width:500px;height:44px;">{{difficulty_problem}} <a href="rating-c.php" target="_BLANK">{{rating_system}}</a>.</div>
             </td>
         </tr>
-        <tr><td><p class="content-title-noshade">{{additional_information}} ({{optional}}):</p></td>
+        <tr class="form-group-sm"><td><p class="content-title-noshade">{{additional_information}} ({{optional}}):</p></td>
             <td>
                 {{time}}:
-                <input type="text" name="search_time" maxlength="10" value="{search_time}" class="input30" /> h
+                <input type="text" name="search_time" maxlength="10" value="{search_time}" class="form-control input30" /> h
                 &nbsp;&nbsp;
                 {{length}}:
-                <input type="text" name="way_length" maxlength="10" value="{way_length}" class="input30" /> km &nbsp; {effort_message}
+                <input type="text" name="way_length" maxlength="10" value="{way_length}" class="form-control input30" /> km &nbsp; {effort_message}
             </td>
         </tr>
         <tr>
             <td>&nbsp;</td>
             <td><div class="notice" style="width:500px;height:44px">{{time_distance_hint}}</div><div class="buffer"></div></td>
         </tr>
-        <tr>
+        <tr class="form-group-sm">
             <td><p class="content-title-noshade">{{foreign_waypoint}} ({{optional}}):</p></td>
             <td>
-                Geocaching.com: &nbsp;&nbsp;<input type="text" name="wp_gc" value="{wp_gc}" maxlength="7" class="input50"/>
-                Navicache.com: &nbsp;<input type="text" name="wp_nc" value="{wp_nc}" maxlength="6" class="input50"/><br/>
-                Terracaching.com: <input type="text" name="wp_tc" value="{wp_tc}" maxlength="7" class="input50"/>
-                GPSGames.org: <input type="text" name="wp_ge" value="{wp_ge}" maxlength="6" class="input50"/>
+                Geocaching.com: &nbsp;&nbsp;<input type="text" name="wp_gc" value="{wp_gc}" maxlength="7" class="form-control input50"/>
+                Navicache.com: &nbsp;<input type="text" name="wp_nc" value="{wp_nc}" maxlength="6" class="form-control input50"/><br/>
+                Terracaching.com: <input type="text" name="wp_tc" value="{wp_tc}" maxlength="7" class="form-control input50"/>
+                GPSGames.org: <input type="text" name="wp_ge" value="{wp_ge}" maxlength="6" class="form-control input50"/>
 
             </td>
         </tr>
@@ -662,19 +662,19 @@
             </td>
         </tr>
         <tr><td colspan="2"><div class="buffer"></div></td></tr>
-        <tr>
+        <tr class="form-group-sm">
             <td><p class="content-title-noshade">{{language}}:</p></td>
             <td>
-                <select name="desc_lang" class="input200">
+                <select name="desc_lang" class="form-control input200">
                     {langoptions}
                 </select>
                 {show_all_langs_submit}
             </td>
         </tr>
         <tr><td colspan="2"><div class="notice" style="width:500px;height:44px;">{{other_languages_desc}}</div></td></tr>
-        <tr>
+        <tr class="form-group-sm" >
             <td><p class="content-title-noshade">{{short_description}}:</p></td>
-            <td><input type="text" name="short_desc" maxlength="120" value="{short_desc}" class="input400"/></td>
+            <td><input type="text" name="short_desc" maxlength="120" value="{short_desc}" class="form-control input400"/></td>
         </tr>
         <tr>
             <td colspan="2">
@@ -734,11 +734,11 @@
         </tr>
         <tr><td colspan="2"><div class="buffer"></div></td></tr>
         <tr><td colspan="2"><div class="notice" style="width:500px;height:24px;">{{add_photo_newcache}}</div></td></tr>
-        <tr>
+        <tr class="form-group-sm">
             <td colspan="2">
                 <fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
                     <legend>&nbsp; <strong>{{date_hidden_label}}</strong> &nbsp;</legend>
-                    <input type="text" id="hiddenDatePicker" id="hiddenDatePicker" value="{hidden_year}-{hidden_month}-{hidden_day}" onchange="hiddenDatePickerChange('hidden');"/>
+                    <input type="text" class="form-control" id="hiddenDatePicker" id="hiddenDatePicker" value="{hidden_year}-{hidden_month}-{hidden_day}" onchange="hiddenDatePickerChange('hidden');"/>
                     <input type="hidden" name="hidden_year"  id="hidden_year"  maxlength="4" value="{hidden_year}"/>
                     <input type="hidden" name="hidden_month" id="hidden_month" maxlength="2" value="{hidden_month}"/>
                     <input type="hidden" name="hidden_day"   id="hidden_day"   maxlength="2" value="{hidden_day}"/>
@@ -748,29 +748,29 @@
         </tr>
         <tr><td colspan="2"><div class="notice buffer" style="width:500px;height:24px;">{{event_hidden_hint}}</div></td></tr>
         {hide_publish_start}
-        <tr>
+        <tr class="form-group-sm">
             <td colspan="2">
                 <fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
                     <legend>&nbsp; <strong>{{submit_new_cache}}</strong> &nbsp;</legend>
                     <input type="radio" class="radio" name="publish" id="publish_now" value="now" {publish_now_checked}/>&nbsp;<label for="publish_now">{{publish_now}}</label><br />
                     <input type="radio" class="radio" name="publish" id="publish_later" value="later" {publish_later_checked}/>&nbsp;<label for="publish_later">{{publish_date}}:</label>
-                    <input type="text" id="activateDatePicker" id="activateDatePicker" value="{activate_year}-{activate_month}-{activate_day}" onchange="hiddenDatePickerChange('activate');"/>
+                    <input type="text" class="form-control" id="activateDatePicker" id="activateDatePicker" value="{activate_year}-{activate_month}-{activate_day}" onchange="hiddenDatePickerChange('activate');"/>
                     <input class="input40" type="hidden" name="activate_year"  id="activate_year"  maxlength="4" value="{activate_year}"/>
                     <input class="input20" type="hidden" name="activate_month" id="activate_month" maxlength="2" value="{activate_month}"/>
                     <input class="input20" type="hidden" name="activate_day"   id="activate_day"   maxlength="2" value="{activate_day}"/>&nbsp;
-                    <select name="activate_hour" class="input40">{activation_hours}
+                    <select name="activate_hour" class="form-control input50">{activation_hours}
                     </select>&nbsp;{{hour}}&nbsp;{activate_on_message}<br />
                     <input type="radio" class="radio" name="publish" id="publish_notnow" value="notnow" {publish_notnow_checked}/>&nbsp;<label for="publish_notnow">{{dont_publish_yet}}</label>
                 </fieldset>
             </td>
         </tr>
         {hide_publish_end}
-        <tr>
+        <tr class="form-group-sm">
 
             <td colspan="2"><br />
                 <fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
                     <legend>&nbsp; <strong>{{log_password}}</strong> &nbsp;</legend>
-                    <input class="input100" type="text" name="log_pw" id="log_pw" value="{log_pw}" maxlength="20"/> ({{no_password_label}})
+                    <input class="form-control input100" type="text" name="log_pw" id="log_pw" value="{log_pw}" maxlength="20"/> ({{no_password_label}})
                 </fieldset>
             </td>
         </tr>

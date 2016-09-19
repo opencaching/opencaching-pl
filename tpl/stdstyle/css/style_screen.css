@@ -41,7 +41,7 @@ tr.highlighted > td {border-width:2px;}
 .site-name                  { width: 300px; height: 45px; top: 12px; position: absolute; z-index: 4; overflow: hidden; margin: 0px; padding-left: 80px;}
 .site-name p.title          { margin: 0px; padding: 0px; font-family: "trebuchet ms", arial, sans serif; font-weight: bold; font-size: 24px;}
 .site-name p.subtitle       { clear: both; width: 300px; margin: -6px 0px 0px 0px; padding: 0px; background-color: transparent; font-family: "trebuchet ms", arial, sans serif; font-size: 12px;}
-.site-name a                { margin: 0px; padding: 0px; text-decoration: none; color: rgb(0,0,0);}
+.site-name a                { margin: 0px; padding: 0px; text-decoration: none; color: #323232;}
 .site-name a:hover          { text-decoration: none;}
 .site-slogan-container      { text-align:right; width: 970px; top: 83px; position: absolute; z-index: 1; overflow: hidden; background-color: transparent;}
 .site-slogan                { float: right; width: auto; margin: 0px; padding: 5px 15px 5px 5px; background-image: url(../../../images/darkbluetransparent.png); background-repeat: repeat; font-size: 10px; border-left:1px solid rgb(100,100,100); border-top:1px solid rgb(100,100,100); border-bottom:1px solid rgb(100,100,100);}
@@ -74,7 +74,9 @@ tr.highlighted > td {border-width:2px;}
 .nav1 ul                        { float: right; margin: 0px; padding: 0px 20px 0px 0px; border-left: solid 1px rgb(115,162,182); background-color: rgb(255,255,255); font-weight: bold;}
 .nav1 li                        { display: inline; list-style: none; margin: 0px; padding: 0px;}
 .nav1 li a                      { display: block; float: left; margin: 0px; padding: 2px 5px 2px 5px; border-right: solid 1px rgb(115,162,182); color: rgb(115,162,182); text-decoration: none; font-size: 10px;}
-.nav1 a:hover, .nav2 a.selected { color: rgb(50,50,50); text-decoration: none;}
+.nav1 a                         { color: #337ab7;}
+.nav1 a:hover, .nav2 a.selected { color: rgb(50,50,50); }
+.nav1 a, .nav1 a:hover, .nav2 a.selected {text-decoration: none;}
 
 /*----------------------------*/
 /* 2.4 - Navigation - Level 2 */
@@ -520,7 +522,8 @@ a.btn {
     border-radius: 3px;
 }
 
-.btn-xs {
+.btn-xs,
+.form-file input {
     margin: 0;
     padding: 1px 5px;
     font-size: 10px;
@@ -533,9 +536,10 @@ a.btn {
 /*****************************/
 
 .form-control {
+    box-sizing: border-box;
     display: inline-block;
     width: 100%;
-    height: 34px;
+    height: 30px;
     padding: 6px 12px;
     font-size: 14px;
     line-height: 1.42857143;
@@ -552,7 +556,7 @@ a.btn {
 }
 
 .form-group-sm .form-control {
-    height: 18px;
+    height: 22px;
     padding: 1px 5px;
     font-size: 12px;
     line-height: 1.5;
@@ -560,7 +564,7 @@ a.btn {
 }
 
 .form-group-xs .form-control {
-    height: 15px;
+    height: 19px;
     padding: 1px 5px;
     font-size: 10px;
     line-height: 1.5;

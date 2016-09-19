@@ -159,15 +159,15 @@ function toggle() {
 
             <p class="errormsg">{openchecker_not_enabled}</p>
             {section_openchecker_form_start}
-            <form name="openchecker" action="{openchecker_script}" method="post">
+            <form name="openchecker" action="{openchecker_script}" method="post" class="form-group-sm">
                 <input type="hidden" name="cacheid" value="{cacheid}">
                 <input type="hidden" name="wp" value="{wp_oc}">
                 {{openchecker_coords}}:<br/><br/>
-                {{openchecker_degrees}} N: <input type="text" name="degrees_N" maxlength="2" size="2" />°
-                {{openchecker_minutes}} N:  <input type="text" name="minutes_N"  maxlength="6" size="5" onkeyup="this.value = this.value.replace(/,/g, '.'); this.selectionStart = this.selectionEnd = this.value.length;" /><br/><br/>
-                {{openchecker_degrees}} E: <input type="text" name="degrees_E" maxlength="3" size="2" />°
-                {{openchecker_minutes}} E:  <input type="text" name="minutes_E"  maxlength="6" size="5" onkeyup="this.value = this.value.replace(/,/g, '.'); this.selectionStart = this.selectionEnd = this.value.length;" /><br/><br/><br/>
-                <button type="submit" name="submit" value="{{openchecker_check}}" style="font-size:14px;width:160px"><b>{{openchecker_check}}</b></button>
+                {{openchecker_degrees}} N: <input type="text" name="degrees_N" maxlength="2" size="2" class="form-control input40" />°
+                {{openchecker_minutes}} N:  <input type="text" name="minutes_N"  maxlength="6" size="5" class="form-control input70" onkeyup="this.value = this.value.replace(/,/g, '.'); this.selectionStart = this.selectionEnd = this.value.length;" /><br/><br/>
+                {{openchecker_degrees}} E: <input type="text" name="degrees_E" maxlength="3" size="2" class="form-control input40" />°
+                {{openchecker_minutes}} E:  <input type="text" name="minutes_E"  maxlength="6" size="5" class="form-control input70" onkeyup="this.value = this.value.replace(/,/g, '.'); this.selectionStart = this.selectionEnd = this.value.length;" /><br/><br/><br/>
+                <button type="submit" name="submit" value="{{openchecker_check}}" class="btn btn-primary">{{openchecker_check}}</button>
             </form>
             {section_openchecker_form_stop}
         </div>

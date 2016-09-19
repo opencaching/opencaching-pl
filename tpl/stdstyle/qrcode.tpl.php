@@ -11,8 +11,8 @@
     <br/><br/>
     <form action="qrcode.php" method="post">
         <span style="font-weight:bold;font-size:14px;width:120px">{{qrcode_03}}:</span>&nbsp;<br />
-        <input name="data" value="{qrcode}" maxlength="77" size="70" style="font-size:14px;">&nbsp;
-        <button type="submit" name="Generuj" value="Generuj" style="font-size:14px;width:120px"><b>{{qrcode_04}}</b></button>
+        <input name="data" value="{qrcode}" maxlength="77" size="70" class="form-control input400">&nbsp;
+        <button type="submit" name="Generuj" value="Generuj" class="btn btn-primary"><b>{{qrcode_04}}</b></button>
     </form><br/><br/>
     <img src="tpl/stdstyle/images/misc/16x16-info.png" class="icon16" alt="Info" /> {{qrcode_05}}
     <p>&nbsp;</p>
