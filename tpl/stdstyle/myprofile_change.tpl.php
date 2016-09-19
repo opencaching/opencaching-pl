@@ -39,10 +39,10 @@
                 </td></tr>
 
             <tr><td class="buffer" colspan="2"></td></tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td class="content-title-noshade"><img src="tpl/stdstyle/images/free_icons/world.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{country_label}}:</td>
                 <td>
-                    <select name="country" class="input200">
+                    <select name="country" class="form-control input200">
                         {countrylist}
                     </select>
                     {allcountriesbutton}
@@ -67,7 +67,7 @@
                 <td class="content-title-noshade">
                     <fieldset style="border: 1px solid black; width: 50%; height: 32%; background-color: #FAFBDF;">
                         <legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>&nbsp;&nbsp;&nbsp;
-                        <select name="latNS" class="input40">
+                        <select name="latNS" class="form-control input50">
                             <option value="N"{latNsel}>N</option>
                             <option value="S"{latSsel}>S</option>
                         </select>
@@ -75,7 +75,7 @@
                         °&nbsp;<input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="form-control input50" />&nbsp;'&nbsp;
                         {lat_message}
                         <br/>&nbsp;&nbsp;&nbsp;
-                        <select name="lonEW" class="input40">
+                        <select name="lonEW" class="form-control input50">
                             <option value="E" {lonEsel}>E</option>
                             <option value="W" {lonWsel}>W</option>
                         </select>

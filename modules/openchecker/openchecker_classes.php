@@ -314,10 +314,10 @@ class OpenCheckerCore {
             $this->cache_wp = strtoupper($this->cache_wp);
         } else {
             $openchecker_form = '
-    <form action="' . $OpenCheckerSetup->scriptname . '" method="get">
+    <form action="' . $OpenCheckerSetup->scriptname . '" method="get" class="form-group-sm">
     ' . tr('openchecker_waypoint') . ':
-            <input type="text" name="wp" maxlength="6"/>
-            <button type="submit" name="submit" value="' . tr('openchecker_check') . '" style="font-size:14px;width:160px"><b>' . tr('openchecker_check') . '</b></button>
+            <input type="text" name="wp" maxlength="6" class="form-control input100"/>
+            <button type="submit" name="submit" value="' . tr('openchecker_check') . '" class="btn btn-default btn-sm">' . tr('openchecker_check') . '</button>
     </form>
             ';
             tpl_set_var("section_2_start", '<!--');

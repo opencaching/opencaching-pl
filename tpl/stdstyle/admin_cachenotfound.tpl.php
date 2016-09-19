@@ -20,14 +20,14 @@
                 <label for="l_show_duplicated">{{adm_cachenotfound_02}}</label><br />
             </td>
         </tr>
-        <tr>
+        <tr class="form-group">
             <td style="padding: 5px">
-                <select name='regionSel'>
+                <select name='regionSel' class="form-control input200">
                     <?php foreach( $GLOBALS['regions'] as $code => $regionName ) { ?>
                         <option value="<?=$code?>"><?=$regionName?></option>
                     <?php } //foreach ?>
                 </select>
-                <input type="submit" value={{filter}} class="formbuttons" />
+                <input type="submit" value={{filter}} class="btn btn-primary" />
             </td>
         </tr>
         <tr>

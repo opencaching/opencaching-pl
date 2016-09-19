@@ -316,7 +316,7 @@ if ($error == false && $usr['admin']) {
             $userlogin = strftime("%Y-%m-%d", strtotime($userlogin_query) );
         }
 
-        $content = "<tr>";
+        $content = "<tr class='form-group-sm'>";
 
         $content .= "<td><span class='content-title-noshade-size05'>" . $report['report_id'] . "</span></td>";
         $content .= "<td><span class='content-title-noshade-size05'>" . $report['submit_date'] . "</span></td>";
@@ -327,7 +327,7 @@ if ($error == false && $usr['admin']) {
         //$content .= "<td><a href='viewprofile.php?userid=".$report['responsible_id']."'>".getUsername($report['responsible_id'])."</a></td>";
 
         $content .= "<td>";
-        $content .= "<select name='respSel'>";
+        $content .= "<select name='respSel' class='form-control input100'>";
         $content .= "<option value='0'>brak</option>";
         $selected = "";
 
@@ -343,7 +343,7 @@ if ($error == false && $usr['admin']) {
         $content .= "</td>";
 
         $content .= "<td>";
-        $content .= "<select name='statusSel'>";
+        $content .= "<select name='statusSel' class='form-control input100'>";
         for ($i = 0; $i < 4; $i++) {
             if ($report['status'] == $i) {
                 $selected = "selected='selected'";
