@@ -38,7 +38,7 @@
                         </td>
                         <td align="left">
                             <input type="hidden" name ="cacheid" value="{cacheid}">
-                            <input type="submit" value="{{adopt_08}}">
+                            <input type="submit" class="btn btn-primary" value="{{adopt_08}}">
                         </td>
                     </tr>
                 </table>

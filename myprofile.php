@@ -482,7 +482,7 @@ if ($error == false) {
                 tpl_set_var('show_all_countries', $show_all_countries);
 
                 if ($show_all_countries == 0) {
-                    tpl_set_var('allcountriesbutton', '<input type="submit" class="formbuttons" name="submit_all_countries" value="' . $allcountries . '" />');
+                    tpl_set_var('allcountriesbutton', '<input class="btn btn-default btn-sm" type="submit" class="formbuttons" name="submit_all_countries" value="' . $allcountries . '" />');
                 } else {
                     tpl_set_var('allcountriesbutton', '');
                 }

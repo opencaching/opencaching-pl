@@ -15,16 +15,16 @@
                 <col width="150px">
                 <col>
             </colgroup>
-            <tr>
+            <tr class="form-group-sm">
                 <td><p class="content-title-noshade">{{email_address}}</p></td>
                 <td>
-                    <input name="email" type="text" value="{email}" maglength="60" class="input200"  /> {email_message}
+                    <input name="email" type="text" value="{email}" maglength="60" class="form-control input200"  /> {email_message}
                 </td>
             </tr>
             <tr>
                 <td width="150px">&nbsp;</td>
                 <td>
-                    <input type="submit" name="submit_getcode" value="{getcode}" class="formbuttons" />
+                    <input type="submit" name="submit_getcode" value="{getcode}" class="btn btn-primary btn-sm" />
                 </td>
             </tr>
         </table>
@@ -41,36 +41,36 @@
                 <col width="150px">
                 <col>
             </colgroup>
-            <tr>
+            <tr class="form-group-sm">
                 <td><p class="content-title-noshade">{{email_address}}</p></td>
                 <td>
-                    <input name="email" type="text" value="{email}" maglength="60" class="input200"  /> {email_message}
+                    <input name="email" type="text" value="{email}" maglength="60" class="form-control input200"  /> {email_message}
                 </td>
             </tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td><p class="content-title-noshade">{{security_code}}:</p></td>
                 <td>
-                    <input name="code" type="text" value="{code}" maglength="60" class="input200" />
+                    <input name="code" type="text" value="{code}" maglength="60" class="form-control input200" />
                     {code_message}
                 </td>
             </tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td><p class="content-title-noshade">{{new_password}}:</p></td>
                 <td>
-                    <input name="password" type="password" value="" maxlength="60" class="input120" /> {pw_message}
+                    <input name="password" type="password" value="" maxlength="60" class="form-control input120" /> {pw_message}
                 </td>
             </tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td><p class="content-title-noshade">{{password_confirm}}:</p></td>
                 <td>
-                    <input name="rp_pass" type="password" value="" maxlength="60" class="input120" />
+                    <input name="rp_pass" type="password" value="" maxlength="60" class="form-control input120" />
                 </td>
             </tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td class="header-small" colspan="2">
                     <div class="buffer"></div>
-                    <input type="reset" name="cancel" value="{reset}" class="formbuttons" />&nbsp;&nbsp;
-                    <input type="submit" name="submit_changepw" value="{changepw}" class="formbuttons" />
+                    <input type="reset" name="cancel" value="{reset}" class="btn btn-default" />&nbsp;&nbsp;
+                    <input type="submit" name="submit_changepw" value="{changepw}" class="btn btn-primary" />
                 </td>
             </tr>
         </table>

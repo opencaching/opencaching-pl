@@ -44,7 +44,7 @@ tpl_set_var('cachemap_f_ofound', '');
 tpl_set_var('coords', '');
 tpl_set_var('cachemap_c_u_f', '');
 //set up main template specific string
-$sLoggedOut = '<form action="login.php" method="post" enctype="application/x-www-form-urlencoded" name="login" dir="ltr" style="display: inline;">' . tr('user_or_email') . ':&nbsp;<input name="email" size="10" type="text" class="textboxes" value="" />&nbsp;' . tr('password') . ':&nbsp;<input name="password" size="10" type="password" class="textboxes" value="" />&nbsp;<input type="hidden" name="action" value="login" /><input type="hidden" name="target" value="{target}" /><input type="submit" name="LogMeIn" value="' . tr('login') . '" class="formbuttons" style="width:50px;" /></form>';
+$sLoggedOut = '<form action="login.php" method="post" enctype="application/x-www-form-urlencoded" name="login" dir="ltr" style="display: inline;" class="form-group-sm">' . tr('user_or_email') . ':&nbsp;<input name="email" size="10" type="text" class="form-control input100" value="" />&nbsp;' . tr('password') . ':&nbsp;<input name="password" size="10" type="password" class="form-control input100" value="" />&nbsp;<input type="hidden" name="action" value="login" /><input type="hidden" name="target" value="{target}" /><input type="submit" name="LogMeIn" value="' . tr('login') . '" class="btn btn-primary btn-sm" /></form>';
 $sLoggedIn = tr('logged_as') . ' <a href="viewprofile.php">{username}</a> - <a href="logout.php?token={logout_cookie}">' . tr('logout') . '</a>';
 
 // target in Loginbox setzen

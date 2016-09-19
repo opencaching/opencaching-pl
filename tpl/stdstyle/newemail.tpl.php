@@ -14,16 +14,16 @@
                 <col width="150px">
                 <col>
             </colgroup>
-            <tr>
+            <tr class="form-group-sm">
                 <td class="content-title-noshade">{{em02}}:</td>
                 <td>
-                    <input name="newemail" maxlength="60" type="text" value="{new_email}" class="input200" /> {email_message}
+                    <input name="newemail" maxlength="60" type="text" value="{new_email}" class="form-control input200" /> {email_message}
                 </td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
                 <td>
-                    <input type="submit" name="submit_getcode" value="{getcode}" class="formbuttons" />
+                    <input type="submit" name="submit_getcode" value="{getcode}" class="btn btn-primary btn-sm" />
                 </td>
             </tr>
         </table>
@@ -33,15 +33,15 @@
                 <col width="150px">
                 <col>
             </colgroup>
-            <tr>
+            <tr class="form-group-sm">
                 <td class="content-title-noshade">{{em04}}:</td>
                 <td>
-                    <input name="code" maxlength="60" type="text" value="" class="input100" />{code_message}
+                    <input name="code" maxlength="60" type="text" value="" class="form-control input100" />{code_message}
                 </td>
             </tr>
         </table>
         <div class="buffer"></div>
-        <input type="reset" name="reset" value="{{reset}}" class="formbuttons" />&nbsp;&nbsp;
-        <input type="submit" name="submit_changeemail" value="{change_email}" class="formbuttons" />
+        <input type="reset" name="reset" value="{reset}" class="btn btn-default" />&nbsp;&nbsp;
+        <input type="submit" name="submit_changeemail" value="{change_email}" class="btn btn-primary" />
     </form>
 </div>

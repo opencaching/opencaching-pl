@@ -1125,7 +1125,7 @@ $translations = array(
     '' => '',
     'choose' => 'Wählen',
     'nc01' => 'Lieber Benutzer',
-    'nc02' => 'danke, dass du deinen Cache bei {site_name} einträgst. Falls du Hilfe mit dem Verstecken oder Eintragen des Caches brauchst, kannst du unserem <a class="links" href="{wiki_link_main}">Opencaching wiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> nachlesen oder bei größeren Problemen uns direckt unter octeam kontaktieren. Denke daran, dass der Cache auch etwas über dich selbst erzählt. Um einen Cache mit möglichst guter Qualität sicherzustellen, bitten wir dich, dir selbst die folgenden Fragen zu stellen und zu beantworten:<ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">',
+    'nc02' => 'danke, dass du deinen Cache bei {site_name} einträgst. Falls du Hilfe mit dem Verstecken oder Eintragen des Caches brauchst, kannst du unserem <a class="links" href="{wiki_link_main}">Opencaching wiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> nachlesen oder bei größeren Problemen uns direckt unter octeam kontaktieren. Denke daran, dass der Cache auch etwas über dich selbst erzählt. Um einen Cache mit möglichst guter Qualität sicherzustellen, bitten wir dich, dir selbst die folgenden Fragen zu stellen und zu beantworten:',
     'nc03' => 'Liegt der Cache an einer Stelle versteckt, an der er nicht gegen Gesetze verstößt, und ist er nicht auf Privatgrund ohne Erlaubnis des Besitzers versteckt?',
     'nc04' => 'Ist der Cache nicht in einem Nationalpark, einem Naturschutzgebiet, einem Denkmal, einem Friedhof oder einem anderen gesetzlich geschützten Gebiet versteckt?',
     'nc05' => 'Ist der Abstand zu anderen Caches (150m) eingehalten?',

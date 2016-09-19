@@ -306,7 +306,7 @@
                 <select name="region" id="region1" class="input200" onChange="yes_change();">
 
                 </select>
-                &nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/help.png" class="icon16" alt=""/>&nbsp;<button onclick="return extractregion()">{{region_from_coord}}</button>
+                &nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/help.png" class="icon16" alt=""/>&nbsp;<button class="btn btn-default btn-sm" onclick="return extractregion()">{{region_from_coord}}</button>
 
             </td>
         </tr>
@@ -461,7 +461,7 @@
         <tr>
             <td colspan="2">
 
-                <button type="submit" name="submit" value="{submit}" style="font-size:14px;width:130px"><b>{{store}}</b></button>
+                <button type="submit" name="submit" value="{submit}" class="btn btn-primary"><b>{{store}}</b></button>
                 <br /><br /></td>
         </tr>
     </table>

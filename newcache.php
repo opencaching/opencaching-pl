@@ -384,7 +384,7 @@ if ($error == false) {
             }
         } else {
             tpl_set_var('show_all_countries', '0');
-            tpl_set_var('show_all_countries_submit', '<input type="submit" name="show_all_countries_submit" value="' . $show_all . '"/>');
+            tpl_set_var('show_all_countries_submit', '<input class="btn btn-default btn-sm" type="submit" name="show_all_countries_submit" value="' . $show_all . '"/>');
         }
 
         foreach ($defaultCountryList as $record) {
@@ -816,7 +816,7 @@ function getDefaultCountry($usr, $lang)
 function buildDescriptionLanguageSelector($show_all_langs, $lang, $defaultLangugaeList, $db, $show_all, $show_all_langs)
 {
     tpl_set_var('show_all_langs', '0');
-    tpl_set_var('show_all_langs_submit', '<input type="submit" name="show_all_langs_submit" value="' . $show_all . '"/>');
+    tpl_set_var('show_all_langs_submit', '<input class="btn btn-default btn-sm" type="submit" name="show_all_langs_submit" value="' . $show_all . '"/>');
     if ($show_all_langs == 1) {
         tpl_set_var('show_all_langs', '1');
         tpl_set_var('show_all_langs_submit', '');

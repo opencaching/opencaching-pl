@@ -16,10 +16,10 @@
                 <col width="150">
                 <col>
             </colgroup>
-            <tr>
+            <tr class="form-group-sm">
                 <td class="content-title-noshade"><img src="tpl/stdstyle/images/free_icons/user.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{username_label}}:</td>
                 <td>
-                    <input type="text" name="username" maxlength="60" value="{username}" class="input200"/>
+                    <input type="text" name="username" maxlength="60" value="{username}" class="form-control input200"/>
                     {username_message}
                 </td>
             </tr>
@@ -28,9 +28,9 @@
                 <td class="content-title-noshade txt-grey07"><img src="tpl/stdstyle/images/free_icons/email.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{email_address}}:</font></td>
                 <td class="txt-grey07">{email}</td>
             </tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td class="content-title-noshade txt-grey07"><img src="tpl/stdstyle/images/description/22x22-geokret.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{GKApi02}}:</font></td>
-                <td class="txt-grey07"><input type="text" name="GeoKretyApiSecid" maxlength="150" value="{GeoKretyApiSecid}" class="input200"/> <span style="color: red; font-weight:bold; font-size: 12;">{secid_message}</span></td>
+                <td class="txt-grey07"><input type="text" name="GeoKretyApiSecid" maxlength="150" value="{GeoKretyApiSecid}" class="form-control input200"/> <span style="color: red; font-weight:bold; font-size: 12;">{secid_message}</span></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
@@ -62,7 +62,7 @@
                 </td></tr>
             {guide_end}
             <tr><td class="buffer" colspan="2"></td></tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{coordinates}}:</td>
                 <td class="content-title-noshade">
                     <fieldset style="border: 1px solid black; width: 50%; height: 32%; background-color: #FAFBDF;">
@@ -71,16 +71,16 @@
                             <option value="N"{latNsel}>N</option>
                             <option value="S"{latSsel}>S</option>
                         </select>
-                        &nbsp;<input type="text" name="lat_h" maxlength="2" value="{lat_h}" class="input30" />
-                        °&nbsp;<input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="input50" />&nbsp;'&nbsp;
+                        &nbsp;<input type="text" name="lat_h" maxlength="2" value="{lat_h}" class="form-control input30" />
+                        °&nbsp;<input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="form-control input50" />&nbsp;'&nbsp;
                         {lat_message}
                         <br/>&nbsp;&nbsp;&nbsp;
                         <select name="lonEW" class="input40">
                             <option value="E" {lonEsel}>E</option>
                             <option value="W" {lonWsel}>W</option>
                         </select>
-                        &nbsp;<input type="text" name="lon_h" maxlength="3" value="{lon_h}" class="input30" />
-                        °&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="input50" />&nbsp;'&nbsp;
+                        &nbsp;<input type="text" name="lon_h" maxlength="3" value="{lon_h}" class="form-control input30" />
+                        °&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="form-control input50" />&nbsp;'&nbsp;
                         {lon_message}
                     </fieldset><br/>
                     <div class="notice" style="width:500px;height:44px;">{{myprofile07}}.</div>
@@ -88,11 +88,11 @@
                 </td>
             </tr>
             <tr><td class="buffer" colspan="2"></td></tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td class="content-title-noshade txt-grey07" valign="top"><img src="tpl/stdstyle/images/free_icons/email_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{notification}}:</td>
                 <td class="txt-grey07" valign="top">
                     {{notify_new_caches_radius}}&nbsp;
-                    <input type="text" name="notify_radius" maxlength="3" value="{notify_radius}" class="input30" />
+                    <input type="text" name="notify_radius" maxlength="3" value="{notify_radius}" class="form-control input30" />
                     &nbsp;km {{from_home_coords}}.
                     &nbsp;
                     <div class="errormsg">{notify_message}</div>
@@ -134,9 +134,9 @@
             </tr>
 
             <tr><td class="buffer" colspan="2"></td></tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td class="content-title-noshade txt-grey07" valign="top"><img src="tpl/stdstyle/images/free_icons/plugin.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{ozi_path_label}}:</td>
-                <td class="txt-grey07" valign="top"><input type="text" size="46" name="ozi_path" value="{ozi_path}"><br/>
+                <td class="txt-grey07" valign="top"><input type="text" size="46" name="ozi_path" value="{ozi_path}" class="form-control input300"><br/>
                     <div class="notice" style="width:500px;height:44px;">{{ozi_path_info}}</div>
                     <div class="notice" style="width:500px;height:44px;">{{ozi_path_info2}}</div>
                 </td>
@@ -149,7 +149,7 @@
             <tr><td class="buffer" colspan="2"></td></tr>
             <tr>
                 <td colspan="2">
-                    <button type="submit" name="submit" value="{{change}}" style="font-size:14px;width:160px"><b>{{change}}</b></button>
+                    <button type="submit" name="submit" value="{{change}}" class="btn btn-primary">{{change}}</button>
 
                 </td>
             </tr>

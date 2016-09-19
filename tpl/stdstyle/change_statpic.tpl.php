@@ -11,10 +11,10 @@
             <col width="200">
             <col>
         </colgroup>
-        <tr>
+        <tr class="form-group-sm">
             <td class="content-title-noshade">{{user_statpic_text}}:</td>
             <td>
-                <input type="text" name="statpic_text" maxlength="30" value="{statpic_text}" class="input200"/>
+                <input type="text" name="statpic_text" maxlength="30" value="{statpic_text}" class="form-control input200"/>
                 {{statpic_text_message}}
             </td>
         </tr>
@@ -23,8 +23,8 @@
         <tr><td class="buffer" colspan="2"></td></tr>
         <tr>
             <td colspan="2">
-                <input type="reset" name="reset" value="{{reset}}" class="formbuttons"/>&nbsp;&nbsp;
-                <input type="submit" name="submit" value="{{change}}" class="formbuttons"/>
+                <input type="reset" name="reset" value="{{reset}}" class="btn btn-default"/>&nbsp;&nbsp;
+                <input type="submit" name="submit" value="{{change}}" class="btn btn-primary"/>
             </td>
         </tr>
     </form>

@@ -359,7 +359,7 @@
             <tr>
                 <td></td>
                 <td colspan="2">
-                    <button type="submit" name="save" value="save" style="width:100px">{{save}}</button>&nbsp;&nbsp;
+                    <button type="submit" name="save" value="save" class="btn btn-default btn-sm">{{save}}</button>&nbsp;&nbsp;
                     <img src="tpl/stdstyle/images/misc/16x16-info.png" class="icon16" alt="Info" />
                     <small>
                         {{cache_note_visible}}</td>
@@ -394,8 +394,8 @@
             <tr>
                 <td></td>
                 <td colspan="2">&nbsp;
-                    <button type="submit" name="edit" value="edit" style="width:100px">{{Edit}}</button>&nbsp;&nbsp;
-                    <button type="submit" name="remove" value="remove" style="width:100px">{{delete}}</button>&nbsp;&nbsp;
+                    <button type="submit" name="edit" value="edit" class="btn btn-default btn-sm">{{Edit}}</button>&nbsp;&nbsp;
+                    <button type="submit" name="remove" value="remove" class="btn btn-default btn-sm">{{delete}}</button>&nbsp;&nbsp;
                     <img src="tpl/stdstyle/images/misc/16x16-info.png" class="icon16" alt="Info" />
                     <small>
                         {{cache_note_visible}}</td>

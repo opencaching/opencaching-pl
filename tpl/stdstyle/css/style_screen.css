@@ -16,7 +16,7 @@ div#cacheinfo       { background-color: blue;}
 div#overall         { min-width: 970px; width: 100%; overflow: hidden; }
 div#bg1             { display: none;}
 div#bg2             { display: none;}
-body                { font-size: 62.5%; margin: 0px auto; padding: 0px; background-color: #cccccc; font-family: arial, sans-serif, Tahoma, Verdana;}
+body                { font-size: 62.5%; line-height: 1.42857143; margin: 0px auto; padding: 0px; background-color: #cccccc; font-family: arial, sans-serif, Tahoma, Verdana;}
 .page-container-1   { width: 970px; margin: 0px auto; padding: 0px; background-color:#ffffff; border: solid 1px rgb(100,100,100);}
 
 /*************************************/
@@ -43,14 +43,14 @@ tr.highlighted > td {border-width:2px;}
 .site-name p.subtitle       { clear: both; width: 300px; margin: -6px 0px 0px 0px; padding: 0px; background-color: transparent; font-family: "trebuchet ms", arial, sans serif; font-size: 12px;}
 .site-name a                { margin: 0px; padding: 0px; text-decoration: none; color: rgb(0,0,0);}
 .site-name a:hover          { text-decoration: none;}
-.site-slogan-container      { text-align:right; width: 970px; top: 86px; position: absolute; z-index: 1; overflow: hidden; background-color: transparent;}
-.site-slogan                { float: right; width: auto; margin: 0px; padding: 5px; background-image: url(../../../images/darkbluetransparent.png); background-repeat: repeat; font-size: 10px; border-left:1px solid rgb(100,100,100); border-top:1px solid rgb(100,100,100); border-bottom:1px solid rgb(100,100,100);}
+.site-slogan-container      { text-align:right; width: 970px; top: 83px; position: absolute; z-index: 1; overflow: hidden; background-color: transparent;}
+.site-slogan                { float: right; width: auto; margin: 0px; padding: 5px 15px 5px 5px; background-image: url(../../../images/darkbluetransparent.png); background-repeat: repeat; font-size: 10px; border-left:1px solid rgb(100,100,100); border-top:1px solid rgb(100,100,100); border-bottom:1px solid rgb(100,100,100);}
 .site-slogan input          { background-image: url(../../../images/blank.gif); }
 .site-slogan form           { background-color: transparent; }
 .site-slogan p.title        { float: right; width: 900px; margin: 0px; padding: 0px; color: rgb(234,239,247); font-family: arial, sans serif;  text-align: right; font-weight: bold; font-size: 220%;}
 .site-slogan p.subtitle     { clear: both; float: right; width: 900px; margin: -5px 0px 0px 0px; padding: 0px; color: rgb(234,239,247); font-family: arial, sans serif; text-align: right; font-weight: bold; font-size: 200%;}
 //.site-slogan p.text       { clear: both; float: right; width: 300px; margin: 10px 0px 0px 0px; padding: 10px; color: rgb(234,239,247); background-color: rgb(127,162,202); font-family: arial, sans serif; text-align: right; font-weight: bold; line-height: 1.0em; font-size: 140%;}
-.site-slogan p.search       { clear: both; float: right; padding: 0px; color: rgb(255,255,255); /*font-family: arial, sans serif; */ text-align: right; line-height: 1.0em; font-size: 10px; white-space: nowrap;}
+.site-slogan p.search       { clear: both; float: right; margin-right: -5px; padding: 0px; color: rgb(255,255,255); /*font-family: arial, sans serif; */ text-align: right; line-height: 1.0em; font-size: 10px; white-space: nowrap;}
 .site-slogan P.search LABEL { position: relative; bottom: 0.2em;}
 .site-slogan a              { color: rgb(234,239,247); text-decoration: underline;}
 .site-slogan a:hover        { text-decoration: none; color: rgb(50,50,50);}
@@ -447,14 +447,16 @@ br                  { clear: none;}
     box-sizing:border-box;
     padding: 6px 11px;
     margin: 5px 0;
-    border-radius: 3px;
+    border-radius: 4px;
     border: 1px solid;
     font-size: 14px;
+    cursor: pointer;
 }
 a.btn {
     text-decoration: none;
 }
 
+/* button variant*/
 .btn.btn-default {
     color: #333;
     background-color: #fff;
@@ -502,6 +504,97 @@ a.btn {
     background-color: #c9302c;
     border-color: #ac2925;
 }
+
+/* button size*/
+.btn-lg {
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    border-radius: 6px;
+}
+
+.btn-sm {
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+.btn-xs {
+    margin: 0;
+    padding: 1px 5px;
+    font-size: 10px;
+    line-height: 1.5;
+    border-radius: 3px;
+}    
+
+/*****************************/
+/* FORMS */
+/*****************************/
+
+.form-control {
+    display: inline-block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.form-group-sm .form-control {
+    height: 18px;
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+.form-group-xs .form-control {
+    height: 15px;
+    padding: 1px 5px;
+    font-size: 10px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+/*****************************/
+/* CALLOUTS */
+/*****************************/
+
+.callout {
+    padding: 20px;
+    margin: 20px 20px 20px 0;
+    border: 1px solid #ddd;
+    border-left-width: 5px;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.callout .callout-title {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.callout.callout-info .callout-title,
+.callout.callout-info .callout-highlight {
+    color: #1b809e;
+}
+
+.callout.callout-info {
+    border-left-color: #1b809e;
+}
+
 
 /* styles for inputfields */
 input               { border:1px solid black;    background-color:white;    padding:1px; font-size:11px;color: black;}
@@ -694,7 +787,7 @@ div.gsc-resultsRoot, div.gsc-branding-text, img.gsc-branding-img {
 /* linki w recomendation cache sp2ong */
 a.links:link {
     font-weight:bold;
-    color: black;
+    color: #323232;
     text-decoration:none;
 }
 
@@ -704,13 +797,12 @@ a.links:visited {
 }
 
 a.links:active {
-    background-color: yellow;
     text-decoration:none;
 }
 
 a.links:hover {
     font-weight:bold;
-    color:blue;
+    color:black;
     text-decoration: underline;
 }
 a.links-onlusers:link {
@@ -733,24 +825,23 @@ a.links-onlusers:hover {
 }
 a.links2:link {
     font-weight:bold;
-    color: black;
+    color: #323232;
     text-decoration:none;
 }
 
 a.links2:visited {
     font-weight:bold;
-    color: black;
+    color: #323232;
     text-decoration:none;
 }
 
 a.links2:active {
-    background-color: yellow;
     text-decoration:none;
 }
 
 a.links2:hover {
     font-weight:bold;
-    color:blue;
+    color:black;
     text-decoration: none;
 }
 a.info{
@@ -801,7 +892,6 @@ a.links4:visited {
 }
 
 a.links4:active {
-    background-color: yellow;
     text-decoration:none;
 }
 
