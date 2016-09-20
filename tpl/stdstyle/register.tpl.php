@@ -15,7 +15,7 @@
     </div>
     <div class="form-group-sm">
         <label for="country">{{country_label}}</label>
-        <select name="country" id="country" class="input200" >
+        <select name="country" id="country" class="form-control input200" >
             {countries_list}
         </select>&nbsp;{all_countries_submit}
     </div>

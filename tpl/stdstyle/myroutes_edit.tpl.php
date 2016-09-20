@@ -61,27 +61,27 @@ $polyline = $encoder->encode($points);
     <input type="hidden" name="MAX_FILE_SIZE" value="51200" />
     <div class="searchdiv">
         <table class="content">
-            <tr>
+            <tr class="form-group-sm">
                 <td valign='top' width='25%'><span style="font-weight:bold;">{{route_name}}:</span></td>
-                <td width='75%'><input type='text' name='name' size='50' value='{name}' /></td>
+                <td width='75%'><input type='text' name='name' size='50' class='form-control input300' value='{name}' /></td>
             </tr>
             <tr>
                 <td valign='top' width='25%'><span style="font-weight:bold;">{{route_desc}}:</span></td>
                 <td width='75%'><textarea name='desc' cols='80' rows='3' >{desc}</textarea></td>
             </tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td valign='top' width='25%'><span style="font-weight:bold;">{{route_radius}} (km):</span></td>
-                <td width='75%'><input type='text' name='radius' size='5' value='{radius}' />&nbsp;&nbsp;<span class="notice">{{radius_info}}</span></td>
+                <td width='75%'><input type='text' name='radius' size='5' class='form-control input50' value='{radius}' />&nbsp;&nbsp;<span class="notice">{{radius_info}}</span></td>
             </tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td valign="top"><span style="font-weight:bold;">{{file_name}} KML:</span></td>
-                <td><input class="input200" name="file" type="file" /></td>
+                <td><input class='form-control input200' name="file" type="file" /></td>
             </tr>
             <tr><td class="buffer" colspan="2"></td></tr>
             <tr>
                 <td valign="top" align="left" colspan="2">
-                    <button type="submit" name="back" value="back" style="font-size:12px;width:160px"><b>{{cancel}}</b></button>&nbsp;&nbsp;
-                    <button type="submit" name="submit" value="submit" style="font-size:12px;width:160px"><b>{{save}}</b></button>
+                    <button type="submit" name="back" value="back" class="btn btn-default">{{cancel}}</button>&nbsp;&nbsp;
+                    <button type="submit" name="submit" value="submit" class="btn btn-primary">{{save}}</button>
                     <br /><br /></td>
             </tr>
         </table>

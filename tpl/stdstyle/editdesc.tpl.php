@@ -42,18 +42,18 @@
             <col width="100"/>
             <col/>
         </colgroup>
-        <tr>
+        <tr class="form-group-sm">
             <td class="content-title-noshade">{{language}}:</td>
             <td>
-                <select name="desclang">
+                <select name="desclang" class="form-control input120">
                     {desclangs}
                 </select>{show_all_langs_submit}
             </td>
         </tr>
         <tr><td class="buffer" colspan="2"></td></tr>
-        <tr>
+        <tr class="form-group-sm">
             <td class="content-title-noshade">{{short_description}}:</td>
-            <td><input type="text" name="short_desc" maxlength="120" value="{short_desc}" class="input400"/></td>
+            <td><input type="text" name="short_desc" maxlength="120" value="{short_desc}" class="form-control input400"/></td>
         </tr>
         <tr>
             <td colspan="2">

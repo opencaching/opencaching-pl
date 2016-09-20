@@ -223,10 +223,10 @@
         </div>
         <div class="searchdiv">
             <table class="table">
-                <tr>
+                <tr class="form-group-sm">
                     <td valign="top" class="content-title-noshade">{{task_difficulty}}:</td>
                     <td class="content-title-noshade">
-                        {{from}} <select name="cachedifficulty_1" onchange="javascript:sync_options(this)">
+                        {{from}} <select name="cachedifficulty_1" class="form-control input50" onchange="javascript:sync_options(this)">
                             <option value="1" {cdf2}>1</option>
                             <option value="1.5" {cdf3}>1.5</option>
                             <option value="2" {cdf4}>2</option>
@@ -237,7 +237,7 @@
                             <option value="4.5" {cdf9}>4.5</option>
                             <option value="5" {cdf10}>5</option>
                         </select>
-                        {{to}} <select name="cachedifficulty_2"  onchange="javascript:sync_options(this)">
+                        {{to}} <select name="cachedifficulty_2" class="form-control input50" onchange="javascript:sync_options(this)">
                             <option value="1" {cdt2}>1</option>
                             <option value="1.5" {cdt3}>1.5</option>
                             <option value="2" {cdt4}>2</option>
@@ -250,11 +250,11 @@
                         </select>
                     </td>
                 </tr>
-                <tr><td class="buffer" colspan="3"></td></tr>
-                <tr>
+                <tr class="form-group-sm"><td class="buffer" colspan="3"></td></tr>
+                <tr class="form-group-sm">
                     <td valign="top" class="content-title-noshade">{{terrain_difficulty}}:</td>
                     <td class="content-title-noshade">
-                        {{from}} <select name="cacheterrain_1"  onchange="javascript:sync_options(this)">
+                        {{from}} <select name="cacheterrain_1" class="form-control input50" onchange="javascript:sync_options(this)">
                             <option value="1" {ctf2}>1</option>
                             <option value="1.5" {ctf3}>1.5</option>
                             <option value="2" {ctf4}>2</option>
@@ -265,7 +265,7 @@
                             <option value="4.5" {ctf9}>4.5</option>
                             <option value="5" {ctf10}>5</option>
                         </select>
-                        {{to}} <select name="cacheterrain_2" onchange="javascript:sync_options(this)">
+                        {{to}} <select name="cacheterrain_2" class="form-control input50" onchange="javascript:sync_options(this)">
                             <option value="1" {ctt2}>1</option>
                             <option value="1.5" {ctt3}>1.5</option>
                             <option value="2" {ctt4}>2</option>
@@ -283,34 +283,34 @@
 
         <div class="searchdiv">
             <table class="table">
-                <tr>
+                <tr class="form-group-sm">
                     <td valign="top" class="content-title-noshade">{{score}}:</td>
                     <td class="content-title-noshade">
-                        {{from}} <select name="cachevote_1" onchange="javascript:sync_options(this)">
+                        {{from}} <select name="cachevote_1" class="form-control input200" onchange="javascript:sync_options(this)">
                             <option value="-3" {cvf6}>{{rating_poor}}</option>
                             <option value="-1" {cvf1}>{{rating_mediocre}}</option>
                             <option value="0.1" {cvf2}>{{rating_avarage}}</option>
                             <option value="1.4" {cvf4}>{{rating_good}}</option>
                             <option value="2.2" {cvf5}>{{rating_excellent}}</option>
                         </select>
-                        {{to}} <select name="cachevote_2" onchange="javascript:sync_options(this)">
+                        {{to}} <select name="cachevote_2" class="form-control input200" onchange="javascript:sync_options(this)">
                             <option value="-0.999" {cvt1}>{{rating_poor}}</option>
                             <option value="0.099" {cvt2}>{{rating_mediocre}}</option>
                             <option value="1.399" {cvt4}>{{rating_avarage}}</option>
                             <option value="2.199" {cvt5}>{{rating_good}}</option>
                             <option value="3.000" {cvt6}>{{rating_excellent}}</option>
-                        </select>
+                        </select><br/>
                         <input type="checkbox" name="cachenovote" value="1" id="l_cachenovote" class="checkbox" onclick="javascript:sync_options(this)" {cachev}/><label for="l_cachenovote">{{with_hidden_score}}</label>
                     </td>
                 </tr>
                 <tr><td class="buffer" colspan="3"></td></tr>
-                <tr>
+                <tr class="form-group-sm">
                     <td class="content-title-noshade">{{search_recommendations}}:</td>
 
                     <td class="content-title-noshade" colspan="2">
                         <input type="radio" name="cache_rec" value="0" tabindex="0" id="l_all_caches" class="radio" onclick="javascript:sync_options(this)" {all_caches_checked} /> <label for="l_all_caches">{{search_all_caches}}</label>&nbsp;
                         <input type="radio" name="cache_rec" value="1" tabindex="1" id="l_recommended_caches" class="radio" onclick="javascript:sync_options(this)" {recommended_caches_checked} /> <label for="l_recommended_caches">{{search_recommended_caches}}</label>&nbsp;
-                        <input type="text" name="cache_min_rec" value="{cache_min_rec}" maxlength="3" class="input50" onchange="javascript:sync_options(this)" {min_rec_caches_disabled} />
+                        <input type="text" name="cache_min_rec" value="{cache_min_rec}" maxlength="3" class="form-control input50" onchange="javascript:sync_options(this)" {min_rec_caches_disabled} />
                     </td>
                 </tr>
 
@@ -326,9 +326,9 @@
 
     </div>
     <br/>
-    <button type="submit" name="back_list" value="back_list" style="font-size:12px;width:160px"><b>{{back}}</b></button>&nbsp;&nbsp;
-    <button type="submit" name="submit" value="submit" style="font-size:12px;width:160px"><b>{{show_list}}</b></button>
-    <button type="submit" name="submit_map" value="submit_map" style="font-size:12px;width:160px"><b>{{show_gmap}}</b></button>
+    <button type="submit" name="back_list" value="back_list" class="btn btn-default">{{back}}</button>&nbsp;&nbsp;
+    <button type="submit" name="submit" value="submit" class="btn btn-primary">{{show_list}}</button>
+    <button type="submit" name="submit_map" value="submit_map" class="btn btn-primary">{{show_gmap}}</button>
 
 </form>
 <br/><br/><br/>

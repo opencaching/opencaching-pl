@@ -120,16 +120,16 @@ global $rootpath;
 
     <div class="searchdiv">
         <table class="content">
-            <tr>
+            <tr class="form-group-sm">
                 <td align="right"><span style="font-weight:bold;">{{route_01}}&nbsp;</span></td>
-                <td><input type="text" size="25" id="driveFrom" name="from" value=""/></td>
+                <td><input type="text" size="25" id="driveFrom" name="from" class="form-control input200" value=""/></td>
                 <td rowspan="2"><span style="font-weight:bold;">Via: </span></td>
                 <td rowspan="2"><textarea name="via" id="driveVia" rows="2" cols="22"></textarea></td>
-                <td rowspan="2" align="right">&nbsp;&nbsp;<button name="submit" type="submit" value="Go" onclick="getDirections()">{{setup_new_route}}</button></td>
+                <td rowspan="2" align="right">&nbsp;&nbsp;<button name="submit" class="btn btn-default btn-sm" type="submit" value="Go" onclick="getDirections()">{{setup_new_route}}</button></td>
             </tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td align="right"><span style="font-weight:bold;">{{route_02}}&nbsp;</span></td>
-                <td align="right"><input type="text" size="25" id="driveTo" name="to" value="" /></td>
+                <td align="right"><input type="text" size="25" id="driveTo" name="to" class="form-control input200" value="" /></td>
             </tr>
         </table>
     </div>
@@ -161,21 +161,21 @@ global $rootpath;
             <input type="hidden" name="distance" value="" />
             <input type="hidden" name="route_points" value="" />
             <table class="content">
-                <tr>
+                <tr class="form-group-sm">
                     <td valign='top' width='25%'><span style="font-weight:bold;">{{route_name}}:</span></td>
-                    <td width='75%'><input type='text' name='name' size='50' value=''></td>
+                    <td width='75%'><input type='text' name='name' size='50' class="form-control input300" value=''></td>
                 </tr>
                 <tr>
                     <td valign='top' width='25%'><span style="font-weight:bold;">{{route_desc}}:</span></td>
                     <td width='75%'><textarea name='desc' cols='80' rows='3'></textarea></td>
                 </tr>
-                <tr>
+                <tr class="form-group-sm">
                     <td valign='top' width='25%'><span style="font-weight:bold;">{{route_radius}} (km):</span></td>
-                    <td width='75%'><input type='text' name='radius' size='5' value=''>&nbsp;&nbsp;<span class="notice">{{radius_info}}</span></td>
+                    <td width='75%'><input type='text' name='radius' size='5' class="form-control input50" value=''>&nbsp;&nbsp;<span class="notice">{{radius_info}}</span></td>
                 </tr>
                 <tr>
                     <td valign="top" align="left" colspan="2"><br /><br />
-                        <button type="submit" name="submitform" value="submit"  style="font-size:12px;width:160px"><b>{{save_route}}</b></button>
+                        <button type="submit" name="submitform" value="submit"  class="btn btn-primary">{{save_route}}</button>
                         <br /></td>
                 </tr>
             </table><br/>

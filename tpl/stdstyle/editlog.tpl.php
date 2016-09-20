@@ -191,28 +191,28 @@ $founds = XDb::xMultiVariableQueryValue(
     <div class="searchdiv">
         <table class="content" style="font-size: 12px; line-height: 1.6em;">
             <tr><td class="spacer" colspan="2"></td></tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td width="180px"><img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{type_of_log}}:</strong></td>
                 <td align="left">
                     <!--<select name="logtype" onChange="return _chkFound()">-->
-                    <select onload="javascript:toogleLayer('ocena');" name="logtype" onchange="javascript:toogleLayer('ocena');">
+                    <select onload="javascript:toogleLayer('ocena');" name="logtype" class="form-control input200" onchange="javascript:toogleLayer('ocena');">
                         {logtypeoptions}
                     </select>&nbsp;&nbsp;<img name='actionicon' src='' align="top" alt="">
                 </td>
             </tr>
             <tr><td class="spacer" colspan="2"></td></tr>
 
-            <tr>
+            <tr class="form-group-sm">
                 <td width="180px"><img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{date_logged}}:</td>
                 <td align="left">
                     <img src="tpl/stdstyle/images/free_icons/date_previous.png" alt ="{{lc_Day_before}}" title="{{lc_Day_before}}" onclick="subs_days(1);"/>
-                    <input class="input20" type="text" id="logday"  name="logday" maxlength="2" value="{logday}"/>.
-                    <input class="input20" type="text" id="logmonth" name="logmonth" maxlength="2" value="{logmonth}"/>.
-                    <input class="input40" type="text" id="logyear" name="logyear" maxlength="4" value="{logyear}"/>
+                    <input class="form-control input30" type="text" id="logday"  name="logday" maxlength="2" value="{logday}"/>.
+                    <input class="form-control input30" type="text" id="logmonth" name="logmonth" maxlength="2" value="{logmonth}"/>.
+                    <input class="form-control input50" type="text" id="logyear" name="logyear" maxlength="4" value="{logyear}"/>
                     <img src="tpl/stdstyle/images/free_icons/date_next.png" alt ="{{lc_Day_after}}" title="{{lc_Day_after}}" onclick="subs_days(-1);"/>
                     &nbsp;&nbsp;
-                    <img src="tpl/stdstyle/images/free_icons/clock.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{time}} :  <input class="input20" type="text" name="loghour" maxlength="2" value="{loghour}"/> HH (0-23)
-                    <input class="input20" type="text" name="logmin" maxlength="2" value="{logmin}"/> MM (0-60)
+                    <img src="tpl/stdstyle/images/free_icons/clock.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{time}} :  <input class="form-control input30" type="text" name="loghour" maxlength="2" value="{loghour}"/> HH (0-23)
+                    <input class="form-control input30" type="text" name="logmin" maxlength="2" value="{logmin}"/> MM (0-60)
                     <br />{date_message}
                 </td>
             </tr>
@@ -240,10 +240,10 @@ $founds = XDb::xMultiVariableQueryValue(
             <tr><td class="spacer" colspan="2"></td></tr>
             <tr>
                 <td class="header-small" colspan="2" align="center">
-                    <input class="blueConfirmButton" type="reset" name="reset" value="{{reset}}" style="width:120px"/>&nbsp;&nbsp;
-                    <a href="#" class="blueConfirmButton" onclick="event.preventDefault();
+                    <input class="btn btn-default" type="reset" name="reset" value="{{reset}}" />&nbsp;&nbsp;
+                    <a href="#" class="btn btn-primary" onclick="event.preventDefault();
                             $(this).closest('form').submit()">{{submit}}</a>
-                    <input type="hidden" name="submitform" value="{{submit}}" style="width:120px"/>
+                    <input type="hidden" name="submitform" value="{{submit}}"/>
                 </td>
             </tr>
         </table>

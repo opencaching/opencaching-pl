@@ -112,20 +112,20 @@ $polyline = $encoder->encode($points);
         <table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.4em; font-size: 13px;" width="95%">
             <tr>
                 <td class="content-title-noshade" style="font-size:14px;">{{logs_cache_gpx}}:</td></tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td class="content-title-noshade" style="font-size:12px;" colspan="2">
                     <input type="radio" name="cache_log" value="0" tabindex="0" id="l_all_logs_caches" class="radio" onclick="javascript:sync_options(this)" {all_logs_caches} /> <label for="l_all_logs_caches">{{show_all_log_entries}}</label>&nbsp;
                     <input type="radio" name="cache_log" value="1" tabindex="1" id="l_minl_caches" class="radio" onclick="javascript:sync_options(this)" {min_logs_caches} /> <label for="l_minl_caches">{{min_logs_cache}}</label>&nbsp;
-                    <input type="text" name="nrlogs" value="{nrlogs}" maxlength="3" class="input50" onchange="javascript:sync_options(this)" {min_logs_caches_disabled}/>
+                    <input type="text" name="nrlogs" value="{nrlogs}" maxlength="3" class="form-control input70" onchange="javascript:sync_options(this)" {min_logs_caches_disabled}/>
                 </td>
             </tr>
         </table>
     </div>
     <br/>
-    <button type="submit" name="back" value="back" style="font-size:12px;width:160px"><b>{{back}}</b></button>&nbsp;&nbsp;
+    <button type="submit" name="back" value="back" class="btn btn-default">{{back}}</button>&nbsp;&nbsp;
     {list_empty_start}
-    <button type="submit" name="submit_gpx" value="submit_gpx" style="font-size:12px;width:160px"><b>{{save_gpx}}</b></button>
-    <button type="submit" name="submit_gpx_with_photos" value="submit_gpx_with_photos" style="font-size:12px;width:160px"><b>{{save_gpx_with_photos}}</b></button>
+    <button type="submit" name="submit_gpx" value="submit_gpx" class="btn btn-primary">{{save_gpx}}</button>
+    <button type="submit" name="submit_gpx_with_photos" value="submit_gpx_with_photos" class="btn btn-primary">{{save_gpx_with_photos}}</button>
     {list_empty_end}
     <br/><br/><br/>
 </form>

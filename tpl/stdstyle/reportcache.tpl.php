@@ -20,10 +20,10 @@
                 </font>
 
             </td></tr>
-        <tr>
+        <tr class="form-group-sm">
             <td colspan="2">{{report_06}}
-                <select name="reason">
-                    <option value="0" selected="selected">====={{select}}=====</option>
+                <select name="reason" class="form-control input300">
+                    <option value="0" selected="selected">{{select}}</option>
                     <option value="1" >{{report_07}}</option>
                     <option value="2" >{{report_08}}</option>
                     <option value="3" >{{report_09}}</option>

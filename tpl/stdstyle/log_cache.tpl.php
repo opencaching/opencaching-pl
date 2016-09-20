@@ -329,10 +329,10 @@ $founds = XDb::xMultiVariableQueryValue(
             <tr>
                 <td colspan="2"><div class="notice" style="width:500px;height:44px">{{empty_entry_notice}}</div></td>
             </tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td width="180px"><img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{type_of_log}}:</strong></td>
                 <td>
-                    <select onLoad="javascript:toogleLayer('ocena');" name="logtype" id="logtype" onChange="toogleLayer('ocena');">
+                    <select onLoad="javascript:toogleLayer('ocena');" class="form-control input200" name="logtype" id="logtype" onChange="toogleLayer('ocena');">
                         {logtypeoptions}
                     </select>&nbsp;&nbsp;<img name='actionicon' src='' align="top" alt="">
                     <br />{log_message}
@@ -341,17 +341,17 @@ $founds = XDb::xMultiVariableQueryValue(
             <tr><td class="spacer" colspan="2"></td></tr>
 
 
-            <tr>
+            <tr class="form-group-sm">
                 <td width="180px"><img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{date_logged}}:</strong></td>
                 <td>
                     <img src="tpl/stdstyle/images/free_icons/date_previous.png" alt ="{{lc_Day_before}}" title="{{lc_Day_before}}" onclick="subs_days(1);"/>
-                    <input class="input20" type="text" id="logday" name="logday" maxlength="2" value="{logday}"/>.
-                    <input class="input20" type="text" id="logmonth" name="logmonth" maxlength="2" value="{logmonth}"/>.
-                    <input class="input40" type="text" id="logyear" name="logyear" maxlength="4" value="{logyear}"/>
+                    <input class="form-control input30" type="text" id="logday" name="logday" maxlength="2" value="{logday}"/>.
+                    <input class="form-control input30" type="text" id="logmonth" name="logmonth" maxlength="2" value="{logmonth}"/>.
+                    <input class="form-control input50" type="text" id="logyear" name="logyear" maxlength="4" value="{logyear}"/>
                     <img src="tpl/stdstyle/images/free_icons/date_next.png" alt ="{{lc_Day_after}}" title="{{lc_Day_after}}" onclick="subs_days(-1);"/>
 
-                    &nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/clock.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{time}} :  <input class="input20" type="text" name="loghour" maxlength="2" value="{loghour}"/> HH (0-23)
-                    <input class="input20" type="text" name="logmin" maxlength="2" value="{logmin}"/> MM (0-60)
+                    &nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/clock.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{time}} :  <input class="form-control input30" type="text" name="loghour" maxlength="2" value="{loghour}"/> HH (0-23)
+                    <input class="form-control input30" type="text" name="logmin" maxlength="2" value="{logmin}"/> MM (0-60)
                     <br />{date_message}
                 </td>
             </tr>

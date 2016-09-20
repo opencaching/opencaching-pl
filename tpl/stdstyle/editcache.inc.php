@@ -19,7 +19,7 @@ $all_countries_submit = '<input class="btn btn-default btn-sm" type="submit" nam
 
 $status_message = '&nbsp;<span class="errormsg">' . tr('status_incorrect') . '</span>';
 $nopictures = '<tr><td colspan="2"><div class="notice">' . tr('no_pictures_yet') . '</div></td></tr>';
-$pictureline = '<tr><td colspan="2">{seq_drop}<img src="tpl/stdstyle/images/free_icons/picture.png" class="icon32" alt="" />&nbsp;<a href="{link}" target="_blank">{title}</a>&nbsp;&nbsp;<img src="images/actions/edit-16.png" align="middle" alt="" title="" /> [<a href="editpic.php?uuid={uuid}" onclick="return check_if_proceed();"  >' . $edit . '</a>] <img src="tpl/stdstyle/images/log/16x16-trash.png" border="0" align="middle" class="icon16" alt="" title="" />[<a href="removepic.php?uuid={uuid}" onclick="if (confirm(\'' . tr('ec_delete_pic') . '\')) {return check_if_proceed();} else {return false;};">' . $remove . '</a>]</td></tr>';
+$pictureline = '<tr class="form-group-sm"><td colspan="2">{seq_drop}<img src="tpl/stdstyle/images/free_icons/picture.png" class="icon32" alt="" />&nbsp;<a href="{link}" target="_blank">{title}</a>&nbsp;&nbsp;<img src="images/actions/edit-16.png" align="middle" alt="" title="" /> [<a href="editpic.php?uuid={uuid}" onclick="return check_if_proceed();"  >' . $edit . '</a>] <img src="tpl/stdstyle/images/log/16x16-trash.png" border="0" align="middle" class="icon16" alt="" title="" />[<a href="removepic.php?uuid={uuid}" onclick="if (confirm(\'' . tr('ec_delete_pic') . '\')) {return check_if_proceed();} else {return false;};">' . $remove . '</a>]</td></tr>';
 $picturelines = '{lines}<tr><td colspan="2">&nbsp;</td></tr>';
 
 $nomp3 = '<tr><td colspan="2"><div class="notice">' . tr('no_mp3_files') . '</div></td></tr>';

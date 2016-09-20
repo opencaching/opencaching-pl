@@ -23,7 +23,7 @@ function build_drop_seq($item_row, $selected_seq, $max_drop, $thisid, $drop_type
         };
 
 
-        $ret = '<label title="' . $drop_label_tit . '"><select onchange="document.getElementById(\'' . $drop_type . '_seq_changed' . $item_row . '\').value=\'yes\'; yes_change(); " id="' . $drop_type . '_seq_select' . $item_row . '" name="' . $drop_type . '_seq_select' . $item_row . '">
+        $ret = '<label title="' . $drop_label_tit . '"><select class="form-control input40" onchange="document.getElementById(\'' . $drop_type . '_seq_changed' . $item_row . '\').value=\'yes\'; yes_change(); " id="' . $drop_type . '_seq_select' . $item_row . '" name="' . $drop_type . '_seq_select' . $item_row . '">
         ';
         for ($i = 1; $i <= $max_drop + 1; $i++) { //add extra row so spacer can be added
             if ($i == $selected_seq) {

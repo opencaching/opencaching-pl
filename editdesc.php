@@ -133,7 +133,7 @@ if ( $desc_record = XDb::xFetchArray($desc_rs) ) {
 
 
     if ($show_all_langs == false) {
-        $show_all_langs_submit = '&nbsp;<input type="submit" name="show_all_langs" value="' . tr('edDescShowAll') . '" />';
+        $show_all_langs_submit = '&nbsp;<input class="btn btn-default btn-sm" type="submit" name="show_all_langs" value="' . tr('edDescShowAll') . '" />';
         tpl_set_var('show_all_langs_submit', $show_all_langs_submit);
     } else {
         tpl_set_var('show_all_langs_submit', '');

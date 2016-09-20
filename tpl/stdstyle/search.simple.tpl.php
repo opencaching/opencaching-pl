@@ -397,10 +397,10 @@
                 </td>
             </tr>
             <tr><td class="buffer" colspan="3"></td></tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td valign="top" class="content-title-noshade">{{task_difficulty}}:</td>
                 <td class="content-title-noshade">
-                    {{from}} <select name="cachedifficulty_1" class="input40" onchange="javascript:sync_options(this)">
+                    {{from}} <select name="cachedifficulty_1" class="form-control input50" onchange="javascript:sync_options(this)">
                         <option value="1" selected="selected">1</option>
                         <option value="1.5">1.5</option>
                         <option value="2">2</option>
@@ -411,7 +411,7 @@
                         <option value="4.5">4.5</option>
                         <option value="5">5</option>
                     </select>
-                    {{to}} <select name="cachedifficulty_2" class="input40" onchange="javascript:sync_options(this)">
+                    {{to}} <select name="cachedifficulty_2" class="form-control input50" onchange="javascript:sync_options(this)">
                         <option value="1">1</option>
                         <option value="1.5">1.5</option>
                         <option value="2">2</option>
@@ -425,10 +425,10 @@
                 </td>
             </tr>
             <tr><td class="buffer" colspan="3"></td></tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td valign="top" class="content-title-noshade">{{terrain_difficulty}}:</td>
                 <td class="content-title-noshade">
-                    {{from}} <select name="cacheterrain_1" class="input40" onchange="javascript:sync_options(this)">
+                    {{from}} <select name="cacheterrain_1" class="form-control input50" onchange="javascript:sync_options(this)">
                         <option value="1" selected="selected">1</option>
                         <option value="1.5">1.5</option>
                         <option value="2">2</option>
@@ -439,7 +439,7 @@
                         <option value="4.5">4.5</option>
                         <option value="5">5</option>
                     </select>
-                    {{to}} <select name="cacheterrain_2" class="input40" onchange="javascript:sync_options(this)">
+                    {{to}} <select name="cacheterrain_2" class="form-control input50" onchange="javascript:sync_options(this)">
                         <option value="1">1</option>
                         <option value="1.5">1.5</option>
                         <option value="2">2</option>
@@ -453,40 +453,40 @@
                 </td>
             </tr>
             <tr><td class="buffer" colspan="3"></td></tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td valign="top" class="content-title-noshade">{{score}}:</td>
                 <td class="content-title-noshade">
-                    {{from}} <select name="cachevote_1" onchange="javascript:sync_options(this)">
+                    {{from}} <select name="cachevote_1" class="form-control input200" onchange="javascript:sync_options(this)">
                         <option value="-3">{{rating_poor}}</option>
                         <option value="-1">{{rating_mediocre}}</option>
                         <option value="0.1">{{rating_avarage}}</option>
                         <option value="1.4">{{rating_good}}</option>
                         <option value="2.2">{{rating_excellent}}</option>
                     </select>
-                    {{to}} <select name="cachevote_2" onchange="javascript:sync_options(this)">
+                    {{to}} <select name="cachevote_2" class="form-control input200" onchange="javascript:sync_options(this)">
                         <option value="-0.999">{{rating_poor}}</option>
                         <option value="0.099">{{rating_mediocre}}</option>
                         <option value="1.399">{{rating_avarage}}</option>
                         <option value="2.199">{{rating_good}}</option>
                         <option value="3.000" selected="selected">{{rating_excellent}}</option>
-                    </select>
+                    </select><br/>
                     <input type="checkbox" name="cachenovote" value="1" id="l_cachenovote" class="checkbox" onclick="javascript:sync_options(this)" checked="checked"/><label for="l_cachenovote">{{with_hidden_score}}</label>
                 </td>
             </tr>
             <tr><td class="buffer" colspan="3"></td></tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td class="content-title-noshade">{{search_recommendations}}:</td>
                 <td class="content-title-noshade" colspan="2">
                     <input type="radio" name="cache_rec" value="0" tabindex="0" id="l_all_caches" class="radio" onclick="javascript:sync_options(this)" {all_caches_checked} /> <label for="l_all_caches">{{search_all_caches}}</label>&nbsp;
                     <input type="radio" name="cache_rec" value="1" tabindex="1" id="l_recommended_caches" class="radio" onclick="javascript:sync_options(this)" {recommended_caches_checked} /> <label for="l_recommended_caches">{{search_recommended_caches}}</label>&nbsp;
-                    <input type="text" name="cache_min_rec" value="{cache_min_rec}" maxlength="3" class="input50" onchange="javascript:sync_options(this)" {min_rec_caches_disabled} />
+                    <input type="text" name="cache_min_rec" value="{cache_min_rec}" maxlength="3" class="form-control input50" onchange="javascript:sync_options(this)" {min_rec_caches_disabled} />
                 </td>
             </tr>
             <tr><td class="buffer" colspan="3"></td></tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td class="content-title-noshade">{{country_label}}:</td>
                 <td class="content-title-noshade">
-                    <select name="country" id="country" class="input200" onchange="sync_options(this);
+                    <select name="country" id="country" class="form-control input200" onchange="sync_options(this);
                             loadRegionsSelector();">
                         {countryoptions}
                     </select>
@@ -496,11 +496,11 @@
             </tr>
             <tr><td class="buffer" colspan="3"></td></tr>
             <tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td valign="top" class="content-title-noshade">{{regions_only_for}}:</td>
                 <td class="content-title-noshade">
                     <img id="regionAjaxLoader" style="display: none" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
-                    <select name="region" id="region1" class="input200" onchange="javascript:sync_options(this)">
+                    <select name="region" id="region1" class="form-control input200" onchange="javascript:sync_options(this)">
                         {regionoptions}
                     </select>
             </tr>
@@ -597,7 +597,7 @@
             </colgroup>
             <tr><td class="buffer"></td></tr>
             <tr>
-                <td><button type="submit" value="{{search}}" style="font-size:12px;width:140px" onclick="firstBtnClick();"><b>{{search}}</b></button></td>
+                <td><button type="submit" value="{{search}}" class="btn btn-primary" onclick="firstBtnClick();">{{search}}</button></td>
                 <td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap1" /><label for="showonmap1">{{show_on_map}}</label></td>
             </tr>
             <tr><td class="buffer" colspan="2"></td></tr>
@@ -614,10 +614,10 @@
             <td colspan="3"><p class="content-title-noshade-size1">{{search_by_name}}</p></td>
         </tr>
         <tr><td class="buffer" colspan="3"></td></tr>
-        <tr>
+        <tr class="form-group-sm">
             <td class="content-title-noshade">{{cache_name}}:</td>
-            <td><input type="text" name="cachename" id="cachename" value="{cachename}" class="input200" /></td>
-            <td><input type="submit" value="{{search}}" class="formbuttons" /></td>
+            <td><input type="text" name="cachename" id="cachename" value="{cachename}" class="form-control input200" /></td>
+            <td><input type="submit" value="{{search}}" class="btn btn-primary btn-sm" /></td>
             <td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap1" /><label for="showonmap1">{{show_on_map}}</label></td>
         </tr>
         <tr><td class="buffer" colspan="3"></td></tr>
@@ -670,36 +670,36 @@
                 <td colspan="3"><p class="content-title-noshade-size1">{{search_by_distance}}</p></td>
             </tr>
             <tr><td class="buffer" colspan="3"></td></tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td valign="top" class="content-title-noshade">{{coordinates}}:</td>
-                <td colspan="2" valign="top">
-                    <select name="latNS" class="input40">
+                <td colspan="3" valign="top">
+                    <select name="latNS" class="form-control input50">
                         <option value="N" {latN_sel}>N</option>
                         <option value="S" {latS_sel}>S</option>
                     </select>&nbsp;
-                    <input type="text" name="lat_h" maxlength="2" value="{lat_h}" class="input30" />&nbsp;°&nbsp;
-                    <input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="input40" />&nbsp;'&nbsp;
+                    <input type="text" name="lat_h" maxlength="2" value="{lat_h}" class="form-control input30" />&nbsp;°&nbsp;
+                    <input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="form-control input50" />&nbsp;'&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/information.png" alt="" title="info" />&nbsp;&nbsp;<b><a href="javascript:void(0)" onclick="showGeoCoder()">{{where_i_am}}</a></b>
                     <br/>
-                    <select name="lonEW" class="input40">
+                    <select name="lonEW" class="form-control input50">
                         <option value="E" {lonE_sel}>E</option>
                         <option value="W" {lonW_sel}>W</option>
                     </select>&nbsp;
-                    <input type="text" name="lon_h" maxlength="3" value="{lon_h}" class="input30" />&nbsp;°&nbsp;
-                    <input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="input40" />&nbsp;'&nbsp;
+                    <input type="text" name="lon_h" maxlength="3" value="{lon_h}" class="form-control input30" />&nbsp;°&nbsp;
+                    <input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="form-control input50" />&nbsp;'&nbsp;
                 </td>
             </tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td class="content-title-noshade">{{max_distance}}:</td>
                 <td class="content-title-noshade">
-                    <input type="text" name="distance" value="{distance}" maxlength="4" class="input50" />&nbsp;
-                    <select name="unit" class="input100">
+                    <input type="text" name="distance" value="{distance}" maxlength="4" class="form-control input50" />&nbsp;
+                    <select name="unit" class="form-control input120">
                         <option value="km" {sel_km}>{{kilometer}}</option>
                         <option value="sm" {sel_sm}>{{mile}}</option>
                         <option value="nm" {sel_nm}>{{nautical_mile}}</option>
                     </select>
                 </td>
-                <td class="content-title-noshade"><input type="submit" value="{{search}}" class="formbuttons" /></td>
+                <td class="content-title-noshade"><input type="submit" value="{{search}}" class="btn btn-primary btn-sm" /></td>
                 <td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap2" /><label for="showonmap2">{{show_on_map}}</label></td>
             </tr>
             <tr><td class="buffer" colspan="3"></td></tr>
@@ -761,21 +761,21 @@
                 <col width="220"/>
                 <col/>
             </colgroup>
-            <tr>
+            <tr class="form-group-sm">
                 <td class="content-title-noshade">{{city_name}}:</td>
-                <td class="content-title-noshade" colspan="2" valign="top"><input type="text" name="ort" value="{ort}" class="input200" /></td>
+                <td class="content-title-noshade" colspan="2" valign="top"><input type="text" name="ort" value="{ort}" class="form-control input200" /></td>
             </tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td class="content-title-noshade">{{max_distance}}:</td>
                 <td class="content-title-noshade">
-                    <input type="text" name="distance" value="{distance}" maxlength="4" class="input50" />&nbsp;
-                    <select name="unit" class="input100">
+                    <input type="text" name="distance" value="{distance}" maxlength="4" class="form-control input50" />&nbsp;
+                    <select name="unit" class="form-control input120">
                         <option value="km" {sel_km}>{{kilometer}}</option>
                         <option value="sm" {sel_sm}>{{mile}}</option>
                         <option value="nm" {sel_nm}>{{nautical_mile}}</option>
                     </select>
                 </td>
-                <td class="content-title-noshade"><input type="submit" value="{{search}}" class="formbuttons" /></td>
+                <td class="content-title-noshade"><input type="submit" value="{{search}}" class="btn btn-primary btn-sm" /></td>
                 <td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap3" /><label for="showonmap3">{{show_on_map}}</label></td>
             </tr>
             <tr><td class="buffer" colspan="3"></td></tr>
@@ -829,10 +829,10 @@
             </tr>
             <tr><td class="buffer" colspan="3"></td></tr>
             {fulltexterror}
-            <tr>
+            <tr class="form-group-sm">
                 <td class="content-title-noshade">{{text}}:</td>
-                <td class="content-title-noshade"><input type="text" name="fulltext" value="{fulltext}" class="input200" /></td>
-                <td class="content-title-noshade"><input type="submit" value="{{search}}" class="formbuttons" /></td>
+                <td class="content-title-noshade"><input type="text" name="fulltext" value="{fulltext}" class="form-control input200" /></td>
+                <td class="content-title-noshade"><input type="submit" value="{{search}}" class="btn btn-primary btn-sm" /></td>
                 <td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap4" /><label for="showonmap4">{{show_on_map}}</label></td>
             </tr>
             <tr>
@@ -895,10 +895,10 @@
                 <td colspan="3"><p class="content-title-noshade-size1">{{search_by_owner}}</p></td>
             </tr>
             <tr><td class="buffer" colspan="3"></td></tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td class="content-title-noshade">{{owner_label}}:</td>
-                <td class="content-title-noshade"><input type="text" name="owner" value="{owner}" maxlength="40" class="input200" /></td>
-                <td class="content-title-noshade"><input type="submit" value="{{search}}" class="formbuttons" /></td>
+                <td class="content-title-noshade"><input type="text" name="owner" value="{owner}" maxlength="40" class="form-control input200" /></td>
+                <td class="content-title-noshade"><input type="submit" value="{{search}}" class="btn btn-primary btn-sm" /></td>
                 <td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap5" /><label for="showonmap5">{{show_on_map}}</label></td>
             </tr>
             <tr><td class="buffer" colspan="3"></td></tr>
@@ -951,10 +951,10 @@
                 <td colspan="3"><p class="content-title-noshade-size1">{{search_by_finder}}</p></td>
             </tr>
             <tr><td class="buffer" colspan="3"></td></tr>
-            <tr>
+            <tr class="form-group-sm">
                 <td class="content-title-noshade">{{finder_label}}:</td>
-                <td class="content-title-noshade"><input type="text" name="finder" value="{finder}" maxlength="40" class="input200" /></td>
-                <td class="content-title-noshade"><input type="submit" value="{{search}}" class="formbuttons" /></td>
+                <td class="content-title-noshade"><input type="text" name="finder" value="{finder}" maxlength="40" class="form-control input200" /></td>
+                <td class="content-title-noshade"><input type="submit" value="{{search}}" class="btn btn-primary btn-sm" /></td>
                 <td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap6" /><label for="showonmap6">{{show_on_map}}</label></td>
             </tr>
             <tr><td class="buffer" colspan="3"></td></tr>
