@@ -186,7 +186,7 @@ $zip_wwwdir = '/download/zip/';
 // Your own Google map API key
 $googlemap_key = "";
 $googlemap_type = "G_MAP_TYPE"; // alternativ: _HYBRID_TYPE
-
+$googleAnalytics_key = '';      // google Analytics key: UA-XXXXX-Y - if not set google analytics will not be used
 
 $dberrormail = 'rt@localhost';
 

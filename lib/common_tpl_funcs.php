@@ -174,47 +174,49 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
     include $langpath . '/expressions.inc.php';
 
     //load main template
-    if ($minitpl)
+    if ($minitpl){
         $sCode = file_get_contents($stylepath . '/mini.tpl.php');
-        else if ($noCommonTemplate)
-            $sCode = '{template}';
-            else if (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y')
-                $sCode = file_get_contents($stylepath . '/main_print.tpl.php');
-                else if (isset($_REQUEST['popup']) && $_REQUEST['popup'] == 'y')
-                    $sCode = file_get_contents($stylepath . '/popup.tpl.php');
-                    else
-                        $sCode = file_get_contents($stylepath . '/main.tpl.php');
-
-                        //does template exist?
-                        if (!file_exists($stylepath . '/' . $tplname . '.tpl.php')) {
-                            //set up the error template
-                            $error = true;
-                            tpl_set_var('error_msg', htmlspecialchars($error_pagenotexist, ENT_COMPAT, 'UTF-8'));
-                            tpl_set_var('tplname', $tplname);
-                            $tplname = 'error';
-                        }
-
-                        //read the template
-                        $sTemplate = file_get_contents($stylepath . '/' . $tplname . '.tpl.php');
-                        $sCode = mb_ereg_replace('{template}', $sTemplate, $sCode);
+    }else if ($noCommonTemplate){
+        $sCode = '{template}';
+    }else if (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y'){
+        $sCode = file_get_contents($stylepath . '/main_print.tpl.php');
+    }else if (isset($_REQUEST['popup']) && $_REQUEST['popup'] == 'y'){
+        $sCode = file_get_contents($stylepath . '/popup.tpl.php');
+    }else {
+        $sCode = file_get_contents($stylepath . '/main.tpl.php');
+    }
 
 
-                        //process the template replacements
-                        $sCode = tpl_do_replace($sCode);
+    //does template exist?
+    if (!file_exists($stylepath . '/' . $tplname . '.tpl.php')) {
+        //set up the error template
+        $error = true;
+        tpl_set_var('error_msg', htmlspecialchars($error_pagenotexist, ENT_COMPAT, 'UTF-8'));
+        tpl_set_var('tplname', $tplname);
+        $tplname = 'error';
+    }
 
-                        $sCode = tpl_do_translate($sCode);
+    //read the template
+    $sTemplate = file_get_contents($stylepath . '/' . $tplname . '.tpl.php');
+    $sCode = mb_ereg_replace('{template}', $sTemplate, $sCode);
 
-                        //store the cookie
-                        write_cookie_settings();
 
-                        //send http-no-caching-header
-                        http_write_no_cache();
+    //process the template replacements
+    $sCode = tpl_do_replace($sCode);
 
-                        // write UTF8-Header
-                        header('Content-type: text/html; charset=utf-8');
+    $sCode = tpl_do_translate($sCode);
 
-                        //run the template code
-                        eval('?>'.$sCode);
+    //store the cookie
+    write_cookie_settings();
+
+    //send http-no-caching-header
+    http_write_no_cache();
+
+    // write UTF8-Header
+    header('Content-type: text/html; charset=utf-8');
+
+    //run the template code
+    eval('?>'.$sCode);
 }
 
 
