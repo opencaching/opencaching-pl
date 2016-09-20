@@ -3,9 +3,18 @@ namespace Utils\View;
 
 class View {
 
+    const CHUNK_DIR = __DIR__.'/../../tpl/stdstyle/chunks/';
+
     //NOTE: local View vars should be prefixed by "_"
-    private $_loadJQuery = false;
-    private $_chunksDir = 'tpl/stdstyle/chunks/';
+    private $_googleAnalyticsKey = '';              // GA key loaded from config
+
+    public function __construct(){
+
+        // load google analytics key from the config
+        global $googleAnalytics_key;
+        $this->_googleAnalyticsKey = isset($googleAnalytics_key) ? $googleAnalytics_key : '';
+        $this->loadChunk('googleAnalytics'); // load GA chunk for all pages
+    }
 
     /**
      * Set given variable as local View variable
@@ -46,18 +55,20 @@ class View {
             return;
         }
 
-        $func = require($this->_chunksDir.$chunkName.'.tpl.php');
+        $func = require(self::CHUNK_DIR.$chunkName.'.tpl.php');
         $funcName = $chunkName.'Chunk';
         $this->$funcName = $func;
     }
 
-
-    public function loadJQuery(){
-        $this->_loadJQuery = true;
+    public function getGoogleAnalyticsKey(){
+        return $this->_googleAnalyticsKey;
     }
 
-    public function shouldLoadJquery(){
-        return $this->_loadJQuery;
+    /**
+     * Returns true if GA key is set in config (what means that GA is enabled)
+     */
+    public function isGoogleAnalyticsEnabled(){
+        return $this->_googleAnalyticsKey != '';
     }
 
     private function error($message){

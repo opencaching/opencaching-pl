@@ -1,6 +1,3 @@
-<?php
-
-?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -14,6 +11,12 @@
         <link rel="SHORTCUT ICON" href="favicon.ico">
             <link rel="stylesheet" type="text/css" href="tpl/stdstyle/css/main.css" />
             {htmlheaders}
+
+        <?php
+            if( $view->isGoogleAnalyticsEnabled() ){
+                $view->googleAnalyticsChunk( $view->getGoogleAnalyticsKey() );
+            }
+        ?>
     </head>
     <body{bodyMod}>
         <div id="content">

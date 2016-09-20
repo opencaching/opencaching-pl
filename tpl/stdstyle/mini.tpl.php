@@ -17,6 +17,13 @@
         <link rel="stylesheet" type="text/css" media="print" href="tpl/stdstyle/css/style_print.css" />
         <link rel="SHORTCUT ICON" href="favicon.ico" />
         <link rel="apple-touch-icon-precomposed" href="/images/oc_logo_144.png" />
+
+        <?php
+            if( $view->isGoogleAnalyticsEnabled() ){
+                $view->googleAnalyticsChunk( $view->getGoogleAnalyticsKey() );
+            }
+        ?>
+
         <script type="text/javascript" src="lib/enlargeit/enlargeit.js"></script>
         <title>{title}</title>
         {htmlheaders}

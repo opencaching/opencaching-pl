@@ -67,7 +67,11 @@ if (date('m') == 12 || date('m') == 1) {
         {cachemap_header}
         {viewcache_header}
 
-        <script type='text/javascript' src='lib/js/ga.js'></script>
+        <?php
+            if( $view->isGoogleAnalyticsEnabled() ){
+                $view->googleAnalyticsChunk( $view->getGoogleAnalyticsKey() );
+            }
+        ?>
 
         <script type='text/javascript' src='lib/js/CookiesInfo.js'></script>
         <script type='text/javascript'>WHSetText('{{cookiesInfo}}');</script>
