@@ -298,7 +298,7 @@
 <p>
     {{coordsmod_main}}<br/>
 <form action="viewcache.php?cacheid={cacheid}" method="post" name="form_coords_mod">
-    <fieldset style="border: 1px solid black; width: 200px; background-color: #FAFBDF; margin-left: 50px;" class="form-group-sm">
+    <fieldset style="border: 1px solid black; width: 250px; background-color: #FAFBDF; margin-left: 50px;" class="form-group-sm">
         <legend>
             &nbsp; <strong>WGS-84</strong> &nbsp;
         </legend>
