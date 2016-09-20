@@ -21,10 +21,10 @@
             </td>
         </tr>
         <tr><td class="spacer" colspan="2"></td></tr>
-        <tr>
+        <tr class="form-group-sm">
             <td>
                 <b>{{subject}}</b>:
-                <select name="topic">
+                <select name="topic" class="form-control input200">
                     {topics}
                 </select>
             </td>
@@ -44,7 +44,7 @@
             </td>
         </tr>
         <tr><td class="spacer" colspan="2"></td></tr>
-        <tr><td><b>{{email_address}}</b>: <input type="text" name="email" size="40" value="{email}" />{email_error}</td></tr>
+        <tr class="form-group-sm"><td><b>{{email_address}}</b>: <input type="text" name="email" size="40" class="form-control input200" value="{email}" />{email_error}</td></tr>
         <tr><td class="spacer" colspan="2"></td></tr>
         <tr>
             <td>

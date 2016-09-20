@@ -229,7 +229,7 @@
     <p>
         {{openchecker_enabled}}<br/><br/>
         <form method="get" action="openchecker.php">
-            <button name="wp" value="{oc_waypoint}" style="font-size:14px;width:160px"><b>{{openchecker_check}}</b></button>
+            <button name="wp" value="{oc_waypoint}" class="btn btn-default">{{openchecker_check}}</button>
         </form>
         <br/><br/>
     </p>
@@ -298,37 +298,37 @@
 <p>
     {{coordsmod_main}}<br/>
 <form action="viewcache.php?cacheid={cacheid}" method="post" name="form_coords_mod">
-    <fieldset style="border: 1px solid black; width: 200px; background-color: #FAFBDF; margin-left: 50px;">
+    <fieldset style="border: 1px solid black; width: 250px; background-color: #FAFBDF; margin-left: 50px;" class="form-group-sm">
         <legend>
             &nbsp; <strong>WGS-84</strong> &nbsp;
         </legend>
         &nbsp;&nbsp;&nbsp;
-        <select name="coordmod_latNS" class="input40">
+        <select name="coordmod_latNS" class="form-control input50">
             <option value="N" {N_selected}>N</option>
             <option value="S" {S_selected}>S</option>
         </select>
         &nbsp;
-        <input name="coordmod_lat_degree" type="text" maxlength="2" class="input30" value="{coordmod_lat_h}" />
+        <input name="coordmod_lat_degree" type="text" maxlength="2" class="form-control input40" value="{coordmod_lat_h}" />
         &deg;&nbsp;
-        <input type="text" name="coordmod_lat" value="{coordmod_lat}" maxlength="6" class="input50" />
+        <input type="text" name="coordmod_lat" value="{coordmod_lat}" maxlength="6" class="form-control input70" />
         &nbsp;'&nbsp;
         <br />
         &nbsp;&nbsp;&nbsp;
-        <select name="coordmod_lonEW" class="input40">
+        <select name="coordmod_lonEW" class="form-control input50">
             <option value="E" {E_selected}>E</option>
             <option value="W" {W_selected}>W</option>
         </select>
         &nbsp;
-        <input name="coordmod_lon_degree" type="text" maxlength="3" value="{coordmod_lon_h}" class="input30"/>
+        <input name="coordmod_lon_degree" type="text" maxlength="3" value="{coordmod_lon_h}" class="form-control input40"/>
         &deg;&nbsp;
-        <input type="text" name="coordmod_lon" maxlength="6" value="{coordmod_lon}" class="input50" />
+        <input type="text" name="coordmod_lon" maxlength="6" value="{coordmod_lon}" class="form-control input70" />
         &nbsp;'&nbsp;
     </fieldset>
     {coords_message}
 </p>
 <p>
-    <input type="submit" name="modCoords" value="{{modify_coords}}" />
-    <input type="submit" name="resetCoords" value="{{reset_coords}}" />
+    <input type="submit" name="modCoords" value="{{modify_coords}}" class="btn btn-default btn-sm"/>
+    <input type="submit" name="resetCoords" value="{{reset_coords}}" class="btn btn-default btn-sm"/>
 </p>
 </form>
 <div class="notice buffer" id="viewcache-mod_coord">

@@ -32,14 +32,14 @@
         <tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt="" title="Neuw Cache" align="middle" /> <b>{pictypedesc} &nbsp;<a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
         <tr><td class="spacer" colspan="2"><br /><font color="red"><b>{{cache_picture_intro}}</b></font></td></tr>
 
-        <tr>
+        <tr  class="form-group-sm">
             <td valign="top">{{title_picture}}:</td>
-            <td><input class="input200" name="title" type="text" value="{title}" size="43" /> {errnotitledesc}</td>
+            <td><input class="form-control input200" name="title" type="text" value="{title}" size="43" /> {errnotitledesc}</td>
         </tr>
 
-        <tr>
+        <tr  class="form-group-sm">
             <td valign="top">{{file_name}}:</td>
-            <td><input class="input200" name="file" type="file" accept="image/jpeg,image/gif,image/png" maxlength="{maxpicsize}" /> {errnopicgivendesc}</td>
+            <td><input class="form-control input200" name="file" type="file" accept="image/jpeg,image/gif,image/png" maxlength="{maxpicsize}" /> {errnopicgivendesc}</td>
         </tr>
         <tr><td class="spacer" colspan="2"></td></tr>
 
@@ -65,7 +65,7 @@
 
         <tr>
             <td class="header-small" colspan="2">
-                <button type="submit" name="submit" value="submit" style="font-size:12px;width:120px"><b>{submit}</b></button>
+                <button type="submit" name="submit" value="submit" class="btn btn-primary">{submit}</button>
             </td>
         </tr>
     </table>

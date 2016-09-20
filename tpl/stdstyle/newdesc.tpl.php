@@ -42,10 +42,10 @@
             <col width="100">
             <col>
         </colgroup>
-        <tr>
+        <tr  class="form-group-sm">
             <td class="content-title-noshade">{{language}}:</td>
             <td>
-                <select name="desc_lang">
+                <select name="desc_lang" class="form-control input120">
                     {langoptions}
                 </select>
                 {show_all_langs_submit} {lang_message}
@@ -53,9 +53,9 @@
         </tr>
         <tr><td class="buffer" colspan="2"></td></tr>
 
-        <tr>
+        <tr  class="form-group-sm">
             <td class="content-title-noshade">{{short_description}}:</td>
-            <td><input type="text" name="short_desc" maxlength="120" value="{short_desc}" class="input400"/></td>
+            <td><input type="text" name="short_desc" maxlength="120" value="{short_desc}" class="form-control input400"/></td>
         </tr>
         <tr>
             <td colspan="2">
@@ -81,8 +81,8 @@
     <div class="notice">{{hint_instructions}}</div>
     <div class="buffer"></div>
     <div>
-        <input type="reset" name="reset" value="{{reset}}" class="formbuttons"/>&nbsp;&nbsp;
-        <input type="submit" name="submitform" value="{{submit}}" class="formbuttons"/>
+        <input type="reset" name="reset" value="{{reset}}" class="btn btn-default"/>&nbsp;&nbsp;
+        <input type="submit" name="submitform" value="{{submit}}" class="btn btn-primary"/>
     </div>
     <div class="buffer"></div>
 </form>

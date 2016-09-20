@@ -32,7 +32,7 @@ if ($error == false) {
                 $default_lang = 'PL';
 
                 $lang_message = '<br/><span class="errormsg">' . tr('lngExist') . '</span>';
-                $show_all_langs_submit = '<input type="submit" name="show_all_langs_submit" value="' . tr('edDescShowAll') . '"/>';
+                $show_all_langs_submit = '<input type="submit" class="btn btn-default btn-sm" name="show_all_langs_submit" value="' . tr('edDescShowAll') . '"/>';
 
 
                 //get the posted data

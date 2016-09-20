@@ -224,33 +224,33 @@
             <col/>
         </colgroup>
         <tr><td class="buffer" colspan="2"></td></tr>
-        <tr>
+        <tr class="form-group-sm">
             <td class="content-title-noshade">{{status_label}}:</td>
             <td class="content-title-noshade">
-                <select name="status" onChange="yes_change();" class="input200" {disablestatusoption}>
+                <select name="status" onChange="yes_change();" class="form-control input200" {disablestatusoption}>
                     {statusoptions}
                 </select>{status_message}
             </td>
         </tr>
         <tr><td class="buffer" colspan="2"></td></tr>
-        <tr>
+        <tr class="form-group-sm">
             <td class="content-title-noshade">{{name_label}}:</td>
-            <td class="content-title-noshade"><input type="text" name="name" value="{name}" maxlength="60" class="input400" onChange="yes_change();"> {name_message}</td>
+            <td class="content-title-noshade"><input type="text" name="name" value="{name}" maxlength="60" class="form-control input400" onChange="yes_change();"> {name_message}</td>
         </tr>
         <tr><td class="buffer" colspan="2"></td></tr>
-        <tr>
+        <tr class="form-group-sm">
             <td class="content-title-noshade">{{cache_type}}:</td>
             <td>
-                <select name="type" class="input200" onChange="yes_change();
+                <select name="type" class="form-control input200" onChange="yes_change();
                         return _chkVirtual()">
                     {typeoptions}
                 </select>
             </td>
         </tr>
-        <tr>
+        <tr class="form-group-sm">
             <td class="content-title-noshade">{{cache_size}}:</td>
             <td class="content-title-noshade">
-                <select name="size" class="input200" onChange="yes_change();
+                <select name="size" class="form-control input200" onChange="yes_change();
                         return _chkVirtual()">
                     {sizeoptions}
                 </select>{size_message}
@@ -260,31 +260,31 @@
         <tr>
             <td valign="top" class="content-title-noshade">{{coordinates}}:</td>
             <td class="content-title-noshade">
-                <fieldset style="border: 1px solid black; width: 65%; height: 32%; background-color: #FAFBDF;">
+                <fieldset style="border: 1px solid black; width: 65%; height: 32%; background-color: #FAFBDF;" class="form-group-sm">
                     <legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>&nbsp;&nbsp;&nbsp;
-                    <select name="latNS" class="input40" onChange="yes_change();">
+                    <select name="latNS" class="form-control input50" onChange="yes_change();">
                         <option value="N"{selLatN}>N</option>
                         <option value="S"{selLatS}>S</option>
                     </select>
-                    &nbsp;<input type="text" name="lat_h" maxlength="2" value="{lat_h}" class="input30" onChange="yes_change();" />
-                    &deg;&nbsp;<input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="input50" onkeyup="this.value = this.value.replace(/,/g, '.');" onChange="yes_change();"  />&nbsp;'&nbsp;
+                    &nbsp;<input type="text" name="lat_h" maxlength="2" value="{lat_h}" class="form-control input40" onChange="yes_change();" />
+                    &deg;&nbsp;<input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="form-control input70" onkeyup="this.value = this.value.replace(/,/g, '.');" onChange="yes_change();"  />&nbsp;'&nbsp;
                     {lat_message}<br />
                     &nbsp;&nbsp;&nbsp;
-                    <select name="lonEW" class="input40" onChange="yes_change();" >
+                    <select name="lonEW" class="form-control input50" onChange="yes_change();" >
                         <option value="E"{selLonE}>E</option>
                         <option value="W"{selLonW}>W</option>
                     </select>
-                    &nbsp;<input type="text" name="lon_h" maxlength="3" value="{lon_h}" class="input30" onChange="yes_change();"  />
-                    &deg;&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="input50" onkeyup="this.value = this.value.replace(/,/g, '.');" onChange="yes_change();"  />&nbsp;'&nbsp;
+                    &nbsp;<input type="text" name="lon_h" maxlength="3" value="{lon_h}" class="form-control input40" onChange="yes_change();"  />
+                    &deg;&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="form-control input70" onkeyup="this.value = this.value.replace(/,/g, '.');" onChange="yes_change();"  />&nbsp;'&nbsp;
                     {lon_message}
                 </fieldset>
             </td>
         </tr>
         <tr><td colspan="2"><div class="buffer"></div></td></tr>
-        <tr>
+        <tr class="form-group-sm">
             <td><p class="content-title-noshade">{{country_label}}:</p></td>
             <td>
-                <select name="country" id="country" class="input200" onChange="javascript:chkcountry2();
+                <select name="country" id="country" class="form-control input200" onChange="javascript:chkcountry2();
                         yes_change();">
                     {countryoptions}
                 </select>
@@ -300,10 +300,10 @@
         </colgroup>
 
         <tr><td colspan="2"><div class="buffer"></div></td></tr>
-        <tr>
+        <tr class="form-group-sm">
             <td><p class="content-title-noshade">{{regiononly}}:</p></td>
             <td>
-                <select name="region" id="region1" class="input200" onChange="yes_change();">
+                <select name="region" id="region1" class="form-control input200" onChange="yes_change();">
 
                 </select>
                 &nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/help.png" class="icon16" alt=""/>&nbsp;<button class="btn btn-default btn-sm" onclick="return extractregion()">{{region_from_coord}}</button>
@@ -317,14 +317,14 @@
             <col/>
         </colgroup>
         <tr><td colspan="2"><div class="buffer"></div></td></tr>
-        <tr><td><p class="content-title-noshade">{{difficulty_level}}:</p></td>
+        <tr class="form-group-sm"><td><p class="content-title-noshade">{{difficulty_level}}:</p></td>
             <td>
                 {{task_difficulty}}:
-                <select name="difficulty" class="input50" onChange="yes_change();">
+                <select name="difficulty" class="form-control input50" onChange="yes_change();">
                     {difficultyoptions}
                 </select>&nbsp;&nbsp;
                 {{terrain_difficulty}}:
-                <select name="terrain" class="input50" onChange="yes_change();">
+                <select name="terrain" class="form-control input50" onChange="yes_change();">
                     {terrainoptions}
                 </select>
             </td>
@@ -334,26 +334,26 @@
             <td><div class="notice" style="width:500px;height:44px;">{{difficulty_problem}} <a href="rating-c.php" target="_BLANK">{{rating_system}}</a>.</div>
             </td>
         </tr>
-        <tr><td><p class="content-title-noshade">{{additional_information}} ({{optional}}):</p></td>
+        <tr class="form-group-sm"><td><p class="content-title-noshade">{{additional_information}} ({{optional}}):</p></td>
             <td>
                 {{time}}:
-                <input type="text" name="search_time" maxlength="10" value="{search_time}" class="input30" onChange="yes_change();" /> h
+                <input type="text" name="search_time" maxlength="10" value="{search_time}" class="form-control input50" onChange="yes_change();" /> h
                 &nbsp;&nbsp;
                 {{length}}:
-                <input type="text" name="way_length" maxlength="10" value="{way_length}" class="input30" onChange="yes_change();" /> km &nbsp; {effort_message}
+                <input type="text" name="way_length" maxlength="10" value="{way_length}" class="form-control input30" onChange="yes_change();" /> km &nbsp; {effort_message}
             </td>
         </tr>
         <tr>
             <td>&nbsp;</td>
             <td><div class="notice" style="width:500px;height:44px">{{time_distance_hint}}</div><div class="buffer"></div></td>
         </tr>
-        <tr>
+        <tr class="form-group-sm">
             <td><p class="content-title-noshade">{{foreign_waypoint}} ({{optional}}):</p></td>
             <td>
-                Geocaching.com: &nbsp;&nbsp;<input type="text" name="wp_gc" value="{wp_gc}" maxlength="7" size="7" onChange="yes_change();"/>
-                Navicache.com: &nbsp;<input type="text" name="wp_nc" value="{wp_nc}" maxlength="6" size="6" onChange="yes_change();"/><br/>
-                Terracaching.com: <input type="text" name="wp_tc" value="{wp_tc}" maxlength="7" size="7" onChange="yes_change();"/>
-                GPSGames.org: <input type="text" name="wp_ge" value="{wp_ge}" maxlength="6" size="6" onChange="yes_change();"/>
+                Geocaching.com: &nbsp;&nbsp;<input type="text" name="wp_gc" value="{wp_gc}" maxlength="7" size="7" class="form-control input70" onChange="yes_change();"/>
+                Navicache.com: &nbsp;<input type="text" name="wp_nc" value="{wp_nc}" maxlength="6" size="6" class="form-control input70" onChange="yes_change();"/><br/>
+                Terracaching.com: <input type="text" name="wp_tc" value="{wp_tc}" maxlength="7" size="7" class="form-control input70" onChange="yes_change();"/>
+                GPSGames.org: <input type="text" name="wp_ge" value="{wp_ge}" maxlength="6" size="6" class="form-control input70" onChange="yes_change();"/>
 
             </td>
         </tr>
@@ -432,11 +432,11 @@
         <tr><td class="buffer" colspan="2"></td></tr>
         <tr>
             <td colspan="2">
-                <fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
+                <fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;" class="form-group-sm">
                     <legend>&nbsp; <strong>{{date_hidden_label}}</strong> &nbsp;</legend>
-                    <input class="input20" type="text" name="hidden_day" maxlength="2" value="{date_day}" onChange="yes_change();" />-
-                    <input class="input20" type="text" name="hidden_month" maxlength="2" value="{date_month}" onChange="yes_change();" />-
-                    <input class="input40" type="text" name="hidden_year" maxlength="4" value="{date_year}" onChange="yes_change();" />&nbsp;
+                    <input class="form-control input30" type="text" name="hidden_day" maxlength="2" value="{date_day}" onChange="yes_change();" />-
+                    <input class="form-control input30" type="text" name="hidden_month" maxlength="2" value="{date_month}" onChange="yes_change();" />-
+                    <input class="form-control input50" type="text" name="hidden_year" maxlength="4" value="{date_year}" onChange="yes_change();" />&nbsp;
                     {date_message}
                 </fieldset>
             </td>
@@ -445,10 +445,10 @@
         {activation_form}
         <tr><td class="spacer" colspan="2"></td></tr>
         {logpw_start}
-        <tr>
+        <tr class="form-group-sm">
             <td colspan="2"><br />
                 <fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
-                    <legend>&nbsp; <strong>{{log_password}}</strong> &nbsp;</legend><input class="input100" type="text" name="log_pw" id="log_pw" value="{log_pw}" maxlength="20" onChange="yes_change();" /> ({{no_password_label}})
+                    <legend>&nbsp; <strong>{{log_password}}</strong> &nbsp;</legend><input class="form-control input120" type="text" name="log_pw" id="log_pw" value="{log_pw}" maxlength="20" onChange="yes_change();" /> ({{no_password_label}})
                 </fieldset>
 
             </td>
@@ -461,7 +461,7 @@
         <tr>
             <td colspan="2">
 
-                <button type="submit" name="submit" value="{submit}" class="btn btn-primary"><b>{{store}}</b></button>
+                <button type="submit" name="submit" value="{submit}" class="btn btn-primary">{{store}}</button>
                 <br /><br /></td>
         </tr>
     </table>

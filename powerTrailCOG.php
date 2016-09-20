@@ -48,7 +48,7 @@ tpl_BuildTemplate();
 
 function makePtSelector($ptAll, $id)
 {
-    $selector = '<select id=' . $id . ' name=' . $id . '>';
+    $selector = '<select class="form-control input400" id=' . $id . ' name=' . $id . '>';
     foreach ($ptAll as $pt) {
         $selector .= '<option value=' . $pt['id'] . '>' . $pt['name'] . '</option>';
     }

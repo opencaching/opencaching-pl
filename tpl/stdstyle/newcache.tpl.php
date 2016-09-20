@@ -618,7 +618,7 @@
         <tr class="form-group-sm"><td><p class="content-title-noshade">{{additional_information}} ({{optional}}):</p></td>
             <td>
                 {{time}}:
-                <input type="text" name="search_time" maxlength="10" value="{search_time}" class="form-control input30" /> h
+                <input type="text" name="search_time" maxlength="10" value="{search_time}" class="form-control input50" /> h
                 &nbsp;&nbsp;
                 {{length}}:
                 <input type="text" name="way_length" maxlength="10" value="{way_length}" class="form-control input30" /> km &nbsp; {effort_message}
@@ -631,10 +631,10 @@
         <tr class="form-group-sm">
             <td><p class="content-title-noshade">{{foreign_waypoint}} ({{optional}}):</p></td>
             <td>
-                Geocaching.com: &nbsp;&nbsp;<input type="text" name="wp_gc" value="{wp_gc}" maxlength="7" class="form-control input50"/>
-                Navicache.com: &nbsp;<input type="text" name="wp_nc" value="{wp_nc}" maxlength="6" class="form-control input50"/><br/>
-                Terracaching.com: <input type="text" name="wp_tc" value="{wp_tc}" maxlength="7" class="form-control input50"/>
-                GPSGames.org: <input type="text" name="wp_ge" value="{wp_ge}" maxlength="6" class="form-control input50"/>
+                Geocaching.com: &nbsp;&nbsp;<input type="text" name="wp_gc" value="{wp_gc}" maxlength="7" class="form-control input70"/>
+                Navicache.com: &nbsp;<input type="text" name="wp_nc" value="{wp_nc}" maxlength="6" class="form-control input70"/><br/>
+                Terracaching.com: <input type="text" name="wp_tc" value="{wp_tc}" maxlength="7" class="form-control input70"/>
+                GPSGames.org: <input type="text" name="wp_ge" value="{wp_ge}" maxlength="6" class="form-control input70"/>
 
             </td>
         </tr>
