@@ -97,10 +97,10 @@ if ( !$SearchWithSort &&  $NrColSortSearch != -1 )
 ?>
 
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Wyszukiwanie" title="Suchergebnis" align="middle" />&nbsp;{{search_results}} {results_count}</div>
-<div class="content-title-noshade">
+<div>
     <p align="left">
-        <img src="tpl/stdstyle/images/blue/search3.png" class="icon32" alt="Search results" title="Search results" align="middle"/>&nbsp;<a href="search.php?queryid={queryid}&amp;showresult=0">{{search}}</a>&nbsp;&nbsp;
-        <img src="tpl/stdstyle/images/blue/save.png" class="icon32" alt="Save results" title="Save results" align="middle"/>&nbsp;{safelink}<br/>
+        <a href="search.php?queryid={queryid}&amp;showresult=0" class="btn btn-default">{{change_search_criteria}}</a>
+        {safelink}<br/>
         {pages}<br/>
     </p>
 </div>
@@ -190,8 +190,8 @@ echo "<div class='GCT-div' style='font-size:12px' >
         </tr>
 
             <tr><td colspan=2>&nbsp</td></tr>
-            <tr>
-                <td>{{Selected}}:&nbsp;&nbsp;<input type='text' name='SelectedPos' id='SelectedPos' value='0' style='width:25px;text-align:center;color:green; font-weight: bold' readonly >&nbsp;&nbsp;{{pos.}}</td>
+            <tr class='form-group-sm'>
+                <td>{{Selected}}:&nbsp;&nbsp;<input type='text' name='SelectedPos' id='SelectedPos' value='0' class='form-control input40' readonly >&nbsp;&nbsp;{{pos.}}</td>
 
                 <td><span class='content-title-noshade' style='color:green'>{{format_other}}</span>:<br/>
                 <a class='links' onclick='CacheExport(\"loc\")' id='exportLOC' title='Waypoint .loc'>LOC</a> |
@@ -253,7 +253,7 @@ $googlemaps = "";
 
 echo"
 <br>
-<div class='GCT-div' style='font-size:12px' >
+<div  style='font-size:12px' >
 <form name='HideColumns' style='display:inline;' action='search.php' method='get'>
     <input type='hidden' value='";?>{queryid}<?php echo "' name='queryid' >
     <input type='hidden' value='true' name='notinit' >
@@ -308,10 +308,10 @@ echo"
             <td colspan=3 style='color:green;'>{{InteractiveSorting}}</td>
         </tr>
 
-        <tr>
+        <tr class='form-group-sm'>
          <td colspan=2 >
 
-                <select name='NrColSort'>
+                <select name='NrColSort' class='form-control input300'>
                     $selectList
                 </select>
 
@@ -319,7 +319,7 @@ echo"
                 <input type='radio' name='OrderSortSearch' value='R'"; if ($OrderSortSearch == 'R') echo "checked='checked'"; echo " />{{Ascending}}
 
          </td>
-         <td  style='text-align: right'> <button type='submit' name='bHideColumns' />{{save}}</td>
+         <td  style='text-align: right'> <button type='submit' name='bHideColumns' class='btn btn-primary btn-sm' />{{save}}</td>
         </tr>
     </table>
 </form>
