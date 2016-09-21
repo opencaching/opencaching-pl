@@ -332,8 +332,8 @@ if ($_SERVER["QUERY_STRING"] == "source") {
                     <tr>
                     </tr>
                     <td colspan=2><input type="hidden" name="Rating" value="TRUE">
-                        <input type="submit" value="{{rating-c_51}}">
-                        <input type="reset" value="{{rating-c_52}}"></td>
+                        <input type="submit" value="{{rating-c_51}}" class="btn btn-primary">
+                        <input type="reset" value="{{rating-c_52}}" class="btn btn-default"></td>
                     <tr>
                 </table>
             </form>

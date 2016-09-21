@@ -446,6 +446,44 @@ br                  { clear: none;}
 /*****************************/
 /* BUTTONS */
 /*****************************/
+.btn-group, .btn-group-vertical {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+.btn-group-vertical>.btn, .btn-group>.btn {
+    position: relative;
+    float: left;
+}
+.btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.btn-group>.btn:last-child:not(:first-child), .btn-group>.dropdown-toggle:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.btn-group>.btn:not(:first-child):not(:last-child):not(.dropdown-toggle) {
+    border-radius: 0;
+}
+.btn-group-justified {
+    display: table;
+    width: 97%;  /*FIXME*/
+    table-layout: fixed;
+    border-collapse: separate;
+    text-align: center;
+}
+.btn-group-justified>.btn, .btn-group-justified>.btn-group {
+    display: table-cell;
+    float: none;
+    width: 1%;
+}
+.btn-group-justified>.btn:not(:first-child) {
+    border-left: 0px;
+}
+.btn-group .btn+.btn, .btn-group .btn+.btn-group, .btn-group .btn-group+.btn, .btn-group .btn-group+.btn-group {
+    margin-left: -1px;
+}
 .btn {
     display: inline-block;
     box-sizing:border-box;
@@ -508,7 +546,16 @@ a.btn {
     background-color: #c9302c;
     border-color: #ac2925;
 }
-
+.btn-info {
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+}
+.btn-info:hover {
+    color: #fff;
+    background-color: #31b0d5;
+    border-color: #269abc;
+}
 /* button size*/
 .btn-lg {
     padding: 10px 16px;
