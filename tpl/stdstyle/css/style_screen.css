@@ -443,6 +443,66 @@ ul.linklist-indent      { margin: -0.3em 0px 0.5em 0px; padding: 0px 0px 0px 10p
 .hide               { display: none;}
 br                  { clear: none;}
 
+
+/*****************************/
+/* BS TABLES
+/*****************************/
+.bs-table {
+    background-color: transparent;
+    border-spacing: 0;
+    border-collapse: collapse;
+    display: table;
+    border-color: grey;
+    color: #777;
+    font-size: 12px;
+}
+
+table.bs-table th {
+    text-align: left;
+}
+
+table.bs-table th > a,
+table.bs-table td > a {    
+    text-decoration: none;
+    color: #323232;
+}
+
+table.bs-table th > a:hover,
+table.bs-table td > a:hover {
+    color: black;
+}
+
+.bs-table tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+.table-striped {
+    border-spacing: 0;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+.bs-table>tbody>tr>td, .bs-table>tbody>tr>th, .bs-table>tfoot>tr>td, .bs-table>tfoot>tr>th, .bs-table>thead>tr>td, .bs-table>thead>tr>th {
+    padding: 4px 8px;
+    line-height: 1.42857143;
+    vertical-align: middle;
+    border-top: 1px solid #ddd;
+}
+
+.bs-table .cell-favorite {
+    font-weight: bold;
+    color: green;
+}
+
+.bs-table a.truncated {
+    display: inline-block;
+    width: 95%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 /*****************************/
 /* BUTTONS */
 /*****************************/
@@ -647,7 +707,6 @@ a.btn {
 .callout.callout-info {
     border-left-color: #1b809e;
 }
-
 
 /* styles for inputfields */
 input               { border:1px solid black;    background-color:white;    padding:1px; font-size:11px;color: black;}

@@ -52,6 +52,7 @@ class ListOfCachesCacheModel{
     public $cacheName = '';
     public $cacheId = '';
     public $userName = '';
+    public $userId = '';
     public $recoNum = '-';
 
     public $logIcon = null;
