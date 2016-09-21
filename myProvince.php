@@ -159,6 +159,7 @@ while($record = $db->dbResultFetch($rs)){
     $cache->cacheName = htmlspecialchars($record['name']);
     $cache->cacheId = $record['cache_id'];
     $cache->userName = htmlspecialchars($record['username']);
+    $cache->userId = htmlspecialchars($record['user_id']);
 
     $cache->ptEnabled = ($record['ptId'] != NULL);
     $cache->ptId = $record['ptId'];
@@ -200,6 +201,7 @@ while($record = $db->dbResultFetch($rs)){
     $cache->cacheName = htmlspecialchars($record['name']);
     $cache->cacheId = $record['cache_id'];
     $cache->userName = htmlspecialchars($record['username']);
+    $cache->userId = htmlspecialchars($record['user_id']);
 
     $cache->ptEnabled = ($record['ptId'] != NULL);
     $cache->ptId = $record['ptId'];
@@ -288,6 +290,7 @@ while($record = $db->dbResultFetch($rs)){
     $cache->cacheName = htmlspecialchars($record['cache_name']);
     $cache->cacheId = $record['cache_id'];
     $cache->userName = htmlspecialchars($record['username']);
+    $cache->userId = htmlspecialchars($record['luser_id']);
 
     $cache->logIcon = 'tpl/stdstyle/images/'.$record['icon_small']; //TODO: hardcoded PATH
 
@@ -338,6 +341,7 @@ while($record = $db->dbResultFetch($rs)){
     $cache->cacheName = htmlspecialchars($record['name']);
     $cache->cacheId = $record['cache_id'];
     $cache->userName = htmlspecialchars($record['username']);
+    $cache->userId = htmlspecialchars($record['user_id']);
     $cache->recoNum = $record['toprate'];
 
     $cache->ptEnabled = ($record['ptId'] != NULL);
@@ -381,6 +385,7 @@ while($record = $db->dbResultFetch($rs)){
     $cache->cacheName = htmlspecialchars($record['name']);
     $cache->cacheId = $record['cache_id'];
     $cache->userName = htmlspecialchars($record['username']);
+    $cache->userId = htmlspecialchars($record['user_id']);
 
     $cache->ptEnabled = ($record['ptId'] != NULL);
     $cache->ptId = $record['ptId'];

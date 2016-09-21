@@ -75,17 +75,19 @@ tr.highlighted > td {border-width:2px;}
 .nav1 li                        { display: inline; list-style: none; margin: 0px; padding: 0px;}
 .nav1 li a                      { display: block; float: left; margin: 0px; padding: 2px 5px 2px 5px; border-right: solid 1px rgb(115,162,182); color: rgb(115,162,182); text-decoration: none; font-size: 10px;}
 .nav1 a                         { color: #337ab7;}
-.nav1 a:hover, .nav2 a.selected { color: rgb(50,50,50); }
+.nav1 a:hover { color: rgb(50,50,50); }
 .nav1 a, .nav1 a:hover, .nav2 a.selected {text-decoration: none;}
 
 /*----------------------------*/
 /* 2.4 - Navigation - Level 2 */
 /*----------------------------*/
 .nav2                               { clear: both; margin: 0px; padding: 0px; font-family: verdana, arial, sans serif; font-size: 1.0em;}
-.nav2 ul                            { float: left; width: 970px; margin: 0px; padding: 0px; border-top: solid 1px rgb(54,83,151); border-bottom: solid 1px rgb(54,83,151); background-color: rgb(127,162,202); font-weight: bold;}
+.nav2 ul                            { float: left; width: 970px; margin: 0px; padding: 0px; background-color: #7FA2CA; font-weight: bold; box-sizing: border-box;}
 .nav2 li                            { display: inline; list-style: none; margin: 0px; padding: 0px;}
-.nav2 li a                          { display: block; float: left; margin: 0px 0px 0px 0px; padding: 5px 10px 5px 10px; border-right: solid 1px rgb(54,83,151); color: rgb(255,255,255); text-transform: uppercase; text-decoration: none; font-size: 100%;}
-.nav2 a:hover, .nav2 a.selected     { color: rgb(50,50,50); text-decoration: none;}
+.nav2 a:hover                       { background-color: #52769E;}
+.nav2 li a                          { display: block; float: left; margin: 0px 0px 0px 0px; padding: 8px 10px; color: rgb(255,255,255); text-transform: uppercase; text-decoration: none; font-size: 100%;}
+.nav2 a:hover, .nav2 a.selected     { text-decoration: none;}
+.nav2 a.selected                    { background-color: #184E89;}
 .buffer                             { clear: both; width: 1px; height: 15px; margin: 0px; padding: 0px; background-color: rgb(255,255,255);}
 
 /*----------------------------*/
@@ -441,9 +443,107 @@ ul.linklist-indent      { margin: -0.3em 0px 0.5em 0px; padding: 0px 0px 0px 10p
 .hide               { display: none;}
 br                  { clear: none;}
 
+
+/*****************************/
+/* BS TABLES
+/*****************************/
+.bs-table {
+    background-color: transparent;
+    border-spacing: 0;
+    border-collapse: collapse;
+    display: table;
+    border-color: grey;
+    color: #777;
+    font-size: 12px;
+}
+
+table.bs-table th {
+    text-align: left;
+}
+
+table.bs-table th > a,
+table.bs-table td > a {    
+    text-decoration: none;
+    color: #323232;
+}
+
+table.bs-table th > a:hover,
+table.bs-table td > a:hover {
+    color: black;
+}
+
+.bs-table tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+.table-striped {
+    border-spacing: 0;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+.bs-table>tbody>tr>td, .bs-table>tbody>tr>th, .bs-table>tfoot>tr>td, .bs-table>tfoot>tr>th, .bs-table>thead>tr>td, .bs-table>thead>tr>th {
+    padding: 4px 8px;
+    line-height: 1.42857143;
+    vertical-align: middle;
+    border-top: 1px solid #ddd;
+}
+
+.bs-table .cell-favorite {
+    font-weight: bold;
+    color: green;
+}
+
+.bs-table a.truncated {
+    display: inline-block;
+    width: 95%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 /*****************************/
 /* BUTTONS */
 /*****************************/
+.btn-group, .btn-group-vertical {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+.btn-group-vertical>.btn, .btn-group>.btn {
+    position: relative;
+    float: left;
+}
+.btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.btn-group>.btn:last-child:not(:first-child), .btn-group>.dropdown-toggle:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.btn-group>.btn:not(:first-child):not(:last-child):not(.dropdown-toggle) {
+    border-radius: 0;
+}
+.btn-group-justified {
+    display: table;
+    width: 97%;  /*FIXME*/
+    table-layout: fixed;
+    border-collapse: separate;
+    text-align: center;
+}
+.btn-group-justified>.btn, .btn-group-justified>.btn-group {
+    display: table-cell;
+    float: none;
+    width: 1%;
+}
+.btn-group-justified>.btn:not(:first-child) {
+    border-left: 0px;
+}
+.btn-group .btn+.btn, .btn-group .btn+.btn-group, .btn-group .btn-group+.btn, .btn-group .btn-group+.btn-group {
+    margin-left: -1px;
+}
 .btn {
     display: inline-block;
     box-sizing:border-box;
@@ -506,7 +606,16 @@ a.btn {
     background-color: #c9302c;
     border-color: #ac2925;
 }
-
+.btn-info {
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+}
+.btn-info:hover {
+    color: #fff;
+    background-color: #31b0d5;
+    border-color: #269abc;
+}
 /* button size*/
 .btn-lg {
     padding: 10px 16px;
@@ -598,7 +707,6 @@ a.btn {
 .callout.callout-info {
     border-left-color: #1b809e;
 }
-
 
 /* styles for inputfields */
 input               { border:1px solid black;    background-color:white;    padding:1px; font-size:11px;color: black;}
