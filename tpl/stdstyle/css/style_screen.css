@@ -75,17 +75,19 @@ tr.highlighted > td {border-width:2px;}
 .nav1 li                        { display: inline; list-style: none; margin: 0px; padding: 0px;}
 .nav1 li a                      { display: block; float: left; margin: 0px; padding: 2px 5px 2px 5px; border-right: solid 1px rgb(115,162,182); color: rgb(115,162,182); text-decoration: none; font-size: 10px;}
 .nav1 a                         { color: #337ab7;}
-.nav1 a:hover, .nav2 a.selected { color: rgb(50,50,50); }
+.nav1 a:hover { color: rgb(50,50,50); }
 .nav1 a, .nav1 a:hover, .nav2 a.selected {text-decoration: none;}
 
 /*----------------------------*/
 /* 2.4 - Navigation - Level 2 */
 /*----------------------------*/
 .nav2                               { clear: both; margin: 0px; padding: 0px; font-family: verdana, arial, sans serif; font-size: 1.0em;}
-.nav2 ul                            { float: left; width: 970px; margin: 0px; padding: 0px; border-top: solid 1px rgb(54,83,151); border-bottom: solid 1px rgb(54,83,151); background-color: rgb(127,162,202); font-weight: bold;}
+.nav2 ul                            { float: left; width: 970px; margin: 0px; padding: 0px; background-color: #7FA2CA; font-weight: bold; box-sizing: border-box;}
 .nav2 li                            { display: inline; list-style: none; margin: 0px; padding: 0px;}
-.nav2 li a                          { display: block; float: left; margin: 0px 0px 0px 0px; padding: 5px 10px 5px 10px; border-right: solid 1px rgb(54,83,151); color: rgb(255,255,255); text-transform: uppercase; text-decoration: none; font-size: 100%;}
-.nav2 a:hover, .nav2 a.selected     { color: rgb(50,50,50); text-decoration: none;}
+.nav2 a:hover                       { background-color: #52769E;}
+.nav2 li a                          { display: block; float: left; margin: 0px 0px 0px 0px; padding: 8px 10px; color: rgb(255,255,255); text-transform: uppercase; text-decoration: none; font-size: 100%;}
+.nav2 a:hover, .nav2 a.selected     { text-decoration: none;}
+.nav2 a.selected                    { background-color: #184E89;}
 .buffer                             { clear: both; width: 1px; height: 15px; margin: 0px; padding: 0px; background-color: rgb(255,255,255);}
 
 /*----------------------------*/
