@@ -125,7 +125,10 @@ $config = array(
             // does not care
             'images/attributes/password-undef.png'
         )
-    )
+    ),    
+    'numberFormatDecPoint' => '.',
+	'numberFormatThousandsSep' => ',' 
+    
 );
 
 /* ************************************************************************
