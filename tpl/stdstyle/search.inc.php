@@ -2,7 +2,7 @@
 
     $outputformat_notexist = 'Wybrany wyjścowy format nie istnieje!';
     $error_query_not_found = 'The retrieval query could not be implemented, enters it please the search data again.';
-    $safelink = '<a href="query.php?action=save&amp;queryid={queryid}">'.tr('store_queries').'</a>';
+    $safelink = '<a href="query.php?action=save&amp;queryid={queryid}" class="btn btn-default">'.tr('store_queries').'</a>';
 
     $caches_newstring = '<b>'.tr('new').'</b>&nbsp;';
     $caches_olddays = 7;

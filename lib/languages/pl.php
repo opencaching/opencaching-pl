@@ -164,6 +164,7 @@ $translations = array(
     'caches' => 'Skrzynki',
     'cache' => 'Skrzynka',
     'search' => 'Szukaj',
+    'change_search_criteria' => 'Zmień kryteria',
     'view_cache' => 'Opis skrzynki',
     'new_log_entry' => 'Wpis do logu',
     'new_log_entry_short' => 'Nowy wpis',

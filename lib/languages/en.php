@@ -164,6 +164,7 @@ $translations = array(
     'caches' => 'Geocaches',
     'cache' => 'Geocache',
     'search' => 'Search',
+    'change_search_criteria' => 'Change criteria',
     'view_cache' => 'Cache description',
     'new_log_entry' => 'Post new log',
     'new_log_entry_short' => 'New log',

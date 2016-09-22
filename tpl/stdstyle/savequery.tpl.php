@@ -14,16 +14,16 @@
         <tr><td class="spacer" colspan="2"></td></tr>
 
         {nameerror}
-        <tr>
+        <tr class="form-group-sm">
             <td>{{name_queries}}</td>
             <td>
-                <input type="text" name="queryname" class="input200" maxlength="60" value="{queryname}" />
+                <input type="text" name="queryname" class="form-control input200" maxlength="60" value="{queryname}" />
             </td>
         </tr>
         <tr>
             <td>&nbsp;</td>
             <td>
-                <button type="submit" value="Zapamietaj" style="font-size:12px;width:140px;"/><b>{{store}}</b></button>
+                <button type="submit" value="Zapamietaj" class="btn btn-primary btn-sm"/>{{store}}</button>
 
             </td>
         </tr>
@@ -41,11 +41,11 @@
         <tr>
             <td class="header-small" colspan="2">{{old_options}}</td>
         </tr>
-        <tr>
+        <tr class="form-group-sm">
             <td>{{name_queries}}</td>
             <td>
-                <select name="oldqueryid" class="input300">
-                    <option value="0">-- {selecttext} --</option>
+                <select name="oldqueryid" class="form-control input300">
+                    <option value="0">{selecttext}</option>
                     {oldqueries}
                 </select>
             </td>
@@ -53,7 +53,7 @@
         <tr>
             <td>&nbsp;</td>
             <td>
-                <button type="submit" value="Zapamietaj" style="font-size:12px;width:140px;"/><b>{{store}}</b></button>
+                <button type="submit" value="Zapamietaj" class="btn btn-primary btn-sm"/>{{store}}</button>
 
             </td>
         </tr>
