@@ -1,6 +1,13 @@
 <?php
 
+
+
 use Utils\Database\OcDb;
+
+require('./lib/cache.php');
+$cache = cache::instance();
+$st = $cache->getCacheStatuses();
+
 require('./lib/common.inc.php');
 require($stylepath . '/mytop5.inc.php');
 
@@ -78,7 +85,7 @@ if ($error == false) {
     $content = '';
 
     $query = "  SELECT `cache_rating`.`cache_id` AS `cache_id`, `caches`.`name` AS `cachename`,
-                caches.type as cache_type, caches.user_id,
+                caches.type as cache_type, caches.user_id, caches.status,
                 `user`.`username` AS `ownername`, `user`.`user_id` AS `owner_id`
                 FROM `cache_rating`, `caches` , `user`
                 WHERE `cache_rating`.`cache_id` = `caches`.`cache_id`
@@ -101,12 +108,15 @@ if ($error == false) {
             $cacheicon = myninc::checkCacheStatusByUser($r, $usr['userid']);
 
             $thisline = mb_ereg_replace('{cacheicon}', $cacheicon, $thisline);
-            $thisline = mb_ereg_replace('{cachename}', htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8'), $thisline);
+            if ($r['status'] == 3) {
+                $thisline = mb_ereg_replace('{cachename}', $error_prefix . htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8') . $error_suffix, $thisline);
+            }else
+                $thisline = mb_ereg_replace('{cachename}', htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8'), $thisline);
+            
             $thisline = mb_ereg_replace('{cacheid}', htmlspecialchars($r['cache_id'], ENT_COMPAT, 'UTF-8'), $thisline);
             $thisline = mb_ereg_replace('{ownername}', htmlspecialchars($r['ownername'], ENT_COMPAT, 'UTF-8'), $thisline);
             $thisline = mb_ereg_replace('{owner_id}', htmlspecialchars($r['owner_id'], ENT_COMPAT, 'UTF-8'), $thisline);
-
-
+            
             if (($i % 2) == 1)
                 $thisline = mb_ereg_replace('{bgcolor}', $bgcolor2, $thisline);
             else

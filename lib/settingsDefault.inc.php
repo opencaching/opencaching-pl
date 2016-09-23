@@ -127,7 +127,7 @@ $config = array(
         )
     ),    
     'numberFormatDecPoint' => '.',
-	'numberFormatThousandsSep' => ',' 
+    'numberFormatThousandsSep' => ',' 
     
 );
 
