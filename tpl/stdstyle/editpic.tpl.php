@@ -31,14 +31,18 @@
             <tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt="" title="edit picture" align="middle" /> <b>{pictypedesc} </b>&nbsp;<a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></td></tr>
             <tr><td class="spacer" colspan="2"><br /></td></tr>
 
-            <tr>
+            <tr class="form-group-sm">
                 <td valign="top">{{title_picture}}:</td>
-                <td><input class="input200" name="title" type="text" value="{title}" size="43" /> {errnotitledesc}</td>
+                <td><input class="form-control input200" name="title" type="text" value="{title}" size="43" /> {errnotitledesc}</td>
             </tr>
 
             <tr>
                 <td valign="top">{{file_name}}:</td>
-                <td><input class="input200" name="file" type="file" accept="image/jpeg,image/gif,image/png" maxlength="{maxpicsize}" /></td>
+                <td>
+                    <div class="form-inline">
+                    <?php $view->callChunk('fileUpload','file', 'image/*', $view->maxPicSize ); ?>
+                    </div>
+                </td>
             </tr>
             <tr><td class="spacer" colspan="2"></td></tr>
 
@@ -57,7 +61,7 @@
 
             <tr>
                 <td class="header-small" colspan="2">
-                    <button type="submit" name="submit" value="submit" style="font-size:12px;width:120px"><b>{{submit}}</b></button>
+                    <button type="submit" name="submit" value="submit" class="btn btn-primary">{{submit}}</button>
                 </td>
             </tr>
         </table>

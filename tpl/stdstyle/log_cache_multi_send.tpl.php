@@ -8,8 +8,12 @@ require_once('./lib/common.inc.php');
 </p>
 <br />
 <form enctype="multipart/form-data" method="POST" action="log_cache_multi.php">
-    <input type="hidden" name="MAX_FILE_SIZE" value="51200" />
-    <b>{{file_name}}</b>:<br/><input name="userfile" type="file" size="60" accept="Text/plain" /><br/><br/>
+
+    <b>{{file_name}}</b>:<br/>
+    <div class="form-inline">
+    <?php $view->callChunk('fileUpload','userfile', 'Text/plain', '51200'); ?>
+    </div>
+
     <button type="submit" value="Wyślij"  class='btn btn-primary'>{{submit}}</button>
 </form>
 

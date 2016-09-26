@@ -39,7 +39,12 @@
 
         <tr  class="form-group-sm">
             <td valign="top">{{file_name}}:</td>
-            <td><input class="form-control input200" name="file" type="file" accept="image/jpeg,image/gif,image/png" maxlength="{maxpicsize}" /> {errnopicgivendesc}</td>
+            <td>
+                <div class="form-inline">
+                <?php $view->callChunk('fileUpload','file', 'image/*'); ?>
+                </div>
+                {errnopicgivendesc}
+            </td>
         </tr>
         <tr><td class="spacer" colspan="2"></td></tr>
 

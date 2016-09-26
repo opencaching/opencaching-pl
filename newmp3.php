@@ -12,6 +12,9 @@ if ($error == false) {
         tpl_redirect('login.php?target=' . $target);
     } else {
         $tplname = 'newmp3';
+        $view = tpl_getView();
+        $view->setVar('maxMp3Size', $maxmp3size);
+        
         require_once($stylepath . '/newmp3.inc.php');
 
         $objectid = isset($_REQUEST['objectid']) ? $_REQUEST['objectid'] : 0;

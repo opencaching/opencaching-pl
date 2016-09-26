@@ -12,7 +12,6 @@ $message_title_internal = tr('file_err_internal_title');
 $message_internal = tr('file_err_internal_file');
 
 tpl_set_var('maxpicsizeMB', $config['limits']['image']['filesize']);
-tpl_set_var('maxpicsize', $config['limits']['image']['filesize'] * 1024 * 1024);
 tpl_set_var('maxpicresolution', $config['limits']['image']['pixels_text']);
 tpl_set_var('picallowedformats', $config['limits']['image']['extension_text']);
 
@@ -22,4 +21,4 @@ $message_title_wrongext = tr('image_bad_format');
 $message_wrongext = tr('image_bad_format_info');
 
 $message_picture_not_found = tr('no_picture');
-?>
+

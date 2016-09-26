@@ -64,6 +64,16 @@ class View {
         return $this->_googleAnalyticsKey;
     }
 
+    public function callChunk($chunkName, ...$arg) {
+        $this->loadChunk($chunkName);
+        $funcName = $chunkName.'Chunk';
+        $this->$funcName(...$arg);
+    }
+
+    public function loadJQuery(){
+        $this->_loadJQuery = true;
+    }
+
     /**
      * Returns true if GA key is set in config (what means that GA is enabled)
      */
