@@ -500,9 +500,12 @@
             <div id="wptInfo" style="display: none; color: #006600; font-weight: bold;">{{newcache_import_wpt_ok}}</div>
             <form action="newcacheAjaxWaypointUploader.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
                 <p id="f1_upload_form"><br/>
-                    <input name="myfile" class="form-control input200" type="file" size="30" />
-                    <input class="btn btn-default btn-sm" type="submit" value="{{newcache_upload}}"/>
+                    
                 </p>
+                <div class="form-inline">
+                    <?php $view->callChunk('fileUpload','myfile','.gpx'); ?>
+                    <input class="btn btn-primary btn-sm btn-upload" type="submit" value="<?= tr('newcache_upload') ?>"/>
+                </div>
                 <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
             </form>
             <img style="display: none" id="ajaxLoaderLogo" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />

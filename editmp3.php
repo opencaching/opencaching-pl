@@ -14,6 +14,8 @@ if ($error == false) {
         tpl_redirect('login.php?target=' . $target);
     } else {
         $tplname = 'editmp3';
+        $view = tpl_getView();
+        $view->setVar('maxmp3size', $maxmp3size);
         require_once($stylepath . '/editmp3.inc.php');
 
         $uuid = isset($_REQUEST['uuid']) ? $_REQUEST['uuid'] : 0;

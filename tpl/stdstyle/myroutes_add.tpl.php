@@ -29,7 +29,6 @@
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/route.png" class="icon32" alt="" />&nbsp;{{add_new_route}}</div>
 
 <form action="myroutes_add.php" method="post" enctype="multipart/form-data" name="myroute_form" dir="ltr" >
-    <input type="hidden" name="MAX_FILE_SIZE" value="51200" />
     <div class="searchdiv">
         <table class="content">
             <tr class="form-group-sm">
@@ -47,7 +46,12 @@
 
             <tr class="form-group-sm">
                 <td valign="top"><span style="font-weight:bold;">{{file_name}} KML:</span></td>
-                <td><input class='form-control input200' name="file" type="file" /> </td>
+                <td>
+                
+                    <div class="form-inline">
+                    <?php $view->callChunk('fileUpload','file', '.kml','51200'); ?>
+                    </div>
+                </td>
             </tr>
             <tr><td class="buffer" colspan="2"></td></tr>
             <tr>

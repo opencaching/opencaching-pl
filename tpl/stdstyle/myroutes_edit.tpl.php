@@ -58,7 +58,6 @@ $polyline = $encoder->encode($points);
 
 <form action="myroutes_edit.php" method="post" enctype="multipart/form-data" name="myroute_form" dir="ltr" onsubmit="return checkForm();">
     <input type="hidden" name="routeid" value="{routeid}" />
-    <input type="hidden" name="MAX_FILE_SIZE" value="51200" />
     <div class="searchdiv">
         <table class="content">
             <tr class="form-group-sm">
@@ -75,7 +74,11 @@ $polyline = $encoder->encode($points);
             </tr>
             <tr class="form-group-sm">
                 <td valign="top"><span style="font-weight:bold;">{{file_name}} KML:</span></td>
-                <td><input class='form-control input200' name="file" type="file" /></td>
+                <td>
+                    <div class="form-inline">
+                    <?php $view->callChunk('fileUpload','file', '.kml','51200'); ?>
+                    </div>
+                </td>
             </tr>
             <tr><td class="buffer" colspan="2"></td></tr>
             <tr>
