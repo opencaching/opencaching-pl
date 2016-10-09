@@ -71,15 +71,20 @@ class GeoKretyController
      */
     public function logGeokretyFromQueue()
     {
-        $geoKretyLogs = $this->loadGeokretyLogsFromDb();
         $result = [];
-        foreach ($geoKretyLogs as $geoKretyLog) {
-            $loggingResult = $this->sendLog($geoKretyLog);
-            $this->parseGeokretLogActionResult($loggingResult, $geoKretyLog);
-            if($geoKretyLog->isLoggingError() === false) {
-                $this->removeLogFromQueue($geoKretyLog);
-            } else {
-                $result[] = $geoKretyLog;
+        $safeCheck = 0;
+        while(count($geoKretyLogs = $this->loadGeokretyLogsFromDb()) > 0) {
+            foreach ($geoKretyLogs as $geoKretyLog) {
+                $loggingResult = $this->sendLog($geoKretyLog);
+                $this->parseGeokretLogActionResult($loggingResult, $geoKretyLog);
+                if($geoKretyLog->isLoggingError() === false) {
+                    $this->removeLogFromQueue($geoKretyLog);
+                } else {
+                    $result[] = $geoKretyLog;
+                }
+            }
+            if($safeCheck++ > 500){
+                break;
             }
         }
         return $result;
@@ -190,7 +195,7 @@ class GeoKretyController
 
     private function loadGeokretyLogsFromDb()
     {
-        $query = 'SELECT * FROM `geokret_log` WHERE 1';
+        $query = 'SELECT * FROM `geokret_log` WHERE 1 LIMIT 50';
         $db = OcDb::instance();
         $dbResult = $db->dbResultFetchAll($db->simpleQuery($query));
         $geoKretyLogs = [];
