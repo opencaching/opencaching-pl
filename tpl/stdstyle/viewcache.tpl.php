@@ -2,8 +2,6 @@
 <script src="tpl/stdstyle/js/lightbox2/dist/js/lightbox-plus-jquery.min.js"></script>
 {body_scripts}
 
-{jQueryPopUpWindowscripts}
-
 <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 <script>
     var confirmRmLogTranslation = '{{confirm_remove_log}}';
