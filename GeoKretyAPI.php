@@ -163,56 +163,7 @@ class GeoKretyApi
         return $selector;
     }
 
-    /**
-     * Function logs Geokret on geokrety.org using GeoKretyApi.
-     * @author Łza
-     * @param array $GeokretyArray
-     * @return boolean
-     */
-    public function LogGeokrety($GeokretyArray, $retry = false)
-    {
-        if (!$GeokretyArray) { // array from datbase is epmty
-            $r['errors'][]['error'] = 'array from datbase is epmty';
-            $postdata = '';
-        } else {
-            $postdata = http_build_query($GeokretyArray);
-        }
-        $opts = array('http' =>
-            array(
-                'method' => 'POST',
-                'header' => 'Content-type: application/x-www-form-urlencoded',
-                'content' => $postdata,
-                'timeout' => $this->connectionTimeout,
-            ),
-        );
-
-        $context = stream_context_create($opts);
-        @$result = file_get_contents('http://geokrety.org/ruchy.php', false, $context);
-        // print $result;
-        // print '----------<pre>'; print_r($resultarray); print '</pre>-------------';
-
-        if (!$result) {
-            if (!$retry)
-                $this->storeErrorsInDb($this->operationTypes[__FUNCTION__], $GeokretyArray);
-        }
-
-        try {
-            @$resultarray = simplexml_load_string($result);
-        } catch (Exception $e) {
-            if (!$retry)
-                $this->storeErrorsInDb($operationType, $GeokretyArray);
-        }
-
-        if ($resultarray) {
-            $r = $this->xml2array($resultarray);
-        } else {
-            $r['errors'][]['error'] = array('GKApi22' => 1, '$GeokretyArray' => $GeokretyArray);
-        }
-        $r['geokretId'] = $GeokretyArray['id'];
-        $r['geokretName'] = $GeokretyArray['nm'];
-
-        return $r;
-    }
+ 
 
     private function emailOnError($error = '', $Tablica = '', $result, $errorLocation = 'Unknown error location')
     {

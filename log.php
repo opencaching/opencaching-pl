@@ -80,11 +80,12 @@ if ($error == false) {
         $cachename = '';
         if ($cache_id != 0) {
             //get cachename
-            $rs = XDb::xSql(
-                "SELECT `name`, `cache_id`, `user_id`, `logpw`, `wp_oc`,`wp_gc`, `wp_nc`,`wp_ge`,`wp_tc`, `type`, `status`
-                FROM `caches` WHERE `cache_id`= ? LIMIT 1", $cache_id);
+            $rs = XDb::xSql("SELECT * FROM `caches` WHERE `cache_id`= ? LIMIT 1", $cache_id);
 
             if ( $record = XDb::xFetchArray($rs) ) {
+                $geoCache = new lib\Objects\GeoCache\GeoCache();
+                $geoCache->loadFromRow($record);
+                $user = new lib\Objects\User\User(['userId' => $_SESSION['user_id']]);
 
                 // only OC Team member and the owner allowed to make logs to not published caches
                 if ($record['user_id'] == $usr['userid'] || ($record['status'] != 5 && $record['status'] != 4 && $record['status'] != 6) || $usr['admin']) {
@@ -451,38 +452,7 @@ if ($error == false) {
                 elseif (!($log_type == 3 && $log_text == "")) {
                     if ($log_type == 1) {
                         /* GeoKretyApi: call method logging selected Geokrets  (by Łza) */
-                        $MaxNr = isset($_POST['MaxNr']) ? (int) $_POST['MaxNr'] : 0;
-                        if ($MaxNr > 0) {
-                            require_once 'GeoKretyAPI.php';
-                            $LogGeokrety = New GeoKretyApi($secid, $cache_waypt);
-                            $b = 1;
-                            $GeoKretyLogResult = array();
-                            for ($i = 1; $i < $MaxNr + 1; $i++) {
-                                if ($_POST['GeoKretIDAction' . $i]['action'] > -1) {
-                                    $GeokretyLogArray = array(
-                                        'secid' => $secid,
-                                        'nr' => $_POST['GeoKretIDAction' . $i]['nr'],
-                                        'id' => $_POST['GeoKretIDAction' . $i]['id'],
-                                        'nm' => $_POST['GeoKretIDAction' . $i]['nm'],
-                                        'formname' => 'ruchy',
-                                        'logtype' => $_POST['GeoKretIDAction' . $i]['action'],
-                                        'data' => $log_date_year . '-' . $log_date_month . '-' . $log_date_day,
-                                        'godzina' => $log_date_hour,
-                                        'minuta' => $log_date_min,
-                                        'comment' => substr($_POST['GeoKretIDAction' . $i]['tx'], 0, 80) . ' (autom. log oc.' . substr($absolute_server_URI, -3, 2) . ')',
-                                        'wpt' => $cache_waypt,
-                                        'app' => 'Opencaching',
-                                        'app_ver' => 'PL'
-                                    );
-                                    $GeoKretyLogResult[$b] = $LogGeokrety->LogGeokrety($GeokretyLogArray);
-                                    $b++;
-                                }
-                            }
-                            $_SESSION['GeoKretyApi'] = serialize($GeoKretyLogResult);
-                        }
-                        unset($b);
-
-                        /* end calling method logging selected Geokrets with GeoKretyApi */
+                        processGeoKrety($logDateTime, $user, $geoCache);
 
                         ($descMode != 1) ? $dmde_1 = 1 : $dmde_1 = 0;
                         ($descMode == 3) ? $dmde_2 = 1 : $dmde_2 = 0;
@@ -1186,4 +1156,42 @@ function compareTime($time_to_check, $interval)
     $time->sub(new DateInterval($interval));
     $time_diff = $time_to_check->diff($time);
     return $time_diff->format("%r");
+}
+
+function buildGeoKretyLog(lib\Objects\User\User $user, lib\Objects\GeoCache\GeoCache $geoCache, $i, DateTime $logDateTime)
+{
+    global $absolute_server_URI;
+    $geoKretyLog = new lib\Objects\GeoKret\GeoKretLog();
+    $geoKretyLog
+        ->setGeoCache($geoCache)
+        ->setUser($user)
+        ->setTrackingCode($_POST['GeoKretIDAction' . $i]['nr'])
+        ->setGeoKretId($_POST['GeoKretIDAction' . $i]['id'])
+        ->setGeoKretName($_POST['GeoKretIDAction' . $i]['nm'])
+        ->setLogType($_POST['GeoKretIDAction' . $i]['action'])
+        ->setComment(substr($_POST['GeoKretIDAction' . $i]['tx'], 0, 80) . ' (autom. log oc.' . substr($absolute_server_URI, -3, 2) . ')')
+        ->setLogDateTime($logDateTime)
+    ;
+    return $geoKretyLog;
+}
+
+function enqueueGeoKretyLog(DateTime $logDateTime, lib\Objects\User\User $user, lib\Objects\GeoCache\GeoCache $geoCache, $MaxNr)
+{
+    for ($i = 1; $i < $MaxNr + 1; $i++) {
+        if ($_POST['GeoKretIDAction' . $i]['action'] > -1) {
+            $geoKretyLogs[] = buildGeoKretyLog($user, $geoCache, $i, $logDateTime);
+        }
+    }
+    if(count($geoKretyLogs) > 0){
+        $geoKretyController = new \lib\Controllers\GeoKretyController();
+        $geoKretyController->enqueueGeoKretLogs($geoKretyLogs);
+    }
+}
+
+function processGeoKrety(DateTime $logDateTime, $user, $geoCache)
+{
+    $MaxNr = isset($_POST['MaxNr']) ? (int) $_POST['MaxNr'] : 0;
+    if ($MaxNr > 0) {
+        enqueueGeoKretyLog($logDateTime, $user, $geoCache, $MaxNr);
+    }
 }

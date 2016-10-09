@@ -386,6 +386,9 @@ $founds = XDb::xMultiVariableQueryValue(
                         <p style="color: darkgreen">{{GKApi18}}</p>
                         {GeoKretApiSelector2}
                     </div>
+                    <br><br>
+                    <div class="notice" style="width:500px;height:44px"><b>{{GKApi19}}</b> {{GKApi27}}</div>
+
                 </div>
             </div>
             <!-- end of GeoKretyApi (by Łza) -->
