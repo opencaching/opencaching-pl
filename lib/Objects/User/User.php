@@ -60,6 +60,9 @@ class User extends \lib\Objects\BaseObject
     
     private $verifyAll = null;
 
+    /* user identifier used to communication with geoKrety Api*/
+    private $geokretyApiSecid;
+
     const REGEX_USERNAME = '^[a-zA-Z0-9ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ@-][a-zA-ZęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ0-9\.\-=_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\ -=&*+~#]{2,59}$';
     const REGEX_PASSWORD = '^[a-zA-Z0-9\.\-_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\$&*+~#]{3,60}$';
 
@@ -632,5 +635,16 @@ class User extends \lib\Objects\BaseObject
     public function getLogNotesCount()
     {
         return $this->logNotesCount;
+    }
+
+    public function getGeokretyApiSecid()
+    {
+        if($this->geokretyApiSecid === null){
+            $query = 'SELECT `secid` FROM `geokretyapi` WHERE `userID` = :1 LIMIT 1';
+            $db = OcDb::instance();
+            $result = $db->dbResultFetchOneRowOnly($db->multiVariableQuery($query, $this->userId));
+            $this->geokretyApiSecid = $result['secid'];
+        }
+        return $this->geokretyApiSecid;
     }
 }

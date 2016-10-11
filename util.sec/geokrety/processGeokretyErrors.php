@@ -31,10 +31,10 @@ class processGeokretyErrors
         if ($this->errorNumber == 0) {
             return;
         }
-        $this->processGetGeokretyErrors();
-        if ($this->toMail) {
-            $this->sendReportEmail();
-        }
+//        $this->processGetGeokretyErrors();
+//        if ($this->toMail) {
+//            $this->sendReportEmail();
+//        }
     }
 
     private function getErrors()

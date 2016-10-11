@@ -2,8 +2,6 @@
 <script src="tpl/stdstyle/js/lightbox2/dist/js/lightbox-plus-jquery.min.js"></script>
 {body_scripts}
 
-{jQueryPopUpWindowscripts}
-
 <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 <script>
     var confirmRmLogTranslation = '{{confirm_remove_log}}';
@@ -16,15 +14,6 @@
 <input type="hidden" id="includeDeletedLogs" value="{includeDeletedLogs}" />
 <input type="hidden" id="uType" value="{uType}" />
 
-<div id="dialog-message" title="{{GKApi19}}" style="display: {GeoKretyApi_window_display};">
-    <p>
-        <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
-        {GeoKretyApi_windowContent}
-    </p><hr>
-    <p style="font-size: 8px">
-        {{GKApi27}}
-    </p>
-</div>
 <div class="content2-container line-box">
     <div class="">
         <div class="nav4">
