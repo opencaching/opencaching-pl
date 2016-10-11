@@ -640,7 +640,7 @@ class User extends \lib\Objects\BaseObject
     public function getGeokretyApiSecid()
     {
         if($this->geokretyApiSecid === null){
-            $query = 'SELECT `secid` FROM `geokretyapi` WHERE `userID` = :1 LIMIT 1';
+            $query = 'SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` = :1 LIMIT 1';
             $db = OcDb::instance();
             $result = $db->dbResultFetchOneRowOnly($db->multiVariableQuery($query, $this->userId));
             $this->geokretyApiSecid = $result['secid'];
