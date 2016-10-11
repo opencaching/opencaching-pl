@@ -1177,6 +1177,7 @@ function buildGeoKretyLog(lib\Objects\User\User $user, lib\Objects\GeoCache\GeoC
 
 function enqueueGeoKretyLog(DateTime $logDateTime, lib\Objects\User\User $user, lib\Objects\GeoCache\GeoCache $geoCache, $MaxNr)
 {
+    $geoKretyLogs = [];
     for ($i = 1; $i < $MaxNr + 1; $i++) {
         if ($_POST['GeoKretIDAction' . $i]['action'] > -1) {
             $geoKretyLogs[] = buildGeoKretyLog($user, $geoCache, $i, $logDateTime);
