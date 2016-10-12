@@ -1169,7 +1169,7 @@ function buildGeoKretyLog(lib\Objects\User\User $user, lib\Objects\GeoCache\GeoC
         ->setGeoKretId($_POST['GeoKretIDAction' . $i]['id'])
         ->setGeoKretName($_POST['GeoKretIDAction' . $i]['nm'])
         ->setLogType($_POST['GeoKretIDAction' . $i]['action'])
-        ->setComment(substr($_POST['GeoKretIDAction' . $i]['tx'], 0, 80) . ' (autom. log oc.' . substr($absolute_server_URI, -3, 2) . ')')
+        ->setComment(substr($_POST['GeoKretIDAction' . $i]['tx'], 0, 80))
         ->setLogDateTime($logDateTime)
     ;
     return $geoKretyLog;
