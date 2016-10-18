@@ -4,6 +4,7 @@ namespace lib\Controllers;
 
 use lib\Objects\PowerTrail\PowerTrail;
 use lib\Objects\PowerTrail\Log;
+use lib\Objects\User\User;
 use Utils\Database\OcDb;
 
 class PowerTrailController
@@ -14,7 +15,7 @@ class PowerTrailController
     private $config;
     private $serverUrl;
 
-    function __construct()
+    public function __construct()
     {
         include __DIR__ . '/../settings.inc.php';
         $this->config = $powerTrailMinimumCacheCount;
@@ -54,6 +55,32 @@ class PowerTrailController
             ),
         );
     }
+
+    /**
+     * Adds comment to specified PowerTrail
+     *
+     * @param PowerTrail $powerTrail
+     * @param User $user
+     * @param \DateTime $dateTime
+     * @param type $type
+     * @param type $text
+     * @return boolean
+     */
+    public function addComment(PowerTrail $powerTrail, User $user, \DateTime $dateTime, $type, $text )
+    {
+        $log = new Log();
+        $result = $log->setPowerTrail($powerTrail)
+            ->setDateTime($dateTime)
+            ->setUser($user)
+            ->setType($type)
+            ->setText($text)
+            ->storeInDb();
+        if($result){
+            \sendEmail::emailOwners($powerTrail->getId(), $log->getType(), $dateTime->format('Y-m-d H:i'), $text, 'newComment');
+        }
+        return $result;
+    }
+
 
     /**
      * used to set geoPath status to inactive, when has too small amount of caches,

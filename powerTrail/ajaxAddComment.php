@@ -11,16 +11,10 @@ $text = htmlspecialchars($_REQUEST['text']);
 $dateTime = new DateTime($_REQUEST['datetime']);
 $user = new lib\Objects\User\User(array('userId' => (int) $usr['userid']));
 $powerTrail = new lib\Objects\PowerTrail\PowerTrail(array('id' => (int) $_REQUEST['projectId']));
-$log = new lib\Objects\PowerTrail\Log();
-$result = $log->setPowerTrail($powerTrail)
-    ->setDateTime($dateTime)
-    ->setUser($user)
-    ->setType((int) $_REQUEST['type'])
-    ->setText($text)
-    ->storeInDb();
-if($result){
-    sendEmail::emailOwners($powerTrail->getId(), $log->getType(), $dateTime->format('Y-m-d H:i'), $text, 'newComment');
-}
+$type = (int) $_REQUEST['type'];
+
+$ptController = new \lib\Controllers\PowerTrailController();
+$result = $ptController->addComment($powerTrail, $user, $dateTime, $type, $text);
 
 $resultArray = array (
     'result' => $result,
