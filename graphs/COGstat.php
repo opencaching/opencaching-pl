@@ -187,7 +187,7 @@ if ($error == false) {
     // Setup the titles
     $descibe3 = iconv('UTF-8', 'ASCII//TRANSLIT', tr("octeam_stat_m_problems"));
     $graph3->title->Set($descibe3);
-    $graph3->xaxis->title->Set(iconv('UTF-8', 'ASCII//TRANSLIT', tr('number_month')) . '2015/2016');
+    $graph3->xaxis->title->Set(iconv('UTF-8', 'ASCII//TRANSLIT', tr('number_month')) . '2016/2017');
     $graph3->xaxis->SetTickLabels($x3);
     $graph3->yaxis->title->Set($noproblems);
 
@@ -223,7 +223,7 @@ if ($error == false) {
     // Setup the titles
     $descibe4 = iconv('UTF-8', 'ASCII//TRANSLIT', tr("octeam_stat_m_caches"));
     $graph4->title->Set($descibe4);
-    $graph4->xaxis->title->Set(iconv('UTF-8', 'ASCII//TRANSLIT', tr('number_month')) . '2015/2016');
+    $graph4->xaxis->title->Set(iconv('UTF-8', 'ASCII//TRANSLIT', tr('number_month')) . '2016/2017');
     $graph4->xaxis->SetTickLabels($x4);
     $graph4->yaxis->title->Set($ncaches);
     $graph4->title->SetFont(FF_FONT1, FS_BOLD);
