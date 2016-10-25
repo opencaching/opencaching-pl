@@ -567,7 +567,7 @@ $translations = array(
     'username' => 'Benutzername',
     'number_of_caches' => 'Anzahl der Caches',
     'ranking' => 'Rangliste',
-    'submit' => 'Schicken',
+    'submit' => 'Speigern',
     'edit_cache_description' => 'Ausgabe den Cachebeschreibung',
     'short_description' => 'Kurze Beschreibung',
     'extra_attrs_info' => 'Du kannst zusätzliche Attribute auf die Info-Box mit diesem Formular hinzufügen: <a href="cache-atr.php" TARGET="_blank"> Zusätzliche Attribute box </ a>.',
