@@ -10,6 +10,9 @@ Allow From 89.33.126.190
 #opencaching.nl
 Allow From 46.4.66.184
 
+#Opencaching UK
+Allow From 89.36.221.105
+
 # Bogus z Polska
 allow from 194.242.0.188
 
