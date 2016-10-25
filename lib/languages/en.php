@@ -2631,6 +2631,18 @@ $translations = array(
     'pagination_left' => 'Previous pages',
     'pagination_right' => 'Next pages',
     'pagination_page' => 'Page',
-    'pagination_last' => 'Last page'
+    'pagination_last' => 'Last page',
+    'merit_badges' => 'Merit badges',
+    'merit_badge' => 'Merit badge',
+    'merit_badge_level' =>  'Level',
+    'merit_badge_level_name' =>  'Level name',
+    'merit_badge_threshold' =>  'Threshold',
+    'merit_badge_next_level_threshold' =>  'Next level threshold',
+    'merit_badge_gain_count' =>  'Gain count',
+    'merit_badge_gain_last_date' =>  'Gain last date',
+    'merit_badge_gain_date' =>  'Gain date',
+    'merit_badge_number' =>  'Number',
+    'merit_badge_number_threshold' =>  '(Number) Threshold'
+    
 );
 

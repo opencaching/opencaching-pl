@@ -2628,7 +2628,18 @@ $translations = array(
     'pagination_left' => 'Poprzednie strony',
     'pagination_right' => 'Następne strony',
     'pagination_page' => 'Strona',
-    'pagination_last' => 'Ostatnia strona'
-
+    'pagination_last' => 'Ostatnia strona',
+    'merit_badges' => 'Sprawności',
+    'merit_badge' => 'Sprawność',
+    'merit_badge_level_name' =>  'Nazwa poziomu',
+    'merit_badge_level' =>  'Poziom',
+    'merit_badge_threshold' =>  'Próg',
+    'merit_badge_next_level_threshold' =>  'Próg następnego poziomu',
+    'merit_badge_gain_count' =>  'Licznik zdobyć',
+    'merit_badge_gain_last_date' =>  'Ostatnia data zdobycia',
+    'merit_badge_gain_date' =>  'Data zdobycia',
+    'merit_badge_number' =>  'Ilość',
+    'merit_badge_number_threshold' =>  '(Ilość) Próg'
+                
 );
 
