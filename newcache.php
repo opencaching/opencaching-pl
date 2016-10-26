@@ -365,7 +365,7 @@ if ($error == false) {
 
 
         //langoptions selector
-        buildDescriptionLanguageSelector($show_all_langs, $lang, $config['defaultLanguageList'], $db, $show_all, $show_all_langs);
+        buildDescriptionLanguageSelector($show_all_langs, $lang, $config['defaultLanguageList'], $db, $show_all);
 
 
 
@@ -813,7 +813,7 @@ function getDefaultCountry($usr, $lang)
     }
 }
 
-function buildDescriptionLanguageSelector($show_all_langs, $lang, $defaultLangugaeList, $db, $show_all, $show_all_langs)
+function buildDescriptionLanguageSelector($show_all_langs, $lang, $defaultLangugaeList, $db, $show_all)
 {
     tpl_set_var('show_all_langs', '0');
     tpl_set_var('show_all_langs_submit', '<input class="btn btn-default btn-sm" type="submit" name="show_all_langs_submit" value="' . $show_all . '"/>');
