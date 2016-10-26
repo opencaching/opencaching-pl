@@ -226,6 +226,8 @@ if (date('m') == 12 || date('m') == 1) {
                         $zgloszeniaidx = mnu_MainMenuIndexFromPageId($menu[$adminidx]["submenu"], "viewpendings");
                         if ($new_pendings > 0){
                             $waitingForAssigne = $new_pendings - $in_review_count;
+                        } else {
+                            $waitingForAssigne = 0;
                         }
                         $menu[$adminidx]["submenu"][$zgloszeniaidx]['menustring'] .= " (" . $waitingForAssigne . "/" . $new_pendings .  ")";
                         ?>
