@@ -5,10 +5,10 @@
  // Created:     2001-01-08
  // Ver:         $Id: jpgraph_error.php 1106 2009-02-22 20:16:35Z ljp $
  //
- // Copyright (c) Aditus Consulting. All rights reserved.
+ // Copyright (c) Asial Corporation. All rights reserved.
  //========================================================================
  */
-
+   
 //===================================================
 // CLASS ErrorPlot
 // Description: Error plot with min/max value for
@@ -16,7 +16,7 @@
 //===================================================
 class ErrorPlot extends Plot {
     private $errwidth=2;
-
+    
     //---------------
     // CONSTRUCTOR
     function __construct($datay,$datax=false) {
@@ -105,7 +105,7 @@ class ErrorLinePlot extends ErrorPlot {
         $graph->legend->Add($this->legend,$this->color);
         $this->line->Legend($graph);
     }
-
+     
     function Stroke($img,$xscale,$yscale) {
         parent::Stroke($img,$xscale,$yscale);
         $this->line->Stroke($img,$xscale,$yscale);
@@ -145,7 +145,7 @@ class LineErrorPlot extends ErrorPlot {
         $graph->legend->Add($this->legend,$this->color);
         $this->line->Legend($graph);
     }
-
+     
     function Stroke($img,$xscale,$yscale) {
         parent::Stroke($img,$xscale,$yscale);
         $this->line->Stroke($img,$xscale,$yscale);

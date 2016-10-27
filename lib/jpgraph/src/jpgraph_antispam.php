@@ -5,7 +5,7 @@
 // Created:     2004-10-07
 // Ver:         $Id: jpgraph_antispam.php 1106 2009-02-22 20:16:35Z ljp $
 //
-// Copyright (c) Aditus Consulting. All rights reserved.
+// Copyright (c) Asial Corporation. All rights reserved.
 //========================================================================
 
 class HandDigits {
@@ -27,7 +27,7 @@ class HandDigits {
 'SOeD441TKRTyingUBG4/ah8j684+dSFzh/BvtaslejMUu9DPQTDnLx4lQ/ONw1TGBm0jdRWqguEMghEisWilgDmNs4Ze+MEEEH40'.
 'aUVFTa7JeLjRXu4GjhmnNbSfqFQVlA3rkckOjH/Q99Glmkl0C/Q06pvsvT9vttXHDF6T1KrWbs5gRgQJM+FDlQxPhjpF1XcVq+qe'.
 'jEoKiOecXBqh2TDDYIXLKuP6549xk8auI6aJqV45oknWdNswkAIkGMYIxjGO2NR1F0LZY5qkWqkS1xrM0M8lMSJpY+TGrnJiQ577'.
-'cEgeNHhi7D3qC3UN69M8tIakRhgrh9o748+eNGtcCiKjjpkQKlMTEg3ZwoxtHHtgfTRpYXArvp//2Q==' ;
+'cEgeNHhi7D3qC3UN69M8tIakRhgrh9o748+eNGtcCiKjjpkQKlMTEg3ZwoxtHHtgfTRpYXArvp//2Q==' ; 
 
         //==========================================================
         // lf-small.jpg
@@ -42,7 +42,7 @@ class HandDigits {
 'akUuz8x5DwdN5peS1jV1dSipSiVUigIcdQjQ26lIB/c6r3F86SZpE/zCFJaqsihQNhRgdj3Jyfxo0jDSbXHt9Oph9RAoV3qJGltY'.
 'HDOxyb/nRpV0D3RXle21m48XraOk3IUSemUaV4g4Zc9ShcDtgff+tQfwvjq34Dtku7buamFqeJKemCCMxKFsEJU+/FrX8d76sEHG'.
 'aNItzr4usVNdG3S0rmRYAVwEUmyjyQLZ11x7aF4zs9DQOyzml29I2cLa/pixIHi99DFCtU9dFuLIaijo9qiYPmR2mZmB9thgAHOD'.
-'4+mjUrURyrUNMZFEkkIOFuFAbsP9d/OjVIQ6Vh4tP//Z' ;
+'4+mjUrURyrUNMZFEkkIOFuFAbsP9d/OjVIQ6Vh4tP//Z' ; 
 
         //==========================================================
         // lb-small.jpg
@@ -57,7 +57,7 @@ class HandDigits {
 'Q1CvMNQWTjCt+HFD+PB/Y1fI1PL1HFFt0zaGblFdJQ9cJjpZiqPJUlBAKnPcEpGB5NNRKdrOl1NlgiQol4R2w4Sc5VtGf7opZteo'.
 'LhdorjUSM5FnQnlR50NeHQysYxtVxlJHIPgjtRRD3xkaghs6juumdHz4+Y7RVPnt59K2mk7W+fcKWsZ7djTXMkW+xMP3GRJjwIEN'.
 'HTG/CWx5wPY8AADx2NYk3SL9wukvUjGobnBkORksIbjdMANozgEqSo8qJPGO/wAVO36IsjUmBIfZfuM7epZk3F9UhSSk5O0K9Kcq'.
-'8AcU3UzFuhUSBFud6nRXoz96mqmJZWg7m2dqUNhWBwdqQSP1UU5c/FFCn//Z' ;
+'8AcU3UzFuhUSBFud6nRXoz96mqmJZWg7m2dqUNhWBwdqQSP1UU5c/FFCn//Z' ; 
 
         //==========================================================
         // d6-small.jpg
@@ -72,7 +72,7 @@ class HandDigits {
 'GgrlSn8xyf6p4gXaHJvNps9/mKZtSkGdMjRwpfqAFBLLACRlZUrJONsI2717No1lbZ10kx7XGnRpKWQ/6GVGMfzEJ5VFIVtsOH6e'.
 'wyKVhYsia0y22pLThSkJK1uniVgdThOM0ol+StIUhpopIyCFq3H8aUVCwnG3PGe4Rp6fLXJtMdyM0ojcIWvIz3HFnAPfrWTXb6GN'.
 'WaLXDwZjVz8pKEfhuIUFg/bAz9sVJ61nt61mxJFslLtq7e5yPqiBT4UDklKw4MDpt+u+9bFiu9riXNu83R+fcr6tohuQ5HQhmK37'.
-'paaC8DruScmg6X8KkjZEhbaB9KEyFYSOw26Uqd+e7Qerl5z74DY/1SomP//Z' ;
+'paaC8DruScmg6X8KkjZEhbaB9KEyFYSOw26Uqd+e7Qerl5z74DY/1SomP//Z' ; 
 
         //==========================================================
         // lx-small.jpg
@@ -87,7 +87,7 @@ class HandDigits {
 'p9I0lSX2kgqCSklK+5PKCMAng6zV2XRO6u3lSIURtbDRShltlZHa0tW7q/0MeTwnjxq1Jiw2xc9xTLbhSVU5iaXUFfqFFILgJOCd'.
 '9Gt3SXabR6REpkL8yo0RpLCFNx1qBCRjOQMHxo0pEr6o3um2LVYpMEpTVqg25lHn08dfcB9kEgfZ1LIFDuawqZRb7aQlLTzqglsg'.
 '9wQdveOEqBIB425xqhQuk8qo9UKlPrlRblw2ZBeCSVKW6CcoSrI2AGOT41SKzT4dYtmdS5bIXDZhNoWgbZJ94x8AYT/GkM03oNUc'.
-'uKgwqtTZDTMOU0FttqRkoHggnPkEEHRrkJ6t1SlSHYUOc6zHaWrsbQrATk5/vRqK/9k=' ;
+'uKgwqtTZDTMOU0FttqRkoHggnPkEEHRrkJ6t1SlSHYUOc6zHaWrsbQrATk5/vRqK/9k=' ; 
 
         //==========================================================
         // d2-small.jpg
@@ -102,7 +102,7 @@ class HandDigits {
 'gYCSoSoY8ISKSbFeUrzkdlnTL1YshskiErkQnFEZaF8kkdBBVdjyi6RNL5+9F486eS/ECVkcBtDt1vZcho5viS8ZCp9C9tAIAm/F'.
 'VoPRU+HRtJ5JVRP1kP0PfwP+1VKrHBMliXG4Nw8VgE4xGkuqk2S1wTUNEVdIvgpL9iL6KtNxY7WOwo9tt0RCitj0sR2uCbFPPzH1'.
 '7+6rRuSRcljMBMsUy2tky045KOawZk5xtEFBJEROO3hx61kh2rPCIX3MhsyC4QmfTbC6lH8dq5212qwkiG5H6Y/9R2qm+ofxqqsL'.
-'DLZ6f//Z' ;
+'DLZ6f//Z' ; 
 
         //==========================================================
         // lm-small.jpg
@@ -117,7 +117,7 @@ class HandDigits {
 'iywyBhjDKTkeXfSr+GRfYtq2KAO32b1BGxAZu0dyJ2DKPTxY1wPddVszycUq2Golq8jRWbcnJWwCVGMjz+VQP50atxMtm2ZUOY4l'.
 '4qfUnBP0x/Z0amy4jJm10Tt2yddWasFmfaRfdrlG3UcgArnxKzJ+Fu4DqCMkcgNem2DoWav8PLfTm+FPEkuSNTnqueS5bnHIv6CG'.
 'LNjJwM99bm67NB1Ht89KSxNXnr2hNDbiUc47K4KyD2GQMfmMjUnS+7vuIktTqPCaaWCqAMMojPFyw8hyYMQBnAwNJHYGXPTsW9VN'.
-'jg2zf50W9zk524GAEihuz+xbIOD82jW5TkjtRPZkTkJ+4VgDhQfuj/f3OjUxl1f/2Q==' ;
+'jg2zf50W9zk524GAEihuz+xbIOD82jW5TkjtRPZkTkJ+4VgDhQfuj/f3OjUxl1f/2Q==' ; 
 
         //==========================================================
         // lt-small.jpg
@@ -132,7 +132,7 @@ class HandDigits {
 'Hk7AHVkbkLI+RQc7uRxgkfr1tx2rGu6VbToLVKkhU+kbugGf9WfaknCk5ycaX0zmaa+3JkqvW/CmzojsB9xoF6OoFK0r6HOcEDI0'.
 'aefTuKX5ScMdC14HYq8n12zo1DEUcKTGg1Z+hyBwoPBVIiA/VQyOIgedhUCB4WMfXSV3UufVLcTUIqVf26K6mXDbPVRRzKT54iMg'.
 '+zjtq6mtsyJjclxpKlUhSXEbkgkqWnBx4+J5e/zU0pZemPvJJQzEPDfQOrwwFY9AZ5eeYPLV6FwhoFYZuigxpkJeIjqAeIoAk9wA'.
-'D46EnuD+6Nc1smDNrTlRkxqtMo1vzKhIdYgU9YDqVpISrLhHxSSd21I0aYyqP//Z' ;
+'D46EnuD+6Nc1smDNrTlRkxqtMo1vzKhIdYgU9YDqVpISrLhHxSSd21I0aYyqP//Z' ; 
 
         //==========================================================
         // li-small.jpg
@@ -164,7 +164,7 @@ class HandDigits {
 'Y0qmLZSrwJJcQoOJ5XKlJFu4HbJOjVbt+V5nu7eopNRivqcdhK+bFnWwA1Y2AOcgjvj9dGlxy0g5y0xd+hNXoG24C4obizq3HZUh'.
 'YHqtRHD06bG/8a0MbbG1mqekxaBSGmgkrcdcitlLfrckZIz7DUatbeFak0tyRLUwzT5vmiGm0cufEkFBJItfkD+59tKmiO12atFa'.
 'eQukO3ejUxgENqTcfnE5WbkHiOnJ76N2IqI1DibabptS+zkZhtp90F2Y0S026EkAFK/qL46cXv65NVZDfxHmVCK4DE2/RX/lRFbA'.
-'C5LwAyq2EtpHZI7mxPYDRqoctdESimz/2Q==' ;
+'C5LwAyq2EtpHZI7mxPYDRqoctdESimz/2Q==' ; 
 
         //==========================================================
         // le-small.jpg
@@ -180,7 +180,7 @@ class HandDigits {
 'UiqjkynzAVtwV23Ud+X4Ibpa2DCPkjhfUaRO/p8yzpb+YHhUmhbev6ZEll1lvqK3jt2XrbBgp6HVwsK3THpfEubGSoOUyFMpbJmL'.
 'Deh6SgOGKti57EuY6l62JMWdJy7k3hg1LkOozEbVm7suQSkTiKtkEfP1pH664Za/QItccgI4bseTHdNxiXHLQ8yVl7V32XyioqL5'.
 'TGc1ng6eYs0idczXUZscBBABWgEhEtfKNuUezwPnBhEuj8X2M21z9BR6NUX211Kk/UKKAjuhkPhL7XVf8vtgw7UPJlEyrDWFSYLb'.
-'LBNF6qrzG6t0spEu6+fpL7YMXhUndp//2Q==' ;
+'LBNF6qrzG6t0spEu6+fpL7YMXhUndp//2Q==' ; 
 
         //==========================================================
         // la-small.jpg
@@ -212,7 +212,7 @@ class HandDigits {
 'Edls9QKKnOVLyk7UgcbzzrdBthqEJJwZbAI4x1U/7o1TaFa9lG36aXaZTy54VrcXUgrzsGdx+T30aNydweqVw1GS87T6Lb86Q4ha'.
 'my/IAYjZBx+snKk99oOQMf1AViE65SY348hzFy6hPKnqtKz7DC1lbqyPrvJKUJ7H+M6Wrt3InP7o1brFNp4bCDGhxGAsqz69VSiQ'.
 'ORwBxrrQ7itm1ac7Hp0WoGTIc3PSn0pccdcP2WorycfA1RaRHjxosZqOyhtDTSAhCf2gDAGjVHTd9sKSCumynFEZK1tIJUe58/ro'.
-'1V1//9k=' ;
+'1V1//9k=' ; 
 
         //==========================================================
         // d5-small.jpg
@@ -227,7 +227,7 @@ class HandDigits {
 'kqG4FPBxnjxpvvi4KZb1pTpU+QwxUi2Y7ZIAefUk5ATxnB9/gbtL/wCH1UpuhPUlZlMVaQ0mS8zJjqZOPfc2TwpIUonI9tw40R1r'.
 'WNGq/wBdJR1XT3lqHBUnGCfkfWjRWs1ve249erQqQYjOtN1FqPUpCXQ4WIzQSsJwT0UpRwQPG0nzqyuNHobjsl9kBuWqoOoXtT1/'.
 'WppZcA8lKRj64HxqU+3KpAr6plElRVKef3S4E0K9O8pLXVzKcqSsJAB9wSAca6bSoNXeuA1+5pEV+SGFNU1iKVFqI0Vdx2AJUeoz'.
-'8DGlTDwG3CAf3q/pI0ah6MDhLz6U+EpXwPoaNMU//9k=' ;
+'8DGlTDwG3CAf3q/pI0ah6MDhLz6U+EpXwPoaNMU//9k=' ; 
 
         //==========================================================
         // d1-small.jpg
@@ -242,7 +242,7 @@ class HandDigits {
 'OFAGT09/kO3OmV3a20MFRf6lIYPcpy7yRRAzgxjIy2M8YwcdiBzpX6d22VNvUlTXsFkuwkrKqNSfnK7F8OTzwrAY+l5zoxKskudN'.
 'EgQPUT9PBkWF3DH+1GPxo1mLnRoAqF2VRgGOFmX/AAgY/GjRUP6hVMFv2FuFqUvUGrpDFJMBnpdyF5bsAQew7Hxzp6LZNT0yQ1DI'.
 'wp0QCFBhD0jCsfLZHxbx5xxpTuvb1+v9PV7Ztk9roLPLCjmSSN3mX5ZwqjCgZX7PfWxDQb2in96pv9qq46aTE0bW4x9ceAWAYPwS'.
-'PsYzoixgmheBGjIVcYCnjp/jHjHbRpe1JLn9OnopE/a0ykvjwDx47aNMXqP/2Q==' ;
+'PsYzoixgmheBGjIVcYCnjp/jHjHbRpe1JLn9OnopE/a0ykvjwDx47aNMXqP/2Q==' ; 
 
         //==========================================================
         // ll-small.jpg
@@ -274,7 +274,7 @@ class HandDigits {
 'LGU+whZZK+Rw+oYJAyj3GjS4dZFpZVkqPLktdfMXNcaU2kBC1BIITkdx6c599GlnvPAa3TL2vNvU76n0063acr3YSLCEjpUpUQtW'.
 'Dhf14SMEnOc57aZ8Tegm7dbrEQGZt1PeTDgc1PEW3FeXAvyAkZVkeMDOm2G3f3O7Cl/qEuqkQg4lp6CRxraWfUlRUD24kZA741Ko'.
 '2k1HvlT3ri2sLOCgtsyJz6XEtBwZPAgJAGQMHUNPWKqWItsqh0UCFVyLeKhyLHQ2TMdHNVj+RKlAnJyfto1FW2ahgjrq6LYTFjjf'.
-'lymUOLdWfJyoHA+gA7AAAaNPE3ysJdLT/9k=' ;
+'lymUOLdWfJyoHA+gA7AAAaNPE3ysJdLT/9k=' ; 
 
         //==========================================================
         // lh-small.jpg
@@ -290,7 +290,7 @@ class HandDigits {
 'tTwwJ9WjhILDrTKnIdMEDl2+P80aVdJZb1QW+vgqENLPH4sBCDLIwUgnOf4GjVvDnLgUk79T81voqjb8NnuUx8pVRCiEaYUSuynl'.
 'jHU9mOfnOoOx6hqz8PrbNdfEkMUXg1LSM3rKOUywJ7YAJ1ZTWmSpvdvlaVTDSUzJAhH5ZJBgv0x2RSAPlz21WXqoet3ba9nuW8n4'.
 'Jr6qTPqnUNxSM/f6mPvxA9zqJnExTbR+h0nkhVu1uE8j0UBRQ9PGxBKFjnkAScdsDp10a0lc7z0tI7Y5YYN+5GAf7GjVXF4Icj3f'.
-'/9k=' ;
+'/9k=' ; 
 
 
         //==========================================================
@@ -323,7 +323,7 @@ class HandDigits {
 '44xxxrA1a4KVJipLidri8uLHgqOcfjOPxo0o2hdDvS1CmV2Yl6fS5ioipIQR1CAlKkLKR2UUqAI8g6NRSwuuyHab6s1ufLI/Zai7'.
 'UBJOxhTS0+6B32pWSFH4CidOdWU0ukLiN1BLr0zG5Sdm3GRvcPhIT858DvjXNrVsSLnm/VIdTXS6tTnFsxZTSN3jchaTwps+O/z9'.
 'tcBVq3hIX0tYqlIiQHdy5CqRHKHXEjAOMgBKjnvyRk4xrQa7OiGt1K5biYZL8SoVEpjOqkFsONtJCNwASeCQrn7aNUKnQYtLp7EC'.
-'EylmLHQltptPZKQOBo1FzH//2Q==' ;
+'EylmLHQltptPZKQOBo1FzH//2Q==' ; 
 
         //==========================================================
         // lz-small.jpg
@@ -354,7 +354,7 @@ class HandDigits {
 'JJyjYr8Xhrn5g599J7x3ulBNU7Zo7dXXXcLQ8kURYi4epYtkALjOePv1nUvbLvV7P3BZm3DR3eh88Kp7pVzBZI6iUhGWRRGWwE44'.
 'HX3V+uiL1uHgt+vL/H+aNJQ3CSeCOaFqSaJ1DJKs/TqRkMOvQjvRorHE4pRDLNWLGlRHGUeYIORXs9e5B7OP31E0fmdyb/t0DJ4Q'.
 '27bfx3YZzPUIoAAz7IpOD6cuxq0uNumqLfVNDOqXBoZEjnZcqhIPXH4c46+WkdoWOltu3IDDLLLVVR83UVcuPEmmcZZ2/rHoAANG'.
-'GI7KIY1ijoLeEQBVCwIoAHpgY6Hy0aZe7mJ2jeHLKcEhusj6aNKgzr//2Q==' ;
+'GI7KIY1ijoLeEQBVCwIoAHpgY6Hy0aZe7mJ2jeHLKcEhusj6aNKgzr//2Q==' ; 
 
         //==========================================================
         // lv-small.jpg
@@ -385,7 +385,7 @@ class HandDigits {
 'PEp18JTIfeW3kq3ly4H26aNZqvTWZsjFcZTsVtSg0G8Rio+vr2vb7g6NLPRnuXy8F+8kl+obUh4KXJdqSJJQnohlkZqJPYBXh3P+'.
 'a4b5Hyp6k1bO7sOotPyXkj9NlwFl0ewstJA9ifrqkVSmET4csoS7UTHXFQ+6SQlskKUMb/tH9ddLVUmS7DqdBqD7U6OsqfS46jzl'.
 'hQ5bXb1K9Scuybdxo2OTu92dwSZkWn0Sb8viQWyn8Qq5D6ifSLd0BIv7q0arTBRSKPToMZbi2GWylsvLK148Wue/XRrRjxOpT2R2'.
-'k9aP/9k=' ;
+'k9aP/9k=' ; 
 
         //==========================================================
         // lr-small.jpg
@@ -401,7 +401,7 @@ class HandDigits {
 'r3IBAth5OYxozKsgc8y4GTgnJB9uncdTi6tXq2140rRVM13JMEMAVAg7sMdBjJB/18uDgRO9R2Oo6FX2vShkFzURFUq1whIj+8DI'.
 '7EdAFjXv7MeNb0kuStsFEmIaajZaos2fy2Q4VGH7SGxn+Rzw9yMLOm/FzRhZazmOTkP4grYyD3B8j2PTyeFfZ+z7G3BeSS8lmprl'.
 '2K2qcnK0Z5S8gPjrgAY8cNEWmq7u23pEos6/Zji+Kd0rLLGWwseA3joeZj/w4OET1g0vlmrWV+ydFnkUxSgsvM4V+YYIwfHz6cHB'.
-'ZeKZ1//Z' ;
+'ZeKZ1//Z' ; 
 
         //==========================================================
         // lg-small.jpg
@@ -431,7 +431,7 @@ class HandDigits {
 'IB1IVQT5frrv24twPgunk6a288crbklUSJNNdnSTZ2STHHqOP/Eb17njdZtAoqwEvrEiGVyG117/AG6HhyV8H1sljMldoxXTksGC'.
 'zV7M0oaWGQOVeGQ92I6EMR22D11w4LmEPjaOL51iL8ssc9Z69zHtZkYCGGeQK0ez2UEoU39wCeX1S/LLiEt+mPSbMLxsGVv2kEjR'.
 '305xkaEV/GTULMUT1LD/AAGh8gIZS2jv+vpybb8NMIb0dVLWYWgiiU0vmMphOj6V0TvQI3rfsON1E6dYjGtisa0F1mAWR2NhG0WZ'.
-'3Ls3TqNs5Hc9h23w49NWL9K+Q/VD5T/zhwPH/9k=' ;
+'3Ls3TqNs5Hc9h23w49NWL9K+Q/VD5T/zhwPH/9k=' ; 
 
         //==========================================================
         // d7-small.jpg
@@ -446,7 +446,7 @@ class HandDigits {
 '19wpkCMDZKUpv0FZvbi1NzpYasMDLDUbMVXrtQdbeeU23xLWkj5RlLYK0J7anW9gbAjCzkOtsVSUJUdtc6dVZK51UeaFm4LKbhpC'.
 'l7EhIFkDW974GbRI2XorUVls1OTdKAOqUpR0Hc3198GITQ6k+hLwrEpoODiDenRfW23bBicg78JXxPpD0mgVOW5PAivNNpahsPW5'.
 '8xxQaSVkboQnhsnYm5OHqDGp1IpsalMKjMsMIC3+XZKbJFth62/QOEfMOZqZXp9JcKZTcGmTky3meSi7xQklI81vMR+sXIz/AEgp'.
-'Q0qPNu6ea8Q2jqtbp8+2w9h/OKORc/cpHjt1dDSHOtLZ4ekHW23bBjj+o9H/AB539aP94MG0+L//2Q==' ;
+'Q0qPNu6ea8Q2jqtbp8+2w9h/OKORc/cpHjt1dDSHOtLZ4ekHW23bBjj+o9H/AB539aP94MG0+L//2Q==' ; 
 
         //==========================================================
         // ly-small.jpg
@@ -461,7 +461,7 @@ class HandDigits {
 '76xtz0ioVvbcJ6msx2JtOfZmw1PKI5LQcJNh7UqBKcn6+NRfqPu6s1fYc6GxSJsRfWDUVSGA22ygEckJWSexRNgOP0udXzDKOJ0I'.
 'yo62mHm25Sy80l1Z4lSgpQvZRGLgWwPGjTjbchyLH+Ejx22EtJSgO8kki3kADA/nOjWjGzv73CyQZjUWNVp7bNSrj7qJDqflqUlQ'.
 'DMds24l3HvcNr3Pi9gME6T9WWVsemdYWswwC2lPta4m5WMA3OdUExCmozUJD6g84ntMjrHIFBTdQz5yLDx/WDNytpwW6nAkViqVe'.
-'uvmXdlme6n4dCwlRBKEgA2tj99QG7Ilncp5QqpU31PMsJ6x7A32f6SPxo0hPVCD45oVyKf0MtgeT97/nRrO7UOCFla3tn//Z' ;
+'uvmXdlme6n4dCwlRBKEgA2tj99QG7Ilncp5QqpU31PMsJ6x7A32f6SPxo0hPVCD45oVyKf0MtgeT97/nRrO7UOCFla3tn//Z' ; 
 
         //==========================================================
         // d3-small.jpg
@@ -476,7 +476,7 @@ class HandDigits {
 'VsJjnCMBxKkJJx7goAde+ceJfdNxU0UNlyymyXHi6kxWUNl1S3EnkAEIHX2nv86qtTuZr9Q9+1VhRsOoYpYcgSVyAE/TdewkJxnK'.
 'sBCjkdPGpnOtFMd3PqsXgfOAgD8Y0aX+11H9rDDjn8lr9yj5J+dGqsqxaw6Cc9cQZU4Sp7zTJsIrKlcUEKwhSin1JABI45GUjqOu'.
 'lbOvjbc3Ts9ynjGCy445UuFLYRzbWgrT6fhSCQSMDke+pew2zYVly/d7YchNqkMJZnQpgV9J8IzwWFJyUrAJHYgjvpLbu37G5nR7'.
-'vck5C3YRKYEOEVJZj8kjKypXqWvirjk9h+dB9i4faa89TDZUfKlIyT8k+To10a6KTkpcJ/0vL/7o0TS//9k=' ;
+'vck5C3YRKYEOEVJZj8kjKypXqWvirjk9h+dB9i4faa89TDZUfKlIyT8k+To10a6KTkpcJ/0vL/7o0TS//9k=' ; 
 
         //==========================================================
         // ln-small.jpg
@@ -491,7 +491,7 @@ class HandDigits {
 'LVGS1+K16vCzfiR3GmoqqXGyxz06hWPsFlVMfOmq1iNvE69KjBYo3oJMZ3GKeYYPxg/fW+xzZX1FLQyxwSTcpWNceu4G3+aNSmpY'.
 'qmQzzwh2k8yhv2r2H23/AJ0aoy+EWh7I1ntacR3PxDtEzhjWy0wkkIwYmanU5GO6sNh7rrU8AVdTceNbhDXxNHUQvS0tZ3DzwxVA'.
 'fB7hj59/XJ08cPWaKj4gvlwSQiG7dCboqvLy9NOmQT9SM7ayJrBa6K5V91hjlWorp4JGUOAglRSiMMDb82/vgaBGTpVvtNUVtyJg'.
-'5+WNAh5ZCu/r2+dGrgq0pi0DhmlRsSSAfqMd+b6ZyNu3po1Rk1yNBe3/2Q==' ;
+'5+WNAh5ZCu/r2+dGrgq0pi0DhmlRsSSAfqMd+b6ZyNu3po1Rk1yNBe3/2Q==' ; 
 
         //==========================================================
         // lu-small.jpg
@@ -506,7 +506,7 @@ class HandDigits {
 'wTiW0ukkrS28nn5fV2SPPFfurHUKQhzYG7pLYKEfyBhaSOS7dG/YCki/uvWn3LPDOJrwa4kyEzOYeakqkpC3Hk0bNePQHgDRpchY'.
 'leIZwzUWauKtuPctTSUlCAUmrBHIKuAPV/ujQsmHdm7hya43UbbD3ZVElOQJsdTS6IQaQUqBHCk8E2Pocgam6oYwObHy0Zm0oi45'.
 'T1KBPdpV2f0pom/1Ws7cmPazu98Ltvcq3VzRHfehz8a4pirFEKRZo8eQT+eCdWYfS/b+WYnxpbuVcDRMdHcyTqg2fiAfiLoi+Rf+'.
-'jT7Xc74HtOYnHyUOh8yWUvKeHhy0CiPVUAPoDRrm+OeznTva6lzsyMjCYbbaiNJjJSWElagD5tRpNUSALFeNGoOCH7Bv/9k=' ;
+'jT7Xc74HtOYnHyUOh8yWUvKeHhy0CiPVUAPoDRrm+OeznTva6lzsyMjCYbbaiNJjJSWElagD5tRpNUSALFeNGoOCH7Bv/9k=' ; 
 
         //==========================================================
         // lw-small.jpg

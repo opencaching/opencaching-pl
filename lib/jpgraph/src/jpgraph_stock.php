@@ -5,7 +5,7 @@
  // Created:     2003-01-27
  // Ver:         $Id: jpgraph_stock.php 1364 2009-06-24 07:07:44Z ljp $
  //
- // Copyright (c) Aditus Consulting. All rights reserved.
+ // Copyright (c) Asial Corporation. All rights reserved.
  //========================================================================
  */
 
@@ -91,7 +91,7 @@ class StockPlot extends Plot {
 
             if( $exist_x ) {
                 $x=$this->coords[1][$i];
-                if ($x === null) continue;
+				if ($x === null) continue;
             }
             else {
                 $x=$i;

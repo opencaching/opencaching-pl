@@ -5,7 +5,7 @@
 // Created:     2004-02-18
 // Ver:         $Id: jpgraph_iconplot.php 1404 2009-06-28 15:25:41Z ljp $
 //
-// Copyright (c) Aditus Consulting. All rights reserved.
+// Copyright (c) Asial Corporation. All rights reserved.
 //========================================================================
 
 
@@ -117,13 +117,13 @@ class IconPlot {
 
     function StrokeWithScale($aImg,$axscale,$ayscale) {
         if( $this->iScalePosX === null || $this->iScalePosY === null ||
-            $axscale === null || $ayscale === null ) {
+        	$axscale === null || $ayscale === null ) {
             $this->_Stroke($aImg);
         }
         else {
             $this->_Stroke($aImg,
-                round($axscale->Translate($this->iScalePosX)),
-                round($ayscale->Translate($this->iScalePosY)));
+            	round($axscale->Translate($this->iScalePosX)),
+            	round($ayscale->Translate($this->iScalePosY)));
         }
     }
 

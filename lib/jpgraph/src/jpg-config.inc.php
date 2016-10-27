@@ -5,7 +5,7 @@
 // Created:     2004-03-27
 // Ver:         $Id: jpg-config.inc.php 1871 2009-09-29 05:56:39Z ljp $
 //
-// Copyright (c) Aditus Consulting. All rights reserved.
+// Copyright (c) Asial Corporation. All rights reserved.
 //========================================================================
 
 
@@ -35,9 +35,9 @@
 //   MBTTF_DIR $SERVER_SYSTEMROOT/fonts/
 //
 //------------------------------------------------------------------------
-// define('CACHE_DIR','/tmp/jpgraph_cache/');
-// define('TTF_DIR','/usr/share/fonts/truetype/');
-// define('MBTTF_DIR','/usr/share/fonts/truetype/');
+define('CACHE_DIR','/tmp/');
+define('TTF_DIR','fonts/');
+define('MBTTF_DIR','fonts/');
 
 //-------------------------------------------------------------------------
 // Cache directory specification for use with CSIM graphs that are
@@ -123,10 +123,16 @@ define('USE_LIBRARY_IMAGETTFBBOX',true);
 // Please note that the Apache user must be a member of the
 // specified group since otherwise it is impossible for Apache
 // to set the specified group.
-define('CACHE_FILE_GROUP','www-data');
+define('CACHE_FILE_GROUP','www');
 
 // What permissions should the cached file have
 // (Set to '' will give the default persmissions for the 'PHP-user')
 define('CACHE_FILE_MOD',0664);
+
+// Default theme class name
+define('DEFAULT_THEME_CLASS', 'UniversalTheme');
+
+define('SUPERSAMPLING', true);
+define('SUPERSAMPLING_SCALE', 1);
 
 ?>

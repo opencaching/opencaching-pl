@@ -231,7 +231,7 @@ $iCountryFlags = array(
     'Bolivarian Republic of Venezuela' => 'venz.gif',
     'Republic of Yemen' => 'yemn.gif',
     'Democratic Republic of Congo' => 'zare.gif',
-    'Republic of Zimbabwe' => 'zbwe.gif'
+    'Republic of Zimbabwe' => 'zbwe.gif' 
 ) ;
 
 
