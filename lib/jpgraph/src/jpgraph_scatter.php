@@ -5,7 +5,7 @@
  // Created:     2001-02-11
  // Ver:         $Id: jpgraph_scatter.php 1397 2009-06-27 21:34:14Z ljp $
  //
- // Copyright (c) Aditus Consulting. All rights reserved.
+ // Copyright (c) Asial Corporation. All rights reserved.
  //========================================================================
  */
 require_once ('jpgraph_plotmark.inc.php');
@@ -19,10 +19,10 @@ class FieldArrow {
     public $iSize=10;  // Length in pixels for  arrow
     public $iArrowSize = 2;
     private $isizespec = array(
-        array(2,1),array(3,2),array(4,3),array(6,4),array(7,4),array(8,5),array(10,6),array(12,7),array(16,8),array(20,10)
-        );
+    	array(2,1),array(3,2),array(4,3),array(6,4),array(7,4),array(8,5),array(10,6),array(12,7),array(16,8),array(20,10)
+    	);
     function __construct() {
-        // Empty
+    	// Empty
     }
 
     function SetSize($aSize,$aArrowSize=2) {
@@ -137,7 +137,7 @@ class ScatterPlot extends Plot {
     // CONSTRUCTOR
     function __construct($datay,$datax=false) {
         if( (count($datax) != count($datay)) && is_array($datax)) {
-            JpGraphError::RaiseL(20003);//("Scatterplot must have equal number of X and Y points.");
+        	JpGraphError::RaiseL(20003);//("Scatterplot must have equal number of X and Y points.");
         }
         parent::__construct($datay,$datax);
         $this->mark = new PlotMark();
@@ -161,10 +161,10 @@ class ScatterPlot extends Plot {
 
     // Combine the scatter plot points with a line
     function SetLinkPoints($aFlag=true,$aColor="black",$aWeight=1,$aStyle='solid') {
-        $this->link->iShow = $aFlag;
-        $this->link->iColor = $aColor;
-        $this->link->iWeight = $aWeight;
-        $this->link->iStyle = $aStyle;
+    	$this->link->iShow = $aFlag;
+    	$this->link->iColor = $aColor;
+    	$this->link->iWeight = $aWeight;
+    	$this->link->iStyle = $aStyle;
     }
 
     function Stroke($img,$xscale,$yscale) {

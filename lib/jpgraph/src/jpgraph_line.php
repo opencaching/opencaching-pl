@@ -1,11 +1,11 @@
 <?php
 /*=======================================================================
- // File:        JPGRAPH_LINE.PHP
+ // File:  		 JPGRAPH_LINE.PHP
  // Description: Line plot extension for JpGraph
- // Created:     2001-01-08
- // Ver:         $Id: jpgraph_line.php 1896 2009-10-03 13:02:34Z ljp $
+ // Created:  	 2001-01-08
+ // Ver:  		 $Id: jpgraph_line.php 1921 2009-12-11 11:46:39Z ljp $
  //
- // Copyright (c) Aditus Consulting. All rights reserved.
+ // Copyright (c) Asial Corporation. All rights reserved.
  //========================================================================
  */
 
@@ -45,7 +45,7 @@ class LinePlot extends Plot{
     // PUBLIC METHODS
 
     function SetFilled($aFlg=true) {
-        $this->filled = $aFlg;
+		$this->filled = $aFlg;
     }
 
     function SetBarCenter($aFlag=true) {
@@ -73,7 +73,7 @@ class LinePlot extends Plot{
     }
 
     function SetFillColor($aColor,$aFilled=true) {
-        //$this->color = $aColor;
+    	//$this->color = $aColor;
         $this->fill_color=$aColor;
         $this->filled=$aFilled;
     }
@@ -375,13 +375,13 @@ class LinePlot extends Plot{
                 $img->SetColor($this->fill_color);
                 $img->FilledPolygon($cord);
             }
-            if( $this->weight > 0 ) {
+            if( $this->weight > 0 ) { 
                 $img->SetLineWeight($this->weight);
                 $img->SetColor($this->color);
                 // Remove first and last coordinate before drawing the line
                 // sine we otherwise get the vertical start and end lines which
                 // doesn't look appropriate
-                $img->Polygon(array_slice( array_slice($cord,2), count($cord)-4 ));
+                $img->Polygon(array_slice($cord,2,count($cord)-4));
             }
         }
 

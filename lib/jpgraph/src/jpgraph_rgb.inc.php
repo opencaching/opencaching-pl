@@ -6,7 +6,7 @@
 // Created:     2001-01-08 (Refactored to separate file 2008-08-01)
 // Ver:         $Id: jpgraph_rgb.inc.php 1893 2009-10-02 23:15:25Z ljp $
 //
-// Copyright (c) Aditus Consulting. All rights reserved.
+// Copyright (c) Asial Corporation. All rights reserved.
 //========================================================================
 
 
@@ -509,8 +509,8 @@ class RGB {
                 $g = $this->rgb_table[$matches[5]][1];
                 $b = $this->rgb_table[$matches[5]][2];
             }
-            $alpha  = isset($matches[7]) ? str_replace(',','.',$matches[7]) : 0;
-            $adj    = isset($matches[9]) ? str_replace(',','.',$matches[9]) : 1.0;
+            $alpha	= isset($matches[7]) ? str_replace(',','.',$matches[7]) : 0;
+            $adj	= isset($matches[9]) ? str_replace(',','.',$matches[9]) : 1.0;
 
             if( $adj < 0 ) {
                 JpGraphError::RaiseL(25077);//('Adjustment factor for color must be > 0');

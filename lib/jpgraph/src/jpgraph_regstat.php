@@ -5,7 +5,7 @@
  // Created:     2002-12-01
  // Ver:         $Id: jpgraph_regstat.php 1131 2009-03-11 20:08:24Z ljp $
  //
- // Copyright (c) Aditus Consulting. All rights reserved.
+ // Copyright (c) Asial Corporation. All rights reserved.
  //========================================================================
  */
 
@@ -156,10 +156,10 @@ class Bezier {
             $datax[$i] = $datumx;
             $datay[$i] = $datumy;
         }
-
+         
         $datax[] = end($this->datax);
         $datay[] = end($this->datay);
-
+         
         return array($datax, $datay);
     }
 
@@ -167,7 +167,7 @@ class Bezier {
      * Return one point on the bezier curve. $mu is the position on the curve where $mu is in the
      * range 0 $mu < 1 where 0 is tha start point and 1 is the end point. Note that every newly computed
      * point depends on all the existing points
-     *
+     * 
      * @param $mu Position on the bezier curve
      * @return array($x, $y)
      */
