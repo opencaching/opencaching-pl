@@ -2648,5 +2648,7 @@ $translations = array(
     'merit_badge_number_threshold' =>  '(Amount) Threshold',
     'merit_badge_show_details' => 'Show details of merit badges ...'
     
+                
 );
+
 
