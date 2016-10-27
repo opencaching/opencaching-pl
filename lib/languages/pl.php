@@ -2640,7 +2640,7 @@ $translations = array(
     'merit_badge_gain_date' =>  'Data zdobycia',
     'merit_badge_number' =>  'Postęp',
     'merit_badge_number_threshold' =>  '(Postęp) Próg',
-    'merit_badge_show_details' => 'Pokaż szczegóły zdobytych sprawności ...'
+    'merit_badge_show_details' => 'Pokaż szczegóły zdobytych sprawności ... '
 
 );
 
