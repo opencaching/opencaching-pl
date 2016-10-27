@@ -2642,7 +2642,8 @@ $translations = array(
     'merit_badge_gain_last_date' =>  'Ostatnia data zdobycia',
     'merit_badge_gain_date' =>  'Data zdobycia',
     'merit_badge_number' =>  'Ilość',
-    'merit_badge_number_threshold' =>  '(Ilość) Próg'
+    'merit_badge_number_threshold' =>  '(Ilość) Próg',
+    'merit_badge_show_details' => 'Pokaż szczegóły zdobytych sprawności ...'
                 
 );
 

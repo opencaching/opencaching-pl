@@ -2642,10 +2642,11 @@ $translations = array(
     'merit_badge_threshold' =>  'Threshold',
     'merit_badge_next_level_threshold' =>  'Next level threshold',
     'merit_badge_gain_count' =>  'Gain count',
-    'merit_badge_gain_last_date' =>  'Gain last date',
+    'merit_badge_gain_last_date' =>  'Last gain date',
     'merit_badge_gain_date' =>  'Gain date',
-    'merit_badge_number' =>  'Number',
-    'merit_badge_number_threshold' =>  '(Number) Threshold'
+    'merit_badge_number' =>  'Amount',
+    'merit_badge_number_threshold' =>  '(Amount) Threshold',
+    'merit_badge_show_details' => 'Show details of merit badges ...'
     
 );
 
