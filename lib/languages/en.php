@@ -2644,8 +2644,8 @@ $translations = array(
     'merit_badge_gain_count' =>  'Gain count',
     'merit_badge_gain_last_date' =>  'Last gain date',
     'merit_badge_gain_date' =>  'Gain date',
-    'merit_badge_number' =>  'Amount',
-    'merit_badge_number_threshold' =>  '(Amount) Threshold',
+    'merit_badge_number' =>  'Progress',
+    'merit_badge_number_threshold' =>  '(Progress) Threshold',
     'merit_badge_show_details' => 'Show details of merit badges ...'
     
                 
