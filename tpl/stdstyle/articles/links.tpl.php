@@ -47,7 +47,7 @@
                     <img src="/images/en.png" class="icon32" align="middle" /> {{GB}}
                 </td>
                 <td>
-                    <a href="http://www.opencaching.org.uk">www.opencaching.org.uk</a>
+                    <a href="https://opencache.uk">www.opencache.uk</a>
                 </td>
             </tr>
             <tr>
@@ -72,7 +72,7 @@
                     <img src="/images/pl.png" class="icon32" align="middle" /> {{PL}}
                 </td>
                 <td>
-                    <a href="http://www.opencaching.pl">www.opencaching.pl</a>
+                    <a href="http://opencaching.pl">www.opencaching.pl</a>
                 </td>
             </tr>
             <tr>
