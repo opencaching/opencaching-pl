@@ -225,9 +225,8 @@ $menu = array(
         'title' => 'Blog',
         'menustring' => 'Blog',
         'siteid' => 'blog',
-        'visible' => true,
-        // TODO: remove isset() condition once settings.inc.php are updated on production
-        'filename' => isset($blogsite_url) ? $blogsite_url : 'http://blog.opencaching.pl',
+        'visible' => isset($blogsite_url) ? true : false,
+        'filename' => $blogsite_url,
         'newwindow' => true
     ),
     array(
@@ -242,8 +241,8 @@ $menu = array(
         'title' => tr('geokrets'),
         'menustring' => tr('geokrets'),
         'siteid' => 'GeoKrety',
-        'visible' => true,
-        'filename' => 'http://geokrety.org/',
+        'visible' => isset($config['geokrety_url']) ? true : false,
+        'filename' => $config['geokrety_url'],
         'newwindow' => 'true'
     ),
     array(

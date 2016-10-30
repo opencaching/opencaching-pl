@@ -24,6 +24,11 @@ $config = array(
     'showShopButtonUrl' => 'http://www.shop of choise',
     /** url where xml witch most recent blog enterie are placed */
     'blogMostRecentRecordsUrl' => 'http://blog.opencaching.pl/feed/',
+    /* link to geokrety site
+     * to disable geokrety in main menu set:
+     * $config['geokrety_url'] = NULL;
+     * */
+    'geokrety_url' => 'https://geokrety.org',
     /** to switch cache map v2 on set true otherwise false */
     'map2SwithedOn' => true,
     /** to switch flopp's map on set true otherwise false */
