@@ -8,7 +8,6 @@ $translations = array(
     'Edit' => 'Bewerken',
     'back' => 'Terug',
     'cache_menu' => 'Cache Menu',
-
     'email_incorrect' => 'E-mail adres is niet correct.',
     'account_activation' => 'Account activatie',
     'finish_registration_hint' => 'Om het registratie proces te voltooien, moet je je e-mail adres bevestigen en de activatie code invullen.',
@@ -2269,6 +2268,10 @@ $translations = array(
     'contact_nl_title_6' => 'Doneren',
     'contact_nl_desc_6_1' => 'Zoals jullie kunnen zien, hebben jullie de mogelijkheid om aan Opencaching Benelux te doneren. Dit zou voor de organisatie een enorme hulp en steun bieden en zal duidelijk geapprecieerd worden. Meer info op ons <a href="http://forum.opencaching.nl/viewforum.php?f=27">forum</a> en/of op onze <a href="http://wiki.opencaching.nl/index.php/Financieel">wiki.</a>',
     'contact_nl_desc_6_2' => '<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="2QNGQ2WN6A44E"><input type="image" src="https://www.paypalobjects.com/nl_NL/BE/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal, de veilige en complete manier van online betalen."><img alt="" border="0" src="https://www.paypalobjects.com/nl_NL/i/scr/pixel.gif" width="1" height="1"></form>',
+    'contact_uk_1_title' => 'Questions about Geocaching',
+    'contact_uk_1_desc' => 'Would you like to know more about Geocaching? You\'ll find it in our <a href="https://wiki.opencache.uk/" target="_blank">Wiki</a>.',
+    'contact_uk_2_title' => 'Opencaching UK Team',
+    'contact_uk_2_desc' => 'OC UK Team members are listed <a href="https://wiki.opencache.uk/index.php/OC_Team" target="_blank">here</a>. You can conntact us via <i>info at opencache.uk</i>.',
     'newCacheWpTitle' => 'Selecteer waypoint',
     'newCacheWpDesc' => 'Bestand heeft meerdere waypoints. Kies er een.',
     'logmap_01' => 'door',
