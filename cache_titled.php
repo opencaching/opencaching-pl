@@ -33,7 +33,8 @@ if ( isset( $_REQUEST[ 'type' ] ) )
 
     localCachesInc::createLocalCaches($dbcLocCache, $longitude, $latitude, $distance, $usrid);
 
-    $query .= " JOIN local_caches on cache_titled.cache_id = local_caches.cache_id ";
+    // quick fix - this line generate syntax error in sql query.
+    // $query .= " JOIN local_caches on cache_titled.cache_id = local_caches.cache_id ";
 }
 
 $s = $dbcLocCache->simpleQuery($query);
