@@ -6,7 +6,7 @@
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.datepick-{language4js}.js"></script>
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/timepicker.js"></script>
 <script src="tpl/stdstyle/js/jquery.cookie.js" type="text/javascript"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.25&amp;sensor=false&amp;language={language4js}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.25&amp;key={googlemap_key}&amp;language={language4js}"></script>
 <script src="/lib/cachemap3lib.js" type="text/javascript"></script>
 <script type="text/javascript">
             tinymce.init({
@@ -1737,7 +1737,7 @@ $( document ).ready(function() {
                 <tr>
                     <td>
                         {{pt015}}: <br />
-                        <p align="center"><img src="http://chart.apis.google.com/chart?cht=p3&chd=t:{cacheFound},{powerTrailCacheLeft}&chco=00AA00|0000AA&chs=300x120&chl={{pt103}}|{{pt104}}" /><br />
+                        <p align="center"><img src="https://chart.googleapis.com/chart?cht=p3&chd=t:{cacheFound},{powerTrailCacheLeft}&chco=00AA00|0000AA&chs=300x120&chl={{pt103}}|{{pt104}}" /><br />
                             {powerTrailserStats}</p>
                     </td>
                 </tr>

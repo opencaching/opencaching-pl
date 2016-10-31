@@ -27,7 +27,7 @@ function genStatPieUrl()
     $yData = array();
     $xData = array();
     $colors = array();
-    $url = "http://chart.apis.google.com/chart?chs=550x200&chd=t:";
+    $url = "https://chart.googleapis.com/chart?chs=550x200&chd=t:";
     $sum = 0;
     while ($rTypes = XDb::xFetchArray($rsTypes)) {
         $yData[] = ' (' . $rTypes['count'] . ') ' . $rTypes['type'];
