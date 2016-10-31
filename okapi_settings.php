@@ -44,7 +44,7 @@ function get_okapi_settings()
         'DB_USERNAME' => $dbusername,
         'DB_PASSWORD' => $dbpasswd,
         'SITELANG' => $lang,
-        'SITE_URL' => $absolute_server_URI,
+        'SITE_URL' => isset($OKAPI_server_URI) ? $OKAPI_server_URI : $absolute_server_URI,
         'VAR_DIR' => rtrim($dynbasepath, '/'),
         'IMAGES_DIR' => rtrim($picdir, '/'),
         'IMAGES_URL' => rtrim($picurl, '/').'/',

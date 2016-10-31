@@ -94,6 +94,9 @@ if (!isset($site_in_service))
 //if you are running this site on a other domain than staging.opencaching.de, you can set
 //this in private_db.inc.php, but don't forget the ending /
 $absolute_server_URI = '//localhost/';
+//If your server has another URI than OKAPI (i.e. OC server uses https, but OKAPI http only)
+//then you can set $OKAPI_server_URI to another than $absolute_server_URI address.
+//$OKAPI_server_URI = 'http://localhost/';
 
 // EMail address of the sender
 if (!isset($emailaddr))
