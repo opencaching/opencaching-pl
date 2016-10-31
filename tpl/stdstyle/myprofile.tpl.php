@@ -52,7 +52,7 @@
 
         <tr>
             <td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{coordinates}}:</td>
-            <td class="txt-grey07">{coords}</td>
+            <td>{coords}</td>
         </tr>
         <tr><td class="buffer" colspan="2"></td></tr>
         <tr>
