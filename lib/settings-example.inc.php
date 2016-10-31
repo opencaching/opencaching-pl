@@ -96,7 +96,7 @@ if (!isset($site_in_service))
 $absolute_server_URI = '//localhost/';
 //If your server has another URI than OKAPI (i.e. OC server uses https, but OKAPI http only)
 //then you can set $OKAPI_server_URI to another than $absolute_server_URI address.
-//$absolute_server_URI = 'http://localhost/';
+//$OKAPI_server_URI = 'http://localhost/';
 
 // EMail address of the sender
 if (!isset($emailaddr))
