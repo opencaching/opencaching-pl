@@ -2,7 +2,7 @@
 
 use Utils\Database\XDb;
 //prepare the templates and include all neccessary
-global $rootpath;
+global $rootpath, $googlemap_key;
 require_once('./lib/common.inc.php');
 
 //Preprocessing
@@ -49,7 +49,7 @@ if ($error == false) {
         $rdesc = isset($_POST['desc']) ? $_POST['desc'] : '';
         $rradius = isset($_POST['radius']) ? $_POST['radius'] : '';
 
-        tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?libraries=geometry&amp;sensor=false&amp;language=' . $lang . '" type="text/javascript"></script>');
+        tpl_set_var('cachemap_header', '<script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&amp;key=' . $googlemap_key . '&amp;language=' . $lang . '" type="text/javascript"></script>');
 
         if ($record['user_id'] == $usr['userid']) {
 

@@ -12,7 +12,7 @@
  *
  */
 // variables required by opencaching.pl
-global $lang, $rootpath, $usr, $absolute_server_URI, $cookie;
+global $lang, $rootpath, $usr, $absolute_server_URI, $cookie, $googlemap_key;
 
 //prepare the templates and include all neccessary
 require_once('lib/common.inc.php');
@@ -120,7 +120,8 @@ if ($error == false) {
     tpl_set_var('attributionMap', CacheMap3Lib::GenerateAttributionMap());
     tpl_set_var('mapItems', CacheMap3Lib::GenerateMapItems());
     tpl_set_var('showMapsWhenMore', CacheMap3Lib::GenerateShowMapsWhenMore());
-
+    tpl_set_var('googlemap_key', $googlemap_key);
+    
     if (!$usr)
         tpl_set_var('ptMenu', 'none');
     $ptMenu = new powerTrailMenu($usr);

@@ -3,6 +3,7 @@
 use Utils\Database\XDb;
 //prepare the templates and include all neccessary
 $rootpath = "./";
+global $googlemap_key;
 
 require_once ('./lib/common.inc.php');
 
@@ -14,7 +15,7 @@ if ($error == false) {
         tpl_redirect('login.php?target=' . $target);
     } else {
         $tplname = 'myroutes_add_map2';
-        tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?libraries=geometry&amp;sensor=false&amp;language=' . $lang . '" type="text/javascript"></script>');
+        tpl_set_var('cachemap_header', '<script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&amp;key=' . $googlemap_key . '&amp;language=' . $lang . '" type="text/javascript"></script>');
 
         $user_id = $usr['userid'];
         $name = isset($_POST['name']) ? $_POST['name'] : '';

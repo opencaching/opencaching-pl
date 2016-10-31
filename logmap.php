@@ -2,7 +2,7 @@
 
 use Utils\Database\OcDb;
 use lib\Objects\GeoCache\GeoCacheLog;
-global $dateFormat;
+global $dateFormat, $googlemap_key;
 require_once ('./lib/common.inc.php');
 
 //Preprocessing
@@ -62,7 +62,7 @@ if ($error == false) {
         }
 
         /* SET YOUR MAP CODE HERE */
-        tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;language=' . $lang . '" type="text/javascript"></script>');
+        tpl_set_var('cachemap_header', '<script src="https://maps.googleapis.com/maps/api/js?key=' . $googlemap_key . '&amp;language=' . $lang . '" type="text/javascript"></script>');
         tpl_set_var('points', $point);
         tpl_set_var('mapzoom', 6);
         tpl_set_var('mapcenterLat', $main_page_map_center_lat);

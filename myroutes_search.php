@@ -13,7 +13,7 @@ require_once($rootpath . 'lib/caches.inc.php');
 require_once($stylepath . '/lib/icons.inc.php');
 global $content, $bUseZip, $usr, $config;
 global $default_lang, $cache_attrib_jsarray_line, $cache_attrib_img_line;
-global $lang, $language, $dateFormat;
+global $lang, $language, $dateFormat, $googlemap_key;
 
 $database = OcDb::instance();
 
@@ -40,7 +40,7 @@ if ($error == false) {
         }
 
 
-        tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?libraries=geometry&amp;sensor=false&amp;language=' . $lang . '" type="text/javascript"></script>');
+        tpl_set_var('cachemap_header', '<script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&amp;key=' . $googlemap_key . '&amp;language=' . $lang . '" type="text/javascript"></script>');
 
         $s = $database->paramQuery(
                 'SELECT `user_id`,`name`, `description`, `radius`, `options` FROM `routes`
