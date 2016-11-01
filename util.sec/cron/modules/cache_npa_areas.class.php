@@ -32,7 +32,7 @@ while ($rCache = XDb::xFetchArray($rsCache)) {
     $rsLayers = XDb::xSql(
         "SELECT `id`, AsText(`shape`) AS `geometry`
         FROM `npa_areas`
-        WHERE ST_WITHIN(
+        WHERE WITHIN(
             GEOMFROMTEXT(
                 POINT(" . $rCache['longitude'] . ', ' . $rCache['latitude'] . ")
             ), `shape`
@@ -57,7 +57,7 @@ while ($rCache = XDb::xFetchArray($rsCache)) {
     // Parki PL
     $rsLayers = XDb::xSql(
         "SELECT `id`, AsText(`shape`) AS `geometry` FROM `parkipl`
-        WHERE ST_WITHIN(
+        WHERE WITHIN(
             GEOMFROMTEXT(
                 POINT(" . $rCache['longitude'] . ', ' . $rCache['latitude'] . ")
             ), `shape`

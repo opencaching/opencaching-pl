@@ -1,30 +1,4 @@
 
-UPDATE: 01.11.2016 (kojoty):
-
-- NUTS source data: http://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/nuts#nuts13
-- download "shape" package
-
-Conversion NUTS layers data -> OC nuts_layers db tables:
-- ogr2ogr - command line tool - part of GDAL(http://www.gdal.org/ogr2ogr.html) 
-- to convert layers use command like:
-   
-  ogr2ogr -f MySQL MySQL:<your-tmp-db-name>,host=<your-host>,user=<your-db-user>,password=<your-db-pass> ./data/NUTS_RG_03M_2013.shp
-
-  as a result you should got db with raw layers - it needs to be imported to OC nuts_layers by something like:
-  
-  INSERT nuts_layer(level, code, shape) SELECT stat_levl_, nuts_id, geomfromtext(astext(shape)) FROM <your-tmp0db-name>.nuts_rg_03m_2013
-
-  geomfromtext(astext(shape)) was necessary because by default POLIGONS has SRID=1 - after it SRID = 0
-  
-Conversion of NUTS codes -> OC nuts_codes db table:
-- util.sec/import_nuts/codes.php script can be used to import codes from csv file (NUTS_AT...csv file)
-- as a workaroud for chars encoding issues I used openoffice-calc to open dbf file and export data to csv file with UTF-8 encoding and then import proper data to OC db
-
-After everything cache_location table should be recreated...
-  
---------------------------------------------------------------------
-
-OLD VERSION:
 
 1. Download and unpack NUTS_RG_03M_2003 to data directory
 
