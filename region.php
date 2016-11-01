@@ -40,7 +40,7 @@ $sCode = '';
 
 $rsLayers = XDb::xSql(
     "SELECT `level`, `code`, AsText(`shape`) AS `geometry` FROM `nuts_layer`
-    WHERE WITHIN(GeomFromText( ? ), `shape`) ORDER BY `level` DESC", 'POINT(' . $lon . ' ' . $lat . ')');
+    WHERE ST_WITHIN(GeomFromText( ? ), `shape`) ORDER BY `level` DESC", 'POINT(' . $lon . ' ' . $lat . ')');
 while ($rLayers = XDb::xFetchArray($rsLayers)) {
     if (Gis::ptInLineRing($rLayers['geometry'], 'POINT(' . $lon . ' ' . $lat . ')')) {
         $sCode = $rLayers['code'];
