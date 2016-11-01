@@ -49,7 +49,7 @@ while ($rCache = XDb::xFetchArray($rsCache)) {
 
     $rsLayers = XDb::xSql(
         "SELECT `level`, `code`, AsText(`shape`) AS `geometry` FROM `nuts_layer`
-        WHERE ST_WITHIN(GeomFromText( ? ), `shape`)
+        WHERE WITHIN(GeomFromText( ? ), `shape`)
         ORDER BY `level` DESC", 'POINT(' . $rCache['longitude'] . ' ' . $rCache['latitude'] . ')');
 
     while ($rLayers = XDb::xFetchArray($rsLayers)) {

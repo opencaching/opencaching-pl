@@ -1,25 +1,23 @@
+#!/usr/bin/php -q
 <?php
 
-use Utils\Database\XDb;
+require('../lib/common.inc.php');
+sql('USE `ocpl`');
+setlocale(LC_ALL, 'pl_PL.utf-8');
 
-$rootpath = "../../";
-require('../../lib/common.inc.php');
 
-//setlocale(LC_ALL, 'pl_PL.utf-8');
-
-$NUTS_AT_CSV_FILE = $argv[1];
-
-$f = fopen($NUTS_AT_CSV_FILE, 'r');
-
-while (($buffer = fgetcsv($f, 1000, ",")) !== false) {
-    if (count($buffer) != 6)
+$f = fopen('nuts_at_2006.csv', 'r');
+while (($buffer = fgetcsv($f, 1000, "\t")) !== false) {
+    if (count($buffer) != 7)
         die('invalid format' . "\n");
 
-    if ($buffer[1] != 'NUTS_ID' && $buffer[1] != '' && $buffer[2] != '') {
-        //$bufferr = mb_convert_encoding($buffer[3], "utf-8", "auto");
+    if ($buffer[1] != 'NUTS_ID' && $buffer[1] != '' && $buffer[3] != '') {
+        mysql_query("SET NAMES 'utf8'");
+        $bufferr = mb_convert_encoding($buffer[3], "UTF-8", "auto");
 
-        XDb::xSql("INSERT IGNORE INTO `nuts_codes` (`code`, `name`) VALUES ( ?, ?)", $buffer[1], $buffer[2]);
+        $sql = sql("INSERT IGNORE INTO `nuts_codes` (`code`, `name`) VALUES ('&1', '&2')", $buffer[1], $bufferr);
+        mysql_query($sql);
     }
 }
-
 fclose($f);
+?>
