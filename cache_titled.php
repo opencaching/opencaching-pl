@@ -84,6 +84,7 @@ for( $i = 0; $i < $dbcLocCache->rowCount($s); $i++ )
 }
 
 tpl_set_var( 'contentTable', $content );
+tpl_set_var('language4js', $lang);
 
 tpl_BuildTemplate();
 
