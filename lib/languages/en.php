@@ -1028,7 +1028,7 @@ $translations = array(
     'log16' => 'Refresh',
     'log17' => 'Open log-cache panel',
     'date' => 'Date',
-    'myprofile01' => 'A user who created a new cache or posted a log entry cannot be deleted. It\'s only possible to deactivate your account. All your personal information will be deleted from your profile but your user name will be saved. If you want to deactivate your account, please contact us with your e-mail address and we will deactivate your profile. In unclear cases please contact ocpl @ opencaching.pl. Thant you.***',
+    'myprofile01' => 'A user who created a new cache or posted a log entry cannot be deleted. It\'s only possible to deactivate your account. All your personal information will be deleted from your profile but your user name will be saved. If you want to deactivate your account, please contact us with your e-mail address and we will deactivate your profile. In unclear cases please <a href="/articles.php?page=contact">contact us</a>. Thank you.***',
     'myprofile02' => 'Yes, I am a volunteer geocaching Guide for beginners. See&nbsp',
     'myprofile03' => 'Guides',
     'myprofile04' => 'Yes, I want to be a volunteer geocaching Guide for beginners',
