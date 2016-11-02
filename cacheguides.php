@@ -75,7 +75,7 @@ if ($error == false) {
         XDb::xFreeResults($rscp);
 
         /* SET YOUR MAP CODE HERE */
-        tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;language=' . $lang . '" type="text/javascript"></script>');
+        tpl_set_var('cachemap_header', '<script src="https://maps.googleapis.com/maps/api/js?key=' . $googlemap_key . '&amp;language=' . $lang . '" type="text/javascript"></script>');
     }
 }
 
