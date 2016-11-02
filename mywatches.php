@@ -320,7 +320,7 @@ if ($error == false) {
                     tpl_set_var('api_key', $googlemap_key);
                     tpl_set_var('latitude', $usrlatitude);
                     tpl_set_var('longitude', $usrlongitude);
-                    tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?sensor=false&language=' . $lang . '&libraries=weather" type="text/javascript"></script>');
+                    tpl_set_var('cachemap_header', '<script src="https://maps.googleapis.com/maps/api/js?key=' . $googlemap_key . '&amp;language=' . $lang . '&amp;libraries=weather" type="text/javascript"></script>');
                     tpl_set_var('wcMapZoom', $wcMapZoom);
                     tpl_set_var('wcMapWeather', $wcMapWeather);
                 }
