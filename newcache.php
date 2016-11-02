@@ -123,11 +123,8 @@ if ($error == false) {
         }
         $sel_type = isset($_POST['type']) ? $_POST['type'] : -1;
         if (!isset($_POST['size'])) {
-            if ($sel_type == 6)
+            if ($sel_type == 4 || $sel_type == 5 || $sel_type == 6) {
                 $sel_size = 7;
-            else if ($sel_type == 4 || $sel_type == 5) {
-                $sel_type = 1;
-                $sel_size = 1;
             } else {
                 $sel_size = -1;
             }
@@ -629,8 +626,8 @@ if ($error == false) {
 
             //cache-type
             $type_not_ok = false;
-            //block register virtual and webcam
-            if ($sel_type == -1 || $sel_type == 4 || $sel_type == 5) {
+            //block forbiden cache types
+            if ($sel_type == -1 || in_array($sel_type, $config['forbidenCacheTypes'])) {
                 tpl_set_var('type_message', $type_not_ok_message);
                 $error = true;
                 $type_not_ok = true;
