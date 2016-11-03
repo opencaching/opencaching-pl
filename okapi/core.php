@@ -1106,8 +1106,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1343;
-    public static $git_revision = '3335c0ab979256cd85e5e71c706ec4ce84b48ef6';
+    public static $version_number = 1347;
+    public static $git_revision = 'b8eb45354562537902674eb8acbf0cdba87039df';
 
     private static $okapi_vars = null;
 
@@ -1390,7 +1390,7 @@ class Okapi
                 break;
             case 'OCUK':
                 $urls = array(
-                    "http://www.opencache.uk/okapi/",
+                    "http://opencache.uk/okapi/",
                 );
                 break;
             case 'OCUS':
