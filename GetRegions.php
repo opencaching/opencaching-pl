@@ -55,7 +55,7 @@ class GetRegions
         $lon_float = (float) $lon;
 
         $sCode = '';
-        $tmpqery = "SELECT `level`, `code`, AsText(`shape`) AS `geometry` FROM `nuts_layer` WHERE WITHIN(GeomFromText('POINT($lon  $lat)'), `shape`) ORDER BY `level` DESC";
+        $tmpqery = "SELECT `level`, `code`, AsText(`shape`) AS `geometry` FROM `nuts_layer` WHERE ST_WITHIN(GeomFromText('POINT($lon  $lat)'), `shape`) ORDER BY `level` DESC";
 
         $db = OcDb::instance();
         $s = $db->simpleQuery($tmpqery);
