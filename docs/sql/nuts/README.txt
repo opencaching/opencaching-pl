@@ -8,3 +8,9 @@ data to define regions within the EU.
 
     Import these files into your database if your node operates within EU.
 
+Important!
+----------
+    Always update cache_locations table after such an import
+using the following command:
+
+/path/to/do-wget-url util.sec/cache_locations/cache_location.class.php cache_location.html
