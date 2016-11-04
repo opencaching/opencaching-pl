@@ -823,13 +823,11 @@ class common
 
         $sizes = '<option value="-1">' . tr('select_one') . '</option>';
         foreach ($cacheSizes as $size) {
-            if ($sel_type == 6) {
+            if ($sel_type == cache::TYPE_EVENT || $sel_type == cache::TYPE_VIRTUAL || $sel_type == cache::TYPE_WEBCAM) {
                 if ($size['id'] == cache::SIZE_NOCONTAINER) {
                     $sizes .= '<option value="' . $size['id'] . '" selected="selected">' . tr($size['translation']) . '</option>';
-                    tpl_set_var('is_disabled_size', '');
                 } else {
                     $sizes .= '<option value="' . $size['id'] . '">' . tr($size['translation']) . '</option>';
-                    tpl_set_var('is_disabled_size', 'disabled');
                 }
             } elseif ($size['id'] != cache::SIZE_NOCONTAINER) {
                 if ($size['id'] == $sel_size) {
