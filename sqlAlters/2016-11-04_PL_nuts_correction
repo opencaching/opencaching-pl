@@ -1,0 +1,29 @@
+--
+-- Correction of nuts region for PL
+-- Related with issues #120 and #147
+--
+
+-- Change Poludniowo -> Południowo
+UPDATE `nuts_codes` SET `name` = "Region Południowo-Zachodni" WHERE `code` = "PL5";
+
+-- According to Rada Języka Polskiego and issue #147
+UPDATE `nuts_codes` SET `name` = LOWER(`name`) WHERE `code` LIKE 'PL__';
+
+-- Correction of cache_locations. In OC PL database we have plenty of versions
+-- for example - "śląskie", "slaskie", "Śląskie" and "Slaskie"
+UPDATE `cache_location` SET `adm3`="łódzkie" WHERE `code3` = "PL11";
+UPDATE `cache_location` SET `adm3`="mazowieckie" WHERE `code3` = "PL12";
+UPDATE `cache_location` SET `adm3`="małopolskie" WHERE `code3` = "PL21";
+UPDATE `cache_location` SET `adm3`="śląskie" WHERE `code3` = "PL22";
+UPDATE `cache_location` SET `adm3`="lubelskie" WHERE `code3` = "PL31";
+UPDATE `cache_location` SET `adm3`="podkarpackie" WHERE `code3` = "PL32";
+UPDATE `cache_location` SET `adm3`="świętokrzyskie" WHERE `code3` = "PL33";
+UPDATE `cache_location` SET `adm3`="podlaskie" WHERE `code3` = "PL34";
+UPDATE `cache_location` SET `adm3`="wielkopolskie" WHERE `code3` = "PL41";
+UPDATE `cache_location` SET `adm3`="zachodniopomorskie" WHERE `code3` = "PL42";
+UPDATE `cache_location` SET `adm3`="lubuskie" WHERE `code3` = "PL43";
+UPDATE `cache_location` SET `adm3`="dolnośląskie" WHERE `code3` = "PL51";
+UPDATE `cache_location` SET `adm3`="opolskie" WHERE `code3` = "PL52";
+UPDATE `cache_location` SET `adm3`="kujawsko-pomorskie" WHERE `code3` = "PL61";
+UPDATE `cache_location` SET `adm3`="warmińsko-mazurskie" WHERE `code3` = "PL62";
+UPDATE `cache_location` SET `adm3`="pomorskie" WHERE `code3` = "PL63";
