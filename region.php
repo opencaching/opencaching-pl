@@ -112,7 +112,7 @@ if ($sCode != '') {
 
 //From Google
 
-$url = '//maps.googleapis.com/maps/api/geocode/json?latlng=' . $lat . ',' . $lon . '&sensor=false&language=' . $lang;
+$url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' . $lat . ',' . $lon . '&amp;key=' . $googlemap_key . '&amp;language=' . $lang;
 $data = @file_get_contents($url);
 
 $jsondata = json_decode($data, true);
@@ -120,7 +120,7 @@ $jsondata = json_decode($data, true);
 //print_r($jsondata);
 
 if (isset($jsondata['status']) && strtoupper($jsondata['status']) == 'OK') {
-    $woj = $jsondata['results']['0']['address_components']['5']['long_name'];
+    $woj = $jsondata['results']['0']['address_components']['4']['long_name'];
     tpl_set_var('region_gm', $woj);
 } else {
 
