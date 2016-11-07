@@ -352,6 +352,7 @@ $translations = array(
     'full_description' => 'Pełen opis',
     'mandatory_field' => 'Pole obowiązkowe',
     'full_desc_long_text' => 'Wpisz tutaj informacje o tym, dlaczego ukryłeś skrzynkę właśnie w tym miejscu, a także <font color="red">wszystkie informacje niezbędne</font> do odnalezienia skrzynki. Odnalezienie skrzynki musi być możliwe na podstawie znajomości jej współrzędnych oraz tego opisu.',
+    'short_desc_long_text' => 'Podaj zwięzły opis kesza (maksymalnie do 120 znaków). Może to być "motto" kesza, podtytuł itp.',
     'description_hint' => 'Staraj się, aby opis był krótki i zwięzły. Nie przepisuj informacji z internetu tylko podaj link do nich.',
     'no_javascript' => 'Obsługa Javascript jest obecnie wyłączona w Twojej przeglądarce. Możesz wprowadzać tylko zwykły tekst. Aby wprawdzić kod HTML za pomocą edytora, musisz włączyć obsługę Javascript.',
     'html_usage' => 'Proszę używać znaczników HTML wyłącznie do formatowania tekstu.',
