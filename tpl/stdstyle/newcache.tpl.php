@@ -72,8 +72,8 @@
             // console.log($('#lat_min').val().length);
             if ($('#lat_h').val().length > 0 &&
                     $('#lon_h').val().length > 0 &&
-                    $('#lat_min').val().length > 3 &&
-                    $('#lon_min').val().length > 3) {
+                    $('#lat_min').val().length > 0 &&
+                    $('#lon_min').val().length > 0) {
 
             var latmin = parseFloat($('#lat_min').val());
                     var lonmin = parseFloat($('#lon_min').val());
@@ -555,7 +555,7 @@
             <td class="content-title-noshade">
                 <fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FAFBDF;" class="form-group-sm">
                     <legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>&nbsp;&nbsp;&nbsp;
-                    <select name="latNS" id="latNS" class="form-control input50">
+                    <select name="latNS" id="latNS" class="form-control input50" onchange="checkRegion()">
                         <option value="N"{latNsel}>N</option>
                         <option value="S"{latSsel}>S</option>
                     </select>
@@ -564,7 +564,7 @@
                     <button class="btn btn-default btn-sm" onclick="return nearbycachemapOC()">{{check_nearby_caches_map}}</button>
                     {lat_message}<br />
                     &nbsp;&nbsp;&nbsp;
-                    <select name="lonEW" id="lonEW" class="form-control input50">
+                    <select name="lonEW" id="lonEW" class="form-control input50" onchange="checkRegion()">
                         <option value="W"{lonWsel}>W</option>
                         <option value="E"{lonEsel}>E</option>
                     </select>
@@ -595,7 +595,7 @@
                 <!-- <select name="region" id="region1" class="input200" onchange="javascript:chkcountry()" > --></select>
                 <select name="region" id="region1" class="form-control input200" >
 
-                </select>&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/help.png" class="icon16" id="region2" alt=""/>&nbsp;<button class="btn btn-default btn-sm" id="region3" onclick="return extractregion()">{{region_from_coord}}</button>
+                </select>&nbsp;<button class="btn btn-default btn-sm" id="region3" onclick="return extractregion()">{{region_from_coord}}</button>
                 <img id="regionAjaxLoader" style="display: none" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
                 {region_message}
             </td>

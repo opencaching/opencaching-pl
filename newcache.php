@@ -123,15 +123,15 @@ if ($error == false) {
         }
         $sel_type = isset($_POST['type']) ? $_POST['type'] : -1;
         if (!isset($_POST['size'])) {
-            if ($sel_type == 4 || $sel_type == 5 || $sel_type == 6) {
-                $sel_size = 7;
+            if ($sel_type == GeoCache::TYPE_VIRTUAL || $sel_type == GeoCache::TYPE_WEBCAM || $sel_type == GeoCache::TYPE_EVENT) {
+                $sel_size = GeoCache::SIZE_NONE;
             } else {
                 $sel_size = -1;
             }
         } else {
             $sel_size = isset($_POST['size']) ? $_POST['size'] : -1;
-            if ($cache_type == 4 || $cache_type == 5 || $cache_type == 6) {
-                $sel_size = 7;
+            if ($sel_type == GeoCache::TYPE_VIRTUAL || $sel_type == GeoCache::TYPE_WEBCAM || $sel_type == GeoCache::TYPE_EVENT) {
+                $sel_size = GeoCache::SIZE_NONE;
             }
         }
         $sel_lang = isset($_POST['desc_lang']) ? $_POST['desc_lang'] : $default_lang;
@@ -331,7 +331,15 @@ if ($error == false) {
             $terrain_options .= "\n";
         }
         tpl_set_var('terrain_options', $terrain_options);
+
+        //size options
         tpl_set_var('sizeoptions', common::buildCacheSizeSelector($sel_type, $sel_size));
+        if ($sel_type == GeoCache::TYPE_VIRTUAL || $sel_type == GeoCache::TYPE_WEBCAM || $sel_type == GeoCache::TYPE_EVENT) {
+            tpl_set_var('is_disabled_size', 'disabled');
+        } else {
+            tpl_set_var('is_disabled_size', '');
+        }
+
         //typeoptions
 
         $cache = cache::instance();
@@ -794,7 +802,6 @@ if ($error == false) {
         }
     }
 }
-tpl_set_var('is_disabled_size', '');
 tpl_set_var('language4js', $lang);
 if ($no_tpl_build == false) {
     //make the template and send it out
