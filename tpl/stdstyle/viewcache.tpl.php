@@ -118,7 +118,7 @@
             <div id="viewcache-map" class="content2-container-2col-right"><div class="img-shadow">
                     <?php
                         printf(
-                        '<img src="//maps.googleapis.com/maps/api/staticmap?center=%1$f,%2$f&amp;zoom=%6$s&amp;size=170x170&amp;maptype=%5$s&amp;key=%4$s&amp;sensor=false&amp;markers=color:%7$s%%7Clabel:%%7C%1$f,%2$f&amp;format=png"
+                        '<img src="lib/staticmap.php?center=%1$f,%2$f&amp;zoom=%6$s&amp;size=170x170&amp;maptype=mapnik&amp;markers=%1$f,%2$f,mark-small-blue"
                          longdesc="ifr::cachemap-mini.php?inputZoom=%8$s&amp;lat=%1$f&amp;lon=%2$f&amp;cacheid=%3$s::%9$s::%10$s"
                          onclick="enlarge(this);" alt="%11$s" title="%11$s" />',
                             tpl_get_var('latitude'),
