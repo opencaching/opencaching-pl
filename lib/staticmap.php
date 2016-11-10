@@ -43,14 +43,15 @@ Class staticMapLite
     protected $maxHeight = 1024;
 
     protected $tileSize = 256;
-    protected $tileSrcUrl = array('mapnik' => 'http://tile.openstreetmap.org/{Z}/{X}/{Y}.png',
-        'osmarenderer' => 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{Z}/{X}/{Y}.png',
-        'cycle' => 'http://a.tile.opencyclemap.org/cycle/{Z}/{X}/{Y}.png',
+    protected $tileSrcUrl = array('mapnik' => 'http://tile.openstreetmap.org/{Z}/{X}/{Y}.png', // -> http://openstreetmap.org
+        'sterrain' => 'http://d.tile.stamen.com/terrain/{Z}/{X}/{Y}.png',  // -> http://maps.stamen.com/
+   		'stoner' => 'http://d.tile.stamen.com/toner/{Z}/{X}/{Y}.png',      // -> http://maps.stamen.com/
+        'cycle' => 'http://a.tile.opencyclemap.org/cycle/{Z}/{X}/{Y}.png', // -> http://opencyclemap.org
     );
 
     protected $tileDefaultSrc = 'mapnik';
     protected $markerBaseDir = '../images/markers';
-    protected $osmLogo = '../images/cachemaps/osm_logo.png';
+    protected $atrribution = '(c) OpenStreetMap contributors';
 
 	
 	
@@ -378,9 +379,33 @@ Class staticMapLite
 
     public function copyrightNotice()
     {
-        $logoImg = imagecreatefrompng($this->osmLogo);
-        imagecopy($this->image, $logoImg, imagesx($this->image) - imagesx($logoImg), imagesy($this->image) - imagesy($logoImg), 0, 0, imagesx($logoImg), imagesy($logoImg));
 
+    	$string = $this->atrribution;
+    	$font_size = 1;
+    	$len = strlen($string);
+    	$width  = imagefontwidth($font_size)*$len;
+    	$height = imagefontheight($font_size);
+    	$img = imagecreate($width,$height);
+    	
+    	imagesavealpha($img, true);
+    	imagealphablending($img, false);
+    	$white = imagecolorallocatealpha($img, 200, 200, 200, 50);
+    	imagefill($img, 0, 0, $white);    	
+    	
+    	$color = imagecolorallocate($img, 0, 0, 0); 
+    	$ypos = 0;
+    	for($i=0;$i<$len;$i++){
+    		// Position of the character horizontally
+    		$xpos = $i * imagefontwidth($font_size);
+    		// Draw character
+    		imagechar($img, $font_size, $xpos, $ypos, $string, $color);
+    		// Remove character from string
+    		$string = substr($string, 1);
+    	
+    	}
+
+        imagecopy($this->image, $img, imagesx($this->image) - imagesx($img), imagesy($this->image) - imagesy($img), 0, 0, imagesx($img), imagesy($img)); 
+        
     }
 
     public function sendHeader()
@@ -398,7 +423,7 @@ Class staticMapLite
 
         $this->createBaseMap();     
         if (count($this->markers)) $this->placeMarkers();
-        if ($this->osmLogo) $this->copyrightNotice();
+        $this->copyrightNotice();
     }
 
     public function showMap()

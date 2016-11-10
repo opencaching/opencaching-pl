@@ -118,14 +118,14 @@
             <div id="viewcache-map" class="content2-container-2col-right"><div class="img-shadow">
                     <?php
                         printf(
-                        '<img src="lib/staticmap.php?center=%1$f,%2$f&amp;zoom=%6$s&amp;size=170x170&amp;maptype=mapnik&amp;markers=%1$f,%2$f,mark-small-blue"
+                        '<img src="lib/staticmap.php?center=%1$f,%2$f&amp;zoom=%6$s&amp;size=170x170&amp;maptype=%5$s&amp;markers=%1$f,%2$f,mark-small-blue"
                          longdesc="ifr::cachemap-mini.php?inputZoom=%8$s&amp;lat=%1$f&amp;lon=%2$f&amp;cacheid=%3$s::%9$s::%10$s"
                          onclick="enlarge(this);" alt="%11$s" title="%11$s" />',
                             tpl_get_var('latitude'),
                             tpl_get_var('longitude'),
                             tpl_get_var('cacheid'),
                             tpl_get_var('googlemap_key'),
-                            $config['maps']['cache_page_map']['layer'],
+                            $config['maps']['cache_page_map']['source'],
                             $config['maps']['cache_page_map']['zoom'],
                             $config['maps']['cache_page_map']['marker_color'],
                             $config['maps']['cache_mini_map']['zoom'],
