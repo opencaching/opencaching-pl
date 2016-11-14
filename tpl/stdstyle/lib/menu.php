@@ -1063,5 +1063,21 @@ function mnu_EchoQuicklinks($selmenuitem)
         echo '</div>' . "\n";
     }
 }
-?>
 
+function buildBottomMenu($menuArray)
+{
+    $result = '<p>';
+    $first = true;
+    foreach ($menuArray as $name => $item)
+        if ($item['visible']) {
+            if ($first) {
+                $first = false;
+            } else {
+                $result .= ' | ';
+            }
+            $result .= '<a href="' . $item['link'] . '">' . tr($name) . '</a>';
+        }
+    $result .= '</p>';
+    return $result;
+}
+?>
