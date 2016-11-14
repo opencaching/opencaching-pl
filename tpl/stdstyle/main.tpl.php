@@ -265,18 +265,12 @@ if (date('m') == 12 || date('m') == 1) {
                             </span>
                           </div>
                         </p>
-                    <?php } ?>
-
-                    <p>
-                        <a href="articles.php?page=impressum">{{impressum}}</a> |
-                        <a href="articles.php?page=history">{{history}}</a> |
-                        <a href="articles.php?page=contact">{{contact}}</a> |
-                        <a href="/index.php?page=sitemap">{{main_page}}</a> |
-                        <a href="/okapi/">API</a><br />
-                    </p>
-
+                    <?php }
+                    $bottomMenuResult = buildBottomMenu($config['bottom_menu']);
+                    echo $bottomMenuResult;
+                    ?>
                 </div>
-                <!-- (C) The Open Caching Project ? - 2016 -->
+                <!-- (C) The Opencaching Project ? - 2016 -->
             </div>
         </div>
     </body>
