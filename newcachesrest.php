@@ -82,7 +82,7 @@ if ($error == false) {
         $pt_icon_title_tr = tr('pt139');
 
         foreach ($newcaches AS $countryname => $country_record) {
-            $cache_country = '<tr><td colspan="6" class="content-title-noshade-size3">' . htmlspecialchars($countryname, ENT_COMPAT, 'UTF-8') . '</td></tr>';
+            $cache_country = '<tr><td colspan="7" class="content-title-noshade-size3">' . htmlspecialchars($countryname, ENT_COMPAT, 'UTF-8') . '</td></tr>';
             $content .= $cache_country;
             foreach ($country_record AS $cache_record) {
                 $thisline = $tpl_line;
@@ -103,12 +103,12 @@ if ($error == false) {
                     LIMIT 1", $cache_record['cache_id']);
 
                 if ( $r_log = XDb::xFetchArray($rs_log) ) {
-                    $thisline = mb_ereg_replace('{logimage}', '<img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt="" />', $thisline);
+                    $thisline = mb_ereg_replace('{logimage}', '<img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" alt="">', $thisline);
                 } else {
                     $thisline = mb_ereg_replace('{logimage}', '&nbsp;', $thisline);
                 }
                 if ( $r_log && $r_log['geokret_in'] != '0' ) {
-                    $thisline = mb_ereg_replace('{gkimage}', '&nbsp;<img src="images/gk.png" border="0" alt="" title="GeoKret" />', $thisline);
+                    $thisline = mb_ereg_replace('{gkimage}', '&nbsp;<img src="images/gk.png" alt="" title="GeoKret">', $thisline);
                 } else {
                     $thisline = mb_ereg_replace('{gkimage}', '&nbsp;', $thisline);
                 }
@@ -119,7 +119,7 @@ if ($error == false) {
                     $PT_icon = icon_geopath_small($cache_record['PT_ID'], $cache_record['PT_image'], $cache_record['PT_name'], $cache_record['PT_type'], $pt_cache_intro_tr, $pt_icon_title_tr);
                     $thisline = mb_ereg_replace('{GPicon}', $PT_icon, $thisline);
                 } else {
-                    $thisline = mb_ereg_replace('{GPicon}', '<img src="images/rating-star-empty.png" class="icon16" alt="" title="" />', $thisline);
+                    $thisline = mb_ereg_replace('{GPicon}', '<img src="images/rating-star-empty.png" class="icon16" alt="" title="">', $thisline);
                 };
 
 
@@ -130,7 +130,7 @@ if ($error == false) {
                 $thisline = mb_ereg_replace('{date}', date($dateFormat, strtotime($cache_record['date'])), $thisline);
                 $thisline = mb_ereg_replace('{imglink}', 'tpl/stdstyle/images/' . getSmallCacheIcon($cache_record['icon_large']), $thisline);
                 $content .= $thisline . "\n";
-            }$content .= '<tr><td colspan="5">&nbsp;</td></tr>';
+            }$content .= '<tr><td colspan="7">&nbsp;</td></tr>';
         }
     }
 
@@ -140,4 +140,3 @@ if ($error == false) {
 }
 //make the template and send it out
 tpl_BuildTemplate();
-

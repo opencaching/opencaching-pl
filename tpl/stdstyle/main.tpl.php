@@ -39,24 +39,20 @@ if (date('m') == 12 || date('m') == 1) {
 
 
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="{lang}" xml:lang="{lang}">
     <head>
-        <meta http-equiv="content-type" content="aplication:xhtml+xml; charset=UTF-8" />
-        <meta http-equiv="Content-Language" content="{lang}" />
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
-        <meta http-equiv="pragma" content="no-cache" />
-        <meta name="keywords" content="geocaching, opencaching, skarby, poszukiwania,geocashing, longitude, latitude, utm, coordinates, treasure hunting, treasure, GPS, global positioning system, garmin, magellan, mapping, geo, hiking, outdoors, sport, hunt, stash, cache, geocaching, geocache, cache, treasure, hunting, satellite, navigation, tracking, bugs, travel bugs" />
-        <meta http-equiv="cache-control" content="no-cache" />
-        <meta name="author" content="{site_name}" />
+        <meta name="keywords" content="geocaching, opencaching, skarby, poszukiwania, geocashing, longitude, latitude, utm, coordinates, treasure hunting, treasure, GPS, global positioning system, garmin, magellan, mapping, geo, hiking, outdoors, sport, hunt, stash, cache, geocaching, geocache, cache, treasure, hunting, satellite, navigation, tracking, bugs, travel bugs">
+        <meta name="author" content="{site_name}">
 
-        <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/style_screen.css" />
-        <link rel="stylesheet" type="text/css" media="print" href="tpl/stdstyle/css/style_print.css" />
-        <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/style_{season}.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="tpl/stdstyle/css/style_screen.css">
+        <link rel="stylesheet" type="text/css" media="print" href="tpl/stdstyle/css/style_print.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="tpl/stdstyle/css/style_{season}.css">
 
-        <link rel="shortcut icon" href="/images/<?=$config['headerFavicon']?>" />
-        <link rel="apple-touch-icon-precomposed" href="/images/oc_logo_144.png" />
+        <link rel="shortcut icon" href="/images/<?=$config['headerFavicon']?>">
+        <link rel="apple-touch-icon-precomposed" href="/images/oc_logo_144.png">
 
         <title><?=$tpl_subtitle?>{title}</title>
 
@@ -94,7 +90,7 @@ if (date('m') == 12 || date('m') == 1) {
                 <div id="bg2">&nbsp;</div>
                 <!-- HEADER -->
                 <!-- OC-Logo -->
-                <div><img src="/images/<?=$logo3?>" alt="" style="margin-top:5px; margin-left:3px;" /></div>
+                <div><img src="/images/<?=$logo3?>" alt="OC logo" style="margin-top:5px; margin-left:3px;"></div>
                 <!-- Sitename -->
                 <div class="site-name">
                     <p class="title"><a href="index.php"><?=$logo1?></a></p>
@@ -115,25 +111,25 @@ if (date('m') == 12 || date('m') == 1) {
                         <div class="site-slogan">
                             <div style="width:100%; text-align:left;">
                                 <p class="search">
-                                    <input type="radio" onclick="chname('waypointname','search.php');" name="searchto" id="st_1" value="searchbywaypointname" class="radio" checked="checked"/> <label for="st_1">{{waypointname_label}}</label>&nbsp;&nbsp;
-                                    <?php if ($config['quick_search']['byowner']) { ?><input type="radio" onclick="chname('owner','search.php');" name="searchto" id="st_2" value="searchbyowner" class="radio" /> <label for="st_2">{{owner_label}}</label>&nbsp;&nbsp; <?php } ?>
-                                    <?php if ($config['quick_search']['byfinder']) { ?><input type="radio" onclick="chname('finder','search.php');" name="searchto" id="st_3" value="searchbyfinder" class="radio" /> <label for="st_3">{{finder_label}}</label>&nbsp;&nbsp; <?php } ?>
-                                    <?php if ($config['quick_search']['byuser']) { ?><input type="radio" onclick="chname('username','searchuser.php');" name="searchto" id="st_4" value="searchbyuser" class="radio" /> <label for="st_4">{{user}}</label>&nbsp;&nbsp; <?php } ?>
-                                    <input type="hidden" name="showresult" value="1"/>
-                                    <input type="hidden" name="expert" value="0"/>
-                                    <input type="hidden" name="output" value="HTML"/>
-                                    <input type="hidden" name="sort" value="bydistance"/>
-                                    <input type="hidden" name="f_inactive" value="0"/>
-                                    <input type="hidden" name="f_ignored" value="0"/>
-                                    <input type="hidden" name="f_userfound" value="0"/>
-                                    <input type="hidden" name="f_userowner" value="0"/>
-                                    <input type="hidden" name="f_watched" value="0"/>
-                                    <input type="hidden" name="f_geokret" value="0"/>
+                                    <input type="radio" onclick="chname('waypointname','search.php');" name="searchto" id="st_1" value="searchbywaypointname" class="radio" checked="checked"> <label for="st_1">{{waypointname_label}}</label>&nbsp;&nbsp;
+                                    <?php if ($config['quick_search']['byowner']) { ?><input type="radio" onclick="chname('owner','search.php');" name="searchto" id="st_2" value="searchbyowner" class="radio"> <label for="st_2">{{owner_label}}</label>&nbsp;&nbsp; <?php } ?>
+                                    <?php if ($config['quick_search']['byfinder']) { ?><input type="radio" onclick="chname('finder','search.php');" name="searchto" id="st_3" value="searchbyfinder" class="radio"> <label for="st_3">{{finder_label}}</label>&nbsp;&nbsp; <?php } ?>
+                                    <?php if ($config['quick_search']['byuser']) { ?><input type="radio" onclick="chname('username','searchuser.php');" name="searchto" id="st_4" value="searchbyuser" class="radio"> <label for="st_4">{{user}}</label>&nbsp;&nbsp; <?php } ?>
+                                    <input type="hidden" name="showresult" value="1">
+                                    <input type="hidden" name="expert" value="0">
+                                    <input type="hidden" name="output" value="HTML">
+                                    <input type="hidden" name="sort" value="bydistance">
+                                    <input type="hidden" name="f_inactive" value="0">
+                                    <input type="hidden" name="f_ignored" value="0">
+                                    <input type="hidden" name="f_userfound" value="0">
+                                    <input type="hidden" name="f_userowner" value="0">
+                                    <input type="hidden" name="f_watched" value="0">
+                                    <input type="hidden" name="f_geokret" value="0">
                                 </p>
                             </div>
                             <div style="float:right;" class="form-group-xs">
-                                <input id="search_input" type="text" name="waypointname" class="form-control input100" style="color:gray;" />
-                                <input type="submit" name="submit" value="{{search}}" class="btn btn-default btn-xs" />
+                                <input id="search_input" type="text" name="waypointname" class="form-control input100" style="color:gray;">
+                                <input type="submit" name="submit" value="{{search}}" class="btn btn-default btn-xs">
                             </div>
                         </div>
                     </form>
@@ -148,7 +144,7 @@ if (date('m') == 12 || date('m') == 1) {
 
                 <!-- Header banner     -->
                 <div class="header">
-                    <div style="width:970px; padding-top:1px;"><img src="./images/head/rotator.php" alt="" style="border:0px;" /></div>
+                    <div style="width:970px; padding-top:1px;"><img src="./images/head/rotator.php" alt="Banner" style="border:0px;"></div>
                 </div>
 
                 <!-- Navigation Level 2 -->
@@ -253,18 +249,18 @@ if (date('m') == 12 || date('m') == 1) {
                     <?php
                     global $usr, $onlineusers, $dynstylepath;
                     if ($usr == true && $onlineusers == 1) { ?>
-                        <p>
+                        <div style="text-align:center">
                           <span class="txt-black">{{online_users}} (</span>
                           <span class="txt-white">
                             <?php include ($dynstylepath . "nonlusers.txt"); ?>
                           </span>
                           <span class="txt-black">) - {{online_users_info}}:</span>
+                        </div>
                           <div style="text-align:center">
                             <span class="txt-white;" style="margin-left: 5px; margin-right: 5px; width: 800px;">
                               <?php include ($dynstylepath . "onlineusers.html"); ?>
                             </span>
                           </div>
-                        </p>
                     <?php }
                     $bottomMenuResult = buildBottomMenu($config['bottom_menu']);
                     echo $bottomMenuResult;

@@ -163,7 +163,7 @@ if ($error == false) {
                     else
                         $sel_marker_str = "&amp;markers=color:blue|label:$type|$lat,$lon|";
             }
-            $google_map = "//maps.google.com/maps/api/staticmap?center=" . $latitude . "," . $longitude . $dzoom . "&amp;size=350x350&amp;maptype=roadmap&amp;key=" . $googlemap_key . "&amp;sensor=false" . $markers_ftf_str . $markers_str . $markers_ev_str . $sel_marker_str;
+            $google_map = "https://maps.google.com/maps/api/staticmap?center=" . $latitude . "," . $longitude . $dzoom . "&amp;size=350x350&amp;maptype=roadmap&amp;key=" . $googlemap_key . $markers_ftf_str . $markers_str . $markers_ev_str . $sel_marker_str;
 
             if ($index == -1) {
                 $fixed_google_map_link = $google_map; // store fixed map link to be used with Top Reco and New logs items
@@ -226,7 +226,7 @@ if ($error == false) {
         // Read coordinates of the newest caches
         $markerpositions = get_marker_positions($latitude, $longitude, $radius, $user_id);
         // Generate include file for map with new caches
-        tpl_set_var('local_cache_map', '<img src="' . create_map_url($markerpositions, -1, $latitude, $longitude) . '" basesrc="' . create_map_url($markerpositions, -1, $latitude, $longitude) . '" id="main-cachemap" name="main-cachemap" alt="mapa" />');
+        tpl_set_var('local_cache_map', '<img src="' . create_map_url($markerpositions, -1, $latitude, $longitude) . '" basesrc="' . create_map_url($markerpositions, -1, $latitude, $longitude) . '" id="main-cachemap" alt="mapa">');
 
         /* ===================================================================================== */
         /*                          Najnowsze skrzynki                                           */

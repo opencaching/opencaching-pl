@@ -512,7 +512,7 @@ $translations = array(
     'error_usernotactive' => 'Twoje konto nie było jeszcze aktywowane lub zostało dezaktywowane.',
     'not_registered' => 'Chcesz się zarejestrować? <a href="register.php">Rejestracja</a>',
     'forgotten_your_password' => 'Zapomniałeś hasła? <a href="newpw.php">Nowe hasło</a>',
-    'forGottenEmailAddress' => 'Zapomniałeś adresu e-mail? <a href="remindemail.php"> Przypomnij',
+    'forGottenEmailAddress' => 'Zapomniałeś adresu e-mail? <a href="remindemail.php"> Przypomnij</a>',
     'cache_logged_required' => 'Musisz być zalogowany, by wpisywać się do logu i dokonywać operacji na skrzynce.',
     'basic_information' => 'Podstawowe informacje',
     'rating_poor' => 'słaba',

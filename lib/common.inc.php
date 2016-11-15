@@ -431,9 +431,9 @@ function writeLanguageFlags($languages)
             $language_flags .= '<li><a rel="nofollow" style="text-decoration:none;" href="' . ($_SERVER['PHP_SELF']);
 
             if (strlen($_SERVER['QUERY_STRING']) > 0)
-                $language_flags .= '?' . htmlspecialchars($_SERVER['QUERY_STRING']) . '&amp;lang=' . $s_lang . '"><img class="img-navflag" border="0" src="images/' . $s_lang . '.jpg" alt="' . $s_lang . ' version" title=""/>&nbsp;';
+                $language_flags .= '?' . htmlspecialchars($_SERVER['QUERY_STRING']) . '&amp;lang=' . $s_lang . '"><img class="img-navflag" src="images/' . $s_lang . '.jpg" alt="' . $s_lang . ' version" title="">&nbsp;';
             else
-                $language_flags .= '?lang=' . $s_lang . '"><img class="img-navflag" border="0" src="images/' . $s_lang . '.png" alt="' . $s_lang . ' version" title=""/>&nbsp;';
+                $language_flags .= '?lang=' . $s_lang . '"><img class="img-navflag" src="images/' . $s_lang . '.png" alt="' . $s_lang . ' version" title="">&nbsp;';
 
             $language_flags .= '</a></li>';
         }

@@ -122,19 +122,19 @@ if ($error == false) {
 	        else
 	            $bgColor = '#eeeeee';
 	
-	        $file_content .= '<tr bgcolor="' . $bgColor . '">';
+	        $file_content .= '<tr style="background-color:' . $bgColor . '">';
 	        $file_content .= '<td style="width: 70px;">' . htmlspecialchars(date($dateFormat, strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
 	        if ($log_record['geokret_in'] != '0') {
-	            $file_content .= '<td width="22">&nbsp;<img src="images/gk.png" border="0" alt="" title="GeoKret" /></td>';
+	            $file_content .= '<td style="width: 22px;">&nbsp;<img src="images/gk.png" alt="" title="GeoKret"></td>';
 	        } else {
-	            $file_content .= '<td width="22">&nbsp;</td>';
+	            $file_content .= '<td style="width: 22px;">&nbsp;</td>';
 	        }
 	
 	        //$rating_picture
 	        if ($log_record['recommended'] == 1 && $log_record['log_type'] == 1) {
-	            $file_content .= '<td width="22"><img src="images/rating-star.png" border="0" alt="" title= ' . tr("recommendation") . ' /></td>';
+	            $file_content .= '<td style="width: 22px;"><img src="images/rating-star.png" alt="" title= ' . tr("recommendation") . '></td>';
 	        } else {
-	            $file_content .= '<td width="22">&nbsp;</td>';
+	            $file_content .= '<td style="width: 22px;">&nbsp;</td>';
 	        }
 	
 	        if ($log_record['log_type'] == 12 && !$usr['admin']) {//hide COG entery
@@ -146,22 +146,22 @@ if ($error == false) {
 	        if (isset($log_record['PT_ID'])) {
 	            $PT_icon = icon_geopath_small($log_record['PT_ID'], $log_record['PT_image'], $log_record['PT_name'], $log_record['PT_type'], $pt_cache_intro_tr, $pt_icon_title_tr);
 	        } else {
-	            $PT_icon = '<img src="images/rating-star-empty.png" class="icon16" alt="" title="" />';
+	            $PT_icon = '<img src="images/rating-star-empty.png" class="icon16" alt="" title="">';
 	        };
-	        $file_content .= '<td width="22">' . $PT_icon . '</td>';
+	        $file_content .= '<td style="width: 22px;">' . $PT_icon . '</td>';
 	
-	        $file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" title=" ' . tr('logType'.$log_record['log_type']) . ' " /></td>';
+	        $file_content .= '<td style="width: 22px;"><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" alt="" title=" ' . tr('logType'.$log_record['log_type']) . ' "></td>';
 	        $cacheicon = myninc::checkCacheStatusByUser($log_record, $usr['userid']);
-	        $file_content .= '<td width="22">&nbsp;<a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="' . $cacheicon . '" border="0" alt="' . $tr_myn_click_to_view_cache . '" title="' . $tr_myn_click_to_view_cache . '" /></a></td>';
+	        $file_content .= '<td style="width: 22px;">&nbsp;<a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="' . $cacheicon . '" alt="' . $tr_myn_click_to_view_cache . '" title="' . $tr_myn_click_to_view_cache . '"></a></td>';
 	
-	        //$file_content .= '<td width="22"><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt="" title="Kliknij aby zobaczyć skrzynke" /></a></td>';
+	        //$file_content .= '<td style="width: 22px;"><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt="" title="Kliknij aby zobaczyć skrzynke" /></a></td>';
 	        $file_content .= '<td><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($log_record['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
 	        $file_content .= '<b>' . $log_record['user_name'] . '</b>: &nbsp;';
 	        if ($log_record['encrypt'] == 1 && $log_record['cache_owner'] != $usr['userid'] && $log_record['luser_id'] != $usr['userid']) {
-	            $file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";
+	            $file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\`><br>";
 	        }
 	        if ($log_record['encrypt'] == 1 && ($log_record['cache_owner'] == $usr['userid'] || $log_record['luser_id'] == $usr['userid'])) {
-	            $file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";
+	            $file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\`><br>";
 	        }
 
 	        $data = GeoCacheLog::cleanLogTextForToolTip( $log_record['log_text'] );
@@ -169,7 +169,7 @@ if ($error == false) {
 	        if ($log_record['encrypt'] == 1 && $log_record['cache_owner'] != $usr['userid'] && $log_record['luser_id'] != $usr['userid']) {//crypt the log ROT13, but keep HTML-Tags and Entities
 	            $data = str_rot13_html($data);
 	        } else {
-	            $file_content .= "<br/>";
+	            $file_content .= "<br>";
 	        }
 	        $file_content .= $data;
 	        $file_content .= '\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';

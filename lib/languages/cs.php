@@ -752,7 +752,7 @@ $translations = array(
     'register_msg7' => 'Users that hid a cache or posted at least one log entry cannot be deleted. However, it is possible to deactivate such accounts. All your personal data will be removed (including your email address), but the username will be kept. If you want your account to be deactivated, please contact us: {contact_mail} .',
     'post_activation_email_subject' => 'Welcome on the site {site_name}',
     'change_password_msg1' => 'Změna hesla',
-    'forGottenEmailAddress' => 'Forgotten your E-mail? <a href="remindemail.php"> Ask it here',
+    'forGottenEmailAddress' => 'Forgotten your E-mail? <a href="remindemail.php"> Ask it here</a>',
     'rating_ge_average' => 'at least "average"',
     'rating_ge_good' => 'at least "good"',
     'rating_ge_excellent' => '"excellent" only!',

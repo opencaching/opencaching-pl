@@ -87,13 +87,13 @@ if ($error == false) {
         if( $r_log = XDb::xFetchArray($rs_log)){
 
 
-            $thisline = mb_ereg_replace('{log_image}', '<img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt="" />', $thisline);
+            $thisline = mb_ereg_replace('{log_image}', '<img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" alt="">', $thisline);
         } else {
             $thisline = mb_ereg_replace('{log_image}', '&nbsp;', $thisline);
         }
 
         if (isset($r_log) && $r_log['geokret_in'] != 0) {
-            $thisline = mb_ereg_replace('{gkimage}', '&nbsp;<img src="images/gk.png" border="0" alt="" title="GeoKret" />', $thisline);
+            $thisline = mb_ereg_replace('{gkimage}', '&nbsp;<img src="images/gk.png" border="0" alt="" title="GeoKret">', $thisline);
         } else {
             $thisline = mb_ereg_replace('{gkimage}', '&nbsp;', $thisline);
         }
@@ -106,7 +106,7 @@ if ($error == false) {
             $PT_icon = icon_geopath_small($r['PT_ID'], $r['PT_image'], $r['PT_name'], $r['PT_type'], $pt_cache_intro_tr, $pt_icon_title_tr);
             $thisline = mb_ereg_replace('{GPicon}', $PT_icon, $thisline);
         } else {
-            $thisline = mb_ereg_replace('{GPicon}', '<img src="images/rating-star-empty.png" class="icon16" alt="" title="" />', $thisline);
+            $thisline = mb_ereg_replace('{GPicon}', '<img src="images/rating-star-empty.png" class="icon16" alt="" title="">', $thisline);
         };
 
         $thisline = mb_ereg_replace('{cachetype}', htmlspecialchars(cache_type_from_id($r['type'], $lang), ENT_COMPAT, 'UTF-8'), $thisline);
