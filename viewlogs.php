@@ -89,7 +89,6 @@ if ($error == false) {
         }
     }
 
-
     if ($cache_id != 0) {
 
         // detailed cache access logging
@@ -240,7 +239,6 @@ if ($error == false) {
                 $processed_text = $record['text'];
             }
 
-
             // add edit footer if record has been modified
             $record_date_create = date_create($record['date_created']);
 
@@ -267,8 +265,6 @@ if ($error == false) {
                 $edit_footer = "";
             }
 
-
-
             $tmplog = file_get_contents($stylepath . '/viewcache_log.tpl.php');
 //END: same code ->viewlogs.php / viewcache.php
             $tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
@@ -277,8 +273,6 @@ if ($error == false) {
 
             $dateTimeTmpArray = explode(' ', $record['date']);
             $tmplog = mb_ereg_replace('{time}', substr($dateTimeTmpArray[1], 0, -3), $tmplog);
-
-
 
             // display user activity (by Łza 2012)
             if ((date('m') == 4) and ( date('d') == 1)) {
@@ -338,28 +332,18 @@ if ($error == false) {
                 $record['deleted'] = false;
             }
             if ($record['deleted'] != 1) {
-                if ($record['user_id'] == $usr['userid']) {
-                    $logfunctions = $functions_start . $tmpedit . $functions_middle;
-                    if ($record['type'] != 12 && ($usr['userid'] == $cache_record['user_id'] || $usr['admin'] == false)) {
-                        $logfunctions .=$tmpremove . $functions_middle;
-                    }
-                    if ($usr['admin']) {
-                        $logfunctions .= $tmpremove . $functions_middle;
-                    }
-
-                    $logfunctions .= $tmpnewpic . $functions_end;
-                } else if ($usr['admin']) {
-                    $logfunctions = $functions_start . $tmpremove . $functions_middle . $functions_end;
-                } elseif ($owner_id == $usr['userid']) {
-
-                    $logfunctions = $functions_start;
-                    if ($record['type'] != 12) {
-                        $logfunctions .= $tmpremove;
-                    }
-                    $logfunctions .= $functions_end;
+                if ($record['user_id'] == $usr['userid'] && ($record['type'] != 12 || $usr['admin'])) {
+                    // User is author of log. Can edit, remove and add pictures. If it is OC Team log - user MUST be ACTIVE admin AND owner of this log
+                    $logfunctions = $functions_start . $tmpedit . $functions_middle . $tmpremove . $functions_middle . $tmpnewpic . $functions_end;
+                } elseif ($owner_id == $usr['userid'] && $record['type'] != 12) {
+                    // Cacheowner can only delete logs. Except of OC Team log.
+                    $logfunctions = $functions_start . $tmpremove . $functions_end;
+                } elseif ($usr['admin']) {
+                    // Active admin can remove any log. But not edit or add photos.
+                    $logfunctions = $functions_start . $tmpremove . $functions_end;
                 }
             } else if ($usr['admin']) {
-                $logfunctions = $functions_start . $tmpRevert . $functions_middle . $functions_end;
+                $logfunctions = $functions_start . $tmpRevert . $functions_end;
             }
 
             $tmplog = mb_ereg_replace('{logfunctions}', $logfunctions, $tmplog);
@@ -396,7 +380,6 @@ if ($error == false) {
                     $thisline = mb_ereg_replace('{imgsrc}', 'thumbs2.php?' . $showspoiler . 'uuid=' . urlencode($pic_record['uuid']), $thisline);
                     $thisline = mb_ereg_replace('{title}', htmlspecialchars($pic_record['title'], ENT_COMPAT, 'UTF-8'), $thisline);
 
-
                     if ($pic_record['user_id'] == $usr['userid'] || $usr['admin']) {
                         $thisfunctions = $remove_picture;
                         $thisfunctions = mb_ereg_replace('{uuid}', urlencode($pic_record['uuid']), $thisfunctions);
@@ -428,4 +411,3 @@ if (isset($_REQUEST["posY"])) {
     echo "window.scroll(0," . $_REQUEST["posY"] . ");";
     echo "</script>";
 }
-
