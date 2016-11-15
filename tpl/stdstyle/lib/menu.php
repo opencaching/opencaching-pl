@@ -1066,6 +1066,7 @@ function mnu_EchoQuicklinks($selmenuitem)
 
 function buildBottomMenu($menuArray)
 {
+    global $config;
     $result = '<p>';
     $first = true;
     foreach ($menuArray as $name => $item)
@@ -1078,6 +1079,9 @@ function buildBottomMenu($menuArray)
             $result .= '<a href="' . $item['link'] . '">' . tr($name) . '</a>';
         }
     $result .= '</p>';
+    if (isset($config['license_html']) && !empty($config['license_html'])) {
+        $result .= '<p><br>' . $config['license_html'] . '</p>';
+    }
     return $result;
 }
 ?>

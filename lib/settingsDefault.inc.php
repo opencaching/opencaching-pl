@@ -260,5 +260,8 @@ $config['bottom_menu']['contact']['visible'] = true;
 $config['bottom_menu']['main_page']['link'] = '/index.php?page=sitemap';
 $config['bottom_menu']['main_page']['visible'] = true;
 
+// Configuration of license link at footer
+$config['license_html'] = '';
+
 $subject_prefix_for_site_mails = "OCXX";
 $subject_prefix_for_reviewers_mails = "";

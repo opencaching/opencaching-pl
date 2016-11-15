@@ -170,9 +170,6 @@ $opt['db']['name'] = $dbname;
 $opt['db']['username'] = $dbusername;
 $opt['db']['password'] = $dbpasswd;
 
-
-$tmpdbname = 'test';
-
 // warnlevel for sql-execution
 $sql_errormail = 'rt@localhost';
 $sql_warntime = 1;
@@ -420,6 +417,10 @@ $config['bottom_menu']['main_page']['visible'] = false;
 // and should be added to translation files first (in below case - 'guides').
 $config['bottom_menu']['guides']['link'] = '/cacheguides.php';
 $config['bottom_menu']['guides']['visible'] = true;
+
+// Configuration of license link at footer
+// You can select license and generate HTML at https://creativecommons.org/choose/
+$config['license_html'] = '<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>';
 
 // Show date and date/time correct way.
 $dateFormat = 'Y-m-d';
