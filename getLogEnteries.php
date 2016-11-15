@@ -28,7 +28,6 @@ if(isset($_REQUEST['limit']) && $_REQUEST['limit'] != ''){
     $limit = 5;
 }
 
-
 global $hide_coords;
 if ($usr == false && $hide_coords) {
     $disable_spoiler_view = true; //hide any kind of spoiler if usr not logged in
@@ -102,7 +101,6 @@ foreach ($logEneries as $record) {
         $processed_text = $record['text'];
     }
 
-
     // add edit footer if record has been modified
     $record_date_create = date_create($record['date_created']);
 
@@ -122,13 +120,10 @@ foreach ($logEneries as $record) {
                 $edit_footer.=tr('vl_count_singular');
             }
         }
-
         $edit_footer.=".</small></div>";
     } else {
         $edit_footer = "";
     }
-
-
 
     $tmplog = file_get_contents($stylepath . '/viewcache_log.tpl.php');
 //END: same code ->viewlogs.php / viewcache.php
@@ -138,8 +133,6 @@ foreach ($logEneries as $record) {
 
     $dateTimeTmpArray = explode(' ', $record['date']);
     $tmplog = mb_ereg_replace('{time}', substr($dateTimeTmpArray[1], 0, -3), $tmplog);
-
-
 
     // display user activity (by Łza 2012)
     if ((date('m') == 4) and ( date('d') == 1)) {
@@ -199,28 +192,18 @@ foreach ($logEneries as $record) {
         $record['deleted'] = false;
     }
     if ($record['deleted'] != 1) {
-        if ($record['user_id'] == $usr['userid']) {
-            $logfunctions = $functions_start . $tmpedit . $functions_middle;
-            if ($record['type'] != 12 && ($usr['userid'] == $owner_id || $usr['admin'] == false)) {
-                $logfunctions .=$tmpremove . $functions_middle;
-            }
-            if ($usr['admin']) {
-                $logfunctions .= $tmpremove . $functions_middle;
-            }
-
-            $logfunctions .= $tmpnewpic . $functions_end;
-        } else if ($usr['admin']) {
-            $logfunctions = $functions_start . $tmpremove . $functions_middle . $functions_end;
-        } elseif ($owner_id == $usr['userid']) {
-
-            $logfunctions = $functions_start;
-            if ($record['type'] != 12) {
-                $logfunctions .= $tmpremove;
-            }
-            $logfunctions .= $functions_end;
+        if ($record['user_id'] == $usr['userid'] && ($record['type'] != 12 || $usr['admin'])) {
+            // User is author of log. Can edit, remove and add pictures. If it is OC Team log - user MUST be ACTIVE admin AND owner of this log
+            $logfunctions = $functions_start . $tmpedit . $functions_middle . $tmpremove . $functions_middle . $tmpnewpic . $functions_end;
+        } elseif ($owner_id == $usr['userid'] && $record['type'] != 12) {
+            // Cacheowner can only delete logs. Except of OC Team log.
+            $logfunctions = $functions_start . $tmpremove . $functions_end;
+        } elseif ($usr['admin']) {
+            // Active admin can remove any log. But not edit or add photos.
+            $logfunctions = $functions_start . $tmpremove . $functions_end;
         }
     } else if ($usr['admin']) {
-        $logfunctions = $functions_start . $tmpRevert . $functions_middle . $functions_end;
+        $logfunctions = $functions_start . $tmpRevert . $functions_end;
     }
 
     $tmplog = mb_ereg_replace('{logfunctions}', $logfunctions, $tmplog);

@@ -10,7 +10,9 @@ require_once('./lib/common.inc.php');
 if ($usr['admin']) {
 
     // don't send e-mail for approval
-    $use_news_approving = true;
+    if (!isset($use_news_approving)) {
+        $use_news_approving = false;
+    }
 
     //Preprocessing
     if ($error == false) {
