@@ -366,7 +366,7 @@ function displayPTrails($pTrails, $areOwnSeries)
         else
             $ownOrAll = tr($ptStatus[$pTrail["status"]]['translate']);
         if (strlen($pTrail["name"]) > 40) {
-            $pTrail["name"] = substr($pTrail["name"], 0, 35) . ' (...)';
+            $pTrail["name"] = mb_substr($pTrail["name"], 0, 35) . ' (...)';
         }
         $result .= '<tr>' .
                 '<td style="text-align: right; padding-right: 5px;"><b><a href="powerTrail.php?ptAction=showSerie&ptrail=' . $pTrail["id"] . '">' . $pTrail["name"] . '</a></b></td>' .
