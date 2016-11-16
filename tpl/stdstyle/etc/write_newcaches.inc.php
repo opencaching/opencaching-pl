@@ -77,7 +77,7 @@ $rs = XDb::xSql(
 
 
 $cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;">' .
-        '<img src="{cacheicon}" class="icon16" alt="" title="Cache" />&nbsp;{date}&nbsp;' .
+        '<img src="{cacheicon}" class="icon16" alt="Cache" title="Cache">&nbsp;{date}&nbsp;' .
         '<a id="newcache{nn}" class="links" href="viewcache.php?wp={wp}" onmouseover="Lite({nn})" onmouseout="Unlite({nn})">{cachename}</a>&nbsp;
             hidden_by&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/>' .
         '<p class="content-title-noshade"><b>{kraj} {dziubek} {woj}</b></p></li>';
@@ -149,7 +149,7 @@ $file_content = '';
 if ( ! $record = XDb::xFetchArray($rs)) {
     $file_content = '';
 } else {
-    $cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="" title="Cache" />&nbsp;{date}&nbsp;<a id="newcache{nn}" class="links" href="viewcache.php?wp={wp}" onmouseover="Lite({nn})" onmouseout="Unlite({nn})">{cachename}</a>&nbsp;hidden_by&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/><p class="content-title-noshade"><b>{kraj} {dziubek} {woj}</b></p></li>';
+    $cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache">&nbsp;{date}&nbsp;<a id="newcache{nn}" class="links" href="viewcache.php?wp={wp}" onmouseover="Lite({nn})" onmouseout="Unlite({nn})">{cachename}</a>&nbsp;hidden_by&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/><p class="content-title-noshade"><b>{kraj} {dziubek} {woj}</b></p></li>';
     $file_content = '<ul style="font-size: 11px;">';
 
     $i=-1;

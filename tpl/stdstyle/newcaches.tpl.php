@@ -2,7 +2,7 @@
 
 ?>
 <script type='text/javascript' src="lib/js/wz_tooltip.js"></script>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="Cache">&nbsp;{{newcaches_label}}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Cache" title="Cache">&nbsp;{{newcaches_label}}</div>
 <!-- Text container -->
 <p>
     {pages}

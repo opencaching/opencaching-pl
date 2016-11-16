@@ -93,7 +93,7 @@ if ($error == false) {
         }
 
         if (isset($r_log) && $r_log['geokret_in'] != 0) {
-            $thisline = mb_ereg_replace('{gkimage}', '&nbsp;<img src="images/gk.png" border="0" alt="" title="GeoKret">', $thisline);
+            $thisline = mb_ereg_replace('{gkimage}', '&nbsp;<img src="images/gk.png" alt="" title="GeoKret">', $thisline);
         } else {
             $thisline = mb_ereg_replace('{gkimage}', '&nbsp;', $thisline);
         }

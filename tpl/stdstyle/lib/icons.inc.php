@@ -28,7 +28,7 @@ function icon_cache_status($status, $text)
         default: $icon = "log/16x16-go.png";
             break;
     }
-    return "<img src='$stylepath/images/$icon' class='icon16' alt='$text' title='$text'/>";
+    return "<img src='$stylepath/images/$icon' class='icon16' alt='$text' title='$text'>";
 }
 
 function icon_difficulty($what, $difficulty)
@@ -46,7 +46,7 @@ function icon_difficulty($what, $difficulty)
 
     $icon = sprintf("$stylepath/images/difficulty/$what-%d%d.gif", (int) $difficulty / 2, ((float) ($difficulty / 2) - (int) ($difficulty / 2)) * 10);
     $text = sprintf($what == "diff" ? $difficulty_text_diff : $difficulty_text_terr, $difficulty / 2);
-    return "<img src='$icon' class='img-difficulty' width='19' height='16' alt='$text' title='$text'/>";
+    return "<img src='$icon' class='img-difficulty' width='19' height='16' alt='$text' title='$text'>";
 }
 
 function icon_rating($founds, $topratings)
