@@ -471,7 +471,7 @@ $translations = array(
     'register_msg1' => 'W celu rejestracji na {site_name} musisz posiadać rzeczywisty adres e-mail, na który zostanie wysłany link aktywacyjny. Na jeden adres e-mail możesz zarejestrować tylko jednego użytkownika.',
     'register_msg2' => 'Pola zaznaczone * są obowiązkowe.',
     'register_msg3' => 'Jeżeli masz jakieś pytania, proszę skontaktować się z nami (<span class="email">{contact_mail}</span>), zanim się zarejestrujesz.',
-    'register_msg4' => 'Tak, zapoznałem się z <b><a href="{wiki_link_rules}">Regulaminem</a></b> serwisu {site_name} i zobowiązuję się go przestrzegać.',
+    'register_msg4' => 'Tak, zapoznałem się z <b><a href="{wiki_link_rules}" target="_blank">Regulaminem</a></b> serwisu {site_name} i zobowiązuję się go przestrzegać.',
     'register_msg5' => 'Nowy użytkownik został zarejstrowany.',
     'register_msg6' => 'Link aktywacyjny został wysłany na twój adres e-mail.<br/>W celu zakończenia procesu rejestracji proszę się kierować instrukcją dostarczoną na Twój adres e-mail.<br/><b>Uwaga! Niektóre serwery pocztowe odrzucają list z linkiem aktywacyjnym z serwera OC PL. Jeśli nie otrzymałeś wiadomości po kilku godzinach, prosimy o kontakt na adres <span class="email">{contact_mail}</span> (podaj nazwę użytkownika jaką użyłeś podczas rejestracji)',
     'register_msg7' => 'Użytkownik, który założy skrzynkę lub dokona wpisu do logu (nieważne jakiego typu) nie może być usunięty. Jest możliwa tylko deaktywacja konta. Będą wtedy usunięte wszystkie prywatne dane ale nazwa użytkownika zostanie zachowana. Jeśli chcesz deaktywować swoje konto skontaktuj się z nami za pomocą swojego konta e-mail. W przypadkach niejasnych prosimy o kontakt <span class="email">{contact_mail}</span>. Dziękujemy.',

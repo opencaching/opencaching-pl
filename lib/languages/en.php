@@ -470,7 +470,7 @@ $translations = array(
     'register_msg1' => 'To create an account on {site_name}, you have to enter a valid e-mail address and username. <br/>An e-mail with an activation link will be sent to the address you supplied. Only one account can be created for each e-mail address.',
     'register_msg2' => 'Fields marked with * are required',
     'register_msg3' => 'If you have any questions, please contact us at (<span class = "email">{contact_mail}</span>) before you sign up.',
-    'register_msg4' => 'I have read, understood and accept <b><a href="{wiki_link_rules}"> Terms of Use</a></b>.',
+    'register_msg4' => 'I have read, understood and accept <b><a href="{wiki_link_rules}" target="_blank">Terms of Use</a></b>.',
     'register_msg5' => 'A new account has been registered',
     'register_msg6' => 'The activation link was sent to you via e-mail. Please follow the instructions in it. If you don\'t see the activation message in your inbox, please check your spam folder.',
     'register_msg7' => 'Users that have hidden a cache or posted at least one log entry cannot be deleted. However, it is possible to deactivate such accounts. All your personal data will be removed (including your email address), but the username will be kept. If you want your account to be deactivated, please contact us: {contact_mail} .',

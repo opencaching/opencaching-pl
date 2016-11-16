@@ -460,7 +460,7 @@ $translations = array(
     'register_msg1' => 'Um ein neuen Account an {site_name} zu registrieren, musst du eine gültige E-Mail addresse und Benutzername eingeben. Ein E-Mail wird mit Aktivierungskode geschickt. Nur ein Account kann mit einen E-mail Adresse registriert werden.',
     'register_msg2' => '* sind erfordet',
     'register_msg3' => 'Für weitere Fragen, bitte um Kontakt mit uns vor Registrierung.',
-    'register_msg4' => 'Die <b><a href="{wiki_link_rules_en}">Nutztbedigungen</a></b> habe ich gelesen und bin damit einverstanden.',
+    'register_msg4' => 'Die <b><a href="{wiki_link_rules_en}" target="_blank">Nutztbedigungen</a></b> habe ich gelesen und bin damit einverstanden.',
     'register_msg5' => 'Neue Account war registiert.',
     'register_msg6' => 'Die Aktivierungskode wan an deine Email geschickt. Bitte den Anweisungen folgen, die sind über E-Mail geschickt.',
     'total_distance' => 'Gesamtstrecke',

@@ -470,7 +470,7 @@ $translations = array(
     'register_msg1' => 'Pentru a crea un cont pe {site_name} este nevoie de o adresă de E-Mail valabilă şi un nume de utilizatoran. <br/>La adresa de E-Mail pe care o furnizezi vei primi un mesaj cu un cod de activare. Se poate crea un singur cont pentru o adresa de E-Mail.',
     'register_msg2' => 'Câmpurile marcate cu * sunt obligatorii',
     'register_msg3' => 'Dacă ai întrebări sau nelămuriri, te rog contactează-ne înainte să-ţi creezi un cont.',
-    'register_msg4' => 'Am citit, înţeles şi accept <b><a href="{wiki_link_rules}"> Condiţiile de Utilizare</a></b>.',
+    'register_msg4' => 'Am citit, înţeles şi accept <b><a href="{wiki_link_rules}" target="_blank"> Condiţiile de Utilizare</a></b>.',
     'register_msg5' => 'A fost înregistrat un cont nou',
     'register_msg6' => 'Codul de activare ţi-a fost trimis prin E-Mail. Te rog urmează instrucţiunile din acel mesaj. Verifică şi dosarul cu poştă nedorită (SPAM) dacă nu vezi mesajul de activare în căsuţa poştală.',
     'register_msg7' => 'Utilizatorii care ascuns deja o geocutie sau au scris o însemnare în jurnalul unei geocutii nu poti fi şterşi. Totuşi, aceste conturi pot fi dezactivate. Toate datele personale (inclusiv adresa de E-Mail) vor fi şterse, dar numele de utilizator va fi păstrat. Dacă vrei să-ţi dezactivezi definitv contul, contactează-ne la: {contact_mail} .',
