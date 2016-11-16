@@ -229,7 +229,7 @@ if ($error == false) {
                 tpl_set_var('fullCountryMap', '0');
                 tpl_set_var('ptTypeName', tr($ptTypesArr[$powerTrail->getType()]['translate']));
                 tpl_set_var('displaySelectedPowerTrail', 'block');
-                tpl_set_var('powerTrailName', $powerTrail->getName());
+                tpl_set_var('powerTrailName', htmlspecialchars($powerTrail->getName(), ENT_COMPAT | ENT_HTML5));
                 tpl_set_var('powerTrailDescription', stripslashes(htmlspecialchars_decode($powerTrail->getDescription())));
                 tpl_set_var('displayPtDescriptionUserAction', displayPtDescriptionUserAction($powerTrail));
                 tpl_set_var('powerTrailDateCreated', $powerTrail->getDateCreated()->format($dateFormat));
@@ -365,13 +365,12 @@ function displayPTrails($pTrails, $areOwnSeries)
             $ownOrAll = round($pTrail["points"], 2);
         else
             $ownOrAll = tr($ptStatus[$pTrail["status"]]['translate']);
-        $ptHrefTitle = $pTrail["name"];
         if (strlen($pTrail["name"]) > 40) {
             $pTrail["name"] = substr($pTrail["name"], 0, 35) . ' (...)';
         }
         $result .= '<tr>' .
-                '<td style="text-align: right; padding-right: 5px;"><b><a href="powerTrail.php?ptAction=showSerie&ptrail=' . $pTrail["id"] . '" title="' . $ptHrefTitle . '">' . $pTrail["name"] . '</a></b></td>' .
-                '<td class="ptTd"><img src="' . $ptTypes[$pTrail["type"]]['icon'] . '" alt=""> ' . tr($ptTypes[$pTrail["type"]]['translate']) . '</td>' .
+                '<td style="text-align: right; padding-right: 5px;"><b><a href="powerTrail.php?ptAction=showSerie&ptrail=' . $pTrail["id"] . '">' . $pTrail["name"] . '</a></b></td>' .
+                '<td><img src="' . $ptTypes[$pTrail["type"]]['icon'] . '" alt=""> ' . tr($ptTypes[$pTrail["type"]]['translate']) . '</td>' .
                 '<td class="ptTd">' . $ownOrAll . '</td>' .
                 '<td class="ptTd">' . substr($pTrail["dateCreated"], 0, -9) . '</td>' .
                 '<td class="ptTd">' . $pTrail["cacheCount"] . '</td>' .
