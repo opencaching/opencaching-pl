@@ -90,7 +90,7 @@
                 {
                     $ntitled_cache = $titled_cache_period_prefix.'_titled_cache';
                     $tmpTxt = '<p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/TitledCache.png" class="icon32" alt="" title="Event">&nbsp;'.tr($ntitled_cache).'</p>';
-                    $tmpTxt .= '<ul style="font-size:11px">';
+                    $tmpTxt .= '<div style="margin-left: 40px;">';
                     echo $tmpTxt;
                 } ?>
 
@@ -101,7 +101,7 @@
                 if ($is_titled == '1')
                 {
                     $tmpTxt = '<br><p class="links" style="font-size:10px"><a href="cache_titled.php">['.tr("show_more_titled_caches").' ...]</a></p>';
-                    $tmpTxt .= '</ul><br>';
+                    $tmpTxt .= '</div><br>';
                     echo $tmpTxt;
                 }
             ?>

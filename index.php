@@ -113,7 +113,7 @@ $pattern = "<br><span style='font-size:13px'><img src='{cacheIcon}' class='icon1
         <br><br>
         <table class='CacheTitledLog' >
                 <tr><td>{logText}
-                <br><br><img src='images/rating-star.png'/> Autor: <a href='viewprofile.php?userid={logUserId}'><b>{logUserName}<b></a></td></tr>
+                <br><br><img src='images/rating-star.png' alt=''> Autor: <a href='viewprofile.php?userid={logUserId}'><b>{logUserName}</b></a></td></tr>
         </table>";
 
 while( $rec = $dbc->dbResultFetch($s) ) {
