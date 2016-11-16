@@ -111,7 +111,7 @@ function assignUserToCase($userid, $cacheid)
 function notifyOwner($cacheid, $msgType)
 {
     // msgType - 0 = cache accepted, 1 = cache declined (=archived)
-    global $stylepath, $usr, $octeam_email, $site_name, $absolute_server_URI, $octeamEmailsSignature;
+    global $stylepath, $usr, $octeam_email, $site_name, $absolute_server_URI, $octeamEmailsSignature, $oc_nodeid;
     $user_id = getCacheOwnerId($cacheid);
 
     $cachename = getCachename($cacheid);
@@ -153,8 +153,8 @@ function notifyOwner($cacheid, $msgType)
         XDb::xSql(
             "INSERT INTO `cache_logs`
                 (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
-            VALUES ('', ?, ?, '12', NOW(), ?, '0', '0', NOW(), NOW(), ?, '2', '0')",
-            $cacheid, $usr['userid'], $log_text, $log_uuid);
+            VALUES ('', ?, ?, '12', NOW(), ?, '0', '0', NOW(), NOW(), ?, ?, '0')",
+            $cacheid, $usr['userid'], $log_text, $log_uuid, $oc_nodeid);
 
     } else {
         //send email to owner
@@ -169,7 +169,7 @@ function notifyOwner($cacheid, $msgType)
             "INSERT INTO `cache_logs`
                 (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
             VALUES ('', ?, ?, ?, NOW(), ?, ?, ?, NOW(), NOW(), ?, ?, ?)",
-            $cacheid, $usr['userid'], 12, $log_text, 0, 0, $log_uuid, 2, 0);
+            $cacheid, $usr['userid'], 12, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
     }
 }
 

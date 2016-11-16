@@ -183,7 +183,7 @@ $menu = array(
             array(
                 'title' => tr('links'),
                 'menustring' => tr('links'),
-                'siteid' => 'articles/links',
+                'siteid' => 'links',
                 'navicolor' => '#FFFFC5',
                 'visible' => false,
                 'filename' => 'articles.php?page=links'
@@ -877,7 +877,6 @@ function mnu_MainMenuIndexFromPageId($menustructure, $pageid)
 function mnu_EchoMainMenu($selmenuid)
 {
     global $menu;
-    $c = 0;
     for ($i = 0; $i < count($menu); $i++) {
         if ($menu[$i]['visible'] == true) {
             if (!isset($menu[$i]['newwindow']))
@@ -892,8 +891,6 @@ function mnu_EchoMainMenu($selmenuid)
             } else {
                 echo '<li><a ' . $target_blank . ' href="' . $menu[$i]['filename'] . '">' . htmlspecialchars($menu[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>';
             }
-
-            $c++;
         }
     }
 }

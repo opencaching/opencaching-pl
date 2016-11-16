@@ -159,9 +159,9 @@ if (date('m') == 12 || date('m') == 1) {
                             }
                         }
 
-                        if (isset($menu[$pageidx])) {
+//                        if (isset($menu[$pageidx])) {
                             mnu_EchoMainMenu($menu[$pageidx]['siteid']);
-                        }
+//                        }
                         ?>
                     </ul>
                 </div>
