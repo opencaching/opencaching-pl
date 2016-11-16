@@ -48,16 +48,16 @@ class PowerTrailCronJobController
     private function makePtContent($newPt, $langTr, $dynstylepath, $regions)
     {
         $fileContent = '<span style="display:none" id="ptPromoId">xxkgfj8ipzxx' . $newPt['id'] . 'xxkgfj8ipzxx</span>';
-        $fileContent .= '<table width="100%"><tr><td style="padding-left: 10px;padding-right: 10px;">';
+        $fileContent .= '<table style="width: 100%;"><tr><td style="padding-left: 10px;padding-right: 10px;">';
         if ($newPt['image'] != '') {
-            $fileContent .= '<img height="50" src="' . $newPt['image'] . '" />';
+            $fileContent .= '<img height="50" src="' . $newPt['image'] . '" alt="">';
         } else {
-            $fileContent .= '<img height="50" src="tpl/stdstyle/images/blue/powerTrailGenericLogo.png" />';
+            $fileContent .= '<img height="50" src="tpl/stdstyle/images/blue/powerTrailGenericLogo.png" alt="">';
         }
-        $fileContent .= '</td><td width=50% style="font-size: 13px; padding-left: 10px; padding-right: 10px;" valign="center"><a href="powerTrail.php?ptAction=showSerie&ptrail=' . $newPt['id'] . '">' . $newPt['name'] . '</a>';
-        $fileContent .= '<td style="font-size: 13px;" valign="center"><b>' . $newPt['cacheCount'] . '</b>&nbsp;' . tr2('pt138', $langTr) . ', <b>' . round($newPt['points'], 2) . '</b>&nbsp;' . tr2('pt038', $langTr) . '</td>';
+        $fileContent .= '</td><td style="width: 50%; font-size: 13px; padding-left: 10px; padding-right: 10px; vertical-align: center;"><a href="powerTrail.php?ptAction=showSerie&ptrail=' . $newPt['id'] . '">' . $newPt['name'] . '</a>';
+        $fileContent .= '<td style="font-size: 13px; vertical-align: center;"><b>' . $newPt['cacheCount'] . '</b>&nbsp;' . tr2('pt138', $langTr) . ', <b>' . round($newPt['points'], 2) . '</b>&nbsp;' . tr2('pt038', $langTr);
         if ($regions) {
-            $fileContent .= '</td><td style="font-size: 12px;" valign="center">' . tr2($regions['code1'], $langTr) . '>' . $regions['adm3'];
+            $fileContent .= '</td><td style="font-size: 12px; vertical-align: center;">' . tr2($regions['code1'], $langTr) . '>' . $regions['adm3'];
         }
         $fileContent .= '</td></tr></table>';
         file_put_contents($dynstylepath . 'ptPromo.inc-' . $langTr . '.php', $fileContent);
