@@ -38,7 +38,7 @@
 <div class="content2-pagetitle">{{what_do_you_find}}</div>
 
 <div class="content-txtbox-noshade line-box">
-    <p style="line-height: 1.6em;">{what_do_you_find_intro}<br/></p>
+    <p style="line-height: 1.6em;">{what_do_you_find_intro}<br></p>
 
 </div>
 {display_news}
@@ -46,7 +46,7 @@
 <p class="main-totalstats">{{total_of_caches}}: <span class="content-title-noshade">{total_hiddens}</span> {{active_caches}}: <span class="content-title-noshade">{hiddens}</span> | {{number_of_founds}}: <span class="content-title-noshade">{founds}</span> | {{number_of_active_users}}: <span class="content-title-noshade">{users} </span></p>
 <div class="content2-container">
     <div class="content2-container-2col-left" id="new-caches-area">
-        <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="Cache" align="middle" />&nbsp;{{newest_caches}}</p>
+        <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="Cache">&nbsp;{{newest_caches}}</p>
         <div class="content-txtbox-noshade">
             <?php
             global $dynstylepath;
@@ -66,7 +66,7 @@
         </div>
     </div>
     <div class="content2-container-2col-left" id="new-events-area">
-        <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{incomming_events}}</p>
+        <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="" title="Event">&nbsp;{{incomming_events}}</p>
         <?php
         global $dynstylepath;
         $tmpTxt = file_get_contents($dynstylepath . "nextevents.inc.php");
@@ -89,7 +89,7 @@
                 if ($is_titled == '1')
                 {
                     $ntitled_cache = $titled_cache_period_prefix.'_titled_cache';
-                    $tmpTxt = '<p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/TitledCache.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;'.tr($ntitled_cache).'</p>';
+                    $tmpTxt = '<p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/TitledCache.png" class="icon32" alt="" title="Event">&nbsp;'.tr($ntitled_cache).'</p>';
                     $tmpTxt .= '<ul style="font-size:11px">';
                     echo $tmpTxt;
                 } ?>
@@ -108,15 +108,15 @@
     </div>
 
     <div class="content2-container-2col-left" id="ptPromo" style="display: {ptDisplay}; width: 100%">
-        <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/050242-blue-jelly-icon-natural-wonders-flower13-sc36_32x32.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{pt137}}</p>
+        <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/050242-blue-jelly-icon-natural-wonders-flower13-sc36_32x32.png" class="icon32" alt="" title="Event">&nbsp;{{pt137}}</p>
         <?php
         if (file_exists($dynstylepath . 'ptPromo.inc-' . $lang . '.php'))
             include ($dynstylepath . 'ptPromo.inc-' . $lang . '.php');
         ?>
     </div>
 
-    <div class="content2-container-2col-left" id="new-events-area" style="display: {blogDisplay}; width: 100%">
-        <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/crypt.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{latest_blog}}</p>
+    <div class="content2-container-2col-left" id="new-blogs-area" style="display: {blogDisplay}; width: 100%">
+        <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/crypt.png" class="icon32" alt="" title="Event">&nbsp;{{latest_blog}}</p>
             <?php
             global $dynstylepath;
             include ($dynstylepath . "start_newblogs.inc.php");

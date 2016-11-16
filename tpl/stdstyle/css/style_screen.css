@@ -203,6 +203,7 @@ ul.linklist-indent      { margin: -0.3em 0px 0.5em 0px; padding: 0px 0px 0px 10p
 .img-right-noborder-topmargin       { float: right; margin: 3px 0px 0px 10px;}
 .img-right-border-notopmargin       { float: right; margin: 0px 0px 0px 10px; border: solid 1px rgb(150,150,150);}
 .img-right-border-topmargin         { float: right; margin: 3px 0px 0px 10px; border: solid 1px rgb(150,150,150);}
+.img-difficulty                     { float: right; margin: 0px 2px; border-width:0px;border-style:none;}
 
 /*--------------------*/
 /* 6.2 - Sidebar Area */
@@ -874,6 +875,7 @@ tooltip {
 
 div#new-caches-area                                     { width: 500px; }
 div#new-events-area                                     { width: 500px; }
+div#new-blogs-area                                      { width: 500px; }
 div#local-caches-area                                   { width: 400px; }
 div#local-events-area                                   { width: 400px; }
 div#local-logs-area                                     { width: 750px; }

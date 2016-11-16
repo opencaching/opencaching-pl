@@ -12,7 +12,7 @@
     }
 </script>
 <div class="content2-pagetitle">
-    <img src="tpl/stdstyle/images/blue/world.png" class="icon32" style='margin: 0 4px 3px 6px'/>
+    <img src="tpl/stdstyle/images/blue/world.png" alt="" class="icon32" style="margin: 0 4px 3px 6px">
     {{user_map}} <b style='color: #000'>{username}</b>
 </div>
 
@@ -75,7 +75,7 @@
                         type="checkbox" checked="checked" onclick="reload()" />&nbsp;
                 <label for="pt_selection" style='display:inline-block; vertical-align:sub; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 300px;'>
                     <a  href='{pt_url}' title='{pt_name}' target='_blank' style="text-decoration: none">
-                        <img width="20" height="20" src="{pt_icon}" alt="{{pt001}}" title='{pt_name}' />
+                        <img width="20" height="20" src="{pt_icon}" alt="{{pt001}}" title='{pt_name}'>
                         {pt_name}
                     </a>
                 </label>

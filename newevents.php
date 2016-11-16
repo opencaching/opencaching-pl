@@ -59,9 +59,9 @@ if ($error == false) {
                 $file_content = '';
                 $file_content .= '<tr>';
                 $file_content .= '<td style="width: 90px;">' . date('d-m-Y', strtotime($cache_record['date'])) . '</td>';
-                $file_content .= '<td width="22">&nbsp;<img src="tpl/stdstyle/images/' . getSmallCacheIcon($cache_record['icon_large']) . '" border="0" alt=""/></td>';
+                $file_content .= '<td style="width: 22px;">&nbsp;<img src="tpl/stdstyle/images/' . getSmallCacheIcon($cache_record['icon_large']) . '" alt=""></td>';
                 $file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($cache_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
-                $file_content .= '<td width="32"><b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($cache_record['userid'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($cache_record['username'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
+                $file_content .= '<td style="width: 32px;"><b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($cache_record['userid'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($cache_record['username'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 
                 $rs_log = XDb::xSql(
                     "SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
@@ -80,17 +80,17 @@ if ($error == false) {
 
                     $file_content .= '<td style="width: 80px;">' . htmlspecialchars(date("d-m-Y", strtotime($r_log['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
 
-                    $file_content .= '<td width="22"><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($r_log['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
+                    $file_content .= '<td style="width: 22px;"><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($r_log['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
 
                     $file_content .= '<b>' . $r_log['user_name'] . '</b>:&nbsp;';
 
                     $data = GeoCacheLog::cleanLogTextForToolTip( $r_log['log_text'] );
                     
                     $file_content .= $data;
-                    $file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"><img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt=""/></a></b></td>';
+                    $file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"><img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" alt=""></a></b></td>';
                     $file_content .= '<td>&nbsp;&nbsp;<b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r_log['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r_log['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
                 } else {
-                    $file_content .= '<td style="width: 80px;">&nbsp;</td><td width="22">&nbsp;</td><td>&nbsp;</td>';
+                    $file_content .= '<td style="width: 80px;">&nbsp;</td><td style="width: 22px;">&nbsp;</td><td>&nbsp;</td>';
                 }
                 $file_content .= "</tr>";
                 $content .=$file_content;

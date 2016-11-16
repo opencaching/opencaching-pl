@@ -283,7 +283,7 @@ if ($error == false) {
 
         if ($orig_coord_info_lon !== '' && (!$mod_coord_delete_mode)) {
             $orig_coord_info_full = tr('orig_coord_modified_info') . '&#10;' . $orig_coord_info_lat . '&#10;' . $orig_coord_info_lon;
-            $orig_coord_info_icon = '<a href="#coords_mod"><img src="tpl/stdstyle/images/blue/signature1-orange.png" class="icon32" alt="' . $orig_coord_info_full . '" title="' . $orig_coord_info_full . '" /></a>';
+            $orig_coord_info_icon = '<a href="#coords_mod"><img src="tpl/stdstyle/images/blue/signature1-orange.png" class="icon32" alt="' . $orig_coord_info_full . '" title="' . $orig_coord_info_full . '"></a>';
             tpl_set_var('mod_cord_info', $orig_coord_info_icon);
             if ($cache_mod_lat >= 0) {
                 tpl_set_var('N_selected', 'selected="selected"');
@@ -399,7 +399,7 @@ if ($error == false) {
             if (($ulon != NULL && $ulat != NULL) || ($ulon != 0 && $ulat != 0)) {
 
                 $distancecache = sprintf("%.2f", Gis::distance($ulat, $ulon, $geocache->getCoordinates()->getLatitude(), $geocache->getCoordinates()->getLongitude()));
-                tpl_set_var('distance_cache', '<img src="tpl/stdstyle/images/free_icons/car.png" class="icon16" alt="distance" title="" align="middle" />&nbsp;' . tr('distance_to_cache') . ': <b>' . $distancecache . ' km</b><br />');
+                tpl_set_var('distance_cache', '<img src="tpl/stdstyle/images/free_icons/car.png" class="icon16" alt="distance" title="">&nbsp;' . tr('distance_to_cache') . ': <b>' . $distancecache . ' km</b><br>');
             } else {
                 tpl_set_var('distance_cache', '');
             }
@@ -426,7 +426,7 @@ if ($error == false) {
 
             for ($i = 0; $i < $geokrety_all_count; $i++) {
                 $geokret = $geokrety_all[$i];
-                $geokrety_content .= "<img src=\"/images/geokret.gif\" alt=\"\"/>&nbsp;<a href='http://geokrety.org/konkret.php?id=" . $geokret['id'] . "'>" . $geokret['name'] . "</a> - " . tr('total_distance') . ": " . $geokret['distance'] . " km<br/>";
+                $geokrety_content .= "<img src=\"/images/geokret.gif\" alt=\"\">&nbsp;<a href='https://geokrety.org/konkret.php?id=" . $geokret['id'] . "'>" . $geokret['name'] . "</a> - " . tr('total_distance') . ": " . $geokret['distance'] . " km<br>";
             }
             tpl_set_var('geokrety_begin', '');
             tpl_set_var('geokrety_end', '');
@@ -494,9 +494,9 @@ if ($error == false) {
             $cache_stats = '';
         } else {
             if (($geocache->getFounds() + $geocache->getNotFounds() + $geocache->getNotesCount()) != 0) {
-                $cache_stats = "<a class =\"links2\" href=\"javascript:void(0)\" onmouseover=\"Tip('" . tr('show_statictics_cache') . "', BALLOON, true, ABOVE, false, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\" onclick=\"javascript:window.open('cache_stats.php?cacheid=" . $geocache->getCacheId() . "&amp;popup=y','Cache_Statistics','width=500,height=750,resizable=yes,scrollbars=1')\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"Statystyka skrzynki\" title=\"Statystyka skrzynki\" /></a>";
+                $cache_stats = "<a class =\"links2\" href=\"javascript:void(0)\" onmouseover=\"Tip('" . tr('show_statictics_cache') . "', BALLOON, true, ABOVE, false, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\" onclick=\"javascript:window.open('cache_stats.php?cacheid=" . $geocache->getCacheId() . "&amp;popup=y','Cache_Statistics','width=500,height=750,resizable=yes,scrollbars=1')\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"Statystyka skrzynki\" title=\"Statystyka skrzynki\"></a>";
             } else {
-                $cache_stats = "<a class =\"links2\" href=\"javascript:void(0)\" onmouseover=\"Tip('" . tr('not_stat_cache') . "', BALLOON, true, ABOVE, false, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"\" title=\"\" /></a>";
+                $cache_stats = "<a class =\"links2\" href=\"javascript:void(0)\" onmouseover=\"Tip('" . tr('not_stat_cache') . "', BALLOON, true, ABOVE, false, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"\" title=\"\"></a>";
             }
         }
         if (!isset($map_msg))
@@ -554,10 +554,10 @@ if ($error == false) {
         $npa_content = '';
         if(count($geocache->getNatureRegions()) > 0){
             $npa_content .="<table width=\"90%\" border=\"0\" style=\"border-collapse: collapse; font-weight: bold;font-size: 14px; line-height: 1.6em\"><tr>
-            <td align=\"center\" valign=\"middle\"><b>" . tr('npa_info') . " <font color=\"green\"></font></b>:<br /></td><td align=\"center\" valign=\"middle\">&nbsp;</td></tr>";
+            <td align=\"center\" valign=\"middle\"><b>" . tr('npa_info') . " <font color=\"green\"></font></b>:<br></td><td align=\"center\" valign=\"middle\">&nbsp;</td></tr>";
             $npac = "1";
             foreach ($geocache->getNatureRegions() as $key => $npa) {
-                $npa_content .= "<tr><td align=\"center\" valign=\"middle\"><font color=\"blue\"><a target=\"_blank\" href=\"http://" . $npa['npalink'] . "\">" . $npa['npaname'] . "</a></font><br />";
+                $npa_content .= "<tr><td align=\"center\" valign=\"middle\"><font color=\"blue\"><a target=\"_blank\" href=\"http://" . $npa['npalink'] . "\">" . $npa['npaname'] . "</a></font><br>";
                 $npa_content .="</td><td align=\"center\" valign=\"middle\"><img src=\"tpl/stdstyle/images/pnk/" . $npa['npalogo'] . "\"></td></tr>";
             }
             $npa_content .="</table>";
@@ -567,14 +567,14 @@ if ($error == false) {
 
         if (count($geocache->getNatura2000Sites()) > 0) {
             $npa_content .="<table width=\"90%\" border=\"0\" style=\"border-collapse: collapse; font-weight: bold;font-size: 14px; line-height: 1.6em\"><tr>
-            <td width=90% align=\"center\" valign=\"middle\"><b>" . tr('npa_info') . " <font color=\"green\">NATURA 2000</font></b>:<br />";
+            <td width=90% align=\"center\" valign=\"middle\"><b>" . tr('npa_info') . " <font color=\"green\">NATURA 2000</font></b>:<br>";
             $npac = "1";
             foreach ($geocache->getNatura2000Sites() as $npa) {
                 $npa_item = $config['nature2000link'];
                 $npa_item = mb_ereg_replace('{linkid}', $npa['linkid'], $npa_item);
                 $npa_item = mb_ereg_replace('{sitename}', $npa['npaSitename'], $npa_item);
                 $npa_item = mb_ereg_replace('{sitecode}', $npa['npaSitecode'], $npa_item);
-                $npa_content .= $npa_item . '<br />';
+                $npa_content .= $npa_item . '<br>';
             }
             $npa_content .="</td><td align=\"center\" valign=\"middle\"><img src=\"tpl/stdstyle/images/misc/natura2000.png\"></td>
                 </tr></table>";
@@ -610,7 +610,7 @@ if ($error == false) {
 
         if ( $geocache->isTitled() ){
             $ntitled_cache = $titled_cache_period_prefix.'_titled_cache';
-            tpl_set_var('icon_titled', '<img src="tpl/stdstyle/images/free_icons/award_star_gold_1.png" class="icon16" alt="'.tr($ntitled_cache).'" title="'.tr($ntitled_cache).'"/>');
+            tpl_set_var('icon_titled', '&nbsp;&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/award_star_gold_1.png" class="icon16" alt="'.tr($ntitled_cache).'" title="'.tr($ntitled_cache).'">');
         } else {
             tpl_set_var('icon_titled', '');
         }
@@ -681,9 +681,9 @@ if ($error == false) {
                     $lists .= ', ';
                 }
             }
-            $content_list = "<a class =\"links2\" href=\"javascript:void(0)\" onmouseover=\"Tip('<b>" . tr('recommended_by') . ": </b><br /><br />";
+            $content_list = "<a class =\"links2\" href=\"javascript:void(0)\" onmouseover=\"Tip('<b>" . tr('recommended_by') . ": </b><br><br>";
             $content_list .= $lists;
-            $content_list .= "<br /><br/>', BALLOON, true, ABOVE, false, OFFSETY, 20, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\">";
+            $content_list .= "<br><br>', BALLOON, true, ABOVE, false, OFFSETY, 20, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\">";
 
             tpl_set_var('list_of_rating_begin', $content_list);
             tpl_set_var('list_of_rating_end', '</a>');
@@ -1078,10 +1078,10 @@ if ($error == false) {
                     $tmpline1 = $wpline;    // string in viewcache.inc.php
 
                     if ($waypoint->getStatus() == Waypoint::STATUS_VISIBLE) {
-                        $coords_lat_lon = "<a class=\"links4\" href=\"#\" onclick=\"javascript:window.open('http://www.opencaching.pl/coordinates.php?lat=" . $waypoint->getCoordinates()->getLatitude() . "&amp;lon=" . $waypoint->getCoordinates()->getLongitude() . "&amp;popup=y&amp;wp=" . htmlspecialchars($geocache->getWaypointId(), ENT_COMPAT, 'UTF-8') . "','Koordinatenumrechnung','width=240,height=334,resizable=yes,scrollbars=1'); return event.returnValue=false\">" . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_latToDegreeStr($waypoint->getCoordinates()->getLatitude()), ENT_COMPAT, 'UTF-8') . "<br/>" . htmlspecialchars(help_lonToDegreeStr($waypoint->getCoordinates()->getLongitude()), ENT_COMPAT, 'UTF-8')) . "</a>";
+                        $coords_lat_lon = "<a class=\"links4\" href=\"#\" onclick=\"javascript:window.open('http://www.opencaching.pl/coordinates.php?lat=" . $waypoint->getCoordinates()->getLatitude() . "&amp;lon=" . $waypoint->getCoordinates()->getLongitude() . "&amp;popup=y&amp;wp=" . htmlspecialchars($geocache->getWaypointId(), ENT_COMPAT, 'UTF-8') . "','Koordinatenumrechnung','width=240,height=334,resizable=yes,scrollbars=1'); return event.returnValue=false\">" . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_latToDegreeStr($waypoint->getCoordinates()->getLatitude()), ENT_COMPAT, 'UTF-8') . "<br>" . htmlspecialchars(help_lonToDegreeStr($waypoint->getCoordinates()->getLongitude()), ENT_COMPAT, 'UTF-8')) . "</a>";
                     }
                     if ($waypoint->getStatus() == Waypoint::STATUS_VISIBLE_HIDDEN_COORDS) {
-                        $coords_lat_lon = "N ?? ??????<br />E ?? ??????";
+                        $coords_lat_lon = "N ?? ??????<br>E ?? ??????";
                     }
                     $tmpline1 = mb_ereg_replace('{wp_icon}', htmlspecialchars($waypoint->getIconName(), ENT_COMPAT, 'UTF-8'), $tmpline1);
                     $tmpline1 = mb_ereg_replace('{type}', htmlspecialchars($wpTypeTranslation, ENT_COMPAT, 'UTF-8'), $tmpline1);
@@ -1111,12 +1111,12 @@ if ($error == false) {
                 tpl_set_var('waypoints_start', '');
                 tpl_set_var('waypoints_end', '');
             } else {
-                tpl_set_var('waypoints_content', '<br />');
+                tpl_set_var('waypoints_content', '<br>');
                 tpl_set_var('waypoints_start', '<!--');
                 tpl_set_var('waypoints_end', '-->');
             }
         } else {
-            tpl_set_var('waypoints_content', '<br />');
+            tpl_set_var('waypoints_content', '<br>');
             tpl_set_var('waypoints_start', '<!--');
             tpl_set_var('waypoints_end', '-->');
         }
@@ -1133,7 +1133,7 @@ if ($error == false) {
             tpl_set_var('hidemp3_end', '');
         }
         else {
-            tpl_set_var('mp3_files', '<br />');
+            tpl_set_var('mp3_files', '<br>');
             tpl_set_var('hidemp3_start', '<!--');
             tpl_set_var('hidemp3_end', '-->');
         }
@@ -1141,7 +1141,7 @@ if ($error == false) {
 
         // show pictures
         if ($geocache->getPicturesCount() == 0 || (isset($_REQUEST['print']) && $_REQUEST['pictures'] == 'no')) {
-            tpl_set_var('pictures', '<br />');
+            tpl_set_var('pictures', '<br>');
             tpl_set_var('hidepictures_start', '<!--');
             tpl_set_var('hidepictures_end', '-->');
         } else {
@@ -1169,11 +1169,11 @@ if ($error == false) {
             $sender_name = $usr['username'];
             $comment = nl2br($_POST['rr_comment']);
             $date = date("d-m-Y H:i:s");
-            $octeam_comment = '<b><span class="content-title-noshade txt-blue08">' . tr('date') . ': ' . $date . ', ' . tr('add_by') . ' ' . $sender_name . '</span></b><br/>' . $comment;
+            $octeam_comment = '<b><span class="content-title-noshade txt-blue08">' . tr('date') . ': ' . $date . ', ' . tr('add_by') . ' ' . $sender_name . '</span></b><br>' . $comment;
 
             XDb::xSql(
                 "UPDATE cache_desc
-                SET rr_comment = CONCAT('" . XDb::xEscape($octeam_comment) . "<br/><br/>', rr_comment),
+                SET rr_comment = CONCAT('" . XDb::xEscape($octeam_comment) . "<br><br>', rr_comment),
                     last_modified = NOW()
                 WHERE cache_id= ? ", $cache_id);
 
@@ -1526,11 +1526,11 @@ if ($error == false) {
         if ($num_of_attributes > 0 || $has_password) {
             $cache_attributes = '';
             foreach ($dbc->dbResultFetchAll($s) as $record) {
-                $cache_attributes .= '<img src="' . htmlspecialchars($record['icon_large'], ENT_COMPAT, 'UTF-8') . '" border="0" title="' . htmlspecialchars($record['text_long'], ENT_COMPAT, 'UTF-8') . '" alt="' . htmlspecialchars($record['text_long'], ENT_COMPAT, 'UTF-8') . '" />&nbsp;';
+                $cache_attributes .= '<img src="' . htmlspecialchars($record['icon_large'], ENT_COMPAT, 'UTF-8') . '" title="' . htmlspecialchars($record['text_long'], ENT_COMPAT, 'UTF-8') . '" alt="' . htmlspecialchars($record['text_long'], ENT_COMPAT, 'UTF-8') . '">&nbsp;';
             }
 
             if ($has_password){
-                tpl_set_var('password_req', '<img src="' . $config['search-attr-icons']['password'][0] .'" title="' . tr('LogPassword') .'" alt="Potrzebne hasło"/>');
+                tpl_set_var('password_req', '<img src="' . $config['search-attr-icons']['password'][0] .'" title="' . tr('LogPassword') .'" alt="Potrzebne hasło">');
             } else {
                 tpl_set_var('password_req', '');
             }
@@ -1570,7 +1570,7 @@ if ($powerTrailModuleSwitchOn && $cache_id != null) {
                 $ptImg = 'tpl/stdstyle/images/blue/powerTrailGenericLogo.png';
             else
                 $ptImg = $pt['image'];
-            $ptHtml .= '<tr><td width="51"><img border="0" width="50" src="' . $ptImg . '" /></td><td align="center"><span style="font-size: 13px;"><a href="powerTrail.php?ptAction=showSerie&ptrail=' . $pt['id'] . '">' . $pt['name'] . '</a> </td></tr>';
+            $ptHtml .= '<tr><td width="51"><img width="50" src="' . $ptImg . '"></td><td align="center"><span style="font-size: 13px;"><a href="powerTrail.php?ptAction=showSerie&ptrail=' . $pt['id'] . '">' . $pt['name'] . '</a> </td></tr>';
         }
         $ptHtml .= '</table>';
         $ptDisplay = 'block';

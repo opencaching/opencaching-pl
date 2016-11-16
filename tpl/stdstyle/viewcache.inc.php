@@ -55,9 +55,9 @@ $viewlogs_last = '<a href="viewlogs.php?cacheid={cacheid_urlencode}"><img src="t
 $viewlogs_tr = tr('show_all_log_entries');
 $viewlogs = '<a href="viewlogs.php?cacheid={cacheid_urlencode}" ><img src="tpl/stdstyle/images/action/16x16-showall.png" class="icon16" alt="' . $viewlogs_tr . '" title="' . $viewlogs_tr . '"/></a>&nbsp;<a title="' . $viewlogs_tr . '" href="' . (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y' ? 'viewcache' : 'viewlogs') . '.php?cacheid={cacheid_urlencode}' . $linkargs . '&amp;showlogsall=y">' . tr("show_all_log_entries_short") . '</a>';
 
-$gallery_icon = '<img src="tpl/stdstyle/images/free_icons/photo.png" class="icon16"/>';
+$gallery_icon = '<img src="tpl/stdstyle/images/free_icons/photo.png" alt="Photo" class="icon16"/>';
 $gallery_tr = tr('gallery');
-$gallery_link = '<a href="gallery_cache.php?cacheid={cacheid}" title="' . $gallery_tr . '" alt="' . $gallery_tr . '">' . tr('gallery_short') . '</a>';
+$gallery_link = '<a href="gallery_cache.php?cacheid={cacheid}">' . tr('gallery_short') . '</a>';
 
 $new_log_entry_tr = tr('new_log_entry');
 $new_log_entry_link = '<a href="log.php?cacheid={cacheid}" title="' . $new_log_entry_tr . '"><img src="images/actions/new-entry-18.png" title="' . $new_log_entry_tr . '" alt="' . $new_log_entry_tr . '"></a>&nbsp;<a href="log.php?cacheid={cacheid}" title="' . $new_log_entry_tr . '">' . tr('new_log_entry_short') . '</a>';

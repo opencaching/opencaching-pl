@@ -511,7 +511,7 @@ $translations = array(
     'error_usernotactive' => 'Yor account is not activated.',
     'not_registered' => 'Not registered? <a href="register.php">Register</a>',
     'forgotten_your_password' => 'Forgot your password? <a href="newpw.php">Remind me</a>',
-    'forGottenEmailAddress' => 'Forgotten your E-mail? <a href="remindemail.php"> Ask it here',
+    'forGottenEmailAddress' => 'Forgotten your E-mail? <a href="remindemail.php"> Ask it here</a>',
     'cache_logged_required' => 'You have to be logged-in in order to perform operations on this cache.',
     'basic_information' => 'Basic information.',
     'rating_poor' => 'poor',
