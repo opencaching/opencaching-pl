@@ -59,11 +59,11 @@ function makePtSelector($ptAll, $id)
 
 function preparePtCaches(PowerTrail $powerTrail)
 {
-    $table = '<table ><tr bgcolor="#cccccc">'
+    $table = '<table><tr style="background-color: #cccccc;">'
             . ' <td>' . tr('pt036') . '</td>'
             . ' <td>' . tr('owner_label') . '</td>'
             . ' <td>'. tr('waypoint') . '</td>'
-            . ' <td align="center">' . tr('cache').'<br/>' . tr('number_founds') . '</td>'
+            . ' <td style="text-align: center;">' . tr('cache').'<br>' . tr('number_founds') . '</td>'
             . ' <td>' . tr('pt210') . '</td>'
             . '</tr>';
     $color = '#eeeeff';
@@ -77,12 +77,12 @@ function preparePtCaches(PowerTrail $powerTrail)
         if($geocache->getFounds() > 0){
             $color = 'ffbbbb';
         }
-        $table .= '<tr bgcolor="' . $color . '" id="tr' . $geocache->getCacheId() . '">
+        $table .= '<tr style="background-color: ' . $color . ';" id="tr' . $geocache->getCacheId() . '">
             <td>' . $geocache->getCacheName() . '</td>
             <td>' . $geocache->getOwner()->getUserName() . '</td>
             <td><a href="'.$geocache->getWaypointId().'">' . $geocache->getWaypointId() . '</a></td>
-            <td align="center">' . $geocache->getFounds() . '</td>
-            <td align="center"><a href="javascript:void(0);" onclick="rmCache(' . $geocache->getCacheId() . ');" class="editPtDataButton">' . tr('pt130') . '</a> <img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif"  style="display: none" id="rmCacheLoader' . $geocache->getCacheId() . '" /> </td>
+            <td style="text-align: center;">' . $geocache->getFounds() . '</td>
+            <td style="text-align: center;"><a href="javascript:void(0);" onclick="rmCache(' . $geocache->getCacheId() . ');" class="editPtDataButton">' . tr('pt130') . '</a> <img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif"  style="display: none" id="rmCacheLoader' . $geocache->getCacheId() . '" alt=""> </td>
         </tr>';
     }
     $table .= '</table>';

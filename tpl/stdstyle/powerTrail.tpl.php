@@ -1,4 +1,4 @@
-<link href='//fonts.googleapis.com/css?family=Shojumaru&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Shojumaru&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 <script type="text/javascript" src="lib/tinymce4/tinymce.min.js"></script>
 <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 <link rel="stylesheet" href="tpl/stdstyle/js/jquery_1.9.2_ocTheme/themes/cupertino/jquery.ui.all.css">
@@ -306,7 +306,7 @@
             "{{pt130}}": function() {
             if ($('#delReason').val() != ''){
             $(this).dialog("close");
-                    $('#ptComments').html('<br /><br /><center><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /><br /><br /></center>');
+                    $('#ptComments').html('<br><br><center><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" alt=""><br><br></center>');
                     request = $.ajax({
                     async: false,
                             url: "powerTrail/ajaxRemoveComment.php",
@@ -613,7 +613,7 @@
     function ajaxAddComment(){
     var newComment = tinyMCE.activeEditor.getContent();
             $('#addComment').hide();
-            $('#ptComments').html('<br /><br /><center><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /><br /><br /></center>');
+            $('#ptComments').html('<br><br><center><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" alt=""><br><br></center>');
             request = $.ajax({
             async: false,
                     url: "powerTrail/ajaxAddComment.php",
@@ -670,7 +670,7 @@
     }
 
     function ajaxGetComments(start, limit){
-    $('#ptComments').html('<br /><br /><center><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /><br /><br /></center>');
+    $('#ptComments').html('<br><br><center><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" alt=""><br><br></center>');
             request = $.ajax({
             url: "powerTrail/ajaxGetComments.php",
                     type: "post",
@@ -1288,16 +1288,15 @@ $( document ).ready(function() {
             /* maps end */
 </script>
 
-<link rel="stylesheet" href="tpl/stdstyle/css/powerTrail.css" type="text/css" />
-<link rel="stylesheet" href="tpl/stdstyle/css/ptMenuCss/style.css" type="text/css" /><style type="text/css">._css3m{display:none}</style>
+<link rel="stylesheet" href="tpl/stdstyle/css/powerTrail.css" type="text/css">
+<link rel="stylesheet" href="tpl/stdstyle/css/ptMenuCss/style.css" type="text/css">
 
-<body>
     <input type="hidden" id="xmd34nfywr54" value="{powerTrailId}">
-    <br/><br/>
+    <br><br>
     <!-- deleting entery comfirmation dialog  -->
     <div id="dialog-form" title="{{pt151}}" style="display: none">
         <form>
-            <label for="delReason">{{pt152}} (max. 500 {{pt154}})</label><br /><br />
+            <label for="delReason">{{pt152}} (max. 500 {{pt154}})</label><br><br>
             <input onkeypress="return event.keyCode != 13;" type="text" name="delReason" id="delReason" class="text ui-widget-content ui-corner-all" style="width: 280px;" maxlength="500" />
         </form>
     </div>
@@ -1305,21 +1304,19 @@ $( document ).ready(function() {
     <div id="oldIE" style="display: none">{{pt129}}</div>
     <div id="powerTrailContentWraper">
         <div class="content2-pagetitle">
-            <img src="tpl/stdstyle/images/blue/050242-blue-jelly-icon-natural-wonders-flower13-sc36_32x32.png" class="icon32" alt="geocache" title="geocache" align="middle" />
+            <img src="tpl/stdstyle/images/blue/050242-blue-jelly-icon-natural-wonders-flower13-sc36_32x32.png" class="icon32" alt="geocache" title="geocache">
             {{pt001}}
         </div>
 
-        <!--[if IE 6 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]-->
-        <!--[if IE 7 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]-->
-        <!--[if IE 8 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]-->
+        <!--[if IE 6 ]> <div id="oldIE">{{pt129}}</div><br><br> <![endif]-->
+        <!--[if IE 7 ]> <div id="oldIE">{{pt129}}</div><br><br> <![endif]-->
+        <!--[if IE 8 ]> <div id="oldIE">{{pt129}}</div><br><br> <![endif]-->
 
-        <center>
-        <div id="ptMenus" style="display: {ptMenu}">
+        <div id="ptMenus" style="text-align: center; display: {ptMenu}">
             <ul id="css3menu1" class="topmenu">
                 {powerTrailMenu}
             </ul>
         </div>
-        </center>
         <!-- map -->
         <div id="mapOuterdiv" style="display: {mapOuterdiv}">
             <div style="position: relative; left: 666px; top: 56px; width: 50px;">
@@ -1359,10 +1356,10 @@ $( document ).ready(function() {
                     <tr>
                         <td>
                             {{pt054}}
-                            <br /><a class="tooltip" href="javascript:void(0);">{{pt087}}?<span class="custom help"><img src="tpl/stdstyle/images/toltipsImages/Help.png" alt="Help" height="48" width="48" /><em>{{pt088}}</em>{{pt086}}</span></a>
+                            <br><a class="tooltip" href="javascript:void(0);">{{pt087}}?<span class="custom help"><img src="tpl/stdstyle/images/toltipsImages/Help.png" alt="Help" height="48" width="48" /><em>{{pt088}}</em>{{pt086}}</span></a>
                         </td>
                         <td>
-                            <input name="dPercent" onkeypress="return isNumberKey(event)" type="number" min="10" max="100" value="50" maxlength="3"/>
+                            <input name="dPercent" onkeypress="return isNumberKey(event)" type="number" min="10" max="100" value="50">
                         </td>
                     </tr>
                     <tr>
@@ -1374,30 +1371,31 @@ $( document ).ready(function() {
                     <tr>
                         <td></td>
                         <td>
-                            <input type="hidden" value="{{submit}}" name="createNewPowerTrailBtn" /><br />
-                            <a href="javascript:void(0);" onclick="$('#createNewPowerTrail').submit()"; class="editPtDataButton">{{pt080}}</a>
+                            <input type="hidden" value="{{submit}}" name="createNewPowerTrailBtn" /><br>
+                            <a href="javascript:void(0);" onclick="$('#createNewPowerTrail').submit();" class="editPtDataButton">{{pt080}}</a>
                         </td>
                     </tr>
                 </table>
             </form>
         </div>
 
-        <div style="display: {displayToLowUserFound}" id="toLowUserFound"><img src="tpl/stdstyle/images/toltipsImages/Critical.png" /> {{pt068}} {CFrequirment} {{pt069}} </div>
+        <div style="display: {displayToLowUserFound}" id="toLowUserFound"><img src="tpl/stdstyle/images/toltipsImages/Critical.png" alt=""> {{pt068}} {CFrequirment} {{pt069}} </div>
 
         <div style="display: {displayUserCaches};">
             <div class="searchdiv">
-                <table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.4em; font-size: 13px;" width="95%">
+                <table style="border-spacing: 2px; border-collapse: separate; margin-left: 10px; line-height: 1.4em; font-size: 13px; width: 95%;">
                     <tr>
-                        <td>waypoint</td>
-                        <td>{{cache_name}}</td>
-                        <td>{{pt002}}</td>
+                        <td style="padding: 1px;">waypoint</td>
+                        <td style="padding: 1px;">{{cache_name}}</td>
+                        <td style="padding: 1px;">{{pt002}}</td>
+                        <td>&nbsp;</td>
                     </tr>
                     <tr>
-                        <td colspan="7"><img src="tpl/stdstyle/images/blue/dot_blue.png" height="1" width="100%"/></td>
+                        <td colspan="4" style="padding: 1px;"><img src="tpl/stdstyle/images/blue/dot_blue.png" height="1" style="width: 100%;" alt=""></td>
                     </tr>
                     {keszynki}
                     <tr>
-                        <td colspan="7"><img src="tpl/stdstyle/images/blue/dot_blue.png" height="5" width="100%"/></td>
+                        <td colspan="4" style="padding: 1px;"><img src="tpl/stdstyle/images/blue/dot_blue.png" height="5" style="width: 100%;" alt=""></td>
                     </tr>
                 </table>
             </div>
@@ -1405,19 +1403,19 @@ $( document ).ready(function() {
         <div style="display: {nocachess}">({{pt084}})</div>
 
         <div style="display: {displayPowerTrails}">
-            <table border=0 width=100%>
+            <table style="border-collapse: collapse; width: 100%">
                 <tr>
-                    <td colspan="8" class="linearBg1">{{pt035}}</td>
+                    <td colspan="6" class="linearBg1">{{pt035}}</td>
                 </tr>
                 <tr id="filtersTr" style="display: {filtersTrDisplay};">
-                    <td colspan="8" align="center">
-                        <div class="displayOptionsClass" id="displayOptionsButton">
+                    <td colspan="6" style="text-align: center;">
+                        <div class="displayOptionsClass" id="displayOptionsButton" style="margin: auto;">
                             {{pt175}}: {displayedPowerTrailsCount}
                             <a href="javascript:void(0)" style="float: right;" onclick="showDisplayOptions()" class="editPtDataButton">{{pt163}}</a>
                         </div>
-                        <div id="displayOptions" class="displayOptionsClass" style="display: none">
+                        <div id="displayOptions" class="displayOptionsClass" style="display: none; margin: auto;">
                             <form id="dOptionForm" name="dOptionForm" action="powerTrail.php" method="get">
-                                <table>
+                                <table style="text-align: right; margin: auto;">
                                     <tr>
                                         <td>{{pt166}}</td>
                                         <td>{ptTypeSelector2}</td>
@@ -1464,43 +1462,43 @@ $( document ).ready(function() {
 
         <!-- display single Power trail and all conected infos -->
 
-        <br /><br />
+        <br><br>
         <p>{mainPtInfo}</p>
 
         <div style="display: {displaySelectedPowerTrail}">
 
-            <table border=0 width=100%>
+            <table style="border-collapse: collapse; width: 100%;">
                 <tr>
-                    <td width=251>
-                        <table style="height: 250px; width: 250px;"><tr><td valign="center" align="center"><span id="powerTrailLogo"><img class="powerTrailLogo" src="{powerTrailLogo}" /></span></td></tr></table>
-                        <img style="display: none" id="ajaxLoaderLogo" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+                    <td style="width: 251px;">
+                        <table style="height: 250px; width: 250px;"><tr><td style="vertical-align: middle; text-align: center;"><span id="powerTrailLogo"><img class="powerTrailLogo" src="{powerTrailLogo}" alt=""></span></td></tr></table>
+                        <img style="display: none" id="ajaxLoaderLogo" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" alt="">
                     </td>
-                    <td align="center">
-                        <span id="powerTrailName">{powerTrailName}</span> <img id="NameOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" /> <!-- [ ? TU WSTAWIĆ MAPĘ ? ] -->
+                    <td style="text-align: center;" colspan="2">
+                        <span id="powerTrailName">{powerTrailName}</span> <img id="NameOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" alt=""> <!-- [ ? TU WSTAWIĆ MAPĘ ? ] -->
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <p align="center" id="toggleImageEditButton" style="display: {displayAddCachesButtons}">
+                        <p id="toggleImageEditButton" style="text-align: center; display: {displayAddCachesButtons}">
                             <a href="javascript:void(0)" onclick="toggleImageEdit()" class="editPtDataButton">{{pt060}}</a>
                         </p>
-                        <span id="newImage" style="display: none">
+                        <div id="newImage" style="display: none">
                             <form action="powerTrail/ajaxImage.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
-                                <p id="f1_upload_form" align="center"><br/>
+                                <p id="f1_upload_form" style="text-align: center;"><br>
                                     File: <input name="myfile" type="file" size="30" />
                                     <input type="hidden" name="powerTrailId" value="{powerTrailId}">
                                     <a href="javascript:void(0)" onclick="cancellImage()" class="editPtDataButton">{{pt031}}</a>
                                     <a href="javascript:void(0)" onclick="$(this).closest('form').submit()" class="editPtDataButton">{{pt044}}</a>
                                 </p>
                                 <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
-                        </span>
+                        </div>
                     </td>
-                    <td>
-                        <p align="center">
+                    <td colspan="2">
+                        <p style="text-align: center;">
                             <span id="toggleNameEditButton" style="display: {displayAddCachesButtons}">
                                 <a href="javascript:void(0)" onclick="toggleNameEdit()" class="editPtDataButton">{{pt091}}</a>
                             </span>
-                            <img id="nameAjaxLoader" style="display: none" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+                            <img id="nameAjaxLoader" style="display: none" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" alt="">
                             <span id="editPtName" style="display: none">
                                 <input type="text" id="ptName" value="{powerTrailName}" />
                                 <a href="javascript:void(0)" onclick="cancellEditName()" class="editPtDataButton">{{pt031}}</a>
@@ -1514,8 +1512,7 @@ $( document ).ready(function() {
                 </tr>
                 <tr>
                     <td class="descTd">{{pt181}} <a class="tooltip" href="javascript:void(0);"><i style="color: blue;">(?)</i><span class="custom help"><img src="tpl/stdstyle/images/toltipsImages/Help.png" alt="Help" height="48" width="48" /><em>{{pt181}}</em>{{pt182}}</span></a></td>
-                    <td><a href="viewprofile.php?userid={leadingUserId}">{leadingUserName}</a>
-                    </td>
+                    <td colspan="2"><a href="viewprofile.php?userid={leadingUserId}">{leadingUserName}</a></td>
                 </tr>
                 <tr>
                     <td class="descTd"><div style="display: {displayAddCachesButtons}">{{pt063}}</div></td>
@@ -1523,119 +1520,118 @@ $( document ).ready(function() {
                         <span id="ptStatus" style="display: {displayAddCachesButtons}">
                             {ptStatus}
                         </span>
-                        <img id="StatusOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
-                        <img  style="display: none" class="StatusNOKimg" src="tpl/stdstyle/images/free_icons/exclamation.png"><span style="display: none" id="statusErrMessage" class="StatusNOKimg"></span>
+                        <img id="StatusOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" alt="">
+                        <img  style="display: none" class="StatusNOKimg" src="tpl/stdstyle/images/free_icons/exclamation.png" alt=""><span style="display: none" id="statusErrMessage" class="StatusNOKimg"></span>
                         <span id="ptStatusEdit" style="display: none">
                             {ptStatusSelector}
                             <a href="javascript:void(0)" onclick="toggleStatusEdit();" class="editPtDataButton">{{pt031}}</a>
                             <a href="javascript:void(0)" onclick="ajaxUpdateStatus();" class="editPtDataButton">{{pt044}}</a>
                         </span>
                     </td>
-                    <td align="right" width="120">
+                    <td style="text-align: right; width: 120px;">
                         <a href="javascript:void(0)" style="display: {displayAddCachesButtons}" id="ptStatusButton" onclick="toggleStatusEdit()" class="editPtDataButton">{{pt064}}</a>
-                        <span style="display: none" id="ajaxLoaderStatus"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></span>
+                        <span style="display: none" id="ajaxLoaderStatus"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" alt=""></span>
                     </td>
                 </tr>
                 <tr>
                     <td class="descTd">{{pt065}}</td>
-                    <td><span id="conquestCount">{conquestCount}</span> {{pt066}}</td>
+                    <td colspan="2"><span id="conquestCount">{conquestCount}</span> {{pt066}}</td>
                 </tr>
                 <tr>
                     <td class="descTd">{{pt037}}</td>
-                    <td><span id="conquestCount">{ptPoints}</span> {{pt038}}</td>
+                    <td colspan="2"><span id="conquestCount">{ptPoints}</span> {{pt038}}</td>
                 </tr>
                 <tr>
                     <td class="descTd">{{pt022}}</td>
-                    <td><span id="powerTrailCacheCount">{powerTrailCacheCount}</span> (<span style="color: green" title="ActiveGeocaches">{powerTrailActiveCacheCount}</span> / <span style="color: orange" title="UnavailableGeocaches">{powerTrailUnavailableCacheCount}</span> / <span style="color: red" title="ArchivedGeocaches">{powerTrailArchivedCacheCount}</span>) <img id="cCountOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" /></td>
-                    <td align="right">
+                    <td><span id="powerTrailCacheCount">{powerTrailCacheCount}</span> (<span style="color: green" title="ActiveGeocaches">{powerTrailActiveCacheCount}</span> / <span style="color: orange" title="UnavailableGeocaches">{powerTrailUnavailableCacheCount}</span> / <span style="color: red" title="ArchivedGeocaches">{powerTrailArchivedCacheCount}</span>) <img id="cCountOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" alt=""></td>
+                    <td style="text-align: right;">
                         <span class="userActions" id="cacheCountUserActions">{cacheCountUserActions}</span>
-                        <span style="display: none" id="ajaxLoaderCacheCount"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></span>
+                        <span style="display: none" id="ajaxLoaderCacheCount"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" alt=""></span>
                     </td>
                 </tr>
                 <tr>
                     <td class="descTd">{{pt054}}</td>
                     <td>
-                        <span id="powerTrailpercent">{powerTrailDemandPercent}</span>% <img id="percentCountOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+                        <span id="powerTrailpercent">{powerTrailDemandPercent}</span>% <img id="percentCountOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" alt="">
                         <span id="powerTrailpercentEdit" style="display: none">
-                            <input id="demandPercent" onkeypress="return isNumberKey(event);" onkeyup="updateCc();" onchange="updateCc();" type="number" min="{demandPercentMinimum}" max="100" value="{powerTrailDemandPercent}" maxlength="3"/>
+                            <input id="demandPercent" onkeypress="return isNumberKey(event);" onkeyup="updateCc();" onchange="updateCc();" type="number" min="{demandPercentMinimum}" max="100" value="{powerTrailDemandPercent}">
                             <a href="javascript:void(0)" onclick="togglePercentSection(); $('#ptPercentCc').html(calculatepercentCc($('#powerTrailpercent').html(), $('#powerTrailCacheCount').html()));" class="editPtDataButton">{{pt031}}</a>
                             <a href="javascript:void(0)" onclick="ajaxUpdateDemandPercent()" class="editPtDataButton">{{pt044}}</a>
                         </span>
                         (<span id="ptPercentCc"></span> {{pt180}})
-                        <img id="ptPercentOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+                        <img id="ptPercentOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" alt="">
                     </td>
-                    <td align="right">
+                    <td style="text-align: right;">
                         <span class="userActions" id="percentDemandUserActions" style="display: {percentDemandUserActions}">
                             <a href="javascript:void(0)" onclick="togglePercentSection()" class="editPtDataButton">{{pt055}}</a>
                         </span>
-                        <span style="display: none" id="ajaxLoaderPercentDemand"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></span>
+                        <span style="display: none" id="ajaxLoaderPercentDemand"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" alt=""></span>
                     </td>
                 </tr>
                 <tr>
                     <td class="descTd">{{pt023}}</td>
                     <td>
                         <span id="ptTypeName">{ptTypeName}</span>
-                        <img id="ptTypeOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+                        <img id="ptTypeOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" alt="">
                         <div id="ptTypeNameEdit" style="display: none">
                             {ptTypesSelector}
                             <a href="javascript:void(0)" onclick="ajaxUpdatType()" class="editPtDataButton">{{pt044}}</a>
                         </div>
                     </td>
-                    <td align="right">
+                    <td style="text-align: right;">
                         <span class="userActions" id="ptTypeUserActionsDiv">{ptTypeUserActions}</span>
-                        <img style="display: none" id="ajaxLoaderType" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+                        <img style="display: none" id="ajaxLoaderType" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" alt="">
                     </td>
                 </tr>
                 <tr>
                     <td class="descTd">{{pt024}}</td>
                     <td>
                         <span id="powerTrailDateCreated">{powerTrailDateCreated}</span>
-                        <img id="ptDateOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+                        <img id="ptDateOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" alt="">
                         <span id="powerTrailDateCreatedEdit" style="display: none">
-                            <input id="powerTrailDateCreatedInput" type="text" value="{powerTrailDateCreated}" maxlength="10" />
+                            <input id="powerTrailDateCreatedInput" type="text" value="{powerTrailDateCreated}" maxlength="10">
                             <a href="javascript:void(0)" id="editDateSaveButton" onclick="ajaxUpdateDateCancel()" class="editPtDataButton">{{pt031}}</a>
                             <a href="javascript:void(0)" id="editDateSaveButton" onclick="ajaxUpdateDate()" class="editPtDataButton">{{pt044}}</a>
                         </span>
                     </td>
-                    <td align="right">
+                    <td style="text-align: right;">
                         <span class="userActions" id="ptDateUserActionsDiv">{ptDateUserActions}</span>
-                        <img style="display: none" id="ajaxLoaderPtDate" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+                        <img style="display: none" id="ajaxLoaderPtDate" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" alt="">
                     </td>
                 </tr>
                 <tr>
                     <td class="descTd">{{pt025}}</td>
                     <td>
                         <span id="powerTrailOwnerList">{powerTrailOwnerList}</span>
-                        <img id="ownerListOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+                        <img id="ownerListOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" alt="">
                     </td>
-                    <td align="right">
+                    <td style="text-align: right;">
                         <span class="userActions" id="ownerListUserActions">{ownerListUserActions}</span>
-                        <span style="display: none" id="ajaxLoaderOwnerList"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></span>
+                        <span style="display: none" id="ajaxLoaderOwnerList"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" alt=""></span>
                     </td>
                 </tr>
-
                 <tr>
                     <td colspan="3" class="linearBg1">{{pt034}}</td>
                 </tr>
                 <tr>
-                    <td class="inlineTd" colspan="2"><span id="ptdesc"></div>
+                    <td class="inlineTd" colspan="2"><span id="ptdesc"></span>
                             <div id="powerTrailDescription">{powerTrailDescription}</div>
                             <div id="powerTrailDescriptionEdit" style="display: none">
                                 <textarea id="descriptionEdit" name="descriptionEdit">{powerTrailDescription}</textarea>
                             </div>
                     </td>
-                    <td align="right" valign="bottom">
+                    <td style="text-align: right; vertical-align: bottom;">
                         {displayPtDescriptionUserAction}
-                        <span style="display: none" id="ajaxLoaderDescription"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></span>
+                        <span style="display: none" id="ajaxLoaderDescription"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" alt=""></span>
                         <a href="javascript:void(0)" id="editDescCancelButton" style="display: none" onclick="cancelDescEdit()" class="editPtDataButton">{{pt031}}</a>
-                        <br /> <br />
+                        <br> <br>
                         <a href="javascript:void(0)" id="editDescSaveButton" style="display: none" onclick="ajaxUpdatePtDescription()" class="editPtDataButton">{{pt044}}</a>
-                        <img id="descOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+                        <img id="descOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" alt="">
                     </td>
                 </tr>
             </table>
 
-            <table border=0 width=100%>
+            <table style="border-collapse: collapse; width: 100%;">
                 <tr>
                     <td class="linearBg1">{{pt020}} {powerTrailName}</td>
                 </tr>
@@ -1643,22 +1639,22 @@ $( document ).ready(function() {
                     <td>
                         <div id="gpxOptions">
                             <p>{{pt206}}:</p><hr>
-                            <input id="f_inactive"  type="checkbox" name="f_inactive"  checked="checked" /> {{pt201}} <br/>
-                            <input id="f_ignored"   type="checkbox" name="f_ignored"   checked="checked" /> {{pt202}} <br/>
-                            <input id="f_userowner" type="checkbox" name="f_userowner" checked="checked" /> {{pt203}} <br/>
-                            <input id="f_watched"   type="checkbox" name="f_watched"   checked="checked" /> {{pt204}} <br/>
-                            <input id="f_userfound" type="checkbox" name="f_userfound" checked="checked" /> {{pt205}} <br/>
+                            <input id="f_inactive"  type="checkbox" name="f_inactive"  checked="checked" /> {{pt201}} <br>
+                            <input id="f_ignored"   type="checkbox" name="f_ignored"   checked="checked" /> {{pt202}} <br>
+                            <input id="f_userowner" type="checkbox" name="f_userowner" checked="checked" /> {{pt203}} <br>
+                            <input id="f_watched"   type="checkbox" name="f_watched"   checked="checked" /> {{pt204}} <br>
+                            <input id="f_userfound" type="checkbox" name="f_userfound" checked="checked" /> {{pt205}} <br>
                             {{pt225}}*: <input id="gpxLogLimit" name="gpxLogLimit"  type="range" step="1" style="border: none;" onchange="$('#gpxLogLimitCurrent').html(this.value);" oninput="$('#gpxLogLimitCurrent').html(this.value);" min="1"  value="5" max="50" /> <span id="gpxLogLimitCurrent" style="font-size: 10px; font-weight: bold">5</span>
-                            <br/><br/> <span style="font-size: 7px;">*) - {{pt226}}</span>
+                            <br><br> <span style="font-size: 7px;">*) - {{pt226}}</span>
                             <input id="showresult"  type="hidden"   name="showresult" value="1">
                             <input id="count"       type="hidden"   name="count"      value="max">
                             <input id="ptId"        type="hidden"   name="ptId"       value="{powerTrailId}">
                             <input id="output"      type="hidden"   name="output"     value="gpxgc">
-                            <a href="javascript:void(0)" style="float: right;" onclick="$('#gpxOptions').fadeOut(600); $(function(){setTimeout(function(){$('#gpxSection').fadeIn(800); }, 801); });" class="editPtDataButton"/>OK</a>
+                            <a href="javascript:void(0)" style="float: right;" onclick="$('#gpxOptions').fadeOut(600); $(function(){setTimeout(function(){$('#gpxSection').fadeIn(800); }, 801); });" class="editPtDataButton">OK</a>
                         </div>
 
-                        <div id="gpxSection" align="right" style="padding-top: 10px; padding-bottom: 10px; padding-right: 5px; width=100%;">
-                            <a href="javascript:void(0)" style="float: left;" onclick="$('#gpxSection').fadeOut(800); $(function(){setTimeout(function(){$('#gpxOptions').fadeIn(800); }, 801); });" class="editPtDataButton"/>{{pt207}}</a>
+                        <div id="gpxSection" style="text-align: right; padding-top: 10px; padding-bottom: 10px; padding-right: 5px; width: 100%;">
+                            <a href="javascript:void(0)" style="float: left;" onclick="$('#gpxSection').fadeOut(800); $(function(){setTimeout(function(){$('#gpxOptions').fadeIn(800); }, 801); });" class="editPtDataButton">{{pt207}}</a>
                             {{pt179}}:
                             <a href="javascript:void(0)" onclick="getGpx('gpxgc');" class="editPtDataButton">GPX</a>&nbsp;<a href="javascript:void(0)" onclick="getGpx('zip');" class="editPtDataButton">GARMIN ({{format_pict}})</a>
                         </div>
@@ -1670,45 +1666,45 @@ $( document ).ready(function() {
             </table>
 
             <span id="PowerTrailCaches"></span>
-            <img id="cachesLoader" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+            <img id="cachesLoader" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" alt="">
 
-            <table border="0" width="90%" align="center">
+            <table style="border-collapse: collapse; width: 90%; margin-left: auto; margin-right: auto;">
                 <tr>
-                    <td colspan="2">
+                    <td>
                         <div id="searchCacheSection" class="searchCacheSection" style="display: none">
-                            {{pt157}}:<br /><br />
-                            <input onkeyup="checkCacheByWpt('')" size="6" id="CacheWaypoint" type="text" maxlength="6" value="{ocWaypoint}" />
-                            <img style="display: none" id="AloaderNewCacheSearch" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+                            {{pt157}}:<br><br>
+                            <input onkeyup="checkCacheByWpt('')" size="6" id="CacheWaypoint" type="text" maxlength="6" value="{ocWaypoint}">
+                            <img style="display: none" id="AloaderNewCacheSearch" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" alt="">
                             <span id="newCacheName"></span>
                             <input type="hidden" id="newCacheNameId" value="-1">
-                            <br/><br/><a href="javascript:void(0)" id="newCache2ptAddButton" style="display: none" onclick="ajaxAddOtherUserCache()" class="editPtDataButton">{{pt047}}</a>
+                            &nbsp;<a href="javascript:void(0)" id="newCache2ptAddButton" style="display: none" onclick="ajaxAddOtherUserCache()" class="editPtDataButton">{{pt047}}</a>
                             <a href="javascript:void(0)" id="toggleSearchCacheSection1" style="display: none" onclick="toggleSearchCacheSection()" class="editPtDataButton">{{pt031}}</a>
                         </div>
 
                         <div id="searchCacheSectionRm" class="searchCacheSection" style="display: none">
-                            {{pt158}}:<br /><br />
-                            <input onkeyup="checkCacheByWpt(2)" size="6" id="CacheWaypoint2" type="text" maxlength="6" value="{ocWaypoint}" />
-                            <img style="display: none" id="AloaderNewCacheSearch2" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+                            {{pt158}}:<br><br>
+                            <input onkeyup="checkCacheByWpt(2)" size="6" id="CacheWaypoint2" type="text" maxlength="6" value="{ocWaypoint}">
+                            <img style="display: none" id="AloaderNewCacheSearch2" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" alt="">
                             <span id="newCacheName2"></span>
                             <input type="hidden" id="newCacheNameId2" value="-1">
-                            <br/><br/><a href="javascript:void(0)" id="newCache2ptAddButton2" style="display: none" onclick="ajaxRmOtherUserCache()" class="editPtDataButton">{{pt159}}</a>
+                            <br><br><a href="javascript:void(0)" id="newCache2ptAddButton2" style="display: none" onclick="ajaxRmOtherUserCache()" class="editPtDataButton">{{pt159}}</a>
                             <a href="javascript:void(0)" id="toggleSearchCacheSectionRm" style="display: none" onclick="toggleSearchCacheSection2()" class="editPtDataButton">{{pt031}}</a>
                         </div>
 
-                        <img style="display: none" id="AloaderNewCacheAdding" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
-                        <img id="AloaderNewCacheAddingOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+                        <img style="display: none" id="AloaderNewCacheAdding" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" alt="">
+                        <img id="AloaderNewCacheAddingOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" alt="">
 
 
                         <div id="messageDiv">
-                            <table border="0">
+                            <table style="border-collapse: collapse;">
                                 <tr>
                                     <td rowspan="2">
-                                        <img id="AloaderNewCacheAddingNOKimg" style="display: none" src="tpl/stdstyle/images/log/16x16-dnf.png" />
-                                        <img id="AloaderNewCacheAddingIimg" style="display: none" src="tpl/stdstyle/images/misc/16x16-info.png" />
+                                        <img id="AloaderNewCacheAddingNOKimg" style="display: none" src="tpl/stdstyle/images/log/16x16-dnf.png" alt="">
+                                        <img id="AloaderNewCacheAddingIimg" style="display: none" src="tpl/stdstyle/images/misc/16x16-info.png" alt="">
                                     </td>
                                     <td>
                                         {{pt199}}
-                                        <img id="closeMessage" onclick="$('#messageDiv').fadeOut(600);" style="float:right;" src="tpl/stdstyle/images/free_icons/cross.png" />
+                                        <img id="closeMessage" onclick="$('#messageDiv').fadeOut(600);" style="float:right;" src="tpl/stdstyle/images/free_icons/cross.png" alt="">
                                     </td>
                                 </tr>
                                 <tr>
@@ -1720,7 +1716,7 @@ $( document ).ready(function() {
 
                         </div>
                     </td>
-                    <td align="right">
+                    <td style="text-align: right;">
                         <div style="display: {displayAddCachesButtons}">
                             <div class="padding1"><a href="powerTrail.php?ptAction=selectCaches" id="toggleSearchCacheSection0" class="editPtDataButton">{{pt049}}</a></div>
                             <div class="padding1"><a href="javascript:void(0)" id="finalCachesbtn" onclick="reloadWithFinalsChoice();" class="editPtDataButton">{{pt149}}</a></div>
@@ -1730,14 +1726,14 @@ $( document ).ready(function() {
                 </tr>
             </table>
 
-            <table border=0 width=100% style="{statsOptionsDisplay}">
+            <table style="border-collapse: collapse; width: 100%; {statsOptionsDisplay}">
                 <tr>
                     <td class="linearBg1">{{pt099}} {powerTrailName}</td>
                 </tr>
                 <tr>
                     <td>
-                        {{pt015}}: <br />
-                        <p align="center"><img src="https://chart.googleapis.com/chart?cht=p3&chd=t:{cacheFound},{powerTrailCacheLeft}&chco=00AA00|0000AA&chs=300x120&chl={{pt103}}|{{pt104}}" /><br />
+                        {{pt015}} <br>
+                        <p style="text-align: center"><img src="https://chart.googleapis.com/chart?cht=p3&chd=t:{cacheFound},{powerTrailCacheLeft}&chco=00AA00%7C0000AA&chs=300x120&chl={{pt103}}%7C{{pt104}}" alt=""><br>
                             {powerTrailserStats}</p>
                     </td>
                 </tr>
@@ -1745,16 +1741,16 @@ $( document ).ready(function() {
                     <td>
                         <div id="ptStatsContainer"></div>
                         <a href="javascript:void(0)" id="showPtStatsButton" onclick="ajaxGetPtStats()" class="editPtDataButton">{{pt098}}</a>
-                        <img id="ptStatsLoader" style="display: none" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
-                        <img id="ptStatsOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
-                        <br /><br />
+                        <img id="ptStatsLoader" style="display: none" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" alt="">
+                        <img id="ptStatsOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" alt="">
+                        <br><br>
                         <a href="javascript:void(0)" id="hidePtStatsButton" onclick="ptStatsHide()" class="editPtDataButton" style="display: none">{{pt100}}</a>
                     </td>
                 </tr>
             </table>
 
             <!-- power Trail comments -->
-            <table border=0 width=100%>
+            <table style="border-collapse: collapse; width: 100%">
                 <tr>
                     <td class="linearBg1">{{pt050}}</td>
                 </tr>
@@ -1762,25 +1758,25 @@ $( document ).ready(function() {
 
 
             <span id="ptComments">
-                <img id="commentsLoader" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+                <img id="commentsLoader" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" alt="">
             </span>
             <div id="animateHere"></div>
-            <p style="display: {displayAddCommentSection}" align="right"><a href="javascript:void(0)" id="toggleAddComment" onclick="toggleAddComment()" class="editPtDataButton">{{pt051}}</a>&nbsp; </p>
+            <p style="text-align: right; display: {displayAddCommentSection}"><a href="javascript:void(0)" id="toggleAddComment" onclick="toggleAddComment()" class="editPtDataButton">{{pt051}}</a>&nbsp; </p>
             <div id="addComment" style="display: none">
-                <input type="hidden" id="editedCommentId" value="0" />
-                <input type="hidden" id="ClickinguserId" value="0" />
-                <textarea id="addCommentTxtArea"></textarea><br /><br />
+                <input type="hidden" id="editedCommentId" value="0">
+                <input type="hidden" id="ClickinguserId" value="0">
+                <textarea id="addCommentTxtArea"></textarea><br><br>
                 {{pt229}} {ptCommentsSelector}
-                <br /><br />
+                <br><br>
                 {{pt230}} <input type="text" id="commentDateTime" value="{date}">
                 {{pt231}} <input type="text" id="timepicker" value="0:01" style="width:50px;">
-                <br /><br />
-                <img id="addCeLoader" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" style="display: none;" />
+                <br><br>
+                <img id="addCeLoader" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" style="display: none;" alt="">
                 <a id="addC1" href="javascript:void(0)" onclick="toggleAddComment();" class="editPtDataButton">{{pt031}}</a>
                 <a id="addC2" href="javascript:void(0)" onclick="ajaxAddComment();" class="editPtDataButton">{{pt044}}</a>
                 <a id="addCe1" href="javascript:void(0)" onclick="toggleEditComment();" class="editPtDataButton" style="display: none" >{{pt031}}</a>
                 <a id="addCe2" href="javascript:void(0)" onclick="ajaxUpdateComment();" class="editPtDataButton" style="display: none">{{pt044}}</a>
-                <br /><br />
+                <br><br>
             </div>
 
         </div>

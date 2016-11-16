@@ -429,7 +429,7 @@ $translations = array(
     'register_msg1' => 'För att skapa ett konto på opencaching.pl måste du ange en fungerande e-postadress och ett användarnamn. <br> Ett e-post med en aktiveringskod kommer att skickas till den adress du anger. Endast ett konto kan skapas per e-postadress.',
     'register_msg2' => '* Krävs',
     'register_msg3' => 'Om du har ytterligare frågor, vänligen kontakta oss innan du skapar ditt konto.',
-    'register_msg4' => 'Jag har läst och förstått <b><a href="{wiki_link_rules_en}"> användarvillkoren</a></b> och godkänner dem.',
+    'register_msg4' => 'Jag har läst och förstått <b><a href="{wiki_link_rules_en}" target="_blank"> användarvillkoren</a></b> och godkänner dem.',
     'register_msg5' => 'Nytt konto har registrerats',
     'register_msg6' => 'Aktiveringskoden skickades via e-post till dig. Följ instruktionerna som skickats via e-post.',
     'total_distance' => 'Total distans',
