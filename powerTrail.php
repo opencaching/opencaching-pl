@@ -97,7 +97,7 @@ if ($error == false) {
     tpl_set_var('PowerTrailCaches', 'none');
     tpl_set_var('language4js', $lang);
     tpl_set_var('powerTrailName', '');
-    tpl_set_var('powerTrailLogo', '');
+    tpl_set_var('powerTrailLogo', ':0');
     tpl_set_var('mainPtInfo', '');
     tpl_set_var('ptTypeSelector', displayPtTypesSelector('type'));
     tpl_set_var('displayToLowUserFound', 'none');
@@ -121,7 +121,15 @@ if ($error == false) {
     tpl_set_var('mapItems', CacheMap3Lib::GenerateMapItems());
     tpl_set_var('showMapsWhenMore', CacheMap3Lib::GenerateShowMapsWhenMore());
     tpl_set_var('googlemap_key', $googlemap_key);
-    
+    tpl_set_var('powerTrailId', '');
+    tpl_set_var('keszynki', '');
+    tpl_set_var('cacheFound', '');
+    tpl_set_var('powerTrailCacheLeft', '');
+    tpl_set_var('PowerTrails', '');
+    tpl_set_var('demandPercentMinimum', lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED);
+    tpl_set_var('powerTrailDemandPercent', '100');
+    tpl_set_var('leadingUserId', '');
+
     if (!$usr)
         tpl_set_var('ptMenu', 'none');
     $ptMenu = new powerTrailMenu($usr);
@@ -235,7 +243,6 @@ if ($error == false) {
                 tpl_set_var('powerTrailOwnerList', displayPtOwnerList($powerTrail));
                 tpl_set_var('date', date($dateFormat));
                 tpl_set_var('powerTrailDemandPercent', $powerTrail->getPerccentRequired());
-                tpl_set_var('demandPercentMinimum', lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED);
                 tpl_set_var('ptCommentsSelector', displayPtCommentsSelector('commentType', $powerTrail, null, $usr));
                 tpl_set_var('conquestCount', $powerTrail->getConquestedCount());
                 tpl_set_var('ptPoints', $powerTrail->getPoints());
@@ -332,9 +339,9 @@ function displayCaches($caches, $pTrails)
         }
         $ptSelector .= '</select>';
         $rows .= '<tr><td><a href="' . $cache['wp_oc'] . '">' . $cache['wp_oc'] . '</a></td><td>' . $cache['name'] . '</td><td>' . $ptSelector . '</td>
-        <td width="50"><img style="display: none" id="addCacheLoader' . $cache['cache_id'] . '" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
-        <span id="cacheInfo' . $cache['cache_id'] . '" style="display: none "><img src="tpl/stdstyle/images/free_icons/accept.png" /></span>
-        <span id="cacheInfoNOK' . $cache['cache_id'] . '" style="display: none "><img src="tpl/stdstyle/images/free_icons/exclamation.png" /></span>' .
+        <td width="50"><img style="display: none" id="addCacheLoader' . $cache['cache_id'] . '" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" alt="">
+        <span id="cacheInfo' . $cache['cache_id'] . '" style="display: none "><img src="tpl/stdstyle/images/free_icons/accept.png" alt=""></span>
+        <span id="cacheInfoNOK' . $cache['cache_id'] . '" style="display: none "><img src="tpl/stdstyle/images/free_icons/exclamation.png" alt=""></span>' .
                 $hidden .
                 '</td></tr>';
     }
@@ -363,8 +370,8 @@ function displayPTrails($pTrails, $areOwnSeries)
             $pTrail["name"] = substr($pTrail["name"], 0, 35) . ' (...)';
         }
         $result .= '<tr>' .
-                '<td align="right" style="padding-right: 5px;"><b><a href="powerTrail.php?ptAction=showSerie&ptrail=' . $pTrail["id"] . '" title="' . $ptHrefTitle . '">' . $pTrail["name"] . '</a></b></td>' .
-                '<td ><img src="' . $ptTypes[$pTrail["type"]]['icon'] . '" /> ' . tr($ptTypes[$pTrail["type"]]['translate']) . '</td>' .
+                '<td style="text-align: right; padding-right: 5px;"><b><a href="powerTrail.php?ptAction=showSerie&ptrail=' . $pTrail["id"] . '" title="' . $ptHrefTitle . '">' . $pTrail["name"] . '</a></b></td>' .
+                '<td class="ptTd"><img src="' . $ptTypes[$pTrail["type"]]['icon'] . '" alt=""> ' . tr($ptTypes[$pTrail["type"]]['translate']) . '</td>' .
                 '<td class="ptTd">' . $ownOrAll . '</td>' .
                 '<td class="ptTd">' . substr($pTrail["dateCreated"], 0, -9) . '</td>' .
                 '<td class="ptTd">' . $pTrail["cacheCount"] . '</td>' .
@@ -585,6 +592,7 @@ function generateSelector($array, $sel, $name)
         else
             $selector .= '<option value="' . $opt['val'] . '">' . tr($opt['tr']) . '</option>';
     }
+    $selector .= '</select>';
     return $selector;
 }
 

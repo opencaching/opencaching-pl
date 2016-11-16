@@ -19,6 +19,12 @@ table, th, td
     font-size: 12px;
 }
 
+table.statsTable {
+    border-collapse:collapse;
+    margin-left: auto;
+    margin-right:auto;
+}
+
 table.statsTable td{
     padding-left: 5px;
     padding-right: 5px;
@@ -27,11 +33,10 @@ table.statsTable th{
     padding-left: 5px;
     padding-right: 5px;
     border-bottom: solid 2px;
-    border-color: #000044;
     background-color:#0088CC;
     color: #FFFFCC;
-
 }
+
 table.statsTable th:not(:last-child), table.statsTable td:not(:last-child){
     border-right: solid 1px;
 }
@@ -370,8 +375,19 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
     padding-left: 20px;
     padding-right: 20px;
 }
-
+#ptStatSelectSpan{
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    display: none;
+    border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+    border:1px solid #337fed;
+    width: 600px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
 .powerTrailLogo {
     max-width: 250px;
 }
-

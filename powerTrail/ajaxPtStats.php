@@ -75,7 +75,7 @@ $ptDbRow = powerTrailBase::getPtDbRow($ptId);
 
 // print_r($sorted);
 // print_r($tmp);
-$stats2display = '<table class="statsTable" style="border-collapse:collapse;" align="center"><tr>
+$stats2display = '<table class="statsTable"><tr>
 <th>'.tr('pt095').'</th>
 <th>'.tr('pt096').'</th>
 <th>'.tr('pt097').'</th>
@@ -102,12 +102,12 @@ if ($ptTotalCacheesCount != 0) {
             }
         }
         if($bgcolor == '#eeeeff') $bgcolor = '#ffffff'; else $bgcolor = '#eeeeff';
-        $stats2display .= '<tr bgcolor="'.$bgcolor.'">
+        $stats2display .= '<tr style="background-color: '.$bgcolor.';">
             <td ><a href="viewprofile.php?userid='.$user['user_id'].'">'.$user['username'].'</a></td>
-            <td align="center">'.$user['FoundCount'].'</td>
-            <td align="center">'.$ptPercent.'% </td>
-            <td align="center">'.$user['daysSpent'].'</td>
-            <td align="center">'.round($user['FoundCount']/$user['daysSpent'], 2).'</td>
+            <td style="text-align: center;">'.$user['FoundCount'].'</td>
+            <td style="text-align: center;">'.$ptPercent.'% </td>
+            <td style="text-align: center;">'.$user['daysSpent'].'</td>
+            <td style="text-align: center;">'.round($user['FoundCount']/$user['daysSpent'], 2).'</td>
         </tr>';
     }
 } else {
@@ -119,7 +119,7 @@ isset($averageDaysSpent) ? $ads = round($averageDaysSpent,1) : $ads = '&#8734;';
 $stats2display .=
 
 '<hr>
-<table class="statsTable" style="border-collapse:collapse;" align="center">
+<table class="statsTable" style="border-collapse: collapse;  margin-left: auto; margin-right: auto;">
     <tr>
         <th>'.tr('pt122').'</th>
         <th>'.tr('pt123').'</th>
@@ -133,11 +133,11 @@ $stats2display .=
         <td>'.$totCacheDays.'</td>
     </tr>
     <tr>
-        <td>'.tr('pt120').'<a class="tooltip" href="javascript:void(0);">'.tr('pt125').'<span class="custom help"><img src="tpl/stdstyle/images/toltipsImages/Info.png" alt="Help" height="48" width="48" /><em>'.tr('pt126').'</em>'.tr('pt124').'</span></a></td>
+        <td>'.tr('pt120').' <a class="tooltip" href="javascript:void(0);">'.tr('pt125').'<span class="custom help"><img src="tpl/stdstyle/images/toltipsImages/Info.png" alt="Help" height="48" width="48"><em>'.tr('pt126').'</em>'.tr('pt124').'</span></a></td>
         <td>'.$fullPtFoundCount.'</td>
     </tr>
     <tr>
-        <td>'.tr('pt121').'<a class="tooltip" href="javascript:void(0);">'.tr('pt125').'<span class="custom help"><img src="tpl/stdstyle/images/toltipsImages/Info.png" alt="Help" height="48" width="48" /><em>'.tr('pt126').'</em>'.tr('pt124').'</span></a></td>
+        <td>'.tr('pt121').' <a class="tooltip" href="javascript:void(0);">'.tr('pt125').'<span class="custom help"><img src="tpl/stdstyle/images/toltipsImages/Info.png" alt="Help" height="48" width="48"><em>'.tr('pt126').'</em>'.tr('pt124').'</span></a></td>
         <td>'.$ads.'</td>
     </tr>
 </table>

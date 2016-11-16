@@ -52,7 +52,7 @@ if ($error == false) {
 
     if (isset($newcaches)) {
         foreach ($newcaches AS $statename => $state_record) {
-            $cache_location = '<tr><td colspan="8" class="content-title-noshade-size1">' . htmlspecialchars($statename, ENT_COMPAT, 'UTF-8') . '</td></tr>';
+            $cache_location = '<tr><td colspan="7" class="content-title-noshade-size1">' . htmlspecialchars($statename, ENT_COMPAT, 'UTF-8') . '</td></tr>';
 
             $content .= $cache_location;
             foreach ($state_record AS $cache_record) {
