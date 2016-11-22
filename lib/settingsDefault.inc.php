@@ -196,7 +196,9 @@ $config['maps']['cache_mini_map']['height'] = '385';
  */
 $config['maps']['external']['Opencaching'] = 1;
 $config['maps']['external']['Opencaching_URL'] = '<a target="_blank" href="cachemap3.php?lat=%1$f&lon=%2$f&cacheid=%3$s&inputZoom=14">%6$s</a>';
-$config['maps']['external']['OSMapa'] = 1;
+$config['maps']['external']['OSM'] = 1;
+$config['maps']['external']['OSM_URL'] = '<a target="_blank" href="http://www.openstreetmap.org/index.html?mlat=%1$f&mlon=%2$f&zoom=16&layers=M">%6$s</a>';
+$config['maps']['external']['OSMapa'] = 0;
 $config['maps']['external']['OSMapa_URL'] = '<a target="_blank" href="http://osmapa.pl?zoom=16&lat=%1$f&lon=%2$f&z=14&o=TFFT&map=1">%6$s</a>';
 $config['maps']['external']['UMP'] = 1;
 $config['maps']['external']['UMP_URL'] = '<a target="_blank" href="http://mapa.ump.waw.pl/ump-www/?zoom=14&lat=%1$f&lon=%2$f&layers=B00000T&mlat=%1$f&mlon=%2$f">%6$s</a>';
