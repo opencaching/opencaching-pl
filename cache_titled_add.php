@@ -95,7 +95,7 @@ if ( $dDiff->days < $securityPeriod )
     and cache_titled.cache_id is NULL
 
     ORDER BY RATE DESC, founds DESC, caches.date_created DESC
-    LIMIT 30) as top
+    LIMIT 35) as top
 
     left join
     (
