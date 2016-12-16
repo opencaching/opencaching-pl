@@ -7,21 +7,21 @@ namespace okapi;
 # If you want to include_once/require_once OKAPI in your code,
 # see facade.php. You should not rely on any other file, never!
 
-use Exception;
-use ErrorException;
 use ArrayObject;
-use Pdo;
-use PDOException;
-use okapi\oauth\OAuthServerException;
-use okapi\oauth\OAuthServer400Exception;
-use okapi\oauth\OAuthServer401Exception;
-use okapi\oauth\OAuthMissingParameterException;
-use okapi\oauth\OAuthConsumer;
-use okapi\oauth\OAuthToken;
-use okapi\oauth\OAuthServer;
-use okapi\oauth\OAuthSignatureMethod_HMAC_SHA1;
-use okapi\oauth\OAuthRequest;
+use clsTbsZip;
+use ErrorException;
+use Exception;
 use okapi\cronjobs\CronJobController;
+use okapi\oauth\OAuthConsumer;
+use okapi\oauth\OAuthMissingParameterException;
+use okapi\oauth\OAuthRequest;
+use okapi\oauth\OAuthServer;
+use okapi\oauth\OAuthServer400Exception;
+use okapi\oauth\OAuthServerException;
+use okapi\oauth\OAuthSignatureMethod_HMAC_SHA1;
+use okapi\oauth\OAuthToken;
+use PDO;
+use PDOException;
 
 /** Return an array of email addresses which always get notified on OKAPI errors. */
 function get_admin_emails()
@@ -995,7 +995,6 @@ class OkapiRedirectResponse extends OkapiHttpResponse
 }
 
 require_once ($GLOBALS['rootpath'].'okapi/lib/tbszip.php');
-use \clsTbsZip;
 
 class OkapiZIPHttpResponse extends OkapiHttpResponse
 {
@@ -1106,8 +1105,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1352;
-    public static $git_revision = '1e3aef5a63237b0369267ced4fe45469d3b28c7a';
+    public static $version_number = 1354;
+    public static $git_revision = '8ab6695c5c007f023a1858c0bf55050ca03c739a';
 
     private static $okapi_vars = null;
 
