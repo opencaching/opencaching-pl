@@ -143,7 +143,7 @@
             <td vAlign="top" align="left" colSpan="2">
                 <button type="submit" name="back" value="back" style="font-size:12px;width:140px"><b>{{cancel}}</b></button>&nbsp;&nbsp;
                 <button type="submit" name="delete" value="delete" onclick="return confirm('Czy usunąć ten waypoint?');" style="font-size:12px;width:140px"><b>{{delete_wp}}</b></button> &nbsp;&nbsp;
-                <button type="submit" name="submit" value="submit" style="font-size:12px;width:140px"><b>{{edit_wp}}</b></button>
+                <button type="submit" name="submit" value="submit" style="font-size:12px;width:140px"><b>{{write_wp}}</b></button>
                 <br /><br /></td>
         </tr>
 
