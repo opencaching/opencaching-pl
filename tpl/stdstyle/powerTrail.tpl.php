@@ -1320,7 +1320,7 @@ $( document ).ready(function() {
         <!-- map -->
         <div id="mapOuterdiv" style="display: {mapOuterdiv}">
             <div style="position: relative; left: 666px; top: 56px; width: 50px;">
-                <a id="fullscreenOn" style="cursor: pointer" href="cachemap-full.php?pt={powerTrailId}&lat={mapCenterLat}&lon={mapCenterLon}&calledFromPt=1" ><img src="images/fullscreen.png" alt="PeĹ‚ny ekran"></a>
+                <a id="fullscreenOn" style="cursor: pointer" href="cachemap-full.php?pt={powerTrailId}&lat={mapCenterLat}&lon={mapCenterLon}&calledFromPt=1" ><img src="images/fullscreen.png" alt="Pełny ekran"></a>
             </div>
             <div id="map-canvas"></div>
         </div>
@@ -1543,7 +1543,7 @@ $( document ).ready(function() {
                 </tr>
                 <tr>
                     <td class="descTd">{{pt022}}</td>
-                    <td><span id="powerTrailCacheCount">{powerTrailCacheCount}</span> (<span style="color: green" title="ActiveGeocaches">{powerTrailActiveCacheCount}</span> / <span style="color: orange" title="UnavailableGeocaches">{powerTrailUnavailableCacheCount}</span> / <span style="color: red" title="ArchivedGeocaches">{powerTrailArchivedCacheCount}</span>) <img id="cCountOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" alt=""></td>
+                    <td><span id="powerTrailCacheCount">{powerTrailCacheCount}</span> (<span style="color: green" title="{{ActiveGeocaches}}">{powerTrailActiveCacheCount}</span> / <span style="color: orange" title="{{UnavailableGeocaches}}">{powerTrailUnavailableCacheCount}</span> / <span style="color: red" title="{{ArchivedGeocaches}}">{powerTrailArchivedCacheCount}</span>) <img id="cCountOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" alt=""></td>
                     <td style="text-align: right;">
                         <span class="userActions" id="cacheCountUserActions">{cacheCountUserActions}</span>
                         <span style="display: none" id="ajaxLoaderCacheCount"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" alt=""></span>
