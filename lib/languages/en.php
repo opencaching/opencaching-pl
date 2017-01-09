@@ -2636,6 +2636,9 @@ $translations = array(
     'pagination_right' => 'Next page',
     'pagination_page' => 'Page',
     'pagination_last' => 'Last page',
+    'ActiveGeocaches' => 'Active geocaches',
+    'UnavailableGeocaches' => 'Unavailable geocaches',
+    'ArchivedGeocaches' => 'Archived geocaches',
     'merit_badges' => 'Merit badges',
     'merit_badge' => 'Merit badge',
     'merit_badge_level' =>  'Level',
@@ -2646,9 +2649,10 @@ $translations = array(
     'merit_badge_gain_last_date' =>  'Last gain date',
     'merit_badge_gain_date' =>  'Gain date',
     'merit_badge_number' =>  'Progress',
-    'merit_badge_number_threshold' =>  '(Progress) Threshold',
-    'merit_badge_show_details' => 'Show details of merit badges ... '
-    
+    'merit_badge_number_threshold' =>  'Thresholds',
+    'merit_badge_show_details' => 'Show details of merit badges ... ',
+    'merit_badge_gain_max_level' => 'You gained the highest level'
+                
 );
 
 

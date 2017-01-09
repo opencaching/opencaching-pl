@@ -2637,6 +2637,9 @@ $translations = array(
     'pagination_right' => 'Następne strony',
     'pagination_page' => 'Strona',
     'pagination_last' => 'Ostatnia strona',
+    'ActiveGeocaches' => 'Skrzynki aktywne',
+    'UnavailableGeocaches' => 'Skrzynki niedostępne',
+    'ArchivedGeocaches' => 'Skrzynki zarchiwizowane',
     'merit_badges' => 'Sprawności',
     'merit_badge' => 'Sprawność',
     'merit_badge_level_name' =>  'Osiągnięty poziom',
@@ -2647,8 +2650,9 @@ $translations = array(
     'merit_badge_gain_last_date' =>  'Ostatnia data zdobycia',
     'merit_badge_gain_date' =>  'Data zdobycia',
     'merit_badge_number' =>  'Postęp',
-    'merit_badge_number_threshold' =>  '(Postęp) Próg',
-    'merit_badge_show_details' => 'Pokaż szczegóły zdobytych sprawności ... '
+    'merit_badge_number_threshold' =>  'Progi',
+    'merit_badge_show_details' => 'Pokaż szczegóły zdobytych sprawności ... ',
+    'merit_badge_gain_max_level' => 'Osiągnąłęś najwyższy poziom'
 
 );
 
