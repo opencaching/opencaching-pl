@@ -10,7 +10,7 @@ use Utils\Database\OcDb;
 class PowerTrailController
 {
 
-    const MINIMUM_PERCENT_REQUIRED = 66.6;
+    const MINIMUM_PERCENT_REQUIRED = 67;
 
     private $config;
     private $serverUrl;
