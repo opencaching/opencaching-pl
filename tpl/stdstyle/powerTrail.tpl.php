@@ -1359,7 +1359,7 @@ $( document ).ready(function() {
                             <br><a class="tooltip" href="javascript:void(0);">{{pt087}}?<span class="custom help"><img src="tpl/stdstyle/images/toltipsImages/Help.png" alt="Help" height="48" width="48" /><em>{{pt088}}</em>{{pt086}}</span></a>
                         </td>
                         <td>
-                            <input name="dPercent" onkeypress="return isNumberKey(event)" type="number" min="10" max="100" value="50">
+                            <input name="dPercent" onkeypress="return isNumberKey(event)" type="number" min="67" max="100" value="90">
                         </td>
                     </tr>
                     <tr>

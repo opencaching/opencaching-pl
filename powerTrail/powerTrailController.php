@@ -200,6 +200,9 @@ class powerTrailController {
         {
             $query = "INSERT INTO `PowerTrail`(`name`, `type`, `status`, `dateCreated`, `cacheCount`, `description`, `perccentRequired`) VALUES (:1,:2,:3,NOW(),0,:4,:5)";
             $db = OcDb::instance();
+            if ($_POST['dPercent'] < \lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED) {
+                $_POST['dPercent'] = \lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED;
+            }
             $db->multiVariableQuery($query, strip_tags($_POST['powerTrailName']),(int) $_POST['type'], (int) $_POST['status'], htmlspecialchars($_POST['description']), (int) $_POST['dPercent']);
             $newProjectId = $db->lastInsertId();
             // exit;
