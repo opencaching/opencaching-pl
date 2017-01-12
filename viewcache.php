@@ -1086,7 +1086,7 @@ if ($error == false) {
                     $tmpline1 = mb_ereg_replace('{wp_icon}', htmlspecialchars($waypoint->getIconName(), ENT_COMPAT, 'UTF-8'), $tmpline1);
                     $tmpline1 = mb_ereg_replace('{type}', htmlspecialchars($wpTypeTranslation, ENT_COMPAT, 'UTF-8'), $tmpline1);
                     $tmpline1 = mb_ereg_replace('{lat_lon}', $coords_lat_lon, $tmpline1);
-                    $tmpline1 = mb_ereg_replace('{desc}', "&nbsp;" . nl2br($waypoint->getDescription()) . "&nbsp;", $tmpline1);
+                    $tmpline1 = mb_ereg_replace('{desc}', nl2br($waypoint->getDescription()) , $tmpline1);
                     $tmpline1 = mb_ereg_replace('{wpid}', $waypoint->getId(), $tmpline1);
 
                     if ($cache_type == 1 || $cache_type == 3 || $cache_type == 7) {
