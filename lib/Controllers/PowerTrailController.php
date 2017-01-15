@@ -14,6 +14,7 @@ class PowerTrailController
 
     private $config;
     private $serverUrl;
+    private $user;
 
     public function __construct()
     {
@@ -88,21 +89,37 @@ class PowerTrailController
      */
     public function cleanPowerTrailsCronjob()
     {
-        /* disabled until full automated geopaths-calening machine works finished
+//         disabled until full automated geopaths-calening machine works finished
         $getPtQuery = 'SELECT * FROM `PowerTrail` WHERE `status` =1';
         $db = OcDb::instance();
         $s = $db->simpleQuery($getPtQuery);
         $ptToClean = $db->dbResultFetchAll($s);
+        $this->user = new User(['userId' => -1]);
         foreach ($ptToClean as $dbRow) {
             $powerTrail = new PowerTrail(array('dbRow' => $dbRow));
             $powerTrail->setPowerTrailConfiguration($this->config)->checkCacheCount();
-            if (!$powerTrail->disableUncompletablePt($this->serverUrl)) {
-                $powerTrail->disablePowerTrailBecauseCacheCountTooLow();
-            }
+            $checkUncompletableResult = $powerTrail->disableUncompletablePt($this->serverUrl);
+            $this->checkUncompletableResults($checkUncompletableResult, $powerTrail);
+
+            $powerTrail->disablePowerTrailBecauseCacheCountTooLow();
         }
-        */
+        
         $this->archiveAbandonPowerTrails();
         $this->freeCacheCandidates();
+    }
+
+    private function checkUncompletableResults($checkUncompletableResult, PowerTrail $powerTrail)
+    {
+        if($checkUncompletableResult['disablePowerTrail'] === true){
+            $powerTrail->setAndStoreStatus($checkUncompletableResult['newStatus']);
+            if($checkUncompletableResult['newStatus'] === PowerTrail::STATUS_INSERVICE){
+                $type = Log::TYPE_DISABLING;
+            } elseif ($checkUncompletableResult['newStatus'] === PowerTrail::STATUS_CLOSED){
+                $type = Log::TYPE_CLOSING;
+            }
+            $this->addComment($powerTrail, $this->user, new \DateTime(), $type, $checkUncompletableResult['commentText']);
+        }
+
     }
 
     private function archiveAbandonPowerTrails()
