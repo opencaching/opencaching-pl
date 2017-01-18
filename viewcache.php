@@ -989,7 +989,7 @@ if ($error == false) {
         }
 
         // check if user requests other lang of cache desc...
-        if ( isset($_REQUEST['desclang']) && array_search($_REQUEST['desclang'], $desclangs) ) {
+        if ( isset($_REQUEST['desclang']) && (array_search($_REQUEST['desclang'], $desclangs) !== false)) {
             $desclang = $_REQUEST['desclang'];
             $enable_google_translation = false; //user wants this lang - disable translations
         }
