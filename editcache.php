@@ -82,9 +82,7 @@ if ($error == false) {
                 // wihout virtuals and webcams
                 if (isset($_POST['type'])) {
                     if (( ($_POST['type'] == GeoCache::TYPE_VIRTUAL && $cache_record['type'] != GeoCache::TYPE_VIRTUAL ) ||
-                            ($_POST['type'] == GeoCache::TYPE_WEBCAM && $cache_record['type'] != GeoCache::TYPE_WEBCAM ) ||
-                            // without owncaches
-                            ($_POST['type'] == GeoCache::TYPE_OWNCACHE && $cache_record['type'] != GeoCache::TYPE_OWNCACHE ) ) &&
+                            ($_POST['type'] == GeoCache::TYPE_WEBCAM && $cache_record['type'] != GeoCache::TYPE_WEBCAM ) ) &&
                             !$usr['admin']) {
                         $_POST['type'] = $cache_record['type'];
                     }
