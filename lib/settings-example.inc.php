@@ -71,9 +71,6 @@ $MAX_SCORE = 4;
 
 // display online users on footer pages off=0 on=1
 $onlineusers = 1;
-// wlaczenie blokady liczby max zakladanych skrzynek typu owncache (by Marcin stryker)
-$GLOBALS['owncache_limit'] = '1';
-
 
 //block register new cache before first find xx nuber caches value -1 off this feature
 $NEED_FIND_LIMIT = 10;
