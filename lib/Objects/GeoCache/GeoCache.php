@@ -154,40 +154,119 @@ class GeoCache
     public function __construct(array $params = array())
     {
         if (isset($params['cacheId'])) { // load from DB if cachId param is set
+            $this->loadByCacheId($params['cacheId']);
 
-            $db = OcDb::instance();
-            $this->id = (int) $params['cacheId'];
+        } elseif (isset($params['okapiRow'])) {
+            $this->loadFromOkapiRow($params['okapiRow']);
 
-            //find cache by Id
-            $s = $db->multiVariableQuery("SELECT * FROM caches WHERE cache_id = :1 LIMIT 1", $this->id);
+        } elseif (isset($params['cacheWp'])){
+            $this->loadByWp($params['cacheWp']);
 
-            $cacheDbRow = $db->dbResultFetch($s);
-            if(is_array($cacheDbRow)) {
-                $this->loadFromRow($cacheDbRow);
-            } else {
-                ddd('geocache not found in db? TODO: cache-not-found handling');
-                //TODO: cache-not-found handling?
-            }
-            $this->loadCacheLocation($db);
-
-        } else {
-            if (isset($params['okapiRow'])) {
-                $this->loadFromOkapiRow($params['okapiRow']);
-            }
+        } elseif (isset($params['cacheUUID'])){
+            $this->loadByUUID($params['cacheUUID']);
         }
+
+        if($this->id != null){
+            // load cache location if there is cache_id
+            $this->loadCacheLocation();
+        }
+
         $this->dictionary = \cache::instance();
     }
 
     /**
      * Factory
      * @param unknown $cacheId
-     * @return \lib\Objects\GeoCache object
+     * @return \lib\Objects\GeoCache object or null if no such geocache
      */
     public static function fromCacheIdFactory($cacheId){
-        return new self( array('cacheId' => $cacheId) );
+        try{
+            return new self( array('cacheId' => $cacheId) );
+        }catch (\Exception $e){
+            return null;
+        }
     }
 
+    /**
+     * Factory - creats Geocache object based on waypoint aka OC2345
+     * @param unknown $wp
+     * @return \lib\Objects\GeoCache object or null if no such geocache
+     */
+    public static function fromWayPointFactory($wp){
+        try{
+            return new self( array('cacheWp' => $wp) );
+        }catch (\Exception $e){
+            return null;
+        }
+    }
 
+    /**
+     * Factory - creats Geocache object based on geocache UUID
+     * @param unknown $wp
+     * @return \lib\Objects\GeoCache object or null if no such geocache
+     */
+    public static function fromUUIDFactory($uuid){
+        try{
+            return new self( array('cacheUUID' => $uuid) );
+        }catch (\Exception $e){
+            return null;
+        }
+    }
+
+    private function loadByWp($wp){
+        $wpColumn = self::getWpColumnName($wp);
+        $db = OcDb::instance();
+
+        $stmt = $db->multiVariableQuery("SELECT * FROM caches WHERE $wpColumn = :1 LIMIT 1", $wp);
+        $cacheDbRow = $db->dbResultFetch($stmt);
+
+        if(is_array($cacheDbRow)) {
+            $this->loadFromRow($cacheDbRow);
+        } else {
+            throw new \Exception("Cache not found");
+        }
+
+    }
+
+    private static function getWpColumnName($wp){
+        switch(mb_strtoupper(mb_substr($wp, 0, 2))){
+            case 'GC': return 'wp_gc';
+            case 'NC': return 'wp_nc';
+            case 'QC': return 'wp_qc';
+            default: return 'wp_oc';
+        }
+    }
+
+    private function loadByCacheId($cacheId){
+        $db = OcDb::instance();
+
+        //find cache by Id
+        $s = $db->multiVariableQuery("SELECT * FROM caches WHERE cache_id = :1 LIMIT 1", $cacheId);
+
+        $cacheDbRow = $db->dbResultFetch($s);
+
+        if(is_array($cacheDbRow)) {
+            $this->loadFromRow($cacheDbRow);
+        } else {
+            throw new \Exception("Cache not found");
+        }
+    }
+
+    private function loadByUUID($uuid){
+        $db = OcDb::instance();
+        $this->id = (int) $params['cacheId'];
+
+        //find cache by Id
+        $s = $db->multiVariableQuery("SELECT * FROM caches WHERE uuid = :1 LIMIT 1", $uuid);
+
+        $cacheDbRow = $db->dbResultFetch($s);
+
+        if(is_array($cacheDbRow)) {
+            $this->loadFromRow($cacheDbRow);
+        } else {
+            throw new \Exception("Cache not found");
+        }
+    }
 
     /**
      * Load cache data based on OKAPI response data
@@ -260,6 +339,7 @@ class GeoCache
      */
     public function loadFromRow(array $geocacheDbRow)
     {
+        $this->id = $geocacheDbRow['cache_id'];
         $this->lastFound = $geocacheDbRow['last_found'];
         $this->cacheType = (int) $geocacheDbRow['type'];
         $this->cacheName = $geocacheDbRow['name'];

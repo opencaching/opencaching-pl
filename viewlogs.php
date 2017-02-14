@@ -406,8 +406,3 @@ unset($dbc);
 //make the template and send it out
 tpl_BuildTemplate();
 
-if (isset($_REQUEST["posY"])) {
-    echo "<script type='text/javascript'>";
-    echo "window.scroll(0," . $_REQUEST["posY"] . ");";
-    echo "</script>";
-}

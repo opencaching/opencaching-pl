@@ -1,6 +1,4 @@
-<?php
 
-?>
 <h1>{{error_viewcache_01}}</h1>
 <ul>
     <li>{{error_viewcache_02}}</li>
