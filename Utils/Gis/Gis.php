@@ -1,6 +1,8 @@
 <?php
 namespace Utils\Gis;
 
+use lib\Objects\Coordinates\Coordinates;
+
 class Gis
 {
     const PI = M_PI;
@@ -185,6 +187,10 @@ class Gis
         if ($distance < 0) $distance = 0;
 
         return $distance;
+    }
+
+    public static function distanceBetween(Coordinates $c1, Coordinates $c2){
+        return self::distance($c1->getLatitude(), $c1->getLongitude(), $c2->getLatitude(), $c2->getLongitude());
     }
 }
 

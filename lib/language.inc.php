@@ -32,7 +32,6 @@ function tr($str)
 {
     global $language, $lang;
 
-
     if (isset($language[$lang][$str]) && $language[$lang][$str]) {
         $ref = &$language[$lang][$str];
         if (strpos($ref, "{") !== false)
@@ -58,3 +57,12 @@ function tr2($str, $lang)
         return $str . "No translation available (identifier: $str)-todo";
     }
 }
+
+// returns true if given traslation is available
+function tr_available($str){
+
+    global $language, $lang;
+
+    return isset($language[$lang][$str]) && $language[$lang][$str];
+}
+

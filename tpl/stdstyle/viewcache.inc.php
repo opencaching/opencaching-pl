@@ -67,7 +67,6 @@ $viewtext_on = tr('enter_text');
 $viewtext_off = tr('enter_text_error');
 $listed_only_oc = tr('only_these');
 $default_lang = 'PL';
-$event_attendance_list = '<span class="participants"><img src="tpl/stdstyle/images/blue/meeting.png" width="22" height="22" alt=""/>&nbsp;<a href="#" onclick="javascript:window.open(\'event_attendance.php?id={id}&amp;popup=y\',\'Lista_zapisanych_uczestnikow\',\'width=320,height=440,resizable=no,scrollbars=1\')">' . tr('list_of_participants') . '</a></span>';
 $event_attended_text = " " . tr('attendends');
 $event_will_attend_text = " " . tr('will_attend');
 $cache_found_text = "x " . tr('found');

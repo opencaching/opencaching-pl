@@ -1,12 +1,20 @@
+
 <link rel="stylesheet" href="tpl/stdstyle/js/lightbox2/dist/css/lightbox.min.css">
 <script src="tpl/stdstyle/js/lightbox2/dist/js/lightbox-plus-jquery.min.js"></script>
-{body_scripts}
+
+<script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
+<script type="text/javascript" src="lib/js/tip_balloon.js"></script>
+<script type="text/javascript" src="lib/js/tip_centerwindow.js"></script>');
 
 <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
+
+
 <script>
     var confirmRmLogTranslation = '{{confirm_remove_log}}';
 </script>
+
 <script src="{viewcache_js}"></script>
+
 
 <input type="hidden" id="cacheid" value="{cacheid}">
 <input type="hidden" id="logEnteriesCount" value="{logEnteriesCount}">
@@ -17,11 +25,14 @@
 <div class="content2-container line-box">
     <div class="">
         <div class="nav4">
+            <?php if(!$view->isUserAuthorized){ ?>
+            <span class="notlogged-cacheview"><?=tr('cache_logged_required')?></span>;
+            <?php }else{ ?>
+
             <?php
-            if ($usr == false) {
-                echo '<span class="notlogged-cacheview">' . tr('cache_logged_required') . '</span>';
-            }
-            // cachelisting
+
+            // menu kesza - przyciski - wpis do logu etc... PRZEROBIĆ!
+
             $clidx = mnu_MainMenuIndexFromPageId($menu, "cachelisting");
             if ($menu[$clidx]['title'] != '') {
                 echo '<ul id="cachemenu">';
@@ -31,31 +42,92 @@
                 mnu_EchoSubMenu($menu[$clidx]['submenu'], $tplname, 1, false);
                 echo '</ul>';
             }
-            //end cachelisting
+
             ?>
+            <?php } //else ?>
         </div>
+
         <div class="content2-container-2col-left" style="width:60px; clear: left;">
-            <div><img src="{icon_cache}" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}"></div>
-            <div>{difficulty_icon_diff}</div><div>{difficulty_icon_terr}</div>
-            <div>{cache_stats}</div>
+            <div>
+              <img src="{icon_cache}" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}">
+            </div>
+            <div>{difficulty_icon_diff}</div>
+            <div>{difficulty_icon_terr}</div>
+            <div>
+
+              <?php if( $view->geoCache->isEvent() ) {
+                    if (($view->geoCache->getFounds() + $view->geoCache->getNotFounds() + $view->geoCache->getNotesCount()) != 0) { ?>
+
+                      <a class="links2" href="javascript:void(0)"
+                         onmouseover="Tip('<?=tr('show_statictics_cache')?>', BALLOON, true, ABOVE, false, OFFSETX, -17, PADDING, 8, WIDTH, -240)"
+                         onmouseout="UnTip()"
+                         onclick="javascript:window.open('cache_stats.php?cacheid=<?=$view->geoCache->getCacheId()?>&amp;popup=y','Cache_Statistics','width=500,height=750,resizable=yes,scrollbars=1')">
+                         <img src="tpl/stdstyle/images/blue/stat1.png" alt="Statystyka skrzynki" title="Statystyka skrzynki">
+                      </a>
+
+                    <?php } else { ?>
+                      <a class="links2" href="javascript:void(0)"
+                         onmouseover="Tip('<?=tr('not_stat_cache')?>', BALLOON, true, ABOVE, false, OFFSETX, -17, PADDING, 8, WIDTH, -240)"
+                         onmouseout="UnTip()">
+                         <img src="tpl/stdstyle/images/blue/stat1.png" alt="" title="">
+                      </a>
+                    <?php }
+              } //if-not-event ?>
+
+            </div>
         </div>
+
+
         <div class="content2-container-2col-left" id="cache_name_block">
-            <table style="width:100%;"><tr><td style="width:70%; vertical-align:top;">
-                        <span class="content-title-noshade-size5">{cachename} - {oc_waypoint}{icon_titled}</span><br>
-                        <p class="content-title-noshade-size1">{short_desc}</p>
-                        <p>{{owner}}&nbsp; <a class="links" href="viewprofile.php?userid={userid_urlencode}">{owner_name}</a>
-                            {creator_name_start}<br>{{creator}}&nbsp; <a class="links" href="viewprofile.php?userid={creator_userid}">{creator_name}</a>{creator_name_end}</p>
-                        {event_attendance_list}
-                    </td><td>
-                        <div style="text-align:center;
-                             border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
-                             border:1px solid #337fed; padding: 5px;
-                             display: {ptSectionDisplay};
-                             "><div style="text-align:center; color: #337fed; border-bottom: 1px solid #337fed;">{{pt094}}!</div>
-                            {ptName}
-                        </div>
-                    </td>
-                </tr></table>
+            <table style="width:100%;">
+              <tr>
+                <td style="width:70%; vertical-align:top;">
+
+                  <span class="content-title-noshade-size5">{cachename} - {oc_waypoint}{icon_titled}</span><br>
+
+                  <p class="content-title-noshade-size1">{short_desc}</p>
+
+                  <p><?=tr('owner')?>&nbsp;
+                      <a class="links" href="viewprofile.php?userid={userid_urlencode}">{owner_name}</a>
+
+                      <?php if($view->geoCache->isAdopted() ) { ?>
+                          <br><?=tr('creator')?>&nbsp;
+                          <a class="links" href="viewprofile.php?userid={creator_userid}">{creator_name}</a>
+                      <?php } //if-is-adopted ?>
+
+                  </p>
+                  <?php if($view->geoCache->isEvent()) { ?>
+                      <span class="participants">
+                        <img src="tpl/stdstyle/images/blue/meeting.png" width="22" height="22" alt=""/>&nbsp;
+                        <a href="#" onclick="javascript:window.open('event_attendance.php?id=<?=$view->geoCache->getCacheId()?>&amp;popup=y','<?=tr('list_of_participants')?>','width=320,height=440,resizable=no,scrollbars=1')">
+                          <?=tr('list_of_participants')?>
+                        </a>
+                      </span>
+                  <?php } //if-is-event ?>
+                </td>
+                <td>
+                  <?php if($view->geoPathSectionDisplay) { ?>
+                  <div style="text-align:center; border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; border:1px solid #337fed; padding: 5px;">
+
+                    <div style="text-align:center; color: #337fed; border-bottom: 1px solid #337fed;"><?=tr('cache_belongs_to_geopath')?>!</div>
+                    <table width="99%">
+                      <?php foreach($view->geoPathsList as $geoPath){ ?>
+                        <tr>
+                          <td width="51">
+                            <img width="50" src="<?=$geoPath->img?>">
+                          </td>
+                          <td align="center">
+                            <span style="font-size: 13px;">
+                            <a href="powerTrail.php?ptAction=showSerie&ptrail=<?=$geoPath->id?>"><?=$geoPath->name?></a>
+                          </td>
+                        </tr>
+                      <?php } //foreach ?>
+                    </table>
+                  </div>
+                  <?php } //if($view->ptDisplay) ?>
+                </td>
+              </tr>
+           </table>
         </div>
     </div>
 </div>
@@ -63,20 +135,77 @@
 
 <!-- End Text Container -->
 <!-- Text container -->
+
+
 <div class="content2-container">
     <div class="content2-container-2col-left" id="viewcache-baseinfo">
         <p class="content-title-noshade-size3">
             <img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="" title="">
-            <b>{coords}</b> <span class="content-title-noshade-size0">(WGS84){mod_cord_info}</span><br>
+            <b>
+              <?php if($view->isUserAuthorized || $view->alwaysShowCoords ) { ?>
+                <?=$view->geoCache->getCoordinates()->getAsText()?>
+              <?php } else { //user-not-authorized ?>
+                <?=tr('hidden_coords')?>
+              <?php } //else-user-not-authorized ?>
+            </b>
+            <span class="content-title-noshade-size0">
+                (WGS84)
+                <?php if($view->userModifiedCoords) { ?>
+                  <a href="#coords_mod">
+                    <img src="tpl/stdstyle/images/blue/signature1-orange.png" class="icon32"
+                      alt="<?=tr('orig_coord_modified_info')?><?=$view->geoCache->getCoordinates()->getAsText()?>"
+                      title="<?=tr('orig_coord_modified_info')?><?=$view->geoCache->getCoordinates()->getAsText()?>" />
+                  </a>
+                <?php } //coords modified ?>
+            </span><br>
+
         </p>
         <p style="line-height: 1.6em;">
-            <img src="tpl/stdstyle/images/free_icons/mountain.png" class="icon16" width=16 height=16 alt="" title="">&nbsp;{{cache_alt}}: {altitude} {{abovesealevel}}<br>
-            <img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="">&nbsp;{coords_other} <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"><br>
-            <img src="tpl/stdstyle/images/free_icons/world.png" class="icon16" alt="" title="">&nbsp;{{region}}:<b><span style="color: rgb(88,144,168)"> {kraj} {dziubek1} {woj} {dziubek2} {miasto}</span></b><br>
-            {distance_cache}
-            <img src="tpl/stdstyle/images/free_icons/box.png" class="icon16" alt="" title="">&nbsp;{{cache_type}}: <b>{cachetype}</b><br>
+
+            <?php if($view->isUserAuthorized || $view->alwaysShowCoords ) { ?>
+                <img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="">
+                  &nbsp;
+                  <a href="#"
+                     onclick="javascript:window.open('coordinates.php?lat=<?=$view->geoCache->getCoordinates()->getLatitude()?>&amp;lon=<?=$view->geoCache->getCoordinates()->getLongitude()?>&amp;popup=y&amp;wp=<?=htmlspecialchars($view->geoCache->getWaypointId(), ENT_COMPAT, 'UTF-8')?>','','width=240,height=334,resizable=yes,scrollbars=1')">
+                     <?=tr('coords_other')?>
+                  </a>
+                <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link">
+
+                <br/>
+            <?php } //show-other-coords ?>
+
+            <img src="tpl/stdstyle/images/free_icons/mountain.png" class="icon16" width=16 height=16 alt="" title="">
+            &nbsp;{{cache_alt}}: {altitude} {{abovesealevel}}
+
+            <br />
+
+            <img src="tpl/stdstyle/images/free_icons/world.png" class="icon16" alt="" title="">&nbsp;{{region}}:
+              <b>
+                <span style="color: rgb(88,144,168)"><?=$view->geoCache->getCacheLocationObj()->getLocationDesc(' &gt; ')?></span>
+              </b>
+
+            <br />
+
+            <?php if($view->displayDistanceToCache) { ?>
+
+              <img src="tpl/stdstyle/images/free_icons/car.png" class="icon16" alt="distance" title="">
+              &nbsp;<?=tr('distance_to_cache')?>: <b><?=$view->distanceToCache?> km</b>
+
+              <br />
+            <?php } // if-display-distance-to-cache ?>
+
+
+            <img src="tpl/stdstyle/images/free_icons/box.png" class="icon16" alt="" title="" />
+            &nbsp;{{cache_type}}:
+            <b>{cachetype}</b>
+
+            <br />
+
             <img src="tpl/stdstyle/images/free_icons/package_green.png" class="icon16" alt="" title="">&nbsp;{{size}}: <b>{cachesize}</b><br>
+
             <img src="tpl/stdstyle/images/free_icons/page.png" class="icon16" alt="" title="">&nbsp;{{status_label}}: {status}<br>
+
+
             {hidetime_start}<img src="tpl/stdstyle/images/free_icons/time.png" class="icon16" alt="" title="">&nbsp;{{time}}: {search_time}&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/arrow_switch.png" class="icon16" alt="" title="">&nbsp;{{length}}: {way_length}<br>{hidetime_end}
             <?php
             if (tpl_get_var('typeLetter') == 'e') {
@@ -224,8 +353,8 @@
     </p>
     <p>{{statistics}}:
         {{openchecker_tries}}: {attempts_counter} {{openchecker_times}}, {{openchecker_hits}}: {hits_counter} {{openchecker_times}}.
-    </p>    
-</div>    
+    </p>
+</div>
 {openchecker_end}
 <!-- END OpenChecker container -->
 

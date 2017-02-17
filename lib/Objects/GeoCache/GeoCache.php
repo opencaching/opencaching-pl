@@ -13,35 +13,8 @@ use lib\Objects\User\User;
  *
  * @author Łza
  */
-class GeoCache
+class GeoCache extends StaticGeoCache
 {
-    const TYPE_OTHERTYPE = 1;
-    const TYPE_TRADITIONAL = 2;
-    const TYPE_MULTICACHE = 3;
-    const TYPE_VIRTUAL = 4;
-    const TYPE_WEBCAM = 5;
-    const TYPE_EVENT = 6;
-    const TYPE_QUIZ = 7;
-    const TYPE_MOVING = 8;
-    const TYPE_GEOPATHFINAL = 9;    //TODO: old -podcast- type?
-    const TYPE_OWNCACHE = 10;
-
-    const STATUS_READY = 1;
-    const STATUS_UNAVAILABLE = 2;
-    const STATUS_ARCHIVED = 3;
-    const STATUS_WAITAPPROVERS = 4;
-    const STATUS_NOTYETAVAILABLE = 5;
-    const STATUS_BLOCKED = 6;
-
-    const SIZE_NONE = 7;
-    const SIZE_NANO = 8;
-    const SIZE_MICRO = 2;
-    const SIZE_SMALL = 3;
-    const SIZE_REGULAR = 4;
-    const SIZE_LARGE = 5;
-    const SIZE_XLARGE = 6;
-    const SIZE_OTHER = 1;
-
     private $id;
     private $geocacheWaypointId;
     private $otherWaypointIds = array(
@@ -147,6 +120,12 @@ class GeoCache
     private $waypoints;
 
     /**
+     *
+     * @var $cacheLocationObj \lib\Objects\GeoCache\CacheLocation
+     */
+    private $cacheLocationObj;
+
+    /**
      * @param array $params
      *            'cacheId' => (integer) database cache identifier
      *            'wpId' => (string) geoCache wayPoint (ex. OP21F4)
@@ -168,7 +147,7 @@ class GeoCache
 
         if($this->id != null){
             // load cache location if there is cache_id
-            $this->loadCacheLocation();
+            $this->cacheLocationObj = new CacheLocation($this->id);
         }
 
         $this->dictionary = \cache::instance();
@@ -389,15 +368,6 @@ class GeoCache
         return $this;
     }
 
-    private function loadCacheLocation()
-    {
-        $db = OcDb::instance();
-        $query = 'SELECT `code1`, `code2`, `code3`, `code4`, `adm1`, `adm2`, `adm3`, `adm4`  FROM `cache_location` WHERE `cache_id` =:1 LIMIT 1';
-        $s = $db->multiVariableQuery($query, $this->id);
-        $dbResult = $db->dbResultFetch($s);
-        $this->cacheLocation = $dbResult;
-    }
-
     /**
      * Function to check if current cache is part of any PowerTrail.
      * On success PowerTrail object is created.
@@ -426,91 +396,8 @@ class GeoCache
         return $this->isPowerTrailPart;
     }
 
-    /**
-     * Returns TypeId of the cache based on OKAPI description
-     *
-     * @param String $okapiType
-     * @return int TypeId
-     */
-    public static function CacheTypeIdFromOkapi($okapiType)
-    {
-        switch ($okapiType) {
-            case 'Traditional':
-                return self::TYPE_TRADITIONAL;
-            case 'Multi':
-                return self::TYPE_MULTICACHE;
-            case 'Virtual':
-                return self::TYPE_VIRTUAL;
-            case 'Webcam':
-                return self::TYPE_WEBCAM;
-            case 'Event':
-                return self::TYPE_EVENT;
-            case 'Quiz':
-                return self::TYPE_QUIZ;
-            case 'Moving':
-                return self::TYPE_MOVING;
-            case 'Own':
-                return self::TYPE_OWNCACHE;
-            case 'Other':
-                return self::TYPE_OTHERTYPE;
-            default:
-                error_log(__METHOD__ . ' Unknown cache type from OKAPI: ' . $okapiType);
-                return self::TYPE_TRADITIONAL;
-        }
-    }
 
-    /**
-     * Returns SizeId of the cache based on OKAPI description
-     *
-     * @param String $okapiType
-     * @return int TypeId
-     */
-    public static function CacheSizeIdFromOkapi($okapiSize)
-    {
-        switch ($okapiSize) {
 
-            case 'none':
-                return self::SIZE_NONE;
-            case 'nano':
-                return self::SIZE_NANO;
-            case 'micro':
-                return self::SIZE_MICRO;
-            case 'small':
-                return self::SIZE_SMALL;
-            case 'regular':
-                return self::SIZE_REGULAR;
-            case 'large':
-                return self::SIZE_LARGE;
-            case 'xlarge':
-                return self::SIZE_XLARGE;
-            case 'other':
-                return self::SIZE_OTHER;
-            default:
-                error_log(__METHOD__ . ' Unknown cache size from OKAPI: ' . $okapiSize);
-                return self::SIZE_OTHER;
-        }
-    }
-
-    /**
-     * Returns the cache status based on the okapi response desc.
-     *
-     * @param string $okapiStatus
-     * @return string - internal enum
-     */
-    public static function CacheStatusIdFromOkapi($okapiStatus)
-    {
-        switch ($okapiStatus) {
-            case 'Available':
-                return self::STATUS_READY;
-            case 'Temporarily unavailable':
-                return self::STATUS_UNAVAILABLE;
-            case 'Archived':
-                return self::STATUS_ARCHIVED;
-            default:
-                error_log(__METHOD__ . ' Unknown cache status from OKAPI: ' . $okapiStatus);
-                return self::STATUS_READY;
-        }
-    }
 
     /**
      * Returns the cache size key based on size numeric identifier
@@ -543,97 +430,6 @@ class GeoCache
         }
     }
 
-    /**
-     * Returns cache reating description based on ratingId
-     *
-     * @param int $ratingId
-     * @return string - rating description key for translation
-     */
-    public static function CacheRatingDescByRatingId($ratingId)
-    {
-        switch ($ratingId) {
-            case 1:
-                return 'rating_poor';
-            case 2:
-                return 'rating_mediocre';
-            case 3:
-                return 'rating_avarage';
-            case 4:
-                return 'rating_good';
-            case 5:
-                return 'rating_excellent';
-        }
-    }
-
-    /**
-     * Retrurn cache icon based on its type and status
-     *
-     * @param enum $type
-     * @param enum $status
-     * @return string - path + filename of the right icon
-     */
-    public static function CacheIconByType($type, $status)
-    {
-        $statusPart = "";
-        switch ($status) {
-            case self::STATUS_UNAVAILABLE:
-            case self::STATUS_NOTYETAVAILABLE:
-            case self::STATUS_WAITAPPROVERS:
-                $statusPart = "-n";
-                break;
-            case self::STATUS_ARCHIVED:
-                $statusPart = "-a";
-                break;
-            case self::STATUS_BLOCKED:
-                $statusPart = "-d";
-                break;
-            default:
-                $statusPart = "-s";
-                break;
-        }
-
-        $typePart = "";
-        switch ($type) {
-            case self::TYPE_OTHERTYPE:
-                $typePart = 'unknown';
-                break;
-
-            case self::TYPE_TRADITIONAL:
-            default:
-                $typePart = 'traditional';
-                break;
-
-            case self::TYPE_MULTICACHE:
-                $typePart = 'multi';
-                break;
-
-            case self::TYPE_VIRTUAL:
-                $typePart = 'virtual';
-                break;
-
-            case self::TYPE_WEBCAM:
-                $typePart = 'webcam';
-                break;
-
-            case self::TYPE_EVENT:
-                $typePart = 'event';
-                break;
-
-            case self::TYPE_QUIZ:
-                $typePart = 'quiz';
-                break;
-
-            case self::TYPE_MOVING:
-                $typePart = 'moving';
-                break;
-
-            case self::TYPE_OWNCACHE:
-                $typePart = 'owncache';
-                break;
-        }
-
-        return 'tpl/stdstyle/images/cache/' . $typePart . $statusPart . '.png';
-    }
 
     /**
      * perform update on specified elements only.
@@ -656,9 +452,17 @@ class GeoCache
         return $this->cacheType;
     }
 
-    public function getCacheLocation()
+    public function getCacheTypeName(){
+
+    }
+
+    public function isEvent(){
+        return $this->cacheType == self::TYPE_EVENT;
+    }
+
+    public function getCacheLocationObj()
     {
-        return $this->cacheLocation;
+        return $this->cacheLocationObj;
     }
 
     public function getCacheName()
@@ -687,7 +491,7 @@ class GeoCache
      *
      * @return \lib\Objects\GeoCache\Altitude
      */
-    public function getAltitude()
+    public function getAltitudeObj()
     {
         return $this->altitude;
     }
@@ -710,6 +514,14 @@ class GeoCache
     public function getFounder()
     {
         return $this->founder;
+    }
+
+    /**
+     * Returns true if cache is adopted and founder is not a current owner
+     * @return boolean
+     */
+    public function isAdopted(){
+        return $this->founder && $this->founder->getUserId() != $this->ownerId;
     }
 
     public function getOwnerId()

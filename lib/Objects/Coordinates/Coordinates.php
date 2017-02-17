@@ -23,7 +23,7 @@ class Coordinates
      *
      * @var string
      */
-    private $defaultFormat = self::COORDINATES_FORMAT_DECIMAL;
+    private $defaultFormat = self::COORDINATES_FORMAT_DEG_MIN;
 
     /**
      * decimal degrees: 40.446321° N 79.982321° W
@@ -191,6 +191,13 @@ class Coordinates
     {
         $this->longitude = $longitude;
         return $this;
+    }
+
+    /**
+     * Returns coordinates string to display
+     */
+    public function getAsText(){
+        return "&#10;". $this->getLatitudeString()."&#10;".$this->getLongitudeString();
     }
 
     private function convertToDegMin($decimalCoordinate)

@@ -4,7 +4,6 @@ use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\GeoCache\Waypoint;
 use Utils\Database\XDb;
-use Utils\Database\OcDb;
 use Utils\Email\EmailSender;
 use Utils\Gis\Gis;
 use Utils\Log\CacheAccessLog;
@@ -24,6 +23,8 @@ $applicationContainer = \lib\Objects\ApplicationContainer::Instance();
 $loggedUser = $applicationContainer->getLoggedUser();
 $ocConfig = $applicationContainer->getOcConfig();
 $dbc = $applicationContainer->db;
+
+$view = tpl_getView();
 
 require_once($stylepath . '/lib/icons.inc.php');
 require($stylepath . '/viewcache.inc.php');
@@ -60,26 +61,34 @@ if( $geocache == null || (
     )
   ){
     // there is no cache to display...
-    $tplname = 'viewcache_error';
+    tpl_set_tplname('viewcache_error');
     tpl_BuildTemplate();
     exit(0);
 }
 
 //set here the template to process
 if (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y'){
-    $tplname = 'viewcache_print';
+    tpl_set_tplname('viewcache_print');
 }else{
-    $tplname = 'viewcache';
+    tpl_set_tplname('viewcache');
 }
 
 $cache_id = $geocache->getCacheId(); //TODO: refactor to $geocache...
 
+$view->setVar('geoCache', $geocache);
+
 
 if ($loggedUser) {
+    $view->setVar('isUserAuthorized', true);
+
+
     tpl_set_var('hidesearchdownloadsection_start', '');
     tpl_set_var('hidesearchdownloadsection_end', '');
     tpl_set_var('uType', $loggedUser->isAdmin());
 } else {
+    $view->setVar('isUserAuthorized', false);
+
+
     tpl_set_var('hidesearchdownloadsection_start', '<!--');
     tpl_set_var('hidesearchdownloadsection_end', '-->');
 }
@@ -103,7 +112,7 @@ if ($loggedUser && $geocache->getOwnerId() == $loggedUser->getUserId()) {
     $show_ignore = false;
     $show_watch = false;
 } else {
-    if ($loggedUser->isAdmin()) {
+    if ($loggedUser && $loggedUser->isAdmin()) {
         $show_edit = true;
     } else {
         $show_edit = false;
@@ -252,9 +261,15 @@ if ($coords_correct) {
 }
 
 if ($orig_coord_info_lon !== '' && (!$mod_coord_delete_mode)) {
-    $orig_coord_info_full = tr('orig_coord_modified_info') . '&#10;' . $orig_coord_info_lat . '&#10;' . $orig_coord_info_lon;
-    $orig_coord_info_icon = '<a href="#coords_mod"><img src="tpl/stdstyle/images/blue/signature1-orange.png" class="icon32" alt="' . $orig_coord_info_full . '" title="' . $orig_coord_info_full . '"></a>';
+
+    $view->setVar('userModifiedCoords', true);
+
+    //TODO: remove it!
+    //$orig_coord_info_full = tr('orig_coord_modified_info') . '&#10;' . $orig_coord_info_lat . '&#10;' . $orig_coord_info_lon;
+    //$orig_coord_info_icon = '<a href="#coords_mod"><img src="tpl/stdstyle/images/blue/signature1-orange.png" class="icon32" alt="' . $orig_coord_info_full . '" title="' . $orig_coord_info_full . '"></a>';
     tpl_set_var('mod_cord_info', $orig_coord_info_icon);
+
+
     if ($cache_mod_lat >= 0) {
         tpl_set_var('N_selected', 'selected="selected"');
         tpl_set_var('S_selected', '');
@@ -271,7 +286,9 @@ if ($orig_coord_info_lon !== '' && (!$mod_coord_delete_mode)) {
     }
     tpl_set_var('mod_suffix', '[F]');
 } else {
-    tpl_set_var('mod_cord_info', '');
+
+    $view->setVar('userModifiedCoords', false);
+
     tpl_set_var('N_selected', 'selected="selected"'); //set default coords to N and E
     tpl_set_var('S_selected', '');
     tpl_set_var('E_selected', 'selected="selected"');
@@ -347,22 +364,18 @@ if (isset($_REQUEST['print_list']) && $_REQUEST['print_list'] == 'n') {
 $owner_id = $geocache->getOwner()->getUserId();
 tpl_set_var('owner_id', $owner_id);
 
-// check XY home if OK redirect to myn
-if ($loggedUser) {
 
-    $ulat = $loggedUser->getHomeCoordinates()->getLatitude();
-    $ulon = $loggedUser->getHomeCoordinates()->getLongitude();
 
-    if (($ulon != NULL && $ulat != NULL) || ($ulon != 0 && $ulat != 0)) {
 
-        $distancecache = sprintf("%.2f", Gis::distance($ulat, $ulon, $geocache->getCoordinates()->getLatitude(), $geocache->getCoordinates()->getLongitude()));
-        tpl_set_var('distance_cache', '<img src="tpl/stdstyle/images/free_icons/car.png" class="icon16" alt="distance" title="">&nbsp;' . tr('distance_to_cache') . ': <b>' . $distancecache . ' km</b><br>');
-    } else {
-        tpl_set_var('distance_cache', '');
-    }
+if ( $loggedUser && $loggedUser->getHomeCoordinates()->areCordsReasonable() ) {
+
+    $view->setVar('distanceToCache', sprintf("%.2f", Gis::distanceBetween($loggedUser->getHomeCoordinates(), $geocache->getCoordinates())));
+    $view->setVar('displayDistanceToCache', true);
+
 } else {
-    tpl_set_var('distance_cache', '');
+    $view->setVar('displayDistanceToCache', false);
 }
+
 
 
 // check if there is geokret in this cache
@@ -422,93 +435,49 @@ if ($geocache->getRatingVotes() < 3) {
 
 // begin visit-counter
 // delete cache_visits older 1 day 60*60*24 = 86400
-$query = "DELETE FROM `cache_visits` WHERE `cache_id`=:1 AND `user_id_ip` != '0' AND NOW()-`last_visited` > 86400";
-$dbc->multiVariableQuery($query, $cache_id);
+$dbc->multiVariableQuery("DELETE FROM `cache_visits` WHERE `cache_id`=:1 AND `user_id_ip` != '0' AND NOW()-`last_visited` > 86400", $cache_id);
 
 // first insert record for visit counter if not in db
 $chkuserid = isset($usr['userid']) ? $usr['userid'] : $_SERVER["REMOTE_ADDR"];
 
 // note the visit of this user
-$query2 = "INSERT INTO `cache_visits` (`cache_id`, `user_id_ip`, `count`, `last_visited`) VALUES (:1, :2, 1, NOW()) ON DUPLICATE KEY UPDATE `count`=`count`+1";
-$dbc->multiVariableQuery($query2,$cache_id, $chkuserid);
+$dbc->multiVariableQuery(
+    "INSERT INTO `cache_visits` (`cache_id`, `user_id_ip`, `count`, `last_visited`)
+    VALUES (:1, :2, 1, NOW()) ON DUPLICATE KEY UPDATE `count`=`count`+1", $cache_id, $chkuserid);
 
 if ($chkuserid != $owner_id) {
     // increment the counter for this cache
-    $query3 = "INSERT INTO `cache_visits` (`cache_id`, `user_id_ip`, `count`, `last_visited`) VALUES (:1, '0', 1, NOW()) ON DUPLICATE KEY UPDATE `count`=`count`+1, `last_visited`=NOW()";
-    $dbc->multiVariableQuery($query3, $cache_id);
+    $dbc->multiVariableQuery(
+        "INSERT INTO `cache_visits` (`cache_id`, `user_id_ip`, `count`, `last_visited`)
+        VALUES (:1, '0', 1, NOW()) ON DUPLICATE KEY UPDATE `count`=`count`+1, `last_visited`=NOW()", $cache_id);
 }
+
 // end visit-counter
-// hide coordinates when user is not logged in
-if ($usr == true || !$hide_coords) {
-    $coords = mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_latToDegreeStr($geocache->getCoordinates()->getLatitude()), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($geocache->getCoordinates()->getLongitude()), ENT_COMPAT, 'UTF-8'));
-    $coords2 = mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_latToDegreeStr($geocache->getCoordinates()->getLatitude(), 0), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($geocache->getCoordinates()->getLongitude(), 0), ENT_COMPAT, 'UTF-8'));
-    $coords3 = mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_latToDegreeStr($geocache->getCoordinates()->getLatitude(), 2), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($geocache->getCoordinates()->getLongitude(), 2), ENT_COMPAT, 'UTF-8'));
-    $coords_other = "<a href=\"#\" onclick=\"javascript:window.open('coordinates.php?lat=" . $geocache->getCoordinates()->getLatitude() . "&amp;lon=" . $geocache->getCoordinates()->getLongitude() . "&amp;popup=y&amp;wp=" . htmlspecialchars($geocache->getWaypointId(), ENT_COMPAT, 'UTF-8') . "','Koordinatenumrechnung','width=240,height=334,resizable=yes,scrollbars=1')\">" . tr('coords_other') . "</a>";
-} else {
-    $coords = tr('hidden_coords');
-    $coords_other = "";
-}
 
 
-if ($geocache->getCacheType() == GeoCache::TYPE_EVENT) {
-    $cache_stats = '';
-} else {
-    if (($geocache->getFounds() + $geocache->getNotFounds() + $geocache->getNotesCount()) != 0) {
-        $cache_stats = "<a class =\"links2\" href=\"javascript:void(0)\" onmouseover=\"Tip('" . tr('show_statictics_cache') . "', BALLOON, true, ABOVE, false, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\" onclick=\"javascript:window.open('cache_stats.php?cacheid=" . $geocache->getCacheId() . "&amp;popup=y','Cache_Statistics','width=500,height=750,resizable=yes,scrollbars=1')\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"Statystyka skrzynki\" title=\"Statystyka skrzynki\"></a>";
-    } else {
-        $cache_stats = "<a class =\"links2\" href=\"javascript:void(0)\" onmouseover=\"Tip('" . tr('not_stat_cache') . "', BALLOON, true, ABOVE, false, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"\" title=\"\"></a>";
-    }
-}
+
+$view->setVar('alwaysShowCoords', !$hide_coords);
+
+
+
 
 if (!isset($map_msg))
     $map_msg = '';
 if (!isset($map_msg))
     $map_msg = '';
-if (!isset($coords2))
-    $coords2 = '';
-if (!isset($coords3))
-    $coords3 = '';
-tpl_set_var('cache_stats', $cache_stats);
+
 tpl_set_var('googlemap_key', $googlemap_key);
 tpl_set_var('map_msg', $map_msg);
-tpl_set_var('coords2', $coords2);
-tpl_set_var('coords3', $coords3);
-tpl_set_var('coords_other', $coords_other);
 tpl_set_var('typeLetter', typeToLetter($geocache->getCacheType()));
 
-// cache locations
-tpl_set_var('kraj', "");
-tpl_set_var('woj', "");
-tpl_set_var('dziubek1', "");
-tpl_set_var('miasto', "");
-tpl_set_var('dziubek2', "");
 
-$geocacheLocation = $geocache->getCacheLocation();
-if (substr(@tr($geocacheLocation['code1']), -5) == '-todo'){
-    $countryTranslation = $geocacheLocation['adm1'];
-} else {
-    $countryTranslation = tr($geocacheLocation['code1']);
-}
-// if (substr(@tr($cache_record['code3']), -5) == '-todo') $regionTranslation = $cache_record['adm3']; else $regionTranslation = tr($cache_record['code3']);
-$regionTranslation = $geocacheLocation['adm3'];
 
-if ($geocacheLocation != "") {
-    tpl_set_var('kraj', $countryTranslation);
-} else {
-    tpl_set_var('kraj', tr($geocacheLocation['country_short']));
-}
-if ($geocacheLocation['code3'] != "") {
-    $woj = $geocacheLocation['adm3'];
-    tpl_set_var('woj', $regionTranslation);
-} else {
-    $woj = $geocacheLocation['adm2'];
-    tpl_set_var('woj', $woj);
-}
-if ($woj == "") {
-    tpl_set_var('woj', $geocacheLocation['adm4']);
-}
-if ($woj != "" || $geocacheLocation['adm3'] != "")
-    tpl_set_var('dziubek1', ">");
+
+
+
+
+
+
 
 // NPA - nature protection areas
 $npac = "0";
@@ -589,7 +558,6 @@ if ($geocache->getCacheType() == GeoCache::TYPE_MOVING) {
 }
 
 
-tpl_set_var('coords', $coords);
 if ($usr || !$hide_coords) {
     if ($geocache->getCoordinates()->getLongitude() < 0) {
         $longNC = $geocache->getCoordinates()->getLongitude() * (-1);
@@ -608,8 +576,13 @@ if ($usr || !$hide_coords) {
     tpl_set_var('latNS', $lat_dir);
 }
 tpl_set_var('cacheid', $cache_id);
+
+
 $geocacheType = $geocache->dictionary->getCacheTypes();
+
 tpl_set_var('cachetype', htmlspecialchars(tr($geocacheType[$geocache->getCacheType()]['translation']), ENT_COMPAT, 'UTF-8'));
+
+
 $iconname = str_replace("mystery", "quiz", $iconname);
 tpl_set_var('icon_cache', htmlspecialchars("$stylepath/images/cache/$iconname", ENT_COMPAT, 'UTF-8'));
 tpl_set_var('cachesize', htmlspecialchars(tr($geocache->getSizeDesc()), ENT_COMPAT, 'UTF-8'));
@@ -625,9 +598,9 @@ if ($geocache->getRecommendations() == 1){
 // no geokrets in this cache
 tpl_set_var('list_of_rating_begin', '');
 tpl_set_var('list_of_rating_end', '');
-tpl_set_var('body_scripts', '');
-tpl_set_var('altitude', $geocache->getAltitude()->getAltitude());
-tpl_set_var('body_scripts', '<script type="text/javascript" src="lib/js/wz_tooltip.js"></script><script type="text/javascript" src="lib/js/tip_balloon.js"></script><script type="text/javascript" src="lib/js/tip_centerwindow.js"></script>');
+
+tpl_set_var('altitude', $geocache->getAltitudeObj()->getAltitude());
+
 if ($geocache->getUsersRecomeded() === false) {
     tpl_set_var('list_of_rating_begin', '');
     tpl_set_var('list_of_rating_end', '');
@@ -677,7 +650,7 @@ if ((($geocache->getWayLenght() == null) && ($geocache->getSearchTime() == null)
     }
 }
 
-tpl_set_var('country', htmlspecialchars($geocacheLocation['adm1']), ENT_COMPAT, 'UTF-8');
+
 //        tpl_set_var('cache_log_pw', (($cache_record['logpw'] == NULL) || ($cache_record['logpw'] == '')) ? '' : $cache_log_pw);
 tpl_set_var('nocrypt', $no_crypt);
 $hidden_date = $geocache->getDatePlaced()->format($applicationContainer->getOcConfig()->getDateFormat());
@@ -720,9 +693,7 @@ if ($geocache->getStatus() != 1) {
 tpl_set_var('date_created', $geocache->getDateCreated()->format($applicationContainer->getOcConfig()->getDateFormat()));
 
 tpl_set_var('difficulty_icon_diff', icon_difficulty("diff", $geocache->getDifficulty()));
-tpl_set_var('difficulty_text_diff', htmlspecialchars(sprintf($difficulty_text_diff, $geocache->getDifficulty() / 2), ENT_COMPAT, 'UTF-8'));
 tpl_set_var('difficulty_icon_terr', icon_difficulty("terr", $geocache->getTerrain()));
-tpl_set_var('difficulty_text_terr', htmlspecialchars(sprintf($difficulty_text_terr, $geocache->getTerrain() / 2), ENT_COMPAT, 'UTF-8'));
 
 tpl_set_var('founds', htmlspecialchars($geocache->getFounds(), ENT_COMPAT, 'UTF-8'));
 tpl_set_var('notfounds', htmlspecialchars($geocache->getNotFounds(), ENT_COMPAT, 'UTF-8'));
@@ -834,17 +805,17 @@ tpl_set_var('visit_icon', $visit_icon);
 tpl_set_var('score_icon', $score_icon);
 tpl_set_var('save_icon', $save_icon);
 tpl_set_var('search_icon', $search_icon);
+
 if ($geocache->getCacheType() == GeoCache::TYPE_EVENT) {
     tpl_set_var('found_icon', $exist_icon);
     tpl_set_var('notfound_icon', $wattend_icon);
-    $event_attendance_list = mb_ereg_replace('{id}', urlencode($cache_id), $event_attendance_list);
-    tpl_set_var('event_attendance_list', $event_attendance_list);
+
     tpl_set_var('found_text', $event_attended_text);
     tpl_set_var('notfound_text', $event_will_attend_text);
 } else {
     tpl_set_var('found_icon', $found_icon);
     tpl_set_var('notfound_icon', $notfound_icon);
-    tpl_set_var('event_attendance_list', '');
+
     tpl_set_var('found_text', $cache_found_text);
     tpl_set_var('notfound_text', $cache_notfound_text);
 }
@@ -924,14 +895,8 @@ if ($geocache->getWatchingUsersCount() > 0) {
 tpl_set_var('owner_name', htmlspecialchars($geocache->getOwner()->getUserName(), ENT_COMPAT, 'UTF-8'));
 tpl_set_var('userid_urlencode', htmlspecialchars(urlencode($geocache->getOwner()->getUserId()), ENT_COMPAT, 'UTF-8'));
 
-if ($geocache->getFounder() == null ||
-    $geocache->getFounder()->getUserId() == $geocache->getOwner()->getUserId()) {
 
-    tpl_set_var('creator_name_start', '<!--');
-    tpl_set_var('creator_name_end', '-->');
-} else {
-    tpl_set_var('creator_name_start', '');
-    tpl_set_var('creator_name_end', '');
+if($geocache->isAdopted()){
     tpl_set_var('creator_userid', $geocache->getFounder()->getUserId());
     tpl_set_var('creator_name', htmlspecialchars($geocache->getFounder()->getUserName(), ENT_COMPAT, 'UTF-8'));
 }
@@ -1528,31 +1493,31 @@ else
 
 tpl_set_var('userLogged', $userLogged);
 
-// power trails
-if ($powerTrailModuleSwitchOn && $cache_id != null) {
-    $ptArr = powerTrailBase::checkForPowerTrailByCache($cache_id);
-    if (count($ptArr) > 0) {
-        $ptHtml = '<table width="99%">';
-        foreach ($ptArr as $pt) {
-            if ($pt['image'] == '')
-                $ptImg = 'tpl/stdstyle/images/blue/powerTrailGenericLogo.png';
-            else
-                $ptImg = $pt['image'];
-            $ptHtml .= '<tr><td width="51"><img width="50" src="' . $ptImg . '"></td><td align="center"><span style="font-size: 13px;"><a href="powerTrail.php?ptAction=showSerie&ptrail=' . $pt['id'] . '">' . $pt['name'] . '</a> </td></tr>';
-        }
-        $ptHtml .= '</table>';
-        $ptDisplay = 'block';
-    } else {
-        $ptHtml = '';
-        $ptDisplay = 'none';
-    }
-} else {
-    $ptHtml = '';
-    $ptDisplay = 'none';
-}
 
-tpl_set_var('ptName', $ptHtml);
-tpl_set_var('ptSectionDisplay', $ptDisplay);
+
+// geoPath badge
+$geoPathSectionDisplay = false;
+
+if ($powerTrailModuleSwitchOn && $cache_id != null) {
+    $geoPathsList = [];
+    foreach (powerTrailBase::checkForPowerTrailByCache($cache_id) as $pt) {
+        $geoPath = new stdClass();
+        $geoPath->id = $pt['id'];
+        $geoPath->name = $pt['name'];
+        if ($pt['image'] == ''){
+            $geoPath->img = 'tpl/stdstyle/images/blue/powerTrailGenericLogo.png';
+        }else{
+            $geoPath->img = $pt['image'];
+        }
+        $geoPathsList[] = $geoPath;
+        $geoPathSectionDisplay = true;
+    }
+    $view->setVar('geoPathsList', $geoPathsList);
+}
+$view->setVar('geoPathSectionDisplay', $geoPathSectionDisplay);
+
+
+
 
 tpl_set_var('viewcache_js', "tpl/stdstyle/js/viewcache." . filemtime($rootpath . 'tpl/stdstyle/js/viewcache.js') . ".js");
 
