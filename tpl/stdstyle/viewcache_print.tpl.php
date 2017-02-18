@@ -16,18 +16,47 @@
 <div class="line-box">
     <div class="content-title-noshade-size1">
         <p class="cache-title">
-            <img src="{icon_cache}" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}" align="absmiddle" />{mod_suffix}{cachename}
+            <img src="{icon_cache}" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}" align="absmiddle" />{cachename}
         </p>
-        <img src="tpl/stdstyle/images/free_icons/arrow_in.png" class="icon16" alt="" title="" />&nbsp;<b>{oc_waypoint}
+        <img src="tpl/stdstyle/images/free_icons/arrow_in.png" class="icon16" alt="" title="" />&nbsp;<b><?=$view->geoCache->getWaypointId()?>
         <img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="" title=""  align="absmiddle"/>{coords}</b><br/>
 
-        {difficulty_icon_diff} {difficulty_icon_terr} {short_desc}
+        {difficulty_icon_diff} {difficulty_icon_terr} <?=$view->geoCacheDesc->getShortDescToDisplay()?>
         {{hidden_by}} <a href="viewprofile.php?userid={userid_urlencode}">{owner_name}</a>
 
         <img src="tpl/stdstyle/images/free_icons/package.png" class="icon16" alt="" title="" />&nbsp;<b>{cachesize}</b>
-        {hidetime_start} <img src="tpl/stdstyle/images/free_icons/time.png" class="icon16" alt="" title="" />&nbsp; {search_time}&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/arrow_switch.png" class="icon16" alt="" title="" />&nbsp; {way_length} {hidetime_end}
-        {score_icon} <b><font color="{scorecolor}">{score}</font></b>
-        {hidelistingsites_start}<br /><img src="tpl/stdstyle/images/free_icons/link.png" class="icon16" alt="" title="" />&nbsp;{{listed_also_on}}: <span class="listed-on">{listed_on}</span>{hidelistingsites_end}
+
+
+        <?php if($view->geoCache->getWayLenght() || $view->geoCache->getSearchTime()) { ?>
+            <img src="tpl/stdstyle/images/free_icons/time.png" class="icon16" alt="" title="" />&nbsp;
+            <?php if($view->geoCache->getSearchTime()) { ?>
+              <?=$view->geoCache->getSearchTimeFormattedString() ?>
+            <?php } else { // no-search-time ?>
+              <?=tr('not_available')?>
+            <?php } //no-search-time ?>
+            &nbsp;&nbsp;
+
+            <img src="tpl/stdstyle/images/free_icons/arrow_switch.png" class="icon16" alt="" title="" />&nbsp;
+            <?php if($view->geoCache->getWayLenght()) { ?>
+              <?=$view->geoCache->getWayLenghtFormattedString() ?>
+            <?php } else { // no-way-len ?>
+              <?=tr('not_available')?>
+            <?php } //no-way-len ?>
+        <?php } //if-way-length-and-search-time-present ?>
+
+        <img src="images/cache-rate.png" class="icon16" alt="" />
+        <?=tr('score_label')?>: <b><font color="<?=$view->scoreColor?>"><?=$view->score?></font></b>
+
+        <?php if(!empty($view->otherSitesListing)){ ?>
+          <br />
+          <img src="tpl/stdstyle/images/free_icons/link.png" class="icon16" alt="" title="" />&nbsp;{{listed_also_on}}:
+          <span class="listed-on">
+          <?php foreach ($view->otherSitesListing as $site){ ?>
+            <a href=<?=$site->link?> target="_blank"><?=$site->name?>(<?=$site->wp?>)</a>
+          <?php } //foreach ?>
+          </span>
+        <?php } //!empty($view->otherSitesListing ?>
+
     </div>
 </div>
 
@@ -37,7 +66,10 @@ global $usr, $lang, $hide_coords;
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
         <img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="" align="absmiddle" />
-        <b>{{descriptions}}</b>&nbsp;<br/>{cache_attributes}{password_req}
+        <b>{{descriptions}}</b>&nbsp;<br/>
+        <?php foreach($view->geoCache->getCacheAttributesList() as $attr){ ?>
+          <img src="<?=$attr->iconLarge?>" title="<?=$attr->text?>" alt="<?=$attr->text?>">&nbsp;
+        <?php } // foreach-attrib. ?>
     </p>
 </div>
 
@@ -49,7 +81,9 @@ global $usr, $lang, $hide_coords;
     </div>
 </div>
 
-{hidehint_start}
+
+<?php if( !empty($view->geoCacheDesc->getHint()) ) { ?>
+
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
         <img src="tpl/stdstyle/images/blue/crypt.png" class="icon32" alt="" align="absmiddle" />
@@ -57,17 +91,28 @@ global $usr, $lang, $hide_coords;
     </p>
 </div>
 <div class="content2-container">
-    <div style="width:200px;align:right;float:right">
-        {decrypt_table_start}
-        <font face="Courier" size="2" style="font-family : 'Courier New', FreeMono, Monospace;">A|B|C|D|E|F|G|H|I|J|K|L|M</font><br/>
-        <font face="Courier" size="2" style="font-family : 'Courier New', FreeMono, Monospace;">N|O|P|Q|R|S|T|U|V|W|X|Y|Z</font>
-        {decrypt_table_end}
-    </div>
-    <div id="viewcache-hints">
-        {hints}
-    </div>
+
+    <?php if($view->isUserAuthorized || $view->alwaysShowCoords) { ?>
+
+        <div style="width:200px;align:right;float:right">
+          <?php if(!$view->showUnencryptedHint) { ?>
+            <font face="Courier" size="2" style="font-family : 'Courier New', FreeMono, Monospace;">A|B|C|D|E|F|G|H|I|J|K|L|M</font><br/>
+            <font face="Courier" size="2" style="font-family : 'Courier New', FreeMono, Monospace;">N|O|P|Q|R|S|T|U|V|W|X|Y|Z</font>
+          <?php } //if-show-unencrypted-hint ?>
+        </div>
+        <div id="viewcache-hints"><?=$view->hintDecrypted?></div>
+
+    <?php } else { // if-user-not-authorized or showAll-not-set in config ?>
+
+          <span class="notice" style="width:500px;height:44px"  ><?=tr('vc_hint_for_logged_only')?></span>
+
+    <?php } // if-user-authorized or showAll set in config ?>
+
 </div>
-{hidehint_end}
+<?php } // if-hint-present ?>
+
+
+
 
 {CacheNoteS}
 <div class="content2-container bg-blue02">
@@ -90,7 +135,8 @@ global $usr, $lang, $hide_coords;
 </div>
 {CacheNoteE}
 
-{waypoints_start}
+<?php if( !empty($view->waypointsList) ) { ?>
+
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
         <img src="tpl/stdstyle/images/blue/compas.png" alt="" />
@@ -98,10 +144,59 @@ global $usr, $lang, $hide_coords;
     </p>
 </div>
 <p>
-    {waypoints_content}
+
+    <table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 12px; line-height: 1.6em">
+          <tr>
+            <?php if($view->cacheWithStages) { ?>
+              <th align="center" valign="middle" width="30"><b><?=tr('stage_wp')?></b></th>
+            <?php } //if-cache-with-stages ?>
+
+            <th align="center" valign="middle" width="40">&nbsp;<b><?=tr('symbol_wp')?></b>&nbsp;</th>
+            <th align="center" valign="middle" width="40">&nbsp;<b><?=tr('type_wp')?></b>&nbsp;</th>
+            <th width="90" align="center" valign="middle">&nbsp;<b><?=tr('coordinates_wp')?></b>&nbsp;</th>
+            <th align="center" valign="middle"><b><?=tr('describe_wp')?></b></th>
+          </tr>
+
+        <?php foreach( $view->waypointsList as $wp ) { ?>
+          <tr>
+
+              <?php if($view->cacheWithStages) { ?>
+                <td align="center" valign="middle"><center><strong>
+                    <?php if($wp->getStage() != 0) { ?>
+                      <?=$wp->getStage() ?>
+                    <?php } ?>
+                </strong></center></td>
+              <?php } // if-cacheWithStages ?>
+
+              <td align="center" valign="middle"><center><img src="<?=$wp->getIconName()?>" alt="" title="<?=tr($wp->getTypeTranslationKey())?>" /></center></td>
+              <td style="text-align: left; vertical-align: middle;"><?=tr($wp->getTypeTranslationKey())?></td>
+
+              <td align="left" valign="middle">
+                <b><span style="color: rgb(88,144,168)">
+                  <?php if($wp->areCoordsHidden()) { ?>
+                    N ?? ?????? <br/> E ?? ??????
+
+                  <?php } else { // if-coords-visible?>
+                    <a class="links4" href="#"
+                       onclick="javascript:window.open('coordinates.php?lat=<?=$wp->getCoordinates()->getLatitude()?>&amp;lon=<?=$wp->getCoordinates()->getLongitude()?>&amp;popup=y&amp;wp=<?=$view->geoCache->getWaypointId()?>, ENT_COMPAT, 'UTF-8')','','width=240,height=334,resizable=yes,scrollbars=1'); return event.returnValue=false">
+
+                      <?=$wp->getCoordinates()->getLatitudeString() ?> <br/> <?=$wp->getCoordinates()->getLongitudeString() ?>
+
+                    </a>
+                  <?php } // if-coords-visible ?>
+                </span></b>
+              </td>
+
+              <td align="left" valign="middle"><?=$wp->getDesc4Html()?></td>
+          </tr>
+        <?php } // foreach-waypoints ?>
+    </table>
 </p>
 <br/>
-{waypoints_end}
+
+<?php } //if-waypoints-present ?>
+
+
 
 {hidenpa_start}
 <div class="content2-container bg-blue02">
@@ -122,7 +217,8 @@ global $usr, $lang, $hide_coords;
 {hidenpa_end}
 
 <!-- sekcja modyfikatora współrzędnych -->
-{coordsmod_start}
+<?php if($view->cacheCoordsModificationAllowed) { ?>
+
 <div  class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
         <img src="tpl/stdstyle/images/blue/signature1.png" class="icon32" alt="" align="absmiddle" />
@@ -136,7 +232,9 @@ global $usr, $lang, $hide_coords;
         {coordmod_lon_h} {coordmod_lon}<BR/>
     </p>
 </div>
-{coordsmod_end}
+
+<?php } //if-cacheCoordsModificationAllowed ?>
+
 <!-- koniec sekcji modyfikatora współrzędnych -->
 
 {geokrety_begin}
@@ -175,9 +273,24 @@ global $usr, $lang, $hide_coords;
         <img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" align="absmiddle" />
         <b>{{log_entries}}</b>
         &nbsp;&nbsp;
-        {found_icon} {founds}x
-        {notfound_icon} {notfounds}x
-        {note_icon} {notes}x
+        <?php if($view->geoCache->isEvent()) { ?>
+          <img src="tpl/stdstyle/images/log/16x16-attend.png" class="icon16" alt="" title=""/>
+          <?=$view->geoCache->getFounds()?>
+
+          <img src="tpl/stdstyle/images/log/16x16-will_attend.png" class="icon16" alt="" title=""/>
+          <?=$view->geoCache->getNotFounds()?>
+
+        <?php } else { //if-not-event ?>
+          <img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="<?=tr('found')?>"/>
+          <?=$view->geoCache->getFounds()?>x
+
+          <img src="tpl/stdstyle/images/log/16x16-dnf.png" class="icon16" alt="{{not_found}}" />
+          <?=$view->geoCache->getNotFounds()?>x
+        <?php } //if-not-event ?>
+
+        <img src="tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{log_note}}" />
+        <?=$view->geoCache->getNotesCount()?>x
+
     </p>
 </div>
 <div class="content2-container" id="viewcache-logs">

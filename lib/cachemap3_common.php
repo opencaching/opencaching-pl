@@ -1,6 +1,8 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\GeoCache\GeoCacheCommons;
+
 /*
  *
  * This is common code for mapv3
@@ -296,7 +298,7 @@ function setFilterSettings(array $filter)
                 $minmax = "max";
             }
 
-            tpl_set_var($minmax . "_sel" . intval(score2ratingnum($value) + 1), 'selected="selected"');
+            tpl_set_var($minmax . "_sel" . intval(GeoCacheCommons::ScoreAsRatingNum($value) + 1), 'selected="selected"');
             tpl_set_var($key, $value);
             continue;
         }

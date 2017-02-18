@@ -495,12 +495,12 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
             $tmpline = str_replace('{direction}', '', $tmpline);
     }
 
-    $desclangs = '';
+    $availableDescLangs = '';
     $aLangs = mb_split(',', $caches_record['desc_languages']);
     foreach ($aLangs as $thislang) {
-        $desclangs .= '<a href="viewcache.php?cacheid=' . urlencode($caches_record['cache_id']) . '&amp;desclang=' . urlencode($thislang) . '" style="text-decoration:none;"><b><font color="blue">' . htmlspecialchars($thislang, ENT_COMPAT, 'UTF-8') . '</font></b></a> ';
+        $availableDescLangs .= '<a href="viewcache.php?cacheid=' . urlencode($caches_record['cache_id']) . '&amp;desclang=' . urlencode($thislang) . '" style="text-decoration:none;"><b><font color="blue">' . htmlspecialchars($thislang, ENT_COMPAT, 'UTF-8') . '</font></b></a> ';
     }
-    $tmpline = str_replace('{desclangs}', $desclangs, $tmpline);
+    $tmpline = str_replace('{desclangs}', $availableDescLangs, $tmpline);
     if ($usr || ! $hide_coords) {
         if ($CalcCoordinates) {
             if ($caches_record['coord_modified'] == true) {

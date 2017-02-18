@@ -50,7 +50,6 @@ $logpictures = '<div class="viewlogs-logpictures"><span class="info">' . tr('pic
 
 // Waypoints line
 $wpline = '<tr>{stagehide_start}<td align="center" valign="middle"><center><strong>{number}</strong></center></td>{stagehide_end}<td align="center" valign="middle"><center><img src="{wp_icon}" alt="" title="{type}" /></center></td><td style="text-align: left; vertical-align: middle;">{type}</td><td align="left" valign="middle"><b><span style="color: rgb(88,144,168)">{lat_lon}</span></b></td><td align="left" valign="middle">{desc}</td></tr>';
-$cache_log_pw = '<br/>' . tr('password_required');
 $viewlogs_last = '<a href="viewlogs.php?cacheid={cacheid_urlencode}"><img src="tpl/stdstyle/images/action/16x16-showall.png" class="icon16" alt=""/></a>&nbsp;<a href="' . (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y' ? 'viewcache' : 'viewlogs') . '.php?cacheid={cacheid_urlencode}&amp;showlogs=4' . $linkargs . '">' . tr('last_log_entries') . '</a>';
 $viewlogs_tr = tr('show_all_log_entries');
 $viewlogs = '<a href="viewlogs.php?cacheid={cacheid_urlencode}" ><img src="tpl/stdstyle/images/action/16x16-showall.png" class="icon16" alt="' . $viewlogs_tr . '" title="' . $viewlogs_tr . '"/></a>&nbsp;<a title="' . $viewlogs_tr . '" href="' . (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y' ? 'viewcache' : 'viewlogs') . '.php?cacheid={cacheid_urlencode}' . $linkargs . '&amp;showlogsall=y">' . tr("show_all_log_entries_short") . '</a>';
@@ -65,26 +64,16 @@ $difficulty_text_diff = tr('task_difficulty') . ": %01.1f " . tr('out_of') . " 5
 $difficulty_text_terr = tr('terrain_difficulty') . ": %01.1f " . tr('out_of') . " 5.0";
 $viewtext_on = tr('enter_text');
 $viewtext_off = tr('enter_text_error');
-$listed_only_oc = tr('only_these');
 $default_lang = 'PL';
 $event_attended_text = " " . tr('attendends');
 $event_will_attend_text = " " . tr('will_attend');
-$cache_found_text = "x " . tr('found');
-$cache_notfound_text = "x " . tr('not_found');
-$rating_stat_show_singular = '<img src="images/rating-star.png" alt="{{recomendation}}" /> {ratings} ' . tr('recommendation') . '<br />';
-$rating_stat_show_plural = '<img src="images/rating-star.png" alt="{{recommendation}}" /> {ratings} ' . tr('recommendations') . '<br />';
+
 $found_icon = '<img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="{{found}}"/>';
-$moved_icon = '<img src="tpl/stdstyle/images/log/16x16-moved.png" class="icon16" alt="moved" />';
 $notfound_icon = '<img src="tpl/stdstyle/images/log/16x16-dnf.png" class="icon16" alt="{{not_found}}" />';
 $note_icon = '<img src="tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{log_note}}" />';
 $notes_icon = '<img src="tpl/stdstyle/images/free_icons/note_edit.png" class="icon16" alt="" />';
-$vote_icon = '<img src="tpl/stdstyle/images/free_icons/thumb_up.png" class="icon16" alt="" />';
-$gk_icon = '<img src="images/gk.png" class="icon16" alt="" title="GeoKrety visited" />';
-$score_icon = '<img src="images/cache-rate.png" class="icon16" alt="" />';
-$watch_icon = '<img src="tpl/stdstyle/images/action/16x16-watch.png" class="icon16" alt="" />';
 $search_icon = '<img src="tpl/stdstyle/images/action/16x16-search.png" class="icon16" alt="" />';
 $save_icon = '<img src="tpl/stdstyle/images/action/16x16-save.png" class="icon16" alt="" />';
-$visit_icon = '<img src="tpl/stdstyle/images/free_icons/vcard.png" class="icon16" alt="" />';
 $exist_icon = '<img src="tpl/stdstyle/images/log/16x16-attend.png" class="icon16" alt="" title="uczestniczył"/>';
 $trash_icon = '<img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="" />';
 $wattend_icon = '<img src="tpl/stdstyle/images/log/16x16-will_attend.png" class="icon16" alt="" title="będzie uczestniczył"/>';
@@ -94,7 +83,6 @@ $show_del_tr = tr('vc_ShowDeletions');
 $show_del_link = '<span style="white-space: nowrap;"><a href="{thispage}?cacheid={cacheid}&amp;showdel=y' . $linkargs . '#log_start" title="' . $show_del_tr . '">' . '<img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="' . $show_del_tr . '" title="' . $show_del_tr . '" /></a>&nbsp;<a href="{thispage}?cacheid={cacheid}&amp;showdel=y' . $linkargs . '#log_start" title="' . $show_del_tr . '">' . $show_del_tr . '</a></span>'; //add trash icon - todo: diff icon for show/hide
 //$show_del_link and $hide_del_link are used in both viewlogs and viewcashes .php - so {thispage} is determined for caller
 
-$decrypt_icon = ' <img src="tpl/stdstyle/images/blue/decrypt.png" class="icon32" alt="" />';
 
 $decrypt_table = ' <font face="Courier" size="2" style="font-family : \'Courier New\', FreeMono, Monospace;">A|B|C|D|E|F|G|H|I|J|K|L|M</font>
                                                 <font face="Courier" size="2" style="font-family : \'Courier New\', FreeMono, Monospace;">N|O|P|Q|R|S|T|U|V|W|X|Y|Z</font>';

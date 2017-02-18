@@ -232,7 +232,6 @@ $translations = array(
     'will_attend' => 'Möchte teilnehmen',
     'enter_text' => 'Geben Sie Text',
     'enter_text_error' => 'Text wurde noch nicht eingetragen',
-    'only_these' => 'nur diese',
     'password_required' => 'Passwort erforderlich, um ein Log-Eintrag.',
     'last_log_entries' => 'zuletzt gefunden',
     'terrain_difficulty' => 'Schwierigkeit',

@@ -246,24 +246,6 @@ require_once($rootpath . 'lib/bench.inc.php');
 $bScriptExecution = new Cbench;
 $bScriptExecution->start();
 
-// rating conversion array
-$ratingDesc = array(
-    tr('rating_poor'),
-    tr('rating_mediocre'),
-    tr('rating_avarage'),
-    tr('rating_good'),
-    tr('rating_excellent'),
-);
-// prima-aprilis joke ;-)
-if ((date('m') == 4) and ( date('d') == 1)) {
-    $ratingDesc = array(
-        tr('rating_poor_1A'),
-        tr('rating_mediocre_1A'),
-        tr('rating_avarage_1A'),
-        tr('rating_good_1A'),
-        tr('rating_excellent_1A'),
-    );
-}
 
 tpl_set_var('site_name', $site_name);
 tpl_set_var('contact_mail', $contact_mail);
@@ -271,26 +253,6 @@ tpl_set_var('contact_mail', $contact_mail);
 // BSz: to make ease use of wikilinks
 foreach($wikiLinks as $key => $value){
     tpl_set_var('wiki_link_'.$key, $value);
-}
-
-function score2ratingnum($score)
-{
-    if ($score >= 2.2)
-        return 4;
-    else if ($score >= 1.4)
-        return 3;
-    else if ($score >= 0.1)
-        return 2;
-    else if ($score >= -1.0)
-        return 1;
-    else
-        return 0;
-}
-
-function score2rating($score)
-{
-    global $ratingDesc;
-    return $ratingDesc[score2ratingnum($score)];
 }
 
 function new2oldscore($score)

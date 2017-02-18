@@ -1,6 +1,7 @@
 <?php
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
+use lib\Objects\GeoCache\GeoCacheCommons;
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $queryFilter;
 set_time_limit(1800);
 
@@ -556,7 +557,7 @@ if ($usr || ! $hide_coords) {
 
             if ($r['votes'] > 3) {
 
-                $score = cleanup_text(score2rating($r['score']));
+                $score = cleanup_text(GeoCacheCommons::ScoreAsRatingTranslation($r['score']));
                 $thisextra .= "\n" . tr('search_gpxgc_05') . ": " . $score . "\n";
             }
             if ($r['topratings'] > 0) {

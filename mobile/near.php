@@ -1,5 +1,6 @@
 <?php
 use Utils\Database\XDb;
+use lib\Objects\GeoCache\GeoCacheCommons;
 require_once("./lib/common.inc.php");
 
 function makeUrl($url)
@@ -72,7 +73,7 @@ function stronicowanie($page, $address, $znalezione, $ile, $url)
 if (isset($_GET['ns']) && isset($_GET['ew']) && isset($_GET['radius']) && isset($_GET['Nstopien']) && isset($_GET['Nminuty']) && isset($_GET['Estopien']) && isset($_GET['Eminuty'])) {
     if (!empty($_GET['ns']) && !empty($_GET['ew']) && !empty($_GET['radius']) && !empty($_GET['Nstopien']) && !empty($_GET['Nminuty']) && !empty($_GET['Estopien']) && !empty($_GET['Eminuty']) && ($_GET['ns'] == 'N' || $_GET['ns'] == 'S') && ($_GET['ew'] == 'E' || $_GET['ew'] == 'W') && preg_match("/^\d+$/", $_GET['radius']) && $_GET['radius'] >= 1 && $_GET['radius'] <= 25 && preg_match("/^\d+$/", $_GET['Nstopien']) && $_GET['Nstopien'] >= 0 && $_GET['Nstopien'] <= 90 && preg_match("/^\d+$/", $_GET['Estopien']) && $_GET['Estopien'] >= 0 && $_GET['Estopien'] <= 180 && preg_match("/^\d{1,2}\.\d{1,3}$/", $_GET['Eminuty']) && preg_match("/^\d{1,2}\.\d{1,3}$/", $_GET['Nminuty']) && $_GET['Nminuty'] >= 0 && $_GET['Nminuty'] < 60 && $_GET['Eminuty'] >= 0 && $_GET['Eminuty'] < 60) {
 
-        
+
 
         $kord1 = zamiana($_GET['Nstopien'], $_GET['Nminuty']);
         if ($_GET['ns'] == 'S')
@@ -210,7 +211,7 @@ if (isset($_GET['ns']) && isset($_GET['ew']) && isset($_GET['radius']) && isset(
             $rekord['user_id'] = $wiersz['user_id'];
             $rekord['name'] = $wiersz['name'];
             $rekord['status'] = $wiersz['status'];
-            $rekord['score'] = score2ratingnum($wiersz['score']);
+            $rekord['score'] = GeoCacheCommons::ScoreAsRatingNum($wiersz['score']);
             $rekord['latitude'] = $wiersz['latitude'];
             $rekord['longitude'] = $wiersz['longitude'];
             $rekord['wp_oc'] = $wartosc;

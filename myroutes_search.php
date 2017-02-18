@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
+use lib\Objects\GeoCache\GeoCacheCommons;
 
 //prepare the templates and include all neccessary
 global $rootpath;
@@ -1353,7 +1354,7 @@ if ($error == false) {
                     }
 
                     if ($r['votes'] > 3) {
-                        $score = cleanup_text(score2rating($r['score']));
+                        $score = cleanup_text(GeoCacheCommons::ScoreAsRatingTranslation($r['score']));
                         $thislogs .= "\nOcena skrzynki: " . $score . "\n";
                     }
 

@@ -913,7 +913,7 @@ if ($error == false) {
                 if (sizeof($listed_on)) {
                     tpl_set_var('listed_start', "");
                     tpl_set_var('listed_end', "");
-                    tpl_set_var('listed_on', sizeof($listed_on) == 0 ? $listed_only_oc : implode(", ", $listed_on));
+                    tpl_set_var('listed_on', implode(", ", $listed_on));
                 } else {
                     tpl_set_var('listed_start', "<!--");
                     tpl_set_var('listed_end', "-->");

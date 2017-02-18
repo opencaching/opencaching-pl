@@ -533,8 +533,6 @@ $config['maps']['cache_page_map']['source'] = 'mapnik';
 
 /* Cache page minimap                                                       */
 $config['maps']['cache_mini_map']['zoom'] = 14;
-$config['maps']['cache_mini_map']['width'] = '480';
-$config['maps']['cache_mini_map']['height'] = '385';
 
 /* ************************************************************************
  * External maps on which to view a cache

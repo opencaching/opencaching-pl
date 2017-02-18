@@ -7,6 +7,9 @@ use Utils\Database\XDb;
 use Utils\Email\EmailSender;
 use Utils\Gis\Gis;
 use Utils\Log\CacheAccessLog;
+use lib\Objects\GeoCache\GeoCacheDesc;
+use lib\Objects\GeoCache\OpenChecker;
+use lib\Objects\Coordinates\Coordinates;
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath)){
@@ -16,7 +19,7 @@ require_once('./lib/common.inc.php');
 require_once('lib/cache_icon.inc.php');
 
 global $caches_list, $usr, $hide_coords, $cache_menu, $octeam_email, $site_name, $absolute_server_URI, $octeamEmailsSignature;
-global $dynbasepath, $powerTrailModuleSwitchOn, $googlemap_key, $titled_cache_period_prefix;
+global $dynbasepath, $powerTrailModuleSwitchOn, $titled_cache_period_prefix;
 global $config;
 
 $applicationContainer = \lib\Objects\ApplicationContainer::Instance();
@@ -29,7 +32,6 @@ $view = tpl_getView();
 require_once($stylepath . '/lib/icons.inc.php');
 require($stylepath . '/viewcache.inc.php');
 require($stylepath . '/viewlogs.inc.php');
-require($stylepath . '/smilies.inc.php');
 
 
 /** @var GeoCache $geocache */
@@ -77,26 +79,24 @@ $cache_id = $geocache->getCacheId(); //TODO: refactor to $geocache...
 
 $view->setVar('geoCache', $geocache);
 
+$view->setVar('isUserAuthorized', is_object($loggedUser) );
+$view->setVar('isAdminAuthorized', $loggedUser && $loggedUser->isAdmin() );
+
+
 
 if ($loggedUser) {
-    $view->setVar('isUserAuthorized', true);
-
 
     tpl_set_var('hidesearchdownloadsection_start', '');
     tpl_set_var('hidesearchdownloadsection_end', '');
     tpl_set_var('uType', $loggedUser->isAdmin());
 } else {
-    $view->setVar('isUserAuthorized', false);
 
 
     tpl_set_var('hidesearchdownloadsection_start', '<!--');
     tpl_set_var('hidesearchdownloadsection_end', '-->');
 }
 
-$no_crypt = 0;
-if (isset($_REQUEST['nocrypt'])) {
-    $no_crypt = $_REQUEST['nocrypt'];
-}
+
 
 
 
@@ -121,227 +121,45 @@ if ($loggedUser && $geocache->getOwnerId() == $loggedUser->getUserId()) {
     $show_watch = true;
 }
 
-$orig_coord_info_lon = ''; //use to determine whether icon shall be displayed
-$coords_correct = true;
-$mod_coords_modified = false;
-$cache_type = $geocache->getCacheType();
-$mod_coord_delete_mode = isset($_POST['resetCoords']);
-$cache_mod_lat = 0;
-$cache_mod_lon = 0;
 
-if ($loggedUser && ($cache_type == GeoCache::TYPE_QUIZ || $cache_type == GeoCache::TYPE_OTHERTYPE || $cache_type == GeoCache::TYPE_MULTICACHE)) {
+if ($loggedUser && (
+    $geocache->getCacheType() == GeoCache::TYPE_OTHERTYPE ||
+    $geocache->getCacheType() == GeoCache::TYPE_QUIZ ||
+    $geocache->getCacheType() == GeoCache::TYPE_MULTICACHE )) {
 
-    $orig_cache_lon = $geocache->getCoordinates()->getLongitude();
-    $orig_cache_lat = $geocache->getCoordinates()->getLatitude();
-    $cache_modifiable = true;
-    $thatquery = "SELECT `cache_mod_cords`.`id` AS `mod_cords_id`,
-            `cache_mod_cords`.`longitude` AS `mod_lon`, `cache_mod_cords`.`latitude` AS `mod_lat`
-            FROM `cache_mod_cords` INNER JOIN `caches` ON (`caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND
-                    `cache_mod_cords`.`user_id` = :v1)
-                    WHERE `caches`.`cache_id`=:v2";
-    $params['v1']['value'] = (integer) $usr['userid'];
-    $params['v1']['data_type'] = 'integer';
-    $params['v2']['value'] = (integer) $cache_id;
-    $params['v2']['data_type'] = 'integer';
-    $s = $dbc->paramQuery($thatquery, $params);
-    unset($params); //clear to avoid overlaping on next paramQuery (if any))
-    $cache_mod_coords = $dbc->dbResultFetchOneRowOnly($s);
+    $view->setVar('cacheCoordsModificationAllowed',true);
+    $userCoordinates = null;
 
-    if ($cache_mod_coords != 0) {
-        if ($mod_coord_delete_mode == false) {
-            $orig_coord_info_lon = htmlspecialchars(help_lonToDegreeStr($orig_cache_lon), ENT_COMPAT, 'UTF-8');
-            $orig_coord_info_lat = htmlspecialchars(help_latToDegreeStr($orig_cache_lat), ENT_COMPAT, 'UTF-8');
-            $geocache->getCoordinates()->setLongitude($cache_mod_coords['mod_lon']);
-            $geocache->getCoordinates()->setLatitude($cache_mod_coords['mod_lat']);
-        }
-    }
     // insert/edit modified coordinates
-    if (isset($_POST['modCoords'])) {
-        $coords_lat_h = $_POST['coordmod_lat_degree'];
-        $coords_lon_h = $_POST['coordmod_lon_degree'];
-        $coords_lat_min = $_POST['coordmod_lat'];
-        $coords_lon_min = $_POST['coordmod_lon'];
+    if (isset($_POST['modCoords']) &&
+        isset($_POST['userCoordsFinalLatitude']) &&
+        isset($_POST['userCoordsFinalLongitude']) ) {
 
-        // validation. Copy&Paste from editcache.php. It should be available in common code place.
-        $lon_not_ok = false;
-
-        if (!mb_ereg_match('^[0-9]{1,3}$', $coords_lon_h)) {
-            $lon_not_ok = true;
-        } else {
-            $lon_not_ok = (($coords_lon_h >= 0) && ($coords_lon_h < 180)) ? false : true;
-        }
-
-        if (is_numeric($coords_lon_min)) {
-            // important: use here |=
-            $lon_not_ok |= (($coords_lon_min >= 0) && ($coords_lon_min < 60)) ? false : true;
-        } else {
-            $lon_not_ok = true;
-        }
-
-        //same with lat
-        $lat_not_ok = false;
-
-        if (!mb_ereg_match('^[0-9]{1,3}$', $coords_lat_h)) {
-            $lat_not_ok = true;
-        } else {
-            $lat_not_ok = (($coords_lat_h >= 0) && ($coords_lat_h < 180)) ? false : true;
-        }
-
-        if (is_numeric($coords_lat_min)) {
-            // important: use here |=
-            $lat_not_ok |= (($coords_lat_min >= 0) && ($coords_lat_min < 60)) ? false : true;
-        } else {
-            $lat_not_ok = true;
-        }
-
-        if ($lat_not_ok || $lon_not_ok) {
-            $coords_correct = false;
-            tpl_set_var('coords_message', $error_coords_not_ok);
-        } else {
-            // set inputs values
-            $mod_coords_modified = true;
-            tpl_set_var('coordmod_lat_h', $coords_lat_h);
-            tpl_set_var('coordmod_lat', $coords_lat_min);
-            tpl_set_var('coordmod_lon_h', $coords_lon_h);
-            tpl_set_var('coordmod_lon', $coords_lon_min);
-
-            $cache_mod_lat = $coords_lat_h + round($coords_lat_min, 3) / 60;
-            if ($_POST['coordmod_latNS'] == 'S')
-                $cache_mod_lat = -$cache_mod_lat;
-
-            $cache_mod_lon = $coords_lon_h + round($coords_lon_min, 3) / 60;
-            if ($_POST['coordmod_lonEW'] == 'W')
-                $cache_mod_lon = -$cache_mod_lon;
-
-            if ($cache_mod_coords['mod_cords_id'] != null) {  // user modified caches cords earlier
-                $thatquery = "UPDATE `cache_mod_cords` SET `date` = NOW(), `longitude` = :v1, `latitude` = :v2
-                        WHERE `id` = :v3";
-                $params['v1']['value'] = (float) $cache_mod_lon;
-                $params['v1']['data_type'] = 'string';
-                $params['v2']['value'] = (float) $cache_mod_lat;
-                $params['v2']['data_type'] = 'string';
-                $params['v3']['value'] = (integer) $cache_mod_coords['mod_cords_id'];
-                $params['v3']['data_type'] = 'integer';
-
-            } else { // first edit
-                $thatquery = "INSERT INTO `cache_mod_cords` (`cache_id`, `user_id`, `date`, `longitude`, `latitude`) values(:v1, :v2, now(), :v3, :v4)";
-                $params['v1']['value'] = (integer) $cache_id;
-                $params['v1']['data_type'] = 'integer';
-                $params['v2']['value'] = (integer) $usr['userid'];
-                $params['v2']['data_type'] = 'integer';
-                $params['v3']['value'] = (float) $cache_mod_lon;
-                $params['v3']['data_type'] = 'string';
-                $params['v4']['value'] = (float) $cache_mod_lat;
-                $params['v4']['data_type'] = 'string';
+            $userCoordinates = Coordinates::FromCoordsFactory($_POST['userCoordsFinalLatitude'], $_POST['userCoordsFinalLongitude']);
+            if($userCoordinates){
+                $geocache->saveUserCoordinates($userCoordinates, $loggedUser->getUserId());
+            }else{
+                //TODO: improper coords!?
             }
-            $dbc->paramQuery($thatquery, $params);
-            unset($params);
 
-            $orig_coord_info_lon = htmlspecialchars(help_lonToDegreeStr($orig_cache_lon), ENT_COMPAT, 'UTF-8');
-            $orig_coord_info_lat = htmlspecialchars(help_latToDegreeStr($orig_cache_lat), ENT_COMPAT, 'UTF-8');
-            $geocache->getCoordinates()->setLongitude($cache_mod_lon);
-            $geocache->getCoordinates()->setLatitude($cache_mod_lat);
-        }
+    }elseif ( isset($_POST['resetCoords']) ){
+        // user requested to delete user-modified-ccords
+        $geocache->deleteUserCoordinates($loggedUser->getUserId());
+
+    }else{ //there are no new userCoords for this cache - check if user set something before
+        $userCoordinates = $geocache->getUserCoordinates($loggedUser->getUserId());
     }
 
-    // delete modified coordinates
-    if ($mod_coord_delete_mode) {
-        $thatquery = "DELETE FROM `cache_mod_cords` WHERE `id` = :v1";
-        $params['v1']['value'] = (integer) $cache_mod_coords['mod_cords_id'];
-        $params['v1']['data_type'] = 'integer';
-        $dbc->paramQuery($thatquery, $params);
-        unset($params);
-    }
-} else {
-    $cache_mod_coords = false;
+    $view->setVar('userModifiedCoords', $userCoordinates);
+
+}else{
+    $view->setVar('cacheCoordsModificationAllowed', false);
+    $view->setVar('userModifiedCoords', null);
 }
 
-if ($coords_correct) {
-    tpl_set_var('coords_message', "");
-}
-
-if ($orig_coord_info_lon !== '' && (!$mod_coord_delete_mode)) {
-
-    $view->setVar('userModifiedCoords', true);
-
-    //TODO: remove it!
-    //$orig_coord_info_full = tr('orig_coord_modified_info') . '&#10;' . $orig_coord_info_lat . '&#10;' . $orig_coord_info_lon;
-    //$orig_coord_info_icon = '<a href="#coords_mod"><img src="tpl/stdstyle/images/blue/signature1-orange.png" class="icon32" alt="' . $orig_coord_info_full . '" title="' . $orig_coord_info_full . '"></a>';
-    tpl_set_var('mod_cord_info', $orig_coord_info_icon);
 
 
-    if ($cache_mod_lat >= 0) {
-        tpl_set_var('N_selected', 'selected="selected"');
-        tpl_set_var('S_selected', '');
-    } else {
-        tpl_set_var('S_selected', 'selected="selected"');
-        tpl_set_var('N_selected', '');
-    }
-    if ($cache_mod_lon >= 0) {
-        tpl_set_var('E_selected', 'selected="selected"');
-        tpl_set_var('W_selected', '');
-    } else {
-        tpl_set_var('W_selected', 'selected="selected"');
-        tpl_set_var('E_selected', '');
-    }
-    tpl_set_var('mod_suffix', '[F]');
-} else {
 
-    $view->setVar('userModifiedCoords', false);
-
-    tpl_set_var('N_selected', 'selected="selected"'); //set default coords to N and E
-    tpl_set_var('S_selected', '');
-    tpl_set_var('E_selected', 'selected="selected"');
-    tpl_set_var('W_selected', '');
-    tpl_set_var('mod_suffix', '');
-}
-
-if ($usr == false || !isset($cache_modifiable)) {
-    tpl_set_var('coordsmod_start', '<!--');
-    tpl_set_var('coordsmod_end', '-->');
-    tpl_set_var('mod_suffix', '');
-} else {
-    tpl_set_var('coordsmod_start', '');
-    tpl_set_var('coordsmod_end', '');
-}
-if (!$mod_coords_modified) {
-    if (($cache_mod_coords['mod_cords_id'] != null) && ($mod_coord_delete_mode == false)) {
-        $mod_lat_arr = help_latToArray($cache_mod_coords['mod_lat']);
-        tpl_set_var('coordmod_lat_h', $mod_lat_arr[1]);
-        tpl_set_var('coordmod_lat', $mod_lat_arr[2]);
-
-        $mod_lon_arr = help_latToArray($cache_mod_coords['mod_lon']);
-        tpl_set_var('coordmod_lon_h', $mod_lon_arr[1]);
-        tpl_set_var('coordmod_lon', $mod_lon_arr[2]);
-    } else {
-        tpl_set_var('coordmod_lat_h', '-');
-        tpl_set_var('coordmod_lat', '00.000');
-        tpl_set_var('coordmod_lon_h', '-');
-        tpl_set_var('coordmod_lon', '00.000');
-    }
-}
-
-// coordnates modificator -END
-
-
-//get last last_modified
-$thatquery = "SELECT MAX(`last_modified`) `last_modified` FROM
-                 (SELECT `last_modified` FROM `caches` WHERE `cache_id` = :v1
-                    UNION
-                    SELECT `last_modified` FROM `cache_desc` WHERE `cache_id` =:v1) `tmp_result`";
-$params['v1']['value'] = (integer) $cache_id;
-$params['v1']['data_type'] = 'integer';
-$rs = $dbc->paramQuery($thatquery, $params);
-unset($params); //clear to avoid overlaping on next paramQuery (if any))
-if ($dbc->rowCount($rs) == 0) {
-    $cache_id = 0;
-} else {
-    $lm = $dbc->dbResultFetch($rs);
-    $lastModified = new DateTime($lm['last_modified']);
-    tpl_set_var('last_modified', $lastModified->format($applicationContainer->getOcConfig()->getDateFormat()));
-}
-
-unset($ls);
 
 
 if (isset($_REQUEST['print_list']) && $_REQUEST['print_list'] == 'y') {
@@ -406,32 +224,26 @@ if ($geokrety_all_count == 0) {
     tpl_set_var('geokrety_content', $geokrety_content);
 }
 
+
 if ($geocache->getRatingVotes() < 3) {
     // DO NOT show cache's score
-    $score = "";
-    $scorecolor = "";
-    $font_size = "";
-    tpl_set_var('score', tr('not_available'));
-    tpl_set_var('scorecolor', "#000000");
+    $score = tr('not_available');
+    $scoreColor = "#000000";
 } else {
-    // show cache's score
-    $score = $geocache->getScore();
-    $scorenum = score2ratingnum($score);
-    $font_size = "2";
-    if ($scorenum == 0){
-        $scorecolor = "#DD0000";
-    } elseif ($scorenum == 1) {
-        $scorecolor = "#F06464";
-    } elseif ($scorenum == 2) {
-        $scorecolor = "#DD7700";
-    } elseif ($scorenum == 3){
-        $scorecolor = "#77CC00";
-    } elseif ($scorenum == 4){
-        $scorecolor = "#00DD00";
+    switch($geocache->getScoreAsRatingNum()){
+        case 0: $scoreColor = "#DD0000"; break;
+        case 1: $scoreColor = "#F06464"; break;
+        case 2: $scoreColor = "#DD7700"; break;
+        case 3: $scoreColor = "#77CC00"; break;
+        case 4: $scoreColor = "#00DD00"; break;
     }
-    tpl_set_var('score', score2rating($score));
-    tpl_set_var('scorecolor', $scorecolor);
+    $score = $geocache->getScoreNameTranslation();
 }
+
+$view->setVar('scoreColor', $scoreColor);
+$view->setVar('score', $score);
+
+
 
 // begin visit-counter
 // delete cache_visits older 1 day 60*60*24 = 86400
@@ -454,29 +266,7 @@ if ($chkuserid != $owner_id) {
 
 // end visit-counter
 
-
-
 $view->setVar('alwaysShowCoords', !$hide_coords);
-
-
-
-
-if (!isset($map_msg))
-    $map_msg = '';
-if (!isset($map_msg))
-    $map_msg = '';
-
-tpl_set_var('googlemap_key', $googlemap_key);
-tpl_set_var('map_msg', $map_msg);
-tpl_set_var('typeLetter', typeToLetter($geocache->getCacheType()));
-
-
-
-
-
-
-
-
 
 
 // NPA - nature protection areas
@@ -530,11 +320,21 @@ list($lat_dir, $lat_h, $lat_min) = help_latToArray($geocache->getCoordinates()->
 list($lon_dir, $lon_h, $lon_min) = help_lonToArray($geocache->getCoordinates()->getLongitude());
 
 $tpl_subtitle = htmlspecialchars($geocache->getCacheName(), ENT_COMPAT, 'UTF-8') . ' - ';
-$map_msg = mb_ereg_replace("{target}", urlencode("viewcache.php?cacheid=" . $cache_id), tr('map_msg'));
 
-tpl_set_var('googlemap_key', $googlemap_key);
-tpl_set_var('map_msg', $map_msg);
-tpl_set_var('typeLetter', typeToLetter($geocache->getCacheType()));
+
+
+
+$view->setVar('loginToSeeMapMsg', mb_ereg_replace("{target}", urlencode("viewcache.php?cacheid=".$geocache->getCacheId()), tr('map_msg')));
+
+$lat = $geocache->getCoordinates()->getLatitude();
+$lon = $geocache->getCoordinates()->getLongitude();
+$zoom = $config['maps']['cache_page_map']['zoom'];
+$mapType = $config['maps']['cache_page_map']['source'];
+$view->setVar('mapImgLink', "lib/staticmap.php?center=$lat,$lon&amp;zoom=$zoom&amp;size=170x170&amp;maptype=$mapType&amp;markers=$lat,$lon,mark-small-blue");
+
+
+
+
 tpl_set_var('cacheid_urlencode', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'));
 tpl_set_var('cachename', htmlspecialchars($geocache->getCacheName(), ENT_COMPAT, 'UTF-8'));
 
@@ -545,17 +345,6 @@ if ( $geocache->isTitled() ){
     tpl_set_var('icon_titled', '');
 }
 
-// cache type Mobile add calculate distance
-if ($geocache->getCacheType() == GeoCache::TYPE_MOVING) {
-    tpl_set_var('moved_icon', $moved_icon);
-    tpl_set_var('dystans', $geocache->getDistance());
-    tpl_set_var('moved', $geocache->getMoveCount());
-    tpl_set_var('hidemobile_start', '');
-    tpl_set_var('hidemobile_end', '');
-} else {
-    tpl_set_var('hidemobile_start', '<!--');
-    tpl_set_var('hidemobile_end', '-->');
-}
 
 
 if ($usr || !$hide_coords) {
@@ -578,126 +367,55 @@ if ($usr || !$hide_coords) {
 tpl_set_var('cacheid', $cache_id);
 
 
-$geocacheType = $geocache->dictionary->getCacheTypes();
-
-tpl_set_var('cachetype', htmlspecialchars(tr($geocacheType[$geocache->getCacheType()]['translation']), ENT_COMPAT, 'UTF-8'));
-
-
 $iconname = str_replace("mystery", "quiz", $iconname);
 tpl_set_var('icon_cache', htmlspecialchars("$stylepath/images/cache/$iconname", ENT_COMPAT, 'UTF-8'));
-tpl_set_var('cachesize', htmlspecialchars(tr($geocache->getSizeDesc()), ENT_COMPAT, 'UTF-8'));
-tpl_set_var('oc_waypoint', htmlspecialchars($geocache->getWaypointId(), ENT_COMPAT, 'UTF-8'));
-if ($geocache->getRecommendations() == 1){
-    tpl_set_var('rating_stat', mb_ereg_replace('{ratings}', $geocache->getRecommendations(), $rating_stat_show_singular));
-} elseif ($geocache->getRecommendations() > 1) {
-    tpl_set_var('rating_stat', mb_ereg_replace('{ratings}', $geocache->getRecommendations(), $rating_stat_show_plural));
-} else {
-    tpl_set_var('rating_stat', '');
-}
+
+
 // cache_rating list of users
 // no geokrets in this cache
-tpl_set_var('list_of_rating_begin', '');
-tpl_set_var('list_of_rating_end', '');
 
 tpl_set_var('altitude', $geocache->getAltitudeObj()->getAltitude());
 
-if ($geocache->getUsersRecomeded() === false) {
-    tpl_set_var('list_of_rating_begin', '');
-    tpl_set_var('list_of_rating_end', '');
-} else { // ToolTips Ballon
-    $lists = ''; $i=0;
-    foreach ($geocache->getUsersRecomeded() as $record) {
-        $i++;
-        $lists .= $record['username'];
-        if (count($geocache->getUsersRecomeded())  == 1) {
-            $lists .= ' ';
-        } else {
-            $lists .= ', ';
-        }
-    }
-    $content_list = "<a class =\"links2\" href=\"javascript:void(0)\" onmouseover=\"Tip('<b>" . tr('recommended_by') . ": </b><br><br>";
-    $content_list .= $lists;
-    $content_list .= "<br><br>', BALLOON, true, ABOVE, false, OFFSETY, 20, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\">";
 
-    tpl_set_var('list_of_rating_begin', $content_list);
-    tpl_set_var('list_of_rating_end', '</a>');
+$externalMaps = [];
+$lat = $geocache->getCoordinates()->getLatitude();
+$lon = $geocache->getCoordinates()->getLongitude();
+foreach($config['maps']['external'] as $key => $value){
+    if ( $value == 1 ) {
+        $externalMaps[] = sprintf($config['maps']['external'][$key.'_URL'],
+                            $lat, $lon,
+                            $geocache->getCacheId(), $geocache->getWaypointId(),
+                            urlencode($geocache->getCacheName()),
+                            $key);
+    }
 }
+$view->setVar('externalMaps', $externalMaps);
 
-if ((($geocache->getWayLenght() == null) && ($geocache->getSearchTime() == null)) ||
-        (($geocache->getWayLenght() == 0) && ($geocache->getSearchTime() == 0))) {
-    tpl_set_var('hidetime_start', '<!-- ');
-    tpl_set_var('hidetime_end', ' -->');
 
-    tpl_set_var('search_time', tr('not_available'));
-    tpl_set_var('way_length', tr('not_available'));
-} else {
-    tpl_set_var('hidetime_start', '');
-    tpl_set_var('hidetime_end', '');
 
-    if (($geocache->getSearchTime() == null) || ($geocache->getSearchTime() == 0)) {
-        tpl_set_var('search_time', tr('not_available'));
-    } else {
-        $time_hours = floor($geocache->getSearchTime());
-        $time_min = ($geocache->getSearchTime() - $time_hours) * 60;
-        $time_min = sprintf('%02d', round($time_min, 1));
-        tpl_set_var('search_time', $time_hours . ':' . $time_min . ' h');
-    }
 
-    if (($geocache->getWayLenght() == null) || ($geocache->getWayLenght() == 0)){
-        tpl_set_var('way_length', tr('not_available'));
-    } else {
-        tpl_set_var('way_length', sprintf('%01.2f km', $geocache->getWayLenght()));
-    }
+
+
+$view->setVar('cacheHiddenDate', $geocache->getDatePlaced()->format($ocConfig->getDateFormat()));
+$view->setVar('cacheCreationDate', $geocache->getDateCreated()->format($ocConfig->getDateFormat()));
+$view->setVar('cacheLastModifiedDate', $geocache->getLastModificationDate()->format($ocConfig->getDateFormat()));
+
+
+
+if ($loggedUser && $loggedUser->getFoundGeocachesCount() >= $config['otherSites_minfinds']) {
+    $view->setVar('otherSitesListing', $geocache->getFullOtherWaypointsList() );
+}else{
+    $view->setVar('otherSitesListing', []);
 }
 
 
-//        tpl_set_var('cache_log_pw', (($cache_record['logpw'] == NULL) || ($cache_record['logpw'] == '')) ? '' : $cache_log_pw);
-tpl_set_var('nocrypt', $no_crypt);
-$hidden_date = $geocache->getDatePlaced()->format($applicationContainer->getOcConfig()->getDateFormat());
-tpl_set_var('hidden_date', $hidden_date);
 
-$listed_on = array();
-if ($usr !== false && $usr['userFounds'] >= $config['otherSites_minfinds']) {
-    $geocacheOtherWaypoints = $geocache->getOtherWaypointIds();
-    if ($geocacheOtherWaypoints['ge'] != '' && $config['otherSites_gpsgames_org'] == 1){
-        $listed_on[] = '<a href="http://geocaching.gpsgames.org/cgi-bin/ge.pl?wp=' . $geocacheOtherWaypoints['ge'] . '" target="_blank">GPSgames.org (' . $geocacheOtherWaypoints['ge'] . ')</a>';
-    }
-    if ($geocacheOtherWaypoints['tc'] != '' && $config['otherSites_terracaching_com'] == 1){
-        $listed_on[] = '<a href="http://play.terracaching.com/Cache/' . $geocacheOtherWaypoints['tc'] . '" target="_blank">Terracaching.com (' . $geocacheOtherWaypoints['tc'] . ')</a>';
-    }
-    if ($geocacheOtherWaypoints['nc'] != '' && $config['otherSites_navicache_com'] == 1) {
-        $wpnc = hexdec(mb_substr($geocacheOtherWaypoints['nc'], 1));
-        $listed_on[] = '<a href="http://www.navicache.com/cgi-bin/db/displaycache2.pl?CacheID=' . $wpnc . '" target="_blank">Navicache.com (' . $wpnc . ')</a>';
-    }
-    if ($geocacheOtherWaypoints['gc'] != '' && $config['otherSites_geocaching_com'] == 1){
-        $listed_on[] = '<a href="http://coord.info/' . $geocacheOtherWaypoints['gc'] . '" target="_blank">Geocaching.com (' . $geocacheOtherWaypoints['gc'] . ')</a> ';
-    }
-}
-tpl_set_var('listed_on', sizeof($listed_on) == 0 ? $listed_only_oc : implode(", ", $listed_on));
-if (sizeof($listed_on) == 0) {
-    tpl_set_var('hidelistingsites_start', '<!--');
-    tpl_set_var('hidelistingsites_end', '-->');
-} else {
-    tpl_set_var('hidelistingsites_start', '');
-    tpl_set_var('hidelistingsites_end', '');
-}
 
-//cache available
-$st = $geocache->dictionary->getCacheStatuses();
-if ($geocache->getStatus() != 1) {
-    tpl_set_var('status', $error_prefix . htmlspecialchars(tr($st[$geocache->getStatus()]['translation']), ENT_COMPAT, 'UTF-8') . $error_suffix);
-} else {
-    tpl_set_var('status', '<span style="color:green;font-weight:bold;">' . htmlspecialchars(tr($st[$geocache->getStatus()]['translation']), ENT_COMPAT, 'UTF-8') . '</span>');
-}
-
-tpl_set_var('date_created', $geocache->getDateCreated()->format($applicationContainer->getOcConfig()->getDateFormat()));
 
 tpl_set_var('difficulty_icon_diff', icon_difficulty("diff", $geocache->getDifficulty()));
 tpl_set_var('difficulty_icon_terr', icon_difficulty("terr", $geocache->getTerrain()));
 
-tpl_set_var('founds', htmlspecialchars($geocache->getFounds(), ENT_COMPAT, 'UTF-8'));
-tpl_set_var('notfounds', htmlspecialchars($geocache->getNotFounds(), ENT_COMPAT, 'UTF-8'));
-tpl_set_var('notes', htmlspecialchars($geocache->getNotesCount(), ENT_COMPAT, 'UTF-8'));
+
 tpl_set_var('total_number_of_logs', htmlspecialchars($geocache->getFounds() + $geocache->getNotFounds() + $geocache->getNotesCount(), ENT_COMPAT, 'UTF-8'));
 
 // Personal cache notes
@@ -793,32 +511,13 @@ if ($usr == true) {
     tpl_set_var('EditCacheNoteS', '<!--');
 }
 // end personal cache note
-tpl_set_var('watcher', $geocache->getWatchingUsersCount());
 tpl_set_var('ignorer_count', $geocache->getIgnoringUsersCount());
-tpl_set_var('votes_count', $geocache->getratingVotes());
-tpl_set_var('note_icon', $note_icon);
 tpl_set_var('notes_icon', $notes_icon);
-tpl_set_var('vote_icon', $vote_icon);
-tpl_set_var('gk_icon', $gk_icon);
-tpl_set_var('watch_icon', $watch_icon);
-tpl_set_var('visit_icon', $visit_icon);
-tpl_set_var('score_icon', $score_icon);
 tpl_set_var('save_icon', $save_icon);
 tpl_set_var('search_icon', $search_icon);
 
-if ($geocache->getCacheType() == GeoCache::TYPE_EVENT) {
-    tpl_set_var('found_icon', $exist_icon);
-    tpl_set_var('notfound_icon', $wattend_icon);
 
-    tpl_set_var('found_text', $event_attended_text);
-    tpl_set_var('notfound_text', $event_will_attend_text);
-} else {
-    tpl_set_var('found_icon', $found_icon);
-    tpl_set_var('notfound_icon', $notfound_icon);
 
-    tpl_set_var('found_text', $cache_found_text);
-    tpl_set_var('notfound_text', $cache_notfound_text);
-}
 
 if (($usr['admin'] == 1)) {
     $showhidedel_link = ""; //no need to hide/show deletion for COG (they always see deletions)
@@ -839,18 +538,11 @@ if (($usr['admin'] == 1)) {
 tpl_set_var('showhidedel_link', mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $showhidedel_link));
 tpl_set_var('new_log_entry_link', mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $new_log_entry_link));
 
-// number of visits
-$s = $dbc->multiVariableQuery(
-    "SELECT `count` FROM `cache_visits`
-    WHERE `cache_id`=:1 AND `user_id_ip`='0'",
-    $cache_id);
 
-if ($dbc->rowCount($s) == 0){
-    tpl_set_var('visits', '0');
-} else {
-    $watcher_record = $dbc->dbResultFetchOneRowOnly($s);
-    tpl_set_var('visits', $watcher_record['count']);
-}
+
+
+
+
 $HideDeleted = true;
 if(isset($_SESSION['showdel']) && $_SESSION['showdel'] == 'y'){
    $HideDeleted = false;
@@ -901,151 +593,67 @@ if($geocache->isAdopted()){
     tpl_set_var('creator_name', htmlspecialchars($geocache->getFounder()->getUserName(), ENT_COMPAT, 'UTF-8'));
 }
 
-//get description languages
-$desclangs = mb_split(',', $geocache->getDescLanguagesList());
 
 
-// use cache desc in lang of interface by default
-$desclang = mb_strtoupper($lang);
 
-// check if there is a desc in current lang
-if (array_search($desclang, $desclangs) === false) {
-    $desclang = $desclangs[0];
-    $enable_google_translation = true; //no desc in current lang - enable translation
-}
+
+// determine description language
+$availableDescLangs = mb_split(',', $geocache->getDescLanguagesList());
+
 
 // check if user requests other lang of cache desc...
-if ( isset($_REQUEST['desclang']) && (array_search($_REQUEST['desclang'], $desclangs) !== false)) {
-    $desclang = $_REQUEST['desclang'];
-    $enable_google_translation = false; //user wants this lang - disable translations
+if ( isset($_REQUEST['desclang']) && (array_search($_REQUEST['desclang'], $availableDescLangs) !== false)) {
+    $descLang = $_REQUEST['desclang'];
+
+} elseif (array_search( mb_strtoupper($lang) , $availableDescLangs) === false) { // or try current lang
+    $descLang = mb_strtoupper($lang);
+
+}else{ // use first available otherwise
+    $descLang = $availableDescLangs[0];
 }
 
-if ( ! OcConfig::instance()->isGoogleTranslationEnabled() ){
-    $enable_google_translation = false;
-    //TODO: Translation is not available - needs implementation...
+$view->setVar('usedDescLang', $descLang); // lang of presented description
+$view->setVar('availableDescLangs', $availableDescLangs);
+
+
+
+// add OC Team comment
+if ($loggedUser && $loggedUser->isAdmin() && isset($_POST['rr_comment']) && !empty($_POST['rr_comment']) && !$_SESSION['submitted']) {
+    GeoCacheDesc::UpdateAdminComment( $geocache, $_POST['rr_comment'], $loggedUser);
+    $_SESSION['submitted'] = true;
 }
 
-//build langs list
-$langlist = '';
-foreach ($desclangs AS $desclanguage) {
-    if ($langlist != '')
-        $langlist .= ', ';
-
-    $langlist .= '<a href="viewcache.php?cacheid=' . urlencode($cache_id) . '&amp;desclang=' . urlencode($desclanguage) . $linkargs . '">';
-    if ($desclanguage == $desclang) {
-        $langlist .= '<i>' . htmlspecialchars($desclanguage, ENT_COMPAT, 'UTF-8') . '</i>';
-    } else {
-        $langlist .= htmlspecialchars($desclanguage, ENT_COMPAT, 'UTF-8');
-    }
-    $langlist .= '</a>';
+// remove OC Team comment
+if ($loggedUser && $loggedUser->isAdmin() && isset($_GET['rmAdminComment']) && isset($_GET['cacheid'])) {
+    GeoCacheDesc::RemoveAdminComment($geocache);
 }
 
-tpl_set_var('desc_langs', $langlist);
 
-// ===== openchecker ========================================================
-if ( $config['module']['openchecker']['enabled'] ) {
-    $s = $dbc->multiVariableQuery(
-        "SELECT `waypoints`.`wp_id`, `opensprawdzacz`.`proby`,
-                `opensprawdzacz`.`sukcesy`
-        FROM   `waypoints`,  `opensprawdzacz`
-        WHERE  `waypoints`.`cache_id` = :1
-            AND    `waypoints`.`type` = 3
-            AND    `waypoints`.`opensprawdzacz` = 1
-            AND    `waypoints`.`cache_id` = `opensprawdzacz`.cache_id",
-        $geocache->getCacheId()
-    );
-    if ($dbc->rowCount($s) != 0 && $config['module']['openchecker']['enabled']) {
-        $openchecker_data = $dbc->dbResultFetchOneRowOnly($s);
-        tpl_set_var('attempts_counter', $openchecker_data['proby']);
-        tpl_set_var('hits_counter', $openchecker_data['sukcesy']);
-        tpl_set_var('openchecker_end', '');
-        tpl_set_var('openchecker_start', '');
-    } else {
-        tpl_set_var('openchecker_end', '-->');
-        tpl_set_var('openchecker_start', '<!--');
-    }
-} else {
-    tpl_set_var('openchecker_end', '-->');
-    tpl_set_var('openchecker_start', '<!--');
+$geoCacheDesc = $geocache->getCacheDescription($descLang);
+$view->setVar('geoCacheDesc', $geoCacheDesc);
+
+
+
+
+if(OpenChecker::isEnabledInConfig()){
+    $openChecker = OpenChecker::ForCacheIdFactory($geocache->getCacheId());
+}else{
+    $openChecker = null;
 }
-// ===== openchecker end ====================================================
-// show additional waypoints
-$cache_type = $geocache->getCacheType();
-$waypoints_visible = 0;
-$s = $dbc->multiVariableQuery(
-    "SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`,
-            `waypoint_type`.en wp_type, waypoint_type.icon wp_icon
-    FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id)
-    WHERE `cache_id`=:1 ORDER BY `stage`,`wp_id`", $geocache->getCacheId());
+$view->setVar('openChecker', $openChecker);
 
-$wptCount = $dbc->rowCount($s);
-if ($wptCount != 0 && $geocache->getCacheType() != GeoCache::TYPE_MOVING) { // check status all waypoints
-    foreach ($dbc->dbResultFetchAll($s) as $wp_check) {
-        if ($wp_check['status'] == 1 || $wp_check['status'] == 2) {
-            $waypoints_visible = 1;
-        }
-    }
-    if ($waypoints_visible != 0) {
-        $waypoints = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 12px; line-height: 1.6em">';
-        $waypoints .= '<tr>';
-        if ($cache_type == 1 || $cache_type == 3 || $cache_type == 7)
-            $waypoints .= '<th align="center" valign="middle" width="30"><b>' . tr('stage_wp') . '</b></th>';
 
-        $waypoints .='<th align="center" valign="middle" width="40">&nbsp;<b>' . tr('symbol_wp') . '</b>&nbsp;</th>
-                <th align="center" valign="middle" width="40">&nbsp;<b>' . tr('type_wp') . '</b>&nbsp;</th>
-                <th width="90" align="center" valign="middle">&nbsp;<b>' . tr('coordinates_wp') . '</b>&nbsp;</th>
-                <th align="center" valign="middle"><b>' . tr('describe_wp') . '</b></th></tr>';
-    }
 
-    /*@var $waypoint lib\Objects\GeoCache\Waypoint */
-    foreach ($geocache->getWaypoints() as $waypoint) {
-        if ($waypoint->getStatus() != Waypoint::STATUS_HIDDEN) {
-            $wpTypeTranslation = tr('wayPointType'.$waypoint->getType());
-            $tmpline1 = $wpline;    // string in viewcache.inc.php
+$waypointsList = Waypoint::GetWaypointsForCacheId($geocache);
+$view->setVar('waypointsList', $waypointsList);
+$view->setVar('cacheWithStages',
+    $geocache->getCacheType() == GeoCache::TYPE_OTHERTYPE ||
+    $geocache->getCacheType() == GeoCache::TYPE_QUIZ ||
+    $geocache->getCacheType() == GeoCache::TYPE_MULTICACHE );
 
-            if ($waypoint->getStatus() == Waypoint::STATUS_VISIBLE) {
-                $coords_lat_lon = "<a class=\"links4\" href=\"#\" onclick=\"javascript:window.open('coordinates.php?lat=" . $waypoint->getCoordinates()->getLatitude() . "&amp;lon=" . $waypoint->getCoordinates()->getLongitude() . "&amp;popup=y&amp;wp=" . htmlspecialchars($geocache->getWaypointId(), ENT_COMPAT, 'UTF-8') . "','Koordinatenumrechnung','width=240,height=334,resizable=yes,scrollbars=1'); return event.returnValue=false\">" . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_latToDegreeStr($waypoint->getCoordinates()->getLatitude()), ENT_COMPAT, 'UTF-8') . "<br>" . htmlspecialchars(help_lonToDegreeStr($waypoint->getCoordinates()->getLongitude()), ENT_COMPAT, 'UTF-8')) . "</a>";
-            }
-            if ($waypoint->getStatus() == Waypoint::STATUS_VISIBLE_HIDDEN_COORDS) {
-                $coords_lat_lon = "N ?? ??????<br>E ?? ??????";
-            }
-            $tmpline1 = mb_ereg_replace('{wp_icon}', htmlspecialchars($waypoint->getIconName(), ENT_COMPAT, 'UTF-8'), $tmpline1);
-            $tmpline1 = mb_ereg_replace('{type}', htmlspecialchars($wpTypeTranslation, ENT_COMPAT, 'UTF-8'), $tmpline1);
-            $tmpline1 = mb_ereg_replace('{lat_lon}', $coords_lat_lon, $tmpline1);
-            $tmpline1 = mb_ereg_replace('{desc}', nl2br($waypoint->getDescription()) , $tmpline1);
-            $tmpline1 = mb_ereg_replace('{wpid}', $waypoint->getId(), $tmpline1);
 
-            if ($cache_type == 1 || $cache_type == 3 || $cache_type == 7) {
-                $tmpline1 = mb_ereg_replace('{stagehide_end}', '', $tmpline1);
-                $tmpline1 = mb_ereg_replace('{stagehide_start}', '', $tmpline1);
-                if ($waypoint->getStage() == 0) {
-                    $tmpline1 = mb_ereg_replace('{number}', "", $tmpline1);
-                } else {
-                    $tmpline1 = mb_ereg_replace('{number}', $waypoint->getStage(), $tmpline1);
-                }
-            } else {
-                $tmpline1 = mb_ereg_replace('{stagehide_end}', '-->', $tmpline1);
-                $tmpline1 = mb_ereg_replace('{stagehide_start}', '<!--', $tmpline1);
-            }
 
-            $waypoints .= $tmpline1;
-        }
-    }
-    if ($waypoints_visible != 0) {
-        $waypoints .= '</table>';
-        tpl_set_var('waypoints_content', $waypoints);
-        tpl_set_var('waypoints_start', '');
-        tpl_set_var('waypoints_end', '');
-    } else {
-        tpl_set_var('waypoints_content', '<br>');
-        tpl_set_var('waypoints_start', '<!--');
-        tpl_set_var('waypoints_end', '-->');
-    }
-} else {
-    tpl_set_var('waypoints_content', '<br>');
-    tpl_set_var('waypoints_start', '<!--');
-    tpl_set_var('waypoints_end', '-->');
-}
+
 
 
 // show mp3 files for PodCache
@@ -1066,7 +674,7 @@ else {
 
 
 // show pictures
-if ($geocache->getPicturesCount() == 0 || (isset($_REQUEST['print']) && $_REQUEST['pictures'] == 'no')) {
+if ($geocache->getPicturesCount() == 0 || (isset($_REQUEST['print']) && isset($_REQUEST['pictures']) && $_REQUEST['pictures'] == 'no')) {
     tpl_set_var('pictures', '<br>');
     tpl_set_var('hidepictures_start', '<!--');
     tpl_set_var('hidepictures_end', '-->');
@@ -1097,156 +705,28 @@ if ($geocache->getPicturesCount() == 0 || (isset($_REQUEST['print']) && $_REQUES
 }
 
 
-// add OC Team comment
-if ($usr['admin'] && isset($_POST['rr_comment']) && $_POST['rr_comment'] != "" && $_SESSION['submitted'] != true) {
-    $sender_name = $usr['username'];
-    $comment = nl2br($_POST['rr_comment']);
-    $date = date("d-m-Y H:i:s");
-    $octeam_comment = '<b><span class="content-title-noshade txt-blue08">' . tr('date') . ': ' . $date . ', ' . tr('add_by') . ' ' . $sender_name . '</span></b><br>' . $comment;
 
-    XDb::xSql(
-        "UPDATE cache_desc
-        SET rr_comment = CONCAT('" . XDb::xEscape($octeam_comment) . "<br><br>', rr_comment),
-            last_modified = NOW()
-        WHERE cache_id= ? ", $cache_id);
 
-    $_SESSION['submitted'] = true;
 
-    EmailSender::sendNotifyOfOcTeamCommentToCache(__DIR__ . '/tpl/stdstyle/email/octeam_comment.email.html',
-        $geocache, $usr['userid'], $usr['username'], nl2br($_POST['rr_comment']));
-}
+$showUnencryptedHint = isset($_REQUEST['nocrypt']) && $_REQUEST['nocrypt'] == 1;
+$view->setVar('showUnencryptedHint', $showUnencryptedHint);
 
-// remove OC Team comment
-if ($usr['admin'] && isset($_GET['removerrcomment']) && isset($_GET['cacheid'])) {
-    XDb::xSql(
-        "UPDATE cache_desc SET rr_comment='' WHERE cache_id= ? ",$cache_id);
-}
+$hint = $geoCacheDesc->getHint();
 
-// show description
-$query =
-    "SELECT `short_desc`, `desc`, `desc_html`, `hint`, `rr_comment` FROM `cache_desc`
-    WHERE `cache_id`=:1 AND `language`=:2 LIMIT 1";
-$s = $dbc->multiVariableQuery($query, $cache_id, $desclang);
-$desc_record = $dbc->dbResultFetchOneRowOnly($s);
+if(!$showUnencryptedHint){
+    $hint = str_rot13_html($geoCacheDesc->getHint());
 
-$desc_html = $desc_record['desc_html'];
-
-$short_desc = $desc_record['short_desc'];
-
-// plain text, needs escaping
-$short_desc = htmlspecialchars($short_desc, ENT_COMPAT, 'UTF-8');
-//replace { and } to prevent replacing
-$short_desc = mb_ereg_replace('{', '&#0123;', $short_desc);
-$short_desc = mb_ereg_replace('}', '&#0125;', $short_desc);
-tpl_set_var('short_desc', $short_desc);
-
-$desc = $desc_record['desc'];
-if ($desc_html != 2) {
-    // unsafe HTML, needs purifying
-    $desc = htmlspecialchars_decode($desc);
-    if (isset($_GET['use_purifier']) && $_GET['use_purifier'] == 0) {
-        // skip using HTML Purifier - to let show original content
-    } else {
-        $desc = userInputFilter::purifyHtmlString($desc);
-    }
-} else {
-    // safe HTML - pass as is
-}
-//replace { and } to prevent replacing
-$desc = mb_ereg_replace('{', '&#0123;', $desc);
-$desc = mb_ereg_replace('}', '&#0125;', $desc);
-
-// TODO: UTF-8 compatible str_replace (with arrays)
-$desc = str_replace($smileytext, $smileyimage, $desc);
-
-$res = '';
-
-tpl_set_var('desc', $desc, true);
-
-if ($usr['admin']) {
-    tpl_set_var('add_rr_comment', '[<a href="add_octeam_comment.php?cacheid=' . $cache_id . '">' . tr('add_rr_comment') . '</a>]');
-    if ($desc_record['rr_comment'] == "")
-        tpl_set_var('remove_rr_comment', '');
-    else
-        tpl_set_var('remove_rr_comment', '[<a href="viewcache.php?cacheid=' . $cache_id . '&amp;removerrcomment=1" onclick="return confirm(\'' . tr("confirm_remove_rr_comment") . '\');">' . tr('remove_rr_comment') . '</a>]');
-}
-else {
-    tpl_set_var('add_rr_comment', '');
-    tpl_set_var('remove_rr_comment', '');
-}
-
-if ($desc_record['rr_comment'] != "") {
-    tpl_set_var('start_rr_comment', '', true);
-    tpl_set_var('end_rr_comment', '', true);
-    tpl_set_var('rr_comment', $desc_record['rr_comment'], true);
-} else {
-    tpl_set_var('rr_comment_label', '', true);
-    tpl_set_var('rr_comment', '', true);
-    tpl_set_var('start_rr_comment', '<!--', true);
-    tpl_set_var('end_rr_comment', '-->', true);
-    $_POST['rr_comment'] = "";
-}
-// show hints
-//
-    $hint = $desc_record['hint'];
-    tpl_set_var('hintEncrypted', $hint);
-if ($hint == '') {  // no hint - blank all items
-    tpl_set_var('cryptedhints', '');
-    tpl_set_var('hints', '');
-    tpl_set_var("decrypt_link_start", '');
-    tpl_set_var("decrypt_link_end", '');
-    tpl_set_var("decrypt_table_start", '');
-    tpl_set_var("decrypt_table_end", '');
-    tpl_set_var("decrypt_icon", '');
-    tpl_set_var('$decrypt_table', '');
-
-    tpl_set_var('hidehint_start', '<!--');
-    tpl_set_var('hidehint_end', '-->');
-} elseif ($usr == false && $hide_coords) { // hind avaiable but user not logged on
-    tpl_set_var('hints', '<span class="notice" style="width:500px;height:44px"  >' . tr('vc_hint_for_logged_only') . '</span> ');
-    tpl_set_var('cryptedhints', '');
-    tpl_set_var("decrypt_link_start", '');
-    tpl_set_var("decrypt_link_end", '');
-    tpl_set_var("decrypt_table_start", '');
-    tpl_set_var("decrypt_table_end", '');
-    tpl_set_var('hidehint_start', '');
-    tpl_set_var('hidehint_end', '');
-    tpl_set_var('decrypt_link', '');
-    tpl_set_var('decrypt_icon', '');
-    tpl_set_var('decrypt_table', '');
-} else { //hind avaiable, user logged - proceed with hint
-    tpl_set_var('hidehint_start', '');
-    tpl_set_var('hidehint_end', '');
-    tpl_set_var('decrypt_icon', $decrypt_icon);
-    tpl_set_var('decrypt_table', $decrypt_table);
-
-    if ($no_crypt == 0) {
-        $link = mb_ereg_replace('{cacheid_urlencode}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $decrypt_link);
-        $link = mb_ereg_replace('{desclang}', htmlspecialchars(urlencode($desclang), ENT_COMPAT, 'UTF-8'), $link);
-
-        tpl_set_var('decrypt_link', $link);
-        tpl_set_var("decrypt_link_start", '');
-        tpl_set_var("decrypt_link_end", '');
-        tpl_set_var("decrypt_table_start", '');
-        tpl_set_var("decrypt_table_end", '');
-
-        //crypt the hint ROT13, but keep HTML-Tags and Entities
-        $hint = str_rot13_html($hint);
-
-        //TODO: mark all that isn't ROT13 coded
-    } else {
-        tpl_set_var("decrypt_link_start", "<!--");
-        tpl_set_var("decrypt_link_end", "-->");
-        tpl_set_var("decrypt_table_start", "<!--");
-        tpl_set_var("decrypt_table_end", "-->");
-    }
-
-    //replace { and } to prevent replacing
+    //replace { and } to prevent replacing at view template processing!
     $hint = mb_ereg_replace('{', '&#0123;', $hint);
     $hint = mb_ereg_replace('}', '&#0125;', $hint);
-
-    tpl_set_var('hints', $hint);
 }
+
+$view->setVar('hintEncrypted', $geoCacheDesc->getHint());
+$view->setVar('hintDecrypted', $hint);
+
+
+
+
 
 //check number of pictures in logs
 $rspiclogs = $dbc->multiVariableQueryValue(
@@ -1446,39 +926,8 @@ tpl_set_var('print', $print_action);
 tpl_set_var('print_list', isset($print_list) ? $print_list : '');
 
 
-// check if password is required
-$has_password = $geocache->hasPassword();
 
-// cache-attributes
-$s = $dbc->multiVariableQuery(
-    "SELECT `cache_attrib`.`text_long`, `cache_attrib`.`icon_large`
-    FROM  `cache_attrib`, `caches_attributes`
-    WHERE `cache_attrib`.`id`=`caches_attributes`.`attrib_id`
-        AND `cache_attrib`.`language`=:1
-        AND `caches_attributes`.`cache_id`=:2
-    ORDER BY `cache_attrib`.`category`, `cache_attrib`.`id`", strtoupper($lang), $geocache->getCacheId());
 
-$num_of_attributes = $dbc->rowCount($s);
-if ($num_of_attributes > 0 || $has_password) {
-    $cache_attributes = '';
-    foreach ($dbc->dbResultFetchAll($s) as $record) {
-        $cache_attributes .= '<img src="' . htmlspecialchars($record['icon_large'], ENT_COMPAT, 'UTF-8') . '" title="' . htmlspecialchars($record['text_long'], ENT_COMPAT, 'UTF-8') . '" alt="' . htmlspecialchars($record['text_long'], ENT_COMPAT, 'UTF-8') . '">&nbsp;';
-    }
-
-    if ($has_password){
-        tpl_set_var('password_req', '<img src="' . $config['search-attr-icons']['password'][0] .'" title="' . tr('LogPassword') .'" alt="Potrzebne hasło">');
-    } else {
-        tpl_set_var('password_req', '');
-    }
-    tpl_set_var('cache_attributes', $cache_attributes);
-    tpl_set_var('cache_attributes_start', '');
-    tpl_set_var('cache_attributes_end', '');
-} else {
-    tpl_set_var('cache_attributes_start', '<!--');
-    tpl_set_var('cache_attributes_end', '-->');
-    tpl_set_var('cache_attributes', '');
-    tpl_set_var('password_req', '');
-}
 
 
 //make the template and send it out
@@ -1517,6 +966,8 @@ if ($powerTrailModuleSwitchOn && $cache_id != null) {
 $view->setVar('geoPathSectionDisplay', $geoPathSectionDisplay);
 
 
+
+$view->setVar('linkargs', $linkargs);
 
 
 tpl_set_var('viewcache_js', "tpl/stdstyle/js/viewcache." . filemtime($rootpath . 'tpl/stdstyle/js/viewcache.js') . ".js");

@@ -215,7 +215,6 @@ $translations = array(
     'will_attend' => 'Kommer att delta',
     'enter_text' => 'Ange text',
     'enter_text_error' => 'Ingen text har skrivits in',
-    'only_these' => 'endast dessa',
     'password_required' => 'Lösenord krävs för att lägga till en logg.',
     'last_log_entries' => 'De senaste loggarna',
     'terrain_difficulty' => 'Terräng',

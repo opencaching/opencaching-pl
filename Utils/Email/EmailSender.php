@@ -157,8 +157,9 @@ class EmailSender
         $email->send();
     }
 
-    public static function sendNotifyOfOcTeamCommentToCache($emailTemplateFile, GeoCache $cache, $adminId, $adminName,
-        $message) {
+    public static function sendNotifyOfOcTeamCommentToCache(GeoCache $cache, User $admin, $message)
+    {
+        $emailTemplateFile = __DIR__ . '/../../tpl/stdstyle/email/octeam_comment.email.html';
 
         $formattedMessage = new EmailFormatter($emailTemplateFile);
         $formattedMessage->setVariable("ocTeamComment_01", tr("ocTeamComment_01"));
@@ -169,8 +170,8 @@ class EmailSender
         $formattedMessage->setVariable("waypointId", $cache->getWaypointId());
         $formattedMessage->setVariable("cachename", $cache->getCacheName());
         $formattedMessage->setVariable("octeam_comment", $message);
-        $formattedMessage->setVariable("adminName", $adminName);
-        $formattedMessage->setVariable("adminId", $adminId);
+        $formattedMessage->setVariable("adminName", $admin->getUserName());
+        $formattedMessage->setVariable("adminId", $admin->getUserId());
         $formattedMessage->setVariable("server", OcConfig::getAbsolute_server_URI());
 
         $formattedMessage->addFooterAndHeader($cache->getOwner()->getUserName(), false);

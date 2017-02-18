@@ -1,5 +1,7 @@
 <?php
 
+use lib\Objects\GeoCache\GeoCacheCommons;
+
 require_once __DIR__ . '/../lib/ClassPathDictionary.php';
 require_once __DIR__ . '/../lib/language.inc.php';
 
@@ -155,7 +157,7 @@ function ratings($score, $votes)
     if ($votes < 3) {
         return '<span style="color: gray">' . tr2('pt083', $language) . '</span>';
     }
-    $scoreNum = score2ratingnum($score);
+    $scoreNum = GeoCacheCommons::ScoreAsRatingNum($score);
 
 
     switch ($scoreNum) {
@@ -165,18 +167,4 @@ function ratings($score, $votes)
         case 3: return '<span style="color: #518C00">' . tr2('pt071', $language) . '</span>';
         case 4: return '<span style="color: #009D00">' . tr2('pt070', $language) . '</span>';
     }
-}
-
-function score2ratingnum($score)
-{
-    if ($score >= 2.2)
-        return 4;
-    else if ($score >= 1.4)
-        return 3;
-    else if ($score >= 0.1)
-        return 2;
-    else if ($score >= -1.0)
-        return 1;
-    else
-        return 0;
 }

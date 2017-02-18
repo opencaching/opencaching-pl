@@ -238,7 +238,6 @@ $translations = array(
     'will_attend' => 'Will attend',
     'enter_text' => 'Enter text',
     'enter_text_error' => 'Text has not been entered',
-    'only_these' => 'Only these',
     'password_required' => 'Password required to add a log entry.',
     'last_log_entries' => 'The latest log entries',
     'terrain_difficulty' => 'Terrain difficulty',
@@ -1184,7 +1183,6 @@ $translations = array(
     'lxg01' => 'Wrong date. Please enter correct date: DD-MM-YYYY',
     'lxg02' => 'Rate cache, or select you do not want rate this cache.',
     'lxg03' => 'Please select!',
-    'lxg04' => 'Only listed here',
     'lxg05' => 'Send log entry',
     'lxg06' => 'Select',
     'lxg07' => 'Enter new mobile cache coordinates please!',
@@ -2652,7 +2650,7 @@ $translations = array(
     'merit_badge_number_threshold' =>  'Thresholds',
     'merit_badge_show_details' => 'Show details of merit badges ... ',
     'merit_badge_gain_max_level' => 'You gained the highest level'
-                
+
 );
 
 

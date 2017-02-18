@@ -7,13 +7,14 @@ use \lib\Objects\OcConfig\OcConfig;
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use lib\Objects\User\User;
+use lib\Objects\Coordinates\Coordinates;
 
 /**
  * Description of geoCache
  *
  * @author Łza
  */
-class GeoCache extends StaticGeoCache
+class GeoCache extends GeoCacheCommons
 {
     private $id;
     private $geocacheWaypointId;
@@ -21,8 +22,7 @@ class GeoCache extends StaticGeoCache
         'gc' => null,
         'ge' => null,
         'nc' => null,
-        'tc' => null,
-        'tc' => null,
+        'tc' => null
     );
     private $cacheName;
     private $cacheType;
@@ -124,6 +124,12 @@ class GeoCache extends StaticGeoCache
      * @var $cacheLocationObj \lib\Objects\GeoCache\CacheLocation
      */
     private $cacheLocationObj;
+
+    /**
+     * List of cache attribites
+     * @var
+     */
+    private $cacheAttributesList = null;
 
     /**
      * @param array $params
@@ -399,37 +405,6 @@ class GeoCache extends StaticGeoCache
 
 
 
-    /**
-     * Returns the cache size key based on size numeric identifier
-     *
-     * @param int $sizeId
-     * @return string - size key for translation
-     */
-    public static function CacheSizeDescBySizeId($sizeId)
-    {
-        switch ($sizeId) {
-            case self::SIZE_OTHER:
-                return 'size_00';
-            case self::SIZE_NANO:
-                return 'size_01';
-            case self::SIZE_MICRO:
-                return 'size_02';
-            case self::SIZE_SMALL:
-                return 'size_03';
-            case self::SIZE_REGULAR:
-                return 'size_04';
-            case self::SIZE_LARGE:
-                return 'size_05';
-            case self::SIZE_XLARGE:
-                return 'size_06';
-            case self::SIZE_NONE:
-                return 'size_07';
-            default:
-                error_log(__METHOD__ . ' Unknown cache sizeId: ' . $sizeId);
-                return 'size_04';
-        }
-    }
-
 
     /**
      * perform update on specified elements only.
@@ -452,12 +427,20 @@ class GeoCache extends StaticGeoCache
         return $this->cacheType;
     }
 
-    public function getCacheTypeName(){
-
+    /**
+     * Returns name of the cache type used in translation files
+     *
+     */
+    public function getCacheTypeTranslationKey(){
+        return self::CacheTypeTranslationKey($this->getCacheType());
     }
 
     public function isEvent(){
         return $this->cacheType == self::TYPE_EVENT;
+    }
+
+    public function isMobile(){
+        return $this->cacheType == self::TYPE_MOVING;
     }
 
     public function getCacheLocationObj()
@@ -591,9 +574,9 @@ class GeoCache extends StaticGeoCache
         return $this->sizeId;
     }
 
-    public function getSizeDesc()
+    public function getSizeTranslationKey()
     {
-        return self::CacheSizeDescBySizeId($this->sizeId);
+        return self::CacheSizeTranslationKey($this->sizeId);
     }
 
     /**
@@ -676,12 +659,30 @@ class GeoCache extends StaticGeoCache
         return $this->status;
     }
 
+    public function isStatusReady(){
+        return $this->status == self::STATUS_READY;
+    }
+
+    public function getStatusTranslationKey(){
+        return self::CacheStatusTranslationKey($this->status);
+    }
+
     /**
      * @return mixed
      */
     public function getScore()
     {
         return $this->score;
+    }
+
+    public function getScoreNameTranslation()
+    {
+        return self::ScoreAsRatingTranslation($this->score);
+    }
+
+    public function getScoreAsRatingNum()
+    {
+        return self::ScoreAsRatingNum($this->score);
     }
 
     public function isTitled()
@@ -726,9 +727,16 @@ class GeoCache extends StaticGeoCache
     {
         if($this->usersRecomeded === false) {
             $db  = OcDb::instance();
-            $sql = "SELECT user.username username FROM `cache_rating` INNER JOIN user ON (cache_rating.user_id = user.user_id) WHERE cache_id=:1 ORDER BY username";
-            $s = $db->multiVariableQuery($sql, $this->id);
-            $this->usersRecomeded = $db->dbResultFetchAll($s);
+            $s = $db->multiVariableQuery(
+                "SELECT user.username AS username
+                 FROM `cache_rating` INNER JOIN user ON (cache_rating.user_id = user.user_id)
+                 WHERE cache_id=:1 ORDER BY username", $this->id);
+
+            $usersArr = [];
+            foreach ($db->dbResultFetchAll($s) as $row){
+                $usersArr[] = $row['username'];
+            }
+            $this->usersRecomeded = implode($usersArr, ', ');
         }
         return $this->usersRecomeded;
     }
@@ -748,14 +756,70 @@ class GeoCache extends StaticGeoCache
         return $this->wayLenght;
     }
 
+    public function getWayLenghtFormattedString(){
+        return sprintf('%01.2f km', $this->getWayLenght());
+    }
+
     public function getSearchTime()
     {
         return $this->searchTime;
     }
 
+    public function getSearchTimeFormattedString()
+    {
+        $hours = floor($this->getSearchTime());
+        $min = ( $this->getSearchTime() - $hours ) * 60;
+        $min = sprintf('%02d', round($min, 1));
+        return $hours . ':' . $min . ' h';
+    }
+
+
     public function getOtherWaypointIds()
     {
         return $this->otherWaypointIds;
+    }
+
+    public function getFullOtherWaypointsList()
+    {
+        global $config;
+
+        $result = [];
+
+        if ( !empty($this->otherWaypointIds['ge']) && $config['otherSites_gpsgames_org'] == 1 ){
+            $otherSite = new \stdClass();
+            $otherSite->link = 'http://geocaching.gpsgames.org/cgi-bin/ge.pl?wp='.$this->otherWaypointIds['ge'];
+            $otherSite->sitename = 'GPSgames.org';
+            $otherSite->wp = $this->otherWaypointIds['ge'];
+            $result[] = $otherSite;
+        }
+
+        if ( !empty($this->otherWaypointIds['tc']) && $config['otherSites_terracaching_com'] == 1){
+            $otherSite = new \stdClass();
+            $otherSite->link = 'http://play.terracaching.com/Cache/'.$this->otherWaypointIds['tc'];
+            $otherSite->sitename = 'Terracaching.com';
+            $otherSite->wp = $this->otherWaypointIds['tc'];
+            $result[] = $otherSite;
+        }
+
+        if ( !empty($this->otherWaypointIds['nc']) && $config['otherSites_navicache_com'] == 1){
+            $otherSite = new \stdClass();
+            $wpnc = hexdec(mb_substr($this->otherWaypointIds['nc'], 1));
+
+            $otherSite->link = 'http://www.navicache.com/cgi-bin/db/displaycache2.pl?CacheID='.$wpnc;
+            $otherSite->sitename = 'Navicache.com';
+            $otherSite->wp = $wpnc;
+            $result[] = $otherSite;
+        }
+
+        if ( !empty($this->otherWaypointIds['gc']) && $config['otherSites_geocaching_com'] == 1){
+            $otherSite = new \stdClass();
+            $otherSite->link = 'http://coord.info/'.$this->otherWaypointIds['gc'];
+            $otherSite->sitename = 'Geocaching.com';
+            $otherSite->wp = $this->otherWaypointIds['gc'];
+            $result[] = $otherSite;
+        }
+
+        return $result;
     }
 
     /**
@@ -839,11 +903,7 @@ class GeoCache extends StaticGeoCache
 
     public function getWaypoints()
     {
-        if($this->waypoints === null){
-            $this->waypoints = new \ArrayObject();
-            \lib\Controllers\GeocacheController::buildWaypointsForGeocache($this);
-        }
-        return $this->waypoints;
+        return Waypoint::GetWaypointsForCacheId($this->id);
     }
 
     /**
@@ -943,6 +1003,130 @@ class GeoCache extends StaticGeoCache
             WHERE `caches`.`cache_id`=`cache_logs`.`cache_id` AND `cache_logs`.`id`=`mp3`.`object_id`
             AND `mp3`.`object_type`=1 AND `caches`.`cache_id`= ?
             AND `cache_logs`.`deleted`= ? ", $cacheid, 0);
+    }
+
+    /**
+     * Returns last modification date
+     * @return \DateTime
+     */
+    public function getLastModificationDate(){
+
+        $lm = XDb::xMultiVariableQueryValue(
+            "SELECT MAX(`last_modified`) `last_modified`
+             FROM
+                 ( SELECT `last_modified` FROM `caches` WHERE `cache_id` = :1
+                   UNION
+                   SELECT `last_modified` FROM `cache_desc` WHERE `cache_id` = :2 ) `tmp_result`",
+            0, $this->id, $this->id );
+
+        return new \DateTime($lm);
+    }
+
+    public function getCacheVisits()
+    {
+        return XDb::xMultiVariableQueryValue(
+                    "SELECT `count` FROM `cache_visits`
+                     WHERE `cache_id`=:1 AND `user_id_ip`='0'",
+                     0, $this->id);
+    }
+
+    public function getCacheAttributesList()
+    {
+        global $lang, $config;
+
+        if(is_array($this->cacheAttributesList)){
+            return $this->cacheAttributesList;
+        }
+
+        $s = XDb::xSql(
+                "SELECT cache_attrib.text_long AS text, cache_attrib.icon_large AS icon
+                FROM cache_attrib, caches_attributes
+                WHERE cache_attrib.id=caches_attributes.attrib_id
+                    AND cache_attrib.language = ?
+                    AND caches_attributes.cache_id = ?
+                ORDER BY cache_attrib.category, cache_attrib.id",
+            strtoupper($lang), $this->getCacheId());
+
+        if( XDb::xNumRows($s) == 0 ){
+            //XXX: there can be a lack of cache attrib translation in current language - then retrive translation in english
+            $s = XDb::xSql(
+                "SELECT cache_attrib.text_long AS text, cache_attrib.icon_large AS icon
+                FROM cache_attrib, caches_attributes
+                WHERE cache_attrib.id=caches_attributes.attrib_id
+                    AND cache_attrib.language = 'EN'
+                    AND caches_attributes.cache_id = ?
+                ORDER BY cache_attrib.category, cache_attrib.id",
+                $this->getCacheId());
+        }
+
+        $this->cacheAttributesList = [];
+        while($record = XDb::xFetchArray($s)){
+
+            $attrib = new \stdClass();
+            $attrib->iconLarge = $record['icon'];
+            $attrib->text = $record['text'];
+
+            $this->cacheAttributesList[] = $attrib;
+        }
+
+        // password is a special attribute - not stored in DB... sad...
+        if($this->hasPassword()){
+            $attrib = new \stdClass();
+            $attrib->iconLarge = $config['search-attr-icons']['password'][0];
+            $attrib->text = tr('LogPassword');
+
+            $this->cacheAttributesList[] = $attrib;
+        }
+
+        return $this->cacheAttributesList;
+    }
+
+    /**
+     *
+     * @param unknown $descLang
+     * @return GeoCacheDesc
+     */
+    public function getCacheDescription($descLang)
+    {
+         return new GeoCacheDesc($this->id, $descLang);
+    }
+
+    /**
+     * Returns user modified coordinates or null if there is no such defined
+     * @return Coordinates
+     */
+    public function getUserCoordinates($userId)
+    {
+        $s = XDb::xSql(
+            "SELECT longitude AS lon, latitude AS lat FROM cache_mod_cords
+            WHERE cache_id = ? AND user_id = ? LIMIT 1", $this->id, $userId);
+
+        if($row = XDb::xFetchArray($s)){
+            return Coordinates::FromCoordsFactory($row['lat'], $row['lon']);
+        }else{
+            return null;
+        }
+
+    }
+
+    public function saveUserCoordinates(Coordinates $coords, $userId)
+    {
+        //TODO: Table cache_mod_cords should have index on cache_id/user_id instead of autoincrement index!
+        //      Then it could be possible to use INSERT ... ON DUPLICATE KEY UPDATE Syntax
+        //      DELETE old coords to be sure there is no duplicates...
+        $this->deleteUserCoordinates($userId);
+
+        XDb::xSql("INSERT INTO cache_mod_cords
+            (cache_id, user_id, longitude, latitude, date)
+            VALUES(?, ?, ?, ?, NOW() );",
+            $this->id, $userId, $coords->getLongitude(), $coords->getLatitude());
+    }
+
+    public function deleteUserCoordinates($userId)
+    {
+        XDb::xSql("DELETE FROM cache_mod_cords
+                   WHERE cache_id = ? AND user_id = ?", $this->id, $userId);
+
     }
 
 }
