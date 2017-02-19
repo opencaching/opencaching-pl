@@ -3,6 +3,7 @@
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use Utils\Gis\Gis;
+use lib\Objects\GeoCache\GeoCacheCommons;
 /* todo:
   create and set up 4 template selector with wybor_WE wybor_NS.
 
@@ -219,7 +220,7 @@ if ($error == false) {
                         $checked = "";
 
                     $score.= '
-                        <label><input type="radio" style="vertical-align: top" name="r" id="r' . $line_cnt . '" value="' . $score_radio . '" onclick="clear_no_score ();"' . $checked . '  /><b><font color="' . $color_table[$line_cnt] . '"><span id="score_lbl_' . $line_cnt . '">' . ucfirst($ratingDesc[$score_radio]) . '</span></font></b></label>&nbsp;&nbsp;' . $break_line;
+                        <label><input type="radio" style="vertical-align: top" name="r" id="r' . $line_cnt . '" value="' . $score_radio . '" onclick="clear_no_score ();"' . $checked . '  /><b><font color="' . $color_table[$line_cnt] . '"><span id="score_lbl_' . $line_cnt . '">' . ucfirst(tr(GeoCacheCommons::CacheRatingDescByRatingId($score_radio))) . '</span></font></b></label>&nbsp;&nbsp;' . $break_line;
                     $line_cnt++;
                 }
 

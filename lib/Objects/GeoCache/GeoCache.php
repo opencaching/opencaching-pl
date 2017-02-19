@@ -127,9 +127,28 @@ class GeoCache extends GeoCacheCommons
 
     /**
      * List of cache attribites
-     * @var
      */
     private $cacheAttributesList = null;
+
+    /**
+     * List of hosted geokrets
+     * @var array
+     */
+    private $hostedGeokrets = false;
+
+    /**
+     * List of mp3 records assigned to this cache
+     * @var array
+     */
+    private $mp3List = null;
+
+    /**
+     * List of pictures assigned to this cache
+     */
+    private $picturesList = null;
+
+    private $picsInLogsCount = null;
+
 
     /**
      * @param array $params
@@ -703,8 +722,11 @@ class GeoCache extends GeoCacheCommons
     {
         if($this->natureRegions === false){
             $db = OcDb::instance();
-            $rsAreasql = "SELECT `parkipl`.`id` AS `npaId`, `parkipl`.`name` AS `npaname`,`parkipl`.`link` AS `npalink`,`parkipl`.`logo` AS `npalogo` FROM `cache_npa_areas` INNER JOIN `parkipl` ON `cache_npa_areas`.`parki_id`=`parkipl`.`id` WHERE `cache_npa_areas`.`cache_id`=:1 AND `cache_npa_areas`.`parki_id`!='0'";
-            $s = $db->multiVariableQuery($rsAreasql, $this->id);
+            $s = $db->multiVariableQuery(
+                "SELECT `parkipl`.`name` AS `npaname`,`parkipl`.`link` AS `npalink`,`parkipl`.`logo` AS `npalogo`
+                 FROM `cache_npa_areas` INNER JOIN `parkipl` ON `cache_npa_areas`.`parki_id`=`parkipl`.`id`
+                 WHERE `cache_npa_areas`.`cache_id`=:1 AND `cache_npa_areas`.`parki_id`!='0'", $this->id);
+
             $this->natureRegions = $db->dbResultFetchAll($s);
         }
         return $this->natureRegions;
@@ -1126,8 +1148,166 @@ class GeoCache extends GeoCacheCommons
     {
         XDb::xSql("DELETE FROM cache_mod_cords
                    WHERE cache_id = ? AND user_id = ?", $this->id, $userId);
+    }
+
+    public function getUserNote($userId)
+    {
+        return XDb::xMultiVariableQueryValue(
+            "SELECT `desc` FROM cache_notes WHERE cache_id = :1 AND user_id = :2 LIMIT 1",
+            '', $this->id, $userId);
+    }
+
+    public function saveUserNote($userId, $noteContent)
+    {
+        //TODO: Table cache_notes should have index on cache_id/user_id instead of autoincrement index!
+        //      Then it could be possible to use INSERT ... ON DUPLICATE KEY UPDATE Syntax
+        //      DELETE old coords to be sure there is no duplicates...
+        $this->deleteUserCoordinates($userId);
+
+
+        $noteContent = htmlspecialchars($noteContent, ENT_COMPAT, 'UTF-8');
+
+        XDb::xSql("INSERT INTO cache_notes
+            (cache_id, user_id, `desc`, desc_html, date)
+            VALUES(?, ?, ?, ?, NOW() );",
+            $this->id, $userId, $noteContent, '0');
 
     }
 
+    public function deleteUserNote($userId)
+    {
+        XDb::xSql("DELETE FROM cache_notes
+                   WHERE cache_id = ? AND user_id = ?", $this->id, $userId);
+    }
+
+    public function getGeokretsHosted()
+    {
+        if($this->hostedGeokrets===false){
+            $s = XDb::xSql("SELECT gk_item.id, name, distancetravelled as distance
+                        FROM gk_item INNER JOIN gk_item_waypoint ON (gk_item.id = gk_item_waypoint.id)
+                        WHERE gk_item_waypoint.wp = ?
+                            AND stateid<>1 AND stateid<>4
+                            AND stateid<>5 AND typeid<>2 AND missing=0", $this->geocacheWaypointId);
+
+            $this->hostedGeokrets = array();
+            while ($row = Xdb::xFetchArray($s)){
+                $this->hostedGeokrets[] = $row;
+            }
+        }
+        return $this->hostedGeokrets;
+
+    }
+
+    public function getMp3List()
+    {
+        if(is_null($this->mp3List)){
+
+        $this->mp3List = array();
+        $rs = XDb::xSql(
+            'SELECT uuid, title, url FROM mp3
+            WHERE object_id = ? AND object_type=2 AND display=1
+            ORDER BY seq, date_created', $this->id);
+
+            while ($row = XDb::xFetchArray($rs)) {
+                $this->mp3List[] = $row;
+            }
+        }
+
+        return $this->mp3List;
+    }
+
+    /**
+     *
+     * @param string $changeUrlForSpilers - is used to hide spoilers if neccessary
+     */
+    public function getPicturesList( $returnSpoilersOnly, $changeUrlForSpoilers = false, $displayThumbsForSpoilers=false )
+    {
+        if(is_null($this->picturesList)){
+
+            $this->picturesList = array();
+
+            $rs = XDb::xSql(
+                "SELECT uuid, title, url, spoiler FROM pictures
+                WHERE object_id = ? AND object_type=2 AND display=1
+                ORDER BY seq, date_created", $this->id);
+
+            while($row=XDb::xFetchArray($rs)){
+                $pic = new \stdClass();             //TODO: it should be refactored to picture-class
+
+                $pic->spoiler = ($row['spoiler'] == '1');
+                $pic->title = $row['title'];
+                $pic->titleHtml = htmlspecialchars($row['title']);
+                $pic->uuid = $row['uuid'];
+                $pic->thumbUrl = "thumbs.php?uuid=".$row['uuid'];
+
+                // path to images was changes - why not to fix it in DB?
+                $pic->url = str_replace("images/uploads", "upload", $row['url']);
+
+
+                $this->picturesList[] = $pic;
+            }
+        }
+
+        if(! $returnSpoilersOnly){
+            $result = $this->picturesList;
+        }else{
+            // filter out non-spoilers
+            $result =  array_filter( $this->picturesList, function ($pic){
+                return $pic->spoiler;
+            });
+        }
+
+        if($changeUrlForSpoilers){
+            array_walk($result, function($pic){
+                if($pic->spoiler){
+                    $pic->url = 'tpl\stdstyle\images\thumb\thumbspoiler.gif';
+                }
+            });
+        }
+
+        if($displayThumbsForSpoilers){
+            array_walk($result, function($pic){
+                if($pic->spoiler){
+                    $pic->thumbUrl = $pic->thumbUrl . '&amp;showspoiler=1';
+                }
+            });
+        }
+
+        return $result;
+    }
+
+    /**
+     * This is used to determine if display link to the gallery of pics from logs...
+     * @return unknown|mixed
+     */
+    public function getPicsInLogsCount()
+    {
+        if( is_null( $this->picsInLogsCount ) ){
+
+            $this->picsInLogsCount = Xdb::xMultiVariableQueryValue(
+                    "SELECT COUNT(*) FROM pictures, cache_logs
+                    WHERE pictures.object_id = cache_logs.id
+                        AND pictures.object_type = 1
+                        AND cache_logs.cache_id = :1", 0, $this->id);
+        }
+        return $this->picsInLogsCount;
+    }
+
+    public function hasDeletedLog()
+    {
+        return '1' == Xdb::xMultiVariableQueryValue(
+            "SELECT 1 FROM cache_logs
+            WHERE deleted = 1 and cache_id= :1 LIMIT 1", 0, $this->id);
+    }
+
+    public function getLogEntriesCount($countDeleted = false)
+    {
+
+        $excludeDeleted = (!$countDeleted)?"deleted= 0 AND":'';
+
+        return Xdb::xMultiVariableQueryValue(
+            "SELECT count(*) FROM cache_logs
+            WHERE " . $excludeDeleted . " `cache_id`= :1", 0, $this->id);
+    }
 }
 

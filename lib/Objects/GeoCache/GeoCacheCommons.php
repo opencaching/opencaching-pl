@@ -181,15 +181,15 @@ class GeoCacheCommons{
     public static function CacheRatingDescByRatingId($ratingId)
     {
         switch ($ratingId) {
-            case 1:
+            case 0:
                 return 'rating_poor';
-            case 2:
+            case 1:
                 return 'rating_mediocre';
-            case 3:
+            case 2:
                 return 'rating_avarage';
-            case 4:
+            case 3:
                 return 'rating_good';
-            case 5:
+            case 4:
                 return 'rating_excellent';
         }
     }

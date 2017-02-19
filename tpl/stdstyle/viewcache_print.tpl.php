@@ -24,7 +24,8 @@
         {difficulty_icon_diff} {difficulty_icon_terr} <?=$view->geoCacheDesc->getShortDescToDisplay()?>
         {{hidden_by}} <a href="viewprofile.php?userid={userid_urlencode}">{owner_name}</a>
 
-        <img src="tpl/stdstyle/images/free_icons/package.png" class="icon16" alt="" title="" />&nbsp;<b>{cachesize}</b>
+        <img src="tpl/stdstyle/images/free_icons/package.png" class="icon16" alt="" title="" />&nbsp;
+        <b><?=tr($view->geoCache->getSizeTranslationKey())?></b>
 
 
         <?php if($view->geoCache->getWayLenght() || $view->geoCache->getSearchTime()) { ?>
@@ -60,9 +61,6 @@
     </div>
 </div>
 
-<?php
-global $usr, $lang, $hide_coords;
-?>
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
         <img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="" align="absmiddle" />
@@ -76,7 +74,7 @@ global $usr, $lang, $hide_coords;
 <div class="content2-container">
     <div id="description">
         <div id="viewcache-description">
-            {desc}
+          <?=$view->geoCacheDesc->getDescToDisplay()?>
         </div>
     </div>
 </div>
@@ -114,26 +112,26 @@ global $usr, $lang, $hide_coords;
 
 
 
-{CacheNoteS}
-<div class="content2-container bg-blue02">
-    <p class="content-title-noshade-size2">
-        <img src="tpl/stdstyle/images/blue/logs.png" style="align: left; margin-right: 10px;" alt="{{personal_cache_note}}" />
-        <b>{{personal_cache_note}}</b>
-    </p>
-</div>
-<div class="content2-container">
-    <table>
-        <tr valign="top">
-            <td></td>
-            <td>
-                <div>
-                    <span style="font-size:16px;">{notes_content}</span>
-                </div>
-            </td>
-        </tr>
-    </table>
-</div>
-{CacheNoteE}
+<?php if($view->isUserAuthorized) { ?>
+    <div class="content2-container bg-blue02">
+        <p class="content-title-noshade-size2">
+            <img src="tpl/stdstyle/images/blue/logs.png" style="align: left; margin-right: 10px;" alt="{{personal_cache_note}}" />
+            <b>{{personal_cache_note}}</b>
+        </p>
+    </div>
+    <div class="content2-container">
+        <table>
+            <tr valign="top">
+                <td></td>
+                <td>
+                    <div>
+                        <span style="font-size:16px;"><?=$view->userNoteText?></span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+<?php } //if-isUserAuthorized ?>
 
 <?php if( !empty($view->waypointsList) ) { ?>
 
@@ -198,7 +196,8 @@ global $usr, $lang, $hide_coords;
 
 
 
-{hidenpa_start}
+<?php if( !empty($view->geoCache->getNatureRegions() ) || !empty($view->geoCache->getNatura2000Sites())) { ?>
+
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
         <img src="tpl/stdstyle/images/blue/npav1.png" class="icon32" alt="" align="absmiddle" />
@@ -209,15 +208,71 @@ global $usr, $lang, $hide_coords;
     <center>
         <table width="90%" border="0" style="border-collapse: collapse; font-weight: bold;font-size: 14px; line-height: 1.6em">
             <tr>
-                <td align="center" valign="middle">&nbsp;</td><td align="center" valign="middle">{npa_content}</td><td align="center" valign="middle"><a class="links" href="http://www.natura2000.pl/" target="_blank"><img src="tpl/stdstyle/images/misc/natura2000.png" alt="" title="" /></a></td>
+                <td align="center" valign="middle">&nbsp;</td><td align="center" valign="middle">
+
+                        <?php if( !empty($view->geoCache->getNatureRegions() ) ){ ?>
+
+                            <table width="90%" border="0" style="border-collapse: collapse; font-weight: bold;font-size: 14px; line-height: 1.6em">
+                              <tr>
+                                <td align="center" valign="middle">
+                                  <b><?=tr('npa_info')?></b>:
+                                </td>
+                                <td align="center" valign="middle">&nbsp;</td>
+                              </tr>
+
+                            <?php foreach ($view->geoCache->getNatureRegions() as $npa) { ?>
+
+                                <tr>
+                                  <td align="center" valign="middle">
+                                    <font color="blue">
+                                      <a target="_blank" href="http://<?=$npa['npalink']?>"><?=$npa['npaname']?></a>
+                                    </font>
+                                    <br />
+                                  </td>
+                                  <td align="center" valign="middle">
+                                    <img src="tpl/stdstyle/images/pnk/"<?=$npa['npalogo']?>">
+                                  </td>
+                                </tr>
+                            <?php } //foreach ?>
+                            </table>
+
+                         <?php } //if-NatureRegions-presents ?>
+
+                         <?php if(  !empty($view->geoCache->getNatura2000Sites()) ) { ?>
+
+                            <table width="90%" border="0" style="border-collapse: collapse; font-weight: bold;font-size: 14px; line-height: 1.6em\">
+                              <tr>
+                              <td width=90% align="center" valign="middle"><b><?=tr('npa_info')?><font color="green">NATURA 2000</font></b>:<br>
+                                <?php foreach ($view->geoCache->getNatura2000Sites() as $npa) {
+                                            $npa_item = $config['nature2000link'];
+                                            $npa_item = mb_ereg_replace('{linkid}', $npa['linkid'], $npa_item);
+                                            $npa_item = mb_ereg_replace('{sitename}', $npa['npaSitename'], $npa_item);
+                                            $npa_item = mb_ereg_replace('{sitecode}', $npa['npaSitecode'], $npa_item);
+                                            echo $npa_item; ?>
+                                            <br />
+
+                                <?php } //foreach ?>
+
+                              </td>
+                              <td align="center" valign="middle"><img src="tpl/stdstyle/images/misc/natura2000.png\"></td>
+                            </tr>
+                            </table>
+
+
+                         <?php } //if-Natura2000-presents ?>
+
+                </td><td align="center" valign="middle"><a class="links" href="http://www.natura2000.pl/" target="_blank"><img src="tpl/stdstyle/images/misc/natura2000.png" alt="" title="" /></a></td>
             </tr>
         </table>
     </center>
 </div>
-{hidenpa_end}
+
+<?php } //if-natureRegions-present ?>
+
+
 
 <!-- sekcja modyfikatora współrzędnych -->
-<?php if($view->cacheCoordsModificationAllowed) { ?>
+<?php if($view->cacheCoordsModificationAllowed && $view->userModifiedCacheCoords) { ?>
 
 <div  class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
@@ -227,9 +282,8 @@ global $usr, $lang, $hide_coords;
 </div>
 <div class="content2-container">
     <p>
-        {{srch_Coord_have_been_modified}}:<BR/>
-        {coordmod_lat_h} {coordmod_lat}<BR/>
-        {coordmod_lon_h} {coordmod_lon}<BR/>
+        {{srch_Coord_have_been_modified}}:<br />
+        <?=$view->userModifiedCacheCoords->getAsText()?>
     </p>
 </div>
 
@@ -237,7 +291,7 @@ global $usr, $lang, $hide_coords;
 
 <!-- koniec sekcji modyfikatora współrzędnych -->
 
-{geokrety_begin}
+<?php if( !empty($view->geoCache->getGeokretsHosted())) { ?>
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
         <img src="tpl/stdstyle/images/blue/travelbug.png" class="icon32" alt="" align="absmiddle" />
@@ -246,11 +300,19 @@ global $usr, $lang, $hide_coords;
 </div>
 <div class="content2-container">
     <p>
-        {geokrety_content}
+        <?php foreach ($view->geoCache->getGeokretsHosted() as $gk) { ?>
+
+            <img src="/images/geokret.gif" alt="">&nbsp;
+            <a href='https://geokrety.org/konkret.php?id=<?=$gk['id']?>'><?=$gk['name']?></a>
+            - <?=tr('total_distance')?>: <?=$gk['distance']?> km <br/>
+
+        <?php } ?>
     </p>
 </div>
-{geokrety_end}
-{hidepictures_start}
+<?php } //if-geokrety-inside ?>
+
+
+<?php if( !empty($view->picturesToDisplay) ) { ?>
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
         <img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt="" align="absmiddle" />
@@ -260,11 +322,48 @@ global $usr, $lang, $hide_coords;
 <div class="content2-container">
     <div id="viewcache-pictures">
         <div id="hideshow">
-            {pictures}
+
+
+            <?php foreach ($view->picturesToDisplay as $pic) { ?>
+
+              <?php if(!$view->displayBigPictures) { ?>
+
+                <!-- <br style="clear: left;" /> at every 4 pic... TODO -->
+                <div class="viewcache-pictureblock">
+
+                    <?php if( !$pic->spoiler || $view->isUserAuthorized || $view->alwaysShowCoords ) { ?>
+                      <div class="img-shadow">
+                        <a href="<?=$pic->url?>" title="<?=$pic->title?>" >
+                          <img src="<?=$pic->thumbUrl?>" alt="<?=$pic->title?>" title="<?=$pic->title?>" />
+
+                    <?php } else { //if-no-spoiler-or-display-all ?>
+
+                      <div class="img-shadow">
+                        <a href="<?=$pic->url?>" title="<?=$pic->title?>" >
+                    <?php } //if-no-spoiler-or-display-all ?>
+
+                        </a>
+                      </div>
+
+                    <span class="title"><?=$pic->title?></span>
+                </div>
+
+              <?php } else { //if-display-big-pics ?>
+
+                <div style="display: block; float: left; margin: 3px;">
+                <div style=""><p><?=$pic->title?></p></div>
+                <img style="max-width: 600px;" src="<?=$pic->url?>" alt="<?=$pic->title?>" title="<?=$pic->title?>" />
+                </div>
+
+              <?php } //if-display-big-pics ?>
+
+            <?php } //foreach ?>
+
+
         </div>
     </div>
 </div>
-{hidepictures_end}
+<?php } //if-pictures-to-display-present ?>
 
 <!-- Text container -->
 {hidelogbook_start}

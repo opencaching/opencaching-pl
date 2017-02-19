@@ -120,8 +120,8 @@ return function (Coordinates $initCoords = null, $inputPrefix='') {
 </style>
 
 <!-- Final coords -->
-<input id="<?=$finalLatId?>" name="<?=$finalLatId?>" type="text" value="" />
-<input id="<?=$finalLonId?>" name="<?=$finalLonId?>" type="text" value="" />
+<input id="<?=$finalLatId?>" name="<?=$finalLatId?>" type="hidden" value="" />
+<input id="<?=$finalLonId?>" name="<?=$finalLonId?>" type="hidden" value="" />
 <input id="<?=$finalCoordsReadyId?>" type="hidden" value="false" />
 
 <fieldset style="border: 1px solid black; background-color: #FAFBDF; width: 200px; " class="form-group-sm">

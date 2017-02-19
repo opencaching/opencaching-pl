@@ -191,7 +191,7 @@ class EmailSender
         $emailCOG->setReplyToAddr(OcConfig::getCogEmailAddress());
         $emailCOG->setFromAddr(OcConfig::getCogEmailAddress());
         $emailCOG->addSubjectPrefix(OcConfig::getMailSubjectPrefixForReviewers());
-        $emailCOG->setSubject(tr('octeam_comment_subject_copy').' '.$adminName);
+        $emailCOG->setSubject(tr('octeam_comment_subject_copy').' '.$admin->getUserName());
         $emailCOG->setBody($formattedMessage->getEmailContent(), true);
         $emailCOG->send();
     }

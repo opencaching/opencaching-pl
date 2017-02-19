@@ -1,5 +1,7 @@
 <?php
 
+use Utils\View\View;
+
 //set the global template-name variable
 function tpl_set_tplname($local_tpl_name){
     global $tplname;
@@ -119,6 +121,9 @@ function tpl_errorMsg($tplnameError, $msg)
 
 //TODO: this is temporary solution for backward compatibility
 // $view will be a context variable in further implementaion
+/**
+ * @return View
+ */
 function tpl_getView(){
 
     global $view;

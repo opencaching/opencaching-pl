@@ -71,7 +71,7 @@ $config = array(
      * Minimum number of finds a user must have to see a cache's waypoint on
      * another site.
      */
-    'otherSites_minfinds' => 100,
+    'otherSites_minfinds' => 10,
     /**
      * not allowed cache types (user cannot create caches of this types).
      *

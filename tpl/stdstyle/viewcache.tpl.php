@@ -17,9 +17,9 @@
 
 
 <input type="hidden" id="cacheid" value="{cacheid}">
-<input type="hidden" id="logEnteriesCount" value="{logEnteriesCount}">
+<input type="hidden" id="logEnteriesCount" value="<?=$view->logEnteriesCount?>">
 <input type="hidden" id="owner_id" value="{owner_id}">
-<input type="hidden" id="includeDeletedLogs" value="{includeDeletedLogs}">
+<input type="hidden" id="includeDeletedLogs" value="<?=$view->displayDeletedLogs?>">
 <input type="hidden" id="uType" value="{uType}">
 
 <div class="content2-container line-box">
@@ -143,14 +143,22 @@
             <img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="" title="">
             <b>
               <?php if($view->isUserAuthorized || $view->alwaysShowCoords ) { ?>
-                <?=$view->geoCache->getCoordinates()->getAsText()?>
+
+                <?php if(!$view->userModifiedCacheCoords) { ?>
+                  <?=$view->geoCache->getCoordinates()->getAsText()?>
+
+                <?php } else { // if-userModifiedCacheCoords ?>
+                  <?=$view->userModifiedCacheCoords->getAsText()?>
+
+                <?php } // if-userModifiedCacheCoords ?>
+
               <?php } else { //user-not-authorized ?>
                 <?=tr('hidden_coords')?>
               <?php } //else-user-not-authorized ?>
             </b>
             <span class="content-title-noshade-size0">
                 (WGS84)
-                <?php if($view->userModifiedCoords) { ?>
+                <?php if($view->userModifiedCacheCoords) { ?>
                   <a href="#coords_mod_section">
                     <img src="tpl/stdstyle/images/blue/signature1-orange.png" class="icon32"
                       alt="<?=tr('orig_coord_modified_info')?><?=$view->geoCache->getCoordinates()->getAsText()?>"
@@ -646,7 +654,7 @@
 
 <?php if($view->cacheCoordsModificationAllowed) { ?>
 
-<div id="#coords_mod_section" class="content2-container bg-blue02">
+<div id="coords_mod_section" class="content2-container bg-blue02">
         <p class="content-title-noshade-size1">
           <img src="tpl/stdstyle/images/blue/signature1.png" class="icon32" alt="" />
           {{coords_modifier}}
@@ -658,33 +666,26 @@
     {{coordsmod_main}} <br />
 
     <form action="viewcache.php?cacheid=<?=$view->geoCache->getCacheId()?>" method="post" name="form_coords_mod">
-        <?php $view->callChunk('coordsForm', $view->userModifiedCoords, 'userCoords'); ?>
+        <?php $view->callChunk('coordsForm', $view->userModifiedCacheCoords, 'userCoords'); ?>
 
         <script type="text/javascript">
           // disable subit button if coords are not set
 
           $('#userCoordsFinalCoordsReady').change(function(){
-
               if( $('#userCoordsFinalCoordsReady').val() ){
                 $("#submitBtns > input[type=submit]").attr('disabled', false);
               }else{
                 $("#submitBtns > input[type=submit]").attr('disabled', true);
               }
-
           });
-
         </script>
 
         <p id="submitBtns" >
-            <input id="modCoords" type="submit" name="modCoords" value="{{modify_coords}}" disabled="disabled" class="btn btn-default btn-sm">
-            <input id="resetCoords" type="submit" name="resetCoords" value="{{reset_coords}}" disabled="disabled" class="btn btn-default btn-sm">
+            <input id="userModifiedCoordsSubmited" type="submit" name="userModifiedCoordsSubmited" value="{{modify_coords}}" disabled="disabled" class="btn btn-default btn-sm">
+            <input id="deleteUserModifiedCoords" type="submit" name="deleteUserModifiedCoords" value="{{reset_coords}}" disabled="disabled" class="btn btn-default btn-sm">
         </p>
-
     </form>
-
-    <div class="notice buffer" id="viewcache-mod_coord">
-        {{modified_coord_notice}}
-    </div>
+    <div class="notice buffer" id="viewcache-mod_coord">{{modified_coord_notice}}</div>
 
 </div>
 <?php } //if-cacheCoordsModificationAllowed ?>
@@ -698,145 +699,238 @@
 
 
 
+<?php if($view->isUserAuthorized) { ?>
 
-
-{EditCacheNoteS}
-<div class="content2-container bg-blue02">
-    <p class="content-title-noshade-size2">
-        <img src="tpl/stdstyle/images/blue/logs.png" style="align: left; margin-right: 10px;" alt="{{personal_cache_note}}"> {{personal_cache_note}}
-    </p>
-</div>
-
-<div class="content2-container">
-    <form action="viewcache.php" method="post" name="cache_note">
-        <input type="hidden" name="cacheid" value="{cacheid}">
-
-        <table id="cache_note1" class="table">
-            <tr valign="top">
-                <td></td>
-                <td>
-                    <textarea name="note_content" rows="4" cols="85" style="font-size:13px;">{note_content}</textarea>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td colspan="2">
-                    <button type="submit" name="save" value="save" class="btn btn-default btn-sm">{{save}}</button>&nbsp;&nbsp;
-                    <img src="tpl/stdstyle/images/misc/16x16-info.png" class="icon16" alt="Info">
-                    <small>
-                        {{cache_note_visible}}</td>
-                </small>
-                </td>
-            </tr>
-        </table>
-    </form>
-</div>
-{EditCacheNoteE}
-
-
-{CacheNoteS}
-<div class="content2-container bg-blue02">
-    <p class="content-title-noshade-size2">
-        <img src="tpl/stdstyle/images/blue/logs.png" style="align: left; margin-right: 10px;" alt="{{personal_cache_note}}">
-        {{personal_cache_note}}
-    </p>
-</div>
-
-<div class="content2-container">
-    <form action="viewcache.php?cacheid={cacheid}#cache_note1" method="post" name="cache_note">
-        <input type="hidden" name="cacheid" value="{cacheid}">
-
-        <table id="cache_note2" class="table">
-            <tr valign="top">
-                <td></td>
-                <td>
-                    <div class="searchdiv" style="width: 710px;">
-                        <span style="font-size:13px;">{notes_content}</span>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td colspan="2">&nbsp;
-                    <button type="submit" name="edit" value="edit" class="btn btn-default btn-sm">{{Edit}}</button>&nbsp;&nbsp;
-                    <button type="submit" name="remove" value="remove" class="btn btn-default btn-sm">{{delete}}</button>&nbsp;&nbsp;
-                    <img src="tpl/stdstyle/images/misc/16x16-info.png" class="icon16" alt="Info">
-                    <small>
-                        {{cache_note_visible}}</td>
-                </small>
-                </td>
-            </tr>
-        </table>
-    </form>
-</div>
-{CacheNoteE}
-
-<!-- Text container -->
-{hidenpa_start}
-<div class="content2-container bg-blue02">
-    <p class="content-title-noshade-size1">
-
-        <img src="tpl/stdstyle/images/blue/npav1.png" class="icon32" alt="">
-        {{obszary_ochrony_przyrody}}
-    </p>
-</div>
-<div class="content2-container">
-    <center>
-        {npa_content}
-    </center>
-</div>
-{hidenpa_end}
-<!-- End Text Container -->
-<!-- Text container -->
-{geokrety_begin}
-<div class="content2-container bg-blue02">
-    <p class="content-title-noshade-size1">
-        <img src="tpl/stdstyle/images/blue/travelbug.png" class="icon32" alt="">
-        Geokrety
-    </p>
-</div>
-<div class="content2-container">
-    <div id="geoKretySection">
-        <p>
-            {geokrety_content}
+    <div class="content2-container bg-blue02" id="userNotes">
+        <p class="content-title-noshade-size2">
+            <img src="tpl/stdstyle/images/blue/logs.png" style="align: left; margin-right: 10px;" alt="{{personal_cache_note}}"> {{personal_cache_note}}
         </p>
     </div>
-</div>
-{geokrety_end}
-<!-- End Text Container -->
-<!-- Text container -->
-{hidemp3_start}
-<div class="content2-container bg-blue02">
-    <p class="content-title-noshade-size1">
-        <img src="tpl/stdstyle/images/blue/podcache-mp3.png" class="icon32" alt="">
-        {{mp3_files_info}}
-    </p>
-</div>
-<div class="content2-container">
-    <div id="viewcache-mp3s">
-        {mp3_files}
+
+    <div class="content2-container">
+      <form action="viewcache.php?cacheid=<?=$view->geoCache->getCacheId()?>#userNotes" method="post" name="cache_note" id="cacheNoteForm">
+
+            <textarea class="userNoteEdit" name="userNoteText" rows="4" cols="85" style="font-size:13px; display:none"><?=$view->userNoteText?></textarea>
+            <div class="searchdiv userNoteDisplay" style="width: 710px;"><span style="font-size:13px;"><?=$view->userNoteText?></span></div>
+
+
+          <div>
+            <input type="submit" name="saveUserNote" value="{{save}}" class="btn btn-default btn-sm userNoteEdit" style="display:none" />
+            <button id="editNoteBtn" type="button" class="btn btn-default btn-sm userNoteDisplay" style="display:none">{{Edit}}</button>
+            <input type="submit" name="removeUserNote" value="{{delete}}" class="btn btn-default btn-sm userNoteDisplay" style="display:none">
+
+            <img src="tpl/stdstyle/images/misc/16x16-info.png" class="icon16" alt="Info">
+            <small>{{cache_note_visible}}</small>
+          </div>
+        </form>
     </div>
-</div>
-{hidemp3_end}
-<!-- End Text Container -->
+
+    <script type="text/javascript">
+      <?php if(empty($view->userNoteText)) { ?>
+        //empty note - enable userNoteEdit
+        $('#cacheNoteForm .userNoteDisplay').hide();
+        $('#cacheNoteForm .userNoteEdit').show();
+      <?php } else { // if-empty-userNoteText ?>
+        //there is something to display
+        $('#cacheNoteForm .userNoteDisplay').show();
+        $('#cacheNoteForm .userNoteEdit').hide();
+      <?php } // if-empty-userNoteText ?>
+
+      $('#editNoteBtn').click( function(){
+        $('#cacheNoteForm .userNoteDisplay').toggle();
+        $('#cacheNoteForm .userNoteEdit').toggle();
+      });
+
+    </script>
+
+<?php } //if-isUserAuthorized ?>
+
+
+
 
 <!-- Text container -->
-{hidepictures_start}
-<div class="content2-container bg-blue02">
-    <p class="content-title-noshade-size1">
-        <img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt="">
-        {{images}}
-    </p>
-</div>
-<div class="content2-container">
-    <div id="viewcache-pictures">
-        {pictures}
+<?php if( !empty($view->geoCache->getNatureRegions() ) || !empty($view->geoCache->getNatura2000Sites())) { ?>
+
+    <div class="content2-container bg-blue02">
+        <p class="content-title-noshade-size1">
+
+            <img src="tpl/stdstyle/images/blue/npav1.png" class="icon32" alt="">
+            {{obszary_ochrony_przyrody}}
+        </p>
     </div>
-</div>
-{hidepictures_end}
+
+    <div class="content2-container">
+        <center>
+        <?php if( !empty($view->geoCache->getNatureRegions() ) ) { ?>
+
+            <table width="90%" border="0" style="border-collapse: collapse; font-weight: bold;font-size: 14px; line-height: 1.6em">
+              <tr>
+                <td align="center" valign="middle">
+                  <b><?=tr('npa_info')?></b>:
+                </td>
+                <td align="center" valign="middle">&nbsp;</td>
+              </tr>
+
+            <?php foreach ($view->geoCache->getNatureRegions() as $npa) { ?>
+
+                <tr>
+                  <td align="center" valign="middle">
+                    <font color="blue">
+                      <a target="_blank" href="http://<?=$npa['npalink']?>"><?=$npa['npaname']?></a>
+                    </font>
+                    <br />
+                  </td>
+                  <td align="center" valign="middle">
+                    <img src="tpl/stdstyle/images/pnk/"<?=$npa['npalogo']?>">
+                  </td>
+                </tr>
+            <?php } //foreach ?>
+            </table>
+
+         <?php } //if-NatureRegions-presents ?>
+
+         <?php if( !empty($view->geoCache->getNatura2000Sites())) { ?>
+
+            <table width="90%" border="0" style="border-collapse: collapse; font-weight: bold;font-size: 14px; line-height: 1.6em\">
+              <tr>
+              <td width=90% align="center" valign="middle"><b><?=tr('npa_info')?><font color="green">NATURA 2000</font></b>:<br>
+                <?php foreach ($view->geoCache->getNatura2000Sites() as $npa) {
+                            $npa_item = $config['nature2000link'];
+                            $npa_item = mb_ereg_replace('{linkid}', $npa['linkid'], $npa_item);
+                            $npa_item = mb_ereg_replace('{sitename}', $npa['npaSitename'], $npa_item);
+                            $npa_item = mb_ereg_replace('{sitecode}', $npa['npaSitecode'], $npa_item);
+                            echo $npa_item; ?>
+                            <br />
+
+                <?php } //foreach ?>
+
+              </td>
+              <td align="center" valign="middle"><img src="tpl/stdstyle/images/misc/natura2000.png\"></td>
+            </tr>
+            </table>
+
+
+         <?php } //if-Natura2000-presents ?>
+
+        </center>
+    </div>
+
+<?php } //if-natureRegions-present ?>
+<!-- End Text Container -->
+
+
+
+
+<!-- Text container -->
+
+<?php if( !empty($view->geoCache->getGeokretsHosted())) { ?>
+    <div class="content2-container bg-blue02">
+        <p class="content-title-noshade-size1">
+            <img src="tpl/stdstyle/images/blue/travelbug.png" class="icon32" alt="">
+            Geokrety
+        </p>
+    </div>
+    <div class="content2-container">
+        <div id="geoKretySection">
+            <p>
+              <?php foreach ($view->geoCache->getGeokretsHosted() as $gk) { ?>
+
+                <img src="/images/geokret.gif" alt="">&nbsp;
+                <a href='https://geokrety.org/konkret.php?id=<?=$gk['id']?>'><?=$gk['name']?></a>
+                - <?=tr('total_distance')?>: <?=$gk['distance']?> km <br/>
+
+              <?php } ?>
+            </p>
+        </div>
+    </div>
+<?php } //if-geokrety-inside ?>
+
+
+
+
 <!-- End Text Container -->
 <!-- Text container -->
-{hidesearchdownloadsection_start}
+
+
+
+<?php if( !empty($view->geoCache->getMp3List() )) { ?>
+
+    <div class="content2-container bg-blue02">
+        <p class="content-title-noshade-size1">
+            <img src="tpl/stdstyle/images/blue/podcache-mp3.png" class="icon32" alt="">
+            {{mp3_files_info}}
+        </p>
+    </div>
+    <div class="content2-container">
+        <div id="viewcache-mp3s">
+          <?php foreach ($view->geoCache->getMp3List() as $mp3 ) { ?>
+              <div class="viewcache-pictureblock">
+              <div class="img-shadow">
+                <a href="<?=$mp3['url']?>" target="_blank">
+                  <img src="tpl/stdstyle/images/blue/32x32-get-mp3.png" alt="" title="" />
+                </a>
+              </div>
+              <span class="title"><?=$mp3['title']?></span>
+              </div>
+          <?php } //foreach ?>
+        </div>
+    </div>
+
+<?php } // if-mp3-presents ?>
+
+
+<!-- End Text Container -->
+
+
+
+
+
+<!-- Text container -->
+<?php if( !empty($view->picturesToDisplay) ) { ?>
+
+
+    <div class="content2-container bg-blue02">
+        <p class="content-title-noshade-size1">
+            <img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt="">
+            {{images}}
+        </p>
+    </div>
+    <div class="content2-container">
+        <div id="viewcache-pictures">
+
+            <?php foreach ($view->picturesToDisplay as $pic) { ?>
+
+                <!-- <br style="clear: left;" /> at every 4 pic... TODO -->
+                <div class="viewcache-pictureblock">
+                    <div class="img-shadow">
+                        <a class="example-image-link" href="<?=$pic->url?>" data-lightbox="example-1" data-title="<?=$pic->title?>">
+
+                          <img class="example-image" src="<?=$pic->thumbUrl?>" alt="<?=$pic->title?>" />
+
+                        </a>
+
+                    </div>
+                <span class="title"><?=$pic->title?></span>
+              </div>
+            <?php } //foreach ?>
+
+        </div>
+    </div>
+
+<?php } //if-pictures-to-display-present ?>
+
+<!-- End Text Container -->
+
+
+
+
+
+
+
+<!-- Text container -->
+<?php if($view->isUserAuthorized) { ?>
+
+
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
         <img src="tpl/stdstyle/images/blue/tools.png" class="icon32" alt="">&nbsp;{{utilities}}
@@ -845,36 +939,60 @@
 <div class="content2-container">
     <div id="viewcache-utility">
         <div>
-            {search_icon} {{search_geocaches_nearby}}
-            <?php echo ":
-            <a href=\"search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;latNS="; ?>{latNS}<?php echo "&amp;lat_h="; ?>{lat_h}<?php echo "&amp;lat_min="; ?>{lat_min}<?php echo "&amp;lonEW="; ?>{lonEW}<?php echo "&amp;lon_h="; ?>{lon_h}<?php echo "&amp;lon_min="; ?>{lon_min}<?php echo "&amp;distance=100&amp;unit=km\">"; ?>{{all_geocaches}}<?php echo "</a>&nbsp;
-            <a href=\"search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=1&amp;f_userfound=1&amp;f_inactive=1&amp;latNS="; ?>{latNS}<?php echo "&amp;lat_h="; ?>{lat_h}<?php echo "&amp;lat_min="; ?>{lat_min}<?php echo "&amp;lonEW="; ?>{lonEW}<?php echo "&amp;lon_h="; ?>{lon_h}<?php echo "&amp;lon_min="; ?>{lon_min}<?php echo "&amp;distance=100&amp;unit=km\">"; ?>{{searchable}}<?php echo "</a><br>";
-            ?>
-            <span style="display: {userLogged}">{search_icon} {{find_geocaches_on}}:&nbsp;
-                <?php
-                if ($usr == !false && $usr['userFounds'] > 99) {
-                    echo
-                    "<b>
-                        <a target=\"_blank\" href=\"//www.geocaching.com/seek/nearest.aspx?origin_lat=";
-                    ?>{latitude}<?php echo "&amp;origin_long="; ?>{longitude}<?php echo "&amp;dist=100&amp;submit8=Submit\">Geocaching.com</a>&nbsp;&nbsp;&nbsp;
-                        <a target=\"_blank\" href=\"http://www.terracaching.com/gmap.cgi#center_lat="; ?>{latitude}<?php echo "&amp;center_lon="; ?>{longitude}<?php echo "&amp;&center_zoom=7&cselect=all&ctselect=all\">TerraCaching.com</a>&nbsp;&nbsp;
-                        <a target=\"_blank\" href=\"http://www.navicache.com/cgi-bin/db/distancedp.pl?latNS="; ?>{latNS}<?php echo "&amp;latHours="; ?>{latitude}<?php echo "&amp;longWE="; ?>{lonEW}<?php echo "&amp;longHours="; ?>{longitudeNC}<?php echo "&amp;Distance=100&amp;Units=M\">Navicache.com</a>&nbsp;&nbsp;&nbsp;
-                        <a target=\"_blank\" href=\"http://geocaching.gpsgames.org/cgi-bin/ge.pl?basic=yes&amp;download=Google+Maps&amp;zoom=8&amp;lat_1="; ?>{latitude}<?php echo "&amp;lon_1="; ?>{longitude}<?php echo "\">GPSgames.org</a>&nbsp;
-                        <a href=\"http://www.opencaching.cz/search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;country=&amp;cachetype=&amp;cache_attribs=&amp;cache_attribs_not=7&amp;latNS="; ?>{latNS}<?php echo "&amp;lat_h="; ?>{lat_h}<?php echo "&amp;lat_min="; ?>{lat_min}<?php echo "&amp;lonEW="; ?>{lonEW}<?php echo "&amp;lon_h="; ?>{lon_h}<?php echo "&amp;lon_min="; ?>{lon_min}<?php echo "&amp;distance=100&amp;unit=km\">OC CZ</a>&nbsp;&nbsp;&nbsp;
-                        <a href=\"http://www.opencaching.de/search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;country=&amp;cachetype=&amp;cache_attribs=&amp;cache_attribs_not=7&amp;latNS="; ?>{latNS}<?php echo "&amp;lat_h="; ?>{lat_h}<?php echo "&amp;lat_min="; ?>{lat_min}<?php echo "&amp;lonEW="; ?>{lonEW}<?php echo "&amp;lon_h="; ?>{lon_h}<?php echo "&amp;lon_min="; ?>{lon_min}<?php
-                    echo "&amp;distance=100&amp;unit=km\">OC DE</a></b>&nbsp;&nbsp;
-                    ";
-                }
-                ?>
+            <img src="tpl/stdstyle/images/action/16x16-search.png" class="icon16" alt="" />
+            {{search_geocaches_nearby}}:
+
+
+
+
+            <a href="search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;latNS={latNS}&amp;lat_h={lat_h}&amp;lat_min={lat_min}&amp;lonEW={lonEW}&amp;lon_h={lon_h}&amp;lon_min={lon_min}&amp;distance=100&amp;unit=km">
+            {{all_geocaches}}
+            </a>
+
+            &nbsp;
+
+            <a href="search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=1&amp;f_userfound=1&amp;f_inactive=1&amp;latNS={latNS}&amp;lat_h={lat_h}&amp;lat_min={lat_min}&amp;lonEW={lonEW}&amp;lon_h={lon_h}&amp;lon_min={lon_min}&amp;distance=100&amp;unit=km">
+            {{searchable}}
+            </a>
+
+            <br />
+
+            <span>
+              <img src="tpl/stdstyle/images/action/16x16-search.png" class="icon16" alt="" />
+
+            {{find_geocaches_on}}:&nbsp;
+
+                <?php if($view->searchAtOtherSites) { ?>
+                <b>
+
+                <a target="_blank" href="//www.geocaching.com/seek/nearest.aspx?origin_lat={latitude}&amp;origin_long={longitude}&amp;dist=100&amp;submit8=Submit\">Geocaching.com</a>
+                &nbsp;&nbsp;&nbsp;
+                <a target="_blank" href="http://www.terracaching.com/gmap.cgi#center_lat={latitude}&amp;center_lon={longitude}&amp;center_zoom=7&cselect=all&ctselect=all">TerraCaching.com</a>
+                &nbsp;&nbsp;
+                <a target="_blank" href="http://www.navicache.com/cgi-bin/db/distancedp.pl?latNS={latNS}&amp;latHours={latitude}&amp;longWE={lonEW}&amp;longHours={longitudeNC}&amp;Distance=100&amp;Units=M">Navicache.com</a>
+                &nbsp;&nbsp;&nbsp;
+
+                <a target="_blank" href="http://geocaching.gpsgames.org/cgi-bin/ge.pl?basic=yes&amp;download=Google+Maps&amp;zoom=8&amp;lat_1={latitude}&amp;lon_1={longitude}">GPSgames.org</a>
+                &nbsp;
+
+                <a href="http://www.opencaching.cz/search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;country=&amp;cachetype=&amp;cache_attribs=&amp;cache_attribs_not=7&amp;latNS={latNS}&amp;lat_h={lat_h}&amp;lat_min={lat_min}&amp;lonEW={lonEW}&amp;lon_h={lon_h}&amp;lon_min={lon_min}&amp;distance=100&amp;unit=km">OC CZ</a>
+                &nbsp;&nbsp;&nbsp;
+
+                <a href="http://www.opencaching.de/search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;country=&amp;cachetype=&amp;cache_attribs=&amp;cache_attribs_not=7&amp;latNS={latNS}&amp;lat_h={lat_h}&amp;lat_min={lat_min}&amp;lonEW={lonEW}&amp;lon_h={lon_h}&amp;lon_min={lon_min}&amp;distance=100&amp;unit=km">OC DE</a>
+
+                </b>&nbsp;&nbsp;
+
+                <?php } //if-searchAtOtherSites ?>
+
+
             </span>
-        </div><hr style="color: blue;">
-        <?php
-        global $hide_coords;
-        if ($usr == false && $hide_coords) { // hide downloading gpx etc if user is not logged
-            echo "";
-        } else {
-            ?>
-        <div>{save_icon}<b> {{download_as_file}}</b><br>
+        </div>
+
+        <hr style="color: blue;">
+
+        <div>
+            <img src="tpl/stdstyle/images/action/16x16-save.png" class="icon16" alt="" /><b> {{download_as_file}}</b>
+            <br>
             <table class="content" style="font-size: 12px; line-height: 1.6em;">
                 <tr>
                     <td  width="350" align="left" style="padding-left:5px;">
@@ -887,14 +1005,14 @@
                     <td width="350" align="left" style="padding-left:5px;">
                         <div class="searchdiv">
                             <span class="content-title-noshade txt-blue08">{{format_other}}</span>:<br>
-                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid={cacheid_urlencode}&amp;output=loc" title="Waypoint .loc">LOC</a> |
-                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid={cacheid_urlencode}&amp;output=kml" title="Google Earth .kml">KML</a> |
-                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid={cacheid_urlencode}&amp;output=ov2" title="TomTom POI .ov2">OV2</a> |
-                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid={cacheid_urlencode}&amp;output=ovl" title="TOP50-Overlay .ovl">OVL</a> |
-                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid={cacheid_urlencode}&amp;output=txt" title="Tekst .txt">TXT</a> |
-                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid={cacheid_urlencode}&amp;output=wpt" title="Oziexplorer .wpt">WPT</a> |
-                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid={cacheid_urlencode}&amp;output=uam" title="AutoMapa .uam">UAM</a> |
-                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid={cacheid_urlencode}&amp;output=xml" title="XML">XML</a>
+                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=<?=$view->geoCache->getCacheId()?>&amp;output=loc" title="Waypoint .loc">LOC</a> |
+                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=<?=$view->geoCache->getCacheId()?>&amp;output=kml" title="Google Earth .kml">KML</a> |
+                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=<?=$view->geoCache->getCacheId()?>&amp;output=ov2" title="TomTom POI .ov2">OV2</a> |
+                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=<?=$view->geoCache->getCacheId()?>&amp;output=ovl" title="TOP50-Overlay .ovl">OVL</a> |
+                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=<?=$view->geoCache->getCacheId()?>&amp;output=txt" title="Tekst .txt">TXT</a> |
+                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=<?=$view->geoCache->getCacheId()?>&amp;output=wpt" title="Oziexplorer .wpt">WPT</a> |
+                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=<?=$view->geoCache->getCacheId()?>&amp;output=uam" title="AutoMapa .uam">UAM</a> |
+                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=<?=$view->geoCache->getCacheId()?>&amp;output=xml" title="XML">XML</a>
                         </div>
                     </td>
                 </tr>
@@ -911,12 +1029,15 @@
             </table>
             <div class="notice buffer" id="viewcache-termsofuse"> {{accept_terms_of_use}} </div>
         </div>
-         <?php
-            }
-            ?>
+
         </div>
     </div>
-    {hidesearchdownloadsection_end}
+
+<?php } // if-isUserAuthorized ?>
+
+
+
+
     <!-- Text container -->
     <div class="content2-container bg-blue02">
         <p class="content-title-noshade-size1" id="log_start">
@@ -932,6 +1053,7 @@
               <?=$view->geoCache->getNotFounds()?>
 
             <?php } else { //if-not-event ?>
+
               <img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="<?=tr('found')?>"/>
               <?=$view->geoCache->getFounds()?>x
 
@@ -945,15 +1067,54 @@
 
 
 
-            {gallery}
+            <?php if( $view->geoCache->getPicsInLogsCount() > 0 ) { ?>
+
+              <img src="tpl/stdstyle/images/free_icons/photo.png" alt="Photo" class="icon16"/>
+              &nbsp;
+              <?=$view->geoCache->getPicsInLogsCount()?>x
+              &nbsp;
+              <a href="gallery_cache.php?cacheid=<?=$view->geoCache->getCacheId()?>"><?=tr('gallery_short')?></a>
+
+            <?php } //if-getNumberOfPicsInLogs > 0 ?>
+
             &nbsp;
-            {viewlogs}
+
+            <?php if($view->displayAllLogsLink) { ?>
+
+                <a href="viewlogs.php?cacheid=<?=$view->geoCache->getCacheId()?>" >
+                  <img src="tpl/stdstyle/images/action/16x16-showall.png" class="icon16" alt="<?=tr('show_all_log_entries')?>"
+                       title="<?=tr('show_all_log_entries')?>" />
+                  &nbsp;
+                  <?=tr("show_all_log_entries_short")?>
+                </a>
+            <?php } //if-logEnteriesCount ?>
+
+
             &nbsp;
-            {new_log_entry_link}
+
+            <a href="log.php?cacheid=<?=$view->geoCache->getCacheId()?>" title="<?=tr('new_log_entry')?>">
+              <img src="images/actions/new-entry-18.png" title="<?=tr('new_log_entry')?>" alt="<?=tr('new_log_entry')?>">
+              <?=tr('new_log_entry_short')?>
+            </a>
+
+
             &nbsp;
-            {showhidedel_link}
+
+            <?php if($view->showDeletedLogsDisplayLink) { ?>
+
+                <span style="white-space: nowrap;">
+                  <a href="<?=$view->deletedLogsDisplayLink?>" title="<?=$view->deletedLogsDisplayText?>">
+                    <img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="<?=$view->deletedLogsDisplayText?>" title="<?=$view->deletedLogsDisplayText?>" />
+                    <?=$view->deletedLogsDisplayText?>
+                  </a>
+                </span>
+
+            <?php } //if-showDeletedLogsDisplayLink ?>
+
+
         </p>
     </div>
+
     <div class="content2-container" id="viewcache-logs">
         <!-- log enteries - to be loaded dynamicly by ajax -->
     </div>

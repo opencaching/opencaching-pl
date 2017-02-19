@@ -5,9 +5,13 @@ namespace lib\Objects\GeoCache;
 use Utils\Email\EmailSender;
 use Utils\Database\XDb;
 use Utils\Text\SmilesInText;
+use lib\Objects\User\User;
+
+
 
 class GeoCacheDesc
 {
+
     const HTML_SAFE = 2;
 
     private $id;
@@ -101,7 +105,7 @@ class GeoCacheDesc
 
     public static function UpdateAdminComment(GeoCache $geoCache, $comment, User $author){
 
-        $sender_name = $usr['username'];
+        $sender_name = $author->getUserName();
         $comment = nl2br($comment);
         $date = date("d-m-Y H:i:s");
 
@@ -110,13 +114,12 @@ class GeoCacheDesc
                             tr('add_by') . ' ' . $sender_name . '</span></b><br/>' . $comment . '<br/><br/>';
 
         XDb::xSql(
-            "UPDATE cache_desc SET
-                rr_comment = CONCAT('" . XDb::xEscape($octeam_comment) . "', rr_comment),
+            "UPDATE cache_desc SET rr_comment = CONCAT('" . XDb::xEscape($octeam_comment) . "', rr_comment),
                 last_modified = NOW()
             WHERE cache_id= ? ", $geoCache->getCacheId());
 
 
-        EmailSender::sendNotifyOfOcTeamCommentToCache($geoCache, $usr['userid'], $usr['username'], nl2br($_POST['rr_comment']));
+        EmailSender::sendNotifyOfOcTeamCommentToCache($geoCache,$author, nl2br($_POST['rr_comment']));
 
     }
 
