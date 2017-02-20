@@ -33,7 +33,7 @@ tpl_set_var('userid', $mapForUserObj->getUserId());
 parseCordsAndZoom($mapForUserObj);
 
 // parse eventually printList changes
-parsePrintList();
+PrintList::HandleRequest( $_REQUEST['cacheid']);
 
 // parse PowerTrail filter in url
 parsePowerTrailFilter(true);

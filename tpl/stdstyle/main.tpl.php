@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\OcDb;
+use lib\Objects\GeoCache\PrintList;
 
 // load menu
 global $mnu_selmenuitem, $tpl_subtitle, $absolute_server_URI, $mnu_siteid /* which menu item should be highlighted */, $site_name;
@@ -152,11 +153,11 @@ if (date('m') == 12 || date('m') == 1) {
                     <ul>
                         <?php
                         $dowydrukuidx = mnu_MainMenuIndexFromPageId($menu, "mylist");
-                        if (isset($_SESSION['print_list'])) {
-                            if (count($_SESSION['print_list']) > 0) {
-                                $menu[$dowydrukuidx]['visible'] = true;
-                                $menu[$dowydrukuidx]['menustring'] .= " (" . count($_SESSION['print_list']) . ")";
-                            }
+                        if ( !empty(PrintList::GetContent()) ) {
+
+                            $menu[$dowydrukuidx]['visible'] = true;
+                            $menu[$dowydrukuidx]['menustring'] .= " (" . count(PrintList::GetContent()) . ")";
+
                         }
 
                         if (isset($menu[$pageidx])) {

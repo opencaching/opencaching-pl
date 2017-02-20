@@ -1,6 +1,8 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\GeoCache\PrintList;
+
 global $usr;
 global $get_userid;
 global $filter;
@@ -370,7 +372,7 @@ if ($usr) {
                         for (ii = 0; ii < cache_topratings; ii++)
                         print_topratings += gwiazdka;
                 }
-    <?php ((!isset($_REQUEST['print_list']) || onTheList($_SESSION['print_list'], $cache_id) == -1 ) ? $yn = 'y' : $yn = 'n'); ?>
+    <?php ((!isset($_REQUEST['print_list']) || !PrintList::IsOnTheList($cache_id) ) ? $yn = 'y' : $yn = 'n'); ?>
 
                 if (markers[i].getAttribute("id") == cache_id)
                 {

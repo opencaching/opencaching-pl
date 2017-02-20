@@ -1,5 +1,7 @@
 <?php
 
+use lib\Objects\GeoCache\PrintList;
+
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -19,16 +21,13 @@ if ($error == false) {
 
     if ($usr['userid']) {
         if ($cache_id == 'all') {
-            unset($_SESSION['print_list']);
-            $_SESSION['print_list'] = array();
+            PrintList::Flush();
         } else {
-            while (onTheList($_SESSION['print_list'], $cache_id) != -1)
-                unset($_SESSION['print_list'][onTheList($_SESSION['print_list'], $cache_id)]);
-            $_SESSION['print_list'] = array_values($_SESSION['print_list']);
+            PrintList::RemoveCache($cache_id);
         }
     }
     tpl_redirect($target);
 }
 
 tpl_BuildTemplate();
-?>
+

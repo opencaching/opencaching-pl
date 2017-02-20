@@ -139,32 +139,7 @@ function getMapUserObj()
     }
 }
 
-/**
- * Cache can be add to the printList stored in session by request in GET
- */
-function parsePrintList()
-{
-    if (isset($_REQUEST['print_list']) && $_REQUEST['print_list'] == 'y') {
-        // add cache to print (do not duplicate items)
 
-        if (! is_array($_SESSION['print_list'])) {
-            $_SESSION['print_list'] = array();
-        }
-
-        if (in_array($_REQUEST['cacheid'], $_SESSION['print_list'])) {
-            array_push($_SESSION['print_list'], $_REQUEST['cacheid']);
-        }
-    }
-
-    if (isset($_REQUEST['print_list']) && $_REQUEST['print_list'] == 'n') {
-        // remove cache from print list
-        if (is_array($_SESSION['print_list'])) {
-            $_SESSION['print_list'] = array_diff($_SESSION['print_list'], array(
-                $_REQUEST['cacheid']
-            ));
-        }
-    }
-}
 
 /**
  * This function parse cords and zoom params from request

@@ -13,7 +13,7 @@
     var confirmRmLogTranslation = '{{confirm_remove_log}}';
 </script>
 
-<script src="{viewcache_js}"></script>
+<script src="<?=$view->viewcache_js?>"></script>
 
 
 <input type="hidden" id="cacheid" value="{cacheid}">
@@ -24,28 +24,36 @@
 
 <div class="content2-container line-box">
     <div class="">
+
+
         <div class="nav4">
             <?php if(!$view->isUserAuthorized){ ?>
-            <span class="notlogged-cacheview"><?=tr('cache_logged_required')?></span>;
+              <span class="notlogged-cacheview"><?=tr('cache_logged_required')?></span>;
             <?php }else{ ?>
 
             <?php
 
-            // menu kesza - przyciski - wpis do logu etc... PRZEROBIĆ!
+                // menu kesza - przyciski - wpis do logu etc... PRZEROBIĆ!
 
-            $clidx = mnu_MainMenuIndexFromPageId($menu, "cachelisting");
-            if ($menu[$clidx]['title'] != '') {
-                echo '<ul id="cachemenu">';
-                $menu[$clidx]['visible'] = false;
-                echo '<li class="title" ';
-                echo '>' . $menu[$clidx]["title"] . '</li>';
-                mnu_EchoSubMenu($menu[$clidx]['submenu'], $tplname, 1, false);
-                echo '</ul>';
-            }
+                $clidx = mnu_MainMenuIndexFromPageId($menu, "viewcache_menu");
+                if ( $menu[$clidx]['title'] != '' ) {
 
-            ?>
+                    $menu[$clidx]['visible'] = false; ?>
+
+                    <ul id="cachemenu">
+
+                      <li class="title"><?=$menu[$clidx]["title"]?></li>
+
+                      <?php mnu_EchoSubMenu($menu[$clidx]['submenu'], $tplname, 1, false); ?>
+
+                    </ul>
+                <?php } // if-$menu[$clidx]['title'] != '' ?>
+
             <?php } //else ?>
         </div>
+
+
+
 
         <div class="content2-container-2col-left" style="width:60px; clear: left;">
             <div>

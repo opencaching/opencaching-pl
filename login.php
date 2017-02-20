@@ -93,7 +93,6 @@ if ($error == false) {
                 $usr = false;
             } else {
                 //login ok
-                $_SESSION['print_list'] = array();
                 $usr['userid'] = $retval;
                 $usr['username'] = auth_UsernameFromID($usr['userid']);
                 tpl_redirect('login.php?action=cookieverify&target=' . urlencode($target));

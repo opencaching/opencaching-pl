@@ -1309,5 +1309,29 @@ class GeoCache extends GeoCacheCommons
             "SELECT count(*) FROM cache_logs
             WHERE " . $excludeDeleted . " `cache_id`= :1", 0, $this->id);
     }
+
+    /**
+     * returns true if this cache is ignored by user identified by given userId
+     * @param unknown $userId
+     * @return boolean
+     */
+    public function isIgnoredBy($userId)
+    {
+        return '1' == XDb::xMultiVariableQueryValue(
+            "SELECT 1 FROM cache_ignore WHERE cache_id= :1 AND user_id =:2 LIMIT 1",
+            0, $this->id, $userId);
+    }
+
+    /**
+     * returns true if this cache is watched by user identified by given userId
+     * @param unknown $userId
+     * @return boolean
+     */
+    public function isWatchedBy($userId)
+    {
+        return '1' == XDb::xMultiVariableQueryValue(
+            "SELECT 1 FROM cache_watches WHERE cache_id=:1 AND user_id=:2 LIMIT 1",
+            0, $this->id, $userId);
+    }
 }
 

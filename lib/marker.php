@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\GeoCache\PrintList;
 /**
  * This script is used only by Map_v2 to display markers on the map
  */
@@ -197,7 +198,7 @@ echo "<?xml version=\"1.0\" encoding=\"" . $ENCODING . "\"?>\n";
 echo "<markers>\n";
 while ($res = XDb::xFetchArray($result)) {
 
-    if (!isset($_REQUEST['print_list']) || onTheList($_SESSION['print_list'], $res['cache_id']) == -1)
+    if (!isset($_REQUEST['print_list']) || !PrintList::IsOnTheList( $res['cache_id']) )
         $druk = "druk=\"y\"";
     else
         $druk = "druk=\"n\"";

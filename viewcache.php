@@ -10,6 +10,9 @@ use Utils\Log\CacheAccessLog;
 use lib\Objects\GeoCache\GeoCacheDesc;
 use lib\Objects\GeoCache\OpenChecker;
 use lib\Objects\Coordinates\Coordinates;
+use lib\Objects\GeoCache\PrintList;
+
+
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath)){
@@ -18,9 +21,13 @@ if (!isset($rootpath)){
 require_once('./lib/common.inc.php');
 require_once('lib/cache_icon.inc.php');
 
-global $caches_list, $usr, $hide_coords, $cache_menu, $octeam_email, $site_name, $absolute_server_URI, $octeamEmailsSignature;
-global $dynbasepath, $powerTrailModuleSwitchOn, $titled_cache_period_prefix;
+
+
+
+global $usr, $hide_coords, $cache_menu;
+global $powerTrailModuleSwitchOn, $titled_cache_period_prefix;
 global $config;
+
 
 $applicationContainer = \lib\Objects\ApplicationContainer::Instance();
 $loggedUser = $applicationContainer->getLoggedUser();
@@ -158,22 +165,10 @@ $view->setVar('userModifiedCacheCoords', $userModifiedCacheCoords);
 
 
 
-if (isset($_REQUEST['print_list']) && $_REQUEST['print_list'] == 'y') {
-    // add cache to print (do not duplicate items)
-    if ( !isset($_SESSION['print_list']) || count($_SESSION['print_list']) == 0){
-        $_SESSION['print_list'] = array();
-    }
+PrintList::HandleRequest();
 
-    if (onTheList($_SESSION['print_list'], $cache_id) == -1)
-        array_push($_SESSION['print_list'], $cache_id);
-}
 
-if (isset($_REQUEST['print_list']) && $_REQUEST['print_list'] == 'n') {
-    // remove cache from print list
-    while (onTheList($_SESSION['print_list'], $cache_id) != -1)
-        unset($_SESSION['print_list'][onTheList($_SESSION['print_list'], $cache_id)]);
-    $_SESSION['print_list'] = array_values($_SESSION['print_list']);
-}
+
 
 $owner_id = $geocache->getOwner()->getUserId();
 tpl_set_var('owner_id', $owner_id);
@@ -540,8 +535,6 @@ if($usr['admin'] == 1){
 tpl_set_var('includeDeletedLogs', $includeDeletedLogs ? 1 : 0);
  */
 
-
-
 if (isset($_REQUEST['logbook']) && $_REQUEST['logbook'] == 'no') {
     tpl_set_var('hidelogbook_start', '<!--');
     tpl_set_var('hidelogbook_end', '-->');
@@ -549,6 +542,8 @@ if (isset($_REQUEST['logbook']) && $_REQUEST['logbook'] == 'no') {
     tpl_set_var('hidelogbook_start', '');
     tpl_set_var('hidelogbook_end', '');
 }
+
+
 
 
 
@@ -568,11 +563,8 @@ $ignore_icon = "";
 //sql request only if we want show 'watch' button for user
 if($show_watch) {
     //is this cache watched by this user?
-    $s = $dbc->multiVariableQuery(
-        "SELECT * FROM `cache_watches` WHERE `cache_id`=:1 AND `user_id`=:2 LIMIT 1",
-        $cache_id, $usr['userid']);
 
-    if ($dbc->rowCount($s) == 0) {
+    if (!$geocache->isWatchedBy($loggedUser->getUserId())) {
         $watch_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_watch);
         $is_watched = 'watchcache.php?cacheid=' . $cache_id . '&amp;target=viewcache.php%3Fcacheid=' . $cache_id;
         $watch_label = tr('watch');
@@ -586,10 +578,9 @@ if($show_watch) {
 //sql request only if we want show 'ignore' button for user
 if($show_ignore) {
     //is this cache ignored by this user?
-    $s = $dbc->multiVariableQuery("SELECT `cache_id` FROM `cache_ignore` WHERE `cache_id`=:1 AND `user_id`=:2 LIMIT 1",
-        $cache_id, $usr['userid']);
 
-    if ($dbc->rowCount($s) == 0) {
+    if(!$geocache->isIgnoredBy($loggedUser->getUserId())){
+
         $ignore_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_ignore);
         $is_ignored = "addignore.php?cacheid=" . $cache_id . "&amp;target=viewcache.php%3Fcacheid%3D" . $cache_id;
         $ignore_label = tr('ignore');
@@ -605,31 +596,16 @@ if($show_ignore) {
 if ($usr !== false) {
     //user logged in => he can log
     $log_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_log);
-    $printt = tr('print');
-    $addToPrintList = tr('add_to_list');
-    $removeFromPrintList = tr('remove_from_list');
 
-    if (isset($_SESSION['print_list'])) {
-        $sesPrintList = $_SESSION['print_list'];
-    } else {
-        $sesPrintList = array();
-    }
 
-    if (onTheList($sesPrintList, $cache_id) == -1) {
-        $print_list = "viewcache.php?cacheid=$cache_id&amp;print_list=y";
-        $print_list_label = $addToPrintList;
-        $print_list_icon = 'images/actions/list-add';
-    } else {
-        $print_list = "viewcache.php?cacheid=$cache_id&amp;print_list=n";
-        $print_list_label = $removeFromPrintList;
-        $print_list_icon = 'images/actions/list-remove';
-    }
+    $printListLabel = PrintList::IsOnTheList($geocache->getCacheId()) ?
+        tr('remove_from_list'): tr('add_to_list');
 
 
     $cache_menu = array(
         'title' => tr('cache_menu'),
         'menustring' => tr('cache_menu'),
-        'siteid' => 'cachelisting',
+        'siteid' => 'viewcache_menu',
         'navicolor' => '#E8DDE4',
         'visible' => false,
         'filename' => 'viewcache.php',
@@ -671,13 +647,14 @@ if ($usr !== false) {
                 'icon' => 'images/actions/print'
             ),
             array(
-                'title' => $print_list_label,
-                'menustring' => $print_list_label,
+                'title' => $printListLabel,
+                'menustring' => $printListLabel,
                 'visible' => true,
-                'filename' => $print_list,
+                'filename' => PrintList::AddOrRemoveCacheUrl($geocache->getCacheId()),
                 'newwindow' => false,
                 'siteid' => 'print_list_cache',
-                'icon' => $print_list_icon
+                'icon' => PrintList::IsOnTheList($geocache->getCacheId()) ?
+                            'images/actions/list-remove' : 'images/actions/list-add'
             ),
             array(
                 'title' => $ignore_label,
@@ -704,7 +681,7 @@ if ($usr !== false) {
     $cache_menu = array(
         'title' => tr('cache_menu'),
         'menustring' => tr('cache_menu'),
-        'siteid' => 'cachelisting',
+        'siteid' => 'viewcache_menu',
         'navicolor' => '#E8DDE4',
         'visible' => false,
         'filename' => 'viewcache.php',
@@ -712,13 +689,7 @@ if ($usr !== false) {
     );
 }
 
-tpl_set_var('log', $log_action);
-tpl_set_var('watch', $watch_action);
-tpl_set_var('report', isset($report_action) ? $report_action : '');
-tpl_set_var('ignore', $ignore_action);
-tpl_set_var('edit', $edit_action);
-tpl_set_var('print', $print_action);
-tpl_set_var('print_list', isset($print_list) ? $print_list : '');
+
 
 
 
@@ -753,8 +724,9 @@ $view->setVar('geoPathSectionDisplay', $geoPathSectionDisplay);
 
 $view->setVar('linkargs', $linkargs);
 
+$view->setVar('viewcache_js', "tpl/stdstyle/js/viewcache." . filemtime($rootpath . 'tpl/stdstyle/js/viewcache.js') . ".js");
 
-tpl_set_var('viewcache_js', "tpl/stdstyle/js/viewcache." . filemtime($rootpath . 'tpl/stdstyle/js/viewcache.js') . ".js");
+
 
 tpl_BuildTemplate();
 
