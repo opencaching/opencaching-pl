@@ -14,25 +14,25 @@ require_once('./lib/common.inc.php');
 if( $short_sitename == 'OC PL' ){
 
     $GLOBALS['regions'] = array(
-            'PL52' => 'opolskie',
-            'PL12' => 'mazowieckie',
-            'PL11' => 'łódzkie',
-            'PL63' => 'pomorskie',
-            'PL62' => 'warmińsko-mazurskie',
-            'PL61' => 'kujawsko-pomorskie',
-            'PL51' => 'dolnośląskie',
-            'PL43' => 'lubuskie',
-            'PL42' => 'zachodniopomorskie',
-            'PL41' => 'wielkopolskie',
-            'PL34' => 'podlaskie',
-            'PL33' => 'świętokrzyskie',
-            'PL32' => 'podkarpackie',
-            'PL31' => 'lubelskie',
-            'PL22' => 'śląskie',
-            'PL21' => 'małopolskie',
-            'NON_PL' => 'zagraniczne',
-            'XXX' => 'polskie-nie-ustalone'
-            );
+        'PL51' => 'dolnośląskie',
+        'PL61' => 'kujawsko-pomorskie',
+        'PL31' => 'lubelskie',
+        'PL43' => 'lubuskie',
+        'PL11' => 'łódzkie',
+        'PL21' => 'małopolskie',
+        'PL12' => 'mazowieckie',
+        'PL52' => 'opolskie',
+        'PL34' => 'podlaskie',
+        'PL32' => 'podkarpackie',
+        'PL63' => 'pomorskie',
+        'PL22' => 'śląskie',
+        'PL33' => 'świętokrzyskie',
+        'PL62' => 'warmińsko-mazurskie',
+        'PL42' => 'zachodniopomorskie',
+        'PL41' => 'wielkopolskie',
+        'NON_PL' => '* zagraniczne',
+        'XXX' => '* polskie-nie-ustalone'
+    );
 
 }else{
     //OC !PL
