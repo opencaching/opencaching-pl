@@ -26,10 +26,6 @@ if (isset($_REQUEST['print'])) {
     $logs_to_display = 5;
 
 
-$function_watch = "<li><a href='watchcache.php?cacheid={cacheid}&amp;target=viewcache.php%3Fcacheid%3D{cacheid}'>" . tr('watch') . "</a></li>";
-$function_watch_not = "<li><a href='removewatch.php?cacheid={cacheid}&amp;target=viewcache.php%3Fcacheid%3D{cacheid}'>" . tr('watch_not') . "</a></li>";
-$function_ignore = "<li><a href='addignore.php?cacheid={cacheid}&amp;target=viewcache.php%3Fcacheid%3D{cacheid}'>" . tr('ignore') . "</a></li>";
-$decrypt_link = '<span style="font-weight:400"><a href="viewcache.php?cacheid={cacheid_urlencode}&amp;nocrypt=1&amp;desclang={desclang}' . $linkargs . '#decrypt-info" onclick="return showHint(event);"><span id="decryptLinkStr">' . tr('decrypt') .'</span><span id="encryptLinkStr" style="display:none">' . tr('encrypt') .'</span></a></span>';
 $pictureline = '<a href="{link}">{title}</a><br />';
 $pictures = '<p>{picturelines}</p>';
 
@@ -41,15 +37,12 @@ $logpictures = '<div class="viewlogs-logpictures"><span class="info">' . tr('pic
 
 // Waypoints line
 $wpline = '<tr>{stagehide_start}<td align="center" valign="middle"><center><strong>{number}</strong></center></td>{stagehide_end}<td align="center" valign="middle"><center><img src="{wp_icon}" alt="" title="{type}" /></center></td><td style="text-align: left; vertical-align: middle;">{type}</td><td align="left" valign="middle"><b><span style="color: rgb(88,144,168)">{lat_lon}</span></b></td><td align="left" valign="middle">{desc}</td></tr>';
-$viewlogs_tr = tr('show_all_log_entries');
-$viewlogs = '<a href="viewlogs.php?cacheid={cacheid_urlencode}" ><img src="tpl/stdstyle/images/action/16x16-showall.png" class="icon16" alt="' . $viewlogs_tr . '" title="' . $viewlogs_tr . '"/></a>&nbsp;<a title="' . $viewlogs_tr . '" href="' . (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y' ? 'viewcache' : 'viewlogs') . '.php?cacheid={cacheid_urlencode}' . $linkargs . '&amp;showlogsall=y">' . tr("show_all_log_entries_short") . '</a>';
 
 $gallery_icon = '<img src="tpl/stdstyle/images/free_icons/photo.png" alt="Photo" class="icon16"/>';
 $gallery_tr = tr('gallery');
 $gallery_link = '<a href="gallery_cache.php?cacheid={cacheid}">' . tr('gallery_short') . '</a>';
 
-$difficulty_text_diff = tr('task_difficulty') . ": %01.1f " . tr('out_of') . " 5.0";
-$difficulty_text_terr = tr('terrain_difficulty') . ": %01.1f " . tr('out_of') . " 5.0";
+
 $viewtext_on = tr('enter_text');
 $viewtext_off = tr('enter_text_error');
 $default_lang = 'PL';

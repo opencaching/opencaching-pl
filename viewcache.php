@@ -3,23 +3,25 @@
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\GeoCache\Waypoint;
-use Utils\Database\XDb;
-use Utils\Email\EmailSender;
 use Utils\Gis\Gis;
 use Utils\Log\CacheAccessLog;
 use lib\Objects\GeoCache\GeoCacheDesc;
 use lib\Objects\GeoCache\OpenChecker;
 use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\GeoCache\PrintList;
+use Controllers\ViewCacheController;
+use Utils\Uri\Uri;
 
-
-
-//prepare the templates and include all neccessary
-if (!isset($rootpath)){
-    global $rootpath;
-}
 require_once('./lib/common.inc.php');
-require_once('lib/cache_icon.inc.php');
+
+
+#######################
+//$ctrl = new ViewCacheController();
+//$ctrl->index();
+//exit();
+#######################
+
+
 
 
 
@@ -36,9 +38,7 @@ $dbc = $applicationContainer->db;
 
 $view = tpl_getView();
 
-require_once($stylepath . '/lib/icons.inc.php');
-require($stylepath . '/viewcache.inc.php');
-require($stylepath . '/viewlogs.inc.php');
+//require($stylepath . '/viewcache.inc.php');
 
 
 /** @var GeoCache $geocache */
@@ -205,7 +205,7 @@ $view->setVar('alwaysShowCoords', !$hide_coords);
 
 $icons = $geocache->dictionary->getCacheTypeIcons();
 
-list($iconname) = getCacheIcon($usr['userid'], $geocache->getCacheId(), $geocache->getStatus(), $geocache->getOwner()->getUserId(), $icons[$geocache->getCacheType()]['icon']);
+
 list($lat_dir, $lat_h, $lat_min) = help_latToArray($geocache->getCoordinates()->getLatitude());
 list($lon_dir, $lon_h, $lon_min) = help_lonToArray($geocache->getCoordinates()->getLongitude());
 
@@ -250,11 +250,8 @@ if ($usr || !$hide_coords) {
 tpl_set_var('cacheid', $cache_id);
 
 
-
-
-
-$iconname = str_replace("mystery", "quiz", $iconname);
-tpl_set_var('icon_cache', htmlspecialchars("$stylepath/images/cache/$iconname", ENT_COMPAT, 'UTF-8'));
+$view->setVar('diffTitle', tr('task_difficulty').': '.$geocache->getDifficulty()/2) . ' ' .tr('out_of') . ' ' . '5.0';
+$view->setVar('terrainTitle', tr('terrain_difficulty').': '.$geocache->getTerrain()/2) . ' ' .tr('out_of') . ' ' . '5.0';
 
 
 
@@ -310,13 +307,6 @@ if ($loggedUser && $loggedUser->getFoundGeocachesCount() >= $config['otherSites_
 }
 
 
-
-
-
-tpl_set_var('difficulty_icon_diff', icon_difficulty("diff", $geocache->getDifficulty()));
-tpl_set_var('difficulty_icon_terr', icon_difficulty("terr", $geocache->getTerrain()));
-
-
 tpl_set_var('total_number_of_logs', htmlspecialchars($geocache->getFounds() + $geocache->getNotFounds() + $geocache->getNotesCount(), ENT_COMPAT, 'UTF-8'));
 
 
@@ -359,11 +349,11 @@ if( $loggedUser && $loggedUser->isAdmin() || !$geocache->hasDeletedLog() ){
 
     if ( isset($_SESSION['showdel']) && $_SESSION['showdel'] == 'y'){
         //hide-link
-        $deletedLogsDisplayLink = 'viewcache.php?cacheid=' . $geocache->getCacheId() . '&amp;showdel=n' . $linkargs . '#log_start';
+        $deletedLogsDisplayLink = Uri::addAnchorName('#log_start', Uri::setOrReplaceParamValue('showdel', 'n'));
         $deletedLogsDisplayText = tr('vc_HideDeletions');
     }else{
         //show link
-        $deletedLogsDisplayLink = 'viewcache.php?cacheid=' . $geocache->getCacheId() . '&amp;showdel=y' . $linkargs . '#log_start';
+        $deletedLogsDisplayLink = Uri::addAnchorName('#log_start', Uri::setOrReplaceParamValue('showdel', 'y'));
         $deletedLogsDisplayText = tr('vc_ShowDeletions');
 
         $displayDeletedLogs = false;
@@ -415,9 +405,14 @@ if ( isset($_REQUEST['desclang']) && (array_search($_REQUEST['desclang'], $avail
     $descLang = $availableDescLangs[0];
 }
 
+$availableDescLangsLinks = [];
+foreach ($availableDescLangs as $l){
+    $availableDescLangsLinks[mb_strtoupper($lang)] = Uri::setOrReplaceParamValue('desclang', mb_strtoupper($l));
+}
+
 $view->setVar('usedDescLang', $descLang); // lang of presented description
 $view->setVar('availableDescLangs', $availableDescLangs);
-
+$view->setVar('availableDescLangsLinks', $availableDescLangsLinks);
 
 
 // add OC Team comment
@@ -666,12 +661,9 @@ if ($powerTrailModuleSwitchOn && $cache_id != null) {
 $view->setVar('geoPathSectionDisplay', $geoPathSectionDisplay);
 
 
-
-$view->setVar('linkargs', $linkargs);
-
-$view->setVar('viewcache_js', "tpl/stdstyle/js/viewcache." . filemtime($rootpath . 'tpl/stdstyle/js/viewcache.js') . ".js");
+$view->setVar('viewcache_js', "tpl/stdstyle/js/viewcache." . filemtime('tpl/stdstyle/js/viewcache.js') . ".js");
 
 
-
+d($view);
 tpl_BuildTemplate();
 

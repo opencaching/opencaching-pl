@@ -16,12 +16,16 @@
 <div class="line-box">
     <div class="content-title-noshade-size1">
         <p class="cache-title">
-            <img src="{icon_cache}" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}" align="absmiddle" />{cachename}
+            <img src="<?=$view->geoCache->getCacheIcon()?>" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}" align="absmiddle" />{cachename}
         </p>
         <img src="tpl/stdstyle/images/free_icons/arrow_in.png" class="icon16" alt="" title="" />&nbsp;<b><?=$view->geoCache->getWaypointId()?>
         <img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="" title=""  align="absmiddle"/>{coords}</b><br/>
 
-        {difficulty_icon_diff} {difficulty_icon_terr} <?=$view->geoCacheDesc->getShortDescToDisplay()?>
+        <img src='<?=$view->geoCache->getDifficultyIcon()?>' class='img-difficulty' width='19' height='16' alt='' title='<?=$view->diffTitle?>'>
+        <img src='<?=$view->geoCache->getTerreinIcon()?>' class='img-difficulty' width='19' height='16' alt='' title='<?=$view->terrainTitle?>'>
+
+
+         <?=$view->geoCacheDesc->getShortDescToDisplay()?>
         {{hidden_by}} <a href="viewprofile.php?userid={userid_urlencode}">{owner_name}</a>
 
         <img src="tpl/stdstyle/images/free_icons/package.png" class="icon16" alt="" title="" />&nbsp;

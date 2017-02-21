@@ -30,25 +30,25 @@
     $logpics[2] = '<img alt="Nie znaleziona" border="0" src="images/redcross.gif" />';
     $logpics[3] = '<img alt="Komentarz" border="0" src="images/info.gif" />';
 
-    $diffpics[2] = 'diff-10.gif';
-    $diffpics[3] = 'diff-15.gif';
-    $diffpics[4] = 'diff-20.gif';
-    $diffpics[5] = 'diff-25.gif';
-    $diffpics[6] = 'diff-30.gif';
-    $diffpics[7] = 'diff-35.gif';
-    $diffpics[8] = 'diff-40.gif';
-    $diffpics[9] = 'diff-45.gif';
-    $diffpics[10] = 'diff-50.gif';
+    $diffpics[2] = 'diff-2.gif';
+    $diffpics[3] = 'diff-3.gif';
+    $diffpics[4] = 'diff-4.gif';
+    $diffpics[5] = 'diff-5.gif';
+    $diffpics[6] = 'diff-6.gif';
+    $diffpics[7] = 'diff-7.gif';
+    $diffpics[8] = 'diff-8.gif';
+    $diffpics[9] = 'diff-9.gif';
+    $diffpics[10] = 'diff-10.gif';
 
-    $terrpics[2] = 'terr-10.gif';
-    $terrpics[3] = 'terr-15.gif';
-    $terrpics[4] = 'terr-20.gif';
-    $terrpics[5] = 'terr-25.gif';
-    $terrpics[6] = 'terr-30.gif';
-    $terrpics[7] = 'terr-35.gif';
-    $terrpics[8] = 'terr-40.gif';
-    $terrpics[9] = 'terr-45.gif';
-    $terrpics[10] = 'terr-50.gif';
+    $terrpics[2] = 'terr-2.gif';
+    $terrpics[3] = 'terr-3.gif';
+    $terrpics[4] = 'terr-4.gif';
+    $terrpics[5] = 'terr-5.gif';
+    $terrpics[6] = 'terr-6.gif';
+    $terrpics[7] = 'terr-7.gif';
+    $terrpics[8] = 'terr-8.gif';
+    $terrpics[9] = 'terr-9.gif';
+    $terrpics[10] = 'terr-10.gif';
 
     $terrpics[1] = 'rat-10.gif';
     $terrpics[2] = 'rat-20.gif';
@@ -56,8 +56,6 @@
     $terrpics[4] = 'rat-40.gif';
     $terrpics[5] = 'rat-50.gif';
 
-    $difficulty_text_diff = "Trudność zadań: %01.1f do 5.0";
-    $difficulty_text_terr = "Trudność terenu: %01.1f do 5.0";
     $rating_text = "Ocena: {rating}%";
     $not_rated = 'Brak oceny';
 

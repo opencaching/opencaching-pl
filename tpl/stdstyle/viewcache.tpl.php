@@ -57,10 +57,10 @@
 
         <div class="content2-container-2col-left" style="width:60px; clear: left;">
             <div>
-              <img src="{icon_cache}" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}">
+              <img src="<?=$view->geoCache->getCacheIcon()?>" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}">
             </div>
-            <div>{difficulty_icon_diff}</div>
-            <div>{difficulty_icon_terr}</div>
+            <div><img src='<?=$view->geoCache->getDifficultyIcon()?>' class='img-difficulty' width='19' height='16' alt='' title='<?=$view->diffTitle?>' ></div>
+            <div><img src='<?=$view->geoCache->getTerreinIcon()?>' class='img-difficulty' width='19' height='16' alt='' title='<?=$view->terrainTitle?>'></div>
             <div>
 
               <?php if( $view->geoCache->isEvent() ) {
@@ -283,7 +283,7 @@
               <img src="tpl/stdstyle/images/free_icons/link.png" class="icon16" alt="" title="">
               &nbsp;{{listed_also_on}}:
               <?php foreach ($view->otherSitesListing as $site){ ?>
-                <a href=<?=$site->link?> target="_blank"><?=$site->name?>(<?=$site->wp?>)</a>
+                <a href=<?=$site->link?> target="_blank"><?=$site->sitename?>(<?=$site->wp?>)</a>
               <?php } //foreach ?>
               <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link">
 
@@ -464,15 +464,15 @@
         {{descriptions}}&nbsp;&nbsp;
 
         <?php foreach( $view->availableDescLangs as $descLang ){ ?>
-          <a href="viewcache.php?cacheid=<?=$view->geoCache->getCacheId()?>&amp;desclang=<?=$descLang?><?=$view->linkargs?>">
-          <?php if($view->usedDescLang == $descLang) { ?>
-            <i><?=$descLang?></i>
+          <a href="<?=$view->availableDescLangsLinks[$descLang]?>">
+              <?php if($view->usedDescLang == $descLang) { ?>
+                <i><?=$descLang?></i>
 
-          <?php } else { // available-desc-langs ?>
-            <?=$descLang?>
+              <?php } else { // available-desc-langs ?>
+                <?=$descLang?>
 
-          <?php } // if-current-lang ?>
-
+              <?php } // if-current-lang ?>
+          </a>
         <?php } //foreach-available-desc-langs ?>
 
         <?php if($view->isAdminAuthorized) { ?>

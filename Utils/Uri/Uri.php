@@ -28,6 +28,17 @@ class Uri {
 
     }
 
+    public static function addAnchorName($anchorName, $uri=null)
+    {
+        if(is_null($uri)){
+            $uri = $_SERVER['REQUEST_URI'];
+        }
+
+        list ($uriWithoutHash) = explode('#', $uri);
+
+        return $uriWithoutHash.'#'.$anchorName;
+
+    }
 
     /**
      * Remove given param from URL

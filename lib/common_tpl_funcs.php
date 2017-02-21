@@ -217,6 +217,8 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
     //send http-no-caching-header
     http_write_no_cache();
 
+    //d($sCode); //usefull-to debug view errors
+
     // write UTF8-Header
     header('Content-type: text/html; charset=utf-8');
 

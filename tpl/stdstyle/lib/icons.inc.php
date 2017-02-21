@@ -1,6 +1,5 @@
 <?php
 
-$poweTrailMarkers = powerTrailBase::getPowerTrailTypes();
 
 function icon_log_type($icon_small, $text)
 {
@@ -31,23 +30,6 @@ function icon_cache_status($status, $text)
     return "<img src='$stylepath/images/$icon' class='icon16' alt='$text' title='$text'>";
 }
 
-function icon_difficulty($what, $difficulty)
-{
-    global $stylepath;
-    global $difficulty_text_diff;
-    global $difficulty_text_terr;
-
-    if ($what != "diff" && $what != "terr")
-        die("Wrong difficulty-identifier!");
-
-    $difficulty = (int) $difficulty;
-    if ($difficulty < 2 || $difficulty > 10)
-        die("Wrong difficulty-value $what: $difficulty");
-
-    $icon = sprintf("$stylepath/images/difficulty/$what-%d%d.gif", (int) $difficulty / 2, ((float) ($difficulty / 2) - (int) ($difficulty / 2)) * 10);
-    $text = sprintf($what == "diff" ? $difficulty_text_diff : $difficulty_text_terr, $difficulty / 2);
-    return "<img src='$icon' class='img-difficulty' width='19' height='16' alt='$text' title='$text'>";
-}
 
 function icon_rating($founds, $topratings)
 {
@@ -85,7 +67,9 @@ function icon_geopath_small($ptID, $ptImg, $ptName, $ptType, $pt_cache_intro_tr,
       $pt_cache_intro_tr =  translated tooltip into ("This cache belongs to..")
       $pt_icon_title_tr = translate attr. for icon ALT and NAME
      */
-    global $stylepath, $poweTrailMarkers;
+    global $stylepath;
+    $poweTrailMarkers = powerTrailBase::getPowerTrailTypes();
+
     if ($ptImg == '')
         $ptImg = $stylepath . '/images/blue/powerTrailGenericLogo.png';
     // for testing use: $ptImg = 'ocpl-dynamic-files/images/uploads/powerTrailLogoId13.png';
@@ -113,7 +97,8 @@ function icon_geopath_small($ptID, $ptImg, $ptName, $ptType, $pt_cache_intro_tr,
  * @return string|NULL|unknown
  */
 function getPtIconByType($ptType){
-    global $poweTrailMarkers;
+
+    $poweTrailMarkers = powerTrailBase::getPowerTrailTypes();
 
     if(!empty($ptType)){
         return $poweTrailMarkers[$ptType]['icon'];
@@ -142,4 +127,4 @@ function getPtIconByType($ptType){
 //
 //  return "<img src='$icon' border='0' width='19' height='16' hspace='2' alt='$text' title='$text' />";
 //}
-?>
+

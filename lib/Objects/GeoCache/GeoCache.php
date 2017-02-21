@@ -123,7 +123,7 @@ class GeoCache extends GeoCacheCommons
      *
      * @var $cacheLocationObj \lib\Objects\GeoCache\CacheLocation
      */
-    private $cacheLocationObj;
+    private $cacheLocationObj = null;
 
     /**
      * List of cache attribites
@@ -170,10 +170,6 @@ class GeoCache extends GeoCacheCommons
             $this->loadByUUID($params['cacheUUID']);
         }
 
-        if($this->id != null){
-            // load cache location if there is cache_id
-            $this->cacheLocationObj = new CacheLocation($this->id);
-        }
 
         $this->dictionary = \cache::instance();
     }
@@ -464,6 +460,11 @@ class GeoCache extends GeoCacheCommons
 
     public function getCacheLocationObj()
     {
+        if(!$this->cacheLocationObj){
+            // load location data
+            $this->cacheLocationObj = new CacheLocation($this->id);
+        }
+
         return $this->cacheLocationObj;
     }
 
@@ -1361,5 +1362,22 @@ class GeoCache extends GeoCacheCommons
             "SELECT 1 FROM cache_watches WHERE cache_id=:1 AND user_id=:2 LIMIT 1",
             0, $this->id, $userId);
     }
+
+    /**
+     * Returns url of the image which represents dificulty of the tasks
+     */
+    public function getDifficultyIcon()
+    {
+        return sprintf("/tpl/stdstyle/images/difficulty/diff-%d.gif", $this->difficulty);
+    }
+
+    /**
+     * Returns url of the image which represents terrain dificulty
+     */
+    public function getTerreinIcon()
+    {
+        return sprintf("/tpl/stdstyle/images/difficulty/terr-%d.gif", $this->terrain);
+    }
+
 }
 
