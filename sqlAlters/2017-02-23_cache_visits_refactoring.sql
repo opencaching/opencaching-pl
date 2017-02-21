@@ -1,11 +1,10 @@
 -- 2017-02-20: Refactoring of cache visits
 -- @author: kojoty
 
--- old table contains dirty values which are useless
-DROP TABLE IF EXISTS `cache_visits`;
+-- This is the first stage of changes: new table (cache_visits2)
 
 
-CREATE TABLE `cache_visits` (
+CREATE TABLE `cache_visits2` (
   `cache_id` int(11) NOT NULL,
   `user_id_ip` varchar(15) COMMENT 'user_id or used IP address',
   `type` varchar(1) NOT NULL COMMENT 'C=cache_visits; U=last_user_unique_visit; P=prepublication_user_visit',
@@ -14,9 +13,9 @@ CREATE TABLE `cache_visits` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Indexes for table `cache_visits`
+-- Indexes for table `cache_visits2`
 --
-ALTER TABLE `cache_visits`
+ALTER TABLE `cache_visits2`
   ADD PRIMARY KEY (`cache_id`,`user_id_ip`,`type`),
   ADD KEY `type` (`type`,`visit_date`);
 

@@ -164,7 +164,7 @@ if ($error == false) {
                         AND `gk_item`.`stateid`<>4
                         AND `gk_item`.`typeid`<>2
                         AND `gk_item`.`stateid` <>5
-                LEFT JOIN ( SELECT `count`,`cache_id` FROM `cache_visits` WHERE type = 'C' ) `cv`
+                LEFT JOIN ( SELECT `count`,`cache_id` FROM `cache_visits2` WHERE type = 'C' ) `cv`
                     ON `caches`.`cache_id` = `cv`.`cache_id`
                 INNER JOIN `cache_type` ON (`caches`.`type` = `cache_type`.`id`),
                 `cache_status`

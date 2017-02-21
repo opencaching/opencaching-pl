@@ -2,15 +2,25 @@
 
 namespace Controllers;
 
+use lib\Objects\ApplicationContainer;
+use lib\Objects\User\User;
+use lib\Objects\OcConfig\OcConfig;
+use Utils\View\View;
+
 require_once('./lib/common.inc.php');
 
 abstract class BaseController
 {
-
+    /** @var View $view */
     protected $view = null;
 
+    /** @var ApplicationContainer $applicationContainer */
     private $applicationContainer = null;
+
+    /** @var User */
     protected $loggedUser = null;
+
+    /** @var OcConfig $ocConfig */
     protected $ocConfig = null;
 
     protected function __construct()
@@ -19,7 +29,7 @@ abstract class BaseController
 
         $this->applicationContainer = \lib\Objects\ApplicationContainer::Instance();
         $this->loggedUser = $this->applicationContainer->getLoggedUser();
-        $this->ocConfig = $applicationContainer->getOcConfig();
+        $this->ocConfig = $this->applicationContainer->getOcConfig();
 
         // there is no DB access init - DB operations should be performed in models/objects
     }

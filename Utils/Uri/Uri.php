@@ -64,4 +64,9 @@ class Uri {
         return $uri;
     }
 
+    public static function getCurrentUri()
+    {
+       return $_SERVER['REQUEST_URI'];
+    }
+
 }

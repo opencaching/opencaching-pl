@@ -16,7 +16,7 @@
 <div class="line-box">
     <div class="content-title-noshade-size1">
         <p class="cache-title">
-            <img src="<?=$view->geoCache->getCacheIcon()?>" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}" align="absmiddle" />{cachename}
+            <img src="<?=$view->geoCache->getCacheIcon()?>" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}" align="absmiddle" /><?=$view->cachename?>
         </p>
         <img src="tpl/stdstyle/images/free_icons/arrow_in.png" class="icon16" alt="" title="" />&nbsp;<b><?=$view->geoCache->getWaypointId()?>
         <img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="" title=""  align="absmiddle"/>{coords}</b><br/>
@@ -26,7 +26,7 @@
 
 
          <?=$view->geoCacheDesc->getShortDescToDisplay()?>
-        {{hidden_by}} <a href="viewprofile.php?userid={userid_urlencode}">{owner_name}</a>
+        {{hidden_by}} <a href="viewprofile.php?userid=<?=$view->ownerId?>">{owner_name}</a>
 
         <img src="tpl/stdstyle/images/free_icons/package.png" class="icon16" alt="" title="" />&nbsp;
         <b><?=tr($view->geoCache->getSizeTranslationKey())?></b>
@@ -180,9 +180,9 @@
 
                   <?php } else { // if-coords-visible?>
                     <a class="links4" href="#"
-                       onclick="javascript:window.open('coordinates.php?lat=<?=$wp->getCoordinates()->getLatitude()?>&amp;lon=<?=$wp->getCoordinates()->getLongitude()?>&amp;popup=y&amp;wp=<?=$view->geoCache->getWaypointId()?>, ENT_COMPAT, 'UTF-8')','','width=240,height=334,resizable=yes,scrollbars=1'); return event.returnValue=false">
+                       onclick="javascript:window.open('coordinates.php?lat=<?=$wp->getCoordinates()->getLatitude()?>&amp;lon=<?=$wp->getCoordinates()->getLongitude()?>&amp;popup=y&amp;wp=<?=$view->geoCache->getWaypointId()?>,'','width=240,height=334,resizable=yes,scrollbars=1'); return event.returnValue=false">
 
-                      <?=$wp->getCoordinates()->getLatitudeString() ?> <br/> <?=$wp->getCoordinates()->getLongitudeString() ?>
+                      <?=$wp->getCoordinates()->getLatitudeString() ?> <br/> <?=$wp->getCoordinates()->getLongitudeString()?>
 
                     </a>
                   <?php } // if-coords-visible ?>
@@ -370,7 +370,7 @@
 <?php } //if-pictures-to-display-present ?>
 
 <!-- Text container -->
-<?php if($view->hideLogbook) { ?>
+<?php if(!$view->hideLogbook) { ?>
 
     <div class="content2-container bg-blue02 logs">
         <p class="content-title-noshade-size1">

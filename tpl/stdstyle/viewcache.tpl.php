@@ -18,72 +18,66 @@
 
 <input type="hidden" id="cacheid" value="{cacheid}">
 <input type="hidden" id="logEnteriesCount" value="<?=$view->logEnteriesCount?>">
-<input type="hidden" id="owner_id" value="{owner_id}">
+<input type="hidden" id="owner_id" value="<?=$view->ownerId?>">
 <input type="hidden" id="includeDeletedLogs" value="<?=$view->displayDeletedLogs?>">
-<input type="hidden" id="uType" value="{uType}">
+<input type="hidden" id="uType" value="<?=($view->isAdminAuthorized)?'1':'0'?>">
 
 <div class="content2-container line-box">
     <div class="">
 
+    <div class="nav4">
+        <?php if(!$view->isUserAuthorized){ ?>
+          <span class="notlogged-cacheview"><?=tr('cache_logged_required')?></span>;
+        <?php }else{ ?>
 
-        <div class="nav4">
-            <?php if(!$view->isUserAuthorized){ ?>
-              <span class="notlogged-cacheview"><?=tr('cache_logged_required')?></span>;
-            <?php }else{ ?>
+        <?php
+            // menu kesza - przyciski - wpis do logu etc... PRZEROBIĆ!
+            $clidx = mnu_MainMenuIndexFromPageId($menu, "viewcache_menu");
+            if ( $menu[$clidx]['title'] != '' ) {
 
-            <?php
+                $menu[$clidx]['visible'] = false; ?>
 
-                // menu kesza - przyciski - wpis do logu etc... PRZEROBIĆ!
+                <ul id="cachemenu">
 
-                $clidx = mnu_MainMenuIndexFromPageId($menu, "viewcache_menu");
-                if ( $menu[$clidx]['title'] != '' ) {
+                  <li class="title"><?=$menu[$clidx]["title"]?></li>
 
-                    $menu[$clidx]['visible'] = false; ?>
+                  <?php mnu_EchoSubMenu($menu[$clidx]['submenu'], $tplname, 1, false); ?>
 
-                    <ul id="cachemenu">
+                </ul>
+            <?php } // if-$menu[$clidx]['title'] != '' ?>
 
-                      <li class="title"><?=$menu[$clidx]["title"]?></li>
+        <?php } //else ?>
+    </div>
 
-                      <?php mnu_EchoSubMenu($menu[$clidx]['submenu'], $tplname, 1, false); ?>
-
-                    </ul>
-                <?php } // if-$menu[$clidx]['title'] != '' ?>
-
-            <?php } //else ?>
+    <div class="content2-container-2col-left" style="width:60px; clear: left;">
+        <div>
+          <img src="<?=$view->geoCache->getCacheIcon()?>" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}">
         </div>
+        <div><img src='<?=$view->geoCache->getDifficultyIcon()?>' class='img-difficulty' width='19' height='16' alt='' title='<?=$view->diffTitle?>' ></div>
+        <div><img src='<?=$view->geoCache->getTerreinIcon()?>' class='img-difficulty' width='19' height='16' alt='' title='<?=$view->terrainTitle?>'></div>
+        <div>
 
+          <?php if( $view->geoCache->isEvent() ) {
+                if (($view->geoCache->getFounds() + $view->geoCache->getNotFounds() + $view->geoCache->getNotesCount()) != 0) { ?>
 
+                  <a class="links2" href="javascript:void(0)"
+                     onmouseover="Tip('<?=tr('show_statictics_cache')?>', BALLOON, true, ABOVE, false, OFFSETX, -17, PADDING, 8, WIDTH, -240)"
+                     onmouseout="UnTip()"
+                     onclick="javascript:window.open('cache_stats.php?cacheid=<?=$view->geoCache->getCacheId()?>&amp;popup=y','Cache_Statistics','width=500,height=750,resizable=yes,scrollbars=1')">
+                     <img src="tpl/stdstyle/images/blue/stat1.png" alt="Statystyka skrzynki" title="Statystyka skrzynki">
+                  </a>
 
+                <?php } else { ?>
+                  <a class="links2" href="javascript:void(0)"
+                     onmouseover="Tip('<?=tr('not_stat_cache')?>', BALLOON, true, ABOVE, false, OFFSETX, -17, PADDING, 8, WIDTH, -240)"
+                     onmouseout="UnTip()">
+                     <img src="tpl/stdstyle/images/blue/stat1.png" alt="" title="">
+                  </a>
+                <?php }
+          } //if-not-event ?>
 
-        <div class="content2-container-2col-left" style="width:60px; clear: left;">
-            <div>
-              <img src="<?=$view->geoCache->getCacheIcon()?>" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}">
-            </div>
-            <div><img src='<?=$view->geoCache->getDifficultyIcon()?>' class='img-difficulty' width='19' height='16' alt='' title='<?=$view->diffTitle?>' ></div>
-            <div><img src='<?=$view->geoCache->getTerreinIcon()?>' class='img-difficulty' width='19' height='16' alt='' title='<?=$view->terrainTitle?>'></div>
-            <div>
-
-              <?php if( $view->geoCache->isEvent() ) {
-                    if (($view->geoCache->getFounds() + $view->geoCache->getNotFounds() + $view->geoCache->getNotesCount()) != 0) { ?>
-
-                      <a class="links2" href="javascript:void(0)"
-                         onmouseover="Tip('<?=tr('show_statictics_cache')?>', BALLOON, true, ABOVE, false, OFFSETX, -17, PADDING, 8, WIDTH, -240)"
-                         onmouseout="UnTip()"
-                         onclick="javascript:window.open('cache_stats.php?cacheid=<?=$view->geoCache->getCacheId()?>&amp;popup=y','Cache_Statistics','width=500,height=750,resizable=yes,scrollbars=1')">
-                         <img src="tpl/stdstyle/images/blue/stat1.png" alt="Statystyka skrzynki" title="Statystyka skrzynki">
-                      </a>
-
-                    <?php } else { ?>
-                      <a class="links2" href="javascript:void(0)"
-                         onmouseover="Tip('<?=tr('not_stat_cache')?>', BALLOON, true, ABOVE, false, OFFSETX, -17, PADDING, 8, WIDTH, -240)"
-                         onmouseout="UnTip()">
-                         <img src="tpl/stdstyle/images/blue/stat1.png" alt="" title="">
-                      </a>
-                    <?php }
-              } //if-not-event ?>
-
-            </div>
         </div>
+    </div>
 
 
         <div class="content2-container-2col-left" id="cache_name_block">
@@ -91,12 +85,20 @@
               <tr>
                 <td style="width:70%; vertical-align:top;">
 
-                  <span class="content-title-noshade-size5">{cachename} - <?=$view->geoCache->getWaypointId()?>{icon_titled}</span><br>
+                  <span class="content-title-noshade-size5">
+                    <?=$view->cachename?> - <?=$view->geoCache->getWaypointId()?>
+
+                    <?php if($view->geoCache->isTitled()) { ?>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <img src="tpl/stdstyle/images/free_icons/award_star_gold_1.png" class="icon16" alt="<?=$view->titledDesc?>" title="<?=$view->titledDesc?>" />
+                    <?php } //if-titled ?>
+
+                  </span><br>
 
                   <p class="content-title-noshade-size1"><?=$view->geoCacheDesc->getShortDescToDisplay()?></p>
 
                   <p><?=tr('owner')?>&nbsp;
-                      <a class="links" href="viewprofile.php?userid={userid_urlencode}">{owner_name}</a>
+                      <a class="links" href="viewprofile.php?userid=<?=$view->ownerId?>">{owner_name}</a>
 
                       <?php if($view->geoCache->isAdopted() ) { ?>
                           <br><?=tr('creator')?>&nbsp;
@@ -137,6 +139,7 @@
               </tr>
            </table>
         </div>
+
     </div>
 </div>
 
@@ -1014,8 +1017,8 @@
                     <td  width="350" align="left" style="padding-left:5px;">
                         <div class="searchdiv">
                             <span class="content-title-noshade txt-blue08">{{format_GPX}}</span>:<br>
-                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid={cacheid_urlencode}&amp;output=gpxgc" title="GPS Exchange Format .gpx">GPX</a>&nbsp|&nbsp
-                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid={cacheid_urlencode}&amp;output=zip" title="Garmin ZIP file ({{format_pict}})  .zip">GARMIN ({{format_pict}})</a>
+                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=<?=$view->geoCache->getCacheId()?>&amp;output=gpxgc" title="GPS Exchange Format .gpx">GPX</a>&nbsp|&nbsp
+                            <a class="links" href="search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=<?=$view->geoCache->getCacheId()?>&amp;output=zip" title="Garmin ZIP file ({{format_pict}})  .zip">GARMIN ({{format_pict}})</a>
                         </div>
                     </td>
                     <td width="350" align="left" style="padding-left:5px;">
@@ -1038,7 +1041,7 @@
                             <span class="content-title-noshade txt-blue08">{{send_to}}:</span><br>
                             <a class="links" href="#" onclick="openCgeoWindow(event, '<?=$view->geoCache->getWaypointId()?>')" title="c:geo">{{send_to_cgeo}}</a> |
                             <a class="links" href="#" onclick="openGarminWindow(event, '{latitude}','{longitude}',
-                            '<?=$view->geoCache->getWaypointId()?>','{cachename}')" title="{{send_to_gps}}">{{send_to_gps}}</a>
+                            '<?=$view->geoCache->getWaypointId()?>','<?=$view->cachename?>')" title="{{send_to_gps}}">{{send_to_gps}}</a>
                         </div>
                     </td>
                 </tr>

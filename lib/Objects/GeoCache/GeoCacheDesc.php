@@ -61,7 +61,7 @@ class GeoCacheDesc
         $short_desc = mb_ereg_replace('{', '&#0123;', $short_desc);
         $short_desc = mb_ereg_replace('}', '&#0125;', $short_desc);
 
-
+        return $short_desc;
     }
 
     public function getDescToDisplay()

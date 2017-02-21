@@ -85,4 +85,9 @@ class View {
         error_log($message);
     }
 
+    public function redirect($uri)
+    {
+        header("Location: " . "//" . $_SERVER['HTTP_HOST'] . $uri);
+    }
+
 }
