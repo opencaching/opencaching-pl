@@ -366,34 +366,36 @@
 <?php } //if-pictures-to-display-present ?>
 
 <!-- Text container -->
-{hidelogbook_start}
-<div class="content2-container bg-blue02 logs">
-    <p class="content-title-noshade-size1">
-        <img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" align="absmiddle" />
-        <b>{{log_entries}}</b>
-        &nbsp;&nbsp;
-        <?php if($view->geoCache->isEvent()) { ?>
-          <img src="tpl/stdstyle/images/log/16x16-attend.png" class="icon16" alt="" title=""/>
-          <?=$view->geoCache->getFounds()?>
+<?php if($view->hideLogbook) { ?>
 
-          <img src="tpl/stdstyle/images/log/16x16-will_attend.png" class="icon16" alt="" title=""/>
-          <?=$view->geoCache->getNotFounds()?>
+    <div class="content2-container bg-blue02 logs">
+        <p class="content-title-noshade-size1">
+            <img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" align="absmiddle" />
+            <b>{{log_entries}}</b>
+            &nbsp;&nbsp;
+            <?php if($view->geoCache->isEvent()) { ?>
+              <img src="tpl/stdstyle/images/log/16x16-attend.png" class="icon16" alt="" title=""/>
+              <?=$view->geoCache->getFounds()?>
 
-        <?php } else { //if-not-event ?>
-          <img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="<?=tr('found')?>"/>
-          <?=$view->geoCache->getFounds()?>x
+              <img src="tpl/stdstyle/images/log/16x16-will_attend.png" class="icon16" alt="" title=""/>
+              <?=$view->geoCache->getNotFounds()?>
 
-          <img src="tpl/stdstyle/images/log/16x16-dnf.png" class="icon16" alt="{{not_found}}" />
-          <?=$view->geoCache->getNotFounds()?>x
-        <?php } //if-not-event ?>
+            <?php } else { //if-not-event ?>
+              <img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="<?=tr('found')?>"/>
+              <?=$view->geoCache->getFounds()?>x
 
-        <img src="tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{log_note}}" />
-        <?=$view->geoCache->getNotesCount()?>x
+              <img src="tpl/stdstyle/images/log/16x16-dnf.png" class="icon16" alt="{{not_found}}" />
+              <?=$view->geoCache->getNotFounds()?>x
+            <?php } //if-not-event ?>
 
-    </p>
-</div>
-<div class="content2-container" id="viewcache-logs">
+            <img src="tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{log_note}}" />
+            <?=$view->geoCache->getNotesCount()?>x
 
-</div>
-{hidelogbook_end}
+        </p>
+    </div>
+    <div class="content2-container" id="viewcache-logs">
+
+    </div>
+<?php } // if-hideLogbook ?>
+
 <!-- End Text Container -->

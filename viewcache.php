@@ -91,11 +91,17 @@ $view->setVar('isAdminAuthorized', $loggedUser && $loggedUser->isAdmin() );
 
 
 
+$geocache->incCacheVisits($loggedUser, $_SERVER["REMOTE_ADDR"]);
+
+
+
 if ($loggedUser) {
     tpl_set_var('uType', $loggedUser->isAdmin());
-} else {
-
 }
+
+$view->setVar('displayPrePublicationAccessInfo',
+    $loggedUser && ( $loggedUser->isAdmin() || $loggedUser->getUserId() == $geocache->getOwnerId()) );
+
 
 
 
@@ -108,19 +114,7 @@ if (@$enable_cache_access_logs) {
 }
 
 
-if ($loggedUser && $geocache->getOwnerId() == $loggedUser->getUserId()) {
-    $show_edit = true;
-    $show_ignore = false;
-    $show_watch = false;
-} else {
-    if ($loggedUser && $loggedUser->isAdmin()) {
-        $show_edit = true;
-    } else {
-        $show_edit = false;
-    }
-    $show_ignore = true;
-    $show_watch = true;
-}
+
 
 
 
@@ -165,7 +159,7 @@ $view->setVar('userModifiedCacheCoords', $userModifiedCacheCoords);
 
 
 
-PrintList::HandleRequest();
+PrintList::HandleRequest($geocache->getCacheId());
 
 
 
@@ -205,33 +199,12 @@ $view->setVar('score', $score);
 
 
 
-// begin visit-counter
-// delete cache_visits older 1 day 60*60*24 = 86400
-$dbc->multiVariableQuery("DELETE FROM `cache_visits` WHERE `cache_id`=:1 AND `user_id_ip` != '0' AND NOW()-`last_visited` > 86400", $cache_id);
-
-// first insert record for visit counter if not in db
-$chkuserid = isset($usr['userid']) ? $usr['userid'] : $_SERVER["REMOTE_ADDR"];
-
-// note the visit of this user
-$dbc->multiVariableQuery(
-    "INSERT INTO `cache_visits` (`cache_id`, `user_id_ip`, `count`, `last_visited`)
-    VALUES (:1, :2, 1, NOW()) ON DUPLICATE KEY UPDATE `count`=`count`+1", $cache_id, $chkuserid);
-
-if ($chkuserid != $owner_id) {
-    // increment the counter for this cache
-    $dbc->multiVariableQuery(
-        "INSERT INTO `cache_visits` (`cache_id`, `user_id_ip`, `count`, `last_visited`)
-        VALUES (:1, '0', 1, NOW()) ON DUPLICATE KEY UPDATE `count`=`count`+1, `last_visited`=NOW()", $cache_id);
-}
-
-// end visit-counter
 
 $view->setVar('alwaysShowCoords', !$hide_coords);
 
 
 $icons = $geocache->dictionary->getCacheTypeIcons();
 
-//cache data
 list($iconname) = getCacheIcon($usr['userid'], $geocache->getCacheId(), $geocache->getStatus(), $geocache->getOwner()->getUserId(), $icons[$geocache->getCacheType()]['icon']);
 list($lat_dir, $lat_h, $lat_min) = help_latToArray($geocache->getCoordinates()->getLatitude());
 list($lon_dir, $lon_h, $lon_min) = help_lonToArray($geocache->getCoordinates()->getLongitude());
@@ -277,12 +250,13 @@ if ($usr || !$hide_coords) {
 tpl_set_var('cacheid', $cache_id);
 
 
+
+
+
 $iconname = str_replace("mystery", "quiz", $iconname);
 tpl_set_var('icon_cache', htmlspecialchars("$stylepath/images/cache/$iconname", ENT_COMPAT, 'UTF-8'));
 
 
-// cache_rating list of users
-// no geokrets in this cache
 
 tpl_set_var('altitude', $geocache->getAltitudeObj()->getAltitude());
 
@@ -523,84 +497,56 @@ $view->setVar('hintEncrypted', $geoCacheDesc->getHint());
 $view->setVar('hintDecrypted', $hint);
 
 
-
-/*
-$includeDeletedLogs = false;
-if ($usr && !$HideDeleted && $usr['admin'] != 1) {
-    $includeDeletedLogs = true;
-}
-if($usr['admin'] == 1){
-    $includeDeletedLogs = true;
-}
-tpl_set_var('includeDeletedLogs', $includeDeletedLogs ? 1 : 0);
- */
-
-if (isset($_REQUEST['logbook']) && $_REQUEST['logbook'] == 'no') {
-    tpl_set_var('hidelogbook_start', '<!--');
-    tpl_set_var('hidelogbook_end', '-->');
-} else {
-    tpl_set_var('hidelogbook_start', '');
-    tpl_set_var('hidelogbook_end', '');
-}
+$view->setVar('hideLogbook',isset($_REQUEST['logbook']) && $_REQUEST['logbook'] == 'no');
 
 
 
+if ($loggedUser) {
 
+    if ($geocache->getOwnerId() == $loggedUser->getUserId()) {
 
-
-// action functions
-$edit_action = "";
-$log_action = "";
-$watch_action = "";
-$ignore_action = "";
-$print_action = "";
-$is_watched = "";
-$watch_label = "";
-$is_ignored = "";
-$ignore_label = "";
-$ignore_icon = "";
-
-//sql request only if we want show 'watch' button for user
-if($show_watch) {
-    //is this cache watched by this user?
-
-    if (!$geocache->isWatchedBy($loggedUser->getUserId())) {
-        $watch_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_watch);
-        $is_watched = 'watchcache.php?cacheid=' . $cache_id . '&amp;target=viewcache.php%3Fcacheid=' . $cache_id;
-        $watch_label = tr('watch');
+        $show_edit = true;
+        $show_ignore = false;
+        $show_watch = false;
     } else {
-        $watch_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_watch_not);
-        $is_watched = 'removewatch.php?cacheid=' . $cache_id . '&amp;target=viewcache.php%3Fcacheid=' . $cache_id;
-        $watch_label = tr('watch_not');
+        $show_edit = $loggedUser->isAdmin();
+        $show_ignore = true;
+        $show_watch = true;
     }
-}
 
-//sql request only if we want show 'ignore' button for user
-if($show_ignore) {
-    //is this cache ignored by this user?
+    $is_watched = "";
+    $watch_label = "";
 
-    if(!$geocache->isIgnoredBy($loggedUser->getUserId())){
+    if($show_watch) {
+        //is this cache watched by this user?
 
-        $ignore_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_ignore);
-        $is_ignored = "addignore.php?cacheid=" . $cache_id . "&amp;target=viewcache.php%3Fcacheid%3D" . $cache_id;
-        $ignore_label = tr('ignore');
-        $ignore_icon = 'images/actions/ignore';
-    } else {
-        $ignore_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_ignore_not);
-        $is_ignored = "removeignore.php?cacheid=" . $cache_id . "&amp;target=viewcache.php%3Fcacheid%3D" . $cache_id;
-        $ignore_label = tr('ignore_not');
-        $ignore_icon = 'images/actions/ignore';
+        if (!$geocache->isWatchedBy($loggedUser->getUserId())) {
+            $is_watched = 'watchcache.php?cacheid=' . $cache_id . '&amp;target=viewcache.php%3Fcacheid=' . $cache_id;
+            $watch_label = tr('watch');
+        } else {
+            $is_watched = 'removewatch.php?cacheid=' . $cache_id . '&amp;target=viewcache.php%3Fcacheid=' . $cache_id;
+            $watch_label = tr('watch_not');
+        }
     }
-}
 
-if ($usr !== false) {
-    //user logged in => he can log
-    $log_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_log);
+    $is_ignored = "";
+    $ignore_label = "";
 
+    if($show_ignore) {
+        //is this cache ignored by this user?
+
+        if(!$geocache->isIgnoredBy($loggedUser->getUserId())){
+
+            $is_ignored = "addignore.php?cacheid=" . $cache_id . "&amp;target=viewcache.php%3Fcacheid%3D" . $cache_id;
+            $ignore_label = tr('ignore');
+        } else {
+            $is_ignored = "removeignore.php?cacheid=" . $cache_id . "&amp;target=viewcache.php%3Fcacheid%3D" . $cache_id;
+            $ignore_label = tr('ignore_not');
+        }
+    }
 
     $printListLabel = PrintList::IsOnTheList($geocache->getCacheId()) ?
         tr('remove_from_list'): tr('add_to_list');
-
 
     $cache_menu = array(
         'title' => tr('cache_menu'),
@@ -663,7 +609,7 @@ if ($usr !== false) {
                 'filename' => $is_ignored,
                 'newwindow' => false,
                 'siteid' => 'ignored_cache',
-                'icon' => $ignore_icon
+                'icon' => 'images/actions/ignore'
             ),
             array(
                 'title' => tr('edit'),
@@ -676,7 +622,7 @@ if ($usr !== false) {
             )
         )
     );
-    $report_action = "<li><a href=\"reportcache.php?cacheid=$cache_id\">" . tr('report_problem') . "</a></li>";
+
 } else {
     $cache_menu = array(
         'title' => tr('cache_menu'),
@@ -696,7 +642,6 @@ if ($usr !== false) {
 
 
 
-//make the template and send it out
 
 
 // geoPath badge
@@ -730,11 +675,3 @@ $view->setVar('viewcache_js', "tpl/stdstyle/js/viewcache." . filemtime($rootpath
 
 tpl_BuildTemplate();
 
-function onTheList($theArray, $item)
-{
-    for ($i = 0; $i < count($theArray); $i++) {
-        if ($theArray[$i] == $item)
-            return $i;
-    }
-    return -1;
-}

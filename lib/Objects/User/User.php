@@ -656,4 +656,22 @@ class User extends \lib\Objects\BaseObject
         }
         return $this->geokretyApiSecid;
     }
+
+    public static function GetUserNamesForListOfIds(array $userIds)
+    {
+
+        if(empty($userIds)){
+            return array();
+        }
+
+        $s = XDb::xSql(
+            "SELECT username FROM `user`
+            WHERE `user_id` IN ( ? )", implode($userIds, ','));
+
+        $result = array();
+        while($row = XDb::xFetchArray($s)){
+            $result[] = $row['username'];
+        }
+        return $result;
+    }
 }

@@ -344,6 +344,14 @@
 
                     <br />
 
+                    <?php if($view->displayPrePublicationAccessInfo) {?>
+
+                      Lookali przed publikacją: <?=implode($view->geoCache->getPrePublicationVisits(), '|')?>
+
+                    <?php } //if-displayPrePublicationAccessInfo ?>
+
+                    <br />
+
                     <img src="tpl/stdstyle/images/free_icons/thumb_up.png" class="icon16" alt="" />
                     <?=$view->geoCache->getRatingVotes()?> x <?=tr('scored')?>
 

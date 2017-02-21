@@ -26,12 +26,9 @@ if (isset($_REQUEST['print'])) {
     $logs_to_display = 5;
 
 
-$function_log = "<li><a href='log.php?cacheid={cacheid}'>" . tr('write_to_log') . "</a></li>";
-$function_edit = "<li'><a href='editcache.php?cacheid={cacheid}'>" . tr('edit') . "</a></li>";
 $function_watch = "<li><a href='watchcache.php?cacheid={cacheid}&amp;target=viewcache.php%3Fcacheid%3D{cacheid}'>" . tr('watch') . "</a></li>";
 $function_watch_not = "<li><a href='removewatch.php?cacheid={cacheid}&amp;target=viewcache.php%3Fcacheid%3D{cacheid}'>" . tr('watch_not') . "</a></li>";
 $function_ignore = "<li><a href='addignore.php?cacheid={cacheid}&amp;target=viewcache.php%3Fcacheid%3D{cacheid}'>" . tr('ignore') . "</a></li>";
-$function_ignore_not = "<li><a href='removeignore.php?cacheid={cacheid}&amp;target=viewcache.php%3Fcacheid%3D{cacheid}'>" . tr('ignore_not') . "</a></li>";
 $decrypt_link = '<span style="font-weight:400"><a href="viewcache.php?cacheid={cacheid_urlencode}&amp;nocrypt=1&amp;desclang={desclang}' . $linkargs . '#decrypt-info" onclick="return showHint(event);"><span id="decryptLinkStr">' . tr('decrypt') .'</span><span id="encryptLinkStr" style="display:none">' . tr('encrypt') .'</span></a></span>';
 $pictureline = '<a href="{link}">{title}</a><br />';
 $pictures = '<p>{picturelines}</p>';

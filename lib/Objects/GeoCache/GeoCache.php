@@ -1046,10 +1046,38 @@ class GeoCache extends GeoCacheCommons
 
     public function getCacheVisits()
     {
-        return XDb::xMultiVariableQueryValue(
-                    "SELECT `count` FROM `cache_visits`
-                     WHERE `cache_id`=:1 AND `user_id_ip`='0'",
-                     0, $this->id);
+        return CacheVisits::GetCacheVisits($this->id);
+    }
+
+    public function getPrePublicationVisits()
+    {
+
+        return User::GetUserNamesForListOfIds(
+            CacheVisits::GetPrePublicationVisits($this->id));
+    }
+
+    public function incCacheVisits(User $user, $ip)
+    {
+
+        global $hide_coords; //hide-coords-for-unauthorized-users
+
+        if(!$user && $hide_coords){
+            // don't count visits if coords are hidden
+            return;
+        }
+
+        if($user && $user->getUserId() == $this->getOwnerId()){
+            //skip inc visits for owner
+            return;
+        }
+
+        $userIdOrIp = ($user) ? $user->getUserId() : $ip;
+
+        if($this->status == self::STATUS_WAITAPPROVERS || $this->status == self::STATUS_NOTYETAVAILABLE){
+            CacheVisits::CountCachePrePublicationVisit($userIdOrIp, $this->id);
+        }else{
+            CacheVisits::CountCacheVisit($userIdOrIp, $this->id);
+        }
     }
 
     public function getCacheAttributesList()
