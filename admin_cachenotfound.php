@@ -113,12 +113,12 @@ if ($usr['admin']) {
                     IFNULL(c.last_found, str_to_date('2000-01-01', '%Y-%m-%d'))
                 )
             AND cl.date > (
-                    /* log date is newer than last author comment */
+                    /* log date is newer than last author comment or last cache fix*/
                     SELECT IFNULL( MAX(cl1.date), str_to_date('2000-01-01', '%Y-%m-%d'))
                     FROM cache_logs cl1
                     WHERE cl1.cache_id = c.cache_id
-                        AND cl1.user_id = c.user_id
-                        AND cl1.type = 3 /* log-comment */
+                      AND ((cl1.user_id = c.user_id AND cl1.type = 3) /* owner log-comment */
+                      OR cl1.type = 6) /* cache-fixed comment */
                 )
             $skipReported /* = skip reported caches:
             AND c.cache_id NOT IN ( SELECT r.cache_id FROM reports r WHERE r.status <> 2 ) */
