@@ -168,6 +168,11 @@ class ChownerController
 
             $cacheObj->getCacheId(), $logMessage, create_uuid(), $GLOBALS['oc_nodeid'] );
 
+        $this->db->multiVariableQuery(
+            "UPDATE `caches` SET
+                `notes`= `notes`+1 WHERE `cache_id` =:1",
+            $cacheObj->getCacheId());
+
         $this->db->commit();
 
         $message = tr('adopt_15');
@@ -344,7 +349,6 @@ class ChownerController
                 LEFT JOIN user ON chowner.user_id = user.user_id
              WHERE c.user_id= :1
                 AND status <> 4
-                AND type != 10
              ORDER BY name",
             $this->userObj->getUserId() );
 
