@@ -170,7 +170,6 @@ class GeoCache extends GeoCacheCommons
             $this->loadByUUID($params['cacheUUID']);
         }
 
-
         $this->dictionary = \cache::instance();
     }
 
@@ -454,8 +453,8 @@ class GeoCache extends GeoCacheCommons
         return $this->cacheType == self::TYPE_EVENT;
     }
 
-    public function isMobile(){
-        return $this->cacheType == self::TYPE_MOVING;
+    public function isMovable(){
+        return $this->cacheType == self::TYPE_MOVING || $this->cacheType == self::TYPE_OWNCACHE;
     }
 
     public function getCacheLocationObj()
@@ -899,10 +898,10 @@ class GeoCache extends GeoCacheCommons
 
     public function getMoveCount()
     {
-        if($this->cacheType === self::TYPE_MOVING && $this->moveCount === -1){
-            $db  = OcDb::instance();
-            $sql = 'SELECT COUNT(*) FROM `cache_logs` WHERE type=4 AND cache_logs.deleted="0" AND cache_id=:1';
-            $this->moveCount = $db->multiVariableQueryValue($sql, 0, $this->id);
+        if(($this->cacheType === self::TYPE_MOVING || $this->cacheType === self::TYPE_OWNCACHE) && $this->moveCount === -1){
+            $this->moveCount = XDb::xMultiVariableQueryValue(
+                'SELECT COUNT(*) FROM `cache_logs` WHERE (type=4 OR type=10) AND cache_logs.deleted="0" AND cache_id=:1',
+                0, $this->id);
         }
         return $this->moveCount;
     }

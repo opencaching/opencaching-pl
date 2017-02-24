@@ -32,14 +32,16 @@
 
         <?php
             // menu kesza - przyciski - wpis do logu etc... PRZEROBIĆ!
+
             $clidx = mnu_MainMenuIndexFromPageId($menu, "viewcache_menu");
             if ( $menu[$clidx]['title'] != '' ) {
 
-                $menu[$clidx]['visible'] = false; ?>
+                $menu[$clidx]['visible'] = false;
+        ?>
 
                 <ul id="cachemenu">
 
-                  <li class="title"><?=$menu[$clidx]["title"]?></li>
+                  <!-- <li class="title"><?=$menu[$clidx]["title"]?></li> -->
 
                   <?php mnu_EchoSubMenu($menu[$clidx]['submenu'], $tplname, 1, false); ?>
 
@@ -318,7 +320,7 @@
 
                       <br />
 
-                      <?php if($view->geoCache->isMobile()) { ?>
+                      <?php if($view->geoCache->isMovable()) { ?>
                         <img src="tpl/stdstyle/images/log/16x16-moved.png" class="icon16" alt="moved" />
                         <?=$view->geoCache->getMoveCount()?>x <?=tr('moved_text')?>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?=$view->geoCache->getDistance()?>&nbsp;km
@@ -433,7 +435,10 @@
             <?php } // foreach-attrib. ?>
         </p>
     </div>
-    <div class="notice" id="viewcache-attributesend">{{attributes_desc_hint}}  <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></div>
+    <div class="notice" id="viewcache-attributesend">
+      {{attributes_desc_hint}}
+      <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link">
+    </div>
 
 <?php } //cache has attributes ?>
 

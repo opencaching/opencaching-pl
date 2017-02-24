@@ -27,9 +27,7 @@ class ViewCacheController extends BaseController
     {
         parent::__construct();
         $this->geocache = $this->loadGeocache();
-
     }
-
 
     public function index()
     {
