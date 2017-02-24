@@ -387,7 +387,7 @@ class ViewCacheController extends BaseController
 
     private function processOpenChecker()
     {
-        if(OpenChecker::isEnabledInConfig()){
+        if( OpenChecker::isEnabledInConfig() && $this->geocache->isOpenCheckerApplicable() ){
             $openChecker = OpenChecker::ForCacheIdFactory($this->geocache->getCacheId());
         }else{
             $openChecker = null;

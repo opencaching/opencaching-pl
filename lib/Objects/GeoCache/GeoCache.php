@@ -457,6 +457,12 @@ class GeoCache extends GeoCacheCommons
         return $this->cacheType == self::TYPE_MOVING || $this->cacheType == self::TYPE_OWNCACHE;
     }
 
+    public function isOpenCheckerApplicable()
+    {
+        return $this->cacheType == self::TYPE_MOVING ||
+            self::TYPE_QUIZ || self::TYPE_OTHERTYPE;
+    }
+
     public function getCacheLocationObj()
     {
         if(!$this->cacheLocationObj){
