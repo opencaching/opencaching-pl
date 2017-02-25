@@ -1057,9 +1057,13 @@ class GeoCache extends GeoCacheCommons
 
     public function getPrePublicationVisits()
     {
-
-        return User::GetUserNamesForListOfIds(
+        $result = User::GetUserNamesForListOfIds(
             CacheVisits::GetPrePublicationVisits($this->id));
+
+        if(empty($result)){
+            $result[] = tr('no_visits');
+        }
+        return $result;
     }
 
     public function incCacheVisits(User $user, $ip)

@@ -2649,7 +2649,9 @@ $translations = array(
     'merit_badge_number' =>  'Progress',
     'merit_badge_number_threshold' =>  'Thresholds',
     'merit_badge_show_details' => 'Show details of merit badges ... ',
-    'merit_badge_gain_max_level' => 'You gained the highest level'
+    'merit_badge_gain_max_level' => 'You gained the highest level',
+    'prepublication_visits' => 'Visited before publication',
+    'no_visits' => 'No such visits'
 
 );
 

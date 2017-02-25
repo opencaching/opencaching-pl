@@ -225,6 +225,8 @@ class ViewCacheController extends BaseController
                 }
             }
 
+            $this->view->setVar('watchLabel',$watch_label);
+
             $is_ignored = "";
             $ignore_label = "";
 
@@ -241,8 +243,14 @@ class ViewCacheController extends BaseController
                 }
             }
 
+            $this->view->setVar('ignoreLabel',$ignore_label);
+
+
             $printListLabel = PrintList::IsOnTheList($this->geocache->getCacheId()) ?
-            tr('remove_from_list'): tr('add_to_list');
+                tr('remove_from_list'): tr('add_to_list');
+            $this->view->setVar('printListLabel',$printListLabel);
+            $this->view->setVar('printListIcon',PrintList::IsOnTheList($this->geocache->getCacheId()) ?
+                        'images/actions/list-remove-16.png' : 'images/actions/list-add-16.png');
 
             global $cache_menu;
             $cache_menu = array(

@@ -1,10 +1,8 @@
 
 <link rel="stylesheet" href="tpl/stdstyle/js/lightbox2/dist/css/lightbox.min.css">
-<script src="tpl/stdstyle/js/lightbox2/dist/js/lightbox-plus-jquery.min.js"></script>
+<link rel="stylesheet" href="tpl/stdstyle/css/lightTooltip.css">
 
-<script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
-<script type="text/javascript" src="lib/js/tip_balloon.js"></script>
-<script type="text/javascript" src="lib/js/tip_centerwindow.js"></script>');
+<script src="tpl/stdstyle/js/lightbox2/dist/js/lightbox-plus-jquery.min.js"></script>
 
 <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 
@@ -26,9 +24,35 @@
     <div class="">
 
     <div class="nav4">
+
+<!--
         <?php if(!$view->isUserAuthorized){ ?>
           <span class="notlogged-cacheview"><?=tr('cache_logged_required')?></span>;
         <?php }else{ ?>
+
+        <button class="btn btn-success btn-md">
+          <img src="images/actions/new-entry-16.png" />&nbsp;<?=tr('new_log_entry')?>
+        </button>
+        <button class="btn btn-default btn-md">
+          <img src="images/actions/watch-16.png" />&nbsp;<?=$view->watchLabel?>
+        </button>
+        <button class="btn btn-default btn-md">
+          <img src="images/actions/report-problem-16.png" />&nbsp;<?=tr('report_problem')?>
+        </button>
+        <button class="btn btn-default btn-md">
+          <img src="images/actions/print-16.png" />&nbsp;<?=tr('print')?>
+        </button>
+        <button class="btn btn-default btn-md">
+          <img src="<?=$view->printListIcon?>" />&nbsp;<?=$view->printListLabel?>
+        </button>
+        <button class="btn btn-danger btn-md">
+          <img src="images/actions/ignore-16.png" />&nbsp;<?=$view->ignoreLabel?>
+        </button>
+        <button class="btn btn-primary btn-md">
+          <img src="images/actions/edit-16.png" />&nbsp;<?=tr('edit')?>
+        </button>
+-->
+
 
         <?php
             // menu kesza - przyciski - wpis do logu etc... PRZEROBIĆ!
@@ -41,7 +65,7 @@
 
                 <ul id="cachemenu">
 
-                  <!-- <li class="title"><?=$menu[$clidx]["title"]?></li> -->
+                  <li class="title"><?=$menu[$clidx]["title"]?></li>
 
                   <?php mnu_EchoSubMenu($menu[$clidx]['submenu'], $tplname, 1, false); ?>
 
@@ -49,32 +73,37 @@
             <?php } // if-$menu[$clidx]['title'] != '' ?>
 
         <?php } //else ?>
+
+
     </div>
 
     <div class="content2-container-2col-left" style="width:60px; clear: left;">
         <div>
           <img src="<?=$view->geoCache->getCacheIcon()?>" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}">
         </div>
-        <div><img src='<?=$view->geoCache->getDifficultyIcon()?>' class='img-difficulty' width='19' height='16' alt='' title='<?=$view->diffTitle?>' ></div>
+        <div><img src='<?=$view->geoCache->getDifficultyIcon()?>' class='img-difficulty' width='19' height='16' alt='' title='<?=$view->diffTitle?>'></div>
         <div><img src='<?=$view->geoCache->getTerreinIcon()?>' class='img-difficulty' width='19' height='16' alt='' title='<?=$view->terrainTitle?>'></div>
         <div>
 
-          <?php if( $view->geoCache->isEvent() ) {
+          <?php if( !$view->geoCache->isEvent() ) {
                 if (($view->geoCache->getFounds() + $view->geoCache->getNotFounds() + $view->geoCache->getNotesCount()) != 0) { ?>
 
-                  <a class="links2" href="javascript:void(0)"
-                     onmouseover="Tip('<?=tr('show_statictics_cache')?>', BALLOON, true, ABOVE, false, OFFSETX, -17, PADDING, 8, WIDTH, -240)"
-                     onmouseout="UnTip()"
-                     onclick="javascript:window.open('cache_stats.php?cacheid=<?=$view->geoCache->getCacheId()?>&amp;popup=y','Cache_Statistics','width=500,height=750,resizable=yes,scrollbars=1')">
-                     <img src="tpl/stdstyle/images/blue/stat1.png" alt="Statystyka skrzynki" title="Statystyka skrzynki">
-                  </a>
-
-                <?php } else { ?>
-                  <a class="links2" href="javascript:void(0)"
-                     onmouseover="Tip('<?=tr('not_stat_cache')?>', BALLOON, true, ABOVE, false, OFFSETX, -17, PADDING, 8, WIDTH, -240)"
-                     onmouseout="UnTip()">
+                  <script type="text/javascript">
+                    function cacheStatPopup(){
+                      var url = "cache_stats.php?cacheid=<?=$view->geoCache->getCacheId()?>&amp;popup=y";
+                      window.open(url,'Cache_Statistics',"width=500,height=750,resizable=yes,scrollbars=1");
+                    }
+                  </script>
+                  <a class="links2 lightTipped" href="#" onclick="cacheStatPopup()">
                      <img src="tpl/stdstyle/images/blue/stat1.png" alt="" title="">
                   </a>
+                  <div class="lightTip"><?=tr('show_statictics_cache')?></div>
+
+                <?php } else { ?>
+                  <a class="links2 lightTipped" href="#">
+                     <img src="tpl/stdstyle/images/blue/stat1.png" alt="" title="">
+                  </a>
+                  <div class="lightTip"><?=tr('not_stat_cache')?></div>
                 <?php }
           } //if-not-event ?>
 
@@ -303,7 +332,10 @@
     <div class="content2-container-2col-right" id="viewcache-maptypes">
 
             <div class="content2-container-2col-left" id="viewcache-numstats">
-                <p style="line-height: 1.4em;"><br>
+                <div style="line-height: 1.6em; font-family: arial, sans serif; font-size: 12px;">
+
+                    <br/>
+
                     <?php if($view->geoCache->isEvent()) { ?>
 
                       <img src="tpl/stdstyle/images/log/16x16-attend.png" class="icon16" alt="" title=""/>
@@ -344,15 +376,15 @@
 
                     <br />
 
-                    <img src="tpl/stdstyle/images/free_icons/vcard.png" class="icon16" alt="" />
-                    <?=$view->geoCache->getCacheVisits()?> <?=tr('visitors')?>
-
-                    <br />
-
+                    <div class="lightTipped" style="display:inline;">
+                      <img src="tpl/stdstyle/images/free_icons/vcard.png" class="icon16" alt="" />
+                      <?=$view->geoCache->getCacheVisits()?> <?=tr('visitors')?>
+                    </div>
                     <?php if($view->displayPrePublicationAccessInfo) {?>
-
-                      Lookali przed publikacją: <?=implode($view->geoCache->getPrePublicationVisits(), '|')?>
-
+                        <div class="lightTip" >
+                          <b><?=tr('prepublication_visits')?>:</b>
+                          <?=implode($view->geoCache->getPrePublicationVisits(), '|')?>
+                        </div>
                     <?php } //if-displayPrePublicationAccessInfo ?>
 
                     <br />
@@ -369,13 +401,14 @@
 
                     <?php if($view->geoCache->getRecommendations() > 0) { ?>
 
-                      <a class ="links2" href="javascript:void(0)"
-                         onmouseover="Tip('<b><?=tr('recommended_by')?></b><br><br><?=$view->geoCache->getUsersRecomeded()?><br><br>', BALLOON, true, ABOVE, false, OFFSETY, 20, OFFSETX, -17, PADDING, 8, WIDTH, -240)"
-                         onmouseout="UnTip()" >
-
-                          <img src="images/rating-star.png" alt="{{recomendation}}" />
+                      <a class="links2 lightTipped" href="#">
+                          <img src="images/rating-star.png" alt="{{recommended}}" />
                           <?=$view->geoCache->getRecommendations()?> x <?=tr('recommended')?>
                       </a>
+                      <div class="lightTip">
+                           <b><?=tr('recommended_by')?>:</b>
+                           <?=$view->geoCache->getUsersRecomeded()?>
+                      </div>
 
                       <br />
                     <?php } // if-there-are-recommendations ?>
@@ -387,7 +420,7 @@
                     </a>
 
                     <br />
-                </p>
+                </div>
             </div>
 
             <div id="viewcache-map" class="content2-container-2col-right">
@@ -472,7 +505,7 @@
         {{descriptions}}&nbsp;&nbsp;
 
         <?php foreach( $view->availableDescLangs as $descLang ){ ?>
-          <a href="<?=$view->availableDescLangsLinks[$descLang]?>">
+          <a class="btn btn-sm btn-default" href="<?=$view->availableDescLangsLinks[$descLang]?>">
               <?php if($view->usedDescLang == $descLang) { ?>
                 <i><?=$descLang?></i>
 
@@ -484,11 +517,11 @@
         <?php } //foreach-available-desc-langs ?>
 
         <?php if($view->isAdminAuthorized) { ?>
-        &nbsp;
-        [<a href="add_octeam_comment.php?cacheid=<?=$view->geoCache->getCacheId()?>"><?=tr('add_rr_comment')?></a>]
-        &nbsp;
-        [<a href="viewcache.php?cacheid=<?=$view->geoCache->getCacheId()?>&amp;rmAdminComment=1"
-            onclick="return confirm('<?=tr("confirm_remove_rr_comment")?>');"><?=tr('remove_rr_comment')?></a>]
+        <a class="btn btn-sm btn-default" href="add_octeam_comment.php?cacheid=<?=$view->geoCache->getCacheId()?>">
+          <?=tr('add_rr_comment')?>
+        </a>
+        <a class="btn btn-sm btn-default" href="viewcache.php?cacheid=<?=$view->geoCache->getCacheId()?>&amp;rmAdminComment=1"
+            onclick="return confirm('<?=tr("confirm_remove_rr_comment")?>');"><?=tr('remove_rr_comment')?></a>
         <?php } //if-admin-authorized ?>
     </p>
 </div>
@@ -628,7 +661,7 @@
                 <?php if(!$view->showUnencryptedHint) { ?>
 
                 <span style="font-weight:400">
-                  <a href="#" onclick="return showHint(event);">
+                  <a class="btn btn-default btn-sm" href="#" onclick="return showHint(event);">
                       <span id="decryptLinkStr"><?=tr('decrypt')?></span>
                       <span id="encryptLinkStr" style="display:none"><?=tr('encrypt')?></span>
                   </a>
@@ -1103,9 +1136,14 @@
 
             &nbsp;
 
+            <a class="btn btn-sm btn-primary" href="log.php?cacheid=<?=$view->geoCache->getCacheId()?>" title="<?=tr('new_log_entry')?>">
+              <img src="images/actions/new-entry-18.png" title="<?=tr('new_log_entry')?>" alt="<?=tr('new_log_entry')?>">
+              <?=tr('new_log_entry_short')?>
+            </a>
+
             <?php if($view->displayAllLogsLink) { ?>
 
-                <a href="viewlogs.php?cacheid=<?=$view->geoCache->getCacheId()?>" >
+                <a class="btn btn-sm btn-default" href="viewlogs.php?cacheid=<?=$view->geoCache->getCacheId()?>" >
                   <img src="tpl/stdstyle/images/action/16x16-showall.png" class="icon16" alt="<?=tr('show_all_log_entries')?>"
                        title="<?=tr('show_all_log_entries')?>" />
                   &nbsp;
@@ -1114,20 +1152,11 @@
             <?php } //if-logEnteriesCount ?>
 
 
-            &nbsp;
-
-            <a href="log.php?cacheid=<?=$view->geoCache->getCacheId()?>" title="<?=tr('new_log_entry')?>">
-              <img src="images/actions/new-entry-18.png" title="<?=tr('new_log_entry')?>" alt="<?=tr('new_log_entry')?>">
-              <?=tr('new_log_entry_short')?>
-            </a>
-
-
-            &nbsp;
 
             <?php if($view->showDeletedLogsDisplayLink) { ?>
 
                 <span style="white-space: nowrap;">
-                  <a href="<?=$view->deletedLogsDisplayLink?>" title="<?=$view->deletedLogsDisplayText?>">
+                  <a class="btn btn-sm btn-default" href="<?=$view->deletedLogsDisplayLink?>" title="<?=$view->deletedLogsDisplayText?>">
                     <img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="<?=$view->deletedLogsDisplayText?>" title="<?=$view->deletedLogsDisplayText?>" />
                     <?=$view->deletedLogsDisplayText?>
                   </a>

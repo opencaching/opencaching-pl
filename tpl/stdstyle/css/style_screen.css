@@ -203,7 +203,7 @@ ul.linklist-indent      { margin: -0.3em 0px 0.5em 0px; padding: 0px 0px 0px 10p
 .img-right-noborder-topmargin       { float: right; margin: 3px 0px 0px 10px;}
 .img-right-border-notopmargin       { float: right; margin: 0px 0px 0px 10px; border: solid 1px rgb(150,150,150);}
 .img-right-border-topmargin         { float: right; margin: 3px 0px 0px 10px; border: solid 1px rgb(150,150,150);}
-.img-difficulty                     { float: right; margin: 0px 2px; border-width:0px;border-style:none;}
+.img-difficulty                     { float: right; margin: 0px 2px; border-width:0px; border-style:none;}
 
 /*--------------------*/
 /* 6.2 - Sidebar Area */
@@ -623,6 +623,13 @@ a.btn {
     font-size: 18px;
     line-height: 1.3333333;
     border-radius: 6px;
+}
+
+.btn-md {
+    padding: 5px 5px;
+    font-size: 13px;
+    line-height: 1.5;
+    border-radius: 3px;
 }
 
 .btn-sm {

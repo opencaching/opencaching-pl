@@ -2650,8 +2650,9 @@ $translations = array(
     'merit_badge_number' =>  'Postęp',
     'merit_badge_number_threshold' =>  'Progi',
     'merit_badge_show_details' => 'Pokaż szczegóły zdobytych sprawności ... ',
-    'merit_badge_gain_max_level' => 'Osiągnąłęś najwyższy poziom'
-
+    'merit_badge_gain_max_level' => 'Osiągnąłęś najwyższy poziom',
+    'prepublication_visits' => 'Wizyty przed publikacją',
+    'no_visits' => 'brak wizyt'
 );
 
 
