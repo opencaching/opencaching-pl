@@ -19,12 +19,14 @@ $map_zoom = $main_page_map_zoom;
 $map_width = $main_page_map_width;
 $map_height = $main_page_map_height;
 
+$map_type = $main_page_map_type ;  
+
 // Read coordinates of the newest caches
 $markerpositions = get_marker_positions();
 
 // Generate include file for map with new caches
-$google_map = sprintf("https://maps.google.com/maps/api/staticmap?center=%F,%F&zoom=%d&size=%dx%d&maptype=roadmap&key=%s", $map_center_lat, $map_center_lon, $map_zoom, $map_width, $map_height, $googlemap_key);
-$file_content = '<img src="' . $google_map . '" id="main-cachemap" alt="{{map}}" />';
+$static_map = sprintf("lib/staticmap.php?center=%F,%F&amp;zoom=%d&amp;size=%dx%d&amp;maptype=%s", $map_center_lat, $map_center_lon, $map_zoom, $map_width, $map_height, $map_type);
+$file_content = '<img src="' . $static_map . '" id="main-cachemap" alt="{{map}}" />';
 
 // Calculate positions for small and large images highlighting recent caches and events
 $markers = $markerpositions['markers'];

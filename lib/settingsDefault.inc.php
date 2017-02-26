@@ -169,6 +169,8 @@ $config['maps']['cache_page_map']['marker_color'] = 'blue';
 // available map source (for osm based  static map): mapnik, cycle, sterrain, stoner
 $config['maps']['cache_page_map']['source'] = 'mapnik';
 
+$config['maps']['main_page_map']['source'] = 'mapnik';
+
 /* Cache page minimap                                                       */
 $config['maps']['cache_mini_map']['zoom'] = 14;
 $config['maps']['cache_mini_map']['width'] = '480';
