@@ -61,8 +61,6 @@ class ViewCacheController extends BaseController
         }
         set_tpl_subtitle(htmlspecialchars($this->geocache->getCacheName()) . ' - ');
 
-
-
         $this->geocache->incCacheVisits($this->loggedUser, $_SERVER["REMOTE_ADDR"]);
 
         // detailed cache access logging
@@ -200,7 +198,6 @@ class ViewCacheController extends BaseController
         if ($this->loggedUser) {
 
             if ($this->geocache->getOwnerId() == $this->loggedUser->getUserId()) {
-
                 $show_edit = true;
                 $show_ignore = false;
                 $show_watch = false;
@@ -210,136 +207,43 @@ class ViewCacheController extends BaseController
                 $show_watch = true;
             }
 
-            $is_watched = "";
-            $watch_label = "";
+            $this->view->setVar('showEditButton',$show_edit);
+            $this->view->setVar('showWatchButton',$show_watch);
+            $this->view->setVar('showIgnoreButton',$show_ignore);
 
             if($show_watch) {
                 //is this cache watched by this user?
 
                 if (!$this->geocache->isWatchedBy($this->loggedUser->getUserId())) {
-                    $is_watched = 'watchcache.php?cacheid=' . $this->cache_id . '&amp;target=viewcache.php%3Fcacheid=' . $this->cache_id;
-                    $watch_label = tr('watch');
+                    $this->view->setVar('watchLink','watchcache.php?cacheid=' . $this->cache_id . '&amp;target=' . Uri::getCurrentUri(true));
+                    $this->view->setVar('watchLabel',tr('watch'));
                 } else {
-                    $is_watched = 'removewatch.php?cacheid=' . $this->cache_id . '&amp;target=viewcache.php%3Fcacheid=' . $this->cache_id;
-                    $watch_label = tr('watch_not');
+                    $this->view->setVar('watchLink','removewatch.php?cacheid=' . $this->cache_id . '&amp;target=' . Uri::getCurrentUri(true));
+                    $this->view->setVar('watchLabel',tr('watch_not'));
                 }
             }
-
-            $this->view->setVar('watchLabel',$watch_label);
-
-            $is_ignored = "";
-            $ignore_label = "";
 
             if($show_ignore) {
                 //is this cache ignored by this user?
 
                 if(!$this->geocache->isIgnoredBy($this->loggedUser->getUserId())){
 
-                    $is_ignored = "addignore.php?cacheid=" . $this->cache_id . "&amp;target=viewcache.php%3Fcacheid%3D" . $this->cache_id;
-                    $ignore_label = tr('ignore');
+                    $this->view->setVar('ignoreLink',"addignore.php?cacheid=" . $this->cache_id . "&amp;target=" . Uri::getCurrentUri(true));
+                    $this->view->setVar('ignoreLabel',tr('ignore'));
                 } else {
-                    $is_ignored = "removeignore.php?cacheid=" . $this->cache_id . "&amp;target=viewcache.php%3Fcacheid%3D" . $this->cache_id;
-                    $ignore_label = tr('ignore_not');
+                    $this->view->setVar('ignoreLink',"removeignore.php?cacheid=" . $this->cache_id . "&amp;target=" . Uri::getCurrentUri(true));
+                    $this->view->setVar('ignoreLabel',tr('ignore_not'));
                 }
             }
 
-            $this->view->setVar('ignoreLabel',$ignore_label);
+            $this->view->setVar('printListLabel',PrintList::IsOnTheList($this->geocache->getCacheId()) ?
+                tr('remove_from_list'): tr('add_to_list'));
 
-
-            $printListLabel = PrintList::IsOnTheList($this->geocache->getCacheId()) ?
-                tr('remove_from_list'): tr('add_to_list');
-            $this->view->setVar('printListLabel',$printListLabel);
+            $this->view->setVar('printListLink',PrintList::AddOrRemoveCacheUrl($this->geocache->getCacheId()));
             $this->view->setVar('printListIcon',PrintList::IsOnTheList($this->geocache->getCacheId()) ?
                         'images/actions/list-remove-16.png' : 'images/actions/list-add-16.png');
 
-            global $cache_menu;
-            $cache_menu = array(
-                'title' => tr('cache_menu'),
-                'menustring' => tr('cache_menu'),
-                'siteid' => 'viewcache_menu',
-                'navicolor' => '#E8DDE4',
-                'visible' => false,
-                'filename' => 'viewcache.php',
-                'submenu' => array(
-                    array(
-                        'title' => tr('new_log_entry'),
-                        'menustring' => tr('new_log_entry'),
-                        'visible' => true,
-                        'filename' => 'log.php?cacheid=' . $this->cache_id,
-                        'newwindow' => false,
-                        'siteid' => 'new_log',
-                        'icon' => 'images/actions/new-entry'
-                    ),
-                    array(
-                        'title' => $watch_label,
-                        'menustring' => $watch_label,
-                        'visible' => $show_watch,
-                        'filename' => $is_watched,
-                        'newwindow' => false,
-                        'siteid' => 'observe_cache',
-                        'icon' => 'images/actions/watch'
-                    ),
-                    array(
-                        'title' => tr('report_problem'),
-                        'menustring' => tr('report_problem'),
-                        'visible' => true,
-                        'filename' => 'reportcache.php?cacheid=' . $this->cache_id,
-                        'newwindow' => false,
-                        'siteid' => 'report_cache',
-                        'icon' => 'images/actions/report-problem'
-                    ),
-                    array(
-                        'title' => tr('print'),
-                        'menustring' => tr('print'),
-                        'visible' => true,
-                        'filename' => 'printcache.php?cacheid=' . $this->cache_id,
-                        'newwindow' => false,
-                        'siteid' => 'print_cache',
-                        'icon' => 'images/actions/print'
-                    ),
-                    array(
-                        'title' => $printListLabel,
-                        'menustring' => $printListLabel,
-                        'visible' => true,
-                        'filename' => PrintList::AddOrRemoveCacheUrl($this->geocache->getCacheId()),
-                        'newwindow' => false,
-                        'siteid' => 'print_list_cache',
-                        'icon' => PrintList::IsOnTheList($this->geocache->getCacheId()) ?
-                        'images/actions/list-remove' : 'images/actions/list-add'
-                    ),
-                    array(
-                        'title' => $ignore_label,
-                        'menustring' => $ignore_label,
-                        'visible' => $show_ignore,
-                        'filename' => $is_ignored,
-                        'newwindow' => false,
-                        'siteid' => 'ignored_cache',
-                        'icon' => 'images/actions/ignore'
-                    ),
-                    array(
-                        'title' => tr('edit'),
-                        'menustring' => tr('edit'),
-                        'visible' => $show_edit,
-                        'filename' => 'editcache.php?cacheid=' . $this->cache_id,
-                        'newwindow' => false,
-                        'siteid' => 'edit_cache',
-                        'icon' => 'images/actions/edit'
-                    )
-                )
-            );
-
-        } else {
-            $cache_menu = array(
-                'title' => tr('cache_menu'),
-                'menustring' => tr('cache_menu'),
-                'siteid' => 'viewcache_menu',
-                'navicolor' => '#E8DDE4',
-                'visible' => false,
-                'filename' => 'viewcache.php',
-                'submenu' => array(),
-            );
         }
-
     }
 
     private function processhint()
@@ -414,10 +318,10 @@ class ViewCacheController extends BaseController
         if ( isset($_REQUEST['desclang']) && (array_search($_REQUEST['desclang'], $availableDescLangs) !== false)) {
             $descLang = $_REQUEST['desclang'];
 
-        } elseif (array_search( mb_strtoupper($lang) , $availableDescLangs) === false) { // or try current lang
+        } elseif ( array_search( mb_strtoupper($lang) , $availableDescLangs) ) { // or try current lang
             $descLang = mb_strtoupper($lang);
 
-        }else{ // use first available otherwise
+        } else { // use first available otherwise
             $descLang = $availableDescLangs[0];
         }
 

@@ -25,52 +25,44 @@
 
     <div class="nav4">
 
-<!--
+
         <?php if(!$view->isUserAuthorized){ ?>
           <span class="notlogged-cacheview"><?=tr('cache_logged_required')?></span>;
         <?php }else{ ?>
 
-        <button class="btn btn-success btn-md">
-          <img src="images/actions/new-entry-16.png" />&nbsp;<?=tr('new_log_entry')?>
-        </button>
-        <button class="btn btn-default btn-md">
-          <img src="images/actions/watch-16.png" />&nbsp;<?=$view->watchLabel?>
-        </button>
-        <button class="btn btn-default btn-md">
-          <img src="images/actions/report-problem-16.png" />&nbsp;<?=tr('report_problem')?>
-        </button>
-        <button class="btn btn-default btn-md">
-          <img src="images/actions/print-16.png" />&nbsp;<?=tr('print')?>
-        </button>
-        <button class="btn btn-default btn-md">
-          <img src="<?=$view->printListIcon?>" />&nbsp;<?=$view->printListLabel?>
-        </button>
-        <button class="btn btn-danger btn-md">
-          <img src="images/actions/ignore-16.png" />&nbsp;<?=$view->ignoreLabel?>
-        </button>
-        <button class="btn btn-primary btn-md">
-          <img src="images/actions/edit-16.png" />&nbsp;<?=tr('edit')?>
-        </button>
--->
+            <a class="btn btn-primary btn-md" href="log.php?cacheid=<?=$view->geoCache->getCacheId()?>">
+              <img src="images/actions/new-entry-16.png" />&nbsp;<?=tr('new_log_entry')?>
+            </a>
+
+            <?php if($view->showWatchButton ){ ?>
+                <a class="btn btn-default btn-md" href="<?=$view->watchLink?>">
+                  <img src="images/actions/watch-16.png" />&nbsp;<?=$view->watchLabel?>
+                </a>
+            <?php } //if-showWatchButton ?>
+
+            <?php if($view->showIgnoreButton ){ ?>
+                <a class="btn btn-default btn-md" href="<?=$view->ignoreLink?>">
+                  <img src="images/actions/ignore-16.png" />&nbsp;<?=$view->ignoreLabel?>
+                </a>
+            <?php } //if-showIgnoreButton ?>
 
 
-        <?php
-            // menu kesza - przyciski - wpis do logu etc... PRZEROBIĆ!
+            <a class="btn btn-default btn-md" href="printcache.php?cacheid=<?=$view->geoCache->getCacheId()?>">
+              <img src="images/actions/print-16.png" />&nbsp;<?=tr('print')?>
+            </a>
+            <a class="btn btn-default btn-md" href="<?=$view->printListLink?>">
+              <img src="<?=$view->printListIcon?>" />&nbsp;<?=$view->printListLabel?>
+            </a>
 
-            $clidx = mnu_MainMenuIndexFromPageId($menu, "viewcache_menu");
-            if ( $menu[$clidx]['title'] != '' ) {
+            <a class="btn btn-danger btn-md" href="reportcache.php?cacheid=<?=$view->geoCache->getCacheId()?>">
+              <?=tr('report_problem')?>
+            </a>
 
-                $menu[$clidx]['visible'] = false;
-        ?>
-
-                <ul id="cachemenu">
-
-                  <li class="title"><?=$menu[$clidx]["title"]?></li>
-
-                  <?php mnu_EchoSubMenu($menu[$clidx]['submenu'], $tplname, 1, false); ?>
-
-                </ul>
-            <?php } // if-$menu[$clidx]['title'] != '' ?>
+            <?php if($view->showEditButton ){ ?>
+                <a class="btn btn-success btn-md" href="editcache.php?cacheid=<?=$view->geoCache->getCacheId()?>">
+                  <img src="images/actions/edit-16.png" />&nbsp;<?=tr('edit')?>
+                </a>
+            <?php } //if-showEditButton ?>
 
         <?php } //else ?>
 
@@ -499,15 +491,15 @@
 
 <!-- Text container -->
 <div class="content2-container bg-blue02">
-    <p class="content-title-noshade-size1">
 
         <img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="">
-        {{descriptions}}&nbsp;&nbsp;
+        <p class="content-title-noshade-size1" style="display:inline">{{descriptions}}&nbsp;&nbsp;</p>
+
 
         <?php foreach( $view->availableDescLangs as $descLang ){ ?>
           <a class="btn btn-sm btn-default" href="<?=$view->availableDescLangsLinks[$descLang]?>">
               <?php if($view->usedDescLang == $descLang) { ?>
-                <i><?=$descLang?></i>
+                <b><?=$descLang?></b>
 
               <?php } else { // available-desc-langs ?>
                 <?=$descLang?>
@@ -523,7 +515,7 @@
         <a class="btn btn-sm btn-default" href="viewcache.php?cacheid=<?=$view->geoCache->getCacheId()?>&amp;rmAdminComment=1"
             onclick="return confirm('<?=tr("confirm_remove_rr_comment")?>');"><?=tr('remove_rr_comment')?></a>
         <?php } //if-admin-authorized ?>
-    </p>
+
 </div>
 <div class="content2-container">
     <div id="description">
@@ -1122,7 +1114,7 @@
             <img src="tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{log_note}}" />
             <?=$view->geoCache->getNotesCount()?>x
 
-
+            &nbsp;&nbsp;
 
             <?php if( $view->geoCache->getPicsInLogsCount() > 0 ) { ?>
 
@@ -1134,12 +1126,16 @@
 
             <?php } //if-getNumberOfPicsInLogs > 0 ?>
 
-            &nbsp;
 
-            <a class="btn btn-sm btn-primary" href="log.php?cacheid=<?=$view->geoCache->getCacheId()?>" title="<?=tr('new_log_entry')?>">
-              <img src="images/actions/new-entry-18.png" title="<?=tr('new_log_entry')?>" alt="<?=tr('new_log_entry')?>">
-              <?=tr('new_log_entry_short')?>
-            </a>
+            <?php if($view->isUserAuthorized) { ?>
+
+                <a class="btn btn-sm btn-primary" href="log.php?cacheid=<?=$view->geoCache->getCacheId()?>" title="<?=tr('new_log_entry')?>">
+                  <img src="images/actions/new-entry-18.png" title="<?=tr('new_log_entry')?>" alt="<?=tr('new_log_entry')?>">
+                  <?=tr('new_log_entry_short')?>
+                </a>
+
+            <?php } //if-isUserAuthorized ?>
+
 
             <?php if($view->displayAllLogsLink) { ?>
 
@@ -1150,7 +1146,6 @@
                   <?=tr("show_all_log_entries_short")?>
                 </a>
             <?php } //if-logEnteriesCount ?>
-
 
 
             <?php if($view->showDeletedLogsDisplayLink) { ?>

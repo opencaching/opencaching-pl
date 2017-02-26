@@ -626,7 +626,7 @@ a.btn {
 }
 
 .btn-md {
-    padding: 5px 5px;
+    padding: 3px 5px;
     font-size: 13px;
     line-height: 1.5;
     border-radius: 3px;
@@ -647,6 +647,7 @@ a.btn {
     line-height: 1.5;
     border-radius: 3px;
 }    
+
 
 /*****************************/
 /* FORMS */

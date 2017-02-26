@@ -1066,7 +1066,7 @@ class GeoCache extends GeoCacheCommons
         return $result;
     }
 
-    public function incCacheVisits(User $user, $ip)
+    public function incCacheVisits($user, $ip)
     {
 
         global $hide_coords; //hide-coords-for-unauthorized-users
