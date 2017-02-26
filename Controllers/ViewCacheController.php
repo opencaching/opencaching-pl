@@ -47,7 +47,7 @@ class ViewCacheController extends BaseController
                 )
             ){
                 // there is no cache to display...
-                tpl_set_tplname('viewcache_error');
+                tpl_set_tplname('viewcache/viewcache_error');
                 tpl_BuildTemplate();
                 exit(0);
         }
@@ -55,9 +55,9 @@ class ViewCacheController extends BaseController
 
         //set here the template to process
         if (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y'){
-            tpl_set_tplname('viewcache_print');
+            tpl_set_tplname('viewcache/viewcache_print');
         }else{
-            tpl_set_tplname('viewcache');
+            tpl_set_tplname('viewcache/viewcache');
         }
         set_tpl_subtitle(htmlspecialchars($this->geocache->getCacheName()) . ' - ');
 
@@ -84,7 +84,7 @@ class ViewCacheController extends BaseController
             $this->loggedUser && ( $this->loggedUser->isAdmin() || $this->loggedUser->getUserId() == $this->geocache->getOwnerId()) );
 
         $this->view->setVar('ownerId', $this->geocache->getOwner()->getUserId());
-        tpl_set_var('owner_name', htmlspecialchars($this->geocache->getOwner()->getUserName()));
+        $this->view->setVar('ownerName', htmlspecialchars($this->geocache->getOwner()->getUserName()));
 
         global $hide_coords;
         $this->view->setVar('alwaysShowCoords', !$hide_coords);
@@ -102,12 +102,13 @@ class ViewCacheController extends BaseController
         tpl_set_var('total_number_of_logs', $this->geocache->getFounds() + $this->geocache->getNotFounds() + $this->geocache->getNotesCount());
 
         if($this->geocache->isAdopted()){
-            tpl_set_var('creator_userid', $this->geocache->getFounder()->getUserId());
-            tpl_set_var('creator_name', htmlspecialchars($this->geocache->getFounder()->getUserName()));
+            $this->view->setVar('founderId', $this->geocache->getFounder()->getUserId());
+            $this->view->setVar('founderName', htmlspecialchars($this->geocache->getFounder()->getUserName()));
         }
 
         $this->view->setVar('hideLogbook',isset($_REQUEST['logbook']) && $_REQUEST['logbook'] == 'no');
-        $this->view->setVar('viewcache_js', "tpl/stdstyle/js/viewcache." . filemtime('tpl/stdstyle/js/viewcache.js') . ".js");
+        $this->view->setVar('viewcache_js', Uri::getLinkWithModificationTime('tpl/stdstyle//viewcache/viewcache.js'));
+        $this->view->setVar('viewcache_css', Uri::getLinkWithModificationTime('tpl/stdstyle/viewcache/viewcache.css'));
 
 
         $this->processUserCoordsModification();

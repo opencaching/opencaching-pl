@@ -1,0 +1,139 @@
+/**
+  This is CSS used only by viewcache*.php templates
+*/
+
+#cache-title-icons {
+  width: 60px; 
+  margin-right: 10px;
+  float: left;
+}
+
+#cache-name-block {
+  width: 699px;
+  float: right;
+}
+
+#cache-name {
+  float: left;
+  max-width: 65%;
+}
+
+#geoPath {
+  float: right;
+  width: 30%;
+  max-width: 40%;
+  border-radius: 5px 5px; 
+  -moz-border-radius: 5px; 
+  -webkit-border-radius: 5px; 
+  border:1px solid #337fed; 
+  padding: 5px;
+}
+
+#geoPath-head {
+  color: #337fed; 
+  border-bottom: 1px solid #337fed;
+}
+
+#geoPath-link {
+  font-size: 1.3em;
+  width: 100%;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+#geoPath-content{
+  align-items: center;
+}
+
+.common-desc {
+  font-size: 1.2em;
+}
+
+.list-of-details {
+  line-height: 1.6em;
+  font-size: 1.2em;
+}
+
+.list-of-details img {
+  width: 16px;
+  heigth: 16px;
+  margin-right: 5px;
+}
+
+div#viewcache-baseinfo { 
+  width:400px; 
+  text-align: left;
+}
+
+div#viewcache-maptypes { width:360px; text-align: right;}
+div#viewcache-numstats { width: 170px; height: 230px; text-align: left; }
+div#viewcache-map { width: 185px; height: 190px; float: right;}
+
+div#viewcache-description               { font-family: arial, sans serif; line-height: 1.6em; font-size: 12px; margin-top: 5px;}
+div#viewcache-description *             { max-width: 770px; }
+div#viewcache-description p             { line-height: 1.6em; font-size: 13px; }
+
+div#viewcache-utility                   { font-size: 1.2em; }
+div.viewcache-pictureblock              { float: left; }
+div.viewcache-pictureblock span.title   { display: block; max-width: 175px; padding-left: 10px; padding-right: 5px;clear: left; font-size: 125%;}
+
+#waypoints-table {
+  width: 100%;
+  border-collapse: collapse; 
+  font-size: 12px; 
+  line-height: 1.6em;
+  text-align: center;
+  border: 1px solid black;
+}
+#waypoints-table th {
+  font-weight: bold;
+}
+
+#waypoints-table td, #waypoints-table th {
+    border: 1px solid black;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#hintEncTable{
+  width:200px;
+  text-align:right;
+  float:right;
+  font-family: 'Courier New', FreeMono, Monospace;
+  font-size: 1.2em;
+}
+
+#form-coords-mod {
+  padding-left: 50px;
+}
+
+.userNoteTextarea {
+  font-size: 1.2em;
+  border: 1px solid #adadad;
+  padding: 5px;
+}
+
+textarea.userNoteTextarea {
+  width: 760px;
+}
+
+#viewcache-utility a {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#viewcache-utility td {
+  width: 350px;
+  text-align: left;
+  padding-left:5px;
+}
+
+#log_start {
+  float: left;
+}
+
+#log-start-buttons {
+  float: right;
+  padding: 0 5px;
+}

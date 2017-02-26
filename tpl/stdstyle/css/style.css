@@ -141,8 +141,6 @@ ul#statmenu { padding: 0px; margin: 0px;}
 .errormsg {color: rgb(240,100,100); font-weight: bold;}
 .successmsg {color: rgb(50,150,20); font-weight: bold;}
 
-#cache_name_block { width: 670px; padding-left: 5px; padding-top: 5px;}
-
 .content2 {float: left; width: 790px; min-height: 500px; margin: 0px; padding: 0px 0px 0px 20px; color: rgb(75,75,75); font-size: 1.0em;}
 .content3 {float: left; width: 790px; min-height: 500px; margin: 0px; padding: 0px 0px 0px 20px; color: rgb(75,75,75); font-size: 1.0em;}
 .content2-container, .content3-container {clear: both; float: left; width: 769px; margin: 0px 0px 15px 0px; padding: 0px;}
@@ -550,15 +548,6 @@ div#cacheview-attributesinfo { }
 
 div#viewlogs-end { font-weight: bold; font-size: 120%; margin-bottom: 10px;}
 
-img#viewcache-cacheicon { float: left; }
-
-div#viewcache-baseinfo { width:400px; text-align: left;}
-div#viewcache-maptypes { width:360px; text-align: right;}
-div#viewcache-maptypes .content2-container-2col-right{}
-div#viewcache-numstats { width: 170px; height: 230px; text-align: left; }
-div#viewcache-map { width: 185px; height: 190px; float: right;}
-div#viewcache-map .img-shadow{ }
-
 div.viewcache_log-content { margin-left: 20px }
 div.viewlogs-logpictures span.info { font-weight: bold; font-size: 120%;display: block;}
 div.viewlogs-logpictures div.logimage { float: left; }
@@ -580,18 +569,9 @@ span.username_aktywnosc
     font-family: verdana;
     font-size: 6;
 }
-div#viewcache-utility { margin: 0px 0px 0.5em 0px; padding: 0px; line-height: 1.6em; font-family: arial, sans serif; font-size: 120%; }
 
 div.viewcache_log-content { font-family: arial, sans serif; line-height: 1.6em; font-size: 12px; margin-top: 5px;}
-div#viewcache-description { font-family: arial, sans serif; line-height: 1.6em; font-size: 12px; margin-top: 5px;}
 
-div#viewcache-description * { max-width: 770px; }
-
-div#viewcache-description p { line-height: 1.6em; font-size: 13px; }
-
-div.viewcache-pictureblock { float: left; }
-
-div.viewcache-pictureblock span.title { display: block; max-width: 175px; padding-left: 10px; padding-right: 5px;clear: left; font-size: 125%;}
 
 div#main-cachemap-block { width: 265px; margin-top: 80px; }
 div#local-cachemap-block { width: 365px; margin-top: 80px; }
@@ -923,7 +903,7 @@ td.myr{
 @media print
 {
     body, html { background-color: white; }
-    .noprint, .navflag-container, .site-slogan-container, .nav1-container, .footer, .page-container-1-2, #logo, #bg1, #bg2, .header, .site-name, .nav2, .nav3, .notlogged-cacheview, #cachemenu, #viewcache-attributesend
+    .noprint, .navflag-container, .site-slogan-container, .nav1-container, .footer, .page-container-1-2, #logo, #bg1, #bg2, .header, .site-name, .nav2, .nav3, .notlogged-cacheview, #cachemenu
     { display: none; width:0; height:0; }
     #overall { margin-top: -32px; }
 }

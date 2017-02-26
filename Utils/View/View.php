@@ -1,6 +1,8 @@
 <?php
 namespace Utils\View;
 
+use Utils\DateTime\Year;
+
 class View {
 
     const CHUNK_DIR = __DIR__.'/../../tpl/stdstyle/chunks/';
@@ -88,6 +90,19 @@ class View {
     public function redirect($uri)
     {
         header("Location: " . "//" . $_SERVER['HTTP_HOST'] . $uri);
+    }
+
+    public function getSeasonCssName()
+    {
+
+        $season = Year::GetSeasonName();
+        switch($season){ //validate - for sure :)
+            case 'spring':
+            case 'winter':
+            case 'autumn':
+            case 'summer':
+                return $season;
+        }
     }
 
 }

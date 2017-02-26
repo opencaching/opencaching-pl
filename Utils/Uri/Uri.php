@@ -69,4 +69,16 @@ class Uri {
        return (!$skipPrecedingSlash) ? $_SERVER['REQUEST_URI'] : substr($_SERVER['REQUEST_URI'], 1);
     }
 
+    /**
+     * This is usefull if to prevent browser to cache for example css/js file
+     * Returns link to file with ?<modification-time> which makes browser to download file if contents has changed
+     *
+     * @param unknown $rootPath - path to the file (from root of thw site)
+     * @return string
+     */
+    public static function getLinkWithModificationTime($rootPath)
+    {
+        return $rootPath.'?'.filemtime(__dir__.'/../../'.$rootPath);
+    }
+
 }

@@ -269,39 +269,6 @@ function new2oldscore($score)
         return -2.0;
 }
 
-function season()
-{
-    $season = date("z");
-
-    if ($season <= 171 and $season >= 79)
-        $m_season = "spring";
-    else if ($season <= 264 and $season >= 172)
-        $m_season = "summer";
-    else if ($season <= 330 and $season >= 265)
-        $m_season = "autumn";
-    else
-        $m_season = "winter";
-    return $m_season;
-}
-
-function validate_style($style)
-{
-    switch ($style) {
-        case "spring":
-        case "summer":
-        case "autumn":
-        case "winter":
-        case "christmas":
-        case "easter":
-        case "test":
-            return $style;
-    }
-    return "";
-}
-
-$season = isset($_GET['season']) ? validate_style($_GET['season']) : season();
-tpl_set_var("season", $season);
-
 // get the language from a given shortage
 // on success return the name, otherwise false
 function db_LanguageFromShort($langcode)

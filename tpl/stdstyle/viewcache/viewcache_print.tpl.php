@@ -26,7 +26,7 @@
 
 
          <?=$view->geoCacheDesc->getShortDescToDisplay()?>
-        {{hidden_by}} <a href="viewprofile.php?userid=<?=$view->ownerId?>">{owner_name}</a>
+        {{hidden_by}} <a href="viewprofile.php?userid=<?=$view->ownerId?>"><?=$view->ownerName?></a>
 
         <img src="tpl/stdstyle/images/free_icons/package.png" class="icon16" alt="" title="" />&nbsp;
         <b><?=tr($view->geoCache->getSizeTranslationKey())?></b>
@@ -50,10 +50,9 @@
         <?php } //if-way-length-and-search-time-present ?>
 
         <img src="images/cache-rate.png" class="icon16" alt="" />
-        <?=tr('score_label')?>: <b><font color="<?=$view->scoreColor?>"><?=$view->score?></font></b>
+        <?=tr('score_label')?>: <b style="color:<?=$view->scoreColor?>"><?=$view->score?></b>
 
         <?php if(!empty($view->otherSitesListing)){ ?>
-          <br />
           <img src="tpl/stdstyle/images/free_icons/link.png" class="icon16" alt="" title="" />&nbsp;{{listed_also_on}}:
           <span class="listed-on">
           <?php foreach ($view->otherSitesListing as $site){ ?>
@@ -76,10 +75,8 @@
 </div>
 
 <div class="content2-container">
-    <div id="description">
-        <div id="viewcache-description">
-          <?=$view->geoCacheDesc->getDescToDisplay()?>
-        </div>
+    <div id="viewcache-description">
+      <?=$view->geoCacheDesc->getDescToDisplay()?>
     </div>
 </div>
 
