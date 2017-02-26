@@ -19,7 +19,7 @@ $map_zoom = $main_page_map_zoom;
 $map_width = $main_page_map_width;
 $map_height = $main_page_map_height;
 
-$map_type = $main_page_map_type ;  
+$map_type = $config['maps']['main_page_map']['source'] ;  
 
 // Read coordinates of the newest caches
 $markerpositions = get_marker_positions();
