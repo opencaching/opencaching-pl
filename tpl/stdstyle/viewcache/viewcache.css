@@ -42,7 +42,7 @@
 }
 
 #geoPath-link {
-  font-size: 1.3em;
+  font-size: 13px;
   width: 100%;
   display: inline-block;
   vertical-align: middle;
@@ -60,12 +60,12 @@
 
 
 .common-desc {
-  font-size: 1.2em;
+  font-size: 12px;
 }
 
 .list-of-details {
   line-height: 1.6em;
-  font-size: 1.2em;
+  font-size: 12px;
 }
 
 .list-of-details img {
@@ -92,7 +92,7 @@ div#viewcache-description               { font-family: arial, sans serif; line-h
 div#viewcache-description *             { max-width: 770px; }
 div#viewcache-description p             { line-height: 1.6em; font-size: 13px; }
 
-div#viewcache-utility                   { font-size: 1.2em; }
+div#viewcache-utility                   { font-size: 12px; }
 div.viewcache-pictureblock              { float: left; }
 div.viewcache-pictureblock span.title   { display: block; max-width: 175px; padding-left: 10px; padding-right: 5px;clear: left; font-size: 125%;}
 
@@ -119,7 +119,7 @@ div.viewcache-pictureblock span.title   { display: block; max-width: 175px; padd
   text-align:right;
   float:right;
   font-family: 'Courier New', FreeMono, Monospace;
-  font-size: 1.2em;
+  font-size: 12px;
 }
 
 #form-coords-mod {
@@ -127,7 +127,7 @@ div.viewcache-pictureblock span.title   { display: block; max-width: 175px; padd
 }
 
 .userNoteTextarea {
-  font-size: 1.2em;
+  font-size: 12px;
   border: 1px solid #d0d0d0;
   padding: 5px;
 }
