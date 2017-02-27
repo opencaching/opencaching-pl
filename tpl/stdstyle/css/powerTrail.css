@@ -309,7 +309,7 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
     width: 500px;
     margin-left: auto;
     margin-right: auto;
-    padding: 20px;
+    padding: 0px;
     border: 1px solid #0051B9
 }
 #mapOuterdiv{
