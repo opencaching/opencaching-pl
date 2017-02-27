@@ -14,25 +14,25 @@ require_once('./lib/common.inc.php');
 if( $short_sitename == 'OC PL' ){
 
     $GLOBALS['regions'] = array(
-            'PL52' => 'opolskie',
-            'PL12' => 'mazowieckie',
-            'PL11' => 'łódzkie',
-            'PL63' => 'pomorskie',
-            'PL62' => 'warmińsko-mazurskie',
-            'PL61' => 'kujawsko-pomorskie',
-            'PL51' => 'dolnośląskie',
-            'PL43' => 'lubuskie',
-            'PL42' => 'zachodniopomorskie',
-            'PL41' => 'wielkopolskie',
-            'PL34' => 'podlaskie',
-            'PL33' => 'świętokrzyskie',
-            'PL32' => 'podkarpackie',
-            'PL31' => 'lubelskie',
-            'PL22' => 'śląskie',
-            'PL21' => 'małopolskie',
-            'NON_PL' => 'zagraniczne',
-            'XXX' => 'polskie-nie-ustalone'
-            );
+        'PL51' => 'dolnośląskie',
+        'PL61' => 'kujawsko-pomorskie',
+        'PL31' => 'lubelskie',
+        'PL43' => 'lubuskie',
+        'PL11' => 'łódzkie',
+        'PL21' => 'małopolskie',
+        'PL12' => 'mazowieckie',
+        'PL52' => 'opolskie',
+        'PL34' => 'podlaskie',
+        'PL32' => 'podkarpackie',
+        'PL63' => 'pomorskie',
+        'PL22' => 'śląskie',
+        'PL33' => 'świętokrzyskie',
+        'PL62' => 'warmińsko-mazurskie',
+        'PL42' => 'zachodniopomorskie',
+        'PL41' => 'wielkopolskie',
+        'NON_PL' => '* zagraniczne',
+        'XXX' => '* polskie-nie-ustalone'
+    );
 
 }else{
     //OC !PL
@@ -113,12 +113,12 @@ if ($usr['admin']) {
                     IFNULL(c.last_found, str_to_date('2000-01-01', '%Y-%m-%d'))
                 )
             AND cl.date > (
-                    /* log date is newer than last author comment */
+                    /* log date is newer than last author comment or last cache fix*/
                     SELECT IFNULL( MAX(cl1.date), str_to_date('2000-01-01', '%Y-%m-%d'))
                     FROM cache_logs cl1
                     WHERE cl1.cache_id = c.cache_id
-                        AND cl1.user_id = c.user_id
-                        AND cl1.type = 3 /* log-comment */
+                      AND ((cl1.user_id = c.user_id AND cl1.type = 3) /* owner log-comment */
+                      OR cl1.type = 6) /* cache-fixed comment */
                 )
             $skipReported /* = skip reported caches:
             AND c.cache_id NOT IN ( SELECT r.cache_id FROM reports r WHERE r.status <> 2 ) */
