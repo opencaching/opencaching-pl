@@ -98,8 +98,8 @@ class CacheVisits
 
             // inc cache stat
             XDb::xSql(
-                "INSERT INTO cache_visits2 (cache_id, type, count)
-                VALUES (?, ?, 1) ON DUPLICATE KEY UPDATE count = count + 1",
+                "INSERT INTO cache_visits2 (cache_id, type, count, visit_date)
+                VALUES (?, ?, 1, NOW()) ON DUPLICATE KEY UPDATE count = count + 1",
                 $cacheId, self::TYPE_CACHE_VISITS);
         }
     }
