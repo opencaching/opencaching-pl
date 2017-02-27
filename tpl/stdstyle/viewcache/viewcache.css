@@ -155,6 +155,10 @@ textarea.userNoteTextarea {
   float: left;
 }
 
+#log_start a {
+  text-decoration: none;
+}
+
 #log-start-buttons {
   float: right;
   padding: 0 5px;

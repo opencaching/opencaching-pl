@@ -842,7 +842,8 @@
     </div>
     <div class="content2-container">
         <div id="viewcache-pictures">
-            <?php foreach ($view->picturesToDisplay as $pic) { ?>
+            <?php foreach ($view->picturesToDisplay as $key => $pic) { ?>
+
                 <div class="viewcache-pictureblock">
                     <div class="img-shadow">
                         <a href="<?=$pic->url?>" data-lightbox="cache-pics" data-title="<?=$pic->title?>">
@@ -851,6 +852,9 @@
                     </div>
                     <span class="title"><?=$pic->title?></span>
                 </div>
+                <?php if($key%4 == 3){ //add after every 4 pics ?>
+                <div style="clear:both"></div>
+                <?php } ?>
             <?php } //foreach ?>
         </div>
     </div>
@@ -968,16 +972,18 @@
 
         <img src="tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{log_note}}" />
         <?=$view->geoCache->getNotesCount()?>x
-    </span>
-    <span id="log-start-buttons">
+
         <?php if( $view->geoCache->getPicsInLogsCount() > 0 ) { ?>
             <img src="tpl/stdstyle/images/free_icons/photo.png" alt="Photo" class="icon16"/>
             <?=$view->geoCache->getPicsInLogsCount()?>x
 
             <a href="gallery_cache.php?cacheid=<?=$view->geoCache->getCacheId()?>">
-                <?=tr('gallery_short')?>
+                 <?=tr('gallery_short')?>
             </a>
         <?php } //if-getNumberOfPicsInLogs > 0 ?>
+
+    </span>
+    <span id="log-start-buttons">
 
         <?php if($view->isUserAuthorized) { ?>
             <a class="btn btn-sm btn-primary" href="log.php?cacheid=<?=$view->geoCache->getCacheId()?>" title="<?=tr('new_log_entry')?>">
