@@ -526,11 +526,10 @@ class ViewCacheController extends BaseController
         }
         foreach($config['maps']['external'] as $key => $value){
             if ( $value == 1 ) {
-                $externalMaps[] = sprintf($config['maps']['external'][$key.'_URL'],
+                $externalMaps[$key] = sprintf($config['maps']['external'][$key.'_URL'],
                     $lat, $lon,
                     $this->geocache->getCacheId(), $this->geocache->getWaypointId(),
-                    urlencode($this->geocache->getCacheName()),
-                    $key);
+                    urlencode($this->geocache->getCacheName()) );
             }
         }
         $this->view->setVar('externalMaps', $externalMaps);

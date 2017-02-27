@@ -2,10 +2,17 @@
   This is CSS used only by viewcache*.php templates
 */
 
+#cache-menu::after {
+  content:"";
+  display:block;
+  clear:both;
+}
+
 #cache-title-icons {
   width: 60px; 
   margin-right: 10px;
   float: left;
+  clear: left;
 }
 
 #cache-name-block {
@@ -46,6 +53,12 @@
   align-items: center;
 }
 
+
+#links-to-ext-maps a{
+  margin: 1px 0px;
+}
+
+
 .common-desc {
   font-size: 1.2em;
 }
@@ -57,8 +70,13 @@
 
 .list-of-details img {
   width: 16px;
-  heigth: 16px;
+  height: 16px;
   margin-right: 5px;
+}
+
+.list-of-details a img {
+  width: 12px;
+  height: 12px;
 }
 
 div#viewcache-baseinfo { 
@@ -110,12 +128,16 @@ div.viewcache-pictureblock span.title   { display: block; max-width: 175px; padd
 
 .userNoteTextarea {
   font-size: 1.2em;
-  border: 1px solid #adadad;
+  border: 1px solid #d0d0d0;
   padding: 5px;
 }
 
 textarea.userNoteTextarea {
-  width: 760px;
+  width: 720px;
+}
+
+#cacheNoteForm {
+  margin: 0 20px;
 }
 
 #viewcache-utility a {
@@ -136,4 +158,29 @@ textarea.userNoteTextarea {
 #log-start-buttons {
   float: right;
   padding: 0 5px;
+}
+
+.naturaTable {
+  width: 90%; 
+  border-collapse: collapse; 
+  font-weight: bold;
+  font-size: 14px; 
+  line-height: 1.6em"
+}
+
+.naturaTable td {
+  text-align: center; 
+  vertical-align: middle;
+}
+
+.naturaTable a {
+  text-color: blue;  
+}
+
+#buttons-left {
+  float: left; 
+}
+
+#buttons-right {
+  float: right; 
 }
