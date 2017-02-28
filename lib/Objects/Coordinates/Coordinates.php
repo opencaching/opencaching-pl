@@ -23,7 +23,7 @@ class Coordinates
      *
      * @var string
      */
-    private $defaultFormat = self::COORDINATES_FORMAT_DECIMAL;
+    private $defaultFormat = self::COORDINATES_FORMAT_DEG_MIN;
 
     /**
      * decimal degrees: 40.446321° N 79.982321° W
@@ -60,6 +60,18 @@ class Coordinates
         } elseif ($params['okapiRow']) {
             $this->loadFromOkapi($params['okapiRow']);
         }
+    }
+
+    public static function FromCoordsFactory($lat, $lon)
+    {
+        $coords = new Coordinates();
+        $coords->setLatitude($lat);
+        $coords->setLongitude($lon);
+        if(!$coords->areCordsReasonable()){
+            return null;
+        }
+
+        return $coords;
     }
 
     /**
@@ -106,9 +118,15 @@ class Coordinates
      */
     public function getLatitudeString($format = false)
     {
+        if(is_null($this->latitude)) {
+            return null;
+        }
+
         if ($format === false) { /* pick defaut format */
             $format = $this->defaultFormat;
         }
+
+
         $prefix = $this->getLatitudeHemisphereSymbol() . ' ';
         switch ($format) {
             case self::COORDINATES_FORMAT_DECIMAL:
@@ -139,6 +157,10 @@ class Coordinates
      */
     public function getLongitudeString($format = false)
     {
+        if( is_null($this->longitude) ){
+            return null;
+        }
+
         if ($format === false) { /* pick defaut format */
             $format = $this->defaultFormat;
         }
@@ -164,11 +186,65 @@ class Coordinates
     }
 
     /**
+     * returns parts of the coordinate according to given format
+     * @return array()
+     */
+    public function getLongitudeParts($format = false)
+    {
+        if ($format === false) { /* pick defaut format */
+            $format = $this->defaultFormat;
+        }
+
+        $prefix = $this->getLongitudeHemisphereSymbol();
+
+        list($deg, $min, $sec) = $this->getParts($this->longitude);
+
+        switch ($format) {
+            case self::COORDINATES_FORMAT_DECIMAL:
+                return array($prefix, $deg);
+            case self::COORDINATES_FORMAT_DEG_MIN:
+                return array($prefix, floor($deg), $min);
+            case self::COORDINATES_FORMAT_DEG_MIN_SEC:
+                return array($prefix, floor($deg), floor($min), $sec);
+        }
+
+    }
+
+
+    /**
+     * returns parts of the coordinate according to given format
+     * @return array()
+     */
+    public function getLatitudeParts($format = false)
+    {
+        if ($format === false) { /* pick defaut format */
+            $format = $this->defaultFormat;
+        }
+
+        $prefix = $this->getLatitudeHemisphereSymbol();
+
+        list($deg, $min, $sec) = $this->getParts($this->latitude);
+
+        switch ($format) {
+            case self::COORDINATES_FORMAT_DECIMAL:
+                return array($prefix, $deg);
+            case self::COORDINATES_FORMAT_DEG_MIN:
+                return array($prefix, floor($deg), $min);
+            case self::COORDINATES_FORMAT_DEG_MIN_SEC:
+                return array($prefix, floor($deg), floor($min), $sec);
+        }
+
+    }
+
+
+    /**
      * return true if cords in object are set to reasonable values
      */
     public function areCordsReasonable()
     {
-        return (! is_null($this->latitude) && ! is_null($this->latitude) && $this->latitude >= - 90 && $this->latitude <= 90 && $this->longitude >= - 180 && $this->longitude <= 180);
+        return (!empty($this->latitude) && !empty($this->latitude) &&
+            $this->latitude >= -90 && $this->latitude <= 90 &&
+            $this->longitude >= -180 && $this->longitude <= 180);
     }
 
     /**
@@ -191,6 +267,21 @@ class Coordinates
     {
         $this->longitude = $longitude;
         return $this;
+    }
+
+    /**
+     * Returns coordinates string to display
+     */
+    public function getAsText($format = false){
+        return "&#10;". $this->getLatitudeString($format)."&#10;".$this->getLongitudeString($format);
+    }
+
+    private function getParts($coordinate)
+    {
+        $deg = abs($coordinate);
+        $min = 60 * ($deg - floor($deg));
+        $sec = 3600 * ($deg - floor($deg)) - 60 * floor($min);
+        return array($deg, $min, $sec);
     }
 
     private function convertToDegMin($decimalCoordinate)

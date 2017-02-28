@@ -1,4 +1,11 @@
 <?php
+/**
+ * Produce thumbs for pictures
+ *
+ * @param uuid
+ *
+ */
+
 
 use Utils\Database\XDb;
 require_once('./lib/common.inc.php');

@@ -1,0 +1,38 @@
+/**
+	This is a simple way to present extended tooltip over any HTML tag.
+	To use it:
+		- mark element which needs tooltip with class: lightTipped
+		- insert tooltip conteiner (usually <div>) as a next element after element which needs tooltip, and mark it with class: lightTip
+		- optionally add css styles inline to rule the size of tooltip etc.
+		
+	Example:
+	---------------------------------------------------------------------
+		<button class="lightTipped">Click me!</button>
+		<div class="lightTip">
+			<b>THIS IS VERY IMPORTANT BUTTON TOOLTIP<b>
+			which will be presented when you move mouse over the button
+		</div>
+	---------------------------------------------------------------------
+*/
+
+.lightTip {
+	display:none;
+    padding:5px;
+    border:1px solid #bbb;
+    box-shadow: 0 0 3px rgba(0,0,0,.3);
+    -webkit-box-shadow: 0 0 3px rgba(0,0,0,.3);
+    border-radius:3px;
+    -webkit-border-radius:3px;
+    position:absolute;
+    z-index:100;
+    background-color:#ffffca;
+}
+
+.lightTipped:hover + .lightTip {
+    display:block;
+}
+
+.lightTip:hover {
+    display:block;
+}
+

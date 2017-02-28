@@ -2,6 +2,7 @@
 
 use Utils\Database\OcDb;
 use Utils\Database\XDb;
+use lib\Objects\GeoCache\PrintList;
 
     //prepare the templates and include all neccessary
     if (!isset($rootpath)) $rootpath = '';
@@ -836,10 +837,10 @@ use Utils\Database\XDb;
                         }
                         $cache_bylist = implode(',', $options['cache_ids']);
                     } else
-                    if (count($_SESSION['print_list']) == 0) {
+                    if (empty(PrintList::GetContent())) {
                         $cache_bylist = -1;
                     } else {
-                        $cache_bylist = implode(",", $_SESSION['print_list']);
+                        $cache_bylist = implode(",", PrintList::GetContent());
                     }
 
                     $sql_select[] = '`caches`.`cache_id` `cache_id`';

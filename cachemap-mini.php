@@ -1,15 +1,17 @@
 <?php
 
+use lib\Objects\GeoCache\GeoCache;
+
 /**
  * cachemap-mini.php
  *
- *  Used only from viewcache.php to get small map for cache on a way:
- * cachemap-mini.php?
- *     inputZoom=14&amp;
- *     lat={latitude}&amp;
- *     lon={longitude}&amp;
+ * Used only from viewcache.php to get small map for cache on a way:
+ * cachemap-mini.php?cacheId=1234
  *
- * Params (all required):
+ * Params
+ * @param cacheId
+ *
+ * alternatively:
  * @param inputZoom
  * @param lat
  * @param lon
@@ -27,19 +29,29 @@ $tplname = 'cachemap-mini';
 $mapForUserId = $usr['userid']; // $usr is stored in sessions
 tpl_set_var('userid', $mapForUserId);
 
-// lat & lon params are required here
-if (isset($_REQUEST['lat']) && $_REQUEST['lat'] != "" && isset($_REQUEST['lon']) && $_REQUEST['lon'] != "") {
-    // use cords from request
-    tpl_set_var('coords', $_REQUEST['lat'] . "," . $_REQUEST['lon']);
-} else {
-    tpl_set_var('coords', $country_coordinates);
+
+// first look for cacheId param
+if(isset($_REQUEST['cacheId'])){
+    /** @var GeoCache $geocache **/
+    $geocache = GeoCache::fromCacheIdFactory($_REQUEST['cacheId']);
+    if($geocache){
+        tpl_set_var('coords', $geocache->getCoordinates()->getLatitude() . "," . $geocache->getCoordinates()->getLongitude());
+    }
+}else{
+    // no cacheId - try to look for coords
+    if (isset($_REQUEST['lat']) && $_REQUEST['lat'] != "" && isset($_REQUEST['lon']) && $_REQUEST['lon'] != "") {
+        // use cords from request
+        tpl_set_var('coords', $_REQUEST['lat'] . "," . $_REQUEST['lon']);
+    } else {
+        tpl_set_var('coords', $country_coordinates);
+    }
 }
 
 // zoom param is required here
 if (isset($_REQUEST['inputZoom']) && $_REQUEST['inputZoom'] != "") {
     tpl_set_var('zoom', $_REQUEST['inputZoom']);
 } else {
-    tpl_set_var('zoom', $default_country_zoom); // this is default zoom
+    tpl_set_var('zoom', $config['maps']['cache_mini_map']['zoom']); // this is default zoom
 }
 
 // parse PowerTrail filter in url

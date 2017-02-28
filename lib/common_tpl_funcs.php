@@ -1,5 +1,8 @@
 <?php
 
+use Utils\View\View;
+use Utils\Uri\Uri;
+
 //set the global template-name variable
 function tpl_set_tplname($local_tpl_name){
     global $tplname;
@@ -119,6 +122,9 @@ function tpl_errorMsg($tplnameError, $msg)
 
 //TODO: this is temporary solution for backward compatibility
 // $view will be a context variable in further implementaion
+/**
+ * @return View
+ */
 function tpl_getView(){
 
     global $view;
@@ -132,7 +138,11 @@ function setViewVar($name, $value){
     $view->setVar($name, $value);
 }
 
-
+function set_tpl_subtitle($title)
+{
+    global $tpl_subtitle;
+    $tpl_subtitle = $title;
+}
 
 //read the templates and echo it to the user
 function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemplate=false)
@@ -141,6 +151,7 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
     global $stylepath, $tplname, $vars, $langpath, $lang_array, $lang, $language, $menu, $config, $usr;
 
     // object
+    /** @var View $view */
     global $view;
 
     //language specific expression
@@ -186,6 +197,10 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
         $sCode = file_get_contents($stylepath . '/main.tpl.php');
     }
 
+    //global css files:
+    $view->setVar('screenCss', Uri::getLinkWithModificationTime('tpl/stdstyle/css/style_screen.css'));
+    $view->setVar('printCss', Uri::getLinkWithModificationTime('tpl/stdstyle/css/style_print.css'));
+    $view->setVar('seasonCss', Uri::getLinkWithModificationTime('tpl/stdstyle/css/style_'.$view->getSeasonCssName().'.css'));
 
     //does template exist?
     if (!file_exists($stylepath . '/' . $tplname . '.tpl.php')) {

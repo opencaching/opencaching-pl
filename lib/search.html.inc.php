@@ -495,12 +495,12 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
             $tmpline = str_replace('{direction}', '', $tmpline);
     }
 
-    $desclangs = '';
+    $availableDescLangs = '';
     $aLangs = mb_split(',', $caches_record['desc_languages']);
     foreach ($aLangs as $thislang) {
-        $desclangs .= '<a href="viewcache.php?cacheid=' . urlencode($caches_record['cache_id']) . '&amp;desclang=' . urlencode($thislang) . '" style="text-decoration:none;"><b><font color="blue">' . htmlspecialchars($thislang, ENT_COMPAT, 'UTF-8') . '</font></b></a> ';
+        $availableDescLangs .= '<a href="viewcache.php?cacheid=' . urlencode($caches_record['cache_id']) . '&amp;desclang=' . urlencode($thislang) . '" style="text-decoration:none;"><b><font color="blue">' . htmlspecialchars($thislang, ENT_COMPAT, 'UTF-8') . '</font></b></a> ';
     }
-    $tmpline = str_replace('{desclangs}', $desclangs, $tmpline);
+    $tmpline = str_replace('{desclangs}', $availableDescLangs, $tmpline);
     if ($usr || ! $hide_coords) {
         if ($CalcCoordinates) {
             if ($caches_record['coord_modified'] == true) {
@@ -710,4 +710,93 @@ function PrepareText( $text )
     return $log_text;
 }
 
+function icon_difficulty($what, $difficulty)
+{
+    global $stylepath;
 
+
+    if ($what != "diff" && $what != "terr")
+        die("Wrong difficulty-identifier!");
+
+        $difficulty = (int) $difficulty;
+        if ($difficulty < 2 || $difficulty > 10)
+            die("Wrong difficulty-value $what: $difficulty");
+
+            $icon = sprintf("$stylepath/images/difficulty/$what-%d.gif", $difficulty);
+            $text = sprintf($what == "diff" ? tr('task_difficulty') : tr('terrain_difficulty'), $difficulty / 2);
+            return "<img src='$icon' class='img-difficulty' width='19' height='16' alt='$text' title='$text'>";
+}
+
+function getCacheIcon($user_id, $cache_id, $cache_status, $cache_userid, $iconname)
+{
+    $cacheicon_searchable = false;
+    $cacheicon_type = "";
+    $inactive = false;
+
+    $iconname = str_replace("mystery", "quiz", $iconname);
+
+
+    // mark if found
+    if (isset($user_id)) {
+        $db = OcDb::instance();
+        $found = 0;
+        $respSql = "SELECT `type` FROM `cache_logs` WHERE `cache_id`=:1 AND `user_id`=:2 AND `deleted`=0 ORDER BY `type`";
+        $s = $db->multiVariableQuery($respSql, $cache_id, $user_id);
+
+        foreach ($db->dbResultFetchAll($s) as $row) {
+            if ($found <= 0) {
+                switch ($row['type']) {
+                    case 1:
+                    case 7: $found = $row['type'];
+                    $cacheicon_type = "-found";
+                    $inactive = true;
+                    break;
+                    case 2: $found = $row['type'];
+                    $cacheicon_type = "-dnf";
+                    break;
+                }
+            }
+        }
+    }
+
+    if ($cache_userid == $user_id) {
+        $cacheicon_type = "-owner";
+        $inactive = true;
+        switch ($cache_status) {
+            case 1: $cacheicon_searchable = "-s";
+            break;
+            case 2: $cacheicon_searchable = "-n";
+            break;
+            case 3: $cacheicon_searchable = "-a";
+            break;
+            case 4: $cacheicon_searchable = "-a";
+            break;
+            case 6: $cacheicon_searchable = "-d";
+            break;
+            default: $cacheicon_searchable = "-s";
+            break;
+        }
+    } else {
+        switch ($cache_status) {
+            case 1: $cacheicon_searchable = "-s";
+            break;
+            case 2: $inactive = true;
+            $cacheicon_searchable = "-n";
+            break;
+            case 3: $inactive = true;
+            $cacheicon_searchable = "-a";
+            break;
+            case 4: $inactive = true;
+            $cacheicon_searchable = "-a";
+            break;
+            case 6: $cacheicon_searchable = "-d";
+            break;
+        }
+    }
+
+    // cacheicon
+    $iconname = mb_eregi_replace("\..*", "", $iconname);
+    $iconname .= $cacheicon_searchable . $cacheicon_type . ".png";
+
+    return array($iconname, $inactive);
+}

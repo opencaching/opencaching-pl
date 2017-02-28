@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\GeoCache\PrintList;
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
@@ -8,15 +9,16 @@ if (!isset($rootpath))
 require_once('./lib/common.inc.php');
 require_once('lib/cache_icon.inc.php');
 
-if (!isset($_POST['flush_print_list']))
-    $_POST['flush_print_list'] = '';
-if ($_POST['flush_print_list'] != "")
-    $_SESSION['print_list'] = array();
+
+if ( isset($_POST['flush_print_list']) ){
+    PrintList::Flush();
+}
 
 //Preprocessing
 $cache_id = isset($_GET['cacheid']) ? $_GET['cacheid'] + 0 : 0;
 if (!$cache_id) {
-    if ($error == true || !$usr || ((!isset($_SESSION['print_list']) || count($_SESSION['print_list']) == 0) && ($_GET['source'] != 'mywatches'))) {
+    if ($error == true || !$usr ||
+        ( ( !empty(PrintList::GetContent()) ) && ($_GET['source'] != 'mywatches'))) {
         header("Location:index.php");
         die();
     }
@@ -97,7 +99,7 @@ if (!$cache_id) {
         $pictures = $_POST['showpictures'] != "" ? $_POST['showpictures'] : "&pictures=no";
         $nocrypt = $_POST['nocrypt'];
         $spoiler_only = $_POST['spoiler_only'];
-    } else if ($_POST['flush_print_list'] != "" || (isset($_POST['submit']) && $_POST['submit'] != "")) {
+    } else if (isset($_POST['flush_print_list']) || (isset($_POST['submit']) && $_POST['submit'] != "")) {
         $showlogs = $_POST['showlogs'];
         $pictures = $_POST['showpictures'];
         $nocrypt = $_POST['nocrypt'];
@@ -123,7 +125,7 @@ if (!$cache_id) {
         $caches_list = array();
         $caches_list[] = $cache_id;
     } else {
-        $caches_list = $_SESSION['print_list'];
+        $caches_list = PrintList::GetContent();
     }
 
 

@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\OcDb;
+use lib\Objects\GeoCache\PrintList;
 
 // load menu
 global $mnu_selmenuitem, $tpl_subtitle, $absolute_server_URI, $mnu_siteid /* which menu item should be highlighted */, $site_name;
@@ -47,9 +48,10 @@ if (date('m') == 12 || date('m') == 1) {
         <meta name="keywords" content="geocaching, opencaching, skarby, poszukiwania, geocashing, longitude, latitude, utm, coordinates, treasure hunting, treasure, GPS, global positioning system, garmin, magellan, mapping, geo, hiking, outdoors, sport, hunt, stash, cache, geocaching, geocache, cache, treasure, hunting, satellite, navigation, tracking, bugs, travel bugs">
         <meta name="author" content="{site_name}">
 
-        <link rel="stylesheet" type="text/css" media="screen" href="tpl/stdstyle/css/style_screen.css">
-        <link rel="stylesheet" type="text/css" media="print" href="tpl/stdstyle/css/style_print.css">
-        <link rel="stylesheet" type="text/css" media="screen" href="tpl/stdstyle/css/style_{season}.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="<?=$view->screenCss?>">
+        <link rel="stylesheet" type="text/css" media="screen" href="<?=$view->seasonCss?>">
+        <link rel="stylesheet" type="text/css" media="print" href="<?=$view->printCss?>">
+
 
         <link rel="shortcut icon" href="/images/<?=$config['headerFavicon']?>">
         <link rel="apple-touch-icon-precomposed" href="/images/oc_logo_144.png">
@@ -152,16 +154,18 @@ if (date('m') == 12 || date('m') == 1) {
                     <ul>
                         <?php
                         $dowydrukuidx = mnu_MainMenuIndexFromPageId($menu, "mylist");
-                        if (isset($_SESSION['print_list'])) {
-                            if (count($_SESSION['print_list']) > 0) {
-                                $menu[$dowydrukuidx]['visible'] = true;
-                                $menu[$dowydrukuidx]['menustring'] .= " (" . count($_SESSION['print_list']) . ")";
-                            }
+                        if ( !empty(PrintList::GetContent()) ) {
+
+                            $menu[$dowydrukuidx]['visible'] = true;
+                            $menu[$dowydrukuidx]['menustring'] .= " (" . count(PrintList::GetContent()) . ")";
+
                         }
 
-//                        if (isset($menu[$pageidx])) {
+                        if (isset($menu[$pageidx])) {
                             mnu_EchoMainMenu($menu[$pageidx]['siteid']);
-//                        }
+                        }else{
+                            mnu_EchoMainMenu(null);
+                        }
                         ?>
                     </ul>
                 </div>

@@ -238,7 +238,6 @@ $translations = array(
     'will_attend' => 'Will attend',
     'enter_text' => 'Enter text',
     'enter_text_error' => 'Text has not been entered',
-    'only_these' => 'Only these',
     'password_required' => 'Password required to add a log entry.',
     'last_log_entries' => 'The latest log entries',
     'terrain_difficulty' => 'Terrain difficulty',
@@ -524,7 +523,7 @@ $translations = array(
     'rating_ge_excellent' => '"Excellent" only',
     'score_label' => 'Rated as',
     'show_noscore' => 'Show caches without score',
-    'available_maps' => 'Available maps',
+    'available_maps' => 'See on map',
     'cache_attributes' => 'Cache attributes',
     'latest_logs' => 'Latest logs',
     'abroad_caches' => 'Abroad caches',
@@ -1184,10 +1183,9 @@ $translations = array(
     'lxg01' => 'Wrong date. Please enter correct date: DD-MM-YYYY',
     'lxg02' => 'Rate cache, or select you do not want rate this cache.',
     'lxg03' => 'Please select!',
-    'lxg04' => 'Only listed here',
     'lxg05' => 'Send log entry',
     'lxg06' => 'Select',
-    'lxg07' => 'Enter new mobile cache coordinates please!',
+    'lxg07' => 'Enter new cache coordinates please!',
     'lxg08' => 'Write a note',
     'lxg09' => 'Moved',
     'lxg10' => 'Needs maintenance',
@@ -1843,7 +1841,7 @@ $translations = array(
     'pt091' => 'Change the name',
     'pt092' => 'Available for testing, only to selected users. Errors can be reported to RT or Skype',
     'pt093' => 'Completed GeoPaths',
-    'pt094' => 'This cache belongs to GeoPath',
+    'cache_belongs_to_geopath' => 'This cache belongs to GeoPath',
     'pt095' => 'Geocacher',
     'pt096' => 'Finds in GeoPath',
     'pt097' => 'percent of finds',
@@ -2651,8 +2649,10 @@ $translations = array(
     'merit_badge_number' =>  'Progress',
     'merit_badge_number_threshold' =>  'Thresholds',
     'merit_badge_show_details' => 'Show details of merit badges ... ',
-    'merit_badge_gain_max_level' => 'You gained the highest level'
-                
+    'merit_badge_gain_max_level' => 'You gained the highest level',
+    'prepublication_visits' => 'Visited before publication',
+    'no_visits' => 'No such visits'
+
 );
 
 

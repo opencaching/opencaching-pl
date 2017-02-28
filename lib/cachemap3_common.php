@@ -1,6 +1,8 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\GeoCache\GeoCacheCommons;
+
 /*
  *
  * This is common code for mapv3
@@ -137,32 +139,7 @@ function getMapUserObj()
     }
 }
 
-/**
- * Cache can be add to the printList stored in session by request in GET
- */
-function parsePrintList()
-{
-    if (isset($_REQUEST['print_list']) && $_REQUEST['print_list'] == 'y') {
-        // add cache to print (do not duplicate items)
 
-        if (! is_array($_SESSION['print_list'])) {
-            $_SESSION['print_list'] = array();
-        }
-
-        if (in_array($_REQUEST['cacheid'], $_SESSION['print_list'])) {
-            array_push($_SESSION['print_list'], $_REQUEST['cacheid']);
-        }
-    }
-
-    if (isset($_REQUEST['print_list']) && $_REQUEST['print_list'] == 'n') {
-        // remove cache from print list
-        if (is_array($_SESSION['print_list'])) {
-            $_SESSION['print_list'] = array_diff($_SESSION['print_list'], array(
-                $_REQUEST['cacheid']
-            ));
-        }
-    }
-}
 
 /**
  * This function parse cords and zoom params from request
@@ -296,7 +273,7 @@ function setFilterSettings(array $filter)
                 $minmax = "max";
             }
 
-            tpl_set_var($minmax . "_sel" . intval(score2ratingnum($value) + 1), 'selected="selected"');
+            tpl_set_var($minmax . "_sel" . intval(GeoCacheCommons::ScoreAsRatingNum($value) + 1), 'selected="selected"');
             tpl_set_var($key, $value);
             continue;
         }

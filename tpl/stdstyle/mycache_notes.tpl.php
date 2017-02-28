@@ -32,7 +32,7 @@
 </div>
 
 
-<div class="notice" id="viewcache-attributesend">{{mycache_notes}} <a href="{wiki_link_cacheNotes}" target="_blank">{{here}}</a></div>
+<div class="notice noprint">{{mycache_notes}} <a href="{wiki_link_cacheNotes}" target="_blank">{{here}}</a></div>
 
 
 

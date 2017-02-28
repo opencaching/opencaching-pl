@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\GeoCache\PrintList;
 function onTheList($theArray, $item)
 {
     for ($i = 0; $i < count($theArray); $i++) {
@@ -190,19 +191,9 @@ if ($usr == false) {
             tpl_set_var('zoom', 11);
     }
 
-    if (isset($_REQUEST['print_list']) && $_REQUEST['print_list'] == 'y') {
-        // add cache to print (do not duplicate items)
-        if (count($_SESSION['print_list']) == 0)
-            $_SESSION['print_list'] = array();
-        if (onTheList($_SESSION['print_list'], $_REQUEST['cacheid']) == -1)
-            array_push($_SESSION['print_list'], $_REQUEST['cacheid']);
-    }
-    if (isset($_REQUEST['print_list']) && $_REQUEST['print_list'] == 'n') {
-        // remove cache from print list
-        while (onTheList($_SESSION['print_list'], $_REQUEST['cacheid']) != -1)
-            unset($_SESSION['print_list'][onTheList($_SESSION['print_list'], $_REQUEST['cacheid'])]);
-        $_SESSION['print_list'] = array_values($_SESSION['print_list']);
-    }
+    // handle optionally print-list requests
+    PrintList::HandleRequest( $_REQUEST['cacheid'] );
+
 
     tpl_set_var('coords', $coordsXY);
     tpl_set_var('username', $record['username']);

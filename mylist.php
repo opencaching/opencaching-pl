@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
+use lib\Objects\GeoCache\PrintList;
 //prepare the templates and include all neccessary
 require_once (__DIR__ . '/lib/common.inc.php');
 
@@ -18,15 +19,13 @@ if ($error == false) {
         $bml_id = 0;
         tpl_set_var('title_text', $standard_title);
 
-        if ( !isset($_SESSION['print_list']) || 
-             !is_array($_SESSION['print_list']) || 
-             empty($_SESSION['print_list']) ) {
+        if ( empty( PrintList::GetContent() ) ) {
 
             tpl_set_var('list', $no_list);
             tpl_set_var('print_delete_list', '');
             tpl_set_var('export_list', '');
         } else {
-            $cache_list = XDb::xEscape( implode(",", $_SESSION['print_list']) );
+            $cache_list = XDb::xEscape( implode(",", PrintList::GetContent() ) );
             $rs = XDb::xSql(
                 "SELECT `cache_id`, `name`, `type`,`last_found`
                 FROM `caches` WHERE `cache_id` IN ( $cache_list )

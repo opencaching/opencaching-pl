@@ -57,7 +57,7 @@ class User extends \lib\Objects\BaseObject
     private $geocachesBlocked = null;
 
     private $eventsAttendsCount = null;
-    
+
     private $verifyAll = null;
 
     /* user identifier used to communication with geoKrety Api*/
@@ -396,7 +396,16 @@ class User extends \lib\Objects\BaseObject
         return $this->isAdmin;
     }
 
-    function getIsGuide()
+    public function isAdmin(){
+        return $this->isAdmin;
+    }
+
+    public function getIsGuide()
+    {
+        return $this->isGuide;
+    }
+
+    public function isGuide()
     {
         return $this->isGuide;
     }
@@ -646,5 +655,23 @@ class User extends \lib\Objects\BaseObject
             $this->geokretyApiSecid = $result['secid'];
         }
         return $this->geokretyApiSecid;
+    }
+
+    public static function GetUserNamesForListOfIds(array $userIds)
+    {
+
+        if(empty($userIds)){
+            return array();
+        }
+
+        $s = XDb::xSql(
+            "SELECT username FROM `user`
+            WHERE `user_id` IN ( ? )", implode($userIds, ','));
+
+        $result = array();
+        while($row = XDb::xFetchArray($s)){
+            $result[] = $row['username'];
+        }
+        return $result;
     }
 }

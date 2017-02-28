@@ -1046,6 +1046,6 @@ function updateAltitudeIfNeeded($oldCacheRecord, $cacheId, $altitude = NULL){
     /* add cache altitude altitude */
     $geoCache = new GeoCache(array('cacheId' => $cacheId));
     if($geoCache->getCoordinates()->getLatitude() != $oldCacheRecord['latitude'] || $geoCache->getCoordinates()->getLongitude() != $oldCacheRecord['longitude']){
-        $geoCache->getAltitude()->pickAndStoreAltitude($altitude);
+        $geoCache->getAltitudeObj()->pickAndStoreAltitude($altitude);
     }
 }

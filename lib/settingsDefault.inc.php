@@ -71,7 +71,7 @@ $config = array(
      * Minimum number of finds a user must have to see a cache's waypoint on
      * another site.
      */
-    'otherSites_minfinds' => 100,
+    'otherSites_minfinds' => 10,
     /**
      * not allowed cache types (user cannot create caches of this types).
      *
@@ -133,10 +133,10 @@ $config = array(
             // does not care
             'images/attributes/password-undef.png'
         )
-    ),    
+    ),
     'numberFormatDecPoint' => '.',
-    'numberFormatThousandsSep' => ',' 
-    
+    'numberFormatThousandsSep' => ','
+
 );
 
 /* ************************************************************************
@@ -173,8 +173,6 @@ $config['maps']['main_page_map']['source'] = 'mapnik';
 
 /* Cache page minimap                                                       */
 $config['maps']['cache_mini_map']['zoom'] = 14;
-$config['maps']['cache_mini_map']['width'] = '480';
-$config['maps']['cache_mini_map']['height'] = '385';
 
 /* ************************************************************************
  * External maps on which to view a cache
@@ -197,19 +195,19 @@ $config['maps']['cache_mini_map']['height'] = '385';
  * $config['maps']['external']['MyMap_URL'] = '<a href="http://site/file?lat=%1$f&lon=%2$f&id=%3$s&name=%5$s">%6$s</a>';
  */
 $config['maps']['external']['Opencaching'] = 1;
-$config['maps']['external']['Opencaching_URL'] = '<a target="_blank" href="cachemap3.php?lat=%1$f&lon=%2$f&cacheid=%3$s&inputZoom=14">%6$s</a>';
+$config['maps']['external']['Opencaching_URL'] = 'cachemap3.php?lat=%1$f&lon=%2$f&cacheid=%3$s&inputZoom=14';
 $config['maps']['external']['OSM'] = 1;
-$config['maps']['external']['OSM_URL'] = '<a target="_blank" href="http://www.openstreetmap.org/index.html?mlat=%1$f&mlon=%2$f&zoom=16&layers=M">%6$s</a>';
+$config['maps']['external']['OSM_URL'] = 'http://www.openstreetmap.org/index.html?mlat=%1$f&mlon=%2$f&zoom=16&layers=M';
 $config['maps']['external']['OSMapa'] = 0;
-$config['maps']['external']['OSMapa_URL'] = '<a target="_blank" href="http://osmapa.pl?zoom=16&lat=%1$f&lon=%2$f&z=14&o=TFFT&map=1">%6$s</a>';
+$config['maps']['external']['OSMapa_URL'] = 'http://osmapa.pl?zoom=16&lat=%1$f&lon=%2$f&z=14&o=TFFT&map=1';
 $config['maps']['external']['UMP'] = 1;
-$config['maps']['external']['UMP_URL'] = '<a target="_blank" href="http://mapa.ump.waw.pl/ump-www/?zoom=14&lat=%1$f&lon=%2$f&layers=B00000T&mlat=%1$f&mlon=%2$f">%6$s</a>';
+$config['maps']['external']['UMP_URL'] = 'http://mapa.ump.waw.pl/ump-www/?zoom=14&lat=%1$f&lon=%2$f&layers=B00000T&mlat=%1$f&mlon=%2$f';
 $config['maps']['external']['Google Maps'] = 1;
-$config['maps']['external']['Google Maps_URL'] = '<a target="_blank" href="//maps.google.com/maps?hl=UTF-8&q=%1$f+%2$f+(%5$s)" >%6$s</a>';
+$config['maps']['external']['Google Maps_URL'] = '//maps.google.com/maps?hl=UTF-8&q=%1$f+%2$f+(%5$s)';
 $config['maps']['external']['Szukacz'] = 1;
-$config['maps']['external']['Szukacz_URL'] = '<a target="_blank" href="http://mapa.szukacz.pl/?n=%1$f&e=%2$f&z=4&t=Skrzynka%%20Geocache">%6$s</a>';
+$config['maps']['external']['Szukacz_URL'] = 'http://mapa.szukacz.pl/?n=%1$f&e=%2$f&z=4&t=Skrzynka%%20Geocache';
 $config['maps']['external']['Flopp\'s Map'] = 0;
-$config['maps']['external']['Flopp\'s Map_URL'] = '<a target="_blank" href="http://flopp.net/?c=%1$f:%2$f&z=16&t=OSM&f=g&m=&d=&g=%4$s">%6$s</a>';
+$config['maps']['external']['Flopp\'s Map_URL'] = 'http://flopp.net/?c=%1$f:%2$f&z=16&t=OSM&f=g&m=&d=&g=%4$s';
 
  /* ***********************
   * Search box on top page

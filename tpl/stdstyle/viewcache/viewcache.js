@@ -75,8 +75,8 @@ function loadLogEnteries(offset, limit){
 function showHint(event)
 {
     event.preventDefault();
-        $("#decrypt-hints").toggle();
         $("#hintEncrypted").toggle();
+        $("#hintDecrypted").toggle();
         $("#encryptLinkStr").toggle();
         $("#decryptLinkStr").toggle();
     return false;

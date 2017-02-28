@@ -1,6 +1,7 @@
 <?php
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
+use lib\Objects\GeoCache\GeoCacheCommons;
 
 require_once("./lib/common.inc.php");
 
@@ -108,7 +109,7 @@ if (isSet($_GET['wp']) && !empty($_GET['wp']) && $_GET['wp'] != "OP") {
         $cache_info['if_found'] = $if_found;
 
         if ($caches['votes'] > 3)
-            $cache_info['score'] = score2ratingnum($caches['score']);
+            $cache_info['score'] = GeoCacheCommons::ScoreAsRatingNum($caches['score']);
         else
             $cache_info['score'] = 5;
 

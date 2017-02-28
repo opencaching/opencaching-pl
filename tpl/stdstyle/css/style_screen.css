@@ -129,7 +129,6 @@ ul#statmenu { padding: 0px; margin: 0px;}
 .warning                                                        { overflow: hidden;  width: 735px; height: 24px; border: 1px solid black; background-color: rgb(240,100,100); margin: 0px 0px 0px 0px; padding: 8px 0px 0px 32px; color: rgb(50,50,50); font-weight: bold; font-size: 12px; background-image: url(../images/misc/32x32-impressum.png); background-position: top left; background-repeat:no-repeat;behavior: url(iepngfix/iepngfix.htc);}
 .errormsg                                                       { color: rgb(240,100,100); font-weight: bold;}
 .successmsg                                                     { color: rgb(50,150,20); font-weight: bold;}
-#cache_name_block                                               { width: 670px; padding-left: 5px; padding-top: 5px;}
 .content2                                                       { float: left; width: 790px; min-height: 500px; margin: 0px; padding: 0px 0px 0px 20px; color: rgb(75,75,75); font-size: 1.0em;}
 .content3                                                       { float: left; width: 790px; min-height: 500px; margin: 0px; padding: 0px 0px 0px 20px; color: rgb(75,75,75); font-size: 1.0em;}
 .content2-container, .content3-container                        { clear: both; float: left; width: 769px; margin: 0px 0px 15px 0px; padding: 0px;}
@@ -203,7 +202,7 @@ ul.linklist-indent      { margin: -0.3em 0px 0.5em 0px; padding: 0px 0px 0px 10p
 .img-right-noborder-topmargin       { float: right; margin: 3px 0px 0px 10px;}
 .img-right-border-notopmargin       { float: right; margin: 0px 0px 0px 10px; border: solid 1px rgb(150,150,150);}
 .img-right-border-topmargin         { float: right; margin: 3px 0px 0px 10px; border: solid 1px rgb(150,150,150);}
-.img-difficulty                     { float: right; margin: 0px 2px; border-width:0px;border-style:none;}
+.img-difficulty                     { float: right; margin: 0px 2px; border-width:0px; border-style:none;}
 
 /*--------------------*/
 /* 6.2 - Sidebar Area */
@@ -625,6 +624,13 @@ a.btn {
     border-radius: 6px;
 }
 
+.btn-md {
+    padding: 3px 5px;
+    font-size: 13px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
 .btn-sm {
     padding: 1px 5px;
     font-size: 12px;
@@ -640,6 +646,19 @@ a.btn {
     line-height: 1.5;
     border-radius: 3px;
 }    
+
+/*****************************/
+/* CONTEINERS */
+/*****************************/
+
+.flex-container {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  width: 100%;
+}
 
 /*****************************/
 /* FORMS */
@@ -881,16 +900,8 @@ div#local-events-area                                   { width: 400px; }
 div#local-logs-area                                     { width: 750px; }
 div#cacheview-attributesinfo                            { }
 div#viewlogs-end                                        { font-weight: bold; font-size: 120%; margin-bottom: 10px;}
-img#viewcache-cacheicon                                 { float: left; }
-div#viewcache-baseinfo                                  { width:400px; text-align: left;}
-div#viewcache-maptypes                                  { width:360px; text-align: right;}
-div#viewcache-maptypes .content2-container-2col-right   { }
-div#viewcache-numstats                                  { width: 170px; height: 230px; text-align: left; }
-div#viewcache-map                                       { width: 185px; height: 190px; float: right;}
-div#viewcache-map .img-shadow                           { }
 div.local-caches-area                                   { width: 400px; }
 div.local-logs-area                                     { width: 750px; }
-div.viewcache_log-content                               { margin-left: 20px }
 div.viewlogs-logpictures span.info                      { font-weight: bold; font-size: 120%;display: block;}
 div.viewlogs-logpictures div.logimage                   { float: left; }
 div.viewlogs-logpictures div.allimages                  { background-color: rgb(219,230,241);padding: 5px;  max-width: 750px; float: left;}
@@ -915,14 +926,10 @@ div.logs {
     font-size: 80%;
 }
 
-
-div#viewcache-utility                   { margin: 0px 0px 0.5em 0px; padding: 0px; line-height: 1.6em; font-family: arial, sans serif; font-size: 120%; }
+div.viewcache_log-content                               { margin-left: 20px }
 div.viewcache_log-content               { font-family: arial, sans serif; line-height: 1.6em; font-size: 12px; margin-top: 5px;}
-div#viewcache-description               { font-family: arial, sans serif; line-height: 1.6em; font-size: 12px; margin-top: 5px;}
-div#viewcache-description *             { max-width: 770px; }
-div#viewcache-description p             { line-height: 1.6em; font-size: 13px; }
-div.viewcache-pictureblock              { float: left; }
-div.viewcache-pictureblock span.title   { display: block; max-width: 175px; padding-left: 10px; padding-right: 5px;clear: left; font-size: 125%;}
+
+
 div#main-cachemap-block                 { width: 265px; margin-top: 80px; }
 div#local-cachemap-block                { width: 365px; margin-top: 29px; }
 #viewprofile-table td                   { width: 260px; }
@@ -1330,3 +1337,5 @@ div.gm-style {
     font-weight: bold;
     font-style: italic;
 }
+
+

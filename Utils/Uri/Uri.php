@@ -28,6 +28,17 @@ class Uri {
 
     }
 
+    public static function addAnchorName($anchorName, $uri=null)
+    {
+        if(is_null($uri)){
+            $uri = $_SERVER['REQUEST_URI'];
+        }
+
+        list ($uriWithoutHash) = explode('#', $uri);
+
+        return $uriWithoutHash.'#'.$anchorName;
+
+    }
 
     /**
      * Remove given param from URL
@@ -51,6 +62,23 @@ class Uri {
         }
 
         return $uri;
+    }
+
+    public static function getCurrentUri($skipPrecedingSlash = false)
+    {
+       return (!$skipPrecedingSlash) ? $_SERVER['REQUEST_URI'] : substr($_SERVER['REQUEST_URI'], 1);
+    }
+
+    /**
+     * This is usefull if to prevent browser to cache for example css/js file
+     * Returns link to file with ?<modification-time> which makes browser to download file if contents has changed
+     *
+     * @param unknown $rootPath - path to the file (from root of thw site)
+     * @return string
+     */
+    public static function getLinkWithModificationTime($rootPath)
+    {
+        return $rootPath.'?'.filemtime(__dir__.'/../../'.$rootPath);
     }
 
 }

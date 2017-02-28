@@ -246,24 +246,6 @@ require_once($rootpath . 'lib/bench.inc.php');
 $bScriptExecution = new Cbench;
 $bScriptExecution->start();
 
-// rating conversion array
-$ratingDesc = array(
-    tr('rating_poor'),
-    tr('rating_mediocre'),
-    tr('rating_avarage'),
-    tr('rating_good'),
-    tr('rating_excellent'),
-);
-// prima-aprilis joke ;-)
-if ((date('m') == 4) and ( date('d') == 1)) {
-    $ratingDesc = array(
-        tr('rating_poor_1A'),
-        tr('rating_mediocre_1A'),
-        tr('rating_avarage_1A'),
-        tr('rating_good_1A'),
-        tr('rating_excellent_1A'),
-    );
-}
 
 tpl_set_var('site_name', $site_name);
 tpl_set_var('contact_mail', $contact_mail);
@@ -271,26 +253,6 @@ tpl_set_var('contact_mail', $contact_mail);
 // BSz: to make ease use of wikilinks
 foreach($wikiLinks as $key => $value){
     tpl_set_var('wiki_link_'.$key, $value);
-}
-
-function score2ratingnum($score)
-{
-    if ($score >= 2.2)
-        return 4;
-    else if ($score >= 1.4)
-        return 3;
-    else if ($score >= 0.1)
-        return 2;
-    else if ($score >= -1.0)
-        return 1;
-    else
-        return 0;
-}
-
-function score2rating($score)
-{
-    global $ratingDesc;
-    return $ratingDesc[score2ratingnum($score)];
 }
 
 function new2oldscore($score)
@@ -306,39 +268,6 @@ function new2oldscore($score)
     else
         return -2.0;
 }
-
-function season()
-{
-    $season = date("z");
-
-    if ($season <= 171 and $season >= 79)
-        $m_season = "spring";
-    else if ($season <= 264 and $season >= 172)
-        $m_season = "summer";
-    else if ($season <= 330 and $season >= 265)
-        $m_season = "autumn";
-    else
-        $m_season = "winter";
-    return $m_season;
-}
-
-function validate_style($style)
-{
-    switch ($style) {
-        case "spring":
-        case "summer":
-        case "autumn":
-        case "winter":
-        case "christmas":
-        case "easter":
-        case "test":
-            return $style;
-    }
-    return "";
-}
-
-$season = isset($_GET['season']) ? validate_style($_GET['season']) : season();
-tpl_set_var("season", $season);
 
 // get the language from a given shortage
 // on success return the name, otherwise false

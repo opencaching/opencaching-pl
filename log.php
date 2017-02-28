@@ -3,6 +3,9 @@
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use Utils\Gis\Gis;
+use lib\Objects\GeoCache\GeoCacheCommons;
+use lib\Objects\GeoCache\GeoCacheLog;
+use lib\Objects\GeoCache\GeoCache;
 /* todo:
   create and set up 4 template selector with wybor_WE wybor_NS.
 
@@ -219,7 +222,7 @@ if ($error == false) {
                         $checked = "";
 
                     $score.= '
-                        <label><input type="radio" style="vertical-align: top" name="r" id="r' . $line_cnt . '" value="' . $score_radio . '" onclick="clear_no_score ();"' . $checked . '  /><b><font color="' . $color_table[$line_cnt] . '"><span id="score_lbl_' . $line_cnt . '">' . ucfirst($ratingDesc[$score_radio]) . '</span></font></b></label>&nbsp;&nbsp;' . $break_line;
+                        <label><input type="radio" style="vertical-align: top" name="r" id="r' . $line_cnt . '" value="' . $score_radio . '" onclick="clear_no_score ();"' . $checked . '  /><b><font color="' . $color_table[$line_cnt] . '"><span id="score_lbl_' . $line_cnt . '">' . ucfirst(tr(GeoCacheCommons::CacheRatingDescByRatingId($score_radio))) . '</span></font></b></label>&nbsp;&nbsp;' . $break_line;
                     $line_cnt++;
                 }
 
@@ -483,10 +486,11 @@ if ($error == false) {
                             $cache_id, $usr['userid'], $log_type, $log_date, $log_text, 1, 1, $log_uuid, $oc_nodeid);
                     }
 
-                    // mobline by Łza (mobile caches)
                     // insert to database.
-                    // typ kesza mobilna 8, typ logu == 4
-                    if ($log_type == 4 && $cache_type == 8) { // typ logu 4 - przeniesiona
+                    if ($log_type == GeoCacheLog::LOGTYPE_MOVED &&
+                            ($cache_type == GeoCache::TYPE_MOVING || $cache_type == GeoCache::TYPE_OWNCACHE)
+                        ) {
+
                         $doNotUpdateCoordinates = false;
                         ini_set('display_errors', 1);
                         // error_reporting(E_ALL);
@@ -763,7 +767,7 @@ if ($error == false) {
                             $logtypeoptions .= '<option value="3">' . tr('lxg08') . '</option>' . "\n";
 
                         //4 = Moved
-                        if ($res2['type'] == 8) {
+                        if ($res2['type'] == 8 || $res2['type'] == 10) {
                             $logtypeoptions .= '<option value="4">' . tr('lxg09') . '</option>' . "\n";
                         }
 
@@ -913,7 +917,7 @@ if ($error == false) {
                 if (sizeof($listed_on)) {
                     tpl_set_var('listed_start', "");
                     tpl_set_var('listed_end', "");
-                    tpl_set_var('listed_on', sizeof($listed_on) == 0 ? $listed_only_oc : implode(", ", $listed_on));
+                    tpl_set_var('listed_on', implode(", ", $listed_on));
                 } else {
                     tpl_set_var('listed_start', "<!--");
                     tpl_set_var('listed_end', "-->");

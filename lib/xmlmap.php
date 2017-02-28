@@ -368,7 +368,7 @@ class tmp_Xmlmap
         tpl_set_var('user_profile', $geoCache->getOwner()->getProfileUrl());
         tpl_set_var('start_date', $geoCache->getDatePlaced()->format($ocConfig->getDateFormat()));
 
-        tpl_set_var('cache_size_desc', tr($geoCache->getSizeDesc()));
+        tpl_set_var('cache_size_desc', tr($geoCache->getSizeTranslationKey()));
 
         $is_powertrail_part = ($geoCache->isPowerTrailPart() ? '1' : '0');
         tpl_set_var('is_powertrail_part', $is_powertrail_part, false);

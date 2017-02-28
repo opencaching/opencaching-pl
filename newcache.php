@@ -792,7 +792,7 @@ if ($error == false) {
 
                 /* add cache altitude altitude */
                 $geoCache = new \lib\Objects\GeoCache\GeoCache(array('cacheId' => $cache_id));
-                $geoCache->getAltitude()->pickAndStoreAltitude($altitude);
+                $geoCache->getAltitudeObj()->pickAndStoreAltitude($altitude);
 
                 // redirection
                 tpl_redirect('mycaches.php?status=' . urlencode($sel_status));

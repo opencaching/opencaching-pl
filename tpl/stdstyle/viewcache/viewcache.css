@@ -1,0 +1,197 @@
+/**
+  This is CSS used only by viewcache*.php templates
+*/
+
+#cache-menu::after {
+  content:"";
+  display:block;
+  clear:both;
+}
+
+#cache-title-icons {
+  width: 60px; 
+  margin-right: 10px;
+  float: left;
+  clear: left;
+}
+
+#cache-name-block {
+  width: 699px;
+  float: right;
+}
+
+#cache-name {
+  float: left;
+  max-width: 65%;
+}
+
+#geoPath {
+  float: right;
+  width: 30%;
+  max-width: 40%;
+  border-radius: 5px 5px; 
+  -moz-border-radius: 5px; 
+  -webkit-border-radius: 5px; 
+  border:1px solid #337fed; 
+  padding: 5px;
+}
+
+#geoPath-head {
+  color: #337fed; 
+  border-bottom: 1px solid #337fed;
+}
+
+#geoPath-link {
+  font-size: 13px;
+  width: 100%;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+#geoPath-content{
+  align-items: center;
+}
+
+
+#links-to-ext-maps a{
+  margin: 1px 0px;
+}
+
+
+.common-desc {
+  font-size: 12px;
+}
+
+.list-of-details {
+  font-size: 12px;
+}
+
+.list-of-details img {
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+}
+
+.list-of-details a img {
+  width: 12px;
+  height: 12px;
+}
+
+div#viewcache-baseinfo { 
+  width:400px; 
+  text-align: left;
+}
+
+div#viewcache-maptypes { width:360px; text-align: right;}
+div#viewcache-numstats { width: 170px; height: 230px; text-align: left; }
+div#viewcache-map { width: 185px; height: 190px; float: right;}
+
+div#viewcache-description               { font-family: arial, sans serif; line-height: 1.6em; font-size: 12px; margin-top: 5px;}
+div#viewcache-description *             { max-width: 770px; }
+div#viewcache-description p             { line-height: 1.6em; font-size: 13px; }
+
+div#viewcache-utility                   { font-size: 12px; }
+div.viewcache-pictureblock              { float: left; }
+div.viewcache-pictureblock span.title   { display: block; max-width: 175px; padding-left: 10px; padding-right: 5px;clear: left; font-size: 125%;}
+
+#waypoints-table {
+  width: 100%;
+  border-collapse: collapse; 
+  font-size: 12px; 
+  line-height: 1.6em;
+  text-align: center;
+  border: 1px solid black;
+}
+#waypoints-table th {
+  font-weight: bold;
+}
+
+#waypoints-table td, #waypoints-table th {
+    border: 1px solid black;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#hintEncTable{
+  width:200px;
+  text-align:right;
+  float:right;
+  font-family: 'Courier New', FreeMono, Monospace;
+  font-size: 12px;
+}
+
+#form-coords-mod {
+  margin-left: 20px;
+}
+
+.userNoteTextarea {
+  font-size: 12px;
+  border: 1px solid #d0d0d0;
+  padding: 5px;
+}
+
+textarea.userNoteTextarea {
+  width: 720px;
+}
+
+#cacheNoteForm {
+  margin: 0 20px;
+}
+
+#viewcache-utility a {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#viewcache-utility td {
+  width: 350px;
+  text-align: left;
+  padding-left:5px;
+}
+
+#log_start {
+  float: left;
+}
+
+#log_start a {
+  text-decoration: none;
+}
+
+#log-start-buttons {
+  float: right;
+  padding: 0 5px;
+}
+
+.naturaTable {
+  width: 90%; 
+  border-collapse: collapse; 
+  font-weight: bold;
+  font-size: 14px; 
+  line-height: 1.6em"
+}
+
+.naturaTable td {
+  text-align: center; 
+  vertical-align: middle;
+}
+
+.naturaTable a {
+  text-color: blue;  
+}
+
+#buttons-left {
+  float: left; 
+}
+
+#buttons-right {
+  float: right; 
+}
+
+#descLangs-span {
+  margin: 0 20px;  
+}
+
+#userNote-div {
+  margin: 0 20px;
+}

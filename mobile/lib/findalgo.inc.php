@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\GeoCache\GeoCacheCommons;
 
 require_once('../lib/ClassPathDictionary.php');
 
@@ -11,7 +12,7 @@ if (isSet($_GET['nazwa']) && !empty($_GET['nazwa']) ||
         isSet($_GET['owner']) && !empty($_GET['owner']) ||
         isSet($_GET['finder']) && !empty($_GET['finder'])) {
 
-    
+
 
     function find_news($start, $end)
     {
@@ -98,7 +99,7 @@ if (isSet($_GET['nazwa']) && !empty($_GET['nazwa']) ||
 
 
                 if ($rekord['votes'] > 3)
-                    $rekord['score'] = score2ratingnum($rekord['score']);
+                    $rekord['score'] = GeoCacheCommons::ScoreAsRatingNum($rekord['score']);
                 else
                     $rekord['score'] = 5;
 
