@@ -692,9 +692,7 @@
 
     <div class="content2-container">
         <form action="viewcache.php?cacheid=<?=$view->geoCache->getCacheId()?>#userNotes" method="post" name="cache_note" id="cacheNoteForm">
-            <textarea class="userNoteEdit userNoteTextarea" name="userNoteText" rows="4" style="display:none">
-              <?=$view->userNoteText?>
-            </textarea>
+            <textarea class="userNoteEdit userNoteTextarea" name="userNoteText" rows="4" style="display:none"><?=$view->userNoteText?></textarea>
             <div class="userNoteDisplay userNoteTextarea">
                 <?=nl2br($view->userNoteText)?>
             </div>
