@@ -50,8 +50,8 @@
                 </a>
             </span>
             <span id="buttons-right">
-                <a class="btn btn-danger btn-md" href="reportcache.php?cacheid=<?=$view->geoCache->getCacheId()?>">
-                  <?=tr('report_problem')?>
+                <a class="btn btn-default btn-md" href="reportcache.php?cacheid=<?=$view->geoCache->getCacheId()?>">
+                  <img src="images/actions/report-problem-18.png" />&nbsp;<?=tr('report_problem')?>
                 </a>
                 <?php if($view->showEditButton ){ ?>
                     <a class="btn btn-success btn-md" href="editcache.php?cacheid=<?=$view->geoCache->getCacheId()?>">
@@ -175,7 +175,6 @@
     <div class="content2-container-2col-left" id="viewcache-baseinfo">
         <div class="content-title-noshade-size3">
             <img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="" title="">
-            <b>
               <?php if($view->isUserAuthorized || $view->alwaysShowCoords ) { ?>
 
                 <?php if(!$view->userModifiedCacheCoords) { ?>
@@ -189,7 +188,6 @@
               <?php } else { //user-not-authorized ?>
                 <?=tr('hidden_coords')?>
               <?php } //else-user-not-authorized ?>
-            </b>
             <span class="content-title-noshade-size0">
                 (WGS84)
                 <?php if($view->userModifiedCacheCoords) { ?>
@@ -425,7 +423,7 @@
             <?php if ($view->isUserAuthorized || $view->alwaysShowCoords) { ?>
                 <b>{{available_maps}}:</b>
                 <?php foreach($view->externalMaps as $mapName => $url) { ?>
-                  <a target="_blank" href="<?=$url?>" class="btn btn-default btn-sm"><?=$mapName?></a>
+                  <a target="_blank" href="<?=$url?>"><?=$mapName?></a>
                 <?php } //foreach ?>
             <?php } //else $view->isUserAuthorized || $view->alwaysShowCoords ?>
         </div>
@@ -435,10 +433,10 @@
 <?php if(!empty($view->geoCache->getCacheAttributesList())) { ?>
     <!-- cache attributes: -->
     <div class="content2-container bg-blue02">
-        <p class="content-title-noshade-size1">
+        <span class="content-title-noshade-size1">
             <img src="tpl/stdstyle/images/blue/attributes.png" class="icon32" alt="">
             {{cache_attributes_label}}
-        </p>
+        </span>
     </div>
 
     <div class="content2-container">
@@ -460,9 +458,9 @@
 <?php if(!empty($view->geoCacheDesc->getAdminComment() )) { ?>
     <!-- admin comments: -->
     <div class="content2-container bg-blue02">
-        <p class="content-title-noshade-size1">
+        <span class="content-title-noshade-size1">
             <img src="tpl/stdstyle/images/blue/crypt.png" class="icon32" alt="">{{rr_comment_label}}
-        </p>
+        </span>
     </div>
     <div class="content2-container">
         <p><?=$view->geoCacheDesc->getAdminComment()?></p>
@@ -471,23 +469,25 @@
 
 <!-- cache description header: -->
 <div class="content2-container bg-blue02">
-    <img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="">
-    <span class="content-title-noshade-size1">{{descriptions}}&nbsp;&nbsp;</span>
+    <span class="content-title-noshade-size1">
+        <img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="">
+        {{descriptions}}
+    </span>
 
-    <?php foreach( $view->availableDescLangs as $descLang ){ ?>
-        <a class="btn btn-sm btn-default" href="<?=$view->availableDescLangsLinks[$descLang]?>">
-        <?php if($view->usedDescLang == $descLang) { ?>
-            <b><?=$descLang?></b>
+    <span id="descLangs-span">
+        <?php foreach( $view->availableDescLangs as $descLang ){ ?>
+            <a class="btn btn-sm btn-default" href="<?=$view->availableDescLangsLinks[$descLang]?>">
+            <?php if($view->usedDescLang == $descLang) { ?>
+                <b><?=$descLang?></b>
 
-        <?php } else { // available-desc-langs ?>
-            <?=$descLang?>
+            <?php } else { // available-desc-langs ?>
+                <?=$descLang?>
 
-        <?php } // if-current-lang ?>
-        </a>
-    <?php } //foreach-available-desc-langs ?>
-
+            <?php } // if-current-lang ?>
+            </a>
+        <?php } //foreach-available-desc-langs ?>
+    </span>
     <?php if($view->isAdminAuthorized) { ?>
-        &nbsp;&nbsp;
         <a class="btn btn-sm btn-default" href="add_octeam_comment.php?cacheid=<?=$view->geoCache->getCacheId()?>">
             <?=tr('add_rr_comment')?>
         </a>
@@ -508,10 +508,10 @@
 <!-- openChecker container -->
 
     <div class="content2-container bg-blue02">
-        <p class="content-title-noshade-size1">
+        <span class="content-title-noshade-size1">
             <img src="tpl/stdstyle/images/blue/openchecker_32x32.png" class="icon32" alt="">
             {{openchecker_name}}
-        </p>
+        </span>
     </div>
 
     <div class="content2-container align-center">
@@ -535,10 +535,10 @@
 <?php if( !empty($view->waypointsList) ) { ?>
     <!-- waypoints: -->
     <div class="content2-container bg-blue02">
-        <p class="content-title-noshade-size1">
+        <span class="content-title-noshade-size1">
             <img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="">
             {{additional_waypoints}}
-        </p>
+        </span>
     </div>
     <div class="content2-container">
         <table id="waypoints-table">
@@ -609,19 +609,12 @@
     <div class="content2-container bg-blue02">
         <span class="content-title-noshade-size1">
             <img src="tpl/stdstyle/images/blue/crypt.png" class="icon32" alt="">
-            <b>{{additional_hints}}</b>&nbsp;&nbsp;
+            {{additional_hints}}
         </span>
-        <?php if($view->isUserAuthorized || $view->alwaysShowCoords) { ?>
-            <?php if(!$view->showUnencryptedHint) { ?>
-                <a class="btn btn-default btn-sm" href="#" onclick="return showHint(event);">
-                    <span id="decryptLinkStr"><?=tr('decrypt')?></span>
-                    <span id="encryptLinkStr" style="display:none"><?=tr('encrypt')?></span>
-                </a>
-            <?php } //if-show-unencrypted-hint ?>
-        <?php } // if-user-authorized or showAll set in config ?>
     </div>
 
     <div class="content2-container">
+        <div id="userNote-div">
         <?php if($view->isUserAuthorized || $view->alwaysShowCoords) { ?>
 
             <p id="hintEncrypted"><?=$view->hintDecrypted?></p>
@@ -636,6 +629,17 @@
         <?php } else { // if-user-not-authorized or showAll-not-set in config ?>
             <span class="notice"><?=tr('vc_hint_for_logged_only')?></span>
         <?php } // if-user-authorized or showAll set in config ?>
+
+        <?php if($view->isUserAuthorized || $view->alwaysShowCoords) { ?>
+            <?php if(!$view->showUnencryptedHint) { ?>
+                <a class="btn btn-default btn-sm" href="#" onclick="return showHint(event);">
+                    <span id="decryptLinkStr"><?=tr('decrypt')?></span>
+                    <span id="encryptLinkStr" style="display:none"><?=tr('encrypt')?></span>
+                </a>
+            <?php } //if-show-unencrypted-hint ?>
+        <?php } // if-user-authorized or showAll set in config ?>
+
+        </div>
     </div>
 <?php } // if-hint-present ?>
 
@@ -643,10 +647,10 @@
 <?php if($view->cacheCoordsModificationAllowed) { ?>
     <!-- coords user modification: -->
     <div id="coords_mod_section" class="content2-container bg-blue02">
-        <p class="content-title-noshade-size1">
+        <span class="content-title-noshade-size1">
             <img src="tpl/stdstyle/images/blue/signature1.png" class="icon32" alt="" />
             {{coords_modifier}}
-        </p>
+        </span>
     </div>
 
     <div class="content2-container">
@@ -681,9 +685,9 @@
 <?php if($view->isUserAuthorized) { ?>
     <!-- user-note:  -->
     <div class="content2-container bg-blue02" id="userNotes">
-        <p class="content-title-noshade-size2">
+        <span class="content-title-noshade-size1">
             <img src="tpl/stdstyle/images/blue/logs.png" alt="{{personal_cache_note}}"> {{personal_cache_note}}
-        </p>
+        </span>
     </div>
 
     <div class="content2-container">
@@ -729,10 +733,10 @@
 <?php if( !empty($view->geoCache->getNatureRegions() ) || !empty($view->geoCache->getNatura2000Sites())) { ?>
     <!-- natura2000 etc. -->
     <div class="content2-container bg-blue02">
-        <p class="content-title-noshade-size1">
+        <span class="content-title-noshade-size1">
             <img src="tpl/stdstyle/images/blue/npav1.png" class="icon32" alt="">
             {{obszary_ochrony_przyrody}}
-        </p>
+        </span>
     </div>
 
     <div class="content2-container align-center">
@@ -789,10 +793,10 @@
 <?php if( !empty($view->geoCache->getGeokretsHosted())) { ?>
     <!-- geokrety: -->
     <div class="content2-container bg-blue02">
-        <p class="content-title-noshade-size1">
+        <span class="content-title-noshade-size1">
             <img src="tpl/stdstyle/images/blue/travelbug.png" class="icon32" alt="">
             Geokrety
-        </p>
+        </span>
     </div>
     <div class="content2-container">
         <div id="geoKretySection">
@@ -811,10 +815,10 @@
 <?php if( !empty($view->geoCache->getMp3List() )) { ?>
     <!-- mp3-list -->
     <div class="content2-container bg-blue02">
-        <p class="content-title-noshade-size1">
+        <span class="content-title-noshade-size1">
             <img src="tpl/stdstyle/images/blue/podcache-mp3.png" class="icon32" alt="">
             {{mp3_files_info}}
-        </p>
+        </span>
     </div>
     <div class="content2-container">
         <div id="viewcache-mp3s">
@@ -835,10 +839,10 @@
 <?php if( !empty($view->picturesToDisplay) ) { ?>
     <!-- pics-list: -->
     <div class="content2-container bg-blue02">
-        <p class="content-title-noshade-size1">
+        <span class="content-title-noshade-size1">
             <img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt="">
             {{images}}
-        </p>
+        </span>
     </div>
     <div class="content2-container">
         <div id="viewcache-pictures">
@@ -863,9 +867,9 @@
 <?php if($view->isUserAuthorized) { ?>
     <!-- utils-section: -->
     <div class="content2-container bg-blue02">
-        <p class="content-title-noshade-size1">
+        <span class="content-title-noshade-size1">
             <img src="tpl/stdstyle/images/blue/tools.png" class="icon32" alt="">&nbsp;{{utilities}}
-        </p>
+        </span>
     </div>
 
     <div class="content2-container">
@@ -875,12 +879,10 @@
                 {{search_geocaches_nearby}}:
 
 
-                <a class="btn btn-sm btn-default"
-                   href="search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;latNS={latNS}&amp;lat_h={lat_h}&amp;lat_min={lat_min}&amp;lonEW={lonEW}&amp;lon_h={lon_h}&amp;lon_min={lon_min}&amp;distance=100&amp;unit=km">
+                <a href="search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;latNS={latNS}&amp;lat_h={lat_h}&amp;lat_min={lat_min}&amp;lonEW={lonEW}&amp;lon_h={lon_h}&amp;lon_min={lon_min}&amp;distance=100&amp;unit=km">
                     {{all_geocaches}}
-                </a>
-                <a class="btn btn-sm btn-default"
-                   href="search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=1&amp;f_userfound=1&amp;f_inactive=1&amp;latNS={latNS}&amp;lat_h={lat_h}&amp;lat_min={lat_min}&amp;lonEW={lonEW}&amp;lon_h={lon_h}&amp;lon_min={lon_min}&amp;distance=100&amp;unit=km">
+                </a> |
+                <a href="search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=1&amp;f_userfound=1&amp;f_inactive=1&amp;latNS={latNS}&amp;lat_h={lat_h}&amp;lat_min={lat_min}&amp;lonEW={lonEW}&amp;lon_h={lon_h}&amp;lon_min={lon_min}&amp;distance=100&amp;unit=km">
                     {{searchable}}
                 </a>
             </div>
@@ -890,12 +892,12 @@
                     <img src="tpl/stdstyle/images/action/16x16-search.png" class="icon16" alt="" />
                         {{find_geocaches_on}}:
 
-                        <a class="btn btn-sm btn-default" target="_blank" href="//www.geocaching.com/seek/nearest.aspx?origin_lat={latitude}&amp;origin_long={longitude}&amp;dist=100&amp;submit8=Submit\">geocaching.com</a>
-                        <a class="btn btn-sm btn-default" target="_blank" href="http://www.terracaching.com/gmap.cgi#center_lat={latitude}&amp;center_lon={longitude}&amp;center_zoom=7&cselect=all&ctselect=all">terracaching.com</a>
-                        <a class="btn btn-sm btn-default" target="_blank" href="http://www.navicache.com/cgi-bin/db/distancedp.pl?latNS={latNS}&amp;latHours={latitude}&amp;longWE={lonEW}&amp;longHours={longitudeNC}&amp;Distance=100&amp;Units=M">navicache.com</a>
-                        <a class="btn btn-sm btn-default" target="_blank" href="http://geocaching.gpsgames.org/cgi-bin/ge.pl?basic=yes&amp;download=Google+Maps&amp;zoom=8&amp;lat_1={latitude}&amp;lon_1={longitude}">gpsgames.org</a>
-                        <a class="btn btn-sm btn-default" href="http://www.opencaching.cz/search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;country=&amp;cachetype=&amp;cache_attribs=&amp;cache_attribs_not=7&amp;latNS={latNS}&amp;lat_h={lat_h}&amp;lat_min={lat_min}&amp;lonEW={lonEW}&amp;lon_h={lon_h}&amp;lon_min={lon_min}&amp;distance=100&amp;unit=km">oc.cz</a>
-                        <a class="btn btn-sm btn-default" href="http://www.opencaching.de/search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;country=&amp;cachetype=&amp;cache_attribs=&amp;cache_attribs_not=7&amp;latNS={latNS}&amp;lat_h={lat_h}&amp;lat_min={lat_min}&amp;lonEW={lonEW}&amp;lon_h={lon_h}&amp;lon_min={lon_min}&amp;distance=100&amp;unit=km">oc.de</a>
+                        <a target="_blank" href="//www.geocaching.com/seek/nearest.aspx?origin_lat={latitude}&amp;origin_long={longitude}&amp;dist=100&amp;submit8=Submit\">geocaching.com</a> |
+                        <a target="_blank" href="http://www.terracaching.com/gmap.cgi#center_lat={latitude}&amp;center_lon={longitude}&amp;center_zoom=7&cselect=all&ctselect=all">terracaching.com</a> |
+                        <a target="_blank" href="http://www.navicache.com/cgi-bin/db/distancedp.pl?latNS={latNS}&amp;latHours={latitude}&amp;longWE={lonEW}&amp;longHours={longitudeNC}&amp;Distance=100&amp;Units=M">navicache.com</a> |
+                        <a target="_blank" href="http://geocaching.gpsgames.org/cgi-bin/ge.pl?basic=yes&amp;download=Google+Maps&amp;zoom=8&amp;lat_1={latitude}&amp;lon_1={longitude}">gpsgames.org</a> |
+                        <a href="http://www.opencaching.cz/search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;country=&amp;cachetype=&amp;cache_attribs=&amp;cache_attribs_not=7&amp;latNS={latNS}&amp;lat_h={lat_h}&amp;lat_min={lat_min}&amp;lonEW={lonEW}&amp;lon_h={lon_h}&amp;lon_min={lon_min}&amp;distance=100&amp;unit=km">oc.cz</a> |
+                        <a href="http://www.opencaching.de/search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;country=&amp;cachetype=&amp;cache_attribs=&amp;cache_attribs_not=7&amp;latNS={latNS}&amp;lat_h={lat_h}&amp;lat_min={lat_min}&amp;lonEW={lonEW}&amp;lon_h={lon_h}&amp;lon_min={lon_min}&amp;distance=100&amp;unit=km">oc.de</a>
                 </div>
             <?php } //if-searchAtOtherSites ?>
 
@@ -987,7 +989,7 @@
 
         <?php if($view->isUserAuthorized) { ?>
             <a class="btn btn-sm btn-primary" href="log.php?cacheid=<?=$view->geoCache->getCacheId()?>" title="<?=tr('new_log_entry')?>">
-              <img src="images/actions/new-entry-18.png" title="<?=tr('new_log_entry')?>" alt="<?=tr('new_log_entry')?>">
+              <!-- img src="images/actions/new-entry-18.png" title="<?=tr('new_log_entry')?>" alt="<?=tr('new_log_entry')?>"-->
               <?=tr('new_log_entry_short')?>
             </a>
         <?php } //if-isUserAuthorized ?>
@@ -995,9 +997,8 @@
         <?php if($view->displayAllLogsLink) { ?>
 
             <a class="btn btn-sm btn-default" href="viewlogs.php?cacheid=<?=$view->geoCache->getCacheId()?>" >
-              <img src="tpl/stdstyle/images/action/16x16-showall.png" class="icon16" alt="<?=tr('show_all_log_entries')?>"
-                   title="<?=tr('show_all_log_entries')?>" />
-              &nbsp;
+              <!-- img src="tpl/stdstyle/images/action/16x16-showall.png" class="icon16" alt="<?=tr('show_all_log_entries')?>"
+                   title="<?=tr('show_all_log_entries')?>" / -->
               <?=tr("show_all_log_entries_short")?>
             </a>
         <?php } //if-logEnteriesCount ?>
@@ -1006,7 +1007,7 @@
         <?php if($view->showDeletedLogsDisplayLink) { ?>
             <span style="white-space: nowrap;">
                 <a class="btn btn-sm btn-default" href="<?=$view->deletedLogsDisplayLink?>" title="<?=$view->deletedLogsDisplayText?>">
-                    <img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="<?=$view->deletedLogsDisplayText?>" title="<?=$view->deletedLogsDisplayText?>" />
+                    <!-- img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="<?=$view->deletedLogsDisplayText?>" title="<?=$view->deletedLogsDisplayText?>" /-->
                     <?=$view->deletedLogsDisplayText?>
                 </a>
             </span>

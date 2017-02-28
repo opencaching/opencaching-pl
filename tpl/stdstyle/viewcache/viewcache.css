@@ -64,7 +64,6 @@
 }
 
 .list-of-details {
-  line-height: 1.6em;
   font-size: 12px;
 }
 
@@ -123,7 +122,7 @@ div.viewcache-pictureblock span.title   { display: block; max-width: 175px; padd
 }
 
 #form-coords-mod {
-  padding-left: 50px;
+  margin-left: 20px;
 }
 
 .userNoteTextarea {
@@ -187,4 +186,12 @@ textarea.userNoteTextarea {
 
 #buttons-right {
   float: right; 
+}
+
+#descLangs-span {
+  margin: 0 20px;  
+}
+
+#userNote-div {
+  margin: 0 20px;
 }
