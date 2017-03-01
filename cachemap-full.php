@@ -38,7 +38,7 @@ tpl_set_var('userid', $mapForUserObj->getUserId());
 parseCordsAndZoom($mapForUserObj);
 
 // parse eventually printList changes
-if($isset[$_REQUEST['cacheid']]){
+if(isset[$_REQUEST['cacheid']]){
     PrintList::HandleRequest( $_REQUEST['cacheid']);
 }
 
