@@ -2635,6 +2635,26 @@ $translations = array(
     'pagination_left' => 'Vorige pagina\'s',
     'pagination_right' => 'Volgende pagina\'s',
     'pagination_page' => 'Pagina',
-    'pagination_last' => 'Laaste pagina'
+    'pagination_last' => 'Laaste pagina',
+    'ActiveGeocaches' => 'Actieve caches',
+    'UnavailableGeocaches' => 'Niet beschikbare caches',
+    'ArchivedGeocaches' => 'Gearchiveerde caches',
+    'merit_badges' => 'Merit badges',
+    'merit_badge' => 'Merit badge',
+    'merit_badge_level' =>  'Level',
+    'merit_badge_level_name' =>  'Level name',
+    'merit_badge_threshold' =>  'Threshold',
+    'merit_badge_next_level_threshold' =>  'Next level threshold',
+    'merit_badge_gain_count' =>  'Gain count',
+    'merit_badge_gain_last_date' =>  'Last gain date',
+    'merit_badge_gain_date' =>  'Gain date',
+    'merit_badge_number' =>  'Progress',
+    'merit_badge_number_threshold' =>  'Thresholds',
+    'merit_badge_show_details' => 'Show details of merit badges ... ',
+    'merit_badge_gain_max_level' => 'You gained the highest level',
+    'prepublication_visits' => 'Bekeken vóór publicatie',
+    'no_visits' => 'Nog niet bekeken'
+
+
 );
 
