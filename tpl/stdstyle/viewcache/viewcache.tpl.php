@@ -67,7 +67,8 @@
         <div id="cache-title-icons">
 
             <div class="align-center">
-              <img src="<?=$view->geoCache->getCacheIcon()?>" class="icon32" alt="{cachetype}" title="{cachetype}">
+              <img src="<?=$view->geoCache->getCacheIcon()?>" class="icon32"
+                alt="<?=tr($view->geoCache->getCacheTypeTranslationKey())?>" title="<?=tr($view->geoCache->getCacheTypeTranslationKey())?>" />
             </div>
             <div class="">
               <img src='<?=$view->geoCache->getDifficultyIcon()?>' class='img-difficulty' width='19' height='16' alt='' title='<?=$view->diffTitle?>'>
