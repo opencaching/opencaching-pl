@@ -37,7 +37,7 @@ class GeoCache extends GeoCacheCommons
     private $dateActivate;
 
     private $sizeId;
-    private $ratingId;
+    private $ratingId;              //OKAPI rating calculated from score
     private $status;
     private $searchTime;
     private $recommendations;       //number of recom.
@@ -384,6 +384,9 @@ class GeoCache extends GeoCacheCommons
             $this->founder = new \lib\Objects\User\User(array('userId' => $geocacheDbRow['org_user_id']));
         }
         $this->score = $geocacheDbRow['score'];
+
+        $this->ratingId = self::ScoreAsRatingNum($this->score); //rating is returned by OKAPI only-
+
         $this->setDateActivate($geocacheDbRow['date_activate']);
         return $this;
     }
@@ -586,7 +589,7 @@ class GeoCache extends GeoCacheCommons
 
     public function getRatingDesc()
     {
-        return self::CacheRatingDescByRatingId($this->ratingId);
+        return tr(self::CacheRatingTranslationKey($this->ratingId));
     }
 
     public function getCacheIcon()
@@ -702,7 +705,7 @@ class GeoCache extends GeoCacheCommons
 
     public function getScoreNameTranslation()
     {
-        return self::ScoreAsRatingTranslation($this->score);
+        return self::ScoreNameTranslation($this->score);
     }
 
     public function getScoreAsRatingNum()

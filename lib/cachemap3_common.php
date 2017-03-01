@@ -27,7 +27,7 @@ function onTheList($theArray, $item)
  */
 function getDBFilter($user_id)
 {
-    global $MIN_SCORE, $MAX_SCORE, $powerTrailModuleSwitchOn; // defined in settings.inc/php
+    global $powerTrailModuleSwitchOn; // defined in settings.inc/php
 
     $filter = array(
         "h_u" => 1,
@@ -50,8 +50,8 @@ function getDBFilter($user_id)
         "h_arch" => 0,
         "be_ftf" => 0,
         "powertrail_only" => 0,
-        "min_score" => $MIN_SCORE,
-        "max_score" => $MAX_SCORE,
+        "min_score" => 1,
+        "max_score" => 5,
         "h_noscore" => 1
     ); // default filter
 
@@ -273,7 +273,7 @@ function setFilterSettings(array $filter)
                 $minmax = "max";
             }
 
-            tpl_set_var($minmax . "_sel" . intval(GeoCacheCommons::ScoreAsRatingNum($value) + 1), 'selected="selected"');
+            tpl_set_var($minmax . "_sel" . intval(GeoCacheCommons::ScoreAsRatingNum($value)), 'selected="selected"');
             tpl_set_var($key, $value);
             continue;
         }

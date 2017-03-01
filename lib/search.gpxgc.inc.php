@@ -557,7 +557,7 @@ if ($usr || ! $hide_coords) {
 
             if ($r['votes'] > 3) {
 
-                $score = cleanup_text(GeoCacheCommons::ScoreAsRatingTranslation($r['score']));
+                $score = cleanup_text(GeoCacheCommons::ScoreNameTranslation($r['score']));
                 $thisextra .= "\n" . tr('search_gpxgc_05') . ": " . $score . "\n";
             }
             if ($r['topratings'] > 0) {

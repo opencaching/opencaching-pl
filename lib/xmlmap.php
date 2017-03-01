@@ -350,7 +350,7 @@ class tmp_Xmlmap
 
         $is_scored = ($geoCache->getRatingId() != 0 && $geoCache->getRatingVotes() > 2) ? '1' : '0';
         tpl_set_var('is_scored', $is_scored, false);
-        tpl_set_var('rating_desc', tr($geoCache->getRatingDesc()));
+        tpl_set_var('rating_desc', $geoCache->getRatingDesc());
 
         $is_recommended = ($geoCache->getRecommendations() > 0 ? '1' : '0');
         tpl_set_var('is_recommended', $is_recommended, false);

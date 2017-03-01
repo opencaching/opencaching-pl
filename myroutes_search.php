@@ -1354,7 +1354,7 @@ if ($error == false) {
                     }
 
                     if ($r['votes'] > 3) {
-                        $score = cleanup_text(GeoCacheCommons::ScoreAsRatingTranslation($r['score']));
+                        $score = cleanup_text(GeoCacheCommons::ScoreNameTranslation($r['score']));
                         $thislogs .= "\nOcena skrzynki: " . $score . "\n";
                     }
 
