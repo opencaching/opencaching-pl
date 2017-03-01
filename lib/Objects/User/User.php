@@ -664,14 +664,17 @@ class User extends \lib\Objects\BaseObject
             return array();
         }
 
+        $userIdsStr = XDb::xEscape(implode($userIds, ','));
+
         $s = XDb::xSql(
             "SELECT username FROM `user`
-            WHERE `user_id` IN ( ? )", implode($userIds, ','));
+            WHERE `user_id` IN ( $userIdsStr )");
 
         $result = array();
         while($row = XDb::xFetchArray($s)){
             $result[] = $row['username'];
         }
+
         return $result;
     }
 }
