@@ -53,11 +53,15 @@
   align-items: center;
 }
 
+#geoPath-content img{
+  max-width: 90px;
+  max-height: 50px;
+  margin: 5px;
+}
 
 #links-to-ext-maps a{
   margin: 1px 0px;
 }
-
 
 .common-desc {
   font-size: 12px;
