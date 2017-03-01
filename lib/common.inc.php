@@ -255,19 +255,6 @@ foreach($wikiLinks as $key => $value){
     tpl_set_var('wiki_link_'.$key, $value);
 }
 
-function new2oldscore($score)
-{
-    if ($score == 4)
-        return 3.0;
-    else if ($score == 3)
-        return 1.7;
-    else if ($score == 2)
-        return 0.7;
-    else if ($score == 1)
-        return -0.5;
-    else
-        return -2.0;
-}
 
 // get the language from a given shortage
 // on success return the name, otherwise false

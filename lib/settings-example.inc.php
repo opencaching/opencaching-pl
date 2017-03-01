@@ -65,10 +65,6 @@ if (!isset($cookiedomain))
 global $hide_coords;
 $hide_coords = false;
 
-// scores range
-$MIN_SCORE = 0;
-$MAX_SCORE = 4;
-
 // display online users on footer pages off=0 on=1
 $onlineusers = 1;
 

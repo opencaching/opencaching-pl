@@ -80,8 +80,7 @@ class ViewCacheController extends BaseController
         $this->view->setVar('geoCache', $this->geocache);
         $this->view->setVar('isUserAuthorized', is_object($this->loggedUser) );
         $this->view->setVar('isAdminAuthorized', $this->loggedUser && $this->loggedUser->isAdmin() );
-        $this->view->setVar('displayPrePublicationAccessInfo',
-            $this->loggedUser && ( $this->loggedUser->isAdmin() || $this->loggedUser->getUserId() == $this->geocache->getOwnerId()) );
+        $this->view->setVar('displayPrePublicationAccessInfo', $this->loggedUser && $this->loggedUser->isAdmin() );
 
         $this->view->setVar('ownerId', $this->geocache->getOwner()->getUserId());
         $this->view->setVar('ownerName', htmlspecialchars($this->geocache->getOwner()->getUserName()));
@@ -465,11 +464,11 @@ class ViewCacheController extends BaseController
             $scoreColor = "#000000";
         } else {
             switch($this->geocache->getScoreAsRatingNum()){
-                case 0: $scoreColor = "#DD0000"; break;
-                case 1: $scoreColor = "#F06464"; break;
-                case 2: $scoreColor = "#DD7700"; break;
-                case 3: $scoreColor = "#77CC00"; break;
-                case 4: $scoreColor = "#00DD00"; break;
+                case 1: $scoreColor = "#DD0000"; break;
+                case 2: $scoreColor = "#F06464"; break;
+                case 3: $scoreColor = "#DD7700"; break;
+                case 4: $scoreColor = "#77CC00"; break;
+                case 5: $scoreColor = "#00DD00"; break;
             }
             $score = $this->geocache->getScoreNameTranslation();
         }

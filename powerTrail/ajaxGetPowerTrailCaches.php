@@ -161,10 +161,10 @@ function ratings($score, $votes)
 
 
     switch ($scoreNum) {
-        case 0: return '<span style="color: #790000">' . tr2('pt074', $language) . '</span>';
-        case 1: return '<span style="color: #BF3C3C">' . tr2('pt073', $language) . '</span>';
-        case 2: return '<span style="color: #B36200">' . tr2('pt072', $language) . '</span>';
-        case 3: return '<span style="color: #518C00">' . tr2('pt071', $language) . '</span>';
-        case 4: return '<span style="color: #009D00">' . tr2('pt070', $language) . '</span>';
+        case 1: return '<span style="color: #790000">' . tr2('pt074', $language) . '</span>';
+        case 2: return '<span style="color: #BF3C3C">' . tr2('pt073', $language) . '</span>';
+        case 3: return '<span style="color: #B36200">' . tr2('pt072', $language) . '</span>';
+        case 4: return '<span style="color: #518C00">' . tr2('pt071', $language) . '</span>';
+        case 5: return '<span style="color: #009D00">' . tr2('pt070', $language) . '</span>';
     }
 }

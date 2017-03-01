@@ -208,7 +208,7 @@ if ($error == false) {
                 $score = '';
                 $line_cnt = 0;
 
-                for ($score_radio = $MIN_SCORE; $score_radio <= $MAX_SCORE; $score_radio++) {
+                for ($score_radio = 1 /*$MIN_SCORE*/; $score_radio <= 5 /*$MAX_SCORE*/; $score_radio++) {
 
                     if (($line_cnt == 2)) {
                         $break_line = "<BR>";
@@ -222,7 +222,7 @@ if ($error == false) {
                         $checked = "";
 
                     $score.= '
-                        <label><input type="radio" style="vertical-align: top" name="r" id="r' . $line_cnt . '" value="' . $score_radio . '" onclick="clear_no_score ();"' . $checked . '  /><b><font color="' . $color_table[$line_cnt] . '"><span id="score_lbl_' . $line_cnt . '">' . ucfirst(tr(GeoCacheCommons::CacheRatingDescByRatingId($score_radio))) . '</span></font></b></label>&nbsp;&nbsp;' . $break_line;
+                        <label><input type="radio" style="vertical-align: top" name="r" id="r' . $line_cnt . '" value="' . $score_radio . '" onclick="clear_no_score ();"' . $checked . '  /><b><font color="' . $color_table[$line_cnt] . '"><span id="score_lbl_' . $line_cnt . '">' . ucfirst(tr(GeoCacheCommons::CacheRatingTranslationKey($score_radio))) . '</span></font></b></label>&nbsp;&nbsp;' . $break_line;
                     $line_cnt++;
                 }
 
@@ -400,7 +400,7 @@ if ($error == false) {
                     $_POST['r'] = -10;
                 }
                 if ($_POST['r'] != -10 && $_POST['r'] != -15) {
-                    $_POST['r'] = new2oldscore(intval($_POST['r'])); // convert to old score format
+                    $_POST['r'] = GeoCache::ScoreFromRatingNum(intval($_POST['r'])); // convert ratingNum to Score
                     $mark_as_rated = true;
                 }
 

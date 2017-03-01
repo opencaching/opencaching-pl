@@ -172,27 +172,6 @@ class GeoCacheCommons{
         }
     }
 
-    /**
-     * Returns cache reating description based on ratingId
-     *
-     * @param int $ratingId
-     * @return string - rating description key for translation
-     */
-    public static function CacheRatingDescByRatingId($ratingId)
-    {
-        switch ($ratingId) {
-            case 0:
-                return 'rating_poor';
-            case 1:
-                return 'rating_mediocre';
-            case 2:
-                return 'rating_avarage';
-            case 3:
-                return 'rating_good';
-            case 4:
-                return 'rating_excellent';
-        }
-    }
 
     /**
      * Retrurn cache icon based on its type and status
@@ -264,40 +243,85 @@ class GeoCacheCommons{
         return 'tpl/stdstyle/images/cache/' . $typePart . $statusPart . '.png';
     }
 
-
+    /**
+     * Note:
+     * - Score is stored in OC db and has value in range <-3;3>
+     * - RatingId is counted by OKAPI and has value in range <1;5>
+     * Do not confuse them with each other!
+     *
+     * @param unknown $score
+     * @return number
+     */
     public static function ScoreAsRatingNum($score)
     {
         // former score2ratingnum
 
-        if ($score >= 2.2) return 4;
-        if ($score >= 1.4) return 3;
-        if ($score >= 0.1) return 2;
-        if ($score >= -1.0) return 1;
-        return 0;
+        if ($score >= 2.2) return 5;
+        if ($score >= 1.4) return 4;
+        if ($score >= 0.1) return 3;
+        if ($score >= -1.0) return 2;
+        return 1;
     }
 
-    public static function ScoreAsRatingTranslation($score){
+    public static function ScoreFromRatingNum($ratingId)
+    {
+        //former new2oldscore($score)
+
+        if ($ratingId == 5) return 3.0;
+        if ($ratingId == 4) return 1.7;
+        if ($ratingId == 3) return 0.7;
+        if ($ratingId == 2) return -0.5;
+        return -2.0;
+    }
+
+    /**
+     *  Note:
+     * - Score is stored in OC db and has value in range <-3;3>
+     * - RatingId is counted by OKAPI and has value in range <1;5>
+     * Do not confuse them with each other!
+     *
+     * @param unknown $score
+     * @return string|mixed
+     */
+    public static function ScoreNameTranslation($score){
 
         $ratingNum = self::ScoreAsRatingNum($score);
+        return tr(self::CacheRatingTranslationKey($ratingNum));
 
+    }
+
+    /**
+     * Returns cache reating description based on ratingId
+     *
+     * Note:
+     * - Score is stored in OC db and has value in range <-3;3>
+     * - RatingId is counted by OKAPI and has value in range <1;5>
+     * Do not confuse them with each other!
+     *
+     * @param int $ratingId
+     * @return string - rating description key for translation
+     */
+    public static function CacheRatingTranslationKey($ratingId)
+    {
         // prima-aprilis joke ;-)
         if ((date('m') != 4) || ( date('d') != 1)) {
-            switch($ratingNum){
-                case 0: return tr('rating_poor');
-                case 1: return tr('rating_mediocre');
-                case 2: return tr('rating_avarage');
-                case 3: return tr('rating_good');
-                case 4: return tr('rating_excellent');
+            switch($ratingId){
+                case 1: return 'rating_poor';
+                case 2: return 'rating_mediocre';
+                case 3: return 'rating_avarage';
+                case 4: return 'rating_good';
+                case 5: return 'rating_excellent';
             }
         } else {
-            switch($ratingNum){
-                case 0: return tr('rating_poor_1A');
-                case 1: return tr('rating_mediocre_1A');
-                case 2: return tr('rating_avarage_1A');
-                case 3: return tr('rating_good_1A');
-                case 4: return tr('rating_excellent_1A');
+            switch($ratingId){
+                case 1: return 'rating_poor_1A';
+                case 2: return 'rating_mediocre_1A';
+                case 3: return 'rating_avarage_1A';
+                case 4: return 'rating_good_1A';
+                case 5: return 'rating_excellent_1A';
             }
         }
     }
+
 }
 
