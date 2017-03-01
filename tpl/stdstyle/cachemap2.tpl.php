@@ -1,7 +1,6 @@
 <?php
 
 use Utils\Database\XDb;
-use lib\Objects\GeoCache\PrintList;
 
 global $usr;
 global $get_userid;
