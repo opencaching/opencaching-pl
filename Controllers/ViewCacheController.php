@@ -33,18 +33,23 @@ class ViewCacheController extends BaseController
     {
 
         /* check if there is cache to display */
-        if( $this->geocache == null || (
+        if( $this->geocache == null ||
             (
-                $this->geocache->getStatus() == GeoCache::STATUS_WAITAPPROVERS ||
-                $this->geocache->getStatus() == GeoCache::STATUS_NOTYETAVAILABLE ||
-                $this->geocache->getStatus() == GeoCache::STATUS_BLOCKED
-                ) && (
+                ( $this->geocache->getStatus() == GeoCache::STATUS_NOTYETAVAILABLE ||
+                    $this->geocache->getStatus() == GeoCache::STATUS_BLOCKED
+                ) &&
+                (
                     $this->loggedUser == null ||
                     ( $this->loggedUser->getUserId() != $this->geocache->getOwnerId() && !$this->loggedUser->isAdmin() )
                 )
-            ) || (
+            ) ||
+            (
                 $this->geocache->getStatus() == GeoCache::STATUS_WAITAPPROVERS &&
-                !$this->loggedUser->isAdmin() && !$this->loggedUser->isGuide()
+                $this->loggedUser == null ||
+                (
+                    !$this->loggedUser->isAdmin() && !$this->loggedUser->isGuide() &&
+                    $this->loggedUser->getUserId() != $this->geocache->getOwnerId()
+                )
             )
         ){
             // there is no cache to display...
