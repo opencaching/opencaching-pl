@@ -41,15 +41,15 @@ class ViewCacheController extends BaseController
                 ) && (
                     $this->loggedUser == null ||
                     ( $this->loggedUser->getUserId() != $this->geocache->getOwnerId() && !$this->loggedUser->isAdmin() )
-                    )
-            ) || (
-                $this->geocache->getStatus() == GeoCache::STATUS_WAITAPPROVERS && $this->loggedUser->isGuide()
                 )
-            ){
-                // there is no cache to display...
-                tpl_set_tplname('viewcache/viewcache_error');
-                tpl_BuildTemplate();
-                exit(0);
+            ) || (
+                $this->geocache->getStatus() == GeoCache::STATUS_WAITAPPROVERS && !$this->loggedUser->isGuide()
+            )
+        ){
+            // there is no cache to display...
+            tpl_set_tplname('viewcache/viewcache_error');
+            tpl_BuildTemplate();
+            exit(0);
         }
 
 
