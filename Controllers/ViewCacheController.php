@@ -422,7 +422,7 @@ class ViewCacheController extends BaseController
                     isset($_POST['userCoordsFinalLongitude']) ) {
 
                         $this->userModifiedCacheCoords = Coordinates::FromCoordsFactory($_POST['userCoordsFinalLatitude'], $_POST['userCoordsFinalLongitude']);
-                        if($userModifiedCacheCoords){
+                        if($this->userModifiedCacheCoords){
                             $this->geocache->saveUserCoordinates($this->userModifiedCacheCoords, $this->loggedUser->getUserId());
                         }else{
                             //TODO: improper coords!?
