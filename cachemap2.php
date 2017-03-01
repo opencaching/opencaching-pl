@@ -192,7 +192,9 @@ if ($usr == false) {
     }
 
     // handle optionally print-list requests
-    PrintList::HandleRequest( $_REQUEST['cacheid'] );
+    if(isset($_REQUEST['cacheid'])){
+        PrintList::HandleRequest( $_REQUEST['cacheid'] );
+    }
 
 
     tpl_set_var('coords', $coordsXY);
