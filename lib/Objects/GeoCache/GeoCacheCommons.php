@@ -281,7 +281,7 @@ class GeoCacheCommons{
         $ratingNum = self::ScoreAsRatingNum($score);
 
         // prima-aprilis joke ;-)
-        if ((date('m') != 4) && ( date('d') != 1)) {
+        if ((date('m') != 4) || ( date('d') != 1)) {
             switch($ratingNum){
                 case 0: return tr('rating_poor');
                 case 1: return tr('rating_mediocre');
