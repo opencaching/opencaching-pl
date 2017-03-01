@@ -155,7 +155,7 @@
 
                     <?php foreach($view->geoPathsList as $geoPath){ ?>
                       <div class="flex-container test" id="geoPath-content">
-                        <img height="50px" width="50px" src="<?=$geoPath->img?>">
+                        <img src="<?=$geoPath->img?>">
                         <span id="geoPath-link" class="align-center">
                           <a href="powerTrail.php?ptAction=showSerie&ptrail=<?=$geoPath->id?>"><?=$geoPath->name?></a>
                         </span>
