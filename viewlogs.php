@@ -1,6 +1,8 @@
 <?php
 
 use Utils\Database\OcDb;
+use Utils\Uri\Uri;
+
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
     $rootpath = '';
@@ -10,7 +12,8 @@ if ($error == false) {
     //set here the template to process
     $tplname = 'viewlogs';
 
-    tpl_set_var('viewcache_js', "tpl/stdstyle/js/viewcache." . filemtime($rootpath . 'tpl/stdstyle/js/viewcache.js') . ".js");
+
+    tpl_set_var('viewcache_js', Uri::getLinkWithModificationTime("tpl/stdstyle/viewcache/viewcache.js"));
     require($stylepath . '/lib/icons.inc.php');
     require($stylepath . '/viewcache.inc.php');
     require($stylepath . '/viewlogs.inc.php');
