@@ -370,7 +370,7 @@
                 <?php if($view->displayPrePublicationAccessInfo) {?>
                     <div class="lightTip" >
                         <b><?=tr('prepublication_visits')?>:</b>
-                        <?=implode($view->geoCache->getPrePublicationVisits(), '|')?>
+                        <?=implode($view->geoCache->getPrePublicationVisits(), ', ')?>
                     </div>
                 <?php } //if-displayPrePublicationAccessInfo ?>
 
