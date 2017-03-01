@@ -10,13 +10,14 @@ global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $lang;
 
 set_time_limit(1800);
 
-$wptSize[1] = tr('cacheSize_1'); //'Nano'
+$wptSize[1] = tr('cacheSize_1'); //'Not Specified'
 $wptSize[2] = tr('cacheSize_2'); //'Micro'
 $wptSize[3] = tr('cacheSize_3'); //'Small'
 $wptSize[4] = tr('cacheSize_4'); //'Regular'
 $wptSize[5] = tr('cacheSize_5'); //'Large'
 $wptSize[6] = tr('cacheSize_6'); //'Extra Large'
 $wptSize[7] = tr('cacheSize_7'); //'Virtual'
+$wptSize[8] = tr('cacheSize_8'); //'Nano'
 
 $wptType[1] = 'Unknown Cache';
 $wptType[2] = 'Traditional Cache';

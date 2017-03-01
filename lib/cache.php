@@ -13,12 +13,16 @@ final class cache
     const TYPE_MOVING = 8;
     const TYPE_GEOPATHFINAL = 9;
     const TYPE_OWNCACHE = 10;
+
+    const SIZE_OTHER = 1;
     const SIZE_MICRO = 2;
     const SIZE_SMALL = 3;
     const SIZE_NORMAL = 4;
     const SIZE_LARGE = 5;
     const SIZE_VERYLARGE = 6;
     const SIZE_NOCONTAINER = 7;
+    const SIZE_NANO = 8;
+
     const STATUS_READY = 1;
     const STATUS_UNAVAILABLE = 2;
     const STATUS_ARCHIVED = 3;
@@ -54,6 +58,10 @@ final class cache
         ),
     );
     private $size = array(
+        self::SIZE_OTHER => array(
+            'id' => self::SIZE_OTHER,
+            'translation' => 'cacheSize_1',
+        ),
         self::SIZE_MICRO => array(
             'id' => self::SIZE_MICRO,
             'translation' => 'cacheSize_2',
@@ -77,6 +85,10 @@ final class cache
         self::SIZE_NOCONTAINER => array(
             'id' => self::SIZE_NOCONTAINER,
             'translation' => 'cacheSize_7',
+        ),
+        self::SIZE_NANO => array(
+            'id' => self::SIZE_NANO,
+            'translation' => 'cacheSize_8',
         ),
     );
     private static $type = array(

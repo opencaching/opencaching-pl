@@ -65,7 +65,7 @@ function displayAllCachesOfPowerTrail(\lib\Objects\PowerTrail\PowerTrail $powerT
     $totalTopRatings = 0;
     $bgcolor = '#ffffff';
     $cachetypes = array(1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0, 9 => 0, 10 => 0,);
-    $cacheSize = array(2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0,);
+    $cacheSize = array(2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0,);
     unset($_SESSION['geoPathCacheList']);
 
     /* @var $geocache lib\Objects\GeoCache\GeoCache */

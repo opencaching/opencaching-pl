@@ -57,7 +57,7 @@
     {
     if (document.editcache_form.size.options[document.editcache_form.size.options.length - 1].value != "7")
     {
-    document.editcache_form.size.options[document.editcache_form.size.options.length] = new Option('{{size_07}}', '7');
+    document.editcache_form.size.options[document.editcache_form.size.options.length] = new Option('{{cacheSize_7}}', '7');
     }
 
     if (!({other_nobox} && document.editcache_form.type.value == "1"))

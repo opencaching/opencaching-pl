@@ -97,7 +97,9 @@ $config = array(
      * Cachesizes must be lib/cache.php constant SIZE_*
      */
     'forbiddenCacheSizes' => array(
-        //cache::SIZE_MICRO
+	   cache::SIZE_NANO,
+	   cache::SIZE_OTHER,
+       //cache::SIZE_MICRO,
     ),
     /**
      * If set to true, all database queries will be reported in the page

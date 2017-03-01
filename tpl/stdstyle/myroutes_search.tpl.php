@@ -61,12 +61,14 @@
         document.forms['optionsform'].cachetype9.value = document.optionsform.cachetype9.checked ? 1 : 0;
         document.forms['optionsform'].cachetype10.value = document.optionsform.cachetype10.checked ? 1 : 0;
 
+        document.forms['optionsform'].cachesize_1.value = document.optionsform.cachesize_1.checked ? 1 : 0;
         document.forms['optionsform'].cachesize_2.value = document.optionsform.cachesize_2.checked ? 1 : 0;
         document.forms['optionsform'].cachesize_3.value = document.optionsform.cachesize_3.checked ? 1 : 0;
         document.forms['optionsform'].cachesize_4.value = document.optionsform.cachesize_4.checked ? 1 : 0;
         document.forms['optionsform'].cachesize_5.value = document.optionsform.cachesize_5.checked ? 1 : 0;
         document.forms['optionsform'].cachesize_6.value = document.optionsform.cachesize_6.checked ? 1 : 0;
         document.forms['optionsform'].cachesize_7.value = document.optionsform.cachesize_7.checked ? 1 : 0;
+        document.forms['optionsform'].cachesize_8.value = document.optionsform.cachesize_8.checked ? 1 : 0;
         document.forms['optionsform'].cachevote_1.value = document.optionsform.cachevote_1.value;
         document.forms['optionsform'].cachevote_2.value = document.optionsform.cachevote_2.value;
         document.forms['optionsform'].cachenovote.value = document.optionsform.cachenovote.checked ? 1 : 0;
@@ -195,12 +197,14 @@
                         <table class="table">
                             <tr>
                                 <td>
-                                    <input type="checkbox" name="cachesize_2" value="1" id="l_cachesize_2" class="checkbox" onclick="javascript:sync_options(this)" {cachesize_2} /><label for="l_cachesize_2">{{size_02}}</label>
-                                    <input type="checkbox" name="cachesize_3" value="1" id="l_cachesize_3" class="checkbox" onclick="javascript:sync_options(this)" {cachesize_3} /><label for="l_cachesize_3">{{size_03}}</label>
-                                    <input type="checkbox" name="cachesize_4" value="1" id="l_cachesize_4" class="checkbox" onclick="javascript:sync_options(this)" {cachesize_4} /><label for="l_cachesize_4">{{size_04}}</label>
-                                    <input type="checkbox" name="cachesize_5" value="1" id="l_cachesize_5" class="checkbox" onclick="javascript:sync_options(this)" {cachesize_5} /><label for="l_cachesize_5">{{size_05}}</label>
-                                    <input type="checkbox" name="cachesize_6" value="1" id="l_cachesize_6" class="checkbox" onclick="javascript:sync_options(this)" {cachesize_6} /><label for="l_cachesize_6">{{size_06}}</label>
-                                    <input type="checkbox" name="cachesize_7" value="1" id="l_cachesize_7" class="checkbox" onclick="javascript:sync_options(this)" {cachesize_7} /><label for="l_cachesize_7">{{size_07}}</label>
+                                    <input type="checkbox" name="cachesize_1" value="1" id="l_cachesize_1" class="checkbox" onclick="javascript:sync_options(this)" {cachesize_1} /><label for="l_cachesize_1">{{cacheSize_1}}</label>
+                                    <input type="checkbox" name="cachesize_2" value="1" id="l_cachesize_2" class="checkbox" onclick="javascript:sync_options(this)" {cachesize_2} /><label for="l_cachesize_2">{{cacheSize_2}}</label>
+                                    <input type="checkbox" name="cachesize_3" value="1" id="l_cachesize_3" class="checkbox" onclick="javascript:sync_options(this)" {cachesize_3} /><label for="l_cachesize_3">{{cacheSize_3}}</label>
+                                    <input type="checkbox" name="cachesize_4" value="1" id="l_cachesize_4" class="checkbox" onclick="javascript:sync_options(this)" {cachesize_4} /><label for="l_cachesize_4">{{cacheSize_4}}</label>
+                                    <input type="checkbox" name="cachesize_5" value="1" id="l_cachesize_5" class="checkbox" onclick="javascript:sync_options(this)" {cachesize_5} /><label for="l_cachesize_5">{{cacheSize_5}}</label>
+                                    <input type="checkbox" name="cachesize_6" value="1" id="l_cachesize_6" class="checkbox" onclick="javascript:sync_options(this)" {cachesize_6} /><label for="l_cachesize_6">{{cacheSize_6}}</label>
+                                    <input type="checkbox" name="cachesize_7" value="1" id="l_cachesize_7" class="checkbox" onclick="javascript:sync_options(this)" {cachesize_7} /><label for="l_cachesize_7">{{cacheSize_7}}</label>
+                                    <input type="checkbox" name="cachesize_8" value="1" id="l_cachesize_8" class="checkbox" onclick="javascript:sync_options(this)" {cachesize_8} /><label for="l_cachesize_8">{{cacheSize_8}}</label>
                                 </td>
 
                                 <td>&nbsp;</td>

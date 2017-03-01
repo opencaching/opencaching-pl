@@ -356,7 +356,7 @@ if ($error == false) {
 
                 //check cache size
                 $size_not_ok = false;
-                if ($sel_size != $CACHESIZE['NO_CONTAINER'] &&
+                if ($sel_size != GeoCache::SIZE_NONE &&
                         ( $cache_type == GeoCache::TYPE_VIRTUAL ||
                         $cache_type == GeoCache::TYPE_WEBCAM ||
                         $cache_type == GeoCache::TYPE_EVENT )) {
@@ -367,14 +367,14 @@ if ($error == false) {
 
                 // check if the user haven't changed type to 'without container'
                 if (isset($_POST['type'])) {
-                    if ((($_POST['type'] == GeoCache::TYPE_OTHERTYPE && $cache_record['type'] != GeoCache::TYPE_OTHERTYPE ) || ($_POST['type'] == GeoCache::TYPE_TRADITIONAL ) || ($_POST['type'] == GeoCache::TYPE_MULTICACHE ) || ($_POST['type'] == GeoCache::TYPE_QUIZ ) || ($_POST['type'] == GeoCache::TYPE_MOVING ) ) && $sel_size == $CACHESIZE['NO_CONTAINER']) {
+                    if ((($_POST['type'] == GeoCache::TYPE_OTHERTYPE && $cache_record['type'] != GeoCache::TYPE_OTHERTYPE ) || ($_POST['type'] == GeoCache::TYPE_TRADITIONAL ) || ($_POST['type'] == GeoCache::TYPE_MULTICACHE ) || ($_POST['type'] == GeoCache::TYPE_QUIZ ) || ($_POST['type'] == GeoCache::TYPE_MOVING ) ) && $sel_size == GeoCache::SIZE_NONE) {
                         $error = true;
                         $size_not_ok = true;
                     }
                 }
 
                 // if there is already a cache without container, let it stay this way
-                if ($cache_record['type'] == GeoCache::TYPE_OTHERTYPE && $cache_record['size'] == $CACHESIZE['NO_CONTAINER']) {
+                if ($cache_record['type'] == GeoCache::TYPE_OTHERTYPE && $cache_record['size'] == GeoCache::SIZE_NONE) {
                     tpl_set_var('other_nobox', 'true');
                 } else {
                     tpl_set_var('other_nobox', 'false');
@@ -711,7 +711,7 @@ if ($error == false) {
                     if (($size['id'] != $cache_size) && in_array($size['id'], $config['forbiddenCacheSizes']) && !$usr['admin']) {
                         continue;
                     }
-                    if ($size['id'] == $CACHESIZE['NO_CONTAINER'] && $sel_size != $CACHESIZE['NO_CONTAINER']) {
+                    if ($size['id'] == GeoCache::SIZE_NONE && $sel_size != GeoCache::SIZE_NONE) {
                         continue;
                     }
                     if ($size['id'] == $sel_size) {
