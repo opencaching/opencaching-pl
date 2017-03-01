@@ -116,6 +116,7 @@ class ViewCacheController extends BaseController
         $this->processDetailedCoords();
         $this->processExternalMaps();
         $this->processOtherSites();
+        $this->processTitled();
         $this->processUserNote();
         $this->processDesc();
         $this->processOpenChecker();
