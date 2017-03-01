@@ -45,10 +45,12 @@ class ViewCacheController extends BaseController
             ) ||
             (
                 $this->geocache->getStatus() == GeoCache::STATUS_WAITAPPROVERS &&
-                $this->loggedUser == null ||
                 (
-                    !$this->loggedUser->isAdmin() && !$this->loggedUser->isGuide() &&
-                    $this->loggedUser->getUserId() != $this->geocache->getOwnerId()
+                    $this->loggedUser == null ||
+                    (
+                        !$this->loggedUser->isAdmin() && !$this->loggedUser->isGuide() &&
+                        $this->loggedUser->getUserId() != $this->geocache->getOwnerId()
+                    )
                 )
             )
         ){
