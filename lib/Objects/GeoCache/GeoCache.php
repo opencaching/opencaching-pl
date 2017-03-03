@@ -592,9 +592,19 @@ class GeoCache extends GeoCacheCommons
         return tr(self::CacheRatingTranslationKey($this->ratingId));
     }
 
-    public function getCacheIcon()
+    public function getCacheIcon(User $forUser=null)
     {
-        return self::CacheIconByType($this->cacheType, $this->status);
+        $logStatus = null;
+        if(!is_null($forUser)){
+            $logsCount = $this->getLogsCountByType($forUser, array(GeoCacheLog::LOGTYPE_FOUNDIT, GeoCacheLog::LOGTYPE_DIDNOTFIND));
+            if(isset($logsCount[GeoCacheLog::LOGTYPE_FOUNDIT]) && $logsCount[GeoCacheLog::LOGTYPE_FOUNDIT]>0){
+                $logStatus = GeoCacheLog::LOGTYPE_FOUNDIT;
+            }else if(isset($logsCount[GeoCacheLog::LOGTYPE_DIDNOTFIND]) && $logsCount[GeoCacheLog::LOGTYPE_DIDNOTFIND]>0){
+                $logStatus = GeoCacheLog::LOGTYPE_DIDNOTFIND;
+            }
+        }
+
+        return self::CacheIconByType($this->cacheType, $this->status, $logStatus);
     }
 
     public function getSizeId()
@@ -915,6 +925,30 @@ class GeoCache extends GeoCacheCommons
         return $this->moveCount;
     }
 
+    public function getLogsCountByType(User $user, array $typesArray=null, $includeDeleted = false)
+    {
+
+        $typesStr = '';
+        if(!is_null($typesArray)){
+            $typesArray = XDb::xEscape( implode(',', $typesArray) );
+        }
+        $typeFilterStr = (empty($typesStr))?'':"AND type IN ( $typesStr )";
+
+        $excludeDeletedStr = (!$includeDeleted)?'AND deleted=0':'';
+
+        $s = Xdb::xSql(
+            "SELECT count(*) AS count, type FROM `cache_logs` WHERE cache_id = ? AND user_id = ? $typeFilterStr $excludeDeletedStr GROUP BY type",
+            $this->id, $user->getUserId());
+
+        $result = array();
+        while($row = XDb::xFetchArray($s)){
+            $result[$row['type']] = $row['count'];
+        }
+
+        return $result;
+    }
+
+
     /**
      * get mobile cache distnace.
      * (calculate mobile cache distance if were not counted before)
@@ -1111,7 +1145,7 @@ class GeoCache extends GeoCacheCommons
             strtoupper($lang), $this->getCacheId());
 
         if( XDb::xNumRows($s) == 0 ){
-            //XXX: there can be a lack of cache attrib translation in current language - then retrive translation in english
+            //TODO: there can be a lack of cache attrib translation in current language - then retrive translation in english
             $s = XDb::xSql(
                 "SELECT cache_attrib.text_long AS text, cache_attrib.icon_large AS icon
                 FROM cache_attrib, caches_attributes
