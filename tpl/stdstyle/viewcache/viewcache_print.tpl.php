@@ -16,10 +16,10 @@
 <div class="line-box">
     <div class="content-title-noshade-size1">
         <p class="cache-title">
-            <img src="<?=$view->geoCache->getCacheIcon()?>" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}" align="absmiddle" /><?=$view->cachename?>
+            <img src="<?=$view->cacheMainIcon?>" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}" align="absmiddle" /><?=$view->cachename?>
         </p>
         <img src="tpl/stdstyle/images/free_icons/arrow_in.png" class="icon16" alt="" title="" />&nbsp;<b><?=$view->geoCache->getWaypointId()?>
-        <img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="" title=""  align="absmiddle"/>{coords}</b><br/>
+        <img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="" title=""  align="absmiddle"/><?=$view->geoCache->getCoordinates()->getAsText()?></b><br/>
 
         <img src='<?=$view->geoCache->getDifficultyIcon()?>' class='img-difficulty' width='19' height='16' alt='' title='<?=$view->diffTitle?>'>
         <img src='<?=$view->geoCache->getTerreinIcon()?>' class='img-difficulty' width='19' height='16' alt='' title='<?=$view->terrainTitle?>'>

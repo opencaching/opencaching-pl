@@ -180,9 +180,10 @@ class GeoCacheCommons{
      * @param enum $status
      * @return string - path + filename of the right icon
      */
-    public static function CacheIconByType($type, $status)
+    public static function CacheIconByType($type, $status, $logStatus = null)
     {
-        $statusPart = "";
+
+        $statusPart = ""; //part of icon name represents cache status
         switch ($status) {
             case self::STATUS_UNAVAILABLE:
             case self::STATUS_NOTYETAVAILABLE:
@@ -200,7 +201,17 @@ class GeoCacheCommons{
                 break;
         }
 
-        $typePart = "";
+        $logStatusPart = ''; //part of icon name represents status for user based on logs
+        switch($logStatus){
+            case GeoCacheLog::LOGTYPE_FOUNDIT:
+                $logStatusPart = '-found';
+                break;
+            case GeoCacheLog::LOGTYPE_DIDNOTFIND:
+                $logStatusPart = '-dnf';
+                break;
+        }
+
+        $typePart = ""; //part of icon name represents cache name
         switch ($type) {
             case self::TYPE_OTHERTYPE:
                 $typePart = 'unknown';
@@ -240,7 +251,7 @@ class GeoCacheCommons{
                 break;
         }
 
-        return 'tpl/stdstyle/images/cache/' . $typePart . $statusPart . '.png';
+        return 'tpl/stdstyle/images/cache/' . $typePart . $statusPart . $logStatusPart . '.png';
     }
 
     /**

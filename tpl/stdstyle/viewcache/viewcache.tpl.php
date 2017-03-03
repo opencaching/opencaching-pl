@@ -67,7 +67,7 @@
         <div id="cache-title-icons">
 
             <div class="align-center">
-              <img src="<?=$view->geoCache->getCacheIcon()?>" class="icon32"
+              <img src="<?=$view->cacheMainIcon?>" class="icon32"
                 alt="<?=tr($view->geoCache->getCacheTypeTranslationKey())?>" title="<?=tr($view->geoCache->getCacheTypeTranslationKey())?>" />
             </div>
             <div class="">

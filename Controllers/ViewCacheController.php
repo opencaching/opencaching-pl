@@ -99,6 +99,7 @@ class ViewCacheController extends BaseController
 
         $this->view->setVar('diffTitle', tr('task_difficulty').': '.$this->geocache->getDifficulty()/2) . ' ' .tr('out_of') . ' ' . '5.0';
         $this->view->setVar('terrainTitle', tr('terrain_difficulty').': '.$this->geocache->getTerrain()/2) . ' ' .tr('out_of') . ' ' . '5.0';
+        $this->view->setVar('cacheMainIcon',$this->geocache->getCacheIcon($this->loggedUser));
 
         tpl_set_var('altitude', $this->geocache->getAltitudeObj()->getAltitude());
 
