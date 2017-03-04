@@ -3576,14 +3576,14 @@
                 "__action": "get-data"
             },
             "password": {
-                "__comment": "",
+                "__comment": "set password to 'haslo'",
                 "__action": "set-to",
-                "__set_value" : "ffb1b530c3116b4cd2e75b764c9ba0d647ab53053571a29532dbe8161996fe38540490fbecd45f4a4114d53d6e9bba6fb790a3b86ccda1b61c821ac02c1b53fa"
+                "__set_value" : "0ffda39c367bb544a614e30d00d5c5839619dfe21d337eecb5fc622414f515de8f14ece1a8e63364a9c5c3ebd01aeabebc0f90c4218b6f446fcbdd225349ba73"
             },
             "email": {
-                "__comment": "",
-                "__action": "set-to",
-                "__set_value" : "user@xx.com"
+                "__comment": "unique index",
+                "__action": "sql",
+                "__sql" : "CONCAT(user_id, '@xx.com') as 'email'"
             },
             "latitude": {
                 "__comment": "",
@@ -3709,7 +3709,8 @@
             },
             "activation_code": {
                 "__comment": "",
-                "__action": "skip-data"
+                "__action": "set-to",
+                "__set_value" : " "
             },
             "statpic_logo": {
                 "__comment": "",
@@ -3749,7 +3750,7 @@
             },
             "rules_confirmed": {
                 "__comment": "",
-                "__action": "skip-data"
+                "__action": "get-data"
             },
             "get_bulletin": {
                 "__comment": "",
@@ -3765,11 +3766,13 @@
             },
             "password_hashing_rounds": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "set-to",
+                "__set_value" : "100000"
             },
             "password_salt": {
                 "__comment": "",
-                "__action": "skip-data"
+                "__action": "set-to",
+                "__set_value" : "sTYpHu"
             },
             "power_trail_email": {
                 "__comment": "",
@@ -3777,7 +3780,8 @@
             },
             "verify_all": {
                 "__comment": "",
-                "__action": "skip-data"
+                "__action": "set-to",
+                "__set_value" : "0"
             }
         },
         "user_finds": {

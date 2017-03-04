@@ -7,10 +7,12 @@
  */
 
 /* --- Configuration: --- */
-$dbHost = 'localhost';
+$dbHost = 'localhost'; // use '127.0.0.1' when connecting via ssh tunnel
+$dbPort = '3306';
 $dbUser = 'root';
 $dbPass = 'toor';
 $dbName = 'ocpl';
+$charset= 'utf8';
 
 // file with export pattern
 $exportPatternFile = "./db_export_ocpl_pattern.json";
@@ -81,9 +83,9 @@ function isSubArr($child, array $mom){
 
 /* Open connection to DB */
 function checkDb(){
-    global $db, $dbHost, $dbUser, $dbPass, $dbName;
+    global $db, $dbHost, $dbPort, $dbUser, $dbPass, $dbName, $charset;
 
-    $db = new mysqli($dbHost, $dbUser, $dbPass, $dbName);
+    $db = new mysqli($dbHost, $dbUser, $dbPass, $dbName, $dbPort);
 
     /* check connection */
     if ($db->connect_errno) {
@@ -92,6 +94,15 @@ function checkDb(){
     } else {
         info("DB connection OK.");
     }
+    
+    /* change client character set */
+    if (!$db->set_charset($charset)) {
+        error("Error loading character set: $db->error");
+        exit();
+    } else {
+        $current_charset = $db->character_set_name();
+        info("Current character set: $current_charset");
+    }    
 }
 
 /*
@@ -396,7 +407,12 @@ function DumpTableData($dumpCommand, $tabName){
         do {
             $vals = array();
             foreach( $row as $val ){
-                $vals[] = "'".addslashes($val)."'";
+                if(is_null($val)) {
+                    $vals[] = "NULL";
+                }
+                else {
+                    $vals[] = "'".addslashes($val)."'";
+                }
             }
 
             echo '(' . implode(',', $vals) . ')';
