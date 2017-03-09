@@ -1,6 +1,8 @@
 <?php
 
 use Utils\Database\OcDb;
+use lib\Objects\ApplicationContainer;
+use lib\Objects\User\User;
 
 require($rootpath . 'lib/login.class.php');
 
@@ -39,10 +41,10 @@ function auth_user()
 {
     global $usr, $login;
     $login->verify();
-    $applicationContainer = \lib\Objects\ApplicationContainer::Instance();
+    $applicationContainer = ApplicationContainer::Instance();
 
     if ($login->userid != 0) {   //set up $usr array
-        $applicationContainer->setLoggedUser(new lib\Objects\User\User(array('userId'=>$login->userid)));
+        $applicationContainer->setLoggedUser(new User(array('userId'=>$login->userid)));
         $userRow = getUserRow($login->userid);
         $usr['username'] = $userRow['username'];
         $usr['hiddenCacheCount'] = $userRow['hidden_count'];

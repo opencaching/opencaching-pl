@@ -5,6 +5,10 @@ use Utils\Database\OcDb;
 use lib\Objects\PowerTrail\PowerTrail;
 use lib\Objects\User\User;
 use lib\Objects\GeoCache\GeoCacheLog;
+use lib\Objects\User\AdminNote;
+use lib\Objects\GeoCache\GeoCache;
+use lib\Objects\OcConfig\OcConfig;
+
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath)){
@@ -132,7 +136,7 @@ if ($error == false) {
         if($usr['admin']) {
             $content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="Cog Note" title="Cog Note" />&nbsp;&nbsp;&nbsp;' . tr('admin_notes') . '</p></div>';
             $content .= '<div class="content-title-noshade txt-blue08"><img src="tpl/stdstyle/images/misc/16x16-info.png" class="icon16" alt="Info" /> '.tr('admin_notes_visible').'<br /><img src="tpl/stdstyle/images/blue/arrow.png" class="icon16" alt="Link" /> '.tr('management_users').': <a href="admin_users.php?userid='.$user_id.'"> ['.tr('here').']</a></div><br />';
-            $content .= adminNoteTable(lib\Objects\User\AdminNote::getAllUserNotes($user_id));
+            $content .= adminNoteTable(AdminNote::getAllUserNotes($user_id));
         }
 
         $ars = XDb::xSql("SELECT
@@ -388,9 +392,9 @@ if ($error == false) {
                     if ($record_logs['encrypt'] == 1 && ($record_logs['cache_owner'] == $usr['userid'] || $record_logs['luser_id'] == $usr['userid'])) {
                         $logtext .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";
                     }
-                    
+
                     $data_text = GeoCacheLog::cleanLogTextForToolTip( $record_logs['log_text'] );
-                    
+
                     if ($record_logs['encrypt'] == 1 && $record_logs['cache_owner'] != $usr['userid'] && $record_logs['luser_id'] != $usr['userid']) {//crypt the log ROT13, but keep HTML-Tags and Entities
                         $data_text = str_rot13_html($data_text);
                     } else {
@@ -658,9 +662,9 @@ if ($error == false) {
                     if ($record_logs['encrypt'] == 1 && ($record_logs['cache_owner'] == $usr['userid'] || $record_logs['luser_id'] == $usr['userid'])) {
                         $logtext .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";
                     }
-                    
+
                     $data_text = GeoCacheLog::cleanLogTextForToolTip( $record_logs['log_text'] );
-                    
+
                     if ($record_logs['encrypt'] == 1 && $record_logs['cache_owner'] != $usr['userid'] && $record_logs['luser_id'] != $usr['userid']) {//crypt the log ROT13, but keep HTML-Tags and Entities
                         $data_text = str_rot13_html($data_text);
                     } else {
@@ -744,7 +748,7 @@ function buildPowerTrailIcons(ArrayObject $powerTrails)
         PowerTrail::STATUS_OPEN, PowerTrail::STATUS_INSERVICE, PowerTrail::STATUS_CLOSED
     );
     $result = '<table width="100%"><tr><td>';
-    /* @var $powertrail \lib\Objects\PowerTrail\PowerTrail */
+    /* @var $powertrail PowerTrail */
     foreach ($powerTrails as $powertrail) {
         if(in_array($powertrail->getStatus(), $allowedPtStatus)){
             $result .= '<div class="ptMedal"><table style="padding-top: 7px;" align="center" height="51" width="51"><tr><td width=52 height=52 valign="center" align="center"><a title="' . $powertrail->getName() . '" href="powerTrail.php?ptAction=showSerie&ptrail=' . $powertrail->getId() . '"><img class="imgPtMedal" src="' . $powertrail->getImage() . '"></a></td></tr><tr><td align="center"><img src="' . $powertrail->getFootIcon() . '" /></td></tr></table></div><div class="ptMedalSpacer"></div>';
@@ -825,9 +829,9 @@ function adminNoteTable($results){
     return $table;
 }
 
-function buildGeocacheHtml(lib\Objects\GeoCache\GeoCache $geocache, $html)
+function buildGeocacheHtml(GeoCache $geocache, $html)
 {
-    $ocConfig = \lib\Objects\OcConfig\OcConfig::instance();
+    $ocConfig = OcConfig::instance();
     $html = mb_ereg_replace('{cacheimage}', '<img src="'.$geocache->getCacheIcon().'" width="16" />', $html);
     $html = mb_ereg_replace('{cachestatus}', htmlspecialchars(tr($geocache->getStatusTranslationIdentifier()), ENT_COMPAT, 'UTF-8'), $html);
     $html = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($geocache->getCacheId()), ENT_COMPAT, 'UTF-8'), $html);

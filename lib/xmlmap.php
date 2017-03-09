@@ -1,5 +1,6 @@
 <?php
 use lib\Objects\GeoCache\GeoCache;
+use lib\Objects\OcConfig\OcConfig;
 
 $rootpath = "../";
 require_once ($rootpath . 'lib/common.inc.php');
@@ -311,7 +312,7 @@ class tmp_Xmlmap
      */
     private function htmlFormat(array $params)
     {
-        $ocConfig = \lib\Objects\OcConfig\OcConfig::instance();
+        $ocConfig = OcConfig::instance();
         //call OKAPI
         $okapi_resp = \okapi\Facade::service_call('services/caches/shortcuts/search_and_retrieve', $this->user_id, $params);
 
@@ -329,7 +330,7 @@ class tmp_Xmlmap
 
         // get the first object from the list
         $arrayCopy = $okapi_resp->getArrayCopy();
-        $geoCache = new \lib\Objects\GeoCache\GeoCache(array(
+        $geoCache = new GeoCache(array(
             'okapiRow' => array_pop($arrayCopy)
         ));
 

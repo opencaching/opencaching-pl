@@ -1,19 +1,23 @@
 <?php
 namespace lib\Objects\User;
 
-use \lib\Controllers\MedalsController;
+use lib\Controllers\MedalsController;
 use Utils\Database\OcDb;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Controllers\Php7Handler;
 use Utils\Database\XDb;
 use lib\Objects\OcConfig\OcConfig;
+use lib\Objects\BaseObject;
+use lib\Objects\Coordinates\Coordinates;
+use lib\Objects\PowerTrail\PowerTrail;
+
 
 /**
  * Description of user
  *
  * @author Łza
  */
-class User extends \lib\Objects\BaseObject
+class User extends BaseObject
 {
 
     private $userId;
@@ -27,7 +31,7 @@ class User extends \lib\Objects\BaseObject
     private $logNotesCount;
     private $email;
 
-    /* @var $homeCoordinates \lib\Objects\Coordinates\Coordinates */
+    /* @var $homeCoordinates Coordinates */
     private $homeCoordinates;
 
     private $medals = null;
@@ -105,7 +109,7 @@ class User extends \lib\Objects\BaseObject
     /**
      * Factory
      * @param unknown $username
-     * @return \lib\Objects\User\User object
+     * @return User object
      */
     public static function fromUsernameFactory($username){
         return new self( array('username' => $username) );
@@ -114,7 +118,7 @@ class User extends \lib\Objects\BaseObject
     /**
      * Factory
      * @param unknown $username
-     * @return \lib\Objects\User\User object
+     * @return User object
      */
     public static function fromUserIdFactory($userId){
         return new self( array('userId' => $userId) );
@@ -265,7 +269,7 @@ class User extends \lib\Objects\BaseObject
         // if coordinates are present set the homeCords.
         if ($cordsPresent) {
             $this->homeCoordinates =
-                new \lib\Objects\Coordinates\Coordinates(array('dbRow' => $dbRow));
+                new Coordinates(array('dbRow' => $dbRow));
         }
         $this->dataLoaded = true; // mark object as containing data
     }
@@ -381,7 +385,7 @@ class User extends \lib\Objects\BaseObject
 
     /**
      *
-     * @return \lib\Objects\Coordinates\Coordinates object
+     * @return Coordinates object
      */
     public function getHomeCoordinates()
     {
@@ -424,7 +428,7 @@ class User extends \lib\Objects\BaseObject
             $ptList = $db->dbResultFetchAll($stmt);
 
             foreach ($ptList as $ptRow) {
-                $this->powerTrailCompleted->append(new \lib\Objects\PowerTrail\PowerTrail(array('dbRow' => $ptRow)));
+                $this->powerTrailCompleted->append(new PowerTrail(array('dbRow' => $ptRow)));
             }
         }
         return $this->powerTrailCompleted;
@@ -446,7 +450,7 @@ class User extends \lib\Objects\BaseObject
 
             $ptList = $db->dbResultFetchAll( $stmt );
             foreach ($ptList as $ptRow) {
-                $this->powerTrailOwed->append(new \lib\Objects\PowerTrail\PowerTrail(array('dbRow' => $ptRow)));
+                $this->powerTrailOwed->append(new PowerTrail(array('dbRow' => $ptRow)));
             }
         }
         return $this->powerTrailOwed;

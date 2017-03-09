@@ -28,7 +28,7 @@ abstract class BaseController
     {
         $this->view = tpl_getView();
 
-        $this->applicationContainer = \lib\Objects\ApplicationContainer::Instance();
+        $this->applicationContainer = ApplicationContainer::Instance();
         $this->loggedUser = $this->applicationContainer->getLoggedUser();
         $this->ocConfig = $this->applicationContainer->getOcConfig();
 

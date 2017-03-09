@@ -23,10 +23,10 @@ class ChownerController
     private $infoMsg = '';
     private $errorMsg = '';
 
-    /* @var lib\Objects\User\User $userObj */
+    /* @var User $userObj */
     private $userObj;
 
-    /* @var Utils\Database\OcDb $db */
+    /* @var OcDb $db */
     private $db;
 
     public function __construct(){
@@ -49,7 +49,7 @@ class ChownerController
             if( isset ( $_REQUEST['cacheid'] ) ){
 
                 // retrive cache information
-                /* @var $cacheObj lib\Objects\GeoCache\GeoCache */
+                /* @var $cacheObj GeoCache */
                 $cacheObj = GeoCache::fromCacheIdFactory( $_REQUEST['cacheid'] );
 
                 switch($_GET['action']){

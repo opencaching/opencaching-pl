@@ -3,6 +3,9 @@
 namespace lib\Objects\GeoCache;
 
 use Utils\Database\OcDb;
+use lib\Objects\GeoCache\GeoCache;
+use lib\Objects\GeoCache\Altitude;
+
 /**
  * Description of Altitude
  *
@@ -17,10 +20,10 @@ class Altitude
      */
     private $altitude = null;
 
-    /* @var $geoCache \lib\Objects\GeoCache\GeoCache */
+    /* @var $geoCache GeoCache */
     private $geoCache;
 
-    public function __construct(\lib\Objects\GeoCache\GeoCache $geoCache)
+    public function __construct(GeoCache $geoCache)
     {
         $this->geoCache = $geoCache;
         $this->loadAltitudeFromDb();
@@ -64,7 +67,7 @@ class Altitude
      */
     private function retreiveAltitudeFromGoogleApi()
     {
-        d('Depreciated, please use lib\Objects\GeoCache\Altitude::retreiveAltitudeFromDataScienceToolkit() instead. ');
+        d('Depreciated, please use Altitude::retreiveAltitudeFromDataScienceToolkit() instead. ');
         $googleElevationApiUrl = 'http://maps.googleapis.com/maps/api/elevation/xml?locations=';
         $latitude = number_format($this->geoCache->getCoordinates()->getLatitude(), 7, '.', '');
         $longitude = number_format($this->geoCache->getCoordinates()->getLongitude(), 7, '.', '');

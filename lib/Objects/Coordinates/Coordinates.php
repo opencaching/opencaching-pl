@@ -50,7 +50,7 @@ class Coordinates
      *            latitude => 40.446321
      *            longitude => 79.982321
      *            )
-     *            $coordinates = new \lib\Objects\GeoCache\Coordinates($params);
+     *            $coordinates = new Coordinates($params);
      *
      */
     public function __construct(array $params = null)
@@ -110,7 +110,7 @@ class Coordinates
      * @param integer $format
      *            (optional) must be one of this class constants: COORDINATES_FORMAT_DECIMAL or COORDINATES_FORMAT_DEG_MIN or COORDINATES_FORMAT_DEG_MIN_SEC
      * @return string example of use:
-     *         $latitude = $coordinates->getLatitudeString(\lib\Objects\GeoCache\Coordinates::COORDINATES_FORMAT_DEG_MIN);
+     *         $latitude = $coordinates->getLatitudeString(Coordinates::COORDINATES_FORMAT_DEG_MIN);
      *
      *         example of use:
      *         $latitude = $coordinates->getLatitudeString();
@@ -149,7 +149,7 @@ class Coordinates
      * @return string
      *
      * example of use:
-     *         $latitude = $coordinates->getLatitudeString(\lib\Objects\GeoCache\Coordinates::COORDINATES_FORMAT_DEG_MIN);
+     *         $latitude = $coordinates->getLatitudeString(Coordinates::COORDINATES_FORMAT_DEG_MIN);
      *
      *         example of use:
      *         $latitude = $coordinates->getLatitudeString();

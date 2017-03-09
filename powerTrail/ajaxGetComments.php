@@ -1,16 +1,21 @@
 <?php
 use Utils\Database\OcDb;
+use lib\Objects\ApplicationContainer;
+use lib\Controllers\PowerTrailController;
+
+
+
 $rootpath = __DIR__.'/../';
 require_once __DIR__.'/../lib/common.inc.php';
 
-$appContainer = lib\Objects\ApplicationContainer::Instance();
+$appContainer = ApplicationContainer::Instance();
 if( $appContainer->getLoggedUser() === null){
     $loggedUserId = -9999;
 } else {
     $loggedUserId = $appContainer->getLoggedUser()->getUserId();
 }
 
-$commentsArr = lib\Controllers\PowerTrailController::getEntryTypes();
+$commentsArr = PowerTrailController::getEntryTypes();
 $ptOwners = powerTrailBase::getPtOwners($_REQUEST['projectId']);
 $paginateCount = powerTrailBase::commentsPaginateCount;
 foreach ($ptOwners as $owner) {

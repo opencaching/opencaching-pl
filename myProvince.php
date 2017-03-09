@@ -2,6 +2,8 @@
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\ChunkModels\ListOfCaches;
 use Utils\Gis\Region;
+use lib\Objects\ApplicationContainer;
+
 
 if (! isset($rootpath))
     $rootpath = '';
@@ -23,7 +25,7 @@ if ($usr == false) {
     tpl_redirect('login.php?target=' . $target);
 }
 
-$applicationContainer = \lib\Objects\ApplicationContainer::Instance();
+$applicationContainer = ApplicationContainer::Instance();
 $db = $applicationContainer->db;
 
 // get user record

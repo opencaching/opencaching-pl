@@ -80,7 +80,7 @@ class Waypoint
 
     /**
      *
-     * @return \lib\Objects\Coordinates\Coordinates
+     * @return Coordinates
      */
     public function getCoordinates()
     {

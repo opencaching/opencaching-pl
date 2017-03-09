@@ -2,12 +2,15 @@
 
 namespace lib\Objects\PowerTrail;
 
-use \lib\Objects\Coordinates\Coordinates;
+use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\GeoCache\Collection;
 use lib\Objects\GeoCache\GeoCache;
 use Utils\Database\OcDb;
+use lib\Objects\BaseObject;
+use lib\Objects\User\User;
+use lib\Objects\ApplicationContainer;
 
-class PowerTrail extends \lib\Objects\BaseObject
+class PowerTrail extends BaseObject
 {
 
     const TYPE_GEODRAW = 1;
@@ -38,7 +41,7 @@ class PowerTrail extends \lib\Objects\BaseObject
     private $points;
 
     /**
-     *  @var \lib\Objects\GeoCache\Collection
+     *  @var Collection
      */
     private $geocaches;
     private $owners = false;
@@ -549,7 +552,7 @@ class PowerTrail extends \lib\Objects\BaseObject
         $db->multiVariableQuery($query, $this->id);
     }
 
-    public function isAlreadyConquestedByUser(\lib\Objects\User\User $user)
+    public function isAlreadyConquestedByUser(User $user)
     {
         $db = OcDb::instance();
         $mySqlRequest = 'SELECT count(*) AS `ptConquestCount` FROM `PowerTrail_comments` WHERE `commentType` =2 AND `deleted` =0 AND `userId` =:1 AND `PowerTrailId` = :2';
@@ -602,7 +605,7 @@ class PowerTrail extends \lib\Objects\BaseObject
         if($this->activeGeocacheCount < $this->caclulateRequiredGeocacheCount()){
             return false;
         }
-        $appContainer = \lib\Objects\ApplicationContainer::Instance();
+        $appContainer = ApplicationContainer::Instance();
         if($this->status === self::STATUS_CLOSED && $appContainer->getLoggedUser()->getIsAdmin() === false){
             return false;
         }

@@ -2,6 +2,10 @@
 
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
+use lib\Objects\User\User;
+use lib\Objects\User\AdminNote;
+
+
 
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
@@ -25,11 +29,11 @@ if ($usr['admin']) {
 
     $record = XDb::xFetchArray($rsuser);
 
-    $user = new \lib\Objects\User\User(array('userId'=>$_REQUEST['userid']));
+    $user = new User(array('userId'=>$_REQUEST['userid']));
     $user->loadExtendedSettings();
 
     if(isset($_POST['save']) && isset($_POST['note_content']) && $_POST['note_content']!="") {
-        lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user_id, false, $_POST['note_content']);
+        AdminNote::addAdminNote($usr['userid'], $user_id, false, $_POST['note_content']);
         Header("Location: viewprofile.php?userid=".$user_id);
     }
 
@@ -37,11 +41,11 @@ if ($usr['admin']) {
         $q = "UPDATE user SET stat_ban = 1 - stat_ban WHERE user_id = " . intval($user_id);
         if ($record["stat_ban"] == 0) {
             $record["stat_ban"] = 1;
-            lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user_id, true, lib\Objects\User\AdminNote::BAN_STATS);
+            AdminNote::addAdminNote($usr['userid'], $user_id, true, AdminNote::BAN_STATS);
         }
         else if($record["stat_ban"] == 1) {
             $record["stat_ban"] = 0;
-            lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user_id, true, lib\Objects\User\AdminNote::UNBAN_STATS);
+            AdminNote::addAdminNote($usr['userid'], $user_id, true, AdminNote::UNBAN_STATS);
         }
         XDb::xQuery($q);
     }
@@ -60,12 +64,12 @@ if ($usr['admin']) {
         if ($_GET['verify_all'] == 1 && $usr['admin']) {
             $q = "UPDATE user SET verify_all = '1'  WHERE user_id = '" . intval($user_id) . "'";
             $record["verify_all"] = 1;
-            lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user_id, true, lib\Objects\User\AdminNote::VERIFY_ALL);
+            AdminNote::addAdminNote($usr['userid'], $user_id, true, AdminNote::VERIFY_ALL);
             XDb::xQuery($q);
         }
         if ($_GET['verify_all'] == 0 && $usr['admin']) {
             $q = "UPDATE user SET verify_all = 0  WHERE user_id = " . intval($user_id);
-            lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user_id, true, lib\Objects\User\AdminNote::NO_VERIFY_ALL);
+            AdminNote::addAdminNote($usr['userid'], $user_id, true, AdminNote::NO_VERIFY_ALL);
             $record["verify_all"] = 0;
             XDb::xQuery($q);
         }
@@ -75,14 +79,14 @@ if ($usr['admin']) {
     if(isset($_REQUEST['ignoreFoundLimit']) && $_REQUEST['ignoreFoundLimit'] != ''){
         $newIgnoreFoundLimit = intval($_REQUEST['ignoreFoundLimit']);
         if ($newIgnoreFoundLimit == 1) {
-            lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user->getUserId(), true, lib\Objects\User\AdminNote::IGNORE_FOUND_LIMIT);
+            AdminNote::addAdminNote($usr['userid'], $user->getUserId(), true, AdminNote::IGNORE_FOUND_LIMIT);
         } else {
-            lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user->getUserId(), true, lib\Objects\User\AdminNote::IGNORE_FOUND_LIMIT_RM);
+            AdminNote::addAdminNote($usr['userid'], $user->getUserId(), true, AdminNote::IGNORE_FOUND_LIMIT_RM);
         }
         $db = OcDb::instance();
         $db->multiVariableQuery('INSERT INTO user_settings (user_id, newcaches_no_limit) VALUES (:2, :1) ON DUPLICATE KEY UPDATE newcaches_no_limit = :1', $newIgnoreFoundLimit, $user->getUserId());
 
-        $user = new \lib\Objects\User\User(array('userId'=>$_REQUEST['userid']));
+        $user = new User(array('userId'=>$_REQUEST['userid']));
         $user->loadExtendedSettings();;
     }
 
@@ -91,11 +95,11 @@ if ($usr['admin']) {
         $q = "UPDATE user SET is_active_flag = 1 - is_active_flag, `activation_code`='' WHERE user_id = " . intval($user_id);
         if ($record["is_active_flag"] == 0) {
             $record["is_active_flag"] = 1;
-            lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user_id, true, lib\Objects\User\AdminNote::UNBAN);
+            AdminNote::addAdminNote($usr['userid'], $user_id, true, AdminNote::UNBAN);
         }
         else if($record["is_active_flag"] == 1) {
             $record["is_active_flag"] = 0;
-            lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $user_id, true, lib\Objects\User\AdminNote::BAN);
+            AdminNote::addAdminNote($usr['userid'], $user_id, true, AdminNote::BAN);
         }
         XDb::xQuery($q);
     }

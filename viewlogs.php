@@ -2,6 +2,9 @@
 
 use Utils\Database\OcDb;
 use Utils\Uri\Uri;
+use lib\Controllers\LogEnteryController;
+
+
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
@@ -179,7 +182,7 @@ if ($error == false) {
 
         $logs = '';
         $thisdateformat = $dateformat;
-        $logEnteryController = new \lib\Controllers\LogEnteryController();
+        $logEnteryController = new LogEnteryController();
         if($logid){ /* load and display one log only */
             $logEneries = $logEnteryController->loadLogsFromDb($cache_id, $includeDeletedLogs, 0, 1, $logid);
         } else {

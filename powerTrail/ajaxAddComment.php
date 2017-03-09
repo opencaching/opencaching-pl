@@ -1,4 +1,10 @@
 <?php
+
+use lib\Objects\User\User;
+use lib\Objects\PowerTrail\PowerTrail;
+use lib\Controllers\PowerTrailController;
+
+
 $rootpath = __DIR__.'/../';
 require_once __DIR__.'/../lib/common.inc.php';
 
@@ -9,11 +15,11 @@ if(!isset($_SESSION['user_id'])){
 
 $text = htmlspecialchars($_REQUEST['text']);
 $dateTime = new DateTime($_REQUEST['datetime']);
-$user = new lib\Objects\User\User(array('userId' => (int) $usr['userid']));
-$powerTrail = new lib\Objects\PowerTrail\PowerTrail(array('id' => (int) $_REQUEST['projectId']));
+$user = new User(array('userId' => (int) $usr['userid']));
+$powerTrail = new PowerTrail(array('id' => (int) $_REQUEST['projectId']));
 $type = (int) $_REQUEST['type'];
 
-$ptController = new \lib\Controllers\PowerTrailController();
+$ptController = new PowerTrailController();
 $result = $ptController->addComment($powerTrail, $user, $dateTime, $type, $text);
 
 $resultArray = array (

@@ -2,6 +2,9 @@
 
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCacheCommons;
+use lib\Objects\User\User;
+use lib\Objects\PowerTrail\PowerTrail;
+
 
 /*
  *
@@ -101,7 +104,7 @@ function getMapUserObj()
         $previewUserId = intval($_REQUEST['userid']);
 
         // load User data from DB
-        $userObj = new \lib\Objects\User\User(array(
+        $userObj = new User(array(
             'userId' => $previewUserId,
             'fieldsStr' => 'user_id,latitude,longitude,username'
         ));
@@ -119,7 +122,7 @@ function getMapUserObj()
     // this is map for currently logged user
 
     // load User data from DB
-    $userObj = new \lib\Objects\User\User(array(
+    $userObj = new User(array(
         'userId' => $usr['userid'],
         'fieldsStr' => 'user_id,latitude,longitude,username'
     ));
@@ -145,7 +148,7 @@ function getMapUserObj()
  * This function parse cords and zoom params from request
  * and load load user cords from DB is necessary
  *
- * @param \lib\Objects\User $userObj - user from which point of view map is displayed
+ * @param User $userObj - user from which point of view map is displayed
  */
 function parseCordsAndZoom($userObj)
 {
@@ -226,7 +229,7 @@ function parsePowerTrailFilter($loadDetails = false)
         tpl_set_var("pt_filter_enabled", '1', false);
         tpl_set_var("pt_name", "HowDoYouFindIt - you're hacker! TBD");
     } else {
-        $ptObj = new \lib\Objects\PowerTrail\PowerTrail(array(
+        $ptObj = new PowerTrail(array(
             'id' => (int) $powertrailsIds[0],
             'fieldsStr' => 'id,name,type'
         ));
