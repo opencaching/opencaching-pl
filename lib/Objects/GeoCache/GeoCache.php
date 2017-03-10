@@ -1237,7 +1237,7 @@ class GeoCache extends GeoCacheCommons
         //TODO: Table cache_notes should have index on cache_id/user_id instead of autoincrement index!
         //      Then it could be possible to use INSERT ... ON DUPLICATE KEY UPDATE Syntax
         //      DELETE old coords to be sure there is no duplicates...
-        $this->deleteUserCoordinates($userId);
+        $this->deleteUserNote($userId);
 
 
         $noteContent = htmlspecialchars($noteContent, ENT_COMPAT, 'UTF-8');
