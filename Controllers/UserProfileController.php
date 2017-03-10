@@ -3,6 +3,7 @@ namespace Controllers;
 
 
 use lib\Objects\User\User;
+use Utils\Uri\Uri;
 
 class UserProfileController extends BaseController
 {
@@ -33,10 +34,20 @@ class UserProfileController extends BaseController
         if(!$this->requestedUser){
             // send mail to unknow user ?!
             //TODO:
-
         }
 
 
+        $this->view->setVar('requestedUser', $this->requestedUser);
+        $this->view->setVar('mailto_css',
+            Uri::getLinkWithModificationTime('tpl/stdstyle/userProfile/mailto.css'));
+
+
+        $this->view->setVar('messagePresent', false);
+
+
+
+
+        tpl_BuildTemplate();
     }
 
     private function loadRequestedUser()
@@ -46,7 +57,6 @@ class UserProfileController extends BaseController
         }
         return null;
     }
-
 }
 
 

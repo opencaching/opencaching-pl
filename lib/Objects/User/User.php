@@ -70,6 +70,11 @@ class User extends BaseObject
     const REGEX_USERNAME = '^[a-zA-Z0-9ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ@-][a-zA-ZęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ0-9\.\-=_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\ -=&*+~#]{2,59}$';
     const REGEX_PASSWORD = '^[a-zA-Z0-9\.\-_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\$&*+~#]{3,60}$';
 
+
+    const COMMON_COLLUMNS = "user_id, username, founds_count, notfounds_count,
+                       hidden_count, latitude, longitude, country,
+                       email, admin, guru, verify_all";
+
     /**
      * construct class using $userId (fields will be loaded from db)
      * OR, if you have already user data row fetched from db row ($userDbRow), object is created using this data
@@ -77,17 +82,20 @@ class User extends BaseObject
      * @param type $userId - user identifier in db
      * @param type $userDbRow - array - user data taken from db, from table user.
      */
-    public function __construct(array $params)
+    public function __construct(array $params=null)
     {
+        parent::__construct();
+
+        if(is_null($params)){
+            $params = array();
+        }
 
         if (isset($params['fieldsStr'])) {
             //get selected columns only
             $fields = $params['fieldsStr'];
         } else {
             //default column list loaded from DB
-            $fields = "user_id, username, founds_count, notfounds_count,
-                       hidden_count, latitude, longitude, country,
-                       email, admin, guru, verify_all";
+            $fields = self::COMMON_COLLUMNS;
         }
 
         if (isset($params['userId'])) {
@@ -109,19 +117,30 @@ class User extends BaseObject
     /**
      * Factory
      * @param unknown $username
-     * @return User object
+     * @return User object or null on error
      */
     public static function fromUsernameFactory($username){
-        return new self( array('username' => $username) );
+
+        $u = new self();
+        if($u->loadDataFromDbByUsername($username, self::COMMON_COLLUMNS)){
+            return $u;
+        }
+        return null;
     }
 
     /**
      * Factory
      * @param unknown $username
-     * @return User object
+     * @return User object or null on error
      */
     public static function fromUserIdFactory($userId){
-        return new self( array('userId' => $userId) );
+        $u = new self();
+        $u->userId = $userId;
+
+        if($u->loadDataFromDb(self::COMMON_COLLUMNS)){
+            return $u;
+        }
+        return null;
     }
 
     public function loadExtendedSettings()
@@ -174,36 +193,27 @@ class User extends BaseObject
 
     private function loadDataFromDbByUsername($username, $fields){
 
-        $db = OcDb::instance();
-        $queryById = "SELECT $fields FROM `user` WHERE `username` = :1 LIMIT 1";
+        $stmt = $this->db->multiVariableQuery(
+            "SELECT $fields FROM `user` WHERE `username` = :1 LIMIT 1", $username);
 
-        $stmt = $db->multiVariableQuery($queryById, $username);
-
-        if( $userDbRow = $db->dbResultFetch($stmt) ){
-            $this->setUserFieldsByUsedDbRow($userDbRow);
-        }else{
-            $this->dataLoaded = false;
+        if($row = $this->db->dbResultFetchOneRowOnly($stmt)){
+            $this->setUserFieldsByUsedDbRow($row);
+            return true;
         }
+        return false;
+
     }
 
     private function loadDataFromDb($fields){
 
-        $db = OcDb::instance();
+        $stmt = $this->db->multiVariableQuery(
+            "SELECT $fields FROM `user` WHERE `user_id`=:1 LIMIT 1", $this->userId);
 
-        $queryById = "SELECT $fields FROM `user` WHERE `user_id`=:1 LIMIT 1";
-
-        $stmt = $db->multiVariableQuery($queryById, $this->userId);
-
-        if ($db->rowCount($stmt) != 1) {
-            //no such user found in DB?
-            $this->dataLoaded = false;  //mark object as NOT containing data
-            return;
+        if($row = $this->db->dbResultFetchOneRowOnly($stmt)){
+            $this->setUserFieldsByUsedDbRow($row);
+            return true;
         }
-
-        $userDbRow = $db->dbResultFetchOneRowOnly($stmt);
-        if ($userDbRow) {
-            $this->setUserFieldsByUsedDbRow($userDbRow);
-        }
+        return false;
     }
 
     private function setUserFieldsByUsedDbRow(array $dbRow)

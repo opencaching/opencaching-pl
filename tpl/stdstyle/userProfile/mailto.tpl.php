@@ -1,60 +1,48 @@
+<link rel="stylesheet" href="<?=$view->mailto_css?>">
 
-<form action="mailto.php" method="post" enctype="application/x-www-form-urlencoded" name="mailto_form" dir="ltr">
-    <input type="hidden" name="userid" value="{userid}"/>
+<form action="mailto.php" method="post" enctype="application/x-www-form-urlencoded" name="mailto_form">
+    <input type="hidden" name="userid" value="<?=$view->requestedUser->getUserId()?>" />
 
     <div class="content2-pagetitle">
-        <img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt=""  align="middle" />
-        {{email_user}} &nbsp;
-        <a href='viewprofile.php?userid={userid}'>{to_username}</a>
+        <!-- img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt="" align="middle" / -->
+        {{email_user}}
+        <a href='viewprofile.php?userid=<?=$view->requestedUser->getUserId()?>'>
+            <?=$view->requestedUser->getUserName()?>
+        </a>
     </div>
 
-    <table class="table">
-        <tr><td colspan="2">&nbsp;</td></tr>
+    <?php if($view->messagePresent){ ?>
+        <div>
+            <span id="message"><?=$view->message?></span>
+        </div>
+    <?php } else { // message-present ?>
 
-        {message_start}
-        <tr><TD colspan="2"><b>{message}</b></TD></tr>
-        {message_end}
-        {formular_start}
+        <div>
+            <label>{{titles}}:</label>
+            <input type="text" name="subject" value="{subject}" class="input400" />
+            {errnosubject}
+        </div>
 
-        <tr>
-            <td colspan="2">{{titles}}: <input type="text" name="subject" value="{subject}" class="input400" /> {errnosubject}
-            </td>
-        </tr>
-        <tr><td class="spacer" colspan="2"></td></tr>
+        <div>
+            <div>
+                <label>{{content}}:</label>
+                {errnotext}
+            </div>
+            <textarea class="logs" name="text" cols="68" rows="15">{text}</textarea>
+        </div>
 
-        <tr>
-            <td colspan="2">{{content}} {errnotext}</td>
-
-        </tr>
-        <tr>
-            <td colspan="2">
-                <textarea class="logs" name="text" cols="68" rows="15">{text}</textarea>
-            </td>
-        </tr>
-        <tr><td class="spacer" colspan="2"></td></tr>
-
-        <tr>
-            <td colspan="2"><label for="l_send_emailaddress">{{my_email_will_send}}</label><input type="checkbox" name="send_emailaddress" value="1"{send_emailaddress_sel} id="l_send_emailaddress" class="checkbox" />
-            </td>
-        </tr>
-        <tr>
-            <td class="help" colspan="2">
-                <div class="notice" style="width:500px;height:44px;">
+        <div>
+            <label for="l_send_emailaddress">{{my_email_will_send}}</label>
+            <input type="checkbox" name="send_emailaddress" value="1"{send_emailaddress_sel} id="l_send_emailaddress" class="checkbox" />
+            <div class="notice" style="width:500px;height:44px;">
                     {{email_publish}}<br />
-                </div>
+            </div>
+        </div>
 
+        <div>
+            <input type="reset" name="reset" value="{{email_reset}}" class="formbuttons" />
+            <input type="submit" name="submit" value="{{email_submit}}" class="formbuttons" />
+        </div>
 
-            </td>
-        </tr>
-        <tr><td class="spacer" colspan="2"></td></tr>
-
-        <tr>
-            <td class="header-small" colspan="2">
-                <input type="reset" name="reset" value="{{email_reset}}" class="formbuttons" />&nbsp;&nbsp;
-                <input type="submit" name="submit" value="{{email_submit}}" class="formbuttons" />
-            </td>
-        </tr>
-        <tr><td class="spacer" colspan="2"></td></tr>
-        {formular_end}
-    </table>
+    <?php } // message-present ?>
 </form>

@@ -42,6 +42,11 @@ class ChownerController
         }
 
         $this->userObj = User::fromUserIdFactory($usr['userid']);
+        if(is_null($this->userObj)){
+						//it shouldn't happen
+            return;
+        }
+
         $this->db = OcDb::instance();
 
         if( isset($_GET['action']) ){
@@ -70,7 +75,7 @@ class ChownerController
 
                             /* @var User */
                             $newUserObj = User::fromUsernameFactory($_POST['username']);
-                            if (! $newUserObj->isDataLoaded()) {
+                            if (! $newUserObj) {
 
                                 // no such user or different error during loading from DB
                                 $this->errorMsg = str_replace('{userName}', $_POST['username'], tr('adopt_23'));
@@ -129,6 +134,11 @@ class ChownerController
 
         // update owner and org_user_id fields for the cache
         $oldOwner = User::fromUserIdFactory($cacheObj->getOwnerId());
+        if(is_null($oldOwner)){
+            //no such user?!
+            $this->errorMsg = "Old owner not found!";
+            return;
+        }
 
         $this->db->multiVariableQuery(
             "UPDATE caches SET user_id = :2, org_user_id = IF(org_user_id IS NULL, :3, org_user_id) WHERE cache_id= :1",
@@ -203,10 +213,12 @@ class ChownerController
             "DELETE FROM chowner WHERE cache_id = :1", $cacheObj->getCacheId());
 
         $oldOwner = User::fromUserIdFactory($cacheObj->getOwnerId());
+        if(!is_null($oldOwner)){
 
-        $this->infoMsg = tr('adopt_27');
-        EmailSender::sendAdoptionRefusedMessage(__DIR__ . '/tpl/stdstyle/email/adoption.email.html',
-            $cacheObj->getCacheName(), $this->userObj->getUserName(), $oldOwner->getUserName(), $oldOwner->getEmail());
+            $this->infoMsg = tr('adopt_27');
+            EmailSender::sendAdoptionRefusedMessage(__DIR__ . '/tpl/stdstyle/email/adoption.email.html',
+                $cacheObj->getCacheName(), $this->userObj->getUserName(), $oldOwner->getUserName(), $oldOwner->getEmail());
+        }
     }
 
     /**
