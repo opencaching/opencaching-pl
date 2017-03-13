@@ -165,7 +165,7 @@ if ($error == false) { //get the news
 
     $pages = '';
     if ($startat > 0)
-        $pages .= '<a href="myn_ftf.php?startat=0">{first_img}</a> <a href="myn_ftf.php?startat=' . ($startat - 100) . '">{prev_img}</a> ';
+        $pages .= '<a href="myn_ftf.php?startat=0">{first_img}</a> <a href="myn_ftf.php?startat=' . ($startat - 50) . '">{prev_img}</a> ';
     else
         $pages .= '{first_img_inactive} {prev_img_inactive} ';
 
