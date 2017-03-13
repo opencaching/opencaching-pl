@@ -940,6 +940,7 @@
                                 '<?=$view->geoCache->getWaypointId()?>','<?=$view->cachename?>')" title="{{send_to_gps}}">{{send_to_gps}}</a>
                             </div>
                         </td>
+                        <td></td>
                     </tr>
                 </table>
 
