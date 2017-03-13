@@ -50,9 +50,11 @@
                 </a>
             </span>
             <span id="buttons-right">
-                <a class="btn btn-default btn-md" href="reportcache.php?cacheid=<?=$view->geoCache->getCacheId()?>">
-                  <img src="images/actions/report-problem-18.png" />&nbsp;<?=tr('report_problem')?>
-                </a>
+                <?php if($view->showReportProblemButton) { ?>
+                    <a class="btn btn-default btn-md" href="reportcache.php?cacheid=<?=$view->geoCache->getCacheId()?>">
+                      <img src="images/actions/report-problem-18.png" />&nbsp;<?=tr('report_problem')?>
+                    </a>
+                <?php } //if-showReportProblemButton ?>
                 <?php if($view->showEditButton ){ ?>
                     <a class="btn btn-success btn-md" href="editcache.php?cacheid=<?=$view->geoCache->getCacheId()?>">
                       <img src="images/actions/edit-16.png" />&nbsp;<?=tr('edit')?>
