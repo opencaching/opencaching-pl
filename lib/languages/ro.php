@@ -2037,7 +2037,6 @@ $translations = array(
     'graph_statistics_05' => 'Geocutii ascunse:',
     'graph_statistics_06' => 'Geocutii active:',
     'graph_statistics_07' => 'Total geocutii găsite:',
-    'chowner00' => 'The procedure for changing the cache owner has started.', //###
     'search_text_01' => 'Nume:',
     'search_text_02' => 'de',
     'search_text_03' => 'Coordonate:',
