@@ -1,0 +1,30 @@
+/**
+
+  This css is loaded and used by infoBar chunk only. There is no need to load it manually! 
+
+*/
+
+
+.infoBar-close-but {
+    position: absolute;
+    right: 5%;
+}
+
+.infoBar-message{
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+
+    width: 739px;
+    text-align: center;
+    padding:15px;
+    margin-bottom: 10px;
+
+    border-radius: 15px;
+}
+
+.infoBar-message-err{
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}

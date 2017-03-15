@@ -1,4 +1,16 @@
 
-#message {
-  font-weigth: bold;
+#sendEmailForm label{
+  font-weight: bold;  
+}
+
+#sendEmailForm .form-section {
+  padding: 5px 0 10px 0;
+}
+
+#mailSubject {
+  width: 600px;
+}
+
+#mailText {
+  width: 630px;
 }

@@ -1,30 +1,7 @@
 
 <link rel="stylesheet" href="<?=$view->cacheAdoption_css?>">
 
-<script type='text/javascript'>
-    function reload(){
-      window.location = 'chowner.php';
-    }
-</script>
-
-<?php if($view->errorMsg!="") { ?>
-<div class="message message-err">
-  <h5>
-    <?= $view->errorMsg ?>
-    <span class="close-but" onclick="reload()">[X]</span>
-  </h5>
-</div>
-<?php } ?>
-
-<?php if($view->infoMsg!="") { ?>
-<div class="message">
-  <h5>
-    <?= $view->infoMsg ?>
-    <span class="close-but" onclick="reload()">[X]</span>
-  </h5>
-</div>
-<?php } ?>
-
+<?php $view->callChunk('infoBar', 'chowner.php', $view->infoMsg, $view->errorMsg ); ?>
 
 <?php if($view->adoptionOffers) { ?>
 

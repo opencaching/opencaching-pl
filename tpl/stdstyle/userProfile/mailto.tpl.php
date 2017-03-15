@@ -1,48 +1,53 @@
-<link rel="stylesheet" href="<?=$view->mailto_css?>">
 
-<form action="mailto.php" method="post" enctype="application/x-www-form-urlencoded" name="mailto_form">
-    <input type="hidden" name="userid" value="<?=$view->requestedUser->getUserId()?>" />
+<script type='text/javascript'>
+    // load page css
+    var linkElement = document.createElement("link");
+    linkElement.rel = "stylesheet";
+    linkElement.href = "<?=$view->mailto_css?>";
+    linkElement.type = "text/css";
+    document.head.appendChild(linkElement);
+</script>
 
-    <div class="content2-pagetitle">
-        <!-- img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt="" align="middle" / -->
-        {{email_user}}
-        <a href='viewprofile.php?userid=<?=$view->requestedUser->getUserId()?>'>
-            <?=$view->requestedUser->getUserName()?>
-        </a>
-    </div>
+<script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 
-    <?php if($view->messagePresent){ ?>
-        <div>
-            <span id="message"><?=$view->message?></span>
+<?php $view->callChunk('infoBar', $view->reloadUrl, $view->errorMsg, $view->infoMsg ); ?>
+
+<div class="content2-pagetitle">
+    <!-- img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt="" align="middle" / -->
+    {{email_user}}
+    <a href='viewprofile.php?userid=<?=$view->requestedUser->getUserId()?>'>
+        <?=$view->requestedUser->getUserName()?>
+    </a>
+</div>
+
+<form id="sendEmailForm" action="mailto.php?userid=<?=$view->requestedUser->getUserId()?>" method="post" enctype="application/x-www-form-urlencoded" name="mailto_form">
+
+        <div class="form-section">
+            <label for="mailSubject">{{titles}}:</label>
+            <input type="text" id="mailSubject" name="mailSubject"
+                   value="<?=$view->mailSubject?>" <?=($view->formDisabled)?'disabled':''?>/>
         </div>
-    <?php } else { // message-present ?>
 
-        <div>
-            <label>{{titles}}:</label>
-            <input type="text" name="subject" value="{subject}" class="input400" />
-            {errnosubject}
-        </div>
-
-        <div>
+        <div class="form-section">
             <div>
-                <label>{{content}}:</label>
-                {errnotext}
+                <label for="mailText">{{content}}:</label>
             </div>
-            <textarea class="logs" name="text" cols="68" rows="15">{text}</textarea>
+            <textarea id="mailText" name="mailText" rows="15" <?=($view->formDisabled)?'disabled':''?> ><?=$view->mailText?></textarea>
         </div>
 
-        <div>
-            <label for="l_send_emailaddress">{{my_email_will_send}}</label>
-            <input type="checkbox" name="send_emailaddress" value="1"{send_emailaddress_sel} id="l_send_emailaddress" class="checkbox" />
-            <div class="notice" style="width:500px;height:44px;">
-                    {{email_publish}}<br />
+        <div class="form-section">
+            <label for="attachEmailAddress">{{my_email_will_send}}</label>
+                <input type="checkbox" name="attachEmailAddress" id="attachEmailAddress"
+                       class="checkbox" <?=($view->attachEmailAddress)?'checked':''?> <?=($view->formDisabled)?'disabled':''?>/>
+
+            <div class="notice">{{email_publish}}</div>
+        </div>
+
+        <?php if(! $view->formDisabled) {?>
+            <div class="form-section">
+                <input type="submit" name="sendEmailAction" value="{{email_submit}}"
+                       class="btn btn-md btn-primary"  />
             </div>
-        </div>
+        <?php } //if-formDisabled ?>
 
-        <div>
-            <input type="reset" name="reset" value="{{email_reset}}" class="formbuttons" />
-            <input type="submit" name="submit" value="{{email_submit}}" class="formbuttons" />
-        </div>
-
-    <?php } // message-present ?>
 </form>
