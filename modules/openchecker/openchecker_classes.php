@@ -237,14 +237,9 @@ class OpenCheckerCore {
             ) {
                 $post_viewcache_form = '
     <form name="post_coord" action="viewcache.php?cacheid=' . $cache_id . '" method="post">
-        <button type="submit" name="modCoords" value="modCoords" style="font-size:14px;">' . tr('openchecker_modify_coords_button') . '</button>
-        <input type="hidden" name="coordmod_lat_degree" value="' . $degrees_N . '"/>
-        <input type="hidden" name="coordmod_lon_degree" value="' . $degrees_E . '"/>
-        <input type="hidden" name="coordmod_lat" value="' . $minutes_N . '"/>
-        <input type="hidden" name="coordmod_lon" value="' . $minutes_E . '"/>
-        <input type="hidden" name="coordmod_latNS" value="' . $NorS . '"/>
-        <input type="hidden" name="coordmod_lonEW" value="' . $EorW . '"/>
-        <input type="hidden" name="save_requester" value="OpenChecker"/>
+        <button type="submit" name="userModifiedCoordsSubmited" value="modCoords" style="font-size:14px;">' . tr('openchecker_modify_coords_button') . '</button>
+        <input type="hidden" name="userCoordsFinalLatitude" value="' . $coordN->CoordsDecimal . '"/>
+        <input type="hidden" name="userCoordsFinalLongitude" value="' . $coordE->CoordsDecimal . '"/>
     </form>
                 ';
             } else {

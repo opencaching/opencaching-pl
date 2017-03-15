@@ -39,6 +39,8 @@ return function (Coordinates $initCoords = null, $inputPrefix='') {
     $selectE = ($lonLetter == 'E')?'selected="selected"':'';
     $selectW = ($lonLetter == 'W')?'selected="selected"':'';
 
+    $bigFontStyle = "font-size: 15px;";
+
 ?>
 <script src="lib/js/jquery.mask.min.js"></script>
 <script type="text/javascript">
@@ -115,16 +117,13 @@ return function (Coordinates $initCoords = null, $inputPrefix='') {
 
   });
 </script>
-<style type="text/css">
-  .<?=$prefix?>bigFont { font-size: 1.5em; margin-left: 3px; }
-</style>
 
 <!-- Final coords -->
 <input id="<?=$finalLatId?>" name="<?=$finalLatId?>" type="hidden" value="" />
 <input id="<?=$finalLonId?>" name="<?=$finalLonId?>" type="hidden" value="" />
 <input id="<?=$finalCoordsReadyId?>" type="hidden" value="false" />
 
-<fieldset style="border: 1px solid black; background-color: #FAFBDF; width: 200px; " class="form-group-sm">
+<fieldset style="border: 1px solid black; background-color: #FAFBDF; width: 200px;" class="form-group-sm">
 
   <legend><strong>WGS-84</strong></legend>
 
@@ -135,10 +134,9 @@ return function (Coordinates $initCoords = null, $inputPrefix='') {
       </select>
 
       <input id="<?=$prefix?>DegNs" class="form-control input40" type="text" value="<?=$latDeg?>"/>
-      <span class="<?=$prefix?>bigFont">&deg;</span>
+      <span style="<?=$bigFontStyle?>">&deg;</span>
       <input id="<?=$prefix?>MinNs" class="form-control input50" type="text" value="<?=$latMin?>"/>
-      <span class="<?=$prefix?>bigFont">'</span>
-
+      <span style="<?=$bigFontStyle?>">'</span>
   </div>
 
   <div>
@@ -148,9 +146,9 @@ return function (Coordinates $initCoords = null, $inputPrefix='') {
       </select>
 
       <input id="<?=$prefix?>DegWe" class="form-control input40" type="text" value="<?=$lonDeg?>"/>
-      <span class="<?=$prefix?>bigFont">&deg;</span>
+      <span style="<?=$bigFontStyle?>">&deg;</span>
       <input id="<?=$prefix?>MinWe" class="form-control input50" type="text" value="<?=$lonMin?>" />
-      <span class="<?=$prefix?>bigFont">'</span>
+      <span style="<?=$bigFontStyle?>">'</span>
 
   </div>
 </fieldset>
