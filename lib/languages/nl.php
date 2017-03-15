@@ -1454,6 +1454,7 @@ $translations = array(
     'benelux_outside' => 'Buiten de BeNeLux',
     'romania_outside' => 'Buiten Roemenië',
     'uk_outside' => 'Buiten V.K.',
+    'dummy_outside' => "Buiten het land",
     'index_01' => 'Ranglijst van caches door berekening via formule',
     'index_02' => 'De volgende lijst is gegenereerd door gebruikers aanbevelingen. De getallen in de lijst betekenen het volgende:',
     'index_03' => 'Aantal gebruikers die de cache hebben aanbevolen',

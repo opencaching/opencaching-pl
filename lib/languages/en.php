@@ -1453,6 +1453,7 @@ $translations = array(
     'benelux_outside' => 'Outside the BeNeLux',
     'romania_outside' => 'Outside Romania',
     'uk_outside' => 'Outside the U.K.',
+    'dummy_outside' => "Outside the country",
     'index_01' => 'Cache ranking by calculated index',
     'index_02' => 'The following list is automatically generated from user recommendations. The numbers in the list below mean:',
     'index_03' => 'Number of users that recommended this cache',

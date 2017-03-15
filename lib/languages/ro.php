@@ -1455,6 +1455,7 @@ $translations = array(
     'benelux_outside' => 'În afara BeNeLux',
     'romania_outside' => 'În afara României',
     'uk_outside' => 'În afara U.K.',
+    'dummy_outside' => "În afara țării",
     'index_01' => 'Clasamentul geocutiilor după index calculat',
     'index_02' => 'Următoarea listă este generată automat pe baza recomandărilor utilizatorilor. Cifrele din lista de mai jos înseamnă:',
     'index_03' => 'Numărul de utilizatori care recomandă această geocutie',
