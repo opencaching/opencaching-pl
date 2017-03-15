@@ -252,4 +252,30 @@ class EmailSender
         $email->setBody($formattedMessage->getEmailContent(), true);
         $email->send();
     }
+
+    public static function sendNotifyAboutNewCacheToOcTeam($emailTemplateFile, User $owner, $newCacheName, $newCacheId) {
+        $formattedMessage = new EmailFormatter($emailTemplateFile);
+        $formattedMessage->setVariable("ocTeamNewCache_01", tr("ocTeamNewCache_01"));
+        $formattedMessage->setVariable("ocTeamNewCache_02", tr("ocTeamNewCache_02"));
+        $formattedMessage->setVariable("ocTeamNewCache_03", tr("ocTeamNewCache_03"));
+        $formattedMessage->setVariable("ocTeamNewCache_04", tr("ocTeamNewCache_04"));
+        $formattedMessage->setVariable("ocTeamNewCache_05", tr("ocTeamNewCache_05"));
+        $formattedMessage->setVariable("ocTeamNewCache_06", tr("ocTeamNewCache_06"));
+        $formattedMessage->setVariable("server", OcConfig::getAbsolute_server_URI());
+        $formattedMessage->setVariable("userid", $owner->getUserId());
+        $formattedMessage->setVariable("username", $owner->getUserName());
+        $formattedMessage->setVariable("cacheid", $newCacheId);
+        $formattedMessage->setVariable("cachename", $newCacheName);
+
+        $formattedMessage->addFooterAndHeader(OcConfig::getMailSubjectPrefixForReviewers());
+
+        $email = new Email();
+        $email->addToAddr(OcConfig::getCogEmailAddress());
+        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
+        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
+        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForReviewers());
+        $email->setSubject(tr('ocTeamNewCache_sub'));
+        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->send();
+    }
 }
