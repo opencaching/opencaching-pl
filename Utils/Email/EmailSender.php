@@ -253,7 +253,8 @@ class EmailSender
         $email->send();
     }
 
-    public static function sendNotifyAboutNewCacheToOcTeam($emailTemplateFile, User $owner, $newCacheName, $newCacheId) {
+    public static function sendNotifyAboutNewCacheToOcTeam($emailTemplateFile, User $owner, $newCacheName, $newCacheId,
+                                                           $region, $country) {
         $formattedMessage = new EmailFormatter($emailTemplateFile);
         $formattedMessage->setVariable("ocTeamNewCache_01", tr("ocTeamNewCache_01"));
         $formattedMessage->setVariable("ocTeamNewCache_02", tr("ocTeamNewCache_02"));
@@ -274,7 +275,13 @@ class EmailSender
         $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
         $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForReviewers());
-        $email->setSubject(tr('ocTeamNewCache_sub'));
+
+        if (isset($region) && isset($country)) {
+            $email->setSubject(tr('ocTeamNewCache_sub').": ".$country." -> ".$region);
+        } else {
+            $email->setSubject(tr('ocTeamNewCache_sub').": ".tr('dummy_outside'));
+        }
+
         $email->setBody($formattedMessage->getEmailContent(), true);
         $email->send();
     }

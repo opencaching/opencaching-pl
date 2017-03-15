@@ -771,7 +771,7 @@ if ($error == false) {
 
                 if ($needs_approvement) { // notify OC-Team that new cache has to be verified
                     EmailSender::sendNotifyAboutNewCacheToOcTeam(__DIR__ . '/tpl/stdstyle/email/oc_team_notify_new_cache.email.html',
-                        ApplicationContainer::Instance()->getLoggedUser(), $name, $cache_id);
+                        ApplicationContainer::Instance()->getLoggedUser(), $name, $cache_id, $adm3, $adm1);
                 }
 
                 /* add cache altitude altitude */
