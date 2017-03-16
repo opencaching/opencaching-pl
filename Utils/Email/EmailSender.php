@@ -319,7 +319,15 @@ class EmailSender
         $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
         $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForReviewers());
-        $email->setSubject(tr('reportcache07'));
+
+        $location = $reportedCache->getCacheLocationObj()->getLocationDesc(" -> ");
+
+        if (empty($location)) {
+            $email->setSubject(tr('reportcache07').": ".tr('dummy_outside'));
+        } else {
+            $email->setSubject(tr('reportcache07').": ".$location);
+        }
+
         $email->setBody($formattedMessage->getEmailContent(), true);
         $email->send();
     }
