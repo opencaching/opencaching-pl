@@ -30,32 +30,34 @@
 
             <span id="buttons-left">
                 <a class="btn btn-primary btn-md" href="log.php?cacheid=<?=$view->geoCache->getCacheId()?>">
-                  <img src="images/actions/new-entry-16.png" />&nbsp;<?=tr('new_log_entry')?>
+                  <img src="images/actions/new-entry-16.png" alt="new-entry"/>&nbsp;<?=tr('new_log_entry')?>
                 </a>
                 <?php if($view->showWatchButton ){ ?>
                     <a class="btn btn-default btn-md" href="<?=$view->watchLink?>">
-                      <img src="images/actions/watch-16.png" />&nbsp;<?=$view->watchLabel?>
+                      <img src="images/actions/watch-16.png" alt="" />&nbsp;<?=$view->watchLabel?>
                     </a>
                 <?php } //if-showWatchButton ?>
                 <?php if($view->showIgnoreButton ){ ?>
                     <a class="btn btn-default btn-md" href="<?=$view->ignoreLink?>">
-                      <img src="images/actions/ignore-16.png" />&nbsp;<?=$view->ignoreLabel?>
+                      <img src="images/actions/ignore-16.png" alt="" />&nbsp;<?=$view->ignoreLabel?>
                     </a>
                 <?php } //if-showIgnoreButton ?>
                 <a class="btn btn-default btn-md" href="printcache.php?cacheid=<?=$view->geoCache->getCacheId()?>">
-                  <img src="images/actions/print-16.png" />&nbsp;<?=tr('print')?>
+                  <img src="images/actions/print-16.png" alt="" />&nbsp;<?=tr('print')?>
                 </a>
                 <a class="btn btn-default btn-md" href="<?=$view->printListLink?>">
-                  <img src="<?=$view->printListIcon?>" />&nbsp;<?=$view->printListLabel?>
+                  <img src="<?=$view->printListIcon?>" alt="" />&nbsp;<?=$view->printListLabel?>
                 </a>
             </span>
             <span id="buttons-right">
-                <a class="btn btn-default btn-md" href="reportcache.php?cacheid=<?=$view->geoCache->getCacheId()?>">
-                  <img src="images/actions/report-problem-18.png" />&nbsp;<?=tr('report_problem')?>
-                </a>
+                <?php if($view->showReportProblemButton) { ?>
+                    <a class="btn btn-default btn-md" href="reportcache.php?cacheid=<?=$view->geoCache->getCacheId()?>">
+                      <img src="images/actions/report-problem-18.png" alt="report-problem" />&nbsp;<?=tr('report_problem')?>
+                    </a>
+                <?php } //if-showReportProblemButton ?>
                 <?php if($view->showEditButton ){ ?>
                     <a class="btn btn-success btn-md" href="editcache.php?cacheid=<?=$view->geoCache->getCacheId()?>">
-                      <img src="images/actions/edit-16.png" />&nbsp;<?=tr('edit')?>
+                      <img src="images/actions/edit-16.png" alt="edit" />&nbsp;<?=tr('edit')?>
                     </a>
                 <?php } //if-showEditButton ?>
             </span>
@@ -70,10 +72,10 @@
               <img src="<?=$view->cacheMainIcon?>" class="icon32"
                 alt="<?=tr($view->geoCache->getCacheTypeTranslationKey())?>" title="<?=tr($view->geoCache->getCacheTypeTranslationKey())?>" />
             </div>
-            <div class="">
-              <img src='<?=$view->geoCache->getDifficultyIcon()?>' class='img-difficulty' width='19' height='16' alt='' title='<?=$view->diffTitle?>'>
+            <div>
+              <img src='<?=$view->geoCache->getDifficultyIcon()?>' class='img-difficulty' width='19' height='16' alt='difficulty' title='<?=$view->diffTitle?>'>
 
-              <img src='<?=$view->geoCache->getTerreinIcon()?>' class='img-difficulty' width='19' height='16' alt='' title='<?=$view->terrainTitle?>'>
+              <img src='<?=$view->geoCache->getTerrainIcon()?>' class='img-difficulty' width='19' height='16' alt='terrain' title='<?=$view->terrainTitle?>'>
             </div>
             <div class="align-center">
 
@@ -88,13 +90,13 @@
                         }
                       </script>
                       <a class="links2 lightTipped" href="#" onclick="cacheStatPopup()">
-                         <img src="tpl/stdstyle/images/blue/stat1.png" alt="" title="">
+                         <img src="tpl/stdstyle/images/blue/stat1.png" alt="stats" title="">
                       </a>
                       <div class="lightTip"><?=tr('show_statictics_cache')?></div>
 
                     <?php } else { ?>
                       <a class="links2 lightTipped" href="#">
-                         <img src="tpl/stdstyle/images/blue/stat1.png" alt="" title="">
+                         <img src="tpl/stdstyle/images/blue/stat1.png" alt="stats" title="">
                       </a>
                       <div class="lightTip"><?=tr('not_stat_cache')?></div>
                     <?php } ?>
@@ -134,7 +136,7 @@
 
                 <?php if($view->geoCache->isEvent()) { ?>
                     <div class="common-desc">
-                        <img src="tpl/stdstyle/images/blue/meeting.png" width="22" height="22" alt="" />
+                        <img src="tpl/stdstyle/images/blue/meeting.png" width="22" height="22" alt="meeting" />
                         <script type="text/javascript">
                             function eventAttendancePopup(){
                               var url = "event_attendance.php?id=<?=$view->geoCache->getCacheId()?>&popup=y";
@@ -155,7 +157,7 @@
 
                     <?php foreach($view->geoPathsList as $geoPath){ ?>
                       <div class="flex-container test" id="geoPath-content">
-                        <img src="<?=$geoPath->img?>">
+                        <img src="<?=$geoPath->img?>" alt="geopath" />
                         <span id="geoPath-link" class="align-center">
                           <a href="powerTrail.php?ptAction=showSerie&ptrail=<?=$geoPath->id?>"><?=$geoPath->name?></a>
                         </span>
@@ -175,7 +177,7 @@
 <div class="content2-container">
     <div class="content2-container-2col-left" id="viewcache-baseinfo">
         <div class="content-title-noshade-size3">
-            <img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="" title="">
+            <img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="compass" title="">
               <?php if($view->isUserAuthorized || $view->alwaysShowCoords ) { ?>
 
                 <?php if(!$view->userModifiedCacheCoords) { ?>
@@ -205,7 +207,7 @@
 
             <?php if($view->isUserAuthorized || $view->alwaysShowCoords ) { ?>
             <div>
-                <img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" />
+                <img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="map" title="" />
                 <script type="text/javascript">
                     function coordinatesPopup(){
                       var url = "coordinates.php?lat=<?=$view->geoCache->getCoordinates()->getLatitude()?>"+
@@ -223,12 +225,12 @@
             <?php } //show-other-coords ?>
 
             <div>
-                <img src="tpl/stdstyle/images/free_icons/mountain.png" class="icon16" width=16 height=16 alt="" title="">
+                <img src="tpl/stdstyle/images/free_icons/mountain.png" class="icon16" width=16 height=16 alt="altitude" title="">
                 {{cache_alt}}: {altitude} {{abovesealevel}}
             </div>
 
             <div>
-                <img src="tpl/stdstyle/images/free_icons/world.png" class="icon16" alt="" title="">&nbsp;{{region}}:
+                <img src="tpl/stdstyle/images/free_icons/world.png" class="icon16" alt="location" title="">&nbsp;{{region}}:
                 <b>
                   <?=$view->geoCache->getCacheLocationObj()->getLocationDesc(' &gt; ')?>
                 </b>
@@ -243,17 +245,17 @@
             <?php } // if-display-distance-to-cache ?>
 
             <div>
-                <img src="tpl/stdstyle/images/free_icons/box.png" class="icon16" alt="" title="" />
+                <img src="tpl/stdstyle/images/free_icons/box.png" class="icon16" alt="type" title="" />
                 <?=tr('cache_type')?>: <b><?=tr($view->geoCache->getCacheTypeTranslationKey())?></b>
             </div>
 
             <div>
-                <img src="tpl/stdstyle/images/free_icons/package_green.png" class="icon16" alt="" title="">
+                <img src="tpl/stdstyle/images/free_icons/package_green.png" class="icon16" alt="size" title="">
                 <?=tr('size')?>: <b><?=tr($view->geoCache->getSizeTranslationKey())?></b>
             </div>
 
             <div>
-                <img src="tpl/stdstyle/images/free_icons/page.png" class="icon16" alt="" title="">
+                <img src="tpl/stdstyle/images/free_icons/page.png" class="icon16" alt="status" title="">
                 {{status_label}}:
                 <?php if($view->geoCache->isStatusReady()) { ?>
                   <span style="color:green;font-weight:bold;">
@@ -267,7 +269,7 @@
 
             <?php if($view->geoCache->getWayLenght() || $view->geoCache->getSearchTime()) { ?>
                 <div>
-                    <img src="tpl/stdstyle/images/free_icons/time.png" class="icon16" alt="" title="">
+                    <img src="tpl/stdstyle/images/free_icons/time.png" class="icon16" alt="time" title="">
                     {{time}}:
                     <?php if($view->geoCache->getSearchTime()) { ?>
                         <?=$view->geoCache->getSearchTimeFormattedString() ?>
@@ -276,7 +278,7 @@
                     <?php } //no-search-time ?>
                     &nbsp;&nbsp;
 
-                    <img src="tpl/stdstyle/images/free_icons/arrow_switch.png" class="icon16" alt="" title="">
+                    <img src="tpl/stdstyle/images/free_icons/arrow_switch.png" class="icon16" alt="wayTo" title="">
                     {{length}}:
                     <?php if($view->geoCache->getWayLenght()) { ?>
                         <?=$view->geoCache->getWayLenghtFormattedString() ?>
@@ -289,27 +291,27 @@
 
             <div>
                 <?php if($view->geoCache->isEvent()) { ?>
-                    <img src="tpl/stdstyle/images/cache/16x16-event.png" class="icon16" alt="" title="">
+                    <img src="tpl/stdstyle/images/cache/16x16-event.png" class="icon16" alt="event" title="">
                     <?=tr('date_event_label')?>: <strong> <?=$view->cacheHiddenDate?> </strong>
                 <?php } else { // cache-is-not-event ?>
-                    <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="" title="">
+                    <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="hidden" title="">
                     <?=tr('date_hidden_label')?>: <?=$view->cacheHiddenDate?>
                 <?php } // cache-is-not-event ?>
             </div>
 
             <div>
-                <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="" title="">
+                <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="creation-date" title="">
                 {{date_created_label}}: <?=$view->cacheCreationDate?>
             </div>
 
             <div>
-                <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="" title="">
+                <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="last-mod" title="">
                 {{last_modified_label}}: <?=$view->cacheLastModifiedDate?>
             </div>
 
             <?php if(!empty($view->otherSitesListing)){ ?>
                 <div>
-                    <img src="tpl/stdstyle/images/free_icons/link.png" class="icon16" alt="" title="">
+                    <img src="tpl/stdstyle/images/free_icons/link.png" class="icon16" alt="link" title="">
                     {{listed_also_on}}:
                     <?php foreach ($view->otherSitesListing as $site){ ?>
                         <a href=<?=$site->link?> target="_blank"><?=$site->sitename?>(<?=$site->wp?>)</a>
@@ -326,12 +328,12 @@
             <div class="list-of-details">
                 <?php if($view->geoCache->isEvent()) { ?>
                     <div>
-                        <img src="tpl/stdstyle/images/log/16x16-attend.png" class="icon16" alt="" title=""/>
+                        <img src="tpl/stdstyle/images/log/16x16-attend.png" class="icon16" alt="attends" title=""/>
                         <?=$view->geoCache->getFounds()?> <?=tr('attendends')?>
                     </div>
 
                     <div>
-                        <img src="tpl/stdstyle/images/log/16x16-will_attend.png" class="icon16" alt="" title=""/>
+                        <img src="tpl/stdstyle/images/log/16x16-will_attend.png" class="icon16" alt="not-found" title=""/>
                         <?=$view->geoCache->getNotFounds()?> <?=tr('will_attend')?>
                     </div>
 
@@ -359,12 +361,12 @@
                     <?=$view->geoCache->getNotesCount()?> <?=tr('log_notes')?>
                 </div>
                 <div>
-                    <img src="tpl/stdstyle/images/action/16x16-watch.png" class="icon16" alt="" />
+                    <img src="tpl/stdstyle/images/action/16x16-watch.png" class="icon16" alt="watchers" />
                     <?=$view->geoCache->getWatchingUsersCount()?> <?=tr('watchers')?>
                 </div>
 
                 <div class="lightTipped" style="display:inline;">
-                    <img src="tpl/stdstyle/images/free_icons/vcard.png" class="icon16" alt="" />
+                    <img src="tpl/stdstyle/images/free_icons/vcard.png" class="icon16" alt="visits" />
                     <?=$view->geoCache->getCacheVisits()?> <?=tr('visitors')?>
                 </div>
                 <?php if($view->displayPrePublicationAccessInfo) {?>
@@ -375,12 +377,12 @@
                 <?php } //if-displayPrePublicationAccessInfo ?>
 
                 <div>
-                    <img src="tpl/stdstyle/images/free_icons/thumb_up.png" class="icon16" alt="" />
+                    <img src="tpl/stdstyle/images/free_icons/thumb_up.png" class="icon16" alt="votes" />
                     <?=$view->geoCache->getRatingVotes()?> x <?=tr('scored')?>
                 </div>
 
                 <div>
-                    <img src="images/cache-rate.png" class="icon16" alt="" />
+                    <img src="images/cache-rate.png" class="icon16" alt="score" />
                     <?=tr('score_label')?>: <b style="color:<?=$view->scoreColor?>"><?=$view->score?></b>
                 </div>
 
@@ -398,7 +400,7 @@
                 <?php } // if-there-are-recommendations ?>
 
                 <div>
-                    <img src="images/gk.png" class="icon16" alt="" title="GeoKrety visited" />
+                    <img src="images/gk.png" class="icon16" alt="geokret" title="GeoKrety visited" />
                     <a class="links" href="http://geokrety.org/szukaj.php?wpt=<?=$view->geoCache->getWaypointId()?>" target="_blank">
                       {{history_gk}}<img src="tpl/stdstyle/images/misc/linkicon.png" alt="link">
                     </a>
@@ -435,7 +437,7 @@
     <!-- cache attributes: -->
     <div class="content2-container bg-blue02">
         <span class="content-title-noshade-size1">
-            <img src="tpl/stdstyle/images/blue/attributes.png" class="icon32" alt="">
+            <img src="tpl/stdstyle/images/blue/attributes.png" class="icon32" alt="attributes">
             {{cache_attributes_label}}
         </span>
     </div>
@@ -471,7 +473,7 @@
 <!-- cache description header: -->
 <div class="content2-container bg-blue02">
     <span class="content-title-noshade-size1">
-        <img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="">
+        <img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="description">
         {{descriptions}}
     </span>
 
@@ -510,7 +512,7 @@
 
     <div class="content2-container bg-blue02">
         <span class="content-title-noshade-size1">
-            <img src="tpl/stdstyle/images/blue/openchecker_32x32.png" class="icon32" alt="">
+            <img src="tpl/stdstyle/images/blue/openchecker_32x32.png" class="icon32" alt="openchecker">
             {{openchecker_name}}
         </span>
     </div>
@@ -537,7 +539,7 @@
     <!-- waypoints: -->
     <div class="content2-container bg-blue02">
         <span class="content-title-noshade-size1">
-            <img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="">
+            <img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="waypoints">
             {{additional_waypoints}}
         </span>
     </div>
@@ -565,7 +567,7 @@
                     <?php } // if-cacheWithStages ?>
 
                     <td>
-                        <img src="<?=$wp->getIconName()?>" alt="" title="<?=tr($wp->getTypeTranslationKey())?>" />
+                        <img src="<?=$wp->getIconName()?>" alt="waypoint-icon" title="<?=tr($wp->getTypeTranslationKey())?>" />
                     </td>
                     <td>
                         <?=tr($wp->getTypeTranslationKey())?>
@@ -755,7 +757,7 @@
                           </a>
                       </td>
                       <td>
-                        <img src="tpl/stdstyle/images/pnk/<?=$npa['npalogo']?>" />
+                        <img src="tpl/stdstyle/images/pnk/<?=$npa['npalogo']?>" alt="" />
                       </td>
                     </tr>
                 <?php } //foreach ?>
@@ -781,7 +783,7 @@
                         <?php } //foreach ?>
                     </td>
                     <td>
-                      <img src="tpl/stdstyle/images/misc/natura2000.png" />
+                      <img src="tpl/stdstyle/images/misc/natura2000.png" alt="natura2000" />
                     </td>
                 </tr>
             </table>
@@ -793,7 +795,7 @@
     <!-- geokrety: -->
     <div class="content2-container bg-blue02">
         <span class="content-title-noshade-size1">
-            <img src="tpl/stdstyle/images/blue/travelbug.png" class="icon32" alt="">
+            <img src="tpl/stdstyle/images/blue/travelbug.png" class="icon32" alt="travelbug">
             Geokrety
         </span>
     </div>
@@ -801,7 +803,7 @@
         <div id="geoKretySection">
             <p>
                 <?php foreach ($view->geoCache->getGeokretsHosted() as $gk) { ?>
-                    <img src="/images/geokret.gif" alt="">&nbsp;
+                    <img src="/images/geokret.gif" alt="geokret">&nbsp;
                     <a href='https://geokrety.org/konkret.php?id=<?=$gk['id']?>'><?=$gk['name']?></a>
                     - <?=tr('total_distance')?>: <?=$gk['distance']?> km <br/>
                 <?php } ?>
@@ -815,7 +817,7 @@
     <!-- mp3-list -->
     <div class="content2-container bg-blue02">
         <span class="content-title-noshade-size1">
-            <img src="tpl/stdstyle/images/blue/podcache-mp3.png" class="icon32" alt="">
+            <img src="tpl/stdstyle/images/blue/podcache-mp3.png" class="icon32" alt="mp3">
             {{mp3_files_info}}
         </span>
     </div>
@@ -938,6 +940,7 @@
                                 '<?=$view->geoCache->getWaypointId()?>','<?=$view->cachename?>')" title="{{send_to_gps}}">{{send_to_gps}}</a>
                             </div>
                         </td>
+                        <td></td>
                     </tr>
                 </table>
 

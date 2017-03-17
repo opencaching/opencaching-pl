@@ -1422,7 +1422,7 @@ class GeoCache extends GeoCacheCommons
     /**
      * Returns url of the image which represents terrain dificulty
      */
-    public function getTerreinIcon()
+    public function getTerrainIcon()
     {
         return sprintf("/tpl/stdstyle/images/difficulty/terr-%d.gif", $this->terrain);
     }

@@ -211,15 +211,19 @@ class ViewCacheController extends BaseController
                 $show_edit = true;
                 $show_ignore = false;
                 $show_watch = false;
+                $showReportProblemButton = false;
             } else {
                 $show_edit = $this->loggedUser->isAdmin();
                 $show_ignore = true;
                 $show_watch = true;
+                $showReportProblemButton = true;
             }
 
             $this->view->setVar('showEditButton',$show_edit);
             $this->view->setVar('showWatchButton',$show_watch);
             $this->view->setVar('showIgnoreButton',$show_ignore);
+            $this->view->setVar('showReportProblemButton',$showReportProblemButton);
+
 
             if($show_watch) {
                 //is this cache watched by this user?
