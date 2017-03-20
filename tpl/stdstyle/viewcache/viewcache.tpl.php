@@ -72,9 +72,8 @@
               <img src="<?=$view->cacheMainIcon?>" class="icon32"
                 alt="<?=tr($view->geoCache->getCacheTypeTranslationKey())?>" title="<?=tr($view->geoCache->getCacheTypeTranslationKey())?>" />
             </div>
-            <div>
+            <div class="align-right">
               <img src='<?=$view->geoCache->getDifficultyIcon()?>' class='img-difficulty' width='19' height='16' alt='difficulty' title='<?=$view->diffTitle?>'>
-
               <img src='<?=$view->geoCache->getTerrainIcon()?>' class='img-difficulty' width='19' height='16' alt='terrain' title='<?=$view->terrainTitle?>'>
             </div>
             <div class="align-center">
