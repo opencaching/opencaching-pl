@@ -1,9 +1,22 @@
 <?php
 
+
+
+use Controllers\GeoPath\GeoPathsListController;
+
+require_once('./lib/common.inc.php');
+
+$ctrl = new GeoPathsListController();
+$ctrl->index();
+exit();
+
+
+
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\ApplicationContainer;
 use lib\Objects\PowerTrail\PowerTrail;
 use lib\Objects\GeoCache\GeoCache;
+
 
 
 /**
@@ -33,6 +46,9 @@ $_SESSION['powerTrail']['userFounds'] = $usr['userFounds'];
 if ($ocConfig->getPowerTrailModuleSwitchOn() === false) {
     header("location: $absolute_server_URI");
 }
+
+
+
 
 $firePtMenu = true;
 //Preprocessing
@@ -66,6 +82,10 @@ if ($error == false) {
         else
             $_REQUEST['historicLimitBool'] = 'no';
     }
+
+
+
+
 
     $tplname = 'powerTrail';
     if (!$usr && $hide_coords) {
@@ -141,9 +161,15 @@ if ($error == false) {
     $ptMenu = new powerTrailMenu($usr);
     tpl_set_var("powerTrailMenu", buildPowerTrailMenu($ptMenu->getPowerTrailsMenu()));
 
+
+
+
+
     $pt = new powerTrailController($usr);
     $result = $pt->run();
+
     $actionPerformed = $pt->getActionPerformed();
+
     switch ($actionPerformed) {
         case 'createNewSerie':
             if ($usr['userFounds'] >= powerTrailBase::userMinimumCacheFoundToSetNewPowerTrail()) {
@@ -158,6 +184,8 @@ if ($error == false) {
             tpl_set_var('displayUserCaches', 'block');
             tpl_set_var("keszynki", displayCaches($result, $pt->getUserPowerTrails()));
             break;
+
+
         case 'showAllSeries':
             $ptListData = displayPTrails($pt->getpowerTrails(), $pt->getPowerTrailOwn());
             tpl_set_var('filtersTrDisplay', 'table-row');
@@ -177,11 +205,13 @@ if ($error == false) {
             if ($pt->getPowerTrailOwn() === false)
                 tpl_set_var('statusOrPoints', tr('pt037'));
             else
-                tpl_set_var('statusOrPoints', tr('pt040'));
+                tpl_set_var('statusOrPoints', tr('gp_status'));
             tpl_set_var('mapOuterdiv', 'block');
             tpl_set_var('mapInit', 1);
             tpl_set_var('fullCountryMap', '1');
             break;
+
+
         case 'showMySeries':
             $ptListData = displayPTrails($pt->getpowerTrails(), $pt->getPowerTrailOwn());
             // tpl_set_var('ptTypeSelector2', displayPtTypesSelector('filter',$_REQUEST['filter'], true));
@@ -199,7 +229,7 @@ if ($error == false) {
             if ($pt->getPowerTrailOwn() === false)
                 tpl_set_var('statusOrPoints', tr('pt037'));
             else
-                tpl_set_var('statusOrPoints', tr('pt040'));
+                tpl_set_var('statusOrPoints', tr('gp_status'));
             tpl_set_var('mapOuterdiv', 'block');
             tpl_set_var('mapInit', 1);
             tpl_set_var('fullCountryMap', '1');
@@ -605,7 +635,7 @@ function generateStatusSelector($currStatus)
 {
     $selector = '<select id="ptStatusSelector">';
     if ($currStatus == 3) { //permanently closed
-        $selector .= '<option value="3">' . tr('pt212') . '</option>';
+        $selector .= '<option value="3">' . tr('gp_statusClosed') . '</option>';
     } else {
         foreach (\lib\Controllers\PowerTrailController::getPowerTrailStatus() as $val => $desc) {
             if ($val == $currStatus)

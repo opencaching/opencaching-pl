@@ -189,8 +189,8 @@ $menu = array(
                 'filename' => 'articles.php?page=links'
             ),
             array(
-                'title' => tr('pt001'),
-                'menustring' => tr('pt001'),
+                'title' => tr('gp_mainTitile'),
+                'menustring' => tr('gp_mainTitile'),
                 'siteid' => 'powerTrail',
                 'visible' => $powerTrailModuleSwitchOn,
                 'filename' => 'powerTrail.php',
