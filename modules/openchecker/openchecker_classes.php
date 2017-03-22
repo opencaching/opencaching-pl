@@ -459,7 +459,7 @@ class OpenCheckerCore {
                 ' . $status[1] . '<br />' . $status[2] . '
             </td>
             <td>
-                (' . tr('log_type_available') . ')<br />
+                (' . tr('ready_to_find') . ')<br />
                 (' . tr('temp_unavailables') . ')
             </td>
             <td align="center">' . $attempts . '</td>

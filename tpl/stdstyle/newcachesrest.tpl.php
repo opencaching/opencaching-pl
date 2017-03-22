@@ -11,7 +11,7 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td><strong>{{cache}}</strong></td>
-            <td><strong>{{user}}</strong></td>
+            <td><strong>{{owner}}</strong></td>
         </tr>
         <tr>
             <td colspan="7"><hr></td>

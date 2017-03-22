@@ -310,7 +310,7 @@ if ($error == false) {
 
         //difficulty
         $difficulty = isset($_POST['difficulty']) ? $_POST['difficulty'] : 1;
-        $difficulty_options = '<option value="1">' . $sel_message . '</option>';
+        $difficulty_options = '<option value="1" disabled selected="selected">' . $sel_message . '</option>';
         for ($i = 2; $i <= 10; $i++) {
             if ($difficulty == $i) {
                 $difficulty_options .= '<option value="' . $i . '" selected="selected">' . $i / 2 . '</option>';
@@ -323,7 +323,7 @@ if ($error == false) {
 
         //terrain
         $terrain = isset($_POST['terrain']) ? $_POST['terrain'] : 1;
-        $terrain_options = '<option value="1">' . $sel_message . '</option>';
+        $terrain_options = '<option value="1" disabled selected="selected">' . $sel_message . '</option>';
         for ($i = 2; $i <= 10; $i++) {
             if ($terrain == $i) {
                 $terrain_options .= '<option value="' . $i . '" selected="selected">' . $i / 2 . '</option>';
@@ -346,7 +346,7 @@ if ($error == false) {
 
         $cache = cache::instance();
         $cacheTypes = $cache->getCacheTypes();
-        $types = '<option value="-1">' . tr('select_one') . '</option>';
+        $types = '<option value="-1" disabled selected="selected">' . tr('select_one') . '</option>';
         foreach ($cacheTypes as $typeId => $type) {
             /* block creating forbidden cache types */
             if (in_array($typeId, $config['forbidenCacheTypes'])) {

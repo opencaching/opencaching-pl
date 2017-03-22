@@ -71,7 +71,7 @@ if ($error == false) {
 
                 $wp_type = isset($_POST['type']) ? $_POST['type'] : $wp_record['type'];
                 //build typeoptions
-                $types = '';
+                $types = '<option disabled selected="selected">' . tr('choose_waypoint_type') . '</options>';
                 foreach (get_wp_types_from_database($cache_record['type']) as $type) {
 
                     if ($type['id'] == $wp_type) {

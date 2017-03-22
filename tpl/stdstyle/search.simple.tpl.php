@@ -454,7 +454,7 @@
             </tr>
             <tr><td class="buffer" colspan="3"></td></tr>
             <tr class="form-group-sm">
-                <td valign="top" class="content-title-noshade">{{score}}:</td>
+                <td valign="top" class="content-title-noshade">{{scores}}:</td>
                 <td class="content-title-noshade">
                     {{from}} <select name="cachevote_1" class="form-control input200" onchange="javascript:sync_options(this)">
                         <option value="-3">{{rating_poor}}</option>

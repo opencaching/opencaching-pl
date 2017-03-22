@@ -737,7 +737,7 @@ class common
         $cache = cache::instance();
         $cacheSizes = $cache->getCacheSizes();
 
-        $sizes = '<option value="-1">' . tr('select_one') . '</option>';
+        $sizes = '<option value="-1" disabled selected="selected">' . tr('select_one') . '</option>';
         foreach ($cacheSizes as $size) {
             if ($sel_type == cache::TYPE_EVENT || $sel_type == cache::TYPE_VIRTUAL || $sel_type == cache::TYPE_WEBCAM) {
                 if ($size['id'] == cache::SIZE_NOCONTAINER) {

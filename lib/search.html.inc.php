@@ -122,7 +122,7 @@ $colNameSearch = array(
         "O" => tr('RecommendationNumber')
     ),
     11 => array(
-        "C" => tr('Entry'),
+        "C" => tr('Entry_latest'),
         "O" => tr('TypeDateLastEntry')
     ),
     12 => array(

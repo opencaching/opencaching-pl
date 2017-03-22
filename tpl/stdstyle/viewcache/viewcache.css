@@ -137,6 +137,10 @@ div.viewcache-pictureblock span.title   { display: block; max-width: 175px; padd
   margin-left: 20px;
 }
 
+#openchecker-btn {
+  margin-left: 20px;
+}
+
 .userNoteTextarea {
   font-size: 12px;
   border: 1px solid #d0d0d0;

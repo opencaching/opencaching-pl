@@ -14,15 +14,15 @@ $s = $db->simpleQuery($query);
 $regons = $db->dbResultFetchAll($s);
 if (count($regons) == 0) {
     if (isset($_REQUEST['searchForm']) && $_REQUEST['searchForm'] == 1) {
-        $regionoptions = '<option value="">' . tr('search01') . '</option>';
+        $regionoptions = '<option value="" disabled selected="selected">' . tr('search01') . '</option>';
     } else {
         $regionoptions = '<option value="-1">-</option>';
     }
 } else {
     if (isset($_REQUEST['searchForm']) && $_REQUEST['searchForm'] == 1) {
-        $regionoptions = '<option value="">' . tr('search01') . '</option>';
+        $regionoptions = '<option value="" disabled selected="selected">' . tr('search01') . '</option>';
     } else {
-        $regionoptions = '<option value="0">' . tr('select_regions') . '</option>';
+        $regionoptions = '<option value="0" disabled selected="selected">' . tr('select_regions') . '</option>';
     }
     foreach ($regons as $record) {
         if ($record['code'] == $selectedRegion)

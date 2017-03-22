@@ -519,11 +519,11 @@
         </span>
     </div>
 
-    <div class="content2-container align-center">
+    <div class="content2-container">
         <div class="common-desc">
             {{openchecker_enabled}}
         </div>
-        <div>
+        <div id="openchecker-btn">
             <a class="btn btn-default" href="openchecker.php?wp=<?=$view->geoCache->getWaypointId()?>">
                 {{openchecker_check}}!
             </a>

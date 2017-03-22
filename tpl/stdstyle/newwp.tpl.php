@@ -48,7 +48,7 @@
         <table width="90%" class="table" border="0">
             <tr><td class="buffer" colspan="2"></td></tr>
 
-            <tr class="form-group-sm">
+            <tr>
                 <td class="content-title-noshade">{{type_wp2}}:</td>
                 <td>
                     <select name="type" class="form-control input200" onChange="return _chkType()">
@@ -57,13 +57,13 @@
                 </td>
             </tr>
             <tr><td>&nbsp;</td>
-                <td><div class="notice" style="width:500px;min-height:24px;height:auto;"><a class="links" href="{wiki_link_additionalWaypoints}" target="_blank">{{show_info_about_wp}}</a></div></td>
+                <td><div class="notice" style="width:500px;min-height:24px;height:auto;">{{waypoints_about_info}}</div></td>
             </tr>
             {start_stage}
             <tr>
                 <td class="content-title-noshade">{{number_stage_wp}}:</td>
                 <td>
-                    <input type="text"     name="stage" maxlength="2" value="{stage}" class="input30" />{stage_message}
+                    <input type="text"     name="stage" maxlength="2" value="{stage}" class="form-control input40" />{stage_message}
                 </td>
             </tr>
             <tr>
@@ -147,7 +147,7 @@
         <tr><td class="buffer" colspan="2"></td></tr>
         <tr>
             <td valign="top" align="left" colspan="2">
-                <button type="submit" name="back" value="back" class="btn btn-default">{{cancel}}</button>&nbsp;&nbsp;
+                <button type="button" name="back" value="back" class="btn btn-default">{{cancel}}</button>&nbsp;&nbsp;
                 <button type="submit" name="submitform" value="submit" class="btn btn-primary">{{write_wp}}</button>
                 <br /><br /></td>
         </tr>
