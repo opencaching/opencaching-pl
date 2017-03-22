@@ -14,10 +14,14 @@ class OcDb extends OcPdo
      * The data is returned as an array indexed by column name, as returned in your
      * SQL SELECT
      */
-    public function dbResultFetch( PDOStatement $stmt = null )
+    public function dbResultFetch( PDOStatement $stmt = null, $fetchStyle=null)
     {
         if(!is_null($stmt)){
-            return $stmt->fetch();
+            if(is_null($fetchStyle)){
+                return $stmt->fetch();
+            }else{
+                return $stmt->fetch($fetchStyle);
+            }
         }
 
         $this->error('', new PDOException(__METHOD__.': call PDOstatement issue!'));

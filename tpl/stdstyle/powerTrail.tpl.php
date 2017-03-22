@@ -2,12 +2,14 @@
 <script type="text/javascript" src="lib/tinymce4/tinymce.min.js"></script>
 <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 <link rel="stylesheet" href="tpl/stdstyle/js/jquery_1.9.2_ocTheme/themes/cupertino/jquery.ui.all.css">
+
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/minified/jquery-ui.min.js"></script>
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.datepick-{language4js}.js"></script>
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/timepicker.js"></script>
 <script src="tpl/stdstyle/js/jquery.cookie.js" type="text/javascript"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.27&amp;key={googlemap_key}&amp;language={language4js}"></script>
 <script src="/lib/cachemap3lib.js" type="text/javascript"></script>
+
 <script type="text/javascript">
             tinymce.init({
             selector: "textarea",
@@ -29,6 +31,7 @@
                             "table directionality emoticons template textcolor paste textcolor"
                     ],
             });</script>
+
 <script type="text/javascript">
             $(function() {
             $.datepicker.setDefaults($.datepicker.regional['pl']);
@@ -1288,6 +1291,13 @@ $( document ).ready(function() {
             /* maps end */
 </script>
 
+
+
+
+
+
+
+
 <link rel="stylesheet" href="tpl/stdstyle/css/powerTrail.css" type="text/css">
 <link rel="stylesheet" href="tpl/stdstyle/css/ptMenuCss/style.css" type="text/css">
 
@@ -1305,7 +1315,7 @@ $( document ).ready(function() {
     <div id="powerTrailContentWraper">
         <div class="content2-pagetitle">
             <img src="tpl/stdstyle/images/blue/050242-blue-jelly-icon-natural-wonders-flower13-sc36_32x32.png" class="icon32" alt="geocache" title="geocache">
-            {{pt001}}
+            {{gp_mainTitile}}
         </div>
 
         <!--[if IE 6 ]> <div id="oldIE">{{pt129}}</div><br><br> <![endif]-->
@@ -1317,6 +1327,8 @@ $( document ).ready(function() {
                 {powerTrailMenu}
             </ul>
         </div>
+
+
         <!-- map -->
         <div id="mapOuterdiv" style="display: {mapOuterdiv}">
             <div style="position: relative; left: 666px; top: 56px; width: 50px;">
@@ -1348,8 +1360,8 @@ $( document ).ready(function() {
                         </td>
                         <td>
                             <select name="status">
-                                <option value="1">{{pt006}}</option>
-                                <option value="2">{{pt007}}</option>
+                                <option value="1">{{gp_statusPublic}}</option>
+                                <option value="2">{{gp_statusNotYetAvailable}}</option>
                             </select>
                         </td>
                     </tr>
@@ -1449,12 +1461,12 @@ $( document ).ready(function() {
                     </td>
                 </tr>
                 <tr>
-                    <th class="ptTd">{{pt036}}</th>
-                    <th class="ptTd">{{pt039}}</th>
+                    <th class="ptTd">{{gp_name}}</th>
+                    <th class="ptTd">{{gp_type}}</th>
                     <th class="ptTd">{statusOrPoints}</th>
-                    <th class="ptTd">{{pt041}}</th>
-                    <th class="ptTd">{{pt042}}</th>
-                    <th class="ptTd">{{pt057}}</th>
+                    <th class="ptTd">{{gp_publicationDate}}</th>
+                    <th class="ptTd">{{gp_cachesNumber}}</th>
+                    <th class="ptTd">{{gp_gainedCount}}</th>
                 </tr>
                 {PowerTrails}
             </table>

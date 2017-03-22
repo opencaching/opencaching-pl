@@ -217,7 +217,7 @@ if ($usr == false) {
     if ($powerTrailModuleSwitchOn) {
 
         $content .= buildOpenCloseButton($user_id, $checkGeoPaths, "powerTrailGenericLogo.png", "checkGeoPaths", tr('pt001'), "geoPaths");
-
+                            <img src="tpl/stdstyle/images/blue/powerTrailGenericLogo.png" width="33" class="icon32" alt="geoPaths" title="geoPaths" />&nbsp' . tr('gp_mainTitile') . '</div>';
         if ($checkGeoPaths){
         //geoPaths medals
             $content .= buildPowerTrailIcons($user->getPowerTrailCompleted());

@@ -60,7 +60,7 @@ function makePtSelector($ptAll, $id)
 function preparePtCaches(PowerTrail $powerTrail)
 {
     $table = '<table><tr style="background-color: #cccccc;">'
-            . ' <td>' . tr('pt036') . '</td>'
+            . ' <td>' . tr('gp_name') . '</td>'
             . ' <td>' . tr('owner_label') . '</td>'
             . ' <td>'. tr('waypoint') . '</td>'
             . ' <td style="text-align: center;">' . tr('cache').'<br>' . tr('number_founds') . '</td>'

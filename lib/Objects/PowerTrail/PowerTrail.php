@@ -16,7 +16,7 @@ class PowerTrail extends BaseObject
     const TYPE_GEODRAW = 1;
     const TYPE_TOURING = 2;
     const TYPE_NATURE = 3;
-    const TYPE_TEMATIC = 4;
+    const TYPE_THEMATIC = 4;
     const STATUS_OPEN = 1;
     const STATUS_UNAVAILABLE = 2;
     const STATUS_CLOSED = 3;
@@ -177,7 +177,7 @@ class PowerTrail extends BaseObject
             case self::TYPE_NATURE:
                 $icon = 'footprintGreen.png';
                 break;
-            case self::TYPE_TEMATIC:
+            case self::TYPE_THEMATIC:
                 $icon = 'footprintYellow.png';
                 break;
         }

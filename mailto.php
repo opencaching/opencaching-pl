@@ -1,6 +1,5 @@
 <?php
 
-use Utils\Database\XDb;
 use Controllers\UserProfileController;
 
 
