@@ -82,7 +82,7 @@ if ($error == false) {
                     $lang_db = $lang;
                 else
                     $lang_db = "en";
-                $types = '';
+                $types = '<option disabled selected="selected">' . tr('choose_waypoint_type') . '</options>';
 //                  if ($cache_record['type'] == '2' || $cache_record['type'] == '6' || $cache_record['type'] == '8' || $cache_record['type'] == '9')
                 // check if final waypoint alreday exist for this cache
                 $wp_check_final_exist = XDb::xMultiVariableQueryValue(
