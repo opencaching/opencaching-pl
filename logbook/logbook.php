@@ -95,7 +95,6 @@ echo '<?xml-stylesheet type="text/css" href="style.css"?'.">\n";
             <img src="geocaching.jpg" id="logo" />
         </div>
         <div id="navibar">
-    <!--<span><a href="">Strona Główna</a></span>-->
             <?php
             include("menu.inc");
             ?>

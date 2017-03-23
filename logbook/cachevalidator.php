@@ -65,7 +65,6 @@ $_REQUEST = array_map('stripslashes_deep', $_REQUEST);
             <img src="geocaching.jpg" id="logo" />
         </div>
         <div id="navibar">
-    <!--<span><a href="">Strona Główna</a></span>-->
             <?php
             include("menu.inc");
             ?>
