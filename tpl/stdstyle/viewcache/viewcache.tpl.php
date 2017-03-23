@@ -72,9 +72,8 @@
               <img src="<?=$view->cacheMainIcon?>" class="icon32"
                 alt="<?=tr($view->geoCache->getCacheTypeTranslationKey())?>" title="<?=tr($view->geoCache->getCacheTypeTranslationKey())?>" />
             </div>
-            <div>
+            <div class="align-right">
               <img src='<?=$view->geoCache->getDifficultyIcon()?>' class='img-difficulty' width='19' height='16' alt='difficulty' title='<?=$view->diffTitle?>'>
-
               <img src='<?=$view->geoCache->getTerrainIcon()?>' class='img-difficulty' width='19' height='16' alt='terrain' title='<?=$view->terrainTitle?>'>
             </div>
             <div class="align-center">
@@ -217,10 +216,10 @@
                       window.open(url,'<?=tr('list_of_participants')?>',"width=240,height=334,resizable=yes,scrollbars=1");
                     }
                 </script>
-                <a href="#" class="links" onclick="coordinatesPopup()">
-                  <?=tr('coords_other')?>
-                  <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link" width="10" height="10" />
-                </a>
+                <span class="no-whitespace">
+                    <a href="#" class="links" onclick="coordinatesPopup()"><?=tr('coords_other')?></a>
+                    <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link" class="img12" />
+                </span>
             </div>
             <?php } //show-other-coords ?>
 
@@ -314,9 +313,11 @@
                     <img src="tpl/stdstyle/images/free_icons/link.png" class="icon16" alt="link" title="">
                     {{listed_also_on}}:
                     <?php foreach ($view->otherSitesListing as $site){ ?>
-                        <a href=<?=$site->link?> target="_blank"><?=$site->sitename?>(<?=$site->wp?>)</a>
+                        <span class="no-whitespace">
+                           <a href=<?=$site->link?> target="_blank"><?=$site->sitename?> (<?=$site->wp?>)</a>
+                           <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link" class="img12">
+                        </span>
                     <?php } //foreach ?>
-                        <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link">
 
                 </div>
             <?php } //!empty($view->otherSitesListing ?>
@@ -401,9 +402,10 @@
 
                 <div>
                     <img src="images/gk.png" class="icon16" alt="geokret" title="GeoKrety visited" />
-                    <a class="links" href="http://geokrety.org/szukaj.php?wpt=<?=$view->geoCache->getWaypointId()?>" target="_blank">
-                      {{history_gk}}<img src="tpl/stdstyle/images/misc/linkicon.png" alt="link">
-                    </a>
+                    <span class="no-whitespace">
+                        <a class="links no-whitespace" href="http://geokrety.org/szukaj.php?wpt=<?=$view->geoCache->getWaypointId()?>" target="_blank">{{history_gk}}</a>
+                        <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link" class="img12" >
+                    </span>
                 </div>
             </div>
         </div>

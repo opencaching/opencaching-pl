@@ -1105,8 +1105,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1355;
-    public static $git_revision = 'c183b3d7d354bd3d63479114caa8978636c08488';
+    public static $version_number = 1361;
+    public static $git_revision = '9916b69e3d817a52c4abafb59feda8a7e966f3b2';
 
     private static $okapi_vars = null;
 
@@ -1362,6 +1362,7 @@ class Okapi
                 $urls = array(
                     "http://opencaching.pl/okapi/",
                     "http://www.opencaching.pl/okapi/",
+                    "https://opencaching.pl/okapi/",
                 );
                 break;
             case 'OCDE':
@@ -1390,6 +1391,7 @@ class Okapi
             case 'OCUK':
                 $urls = array(
                     "http://opencache.uk/okapi/",
+                    "https://opencache.uk/okapi/",
                 );
                 break;
             case 'OCUS':

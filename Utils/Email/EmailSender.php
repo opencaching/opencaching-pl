@@ -337,4 +337,83 @@ class EmailSender
 
         return $result;
     }
+
+    public static function sendNotifyAboutNewCacheToOcTeam($emailTemplateFile, User $owner, $newCacheName, $newCacheId,
+                                                           $region, $country) {
+        $formattedMessage = new EmailFormatter($emailTemplateFile);
+        $formattedMessage->setVariable("ocTeamNewCache_01", tr("ocTeamNewCache_01"));
+        $formattedMessage->setVariable("ocTeamNewCache_02", tr("ocTeamNewCache_02"));
+        $formattedMessage->setVariable("ocTeamNewCache_03", tr("ocTeamNewCache_03"));
+        $formattedMessage->setVariable("ocTeamNewCache_04", tr("ocTeamNewCache_04"));
+        $formattedMessage->setVariable("ocTeamNewCache_05", tr("ocTeamNewCache_05"));
+        $formattedMessage->setVariable("ocTeamNewCache_06", tr("ocTeamNewCache_06"));
+        $formattedMessage->setVariable("server", OcConfig::getAbsolute_server_URI());
+        $formattedMessage->setVariable("userid", $owner->getUserId());
+        $formattedMessage->setVariable("username", $owner->getUserName());
+        $formattedMessage->setVariable("cacheid", $newCacheId);
+        $formattedMessage->setVariable("cachename", $newCacheName);
+
+        $formattedMessage->addFooterAndHeader(OcConfig::getMailSubjectPrefixForReviewers());
+
+        $email = new Email();
+        $email->addToAddr(OcConfig::getCogEmailAddress());
+        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
+        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
+        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForReviewers());
+
+        if (isset($region) && isset($country)) {
+            $email->setSubject(tr('ocTeamNewCache_sub').": ".$country." -> ".$region);
+        } else {
+            $email->setSubject(tr('ocTeamNewCache_sub').": ".tr('dummy_outside'));
+        }
+
+        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->send();
+    }
+
+    public static function sendNotifyAboutNewReportToOcTeam($emailTemplateFile, $timestamp, User $submitter,
+                                                            GeoCache $reportedCache, $reason, $text) {
+        $formattedMessage = new EmailFormatter($emailTemplateFile);
+        $formattedMessage->setVariable("reportcache10", tr("reportcache10"));
+        $formattedMessage->setVariable("reportcache11", tr("reportcache11"));
+        $formattedMessage->setVariable("reportcache12", tr("reportcache12"));
+        $formattedMessage->setVariable("reportcache13", tr("reportcache13"));
+        $formattedMessage->setVariable("reportcache14", tr("reportcache14"));
+        $formattedMessage->setVariable("reportcache15", tr("reportcache15"));
+        $formattedMessage->setVariable("reportcache16", tr("reportcache16"));
+        $formattedMessage->setVariable("reportcache17", tr("reportcache17"));
+        $formattedMessage->setVariable("reportcache18", tr("reportcache18"));
+        $formattedMessage->setVariable("reportcache19", tr("reportcache19"));
+        $formattedMessage->setVariable("here", tr("here"));
+
+        $formattedMessage->setVariable("date", $timestamp);
+        $formattedMessage->setVariable("server", OcConfig::getAbsolute_server_URI());
+        $formattedMessage->setVariable("reason", $reason);
+        $formattedMessage->setVariable("text", $text);
+
+        $formattedMessage->setVariable("submitterid", $submitter->getUserId());
+        $formattedMessage->setVariable("submitter", $submitter->getUserName());
+        $formattedMessage->setVariable("cacheid", $reportedCache->getCacheId());
+        $formattedMessage->setVariable("cache_wp", $reportedCache->getWaypointId());
+        $formattedMessage->setVariable("cachename", $reportedCache->getCacheName());
+
+        $formattedMessage->addFooterAndHeader(OcConfig::getMailSubjectPrefixForReviewers());
+
+        $email = new Email();
+        $email->addToAddr(OcConfig::getCogEmailAddress());
+        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
+        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
+        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForReviewers());
+
+        $location = $reportedCache->getCacheLocationObj()->getLocationDesc(" -> ");
+
+        if (empty($location)) {
+            $email->setSubject(tr('reportcache07').": ".tr('dummy_outside'));
+        } else {
+            $email->setSubject(tr('reportcache07').": ".$location);
+        }
+
+        $email->setBody($formattedMessage->getEmailContent(), true);
+        $email->send();
+    }
 }

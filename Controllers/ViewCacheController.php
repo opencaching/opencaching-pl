@@ -115,7 +115,7 @@ class ViewCacheController extends BaseController
         }
 
         $this->view->setVar('hideLogbook',isset($_REQUEST['logbook']) && $_REQUEST['logbook'] == 'no');
-        $this->view->setVar('viewcache_js', Uri::getLinkWithModificationTime('tpl/stdstyle//viewcache/viewcache.js'));
+        $this->view->setVar('viewcache_js', Uri::getLinkWithModificationTime('tpl/stdstyle/viewcache/viewcache.js'));
         $this->view->setVar('viewcache_css', Uri::getLinkWithModificationTime('tpl/stdstyle/viewcache/viewcache.css'));
 
 
@@ -552,7 +552,7 @@ class ViewCacheController extends BaseController
         $this->view->setVar('externalMaps', $externalMaps);
 
         $zoom = $config['maps']['cache_page_map']['zoom'];
-        $mapType = $config['maps']['cache_page_map']['source'];
+        $mapType = $config['maps']['cache_page_map']['layer'];
 
         $this->view->setVar('mapImgLink', "lib/staticmap.php?center=$lat,$lon&amp;zoom=$zoom&amp;size=170x170&amp;maptype=$mapType&amp;markers=$lat,$lon,mark-small-blue");
 
@@ -564,7 +564,11 @@ class ViewCacheController extends BaseController
     {
         global $config;
 
-        if ($this->loggedUser && $this->loggedUser->getFoundGeocachesCount() >= $config['otherSites_minfinds']) {
+        if ($this->loggedUser &&
+		($this->loggedUser->getUserId() == $this->geocache->getOwnerId() ||
+		$this->loggedUser->isAdmin() ||
+		$this->loggedUser->isGuide() ||
+		$this->loggedUser->getFoundGeocachesCount() >= $config['otherSites_minfinds'])) {
             $this->view->setVar('otherSitesListing', $this->geocache->getFullOtherWaypointsList() );
             $this->view->setVar('searchAtOtherSites', true);
         }else{

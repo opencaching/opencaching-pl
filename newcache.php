@@ -1,9 +1,11 @@
 <?php
 
+use lib\Objects\ApplicationContainer;
 use Utils\Database\OcDb;
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\User\User;
+use Utils\Email\EmailSender;
 
 
 
@@ -770,27 +772,9 @@ if ($error == false) {
                     event_new_cache($usr['userid'] + 0);
                 }
 
-                if ($needs_approvement) { // notify RR that new cache has to be verified
-                    $email_content = file_get_contents($stylepath . '/email/rr_activate_cache.email');
-                    $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
-                    $email_content = mb_ereg_replace('{rrActivateCache_01}', tr('rrActivateCache_01'), $email_content);
-                    $email_content = mb_ereg_replace('{rrActivateCache_02}', tr('rrActivateCache_02'), $email_content);
-                    $email_content = mb_ereg_replace('{rrActivateCache_03}', tr('rrActivateCache_03'), $email_content);
-                    $email_content = mb_ereg_replace('{rrActivateCache_04}', tr('rrActivateCache_04'), $email_content);
-                    $email_content = mb_ereg_replace('{rrActivateCache_05}', tr('rrActivateCache_05'), $email_content);
-                    $email_content = mb_ereg_replace('{rrActivateCache_06}', tr('rrActivateCache_06'), $email_content);
-                    $email_content = mb_ereg_replace('{username}', $usr['username'], $email_content);
-                    $email_content = mb_ereg_replace('{cachename}', $name, $email_content);
-                    $email_content = mb_ereg_replace('{cacheid}', $cache_id, $email_content);
-                    $email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);
-
-                    $email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
-                    $email_headers .= "From: $site_name <$octeam_email>\r\n";
-                    $email_headers .= "Reply-To: $octeam_email\r\n";
-                    $octeam_email = $octeam_email;
-
-                    //send email to octeam
-                    mb_send_mail($octeam_email, tr('rrActivateCache_07') . ": " . $name, $email_content, $email_headers);
+                if ($needs_approvement) { // notify OC-Team that new cache has to be verified
+                    EmailSender::sendNotifyAboutNewCacheToOcTeam(__DIR__ . '/tpl/stdstyle/email/oc_team_notify_new_cache.email.html',
+                        ApplicationContainer::Instance()->getLoggedUser(), $name, $cache_id, $adm3, $adm1);
                 }
 
                 /* add cache altitude altitude */
