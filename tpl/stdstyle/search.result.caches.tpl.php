@@ -5,9 +5,10 @@ global $usr, $hide_coords, $colNameSearch, $cookie, $NrColSortSearch, $OrderSort
 
 <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCT.css" />
 <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCTStats.css" />
-<script type='text/javascript' src='https://www.google.com/jsapi'></script>
-<script type='text/javascript' src="lib/js/GCT.js"></script>
-<script type='text/javascript' src="tpl/stdstyle/js/search.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="lib/js/GCT.js"></script>
+<script type="text/javascript" src="lib/js/GCT.lang.php"></script>
+<script type="text/javascript" src="tpl/stdstyle/js/search.js"></script>
 
 
 <?php
@@ -84,7 +85,6 @@ if ( !$SearchWithSort &&  $NrColSortSearch != -1 )
         echo "gct.addChartOption('sortColumn', $NrColSortToSet );";
         echo "gct.addChartOption('sortAscending',"; if ($OrderSortSearch == 'M') echo 'false'; else echo 'true'; echo" );";
         echo "gct.addChartOption('pageSize', 20);";
-        echo "gct.addChartOption('pagingSymbols', { prev: '".tr('Prev1')."', next: '".tr('Next1')."' })";
     }
     else
     {
@@ -113,7 +113,7 @@ if ( !$SearchWithSort &&  $NrColSortSearch != -1 )
 
 <?php
     if ($SearchWithSort)
-        echo "<span style='font-size:10px;'>{{PageNr}} </span><span id='pageNumber' style='font-size:11px; color:green; font-weight:bold'>1</span><br>" ;
+        echo "<span style='font-size:10px;'>{{pagination_page}}: </span><span id='pageNumber' style='font-size:11px; color:green; font-weight:bold'>1</span><br>" ;
 ?>
 
 <br><br>
