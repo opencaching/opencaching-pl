@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCTStats.css" />
 <script type='text/javascript' src='https://www.google.com/jsapi'></script>
 <script type='text/javascript' src="lib/js/GCT.js"></script>
+<script type="text/javascript" src="lib/js/GCT.lang.php"></script>
 <script type='text/javascript' src="lib/js/GCTStats.js"></script>
 <script type='text/javascript' src="lib/js/wz_tooltip.js"></script>
 
