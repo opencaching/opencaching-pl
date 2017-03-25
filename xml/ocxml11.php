@@ -5,6 +5,7 @@ use Utils\Database\XDb;
 
 $rootpath = '../';
 require($rootpath . 'lib/common.inc.php');
+require($rootpath . 'lib/export.inc.php');
 if ($error == true) {
     echo 'Unable to connect to database';
     exit;
@@ -365,7 +366,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
             FROM `cache_attrib` WHERE `language`='pl'");
         fwrite($f, $t1 . '<attrlist>' . "\n");
         while ($r = XDb::xFetchArray($rs)) {
-            fwrite($f, $t2 . '<attr id="' . $r['id'] . '" icon_large="' . xmlentities($absolute_server_URI . $r['icon_large']) . '" icon_no="' . xmlentities($absolute_server_URI . $r['icon_no']) . '" icon_undef="' . xmlentities($absolute_server_URI . $r['icon_undef']) . '">' . xmlcdata($r['text_long']) . '</attr>' . "\n");
+            fwrite($f, $t2 . '<attr id="' . $r['id'] . '" icon_large="' . xmlentities2($absolute_server_URI . $r['icon_large']) . '" icon_no="' . xmlentities2($absolute_server_URI . $r['icon_no']) . '" icon_undef="' . xmlentities2($absolute_server_URI . $r['icon_undef']) . '">' . xmlcdata($r['text_long']) . '</attr>' . "\n");
         }
         fwrite($f, $t1 . '</attrlist>' . "\n");
         XDb::xFreeResults($rs);
@@ -408,7 +409,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
         fwrite($f, $t2 . '<name>' . xmlcdata($r['name']) . '</name>' . "\n");
         fwrite($f, $t2 . '<longitude>' . sprintf('%01.5f', $r['longitude']) . '</longitude>' . "\n");
         fwrite($f, $t2 . '<latitude>' . sprintf('%01.5f', $r['latitude']) . '</latitude>' . "\n");
-        fwrite($f, $t2 . '<type id="' . $r['type'] . '" short="' . xmlentities($cachetypes[$r['type']]['short']) . '">' . xmlcdata($cachetypes[$r['type']]['pl']) . '</type>' . "\n");
+        fwrite($f, $t2 . '<type id="' . $r['type'] . '" short="' . xmlentities2($cachetypes[$r['type']]['short']) . '">' . xmlcdata($cachetypes[$r['type']]['pl']) . '</type>' . "\n");
         fwrite($f, $t2 . '<status id="' . $r['status'] . '">' . xmlcdata($cachestatus[$r['status']]['pl']) . '</status>' . "\n");
         fwrite($f, $t2 . '<country id="' . $r['country'] . '">' . xmlcdata($counties[$r['country']]['pl']) . '</country>' . "\n");
         fwrite($f, $t2 . '<size id="' . $r['size'] . '">' . xmlcdata($cachesizes[$r['size']]['pl']) . '</size>' . "\n");
@@ -416,7 +417,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
         fwrite($f, $t2 . '<difficulty>' . sprintf('%01.1f', $r['difficulty'] / 2) . '</difficulty>' . "\n");
         fwrite($f, $t2 . '<terrain>' . sprintf('%01.1f', $r['terrain'] / 2) . '</terrain>' . "\n");
         fwrite($f, $t2 . '<rating waylength="' . $r['way_length'] . '" needtime="' . $r['search_time'] . '" />' . "\n");
-        fwrite($f, $t2 . '<waypoints gccom="' . xmlentities($r['wp_gc']) . '" gpsgames="' . xmlentities($r['wp_nc']) . '" oc="' . xmlentities($r['wp_oc']) . '" />' . "\n");
+        fwrite($f, $t2 . '<waypoints gccom="' . xmlentities2($r['wp_gc']) . '" gpsgames="' . xmlentities2($r['wp_nc']) . '" oc="' . xmlentities2($r['wp_oc']) . '" />' . "\n");
         fwrite($f, $t2 . '<datehidden>' . date($sDateformat, strtotime($r['date_hidden'])) . '</datehidden>' . "\n");
         fwrite($f, $t2 . '<datecreated>' . date($sDateformat, strtotime($r['date_created'])) . '</datecreated>' . "\n");
         fwrite($f, $t2 . '<lastmodified>' . date($sDateformat, strtotime($r['last_modified'])) . '</lastmodified>' . "\n");
@@ -513,7 +514,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
                     ');
     while ($r = XDb::xFetchArray($rs)) {
         $r['text'] = mb_ereg_replace('<br />', '', $r['text']);
-        $r['text'] = preg_replace('/&amp;#(38|60|62);/', '&#$1;', $r['text']);  // decode OKAPI logs
+        $r['text'] = mb_ereg_replace('/&amp;#(38|60|62);/', '&#$1;', $r['text']);  // decode OKAPI logs
         $r['text'] = html_entity_decode($r['text'], ENT_COMPAT, 'UTF-8');
 
         fwrite($f, $t1 . '<cachelog>' . "\n");
@@ -543,7 +544,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
         fwrite($f, $t2 . '<id id="' . $r['id'] . '" node="' . $r['node'] . '">' . $r['uuid'] . '</id>' . "\n");
         fwrite($f, $t2 . '<url>' . xmlcdata($r['url']) . '</url>' . "\n");
         fwrite($f, $t2 . '<title>' . xmlcdata($r['title']) . '</title>' . "\n");
-        fwrite($f, $t2 . '<object id="' . $r['object_id'] . '" type="' . $r['object_type'] . '" typename="' . xmlentities($objecttypes[$r['object_type']]) . '">' . object_id2uuid($r['object_id'], $r['object_type']) . '</object>' . "\n");
+        fwrite($f, $t2 . '<object id="' . $r['object_id'] . '" type="' . $r['object_type'] . '" typename="' . xmlentities2($objecttypes[$r['object_type']]) . '">' . object_id2uuid($r['object_id'], $r['object_type']) . '</object>' . "\n");
         fwrite($f, $t2 . '<attributes spoiler="' . $r['spoiler'] . '" display="' . $r['display'] . '" />' . "\n");
         fwrite($f, $t2 . '<datecreated>' . date($sDateformat, strtotime($r['date_created'])) . '</datecreated>' . "\n");
         fwrite($f, $t2 . '<lastmodified>' . date($sDateformat, strtotime($r['last_modified'])) . '</lastmodified>' . "\n");
@@ -560,7 +561,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
     while ($r = XDb::xFetchArray($rs)) {
         fwrite($f, $t1 . '<removedobject>' . "\n");
         fwrite($f, $t2 . '<id id="' . $r['id'] . '" node="' . $r['node'] . '" />' . "\n");
-        fwrite($f, $t2 . '<object id="' . $r['localid'] . '" type="' . $r['type'] . '" typename="' . xmlentities($objecttypes[$r['type']]) . '">' . $r['uuid'] . '</object>' . "\n");
+        fwrite($f, $t2 . '<object id="' . $r['localid'] . '" type="' . $r['type'] . '" typename="' . xmlentities2($objecttypes[$r['type']]) . '">' . $r['uuid'] . '</object>' . "\n");
         fwrite($f, $t2 . '<removeddate>' . date($sDateformat, strtotime($r['removed_date'])) . '</removeddate>' . "\n");
         fwrite($f, $t1 . '</removedobject>' . "\n");
     }
@@ -916,21 +917,16 @@ function xmlcdata($str)
         $str = output_convert($str);
         return '<![CDATA[' . filterevilchars($str) . ']]>';
     } else
-        return xmlentities($str);
+        return xmlentities2($str);
 }
 
-function xmlentities($str)
+function xmlentities2($str)
 {
-    $from[0] = '&';
-    $to[0] = '&amp;';
-    $from[1] = '<';
-    $to[1] = '&lt;';
-    $from[2] = '>';
-    $to[2] = '&gt;';
-    $from[3] = '"';
-    $to[3] = '&quot;';
-    $from[4] = '\'';
-    $to[4] = '&apos;';
+    $from[0] = '&'; $to[0] = '&amp;';
+    $from[1] = '<'; $to[1] = '&lt;';
+    $from[2] = '>'; $to[2] = '&gt;';
+    $from[3] = '"'; $to[3] = '&quot;';
+    $from[4] = '\''; $to[4] = '&apos;';
 
     for ($i = 0; $i <= 4; $i++)
         $str = mb_ereg_replace($from[$i], $to[$i], $str);

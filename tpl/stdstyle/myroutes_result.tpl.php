@@ -7,10 +7,10 @@
     function check_logs() {
         if (document.myroute_form.cache_log[1].checked == true) {
             if (isNaN(document.myroute_form.nrlogs.value)) {
-                alert("Minimalna ilość logów musi być cyfrą!");
+                alert("{{route_06}}");
                 return false;
             } else if (document.myroute_form.nrlogs.value <= 0 || document.myroute_form.nrlogs.value > 999) {
-                alert("Dozwolona wartość minimalnej ilości logów musi być z zakresu: 0 - 999");
+                alert("{{route_07}}");
                 return false;
             }
         }
@@ -40,10 +40,10 @@
 
         <table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.4em; font-size: 13px;" width="95%">
             <tr>
-                <td ><strong>{{date_hidden_label}}</strong></td>
-                <td style="width: 22px;"><img src="images/rating-star.png" border="0" alt="Recomended" title="Recomended"/></td>
+                <td><strong>{{date_hidden_label}}</strong></td>
+                <td style="width: 22px;"><img src="images/rating-star.png" border="0" alt="{{recommended_caches}}" title="{{recommended_caches}}"/></td>
                 <td style="width: 22px;">&nbsp;</td>
-                <td ><strong>Geocache</strong></td>
+                <td><strong>{{geocache}}</strong></td>
                 <td><strong>{{owner}}</strong>&nbsp;&nbsp;&nbsp;</td>
                 <td colspan="3"><strong>{{latest_logs}}</strong></td>
             </tr>

@@ -1,8 +1,14 @@
 <?php
+
+ob_start();
+
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use lib\Objects\GeoCache\GeoCacheCommons;
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $queryFilter;
+
+require_once($rootpath . 'lib/format.gpx.inc.php');
+
 set_time_limit(1800);
 
 function getPictures($cacheid, $picturescount)
@@ -27,209 +33,7 @@ function getPictures($cacheid, $picturescount)
     return $retval;
 }
 
-// sitename and slogan iternational handling
-$nodeDetect = substr($absolute_server_URI, - 3, 2);
-
-$gpxHead = '<?xml version="1.0" encoding="utf-8"?>
-<gpx xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" creator="' . $site_name . '" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://www.groundspeak.com/cache/1/0/1 http://www.groundspeak.com/cache/1/0/1/cache.xsd http://www.gsak.net/xmlv1/5 http://www.gsak.net/xmlv1/5/gsak.xsd" xmlns="http://www.topografix.com/GPX/1/0">
-        <name>Cache Listing Generated from ' . $site_name . '</name>
-        <desc>Cache Listing Generated from ' . $site_name . ' {wpchildren}</desc>
-        <author>' . $site_name . '</author>
-        <email>' . $mail_oc . '</email>
-        <url>' . $absolute_server_URI . '</url>
-        <urlname>' . $site_name . ' - ' . tr('oc_subtitle_on_all_pages_' . $nodeDetect) . '</urlname>
-        <time>{{time}}</time>
-        <keywords>cache, geocache</keywords>
-';
-
-$gpxLine = '
-        <wpt lat="{lat}" lon="{lon}">
-                <time>{{time}}</time>
-                <name>{{waypoint}}</name>
-                <desc>{mod_suffix}{cachename} ' . tr('from') . ' {owner}, {type_text} ({difficulty}/{terrain})</desc>
-                <url>' . $absolute_server_URI . 'viewcache.php?wp={{waypoint}}</url>
-                <urlname>{cachename} by {owner}, {type_text}</urlname>
-                <sym>Geocache</sym>
-                <type>Geocache|{type}</type>
-                <groundspeak:cache id="{cacheid}" available="{available}" archived="{{archived}}" xmlns:groundspeak="http://www.groundspeak.com/cache/1/0/1">
-                        <groundspeak:name>{mod_suffix}{cachename}</groundspeak:name>
-                        <groundspeak:placed_by>{owner}</groundspeak:placed_by>
-                        <groundspeak:owner id="{owner_id}">{owner}</groundspeak:owner>
-                        <groundspeak:type>{type}</groundspeak:type>
-                        <groundspeak:container>{container}</groundspeak:container>
-            <groundspeak:attributes>
-    {attributes}    </groundspeak:attributes>
-                        <groundspeak:difficulty>{difficulty}</groundspeak:difficulty>
-                        <groundspeak:terrain>{terrain}</groundspeak:terrain>
-                        <groundspeak:country>{country}</groundspeak:country>
-                        <groundspeak:state>{region}</groundspeak:state>
-                        <groundspeak:short_description html="False">{shortdesc}</groundspeak:short_description>
-                        <groundspeak:long_description html="True">{desc}{rr_comment}&lt;br&gt;{{images}}&lt;br&gt;{personal_cache_note}&lt;br&gt;{extra_info}</groundspeak:long_description>
-                        <groundspeak:encoded_hints>{hints}</groundspeak:encoded_hints>
-                        <groundspeak:logs>
-                        {logs}
-                        </groundspeak:logs>
-                        <groundspeak:travelbugs>
-                        {geokrety}
-                        </groundspeak:travelbugs>
-                </groundspeak:cache>
-        </wpt>
-        {cache_waypoints}
-';
-
-$gpxAttributes = '      <groundspeak:attribute id="{attrib_id}" inc="1">{attrib_text_long}</groundspeak:attribute>';
-
-$gpxLog = '
-                                <groundspeak:log id="{id}">
-                                <groundspeak:date>{date}</groundspeak:date>
-                                        <groundspeak:type>{type}</groundspeak:type>
-                                        <groundspeak:finder id="{finder_id}">{username}</groundspeak:finder>
-                                        <groundspeak:text encoded="False">{{text}}</groundspeak:text>
-                                </groundspeak:log>
-';
-
-$gpxGeoKrety = '<groundspeak:travelbug id="{geokret_id}" ref="{geokret_ref}">
-                <groundspeak:name>{geokret_name}</groundspeak:name>
-                </groundspeak:travelbug>
-                ';
-
-$gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
-        <time>{{time}}</time>
-        <name>{waypoint} {wp_stage}</name>
-    <cmt>{desc}</cmt>
-    <desc>{wp_type_name}</desc>
-    <url>' . $absolute_server_URI . 'viewcache.php?wp={waypoint}</url>
-    <urlname>{waypoint} {wp_stage}</urlname>
-    <sym>{wp_type}</sym>
-    <type>Waypoint|{wp_type}</type>
-    <gsak:wptExtension xmlns:gsak="http://www.gsak.net/xmlv1/5">
-        <gsak:Parent>{waypoint}</gsak:Parent>
-        <gsak:Code>{waypoint} {wp_stage}</gsak:Code>
-        <gsak:Child_Flag>false</gsak:Child_Flag>
-        <gsak:Child_ByGSAK>false</gsak:Child_ByGSAK>
-        </gsak:wptExtension>
-  </wpt>
-';
-
-$gpxFoot = '</gpx>';
-
-$gpxTimeFormat = 'Y-m-d\TH:i:s\Z';
-
-$gpxAvailable[0] = 'False'; // OC: Unavailable
-$gpxAvailable[1] = 'True'; // OC: Available
-$gpxAvailable[2] = 'False'; // OC: Unavailable
-$gpxAvailable[3] = 'False'; // OC: Archived
-
-$gpxArchived[0] = 'False'; // OC: Unavailable
-$gpxArchived[1] = 'False'; // OC: Available
-$gpxArchived[2] = 'False'; // OC: Unavailable
-$gpxArchived[3] = 'True'; // OC: Archived
-
-// Should not be translated -> see http://forum.opencaching.pl/viewtopic.php?p=121737#p121737
-$gpxContainer[0] = 'Unknown'; // OC: Other
-$gpxContainer[2] = 'Micro'; // OC: Micro
-$gpxContainer[3] = 'Small'; // OC: Small
-$gpxContainer[4] = 'Regular'; // OC: Regular
-$gpxContainer[5] = 'Large'; // OC: Large
-$gpxContainer[6] = 'Large'; // OC: Large
-$gpxContainer[7] = 'Virtual'; // OC: Virtual
-
-// known by gpx
-$gpxType[1] = 'Unknown Cache'; // OC: Other;
-$gpxType[2] = 'Traditional Cache'; // OC: Traditional
-$gpxType[3] = 'Multi-cache'; // OC: Multi
-$gpxType[4] = 'Virtual Cache'; // OC: Virtual
-$gpxType[5] = 'Webcam Cache'; // OC: Webcam
-$gpxType[6] = 'Event Cache'; // OC: Event
-
-$gpxType[7] = 'Unknown Cache'; // OC: Quiz
-$gpxType[8] = 'Unknown Cache'; // OC: Moving
-$gpxType[9] = 'Unknown Cache'; // OC: PodCache
-$gpxType[10] = 'Unknown Cache'; // OC: Educache
-$gpxType[11] = 'Unknown Cache'; // OC: Challenge cache
-                                // other
-                                // $gpxType[] = 'Unknown Cache';
-                                // $gpxType[] = 'Earthcache';
-                                // $gpxType[] = 'Cache In Trash Out Event';
-                                // $gpxType[] = 'Letterbox Hybrid';
-                                // $gpxType[] = 'Locationless (Reverse) Cache';
-
-// nazwy skrzynek do description
-$gpxGeocacheTypeText[1] = 'Unknown Cache';
-$gpxGeocacheTypeText[2] = 'Traditional Cache';
-$gpxGeocacheTypeText[3] = 'Multi-Cache';
-$gpxGeocacheTypeText[4] = 'Virtual Cache';
-$gpxGeocacheTypeText[5] = 'Webcam Cache';
-$gpxGeocacheTypeText[6] = 'Event Cache';
-$gpxGeocacheTypeText[7] = 'Quiz';
-$gpxGeocacheTypeText[8] = 'Moving Cache';
-$gpxGeocacheTypeText[9] = 'Podcast cache';
-
-// Should not be translated
-$gpxLogType[0] = 'Write note'; // OC: Other
-$gpxLogType[1] = 'Found it'; // OC: Found
-$gpxLogType[2] = 'Didn\'t find it'; // OC: Not Found
-$gpxLogType[3] = 'Write note'; // OC: Note
-$gpxLogType[4] = 'Write note'; // OC: Note
-$gpxLogType[5] = 'Needs Maintenance'; // OC: Note
-$gpxLogType[6] = 'Needs Archived'; // OC: Other
-$gpxLogType[7] = 'Attended'; // OC: Found
-$gpxLogType[8] = 'Will Attend'; // OC: Not Found
-$gpxLogType[9] = 'Archive'; // OC: Note
-$gpxLogType[10] = 'Enable Listing'; // OC: Note
-$gpxLogType[11] = 'Temporarily Disable Listing'; // OC: Note
-
 if ($usr || ! $hide_coords) {
-    // 1st set of attributes - attributes that correlate to GC attributes
-    $gpxAttribID[6] = '106';
-    $gpxAttribName[6] = 'Only logable at Opencaching';
-    $gpxAttribID[12] = '22';
-    $gpxAttribName[12] = 'Hunting';
-    $gpxAttribID[13] = '39';
-    $gpxAttribName[13] = 'Thorns';
-    $gpxAttribID[14] = '19';
-    $gpxAttribName[14] = 'Ticks';
-    $gpxAttribID[18] = '25';
-    $gpxAttribName[18] = 'Parking available';
-    $gpxAttribID[25] = '57';
-    $gpxAttribName[25] = 'Significant Hike';
-    $gpxAttribID[30] = '8';
-    $gpxAttribName[30] = 'Point of interest';
-    $gpxAttribID[38] = '13';
-    $gpxAttribName[38] = 'Available at all times';
-    $gpxAttribID[40] = '53';
-    $gpxAttribName[40] = 'Park and Grab';
-    $gpxAttribID[41] = '6';
-    $gpxAttribName[41] = 'Recommended for kids';
-    $gpxAttribID[44] = '24';
-    $gpxAttribName[44] = 'Wheelchair accessible';
-    $gpxAttribID[45] = '40';
-    $gpxAttribName[45] = 'Stealth required';
-    $gpxAttribID[52] = '60';
-    $gpxAttribName[52] = 'Wireless Beacon';
-    $gpxAttribID[61] = '54';
-    $gpxAttribName[61] = 'Abandoned Structure';
-    $gpxAttribID[82] = '44';
-    $gpxAttribName[82] = 'Flashlight required';
-    $gpxAttribID[83] = '51';
-    $gpxAttribName[83] = 'Special Tool Required';
-    $gpxAttribID[85] = '32';
-    $gpxAttribName[85] = 'Bicycles';
-    $gpxAttribID[86] = '4';
-    $gpxAttribName[86] = 'Boat';
-    $gpxAttribID[90] = '23';
-    $gpxAttribName[90] = 'Dangerous area';
-    $gpxAttribID[91] = '14';
-    $gpxAttribName[91] = 'Recommended at night';
-
-    // 2nd set of attributes - OC only attributes, changed ID (+100) to be save in oc-gc-mixed environments
-    // $gpxAttribID[6] = '106';
-    // $gpxAttribName[6] = 'Only loggable at Opencaching';
-    // $gpxAttribID[43] = '143';
-    // $gpxAttribName[43] = 'GeoHotel';
-    // $gpxAttribID[47] = '147';
-    // $gpxAttribName[47] = 'Compass';
-
     // prepare the output
     $caches_per_page = 20;
 
@@ -382,13 +186,15 @@ if ($usr || ! $hide_coords) {
                 $sFilebasename = trim($rName['name']);
                 $sFilebasename = str_replace(" ", "_", $sFilebasename);
             } else {
-                $sFilebasename = '' . $short_sitename . '' . $options['queryid'];
+                $sFilebasename = 'search' . $options['queryid'];
             }
         }
     }
 
     $bUseZip = ($rCount['count'] > 50);
     $bUseZip = $bUseZip || (isset($_REQUEST['zip']) && ($_REQUEST['zip'] == '1'));
+
+    // Implementation ready, but do not use ZIP for now.
     $bUseZip = false;
     if ($bUseZip == true) {
         $content = '';
@@ -396,16 +202,9 @@ if ($usr || ! $hide_coords) {
         $phpzip = new ss_zip('', 6);
     }
 
-    if ($bUseZip == true) {
-        header("content-type: application/zip");
-        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
-    } else {
-        header("Content-type: application/gpx");
-        header("Content-Disposition: attachment; filename=" . $sFilebasename . ".gpx");
-    }
-
     $children = '';
-    $gpxHead = str_replace('{{time}}', date($gpxTimeFormat, time()), $gpxHead);
+    $time = date($gpxTimeFormat, time());
+    $gpxHead = str_replace('{time}', $time, $gpxHead);
 
     $s = $dbcSearch->simpleQuery('SELECT `gpxcontent`.`cache_id` `cacheid` FROM `gpxcontent`');
     while ($rs = $dbcSearch->dbResultFetch($s)) {
@@ -418,7 +217,7 @@ if ($usr || ! $hide_coords) {
         }
     }
     $gpxHead = str_replace('{wpchildren}', $children, $gpxHead);
-    append_output($gpxHead);
+    echo $gpxHead;
 
     $stmt = XDb::xSql(
         'SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`,
@@ -472,8 +271,8 @@ if ($usr || ! $hide_coords) {
         $thisline = str_replace('{lon}', $lon, $thisline);
 
         $time = date($gpxTimeFormat, strtotime($r['date_hidden']));
-        $thisline = str_replace('{{time}}', $time, $thisline);
-        $thisline = str_replace('{{waypoint}}', $r['waypoint'], $thisline);
+        $thisline = str_replace('{time}', $time, $thisline);
+        $thisline = str_replace('{waypoint}', $r['waypoint'], $thisline);
         $thisline = str_replace('{cacheid}', $r['cacheid'], $thisline);
         $thisline = str_replace('{cachename}', cleanup_text($r['name']), $thisline);
         $thisline = str_replace('{country}', tr($r['country']), $thisline);
@@ -493,7 +292,7 @@ if ($usr || ! $hide_coords) {
         else
             $thisline = str_replace('{hints}', cleanup_text($r['hint']), $thisline);
 
-        $logpw = ($r['logpw'] == "" ? "" : "" . tr('search_gpxgc_01') . " <br />");
+        $logpw = ($r['logpw'] == "" ? "" : "" . cleanup_text(tr('search_gpxgc_01')) . " <br />");
 
         $thisline = str_replace('{shortdesc}', cleanup_text($r['short_desc']), $thisline);
         $thisline = str_replace('{desc}', cleanup_text($logpw . $r['desc']), $thisline);
@@ -504,7 +303,7 @@ if ($usr || ! $hide_coords) {
                 $usr['userid'], $r['cacheid']);
 
             if ($cn = XDb::xFetchArray($notes_rs)) {
-                $thisline = str_replace('{personal_cache_note}', cleanup_text("<br/><br/>-- " . tr('search_gpxgc_02') . ": -- <br/> " . $cn['desc'] . "<br/>"), $thisline);
+                $thisline = str_replace('{personal_cache_note}', cleanup_text("<br/><br/>-- " . cleanup_text(tr('search_gpxgc_02')) . ": -- <br/> " . $cn['desc'] . "<br/>"), $thisline);
             } else {
                 $thisline = str_replace('{personal_cache_note}', "", $thisline);
             }
@@ -521,11 +320,13 @@ if ($usr || ! $hide_coords) {
         while ($rAttrib = XDb::xFetchArray($rsAttributes)) {
             if (isset($gpxAttribID[$rAttrib['attrib_id']])) {
                 $thisattribute = $gpxAttributes;
-                $thisattribute_id = $gpxAttribID[$rAttrib['attrib_id']];
-                $thisattribute_name = $gpxAttribName[$rAttrib['attrib_id']];
 
-                $thisattribute = mb_ereg_replace('{attrib_id}', $thisattribute_id, $thisattribute);
-                $thisattribute = mb_ereg_replace('{attrib_text_long}', $thisattribute_name, $thisattribute);
+                $thisattribute = mb_ereg_replace('{attrib_id}', $gpxAttribID[$rAttrib['attrib_id']], $thisattribute);
+                $thisattribute = mb_ereg_replace('{attrib_text_long}', $gpxAttribName[$rAttrib['attrib_id']], $thisattribute);
+                if (isset($gpxAttribInc[$rAttrib['attrib_id']]))
+                    $thisattribute = mb_ereg_replace('{attrib_id}', $gpxAttribInc[$rAttrib['attrib_id']], $thisattribute);
+                else
+                    $thisattribute = mb_ereg_replace('{attrib_inc}', 1, $thisattribute);
 
                 $attribentries .= $thisattribute . "\n";
             }
@@ -543,12 +344,11 @@ if ($usr || ! $hide_coords) {
                                 AND `cache_attrib`.`language` = '$lang'
                             ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
 
-        if (($r['votes'] > 3) || ($r['topratings'] > 0) || (XDb::xNumRows($rsAttributes) > 0)) {
-            $thisextra .= "\n-- " . tr('search_gpxgc_03') . ": --\n";
+            if (($r['votes'] > 3) || ($r['topratings'] > 0) || (XDb::xNumRows($rsAttributes) > 0)) {
+            $thisextra .= "\n-- " . cleanup_text(tr('search_gpxgc_03')) . ": --\n";
             if (XDb::xNumRows($rsAttributes) > 0) {
-                $attributes = '' . tr('search_gpxgc_04') . ': ';
+                $attributes = '' . cleanup_text(tr('search_gpxgc_04')) . ': ';
                 while ($rAttribute = XDb::xFetchArray($rsAttributes)) {
-                    // if ($rAttribute['id'] == 55) $wigo = true; todo ustawic typ kesza na wigo
                     $attributes .= cleanup_text(xmlentities($rAttribute['text_long']));
                     $attributes .= " | ";
                 }
@@ -558,10 +358,10 @@ if ($usr || ! $hide_coords) {
             if ($r['votes'] > 3) {
 
                 $score = cleanup_text(GeoCacheCommons::ScoreNameTranslation($r['score']));
-                $thisextra .= "\n" . tr('search_gpxgc_05') . ": " . $score . "\n";
+                $thisextra .= "\n" . cleanup_text(tr('search_gpxgc_05')) . ": " . $score . "\n";
             }
             if ($r['topratings'] > 0) {
-                $thisextra .= "" . tr('search_gpxgc_06') . ": " . $r['topratings'] . "\n";
+                $thisextra .= "" . cleanup_text(tr('search_gpxgc_06')) . ": " . $r['topratings'] . "\n";
             }
 
             // NPA - nature protection areas
@@ -573,7 +373,7 @@ if ($usr || ! $hide_coords) {
                     WHERE `cache_npa_areas`.`cache_id`= ? AND `cache_npa_areas`.`parki_id`!='0'", $r['cacheid']);
 
             if (XDb::xNumRows($rsArea) != 0) {
-                $thisextra .= "" . tr('search_gpxgc_07') . ": ";
+                $thisextra .= "" .cleanup_text( tr('search_gpxgc_07')) . ": ";
                 while ($npa = XDb::xFetchArray($rsArea)) {
                     $thisextra .= $npa['npaname'] . "  ";
                 }
@@ -601,7 +401,7 @@ if ($usr || ! $hide_coords) {
         else
             $thisline = str_replace('{rr_comment}', cleanup_text("<br /><br />--------<br />" . $r['rr_comment'] . "<br />"), $thisline);
 
-        $thisline = str_replace('{{images}}', getPictures($r['cacheid'], false, $r['picturescount']), $thisline);
+        $thisline = str_replace('{images}', getPictures($r['cacheid'], false, $r['picturescount']), $thisline);
 
         if (isset($gpxType[$r['type']]))
             $thisline = str_replace('{type}', $gpxType[$r['type']], $thisline);
@@ -624,9 +424,9 @@ if ($usr || ! $hide_coords) {
             $thisline = str_replace('{available}', $gpxAvailable[1], $thisline);
 
         if (isset($gpxArchived[$r['status']]))
-            $thisline = str_replace('{{archived}}', $gpxArchived[$r['status']], $thisline);
+            $thisline = str_replace('{archived}', $gpxArchived[$r['status']], $thisline);
         else
-            $thisline = str_replace('{{archived}}', $gpxArchived[1], $thisline);
+            $thisline = str_replace('{archived}', $gpxArchived[1], $thisline);
 
         $difficulty = sprintf('%01.1f', $r['difficulty'] / 2);
         $difficulty = str_replace('.0', '', $difficulty); // garmin devices cannot handle .0 on integer values
@@ -636,18 +436,8 @@ if ($usr || ! $hide_coords) {
         $terrain = str_replace('.0', '', $terrain);
         $thisline = str_replace('{terrain}', $terrain, $thisline);
 
-        $thisline = str_replace('{owner}', xmlentities($r['username']), $thisline);
+        $thisline = str_replace('{owner}', xmlentities(convert_string($r['username'])), $thisline);
         $thisline = str_replace('{owner_id}', xmlentities($r['owner_id']), $thisline);
-
-
-        $lang = XDb::xEscape($lang);
-        $rsAttributes = XDb::xSql(
-            "SELECT `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long`
-            FROM `caches_attributes`, `cache_attrib`
-            WHERE `caches_attributes`.`cache_id`= ? AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id`
-                AND `cache_attrib`.`language` = '$lang'
-            ORDER BY `caches_attributes`.`attrib_id`",
-            $r['cacheid']);
 
         // create log list
         if ($options['gpxLogLimit']) {
@@ -674,19 +464,19 @@ if ($usr || ! $hide_coords) {
                 $logtype = $gpxLogType[$rLog['type']];
             else
                 $logtype = $gpxLogType[0];
-            if ($logtype == 'Post Reviewer Note') {
-                $rLog['username'] = 'Centr.Obsl.Geocachera';
+            if ($logtype == 'OC Team Comment') {
+                $rLog['username'] = xmlentities(convert_string(tr('cog_user_name')));
                 $rLog['userid'] = '0';
             }
-            $thislog = str_replace('{username}', xmlentities($rLog['username']), $thislog);
+            $thislog = str_replace('{username}', xmlentities(convert_string($rLog['username'])), $thislog);
             $thislog = str_replace('{finder_id}', xmlentities($rLog['userid']), $thislog);
             $thislog = str_replace('{type}', $logtype, $thislog);
-            $thislog = str_replace('{{text}}', cleanup_text($rLog['text']), $thislog);
+            $thislog = str_replace('{text}', cleanup_text($rLog['text']), $thislog);
             $logentries .= $thislog . "\n";
         }
         $thisline = str_replace('{logs}', $logentries, $thisline);
 
-        // Travel Bug GeoKrety
+        // Travel Bug - GeoKrety
         $waypoint = $r['waypoint'];
         $geokrety = '';
 
@@ -713,6 +503,7 @@ if ($usr || ! $hide_coords) {
             $geokrety .= $thisGeoKret; // . "\n";
         }
         $thisline = str_replace('{geokrety}', $geokrety, $thisline);
+
         // Waypoints
         $waypoints = '';
 
@@ -734,126 +525,45 @@ if ($usr || ! $hide_coords) {
                 $thiswp = str_replace('{wp_lon}', $lon, $thiswp);
                 $thiswp = str_replace('{waypoint}', $waypoint, $thiswp);
                 $thiswp = str_replace('{cacheid}', $rwp['cache_id'], $thiswp);
-                $thiswp = str_replace('{{time}}', $time, $thiswp);
-                $thiswp = str_replace('{wp_type_name}', $rwp['wp_type_name'], $thiswp);
+                $thiswp = str_replace('{time}', $time, $thiswp);
+                $thiswp = str_replace('{wp_type_name}', cleanup_text($rwp['wp_type_name']), $thiswp);
                 if ($rwp['stage'] != 0) {
-                    $thiswp = str_replace('{wp_stage}', " Etap" . $rwp['stage'], $thiswp);
+                    $thiswp = str_replace('{wp_stage}', " " . cleanup_text(tr('stage_wp')) . ": " . $rwp['stage'], $thiswp);
                 } else {
                     $thiswp = str_replace('{wp_stage}', $rwp['wp_type_name'], $thiswp);
                 }
-                $thiswp = str_replace('{desc}', cleanup_text($rwp['desc']), $thiswp);
-                if ($rwp['type'] == 5) {
-                    $thiswp = str_replace('{wp_type}', "Parking Area", $thiswp);
-                }
-                if ($rwp['type'] == 1) {
-                    $thiswp = str_replace('{wp_type}', "Flag, Green", $thiswp);
-                }
-                if ($rwp['type'] == 2) {
-                    $thiswp = str_replace('{wp_type}', "Flag, Green", $thiswp);
-                }
-                if ($rwp['type'] == 3) {
-                    $thiswp = str_replace('{wp_type}', "Flag, Red", $thiswp);
-                }
-                if ($rwp['type'] == 4) {
-                    $thiswp = str_replace('{wp_type}', "Circle with X", $thiswp);
-                }
+                $thiswp = str_replace('{desc}', xmlentities(cleanup_text($rwp['desc'])), $thiswp);
+                if (isset($wptType[$rwp['type']]))
+                    $thiswp = str_replace('{wp_type}', $wptType[$rwp['type']], $thiswp);
+                else
+                    $thiswp = str_replace('{wp_type}', $wptType[0], $thiswp);
                 $waypoints .= $thiswp;
             }
         }
         $thisline = str_replace('{cache_waypoints}', $waypoints, $thisline);
 
-        append_output($thisline);
-        ob_flush();
+        echo $thisline;
+        // DO NOT USE HERE:
+        // ob_flush();
     }
 
-    append_output($gpxFoot);
+    echo $gpxFoot;
 
-    // phpzip versenden
+    // compress using phpzip
     if ($bUseZip == true) {
+        $content = ob_get_clean();
         $phpzip->add_data($sFilebasename . '.gpx', $content);
-        echo $phpzip->save($sFilebasename . '.zip', 'b');
+        $out = $phpzip->save($sFilebasename . '.zip', 'b');
+
+        header("content-type: application/zip");
+        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
+        echo $out;
+        ob_end_flush();
+    } else {
+        header("Content-type: application/gpx");
+        header("Content-Disposition: attachment; filename=" . $sFilebasename . ".gpx");
+        ob_end_flush();
     }
 }
 
 exit();
-
-function xmlentities($str)
-{
-    $from[0] = '&';
-    $to[0] = '&amp;';
-    $from[1] = '<';
-    $to[1] = '&lt;';
-    $from[2] = '>';
-    $to[2] = '&gt;';
-    $from[3] = '"';
-    $to[3] = '&quot;';
-    $from[4] = '\'';
-    $to[4] = '&apos;';
-    $from[5] = ']]>';
-    $to[5] = ']] >';
-
-    for ($i = 0; $i <= 4; $i ++)
-        $str = str_replace($from[$i], $to[$i], $str);
-    $str = preg_replace('/[[:cntrl:]]/', '', $str);
-    return $str;
-}
-
-function cleanup_text($str)
-{
-    // $str= tidy_html_description($str);
-    $str = PLConvert('UTF-8','POLSKAWY',$str);
-
-          $str = strip_tags($str, "<p><br /><li>");
-          // <p> -> nic
-          // </p>, <br /> -> nowa linia
-          $from[] = '<p>'; $to[] = '';
-          $from[] = '</p>'; $to[] = "\n";
-          $from[] = '<br />'; $to[] = "\n";
-          $from[] = '<br>'; $to[] = "\n";
-          $from[] = '<br>'; $to[] = "\n";
-
-          $from[] = '<li>'; $to[] = " - ";
-          $from[] = '</li>'; $to[] = "\n";
-
-          $from[] = '&oacute;'; $to[] = 'o';
-          $from[] = '&quot;'; $to[] = '"';
-          $from[] = '&[^;]*;'; $to[] = '';
-
-          $from[] = '&'; $to[] = '&amp;';
-          $from[] = '<'; $to[] = '&lt;';
-          $from[] = '>'; $to[] = '&gt;';
-          $from[] = ']]>'; $to[] = ']] >';
-           $from[] = ''; $to[] = '';
-
-          for ($i = 0; $i < count($from); $i++)
-            $str = str_replace($from[$i], $to[$i], $str);
-            $str = preg_replace('/[[:cntrl:]]/', '', $str);
-            return $str;
-        }
-
-function append_output($str)
-        {
-                global $content, $bUseZip;
-
-                if ($bUseZip == true)
-                        $content .= $str;
-                else
-                        echo $str;
-        }
-
-function PLConvert($source,$dest,$tekst)
-{
-    $source=strtoupper($source);
-    $dest=strtoupper($dest);
-    if($source==$dest) return $tekst;
-    $chars['POLSKAWY']    =array('a','c','e','l','n','o','s','z','z','A','C','E','L','N','O','S','Z','Z');
-    $chars['ISO-8859-2']  =array("\xB1","\xE6","\xEA","\xB3","\xF1","\xF3","\xB6","\xBC","\xBF","\xA1","\xC6","\xCA","\xA3","\xD1","\xD3","\xA6","\xAC","\xAF");
-    $chars['WINDOWS-1250']=array("\xB9","\xE6","\xEA","\xB3","\xF1","\xF3","\x9C","\x9F","\xBF","\xA5","\xC6","\xCA","\xA3","\xD1","\xD3","\x8C","\x8F","\xAF");
-    $chars['UTF-8']       =array('ą','ć','ę','ł','ń','ó','ś','ź','ż','Ą','Ć','Ę','Ł','Ń','Ó','Ś','Ź','Ż');
-    $chars['ENTITIES']    =array('ą','ć','ę','ł','ń','ó','ś','ź','ż','Ą','Ć','Ę','Ł','Ń','Ó','Ś','Ź','Ż');
-    if(!isset($chars[$source])) return false;
-    if(!isset($chars[$dest])) return false;
-        $tekst = str_replace('a', 'a', $tekst);
-        $tekst = str_replace('é', 'e', $tekst);
-    return str_replace($chars[$source],$chars[$dest],$tekst);
-}

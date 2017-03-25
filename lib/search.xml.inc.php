@@ -18,13 +18,13 @@ $xmlLine = "    <cache>
         <status>{status}</status>
         <lon>{lon}</lon>
         <lat>{lat}</lat>
-        <distance unit=\"".$distance_unit."\">{distance}</distance>
+        <distance unit=\"" . $distance_unit . "\">{distance}</distance>
         <type>{type}</type>
         <difficulty>{difficulty}</difficulty>
         <terrain>{terrain}</terrain>
         <size>{container}</size>
         <country>{country}</country>
-        <link><![CDATA[".$absolute_server_URI."viewcache.php?wp={waypoint}]]></link>
+        <link><![CDATA[" . $absolute_server_URI . "viewcache.php?wp={waypoint}]]></link>
         <desc><![CDATA[{shortdesc}]]></desc>
         <longdesc><![CDATA[{desc}]]></longdesc>
         <hints><![CDATA[{hints}]]></hints>
@@ -127,7 +127,7 @@ if ($rCount['count'] == 1) {
     } elseif ($options['searchtype'] == 'bylist') {
         $sFilebasename = 'cache_list';
     } else {
-        $sFilebasename = 'ocpl' . $options['queryid'];
+        $sFilebasename = 'search' . $options['queryid'];
     }
 }
 
@@ -220,7 +220,7 @@ while($r = XDb::xFetchArray($stmt) ) {
         $thisline = str_replace('{htmlwarn}', '', $thisline);
         $thisline = str_replace('{desc}', filterevilchars(strip_tags($r['desc'])), $thisline);
     } else {
-        $thisline = str_replace('{htmlwarn}', ' (Text p�eveden z HTML)', $thisline);
+        $thisline = str_replace('{htmlwarn}', tr('content_include_html'), $thisline);
         $thisline = str_replace('{desc}', html2txt(filterevilchars($r['desc'])), $thisline);
     }
 
@@ -249,30 +249,6 @@ echo "</result>\n";
 
 exit;
 
-function html2txt($html)
-{
-    $str = preg_replace('/[[:cntrl:]]/', '', $html);
-    $str = str_replace("\r\n", '', $str);
-    $str = str_replace("\n", '', $str);
-    $str = str_replace('<br />', "\n", $str);
-    $str = str_replace('<br>', "\n", $str);
-    $str = str_replace('</p>', "\n", $str);
-    $str = str_replace('<li>', "-", $str);
-    $str = str_replace('&quot;', '"', $str);
-    $str = str_replace('&amp;', '&', $str);
-    $str = str_replace('&lt;', '<', $str);
-    $str = str_replace('&gt;', '>', $str);
-    $str = str_replace(']]>', '', $str);
-    $str = strip_tags($str);
-
-    return $str;
-}
-
-function lf2crlf($str)
-{
-    return str_replace("\r\r\n" ,"\r\n" , str_replace("\n" ,"\r\n" , $str));
-}
-
 function filterevilchars($str)
 {
     $evilchars = array(31 => 31, 30 => 30,
@@ -285,9 +261,9 @@ function filterevilchars($str)
     foreach ($evilchars AS $ascii) {
             $str = str_replace(chr($ascii), '', $str);
     }
-    $str = preg_replace('/&([a-zA-Z]{1})caron;/', '\\1', $str);
-    $str = preg_replace('/&([a-zA-Z]{1})acute;/', '\\1', $str);
-    $str = preg_replace('/[[:cntrl:]]/', '', $str);
+    $str = mb_ereg_replace('/&([a-zA-Z]{1})caron;/', '\\1', $str);
+    $str = mb_ereg_replace('/&([a-zA-Z]{1})acute;/', '\\1', $str);
+    $str = mb_ereg_replace('/[[:cntrl:]]/', '', $str);
     return $str;
 }
 

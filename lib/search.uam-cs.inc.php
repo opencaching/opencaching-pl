@@ -19,18 +19,22 @@
  *
  * **************************************************************************
  */
+
+ob_start();
+
 require_once ("./lib/cs2cs.inc.php");
 
 set_time_limit(1800);
 global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;
 
-$uamSize[1] = 'o'; // 'Other'
+$uamSize[1] = 'n'; // 'Nano'
 $uamSize[2] = 'm'; // 'Micro'
 $uamSize[3] = 's'; // 'Small'
 $uamSize[4] = 'r'; // 'Regular'
 $uamSize[5] = 'l'; // 'Large'
-$uamSize[6] = 'l'; // 'Large'
-$uamSize[7] = 'v'; // 'Virtual'
+$uamSize[6] = 'x'; // 'Large'
+$uamSize[7] = '-'; // 'No container'
+$uamSize[8] = 'u'; // 'Not specified'
 
 // known by gpx
 $uamType[1] = 'O'; // 'Other'
@@ -40,11 +44,11 @@ $uamType[4] = 'V'; // 'Virtual'
 $uamType[5] = 'W'; // 'Webcam'
 $uamType[6] = 'E'; // 'Event'
 
-// unknown ... converted
-$uamType[7] = 'Q'; // 'Quiz'
-$uamType[8] = 'M'; // 'Math'
-$uamType[9] = 'M'; // 'Mobile'
-$uamType[10] = 'D'; // 'Drive-in'
+// by OC
+$uamType[7] = 'Q'; // 'Puzzle / formerly Quiz'
+$uamType[8] = 'M'; // 'Moving'
+$uamType[9] = 'P'; // 'Podcast'
+$uamType[10] = 'U'; // 'Own/user's cache'
 
 if ($usr || ! $hide_coords) {
     // prepare the output
@@ -126,7 +130,7 @@ if ($usr || ! $hide_coords) {
 
         $sFilebasename = $rName['wp_oc'];
     } else
-        $sFilebasename = 'ocpl' . $options['queryid'];
+        $sFilebasename = 'search' . $options['queryid'];
 
     $bUseZip = ($rCount['count'] > 50);
     $bUseZip = $bUseZip || (isset($_REQUEST['zip']) && ($_REQUEST['zip'] == '1'));
@@ -135,15 +139,6 @@ if ($usr || ! $hide_coords) {
         $content = '';
         require_once ($rootpath . 'lib/phpzip/ss_zip.class.php');
         $phpzip = new ss_zip('', 6);
-    }
-
-
-    if ($bUseZip == true) {
-        header('content-type: application/zip');
-        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
-    } else {
-        header('Content-type: application/uam');
-        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.uam');
     }
 
     $s = $dbcSearch->simpleQuery(
@@ -155,7 +150,7 @@ if ($usr || ! $hide_coords) {
         WHERE `wptcontent`.`cache_id`=`caches`.`cache_id` AND `wptcontent`.`type`=`cache_type`.`id`
             AND `wptcontent`.`size`=`cache_size`.`id` AND `wptcontent`.`user_id`=`user`.`user_id`');
 
-    append_output(pack("ccccl", 0xBB, 0x22, 0xD5, 0x3F, $rCount['count']));
+    echo pack("ccccl", 0xBB, 0x22, 0xD5, 0x3F, $rCount['count']);
 
     while ($r = $dbcSearch->dbResultFetch($s)) {
         $lat = $r['latitude'];
@@ -163,8 +158,8 @@ if ($usr || ! $hide_coords) {
         $utm = cs2cs_1992($lat, $lon);
         $x = (int) $utm[0];
         $y = (int) $utm[1];
-        $name = PLConvert('UTF-8', 'POLSKAWY', $r['name']);
-        $username = PLConvert('UTF-8', 'POLSKAWY', $r['username']);
+        $name = convert_string($r['name']);
+        $username = convert_string($r['username']);
         $type = $uamType[$r['type']];
         $size = $uamSize[$r['size']];
         $difficulty = sprintf('%01.1f', $r['difficulty'] / 2);
@@ -176,37 +171,28 @@ if ($usr || ! $hide_coords) {
 
         $record = pack("llca64a255cca32", $x, $y, 2, $poiname, $descr, 1, 99, 'Geocaching');
 
-        append_output($record);
-        ob_flush();
+        echo $record;
+        // DO NOT USE HERE:
+        // ob_flush();
     }
     XDb::xSql('DROP TABLE `wptcontent` ');
 
-    // phpzip versenden
+    // compress using phpzip
     if ($bUseZip == true) {
+        $content = ob_get_clean();
         $phpzip->add_data($sFilebasename . '.uam', $content);
-        echo $phpzip->save($sFilebasename . '.zip', 'b');
+        $out = $phpzip->save($sFilebasename . '.zip', 'b');
+        
+        header('content-type: application/zip');
+        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
+        echo $out;
+        ob_end_flush();
+    } else {
+        header('Content-type: application/uam');
+        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.uam');
+        ob_end_flush();
     }
 
-    exit();
-
-
 }
 
-function convert_string($str)
-{
-    $newstr = iconv("UTF-8", "ASCII//TRANSLIT", $str);
-    if ($newstr == false)
-        return "--- charset error ---";
-        else
-            return $newstr;
-}
-
-function append_output($str)
-{
-    global $content, $bUseZip;
-
-    if ($bUseZip == true)
-        $content .= $str;
-        else
-            echo $str;
-}
+exit();

@@ -4,18 +4,21 @@
  * This script is used (can be loaded) by /search.php
  */
 
+ob_start();
+
 use Utils\Database\XDb;
 
 set_time_limit(1800);
 global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;
 
-$uamSize[1] = 'o'; // 'Other'
+$uamSize[1] = 'n'; // 'Nano'
 $uamSize[2] = 'm'; // 'Micro'
 $uamSize[3] = 's'; // 'Small'
 $uamSize[4] = 'r'; // 'Regular'
 $uamSize[5] = 'l'; // 'Large'
-$uamSize[6] = 'l'; // 'Large'
-$uamSize[7] = 'v'; // 'Virtual'
+$uamSize[6] = 'x'; // 'Large'
+$uamSize[7] = '-'; // 'No container'
+$uamSize[8] = 'u'; // 'Not specified'
 
 // known by gpx
 $uamType[1] = 'O'; // 'Other'
@@ -25,11 +28,11 @@ $uamType[4] = 'V'; // 'Virtual'
 $uamType[5] = 'W'; // 'Webcam'
 $uamType[6] = 'E'; // 'Event'
 
-// unknown ... converted
-$uamType[7] = 'Q'; // 'Quiz'
-$uamType[8] = 'M'; // 'Math'
-$uamType[9] = 'M'; // 'Mobile'
-$uamType[10] = 'D'; // 'Drive-in'
+// by OC
+$uamType[7] = 'Q'; // 'Puzzle / formerly Quiz'
+$uamType[8] = 'M'; // 'Moving'
+$uamType[9] = 'P'; // 'Podcast'
+$uamType[10] = 'U'; // 'Own/user's cache'
 
 if ($usr || ! $hide_coords) {
     // prepare the output
@@ -133,10 +136,10 @@ if ($usr || ! $hide_coords) {
             $rName = XDb::xFetchArray($rsName);
             XDb::xFreeResults($rsName);
             if (isset($rName['name']) && ($rName['name'] != '')) {
-                $sFilebasename = trim($rName['name']);
+                $sFilebasename = trim(convert_string($rName['name']));
                 $sFilebasename = str_replace(" ", "_", $sFilebasename);
             } else {
-                $sFilebasename = 'ocpl' . $options['queryid'];
+                $sFilebasename = 'search' . $options['queryid'];
             }
         }
     }
@@ -150,15 +153,6 @@ if ($usr || ! $hide_coords) {
         $phpzip = new ss_zip('', 6);
     }
 
-    if ($bUseZip == true) {
-        header('content-type: application/zip');
-        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
-    } else {
-        header('Content-type: application/uam');
-        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.uam');
-    }
-
-
     $s = $dbcSearch->simpleQuery(
         'SELECT `wptcontent`.`cache_id` `cacheid`, `wptcontent`.`longitude` `longitude`, `wptcontent`.`latitude` `latitude`, `wptcontent`.cache_mod_cords_id,
                 `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`wp_oc` `wp_oc`, `cache_type`.`short` `typedesc`, `cache_size`.`pl` `sizedesc`,
@@ -168,7 +162,7 @@ if ($usr || ! $hide_coords) {
             AND `wptcontent`.`type`=`cache_type`.`id` AND `wptcontent`.`size`=`cache_size`.`id`
             AND `wptcontent`.`user_id`=`user`.`user_id`');
 
-    append_output(pack("ccccl", 0xBB, 0x22, 0xD5, 0x3F, $rCount['count']));
+    echo pack("ccccl", 0xBB, 0x22, 0xD5, 0x3F, $rCount['count']);
 
     while ($r = $dbcSearch->dbResultFetch($s)) {
         $lat = $r['latitude'];
@@ -185,8 +179,8 @@ if ($usr || ! $hide_coords) {
             $r['mod_suffix'] = '';
         }
 
-        $name = PLConvert('UTF-8', 'POLSKAWY', $r['mod_suffix'] . $r['name']);
-        $username = PLConvert('UTF-8', 'POLSKAWY', $r['username']);
+        $name = convert_string($r['mod_suffix'] . $r['name']);
+        $username = convert_string($r['username']);
         $type = $uamType[$r['type']];
         $size = $uamSize[$r['size']];
         $difficulty = sprintf('%01.1f', $r['difficulty'] / 2);
@@ -198,36 +192,29 @@ if ($usr || ! $hide_coords) {
 
         $record = pack("llca64a255cca32", $x, $y, 2, $poiname, $descr, 1, 99, 'Geocaching');
 
-        append_output($record);
-        ob_flush();
+        echo $record;
+        // DO NOT USE HERE:
+        // ob_flush();
     }
 
-    // phpzip versenden
+    // compress using phpzip
     if ($bUseZip == true) {
+        $content = ob_get_clean();
         $phpzip->add_data($sFilebasename . '.uam', $content);
-        echo $phpzip->save($sFilebasename . '.zip', 'b');
+        $out = $phpzip->save($sFilebasename . '.zip', 'b');
+
+        header('content-type: application/zip');
+        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
+        echo $out;
+        ob_end_flush();
+    } else {
+        header('Content-type: application/uam');
+        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.uam');
+        ob_end_flush();
     }
 }
+
 exit();
-
-function convert_string($str)
-{
-    $newstr = iconv("UTF-8", "ASCII//TRANSLIT", $str);
-                if ($newstr == false)
-                                return "--- charset error ---";
-                else
-                                return $newstr;
-}
-
-function append_output($str)
-{
-    global $content, $bUseZip;
-
-    if ($bUseZip == true)
-        $content .= $str;
-    else
-        echo $str;
-}
 
 function wgs2u1992($lat, $lon)
 {
@@ -280,37 +267,4 @@ function wgs2u1992($lat, $lon)
     $Y = $mo * $Ygk + $FE;
 
     return (array($X, $Y));
-}
-
-/*
-Funkcja do konwersji polskich znakow miedzy roznymi systemami kodowania.
-Zwraca skonwertowany tekst.
-Argumenty:
-$source - string - źródłowe kodowanie
-$dest - string - źródłowe kodowanie
-$tekst - string - tekst do konwersji
-Obsługiwane formaty kodowania to:
-POLSKAWY (powoduje zamianę polskich liter na ich łacińskie odpowiedniki)
-ISO-8859-2
-WINDOWS-1250
-UTF-8
-ENTITIES (zamiana polskich znaków na encje html)
-Przyklad:
-echo(PlConvert('UTF-8','ISO-8859-2','Zażółć gęślą jaźń.'));
-*/
-function PLConvert($source,$dest,$tekst)
-{
-    $source=strtoupper($source);
-    $dest=strtoupper($dest);
-    if($source==$dest) return $tekst;
-    $chars['POLSKAWY']    =array('a','c','e','l','n','o','s','z','z','A','C','E','L','N','O','S','Z','Z');
-    $chars['ISO-8859-2']  =array("\xB1","\xE6","\xEA","\xB3","\xF1","\xF3","\xB6","\xBC","\xBF","\xA1","\xC6","\xCA","\xA3","\xD1","\xD3","\xA6","\xAC","\xAF");
-    $chars['WINDOWS-1250']=array("\xB9","\xE6","\xEA","\xB3","\xF1","\xF3","\x9C","\x9F","\xBF","\xA5","\xC6","\xCA","\xA3","\xD1","\xD3","\x8C","\x8F","\xAF");
-    $chars['UTF-8']       =array('ą','ć','ę','ł','ń','ó','ś','ź','ż','Ą','Ć','Ę','Ł','Ń','Ó','Ś','Ź','Ż');
-    $chars['ENTITIES']    =array('ą','ć','ę','ł','ń','ó','ś','ź','ż','Ą','Ć','Ę','Ł','Ń','Ó','Ś','Ź','Ż');
-    if(!isset($chars[$source])) return false;
-    if(!isset($chars[$dest])) return false;
-        $tekst = str_replace('a', 'a', $tekst);
-        $tekst = str_replace('é', 'e', $tekst);
-    return str_replace($chars[$source],$chars[$dest],$tekst);
 }

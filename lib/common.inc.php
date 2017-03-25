@@ -801,4 +801,3 @@ function mb_trim($str)
 
     return $str;
 }
-

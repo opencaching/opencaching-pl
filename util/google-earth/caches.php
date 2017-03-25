@@ -1,13 +1,18 @@
 <?php
 
+ob_start();
+
 use Utils\Database\XDb;
-/*
+
+/* Bounding Box:
   BBOX=2.38443,48.9322,27.7053,55.0289
  */
 
 $rootpath = '../../';
 header('Content-type: text/html; charset=utf-8');
 require($rootpath . 'lib/common.inc.php');
+require($rootpath . 'lib/export.inc.php');
+require_once($rootpath . 'lib/format.kml.inc.php');
 
 $bbox = isset($_REQUEST['BBOX']) ? $_REQUEST['BBOX'] : '0,0,0,0';
 $abox = mb_split(',', $bbox);
@@ -29,6 +34,7 @@ $lon_from = $abox[0];
 $lat_to = $abox[3];
 $lon_to = $abox[2];
 
+// restrict area for which we actually perform queries.
 if ((abs($lon_from - $lon_to) > 2) || (abs($lat_from - $lat_to) > 2)) {
     $lon_from = $lon_to;
     $lat_from = $lat_to;
@@ -37,210 +43,87 @@ if ((abs($lon_from - $lon_to) > 2) || (abs($lat_from - $lat_to) > 2)) {
 $rs = XDb::xSql(
     "SELECT `caches`.`cache_id` `cacheid`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`,
             `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`date_hidden` `date_hidden`,
-            `caches`.`name` `name`,
-            `cache_type`.`pl` `typedesc`, `cache_size`.`pl` `sizedesc`, `caches`.`terrain` `terrain`,
-            `caches`.`difficulty` `difficulty`, `user`.`username` `username`
+            `caches`.`name` `name`, `caches`.`wp_oc` `cache_wp`,
+            `cache_type`.`" . $lang . "` `typedesc`, `cache_size`.`" . $lang . "` `sizedesc`, 
+            `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, 
+            `user`.`username` `username`
     FROM `caches`, `cache_type`, `cache_size`, `user`
     WHERE `caches`.`type`=`cache_type`.`id`
         AND `caches`.`size`=`cache_size`.`id`
         AND `caches`.`user_id`=`user`.`user_id`
-        AND `caches`.`status` = 1
+        AND `caches`.`status` IN (1,2)
         AND `caches`.`longitude` >= ?
         AND `caches`.`longitude` <= ?
         AND `caches`.`latitude` >= ?
         AND `caches`.`latitude` <= ? ",
     $lon_from, $lon_to, $lat_from, $lat_to);
 
-/*
-  kml processing
- */
-$kmlLine = '
-<Placemark>
-  <description><![CDATA[<a href="http://www.opencaching.pl/viewcache.php?cacheid={cacheid}">Zobacz szczegóły skrzynki</a><br />Założona przez {username}<br />&nbsp;<br /><table cellspacing="0" cellpadding="0" border="0"><tr><td>{typeimgurl} </td><td>Rodzaj: {type}<br />Wielkość: {{size}}</td></tr><tr><td colspan="2">Zadanie: {difficulty} z 5.0<br />Teren: {terrain} z 5.0</td></tr></table>]]></description>
-  <name>{name}</name>
-  <LookAt>
-    <longitude>{lon}</longitude>
-    <latitude>{lat}</latitude>
-    <range>5000</range>
-    <tilt>0</tilt>
-    <heading>3</heading>
-  </LookAt>
-  <styleUrl>#{icon}</styleUrl>
-  <Point>
-    <coordinates>{lon},{lat},0</coordinates>
-  </Point>
-</Placemark>
-';
-
-$kmlHead = '<?xml version="1.0" encoding="UTF-8"?>
-<kml xmlns="http://earth.google.com/kml/2.0">
-<Document>
-    <Style id="tradi">
-        <IconStyle>
-            <Icon>
-                <href>http://www.opencaching.pl/images/ge/tradi.png</href>
-            </Icon>
-        </IconStyle>
-    </Style>
-    <Style id="multi">
-        <IconStyle>
-            <Icon>
-                <href>http://www.opencaching.pl/images/ge/multi.png</href>
-            </Icon>
-        </IconStyle>
-    </Style>
-    <Style id="myst">
-        <IconStyle>
-            <Icon>
-                <href>http://www.opencaching.pl/images/ge/myst.png</href>
-            </Icon>
-        </IconStyle>
-    </Style>
-    <Style id="virtual">
-        <IconStyle>
-            <Icon>
-                <href>http://www.opencaching.pl/images/ge/virtual.png</href>
-            </Icon>
-        </IconStyle>
-    </Style>
-    <Style id="webcam">
-        <IconStyle>
-            <Icon>
-                <href>http://www.opencaching.pl/images/ge/webcam.png</href>
-            </Icon>
-        </IconStyle>
-    </Style>
-    <Style id="event">
-        <IconStyle>
-            <Icon>
-                <href>http://www.opencaching.pl/images/ge/event.png</href>
-            </Icon>
-        </IconStyle>
-    </Style>
-    <Style id="moving">
-        <IconStyle>
-            <Icon>
-                <href>http://www.opencaching.pl/images/ge/moving.png</href>
-            </Icon>
-        </IconStyle>
-    </Style>
-    <Style id="unknown">
-        <IconStyle>
-            <Icon>
-                <href>http://www.opencaching.pl/images/ge/unknown.png</href>
-            </Icon>
-        </IconStyle>
-    </Style>
-    <Folder>
-        <Name>Geocaches (Opencaching) Polska</Name>
-        <Open>0</Open>
-';
-$kmlFoot = '</Folder></Document></kml>';
-$kmlTimeFormat = 'Y-m-d\TH:i:s\Z';
-
-//  header("Content-type: application/vnd.google-earth.kml");
-//  header("Content-Disposition: attachment; filename=ge.kml");
-
 echo $kmlHead;
 
 while ($r = XDb::xFetchArray($rs)) {
     $thisline = $kmlLine;
+    $thiskmlTypeIMG = $kmlTypeIMG; 
 
-    // icon suchen
-    switch ($r['type']) {
-        case 2:
-            $icon = 'traditional';
-            $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/traditional.png" alt="Tradycyjna" title="Tradycyjna" />';
-            break;
-        case 3:
-            $icon = 'multi';
-            $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/multi.png" alt="Multicache" title="Multicache" />';
-            break;
-        case 4:
-            $icon = 'virtual';
-            $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/virtual.png" alt="Wirtualna" title="Wirtualna" />';
-            break;
-        case 5:
-            $icon = 'webcam';
-            $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/webcam.png" alt="Webcam" title="Webcam" />';
-            break;
-        case 6:
-            $icon = 'event';
-            $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/event.png" alt="Wydarzenie" title="Wydarzenie" />';
-            break;
-        case 7:
-            $icon = 'quiz';
-            $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/quiz.png" alt="Quiz" title="Quiz" />';
-            break;
-        case 9:
-            $icon = 'moving';
-            $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/moving.png" alt="Mobilna" title="Mobilna" />';
-            break;
-        default:
-            $icon = 'unknown';
-            $typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/unknown.png" alt="Nietypowa" title="Nietypowa" />';
-            break;
+    if (isset($kmlType[$r['type']])) {
+        $icon = $kmlType[$r['type']];
+        $thiskmlTypeIMG = str_replace('{type}', $kmlType[$r['type']], $thiskmlTypeIMG);
+        $thiskmlTypeIMG = str_replace('{type_text}', $kmlGeocacheTypeText[$r['type']], $thiskmlTypeIMG);
+    } else {
+        // unknown
+        $icon = $kmlType[1];
+        $thiskmlTypeIMG = str_replace('{type}', $kmlType[1], $thiskmlTypeIMG);
+        $thiskmlTypeIMG = str_replace('{type_text}', $kmlGeocacheTypeText[1], $thiskmlTypeIMG);
     }
-    $thisline = mb_ereg_replace('{icon}', $icon, $thisline);
-    $thisline = mb_ereg_replace('{typeimgurl}', $typeimgurl, $thisline);
+
+    $statusStyle = 'color: green';
+    if ($kmlArchived[$r['status']] == 'True') {
+        $icon .= '-archived';
+        $statusStyle = 'color: #900; text-decoration: line-through';
+    } else {
+        if ($kmlAvailable[$r['status']] == 'False') {
+            $icon .= '-disabled';
+            $statusStyle = 'color: rgb(240,100,100);';
+        }
+    }
+    
+    $thisline = str_replace('{icon}', $icon, $thisline);
+        $thisline = str_replace('{typeimgurl}', $thiskmlTypeIMG, $thisline);
+    $thisline = str_replace('{status}', tr('cacheStatus_' . $r['status']), $thisline);
+    $thisline = str_replace('{status-style}', $statusStyle, $thisline);
 
     $lat = sprintf('%01.5f', $r['latitude']);
-    $thisline = mb_ereg_replace('{lat}', $lat, $thisline);
+    $thisline = str_replace('{lat}', $lat, $thisline);
 
     $lon = sprintf('%01.5f', $r['longitude']);
-    $thisline = mb_ereg_replace('{lon}', $lon, $thisline);
+    $thisline = str_replace('{lon}', $lon, $thisline);
 
-    $time = date($kmlTimeFormat, strtotime($r['date_hidden']));
-    $thisline = mb_ereg_replace('{{time}}', $time, $thisline);
+    $thisline = str_replace('{name}', xmlentities(convert_string($r['name'])), $thisline);
 
-    $thisline = mb_ereg_replace('{name}', xmlentities($r['name']), $thisline);
+    // no user modified coords
+    $thisline = str_replace('{mod_suffix}', '', $thisline);
 
-    if (($r['status'] == 2) || ($r['status'] == 3)) {
-        if ($r['status'] == 2)
-            $thisline = mb_ereg_replace('{archivedflag}', 'Tymczasowo niedostępna', $thisline);
-        else
-            $thisline = mb_ereg_replace('{archivedflag}', 'Zarchiwizowana!, ', $thisline);
-    } else
-        $thisline = mb_ereg_replace('{archivedflag}', '', $thisline);
-
-    $thisline = mb_ereg_replace('{type}', xmlentities($r['typedesc']), $thisline);
-    $thisline = mb_ereg_replace('{{size}}', xmlentities($r['sizedesc']), $thisline);
+    $thisline = str_replace('{type}', xmlentities(convert_string($r['typedesc'])), $thisline);
+    $thisline = str_replace('{size}', xmlentities(convert_string($r['sizedesc'])), $thisline);
 
     $difficulty = sprintf('%01.1f', $r['difficulty'] / 2);
-    $thisline = mb_ereg_replace('{difficulty}', $difficulty, $thisline);
+    $thisline = str_replace('{difficulty}', $difficulty, $thisline);
 
     $terrain = sprintf('%01.1f', $r['terrain'] / 2);
-    $thisline = mb_ereg_replace('{terrain}', $terrain, $thisline);
+    $thisline = str_replace('{terrain}', $terrain, $thisline);
 
-    $time = date($kmlTimeFormat, strtotime($r['date_hidden']));
-    $thisline = mb_ereg_replace('{{time}}', $time, $thisline);
-
-    $thisline = mb_ereg_replace('{username}', xmlentities($r['username']), $thisline);
-    $thisline = mb_ereg_replace('{cacheid}', xmlentities($r['cacheid']), $thisline);
+    $thisline = str_replace('{username}', xmlentities(convert_string($r['username'])), $thisline);
+    $thisline = str_replace('{cache_wp}', xmlentities($r['cache_wp']), $thisline);
 
     echo $thisline;
+    // DO NOT USE HERE:
+    // ob_flush();
 }
 XDb::xFreeResults($rs);
 
 echo $kmlFoot;
-exit;
 
-function xmlentities($str)
-{
-    $from[0] = '&';
-    $to[0] = '&amp;';
-    $from[1] = '<';
-    $to[1] = '&lt;';
-    $from[2] = '>';
-    $to[2] = '&gt;';
-    $from[3] = '"';
-    $to[3] = '&quot;';
-    $from[4] = '\'';
-    $to[4] = '&apos;';
+header('Content-Type: application/vnd.google-earth.kml; charset=utf8');
+header('Content-Disposition: attachment; filename="ge.kml"');
+ob_end_flush();
 
-    for ($i = 0; $i <= 4; $i++)
-        $str = mb_ereg_replace($from[$i], $to[$i], $str);
-
-    return $str;
-}
-
+exit();

@@ -9,6 +9,8 @@ use lib\Objects\GeoCache\PrintList;
     require_once('./lib/common.inc.php');
     require_once('./lib/search.inc.php');
     require_once('./lib/search-signatures.inc.php');
+    require_once('./lib/export.inc.php');
+
     global $dbcSearch, $lang, $TestStartTime, $usr;
 
     //4test
