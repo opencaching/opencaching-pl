@@ -10,15 +10,17 @@ class View {
     //NOTE: local View vars should be prefixed by "_"
     private $_googleAnalyticsKey = '';              // GA key loaded from config
     private $_loadJQuery = false;
-
+    private $currentLang = ''; // curent language of site    
     private $_localCss = [];                        // page-local css styles loaded from controller
 
     public function __construct(){
 
         // load google analytics key from the config
-        global $googleAnalytics_key;
-        $this->_googleAnalyticsKey = isset($googleAnalytics_key) ? $googleAnalytics_key : '';
+        $this->_googleAnalyticsKey = isset($GLOBALS['googleAnalytics_key']) ? $GLOBALS['googleAnalytics_key'] : '';
         $this->loadChunk('googleAnalytics'); // load GA chunk for all pages
+
+        $this->currentLang = $GLOBALS['lang'];
+
     }
 
     /**
@@ -112,9 +114,15 @@ class View {
         }
     }
 
+    public function getLang()
+    {
+        return $this->currentLang;
+    }
+    
     /**
      * Add css which will be loaded in page header
      * @param $url - url to css
+    
      */
     public function addLocalCss($css_url){
         $this->_localCss[] = $css_url;
