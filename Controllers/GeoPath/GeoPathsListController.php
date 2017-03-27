@@ -4,6 +4,7 @@ namespace Controllers\GeoPath;
 
 use Controllers\BaseController;
 use lib\Objects\GeoPath\GeoPath;
+use Utils\Uri\Uri;
 
 
 class GeoPathsListController extends BaseController
@@ -45,8 +46,8 @@ class GeoPathsListController extends BaseController
         tpl_set_tplname('geoPath/geoPathsList');
 
         $this->view->setVar('geoPathList', GeoPath::GetAllGeoPaths());
-
-
+        $this->view->setVar('gMapKey', $GLOBALS['googlemap_key']);
+        $this->view->setVar('geoPathList_css', Uri::getLinkWithModificationTime('tpl/stdstyle/geoPath/geoPathsList.css'));
 
 
         tpl_BuildTemplate();
