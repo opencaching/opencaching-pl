@@ -278,7 +278,7 @@ class EmailSender
         $userMessage->setVariable('fromUsername', $from->getUserName());
         $userMessage->setVariable('fromEmail', $from->getEmail());
         $userMessage->setVariable('absoluteServerURI', OcConfig::getAbsolute_server_URI());
-        $userMessage->setVariable('fromUserid', $to->getUserId());
+        $userMessage->setVariable('fromUserid', $from->getUserId());
         $userMessage->setVariable('text', nl2br($text));
         $userMessage->addFooterAndHeader($to->getUserName(), !$attachSenderAddress);
 
