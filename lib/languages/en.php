@@ -433,6 +433,7 @@ $translations = array(
     'h_no_label' => 'Show caches from opencaching.no',
     'ozi_path_label' => 'Path to folder "op" for OziExplorer',
     'ozi_path_info' => 'Applicable to Ozi Explorer users with Filip\'s database. <br />When you provide the correct path to "op" folder, you will be able to download WPT files as search results with localized information about cache descriptions.',
+    'ozi_path_info2' => 'Tap on a cache in Ozi Explorer map and choose "Open attachment" option. This will show the detailed description of that cache. <br />Examples: <b>\\SDMMC\\baza\\</b>, <b>\\Memory card\\BF\\</b>',
     'newest_caches' => 'The latest caches',
     'total_of_active_caches' => 'Number of active caches',
     'total_of_caches' => 'Overall number of caches',
