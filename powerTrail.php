@@ -1,5 +1,11 @@
 <?php
 
+use lib\Objects\OcConfig\OcConfig;
+use lib\Objects\ApplicationContainer;
+use lib\Objects\PowerTrail\PowerTrail;
+use lib\Objects\GeoCache\GeoCache;
+
+
 /**
  *  powerTrail.php
  *  ------------------------------------------------------------------------------------------------
@@ -16,8 +22,8 @@ global $lang, $rootpath, $usr, $absolute_server_URI, $cookie, $googlemap_key;
 
 //prepare the templates and include all neccessary
 require_once('lib/common.inc.php');
-$ocConfig = \lib\Objects\OcConfig\OcConfig::instance();
-$appContainer = lib\Objects\ApplicationContainer::Instance();
+$ocConfig = OcConfig::instance();
+$appContainer = ApplicationContainer::Instance();
 
 require_once('lib/cache.php');
 require_once(__DIR__ . '/lib/cachemap3lib.inc.php');
@@ -201,7 +207,7 @@ if ($error == false) {
 
 
         case 'showSerie':
-            $powerTrail = new lib\Objects\PowerTrail\PowerTrail(array('id' => (int) $_GET['ptrail']));
+            $powerTrail = new PowerTrail(array('id' => (int) $_GET['ptrail']));
             $ptOwners = $pt->getPtOwners();
             $_SESSION['ptName'] = powerTrailBase::clearPtNames($powerTrail->getName());
             tpl_set_var('powerTrailId', $powerTrail->getId());
@@ -383,7 +389,7 @@ function displayPTrails($pTrails, $areOwnSeries)
     return $result;
 }
 
-function displayAllCachesOfPowerTrail(\lib\Objects\PowerTrail\PowerTrail $powerTrail)
+function displayAllCachesOfPowerTrail(PowerTrail $powerTrail)
 {
     isset($_SESSION['user_id']) ? $userId = $_SESSION['user_id'] : $userId = -9999;
 
@@ -392,7 +398,7 @@ function displayAllCachesOfPowerTrail(\lib\Objects\PowerTrail\PowerTrail $powerT
     $cacheTypesIcons = cache::getCacheIconsSet();
     $pTrailCaches = $powerTrail->getGeocaches();
     $cacheRows = '';
-    /* @var $geocache \lib\Objects\Geocache\Geocache */
+    /* @var $geocache Geocache */
     foreach ($pTrailCaches as $geocache) {
         // avoid crash js on quotas (');
         $cacheName = str_replace("'", '&#39;', $geocache->getCacheName());
@@ -409,7 +415,7 @@ function displayAllCachesOfPowerTrail(\lib\Objects\PowerTrail\PowerTrail $powerT
     return $cacheRows;
 }
 
-function displayPowerTrailserStats(\lib\Objects\PowerTrail\PowerTrail $powerTrail, $cachesFoundByUser)
+function displayPowerTrailserStats(PowerTrail $powerTrail, $cachesFoundByUser)
 {
     if ($powerTrail->getCacheCount() != 0) {
         $stats2display = round(count($cachesFoundByUser) * 100 / $powerTrail->getCacheCount(), 2);
@@ -420,7 +426,7 @@ function displayPowerTrailserStats(\lib\Objects\PowerTrail\PowerTrail $powerTrai
     return $stats2display;
 }
 
-function displayPtOwnerList(\lib\Objects\PowerTrail\PowerTrail $powerTrail)
+function displayPtOwnerList(PowerTrail $powerTrail)
 {
     $ptOwners = $powerTrail->getOwners();
     $ownerList = '';
@@ -438,7 +444,7 @@ function displayPtOwnerList(\lib\Objects\PowerTrail\PowerTrail $powerTrail)
     return $ownerList;
 }
 
-function displayPtDescriptionUserAction(\lib\Objects\PowerTrail\PowerTrail $powerTrail)
+function displayPtDescriptionUserAction(PowerTrail $powerTrail)
 {
     $result = '';
     if (isset($_SESSION['user_id'])) {
@@ -467,9 +473,9 @@ function displayPtTypesSelector($htmlid, $selectedId = 0, $witchZeroOption = fal
     return $selector;
 }
 
-function displayPtCommentsSelector($htmlid, \lib\Objects\PowerTrail\PowerTrail $powerTrail, $selectedId = 0, $usr = null)
+function displayPtCommentsSelector($htmlid, PowerTrail $powerTrail, $selectedId = 0, $usr = null)
 {
-    $appContainer = lib\Objects\ApplicationContainer::Instance();
+    $appContainer = ApplicationContainer::Instance();
     if($appContainer->getLoggedUser() === null){
         return '';
     }
@@ -499,7 +505,7 @@ function displayPtCommentsSelector($htmlid, \lib\Objects\PowerTrail\PowerTrail $
             continue;
         }
 
-        if($id == 3 && $powerTrail->canBeOpened() === false && $powerTrail->getStatus() != \lib\Objects\PowerTrail\PowerTrail::STATUS_OPEN){ /* this PT cannot be opened */
+        if($id == 3 && $powerTrail->canBeOpened() === false && $powerTrail->getStatus() != PowerTrail::STATUS_OPEN){ /* this PT cannot be opened */
             continue;
         }
 

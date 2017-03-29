@@ -1,6 +1,9 @@
 <?php
 
 use Utils\Database\OcDb;
+use lib\Controllers\LogEnteryController;
+
+
 require_once('./lib/common.inc.php');
 require($stylepath . '/lib/icons.inc.php');
 require($stylepath . '/viewcache.inc.php');
@@ -41,7 +44,7 @@ if(isset($_REQUEST['includeDeletedLogs']) && $_REQUEST['includeDeletedLogs'] == 
     $includeDeletedLogs = false;
 }
 
-$logEnteryController = new \lib\Controllers\LogEnteryController();
+$logEnteryController = new LogEnteryController();
 $logEneries = $logEnteryController->loadLogsFromDb($geocacheId, $includeDeletedLogs, $offset, $limit);
 $result = '';
 foreach ($logEneries as $record) {

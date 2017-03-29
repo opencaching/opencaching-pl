@@ -1,11 +1,18 @@
 <?php
 namespace lib\Objects;
 
-class BaseObject
+use Utils\Database\OcDb;
+
+abstract class BaseObject
 {
 
+    protected $db;
     protected $dataLoaded = false; //are data loaded to this object
 
+
+    public function __construct(){
+        $this->db = OcDb::instance();
+    }
 
     public function isDataLoaded()
     {

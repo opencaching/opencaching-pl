@@ -2,6 +2,10 @@
 
 namespace lib\Controllers;
 
+use lib\Objects\User\User;
+use lib\Objects\OcConfig\OcConfig;
+
+
 require_once __DIR__ . '/../ClassPathDictionary.php';
 
 /**
@@ -68,7 +72,7 @@ class OcController
 //        print '<BR>';
         /* end lang test*/
 
-        $ocConfig = \lib\Objects\OcConfig\OcConfig::instance();
+        $ocConfig = OcConfig::instance();
 
 
         $smarty = new \Smarty();
@@ -79,7 +83,7 @@ class OcController
         $smarty->setCacheDir($ocConfig->getDynamicFilesPath().'tmp/smarty_cache');
 
 
-        $user = new \lib\Objects\User\User(array('userId'=> $this->request['userId']));
+        $user = new User(array('userId'=> $this->request['userId']));
         $user->loadMedalsFromDb();
 //        d($user, $user->getMedals());
         /* @var $medal \lib\Objects\Medals\Medal */

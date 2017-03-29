@@ -13,7 +13,7 @@ if(!isset($usr['userid'])){
 $ptAPI = new powerTrailBase;
 
 $powerTrailId = (int) $_REQUEST['projectId'];
-$powerTrail = new lib\Objects\PowerTrail\PowerTrail(array('id' => $powerTrailId));
+$powerTrail = new PowerTrail(array('id' => $powerTrailId));
 $newStatus = (int) $_REQUEST['newStatus'];
 if(isset($_REQUEST['commentTxt'])) {
     $commentText = htmlspecialchars($_REQUEST['commentTxt']);

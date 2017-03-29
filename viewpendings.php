@@ -1,6 +1,8 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\User\AdminNote;
+
 global $bgcolor1, $bgcolor2;
 
 function colorCacheStatus($text, $id)
@@ -195,7 +197,7 @@ if ($error == false && $usr['admin']) {
                     if (activateCache($_GET['cacheid'])) {
                         assignUserToCase($usr['userid'], $_GET['cacheid']);
                         notifyOwner($_GET['cacheid'], 0);
-                        lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $_GET['user_id'], true, lib\Objects\User\AdminNote::CACHE_PASS, $_GET['cacheid']);
+                        AdminNote::addAdminNote($usr['userid'], $_GET['user_id'], true, AdminNote::CACHE_PASS, $_GET['cacheid']);
                         $confirm = "<p> " . tr("viewPending_09") . ".</p>";
                     } else {
                         $confirm = "<p> " . tr("viewPending_10") . ".</p>";
@@ -205,7 +207,7 @@ if ($error == false && $usr['admin']) {
                     if (declineCache($_GET['cacheid'])) {
                         assignUserToCase($usr['userid'], $_GET['cacheid']);
                         notifyOwner($_GET['cacheid'], 1);
-                        lib\Objects\User\AdminNote::addAdminNote($usr['userid'], $_GET['user_id'], true, lib\Objects\User\AdminNote::CACHE_BLOCKED, $_GET['cacheid']);
+                        AdminNote::addAdminNote($usr['userid'], $_GET['user_id'], true, AdminNote::CACHE_BLOCKED, $_GET['cacheid']);
                         $confirm = "<p> " . tr("viewPending_11") . ".</p>";
                     } else {
                         $confirm = "<p> " . tr("viewPending_12") . ".</p>";
@@ -257,17 +259,17 @@ if ($error == false && $usr['admin']) {
     $row_num = 0;
     while ($report = XDb::xFetchArray($stmt)) {
         $assignedUserId = getAssignedUserId($report['cache_id']);
-        
+
         if (!$assignedUserId && new DateTime($report['date_created']) < new DateTime('5 days ago')) {
             //set alert for forgotten cache
             $trstyle = "alert";
         } else if ($usr['userid'] == $assignedUserId) {
-            //hightlight caches assigned to current user 
+            //hightlight caches assigned to current user
             $trstyle = "highlighted";
         } else {
             $trstyle = "";
         }
-        
+
         if ($row_num % 2)
             $bgcolor = "bgcolor1";
         else
@@ -279,14 +281,14 @@ if ($error == false && $usr['admin']) {
                            <a class=\"links\" href='viewprofile.php?userid=" . $report['user_id'] . "'>" . $report['username'] . "</a><br/>
                         <span style=\"font-weight:bold;font-size:10px;color:blue;\">" . $report['adm3'] . "</span>
                     </td>\n";
-        
+
         $content .= "<td class='alertable " . $bgcolor . "'> " . $report['date_created'] . "</td>\n";
-        
+
         $content .= "<td class='" . $bgcolor . "'>". $report['last_log_date'] . "<br/>
                 <a class=\"links truncated\" href='viewprofile.php?userid=" . $report['last_log_author'] . "'>" . $report['last_log_username'] . "</a><br/>
                 <a class=\"truncated\" href='viewlogs.php?logid=". $report['last_log_id'] ."' title='". strip_tags($report['last_log_text']) ."'>". strip_tags($report['last_log_text']) . "</a>
                 </td>\n";
-        
+
         $content .= "<td class='" . $bgcolor . "'><img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?user_id=".$report['user_id']."&amp;cacheid=" . $report['cache_id'] . "&amp;action=1'>" . tr('accept') . "</a><br/>
             <img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?user_id=".$report['user_id']."&amp;cacheid=" . $report['cache_id'] . "&amp;action=2'>" . tr('block') . "</a><br/>
             <img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?cacheid=" . $report['cache_id'] . "&amp;assign=" . $usr['userid'] . "'>" . tr('assign_yourself') . "</a></td>\n";

@@ -2029,7 +2029,6 @@ $translations = array(
     '' => '',
     '' => '',
     '' => '',
-    'chowner02' => 'Geocacher',
     'graph_statistics_01' => 'Statistike von www.{site_name} :: Datum',
     'graph_statistics_02' => 'Active caches',
     'graph_statistics_03' => 'Gefundene caches',

@@ -2,12 +2,14 @@
 
 namespace lib\Objects\GeoCache;
 
-use \lib\Objects\PowerTrail\PowerTrail;
-use \lib\Objects\OcConfig\OcConfig;
+use lib\Objects\PowerTrail\PowerTrail;
+use lib\Objects\OcConfig\OcConfig;
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use lib\Objects\User\User;
 use lib\Objects\Coordinates\Coordinates;
+use lib\Objects\GeoCache\Altitude;
+use lib\Objects\GeoCache\CacheLocation;
 
 /**
  * Description of geoCache
@@ -73,7 +75,7 @@ class GeoCache extends GeoCacheCommons
      */
     private $distance = -1;
 
-    /* @var $owner \lib\Objects\User\User */
+    /* @var $owner User */
     private $founder;
 
     /* @var $dictionary \cache */
@@ -81,15 +83,15 @@ class GeoCache extends GeoCacheCommons
 
     private $ownerId;
 
-    /* @var $owner \lib\Objects\User\User */
+    /* @var $owner User */
     private $owner;
 
-    /* @var $altitude \lib\Objects\GeoCache\Altitude */
+    /* @var $altitude Altitude */
     private $altitude;
 
     /**
-     * geocache coordinates object (instance of \lib\Objects\Coordinates\Coordinates class)
-     * @var $coordinates \lib\Objects\Coordinates\Coordinates
+     * geocache coordinates object (instance of Coordinates class)
+     * @var $coordinates Coordinates
      */
     private $coordinates;
 
@@ -101,7 +103,7 @@ class GeoCache extends GeoCacheCommons
 
     /**
      * PT object
-     * @var $powerTrail \lib\Objects\PowerTrail\PowerTrail
+     * @var $powerTrail PowerTrail
      */
     private $powerTrail;
 
@@ -121,7 +123,7 @@ class GeoCache extends GeoCacheCommons
 
     /**
      *
-     * @var $cacheLocationObj \lib\Objects\GeoCache\CacheLocation
+     * @var $cacheLocationObj CacheLocation
      */
     private $cacheLocationObj = null;
 
@@ -176,7 +178,7 @@ class GeoCache extends GeoCacheCommons
     /**
      * Factory
      * @param unknown $cacheId
-     * @return \lib\Objects\GeoCache object or null if no such geocache
+     * @return GeoCache object or null if no such geocache
      */
     public static function fromCacheIdFactory($cacheId){
         try{
@@ -189,7 +191,7 @@ class GeoCache extends GeoCacheCommons
     /**
      * Factory - creats Geocache object based on waypoint aka OC2345
      * @param unknown $wp
-     * @return \lib\Objects\GeoCache object or null if no such geocache
+     * @return GeoCache object or null if no such geocache
      */
     public static function fromWayPointFactory($wp){
         try{
@@ -202,7 +204,7 @@ class GeoCache extends GeoCacheCommons
     /**
      * Factory - creats Geocache object based on geocache UUID
      * @param unknown $wp
-     * @return \lib\Objects\GeoCache object or null if no such geocache
+     * @return GeoCache object or null if no such geocache
      */
     public static function fromUUIDFactory($uuid){
         try{
@@ -283,7 +285,7 @@ class GeoCache extends GeoCacheCommons
                     $this->cacheName = $value;
                     break;
                 case 'location':
-                    $this->coordinates = new \lib\Objects\Coordinates\Coordinates(array(
+                    $this->coordinates = new Coordinates(array(
                         'okapiRow' => $value
                     ));
                     break;
@@ -315,7 +317,7 @@ class GeoCache extends GeoCacheCommons
                     $this->status = self::CacheStatusIdFromOkapi($value);
                     break;
                 case 'owner':
-                    $this->owner = new \lib\Objects\User\User(array(
+                    $this->owner = new User(array(
                         'okapiRow' => $value
                     ));
                     break;
@@ -372,16 +374,16 @@ class GeoCache extends GeoCacheCommons
         $this->descLanguagesList = $geocacheDbRow['desc_languages'];
         $this->mp3count = (int) $geocacheDbRow['mp3count'];
         $this->picturesCount = (int) $geocacheDbRow['picturescount'];
-        $this->coordinates = new \lib\Objects\Coordinates\Coordinates(array(
+        $this->coordinates = new Coordinates(array(
             'dbRow' => $geocacheDbRow
         ));
-        $this->altitude = new \lib\Objects\GeoCache\Altitude($this);
+        $this->altitude = new Altitude($this);
 
         $this->ownerId = (int) $geocacheDbRow['user_id'];
         $this->owner = null; //reset owner data
 
         if($geocacheDbRow['org_user_id'] != ''){
-            $this->founder = new \lib\Objects\User\User(array('userId' => $geocacheDbRow['org_user_id']));
+            $this->founder = new User(array('userId' => $geocacheDbRow['org_user_id']));
         }
         $this->score = $geocacheDbRow['score'];
 
@@ -491,7 +493,7 @@ class GeoCache extends GeoCacheCommons
     }
 
     /**
-     * @return \lib\Objects\Coordinates\Coordinates
+     * @return Coordinates
      */
     public function getCoordinates()
     {
@@ -500,7 +502,7 @@ class GeoCache extends GeoCacheCommons
 
     /**
      *
-     * @return \lib\Objects\GeoCache\Altitude
+     * @return Altitude
      */
     public function getAltitudeObj()
     {
@@ -520,7 +522,7 @@ class GeoCache extends GeoCacheCommons
 
     /**
      *
-     * @return \lib\Objects\User\User
+     * @return User
      */
     public function getFounder()
     {
@@ -665,7 +667,7 @@ class GeoCache extends GeoCacheCommons
         /**
      * @param PowerTrail $powerTrail
      */
-    public function setPowerTrail(\lib\Objects\PowerTrail\PowerTrail $powerTrail)
+    public function setPowerTrail(PowerTrail $powerTrail)
     {
         $this->powerTrail = $powerTrail;
         return $this;

@@ -1,6 +1,8 @@
 <?php
 
 use Utils\Database\OcDb;
+use lib\Objects\GeoCache\GeoCache;
+
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 //Preprocessing
@@ -16,7 +18,7 @@ if ($error == false) {
         } else {
             $cache_id = 0;
         }
-        $geoCache = new \lib\Objects\GeoCache\GeoCache(array('cacheId' => $cache_id));
+        $geoCache = new GeoCache(array('cacheId' => $cache_id));
         $tplname = 'cache_stats';
         $content = "";
         $cachename = $geoCache->getCacheName();

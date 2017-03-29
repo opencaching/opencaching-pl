@@ -6,6 +6,12 @@ use Utils\Gis\Gis;
 use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\GeoCache\GeoCache;
+use lib\Objects\User\User;
+use lib\Objects\GeoKret\GeoKretLog;
+use lib\Controllers\GeoKretyController;
+
+
+
 /* todo:
   create and set up 4 template selector with wybor_WE wybor_NS.
 
@@ -86,9 +92,9 @@ if ($error == false) {
             $rs = XDb::xSql("SELECT * FROM `caches` WHERE `cache_id`= ? LIMIT 1", $cache_id);
 
             if ( $record = XDb::xFetchArray($rs) ) {
-                $geoCache = new lib\Objects\GeoCache\GeoCache();
+                $geoCache = new GeoCache();
                 $geoCache->loadFromRow($record);
-                $user = new lib\Objects\User\User(['userId' => $_SESSION['user_id']]);
+                $user = new User(['userId' => $_SESSION['user_id']]);
 
                 // only OC Team member and the owner allowed to make logs to not published caches
                 if ($record['user_id'] == $usr['userid'] || ($record['status'] != 5 && $record['status'] != 4 && $record['status'] != 6) || $usr['admin']) {
@@ -1162,10 +1168,10 @@ function compareTime($time_to_check, $interval)
     return $time_diff->format("%r");
 }
 
-function buildGeoKretyLog(lib\Objects\User\User $user, lib\Objects\GeoCache\GeoCache $geoCache, $i, DateTime $logDateTime)
+function buildGeoKretyLog(User $user, GeoCache $geoCache, $i, DateTime $logDateTime)
 {
     global $absolute_server_URI;
-    $geoKretyLog = new lib\Objects\GeoKret\GeoKretLog();
+    $geoKretyLog = new GeoKretLog();
     $geoKretyLog
         ->setGeoCache($geoCache)
         ->setUser($user)
@@ -1179,7 +1185,7 @@ function buildGeoKretyLog(lib\Objects\User\User $user, lib\Objects\GeoCache\GeoC
     return $geoKretyLog;
 }
 
-function enqueueGeoKretyLog(DateTime $logDateTime, lib\Objects\User\User $user, lib\Objects\GeoCache\GeoCache $geoCache, $MaxNr)
+function enqueueGeoKretyLog(DateTime $logDateTime, User $user, GeoCache $geoCache, $MaxNr)
 {
     $geoKretyLogs = [];
     for ($i = 1; $i < $MaxNr + 1; $i++) {
@@ -1188,7 +1194,7 @@ function enqueueGeoKretyLog(DateTime $logDateTime, lib\Objects\User\User $user, 
         }
     }
     if(count($geoKretyLogs) > 0){
-        $geoKretyController = new \lib\Controllers\GeoKretyController();
+        $geoKretyController = new GeoKretyController();
         $geoKretyController->enqueueGeoKretLogs($geoKretyLogs);
     }
 }

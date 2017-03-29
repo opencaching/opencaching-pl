@@ -4,7 +4,10 @@ use lib\Objects\ApplicationContainer;
 use Utils\Database\OcDb;
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCache;
+use lib\Objects\User\User;
 use Utils\Email\EmailSender;
+
+
 
 //prepare the templates and include all neccessary
 global $site_name, $absolute_server_URI;
@@ -24,7 +27,7 @@ if ($error == false) {
     } else {
         $db = OcDb::instance();
 
-        $user = new \lib\Objects\User\User(array('userId'=>$usr['userid']));
+        $user = new User(array('userId'=>$usr['userid']));
 
 
         $default_country = getDefaultCountry($usr, $lang);
@@ -775,7 +778,7 @@ if ($error == false) {
                 }
 
                 /* add cache altitude altitude */
-                $geoCache = new \lib\Objects\GeoCache\GeoCache(array('cacheId' => $cache_id));
+                $geoCache = new GeoCache(array('cacheId' => $cache_id));
                 $geoCache->getAltitudeObj()->pickAndStoreAltitude($altitude);
 
                 // redirection

@@ -1,8 +1,11 @@
 <?php
+
+use lib\Objects\GeoCache\GeoCache;
+
 require_once 'lib/common.inc.php';
 
 
-$geoCache = new \lib\Objects\GeoCache\GeoCache(['cacheId' => (int) $_GET['cid']]);
+$geoCache = new GeoCache(['cacheId' => (int) $_GET['cid']]);
 d($geoCache->getAltitudeObj());
 $geoCache->getAltitudeObj()->pickAndStoreAltitude(null);
 

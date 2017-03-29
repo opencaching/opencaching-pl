@@ -3,6 +3,8 @@
 namespace lib\Objects\PowerTrail;
 
 use Utils\Database\OcDb;
+use lib\Objects\User\User;
+use lib\Objects\PowerTrail\PowerTrail;
 
 class Log
 {
@@ -17,11 +19,11 @@ class Log
 
     private $type;
 
-    /* @var $powerTrail \lib\Objects\PowerTrail\PowerTrail */
+    /* @var $powerTrail PowerTrail */
     private $powerTrail;
 
     /**
-     * @var \lib\Objects\User\User
+     * @var User
      */
     private $user;
 
@@ -38,7 +40,7 @@ class Log
     }
 
     /**
-     * @return \lib\Objects\User\User
+     * @return User
      */
     public function getUser()
     {
@@ -61,13 +63,13 @@ class Log
         return $this->text;
     }
 
-    public function setPowerTrail(\lib\Objects\PowerTrail\PowerTrail $powerTrail)
+    public function setPowerTrail(PowerTrail $powerTrail)
     {
         $this->powerTrail = $powerTrail;
         return $this;
     }
 
-    public function setUser(\lib\Objects\User\User $user)
+    public function setUser(User $user)
     {
         $this->user = $user;
         return $this;

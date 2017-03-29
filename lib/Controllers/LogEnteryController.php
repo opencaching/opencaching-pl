@@ -6,6 +6,7 @@ use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\OcConfig\OcConfig;
 use Utils\Database\OcDb;
 use Utils\Email\EmailSender;
+use lib\Objects\ApplicationContainer;
 
 class LogEnteryController
 {
@@ -30,7 +31,7 @@ class LogEnteryController
             return false;
         }
 
-        $loggedUser = \lib\Objects\ApplicationContainer::Instance()->getLoggedUser();
+        $loggedUser = ApplicationContainer::Instance()->getLoggedUser();
 
         if($loggedUser === null){
             $this->errors[] = 'User is not looged-in';

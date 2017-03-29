@@ -1,12 +1,15 @@
 <?php
 
 use lib\Objects\GeoCache\GeoCacheCommons;
+use lib\Objects\PowerTrail\PowerTrail;
+use lib\Objects\GeoCache\GeoCache;
+
 
 require_once __DIR__ . '/../lib/ClassPathDictionary.php';
 require_once __DIR__ . '/../lib/language.inc.php';
 
 
-$powerTrail = new \lib\Objects\PowerTrail\PowerTrail(array('id' => (int) $_REQUEST['ptrail']));
+$powerTrail = new PowerTrail(array('id' => (int) $_REQUEST['ptrail']));
 if (isset($_REQUEST['choseFinalCaches'])) {
     $choseFinalCaches = true;
 } else {
@@ -16,7 +19,7 @@ session_start();
 
 print displayAllCachesOfPowerTrail($powerTrail, $choseFinalCaches);
 
-function displayAllCachesOfPowerTrail(\lib\Objects\PowerTrail\PowerTrail $powerTrail, $choseFinalCaches)
+function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
 {
     $language = isset($_POST['lang']) ? $_POST['lang'] : 'en';
 
@@ -68,7 +71,7 @@ function displayAllCachesOfPowerTrail(\lib\Objects\PowerTrail\PowerTrail $powerT
     $cacheSize = array(2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0,);
     unset($_SESSION['geoPathCacheList']);
 
-    /* @var $geocache lib\Objects\GeoCache\GeoCache */
+    /* @var $geocache GeoCache */
     foreach ($powerTrail->getGeocaches() as $geocache) {
         $_SESSION['geoPathCacheList'][] = $geocache->getCacheId();
         $totalFounds += $geocache->getFounds();

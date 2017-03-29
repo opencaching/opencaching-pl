@@ -6,6 +6,10 @@
 
 use Utils\Database\OcDb;
 use Utils\Log\Log;
+use lib\Objects\OcConfig\OcConfig;
+use lib\Objects\GeoCache\GeoCache;
+
+
 
 $rootpath = __DIR__ . '/../';
 require_once($rootpath . 'lib/common.inc.php');
@@ -20,14 +24,14 @@ class AutoArch
     );
 
     /**
-     *  @var $ocConfig \lib\Objects\OcConfig\OcConfig
+     *  @var $ocConfig OcConfig
      */
     private $ocConfig;
     private $stylepath;
 
     public function __construct($stylepath)
     {
-        $this->ocConfig = lib\Objects\OcConfig\OcConfig::instance();
+        $this->ocConfig = OcConfig::instance();
         $this->stylepath = $stylepath;
     }
 
@@ -73,7 +77,7 @@ class AutoArch
     {
         $octeamEmailAddress = $this->ocConfig->getOcteamEmailAddress();
         $siteName = $this->ocConfig->getSiteName();
-        $cache = new \lib\Objects\GeoCache\GeoCache(array('cacheId' => (int) $cacheid));
+        $cache = new GeoCache(array('cacheId' => (int) $cacheid));
         switch ($step) {
             case $this->step["START"]:
                 $email_content = file_get_contents($this->stylepath . '/email/arch1.email');

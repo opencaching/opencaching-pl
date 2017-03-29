@@ -5,6 +5,11 @@ namespace lib\Controllers;
 use lib\Objects\GeoKret\GeoKretLog;
 use lib\Objects\GeoKret\GeoKretLogError;
 use Utils\Database\OcDb;
+use lib\Objects\OcConfig\OcConfig;
+use lib\Objects\User\User;
+use lib\Objects\GeoCache\GeoCache;
+
+
 
 /**
  * Description of GeoKretyController
@@ -23,7 +28,7 @@ class GeoKretyController
      */
     public function enqueueGeoKretLogs($geoKretogs)
     {
-        /* @var $geoKretLog \lib\Objects\GeoKret\GeoKretLog */
+        /* @var $geoKretLog GeoKretLog */
         $query = 'INSERT INTO `geokret_log`(`log_date_time`, `enqueue_date_time`, `user_id`, `geocache_id`, `log_type`, `comment`, `tracking_code`, `geokret_id`, `geokret_name`) VALUES ';
         $paramId = 1;
         foreach ($geoKretogs as $geoKretLog) {
@@ -45,7 +50,7 @@ class GeoKretyController
 
     public function buildPostParams(GeoKretLog $geoKretyLog)
     {
-        $ocConfig = \lib\Objects\OcConfig\OcConfig::instance();
+        $ocConfig = OcConfig::instance();
         return [
             'secid' => $geoKretyLog->getUser()->getGeokretyApiSecid(),
             'nr' => $geoKretyLog->getTrackingCode(),
@@ -182,8 +187,8 @@ class GeoKretyController
             ->setId($gkLogRow['id'])
             ->setLogDateTime(new \DateTime($gkLogRow['log_date_time']))
             ->setEnqueueDatetime(new \DateTime($gkLogRow['enqueue_date_time']))
-            ->setUser(new \lib\Objects\User\User(['userId' => $gkLogRow['user_id']]))
-            ->setGeoCache(new \lib\Objects\GeoCache\GeoCache(['cacheId' => $gkLogRow['geocache_id']]))
+            ->setUser(new User(['userId' => $gkLogRow['user_id']]))
+            ->setGeoCache(new GeoCache(['cacheId' => $gkLogRow['geocache_id']]))
             ->setLogType($gkLogRow['log_type'])
             ->setComment($gkLogRow['comment'])
             ->setTrackingCode($gkLogRow['tracking_code'])
@@ -224,7 +229,7 @@ class GeoKretyController
         $applicationDetailsNode->appendChild($xmlDom->createElement('generated', date('Y-m-d H:i:s')));
         $gkRoot->appendChild($geokretyLogsNode);
 
-        $ocConfig = \lib\Objects\OcConfig\OcConfig::instance();
+        $ocConfig = OcConfig::instance();
         foreach ($geoKretyLogs as $geoKretyLog) {
             $geoKretyLogNode = $xmlDom->createElement('geokretyLog');
             $geokretyLogsNode->appendChild($geoKretyLogNode);

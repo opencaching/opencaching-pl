@@ -1,19 +1,23 @@
 <?php
 namespace lib\Objects\User;
 
-use \lib\Controllers\MedalsController;
+use lib\Controllers\MedalsController;
 use Utils\Database\OcDb;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Controllers\Php7Handler;
 use Utils\Database\XDb;
 use lib\Objects\OcConfig\OcConfig;
+use lib\Objects\BaseObject;
+use lib\Objects\Coordinates\Coordinates;
+use lib\Objects\PowerTrail\PowerTrail;
+
 
 /**
  * Description of user
  *
  * @author Łza
  */
-class User extends \lib\Objects\BaseObject
+class User extends BaseObject
 {
 
     private $userId;
@@ -27,7 +31,7 @@ class User extends \lib\Objects\BaseObject
     private $logNotesCount;
     private $email;
 
-    /* @var $homeCoordinates \lib\Objects\Coordinates\Coordinates */
+    /* @var $homeCoordinates Coordinates */
     private $homeCoordinates;
 
     private $medals = null;
@@ -66,6 +70,11 @@ class User extends \lib\Objects\BaseObject
     const REGEX_USERNAME = '^[a-zA-Z0-9ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ@-][a-zA-ZęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ0-9\.\-=_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\ -=&*+~#]{2,59}$';
     const REGEX_PASSWORD = '^[a-zA-Z0-9\.\-_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\$&*+~#]{3,60}$';
 
+
+    const COMMON_COLLUMNS = "user_id, username, founds_count, notfounds_count,
+                       hidden_count, latitude, longitude, country,
+                       email, admin, guru, verify_all";
+
     /**
      * construct class using $userId (fields will be loaded from db)
      * OR, if you have already user data row fetched from db row ($userDbRow), object is created using this data
@@ -73,17 +82,20 @@ class User extends \lib\Objects\BaseObject
      * @param type $userId - user identifier in db
      * @param type $userDbRow - array - user data taken from db, from table user.
      */
-    public function __construct(array $params)
+    public function __construct(array $params=null)
     {
+        parent::__construct();
+
+        if(is_null($params)){
+            $params = array();
+        }
 
         if (isset($params['fieldsStr'])) {
             //get selected columns only
             $fields = $params['fieldsStr'];
         } else {
             //default column list loaded from DB
-            $fields = "user_id, username, founds_count, notfounds_count,
-                       hidden_count, latitude, longitude, country,
-                       email, admin, guru, verify_all";
+            $fields = self::COMMON_COLLUMNS;
         }
 
         if (isset($params['userId'])) {
@@ -105,19 +117,30 @@ class User extends \lib\Objects\BaseObject
     /**
      * Factory
      * @param unknown $username
-     * @return \lib\Objects\User\User object
+     * @return User object or null on error
      */
     public static function fromUsernameFactory($username){
-        return new self( array('username' => $username) );
+
+        $u = new self();
+        if($u->loadDataFromDbByUsername($username, self::COMMON_COLLUMNS)){
+            return $u;
+        }
+        return null;
     }
 
     /**
      * Factory
      * @param unknown $username
-     * @return \lib\Objects\User\User object
+     * @return User object or null on error
      */
     public static function fromUserIdFactory($userId){
-        return new self( array('userId' => $userId) );
+        $u = new self();
+        $u->userId = $userId;
+
+        if($u->loadDataFromDb(self::COMMON_COLLUMNS)){
+            return $u;
+        }
+        return null;
     }
 
     public function loadExtendedSettings()
@@ -170,36 +193,27 @@ class User extends \lib\Objects\BaseObject
 
     private function loadDataFromDbByUsername($username, $fields){
 
-        $db = OcDb::instance();
-        $queryById = "SELECT $fields FROM `user` WHERE `username` = :1 LIMIT 1";
+        $stmt = $this->db->multiVariableQuery(
+            "SELECT $fields FROM `user` WHERE `username` = :1 LIMIT 1", $username);
 
-        $stmt = $db->multiVariableQuery($queryById, $username);
-
-        if( $userDbRow = $db->dbResultFetch($stmt) ){
-            $this->setUserFieldsByUsedDbRow($userDbRow);
-        }else{
-            $this->dataLoaded = false;
+        if($row = $this->db->dbResultFetchOneRowOnly($stmt)){
+            $this->setUserFieldsByUsedDbRow($row);
+            return true;
         }
+        return false;
+
     }
 
     private function loadDataFromDb($fields){
 
-        $db = OcDb::instance();
+        $stmt = $this->db->multiVariableQuery(
+            "SELECT $fields FROM `user` WHERE `user_id`=:1 LIMIT 1", $this->userId);
 
-        $queryById = "SELECT $fields FROM `user` WHERE `user_id`=:1 LIMIT 1";
-
-        $stmt = $db->multiVariableQuery($queryById, $this->userId);
-
-        if ($db->rowCount($stmt) != 1) {
-            //no such user found in DB?
-            $this->dataLoaded = false;  //mark object as NOT containing data
-            return;
+        if($row = $this->db->dbResultFetchOneRowOnly($stmt)){
+            $this->setUserFieldsByUsedDbRow($row);
+            return true;
         }
-
-        $userDbRow = $db->dbResultFetchOneRowOnly($stmt);
-        if ($userDbRow) {
-            $this->setUserFieldsByUsedDbRow($userDbRow);
-        }
+        return false;
     }
 
     private function setUserFieldsByUsedDbRow(array $dbRow)
@@ -265,7 +279,7 @@ class User extends \lib\Objects\BaseObject
         // if coordinates are present set the homeCords.
         if ($cordsPresent) {
             $this->homeCoordinates =
-                new \lib\Objects\Coordinates\Coordinates(array('dbRow' => $dbRow));
+                new Coordinates(array('dbRow' => $dbRow));
         }
         $this->dataLoaded = true; // mark object as containing data
     }
@@ -381,7 +395,7 @@ class User extends \lib\Objects\BaseObject
 
     /**
      *
-     * @return \lib\Objects\Coordinates\Coordinates object
+     * @return Coordinates object
      */
     public function getHomeCoordinates()
     {
@@ -424,7 +438,7 @@ class User extends \lib\Objects\BaseObject
             $ptList = $db->dbResultFetchAll($stmt);
 
             foreach ($ptList as $ptRow) {
-                $this->powerTrailCompleted->append(new \lib\Objects\PowerTrail\PowerTrail(array('dbRow' => $ptRow)));
+                $this->powerTrailCompleted->append(new PowerTrail(array('dbRow' => $ptRow)));
             }
         }
         return $this->powerTrailCompleted;
@@ -446,7 +460,7 @@ class User extends \lib\Objects\BaseObject
 
             $ptList = $db->dbResultFetchAll( $stmt );
             foreach ($ptList as $ptRow) {
-                $this->powerTrailOwed->append(new \lib\Objects\PowerTrail\PowerTrail(array('dbRow' => $ptRow)));
+                $this->powerTrailOwed->append(new PowerTrail(array('dbRow' => $ptRow)));
             }
         }
         return $this->powerTrailOwed;

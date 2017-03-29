@@ -400,8 +400,12 @@ class ViewCacheController extends BaseController
 
                 $userNoteText = $_POST['userNoteText'];
 
+
+
                 if(!empty($userNoteText)){
                     $this->geocache->saveUserNote($this->loggedUser->getUserId(), $userNoteText);
+
+
                 } else {
                     // empty update = delete note
                     $this->geocache->deleteUserNote($this->loggedUser->getUserId());

@@ -2,6 +2,8 @@
 
 
 use lib\Objects\GeoCache\GeoCacheLog;
+use lib\Objects\ApplicationContainer;
+
 
 if (!isset($rootpath))
     $rootpath = '';
@@ -21,7 +23,7 @@ if ($error == false) {
         $target = urlencode(tpl_get_current_page());
         tpl_redirect('login.php?target=' . $target);
     } else {
-        $applicationContainer = \lib\Objects\ApplicationContainer::Instance();
+        $applicationContainer = ApplicationContainer::Instance();
         $db = $applicationContainer->db;
         //get user record
         $user_id = $usr['userid'];
