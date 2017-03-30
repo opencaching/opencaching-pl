@@ -217,37 +217,37 @@ if ($error == false) {
         $edit_geocache_tr = tr('mc_edit_geocache');
         for ($zz = 0; $zz < $log_record_count; $zz++) {
             $log_record = $log_record_all[$zz];
-            $tabelka = '';
-            $tabelka .= '<td style="width: 90px;">' . htmlspecialchars(date($dateFormat, strtotime($log_record['date_hidden'])), ENT_COMPAT, 'UTF-8') . '</td>';
-            $tabelka .= '<td ><a href="editcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="tpl/stdstyle/images/free_icons/pencil.png" alt="' . $edit_geocache_tr . '" title="' . $edit_geocache_tr . '"/></a></td>';
-            $tabelka .= '<td >&nbsp;<img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/></td>';
-            $tabelka .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
-            $tabelka .= '<td align="right">&nbsp;' . intval($log_record['founds']) . '&nbsp;</td>';
-            $tabelka .= '<td  align="right">&nbsp;' . intval($log_record['topratings']) . '&nbsp;</td>';
-            $tabelka .= '<td  align="right">&nbsp;' . intval($log_record['gkcount']) . '&nbsp;</td>';
-            $tabelka .= '<td  align="right">&nbsp;' . intval($log_record['visits']) . '&nbsp;</td>';
-            $tabelka .= '<td>&nbsp;';
+            $table = '';
+            $table .= '<td style="width: 90px;">' . htmlspecialchars(date($dateFormat, strtotime($log_record['date_hidden'])), ENT_COMPAT, 'UTF-8') . '</td>';
+            $table .= '<td ><a href="editcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="tpl/stdstyle/images/free_icons/pencil.png" alt="' . $edit_geocache_tr . '" title="' . $edit_geocache_tr . '"/></a></td>';
+            $table .= '<td ><img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/></td>';
+            $table .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
+            $table .= '<td align="right">&nbsp;' . intval($log_record['founds']) . '&nbsp;</td>';
+            $table .= '<td  align="right">&nbsp;' . intval($log_record['topratings']) . '&nbsp;</td>';
+            $table .= '<td  align="right">&nbsp;' . intval($log_record['gkcount']) . '&nbsp;</td>';
+            $table .= '<td  align="right">&nbsp;' . intval($log_record['visits']) . '&nbsp;</td>';
+            $table .= '<td>&nbsp;';
             if ($stat_cache == 2)
                 $dni = $log_record['dni_od_zmiany'];
             else
                 $dni = $log_record['ilosc_dni'];
             if ($dni == NULL)
-                $tabelka .= tr('not_found');
+                $table .= tr('not_found');
             elseif ($dni == 0)
-                $tabelka .= tr('today');
+                $table .= tr('today');
             elseif ($dni == 1)
-                $tabelka .= tr('yesterday');
+                $table .= tr('yesterday');
             elseif ($dni > 180)
-                $tabelka .= '<b>' . intval($dni) . ' ' . tr('days_ago') . '</b>';
+                $table .= '<b>' . intval($dni) . ' ' . tr('days_ago') . '</b>';
             elseif ($dni > 1)
-                $tabelka .= intval($dni) . ' ' . tr('days_ago');
-            $tabelka .= '&nbsp;</td>';
+                $table .= intval($dni) . ' ' . tr('days_ago');
+            $table .= '&nbsp;</td>';
 
             $params['v1']['value'] = (integer) $log_record['cache_id'];
             $params['v1']['data_type'] = 'integer';
             $s = $dbc->paramQuery($logs_query, $params);
 
-            $tabelka .= '<td align=left>';
+            $table .= '<td align=left>';
             $warning = 0;
             $dnf = 0;
             $sprawdzaj = 0;
@@ -257,14 +257,14 @@ if ($error == false) {
 
             for ($yy = 0; $yy < $log_entries_count; $yy++) {
                 $logs = $log_entries_all [$yy];
-                $tabelka .= '<a class="links" href="viewlogs.php?logid=' . htmlspecialchars($logs['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
-                $tabelka .= '<b>' . $logs['user_name'] . '</b>&nbsp;(' . htmlspecialchars(date($dateFormat, strtotime($logs['log_date'])), ENT_COMPAT, 'UTF-8') . '):';
+                $table .= '<a class="links" href="viewlogs.php?logid=' . htmlspecialchars($logs['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
+                $table .= '<b>' . $logs['user_name'] . '</b>&nbsp;(' . htmlspecialchars(date($dateFormat, strtotime($logs['log_date'])), ENT_COMPAT, 'UTF-8') . '):';
 
                 if ($logs['encrypt'] == 1 && $logs['cache_owner'] != $usr['userid'] && $logs['luser_id'] != $usr['userid']) {
-                    $tabelka .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";
+                    $table .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";
                 }
                 if ($logs['encrypt'] == 1 && ($logs['cache_owner'] == $usr['userid'] || $logs['luser_id'] == $usr['userid'])) {
-                    $tabelka .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";
+                    $table .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";
                 }
                 $data = GeoCacheLog::cleanLogTextForToolTip( $logs['log_text'] );
 
@@ -272,15 +272,15 @@ if ($error == false) {
                     //crypt the log ROT13, but keep HTML-Tags and Entities
                     $data = str_rot13_html($data);
                 } else {
-                    $tabelka .= "<br/>";
+                    $table .= "<br/>";
                 }
-                $tabelka .= $data;
+                $table .= $data;
                 // sprawdz ile dni minelo od wpisania logu
                 if ($logs['ilosc_dni'] < 3)
                     $oznacz = 'style="border: 1px green solid;"';
                 else
                     $oznacz = '';
-                $tabelka .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"><img src="tpl/stdstyle/images/' . $logs['icon_small'] . '" border="0" ' . $oznacz . ' alt=""/></a></b>';
+                $table .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"><img src="tpl/stdstyle/images/' . $logs['icon_small'] . '" border="0" ' . $oznacz . ' alt=""/></a></b>';
                 if ($stat_cache == 1) { //obsluga DNF i serwisu tylko dla skrzynek aktywnych
                     if ($sprawdzaj < 2) { // sprawdzaj logi
                         if ($logs['log_type'] == 10)
@@ -315,7 +315,7 @@ if ($error == false) {
                 elseif ($log_record['dni_od_zmiany'] > 124)
                     $pokaz_problem = 'bgcolor=yellow';
             };
-            $file_content .= "<tr " . $pokaz_problem . ">" . $tabelka . "</td></tr>\n";
+            $file_content .= "<tr " . $pokaz_problem . ">" . $table . "</td></tr>\n";
         }
         unset($dbc);
         $pages = mb_ereg_replace('{last_img}', $last_img, $pages);
