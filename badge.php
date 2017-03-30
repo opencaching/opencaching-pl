@@ -62,7 +62,7 @@ $levelsMeritBadge = $meritBadgeCtrl->buildArrayLevels($badge_id);
 
 $contentLvl = "";
 $is_user_level = false;
-$prevThreshold = 0;
+$prevThreshold = 1;
 
 
 foreach( $levelsMeritBadge as $oneLevel ){
@@ -82,9 +82,9 @@ foreach( $levelsMeritBadge as $oneLevel ){
         $threshold = MeritBadge::preparePeriodOrThreshold($prevThreshold,  $oneLevel->getThreshold(), $cfg_period_threshold );
         $prevThreshold = $oneLevel->getThreshold();
     }
-        
-        
-    $color = MeritBadge::getColor($pure_level, 9);
+    
+
+    $color = MeritBadge::getColor($pure_level, $noLevels );
     $level = "<b style=\'color:$color\'> ".intval($pure_level+1)."</b>";
     
     $name = $oneLevel->getLevelName();

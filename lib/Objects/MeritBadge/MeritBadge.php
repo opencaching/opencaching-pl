@@ -7,7 +7,7 @@ use Utils\Database\OcDb;
 class MeritBadge
 {
     const COLOR_NUMBER = 10;
-    const PROGRESIVE_BAR_SIZE = 8;
+    const PROGRESIVE_BAR_SIZE = 16;
     const THE_HIGHEST_LEVEL = 999999;
     
     static private $_colors = array("#89af2b",//0
@@ -17,9 +17,9 @@ class MeritBadge
                                     "#af2b7e",
                                     "#962baf",
                                     "#2b5caf",
-                                    "#2b90af",
-                                    "#2baf99",
-                                    "#3daf2c");//9
+                                    "#8E6343", /*"#2b90af"*/
+                                    "#A5A5A5",  /*"#2baf99"*/
+                                    "#FFCC00" /*"#3daf2c"*/);//9
     
     private $id;
     private $name;
@@ -156,9 +156,9 @@ class MeritBadge
     
     
     public static function getColor( $level, $maxLevel){
-        $idx = round(($level*self::COLOR_NUMBER)/$maxLevel);
-        if($idx > (self::COLOR_NUMBER -1) ) $idx = self::COLOR_NUMBER - 1;
-        return self::$_colors[ $idx ];
+        $idx = round((($level+1)*self::COLOR_NUMBER)/($maxLevel));
+        if($idx > (self::COLOR_NUMBER) ) $idx = self::COLOR_NUMBER;
+        return self::$_colors[ $idx-1 ];
     }
     
     
@@ -185,7 +185,7 @@ class MeritBadge
             if ($second != self::THE_HIGHEST_LEVEL)
                 $out .= " - " . ($second-1);
             else
-                $out .= " - ...";
+                $out .= "";
         }
         
         return $out;
