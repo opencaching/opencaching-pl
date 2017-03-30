@@ -178,29 +178,6 @@ class User extends BaseObject
 
     }
 
-    public function getMedals()
-    {
-        // medals are not loaded in constructor - check if it is ready
-        if (is_null($this->medals)) {
-            // medals not loaded before - load from DB
-            $this->loadMedalsFromDb();
-        }
-        return $this->medals;
-    }
-
-    private function loadDataFromDbByUsername($username, $fields){
-
-        $stmt = $this->db->multiVariableQuery(
-            "SELECT $fields FROM `user` WHERE `username` = :1 LIMIT 1", $username);
-
-        if($row = $this->db->dbResultFetchOneRowOnly($stmt)){
-            $this->setUserFieldsByUsedDbRow($row);
-            return true;
-        }
-        return false;
-
-    }
-
     private function loadDataFromDb($fields){
 
         $stmt = $this->db->multiVariableQuery(
@@ -279,26 +256,6 @@ class User extends BaseObject
                 new Coordinates(array('dbRow' => $dbRow));
         }
         $this->dataLoaded = true; // mark object as containing data
-    }
-
-    public function loadMedalsFromDb(){
-
-        $db = OcDb::instance();
-
-        $query = 'SELECT `medal_type`, `prized_time`, `medal_level` FROM `medals` WHERE `user_id`=:1';
-        $s = $db->multiVariableQuery($query, $this->userId);
-        $medalsDb = $db->dbResultFetchAll($s);
-
-        $this->medals = new \ArrayObject();
-        $medalController = new MedalsController();
-        foreach ($medalsDb as $medalRow) {
-            $this->medals[] = $medalController->getMedal(array(
-                'prizedTime' => $medalRow['prized_time'],
-                'medalId' => (int) $medalRow['medal_type'],
-                'level' => $medalRow['medal_level']
-            ));
-            // $this->medals[] = new \lib\Objects\Medals\Medal(array('prizedTime' => $medalRow['prized_time'], 'medalId' => (int) $medalRow['medal_type'], 'level' => $medalRow['medal_level']));
-        }
     }
 
     /**
