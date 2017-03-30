@@ -2339,29 +2339,6 @@
                 "__action": "skip-data"
             }
         },
-        "medals": {
-            "__table_comment": "",
-            "id": {
-                "__comment": "",
-                "__action": "get-data"
-            },
-            "user_id": {
-                "__comment": "",
-                "__action": "get-data"
-            },
-            "medal_type": {
-                "__comment": "",
-                "__action": "get-data"
-            },
-            "prized_time": {
-                "__comment": "",
-                "__action": "get-data"
-            },
-            "medal_level": {
-                "__comment": "",
-                "__action": "get-data"
-            }
-        },
         "mp3": {
             "__table_comment": "",
             "id": {
