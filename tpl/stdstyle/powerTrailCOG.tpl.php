@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="tpl/stdstyle/js/jquery_1.9.2_ocTheme/themes/cupertino/jquery.ui.all.css">
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/minified/jquery-ui.min.js"></script>
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.datepick-{language4js}.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key={googlemap_key}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.27&amp;key={googlemap_key}"></script>
 <link rel="stylesheet" href="tpl/stdstyle/css/powerTrail.css" type="text/css">
 <script type="text/javascript">
     tinymce.init({
