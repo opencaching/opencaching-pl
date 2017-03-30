@@ -2657,6 +2657,10 @@ $translations = array(
     'merit_badge_number_threshold' =>  'Thresholds',
     'merit_badge_show_details' => 'Show details of merit badges ... ',
     'merit_badge_gain_max_level' => 'You gained the highest level',
+    'merit_badge_gain_next_level' => 'You gained the next level:',
+    'merit_badge_graphic_author' => 'Graphic Author:',
+    'merit_badge_description_author' => 'Description Author:',
+    'merit_badge_attendant' => 'Attendant:',
     'prepublication_visits' => 'Bekeken vóór publicatie',
     'no_visits' => 'Nog niet bekeken'
 

@@ -135,8 +135,8 @@ $config = array(
         )
     ),
     'numberFormatDecPoint' => '.',
-    'numberFormatThousandsSep' => ','
-
+    'numberFormatThousandsSep' => ',',
+    'meritBadges' => false
 );
 
 /* ************************************************************************

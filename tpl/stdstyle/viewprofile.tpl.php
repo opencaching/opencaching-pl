@@ -2,9 +2,31 @@
 
 global $user_id;
 ?>
+
+<link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/Badge.css" />
+<link rel="stylesheet" href="tpl/stdstyle/js/PieProgress/dist/css/asPieProgress.css">
+<script type="text/javascript" src="tpl/stdstyle/js/PieProgress/js/jquery.js"></script>
+<script type="text/javascript" src="tpl/stdstyle/js/PieProgress/dist/jquery-asPieProgress.js"></script>
+
+<script type="text/javascript">
+jQuery(function($) {
+  $('.Badge-pie-progress-small').asPieProgress({
+    namespace: 'pie_progress'
+  });
+
+  $('.pie_progress').asPieProgress('start');
+
+});
+
+</script>
+
 <script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
 <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 <script type="text/javascript">
+
+
+      
+      
 
     function ajaxGetFTF() {
         $('#showFtfBtn').hide();

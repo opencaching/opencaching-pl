@@ -9,5 +9,6 @@ if (!isset($_SESSION['user_id'])) {
     $ocController = new lib\Controllers\OcController;
     $request = $_REQUEST;
     $result = $ocController->removeLog($request);
+        
     echo json_encode($result);
 }

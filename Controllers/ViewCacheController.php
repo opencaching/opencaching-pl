@@ -11,6 +11,7 @@ use lib\Objects\GeoCache\GeoCacheDesc;
 use lib\Objects\GeoCache\OpenChecker;
 use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\GeoCache\PrintList;
+use lib\Controllers\MeritBadgeController;
 use Controllers\ViewCacheController;
 use Utils\Uri\Uri;
 
@@ -22,11 +23,17 @@ class ViewCacheController extends BaseController
 
     private $userModifiedCacheCoords = null;
 
+    private $badges = "";  
+    
 
     public function __construct()
     {
         parent::__construct();
         $this->geocache = $this->loadGeocache();
+        
+        if (isset($_REQUEST['badges'])) {
+            $this->badges = $_REQUEST['badges'];
+        }
     }
 
     public function index()
@@ -136,10 +143,49 @@ class ViewCacheController extends BaseController
         $this->processLogs();
         $this->processUserMenu();
         $this->processGeoPaths();
+         
+        $this->showPopUpMeritBadge(); //show pop-up for badges which have changed the level
+                
         tpl_BuildTemplate();
-
     }
 
+    private function showPopUpMeritBadge(){
+        
+        if ( $this->badges == "" ){
+            tpl_set_var( 'badge_script', '' );
+            tpl_set_var( 'badge_text', '' );
+            
+            return;
+        }
+        
+        $popUpScript = "<script type='text/javascript'>
+        $( function() {
+            $( '#dialog' ).dialog({
+                autoOpen: true,
+                width : 550,
+                show: {
+                    effect: 'fade',
+                    duration: 1000
+                },
+                hide: {
+                    effect: 'fade',
+                    duration: 1000
+                }
+            });
+        });
+        </script>";
+        
+        
+        $ctrlMeritBadge = new MeritBadgeController;
+        
+        $badgeText = $ctrlMeritBadge->prepareHtmlChangeLevelMeritBadges
+            ( explode( ',', $this->badges ), $this->loggedUser->getUserId() );
+        
+        tpl_set_var( 'badge_script', $popUpScript );
+        tpl_set_var( 'badge_text', $badgeText );
+        
+    }
+    
     private function loadGeocache()
     {
         if (isset($_REQUEST['cacheid'])) {
@@ -151,6 +197,7 @@ class ViewCacheController extends BaseController
         } elseif (isset($_REQUEST['wp'])) {
             return GeoCache::fromWayPointFactory( $_REQUEST['wp'] );
         }
+        
         return null;
     }
 

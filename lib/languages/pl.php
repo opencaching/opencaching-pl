@@ -2655,7 +2655,11 @@ $translations = array(
     'merit_badge_number' =>  'Postęp',
     'merit_badge_number_threshold' =>  'Progi',
     'merit_badge_show_details' => 'Pokaż szczegóły zdobytych sprawności ... ',
-    'merit_badge_gain_max_level' => 'Osiągnąłęś najwyższy poziom',
+    'merit_badge_gain_max_level' => 'Osiągnąłeś najwyższy poziom',
+    'merit_badge_gain_next_level' => 'Osiągnąłeś kolejny poziom sprawności:',
+    'merit_badge_graphic_author' => 'Grafika:',
+    'merit_badge_description_author' => 'Opis:',
+    'merit_badge_attendant' => 'Opiekun sprawności:',
     'prepublication_visits' => 'Wizyty przed publikacją',
     'no_visits' => 'brak wizyt'
 );

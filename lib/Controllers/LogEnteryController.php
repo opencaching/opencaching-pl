@@ -7,6 +7,7 @@ use lib\Objects\OcConfig\OcConfig;
 use Utils\Database\OcDb;
 use Utils\Email\EmailSender;
 use lib\Objects\ApplicationContainer;
+use lib\Controllers\MeritBadgeController;
 
 class LogEnteryController
 {
@@ -54,6 +55,9 @@ class LogEnteryController
 
             if ($log->getType() == GeoCacheLog::LOGTYPE_FOUNDIT || $log->getType() == GeoCacheLog::LOGTYPE_ATTENDED) {
                 $this->cacheScoreHandlingAfterRemoveLog($log);
+                
+                $ctrlMeritBadge = new MeritBadgeController;
+                $ctrlMeritBadge->updateCurrValMeritBadges($log->getGeoCache()->getCacheId(), $loggedUser->getUserId() );
             }
 
             //call eventhandler

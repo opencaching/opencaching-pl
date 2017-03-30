@@ -7,6 +7,11 @@
 <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 
 
+<link href="tpl/stdstyle/js/jquery.1.10.3/css/myCupertino/jquery-ui-1.10.3.custom.css" rel="stylesheet">
+<script type="text/javascript" src="tpl/stdstyle/js/jquery.1.10.3/js/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="tpl/stdstyle/js/jquery.1.10.3/js/jquery-ui-1.10.3.custom.js"></script>
+
+
 <script>
     var confirmRmLogTranslation = '{{confirm_remove_log}}';
 </script>
@@ -1022,3 +1027,11 @@
 <div class="content2-container" id="viewcache-logs">
     <!-- log enteries - to be loaded dynamicly by ajax -->
 </div>
+
+ 
+{badge_script}
+
+<div id="dialog" title="{{merit_badge_gain_next_level}}">
+  {badge_text}
+</div>
+

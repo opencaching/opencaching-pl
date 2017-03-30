@@ -12,6 +12,8 @@ use lib\Controllers\GeoKretyController;
 
 
 
+use lib\Controllers\MeritBadgeController;
+
 /* todo:
   create and set up 4 template selector with wybor_WE wybor_NS.
 
@@ -60,6 +62,8 @@ function isGeokretInCache($cacheid)
 global $rootpath;
 require_once('./lib/common.inc.php');
 require($stylepath . '/smilies.inc.php');
+
+
 
 $no_tpl_build = false;
 //Preprocessing
@@ -132,7 +136,6 @@ if ($error == false) {
             }
 
             $log_text = isset($_POST['logtext']) ? ($_POST['logtext']) : '';
-            // $log_type = isset($_POST['logtype']) ? ($_POST['logtype']+0) : $default_logtype_id;
             $log_type = isset($_POST['logtype']) ? ($_POST['logtype'] + 0) : -2;
             $log_date_min = isset($_POST['logmin']) ? ($_POST['logmin'] + 0) : $proposedDateTime->format('i');
             $log_date_hour = isset($_POST['loghour']) ? ($_POST['loghour'] + 0) : $proposedDateTime->format('H');
@@ -491,7 +494,7 @@ if ($error == false) {
                             VALUES ( ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)",
                             $cache_id, $usr['userid'], $log_type, $log_date, $log_text, 1, 1, $log_uuid, $oc_nodeid);
                     }
-
+                    
                     // insert to database.
                     if ($log_type == GeoCacheLog::LOGTYPE_MOVED &&
                             ($cache_type == GeoCache::TYPE_MOVING || $cache_type == GeoCache::TYPE_OWNCACHE)
@@ -689,9 +692,23 @@ if ($error == false) {
                     require_once($rootpath . 'lib/eventhandler.inc.php');
                     event_new_log($cache_id, $usr['userid'] + 0);
                 }
+                
+                $badgetParam = "";
+                
+                if ($config['meritBadges']){
+                    if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT ||
+                        $log_type == GeoCacheLog::LOGTYPE_ATTENDED ){ 
+                    
+                        $ctrlMeritBadge = new MeritBadgeController;
+                        $changedLevelBadgesIds = $ctrlMeritBadge->updateCurrValMeritBadges($cache_id, $usr['userid']);
+        
+                        if ( $changedLevelBadgesIds != "" )
+                            $badgetParam = "&badges=" . $changedLevelBadgesIds;
+                    }
+                }
                 //redirect to viewcache
                 $no_tpl_build = true;
-                tpl_redirect('viewcache.php?cacheid=' . $cache_id);
+                tpl_redirect('viewcache.php?cacheid=' . $cache_id . $badgetParam);
             }
             else {
 

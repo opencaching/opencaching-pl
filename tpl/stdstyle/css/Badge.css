@@ -1,0 +1,143 @@
+/*
+        Badge 				-    JG (triPPer)
+                                        tripper1971@wp.pl
+
+        2016.09
+*/
+
+
+.Badge-div-table {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+
+    border: solid 1px grey;
+
+    -webkit-box-shadow: 4px 4px 6px rgba(50, 50, 50, 0.65);
+    -moz-box-shadow:    4px 4px 6px rgba(50, 50, 50, 0.65);
+    box-shadow:         4px 4px 6px rgba(50, 50, 50, 0.65);
+
+
+    background: #EFEFEF;
+    padding:10px 10px 10px 10px;
+
+    text-align: center;
+}
+
+.Badge-div-table.Info{
+    width:770px;
+    font-size:13px;
+    text-align:left;
+}
+
+.Badge-div-table-InfoInside{
+    font-size:13px;
+    text-align:left;
+    width: 100%;
+    display: inline-table;
+    background: #fafafa;
+
+    border: solid 1px grey;
+    padding:10px 10px 10px 10px;
+}
+
+.Badge-div-table.Tables{
+    vertical-align: bottom;
+}
+
+.Badge-div-oneTable{
+    border: solid grey 1px;
+}
+
+.Badge-div-spaceBetweenTables{
+    width: 20px;
+}
+
+.Badge-div-element{
+    float: left;
+    width: 148px;		
+    height: 260px;
+}
+
+
+.Badge-category {
+    font-size:16px;
+    font-weight:bold;
+
+    text-align: left;
+}
+
+
+.Badge-name-user {
+    font-size:12px;
+    font-weight: bold;
+}
+
+.Badge-level-user {
+    font-size:12px;
+    font-weight: normal;
+    font-style: italic;
+}
+
+.Badge-value-user {
+    font-size:11px;
+    font-style: italic;
+}
+
+.Badge-short_desc-user {
+    font-size:9px;
+    font-style: normal;
+}
+
+
+.Badge-pie-progress {
+	width: 140px;
+	float: left;
+	margin-right:20px;
+}
+
+.Badge-name{
+    font-size:30px; 
+    font-weight: bold;
+}
+
+.Badge-short_desc{
+    font-size:15px; 
+    font-style: italic;
+}
+
+.Badge-other{
+    font-size:13px;
+    font-weight:normal;
+}
+
+
+.Badge-div-element-small{
+    float: left;
+    width: 75px;      
+    height: 75px;      
+}
+
+
+.Badge-pie-progress-small {
+    width: 60px;
+    float: left;
+}
+
+.Badge-pic-small {
+    height:50px; 
+    width: 50px;
+
+}
+
+.Badge-category-small {
+    font-size:12px;
+    font-weight: bold;
+    font-style: normal;
+}
+
+.Badge-table-view {
+    line-height:30px;    
+}
+
