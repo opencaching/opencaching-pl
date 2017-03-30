@@ -21,7 +21,6 @@ final class OcConfig
     const OCNODE_BENELUX = 14; /* Opencaching Nederland http://www.opencaching.nl OB => OC Benelux */
     const OCNODE_ROMANIA = 16; /* Opencaching Romania http://www.opencaching.ro OR */
 
-    private $medalsModuleSwitchedOn = false;
     private $dbDatetimeFormat = 'Y-m-d H:i:s';
     private $datetimeFormat = 'Y-m-d H:i';
     private $ocNodeId = null;
@@ -82,7 +81,6 @@ final class OcConfig
     private function loadConfig()
     {
         require __DIR__ . '/../../settings.inc.php';
-        $this->medalsModuleSwitchedOn = $config['medalsModuleSwitchedOn'];
         $this->datetimeFormat = $datetimeFormat;
         $this->ocNodeId = $oc_nodeid;
         $this->absolute_server_URI = $absolute_server_URI;
@@ -171,11 +169,6 @@ final class OcConfig
         return $this->pagetitle;
     }
 
-    function getMedalsModuleSwitchedOn()
-    {
-        return $this->medalsModuleSwitchedOn;
-    }
-
     function getGoogleMapKey()
     {
         return $this->googleMapKey;
@@ -204,11 +197,6 @@ final class OcConfig
     public function getOcNodeId()
     {
         return $this->ocNodeId;
-    }
-
-    public function getMedalsModuleSwitchOn()
-    {
-        return $this->medalsModuleSwitchedOn;
     }
 
     public function getDbDateTimeFormat()
