@@ -1,7 +1,6 @@
 <?php
 namespace lib\Objects\User;
 
-use lib\Controllers\MedalsController;
 use Utils\Database\OcDb;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Controllers\Php7Handler;
@@ -33,8 +32,6 @@ class User extends BaseObject
 
     /* @var $homeCoordinates Coordinates */
     private $homeCoordinates;
-
-    private $medals = null;
 
     private $country;
 
