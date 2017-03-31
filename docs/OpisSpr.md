@@ -57,7 +57,7 @@
 
 - po kliknięciu na dany poziom, po prawej stronie w tabeli pojawi się tabela z użytkownikami którzy zdobyli dany poziom; pozycja użytkownika została wyróżniona kolorem
 
-**3. Silnik Sprawności **
+**3. Silnik Sprawności**
 
 - kolejne kategorie i sprawności konfiguruje się z poziomu bazy. Aby dodać nową sprawność (czy też kategorię) nie trzeba modyfikować kodu.
 - sprawności podzielone są na kategorie. Może być dowolna ilość kategorii. Ich nazwy można zmieniać w dowolnym momencie
