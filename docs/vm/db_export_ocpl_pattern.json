@@ -1781,23 +1781,23 @@
         },
         "gns_locations": {
             "__table_comment": "not needed at dev.env.",
-            "rc": {
+            "RC": {
                 "__comment": "",
                 "__action": "skip-data"
             },
-            "ufi": {
+            "UFI": {
                 "__comment": "",
                 "__action": "skip-data"
             },
-            "uni": {
+            "UNI": {
                 "__comment": "",
                 "__action": "skip-data"
             },
-            "lat": {
+            "LAT": {
                 "__comment": "",
                 "__action": "skip-data"
             },
-            "lon": {
+            "LON": {
                 "__comment": "",
                 "__action": "skip-data"
             },
@@ -3048,89 +3048,6 @@
             "seq": {
                 "__comment": "",
                 "__action": "get-data"
-            }
-        },
-         "pictures.bak": {
-            "__table_comment": "",
-            "id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "uuid": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "url": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "last_modified": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "title": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "description": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "desc_html": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "date_created": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "last_url_check": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "object_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "object_type": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "user_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "thumb_url": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "thumb_last_generated": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "spoiler": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "local": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "unknown_format": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "display": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "node": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "seq": {
-                "__comment": "",
-                "__action": "skip-data"
             }
         },
         "PowerTrail": {
