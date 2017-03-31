@@ -31,7 +31,7 @@
 
 - miniaturki mogą wyświetlać się w szarościach. Oznacza to, że zdobywca jest na pierwszym progu
 
-2.2 **Strona: Szczegóły Zdobytych Sprawności **
+**2.2 Strona: Szczegóły Zdobytych Sprawności**
 
 - na stronie znajdują się 3 kategorie. Użytkownikowi wyświetlają się jedynie te kategorie do których należy przynajmniej jedna zdobyta przez użytkownika sprawność. Reszta kategorii pomimo, że jest zdefiniowana, nie zostanie wyświetlona.
 
@@ -44,7 +44,7 @@
 - ikony sprawności otoczone są „obwódką – progresem” w odpowiednim kolorze i o odpowiedniej grubości (im wyższy poziom tym obwódka grubsza)
 - po kliknięciu na nazwę sprawności, wchodzimy na stronę danej sprawności
 
-2.3 **Strona: Szczegóły Zdobytych Sprawności **
+**2.3 Strona: Szczegóły Zdobytych Sprawności**
 
 - strona składa się z trzech części
 
