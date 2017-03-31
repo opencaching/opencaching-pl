@@ -163,7 +163,7 @@ if ($error == false) {
             
             $content .= '<div class="content2-container bg-blue02">
                                 <p class="content-title-noshade-size1">
-                                <img src="tpl/stdstyle/images/blue/merit_badge.png" width="33" class="icon32" alt="geoPaths" title="geoPaths" />&nbsp' . tr('merit_badges') . '</div>';
+                                <img src="tpl/stdstyle/images/blue/merit_badge.png" width="33" class="icon32" alt="Merit badges" title="Merit badges" />&nbsp' . tr('merit_badges') . '</div>';
     
             $content .= buildMeritBadges($user_id);
             
