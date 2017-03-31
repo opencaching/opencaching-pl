@@ -2,6 +2,7 @@
 
 use lib\Objects\MeritBadge\MeritBadge;
 use lib\Controllers\MeritBadgeController;
+use lib\Objects\MeritBadge\UserMeritBadge;
 
 require_once('./tpl/stdstyle/user_badges.inc.php');
 require_once('./lib/common.inc.php');
@@ -19,29 +20,29 @@ if ($usr == false) {
 $tplname = 'user_badges';
 
 $usrid = -1;
-    
+
 if (isset($_REQUEST['user_id'])) {
     $userid = $_REQUEST['user_id'];
 } else {
     $userid = $usr['userid'];
 }
-    
+
 $meritBadgeCtrl = new \lib\Controllers\MeritBadgeController;
 $userCategories = $meritBadgeCtrl->buildArrayUserCategories($userid);
 
 
 $content = '';
 foreach($userCategories as $oneCategory){
-    
+
     $category_table=mb_ereg_replace('{category}', $oneCategory->getName(), $content_table);
 
     //$sB = $dbcLocCache->multiVariableQuery($queryBadge, $userid, $oneCategory->getId() );
-    $badgesInCategory = $meritBadgeCtrl->buildArrayUserMeritBadgesInCategory( $userid, $oneCategory->getId() );
-    
+    $badgesInCategory = UserMeritBadge::GetUserMeritBadgesInCategory( $userid, $oneCategory->getId() );
+
     $content_badge = '';
-    
+
     foreach($badgesInCategory as $oneBadge){
-        
+
         $element=$content_element;
         $element=mb_ereg_replace('{name}', $oneBadge->getOBadge()->getName(), $element);
         $element=mb_ereg_replace('{short_desc}', MeritBadge::prepareShortDescription( $oneBadge->getOBadge()->getShortDescription(), $oneBadge->getNextVal() ), $element );
@@ -55,8 +56,8 @@ foreach($userCategories as $oneCategory){
         $element=mb_ereg_replace('{progresbar_size}', MeritBadge::getBarSize( $oneBadge->getLevelId(), $oneBadge->getOBadge()->getLevels() ), $element );
         $element=mb_ereg_replace('{progresbar_color}', MeritBadge::getColor( $oneBadge->getLevelId(), $oneBadge->getOBadge()->getLevels() ), $element );
 
-                
-        $content_badge.= $element; 
+
+        $content_badge.= $element;
     }
     $content.=mb_ereg_replace('{content_badge_img}', $content_badge, $category_table);
 }
@@ -67,4 +68,4 @@ tpl_set_var( 'content', $content );
 
 tpl_BuildTemplate();
 
-?>
+

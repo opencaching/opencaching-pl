@@ -11,11 +11,16 @@ abstract class BaseObject
 
 
     public function __construct(){
-        $this->db = OcDb::instance();
+        $this->db = self::Db();
     }
 
     public function isDataLoaded()
     {
         return $this->dataLoaded;
+    }
+
+    protected static function Db()
+    {
+        return OcDb::instance();
     }
 }

@@ -1028,10 +1028,47 @@
     <!-- log enteries - to be loaded dynamicly by ajax -->
 </div>
 
- 
-{badge_script}
+<?php if($view->displayBadges) { ?>
 
-<div id="dialog" title="{{merit_badge_gain_next_level}}">
-  {badge_text}
-</div>
+    <script type='text/javascript'>
+        $( function() {
+            $( '#dialog' ).dialog({
+                autoOpen: true,
+                width : 550,
+                show: {
+                    effect: 'fade',
+                    duration: 1000
+                },
+                hide: {
+                    effect: 'fade',
+                    duration: 1000
+                }
+            });
+        });
+    </script>
+
+    <div id="dialog" title="{{merit_badge_gain_next_level}}">
+        <?php foreach($view->badges as $badge) { ?>
+            <div class="badgeRow">
+                <img src='<?=$badge->getPicture()?>' />
+                <p class="badgeName">
+                    <?=$badge->getOBadge()->getName()?>
+                    <br>
+                    <span class="badgeShortDesc"><?=$badge->getShortDesc()?></span>
+                </p>
+                <p class="badgeDetails">
+                    {{merit_badge_level_name}}:           <b><?=$badge->getLevelName()?>    </b><br>
+                    {{merit_badge_number}}:               <b><?=$badge->getCurrVal()?>      </b><br>
+                    {{merit_badge_next_level_threshold}}: <b><?=$badge->getTextTreshold()?> </b><br>
+                </p>
+            </div>
+            <br>
+            <?php if(count($view->badges) > 1) { //there is more badges ?>
+                <hr><br>
+            <?php } //if-count-badges > 1?>
+
+        <?php } //foreach ?>
+    </div>
+<?php } //if-displayBadges ?>
+
 

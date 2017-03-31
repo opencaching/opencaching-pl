@@ -211,3 +211,30 @@ textarea.userNoteTextarea {
 #userNote-div {
   margin: 0 20px;
 }
+
+
+.badgeRow {
+  width:500px;
+}
+
+.badgeRow img {
+  float: left;
+  margin-right:20px;
+}
+
+.badgeRow .badgeName {
+  font-size:20px; font-weight:bold;
+}
+
+.badgeRow .badgeShortDesc {
+  font-size:13px; font-weight:normal; font-style:italic;
+}
+
+.badgeRow .badgeDetails {
+  font-size:13px;font-weight:normal;
+}
+
+
+
+
+

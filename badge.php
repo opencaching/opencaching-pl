@@ -27,12 +27,13 @@ if (isset($_REQUEST['user_id'])) {
     $userid = $usr['userid'];
 }
 
-    
+
 
 $badge_id = $_REQUEST['badge_id'];
 
-$meritBadgeCtrl = new \lib\Controllers\MeritBadgeController;
-$userMeritBadge = $meritBadgeCtrl->buildUserBadge($userid, $badge_id);
+$meritBadgeCtrl = new MeritBadgeController;
+
+$userMeritBadge = UserMeritBadge::FromUserAndBadgeIdFactory($userid, $badge_id);
 
 $currUserLevel = $userMeritBadge->getOlevel()->getLevel();
 $currUserLevelName = $userMeritBadge->getOlevel()->getLevelName();
@@ -67,13 +68,13 @@ $prevThreshold = 1;
 
 foreach( $levelsMeritBadge as $oneLevel ){
     $is_user_level = false;
-    
-    
+
+
     $pure_level = $oneLevel->getLevel();
-    
+
     if ( $currUserLevel == $pure_level )
         $is_user_level = true;
-       
+
     if ($is_user_level){
         $threshold = MeritBadge::preparePeriodOrThreshold($prevThreshold, $currUserThreshold, $cfg_period_threshold );
         $prevThreshold = $currUserThreshold;
@@ -82,24 +83,24 @@ foreach( $levelsMeritBadge as $oneLevel ){
         $threshold = MeritBadge::preparePeriodOrThreshold($prevThreshold,  $oneLevel->getThreshold(), $cfg_period_threshold );
         $prevThreshold = $oneLevel->getThreshold();
     }
-    
+
 
     $color = MeritBadge::getColor($pure_level, $noLevels );
     $level = "<b style=\'color:$color\'> ".intval($pure_level+1)."</b>";
-    
+
     $name = $oneLevel->getLevelName();
     $name = "<b style=\'color:$color\'>$name</b>";
-    
+
     $gain = $oneLevel->getGainCounter();
     $max_date = ($oneLevel->getGainLastDate())?date($dateFormat, strtotime($oneLevel->getGainLastDate())):"";
-    
-    
+
+
     if ($is_user_level){
         $threshold = setAsSelectedBold($threshold);
         $gain = setAsSelectedBold($gain);
         $max_date = setAsSelectedBold($max_date);
     }
-        
+
     $contentLvl .= "
         gct.addEmptyRow();
         gct.addToLastRow( 0, \"$pure_level\" );
@@ -107,7 +108,7 @@ foreach( $levelsMeritBadge as $oneLevel ){
         gct.addToLastRow( 2, \"$name\" );
         gct.addToLastRow( 3, \"$threshold\" );
         gct.addToLastRow( 4, \"$gain\" );
-        gct.addToLastRow( 5, \"$max_date\" ); ";    
+        gct.addToLastRow( 5, \"$max_date\" ); ";
 }
 
 tpl_set_var( 'contentLvl', $contentLvl );
@@ -116,40 +117,40 @@ tpl_set_var( 'contentLvl', $contentLvl );
 $usersMeritBadge = $meritBadgeCtrl->buildArrayUsers($badge_id);
 
 $contentUsr = "";
-$level_id = ""; 
+$level_id = "";
 
 foreach( $usersMeritBadge as $oneUserBadge ){
 
-    
+
     if ( $level_id != $oneUserBadge->getLevelId()){
-        
+
         if ($level_id!= "" ) $contentUsr .= "}
                 ";
-        
+
         $level_id = $oneUserBadge->getLevelId();
         $contentUsr .= "if (level== $level_id){";
-    }        
+    }
 
     $user_id = $oneUserBadge->getUserId();
-    
+
     $pure_user_name = str_replace( '"' , '' ,$oneUserBadge->getUserName() );
     $user_name = $pure_user_name;
-    
+
     $pure_curr_val = $oneUserBadge->getCurrVal();
     $curr_val = $pure_curr_val;
-    
+
     $pure_ts = $oneUserBadge->getLevelDateTS();
     $curr_level_date = ($oneUserBadge->getLevelDateTS())?date($dateFormat, strtotime($oneUserBadge->getLevelDate())):"";;
-    
-    
+
+
     if ($user_id == $userid ){
         $user_name = setAsSelected( $user_name );
     }
-        
+
     $pure_user_name = strtoupper($pure_user_name);
     $user_name = "<a $pure_user_name href='viewprofile.php?userid=$user_id'>$user_name</a>";
     $curr_level_date = "<spam $pure_ts>$curr_level_date</spam>";
-    
+
     $contentUsr .= "
         gctU.addEmptyRow();
         gctU.addToLastRow( 0, \"$user_name\" );
