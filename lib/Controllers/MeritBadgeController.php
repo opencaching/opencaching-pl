@@ -88,7 +88,7 @@ class MeritBadgeController{
 
 
     public function buildMeritBadge( $badge_id ){
-        $condition = " WHERE badge.id=:1 ";
+        $condition = " WHERE badges.id=:1 ";
         $stm = $this->db->multiVariableQuery( $this->getMeritBadgeQuery( $condition ), $badge_id );
         return $this->buildArray( '\lib\Objects\MeritBadge\MeritBadge', $stm );
     }
