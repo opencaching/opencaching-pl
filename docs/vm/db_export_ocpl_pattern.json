@@ -77,14 +77,6 @@
                 "__comment": "",
                 "__action": "get-data"
             },
-            "if_select": {
-                "__comment": "",
-                "__action": "get-data"
-            },
-            "how_many_select": {
-                "__comment": "",
-                "__action": "get-data"
-            },
             "description": {
                 "__comment": "",
                 "__action": "get-data"
@@ -96,8 +88,31 @@
             "short_description": {
                 "__comment": "",
                 "__action": "get-data"
-            }            
-            
+            },
+            "short_description": {
+                "__comment": "",
+                "__action": "get-data"
+            },            
+            "attendant": {
+                "__comment": "",
+                "__action": "get-data"
+            },   
+            "curr_val_query": {
+                "__comment": "",
+                "__action": "get-data"
+            },   
+            "description_author": {
+                "__comment": "",
+                "__action": "get-data"
+            },         
+            "graphic_author": {
+                "__comment": "",
+                "__action": "get-data"
+            },      
+             "is_to_update_query": {
+                "__comment": "",
+                "__action": "get-data"
+            }           
         },    
         "badge_categories": {
             "__table_comment": "",
@@ -170,8 +185,11 @@
             "description": {
                 "__comment": "",
                 "__action": "get-data"
-            }            
-            
+            },
+             "prev_val": {
+                "__comment": "",
+                "__action": "get-data"
+            }           
         },          
         "bulletins": {
             "__table_comment": "not used!",
@@ -882,7 +900,11 @@
             "nl": {
                 "__comment": "",
                 "__action": "get-data"
-            }
+            },
+            "ro": {
+                "__comment": "",
+                "__action": "get-data"
+            }            
         },
         "cache_status": {
             "__table_comment": "",
@@ -3026,6 +3048,89 @@
             "seq": {
                 "__comment": "",
                 "__action": "get-data"
+            }
+        },
+         "pictures.bak": {
+            "__table_comment": "",
+            "id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "uuid": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "url": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "last_modified": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "title": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "description": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "desc_html": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_created": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "last_url_check": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "object_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "object_type": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "thumb_url": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "thumb_last_generated": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "spoiler": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "local": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "unknown_format": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "display": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "node": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "seq": {
+                "__comment": "",
+                "__action": "skip-data"
             }
         },
         "PowerTrail": {
