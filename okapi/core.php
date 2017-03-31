@@ -716,8 +716,7 @@ class OkapiConsumer extends OAuthConsumer
 
     public function __construct($key, $secret, $name, $url, $email, $bflags=0)
     {
-        $this->key = $key;
-        $this->secret = $secret;
+        parent::__construct($key, $secret, null);
         $this->name = $name;
         $this->url = $url;
         $this->email = $email;
@@ -1105,8 +1104,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1364;
-    public static $git_revision = 'f4fb5c46a6d8cb6aaed90464ac2a34abf3902f81';
+    public static $version_number = 1365;
+    public static $git_revision = 'daaa213efa53ea3c00c6b935ba4e784744753039';
 
     private static $okapi_vars = null;
 
@@ -1871,7 +1870,7 @@ class Okapi
         else
         {
             # That's a bug.
-            throw new Exception("Cannot encode as xmlmap: " + print_r($obj, true));
+            throw new Exception("Cannot encode as xmlmap: " . print_r($obj, true));
         }
     }
 
