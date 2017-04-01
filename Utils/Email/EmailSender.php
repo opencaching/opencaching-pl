@@ -51,15 +51,14 @@ class EmailSender
     }
 
     /**
-     * @param $emailTemplateFile
      * @param $username
      * @param $country
      * @param $code
      * @param $newUserEmailAddress
      * @param $uuid
      */
-    public static function sendActivationMessage($emailTemplateFile, $username, $country, $code, $newUserEmailAddress, $uuid) {
-        $formattedMessage = new EmailFormatter($emailTemplateFile);
+    public static function sendActivationMessage($username, $country, $code, $newUserEmailAddress, $uuid) {
+        $formattedMessage = new EmailFormatter(__DIR__ . '/../../tpl/stdstyle/email/user_activation.email.html');
         $formattedMessage->setVariable("registermail01", tr("registermail01"));
         $formattedMessage->setVariable("useractivationmail1", tr("useractivationmail1"));
         $formattedMessage->setVariable("useractivationmail2", tr("useractivationmail2"));
@@ -88,12 +87,11 @@ class EmailSender
     }
 
     /**
-     * @param $emailTemplateFile
      * @param $username
      * @param $userEmailAddress
      */
-    public static function sendPostActivationMail($emailTemplateFile, $username, $userEmailAddress) {
-        $formattedMessage = new EmailFormatter($emailTemplateFile);
+    public static function sendPostActivationMail($username, $userEmailAddress) {
+        $formattedMessage = new EmailFormatter(__DIR__ . '/../../tpl/stdstyle/email/post_activation.email.html');
         $formattedMessage->setVariable("server", OcConfig::getAbsolute_server_URI());
         $formattedMessage->setVariable("registermail01", tr("registermail01"));
         $formattedMessage->setVariable("postactivationmail01", tr("postactivationmail01"));
@@ -133,9 +131,13 @@ class EmailSender
         $email->send();
     }
 
-    public static function sendRemoveLogNotification($emailTemplateFile, GeoCacheLog $log, User $loggedUser)
+    /**
+     * @param GeoCacheLog $log
+     * @param User $loggedUser
+     */
+    public static function sendRemoveLogNotification(GeoCacheLog $log, User $loggedUser)
     {
-        $formattedMessage = new EmailFormatter($emailTemplateFile);
+        $formattedMessage = new EmailFormatter(__DIR__ . '/../../tpl/stdstyle/email/removed_log.email.html');
         $formattedMessage->setVariable("log_owner", $log->getUser()->getUserName());
         $formattedMessage->setVariable("waypointId", $log->getGeoCache()->getWaypointId());
         $formattedMessage->setVariable("serviceUrl", OcConfig::getAbsolute_server_URI());
@@ -158,11 +160,14 @@ class EmailSender
         $email->send();
     }
 
+    /**
+     * @param GeoCache $cache
+     * @param User $admin
+     * @param $message
+     */
     public static function sendNotifyOfOcTeamCommentToCache(GeoCache $cache, User $admin, $message)
     {
-        $emailTemplateFile = __DIR__ . '/../../tpl/stdstyle/email/octeam_comment.email.html';
-
-        $formattedMessage = new EmailFormatter($emailTemplateFile);
+        $formattedMessage = new EmailFormatter(__DIR__ . '/../../tpl/stdstyle/email/octeam_comment.email.html');
         $formattedMessage->setVariable("ocTeamComment_01", tr("ocTeamComment_01"));
         $formattedMessage->setVariable("ocTeamComment_02", tr("ocTeamComment_02"));
         $formattedMessage->setVariable("ocTeamComment_03", tr("ocTeamComment_03"));
@@ -197,9 +202,14 @@ class EmailSender
         $emailCOG->send();
     }
 
-    public static function sendAdoptionOffer($emailTemplateFile, $cacheName, $newOwnerUserName,
-        $oldOwnerUserName, $userEmail) {
-        $formattedMessage = new EmailFormatter($emailTemplateFile);
+    /**
+     * @param $cacheName
+     * @param $newOwnerUserName
+     * @param $oldOwnerUserName
+     * @param $userEmail
+     */
+    public static function sendAdoptionOffer($cacheName, $newOwnerUserName, $oldOwnerUserName, $userEmail) {
+        $formattedMessage = new EmailFormatter(__DIR__ . '/../../tpl/stdstyle/email/adoption.email.html');
         $formattedMessage->setVariable("adopt01", tr("adopt_26"));
         $formattedMessage->setVariable("userName", '<b>'.$oldOwnerUserName.'</b>');
         $formattedMessage->setVariable("cacheName", '<b>'.$cacheName.'</b>');
@@ -216,9 +226,15 @@ class EmailSender
         $email->send();
     }
 
-    public static function sendAdoptionSuccessMessage($emailTemplateFile, $cacheName, $newOwnerUserName,
-        $oldOwnerUserName, $oldOwnerEmail) {
-        $formattedMessage = new EmailFormatter($emailTemplateFile);
+    /**
+     * @param $cacheName
+     * @param $newOwnerUserName
+     * @param $oldOwnerUserName
+     * @param $oldOwnerEmail
+     */
+    public static function sendAdoptionSuccessMessage($cacheName, $newOwnerUserName, $oldOwnerUserName,
+        $oldOwnerEmail) {
+        $formattedMessage = new EmailFormatter(__DIR__ . '/../../tpl/stdstyle/email/adoption.email.html');
         $formattedMessage->setVariable("adopt01", tr("adopt_31"));
         $formattedMessage->setVariable("userName", '<b>'.$newOwnerUserName.'</b>');
         $formattedMessage->setVariable("cacheName", '<b>'.$cacheName.'</b>');
@@ -235,9 +251,15 @@ class EmailSender
         $email->send();
     }
 
-    public static function sendAdoptionRefusedMessage($emailTemplateFile, $cacheName, $newOwnerUserName,
-        $oldOwnerUserName, $oldOwnerEmail) {
-        $formattedMessage = new EmailFormatter($emailTemplateFile);
+    /**
+     * @param $cacheName
+     * @param $newOwnerUserName
+     * @param $oldOwnerUserName
+     * @param $oldOwnerEmail
+     */
+    public static function sendAdoptionRefusedMessage($cacheName, $newOwnerUserName, $oldOwnerUserName,
+        $oldOwnerEmail) {
+        $formattedMessage = new EmailFormatter(__DIR__ . '/../../tpl/stdstyle/email/adoption.email.html');
         $formattedMessage->setVariable("adopt01", tr("adopt_29"));
         $formattedMessage->setVariable("userName", '<b>'.$newOwnerUserName.'</b>');
         $formattedMessage->setVariable("cacheName", '<b>'.$cacheName.'</b>');
@@ -258,19 +280,23 @@ class EmailSender
      * Sends user2user message (used by mailTo)
      * Returns true on success;
      *
-     * @param UserMessage $msg
-     * @return boolean
+     * @param User $from
+     * @param User $to
+     * @param $subject
+     * @param $text
+     * @param $attachSenderAddress
+     * @return bool
+     * @internal param UserMessage $msg
      */
     public static function sendUser2UserMessage(User $from, User $to, $subject, $text, $attachSenderAddress)
     {
-
         // add additional prefix to subject
         $subject = tr('mailto_emailFrom').' '.$from->getUserName().': '.$subject;
 
         // prepare message text
         if($attachSenderAddress){
             $userMessage = new EmailFormatter(__DIR__ . '/../../tpl/stdstyle/email/user2user/messageWithSenderEmail.email.html', true);
-        }else{
+        } else {
             $userMessage = new EmailFormatter(__DIR__ . '/../../tpl/stdstyle/email/user2user/messageWithoutSenderEmail.email.html', true);
         }
 
@@ -281,7 +307,6 @@ class EmailSender
         $userMessage->setVariable('fromUserid', $from->getUserId());
         $userMessage->setVariable('text', nl2br($text));
         $userMessage->addFooterAndHeader($to->getUserName(), !$attachSenderAddress);
-
 
         // prepare copy for sender
         $senderCopy = new EmailFormatter(__DIR__ . '/../../tpl/stdstyle/email/user2user/messageCopyForSender.email.html', true);
@@ -295,8 +320,6 @@ class EmailSender
         $senderCopy->setVariable('text', $bodyOfMessage);
         $senderCopy->setVariable('toUsername', $to->getUserName());
         $senderCopy->addFooterAndHeader($from->getUserName());
-
-
 
         $noReplyAddress = OcConfig::getNoreplyEmailAddress();
 
@@ -316,11 +339,10 @@ class EmailSender
         $email->setBody($userMessage->getEmailContent(), true);
         $result = $email->send();
 
-        if(!$result){
+        if(!$result) {
             error_log(__METHOD__.': Mail sending failure to: '.$to->getEmail());
             return $result;
-        }else{
-
+        } else {
             //send copy of email to sender
             $email = new Email();
             $email->addToAddr($from->getEmail());
@@ -338,9 +360,15 @@ class EmailSender
         return $result;
     }
 
-    public static function sendNotifyAboutNewCacheToOcTeam($emailTemplateFile, User $owner, $newCacheName, $newCacheId,
-                                                           $region, $country) {
-        $formattedMessage = new EmailFormatter($emailTemplateFile);
+    /**
+     * @param User $owner
+     * @param $newCacheName
+     * @param $newCacheId
+     * @param $region
+     * @param $country
+     */
+    public static function sendNotifyAboutNewCacheToOcTeam(User $owner, $newCacheName, $newCacheId, $region, $country) {
+        $formattedMessage = new EmailFormatter(__DIR__ . '/../../tpl/stdstyle/email/oc_team_notify_new_cache.email.html');
         $formattedMessage->setVariable("ocTeamNewCache_01", tr("ocTeamNewCache_01"));
         $formattedMessage->setVariable("ocTeamNewCache_02", tr("ocTeamNewCache_02"));
         $formattedMessage->setVariable("ocTeamNewCache_03", tr("ocTeamNewCache_03"));
@@ -371,9 +399,16 @@ class EmailSender
         $email->send();
     }
 
-    public static function sendNotifyAboutNewReportToOcTeam($emailTemplateFile, $timestamp, User $submitter,
-                                                            GeoCache $reportedCache, $reason, $text) {
-        $formattedMessage = new EmailFormatter($emailTemplateFile);
+    /**
+     * @param $timestamp
+     * @param User $submitter
+     * @param GeoCache $reportedCache
+     * @param $reason
+     * @param $text
+     */
+    public static function sendNotifyAboutNewReportToOcTeam($timestamp, User $submitter, GeoCache $reportedCache,
+        $reason, $text) {
+        $formattedMessage = new EmailFormatter(__DIR__ . '/../../tpl/stdstyle/email/oc_team_notify_new_report.email.html');
         $formattedMessage->setVariable("reportcache10", tr("reportcache10"));
         $formattedMessage->setVariable("reportcache11", tr("reportcache11"));
         $formattedMessage->setVariable("reportcache12", tr("reportcache12"));

@@ -41,8 +41,7 @@ class LogEnteryController
 
         if (( $log->getUser()->getUserId() === $loggedUser->getUserId()) || ($log->getGeoCache()->getOwner()->getUserId() == $loggedUser->getUserId()) || $loggedUser->getIsAdmin()) {
             if($log->getUser()->getUserId() !== $loggedUser->getUserId()){
-                EmailSender::sendRemoveLogNotification(__DIR__ . '/../../tpl/stdstyle/email/removed_log.email.html',
-                    $log, $loggedUser);
+                EmailSender::sendRemoveLogNotification($log, $loggedUser);
             }
             $updateQuery = "UPDATE `cache_logs` SET deleted = 1, `del_by_user_id` = :1 , `last_modified`=NOW(), `last_deleted`=NOW() WHERE `cache_logs`.`id`=:2 LIMIT 1";
             $db = OcDb::instance();

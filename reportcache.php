@@ -61,8 +61,8 @@ if ($usr == true) {
                             VALUES ( ? , ? , ? , ? )",
                             $usr['userid'], $cacheid, strip_tags($_POST['text']), $_POST['reason']);
 
-                        EmailSender::sendNotifyAboutNewReportToOcTeam($stylepath.'/email/oc_team_notify_new_report.email.html',
-                            date($datetimeFormat), ApplicationContainer::Instance()->getLoggedUser(),
+                        EmailSender::sendNotifyAboutNewReportToOcTeam(date($datetimeFormat),
+                            ApplicationContainer::Instance()->getLoggedUser(),
                             new GeoCache(array('cacheId' => $cacheid)),
                             reason($_POST['reason']),
                             nl2br($_POST['text']));

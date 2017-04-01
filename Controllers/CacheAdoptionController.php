@@ -182,8 +182,8 @@ class CacheAdoptionController extends BaseController
         $message = str_replace('{cacheName}', $cacheObj->getCacheName(), $message);
         $this->infoMsg = $message;
 
-        EmailSender::sendAdoptionSuccessMessage(__DIR__ . '/../tpl/stdstyle/email/adoption.email.html',
-            $cacheObj->getCacheName(), $this->loggedUser->getUserName(), $oldOwner->getUserName(), $oldOwner->getEmail());
+        EmailSender::sendAdoptionSuccessMessage($cacheObj->getCacheName(), $this->loggedUser->getUserName(),
+            $oldOwner->getUserName(), $oldOwner->getEmail());
 
     }
 
@@ -209,8 +209,8 @@ class CacheAdoptionController extends BaseController
         if(!is_null($oldOwner)){
 
             $this->infoMsg = tr('adopt_27');
-            EmailSender::sendAdoptionRefusedMessage(__DIR__ . '/../tpl/stdstyle/email/adoption.email.html',
-                $cacheObj->getCacheName(), $this->loggedUser->getUserName(), $oldOwner->getUserName(), $oldOwner->getEmail());
+            EmailSender::sendAdoptionRefusedMessage($cacheObj->getCacheName(), $this->loggedUser->getUserName(),
+                $oldOwner->getUserName(), $oldOwner->getEmail());
         }
     }
 
@@ -270,8 +270,8 @@ class CacheAdoptionController extends BaseController
                 $cacheObj->getCacheId(), $newUserObj->getUserId());
 
             if ($this->db->rowCount($stmt) > 0) {
-                EmailSender::sendAdoptionOffer(__DIR__ . '/../tpl/stdstyle/email/adoption.email.html', $cacheObj->getCacheName(),
-                    $newUserObj->getUserName(), $this->loggedUser->getUserName(), $newUserObj->getEmail());
+                EmailSender::sendAdoptionOffer($cacheObj->getCacheName(), $newUserObj->getUserName(),
+                    $this->loggedUser->getUserName(), $newUserObj->getEmail());
                 $this->infoMsg = tr('adopt_24');
             } else {
                 $this->errorMsg = tr('adopt_22');
