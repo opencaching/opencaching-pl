@@ -145,19 +145,24 @@ class MeritBadge
     // Static functions
     //////////////////////////////////////////////////////////////////////
     
-    public static function getBarSize( $level, $maxLevel){
-        $size = round(($level*self::PROGRESIVE_BAR_SIZE)/$maxLevel);
+    public static function getBarSize( $level, $amountOfLevels){
+        if (!$amountOfLevels) $amountOfLevels=1;
+        $size = round((($level+1)*self::PROGRESIVE_BAR_SIZE)/$amountOfLevels);
         
-        if($size == 0 ) $size = 1;
+        if($size <= 0 ) $size = 1;
         if($size > self::PROGRESIVE_BAR_SIZE ) $size = self::PROGRESIVE_BAR_SIZE;
         
         return $size;
     }
     
     
-    public static function getColor( $level, $maxLevel){
-        $idx = round((($level+1)*self::COLOR_NUMBER)/($maxLevel));
+    public static function getColor( $level, $amountOfLevels){
+        if (!$amountOfLevels) $amountOfLevels=1;
+        
+        $idx = round((($level+1)*self::COLOR_NUMBER)/($amountOfLevels));
         if($idx > (self::COLOR_NUMBER) ) $idx = self::COLOR_NUMBER;
+        if($idx <= 0 ) $idx = 1;
+        
         return self::$_colors[ $idx-1 ];
     }
     
