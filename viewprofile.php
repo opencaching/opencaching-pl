@@ -23,7 +23,7 @@ global $stat_menu, $mnu_siteid;
 if ($error == false) {
     //user logged in?
     if ($usr == false) {
-        $target = myUrlEncode(tpl_get_current_page());
+        $target = urlencode(tpl_get_current_page());
         tpl_redirect('login.php?target=' . $target);
     } else {
         $cache_line = '<li style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">{cacheimage}&nbsp;{cachestatus} &nbsp; {date} &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong></li>';
@@ -157,20 +157,20 @@ if ($error == false) {
         $content .= '<br /><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;' . tr('user_activity01') . '</p></div><br /><p><span class="content-title-noshade txt-blue08">' . tr('user_activity02') . '</span>:&nbsp;<strong>' . $act . '</strong></p>';
 
         //////////////////////////////////////////////////////////////////////////////
-        
+
         //Merit badges
         if ($config['meritBadges']){
-            
+
             $content .= '<div class="content2-container bg-blue02">
                                 <p class="content-title-noshade-size1">
                                 <img src="tpl/stdstyle/images/blue/merit_badge.png" width="33" class="icon32" alt="Merit badges" title="Merit badges" />&nbsp' . tr('merit_badges') . '</div>';
-    
+
             $content .= buildMeritBadges($user_id);
-            
+
         }
         ////////////////////////////////////////////////////////////////////////////
-        
-        
+
+
         // PowerTrails stats
 
         if ($powerTrailModuleSwitchOn) {
@@ -775,12 +775,6 @@ function buildPowerTrailIcons(ArrayObject $powerTrails)
     return $result . '</td></tr></table><br /><br />';
 }
 
-function myUrlEncode($string)
-{
-    $entities = array('%21', '%2A', '%27', '%28', '%29', '%3B', '%3A', '%40', '%26', '%3D', '%2B', '%24', '%2C', '%2F', '%3F', '%25', '%23', '%5B', '%5D');
-    $replacements = array('!', '*', "'", "(", ")", ";", ":", "@", "&", "=", "+", "$", ",", "/", "?", "%", "#", "[", "]");
-    return str_replace($entities, $replacements, urlencode($string));
-}
 
 function parseNote($note_content, $automatic, $cache_id = -1) {
     if($automatic) { //if note is collected automatically
@@ -865,9 +859,9 @@ function buildGeocacheHtml(GeoCache $geocache, $html)
 
 
 function buildMeritBadges($user_id){
-    
+
 global $content_table_badge, $content_row_pattern_badge, $content_tip_badge, $content_element_badge,
-$stylepath;       
+$stylepath;
 
 require($stylepath . '/viewprofile.inc.php');
 
@@ -881,14 +875,14 @@ $content = '';
 foreach($userCategories as $oneCategory){
 
     $badgesInCategory = $meritBadgeCtrl->buildArrayUserMeritBadgesInCategory( $user_id, $oneCategory->getId() );
-    
+
     $content_badge = '';
-    
+
     foreach($badgesInCategory as $oneBadge){
 
         $short_desc = MeritBadge::prepareShortDescription( $oneBadge->getOBadge()->getShortDescription(), $oneBadge->getNextVal() );
         $short_desc = mb_ereg_replace( "'", "\\'", $short_desc);
-        
+
         $element=$content_element_badge;
         $element=mb_ereg_replace('{content_tip}', $content_tip_badge, $element);
         $element=mb_ereg_replace('{name}', $oneBadge->getOBadge()->getName(), $element);
@@ -902,7 +896,7 @@ foreach($userCategories as $oneCategory){
         $element=mb_ereg_replace('{progresbar_size}', MeritBadge::getBarSize( $oneBadge->getLevelId(),  $oneBadge->getOBadge()->getLevels() ), $element );
         $element=mb_ereg_replace('{progresbar_color}', MeritBadge::getColor( $oneBadge->getLevelId(), $oneBadge->getOBadge()->getLevels() ), $element );
         $element=mb_ereg_replace('{next_val}', MeritBadge::prepareTextThreshold($oneBadge->getNextVal()), $element );
-        
+
         $content_badge.= $element;
     }
 
