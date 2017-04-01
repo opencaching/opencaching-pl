@@ -190,6 +190,18 @@ class User extends BaseObject
         return false;
     }
 
+    private function loadDataFromDbByUsername($username, $fields){
+
+        $stmt = $this->db->multiVariableQuery(
+            "SELECT $fields FROM `user` WHERE `username`=:1 LIMIT 1", $username);
+
+        if($row = $this->db->dbResultFetchOneRowOnly($stmt)){
+            $this->setUserFieldsByUsedDbRow($row);
+            return true;
+        }
+        return false;
+    }
+
     private function setUserFieldsByUsedDbRow(array $dbRow)
     {
         $cordsPresent = false;
