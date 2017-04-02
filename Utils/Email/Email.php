@@ -11,6 +11,7 @@
 namespace Utils\Email;
 
 use lib\Objects\OcConfig\OcConfig;
+use lib\Objects\User\User;
 
 class Email
 {
@@ -84,13 +85,22 @@ class Email
         } else {
             $to = OcConfig::getNoreplyEmailAddress();
             $this->error(__METHOD__.": Setting dummy TO address: $to");
-
         }
 
         $subject = $this->subjectPrefix . " " . $this->subject;
         $message = $this->body;
 
         return mb_send_mail($to, $subject, $message, implode("\r\n", $headers));
+    }
+
+    public function addToUser(User $user) {
+        if($user->isActive() && self::isValidEmail($user->getEmail())){
+            $this->toAddr[] = $user->getEmail();
+            return true;
+        }else{
+            $this->error(__METHOD__.': improper email address: '.$user->getEmail());
+            return false;
+        }
     }
 
     public function addToAddr($addr){

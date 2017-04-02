@@ -13,7 +13,6 @@ use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\User\User;
-use lib\Objects\User\UserMessage;
 
 class EmailSender
 {
@@ -138,7 +137,7 @@ class EmailSender
         $formattedMessage->addFooterAndHeader($log->getUser()->getUserName());
 
         $email = new Email();
-        $email->addToAddr($log->getUser()->getEmail());
+        $email->addToUser($loggedUser);
         $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
         $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
@@ -165,7 +164,7 @@ class EmailSender
         $formattedMessage->addFooterAndHeader($cache->getOwner()->getUserName(), false);
 
         $email = new Email();
-        $email->addToAddr($cache->getOwner()->getEmail());
+        $email->addToUser($cache->getOwner());
         $email->setReplyToAddr(OcConfig::getCogEmailAddress());
         $email->setFromAddr(OcConfig::getCogEmailAddress());
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
