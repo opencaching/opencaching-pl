@@ -368,8 +368,10 @@ class EmailSender
 
         if (isset($region) && isset($country)) {
             $email->setSubject(tr('ocTeamNewCache_sub').": ".$country." -> ".$region);
+            $formattedMessage->setVariable("location", $country." -> ".$region);
         } else {
             $email->setSubject(tr('ocTeamNewCache_sub').": ".tr('dummy_outside'));
+            $formattedMessage->setVariable("location", "");
         }
 
         $email->setBody($formattedMessage->getEmailContent(), true);
@@ -412,8 +414,10 @@ class EmailSender
 
         if (empty($location)) {
             $email->setSubject(tr('reportcache07').": ".tr('dummy_outside'));
+            $formattedMessage->setVariable("location", "");
         } else {
             $email->setSubject(tr('reportcache07').": ".$location);
+            $formattedMessage->setVariable("location", $location);
         }
 
         $email->setBody($formattedMessage->getEmailContent(), true);
