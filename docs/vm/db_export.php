@@ -432,7 +432,7 @@ function DumpTableData($dumpCommand, $tabName){
                 if(is_null($val)) {
                     $vals[] = "NULL";
                 }
-				else if ( strpos($val, BLOB_PREFIX) !== FALSE ) {  // blob-as-hex without quotes
+				else if ( substr($val, 0, strlen(BLOB_PREFIX)) == BLOB_PREFIX ) {  // blob-as-hex without quotes
 					$vals[] = str_replace(BLOB_PREFIX, "", $val);
 				}
                 else {
