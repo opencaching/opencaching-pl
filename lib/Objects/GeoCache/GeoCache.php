@@ -350,6 +350,7 @@ class GeoCache extends GeoCacheCommons
             'nc' => $geocacheDbRow['wp_nc'],
             'tc' => $geocacheDbRow['wp_tc'],
             'ge' => $geocacheDbRow['wp_ge'],
+            'qc' => $geocacheDbRow['wp_qc'],
         );
         $this->datePlaced = new \DateTime($geocacheDbRow['date_hidden']);
         $this->dateCreated = new \DateTime($geocacheDbRow['date_created']);
@@ -859,6 +860,14 @@ class GeoCache extends GeoCacheCommons
             $otherSite->link = 'http://coord.info/'.$this->otherWaypointIds['gc'];
             $otherSite->sitename = 'Geocaching.com';
             $otherSite->wp = $this->otherWaypointIds['gc'];
+            $result[] = $otherSite;
+        }
+
+        if ( !empty($this->otherWaypointIds['qc']) && $config['otherSites_qualitycaching_com'] == 1 ){
+            $otherSite = new \stdClass();
+            $otherSite->link = 'http://www.qualitycaching.com/QCView.aspx?cid='.$this->otherWaypointIds['qc'];
+            $otherSite->sitename = 'Qualitycaching.com';
+            $otherSite->wp = $this->otherWaypointIds['qc'];
             $result[] = $otherSite;
         }
 
