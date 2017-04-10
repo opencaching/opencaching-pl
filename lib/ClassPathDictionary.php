@@ -43,7 +43,6 @@ class ClassPathDictionary
      * !!! please preserve alphabetical order. !!!
      */
     private static $classDictionary = array(
-        'Smarty' => 'lib/Smarty/libs/Smarty.class.php',
         'cache' => 'lib/cache.php',
         'PasswordManager' => 'lib/passwordManager.php',
         'GeoKretyApi' => 'GeoKretyAPI.php',
@@ -81,9 +80,6 @@ class ClassPathDictionary
 }
 
 spl_autoload_register(function ($className) {
-    if(strpos($className, 'Smarty_') !== false){ /* ignore smary class autoloading */
-        return;
-    }
 
     $classFile = ClassPathDictionary::getClassPath($className);
     if(!is_null($classFile))
