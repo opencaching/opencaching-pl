@@ -2,19 +2,8 @@
 
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
-use lib\Controllers\OcController;
-
 
 global $usr;
-
-if(isset($_REQUEST['ocController']) && $_REQUEST['ocController'] == 1) {
-    session_start();
-    require_once __DIR__ . '/lib/Controllers/OcController.php';
-    $ocRouter = new OcController();
-    $ocRouter->run($_REQUEST);
-    exit;
-}
-
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
