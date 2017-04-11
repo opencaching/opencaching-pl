@@ -343,3 +343,4 @@ $wptType[2] = 'Flag, Blue';         // OC: TYPE_VIRTUAL
 $wptType[3] = 'Flag, Red';          // OC: TYPE_FINAL
 $wptType[4] = 'Waypoint';           // OC: TYPE_INTERESTING
 $wptType[5] = 'Parking Area';       // OC: TYPE_PARKING
+$wptType[6] = 'Trailhead';          // OC: TYPE_TRAILHEAD 
