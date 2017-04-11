@@ -17,11 +17,15 @@ $charset= 'utf8';
 // file with export pattern
 $exportPatternFile = "./db_export_ocpl_pattern.json";
 
-//if TRUE db structure will be attache at the begining of the result file
+//if TRUE db structure will be attached at the begining of the result file
 define('DB_STRUCT_DUMP', TRUE );
+//if TRUE trigger def.s will be attached at the end of the result file
+define('TRIGGERS_DUMP', TRUE );
 
 //if TRUE many debug messages are printed
 define('DEBUG', TRUE );
+//max data records for single INSERT statemet
+define('MAX_INSERT_LINES', 10000 );
 
 /* ----- Configuration END ----- */
 
@@ -36,6 +40,7 @@ define('GET_DATA', 'get-data');
 define('SET_TO', 'set-to');
 define('TRIM', 'trim');
 define('SQL', 'sql');
+define('BLOB_PREFIX', '[BLOB-HEX]');
 $colActions = array( SKIP_DATA, GET_DATA, SQL, SET_TO, TRIM );
 
 function error($msg){ echo ("\n--ERROR: $msg\n\n"); }
@@ -362,7 +367,7 @@ function DumpDbStruct(){
 
     global $dbUser, $dbPass, $dbName;
 
-    $command = "mysqldump --user=$dbUser --password=$dbPass --opt --no-data $dbName";
+    $command = "mysqldump --user=$dbUser --password=$dbPass --routines --skip-triggers --skip-opt --no-data $dbName";
 
     //run dump script
     info(title("Dump DB struct"));
@@ -376,6 +381,25 @@ function DumpDbStruct(){
     info(title("Dump DB struct completed"));
 }
 
+function DumpTriggers(){
+
+    global $dbUser, $dbPass, $dbName;
+
+    $command = "mysqldump --user=$dbUser --password=$dbPass --routines --no-create-info --no-data --no-create-db $dbName";
+	
+
+    //run dump script
+    info(title("Dump triggers"));
+
+    $returnVar = NULL;
+    echo system ( $command, $returnVar );
+    echo "\n";
+    if( $returnVar != 0 ){
+        exit();
+    }
+    info(title("Dump triggers completed"));
+}
+
 function DumpTableData($dumpCommand, $tabName){
 
     global $db;
@@ -387,12 +411,12 @@ function DumpTableData($dumpCommand, $tabName){
         exit();
     }
 
-
     //get the list of fields
     $finfo = $result->fetch_fields();
 
     //take first row
     $row = $result->fetch_assoc();
+	$rowCnt = 0;
     if(!is_null($row)){
 
         $cols = array();
@@ -400,8 +424,6 @@ function DumpTableData($dumpCommand, $tabName){
             $cols[] = '`'.$colName.'`';
         }
 
-        //open query
-        echo "INSERT INTO `$tabName` ( " . implode(',', $cols) . ") VALUES \n\t";
 
         //dump data
         do {
@@ -410,18 +432,36 @@ function DumpTableData($dumpCommand, $tabName){
                 if(is_null($val)) {
                     $vals[] = "NULL";
                 }
+				else if ( substr($val, 0, strlen(BLOB_PREFIX)) == BLOB_PREFIX ) {  // blob-as-hex without quotes
+					$vals[] = str_replace(BLOB_PREFIX, "", $val);
+				}
                 else {
                     $vals[] = "'".addslashes($val)."'";
                 }
             }
 
+			$startInsert = ( $rowCnt % MAX_INSERT_LINES ) == 0;
+			$endInsert = ( $rowCnt % MAX_INSERT_LINES ) == ( MAX_INSERT_LINES - 1 );
+			
+			if($startInsert) { 
+					//open query
+					echo "INSERT INTO `$tabName` ( " . implode(',', $cols) . ") VALUES \n\t";
+			}
             echo '(' . implode(',', $vals) . ')';
 
             $row = $result->fetch_assoc();
 
-            if( $row != NULL ) echo ",\n\t";
-            else echo ";\n" ;
+            if( $row != NULL ) { 
+				if( $endInsert ) 
+					echo ";\n\t";
+				else	
+					echo ",\n\t";
+			}
+            else { 
+				echo ";\n" ;
+			}	
 
+			$rowCnt++;
         } while ( $row );
     }
 }
@@ -470,5 +510,10 @@ foreach( array_keys($currSchema['tables']) as $tabName ){
         //execute dump command and create inserts...
         DumpTableData($dumpCommand, $tabName);
     }
+}
+
+//dump triggers if needed
+if ( TRIGGERS_DUMP ){
+    DumpTriggers();
 }
 info(title("Dump generation completed."));

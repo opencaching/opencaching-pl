@@ -88,11 +88,7 @@
             "short_description": {
                 "__comment": "",
                 "__action": "get-data"
-            },
-            "short_description": {
-                "__comment": "",
-                "__action": "get-data"
-            },            
+            },         
             "attendant": {
                 "__comment": "",
                 "__action": "get-data"
@@ -570,9 +566,8 @@
                 "__action": "get-data"
             },
             "desc": {
-                "__comment": "trim cache desc. for dev env.",
-                "__action":  "trim",
-                "__trim_size": "30"
+                "__comment": "",
+                "__action":  "get-data"
             },
             "desc_html": {
                 "__comment": "",
@@ -583,14 +578,12 @@
                 "__action": "get-data"
             },
             "hint": {
-                "__comment": "Trim hint to the first 10 chars",
-                "__action": "trim",
-                "__trim_size": "10"
+                "__comment": "",
+                "__action":  "get-data"
             },
             "short_desc": {
                 "__comment": "",
-                "__action":  "trim",
-                "__trim_size": "15"
+                "__action":  "get-data"
             },
             "date_created": {
                 "__comment": "",
@@ -610,8 +603,7 @@
             },
             "rr_comment": {
                 "__comment": "",
-                "__action": "trim",
-                "__trim_size": "10"
+                "__action":  "get-data"
             }
         },
         "cache_ignore": {
@@ -696,8 +688,7 @@
             },
             "text": {
                 "__comment": "",
-                "__action": "trim",
-                "__trim_size": "10"
+                "__action":  "get-data"
             },
             "text_html": {
                 "__comment": "",
@@ -2500,8 +2491,9 @@
                 "__action": "get-data"
             },
             "shape": {
-                "__comment": "",
-                "__action": "get-data"
+                "__comment": "BLOB->HEX",
+                "__action": "sql",
+                "__sql" : "CONCAT('[BLOB-HEX]0x',HEX(CAST(shape AS CHAR(1000000) CHARACTER SET utf8))) as 'shape'"
             }
         },
         "nuts_codes": {
