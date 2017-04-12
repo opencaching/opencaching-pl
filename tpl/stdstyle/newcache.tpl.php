@@ -225,8 +225,8 @@
     // if( document.newcacheform.size.options[ $('#size option').length - 1].value != "7" && document.newcacheform.size.options[document.newcacheform.size.options.length - 2].value != "7")
     if (!($("#size option[value='7']").length > 0))
     {
-    var o = new Option("{{size_07}}", "7");
-            $(o).html("{{size_07}}");
+    var o = new Option("{{cacheSize_7}}", "7");
+            $(o).html("{{cacheSize_7}}");
             $("#size").append(o);
     }
     $('#size').val(7);
@@ -500,7 +500,7 @@
             <div id="wptInfo" style="display: none; color: #006600; font-weight: bold;">{{newcache_import_wpt_ok}}</div>
             <form action="newcacheAjaxWaypointUploader.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
                 <p id="f1_upload_form"><br/>
-                    
+
                 </p>
                 <div class="form-inline">
                     <?php $view->callChunk('fileUpload','myfile','.gpx'); ?>

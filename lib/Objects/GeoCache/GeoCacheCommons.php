@@ -26,14 +26,14 @@ class GeoCacheCommons{
     const STATUS_NOTYETAVAILABLE = 5;
     const STATUS_BLOCKED = 6;
 
-    const SIZE_NONE = 7;
-    const SIZE_NANO = 8;
+    const SIZE_OTHER = 1;
     const SIZE_MICRO = 2;
     const SIZE_SMALL = 3;
     const SIZE_REGULAR = 4;
     const SIZE_LARGE = 5;
     const SIZE_XLARGE = 6;
-    const SIZE_OTHER = 1;
+    const SIZE_NONE = 7;
+    const SIZE_NANO = 8;
 
     public static function CacheTypeTranslationKey($type){
 
@@ -72,17 +72,17 @@ class GeoCacheCommons{
     public static function CacheSizeTranslationKey($sizeId)
     {
         switch ($sizeId) {
-            case self::SIZE_OTHER:  return 'size_00';
-            case self::SIZE_NANO:   return 'size_01';
-            case self::SIZE_MICRO:  return 'size_02';
-            case self::SIZE_SMALL:  return 'size_03';
-            case self::SIZE_REGULAR:return 'size_04';
-            case self::SIZE_LARGE:  return 'size_05';
-            case self::SIZE_XLARGE: return 'size_06';
-            case self::SIZE_NONE:   return 'size_07';
+            case self::SIZE_OTHER:  return 'cacheSize_1';
+            case self::SIZE_MICRO:  return 'cacheSize_2';
+            case self::SIZE_SMALL:  return 'cacheSize_3';
+            case self::SIZE_REGULAR:return 'cacheSize_4';
+            case self::SIZE_LARGE:  return 'cacheSize_5';
+            case self::SIZE_XLARGE: return 'cacheSize_6';
+            case self::SIZE_NONE:   return 'cacheSize_7';
+            case self::SIZE_NANO:   return 'cacheSize_8';
             default:
                 error_log(__METHOD__ . ' Unknown cache sizeId: ' . $sizeId);
-                return 'size_04';
+                return 'cacheSize_4';
         }
     }
 

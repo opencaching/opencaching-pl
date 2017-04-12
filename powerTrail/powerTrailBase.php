@@ -138,6 +138,7 @@ class powerTrailBase{
         5 => 1, # Large [from 3 to 10 litres]
         6 => 0.5,   # Very large [more than 10 litres]
         7 => 0, # Bez pojemnika
+	8 => 3,
     );
     }
 

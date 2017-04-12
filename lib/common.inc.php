@@ -61,15 +61,6 @@ $STATUS = array("READY" => 1,
     "BLOCKED" => 6
 );
 
-$CACHESIZE = array("MICRO" => 2,
-    "SMALL" => 3,
-    "NORMAL" => 4,
-    "LARGE" => 5,
-    "VERY_LARGE" => 6,
-    "NO_CONTAINER" => 7
-);
-
-
 //detecting errors
 $error = false;
 

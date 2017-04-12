@@ -111,6 +111,7 @@ if ($error == false) {
             $options['cachesize_5'] = isset($_POST['cachesize_5']) ? $_POST['cachesize_5'] : '';
             $options['cachesize_6'] = isset($_POST['cachesize_6']) ? $_POST['cachesize_6'] : '';
             $options['cachesize_7'] = isset($_POST['cachesize_7']) ? $_POST['cachesize_7'] : '';
+            $options['cachesize_8'] = isset($_POST['cachesize_8']) ? $_POST['cachesize_8'] : '';
 
             $options['cachevote_1'] = isset($_POST['cachevote_1']) ? $_POST['cachevote_1'] : '';
             $options['cachevote_2'] = isset($_POST['cachevote_2']) ? $_POST['cachevote_2'] : '';
@@ -151,6 +152,7 @@ if ($error == false) {
             $options['cachesize_5'] = isset($_POST['cachesize_5']) ? $_POST['cachesize_5'] : '1';
             $options['cachesize_6'] = isset($_POST['cachesize_6']) ? $_POST['cachesize_6'] : '1';
             $options['cachesize_7'] = isset($_POST['cachesize_7']) ? $_POST['cachesize_7'] : '1';
+            $options['cachesize_8'] = isset($_POST['cachesize_8']) ? $_POST['cachesize_8'] : '1';
 
             $options['cachevote_1'] = isset($_POST['cachevote_1']) ? $_POST['cachevote_1'] : '-3';
             $options['cachevote_2'] = isset($_POST['cachevote_2']) ? $_POST['cachevote_2'] : '3';
@@ -381,6 +383,9 @@ if ($error == false) {
         if (isset($options['cachesize_7'])) {
             tpl_set_var('cachesize_7', ($options['cachesize_7'] == 1) ? ' checked="checked"' : '');
         }
+        if (isset($options['cachesize_8'])) {
+            tpl_set_var('cachesize_8', ($options['cachesize_8'] == 1) ? ' checked="checked"' : '');
+        }
 
 
 
@@ -495,7 +500,10 @@ if ($error == false) {
         if (isset($options['cachesize_7']) && ($options['cachesize_7'] == '1')) {
             $cachesize[] = '7';
         }
-        if ((sizeof($cachesize) > 0) && (sizeof($cachesize) < 7)) {
+        if (isset($options['cachesize_8']) && ($options['cachesize_8'] == '1')) {
+            $cachesize[] = '8';
+        }
+        if ((sizeof($cachesize) > 0) && (sizeof($cachesize) < 8)) {
             $q_where[] = '`caches`.`size` IN (' . implode(' , ', $cachesize) . ')';
         }
 
