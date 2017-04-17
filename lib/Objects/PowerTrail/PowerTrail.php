@@ -406,6 +406,7 @@ class PowerTrail extends BaseObject
      */
     public function disablePowerTrailBecauseCacheCountTooLow()
     {
+        ddd('todo');
 //        $text = tr('pt227').tr('pt228');
 //        print 'pt #'.$this->id.', caches in pt: '.$this->cacheCount.'; min. caches limit: '. $this->getPtMinCacheCountLimit().'<br>';
         if ($this->cacheCount < $this->getPtMinCacheCountLimit()) {
@@ -446,30 +447,29 @@ class PowerTrail extends BaseObject
     {
 
         $this->getGeocaches();
+        $disablePowerTrail = false;
+        $statusToSet = false;
         $requiredGeocacheCount = $this->caclulateRequiredGeocacheCount();
-
         if ($this->perccentRequired < \lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED) { // disable power trail witch too low percent required
-            print '<span style="color: orange"> geoPath #<a href="' . $serverUrl . 'powerTrail.php?ptAction=showSerie&ptrail=' . $this->id . '">' . $this->id .' '. $this->name . '</a> will be put in service because too low perccentRequired. (Current Percent:' . $this->perccentRequired . ' Required: ' . \lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED . ') [<a href="' . $serverUrl . '/powerTrailCOG.php?ptSelector=' . $this->id . '">cog link</a>]</span><br/>';
+            $disablePowerTrail = true;
+            $statusToSet = self::STATUS_INSERVICE;
         }
 
         if ($this->activeGeocacheCount < $requiredGeocacheCount) {
             if ($this->archivedGeocacheCount > $requiredGeocacheCount) { // close powerTrail permanent
-                print '<span style="color: red"> geoPath #<a href="' . $serverUrl . 'powerTrail.php?ptAction=showSerie&ptrail=' . $this->id . '">' . $this->id .' '. $this->name . '</a> will be closed permanently. Total cache count: ' . $this->cacheCount . ' / Active geocaches: ' . $this->activeGeocacheCount . ' / Required: ' . $requiredGeocacheCount . '. / Archived geocaches: ' . $this->archivedGeocacheCount . ' [<a href="' . $serverUrl . '/powerTrailCOG.php?ptSelector=' . $this->id . '">cog link</a>]</span><br/>';
-//              $text = tr('pt227').tr('pt234');
-//              ddd($text);
+                $disablePowerTrail = true;
+                $statusToSet = self::STATUS_CLOSED;
             }
             if ($this->unavailableGeocacheCount >= ($this->cacheCount - $requiredGeocacheCount)) { // disable powerTrail for service only
-                print '<span style="color: black"> geoPath #<a href="' . $serverUrl . 'powerTrail.php?ptAction=showSerie&ptrail=' . $this->id . '">' . $this->id .' '. $this->name . '</a> will be put in service (uncompletable) Total cache count: ' . $this->cacheCount . ' / Active geocaches: ' . $this->activeGeocacheCount . ' / Required: ' . (($this->cacheCount * $this->perccentRequired) / 100) . '  / Archived geocaches: ' . $this->archivedGeocacheCount . ' [<a href="' . $serverUrl . '/powerTrailCOG.php?ptSelector=' . $this->id . '">cog link</a>]</span><br/>';
-//              $db->multiVariableQuery('UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2', self::STATUS_INSERVICE, $this->id);
-                //$query = 'INSERT INTO `PowerTrail_comments`(`userId`, `PowerTrailId`, `commentType`, `commentText`, `logDateTime`, `dbInsertDateTime`, `deleted`) VALUES (-1, :1, 4, :2, NOW(), NOW(),0)';
-                $text = tr('pt227') . tr('pt234');
-//          d($text);
-                // $db->multiVariableQuery($query, $pt['id'], $text);
-                //emailOwners($pt['id'], 4, date('Y-m-d H:i:s'), $text, 'newComment');
+                $statusToSet = self::STATUS_INSERVICE;
+                $disablePowerTrail = true;
             }
-            return true;
         }
-        return false;
+        return [
+            'disablePowerTrail' => $disablePowerTrail,
+            'newStatus' => $statusToSet,
+            'commentText' => tr('pt227') . tr('pt234'),
+        ];
     }
 
     private function caclulateRequiredGeocacheCount()

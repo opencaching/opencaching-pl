@@ -113,7 +113,7 @@ class Log
     public function storeInDb()
     {
         $db = OcDb::instance();
-        if($_REQUEST['type'] == Log::TYPE_CONQUESTED && $this->powerTrail->isAlreadyConquestedByUser($this->user)){ /* atempt to add second 'conquested' log */
+        if(isset($_REQUEST['type']) && $_REQUEST['type'] == Log::TYPE_CONQUESTED && $this->powerTrail->isAlreadyConquestedByUser($this->user)){ /* atempt to add second 'conquested' log */
             return false;
         }
         if($this->id){

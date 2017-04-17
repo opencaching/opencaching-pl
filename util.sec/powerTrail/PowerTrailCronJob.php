@@ -1,5 +1,6 @@
 <?php
-
+$rootpath = __DIR__.'/../../';
+require_once __DIR__.'/../../lib/common.inc.php';
 require_once __DIR__ . '/../../lib/ClassPathDictionary.php';
 
 use lib\Controllers\PowerTrailController;
