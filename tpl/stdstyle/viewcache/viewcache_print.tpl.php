@@ -56,7 +56,7 @@
           <img src="tpl/stdstyle/images/free_icons/link.png" class="icon16" alt="" title="" />&nbsp;{{listed_also_on}}:
           <span class="listed-on">
           <?php foreach ($view->otherSitesListing as $site){ ?>
-            <a href=<?=$site->link?> target="_blank"><?=$site->name?>(<?=$site->wp?>)</a>
+            <a href=<?=$site->link?> target="_blank"><?=$site->sitename?> (<?=$site->wp?>)</a>
           <?php } //foreach ?>
           </span>
         <?php } //!empty($view->otherSitesListing ?>
