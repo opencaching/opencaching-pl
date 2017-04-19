@@ -116,7 +116,7 @@ if ($usr || !$hide_coords) {
                 $sFilebasename = trim($rName['name']);
                 $sFilebasename = str_replace(" ", "_", $sFilebasename);
             } else {
-                $sFilebasename = 'ocpl' . $options['queryid'];
+                $sFilebasename = 'search' . $options['queryid'];
             }
         }
     }

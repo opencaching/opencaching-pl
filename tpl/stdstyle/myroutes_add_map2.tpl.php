@@ -150,6 +150,11 @@ global $rootpath;
         </tr>
     </table>
     <script>
+var map_params = {
+    lat: {map_lat},
+    lon: {map_lon},
+    zoom: {map_zoom}, 
+};    
         window.onload = load;
     </script>
     <div id="loadingMessage" style="display:none;">{{route_05}}</div>

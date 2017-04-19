@@ -3,20 +3,22 @@
  * This script is used (can be loaded) by /search.php
  */
 
+ob_start();
+
 use Utils\Database\XDb;
-setlocale(LC_TIME, 'pl_PL.UTF-8'); //TODO: Polish locale ??
 
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $lang;
 
 set_time_limit(1800);
 
-$wptSize[1] = tr('cacheSize_1'); //'Nano'
-$wptSize[2] = tr('cacheSize_2'); //'Micro'
-$wptSize[3] = tr('cacheSize_3'); //'Small'
-$wptSize[4] = tr('cacheSize_4'); //'Regular'
-$wptSize[5] = tr('cacheSize_5'); //'Large'
-$wptSize[6] = tr('cacheSize_6'); //'Extra Large'
-$wptSize[7] = tr('cacheSize_7'); //'Virtual'
+$wptSize[1] = 'Nano';
+$wptSize[2] = 'Micro';
+$wptSize[3] = 'Small';
+$wptSize[4] = 'Regular';
+$wptSize[5] = 'Large';
+$wptSize[6] = 'Extra Large';
+$wptSize[7] = 'No container';
+$wptSize[8] = 'Not specified';
 
 $wptType[1] = 'Unknown Cache';
 $wptType[2] = 'Traditional Cache';
@@ -24,9 +26,10 @@ $wptType[3] = 'Multi-Cache';
 $wptType[4] = 'Virtual Cache';
 $wptType[5] = 'Webcam Cache';
 $wptType[6] = 'Event Cache';
-$wptType[7] = 'Quiz';
+$wptType[7] = 'Puzzle';
 $wptType[8] = 'Moving Cache';
-$wptType[10] = 'Unknown Cache';
+$wptType[9] = 'Podcast';
+$wptType[10] = 'Own Cache';
 
 if( $usr || !$hide_coords ) {
     //prepare the output
@@ -136,10 +139,10 @@ if( $usr || !$hide_coords ) {
         $rName = XDb::xFetchArray($rsName);
         XDb::xFreeResults($rsName);
         if (isset($rName['name']) && ($rName['name'] != '')) {
-            $sFilebasename = trim($rName['name']);
+            $sFilebasename = trim(convert_string($rName['name']));
             $sFilebasename = str_replace(" ", "_", $sFilebasename);
         } else {
-            $sFilebasename = 'ocpl' . $options['queryid'];
+            $sFilebasename = 'search' . $options['queryid'];
         }
     }
 
@@ -150,14 +153,6 @@ if( $usr || !$hide_coords ) {
         $content = '';
         require_once($rootpath . 'lib/phpzip/ss_zip.class.php');
         $phpzip = new ss_zip('',6);
-    }
-
-    if ($bUseZip == true) {
-        header('content-type: application/zip');
-        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
-    } else {
-        header('Content-type: application/wpt');
-        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.wpt');
     }
 
     $stmt = XDb::xSql(
@@ -171,10 +166,10 @@ if( $usr || !$hide_coords ) {
             AND `wptcontent`.`type`=`cache_type`.`id` AND `wptcontent`.`size`=`cache_size`.`id`
             AND `wptcontent`.`user_id`=`user`.`user_id`' );
 
-    appendOutput("OziExplorer Waypoint File Version 1.1\r\n");
-    appendOutput("WGS 84\r\n");
-    appendOutput("Reserved 2\r\n");
-    appendOutput("Reserved 3\r\n");
+    echo "OziExplorer Waypoint File Version 1.1\r\n";
+    echo "WGS 84\r\n";
+    echo "Reserved 2\r\n";
+    echo "Reserved 3\r\n";
 
     while($r = XDb::xFetchArray($stmt) ) {
         $lat = sprintf('%01.6f', $r['latitude']);
@@ -187,10 +182,10 @@ if( $usr || !$hide_coords ) {
             $r['mod_suffix']= '';
         }
 
-        $name = convertString(str_replace(',','',$r['mod_suffix'].$r['name']));
-        $username = convertString(str_replace(',','',$r['username']));
+        $name = convert_string(str_replace(',','',$r['mod_suffix'].$r['name']));
+        $username = convert_string(str_replace(',','',$r['username']));
         $type = $wptType[$r['type']];
-        $size = convertString($wptSize[$r['size']]);
+        $size = $wptSize[$r['size']];
         $difficulty = sprintf('%01.1f', $r['difficulty'] / 2);
         $terrain = sprintf('%01.1f', $r['terrain'] / 2);
         $cacheid = $r['wp_oc'];
@@ -221,83 +216,30 @@ if( $usr || !$hide_coords ) {
         }
         // remove double slashes
         $attach = str_replace("\\\\", "\\", $attach);
-        $line = "$cacheid / D:$difficulty / T:$terrain / Size: $size";
+        $line = "$cacheid / D:$difficulty / T:$terrain / Size:$size";
 
         $record  = "-1,$name,$lat,$lon,,117,1,4,0,$kolor,$line,0,0,0, -777,8,0,17,0,10.0,2,$attach,,\r\n";
 
-        appendOutput($record);
-        ob_flush();
+        echo $record;
+        // DO NOT USE HERE:
+        // ob_flush();
     }
 
-     // phpzip versenden
-     if ($bUseZip == true) {
+    // compress using phpzip
+    if ($bUseZip == true) {
+        $content = ob_get_clean();
         $phpzip->add_data($sFilebasename . '.wpt', $content);
-        echo $phpzip->save($sFilebasename . '.zip', 'b');
+        $out = $phpzip->save($sFilebasename . '.zip', 'b');
+
+        header('content-type: application/zip');
+        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
+        echo $out;
+        ob_end_flush();
+    } else {
+        header('Content-type: application/wpt');
+        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.wpt');
+        ob_end_flush();
     }
 
     exit;
 }
-
-function convertString($str)
-{
-    $replace = array(
-        '&lt;' => '', '&gt;' => '', '&#039;' => '', '&amp;' => '',
-        '&quot;' => '', 'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'Ae',
-        '&Auml;' => 'A', 'Å' => 'A', 'Ā' => 'A', 'Ą' => 'A', 'Ă' => 'A', 'Æ' => 'Ae',
-        'Ç' => 'C', 'Ć' => 'C', 'Č' => 'C', 'Ĉ' => 'C', 'Ċ' => 'C', 'Ď' => 'D', 'Đ' => 'D',
-        'Ð' => 'D', 'È' => 'E', 'É' => 'E', 'Ê' => 'E', 'Ë' => 'E', 'Ē' => 'E',
-        'Ę' => 'E', 'Ě' => 'E', 'Ĕ' => 'E', 'Ė' => 'E', 'Ĝ' => 'G', 'Ğ' => 'G',
-        'Ġ' => 'G', 'Ģ' => 'G', 'Ĥ' => 'H', 'Ħ' => 'H', 'Ì' => 'I', 'Í' => 'I',
-        'Î' => 'I', 'Ï' => 'I', 'Ī' => 'I', 'Ĩ' => 'I', 'Ĭ' => 'I', 'Į' => 'I',
-        'İ' => 'I', 'Ĳ' => 'IJ', 'Ĵ' => 'J', 'Ķ' => 'K', 'Ł' => 'L', 'Ľ' => 'L',
-        'Ĺ' => 'L', 'Ļ' => 'L', 'Ŀ' => 'L', 'Ñ' => 'N', 'Ń' => 'N', 'Ň' => 'N',
-        'Ņ' => 'N', 'Ŋ' => 'N', 'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O',
-        'Ö' => 'Oe', '&Ouml;' => 'Oe', 'Ø' => 'O', 'Ō' => 'O', 'Ő' => 'O', 'Ŏ' => 'O',
-        'Œ' => 'OE', 'Ŕ' => 'R', 'Ř' => 'R', 'Ŗ' => 'R', 'Ś' => 'S', 'Š' => 'S',
-        'Ş' => 'S', 'Ŝ' => 'S', 'Ș' => 'S', 'Ť' => 'T', 'Ţ' => 'T', 'Ŧ' => 'T',
-        'Ț' => 'T', 'Ù' => 'U', 'Ú' => 'U', 'Û' => 'U', 'Ü' => 'Ue', 'Ū' => 'U',
-        '&Uuml;' => 'Ue', 'Ů' => 'U', 'Ű' => 'U', 'Ŭ' => 'U', 'Ũ' => 'U', 'Ų' => 'U',
-        'Ŵ' => 'W', 'Ý' => 'Y', 'Ŷ' => 'Y', 'Ÿ' => 'Y', 'Ź' => 'Z', 'Ž' => 'Z',
-        'Ż' => 'Z', 'Þ' => 'T', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a',
-        'ä' => 'ae', '&auml;' => 'ae', 'å' => 'a', 'ā' => 'a', 'ą' => 'a', 'ă' => 'a',
-        'æ' => 'ae', 'ç' => 'c', 'ć' => 'c', 'č' => 'c', 'ĉ' => 'c', 'ċ' => 'c',
-        'ď' => 'd', 'đ' => 'd', 'ð' => 'd', 'è' => 'e', 'é' => 'e', 'ê' => 'e',
-        'ë' => 'e', 'ē' => 'e', 'ę' => 'e', 'ě' => 'e', 'ĕ' => 'e', 'ė' => 'e',
-        'ƒ' => 'f', 'ĝ' => 'g', 'ğ' => 'g', 'ġ' => 'g', 'ģ' => 'g', 'ĥ' => 'h',
-        'ħ' => 'h', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i', 'ī' => 'i',
-        'ĩ' => 'i', 'ĭ' => 'i', 'į' => 'i', 'ı' => 'i', 'ĳ' => 'ij', 'ĵ' => 'j',
-        'ķ' => 'k', 'ĸ' => 'k', 'ł' => 'l', 'ľ' => 'l', 'ĺ' => 'l', 'ļ' => 'l',
-        'ŀ' => 'l', 'ñ' => 'n', 'ń' => 'n', 'ň' => 'n', 'ņ' => 'n', 'ŉ' => 'n',
-        'ŋ' => 'n', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o', 'ö' => 'oe',
-        '&ouml;' => 'oe', 'ø' => 'o', 'ō' => 'o', 'ő' => 'o', 'ŏ' => 'o', 'œ' => 'oe',
-        'ŕ' => 'r', 'ř' => 'r', 'ŗ' => 'r', 'š' => 's', 'ś' => 's', 'ş' => 's', 'ţ' => 't', 'ù' => 'u', 'ú' => 'u',
-        'û' => 'u', 'ü' => 'ue', 'ū' => 'u', '&uuml;' => 'ue', 'ů' => 'u', 'ű' => 'u',
-        'ŭ' => 'u', 'ũ' => 'u', 'ų' => 'u', 'ŵ' => 'w', 'ý' => 'y', 'ÿ' => 'y',
-        'ŷ' => 'y', 'ž' => 'z', 'ż' => 'z', 'ź' => 'z', 'þ' => 't', 'ß' => 'ss',
-        'ſ' => 'ss', 'ый' => 'iy', 'А' => 'A', 'Б' => 'B', 'В' => 'V', 'Г' => 'G',
-        'Д' => 'D', 'Е' => 'E', 'Ё' => 'YO', 'Ж' => 'ZH', 'З' => 'Z', 'И' => 'I',
-        'Й' => 'Y', 'К' => 'K', 'Л' => 'L', 'М' => 'M', 'Н' => 'N', 'О' => 'O',
-        'П' => 'P', 'Р' => 'R', 'С' => 'S', 'Т' => 'T', 'У' => 'U', 'Ф' => 'F',
-        'Х' => 'H', 'Ц' => 'C', 'Ч' => 'CH', 'Ш' => 'SH', 'Щ' => 'SCH', 'Ъ' => '',
-        'Ы' => 'Y', 'Ь' => '', 'Э' => 'E', 'Ю' => 'YU', 'Я' => 'YA', 'а' => 'a',
-        'б' => 'b', 'в' => 'v', 'г' => 'g', 'д' => 'd', 'е' => 'e', 'ё' => 'yo',
-        'ж' => 'zh', 'з' => 'z', 'и' => 'i', 'й' => 'y', 'к' => 'k', 'л' => 'l',
-        'м' => 'm', 'н' => 'n', 'о' => 'o', 'п' => 'p', 'р' => 'r', 'с' => 's',
-        'т' => 't', 'у' => 'u', 'ф' => 'f', 'х' => 'h', 'ц' => 'c', 'ч' => 'ch',
-        'ш' => 'sh', 'щ' => 'sch', 'ъ' => '', 'ы' => 'y', 'ь' => '', 'э' => 'e',
-        'ю' => 'yu', 'я' => 'ya'
-    );
-    return str_replace(array_keys($replace), $replace, $str);
-}
-
-function appendOutput($str)
-{
-    global $content, $bUseZip;
-
-    if ($bUseZip == true) {
-        $content .= $str;
-    } else {
-        echo $str;
-    }
-}
-

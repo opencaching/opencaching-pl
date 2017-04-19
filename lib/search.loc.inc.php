@@ -3,6 +3,8 @@
  * This script is used (can be loaded) by /search.php
  */
 
+ob_start();
+
 use Utils\Database\XDb;
 
 global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;
@@ -13,10 +15,10 @@ $locHead = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
 $locLine = '
 <waypoint>
-    <name id="{{waypoint}}"><![CDATA[{mod_suffix}{cachename} ' . tr('from') . ' {owner}, {type_text} ({difficulty}/{terrain})]]></name>
+    <name id="{{waypoint}}"><![CDATA[{mod_suffix}{cachename} ' . tr('from') . ' {owner}, {type_text}, {size_text} ({difficulty}/{terrain})]]></name>
     <coord lat="{lat}" lon="{lon}"/>
     <type>Geocache</type>
-    <link text="Cache Details">' . $absolute_server_URI . 'viewcache.php?cacheid={cacheid}</link>
+    <link text="Cache Details">' . $absolute_server_URI . 'viewcache.php?wp={cache_wp}</link>
 </waypoint>
 ';
 
@@ -30,6 +32,7 @@ $cacheTypeText[5] = "" . tr('cacheType_7') . "";
 $cacheTypeText[6] = "" . tr('cacheType_6') . "";
 $cacheTypeText[7] = "" . tr('cacheType_3') . "";
 $cacheTypeText[8] = "" . tr('cacheType_4') . "";
+$cacheTypeText[9] = "" . tr('cacheType_9') . "";
 $cacheTypeText[10] = "" . tr('cacheType_10') . "";
 
 if ($usr || ! $hide_coords) {
@@ -139,7 +142,7 @@ if ($usr || ! $hide_coords) {
                 $sFilebasename = trim($rName['name']);
                 $sFilebasename = str_replace(" ", "_", $sFilebasename);
             } else {
-                $sFilebasename = "$short_sitename" . $options['queryid'];
+                $sFilebasename = "search" . $options['queryid'];
             }
         }
     }
@@ -153,20 +156,13 @@ if ($usr || ! $hide_coords) {
         $phpzip = new ss_zip('', 6);
     }
 
-    if ($bUseZip == true) {
-        header("content-type: application/zip");
-        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
-    } else {
-        header("Content-type: application/loc");
-        header("Content-Disposition: attachment; filename=" . $sFilebasename . ".loc");
-    }
-
-    append_output($locHead);
+    echo $locHead;
 
     $s = $dbcSearch->simpleQuery(
         'SELECT `loccontent`.`cache_id` `cacheid`, `loccontent`.`longitude` `longitude`, `loccontent`.`latitude` `latitude`,
-                    `loccontent`.cache_mod_cords_id, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`wp_oc` `waypoint`,
-                    `cache_type`.`short` `typedesc`, `cache_type`.`id` `type_id`, `cache_size`.`pl` `sizedesc`, `caches`.`terrain` `terrain`,
+                    `loccontent`.cache_mod_cords_id, `caches`.`date_hidden` `date_hidden`,
+                    `caches`.`name` `name`, `caches`.`wp_oc` `waypoint`,
+                    `cache_type`.`short` `typedesc`, `cache_type`.`id` `type_id`, `cache_size`.`id` `size_id`, `caches`.`terrain` `terrain`,
                     `caches`.`difficulty` `difficulty`, `user`.`username` `username` FROM `loccontent`, `caches`, `cache_type`, `cache_size`, `user`
         WHERE `loccontent`.`cache_id`=`caches`.`cache_id`
             AND `loccontent`.`type`=`cache_type`.`id`
@@ -183,7 +179,7 @@ if ($usr || ! $hide_coords) {
         $thisline = mb_ereg_replace('{lon}', $lon, $thisline);
 
         $thisline = mb_ereg_replace('{{waypoint}}', $r['waypoint'], $thisline);
-        $thisline = mb_ereg_replace('{cachename}', PLConvert('UTF-8', 'POLSKAWY', $r['name']), $thisline);
+        $thisline = mb_ereg_replace('{cachename}', $r['name'], $thisline);
 
         // modified coords
         if ($r['cache_mod_cords_id'] > 0) { // check if we have user coords
@@ -193,7 +189,7 @@ if ($usr || ! $hide_coords) {
         }
 
         $thisline = mb_ereg_replace('{type_text}', $cacheTypeText[$r['type_id']], $thisline);
-        $thisline = mb_ereg_replace('{{size}}', PLConvert('UTF-8', 'POLSKAWY', tr('cacheType_' . $r['type_id'])), $thisline);
+        $thisline = mb_ereg_replace('{size_text}', tr('cacheSize_' . $r['size_id']), $thisline);
 
         $difficulty = sprintf('%01.1f', $r['difficulty'] / 2);
         $thisline = mb_ereg_replace('{difficulty}', $difficulty, $thisline);
@@ -202,78 +198,31 @@ if ($usr || ! $hide_coords) {
         $thisline = mb_ereg_replace('{terrain}', $terrain, $thisline);
 
         $thisline = mb_ereg_replace('{owner}', $r['username'], $thisline);
-        $thisline = mb_ereg_replace('{cacheid}', $r['cacheid'], $thisline);
+        $thisline = mb_ereg_replace('{cache_wp}', $r['waypoint'], $thisline);
 
-        append_output($thisline);
-        ob_flush();
+        echo $thisline;
+        // DO NOT USE HERE:
+        // ob_flush();
     }
 
-    append_output($locFoot);
+    echo $locFoot;
 
-    // phpzip versenden
+    // compress using phpzip
     if ($bUseZip == true) {
+        $content = ob_get_clean();
         $phpzip->add_data($sFilebasename . '.loc', $content);
-        echo $phpzip->save($sFilebasename . '.zip', 'b');
+        $out = $phpzip->save($sFilebasename . '.zip', 'b');
+
+        header("content-type: application/zip");
+        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
+        echo $out;
+        ob_end_flush();
+    } else {
+        header("Content-type: application/loc");
+        header("Content-Disposition: attachment; filename=" . $sFilebasename . ".loc");
+        ob_end_flush();
     }
 
-    exit();
 }
 
-function xmlentities($str)
-{
-    $from[0] = '&';
-    $to[0] = '&amp;';
-    $from[1] = '<'; $to[1] = '&lt;';
-    $from[2] = '>'; $to[2] = '&gt;';
-    $from[3] = '"'; $to[3] = '&quot;';
-    $from[4] = '\''; $to[4] = '&apos;';
-
-    for ($i = 0; $i <= 4; $i++)
-        $str = mb_ereg_replace($from[$i], $to[$i], $str);
-            $str = preg_replace('/[[:cntrl:]]/', '', $str);
-
-    return $str;
-}
-
-function append_output($str)
-{
-    global $content, $bUseZip;
-
-    if ($bUseZip == true)
-        $content .= $str;
-    else
-        echo $str;
-}
-
-/*
-Funkcja do konwersji polskich znakow miedzy roznymi systemami kodowania.
-Zwraca skonwertowany tekst.
-Argumenty:
-$source - string - źródłowe kodowanie
-$dest - string - źródłowe kodowanie
-$tekst - string - tekst do konwersji
-Obsługiwane formaty kodowania to:
-POLSKAWY (powoduje zamianę polskich liter na ich łacińskie odpowiedniki)
-ISO-8859-2
-WINDOWS-1250
-UTF-8
-ENTITIES (zamiana polskich znaków na encje html)
-Przyklad:
-echo(PlConvert('UTF-8','ISO-8859-2','Zażółć gęślą jaźń.'));
-*/
-function PLConvert($source, $dest, $tekst)
-{
-    $source=strtoupper($source);
-    $dest=strtoupper($dest);
-    if($source==$dest) return $tekst;
-    $chars['POLSKAWY']    =array('a','c','e','l','n','o','s','z','z','A','C','E','L','N','O','S','Z','Z');
-    $chars['ISO-8859-2']  =array("\xB1","\xE6","\xEA","\xB3","\xF1","\xF3","\xB6","\xBC","\xBF","\xA1","\xC6","\xCA","\xA3","\xD1","\xD3","\xA6","\xAC","\xAF");
-    $chars['WINDOWS-1250']=array("\xB9","\xE6","\xEA","\xB3","\xF1","\xF3","\x9C","\x9F","\xBF","\xA5","\xC6","\xCA","\xA3","\xD1","\xD3","\x8C","\x8F","\xAF");
-    $chars['UTF-8']       =array('ą','ć','ę','ł','ń','ó','ś','ź','ż','Ą','Ć','Ę','Ł','Ń','Ó','Ś','Ź','Ż');
-    $chars['ENTITIES']    =array('ą','ć','ę','ł','ń','ó','ś','ź','ż','Ą','Ć','Ę','Ł','Ń','Ó','Ś','Ź','Ż');
-    if(!isset($chars[$source])) return false;
-    if(!isset($chars[$dest])) return false;
-        $tekst = str_replace('a', 'a', $tekst);
-        $tekst = str_replace('é', 'e', $tekst);
-    return str_replace($chars[$source],$chars[$dest],$tekst);
-}
+exit();

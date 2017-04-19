@@ -1,0 +1,4 @@
+RewriteEngine on
+
+RewriteBase /util/google-earth
+RewriteRule opencaching.kml opencaching.php [L]

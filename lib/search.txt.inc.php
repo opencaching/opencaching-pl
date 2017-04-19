@@ -3,6 +3,8 @@
  * This script is used (can be loaded) by /search.php
  */
 
+ob_start();
+
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 
@@ -124,7 +126,7 @@ if( $usr || !$hide_coords ) {
 
     $queryLimit = ' LIMIT ' . $startat . ', ' . $count;
 
-    // temporĂ¤re tabelle erstellen
+    // temporary table
     $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `txtcontent` ' . $query . $queryLimit);
 
     $s = $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `txtcontent`');
@@ -153,7 +155,7 @@ if( $usr || !$hide_coords ) {
                 $sFilebasename = trim($rName['name']);
                 $sFilebasename = str_replace(" ", "_", $sFilebasename);
             } else {
-                $sFilebasename = "$short_sitename" . $options['queryid'];
+                $sFilebasename = "search" . $options['queryid'];
             }
         }
     }
@@ -165,15 +167,6 @@ if( $usr || !$hide_coords ) {
         $content = '';
         require_once($rootpath . 'lib/phpzip/ss_zip.class.php');
         $phpzip = new ss_zip('',6);
-    }
-
-
-    if ($bUseZip == true) {
-        header("content-type: application/zip");
-        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
-    } else {
-        header("Content-type: text/plain");
-        header("Content-Disposition: attachment; filename=" . $sFilebasename . ".txt");
     }
 
     $stmt = XDb::xSql('SELECT `txtcontent`.`cache_id` `cacheid`, `txtcontent`.`longitude` `longitude`, `txtcontent`.`latitude` `latitude`, `txtcontent`.cache_mod_cords_id, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `cache_size`.`id` `size`, `caches`.`type` `type_id`, `caches`.`status` `status`, `user`.`username` `username`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`desc_html` `html`, `cache_desc`.`rr_comment`, `caches`.`logpw` FROM `txtcontent`, `caches`, `user`, `cache_desc`, `cache_size` WHERE `txtcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `txtcontent`.`user_id`=`user`.`user_id` AND `caches`.`size`=`cache_size`.`id`');
@@ -312,38 +305,22 @@ if( $usr || !$hide_coords ) {
             echo $thisline;
         } else {
             $phpzip->add_data($r['waypoint'] . '.txt', $thisline);
+            ob_flush();
         }
-        ob_flush();
     }
     $dbcSearch->simpleQuery('DROP TABLE `txtcontent` ');
 
-    // phpzip versenden
+    // compress using phpzip
     if ($bUseZip == true) {
-        echo $phpzip->save($sFilebasename . '.zip', 'b');
+        header("content-type: application/zip");
+        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
+        $out = $phpzip->save($sFilebasename . '.zip', 'b');
+        echo $out;
+        ob_end_flush();
+    } else {
+        header("Content-type: text/plain");
+        header("Content-Disposition: attachment; filename=" . $sFilebasename . ".txt");
+        ob_end_flush();
     }
 }
 exit;
-
-function html2txt($html)
-{
-    $str = preg_replace('/[[:cntrl:]]/', '', $html);
-    $str = str_replace("\r\n", '', $str);
-    $str = str_replace("\n", '', $str);
-    $str = str_replace('<br />', "\n", $str);
-    $str = str_replace('<br>', "\n", $str);
-    $str = str_replace('</p>', "\n", $str);
-    $str = str_replace('<li>', "-", $str);
-    $str = str_replace('&quot;', '"', $str);
-    $str = str_replace('&amp;', '&', $str);
-    $str = str_replace('&lt;', '<', $str);
-    $str = str_replace('&gt;', '>', $str);
-    $str = strip_tags($str);
-
-    return $str;
-}
-
-function lf2crlf($str)
-{
-    return str_replace("\r\r\n" ,"\r\n" , str_replace("\n" ,"\r\n" , $str));
-}
-

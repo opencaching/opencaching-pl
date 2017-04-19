@@ -145,7 +145,7 @@ function search_text2sort($str)
     $str = str_replace('', '', $str);
     // der rest
     $str = mb_ereg_replace('[^a-z]', '', $str);
-    $str = preg_replace('/[[:cntrl:]]/', '', $str);
+    $str = mb_ereg_replace('/[[:cntrl:]]/', '', $str);
 
     return $str;
 }

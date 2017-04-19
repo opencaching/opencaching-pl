@@ -203,12 +203,14 @@
 
             document.forms[formnames[a]].cachetype.value = getCachetypeFilter();
 
+            document.forms[formnames[a]].cachesize_1.value = document.optionsform.cachesize_1.checked ? 1 : 0;
             document.forms[formnames[a]].cachesize_2.value = document.optionsform.cachesize_2.checked ? 1 : 0;
             document.forms[formnames[a]].cachesize_3.value = document.optionsform.cachesize_3.checked ? 1 : 0;
             document.forms[formnames[a]].cachesize_4.value = document.optionsform.cachesize_4.checked ? 1 : 0;
             document.forms[formnames[a]].cachesize_5.value = document.optionsform.cachesize_5.checked ? 1 : 0;
             document.forms[formnames[a]].cachesize_6.value = document.optionsform.cachesize_6.checked ? 1 : 0;
             document.forms[formnames[a]].cachesize_7.value = document.optionsform.cachesize_7.checked ? 1 : 0;
+            document.forms[formnames[a]].cachesize_8.value = document.optionsform.cachesize_8.checked ? 1 : 0;
             document.forms[formnames[a]].cachevote_1.value = document.optionsform.cachevote_1.value;
             document.forms[formnames[a]].cachevote_2.value = document.optionsform.cachevote_2.value;
             document.forms[formnames[a]].cachenovote.value = document.optionsform.cachenovote.checked ? 1 : 0;
@@ -577,6 +579,7 @@
         <input type="hidden" name="cachesize_5" value="{cachesize_5}" />
         <input type="hidden" name="cachesize_6" value="{cachesize_6}" />
         <input type="hidden" name="cachesize_7" value="{cachesize_7}" />
+        <input type="hidden" name="cachesize_8" value="{cachesize_8}" />
         <input type="hidden" name="cachevote_1" value="{cachevote_1}" />
         <input type="hidden" name="cachevote_2" value="{cachevote_2}" />
         <input type="hidden" name="cachenovote" value="{cachenovote}" />
@@ -650,6 +653,7 @@
         <input type="hidden" name="cachesize_5" value="{cachesize_5}" />
         <input type="hidden" name="cachesize_6" value="{cachesize_6}" />
         <input type="hidden" name="cachesize_7" value="{cachesize_7}" />
+        <input type="hidden" name="cachesize_8" value="{cachesize_8}" />
         <input type="hidden" name="cachevote_1" value="{cachevote_1}" />
         <input type="hidden" name="cachevote_2" value="{cachevote_2}" />
         <input type="hidden" name="cachenovote" value="{cachenovote}" />
@@ -732,6 +736,7 @@
         <input type="hidden" name="cachesize_5" value="{cachesize_5}" />
         <input type="hidden" name="cachesize_6" value="{cachesize_6}" />
         <input type="hidden" name="cachesize_7" value="{cachesize_7}" />
+        <input type="hidden" name="cachesize_8" value="{cachesize_8}" />
         <input type="hidden" name="cachevote_1" value="{cachevote_1}" />
         <input type="hidden" name="cachevote_2" value="{cachevote_2}" />
         <input type="hidden" name="cachenovote" value="{cachenovote}" />
@@ -808,6 +813,7 @@
         <input type="hidden" name="cachesize_5" value="{cachesize_5}" />
         <input type="hidden" name="cachesize_6" value="{cachesize_6}" />
         <input type="hidden" name="cachesize_7" value="{cachesize_7}" />
+        <input type="hidden" name="cachesize_8" value="{cachesize_8}" />
         <input type="hidden" name="cachevote_1" value="{cachevote_1}" />
         <input type="hidden" name="cachevote_2" value="{cachevote_2}" />
         <input type="hidden" name="cachenovote" value="{cachenovote}" />
@@ -875,6 +881,7 @@
         <input type="hidden" name="cachesize_5" value="{cachesize_5}" />
         <input type="hidden" name="cachesize_6" value="{cachesize_6}" />
         <input type="hidden" name="cachesize_7" value="{cachesize_7}" />
+        <input type="hidden" name="cachesize_8" value="{cachesize_8}" />
         <input type="hidden" name="cachevote_1" value="{cachevote_1}" />
         <input type="hidden" name="cachevote_2" value="{cachevote_2}" />
         <input type="hidden" name="cachenovote" value="{cachenovote}" />
@@ -931,6 +938,7 @@
         <input type="hidden" name="cachesize_5" value="{cachesize_5}" />
         <input type="hidden" name="cachesize_6" value="{cachesize_6}" />
         <input type="hidden" name="cachesize_7" value="{cachesize_7}" />
+        <input type="hidden" name="cachesize_8" value="{cachesize_8}" />
         <input type="hidden" name="cachevote_1" value="{cachevote_1}" />
         <input type="hidden" name="cachevote_2" value="{cachevote_2}" />
         <input type="hidden" name="cachenovote" value="{cachenovote}" />
