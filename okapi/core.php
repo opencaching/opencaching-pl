@@ -678,7 +678,7 @@ class Db
 # Including OAuth internals. Preparing OKAPI Consumer and Token classes.
 #
 
-require_once($GLOBALS['rootpath']."okapi/oauth.php");
+require_once __DIR__ . '/../okapi/oauth.php';
 
 class OkapiConsumer extends OAuthConsumer
 {
@@ -879,8 +879,8 @@ class OkapiOAuthServer extends OAuthServer
 
 # Including local datastore and settings (connecting SQL database etc.).
 
-require_once($GLOBALS['rootpath']."okapi/settings.php");
-require_once($GLOBALS['rootpath']."okapi/datastore.php");
+require_once __DIR__ . '/settings.php';
+require_once __DIR__ . '/datastore.php';
 
 class OkapiHttpResponse
 {
@@ -993,7 +993,7 @@ class OkapiRedirectResponse extends OkapiHttpResponse
     }
 }
 
-require_once ($GLOBALS['rootpath'].'okapi/lib/tbszip.php');
+require_once __DIR__ . '/lib/tbszip.php';
 
 class OkapiZIPHttpResponse extends OkapiHttpResponse
 {
@@ -1104,8 +1104,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1370;
-    public static $git_revision = 'a94af853ae0ad150b8e92525a0f90eede961292e';
+    public static $version_number = 1371;
+    public static $git_revision = 'd6b4d9bd1a59e88bd2c41f0838617a34073245df';
 
     private static $okapi_vars = null;
 
@@ -1457,7 +1457,7 @@ class Okapi
         $nearest_event = Okapi::get_var("cron_nearest_event");
         if ($nearest_event + 0 <= time())
         {
-            require_once($GLOBALS['rootpath']."okapi/cronjobs.php");
+            require_once __DIR__ . '/cronjobs.php';
             try {
                 $nearest_event = CronJobController::run_jobs('pre-request');
                 Okapi::set_var("cron_nearest_event", $nearest_event);
@@ -1480,7 +1480,7 @@ class Okapi
         {
             set_time_limit(0);
             ignore_user_abort(true);
-            require_once($GLOBALS['rootpath']."okapi/cronjobs.php");
+            require_once __DIR__ . '/cronjobs.php';
             try {
                 $nearest_event = CronJobController::run_jobs('cron-5');
                 Okapi::set_var("cron_nearest_event", $nearest_event);
@@ -1627,7 +1627,7 @@ class Okapi
      */
     public static function register_new_consumer($appname, $appurl, $email)
     {
-        require_once($GLOBALS['rootpath']."okapi/service_runner.php");
+        require_once __DIR__ . '/service_runner.php';
         $consumer = new OkapiConsumer(Okapi::generate_key(20), Okapi::generate_key(40),
             $appname, $appurl, $email);
         $sample_cache = OkapiServiceRunner::call("services/caches/search/all",
