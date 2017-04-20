@@ -1104,8 +1104,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1375;
-    public static $git_revision = '2a30d668523ac38d8e6082e7dd34c376a3f5618d';
+    public static $version_number = 1376;
+    public static $git_revision = 'deffc7a3222bf21aff23ddcd14837eb0d5efcc1e';
 
     private static $okapi_vars = null;
 
@@ -2194,7 +2194,8 @@ class Okapi
      */
     public static function from_human_to_bytes($val) {
         $val = trim($val);
-        $last = strtolower($val[strlen($val)-1]);
+        $last = strtolower($val[strlen($val) - 1]);
+        $val = substr($val, 0, strlen($val) - 1);
         switch($last) {
             case 'g':
                 return $val * 1024 * 1024 * 1024;
