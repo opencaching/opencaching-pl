@@ -2614,6 +2614,7 @@ $translations = array(
     'wayPointType3' => 'Endposition',
     'wayPointType4' => 'Interessanter Ort',
     'wayPointType5' => 'Parkplatz',
+    'wayPointType6' => 'Anfang wanderpfad',
     'beginning' => 'Beginning',
     'send_to' => 'Send to',
     'send_to_cgeo' => 'c:geo',

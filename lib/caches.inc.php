@@ -49,9 +49,9 @@ function get_wp_types_from_database($cachetype)
 {
     $wp_types = array();
     if ($cachetype == '2' || $cachetype == '4' || $cachetype == '5' || $cachetype == '6' || $cachetype == '9') {
-        $param = "id=-1 OR id=4 OR id=5";
+        $param = "id=-1 OR id=4 OR id=5 OR id=6";
     } else {
-        $param = "id=-1 OR id=1 OR id=2 OR id=3 OR id=4 OR id=5";
+        $param = "id=-1 OR id=1 OR id=2 OR id=3 OR id=4 OR id=5 OR id=6";
     }
     $resp = XDb::xSql("SELECT * FROM waypoint_type WHERE $param ORDER BY id ASC");
     while ($row = XDb::xFetchArray($resp)) {
