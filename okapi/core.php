@@ -1104,8 +1104,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1379;
-    public static $git_revision = '6c6642494567f162c639825b6f6cf29ec22d3f41';
+    public static $version_number = 1381;
+    public static $git_revision = 'b68526465da022b8431363076fe3bd04e1532dfe';
 
     private static $okapi_vars = null;
 
@@ -2240,6 +2240,23 @@ class Okapi
                 where user_id='".Db::escape_string($request->token->user_id)."'
             ");
         }
+    }
+
+    /**
+     * Take a list of "infotags" (as defined in services/apiref/method), and format
+     * them for being displayed in OKAPI public documentation pages.
+     */
+    public static function format_infotags($infotags) {
+        $chunks = [];
+        $url = Settings::get('SITE_URL')."okapi/introduction.html#oc-branch-differences";
+        foreach ($infotags as $infotag) {
+            if ($infotag == "ocpl-specific") {
+                $chunks[] = "<a href='$url' class='infotag infotag-ocpl-specific'>OCPL</a> ";
+            } elseif ($infotag == "ocde-specific") {
+                $chunks[] = "<a href='$url' class='infotag infotag-ocde-specific'>OCDE</a> ";
+            }
+        }
+        return implode("", $chunks);
     }
 
     # object types in table okapi_submitted_objects
