@@ -203,14 +203,15 @@
 
             document.forms[formnames[a]].cachetype.value = getCachetypeFilter();
 
-            document.forms[formnames[a]].cachesize_1.value = document.optionsform.cachesize_1.checked ? 1 : 0;
-            document.forms[formnames[a]].cachesize_2.value = document.optionsform.cachesize_2.checked ? 1 : 0;
-            document.forms[formnames[a]].cachesize_3.value = document.optionsform.cachesize_3.checked ? 1 : 0;
-            document.forms[formnames[a]].cachesize_4.value = document.optionsform.cachesize_4.checked ? 1 : 0;
-            document.forms[formnames[a]].cachesize_5.value = document.optionsform.cachesize_5.checked ? 1 : 0;
-            document.forms[formnames[a]].cachesize_6.value = document.optionsform.cachesize_6.checked ? 1 : 0;
-            document.forms[formnames[a]].cachesize_7.value = document.optionsform.cachesize_7.checked ? 1 : 0;
-            document.forms[formnames[a]].cachesize_8.value = document.optionsform.cachesize_8.checked ? 1 : 0;
+            // iterate by all cache sizes
+            for(var i=1; i<=8; i++){
+                var sizeName = "cachesize_" + i;
+                if(document.optionsform.sizeName){
+                  //sometimes node doesn't support some sizes and then there is no such html-select-options
+                  document.forms[formnames[a]].sizeName.value = document.optionsform.sizeName.checked ? 1 : 0;
+                }
+            }
+
             document.forms[formnames[a]].cachevote_1.value = document.optionsform.cachevote_1.value;
             document.forms[formnames[a]].cachevote_2.value = document.optionsform.cachevote_2.value;
             document.forms[formnames[a]].cachenovote.value = document.optionsform.cachenovote.checked ? 1 : 0;
