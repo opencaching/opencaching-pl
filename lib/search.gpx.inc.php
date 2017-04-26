@@ -668,6 +668,9 @@ if ($usr || ! $hide_coords) {
                 if ($rwp['type'] == 4) {
                     $thiswp = str_replace('{wp_type}', "Circle with X", $thiswp);
                 }
+                if ($rwp['type'] == 6) {
+                    $thiswp = str_replace('{wp_type}', "Trailhead", $thiswp);
+                }
                 $waypoints .= $thiswp;
             }
         }

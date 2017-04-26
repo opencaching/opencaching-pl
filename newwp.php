@@ -200,7 +200,7 @@ if ($error == false) {
 
                 if (isset($_POST['submitform'])) {
                     //check the entered data
-                    if ($sel_type == '4' || $sel_type == '5')
+                    if ($sel_type == '4' || $sel_type == '5' || $sel_type == '6')
                         $wp_stage = 0;
                     //check coordinates
                     if ($lat_h != '' || $lat_min != '') {

@@ -207,7 +207,7 @@ if ($error == false) {
                 if (isset($_POST['submit'])) {
                     //all validations ok?
                     //check the entered data
-                    if ($wp_type == '4' || $wp_type == '5')
+                    if ($wp_type == '4' || $wp_type == '5' || $wp_type == '6')
                         $wp_stage = '0';
                     if (!($lat_not_ok || $lon_not_ok || $descwp_not_ok)) {
                         $wp_lat = $coords_lat_h + $coords_lat_min / 60;
