@@ -66,7 +66,7 @@ if ($error == false) {
         );
         $rec = $database->dbResultFetchOneRowOnly($s);
         $optsize = $rec['optsize'];
-        
+
         $sFilebasename = "myroute-";
         $sFilebasename .= trim($record['name']);
         $sFilebasename = str_replace(" ", "_", $sFilebasename);
@@ -939,7 +939,8 @@ if ($error == false) {
                 $links_content = '';
                 $forlimit = intval($caches_count / $okapi_max_caches) + 1;
                 for ($i = 1; $i <= $forlimit; $i++) {
-                    $zipname = $sFilebasename . '.zip?startat=0&count=max&zip=1&zippart=' . $i . (isset($_REQUEST['okapidebug']) ? '&okapidebug' : '');
+                    // ocpl.query-id is rewrite by htaccess rule!
+                    $zipname = 'ocpl' . $queryid  . '.zip?startat=0&count=max&zip=1&zippart=' . $i . (isset($_REQUEST['okapidebug']) ? '&okapidebug' : '');
                     $links_content .= '<li><a class="links" href="' . $zipname . '" title="Garmin ZIP file (part ' . $i . ')">' . $sFilebasename . '-' . $i . '.zip</a></li>';
                 }
                 tpl_set_var('zip_links', $links_content);
@@ -1041,17 +1042,17 @@ if ($error == false) {
                 XDb::xFreeResults($rwp);
             }
             XDb::xFreeResults($s);
-            
+
             $gpxHead = str_replace('{wpchildren}', $children, $gpxHead);
             echo $gpxHead;
-            
+
             $stmt = XDb::xSql(
                 'SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`,
-                        `gpxcontent`.`latitude` `latitude`, `gpxcontent`.cache_mod_cords_id, 
+                        `gpxcontent`.`latitude` `latitude`, `gpxcontent`.cache_mod_cords_id,
                         `caches`.`wp_oc` `waypoint`,
                         `caches`.`date_hidden` `date_hidden`, `caches`.`picturescount` `picturescount`,
                         `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`,
-                        `caches`.`difficulty` `difficulty`, 
+                        `caches`.`difficulty` `difficulty`,
                         `caches`.`desc_languages` `desc_languages`,
                         `caches`.`size` `size`, `caches`.`type` `type`, `caches`.`status` `status`,
                         `user`.`username` `username`, `gpxcontent`.`user_id` `owner_id`,
@@ -1137,7 +1138,7 @@ if ($error == false) {
                 } else {
                     $thisline = str_replace('{personal_cache_note}', "", $thisline);
                 }
-        
+
                 // attributes
                 $rsAttributes = XDb::xSql(
                     "SELECT `caches_attributes`.`attrib_id` FROM `caches_attributes` WHERE `caches_attributes`.`cache_id`= ? ",
@@ -1274,7 +1275,7 @@ if ($error == false) {
                 }
                 if ($cache_logs == 0) {
                     $gpxLogLimit = '';
-                }                 
+                }
 
                 $logentries = '';
                 $rsLogs = XDb::xSql(
