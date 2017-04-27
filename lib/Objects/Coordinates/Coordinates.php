@@ -199,15 +199,7 @@ class Coordinates
 
         list($deg, $min, $sec) = $this->getParts($this->longitude);
 
-        switch ($format) {
-            case self::COORDINATES_FORMAT_DECIMAL:
-                return array($prefix, $deg);
-            case self::COORDINATES_FORMAT_DEG_MIN:
-                return array($prefix, floor($deg), $min);
-            case self::COORDINATES_FORMAT_DEG_MIN_SEC:
-                return array($prefix, floor($deg), floor($min), $sec);
-        }
-
+        return $this->getFormattedPartsArray($format, $prefix, $deg, $min, $sec);
     }
 
 
@@ -225,15 +217,22 @@ class Coordinates
 
         list($deg, $min, $sec) = $this->getParts($this->latitude);
 
+        return $this->getFormattedPartsArray($format, $prefix, $deg, $min, $sec);
+
+    }
+
+    private function getFormattedPartsArray($format, $prefix, $deg, $min, $sec)
+    {
         switch ($format) {
             case self::COORDINATES_FORMAT_DECIMAL:
-                return array($prefix, $deg);
-            case self::COORDINATES_FORMAT_DEG_MIN:
-                return array($prefix, floor($deg), $min);
-            case self::COORDINATES_FORMAT_DEG_MIN_SEC:
-                return array($prefix, floor($deg), floor($min), $sec);
-        }
+                return array($prefix, sprintf("%02d",$deg));
 
+            case self::COORDINATES_FORMAT_DEG_MIN:
+                return array($prefix, sprintf("%02d",floor($deg)), sprintf("%06.3f",$min));
+
+            case self::COORDINATES_FORMAT_DEG_MIN_SEC:
+                return array($prefix, sprintf("%02d",floor($deg)), sprintf("%02d",floor($min)), sprintf("%03d",$sec));
+        }
     }
 
 
