@@ -143,7 +143,7 @@
             <td vAlign="top" align="left" colSpan="2">
                 <button type="button" name="back" value="back" class="btn btn-default"><b>{{cancel}}</b></button>&nbsp;&nbsp;
                 <button type="button" name="delete" value="delete" onclick="return confirm('{{delete_wp_confirm}}');" class="btn btn-danger"><b>{{delete_wp}}</b></button> &nbsp;&nbsp;
-                <button type="submit" name="submit" value="submit" class="btn btn-primary"><b>{{edit_wp}}</b></button>
+                <button type="submit" name="submit" value="submit" class="btn btn-primary"><b>{{write_wp}}</b></button>
                 <br /><br /></td>
         </tr>
 
