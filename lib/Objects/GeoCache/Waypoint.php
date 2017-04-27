@@ -18,6 +18,7 @@ class Waypoint
     const TYPE_FINAL = 3;
     const TYPE_INTERESTING = 4;
     const TYPE_PARKING = 5;
+    const TYPE_TRAILHEAD = 6;
 
     const STATUS_VISIBLE = 1;
     const STATUS_VISIBLE_HIDDEN_COORDS = 2;
@@ -44,7 +45,8 @@ class Waypoint
         self::TYPE_VIRTUAL => 'images/waypoints/wp_virtual.png',
         self::TYPE_FINAL => 'images/waypoints/wp_final.png',
         self::TYPE_INTERESTING => 'images/waypoints/wp_reference.png',
-        self::TYPE_PARKING => 'images/waypoints/wp_parking.png'
+        self::TYPE_PARKING => 'images/waypoints/wp_parking.png',
+        self::TYPE_TRAILHEAD => 'images/waypoints/wp_trailhead.png'
     );
 
 

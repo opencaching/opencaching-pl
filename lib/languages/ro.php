@@ -2617,6 +2617,7 @@ $translations = array(
     'wayPointType3' => 'Loc final',
     'wayPointType4' => 'Loc interesant',
     'wayPointType5' => 'Parcare',
+    'wayPointType6' => 'Început de traseu',
     'beginning' => 'Începând***',
     'send_to' => 'Trimite către',
     'send_to_cgeo' => 'c:geo',

@@ -2617,6 +2617,7 @@ $translations = array(
     'wayPointType3' => 'Punkt końcowy',
     'wayPointType4' => 'Interesujące miejsce',
     'wayPointType5' => 'Parking',
+    'wayPointType6' => 'Początek ścieżki',
     'beginning' => 'Rozpoczęcie',
     'send_to' => 'Wyślij do',
     'send_to_cgeo' => 'c:geo',

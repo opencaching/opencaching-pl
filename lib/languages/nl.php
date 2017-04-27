@@ -2618,6 +2618,7 @@ $translations = array(
     'wayPointType3' => 'Eindlocatie',
     'wayPointType4' => 'Interessante plek',
     'wayPointType5' => 'Parkeerplaats',
+    'wayPointType6' => 'Begin wandelpad',
     'beginning' => 'Aanvang',
     'send_to' => 'Verzend naar',
     'send_to_cgeo' => 'c:geo',
