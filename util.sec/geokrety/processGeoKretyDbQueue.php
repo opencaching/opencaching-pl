@@ -5,8 +5,8 @@ use Controllers\GeoKretyLogController;
 
 $gkCtrl = new GeoKretyLogController();
 
-// Uncomment if necessary
-$gkCtrl->enableDebugMsgs();
+// Uncomment if necessary - then script will return debug info with errors etc.
+// $gkCtrl->enableDebugMsgs();
 
 $gkCtrl->runQueueProcessing();
 
