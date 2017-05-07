@@ -4,16 +4,13 @@ namespace lib\Objects\GeoKret;
 
 use lib\Objects\User\User;
 use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\GeoKret\GeoKretLogError;
+use lib\Objects\BaseObject;
 
 /**
- * Description of GeoKretLog
- *
- * @author Łza
+ * GeokretLog represents GK-logs-queue entry stored in DB
  */
-class GeoKretLog
+class GeoKretLog extends BaseObject
 {
-
     private $id;
 
     /**
@@ -47,19 +44,28 @@ class GeoKretLog
     private $geoKretId;
     private $geoKretName;
 
-    /**
-     *
-     * @var GeoKretLogError
-     */
-    private $geoKretLogErrors = [];
-
-    const FORMNAME = 'ruchy';
-    const APPLICATION_NAME = 'Opencaching';
-    const APPLICATION_VERSION = 'PL';
-
     public function __construct()
     {
+        parent::__construct();
+    }
 
+    private static function FromDbRowFactory($row)
+    {
+        $geoKretyLog = new self();
+
+        $geoKretyLog
+            ->setId($row['id'])
+            ->setLogDateTime(new \DateTime($row['log_date_time']))
+            ->setEnqueueDatetime(new \DateTime($row['enqueue_date_time']))
+            ->setUser(new User(['userId' => $row['user_id']]))
+            ->setGeoCache(GeoCache::fromCacheIdFactory($row['geocache_id']) )
+            ->setLogType($row['log_type'])
+            ->setComment($row['comment'])
+            ->setTrackingCode($row['tracking_code'])
+            ->setGeoKretId($row['geokret_id'])
+            ->setGeoKretName($row['geokret_name']);
+
+        return $geoKretyLog;
     }
 
     public function getLogDateTime()
@@ -168,7 +174,7 @@ class GeoKretLog
         $this->geoKretName = $GeoKretName;
         return $this;
     }
-    
+
     public function getId()
     {
         return $this->id;
@@ -180,25 +186,76 @@ class GeoKretLog
         return $this;
     }
 
-    public function getGeoKretLogErrors()
+    public function getDescription()
     {
-        return $this->geoKretLogErrors;
+        return sprintf("\n%d: GK[%d]: %s ",
+            $this->getId(), $this->getGeoKretId(), $this->getGeoKretName());
     }
 
-    public function appendGeoKretLogErrors(GeoKretLogError $geoKretLogError)
+    /**
+     *
+     * @param array $geoKretogs
+     * (array of GeoKretLog)
+     */
+    public static function EnqueueLogs($geoKretogs)
     {
-        $this->geoKretLogErrors[] = $geoKretLogError;
-        return $this;
-    }
-
-    public function isLoggingError()
-    {
-        if(count($this->getGeoKretLogErrors()) > 0){
-            return true;
+        /* @var $geoKretLog GeoKretLog */
+        $query = 'INSERT INTO geokret_log (
+                    log_date_time, enqueue_date_time, user_id, geocache_id, log_type,
+                    comment, tracking_code, geokret_id, geokret_name)
+                  VALUES ';
+        $paramId = 1;
+        foreach ($geoKretogs as $geoKretLog) {
+            $query .= '(:'.$paramId++.', NOW(), :'.$paramId++.','
+                . ' :'.$paramId++.', :'.$paramId++.', :'.$paramId++.', :'.$paramId++.','
+                    . ' :'.$paramId++.', :'.$paramId++.'),';
+                    $queryParams[] = $geoKretLog->getLogDateTime()->format('Y-m-d H:i:s');
+                    $queryParams[] = $geoKretLog->getUser()->getUserId();
+                    $queryParams[] = $geoKretLog->getGeoCache()->getCacheId();
+                    $queryParams[] = $geoKretLog->getLogType();
+                    $queryParams[] = $geoKretLog->getComment();
+                    $queryParams[] = $geoKretLog->getTrackingCode();
+                    $queryParams[] = $geoKretLog->getGeoKretId();
+                    $queryParams[] = $geoKretLog->getGeoKretName();
         }
-        return false;
+        $query = rtrim($query,',');
+
+        self::db()->multiVariableQuery($query, $queryParams);
     }
 
+    public static function RemoveFromQueueByIds(array $ids)
+    {
+        if( count($ids) > 0 ){
+            self::db()->query("DELETE FROM geokret_log WHERE id IN (".implode(',', $ids).")");
+        }
+    }
 
+    public static function UpdateLastTryForIds(array $ids){
+        if( count($ids) > 0 ){
+            self::db()->query("UPDATE geokret_log SET last_try = NOW() WHERE id IN (".implode(',', $ids).")");
+        }
+    }
+
+    public static function GetLast50LogsFromDb()
+    {
+        // get first fresh (not processed) records, then the older ones + no more than 50 logs at once
+        $stmt = self::db()->query(
+            'SELECT * FROM geokret_log
+             ORDER BY last_try IS NULL DESC, last_try ASC
+             LIMIT 50');
+
+        $result = [];
+        while($row = self::db()->dbResultFetch($stmt)){
+            $result[] = self::FromDbRowFactory($row);
+        }
+
+        return $result;
+    }
+
+    public static function GetDbQueueLength()
+    {
+        return self::db()->simpleQueryValue(
+            'SELECT COUNT(*) FROM geokret_log', 0);
+    }
 
 }

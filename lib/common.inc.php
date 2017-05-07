@@ -9,35 +9,31 @@ use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use Utils\View\View;
 
+
+
 if ((!isset($GLOBALS['no-session'])) || ($GLOBALS['no-session'] == false))
     session_start();
 
-/* * **************************************************************************
-
-  sets up all neccessary variables and handle template and database-things
-  also useful functions
-
-  parameter: lang       get/post/cookie   used language
-  style      get/post/cookie   used style
-
- * ************************************************************************** */
-
-/**
- *  load opencaching library for connect with database.
- *  library is based on PDO library and should be used with database connection.
- *  see inside this file for instructions how to use it.
- */
 if ((!isset($GLOBALS['no-ob'])) || ($GLOBALS['no-ob'] == false))
     ob_start();
+
 if ((!isset($GLOBALS['oc_waypoint'])) && isset($GLOBALS['ocWP']))
     $GLOBALS['oc_waypoint'] = $GLOBALS['ocWP'];
+
+
 
 global $menu;
 
 //JG - niezainicjowana zmienna, 2013.10.18
 if (!isset($rootpath))
-    $rootpath = './';
+    $rootpath = __DIR__.'/../';
+
 require_once($rootpath . 'lib/language.inc.php');
+require_once($rootpath . 'lib/settings.inc.php');
+require_once($rootpath . 'lib/calculation.inc.php');
+require_once($rootpath . 'lib/consts.inc.php');
+require_once($rootpath . 'lib/common_tpl_funcs.php');
+require_once($rootpath . 'lib/cookie.class.php');
 
 
 
@@ -72,19 +68,6 @@ $CACHESIZE = array("MICRO" => 2,
 
 //detecting errors
 $error = false;
-
-if (!isset($rootpath))
-    $rootpath = './';
-
-//load default webserver-settings and common includes
-require_once($rootpath . 'lib/settings.inc.php');
-require_once($rootpath . 'lib/calculation.inc.php');
-require_once($rootpath . 'lib/consts.inc.php');
-require_once($rootpath . 'lib/common_tpl_funcs.php');
-
-// load HTML specific includes
-require_once($rootpath . 'lib/cookie.class.php');
-
 
 // set default CSS
 tpl_set_var('css', 'main.css');
@@ -195,7 +178,7 @@ if ($dblink === false) {
 
     //user authenification from cookie
     auth_user();
-    if ($usr == false) {
+    if ($GLOBALS['usr'] == false) {
         //no user logged in
         if (isset($_POST['target'])) {
             $target = $_POST['target'];

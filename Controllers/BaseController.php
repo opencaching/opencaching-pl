@@ -8,7 +8,7 @@ use lib\Objects\OcConfig\OcConfig;
 use Utils\View\View;
 use Utils\Uri\Uri;
 
-require_once('./lib/common.inc.php');
+require_once(__DIR__.'/../lib/common.inc.php');
 
 abstract class BaseController
 {

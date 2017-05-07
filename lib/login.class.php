@@ -9,6 +9,8 @@ define('LOGIN_USERNOTACTIVE', 3); // the useraccount locked
 define('LOGIN_TIME', 60 * 60);
 define('LOGIN_TIME_PERMANENT', 90 * 24 * 60 * 60);
 
+global $login;
+
 $login = new login();
 
 class login
@@ -151,7 +153,7 @@ class login
             ORDER BY `prio` ASC
             LIMIT 1
         ";
-        
+
         $s = $this->db->multiVariableQuery($userQuery, mb_strtolower($user));
         $rUser = $this->db->dbResultFetchOneRowOnly($s);
         if ($rUser) {
