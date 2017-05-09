@@ -18,4 +18,10 @@ abstract class BaseObject
     {
         return $this->dataLoaded;
     }
+
+    public static function db()
+    {
+        return OcDb::instance();
+    }
+
 }

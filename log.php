@@ -494,7 +494,7 @@ if ($error == false) {
                             VALUES ( ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)",
                             $cache_id, $usr['userid'], $log_type, $log_date, $log_text, 1, 1, $log_uuid, $oc_nodeid);
                     }
-                    
+
                     // insert to database.
                     if ($log_type == GeoCacheLog::LOGTYPE_MOVED &&
                             ($cache_type == GeoCache::TYPE_MOVING || $cache_type == GeoCache::TYPE_OWNCACHE)
@@ -692,16 +692,16 @@ if ($error == false) {
                     require_once($rootpath . 'lib/eventhandler.inc.php');
                     event_new_log($cache_id, $usr['userid'] + 0);
                 }
-                
+
                 $badgetParam = "";
-                
+
                 if ($config['meritBadges']){
                     if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT ||
-                        $log_type == GeoCacheLog::LOGTYPE_ATTENDED ){ 
-                    
+                        $log_type == GeoCacheLog::LOGTYPE_ATTENDED ){
+
                         $ctrlMeritBadge = new MeritBadgeController;
                         $changedLevelBadgesIds = $ctrlMeritBadge->updateCurrValMeritBadges($cache_id, $usr['userid']);
-        
+
                         if ( $changedLevelBadgesIds != "" )
                             $badgetParam = "&badges=" . $changedLevelBadgesIds;
                     }
@@ -1211,8 +1211,7 @@ function enqueueGeoKretyLog(DateTime $logDateTime, User $user, GeoCache $geoCach
         }
     }
     if(count($geoKretyLogs) > 0){
-        $geoKretyController = new GeoKretyController();
-        $geoKretyController->enqueueGeoKretLogs($geoKretyLogs);
+        GeoKretLog::EnqueueLogs($geoKretyLogs);
     }
 }
 

@@ -1,5 +1,7 @@
 <?php
 
+global $cookie;
+
 $cookie = new cookie();
 
 class cookie
@@ -70,5 +72,3 @@ class cookie
     }
 
 }
-
-?>
