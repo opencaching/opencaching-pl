@@ -3,6 +3,7 @@
 use Utils\Database\OcDb;
 use lib\Controllers\LogEnteryController;
 
+$rootpath = "./";
 
 require_once('./lib/common.inc.php');
 require($stylepath . '/lib/icons.inc.php');
