@@ -26,7 +26,7 @@ global $menu;
 
 //JG - niezainicjowana zmienna, 2013.10.18
 if (!isset($rootpath))
-    $rootpath = __DIR__.'/../';
+    $rootpath = './';
 
 require_once($rootpath . 'lib/language.inc.php');
 require_once($rootpath . 'lib/settings.inc.php');
