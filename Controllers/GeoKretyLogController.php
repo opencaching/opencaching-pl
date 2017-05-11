@@ -42,11 +42,13 @@ class GeoKretyLogController extends BaseController
 
     /**
      * Process GK queueu - this is an entry point to this controller
+     * @param $runFrom - path to script which call GK processing
      */
-    public function runQueueProcessing()
+    public function runQueueProcessing($runFrom)
     {
         if(!$this->tryLock()){
             $this->debug("Fatal error: Can't lock queue processing! Another instance is running?!");
+            error_log("GK-queue-processing ERROR: can't lock queue! Source: ".$runFrom);
             return;
         }
 
