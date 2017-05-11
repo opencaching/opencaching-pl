@@ -8,8 +8,10 @@ $GLOBALS['rootpath'] = "../../"; //TODO: how to remove it from here?
 
 $gkCtrl = new GeoKretyLogController();
 
-// Uncomment if necessary - then script will return debug info with errors etc.
-// $gkCtrl->enableDebugMsgs();
+// add debug var to url if debug messages are needed
+if(isset($_REQUEST['debug'])){
+    $gkCtrl->enableDebugMsgs();
+}
 
 $gkCtrl->runQueueProcessing();
 
