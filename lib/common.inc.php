@@ -24,9 +24,13 @@ if ((!isset($GLOBALS['oc_waypoint'])) && isset($GLOBALS['ocWP']))
 
 global $menu;
 
-//JG - niezainicjowana zmienna, 2013.10.18
-if (!isset($rootpath))
-    $rootpath = './';
+if (!isset($rootpath)){
+    if(isset($GLOBALS['rootpath'])){
+        $rootpath =  $GLOBALS['rootpath'];
+    }else{
+        $rootpath = "./";
+    }
+}
 
 require_once($rootpath . 'lib/language.inc.php');
 require_once($rootpath . 'lib/settings.inc.php');
