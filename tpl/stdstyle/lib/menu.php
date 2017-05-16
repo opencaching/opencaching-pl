@@ -1079,6 +1079,10 @@ function buildBottomMenu($menuArray)
     if (isset($config['license_html']) && !empty($config['license_html'])) {
         $result .= '<p><br>' . $config['license_html'] . '</p>';
     }
+    $rev = exec('git rev-parse --short HEAD');
+    if (isset($rev)) {
+        $result .= '<p><br>Rev: <a target="_blank" href="https://github.com/opencaching/opencaching-pl/commit/'. $rev .'">' . $rev . '</a></p>';
+    }
     return $result;
 }
 ?>

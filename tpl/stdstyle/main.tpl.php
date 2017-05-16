@@ -270,7 +270,7 @@ if (date('m') == 12 || date('m') == 1) {
                     echo $bottomMenuResult;
                     ?>
                 </div>
-                <!-- (C) The Opencaching Project ? - 2016 -->
+                <!-- (C) The Opencaching Project ? - 2017 -->
             </div>
         </div>
     </body>
