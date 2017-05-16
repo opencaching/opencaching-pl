@@ -18,11 +18,11 @@ use Controllers\GeoKretyLogController;
 
 $GLOBALS['rootpath'] = "../../"; //TODO: how to remove it from here?
 
-$gkCtrl = new GeoKretyLogController(__FILE__);
+$gkCtrl = new GeoKretyLogController();
 
 // add debug var to url if debug messages are needed
 if(isset($_REQUEST['debug'])){
     $gkCtrl->enableDebugMsgs();
 }
 
-$gkCtrl->runQueueProcessing();
+$gkCtrl->runQueueProcessing(__FILE__);
