@@ -37,7 +37,8 @@ if ( $dDiff->days < $securityPeriod )
 
     $queryS ="
     select
-    top.cacheId, top.cacheName, top.cacheRegion, ifnull( nrT.nrTinR, 0) nrTinR,
+    top.cacheId, top.cacheName, top.userName, 
+    top.cacheRegion, ifnull( nrT.nrTinR, 0) nrTinR,
     top.RATE, top.ratio,
     top.cRating, top.cFounds, top.cNrDays, top.cDateCrt
 
@@ -52,19 +53,18 @@ if ( $dDiff->days < $securityPeriod )
     r.rating cRating, f.nr_founds cFounds, caches.date_created cDateCrt,
     DATEDIFF(caches.date_created, :1 ) cNrDays
 
-    FROM `caches`
+    FROM caches
 
     JOIN
     (
     SELECT lcaches.cache_id cid, count(*) rating
-    FROM `caches` lcaches
-    INNER JOIN `cache_logs` ON `cache_logs`.`cache_id` = lcaches .`cache_id`
-    JOIN cache_rating ON `cache_rating`.`cache_id` = `cache_logs`.`cache_id`
-    AND `cache_rating`.`user_id` = `cache_logs`.user_id
-    where
-    `cache_logs`.`deleted` =0 AND `cache_logs`.`type` =1
+    FROM caches lcaches
+    INNER JOIN cache_logs ON cache_logs.cache_id = lcaches .cache_id
+    JOIN cache_rating ON cache_rating.cache_id = cache_logs.cache_id
+    AND cache_rating.user_id = cache_logs.user_id
+    WHERE
+    cache_logs.deleted = 0 AND cache_logs.type = 1
     and cache_logs.date_created < :1
-
     group by 1
     )
     as r ON r.cid = caches.cache_id
@@ -75,22 +75,20 @@ if ( $dDiff->days < $securityPeriod )
     FROM
     caches fcaches
     JOIN cache_logs ON cache_logs.cache_id = fcaches.cache_id
-
-    where
+    WHERE
     cache_logs.deleted=0 AND cache_logs.type=1
     and cache_logs.date_created < :1
-
     group by 1
     )
     as f ON f.cid = caches.cache_id
 
-    JOIN user ON `caches`.`user_id` = `user`.`user_id`
-    JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`
+    JOIN user ON caches.user_id = user.user_id
+    JOIN cache_location ON caches.cache_id = cache_location.cache_id
     left JOIN cache_titled ON cache_titled.cache_id = caches.cache_id
 
     WHERE
-    `status` =1
-    AND `caches`.`type` <>4 AND `caches`.`type` <>5 AND caches.type <>6
+    status =1
+    AND caches.type <>4 AND caches.type <>5 AND caches.type <>6
     and f.nr_founds >= :2 and caches.date_created < :1
     and cache_titled.cache_id is NULL
 
@@ -147,7 +145,7 @@ if ( $dDiff->days < $securityPeriod )
     $SystemUser = -1;
     $LogType = 12; //OCTeam
     $ntitled_cache = $titled_cache_period_prefix.'_titled_cache_congratulations';
-    $msgText = tr($ntitled_cache);
+    $msgText = str_replace('{ownerName}', $rec['userName'], tr($ntitled_cache));
     $LogUuid = create_uuid();
 
     $dbc->multiVariableQuery($queryLogI, $rec[ "cacheId" ], $SystemUser, $LogType, $date_alg,
