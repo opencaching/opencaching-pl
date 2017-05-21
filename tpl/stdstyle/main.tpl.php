@@ -102,7 +102,14 @@ if (date('m') == 12 || date('m') == 1) {
                 <div class="navflag-container">
                     <div class="navflag">
                         <ul>
-                            {language_flags}
+                            <?php foreach($view->languageFlags as $langFlag){ ?>
+                                <li>
+                                    <a rel="nofollow" href="<?=$langFlag['link']?>" />
+                                        <img class="img-navflag" src="<?=$langFlag['img']?>" alt="<?=$langFlag['name']?> version"
+                                             title="<?=$langFlag['name']?> version">
+                                    </a>
+                                </li>
+                            <?php } //forach-lang-flags ?>
                         </ul>
                     </div>
                 </div>

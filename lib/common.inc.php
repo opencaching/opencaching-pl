@@ -8,6 +8,7 @@ require_once __DIR__ . '/ClassPathDictionary.php';
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use Utils\View\View;
+use Utils\I18n\I18n;
 
 
 
@@ -41,7 +42,6 @@ require_once($rootpath . 'lib/cookie.class.php');
 
 
 
-$lang_array = available_languages(); //array("pl", "en", "sv", "de", "cs", "fr", "es");
 $datetimeformat = '%d %B %Y o godz. %H:%M:%S ';
 $dateformat = '%d %B %Y';
 $simpledateformat = '%d.%m.%Y';
@@ -50,25 +50,6 @@ $simpledateformat = '%d.%m.%Y';
 mb_internal_encoding('UTF-8');
 mb_regex_encoding('UTF-8');
 mb_language('uni');
-
-
-
-$STATUS = array("READY" => 1,
-    "TEMP_UNAVAILABLE" => 2,
-    "ARCHIVED" => 3,
-    "HIDDEN_FOR_APPROVAL" => 4,
-    "NOT_YET_AVAILABLE" => 5,
-    "BLOCKED" => 6
-);
-
-$CACHESIZE = array("MICRO" => 2,
-    "SMALL" => 3,
-    "NORMAL" => 4,
-    "LARGE" => 5,
-    "VERY_LARGE" => 6,
-    "NO_CONTAINER" => 7
-);
-
 
 //detecting errors
 $error = false;
@@ -100,8 +81,14 @@ require_once($rootpath . 'lib/loadlanguage.php');
 
 
 //check if $lang is supported by site
-if(!in_array($lang, $lang_array)){
-    die('Critical Error: The specified language does not exist!');
+if(!I18n::isTranslationSupported($lang)){
+    echo("Error: The specified language ($lang) is not supported!<br/>");
+    echo("Please select on of supported language versions:&nbsp;");
+    foreach (I18n::getLanguagesFlagsData() as $lName=>$lData){
+        echo '<a href="'.$lData['link'].'">'.strtoupper($lName).'</a>&nbsp;';
+    }
+
+    exit;
 }
 
 
@@ -315,37 +302,6 @@ function set_cookie_setting($name, $value)
     global $cookie;
     $cookie->set($name, $value);
 }
-
-
-
-
-
-
-function writeLanguageFlags($languages)
-{
-    global $lang;
-    $language_flags = "";
-    foreach ($languages as $s_lang) {
-        $_SERVER['QUERY_STRING'] = str_replace("&lang=" . $s_lang, "", $_SERVER['QUERY_STRING']);
-        $_SERVER['QUERY_STRING'] = str_replace("lang=" . $s_lang, "", $_SERVER['QUERY_STRING']);
-    }
-    foreach ($languages as $s_lang) {
-        if ($s_lang != $lang) {
-            $language_flags .= '<li><a rel="nofollow" style="text-decoration:none;" href="' . ($_SERVER['PHP_SELF']);
-
-            if (strlen($_SERVER['QUERY_STRING']) > 0)
-                $language_flags .= '?' . htmlspecialchars($_SERVER['QUERY_STRING']) . '&amp;lang=' . $s_lang . '"><img class="img-navflag" src="images/' . $s_lang . '.jpg" alt="' . $s_lang . ' version" title="">&nbsp;';
-            else
-                $language_flags .= '?lang=' . $s_lang . '"><img class="img-navflag" src="images/' . $s_lang . '.png" alt="' . $s_lang . ' version" title="">&nbsp;';
-
-            $language_flags .= '</a></li>';
-        }
-    }
-    return $language_flags;
-}
-
-
-
 
 function http_write_no_cache()
 {
