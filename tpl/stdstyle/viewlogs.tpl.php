@@ -59,6 +59,9 @@
     }
     ;
 </script>
+<script>
+    var confirmRmLogTranslation = '{{confirm_remove_log}}';
+</script>
 <script src="{viewcache_js}"></script>
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
