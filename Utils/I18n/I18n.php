@@ -15,8 +15,8 @@ class I18n
         if(isset($GLOBALS['config']['supportedLanguages']) && is_array($GLOBALS['config']['supportedLanguages'])){
             return $GLOBALS['config']['supportedLanguages'];
         } else {
-            log_error("Can't provide supported translation list");
-            exit;
+            error_log('There is no $config[supportedLanguages] settings - please load settingsDefault.inc.php in your setting.inc.php!');
+            return array('en', 'nl', 'pl', 'ro');
         }
     }
 
