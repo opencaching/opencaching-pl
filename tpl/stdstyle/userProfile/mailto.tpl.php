@@ -10,7 +10,7 @@
 
 <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 
-<?php $view->callChunk('infoBar', $view->reloadUrl, $view->errorMsg, $view->infoMsg ); ?>
+<?php $view->callChunk('infoBar', $view->reloadUrl, $view->infoMsg, $view->errorMsg ); ?>
 
 <div class="content2-pagetitle">
     <!-- img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt="" align="middle" / -->

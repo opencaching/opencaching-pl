@@ -32,7 +32,7 @@ return function ($reloadUrl=null, $infoMsg=null, $errorMsg=null) {
     </script>
 
     <?php if(!empty($infoMsg)) { ?>
-        <div class="infoBar-message infoBar-message-err">
+        <div class="infoBar-message">
           <h5>
             <?=$infoMsg?>
 
@@ -46,7 +46,7 @@ return function ($reloadUrl=null, $infoMsg=null, $errorMsg=null) {
     <?php } ?>
 
     <?php if(!empty($errorMsg)) { ?>
-        <div class="infoBar-message">
+        <div class="infoBar-message infoBar-message-err">
           <h5>
             <?=$errorMsg?>
 
