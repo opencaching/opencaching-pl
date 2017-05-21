@@ -69,7 +69,7 @@ body {font-size: 62.5%; margin: 0px auto; padding: 0px; background-color: #ccccc
 .navflag {margin: 0px; padding: 0px; font-size: 1.0em;}
 .navflag ul {float: right; margin: 0px; padding: 0px 20px 0px 0px;}
 .navflag li {display: inline; list-style: none; margin: 0px; padding: 0px;}
-.navflag li a {margin: 0px; padding: 0px 0px 0px 1px;}
+.navflag li a {margin: 0px; padding: 0px 0px 0px 1px; text-decoration: none;}
 .navflag a:hover {color: rgb(0,0,0); text-decoration: none;}
 .img-navflag {display: inline; width: 23px; height: 15px; margin: 0px; padding: 0px; border: none;}
 
