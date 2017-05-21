@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../../lib/ClassPathDictionary.php';
 
 use lib\Controllers\PowerTrailController;
+use Utils\I18n\I18n;
 
 $powerTrailCronJobController = new PowerTrailCronJobController;
 $powerTrailCronJobController->run();
@@ -25,7 +26,7 @@ class PowerTrailCronJobController
     {
         include __DIR__ . '/../../lib/settings.inc.php';
         include_once __DIR__ . '/../../lib/language.inc.php';
-        $langArray = available_languages();
+        $langArray = I18n::getSupportedTranslations();
 
 
         $oldFileArr = explode('xxkgfj8ipzxx', file_get_contents($dynstylepath . 'ptPromo.inc-' . $lang . '.php'));

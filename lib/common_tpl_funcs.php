@@ -2,6 +2,7 @@
 
 use Utils\View\View;
 use Utils\Uri\Uri;
+use Utils\I18n\I18n;
 
 //set the global template-name variable
 function tpl_set_tplname($local_tpl_name){
@@ -148,7 +149,7 @@ function set_tpl_subtitle($title)
 function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemplate=false)
 {
     //template handling vars
-    global $stylepath, $tplname, $vars, $langpath, $lang_array, $lang, $language, $menu, $config, $usr;
+    global $stylepath, $tplname, $vars, $langpath, $lang, $language, $menu, $config, $usr;
 
     // object
     /** @var View $view */
@@ -161,7 +162,7 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
 
     $bScriptExecution->Stop();
     tpl_set_var('scripttime', sprintf('%1.3f', $bScriptExecution->Diff()));
-    tpl_set_var('language_flags', writeLanguageFlags($lang_array));
+    $view->setVar('languageFlags', I18n::getLanguagesFlagsData($lang));
 
     $bTemplateBuild = new Cbench;
     $bTemplateBuild->Start();

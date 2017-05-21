@@ -9,6 +9,22 @@ global $rootpath;
 
 require_once('./lib/common.inc.php');
 
+$STATUS = array("READY" => 1,
+    "TEMP_UNAVAILABLE" => 2,
+    "ARCHIVED" => 3,
+    "HIDDEN_FOR_APPROVAL" => 4,
+    "NOT_YET_AVAILABLE" => 5,
+    "BLOCKED" => 6
+);
+
+$CACHESIZE = array("MICRO" => 2,
+    "SMALL" => 3,
+    "NORMAL" => 4,
+    "LARGE" => 5,
+    "VERY_LARGE" => 6,
+    "NO_CONTAINER" => 7
+);
+
 function build_drop_seq($item_row, $selected_seq, $max_drop, $thisid, $drop_type)
 {
     //builds drop-down menu to define sequence for pciture or mp3 - drop_type decides)

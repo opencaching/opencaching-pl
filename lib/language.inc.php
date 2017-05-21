@@ -14,20 +14,6 @@ function load_language_file($lang)
     return true;
 }
 
-function available_languages()
-{
-    $available_langs = array();
-    if ($handle = opendir(dirname(__FILE__) . '/languages')) {
-        while (false !== ($file = readdir($handle))) {
-            if (substr($file, 0, 1) != '.' && strlen($file) == 6) {
-                array_push($available_langs, substr($file, 0,2));
-            }
-        }
-        closedir($handle);
-        return $available_langs;
-    }
-}
-
 function tr($str)
 {
     global $language, $lang;
