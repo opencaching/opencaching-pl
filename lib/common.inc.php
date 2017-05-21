@@ -82,7 +82,13 @@ require_once($rootpath . 'lib/loadlanguage.php');
 
 //check if $lang is supported by site
 if(!I18n::isTranslationSupported($lang)){
-    die('Critical Error: The specified language does not exist!');
+    echo("Error: The specified language ($lang) is not supported!<br/>");
+    echo("Please select on of supported language versions:&nbsp;");
+    foreach (I18n::getLanguagesFlagsData() as $lName=>$lData){
+        echo '<a href="'.$lData['link'].'">'.strtoupper($lName).'</a>&nbsp;';
+    }
+
+    exit;
 }
 
 
