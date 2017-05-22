@@ -2262,7 +2262,7 @@ $translations = array(
     'contact_nl_title_2' => 'Cachers die zich inzetten voor deze site en tot het OC Team behoren.',
     'contact_nl_desc_2_1' => '<a href="http://www.opencaching.nl/viewprofile.php?userid=1"><b>harrieklomp</b></a> (Harrie): Beheer van de opencaching site, aanvullen van onze wikipagina, keurt nieuwe caches, etc. etc.',
     'contact_nl_desc_2_2' => '<a href="http://www.opencaching.nl/viewprofile.php?userid=1995"><b>zjefke</b></a> (Jos): Keurt de nieuwe caches.',
-    'contact_nl_desk_2_3' => '<a href="http://www.opencaching.nl/viewprofile.php?userid=4456"><b>Raven</b></a> (Roelof): Keurt de nieuwe caches.',
+    'contact_nl_desc_2_3' => '<a href="http://www.opencaching.nl/viewprofile.php?userid=4456"><b>Raven</b></a> (Roelof): Keurt de nieuwe caches.',
     'contact_nl_title_3' => 'Gebruik van de website, suggesties en kritiek.',
     'contact_nl_desc_3_1' => 'Hiervoor hebben we een onderforum op <a href="http://forum.opencaching.nl/viewforum.php?f=4">forum.opencaching.nl</a>. Hier vind je ook andere informatie, indien je misschien ook ons Opencaching-team wilt versterken.',
     'contact_nl_title_4' => 'Opencaching Benelux is ook terug te vinden op de volgende sociale media.',
