@@ -185,8 +185,6 @@ if ($error == false) {
             
             if ($checkBadges)
                 $content .= buildMeritBadges($user_id);
-
-            
         }
         ////////////////////////////////////////////////////////////////////////////
 
@@ -208,7 +206,6 @@ if ($error == false) {
             }
         }
 
-        //$content .= '</div>';
         // -----------  begin Find section -------------------------------------
         $content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/cache-open.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;' . tr('stat_number_found') . '</p></div><br />';
 
