@@ -26,6 +26,26 @@ if ($error == false) {
         $target = urlencode(tpl_get_current_page());
         tpl_redirect('login.php?target=' . $target);
     } else {
+        
+        $checkBadges = 1;
+        $checkGeoPaths = 1;
+        
+        if (isset($_REQUEST['save'])){
+        
+            if (isset($_REQUEST['checkBadges']))
+                $cookie->set("checkBadges", !$_REQUEST['checkBadges']);
+                
+            if (isset($_REQUEST['checkGeoPaths']))
+                $cookie->set("checkGeoPaths", !$_REQUEST['checkGeoPaths']);
+        }
+        
+        if ($cookie->is_set("checkBadges"))
+            $checkBadges= $cookie->get("checkBadges");
+
+        if ($cookie->is_set("checkGeoPaths"))
+            $checkGeoPaths= $cookie->get("checkGeoPaths");
+                
+        
         $cache_line = '<li style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">{cacheimage}&nbsp;{cachestatus} &nbsp; {date} &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong></li>';
         $cache_notpublished_line = '<li style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 115%;">{cacheimage}&nbsp;{cachestatus} &nbsp; <a class="links" href="editcache.php?cacheid={cacheid}">{date}</a> &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong></li>';
         $log_line = '<li style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">{gkimage}&nbsp;{rateimage}&nbsp; {logimage} &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}"><img src="tpl/stdstyle/images/{cacheimage}" border="0" alt="" /></a>&nbsp; {date} &nbsp; <a class="links" href="viewlogs.php?logid={logid}" onmouseover="Tip(\'{logtext}\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong></li>';
@@ -161,12 +181,12 @@ if ($error == false) {
         //Merit badges
         if ($config['meritBadges']){
 
-            $content .= '<div class="content2-container bg-blue02">
-                                <p class="content-title-noshade-size1">
-                                <img src="tpl/stdstyle/images/blue/merit_badge.png" width="33" class="icon32" alt="Merit badges" title="Merit badges" />&nbsp' . tr('merit_badges') . '</div>';
+            $content .= buildOpenCloseButton($checkBadges, "merit_badge.png", "checkBadges", tr('merit_badges'), "Merit badges");
+            
+            if ($checkBadges)
+                $content .= buildMeritBadges($user_id);
 
-            $content .= buildMeritBadges($user_id);
-
+            
         }
         ////////////////////////////////////////////////////////////////////////////
 
@@ -174,16 +194,18 @@ if ($error == false) {
         // PowerTrails stats
 
         if ($powerTrailModuleSwitchOn) {
-            $content .= '<div class="content2-container bg-blue02">
-                            <p class="content-title-noshade-size1">
-                            <img src="tpl/stdstyle/images/blue/powerTrailGenericLogo.png" width="33" class="icon32" alt="geoPaths" title="geoPaths" />&nbsp' . tr('pt001') . '</div>';
+            
+            $content .= buildOpenCloseButton($checkGeoPaths, "powerTrailGenericLogo.png", "checkGeoPaths", tr('pt001'), "geoPaths");
+            
+            if ($checkGeoPaths){
             //geoPaths medals
-            $content .= buildPowerTrailIcons($user->getPowerTrailCompleted());
-            $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt140') . '</span>:&nbsp;<strong>' . powerTrailBase::getUserPoints($user_id) . '</strong> (' . tr('pt093') . ' ' . powerTrailBase::getPoweTrailCompletedCountByUser($user_id) . ')</p>';
-            $pointsEarnedForPlacedCaches = powerTrailBase::getOwnerPoints($user_id);
-
-            $content .= buildPowerTrailIcons($user->getPowerTrailOwed());
-            $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt224') . '</span>:&nbsp;<strong>' . $pointsEarnedForPlacedCaches['totalPoints'] . '</strong></p>';
+                $content .= buildPowerTrailIcons($user->getPowerTrailCompleted());
+                $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt140') . '</span>:&nbsp;<strong>' . powerTrailBase::getUserPoints($user_id) . '</strong> (' . tr('pt093') . ' ' . powerTrailBase::getPoweTrailCompletedCountByUser($user_id) . ')</p>';
+                $pointsEarnedForPlacedCaches = powerTrailBase::getOwnerPoints($user_id);
+    
+                $content .= buildPowerTrailIcons($user->getPowerTrailOwed());
+                $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt224') . '</span>:&nbsp;<strong>' . $pointsEarnedForPlacedCaches['totalPoints'] . '</strong></p>';
+            }
         }
 
         //$content .= '</div>';
@@ -908,3 +930,30 @@ $content.=mb_ereg_replace('{content_badge_rows}', $content_badge_rows, $content_
 $content.="<a class='links'  href='user_badges.php?user_id=$user_id'>[".tr('merit_badge_show_details')."]</a><br><br>";
 return $content;
 }
+
+
+
+function buildOpenCloseButton($check, $pic, $field, $txt, $title){
+$content = "<form action='viewprofile.php' style='display:inline;'>";
+
+$content .= "<div class='content2-container bg-blue02'>
+                                <table width='100%'><tr><td>
+                                <p class='content-title-noshade-size1'>
+                                <img src='tpl/stdstyle/images/blue/$pic' width='33' class='icon32' alt='$title' title='$title' />&nbsp$txt".
+                                "</p></td>";
+
+$content .= "<td style='text-align: right'>
+            <button type='submit' class='btn btn-primary btn-sm'>";
+
+if ($check == 1) $content .= "&nbsp-&nbsp"; else $content .= "&nbsp+&nbsp";
+$content .= "</td></tr></table>";
+$content .= "
+<input type='hidden' name='save' value='true' >
+<input type='hidden' name='$field' value='$check'>
+</form>";
+
+$content .= '</div>';
+
+return $content;
+}
+
