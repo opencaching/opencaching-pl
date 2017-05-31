@@ -181,7 +181,7 @@ if ($error == false) {
         //Merit badges
         if ($config['meritBadges']){
 
-            $content .= buildOpenCloseButton($checkBadges, "merit_badge.png", "checkBadges", tr('merit_badges'), "Merit badges");
+            $content .= buildOpenCloseButton($user_id, $checkBadges, "merit_badge.png", "checkBadges", tr('merit_badges'), "Merit badges");
             
             if ($checkBadges)
                 $content .= buildMeritBadges($user_id);
@@ -193,7 +193,7 @@ if ($error == false) {
 
         if ($powerTrailModuleSwitchOn) {
             
-            $content .= buildOpenCloseButton($checkGeoPaths, "powerTrailGenericLogo.png", "checkGeoPaths", tr('pt001'), "geoPaths");
+            $content .= buildOpenCloseButton($user_id, $checkGeoPaths, "powerTrailGenericLogo.png", "checkGeoPaths", tr('pt001'), "geoPaths");
             
             if ($checkGeoPaths){
             //geoPaths medals
@@ -930,11 +930,11 @@ return $content;
 
 
 
-function buildOpenCloseButton($check, $pic, $field, $txt, $title){
+function buildOpenCloseButton($userid, $check, $pic, $field, $txt, $title){
 $content = "<form action='viewprofile.php' style='display:inline;'>";
 
 $content .= "<div class='content2-container bg-blue02'>
-                                <table width='100%'><tr><td>
+                                <table style='width: 100%; padding: 5px;'><tr><td>
                                 <p class='content-title-noshade-size1'>
                                 <img src='tpl/stdstyle/images/blue/$pic' width='33' class='icon32' alt='$title' title='$title' />&nbsp$txt".
                                 "</p></td>";
@@ -945,6 +945,7 @@ $content .= "<td style='text-align: right'>
 if ($check == 1) $content .= "&nbsp-&nbsp"; else $content .= "&nbsp+&nbsp";
 $content .= "</td></tr></table>";
 $content .= "
+<input type='hidden' name='userid' value='$userid' >
 <input type='hidden' name='save' value='true' >
 <input type='hidden' name='$field' value='$check'>
 </form>";
