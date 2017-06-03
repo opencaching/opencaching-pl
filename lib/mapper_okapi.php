@@ -39,7 +39,10 @@ $params['y'] = $_GET['y'];
 $params['z'] = $_GET['z'];
 
 # userid - we will simulate an OAuth call in the name of this user.
-# WRTODO: There seems to be a privacy issue here.
+#
+# There seems to be a privacy issue here (e.g. user X can see which caches are
+# ignored by user Y), but this worked this way for years (even before I wrote
+# this page), so I guess users don't think so.
 
 $user_id = $_GET['userid'];
 
