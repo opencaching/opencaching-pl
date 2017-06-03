@@ -25,4 +25,5 @@ gct.addToLastRow( 16, "<span {distance_pad} />{direction}&nbsp;{distance}" );
 gct.addToLastRow( 17, "{diffpic}{terrpic}" );
 
 gct.addToLastRow( 18, "{sendtogpsnew}" );
+gct.addToLastRow( 19, "{wp_oc}" );
 </script>

@@ -5,11 +5,49 @@ global $usr, $hide_coords, $colNameSearch, $cookie, $NrColSortSearch, $OrderSort
 
 <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCT.css" />
 <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCTStats.css" />
+<link rel="stylesheet" href="tpl/stdstyle/js/jquery.1.10.3/css/myCupertino/jquery-ui-1.10.3.custom.css" />
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript" src="lib/js/GCT.js"></script>
 <script type="text/javascript" src="lib/js/GCT.lang.php"></script>
 <script type="text/javascript" src="tpl/stdstyle/js/search.js"></script>
+<script type="text/javascript" src="tpl/stdstyle/js/jquery.1.10.3/js/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="tpl/stdstyle/js/jquery.1.10.3/js/jquery-ui-1.10.3.custom.js"></script>
+<script type="text/javascript" src="tpl/stdstyle/js/okapiGpxFormatterWidget.js"></script>
+<script>
+    $(function() {
 
+        /* Show beta options, if proper flag is present. */
+
+        if (typeof(Storage) !== "undefined") {
+            if (localStorage.betatester === "true") {
+                $(".wrbeta").show();
+            }
+        }
+
+        /* Bind "OKAPI GPX" links to proper actions. OKAPI GPX Formatter needs
+         * a complete list of cache codes before it can be shown. */
+
+        var btnFetchSelected = $("#exportOkapiGPX-selected");
+        var btnFetchAll = $("#exportOkapiGPX-all");
+        btnFetchSelected.add(btnFetchAll).css({
+            "cursor": "pointer"
+        });
+        btnFetchSelected.on("click", function() {
+            $.okapiGpxFormatterWidget.show({
+                cacheCodes: GetSelectedCacheCodes()
+            });
+        });
+        btnFetchAll.on("click", function() {
+            $.ajax({
+                url: "ocpl{queryid}.jsoncodes"
+            }).done(function(cacheCodes) {
+                $.okapiGpxFormatterWidget.show({
+                    cacheCodes: cacheCodes
+                });
+            });
+        });
+    });
+</script>
 
 <?php
 if ( !$SearchWithSort )
@@ -67,6 +105,7 @@ if ( !$SearchWithSort &&  $NrColSortSearch != -1 )
     /* 17 */gct.addColumn('string', "<?php echo $colNameSearch[17]["C"]?>", 'font-size: 12px; text-align: left; ');
 
     /* 18 */gct.addColumn('string', "<?php echo $colNameSearch[18]["C"]?>", 'font-size: 12px; text-align: left; ');
+    /* 19 */gct.addColumn('string', "<?php echo $colNameSearch[19]["C"]?>", 'font-size: 12px; text-align: left; ');
 
     gct.hideColumns( [0] );
 
@@ -186,6 +225,9 @@ echo "<div class='GCT-div' style='font-size:12px' >
                 <a class='links' onclick='CacheExport(\"zip\")' id='exportZIP' title='Garmin ZIP file ({{format_pict}})  .zip'>GARMIN ({{format_pict}})</a> |
                 <a class='links' onclick='CacheExport(\"ggz\")' id='exportGGZ' title='Garmin .ggz'>GARMIN GGZ</a> <sup style='color:red;text-shadow: 2px 2px 2px rgba(255, 109, 255, 1);'>Beta!</sup> |
                 <a class='links' onclick='CacheExport(\"ggzp\")' id='exportGGZP' title='Garmin ZIP file ({{format_ggz_pict}})  .zip'>GARMIN GGZ ({{format_ggz_pict}})</a> <sup style='color:red;text-shadow: 2px 2px 2px rgba(255, 109, 255, 1);'>Beta!</sup>
+                <div class='wrbeta' style='display:none'>
+                    <a class='links' id='exportOkapiGPX-selected'>OKAPI GPX...</a>
+                </div>
             </td>
         </tr>
 
@@ -219,6 +261,9 @@ echo "<div class='GCT-div' style='font-size:12px' >
                 <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".zip?startat=";?>{startat}<?php echo "&amp;count=max\" title=\"Garmin ZIP file ({{format_pict}})  .zip\">GARMIN ({{format_pict}})</a> |
                 <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".ggz?startat=";?>{startat}<?php echo "&amp;count=max\" title=\"Garmin .ggz\">GARMIN GGZ</a> <sup style='color:red;text-shadow: 2px 2px 2px rgba(255, 109, 255, 1);'>Beta!</sup> |
                 <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".zip?startat=";?>{startat}<?php echo "&amp;format=ggz&amp;count=max\" title=\"Garmin ZIP file ({{format_ggz_pict}})  .zip\">GARMIN GGZ ({{format_ggz_pict}})</a> <sup style='color:red;text-shadow: 2px 2px 2px rgba(255, 109, 255, 1);'>Beta!</sup>
+                <div class='wrbeta' style='display: none'>
+                    <a class='links' id='exportOkapiGPX-all'>OKAPI GPX...</a>
+                </div>
                 </td>
               </tr>
              <tr><td colspan=2>&nbsp</td></tr>

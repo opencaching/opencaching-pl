@@ -35,6 +35,16 @@ function GetSelectedCacheIDs()
     return selectedIDs;
 }
 
+function GetSelectedCacheCodes()
+{
+    var selectedCodes = [];
+    var selectedItems =  gct.getSelection();
+    for (var i = 0; i < selectedItems.length; i++) {
+        selectedCodes.push(gct.getValue(selectedItems[i].row, 19));
+    }
+    return selectedCodes;
+}
+
 function CacheExport( type )
 {
     var link = 'search.php?searchto=searchbylist&showresult=1&f_inactive=0&f_ignored=0&f_userfound=0&f_userowner=0&f_watched=0&count=max&output=';
