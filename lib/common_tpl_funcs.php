@@ -157,15 +157,9 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
 
     //language specific expression
     global $error_pagenotexist;
-    //only for debbuging
-    global $bScriptExecution;
 
-    $bScriptExecution->Stop();
-    tpl_set_var('scripttime', sprintf('%1.3f', $bScriptExecution->Diff()));
+
     $view->setVar('languageFlags', I18n::getLanguagesFlagsData($lang));
-
-    $bTemplateBuild = new Cbench;
-    $bTemplateBuild->Start();
 
     //set {functionsbox}
     global $page_functions, $functionsbox_start_tag, $functionsbox_middle_tag, $functionsbox_end_tag;

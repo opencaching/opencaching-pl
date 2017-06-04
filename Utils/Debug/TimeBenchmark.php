@@ -1,48 +1,48 @@
 <?php
+namespace Utils\Debug;
 
-//
-// bench.inc.php
-//
-class Cbench
-{
+/**
+ * This class is former /lib/cbanch.php
+ *
+ */
+
+class TimeBenchmark {
 
     var $start;
     var $stop;
 
-    function __construct()
+    public function __construct()
     {
         $this->start = 0;
         $this->stop = 0;
     }
 
-    function getmicrotime()
+    private function getmicrotime()
     {
         list($usec, $sec) = explode(" ", microtime());
         return ((float) $usec + (float) $sec);
     }
 
-    function start()
+    public function start()
     {
         $this->start = $this->getmicrotime();
     }
 
-    function stop()
+    public function stop()
     {
         $this->stop = $this->getmicrotime();
     }
 
-    function diff()
+    public function diff()
     {
         $result = $this->stop - $this->start;
         return $result;
     }
 
-    function runTime()
+    public function runTime()
     {
         $result = $this->getmicrotime() - $this->start;
         return $result;
     }
 
 }
-
-?>

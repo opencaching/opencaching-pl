@@ -51,7 +51,6 @@ $GLOBALS['config'] = $config;
 
 $datetimeformat = '%d %B %Y o godz. %H:%M:%S ';
 $dateformat = '%d %B %Y';
-$simpledateformat = '%d.%m.%Y';
 
 // yepp, we will use UTF-8
 mb_internal_encoding('UTF-8');
@@ -87,14 +86,30 @@ load_cookie_settings();
 require_once($rootpath . 'lib/loadlanguage.php');
 
 
+
+
+
+
+
+
 //check if $lang is supported by site
 if(!I18n::isTranslationSupported($lang)){
+/*
+    tpl_set_tplname('error/langNotSupported');
+
+    $view->setVar('requestedLang', $lang);
+    $lang = 'en'; //English must be always supported
+
+
+    tpl_BuildTemplate();
+
+*/
+
     echo("Error: The specified language ($lang) is not supported!<br/>");
     echo("Please select on of supported language versions:&nbsp;");
     foreach (I18n::getLanguagesFlagsData() as $lName=>$lData){
         echo '<a href="'.$lData['link'].'">'.strtoupper($lName).'</a>&nbsp;';
     }
-
     exit;
 }
 
@@ -111,6 +126,8 @@ if (!file_exists($rootpath . 'tpl/' . $style . '/')) {
 //set up the style path
 if (!isset($stylepath))
     $stylepath = $rootpath . 'tpl/' . $style;
+
+
 
 //set up the language path
 if (!isset($langpath))
@@ -221,11 +238,6 @@ if ($dblink === false) {
         unset($sTmpString);
     }
 //} //TODO
-
-// zeitmessung
-require_once($rootpath . 'lib/bench.inc.php');
-$bScriptExecution = new Cbench;
-$bScriptExecution->start();
 
 
 tpl_set_var('site_name', $site_name);
