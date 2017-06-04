@@ -142,7 +142,14 @@ $config = array(
     'meritBadges' => false,
 
     /** default style - in fact we don't heve any other style... */
-    'style' => 'stdstyle'
+    'style' => 'stdstyle',
+
+    /**
+     * check if rules of OC site were accepted by current user
+     * this is important only for oc.pl users which create accounts before 2018.11
+     * Nowadays all user accept rules on account creation.
+     */
+    'checkRulesConfirmation' => false
 );
 
 /* ************************************************************************

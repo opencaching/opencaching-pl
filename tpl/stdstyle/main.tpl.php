@@ -146,7 +146,25 @@ if (date('m') == 12 || date('m') == 1) {
                 <!-- Navigation Level 1 -->
                 <div class="nav1-container">
                     <div class="nav1" style="text-align:right;margin-right:20px;">
-                        {loginbox}
+                        <!-- {loginbox} -->
+                        <?php if($view->_isUserLogged){ //if-user-logged ?>
+                            <?=tr('logged_as')?>
+                            <a href="viewprofile.php"><?=$view->_username?></a> -
+                            <a href="logout.php?token=<?=$view->_logoutCookie?>"><?=tr('logout')?></a>
+
+                        <?php } else { //user-not-logged ?>
+                            <form action="login.php" method="post" enctype="application/x-www-form-urlencoded" name="login" dir="ltr"
+                                  style="display: inline;" class="form-group-sm">
+                                  <?=tr('user_or_email')?>:&nbsp;
+                                  <input name="email" size="10" type="text" class="form-control input100" value="" />
+                                  &nbsp;<?=tr('password')?>:&nbsp;
+                                  <input name="password" size="10" type="password" class="form-control input100" value="" />
+                                  &nbsp;
+                                  <input type="hidden" name="action" value="login" />
+                                  <input type="hidden" name="target" value="<?=$view->_target?>" />
+                                  <input type="submit" name="LogMeIn" value="<?=tr('login')?>" class="btn btn-primary btn-sm" />
+                            </form>
+                        <?php } //user-not-logged ?>
                     </div>
                 </div>
 

@@ -8,6 +8,7 @@ require_once __DIR__ . '/ClassPathDictionary.php';
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use Utils\View\View;
+use Utils\Uri\Uri;
 
 
 
@@ -115,69 +116,45 @@ function create_uuid()
 
 $db = OcDb::instance();
 
-/*
- * TODO: new Global error handling should be implemented...
- *
-if ($dblink === false) {
-    //error while connecting to the database
-    $error = true;
+// include the authentication functions
+require($rootpath . 'lib/auth.inc.php');
 
-    //set up error report
-    tpl_set_var('error_msg', htmlspecialchars(mysql_error(), ENT_COMPAT, 'UTF-8'));
-    tpl_set_var('tplname', $tplname);
-    $tplname = 'error';
-} else {
-*/
-    // include the authentication functions
-    require($rootpath . 'lib/auth.inc.php');
+//user authenification from cookie
+auth_user();
+if ($GLOBALS['usr'] == false) {
+    //no user logged in
+    $view->setVar('_isUserLogged', false);
+    $view->setVar('_target',Uri::getCurrentUri());
 
-    //user authenification from cookie
-    auth_user();
-    if ($GLOBALS['usr'] == false) {
-        //no user logged in
-        if (isset($_POST['target'])) {
-            $target = $_POST['target'];
-        } elseif (isset($_REQUEST['target'])) {
-            $target = $_REQUEST['target'];
-        } elseif (isset($_GET['target'])) {
-            $target = $_GET['target'];
-        } else {
-            $target = '{target}';
-        }
-        $sLoggedOut = mb_ereg_replace('{target}', $target, $sLoggedOut);
-        tpl_set_var('loginbox', $sLoggedOut);
-    } else {
+} else { // user logged in
 
-        // check for user_id in session
-        if (!isset($_SESSION['user_id'])) {
-            $_SESSION['user_id'] = $usr['userid'];
-        }
-        //user logged in
-        // check for rules confirmation
-        if ((strtotime("2008-11-01 00:00:00") <= strtotime(date("Y-m-d h:i:s")))) {
-
-            $rules_confirmed = $db->multiVariableQueryValue(
-                "SELECT `rules_confirmed` FROM `user` WHERE `user_id` = :1",
-                0, $usr['userid']);
-
-            if ($rules_confirmed == 0) {
-                if (!isset($_SESSION['called_from_confirm']))
-                    header("Location: confirm.php");
-                else
-                    unset($_SESSION['called_from_confirm']);
-            }
-        }
-
-        if (!(isset($_SESSION['logout_cookie']))) {
-            $_SESSION['logout_cookie'] = mt_rand(1000, 9999) . mt_rand(1000, 9999);
-        }
-
-        $sTmpString = mb_ereg_replace('{username}', $usr['username'], $sLoggedIn);
-        $sTmpString = mb_ereg_replace('{logout_cookie}', $_SESSION['logout_cookie'], $sTmpString);
-        tpl_set_var('loginbox', $sTmpString);
-        unset($sTmpString);
+    // check for user_id in session
+    if (!isset($_SESSION['user_id'])) {
+        $_SESSION['user_id'] = $usr['userid'];
     }
-//} //TODO
+
+    if($GLOBALS['config']['checkRulesConfirmation']){
+        // check for rules confirmation
+        $rules_confirmed = $db->multiVariableQueryValue(
+            "SELECT `rules_confirmed` FROM `user` WHERE `user_id` = :1", 0, $usr['userid']);
+
+        if ($rules_confirmed == 0) {
+            if (!isset($_SESSION['called_from_confirm']))
+                header("Location: confirm.php");
+            else
+                unset($_SESSION['called_from_confirm']);
+        }
+    }
+
+    if (!(isset($_SESSION['logout_cookie']))) {
+        $_SESSION['logout_cookie'] = mt_rand(1000, 9999) . mt_rand(1000, 9999);
+    }
+    
+    $view->setVar('_isUserLogged', true);
+    $view->setVar('_username', $usr['username']);
+    $view->setVar('_logoutCookie', $_SESSION['logout_cookie']);
+
+}
 
 
 tpl_set_var('site_name', $site_name);
