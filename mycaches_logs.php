@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCacheLog;
+use Utils\Text\Rot13;
 global $lang, $usr, $rootpath, $dateFormat;
 
 if (!isset($rootpath))
@@ -160,7 +161,7 @@ if ($error == false) {
                 $data = GeoCacheLog::cleanLogTextForToolTip( $log_record['log_text'] );
 
                 if ($log_record['encrypt'] == 1 && $log_record['cache_owner'] != $usr['userid'] && $log_record['luser_id'] != $usr['userid']) {//crypt the log ROT13, but keep HTML-Tags and Entities
-                    $data = str_rot13_html($data);
+                    $data = Rot13::withoutHtml($data);
                 } else {
                     $file_content .= "<br/>";
                 }

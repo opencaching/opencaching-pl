@@ -7,6 +7,7 @@ ob_start();
 
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
+use Utils\Text\Rot13;
 
 global $content, $bUseZip, $hide_coords, $usr, $lang, $dbcSearch;
 
@@ -223,7 +224,7 @@ if( $usr || !$hide_coords ) {
         if ($r['hint'] == '') {
             $thisline = str_replace('{hints}', '', $thisline);
         } else {
-            $thisline = str_replace('{hints}', str_rot13_html(strip_tags($r['hint'])), $thisline);
+            $thisline = str_replace('{hints}', Rot13::withoutHtml(strip_tags($r['hint'])), $thisline);
         }
 
         $logpw = ($r['logpw']==""?"":"".tr('search_text_14')." <br/>");

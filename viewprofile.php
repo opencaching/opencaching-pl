@@ -10,6 +10,7 @@ use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\MeritBadge\MeritBadge;
 use lib\Controllers\MeritBadgeController;
+use Utils\Text\Rot13;
 
 
 //prepare the templates and include all neccessary
@@ -26,26 +27,26 @@ if ($error == false) {
         $target = urlencode(tpl_get_current_page());
         tpl_redirect('login.php?target=' . $target);
     } else {
-        
+
         $checkBadges = 1;
         $checkGeoPaths = 1;
-        
+
         if (isset($_REQUEST['save'])){
-        
+
             if (isset($_REQUEST['checkBadges']))
                 $cookie->set("checkBadges", !$_REQUEST['checkBadges']);
-                
+
             if (isset($_REQUEST['checkGeoPaths']))
                 $cookie->set("checkGeoPaths", !$_REQUEST['checkGeoPaths']);
         }
-        
+
         if ($cookie->is_set("checkBadges"))
             $checkBadges= $cookie->get("checkBadges");
 
         if ($cookie->is_set("checkGeoPaths"))
             $checkGeoPaths= $cookie->get("checkGeoPaths");
-                
-        
+
+
         $cache_line = '<li style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">{cacheimage}&nbsp;{cachestatus} &nbsp; {date} &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong></li>';
         $cache_notpublished_line = '<li style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 115%;">{cacheimage}&nbsp;{cachestatus} &nbsp; <a class="links" href="editcache.php?cacheid={cacheid}">{date}</a> &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong></li>';
         $log_line = '<li style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">{gkimage}&nbsp;{rateimage}&nbsp; {logimage} &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}"><img src="tpl/stdstyle/images/{cacheimage}" border="0" alt="" /></a>&nbsp; {date} &nbsp; <a class="links" href="viewlogs.php?logid={logid}" onmouseover="Tip(\'{logtext}\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong></li>';
@@ -182,7 +183,7 @@ if ($error == false) {
         if ($config['meritBadges']){
 
             $content .= buildOpenCloseButton($user_id, $checkBadges, "merit_badge.png", "checkBadges", tr('merit_badges'), "Merit badges");
-            
+
             if ($checkBadges)
                 $content .= buildMeritBadges($user_id);
         }
@@ -192,15 +193,15 @@ if ($error == false) {
         // PowerTrails stats
 
         if ($powerTrailModuleSwitchOn) {
-            
+
             $content .= buildOpenCloseButton($user_id, $checkGeoPaths, "powerTrailGenericLogo.png", "checkGeoPaths", tr('pt001'), "geoPaths");
-            
+
             if ($checkGeoPaths){
             //geoPaths medals
                 $content .= buildPowerTrailIcons($user->getPowerTrailCompleted());
                 $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt140') . '</span>:&nbsp;<strong>' . powerTrailBase::getUserPoints($user_id) . '</strong> (' . tr('pt093') . ' ' . powerTrailBase::getPoweTrailCompletedCountByUser($user_id) . ')</p>';
                 $pointsEarnedForPlacedCaches = powerTrailBase::getOwnerPoints($user_id);
-    
+
                 $content .= buildPowerTrailIcons($user->getPowerTrailOwed());
                 $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt224') . '</span>:&nbsp;<strong>' . $pointsEarnedForPlacedCaches['totalPoints'] . '</strong></p>';
             }
@@ -433,7 +434,7 @@ if ($error == false) {
                     $data_text = GeoCacheLog::cleanLogTextForToolTip( $record_logs['log_text'] );
 
                     if ($record_logs['encrypt'] == 1 && $record_logs['cache_owner'] != $usr['userid'] && $record_logs['luser_id'] != $usr['userid']) {//crypt the log ROT13, but keep HTML-Tags and Entities
-                        $data_text = str_rot13_html($data_text);
+                        $data_text = Rot13::withoutHtml($data_text);
                     } else {
                         $logtext .= "<br/>";
                     }
@@ -703,7 +704,7 @@ if ($error == false) {
                     $data_text = GeoCacheLog::cleanLogTextForToolTip( $record_logs['log_text'] );
 
                     if ($record_logs['encrypt'] == 1 && $record_logs['cache_owner'] != $usr['userid'] && $record_logs['luser_id'] != $usr['userid']) {//crypt the log ROT13, but keep HTML-Tags and Entities
-                        $data_text = str_rot13_html($data_text);
+                        $data_text = Rot13::withoutHtml($data_text);
                     } else {
                         $logtext .= "<br/>";
                     }

@@ -5,8 +5,7 @@
 <p>
 
 <div style="margin-top:4px;">
-    <font size="2" color="#000080"><b>{{region_01}} <br/>
-        {lat_dir} {lat_deg_int}&deg; {lat_min_float}&#39;&nbsp;&nbsp;{lon_dir} {lon_deg_int}&deg; {lon_min_float}&#39;</b></font>
+    <font size="2" color="#000080"><b>{{region_01}} <br/>{coords_str}</b></font>
 </div>
 
 <div style="margin-top:16px;">

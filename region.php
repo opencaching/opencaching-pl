@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use Utils\Gis\Gis;
+use lib\Objects\Coordinates\Coordinates;
 
 //prepare the templates and include all neccessary
 
@@ -18,23 +19,11 @@ if (isset($_REQUEST['lat'])) {
 $lon_float = 0;
 if (isset($_REQUEST['lon'])) {
     $lon_float = (float) $_REQUEST['lon'];
-    $lon = (float) $_REQUEST['lon'];
+    $lon =  $_REQUEST['lon'];
 }
 
-list($lon_dir, $lon_deg_int, $lon_min_int, $lon_sec_float, $lon_min_float) = help_lonToArray2($lon_float);
-list($lat_dir, $lat_deg_int, $lat_min_int, $lat_sec_float, $lat_min_float) = help_latToArray2($lat_float);
-tpl_set_var('lat_float', sprintf('%0.5f', $lat_float));
-tpl_set_var('lat_dir', $lat_dir);
-tpl_set_var('lat_deg_int', $lat_deg_int);
-tpl_set_var('lat_min_int', $lat_min_int);
-tpl_set_var('lat_sec_float', $lat_sec_float);
-tpl_set_var('lat_min_float', $lat_min_float);
-tpl_set_var('lon_float', sprintf('%0.5f', $lon_float));
-tpl_set_var('lon_dir', $lon_dir);
-tpl_set_var('lon_deg_int', $lon_deg_int);
-tpl_set_var('lon_min_int', $lon_min_int);
-tpl_set_var('lon_sec_float', $lon_sec_float);
-tpl_set_var('lon_min_float', $lon_min_float);
+$coords = Coordinates::FromCoordsFactory($lat, $lon);
+tpl_set_var('coords_str', $coords->getAsText(Coordinates::COORDINATES_FORMAT_DEG_MIN));
 
 $sCode = '';
 
