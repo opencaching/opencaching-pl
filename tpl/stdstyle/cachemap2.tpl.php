@@ -5,7 +5,6 @@ use Utils\Database\XDb;
 global $usr;
 global $get_userid;
 global $filter;
-global $language;
 global $lang;
 $userid = '';
 

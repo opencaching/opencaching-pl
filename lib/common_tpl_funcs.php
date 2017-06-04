@@ -43,8 +43,7 @@ function tpl_redirect($page)
     //page has to be the filename without domain i.e. 'viecache.php?cacheid=1'
     write_cookie_settings();
     http_write_no_cache();
-    //echo 'p='.$page;
-    //die();
+
     header("Location: " . $absolute_server_URI . $page);
     exit;
 }
@@ -149,7 +148,7 @@ function set_tpl_subtitle($title)
 function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemplate=false)
 {
     //template handling vars
-    global $stylepath, $tplname, $vars, $lang, $language, $menu, $config, $usr;
+    global $stylepath, $tplname, $vars, $lang, $menu, $config, $usr;
     global $datetimeformat, $dateformat;
 
 
@@ -227,8 +226,30 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
     eval('?>'.$sCode);
 }
 
+//store the cookie vars
+function write_cookie_settings()
+{
+    global $cookie, $lang;
 
+    //language
+    $cookie->set('lang', $lang);
 
+    //send cookie
+    $cookie->header();
+}
+
+function http_write_no_cache()
+{
+    // HTTP/1.1
+    header("Cache-Control: no-cache, must-revalidate");
+    header("Cache-Control: post-check=0, pre-check=0", false);
+    // HTTP/1.0
+    header("Pragma: no-cache");
+    // Date in the past
+    header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+    // always modified
+    header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+}
 
 /* TODO: NOT USED ANYWHERE...
 

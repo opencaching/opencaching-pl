@@ -8,7 +8,6 @@ require_once __DIR__ . '/ClassPathDictionary.php';
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use Utils\View\View;
-use Utils\I18n\I18n;
 
 
 
@@ -33,11 +32,11 @@ if (!isset($rootpath)){
     }
 }
 
-require_once($rootpath . 'lib/language.inc.php');
 require_once($rootpath . 'lib/settings.inc.php');
 require_once($rootpath . 'lib/calculation.inc.php'); //TODO: remove it from global context...
 require_once($rootpath . 'lib/common_tpl_funcs.php');
 require_once($rootpath . 'lib/cookie.class.php');
+require_once($rootpath . 'lib/loadlanguage.php');
 
 
 //todo: former inside lib/consts.inc.php
@@ -49,19 +48,19 @@ define('NOTIFY_NEW_CACHES', 1);
 $GLOBALS['config'] = $config;
 
 
+// TODO: this should be moved to config...
 $datetimeformat = '%Y-%m-%d %H:%M:%S';
 $dateformat = '%Y-%m-%d';
-
-
 
 // yepp, we will use UTF-8
 mb_internal_encoding('UTF-8');
 mb_regex_encoding('UTF-8');
 mb_language('uni');
 
-//detecting errors
-$error = false;
 
+//detecting errors
+//TODO: this is never set and should be removed but it needs to touch hungreds of files...
+$error = false;
 
 //site in service?
 if ($site_in_service == false) {
@@ -74,58 +73,15 @@ if ($site_in_service == false) {
 if (!isset($tplname))
     $tplname = 'start';
 
-
 // create global view variable (used in templates)
 // TODO: it should be moved to context..
 $view = new View();
 
-
-//restore cookievars[]
-load_cookie_settings();
-
-require_once($rootpath . 'lib/loadlanguage.php');
-
-
-
-
-
-
-
-
-//check if $lang is supported by site
-if(!I18n::isTranslationSupported($lang)){
-/*
-    tpl_set_tplname('error/langNotSupported');
-
-    $view->setVar('requestedLang', $lang);
-    $lang = 'en'; //English must be always supported
-
-
-    tpl_BuildTemplate();
-
-*/
-
-    echo("Error: The specified language ($lang) is not supported!<br/>");
-    echo("Please select on of supported language versions:&nbsp;");
-    foreach (I18n::getLanguagesFlagsData() as $lName=>$lData){
-        echo '<a href="'.$lData['link'].'">'.strtoupper($lName).'</a>&nbsp;';
-    }
-    exit;
-}
-
-
-if(isset($_REQUEST['style'])){
-    $style = $_REQUEST['style'];
-}
-
-//does the style exist?
-if (!file_exists($rootpath . 'tpl/' . $style . '/')) {
-    die('Critical Error: The specified style does not exist!');
-}
-
+global $style;
 //set up the style path
-if (!isset($stylepath))
+if (!isset($stylepath)){
     $stylepath = $rootpath . 'tpl/' . $style;
+}
 
 //set up the defaults for the main template
 require_once($stylepath . '/varset.inc.php');
@@ -262,70 +218,6 @@ function db_LanguageFromShort($langcode)
         return false;
     }
 }
-
-//get the stored settings and authentification data from the cookie
-function load_cookie_settings()
-{
-    global $cookie, $lang, $style;
-
-    //speach
-    if ($cookie->is_set('lang')) {
-        $lang = $cookie->get('lang');
-    }
-
-    //style
-    if ($cookie->is_set('style')) {
-        $style = $cookie->get('style');
-    }
-}
-
-//store the cookie vars
-function write_cookie_settings()
-{
-    global $cookie, $lang, $style;
-
-    //language
-    $cookie->set('lang', $lang);
-
-    //style
-    $cookie->set('style', $style);
-
-    //send cookie
-    $cookie->header();
-}
-
-//returns the cookie value, otherwise false
-function get_cookie_setting($name)
-{
-    global $cookie;
-
-    if ($cookie->is_set($name)) {
-        return $cookie->get($name);
-    } else {
-        return false;
-    }
-}
-
-//sets the cookie value
-function set_cookie_setting($name, $value)
-{
-    global $cookie;
-    $cookie->set($name, $value);
-}
-
-function http_write_no_cache()
-{
-    // HTTP/1.1
-    header("Cache-Control: no-cache, must-revalidate");
-    header("Cache-Control: post-check=0, pre-check=0", false);
-    // HTTP/1.0
-    header("Pragma: no-cache");
-    // Date in the past
-    header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-    // always modified
-    header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-}
-
 
 
 

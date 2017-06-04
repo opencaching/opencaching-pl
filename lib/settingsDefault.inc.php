@@ -126,9 +126,7 @@ $config = array(
             'tileSize' => '256x256'
         ),
     ),
-    /**
-        *customization of cache-attribute icons
-    */
+    /** customization of cache-attribute icons */
     'search-attr-icons' => array(
         'password' => array (
             // has attribute
@@ -141,7 +139,10 @@ $config = array(
     ),
     'numberFormatDecPoint' => '.',
     'numberFormatThousandsSep' => ',',
-    'meritBadges' => false
+    'meritBadges' => false,
+
+    /** default style - in fact we don't heve any other style... */
+    'style' => 'stdstyle'
 );
 
 /* ************************************************************************

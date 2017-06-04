@@ -16,7 +16,7 @@ require_once($rootpath . 'lib/caches.inc.php');
 require_once($stylepath . '/lib/icons.inc.php');
 global $content, $bUseZip, $usr, $config;
 global $default_lang, $cache_attrib_jsarray_line, $cache_attrib_img_line;
-global $lang, $language, $dateFormat, $googlemap_key;
+global $lang, $dateFormat, $googlemap_key;
 
 $database = OcDb::instance();
 

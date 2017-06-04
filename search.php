@@ -4,31 +4,51 @@ use Utils\Database\OcDb;
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\PrintList;
 
-    //prepare the templates and include all neccessary
-    if (!isset($rootpath)) $rootpath = '';
-    require_once('./lib/common.inc.php');
-    require_once('./lib/search.inc.php');
-    require_once('./lib/search-signatures.inc.php');
-    require_once('./lib/export.inc.php');
+//prepare the templates and include all neccessary
+if (!isset($rootpath)) $rootpath = '';
 
-    global $dbcSearch, $lang, $TestStartTime, $usr;
+require_once('./lib/common.inc.php');
+require_once('./lib/search.inc.php');
+require_once('./lib/search-signatures.inc.php');
+require_once('./lib/export.inc.php');
 
-    //4test
-    $TestStartTime = new DateTime('now');
+global $dbcSearch, $lang, $TestStartTime, $usr;
 
-    $dbcSearch = OcDb::instance();
-    $dbc = OcDb::instance();
 
-    // extract user data for KML search
-    $usr = requestSigner::extract_user($usr);
-    if ($usr == false) {
-        $target = urlencode(tpl_get_current_page());
-        tpl_redirect('login.php?target='.$target);
-        exit;
+//returns the cookie value, otherwise false
+function get_cookie_setting($name)
+{
+    global $cookie;
+
+    if ($cookie->is_set($name)) {
+        return $cookie->get($name);
+    } else {
+        return false;
     }
+}
 
-    //Preprocessing
-    if ($error == false) {
+//sets the cookie value
+function set_cookie_setting($name, $value)
+{
+    global $cookie;
+    $cookie->set($name, $value);
+}
+
+
+//4test
+$TestStartTime = new DateTime('now');
+
+$dbcSearch = OcDb::instance();
+$dbc = OcDb::instance();
+
+// extract user data for KML search
+$usr = requestSigner::extract_user($usr);
+if ($usr == false) {
+    $target = urlencode(tpl_get_current_page());
+    tpl_redirect('login.php?target='.$target);
+    exit;
+}
+
 
         $tplname = 'search';
         require($stylepath . '/search.inc.php');
@@ -1136,7 +1156,6 @@ use lib\Objects\GeoCache\PrintList;
                 exit;
             }
         }
-    }
 
     unset($dbc);
     unset($dbcSearch);
@@ -1151,7 +1170,7 @@ function outputSearchForm($options)
 {
     global $stylepath, $usr, $error_plz, $error_locidnocoords, $error_ort, $error_noort, $error_nofulltext;
     global $default_lang, $search_all_countries, $cache_attrib_jsarray_line, $cache_attrib_img_line;
-    global $lang, $language, $config;
+    global $lang, $config;
 
     //simple mode (only one easy filter)
     $filters = file_get_contents($stylepath . '/search.simple.tpl.php');
@@ -1981,4 +2000,4 @@ function outputLocidSelectionForm($locSql, $urlparams)
     tpl_BuildTemplate();
     exit;
 }
-?>
+
