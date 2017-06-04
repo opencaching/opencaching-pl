@@ -42,6 +42,13 @@ require_once($rootpath . 'lib/cookie.class.php');
 
 
 
+// TODO: kojoty: it should be removed after config refactoring
+// now if common.inc.php is not loaded in global context settings are not accessible
+$GLOBALS['config'] = $config;
+
+
+
+
 $datetimeformat = '%d %B %Y o godz. %H:%M:%S ';
 $dateformat = '%d %B %Y';
 $simpledateformat = '%d.%m.%Y';
