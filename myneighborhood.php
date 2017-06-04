@@ -3,6 +3,7 @@
 
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\ApplicationContainer;
+use lib\Objects\GeoCache\GeoCacheCommons;
 
 
 if (!isset($rootpath))
@@ -147,7 +148,7 @@ if ($error == false) {
             foreach ($markers as $i => $marker) {
                 $lat = sprintf("%.3f", $marker['lat']);
                 $lon = sprintf("%.3f", $marker['lon']);
-                $type = strtoupper(typeToLetter($marker['type']));
+                $type = strtoupper(GeoCacheCommons::Type2Letter($marker['type']));
                 $kind = $marker['kind'];
                 if (strcmp($kind, 'event') == 0)
                     if ($i != $index)
@@ -178,7 +179,7 @@ if ($error == false) {
             global $fixed_google_map_link;
             $lat = sprintf("%.3f", $c_lat);
             $lon = sprintf("%.3f", $c_long);
-            $type = strtoupper(typeToLetter($c_type));
+            $type = strtoupper(GeoCacheCommons::Type2Letter($c_type));
             $kind = $c_kind;
             $single_marker = '';
             if (strcmp($kind, 'TopR') == 0) {

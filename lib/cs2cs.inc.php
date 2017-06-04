@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Text\TextConverter;
+
 define("CS2CS", "cs2cs");
 
 
@@ -45,7 +47,7 @@ die("proc_open() failed:<br />command='$command'<br />stderr='" . $stderr . "'")
 
 proc_close($process);
 
-return mb_split("\t|\n| ", mb_trim($stdout));
+return mb_split("\t|\n| ", TextConverter::mb_trim($stdout));
 
 } else {
 die("proc_open() failed, command=$command\n");
@@ -94,7 +96,7 @@ die("proc_open() failed:<br />command='$command'<br />stderr='" . $stderr . "'")
 
 proc_close($process);
 
-return mb_split("\t|\n| ", mb_trim($stdout));
+return mb_split("\t|\n| ", TextConverter::mb_trim($stdout));
 
 } else {
 die("proc_open() failed, command=$command\n");
@@ -186,4 +188,4 @@ return $cs2csresult;
 }
 
 
-?>
+

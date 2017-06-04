@@ -240,7 +240,7 @@ AIM = {
     '<span class="note">{{logbook_07}}.</span>
     <form id="logbookopts" action="logbook/remotelogbook.php" method="post" onsubmit="return onSubmit(this);" enctype="multipart/form-data">
     <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
-    <input type="hidden" name="secret" value="' .encrypt($_GET['logbook_type'] . " This is a secret message", $secret) . '" />
+    <input type="hidden" name="secret" value="{encrypted_message}" />
     <p><label for="cache_name">{{logbook_08}}:</label> <input type="text" maxlength="80" name="cache_name" id="cache_name" /></p>
     <p><label for="coords">{{logbook_09}}:</label> <input type="hidden" maxlength="80" name="coords" id="coords" /> N <input type="text" name="d1" maxlength="3" class="degrees" /> ° <input class="minutes" maxlength="6" name="m1" type="text" /> \' E <input class="degrees" maxlength="3" name="d2" type="text" /> ° <input class="minutes" maxlength="6" name="m2" type="text" /> \'</p>
     <p><label for="image_file">{{logbook_10}}:</label> <input type="file" name="image_file" id="image_file" class="file" /><br />
@@ -269,7 +269,7 @@ AIM = {
     '<span class="note">{{logbook_07}}.</span>
     <form id="logbookopts" action="logbook/remotelogbook.php" method="post" onsubmit="return onSubmit(this);" enctype="multipart/form-data">
     <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
-    <input type="hidden" name="secret" value="' .encrypt($_GET['logbook_type'] . " This is a secret message", $secret) . '" />
+    <input type="hidden" name="secret" value="{encrypted_message}" />
     <p><label for="cache_name">{{logbook_08}}:</label> <input type="text" maxlength="80" name="cache_name" id="cache_name" /></p>
     <p><label for="coords">{{logbook_09}}:</label> <input type="hidden" maxlength="80" name="coords" id="coords" /> N <input type="text" name="d1" maxlength="3" class="degrees" /> ° <input class="minutes" maxlength="6" name="m1" type="text" /> \' E <input class="degrees" maxlength="3" name="d2" type="text" /> ° <input class="minutes" maxlength="6" name="m2" type="text" /> \'</p>
     <p><label for="image_file">{{logbook_10}}:</label> <input type="file" name="image_file" id="image_file" class="file" /><br />

@@ -3,6 +3,7 @@
 use Utils\Database\OcDb;
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\PrintList;
+use Utils\Text\TextConverter;
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath)) $rootpath = '';
@@ -334,7 +335,7 @@ if ($usr == false) {
                     $options['searchtype'] = 'bywaypoint';
                     $options['waypoint'] = isset($_REQUEST['waypoint']) ? $_REQUEST['waypoint'] : '';
                 }
-                $options['waypoint'] = mb_trim($options['waypoint']);
+                $options['waypoint'] = TextConverter::mb_trim($options['waypoint']);
                 $options['waypointtype'] = mb_strtolower(mb_substr($options['waypoint'], 0, 2));
                 $ocWP=strtolower($GLOBALS['oc_waypoint']);
                 if ( mb_ereg_match('(oc|'.$ocWP.'[a-z0-9]{4})$', mb_strtolower($options['waypoint'])) ) //O?xxxx

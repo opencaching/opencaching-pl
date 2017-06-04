@@ -154,8 +154,11 @@ if ($GLOBALS['usr'] == false) {
     $view->setVar('_username', $usr['username']);
     $view->setVar('_logoutCookie', $_SESSION['logout_cookie']);
 
-}
 
+    $usr['admin'] = $db->multiVariableQueryValue(
+        'SELECT admin FROM user WHERE user_id=:1', 0, $usr['userid']);
+
+}
 
 tpl_set_var('site_name', $site_name);
 tpl_set_var('contact_mail', $contact_mail);
@@ -164,7 +167,6 @@ tpl_set_var('contact_mail', $contact_mail);
 foreach($wikiLinks as $key => $value){
     tpl_set_var('wiki_link_'.$key, $value);
 }
-
 
 
 
@@ -232,58 +234,9 @@ function help_latToDegreeStr($lat, $type = 1)
     return $retval;
 }
 
-function help_addHyperlinkToURL($text)
-{
-    $texti = mb_strtolower($text);
-    $retval = '';
-    $curpos = 0;
-    $starthttp = mb_strpos($texti, 'http://', $curpos);
-    $endhttp = false;
-    while (($starthttp !== false) || ($endhttp >= mb_strlen($text))) {
-        $endhttp1 = mb_strpos($text, ' ', $starthttp);
-        if ($endhttp1 === false)
-            $endhttp1 = mb_strlen($text);
-        $endhttp2 = mb_strpos($text, "\n", $starthttp);
-        if ($endhttp2 === false)
-            $endhttp2 = mb_strlen($text);
-        $endhttp3 = mb_strpos($text, "\r", $starthttp);
-        if ($endhttp3 === false)
-            $endhttp3 = mb_strlen($text);
-        $endhttp4 = mb_strpos($text, '<', $starthttp);
-        if ($endhttp4 === false)
-            $endhttp4 = mb_strlen($text);
-        $endhttp5 = mb_strpos($text, '] ', $starthttp);
-        if ($endhttp5 === false)
-            $endhttp5 = mb_strlen($text);
-        $endhttp6 = mb_strpos($text, ')', $starthttp);
-        if ($endhttp6 === false)
-            $endhttp6 = mb_strlen($text);
-        $endhttp7 = mb_strpos($text, '. ', $starthttp);
-        if ($endhttp7 === false)
-            $endhttp7 = mb_strlen($text);
-
-        $endhttp = min($endhttp1, $endhttp2, $endhttp3, $endhttp4, $endhttp5, $endhttp6, $endhttp7);
-
-        $retval .= mb_substr($text, $curpos, $starthttp - $curpos);
-        $url = mb_substr($text, $starthttp, $endhttp - $starthttp);
-        $retval .= '<a href="' . $url . '" alt="" target="_blank">' . $url . '</a>';
-
-        $curpos = $endhttp;
-        if ($curpos >= mb_strlen($text))
-            break;
-        $starthttp = mb_strpos(mb_strtolower($text), 'http://', $curpos);
-    }
-
-    $retval .= mb_substr($text, $curpos);
-
-    return $retval;
-}
 
 
 
-if (isset($usr['userid'])){
-    $usr['admin'] = $db->multiVariableQueryValue('SELECT admin FROM user WHERE user_id=:1', 0, $usr['userid']);
-}
 
 /**
  * This function checks if given table contains column of given name
@@ -304,28 +257,7 @@ function checkField($tableName, $columnName)
 }
 
 
-function typeToLetter($type)
-{
-    switch ($type) {
-        case "1":
-        default:
-            return "u";
-        case "2":
-            return "t";
-        case "3":
-            return "m";
-        case "4":
-            return "v";
-        case "5":
-            return "w";
-        case "6":
-            return "e";
-        case "7":
-            return "q";
-        case "8":
-            return "m";
-    }
-}
+
 
 function fixPlMonth($string)
 {
@@ -343,40 +275,6 @@ function fixPlMonth($string)
     $string = str_ireplace('grudzień', 'grudnia', $string);
     return $string;
 }
-
-/**
- * TODO: it seems that this function is used only by loogbook...
- */
-function encrypt($text, $key)
-{
-    $iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
-    $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
-    return base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, $text, MCRYPT_MODE_ECB, $iv));
-}
-
-//TODO: not used anywhere?
-function decrypt($text, $key)
-{
-    if (!$text)
-        return "";
-    $iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
-    $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
-    return rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $key, base64_decode($text), MCRYPT_MODE_ECB, $iv), "\0");
-}
-
-/**
- * TODO: it seems that this function is used only by loogbook...
- */
-function validate_msg($cookietext)
-{
-    if (!ereg("[0-9]+ This is a secret message", $cookietext))
-        return false;
-
-    $num = 0;
-    sscanf($cookietext, "%d", $num);
-    return $num;
-}
-
 
 /**
  * class witch common methods
@@ -438,33 +336,4 @@ class common
         return $cacheLimitByTypePerUser;
     }
 
-}
-
-/**
- * -- This function is moved from clicompatbase --
- * @param unknown $str
- */
-function mb_trim($str)
-{
-    $bLoop = true;
-    while ($bLoop == true) {
-        $sPos = mb_substr($str, 0, 1);
-
-        if ($sPos == ' ' || $sPos == "\r" || $sPos == "\n" || $sPos == "\t" || $sPos == "\x0B" || $sPos == "\0")
-            $str = mb_substr($str, 1, mb_strlen($str) - 1);
-            else
-                $bLoop = false;
-    }
-
-    $bLoop = true;
-    while ($bLoop == true) {
-        $sPos = mb_substr($str, -1, 1);
-
-        if ($sPos == ' ' || $sPos == "\r" || $sPos == "\n" || $sPos == "\t" || $sPos == "\x0B" || $sPos == "\0")
-            $str = mb_substr($str, 0, mb_strlen($str) - 1);
-            else
-                $bLoop = false;
-    }
-
-    return $str;
 }

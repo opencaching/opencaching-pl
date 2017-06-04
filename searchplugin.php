@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use Utils\Text\TextConverter;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 require($stylepath . '/searchplugin.inc.php');
@@ -69,7 +70,7 @@ if (($sourceid == 'mozilla-search') && ($userinput != '')) {
                 break;
             case $keyword_wp:
                 $targeturl = 'index.php';
-                $searchfor = mb_trim($searchfor);
+                $searchfor = TextConverter::mb_trim($searchfor);
                 $target = mb_strtolower(mb_substr($searchfor, 0, 2));
                 if (mb_substr($target, 0, 1) == 'n') {
                     $target = 'nc';
