@@ -1036,7 +1036,7 @@ if ($error == false) {
                 tpl_set_var('wp_tc', htmlspecialchars($wp_tc, ENT_COMPAT, 'UTF-8'));
                 tpl_set_var('wp_ge', htmlspecialchars($wp_ge, ENT_COMPAT, 'UTF-8'));
                 tpl_set_var('bodyMod', ' onunload="GUnload()"');
-                tpl_set_var('reset', $reset);
+                tpl_set_var('reset', tr('reset'));
                 tpl_set_var('submit', $submit);
             } else {
                 //TODO: not the owner

@@ -897,7 +897,7 @@ if ($error == false) {
                 tpl_set_var('logmonth', htmlspecialchars($log_date_month, ENT_COMPAT, 'UTF-8'));
                 tpl_set_var('logyear', htmlspecialchars($log_date_year, ENT_COMPAT, 'UTF-8'));
                 tpl_set_var('logtypeoptions', $logtypeoptions);
-                tpl_set_var('reset', $reset);
+                tpl_set_var('reset', tr('reset'));
                 tpl_set_var('submit', $submit);
                 tpl_set_var('date_message', '');
                 tpl_set_var('top_cache', $top_cache);

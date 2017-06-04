@@ -104,7 +104,7 @@ if ($error == false) {
         }
 
         //set template replacements
-        tpl_set_var('reset', $reset);
+        tpl_set_var('reset', tr('reset'));
         tpl_set_var('submit', $submit);
         tpl_set_var('general_message', '');
         tpl_set_var('hidden_since_message', $date_time_format_message);

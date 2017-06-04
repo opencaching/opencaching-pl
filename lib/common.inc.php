@@ -47,10 +47,10 @@ require_once($rootpath . 'lib/cookie.class.php');
 $GLOBALS['config'] = $config;
 
 
+$datetimeformat = '%Y-%m-%d %H:%M:%S';
+$dateformat = '%Y-%m-%d';
 
 
-$datetimeformat = '%d %B %Y o godz. %H:%M:%S ';
-$dateformat = '%d %B %Y';
 
 // yepp, we will use UTF-8
 mb_internal_encoding('UTF-8');
@@ -132,9 +132,6 @@ if (!isset($stylepath))
 //set up the language path
 if (!isset($langpath))
     $langpath = $stylepath . '';
-
-//load language specific strings
-require_once($langpath . '/expressions.inc.php');
 
 //set up the defaults for the main template
 require_once($stylepath . '/varset.inc.php');

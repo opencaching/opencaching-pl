@@ -150,13 +150,12 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
 {
     //template handling vars
     global $stylepath, $tplname, $vars, $langpath, $lang, $language, $menu, $config, $usr;
+    global $datetimeformat, $dateformat;
+
 
     // object
     /** @var View $view */
     global $view;
-
-    //language specific expression
-    global $error_pagenotexist;
 
 
     $view->setVar('languageFlags', I18n::getLanguagesFlagsData($lang));
@@ -176,8 +175,7 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
 
         tpl_set_var('functionsbox', $functionsbox);
     }
-    //include language specific expressions, so that they are available in the template code
-    include $langpath . '/expressions.inc.php';
+
 
     //load main template
     if ($minitpl){
@@ -201,7 +199,7 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
     if (!file_exists($stylepath . '/' . $tplname . '.tpl.php')) {
         //set up the error template
         $error = true;
-        tpl_set_var('error_msg', htmlspecialchars($error_pagenotexist, ENT_COMPAT, 'UTF-8'));
+        tpl_set_var('error_msg', "Page not found");
         tpl_set_var('tplname', $tplname);
         $tplname = 'error';
     }
