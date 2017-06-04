@@ -149,7 +149,7 @@ if ($GLOBALS['usr'] == false) {
     if (!(isset($_SESSION['logout_cookie']))) {
         $_SESSION['logout_cookie'] = mt_rand(1000, 9999) . mt_rand(1000, 9999);
     }
-    
+
     $view->setVar('_isUserLogged', true);
     $view->setVar('_username', $usr['username']);
     $view->setVar('_logoutCookie', $_SESSION['logout_cookie']);
@@ -165,29 +165,6 @@ foreach($wikiLinks as $key => $value){
     tpl_set_var('wiki_link_'.$key, $value);
 }
 
-
-// get the language from a given shortage
-// on success return the name, otherwise false
-function db_LanguageFromShort($langcode)
-{
-    global $lang;
-
-    $lang = XDb::xEscape($lang);
-
-    //select the right record
-    $rs = XDb::xSql(
-        "SELECT `short`, `$lang` FROM `languages` WHERE `short`= ? ", $langcode);
-
-    if ( $record = XDb::xFetchArray($rs) ) {
-
-        //return the language
-        return $record[$lang];
-    } else {
-
-        //language not found
-        return false;
-    }
-}
 
 
 
