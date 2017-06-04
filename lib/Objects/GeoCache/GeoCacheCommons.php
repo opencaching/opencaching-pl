@@ -35,6 +35,8 @@ class GeoCacheCommons{
     const SIZE_XLARGE = 6;
     const SIZE_OTHER = 1;
 
+    const RECOMENDATION_RATIO = 10; //percentage of founds which can be recomeded by user
+
     public static function CacheTypeTranslationKey($type){
 
         switch($type){
@@ -333,6 +335,11 @@ class GeoCacheCommons{
             }
         }
     }
+
+
+
+
+
 
 }
 

@@ -12,7 +12,6 @@ use Utils\Gis\Gis;
 
 $rootpath = __dir__ . '/../../';
 require_once($rootpath . 'lib/common.inc.php');
-require_once($rootpath . 'lib/consts.inc.php');
 
 /* take datetime format from settings.inc.php */
 $sDateformat = $datetimeFormat;

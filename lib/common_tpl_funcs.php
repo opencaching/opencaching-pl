@@ -149,7 +149,7 @@ function set_tpl_subtitle($title)
 function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemplate=false)
 {
     //template handling vars
-    global $stylepath, $tplname, $vars, $langpath, $lang, $language, $menu, $config, $usr;
+    global $stylepath, $tplname, $vars, $lang, $language, $menu, $config, $usr;
     global $datetimeformat, $dateformat;
 
 

@@ -35,12 +35,14 @@ if (!isset($rootpath)){
 
 require_once($rootpath . 'lib/language.inc.php');
 require_once($rootpath . 'lib/settings.inc.php');
-require_once($rootpath . 'lib/calculation.inc.php');
-require_once($rootpath . 'lib/consts.inc.php');
+require_once($rootpath . 'lib/calculation.inc.php'); //TODO: remove it from global context...
 require_once($rootpath . 'lib/common_tpl_funcs.php');
 require_once($rootpath . 'lib/cookie.class.php');
 
 
+//todo: former inside lib/consts.inc.php
+//- should be moved outside of global context...
+define('NOTIFY_NEW_CACHES', 1);
 
 // TODO: kojoty: it should be removed after config refactoring
 // now if common.inc.php is not loaded in global context settings are not accessible
@@ -60,8 +62,6 @@ mb_language('uni');
 //detecting errors
 $error = false;
 
-// set default CSS
-tpl_set_var('css', 'main.css');
 
 //site in service?
 if ($site_in_service == false) {
@@ -126,12 +126,6 @@ if (!file_exists($rootpath . 'tpl/' . $style . '/')) {
 //set up the style path
 if (!isset($stylepath))
     $stylepath = $rootpath . 'tpl/' . $style;
-
-
-
-//set up the language path
-if (!isset($langpath))
-    $langpath = $stylepath . '';
 
 //set up the defaults for the main template
 require_once($stylepath . '/varset.inc.php');
