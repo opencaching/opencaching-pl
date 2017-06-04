@@ -63,7 +63,6 @@ if (date('m') == 12 || date('m') == 1) {
 
         {htmlheaders}
         {cachemap_header}
-        {viewcache_header}
 
         <?php
             if( $view->isGoogleAnalyticsEnabled() ){

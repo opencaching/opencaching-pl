@@ -159,23 +159,6 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
 
     $view->setVar('languageFlags', I18n::getLanguagesFlagsData($lang));
 
-    //set {functionsbox}
-    global $page_functions, $functionsbox_start_tag, $functionsbox_middle_tag, $functionsbox_end_tag;
-
-    if (isset($page_functions)) {
-        $functionsbox = $functionsbox_start_tag;
-        foreach ($page_functions AS $func) {
-            if ($functionsbox != $functionsbox_start_tag) {
-                $functionsbox .= $functionsbox_middle_tag;
-            }
-            $functionsbox .= $func;
-        }
-        $functionsbox .= $functionsbox_end_tag;
-
-        tpl_set_var('functionsbox', $functionsbox);
-    }
-
-
     //load main template
     if ($minitpl){
         $sCode = file_get_contents($stylepath . '/mini.tpl.php');
@@ -260,24 +243,4 @@ unset($GLOBALS['vars']);
 unset($GLOBALS['no_eval_vars']);
 }
 
-
-//page function replaces {functionsbox} in main template
-function tpl_set_page_function($id, $html_code)
-{
-global $page_functions;
-
-$page_functions[$id] = $html_code;
-}
-
-function tpl_unset_page_function($id)
-{
-global $page_functions;
-
-unset($page_functions[$id]);
-}
-
-function tpl_clear_page_functions()
-{
-unset($GLOBALS['page_functions']);
-}
 */

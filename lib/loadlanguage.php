@@ -42,8 +42,6 @@ if(!I18n::isTranslationSupported($lang)){
 // load language settings
 load_language_file($lang);
 
-// set locale
-// print "$lang<br><br>";
 
 switch ($lang) {
     case 'pl':

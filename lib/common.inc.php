@@ -86,17 +86,10 @@ if (!isset($stylepath)){
 //set up the defaults for the main template
 require_once($stylepath . '/varset.inc.php');
 
-// thumbs-dir/url
-if (!isset($thumbdir))
-    $thumbdir = $picdir . '/thumbs';
-if (!isset($thumburl))
-    $thumburl = $picurl . '/thumbs';
-
-
-/**
- * Global $emailheaders from clicompatbase - should be removed from here in future...
+/*
+ * Global $emailheaders from clicompatbase -
+ * TODO: should be removed from here in future...
  */
-// prepare EMail-From
 $emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
 $emailheaders .= "Content-Transfer-Encoding: 8bit\r\n";
 $emailheaders .= 'From: "' . $emailaddr . '" <' . $emailaddr . '>';

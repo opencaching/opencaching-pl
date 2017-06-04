@@ -125,19 +125,7 @@ a:hover
     visibility:hidden;
 
 }
-#functionsbox
-{
-    background-color:#BDE1E7;
-    border:1px solid black;
-    padding-left:5px;
-    padding-right:5px;
-    text-align:right;
-    font-size:small;
-    height:38px;
-    vertical-align:middle;
-    visibility:hidden;
 
-}
 .textboxes
 {
     border:1px solid black;
