@@ -146,7 +146,7 @@ if (date('m') == 12 || date('m') == 1) {
                 <!-- Navigation Level 1 -->
                 <div class="nav1-container">
                     <div class="nav1" style="text-align:right;margin-right:20px;">
-                        <!-- {loginbox} -->
+                        <!-- loginbox -->
                         <?php if($view->_isUserLogged){ //if-user-logged ?>
                             <?=tr('logged_as')?>
                             <a href="viewprofile.php"><?=$view->_username?></a> -

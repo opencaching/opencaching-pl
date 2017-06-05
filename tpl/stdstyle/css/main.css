@@ -298,18 +298,7 @@ a:hover
     border-right:1px solid #666666;
     border-bottom:1px solid #666666;
 }
-#loginbox
-{
-    font-family:sans-serif;
-    background-color:#E8DDE4;
-    border:1px solid black;
-    padding-left:5px;
-    padding-right:5px;
-    text-align:right;
-    font-size:small;
-    height:38px;
-    vertical-align:middle;
-}
+
 
 .textboxes
 {

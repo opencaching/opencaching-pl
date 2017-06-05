@@ -95,25 +95,6 @@ $emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
 $emailheaders .= "Content-Transfer-Encoding: 8bit\r\n";
 $emailheaders .= 'From: "' . $emailaddr . '" <' . $emailaddr . '>';
 
-
-/**
- * -- This script is moved here from clicompatbase - should be removed from here in the future --
- *
- * Create a "universal unique" replication "identifier"
- */
-function create_uuid()
-{
-    $uuid = mb_strtoupper(md5(uniqid(rand(), true)));
-
-    //split into XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX (type VARCHAR 36, case insensitiv)
-    $uuid = mb_substr($uuid, 0, 8) . '-' . mb_substr($uuid, -24);
-    $uuid = mb_substr($uuid, 0, 13) . '-' . mb_substr($uuid, -20);
-    $uuid = mb_substr($uuid, 0, 18) . '-' . mb_substr($uuid, -16);
-    $uuid = mb_substr($uuid, 0, 23) . '-' . mb_substr($uuid, -12);
-
-    return $uuid;
-}
-
 $db = OcDb::instance();
 
 // include the authentication functions
@@ -170,10 +151,28 @@ foreach($wikiLinks as $key => $value){
 
 
 
-
 /* help_ for usefull functions
  *
  */
+
+/**
+ * -- This script is moved here from clicompatbase - should be removed from here in the future --
+ *
+ * Create a "universal unique" replication "identifier"
+ */
+function create_uuid()
+{
+    $uuid = mb_strtoupper(md5(uniqid(rand(), true)));
+
+    //split into XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX (type VARCHAR 36, case insensitiv)
+    $uuid = mb_substr($uuid, 0, 8) . '-' . mb_substr($uuid, -24);
+    $uuid = mb_substr($uuid, 0, 13) . '-' . mb_substr($uuid, -20);
+    $uuid = mb_substr($uuid, 0, 18) . '-' . mb_substr($uuid, -16);
+    $uuid = mb_substr($uuid, 0, 23) . '-' . mb_substr($uuid, -12);
+
+    return $uuid;
+}
+
 
 // decimal longitude to string E/W hhh°mm.mmm
 function help_lonToDegreeStr($lon, $type = 1)
@@ -234,10 +233,6 @@ function help_latToDegreeStr($lat, $type = 1)
     return $retval;
 }
 
-
-
-
-
 /**
  * This function checks if given table contains column of given name
  * @param unknown $tableName
@@ -255,9 +250,6 @@ function checkField($tableName, $columnName)
     }
     return 0;
 }
-
-
-
 
 function fixPlMonth($string)
 {
