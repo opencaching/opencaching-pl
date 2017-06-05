@@ -39,7 +39,7 @@ require_once($rootpath . 'lib/settings.inc.php');
 // now if common.inc.php is not loaded in global context settings are not accessible
 $GLOBALS['config'] = $config;
 $GLOBALS['lang'] = $lang;
-
+$GLOBALS['style'] = $style;
 
 require_once($rootpath . 'lib/calculation.inc.php'); //TODO: remove it from global context...
 require_once($rootpath . 'lib/common_tpl_funcs.php');
@@ -81,7 +81,6 @@ if (!isset($tplname))
 // TODO: it should be moved to context..
 $view = new View();
 
-global $style;
 //set up the style path
 if (!isset($stylepath)){
     $stylepath = $rootpath . 'tpl/' . $style;
