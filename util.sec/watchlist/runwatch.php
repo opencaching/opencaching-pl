@@ -10,7 +10,6 @@ use Utils\Log\Log;
 
 $rootpath = '../../';
 
-require_once($rootpath . 'lib/consts.inc.php');
 require_once($rootpath . 'lib/common.inc.php');
 
 

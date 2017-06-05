@@ -13,6 +13,12 @@ require_once('./lib/common.inc.php');
 $uuid = isset($_REQUEST['uuid']) ? $_REQUEST['uuid'] : '';
 $debug = isset($_REQUEST['debug']) ? $_REQUEST['debug'] : 0;
 
+// thumbs-dir/url
+global $picdir, $picurl;
+$thumbdir = $picdir . '/thumbs';
+$thumburl = $picurl . '/thumbs';
+
+
 if ($error == false) {
     require_once($stylepath . '/thumbs.inc.php');
 

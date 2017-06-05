@@ -20,7 +20,7 @@ if ($error == false) {
 
     //set to defaults
     tpl_set_var('register', $register);
-    tpl_set_var('reset', $reset);
+    tpl_set_var('reset', tr('reset'));
     tpl_set_var('tos_message', '');
     tpl_set_var('all_countries_submit', '');
     tpl_set_var('countries_list', '');

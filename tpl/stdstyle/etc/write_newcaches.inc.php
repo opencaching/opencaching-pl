@@ -1,6 +1,8 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\GeoCache\GeoCacheCommons;
+
 setlocale(LC_TIME, 'pl_PL.UTF-8');
 
 global $lang, $rootpath,$googlemap_key;
@@ -19,7 +21,7 @@ $map_zoom = $main_page_map_zoom;
 $map_width = $main_page_map_width;
 $map_height = $main_page_map_height;
 
-$map_type = $config['maps']['main_page_map']['source'] ;  
+$map_type = $config['maps']['main_page_map']['source'] ;
 
 // Read coordinates of the newest caches
 $markerpositions = get_marker_positions();
@@ -35,7 +37,7 @@ $big_markers = '';
 foreach ($markers as $i => $marker) {
     $markerposleft = lon_offset($marker['lon'], $map_center_lon, $map_width, $map_zoom);
     $markerpostop = lat_offset($marker['lat'], $map_center_lat, $map_height, $map_zoom);
-    $type = strtoupper(typeToLetter($marker['type']));
+    $type = strtoupper(GeoCacheCommons::Type2Letter($marker['type']));
     if (strcmp($type, 'E') == 0) {
         $small_marker = 'mark-small-orange.png';
         $big_marker = 'marker-orangeE.png';

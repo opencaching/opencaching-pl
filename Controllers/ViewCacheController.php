@@ -14,6 +14,7 @@ use lib\Objects\GeoCache\PrintList;
 use lib\Controllers\MeritBadgeController;
 use Controllers\ViewCacheController;
 use Utils\Uri\Uri;
+use Utils\Text\Rot13;
 
 class ViewCacheController extends BaseController
 {
@@ -23,14 +24,14 @@ class ViewCacheController extends BaseController
 
     private $userModifiedCacheCoords = null;
 
-    private $badges = "";  
-    
+    private $badges = "";
+
 
     public function __construct()
     {
         parent::__construct();
         $this->geocache = $this->loadGeocache();
-        
+
         if (isset($_REQUEST['badges'])) {
             $this->badges = $_REQUEST['badges'];
         }
@@ -143,21 +144,21 @@ class ViewCacheController extends BaseController
         $this->processLogs();
         $this->processUserMenu();
         $this->processGeoPaths();
-         
+
         $this->showPopUpMeritBadge(); //show pop-up for badges which have changed the level
-                
+
         tpl_BuildTemplate();
     }
 
     private function showPopUpMeritBadge(){
-        
+
         if ( $this->badges == "" ){
             tpl_set_var( 'badge_script', '' );
             tpl_set_var( 'badge_text', '' );
-            
+
             return;
         }
-        
+
         $popUpScript = "<script type='text/javascript'>
         $( function() {
             $( '#dialog' ).dialog({
@@ -174,18 +175,18 @@ class ViewCacheController extends BaseController
             });
         });
         </script>";
-        
-        
+
+
         $ctrlMeritBadge = new MeritBadgeController;
-        
+
         $badgeText = $ctrlMeritBadge->prepareHtmlChangeLevelMeritBadges
             ( explode( ',', $this->badges ), $this->loggedUser->getUserId() );
-        
+
         tpl_set_var( 'badge_script', $popUpScript );
         tpl_set_var( 'badge_text', $badgeText );
-        
+
     }
-    
+
     private function loadGeocache()
     {
         if (isset($_REQUEST['cacheid'])) {
@@ -197,7 +198,7 @@ class ViewCacheController extends BaseController
         } elseif (isset($_REQUEST['wp'])) {
             return GeoCache::fromWayPointFactory( $_REQUEST['wp'] );
         }
-        
+
         return null;
     }
 
@@ -315,7 +316,7 @@ class ViewCacheController extends BaseController
         $hint = $this->geoCacheDesc->getHint();
 
         if(!$showUnencryptedHint){
-            $hint = str_rot13_html($this->geoCacheDesc->getHint());
+            $hint = Rot13::withoutHtml($this->geoCacheDesc->getHint());
 
             //replace { and } to prevent replacing at view template processing!
             $hint = mb_ereg_replace('{', '&#0123;', $hint);
@@ -552,8 +553,8 @@ class ViewCacheController extends BaseController
     {
         global $hide_coords;
 
-        list($lat_dir, $lat_h, $lat_min) = help_latToArray($this->geocache->getCoordinates()->getLatitude());
-        list($lon_dir, $lon_h, $lon_min) = help_lonToArray($this->geocache->getCoordinates()->getLongitude());
+        list($lat_dir, $lat_h, $lat_min) = $this->geocache->getCoordinates()->getLatitudeParts(Coordinates::COORDINATES_FORMAT_DEG_MIN);
+        list($lon_dir, $lon_h, $lon_min) = $this->geocache->getCoordinates()->getLongitudeParts(Coordinates::COORDINATES_FORMAT_DEG_MIN);
 
 
         if ($this->loggedUser || !$hide_coords) {

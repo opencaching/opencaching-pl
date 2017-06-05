@@ -26,7 +26,7 @@ if ($error == false) {
     tpl_set_var('code', '');
     tpl_set_var('changepw', $changepw);
     tpl_set_var('getcode', $getcode);
-    tpl_set_var('reset', $reset);
+    tpl_set_var('reset', tr('reset'));
 
     if (isset($_POST['submit_getcode']) || isset($_POST['submit_changepw'])) {
         if (isset($_POST['submit_getcode'])) {

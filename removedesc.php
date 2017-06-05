@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCache;
+use Utils\I18n\Languages;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -60,7 +61,8 @@ if ($error == false) {
                         //commit the removement
                         $tplname = 'removedesc';
 
-                        tpl_set_var('desclang_name', db_LanguageFromShort($desclang));
+                        global $lang;
+                        tpl_set_var('desclang_name', Languages::LanguageNameFromCode($desclang, $lang));
                         tpl_set_var('cachename', htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8'));
                         tpl_set_var('cacheid', htmlspecialchars($cache_id, ENT_COMPAT, 'UTF-8'));
                         tpl_set_var('cacheid_urlencode', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'));

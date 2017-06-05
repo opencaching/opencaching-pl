@@ -109,14 +109,14 @@ if ($error == false) {
 
             $thisline = mb_ereg_replace('{cacheicon}', $cacheicon, $thisline);
             if ($r['status'] == 3) {
-                $thisline = mb_ereg_replace('{cachename}', $error_prefix . htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8') . $error_suffix, $thisline);
+                $thisline = mb_ereg_replace('{cachename}', '<span class="errormsg">' . htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8') . '</span>', $thisline);
             }else
                 $thisline = mb_ereg_replace('{cachename}', htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8'), $thisline);
-            
+
             $thisline = mb_ereg_replace('{cacheid}', htmlspecialchars($r['cache_id'], ENT_COMPAT, 'UTF-8'), $thisline);
             $thisline = mb_ereg_replace('{ownername}', htmlspecialchars($r['ownername'], ENT_COMPAT, 'UTF-8'), $thisline);
             $thisline = mb_ereg_replace('{owner_id}', htmlspecialchars($r['owner_id'], ENT_COMPAT, 'UTF-8'), $thisline);
-            
+
             if (($i % 2) == 1)
                 $thisline = mb_ereg_replace('{bgcolor}', $bgcolor2, $thisline);
             else

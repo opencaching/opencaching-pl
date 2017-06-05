@@ -1,32 +1,47 @@
 <?php
+use Utils\I18n\I18n;
 
 if (!isset($rootpath))
     $rootpath = './';
 
 require_once($rootpath . 'lib/language.inc.php');
 
-require_once($rootpath . 'lib/settings.inc.php');
-
-// load HTML specific includes
-require_once($rootpath . 'lib/cookie.class.php');
-
+global $lang, $cookie;
 if ($cookie->is_set('lang')) {
     $lang = $cookie->get('lang');
 }
 
 //language changed?
-if (isset($_POST['lang'])) {
-    $lang = $_POST['lang'];
+if(isset($_REQUEST['lang'])){
+    $lang = $_REQUEST['lang'];
 }
-if (isset($_GET['lang'])) {
-    $lang = $_GET['lang'];
+
+//check if $lang is supported by site
+if(!I18n::isTranslationSupported($lang)){
+    /*
+     tpl_set_tplname('error/langNotSupported');
+
+     $view->setVar('requestedLang', $lang);
+     $lang = 'en'; //English must be always supported
+
+
+     tpl_BuildTemplate();
+
+     */
+
+    echo("Error: The specified language ($lang) is not supported!<br/>");
+    echo("Please select on of supported language versions:&nbsp;");
+    foreach (I18n::getLanguagesFlagsData() as $lName=>$lData){
+        echo '<a href="'.$lData['link'].'">'.strtoupper($lName).'</a>&nbsp;';
+    }
+    exit;
 }
+
+
 
 // load language settings
 load_language_file($lang);
 
-// set locale
-// print "$lang<br><br>";
 
 switch ($lang) {
     case 'pl':
@@ -70,4 +85,3 @@ switch ($lang) {
         setlocale(LC_TIME, 'en_EN');
         break;
 }
-?>

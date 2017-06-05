@@ -3,6 +3,7 @@
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCacheLog;
 use Utils\Gis\Gis;
+use Utils\Text\Rot13;
 global $lang, $rootpath, $usr, $dateFormat;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
@@ -188,7 +189,7 @@ if ($error == false) {
             $data = GeoCacheLog::cleanLogTextForToolTip( $r_log['log_text'] );
 
             if ($r_log['encrypt'] == 1 && $r_log['cache_owner'] != $usr['userid'] && $r_log['luser_id'] != $usr['userid']) {//crypt the log ROT13, but keep HTML-Tags and Entities
-                $data = str_rot13_html($data);
+                $data = Rot13::withoutHtml($data);
             } else {
                 $file_content .= "<br/>";
             }

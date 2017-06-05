@@ -3,6 +3,7 @@
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use lib\Objects\GeoCache\GeoCacheLog;
+use Utils\Text\Rot13;
 global $lang, $rootpath, $usr, $dateFormat;
 
 if (!isset($rootpath))
@@ -270,7 +271,7 @@ if ($error == false) {
 
                 if ($logs['encrypt'] == 1 && $logs['cache_owner'] != $usr['userid'] && $logs['luser_id'] != $usr['userid']) {
                     //crypt the log ROT13, but keep HTML-Tags and Entities
-                    $data = str_rot13_html($data);
+                    $data = Rot13::withoutHtml($data);
                 } else {
                     $table .= "<br/>";
                 }

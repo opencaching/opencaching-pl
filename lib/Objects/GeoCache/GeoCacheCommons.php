@@ -35,6 +35,8 @@ class GeoCacheCommons{
     const SIZE_XLARGE = 6;
     const SIZE_OTHER = 1;
 
+    const RECOMENDATION_RATIO = 10; //percentage of founds which can be recomeded by user
+
     public static function CacheTypeTranslationKey($type){
 
         switch($type){
@@ -334,5 +336,32 @@ class GeoCacheCommons{
         }
     }
 
+
+    /**
+     * This function provides abbreviation for cache type
+     * @param unknown $type
+     */
+    public static function Type2Letter($type){
+        $type = (int) $type;
+        switch ($type) {
+            case self::TYPE_OTHERTYPE:
+            default:
+                return "u";
+            case self::TYPE_TRADITIONAL:
+                return "t";
+            case self::TYPE_MULTICACHE:
+                return "m";
+            case self::TYPE_VIRTUAL:
+                return "v";
+            case self::TYPE_WEBCAM:
+                return "w";
+            case self::TYPE_EVENT:
+                return "e";
+            case self::TYPE_QUIZ:
+                return "q";
+            case self::TYPE_MOVING:
+                return "m";
+        }
+    }
 }
 

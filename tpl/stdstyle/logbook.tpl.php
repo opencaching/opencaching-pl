@@ -4,6 +4,135 @@ $secret = "dupa231";
 <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/logbook.css" />
 </style>
 <script type="text/javascript">
+//AJAX
+
+var AJAX =
+{
+    Create: function()
+    {
+        if (typeof XMLHttpRequest != "undefined")
+        {
+            var xhr = new XMLHttpRequest();
+
+            if (xhr.overrideMimeType)
+                xhr.overrideMimeType('text/xml');
+
+            return xhr;
+        }
+
+        var xhrVersion = ["MSXML2.XMLHttp.5.0", "MSXML2.XMLHttp.4.0", "MSXML2.XMLHttp.3.0", "MSXML2.XMLHttp", "Microsoft.XMLHttp"];
+
+        for (var i = 0; i < xhrVersion.length; i++)
+        {
+            try
+            {
+                return new ActiveXObject(xhrVersion[i]);
+            } catch (e) { }
+        }
+
+        return null
+    },
+
+    Request: function(method, url, params, resultFunction, data)
+    {
+        var xhr = AJAX.Create();
+
+        if (!xhr)
+            return null;
+
+        xhr.onreadystatechange = function()
+        {
+            try
+            {
+                if (xhr.readyState != 4) return;
+
+                delete xhr['onreadystatechange'];
+
+                if (xhr.status == 200 && resultFunction)
+                {
+                    if (data)
+                        resultFunction(xhr, data);
+                    else
+                        resultFunction(xhr);
+                }
+
+                delete xhr;
+            } catch (e) { }
+        };
+
+        xhr.open(method, url, true);
+
+        if (method == 'POST' && xhr.setRequestHeader)
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        xhr.setRequestHeader('Cache-Control', 'no-cache');
+
+        if (params)
+            xhr.setRequestHeader('Content-length', params.length);
+
+        xhr.setRequestHeader('Connection', 'close');
+        xhr.send(params);
+    }
+};
+
+/**
+*
+*  AJAX IFRAME METHOD (AIM)
+*  http://www.webtoolkit.info/
+*
+**/
+
+AIM = {
+
+    frame : function(c) {
+
+        var n = 'f' + Math.floor(Math.random() * 99999);
+        var d = document.createElement('DIV');
+        d.innerHTML = '<iframe style="display:none" src="about:blank" id="'+n+'" name="'+n+'" onload="AIM.loaded(\''+n+'\')"></iframe>';
+        document.body.appendChild(d);
+
+        var i = document.getElementById(n);
+        if (c && typeof(c.onComplete) == 'function') {
+            i.onComplete = c.onComplete;
+        }
+
+        return n;
+    },
+
+    form : function(f, name) {
+        f.setAttribute('target', name);
+    },
+
+    submit : function(f, c) {
+        AIM.form(f, AIM.frame(c));
+        if (c && typeof(c.onStart) == 'function') {
+            return c.onStart();
+        } else {
+            return true;
+        }
+    },
+
+    loaded : function(id) {
+        var i = document.getElementById(id);
+        if (i.contentDocument) {
+            var d = i.contentDocument;
+        } else if (i.contentWindow) {
+            var d = i.contentWindow.document;
+        } else {
+            var d = window.frames[id].document;
+        }
+        if (d.location.href == "about:blank") {
+            return;
+        }
+
+        if (typeof(i.onComplete) == 'function') {
+            i.onComplete(d.body.innerHTML);
+        }
+    }
+
+}
+</script>
+<script type="text/javascript">
 //<![CDATA[
 
     var cururl;
@@ -111,7 +240,7 @@ $secret = "dupa231";
     '<span class="note">{{logbook_07}}.</span>
     <form id="logbookopts" action="logbook/remotelogbook.php" method="post" onsubmit="return onSubmit(this);" enctype="multipart/form-data">
     <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
-    <input type="hidden" name="secret" value="' .encrypt($_GET['logbook_type'] . " This is a secret message", $secret) . '" />
+    <input type="hidden" name="secret" value="{encrypted_message}" />
     <p><label for="cache_name">{{logbook_08}}:</label> <input type="text" maxlength="80" name="cache_name" id="cache_name" /></p>
     <p><label for="coords">{{logbook_09}}:</label> <input type="hidden" maxlength="80" name="coords" id="coords" /> N <input type="text" name="d1" maxlength="3" class="degrees" /> ° <input class="minutes" maxlength="6" name="m1" type="text" /> \' E <input class="degrees" maxlength="3" name="d2" type="text" /> ° <input class="minutes" maxlength="6" name="m2" type="text" /> \'</p>
     <p><label for="image_file">{{logbook_10}}:</label> <input type="file" name="image_file" id="image_file" class="file" /><br />
@@ -140,7 +269,7 @@ $secret = "dupa231";
     '<span class="note">{{logbook_07}}.</span>
     <form id="logbookopts" action="logbook/remotelogbook.php" method="post" onsubmit="return onSubmit(this);" enctype="multipart/form-data">
     <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
-    <input type="hidden" name="secret" value="' .encrypt($_GET['logbook_type'] . " This is a secret message", $secret) . '" />
+    <input type="hidden" name="secret" value="{encrypted_message}" />
     <p><label for="cache_name">{{logbook_08}}:</label> <input type="text" maxlength="80" name="cache_name" id="cache_name" /></p>
     <p><label for="coords">{{logbook_09}}:</label> <input type="hidden" maxlength="80" name="coords" id="coords" /> N <input type="text" name="d1" maxlength="3" class="degrees" /> ° <input class="minutes" maxlength="6" name="m1" type="text" /> \' E <input class="degrees" maxlength="3" name="d2" type="text" /> ° <input class="minutes" maxlength="6" name="m2" type="text" /> \'</p>
     <p><label for="image_file">{{logbook_10}}:</label> <input type="file" name="image_file" id="image_file" class="file" /><br />

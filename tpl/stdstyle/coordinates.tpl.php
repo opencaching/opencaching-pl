@@ -9,17 +9,18 @@
     <font size="2" color="#000080"> {owner}</font>
 </div>
 {nocacheid_end}
+
 <div style="margin-top:16px;">
     <font size="2" color="#000080"><b>DD,dddd&deg;</b></font> <font size="1">(WGS84)</font><br/>
-    {lat_dir} {lat_float}&deg;&nbsp;&nbsp;{lon_dir} {lon_float}&deg;<br/>
+    {coords_f1}<br/>
 </div>
 <div style="margin-top:4px;">
     <font size="2" color="#000080"><b>DD&deg; MM,mmm&#39;</b></font> <font size="1">(WGS84)</font><br/>
-    {lat_dir} {lat_deg_int}&deg; {lat_min_float}&#39;&nbsp;&nbsp;{lon_dir} {lon_deg_int}&deg; {lon_min_float}&#39;<br/>
+    {coords_f2}<br/>
 </div>
 <div style="margin-top:4px;">
     <font size="2" color="#000080"><b>DD&deg; MM&#39; SS&#39;&#39;</b></font> <font size="1">(WGS84)</font><br/>
-    {lat_dir} {lat_deg_int}&deg; {lat_min_int}&#39; {lat_sec_float}&#39;&#39;&nbsp;&nbsp;{lon_dir} {lon_deg_int}&deg; {lon_min_int}&#39; {lon_sec_float}&#39;&#39;<br/>
+    {coords_f3}<br/>
 </div>
 <div style="margin-top:4px;">
     <font size="2" color="#000080"><b>UTM</b></font> <font size="1">(WGS84)</font><br/>

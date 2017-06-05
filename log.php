@@ -165,12 +165,12 @@ if ($error == false) {
 
             if ($is_top == 0) { //not-yet-recommended
 
-            	if ( ($user_founds * rating_percentage / 100) < 1) { // user doesn't have enough founds to recommend anything
+            	if ( ($user_founds * GeoCacheCommons::RECOMENDATION_RATIO / 100) < 1) { // user doesn't have enough founds to recommend anything
                     $top_cache = 0;
-                    $recommendationsNr = 100 / rating_percentage - $user_founds;
+                    $recommendationsNr = 100 / GeoCacheCommons::RECOMENDATION_RATIO - $user_founds;
                     $rating_msg = mb_ereg_replace('{recommendationsNr}', "$recommendationsNr", $rating_too_few_founds);
 
-                } elseif ($user_tops < floor($user_founds * rating_percentage / 100)) {
+                } elseif ($user_tops < floor($user_founds * GeoCacheCommons::RECOMENDATION_RATIO / 100)) {
                     // this user can recommend this cache
                     if ($cache_user_id != $usr['userid']) {
                         if ($top_cache)
@@ -181,12 +181,12 @@ if ($error == false) {
                     else {
                         $rating_msg = mb_ereg_replace('{chk_dis}', ' disabled', $rating_own . '<br />' . $rating_stat);
                     }
-                    $rating_msg = mb_ereg_replace('{max}', floor($user_founds * rating_percentage / 100), $rating_msg);
+                    $rating_msg = mb_ereg_replace('{max}', floor($user_founds * GeoCacheCommons::RECOMENDATION_RATIO / 100), $rating_msg);
                     $rating_msg = mb_ereg_replace('{curr}', $user_tops, $rating_msg);
                 } else {
                 	// user needs more caches for next recomendation
                     $top_cache = 0;
-                    $recommendationsNr = ((1+$user_tops) * 100 / rating_percentage ) - $user_founds;
+                    $recommendationsNr = ((1+$user_tops) * 100 / GeoCacheCommons::RECOMENDATION_RATIO ) - $user_founds;
                     $rating_msg = mb_ereg_replace('{recommendationsNr}', "$recommendationsNr", $rating_too_few_founds);
 
                     $rating_msg .= '<br />' . $rating_maxreached;
@@ -197,7 +197,7 @@ if ($error == false) {
                 } else {
                     $rating_msg = mb_ereg_replace('{chk_dis}', ' disabled', $rating_own . '<br />' . $rating_stat);
                 }
-                $rating_msg = mb_ereg_replace('{max}', floor($user_founds * rating_percentage / 100), $rating_msg);
+                $rating_msg = mb_ereg_replace('{max}', floor($user_founds * GeoCacheCommons::RECOMENDATION_RATIO / 100), $rating_msg);
                 $rating_msg = mb_ereg_replace('{curr}', $user_tops, $rating_msg);
             }
 
@@ -897,7 +897,7 @@ if ($error == false) {
                 tpl_set_var('logmonth', htmlspecialchars($log_date_month, ENT_COMPAT, 'UTF-8'));
                 tpl_set_var('logyear', htmlspecialchars($log_date_year, ENT_COMPAT, 'UTF-8'));
                 tpl_set_var('logtypeoptions', $logtypeoptions);
-                tpl_set_var('reset', $reset);
+                tpl_set_var('reset', tr('reset'));
                 tpl_set_var('submit', $submit);
                 tpl_set_var('date_message', '');
                 tpl_set_var('top_cache', $top_cache);

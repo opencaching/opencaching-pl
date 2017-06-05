@@ -1,6 +1,9 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\GeoCache\GeoCacheCommons;
+
+
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 require($stylepath . '/smilies.inc.php');
@@ -77,24 +80,24 @@ if ($error == false) {
                     "SELECT COUNT(`user_id`) FROM `cache_rating` WHERE `user_id`= :1 ", 0, $log_record['user_id']);
 
                 if ($is_top == 0) {
-                    if (($user_founds * rating_percentage / 100) < 1) {
+                    if (($user_founds * GeoCacheCommons::RECOMENDATION_RATIO / 100) < 1) {
                         $top_cache = 0;
-                        $recommendationsNr = 100 / rating_percentage - $user_founds;
+                        $recommendationsNr = 100 / GeoCacheCommons::RECOMENDATION_RATIO - $user_founds;
                         $rating_msg = mb_ereg_replace('{recommendationsNr}', "$recommendationsNr", $rating_too_few_founds);
-                        
-                    } elseif ($user_tops < floor($user_founds * rating_percentage / 100)) {
+
+                    } elseif ($user_tops < floor($user_founds * GeoCacheCommons::RECOMENDATION_RATIO / 100)) {
                         if ($cache_user_id != $usr['userid']) {
                             $rating_msg = mb_ereg_replace('{chk_sel}', '', $rating_allowed . '<br />' . $rating_stat);
                         } else {
                             $rating_msg = mb_ereg_replace('{chk_dis}', ' disabled="disabled"', $rating_own . '<br />' . $rating_stat);
                         }
-                        $rating_msg = mb_ereg_replace('{max}', floor($user_founds * rating_percentage / 100), $rating_msg);
+                        $rating_msg = mb_ereg_replace('{max}', floor($user_founds * GeoCacheCommons::RECOMENDATION_RATIO / 100), $rating_msg);
                         $rating_msg = mb_ereg_replace('{curr}', $user_tops, $rating_msg);
                     } else {
                         $top_cache = 0;
-                        $recommendationsNr = ((1+$user_tops) * 100 / rating_percentage ) - $user_founds;
+                        $recommendationsNr = ((1+$user_tops) * 100 / GeoCacheCommons::RECOMENDATION_RATIO ) - $user_founds;
                         $rating_msg = mb_ereg_replace('{recommendationsNr}', "$recommendationsNr", $rating_too_few_founds);
-                        
+
                         $rating_msg .= '<br />' . $rating_maxreached;
                     }
                 } else {
@@ -103,7 +106,7 @@ if ($error == false) {
                     } else {
                         $rating_msg = mb_ereg_replace('{chk_dis}', ' disabled', $rating_own . '<br />' . $rating_stat);
                     }
-                    $rating_msg = mb_ereg_replace('{max}', floor($user_founds * rating_percentage / 100), $rating_msg);
+                    $rating_msg = mb_ereg_replace('{max}', floor($user_founds * GeoCacheCommons::RECOMENDATION_RATIO / 100), $rating_msg);
                     $rating_msg = mb_ereg_replace('{curr}', $user_tops, $rating_msg);
                 }
 

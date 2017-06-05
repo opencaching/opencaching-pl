@@ -3,6 +3,7 @@
 use lib\Objects\GeoCache\GeoCache;
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
+use Utils\I18n\Languages;
 
 //prepare the templates and include all neccessary
 global $rootpath;
@@ -756,7 +757,7 @@ if ($error == false) {
                         '<tr>
                             <td colspan="2">
                                 <img src="images/flags/' . strtolower($descLang) . '.gif" class="icon16" alt=""  />
-                                    &nbsp;' . htmlspecialchars(db_LanguageFromShort($descLang), ENT_COMPAT, 'UTF-8') . '&nbsp;&nbsp;
+                                    &nbsp;' . htmlspecialchars(Languages::LanguageNameFromCode($descLang, $lang), ENT_COMPAT, 'UTF-8') . '&nbsp;&nbsp;
                                 <img src="images/actions/edit-16.png" border="0" align="middle" alt="" title="Edit" />
                                 [<a href="' . htmlspecialchars($edit_url, ENT_COMPAT, 'UTF-8') . '" onclick="return check_if_proceed();">' . tr('edit') . '</a>]' .
                                 $removedesc .
@@ -1036,7 +1037,7 @@ if ($error == false) {
                 tpl_set_var('wp_tc', htmlspecialchars($wp_tc, ENT_COMPAT, 'UTF-8'));
                 tpl_set_var('wp_ge', htmlspecialchars($wp_ge, ENT_COMPAT, 'UTF-8'));
                 tpl_set_var('bodyMod', ' onunload="GUnload()"');
-                tpl_set_var('reset', $reset);
+                tpl_set_var('reset', tr('reset'));
                 tpl_set_var('submit', $submit);
             } else {
                 //TODO: not the owner

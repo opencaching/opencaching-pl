@@ -25,7 +25,7 @@ if ($error == false) {
         tpl_set_var('email_message', '');
         tpl_set_var('code_message', '');
         tpl_set_var('change_email', $change_email);
-        tpl_set_var('reset', $reset);
+        tpl_set_var('reset', tr('reset'));
         tpl_set_var('getcode', $get_code);
 
         if (isset($_POST['submit_getcode']) || isset($_POST['submit_changeemail'])) {

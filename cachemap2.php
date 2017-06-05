@@ -148,7 +148,6 @@ global $usr;
 global $get_userid;
 global $filter;
 global $caches_list;
-global $language;
 global $lang;
 
 $userid = '';

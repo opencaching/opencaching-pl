@@ -12,7 +12,6 @@
         <link rel="stylesheet" type="text/css" href="tpl/{style}/css/style_print.css" />
         {htmlheaders}
         {cachemap_header}
-        {viewcache_header}
 
         <?php
             if( $view->isGoogleAnalyticsEnabled() ){

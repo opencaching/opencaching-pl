@@ -2,6 +2,7 @@
 
 use Utils\Database\OcDb;
 use lib\Controllers\LogEnteryController;
+use Utils\Text\TextConverter;
 
 $rootpath = "./";
 
@@ -163,7 +164,7 @@ foreach ($logEneries as $record) {
 
     if ($record['text_html'] == 0) {
         $processed_text = htmlspecialchars($processed_text, ENT_COMPAT, 'UTF-8');
-        $processed_text = help_addHyperlinkToURL($processed_text);
+        $processed_text = TextConverter::addHyperlinkToURL($processed_text);
     } else {
         $processed_text = userInputFilter::purifyHtmlStringAndDecodeHtmlSpecialChars($processed_text);
     }
