@@ -1,6 +1,8 @@
 <?php
 namespace Utils\I18n;
 
+use Utils\Database\XDb;
+
 /**
  *
  * Operations on "languages" table
@@ -14,7 +16,7 @@ class Languages
     public static function LanguageNameFromCode($countryCode, $lang){
 
         $rs = XDb::xSql(
-            "SELECT `short`, `$lang` FROM `languages` WHERE `short`= ? ", $langcode);
+            "SELECT `short`, `$lang` FROM `languages` WHERE `short`= ? ", $countryCode);
 
         if ( $record = XDb::xFetchArray($rs) ) {
             return $record[$lang];
