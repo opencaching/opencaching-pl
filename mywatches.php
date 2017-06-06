@@ -265,7 +265,8 @@ if ($error == false) {
                         if ($record['log_date'] == NULL || $record['log_date'] == '0000-00-00 00:00:00') {
                             $tmp_watch = mb_ereg_replace('{lastfound}', htmlspecialchars($no_found_date, ENT_COMPAT, 'UTF-8'), $tmp_watch);
                         } else {
-                            $tmp_watch = mb_ereg_replace('{lastfound}', htmlspecialchars(strftime($dateformat, strtotime($record['log_date'])), ENT_COMPAT, 'UTF-8'), $tmp_watch);
+                            $tmp_watch = mb_ereg_replace('{lastfound}', htmlspecialchars(strftime(
+                                $GLOBALS['config']['dateformat'], strtotime($record['log_date'])), ENT_COMPAT, 'UTF-8'), $tmp_watch);
                         }
 
                         $tmp_watch = mb_ereg_replace('{urlencode_cacheid}', htmlspecialchars(urlencode($record['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_watch);

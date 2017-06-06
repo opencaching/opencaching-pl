@@ -1,10 +1,6 @@
 <?php
 
-
-
-
-
-
+//this is used only by search* scripts
 function getCalcDistanceSqlFormula($modEnabled, $lonFrom, $latFrom, $maxDistance, $distanceMultiplier = 1, $lonField = 'longitude', $latField = 'latitude', $tableName = 'caches', $modLonField = 'longitude', $modLatField = 'latitude', $modTableName = 'cache_mod_cords')
 {
     if ($modEnabled) {
@@ -14,6 +10,7 @@ function getCalcDistanceSqlFormula($modEnabled, $lonFrom, $latFrom, $maxDistance
     }
 }
 
+//private - not used outside
 function getSqlDistanceFormulaForModCoords($lonFrom, $latFrom, $maxDistance, $distanceMultiplier = 1, $lonField = 'longitude', $latField = 'latitude', $tableName = 'caches', $modLonField = 'longitude', $modLatField = 'latitude', $modTableName = 'cache_mod_cords')
 {
     $lonFrom = $lonFrom + 0;
@@ -49,6 +46,8 @@ function getSqlDistanceFormulaForModCoords($lonFrom, $latFrom, $maxDistance, $di
 
     return $retval;
 }
+
+
 
 function getSqlDistanceFormula($lonFrom, $latFrom, $maxDistance, $distanceMultiplier = 1, $lonField = 'longitude', $latField = 'latitude', $tableName = 'caches')
 {

@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use lib\Objects\User\AdminNote;
+use Utils\Generators\Uuid;
 
 global $bgcolor1, $bgcolor2;
 
@@ -151,7 +152,7 @@ function notifyOwner($cacheid, $msgType)
         mb_send_mail($usr['email'], tr('viewPending_01') . ": " . $cachename, tr('viewPending_02') . ":\n" . $email_content, $email_headers);
         // generate automatic log about status cache
         $log_text = tr("viewPending_03");
-        $log_uuid = create_uuid();
+        $log_uuid = Uuid::create();
         XDb::xSql(
             "INSERT INTO `cache_logs`
                 (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
@@ -166,7 +167,7 @@ function notifyOwner($cacheid, $msgType)
 
         // generate automatic log about status cache
         $log_text = tr("viewPending_06");
-        $log_uuid = create_uuid();
+        $log_uuid = Uuid::create();
         XDb::xSql(
             "INSERT INTO `cache_logs`
                 (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)

@@ -8,6 +8,7 @@ use Utils\Database\OcDb;
 use Utils\Log\Log;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\GeoCache\GeoCache;
+use Utils\Generators\Uuid;
 
 
 
@@ -165,7 +166,7 @@ class AutoArch
 
         $db->multiVariableQuery($statusSqlQuery, (int) $rs['cache_id'], $this->step["ARCH_COMPLETE"]);
         $db->multiVariableQuery($archSqlQuery, (int) $rs['cache_id']);
-        $db->multiVariableQuery($logSqlQuery, (int) $rs['cache_id'],  create_uuid(), tr('autoArchive_12'), $oc_nodeid);
+        $db->multiVariableQuery($logSqlQuery, (int) $rs['cache_id'],  Uuid::create(), tr('autoArchive_12'), $oc_nodeid);
 
         if ($db->commit()) {
             $this->sendEmail($this->step["AFTER_SECOND_MAIL_SENT"], $rs['cache_id']);

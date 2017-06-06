@@ -4,6 +4,7 @@ use lib\Objects\GeoCache\GeoCache;
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use Utils\I18n\Languages;
+use Utils\Generators\Uuid;
 
 //prepare the templates and include all neccessary
 global $rootpath;
@@ -526,7 +527,7 @@ if ($error == false) {
                                 $status_old == $STATUS['BLOCKED'] ) && $status == $STATUS['TEMP_UNAVAILABLE']) {
                             // generate automatic log about status cache
                             $log_text = tr('temporarily_unavailable');
-                            $log_uuid = create_uuid();
+                            $log_uuid = Uuid::create();
                             XDb::xSql(
                                 "INSERT INTO `cache_logs` (
                                     `id`, `cache_id`, `user_id`, `type`, `date`, `text`,
@@ -541,7 +542,7 @@ if ($error == false) {
                                 $status_old == $STATUS['BLOCKED'] ) && $status == $STATUS['ARCHIVED']) {
                             // generate automatic log about status cache
                             $log_text = tr('archived_cache');
-                            $log_uuid = create_uuid();
+                            $log_uuid = Uuid::create();
                             XDb::xSql(
                                 "INSERT INTO `cache_logs` (
                                     `id`, `cache_id`, `user_id`, `type`, `date`, `text`,
@@ -557,7 +558,7 @@ if ($error == false) {
                                 $status_old == $STATUS['BLOCKED'] ) && $status == $STATUS['READY']) {
                             // generate automatic log about status cache
                             $log_text = tr('ready_to_search');
-                            $log_uuid = create_uuid();
+                            $log_uuid = Uuid::create();
                             XDb::xSql(
                                 "INSERT INTO `cache_logs` (
                                     `id`, `cache_id`, `user_id`, `type`, `date`,
@@ -573,7 +574,7 @@ if ($error == false) {
                                 $status_old == $STATUS['ARCHIVED'] ) && $status == $STATUS['BLOCKED']) {
                             // generate automatic log about status cache
                             $log_text = tr('blocked_by_octeam');
-                            $log_uuid = create_uuid();
+                            $log_uuid = Uuid::create();
                             XDb::xSql(
                                 "INSERT INTO `cache_logs` (
                                     `id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`,

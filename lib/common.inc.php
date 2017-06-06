@@ -9,21 +9,19 @@ use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use Utils\View\View;
 use Utils\Uri\Uri;
+use Utils\I18n\I18n;
+use Utils\I18n\Languages;
 
+session_start();
 
+//kojoty: do we need no-ob check ???
+//if ((!isset($GLOBALS['no-ob'])) || ($GLOBALS['no-ob'] == false))
+ob_start();
 
-if ((!isset($GLOBALS['no-session'])) || ($GLOBALS['no-session'] == false))
-    session_start();
+//kojoty: do we need it ???
+//if ((!isset($GLOBALS['oc_waypoint'])) && isset($GLOBALS['ocWP']))
+//    $GLOBALS['oc_waypoint'] = $GLOBALS['ocWP'];
 
-if ((!isset($GLOBALS['no-ob'])) || ($GLOBALS['no-ob'] == false))
-    ob_start();
-
-if ((!isset($GLOBALS['oc_waypoint'])) && isset($GLOBALS['ocWP']))
-    $GLOBALS['oc_waypoint'] = $GLOBALS['ocWP'];
-
-
-
-global $menu;
 
 if (!isset($rootpath)){
     if(isset($GLOBALS['rootpath'])){
@@ -41,19 +39,10 @@ $GLOBALS['config'] = $config;
 $GLOBALS['lang'] = $lang;
 $GLOBALS['style'] = $style;
 
-require_once($rootpath . 'lib/calculation.inc.php'); //TODO: remove it from global context...
-require_once($rootpath . 'lib/common_tpl_funcs.php');
-require_once($rootpath . 'lib/cookie.class.php');
-
-
-//todo: former inside lib/consts.inc.php
-//- should be moved outside of global context...
-define('NOTIFY_NEW_CACHES', 1);
-
-
-// TODO: this should be moved to config...
-$datetimeformat = '%Y-%m-%d %H:%M:%S';
-$dateformat = '%Y-%m-%d';
+require_once($rootpath . 'lib/common_tpl_funcs.php'); // template engine
+require_once($rootpath . 'lib/cookie.class.php');     // class used to deal with cookies
+require_once($rootpath . 'lib/language.inc.php');     // main translation funcs
+require_once($rootpath . 'lib/auth.inc.php');         // authentication funcs
 
 // yepp, we will use UTF-8
 mb_internal_encoding('UTF-8');
@@ -72,116 +61,155 @@ if ($site_in_service == false) {
     die($page_content);
 }
 
-//by default, use start template
-if (!isset($tplname))
-    $tplname = 'start';
+initTemplateSystem();
 
-// create global view variable (used in templates)
-// TODO: it should be moved to context..
-$view = new View();
+processAuthentication();
 
-//set up the style path
-if (!isset($stylepath)){
-    $stylepath = $rootpath . 'tpl/' . $style;
+loadTranslation();
+
+
+
+function processAuthentication(){
+
+    $db = OcDb::instance();
+
+    //user authenification from cookie
+    auth_user();
+
+    global $view;
+
+    if ($GLOBALS['usr'] == false) { // no-user-logged-in
+
+        $view->setVar('_isUserLogged', false);
+        $view->setVar('_target',Uri::getCurrentUri());
+
+    } else { // user-logged-in
+
+        // check for user_id in session
+        if (!isset($_SESSION['user_id'])) {
+            $_SESSION['user_id'] = $GLOBALS['usr']['userid'];
+        }
+
+        if($GLOBALS['config']['checkRulesConfirmation']){
+            // check for rules confirmation
+            $rules_confirmed = $db->multiVariableQueryValue(
+                "SELECT `rules_confirmed` FROM `user` WHERE `user_id` = :1", 0, $GLOBALS['usr']['userid']);
+
+            if ($rules_confirmed == 0) {
+                if (!isset($_SESSION['called_from_confirm']))
+                    header("Location: confirm.php");
+                    else
+                        unset($_SESSION['called_from_confirm']);
+            }
+        }
+
+        if (!(isset($_SESSION['logout_cookie']))) {
+            $_SESSION['logout_cookie'] = mt_rand(1000, 9999) . mt_rand(1000, 9999);
+        }
+
+        $view->setVar('_isUserLogged', true);
+        $view->setVar('_username', $GLOBALS['usr']['username']);
+        $view->setVar('_logoutCookie', $_SESSION['logout_cookie']);
+
+
+        $GLOBALS['usr']['admin'] = $db->multiVariableQueryValue(
+            'SELECT admin FROM user WHERE user_id=:1', 0, $GLOBALS['usr']['userid']);
+
+    }
 }
 
-//set up the defaults for the main template
-require_once($stylepath . '/varset.inc.php');
+function initTemplateSystem(){
+
+    global $rootpath, $style;
+
+    // set up the style path
+    // TODO: in fact we have only one style: stdstyle
+    // so we can drop it in future
+    if (!isset($GLOBALS['stylepath'])){
+        $GLOBALS['stylepath'] = $rootpath . 'tpl/' . $style;
+    }
+
+    // create global view variable (used in templates)
+    // TODO: it should be moved to context..
+    $GLOBALS['view'] = new View();
+
+    //by default, use start template
+    if (!isset($GLOBALS['tplname'])){
+        $GLOBALS['tplname'] = 'start';
+    }
+
+
+    // load vars from settings...
+    //global $site_name, $contact_mail, $wikiLinks;
+
+    tpl_set_var('site_name', $GLOBALS['site_name']);
+    tpl_set_var('contact_mail', $GLOBALS['contact_mail']);
+
+    foreach($GLOBALS['wikiLinks'] as $key => $value){
+        tpl_set_var('wiki_link_'.$key, $value);
+    }
+
+    tpl_set_var('title', htmlspecialchars($GLOBALS['pagetitle'], ENT_COMPAT, 'UTF-8'));
+    tpl_set_var('lang', $GLOBALS['lang']);
+    tpl_set_var('style', $GLOBALS['style']);
+    tpl_set_var('bodyMod', '');
+    tpl_set_var('cachemap_header', '');
+    tpl_set_var('htmlheaders', '');
+
+
+    $GLOBALS['tpl_subtitle'] = '';
+}
+
+function loadTranslation(){
+
+        global $lang, $cookie;
+        if ($cookie->is_set('lang')) {
+            $lang = $cookie->get('lang');
+        }
+
+        //language changed?
+        if(isset($_REQUEST['lang'])){
+            $lang = $_REQUEST['lang'];
+        }
+
+        //check if $lang is supported by site
+        if(!I18n::isTranslationSupported($lang)){
+
+            // requested language is not supported - display error...
+
+            tpl_set_tplname('error/langNotSupported');
+            header("HTTP/1.0 404 Not Found");
+
+            $view->loadJQuery();
+            $view->setVar("localCss",
+                Uri::getLinkWithModificationTime('/tpl/stdstyle/error/error.css'));
+            $view->setVar('requestedLang', $lang);
+            $lang = 'en'; //English must be always supported
+
+            $view->setVar('allLanguageFlags', I18n::getLanguagesFlagsData());
+            load_language_file($lang);
+
+            tpl_BuildTemplate();
+            exit;
+        }
+
+        // load language settings
+        load_language_file($lang);
+        Languages::setLocale($lang);
+
+}
+
+
+
+
+
+
 
 /*
- * Global $emailheaders from clicompatbase -
- * TODO: should be removed from here in future...
- */
-$emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
-$emailheaders .= "Content-Transfer-Encoding: 8bit\r\n";
-$emailheaders .= 'From: "' . $emailaddr . '" <' . $emailaddr . '>';
-
-
-
-
-$db = OcDb::instance();
-
-// include the authentication functions
-require($rootpath . 'lib/auth.inc.php');
-
-//user authenification from cookie
-auth_user();
-if ($GLOBALS['usr'] == false) {
-    //no user logged in
-    $view->setVar('_isUserLogged', false);
-    $view->setVar('_target',Uri::getCurrentUri());
-
-} else { // user logged in
-
-    // check for user_id in session
-    if (!isset($_SESSION['user_id'])) {
-        $_SESSION['user_id'] = $usr['userid'];
-    }
-
-    if($GLOBALS['config']['checkRulesConfirmation']){
-        // check for rules confirmation
-        $rules_confirmed = $db->multiVariableQueryValue(
-            "SELECT `rules_confirmed` FROM `user` WHERE `user_id` = :1", 0, $usr['userid']);
-
-        if ($rules_confirmed == 0) {
-            if (!isset($_SESSION['called_from_confirm']))
-                header("Location: confirm.php");
-            else
-                unset($_SESSION['called_from_confirm']);
-        }
-    }
-
-    if (!(isset($_SESSION['logout_cookie']))) {
-        $_SESSION['logout_cookie'] = mt_rand(1000, 9999) . mt_rand(1000, 9999);
-    }
-
-    $view->setVar('_isUserLogged', true);
-    $view->setVar('_username', $usr['username']);
-    $view->setVar('_logoutCookie', $_SESSION['logout_cookie']);
-
-
-    $usr['admin'] = $db->multiVariableQueryValue(
-        'SELECT admin FROM user WHERE user_id=:1', 0, $usr['userid']);
-
-}
-
-tpl_set_var('site_name', $site_name);
-tpl_set_var('contact_mail', $contact_mail);
-
-// BSz: to make ease use of wikilinks
-foreach($wikiLinks as $key => $value){
-    tpl_set_var('wiki_link_'.$key, $value);
-}
-
-
-
-//load translations
-require_once($rootpath . 'lib/loadlanguage.php');
-
-
-
-
-/* help_ for usefull functions
- *
+ * TODO: Remove all functions below from here!
  */
 
-/**
- * -- This script is moved here from clicompatbase - should be removed from here in the future --
- *
- * Create a "universal unique" replication "identifier"
- */
-function create_uuid()
-{
-    $uuid = mb_strtoupper(md5(uniqid(rand(), true)));
 
-    //split into XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX (type VARCHAR 36, case insensitiv)
-    $uuid = mb_substr($uuid, 0, 8) . '-' . mb_substr($uuid, -24);
-    $uuid = mb_substr($uuid, 0, 13) . '-' . mb_substr($uuid, -20);
-    $uuid = mb_substr($uuid, 0, 18) . '-' . mb_substr($uuid, -16);
-    $uuid = mb_substr($uuid, 0, 23) . '-' . mb_substr($uuid, -12);
-
-    return $uuid;
-}
 
 
 // decimal longitude to string E/W hhh°mm.mmm

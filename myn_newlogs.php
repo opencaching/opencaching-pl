@@ -10,6 +10,8 @@ if (!isset($rootpath))
     $rootpath = '';
 
 require_once($rootpath . 'lib/common.inc.php');
+require_once($rootpath . 'lib/calculation.inc.php');
+
 require_once($rootpath . 'lib/cache_icon.inc.php');
 require_once __DIR__ . '/lib/myn.inc.php';
 require_once($stylepath . '/lib/icons.inc.php');

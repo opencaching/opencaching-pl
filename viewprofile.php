@@ -89,7 +89,8 @@ if ($error == false) {
             tpl_set_var('username', tr('primaAprilis1'));
         }
         tpl_set_var('country', tr($user_record['country']));
-        tpl_set_var('registered', fixPlMonth(strftime($dateformat, strtotime($user_record['date_created']))));
+        tpl_set_var('registered', fixPlMonth(strftime(
+            $GLOBALS['config']['dateformat'], strtotime($user_record['date_created']))));
         $description = $user_record['description'];
         tpl_set_var('description', nl2br($description));
         if ($description != "") {

@@ -6,6 +6,7 @@ use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\User\User;
 use Utils\Email\EmailSender;
+use Utils\Generators\Uuid;
 
 
 
@@ -692,7 +693,7 @@ if ($error == false) {
                         $activation_date = null;
                     }
                 }
-                $cache_uuid = create_uuid();
+                $cache_uuid = Uuid::create();
 
                 //add record to caches table
                 XDb::xSql(
@@ -739,7 +740,7 @@ if ($error == false) {
                 // waypoint erstellen
                 setCacheWaypoint($cache_id, $oc_waypoint);
 
-                $desc_uuid = create_uuid();
+                $desc_uuid = Uuid::create();
                 //add record to cache_desc table
                 $desc = userInputFilter::purifyHtmlString($desc);
 

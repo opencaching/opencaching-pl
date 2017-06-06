@@ -5,6 +5,9 @@ use lib\Objects\User\User;
 use Utils\Database\OcDb;
 use Utils\Email\Email;
 use Utils\Email\EmailSender;
+use Utils\Generators\Uuid;
+
+
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
     $rootpath = '';
@@ -91,7 +94,7 @@ if ($error == false) {
 
                 $country_name = tr($country);
 
-                $uuid = create_uuid();
+                $uuid = Uuid::create();
                 if (strtotime("2008-11-01 00:00:00") <= strtotime(date("Y-m-d h:i:s")))
                     $rules_conf_req = 1;
                 else

@@ -8,6 +8,7 @@ global $lang, $rootpath, $usr, $dateFormat;
 require_once('./lib/common.inc.php');
 require_once('./lib/cache_icon.inc.php');
 require_once($rootpath . 'lib/caches.inc.php');
+require_once($rootpath . 'lib/calculation.inc.php');
 require_once($stylepath . '/lib/icons.inc.php');
 
 //Preprocessing

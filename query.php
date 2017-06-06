@@ -2,6 +2,8 @@
 
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
+use Utils\Generators\Uuid;
+
 require('./lib/common.inc.php');
 require($stylepath . '/query.inc.php');
 
@@ -201,7 +203,7 @@ function savequery($queryid, $queryname, $saveas, $submit, $saveas_queryid)
         XDb::xSql(
             "INSERT INTO `queries` (`user_id`, `last_queried`, `name`, `uuid`, `options`)
             VALUES ( ?, NOW(), ?, ?, ?)",
-            $usr['userid'], $queryname, create_uuid(), $r['options']);
+            $usr['userid'], $queryname, Uuid::create(), $r['options']);
     }
 
     tpl_redirect('query.php?action=view');

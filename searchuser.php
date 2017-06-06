@@ -48,7 +48,8 @@ if ($error == false) {
                         $tmp_line = mb_ereg_replace('{bgcolor}', ($i % 2 == 0) ? $bgcolor1 : $bgcolor2, $tmp_line);
                         $tmp_line = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $tmp_line);
                         $tmp_line = mb_ereg_replace('{user_id}', htmlspecialchars($record['user_id'], ENT_COMPAT, 'UTF-8'), $tmp_line);
-                        $tmp_line = mb_ereg_replace('{date_created}', htmlspecialchars(fixPlMonth(strftime($dateformat, strtotime($record['date_created']))), ENT_COMPAT, 'UTF-8'), $tmp_line);
+                        $tmp_line = mb_ereg_replace('{date_created}', htmlspecialchars(fixPlMonth(
+                            strftime($GLOBALS['config']['dateformat'], strtotime($record['date_created']))), ENT_COMPAT, 'UTF-8'), $tmp_line);
 
                         $lines .= $tmp_line . "\n";
                         $i++;

@@ -9,6 +9,9 @@ use Utils\Database\XDb;
 
 global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;
 set_time_limit(1800);
+
+require_once ('lib/calculation.inc.php');
+
 $ovlLine = "[Symbol {symbolnr1}]\r\nTyp=6\r\nGroup=1\r\nWidth=20\r\nHeight=20\r\nDir=100\r\nArt=1\r\nCol=3\r\nZoom=1\r\nSize=103\r\nArea=2\r\nXKoord={lon}\r\nYKoord={lat}\r\n[Symbol {symbolnr2}]\r\nTyp=2\r\nGroup=1\r\nCol=3\r\nArea=1\r\nZoom=1\r\nSize=130\r\nFont=1\r\nDir=100\r\nXKoord={lonname}\r\nYKoord={latname}\r\nText={mod_suffix}{cachename}\r\n";
 $ovlFoot = "[Overlay]\r\nSymbols={symbolscount}\r\n";
 

@@ -7,6 +7,7 @@ use lib\Objects\GeoCache\GeoCache;
 use Utils\Email\EmailSender;
 use Utils\Database\OcDb;
 use Utils\Uri\Uri;
+use Utils\Generators\Uuid;
 
 class CacheAdoptionController extends BaseController
 {
@@ -169,7 +170,7 @@ class CacheAdoptionController extends BaseController
                             uuid = :3,
                             node = :4",
 
-            $cacheObj->getCacheId(), $logMessage, create_uuid(), $GLOBALS['oc_nodeid'] );
+            $cacheObj->getCacheId(), $logMessage, Uuid::create(), $GLOBALS['oc_nodeid'] );
 
         $this->db->multiVariableQuery(
             "UPDATE `caches` SET

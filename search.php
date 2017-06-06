@@ -12,6 +12,7 @@ require_once('./lib/common.inc.php');
 require_once('./lib/search.inc.php');
 require_once('./lib/search-signatures.inc.php');
 require_once('./lib/export.inc.php');
+require_once('./lib/calculation.inc.php');
 
 global $dbcSearch, $lang, $TestStartTime, $usr;
 

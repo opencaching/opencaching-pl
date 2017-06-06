@@ -62,10 +62,16 @@ if ($error == false) {
                     $email_content = mb_ereg_replace('{newPassWord_06}', tr('newPassWord_06'), $email_content);
                     $email_content = mb_ereg_replace('{newPassWord_07}', tr('newPassWord_07'), $email_content);
                     $email_content = mb_ereg_replace('{user}', $record['username'], $email_content);
-                    $email_content = mb_ereg_replace('{date}', strftime($datetimeformat), $email_content);
+                    $email_content = mb_ereg_replace('{date}', strftime(
+                        $GLOBALS['config']['datetimeformat']), $email_content);
                     $email_content = mb_ereg_replace('{code}', $secure_code, $email_content);
                     $email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);
-                    //send email
+
+                    global $emailaddr;
+                    $emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
+                    $emailheaders .= "Content-Transfer-Encoding: 8bit\r\n";
+                    $emailheaders .= 'From: "' . $emailaddr . '" <' . $emailaddr . '>';
+
                     mb_send_mail($email, $newpw_subject, $email_content, $emailheaders);
 
                     //output message

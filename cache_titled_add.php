@@ -2,6 +2,7 @@
 
 
 use Utils\Database\OcDb;
+use Utils\Generators\Uuid;
 global $titled_cache_nr_found, $titled_cache_period_prefix;
 
 require_once('./lib/common.inc.php');
@@ -37,7 +38,7 @@ if ( $dDiff->days < $securityPeriod )
 
     $queryS ="
     select
-    top.cacheId, top.cacheName, top.userName, 
+    top.cacheId, top.cacheName, top.userName,
     top.cacheRegion, ifnull( nrT.nrTinR, 0) nrTinR,
     top.RATE, top.ratio,
     top.cRating, top.cFounds, top.cNrDays, top.cDateCrt
@@ -146,7 +147,7 @@ if ( $dDiff->days < $securityPeriod )
     $LogType = 12; //OCTeam
     $ntitled_cache = $titled_cache_period_prefix.'_titled_cache_congratulations';
     $msgText = str_replace('{ownerName}', $rec['userName'], tr($ntitled_cache));
-    $LogUuid = create_uuid();
+    $LogUuid = Uuid::create();
 
     $dbc->multiVariableQuery($queryLogI, $rec[ "cacheId" ], $SystemUser, $LogType, $date_alg,
             $msgText, '1', '1', $date_alg, $date_alg, $LogUuid, '0', '0',

@@ -39,7 +39,8 @@ if ($cache_id != 0) {
 
             tpl_set_var('owner', htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8'));
             tpl_set_var('cachename', htmlspecialchars($r['name'], ENT_COMPAT, 'UTF-8'));
-            tpl_set_var('event_date', htmlspecialchars(strftime($dateformat, strtotime($r['date_hidden'])), ENT_COMPAT, 'UTF-8'));
+            tpl_set_var('event_date', htmlspecialchars(strftime(
+                $GLOBALS['config']['dateformat'], strtotime($r['date_hidden'])), ENT_COMPAT, 'UTF-8'));
         }
 
         // log_type 8 will attended, 7 attended
@@ -65,7 +66,8 @@ if ($cache_id != 0) {
 
             tpl_set_var('owner', htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8'));
             tpl_set_var('cachename', htmlspecialchars($r['name'], ENT_COMPAT, 'UTF-8'));
-            tpl_set_var('event_date', htmlspecialchars(strftime($dateformat, strtotime($r['date_hidden'])), ENT_COMPAT, 'UTF-8'));
+            tpl_set_var('event_date', htmlspecialchars(strftime(
+                $GLOBALS['config']['dateformat'], strtotime($r['date_hidden'])), ENT_COMPAT, 'UTF-8'));
         }
 
         // log_type 8 will attended, 7 attended

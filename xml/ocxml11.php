@@ -6,6 +6,8 @@ use Utils\Database\XDb;
 $rootpath = '../';
 require($rootpath . 'lib/common.inc.php');
 require($rootpath . 'lib/export.inc.php');
+require($rootpath . 'lib/calculation.inc.php');
+
 if ($error == true) {
     echo 'Unable to connect to database';
     exit;
