@@ -917,7 +917,7 @@ if ($error == false) {
                 }
 
                 //Add Waypoint
-                if (checkField('waypoint_type', $lang)){
+                if (XDb::xContainsColumn('waypoint_type', $lang)){
                     $lang_db = $lang;
                 } else{
                     $lang_db = "en";

@@ -78,7 +78,7 @@ if ($error == false) {
 
                 //build typeoptions
                 $sel_type = isset($_POST['type']) ? $_POST['type'] : -1;
-                if (checkField('waypoint_type', $lang))
+                if (XDb::xContainsColumn('waypoint_type', $lang))
                     $lang_db = $lang;
                 else
                     $lang_db = "en";
@@ -153,13 +153,13 @@ if ($error == false) {
                 } else {
                     tpl_set_var('openchecker_start','<!--');
                     tpl_set_var('openchecker_end','-->');
-                }    
+                }
                 if (isset($_POST['openchecker'])) {
                     $OpenChecker_present = 1;
                     tpl_set_var('openchecker_checked', 'checked=""');
                 } else {
                     $OpenChecker_present = 0;
-                }    
+                }
                 // hides or shows openchecker checkbox depend on type of waypoint
                 if ($sel_type == 3 && $config['module']['openchecker']['enabled'])
                     tpl_set_var('openchecker_display', 'block');

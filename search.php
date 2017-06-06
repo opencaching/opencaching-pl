@@ -1534,7 +1534,7 @@ function outputSearchForm($options)
 
     // Typ skrzynki
     $cachetype_options = '';
-                if(checkField('cache_type',$lang) )
+                if(Xdb::xContainsColumn('cache_type',$lang) )
                     $lang_db = XDb::xEscape($lang);
                 else
                     $lang_db = "en";
@@ -1593,7 +1593,7 @@ function outputSearchForm($options)
     //Rozmiar skrzynki
 
     $cachesize_options = '';
-                if(checkField('cache_size',$lang) )
+                if(Xdb::xContainsColumn('cache_size',$lang) )
                     $lang_db = XDb::xEscape($lang);
                 else
                     $lang_db = "en";

@@ -271,21 +271,5 @@ function help_latToDegreeStr($lat, $type = 1)
     return $retval;
 }
 
-/**
- * This function checks if given table contains column of given name
- * @param unknown $tableName
- * @param unknown $columnName
- * @return 1 on success 0 in failure
- */
-function checkField($tableName, $columnName)
-{
-    $tableName = XDb::xEscape($tableName);
-    $stmt = XDb::xSql("SHOW COLUMNS FROM $tableName" );
-    while( $column = XDb::xFetchArray($stmt)){
-        if( $column['Field'] == $columnName ){
-            return 1;
-        }
-    }
-    return 0;
-}
+
 

@@ -18,7 +18,7 @@ if ($error == false) {
     $content = '';
     $cache_country = '';
 
-    if (checkField('countries', 'list_default_' . $lang))
+    if (XDb::xContainsColumn('countries', 'list_default_' . $lang))
         $lang_db = XDb::xEscape($lang);
     else
         $lang_db = "en";

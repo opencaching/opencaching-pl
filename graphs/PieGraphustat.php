@@ -21,7 +21,7 @@ if ($error == false) {
     $y = array();
     $x = array();
 
-    if (checkField('cache_type', $lang))
+    if (XDb::xContainsColumn('cache_type', $lang))
         $lang_db = XDb::xEscape($lang);
     else
         $lang_db = "en";

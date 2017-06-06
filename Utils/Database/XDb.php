@@ -163,4 +163,22 @@ class XDb extends OcDb {
         $db = self::instance();
         return $db->lastInsertId();
     }
+
+    /**
+     * This function checks if given table contains column of given name
+     * @param unknown $tableName
+     * @param unknown $columnName
+     * @return true on success
+     */
+    public static function xContainsColumn($tableName, $columnName)
+    {
+        $tableName = self::xEscape($tableName);
+        $columnName = self::xEscape($columnName);
+
+        $stmt = XDb::xSql("SHOW COLUMNS FROM $tableName WHERE Field = '$columnName'");
+        while( $column = XDb::xFetchArray($stmt)){
+            return true; //any result
+        }
+        return false;
+    }
 }

@@ -87,7 +87,7 @@ if ($error == false) {
         }
 
         //get last hidden caches
-        if (checkField('cache_status', $lang))
+        if (XDb::xContainsColumn('cache_status', $lang))
             $lang_db = $lang;
         else
             $lang_db = "en";

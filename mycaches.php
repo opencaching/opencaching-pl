@@ -33,7 +33,7 @@ if ($error == false) {
         $tplname = 'mycaches';
         require($stylepath . '/newlogs.inc.php');
 
-        if (checkField('cache_status', $lang))
+        if (XDb::xContainsColumn('cache_status', $lang))
             $lang_db = $lang;
         else
             $lang_db = "en";

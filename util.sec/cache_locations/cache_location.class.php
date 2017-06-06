@@ -100,7 +100,7 @@ while ($rCache = XDb::xFetchArray($rsCache)) {
         if (mb_strlen($sCode) == 2) {
             $code1 = $sCode;
 
-            if (checkField('countries', 'list_default_' . $lang))
+            if (XDb::xContainsColumn('countries', 'list_default_' . $lang))
                 $lang_db = $lang;
             else
                 $lang_db = "en";
@@ -125,7 +125,7 @@ while ($rCache = XDb::xFetchArray($rsCache)) {
             $adm1, $adm2, $adm3, $adm4, $code1, $code2, $code3, $code4);
 
     } else {
-        if (checkField('countries', 'list_default_' . $lang))
+        if (XDb::xContainsColumn('countries', 'list_default_' . $lang))
             $lang_db = $lang;
         else
             $lang_db = "en";

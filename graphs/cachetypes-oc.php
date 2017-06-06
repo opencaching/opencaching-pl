@@ -11,7 +11,7 @@ function genStatPieUrl()
 {
     $startDate = mktime(0, 0, 0, 1, 1, 2006);
     global $lang;
-    if (checkField('cache_type', $lang))
+    if (Xdb::xContainsColumn('cache_type', $lang))
         $lang_db = XDb::xEscape($lang);
     else
         $lang_db = "en";

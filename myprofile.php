@@ -443,7 +443,7 @@ if ($error == false) {
                 if (isset($_POST['submit_all_countries'])) {
                     $show_all_countries = 1;
                 }
-                if (checkField('countries', 'list_default_' . $lang)) {
+                if (XDb::xContainsColumn('countries', 'list_default_' . $lang)) {
                     $lang_db = $lang;
                 } else {
                     $lang_db = "en";

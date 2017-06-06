@@ -452,7 +452,7 @@ if ($error == false) {
                     }
 
 
-                    if (checkField('log_types', $lang))
+                    if (XDb::xContainsColumn('log_types', $lang))
                         $lang_db = $lang;
                     else
                         $lang_db = "en";
