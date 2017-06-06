@@ -1,0 +1,14 @@
+@CHARSET "UTF-8";
+
+#language-select-div {
+  text-align: center;
+}
+
+#language-select-div a {
+  text-decoration: none;
+  
+}
+
+#language-select-div h5 {
+  margin-top: 20px;
+}

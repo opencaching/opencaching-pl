@@ -44,7 +44,6 @@ $GLOBALS['style'] = $style;
 require_once($rootpath . 'lib/calculation.inc.php'); //TODO: remove it from global context...
 require_once($rootpath . 'lib/common_tpl_funcs.php');
 require_once($rootpath . 'lib/cookie.class.php');
-require_once($rootpath . 'lib/loadlanguage.php');
 
 
 //todo: former inside lib/consts.inc.php
@@ -96,6 +95,9 @@ require_once($stylepath . '/varset.inc.php');
 $emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
 $emailheaders .= "Content-Transfer-Encoding: 8bit\r\n";
 $emailheaders .= 'From: "' . $emailaddr . '" <' . $emailaddr . '>';
+
+
+
 
 $db = OcDb::instance();
 
@@ -150,6 +152,12 @@ tpl_set_var('contact_mail', $contact_mail);
 foreach($wikiLinks as $key => $value){
     tpl_set_var('wiki_link_'.$key, $value);
 }
+
+
+
+//load translations
+require_once($rootpath . 'lib/loadlanguage.php');
+
 
 
 
