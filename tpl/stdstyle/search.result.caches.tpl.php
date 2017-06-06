@@ -16,14 +16,6 @@ global $usr, $hide_coords, $colNameSearch, $cookie, $NrColSortSearch, $OrderSort
 <script>
     $(function() {
 
-        /* Show beta options, if proper flag is present. */
-
-        if (typeof(Storage) !== "undefined") {
-            if (localStorage.betatester === "true") {
-                $(".wrbeta").show();
-            }
-        }
-
         /* Bind "OKAPI GPX" links to proper actions. OKAPI GPX Formatter needs
          * a complete list of cache codes before it can be shown. */
 
@@ -225,7 +217,7 @@ echo "<div class='GCT-div' style='font-size:12px' >
                 <a class='links' onclick='CacheExport(\"zip\")' id='exportZIP' title='Garmin ZIP file ({{format_pict}})  .zip'>GARMIN ({{format_pict}})</a> |
                 <a class='links' onclick='CacheExport(\"ggz\")' id='exportGGZ' title='Garmin .ggz'>GARMIN GGZ</a> <sup style='color:red;text-shadow: 2px 2px 2px rgba(255, 109, 255, 1);'>Beta!</sup> |
                 <a class='links' onclick='CacheExport(\"ggzp\")' id='exportGGZP' title='Garmin ZIP file ({{format_ggz_pict}})  .zip'>GARMIN GGZ ({{format_ggz_pict}})</a> <sup style='color:red;text-shadow: 2px 2px 2px rgba(255, 109, 255, 1);'>Beta!</sup>
-                <div class='wrbeta' style='display:none'>
+                <div>
                     <a class='links' id='exportOkapiGPX-selected'>OKAPI GPX...</a>
                 </div>
             </td>
@@ -261,7 +253,7 @@ echo "<div class='GCT-div' style='font-size:12px' >
                 <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".zip?startat=";?>{startat}<?php echo "&amp;count=max\" title=\"Garmin ZIP file ({{format_pict}})  .zip\">GARMIN ({{format_pict}})</a> |
                 <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".ggz?startat=";?>{startat}<?php echo "&amp;count=max\" title=\"Garmin .ggz\">GARMIN GGZ</a> <sup style='color:red;text-shadow: 2px 2px 2px rgba(255, 109, 255, 1);'>Beta!</sup> |
                 <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".zip?startat=";?>{startat}<?php echo "&amp;format=ggz&amp;count=max\" title=\"Garmin ZIP file ({{format_ggz_pict}})  .zip\">GARMIN GGZ ({{format_ggz_pict}})</a> <sup style='color:red;text-shadow: 2px 2px 2px rgba(255, 109, 255, 1);'>Beta!</sup>
-                <div class='wrbeta' style='display: none'>
+                <div>
                     <a class='links' id='exportOkapiGPX-all'>OKAPI GPX...</a>
                 </div>
                 </td>
