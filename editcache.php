@@ -697,7 +697,8 @@ if ($error == false) {
                 }
                 tpl_set_var('terrainoptions', $terrain_options);
 
-                $cacheLimitByTypePerUser = common::getUserActiveCacheCountByType($dbc, $usr['userid']);
+                $cacheLimitByTypePerUser = GeoCache::getUserActiveCachesCountByType($usr['userid']);
+
                 //build typeoptions
                 $types = '';
                 foreach ($cache_types as $type) {

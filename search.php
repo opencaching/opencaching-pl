@@ -36,6 +36,21 @@ function set_cookie_setting($name, $value)
     $cookie->set($name, $value);
 }
 
+/**
+ * add slashes to each element of $array.
+ * @param array $array
+ */
+function sanitize(&$array)
+{
+    foreach ($array as $key => $value) {
+        if (is_array($value)) {
+            sanitize($value);
+        } else {
+            $array[$key] = addslashes(htmlspecialchars($value));
+        }
+    }
+}
+
 
 //4test
 $TestStartTime = new DateTime('now');
@@ -56,7 +71,7 @@ if ($usr == false) {
         require($stylepath . '/search.inc.php');
         require($rootpath . 'lib/caches.inc.php');
 
-        common::sanitize($_REQUEST);
+        sanitize($_REQUEST);
 
         //km => target-unit
         $multiplier['km'] = 1;
