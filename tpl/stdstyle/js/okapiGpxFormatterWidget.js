@@ -244,7 +244,7 @@
             };
 
             var dialog = dialogContents.dialog({
-                height: jQuery(window).height() * 0.9,
+                height: Math.min(700, jQuery(window).height() * 0.9),
                 width: 650,
                 modal: true,
                 buttons: [continueButton, closeButton],
