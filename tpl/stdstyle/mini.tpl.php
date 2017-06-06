@@ -21,6 +21,10 @@
             if( $view->isGoogleAnalyticsEnabled() ){
                 $view->googleAnalyticsChunk( $view->getGoogleAnalyticsKey() );
             }
+
+            if( $view->isjQueryEnabled()){
+                $view->callChunk('jQuery');
+            }
         ?>
 
         <script type="text/javascript" src="lib/enlargeit/enlargeit.js"></script>

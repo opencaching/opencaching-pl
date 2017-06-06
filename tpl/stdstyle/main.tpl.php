@@ -68,6 +68,10 @@ if (date('m') == 12 || date('m') == 1) {
             if( $view->isGoogleAnalyticsEnabled() ){
                 $view->googleAnalyticsChunk( $view->getGoogleAnalyticsKey() );
             }
+
+            if( $view->isjQueryEnabled()){
+                $view->callChunk('jQuery');
+            }
         ?>
 
         <script type='text/javascript' src='lib/js/CookiesInfo.js'></script>

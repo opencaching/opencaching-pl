@@ -16,6 +16,10 @@
             if( $view->isGoogleAnalyticsEnabled() ){
                 $view->googleAnalyticsChunk( $view->getGoogleAnalyticsKey() );
             }
+
+            if( $view->isjQueryEnabled()){
+                $view->callChunk('jQuery');
+            }
         ?>
     </head>
     <body{bodyMod}>
