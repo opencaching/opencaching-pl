@@ -4,6 +4,20 @@
 
     var NS = "okapiGpxFormatterWidget";
 
+    var cacheGet = function(key) {
+        if (typeof(Storage) === "undefined") {
+            return null;
+        }
+        return JSON.parse(localStorage.getItem(NS + "/" + key));
+    }
+
+    var cacheSet = function(key, value) {
+        if (typeof(Storage) === "undefined") {
+            return;
+        }
+        localStorage.setItem(NS + "/" + key, JSON.stringify(value));
+    }
+
     var strings = {
         downloadButtonLabel: "Download GPX",
         cancelButtonLabel: "Cancel",
@@ -12,12 +26,38 @@
         // More valid string IDs can be found in the HTML template.
     };
 
-    var loadFormResponses = function(form) {
+    var getFormResponses = function(form) {
         var responses = {};
-        $.each(form.find("form").serializeArray(), function(_, obj) {
-            responses[obj.name] = obj.value;
+        $(form).find(":input").each(function() {
+            if (!this.name) {
+                return;
+            }
+            if (this.type == "checkbox") {
+                responses[this.name] = $(this).prop('checked');
+            } else if (this.type == "radio") {
+                if ($(this).prop('checked')) {
+                    responses[this.name] = $(this).val();
+                }
+            } else {
+                responses[this.name] = $(this).val();
+            }
         });
         return responses;
+    };
+
+    var setFormResponses = function(form, responses) {
+        $(form).find(':input').each(function() {
+            var name = $(this).attr('name');
+            if (name && responses.hasOwnProperty(name)) {
+                if (this.type == "checkbox") {
+                    $(this).prop("checked", responses[name]);
+                } else if (this.type == "radio") {
+                    $(this).prop("checked", (responses[name] == $(this).val()));
+                } else {
+                    $(this).val(responses[name]);
+                }
+            }
+        });
     };
 
     var generateOkapiParamSets = function(cacheCodes, formResponses) {
@@ -194,6 +234,10 @@
                 dialogContents.find("h2 b").addClass("multi");
             }
             dialogContents.find(".okapi-number-of-cachecodes").text(options.cacheCodes.length);
+            var lastUsedFormResponses = cacheGet("lastUsedFormResponses");
+            if (lastUsedFormResponses !== null) {
+                setFormResponses(dialogContents, lastUsedFormResponses);
+            }
 
             var dialog;
             var continueButton;
@@ -206,7 +250,7 @@
                 ),
                 click: function() {
                     var paramSets = generateOkapiParamSets(
-                        options.cacheCodes, loadFormResponses(dialogContents)
+                        options.cacheCodes, getFormResponses(dialogContents)
                     );
                     if (paramSets.length == 1) {
                         performFormPost("/lib/okapi_gpx.php", {
@@ -239,6 +283,7 @@
             closeButton = {
                 text: strings.cancelButtonLabel,
                 click: function() {
+                    cacheSet("lastUsedFormResponses", getFormResponses(dialogContents));
                     dialog.dialog("destroy");
                 }
             };
