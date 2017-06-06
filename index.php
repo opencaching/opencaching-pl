@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
+use Utils\Text\TextConverter;
 
 global $usr;
 
@@ -33,7 +34,7 @@ if ($error == false) {
         do{
             $news = '<div class="logs" style="width: 750px;">' . $tpl_newstopic_without_topic;
             $post_date = strtotime($r['date']);
-            $news = mb_ereg_replace('{date}', fixPlMonth(htmlspecialchars(strftime("%d %B %Y", $post_date), ENT_COMPAT, 'UTF-8')), $news);
+            $news = mb_ereg_replace('{date}', TextConverter::fixPlMonth(htmlspecialchars(strftime("%d %B %Y", $post_date), ENT_COMPAT, 'UTF-8')), $news);
             $news = mb_ereg_replace('{message}', $r['content'], $news);
             $newscontent .= $news . "</div>\n";
         }while ($r = XDb::xFetchArray($rs));

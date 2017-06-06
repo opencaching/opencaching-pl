@@ -63,7 +63,7 @@ foreach ($logEneries as $record) {
                 $processed_text .= " " . tr('vl_by_user') . " " . $record['del_by_username'];
             }
             if (isset($record['last_deleted'])) {
-                $processed_text .=" " . tr('vl_on_date') . " " . fixPlMonth(htmlspecialchars(strftime(
+                $processed_text .=" " . tr('vl_on_date') . " " . TextConverter::fixPlMonth(htmlspecialchars(strftime(
                     $GLOBALS['config']['dateformat'], strtotime($record['last_deleted'])), ENT_COMPAT, 'UTF-8'));
             }
             $processed_text .= "]";
@@ -98,7 +98,7 @@ foreach ($logEneries as $record) {
                 }
             };
             if (isset($record['last_deleted'])) {
-                $comm_replace.=" " . tr('vl_on_date') . " " . fixPlMonth(htmlspecialchars(strftime(
+                $comm_replace.=" " . tr('vl_on_date') . " " . TextConverter::fixPlMonth(htmlspecialchars(strftime(
                     $GLOBALS['config']['dateformat'], strtotime($record['last_deleted'])), ENT_COMPAT, 'UTF-8'));
             }
             $comm_replace.=".";
@@ -113,7 +113,7 @@ foreach ($logEneries as $record) {
 
     if ($record['edit_count'] > 0) {
         //check if editted at all
-        $edit_footer = "<div><small>" . tr('vl_Recently_modified_on') . " " . fixPlMonth(htmlspecialchars(
+        $edit_footer = "<div><small>" . tr('vl_Recently_modified_on') . " " . TextConverter::fixPlMonth(htmlspecialchars(
             strftime(
                 $GLOBALS['config']['datetimeformat'], strtotime($record['last_modified'])), ENT_COMPAT, 'UTF-8'));
         if (!$usr['admin'] && $record['edit_by_admin'] == true && $record['type'] == 12) {
@@ -137,7 +137,7 @@ foreach ($logEneries as $record) {
     $tmplog = file_get_contents($stylepath . '/viewcache_log.tpl.php');
 //END: same code ->viewlogs.php / viewcache.php
     $tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
-    $tmplog_date = fixPlMonth(htmlspecialchars(strftime(
+    $tmplog_date = TextConverter::fixPlMonth(htmlspecialchars(strftime(
         $GLOBALS['config']['dateformat'], strtotime($record['date'])), ENT_COMPAT, 'UTF-8'));
     // replace smilies in log-text with images
 

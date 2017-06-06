@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use lib\Objects\User\User;
+use Utils\Text\TextConverter;
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
@@ -75,7 +76,7 @@ if ($error == false) {
                 $tmp_log = $log_line;
                 $tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], ucfirst(tr('logType' . $record_logs['type'])) /* $record_logs['text_combo'] */), $tmp_log);
                 $tmp_log = mb_ereg_replace('{logtype}', ucfirst(tr('logType' . $record_logs['type'])) /* $record_logs['text_combo'] */, $tmp_log);
-                $tmp_log = mb_ereg_replace('{date}', fixPlMonth(strftime(
+                $tmp_log = mb_ereg_replace('{date}', TextConverter::fixPlMonth(strftime(
                     $GLOBALS['config']['dateformat'], strtotime($record_logs['date']))), $tmp_log);
                 $tmp_log = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
                 $tmp_log = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($record_logs['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_log);
@@ -110,7 +111,7 @@ if ($error == false) {
                 $tmp_cache = mb_ereg_replace('{cacheimage}', icon_cache_status($record_logs['status'], $record_logs['cache_status_text']), $tmp_cache);
                 $tmp_cache = mb_ereg_replace('{cachestatus}', htmlspecialchars($record_logs['cache_status_text'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
                 $tmp_cache = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($record_logs['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_cache);
-                $tmp_cache = mb_ereg_replace('{date}', fixPlMonth(strftime(
+                $tmp_cache = mb_ereg_replace('{date}', TextConverter::fixPlMonth(strftime(
                     $GLOBALS['config']['dateformat'], strtotime($record_logs['date_hidden']))), $tmp_cache);
                 $tmp_cache = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['name'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
 
@@ -145,7 +146,7 @@ if ($error == false) {
                 if (is_null($record_caches['date_activate'])) {
                     $tmp_cache = mb_ereg_replace('{date}', $no_time_set, $tmp_cache);
                 } else {
-                    $tmp_cache = mb_ereg_replace('{date}', fixPlMonth(strftime(
+                    $tmp_cache = mb_ereg_replace('{date}', TextConverter::fixPlMonth(strftime(
                         $GLOBALS['config']['datetimeformat'], strtotime($record_caches['date_activate']))), $tmp_cache);
                 }
                 $tmp_cache = mb_ereg_replace('{cachename}', htmlspecialchars($record_caches['name'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
@@ -181,7 +182,7 @@ if ($error == false) {
                 $tmp_log = $cache_line_my_caches;
                 $tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], ucfirst(tr('logType' . $record_logs['type'])) /* $record_logs['text_combo'] */), $tmp_log);
                 $tmp_log = mb_ereg_replace('{logtype}', ucfirst(tr('logType' . $record_logs['type'])) /* $record_logs['text_combo'] */, $tmp_log);
-                $tmp_log = mb_ereg_replace('{date}', fixPlMonth(strftime(
+                $tmp_log = mb_ereg_replace('{date}', TextConverter::fixPlMonth(strftime(
                     $GLOBALS['config']['dateformat'], strtotime($record_logs['date']))), $tmp_log);
                 $tmp_log = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
                 $tmp_log = mb_ereg_replace('{cacheid}', htmlspecialchars($record_logs['cache_id'], ENT_COMPAT, 'UTF-8'), $tmp_log);
