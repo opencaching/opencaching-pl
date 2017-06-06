@@ -4,6 +4,18 @@
 
     var NS = "okapiGpxFormatterWidget";
 
+    if (!String.prototype.endsWith) {
+        String.prototype.endsWith = function(searchString, position) {
+            var subjectString = this.toString();
+            if (typeof position !== 'number' || !isFinite(position) || Math.floor(position) !== position || position > subjectString.length) {
+                position = subjectString.length;
+            }
+            position -= searchString.length;
+            var lastIndex = subjectString.lastIndexOf(searchString, position);
+            return lastIndex !== -1 && lastIndex === position;
+        };
+    }
+
     var cacheGet = function(key) {
         if (typeof(Storage) === "undefined") {
             return null;
@@ -24,6 +36,20 @@
         continueButtonLabel: "Continue >",
         closeButtonLabel: "Close",
         // More valid string IDs can be found in the HTML template.
+    };
+
+    var extendTranslationStrings = function(newStrings) {
+        $.extend(strings, newStrings);
+    };
+
+    var loadTranslationStrings = function(lang) {
+        var VERSION = 3;  // increment when translations changed, set to 0 when debugging
+        var url = "/tpl/stdstyle/js/okapiGpxFormatterWidget." + lang + ".js?v=" + VERSION;
+        return $.ajax({
+            dataType: "script",
+            cache: VERSION > 0,
+            url: url
+        });
     };
 
     var getFormResponses = function(form) {
@@ -189,31 +215,33 @@
     }
 
     var getTemplate = function(id) {
-        var VERSION = 1;  // increment when template changed!
-        var url = "tpl/stdstyle/js/okapiGpxFormatterWidget.template.html?v=" + VERSION;
+        var VERSION = 3;  // increment when template changed, set to 0 when debugging
+        var url = "/tpl/stdstyle/js/okapiGpxFormatterWidget.template.html?v=" + VERSION;
         var contents = $("#" + id);
         if (contents.length == 0) {
             return $.ajax({
                 dataType: "html",
-                // cache: false,  // uncomment when debugging
+                cache: VERSION > 0,
                 url: url
             }).then(function(html) {
-                $('body').append(html);
-                contents = $("#" + id);
-                if (contents.length == 0) {
-                    console.error("ID " + id + " not found in template " + url);
-                }
+                var $html = $(html);
+                $('body').append($html);
                 // Apply translations, if available.
-                contents.find("[data-string-id]").each(function(_, elem) {
+                $html.find("[data-string-id]").each(function(_, elem) {
                     var stringId = $(elem).attr('data-string-id');
                     if (strings[stringId]) {
-                        if (stringId.endswith("HTML")) {
+                        if (stringId.endsWith("HTML")) {
                             $(elem).html(strings[stringId]);
                         } else { // plaintext
                             $(elem).text(strings[stringId]);
                         }
                     }
                 });
+                // Find proper ID
+                contents = $("#" + id);
+                if (contents.length == 0) {
+                    console.error("ID " + id + " not found in template " + url);
+                }
                 return contents.clone();
             });
         } else {
@@ -302,6 +330,9 @@
 
     $[NS] = {
         show: show,
+        extendTranslationStrings: extendTranslationStrings
     };
+
+    loadTranslationStrings($("html").attr("lang"));
 
 })(jQuery);

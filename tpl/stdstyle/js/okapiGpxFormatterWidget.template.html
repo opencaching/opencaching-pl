@@ -19,8 +19,7 @@
     <div id='okapiGpxFormatterDialogContentsTemplate'>
         <section data-string-id="infoHeaderHTML">
             <p><a href='/okapi/'>OKAPI</a> allows us to generate various types of GPX files.
-            Here you can access a subset of these advanced options (full list available <a
-            href='/okapi/services/caches/formatters/gpx.html'>here</a>). Keep in mind
+            Here you can access a subset of its advanced options. Keep in mind
             however, that if you choose a bad set of options, then some applications might
             be unable to read the result GPX file.</p>
         </section>
@@ -85,13 +84,13 @@
                 </label></div>
                 <div><label>
                     <input type='checkbox' name='attrs_oxtags' checked="checked">
-                    <span data-string-id="paramAttrs_oxtags">
+                    <span data-string-id="paramAttrs_oxtags_HTML">
                         Generate <code>ox:tag</code> elements for each attribute (some devices may recognize those).
                     </span>
                 </label></div>
                 <div><label>
                     <input type='checkbox' name='attrs_gcattrs' checked="checked">
-                    <span data-string-id="paramAttrs_gcattrs">
+                    <span data-string-id="paramAttrs_gcattrs_HTML">
                         Generate respective Groundspeak's <i>geocaching.com</i> attributes, if they apply
                         (only a small subset of Opencaching attributes can be converted to Geocaching ones).
                     </span>
@@ -109,7 +108,7 @@
                 </label></div>
                 <div><label>
                     <input type='checkbox' name='my_notes_gcpersonalnote'>
-                    <span data-string-id="paramMyNotes_gcpersonalnote">
+                    <span data-string-id="paramMyNotes_gcpersonalnote_HTML">
                         Include personal notes inside <code>groundspeak:personal_note</code> element.
                     </span>
                 </label></div>
@@ -173,7 +172,7 @@
                 </label></div>
                 <div><label>
                     <input type='radio' name='images' value='ox:all'>
-                    <span data-string-id="paramImages_oxall">
+                    <span data-string-id="paramImages_oxall_HTML">
                         Don't include <code>img</code> elements in geocache description, but
                         generate proper <code>ox:image</code> references instead (for Garmin
                         devices).
