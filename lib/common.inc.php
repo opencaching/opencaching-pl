@@ -35,6 +35,10 @@ require_once($rootpath . 'lib/settings.inc.php');
 $GLOBALS['config'] = $config;
 $GLOBALS['lang'] = $lang;
 $GLOBALS['style'] = $style;
+$GLOBALS['site_name'] = $site_name;
+$GLOBALS['contact_mail'] = $contact_mail;
+$GLOBALS['wikiLinks'] = $wikiLinks;
+$GLOBALS['pagetitle'] = $pagetitle;
 
 require_once($rootpath . 'lib/common_tpl_funcs.php'); // template engine
 require_once($rootpath . 'lib/cookie.class.php');     // class used to deal with cookies
