@@ -39,7 +39,6 @@ $view->loadJQuery();
 
 $view->setVar('target', $target);
 
-//get the login email address and password
 if(isset($_POST['email']) && isset($_POST['password'])){
 
     $userEmail = $_POST['email'];
@@ -78,6 +77,8 @@ if(isset($_POST['email']) && isset($_POST['password'])){
     }else{
         $view->setVar('errorMsg', tr('login_badCredentials'));
     }
+}else{ // just display login page
+    $view->setVar('errorMsg', null);
 }
 
 tpl_BuildTemplate();
