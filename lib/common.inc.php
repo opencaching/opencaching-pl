@@ -1,12 +1,7 @@
 <?php
 
-/**
- * class autoloader
- */
-require_once __DIR__ . '/ClassPathDictionary.php';
+require_once __DIR__ . '/ClassPathDictionary.php'; // class autoloader
 
-use Utils\Database\XDb;
-use Utils\Database\OcDb;
 use Utils\View\View;
 use Utils\Uri\Uri;
 use Utils\I18n\I18n;
@@ -16,11 +11,11 @@ use lib\Objects\User\User;
 
 session_start();
 
-//kojoty: do we need no-ob check ???
+//TODO: kojoty: do we need no-ob check ???
 //if ((!isset($GLOBALS['no-ob'])) || ($GLOBALS['no-ob'] == false))
 ob_start();
 
-//kojoty: do we need it ???
+//TODO: kojoty: do we need it ???
 //if ((!isset($GLOBALS['oc_waypoint'])) && isset($GLOBALS['ocWP']))
 //    $GLOBALS['oc_waypoint'] = $GLOBALS['ocWP'];
 
@@ -73,7 +68,6 @@ loadTranslation();
 
 function processAuthentication(){
 
-    $db = OcDb::instance();
     $view = tpl_getView();
 
     //user authenification from cookie
@@ -156,8 +150,6 @@ function initTemplateSystem(){
 
 
     // load vars from settings...
-    //global $site_name, $contact_mail, $wikiLinks;
-
     tpl_set_var('site_name', $GLOBALS['site_name']);
     tpl_set_var('contact_mail', $GLOBALS['contact_mail']);
 
@@ -195,6 +187,7 @@ function loadTranslation(){
 
             tpl_set_tplname('error/langNotSupported');
             header("HTTP/1.0 404 Not Found");
+            $view = tpl_getView();
 
             $view->loadJQuery();
             $view->setVar("localCss",
@@ -212,14 +205,13 @@ function loadTranslation(){
         // load language settings
         load_language_file($lang);
         Languages::setLocale($lang);
-
 }
 
 
 
-/*
- * TODO: Remove all functions below from here!
- */
+
+//TODO: Remove all functions below from here!
+
 
 // decimal longitude to string E/W hhh°mm.mmm
 function help_lonToDegreeStr($lon, $type = 1)
