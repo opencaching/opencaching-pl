@@ -1,6 +1,8 @@
 <?php
 
 use Utils\Database\XDb;
+use Utils\Generators\Uuid;
+
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -14,7 +16,7 @@ if ($error == false) {
         $tplname = 'newmp3';
         $view = tpl_getView();
         $view->setVar('maxMp3Size', $maxmp3size);
-        
+
         require_once($stylepath . '/newmp3.inc.php');
 
         $objectid = isset($_REQUEST['objectid']) ? $_REQUEST['objectid'] : 0;
@@ -149,7 +151,7 @@ if ($error == false) {
                             exit;
                         }
 
-                        $uuid = create_uuid();
+                        $uuid = Uuid::create();
 
                         // datei verschieben und in DB eintragen
                         move_uploaded_file($_FILES['file']['tmp_name'], $mp3dir . '/' . $uuid . '.' . $extension);

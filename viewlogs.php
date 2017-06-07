@@ -182,7 +182,7 @@ if ($error == false) {
         }
 
         $logs = '';
-        $thisdateformat = $dateformat;
+
         $logEnteryController = new LogEnteryController();
         if($logid){ /* load and display one log only */
             $logEneries = $logEnteryController->loadLogsFromDb($cache_id, $includeDeletedLogs, 0, 1, $logid);
@@ -203,7 +203,8 @@ if ($error == false) {
                         $processed_text .= " " . tr('vl_by_user') . " " . $record['del_by_username'];
                     }
                     if (isset($record['last_deleted'])) {
-                        $processed_text .=" " . tr('vl_on_date') . " " . fixPlMonth(htmlspecialchars(strftime($thisdateformat, strtotime($record['last_deleted'])), ENT_COMPAT, 'UTF-8'));
+                        $processed_text .=" " . tr('vl_on_date') . " " . TextConverter::fixPlMonth(htmlspecialchars(strftime(
+                            $GLOBALS['config']['dateformat'], strtotime($record['last_deleted'])), ENT_COMPAT, 'UTF-8'));
                     }
                     $processed_text .= "]";
                 } else {
@@ -237,7 +238,8 @@ if ($error == false) {
                         }
                     }
                     if (isset($record['last_deleted'])) {
-                        $comm_replace.=" " . tr('vl_on_date') . " " . fixPlMonth(htmlspecialchars(strftime($thisdateformat, strtotime($record['last_deleted'])), ENT_COMPAT, 'UTF-8'));
+                        $comm_replace.=" " . tr('vl_on_date') . " " . TextConverter::fixPlMonth(htmlspecialchars(strftime(
+                            $GLOBALS['config']['dateformat'], strtotime($record['last_deleted'])), ENT_COMPAT, 'UTF-8'));
                     }
                     $comm_replace.=".";
                     $processed_text = $comm_replace;
@@ -251,7 +253,8 @@ if ($error == false) {
 
             if ($record['edit_count'] > 0) {
                 //check if editted at all
-                $edit_footer = "<div><small>" . tr('vl_Recently_modified_on') . " " . fixPlMonth(htmlspecialchars(strftime($datetimeformat, strtotime($record['last_modified'])), ENT_COMPAT, 'UTF-8'));
+                $edit_footer = "<div><small>" . tr('vl_Recently_modified_on') . " " . TextConverter::fixPlMonth(htmlspecialchars(
+                    strftime($GLOBALS['config']['datetimeformat'], strtotime($record['last_modified'])), ENT_COMPAT, 'UTF-8'));
                 if (!$usr['admin'] && $record['edit_by_admin'] == true && $record['type'] == 12) {
                     $edit_footer.=" " . tr('vl_by_COG');
                 } else {
@@ -275,7 +278,7 @@ if ($error == false) {
             $tmplog = file_get_contents($stylepath . '/viewcache_log.tpl.php');
 //END: same code ->viewlogs.php / viewcache.php
             $tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
-            $tmplog_date = fixPlMonth(htmlspecialchars(strftime($dateformat, strtotime($record['date'])), ENT_COMPAT, 'UTF-8'));
+            $tmplog_date = TextConverter::fixPlMonth(htmlspecialchars(strftime($GLOBALS['config']['dateformat'], strtotime($record['date'])), ENT_COMPAT, 'UTF-8'));
             // replace smilies in log-text with images
 
             $dateTimeTmpArray = explode(' ', $record['date']);

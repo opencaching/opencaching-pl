@@ -11,6 +11,9 @@ global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $lang;
 
 set_time_limit(1800);
 
+require_once ('lib/calculation.inc.php');
+
+
 $wptSize[1] = 'Nano';
 $wptSize[2] = 'Micro';
 $wptSize[3] = 'Small';

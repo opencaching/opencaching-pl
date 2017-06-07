@@ -85,7 +85,7 @@ function get_cache_size_from_database()
 function log_type_from_id($id, $lang)
 {
     global $log_types;
-    if (checkField('log_types', $lang))
+    if (Xdb::xContainsColumn('log_types', $lang))
         $lang_db = $lang;
     else
         $lang_db = "en";
@@ -100,7 +100,7 @@ function log_type_from_id($id, $lang)
 function cache_type_from_id($id, $lang)
 {
     global $cache_types;
-    if (checkField('cache_type', $lang))
+    if (Xdb::xContainsColumn('cache_type', $lang))
         $lang_db = $lang;
     else
         $lang_db = "en";
@@ -115,7 +115,7 @@ function cache_type_from_id($id, $lang)
 function cache_size_from_id($id, $lang)
 {
     global $cache_size;
-    if (checkField('cache_size', $lang))
+    if (Xdb::xContainsColumn('cache_size', $lang))
         $lang_db = $lang;
     else
         $lang_db = "en";
@@ -130,7 +130,7 @@ function cache_size_from_id($id, $lang)
 function cache_status_from_id($id, $lang)
 {
     global $cache_status;
-    if (checkField('cache_status', $lang))
+    if (XDb::xContainsColumn('cache_status', $lang))
         $lang_db = $lang;
     else
         $lang_db = "en";

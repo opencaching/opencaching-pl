@@ -96,4 +96,23 @@ class TextConverter
         return $str;
     }
 
+    /**
+     * This method converts polish months names from 1->2 grammatical case
+     */
+    public static function fixPlMonth($string)
+    {
+        $string = str_ireplace('styczeń', 'stycznia', $string);
+        $string = str_ireplace('luty', 'lutego', $string);
+        $string = str_ireplace('marzec', 'marca', $string);
+        $string = str_ireplace('kwiecień', 'kwietnia', $string);
+        $string = str_ireplace('maj', 'maja', $string);
+        $string = str_ireplace('czerwiec', 'czerwca', $string);
+        $string = str_ireplace('lipiec', 'lipca', $string);
+        $string = str_ireplace('sierpień', 'sierpnia', $string);
+        $string = str_ireplace('wrzesień', 'września', $string);
+        $string = str_ireplace('październik', 'października', $string);
+        $string = str_ireplace('listopad', 'listopada', $string);
+        $string = str_ireplace('grudzień', 'grudnia', $string);
+        return $string;
+    }
 }

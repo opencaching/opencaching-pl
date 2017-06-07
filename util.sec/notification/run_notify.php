@@ -75,6 +75,8 @@ function process_new_cache($notify)
 {
     global $emailaddr, $octeamEmailsSignature, $absolute_server_URI, $site_name, $dateFormat, $cacheTypes, $cacheSizes, $cacheTypeIcons;
 
+    define('NOTIFY_NEW_CACHES', 1); //TODO: unify with value from eventhandler.inc.php
+
     switch ($notify['type']) {
         case NOTIFY_NEW_CACHES: // Type: new cache
             $mailbody = file_get_contents(__DIR__ . '/notifyNewcacheEmail.html');

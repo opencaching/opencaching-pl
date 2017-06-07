@@ -1,6 +1,8 @@
 <?php
 
 use Utils\Database\XDb;
+use Utils\Generators\Uuid;
+
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -151,7 +153,7 @@ if ($error == false) {
                             exit;
                         }
 
-                        if ($_FILES['file']['size'] > ( round($config['limits']['image']['filesize'] * 1024 * 1024) )) { 
+                        if ($_FILES['file']['size'] > ( round($config['limits']['image']['filesize'] * 1024 * 1024) )) {
                             // file too big
                             $tplname = 'message';
                             tpl_set_var('messagetitle', $message_title_toobig);
@@ -162,7 +164,7 @@ if ($error == false) {
                             exit;
                         }
 
-                        $uuid = create_uuid();
+                        $uuid = Uuid::create();
 
                         if ($config['limits']['image']['resize'] == 1 && $_FILES['file']['size'] > round($config['limits']['image']['resize_larger'] * 1024 * 1024) ) {
                             // Apply resize to uploaded image

@@ -63,6 +63,8 @@ function event_notify_new_cache($cache_id)
 
     $distanceMultiplier = 1;
 
+    define('NOTIFY_NEW_CACHES', 1);
+
     // TODO: Seeking pre-select `user`. `latitude` like with max_lon / min_lon / max_lat / min_lat
     XDb::xSql(
         'INSERT INTO `notify_waiting` (`id`, `cache_id`, `user_id`, `type`)

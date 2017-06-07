@@ -6,8 +6,7 @@ use Utils\Log\Log;
 global $octeamEmailsSignature, $absolute_server_URI;
 require_once('./lib/common.inc.php');
 
-//Preprocessing
-if ($error == false) {
+
     //set here the template to process
     $tplname = 'remindemail';
 
@@ -37,11 +36,17 @@ if ($error == false) {
             $email_content = mb_ereg_replace('{ForgottenEmail_10}', tr('ForgottenEmail_10'), $email_content);
             $email_content = mb_ereg_replace('{ForgottenEmail_11}', tr('ForgottenEmail_11'), $email_content);
             $email_content = mb_ereg_replace('{user}', $r['username'], $email_content);
-            $email_content = mb_ereg_replace('{date}', strftime($datetimeformat), $email_content);
+            $email_content = mb_ereg_replace('{date}', strftime(
+                $GLOBALS['config']['datetimeformat']), $email_content);
             $email_content = mb_ereg_replace('{email}', $r['email'], $email_content);
             $email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);
 
-            // ok, mail verschicken
+            global $emailaddr;
+
+            $emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
+            $emailheaders .= "Content-Transfer-Encoding: 8bit\r\n";
+            $emailheaders .= 'From: "' . $emailaddr . '" <' . $emailaddr . '>';
+
             mb_send_mail($r['email'], $mail_subject, $email_content, $emailheaders);
 
             Log::logentry('remindemail', 3, $r['user_id'], 0, 0, 'Remind-E-Mail-Adress an ' . $r['username'] . ' / ' . $r['email'] , array());
@@ -50,8 +55,8 @@ if ($error == false) {
             tpl_set_var('message', $mail_send);
         }
     }
-}
+
 
 //make the template and send it out
 tpl_BuildTemplate();
-?>
+

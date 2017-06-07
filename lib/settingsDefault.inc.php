@@ -106,12 +106,6 @@ $config = array(
     'forbiddenCacheSizes' => array(
         //cache::SIZE_MICRO
     ),
-    /**
-     * If set to true, all database queries will be reported in the page
-     * output. (Note, that this will cause most of the AJAX actions to stop
-     * functioning properly.)
-     */
-    'debugDB' => true,
     /** The filter fragment selecting provinces from nuts_codes table. */
     'provinceNutsCondition' => '`code` like \'PL__\'',
     /** Nature2000 link - used in viewcache.php */
@@ -149,7 +143,13 @@ $config = array(
      * this is important only for oc.pl users which create accounts before 2018.11
      * Nowadays all user accept rules on account creation.
      */
-    'checkRulesConfirmation' => false
+    'checkRulesConfirmation' => false,
+
+    /**
+     * Common datetime and date format
+     */
+    'datetimeformat' => '%Y-%m-%d %H:%M:%S',
+    'dateformat' => '%Y-%m-%d'
 );
 
 /* ************************************************************************

@@ -19,7 +19,7 @@ if ($error == false) {
     $y = array();
     $x = array();
 
-    if (checkField('log_types', $lang))
+    if (XDb::xContainsColumn('log_types', $lang))
         $lang_db = XDb::xEscape($lang);
     else
         $lang_db = "en";

@@ -11,6 +11,7 @@ use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\MeritBadge\MeritBadge;
 use lib\Controllers\MeritBadgeController;
 use Utils\Text\Rot13;
+use Utils\Text\TextConverter;
 
 
 //prepare the templates and include all neccessary
@@ -89,7 +90,8 @@ if ($error == false) {
             tpl_set_var('username', tr('primaAprilis1'));
         }
         tpl_set_var('country', tr($user_record['country']));
-        tpl_set_var('registered', fixPlMonth(strftime($dateformat, strtotime($user_record['date_created']))));
+        tpl_set_var('registered', TextConverter::fixPlMonth(strftime(
+            $GLOBALS['config']['dateformat'], strtotime($user_record['date_created']))));
         $description = $user_record['description'];
         tpl_set_var('description', nl2br($description));
         if ($description != "") {

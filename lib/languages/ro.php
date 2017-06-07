@@ -2025,14 +2025,9 @@ $translations = array(
     'cacheSize_6' => 'Foarte mare',
     'cacheSize_7' => 'Fără cutie',
     'cacheSize_8' => 'Nespecificat',
-    'login_message_01' => 'Eşti conectat.',
-    'login_message_02' => 'Eşti conectat. Dacă vrei să te conectezi ca alt utilizator, te rog <a href="logout.php">deconectează-te</a>.</p>',
-    'login_message_03' => 'Te-ai Autentificare cu succes. Vei fi redirecţionat către prima pagină.',
-    'login_message_04' => 'Autentificare eşuată.<br />If the proble exists please contact the oc-team',
-    'login_message_05' => 'Autentificare eşuată.<br />Au fost cel puţin 25 de încercări de conectare în ultima oră pe {site_name} pentru utilizatorul tău',
-    'login_message_06' => 'Autentificare eşuată.<br />Nume utilizator sau e-mail necunoscut.',
-    'login_message_07' => 'Autentificare eşuată.<br />Nume utilizator sau parolă greşită.',
-    'login_message_08' => 'Browser-ul tău nu accepta cookies de la {site_name}',
+    'login_tooManyTries' => 'Autentificare eşuată.<br />Au fost cel puţin 25 de încercări de conectare în ultima oră pe {site_name} pentru utilizatorul tău',
+    'login_badCredentials' => 'Autentificare eşuată.<br />Nume utilizator sau parolă greşită.',
+    'login_cantSetCookie' => 'Browser-ul tău nu accepta cookies de la {site_name}',
     'login_message_09' => 'Trebuie să fi autentificat pentru a vedea această pagină.',
     'graph_statistics_01' => 'Statistici pentru www.{site_name} :: Datum',
     'graph_statistics_02' => 'Geocutii active',
@@ -2657,5 +2652,5 @@ $translations = array(
     'merit_badge_graphic_author' => 'Graphic Author:',
     'merit_badge_description_author' => 'Description Author:',
     'merit_badge_attendant' => 'Attendant:'
-                
+
 );

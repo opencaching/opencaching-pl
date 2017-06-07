@@ -23,6 +23,7 @@
 ob_start();
 
 require_once ("./lib/cs2cs.inc.php");
+require_once ('./lib/calculation.inc.php');
 
 set_time_limit(1800);
 global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;
@@ -182,7 +183,7 @@ if ($usr || ! $hide_coords) {
         $content = ob_get_clean();
         $phpzip->add_data($sFilebasename . '.uam', $content);
         $out = $phpzip->save($sFilebasename . '.zip', 'b');
-        
+
         header('content-type: application/zip');
         header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
         echo $out;

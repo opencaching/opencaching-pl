@@ -11,6 +11,7 @@ use lib\Objects\GeoCache\GeoCacheCommons;
 
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $queryFilter;
 require_once ('lib/common.inc.php');
+require_once ('lib/calculation.inc.php');
 set_time_limit(1800);
 
 function getPictures($cacheid, $picturescount)

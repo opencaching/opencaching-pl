@@ -13,8 +13,6 @@ use lib\Objects\GeoCache\CacheLocation;
 
 /**
  * Description of geoCache
- *
- * @author Łza
  */
 class GeoCache extends GeoCacheCommons
 {
@@ -1080,6 +1078,22 @@ class GeoCache extends GeoCacheCommons
             AND `mp3`.`object_type`=1 AND `caches`.`cache_id`= ?
             AND `cache_logs`.`deleted`= ? ", $cacheid, 0);
     }
+
+    public static function getUserActiveCachesCountByType($userId){
+
+        $stmt = XDb::xSql(
+            'SELECT type, COUNT(*) as cacheCount
+             FROM `caches` WHERE `user_id` = ? AND STATUS != 3
+             GROUP by type', $userId);
+
+        $result = [];
+        while($row = Xdb::xFetchArray($stmt)){
+            $result[$row['type']] = $row['cacheCount'];
+        }
+
+        return $result;
+    }
+
 
     /**
      * Returns last modification date

@@ -8,6 +8,7 @@ use Utils\Database\OcDb;
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch;
 
 require_once ('lib/common.inc.php');
+require_once ('lib/calculation.inc.php');
 
 set_time_limit(1800);
 

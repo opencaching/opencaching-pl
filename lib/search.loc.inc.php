@@ -10,6 +10,9 @@ use Utils\Database\XDb;
 global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;
 set_time_limit(1800);
 
+require_once ('lib/calculation.inc.php');
+
+
 $locHead = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <loc version="1.0" src="' . $absolute_server_URI . '">' . "\n";
 

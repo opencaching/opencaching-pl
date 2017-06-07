@@ -9,6 +9,9 @@ ob_start();
 use Utils\Database\XDb;
 
 set_time_limit(1800);
+
+require_once ('./lib/calculation.inc.php');
+
 global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;
 
 $uamSize[1] = 'n'; // 'Nano'

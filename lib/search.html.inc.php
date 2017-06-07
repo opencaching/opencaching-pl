@@ -69,6 +69,8 @@ function fHideColumn($nr, $set)
 global $dbcSearch, $usr, $lang, $hide_coords, $cookie, $NrColSortSearch, $OrderSortSearch, $SearchWithSort, $TestStartTime, $queryFilter;
 require_once ($stylepath . '/lib/icons.inc.php');
 require_once ('lib/cache_icon.inc.php');
+require_once ('lib/calculation.inc.php');
+
 set_time_limit(1800);
 
 $dbc = OcDb::instance();

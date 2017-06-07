@@ -9,6 +9,8 @@ class View {
 
     //NOTE: local View vars should be prefixed by "_"
     private $_googleAnalyticsKey = '';              // GA key loaded from config
+    private $_loadJQuery = false;
+
 
     public function __construct(){
 
@@ -81,6 +83,10 @@ class View {
      */
     public function isGoogleAnalyticsEnabled(){
         return $this->_googleAnalyticsKey != '';
+    }
+
+    public function isjQueryEnabled(){
+        return $this->_loadJQuery;
     }
 
     private function error($message){

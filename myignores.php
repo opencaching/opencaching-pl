@@ -41,7 +41,8 @@ if ($error == false) {
                 if ($record['last_found'] == NULL || $record['last_found'] == '0000-00-00 00:00:00') {
                     $tmp_ignore = str_replace('{lastfound}', htmlspecialchars($no_found_date), $tmp_ignore);
                 } else {
-                    $tmp_ignore = str_replace('{lastfound}', htmlspecialchars(strftime($dateformat, strtotime($record['last_found']))), $tmp_ignore);
+                    $tmp_ignore = str_replace('{lastfound}', htmlspecialchars(strftime(
+                        $GLOBALS['config']['dateformat'], strtotime($record['last_found']))), $tmp_ignore);
                 }
 
                 $tmp_ignore = str_replace('{urlencode_cacheid}', htmlspecialchars(urlencode($record['cache_id'])), $tmp_ignore);

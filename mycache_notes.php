@@ -183,7 +183,8 @@ if ($error == false) {
                     if ($notes_record['log_date'] == NULL || $notes_record['log_date'] == '0000-00-00 00:00:00') {
                         $notes = mb_ereg_replace('{lastfound}', htmlspecialchars($no_found_date, ENT_COMPAT, 'UTF-8'), $notes);
                     } else {
-                        $notes = mb_ereg_replace('{lastfound}', htmlspecialchars(strftime($dateformat, strtotime($notes_record['log_date'])), ENT_COMPAT, 'UTF-8'), $notes);
+                        $notes = mb_ereg_replace('{lastfound}', htmlspecialchars(strftime(
+                            $GLOBALS['config']['dateformat'], strtotime($notes_record['log_date'])), ENT_COMPAT, 'UTF-8'), $notes);
                     };
 
                     if ($notes_record["log_deleted"] == 1) {  // if last record is deleted change icon and text

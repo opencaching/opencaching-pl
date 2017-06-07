@@ -7,6 +7,8 @@ use Utils\Database\OcDb;
 
 global $content, $bUseZip, $dbcSearch, $lang;
 
+require_once ('lib/calculation.inc.php');
+
 $encoding = 'UTF-8';
 $distance_unit = 'km';
 $xmlLine = "    <cache>

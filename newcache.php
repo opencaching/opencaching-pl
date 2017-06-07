@@ -6,6 +6,7 @@ use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\User\User;
 use Utils\Email\EmailSender;
+use Utils\Generators\Uuid;
 
 
 
@@ -83,7 +84,7 @@ if ($error == false) {
         $record = XDb::xFetchArray($rsnc);
         $num_caches = $record['num_caches'];
 
-        $cacheLimitByTypePerUser = common::getUserActiveCacheCountByType($db, $usr['userid']);
+        $cacheLimitByTypePerUser = GeoCache::getUserActiveCachesCountByType($usr['userid']);
 
         if ($num_caches < $NEED_APPROVE_LIMIT) {
             // user needs approvement for first 3 caches to be published
@@ -338,7 +339,7 @@ if ($error == false) {
         tpl_set_var('terrain_options', $terrain_options);
 
         //size options
-        tpl_set_var('sizeoptions', common::buildCacheSizeSelector($sel_type, $sel_size));
+        tpl_set_var('sizeoptions', buildCacheSizeSelector($sel_type, $sel_size));
         if ($sel_type == GeoCache::TYPE_VIRTUAL || $sel_type == GeoCache::TYPE_WEBCAM || $sel_type == GeoCache::TYPE_EVENT) {
             tpl_set_var('is_disabled_size', 'disabled');
         } else {
@@ -692,7 +693,7 @@ if ($error == false) {
                         $activation_date = null;
                     }
                 }
-                $cache_uuid = create_uuid();
+                $cache_uuid = Uuid::create();
 
                 //add record to caches table
                 XDb::xSql(
@@ -739,7 +740,7 @@ if ($error == false) {
                 // waypoint erstellen
                 setCacheWaypoint($cache_id, $oc_waypoint);
 
-                $desc_uuid = create_uuid();
+                $desc_uuid = Uuid::create();
                 //add record to cache_desc table
                 $desc = userInputFilter::purifyHtmlString($desc);
 
@@ -793,6 +794,30 @@ tpl_set_var('language4js', $lang);
 if ($no_tpl_build == false) {
     //make the template and send it out
     tpl_BuildTemplate();
+}
+
+function buildCacheSizeSelector($sel_type, $sel_size)
+{
+    $cache = cache::instance();
+    $cacheSizes = $cache->getCacheSizes();
+
+    $sizes = '<option value="-1" disabled selected="selected">' . tr('select_one') . '</option>';
+    foreach ($cacheSizes as $size) {
+        if ($sel_type == cache::TYPE_EVENT || $sel_type == cache::TYPE_VIRTUAL || $sel_type == cache::TYPE_WEBCAM) {
+            if ($size['id'] == cache::SIZE_NOCONTAINER) {
+                $sizes .= '<option value="' . $size['id'] . '" selected="selected">' . tr($size['translation']) . '</option>';
+            } else {
+                $sizes .= '<option value="' . $size['id'] . '">' . tr($size['translation']) . '</option>';
+            }
+        } elseif ($size['id'] != cache::SIZE_NOCONTAINER) {
+            if ($size['id'] == $sel_size) {
+                $sizes .= '<option value="' . $size['id'] . '" selected="selected">' . tr($size['translation']) . '</option>';
+            } else {
+                $sizes .= '<option value="' . $size['id'] . '">' . tr($size['translation']) . '</option>';
+            }
+        }
+    }
+    return $sizes;
 }
 
 function getDefaultCountry($usr, $lang)

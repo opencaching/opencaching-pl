@@ -71,6 +71,13 @@ if ($usr['admin']) {
                     $mailcontent = mb_ereg_replace('{newNewsTopic_04}', tr('newNewsTopic_04'), $mailcontent);
                     $mailcontent = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $mailcontent);
 
+                    global $emailaddr;
+                    $emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
+                    $emailheaders .= "Content-Transfer-Encoding: 8bit\r\n";
+                    $emailheaders .= 'From: "' . $emailaddr . '" <' . $emailaddr . '>';
+
+
+
                     //TODO: use Email() class here...
                     mb_send_mail($news_approver_email, $email_subject, $mailcontent, $emailheaders);
                 }

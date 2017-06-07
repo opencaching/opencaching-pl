@@ -149,8 +149,6 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
 {
     //template handling vars
     global $stylepath, $tplname, $vars, $lang, $menu, $config, $usr;
-    global $datetimeformat, $dateformat;
-
 
     // object
     /** @var View $view */

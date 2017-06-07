@@ -4,9 +4,13 @@ use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCacheLog;
 use Utils\Gis\Gis;
 use Utils\Text\Rot13;
+
 global $lang, $rootpath, $usr, $dateFormat;
+
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
+require_once('./lib/calculation.inc.php');
+
 require_once('./lib/cache_icon.inc.php');
 require_once($rootpath . 'lib/caches.inc.php');
 require_once($stylepath . '/lib/icons.inc.php');

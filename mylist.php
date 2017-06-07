@@ -66,7 +66,8 @@ if ($error == false) {
                 if ($record['last_found'] == NULL || $record['last_found'] == '0000-00-00 00:00:00') {
                     $tmp_list = mb_ereg_replace('{lastfound}', htmlspecialchars($no_found_date, ENT_COMPAT, 'UTF-8'), $tmp_list);
                 } else {
-                    $tmp_list = mb_ereg_replace('{lastfound}', htmlspecialchars(strftime($dateformat, strtotime($record['last_found'])), ENT_COMPAT, 'UTF-8'), $tmp_list);
+                    $tmp_list = mb_ereg_replace('{lastfound}', htmlspecialchars(strftime(
+                        $GLOBALS['config']['dateformat'], strtotime($record['last_found'])), ENT_COMPAT, 'UTF-8'), $tmp_list);
                 }
 
                 $tmp_list = mb_ereg_replace('{urlencode_cacheid}', htmlspecialchars(urlencode($record['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_list);

@@ -76,7 +76,7 @@ if ($sCode != '') {
     if (mb_strlen($sCode) == 2) {
         $code1 = $sCode;
 
-        if (checkField('countries', 'list_default_' . $lang))
+        if (Xdb::xContainsColumn('countries', 'list_default_' . $lang))
             $lang_db = $lang;
         else
             $lang_db = "en";

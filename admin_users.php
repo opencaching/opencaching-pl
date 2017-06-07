@@ -13,7 +13,7 @@ if ($usr['admin']) {
         tpl_set_var('userid', $user_id);
     }
 
-    if (checkField('countries', $lang))
+    if (Xdb::xContainsColumn('countries', $lang))
         $lang_db = $lang;
     else
         $lang_db = "en";

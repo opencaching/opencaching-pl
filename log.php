@@ -9,10 +9,8 @@ use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\User\User;
 use lib\Objects\GeoKret\GeoKretLog;
 use lib\Controllers\GeoKretyController;
-
-
-
 use lib\Controllers\MeritBadgeController;
+use Utils\Generators\Uuid;
 
 /* todo:
   create and set up 4 template selector with wybor_WE wybor_NS.
@@ -444,7 +442,7 @@ if ($error == false) {
                     // nie wybrano opcji oceny
                 }
                 $log_date = date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year));
-                $log_uuid = create_uuid();
+                $log_uuid = Uuid::create();
 
                 $logDateTime = new DateTime($log_date);
                 if (!compareTime($logDateTime, "PT1H")) { //if logging time is older then now-one_hour
@@ -533,7 +531,7 @@ if ($error == false) {
                             $init_log_userID = $tmp_move_data['user_id'];
                             $init_log_date = $tmp_move_data['date_hidden'];
 
-                            $init_log_uuid = create_uuid();
+                            $init_log_uuid = Uuid::create();
 
                             XDb::xSql(
                                 "INSERT INTO `cache_logs` (

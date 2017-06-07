@@ -11,11 +11,15 @@ use Utils\Text\Rot13;
 
 global $content, $bUseZip, $hide_coords, $usr, $lang, $dbcSearch;
 
-    set_time_limit(1800);
-    $cache = cache::instance();
-    $cacheSizes = $cache->getCacheSizes();
-    $cacheTypesArr = $cache->getCacheTypeIcons();
-    $cacheStatusArr = $cache->getCacheStatuses();
+set_time_limit(1800);
+
+require_once ('lib/calculation.inc.php');
+
+
+$cache = cache::instance();
+$cacheSizes = $cache->getCacheSizes();
+$cacheTypesArr = $cache->getCacheTypeIcons();
+$cacheStatusArr = $cache->getCacheStatuses();
 
     $txtLine = chr(239) . chr(187) . chr(191) .tr('search_text_01')." {mod_suffix}{cachename} ".tr('search_text_02')." {owner}
 ".tr('search_text_03')." {lat} {lon}

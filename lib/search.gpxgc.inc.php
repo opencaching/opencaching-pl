@@ -8,6 +8,7 @@ use lib\Objects\GeoCache\GeoCacheCommons;
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $queryFilter;
 
 require_once($rootpath . 'lib/format.gpx.inc.php');
+require_once($rootpath . 'lib/calculation.inc.php');
 
 set_time_limit(1800);
 

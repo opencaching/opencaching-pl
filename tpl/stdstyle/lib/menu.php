@@ -312,10 +312,10 @@ $menu = array(
         'filename' => 'mylist.php'
     ),
     array(
-        'title' => tr('login') . '/' . tr('logout'),
+        'title' => tr('login'),
         'visible' => false,
         'filename' => 'login.php',
-        'menustring' => tr('login') . '/' . tr('logout'),
+        'menustring' => tr('login'),
         'navicolor' => '#E8DDE4',
         'siteid' => 'login'
     ),

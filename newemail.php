@@ -70,10 +70,19 @@ if ($error == false) {
                     $email_content = mb_ereg_replace('{newEmailAddr_06}', tr('newEmailAddr_06'), $email_content);
                     $email_content = mb_ereg_replace('{newEmailAddr_07}', tr('newEmailAddr_07'), $email_content);
                     $email_content = mb_ereg_replace('{user}', $usr['username'], $email_content);
-                    $email_content = mb_ereg_replace('{date}', strftime($datetimeformat), $email_content);
+                    $email_content = mb_ereg_replace('{date}', strftime(
+                        $GLOBALS['config']['datetimeformat']), $email_content);
                     $email_content = mb_ereg_replace('{code}', $secure_code, $email_content);
                     $email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);
-                    //email versenden
+
+
+                    global $emailaddr;
+
+                    $emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
+                    $emailheaders .= "Content-Transfer-Encoding: 8bit\r\n";
+                    $emailheaders .= 'From: "' . $emailaddr . '" <' . $emailaddr . '>';
+
+
                     mb_send_mail($new_email, $email_subject, $email_content, $emailheaders);
 
                     tpl_set_var('message', $email_send);

@@ -8,7 +8,8 @@ ob_start();
 use Utils\Database\XDb;
 
 global $absolute_server_URI, $bUseZip, $usr, $hide_coords, $lang, $dbcSearch, $queryFilter;
-require_once($rootpath . 'lib/format.kml.inc.php');
+require_once ($rootpath . 'lib/format.kml.inc.php');
+require_once ($rootpath . 'lib/calculation.inc.php');
 
 set_time_limit(1800);
 
