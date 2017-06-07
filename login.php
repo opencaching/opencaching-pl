@@ -1,128 +1,84 @@
 <?php
 
-/* * *************************************************************************
-  ./login.php
-  -------------------
-  begin                : Mon June 14 2004
-  copyright            : (C) 2004 The OpenCaching Group
-  forum contact at     : http://www.opencaching.com/phpBB2
+use Utils\View\View;
 
- * ************************************************************************* */
-
-/* * *************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * ************************************************************************* */
-
-//prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
-$no_tpl_build = false;
-$message = false;
-//Preprocessing
-if ($error == false) {
-    //load language specific variables
-    require_once($stylepath . '/login.inc.php');
 
-    $target = '';
-    if (isset($_REQUEST['target'])){
-        $target = $_REQUEST['target'];
-    }
-    if ($target == '') {
-        $target = 'index.php';
-    }
+// check target to redirect after login
+$target = 'index.php';
+if (isset($_REQUEST['target'])){
+    $target = $_REQUEST['target'];
+}
 
-    if (isset($_REQUEST['action'])) {
-        if ($_REQUEST['action'] == 'cookieverify') {
-            if (!isset($_COOKIE[$opt['cookie']['name'] . 'data'])){
-                tpl_errorMsg('login', $cookies_error);
-            } else {
-                tpl_redirect($target);
-            }
-            exit;
-        }
-    }
 
-    //set up the template replacements
-    tpl_set_var('username', '');
-    tpl_set_var('target', $target);
-
-    //already logged in?
-    if ($usr == false) {
-        //set login template
-        $tplname = 'login';
-
-        //get the login email address and password
-        $usr['email'] = isset($_POST['email']) ? $_POST['email'] : '';
-        $usr['password'] = isset($_POST['password']) ? $_POST['password'] : '';
-
-        if (($usr['email'] != '') && ($usr['password'] != '')) {
-            //try to log in
-            $retval = auth_login($usr['email'], $usr['password']);
-
-            //delete password
-            unset($usr['password']);
-
-            if ($retval == false) {
-                //login not ok
-                switch ($autherr) {
-                    case AUTHERR_TOOMUCHLOGINS:
-                        $message = $error_toomuchlogins;
-                        break;
-                    case AUTHERR_INVALIDEMAIL:
-                        $message = $error_invalidemail;
-                        break;
-                    case AUTHERR_WRONGAUTHINFO:
-                        $message = $error_wrongauthinfo;
-                        break;
-                    case AUTHERR_USERNOTACTIVE:
-                        $message = $error_usernotactive;
-                        break;
-                    default:
-                        $message = $error_loginnotok;
-                        break;
-                }
-
-                //login not ok
-                unset($usr['email']);
-                unset($usr);
-                $usr = false;
-            } else {
-                //login ok
-                $usr['userid'] = $retval;
-                $usr['username'] = auth_UsernameFromID($usr['userid']);
-                tpl_redirect('login.php?action=cookieverify&target=' . urlencode($target));
-                exit;
-            }
-        } else if (isset($_REQUEST['target'])) {
-            //$message = $emptyform;
-        }
+if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'cookieverify') {
+    if (!isset($_COOKIE[$opt['cookie']['name'] . 'data'])){
+        tpl_errorMsg('login', tr('login_cantSetCookie'));
     } else {
-        tpl_redirect('login.php?action=cookieverify&target=' . urlencode($target));
+        tpl_redirect($target);
+    }
+    exit;
+}
 
-        //logout before login
-        /* $tplname = 'message';
-          tpl_set_var('messagetitle', $message_logout_before_login_title);
-          $message = $message_logout_before_login; */
+
+global $usr;
+
+if($usr != false){
+    //alredy logged in...
+    tpl_redirect('login.php?action=cookieverify&target=' . urlencode($target));
+    exit;
+}
+
+
+// if-currently-not-logged-in
+
+tpl_set_tplname('login');
+$view = tpl_getView();
+$view->loadJQuery();
+
+$view->setVar('target', $target);
+
+//get the login email address and password
+if(isset($_POST['email']) && isset($_POST['password'])){
+
+    $userEmail = $_POST['email'];
+    $userPassword = $_POST['password'];
+
+    if ( !empty($userEmail) && !empty($userPassword)) {
+
+        global $login; //login.class instance
+        $loginResult = $login->try_login($userEmail, $userPassword, null);
+
+        if($loginResult == LOGIN_OK){
+
+            $usr = [];
+            $usr['userid'] = $login->userid;
+            //$usr['username'] = auth_UsernameFromID($usr['userid']);
+            tpl_redirect('login.php?action=cookieverify&target=' . urlencode($target));
+            exit;
+
+        }else{ // login error
+            $usr = false;
+
+            switch ($loginResult) {
+                case LOGIN_TOOMUCHLOGINS:
+                    $view->setVar('errorMsg', tr('login_tooManyTries'));
+                    break;
+                case LOGIN_USERNOTACTIVE:
+                    $view->setVar('errorMsg', tr('error_usernotactive'));
+
+                    break;
+                case LOGIN_BADUSERPW:
+                default:
+                    $view->setVar('errorMsg', tr('login_badCredentials'));
+            }
+        }
+
+    }else{
+        $view->setVar('errorMsg', tr('login_badCredentials'));
     }
 }
 
-if ($message != '') {
-    tpl_set_var('message_start', $message_start);
-    tpl_set_var('message_end', $message_end);
-    tpl_set_var('message', $message);
-} else {
-    tpl_set_var('message_start', '');
-    tpl_set_var('message_end', '');
-    tpl_set_var('message', '');
-}
+tpl_BuildTemplate();
 
-if ($no_tpl_build == false) {
-    //make the template and send it out
-    tpl_BuildTemplate();
-}
-?>

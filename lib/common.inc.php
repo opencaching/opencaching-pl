@@ -11,6 +11,8 @@ use Utils\View\View;
 use Utils\Uri\Uri;
 use Utils\I18n\I18n;
 use Utils\I18n\Languages;
+use lib\Objects\ApplicationContainer;
+use lib\Objects\User\User;
 
 session_start();
 
@@ -42,7 +44,7 @@ $GLOBALS['style'] = $style;
 require_once($rootpath . 'lib/common_tpl_funcs.php'); // template engine
 require_once($rootpath . 'lib/cookie.class.php');     // class used to deal with cookies
 require_once($rootpath . 'lib/language.inc.php');     // main translation funcs
-require_once($rootpath . 'lib/auth.inc.php');         // authentication funcs
+require_once($rootpath . 'lib/login.class.php');        // authentication funcs
 
 // yepp, we will use UTF-8
 mb_internal_encoding('UTF-8');
@@ -72,30 +74,41 @@ loadTranslation();
 function processAuthentication(){
 
     $db = OcDb::instance();
+    $view = tpl_getView();
 
     //user authenification from cookie
-    auth_user();
+    global $usr, $login;
 
-    global $view;
+    $login->verify();
+    if ($login->userid != 0) {   //user already logged in
 
-    if ($GLOBALS['usr'] == false) { // no-user-logged-in
+        $user = User::fromUserIdFactory($login->userid);
 
-        $view->setVar('_isUserLogged', false);
-        $view->setVar('_target',Uri::getCurrentUri());
+        $applicationContainer = ApplicationContainer::Instance();
+        $applicationContainer->setLoggedUser($user);
 
-    } else { // user-logged-in
+        // set obsolate global $usr[] array
+        $usr['username'] = $user->getUserName();
+        $usr['hiddenCacheCount'] = $user->getHiddenGeocachesCount();
+        $usr['logNotesCount'] = $user->getLogNotesCount();
+        $usr['userFounds'] = $user->getFoundGeocachesCount();
+        $usr['notFoundsCount'] = $user->getNotFoundGeocachesCount();
+        $usr['userid'] = $user->getUserId();
+        $usr['email'] = $user->getEmail();
+        $usr['country'] = $user->getCountry();
+        $usr['latitude'] = $user->getHomeCoordinates()->getLatitude();
+        $usr['longitude'] = $user->getHomeCoordinates()->getLongitude();
+        $usr['admin'] = $user->isAdmin();
+
 
         // check for user_id in session
         if (!isset($_SESSION['user_id'])) {
-            $_SESSION['user_id'] = $GLOBALS['usr']['userid'];
+            $_SESSION['user_id'] = $user->getUserId();
         }
 
         if($GLOBALS['config']['checkRulesConfirmation']){
-            // check for rules confirmation
-            $rules_confirmed = $db->multiVariableQueryValue(
-                "SELECT `rules_confirmed` FROM `user` WHERE `user_id` = :1", 0, $GLOBALS['usr']['userid']);
 
-            if ($rules_confirmed == 0) {
+            if (! $user->areRulesConfirmed() ) {
                 if (!isset($_SESSION['called_from_confirm']))
                     header("Location: confirm.php");
                     else
@@ -108,12 +121,15 @@ function processAuthentication(){
         }
 
         $view->setVar('_isUserLogged', true);
-        $view->setVar('_username', $GLOBALS['usr']['username']);
+        $view->setVar('_username', $user->getUserName());
         $view->setVar('_logoutCookie', $_SESSION['logout_cookie']);
 
 
-        $GLOBALS['usr']['admin'] = $db->multiVariableQueryValue(
-            'SELECT admin FROM user WHERE user_id=:1', 0, $GLOBALS['usr']['userid']);
+    } else {
+        $usr = false;
+
+        $view->setVar('_isUserLogged', false);
+        $view->setVar('_target',Uri::getCurrentUri());
 
     }
 }
@@ -201,16 +217,9 @@ function loadTranslation(){
 
 
 
-
-
-
-
 /*
  * TODO: Remove all functions below from here!
  */
-
-
-
 
 // decimal longitude to string E/W hhh°mm.mmm
 function help_lonToDegreeStr($lon, $type = 1)

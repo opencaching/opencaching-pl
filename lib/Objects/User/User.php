@@ -13,8 +13,6 @@ use lib\Objects\PowerTrail\PowerTrail;
 
 /**
  * Description of user
- *
- * @author Łza
  */
 class User extends BaseObject
 {
@@ -64,13 +62,15 @@ class User extends BaseObject
     /* user identifier used to communication with geoKrety Api*/
     private $geokretyApiSecid;
 
+    private $rulesConfirmed = false;
+
     const REGEX_USERNAME = '^[a-zA-Z0-9ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ@-][a-zA-ZęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ0-9\.\-=_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\ -=&*+~#]{2,59}$';
     const REGEX_PASSWORD = '^[a-zA-Z0-9\.\-_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\$&*+~#]{3,60}$';
 
 
     const COMMON_COLLUMNS = "user_id, username, founds_count, notfounds_count,
                        hidden_count, latitude, longitude, country,
-                       email, admin, guru, verify_all";
+                       email, admin, guru, verify_all, rules_confirmed";
 
     /**
      * construct class using $userId (fields will be loaded from db)
@@ -246,7 +246,9 @@ class User extends BaseObject
                 case 'verify_all':
                     $this->verifyAll = $value;
                     break;
-
+                case 'rules_confirmed':
+                    $this->rulesConfirmed = Php7Handler::Boolval($value);
+                    break;
                 /* db fields not used in this class yet*/
                 case 'password':
                 case 'last_login':
@@ -273,9 +275,6 @@ class User extends BaseObject
     /**
      * after delete a log it is a good idea to full recalculate stats of user, that can avoid
      * possible errors which used to appear when was calculated old method.
-     *
-     * by Andrzej Łza Woźniak, 10-2013
-     *
      */
     public function recalculateAndUpdateStats()
     {
@@ -388,6 +387,14 @@ class User extends BaseObject
     public function isGuide()
     {
         return $this->isGuide;
+    }
+
+    public function getCountry(){
+        return $this->country;
+    }
+
+    public function areRulesConfirmed(){
+        return $this->rulesConfirmed;
     }
 
     /**
