@@ -31,8 +31,7 @@ if ($error == false) {
                     XDb::xSql("UPDATE `user` SET `is_active_flag`=1, `activation_code`='' WHERE `user_id`= ? ", $r['id']);
                     tpl_set_var('success_message', tr('activation_success'));
                     tpl_set_var('login_url', '<a href="login.php">'.tr('goto_login').'</a><br />');
-                    EmailSender::sendPostActivationMail(__DIR__ . '/tpl/stdstyle/email/post_activation.email.html',
-                        $r['username'], $r['email']);
+                    EmailSender::sendPostActivationMail($r['username'], $r['email']);
                 } else {
                     tpl_set_var('error_message', tr('activation_error1'));
                 }

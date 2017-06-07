@@ -106,8 +106,7 @@ if ($error == false) {
                     $username, hash('sha512', md5($password)),
                     $email, $country, $uuid, $activationcode, $oc_nodeid, $rules_conf_req);
 
-                EmailSender::sendActivationMessage(__DIR__ . '/tpl/stdstyle/email/user_activation.email.html',
-                    $username, $country, $activationcode, $email, $uuid);
+                EmailSender::sendActivationMessage($username, $country, $activationcode, $email, $uuid);
 
                 //display confirmationpage
                 $tplname = 'register_confirm';

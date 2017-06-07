@@ -29,6 +29,7 @@ class User extends BaseObject
     private $hiddenGeocachesCount;
     private $logNotesCount;
     private $email;
+    private $isActive;
 
     /* @var $homeCoordinates Coordinates */
     private $homeCoordinates;
@@ -70,7 +71,7 @@ class User extends BaseObject
 
     const COMMON_COLLUMNS = "user_id, username, founds_count, notfounds_count,
                        hidden_count, latitude, longitude, country,
-                       email, admin, guru, verify_all";
+                       email, admin, guru, verify_all, is_active_flag";
 
     /**
      * construct class using $userId (fields will be loaded from db)
@@ -243,6 +244,9 @@ class User extends BaseObject
                 case 'log_notes_count':
                     $this->logNotesCount = $value;
                     break;
+                case 'is_active_flag':
+                    $this->isActive = $value;
+                    break;
                 case 'verify_all':
                     $this->verifyAll = $value;
                     break;
@@ -250,7 +254,6 @@ class User extends BaseObject
                 /* db fields not used in this class yet*/
                 case 'password':
                 case 'last_login':
-                case 'is_active_flag':
                 case 'hide_flag':
                 case 'date_created':
                 case 'description':
@@ -331,6 +334,9 @@ class User extends BaseObject
         return $this->userName;
     }
 
+    /**
+     * @return string
+     */
     public function getProfileUrl()
     {
         return $this->profileUrl;
@@ -388,6 +394,14 @@ class User extends BaseObject
     public function isGuide()
     {
         return $this->isGuide;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActive()
+    {
+        return $this->isActive;
     }
 
     /**
@@ -458,8 +472,6 @@ class User extends BaseObject
         }
         return $this->geocaches;
     }
-
-
 
     public function appendNotPublishedGeocache(GeoCache $geocache)
     {
