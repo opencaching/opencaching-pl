@@ -63,6 +63,10 @@ class Languages
                 setlocale(LC_CTYPE, 'hu_HU.UTF-8');
                 setlocale(LC_TIME, 'hu_HU.UTF-8');
                 break;
+            case 'en':
+                setlocale(LC_CTYPE, 'en_EN');
+                setlocale(LC_TIME, 'en_EN');
+                break;
             default:
                 error_log(__METHOD__.": Error: trying to load unsupported locale: $langCode !?");
                 setlocale(LC_CTYPE, 'en_EN');
