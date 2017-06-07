@@ -1,0 +1,2 @@
+ALTER TABLE `PowerTrail` ADD `uuid` VARCHAR(36) NULL DEFAULT NULL AFTER `points`;
+ALTER TABLE `PowerTrail` ADD INDEX(`uuid`);
