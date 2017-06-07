@@ -131,6 +131,8 @@ class PowerTrail extends BaseObject
                 case 'centerLongitude':
                     // cords are handled below...
                     break;
+                case 'uuid': //uuid is not supportet yet
+                    break;
                 default:
                     error_log(__METHOD__ . ": Unknown column: $key");
             }
