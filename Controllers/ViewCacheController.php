@@ -277,10 +277,10 @@ class ViewCacheController extends BaseController
                 //is this cache watched by this user?
 
                 if (!$this->geocache->isWatchedBy($this->loggedUser->getUserId())) {
-                    $this->view->setVar('watchLink','watchcache.php?cacheid=' . $this->cache_id . '&amp;target=' . Uri::getCurrentUri(true));
+                    $this->view->setVar('watchLink','watchcache.php?cacheid=' . $this->cache_id . '&amp;target=' . Uri::getCurrentUri());
                     $this->view->setVar('watchLabel',tr('watch'));
                 } else {
-                    $this->view->setVar('watchLink','removewatch.php?cacheid=' . $this->cache_id . '&amp;target=' . Uri::getCurrentUri(true));
+                    $this->view->setVar('watchLink','removewatch.php?cacheid=' . $this->cache_id . '&amp;target=' . Uri::getCurrentUri());
                     $this->view->setVar('watchLabel',tr('watch_not'));
                 }
             }
@@ -290,10 +290,10 @@ class ViewCacheController extends BaseController
 
                 if(!$this->geocache->isIgnoredBy($this->loggedUser->getUserId())){
 
-                    $this->view->setVar('ignoreLink',"addignore.php?cacheid=" . $this->cache_id . "&amp;target=" . Uri::getCurrentUri(true));
+                    $this->view->setVar('ignoreLink',"addignore.php?cacheid=" . $this->cache_id . "&amp;target=" . Uri::getCurrentUri());
                     $this->view->setVar('ignoreLabel',tr('ignore'));
                 } else {
-                    $this->view->setVar('ignoreLink',"removeignore.php?cacheid=" . $this->cache_id . "&amp;target=" . Uri::getCurrentUri(true));
+                    $this->view->setVar('ignoreLink',"removeignore.php?cacheid=" . $this->cache_id . "&amp;target=" . Uri::getCurrentUri());
                     $this->view->setVar('ignoreLabel',tr('ignore_not'));
                 }
             }

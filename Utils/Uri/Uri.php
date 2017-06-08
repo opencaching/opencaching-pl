@@ -64,9 +64,9 @@ class Uri {
         return $uri;
     }
 
-    public static function getCurrentUri($skipPrecedingSlash = false)
+    public static function getCurrentUri($savePrecedingSlash = false)
     {
-       return (!$skipPrecedingSlash) ? $_SERVER['REQUEST_URI'] : substr($_SERVER['REQUEST_URI'], 1);
+       return ($savePrecedingSlash) ? $_SERVER['REQUEST_URI'] : substr($_SERVER['REQUEST_URI'], 1);
     }
 
     /**
