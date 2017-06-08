@@ -1,0 +1,42 @@
+
+span.level {
+    display: block;
+    width: 25px;  
+    float: left;
+    clear: none;
+    text-align: right;
+    padding: 0 5px ;
+}
+
+p.emphasis {
+    font-weight: bold;
+}
+
+div.results{
+    margin: 0 25px 5px 0;
+}
+
+#rating-form label {
+  display: block;
+  padding: 2px 1em 0 0;
+}
+
+#rating-form input[type=radio] {
+  float: left;
+  clear: none;
+  margin: 2px 5px 0 2px;
+}
+
+#rating-form fieldset {
+  margin: 10px 20px 0 0;
+}
+
+
+#rating-form legend {
+  font-weight: bold;
+}
+.rating-buttons {
+  text-align: center;
+  width: 100%;
+  margin: 10px 0 20px 0;
+}
