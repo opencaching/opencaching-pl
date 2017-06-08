@@ -56,6 +56,11 @@ if (date('m') == 12 || date('m') == 1) {
         <link rel="shortcut icon" href="/images/<?=$config['headerFavicon']?>">
         <link rel="apple-touch-icon-precomposed" href="/images/oc_logo_144.png">
 
+
+        <?php foreach( $view->getLocalCss() as $css ) { ?>
+          <link rel="stylesheet" type="text/css" href="<?=$css?>">
+        <?php } //foreach-css ?>
+
         <title><?=$tpl_subtitle?>{title}</title>
 
         <script type="text/javascript" src="lib/enlargeit/enlargeit.js"></script>

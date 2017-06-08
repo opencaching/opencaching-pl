@@ -12,10 +12,15 @@
         <meta http-equiv="cache-control" content="no-cache" />
         <meta name="KEYWORDS" content="geocaching, opencaching, skarby, poszukiwania, geocashing, longitude, latitude, utm, coordinates, treasure hunting, treasure, GPS, global positioning system, garmin, magellan, mapping, geo, hiking, outdoors, sport, hunt, stash, cache, geocaching, geocache, cache, treasure, hunting, satellite, navigation, tracking, bugs, travel bugs" />
         <meta name="author" content="Opencaching.pl " />
+
         <link rel="stylesheet" type="text/css" media="screen,projection" href="<?=$view->screenCss?>" />
         <link rel="stylesheet" type="text/css" media="print" href="<?=$view->printCss?>" />
         <link rel="SHORTCUT ICON" href="favicon.ico" />
         <link rel="apple-touch-icon-precomposed" href="/images/oc_logo_144.png" />
+
+        <?php foreach( $view->getLocalCss() as $css ) { ?>
+          <link rel="stylesheet" type="text/css" href="<?=$css?>">
+        <?php } //foreach-css ?>
 
         <?php
             if( $view->isGoogleAnalyticsEnabled() ){

@@ -11,6 +11,7 @@ class View {
     private $_googleAnalyticsKey = '';              // GA key loaded from config
     private $_loadJQuery = false;
 
+    private $_localCss = [];                        // page-local css styles loaded from controller
 
     public function __construct(){
 
@@ -109,6 +110,18 @@ class View {
             case 'summer':
                 return $season;
         }
+    }
+
+    /**
+     * Add css which will be loaded in page header
+     * @param $url - url to css
+     */
+    public function addLocalCss($css_url){
+        $this->_localCss[] = $css_url;
+    }
+
+    public function getLocalCss(){
+        return $this->_localCss;
     }
 
 }
