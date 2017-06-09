@@ -11,7 +11,7 @@ function findColumn($name, $type = "C")
 {
     global $colNameSearch;
 
-    for ($i = 0; $i < 19; $i ++) {
+    for ($i = 0; $i < 20; $i ++) {
         if ($colNameSearch[$i][$type] == $name)
             return $i;
     }
@@ -154,7 +154,11 @@ $colNameSearch = array(
     18 => array(
         "C" => "",
         "O" => tr('srch_Send_to_GPS')
-    )
+    ),
+    19 => array(
+        "C" => "cache_code",
+        "O" => "cache_code"
+    ),
 );
 
 $sDefCol4Search = "DefCol4Search";
