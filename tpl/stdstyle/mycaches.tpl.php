@@ -15,7 +15,7 @@
             <a class="btn btn-default btn-sm" href="mycaches.php?status=6">{{blocked}} ({blockedN})</a>
     </div>
 </div>
-    
+
 <p>&nbsp;</p>
 <div class="searchdiv">
     <table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.4em; font-size: 13px;" width="95%">

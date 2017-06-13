@@ -287,7 +287,7 @@ final class OcConfig
     public static function getNeedFindLimit() {
         return self::instance()->needFindLimit;
     }
-    
+
     public static function getNeedAproveLimit() {
         return self::instance()->needAproveLimit;
     }

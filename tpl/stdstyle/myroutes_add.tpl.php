@@ -47,7 +47,7 @@
             <tr class="form-group-sm">
                 <td valign="top"><span style="font-weight:bold;">{{file_name}} KML:</span></td>
                 <td>
-                
+
                     <div class="form-inline">
                     <?php $view->callChunk('fileUpload','file', '.kml','51200'); ?>
                     </div>

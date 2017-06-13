@@ -20,7 +20,7 @@ if (isset($_GET['wp']) && !empty($_GET['wp']) && isset($_GET['output']) && !empt
         exit;
     }
 
-    
+
 
     $wpts = explode("|", XDb::xEscape($_GET['wp']));
     $output = XDb::xEscape($_GET['output']);

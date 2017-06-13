@@ -189,7 +189,7 @@ if ($error == false) {
             $data = GeoCacheLog::cleanLogTextForToolTip( $r_log['log_text'] );
 
             if (
-            	$r_log['encrypt'] == 1 && $r_log['cache_owner'] != $usr['userid'] && $r_log['luser_id'] != $usr['userid']) {
+                $r_log['encrypt'] == 1 && $r_log['cache_owner'] != $usr['userid'] && $r_log['luser_id'] != $usr['userid']) {
                 //crypt the log ROT13, but keep HTML-Tags and Entities
                 $data = Rot13::withoutHtml($data);
             } else {

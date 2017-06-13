@@ -3,7 +3,7 @@
 /**
 * Pastel Theme class
 */
-class PastelTheme extends Theme 
+class PastelTheme extends Theme
 {
     private $font_color       = '#0044CC';
     private $background_color = '#DDFFFF';
@@ -49,14 +49,14 @@ class PastelTheme extends Theme
         $graph->legend->SetMarkAbsSize(5);
 
         // xaxis
-        $graph->xaxis->title->SetColor($this->font_color);  
-        $graph->xaxis->SetColor($this->axis_color, $this->font_color);    
+        $graph->xaxis->title->SetColor($this->font_color);
+        $graph->xaxis->SetColor($this->axis_color, $this->font_color);
         $graph->xaxis->SetTickSide(SIDE_BOTTOM);
         $graph->xaxis->SetLabelMargin(10);
-                
+
         // yaxis
-        $graph->yaxis->title->SetColor($this->font_color);  
-        $graph->yaxis->SetColor($this->axis_color, $this->font_color);    
+        $graph->yaxis->title->SetColor($this->font_color);
+        $graph->yaxis->SetColor($this->axis_color, $this->font_color);
         $graph->yaxis->SetTickSide(SIDE_LEFT);
         $graph->yaxis->SetLabelMargin(8);
         $graph->yaxis->HideLine();
@@ -113,7 +113,7 @@ class PastelTheme extends Theme
     function ApplyPlot($plot) {
 
         switch (get_class($plot))
-        { 
+        {
             case 'GroupBarPlot':
             {
                 foreach ($plot->plots as $_plot) {
@@ -163,7 +163,7 @@ class PastelTheme extends Theme
                 $plot->SetSliceColors($this->GetThemeColors());
                 break;
             }
-    
+
             default:
             {
             }

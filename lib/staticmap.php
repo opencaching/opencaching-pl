@@ -29,11 +29,11 @@
 error_reporting(0);
 ini_set('display_errors', 'off');
 if (!isset($rootpath))
-	$rootpath = '../';
+    $rootpath = '../';
 
 require_once ($rootpath . 'lib/settings.inc.php');
 
-	
+
 
 Class staticMapLite
 {
@@ -45,7 +45,7 @@ Class staticMapLite
     protected $tileSize = 256;
     protected $tileSrcUrl = array('mapnik' => 'http://tile.openstreetmap.org/{Z}/{X}/{Y}.png', // -> http://openstreetmap.org
         'sterrain' => 'http://d.tile.stamen.com/terrain/{Z}/{X}/{Y}.png',  // -> http://maps.stamen.com/
-   		'stoner' => 'http://d.tile.stamen.com/toner/{Z}/{X}/{Y}.png',      // -> http://maps.stamen.com/
+        'stoner' => 'http://d.tile.stamen.com/toner/{Z}/{X}/{Y}.png',      // -> http://maps.stamen.com/
         'cycle' => 'http://a.tile.opencyclemap.org/cycle/{Z}/{X}/{Y}.png', // -> http://opencyclemap.org
     );
 
@@ -53,28 +53,28 @@ Class staticMapLite
     protected $markerBaseDir = '../images/markers';
     protected $atrribution = '(c) OpenStreetMap contributors';
 
-	
-	
-    protected $markerPrototypes = array(	
+
+
+    protected $markerPrototypes = array(
         'marker-blue' => array('regex' => '/^marker-blue([A-Z]+)$/',
             'extension' => '.png',
             'shadow' => false,
             'offsetImage' => '-12,-39',
             'offsetShadow' => false
         ),
-    	'marker-orange' => array('regex' => '/^marker-orange([A-Z]+)$/',
-    		'extension' => '.png',
-    		'shadow' => false,
-    		'offsetImage' => '-12,-39',
-    		'offsetShadow' => false
-    	),    		
-    	'marker-small' => array('regex' => '/^mark-small(|-blue|-orange)$/',
-    		'extension' => '.png',
-    		'shadow' => false,
-    		'offsetImage' => '-8,-23',
-    		'offsetShadow' => false
-    	)    		
-    		
+        'marker-orange' => array('regex' => '/^marker-orange([A-Z]+)$/',
+            'extension' => '.png',
+            'shadow' => false,
+            'offsetImage' => '-12,-39',
+            'offsetShadow' => false
+        ),
+        'marker-small' => array('regex' => '/^mark-small(|-blue|-orange)$/',
+            'extension' => '.png',
+            'shadow' => false,
+            'offsetImage' => '-8,-23',
+            'offsetShadow' => false
+        )
+
     );
 
 
@@ -93,8 +93,8 @@ Class staticMapLite
 
     public function __construct()
     {
-    	global $dynbasepath;    	
-    	
+        global $dynbasepath;
+
         $this->zoom = 0;
         $this->lat = 0;
         $this->lon = 0;
@@ -104,8 +104,8 @@ Class staticMapLite
         $this->maptype = $this->tileDefaultSrc;
 
         $this->tileCacheBaseDir = $dynbasepath.'images/staticmap/tiles';
-        $this->mapCacheBaseDir = $dynbasepath.'images/staticmap/maps';        
-        
+        $this->mapCacheBaseDir = $dynbasepath.'images/staticmap/maps';
+
     }
 
     public function parseParams()
@@ -165,9 +165,9 @@ Class staticMapLite
         if ($this->width > $this->maxWidth) $this->width = $this->maxWidth;
         $this->height = intval($_GET['h']);
         if ($this->height > $this->maxHeight) $this->height = $this->maxHeight;
-        
 
-	if (!empty($_GET['mlat0'])) {
+
+    if (!empty($_GET['mlat0'])) {
             $markerLat = floatval($_GET['mlat0']);
             if (!empty($_GET['mlon0'])) {
                 $markerLon = floatval($_GET['mlon0']);
@@ -281,7 +281,7 @@ Class staticMapLite
             $destX = floor(($this->width / 2) - $this->tileSize * ($this->centerX - $this->lonToTile($markerLon, $this->zoom)));
             $destY = floor(($this->height / 2) - $this->tileSize * ($this->centerY - $this->latToTile($markerLat, $this->zoom)));
 
-            
+
             // copy shadow on basemap
             if ($markerShadow && $markerShadowImg) {
                 imagecopy($this->image, $markerShadowImg, $destX + intval($markerShadowOffsetX), $destY + intval($markerShadowOffsetY),
@@ -346,18 +346,18 @@ Class staticMapLite
     public function fetchTile($url)
     {
         if ($this->useTileCache && ($cached = $this->checkTileCache($url))) {
-        	return $cached;
+            return $cached;
         }
-        
-/*        
-        $ch = curl_init();       
+
+/*
+        $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/4.0");
         curl_setopt($ch, CURLOPT_URL, $url);
         $tile = curl_exec($ch);
         curl_close($ch);
-*/  
-        
+*/
+
         $opts = array(
                     'http' => array(
                         'method' => "GET",
@@ -365,10 +365,10 @@ Class staticMapLite
                         'header' => "User-Agent: https://github.com/opencaching/opencaching-pl",
                     )
         );
-        
+
         $context = stream_context_create($opts);
         $tile = file_get_contents($url, false, $context);
-        
+
 
         if ($tile && $this->useTileCache) {
             $this->writeTileToCache($url, $tile);
@@ -380,32 +380,32 @@ Class staticMapLite
     public function copyrightNotice()
     {
 
-    	$string = $this->atrribution;
-    	$font_size = 1;
-    	$len = strlen($string);
-    	$width  = imagefontwidth($font_size)*$len;
-    	$height = imagefontheight($font_size);
-    	$img = imagecreate($width,$height);
-    	
-    	imagesavealpha($img, true);
-    	imagealphablending($img, false);
-    	$white = imagecolorallocatealpha($img, 200, 200, 200, 50);
-    	imagefill($img, 0, 0, $white);    	
-    	
-    	$color = imagecolorallocate($img, 0, 0, 0); 
-    	$ypos = 0;
-    	for($i=0;$i<$len;$i++){
-    		// Position of the character horizontally
-    		$xpos = $i * imagefontwidth($font_size);
-    		// Draw character
-    		imagechar($img, $font_size, $xpos, $ypos, $string, $color);
-    		// Remove character from string
-    		$string = substr($string, 1);
-    	
-    	}
+        $string = $this->atrribution;
+        $font_size = 1;
+        $len = strlen($string);
+        $width  = imagefontwidth($font_size)*$len;
+        $height = imagefontheight($font_size);
+        $img = imagecreate($width,$height);
 
-        imagecopy($this->image, $img, imagesx($this->image) - imagesx($img), imagesy($this->image) - imagesy($img), 0, 0, imagesx($img), imagesy($img)); 
-        
+        imagesavealpha($img, true);
+        imagealphablending($img, false);
+        $white = imagecolorallocatealpha($img, 200, 200, 200, 50);
+        imagefill($img, 0, 0, $white);
+
+        $color = imagecolorallocate($img, 0, 0, 0);
+        $ypos = 0;
+        for($i=0;$i<$len;$i++){
+            // Position of the character horizontally
+            $xpos = $i * imagefontwidth($font_size);
+            // Draw character
+            imagechar($img, $font_size, $xpos, $ypos, $string, $color);
+            // Remove character from string
+            $string = substr($string, 1);
+
+        }
+
+        imagecopy($this->image, $img, imagesx($this->image) - imagesx($img), imagesy($this->image) - imagesy($img), 0, 0, imagesx($img), imagesy($img));
+
     }
 
     public function sendHeader()
@@ -421,7 +421,7 @@ Class staticMapLite
     {
         $this->initCoords();
 
-        $this->createBaseMap();     
+        $this->createBaseMap();
         if (count($this->markers)) $this->placeMarkers();
         $this->copyrightNotice();
     }

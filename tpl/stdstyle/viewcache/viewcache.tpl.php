@@ -1028,7 +1028,7 @@
     <!-- log enteries - to be loaded dynamicly by ajax -->
 </div>
 
- 
+
 {badge_script}
 
 <div id="dialog" title="{{merit_badge_gain_next_level}}">

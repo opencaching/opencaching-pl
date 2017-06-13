@@ -88,28 +88,28 @@
             "short_description": {
                 "__comment": "",
                 "__action": "get-data"
-            },         
+            },
             "attendant": {
                 "__comment": "",
                 "__action": "get-data"
-            },   
+            },
             "curr_val_query": {
                 "__comment": "",
                 "__action": "get-data"
-            },   
+            },
             "description_author": {
                 "__comment": "",
                 "__action": "get-data"
-            },         
+            },
             "graphic_author": {
                 "__comment": "",
                 "__action": "get-data"
-            },      
+            },
              "is_to_update_query": {
                 "__comment": "",
                 "__action": "get-data"
-            }           
-        },    
+            }
+        },
         "badge_categories": {
             "__table_comment": "",
             "id": {
@@ -124,7 +124,7 @@
                 "__comment": "",
                 "__action": "get-data"
             }
-        },          
+        },
         "badge_levels": {
             "__table_comment": "",
             "badge_id": {
@@ -146,8 +146,8 @@
             "picture": {
                 "__comment": "",
                 "__action": "get-data"
-            }            
-        },     
+            }
+        },
         "badge_user": {
             "__table_comment": "",
             "id": {
@@ -185,8 +185,8 @@
              "prev_val": {
                 "__comment": "",
                 "__action": "get-data"
-            }           
-        },          
+            }
+        },
         "bulletins": {
             "__table_comment": "not used!",
             "id": {
@@ -895,7 +895,7 @@
             "ro": {
                 "__comment": "",
                 "__action": "get-data"
-            }            
+            }
         },
         "cache_status": {
             "__table_comment": "",
@@ -1022,7 +1022,7 @@
             "type": {
                 "__comment": "",
                 "__action": "skip-data"
-            },            
+            },
             "count": {
                 "__comment": "",
                 "__action": "skip-data"
@@ -1031,7 +1031,7 @@
                 "__comment": "",
                 "__action": "skip-data"
             }
-        },        
+        },
         "cache_watches": {
             "__table_comment": "unneded at dev. env.",
             "id": {
@@ -1623,8 +1623,8 @@
             "geokret_name": {
                 "__comment": "",
                 "__action": "skip-data"
-            }            
-        },        
+            }
+        },
         "gk_item": {
             "__table_comment": "",
             "id": {
@@ -2950,15 +2950,15 @@
                 "__comment": "",
                 "__action": "skip-data"
             }
-        },        
+        },
         "pds_was_sent": {
             "__table_comment": "",
             "user_id": {
                 "__comment": "",
                 "__action": "skip-data"
             }
-        },        
-        
+        },
+
         "pictures": {
             "__table_comment": "",
             "id": {

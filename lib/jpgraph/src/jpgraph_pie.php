@@ -249,8 +249,8 @@ class PiePlot {
     // Should we display actual value or percentage?
     function SetLabelType($aType) {
         if( $aType < 0 || $aType > 2 )
-        	JpGraphError::RaiseL(15008,$aType);
-	        //("PiePlot::SetLabelType() Type for pie plots must be 0 or 1 (not $t).");
+            JpGraphError::RaiseL(15008,$aType);
+            //("PiePlot::SetLabelType() Type for pie plots must be 0 or 1 (not $t).");
         $this->labeltype = $aType;
     }
 
@@ -1307,7 +1307,7 @@ class PieGraph extends Graph {
         foreach($this->plots as $p ) {
             $csim .= $p->GetCSIMareas();
         }
-        
+
         $csim.= $this->legend->GetCSIMareas();
         if (preg_match_all("/area shape=\"(\w+)\" coords=\"([0-9\, ]+)\"/", $csim, $coords)) {
             $this->img->SetColor($this->csimcolor);

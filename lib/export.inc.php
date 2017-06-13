@@ -98,7 +98,7 @@ function cleanup_text($str) {
  * $source  - string    = source encoding
  * $dest    - string    = destinatio encoding
  * $str     - string    = text to convert
- * 
+ *
  * Valid encodings:
  * LATIN
  * POLSKAWY (powoduje zamianę polskich liter na ich łacińskie odpowiedniki)
@@ -140,5 +140,5 @@ function convert_string($str) {
             $str = "--- charset error ---";
         }
     }
-    return $str;    
+    return $str;
 }

@@ -118,7 +118,7 @@ function geocacheStatusCheck($cacheId)
     if (in_array($geocache->getCacheType(), $forbidenGeocacheTypes)) {
         print 'geocache of this type cannot be added';
         return false;
-    } 
+    }
     return true;
 }
 

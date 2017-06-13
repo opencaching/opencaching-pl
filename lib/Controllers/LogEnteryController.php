@@ -55,7 +55,7 @@ class LogEnteryController
 
             if ($log->getType() == GeoCacheLog::LOGTYPE_FOUNDIT || $log->getType() == GeoCacheLog::LOGTYPE_ATTENDED) {
                 $this->cacheScoreHandlingAfterRemoveLog($log);
-                
+
                 $ctrlMeritBadge = new MeritBadgeController;
                 $ctrlMeritBadge->updateCurrValMeritBadges($log->getGeoCache()->getCacheId(), $loggedUser->getUserId() );
             }

@@ -613,10 +613,10 @@ class ViewCacheController extends BaseController
         global $config;
 
         if ($this->loggedUser &&
-		($this->loggedUser->getUserId() == $this->geocache->getOwnerId() ||
-		$this->loggedUser->isAdmin() ||
-		$this->loggedUser->isGuide() ||
-		$this->loggedUser->getFoundGeocachesCount() >= $config['otherSites_minfinds'])) {
+        ($this->loggedUser->getUserId() == $this->geocache->getOwnerId() ||
+        $this->loggedUser->isAdmin() ||
+        $this->loggedUser->isGuide() ||
+        $this->loggedUser->getFoundGeocachesCount() >= $config['otherSites_minfinds'])) {
             $this->view->setVar('otherSitesListing', $this->geocache->getFullOtherWaypointsList() );
             $this->view->setVar('searchAtOtherSites', true);
         }else{

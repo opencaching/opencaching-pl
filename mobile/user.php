@@ -5,7 +5,7 @@ require_once("./lib/common.inc.php");
 
 if (isset($_SESSION['user_id'])) {
 
-    
+
 
     if (isset($_POST['username_find']) && !empty($_POST['username_find'])) {
 

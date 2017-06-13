@@ -500,7 +500,7 @@
             <div id="wptInfo" style="display: none; color: #006600; font-weight: bold;">{{newcache_import_wpt_ok}}</div>
             <form action="newcacheAjaxWaypointUploader.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
                 <p id="f1_upload_form"><br/>
-                    
+
                 </p>
                 <div class="form-inline">
                     <?php $view->callChunk('fileUpload','myfile','.gpx'); ?>

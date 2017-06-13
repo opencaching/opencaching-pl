@@ -22,7 +22,7 @@ return function (ListOfCaches $m){
       <tbody>
   <?php foreach($m->caches() as $cache) { ?>
         <tr>
-    
+
           <td>
             <?php if($cache->ptEnabled) { ?>
               <a href="powerTrail.php?ptAction=showSerie&ptrail=<?=$cache->ptId?>">
@@ -30,32 +30,32 @@ return function (ListOfCaches $m){
               </a>
             <?php } //$cache->pt ?>
           </td>
-    
+
           <td>
             <img src="<?=$cache->icon?>" class="icon16" alt="Cache" title="Cache" />
           </td>
           <td>
             <?=$cache->date?>
           </td>
-    
+
           <?php if($m->recoCol()){ ?>
               <td class="cell-favorite">
                 <?=$cache->recoNum?>
               </td>
           <?php } ?>
-    
+
           <th>
               <a href="viewcache.php?cacheid=<?=$cache->cacheId?>" title="<?=$cache->cacheName ?>" class="truncated">
                 <?=$cache->cacheName?>
               </a>
           </th>
-    
+
           <?php if($cache->logIcon){ ?>
             <td>
               <img src="<?=$cache->logIcon?>" class="icon16" alt="Cache" title="Cache" />
             </td>
           <?php }if($cache->logIcon) //?>
-    
+
           <td>
             <?php if($m->logTooltipEnabled()) { ?>
               <a href="viewprofile.php?userid=<?=$cache->userId?>"

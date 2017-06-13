@@ -56,53 +56,53 @@ SUDO_CMD="sudo -u ${SITE_USER}"
 if [ "$DO_LOG" == "1" ]; then
     (
     cd ${SITE_ROOT}
-    echo "--- Updating ${SITE_NAME}..."				| logger ${LOG_LEVEL}
+    echo "--- Updating ${SITE_NAME}..."             | logger ${LOG_LEVEL}
     # run update command(s)
     if [ "$KEEP_LOCAL" == "1" ]; then
-	${SUDO_CMD} ${CMD_PRE} 2>&1 > /dev/null
+    ${SUDO_CMD} ${CMD_PRE} 2>&1 > /dev/null
     fi
 
     if [ "$SHOW_MODIFIED" == "1" ]; then
-	# obtain current HEAD commit hash
-	OLD_BASE=$( ${SUDO_CMD} ${CMD_BASE} )
+    # obtain current HEAD commit hash
+    OLD_BASE=$( ${SUDO_CMD} ${CMD_BASE} )
     fi
 
     # repository update
-    ${SUDO_CMD} ${CMD} ${REPO} ${BRANCH} 2>&1			| logger ${LOG_LEVEL}
-    echo 							| logger ${LOG_LEVEL}
+    ${SUDO_CMD} ${CMD} ${REPO} ${BRANCH} 2>&1           | logger ${LOG_LEVEL}
+    echo                            | logger ${LOG_LEVEL}
 
     if [ "$SHOW_MODIFIED" == "1" ]; then
-	# obtain current HEAD commit hash
-	NEW_BASE=$( ${SUDO_CMD} ${CMD_BASE} )
+    # obtain current HEAD commit hash
+    NEW_BASE=$( ${SUDO_CMD} ${CMD_BASE} )
 
-	# show modified files
-	echo "- GIT modified files:"				| logger ${LOG_LEVEL}
-	${SUDO_CMD} ${CMD_DIFF} $NEW_BASE $OLD_BASE		| logger ${LOG_LEVEL}
+    # show modified files
+    echo "- GIT modified files:"                | logger ${LOG_LEVEL}
+    ${SUDO_CMD} ${CMD_DIFF} $NEW_BASE $OLD_BASE     | logger ${LOG_LEVEL}
     fi
 
     if [ "$KEEP_LOCAL" == "1" ]; then
-	${SUDO_CMD} ${CMD_POST} 2>&1 > /dev/null
+    ${SUDO_CMD} ${CMD_POST} 2>&1 > /dev/null
     fi
-    echo "- GIT update completed."				| logger ${LOG_LEVEL}
-    echo 							| logger ${LOG_LEVEL}
+    echo "- GIT update completed."              | logger ${LOG_LEVEL}
+    echo                            | logger ${LOG_LEVEL}
 
     # run OKAPI update
-    echo "Running OKAPI update scripts..."			| logger ${LOG_LEVEL}
-    wget -O - -q http://${SITE_NAME}/okapi/update		| logger ${LOG_LEVEL}
-    echo "--- Done." 						| logger ${LOG_LEVEL}
-    echo 							| logger ${LOG_LEVEL}
+    echo "Running OKAPI update scripts..."          | logger ${LOG_LEVEL}
+    wget -O - -q http://${SITE_NAME}/okapi/update       | logger ${LOG_LEVEL}
+    echo "--- Done."                        | logger ${LOG_LEVEL}
+    echo                            | logger ${LOG_LEVEL}
     )
 else
     (
     cd ${SITE_ROOT}
     # run update command(s) (no logging)
     if [ "$KEEP_LOCAL" == "1" ]; then
-	${SUDO_CMD} ${CMD_PRE} 2>&1 > /dev/null
+    ${SUDO_CMD} ${CMD_PRE} 2>&1 > /dev/null
     fi
     # repository update
     ${SUDO_CMD} ${CMD} ${REPO} ${BRANCH} 2> /dev/null 1> /dev/null
     if [ "$KEEP_LOCAL" == "1" ]; then
-	${SUDO_CMD} ${CMD_POST} 2>&1 > /dev/null
+    ${SUDO_CMD} ${CMD_POST} 2>&1 > /dev/null
     fi
 
     # run OKAPI update

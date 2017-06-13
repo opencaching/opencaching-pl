@@ -1,5 +1,5 @@
 /*
-        Badge 				-    JG (triPPer)
+        Badge               -    JG (triPPer)
                                         tripper1971@wp.pl
 
         2016.09
@@ -56,7 +56,7 @@
 
 .Badge-div-element{
     float: left;
-    width: 148px;		
+    width: 148px;
     height: 260px;
 }
 
@@ -92,18 +92,18 @@
 
 
 .Badge-pie-progress {
-	width: 140px;
-	float: left;
-	margin-right:20px;
+    width: 140px;
+    float: left;
+    margin-right:20px;
 }
 
 .Badge-name{
-    font-size:30px; 
+    font-size:30px;
     font-weight: bold;
 }
 
 .Badge-short_desc{
-    font-size:15px; 
+    font-size:15px;
     font-style: italic;
 }
 
@@ -115,8 +115,8 @@
 
 .Badge-div-element-small{
     float: left;
-    width: 75px;      
-    height: 75px;      
+    width: 75px;
+    height: 75px;
 }
 
 
@@ -126,7 +126,7 @@
 }
 
 .Badge-pic-small {
-    height:50px; 
+    height:50px;
     width: 50px;
 
 }
@@ -138,6 +138,6 @@
 }
 
 .Badge-table-view {
-    line-height:30px;    
+    line-height:30px;
 }
 

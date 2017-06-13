@@ -143,7 +143,7 @@
                         </tr>
                     </table>
                 </td>
-            </tr>        
+            </tr>
         <tr><td class="buffer" colspan="2"></td></tr>
         <tr>
             <td valign="top" align="left" colspan="2">
