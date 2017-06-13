@@ -7,7 +7,7 @@ if (isset($_SESSION['user_id'])) {
 
     if (isSet($_GET['wp']) && !empty($_GET['wp'])) {
 
-        
+
 
         $wp = XDb::xEscape($_GET['wp']);
 

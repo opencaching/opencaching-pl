@@ -224,7 +224,7 @@ $kmlHead = '<?xml version="1.0" encoding="UTF-8"?>
                 </Icon>
             </IconStyle>
         </Style>
-        
+
         <Folder>
             <Name>' . convert_string($site_name) . '</Name>
             <Open>0</Open>
@@ -302,7 +302,7 @@ $kmlArchived[3] = 'True';       // OC: STATUS_ARCHIVED
 $kmlArchived[4] = 'False';      // OC: STATUS_WAITAPPROVERS
 $kmlArchived[5] = 'False';      // OC: STATUS_NOTYETAVAILABLE
 $kmlArchived[6] = 'True';       // OC: STATUS_BLOCKED
-    
+
 // ************************************************************************
 // Geocache type
 
@@ -314,7 +314,7 @@ $kmlType[3] = 'multi';              // OC: TYPE_MULTICACHE
 $kmlType[4] = 'virtual';            // OC: TYPE_VIRTUAL
 $kmlType[5] = 'webcam';             // OC: TYPE_WEBCAM
 $kmlType[6] = 'event';              // OC: TYPE_EVENT
-// OC specific cache types 
+// OC specific cache types
 $kmlType[7] = 'quiz';               // OC: TYPE_QUIZ
 $kmlType[8] = 'moving';             // OC: TYPE_MOVING
 $kmlType[9] = 'podcache';           // OC: TYPE_GEOPATHFINAL
@@ -343,4 +343,4 @@ $wptType[2] = 'Flag, Blue';         // OC: TYPE_VIRTUAL
 $wptType[3] = 'Flag, Red';          // OC: TYPE_FINAL
 $wptType[4] = 'Waypoint';           // OC: TYPE_INTERESTING
 $wptType[5] = 'Parking Area';       // OC: TYPE_PARKING
-$wptType[6] = 'Trailhead';          // OC: TYPE_TRAILHEAD 
+$wptType[6] = 'Trailhead';          // OC: TYPE_TRAILHEAD

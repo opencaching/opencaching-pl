@@ -7,7 +7,7 @@ if (isset($_SESSION['user_id'])) {
 
     if (isSet($_GET['id']) && !empty($_GET['id']) && preg_match("/^\d+$/", $_GET['id'])) {
 
-        
+
 
         $id = XDb::xEscape($_GET['id']);
 

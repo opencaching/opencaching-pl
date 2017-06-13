@@ -4,7 +4,7 @@ require_once("./lib/common.inc.php");
 
 if (isset($_SESSION['user_id'])) {
 
-    
+
 
     function find_news($start, $end)
     {

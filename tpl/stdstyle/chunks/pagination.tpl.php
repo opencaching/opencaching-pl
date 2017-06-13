@@ -21,12 +21,12 @@ return function (PaginationModel $pagination){
         text-align: center;
         justify-content: center;
     }
-    
+
     .pagination li {
         display: inline;
         box-sizing: border-box;
     }
-    
+
     .pagination a {
         box-sizing: border-box;
         padding: 8px;
@@ -35,33 +35,33 @@ return function (PaginationModel $pagination){
         display: block;
         min-width: 37px;
     }
-    
+
     .pagination li:first-child > a {
         border-top-left-radius: 4px;
         border-bottom-left-radius: 4px;
     }
-    
+
     .pagination li:last-child > a {
         border-top-right-radius: 4px;
         border-bottom-right-radius: 4px;
     }
-    
+
     .pagination a,
     .pagination a:visited {
         color: #337ab7;
     }
-    
+
     .pagination a:hover {
         color: #23527c;
         background-color: #ddd;
     }
-    
+
     .pagination a,
     .pagination a:hover,
     .pagination a:visited {
         text-decoration: none;
     }
-    
+
     .pagination a.active,
     .pagination a.active:hover,
     .pagination a.active:visited {

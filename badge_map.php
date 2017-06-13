@@ -30,7 +30,7 @@ $code = $_REQUEST['code'];
 //$meritBadgeCtrl = new \lib\Controllers\MeritBadgeController;
 //$userMeritBadge = $meritBadgeCtrl->buildUserBadge($userid, $badge_id);
 
-// $condition = "nuts_layer.code = 'PL63' and caches.type<>8 and caches.type<>10 and caches.status = 1 and 
+// $condition = "nuts_layer.code = 'PL63' and caches.type<>8 and caches.type<>10 and caches.status = 1 and
 // ST_Contains(shape, GeomFromText( concat( 'POINT(', caches.longitude, ' ', caches.latitude, ')')))";
 
 $condition=" cache_location.code3 = 'PL$code' and
@@ -39,7 +39,7 @@ caches.type<>8 and caches.type<>10 and caches.status = 1";
 
 //oPomorskie
 $cacheQuery = "SELECT caches.cache_id FROM cache_location
-join caches on caches.cache_id = cache_location.cache_id  
+join caches on caches.cache_id = cache_location.cache_id
 WHERE " . $condition;
 
 // $cacheQuery = "SELECT caches.cache_id FROM nuts_layer, caches
@@ -49,7 +49,7 @@ WHERE " . $condition;
 
 $borderQuery = "SELECT MAX(caches.longitude) AS maxlongitude, MAX(caches.latitude) AS maxlatitude,
 MIN(caches.longitude) AS minlongitude, MIN(caches.latitude) AS minlatitude
-FROM cache_location 
+FROM cache_location
 join caches on caches.cache_id = cache_location.cache_id
 WHERE " . $condition;
 

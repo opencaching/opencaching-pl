@@ -99,7 +99,7 @@ function checkDb(){
     } else {
         info("DB connection OK.");
     }
-    
+
     /* change client character set */
     if (!$db->set_charset($charset)) {
         error("Error loading character set: $db->error");
@@ -107,7 +107,7 @@ function checkDb(){
     } else {
         $current_charset = $db->character_set_name();
         info("Current character set: $current_charset");
-    }    
+    }
 }
 
 /*
@@ -386,7 +386,7 @@ function DumpTriggers(){
     global $dbUser, $dbPass, $dbName;
 
     $command = "mysqldump --user=$dbUser --password=$dbPass --routines --no-create-info --no-data --no-create-db $dbName";
-	
+
 
     //run dump script
     info(title("Dump triggers"));
@@ -416,7 +416,7 @@ function DumpTableData($dumpCommand, $tabName){
 
     //take first row
     $row = $result->fetch_assoc();
-	$rowCnt = 0;
+    $rowCnt = 0;
     if(!is_null($row)){
 
         $cols = array();
@@ -432,36 +432,36 @@ function DumpTableData($dumpCommand, $tabName){
                 if(is_null($val)) {
                     $vals[] = "NULL";
                 }
-				else if ( substr($val, 0, strlen(BLOB_PREFIX)) == BLOB_PREFIX ) {  // blob-as-hex without quotes
-					$vals[] = str_replace(BLOB_PREFIX, "", $val);
-				}
+                else if ( substr($val, 0, strlen(BLOB_PREFIX)) == BLOB_PREFIX ) {  // blob-as-hex without quotes
+                    $vals[] = str_replace(BLOB_PREFIX, "", $val);
+                }
                 else {
                     $vals[] = "'".addslashes($val)."'";
                 }
             }
 
-			$startInsert = ( $rowCnt % MAX_INSERT_LINES ) == 0;
-			$endInsert = ( $rowCnt % MAX_INSERT_LINES ) == ( MAX_INSERT_LINES - 1 );
-			
-			if($startInsert) { 
-					//open query
-					echo "INSERT INTO `$tabName` ( " . implode(',', $cols) . ") VALUES \n\t";
-			}
+            $startInsert = ( $rowCnt % MAX_INSERT_LINES ) == 0;
+            $endInsert = ( $rowCnt % MAX_INSERT_LINES ) == ( MAX_INSERT_LINES - 1 );
+
+            if($startInsert) {
+                    //open query
+                    echo "INSERT INTO `$tabName` ( " . implode(',', $cols) . ") VALUES \n\t";
+            }
             echo '(' . implode(',', $vals) . ')';
 
             $row = $result->fetch_assoc();
 
-            if( $row != NULL ) { 
-				if( $endInsert ) 
-					echo ";\n\t";
-				else	
-					echo ",\n\t";
-			}
-            else { 
-				echo ";\n" ;
-			}	
+            if( $row != NULL ) {
+                if( $endInsert )
+                    echo ";\n\t";
+                else
+                    echo ",\n\t";
+            }
+            else {
+                echo ";\n" ;
+            }
 
-			$rowCnt++;
+            $rowCnt++;
         } while ( $row );
     }
 }

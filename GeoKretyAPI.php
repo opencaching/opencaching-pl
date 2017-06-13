@@ -163,7 +163,7 @@ class GeoKretyApi
         return $selector;
     }
 
- 
+
 
     private function emailOnError($error = '', $Tablica = '', $result, $errorLocation = 'Unknown error location')
     {

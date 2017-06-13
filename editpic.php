@@ -16,7 +16,7 @@ if ($error == false) {
         $tplname = 'editpic';
         $view = tpl_getView();
         $view->setVar('maxPicSize',  $config['limits']['image']['filesize'] * 1024 * 1024);
-        
+
         require_once($stylepath . '/editpic.inc.php');
 
         $uuid = isset($_REQUEST['uuid']) ? $_REQUEST['uuid'] : 0;

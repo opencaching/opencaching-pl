@@ -15,9 +15,9 @@ name
     name of configuration or status variable
 value
     value of configuration or status variable
-    
+
 Variable geokrety_lastupdate indicates last update from geokrety.org (via cron)
-Must be within 10 days of NOW() to obtain valid data from geokrety.org    
+Must be within 10 days of NOW() to obtain valid data from geokrety.org
 
 
 *************************** 1. row ***************************

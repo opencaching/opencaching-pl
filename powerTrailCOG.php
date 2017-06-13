@@ -23,7 +23,7 @@ if ($error == false) {
     tpl_set_var("PtDetailsDiv", 'none');
     tpl_set_var('language4js', $lang);
     tpl_set_var('googlemap_key', $googlemap_key);
-    
+
     if (isset($_REQUEST['ptSelector'])) {
         $powerTrail = new PowerTrail(array('id' => $_REQUEST['ptSelector']));
         $_SESSION['ptRmByCog'] = 1;

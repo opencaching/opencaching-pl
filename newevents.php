@@ -85,7 +85,7 @@ if ($error == false) {
                     $file_content .= '<b>' . $r_log['user_name'] . '</b>:&nbsp;';
 
                     $data = GeoCacheLog::cleanLogTextForToolTip( $r_log['log_text'] );
-                    
+
                     $file_content .= $data;
                     $file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"><img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" alt=""></a></b></td>';
                     $file_content .= '<td>&nbsp;&nbsp;<b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r_log['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r_log['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Convert standard cache icons (in parent directory) for better display 
+# Convert standard cache icons (in parent directory) for better display
 # in Google Earth via KML export
 
 SRC="../"
@@ -32,4 +32,3 @@ for x in ${CACHE_TYPES}; do
     convertKML $x
     echo "done."
 done
-    

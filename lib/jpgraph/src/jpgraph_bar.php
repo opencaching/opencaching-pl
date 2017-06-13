@@ -677,7 +677,7 @@ class BarPlot extends Plot {
 // Description: Produce grouped bar plots
 //===================================================
 class GroupBarPlot extends BarPlot {
-    public $plots; 
+    public $plots;
     private $nbrplots=0;
     //---------------
     // CONSTRUCTOR

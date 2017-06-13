@@ -163,7 +163,7 @@ if ($error == false) {
 
             if ($is_top == 0) { //not-yet-recommended
 
-            	if ( ($user_founds * GeoCacheCommons::RECOMENDATION_RATIO / 100) < 1) { // user doesn't have enough founds to recommend anything
+                if ( ($user_founds * GeoCacheCommons::RECOMENDATION_RATIO / 100) < 1) { // user doesn't have enough founds to recommend anything
                     $top_cache = 0;
                     $recommendationsNr = 100 / GeoCacheCommons::RECOMENDATION_RATIO - $user_founds;
                     $rating_msg = mb_ereg_replace('{recommendationsNr}', "$recommendationsNr", $rating_too_few_founds);
@@ -182,7 +182,7 @@ if ($error == false) {
                     $rating_msg = mb_ereg_replace('{max}', floor($user_founds * GeoCacheCommons::RECOMENDATION_RATIO / 100), $rating_msg);
                     $rating_msg = mb_ereg_replace('{curr}', $user_tops, $rating_msg);
                 } else {
-                	// user needs more caches for next recomendation
+                    // user needs more caches for next recomendation
                     $top_cache = 0;
                     $recommendationsNr = ((1+$user_tops) * 100 / GeoCacheCommons::RECOMENDATION_RATIO ) - $user_founds;
                     $rating_msg = mb_ereg_replace('{recommendationsNr}', "$recommendationsNr", $rating_too_few_founds);
@@ -664,9 +664,9 @@ if ($error == false) {
 
                     // update cache_status
                     $cache_status = XDb::xMultiVariableQueryValue(
-                    	"SELECT `log_types`.`cache_status` FROM `log_types` WHERE `id`= :1 LIMIT 1", 0, $log_type);
+                        "SELECT `log_types`.`cache_status` FROM `log_types` WHERE `id`= :1 LIMIT 1", 0, $log_type);
 
-					    if ($cache_status != 0) {
+                        if ($cache_status != 0) {
                             $rs = XDb::xSql(
                                 "UPDATE `caches` SET `last_modified`=NOW(), `status`= ?
                                 WHERE `cache_id`= ? ", $cache_status, $cache_id);

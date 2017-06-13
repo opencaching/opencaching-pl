@@ -4,7 +4,7 @@ Server configurations
     Required server configurations for running OPENCACHING-PL
 web application.
 
-	It is recommended that besides the web application directory and oc-dynamic 
+	It is recommended that besides the web application directory and oc-dynamic
 directory, an oc-admin directory be created to host these scripts.
 	/path/to/oc-admin must be owned by same unix user as OPENCACHING-PL code.
 
@@ -13,13 +13,13 @@ ocpl-update.sh
 --------------
 	bash script to perform automatic update on every git commit to the repository.
 	This file MUST be installed in /var/www
-	
+
 	Choose one of the following and edit it with your node's configuration:
-	
+
 	* ocpl-update.basic.sh: minimal script to perform the update
-	
+
 	* ocpl-update.extended.sh: extended script with more configurable options
-	  and logging support. 
+	  and logging support.
 		- set the following variables to proper values:
 			SITE_NAME - YOUR_OPENCACHING_HOSTNAME (as FQDN, not URL)
 			SITE_ROOT - site root directory
@@ -28,29 +28,29 @@ ocpl-update.sh
 			DO_LOG - set to 1 to log each update to /var/log/cron
 			KEEP_LOCAL - set to 1 to safeguard local changes during an update.
 		                 use this ONLY if absolutely necessary.
-		- requires permissions in sudoers. 
+		- requires permissions in sudoers.
 			copy sudoers.opencaching-pl to /etc/sudoers.d (or integrate it into
 			/etc/sudoers)
 			replace SITE_USER with unix user owner of the website files
 			replace HTTPD_USER with unix user Apache web server run as.
 			(usually apache or www)
-						 
-	Deploy under oc-admin/scripts and create a symlink in /var/www: 
-	
+
+	Deploy under oc-admin/scripts and create a symlink in /var/www:
+
 	/path/to/oc-admin/scripts/ocpl-update.sh
 	ln -s /path/to/oc-admin/scripts/ocpl-update.sh /var/www/ocpl-update.sh
 
 do-wget-url.sh
 --------------
-	bash script to be run from cron. Performs various operations by 
-requesting dedicated pages. Saves output in files and also as stdout for 
+	bash script to be run from cron. Performs various operations by
+requesting dedicated pages. Saves output in files and also as stdout for
 cron so that it generates notification emails in case of errors.
 	Requires wget.
-	
+
 	Deploy this script under oc-admin/scripts and make sure it is accessible
 to the user designated to run the OPENCACHING-PL cron jobs.
 	Create /path/to/oc-admin/cron-result and make it writable to this user.
-	
+
 	- set the following variables to proper values:
 		BASE_URL   - http://YOUR_OPENCACHING_HOSTNAME/ (as URL)
 		             Note: trailing / is important!
@@ -59,4 +59,3 @@ to the user designated to run the OPENCACHING-PL cron jobs.
 		             Note: trailing / is important!
 	- call this script from crontab (see crontab instructions)
 
-	

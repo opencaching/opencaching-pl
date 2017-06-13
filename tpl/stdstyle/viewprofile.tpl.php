@@ -25,8 +25,8 @@ jQuery(function($) {
 <script type="text/javascript">
 
 
-      
-      
+
+
 
     function ajaxGetFTF() {
         $('#showFtfBtn').hide();

@@ -1,7 +1,7 @@
 <?php
 
     $outputformat_notexist = 'Wybrany wyjścowy format nie istnieje!';
-    $error_query_not_found = 'The retrieval query could not be implemented, enters it please the search data again.';
+    $error_query_not_found = 'This query has expired. Please repeat your search.';
     $safelink = '<a href="query.php?action=save&amp;queryid={queryid}" class="btn btn-primary">'.tr('store_queries').'</a>';
 
     $caches_newstring = '<b>'.tr('new').'</b>&nbsp;';

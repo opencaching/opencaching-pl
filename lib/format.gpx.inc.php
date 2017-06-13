@@ -123,7 +123,7 @@ $gpxArchived[3] = 'True';       // OC: STATUS_ARCHIVED
 $gpxArchived[4] = 'False';      // OC: STATUS_WAITAPPROVERS
 $gpxArchived[5] = 'False';      // OC: STATUS_NOTYETAVAILABLE
 $gpxArchived[6] = 'True';       // OC: STATUS_BLOCKED
-    
+
 // ************************************************************************
 // Geocache size
 
@@ -150,7 +150,7 @@ $gpxType[3] = 'Multi-cache';        // OC: TYPE_MULTICACHE
 $gpxType[4] = 'Virtual Cache';      // OC: TYPE_VIRTUAL
 $gpxType[5] = 'Webcam Cache';       // OC: TYPE_WEBCAM
 $gpxType[6] = 'Event Cache';        // OC: TYPE_EVENT
-// OC specific cache types 
+// OC specific cache types
 $gpxType[7] = 'Unknown Cache';      // OC: TYPE_QUIZ
 $gpxType[8] = 'Unknown Cache';      // OC: TYPE_MOVING
 $gpxType[9] = 'Unknown Cache';      // OC: TYPE_GEOPATHFINAL
@@ -214,7 +214,7 @@ $gpxLogType[12] = 'OC Team Comment';                    // OC: XXX_OC_TEAM_COMME
 // Note: log types implementation incomplete.
 
 // ************************************************************************
-// Attributes 
+// Attributes
 
 // 1st set of attributes - attributes that are Groundspeak equivalent
 $gpxAttribID[1] = '52';     $gpxAttribName[1] = 'Night Cache';
@@ -307,4 +307,4 @@ $wptType[2] = 'Flag, Blue';         // OC: TYPE_VIRTUAL
 $wptType[3] = 'Flag, Red';          // OC: TYPE_FINAL
 $wptType[4] = 'Waypoint';           // OC: TYPE_INTERESTING
 $wptType[5] = 'Parking Area';       // OC: TYPE_PARKING
-$wptType[6] = 'Trailhead';          // OC: TYPE_TRAILHEAD 
+$wptType[6] = 'Trailhead';          // OC: TYPE_TRAILHEAD

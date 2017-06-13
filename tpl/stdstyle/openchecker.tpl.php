@@ -141,7 +141,7 @@ function toggle() {
         </div>
         <div class="searchdiv">
             <br/>
-          
+
             <table width="99%">
                 <tr>
                     <td width="40">{cache_icon}</td>

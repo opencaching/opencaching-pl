@@ -3,7 +3,7 @@
 ?>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="{{my_account}}" title="{{my_account}}" />&nbsp;{{my_account}}</div>
 <div class="searchdiv">
-    
+
     <a class="btn btn-primary" href="myprofile.php?action=change">{{change_data}}</a>
     <a class="btn btn-default" href="newemail.php">{{change_email}}</a>
     <a class="btn btn-default" href="newpw.php">{{change_password}}</a>
@@ -15,9 +15,9 @@
     <div class="notice">
         {{gray_field_is_hidden}}
     </div>
-    
+
     <div class="buffer"></div>
-    
+
     <p class="content-title-noshade-size2">{{data_in_profile}}:</p>
     <div class="buffer"></div>
     <table class="table">

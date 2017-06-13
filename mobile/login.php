@@ -19,7 +19,7 @@ if (!isset($_SESSION['user_id'])) {
 
             $cookie->un_set('test');
 
-            
+
 
             $username = XDb::xEscape($_POST['username']);
             $pass = XDb::xEscape($_POST['pass']);

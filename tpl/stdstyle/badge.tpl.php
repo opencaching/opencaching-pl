@@ -20,9 +20,9 @@
       $('.Badge-pie-progress').asPieProgress({
         namespace: 'pie_progress'
       });
-  
+
       $('.pie_progress').asPieProgress('start');
-    
+
     });
 
     function gctUShowUsers( level ){
@@ -30,18 +30,18 @@
         {contentUsr}
         gctU.drawChart();
     }
-    
-    
+
+
     function GCTEventBadgeLevel( event )
     {
         var recArray =  gct.getSelection();
         var item = recArray[0];
         var val = gct.getValue( item.row, 0 );
-        
+
         gctU.removeAllRows();
         gctUShowUsers( val );
     }
-    
+
   </script>
 
 <div class="content2-pagetitle">
@@ -56,7 +56,7 @@
     <div class="Badge-pie-progress" role="progressbar" data-goal="{progresbar_curr_val}" data-trackcolor="#d9d9d9" data-barcolor="{progresbar_color}" data-barsize="{progresbar_size}" aria-valuemin="0" aria-valuemax="{progresbar_next_val}">
         <div class="pie_progress__content"><img src="{picture}" /><br></div>
     </div>
-    
+
     <span class="Badge-name">{badge_name}</span><br>
     <span class="Badge-short_desc">{badge_short_desc}</span>
 
@@ -111,9 +111,9 @@
     gct.addColumn('string', '<?php echo tr("merit_badge_number_threshold"); ?>', 'width: 90px; font-size: 12px; text-align:left;' ); //3
     gct.addColumn('string', '<?php echo tr("merit_badge_gain_count") ?>', 'width: 50px; font-size: 12px; text-align:right;' ); //4
     gct.addColumn('string', '<?php echo tr("merit_badge_gain_last_date") ?>', 'width: 100px;font-size: 12px; ' ); //5
-    
+
     gct.hideColumns( [0] );
-    
+
     gct.addChartOption('width', 410);
     gct.addChartOption('page', 'disable' );
     gct.addChartOption('sort', 'disable' );
@@ -121,7 +121,7 @@
 </script>
 
 <script type='text/javascript'>
-{contentLvl} 
+{contentLvl}
 
 gct.setAsSelected({userLevel});
 gct.drawChart();
@@ -135,10 +135,10 @@ gct.addSelectEvent( GCTEventBadgeLevel );
     gctU.addColumn('string', "<?php echo tr('user') ?>", 'font-size: 12px;'); //0
     gctU.addColumn('number', "<?php echo tr('merit_badge_number') ?>", 'font-size: 12px;text-align:right;'); //1
     gctU.addColumn('string', '<?php echo tr("merit_badge_gain_date") ?>', 'font-size: 12px;' ); //2
-    
+
     gctU.addChartOption('width', 300);
     gctU.addChartOption('pageSize', 20 );
-    
+
     gctUShowUsers({userLevel});
 </script>
 <br>

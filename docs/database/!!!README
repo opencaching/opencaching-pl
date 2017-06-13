@@ -69,7 +69,7 @@ bulletins
 cache_arch
 	Archived caches
 cache_attrib
-	Define cache attributes and translations. 
+	Define cache attributes and translations.
     DEPRECATED by https://github.com/opencaching/opencaching-pl/issues/462
 cache_coordinates
 	Cache coordinates and last modification date on coordinates

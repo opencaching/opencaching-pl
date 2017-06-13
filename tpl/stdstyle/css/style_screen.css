@@ -462,7 +462,7 @@ table.bs-table th {
 }
 
 table.bs-table th > a,
-table.bs-table td > a {    
+table.bs-table td > a {
     text-decoration: none;
     color: #323232;
 }
@@ -645,7 +645,7 @@ a.btn {
     font-size: 10px;
     line-height: 1.5;
     border-radius: 3px;
-}    
+}
 
 /*****************************/
 /* CONTEINERS */

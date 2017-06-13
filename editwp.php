@@ -92,7 +92,7 @@ if ($error == false) {
                     tpl_set_var('openchecker_display', 'none');
                     tpl_set_var('openchecker_start','<!--');
                     tpl_set_var('openchecker_end','-->');
-                }    
+                }
                 // checks checkbox if in database is checked.
                 if ($wp_record['opensprawdzacz'] == 1) {
                     tpl_set_var('openchecker_checked', 'checked=""');

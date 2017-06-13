@@ -9,7 +9,7 @@
 }
 
 #cache-title-icons {
-  width: 60px; 
+  width: 60px;
   margin-right: 10px;
   float: left;
   clear: left;
@@ -29,15 +29,15 @@
   float: right;
   width: 30%;
   max-width: 40%;
-  border-radius: 5px 5px; 
-  -moz-border-radius: 5px; 
-  -webkit-border-radius: 5px; 
-  border:1px solid #337fed; 
+  border-radius: 5px 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border:1px solid #337fed;
   padding: 5px;
 }
 
 #geoPath-head {
-  color: #337fed; 
+  color: #337fed;
   border-bottom: 1px solid #337fed;
 }
 
@@ -109,8 +109,8 @@ div.viewcache-pictureblock span.title   { display: block; max-width: 175px; padd
 
 #waypoints-table {
   width: 100%;
-  border-collapse: collapse; 
-  font-size: 12px; 
+  border-collapse: collapse;
+  font-size: 12px;
   line-height: 1.6em;
   text-align: center;
   border: 1px solid black;
@@ -180,32 +180,32 @@ textarea.userNoteTextarea {
 }
 
 .naturaTable {
-  width: 90%; 
-  border-collapse: collapse; 
+  width: 90%;
+  border-collapse: collapse;
   font-weight: bold;
-  font-size: 14px; 
+  font-size: 14px;
   line-height: 1.6em"
 }
 
 .naturaTable td {
-  text-align: center; 
+  text-align: center;
   vertical-align: middle;
 }
 
 .naturaTable a {
-  text-color: blue;  
+  text-color: blue;
 }
 
 #buttons-left {
-  float: left; 
+  float: left;
 }
 
 #buttons-right {
-  float: right; 
+  float: right;
 }
 
 #descLangs-span {
-  margin: 0 20px;  
+  margin: 0 20px;
 }
 
 #userNote-div {

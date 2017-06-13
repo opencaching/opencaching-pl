@@ -18,7 +18,7 @@ class login
     function login()
     {
         global $cookie;
-        
+
         if ($cookie->is_set('username') && $cookie->is_set('userid') && $cookie->is_set('lastlogin') && $cookie->is_set('sessionid')) {
 
             $this->username = XDb::xEscape($cookie->get('username'));
@@ -81,7 +81,7 @@ class login
     {
         $this->pClear();
 
-        
+
 
         $query = "select user_id,username from user where username = '" . XDb::xEscape($user) . "';";
         $wynik = XDb::xSql($query);

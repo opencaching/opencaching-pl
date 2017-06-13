@@ -44,8 +44,8 @@ $rs = XDb::xSql(
     "SELECT `caches`.`cache_id` `cacheid`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`,
             `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`date_hidden` `date_hidden`,
             `caches`.`name` `name`, `caches`.`wp_oc` `cache_wp`,
-            `cache_type`.`" . $lang . "` `typedesc`, `cache_size`.`" . $lang . "` `sizedesc`, 
-            `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, 
+            `cache_type`.`" . $lang . "` `typedesc`, `cache_size`.`" . $lang . "` `sizedesc`,
+            `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`,
             `user`.`username` `username`
     FROM `caches`, `cache_type`, `cache_size`, `user`
     WHERE `caches`.`type`=`cache_type`.`id`
@@ -62,7 +62,7 @@ echo $kmlHead;
 
 while ($r = XDb::xFetchArray($rs)) {
     $thisline = $kmlLine;
-    $thiskmlTypeIMG = $kmlTypeIMG; 
+    $thiskmlTypeIMG = $kmlTypeIMG;
 
     if (isset($kmlType[$r['type']])) {
         $icon = $kmlType[$r['type']];
@@ -85,7 +85,7 @@ while ($r = XDb::xFetchArray($rs)) {
             $statusStyle = 'color: rgb(240,100,100);';
         }
     }
-    
+
     $thisline = str_replace('{icon}', $icon, $thisline);
         $thisline = str_replace('{typeimgurl}', $thiskmlTypeIMG, $thisline);
     $thisline = str_replace('{status}', tr('cacheStatus_' . $r['status']), $thisline);

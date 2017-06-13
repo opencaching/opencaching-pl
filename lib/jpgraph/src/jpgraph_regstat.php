@@ -156,10 +156,10 @@ class Bezier {
             $datax[$i] = $datumx;
             $datay[$i] = $datumy;
         }
-         
+
         $datax[] = end($this->datax);
         $datay[] = end($this->datay);
-         
+
         return array($datax, $datay);
     }
 
@@ -167,7 +167,7 @@ class Bezier {
      * Return one point on the bezier curve. $mu is the position on the curve where $mu is in the
      * range 0 $mu < 1 where 0 is tha start point and 1 is the end point. Note that every newly computed
      * point depends on all the existing points
-     * 
+     *
      * @param $mu Position on the bezier curve
      * @return array($x, $y)
      */

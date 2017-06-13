@@ -1441,7 +1441,7 @@ $( document ).ready(function() {
                                         <td>{historicLimitBool}</td>
                                     </tr>
 
-				</table>
+                </table>
                                 <a href="javascript:void(0)" id="confirmDisplayOptionsButton" onclick="document.dOptionForm.submit();" class="editPtDataButton">{{pt164}}</a>
                                 <a href="javascript:void(0)" id="displayOptionsButton" onclick="showDisplayOptions()" class="editPtDataButton">{{pt031}}</a>
                             </form>
