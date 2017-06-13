@@ -123,11 +123,14 @@
 
 <input type="hidden" name="Rating" value="TRUE">
 
-<div class="rating-buttons">
+<div class="difficultyForm-buttons">
   <input type="submit" value="{{rating_submit}}" class="btn btn-primary">
   <input type="reset" value="{{rating_reset}}" class="btn btn-default">
+
 </div>
 
+<p class="idea-source">({{rating_disclaimer}})</p>
 
-<p>({{rating_disclaimer}})</p>
+</form>
+
 

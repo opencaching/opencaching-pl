@@ -3,60 +3,69 @@
   <b>{{rating_title}}</b>
 </div>
 
-<p>{{rating_comment}}</p>
+<div id="difficult-form-result">
 
-<div class="results">
-    <h3>{{rating_diffResult}}&nbsp;<?=$view->diffResult?></h3>
+    <p>{{rating_comment}}</p>
 
-    <p class="<?=($view->diffResult == 1)?'emphasis':''?>">
-        <span class="level">*</span>{{rating_difResult0}}
-    </p>
+    <div class="results">
 
-    <p class="<?=($view->diffResult == 2)?'emphasis':''?>">
-        <span class="level">**</span>{{rating_difResult1}}
-    </p>
+        <h3>{{rating_diffResult}}&nbsp;<?=$view->diffResult?></h3>
 
-    <p class="<?=($view->diffResult == 3)?'emphasis':''?>">
-        <span class="level">***</span>{{rating_difResult2}}
-    </p>
+        <div class="result-row<?=($view->diffResult == 1)?' emphasis':''?>">
+            <div class="level">1/5</div><div class="text">{{rating_difResult0}}</div>
+        </div>
 
-    <p class="<?=($view->diffResult == 4)?'emphasis':''?>">
-        <span class="level">****</span>{{rating_difResult3}}
-    </p>
+        <div class="result-row<?=($view->diffResult == 2)?' emphasis':''?>">
+            <div class="level">2/5</div><div class="text">{{rating_difResult1}}</div>
+        </div>
 
-    <p class="<?=($view->diffResult == 5)?'emphasis':''?>">
-        <span class="level">*****</span>{{rating_difResult4}}
-    </p>
+        <div class="result-row<?=($view->diffResult == 3)?' emphasis':''?>">
+            <div class="level">3/5</div><div class="text">{{rating_difResult2}}</div>
+        </div>
+
+        <div class="result-row<?=($view->diffResult == 4)?' emphasis':''?>">
+            <div class="level">4/5</div><div class="text">{{rating_difResult3}}</div>
+        </div>
+
+        <div class="result-row<?=($view->diffResult == 5)?' emphasis':''?>">
+            <div class="level">5/5</div><div class="text">{{rating_difResult4}}</div>
+        </div>
+
+    </div>
+
+    <div class="results">
+
+        <h3>{{rating_terrainResult}}&nbsp;<?=$view->terrainResult?></h3>
+
+
+        <div class="result-row<?=($view->terrainResult == 1)?' emphasis':''?>">
+            <div class="level">1/5</div><div class="text">{{rating_terResult0}}</div>
+        </div>
+
+        <div class="result-row<?=($view->terrainResult == 2)?' emphasis':''?>">
+            <div class="level">2/5</div><div class="text">{{rating_terResult1}}</div>
+        </div>
+
+        <div class="result-row<?=($view->terrainResult == 3)?' emphasis':''?>">
+            <div class="level">3/5</div><div class="text">{{rating_terResult2}}</div>
+        </div>
+
+        <div class="result-row<?=($view->terrainResult == 4)?' emphasis':''?>">
+            <div class="level">4/5</div><div class="text">{{rating_terResult3}}</div>
+        </div>
+
+        <div class="result-row<?=($view->terrainResult == 5)?' emphasis':''?>">
+            <div class="level">5/5</div><div class="text">{{rating_terResult4}}</div>
+        </div>
+
+    </div>
+
+    <div class="difficultyForm-buttons">
+        <form action="">
+            <input type="submit" value="{{rating_rateAgain}}" class="btn btn-default">
+        </form>
+    </div>
+
+    <p class= "idea-source">({{rating_disclaimer}})</p>
+
 </div>
-
-<div class="results">
-    <h3>{{rating_terrainResult}}&nbsp;<?=$view->terrainResult?></h3>
-
-    <p class="<?=($view->terrainResult == 1)?'emphasis':''?>">
-        <span class="level">*</span>{{rating_terResult0}}
-    </p>
-
-    <p class="<?=($view->terrainResult == 2)?'emphasis':''?>">
-        <span class="level">**</span>{{rating_terResult1}}
-    </p>
-
-    <p class="<?=($view->terrainResult == 3)?'emphasis':''?>">
-        <span class="level">***</span>{{rating_terResult2}}
-    </p>
-
-    <p class="<?=($view->terrainResult == 4)?'emphasis':''?>">
-        <span class="level">****</span>{{rating_terResult3}}
-    </p>
-
-    <p class="<?=($view->terrainResult == 5)?'emphasis':''?>">
-        <span class="level">*****</span>{{rating_terResult4}}
-    </p>
-</div>
-
-<div class="rating-buttons">
-    <form action="">
-        <input type="submit" value="{{rating_rateAgain}}" class="btn btn-default">
-    </form>
-</div>
-
-<p>({{rating_disclaimer}})</p>
