@@ -16,6 +16,8 @@ require_once($rootpath . 'lib/common.inc.php');
 /* take datetime format from settings.inc.php */
 $sDateformat = $datetimeFormat;
 
+define('NOTIFY_NEW_CACHES', 1); //TODO: unify with value from eventhandler.inc.php
+
 // Check if another instance of the script is running
 $lock_file = fopen("/tmp/notification-run_notify.lock", "w");
 if (!flock($lock_file, LOCK_EX | LOCK_NB)) { // Another instance of the script is running - exit
@@ -75,7 +77,6 @@ function process_new_cache($notify)
 {
     global $emailaddr, $octeamEmailsSignature, $absolute_server_URI, $site_name, $dateFormat, $cacheTypes, $cacheSizes, $cacheTypeIcons;
 
-    define('NOTIFY_NEW_CACHES', 1); //TODO: unify with value from eventhandler.inc.php
 
     switch ($notify['type']) {
         case NOTIFY_NEW_CACHES: // Type: new cache

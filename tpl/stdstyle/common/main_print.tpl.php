@@ -8,9 +8,15 @@
         <meta http-equiv="gallerimg" content="no" />
         <meta http-equiv="pragma" content="no-cache" />
         <meta http-equiv="cache-control" content="no-cache" />
-        <link rel="SHORTCUT ICON" href="favicon.ico">
-            <link rel="stylesheet" type="text/css" href="tpl/stdstyle/css/main.css" />
-            {htmlheaders}
+        <!-- Favicon noch nicht vorhanden <link rel="shortcut icon" href="favicon.ico" />-->
+        <link rel="stylesheet" type="text/css" href="tpl/{style}/css/style_print.css" />
+
+        <?php foreach( $view->getLocalCss() as $css ) { ?>
+          <link rel="stylesheet" type="text/css" href="<?=$css?>">
+        <?php } //foreach-css ?>
+
+        {htmlheaders}
+        {cachemap_header}
 
         <?php
             if( $view->isGoogleAnalyticsEnabled() ){
@@ -21,10 +27,9 @@
                 $view->callChunk('jQuery');
             }
         ?>
+
     </head>
-    <body{bodyMod}>
-        <div id="content">
-            {template}
-        </div>
+    <body onload="load()" onunload="GNuload()">
+        {template}
     </body>
 </html>

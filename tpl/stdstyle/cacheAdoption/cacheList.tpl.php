@@ -1,6 +1,4 @@
 
-<link rel="stylesheet" href="<?=$view->cacheAdoption_css?>">
-
 <?php $view->callChunk('infoBar', 'chowner.php', $view->infoMsg, $view->errorMsg ); ?>
 
 <?php if($view->adoptionOffers) { ?>

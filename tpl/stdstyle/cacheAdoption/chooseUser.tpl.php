@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="<?=$view->cacheAdoption_css?>">
 
 <div class="content2-pagetitle">
     <img src="tpl/stdstyle/images/blue/email.png" class="icon32" align="middle" alt="email" />

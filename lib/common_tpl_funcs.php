@@ -159,15 +159,15 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
 
     //load main template
     if ($minitpl){
-        $sCode = file_get_contents($stylepath . '/mini.tpl.php');
+        $sCode = file_get_contents($stylepath . '/common/mini.tpl.php');
     }else if ($noCommonTemplate){
         $sCode = '{template}';
     }else if (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y'){
-        $sCode = file_get_contents($stylepath . '/main_print.tpl.php');
+        $sCode = file_get_contents($stylepath . '/common/main_print.tpl.php');
     }else if (isset($_REQUEST['popup']) && $_REQUEST['popup'] == 'y'){
-        $sCode = file_get_contents($stylepath . '/popup.tpl.php');
+        $sCode = file_get_contents($stylepath . '/common/popup.tpl.php');
     }else {
-        $sCode = file_get_contents($stylepath . '/main.tpl.php');
+        $sCode = file_get_contents($stylepath . '/common/main.tpl.php');
     }
 
     //global css files:

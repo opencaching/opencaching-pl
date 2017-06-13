@@ -289,7 +289,7 @@ class CacheAdoptionController extends BaseController
 
         tpl_set_var ( 'cachename', $cacheObj->getCacheName() );
         tpl_set_var ( 'cacheid', $cacheObj->getCacheId() );
-        $this->view->setVar('cacheAdoption_css', Uri::getLinkWithModificationTime('tpl/stdstyle/cacheAdoption/cacheAdoption.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('tpl/stdstyle/cacheAdoption/cacheAdoption.css'));
 
         tpl_BuildTemplate();
         exit;
@@ -317,7 +317,7 @@ class CacheAdoptionController extends BaseController
         $this->view->setVar('userCaches', $this->getUserCaches() );
 
         tpl_set_tplname('cacheAdoption/cacheList');
-        $this->view->setVar('cacheAdoption_css', Uri::getLinkWithModificationTime('tpl/stdstyle/cacheAdoption/cacheAdoption.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('tpl/stdstyle/cacheAdoption/cacheAdoption.css'));
 
         $this->view->setVar('errorMsg', $this->errorMsg);
         $this->view->setVar('infoMsg', $this->infoMsg);
