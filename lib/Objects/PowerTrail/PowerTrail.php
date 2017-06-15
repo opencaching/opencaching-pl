@@ -150,7 +150,10 @@ class PowerTrail extends BaseObject
 
     public static function CheckForPowerTrailByCache($cacheId)
     {
-        $queryPt = 'SELECT `id`, `name`, `image`, `type` FROM `PowerTrail` WHERE `id` IN ( SELECT `PowerTrailId` FROM `powerTrail_caches` WHERE `cacheId` =:1 ) AND `status` = 1 ';
+        $queryPt = 'SELECT `id`, `name`, `image`, `type` FROM `PowerTrail`
+                    WHERE `id` IN
+                        ( SELECT `PowerTrailId` FROM `powerTrail_caches` WHERE `cacheId` =:1 )
+                        AND `status` = 1 ';
         $db = OcDb::instance();
         $s = $db->multiVariableQuery($queryPt, $cacheId);
 
@@ -224,7 +227,14 @@ class PowerTrail extends BaseObject
         if (!$this->geocaches->isReady()) {
 
             $db = OcDb::instance();
-            $query = 'SELECT powerTrail_caches.isFinal, caches . * , user.username FROM  `caches` , user, powerTrail_caches WHERE cache_id IN ( SELECT  `cacheId` FROM  `powerTrail_caches` WHERE  `PowerTrailId` =:1) AND user.user_id = caches.user_id AND powerTrail_caches.cacheId = caches.cache_id ORDER BY caches.name';
+            $query = 'SELECT powerTrail_caches.isFinal, caches . * , user.username
+                      FROM  `caches` , user, powerTrail_caches
+                      WHERE cache_id IN (
+                            SELECT  `cacheId` FROM  `powerTrail_caches`
+                            WHERE  `PowerTrailId` =:1)
+                        AND user.user_id = caches.user_id
+                        AND powerTrail_caches.cacheId = caches.cache_id
+                      ORDER BY caches.name';
             $s = $db->multiVariableQuery($query, $this->id);
             $geoCachesDbResult = $db->dbResultFetchAll($s);
 
@@ -248,7 +258,11 @@ class PowerTrail extends BaseObject
 
     private function loadPtOwners()
     {
-        $query = 'SELECT `userId`, `privileages`, username FROM `PowerTrail_owners`, user WHERE `PowerTrailId` = :1 AND PowerTrail_owners.userId = user.user_id';
+        $query = 'SELECT `userId`, `privileages`, username
+                  FROM `PowerTrail_owners`, user
+                  WHERE `PowerTrailId` = :1
+                    AND PowerTrail_owners.userId = user.user_id';
+
         $db = OcDb::instance();
         $s = $db->multiVariableQuery($query, $this->id);
         $ownerDb = $db->dbResultFetchAll($s);
@@ -482,7 +496,11 @@ class PowerTrail extends BaseObject
     public function getPowerTrailCachesLogsForCurrentUser()
     {
         $db = OcDb::instance();
-        $qr = 'SELECT `cache_id`, `date`, `text_html`, `text`  FROM `cache_logs` WHERE `cache_id` IN ( SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` = :1) AND `user_id` = :2 AND `deleted` = 0 AND `type` = 1';
+        $qr = 'SELECT `cache_id`, `date`, `text_html`, `text`
+               FROM `cache_logs` WHERE `cache_id` IN (
+                    SELECT `cacheId` FROM `powerTrail_caches`
+                    WHERE `PowerTrailId` = :1)
+               AND `user_id` = :2 AND `deleted` = 0 AND `type` = 1';
         isset($_SESSION['user_id']) ? $userId = $_SESSION['user_id'] : $userId = 0;
         $s = $db->multiVariableQuery($qr, $this->id, $userId);
         $powerTrailCacheLogsArr = $db->dbResultFetchAll($s);

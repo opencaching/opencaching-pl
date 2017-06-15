@@ -330,7 +330,9 @@ class powerTrailBase{
     }
 
     public static function writePromoPt4mainPage($oldPtId){
-        $q = 'SELECT * FROM `PowerTrail` WHERE `id` != :1 AND `status` = 1 AND `cacheCount` >= '.self::historicMinimumCacheCount().' ORDER BY `id` ASC';
+        $q = 'SELECT * FROM `PowerTrail`
+                WHERE `id` != :1 AND `status` = 1 AND `cacheCount` >= '.self::historicMinimumCacheCount().'
+                ORDER BY `id` ASC';
 
         $db = OcDb::instance();
         $s = $db->multiVariableQuery($q, $oldPtId);
@@ -345,7 +347,9 @@ class powerTrailBase{
 
     public static function getPtCaches($PtId){
         $db = OcDb::instance();
-        $q = 'SELECT powerTrail_caches.isFinal, caches . * , user.username FROM  `caches` , user, powerTrail_caches WHERE cache_id IN ( SELECT  `cacheId` FROM  `powerTrail_caches` WHERE  `PowerTrailId` =:1) AND user.user_id = caches.user_id AND powerTrail_caches.cacheId = caches.cache_id ORDER BY caches.name';
+        $q = 'SELECT powerTrail_caches.isFinal, caches . * , user.username FROM  `caches` , user, powerTrail_caches WHERE cache_id IN ( SELECT  `cacheId` FROM  `powerTrail_caches`
+                WHERE  `PowerTrailId` =:1) AND user.user_id = caches.user_id AND powerTrail_caches.cacheId = caches.cache_id
+                ORDER BY caches.name';
         $s = $db->multiVariableQuery($q, $PtId);
         return $db->dbResultFetchAll($s);
     }
@@ -389,7 +393,8 @@ class powerTrailBase{
         $sortOder = 'ASC';
         $sortBy = 'name';
 
-        $q = 'SELECT * FROM `PowerTrail` WHERE cacheCount >= '.self::historicMinimumCacheCount() .' '.$filter.' ORDER BY '.$sortBy.' '.$sortOder.' ';
+        $q = 'SELECT * FROM `PowerTrail` WHERE cacheCount >= '.self::historicMinimumCacheCount() .' '.$filter.'
+                ORDER BY '.$sortBy.' '.$sortOder.' ';
         $db = OcDb::instance();
         $s = $db->multiVariableQuery($q);
         return $db->dbResultFetchAll($s);
