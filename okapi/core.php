@@ -1104,8 +1104,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1412;
-    public static $git_revision = 'ffd9e913a1ca2c9f3cad8ac5c76eb021ea7a0855';
+    public static $version_number = 1414;
+    public static $git_revision = '662910e9832ff33e0048fe96c1ee6922ae6e80ae';
 
     private static $okapi_vars = null;
 
@@ -1663,9 +1663,10 @@ class Okapi
         print "You don't need Consumer Secret for Level 1 Authentication.\n\n";
         print "Now you can easily access Level 1 OKAPI methods. E.g.:\n";
         print Settings::get('SITE_URL')."okapi/services/caches/geocache?cache_code=$sample_cache_code&consumer_key=$consumer->key\n\n";
-        print "If you plan on using OKAPI for a longer time, then you may want to\n";
-        print "subscribe to the OKAPI News blog to stay up-to-date:\n";
-        print "http://opencaching-api.blogspot.com/\n\n";
+        print "If you plan on using OKAPI for a longer time, then you might also want\n";
+        print "to subscribe to the OKAPI News blog (it is not much updated, but it might\n";
+        print "still be worth the trouble):\n"
+        print "https://opencaching-api.blogspot.com/\n\n";
         print "Have fun!\n\n";
         print "-- \n";
         print "OKAPI Team\n";
