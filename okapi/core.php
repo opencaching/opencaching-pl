@@ -1104,8 +1104,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1419;
-    public static $git_revision = '3b7a5b1afabf4c853df558934388a5fc9ba6bb08';
+    public static $version_number = 1420;
+    public static $git_revision = '5af96a0e2b08b0ffd1b28844ee3341543b580de0';
 
     private static $okapi_vars = null;
 
@@ -1284,29 +1284,16 @@ class Okapi
     }
 
     /**
-     * Return a "schema code" of this OC site.
-     *
-     * While there are only two primary OC_BRANCHes (OCPL and OCDE), sites
-     * based on the same branch may have a different schema of attributes,
-     * cache types, log types, or even database structures. This method returns
-     * a unique internal code which identifies a set of sites that share the
-     * same schema. As all OCPL-based sites currently have different attribute
-     * sets, there is a separate schema for each OCPL site.
+     * Return a "code" of this OC node.
      *
      * These values are used internally only, they SHOULD NOT be exposed to
      * external developers!
      */
-    public static function get_oc_schema_code()
+    public static function get_oc_installation_code()
     {
-        /* All OCDE-based sites use exactly the same schema. */
-
         if (Settings::get('OC_BRANCH') == 'oc.de') {
             return "OCDE";  // OC
         }
-
-        /* All OCPL-based sites use separate schemas. (Hopefully, this will
-         * change in time.) */
-
         $mapping = array(
             2 => "OCPL",  // OP
             6 => "OCUK",  // OK
@@ -1350,13 +1337,9 @@ class Okapi
         /* Currently, there are no config settings which would let us allow
          * to determine the proper values for this list. So, we need to have it
          * hardcoded. (Perhaps we should move this to etc/installations.xml?
-         * But this wouldn't be efficient...)
-         *
-         * TODO: Replace "self::get_oc_schema_code()" by something better.
-         *       Base URls depend on installations, not on schemas.
-         */
+         * But this wouldn't be efficient...) */
 
-        switch (self::get_oc_schema_code()) {
+        switch (self::get_oc_installation_code()) {
             case 'OCPL':
                 $urls = array(
                     "http://opencaching.pl/okapi/",
@@ -1366,6 +1349,11 @@ class Okapi
                 break;
             case 'OCDE':
                 if (in_array(Settings::get('OC_NODE_ID'), array(4,5))) {
+                    /* In OCDE, node_ids 4 and 5 are used to indicate a development
+                     * installation. Other sites rely on the fact, that
+                     * self::get_recommended_base_url() is appended to $urls below.
+                     * For OCDE this is not enough, because they want to test both
+                     * HTTP and HTTPS in their development installations. */
                     $urls = array(
                         preg_replace("/^https:/", "http:", Settings::get('SITE_URL')) . 'okapi/',
                         preg_replace("/^http:/", "https:", Settings::get('SITE_URL')) . 'okapi/',
