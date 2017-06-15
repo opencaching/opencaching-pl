@@ -81,7 +81,7 @@ class OkapiExceptionHandler
         {
             # This is thrown on invalid OAuth requests. There are many subclasses
             # of this exception. All of them result in HTTP 400 or HTTP 401 error
-            # code. See also: http://oauth.net/core/1.0a/#http_codes
+            # code. See also: https://oauth.net/core/1.0a/#http_codes
 
             if ($e instanceof OAuthServer400Exception)
                 header("HTTP/1.0 400 Bad Request");
@@ -1104,8 +1104,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1404;
-    public static $git_revision = 'b576acb0e730cfc57c8a30131bc60c639bd73075';
+    public static $version_number = 1405;
+    public static $git_revision = '7fc92ab857b58f7922e3a94166704b43629567e8';
 
     private static $okapi_vars = null;
 
@@ -2466,7 +2466,7 @@ abstract class OkapiRequest
 {
     public $consumer;
     public $token;
-    public $etag;  # see: http://en.wikipedia.org/wiki/HTTP_ETag
+    public $etag;  # see: https://en.wikipedia.org/wiki/HTTP_ETag
 
     /**
      * Set this to true, for some method to allow you to set higher "limit"
