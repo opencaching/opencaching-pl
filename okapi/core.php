@@ -1104,8 +1104,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1415;
-    public static $git_revision = 'eb8fa26c6927ec95fe7531d5abcd5d2956347058';
+    public static $version_number = 1416;
+    public static $git_revision = 'df5a20a66c91981681b2295aaa9b368cdd21f810';
 
     private static $okapi_vars = null;
 
@@ -1665,7 +1665,7 @@ class Okapi
         print Settings::get('SITE_URL')."okapi/services/caches/geocache?cache_code=$sample_cache_code&consumer_key=$consumer->key\n\n";
         print "If you plan on using OKAPI for a longer time, then you might also want\n";
         print "to subscribe to the OKAPI News blog (it is not much updated, but it might\n";
-        print "still be worth the trouble):\n"
+        print "still be worth the trouble):\n";
         print "https://opencaching-api.blogspot.com/\n\n";
         print "Have fun!\n\n";
         print "-- \n";
