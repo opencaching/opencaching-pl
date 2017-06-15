@@ -23,5 +23,17 @@ class Uuid
         return $uuid;
     }
 
+    /**
+     * Returns the sql chunk which generates uppercase unique UUID
+     * in format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+     * It can be used for example as:
+     * UPDATE table SET uuidColum = Uuid::sqlUppercaseUuid()
+     */
+    public static function getSqlForUpperCaseUuid()
+    {
+        // md5 because uuid() returns "similar" results if generates in really short time - with md5 uuids are much different
+        return "(SELECT CONCAT(SUBSTR(( @_u:= UPPER( md5( UUID() ) ) ),1,8),'-',SUBSTR(@_u,9,4),'-',SUBSTR(@_u,13,4),'-',SUBSTR(@_u,17,4),'-',SUBSTR(@_u,21,12)))";
+    }
+
 }
 
