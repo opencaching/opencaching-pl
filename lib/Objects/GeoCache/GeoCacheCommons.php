@@ -1,6 +1,8 @@
 <?php
 namespace lib\Objects\GeoCache;
 
+use Utils\DateTime\Year;
+
 /**
  * Common consts etc. for geocaches
  *
@@ -316,8 +318,7 @@ class GeoCacheCommons{
      */
     public static function CacheRatingTranslationKey($ratingId)
     {
-        // prima-aprilis joke ;-)
-        if ((date('m') != 4) || ( date('d') != 1)) {
+        if (Year::isPrimaAprilisToday()) {
             switch($ratingId){
                 case 1: return 'rating_poor';
                 case 2: return 'rating_mediocre';
