@@ -318,7 +318,7 @@ class GeoCacheCommons{
      */
     public static function CacheRatingTranslationKey($ratingId)
     {
-        if (Year::isPrimaAprilisToday()) {
+        if (!Year::isPrimaAprilisToday()) {
             switch($ratingId){
                 case 1: return 'rating_poor';
                 case 2: return 'rating_mediocre';
