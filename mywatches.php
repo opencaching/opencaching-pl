@@ -74,22 +74,22 @@ if ($error == false) {
 
             $tmpOptions = "";
             for ($i = 0; $i < 24; $i++) {
-                $tmpOptions .= sprintf("<option value='%d' %s>%02d:00</option>\n", $i, $i == $r['watchmail_hour'] ? "selected='selected'" : "", $i);
+                $tmpOptions .= sprintf("<option value='%d'%s>%02d:00</option>\n", $i, $i == $r['watchmail_hour'] ? " selected='selected'" : "", $i);
             }
             tpl_set_var('houroptions', $tmpOptions);
 
             // table indices of $intervalls are misplaced accordingly to
             // ones used in runwatch.php script that performs the real check
-            // there: immediately=1, daily=0, and weekly=2
+            // there: hourly=1, daily=0, and weekly=2
             // thus cannot use $intervalls with its indices
-            $tmpOptions = sprintf("<option value='1' %s>" . $intervalls[0] . "</option>\n", 1 == $r['watchmail_mode'] ? "selected='selected'" : "");
-            $tmpOptions .= sprintf("<option value='0' %s>" . $intervalls[1] . "</option>\n", 0 == $r['watchmail_mode'] ? "selected='selected'" : "");
-            $tmpOptions .= sprintf("<option value='2' %s>" . $intervalls[2] . "</option>\n", 2 == $r['watchmail_mode'] ? "selected='selected'" : "");
+            $tmpOptions = sprintf("<option value='1'%s>" . $intervalls[0] . "</option>\n", 1 == $r['watchmail_mode'] ? " selected='selected'" : "");
+            $tmpOptions .= sprintf("<option value='0'%s>" . $intervalls[1] . "</option>\n", 0 == $r['watchmail_mode'] ? " selected='selected'" : "");
+            $tmpOptions .= sprintf("<option value='2'%s>" . $intervalls[2] . "</option>\n", 2 == $r['watchmail_mode'] ? " selected='selected'" : "");
             tpl_set_var('intervalls', $tmpOptions);
 
             $tmpOptions = '';
             for ($i = 1; $i < count($weekday) + 1; $i++) {
-                $tmpOptions .= sprintf("<option value='%d' %s>%s</option>\n", $i, $i == $r['watchmail_day'] ? "selected='selected'" : "", $weekday[$i]);
+                $tmpOptions .= sprintf("<option value='%d'%s>%s</option>\n", $i, $i == $r['watchmail_day'] ? " selected='selected'" : "", $weekday[$i]);
             }
             tpl_set_var('weekdays', $tmpOptions);
         } else {
@@ -287,8 +287,6 @@ if ($error == false) {
                         };
 
                         $log_text = "<b>" . $record['user_name'] . ":</b><br>" . $log_text;
-                        //$log_text = "ala ma kota";
-
 
 
                         $tmp_watch = mb_ereg_replace('{log_text}', $log_text, $tmp_watch);
@@ -334,4 +332,3 @@ if ($error == false) {
 
 //make the template and send it out
 tpl_BuildTemplate();
-?>
