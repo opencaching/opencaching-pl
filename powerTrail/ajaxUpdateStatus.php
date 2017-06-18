@@ -2,6 +2,7 @@
 
 use Utils\Database\OcDb;
 use lib\Objects\PowerTrail\PowerTrail;
+use Utils\Generators\Uuid;
 
 $rootpath = __DIR__.'/../';
 require_once __DIR__.'/../lib/common.inc.php';
@@ -55,7 +56,11 @@ if($ptAPI::checkIfUserIsPowerTrailOwner($usr['userid'], $powerTrailId) == 1 || (
     if($updateStatusResult['updateStatusResult'] === true){
         $db = OcDb::instance();
         // add comment
-        $query = 'INSERT INTO `PowerTrail_comments`(`userId`, `PowerTrailId`, `commentType`, `commentText`, `logDateTime`, `dbInsertDateTime`, `deleted`) VALUES (:1, :2, :3, :4, NOW(), NOW(), 0 )';
+        $query = 'INSERT INTO `PowerTrail_comments`
+                  (`userId`, `PowerTrailId`, `commentType`, `commentText`,
+                   `logDateTime`, `dbInsertDateTime`, `deleted`, uuid)
+                  VALUES (:1, :2, :3, :4, NOW(), NOW(), 0, '.Uuid::getSqlForUpperCaseUuid().' )';
+
         $db->multiVariableQuery($query, (int) $usr['userid'], $powerTrailId, $commentType,  $commentText );
         // add action log
         $logQuery = 'INSERT INTO `PowerTrail_actionsLog`(`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`, `cacheId`) VALUES (:1,:2,NOW(),6,:3,:4)';

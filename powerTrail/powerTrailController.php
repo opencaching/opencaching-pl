@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\OcDb;
+use Utils\Generators\Uuid;
 /**
  *
  */
@@ -57,7 +58,8 @@ class powerTrailController {
 
     private function mySeries(){
         // print $_SESSION['user_id'];
-        $q = 'SELECT * FROM `PowerTrail` WHERE id IN (SELECT `PowerTrailId` FROM `PowerTrail_owners` WHERE `userId` = :1 ) ORDER BY cacheCount DESC';
+        $q = 'SELECT * FROM `PowerTrail` WHERE id IN (SELECT `PowerTrailId` FROM `PowerTrail_owners`
+                WHERE `userId` = :1 ) ORDER BY cacheCount DESC';
         $db = OcDb::instance();
         $s = $db->multiVariableQuery($q, $_SESSION['user_id']);
         $this->allSeries = $db->dbResultFetchAll($s);
@@ -198,7 +200,9 @@ class powerTrailController {
         $this->action = 'createNewSerie';
         if(isset($_POST['powerTrailName']) && $_POST['powerTrailName'] != '' && $_POST['type'] != 0 && $_POST['status'] != 0 && $_SESSION['powerTrail']['userFounds'] >= powerTrailBase::userMinimumCacheFoundToSetNewPowerTrail())
         {
-            $query = "INSERT INTO `PowerTrail`(`name`, `type`, `status`, `dateCreated`, `cacheCount`, `description`, `perccentRequired`) VALUES (:1,:2,:3,NOW(),0,:4,:5)";
+            $query = "INSERT INTO `PowerTrail`
+                       (`name`, `type`, `status`, `dateCreated`, `cacheCount`, `description`, `perccentRequired`, uuid)
+                       VALUES (:1,:2,:3,NOW(),0,:4,:5, ".Uuid::getSqlForUpperCaseUuid().")";
             $db = OcDb::instance();
             if ($_POST['dPercent'] < \lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED) {
                 $_POST['dPercent'] = \lib\Controllers\PowerTrailController::MINIMUM_PERCENT_REQUIRED;
