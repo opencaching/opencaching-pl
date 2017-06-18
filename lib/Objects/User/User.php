@@ -57,6 +57,12 @@ class User extends BaseObject
 
     private $eventsAttendsCount = null;
 
+    private $dateCreated;
+    private $description;
+    private $lastLogin;
+    private $isActive = null;
+    private $hideBan = false;
+
     private $verifyAll = null;
 
     /* user identifier used to communication with geoKrety Api*/
@@ -127,14 +133,19 @@ class User extends BaseObject
 
     /**
      * Factory
-     * @param unknown $username
+     * @param $username
+     * @param $fields - comma separatd list of columns to get from DB
      * @return User object or null on error
      */
-    public static function fromUserIdFactory($userId){
+    public static function fromUserIdFactory($userId, $fields = null){
         $u = new self();
         $u->userId = $userId;
 
-        if($u->loadDataFromDb(self::COMMON_COLLUMNS)){
+        if(is_null($fields)){
+            $fields = self::COMMON_COLLUMNS;
+        }
+
+        if($u->loadDataFromDb($fields)){
             return $u;
         }
         return null;
@@ -249,13 +260,23 @@ class User extends BaseObject
                 case 'rules_confirmed':
                     $this->rulesConfirmed = Php7Handler::Boolval($value);
                     break;
+                case 'date_created':
+                    $this->dateCreated = $value;
+                    break;
+                case 'description':
+                    $this->description = $value;
+                    break;
+                case 'last_login':
+                    $this->lastLogin = $value;
+                    break;
+                case 'is_active_flag':
+                    $this->isActive = Php7Handler::Boolval($value);
+                    break;
+                case 'hide_flag':
+                    $this->hideBan = (int) $value;
+                    break;
                 /* db fields not used in this class yet*/
                 case 'password':
-                case 'last_login':
-                case 'is_active_flag':
-                case 'hide_flag':
-                case 'date_created':
-                case 'description':
                     // just skip it...
                     break;
 
@@ -631,6 +652,30 @@ class User extends BaseObject
     public function getLogNotesCount()
     {
         return $this->logNotesCount;
+    }
+
+    public function getDateCreated()
+    {
+        return $this->dateCreated;
+    }
+
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    public function getLastLoginDate()
+    {
+        return $this->lastLogin;
+    }
+
+    public function isActive()
+    {
+        return $this->isActive && !empty($this->getEmail());
+    }
+
+    public function haveHideBan(){
+        return $this->hideBan == 10;
     }
 
     public function getGeokretyApiSecid()

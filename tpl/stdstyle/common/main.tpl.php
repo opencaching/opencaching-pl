@@ -2,6 +2,7 @@
 
 use Utils\Database\OcDb;
 use lib\Objects\GeoCache\PrintList;
+use Utils\DateTime\Year;
 
 // load menu
 global $mnu_selmenuitem, $tpl_subtitle, $absolute_server_URI, $mnu_siteid /* which menu item should be highlighted */, $site_name;
@@ -27,8 +28,7 @@ $logo1 = tr('oc_on_all_pages_top_' . $nodeDetect);
 $logo2 = tr('oc_subtitle_on_all_pages_' . $nodeDetect);
 $logo3 = $config['headerLogo'];
 
-// prima-aprilis
-if ((date('m') == 4) and ( date('d') == 1)) {
+if (Year::isPrimaAprilisToday()) {
     $logo1 = tr('oc_on_all_pages_top_1A');
     $logo2 = tr('oc_subtitle_on_all_pages_1A');
     $logo3 = $config['headerLogo1stApril'];
