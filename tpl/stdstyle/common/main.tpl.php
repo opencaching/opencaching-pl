@@ -112,7 +112,7 @@ if (date('m') == 12 || date('m') == 1) {
                         <ul>
                             <?php foreach($view->languageFlags as $langFlag){ ?>
                                 <li>
-                                    <a rel="nofollow" href="<?=$langFlag['link']?>" />
+                                    <a rel="nofollow" href="<?=$langFlag['link']?>">
                                         <img class="img-navflag" src="<?=$langFlag['img']?>" alt="<?=$langFlag['name']?> version"
                                              title="<?=$langFlag['name']?> version">
                                     </a>
@@ -303,7 +303,7 @@ if (date('m') == 12 || date('m') == 1) {
                     echo $bottomMenuResult;
                     ?>
                 </div>
-                <!-- (C) The Opencaching Project ? - 2016 -->
+                <!-- (C) The Opencaching Project 2017 -->
             </div>
         </div>
     </body>

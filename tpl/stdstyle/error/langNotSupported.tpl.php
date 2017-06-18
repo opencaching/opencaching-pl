@@ -25,7 +25,7 @@ use Utils\Uri\Uri;
         Please select one of supported language versions:
     </h5>
         <?php foreach($view->allLanguageFlags as $langFlag){ ?>
-            <a rel="nofollow" href="<?=$langFlag['link']?>" />
+            <a rel="nofollow" href="<?=$langFlag['link']?>">
               <img class="img-navflag" src="<?=$langFlag['img']?>" alt="<?=$langFlag['name']?> version"
                    title="<?=$langFlag['name']?> version">&nbsp;<?=$langFlag['name']?>&nbsp;
             </a>
