@@ -7,12 +7,12 @@
     <tr><td class="spacer" colspan="2"></td></tr>
     <tr>
         <td>
-            <form action='viewcache.php?cacheid={cacheid}' method='post'>
+            <form action='/viewcache.php?cacheid={cacheid}' method='post'>
                 <input type='hidden' name='cacheid' value='{cacheid}' />
                 <textarea name='rr_comment' cols='80' rows='15'></textarea>
                 <br/><br/>
                 <button type="submit" value="Dodaj komentarz" class="btn btn-primary">{{send}}</button>&nbsp;&nbsp;
-                <button type="button" class="btn btn-default" onclick="window.location.href = 'viewcache.php?cacheid={cacheid}'">{{cancel}}</button>
+                <button type="button" class="btn btn-default" onclick="window.location.href = '/viewcache.php?cacheid={cacheid}'">{{cancel}}</button>
             </form>
         </td>
     </tr>

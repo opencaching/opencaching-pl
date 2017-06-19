@@ -14,10 +14,6 @@ abstract class BaseObject
         $this->db = OcDb::instance();
     }
 
-    protected static function Db()
-    {
-        return OcDb::instance();
-    }
 
     public function isDataLoaded()
     {

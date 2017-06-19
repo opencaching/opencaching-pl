@@ -77,6 +77,14 @@ if (date('m') == 12 || date('m') == 1) {
             if( $view->isjQueryEnabled()){
                 $view->callChunk('jQuery');
             }
+
+            if( $view->isGMapApiEnabled() ){
+                if( !isset($GLOBALS['googlemap_key']) || empty($GLOBALS['googlemap_key']) ){
+                    error_log("Key: googlemap_key is not set in settings?! Maps can't be loaded!");
+                }else{
+                    $view->callChunk('googleMapsApi', $GLOBALS['googlemap_key'], $view->getLang());
+                }
+            }
         ?>
 
         <script type='text/javascript' src='/lib/js/CookiesInfo.js'></script>

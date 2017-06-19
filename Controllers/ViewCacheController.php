@@ -211,7 +211,7 @@ class ViewCacheController extends BaseController
 
                 // add OC Team comment
                 GeoCacheDesc::UpdateAdminComment( $this->geocache, $_POST['rr_comment'], $this->loggedUser);
-                $this->view->redirect(Uri::getCurrentUri());
+                $this->view->redirect(Uri::getCurrentUri(true));
 
             }elseif ( isset($_GET['rmAdminComment']) && isset($_GET['cacheid'])) {
 

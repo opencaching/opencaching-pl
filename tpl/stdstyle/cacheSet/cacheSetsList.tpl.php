@@ -1,15 +1,9 @@
-<script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.27&amp;key=<?=$view->gMapKey?>&amp;language=<?=$view->getLang()?>"></script>
-<link rel="stylesheet" href="<?=$view->geoPathList_css?>">
-
 
 
 <div class="content2-pagetitle">
     <img src="tpl/stdstyle/images/blue/050242-blue-jelly-icon-natural-wonders-flower13-sc36_32x32.png" class="icon32" alt="geoPath" title="geoPaths">
     {{gp_mainTitile}}
 </div>
-
-
 
 <div id="mapContainer">
     <div id="mapCanvas"></div>

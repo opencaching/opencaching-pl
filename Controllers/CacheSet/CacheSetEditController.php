@@ -1,11 +1,11 @@
 <?php
 
-namespace Controllers\GeoPath;
+namespace Controllers\CacheSet;
 
 use Controllers\BaseController;
 
 
-class GeoPathEditController extends BaseController
+class CacheSetEditController extends BaseController
 {
 
     public function __construct()

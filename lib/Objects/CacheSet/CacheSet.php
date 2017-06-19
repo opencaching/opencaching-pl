@@ -1,16 +1,17 @@
 <?php
 
-namespace lib\Objects\GeoPath;
+namespace lib\Objects\CacheSet;
 
 
 use lib\Objects\Coordinates\Coordinates;
 use Utils\Database\OcDb;
 use lib\Objects\OcConfig\OcConfig;
 
-class GeoPath extends GeoPathCommon
+class CacheSet extends CacheSetCommon
 {
 
     private $id;
+    private $uuid;
     private $name;
     private $image;
     private $type;
@@ -84,6 +85,9 @@ class GeoPath extends GeoPathCommon
                 case 'points':
                     $this->points = $val;
                     break;
+                case 'uuid':
+                    $this->uuid = $val;
+                    break;
 
                 case 'centerLatitude':
                 case 'centerLongitude':
@@ -114,12 +118,12 @@ class GeoPath extends GeoPathCommon
      */
     public static function GetAllGeoPaths()
     {
-        $stmt = self::Db()->multiVariableQuery(
+        $stmt = self::db()->multiVariableQuery(
                     "SELECT * FROM PowerTrail
                     WHERE 1=1");
 
         $result = array();
-        while($row = self::Db()->dbResultFetch($stmt, OcDb::FETCH_ASSOC)){
+        while($row = self::db()->dbResultFetch($stmt, OcDb::FETCH_ASSOC)){
             $result[] = self::FromDbRowFactory($row);
         }
         return $result;
@@ -130,6 +134,11 @@ class GeoPath extends GeoPathCommon
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getUuid()
+    {
+        return $this->uuid;
     }
 
     public function getName()

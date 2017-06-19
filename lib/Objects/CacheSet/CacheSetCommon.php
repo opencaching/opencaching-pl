@@ -1,11 +1,11 @@
 <?php
 
-namespace lib\Objects\GeoPath;
+namespace lib\Objects\CacheSet;
 
 
 use lib\Objects\BaseObject;
 
-class GeoPathCommon extends BaseObject
+class CacheSetCommon extends BaseObject
 {
 
     const TYPE_GEODRAW = 1;
