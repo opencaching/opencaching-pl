@@ -6,6 +6,7 @@
 ob_start();
 
 use Utils\Database\XDb;
+use lib\Objects\GeoCache\GeoCacheCommons;
 
 global $content, $bUseZip, $hide_coords, $usr, $dbcSearch;
 set_time_limit(1800);
@@ -192,7 +193,8 @@ if ($usr || ! $hide_coords) {
         }
 
         $thisline = mb_ereg_replace('{type_text}', $cacheTypeText[$r['type_id']], $thisline);
-        $thisline = mb_ereg_replace('{size_text}', tr('cacheSize_' . $r['size_id']), $thisline);
+        $thisline = mb_ereg_replace('{size_text}',
+            tr(GeoCacheCommons::CacheSizeTranslationKey($r['size_id'])), $thisline);
 
         $difficulty = sprintf('%01.1f', $r['difficulty'] / 2);
         $thisline = mb_ereg_replace('{difficulty}', $difficulty, $thisline);
