@@ -1,7 +1,7 @@
 
 
 <div class="content2-pagetitle">
-    <img src="tpl/stdstyle/images/blue/050242-blue-jelly-icon-natural-wonders-flower13-sc36_32x32.png" class="icon32" alt="geoPath" title="geoPaths">
+    <img src="tpl/stdstyle/images/blue/050242-blue-jelly-icon-natural-wonders-flower13-sc36_32x32.png" class="icon32" alt="geoPath" title="cache sets">
     {{gp_mainTitile}}
 </div>
 
@@ -14,29 +14,29 @@
 <div>
     <table>
         <tr>
-            <th>{{gp_name}}</th>
-            <th>{{gp_type}}</th>
-            <th>{{gp_publicationDate}}</th>
-            <th>{{gp_status}}</th>
-            <th>{{gp_cachesNumber}}</th>
-            <th>{{gp_gainedCount}}</th>
+            <th>{{cs_name}}</th>
+            <th>{{cs_type}}</th>
+            <th>{{cs_publicationDate}}</th>
+            <th>{{cs_status}}</th>
+            <th>{{cs_cachesNumber}}</th>
+            <th>{{cs_gainedCount}}</th>
         </tr>
 
-        <?php foreach($view->geoPathList as $gp) { ?>
+        <?php foreach($view->cacheSetList as $cs) { ?>
         <tr>
             <td>
-                <a href="geoPathDetails.php?gpId=<?=$gp->getId()?>">
-                    <?=$gp->getName()?>
+                <a href="cacheSetDetails.php?csId=<?=$cs->getId()?>">
+                    <?=$cs->getName()?>
                 </a>
             </td>
             <td>
-                <img src="<?=$gp->getIcon()?>" alt="geoPathIcon">
-                <?=$gp->getTypeTranslation()?>
+                <img src="<?=$cs->getIcon()?>" alt="cacheSetIcon">
+                <?=$cs->getTypeTranslation()?>
             </td>
-            <td><?=$gp->getStatusTranslation()?></td>
-            <td><?=$gp->getCreationDateString()?></td>
-            <td><?=$gp->getCacheCount()?></td>
-            <td><?=$gp->getGainedCount()?></td>
+            <td><?=$cs->getStatusTranslation()?></td>
+            <td><?=$cs->getCreationDateString()?></td>
+            <td><?=$cs->getCacheCount()?></td>
+            <td><?=$cs->getGainedCount()?></td>
         </tr>
 
         <?php } //foreach ?>

@@ -22,10 +22,10 @@ class CacheSetCommon extends BaseObject
     public static function GetTypeTranslationKey($type)
     {
         switch($type){
-            case self::TYPE_GEODRAW:    return 'gp_typeGeoDraw';
-            case self::TYPE_TOURING:    return 'gp_typeTouring';
-            case self::TYPE_NATURE:     return 'gp_typeNature';
-            case self::TYPE_THEMATIC:   return 'gp_typeThematic';
+            case self::TYPE_GEODRAW:    return 'cs_typeGeoDraw';
+            case self::TYPE_TOURING:    return 'cs_typeTouring';
+            case self::TYPE_NATURE:     return 'cs_typeNature';
+            case self::TYPE_THEMATIC:   return 'cs_typeThematic';
 
             default:
                 error_log(__METHOD__.": Unknown type: $type");
@@ -52,10 +52,10 @@ class CacheSetCommon extends BaseObject
     public static function GetStatusTranslationKey($status)
     {
         switch($status){
-            case self::STATUS_OPEN:             return 'gp_statusPublic';
-            case self::STATUS_UNAVAILABLE:      return 'gp_statusNotYetAvailable';
-            case self::STATUS_CLOSED:           return 'gp_statusClosed';
-            case self::STATUS_INSERVICE:        return 'gp_statusInService';
+            case self::STATUS_OPEN:             return 'cs_statusPublic';
+            case self::STATUS_UNAVAILABLE:      return 'cs_statusNotYetAvailable';
+            case self::STATUS_CLOSED:           return 'cs_statusClosed';
+            case self::STATUS_INSERVICE:        return 'cs_statusInService';
 
             default:
                 error_log(__METHOD__.": Unknown status: $status");

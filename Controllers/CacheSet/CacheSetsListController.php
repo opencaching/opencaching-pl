@@ -3,8 +3,8 @@
 namespace Controllers\CacheSet;
 
 use Controllers\BaseController;
-use lib\Objects\GeoPath\GeoPath;
 use Utils\Uri\Uri;
+use lib\Objects\CacheSet\CacheSet;
 
 
 class CacheSetsListController extends BaseController
@@ -27,9 +27,7 @@ class CacheSetsListController extends BaseController
      */
     public function showAll()
     {
-
-        $this->showList(array());
-
+        $this->showList(CacheSet::GetAllCacheSets());
     }
 
     /**
@@ -40,7 +38,7 @@ class CacheSetsListController extends BaseController
 
     }
 
-    private function showList(array $geoPathList)
+    private function showList(array $cacheSetList)
     {
         tpl_set_tplname('cacheSet/cacheSetsList');
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/cacheSet/cacheSetsList.css'));
@@ -48,7 +46,7 @@ class CacheSetsListController extends BaseController
         $this->view->loadJQuery();
         $this->view->loadGMapApi();
 
-        $this->view->setVar('geoPathList', GeoPath::GetAllGeoPaths());
+        $this->view->setVar('cacheSetList', $cacheSetList);
 
         tpl_BuildTemplate();
     }

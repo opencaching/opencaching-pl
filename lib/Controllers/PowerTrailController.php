@@ -34,7 +34,7 @@ class PowerTrailController
                 'color' => '#000000',
             ),
             Log::TYPE_CONQUESTED => array ( // conquested
-                'translate' => 'gp_gainedCount',
+                'translate' => 'cs_gainedCount',
                 'color' => '#00CC00',
             ),
             Log::TYPE_OPENING => array ( // geoPath Publishing
@@ -135,16 +135,16 @@ class PowerTrailController
     public static function getPowerTrailStatus(){
         return array (
             1 => array ( // public
-                'translate' => 'gp_statusPublic',
+                'translate' => 'cs_statusPublic',
             ),
             2 => array ( // not yet available
-                'translate' => 'gp_statusNotYetAvailable',
+                'translate' => 'cs_statusNotYetAvailable',
             ),
             4 => array ( // service
-                'translate' => 'gp_statusInService',
+                'translate' => 'cs_statusInService',
             ),
             3 => array ( // archived
-                'translate' => 'gp_statusClosed',
+                'translate' => 'cs_statusClosed',
             ),
         );
     }

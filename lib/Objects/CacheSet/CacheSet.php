@@ -113,10 +113,10 @@ class CacheSet extends CacheSetCommon
     }
 
     /**
-     * Returns list of all geopaths
+     * Returns list of all cache-sets
      * @return array
      */
-    public static function GetAllGeoPaths()
+    public static function GetAllCacheSets()
     {
         $stmt = self::db()->multiVariableQuery(
                     "SELECT * FROM PowerTrail

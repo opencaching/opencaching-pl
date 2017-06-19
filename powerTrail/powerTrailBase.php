@@ -85,22 +85,22 @@ class powerTrailBase{
         return array (
             self::GEODRAW => array (
                 'geopathTypeName' => self::getConstName(self::GEODRAW),
-                'translate' => 'gp_typeGeoDraw',
+                'translate' => 'cs_typeGeoDraw',
                 'icon' => self::iconPath.'footprintRed.png',
             ),
             self::TOURING => array (
                 'geopathTypeName' => self::getConstName(self::TOURING),
-                'translate' => 'gp_typeTouring',
+                'translate' => 'cs_typeTouring',
                 'icon' => self::iconPath.'footprintBlue.png',
             ),
             self::NATURE => array (
                 'geopathTypeName' => self::getConstName(self::NATURE),
-                'translate' => 'gp_typeNature',
+                'translate' => 'cs_typeNature',
                 'icon' => self::iconPath.'footprintGreen.png',
             ),
             self::TEMATIC => array (
                 'geopathTypeName' => self::getConstName(self::TEMATIC),
-                'translate' => 'gp_typeThematic',
+                'translate' => 'cs_typeThematic',
                 'icon' => self::iconPath.'footprintYellow.png',
             ),
         );

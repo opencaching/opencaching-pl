@@ -141,7 +141,7 @@
                 <td>{ptType}</td>
             </tr>
             <tr>
-                <td>{{gp_status}}</td>
+                <td>{{cs_status}}</td>
                 <td><span id="ptStatus">{ptStatus}</span>
                     <div id="ptStatSelectSpan" style="display: none;">
                         <span style="color:red;">{{pt221}}</span><br><hr>

@@ -1360,8 +1360,8 @@ $( document ).ready(function() {
                         </td>
                         <td>
                             <select name="status">
-                                <option value="1">{{gp_statusPublic}}</option>
-                                <option value="2">{{gp_statusNotYetAvailable}}</option>
+                                <option value="1">{{cs_statusPublic}}</option>
+                                <option value="2">{{cs_statusNotYetAvailable}}</option>
                             </select>
                         </td>
                     </tr>
@@ -1461,12 +1461,12 @@ $( document ).ready(function() {
                     </td>
                 </tr>
                 <tr>
-                    <th class="ptTd">{{gp_name}}</th>
-                    <th class="ptTd">{{gp_type}}</th>
+                    <th class="ptTd">{{cs_name}}</th>
+                    <th class="ptTd">{{cs_type}}</th>
                     <th class="ptTd">{statusOrPoints}</th>
-                    <th class="ptTd">{{gp_publicationDate}}</th>
-                    <th class="ptTd">{{gp_cachesNumber}}</th>
-                    <th class="ptTd">{{gp_gainedCount}}</th>
+                    <th class="ptTd">{{cs_publicationDate}}</th>
+                    <th class="ptTd">{{cs_cachesNumber}}</th>
+                    <th class="ptTd">{{cs_gainedCount}}</th>
                 </tr>
                 {PowerTrails}
             </table>

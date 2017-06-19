@@ -177,7 +177,7 @@ if ($error == false) {
             if ($pt->getPowerTrailOwn() === false)
                 tpl_set_var('statusOrPoints', tr('pt037'));
             else
-                tpl_set_var('statusOrPoints', tr('gp_status'));
+                tpl_set_var('statusOrPoints', tr('cs_status'));
             tpl_set_var('mapOuterdiv', 'block');
             tpl_set_var('mapInit', 1);
             tpl_set_var('fullCountryMap', '1');
@@ -199,7 +199,7 @@ if ($error == false) {
             if ($pt->getPowerTrailOwn() === false)
                 tpl_set_var('statusOrPoints', tr('pt037'));
             else
-                tpl_set_var('statusOrPoints', tr('gp_status'));
+                tpl_set_var('statusOrPoints', tr('cs_status'));
             tpl_set_var('mapOuterdiv', 'block');
             tpl_set_var('mapInit', 1);
             tpl_set_var('fullCountryMap', '1');
@@ -605,7 +605,7 @@ function generateStatusSelector($currStatus)
 {
     $selector = '<select id="ptStatusSelector">';
     if ($currStatus == 3) { //permanently closed
-        $selector .= '<option value="3">' . tr('gp_statusClosed') . '</option>';
+        $selector .= '<option value="3">' . tr('cs_statusClosed') . '</option>';
     } else {
         foreach (\lib\Controllers\PowerTrailController::getPowerTrailStatus() as $val => $desc) {
             if ($val == $currStatus)
