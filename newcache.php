@@ -7,7 +7,6 @@ use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\User\User;
 use Utils\Email\EmailSender;
 use Utils\Generators\Uuid;
-use lib\Objects\GeoCache\GeoCacheCommons;
 
 
 
@@ -799,25 +798,23 @@ if ($no_tpl_build == false) {
 
 function buildCacheSizeSelector($sel_type, $sel_size)
 {
+    $cache = cache::instance();
+    $cacheSizes = $cache->getCacheSizes();
+
     $sizes = '<option value="-1" disabled selected="selected">' . tr('select_one') . '</option>';
-    foreach (GeoCacheCommons::CacheSizesArray() as $size) {
-
-        if ($sel_type == GeoCacheCommons::TYPE_EVENT || $sel_type == GeoCacheCommons::TYPE_VIRTUAL || $sel_type == GeoCacheCommons::TYPE_WEBCAM) {
-
-            if ($size == GeoCacheCommons::SIZE_NONE) {
-                $sizes .= '<option value="' . $size . '" selected="selected">' . tr(GeoCacheCommons::CacheSizeTranslationKey($size)) . '</option>';
+    foreach ($cacheSizes as $size) {
+        if ($sel_type == cache::TYPE_EVENT || $sel_type == cache::TYPE_VIRTUAL || $sel_type == cache::TYPE_WEBCAM) {
+            if ($size['id'] == cache::SIZE_NOCONTAINER) {
+                $sizes .= '<option value="' . $size['id'] . '" selected="selected">' . tr($size['translation']) . '</option>';
             } else {
-                $sizes .= '<option value="' . $size . '">' . tr(GeoCacheCommons::CacheSizeTranslationKey($size)) . '</option>';
+                $sizes .= '<option value="' . $size['id'] . '">' . tr($size['translation']) . '</option>';
             }
-
-        } elseif ($size != GeoCacheCommons::SIZE_NONE) {
-
-            if ($size == $sel_size) {
-                $sizes .= '<option value="' . $size . '" selected="selected">' . tr(GeoCacheCommons::CacheSizeTranslationKey($size)) . '</option>';
+        } elseif ($size['id'] != cache::SIZE_NOCONTAINER) {
+            if ($size['id'] == $sel_size) {
+                $sizes .= '<option value="' . $size['id'] . '" selected="selected">' . tr($size['translation']) . '</option>';
             } else {
-                $sizes .= '<option value="' . $size . '">' . tr(GeoCacheCommons::CacheSizeTranslationKey($size)) . '</option>';
+                $sizes .= '<option value="' . $size['id'] . '">' . tr($size['translation']) . '</option>';
             }
-
         }
     }
     return $sizes;

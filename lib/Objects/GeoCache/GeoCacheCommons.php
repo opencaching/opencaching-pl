@@ -76,34 +76,19 @@ class GeoCacheCommons{
     public static function CacheSizeTranslationKey($sizeId)
     {
         switch ($sizeId) {
-            case self::SIZE_OTHER:  return 'cacheSize_other';
-            case self::SIZE_NANO:   return 'cacheSize_nano';
-            case self::SIZE_MICRO:  return 'cacheSize_micro';
-            case self::SIZE_SMALL:  return 'cacheSize_small';
-            case self::SIZE_REGULAR:return 'cacheSize_regular';
-            case self::SIZE_LARGE:  return 'cacheSize_large';
-            case self::SIZE_XLARGE: return 'cacheSize_xLarge';
-            case self::SIZE_NONE:   return 'cacheSize_none';
+            case self::SIZE_OTHER:  return 'size_00';
+            case self::SIZE_NANO:   return 'size_01';
+            case self::SIZE_MICRO:  return 'size_02';
+            case self::SIZE_SMALL:  return 'size_03';
+            case self::SIZE_REGULAR:return 'size_04';
+            case self::SIZE_LARGE:  return 'size_05';
+            case self::SIZE_XLARGE: return 'size_06';
+            case self::SIZE_NONE:   return 'size_07';
             default:
                 error_log(__METHOD__ . ' Unknown cache sizeId: ' . $sizeId);
                 return 'size_04';
         }
     }
-
-    public static function CacheSizesArray()
-    {
-        return array(
-            SIZE_NONE,
-            //SIZE_NANO,
-            SIZE_MICRO,
-            SIZE_SMALL,
-            SIZE_REGULAR,
-            SIZE_LARGE,
-            SIZE_XLARGE,
-            //SIZE_OTHER
-        );
-    }
-
 
     /**
      * Returns TypeId of the cache based on OKAPI description
