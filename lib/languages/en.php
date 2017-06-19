@@ -2267,7 +2267,7 @@ $translations = array(
     'contact_uk_1_title' => 'Questions about Geocaching',
     'contact_uk_1_desc' => 'Would you like to know more about Geocaching? You\'ll find it in our <a href="https://wiki.opencache.uk/" target="_blank">Wiki</a>.',
     'contact_uk_2_title' => 'Opencaching UK Team',
-    'contact_uk_2_desc' => 'OC UK Team members are listed <a href="https://wiki.opencache.uk/index.php/OC_Team" target="_blank">here</a>. You can contact us via <i>{contact_mail}</i>.',
+    'contact_uk_2_desc' => 'OC UK Team members are listed <a href="https://wiki.opencache.uk/index.php/OC_Team" target="_blank">here</a>. You can contact us via <i>info at opencache.uk</i>.',
     'newCacheWpTitle' => 'Pick waypoint',
     'newCacheWpDesc' => 'File contains too few waypoints.',
     'logmap_01' => 'By',
