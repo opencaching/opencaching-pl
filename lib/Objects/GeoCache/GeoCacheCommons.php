@@ -93,14 +93,14 @@ class GeoCacheCommons{
     public static function CacheSizesArray()
     {
         return array(
-            SIZE_NONE,
-            //SIZE_NANO,
-            SIZE_MICRO,
-            SIZE_SMALL,
-            SIZE_REGULAR,
-            SIZE_LARGE,
-            SIZE_XLARGE,
-            //SIZE_OTHER
+            self::SIZE_NONE,
+            //self::SIZE_NANO,
+            self::SIZE_MICRO,
+            self::SIZE_SMALL,
+            self::SIZE_REGULAR,
+            self::SIZE_LARGE,
+            self::SIZE_XLARGE,
+            //self::SIZE_OTHER
         );
     }
 
