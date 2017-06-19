@@ -171,9 +171,9 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
     }
 
     //global css files:
-    $view->setVar('screenCss', Uri::getLinkWithModificationTime('tpl/stdstyle/css/style_screen.css'));
-    $view->setVar('printCss', Uri::getLinkWithModificationTime('tpl/stdstyle/css/style_print.css'));
-    $view->setVar('seasonCss', Uri::getLinkWithModificationTime('tpl/stdstyle/css/style_'.$view->getSeasonCssName().'.css'));
+    $view->setVar('screenCss', Uri::getLinkWithModificationTime('/tpl/stdstyle/css/style_screen.css'));
+    $view->setVar('printCss', Uri::getLinkWithModificationTime('/tpl/stdstyle/css/style_print.css'));
+    $view->setVar('seasonCss', Uri::getLinkWithModificationTime('/tpl/stdstyle/css/style_'.$view->getSeasonCssName().'.css'));
 
     //does template exist?
     if (!file_exists($stylepath . '/' . $tplname . '.tpl.php')) {

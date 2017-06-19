@@ -63,7 +63,7 @@ if (date('m') == 12 || date('m') == 1) {
 
         <title><?=$tpl_subtitle?>{title}</title>
 
-        <script type="text/javascript" src="lib/enlargeit/enlargeit.js"></script>
+        <script type="text/javascript" src="/lib/enlargeit/enlargeit.js"></script>
 
 
         {htmlheaders}
@@ -79,7 +79,7 @@ if (date('m') == 12 || date('m') == 1) {
             }
         ?>
 
-        <script type='text/javascript' src='lib/js/CookiesInfo.js'></script>
+        <script type='text/javascript' src='/lib/js/CookiesInfo.js'></script>
         <script type='text/javascript'>WHSetText('{{cookiesInfo}}');</script>
 
         <script type="text/javascript">
@@ -179,7 +179,7 @@ if (date('m') == 12 || date('m') == 1) {
 
                 <!-- Header banner     -->
                 <div class="header">
-                    <div style="width:970px; padding-top:1px;"><img src="./images/head/rotator.php" alt="Banner" style="border:0px;"></div>
+                    <div style="width:970px; padding-top:1px;"><img src="/images/head/rotator.php" alt="Banner" style="border:0px;"></div>
                 </div>
 
                 <!-- Navigation Level 2 -->
