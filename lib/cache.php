@@ -13,14 +13,12 @@ final class cache
     const TYPE_MOVING = 8;
     const TYPE_GEOPATHFINAL = 9;
     const TYPE_OWNCACHE = 10;
-
     const SIZE_MICRO = 2;
     const SIZE_SMALL = 3;
     const SIZE_NORMAL = 4;
     const SIZE_LARGE = 5;
     const SIZE_VERYLARGE = 6;
     const SIZE_NOCONTAINER = 7;
-
     const STATUS_READY = 1;
     const STATUS_UNAVAILABLE = 2;
     const STATUS_ARCHIVED = 3;
@@ -53,6 +51,32 @@ final class cache
         self::STATUS_BLOCKED => array(
             'description' => 'Blocked by COG',
             'translation' => 'cacheStatus_6',
+        ),
+    );
+    private $size = array(
+        self::SIZE_MICRO => array(
+            'id' => self::SIZE_MICRO,
+            'translation' => 'cacheSize_2',
+        ),
+        self::SIZE_SMALL => array(
+            'id' => self::SIZE_SMALL,
+            'translation' => 'cacheSize_3',
+        ),
+        self::SIZE_NORMAL => array(
+            'id' => self::SIZE_NORMAL,
+            'translation' => 'cacheSize_4',
+        ),
+        self::SIZE_LARGE => array(
+            'id' => self::SIZE_LARGE,
+            'translation' => 'cacheSize_5',
+        ),
+        self::SIZE_VERYLARGE => array(
+            'id' => self::SIZE_VERYLARGE,
+            'translation' => 'cacheSize_6',
+        ),
+        self::SIZE_NOCONTAINER => array(
+            'id' => self::SIZE_NOCONTAINER,
+            'translation' => 'cacheSize_7',
         ),
     );
     private static $type = array(
@@ -177,7 +201,10 @@ final class cache
         return $this->cacheTypeIcons;
     }
 
-
+    public function getCacheSizes()
+    {
+        return $this->size;
+    }
 
     public function getCacheTypes()
     {

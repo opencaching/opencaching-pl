@@ -8,7 +8,6 @@ ob_start();
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use Utils\Text\Rot13;
-use lib\Objects\GeoCache\GeoCacheCommons;
 
 global $content, $bUseZip, $hide_coords, $usr, $lang, $dbcSearch;
 
@@ -18,6 +17,7 @@ require_once ('lib/calculation.inc.php');
 
 
 $cache = cache::instance();
+$cacheSizes = $cache->getCacheSizes();
 $cacheTypesArr = $cache->getCacheTypeIcons();
 $cacheStatusArr = $cache->getCacheStatuses();
 
@@ -264,7 +264,7 @@ if( $usr || !$hide_coords ) {
             $thisline = str_replace('{rr_comment}', html2txt("<br /><br />--------<br />".$r['rr_comment']), $thisline);
         }
         $thisline = str_replace('{type}', tr($cacheTypesArr[$r['type_id']]['translation']), $thisline);
-        $thisline = str_replace('{container}', tr(GeoCacheCommons::CacheSizeTranslationKey($r['size'])), $thisline);
+        $thisline = str_replace('{container}', tr($cacheSizes[$r['size']]['translation']), $thisline);
         $thisline = str_replace('{status}', tr($cacheStatusArr[$r['status']]['translation']), $thisline);
 
         $difficulty = sprintf('%01.1f', $r['difficulty'] / 2);
