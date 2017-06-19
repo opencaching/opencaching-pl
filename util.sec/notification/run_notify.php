@@ -9,6 +9,7 @@
 use Utils\Database\OcDb;
 use Utils\Log\Log;
 use Utils\Gis\Gis;
+use lib\Objects\GeoCache\GeoCacheCommons;
 
 $rootpath = __dir__ . '/../../';
 require_once($rootpath . 'lib/common.inc.php');
@@ -33,7 +34,6 @@ $db = OcDb::instance();
 /* init caches container */
 $cacheCntainer = cache::instance();
 $cacheTypes = $cacheCntainer->getCacheTypes();
-$cacheSizes = $cacheCntainer->getCacheSizes();
 $cacheTypeIcons = $cacheCntainer->getCacheTypeIcons();
 
 $id = 0;
@@ -75,7 +75,8 @@ fclose($lock_file);
 
 function process_new_cache($notify)
 {
-    global $emailaddr, $octeamEmailsSignature, $absolute_server_URI, $site_name, $dateFormat, $cacheTypes, $cacheSizes, $cacheTypeIcons;
+    global $emailaddr, $octeamEmailsSignature, $absolute_server_URI, $site_name;
+    global $dateFormat, $cacheTypes, $cacheTypeIcons;
 
 
     switch ($notify['type']) {
@@ -98,7 +99,7 @@ function process_new_cache($notify)
     $mailbody = mb_ereg_replace('{unit}', 'km', $mailbody);
     $mailbody = mb_ereg_replace('{bearing}', Gis::bearing2Text(Gis::calcBearing($notify['lat1'], $notify['lon1'], $notify['lat2'], $notify['lon2'])), $mailbody);
     $mailbody = mb_ereg_replace('{cachetype}', tr($cacheTypes[$notify['cachetype']]['translation']), $mailbody);
-    $mailbody = mb_ereg_replace('{cachesize}', tr($cacheSizes[$notify['cachesize']]['translation']), $mailbody);
+    $mailbody = mb_ereg_replace('{cachesize}', tr(GeoCacheCommons::CacheSizeTranslationKey($notify['cachesize'])), $mailbody);
     $mailbody = mb_ereg_replace('{server}', $absolute_server_URI, $mailbody);
     $mailbody = mb_ereg_replace('{sitename}', $site_name, $mailbody);
     $mailbody = mb_ereg_replace('{notify_newCache_01}', tr('notify_newCache_01'), $mailbody);
