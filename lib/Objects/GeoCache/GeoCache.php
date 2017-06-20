@@ -1360,7 +1360,7 @@ class GeoCache extends GeoCacheCommons
         if($changeUrlForSpoilers){
             array_walk($result, function($pic){
                 if($pic->spoiler){
-                    $pic->url = 'tpl\stdstyle\images\thumb\thumbspoiler.gif';
+                    $pic->url = 'tpl/stdstyle/images/thumb/thumbspoiler.gif';
                 }
             });
         }
