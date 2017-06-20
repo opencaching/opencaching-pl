@@ -802,6 +802,10 @@ function buildCacheSizeSelector($sel_type, $sel_size)
     $sizes = '<option value="-1" disabled selected="selected">' . tr('select_one') . '</option>';
     foreach (GeoCacheCommons::CacheSizesArray() as $size) {
 
+        if( in_array($size, $GLOBALS['config']['forbiddenCacheSizes']) ){
+            continue;
+        }
+
         if ($sel_type == GeoCacheCommons::TYPE_EVENT || $sel_type == GeoCacheCommons::TYPE_VIRTUAL || $sel_type == GeoCacheCommons::TYPE_WEBCAM) {
 
             if ($size == GeoCacheCommons::SIZE_NONE) {
