@@ -130,7 +130,7 @@ if ($usr == false) {
             0, $usr['userid'] );
 
         // new with recommendations
-        if ($nrecom >= 20 && $user->isGuide() && $user_id == $usr['userid']) {
+        if ($nrecom >= 20 && !$user->isGuide() && $user_id == $usr['userid']) {
             $guide_info = '<div class="content-title-noshade box-blue"><table><tr><td><img style="margin-right: 10px;margin-left:10px;" src="tpl/stdstyle/images/blue/info-b.png" alt="guide"></td><td>
                 <span style="font-size:12px;"> ' . tr('guru_17') . '
                 <a class="links" href="myprofile.php?action=change"> ' . tr('guru_18') . '</a>.
