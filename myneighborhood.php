@@ -229,7 +229,7 @@ if ($error == false) {
         // Read coordinates of the newest caches
         $markerpositions = get_marker_positions($latitude, $longitude, $radius, $user_id);
         // Generate include file for map with new caches
-        tpl_set_var('local_cache_map', '<img src="' . create_map_url($markerpositions, -1, $latitude, $longitude) . '" basesrc="' . create_map_url($markerpositions, -1, $latitude, $longitude) . '" id="main-cachemap" alt="mapa">');
+        tpl_set_var('local_cache_map', '<img src="' . create_map_url($markerpositions, -1, $latitude, $longitude) . '" basesrc="' . create_map_url($markerpositions, -1, $latitude, $longitude) . '" id="main-cachemap" alt="' . tr('map') . '">');
 
         /* ===================================================================================== */
         /*                          Najnowsze skrzynki                                           */

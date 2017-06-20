@@ -28,7 +28,7 @@ $markerpositions = get_marker_positions();
 
 // Generate include file for map with new caches
 $static_map = sprintf("lib/staticmap.php?center=%F,%F&amp;zoom=%d&amp;size=%dx%d&amp;maptype=%s", $map_center_lat, $map_center_lon, $map_zoom, $map_width, $map_height, $map_type);
-$file_content = '<img src="' . $static_map . '" id="main-cachemap" alt="{{map}}" />';
+$file_content = '<img src="' . $static_map . '" id="main-cachemap" alt="' . tr('map') . '" />';
 
 // Calculate positions for small and large images highlighting recent caches and events
 $markers = $markerpositions['markers'];
