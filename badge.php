@@ -3,7 +3,8 @@
 
 use lib\Objects\MeritBadge\MeritBadge; //for static functions
 use lib\Controllers\MeritBadgeController;
-
+use Controllers\ViewBadgeHeadController;
+use Controllers\ViewBadgeShowPositionsController;
 
 require_once('./lib/common.inc.php');
 
@@ -31,32 +32,17 @@ if (isset($_REQUEST['user_id'])) {
 
 $badge_id = $_REQUEST['badge_id'];
 
+
+$head= (new ViewBadgeHeadController())->index();
 $meritBadgeCtrl = new \lib\Controllers\MeritBadgeController;
 $userMeritBadge = $meritBadgeCtrl->buildUserBadge($userid, $badge_id);
 
 $currUserLevel = $userMeritBadge->getOlevel()->getLevel();
-$currUserLevelName = $userMeritBadge->getOlevel()->getLevelName();
-$currUserCurrVal = $userMeritBadge->getCurrVal();
 $currUserThreshold = $userMeritBadge->getNextVal();
-
 $cfg_period_threshold = $userMeritBadge->getOBadge()->getCfgPeriodThreshold();
-$noLevels = $userMeritBadge->getOBadge()->getLevels();
-
+$noLevels = $userMeritBadge->getOBadge()->getLevelsNumber();
 $description = $userMeritBadge->getOBadge()->getDescription() . $userMeritBadge->getDescription();
-
 $whoPrepared = $userMeritBadge->getOBadge()->whoPrepared();
-
-
-tpl_set_var( 'picture', $userMeritBadge->getPicture() );
-tpl_set_var( 'progresbar_curr_val', $currUserCurrVal );
-tpl_set_var( 'progresbar_next_val', MeritBadge::getProgressBarValueMax($currUserThreshold) );
-tpl_set_var( 'progresbar_color', MeritBadge::getColor($currUserLevel, $noLevels) );
-tpl_set_var( 'progresbar_size', MeritBadge::getBarSize($currUserLevel, $noLevels) );
-tpl_set_var( 'badge_name', $userMeritBadge->getOBadge()->getName() );
-tpl_set_var( 'badge_short_desc', MeritBadge::prepareShortDescription( $userMeritBadge->getOBadge()->getShortDescription(), $currUserThreshold ) );
-tpl_set_var( 'desc_cont', MeritBadge::sqlTextTransform($description) );
-tpl_set_var( 'who_prepared', $whoPrepared);
-
 
 $levelsMeritBadge = $meritBadgeCtrl->buildArrayLevels($badge_id);
 
@@ -110,7 +96,7 @@ foreach( $levelsMeritBadge as $oneLevel ){
         gct.addToLastRow( 5, \"$max_date\" ); ";
 }
 
-tpl_set_var( 'contentLvl', $contentLvl );
+
 
 
 $usersMeritBadge = $meritBadgeCtrl->buildArrayUsers($badge_id);
@@ -159,12 +145,18 @@ foreach( $usersMeritBadge as $oneUserBadge ){
 
 $contentUsr .= "}";
 
+tpl_set_var( 'desc_cont', MeritBadge::sqlTextTransform($description) );
+tpl_set_var( 'who_prepared', $whoPrepared);
 tpl_set_var( 'userLevel', $currUserLevel );
 
-tpl_set_var( 'userLevelName', $currUserLevelName );
-tpl_set_var( 'userCurrValue', $currUserCurrVal );
-tpl_set_var( 'userThreshold', MeritBadge::prepareTextThreshold($currUserThreshold) );
+tpl_set_var( 'user_id', $userid );
+tpl_set_var( 'badge_id', $badge_id );
 
+
+tpl_set_var( 'head', $head );
+tpl_set_var( 'showPositions', (new ViewBadgeShowPositionsController())->index());
+
+tpl_set_var( 'contentLvl', $contentLvl );
 tpl_set_var( 'contentUsr', $contentUsr );
 
 tpl_BuildTemplate();
@@ -186,4 +178,4 @@ function setAsSelected( $value ){
     return setAsSelectedColor( setAsSelectedBold( $value ) );
 }
 
-?>
+

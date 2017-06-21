@@ -57,7 +57,7 @@ class LogEnteryController
                 $this->cacheScoreHandlingAfterRemoveLog($log);
 
                 $ctrlMeritBadge = new MeritBadgeController;
-                $ctrlMeritBadge->updateCurrValMeritBadges($log->getGeoCache()->getCacheId(), $loggedUser->getUserId() );
+                $ctrlMeritBadge->updateCurrValUserMeritBadges($log->getGeoCache()->getCacheId(), $loggedUser->getUserId() );
             }
 
             //call eventhandler

@@ -1,8 +1,6 @@
 <?php
 
-
-//use lib\Objects\MeritBadge\MeritBadge; //for static functions
-//use lib\Controllers\MeritBadgeController;
+use lib\Controllers\MeritBadgeController;
 use Utils\Database\OcDb;
 
 require_once('./lib/common.inc.php');
@@ -23,44 +21,27 @@ if (isset($_REQUEST['user_id'])) {
     $userid = $usr['userid'];
 }
 
-$code = $_REQUEST['code'];
-
-//$badge_id = $_REQUEST['badge_id'];
-
-//$meritBadgeCtrl = new \lib\Controllers\MeritBadgeController;
-//$userMeritBadge = $meritBadgeCtrl->buildUserBadge($userid, $badge_id);
-
-// $condition = "nuts_layer.code = 'PL63' and caches.type<>8 and caches.type<>10 and caches.status = 1 and
-// ST_Contains(shape, GeomFromText( concat( 'POINT(', caches.longitude, ' ', caches.latitude, ')')))";
-
-$condition=" cache_location.code3 = 'PL$code' and
-caches.type<>8 and caches.type<>10 and caches.status = 1";
+$badge_id = $_REQUEST['badge_id'];
+$show = $_REQUEST['show'];
 
 
-//oPomorskie
-$cacheQuery = "SELECT caches.cache_id FROM cache_location
-join caches on caches.cache_id = cache_location.cache_id
-WHERE " . $condition;
+$meritBadgeCtrl = new \lib\Controllers\MeritBadgeController;
+$tmp_badge_map = "tmp_badge_map";
 
-// $cacheQuery = "SELECT caches.cache_id FROM nuts_layer, caches
-// WHERE " . $condition;
+$gainedPositions = $meritBadgeCtrl->buildArrayGainedPositions($userid, $badge_id);
+$belongingPositions = $meritBadgeCtrl->buildArrayBelongingPositions($userid, $badge_id);
 
+$gainedList = getCachesList($gainedPositions);
+$belongingList = getCachesList($belongingPositions); //TODO nawet zaarchiwizowane ? (brakuje caches.status = 1)
+
+$db = OcDb::instance();
+addCachesToTmpTable( $db, $tmp_badge_map, $show, $gainedList, $belongingList);
 
 
 $borderQuery = "SELECT MAX(caches.longitude) AS maxlongitude, MAX(caches.latitude) AS maxlatitude,
 MIN(caches.longitude) AS minlongitude, MIN(caches.latitude) AS minlatitude
-FROM cache_location
-join caches on caches.cache_id = cache_location.cache_id
-WHERE " . $condition;
-
-// $borderQuery = "SELECT MAX(caches.longitude) AS maxlongitude, MAX(caches.latitude) AS maxlatitude,
-// MIN(caches.longitude) AS minlongitude, MIN(caches.latitude) AS minlatitude
-// FROM nuts_layer, caches
-// WHERE " . $condition;
-
-
-$db = OcDb::instance();
-$db->setDebug(true);
+FROM $tmp_badge_map
+join caches on caches.cache_id = tmp_badge_map.cache_id";
 
 $stmt= $db->simpleQuery($borderQuery);
 $r = $db->dbResultFetchOneRowOnly($stmt);
@@ -70,6 +51,7 @@ $maxlat = $r['maxlatitude'];
 $maxlon = $r['maxlongitude'];
 
 
+$cacheQuery = "SELECT cache_id FROM $tmp_badge_map";
 $stmt = $db->simpleQuery($cacheQuery);
 $hash = uniqid();
 $f = fopen($dynbasepath . "searchdata/" . $hash, "w");
@@ -78,6 +60,41 @@ while ($r = $db->dbResultFetch($stmt)) {
 }
 fclose($f);
 
-tpl_redirect("cachemap3.php?searchdata=" . $hash . "&fromlat=" . $minlat . "&fromlon=" . $minlon . "&tolat=" . $maxlat . "&tolon=" . $maxlon);
+tpl_redirect("cachemap3.php?userid=$userid&searchdata=$hash&fromlat=$minlat&fromlon=$minlon&tolat=$maxlat&tolon=$maxlon");
 
-?>
+
+function getCachesList($positions){
+    $valQuery = "";
+            
+    foreach( $positions as $onePos ){
+        if ( $valQuery != "" )
+            $valQuery .= ",";
+            
+        $valQuery .= "(". $onePos->getId() . ")";
+    }
+    
+    return $valQuery;
+}
+
+
+function addCachesToTmpTable( $db, $tmp_badge_map, $show, $gainedList, $belongingList ){
+    
+    $query = "CREATE TEMPORARY TABLE $tmp_badge_map(cache_id int(11)) ENGINE=MEMORY";
+    $db->simpleQuery($query);
+
+    $insQuery = "INSERT INTO $tmp_badge_map values ";
+    $delGainedQuery = "DELETE FROM $tmp_badge_map WHERE cache_id in (" . $gainedList. ")";
+    
+    if ( !(strpos($show, 'N') === false) ){
+        $db->simpleQuery($insQuery . $belongingList);
+        echo "N1";
+    }
+    
+    if ( strpos($show, 'Y') === false){
+        $db->simpleQuery($delGainedQuery);
+    }
+    else {
+        $db->simpleQuery($insQuery . $gainedList);
+    }
+}
+

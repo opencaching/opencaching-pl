@@ -32,9 +32,6 @@ if ( isset( $_REQUEST[ 'type' ] ) )
     $distance = XDb::xSimpleQueryValue("SELECT `notify_radius` FROM user WHERE user_id='" . XDb::xEscape($usr['userid']) . "'", 0);
 
     localCachesInc::createLocalCaches($dbcLocCache, $longitude, $latitude, $distance, $usrid);
-
-    // quick fix - this line generate syntax error in sql query.
-    // $query .= " JOIN local_caches on cache_titled.cache_id = local_caches.cache_id ";
 }
 
 $s = $dbcLocCache->simpleQuery($query);

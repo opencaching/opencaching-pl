@@ -698,7 +698,7 @@ if ($error == false) {
                         $log_type == GeoCacheLog::LOGTYPE_ATTENDED ){
 
                         $ctrlMeritBadge = new MeritBadgeController;
-                        $changedLevelBadgesIds = $ctrlMeritBadge->updateCurrValMeritBadges($cache_id, $usr['userid']);
+                        $changedLevelBadgesIds = $ctrlMeritBadge->updateCurrValUserMeritBadges($cache_id, $usr['userid']);
 
                         if ( $changedLevelBadgesIds != "" )
                             $badgetParam = "&badges=" . $changedLevelBadgesIds;

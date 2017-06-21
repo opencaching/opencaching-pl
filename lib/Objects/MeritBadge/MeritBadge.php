@@ -25,17 +25,19 @@ class MeritBadge
     private $name;
     private $short_description;
     private $description;
-    private $levels; //amount of levles - ToDo - to remove ?
+    private $levelsNumber;
     private $cfg_period_threshold;
+    private $cfg_show_positions;
     private $picture;
-
+    private $trigger_type;
+    
     private $graphic_author;
     private $description_author;
     private $attendant;
 
     //queries
-    private $is_to_update_query;
-    private $curr_val_query;
+    private $belonging_query;
+    private $gained_query;
 
 
     //////////////////////////////////////////////////////////////////////
@@ -58,14 +60,22 @@ class MeritBadge
         return $this->description;
     }
 
-    public function getLevels(){ //ToDo - zmienic na count ?
-        return $this->levels;
+    public function getLevelsNumber(){
+        return $this->levelsNumber;
     }
 
     public function getCfgPeriodThreshold(){
         return $this->cfg_period_threshold;
     }
 
+    public function getCfgShowPositions(){
+        return $this->cfg_show_positions;
+    }
+    
+    public function getTriggerType(){
+        return $this->trigger_type;
+    }
+    
     public function getPicture(){
         return $this->picture;
     }
@@ -82,12 +92,12 @@ class MeritBadge
         return $this->attendant;
     }
 
-    public function getIsToUpdateQuery(){
-        return $this->is_to_update_query;
+    public function getBelongingQuery(){
+        return $this->belonging_query;
     }
 
-    public function getCurrValQuery(){
-        return $this->curr_val_query;
+    public function getGainedQuery(){
+        return $this->gained_query;
     }
 
     public function whoPrepared(){
@@ -116,20 +126,26 @@ class MeritBadge
         if ( isset($rec['badges_description']) )
             $this->description = $rec[ 'badges_description' ];
 
-        if ( isset($rec['badges_levels']) )
-            $this->levels = $rec[ 'badges_levels' ];
+        if ( isset($rec['badges_levels_number']) )
+            $this->levelsNumber = $rec[ 'badges_levels_number' ];
 
         if ( isset($rec['badges_cfg_period_threshold']) )
             $this->cfg_period_threshold = $rec[ 'badges_cfg_period_threshold' ];
 
+        if ( isset($rec['badges_cfg_show_positions']) )
+            $this->cfg_show_positions = $rec[ 'badges_cfg_show_positions' ];
+        
+        if ( isset($rec['badges_trigger_type']) )
+            $this->trigger_type= $rec[ 'badges_trigger_type' ];
+                            
         if ( isset($rec['badges_picture']) )
             $this->picture = $rec[ 'badges_picture' ];
 
-        if ( isset($rec['badges_is_to_update_query']) )
-            $this->is_to_update_query = $rec[ 'badges_is_to_update_query' ];
+        if ( isset($rec['badges_belonging_query']) )
+            $this->belonging_query= $rec[ 'badges_belonging_query' ];
 
-        if ( isset($rec['badges_curr_val_query']) )
-            $this->curr_val_query = $rec[ 'badges_curr_val_query' ];
+        if ( isset($rec['badges_gained_query']) )
+            $this->gained_query = $rec[ 'badges_gained_query' ];
 
         if ( isset($rec['badges_graphic_author']) )
             $this->graphic_author= $rec[ 'badges_graphic_author' ];

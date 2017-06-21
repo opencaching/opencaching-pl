@@ -2653,9 +2653,12 @@ $translations = array(
     'merit_badge_graphic_author' => 'Graphic Author:',
     'merit_badge_description_author' => 'Description Author:',
     'merit_badge_attendant' => 'Attendant:',
+    'merit_badge_list' => 'List of positioons',
+    'merit_badge_map' => 'Map of positions',
+    'merit_badge_show_not_gained' => 'Show not gained',
+    'merit_badge_show_gained' => 'Show gained',
     'prepublication_visits' => 'Visited before publication',
     'no_visits' => 'No such visits'
-
 );
 
 

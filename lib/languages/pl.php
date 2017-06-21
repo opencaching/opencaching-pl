@@ -2652,8 +2652,12 @@ $translations = array(
     'merit_badge_graphic_author' => 'Grafika:',
     'merit_badge_description_author' => 'Opis:',
     'merit_badge_attendant' => 'Opiekun sprawności:',
+    'merit_badge_list' => 'Lista pozycji',
+    'merit_badge_map' => 'Mapa pozycji',
+    'merit_badge_show_not_gained' => 'Pokaż wszystkie nie zdobyte',
+    'merit_badge_show_gained' => 'Pokaż wszystkie zdobyte',
     'prepublication_visits' => 'Wizyty przed publikacją',
-    'no_visits' => 'brak wizyt'
+    'no_visits' => 'brak wizyt',
 );
 
 
