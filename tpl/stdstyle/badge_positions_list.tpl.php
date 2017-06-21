@@ -25,7 +25,7 @@
     gct.addColumn('string', '' ); //
     gct.addColumn('string',  '<?php echo tr("geocache") ?>', 'font-size: 12px; ' ); //1
     gct.addColumn('string', '<?php echo tr("owner") ?>', 'font-size: 12px; ' ); //2
-    gct.addColumn('string', '<?php echo tr("titled_cache_date") ?>', 'font-size: 12px; ' ); //3
+    gct.addColumn('string', '<?php echo tr("merit_badge_gain_date") ?>', 'font-size: 12px; ' ); //3
 
     gct.addChartOption('sortColumn', 3 ); //Data
     gct.addChartOption('sortAscending', false );
