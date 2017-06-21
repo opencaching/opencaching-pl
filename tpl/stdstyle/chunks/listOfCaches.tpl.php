@@ -25,7 +25,7 @@ return function (ListOfCaches $m){
 
           <td>
             <?php if($cache->ptEnabled) { ?>
-              <a href="powerTrail.php?ptAction=showSerie&ptrail=<?=$cache->ptId?>">
+              <a href="powerTrail.php?ptAction=showSerie&amp;ptrail=<?=$cache->ptId?>">
                 <img src="<?=$cache->ptIcon?>" class="icon16" alt="" title="<?=$cache->ptName?>" />
               </a>
             <?php } //$cache->pt ?>

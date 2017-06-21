@@ -30,6 +30,10 @@
             if( $view->isjQueryEnabled()){
                 $view->callChunk('jQuery');
             }
+
+            if( $view->isGMapApiEnabled()){
+                $view->callChunk('googleMapsApi', $GLOBALS['googlemap_key'], $view->getLang());
+            }
         ?>
 
         <script type="text/javascript" src="lib/enlargeit/enlargeit.js"></script>

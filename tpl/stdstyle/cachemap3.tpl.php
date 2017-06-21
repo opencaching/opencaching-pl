@@ -67,7 +67,7 @@
     ?>
     <table id='powertrail_filter' class='opt_table' cellspacing="0" style='clear: both; margin:5px auto; width:98%'>
         <tr>
-            <th colspan='2'>{{pt001}}</th>
+            <th colspan='2'>{{gp_mainTitile}}</th>
         </tr>
         <tr>
             <td>
@@ -75,7 +75,7 @@
                         type="checkbox" checked="checked" onclick="reload()" />&nbsp;
                 <label for="pt_selection" style='display:inline-block; vertical-align:sub; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 300px;'>
                     <a  href='{pt_url}' title='{pt_name}' target='_blank' style="text-decoration: none">
-                        <img width="20" height="20" src="{pt_icon}" alt="{{pt001}}" title='{pt_name}'>
+                        <img width="20" height="20" src="{pt_icon}" alt="{{gp_mainTitile}}" title='{pt_name}'>
                         {pt_name}
                     </a>
                 </label>
