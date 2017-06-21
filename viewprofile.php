@@ -216,7 +216,7 @@ if ($usr == false) {
 
     if ($powerTrailModuleSwitchOn) {
 
-        $content .= buildOpenCloseButton($user_id, $checkGeoPaths, "powerTrailGenericLogo.png", "checkGeoPaths", tr('pt001'), "geoPaths");
+        $content .= buildOpenCloseButton($user_id, $checkGeoPaths, "powerTrailGenericLogo.png", "checkGeoPaths", tr('gp_mainTitile'), "geoPaths");
 
         if ($checkGeoPaths){
         //geoPaths medals
