@@ -5,7 +5,7 @@ namespace Controllers\CacheSet;
 use Controllers\BaseController;
 
 
-class CacheSetEditController extends BaseController
+class CacheSetDetailsController extends BaseController
 {
 
     public function __construct()

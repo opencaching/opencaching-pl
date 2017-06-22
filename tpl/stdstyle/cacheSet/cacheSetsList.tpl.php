@@ -41,6 +41,9 @@
 
         <?php } //foreach ?>
     </table>
+
+    <?php $view->callChunk('pagination', $view->paginationModel); ?>
+
 </div>
 
 

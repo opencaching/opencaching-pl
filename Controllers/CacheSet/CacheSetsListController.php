@@ -5,6 +5,8 @@ namespace Controllers\CacheSet;
 use Controllers\BaseController;
 use Utils\Uri\Uri;
 use lib\Objects\CacheSet\CacheSet;
+use lib\Objects\ChunkModels\PaginationModel;
+use lib\Objects\CacheSet\CacheSetCommon;
 
 
 class CacheSetsListController extends BaseController
@@ -27,7 +29,16 @@ class CacheSetsListController extends BaseController
      */
     public function showAll()
     {
-        $this->showList(CacheSet::GetAllCacheSets());
+        $allowedStatuses = array(CacheSetCommon::STATUS_OPEN);
+
+        $paginationModel = new PaginationModel(50);
+        $paginationModel->setRecordsCount(
+            CacheSet::GetAllCacheSetsCount($allowedStatuses));
+
+        list($limit, $offset) = $paginationModel->getQueryLimitAndOffset();
+
+        $this->view->setVar('paginationModel', $paginationModel);
+        $this->showList(CacheSet::GetAllCacheSets($allowedStatuses, $offset, $limit));
     }
 
     /**
@@ -45,6 +56,7 @@ class CacheSetsListController extends BaseController
 
         $this->view->loadJQuery();
         $this->view->loadGMapApi();
+
 
         $this->view->setVar('cacheSetList', $cacheSetList);
 

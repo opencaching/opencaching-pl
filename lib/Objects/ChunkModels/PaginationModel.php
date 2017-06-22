@@ -43,13 +43,17 @@ class PaginationModel {
         $this->pagesListSize = self::DEFAULT_PAGES_LIST_SIZE;
     }
 
+    public function getQueryLimitAndOffset(){
+        return array($this->getRecordsPerPageNum(), $this->getQueryOffset());
+    }
+
     /**
      * Returns value to use as a LIMIT offset value in SQL query
      * to generate current page
      *
      * @return number
      */
-    public function getQueryOffset(){
+    private function getQueryOffset(){
         if( is_null($this->currentPage) || is_null($this->recordsPerPage) ){
             // TODO: hot to handle errors?
             error_log("Pagination model used without initialization!");
@@ -66,7 +70,7 @@ class PaginationModel {
      *
      * @return number
      */
-    public function getRecordsPerPageNum(){
+    private function getRecordsPerPageNum(){
         if( is_null($this->currentPage) || is_null($this->recordsPerPage) ){
             // TODO: hot to handle errors?
             error_log("Pagination model used without initialization!");

@@ -67,6 +67,27 @@ class OcDb extends OcPdo
     }
 
     /**
+     * This method returns array of objects which are returned by $rowToObjectCallback function.
+     *
+     * @param PDOStatement $stmt
+     * @param callable $rowToObjectCallback
+     * @return array
+     */
+    public function dbFetchAllAsObjects(PDOStatement $stmt, $rowToObjectCallback){
+
+        if(is_callable($rowToObjectCallback)){
+
+           $result = [];
+           while($row = $this->dbResultFetch($stmt, OcDb::FETCH_ASSOC)){
+               $result[] = $rowToObjectCallback($row);
+           }
+           return $result;
+        }
+
+        $this->error('', new PDOException(__METHOD__.': rowToObjectCallback param must be callable!'));
+    }
+
+    /**
      * This method returns the value from first column of first row in statement
      *
      * @param PDOStatement $stmt -

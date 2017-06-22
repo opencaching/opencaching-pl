@@ -11,7 +11,7 @@ abstract class BaseObject
 
 
     public function __construct(){
-        $this->db = OcDb::instance();
+        $this->db = self::db();
     }
 
 
