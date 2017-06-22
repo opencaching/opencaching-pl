@@ -3,6 +3,11 @@
  * This is pagintaion chunk.
  * To use it prepare and use PaginationModel.
  *
+ * Usage:
+ * - in controller:
+ *
+ * - in template:
+ *
  */
 use lib\Objects\ChunkModels\PaginationModel;
 
@@ -17,7 +22,7 @@ return function (PaginationModel $pagination){
         margin: 10px 0;
         padding: 0px;
         display: flex;
-        font-size: 14px;
+        font-size: 12px;
         text-align: center;
         justify-content: center;
     }
@@ -29,11 +34,11 @@ return function (PaginationModel $pagination){
 
     .pagination a {
         box-sizing: border-box;
-        padding: 8px;
+        padding: 6px;
         margin-left: -1px;
         border: 1px solid #ccc;
         display: block;
-        min-width: 37px;
+        min-width: 30px;
     }
 
     .pagination li:first-child > a {

@@ -6,6 +6,7 @@ namespace lib\Objects\CacheSet;
 use lib\Objects\Coordinates\Coordinates;
 use Utils\Database\OcDb;
 use lib\Objects\OcConfig\OcConfig;
+use Utils\Database\QueryBuilder;
 
 class CacheSet extends CacheSetCommon
 {
@@ -116,19 +117,41 @@ class CacheSet extends CacheSetCommon
      * Returns list of all cache-sets
      * @return array
      */
-    public static function GetAllCacheSets()
+    public static function GetAllCacheSets($statusIn=array(), $offset=null, $limit=null)
     {
-        $stmt = self::db()->multiVariableQuery(
-                    "SELECT * FROM PowerTrail
-                    WHERE 1=1");
 
-        $result = array();
-        while($row = self::db()->dbResultFetch($stmt, OcDb::FETCH_ASSOC)){
-            $result[] = self::FromDbRowFactory($row);
+        if(empty($statusIn)){
+            $statusIn = array(CacheSetCommon::STATUS_OPEN);
         }
-        return $result;
+
+
+        $query = QueryBuilder::instance()
+            ->select("*")
+            ->from("PowerTrail")
+            ->where()
+                ->in("status", $statusIn)
+            ->limit($limit, $offset)
+            ->build();
+
+        $stmt = self::db()->simpleQuery($query);
+
+        return self::db()->dbFetchAllAsObjects($stmt, function ($row){
+            return self::FromDbRowFactory($row);
+        });
     }
 
+    public static function GetAllCacheSetsCount(array $statusIn = array())
+    {
+
+        $query = QueryBuilder::instance()
+            ->select("COUNT(*)")
+            ->from("PowerTrail")
+            ->where()
+                ->in("status", $statusIn)
+            ->build();
+
+        return self::db()->simpleQueryValue($query,0);
+    }
 
 
     public function getId()
