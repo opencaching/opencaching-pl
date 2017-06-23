@@ -34,8 +34,6 @@ $content = '';
 foreach($userCategories as $oneCategory){
 
     $category_table=mb_ereg_replace('{category}', $oneCategory->getName(), $content_table);
-
-    //$sB = $dbcLocCache->multiVariableQuery($queryBadge, $userid, $oneCategory->getId() );
     $badgesInCategory = $meritBadgeCtrl->buildArrayUserMeritBadgesInCategory( $userid, $oneCategory->getId() );
 
     $content_badge = '';
@@ -49,13 +47,13 @@ foreach($userCategories as $oneCategory){
         $element=mb_ereg_replace('{level_name}', $oneBadge->getOLevel()->getLevelName(), $element );
         $element=mb_ereg_replace('{badge_id}', $oneBadge->getBadgeId(), $element );
         $element=mb_ereg_replace('{user_id}', $userid, $element );
-        $element=mb_ereg_replace('{progresbar_curr_val}', $oneBadge->getCurrVal(), $element );
-        $element=mb_ereg_replace('{progresbar_next_val}', MeritBadge::getProgressBarValueMax($oneBadge->getNextVal()), $element );
+        $element=mb_ereg_replace('{curr_val}', $oneBadge->getCurrVal(), $element );
+        $element=mb_ereg_replace('{progresbar_curr_val}', $oneBadge->getCurrVal()-$oneBadge->getOLevel()->getPrevThreshold(), $element );
+        $element=mb_ereg_replace('{progresbar_next_val}', MeritBadge::getProgressBarValueMax($oneBadge->getOLevel()->getPrevThreshold(), $oneBadge->getNextVal()), $element );
         $element=mb_ereg_replace('{next_val}', MeritBadge::prepareTextThreshold($oneBadge->getNextVal()), $element );
         $element=mb_ereg_replace('{progresbar_size}', MeritBadge::getBarSize( $oneBadge->getLevelId(), $oneBadge->getOBadge()->getLevelsNumber() ), $element );
         $element=mb_ereg_replace('{progresbar_color}', MeritBadge::getColor( $oneBadge->getLevelId(), $oneBadge->getOBadge()->getLevelsNumber() ), $element );
-
-
+        
         $content_badge.= $element;
     }
     $content.=mb_ereg_replace('{content_badge_img}', $content_badge, $category_table);
@@ -67,4 +65,4 @@ tpl_set_var( 'content', $content );
 
 tpl_BuildTemplate();
 
-?>
+

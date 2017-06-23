@@ -85,15 +85,17 @@ function addCachesToTmpTable( $db, $tmp_badge_map, $show, $gainedList, $belongin
     $insQuery = "INSERT INTO $tmp_badge_map values ";
     $delGainedQuery = "DELETE FROM $tmp_badge_map WHERE cache_id in (" . $gainedList. ")";
     
-    if ( !(strpos($show, 'N') === false) ){
+    //N - not gained
+    //Y - gained
+    
+    if ( !(strpos($show, 'N') === false) ){ //not gained
         $db->simpleQuery($insQuery . $belongingList);
-        echo "N1";
     }
     
-    if ( strpos($show, 'Y') === false){
+    if ( strpos($show, 'Y') === false){ //only not gained
         $db->simpleQuery($delGainedQuery);
     }
-    else {
+    else { //gained
         $db->simpleQuery($insQuery . $gainedList);
     }
 }

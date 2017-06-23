@@ -22,7 +22,7 @@ $content_table = '
 $content_element = '
 <div class="Badge-div-element">
             <span class="Badge-level-user">'. tr('merit_badge_level') .': {level_name} </span><br>
-            <span class="Badge-value-user">'.tr('merit_badge_number').': {progresbar_curr_val} / {next_val}<br></span>
+            <span class="Badge-value-user">'.tr('merit_badge_number').': {curr_val} / {next_val}<br></span>
 
             <a href="badge.php?badge_id={badge_id}&user_id={user_id}">
             <div>
@@ -38,5 +38,4 @@ $content_element = '
             <span class="Badge-short_desc-user">{short_desc}</span> <br>
 
 </div>';
-?>
 

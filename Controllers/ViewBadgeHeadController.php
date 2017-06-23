@@ -40,6 +40,7 @@ class ViewBadgeHeadController extends BaseController{
         $currUserLevelName = $userMeritBadge->getOlevel()->getLevelName();
         $currUserCurrVal = $userMeritBadge->getCurrVal();
         $currUserThreshold = $userMeritBadge->getNextVal();
+        $currUserPrevThreshold = $userMeritBadge->getOlevel()->getPrevThreshold();
         
         $cfg_period_threshold = $userMeritBadge->getOBadge()->getCfgPeriodThreshold();
         $noLevels = $userMeritBadge->getOBadge()->getLevelsNumber();
@@ -51,8 +52,8 @@ class ViewBadgeHeadController extends BaseController{
         $this->preapareCode();
         
         $this->setVar( 'picture', $userMeritBadge->getPicture() );
-        $this->setVar( 'progresbar_curr_val', $currUserCurrVal );
-        $this->setVar( 'progresbar_next_val', MeritBadge::getProgressBarValueMax($currUserThreshold) );
+        $this->setVar( 'progresbar_curr_val', $currUserCurrVal-$currUserPrevThreshold);
+        $this->setVar( 'progresbar_next_val', MeritBadge::getProgressBarValueMax($currUserPrevThreshold, $currUserThreshold) );
         $this->setVar( 'progresbar_color', MeritBadge::getColor($currUserLevel, $noLevels) );
         $this->setVar( 'progresbar_size', MeritBadge::getBarSize($currUserLevel, $noLevels) );
         $this->setVar( 'badge_name', $userMeritBadge->getOBadge()->getName() );

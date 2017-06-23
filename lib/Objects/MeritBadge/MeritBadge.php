@@ -183,11 +183,11 @@ class MeritBadge
     }
 
 
-    public static function getProgressBarValueMax($value){
-        if ($value != self::THE_HIGHEST_LEVEL)
-            return $value;
-
-        return 1;
+    public static function getProgressBarValueMax($prevValue, $nextValue){
+        if ( $nextValue== self::THE_HIGHEST_LEVEL)
+            return 1;
+        
+       return $nextValue-$prevValue;
     }
 
     public static function prepareShortDescription($desc, $threshold ){

@@ -18,7 +18,7 @@ $content_tip_badge = "<div style =\'width:500px;\'><img src=\'{picture}\' style=
 <span style=\'font-size:13px; font-weight:normal; font-style:italic;\'> {short_desc} </span></p> \\
 <p style=\'font-size:13px;font-weight:normal;\'>\\"
 .tr('merit_badge_level_name').": <b>{level_name}</b><br>\\"
-.tr('merit_badge_number').": <b>{progresbar_curr_val}</b><br>\\"
+.tr('merit_badge_number').": <b>{curr_val}</b><br>\\"
 .tr('merit_badge_next_level_threshold').": <b>{next_val}</b><br>\\
 </p></div>";
 
@@ -33,4 +33,3 @@ $content_element_badge = '<div class="Badge-div-element-small">
 </div>';
 
 
-?>

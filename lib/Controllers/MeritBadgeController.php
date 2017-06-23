@@ -436,6 +436,8 @@ class MeritBadgeController{
                 badge_levels.picture badge_levels_picture,
                 badge_levels.level badge_levels_level,
                 badge_levels.name badge_levels_name,
+                
+                IFNULL( prev_badge_level.threshold, 0) badge_levels_prev_threshold,
 
                 badge_user.id badge_user_id,
                 badge_user.badge_id badge_user_badge_id,
@@ -449,12 +451,13 @@ class MeritBadgeController{
                 FROM
                 badge_user
                 join badge_levels on badge_user.badge_id = badge_levels.badge_id and badge_user.level_id = badge_levels.level
+                left join badge_levels prev_badge_level on badge_user.badge_id = prev_badge_level.badge_id and badge_user.level_id-1 = prev_badge_level.level
                 join badges on badge_user.badge_id = badges.id
                 join badge_categories on badges.category_id = badge_categories.id
                 join
                 (
                     SELECT badge_id, count(*) amount FROM badge_levels GROUP BY 1
-                ) as lvl on lvl.badge_id = badges.id "
+                ) as lvl on lvl.badge_id = badges.id"
                 .$condition.
                 " ORDER BY badges.sequence";
 
@@ -521,4 +524,3 @@ class MeritBadgeController{
     }
 
 }
-?>

@@ -8,6 +8,7 @@ class LevelMeritBadge{
     private $level;
     private $picture;
     private $threshold;
+    private $prev_threshold;
 
     private $gain_counter;
     private $gain_last_date;
@@ -30,6 +31,10 @@ class LevelMeritBadge{
 
     public function getThreshold(){
         return $this->threshold;
+    }
+    
+    public function getPrevThreshold(){
+        return $this->prev_threshold;
     }
 
     public function getGainCounter(){
@@ -62,6 +67,9 @@ class LevelMeritBadge{
 
         if ( isset($rec['badge_levels_threshold'])  )
             $this->threshold = $rec['badge_levels_threshold'];
+        
+        if ( isset($rec['badge_levels_prev_threshold'])  )
+            $this->prev_threshold = $rec['badge_levels_prev_threshold'];
 
         if ( isset($rec['badge_levels_gain_counter'])  )
             $this->gain_counter = $rec['badge_levels_gain_counter'];
@@ -73,4 +81,3 @@ class LevelMeritBadge{
 }
 
 
-?>
