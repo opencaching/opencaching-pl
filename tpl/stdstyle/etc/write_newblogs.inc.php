@@ -1,35 +1,26 @@
 <?php
-/* this file to be run witch CRON. generate last blog entery list on main page */
+/* This file to be run with CRON. Generate last blog and forum entery list on main page */
 
-setlocale(LC_TIME, 'pl_PL.UTF-8');
-
-global $lang, $rootpath, $config;
 if (!isset($rootpath)) {
     $rootpath = __DIR__ . '/../../../';
 }
 
-//include template handling
-require_once(__DIR__ . '/../../../' . 'lib/common.inc.php');
-require_once(__DIR__ . '/../../../' . 'lib/cache_icon.inc.php');
-require_once(__DIR__ . '/../../../' . 'lib/rss_php.php');
+require_once($rootpath . 'lib/common.inc.php');
+require_once($rootpath . 'lib/feed.php');
 
-$rss = new rss_php;
-$rss->load($config['blogMostRecentRecordsUrl']);
-$items = $rss->getItems();
-$html = '<ul style="font-size: 11px;">';
-$n = 0;
-if(is_array($items)){
-    foreach ($items as $index => $item) {
-        $pubDate = $item['pubDate'];
-        $pubDate = strftime("%d-%m-%Y", strtotime($pubDate));
-        $html .= '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="/tpl/stdstyle/images/free_icons/page.png" class="icon16" alt="news" title="news" /> ' . $pubDate . ' <a class=links href="' . $item['link'] . '" title="' . $item['title'] . '"><strong>' . $item['title'] . '</strong></a></li>';
-        $n = $n + 1;
-        if ($n == 5) {
-            break;
-        }
+foreach ($config['feed']['enabled'] as $feed_position) {
+    $feed = new Feed($config['feed'][$feed_position]['url']);
+    $html = '<div class="content2-container-2col-left feedArea">';
+    $html .= '<p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/crypt.png" class="icon32" alt="Feed" title="Feed">&nbsp;{feed_' . $feed_position . '}</p>';
+    $html .= '<ul class="feedList">';
+    for ($i = 0; $i < $config['feed'][$feed_position]['posts'] && $i < $feed->count(); $i++) {
+        $author = (!empty($feed->next()->author) && $config['feed'][$feed_position]['showAuthor']) ? ' (' . $feed->current()->author. ')' : '';
+        $html .= '<li>' .  date($dateFormat, $feed->current()->date) . ' <a class="links" href="' . $feed->current()->link. '" title="' . $feed->current()->title . '"><strong>' . $feed->current()->title . '</strong></a>' . $author . '</li>';
     }
+    $html .= "</ul>";
+    $html .= '</div>';
+    $output_file = fopen($dynstylepath . "feed." . $feed_position . ".html", 'w');
+    fwrite($output_file, $html);
+    fclose($output_file);
+    unset($feed);
 }
-$html.="</ul>";
-$n_file = fopen($dynstylepath . "start_newblogs.inc.php", 'w');
-fwrite($n_file, $html);
-fclose($n_file);

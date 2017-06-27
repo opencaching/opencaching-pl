@@ -1,8 +1,4 @@
 <?php
-
-
-
-
 ?>
 <script type="text/javascript">
 
@@ -114,14 +110,7 @@
             include ($dynstylepath . 'ptPromo.inc-' . $lang . '.php');
         ?>
     </div>
-
-    <div class="content2-container-2col-left" id="new-blogs-area" style="display: {blogDisplay}; width: 100%">
-        <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/crypt.png" class="icon32" alt="" title="Event">&nbsp;{{latest_blog}}</p>
-            <?php
-            global $dynstylepath;
-            include ($dynstylepath . "start_newblogs.inc.php");
-            ?>
-    </div>
+{Feeds}
 </div>
 <!-- End Text Container -->
 
