@@ -63,10 +63,14 @@ if ($powerTrailModuleSwitchOn)
 else
     tpl_set_var('ptDisplay', 'none');
 
-if ($BlogSwitchOn)
-    tpl_set_var('blogDisplay', 'block');
-else
-    tpl_set_var('blogDisplay', 'none');
+// Feeds
+$feeds = '';
+foreach ($config['feed']['enabled'] as $feed_position) {
+    $feed_txt = file_get_contents($dynstylepath . "feed." . $feed_position . ".html");
+    $feed_txt = mb_ereg_replace('{feed_' . $feed_position . '}', tr('feed_' . $feed_position), $feed_txt);
+    $feeds .= $feed_txt;
+}
+tpl_set_var('Feeds', $feeds);
 
 /////////////////////////////////////////////////////
 //Titled Caches

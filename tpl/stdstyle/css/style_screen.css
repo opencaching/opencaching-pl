@@ -894,7 +894,6 @@ tooltip {
 
 div#new-caches-area                                     { width: 500px; }
 div#new-events-area                                     { width: 500px; }
-div#new-blogs-area                                      { width: 500px; }
 div#local-caches-area                                   { width: 400px; }
 div#local-events-area                                   { width: 400px; }
 div#local-logs-area                                     { width: 750px; }
@@ -1338,4 +1337,12 @@ div.gm-style {
     font-style: italic;
 }
 
-
+/* Styles for blog and forum items on main page */
+.feedList {
+    font-size: 11px;
+    list-style-image: url(/tpl/stdstyle/images/free_icons/page.png);
+}
+div.feedArea {
+    width: 100%;
+    display: block;
+}

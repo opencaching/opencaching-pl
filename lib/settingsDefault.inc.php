@@ -25,8 +25,6 @@ $config = array(
      */
     'showShopButton' => false,
     'showShopButtonUrl' => 'http://www.shop of choise',
-    /** url where xml witch most recent blog enterie are placed */
-    'blogMostRecentRecordsUrl' => 'http://blog.opencaching.pl/feed/',
     /* link to geokrety site
      * to disable geokrety in main menu set:
      * $config['geokrety_url'] = NULL;
@@ -280,6 +278,15 @@ $config['bottom_menu']['main_page']['visible'] = true;
 
 // Configuration of license link at footer
 $config['license_html'] = '';
+
+// Configuration of feeds on the main page (for instruction - see setting-example.inc.php)
+$config['feed']['enabled'] = array();
+$config['feed']['forum']['url'] = '';
+$config['feed']['forum']['posts'] = 5;
+$config['feed']['forum']['showAuthor'] = true;
+$config['feed']['blog']['url'] = '';
+$config['feed']['blog']['posts'] = 5;
+$config['feed']['blog']['showAuthor'] = true;
 
 $subject_prefix_for_site_mails = "OCXX";
 $subject_prefix_for_reviewers_mails = "";

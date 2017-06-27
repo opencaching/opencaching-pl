@@ -282,9 +282,6 @@ $powerTrailFaqLink = 'http://info.opencaching.pl/node/13';
 
 /* end of power Trail module switch and settings */
 
-// enables/disables linkage to blog in index.php
-$BlogSwitchOn = true;
-
 // enable detailed cache access logging
 //$enable_cache_access_logs = true;
 
@@ -561,10 +558,21 @@ $config['maps']['external']['Google Maps'] = 1;
 $config['maps']['external']['Szukacz'] = 1;
 $config['maps']['external']['Flopp\'s Map'] = 0;
 
+// Configuration of feeds displayed on the main page
+$config['feed']['enabled'] = array('forum', 'blog');    // This array defines which feeds to display and in what order.
+                                                        // You can increase feeds number,
+                                                        // but remember to add feed description as feed_{feedname} to language files
+$config['feed']['forum']['url'] = 'https://forum.opencaching.pl/feed.php';  // URL of the feed. System supports RSS and Atom feeds.
+$config['feed']['forum']['posts'] = 5;  // How many newest posts to display
+$config['feed']['forum']['showAuthor'] = true;  // Do display author of post?
+$config['feed']['blog']['url'] = 'http://blog.opencaching.pl/feed/atom/';
+$config['feed']['blog']['posts'] = 5;
+$config['feed']['blog']['showAuthor'] = true;
+
 //To all mails send from our service we can add few prefixes:
 //If you don't want use global prefixes just set $value=""
 //Prefix for all mails sent to users:
 $subject_prefix_for_site_mails = "OCXX";
 //Prefix for all notification and mails sent to cache reviewers
 $subject_prefix_for_reviewers_mails = "R-Team";
-?>
+
