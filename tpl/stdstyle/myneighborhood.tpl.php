@@ -99,7 +99,7 @@
     </div>
     <br />
 
-        <div class="content2-container-2col-left" id="cacheTitled" style="display: {ptDisplay}; width: 100%">
+        <div class="content2-container-2col-left" id="cacheTitled" style="display: {ptDisplay};">
         {Title_titledCaches}
         {titledCaches}
         {more_titledCaches}

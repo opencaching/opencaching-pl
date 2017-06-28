@@ -185,6 +185,13 @@ ul.indent               { margin: 0px 0px 7px 15px; padding: 0px 0px 0px 15px; l
 ol                      { margin: 0px 0px 0px 9px; padding: 0px 0px 0px 25px; list-style-type: decimal; list-style-position: outside; font-size: 120%;}
 ul.linklist-noindent    { margin: -0.3em 0px 0.5em 0px; padding: 0px; list-style-type: none; line-height: 1.2em; font-size: 120%; }
 ul.linklist-indent      { margin: -0.3em 0px 0.5em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 120%; }
+ul.newcache_list {
+    list-style-type: none;
+    font-size: 11px;
+}
+li.newcache_list_multi {
+    margin-bottom:8px;
+}
 
 /* Tables */
 .table          { font-size: 10px; line-height: 2.0em; clear: left; padding: 0px; margin: 0.5em 0px 0.2em 0px; border: solid 0px rgb(150,150,150); empty-cells: show; border-collapse: collapse; background-color: rgb(255,255,255);}
@@ -893,7 +900,7 @@ tooltip {
 }
 
 div#new-caches-area                                     { width: 500px; }
-div#new-events-area                                     { width: 500px; }
+div#new-events-area                                     { width: 100%; }
 div#local-caches-area                                   { width: 400px; }
 div#local-events-area                                   { width: 400px; }
 div#local-logs-area                                     { width: 750px; }
@@ -907,7 +914,14 @@ div.viewlogs-logpictures div.allimages                  { background-color: rgb(
 div.viewlogs-logpictures span.desc                      { vertical-align: middle; display: block; float: right; width: 112px; margin-top: 5px; padding-left: 3px;font-size: 12px;} /* should fit 4 images */
 div.viewlogs-logpictures img                            { max-width: 64px; max-height: 64px; vertical-align: middle;}
 div.viewlogs-logpictures span.removepic                 { display: block; font-size: 12px;}
-
+div#cacheTitled {
+    width: 100%;
+}
+div.cache-titled-content {
+    margin-left: 40px;
+    margin-top: 11px;
+    font-size: 11px;
+}
 div.logs {
     border: 1px solid #ccc;
     margin: 0 0 10px 0;
@@ -1143,6 +1157,11 @@ table.border {    background: url(/images/bg_blue.png) repeat-x;
                   border-left: 1px solid #CCCCCC;
                   border-right: 1px solid #CCCCCC;
 }
+table.ptPromo-table {
+    width: 100%;
+    font-size: 11px;
+    vertical-align: middle;
+}
 .img_cache {
     border:solid 1px silver; padding:5px;
     margin-left:10px;width:195px;
@@ -1302,7 +1321,6 @@ table.myneighborhood tbody tr:nth-child(odd) {
     border-radius: 50px 50px;
     -moz-border-radius: 50px;
     -webkit-border-radius: 50px;
-
 }
 
 .imgPtMedal{
@@ -1325,18 +1343,21 @@ table.myneighborhood tbody tr:nth-child(odd) {
 div.gm-style {
     font-family: "arial", sans-serif, "Tahoma", "Verdana";
 }
-
 .CacheTitledLog {
     border-radius: 5px;
     border: solid 1px grey;
     background: #F9F9F9;
-    padding:2px 2px 2px 2px;
+    padding: 5px;
+    margin-top: 1.5em;
     font-size: 11px;
-    font-family: "Comic Sans MS", cursive, sans-serif;
-    font-weight: bold;
-    font-style: italic;
 }
-
+.show-more {
+    font-size: 10px;
+    margin-top: 1em;
+}
+.newsdate {
+    font-size: 11px;
+}
 /* Styles for blog and forum items on main page */
 .feedList {
     font-size: 11px;

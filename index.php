@@ -20,30 +20,31 @@ if ($error == false) {
     require($stylepath . '/news.inc.php');
 
     $newscontent = '';
+    if ($usr !== false) {
+        $rs = XDb::xSql(
+            'SELECT `news`.`date_posted` `date`, `news`.`content` `content` FROM `news`
+            WHERE datediff(now(), news.date_posted) <= 31 AND `news`.`display`=1 AND `news`.`topic`=2
+            ORDER BY `news`.`date_posted` DESC
+            LIMIT 4');
 
-    $rs = XDb::xSql(
-        'SELECT `news`.`date_posted` `date`, `news`.`content` `content` FROM `news`
-        WHERE datediff(now(), news.date_posted) <= 31 AND `news`.`display`=1 AND `news`.`topic`=2
-        ORDER BY `news`.`date_posted` DESC
-        LIMIT 4');
+        if ($r = XDb::xFetchArray($rs)) {
+            $newscontent = '<div class="line-box">';
+            $newscontent .= $tpl_newstopic_header;
 
-    if ($r = XDb::xFetchArray($rs)) {
-        $newscontent = '<div class="line-box">';
-        $newscontent .= $tpl_newstopic_header;
+            do {
+                $news = $tpl_newstopic_without_topic;
+                $post_date = strtotime($r['date']);
+                $news = mb_ereg_replace('{date}', TextConverter::fixPlMonth(htmlspecialchars(strftime("%d %B %Y", $post_date), ENT_COMPAT, 'UTF-8')), $news);
+                $news = mb_ereg_replace('{message}', $r['content'], $news);
+                $newscontent .= $news;
+            } while ($r = XDb::xFetchArray($rs));
 
-        do{
-            $news = '<div class="logs" style="width: 750px;">' . $tpl_newstopic_without_topic;
-            $post_date = strtotime($r['date']);
-            $news = mb_ereg_replace('{date}', TextConverter::fixPlMonth(htmlspecialchars(strftime("%d %B %Y", $post_date), ENT_COMPAT, 'UTF-8')), $news);
-            $news = mb_ereg_replace('{message}', $r['content'], $news);
-            $newscontent .= $news . "</div>\n";
-        }while ($r = XDb::xFetchArray($rs));
-
-        $newscontent .= "</div>\n";
+            $newscontent .= "</div>\n";
+        }
+        XDb::xFreeResults($rs);
     }
     tpl_set_var('display_news', $newscontent);
 
-    XDb::xFreeResults($rs);
 
     global $dynstylepath;
     include ($dynstylepath . "totalstats.inc.php");
@@ -84,7 +85,7 @@ if ( $usr != false )
     $usrid = $usr['userid'];
 
 $query = "SELECT caches.cache_id, caches.name cacheName, adm1 cacheCountry, adm3 cacheRegion, caches.type cache_type,
-        caches.user_id, user.username userName, cache_titled.date_alg, cache_logs.text, cache_desc.short_desc,
+        caches.user_id, user.username userName, cache_titled.date_alg, cache_logs.text,
         logUser.user_id logUserId, logUser.username logUserName
         FROM cache_titled
             JOIN caches ON cache_titled.cache_id = caches.cache_id
@@ -98,20 +99,15 @@ $query = "SELECT caches.cache_id, caches.name cacheName, adm1 cacheCountry, adm3
 
 $s = $dbc->multiVariableQuery($query, $lang);
 
-$pattern = "<br><span style='font-size:13px'><img src='{cacheIcon}' class='icon16' alt='Cache' title='Cache' />
-        <a href='viewcache.php?cacheid={cacheId}'><b>{cacheName}</b></a></span>
+$pattern = "<img src='{cacheIcon}' class='icon16' alt='Cache' title='Cache'>
+        <a href='viewcache.php?cacheid={cacheId}' class='links'>{cacheName}</a>&nbsp;" . tr('hidden_by'). "
+        <a href='viewprofile.php?userid={userId}' class='links'>{userName}</a><br>
 
-        <span style='font-size:11px'> ".tr('hidden_by'). "</span>
-        <span style='font-size:13px'><a href='viewprofile.php?userid={userId}'><b>{userName}</b></a></span><br>
-
-        <span style='font-size:11px;font-style:italic'>{cacheShortDesc}</span><br>
-
-        <span class='content-title-noshade' style='font-size:11px'>{country} > {region}</span>
-        <br><br>
-        <table class='CacheTitledLog' >
-                <tr><td>{logText}
-                <br><br><img src='images/rating-star.png' alt=''> Autor: <a href='viewprofile.php?userid={logUserId}'><b>{logUserName}</b></a></td></tr>
-        </table>";
+        <p class='content-title-noshade'>{country} > {region}</p>
+        <div class='CacheTitledLog'>
+                <img src='images/rating-star.png' alt='Star'>&nbsp;<a href='viewprofile.php?userid={logUserId}' class='links'>{logUserName}</a>:<br><br>
+                {logText}
+        </div>";
 
 while( $rec = $dbc->dbResultFetch($s) ) {
 
@@ -125,7 +121,6 @@ while( $rec = $dbc->dbResultFetch($s) ) {
    $line = mb_ereg_replace('{cacheId}', $rec[ "cache_id" ], $line );
    $line = mb_ereg_replace('{country}', $rec[ "cacheCountry" ], $line );
    $line = mb_ereg_replace('{region}', $rec[ "cacheRegion" ], $line );
-   $line = mb_ereg_replace('{cacheShortDesc}', $rec[ "short_desc" ], $line );
    $line = mb_ereg_replace('{logUserId}', $rec[ "logUserId" ], $line );
    $line = mb_ereg_replace('{logUserName}', $rec[ "logUserName" ], $line );
 
