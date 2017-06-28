@@ -87,6 +87,7 @@ class View {
 
     public function loadLightBox(){
         $this->_loadLightBox = true;
+        $this->_loadJQuery = true; // lightBox needs jQuery!
     }
 
     public function loadGMapApi(){

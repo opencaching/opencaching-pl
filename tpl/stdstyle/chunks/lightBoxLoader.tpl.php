@@ -19,7 +19,7 @@ return function ($loadCss=false, $loadJs=false){
 <?php } ?>
 
 <?php if($loadJs){ ?>
-	<script src="/tpl/stdstyle/js/lightbox2/dist/js/lightbox-plus-jquery.min.js"></script>
+	<script src="/tpl/stdstyle/js/lightbox2/dist/js/lightbox.min.js"></script>
 <?php } ?>
 
 <!-- End of lightbox chunk -->
