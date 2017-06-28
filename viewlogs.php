@@ -5,17 +5,18 @@ use Utils\Uri\Uri;
 use lib\Controllers\LogEnteryController;
 use Utils\Text\TextConverter;
 
-
-
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
     $rootpath = '';
+
 require_once('./lib/common.inc.php');
 if ($error == false) {
 //Preprocessing
     //set here the template to process
     $tplname = 'viewlogs';
-
+    
+    $view = tpl_getView();
+    $view->loadLightBox();
 
     tpl_set_var('viewcache_js', Uri::getLinkWithModificationTime("tpl/stdstyle/viewcache/viewcache.js"));
     require($stylepath . '/lib/icons.inc.php');

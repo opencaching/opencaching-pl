@@ -26,11 +26,22 @@
             if( $view->isjQueryEnabled()){
                 $view->callChunk('jQuery');
             }
+
+            if( $view->isLightBoxEnabled()){
+                $view->callChunk('lightBoxLoader', true, false);
+            }
         ?>
     </head>
     <body{bodyMod}>
         <div id="content">
             {template}
         </div>
+        
+        <?php
+        		// lightbox js should be loaded at th end of page
+            if( $view->isLightBoxEnabled()){
+                $view->callChunk('lightBoxLoader', false, true);
+            }
+        ?>
     </body>
 </html>

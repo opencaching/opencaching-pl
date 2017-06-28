@@ -1,14 +1,9 @@
 
-<link rel="stylesheet" href="tpl/stdstyle/js/lightbox2/dist/css/lightbox.min.css">
 <link rel="stylesheet" href="tpl/stdstyle/css/lightTooltip.css">
-<link rel="stylesheet" href="<?=$view->viewcache_css?>">
 
-<script src="tpl/stdstyle/js/lightbox2/dist/js/lightbox-plus-jquery.min.js"></script>
-<script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 
 
 <link href="tpl/stdstyle/js/jquery.1.10.3/css/myCupertino/jquery-ui-1.10.3.custom.css" rel="stylesheet">
-<script type="text/javascript" src="tpl/stdstyle/js/jquery.1.10.3/js/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="tpl/stdstyle/js/jquery.1.10.3/js/jquery-ui-1.10.3.custom.js"></script>
 
 
@@ -1029,9 +1024,27 @@
 </div>
 
 
-{badge_script}
+<?php if($view->badgesPopUp) { ?>
+
+<script type='text/javascript'>
+        $( function() {
+            $( '#dialog' ).dialog({
+                autoOpen: true,
+                width : 550,
+                show: {
+                    effect: 'fade',
+                    duration: 1000
+                },
+                hide: {
+                    effect: 'fade',
+                    duration: 1000
+                }
+            });
+        });
+</script>
 
 <div id="dialog" title="{{merit_badge_gain_next_level}}">
-  {badge_text}
+  <?=$view->badgesPopupHtml?>
 </div>
 
+<?php } //if($view->badgesPopUp ?>

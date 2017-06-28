@@ -9,8 +9,10 @@ class View {
 
     //NOTE: local View vars should be prefixed by "_"
     private $_googleAnalyticsKey = '';              // GA key loaded from config
+
     private $_loadJQuery = false;
     private $_loadGMapApi = false;
+    private $_loadLightBox = false;
 
     private $currentLang = ''; // curent language of site
     private $_localCss = [];                        // page-local css styles loaded from controller
@@ -83,6 +85,10 @@ class View {
         $this->_loadJQuery = true;
     }
 
+    public function loadLightBox(){
+        $this->_loadLightBox = true;
+    }
+
     public function loadGMapApi(){
         $this->_loadGMapApi = true;
     }
@@ -96,6 +102,10 @@ class View {
 
     public function isjQueryEnabled(){
         return $this->_loadJQuery;
+    }
+
+    public function isLightBoxEnabled(){
+        return $this->_loadLightBox;
     }
 
     public function isGMapApiEnabled(){

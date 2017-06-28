@@ -78,6 +78,10 @@ if (date('m') == 12 || date('m') == 1) {
                 $view->callChunk('jQuery');
             }
 
+            if( $view->isLightBoxEnabled()){
+                $view->callChunk('lightBoxLoader', true, false);
+            }
+
             if( $view->isGMapApiEnabled() ){
                 if( !isset($GLOBALS['googlemap_key']) || empty($GLOBALS['googlemap_key']) ){
                     error_log("Key: googlemap_key is not set in settings?! Maps can't be loaded!");
@@ -314,5 +318,11 @@ if (date('m') == 12 || date('m') == 1) {
                 <!-- (C) The Opencaching Project 2017 -->
             </div>
         </div>
+        <?php
+        		// lightbox js should be loaded at th end of page
+            if( $view->isLightBoxEnabled()){
+                $view->callChunk('lightBoxLoader', false, true);
+            }
+        ?>
     </body>
 </html>
