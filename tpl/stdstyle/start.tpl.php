@@ -42,7 +42,7 @@
 <p class="main-totalstats">{{total_of_caches}}: <span class="content-title-noshade">{total_hiddens}</span> {{active_caches}}: <span class="content-title-noshade">{hiddens}</span> | {{number_of_founds}}: <span class="content-title-noshade">{founds}</span> | {{number_of_active_users}}: <span class="content-title-noshade">{users} </span></p>
 <div class="content2-container">
     <div class="content2-container-2col-left" id="new-caches-area">
-        <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="Cache">&nbsp;{{newest_caches}}</p>
+        <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Cache" title="Cache">&nbsp;{{newest_caches}}</p>
         <div class="content-txtbox-noshade">
             <?php
             global $dynstylepath;
@@ -62,7 +62,7 @@
         </div>
     </div>
     <div class="content2-container-2col-left" id="new-events-area">
-        <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="" title="Event">&nbsp;{{incomming_events}}</p>
+        <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="Event" title="Event">&nbsp;{{incomming_events}}</p>
         <?php
         global $dynstylepath;
         $tmpTxt = file_get_contents($dynstylepath . "nextevents.inc.php");
@@ -72,21 +72,18 @@
         $tmpTxt = str_replace('hidden_by', tr('org1'), $tmpTxt);
         echo $tmpTxt;
         unset($tmpTxt);
-        // include ($dynstylepath . "nextevents.inc.php");
         ?>
     </div>
 
+        <div class="content2-container-2col-left" id="cacheTitled" style="display: {ptDisplay};">
 
-        <div class="content2-container-2col-left" id="cacheTitled" style="display: {ptDisplay}; width: 100%">
-
-            <br>
             <?php global $is_titled, $titled_cache_period_prefix;
 
                 if ($is_titled == '1')
                 {
                     $ntitled_cache = $titled_cache_period_prefix.'_titled_cache';
-                    $tmpTxt = '<p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/TitledCache.png" class="icon32" alt="" title="Event">&nbsp;'.tr($ntitled_cache).'</p>';
-                    $tmpTxt .= '<div style="margin-left: 40px;">';
+                    $tmpTxt = '<p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/TitledCache.png" class="icon32" alt="Titled Cache" title="Titled Cache">&nbsp;'.tr($ntitled_cache).'</p>';
+                    $tmpTxt .= '<div class="cache-titled-content">';
                     echo $tmpTxt;
                 } ?>
 
@@ -96,7 +93,7 @@
 
                 if ($is_titled == '1')
                 {
-                    $tmpTxt = '<br><p class="links" style="font-size:10px"><a href="cache_titled.php">['.tr("show_more_titled_caches").' ...]</a></p>';
+                    $tmpTxt = '<p class="show-more"><a href="cache_titled.php" class="links">' . tr("show_more_titled_caches") . '...</a></p>';
                     $tmpTxt .= '</div><br>';
                     echo $tmpTxt;
                 }
@@ -104,7 +101,7 @@
     </div>
 
     <div class="content2-container-2col-left" id="ptPromo" style="display: {ptDisplay}; width: 100%">
-        <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/050242-blue-jelly-icon-natural-wonders-flower13-sc36_32x32.png" class="icon32" alt="" title="Event">&nbsp;{{pt137}}</p>
+        <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/050242-blue-jelly-icon-natural-wonders-flower13-sc36_32x32.png" class="icon32" alt="GeoPath" title="GeoPath">&nbsp;{{pt137}}</p>
         <?php
         if (file_exists($dynstylepath . 'ptPromo.inc-' . $lang . '.php'))
             include ($dynstylepath . 'ptPromo.inc-' . $lang . '.php');

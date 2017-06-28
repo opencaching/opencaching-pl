@@ -15,7 +15,7 @@ foreach ($config['feed']['enabled'] as $feed_position) {
     $html .= '<ul class="feedList">';
     for ($i = 0; $i < $config['feed'][$feed_position]['posts'] && $i < $feed->count(); $i++) {
         $author = (!empty($feed->next()->author) && $config['feed'][$feed_position]['showAuthor']) ? ' (' . $feed->current()->author. ')' : '';
-        $html .= '<li>' .  date($dateFormat, $feed->current()->date) . ' <a class="links" href="' . $feed->current()->link. '" title="' . $feed->current()->title . '"><strong>' . $feed->current()->title . '</strong></a>' . $author . '</li>';
+        $html .= '<li>' .  date($dateFormat, $feed->current()->date) . ' <a class="links" href="' . $feed->current()->link. '" title="' . $feed->current()->title . '">' . $feed->current()->title . '</a>' . $author . '</li>';
     }
     $html .= "</ul>";
     $html .= '</div>';

@@ -80,13 +80,13 @@ $rs = XDb::xSql(
     LIMIT 0 , 10");
 
 
-$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;">' .
+$cacheline = '<li class="newcache_list_multi">' .
         '<img src="{cacheicon}" class="icon16" alt="Cache" title="Cache">&nbsp;{date}&nbsp;' .
         '<a id="newcache{nn}" class="links" href="viewcache.php?wp={wp}" onmouseover="Lite({nn})" onmouseout="Unlite({nn})">{cachename}</a>&nbsp;
             hidden_by&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/>' .
-        '<p class="content-title-noshade"><b>{kraj} {dziubek} {woj}</b></p></li>';
+        '<p class="content-title-noshade">{kraj} {dziubek} {woj}</p></li>';
 
-$file_content = '<ul style="font-size: 11px;">';
+$file_content = '<ul class="newcache_list">';
 
 $i = -1;
 while( $record = XDb::xFetchArray($rs) ){
@@ -153,11 +153,11 @@ $file_content = '';
 if ( ! $record = XDb::xFetchArray($rs)) {
     $file_content = '';
 } else {
-    $cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache">&nbsp;{date}&nbsp;<a id="newcache{nn}" class="links" href="viewcache.php?wp={wp}" onmouseover="Lite({nn})" onmouseout="Unlite({nn})">{cachename}</a>&nbsp;hidden_by&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/><p class="content-title-noshade"><b>{kraj} {dziubek} {woj}</b></p></li>';
-    $file_content = '<ul style="font-size: 11px;">';
+    $cacheline = '<li class="newcache_list_multi"><img src="tpl/stdstyle/images/cache/22x22-event.png" class="icon16" alt="Event" title="Event">&nbsp;{date}&nbsp;<a id="newcache{nn}" class="links" href="viewcache.php?wp={wp}" onmouseover="Lite({nn})" onmouseout="Unlite({nn})">{cachename}</a>&nbsp;hidden_by&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></li>';
+    $file_content = '<ul class="newcache_list">';
 
     $i=-1;
-    do{
+    do {
         $i++;
         $dziubek2 = "";
         if (substr(@tr($record['code3']), -5) == '-todo')
@@ -185,11 +185,10 @@ if ( ! $record = XDb::xFetchArray($rs)) {
         $thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
         $thisline = mb_ereg_replace('{userid}', urlencode($record['user_id']), $thisline);
         $thisline = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
-        $thisline = mb_ereg_replace('{cacheicon}', 'tpl/stdstyle/images/cache/22x22-event.png', $thisline);
 
         $file_content .= $thisline . "\n";
 
-    }while( $record = XDb::xFetchArray($rs) );
+    } while( $record = XDb::xFetchArray($rs) );
 
     $file_content .= '</ul>';
 }
