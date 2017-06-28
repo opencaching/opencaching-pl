@@ -31,6 +31,10 @@
                 $view->callChunk('jQuery');
             }
 
+            if( $view->isLightBoxEnabled()){
+                $view->callChunk('lightBoxLoader', true, false);
+            }
+
             if( $view->isGMapApiEnabled()){
                 $view->callChunk('googleMapsApi', $GLOBALS['googlemap_key'], $view->getLang());
             }
@@ -43,5 +47,12 @@
     </head>
     <body{bodyMod}>
         {template}
+        
+        <?php
+        		// lightbox js should be loaded at th end of page
+            if( $view->isLightBoxEnabled()){
+                $view->callChunk('lightBoxLoader', false, true);
+            }
+        ?>
     </body>
 </html>

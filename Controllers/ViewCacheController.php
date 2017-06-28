@@ -24,17 +24,11 @@ class ViewCacheController extends BaseController
 
     private $userModifiedCacheCoords = null;
 
-    private $badges = "";
-
-
     public function __construct()
     {
         parent::__construct();
         $this->geocache = $this->loadGeocache();
 
-        if (isset($_REQUEST['badges'])) {
-            $this->badges = $_REQUEST['badges'];
-        }
     }
 
     public function index()
@@ -74,6 +68,8 @@ class ViewCacheController extends BaseController
             tpl_set_tplname('viewcache/viewcache_print');
         }else{
             tpl_set_tplname('viewcache/viewcache');
+            $this->view->loadJQuery();
+            $this->view->loadLightBox();
         }
         set_tpl_subtitle(htmlspecialchars($this->geocache->getCacheName()) . ' - ');
 
@@ -123,9 +119,9 @@ class ViewCacheController extends BaseController
         }
 
         $this->view->setVar('hideLogbook',isset($_REQUEST['logbook']) && $_REQUEST['logbook'] == 'no');
-        $this->view->setVar('viewcache_js', Uri::getLinkWithModificationTime('tpl/stdstyle/viewcache/viewcache.js'));
-        $this->view->setVar('viewcache_css', Uri::getLinkWithModificationTime('tpl/stdstyle/viewcache/viewcache.css'));
+        $this->view->setVar('viewcache_js', Uri::getLinkWithModificationTime('/tpl/stdstyle/viewcache/viewcache.js'));
 
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/viewcache/viewcache.css'));
 
         $this->processUserCoordsModification();
         $this->processDistanceToCache();
@@ -145,45 +141,26 @@ class ViewCacheController extends BaseController
         $this->processUserMenu();
         $this->processGeoPaths();
 
-        $this->showPopUpMeritBadge(); //show pop-up for badges which have changed the level
+        $this->processMeritBadgePopUp(); //pop-up on new badge level achivement
 
         tpl_BuildTemplate();
     }
 
-    private function showPopUpMeritBadge(){
+    private function processMeritBadgePopUp(){
 
-        if ( $this->badges == "" ){
-            tpl_set_var( 'badge_script', '' );
-            tpl_set_var( 'badge_text', '' );
-
+        if ( !isset($_REQUEST['badgesPopupFor']) || empty($_REQUEST['badgesPopupFor'])  ) {
+            $this->view->setVar('badgesPopUp', false);
             return;
         }
 
-        $popUpScript = "<script type='text/javascript'>
-        $( function() {
-            $( '#dialog' ).dialog({
-                autoOpen: true,
-                width : 550,
-                show: {
-                    effect: 'fade',
-                    duration: 1000
-                },
-                hide: {
-                    effect: 'fade',
-                    duration: 1000
-                }
-            });
-        });
-        </script>";
 
+        $this->view->setVar('badgesPopUp', true);
 
         $ctrlMeritBadge = new MeritBadgeController;
 
-        $badgeText = $ctrlMeritBadge->prepareHtmlChangeLevelMeritBadges
-            ( explode( ',', $this->badges ), $this->loggedUser->getUserId() );
-
-        tpl_set_var( 'badge_script', $popUpScript );
-        tpl_set_var( 'badge_text', $badgeText );
+        $this->view->setVar('badgesPopupHtml',
+            $ctrlMeritBadge->prepareHtmlChangeLevelMeritBadges
+            ( explode( ',', $_REQUEST['badgesPopupFor'] ), $this->loggedUser->getUserId() ));
 
     }
 

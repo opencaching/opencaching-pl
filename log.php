@@ -701,7 +701,7 @@ if ($error == false) {
                         $changedLevelBadgesIds = $ctrlMeritBadge->updateCurrValUserMeritBadges($cache_id, $usr['userid']);
 
                         if ( $changedLevelBadgesIds != "" )
-                            $badgetParam = "&badges=" . $changedLevelBadgesIds;
+                            $badgetParam = "&badgesPopupFor=" . $changedLevelBadgesIds;
                     }
                 }
                 //redirect to viewcache
