@@ -43,7 +43,7 @@ $GLOBALS['pagetitle'] = $pagetitle;
 require_once($rootpath . 'lib/common_tpl_funcs.php'); // template engine
 require_once($rootpath . 'lib/cookie.class.php');     // class used to deal with cookies
 require_once($rootpath . 'lib/language.inc.php');     // main translation funcs
-require_once($rootpath . 'lib/login.class.php');        // authentication funcs
+require_once($rootpath . 'lib/login.class.php');      // authentication funcs
 
 // yepp, we will use UTF-8
 mb_internal_encoding('UTF-8');
@@ -51,24 +51,26 @@ mb_regex_encoding('UTF-8');
 mb_language('uni');
 
 
-//detecting errors
-//TODO: this is never set and should be removed but it needs to touch hungreds of files...
-$error = false;
+if (php_sapi_name() != "cli") { // this is not neccesarry for command-line scripts...
 
-//site in service?
-if ($site_in_service == false) {
-    header('Content-type: text/html; charset=utf-8');
-    $page_content = file_get_contents($rootpath . 'html/outofservice.tpl.php');
-    die($page_content);
+    //detecting errors
+    //TODO: this is never set and should be removed but it needs to touch hungreds of files...
+    $error = false;
+
+    //site in service?
+    if ($site_in_service == false) {
+        header('Content-type: text/html; charset=utf-8');
+        $page_content = file_get_contents($rootpath . 'html/outofservice.tpl.php');
+        die($page_content);
+    }
+
+    initTemplateSystem();
+
+    processAuthentication();
+
+    loadTranslation();
+
 }
-
-initTemplateSystem();
-
-processAuthentication();
-
-loadTranslation();
-
-
 
 function processAuthentication(){
 
