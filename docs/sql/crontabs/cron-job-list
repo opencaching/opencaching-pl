@@ -2,30 +2,42 @@
 # sudo crontab -u ocpl /home/ocpl/cron-defs/cron-job-list
 
 # m  h  dom mon dow command
+# Main page static sections
+*/30 *   *   *   *   wget -O - -q http://opencaching.pl/tpl/stdstyle/etc/write_newcaches.inc.php
+*/55 *   *   *   *   wget -O - -q http://opencaching.pl/tpl/stdstyle/etc/write_newblogs.inc.php
+*/14 *   *   *   *   wget -O - -q http://opencaching.pl/tpl/stdstyle/etc/write_onlusers.inc.php
+*/30 *   *   *   *   wget -O - -q http://opencaching.pl/tpl/stdstyle/etc/write_totalstats.inc.php
 
-*/30 *  *   *   *   wget -O - -q http://opencaching.pl/tpl/stdstyle/etc/write_newcaches.inc.php
-*/55 *  *   *   *   wget -O - -q http://opencaching.pl/tpl/stdstyle/etc/write_newblogs.inc.php
-*/14 *  *   *   *   wget -O - -q http://opencaching.pl/tpl/stdstyle/etc/write_onlusers.inc.php
-*/5  *  *   *   *   wget -O - -q http://opencaching.pl/tpl/stdstyle/etc/write_totalstats.inc.php
-*/15 *  *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/email_sender/email_sender.php           email_sender.html
-37   *  *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/importcaches/import.php                 import.html
-*/15 *  *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/notification/run_notify.php             run_notify.html
-0    *  *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/publish_caches/run_publish.php          run_publish.html
-0    3  *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/search_index/fill_search_index.php      fill_search_index.html
-*/20 *  *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/watchlist/runwatch.php                  runwatch.html
-30   4  *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/auto_arch.php                           auto_arch.html
-30   *  *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/geokrety/geokrety.new.php               geokrety.html
-*/30 *  *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/cache_locations/cache_location.class.php cache_location.html
-*/45 *  *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/cron/modules/cache_npa_areas.class.php  cache_npa_areas.html
+# e-mail notifications about new caches
+*/13 */3 *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/notification/run_notify.php  run_notify.html
+
+# Publish new caches
+0    *   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/publish_caches/run_publish.php  run_publish.html
+
+# Check for watched caches and send mails
+5    *   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/watchlist/runwatch.php  runwatch.html
+
+# Auto archivisation of caches
+30   4   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/auto_arch.php  auto_arch.html
+
+# Geokrety
+45   4   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/geokrety/geokrety.new.php  geokrety.html
+*/10 *   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/geokrety/processGeoKretyDbQueue.php  processGeoKretyDbQueue.php
+
+# GeoPath of the day
+11   0   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/powerTrail/PowerTrailCronJob.php  PowerTrailCronJob.html
+
+# Titled Cache (weekly example)
+56   21  *   *   4    wget -O - -q http://opencaching.pl/cache_titled_add.php?CRON
 
 # OKAPI cronjobs. Timeout of 1 second if okay, OKAPI keeps the process running
 # in the background and has an error-reporting of its own. If something is really
 # wrong (i.e. syntax error), then it will probably fail during the first second,
 # making cron send a proper email to the admin. See OKAPI cronjobs dispatcher
 # in okapi/cronjobs.php for more information.
-
-*/5  *  *   *   *   wget -O - -q -t 1 http://opencaching.pl/okapi/cron5
+*/5  *   *   *   *   wget -O - -q -t 1 http://opencaching.pl/okapi/cron5
 
 # Database maintanance
-10   6  *   *   *   /home/ocpl/cron-defs/do-mysql-flush
-17   5  *   *   *   /home/ocpl/cron-defs/do-mysql-backup
+10   6   *   *   *   /home/ocpl/cron-defs/do-mysql-flush
+# Database backup
+27   3   *   *   *   /home/ocpl/cron-defs/do-mysql-backup
