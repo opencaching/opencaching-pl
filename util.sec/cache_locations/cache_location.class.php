@@ -4,7 +4,7 @@
  */
 
 use Utils\Database\XDb;
-use Utils\Gis;
+use Utils\Gis\Gis;
 
 /*
  *
@@ -28,6 +28,7 @@ use Utils\Gis;
  *
  */
 $rootpath = '../../';
+
 require_once ($rootpath . 'lib/common.inc.php');
 
 global $lang;
