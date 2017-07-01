@@ -926,7 +926,10 @@ foreach($userCategories as $oneCategory){
 
     foreach($badgesInCategory as $oneBadge){
 
-        $short_desc = MeritBadge::prepareShortDescription( $oneBadge->getOBadge()->getShortDescription(), $oneBadge->getNextVal() );
+        $short_desc = MeritBadge::prepareShortDescription(  $oneBadge->getOBadge()->getShortDescription(), 
+                                                            $oneBadge->getNextVal(), 
+                                                            $oneBadge->getCurrVal());
+        
         $short_desc = mb_ereg_replace( "'", "\\'", $short_desc);
 
         $element=$content_element_badge;

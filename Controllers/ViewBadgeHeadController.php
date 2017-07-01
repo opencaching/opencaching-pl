@@ -57,7 +57,7 @@ class ViewBadgeHeadController extends BaseController{
         $this->setVar( 'progresbar_color', MeritBadge::getColor($currUserLevel, $noLevels) );
         $this->setVar( 'progresbar_size', MeritBadge::getBarSize($currUserLevel, $noLevels) );
         $this->setVar( 'badge_name', $userMeritBadge->getOBadge()->getName() );
-        $this->setVar( 'badge_short_desc', MeritBadge::prepareShortDescription( $userMeritBadge->getOBadge()->getShortDescription(), $currUserThreshold ) );
+        $this->setVar( 'badge_short_desc', MeritBadge::prepareShortDescription( $userMeritBadge->getOBadge()->getShortDescription(), $currUserThreshold, $currUserCurrVal) );
         $this->setVar( 'desc_cont', MeritBadge::sqlTextTransform($description) );
         $this->setVar( 'who_prepared', $whoPrepared);
         

@@ -190,11 +190,11 @@ class MeritBadge
        return $nextValue-$prevValue;
     }
 
-    public static function prepareShortDescription($desc, $threshold ){
+    public static function prepareShortDescription($desc, $threshold, $currVal ){
         if ( $threshold == self::THE_HIGHEST_LEVEL)
             return "<span style='font-weight:bold;color:". self::getColor( self::COLOR_NUMBER, self::COLOR_NUMBER) .";'>".tr('merit_badge_gain_max_level' )."</span>";
 
-            $desc = str_replace( "{userThreshold}", $threshold, $desc);
+            $desc = str_replace( "{userThreshold}", $threshold- $currVal, $desc);
             return $desc;
     }
 

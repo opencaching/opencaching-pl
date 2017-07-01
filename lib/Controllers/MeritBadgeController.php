@@ -202,7 +202,9 @@ class MeritBadgeController{
 
             $userMeritBadge = $this->buildUserBadge( $user_id, $badge_id );
 
-            $short_desc = MeritBadge::prepareShortDescription( $userMeritBadge->getOBadge()->getShortDescription(), $userMeritBadge->getNextVal() );
+            $short_desc = MeritBadge::prepareShortDescription(  $userMeritBadge->getOBadge()->getShortDescription(), 
+                                                                $userMeritBadge->getNextVal(), 
+                                                                $userMeritBadge->getCurrVal());
 
             $element=mb_ereg_replace('{name}', $userMeritBadge->getOBadge()->getName(), $element);
             $element=mb_ereg_replace('{short_desc}', $short_desc , $element);

@@ -42,7 +42,12 @@ foreach($userCategories as $oneCategory){
 
         $element=$content_element;
         $element=mb_ereg_replace('{name}', $oneBadge->getOBadge()->getName(), $element);
-        $element=mb_ereg_replace('{short_desc}', MeritBadge::prepareShortDescription( $oneBadge->getOBadge()->getShortDescription(), $oneBadge->getNextVal() ), $element );
+        
+        $element=mb_ereg_replace('{short_desc}', MeritBadge::prepareShortDescription(   $oneBadge->getOBadge()->getShortDescription(), 
+                                                                                        $oneBadge->getNextVal(), 
+                                                                                        $oneBadge->getCurrVal()), 
+                                                                                        $element );
+        
         $element=mb_ereg_replace('{picture}', $oneBadge->getPicture(), $element );
         $element=mb_ereg_replace('{level_name}', $oneBadge->getOLevel()->getLevelName(), $element );
         $element=mb_ereg_replace('{badge_id}', $oneBadge->getBadgeId(), $element );
