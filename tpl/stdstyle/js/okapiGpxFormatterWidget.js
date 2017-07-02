@@ -311,7 +311,6 @@
             closeButton = {
                 text: strings.cancelButtonLabel,
                 click: function() {
-                    cacheSet("lastUsedFormResponses", getFormResponses(dialogContents));
                     dialog.dialog("destroy");
                 }
             };
@@ -324,6 +323,10 @@
                 open: function() {
                     $(":focus").blur();
                 }
+            });
+
+            $(dialogContents).find(":input").on("change", function() {
+                cacheSet("lastUsedFormResponses", getFormResponses(dialogContents));
             });
         });
     }

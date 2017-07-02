@@ -12,7 +12,7 @@ global $usr, $hide_coords, $colNameSearch, $cookie, $NrColSortSearch, $OrderSort
 <script type="text/javascript" src="tpl/stdstyle/js/search.js"></script>
 <script type="text/javascript" src="tpl/stdstyle/js/jquery.1.10.3/js/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="tpl/stdstyle/js/jquery.1.10.3/js/jquery-ui-1.10.3.custom.js"></script>
-<script type="text/javascript" src="tpl/stdstyle/js/okapiGpxFormatterWidget.js"></script>
+<script type="text/javascript" src="tpl/stdstyle/js/okapiGpxFormatterWidget.js?v=2"></script>
 <script>
     $(function() {
 
