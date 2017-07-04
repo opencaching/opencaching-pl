@@ -10,10 +10,8 @@ use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\MeritBadge\MeritBadge;
 use lib\Controllers\MeritBadgeController;
-use Utils\Text\Rot13;
 use Utils\Text\TextConverter;
 use Utils\DateTime\Year;
-
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath)){
@@ -400,7 +398,7 @@ if ($usr == false) {
             "SELECT cache_logs.id, cache_logs.cache_id AS cache_id, cache_logs.type AS log_type,
                 cache_logs.text AS log_text, DATE_FORMAT(cache_logs.date,'%d-%m-%Y')  AS log_date,
                 caches.name AS cache_name, caches.wp_oc AS wp_name, user.username AS user_name,
-                `cache_logs`.`encrypt` `encrypt`, cache_logs.user_id AS luser_id,
+                cache_logs.user_id AS luser_id,
                 user.user_id AS user_id, caches.user_id AS cache_owner, caches.type AS cache_type,
                 cache_type.icon_small AS cache_icon_small, log_types.icon_small AS icon_small,
                 IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,COUNT(gk_item.id) AS geokret_in
@@ -448,22 +446,8 @@ if ($usr == false) {
                 $tmp_log = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($record_logs['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_log);
                 $tmp_log = mb_ereg_replace('{logid}', htmlspecialchars(urlencode($record_logs['id']), ENT_COMPAT, 'UTF-8'), $tmp_log);
 
-                $logtext = '<b>' . $record_logs['user_name'] . '</b>: &nbsp;';
-                if ($record_logs['encrypt'] == 1 && $record_logs['cache_owner'] != $usr['userid'] && $record_logs['luser_id'] != $usr['userid']) {
-                    $logtext .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";
-                }
-                if ($record_logs['encrypt'] == 1 && ($record_logs['cache_owner'] == $usr['userid'] || $record_logs['luser_id'] == $usr['userid'])) {
-                    $logtext .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";
-                }
-
-                $data_text = GeoCacheLog::cleanLogTextForToolTip( $record_logs['log_text'] );
-
-                if ($record_logs['encrypt'] == 1 && $record_logs['cache_owner'] != $usr['userid'] && $record_logs['luser_id'] != $usr['userid']) {//crypt the log ROT13, but keep HTML-Tags and Entities
-                    $data_text = Rot13::withoutHtml($data_text);
-                } else {
-                    $logtext .= "<br/>";
-                }
-                $logtext .= $data_text;
+                $logtext = '<b>' . $record_logs['user_name'] . '</b>:<br>';
+                $logtext .= GeoCacheLog::cleanLogTextForToolTip( $record_logs['log_text'] );
                 $tmp_log = mb_ereg_replace('{logtext}', $logtext, $tmp_log);
 
                 $content .= "\n" . $tmp_log;
@@ -653,7 +637,7 @@ if ($usr == false) {
         $rs_logs = XDb::xSql(
             "SELECT cache_logs.id, cache_logs.cache_id AS cache_id, cache_logs.type AS log_type,
                     cache_logs.text AS log_text, DATE_FORMAT(cache_logs.date,'%d-%m-%Y') AS log_date,
-                    caches.name AS cache_name, caches.wp_oc AS wp_name, cache_logs.encrypt AS encrypt,
+                    caches.name AS cache_name, caches.wp_oc AS wp_name,
                     caches.user_id AS cache_owner, cache_logs.user_id AS luser_id, user.username AS user_name,
                     user.user_id AS user_id, caches.type AS cache_type, cache_type.icon_small AS cache_icon_small,
                     log_types.icon_small AS icon_small, IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
@@ -719,22 +703,8 @@ if ($usr == false) {
                 $tmp_log = mb_ereg_replace('{username}', htmlspecialchars($record_logs['user_name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
                 $tmp_log = mb_ereg_replace('{logid}', htmlspecialchars(urlencode($record_logs['id']), ENT_COMPAT, 'UTF-8'), $tmp_log);
 
-                $logtext = '<b>' . $record_logs['user_name'] . '</b>: &nbsp;';
-                if ($record_logs['encrypt'] == 1 && $record_logs['cache_owner'] != $usr['userid'] && $record_logs['luser_id'] != $usr['userid']) {
-                    $logtext .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";
-                }
-                if ($record_logs['encrypt'] == 1 && ($record_logs['cache_owner'] == $usr['userid'] || $record_logs['luser_id'] == $usr['userid'])) {
-                    $logtext .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";
-                }
-
-                $data_text = GeoCacheLog::cleanLogTextForToolTip( $record_logs['log_text'] );
-
-                if ($record_logs['encrypt'] == 1 && $record_logs['cache_owner'] != $usr['userid'] && $record_logs['luser_id'] != $usr['userid']) {//crypt the log ROT13, but keep HTML-Tags and Entities
-                    $data_text = Rot13::withoutHtml($data_text);
-                } else {
-                    $logtext .= "<br/>";
-                }
-                $logtext .= $data_text;
+                $logtext = '<b>' . $record_logs['user_name'] . '</b>:<br>';
+                $logtext .= GeoCacheLog::cleanLogTextForToolTip( $record_logs['log_text'] );
 
                 $tmp_log = mb_ereg_replace('{logtext}', $logtext, $tmp_log);
 

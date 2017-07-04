@@ -3,7 +3,7 @@
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCacheLog;
 use Utils\Gis\Gis;
-use Utils\Text\Rot13;
+
 global $lang, $rootpath, $usr, $dateFormat;
 
 if (!isset($rootpath))
@@ -160,7 +160,6 @@ if ($error == false) {
                     'SELECT   cache_logs.id, cache_logs.cache_id          AS cache_id,
                             cache_logs.type                             AS log_type,
                             cache_logs.date                             AS log_date,
-                            `cache_logs`.`encrypt`                      AS `encrypt`,
                             cache_logs.user_id                          AS luser_id,
                             cache_logs.text                             AS log_text,
                             cache_logs.text_html                        AS text_html,
@@ -250,21 +249,8 @@ if ($error == false) {
             }
             // koniec ukrywania autora komentarza COG przed zwykłym userem
 
-            $file_content .= '<b>' . $log_record['user_name'] . '</b>:&nbsp;';
-            if ($log_record['encrypt'] == 1 && $log_record['cache_owner'] != $usr['userid'] && $log_record['luser_id'] != $usr['userid']) {
-                $file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";
-            }
-            if ($log_record['encrypt'] == 1 && ($log_record['cache_owner'] == $usr['userid'] || $log_record['luser_id'] == $usr['userid'])) {
-                $file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";
-            }
-            $data = GeoCacheLog::cleanLogTextForToolTip( $log_record['log_text'] );
-
-            if ($log_record['encrypt'] == 1 && $log_record['cache_owner'] != $usr['userid'] && $log_record['luser_id'] != $usr['userid']) {
-                $data = Rot13::withoutHtml($data);
-            } else {
-                $file_content .= "<br/>"; //crypt the log ROT13, but keep HTML-Tags and Entities
-            }
-            $file_content .= $data;
+            $file_content .= '<b>' . $log_record['user_name'] . '</b>:<br>';
+            $file_content .= GeoCacheLog::cleanLogTextForToolTip( $log_record['log_text'] );
             $file_content .= '\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
             $file_content .= '<td><b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($log_record['xuser_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
             $file_content .= "</tr>";

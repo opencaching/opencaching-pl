@@ -1,8 +1,8 @@
 <?php
 
-
 use Utils\Database\OcDb;
 use Utils\Generators\Uuid;
+
 global $titled_cache_nr_found, $titled_cache_period_prefix;
 
 require_once('./lib/common.inc.php');
@@ -139,9 +139,9 @@ if ( $dDiff->days < $securityPeriod )
     "INSERT INTO cache_logs
             (cache_id, user_id, type, date,
             text, text_html, text_htmledit, last_modified , okapi_syncbase, uuid, picturescount, mp3count,
-            date_created, owner_notified, node, deleted, encrypt,
+            date_created, owner_notified, node, deleted,
             del_by_user_id, last_deleted, edit_by_user_id, edit_count )
-    VALUES ( :1, :2, :3, :4, :5, :6, :7, :8 , :9 , :10, :11, :12, :13, :14, :15, '0', '0', NULL , NULL , NULL , '0' )";
+    VALUES ( :1, :2, :3, :4, :5, :6, :7, :8 , :9 , :10, :11, :12, :13, :14, :15, '0', NULL , NULL , NULL , '0' )";
 
     $SystemUser = -1;
     $LogType = 12; //OCTeam
@@ -154,5 +154,3 @@ if ( $dDiff->days < $securityPeriod )
             $date_alg, '0', $oc_nodeid );
 
 unset($dbc);
-
-?>

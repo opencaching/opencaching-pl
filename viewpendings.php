@@ -155,8 +155,8 @@ function notifyOwner($cacheid, $msgType)
         $log_uuid = Uuid::create();
         XDb::xSql(
             "INSERT INTO `cache_logs`
-                (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
-            VALUES ('', ?, ?, '12', NOW(), ?, '0', '0', NOW(), NOW(), ?, ?, '0')",
+                (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
+            VALUES ('', ?, ?, '12', NOW(), ?, '0', '0', NOW(), NOW(), ?, ?)",
             $cacheid, $usr['userid'], $log_text, $log_uuid, $oc_nodeid);
 
     } else {
@@ -170,9 +170,9 @@ function notifyOwner($cacheid, $msgType)
         $log_uuid = Uuid::create();
         XDb::xSql(
             "INSERT INTO `cache_logs`
-                (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
+                (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
             VALUES ('', ?, ?, ?, NOW(), ?, ?, ?, NOW(), NOW(), ?, ?, ?)",
-            $cacheid, $usr['userid'], 12, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
+            $cacheid, $usr['userid'], 12, $log_text, 0, 0, $log_uuid, $oc_nodeid);
     }
 }
 
@@ -303,6 +303,3 @@ else {
     $tplname = 'viewpendings_error';
 }
 tpl_BuildTemplate();
-
-
-
