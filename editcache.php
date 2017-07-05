@@ -532,10 +532,10 @@ if ($error == false) {
                                 "INSERT INTO `cache_logs` (
                                     `id`, `cache_id`, `user_id`, `type`, `date`, `text`,
                                     `text_html`, `text_htmledit`, `date_created`, `last_modified`,
-                                    `uuid`, `node`,`encrypt`)
+                                    `uuid`, `node`)
                                  VALUES (
                                     '', ?, ?, ?, NOW(), ?, ?, ?, NOW(), NOW(), ?, ?, ?)",
-                                 $cache_id, $usr['userid'], 11, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
+                                 $cache_id, $usr['userid'], 11, $log_text, 0, 0, $log_uuid, $oc_nodeid);
                         }
                         if (( $status_old == $STATUS['READY'] ||
                                 $status_old == $STATUS['TEMP_UNAVAILABLE'] ||
@@ -547,10 +547,10 @@ if ($error == false) {
                                 "INSERT INTO `cache_logs` (
                                     `id`, `cache_id`, `user_id`, `type`, `date`, `text`,
                                     `text_html`, `text_htmledit`, `date_created`, `last_modified`,
-                                    `uuid`, `node`,`encrypt`)
+                                    `uuid`, `node`)
                                  VALUES (
                                     '', ?, ?, ?, NOW(), ?, ?, ?, NOW(), NOW(), ?, ?, ?)",
-                                 $cache_id, $usr['userid'], 9, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
+                                 $cache_id, $usr['userid'], 9, $log_text, 0, 0, $log_uuid, $oc_nodeid);
                         }
 
                         if (( $status_old == $STATUS['TEMP_UNAVAILABLE'] ||
@@ -563,10 +563,10 @@ if ($error == false) {
                                 "INSERT INTO `cache_logs` (
                                     `id`, `cache_id`, `user_id`, `type`, `date`,
                                     `text`, `text_html`, `text_htmledit`, `date_created`,
-                                    `last_modified`, `uuid`, `node`,`encrypt`)
+                                    `last_modified`, `uuid`, `node`)
                                  VALUES (
                                     '', ?, ?, ?, NOW(), ?, ?, ?, NOW(), NOW(), ?, ?, ?)",
-                                    $cache_id, $usr['userid'], 10, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
+                                    $cache_id, $usr['userid'], 10, $log_text, 0, 0, $log_uuid, $oc_nodeid);
                         }
 
                         if (( $status_old == $STATUS['READY'] ||
@@ -578,10 +578,10 @@ if ($error == false) {
                             XDb::xSql(
                                 "INSERT INTO `cache_logs` (
                                     `id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`,
-                                    `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
+                                    `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
                                  VALUES (
                                     '', ?, ?, ?, NOW(), ?, ?, ?, NOW(), NOW(), ?, ?, ?)",
-                                    $cache_id, $usr['userid'], 12, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
+                                    $cache_id, $usr['userid'], 12, $log_text, 0, 0, $log_uuid, $oc_nodeid);
                         }
 
                         //display cache-page

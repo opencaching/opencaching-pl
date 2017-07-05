@@ -3,7 +3,6 @@
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use lib\Objects\GeoCache\GeoCacheCommons;
-use Utils\Text\Rot13;
 
 //prepare the templates and include all neccessary
 global $rootpath;
@@ -841,7 +840,6 @@ if ($error == false) {
                                 DATE_FORMAT(cache_logs.date,\'%Y-%m-%d\') AS log_date,
                                 cache_logs.text AS log_text,
                                 caches.user_id AS cache_owner,
-                                cache_logs.encrypt encrypt,
                                 cache_logs.user_id AS luser_id,
                                 user.username AS user_name,
                                 user.user_id AS user_id,
@@ -857,22 +855,10 @@ if ($error == false) {
                     if ($r_log = $database_inner->dbResultFetchOneRowOnly($rs)) {
 
                         $file_content .= '<td style="width: 80px;">' . htmlspecialchars(date($dateFormat, strtotime($r_log['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
-
                         $file_content .= '<td width="22"><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($r_log['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
-                        $file_content .= '<b>' . $r_log['user_name'] . '</b>:&nbsp;';
-                        if ($r_log['encrypt'] == 1 && $r_log['cache_owner'] != $usr['userid'] && $r_log['luser_id'] != $usr['userid']) {
-                            $file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";
-                        }
-                        if ($r_log['encrypt'] == 1 && ($r_log['cache_owner'] == $usr['userid'] || $r_log['luser_id'] == $usr['userid'])) {
-                            $file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";
-                        }
+                        $file_content .= '<b>' . $r_log['user_name'] . '</b>:<br>';
                         $data = cleanup_text2(str_replace("\r\n", " ", $r_log['log_text']));
                         $data = str_replace("\n", " ", $data);
-                        if ($r_log['encrypt'] == 1 && $r_log['cache_owner'] != $usr['userid'] && $r_log['luser_id'] != $usr['userid']) {//crypt the log ROT13, but keep HTML-Tags and Entities
-                            $data = Rot13::withoutHtml($data);
-                        } else {
-                            $file_content .= "<br/>";
-                        }
                         $file_content .=$data;
                         $file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()" target="_blank"><img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt=""/></a></b></td>';
                         $file_content .= '<td>&nbsp;&nbsp;<b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r_log['user_id'], ENT_COMPAT, 'UTF-8') . '" target="_blank">' . htmlspecialchars($r_log['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';

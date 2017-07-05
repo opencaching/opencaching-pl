@@ -48,7 +48,6 @@ class GeoCacheLog
     private $ownerNotified;
     private $node;
     private $deleted;
-    private $encrypt;
     private $delByUserId;
     private $editByUserId;
     private $editCount;
@@ -157,11 +156,6 @@ class GeoCacheLog
     public function getDeleted()
     {
         return $this->deleted;
-    }
-
-    public function getEncrypt()
-    {
-        return $this->encrypt;
     }
 
     public function getDelByUserId()
@@ -283,12 +277,6 @@ class GeoCacheLog
     public function setDeleted($deleted)
     {
         $this->deleted = Php7Handler::Boolval($deleted);
-        return $this;
-    }
-
-    public function setEncrypt($encrypt)
-    {
-        $this->encrypt = Php7Handler::Boolval($encrypt);
         return $this;
     }
 

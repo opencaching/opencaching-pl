@@ -97,7 +97,6 @@ class LogEnteryController
                     ->setDeleted($logRow['deleted'])
                     ->setEditByUserId($logRow['edit_by_user_id'])
                     ->setEditCount($logRow['edit_count'])
-                    ->setEncrypt($logRow['encrypt'])
                     ->setLastDeleted($logRow['last_deleted'])
                     ->setLastModified(new \DateTime($logRow['last_modified']))
                     ->setId($logRow['id'])
