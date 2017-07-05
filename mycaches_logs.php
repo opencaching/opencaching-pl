@@ -2,7 +2,7 @@
 
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCacheLog;
-use Utils\Text\Rot13;
+
 global $lang, $usr, $rootpath, $dateFormat;
 
 if (!isset($rootpath))
@@ -23,7 +23,7 @@ if ($error == false) {
         if (isset($_REQUEST['userid'])) {
             $user_id = $_REQUEST['userid'];
             tpl_set_var('userid', $user_id);
-        }else{
+        } else {
             $user_id = $usr['userid'];
         }
 
@@ -99,7 +99,7 @@ if ($error == false) {
             $rs = XDb::xSql(
                 "SELECT cache_logs.id, cache_logs.cache_id AS cache_id, cache_logs.type AS log_type,
                         cache_logs.text AS log_text, cache_logs.date AS log_date, caches.name AS cache_name,
-                        caches.user_id AS cache_owner, cache_logs.encrypt encrypt, cache_logs.user_id AS luser_id,
+                        caches.user_id AS cache_owner, cache_logs.user_id AS luser_id,
                         user.username AS user_name, user.user_id AS user_id,
                         caches.wp_oc AS wp_name, caches.type AS cache_type, cache_type.icon_small AS cache_icon_small,
                         log_types.icon_small AS icon_small,
@@ -150,22 +150,8 @@ if ($error == false) {
                     $log_record['user_id'] = 0;
                 }
                 // koniec ukrywania nicka autora komentarza COG
-                $file_content .= '<b>' . $log_record['user_name'] . '</b>: &nbsp;';
-                if ($log_record['encrypt'] == 1 && $log_record['cache_owner'] != $usr['userid'] && $log_record['luser_id'] != $usr['userid']) {
-                    $file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";
-                }
-                if ($log_record['encrypt'] == 1 && ($log_record['cache_owner'] == $usr['userid'] || $log_record['luser_id'] == $usr['userid'])) {
-                    $file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";
-                }
-
-                $data = GeoCacheLog::cleanLogTextForToolTip( $log_record['log_text'] );
-
-                if ($log_record['encrypt'] == 1 && $log_record['cache_owner'] != $usr['userid'] && $log_record['luser_id'] != $usr['userid']) {//crypt the log ROT13, but keep HTML-Tags and Entities
-                    $data = Rot13::withoutHtml($data);
-                } else {
-                    $file_content .= "<br/>";
-                }
-                $file_content .= $data;
+                $file_content .= '<b>' . $log_record['user_name'] . '</b>:<br>';
+                $file_content .= GeoCacheLog::cleanLogTextForToolTip( $log_record['log_text'] );
                 $file_content .= '\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
                 $file_content .= '<td><b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
                 $file_content .= "</tr>";
@@ -184,4 +170,3 @@ if ($error == false) {
 }
 //make the template and send it out
 tpl_BuildTemplate();
-
