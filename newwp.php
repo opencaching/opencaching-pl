@@ -326,9 +326,9 @@ if ($error == false) {
                         //add record
 
                         XDb::xSql("INSERT INTO `waypoints` (
-                                    `wp_id`, `cache_id`,`longitude`,`latitude`,`type` ,
+                                    `cache_id`,`longitude`,`latitude`,`type` ,
                                     `status` ,`stage` ,`desc` ,`opensprawdzacz`)
-                                   VALUES ('', ?, ?, ?, ?, ?, ?, ?, ?)",
+                                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                                    $cache_id, $longitude, $latitude, $sel_type,
                                    $wp_status, $wp_stage, $wp_desc, $OpenChecker_present );
 
@@ -344,8 +344,8 @@ if ($error == false) {
                                 "SELECT COUNT(*) FROM `opensprawdzacz` WHERE `cache_id` = :1 ", 0, $cache_id);
 
                             if ($proba == 0) {
-                                XDb::xSql("INSERT INTO `opensprawdzacz`(`id`,  `cache_id`,  `proby`, `sukcesy`)
-                                                     VALUES ('', '$cache_id',   0,       0)");
+                                XDb::xSql("INSERT INTO `opensprawdzacz`(`cache_id`, `proby`, `sukcesy`)
+                                                     VALUES ('$cache_id', 0, 0)");
                             }
 
                         }
@@ -371,4 +371,3 @@ if ($no_tpl_build == false) {
     //make the template and send it out
     tpl_BuildTemplate();
 }
-

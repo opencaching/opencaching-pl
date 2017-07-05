@@ -27,7 +27,7 @@ if ($error == false) {
         if (isset($_POST['submit'])) {
             //load datas from form
             $statpic_text = isset($_POST['statpic_text']) ? mb_substr($_POST['statpic_text'], 0, 30) : 'Opencaching';
-            $statpic_logo = isset($_POST['statpic_logo']) ? $_POST['statpic_logo'] + 0 : 0;
+            $statpic_logo = isset($_POST['statpic_logo']) ? (integer) $_POST['statpic_logo'] : 0;
 
             tpl_set_var('statpic_text', $statpic_text);
             tpl_set_var('statpic_logo', $statpic_logo);

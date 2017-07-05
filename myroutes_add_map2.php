@@ -44,8 +44,8 @@ if ($error == false) {
             // insert route name
             XDb::xSql(
                 "INSERT INTO `routes` (
-                    `route_id`, `user_id`, `name`, `description`, `radius`, `length`)
-                VALUES ('', ?, ?, ?, ?, ?)",
+                    `user_id`, `name`, `description`, `radius`, `length`)
+                VALUES (?, ?, ?, ?, ?)",
                 $user_id, $name, $desc, $radius, $length);
 
             // get route_id
