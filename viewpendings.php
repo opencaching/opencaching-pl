@@ -171,7 +171,7 @@ function notifyOwner($cacheid, $msgType)
         XDb::xSql(
             "INSERT INTO `cache_logs`
                 (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
-            VALUES ('', ?, ?, ?, NOW(), ?, ?, ?, NOW(), NOW(), ?, ?, ?)",
+            VALUES ('', ?, ?, ?, NOW(), ?, ?, ?, NOW(), NOW(), ?, ?)",
             $cacheid, $usr['userid'], 12, $log_text, 0, 0, $log_uuid, $oc_nodeid);
     }
 }
