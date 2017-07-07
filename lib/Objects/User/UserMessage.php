@@ -15,7 +15,7 @@ class UserMessage extends BaseObject
         // save email trace
         XDb::xSql(
             "INSERT INTO `email_user`
-            SET `ipaddress`= ? , `date_generated`=NOW(), `date_sent`='0',
+            SET `ipaddress`= ? , `date_generated`=NOW(),
                 `from_user_id`= ? , `from_email`= ?,
                 `to_user_id`= ?, `to_email`= ?,
                 `mail_subject`= ?, `send_emailaddress`= ?",
