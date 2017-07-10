@@ -125,7 +125,7 @@ if (isset($_SESSION['user_id']) && isset($_GET['wp']) && !empty($_GET['wp'])) {
 
                 if ($rodzaj == 1) {
                     if ($topratingav == 1 && $rekomendacja == 'on') {
-                        $query = "insert into cache_rating(cache_id, user_id) values (" . $caches['cache_id'] . "," . $_SESSION['user_id'] . ");";
+                        $query = "insert ignore into cache_rating(cache_id, user_id) values (" . $caches['cache_id'] . "," . $_SESSION['user_id'] . ");";
                         XDb::xSql($query);
 
                         // Notify OKAPI's replicate module of the change.
