@@ -225,8 +225,8 @@
     // if( document.newcacheform.size.options[ $('#size option').length - 1].value != "7" && document.newcacheform.size.options[document.newcacheform.size.options.length - 2].value != "7")
     if (!($("#size option[value='7']").length > 0))
     {
-    var o = new Option("{{size_07}}", "7");
-            $(o).html("{{size_07}}");
+    var o = new Option("{{cacheSize_none}}", "7");
+            $(o).html("{{cacheSize_none}}");
             $("#size").append(o);
     }
     $('#size').val(7);
