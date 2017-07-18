@@ -52,24 +52,17 @@ if ($error == false) {
     } else {
         $pages .= ' {next_img_inactive} {last_img_inactive}';
     }
+
     $rsQuery = "SELECT `cache_logs`.`id` FROM `cache_logs` USE INDEX(date_created), `caches`
-            WHERE `cache_logs`.`cache_id`=`caches`.`cache_id`
-            AND `cache_logs`.`deleted`=0
-            AND `caches`.`status` IN (1, 2, 3)
-            ORDER BY  `cache_logs`.`date_created` DESC
-            LIMIT :variable1, :variable2 ";
+                    WHERE `cache_logs`.`cache_id`=`caches`.`cache_id`
+                    AND `cache_logs`.`deleted`=0
+                    AND `caches`.`status` IN (1, 2, 3)
+                    ORDER BY  `cache_logs`.`date_created` DESC
+                    LIMIT :variable1, :variable2 ";
     $s = $db->paramQuery($rsQuery,
             array('variable1' => array('value' => intval($start), 'data_type' => 'integer'),
                   'variable2' => array('value' => intval($LOGS_PER_PAGE), 'data_type' => 'integer'),)
-                 );
-    $log_ids = '';
-    if ($db->rowCount($s) == 0) {
-        $log_ids = '0';
-    }
-
-    //powertrail vel geopath variables
-    $pt_cache_intro_tr = tr('pt_cache');
-    $pt_icon_title_tr = tr('pt139');
+         );
 
     $log_ids = array();
     while( $record = $db->dbResultFetch($s) ){
@@ -80,8 +73,11 @@ if ($error == false) {
     $tr_myn_click_to_view_cache = tr('myn_click_to_view_cache');
     $bgColor = '#eeeeee';
 
+    //powertrail vel geopath variables
+    $pt_cache_intro_tr = tr('pt_cache');
+    $pt_icon_title_tr = tr('pt139');
 
-    if(!empty($log_ids)){
+    if( !empty($log_ids) ){
         $s = $db->simpleQuery(
             "SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
                     cache_logs.type AS log_type, cache_logs.date AS log_date,
