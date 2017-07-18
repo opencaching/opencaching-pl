@@ -91,7 +91,7 @@ while ($record = $dbc->dbResultFetch($s)) {
         $sOpis = str_replace("'", "-", $sOpis);
         $sOpis = str_replace("\"", " ", $sOpis);
     } else
-        $sOpis = "Niestety, brak opisu <img src=lib/tinymce/plugins/emotions/images/smiley-surprised.gif />";
+        $sOpis = "Niestety, brak opisu <img src=lib/tinymce4/plugins/emotions/img/smiley-surprised.gif />";
 
 
     $sProfil = "<b>Zarejestrowany od:</b> " . $record["date_created"]
