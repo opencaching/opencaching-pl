@@ -1283,6 +1283,8 @@ $translations = array(
     'qrcode_desc' => 'Maak een label met een <a class="links" href="http://nl.wikipedia.org/wiki/QR_Code"  target="_blank">QR Code</a> (gelamineerd, plastic hoes of eventueel een stikker) met maximaal 77 tekens, om een volgende punt van een multi cache of voor een wachtwoord te gebruiken. Dit kan dan leesbaar zijn met een mobiele telefoon.',
     'qrcode_textLabel' => 'Gegevens in de code',
     'qrcode_button' => 'Genereer',
+    'qrcode_downloadLabeled' => 'Download deze QR Code met label',
+    'qrcode_downloadQRCodeOnly' => 'Download alleen de QR Code',
     'qrcode_appInfo' => 'Hier kan een QR Code lezer <a class="links" href="http://www.i-nigma.com/Downloadi-nigmaReader.html" target="_blank">gedownload</a> worden.',
     'error_ort' => 'Opgegeven locatie niet gevonden',
     'alert_search_by_cachename' => 'Vul naam van de cache in',
