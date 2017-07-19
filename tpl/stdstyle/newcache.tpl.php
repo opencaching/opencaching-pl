@@ -523,7 +523,6 @@
         <input type="hidden" name="beginner" value="0"/>
         <input type="hidden" name="newcache_info" value="0"/>
         <input type="hidden" id="cache_attribs" name="cache_attribs" value="{cache_attribs}" />
-        <input id="descMode" type="hidden" name="descMode" value="1" />
 
         <tr class="form-group-sm">
             <td><p class="content-title-noshade">{{name_label}}:</p></td>

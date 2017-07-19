@@ -96,33 +96,6 @@ require_once('./lib/common.inc.php');
         return true;
     }
 
-    function insertSmiley(parSmiley) {
-        var myText = document.logform.logtext;
-        myText.focus();
-        /* fuer IE */
-        if (typeof document.selection != 'undefined') {
-            var range = document.selection.createRange();
-            var selText = range.text;
-            range.text = parSmiley + selText;
-        }
-        /* fuer Firefox/Mozilla-Browser */
-        else if (typeof myText.selectionStart != 'undefined')
-        {
-            var start = myText.selectionStart;
-            var end = myText.selectionEnd;
-            var selText = myText.value.substring(start, end);
-            myText.value = myText.value.substr(0, start) + parSmiley + selText + myText.value.substr(end);
-            /* Cursorposition hinter Smiley setzen */
-            myText.selectionStart = start + parSmiley.length;
-            myText.selectionEnd = start + parSmiley.length;
-        }
-        /* fuer die anderen Browser */
-        else
-        {
-            alert(navigator.appName + ': Setting smilies is not supported');
-        }
-    }
-
     function _chkFound() {
 
 <?php
@@ -306,7 +279,6 @@ $founds = XDb::xMultiVariableQueryValue(
 <form action="log.php" method="post" enctype="application/x-www-form-urlencoded" name="logform" id="logform" dir="ltr" onsubmit="return onSubmitHandler()" >
     <input type="hidden" name="cacheid" value="{cacheid}"/>
     <input type="hidden" name="version2" value="1"/>
-    <input id="descMode" type="hidden" name="descMode" value="3" />
 
     <table class="content">
         <tr>
@@ -427,18 +399,18 @@ $founds = XDb::xMultiVariableQueryValue(
 
         <table class="content" style="font-size: 12px; line-height: 1.6em;">
             <tr>
-                <td colspan="2"><br /><img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{comments_log}}:</strong><br /></td>
+                <td colspan="2"><br />
+                <img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16"
+                    alt="" title="" align="middle" />&nbsp;
+                    <strong>{{comments_log}}:</strong><br />
+                </td>
             </tr>
             <tr>
                 <td>
                     <textarea name="logtext" id="logtext">{logtext}</textarea>
                 </td>
             </tr>
-            <tr>
-                <td colspan="2">
-                    {smilies}
-                </td>
-            </tr>
+
             <tr><td class="spacer" colspan="2"></td></tr>
 
             {log_pw_field}

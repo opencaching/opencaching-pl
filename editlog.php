@@ -6,7 +6,6 @@ use lib\Objects\GeoCache\GeoCacheCommons;
 
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
-require($stylepath . '/smilies.inc.php');
 global $usr;
 
 //Preprocessing
@@ -117,11 +116,8 @@ if ($error == false) {
                     tpl_set_var('rating_message', "");
                 }
 
-                $descMode = 3;
-
                 // fuer alte Versionen von OCProp
                 if (isset($_POST['submit']) && !isset($_POST['version2'])) {
-                    $descMode = 1;
                     $_POST['submitform'] = $_POST['submit'];
                 }
 
@@ -240,7 +236,7 @@ if ($error == false) {
                         WHERE `id`=?",
                             /*1*/$log_type,
                             /*2*/date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
-                            /*3*/userInputFilter::purifyHtmlString((($descMode != 1) ? $log_text : nl2br($log_text))),
+                            /*3*/userInputFilter::purifyHtmlString(((true) ? $log_text : nl2br($log_text))),
                             /*4*/1, /*5*/1, $usr['userid'], $log_id);
                     } else {
                         XDb::xSql(
@@ -250,7 +246,7 @@ if ($error == false) {
                         WHERE `id`=?",
                             /*1*/$log_type,
                             /*2*/date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
-                            /*3*/userInputFilter::purifyHtmlString((($descMode != 1) ? $log_text : nl2br($log_text))),
+                            /*3*/userInputFilter::purifyHtmlString(((true) ? $log_text : nl2br($log_text))),
                             /*4*/1, /*5*/1, $usr['userid'], $log_id);
                     }
 
@@ -480,7 +476,6 @@ if ($error == false) {
 
                 $log_text = userInputFilter::purifyHtmlStringAndDecodeHtmlSpecialChars($log_text);
                 tpl_set_var('logtext', htmlspecialchars($log_text, ENT_NOQUOTES, 'UTF-8'), true);
-                tpl_set_var('descMode', $descMode);
 
                 if ($use_log_pw == true && $log_pw != '') {
                     if ($pw_not_ok == true && isset($_POST['submitform'])) {
@@ -492,22 +487,7 @@ if ($error == false) {
                     tpl_set_var('log_pw_field', '');
                 }
 
-                // build smilies
-                $smilies = '';
-                for ($i = 0; $i < count($smileyshow); $i++) {
-                    if ($smileyshow[$i] == '1') {
-                        $tmp_smiley = $smiley_link;
-                        $tmp_smiley = mb_ereg_replace('{smiley_image}', $smileyimage[$i], $tmp_smiley);
-                        $smilies = $smilies . mb_ereg_replace('{smiley_text}', ' ' . $smileytext[$i] . ' ', $tmp_smiley) . '&nbsp;';
-                    }
-                }
-                tpl_set_var('smilies', $smilies);
 
-                if ($descMode != 3) {
-                    tpl_set_var('smiliesdisplay', '');
-                } else {
-                    tpl_set_var('smiliesdisplay', 'none');
-                }
             } else {
                 header('Location: viewcache.php?cacheid=' . $log_record['cache_id']);
             }
