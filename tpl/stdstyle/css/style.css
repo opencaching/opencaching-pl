@@ -11,8 +11,6 @@
 /*************************************************************/
 
 
-/* .header {background-image: url(../../../images/header970.jpg); height:81px;} */
-
 img { vertical-align:middle; border-width:0px;border-style:none; }
 div#map_canvas img { behavior: none; }
 div#cacheinfo { background-color: blue;}
@@ -38,7 +36,7 @@ body {font-size: 62.5%; margin: 0px auto; padding: 0px; background-color: #ccccc
 /*-----------------------------------*/
 /*.header {background-image: url(../../../images/head/rotator.php); height:80px;}*/
 .header {height:80px;width: 970px;}
-.mapa {background-image: url(../../../images/celownik.png); height:180px; width:180px;}
+.mapa {background-image: url(../../../images/css/celownik.png); height:180px; width:180px;}
 
 .site-name {width: 300px; height: 45px; top: 12px; position: absolute; z-index: 4; overflow: hidden; margin: 0px; padding-left: 80px;}
 .site-name p.title  {margin: 0px; padding: 0px; font-family: "trebuchet ms", arial, sans serif; font-weight: bold; font-size: 24px;}
@@ -48,8 +46,8 @@ body {font-size: 62.5%; margin: 0px auto; padding: 0px; background-color: #ccccc
 
 .site-slogan-container {text-align:right; width: 970px; top: 86px; position: absolute; z-index: 1; overflow: hidden; background-color: transparent;}
 
-.site-slogan {float: right; width: auto; margin: 0px; padding: 5px; background-image: url(../../../images/darkbluetransparent.png); background-repeat: repeat; font-size: 10px; border-left:1px solid rgb(100,100,100); border-top:1px solid rgb(100,100,100); border-bottom:1px solid rgb(100,100,100);}
-.site-slogan input { background-image: url(../../../images/blank.gif); }
+.site-slogan {float: right; width: auto; margin: 0px; padding: 5px; background-image: url(../../../images/css/darkbluetransparent.png); background-repeat: repeat; font-size: 10px; border-left:1px solid rgb(100,100,100); border-top:1px solid rgb(100,100,100); border-bottom:1px solid rgb(100,100,100);}
+.site-slogan input { background-image: url(../../../images/css/blank.gif); }
 
 .site-slogan form { background-color: transparent; }
 .site-slogan p.title {float: right; width: 900px; margin: 0px; padding: 0px; color: rgb(234,239,247); font-family: arial, sans serif;  text-align: right; font-weight: bold; font-size: 220%;}
@@ -783,7 +781,7 @@ a.links4:hover {
     background-color: #a4d9ff;
     color: #000000;
     background: #fff url(/tpl/stdstyle/images/misc/bg-gradient-blue.png) repeat-x top left;
-    /*    background-image: url(/images/gradient.png);
+    /*    background-image: url(/images/css/gradient.png);
         background-repeat: repeat-x;
         background-position: top left;*/
 }
