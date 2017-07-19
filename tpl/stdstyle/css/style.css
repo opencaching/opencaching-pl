@@ -13,7 +13,7 @@
 
 /* .header {background-image: url(../../../images/header970.jpg); height:81px;} */
 
-img { behavior: url(iepngfix/iepngfix.htc); vertical-align:middle; border-width:0px;border-style:none; }
+img { vertical-align:middle; border-width:0px;border-style:none; }
 div#map_canvas img { behavior: none; }
 div#cacheinfo { background-color: blue;}
 div#overall { min-width: 970px; width: 100%; overflow: hidden; }
@@ -134,9 +134,9 @@ ul#statmenu { padding: 0px; margin: 0px;}
 /******************************************************/
 /* SECTION 4 - SPECIFIC CLASSES FOR LAYOUTS #2 and #3 */
 /******************************************************/
-.notice {overflow: hidden; width: 735px; height: auto; margin: 0px 0px 0px 0px; padding: 0px 16px 12px 20px; color: rgb(88,144,168); font-weight: italic; font-size: 11px; background-image: url(../images/misc/16x16-info.png); background-position: top left; background-repeat:no-repeat;behavior: url(iepngfix/iepngfix.htc);}
-.notice2 {overflow: hidden; width: 735px; margin: 0px 0px 0px 0px; padding: 0px 16px 12px 20px; color: rgb(88,144,168); font-weight: italic; font-size: 11px; background-image: url(../images/misc/16x16-info.png); background-position: top left; background-repeat:no-repeat;behavior: url(iepngfix/iepngfix.htc);}
-.warning {overflow: hidden;  width: 735px; height: 24px; border: 1px solid black; background-color: rgb(240,100,100); margin: 0px 0px 0px 0px; padding: 8px 0px 0px 32px; color: rgb(50,50,50); font-weight: bold; font-size: 12px; background-image: url(../images/misc/32x32-impressum.png); background-position: top left; background-repeat:no-repeat;behavior: url(iepngfix/iepngfix.htc);}
+.notice {overflow: hidden; width: 735px; height: auto; margin: 0px 0px 0px 0px; padding: 0px 16px 12px 20px; color: rgb(88,144,168); font-weight: italic; font-size: 11px; background-image: url(../images/misc/16x16-info.png); background-position: top left; background-repeat:no-repeat;}
+.notice2 {overflow: hidden; width: 735px; margin: 0px 0px 0px 0px; padding: 0px 16px 12px 20px; color: rgb(88,144,168); font-weight: italic; font-size: 11px; background-image: url(../images/misc/16x16-info.png); background-position: top left; background-repeat:no-repeat;}
+.warning {overflow: hidden;  width: 735px; height: 24px; border: 1px solid black; background-color: rgb(240,100,100); margin: 0px 0px 0px 0px; padding: 8px 0px 0px 32px; color: rgb(50,50,50); font-weight: bold; font-size: 12px; background-image: url(../images/misc/32x32-impressum.png); background-position: top left; background-repeat:no-repeat;}
 
 .errormsg {color: rgb(240,100,100); font-weight: bold;}
 .successmsg {color: rgb(50,150,20); font-weight: bold;}
@@ -787,7 +787,7 @@ a.links4:hover {
         background-repeat: repeat-x;
         background-position: top left;*/
 }
-table.border {  background: url(/images/bg_blue.png) repeat-x;
+table.border {  background: url(/images/css/bg_blue.png) repeat-x;
                 color: #333;
                 padding: 2px;
                 width: 95%;
