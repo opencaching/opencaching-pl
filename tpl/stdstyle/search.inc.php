@@ -30,32 +30,6 @@
     $logpics[2] = '<img alt="Nie znaleziona" border="0" src="images/redcross.gif" />';
     $logpics[3] = '<img alt="Komentarz" border="0" src="images/info.gif" />';
 
-    $diffpics[2] = 'diff-2.gif';
-    $diffpics[3] = 'diff-3.gif';
-    $diffpics[4] = 'diff-4.gif';
-    $diffpics[5] = 'diff-5.gif';
-    $diffpics[6] = 'diff-6.gif';
-    $diffpics[7] = 'diff-7.gif';
-    $diffpics[8] = 'diff-8.gif';
-    $diffpics[9] = 'diff-9.gif';
-    $diffpics[10] = 'diff-10.gif';
-
-    $terrpics[2] = 'terr-2.gif';
-    $terrpics[3] = 'terr-3.gif';
-    $terrpics[4] = 'terr-4.gif';
-    $terrpics[5] = 'terr-5.gif';
-    $terrpics[6] = 'terr-6.gif';
-    $terrpics[7] = 'terr-7.gif';
-    $terrpics[8] = 'terr-8.gif';
-    $terrpics[9] = 'terr-9.gif';
-    $terrpics[10] = 'terr-10.gif';
-
-    $terrpics[1] = 'rat-10.gif';
-    $terrpics[2] = 'rat-20.gif';
-    $terrpics[3] = 'rat-30.gif';
-    $terrpics[4] = 'rat-40.gif';
-    $terrpics[5] = 'rat-50.gif';
-
     $rating_text = "Ocena: {rating}%";
     $not_rated = 'Brak oceny';
 

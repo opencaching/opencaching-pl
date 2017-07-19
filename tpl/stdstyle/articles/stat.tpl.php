@@ -33,7 +33,7 @@
             <img src="tpl/stdstyle/images/free_icons/tick.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" href="articles.php?page=s8">{{activity_by_region}}</a><br />
             <br/>
             <br/>
-            <img src="tpl/stdstyle/images/free_icons/chart_curve.png" class="icon16"><span class = "content-title-noshade"> {{rise_charts}} </span> <img src=lib/tinymce/plugins/emotions/images/smiley-tongue-out.gif />
+            <img src="tpl/stdstyle/images/free_icons/chart_curve.png" class="icon16"><span class = "content-title-noshade"> {{rise_charts}} </span> <img src=lib/tinymce4/plugins/emotions/img/smiley-tongue-out.gif />
             <hr align ="left" style="border: 0; width: 500px;color: #000000; background-color: #000000;height: 1px;"/>
             <div class="img-shadow"><img src="graphs/new-caches-oc.php" alt="{{oc_statistics}}" /></div><br/>
             <div class="buffer"></div>
