@@ -1283,6 +1283,8 @@ $translations = array(
     'qrcode_desc' => 'Generate a label with a <a class="links" href="https://en.wikipedia.org/wiki/QR_code" target="_blank">QR Code</a> that can be printed on paper and laminated, or placed in a zip bag, or printed on a sticker. <br /> Use the cache URL or a message up to 77 characters long, with information such as coordinates, the next stage of a multicache, a logbook password, etc. <br /><br /> Geocachers will need to use a smartphone with a built-in camera and a "QR code scanner" application to read it.',
     'qrcode_textLabel' => 'QR Code data',
     'qrcode_button' => 'Generate',
+    'qrcode_downloadLabeled' => 'Download dieser QR Code mit Label',
+    'qrcode_downloadQRCodeOnly' => 'Download nur der QR Code',
     'qrcode_appInfo' => 'You can find "QR Code reader" applications for various smartphones <a class="links" href="http://www.i-nigma.com/Downloadi-nigmaReader.html" target="_blank">HERE</a>.',
     'error_ort' => 'Locating failed',
     'alert_search_by_cachename' => 'Enter the name!',
