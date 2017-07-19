@@ -4,6 +4,7 @@ use Utils\Database\OcDb;
 use Utils\Uri\Uri;
 use lib\Controllers\LogEnteryController;
 use Utils\Text\TextConverter;
+use Utils\Text\SmilesInText;
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
@@ -14,7 +15,7 @@ if ($error == false) {
 //Preprocessing
     //set here the template to process
     $tplname = 'viewlogs';
-    
+
     $view = tpl_getView();
     $view->loadLightBox();
 
@@ -22,7 +23,6 @@ if ($error == false) {
     require($stylepath . '/lib/icons.inc.php');
     require($stylepath . '/viewcache.inc.php');
     require($stylepath . '/viewlogs.inc.php');
-    require($stylepath . '/smilies.inc.php');
     global $usr;
 
     $cache_id = 0;
@@ -280,7 +280,6 @@ if ($error == false) {
 //END: same code ->viewlogs.php / viewcache.php
             $tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
             $tmplog_date = TextConverter::fixPlMonth(htmlspecialchars(strftime($GLOBALS['config']['dateformat'], strtotime($record['date'])), ENT_COMPAT, 'UTF-8'));
-            // replace smilies in log-text with images
 
             $dateTimeTmpArray = explode(' ', $record['date']);
             $tmplog = mb_ereg_replace('{time}', substr($dateTimeTmpArray[1], 0, -3), $tmplog);
@@ -314,7 +313,7 @@ if ($error == false) {
             } else {
                 $processed_text = userInputFilter::purifyHtmlStringAndDecodeHtmlSpecialChars($processed_text);
             }
-            $processed_text = str_replace($smileytext, $smileyimage, $processed_text);
+            $processed_text = SmilesInText::process($processed_text);
 
             $tmplog_text = $processed_text . $edit_footer;
 

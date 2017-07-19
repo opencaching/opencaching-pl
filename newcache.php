@@ -189,23 +189,15 @@ if ($error == false) {
         $desc = isset($_POST['desc']) ? $_POST['desc'] : '';
         tpl_set_var('desc', htmlspecialchars($desc, ENT_COMPAT, 'UTF-8'));
 
-        if (isset($_POST['descMode'])) {
-            $descMode = (int) $_POST['descMode'];
-        } else {
-            $descMode = 1;
-        }
 
         // for old versions of OCProp
         if (isset($_POST['submit']) && !isset($_POST['version2'])) {
-            $descMode = (isset($_POST['desc_html']) && ($_POST['desc_html'] == 1)) ? 2 : 1;
             $_POST['submitform'] = $_POST['submit'];
 
             $short_desc = iconv("utf-8", "UTF-8", $short_desc);
             $desc = iconv("utf-8", "UTF-8", $desc);
             $name = iconv("utf-8", "UTF-8", $name);
         }
-
-        tpl_set_var('descMode', 1);
 
         //effort
         $search_time = isset($_POST['search_time']) ? $_POST['search_time'] : '0';

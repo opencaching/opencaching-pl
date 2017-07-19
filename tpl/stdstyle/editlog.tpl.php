@@ -23,38 +23,9 @@ use Utils\Database\XDb;
                 document.getElementById('logmonth').value = d.getMonth() + 1;
                 document.getElementById('logyear').value = d.getFullYear();
             }
-            ;
         }
-        ;
     }
-    ;
 
-    function insertSmiley(parSmiley) {
-        var myText = document.editlog.logtext;
-        myText.focus();
-        /* fuer IE */
-        if (typeof document.selection != 'undefined') {
-            var range = document.selection.createRange();
-            var selText = range.text;
-            range.text = parSmiley + selText;
-        }
-        /* fuer Firefox/Mozilla-Browser */
-        else if (typeof myText.selectionStart != 'undefined')
-        {
-            var start = myText.selectionStart;
-            var end = myText.selectionEnd;
-            var selText = myText.value.substring(start, end);
-            myText.value = myText.value.substr(0, start) + parSmiley + selText + myText.value.substr(end);
-            /* Cursorposition hinter Smiley setzen */
-            myText.selectionStart = start + parSmiley.length;
-            myText.selectionEnd = start + parSmiley.length;
-        }
-        /* fuer die anderen Browser */
-        else
-        {
-            alert(navigator.appName + ': Setting smilies is not supported');
-        }
-    }
 
     function _chkFound() {
 <?php
@@ -177,7 +148,6 @@ $founds = XDb::xMultiVariableQueryValue(
 <form action="editlog.php" method="post" enctype="application/x-www-form-urlencoded" name="editlog" id="editlog" dir="ltr">
     <input type="hidden" name="logid" value="{logid}"/>
     <input type="hidden" name="version2" value="1"/>
-    <input id="descMode" type="hidden" name="descMode" value="{descMode}" />
     <table class="content">
         <tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="edit log Cache" align="middle" /> <b>{{edit_logentry}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
 
@@ -226,11 +196,6 @@ $founds = XDb::xMultiVariableQueryValue(
             <tr>
                 <td>
                     <textarea name="logtext" id="logtext">{logtext}</textarea>
-                </td>
-            </tr>
-            <tr>
-                <td id="smilies" colspan="2" style="display: {smiliesdisplay}">
-                    {smilies}
                 </td>
             </tr>
             <tr><td class="spacer" colspan="2"></td></tr>

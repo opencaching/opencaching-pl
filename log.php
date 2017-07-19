@@ -59,8 +59,6 @@ function isGeokretInCache($cacheid)
 //prepare the templates and include all neccessary
 global $rootpath;
 require_once('./lib/common.inc.php');
-require($stylepath . '/smilies.inc.php');
-
 
 
 $no_tpl_build = false;
@@ -295,24 +293,18 @@ if ($error == false) {
                 tpl_set_var('GeoKretApiSelector', '');
             }
 
-            // descMode is depreciated. this was description type. Now all description are in html, then always use 3 for back compatibility
-            $descMode = 3;
 
             if (isset($_POST['submit']) && !isset($_POST['version2'])) {
-                $descMode = 1;
                 $_POST['submitform'] = $_POST['submit'];
                 $log_text = iconv("ISO-8859-1", "UTF-8", $log_text);
             }
 
-            if ($descMode != 1) {
-                // check input
-                require_once($rootpath . 'lib/class.inputfilter.php');
-                $myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
-                $log_text = $myFilter->process($log_text);
-            } else {
-                // escape text
-                $log_text = nl2br(htmlspecialchars($log_text, ENT_COMPAT, 'UTF-8'));
-            }
+
+            // check input
+            require_once($rootpath . 'lib/class.inputfilter.php');
+            $myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
+            $log_text = $myFilter->process($log_text);
+
 
             //setting tpl messages if they should be not visible.
             tpl_set_var('lat_message', '');
@@ -464,8 +456,8 @@ if ($error == false) {
                         /* GeoKretyApi: call method logging selected Geokrets  (by Łza) */
                         processGeoKrety($logDateTime, $user, $geoCache);
 
-                        ($descMode != 1) ? $dmde_1 = 1 : $dmde_1 = 0;
-                        ($descMode == 3) ? $dmde_2 = 1 : $dmde_2 = 0;
+                        $dmde_1 = 1;
+                        $dmde_2 = 1;
 
                         // This query INSERT cache_log entry ONLY IF such entry NOT EXISTS
                         XDb::xSql(
@@ -908,7 +900,6 @@ if ($error == false) {
                 tpl_set_var('$wybor_WE', $wybor_WE);
                 tpl_set_var('$wybor_NS', $wybor_NS);
 
-                tpl_set_var('descMode', 3);
                 tpl_set_var('logtext', htmlspecialchars($log_text, ENT_COMPAT, 'UTF-8'), true);
 
                 $listed_on = array();
@@ -976,18 +967,7 @@ if ($error == false) {
                     tpl_set_var('log_message', $log_not_ok_message);
                 else
                     tpl_set_var('log_message', '');
-                // build smilies
-                $smilies = '';
-                if ($descMode != 3) {
-                    for ($i = 0; $i < count($smileyshow); $i++) {
-                        if ($smileyshow[$i] == '1') {
-                            $tmp_smiley = $smiley_link;
-                            $tmp_smiley = mb_ereg_replace('{smiley_image}', $smileyimage[$i], $tmp_smiley);
-                            $smilies = $smilies . mb_ereg_replace('{smiley_text}', ' ' . $smileytext[$i] . ' ', $tmp_smiley) . '&nbsp;';
-                        }
-                    }
-                }
-                tpl_set_var('smilies', $smilies);
+
             }
         } // end if( cache_id != 0 )
         else {

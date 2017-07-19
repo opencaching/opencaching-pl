@@ -3,6 +3,7 @@
 use Utils\Database\OcDb;
 use lib\Controllers\LogEnteryController;
 use Utils\Text\TextConverter;
+use Utils\Text\SmilesInText;
 
 $rootpath = "./";
 
@@ -10,7 +11,6 @@ require_once('./lib/common.inc.php');
 require($stylepath . '/lib/icons.inc.php');
 require($stylepath . '/viewcache.inc.php');
 require($stylepath . '/viewlogs.inc.php');
-require($stylepath . '/smilies.inc.php');
 
 if(isset($_REQUEST['geocacheId']) && $_REQUEST['geocacheId'] != ''){
     $geocacheId = $_REQUEST['geocacheId'];
@@ -139,7 +139,6 @@ foreach ($logEneries as $record) {
     $tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
     $tmplog_date = TextConverter::fixPlMonth(htmlspecialchars(strftime(
         $GLOBALS['config']['dateformat'], strtotime($record['date'])), ENT_COMPAT, 'UTF-8'));
-    // replace smilies in log-text with images
 
     $dateTimeTmpArray = explode(' ', $record['date']);
     $tmplog = mb_ereg_replace('{time}', substr($dateTimeTmpArray[1], 0, -3), $tmplog);
@@ -173,7 +172,8 @@ foreach ($logEneries as $record) {
     } else {
         $processed_text = userInputFilter::purifyHtmlStringAndDecodeHtmlSpecialChars($processed_text);
     }
-    $processed_text = str_replace($smileytext, $smileyimage, $processed_text);
+
+    $processed_text = SmilesInText::process($processed_text);
 
     $tmplog_text = $processed_text . $edit_footer;
 

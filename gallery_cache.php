@@ -14,7 +14,6 @@ if ($error == false) {
     require($stylepath . '/lib/icons.inc.php');
     require($stylepath . '/viewcache.inc.php');
     require($stylepath . '/gallery_cache.inc.php');
-    require($stylepath . '/smilies.inc.php');
     global $usr;
 
 
@@ -84,7 +83,6 @@ if ($error == false) {
 
         $pictureslog = '';
 
-        // replace smilies in log-text with images
         // pictures
 
         $cachepicturelines = '';
