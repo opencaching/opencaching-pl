@@ -291,7 +291,7 @@ $founds = XDb::xMultiVariableQueryValue(
                 <img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="">&nbsp;{{type_of_log}}:
             </td>
             <td class="options">
-                <select onLoad="javascript:toogleLayer('ocena');" class="form-control input200" name="logtype" id="logtype" onChange="toogleLayer('ocena');">
+                <select class="form-control input200" name="logtype" id="logtype" onChange="toogleLayer('ocena');">
                     {logtypeoptions}
                 </select>&nbsp;&nbsp;<img id="actionicon" src="/tpl/stdstyle/images/log/Arrow-Right.png" alt="" style="vertical-align:top">
                 &nbsp;{log_message}

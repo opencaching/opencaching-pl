@@ -51,7 +51,7 @@ function isGeokretInCache($cacheid)
 
     if($gkNum == 0){
         return 0;
-    }else{
+    } else {
         return 1;
     }
 }
@@ -216,7 +216,7 @@ if ($error == false) {
                 for ($score_radio = 1 /*$MIN_SCORE*/; $score_radio <= 5 /*$MAX_SCORE*/; $score_radio++) {
 
                     if (($line_cnt == 2)) {
-                        $break_line = "<BR>";
+                        $break_line = "<br>";
                         $break_line = "";
                     } else {
                         $break_line = "";
@@ -231,15 +231,20 @@ if ($error == false) {
                     $line_cnt++;
                 }
 
-                if (isset($_POST['r']) && $_POST['r'] == -10)
+                if (isset($_POST['r']) && $_POST['r'] == -10) {
                     $checked = ' checked="true"';
-                else
+                } else {
                     $checked = "";
+                }
 
                 $score .= '<br><label><input type="radio" style="vertical-align: top" name="r" id="r' . $line_cnt . '" value="-10"' . $checked . ' onclick="encor_no_score ();" /><span id="score_lbl_' . $line_cnt . '">' . tr('do_not_rate') . '</span></label>';
 
                 $score_header = tr('rate_cache');
-                $display = "table-row";
+                if ($log_type == 1) {
+                    $display = "table-row";
+                } else {
+                    $display = "none";
+                }
             }
             else {
                 $score = "";
