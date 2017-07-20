@@ -1208,7 +1208,6 @@ $translations = array(
     'GKApi27' => 'powered by Crete XML interface!',
     'GKApi28' => 'We are very sorry, temporary failure connected with Geokrety.org',
     'GKApi29' => 'No Geokrets in this geocache.',
-    'GKApi30' => 'Because an error occured, Opencaching will retry logging GeoKrety in this geocache.***',
     'log00' => 'Pokud máte log file s nalezenými kešemi ze svého zařízení Garmin, mužete ho zde nahrát.<br />Vyberte a nahrajte soubor pro zobrazení a rychlé zalogování všech keší z nahraného souboru.<br /> Maximální velikost souboru je 50KB.***',
     'log01' => 'Hromadné logování',
     'log02' => 'Presentation of caches being sought by you***',

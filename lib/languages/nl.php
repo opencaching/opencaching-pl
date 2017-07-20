@@ -1008,7 +1008,6 @@ $translations = array(
     'GKApi27' => 'zal binnen enkele minuten uitgevoerd worden.',
     'GKApi28' => 'Wij verontschuldigen ons, tijdelijk geen verbinding met Geokrety.org',
     'GKApi29' => 'Geen Geokrets in deze cache.',
-    'GKApi30' => 'Er is een fout opgetreden, het opencaching systeem zal later de GeoKrety in deze cache loggen.',
     'log00' => 'Met een Garmin logbestand kun je de verzamelde loggegevens in een paar handelingen naar de site versturen.<br /> Sluit de Garmin aan op de computer en selecteer het logbestand. Klik op verzenden om de lijst van caches te zien en te bewerken om daarna snel en makkelijk te kunnen loggen.<br /> Maximale grootte van het bestand is 50K.',
     'log01' => 'Veel caches loggen',
     'log02' => 'Overzicht van de te bewerken caches',

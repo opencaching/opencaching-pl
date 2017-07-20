@@ -1008,7 +1008,6 @@ $translations = array(
     'GKApi27' => 'will be performed in several minutes',
     'GKApi28' => 'We are very sorry, temporary failure connected with geokrety.org',
     'GKApi29' => 'No GeoKrety in this geocache.',
-    'GKApi30' => 'An error occurred, Opencaching will retry logging GeoKrety in this geocache.',
     'log00' => 'If you have a log file from your Garmin device with your found cache\'s data, you can upload it to the website here.<br /> Select and upload the file to see the list of caches, and to to log them quickly on the website.<br /> Maximum file size allowed is 50KB.',
     'log01' => 'Mass logging',
     'log02' => 'Caches being sought by you',
