@@ -26,7 +26,6 @@ use Utils\Database\XDb;
         }
     }
 
-
     function _chkFound() {
 <?php
 
@@ -75,8 +74,6 @@ $founds = XDb::xMultiVariableQueryValue(
         else
             vis.display = val;
 
-
-
         //if( vis.display==''&&elem.offsetWidth!=undefined&&elem.offsetHeight!=undefined)
         //  vis.display=(elem.offsetWidth!=0&&elem.offsetHeight!=0)?'block':'none';
         //vis.display = (vis.display==''||vis.display=='block')?'none':'block';
@@ -98,7 +95,7 @@ $founds = XDb::xMultiVariableQueryValue(
         iconarray['11'] = '16x16-temporary.png';
         iconarray['12'] = '16x16-octeam.png';
         var image_log = "/tpl/stdstyle/images/log/" + iconarray[mode];
-        document.editlog.actionicon.src = image_log;
+        document.getElementById('actionicon').src = image_log;
 //         var el;
 //  el='coord_table';
 //  if (document.editlog.logtype.value == "4")
@@ -112,16 +109,14 @@ $founds = XDb::xMultiVariableQueryValue(
 <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 <script type="text/javascript">
     tinymce.init({
-        selector: "textarea",
-        width: 600,
-        height: 350,
+        selector: "#logtext",
         menubar: false,
-        toolbar_items_size: 'small',
-        language: "{language4js}",
-        gecko_spellcheck: true,
+        toolbar_items_size: "small",
+        browser_spellcheck: true,
         relative_urls: false,
         remove_script_host: false,
         entity_encoding: "raw",
+        language: "{language4js}",
         toolbar1: "newdocument | styleselect formatselect fontselect fontsizeselect",
         toolbar2: "cut copy paste | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image code | preview ",
         toolbar3: "bold italic underline strikethrough |  alignleft aligncenter alignright alignjustify | hr | subscript superscript | charmap emoticons | forecolor backcolor | nonbreaking ",
@@ -134,84 +129,57 @@ $founds = XDb::xMultiVariableQueryValue(
 
     $(function () {
         $('#scriptwarning').hide();
-
-        // $.datepicker.setDefaults($.datepicker.regional['pl']);
-        // $('#hiddenDatePicker, #activateDatePicker').datepicker({
-        // dateFormat: 'yy-mm-dd',
-        // regional: '{language4js}'
-        // }).val();
     });
-
 </script>
-
 
 <form action="editlog.php" method="post" enctype="application/x-www-form-urlencoded" name="editlog" id="editlog" dir="ltr">
     <input type="hidden" name="logid" value="{logid}"/>
     <input type="hidden" name="version2" value="1"/>
-    <table class="content">
-        <tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="edit log Cache" align="middle" /> <b>{{edit_logentry}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
+    <div class="content2-pagetitle">
+        <img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="">&nbsp;{{edit_logentry}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a>
+    </div>
+    <div class="buffer"></div>
 
-        <tr>
-            <td colspan="2">
-                <br /><span id="scriptwarning" class="errormsg">{{pt129}}.</span><br />
+    <table class="table">
+        <tr class="form-group-sm">
+            <td class="content-title-noshade">
+                <img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="">&nbsp;{{type_of_log}}:
+            </td>
+            <td class="options">
+                <select onload="javascript:toogleLayer('ocena');" name="logtype" class="form-control input200" onchange="javascript:toogleLayer('ocena');">
+                    {logtypeoptions}
+                </select>&nbsp;&nbsp;<img id="actionicon" src="/tpl/stdstyle/images/log/Arrow-Right.png" alt="" style="vertical-align:top">
             </td>
         </tr>
-
-    </table>
-    <div class="searchdiv">
-        <table class="content" style="font-size: 12px; line-height: 1.6em;">
-            <tr><td class="spacer" colspan="2"></td></tr>
-            <tr class="form-group-sm">
-                <td width="180px"><img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{type_of_log}}:</strong></td>
-                <td align="left">
-                    <!--<select name="logtype" onChange="return _chkFound()">-->
-                    <select onload="javascript:toogleLayer('ocena');" name="logtype" class="form-control input200" onchange="javascript:toogleLayer('ocena');">
-                        {logtypeoptions}
-                    </select>&nbsp;&nbsp;<img name='actionicon' src='' align="top" alt="">
-                </td>
-            </tr>
-            <tr><td class="spacer" colspan="2"></td></tr>
-
-            <tr class="form-group-sm">
-                <td width="180px"><img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{date_logged}}:</td>
-                <td align="left">
-                    <img src="tpl/stdstyle/images/free_icons/date_previous.png" alt ="{{lc_Day_before}}" title="{{lc_Day_before}}" onclick="subs_days(1);"/>
-                    <input class="form-control input30" type="text" id="logday"  name="logday" maxlength="2" value="{logday}"/>.
-                    <input class="form-control input30" type="text" id="logmonth" name="logmonth" maxlength="2" value="{logmonth}"/>.
-                    <input class="form-control input50" type="text" id="logyear" name="logyear" maxlength="4" value="{logyear}"/>
-                    <img src="tpl/stdstyle/images/free_icons/date_next.png" alt ="{{lc_Day_after}}" title="{{lc_Day_after}}" onclick="subs_days(-1);"/>
-                    &nbsp;&nbsp;
-                    <img src="tpl/stdstyle/images/free_icons/clock.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{time}} :  <input class="form-control input30" type="text" name="loghour" maxlength="2" value="{loghour}"/> HH (0-23)
-                    <input class="form-control input30" type="text" name="logmin" maxlength="2" value="{logmin}"/> MM (0-60)
-                    <br />{date_message}
-                </td>
-            </tr>
-            <tr><td class="spacer" colspan="2"></td></tr>
+        <tr class="form-group-sm">
+            <td class="content-title-noshade">
+                <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="">&nbsp;{{date_logged}}:
+            </td>
+            <td class="options">
+                <img src="tpl/stdstyle/images/free_icons/date_previous.png" alt ="{{lc_Day_before}}" title="{{lc_Day_before}}" onclick="subs_days(1);"/>
+                <input class="form-control input30" type="text" id="logday"  name="logday" maxlength="2" value="{logday}"/>.
+                <input class="form-control input30" type="text" id="logmonth" name="logmonth" maxlength="2" value="{logmonth}"/>.
+                <input class="form-control input50" type="text" id="logyear" name="logyear" maxlength="4" value="{logyear}"/>
+                <img src="tpl/stdstyle/images/free_icons/date_next.png" alt ="{{lc_Day_after}}" title="{{lc_Day_after}}" onclick="subs_days(-1);"/>
+                &nbsp;&nbsp;
+                <img src="tpl/stdstyle/images/free_icons/clock.png" class="icon16" alt="">&nbsp;{{time}}:  <input class="form-control input30" type="text" name="loghour" maxlength="2" value="{loghour}"/> HH (0-23)
+                <input class="form-control input30" type="text" name="logmin" maxlength="2" value="{logmin}"> MM (0-59)
+                <br>{date_message}
+            </td>
+        </tr>
             {rating_message}
         </table>
-        <table class="content" style="font-size: 12px; line-height: 1.6em;">
-            <tr>
-                <td colspan="2"><br /><img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{comments_log}}:</td>
-            </tr>
-            <tr>
-                <td>
-                    <textarea name="logtext" id="logtext">{logtext}</textarea>
-                </td>
-            </tr>
-            <tr><td class="spacer" colspan="2"></td></tr>
-
+        <div class="content2-container">
+            <div class="buffer"></div>
+            <p id="scriptwarning" class="errormsg">{{javascript_edit_info}}</p>
+            <img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="">&nbsp;<span class="content-title-noshade-size12">{{comments_log}}:</span>
+            <div class="buffer"></div>
+            <textarea name="logtext" id="logtext" class="cachelog">{logtext}</textarea>
             {log_pw_field}
-
-            <tr><td class="spacer" colspan="2"></td></tr>
-            <tr>
-                <td class="header-small" colspan="2" align="center">
-                    <input class="btn btn-default" type="reset" name="reset" value="{{reset}}" />&nbsp;&nbsp;
-                    <a href="#" class="btn btn-primary" onclick="event.preventDefault();
-                            $(this).closest('form').submit()">{{submit}}</a>
-                    <input type="hidden" name="submitform" value="{{submit}}"/>
-                </td>
-            </tr>
-        </table>
-    </div>
+            <div class="buffer"></div>
+            <input class="btn btn-default" type="reset" name="reset" value="{{reset}}">&nbsp;&nbsp;
+            <a href="#" class="btn btn-primary" onclick="event.preventDefault();
+                $(this).closest('form').submit()">{{submit}}</a>
+            <input type="hidden" name="submitform" value="{{submit}}">
+        </div>
 </form>
-

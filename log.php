@@ -227,7 +227,7 @@ if ($error == false) {
                         $checked = "";
 
                     $score.= '
-                        <label><input type="radio" style="vertical-align: top" name="r" id="r' . $line_cnt . '" value="' . $score_radio . '" onclick="clear_no_score ();"' . $checked . '  /><b><font color="' . $color_table[$line_cnt] . '"><span id="score_lbl_' . $line_cnt . '">' . ucfirst(tr(GeoCacheCommons::CacheRatingTranslationKey($score_radio))) . '</span></font></b></label>&nbsp;&nbsp;' . $break_line;
+                        <label><input type="radio" style="vertical-align: top" name="r" id="r' . $line_cnt . '" value="' . $score_radio . '" onclick="clear_no_score ();"' . $checked . '><b><span style="color:' . $color_table[$line_cnt]. '" id="score_lbl_' . $line_cnt . '">' . ucfirst(tr(GeoCacheCommons::CacheRatingTranslationKey($score_radio))) . '</span></b></label>&nbsp;&nbsp;' . $break_line;
                     $line_cnt++;
                 }
 
@@ -236,10 +236,10 @@ if ($error == false) {
                 else
                     $checked = "";
 
-                $score .= '<BR><label><input type="radio" style="vertical-align: top" name="r" "id="r' . $line_cnt . '" value="-10"' . $checked . ' onclick="encor_no_score ();" /><span id="score_lbl_' . $line_cnt . '">' . tr('do_not_rate') . '</span></label>';
+                $score .= '<br><label><input type="radio" style="vertical-align: top" name="r" id="r' . $line_cnt . '" value="-10"' . $checked . ' onclick="encor_no_score ();" /><span id="score_lbl_' . $line_cnt . '">' . tr('do_not_rate') . '</span></label>';
 
                 $score_header = tr('rate_cache');
-                $display = "block";
+                $display = "table-row";
             }
             else {
                 $score = "";
@@ -765,7 +765,7 @@ if ($error == false) {
                 if ($log_type < 0) {
                     //-2 = Chose log type
                     if ($res2['status'] != 4)
-                        $logtypeoptions .= '<option value="-2" selected="selected">' . tr('wybrac_log') . '</option>' . '\n';
+                        $logtypeoptions .= '<option value="-2" selected="selected" disabled="disabled">' . tr('wybrac_log') . '</option>';
                     tpl_set_var('display', "none");
                 }
 
@@ -902,38 +902,6 @@ if ($error == false) {
 
                 tpl_set_var('logtext', htmlspecialchars($log_text, ENT_COMPAT, 'UTF-8'), true);
 
-                $listed_on = array();
-
-                /* prevent Notices display at developer Virtual Machines */
-                if (!isset($cache_record)) {
-                    $cache_record['wp_ge'] = '';
-                    $cache_record['wp_tc'] = '';
-                    $cache_record['wp_nc'] = '';
-                    $cache_record['wp_nc'] = '';
-                    $cache_record['wp_gc'] = '';
-                }
-                if ($cache_record['wp_ge'] != '')
-                    $listed_on[] = '<a href="http://geocaching.gpsgames.org/cgi-bin/ge.pl?wp=' . $cache_record['wp_ge'] . '" target="_blank">GPSgames.org</a>';
-
-                if ($cache_record['wp_tc'] != '')
-                    $listed_on[] = '<a href="http://www.terracaching.com/viewcache.cgi?C=/' . $cache_record['wp_tc'] . '" target="_blank">TerraCaching.com</a>';
-
-                if ($cache_record['wp_nc'] != '') {
-                    $wpnc = hexdec(mb_substr($cache_record['wp_nc'], 1));
-                    $listed_on[] = '<a href="http://www.navicache.com/cgi-bin/db/displaycache2.pl?CacheID=' . $wpnc . '" target="_blank">Navicache.com</a>';
-                }
-                if ($cache_record['wp_gc'] != '')
-                    $listed_on[] = '<a href="//www.geocaching.com/seek/cache_details.aspx?wp=' . $cache_record['wp_gc'] . '" target="_blank">Geocaching.com</a>';
-
-
-                if (sizeof($listed_on)) {
-                    tpl_set_var('listed_start', "");
-                    tpl_set_var('listed_end', "");
-                    tpl_set_var('listed_on', implode(", ", $listed_on));
-                } else {
-                    tpl_set_var('listed_start', "<!--");
-                    tpl_set_var('listed_end', "-->");
-                }
                 if ($use_log_pw == true) {
                     if ($pw_not_ok == true) {
                         tpl_set_var('log_pw_field', $log_pw_field_pw_not_ok);
@@ -954,9 +922,6 @@ if ($error == false) {
                         tpl_set_var('coords_not_ok', $error_coords_not_ok);
                     }
                 }
-
-
-
 
                 if ($score_not_ok == true) {
                     tpl_set_var('score_message', $score_message);

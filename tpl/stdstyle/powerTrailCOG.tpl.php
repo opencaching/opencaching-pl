@@ -7,16 +7,15 @@
 <link rel="stylesheet" href="tpl/stdstyle/css/powerTrail.css" type="text/css">
 <script type="text/javascript">
     tinymce.init({
-        selector: "textarea",
-        width: 600,
-        height: 350,
+        selector: "#reason",
+        height: "350",
         menubar: false,
-        toolbar_items_size: 'small',
-        language: "{language4js}",
-        gecko_spellcheck: true,
+        toolbar_items_size: "small",
+        browser_spellcheck: true,
         relative_urls: false,
         remove_script_host: false,
         entity_encoding: "raw",
+        language: "{language4js}",
         toolbar1: "newdocument | styleselect formatselect fontselect fontsizeselect",
         toolbar2: "cut copy paste | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image code | preview ",
         toolbar3: "bold italic underline strikethrough |  alignleft aligncenter alignright alignjustify | hr | subscript superscript | charmap emoticons | forecolor backcolor | nonbreaking ",
@@ -112,10 +111,6 @@
 
     <div id="oldIE" style="display: none">{{pt129}}</div>
 
-    <!--[if IE 6 ]> <div id="oldIE">{{pt129}}</div><br><br> <![endif]-->
-    <!--[if IE 7 ]> <div id="oldIE">{{pt129}}</div><br><br> <![endif]-->
-    <!--[if IE 8 ]> <div id="oldIE">{{pt129}}</div><br><br> <![endif]-->
-
     <div class="content2-pagetitle">
         <img src="tpl/stdstyle/images/blue/050242-blue-jelly-icon-natural-wonders-flower13-sc36_32x32.png" class="icon32" alt="geocache" title="geocache">
         {{pt208}}
@@ -146,8 +141,7 @@
                     <div id="ptStatSelectSpan" style="display: none;">
                         <span style="color:red;">{{pt221}}</span><br><hr>
                         {{pt238}}: {ptStatSelect}<br><br>
-                        <textarea id="reason" maxlength="1000">{{pt220}}</textarea>
-                       <!-- <input id="reason" size="200" type="text" maxlength="1000" placeholder="{{pt220}}"><br> -->
+                        <textarea id="reason" class="desc">{{pt220}}</textarea>
                         <a id="stbtn2" href="javascript:void(0);" onclick="$('#stbtn1').show();
                                 $('#ptStatus').show();
                                 $('#ptStatSelectSpan').hide();" class="editPtDataButton">{{pt031}}</a>

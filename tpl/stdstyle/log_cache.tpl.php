@@ -141,7 +141,7 @@ $founds = XDb::xMultiVariableQueryValue(
         if (val != '')
         {
             if (document.logform.logtype.value == "1" || document.logform.logtype.value == "7")
-                vis.display = 'block';
+                vis.display = 'table-row';
             else
                 vis.display = 'none';
         }
@@ -170,7 +170,7 @@ $founds = XDb::xMultiVariableQueryValue(
         iconarray['11'] = '16x16-temporary.png';
         iconarray['12'] = '16x16-octeam.png';
         var image_log = "/tpl/stdstyle/images/log/" + iconarray[mode];
-        document.logform.actionicon.src = image_log;
+        document.getElementById('actionicon').src = image_log;
 
         var el;
         el = 'coord_table';
@@ -183,7 +183,7 @@ $founds = XDb::xMultiVariableQueryValue(
 
         if (document.logform.logtype.value == "4")
         {
-            document.getElementById(el).style.display = 'block';
+            document.getElementById(el).style.display = 'table-row';
             document.getElementById(mvd1).disabled = false;
             document.getElementById(mvd2).disabled = false;
             document.getElementById(mvd3).disabled = false;
@@ -244,16 +244,14 @@ $founds = XDb::xMultiVariableQueryValue(
 <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 <script type="text/javascript">
     tinymce.init({
-        selector: "textarea",
-        width: 600,
-        height: 350,
+        selector: "#logtext",
         menubar: false,
-        toolbar_items_size: 'small',
-        language: "{language4js}",
-        gecko_spellcheck: true,
+        toolbar_items_size: "small",
+        browser_spellcheck: true,
         relative_urls: false,
         remove_script_host: false,
         entity_encoding: "raw",
+        language: "{language4js}",
         toolbar1: "newdocument | styleselect formatselect fontselect fontsizeselect",
         toolbar2: "cut copy paste | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image code | preview ",
         toolbar3: "bold italic underline strikethrough |  alignleft aligncenter alignright alignjustify | hr | subscript superscript | charmap emoticons | forecolor backcolor | nonbreaking ",
@@ -280,173 +278,99 @@ $founds = XDb::xMultiVariableQueryValue(
     <input type="hidden" name="cacheid" value="{cacheid}"/>
     <input type="hidden" name="version2" value="1"/>
 
-    <table class="content">
-        <tr>
-            <td class="content2-pagetitle" colspan="2">
-                <img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="Cache" align="middle" />
-                <b>{{post_new_log}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b>
+    <div class="content2-pagetitle">
+        <img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="">&nbsp;{{post_new_log}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a>
+    </div>
+    <div class="buffer"></div>
+    <div class="notice">{{empty_entry_notice}}</div>
+    <div class="notice">{{report_problem_notice}} <a class="links" href="reportcache.php?cacheid={cacheid}">{{report_problem}}</a></div>
+
+    <table class="table">
+        <tr class="form-group-sm">
+            <td class="content-title-noshade">
+                <img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="">&nbsp;{{type_of_log}}:
+            </td>
+            <td class="options">
+                <select onLoad="javascript:toogleLayer('ocena');" class="form-control input200" name="logtype" id="logtype" onChange="toogleLayer('ocena');">
+                    {logtypeoptions}
+                </select>&nbsp;&nbsp;<img id="actionicon" src="/tpl/stdstyle/images/log/Arrow-Right.png" alt="" style="vertical-align:top">
+                &nbsp;{log_message}
             </td>
         </tr>
-        <tr>
-        <br /><span id="scriptwarning" class="errormsg">{{pt129}}.</span><br />
-        </td>
+        <tr class="form-group-sm">
+            <td class="content-title-noshade">
+                <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="">&nbsp;{{date_logged}}:
+            </td>
+            <td class="options">
+                <img src="tpl/stdstyle/images/free_icons/date_previous.png" alt ="{{lc_Day_before}}" title="{{lc_Day_before}}" onclick="subs_days(1);"/>
+                <input class="form-control input30" type="text" id="logday" name="logday" maxlength="2" value="{logday}"/>.
+                <input class="form-control input30" type="text" id="logmonth" name="logmonth" maxlength="2" value="{logmonth}"/>.
+                <input class="form-control input50" type="text" id="logyear" name="logyear" maxlength="4" value="{logyear}"/>
+                <img src="tpl/stdstyle/images/free_icons/date_next.png" alt ="{{lc_Day_after}}" title="{{lc_Day_after}}" onclick="subs_days(-1);"/>
+                &nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/clock.png" class="icon16" alt="">&nbsp;{{time}}:
+                <input class="form-control input30" type="text" name="loghour" maxlength="2" value="{loghour}"/> HH (0-23)
+                <input class="form-control input30" type="text" name="logmin" maxlength="2" value="{logmin}"/> MM (0-59)
+                <br>{date_message}
+            </td>
+        </tr>
+            {rating_message}
+        <tr class="form-group-sm" id="ocena" style="display:{display};">
+            <td class="content-title-noshade" style="vertical-align:top">
+                <img src="tpl/stdstyle/images/free_icons/star.png" class="icon16" alt="">&nbsp;{score_header}
+            </td>
+            <td class="options">
+                {score}<br>
+                <span class="notice" id="no_score">{score_note_innitial}</span>
+            </td>
+        </tr>
+        <tr class="form-group-sm" id="coord_table" style="display:none;">
+            <td class="content-title-noshade" style="vertical-align:top">
+                <img src="tpl/stdstyle/images/log/16x16-moved.png" class="icon16" alt="">&nbsp;{{new_coords}}:
+            </td>
+            <td class="options">
+                <select name="wybor_NS"   id="wybor_NS"   disabled="disabled" class="form-control input50"><option selected="selected">N</option><option>S</option></select>
+                <input type="text"        id="wsp_NS_st"  name="wsp_NS_st"  size="2" maxlength="2" disabled="disabled" value="{wsp_NS_st}" class="form-control input40" placeholder="dd">&nbsp;°
+                <input type="text"        id="wsp_NS_min" name="wsp_NS_min" size="6" maxlength="6" disabled="disabled" value="{wsp_NS_min}" class="form-control input70" placeholder="mm.mmm" onkeyup="this.value = this.value.replace(/,/g, '.');"/>&nbsp;'
+                <span class="errormsg">{lat_message}</span>
+                <br>
+                <select name="wybor_WE"  id="wybor_WE"   disabled="disabled" class="form-control input50"><option selected="selected">E</option><option>W</option></select>
+                <input type="text"       id="wsp_WE_st"  name="wsp_WE_st"  size="2" value="{wsp_WE_st}"  maxlength="3" disabled="disabled" class="form-control input40" placeholder="dd" />&nbsp;°
+                <input type="text"       id="wsp_WE_min" name="wsp_WE_min" size="6" value="{wsp_WE_min}" maxlength="6" disabled="disabled" class="form-control input70" placeholder="mm.mmm" onkeyup="this.value = this.value.replace(/,/g, '.');" />&nbsp;'
+                <span class="errormsg">{lon_message}</span>
+                <br>
+                <span class="errormsg">{coords_not_ok}</span>
+            </td>
         </tr>
     </table>
-    <div class="searchdiv">
-        <table class="content" style="font-size: 12px; line-height: 1.6em;">
-            <tr><td colspan="2">&nbsp;</td></tr>
-            <tr>
-                <td colspan="2"><div class="notice" style="width: 500px;">{{report_problem_notice}} <img src="/tpl/stdstyle/images/blue/arrow.png" alt="" title=""/>&nbsp; <a class="links" href="reportcache.php?cacheid={cacheid}">{{report_problem}}</a> </div></td>
-            </tr>
-            <tr>
-                <td colspan="2"><div class="notice" style="width:500px;height:44px">{{empty_entry_notice}}</div></td>
-            </tr>
-            <tr class="form-group-sm">
-                <td width="180px"><img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{type_of_log}}:</strong></td>
-                <td>
-                    <select onLoad="javascript:toogleLayer('ocena');" class="form-control input200" name="logtype" id="logtype" onChange="toogleLayer('ocena');">
-                        {logtypeoptions}
-                    </select>&nbsp;&nbsp;<img name='actionicon' src='' align="top" alt="">
-                    <br />{log_message}
-                </td>
-            </tr>
-            <tr><td class="spacer" colspan="2"></td></tr>
-
-
-            <tr class="form-group-sm">
-                <td width="180px"><img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{date_logged}}:</strong></td>
-                <td>
-                    <img src="tpl/stdstyle/images/free_icons/date_previous.png" alt ="{{lc_Day_before}}" title="{{lc_Day_before}}" onclick="subs_days(1);"/>
-                    <input class="form-control input30" type="text" id="logday" name="logday" maxlength="2" value="{logday}"/>.
-                    <input class="form-control input30" type="text" id="logmonth" name="logmonth" maxlength="2" value="{logmonth}"/>.
-                    <input class="form-control input50" type="text" id="logyear" name="logyear" maxlength="4" value="{logyear}"/>
-                    <img src="tpl/stdstyle/images/free_icons/date_next.png" alt ="{{lc_Day_after}}" title="{{lc_Day_after}}" onclick="subs_days(-1);"/>
-
-                    &nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/clock.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{time}} :  <input class="form-control input30" type="text" name="loghour" maxlength="2" value="{loghour}"/> HH (0-23)
-                    <input class="form-control input30" type="text" name="logmin" maxlength="2" value="{logmin}"/> MM (0-60)
-                    <br />{date_message}
-                </td>
-            </tr>
-            <tr><td class="spacer" colspan="2"></td></tr>
-            {rating_message}
-            <tr><td class="spacer" colspan="2"></td></tr>
-        </table>
-
-        <div class="content" id="ocena" style="display:{display};">
-            <table class="content" style="font-size: 12px; line-height: 1.6em;" border="0">
-                <tr>
-                    <td width="180px" valign="top"><img src="tpl/stdstyle/images/free_icons/star.png" class="icon16" alt="" title="" align="middle" />&nbsp;<b>{score_header}</b></td>
-                    <td width="*">{score}<br/>&nbsp;<span class="notice" style="width:500px;height:44px" id="no_score" name="no_score"  >{score_note_innitial}</span></td>
-                </tr>
-            </table>
-            <br />
-            <!-- GeoKretyApi (by Łza) -->
-            <div id="GeoKretyApi">
-                <p style="font-size: 12px;"><img src="tpl/stdstyle/images/description/22x22-geokret.png"> <a href="javascript:toggleGeoKrety();" class=links href="#">{{GKApi06}}</a>
-                <div id="toggleGeoKretyDIV" style="display: none">
-
-                    <div style="display: {GeoKretyApiNotConfigured}; width: 500px; color: red; font-size: 12px;">
-                        {{GKApi07}}{{GKApi08}}<br /><br />
-                        1. {{GKApi09}} <a href="http://geokrety.org/mypage.php">{{GKApi04}}</a><br />
-                        2. {{GKApi10}} <a href="myprofile.php?action=change">{{GKApi04}}</a>  <br />
-                    </div>
-
-                    <div style="display: {GeoKretyApiConfigured}">
-                        <p style="color: darkgreen">{{GKApi05}}</p>
-                        {GeoKretApiSelector}
-                        <hr align ="left" style="width: 380px; color: darkgreen; align: left;"/>
-                        <p style="color: darkgreen">{{GKApi18}}</p>
-                        {GeoKretApiSelector2}
-                    </div>
-                    <br><br>
-                    <div class="notice" style="width:500px;height:44px"><b>{{GKApi19}}</b> {{GKApi27}}</div>
-
-                </div>
+    <div class="buffer"></div>
+    <div class="content2-container">
+        <img src="tpl/stdstyle/images/description/22x22-geokret.png" alt=""> <a onclick="javascript:toggleGeoKrety();" class="links" href="#"><span class="content-title-noshade-size12">{{GKApi06}}</span></a>
+        <div id="toggleGeoKretyDIV" style="display: none">
+            <div style="display: {GeoKretyApiNotConfigured};">
+                <span class="errormsg"><br>{{GKApi07}}</span><br><br>
+                {{GKApi08}}<br>
+                1. {{GKApi09}} (<a href="https://geokrety.org/mypage.php" class="links" target="_blank">{{GKApi04}}</a>)<br>
+                2. {{GKApi10}} (<a href="myprofile.php?action=change" class="links" target="_blank">{{GKApi04}}</a>)<br>
             </div>
-            <!-- end of GeoKretyApi (by Łza) -->
-
+            <div style="display: {GeoKretyApiConfigured}">
+                <p><br>{{GKApi05}}</p>
+                {GeoKretApiSelector}
+                <p><br>{{GKApi18}}</p>
+                {GeoKretApiSelector2}
+            </div>
+            <br><div class="notice">{{GKApi19}} {{GKApi27}}</div>
         </div>
-
-        <!-- [Łza] logowanie keszynek mobilnych: nowe współrzędne  -->
-        <div class="content" id="coord_table" style="display:none;">
-            <table class="content" style="font-size: 12px; line-height: 1.6em;">
-                <tr>
-                    <td></td>
-                    <td><span style="color: red; font-weight:bold;">{coords_not_ok}</span></td>
-                </tr>
-                <tr>
-                    <td width="180px">
-                        <img src="tpl/stdstyle/images/log/16x16-moved.png" class="icon16" alt="" title="" align="middle" /><b>&nbsp;{{nowe_wsp}}</b>
-
-                    </td>
-                    <td>
-                        <select name="wybor_NS"   id="wybor_NS"   disabled="disabled" class="input40"><option selected="selected">N</option><option>S</option></select>
-                        <input type="text"        id="wsp_NS_st"  name="wsp_NS_st"  size="2" maxlength="2" disabled="disabled" value="{wsp_NS_st}" class="input30" placeholder="dd" >&nbsp;°
-                        <input type="text"        id="wsp_NS_min" name="wsp_NS_min" size="6" maxlength="6" disabled="disabled" value="{wsp_NS_min}" class="input50" placeholder="mm.mmm" onkeyup="this.value = this.value.replace(/,/g, '.');"/>&nbsp;'
-                        <span style="color: red; font-weight:bold;">{lat_message}</span>
-                        <br />
-                        <select name="wybor_WE"  id="wybor_WE"   disabled="disabled" class="input40"><option selected="selected">E</option><option>W</option></select>
-                        <input type="text"       id="wsp_WE_st"  name="wsp_WE_st"  size="2" value="{wsp_WE_st}"  maxlength="3" disabled="disabled" class="input30" placeholder="dd" />&nbsp;°
-                        <input type="text"       id="wsp_WE_min" name="wsp_WE_min" size="6" value="{wsp_WE_min}" maxlength="6" disabled="disabled" class="input50" placeholder="mm.mmm" onkeyup="this.value = this.value.replace(/,/g, '.');" />&nbsp;'
-                        <span style="color: red; font-weight:bold;">{lon_message}</span>
-                    </td>
-                    <td width="*">      <br/></td>
-                </tr>
-            </table>
-        </div>
-
-
-
-        <table class="content" style="font-size: 12px; line-height: 1.6em;">
-            <tr>
-                <td colspan="2"><br />
-                <img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16"
-                    alt="" title="" align="middle" />&nbsp;
-                    <strong>{{comments_log}}:</strong><br />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <textarea name="logtext" id="logtext">{logtext}</textarea>
-                </td>
-            </tr>
-
-            <tr><td class="spacer" colspan="2"></td></tr>
-
-            {log_pw_field}
-
-            <tr><td class="spacer" colspan="2"></td></tr>
-            {listed_start}
-            <tr>
-                <td colspan="2" width="600px"><strong><img src="tpl/stdstyle/images/free_icons/world_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{listed_other}}:&nbsp;{listed_on}</strong>
-                </td>
-            </tr>
-
-            <tr><td class="spacer" colspan="2"></td></tr>
-            {listed_end}
-            <tr>
-                <td class="header-small" colspan="2" align="center">
-                    <a href="#" class="btn btn-default" onclick="return do_reset()">{log_reset_button}</a>
-                    <a href="#" class="btn btn-primary" onclick="event.preventDefault();
-                            $(this).closest('form').submit()">{{submit_log_entry}}</a>
-                    <input type="hidden" name="submitform" value="{{submit}}" style="width:120px"/>
-                </td>
-
-            </tr>
-            <?php if (strpos($_SERVER['HTTP_USER_AGENT'], "Android") !== false) { ?>
-                <tr>
-                    <td colspan="2">
-                        <div style='background: url(/images/android_notice.png); background-repeat: no-repeat; padding-left: 70px; padding-top: 10px; max-width: 400px; margin: 7px 0 20px 0'>
-                            <p style='font-size: 18px; font-weight: bold'>Ułatwienia dla Androida</p>
-                            <p>Na <a href='http://forum.opencaching.pl/viewforum.php?f=6'>naszym forum</a> znajdziesz
-                                informacje o wielu aplikacjach ułatwiających keszowanie z Androidem. Niektóre z nich są
-                                płatne, ale jest też wiele bardzo przydatnych, darmowych aplikacji. Warto
-                                <a href='http://forum.opencaching.pl/viewforum.php?f=6'>sprawdzić</a>!</p>
-                        </div>
-                    </td>
-                </tr>
-            <?php } ?>
-        </table>
+        <div class="buffer"></div>
+        <p id="scriptwarning" class="errormsg">{{javascript_edit_info}}</p>
+        <img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="">&nbsp;<span class="content-title-noshade-size12">{{comments_log}}:</span>
+        <div class="buffer"></div>
+        <textarea name="logtext" id="logtext" class="cachelog">{logtext}</textarea>
+        {log_pw_field}
+        <div class="buffer"></div>
+        <a href="#" class="btn btn-default" onclick="return do_reset()">{log_reset_button}</a>
+        <a href="#" class="btn btn-primary" onclick="event.preventDefault();
+                $(this).closest('form').submit()">{{submit_log_entry}}</a>
+        <input type="hidden" name="submitform" value="{{submit}}">
     </div>
 </form>
 <script type="text/javascript">
@@ -478,9 +402,8 @@ $founds = XDb::xMultiVariableQueryValue(
     }
 
     function encor_no_score() {
-        document.getElementById('no_score').innerHTML = "{score_note_encorage}";
         highlight_score_labels();
-
+        document.getElementById('no_score').innerHTML = "{score_note_encorage}";
     }
 
     function handle_score_note() {

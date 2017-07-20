@@ -151,6 +151,7 @@ ul#statmenu { padding: 0px; margin: 0px;}
 .content-title-noshade-size0    { margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 70%;}
 .content-title-noshade-size05   { margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 80%;}
 .content-title-noshade-size1    { margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 130%;}
+.content-title-noshade-size12   { margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 120%;}
 .content-title-noshade-size2    { margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 150%;}
 .content-title-noshade-size3    { margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 160%;}
 .content-title-noshade-size5    { margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 200%;}
@@ -199,6 +200,9 @@ li.newcache_list_multi {
 .table td       { padding: 2px 7px 2px 7px; border: solid 0px rgb(150,150,150); text-align: left; font-size: 120%;}
 .table th       { margin: 0px; background-color: rgb(127,162,202); padding: 2px 7px 2px 7px; border: solid 0px rgb(150,150,150); empty-cells: show; text-align: left; font-size: 120%; color: rgb(255,255,255);    }
 .table-caption  { margin: 0.5em 0px 1.0em 30px; padding: 0px; clear: both; text-align: left; font-size: 120%;}
+.table td.options {
+    padding: 0.5em 0.5em;
+}
 
 /* Images */
 .img-left-noborder-notopmargin      { float: left; margin: 0px 10px 0px 0px;}
@@ -878,8 +882,14 @@ input.formbuttons   { background-color:rgb(219,230,241); width:120px; border:1px
     vertical-align: top;
 }
 
-textarea.cachedesc  { width:600px; height:500px; }    /* only cache_editor */
-textarea.hint       { width:600px; }                  /* only cache_editor */
+textarea.desc, textarea.cachelog {
+    width: 100%;
+    height: 30em;
+}
+textarea.hint {
+    width: 100%;
+    height: 4em;
+}
 textarea.logs       { width:600px; height:300px; }    /* only log_editor */
 .show_deleted       { text-decoration: line-through; }
 
