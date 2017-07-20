@@ -267,8 +267,14 @@ textarea {          border:1px solid black;
                     padding:1px;
                     font-size:11px; }
 
-textarea.cachedesc {width:600px; height:500px; }    /* only cache_editor */
-textarea.hint {     width:600px; }                  /* only cache_editor */
+textarea.desc, textarea.cachelog {
+    width: 100%;
+    height: 30em;
+}
+textarea.hint {
+    width: 100%;
+    height: 4em;
+}
 textarea.logs {     width:600px; height:300px; }    /* only log_editor */
 
 
