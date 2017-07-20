@@ -116,12 +116,12 @@ class GeoKretyApi
         $jsclear = 'onclick="this.value=\'\'" onblur="formDefault(this)"';
         foreach ($krety->geokrety->geokret as $kret) {
             $MaxNr++;
-            $selector .= '<tr>
+            $selector .= '<tr class="form-group-sm">
                             <td>
                               <a href="https://geokrety.org/konkret.php?id=' . $kret->attributes()->id . '" class="links">' . $kret . '</a>
                             </td>
                             <td>
-                              <select id="GeoKretSelector' . $MaxNr . '" name="GeoKretIDAction' . $MaxNr . '[action]" onchange="GkActionMoved(' . $MaxNr . ')" class="form-control input200"><option value="-1">' . tr('GKApi13') . '</option><option value="0">' . tr('GKApi12') . '</option><option value="5">' . tr('GKApi14') . '</option></select>
+                              <select id="GeoKretSelector' . $MaxNr . '" name="GeoKretIDAction' . $MaxNr . '[action]" onchange="GkActionMoved(' . $MaxNr . ')" class="form-control input120"><option value="-1">' . tr('GKApi13') . '</option><option value="0">' . tr('GKApi12') . '</option><option value="5">' . tr('GKApi14') . '</option></select>
                               <input type="hidden" name="GeoKretIDAction' . $MaxNr . '[nr]" value="' . $kret->attributes()->nr . '"><span id="GKtxt' . $MaxNr . '" style="display: none">&nbsp;' . tr('GKApi25') . ': <input type="text" name="GeoKretIDAction' . $MaxNr . '[tx]" maxlength="80" class="form-control input200" value="' . tr('GKApi24') . ' ' . $cachename . '" ' . $jsclear . ' /></span>
                               <input type="hidden" name="GeoKretIDAction' . $MaxNr . '[id]" value="' . $kret->attributes()->id . '">
                               <input type="hidden" name="GeoKretIDAction' . $MaxNr . '[nm]" value="' . $kret . '" />
@@ -146,13 +146,13 @@ class GeoKretyApi
         $jsclear = 'onclick="this.value=\'\'" onblur="formDefault(this)"';
         foreach ($krety->geokrety->geokret as $kret) {
             $MaxNr++;
-            $selector .= '<tr>
+            $selector .= '<tr class="form-group-sm">
                             <td>
                               <a href="https://geokrety.org/konkret.php?id=' . $kret->attributes()->id . '" class="links">' . $kret . '</a>
                             </td>
                             <td>
-                              <select id="GeoKretSelector' . $MaxNr . '" name="GeoKretIDAction' . $MaxNr . '[action]" onchange="GkActionMoved(' . $MaxNr . ')" class="form-control input200"><option value="-1">' . tr('GKApi13') . '</option><option value="1">' . tr('GKApi15') . '</option><option value="2">' . tr('GKApi16') . '</option><option value="3">' . tr('GKApi17') . '</option></select>
-                              <span id="GKtxt' . $MaxNr . '" style="display: none"> tracking code: <input type="text" maxlength="6" size="6"  name="GeoKretIDAction' . $MaxNr . '[nr]">&nbsp; ' . tr('GKApi25') . ': <input type="text" name="GeoKretIDAction' . $MaxNr . '[tx]" maxlength="40" class="form-control input200" value="' . tr('GKApi26') . ' ' . $cachename . '" ' . $jsclear . ' /></span>
+                              <select id="GeoKretSelector' . $MaxNr . '" name="GeoKretIDAction' . $MaxNr . '[action]" onchange="GkActionMoved(' . $MaxNr . ')" class="form-control input120"><option value="-1">' . tr('GKApi13') . '</option><option value="1">' . tr('GKApi15') . '</option><option value="2">' . tr('GKApi16') . '</option><option value="3">' . tr('GKApi17') . '</option></select>
+                              <span id="GKtxt' . $MaxNr . '" style="display: none">&nbsp; tracking code: <input type="text" maxlength="6" size="6" class="form-control input50" name="GeoKretIDAction' . $MaxNr . '[nr]">&nbsp; ' . tr('GKApi25') . ': <input type="text" name="GeoKretIDAction' . $MaxNr . '[tx]" maxlength="40" class="form-control input200" value="' . tr('GKApi26') . ' ' . $cachename . '" ' . $jsclear . ' /></span>
                               <input type="hidden" name="GeoKretIDAction' . $MaxNr . '[id]" value="' . $kret->attributes()->id . '" />
                               <input type="hidden" name="GeoKretIDAction' . $MaxNr . '[nm]" value="' . $kret . '" />
                             </td>

@@ -1009,7 +1009,6 @@ $translations = array(
     'GKApi27' => 'va fi actualizat în câteva minute',
     'GKApi28' => 'Ne pare rău, dar momentan nu ne putem conecta la Geokrety.org',
     'GKApi29' => 'Nu există Geokrety-uri în această geocutie.',
-    'GKApi30' => 'Deoarece a apărut o eroare, sistemul opencaching va încerca să adauge informaţiile despre GeoKrety din această geocutie.',
     'log00' => 'Dacă ai un fişier cu însemnări din dispozitivul tău Garmin cu datele geocutiilor găsite, îl poţi încărca pe site aici.<br /> Select and upload the file to see the list of caches and be able to log them quickly on the website.<br /> Dimensiunea maximă permisă a fişierului este de 50KB.',
     'log01' => 'Însemnări la greu',
     'log02' => 'Prezentările geocutiilor căutate de tine **',
