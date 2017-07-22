@@ -1,14 +1,24 @@
+DELIMITER ;;
+
 
 --
 --
 --
+DROP TRIGGER IF EXISTS cachesBeforeUpdate;;
+
 
 CREATE TRIGGER `cachesBeforeUpdate` BEFORE UPDATE ON `caches`
 		FOR EACH ROW BEGIN
 				IF OLD.`longitude`!=NEW.`longitude` OR OLD.`latitude`!=NEW.`latitude` THEN
 				    SET NEW.`need_npa_recalc`=1;
     		END IF;
-    END
+    END;;
+    
+    
+    
+    
+DROP TRIGGER IF EXISTS cachesAfterDelete;;
+
 
 CREATE TRIGGER `cachesAfterDelete` AFTER DELETE ON `caches`
 		FOR EACH ROW BEGIN
@@ -21,8 +31,12 @@ CREATE TRIGGER `cachesAfterDelete` AFTER DELETE ON `caches`
 				    ) AS `c` 
 				SET `user`.`hidden_count`=`c`.`hidden_count` 
 				WHERE `user`.`user_id`=OLD.`user_id`;
-    END
+    END;;
 
+
+    
+    
+DROP TRIGGER IF EXISTS cachesAfterInsert;;
 
 
 CREATE TRIGGER `cachesAfterInsert` AFTER INSERT ON `caches`
@@ -38,10 +52,14 @@ CREATE TRIGGER `cachesAfterInsert` AFTER INSERT ON `caches`
 				        WHERE `user_id`=NEW.`user_id` AND `status` IN (1, 2, 3)
 				    ) AS `c` 
 				SET `user`.`hidden_count`=`c`.`hidden_count` WHERE `user`.`user_id`=NEW.`user_id`;
-    END
+    END;;
 
     
     
+
+DROP TRIGGER IF EXISTS cachesAfterUpdate;;
+
+
 CREATE TRIGGER `cachesAfterUpdate` AFTER UPDATE ON `caches`
     FOR EACH ROW BEGIN
 		    
@@ -73,6 +91,8 @@ CREATE TRIGGER `cachesAfterUpdate` AFTER UPDATE ON `caches`
 				    END IF;
 				END IF;
 		
-		END --FOR EACH ROW
+		END;; --FOR EACH ROW
 
-
+		
+		
+DELIMITER ;

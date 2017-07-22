@@ -1,3 +1,7 @@
+DELIMITER ;;
+
+
+DROP TRIGGER IF EXISTS cacheDescAfterInsert;;
 
 CREATE TRIGGER `cacheDescAfterInsert` AFTER INSERT ON `cache_desc`
 		FOR EACH ROW BEGIN
@@ -8,9 +12,11 @@ CREATE TRIGGER `cacheDescAfterInsert` AFTER INSERT ON `cache_desc`
         SET `caches`.`desc_languages`=`tbl2`.`lang` 
         WHERE `caches`.`cache_id`=`tbl2`.`cache_id` 
             AND `tbl2`.`cache_id`=NEW.`cache_id`;
-		END
+		END;;
 
 		
+		
+DROP TRIGGER IF EXISTS cacheDescAfterUpdate;;
 		
 CREATE TRIGGER `cacheDescAfterUpdate` AFTER UPDATE ON `cache_desc`
 		FOR EACH ROW BEGIN
@@ -33,8 +39,12 @@ CREATE TRIGGER `cacheDescAfterUpdate` AFTER UPDATE ON `cache_desc`
                     AND `tbl2`.`cache_id`=OLD.`cache_id`;
 				    END IF;
 				END IF;
-		END
+		END;;
 
+		
+		
+DROP TRIGGER IF EXISTS cacheDescAfterDelete;;
+		
 CREATE TRIGGER `cacheDescAfterDelete` AFTER DELETE ON `cache_desc`
 		FOR EACH ROW BEGIN
     		UPDATE `caches`, (
@@ -44,7 +54,7 @@ CREATE TRIGGER `cacheDescAfterDelete` AFTER DELETE ON `cache_desc`
         SET `caches`.`desc_languages`=`tbl2`.`lang` 
         WHERE `caches`.`cache_id`=`tbl2`.`cache_id` 
             AND `tbl2`.`cache_id`=OLD.`cache_id`;
-		END
+		END;;
 
 
-
+DELIMITER ;

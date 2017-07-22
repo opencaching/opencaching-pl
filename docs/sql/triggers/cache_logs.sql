@@ -1,6 +1,12 @@
+DELIMITER ;;
+
+
 --
 -- 
 --
+
+DROP TRIGGER IF EXISTS cl_update;;
+
 CREATE TRIGGER `cl_update` AFTER UPDATE ON `cache_logs`
     FOR EACH ROW begin
         IF ( old.type = 1 ) THEN
@@ -42,9 +48,10 @@ CREATE TRIGGER `cl_update` AFTER UPDATE ON `cache_logs`
 						    END IF;
 					  END IF;      
 				END if;      
-  END -- FOR EACH ROW
+  END;; -- FOR EACH ROW
 
 
+DROP TRIGGER IF EXISTS cl_insert;;
 
 CREATE TRIGGER `cl_insert` AFTER INSERT ON `cache_logs`
     FOR EACH ROW BEGIN 
@@ -65,6 +72,8 @@ CREATE TRIGGER `cl_insert` AFTER INSERT ON `cache_logs`
 
             END IF ;
         END IF ;
-    END -- FOR EACH ROW
+    END;; -- FOR EACH ROW
 
+    
+DELIMITER ;
     
