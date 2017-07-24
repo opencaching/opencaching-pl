@@ -8,7 +8,6 @@ use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\User\User;
 use lib\Objects\GeoKret\GeoKretLog;
-use lib\Controllers\GeoKretyController;
 use lib\Controllers\MeritBadgeController;
 use Utils\Generators\Uuid;
 
