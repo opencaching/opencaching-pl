@@ -2,14 +2,45 @@
 <script type="text/javascript">
   google.charts.load('current', {'packages':['corechart'], 'language' : '{language4js}'});
   google.charts.setOnLoadCallback(drawChartCacheType);
+  google.charts.setOnLoadCallback(drawChartCachesFound);
   function drawChartCacheType() {
         var data = new google.visualization.DataTable({cachetype_chart_data});
         var options = {'title': '{{oc_stat}}',
-                       'width':600,
-                       'height':500};
+                       'legend':{
+                                 'alignment': 'center'
+                                },
+                       'height': '450',
+                       'pieHole': '0.3'};
         var chart = new google.visualization.PieChart(document.getElementById('chart_cachetype_div'));
         chart.draw(data, options);
       }
+  function drawChartCachesFound() {
+      var data = new google.visualization.DataTable({cachesfound_chart_data});
+      var options = {
+                     'height': '400',
+                     'titlePosition': 'in',
+                     'animation':{
+                         'duration': '1000',
+                         'startup': true
+                         },
+                     'legend':{
+                               'position': 'bottom'
+                               },
+                     'series': {
+                                0: {targetAxisIndex: 0},
+                                1: {targetAxisIndex: 1}
+                                },
+                     'vAxes': {
+                               0: {title: '{{graph_statistics_02}}'},
+                               1: {title: '{{graph_statistics_03}}'}
+                               }
+                     };
+      var formatter = new google.visualization.DateFormat({pattern: 'MMM yyyy'});
+      formatter.format(data, 0);
+      var chart = new google.visualization.LineChart(document.getElementById('chart_cachesfound_div'));
+      chart.draw(data, options);
+    }
+
 </script>
 
   <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="">&nbsp;{{statistics}}</div>
@@ -49,7 +80,7 @@
   </div>
   <p class="content-title-noshade-size2">{{rise_charts}}</p>
   <div class="content-txtbox-noshade">
-    <div class="img-shadow"><img src="graphs/new-caches-oc.php" alt="{{oc_statistics}}"></div>
+    <div id="chart_cachesfound_div"></div>
     <div class="buffer"></div>
     <div id="chart_cachetype_div"></div>
   </div>
