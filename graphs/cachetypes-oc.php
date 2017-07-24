@@ -2,14 +2,8 @@
 
 use Utils\Database\XDb;
 
-function normTo100($value, $sum)
+function genChartDataCacheTypes()
 {
-    return $value * 100 / $sum;
-}
-
-function genStatPieUrl()
-{
-    $startDate = mktime(0, 0, 0, 1, 1, 2006);
     global $lang;
     if (Xdb::xContainsColumn('cache_type', $lang))
         $lang_db = XDb::xEscape($lang);
@@ -18,39 +12,27 @@ function genStatPieUrl()
 
     // Get data
     $rsTypes = XDb::xSql(
-        "SELECT COUNT(`caches`.`type`) `count`, `cache_type`.`$lang_db` AS `type`, `cache_type`.`color`
+        "SELECT COUNT(`caches`.`type`) `count`, `cache_type`.`$lang_db` AS `type`
         FROM `caches` INNER JOIN `cache_type` ON (`caches`.`type`=`cache_type`.`id`)
         WHERE `status`=1
         GROUP BY `caches`.`type`
         ORDER BY `count` DESC");
 
-    $yData = array();
-    $xData = array();
-    $colors = array();
-    $url = "https://chart.googleapis.com/chart?chs=550x200&chd=t:";
-    $sum = 0;
+    $rows = array();
+    $table = array();
+    $table['cols'] = array (
+        array('label' => tr('cache_type'), 'type' => 'string'),
+        array('label' => tr('number_of_caches'), 'type' => 'number'),
+    );
+
     while ($rTypes = XDb::xFetchArray($rsTypes)) {
-        $yData[] = ' (' . $rTypes['count'] . ') ' . $rTypes['type'];
-        $xData[] = $rTypes['count'];
-        $colors[] = substr($rTypes['color'], 1);
-        $sum += $rTypes['count'];
-    }
-    XDb::xFreeResults($rsTypes);
-    foreach ($xData as $count) {
-        $url .= normTo100($count, $sum) . ",";
+        $temp = array();
+        $temp[] = array('v' => (string) $rTypes['type']);
+        $temp[] = array('v' => (int) $rTypes['count']);
+        $rows[] = array('c' => $temp);
     }
 
-    $url = substr($url, 0, -1);
-    $url .= "&cht=p3&chl=";
+    $table['rows'] = $rows;
 
-    foreach ($yData as $label) {
-        $url .= urlencode($label) . "|";
-    }
-    $url = substr($url, 0, -1);
-
-    $url .= "&chco=";
-    foreach ($colors as $color) {
-        $url .= urlencode($color) . ",";
-    }
-    return $url = substr($url, 0, -1);
+    return json_encode($table);
 }

@@ -30,7 +30,7 @@ if ($error == false) {
         switch ($_REQUEST['page']) {
             case 'stat':
                 require_once('./graphs/cachetypes-oc.php');
-                tpl_set_var('oc_statistics_link', genStatPieUrl());
+                tpl_set_var('cachetype_chart_data', genChartDataCacheTypes());
                 break;
             default:
                 break;
@@ -51,4 +51,3 @@ tpl_set_var('language4js', $lang);
 
 //make the template and send it out
 tpl_BuildTemplate();
-?>

@@ -1,3 +1,17 @@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['corechart'], 'language' : '{language4js}'});
+  google.charts.setOnLoadCallback(drawChartCacheType);
+  function drawChartCacheType() {
+        var data = new google.visualization.DataTable({cachetype_chart_data});
+        var options = {'title': '{{oc_stat}}',
+                       'width':600,
+                       'height':500};
+        var chart = new google.visualization.PieChart(document.getElementById('chart_cachetype_div'));
+        chart.draw(data, options);
+      }
+</script>
+
   <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="">&nbsp;{{statistics}}</div>
   <div class="content2-container-1col">
     <p class="content-title-noshade-size2">{{user_ranking}}</p>
@@ -37,5 +51,5 @@
   <div class="content-txtbox-noshade">
     <div class="img-shadow"><img src="graphs/new-caches-oc.php" alt="{{oc_statistics}}"></div>
     <div class="buffer"></div>
-    <img src="{oc_statistics_link}" alt="{{oc_statistics}}">
+    <div id="chart_cachetype_div"></div>
   </div>
