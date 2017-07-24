@@ -190,6 +190,9 @@ ul.newcache_list {
     list-style-type: none;
     font-size: 11px;
 }
+ul.tick {
+    list-style-image: url('/tpl/stdstyle/images/free_icons/tick.png');
+}
 li.newcache_list_multi {
     margin-bottom:8px;
 }
