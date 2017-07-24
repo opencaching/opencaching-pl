@@ -3,11 +3,26 @@
 namespace Utils\Database;
 use PDOException;
 use PDOStatement;
+use Utils\Debug\Debug;
 
 class OcDb extends OcPdo
 {
 
     const BIND_CHAR = ':'; //
+
+    /**
+     * This the ONLY way on which instance of this class
+     * should be accessed
+     *
+     * Returns instance of itself.
+     *
+     * @return OcDb object
+     */
+    public static function instance()
+    {
+        $instance = parent::instance();
+        return $instance;
+    }
 
     /**
      * @return one row from result, or FALSE if there are no more rows available
@@ -149,10 +164,6 @@ class OcDb extends OcPdo
             self::debugOut(__METHOD__.":\n\nQuery: ".$query);
         }
 
-        // -- THIS CODE WILL BE REMOVED SOON --
-            $this->stmt = $stmt;
-        // -- THIS CODE WILL BE REMOVED SOON --
-
         return $stmt;
     }
 
@@ -244,10 +255,6 @@ class OcDb extends OcPdo
             self::debugOut(__METHOD__.":\n\nQuery:\n$query\n\nParams:\n".implode(' | ', $params));
         }
 
-        // -- THIS CODE WILL BE REMOVED SOON --
-            $this->stmt = $stmt;
-        // -- THIS CODE WILL BE REMOVED SOON --
-
         return $stmt;
     }
 
@@ -317,10 +324,6 @@ class OcDb extends OcPdo
             self::debugOut(__METHOD__.":\n\nQuery|Params: $query | ".implode(' | ', $argList));
         }
 
-        // -- THIS CODE WILL BE REMOVED SOON --
-        $this->stmt = $stmt;
-        // -- THIS CODE WILL BE REMOVED SOON --
-
         return $stmt;
     }
 
@@ -361,6 +364,55 @@ class OcDb extends OcPdo
         return $this->dbResultFetchValue($stmt, $default);
     }
 
+    /**
+     * This method enables SQL STRICT-MODE (STRICT_ALL_TABLES)
+     * in current db session (instance)
+     */
+    public function enableStrictMode()
+    {
+        $sqlMode = $this->getSqlMode();
+        $modes = explode(',', $sqlMode);
 
+        if(($key = array_search('STRICT_ALL_TABLES', $modes)) !== false) {
+            $trace = Debug::getTraceStr();
+            error_log(__METHOD__.": Sql Strict-mode already enabled! ($trace)");
+            return;
+        }
+
+        $modes[] = 'STRICT_ALL_TABLES';
+        $sqlMode = implode(',', $modes);
+
+        $this->simpleQuery("SET sql_mode = '$sqlMode'");
+    }
+
+    /**
+     * This method disables SQL STRICT-MODE (STRICT_ALL_TABLES)
+     * in current db session (instance)
+     */
+    public function disableStrictMode()
+    {
+        $sqlMode = $this->getSqlMode();
+        $modes = explode(',', $sqlMode);
+
+        if(($key = array_search('STRICT_ALL_TABLES', $modes)) !== false) {
+            unset($modes[$key]);
+        }else{
+            $trace = Debug::getTraceStr();
+            error_log(__METHOD__.": Sql Strict-mode already disabled! ($trace)");
+            return;
+        }
+
+        $sqlMode = implode(',', $modes);
+        $this->simpleQuery("SET sql_mode = '$sqlMode'");
+    }
+
+    /**
+     * This method returns sql-mode from current DB session
+     */
+    public function getSqlMode()
+    {
+        return $this->dbResultFetchOneRowOnly(
+            $this->simpleQuery("SELECT @@sql_mode AS sql_mode"))['sql_mode'];
+    }
 }
 

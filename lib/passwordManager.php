@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Database\OcPdo;
+use Utils\Database\OcDb;
 class PasswordManager
 {
 
@@ -40,7 +40,7 @@ class PasswordManager
 
         /* Get the database handle. */
 
-        $db = OcPdo::instance();
+        $db = OcDb::instance();
 
         /* Fetch current password state */
 
@@ -158,7 +158,7 @@ class PasswordManager
             $this->hash = $this->computeHash($this->correctPassword);
         }
 
-        $db = OcPdo::instance();
+        $db = OcDb::instance();
         $c = $db->prepare("
             update `user`
             set

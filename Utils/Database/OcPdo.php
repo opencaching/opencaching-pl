@@ -136,7 +136,7 @@ class OcPdo extends PDO
      *
      * @return OcDb object
      */
-    public static function instance()
+    protected static function instance()
     {
         static $instance = null;
         if ($instance === null) {
