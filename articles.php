@@ -29,8 +29,9 @@ if ($error == false) {
         //set article inside the articles-directory
         switch ($_REQUEST['page']) {
             case 'stat':
-                require_once('./graphs/cachetypes-oc.php');
-                tpl_set_var('oc_statistics_link', genStatPieUrl());
+                require_once('./graphs/stats-charts.php');
+                tpl_set_var('cachetype_chart_data', genChartDataCacheTypes());
+                tpl_set_var('cachesfound_chart_data', genChartDataCachesFound());
                 break;
             default:
                 break;
@@ -51,4 +52,3 @@ tpl_set_var('language4js', $lang);
 
 //make the template and send it out
 tpl_BuildTemplate();
-?>
