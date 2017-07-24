@@ -298,18 +298,13 @@ if (date('m') == 12 || date('m') == 1) {
                     <?php
                     global $usr, $onlineusers, $dynstylepath;
                     if ($usr == true && $onlineusers == 1) { ?>
-                        <div style="text-align:center">
-                          <span class="txt-black">{{online_users}} (</span>
-                          <span class="txt-white">
-                            <?php include ($dynstylepath . "nonlusers.txt"); ?>
-                          </span>
-                          <span class="txt-black">) - {{online_users_info}}:</span>
-                        </div>
-                          <div style="text-align:center">
-                            <span class="txt-white;" style="margin-left: 5px; margin-right: 5px; width: 800px;">
-                              <?php include ($dynstylepath . "onlineusers.html"); ?>
-                            </span>
-                          </div>
+                        <p>
+                          <span class="txt-black">{{online_users}}: </span>
+                          <span class="txt-white"><?php include ($dynstylepath . "nonlusers.txt"); ?></span>
+                          <span class="txt-black"> ({{online_users_info}}):</span>
+                        </p>
+                        <p><?php include ($dynstylepath . "onlineusers.html"); ?></p>
+                        <div class="spacer">&nbsp;</div>
                     <?php }
                     $bottomMenuResult = buildBottomMenu($config['bottom_menu']);
                     echo $bottomMenuResult;
@@ -319,7 +314,7 @@ if (date('m') == 12 || date('m') == 1) {
             </div>
         </div>
         <?php
-        		// lightbox js should be loaded at th end of page
+            // lightbox js should be loaded at th end of page
             if( $view->isLightBoxEnabled()){
                 $view->callChunk('lightBoxLoader', false, true);
             }
