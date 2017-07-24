@@ -2,30 +2,15 @@
 ?>
 <script type="text/javascript">
 
-//detect browser:
-    if ((navigator.appName == "Netscape" && parseInt(navigator.appVersion) >= 3) || parseInt(navigator.appVersion) >= 4) {
-        rollOvers = 1;
-    } else {
-        if (navigator.appName == "Microsoft Internet Explorer" && parseInt(navigator.appVersion) >= 4) {
-            rollOvers = 1;
-        } else {
-            rollOvers = 0;
-        }
-    }
-
 //image swapping function:
     function Lite(nn) {
-        if (rollOvers) {
-            document.getElementById('smallmark' + nn).style.visibility = 'hidden';
-            document.getElementById('bigmark' + nn).style.visibility = 'visible';
-        }
+        document.getElementById('smallmark' + nn).style.visibility = 'hidden';
+        document.getElementById('bigmark' + nn).style.visibility = 'visible';
     }
 
     function Unlite(nn) {
-        if (rollOvers) {
-            document.getElementById('bigmark' + nn).style.visibility = 'hidden';
-            document.getElementById('smallmark' + nn).style.visibility = 'visible';
-        }
+        document.getElementById('bigmark' + nn).style.visibility = 'hidden';
+        document.getElementById('smallmark' + nn).style.visibility = 'visible';
     }
 
 </script>

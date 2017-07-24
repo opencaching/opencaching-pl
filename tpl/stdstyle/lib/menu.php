@@ -269,13 +269,6 @@ $menu = array(
         'siteid' => 'articles/links'
     ),
     array(
-        'title' => 'RSS',
-        'menustring' => 'RSS',
-        'siteid' => 'articles/rss',
-        'visible' => true,
-        'filename' => 'articles.php?page=rss'
-    ),
-    array(
         'title' => tr('contact'),
         'visible' => true,
         'filename' => 'articles.php?page=contact',
@@ -288,13 +281,6 @@ $menu = array(
         'visible' => true,
         'filename' => 'cacheguides.php',
         'siteid' => 'cacheguides'
-    ),
-    array(
-        'title' => 'API',
-        'menustring' => 'API',
-        'visible' => true,
-        'filename' => '/okapi',
-        'siteid' => 'api'
     ),
     array(
         'title' => 'shop',
