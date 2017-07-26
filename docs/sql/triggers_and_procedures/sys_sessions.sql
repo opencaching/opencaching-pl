@@ -1,5 +1,6 @@
 DELIMITER ;;
 
+-- Trigger updates last-login field from user table after user logged in
 
 DROP TRIGGER IF EXISTS sysSessionsAfterInsert;;
 

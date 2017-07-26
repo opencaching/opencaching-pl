@@ -39,14 +39,14 @@ CREATE TRIGGER `cacheRatingAfterUpdate` AFTER UPDATE ON `cache_rating`
 DROP TRIGGER IF EXISTS cacheRatingAfterDelete;;
 
 CREATE TRIGGER `cacheRatingAfterDelete` AFTER DELETE ON `cache_rating`
-		FOR EACH ROW BEGIN
-    		UPDATE `caches` SET `topratings`=(
-    		        SELECT COUNT(*) FROM `cache_rating` 
-    		        WHERE `cache_rating`.`cache_id`=OLD.`cache_id`
-		        ) 
+FOR EACH ROW BEGIN
+    UPDATE `caches` SET `topratings`=(
+            SELECT COUNT(*) FROM `cache_rating` 
+            WHERE `cache_rating`.`cache_id`=OLD.`cache_id`
+        ) 
         WHERE `cache_id`=OLD.`cache_id`;
-		END;;
+END;;
 
-		
+
 DELIMITER ;
 
