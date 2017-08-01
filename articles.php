@@ -29,9 +29,7 @@ if ($error == false) {
         //set article inside the articles-directory
         switch ($_REQUEST['page']) {
             case 'stat':
-                require_once('./graphs/stats-charts.php');
-                tpl_set_var('cachetype_chart_data', genChartDataCacheTypes());
-                tpl_set_var('cachesfound_chart_data', genChartDataCachesFound());
+                require_once($dynstylepath . 'charts_data.inc.php');
                 break;
             default:
                 break;

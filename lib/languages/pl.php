@@ -2143,7 +2143,7 @@ $translations = array(
     'mylist_03' => 'Wydrukuj wszystkie',
     'mylist_04' => 'Usuń wszystkie',
     'mylist_05' => 'Pobierz dane skrzynek ze schowka',
-    'cookiesInfo' => 'Używamy cookies, dzięki którym nasz serwis może działać lepiej. Przeczytaj o prywatności i ochronie danych w naszym <a href ="{wiki_link_rules}">Regulaminie</a>.',
+    'cookiesInfo' => 'Używamy cookies, dzięki którym nasz serwis może działać lepiej. Przeczytaj o prywatności i ochronie danych w naszym <a href="{wiki_link_rules}" target="_blank">Regulaminie</a>.',
     'FiltrYear' => 'Rok',
     'FiltrMonth' => 'Miesiąc',
     'StatTestVer' => '<span style="color: red" >Uwaga wersja testowa!!! Proszę o zgłaszanie konstruktywnych uwag na forum w temacie: <a href="https://forum.opencaching.pl/viewtopic.php?f=9&t=7734">Statystyki</a></span>',
