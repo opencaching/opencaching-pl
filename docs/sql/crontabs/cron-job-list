@@ -1,12 +1,14 @@
 # Load this with:
-# sudo crontab -u ocpl /home/ocpl/cron-defs/cron-job-list
+# sudo crontab -u ocpl cron-job-list
 
 # m  h  dom mon dow command
 # Main page static sections
-*/30 *   *   *   *   wget -O - -q http://opencaching.pl/tpl/stdstyle/etc/write_newcaches.inc.php
-*/55 *   *   *   *   wget -O - -q http://opencaching.pl/tpl/stdstyle/etc/write_newblogs.inc.php
-*/14 *   *   *   *   wget -O - -q http://opencaching.pl/tpl/stdstyle/etc/write_onlusers.inc.php
-*/30 *   *   *   *   wget -O - -q http://opencaching.pl/tpl/stdstyle/etc/write_totalstats.inc.php
+*/30 *   *   *   *   wget -O - -q https://opencaching.pl/tpl/stdstyle/etc/write_newcaches.inc.php
+*/55 *   *   *   *   wget -O - -q https://opencaching.pl/tpl/stdstyle/etc/write_newblogs.inc.php
+*/14 *   *   *   *   wget -O - -q https://opencaching.pl/tpl/stdstyle/etc/write_onlusers.inc.php
+*/30 *   *   *   *   wget -O - -q https://opencaching.pl/tpl/stdstyle/etc/write_totalstats.inc.php
+# Prepare static data for charts on statistics page
+1    0   *   *   *   wget -O - -q https://opencaching.pl/tpl/stdstyle/etc/write_chartsdata.php
 
 # e-mail notifications about new caches
 */13 */3 *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/notification/run_notify.php  run_notify.html
@@ -28,14 +30,14 @@
 11   0   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/powerTrail/PowerTrailCronJob.php  PowerTrailCronJob.html
 
 # Titled Cache (weekly example)
-56   21  *   *   4    wget -O - -q http://opencaching.pl/cache_titled_add.php?CRON
+56   21  *   *   4    wget -O - -q https://opencaching.pl/cache_titled_add.php?CRON
 
 # OKAPI cronjobs. Timeout of 1 second if okay, OKAPI keeps the process running
 # in the background and has an error-reporting of its own. If something is really
 # wrong (i.e. syntax error), then it will probably fail during the first second,
 # making cron send a proper email to the admin. See OKAPI cronjobs dispatcher
 # in okapi/cronjobs.php for more information.
-*/5  *   *   *   *   wget -O - -q -t 1 http://opencaching.pl/okapi/cron5
+*/5  *   *   *   *   wget -O - -q -t 1 https://opencaching.pl/okapi/cron5
 
 # Database maintanance
 10   6   *   *   *   /home/ocpl/cron-defs/do-mysql-flush
