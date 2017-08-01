@@ -2143,7 +2143,7 @@ $translations = array(
     'mylist_03' => 'Alles afdrukken',
     'mylist_04' => 'Verwijder alles',
     'mylist_05' => 'Download de gegevens van de caches uit het klembord',
-    'cookiesInfo' => 'Wij maken gebruik van cookies om onze dienstverlening te verbeteren. Lees meer over privacy en gegevensbescherming in onze <a href ="{wiki_link_rules}">Gebruikersvoorwaarden</a>.',
+    'cookiesInfo' => 'Wij maken gebruik van cookies om onze dienstverlening te verbeteren. Lees meer over privacy en gegevensbescherming in onze <a href="{wiki_link_rules}" target="_blank">Gebruikersvoorwaarden</a>.',
     'FiltrYear' => 'Jaar',
     'FiltrMonth' => 'Maand',
     'StatTestVer' => '<span style="color: red" >Dit is een proef voor de statistieken</span>',
