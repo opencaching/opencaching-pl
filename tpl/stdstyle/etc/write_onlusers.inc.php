@@ -9,7 +9,7 @@ require_once($rootpath . 'lib/common.inc.php');
 // add check users id who want to by username hidden
 $db = OcDb::instance();
 $stmt = $db->simpleQuery(
-    "SELECT `sys_sessions`.`user_id` AS `user_id`, `user`.`username` AS `username`
+    "SELECT DISTINCT `sys_sessions`.`user_id` AS `user_id`, `user`.`username` AS `username`
         FROM `sys_sessions`
         LEFT JOIN `user`
         ON `user`.`user_id` = `sys_sessions`.`user_id`
