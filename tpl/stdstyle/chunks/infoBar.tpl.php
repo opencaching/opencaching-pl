@@ -12,8 +12,9 @@ return function ($reloadUrl=null, $infoMsg=null, $errorMsg=null) {
 
 // begining of chunk
 ?>
+
     <script type='text/javascript'>
-        // load chunk css
+        // load infoBar chunk css
         var linkElement = document.createElement("link");
         linkElement.rel = "stylesheet";
         linkElement.href = "<?=$chunkCSS?>";
