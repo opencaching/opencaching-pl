@@ -92,12 +92,12 @@ if ($error == false) {
             $needs_approvement = true;
             tpl_set_var('hide_publish_start', '<!--');
             tpl_set_var('hide_publish_end', '-->');
-            tpl_set_var('approvement_note', '<div class="notice"><font color="red"><b>' . tr('first_cache_approvement') . '</b></font></div>');
+            tpl_set_var('approvement_note', '<div class="notice errormsg">' . tr('first_cache_approvement') . '</div>');
         } else if ($verify_all == 1) {
             $needs_approvement = true;
             tpl_set_var('hide_publish_start', '<!--');
             tpl_set_var('hide_publish_end', '-->');
-            tpl_set_var('approvement_note', '<div class="notice"><font color="red"><b>' . tr('all_cache_approvement') . '</b></font></div>');
+            tpl_set_var('approvement_note', '<div class="notice errormsg">' . tr('all_cache_approvement') . '</div>');
         } else {
             $needs_approvement = false;
             tpl_set_var('hide_publish_start', '');
@@ -280,9 +280,9 @@ if ($error == false) {
         $activation_hours = '';
         for ($i = 0; $i <= 23; $i++) {
             if ($activate_hour == $i) {
-                $activation_hours .= '<option value="' . $i . '" selected="selected">' . $i . '</option>';
+                $activation_hours .= '<option value="' . $i . '" selected="selected">' . $i . ':00</option>';
             } else {
-                $activation_hours .= '<option value="' . $i . '">' . $i . '</option>';
+                $activation_hours .= '<option value="' . $i . '">' . $i . ':00</option>';
             }
             $activation_hours .= "\n";
         }

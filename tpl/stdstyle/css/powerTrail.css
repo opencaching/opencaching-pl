@@ -291,6 +291,11 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
     height:auto;
 }
 
+
+#powerTrailDescription ol {
+    font-size: 100%;
+}
+
 #oldIE{
     color: red;
     border: solid 1px;
@@ -390,4 +395,9 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 }
 .powerTrailLogo {
     max-width: 250px;
+}
+textarea.powerTrailEditor {
+    width: 97%;
+    min-width: 600px;
+    height: 400px;
 }

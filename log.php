@@ -76,6 +76,7 @@ if ($error == false) {
     } else {
         //set here the template to process
         $tplname = 'log_cache';
+        $view->loadJquery();
 
         require($stylepath . '/log_cache.inc.php');
         require_once($rootpath . 'lib/caches.inc.php');

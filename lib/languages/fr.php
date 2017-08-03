@@ -318,7 +318,7 @@ $translations = array(
     'virtual_cache_size' => 'La taille de la boîte aux lettres dans le cas de la Event et doit etre réglé a "pas de boîte"!',
     'full_description' => 'Nom complet',
     'mandatory_field' => 'L"obligation',
-    'full_desc_long_text' => 'Entrez ici des informations sur les raisons pour lesquelles la case ukryłeś est en ce lieu, et <font color="red"> toutes les informations nécessaires </font> pour trouver la boîte. Pour trouver les boîtes doivent etre fondées sur la connaissance de ses coordonnées et le nom.',
+    'full_desc_long_text' => 'Entrez ici des informations sur les raisons pour lesquelles la case ukryłeś est en ce lieu, et <span class="txt-red07"> toutes les informations nécessaires </span> pour trouver la boîte. Pour trouver les boîtes doivent etre fondées sur la connaissance de ses coordonnées et le nom.',
     'html_usage' => 'S"il vous plaît que l"utilisation des balises HTML au format texte.',
     'available_html' => 'La liste des balises HTML',
     'additional_enc_info' => '<font color="red"> <b> </font> des informations codées. </b> <i> champ facultatif </i>. Ici vous pouvez mettre des informations supplémentaires pour aider a trouver une boîte aux lettres. Information sans lequel la boîte aux lettres a trouver, il ne sera pas possible, doit etre inclus dans la "description".',

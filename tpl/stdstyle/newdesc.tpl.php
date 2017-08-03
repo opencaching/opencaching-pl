@@ -1,33 +1,6 @@
 <?php
-
+$view->callChunk('tinyMCE');
 ?>
-<script type="text/javascript" src="lib/tinymce4/tinymce.min.js"></script>
-<script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
-<script type="text/javascript">
-    tinymce.init({
-        selector: "#desc",
-        menubar: false,
-        toolbar_items_size: "small",
-        browser_spellcheck: true,
-        relative_urls: false,
-        remove_script_host: false,
-        entity_encoding: "raw",
-        language: "{language4js}",
-        toolbar1: "newdocument | styleselect formatselect fontselect fontsizeselect",
-        toolbar2: "cut copy paste | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image code | preview ",
-        toolbar3: "bold italic underline strikethrough |  alignleft aligncenter alignright alignjustify | hr | subscript superscript | charmap emoticons | forecolor backcolor | nonbreaking ",
-        plugins: [
-            "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
-            "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-            "table directionality emoticons template textcolor paste textcolor"
-        ],
-    });
-
-    $(function () {
-        $('#scriptwarning').hide();
-    });
-</script>
-
 <form action="newdesc.php" method="post" enctype="application/x-www-form-urlencoded" name="newdesc_form" dir="ltr">
     <input type="hidden" name="cacheid" value="{cacheid}"/>
     <input type="hidden" name="show_all_langs" value="{show_all_langs}"/>
@@ -56,7 +29,7 @@
     <div class="content-title-noshade-size12">{{full_description}}:{desc_err}</div>
     <div class="buffer"></div>
     <p id="scriptwarning" class="errormsg">{{javascript_edit_info}}</p>
-    <div class="content2-container"><textarea id="desc" name="desc" class="desc">{desc}</textarea></div>
+    <div class="content2-container"><textarea id="desc" name="desc" class="tinymce desc">{desc}</textarea></div>
     <div class="notice">{{html_usage}} <a href="articles.php?page=htmltags" target="_blank">{{available_html}}</a></div>
     <div class="notice">{{geocaching_com_foto_info}}</div>
     <div class="buffer"></div>
@@ -71,3 +44,6 @@
         <input type="submit" name="submitform" value="{{submit}}" class="btn btn-primary"/>
     </div>
 </form>
+<script type="text/javascript">
+  document.getElementById('scriptwarning').style.display = 'none';
+</script>
