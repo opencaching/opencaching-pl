@@ -2,6 +2,7 @@
 
 use lib\Objects\PowerTrail\PowerTrail;
 use lib\Objects\GeoCache\GeoCache;
+use Utils\Uri\Uri;
 
 $rootpath = __DIR__ . DIRECTORY_SEPARATOR;
 require_once './lib/common.inc.php';
@@ -22,7 +23,10 @@ if ($error == false) {
     tpl_set_var("selPtDiv", 'none');
     tpl_set_var("PtDetailsDiv", 'none');
     tpl_set_var('language4js', $lang);
-    tpl_set_var('googlemap_key', $googlemap_key);
+
+    $view->loadJquery();
+    $view->loadGMapApi();
+    $view->addLocalCss(Uri::getLinkWithModificationTime('tpl/stdstyle/css/powerTrail.css'));
 
     if (isset($_REQUEST['ptSelector'])) {
         $powerTrail = new PowerTrail(array('id' => $_REQUEST['ptSelector']));
@@ -59,12 +63,12 @@ function makePtSelector($ptAll, $id)
 
 function preparePtCaches(PowerTrail $powerTrail)
 {
-    $table = '<table><tr style="background-color: #cccccc;">'
-            . ' <td>' . tr('cs_name') . '</td>'
-            . ' <td>' . tr('owner_label') . '</td>'
-            . ' <td>'. tr('waypoint') . '</td>'
-            . ' <td style="text-align: center;">' . tr('cache').'<br>' . tr('number_founds') . '</td>'
-            . ' <td>' . tr('pt210') . '</td>'
+    $table = '<table class="table" style="width: 100%"><tr>'
+            . ' <th>' . tr('name_label') . '</th>'
+            . ' <th>' . tr('owner') . '</th>'
+            . ' <th>'. tr('waypoint') . '</th>'
+            . ' <th style="text-align: center;">' . tr('number_founds') . '</th>'
+            . ' <th>&nbsp;</th>'
             . '</tr>';
     $color = '#eeeeff';
     /* @var $geocache GeoCache */
