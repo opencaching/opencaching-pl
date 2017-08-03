@@ -5,76 +5,29 @@
  *
  * Usage:
  * - in controller:
- *
+ *      TODO:
  * - in template:
- *
+ *      TODO:
  */
 use lib\Objects\ChunkModels\PaginationModel;
+use Utils\Uri\Uri;
 
 return function (PaginationModel $pagination){
 
-
 // begining of chunk
+
+    $chunkCSS = Uri::getLinkWithModificationTime('/tpl/stdstyle/chunks/pagination.css');
+
 ?>
 
-<style>
-    .pagination {
-        margin: 10px 0;
-        padding: 0px;
-        display: flex;
-        font-size: 12px;
-        text-align: center;
-        justify-content: center;
-    }
-
-    .pagination li {
-        display: inline;
-        box-sizing: border-box;
-    }
-
-    .pagination a {
-        box-sizing: border-box;
-        padding: 6px;
-        margin-left: -1px;
-        border: 1px solid #ccc;
-        display: block;
-        min-width: 30px;
-    }
-
-    .pagination li:first-child > a {
-        border-top-left-radius: 4px;
-        border-bottom-left-radius: 4px;
-    }
-
-    .pagination li:last-child > a {
-        border-top-right-radius: 4px;
-        border-bottom-right-radius: 4px;
-    }
-
-    .pagination a,
-    .pagination a:visited {
-        color: #337ab7;
-    }
-
-    .pagination a:hover {
-        color: #23527c;
-        background-color: #ddd;
-    }
-
-    .pagination a,
-    .pagination a:hover,
-    .pagination a:visited {
-        text-decoration: none;
-    }
-
-    .pagination a.active,
-    .pagination a.active:hover,
-    .pagination a.active:visited {
-        background-color: #337ab7;
-        color: #fff;
-    }
-
-</style>
+<script type='text/javascript'>
+    // load pagination chunk css
+    var linkElement = document.createElement("link");
+    linkElement.rel = "stylesheet";
+    linkElement.href = "<?=$chunkCSS?>";
+    linkElement.type = "text/css";
+    document.head.appendChild(linkElement);
+</script>
 
 <div>
   <?php if(!$pagination->error()) { ?>
