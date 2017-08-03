@@ -201,10 +201,6 @@
 
 </script>
 
-<!--[if IE 6 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]-->
-<!--[if IE 7 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]-->
-<!--[if IE 8 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]-->
-
 <form action="editcache.php" method="post" enctype="application/x-www-form-urlencoded" name="editcache_form" dir="ltr">
     <input type="hidden" name="cacheid" value="{cacheid}"/>
     <input type="hidden" id="cache_attribs" name="cache_attribs" value="{cache_attribs}" />

@@ -1,6 +1,8 @@
 <?php
 
 use Utils\Database\XDb;
+
+$view->callChunk('tinyMCE', false);
 ?>
 <link href="tpl/stdstyle/css/confirmCancelButtons.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript">
@@ -105,28 +107,7 @@ $founds = XDb::xMultiVariableQueryValue(
 
 </script>
 
-<script type="text/javascript" src="lib/tinymce4/tinymce.min.js"></script>
-<script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
-<script type="text/javascript">
-    tinymce.init({
-        selector: "#logtext",
-        menubar: false,
-        toolbar_items_size: "small",
-        browser_spellcheck: true,
-        relative_urls: false,
-        remove_script_host: false,
-        entity_encoding: "raw",
-        language: "{language4js}",
-        toolbar1: "newdocument | styleselect formatselect fontselect fontsizeselect",
-        toolbar2: "cut copy paste | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image code | preview ",
-        toolbar3: "bold italic underline strikethrough |  alignleft aligncenter alignright alignjustify | hr | subscript superscript | charmap emoticons | forecolor backcolor | nonbreaking ",
-        plugins: [
-            "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
-            "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-            "table directionality emoticons template textcolor paste textcolor"
-        ],
-    });
-
+<script>
     $(function () {
         $('#scriptwarning').hide();
     });
@@ -174,7 +155,7 @@ $founds = XDb::xMultiVariableQueryValue(
             <p id="scriptwarning" class="errormsg">{{javascript_edit_info}}</p>
             <img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="">&nbsp;<span class="content-title-noshade-size12">{{comments_log}}:</span>
             <div class="buffer"></div>
-            <textarea name="logtext" id="logtext" class="cachelog">{logtext}</textarea>
+            <textarea name="logtext" id="logtext" class="cachelog tinymce">{logtext}</textarea>
             {log_pw_field}
             <div class="buffer"></div>
             <input class="btn btn-default" type="reset" name="reset" value="{{reset}}">&nbsp;&nbsp;

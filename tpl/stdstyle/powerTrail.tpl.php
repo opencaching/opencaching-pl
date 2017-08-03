@@ -1,5 +1,8 @@
+<?php
+$view->callChunk('tinyMCE');
+?>
+
 <link href='https://fonts.googleapis.com/css?family=Shojumaru&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-<script type="text/javascript" src="lib/tinymce4/tinymce.min.js"></script>
 <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 <link rel="stylesheet" href="tpl/stdstyle/js/jquery_1.9.2_ocTheme/themes/cupertino/jquery.ui.all.css">
 
@@ -10,27 +13,6 @@
 <script src="https://maps.googleapis.com/maps/api/js?v=3.27&amp;key={googlemap_key}&amp;language={language4js}"></script>
 <script src="/lib/cachemap3lib.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-            tinymce.init({
-            selector: "textarea",
-                    width: 600,
-                    height: 350,
-                    menubar: false,
-                    toolbar_items_size: 'small',
-                    language : "{language4js}",
-                    gecko_spellcheck : true,
-                    relative_urls : false,
-                    remove_script_host: false,
-                    entity_encoding : "raw",
-                    toolbar1: "newdocument | styleselect formatselect fontselect fontsizeselect",
-                    toolbar2: "cut copy paste | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image code | preview ",
-                    toolbar3: "bold italic underline strikethrough |  alignleft aligncenter alignright alignjustify | hr | subscript superscript | charmap emoticons | forecolor backcolor | nonbreaking ",
-                    plugins: [
-                            "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
-                            "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-                            "table directionality emoticons template textcolor paste textcolor"
-                    ],
-            });</script>
 
 <script type="text/javascript">
             $(function() {
@@ -1376,8 +1358,8 @@ $( document ).ready(function() {
                     </tr>
                     <tr>
                         <td>{{pt011}}</td>
-                        <td>
-                            <textarea name="description"></textarea>
+                        <td style="width: 603px;">
+                            <textarea name="description" class="tinymce powerTrailEditor"></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -1629,7 +1611,7 @@ $( document ).ready(function() {
                     <td class="inlineTd" colspan="2"><span id="ptdesc"></span>
                             <div id="powerTrailDescription">{powerTrailDescription}</div>
                             <div id="powerTrailDescriptionEdit" style="display: none">
-                                <textarea id="descriptionEdit" name="descriptionEdit">{powerTrailDescription}</textarea>
+                                <textarea id="descriptionEdit" name="descriptionEdit" class="tinymce powerTrailEditor" style="height: 350px">{powerTrailDescription}</textarea>
                             </div>
                     </td>
                     <td style="text-align: right; vertical-align: bottom;">
@@ -1777,7 +1759,7 @@ $( document ).ready(function() {
             <div id="addComment" style="display: none">
                 <input type="hidden" id="editedCommentId" value="0">
                 <input type="hidden" id="ClickinguserId" value="0">
-                <textarea id="addCommentTxtArea"></textarea><br><br>
+                <textarea id="addCommentTxtArea" class="tinymce powerTrailEditor" style="height: 350px"></textarea><br><br>
                 {{pt229}} {ptCommentsSelector}
                 <br><br>
                 {{pt230}} <input type="text" id="commentDateTime" value="{date}">

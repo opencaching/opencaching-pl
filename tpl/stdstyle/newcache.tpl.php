@@ -1,36 +1,11 @@
 <?php
-
+$view->callChunk('tinyMCE');
 ?>
-<script type="text/javascript" src="lib/tinymce4/tinymce.min.js"></script>
-<input type="hidden" value="arrrgh" id="qwertyuiop">
 <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 <link rel="stylesheet" href="tpl/stdstyle/js/jquery_1.9.2_ocTheme/themes/cupertino/jquery.ui.all.css">
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/minified/jquery-ui.min.js"></script>
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.datepick-{language4js}.js"></script>
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/timepicker.js"></script>
-
-
-<script type="text/javascript">
-            tinymce.init({
-            selector: "#desc",
-                    width: 600,
-                    height: 350,
-                    menubar: false,
-                    toolbar_items_size: 'small',
-                    language : "{language4js}",
-                    gecko_spellcheck : true,
-                    relative_urls : false,
-                    remove_script_host: false,
-                    entity_encoding : "raw",
-                    toolbar1: "newdocument | styleselect formatselect fontselect fontsizeselect",
-                    toolbar2: "cut copy paste | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image code | preview ",
-                    toolbar3: "bold italic underline strikethrough |  alignleft aligncenter alignright alignjustify | hr | subscript superscript | charmap emoticons | forecolor backcolor | nonbreaking ",
-                    plugins: [
-                            "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
-                            "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-                            "table directionality emoticons template textcolor paste textcolor"
-                    ],
-            });</script>
 
 <script type="text/javascript">
 
@@ -264,8 +239,6 @@
     if (document.newcacheform.country.value != 'PL')
     {
     document.forms['newcacheform'].country.value = document.newcacheform.country.value;
-// var as = $('#qwertyuiop').val();
-// alert(as);
             $('#region0').hide();
             $('#region1').hide();
             $('#region2').hide();
@@ -456,44 +429,25 @@
 
 
 <style>
-    #oldIE {
-        color: red;
-        border: solid 1px;
-        border-color: red;
-        padding: 10px;
-        width:90%;
-    }
-
     #hiddenDatePicker, #activateDatePicker{
         width: 75px;
     }
 
 </style>
-<!--[if IE 6 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]-->
-<!--[if IE 7 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]-->
-<!--[if IE 8 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]-->
 
-
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="{{new_cache}}" align="middle"/>&nbsp;{{new_cache}}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="{{new_cache}}">&nbsp;{{new_cache}}</div>
 {general_message}
 <div class="buffer"></div>
 <div class="content2-container bg-blue02" >
     <p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/basic2.png" class="icon32" alt=""/>&nbsp;{{basic_information}}</p>
 </div>
-
-<div class="buffer"></div>
 <div class="notice">
     {{first_cache}}.
 </div>
 {approvement_note}
-<div class="buffer"></div>
-<table class="table" border="0">
-    <colgroup>
-        <col width="180"/>
-        <col/>
-    </colgroup>
+<table class="table">
     <tr class="form-group-sm">
-        <td>
+        <td style="width: 180px">
             <p class="content-title-noshade">{{newcache_import_wpt}}</p>
         </td>
         <td>
@@ -508,12 +462,12 @@
                 </div>
                 <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
             </form>
-            <img style="display: none" id="ajaxLoaderLogo" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+            <img style="display: none" id="ajaxLoaderLogo" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" alt="">
         </td>
     </tr>
-    <tr><td>&nbsp;</td>
-        <td><div class="notice" style="width:500px;height:60px;">{{newcache_import_wpt_help}}</div>
-        </td>
+    <tr>
+      <td>&nbsp;</td>
+      <td><div class="notice">{{newcache_import_wpt_help}}</div></td>
     </tr>
 
     <form action="newcache.php" method="post" enctype="application/x-www-form-urlencoded" name="newcacheform" dir="ltr" onsubmit="javascript: return chkregion()">
@@ -534,11 +488,11 @@
             <td>
                 <select name="type" id="cacheType" class="form-control input200" onchange="return _chkVirtual()">
                     {typeoptions}
-                </select>&nbsp;&nbsp;<img id="actionicons" name="actionicon" src="" align="top" alt="">{type_message}
+                </select>&nbsp;&nbsp;<img id="actionicons" src="" align="top" alt="">{type_message}
             </td>
         </tr>
         <tr><td>&nbsp;</td>
-            <td><div class="notice" style="width:500px;height:44px;">{{read_info_about_cache_types}}</div>
+            <td><div class="notice">{{read_info_about_cache_types}}</div>
             </td></tr>
         <tr class="form-group-sm">
             <td><p class="content-title-noshade">{{cache_size}}:</p></td>
@@ -574,7 +528,7 @@
             </td>
         </tr>
         <tr><td>&nbsp;</td>
-            <td><div class="notice" style="width:500px;height:44px;">{{check_nearby_caches_info}}</div>
+            <td><div class="notice">{{check_nearby_caches_info}}</div>
             </td></tr>
         <tr class="form-group-sm">
             <td><p class="content-title-noshade">{{country_label}}:</p></td>
@@ -585,17 +539,14 @@
                 {show_all_countries_submit}
             </td>
         </tr>
-        <tr><td colspan="2"><div class="buffer"></div></td></tr>
-        <tr><td colspan="2"><div><input type="hidden" name="altitude" id="altitude" value="0" placeholder="TODO: to be filled from gpx by ajax" /></div></td></tr>
-        <tr><td colspan="2"><div class="buffer"></div></td></tr>
+        <tr><td colspan="2"><input type="hidden" name="altitude" id="altitude" value="0"><!-- TODO: to be filled from gpx by ajax --></td></tr>
         <tr class="form-group-sm">
             <td><p id="region0" class="content-title-noshade">{{regiononly}}:</p></td>
             <td>
-                <!-- <select name="region" id="region1" class="input200" onchange="javascript:chkcountry()" > --></select>
+                <!-- <select name="region" id="region1" class="input200" onchange="javascript:chkcountry()" ></select> -->
                 <select name="region" id="region1" class="form-control input200" >
-
                 </select>&nbsp;<button class="btn btn-default btn-sm" id="region3" onclick="return extractregion()">{{region_from_coord}}</button>
-                <img id="regionAjaxLoader" style="display: none" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+                <img id="regionAjaxLoader" style="display: none" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" alt="">
                 {region_message}
             </td>
         </tr>
@@ -614,7 +565,7 @@
         </tr>
         <tr>
             <td>&nbsp;</td>
-            <td><div class="notice" style="width:500px;height:44px;">{{difficulty_problem}} <a href="difficultyForm.php" target="_BLANK">{{rating_system}}</a>.</div>
+            <td><div class="notice">{{difficulty_problem}} <a href="difficultyForm.php" target="_BLANK">{{rating_system}}</a>.</div>
             </td>
         </tr>
         <tr class="form-group-sm"><td><p class="content-title-noshade">{{additional_information}} ({{optional}}):</p></td>
@@ -628,7 +579,7 @@
         </tr>
         <tr>
             <td>&nbsp;</td>
-            <td><div class="notice" style="width:500px;height:44px">{{time_distance_hint}}</div><div class="buffer"></div></td>
+            <td><div class="notice">{{time_distance_hint}}</div><div class="buffer"></div></td>
         </tr>
         <tr class="form-group-sm">
             <td><p class="content-title-noshade">{{foreign_waypoint}} ({{optional}}):</p></td>
@@ -642,7 +593,7 @@
         </tr>
         <tr>
             <td>&nbsp;</td>
-            <td><div class="notice" style="width:500px;height:44px;">{{foreign_waypoint_info}}</div><div class="buffer"></div></td>
+            <td><div class="notice">{{foreign_waypoint_info}}</div><div class="buffer"></div></td>
         </tr>
         <tr>
             <td colspan="2"><div class="content2-container bg-blue02">
@@ -650,20 +601,17 @@
                 </div>
             </td>
         </tr>
-        <tr><td class="buffer" colspan="2"></td></tr>
         <tr>
             <td colspan="2">{cache_attrib_list}</td>
         </tr>
-        <tr><td colspan="2"><div class="buffer"></div></td></tr>
         <tr>
-            <td colspan="2"><div class="notice" style="width:500px;min-height:24px;height:auto;white-space: nowrap;">{{attributes_edit_hint}} {{attributes_desc_hint}}</div></td></tr>
+            <td colspan="2"><div class="notice">{{attributes_edit_hint}} {{attributes_desc_hint}}</div></td></tr>
         <tr>
             <td colspan="2"><div class="content2-container bg-blue02">
                     <p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt=""/>&nbsp;{{descriptions}}</p>
                 </div>
             </td>
         </tr>
-        <tr><td colspan="2"><div class="buffer"></div></td></tr>
         <tr class="form-group-sm">
             <td><p class="content-title-noshade">{{language}}:</p></td>
             <td>
@@ -673,19 +621,18 @@
                 {show_all_langs_submit}
             </td>
         </tr>
-        <tr><td colspan="2"><div class="notice" style="width:500px;height:44px;">{{other_languages_desc}}</div></td></tr>
+        <tr><td colspan="2"><div class="notice">{{other_languages_desc}}</div></td></tr>
         <tr class="form-group-sm" >
             <td><p class="content-title-noshade">{{short_description}}:</p></td>
             <td><input type="text" name="short_desc" maxlength="120" value="{short_desc}" class="form-control input400"/></td>
         </tr>
         <tr>
             <td colspan="2">
-                <div class="notice" style="width:500px;min-height:24px;height:auto;">{{short_desc_long_text}}</div>
+                <div class="notice">{{short_desc_long_text}}</div>
             </td>
         </tr>
         <tr>
             <td colspan="2">
-                <br />
                 <p class="content-title-noshade">{{full_description}}:</p>
                 {desc_message}
             </td>
@@ -697,58 +644,54 @@
         </tr>
         <tr>
             <td colspan="2">
-                <textarea id="desc" name="desc" class="descMCE">{desc}</textarea>
+                <div class="content2-container"><textarea id="desc" name="desc" class="desc tinymce">{desc}</textarea></div>
             </td>
         </tr>
         <tr>
             <td colspan="2">
-                <div class="notice" style="width:500px;min-height:24px;height:auto;"><b><i>{{mandatory_field}}.</i></b> {{full_desc_long_text}} <br />
-                {{html_usage}} <a href="articles.php?page=htmltags" target="_blank">{{available_html}}</a></div>
-                <div class="notice" style="width:500px;min-height:24px;height:auto;">{{geocaching_com_foto_info}}</div>
+                <div class="notice"><b><i>{{mandatory_field}}.</i></b> {{full_desc_long_text}}</div>
+                <div class="notice">{{html_usage}} <a href="articles.php?page=htmltags" target="_blank">{{available_html}}</a></div>
+                <div class="notice">{{geocaching_com_foto_info}}</div>
             </td>
         </tr>
         <tr>
             <td colspan="2">
-                <br />
                 <p class="content-title-noshade">{{hint_info}}:</p>
             </td>
         </tr>
         <tr>
             <td colspan="2">
-                <textarea style="display: none" name="hintaa" id="hintaa"></textarea>
-                <textarea name="hints" class="hint" id="hints" cols="80" rows="3">{hints}</textarea>
+                <div class="content2-container"><textarea name="hints" class="hint" id="hints">{hints}</textarea></div>
             </td>
         </tr>
         <tr>
             <td colspan="2">
-                <div class="notice" style="width:500px;min-height:24px;height:auto;">{{hint_long_text}}</div>
-                <div class="notice" style="width:500px;min-height:24px;height:auto;">{{hint_instructions}}</div>
+                <div class="notice">{{hint_long_text}}</div>
+                <div class="notice">{{hint_instructions}}</div>
             </td>
         </tr>
         <tr>
             <td colspan="2"><div class="content2-container bg-blue02">
-
                     <p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/crypt.png" class="icon32" alt=""/>
                         {{other}}
                     </p>
                 </div>
             </td>
         </tr>
-        <tr><td colspan="2"><div class="buffer"></div></td></tr>
-        <tr><td colspan="2"><div class="notice" style="width:500px;height:24px;">{{add_photo_newcache}}</div></td></tr>
+        <tr><td colspan="2"><div class="notice">{{add_photo_newcache}}</div></td></tr>
         <tr class="form-group-sm">
             <td colspan="2">
                 <fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
                     <legend>&nbsp; <strong>{{date_hidden_label}}</strong> &nbsp;</legend>
-                    <input type="text" class="form-control" id="hiddenDatePicker" id="hiddenDatePicker" value="{hidden_year}-{hidden_month}-{hidden_day}" onchange="hiddenDatePickerChange('hidden');"/>
-                    <input type="hidden" name="hidden_year"  id="hidden_year"  maxlength="4" value="{hidden_year}"/>
-                    <input type="hidden" name="hidden_month" id="hidden_month" maxlength="2" value="{hidden_month}"/>
-                    <input type="hidden" name="hidden_day"   id="hidden_day"   maxlength="2" value="{hidden_day}"/>
+                    <input type="text" class="form-control" id="hiddenDatePicker" value="{hidden_year}-{hidden_month}-{hidden_day}" onchange="hiddenDatePickerChange('hidden');"/>
+                    <input type="hidden" name="hidden_year"  id="hidden_year" value="{hidden_year}"/>
+                    <input type="hidden" name="hidden_month" id="hidden_month" value="{hidden_month}"/>
+                    <input type="hidden" name="hidden_day"   id="hidden_day" value="{hidden_day}"/>
                     {hidden_since_message}
                 </fieldset>
             </td>
         </tr>
-        <tr><td colspan="2"><div class="notice buffer" style="width:500px;height:24px;">{{event_hidden_hint}}</div></td></tr>
+        <tr><td colspan="2"><div class="notice buffer">{{event_hidden_hint}}</div></td></tr>
         {hide_publish_start}
         <tr class="form-group-sm">
             <td colspan="2">
@@ -757,10 +700,10 @@
                     <input type="radio" class="radio" name="publish" id="publish_now" value="now" {publish_now_checked}/>&nbsp;<label for="publish_now">{{publish_now}}</label><br />
                     <input type="radio" class="radio" name="publish" id="publish_later" value="later" {publish_later_checked}/>&nbsp;<label for="publish_later">{{publish_date}}:</label>
                     <input type="text" class="form-control" id="activateDatePicker" id="activateDatePicker" value="{activate_year}-{activate_month}-{activate_day}" onchange="hiddenDatePickerChange('activate');"/>
-                    <input class="input40" type="hidden" name="activate_year"  id="activate_year"  maxlength="4" value="{activate_year}"/>
-                    <input class="input20" type="hidden" name="activate_month" id="activate_month" maxlength="2" value="{activate_month}"/>
-                    <input class="input20" type="hidden" name="activate_day"   id="activate_day"   maxlength="2" value="{activate_day}"/>&nbsp;
-                    <select name="activate_hour" class="form-control input50">{activation_hours}
+                    <input class="input40" type="hidden" name="activate_year"  id="activate_year"  value="{activate_year}"/>
+                    <input class="input20" type="hidden" name="activate_month" id="activate_month" value="{activate_month}"/>
+                    <input class="input20" type="hidden" name="activate_day"   id="activate_day"   value="{activate_day}"/>&nbsp;
+                    <select name="activate_hour" class="form-control input70">{activation_hours}
                     </select>&nbsp;{{hour}}&nbsp;{activate_on_message}<br />
                     <input type="radio" class="radio" name="publish" id="publish_notnow" value="notnow" {publish_notnow_checked}/>&nbsp;<label for="publish_notnow">{{dont_publish_yet}}</label>
                 </fieldset>
@@ -768,25 +711,23 @@
         </tr>
         {hide_publish_end}
         <tr class="form-group-sm">
-
-            <td colspan="2"><br />
+            <td colspan="2">
                 <fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
                     <legend>&nbsp; <strong>{{log_password}}</strong> &nbsp;</legend>
                     <input class="form-control input100" type="text" name="log_pw" id="log_pw" value="{log_pw}" maxlength="20"/> ({{no_password_label}})
                 </fieldset>
             </td>
         </tr>
-        <tr><td colspan="2"><div class="notice buffer" style="width:500px;height:24px;">{{please_read}}</div></td></tr>
-        <tr><td colspan="2"><div class="errormsg"><br />{{creating_cache}}<br /><br /></div></td></tr>
+        <tr><td colspan="2"><div class="notice buffer">{{please_read}}</div></td></tr>
+        <tr><td colspan="2"><div class="errormsg">{{creating_cache}}</div></td></tr>
         <tr>
-            <td colspan="2">
+            <td colspan="2"><div class="buffer"></div>
                 <button type="submit" name="submitform" value="{submit}" class="btn btn-primary">{submit}</button>
-
-                <br /><br /></td>
+            </td>
         </tr>
-</table>
 </form>
-
+</table>
+<div class="buffer"></div>
 <input type="hidden" value="" id="gpxWaypointObject">
 <div id="waypointsToChose" title="{{newCacheWpTitle}}"></div>
 

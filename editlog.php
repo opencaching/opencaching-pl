@@ -46,6 +46,7 @@ if ($error == false) {
             //is this log from this user?
             if (($log_record['user_id'] == $usr['userid'] && ($usr['admin'] || ($log_record['cachestatus'] != 4 && $log_record['cachestatus'] != 6)))) {
                 $tplname = 'editlog';
+                $view->loadJquery();
 
                 //load settings
                 $cache_name = $log_record['cachename'];

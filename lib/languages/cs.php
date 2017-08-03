@@ -327,7 +327,7 @@ $translations = array(
     'cache_submitted' => 'Vaše schránka zosała zarejstrowana na Opencaching PL.',
     'full_description' => 'Jméno',
     'mandatory_field' => 'Povinný',
-    'full_desc_long_text' => 'Zadejte zde informace o tom, proč ukryłeś box je na tomto místě, a <font color="red"> všechny nezbytné informace, </font> najít krabici. Hledání v boxech se musí opírat o poznatky z jeho souřadnice a jméno.',
+    'full_desc_long_text' => 'Zadejte zde informace o tom, proč ukryłeś box je na tomto místě, a <span class="txt-red07"> všechny nezbytné informace, </span> najít krabici. Hledání v boxech se musí opírat o poznatky z jeho souřadnice a jméno.',
     'description_hint' => 'Zkuste popsat krátké a stručné, nepředepisují informace z internetu pouze odkaz na ně.',
     'no_javascript' => 'JavaScriptu je v současné době ve vašem prohlížeči deaktivován. Můžete zadat pouze prostý text. Chcete-li wprawdzić HTML kód pro textový editor, musíte povolit Javascript.',
     'html_usage' => 'Prosím pouze používat HTML tagy do formátu text.',
