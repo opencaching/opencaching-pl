@@ -4,6 +4,7 @@ use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\ApplicationContainer;
 use lib\Objects\PowerTrail\PowerTrail;
 use lib\Objects\GeoCache\GeoCache;
+use Utils\Uri\Uri;
 
 
 /**
@@ -68,6 +69,9 @@ if ($error == false) {
     }
 
     $tplname = 'powerTrail';
+    $view->addLocalCss(Uri::getLinkWithModificationTime('tpl/stdstyle/css/powerTrail.css'));
+    $view->addLocalCss(Uri::getLinkWithModificationTime('tpl/stdstyle/css/ptMenuCss/style.css'));
+
     if (!$usr && $hide_coords) {
         $mapControls = 0;
         tpl_set_var('gpxOptionsTrDisplay', 'none');

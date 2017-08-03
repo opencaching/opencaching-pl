@@ -1273,16 +1273,6 @@ $( document ).ready(function() {
             /* maps end */
 </script>
 
-
-
-
-
-
-
-
-<link rel="stylesheet" href="tpl/stdstyle/css/powerTrail.css" type="text/css">
-<link rel="stylesheet" href="tpl/stdstyle/css/ptMenuCss/style.css" type="text/css">
-
     <input type="hidden" id="xmd34nfywr54" value="{powerTrailId}">
     <br><br>
     <!-- deleting entery comfirmation dialog  -->
@@ -1299,10 +1289,6 @@ $( document ).ready(function() {
             <img src="tpl/stdstyle/images/blue/050242-blue-jelly-icon-natural-wonders-flower13-sc36_32x32.png" class="icon32" alt="geocache" title="geocache">
             {{gp_mainTitile}}
         </div>
-
-        <!--[if IE 6 ]> <div id="oldIE">{{pt129}}</div><br><br> <![endif]-->
-        <!--[if IE 7 ]> <div id="oldIE">{{pt129}}</div><br><br> <![endif]-->
-        <!--[if IE 8 ]> <div id="oldIE">{{pt129}}</div><br><br> <![endif]-->
 
         <div id="ptMenus" style="text-align: center; display: {ptMenu}">
             <ul id="css3menu1" class="topmenu">
