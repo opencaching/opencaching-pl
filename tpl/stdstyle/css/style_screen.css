@@ -1387,3 +1387,10 @@ div.feedArea {
     width: 100%;
     display: block;
 }
+
+sup {
+    font-size: 0.7em !important;
+}
+sub {
+    font-size: 0.7em !important;
+}
