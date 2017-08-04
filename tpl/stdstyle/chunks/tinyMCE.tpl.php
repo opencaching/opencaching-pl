@@ -36,15 +36,14 @@ return function ($media = true, $selector = '.tinymce') {
     remove_script_host: false,
     entity_encoding: "raw",
     fontsize_formats: "8px 10px 11px 12px 13px 14px 18px 24px 36px",
-    content_style: "* {font-size: 12px; font-family: arial, sans serif; margin: 0px 0px 0.5em 0px;} ol {padding: 0px 0px 0px 25px;} body {margin: 5px;}",
+    content_style: "* {font-size: 12px; font-family: arial, sans serif; margin: 0px 0px 0.5em 0px;} ol {padding: 0px 0px 0px 25px;} body {margin: 5px;} sub {font-size: 0.7em;} sup {font-size: 0.7em;}",
     language: "<?=$GLOBALS['lang']?>",
     toolbar1: "newdocument | styleselect formatselect fontselect fontsizeselect",
-    toolbar2: "cut copy paste | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image<?=$mediatxt?> code | preview ",
-    toolbar3: "bold italic underline strikethrough |  alignleft aligncenter alignright alignjustify | hr | subscript superscript | charmap emoticons | forecolor backcolor | nonbreaking ",
+    toolbar2: "cut copy paste searchreplace | bullist numlist | outdent indent | undo redo | nonbreaking link unlink image<?=$mediatxt?> | code fullscreen",
+    toolbar3: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | hr | subscript superscript | charmap emoticons | forecolor backcolor",
     plugins: [
-      "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
-      "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime nonbreaking",
-      "table directionality emoticons template textcolor paste textcolor<?=$mediatxt?>"
+      "advlist autolink autosave link image lists charmap hr anchor spellchecker searchreplace wordcount code fullscreen nonbreaking",
+      "emoticons textcolor paste<?=$mediatxt?>"
     ],
   });
 </script>
