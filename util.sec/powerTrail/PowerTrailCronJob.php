@@ -1,52 +1,58 @@
 <?php
 
-require_once __DIR__ . '/../../lib/ClassPathDictionary.php';
 
 use lib\Controllers\PowerTrailController;
 use Utils\I18n\I18n;
 
-$powerTrailCronJobController = new PowerTrailCronJobController;
-$powerTrailCronJobController->run();
+//TODO: how to remove it from here?
 
-/**
- * Description of PowerTrailCronJob
- *
- * @author Łza
- */
+$GLOBALS['rootpath'] = "../../";
+require_once(__DIR__.'/../../lib/common.inc.php');
+
+
+PowerTrailCronJobController::run();
+
+
 class PowerTrailCronJobController
 {
 
-    public function run()
+    public static function run()
     {
-        $this->cleanPowerTrails();
-        $this->generatePowerTrailOfTheDay();
+        self::cleanPowerTrails();
+        self::generatePowerTrailOfTheDay();
     }
 
-    private function generatePowerTrailOfTheDay()
+    private static function generatePowerTrailOfTheDay()
     {
-        include __DIR__ . '/../../lib/settings.inc.php';
-        include_once __DIR__ . '/../../lib/language.inc.php';
+        global $lang, $dynstylepath;
+
         $langArray = I18n::getSupportedTranslations();
 
+        $oldFileArr = explode('xxkgfj8ipzxx',
+            file_get_contents($dynstylepath . 'ptPromo.inc-' . $lang . '.php'));
 
-        $oldFileArr = explode('xxkgfj8ipzxx', file_get_contents($dynstylepath . 'ptPromo.inc-' . $lang . '.php'));
         $region = new GetRegions();
+
         $newPt = powerTrailBase::writePromoPt4mainPage($oldFileArr[1]);
-        $regions = $region->GetRegion($newPt['centerLatitude'], $newPt['centerLongitude']);
-        foreach ($langArray as $language) {
-            $this->makePtContent($newPt, $language, $dynstylepath, $regions);
+
+        if(!is_null($newPt)){
+            $regions = $region->GetRegion($newPt['centerLatitude'], $newPt['centerLongitude']);
+
+            foreach ($langArray as $language) {
+                self::makePtContent($newPt, $language, $dynstylepath, $regions);
+            }
         }
     }
 
     /**
-     * henerate html cache files used for displaying powerTrail of the day.
+     * generate html cache files used for displaying powerTrail of the day.
      *
      * @param type $newPt
      * @param type $langTr
      * @param type $dynstylepath
      * @param type $regions
      */
-    private function makePtContent($newPt, $langTr, $dynstylepath, $regions)
+    private static function makePtContent($newPt, $langTr, $dynstylepath, $regions)
     {
         $fileContent = '<span style="display:none" id="ptPromoId">xxkgfj8ipzxx' . $newPt['id'] . 'xxkgfj8ipzxx</span>';
         $fileContent .= '<table class="ptPromo-table"><tr><td style="padding-left: 15px; padding-right: 10px;">';
@@ -64,7 +70,7 @@ class PowerTrailCronJobController
         file_put_contents($dynstylepath . 'ptPromo.inc-' . $langTr . '.php', $fileContent);
     }
 
-    private function cleanPowerTrails()
+    private static function cleanPowerTrails()
     {
         $powerTrailController = new PowerTrailController();
         $powerTrailController->cleanPowerTrailsCronjob();
