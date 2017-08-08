@@ -59,6 +59,12 @@ foreach ($result as $key => $dbEntery) {
     $userActivity = $dbEntery['hidden_count'] + $dbEntery['founds_count'] + $dbEntery['notfounds_count'];
 
     $logDateTime = explode(' ', $dbEntery['logDateTime']);
+
+    if(!array_key_exists($dbEntery['commentType'], $commentsArr)){
+        // skip unknown comments type entires
+        continue;
+    }
+
     $toDisplay .= '
     <tr>
         <td colspan="3" class="commentHead">
