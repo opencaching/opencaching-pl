@@ -10,10 +10,11 @@ require_once __DIR__.'/../lib/common.inc.php';
 
 $appContainer = ApplicationContainer::Instance();
 if( $appContainer->getLoggedUser() === null){
-    $loggedUserId = -9999;
+    $loggedUserId = null;
 } else {
     $loggedUserId = $appContainer->getLoggedUser()->getUserId();
 }
+
 
 $commentsArr = PowerTrailController::getEntryTypes();
 $ptOwners = powerTrailBase::getPtOwners($_REQUEST['projectId']);
@@ -30,7 +31,13 @@ $s = $db->multiVariableQuery($q, $_REQUEST['projectId']);
 $count = $db->dbResultFetchOneRowOnly($s);
 $count = $count['count'];
 
-$query = 'SELECT * FROM  `PowerTrail_comments`, `user` WHERE  `PowerTrailId` =:variable1 AND `deleted` = 0 AND `PowerTrail_comments`.`userId` = `user`.`user_id` ORDER BY  `logDateTime` DESC LIMIT :variable2 , :variable3   '  ;
+$query = 'SELECT * FROM  `PowerTrail_comments`, `user`
+          WHERE  `PowerTrailId` =:variable1
+            AND `deleted` = 0
+            AND `PowerTrail_comments`.`userId` = `user`.`user_id`
+          ORDER BY  `logDateTime` DESC
+          LIMIT :variable2 , :variable3   ';
+
 $params['variable1']['value'] = (integer) $_REQUEST['projectId'];
 $params['variable1']['data_type'] = 'integer';
 $params['variable2']['value'] = (integer) $_REQUEST['start'];;
@@ -50,13 +57,18 @@ $toDisplay = '<table id="commentsTable" cellspacing="0">';
 
 foreach ($result as $key => $dbEntery) {
     $userActivity = $dbEntery['hidden_count'] + $dbEntery['founds_count'] + $dbEntery['notfounds_count'];
+
     $logDateTime = explode(' ', $dbEntery['logDateTime']);
     $toDisplay .= '
     <tr>
         <td colspan="3" class="commentHead">
-            <span class="CommentDate" id="CommentDate-'.$dbEntery['id'].'">'. $logDateTime[0].'</span><span class="commentTime" id="commentTime-'.$dbEntery['id'].'">'.substr($logDateTime[1],0,-3).'</span><a href="viewprofile.php?userid='.$dbEntery['userId'].'"><b>'.$dbEntery['username'].'</b></a> (<img height="13" src="tpl/stdstyle/images/blue/thunder_ico.png" /><font size="-1">'.$userActivity.'</font>)
+            <span class="CommentDate" id="CommentDate-'.$dbEntery['id'].'">'. $logDateTime[0].'</span>
+            <span class="commentTime" id="commentTime-'.$dbEntery['id'].'">'.substr($logDateTime[1],0,-3).'</span>
+                <a href="viewprofile.php?userid='.$dbEntery['userId'].'"><b>'.$dbEntery['username'].'</b></a>
+                (<img height="13" src="tpl/stdstyle/images/blue/thunder_ico.png" /><font size="-1">'.$userActivity.'</font>)
             - <span style="color: '.$commentsArr[$dbEntery['commentType']]['color'].';">'. tr($commentsArr[$dbEntery['commentType']]['translate']).'</span>';
-    if(isset($loggedUserId)){
+
+    if(!is_null($loggedUserId)){
         $toDisplay .= '<span class="editDeleteComment">';
         if(($loggedUserId == $dbEntery['userId'] || in_array($loggedUserId, $ownersIdArray))&&$dbEntery['userId']!=-1&&$dbEntery['commentType']!=3&&$dbEntery['commentType']!=4&&$dbEntery['commentType']!=5&&$dbEntery['commentType']!=6) {
             $toDisplay .= '<img src="tpl/stdstyle/images/free_icons/cross.png" /><a href="javascript:void(0);" onclick="deleteComment('.$dbEntery['id'].','.$loggedUserId.')">'.tr('pt130').'</a>';
