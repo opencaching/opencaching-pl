@@ -14,8 +14,7 @@ abstract class BaseObject
         $this->db = self::db();
     }
 
-
-    public function isDataLoaded()
+    public function isDataLoaded() //this method will be removed!
     {
         return $this->dataLoaded;
     }
@@ -23,6 +22,10 @@ abstract class BaseObject
     public static function db()
     {
         return OcDb::instance();
+    }
+
+    public static function getCurrentUser(){
+        return ApplicationContainer::Instance()->getLoggedUser();
     }
 
 }
