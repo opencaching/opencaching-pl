@@ -3,3 +3,4 @@ Disallow: /ocpl*
 Disallow: /old/
 Disallow: /search.php*
 Disallow: /login.php*
+Disallow: /lib/xmlmap.php*

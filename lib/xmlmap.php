@@ -118,15 +118,24 @@ class tmp_Xmlmap
     private function getCommonParams()
     {
 
-        if( isset($_GET['rspFormat']) ) //rspFormat can be not set
+        if( isset($_GET['rspFormat']) ){ //rspFormat can be not set
             $this->rspFormat = $_GET['rspFormat'];
+        }
 
-        if( isset($_GET['screenW']) )
+        if( isset($_GET['screenW']) ){
             $this->screenWidth = (int) $_GET['screenW'];
-        else
+        } else {
             $this->screenWidth = 1000;
+        }
 
-        $this->user_id = $_GET['userid'];
+        if( isset($_GET['userid'])){
+            $this->user_id = $_GET['userid'];
+        }else{
+            // userid is obligatory!
+            echo "Unknown 'userid' param!";
+            http_response_code(400);
+            exit;
+        }
 
         $latmin = $_GET['latmin'];
         $lonmin = $_GET['lonmin'];
@@ -334,7 +343,7 @@ class tmp_Xmlmap
             'okapiRow' => array_pop($arrayCopy)
         ));
 
-        //generate the results
+        // generate the results
         if( $this->screenWidth < 400 ){
             tpl_set_tplname('map/map_cacheinfo_small');
         }else{
