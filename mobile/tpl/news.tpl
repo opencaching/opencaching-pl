@@ -8,7 +8,7 @@
 
   {$page} {$pagenr}/{$pagemax}
   {foreach $newslist as $news}
-    <hr/><strong>{$news->getDatePublicationString()}</strong><br/>
+    <hr/><strong>{$news->getDatePublication(true)}</strong><br/>
     <strong>{$news->getTitle()}</strong><br/>
     {$news->getContent()}
     <br/>
