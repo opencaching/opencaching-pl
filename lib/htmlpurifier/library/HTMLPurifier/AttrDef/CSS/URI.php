@@ -11,6 +11,7 @@
  */
 class HTMLPurifier_AttrDef_CSS_URI extends HTMLPurifier_AttrDef_URI
 {
+
     public function __construct()
     {
         parent::__construct(true); // always embedded
@@ -32,12 +33,15 @@ class HTMLPurifier_AttrDef_CSS_URI extends HTMLPurifier_AttrDef_URI
             return false;
         }
         $uri_string = substr($uri_string, 4);
+        if (strlen($uri_string) == 0) {
+            return false;
+        }
         $new_length = strlen($uri_string) - 1;
         if ($uri_string[$new_length] != ')') {
             return false;
         }
         $uri = trim(substr($uri_string, 0, $new_length));
-        $quote = '"'; // BSz
+
         if (!empty($uri) && ($uri[0] == "'" || $uri[0] == '"')) {
             $quote = $uri[0];
             $new_length = strlen($uri) - 1;
@@ -66,7 +70,7 @@ class HTMLPurifier_AttrDef_CSS_URI extends HTMLPurifier_AttrDef_URI
         // an innerHTML cycle, so a very unlucky query parameter could
         // then change the meaning of the URL.  Unfortunately, there's
         // not much we can do about that...
-        return 'url('.$quote.$result.$quote.')'; // BSz
+        return "url(\"$result\")";
     }
 }
 

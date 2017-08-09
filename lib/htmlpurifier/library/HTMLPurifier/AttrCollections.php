@@ -22,6 +22,11 @@ class HTMLPurifier_AttrCollections
      */
     public function __construct($attr_types, $modules)
     {
+        $this->doConstruct($attr_types, $modules);
+    }
+
+    public function doConstruct($attr_types, $modules)
+    {
         // load extensions from the modules
         foreach ($modules as $module) {
             foreach ($module->attr_collections as $coll_i => $coll) {
@@ -97,7 +102,6 @@ class HTMLPurifier_AttrCollections
         // because foreach will process new elements we add, make sure we
         // skip duplicates
         $processed = array();
-        $required = false;
 
         foreach ($attr as $def_i => $def) {
             // skip inclusions
@@ -132,7 +136,7 @@ class HTMLPurifier_AttrCollections
             }
 
             if ($t = $attr_types->get($def)) {
-                $attr[$def_i] = clone $t; // BSz!
+                $attr[$def_i] = $t;
                 $attr[$def_i]->required = $required;
             } else {
                 unset($attr[$def_i]);

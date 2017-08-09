@@ -284,7 +284,6 @@ $powerTrailFaqLink = 'http://info.opencaching.pl/node/13';
 // OC specific email addresses for international use - here version for OC.PL.
 $mail_cog = 'cog@opencaching.pl';   // OCPL: reviewers and regional service for cachers
 $mail_rt = 'rt@opencaching.pl';     // OCPL: technical contact
-$mail_rr = 'rr@opencaching.pl';     // OCPL: unused; former RR - to remove
 $mail_oc = 'ocpl@opencaching.pl';   // OCPL: general contact
 
 
