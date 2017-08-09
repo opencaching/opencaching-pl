@@ -11,6 +11,7 @@ class View {
     private $_googleAnalyticsKey = '';              // GA key loaded from config
 
     private $_loadJQuery = false;
+    private $_loadJQueryUI = false;
     private $_loadGMapApi = false;
     private $_loadLightBox = false;
 
@@ -85,6 +86,11 @@ class View {
         $this->_loadJQuery = true;
     }
 
+    public function loadJQueryUI(){
+        $this->_loadJQueryUI = true;
+        $this->_loadJQuery = true; // jQueryUI needs jQuery!
+    }
+
     public function loadLightBox(){
         $this->_loadLightBox = true;
         $this->_loadJQuery = true; // lightBox needs jQuery!
@@ -103,6 +109,10 @@ class View {
 
     public function isjQueryEnabled(){
         return $this->_loadJQuery;
+    }
+
+    public function isjQueryUIEnabled(){
+        return $this->_loadJQueryUI;
     }
 
     public function isLightBoxEnabled(){

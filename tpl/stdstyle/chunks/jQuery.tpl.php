@@ -5,7 +5,7 @@
  *
  * The only thing to load jQuery (this chunk) in template header is to call:
  *
- *     $view->loadJquery()
+ *     $view->loadJQuery()
  *
  * This chunk is autoloaded in View class
  */
