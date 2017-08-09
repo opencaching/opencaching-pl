@@ -15,11 +15,14 @@ class cookie
         global $opt;
 
         if (isset($_COOKIE[$opt['cookie']['name'] . 'data'])) {
-            //get the cookievars-array
-            $decoded = base64_decode($_COOKIE[$opt['cookie']['name'] . 'data']);
+            // get the cookievars-array
+            // returns false in strict mode, if not valid base64 input
+            $decoded = base64_decode($_COOKIE[$opt['cookie']['name'] . 'data'], true);
 
             if ($decoded !== false) {
-                $this->values = @unserialize($decoded);
+
+                $this->values = @json_decode($decoded, true, 2);
+
                 if (!is_array($this->values))
                     $this->values = array();
             } else
@@ -58,10 +61,18 @@ class cookie
         global $opt;
 
         if ($this->changed == true) {
-            if (count($this->values) == 0)
-                setcookie($opt['cookie']['name'] . 'data', false, time() + 31536000, $opt['cookie']['path'], $opt['cookie']['domain'], 0);
-            else
-                setcookie($opt['cookie']['name'] . 'data', base64_encode(serialize($this->values)), time() + 31536000, $opt['cookie']['path'], $opt['cookie']['domain'], 0);
+            if (count($this->values) == 0){
+                setcookie(
+                    $opt['cookie']['name'] . 'data', false,
+                    time() + 31536000, $opt['cookie']['path'],
+                    $opt['cookie']['domain'], 0);
+            } else {
+                setcookie(
+                    $opt['cookie']['name'] . 'data',
+                    base64_encode(json_encode($this->values)),
+                    time() + 31536000, $opt['cookie']['path'],
+                    $opt['cookie']['domain'], 0);
+            }
         }
     }
 
