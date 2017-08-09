@@ -61,21 +61,23 @@
 
     <form action="./near.php" method="get" name="form1">
 
-        <b>{$cords}</b><br/><i>( 00 ° 00.000 ' )</i><br/><br/>
+        <b>{$cords}</b><br/><i>(00 ° 00.000')</i><br/><br/>
 
         <select name="ns" class="dataY">
             <option value="N">N</option>
             <option value="S">S</option>
         </select>&nbsp;
 
-        <input type="text" class="data" id="Nstopien" name="Nstopien" placeholder='00' value='{$smarty.get.Nstopien}'/> ° <input type="text" id="Nminuty" name="Nminuty" class="cords" placeholder='00.000' value='{$smarty.get.Nminuty}'/> '<br/><br/>
+        <input type="text" class="data" id="Nstopien" name="Nstopien" placeholder='00' value='{if isset($smarty.get.Nstopien)}{$smarty.get.Nstopien}{/if}'/>°
+        <input type="text" id="Nminuty" name="Nminuty" class="cords" placeholder='00.000' value='{if isset($smarty.get.Nminuty)}{$smarty.get.Nminuty}{/if}'/>'<br/><br/>
 
         <select name="ew" class="dataY">
             <option value="E">E</option>
             <option value="W">W</option>
         </select>&nbsp;
 
-        <input type="text" class="data" id="Estopien" name="Estopien" placeholder='00' value='{$smarty.get.Estopien}'/> ° <input type="text" id="Eminuty" name="Eminuty" class="cords" placeholder='00.000' value='{$smarty.get.Eminuty}'/> '<br/><br/>
+        <input type="text" class="data" id="Estopien" name="Estopien" placeholder='00' value='{if isset($smarty.get.Estopien)}{$smarty.get.Estopien}{/if}'/>°
+        <input type="text" id="Eminuty" name="Eminuty" class="cords" placeholder='00.000' value='{if isset($smarty.get.Eminuty)}{$smarty.get.Eminuty}{/if}'/>'<br/><br/>
 
 
         <div id='locate'>
@@ -98,7 +100,7 @@
 
         <b>{$skip_caches}</b><br/>
         <table style="margin: auto" cellspacing="10">
-            {if $smarty.session.user_id}
+            {if isset($smarty.session.user_id)}
                 <tr><td><input type='checkbox' name='skip_mine' /></td><td>{$skip_mine}</td></tr>
                 <tr><td><input type='checkbox' name='skip_found' /></td><td>{$skip_found}</td></tr>
                 <tr><td><input type='checkbox' name='skip_ignored' /></td><td>{$skip_ignored}</td></tr>
@@ -130,7 +132,7 @@
 
         <b>{$skip_caches}</b><br/>
         <table style="margin: auto" cellspacing="10">
-            {if $smarty.session.user_id}
+            {if isset($smarty.session.user_id)}
                 <tr><td><input type='checkbox' name='skip_mine' /></td><td>{$skip_mine}</td></tr>
                 <tr><td><input type='checkbox' name='skip_found' /></td><td>{$skip_found}</td></tr>
                 <tr><td><input type='checkbox' name='skip_ignored' /></td><td>{$skip_ignored}</td></tr>

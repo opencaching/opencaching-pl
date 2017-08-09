@@ -18,7 +18,7 @@
 
         <b>{$logs[i].newdate} #
 
-            {if $smarty.session.user_id}
+            {if isset($smarty.session.user_id)}
                 <a href='./user.php?id={$logs[i].user_id}'>{$logs[i].username}</a>
             {else}
                 {$logs[i].username}

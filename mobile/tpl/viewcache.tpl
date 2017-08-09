@@ -61,7 +61,7 @@
 </b></td></tr>
 <tr><td>{$view_owner}</td><td>
 
-        {if $smarty.session.user_id}
+        {if isset($smarty.session.user_id)}
             <a href='./user.php?id={$cache['user_id']}'>{$cache['owner']}</a>
         {else}
             {$cache['owner']}
@@ -122,7 +122,7 @@
 {/if}
 
 
-{if $smarty.session.user_id}
+{if isset($smarty.session.user_id)}
     <div class='button'><a href="./logentry.php?wp={$cache['wp_oc']}">{$add_entry}</a></div><br/>
     {/if}
 

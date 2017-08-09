@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
     <head>
-        <meta name="description" content="Geocaching Opencaching Polska"/>
+        <meta name="description" content="Geocaching Opencaching"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="Content-Language" content="pl" />
         <title>{$site_name} Mobile - {$pagename}</title>
@@ -25,7 +25,7 @@
             </div>
 
             <div id="login_nav" class="button">
-                {if $smarty.session.user_id}
+                {if isset($smarty.session.user_id)}
                     <a href='./logout.php?token={$smarty.session.logout_cookie}'>{$login_info} <b>{$smarty.session.username}</b><br/></span><span class='login'>{$logout}</span></a>
                     {else}
                     <a href='login.php'><span class='login'>{$login}</span></a>

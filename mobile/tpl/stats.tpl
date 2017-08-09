@@ -32,7 +32,7 @@
 
     {section name=i loop=$user_found}
 
-        {if $smarty.session.user_id}
+        {if isset($smarty.session.user_id)}
             <a href='./user.php?id={$user_found[i].user_id}'>{$user_found[i].username}, {$user_found[i].founds_count}</a>
         {else}
             {$user_found[i].username}, {$user_found[i].founds_count}
@@ -48,7 +48,7 @@
 
     {section name=i loop=$user_hidden}
 
-        {if $smarty.session.user_id}
+        {if isset($smarty.session.user_id)}
             <a href='./user.php?id={$user_hidden[i].user_id}'>{$user_hidden[i].username}, {$user_hidden[i].hidden_count}</a>
         {else}
             {$user_hidden[i].username}, {$user_hidden[i].hidden_count}
