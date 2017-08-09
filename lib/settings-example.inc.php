@@ -148,10 +148,6 @@ if (!isset($maxpicsize))
 if (!isset($picextensions))
     $picextensions = ';jpg;jpeg;gif;png;';
 
-// news settings
-$use_news_approving = true;
-$news_approver_email = 'rr@localhost';
-
 //local database settings
 $dbpconnect = false;
 $dbserver = 'localhost';

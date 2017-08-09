@@ -1,62 +1,47 @@
 <?php
-
-use Utils\Database\XDb;
+use Controllers\News\NewsListController;
 use Utils\Database\OcDb;
-use Utils\Text\TextConverter;
 
 global $usr;
+global $dynstylepath;
 
-//prepare the templates and include all neccessary
-if (!isset($rootpath))
-    $rootpath = __DIR__ . DIRECTORY_SEPARATOR;
-require_once('./lib/common.inc.php');
+// prepare the templates and include all neccessary
+require_once ('./lib/common.inc.php');
 
-//Preprocessing
-if ($error == false) {
-    //set the template to process
-    $tplname = 'start';
+// set the template to process
+$tplname = 'start';
 
-    // news
-    require($stylepath . '/news.inc.php');
+// here is the right place to set up template replacements
+// example:
+// tpl_set_var('foo', 'myfooreplacement');
+// will replace {foo} in the templates
 
-    $newscontent = '';
-    if ($usr !== false) {
-        $rs = XDb::xSql(
-            'SELECT `news`.`date_posted` `date`, `news`.`content` `content` FROM `news`
-            WHERE datediff(now(), news.date_posted) <= 31 AND `news`.`display`=1 AND `news`.`topic`=2
-            ORDER BY `news`.`date_posted` DESC
-            LIMIT 4');
-
-        if ($r = XDb::xFetchArray($rs)) {
-            $newscontent = '<div class="line-box">';
-            $newscontent .= $tpl_newstopic_header;
-
-            do {
-                $news = $tpl_newstopic_without_topic;
-                $post_date = strtotime($r['date']);
-                $news = mb_ereg_replace('{date}', TextConverter::fixPlMonth(htmlspecialchars(strftime("%d %B %Y", $post_date), ENT_COMPAT, 'UTF-8')), $news);
-                $news = mb_ereg_replace('{message}', $r['content'], $news);
-                $newscontent .= $news;
-            } while ($r = XDb::xFetchArray($rs));
-
-            $newscontent .= "</div>\n";
+// news
+$newsList = NewsListController::listNewsOnMainPage($usr != false);
+require ($stylepath . '/news.inc.php');
+$newscontent = '';
+if (! empty($newsList)) {
+    $newscontent = $tpl_news_start;
+    foreach ($newsList as $news) {
+        $newsTxt = $tpl_news_body;
+        $newsTxt = mb_ereg_replace('{date}', $news->getDatePublication(true), $newsTxt);
+        $newsTxt = mb_ereg_replace('{title}', $news->getTitle(), $newsTxt);
+        $newsTxt = mb_ereg_replace('{content}', $news->getContent(), $newsTxt);
+        if ($news->isAuthorHidden()) {
+            $newsTxt = mb_ereg_replace('{author}', tr('news_OCTeam'), $newsTxt);
+        } else {
+            $newsTxt = mb_ereg_replace('{author}', '<a href="viewprofile.php?userid=' . $news->getAuthor()->getUserId() . '" class="links">' . $news->getAuthor()->getUserName() . '</a>', $newsTxt);
         }
-        XDb::xFreeResults($rs);
+        $newscontent .= $newsTxt;
     }
-    tpl_set_var('display_news', $newscontent);
-
-
-    global $dynstylepath;
-    include ($dynstylepath . "totalstats.inc.php");
-
-    // here is the right place to set up template replacements
-    // example:
-    // tpl_set_var('foo', 'myfooreplacement');
-    // will replace {foo} in the templates
+    $newscontent .= $tpl_news_end;
 }
+tpl_set_var('display_news', $newscontent);
+
+include ($dynstylepath . "totalstats.inc.php");
 
 // diffrent oc server handling: display proper info depend on server running the code
-$nodeDetect = substr($absolute_server_URI, -3, 2);
+$nodeDetect = substr($absolute_server_URI, - 3, 2);
 tpl_set_var('what_do_you_find_intro', tr('what_do_you_find_intro_' . $nodeDetect));
 
 if ($powerTrailModuleSwitchOn)
@@ -73,15 +58,15 @@ foreach ($config['feed']['enabled'] as $feed_position) {
 }
 tpl_set_var('Feeds', $feeds);
 
-/////////////////////////////////////////////////////
-//Titled Caches
-///////////////////////////////////////////////////
+// ///////////////////////////////////////////////////
+// Titled Caches
+// /////////////////////////////////////////////////
 
-$usrid = -1;
-$TitledCaches="";
+$usrid = - 1;
+$TitledCaches = "";
 $dbc = OcDb::instance();
 
-if ( $usr != false )
+if ($usr != false)
     $usrid = $usr['userid'];
 
 $query = "SELECT caches.cache_id, caches.name cacheName, adm1 cacheCountry, adm3 cacheRegion, caches.type cache_type,
@@ -100,7 +85,7 @@ $query = "SELECT caches.cache_id, caches.name cacheName, adm1 cacheCountry, adm3
 $s = $dbc->multiVariableQuery($query, $lang);
 
 $pattern = "<img src='{cacheIcon}' class='icon16' alt='Cache' title='Cache'>
-        <a href='viewcache.php?cacheid={cacheId}' class='links'>{cacheName}</a>&nbsp;" . tr('hidden_by'). "
+        <a href='viewcache.php?cacheid={cacheId}' class='links'>{cacheName}</a>&nbsp;" . tr('hidden_by') . "
         <a href='viewprofile.php?userid={userId}' class='links'>{userName}</a><br>
 
         <p class='content-title-noshade'>{country} > {region}</p>
@@ -109,35 +94,35 @@ $pattern = "<img src='{cacheIcon}' class='icon16' alt='Cache' title='Cache'>
                 {logText}
         </div>";
 
-while( $rec = $dbc->dbResultFetch($s) ) {
-
-   $line = $pattern;
-
-   $line = mb_ereg_replace('{cacheIcon}', myninc::checkCacheStatusByUser($rec, $usrid), $line );
-   $line = mb_ereg_replace('{dateAlg}', $rec[ "date_alg" ], $line );
-   $line = mb_ereg_replace('{cacheName}', $rec[ "cacheName" ], $line );
-   $line = mb_ereg_replace('{userId}', $rec[ "user_id" ], $line );
-   $line = mb_ereg_replace('{userName}', $rec[ "userName" ], $line );
-   $line = mb_ereg_replace('{cacheId}', $rec[ "cache_id" ], $line );
-   $line = mb_ereg_replace('{country}', $rec[ "cacheCountry" ], $line );
-   $line = mb_ereg_replace('{region}', $rec[ "cacheRegion" ], $line );
-   $line = mb_ereg_replace('{logUserId}', $rec[ "logUserId" ], $line );
-   $line = mb_ereg_replace('{logUserName}', $rec[ "logUserName" ], $line );
-
-   $text = mb_ereg_replace( '<p>', '', $rec[ "text" ]);
-   $text = mb_ereg_replace( '</p>', '<br>', $text );
-
-   $line = mb_ereg_replace('{logText}', $text, $line );
-
-   $TitledCaches .= $line;
+while ($rec = $dbc->dbResultFetch($s)) {
+    
+    $line = $pattern;
+    
+    $line = mb_ereg_replace('{cacheIcon}', myninc::checkCacheStatusByUser($rec, $usrid), $line);
+    $line = mb_ereg_replace('{dateAlg}', $rec["date_alg"], $line);
+    $line = mb_ereg_replace('{cacheName}', $rec["cacheName"], $line);
+    $line = mb_ereg_replace('{userId}', $rec["user_id"], $line);
+    $line = mb_ereg_replace('{userName}', $rec["userName"], $line);
+    $line = mb_ereg_replace('{cacheId}', $rec["cache_id"], $line);
+    $line = mb_ereg_replace('{country}', $rec["cacheCountry"], $line);
+    $line = mb_ereg_replace('{region}', $rec["cacheRegion"], $line);
+    $line = mb_ereg_replace('{logUserId}', $rec["logUserId"], $line);
+    $line = mb_ereg_replace('{logUserName}', $rec["logUserName"], $line);
+    
+    $text = mb_ereg_replace('<p>', '', $rec["text"]);
+    $text = mb_ereg_replace('</p>', '<br>', $text);
+    
+    $line = mb_ereg_replace('{logText}', $text, $line);
+    
+    $TitledCaches .= $line;
 }
 
-$is_titled = ( $dbc->rowCount($s)? '1' : '0' );
-if ($is_titled == '0' ) $TitledCaches = '';
+$is_titled = ($dbc->rowCount($s) ? '1' : '0');
+if ($is_titled == '0')
+    $TitledCaches = '';
 
-tpl_set_var('TitledCaches', $TitledCaches );
-tpl_set_var('is_titled', $is_titled );
+tpl_set_var('TitledCaches', $TitledCaches);
+tpl_set_var('is_titled', $is_titled);
 
-
-//make the template and send it out
+// make the template and send it out
 tpl_BuildTemplate(false);

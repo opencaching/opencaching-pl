@@ -191,9 +191,7 @@ medals
 mp3
 	FIXME
 news
-	FIXME
-news_topics
-	FIXME
+	News displayed on main page and News page
 notify_waiting
 	FIXME
 npa_areas

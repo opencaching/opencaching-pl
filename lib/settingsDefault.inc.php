@@ -15,9 +15,6 @@ $mail_rt = 'root@localhost';    // OCPL technical contact
 $mail_rr = 'rr@localhost';      // unused; former OCPL RR - to remove
 $mail_oc = 'ocpl@localhost';    // OCPL general contact
 
-// news settings
-$use_news_approving = false;
-
 $config = array(
     /**
      *Add button to a shop. Set true otherwise false

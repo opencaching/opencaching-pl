@@ -41,7 +41,7 @@ if (date('m') == 12 || date('m') == 1) {
 
 ?>
 <!DOCTYPE html>
-<html lang="{lang}" xml:lang="{lang}">
+<html lang="<?=$GLOBALS['lang']?>" xml:lang="<?=$GLOBALS['lang']?>">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
 

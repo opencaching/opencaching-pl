@@ -834,6 +834,22 @@ input.form-upload {
     border-left-color: #1b809e;
 }
 
+.callout.callout-primary {
+    border-left-color: #337ab7;
+}
+
+.callout.callout-success {
+    border-left-color: #5cb85c;
+}
+
+.callout.callout-warning {
+    border-left-color: #f0ad4e;
+}
+
+.callout.callout-danger {
+    border-left-color: #d9534f;
+}
+
 /* styles for inputfields */
 input               { border:1px solid black;    background-color:white;    padding:1px; font-size:11px;color: black;}
 *.input20           { width:20px;}  /* day,month */
@@ -1375,17 +1391,27 @@ div.gm-style {
     font-size: 10px;
     margin-top: 1em;
 }
-.newsdate {
-    font-size: 11px;
-}
+
 /* Styles for blog and forum items on main page */
-.feedList {
+ul.feedList {
     font-size: 11px;
     list-style-image: url(/tpl/stdstyle/images/free_icons/page.png);
+    list-style-position: inside;
 }
+
 div.feedArea {
     width: 100%;
     display: block;
+}
+
+div.news-item {
+    font-size: 12px;
+    margin-left: 40px;
+    padding: 2px;
+}
+
+div.news-statusline {
+    margin: 5px 0px;
 }
 
 sup {
@@ -1393,4 +1419,21 @@ sup {
 }
 sub {
     font-size: 0.7em !important;
+}
+
+/* Bootstrap text colors */
+.text-color-primary {
+    color: #337ab7;
+}
+
+.text-color-success {
+    color: #5cb85c;
+}
+
+.text-color-warning {
+    color: #f0ad4e;
+}
+
+.text-color-danger {
+    color: #d9534f;
 }
