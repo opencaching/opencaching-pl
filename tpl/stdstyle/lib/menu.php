@@ -433,13 +433,6 @@ $menu = array(
                 'filename' => 'admin_news.php'
             ),
             array(
-                'title' => tr('send_bulletin'),
-                'menustring' => tr('send_bulletin'),
-                'siteid' => 'admin_bulletin',
-                'visible' => true,
-                'filename' => 'admin_bulletin.php'
-            ),
-            array(
                 'title' => tr('pt208'),
                 'menustring' => tr('pt208'),
                 'siteid' => 'powerTrailCOG',

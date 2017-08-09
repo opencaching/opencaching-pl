@@ -12,7 +12,6 @@ require_once __dir__ . '/cache.php';
 
 $mail_cog = 'cog@localhost';    // OCPL COG = reviewers and regional service for cachers
 $mail_rt = 'root@localhost';    // OCPL technical contact
-$mail_rr = 'rr@localhost';      // unused; former OCPL RR - to remove
 $mail_oc = 'ocpl@localhost';    // OCPL general contact
 
 $config = array(
