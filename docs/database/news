@@ -1,37 +1,58 @@
 Table news
 ----------
++------------------+-----------+------+-----+---------------------+-------------------------------+
+| Field            | Type      | Null | Key | Default             | Extra                         |
++------------------+-----------+------+-----+---------------------+-------------------------------+
+| id               | int(11)   | NO   | PRI | NULL                | auto_increment                |
+| title            | tinytext  | YES  |     | NULL                |                               |
+| content          | text      | YES  |     | NULL                |                               |
+| user_id          | int(11)   | NO   |     | 0                   |                               |
+| edited_by        | int(11)   | NO   |     | 0                   |                               |
+| hide_author      | int(1)    | NO   |     | 1                   |                               |
+| show_onmainpage  | int(1)    | NO   | MUL | 1                   |                               |
+| show_notlogged   | int(1)    | NO   | MUL | 0                   |                               |
+| date_publication | datetime  | NO   | MUL | current_timestamp() |                               |
+| date_expiration  | datetime  | YES  | MUL | NULL                |                               |
+| date_mainpageexp | datetime  | YES  | MUL | NULL                |                               |
+| date_lastmod     | timestamp | NO   |     | current_timestamp() | on update current_timestamp() |
++------------------+-----------+------+-----+---------------------+-------------------------------+
 
-+-------------+----------+------+-----+---------------------+----------------+
-| Field       | Type     | Null | Key | Default             | Extra          |
-+-------------+----------+------+-----+---------------------+----------------+
-| id          | int(11)  | NO   | PRI | NULL                | auto_increment |
-| date_posted | datetime | NO   |     | 0000-00-00 00:00:00 |                |
-| content     | text     | NO   |     | NULL                |                |
-| topic       | int(11)  | NO   | MUL | 0                   |                |
-| display     | int(1)   | NO   |     | 0                   |                |
-+-------------+----------+------+-----+---------------------+----------------+
+--
+-- Structure of `news` table
+--
 
-Column description
--------------------
+CREATE TABLE `news` (
+  `id` int(11) NOT NULL,
+  `title` tinytext DEFAULT NULL COMMENT 'Title of the news',
+  `content` text DEFAULT NULL,
+  `user_id` int(11) NOT NULL DEFAULT 0 COMMENT 'Author userID',
+  `edited_by` int(11) NOT NULL DEFAULT 0 COMMENT 'UserID who last edited this news',
+  `hide_author` int(1) NOT NULL DEFAULT 1 COMMENT 'Dislpay OC Team instead of author',
+  `show_onmainpage` int(1) NOT NULL DEFAULT 1 COMMENT 'Show news on mainpage',
+  `show_notlogged` int(1) NOT NULL DEFAULT 0 COMMENT 'Show news to not logged users',
+  `date_publication` datetime NOT NULL DEFAULT current_timestamp() COMMENT 'Date from which to publish the news',
+  `date_expiration` datetime DEFAULT NULL,
+  `date_mainpageexp` datetime DEFAULT NULL COMMENT 'End of publication on the main page',
+  `date_lastmod` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Last modification date'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-id
-date_posted
-content
-topic
-display
+--
+-- Indexes for table `news`
+--
+ALTER TABLE `news`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `show_onmainpage` (`show_onmainpage`),
+  ADD KEY `show_notlogged` (`show_notlogged`),
+  ADD KEY `date_publication` (`date_publication`),
+  ADD KEY `date_expiration` (`date_expiration`),
+  ADD KEY `date_mainpageexp` (`date_mainpageexp`);
 
+--
+-- AUTO_INCREMENT for dumped tables
+--
 
-*************************** 1. row ***************************
-       Table: news
-Create Table: CREATE TABLE `news` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `date_posted` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `content` text NOT NULL,
-  `topic` int(11) NOT NULL DEFAULT '0',
-  `display` int(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `topic` (`topic`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8
+ALTER TABLE `news`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 Changelog
 ---------

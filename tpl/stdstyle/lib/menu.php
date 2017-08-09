@@ -66,7 +66,7 @@ $menu = array(
                 'menustring' => tr('news'),
                 'visible' => true,
                 'filename' => 'news.php',
-                'siteid' => 'news'
+                'siteid' => 'news/newsList'
             ),
             array(
                 'title' => tr('new_caches'),
@@ -327,14 +327,6 @@ $menu = array(
         'siteid' => 'newpw'
     ),
     array(
-        'title' => tr('new_topic'),
-        'visible' => false,
-        'filename' => 'newstopic.php',
-        'menustring' => tr('new_topic'),
-        'siteid' => 'newstopic',
-        'showsitemap' => false
-    ),
-    array(
         'title' => tr('page_error'),
         'menustring' => tr('page_error'),
         'visible' => false,
@@ -434,11 +426,11 @@ $menu = array(
                 'filename' => 'admin_searchuser.php'
             ),
             array(
-                'title' => tr('add_news'),
-                'menustring' => tr('add_news'),
-                'siteid' => 'admin_addnews',
+                'title' => tr('news_menu_OCTeam'),
+                'menustring' => tr('news_menu_OCTeam'),
+                'siteid' => array('news/newsAdmin', 'news/newsAdminEdit'),
                 'visible' => true,
-                'filename' => 'admin_addnews.php'
+                'filename' => 'admin_news.php'
             ),
             array(
                 'title' => tr('send_bulletin'),
@@ -1067,4 +1059,3 @@ function buildBottomMenu($menuArray)
     }
     return $result;
 }
-?>

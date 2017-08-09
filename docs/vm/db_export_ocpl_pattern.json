@@ -2421,7 +2421,7 @@
                 "__comment": "",
                 "__action": "skip-data"
             },
-            "date_posted": {
+            "title": {
                 "__comment": "",
                 "__action": "skip-data"
             },
@@ -2429,24 +2429,45 @@
                 "__comment": "",
                 "__action": "skip-data"
             },
-            "topic": {
+            "user_id": {
                 "__comment": "",
                 "__action": "skip-data"
             },
-            "display": {
+            "edited_bt": {
                 "__comment": "",
                 "__action": "skip-data"
-            }
-        },
-        "news_topics": {
-            "__table_comment": "",
-            "id": {
-                "__comment": "",
-                "__action": "get-data"
             },
-            "name": {
+            "edited_by": {
                 "__comment": "",
-                "__action": "get-data"
+                "__action": "skip-data"
+            },
+            "hide_author": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "show_onmainpage": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "show_notlogged": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_publication": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_expiration": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_mainpageexp": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_lastmod": {
+                "__comment": "",
+                "__action": "skip-data"
             }
         },
         "notify_waiting": {
