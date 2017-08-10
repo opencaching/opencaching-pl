@@ -59,5 +59,9 @@ final class ApplicationContainer
     }
 
 
+    public function getLang()
+    {
+        return $GLOBALS['lang'];
+    }
 }
 

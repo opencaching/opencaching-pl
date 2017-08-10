@@ -2,13 +2,15 @@
 namespace Utils\View;
 
 use Utils\DateTime\Year;
+use lib\Objects\ApplicationContainer;
 
 class View {
 
     const CHUNK_DIR = __DIR__.'/../../tpl/stdstyle/chunks/';
 
     //NOTE: local View vars should be prefixed by "_"
-    private $_googleAnalyticsKey = '';              // GA key loaded from config
+    
+    private $_googleAnalyticsKey = '';      // GA key loaded from config
 
     private $_loadJQuery = false;
     private $_loadJQueryUI = false;
@@ -16,16 +18,15 @@ class View {
     private $_loadGMapApi = false;
     private $_loadLightBox = false;
 
-    private $currentLang = ''; // curent language of site
-    private $_localCss = [];                        // page-local css styles loaded from controller
+    private $_localCss = [];                // page-local css styles loaded from controller
 
     public function __construct(){
 
         // load google analytics key from the config
-        $this->_googleAnalyticsKey = isset($GLOBALS['googleAnalytics_key']) ? $GLOBALS['googleAnalytics_key'] : '';
-        $this->loadChunk('googleAnalytics'); // load GA chunk for all pages
+        $this->_googleAnalyticsKey = isset($GLOBALS['googleAnalytics_key']) ?
+                $GLOBALS['googleAnalytics_key'] : '';
 
-        $this->currentLang = $GLOBALS['lang'];
+        $this->loadChunk('googleAnalytics'); // load GA chunk for all pages
 
     }
 
@@ -159,7 +160,7 @@ class View {
 
     public function getLang()
     {
-        return $this->currentLang;
+        return ApplicationContainer::Instance()->getLang();
     }
 
     /**
