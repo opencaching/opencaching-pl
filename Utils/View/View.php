@@ -12,6 +12,7 @@ class View {
 
     private $_loadJQuery = false;
     private $_loadJQueryUI = false;
+    private $_loadTimepicker = false;
     private $_loadGMapApi = false;
     private $_loadLightBox = false;
 
@@ -91,6 +92,12 @@ class View {
         $this->_loadJQuery = true; // jQueryUI needs jQuery!
     }
 
+    public function loadTimepicker(){
+        $this->_loadTimepicker = true;
+        $this->_loadJQueryUI = true;
+        $this->_loadJQuery = true;
+    }
+
     public function loadLightBox(){
         $this->_loadLightBox = true;
         $this->_loadJQuery = true; // lightBox needs jQuery!
@@ -113,6 +120,10 @@ class View {
 
     public function isjQueryUIEnabled(){
         return $this->_loadJQueryUI;
+    }
+
+    public function isTimepickerEnabled(){
+        return $this->_loadTimepicker;
     }
 
     public function isLightBoxEnabled(){

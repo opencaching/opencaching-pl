@@ -34,7 +34,9 @@
             if( $view->isjQueryUIEnabled()){
                 $view->callChunk('jQueryUI');
             }
-
+            if( $view->isTimepickerEnabled()){
+                $view->callChunk('timepicker');
+            }
             if( $view->isLightBoxEnabled()){
                 $view->callChunk('lightBoxLoader', true, false);
             }
