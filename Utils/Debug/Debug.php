@@ -26,11 +26,9 @@ class Debug {
     public static function errorLog($message, $addStackTrace=true){
 
         if($addStackTrace){
-            $stackTrace = self::getTraceStr();
-        }else{
-            $stackTrace = "";
+            $message .= " \n| STACKTRACE:".self::getTraceStr();
         }
 
-        error_log($message." \n| STACKTRACE:".$stackTrace);
+        error_log($message);
     }
 }
