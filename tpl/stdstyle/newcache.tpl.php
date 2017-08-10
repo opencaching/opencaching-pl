@@ -1,11 +1,6 @@
 <?php
 $view->callChunk('tinyMCE');
 ?>
-<script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
-<link rel="stylesheet" href="tpl/stdstyle/js/jquery_1.9.2_ocTheme/themes/cupertino/jquery.ui.all.css">
-<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/minified/jquery-ui.min.js"></script>
-<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.datepick-{language4js}.js"></script>
-<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/timepicker.js"></script>
 
 <script type="text/javascript">
 
@@ -462,7 +457,7 @@ $view->callChunk('tinyMCE');
                 </div>
                 <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
             </form>
-            <img style="display: none" id="ajaxLoaderLogo" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" alt="">
+            <img style="display: none" id="ajaxLoaderLogo" src="tpl/stdstyle/images/misc/ptPreloader.gif" alt="">
         </td>
     </tr>
     <tr>
@@ -546,7 +541,7 @@ $view->callChunk('tinyMCE');
                 <!-- <select name="region" id="region1" class="input200" onchange="javascript:chkcountry()" ></select> -->
                 <select name="region" id="region1" class="form-control input200" >
                 </select>&nbsp;<button class="btn btn-default btn-sm" id="region3" onclick="return extractregion()">{{region_from_coord}}</button>
-                <img id="regionAjaxLoader" style="display: none" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" alt="">
+                <img id="regionAjaxLoader" style="display: none" src="tpl/stdstyle/images/misc/ptPreloader.gif" alt="">
                 {region_message}
             </td>
         </tr>

@@ -100,7 +100,7 @@ class NewsAdminController extends BaseController
         $this->view->setVar('dateformat_jQuery', Converter::dateformat_PHP_to_jQueryUI($dateFormat));
         $this->view->setVar('news', $news);
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/news/news.css'));
-        $this->view->loadJquery();
+        $this->view->loadJQueryUI();
 
         tpl_set_tplname('news/newsAdminEdit');
         tpl_BuildTemplate();

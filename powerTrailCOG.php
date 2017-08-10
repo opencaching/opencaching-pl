@@ -24,8 +24,8 @@ if ($error == false) {
     tpl_set_var("PtDetailsDiv", 'none');
     tpl_set_var('language4js', $lang);
 
-    $view->loadJquery();
-    $view->loadGMapApi();
+    $view->loadJQuery();
+    //$view->loadGMapApi();
     $view->addLocalCss(Uri::getLinkWithModificationTime('tpl/stdstyle/css/powerTrail.css'));
 
     if (isset($_REQUEST['ptSelector'])) {
@@ -86,7 +86,7 @@ function preparePtCaches(PowerTrail $powerTrail)
             <td>' . $geocache->getOwner()->getUserName() . '</td>
             <td><a href="'.$geocache->getWaypointId().'">' . $geocache->getWaypointId() . '</a></td>
             <td style="text-align: center;">' . $geocache->getFounds() . '</td>
-            <td style="text-align: center;"><a href="javascript:void(0);" onclick="rmCache(' . $geocache->getCacheId() . ');" class="editPtDataButton">' . tr('pt130') . '</a> <img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif"  style="display: none" id="rmCacheLoader' . $geocache->getCacheId() . '" alt=""> </td>
+            <td style="text-align: center;"><a href="javascript:void(0);" onclick="rmCache(' . $geocache->getCacheId() . ');" class="editPtDataButton">' . tr('pt130') . '</a> <img src="tpl/stdstyle/images/misc/ptPreloader.gif"  style="display: none" id="rmCacheLoader' . $geocache->getCacheId() . '" alt=""> </td>
         </tr>';
     }
     $table .= '</table>';

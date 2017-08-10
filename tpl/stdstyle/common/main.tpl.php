@@ -73,15 +73,15 @@ if (date('m') == 12 || date('m') == 1) {
             if( $view->isGoogleAnalyticsEnabled() ){
                 $view->googleAnalyticsChunk( $view->getGoogleAnalyticsKey() );
             }
-
             if( $view->isjQueryEnabled()){
                 $view->callChunk('jQuery');
             }
-
+            if( $view->isjQueryUIEnabled()){
+                $view->callChunk('jQueryUI');
+            }
             if( $view->isLightBoxEnabled()){
                 $view->callChunk('lightBoxLoader', true, false);
             }
-
             if( $view->isGMapApiEnabled() ){
                 if( !isset($GLOBALS['googlemap_key']) || empty($GLOBALS['googlemap_key']) ){
                     error_log("Key: googlemap_key is not set in settings?! Maps can't be loaded!");

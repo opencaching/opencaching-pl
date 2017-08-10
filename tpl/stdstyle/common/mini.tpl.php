@@ -31,6 +31,10 @@
                 $view->callChunk('jQuery');
             }
 
+            if( $view->isjQueryUIEnabled()){
+                $view->callChunk('jQueryUI');
+            }
+
             if( $view->isLightBoxEnabled()){
                 $view->callChunk('lightBoxLoader', true, false);
             }

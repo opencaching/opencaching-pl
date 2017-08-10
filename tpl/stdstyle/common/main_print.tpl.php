@@ -26,6 +26,10 @@
             if( $view->isjQueryEnabled()){
                 $view->callChunk('jQuery');
             }
+
+            if( $view->isjQueryUIEnabled()){
+                $view->callChunk('jQueryUI');
+            }
         ?>
 
     </head>
