@@ -142,8 +142,8 @@ function makeDBFilter()
 
 require_once('./lib/common.inc.php');
 $tplname = 'cachemap2';
-tpl_set_var('bodyMod', ' onload="load()" onunload="GUnload()"');
-//tpl_set_var('BodyMod', ' onload="load()" onunload="GUnload()"');
+tpl_set_var('bodyMod', ' onload="load()"');
+
 global $usr;
 global $get_userid;
 global $filter;

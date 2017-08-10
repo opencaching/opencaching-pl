@@ -1,20 +1,11 @@
 <?php
 use Utils\Database\XDb;
 ?>
-<table class="content" width="97%">
-    <tr><td class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="{{stats}}" title="{{stats}}" align="middle" /><font size="4">  <b>{{statistics}}</b></font></td></tr>
-    <tr><td class="spacer"></td></tr>
-</table>
-
-<script type="text/javascript">
-    TimeTrack("START");
-</script>
-
-<?php
-global $debug_page;
-if ($debug_page)
-    echo "<script type='text/javascript'>TimeTrack( 'DEBUG' );</script>";
-?>
+<div class="content2-container">
+  <div class="content2-pagetitle">
+    <img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="">
+    {{statistics}}
+  </div>
 
 <table class="table" width="760" style="line-height: 1.6em; font-size: 10px;">
     <tr><td>
@@ -24,8 +15,9 @@ if ($debug_page)
                 $rootpath = './';
             //include template handling
             require_once($rootpath . 'lib/common.inc.php');
-            if (isset($_REQUEST['region']))
+            if (isset($_REQUEST['region'])) {
                 $region = $_REQUEST['region'];
+            }
 
             echo '<table width="97%"><tr><td align="center"><center><b> ' . tr('ranking_by_number_of_created_caches') . ' </b><br />tylko aktywne skrzynki<br />';
 
@@ -69,7 +61,4 @@ if ($debug_page)
             ?>
         </td></tr>
 </table>
-
-<script type="text/javascript">
-    TimeTrack("END", "S9");
-</script>
+</div>

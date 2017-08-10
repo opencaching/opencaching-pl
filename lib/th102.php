@@ -7,31 +7,11 @@ use Utils\Database\OcDb;
 
     <body>
         <div id="idGCL"></div>
+<script type='text/javascript'>GCTLoad( 'ChartLine', '', 1 );</script>
 
         <script type="text/javascript">
-            TimeTrack("START");
-        </script>
-
-        <?php
-        global $debug_page;
-//if ( $debug_page )
-//  echo "<script type='text/javascript'>TimeTrack( 'DEBUG' );</script>";
-        ?>
-
-
-        <?php
-        echo "<script type='text/javascript'>";
-        echo "GCTLoad( 'ChartLine', '', 1 );";
-        echo "</script>";
-        ?>
-
-
-        <script type="text/javascript">
-
             var gcl = new GCT('idGCL');
             gcl.addColumn('date', 'Date');
-
-
         </script>
 
         <?php
@@ -205,11 +185,5 @@ use Utils\Database\OcDb;
         <script type="text/javascript">
             gcl.drawChart(1);
         </script>
-
-        <script type="text/javascript">
-            TimeTrack("END", "SL102");
-        </script>
-
     </body>
-
 </html>

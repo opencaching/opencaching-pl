@@ -12,12 +12,7 @@
   } );
 </script>
 
-
-
 <?php
-//require_once('./lib/common.inc.php');
-
-
 $sNameOfStat = "";
 $sTitleOfStat = "";
 if (isset($_REQUEST["stat"])) {
@@ -32,30 +27,13 @@ else
     $sTitleOfStat = " Ranking ";
 ?>
 
-<table class="content" width="97%">
-    <tr><td class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="{{stats}}" title="{{stats}} <?php echo $sTitleOfStat ?>" align="middle" /><font size="4">  <b>{{statistics}}: <?php echo $sTitleOfStat ?></b></font></td></tr>
-    <tr><td class="spacer"></td></tr>
-</table>
-
-<script type="text/javascript">
-TimeTrack("START");
-</script>
-
-<script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
-
-<?php
-global $debug_page;
-//if ( $debug_page )
-//  echo "<script type='text/javascript'>TimeTrack( 'DEBUG' );</script>";
-?>
-
-<!-- {{StatTestVer}}<br>
-{{PrevVersion}} -->
-
-
+<div class="content2-container">
+  <div class="content2-pagetitle">
+    <img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="">
+    {{statistics}}: <?php echo $sTitleOfStat ?>
+  </div>
 
 <div class="searchdiv">
-
 
     <?php
     global $cookie;
@@ -109,7 +87,6 @@ global $debug_page;
     }
     ?>
 
-
     <!-- content-title-noshade -->
     <div class="GCT-div" >
 
@@ -145,9 +122,6 @@ global $debug_page;
                     </form>
                 </td>
                 <!-- END of Filter -->
-
-                <!-- EMPTY -->
-                <!-- <td width="124px"> </td> -->
 
                 <!-- Begin of User -->
                 <td align="right">
@@ -193,8 +167,4 @@ global $debug_page;
     {{HelpHowToSelect}}
 </div>
 
-
-<script type="text/javascript">
-    TimeTrack("END", "S102");
-</script>
-
+</div>

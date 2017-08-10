@@ -175,8 +175,9 @@ if ($error == false) {
                                 <td style="background-color: {bgcolor}">&nbsp;</td>
                                 <td nowrap style="background-color: {bgcolor}">' . $user_coords . '</td>
                                 <td nowrap style="text-align:center; background-color: {bgcolor}">{lastfound}</td>
-                                <td nowrap style="text-align:center; background-color: {bgcolor}"><img src="tpl/stdstyle/images/{icon_name}" border="0" alt="" onmouseover="Tip(\'{log_text}\', OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"/></td>
+                                <td nowrap style="text-align:center; background-color: {bgcolor}">{iconimage}</td>
                                 <td style="background-color: {bgcolor}; text-align:center">' . $delete_user_note . '</td></tr>';
+                    $icon_img = '<img src="tpl/stdstyle/images/{icon_name}" alt="" onmouseover="Tip(\'{log_text}\', OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"/>';
                     $notes = mb_ereg_replace('{bgcolor}', $bgcolor, $notes);
                     $notes = mb_ereg_replace('{cacheid}', $notes_record["cacheid"], $notes);
                     $notes = mb_ereg_replace('{noteid}', $notes_record["note_id"], $notes);
@@ -202,10 +203,15 @@ if ($error == false) {
 
 
                     $log_text = "<b>" . $notes_record['user_name'] . ":</b><br>" . $log_text;
-                    $notes = mb_ereg_replace('{log_text}', $log_text, $notes);
                     $notes_text = CleanSpecChars($notes_record['notes_desc'], 1);
                     $notes = mb_ereg_replace('{notes_text}', $notes_text, $notes);
-                    $notes = mb_ereg_replace('{icon_name}', $notes_record['icon_small'], $notes);
+                    if ($notes_record['icon_small'] != '') {
+                        $icon_img = mb_ereg_replace('{icon_name}', $notes_record['icon_small'], $icon_img);
+                        $icon_img = mb_ereg_replace('{log_text}', $log_text, $icon_img);
+                    } else {
+                        $icon_img = '&nbsp;';
+                    }
+                    $notes = mb_ereg_replace('{iconimage}', $icon_img, $notes);
                 }
 
 

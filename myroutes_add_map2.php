@@ -69,7 +69,7 @@ if ($error == false) {
         } //end submit
     }
 }
-tpl_set_var('bodyMod', '');
+
 //make the template and send it out
 tpl_BuildTemplate();
 

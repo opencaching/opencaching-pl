@@ -167,6 +167,7 @@ $menu = array(
                     'articles/s6',
                     'articles/s7',
                     'articles/s8',
+                    'articles/s9',
                     'articles/s11a',
                     'articles/s12',
                     'articles/s102'

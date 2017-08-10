@@ -8,30 +8,11 @@ use Utils\Database\OcDb;
     <body>
         <div id="idGCB"></div>
 
-        <script type="text/javascript">
-            TimeTrack("START");
-        </script>
-
-        <?php
-        global $debug_page;
-//if ( $debug_page )
-//  echo "<script type='text/javascript'>TimeTrack( 'DEBUG' );</script>";
-        ?>
-
-
-        <?php
-        echo "<script type='text/javascript'>";
-        echo "GCTLoad( 'ChartBar', '', 1 );";
-        echo "</script>";
-        ?>
-
+<script type='text/javascript'>GCTLoad( 'ChartBar', '', 1 );</script>
 
         <script type="text/javascript">
-
             var gcb = new GCT('idGCB');
             gcb.addColumn('string', 'UserName');
-
-
         </script>
 
         <?php
@@ -238,12 +219,5 @@ use Utils\Database\OcDb;
         <script type="text/javascript">
             gcb.drawChart(1);
         </script>
-
-        <script type="text/javascript">
-            TimeTrack("END", "SB102");
-        </script>
-
     </body>
-
 </html>
-
