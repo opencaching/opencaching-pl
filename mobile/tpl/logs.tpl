@@ -78,7 +78,7 @@
                                                             {$logtype}</b><br/><br/>
                                                         </span>
 
-                                                        {if $smarty.session.user_id && $logs[i].user_id eq $smarty.session.user_id}
+                                                        {if isset($smarty.session.user_id) && $logs[i].user_id eq $smarty.session.user_id}
 
                                                             <table class="tablefooter">
                                                                 <tr>
