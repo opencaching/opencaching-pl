@@ -1,20 +1,10 @@
 <?php
-use Utils\Database\OcDb;
 ?>
-
 
 <div id='idGTC' align = "center"> </div>
-
-
-<?php
-echo "<script type='text/javascript'>";
-echo "GCTLoad( 'ChartTable', '" . $lang . "' );";
-echo "</script>";
-?>
-
+<script type='text/javascript'>GCTLoad( 'ChartTable', '" . $lang . "' );</script>
 
 <script type='text/javascript'>
-
     var gct = new GCT('idGTC');
 
     gct.addColumn('number', "<?php echo tr('Pos') ?>", 'text-align: left; ');
@@ -25,17 +15,14 @@ echo "</script>";
     gct.addColumn('string', 'UserId');
 
     gct.hideColumns([4, 5]);
-
 </script>
 
 <?php
 echo "<script type='text/javascript'>";
 echo "gct.addChartOption('pagingSymbols', { prev: '" . tr('Prev1') . "', next: '" . tr('Next1') . "' });";
 echo "</script>";
-?>
 
-
-<?php
+use Utils\Database\OcDb;
 require_once __DIR__ . '/ClassPathDictionary.php';
 $sRok = "";
 $sMc = "";
