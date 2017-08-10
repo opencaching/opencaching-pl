@@ -1,5 +1,5 @@
 if (Garmin == undefined) var Garmin = {};
-/** Copyright © 2007 Garmin Ltd. or its subsidiaries.
+/** Copyright ï¿½ 2007 Garmin Ltd. or its subsidiaries.
  *
  * Licensed under the Apache License, Version 2.0 (the 'License')
  * you may not use this file except in compliance with the License.
@@ -48,7 +48,6 @@ Garmin.MapController.prototype = {
         } catch (e) {
             alert("WARNING: application will not function properly with missing Google script element or invalid Google map key.  Error: "+e);
         }
-        window.onUnload = "GUnload()";
     },
 
     /** Set the center point and zoom level of the map.
