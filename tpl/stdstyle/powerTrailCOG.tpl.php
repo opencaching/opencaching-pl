@@ -2,24 +2,7 @@
 $view->callChunk('tinyMCE', false);
 ?>
 
-<link rel="stylesheet" href="tpl/stdstyle/js/jquery_1.9.2_ocTheme/themes/cupertino/jquery.ui.all.css">
-<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/minified/jquery-ui.min.js"></script>
-<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.datepick-{language4js}.js"></script>
-
 <script type="text/javascript">
-    $(function () {
-        $.datepicker.setDefaults($.datepicker.regional['pl']);
-        $('#powerTrailDateCreatedInput').datepicker({
-            dateFormat: 'yy-mm-dd',
-            regional: '{language4js}'
-        }).val();
-        $('#commentDateTime').datepicker({
-            dateFormat: 'yy-mm-dd',
-            regional: '{language4js}'
-        }).val();
-
-    });
-
     function chgStatus() {
         var newComment = tinyMCE.activeEditor.getContent();
         $('#ptStatSelectSpan').hide();
@@ -88,8 +71,6 @@ $view->callChunk('tinyMCE', false);
         </form>
     </div>
 
-    <div id="oldIE" style="display: none">{{pt129}}</div>
-
     <div class="content2-pagetitle">
         <img src="tpl/stdstyle/images/blue/050242-blue-jelly-icon-natural-wonders-flower13-sc36_32x32.png" class="icon32" alt="geocache" title="geocache">
         {{pt208}}
@@ -127,7 +108,7 @@ $view->callChunk('tinyMCE', false);
                     <a id="stbtn1" href="javascript:void(0);" onclick="$('#stbtn1').hide();
                             $('#ptStatus').hide();
                             $('#ptStatSelectSpan').show();" class="editPtDataButton">{{pt064}}</a>
-                    <img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" style="display: none" id="ajaxLoaderStatus" alt="">
+                    <img src="tpl/stdstyle/images/misc/ptPreloader.gif" style="display: none" id="ajaxLoaderStatus" alt="">
                 </td>
             </tr>
         </table>

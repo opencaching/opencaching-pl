@@ -387,7 +387,7 @@ if ($usr == false) {
         //ftf Ajax
         $content .= '<hr><center>
         <a href="javascript:void(0);" onclick="ajaxGetFTF();" id="showFtfBtn">' . tr('viewprofileFTF') . '</a>
-        <center><img style="display:none" id="commentsLoader" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></center>
+        <center><img style="display:none" id="commentsLoader" src="tpl/stdstyle/images/misc/ptPreloader.gif" /></center>
         <div id="ftfDiv" style="display:none"></div></center><input type="hidden" id="userId" value="' . $user_id . '" />';
 
         //------------ begin owner section

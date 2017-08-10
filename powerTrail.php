@@ -71,6 +71,8 @@ if ($error == false) {
     $tplname = 'powerTrail';
     $view->addLocalCss(Uri::getLinkWithModificationTime('tpl/stdstyle/css/powerTrail.css'));
     $view->addLocalCss(Uri::getLinkWithModificationTime('tpl/stdstyle/css/ptMenuCss/style.css'));
+    $view->loadJQueryUI();
+    $view->loadGMapApi();
 
     if (!$usr && $hide_coords) {
         $mapControls = 0;
@@ -349,7 +351,7 @@ function displayCaches($caches, $pTrails)
         }
         $ptSelector .= '</select>';
         $rows .= '<tr><td><a href="' . $cache['wp_oc'] . '">' . $cache['wp_oc'] . '</a></td><td>' . $cache['name'] . '</td><td>' . $ptSelector . '</td>
-        <td width="50"><img style="display: none" id="addCacheLoader' . $cache['cache_id'] . '" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" alt="">
+        <td width="50"><img style="display: none" id="addCacheLoader' . $cache['cache_id'] . '" src="tpl/stdstyle/images/misc/ptPreloader.gif" alt="">
         <span id="cacheInfo' . $cache['cache_id'] . '" style="display: none "><img src="tpl/stdstyle/images/free_icons/accept.png" alt=""></span>
         <span id="cacheInfoNOK' . $cache['cache_id'] . '" style="display: none "><img src="tpl/stdstyle/images/free_icons/exclamation.png" alt=""></span>' .
                 $hidden .

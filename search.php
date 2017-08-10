@@ -68,6 +68,7 @@ if ($usr == false) {
 
 
         $tplname = 'search';
+        $view->loadJQueryUI();
         require($stylepath . '/search.inc.php');
         require($rootpath . 'lib/caches.inc.php');
 

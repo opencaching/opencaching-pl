@@ -31,6 +31,9 @@ if ($error == false) {
             case 'stat':
                 require_once($dynstylepath . 'charts_data.inc.php');
                 break;
+            case 's102':
+                $view->loadJQueryUI();
+                break;
             default:
                 break;
         }

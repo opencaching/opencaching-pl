@@ -502,7 +502,7 @@
             <tr class="form-group-sm">
                 <td valign="top" class="content-title-noshade">{{regions_only_for}}:</td>
                 <td class="content-title-noshade">
-                    <img id="regionAjaxLoader" style="display: none" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+                    <img id="regionAjaxLoader" style="display: none" src="tpl/stdstyle/images/misc/ptPreloader.gif" />
                     <select name="region" id="region1" class="form-control input200" onchange="javascript:sync_options(this)">
                         {regionoptions}
                     </select>
