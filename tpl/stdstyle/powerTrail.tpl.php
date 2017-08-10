@@ -3,7 +3,6 @@ $view->callChunk('tinyMCE');
 ?>
 
 <link href='https://fonts.googleapis.com/css?family=Shojumaru&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/timepicker.js"></script>
 <script src="tpl/stdstyle/js/jquery.cookie.js" type="text/javascript"></script>
 <script src="/lib/cachemap3lib.js" type="text/javascript"></script>
 

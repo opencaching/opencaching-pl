@@ -72,6 +72,7 @@ function event_notify_new_cache($cache_id)
         FROM `user`
         WHERE NOT ISNULL(`user`.`latitude`)
           AND NOT ISNULL(`user`.`longitude`)
+          AND `user`.`is_active_flag` = 1
           AND `user`.`notify_radius` > 0
           AND (acos(cos((90 - ? ) * PI() / 180) * cos((90-`user`.`latitude`) * PI() / 180) +
               sin((90-?) * PI() / 180) * sin((90-`user`.`latitude`) * PI() / 180) * cos(( ? -`user`.`longitude`) *

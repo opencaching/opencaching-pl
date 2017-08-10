@@ -1,8 +1,5 @@
 <?php
 
-use Utils\Database\XDb;
-use Utils\Database\OcDb;
-
 $linkargs = (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y') ? '&amp;print=y' : '';
 $linkargs .= (isset($_REQUEST['nocrypt']) && $_REQUEST['nocrypt'] == '1') ? '&amp;nocrypt=1' : '';
 

@@ -14,7 +14,7 @@ return function ($gMapKey, $lang){
 ?>
 
     <!-- Google Maps API chunk -->
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.27&amp;key=<?=$gMapKey?>&amp;language=<?=$lang?>"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.27&amp;key=<?=$gMapKey?>&amp;language=<?=$GLOBALS['lang']?>"></script>
     <!-- End of Google Maps API chunk -->
 
 <?php
