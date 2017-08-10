@@ -1051,6 +1051,7 @@ if ($error == false) {
 }
 unset($dbc);
 
+$view->loadJQuery();
 //make the template and send it out
 tpl_BuildTemplate();
 

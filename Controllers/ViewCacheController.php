@@ -69,6 +69,7 @@ class ViewCacheController extends BaseController
         }else{
             tpl_set_tplname('viewcache/viewcache');
             $this->view->loadJQuery();
+            $this->view->loadJQueryUI();
             $this->view->loadLightBox();
         }
         set_tpl_subtitle(htmlspecialchars($this->geocache->getCacheName()) . ' - ');

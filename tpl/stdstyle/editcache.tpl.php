@@ -1,7 +1,6 @@
 <?php
 
 ?>
-<script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 <script type="text/javascript">
     $(function () {
         chkcountry2();
@@ -43,7 +42,6 @@
         // callback handler that will be called on success
         request.done(function (response, textStatus, jqXHR) {
             $('#region1').html(response);
-            console.log(response);
         });
         request.always(function () {
             $('#regionAjaxLoader').hide();

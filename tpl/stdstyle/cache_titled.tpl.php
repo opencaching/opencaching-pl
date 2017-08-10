@@ -1,7 +1,3 @@
-<link href="tpl/stdstyle/js/jquery.1.10.3/css/myCupertino/jquery-ui-1.10.3.custom.css" rel="stylesheet">
-<script src="tpl/stdstyle/js/jquery.1.10.3/js/jquery-1.9.1.js"></script>
-<script src="tpl/stdstyle/js/jquery.1.10.3/js/jquery-ui-1.10.3.custom.js"></script>
-<script src="tpl/stdstyle/js/jquery.1.10.3/development-bundle/ui/jquery.datepick-{language4js}.js"></script>
 
 <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCT.css" />
 <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCTStats.css" />

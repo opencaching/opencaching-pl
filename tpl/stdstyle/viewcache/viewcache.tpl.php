@@ -1,11 +1,4 @@
-
 <link rel="stylesheet" href="tpl/stdstyle/css/lightTooltip.css">
-
-
-
-<link href="tpl/stdstyle/js/jquery.1.10.3/css/myCupertino/jquery-ui-1.10.3.custom.css" rel="stylesheet">
-<script type="text/javascript" src="tpl/stdstyle/js/jquery.1.10.3/js/jquery-ui-1.10.3.custom.js"></script>
-
 
 <script>
     var confirmRmLogTranslation = '{{confirm_remove_log}}';
