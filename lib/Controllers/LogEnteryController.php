@@ -189,7 +189,7 @@ class LogEnteryController
         }
 
         //Update last found
-        $lastfoundQuery = "SELECT MAX(`cache_logs`.`date`) AS `date` FROM `cache_logs` WHERE ((cache_logs.`type`=1) AND (cache_logs.`cache_id`= :1 ))";
+        $lastfoundQuery = "SELECT MAX(`cache_logs`.`date`) AS `date` FROM `cache_logs` WHERE ((cache_logs.`type`=1) AND (cache_logs.`cache_id`= :1 ) AND (cache_logs.`deleted`=0))";
         $s = $db->multiVariableQuery($lastfoundQuery, $geoCache->getCacheId());
         $lastfoundRecord = $db->dbResultFetchOneRowOnly($s);
         if ($lastfoundRecord['date'] === NULL) {
