@@ -1,51 +1,57 @@
+<?php
+use Utils\Database\XDb;
+
+    $rootpath = './';
+    require_once($rootpath . 'lib/common.inc.php');
+?>
+
 <div class="content2-container">
   <div class="content2-pagetitle">
     <img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="">
     {{statistics}}
   </div>
-
-<table class="table" width="760" style="line-height: 1.6em; font-size: 10px;">
+<div class="buffer"></div>
+<p class="content-title-noshade-size3">{{Stats_t4_01}}</p>
+<div class="buffer"></div>
+<table class="table full-width">
+  <thead>
     <tr>
-        <td>
+      <th class="align-center">{{Position}}</th>
+      <th class="align-center">{{Stats_t4_03}}</th>
+      <th>{{Stats_t4_04}}</th>
+    </tr>
+  </thead>
+  <tbody>
+
 <?php
-
-use Utils\Database\XDb;
-global $rootpath;
-
-if (!isset($rootpath))
-    $rootpath = './';
-
-//include template handling
-require_once($rootpath . 'lib/common.inc.php');
-
-setlocale(LC_TIME, 'pl_PL.UTF-8');
-
-echo '<table width="97%"><tr><td align="center"><center><b>' . tr('Stats_t4_01') . '</b></center></td></tr> </table>';
-echo '<table border="1" bgcolor="white" width="97%" style="font-size:11px; line-height:1.6em;">' . "\n";
-
-$linie = XDb::xSql(
-    "SELECT COUNT(*) `count`, `caches`.`name`, `cache_logs`.`cache_id`, `user`.`username`
-    FROM `cache_logs`
-        INNER JOIN `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id`
+$results = XDb::xSql(
+    "SELECT `caches`.`founds` AS `count`, `caches`.`name`, `caches`.`cache_id`, `user`.`username`
+    FROM `caches`
         INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id`
-    WHERE `cache_logs`.`deleted`=0
-        AND `cache_logs`.`type`=1 AND `caches`.`type`<>4  AND `caches`.`type`<>5   AND `caches`.`type`<>6 GROUP BY `caches`.`cache_id` ORDER BY `count` DESC, `caches`.`name` ASC");
-echo '<tr><td class="bgcolor2" align="right"><b>' . tr('Stats_t4_02') . '</b>&nbsp;&nbsp;</td><td class="bgcolor2" align="center"><b>' . tr('Stats_t4_03') . '</b>&nbsp;&nbsp;</td><td class="bgcolor2" align="center"><b>' . tr('Stats_t4_04') . '</b>&nbsp;&nbsp;</td></tr><tr><td>';
-$l2 = "";
-$licznik = 0;
-while ($linia = XDb::xFetchArray($linie)) {
-    $l1 = $linia['count'];
-    if ($l2 != $l1) {
-        $licznik++;
-        echo "</td></tr><tr><td class=\"bgcolor2\" align=\"right\">&nbsp;&nbsp;<b>$licznik</b>&nbsp;&nbsp;</td><td class=\"bgcolor2\" align=\"right\">&nbsp;&nbsp;<b>$l1</b>&nbsp;&nbsp;</td>";
-        echo "<td class=\"bgcolor2\"><a href=\"viewcache.php?cacheid=".$linia['cache_id']."\">".$linia['name']."</a> (".$linia['username'].")";
-        $l2 = $l1;
+    WHERE `caches`.`type` NOT IN (4, 5, 6) ORDER BY `count` DESC, `caches`.`name` ASC");
+
+$position = 0;
+$prevCount = 0;
+while ($result = XDb::xFetchArray($results)) {
+    if ($result['count'] != $prevCount ) {
+        $position++;
+        $prevCount = $result['count'];
+        if ($position == 1) {
+            echo '<tr>';
+        } elseif ($position % 2 == 0) {
+            echo '</td></tr><tr class="element-even">';
+        } else {
+            echo '</td></tr><tr>';
+        }
+        echo "<td class=\"align-center\">" . $position . "</td><td class=\"align-center\">" .  $result['count'] . "</td><td>";
     } else {
-        echo ", <a href=\"viewcache.php?cacheid=".$linia['cache_id']."\">".$linia['name']."</a> (".$linia['username'].")";
+        echo " | ";
     }
+    echo "<a href=\"/viewcache.php?cacheid=" . $result['cache_id'] . "\" class=\"links\">" . $result['name'] . "</a> (" . $result['name'] . ")";
 }
 ?>
-</td></tr></table>
-        </td></tr>
+      </td>
+    </tr>
+  </tbody>
 </table>
 </div>
