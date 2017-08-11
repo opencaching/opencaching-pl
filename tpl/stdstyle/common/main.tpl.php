@@ -3,6 +3,7 @@
 use Utils\Database\OcDb;
 use lib\Objects\GeoCache\PrintList;
 use Utils\DateTime\Year;
+use Utils\Debug\Debug;
 
 // load menu
 global $mnu_selmenuitem, $tpl_subtitle, $absolute_server_URI, $mnu_siteid /* which menu item should be highlighted */, $site_name;
@@ -87,7 +88,8 @@ if (date('m') == 12 || date('m') == 1) {
             }
             if( $view->isGMapApiEnabled() ){
                 if( !isset($GLOBALS['googlemap_key']) || empty($GLOBALS['googlemap_key']) ){
-                    error_log("Key: googlemap_key is not set in settings?! Maps can't be loaded!");
+                    Debug::errorLog("There is no googlemap_key value in site settings?!".
+                                "Map can't be loaded!");
                 }else{
                     $view->callChunk('googleMapsApi', $GLOBALS['googlemap_key'], $view->getLang());
                 }
