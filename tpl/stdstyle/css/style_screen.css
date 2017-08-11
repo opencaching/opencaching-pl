@@ -1399,6 +1399,10 @@ ul.feedList {
     list-style-position: inside;
 }
 
+.full-width {
+    width: 100%;
+}
+
 div.feedArea {
     width: 100%;
     display: block;
@@ -1436,4 +1440,8 @@ sub {
 
 .text-color-danger {
     color: #d9534f;
+}
+
+.element-even {
+    background-color: #f5f5f5;
 }
