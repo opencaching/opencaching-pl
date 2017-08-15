@@ -3,44 +3,29 @@ namespace lib\Objects\News;
 
 use lib\Objects\BaseObject;
 use lib\Objects\User\User;
+use lib\Objects\OcConfig\OcConfig;
 
 class News extends BaseObject
 {
 
     private $id = 0;
-
     private $title = null;
-
     private $content = '';
-
     private $author = null;
-
     private $last_editor = null;
-
     private $hide_author = 0;
-
     private $show_onmainpage = 1;
-
     private $show_notlogged = 0;
-
     private $date_publication;
-
     private $date_expiration = null;
-
     private $date_mainpageexp;
-
     private $date_lastmod;
 
     const USER_NOT_SET = 0;
-
     const STATUS_OTHER = 0;
-
     const STATUS_FUTURE = 1;
-
     const STATUS_ON_MAINPAGE = 2;
-
     const STATUS_ONLY_NEWSPAGE = 3;
-
     const STATUS_ARCHIVED = 4;
 
     public function __construct(array $params = array())
@@ -68,24 +53,51 @@ class News extends BaseObject
 
     private function saveToDb()
     {
-        return self::db()->multiVariableQuery('UPDATE news SET title = :1, content = :2, user_id = :3, edited_by = :4, hide_author = :5, show_onmainpage = :6,
-                show_notlogged = :7, date_publication = :8, date_expiration = :9, date_mainpageexp = :10
-                WHERE id = :11', \userInputFilter::purifyHtmlString($this->title), \userInputFilter::purifyHtmlString($this->content), (is_null($this->author)) ? 0 : $this->author->getUserId(), (is_null($this->last_editor)) ? 0 : $this->last_editor->getUserId(), (int) $this->hide_author, (int) $this->show_onmainpage, (int) $this->show_notlogged, self::truncateTime($this->date_publication), (is_null($this->date_expiration)) ? null : self::truncateTime($this->date_expiration), (is_null($this->date_mainpageexp)) ? null : self::truncateTime($this->date_mainpageexp), (int) $this->id);
+        return self::db()->multiVariableQuery('
+            UPDATE news
+            SET title = :1, content = :2, user_id = :3, edited_by = :4,
+                hide_author = :5, show_onmainpage = :6, show_notlogged = :7,
+                date_publication = :8, date_expiration = :9,
+                date_mainpageexp = :10
+            WHERE id = :11',
+            \userInputFilter::purifyHtmlString($this->title),
+            \userInputFilter::purifyHtmlString($this->content),
+            (is_null($this->author)) ? 0 : $this->author->getUserId(),
+            (is_null($this->last_editor)) ? 0 : $this->last_editor->getUserId(),
+            (int) $this->hide_author,
+            (int) $this->show_onmainpage,
+            (int) $this->show_notlogged,
+            self::truncateTime($this->date_publication),
+            (is_null($this->date_expiration)) ? null : self::truncateTime($this->date_expiration),
+            (is_null($this->date_mainpageexp)) ? null : self::truncateTime($this->date_mainpageexp),
+            (int) $this->id);
     }
 
     private function insertIntoDb()
     {
-        return self::db()->multiVariableQuery('INSERT INTO news (title, content, user_id, edited_by, hide_author, show_onmainpage, show_notlogged, date_publication, date_expiration, date_mainpageexp)
-                VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10)', \userInputFilter::purifyHtmlString($this->title), \userInputFilter::purifyHtmlString($this->content), (is_null($this->author)) ? 0 : $this->author->getUserId(), (is_null($this->last_editor)) ? 0 : $this->last_editor->getUserId(), (int) $this->hide_author, (int) $this->show_onmainpage, (int) $this->show_notlogged, self::truncateTime($this->date_publication), (is_null($this->date_expiration)) ? null : self::truncateTime($this->date_expiration), (is_null($this->date_mainpageexp)) ? null : self::truncateTime($this->date_mainpageexp));
+        return self::db()->multiVariableQuery('
+            INSERT INTO news
+                (title, content, user_id, edited_by, hide_author, show_onmainpage,
+                show_notlogged, date_publication, date_expiration, date_mainpageexp)
+            VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10)',
+            \userInputFilter::purifyHtmlString($this->title),
+            \userInputFilter::purifyHtmlString($this->content),
+            (is_null($this->author)) ? 0 : $this->author->getUserId(),
+            (is_null($this->last_editor)) ? 0 : $this->last_editor->getUserId(),
+            (int) $this->hide_author,
+            (int) $this->show_onmainpage,
+            (int) $this->show_notlogged,
+            self::truncateTime($this->date_publication),
+            (is_null($this->date_expiration)) ? null : self::truncateTime($this->date_expiration),
+            (is_null($this->date_mainpageexp)) ? null : self::truncateTime($this->date_mainpageexp));
     }
 
     public function loadFromForm(array $formData)
     {
-        global $dateFormat;
         $this->hide_author = 0;
         $this->show_onmainpage = 0;
         $this->show_notlogged = 0;
-        
+
         foreach ($formData as $key => $val) {
             switch ($key) {
                 case 'id':
@@ -108,13 +120,13 @@ class News extends BaseObject
                     $this->show_notlogged = ($val == 'on') ? 1 : 0;
                     break;
                 case 'date-publication':
-                    $this->date_publication = ($val == '') ? null : \DateTime::createFromFormat($dateFormat, $val);
+                    $this->date_publication = ($val == '') ? null : \DateTime::createFromFormat(OcConfig::instance()->getDateFormat(), $val);
                     break;
                 case 'date-expiration':
-                    $this->date_expiration = ($val == '') ? null : \DateTime::createFromFormat($dateFormat, $val);
+                    $this->date_expiration = ($val == '') ? null : \DateTime::createFromFormat(OcConfig::instance()->getDateFormat(), $val);
                     break;
                 case 'date-mainpageexp':
-                    $this->date_mainpageexp = ($val == '') ? null : \DateTime::createFromFormat($dateFormat, $val);
+                    $this->date_mainpageexp = ($val == '') ? null : \DateTime::createFromFormat(OcConfig::instance()->getDateFormat(), $val);
                     break;
                 case 'action':
                 case 'submit':
@@ -132,7 +144,7 @@ class News extends BaseObject
         $query = 'SELECT * FROM news WHERE id = :1 LIMIT 1';
         $stmt = self::db()->multiVariableQuery($query, $newsId);
         $dbRow = self::db()->dbResultFetch($stmt);
-        
+
         if (is_array($dbRow)) {
             $this->loadFromDbRow($dbRow);
         } else {
@@ -192,7 +204,7 @@ class News extends BaseObject
                 case 'date_lastmod':
                     $this->date_lastmod = new \DateTime($val);
                     break;
-                
+
                 // TODO: Will be removed after all OC nodes do sqlAlter
                 // Compatibility block
                 case 'date_posted':
@@ -205,11 +217,11 @@ class News extends BaseObject
                     break;
                 case 'display':
                     if ($val == 0) {
-                        $this->date_expiration = DateTime::createFromFormat('d/m/Y', '6/08/2017');
+                        $this->date_expiration = \DateTime::createFromFormat('d/m/Y', '6/08/2017');
                     }
                     break;
                 // End of compatibility block
-                
+
                 default:
                     error_log(__METHOD__ . ": Unknown column: $key");
             }
@@ -236,7 +248,11 @@ class News extends BaseObject
         if (self::compatibileMode()) { // TODO: Remove it!
             return self::getAllNewsCompat($mainpage, $offset, $limit);
         }
-        $query = 'SELECT * FROM news WHERE (date_expiration > NOW() OR date_expiration IS NULL) AND (date_publication < NOW() OR date_publication IS NULL)';
+        $query = 'SELECT * FROM news
+            WHERE (date_expiration > NOW()
+                OR date_expiration IS NULL)
+                AND (date_publication < NOW()
+                OR date_publication IS NULL)';
         if ($mainpage) {
             $query .= ' AND show_onmainpage = 1 AND (date_mainpageexp > NOW() OR date_mainpageexp IS NULL)';
         }
@@ -251,7 +267,7 @@ class News extends BaseObject
             }
         }
         $stmt = self::db()->simpleQuery($query);
-        
+
         return self::db()->dbFetchAllAsObjects($stmt, function ($row) {
             return self::fromDbRowFactory($row);
         });
@@ -262,7 +278,9 @@ class News extends BaseObject
         if (self::compatibileMode()) { // TODO: Remove it!
             return self::getAllNewsCountCompat($mainpage);
         }
-        $query = 'SELECT COUNT(*) FROM news WHERE (date_expiration > NOW() OR date_expiration IS NULL) AND (date_publication < NOW() OR date_publication IS NULL)';
+        $query = 'SELECT COUNT(*) FROM news
+            WHERE (date_expiration > NOW() OR date_expiration IS NULL)
+                AND (date_publication < NOW() OR date_publication IS NULL)';
         if ($mainpage) {
             $query .= ' AND show_onmainpage = 1 AND (date_mainpageexp > NOW() OR date_mainpageexp IS NULL)';
         }
@@ -282,7 +300,7 @@ class News extends BaseObject
             }
         }
         $stmt = self::db()->simpleQuery($query);
-        
+
         return self::db()->dbFetchAllAsObjects($stmt, function ($row) {
             return self::fromDbRowFactory($row);
         });
@@ -307,7 +325,7 @@ class News extends BaseObject
             }
         }
         $stmt = self::db()->simpleQuery($query);
-        
+
         return self::db()->dbFetchAllAsObjects($stmt, function ($row) {
             return self::fromDbRowFactory($row);
         });
@@ -415,8 +433,7 @@ class News extends BaseObject
             return null;
         }
         if ($asString) { // Date should be formated as human readable string
-            global $dateFormat;
-            return $obj->format($dateFormat);
+            return $obj->format(OcConfig::instance()->getDateFormat());
         } else { // Date should be returned as an object
             return $obj;
         }
@@ -429,7 +446,7 @@ class News extends BaseObject
 
     public function getStatus()
     {
-        $currentTime = $objDateTime = new \DateTime('NOW');
+        $currentTime = new \DateTime('NOW');
         if ($this->date_publication > $currentTime) {
             return self::STATUS_FUTURE;
         } elseif (! is_null($this->date_expiration) && $this->date_expiration < $currentTime) {

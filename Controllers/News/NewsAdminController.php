@@ -96,8 +96,7 @@ class NewsAdminController extends BaseController
 
     private function showEditForm($news)
     {
-        global $dateFormat;
-        $this->view->setVar('dateformat_jQuery', Converter::dateformat_PHP_to_jQueryUI($dateFormat));
+        $this->view->setVar('dateformat_jQuery', Converter::dateformat_PHP_to_jQueryUI($this->ocConfig->getDateFormat()));
         $this->view->setVar('news', $news);
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/news/news.css'));
         $this->view->loadJQueryUI();

@@ -37,16 +37,14 @@ class NewsListController extends BaseController
      */
     public function showRss()
     {
-        global $short_sitename, $site_name, $absolute_server_URI;
-        
         header('Content-type: application/xml; charset="utf-8"');
         $newsList = News::getAllNews(false, false, 0, self::NEWS_IN_RSS);
-        $content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\">\n<channel>\n<title>" . $short_sitename . " - " . tr('rss_04') . "</title>\n";
-        $content .= "<ttl>60</ttl><link>" . $absolute_server_URI . "news.php</link>\n <description><![CDATA[" . tr('rss_12') . " " . $site_name . "]]></description>";
-        $content .= "<image><title>" . $short_sitename . " - " . tr('rss_04') . "</title><url>" . $absolute_server_URI . "images/oc.png</url>";
-        $content .= "<link>" . $absolute_server_URI . "news.php</link><width>100</width><height>28</height></image>\n";
+        $content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\">\n<channel>\n<title>" . $this->ocConfig->getShortSiteName() . " - " . tr('rss_04') . "</title>\n";
+        $content .= "<ttl>60</ttl><link>" . $this->ocConfig->getAbsolute_server_URI() . "news.php</link>\n <description><![CDATA[" . tr('rss_12') . " " . $this->ocConfig->getSiteName() . "]]></description>";
+        $content .= "<image><title>" . $this->ocConfig->getShortSiteName() . " - " . tr('rss_04') . "</title><url>" . $this->ocConfig->getAbsolute_server_URI() . "images/oc.png</url>";
+        $content .= "<link>" . $this->ocConfig->getAbsolute_server_URI() . "news.php</link><width>100</width><height>28</height></image>\n";
         foreach ($newsList as $news) {
-            $content .= "<item>\n<title>" . $news->getDatePublication(true) . " - " . $news->getTitle() . "</title>\n<description><![CDATA[" . $news->getContent() . "]]></description>\n<link>" . $absolute_server_URI . "news.php</link>\n<guid isPermaLink=\"false\">article " . $news->getId() . "</guid>\n</item>\n";
+            $content .= "<item>\n<title>" . $news->getDatePublication(true) . " - " . $news->getTitle() . "</title>\n<description><![CDATA[" . $news->getContent() . "]]></description>\n<link>" . $this->ocConfig->getAbsolute_server_URI() . "news.php</link>\n<guid isPermaLink=\"false\">article " . $news->getId() . "</guid>\n</item>\n";
         }
         $content .= "</channel>\n</rss>\n";
         echo $content;
