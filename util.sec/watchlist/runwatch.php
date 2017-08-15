@@ -7,16 +7,11 @@
  */
 use Utils\Database\XDb;
 use Utils\Log\Log;
+use lib\Objects\OcConfig\OcConfig;
 
 $rootpath = '../../';
 
 require_once($rootpath . 'lib/common.inc.php');
-
-
-$sDateformat = 'Y-m-d H:i:s';
-$mailsubject = tr('runwatch03') . ' ' . $site_name . ': ' . date('Y-m-d H:i:s');
-$nologs = tr('runwatch15');
-
 
 // Check if another instance of the script is running
 $lock_file = fopen("/tmp/watchlist-runwatch.lock", "w");
@@ -28,6 +23,9 @@ if (!flock($lock_file, LOCK_EX | LOCK_NB)) {
 }
 
 // No other instance - do normal processing
+$sDateformat = 'Y-m-d H:i:s';
+$mailsubject = tr('runwatch03') . ' ' . $site_name . ': ' . date('Y-m-d H:i:s');
+$nologs = tr('runwatch15');
 
 $diag_log_file = fopen("/var/log/ocpl/runwatch.log", "a");
 $diag_start_time = microtime(true);
@@ -235,9 +233,6 @@ fclose($lock_file);
  */
 function process_owner_log($user_id, $log_id)
 {
-    global $absolute_server_URI, $octeamEmailsSignature;
-
-
     $rsLog = XDb::xSql(
         "SELECT cache_logs.cache_id cache_id, cache_logs.text text, cache_logs.text_html text_html,
                 cache_logs.date logdate, user.username username, user.hidden_count ch, user.founds_count cf,
@@ -278,8 +273,8 @@ function process_owner_log($user_id, $log_id)
     $watchtext = mb_ereg_replace('{logtypeColor}', $logtypeParams['logtypeColor'], $watchtext);
     $watchtext = mb_ereg_replace('{runwatch01}', tr('runwatch01'), $watchtext);
     $watchtext = mb_ereg_replace('{runwatch02}', tr('runwatch02'), $watchtext);
-    $watchtext = mb_ereg_replace('{absolute_server_URI}', $absolute_server_URI, $watchtext);
-    $watchtext = mb_ereg_replace('{emailSign}', $octeamEmailsSignature, $watchtext);
+    $watchtext = mb_ereg_replace('{absolute_server_URI}', OcConfig::instance()->getAbsolute_server_URI(), $watchtext);
+    $watchtext = mb_ereg_replace('{emailSign}', OcConfig::instance()->getOcteamEmailsSignature(), $watchtext);
 //    $watchtext = mb_ereg_replace('{userActivity}', $userActivity, $watchtext);
 
     XDb::xSql(
@@ -297,8 +292,6 @@ function process_owner_log($user_id, $log_id)
  */
 function process_log_watch($user_id, $log_id)
 {
-    global $absolute_server_URI;
-
     $rsLog = XDb::xSql(
         "SELECT cache_logs.cache_id cache_id, cache_logs.text text, cache_logs.text_html text_html,
                 cache_logs.date logdate, user.username username, user.hidden_count ch, user.founds_count cf,
@@ -339,7 +332,7 @@ function process_log_watch($user_id, $log_id)
     $watchtext = mb_ereg_replace('{cachename}', $rLog['cachename'], $watchtext);
     $watchtext = mb_ereg_replace('{logtypeColor}', $logtypeParams['logtypeColor'], $watchtext);
     $watchtext = mb_ereg_replace('{runwatch02}', tr('runwatch02'), $watchtext);
-    $watchtext = mb_ereg_replace('{absolute_server_URI}', $absolute_server_URI, $watchtext);
+    $watchtext = mb_ereg_replace('{absolute_server_URI}', OcConfig::instance()->getAbsolute_server_URI(), $watchtext);
 //    $watchtext = mb_ereg_replace('{userActivity}', $userActivity, $watchtext);
 
     XDb::xSql(
@@ -350,7 +343,7 @@ function process_log_watch($user_id, $log_id)
 
 function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUserEMail, $currUserOwnerLogs, $currUserWatchLogs)
 {
-    global $nologs, $watchlistMailfrom, $mailsubject, $absolute_server_URI, $octeamEmailsSignature;
+    global $nologs, $watchlistMailfrom, $mailsubject;
 
     if ($currUserID == '')
         return;
@@ -361,8 +354,10 @@ function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUs
 
     $mailbody = file_get_contents(dirname(__FILE__) . '/watchlist.email.html');
     $mailbody = mb_ereg_replace('{username}', $currUserName, $mailbody);
-    $mailbody = mb_ereg_replace('{absolute_server_URI}', $absolute_server_URI, $mailbody);
-
+    $mailbody = mb_ereg_replace('{absolute_server_URI}', OcConfig::instance()->getAbsolute_server_URI(), $mailbody);
+    $mailbody = mb_ereg_replace('{header_logo}', OcConfig::instance()->getHeaderLogo(), $mailbody);
+    $mailbody = mb_ereg_replace('{site_name}', OcConfig::instance()->getSiteName(), $mailbody);
+    
     if ($currUserOwnerLogs != '') {
         $logtexts = $currUserOwnerLogs;
 
@@ -403,7 +398,7 @@ function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUs
     $mailbody = mb_ereg_replace('{runwatch12}', tr('runwatch12'), $mailbody);
     $mailbody = mb_ereg_replace('{runwatch13}', tr('runwatch13'), $mailbody);
     $mailbody = mb_ereg_replace('{runwatch14}', tr('runwatch14'), $mailbody);
-    $mailbody = mb_ereg_replace('{emailSign}', $octeamEmailsSignature, $mailbody);
+    $mailbody = mb_ereg_replace('{emailSign}', OcConfig::instance()->getOcteamEmailsSignature(), $mailbody);
 
 
     $mailadr = $currUserEMail;
