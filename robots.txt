@@ -4,3 +4,4 @@ Disallow: /old/
 Disallow: /search.php*
 Disallow: /login.php*
 Disallow: /lib/xmlmap.php*
+Disallow: /lib/mapper_okapi.php*
