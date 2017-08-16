@@ -44,6 +44,12 @@ $params['z'] = $_GET['z'];
 # ignored by user Y), but this worked this way for years (even before I wrote
 # this page), so I guess users don't think so.
 
+if(!isset($_GET['userid'])){
+    // userid is obligatory!
+    echo "Unknown 'userid' param!";
+    http_response_code(400);
+    exit;
+}
 $user_id = $_GET['userid'];
 
 # There are two "modes" the legacy-compatible mapper operates:
