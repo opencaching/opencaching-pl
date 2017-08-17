@@ -2,6 +2,7 @@
 namespace lib\Objects\ChunkModels\ListOfCaches;
 
 use Utils\Debug\Debug;
+use Utils\View\View;
 
 
 /**
@@ -18,11 +19,14 @@ use Utils\Debug\Debug;
 abstract class AbstractColumn {
     const COLUMN_CHUNK_DIR = __DIR__.'/../../../../tpl/stdstyle/chunks/listOfCaches/';
     private $dataExtractor = null;
+    private $header = '';
 
-    public final function __construct(callable $dataFromRowExtractor=null){
+    public final function __construct($header, callable $dataFromRowExtractor=null){
         if(!is_null($dataFromRowExtractor)){
             $this->dataExtractor = $dataFromRowExtractor;
         }
+
+        $this->header = $header;
     }
 
     public final function setDataExtractor(callable $func){
@@ -40,11 +44,11 @@ abstract class AbstractColumn {
     }
 
     public final function callColumnChunk($row){
-        $chunkName = $this->getChunkName();
-        $methodName = $chunkName.'Chunk';
+        $methodName = 'ColChunkDynFunc';
 
         if(!property_exists($this, $methodName)){
-            $func = require(self::COLUMN_CHUNK_DIR.$chunkName.'.tpl.php');
+            $chunkName = $this->getChunkName();
+            $func = View::getChunkFunc($chunkName);
             $this->$methodName = $func;
         }
 
@@ -55,5 +59,12 @@ abstract class AbstractColumn {
         }
     }
 
+    public function getHeader(){
+        return $this->header;
+    }
+
+    public function getCssClass(){
+        return 'center';
+    }
 }
 

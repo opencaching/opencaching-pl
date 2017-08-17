@@ -28,4 +28,23 @@ abstract class BaseObject
         return ApplicationContainer::Instance()->getLoggedUser();
     }
 
+    protected static function callOkapi($service, $params){
+
+        require_once( __DIR__.'/../../okapi/facade.php');
+
+        /** @var \lib\Objects\User\User */
+        $user = self::getCurrentUser();
+
+        $userId = is_null($user) ? null : $user->getUserId();
+
+        \okapi\OkapiErrorHandler::disable();
+
+        $okapiResp = \okapi\Facade::service_call(
+            $service, $userId, $params);
+
+        \okapi\OkapiErrorHandler::reenable();
+
+        return $okapiResp;
+    }
+
 }

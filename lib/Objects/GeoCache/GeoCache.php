@@ -560,7 +560,7 @@ class GeoCache extends GeoCacheCommons
 
     public function getCacheUrl()
     {
-        return '/viewcache.php?wp=' . $this->getWaypointId();
+        return self::GetCacheUrlByWp($this->getWaypointId());
     }
 
     public function getFounds()

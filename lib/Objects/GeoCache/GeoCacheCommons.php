@@ -230,7 +230,7 @@ class GeoCacheCommons{
                 break;
         }
 
-        $typePart = ""; //part of icon name represents cache name
+        $typePart = ""; //part of icon name represents cache type
         switch ($type) {
             case self::TYPE_OTHERTYPE:
                 $typePart = 'unknown';
@@ -378,6 +378,10 @@ class GeoCacheCommons{
             case self::TYPE_MOVING:
                 return "m";
         }
+    }
+
+    public static function GetCacheUrlByWp($ocWaypoint){
+        return '/viewcache.php?wp=' . $ocWaypoint;
     }
 }
 

@@ -414,5 +414,28 @@ class OcDb extends OcPdo
         return $this->dbResultFetchOneRowOnly(
             $this->simpleQuery("SELECT @@sql_mode AS sql_mode"))['sql_mode'];
     }
+
+    /**
+     * Quote limit and offset values - it can't be bind by pdo->bind :(
+     * @param int $limit
+     * @param int $offset
+     * @return number[$limit, $offset]
+     */
+    public function quoteLimitOffset($limit, $offset){
+        if(is_null($limit) || !is_numeric($limit)){
+            $limit = 1000000000; //very large row number
+        }else{
+            $limit = (int) $limit;
+        }
+
+        if(is_null($offset) || !is_numeric($offset)){
+            $offset = 0; // no-offset
+        }else{
+            $offset = (int) $offset;
+        }
+
+        return array($limit, $offset);
+    }
+
 }
 

@@ -6,6 +6,10 @@ class Column_GeoPathIcon extends AbstractColumn {
 
     protected function getChunkName()
     {
-        return "geoPathIconColumn";
+        return "listOfCaches/geoPathIconColumn";
+    }
+
+    public function getCssClass(){
+        return 'center';
     }
 }

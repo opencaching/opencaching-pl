@@ -2,15 +2,15 @@
 
 namespace lib\Objects\ChunkModels\ListOfCaches;
 
-class Column_CacheName extends AbstractColumn {
+class Column_CacheTypeIcon extends AbstractColumn {
 
     protected function getChunkName()
     {
-        return "listOfCaches/cacheNameColumn";
+        return "listOfCaches/cacheTypeIconColumn";
     }
 
     public function getCssClass(){
-        return 'left';
+        return 'center';
     }
 }
 

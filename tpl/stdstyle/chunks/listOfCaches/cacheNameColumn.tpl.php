@@ -1,11 +1,13 @@
 <?php
 
+use lib\Objects\GeoCache\GeoCacheCommons;
+
 return function (array $data){
 
 ?>
-
-<a href="<?=$data['url']?>"><?=$data['name']?></a>
-
+    <a href="<?=GeoCacheCommons::GetCacheUrlByWp($data['wp_oc'])?>" target=”_blank”>
+      <?=$data['name']?>
+    </a>
 <?php
 };
 

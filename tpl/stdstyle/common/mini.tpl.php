@@ -24,7 +24,7 @@
 
         <?php
             if( $view->isGoogleAnalyticsEnabled() ){
-                $view->googleAnalyticsChunk( $view->getGoogleAnalyticsKey() );
+                $view->callChunkOnce( 'googleAnalytics', $view->getGoogleAnalyticsKey() );
             }
 
             if( $view->isjQueryEnabled()){
@@ -53,7 +53,7 @@
     </head>
     <body{bodyMod}>
         {template}
-        
+
         <?php
         		// lightbox js should be loaded at th end of page
             if( $view->isLightBoxEnabled()){

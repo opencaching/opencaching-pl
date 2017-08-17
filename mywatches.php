@@ -1,8 +1,46 @@
 <?php
 
+
+use Controllers\UserWatchedCachesController;
+
+require_once('./lib/common.inc.php');
+
+$ctrl = new UserWatchedCachesController();
+
+if(isset($_GET['action'])){
+    $action = $_GET['action'];
+}else{
+    $action = '';
+}
+
+switch($action){
+    case 'remove':
+        $ctrl->removeFromWatches($_GET['cacheWp']);
+        break;
+    case 'add':
+        $ctrl->addToWatches($_GET['cacheWp']);
+        break;
+    default:
+        $ctrl->index();
+}
+
+exit;
+
+
+
+
+
+
+
+
+
+
+
+
 use Utils\Database\OcDb;
 use Utils\Database\XDb;
 //prepare the templates and include all neccessary
+
 require_once('./lib/common.inc.php');
 
 function CleanSpecChars($log, $flg_html)
@@ -23,11 +61,14 @@ function CleanSpecChars($log, $flg_html)
 
 //Preprocessing
 if ($error == false) {
+
     //user logged in?
     if ($usr == false) {
         $target = urlencode(tpl_get_current_page());
         tpl_redirect('login.php?target=' . $target);
+
     } else {
+
         $tr_COG = tr('cog_user_name');
         $dbc = OcDb::instance();
         $RQ = "";
@@ -147,6 +188,7 @@ if ($error == false) {
                         cl.date AS log_date,
                         cl.deleted as log_deleted,
                         cl.id
+
                         FROM `cache_watches`
                         INNER JOIN `caches` ON (`cache_watches`.`cache_id`=`caches`.`cache_id`)
                         INNER JOIN cache_type ON (caches.type = cache_type.id)

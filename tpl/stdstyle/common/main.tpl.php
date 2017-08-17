@@ -72,7 +72,7 @@ if (date('m') == 12 || date('m') == 1) {
 
         <?php
             if( $view->isGoogleAnalyticsEnabled() ){
-                $view->googleAnalyticsChunk( $view->getGoogleAnalyticsKey() );
+                $view->callChunkOnce( 'googleAnalytics', $view->getGoogleAnalyticsKey() );
             }
             if( $view->isjQueryEnabled()){
                 $view->callChunk('jQuery');

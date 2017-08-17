@@ -2,11 +2,11 @@
 
 namespace lib\Objects\ChunkModels\ListOfCaches;
 
-class Column_CacheName extends AbstractColumn {
+class Column_CacheLastLog extends AbstractColumn {
 
     protected function getChunkName()
     {
-        return "listOfCaches/cacheNameColumn";
+        return "listOfCaches/cacheLastLogColumn";
     }
 
     public function getCssClass(){

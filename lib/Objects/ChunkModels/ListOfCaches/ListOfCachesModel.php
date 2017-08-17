@@ -2,6 +2,9 @@
 
 namespace lib\Objects\ChunkModels\ListOfCaches;
 
+use lib\Objects\ChunkModels\PaginationModel;
+use Utils\View\View;
+
 /**
  * This is model for listOfCaches chunk.
  *
@@ -26,6 +29,14 @@ class ListOfCachesModel {
 
     private $columns = [];
     private $rows = [];
+    private $paginationModel = null;
+
+    private $displayHeader = true;
+
+
+    public function disableHeader(){
+        $this->displayHeader = false;
+    }
 
     public function addColumn(AbstractColumn $column){
         $this->columns[] = $column;
@@ -35,7 +46,7 @@ class ListOfCachesModel {
         return $this->columns;
     }
 
-    public function addRows(array $rows){
+    public function addDataRows(array $rows){
         $this->rows = $rows;
     }
 
@@ -43,5 +54,16 @@ class ListOfCachesModel {
         return $this->rows;
     }
 
+    public function setPaginationModel(PaginationModel &$paginationModel){
+        $this->paginationModel = $paginationModel;
+    }
+
+    public function callPaginationChunk(){
+        View::callChunkInline('pagination', $this->paginationModel);
+    }
+
+    public function isHeaderEnabled(){
+        return $this->displayHeader;
+    }
 }
 

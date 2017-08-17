@@ -14,7 +14,7 @@ use lib\Objects\PowerTrail\PowerTrail;
 /**
  * Description of user
  */
-class User extends BaseObject
+class User extends UserCommons
 {
 
     private $userId;

@@ -126,12 +126,12 @@ final class OcConfig
 
     }
 
-    function getDateFormat()
+    public function getDateFormat()
     {
         return $this->dateFormat;
     }
 
-    function getDatetimeFormat()
+    public function getDatetimeFormat()
     {
         return $this->datetimeFormat;
     }
