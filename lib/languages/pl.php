@@ -547,7 +547,6 @@ $translations = array(
     'no_log_entries' => 'Nie ma wpisów do LOGów',
     'your_newest_log_entries' => 'Twoje najnowsze wpisy w LOGach',
     'stat_picture' => 'Obrazek statystyk',
-    'show_in_google_maps' => 'Pokaż w Google Maps',
     'download_for_various_apps' => 'Pobierz dla różnych aplikacji',
     'download' => 'Pobierz',
     'listing_from_to' => 'Pozycje od {startatp1} do {endat}',

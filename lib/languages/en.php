@@ -547,7 +547,6 @@ $translations = array(
     'no_log_entries' => 'There are no logs submitted yet',
     'your_newest_log_entries' => 'Your latest logs',
     'stat_picture' => 'Statistics picture',
-    'show_in_google_maps' => 'Show on Google Maps',
     'download_for_various_apps' => 'download for various applications',
     'download' => 'Download',
     'listing_from_to' => 'Listing from {startatp1} to {endat}',

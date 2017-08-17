@@ -21,9 +21,7 @@ if(count(powerTrailBase::getPtOwners($projectId)) > 1 && $ptAPI::checkIfUserIsPo
     $logQuery = 'INSERT INTO `PowerTrail_actionsLog`(`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`, `cacheId`) VALUES (:1,:2,NOW(),5,:3,:4)';
     $db->multiVariableQuery($logQuery, $projectId, $_SESSION['user_id'] ,$ptAPI->logActionTypes[5]['type'].' removed owner is: '.$userId, $userId);
 }
-$pt = new powerTrailController($_SESSION['user_id']);
-$pt->findPtOwners($projectId);
-$ptOwners = displayPtOwnerList($pt->getPtOwners());
+$ptOwners = displayPtOwnerList(powerTrailBase::getPtOwners($projectId));
 
 // $result = json_encode($cacheCountResult);
 // sleep(5);

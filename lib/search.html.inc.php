@@ -2,10 +2,11 @@
 
 use Utils\Database\OcDb;
 use Utils\Gis\Gis;
+use Utils\Uri\Uri;
+
 /**
  * This script is used (can be loaded) by /search.php
  */
-
 
 function findColumn($name, $type = "C")
 {
@@ -647,30 +648,10 @@ tpl_set_var('startatp1', $startat + 1);
     else
         tpl_set_var('distanceunit', $distance_unit);
 
-    if ($usr !== false){
-        $queryid = $options['queryid'];
-        $google_kml_link = $absolute_server_URI . "search.php?queryid=$queryid&output=kml&startat=$startat";
-        $google_kml_link .= requestSigner::get_signature_text();
-
-        $google_kml_link_all = $google_kml_link.'&count=max&zip=1';
-
-        $domain = substr(trim($absolute_server_URI,'/'),-2,2); // It should be done better
-
-        $google_maps_link = "//maps.google.$domain/maps?f=q&hl=$lang&geocode=&q=";
-        $google_maps_link_all = "//maps.google.$domain/maps?f=q&hl=$lang&geocode=&ie=UTF8&z=7&q=";
-
-
-        $google_maps_link = htmlentities($google_maps_link).urlencode($google_kml_link);
-        $google_maps_link_all = htmlentities($google_maps_link_all).urlencode($google_kml_link_all);
-
-        tpl_set_var('google_maps_link', $google_maps_link);
-        tpl_set_var('google_maps_link_all', $google_maps_link_all);
-    }
-
-
+    $view->addLocalCss(Uri::getLinkWithModificationTime('tpl/stdstyle/css/GCT.css'));
+    $view->addLocalCss(Uri::getLinkWithModificationTime('tpl/stdstyle/css/GCTStats.css'));
 
     tpl_BuildTemplate();
-
 
 function trChar( $word )
 {
