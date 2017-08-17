@@ -1267,7 +1267,6 @@ $( document ).ready(function() {
 </script>
 
     <input type="hidden" id="xmd34nfywr54" value="{powerTrailId}">
-    <br><br>
     <!-- deleting entery comfirmation dialog  -->
     <div id="dialog-form" title="{{pt151}}" style="display: none">
         <form>
@@ -1291,9 +1290,9 @@ $( document ).ready(function() {
 
 
         <!-- map -->
-        <div id="mapOuterdiv" style="display: {mapOuterdiv}">
-            <div style="position: relative; left: 666px; top: 56px; width: 50px;">
-                <a id="fullscreenOn" style="cursor: pointer" href="cachemap-full.php?pt={powerTrailId}&lat={mapCenterLat}&lon={mapCenterLon}&calledFromPt=1" ><img src="images/fullscreen.png" alt="Pełny ekran"></a>
+        <div id="mapOuterdiv" style="display: {mapOuterdiv}" class="content2-container">
+            <div class="align-right" style="height: 32px">
+                <a id="fullscreenOn" style="cursor: pointer" href="cachemap-full.php?pt={powerTrailId}&lat={mapCenterLat}&lon={mapCenterLon}&calledFromPt=1" ><img src="images/fullscreen.png" alt="{{fullscreen}}" title="{{fullscreen}}"></a>
             </div>
             <div id="map-canvas"></div>
         </div>
