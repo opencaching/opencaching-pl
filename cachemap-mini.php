@@ -1,5 +1,4 @@
 <?php
-
 use lib\Objects\GeoCache\GeoCache;
 
 /**
@@ -23,21 +22,21 @@ require_once('./lib/cachemap3_common.php');
 // check if user logged in
 handleUserLogged();
 
-$tplname = 'cachemap-mini';
+tpl_set_tplname('cachemap-mini');
+$view = tpl_getView();
 
 // only logged user point of view is supported here
 $mapForUserId = $usr['userid']; // $usr is stored in sessions
 tpl_set_var('userid', $mapForUserId);
 
-
 // first look for cacheId param
-if(isset($_REQUEST['cacheId'])){
+if (isset($_REQUEST['cacheId'])) {
     /** @var GeoCache $geocache **/
     $geocache = GeoCache::fromCacheIdFactory($_REQUEST['cacheId']);
-    if($geocache){
+    if ($geocache) {
         tpl_set_var('coords', $geocache->getCoordinates()->getLatitude() . "," . $geocache->getCoordinates()->getLongitude());
     }
-}else{
+} else {
     // no cacheId - try to look for coords
     if (isset($_REQUEST['lat']) && $_REQUEST['lat'] != "" && isset($_REQUEST['lon']) && $_REQUEST['lon'] != "") {
         // use cords from request
@@ -62,7 +61,8 @@ tpl_set_var('map_type', "0"); // fixed to default map
 
 setCommonMap3Vars();
 
-tpl_set_var('cachemap_mapper', $cachemap_mapper);
+$view->loadJQuery();
+$view->loadGMapApi();
 
 // ...and lest run template in fullscrean mode...
 tpl_BuildTemplate(true, true);

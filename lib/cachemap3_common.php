@@ -237,7 +237,7 @@ function parsePowerTrailFilter($loadDetails = false)
         if ($ptObj->isDataLoaded()) {
             tpl_set_var("pt_filter_enabled", '1', false);
             tpl_set_var("pt_url", $ptObj->getPowerTrailUrl());
-            tpl_set_var("pt_name", $ptObj->getName());
+            tpl_set_var("pt_name", htmlentities($ptObj->getName()));
             tpl_set_var("pt_icon", $ptObj->getFootIcon());
         } else {
             tpl_set_var("pt_filter_enabled", '0', false);
@@ -353,13 +353,11 @@ function setTheRestOfCommonVars()
 
 function setCommonMap3Vars()
 {
-    global $rootpath, $lang, $cachemap_mapper, $googlemap_key; // from global settings.inc.php
+    global $rootpath, $cachemap_mapper; // from global settings.inc.php
 
     tpl_set_var("cachemap_mapper", $cachemap_mapper);
-    /* SET YOUR MAP CODE HERE */
-    tpl_set_var('cachemap_header', '<script src="https://maps.googleapis.com/maps/api/js?v=3.27&amp;key=' . $googlemap_key . '&amp;language=' . $lang . '" '.
-        'type="text/javascript"></script>' .
-        '<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">');
+
+    tpl_set_var('cachemap_header', '<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">');
 
     /*
      * Generate dynamic URL to cachemap3.js file, this will make sure it will be reloaded by the browser.
