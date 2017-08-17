@@ -1,5 +1,6 @@
 <?php
 use lib\Objects\GeoCache\PrintList;
+use Utils\Uri\Uri;
 
 /**
  *
@@ -19,13 +20,15 @@ use lib\Objects\GeoCache\PrintList;
  * @param searchdata + ... -
  *
  */
+
 require_once('./lib/common.inc.php');
 require_once('./lib/cachemap3_common.php');
 
 // check if user logged in
 handleUserLogged();
 
-$tplname = 'cachemap3';
+tpl_set_tplname('cachemap3');
+$view = tpl_getView();
 
 // locate user for which map is displayed
 $mapForUserObj = getMapUserObj();
@@ -35,8 +38,8 @@ tpl_set_var('userid', $mapForUserObj->getUserId());
 parseCordsAndZoom($mapForUserObj);
 
 // parse eventually printList changes
-if(isset($_REQUEST['cacheid'])){
-    PrintList::HandleRequest( $_REQUEST['cacheid']);
+if (isset($_REQUEST['cacheid'])) {
+    PrintList::HandleRequest($_REQUEST['cacheid']);
 }
 
 // parse PowerTrail filter in url
@@ -51,6 +54,10 @@ parseSearchData();
 
 tpl_set_var('username', $mapForUserObj->getUserName());
 setTheRestOfCommonVars();
+
+$view->loadJQuery();
+$view->loadGMapApi();
+$view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/css/cachemap3.css'));
 
 // ...and lest run template...
 tpl_BuildTemplate();

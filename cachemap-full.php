@@ -27,12 +27,12 @@ require_once('./lib/cachemap3_common.php');
 //check if user logged in
 handleUserLogged();
 
-$tplname = 'cachemap-full';
+tpl_set_tplname('cachemap-full');
+$view = tpl_getView();
 
 // locate user for which map is displayed
 $mapForUserObj = getMapUserObj();
 tpl_set_var('userid', $mapForUserObj->getUserId());
-
 
 // parse cords and zoom setings
 parseCordsAndZoom($mapForUserObj);
@@ -55,6 +55,9 @@ parseSearchData();
 tpl_set_var('username', $mapForUserObj->getUserName()); //actually not used in map-full now...
 
 setTheRestOfCommonVars();
+
+$view->loadJQuery();
+$view->loadGMapApi();
 
 //...and lest run template in fullscrean mode...
 tpl_BuildTemplate(true, true);

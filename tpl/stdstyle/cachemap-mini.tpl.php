@@ -28,7 +28,6 @@
 
 <input class="chbox" id="zoom" name="zoom" value="{zoom}" type="hidden" />
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script src="{lib_cachemap3_js}" type="text/javascript"></script>
 <script type="text/javascript">
 
