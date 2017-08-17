@@ -547,7 +547,6 @@ $translations = array(
     'no_log_entries' => 'Er zijn nog geen logs',
     'your_newest_log_entries' => 'Jouw laatste logs',
     'stat_picture' => 'Statistics picture',
-    'show_in_google_maps' => 'Toon in Google maps',
     'download_for_various_apps' => 'download for various applications',
     'download' => 'Download',
     'listing_from_to' => 'Resultaat {startatp1} t/m {endat}',
