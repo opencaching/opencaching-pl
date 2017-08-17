@@ -21,11 +21,11 @@ function addMarker(lat, lon, icon, cache_icon, wp, cache_name, log_id, log_icon,
 
 function initialize() {
 
-    var icon1 = { url: "tpl/stdstyle/images/google_maps/green.png" };
-    var icon2 = { url: "tpl/stdstyle/images/google_maps/red.png" };
-    var icon3 = { url: "tpl/stdstyle/images/google_maps/yellow.png" };
-    var icon4 = { url: "tpl/stdstyle/images/google_maps/yellow.png" };
-    var icon5 = { url: "tpl/stdstyle/images/google_maps/yellow.png" };
+    var icon1 = { url: "tpl/stdstyle/images/log/16x16-found.png" };
+    var icon2 = { url: "tpl/stdstyle/images/log/16x16-dnf.png" };
+    var icon3 = { url: "tpl/stdstyle/images/log/16x16-note.png" };
+    var icon4 = { url: "tpl/stdstyle/images/log/16x16-moved.png" };
+    var icon5 = { url: "tpl/stdstyle/images/log/16x16-need-maintenance.png" };
 
     map0 = new google.maps.Map(
         document.getElementById("map0"),
