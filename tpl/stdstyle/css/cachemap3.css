@@ -1,0 +1,65 @@
+table.cachemap3_header {
+    border: 1px solid #ccc;
+    background: #eee;
+    padding: 3px 6px 3px 8px;
+    font-size: 12px;
+}
+
+table.cachemap3_header #zoom {
+    border: 0;
+    font-weight: bold;
+    font-size: 12px;
+    background: transparent;
+}
+
+table.cachemap3_pt {
+    background: #eee;
+    border: 1px solid #ccc;
+    border-spacing: 0;
+    font-size: 12px;
+    width: 100%;
+    margin: 5px 0px;
+}
+
+table.cachemap3_filters {
+    background: #eee;
+    border: 1px solid #ccc;
+    border-spacing: 0;
+    width: 49%;
+    margin: 0px;
+    font-size: 12px;
+    margin: 5px 0px;
+}
+
+th {
+    background: #888;
+    padding: 3px 8px;
+    font-weight: bold;
+    color: #fff;
+}
+
+td {
+    padding: 2px 4px;
+
+}
+
+.cachemap3_header_icon {
+    width: 32px;
+}
+
+#map_canvas {
+    height: 512px;
+    margin: 5px 0px;
+}
+
+#map_filters {
+    margin: 10px 0px;
+}
+
+.dim {
+    color: #888;
+}
+
+.dim img {
+    opacity: .3;
+}
