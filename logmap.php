@@ -1,40 +1,39 @@
 <?php
-
 use Utils\Database\OcDb;
 use lib\Objects\GeoCache\GeoCacheLog;
+use lib\Objects\OcConfig\OcConfig;
 
-global $dateFormat, $googlemap_key;
 require_once ('./lib/common.inc.php');
 
-//user logged in?
+// Is user logged in?
 if ($usr == false) {
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target=' . $target);
-    exit;
+    exit();
 }
 
-$tplname = 'logmap';
+$view = tpl_getView();
+tpl_set_tplname('logmap');
 
 $db = OcDb::instance();
-$s = $db->simpleQuery(
-    "SELECT `cache_logs`.`id` FROM `cache_logs`, `caches`
-    WHERE `cache_logs`.`cache_id`=`caches`.`cache_id`
-        AND `cache_logs`.`deleted`=0 AND `caches`.`status` IN (1, 2, 3)
-        AND `cache_logs`.`type` IN (1,2,3,4,5)
-    ORDER BY  `cache_logs`.`date_created` DESC
-    LIMIT 100");
+$s = $db->simpleQuery("
+    SELECT `cache_logs`.`id` FROM `cache_logs`, `caches`
+        WHERE `cache_logs`.`cache_id`=`caches`.`cache_id`
+            AND `cache_logs`.`deleted`=0 AND `caches`.`status` IN (1, 2, 3)
+            AND `cache_logs`.`type` IN (1, 2, 3, 4, 5)
+        ORDER BY  `cache_logs`.`date_created` DESC
+        LIMIT 100");
 
-
-$log_ids = $db->dbFetchAllAsObjects($s, function ($row){
+$log_ids = $db->dbFetchAllAsObjects($s, function ($row) {
     return $row['id'];
 });
 
-if(!empty($log_ids)){
+if (! empty($log_ids)) {
 
     $log_ids = implode(',', $log_ids);
 
-    $s = $db->simpleQuery(
-        "SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
+    $s = $db->simpleQuery("
+        SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
                 cache_logs.type AS log_type, cache_logs.date AS log_date,
                 cache_logs.user_id AS luser_id, caches.name AS cache_name,
                 caches.wp_oc AS wp, user.username AS username,
@@ -47,38 +46,32 @@ if(!empty($log_ids)){
             INNER JOIN cache_type ON (caches.type = cache_type.id)
         WHERE cache_logs.deleted=0 AND cache_logs.id IN ( $log_ids )
             AND cache_logs.cache_id=caches.cache_id
-            AND caches.status<> 4 AND caches.status<> 5 AND caches.status<> 6
+            AND caches.status NOT IN (4, 5, 6)
         GROUP BY cache_logs.id
         ORDER BY cache_logs.date_created DESC");
     $point = "";
-    while( $record = $db->dbResultFetch($s) ){
+    while ($record = $db->dbResultFetch($s)) {
         $username = $record['username'];
         $y = $record['longitude'];
         $x = $record['latitude'];
-        $log_date = htmlspecialchars(
-            date($dateFormat, strtotime($record['log_date'])), ENT_COMPAT, 'UTF-8');
+        $log_date = htmlspecialchars(date(OcConfig::instance()->getDateFormat(), strtotime($record['log_date'])), ENT_COMPAT, 'UTF-8');
 
         $cache_name = GeoCacheLog::cleanLogTextForToolTip($record['cache_name']);
-        $point .= "addMarker(" . $x . "," . $y . ",icon" . $record['log_type'] . ",'" .
-                $record['cache_icon_small'] . "','" . $record['wp'] . "','" .
-                addslashes($cache_name) . "','" . $record['id'] . "','" .
-                $record['icon_small'] . "','" . $record['luser_id'] . "','" .
-                addslashes($username) . "','" . $log_date . "');\n";
+        $point .= "addMarker(" . $x . "," . $y . ",icon" . $record['log_type'] .
+            ",'" . $record['cache_icon_small'] . "','" . $record['wp'] .
+            "','" . addslashes($cache_name) . "','" . $record['id'] .
+            "','" . $record['icon_small'] . "','" . $record['luser_id'] .
+            "','" . addslashes($username) . "','" . $log_date . "');\n";
     }
-
-
-}else{ // there is no log_ids...
+} else { // there is no log_ids...
     $point = "";
 }
-/* SET YOUR MAP CODE HERE */
-tpl_set_var('cachemap_header', '<script src="https://maps.googleapis.com/maps/api/js?key=' .
-    $googlemap_key . '&amp;language=' . $lang . '" type="text/javascript"></script>');
+
+$view->loadGMapApi();
 
 tpl_set_var('mapzoom', 6);
 tpl_set_var('points', $point);
-tpl_set_var('mapcenterLat', $main_page_map_center_lat);
-tpl_set_var('mapcenterLon', $main_page_map_center_lon);
-
+tpl_set_var('mapcenterLat', OcConfig::instance()->getMainPageMapCenterLat());
+tpl_set_var('mapcenterLon', OcConfig::instance()->getMainPageMapCenterLon());
 
 tpl_BuildTemplate();
-
