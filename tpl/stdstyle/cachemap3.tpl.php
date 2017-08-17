@@ -17,8 +17,6 @@
     {{user_map}} {username}
   </div>
 
-  <div class="buffer"></div>
-
   <table class="cachemap3_header full-width">
     <tr>
       <td style="width: 50%">
