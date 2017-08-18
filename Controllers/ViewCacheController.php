@@ -3,7 +3,6 @@
 namespace Controllers;
 
 use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\GeoCache\Waypoint;
 use Utils\Gis\Gis;
 use Utils\Log\CacheAccessLog;
@@ -12,7 +11,6 @@ use lib\Objects\GeoCache\OpenChecker;
 use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\GeoCache\PrintList;
 use lib\Controllers\MeritBadgeController;
-use Controllers\ViewCacheController;
 use Utils\Uri\Uri;
 use Utils\Text\Rot13;
 

@@ -1,7 +1,8 @@
 User-agent: *
 Disallow: /ocpl*
-Disallow: /old/
-Disallow: /search.php*
-Disallow: /login.php*
-Disallow: /lib/xmlmap.php*
-Disallow: /lib/mapper_okapi.php*
+Disallow: /search.php
+Disallow: /login.php
+Disallow: /lib/xmlmap.php
+Disallow: /lib/mapper_okapi.php
+Disallow: /util.sec/
+Disallow: /mobile/

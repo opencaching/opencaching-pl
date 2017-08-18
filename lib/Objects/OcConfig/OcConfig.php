@@ -50,6 +50,7 @@ final class OcConfig
     private $cogEmailAddress;
     private $mailSubjectPrefixForSite;
     private $mailSubjectPrefixForReviewers;
+    private $enableCacheAccessLogs;
 
     // db config
     private $dbUser;
@@ -108,6 +109,7 @@ final class OcConfig
         $this->needFindLimit = $NEED_FIND_LIMIT;
         $this->mailSubjectPrefixForSite = $subject_prefix_for_site_mails;
         $this->mailSubjectPrefixForReviewers = $subject_prefix_for_reviewers_mails;
+        $this->enableCacheAccessLogs = $enable_cache_access_logs;
 
         if( isset($config['mapsConfig']) && is_array( $config['mapsConfig'] ) ){
             $this->mapsConfig = $config['mapsConfig'];
@@ -236,6 +238,11 @@ final class OcConfig
     public function isGoogleTranslationEnabled()
     {
         return $this->isGoogleTranslationEnabled;
+    }
+
+    public function isCacheAccesLogEnabled()
+    {
+        return $this->enableCacheAccessLogs;
     }
 
     protected function getMapsConfig()

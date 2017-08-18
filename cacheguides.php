@@ -15,9 +15,6 @@ if ($error == false) {
 
         $tplname = 'cacheguides';
 
-        global $usr;
-        global $get_userid;
-
         $uLat = XDb::xSimpleQueryValue("SELECT `user`.`latitude`  FROM `user` WHERE `user_id`='" . XDb::xEscape($usr['userid']) . "'", 0);
         $uLon = XDb::xSimpleQueryValue("SELECT `user`.`longitude`  FROM `user` WHERE `user_id`='" . XDb::xEscape($usr['userid']) . "'", 0);
 
@@ -42,7 +39,7 @@ if ($error == false) {
                     )
                     OR user.user_id IN (
                         SELECT caches.user_id FROM caches
-                        WHERE (`caches`.`status`=1 OR `caches`.`status`=2 OR `caches`.`status`=3)
+                        WHERE `caches`.`status` IN (1, 2, 3)
                             AND `caches`.`date_created`>DATE_ADD(NOW(), INTERVAL -90 DAY)
                     )
                 )
@@ -58,9 +55,8 @@ if ($error == false) {
             $x = $record['latitude'];
 
             $nrec = XDb::xSql("SELECT COUNT('cache_id') as ncaches, SUM(topratings) as nrecom
-                               FROM caches WHERE `caches`.`type` <> 6 AND caches.status<>4
-                                    AND caches.status<>5
-                                    AND caches.status<>6
+                               FROM caches WHERE `caches`.`type` <> 6
+                                    AND caches.status NOT IN (4, 5, 6)
                                     AND `caches`.`user_id`= ? ", $record['userid']);
             $nr = XDb::xFetchArray($nrec);
             if ($nr['nrecom'] != NULL && $nr['nrecom'] >= 20) {
@@ -74,8 +70,7 @@ if ($error == false) {
 
         XDb::xFreeResults($rscp);
 
-        /* SET YOUR MAP CODE HERE */
-        tpl_set_var('cachemap_header', '<script src="https://maps.googleapis.com/maps/api/js?key=' . $googlemap_key . '&amp;language=' . $lang . '" type="text/javascript"></script>');
+        $view->loadGMapApi();
     }
 }
 
