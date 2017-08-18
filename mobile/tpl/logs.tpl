@@ -7,7 +7,7 @@
 
 
     <div class="big infotitle"><b>{$name}</b></div>
-    {$page} {if $smarty.get.page}{$smarty.get.page}/{$max}{else}1/{$max}{/if}
+    {$page} {if isset($smarty.get.page)}{$smarty.get.page}/{$max}{else}1/{$max}{/if}
 
     {section name=i loop=$logs}
 

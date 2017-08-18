@@ -13,7 +13,7 @@ class CacheAccessLog
 {
 
     const SOURCE_BROWSER = "B";
-    const SOURCE_MOBILE = "B";
+    const SOURCE_MOBILE = "M";
     const SOURCE_OKAPI = "O";
 
     public static function logCacheAccess($cacheId, $userId, $event, $source){
