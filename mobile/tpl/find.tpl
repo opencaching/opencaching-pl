@@ -25,7 +25,7 @@
 
     <form action=".{$action}" method="get" name="form2">
         {$wpt}<br/>
-        <input type="text" name="wp" value="OP"/><br/><br/>
+        <input type="text" name="wp" value="{$oc_waypoint}"/><br/><br/>
         <div class='menu'>
             <div class='button'>
                 <a href='javascript: document.form2.submit()'>{$seek_button}</a>
