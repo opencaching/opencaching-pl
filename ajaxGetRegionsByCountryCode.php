@@ -9,7 +9,7 @@ $db = OcDb::instance();
 $countryCode = addslashes($_REQUEST['countryCode']);
 $selectedRegion = $_REQUEST['selectedRegion'];
 
-$query = "SELECT `code`, `name` FROM `nuts_codes` WHERE `code` LIKE '" . $countryCode . "__' ORDER BY `name` COLLATE utf8_polish_ci ASC";
+$query = "SELECT `code`, `name` FROM `nuts_codes` WHERE `code` LIKE '" . $countryCode . "__' ORDER BY `name` COLLATE utf8_bin ASC";
 $s = $db->simpleQuery($query);
 $regons = $db->dbResultFetchAll($s);
 if (count($regons) == 0) {
@@ -20,7 +20,7 @@ if (count($regons) == 0) {
     }
 } else {
     if (isset($_REQUEST['searchForm']) && $_REQUEST['searchForm'] == 1) {
-        $regionoptions = '<option value="" disabled selected="selected">' . tr('search01') . '</option>';
+        $regionoptions = '<option value="" selected="selected">' . tr('search01') . '</option>';
     } else {
         $regionoptions = '<option value="0" disabled selected="selected">' . tr('select_regions') . '</option>';
     }
@@ -35,4 +35,3 @@ if (count($regons) == 0) {
 }
 
 echo $regionoptions;
-?>
