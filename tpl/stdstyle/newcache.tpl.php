@@ -634,7 +634,7 @@ $view->callChunk('tinyMCE');
         </tr>
         <tr>
             <td colspan="2">
-                <span id="scriptwarning" class="errormsg">{{no_javascript}}</span>
+                <span id="scriptwarning" class="errormsg">{{javascript_edit_info}}</span>
             </td>
         </tr>
         <tr>

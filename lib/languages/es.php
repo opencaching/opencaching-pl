@@ -326,7 +326,7 @@ $translations = array(
     'mandatory_field' => 'La obligación',
     'full_desc_long_text' => 'Pulse aquí información acerca de por qué ukryłeś cuadro se encuentra en este lugar, y <span class="txt-red07"> toda la información necesaria </span> para encontrar la caja. La búsqueda de las cajas debe basarse en el conocimiento de sus coordenadas y el nombre .',
     'description_hint' => 'Trate de describir un breve y conciso, no prescriben la información de la Internet sólo dan un enlace a ellos.',
-    'no_javascript' => 'Apoyo a javascript está deshabilitado en su navegador. Puede introducir sólo texto plano. Para wprawdzić código HTML para el editor, necesita habilitar Javascript.',
+    'no_javascript' => 'Apoyo a javascript está deshabilitado en su navegador.',
     'html_usage' => 'Por favor, sólo usar etiquetas HTML para dar formato a texto.',
     'available_html' => 'La lista de etiquetas HTML',
     'additional_enc_info' => '<font color=\"red\"> <b> adicional </font> información codificada </b>. <i> campo opcional </i>. Aquí usted puede poner información adicional para ayudar a encontrar un buzón de correo. Información sin que el buzón de correo para encontrar que no será posible, deben incluirse en la "descripción completa".',

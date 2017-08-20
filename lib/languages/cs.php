@@ -328,7 +328,7 @@ $translations = array(
     'mandatory_field' => 'Povinný',
     'full_desc_long_text' => 'Zadejte zde informace o tom, proč ukryłeś box je na tomto místě, a <span class="txt-red07"> všechny nezbytné informace, </span> najít krabici. Hledání v boxech se musí opírat o poznatky z jeho souřadnice a jméno.',
     'description_hint' => 'Zkuste popsat krátké a stručné, nepředepisují informace z internetu pouze odkaz na ně.',
-    'no_javascript' => 'JavaScriptu je v současné době ve vašem prohlížeči deaktivován. Můžete zadat pouze prostý text. Chcete-li wprawdzić HTML kód pro textový editor, musíte povolit Javascript.',
+    'no_javascript' => 'JavaScriptu je v současné době ve vašem prohlížeči deaktivován.',
     'html_usage' => 'Prosím pouze používat HTML tagy do formátu text.',
     'available_html' => 'Tento seznam je k dispozici HTML tagy',
     'additional_enc_info' => '<font color="red"> <b> Additional </font> kódované informace. </b> <i> volitelné oblasti </i>. Zde si můžete dát další informace, které pomohou najít schránku. Informace, bez nichž schránky najít to nebude možné, musí být zahrnuta do "úplný popis."',
