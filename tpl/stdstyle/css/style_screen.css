@@ -496,7 +496,7 @@ table.bs-table td > a:hover {
 }
 
 .table-striped>tbody>tr:nth-of-type(odd) {
-    background-color: #f9f9f9;
+    background-color: #f0f0f0;
 }
 .bs-table>tbody>tr>td, .bs-table>tbody>tr>th, .bs-table>tfoot>tr>td, .bs-table>tfoot>tr>th, .bs-table>thead>tr>td, .bs-table>thead>tr>th {
     padding: 4px 8px;
@@ -980,7 +980,7 @@ div.viewcache_log-content * {
     }
 
 div#main-cachemap-block                 { width: 265px; margin-top: 80px; }
-div#local-cachemap-block                { width: 365px; margin-top: 29px; }
+div#local-cachemap-block                { width: 365px; margin-top: 7px; }
 #viewprofile-table td                   { width: 260px; }
 p.main-totalstats                       { font-weight: bold; }
 
@@ -1305,34 +1305,15 @@ td.myr{
 /*              Tabele w myneighborhood    jg-geo(at)pwr.pl                              */
 /* ===================================================================================== */
 
-table.myneighborhood {
-    width: auto;
-    margin: 9px;
-    border-collapse: collapse;
-    font-size: 11px;
-}
 td.myneighborhood {
     padding: 3px;
-    vertical-align: middle;
-}
-td.tab_icon {
-    width:17px;
-}
-td.tab_arrow {
-    width:21px;
+    font-size: 12px;
 }
 td.tab_date {
-    width: 61px;
+    white-space: nowrap;
 }
 td.tab_user {
-    width: 122px;
-}
-
-table.myneighborhood tbody tr:nth-child(even) {
-    background: #FCFCFC;
-}
-table.myneighborhood tbody tr:nth-child(odd) {
-    background: #F0F0F0;
+    width: 20%;
 }
 
 /* This is a red/green frame, like this one: http://i.imgur.com/xHpnKD7.png */

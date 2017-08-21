@@ -1,6 +1,4 @@
-<?php
-
-?>
+<?php ?>
 <script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
 <script type="text/javascript">
     var map_image_cache;
@@ -27,74 +25,64 @@
     function Unlite() {
         document.getElementById('main-cachemap').src = map_image_cache[-1].src;
     }
-
 </script>
 
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/home.png" class="icon32" alt="" title="">&nbsp;
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/home.png" class="icon32" alt="">
     {{my_neighborhood_radius}}
-    {distance} km
+    {distance} {distance_unit}
 </div>
-<!-- Text container -->
+
+<div class="content2-container">
 {info}
-<div class="content2-container line-box">
-    <div class="content2-container-2col-left" id="local-caches-area">
-        <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="Cache">&nbsp;
-            {{newest_caches}}
-        </p>
-        <div class="content-txtbox-noshade">
-            {new_caches}
-            {more_caches}
-            <br/><br/>
-        </div>
-    </div>
-    <br />
-    <div class="content2-container-2col-right" id="local-cachemap-block">
-        <div class="img-shadow">
-            {local_cache_map}
-        </div>
-    </div>
-    <br />
-    <div class="content2-container-2col-left" id="local-events-area">
-        <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="" title="Event">&nbsp;
-            {{incomming_events}}
-        </p>
-        {new_events}
-    </div>
-    <br />
-    <div class="content2-container-2col-left local-logs-area">
-        <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="Event">&nbsp;
-            {{ftf_awaiting}}
-        </p>
-        {ftf_caches}
-        {more_ftf}
-        <br/>
-    </div>
-    <br />
-    <div class="content2-container-2col-left" id="local-logs-area">
-        <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="Event">&nbsp;
-            {{latest_logs}}
-        </p>
-        {new_logs}
-        {more_logs}
-        <br/><br/>
-    </div>
-    <br />
+  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="">
+    {{newest_caches}}
+  </p>
 
-        <div class="content2-container-2col-left" id="cacheTitled" style="display: {ptDisplay};">
-        {Title_titledCaches}
-        {titledCaches}
-        {more_titledCaches}
-        {End_titledCaches}
+  <div class="content2-container-2col-left" id="local-caches-area">
+    <div class="content-txtbox-noshade">
+      {new_caches}
+      {more_caches}
+   </div>
+  </div>
+  <div class="content2-container-2col-right" id="local-cachemap-block">
+    <div class="img-shadow">
+      {local_cache_map}
     </div>
+  </div>
+</div>
 
+<div class="content2-container">
+  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="">
+    {{incomming_events}}
+  </p>
+  {new_events}
 
-    <div class="content2-container-2col-left local-logs-area">
-        <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/recommendation.png" class="icon32" alt="" title="Event">&nbsp;
-            {{top_recommended}}
-        </p>
-        {top_caches}
-        {more_topcaches}
-        <br/><br/>
-    </div>
-    <br />
+  <div class="buffer"></div>
+  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="">
+    {{ftf_awaiting}}
+  </p>
+  {ftf_caches}
+  {more_ftf}
+
+  <div class="buffer"></div>
+  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="">
+    {{latest_logs}}
+  </p>
+  {new_logs}
+  {more_logs}
+
+  <div id="cacheTitled" style="display: {ptDisplay};">
+  <div class="buffer"></div>
+    {Title_titledCaches}
+    {titledCaches}
+    {more_titledCaches}
+  </div>
+
+  <div class="buffer"></div>
+  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/recommendation.png" class="icon32" alt="">
+    {{top_recommended}}
+  </p>
+  {top_caches}
+  {more_topcaches}
+  <div class="buffer"></div>
 </div>
