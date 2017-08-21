@@ -249,6 +249,7 @@ class User extends BaseObject
                     break;
                 case 'notify_radius':
                     $this->notifyRadius = $value;
+                    break;
                 case 'admin':
                     $this->isAdmin = Php7Handler::Boolval($value);
                     break;
