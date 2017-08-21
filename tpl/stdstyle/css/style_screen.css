@@ -1311,7 +1311,7 @@ td.myneighborhood {
 }
 td.tab_date {
     white-space: nowrap;
-    max-width: 20%;
+    width: 10%;
 }
 td.tab_icon
 {
