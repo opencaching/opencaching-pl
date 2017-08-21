@@ -30,6 +30,7 @@ class User extends BaseObject
 
     /* @var $homeCoordinates Coordinates */
     private $homeCoordinates;
+    private $notifyRadius;
 
     private $country;
 
@@ -76,7 +77,8 @@ class User extends BaseObject
 
     const COMMON_COLLUMNS = "user_id, username, founds_count, notfounds_count,
                        hidden_count, latitude, longitude, country,
-                       email, admin, guru, verify_all, rules_confirmed";
+                       email, admin, guru, verify_all, rules_confirmed,
+                       notify_radius";
 
     /**
      * construct class using $userId (fields will be loaded from db)
@@ -245,6 +247,8 @@ class User extends BaseObject
                     // lat|lon are handling below
                     $cordsPresent = true;
                     break;
+                case 'notify_radius':
+                    $this->notifyRadius = $value;
                 case 'admin':
                     $this->isAdmin = Php7Handler::Boolval($value);
                     break;
@@ -386,6 +390,15 @@ class User extends BaseObject
     public function getHomeCoordinates()
     {
         return $this->homeCoordinates;
+    }
+
+    /**
+     *
+     * @return integer
+     */
+    public function getNotifyRadius()
+    {
+        return $this->notifyRadius;
     }
 
     /**

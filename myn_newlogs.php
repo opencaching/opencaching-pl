@@ -3,23 +3,26 @@
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCacheLog;
 use Utils\Gis\Gis;
+use lib\Objects\ApplicationContainer;
 
-global $lang, $rootpath, $usr, $dateFormat;
+const ITEMS_PER_PAGE = 50;
+
+global $rootpath, $usr;
 
 if (!isset($rootpath))
     $rootpath = '';
 
 require_once($rootpath . 'lib/common.inc.php');
 require_once($rootpath . 'lib/calculation.inc.php');
-
-require_once($rootpath . 'lib/cache_icon.inc.php');
 require_once __DIR__ . '/lib/myn.inc.php';
 require_once($stylepath . '/lib/icons.inc.php');
 
-//Preprocessing
-if ($error == false) {
-    //get the news
-    $tplname = 'myn_newlogs';
+if ($usr == false) {
+    $target = urlencode(tpl_get_current_page());
+    tpl_redirect('login.php?target=' . $target);
+} else {
+    $applicationContainer = ApplicationContainer::Instance();
+    tpl_set_tplname('myn_newlogs');
     require($stylepath . '/newlogs.inc.php');
 
     $LOGS_PER_PAGE = 50;
@@ -59,49 +62,39 @@ if ($error == false) {
     //get user record
     $user_id = $usr['userid'];
 
-    //TODO: why not in oen query!
-    $latitude = XDb::xMultiVariableQueryValue(
-        "SELECT `latitude` FROM user WHERE user_id= :1 LIMIT 1", 0, $usr['userid']);
-
-    $longitude = XDb::xMultiVariableQueryValue(
-        "SELECT `longitude` FROM user WHERE user_id= :1 LIMIT 1", 0, $usr['userid']);
+    $latitude = $applicationContainer->getLoggedUser()->getHomeCoordinates()->getLatitude();
+    $longitude = $applicationContainer->getLoggedUser()->getHomeCoordinates()->getLongitude();
 
     tpl_set_var('userid', $user_id);
 
-    if (($longitude == NULL && $latitude == NULL) || ($longitude == 0 && $latitude == 0)) {
-        tpl_set_var('info', '<br><div class="notice" style="line-height: 1.4em;font-size: 120%;"><b>' . tr("myn_info") . '</b></div><br>');
+    if ($longitude == NULL || $latitude == NULL || ($longitude == 0 && $latitude == 0)) {
+        tpl_set_var('info', '<div class="notice">' . tr("myn_info") . '</div>');
     } else {
         tpl_set_var('info', '');
     }
 
-    if ($latitude == NULL || $latitude == 0)
-        $latitude = 52.24522;
-    if ($longitude == NULL || $longitude == 0)
-        $longitude = 21.00442;
+    if ($latitude == NULL || $latitude == 0) {
+        $latitude = $applicationContainer->getOcConfig()->getMainPageMapCenterLat();
+    }
+    if ($longitude == NULL || $longitude == 0) {
+        $longitude = $applicationContainer->getOcConfig()->getMainPageMapCenterLon();
+    }
 
-    $distance = XDb::xMultiVariableQueryValue(
-        "SELECT `notify_radius` FROM user WHERE user_id= :1 LIMIT 1", 0, $usr['userid']);
-
+    $distance = $applicationContainer->getLoggedUser()->getNotifyRadius();
     if ($distance == 0)
         $distance = 35;
-
-    $distance_unit = 'km';
-    $radius = $distance;
-    //get the users home coords
-    $lat = $latitude;
-    $lon = $longitude;
-
 
     //all target caches are between lat - max_lat_diff and lat + max_lat_diff
     $max_lat_diff = Gis::distanceInDegreesLat($distance);
     //all target caches are between lon - max_lon_diff and lon + max_lon_diff
     //TODO: check!!!
-    $max_lon_diff = Gis::distanceInDegreesLon($distance, $lat);
+    $max_lon_diff = Gis::distanceInDegreesLon($distance, $latitude);
 
     XDb::xSql('DROP TEMPORARY TABLE IF EXISTS local_caches' . $user_id . '');
+    
     XDb::xSql('CREATE TEMPORARY TABLE local_caches' . $user_id . ' ENGINE=MEMORY
         SELECT
-            (' . getSqlDistanceFormula($lon, $lat, $distance, 1) . ')   AS `distance`,
+            (' . getSqlDistanceFormula($longitude, $latitude, $distance, 1) . ')   AS `distance`,
             `caches`.`cache_id`                                         AS `cache_id`,
             `caches`.`wp_oc`                                            AS `wp_oc`,
             `caches`.`type`                                             AS `type`,
@@ -117,12 +110,11 @@ if ($error == false) {
             `caches`.`user_id`                                          AS `user_id`
         FROM `caches`
         WHERE `caches`.`cache_id` NOT IN (SELECT `cache_ignore`.`cache_id` FROM `cache_ignore` WHERE `cache_ignore`.`user_id`=\'' . $user_id . '\')
-            AND caches.status<>4 AND caches.status<>5
-            AND caches.status <>6
-            AND `longitude` > ' . ($lon - $max_lon_diff) . '
-            AND `longitude` < ' . ($lon + $max_lon_diff) . '
-            AND `latitude` > ' . ($lat - $max_lat_diff) . '
-            AND `latitude` < ' . ($lat + $max_lat_diff) . '
+            AND caches.status NOT IN (4, 5, 6)
+            AND `longitude` > ' . ($longitude - $max_lon_diff) . '
+            AND `longitude` < ' . ($longitude + $max_lon_diff) . '
+            AND `latitude` > ' . ($latitude - $max_lat_diff) . '
+            AND `latitude` < ' . ($latitude + $max_lat_diff) . '
         HAVING `distance` < ' . $distance);
 
     XDb::xSql(
@@ -141,9 +133,6 @@ if ($error == false) {
         FROM `cache_logs`, local_caches' . $user_id . '
         WHERE `cache_logs`.`cache_id`=local_caches' . $user_id . '.cache_id
             AND `cache_logs`.`deleted`=0
-            AND local_caches' . $user_id . '.`status` != 4
-            AND local_caches' . $user_id . '.`status` != 5
-            AND local_caches' . $user_id . '.`status` != 6
         ORDER BY  `cache_logs`.`date_created` DESC
         LIMIT ' . intval($start) . ', ' . intval($LOGS_PER_PAGE));
 
@@ -194,7 +183,6 @@ if ($error == false) {
 
 
         $tr_myn_click_to_view_cache = tr('myn_click_to_view_cache');
-        $bgColor = '#eeeeee';
         //PowerTrail vel GeoPath variables
         $pt_cache_intro_tr = tr('pt_cache'); //set to call tr only once  (not for all caches)
         $pt_icon_title_tr = tr('pt139'); //set to call tr only once  (not for all caches)
@@ -206,40 +194,31 @@ if ($error == false) {
           ); */
 
         while( $log_record = XDb::xFetchArray($rs)){
-            if ($bgColor == '#eeeeee')
-                $bgColor = '#ffffff';
-            else
-                $bgColor = '#eeeeee';
-            $file_content .= '<tr bgcolor="' . $bgColor . '">';
-            $file_content .= '<td style="width: 70px;">' . htmlspecialchars(date($dateFormat, strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
+            $file_content .= '<tr>';
+            $file_content .= '<td style="white-space: nowrap">' . htmlspecialchars(date($applicationContainer->getOcConfig()->getDateFormat(), strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
 
             if ($log_record['geokret_in'] != '0') {
-                $file_content .= '<td width="22">&nbsp;<img src="images/gk.png" border="0" alt="" title="GeoKret" /></td>';
+                $file_content .= '<td><img src="images/gk.png" alt="{{geokret}}" title="{{geokret}}"></td>';
             } else {
-                $file_content .='<td width="22">&nbsp;</td>';
+                $file_content .='<td></td>';
             }
             //$rating_picture
             if ($log_record['recommended'] == 1 && $log_record['log_type'] == 1) {
-                $file_content .= '<td width="22"><img src="images/rating-star.png" border="0" alt="" title="Rekomendacja" /></td>';
+                $file_content .= '<td><img src="images/rating-star.png" alt="{{recommended}}" title="{{recommended}}"></td>';
             } else {
-                $file_content .= '<td width="22">&nbsp;</td>';
+                $file_content .= '<td></td>';
             }
 
             // PowerTrail vel GeoPath icon
             if (isset($log_record['PT_ID'])) {
-                $file_content .='<td width="22">';
+                $file_content .='<td>';
                 $PT_icon = icon_geopath_small($log_record['PT_ID'], $log_record['PT_image'], $log_record['PT_name'], $log_record['PT_type'], $pt_cache_intro_tr, $pt_icon_title_tr);
                 $file_content .=$PT_icon . '</td>';
             } else {
-                $file_content .= '<td width="22">&nbsp;</td>';
+                $file_content .= '<td></td>';
             }
 
-
             $cacheicon = myninc::checkCacheStatusByUser($log_record, $user_id);
-
-            $file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" /></td>';
-            $file_content .= '<td width="22" ><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="' . $cacheicon . '" border="0" alt="' . $tr_myn_click_to_view_cache . '" title="' . $tr_myn_click_to_view_cache . '" /></a></td>';
-            $file_content .= '<td><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($log_record['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
 
             // ukrywanie autora komentarza COG przed zwykłym userem
             // (Łza)
@@ -247,12 +226,16 @@ if ($error == false) {
                 $log_record['user_id'] = '0';
                 $log_record['user_name'] = tr('cog_user_name');
             }
-            // koniec ukrywania autora komentarza COG przed zwykłym userem
+
+            $file_content .= '<td><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" alt=""></td>';
+            $file_content .= '<td><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="' . $cacheicon . '" alt="' . $tr_myn_click_to_view_cache . '" title="' . $tr_myn_click_to_view_cache . '"></a></td>';
+            $file_content .= '<td><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($log_record['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
+
 
             $file_content .= '<b>' . $log_record['user_name'] . '</b>:<br>';
             $file_content .= GeoCacheLog::cleanLogTextForToolTip( $log_record['log_text'] );
-            $file_content .= '\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
-            $file_content .= '<td><b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($log_record['xuser_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
+            $file_content .= '\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></td>';
+            $file_content .= '<td><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($log_record['xuser_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8') . '</a></td>';
             $file_content .= "</tr>";
         }
     }
@@ -270,14 +253,5 @@ if ($error == false) {
     tpl_set_var('pages', $pages);
 }
 
-function cmp($a, $b)
-{
-    if ($a == $b) {
-        return 0;
-    }
-    return ($a > $b) ? 1 : -1;
-}
-
 //make the template and send it out
 tpl_BuildTemplate();
-

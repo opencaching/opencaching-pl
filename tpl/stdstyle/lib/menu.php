@@ -470,14 +470,7 @@ $menu = array(
                 'menustring' => tr('my_neighborhood'),
                 'visible' => true,
                 'filename' => 'myneighborhood.php',
-                'siteid' => 'myneighborhood'
-            ),
-            array(
-                'title' => tr('my_neighborhood'),
-                'menustring' => tr('my_neighborhood_v2'),
-                'visible' => false,
-                'filename' => 'myneighborhood_jg.php',
-                'siteid' => 'myneighborhood_jg'
+                'siteid' =>  'myneighborhood'
             ),
             array(
                 'title' => tr('myroutes'),
@@ -515,18 +508,25 @@ $menu = array(
                 'siteid' => 'myn_newlogs'
             ),
             array(
-                'title' => tr('new_logs'),
-                'menustring' => tr('new_logs'),
+                'title' => tr('new_caches_myn'),
+                'menustring' => tr('new_caches_myn'),
                 'visible' => false,
                 'filename' => 'myn_newcaches.php',
                 'siteid' => 'myn_newcaches'
             ),
             array(
-                'title' => tr('new_logs'),
-                'menustring' => tr('new_logs'),
+                'title' => tr('top_recommended'),
+                'menustring' => tr('top_recommended'),
                 'visible' => false,
                 'filename' => 'myn_newcaches.php',
                 'siteid' => 'myn_topcaches'
+            ),
+            array(
+                'title' => tr('ftf_awaiting'),
+                'menustring' => tr('ftf_awaiting'),
+                'visible' => false,
+                'filename' => 'myn_ftf.php',
+                'siteid' => 'myn_ftf'
             ),
             array(
                 'title' => tr('my_account'),

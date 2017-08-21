@@ -324,7 +324,7 @@ $translations = array(
     'mandatory_field' => 'Detta fält är obligatoriskt',
     'full_desc_long_text' => 'Skriv t.ex. varför du har gömt en cache här. Tänk på att det ska gå att hitta cachen med bara dess koordinater och denna beskrivning, så ange all nödvändig information här.',
     'description_hint' => 'Ange kort och koncis beskrivning. Ta inte med det som redan finns på internet, skriv en länk till det istället.',
-    'no_javascript' => 'Din webbläsare stöder för närvarande inte Javascript. Du kan bara skriva in vanlig text. För att använda HTML-editor måste du aktivera Javascript.',
+    'no_javascript' => 'Din webbläsare stöder för närvarande inte Javascript.',
     'html_usage' => 'Använd HTML-taggar endast för att formatera texten.',
     'available_html' => 'Lista över tillgängliga HTML-taggar',
     'additional_enc_info' => '<b><font color="red">Ytterligare</font> krypterad ledtråd.</b> <i>inte ett obligatoriskt fält</i>. Du kan lämna ytterligare tips här. Nödvändig information för att hitta en cache måste skrivas i "Fullständig beskrivning"-fältet.',

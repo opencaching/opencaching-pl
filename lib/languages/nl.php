@@ -353,7 +353,7 @@ $translations = array(
     'mandatory_field' => 'Dit veld is verplicht',
     'full_desc_long_text' => 'Beschrijf hier waarom deze cache geplaatst is en bedenk ook dat dat de cache met de coordinaten en beschrijving te vinden moet zijn. Geef dus alle mogelijke informatie weer.',
     'short_desc_long_text' => 'Geef hier een korte omschrijving van de cache. <br />Gebruik bijvoorbeeld de naam van het gebied of het onderwerp van de cache.',
-    'no_javascript' => 'Je Browser ondersteunt nog geen Javascript. Je kunt alleen gewone tekst gebruiken.Om de HTML editor te gebruiken die je Javascript in te schakelen.',
+    'no_javascript' => 'Je Browser ondersteunt nog geen Javascript.',
     'html_usage' => 'Gebruik HTML tags voor het bewerken van tekst.',
     'available_html' => 'Beschikbare HTML tags lijst',
     'hint_long_text' => '<b><span style="color:red">Extra</span> versleutelde hint.</b> <i>Geen verplicht veld</i>. Hier kun een een extra hint toevoegen. Informatie om de cache normaal te kunnen vinden dient in de "Omschrijving" beschreven te staan.',

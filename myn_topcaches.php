@@ -1,24 +1,25 @@
 <?php
 
 use Utils\Database\XDb;
-use lib\Objects\GeoCache\GeoCacheLog;
 use Utils\Gis\Gis;
+use lib\Objects\ApplicationContainer;
+use lib\Objects\GeoCache\GeoCacheLog;
 
-global $lang, $rootpath, $usr, $dateFormat;
+const ITEMS_PER_PAGE = 50;
+
+global $rootpath, $usr;
 
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 require_once('./lib/calculation.inc.php');
-
-require_once('./lib/cache_icon.inc.php');
-require_once($rootpath . 'lib/caches.inc.php');
 require_once($stylepath . '/lib/icons.inc.php');
 
-//Preprocessing
-if ($error == false) {
-    //get the news
-    $tplname = 'myn_topcaches';
-//      require('tpl/stdstyle/newcaches.inc.php');
+if ($usr == false) {
+    $target = urlencode(tpl_get_current_page());
+    tpl_redirect('login.php?target=' . $target);
+} else {
+    $applicationContainer = ApplicationContainer::Instance();
+    tpl_set_tplname('myn_topcaches');
     require($stylepath . '/newcaches.inc.php');
 
     $startat = isset($_REQUEST['startat']) ? $_REQUEST['startat'] : 0;
@@ -32,26 +33,24 @@ if ($error == false) {
     //get user record
     $user_id = $usr['userid'];
     tpl_set_var('userid', $user_id);
-    $latitude = XDb::xMultiVariableQueryValue(
-        "SELECT `latitude` FROM user WHERE user_id= :1 ", 0, $usr['userid']);
 
-    $longitude = XDb::xMultiVariableQueryValue(
-        "SELECT `longitude` FROM user WHERE user_id= :1 ", 0, $usr['userid']);
+    $latitude = $applicationContainer->getLoggedUser()->getHomeCoordinates()->getLatitude();
+    $longitude = $applicationContainer->getLoggedUser()->getHomeCoordinates()->getLongitude();
 
     if (($longitude == NULL && $latitude == NULL) || ($longitude == 0 && $latitude == 0)) {
-        tpl_set_var('info', '<br><div class="notice" style="line-height: 1.4em;font-size: 120%;"><b>' . tr("myn_info") . '</b></div><br>');
+        tpl_set_var('info', '<div class="notice">' . tr("myn_info") . '</div>');
     } else {
         tpl_set_var('info', '');
     }
 
-    if ($latitude == NULL || $latitude == 0)
-        $latitude = 52.24522;
-    if ($longitude == NULL || $longitude == 0)
-        $longitude = 21.00442;
+    if ($latitude == NULL || $latitude == 0){
+        $latitude = $applicationContainer->getOcConfig()->getMainPageMapCenterLat();
+    }
+    if ($longitude == NULL || $longitude == 0){
+        $longitude = $applicationContainer->getOcConfig()->getMainPageMapCenterLon();
+    }
 
-    $distance = XDb::xMultiVariableQueryValue(
-        "SELECT `notify_radius` FROM user WHERE user_id= :1 ", 0, $usr['userid']);
-
+    $distance = $applicationContainer->getLoggedUser()->getNotifyRadius();
     if ($distance == 0)
         $distance = 35;
     $distance_unit = 'km';
@@ -72,44 +71,31 @@ if ($error == false) {
                                         SELECT
                                             (' . getSqlDistanceFormula($lon, $lat, $distance) . ') AS `distance`,
                                             `caches`.`cache_id` AS `cache_id`,
-                                            `caches`.`wp_oc` AS `wp_oc`,
                                             `caches`.`type` AS `type`,
                                             `caches`.`name` AS `name`,
-                                            `caches`.`longitude` `longitude`,
-                                            `caches`.`latitude` `latitude`,
                                             `caches`.`date_hidden` `date_hidden`,
-                                            `caches`.`date_created` `date_created`,
-                                            `caches`.`country` `country`,
-                                            `caches`.`difficulty` `difficulty`,
-                                            `caches`.`terrain` `terrain`,
                                             `caches`.`status` `status`,
                                             `caches`.`user_id` `user_id`
                                         FROM `caches`
-                                        WHERE `caches`.`cache_id` NOT IN (SELECT `cache_ignore`.`cache_id` FROM `cache_ignore` WHERE `cache_ignore`.`user_id`=\'' . $user_id . '\')  AND caches.status<>4 AND caches.status<>5 AND caches.status <>6
+                                        WHERE `caches`.`cache_id` NOT IN (SELECT `cache_ignore`.`cache_id` FROM `cache_ignore` WHERE `cache_ignore`.`user_id`=\'' . $user_id . '\')
+                                            AND caches.status NOT IN (4, 5, 6)
+                                            AND `caches`.`type`!=6
+                                            AND `caches`.`status`=1
                                             AND `longitude` > ' . ($lon - $max_lon_diff) . '
                                             AND `longitude` < ' . ($lon + $max_lon_diff) . '
                                             AND `latitude` > ' . ($lat - $max_lat_diff) . '
                                             AND `latitude` < ' . ($lat + $max_lat_diff) . '
                                         HAVING `distance` < ' . $distance);
     XDb::xSql('ALTER TABLE local_caches' . $user_id . ' ADD PRIMARY KEY ( `cache_id` ),
-               ADD INDEX(`cache_id`), ADD INDEX (`wp_oc`), ADD INDEX(`type`), ADD INDEX(`name`), ADD INDEX(`user_id`), ADD INDEX(`date_hidden`), ADD INDEX(`date_created`)');
-
+               ADD INDEX(`cache_id`), ADD INDEX(`type`), ADD INDEX(`name`), ADD INDEX(`user_id`), ADD INDEX(`date_hidden`)');
 
     $file_content = '';
     $rs = XDb::xSql(
-        'SELECT `user`.`user_id` `userid`,
-                `user`.`username` `username`,
-                `caches`.`cache_id` `cacheid`,
+        'SELECT `user`.`username` `username`,
                 `caches`.`cache_id` `cache_id`,
                 `caches`.`user_id` `user_id`,
                 `caches`.`name` `cachename`,
-                `caches`.`longitude` `longitude`,
-                `caches`.`latitude` `latitude`,
                 `caches`.`date_hidden` `date`,
-                `caches`.`date_created` `date_created`,
-                `caches`.`country` `country`,
-                `caches`.`difficulty` `difficulty`,
-                `caches`.`terrain` `terrain`,
                 `caches`.`type` `cache_type`,
                 `cache_type`.`icon_large` `icon_large`,
                 count(`cache_rating`.`cache_id`) `toprate`,
@@ -122,9 +108,7 @@ if ($error == false) {
             LEFT JOIN `cache_rating` ON (`caches`.`cache_id`=`cache_rating`.`cache_id`)
             LEFT JOIN `powerTrail_caches` ON `caches`.`cache_id` = `powerTrail_caches`.`cacheId`
             LEFT JOIN `PowerTrail` ON (`PowerTrail`.`id` = `powerTrail_caches`.`PowerTrailId`  AND `PowerTrail`.`status` = 1), `cache_type`
-        WHERE `caches`.`type`!=6
-             AND `cache_rating`.`cache_id`=`caches`.`cache_id`
-              AND `caches`.`status`=1
+        WHERE `cache_rating`.`cache_id`=`caches`.`cache_id`
               AND `caches`.`type`=`cache_type`.`id`
               GROUP BY `caches`.`cache_id`
             ORDER BY `toprate` DESC, `caches`.`name` ASC LIMIT  ' . ($startat + 0) . ', ' . ($perpage + 0));
@@ -136,21 +120,20 @@ if ($error == false) {
 
     while ($r = XDb::xFetchArray($rs)) {
         $file_content .= '<tr>';
-        $file_content .= '<td style="width: 90px;">' . date($dateFormat, strtotime($r['date'])) . '</td>';
-        $file_content .= '<td style="width: 22px;"><span style="font-weight:bold;color: green;">' . $r['toprate'] . '</span></td>';
+        $file_content .= '<td style="white-space: nowrap">' . date($applicationContainer->getOcConfig()->getDateFormat(), strtotime($r['date'])) . '</td>';
+        $file_content .= '<td>' . $r['toprate'] . '</td>';
         $cacheicon = myninc::checkCacheStatusByUser($r, $usr['userid']);
 
-        //$file_content .= '<td width="22">&nbsp;<img src="tpl/stdstyle/images/' .getSmallCacheIcon($r['icon_large']) . '" border="0" alt=""/></td>';
         // PowerTrail vel GeoPath icon
         if (isset($r['PT_ID'])) {
             $PT_icon = icon_geopath_small($r['PT_ID'], $r['PT_image'], $r['PT_name'], $r['PT_type'], $pt_cache_intro_tr, $pt_icon_title_tr);
         } else {
-            $PT_icon = '<img src="images/rating-star-empty.png" class="icon16" alt="" title="" />';
+            $PT_icon = '<img src="images/rating-star-empty.png" class="icon16" alt="">';
         };
-        $file_content .= '<td width="22">' . $PT_icon . '</td>';
-        $file_content .= '<td width="22">&nbsp;<a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cacheid'], ENT_COMPAT, 'UTF-8') . '"><img src="' . $cacheicon . '" border="0" alt="' . $tr_myn_click_to_view_cache . '" title="' . $tr_myn_click_to_view_cache . '" /></a></td>';
-        $file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cacheid'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
-        $file_content .= '<td width="32"><b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r['userid'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
+        $file_content .= '<td>' . $PT_icon . '</td>';
+        $file_content .= '<td><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="' . $cacheicon . '" border="0" alt="' . $tr_myn_click_to_view_cache . '" title="' . $tr_myn_click_to_view_cache . '" /></a></td>';
+        $file_content .= '<td><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8') . '</a></td>';
+        $file_content .= '<td><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8') . '</a></td>';
 
         $rs_log = XDb::xSql(
             "SELECT cache_logs.id AS id, cache_logs.cache_id AS cache_id,
@@ -161,33 +144,24 @@ if ($error == false) {
                     cache_logs.user_id AS luser_id,
                     user.username AS user_name,
                     user.user_id AS user_id,
-                    log_types.icon_small AS icon_small,
-                    COUNT(gk_item.id) AS geokret_in
+                    log_types.icon_small AS icon_small
             FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id))
                 INNER JOIN user ON (cache_logs.user_id = user.user_id)
                 INNER JOIN log_types ON (cache_logs.type = log_types.id)
-                LEFT JOIN gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
-                LEFT JOIN gk_item ON gk_item.id = gk_item_waypoint.id
-                    AND gk_item.stateid<>1 AND gk_item.stateid<>4
-                    AND gk_item.typeid<>2 AND gk_item.stateid !=5
             WHERE cache_logs.deleted=0 AND cache_logs.cache_id= ?
             GROUP BY cache_logs.id
-            ORDER BY cache_logs.date_created DESC LIMIT 1", $r['cacheid']);
-
+            ORDER BY cache_logs.date_created DESC LIMIT 1", $r['cache_id']);
 
         if($r_log = XDb::xFetchArray($rs_log)){
-
-            $file_content .= '<td style="width: 80px;">' . htmlspecialchars(date($dateFormat, strtotime($r_log['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
-
-            $file_content .= '<td width="22"><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($r_log['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
-
+            $file_content .= '<td style="white-space: nowrap">' . htmlspecialchars(date($applicationContainer->getOcConfig()->getDateFormat(), strtotime($r_log['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
+            $file_content .= '<td><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($r_log['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
             $file_content .= '<b>' . $r_log['user_name'] . '</b>:<br>';
             $file_content .= GeoCacheLog::cleanLogTextForToolTip( $r_log['log_text'] );
-            $file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"><img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt=""/></a></b></td>';
-            $file_content .= '<td>&nbsp;&nbsp;<b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r_log['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r_log['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
+            $file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"><img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" alt=""></a></td>';
+            $file_content .= '<td><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r_log['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r_log['user_name'], ENT_COMPAT, 'UTF-8') . '</a></td>';
         }
-        XDb::xFreeResults($rs_log);
         $file_content .= "</tr>";
+        XDb::xFreeResults($rs_log);
     }
     XDb::xFreeResults($rs);
     tpl_set_var('file_content', $file_content);
@@ -236,4 +210,3 @@ if ($error == false) {
 
 //make the template and send it out
 tpl_BuildTemplate();
-?>

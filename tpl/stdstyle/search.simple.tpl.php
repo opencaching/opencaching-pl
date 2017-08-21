@@ -355,618 +355,606 @@
 
 </script>
 
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Szukanie skrzynek" title="Szukanie skrzynek" align="middle"/><img src="tpl/stdstyle/images/blue/search3.png" class="icon32" alt="Szukanie skrzynek" title="Szukanie skrzynek" align="middle"/>&nbsp;{{search_cache}}</div>
+<div class="content2-pagetitle">
+  <img src="tpl/stdstyle/images/blue/search3.png" class="icon32" alt=""> {{search_cache}}
+</div>
+
 <div class="searchdiv">
+  <p class="content-title-noshade-size3">{{search_options}}</p>
+  <form name="optionsform" style="display:inline;" action="search.php" method="post">
+    <table class="table full-width">
+      <tr>
+        <td class="buffer" colspan="2"><span id="scriptwarning" class="errormsg">{{no_javascript}}</span></td>
+      </tr>
+      <tr>
+        <td class="content-title-noshade" style="width: 200px;">{{omit_caches}}:</td>
+        <td class="content-title-noshade">
+          <input type="checkbox" name="f_inactive" value="1" id="l_inactive" class="checkbox" onclick="javascript:sync_options(this)" {f_inactive_checked} /> <label for="l_inactive">{{not_active}}</label>
+          <input type="checkbox" name="f_ignored" value="1" id="l_ignored" class="checkbox" onclick="javascript:sync_options(this)" {f_ignored_disabled} /> <label for="l_ignored">{{ignored}}</label>
+          <input type="checkbox" name="f_userfound" value="1" id="l_userfound" class="checkbox" onclick="javascript:sync_options(this)" {f_userfound_disabled} /> <label for="l_userfound">{{founds}}</label>&nbsp;&nbsp;
+          <input type="checkbox" name="f_userowner" value="1" id="l_userowner" class="checkbox" onclick="javascript:sync_options(this)" {f_userowner_disabled} /> <label for="l_userowner">{{of_owner}}</label>&nbsp;&nbsp;
+          <input type="checkbox" name="f_watched" value="1" id="l_watched" class="checkbox" onclick="javascript:sync_options(this)" {f_watched_disabled} /> <label for="l_watched">{{observed}}</label>
+          <!--<input type="checkbox" name="f_geokret" value="1" id="l_geokret" class="checkbox" onclick="javascript:sync_options(this)" {f_geokret_checked} /> <label for="l_geokret">{{geokret}}</label>-->
+        </td>
+      </tr>
+      <tr>
+        <td class="buffer" colspan="2"></td>
+      </tr>
+      <tr>
+        <td class="content-title-noshade">{{cache_type}}:</td>
+        <td class="content-title-noshade">{cachetype_options}</td>
+      </tr>
+      <tr>
+        <td class="buffer" colspan="2"></td>
+      </tr>
+      <tr>
+        <td class="content-title-noshade">{{cache_size}}:</td>
+        <td class="content-title-noshade">{cachesize_options}</td>
+      </tr>
+      <tr>
+        <td class="buffer" colspan="2"></td>
+      </tr>
+      <tr>
+        <td class="content-title-noshade">{{cache_attributes}}:</td>
+        <td class="content-title-noshade">
+          <div>{cache_attrib_list}</div>
+          <div id="attributesCat2">{cache_attribCat2_list}</div>
+        </td>
+      </tr>
+      <tr>
+        <td class="buffer" colspan="2"></td>
+      </tr>
+      <tr class="form-group-sm">
+        <td class="content-title-noshade">{{task_difficulty}}:</td>
+        <td class="content-title-noshade">
+          {{from}} <select name="cachedifficulty_1" class="form-control input50" onchange="javascript:sync_options(this)">
+            <option value="1" selected="selected">1</option>
+            <option value="1.5">1.5</option>
+            <option value="2">2</option>
+            <option value="2.5">2.5</option>
+            <option value="3">3</option>
+            <option value="3.5">3.5</option>
+            <option value="4">4</option>
+            <option value="4.5">4.5</option>
+            <option value="5">5</option>
+          </select>
+          {{to}} <select name="cachedifficulty_2" class="form-control input50" onchange="javascript:sync_options(this)">
+            <option value="1">1</option>
+            <option value="1.5">1.5</option>
+            <option value="2">2</option>
+            <option value="2.5">2.5</option>
+            <option value="3">3</option>
+            <option value="3.5">3.5</option>
+            <option value="4">4</option>
+            <option value="4.5">4.5</option>
+            <option value="5" selected="selected">5</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td class="buffer" colspan="2"></td>
+      </tr>
+      <tr class="form-group-sm">
+        <td class="content-title-noshade">{{terrain_difficulty}}:</td>
+        <td class="content-title-noshade">
+          {{from}} <select name="cacheterrain_1" class="form-control input50" onchange="javascript:sync_options(this)">
+            <option value="1" selected="selected">1</option>
+            <option value="1.5">1.5</option>
+            <option value="2">2</option>
+            <option value="2.5">2.5</option>
+            <option value="3">3</option>
+            <option value="3.5">3.5</option>
+            <option value="4">4</option>
+            <option value="4.5">4.5</option>
+            <option value="5">5</option>
+          </select>
+          {{to}} <select name="cacheterrain_2" class="form-control input50" onchange="javascript:sync_options(this)">
+            <option value="1">1</option>
+            <option value="1.5">1.5</option>
+            <option value="2">2</option>
+            <option value="2.5">2.5</option>
+            <option value="3">3</option>
+            <option value="3.5">3.5</option>
+            <option value="4">4</option>
+            <option value="4.5">4.5</option>
+            <option value="5" selected="selected">5</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td class="buffer" colspan="2"></td>
+      </tr>
+      <tr class="form-group-sm">
+        <td class="content-title-noshade">{{scores}}:</td>
+        <td class="content-title-noshade">
+          {{from}} <select name="cachevote_1" class="form-control input200" onchange="javascript:sync_options(this)">
+            <option value="-3">{{rating_poor}}</option>
+            <option value="-1">{{rating_mediocre}}</option>
+            <option value="0.1">{{rating_avarage}}</option>
+            <option value="1.4">{{rating_good}}</option>
+            <option value="2.2">{{rating_excellent}}</option>
+          </select>
+          {{to}} <select name="cachevote_2" class="form-control input200" onchange="javascript:sync_options(this)">
+            <option value="-0.999">{{rating_poor}}</option>
+            <option value="0.099">{{rating_mediocre}}</option>
+            <option value="1.399">{{rating_avarage}}</option>
+            <option value="2.199">{{rating_good}}</option>
+            <option value="3.000" selected="selected">{{rating_excellent}}</option>
+          </select><br/>
+          <input type="checkbox" name="cachenovote" value="1" id="l_cachenovote" class="checkbox" onclick="javascript:sync_options(this)" checked="checked"/><label for="l_cachenovote">{{with_hidden_score}}</label>
+        </td>
+      </tr>
+      <tr>
+        <td class="buffer" colspan="2"></td>
+      </tr>
+      <tr class="form-group-sm">
+        <td class="content-title-noshade">{{search_recommendations}}:</td>
+        <td class="content-title-noshade">
+          <input type="radio" name="cache_rec" value="0" tabindex="0" id="l_all_caches" class="radio" onclick="javascript:sync_options(this)" {all_caches_checked} /> <label for="l_all_caches">{{search_all_caches}}</label>&nbsp;
+          <input type="radio" name="cache_rec" value="1" tabindex="1" id="l_recommended_caches" class="radio" onclick="javascript:sync_options(this)" {recommended_caches_checked} /> <label for="l_recommended_caches">{{search_recommended_caches}}</label>&nbsp;
+          <input type="text" name="cache_min_rec" value="{cache_min_rec}" maxlength="3" class="form-control input50" onchange="javascript:sync_options(this)" {min_rec_caches_disabled} />
+        </td>
+      </tr>
+      <tr>
+        <td class="buffer" colspan="2"></td>
+      </tr>
+      <tr class="form-group-sm">
+        <td class="content-title-noshade">{{country_label}}:</td>
+        <td class="content-title-noshade">
+          <select name="country" id="country" class="form-control input200" onchange="sync_options(this); loadRegionsSelector();">
+            {countryoptions}
+          </select>
+          <script>loadRegionsSelector();</script>
+        </td>
+      </tr>
+      <tr>
+        <td class="buffer" colspan="2"></td>
+      </tr>
+      <tr class="form-group-sm">
+        <td class="content-title-noshade">{{regions_only_for}}:</td>
+        <td class="content-title-noshade">
+          <img id="regionAjaxLoader" style="display: none" src="tpl/stdstyle/images/misc/ptPreloader.gif" alt="">
+          <select name="region" id="region1" class="form-control input200" onchange="javascript:sync_options(this)">
+            {regionoptions}
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td class="buffer" colspan="2"></td>
+      </tr>
+      <tr>
+        <td class="content-title-noshade">{{sort_by}}:</td>
+        <td class="content-title-noshade">
+          <input type="radio" name="sort" value="byname" tabindex="0" id="l_sortbyname" class="radio" onclick="javascript:sync_options(this)" {byname_checked}/> <label for="l_sortbyname">{{cache_name}}</label>&nbsp;
+          <input type="radio" name="sort" value="bydistance" tabindex="1" id="l_sortbydistance" class="radio" onclick="javascript:sync_options(this)" {bydistance_checked}/> <label for="l_sortbydistance">{{distance_label}}</label>&nbsp;
+          <input type="radio" name="sort" value="bycreated" tabindex="1" id="l_sortbycreated" class="radio" onclick="javascript:sync_options(this)" {bycreated_checked}/> <label for="l_sortbycreated">{{date_created_label}}</label>
+        </td>
+      </tr>
+      <tr>
+        <td class="buffer" colspan="2"></td>
+      </tr>
+      <tr>
+        <td class="content-title-noshade">
+          {{pt225}}:<br>
+          <span style="font-size: 7px;">({{pt226}})</span>
+        </td>
+        <td class="content-title-noshade">
+          <input id="gpxLogLimit" name="gpxLogLimit" style="border: none;" type="range" autocomplete="on" onchange="$('#gpxLogLimitCurrent').html(this.value);
+            javascript:sync_options(this);" oninput="$('#gpxLogLimitCurrent').html(this.value); javascript:sync_options(this);" min="5" value="{gpxLogLimitUserChoice}" max="100" step="5" /> <span id="gpxLogLimitCurrent" style="font-size: 10px; font-weight: bold">{gpxLogLimitUserChoice}</span>
+        </td>
+      </tr>
+    </table>
+  </form>
 
-    <p class="content-title-noshade-size3">{{search_options}}</p>
-    <form name="optionsform" style="display:inline;" action="search.php" method="post">
-        <table class="table">
-            <colgroup>
-                <col width="200"/>
-                <col/>
-            </colgroup>
-            <tr><td class="buffer" colspan="3"><span id="scriptwarning" class="errormsg">Obsługa JavaScript są wyłączone przez co możesz mieć wiele funkcji obsługi tego serwisu niedostepne.</span></td></tr>
-            <tr>
-                <td class="content-title-noshade">{{omit_caches}}:</td>
-                <td class="content-title-noshade" colspan="2">
-                    <input type="checkbox" name="f_inactive" value="1" id="l_inactive" class="checkbox" onclick="javascript:sync_options(this)" {f_inactive_checked} /> <label for="l_inactive">{{not_active}}</label>
-                    <input type="checkbox" name="f_ignored" value="1" id="l_ignored" class="checkbox" onclick="javascript:sync_options(this)" {f_ignored_disabled} /> <label for="l_ignored">{{ignored}}</label>
-                    <input type="checkbox" name="f_userfound" value="1" id="l_userfound" class="checkbox" onclick="javascript:sync_options(this)" {f_userfound_disabled} /> <label for="l_userfound">{{founds}}</label>&nbsp;&nbsp;
-                    <input type="checkbox" name="f_userowner" value="1" id="l_userowner" class="checkbox" onclick="javascript:sync_options(this)" {f_userowner_disabled} /> <label for="l_userowner">{{of_owner}}</label>&nbsp;&nbsp;
-                    <input type="checkbox" name="f_watched" value="1" id="l_watched" class="checkbox" onclick="javascript:sync_options(this)" {f_watched_disabled} /> <label for="l_watched">{{observed}}</label>
-                    <!--<input type="checkbox" name="f_geokret" value="1" id="l_geokret" class="checkbox" onclick="javascript:sync_options(this)" {f_geokret_checked} /> <label for="l_geokret">{{geokret}}</label>-->
-                </td>
-            </tr>
-            <tr><td class="buffer" colspan="3"></td></tr>
-            <tr>
-                <td class="content-title-noshade">{{cache_type}}:</td>
-                <td class="content-title-noshade">
-                    {cachetype_options}
-                </td>
-            </tr>
-            <tr><td class="buffer" colspan="3"></td></tr>
-            <tr>
-                <td valign="top" class="content-title-noshade">{{cache_size}}:</td>
-                <td class="content-title-noshade">
-                    {cachesize_options}
-                </td>
-            </tr>
-            <tr><td class="buffer" colspan="3"></td></tr>
-            <tr>
-                <td valign="middle" class="content-title-noshade">{{cache_attributes}}:</td>
-                <td class="content-title-noshade">
-                    <div style="width:500px;">{cache_attrib_list}</div>
-                    <div id="attributesCat2">{cache_attribCat2_list}</div>
-                </td>
-            </tr>
-            <tr><td class="buffer" colspan="3"></td></tr>
-            <tr class="form-group-sm">
-                <td valign="top" class="content-title-noshade">{{task_difficulty}}:</td>
-                <td class="content-title-noshade">
-                    {{from}} <select name="cachedifficulty_1" class="form-control input50" onchange="javascript:sync_options(this)">
-                        <option value="1" selected="selected">1</option>
-                        <option value="1.5">1.5</option>
-                        <option value="2">2</option>
-                        <option value="2.5">2.5</option>
-                        <option value="3">3</option>
-                        <option value="3.5">3.5</option>
-                        <option value="4">4</option>
-                        <option value="4.5">4.5</option>
-                        <option value="5">5</option>
-                    </select>
-                    {{to}} <select name="cachedifficulty_2" class="form-control input50" onchange="javascript:sync_options(this)">
-                        <option value="1">1</option>
-                        <option value="1.5">1.5</option>
-                        <option value="2">2</option>
-                        <option value="2.5">2.5</option>
-                        <option value="3">3</option>
-                        <option value="3.5">3.5</option>
-                        <option value="4">4</option>
-                        <option value="4.5">4.5</option>
-                        <option value="5" selected="selected">5</option>
-                    </select>
-                </td>
-            </tr>
-            <tr><td class="buffer" colspan="3"></td></tr>
-            <tr class="form-group-sm">
-                <td valign="top" class="content-title-noshade">{{terrain_difficulty}}:</td>
-                <td class="content-title-noshade">
-                    {{from}} <select name="cacheterrain_1" class="form-control input50" onchange="javascript:sync_options(this)">
-                        <option value="1" selected="selected">1</option>
-                        <option value="1.5">1.5</option>
-                        <option value="2">2</option>
-                        <option value="2.5">2.5</option>
-                        <option value="3">3</option>
-                        <option value="3.5">3.5</option>
-                        <option value="4">4</option>
-                        <option value="4.5">4.5</option>
-                        <option value="5">5</option>
-                    </select>
-                    {{to}} <select name="cacheterrain_2" class="form-control input50" onchange="javascript:sync_options(this)">
-                        <option value="1">1</option>
-                        <option value="1.5">1.5</option>
-                        <option value="2">2</option>
-                        <option value="2.5">2.5</option>
-                        <option value="3">3</option>
-                        <option value="3.5">3.5</option>
-                        <option value="4">4</option>
-                        <option value="4.5">4.5</option>
-                        <option value="5" selected="selected">5</option>
-                    </select>
-                </td>
-            </tr>
-            <tr><td class="buffer" colspan="3"></td></tr>
-            <tr class="form-group-sm">
-                <td valign="top" class="content-title-noshade">{{scores}}:</td>
-                <td class="content-title-noshade">
-                    {{from}} <select name="cachevote_1" class="form-control input200" onchange="javascript:sync_options(this)">
-                        <option value="-3">{{rating_poor}}</option>
-                        <option value="-1">{{rating_mediocre}}</option>
-                        <option value="0.1">{{rating_avarage}}</option>
-                        <option value="1.4">{{rating_good}}</option>
-                        <option value="2.2">{{rating_excellent}}</option>
-                    </select>
-                    {{to}} <select name="cachevote_2" class="form-control input200" onchange="javascript:sync_options(this)">
-                        <option value="-0.999">{{rating_poor}}</option>
-                        <option value="0.099">{{rating_mediocre}}</option>
-                        <option value="1.399">{{rating_avarage}}</option>
-                        <option value="2.199">{{rating_good}}</option>
-                        <option value="3.000" selected="selected">{{rating_excellent}}</option>
-                    </select><br/>
-                    <input type="checkbox" name="cachenovote" value="1" id="l_cachenovote" class="checkbox" onclick="javascript:sync_options(this)" checked="checked"/><label for="l_cachenovote">{{with_hidden_score}}</label>
-                </td>
-            </tr>
-            <tr><td class="buffer" colspan="3"></td></tr>
-            <tr class="form-group-sm">
-                <td class="content-title-noshade">{{search_recommendations}}:</td>
-                <td class="content-title-noshade" colspan="2">
-                    <input type="radio" name="cache_rec" value="0" tabindex="0" id="l_all_caches" class="radio" onclick="javascript:sync_options(this)" {all_caches_checked} /> <label for="l_all_caches">{{search_all_caches}}</label>&nbsp;
-                    <input type="radio" name="cache_rec" value="1" tabindex="1" id="l_recommended_caches" class="radio" onclick="javascript:sync_options(this)" {recommended_caches_checked} /> <label for="l_recommended_caches">{{search_recommended_caches}}</label>&nbsp;
-                    <input type="text" name="cache_min_rec" value="{cache_min_rec}" maxlength="3" class="form-control input50" onchange="javascript:sync_options(this)" {min_rec_caches_disabled} />
-                </td>
-            </tr>
-            <tr><td class="buffer" colspan="3"></td></tr>
-            <tr class="form-group-sm">
-                <td class="content-title-noshade">{{country_label}}:</td>
-                <td class="content-title-noshade">
-                    <select name="country" id="country" class="form-control input200" onchange="sync_options(this);
-                            loadRegionsSelector();">
-                        {countryoptions}
-                    </select>
-                    <script>loadRegionsSelector();</script>
-                </td>
-            </tr>
-            </tr>
-            <tr><td class="buffer" colspan="3"></td></tr>
-            <tr>
-            <tr class="form-group-sm">
-                <td valign="top" class="content-title-noshade">{{regions_only_for}}:</td>
-                <td class="content-title-noshade">
-                    <img id="regionAjaxLoader" style="display: none" src="tpl/stdstyle/images/misc/ptPreloader.gif" />
-                    <select name="region" id="region1" class="form-control input200" onchange="javascript:sync_options(this)">
-                        {regionoptions}
-                    </select>
-            </tr>
-            <tr><td class="buffer" colspan="3"></td></tr>
-            <tr>
-                <td class="content-title-noshade">{{sort_by}}:</td>
-                <td colspan="2" class="content-title-noshade">
-                    <input type="radio" name="sort" value="byname" tabindex="0" id="l_sortbyname" class="radio" onclick="javascript:sync_options(this)" {byname_checked}/> <label for="l_sortbyname">{{cache_name}}</label>&nbsp;
-                    <input type="radio" name="sort" value="bydistance" tabindex="1" id="l_sortbydistance" class="radio" onclick="javascript:sync_options(this)" {bydistance_checked}/> <label for="l_sortbydistance">{{distance_label}}</label>&nbsp;
-                    <input type="radio" name="sort" value="bycreated" tabindex="1" id="l_sortbycreated" class="radio" onclick="javascript:sync_options(this)" {bycreated_checked}/> <label for="l_sortbycreated">{{date_created_label}}</label>
+  <form action="search.php" onsubmit="javascript:return(_sbn_click());" method="{formmethod}" enctype="application/x-www-form-urlencoded" name="searchbyname" dir="ltr" style="display:inline;">
+    <input type="hidden" name="searchto" value="searchbyname" />
+    <input type="hidden" name="showresult" value="1" />
+    <input type="hidden" name="expert" value="0" />
+    <input type="hidden" name="output" value="HTML" />
 
-                </td>
-            </tr>
-            <tr><td class="buffer" colspan="3"></td></tr>
+    <input type="hidden" name="sort" value="{hidopt_sort}" />
+    <input type="hidden" name="f_inactive" value="{hidopt_inactive}" />
+    <input type="hidden" name="f_ignored" value="{hidopt_ignored}" />
+    <input type="hidden" name="f_userfound" value="{hidopt_userfound}" />
+    <input type="hidden" name="f_userowner" value="{hidopt_userowner}" />
+    <input type="hidden" name="f_watched" value="{hidopt_watched}" />
+    <input type="hidden" name="f_geokret" value="{hidopt_geokret}" />
+    <input type="hidden" name="country" value="{country}" />
+    <input type="hidden" name="region" value="{region}" />
+    <input type="hidden" name="cachetype" value="{cachetype}" />
+    <input type="hidden" name="cache_attribs" value="{hidopt_attribs}" />
+    <input type="hidden" name="cache_attribs_not" value="{hidopt_attribs_not}" />
 
-            <tr>
-                <td class="content-title-noshade">
-                    {{pt225}}:
-                    <br/> <span style="font-size: 7px;">({{pt226}})</span>
-                </td>
-                <td colspan="2" class="content-title-noshade">
-                    <input id="gpxLogLimit" name="gpxLogLimit" style="border: none;" type="range" autocomplete="on" onchange="$('#gpxLogLimitCurrent').html(this.value);
-                            javascript:sync_options(this);" oninput="$('#gpxLogLimitCurrent').html(this.value); javascript:sync_options(this);" min="5" value="{gpxLogLimitUserChoice}" max="100" step="5" /> <span id="gpxLogLimitCurrent" style="font-size: 10px; font-weight: bold">{gpxLogLimitUserChoice}</span>
-                </td>
-            </tr>
-            <tr><td class="buffer" colspan="3"></td></tr>
+    <input type="hidden" name="cachesize_1" value="{cachesize_1}" />
+    <input type="hidden" name="cachesize_2" value="{cachesize_2}" />
+    <input type="hidden" name="cachesize_3" value="{cachesize_3}" />
+    <input type="hidden" name="cachesize_4" value="{cachesize_4}" />
+    <input type="hidden" name="cachesize_5" value="{cachesize_5}" />
+    <input type="hidden" name="cachesize_6" value="{cachesize_6}" />
+    <input type="hidden" name="cachesize_7" value="{cachesize_7}" />
+    <input type="hidden" name="cachesize_8" value="{cachesize_8}" />
+    <input type="hidden" name="cachevote_1" value="{cachevote_1}" />
+    <input type="hidden" name="cachevote_2" value="{cachevote_2}" />
+    <input type="hidden" name="cachenovote" value="{cachenovote}" />
+    <input type="hidden" name="cachedifficulty_1" value="{cachedifficulty_1}" />
+    <input type="hidden" name="cachedifficulty_2" value="{cachedifficulty_2}" />
+    <input type="hidden" name="cacheterrain_1" value="{cacheterrain_1}" />
+    <input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
+    <input type="hidden" name="cacherating" value="{cacherating}" />
+    <input type="hidden" name="cachename" value="%"  />
+    <input type="hidden" name="gpxLogLimit" value="{gpxLogLimitUserChoice}" />
 
-        </table>
-    </form>
+    <table class="table full-width">
+      <tr>
+        <td style="width: 200px;"><button type="submit" value="{{search}}" class="btn btn-primary" onclick="firstBtnClick();">{{search}}</button></td>
+        <td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap1"><label for="showonmap1">{{show_on_map}}</label></td>
+      </tr>
+    </table>
+  </div>
 
-    <script type="text/javascript">
-        document.getElementById("scriptwarning").firstChild.nodeValue = "";
+<div class="buffer"></div>
 
-        // erweiterte attribute ausblenden, falls kein erweitertes attribute selektiert
-        var i = 0;
-        var bHide = true;
-        for (i = 0; i < maAttributes.length; i++)
-        {
-            if (maAttributes[i][1] != 0 && maAttributes[i][6] > 1)
+  <div class="searchdiv">
+    <table class="table full-width">
+      <tr>
+        <td colspan="3"><p class="content-title-noshade-size1">{{search_by_name}}</p></td>
+      </tr>
+      <tr class="form-group-sm">
+        <td class="content-title-noshade" style="width: 200px;">{{cache_name}}:</td>
+        <td style="width: 220px;"><input type="text" name="cachename" id="cachename" value="{cachename}" class="form-control input200"></td>
+        <td class="content-title-noshade">
+          <input type="submit" value="{{search}}" class="btn btn-primary btn-sm">&nbsp;&nbsp;
+          <input type="checkbox" name="showonmap" id="showonmap1a"><label for="showonmap1a">{{show_on_map}}</label>
+        </td>
+      </tr>
+    </table>
+  </div>
+</form>
+
+<div class="buffer"></div>
+
+<div class="searchdiv">
+  <form action="search.php" onsubmit="javascript:return(_sbd_click());" method="{formmethod}" enctype="application/x-www-form-urlencoded" name="searchbydistance" dir="ltr" style="display:inline;">
+    <input type="hidden" name="searchto" value="searchbydistance" />
+    <input type="hidden" name="showresult" value="1" />
+    <input type="hidden" name="expert" value="0" />
+    <input type="hidden" name="output" value="HTML" />
+    <input type="hidden" name="sort" value="{hidopt_sort}" />
+    <input type="hidden" name="f_inactive" value="{hidopt_inactive}" />
+    <input type="hidden" name="f_ignored" value="{hidopt_ignored}" />
+    <input type="hidden" name="f_userfound" value="{hidopt_userfound}" />
+    <input type="hidden" name="f_userowner" value="{hidopt_userowner}" />
+    <input type="hidden" name="f_watched" value="{hidopt_watched}" />
+    <input type="hidden" name="f_geokret" value="{hidopt_geokret}" />
+    <input type="hidden" name="country" value="{country}" />
+    <input type="hidden" name="region" value="{region}" />
+    <input type="hidden" name="cachetype" value="{cachetype}" />
+    <input type="hidden" name="cache_attribs" value="{hidopt_attribs}" />
+    <input type="hidden" name="cache_attribs_not" value="{hidopt_attribs_not}" />
+    <input type="hidden" name="cachesize_1" value="{cachesize_1}" />
+    <input type="hidden" name="cachesize_2" value="{cachesize_2}" />
+    <input type="hidden" name="cachesize_3" value="{cachesize_3}" />
+    <input type="hidden" name="cachesize_4" value="{cachesize_4}" />
+    <input type="hidden" name="cachesize_5" value="{cachesize_5}" />
+    <input type="hidden" name="cachesize_6" value="{cachesize_6}" />
+    <input type="hidden" name="cachesize_7" value="{cachesize_7}" />
+    <input type="hidden" name="cachesize_8" value="{cachesize_8}" />
+    <input type="hidden" name="cachevote_1" value="{cachevote_1}" />
+    <input type="hidden" name="cachevote_2" value="{cachevote_2}" />
+    <input type="hidden" name="cachenovote" value="{cachenovote}" />
+    <input type="hidden" name="cachedifficulty_1" value="{cachedifficulty_1}" />
+    <input type="hidden" name="cachedifficulty_2" value="{cachedifficulty_2}" />
+    <input type="hidden" name="cacheterrain_1" value="{cacheterrain_1}" />
+    <input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
+    <input type="hidden" name="cacherating" value="{cacherating}" />
+    <input type="hidden" name="gpxLogLimit" value="{gpxLogLimitUserChoice}" />
+
+    <table class="table full-width">
+      <tr>
+        <td colspan="3"><p class="content-title-noshade-size1">{{search_by_distance}}</p></td>
+      </tr>
+      <tr class="form-group-sm">
+        <td class="content-title-noshade" style="width: 200px;">{{coordinates}}:</td>
+        <td colspan="2">
+          <select name="latNS" class="form-control input50">
+            <option value="N" {latN_sel}>N</option>
+            <option value="S" {latS_sel}>S</option>
+          </select>
+          <input type="text" name="lat_h" maxlength="2" value="{lat_h}" class="form-control input30">&nbsp;°&nbsp; 
+          <input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="form-control input50">&nbsp;'
+          <span class="notice"><a href="javascript:void(0)" onclick="showGeoCoder()">{{where_i_am}}</a></span>
+        </td>
+      </tr>
+      <tr class="form-group-sm">
+        <td></td>
+        <td colspan="2">
+          <select name="lonEW" class="form-control input50">
+            <option value="E" {lonE_sel}>E</option>
+            <option value="W" {lonW_sel}>W</option>
+          </select>
+          <input type="text" name="lon_h" maxlength="3" value="{lon_h}" class="form-control input30">&nbsp;°&nbsp;
+          <input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="form-control input50">&nbsp;'
+        </td>
+      </tr>
+      <tr class="form-group-sm">
+        <td class="content-title-noshade">{{max_distance}}:</td>
+        <td class="content-title-noshade" style="width: 220px;">
+          <input type="text" name="distance" value="{distance}" maxlength="4" class="form-control input50">
+          <select name="unit" class="form-control input120">
+            <option value="km" {sel_km}>{{kilometer}}</option>
+            <option value="sm" {sel_sm}>{{mile}}</option>
+            <option value="nm" {sel_nm}>{{nautical_mile}}</option>
+          </select>
+        </td>
+        <td class="content-title-noshade">
+          <input type="submit" value="{{search}}" class="btn btn-primary btn-sm">&nbsp;&nbsp;
+          <input type="checkbox" name="showonmap" id="showonmap2"> <label for="showonmap2">{{show_on_map}}</label>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+
+<div class="buffer"></div>
+
+<div class="searchdiv">
+  <form action="search.php" onsubmit="javascript:return(_sbort_click());" method="{formmethod}" enctype="application/x-www-form-urlencoded" name="searchbyort" dir="ltr" style="display:inline;">
+    <input type="hidden" name="searchto" value="searchbyort" />
+    <input type="hidden" name="showresult" value="1" />
+    <input type="hidden" name="expert" value="0" />
+    <input type="hidden" name="output" value="HTML" />
+
+    <input type="hidden" name="sort" value="{hidopt_sort}" />
+    <input type="hidden" name="f_inactive" value="{hidopt_inactive}" />
+    <input type="hidden" name="f_ignored" value="{hidopt_ignored}" />
+    <input type="hidden" name="f_userfound" value="{hidopt_userfound}" />
+    <input type="hidden" name="f_userowner" value="{hidopt_userowner}" />
+    <input type="hidden" name="f_watched" value="{hidopt_watched}" />
+    <input type="hidden" name="f_geokret" value="{hidopt_geokret}" />
+    <input type="hidden" name="country" value="{country}" />
+    <input type="hidden" name="region" value="{region}" />
+    <input type="hidden" name="cachetype" value="{cachetype}" />
+    <input type="hidden" name="cache_attribs" value="{hidopt_attribs}" />
+    <input type="hidden" name="cache_attribs_not" value="{hidopt_attribs_not}" />
+
+    <input type="hidden" name="cachesize_1" value="{cachesize_1}" />
+    <input type="hidden" name="cachesize_2" value="{cachesize_2}" />
+    <input type="hidden" name="cachesize_3" value="{cachesize_3}" />
+    <input type="hidden" name="cachesize_4" value="{cachesize_4}" />
+    <input type="hidden" name="cachesize_5" value="{cachesize_5}" />
+    <input type="hidden" name="cachesize_6" value="{cachesize_6}" />
+    <input type="hidden" name="cachesize_7" value="{cachesize_7}" />
+    <input type="hidden" name="cachesize_8" value="{cachesize_8}" />
+    <input type="hidden" name="cachevote_1" value="{cachevote_1}" />
+    <input type="hidden" name="cachevote_2" value="{cachevote_2}" />
+    <input type="hidden" name="cachenovote" value="{cachenovote}" />
+    <input type="hidden" name="cachedifficulty_1" value="{cachedifficulty_1}" />
+    <input type="hidden" name="cachedifficulty_2" value="{cachedifficulty_2}" />
+    <input type="hidden" name="cacheterrain_1" value="{cacheterrain_1}" />
+    <input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
+    <input type="hidden" name="cacherating" value="{cacherating}" />
+    <input type="hidden" name="gpxLogLimit" value="{gpxLogLimitUserChoice}" />
+    <table class="table full-width">
+      <tr>
+        <td colspan="3"><p class="content-title-noshade-size1">{{search_by_city}}</p></td>
+      </tr>
+      {ortserror}
+      <tr class="form-group-sm">
+        <td class="content-title-noshade">{{city_name}}:</td>
+        <td class="content-title-noshade" colspan="2"><input type="text" name="ort" value="{ort}" class="form-control input200"></td>
+      </tr>
+      <tr class="form-group-sm">
+        <td class="content-title-noshade" style="width: 200px;">{{max_distance}}:</td>
+        <td class="content-title-noshade" style="width: 220px;">
+          <input type="text" name="distance" value="{distance}" maxlength="4" class="form-control input50">
+          <select name="unit" class="form-control input120">
+            <option value="km" {sel_km}>{{kilometer}}</option>
+            <option value="sm" {sel_sm}>{{mile}}</option>
+            <option value="nm" {sel_nm}>{{nautical_mile}}</option>
+          </select>
+        </td>
+        <td class="content-title-noshade">
+          <input type="submit" value="{{search}}" class="btn btn-primary btn-sm">&nbsp;&nbsp;
+          <input type="checkbox" name="showonmap" id="showonmap3"><label for="showonmap3">{{show_on_map}}</label>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+
+<div class="buffer"></div>
+
+<div class="searchdiv">
+  <form action="search.php" onsubmit="javascript:return(_sbft_click());" method="{formmethod}" enctype="application/x-www-form-urlencoded" name="searchbyfulltext" dir="ltr" style="display:inline;">
+    <input type="hidden" name="searchto" value="searchbyfulltext" />
+    <input type="hidden" name="showresult" value="1" />
+    <input type="hidden" name="expert" value="0" />
+    <input type="hidden" name="output" value="HTML" />
+
+    <input type="hidden" name="sort" value="{hidopt_sort}" />
+    <input type="hidden" name="f_inactive" value="{hidopt_inactive}" />
+    <input type="hidden" name="f_ignored" value="{hidopt_ignored}" />
+    <input type="hidden" name="f_userfound" value="{hidopt_userfound}" />
+    <input type="hidden" name="f_userowner" value="{hidopt_userowner}" />
+    <input type="hidden" name="f_watched" value="{hidopt_watched}" />
+    <input type="hidden" name="f_geokret" value="{hidopt_geokret}" />
+    <input type="hidden" name="country" value="{country}" />
+    <input type="hidden" name="region" value="{region}" />
+    <input type="hidden" name="cachetype" value="{cachetype}" />
+    <input type="hidden" name="cache_attribs" value="{hidopt_attribs}" />
+    <input type="hidden" name="cache_attribs_not" value="{hidopt_attribs_not}" />
+
+    <input type="hidden" name="cachesize_1" value="{cachesize_1}" />
+    <input type="hidden" name="cachesize_2" value="{cachesize_2}" />
+    <input type="hidden" name="cachesize_3" value="{cachesize_3}" />
+    <input type="hidden" name="cachesize_4" value="{cachesize_4}" />
+    <input type="hidden" name="cachesize_5" value="{cachesize_5}" />
+    <input type="hidden" name="cachesize_6" value="{cachesize_6}" />
+    <input type="hidden" name="cachesize_7" value="{cachesize_7}" />
+    <input type="hidden" name="cachesize_8" value="{cachesize_8}" />
+    <input type="hidden" name="cachevote_1" value="{cachevote_1}" />
+    <input type="hidden" name="cachevote_2" value="{cachevote_2}" />
+    <input type="hidden" name="cachenovote" value="{cachenovote}" />
+    <input type="hidden" name="cachedifficulty_1" value="{cachedifficulty_1}" />
+    <input type="hidden" name="cachedifficulty_2" value="{cachedifficulty_2}" />
+    <input type="hidden" name="cacheterrain_1" value="{cacheterrain_1}" />
+    <input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
+    <input type="hidden" name="cacherating" value="{cacherating}" />
+    <input type="hidden" name="gpxLogLimit" value="{gpxLogLimitUserChoice}" />
+
+    <table class="table full-width">
+      <tr>
+        <td colspan="3"><p class="content-title-noshade-size1">{{search_text}}</p></td>
+      </tr>
+      {fulltexterror}
+      <tr class="form-group-sm">
+        <td class="content-title-noshade" style="width: 200px;">{{text}}:</td>
+        <td class="content-title-noshade" style="width: 220px;"><input type="text" name="fulltext" value="{fulltext}" class="form-control input200"></td>
+        <td class="content-title-noshade">
+          <input type="submit" value="{{search}}" class="btn btn-primary btn-sm">&nbsp;&nbsp;
+          <input type="checkbox" name="showonmap" id="showonmap4"><label for="showonmap4">{{show_on_map}}</label>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="content-title-noshade" colspan="2">
+          <input type="checkbox" name="ft_name" id="ft_name" class="checkbox" value="1" {ft_name_checked}> <label for="ft_name">{{cache_name}}</label>
+          <input type="checkbox" name="ft_desc" id="ft_desc" class="checkbox" value="1" {ft_desc_checked}> <label for="ft_desc">{{descriptions}}</label>
+          <input type="checkbox" name="ft_logs" id="ft_logs" class="checkbox" value="1" {ft_logs_checked}> <label for="ft_logs">{{logs_label}}</label>
+          <input type="checkbox" name="ft_pictures" id="ft_pictures" class="checkbox" value="1" {ft_pictures_checked}> <label for="ft_pictures">{{pictures}}</label>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div> 
+
+<div class="buffer"></div>
+
+<div class="searchdiv">
+  <form action="search.php" onsubmit="javascript:return(_sbo_click());" method="{formmethod}" enctype="application/x-www-form-urlencoded" name="searchbyowner" dir="ltr" style="display:inline;">
+    <input type="hidden" name="searchto" value="searchbyowner" />
+    <input type="hidden" name="showresult" value="1" />
+    <input type="hidden" name="expert" value="0" />
+    <input type="hidden" name="output" value="HTML" />
+
+    <input type="hidden" name="sort" value="{hidopt_sort}" />
+    <input type="hidden" name="f_inactive" value="{hidopt_inactive}" />
+    <input type="hidden" name="f_ignored" value="{hidopt_ignored}" />
+    <input type="hidden" name="f_userfound" value="{hidopt_userfound}" />
+    <input type="hidden" name="f_userowner" value="{hidopt_userowner}" />
+    <input type="hidden" name="f_watched" value="{hidopt_watched}" />
+    <input type="hidden" name="f_geokret" value="{hidopt_geokret}" />
+    <input type="hidden" name="country" value="{country}" />
+    <input type="hidden" name="region" value="{region}" />
+    <input type="hidden" name="cachetype" value="{cachetype}" />
+    <input type="hidden" name="cache_attribs" value="{hidopt_attribs}" />
+    <input type="hidden" name="cache_attribs_not" value="{hidopt_attribs_not}" />
+
+    <input type="hidden" name="cachesize_1" value="{cachesize_1}" />
+    <input type="hidden" name="cachesize_2" value="{cachesize_2}" />
+    <input type="hidden" name="cachesize_3" value="{cachesize_3}" />
+    <input type="hidden" name="cachesize_4" value="{cachesize_4}" />
+    <input type="hidden" name="cachesize_5" value="{cachesize_5}" />
+    <input type="hidden" name="cachesize_6" value="{cachesize_6}" />
+    <input type="hidden" name="cachesize_7" value="{cachesize_7}" />
+    <input type="hidden" name="cachesize_8" value="{cachesize_8}" />
+    <input type="hidden" name="cachevote_1" value="{cachevote_1}" />
+    <input type="hidden" name="cachevote_2" value="{cachevote_2}" />
+    <input type="hidden" name="cachenovote" value="{cachenovote}" />
+    <input type="hidden" name="cachedifficulty_1" value="{cachedifficulty_1}" />
+    <input type="hidden" name="cachedifficulty_2" value="{cachedifficulty_2}" />
+    <input type="hidden" name="cacheterrain_1" value="{cacheterrain_1}" />
+    <input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
+    <input type="hidden" name="cacherating" value="{cacherating}" />
+    <input type="hidden" name="gpxLogLimit" value="{gpxLogLimitUserChoice}" />
+
+    <table class="table full-width">
+      <tr>
+        <td colspan="3"><p class="content-title-noshade-size1">{{search_by_owner}}</p></td>
+      </tr>
+      <tr class="form-group-sm">
+        <td class="content-title-noshade" style="width: 200px;">{{owner_label}}:</td>
+        <td class="content-title-noshade" style="width: 220px;"><input type="text" name="owner" value="{owner}" maxlength="40" class="form-control input200"></td>
+        <td class="content-title-noshade">
+          <input type="submit" value="{{search}}" class="btn btn-primary btn-sm">&nbsp;&nbsp;
+          <input type="checkbox" name="showonmap" id="showonmap5"><label for="showonmap5">{{show_on_map}}</label>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+
+<div class="buffer"></div>
+
+<div class="searchdiv">
+  <form action="search.php" onsubmit="javascript:return(_sbf_click());" method="{formmethod}" enctype="application/x-www-form-urlencoded" name="searchbyfinder" dir="ltr" style="display:inline;">
+    <input type="hidden" name="searchto" value="searchbyfinder" />
+    <input type="hidden" name="showresult" value="1" />
+    <input type="hidden" name="expert" value="0" />
+    <input type="hidden" name="output" value="HTML" />
+
+    <input type="hidden" name="sort" value="{hidopt_sort}" />
+    <input type="hidden" name="f_inactive" value="{hidopt_inactive}" />
+    <input type="hidden" name="f_ignored" value="{hidopt_ignored}" />
+    <input type="hidden" name="f_userfound" value="{hidopt_userfound}" />
+    <input type="hidden" name="f_userowner" value="{hidopt_userowner}" />
+    <input type="hidden" name="f_watched" value="{hidopt_watched}" />
+    <input type="hidden" name="f_geokret" value="{hidopt_geokret}" />
+    <input type="hidden" name="country" value="{country}" />
+    <input type="hidden" name="region" value="{region}" />
+    <input type="hidden" name="cachetype" value="{cachetype}" />
+    <input type="hidden" name="cache_attribs" value="{hidopt_attribs}" />
+    <input type="hidden" name="cache_attribs_not" value="{hidopt_attribs_not}" />
+
+    <input type="hidden" name="cachesize_1" value="{cachesize_1}" />
+    <input type="hidden" name="cachesize_2" value="{cachesize_2}" />
+    <input type="hidden" name="cachesize_3" value="{cachesize_3}" />
+    <input type="hidden" name="cachesize_4" value="{cachesize_4}" />
+    <input type="hidden" name="cachesize_5" value="{cachesize_5}" />
+    <input type="hidden" name="cachesize_6" value="{cachesize_6}" />
+    <input type="hidden" name="cachesize_7" value="{cachesize_7}" />
+    <input type="hidden" name="cachesize_8" value="{cachesize_8}" />
+    <input type="hidden" name="cachevote_1" value="{cachevote_1}" />
+    <input type="hidden" name="cachevote_2" value="{cachevote_2}" />
+    <input type="hidden" name="cachenovote" value="{cachenovote}" />
+    <input type="hidden" name="cachedifficulty_1" value="{cachedifficulty_1}" />
+    <input type="hidden" name="cachedifficulty_2" value="{cachedifficulty_2}" />
+    <input type="hidden" name="cacheterrain_1" value="{cacheterrain_1}" />
+    <input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
+    <input type="hidden" name="cacherating" value="{cacherating}" />
+    <input type="hidden" name="gpxLogLimit" value="{gpxLogLimitUserChoice}" />
+
+    <table class="table full-width">
+      <tr>
+        <td colspan="3"><p class="content-title-noshade-size1">{{search_by_finder}}</p></td>
+      </tr>
+      <tr class="form-group-sm">
+        <td class="content-title-noshade" style="width: 200px;">{{finder_label}}:</td>
+        <td class="content-title-noshade" style="width: 220px;"><input type="text" name="finder" value="{finder}" maxlength="40" class="form-control input200"></td>
+        <td class="content-title-noshade">
+          <input type="submit" value="{{search}}" class="btn btn-primary btn-sm">&nbsp;&nbsp;
+          <input type="checkbox" name="showonmap" id="showonmap6" /><label for="showonmap6">{{show_on_map}}</label>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+
+<div class="buffer"></div>
+
+<script type="text/javascript">
+    document.getElementById("scriptwarning").firstChild.nodeValue = "";
+    // erweiterte attribute ausblenden, falls kein erweitertes attribute selektiert
+    var i = 0;
+    var bHide = true;
+    for (i = 0; i < maAttributes.length; i++)
+    {
+        if (maAttributes[i][1] != 0 && maAttributes[i][6] > 1)
             {
                 bHide = false;
                 break;
             }
         }
-
         if (bHide == true)
             hideAttributesCat2();
-    </script>
-
-
-    <form action="search.php" onsubmit="javascript:return(_sbn_click());" method="{formmethod}" enctype="application/x-www-form-urlencoded" name="searchbyname" dir="ltr" style="display:inline;">
-        <input type="hidden" name="searchto" value="searchbyname" />
-        <input type="hidden" name="showresult" value="1" />
-        <input type="hidden" name="expert" value="0" />
-        <input type="hidden" name="output" value="HTML" />
-
-        <input type="hidden" name="sort" value="{hidopt_sort}" />
-        <input type="hidden" name="f_inactive" value="{hidopt_inactive}" />
-        <input type="hidden" name="f_ignored" value="{hidopt_ignored}" />
-        <input type="hidden" name="f_userfound" value="{hidopt_userfound}" />
-        <input type="hidden" name="f_userowner" value="{hidopt_userowner}" />
-        <input type="hidden" name="f_watched" value="{hidopt_watched}" />
-        <input type="hidden" name="f_geokret" value="{hidopt_geokret}" />
-        <input type="hidden" name="country" value="{country}" />
-        <input type="hidden" name="region" value="{region}" />
-        <input type="hidden" name="cachetype" value="{cachetype}" />
-        <input type="hidden" name="cache_attribs" value="{hidopt_attribs}" />
-        <input type="hidden" name="cache_attribs_not" value="{hidopt_attribs_not}" />
-
-        <input type="hidden" name="cachesize_1" value="{cachesize_1}" />
-        <input type="hidden" name="cachesize_2" value="{cachesize_2}" />
-        <input type="hidden" name="cachesize_3" value="{cachesize_3}" />
-        <input type="hidden" name="cachesize_4" value="{cachesize_4}" />
-        <input type="hidden" name="cachesize_5" value="{cachesize_5}" />
-        <input type="hidden" name="cachesize_6" value="{cachesize_6}" />
-        <input type="hidden" name="cachesize_7" value="{cachesize_7}" />
-        <input type="hidden" name="cachesize_8" value="{cachesize_8}" />
-        <input type="hidden" name="cachevote_1" value="{cachevote_1}" />
-        <input type="hidden" name="cachevote_2" value="{cachevote_2}" />
-        <input type="hidden" name="cachenovote" value="{cachenovote}" />
-        <input type="hidden" name="cachedifficulty_1" value="{cachedifficulty_1}" />
-        <input type="hidden" name="cachedifficulty_2" value="{cachedifficulty_2}" />
-        <input type="hidden" name="cacheterrain_1" value="{cacheterrain_1}" />
-        <input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
-        <input type="hidden" name="cacherating" value="{cacherating}" />
-        <input type="hidden" name="cachename" value="%"  />
-        <input type="hidden" name="gpxLogLimit" value="{gpxLogLimitUserChoice}" />
-
-
-        <table class="table">
-            <colgroup>
-                <col width="200"/>
-                <col width="220"/>
-                <col/>
-            </colgroup>
-            <tr><td class="buffer"></td></tr>
-            <tr>
-                <td><button type="submit" value="{{search}}" class="btn btn-primary" onclick="firstBtnClick();">{{search}}</button></td>
-                <td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap1" /><label for="showonmap1">{{show_on_map}}</label></td>
-            </tr>
-            <tr><td class="buffer" colspan="2"></td></tr>
-        </table>
-</div>
-<div class="searchdiv">
-    <table class="table">
-        <colgroup>
-            <col width="200"/>
-            <col width="220"/>
-            <col/>
-        </colgroup>
-        <tr>
-            <td colspan="3"><p class="content-title-noshade-size1">{{search_by_name}}</p></td>
-        </tr>
-        <tr><td class="buffer" colspan="3"></td></tr>
-        <tr class="form-group-sm">
-            <td class="content-title-noshade">{{cache_name}}:</td>
-            <td><input type="text" name="cachename" id="cachename" value="{cachename}" class="form-control input200" /></td>
-            <td><input type="submit" value="{{search}}" class="btn btn-primary btn-sm" /></td>
-            <td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap1" /><label for="showonmap1">{{show_on_map}}</label></td>
-        </tr>
-        <tr><td class="buffer" colspan="3"></td></tr>
-    </table>
-</form>
-</div> <div class="searchdiv">
-    <form action="search.php" onsubmit="javascript:return(_sbd_click());" method="{formmethod}" enctype="application/x-www-form-urlencoded" name="searchbydistance" dir="ltr" style="display:inline;">
-        <input type="hidden" name="searchto" value="searchbydistance" />
-        <input type="hidden" name="showresult" value="1" />
-        <input type="hidden" name="expert" value="0" />
-        <input type="hidden" name="output" value="HTML" />
-
-        <input type="hidden" name="sort" value="{hidopt_sort}" />
-        <input type="hidden" name="f_inactive" value="{hidopt_inactive}" />
-        <input type="hidden" name="f_ignored" value="{hidopt_ignored}" />
-        <input type="hidden" name="f_userfound" value="{hidopt_userfound}" />
-        <input type="hidden" name="f_userowner" value="{hidopt_userowner}" />
-        <input type="hidden" name="f_watched" value="{hidopt_watched}" />
-        <input type="hidden" name="f_geokret" value="{hidopt_geokret}" />
-        <input type="hidden" name="country" value="{country}" />
-        <input type="hidden" name="region" value="{region}" />
-        <input type="hidden" name="cachetype" value="{cachetype}" />
-        <input type="hidden" name="cache_attribs" value="{hidopt_attribs}" />
-        <input type="hidden" name="cache_attribs_not" value="{hidopt_attribs_not}" />
-
-        <input type="hidden" name="cachesize_1" value="{cachesize_1}" />
-        <input type="hidden" name="cachesize_2" value="{cachesize_2}" />
-        <input type="hidden" name="cachesize_3" value="{cachesize_3}" />
-        <input type="hidden" name="cachesize_4" value="{cachesize_4}" />
-        <input type="hidden" name="cachesize_5" value="{cachesize_5}" />
-        <input type="hidden" name="cachesize_6" value="{cachesize_6}" />
-        <input type="hidden" name="cachesize_7" value="{cachesize_7}" />
-        <input type="hidden" name="cachesize_8" value="{cachesize_8}" />
-        <input type="hidden" name="cachevote_1" value="{cachevote_1}" />
-        <input type="hidden" name="cachevote_2" value="{cachevote_2}" />
-        <input type="hidden" name="cachenovote" value="{cachenovote}" />
-        <input type="hidden" name="cachedifficulty_1" value="{cachedifficulty_1}" />
-        <input type="hidden" name="cachedifficulty_2" value="{cachedifficulty_2}" />
-        <input type="hidden" name="cacheterrain_1" value="{cacheterrain_1}" />
-        <input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
-        <input type="hidden" name="cacherating" value="{cacherating}" />
-        <input type="hidden" name="gpxLogLimit" value="{gpxLogLimitUserChoice}" />
-
-        <table class="table">
-            <colgroup>
-                <col width="200"/>
-                <col width="220"/>
-                <col/>
-            </colgroup>
-            <tr>
-                <td colspan="3"><p class="content-title-noshade-size1">{{search_by_distance}}</p></td>
-            </tr>
-            <tr><td class="buffer" colspan="3"></td></tr>
-            <tr class="form-group-sm">
-                <td valign="top" class="content-title-noshade">{{coordinates}}:</td>
-                <td colspan="3" valign="top">
-                    <select name="latNS" class="form-control input50">
-                        <option value="N" {latN_sel}>N</option>
-                        <option value="S" {latS_sel}>S</option>
-                    </select>&nbsp;
-                    <input type="text" name="lat_h" maxlength="2" value="{lat_h}" class="form-control input30" />&nbsp;°&nbsp;
-                    <input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="form-control input50" />&nbsp;'&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/information.png" alt="" title="info" />&nbsp;&nbsp;<b><a href="javascript:void(0)" onclick="showGeoCoder()">{{where_i_am}}</a></b>
-                    <br/>
-                    <select name="lonEW" class="form-control input50">
-                        <option value="E" {lonE_sel}>E</option>
-                        <option value="W" {lonW_sel}>W</option>
-                    </select>&nbsp;
-                    <input type="text" name="lon_h" maxlength="3" value="{lon_h}" class="form-control input30" />&nbsp;°&nbsp;
-                    <input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="form-control input50" />&nbsp;'&nbsp;
-                </td>
-            </tr>
-            <tr class="form-group-sm">
-                <td class="content-title-noshade">{{max_distance}}:</td>
-                <td class="content-title-noshade">
-                    <input type="text" name="distance" value="{distance}" maxlength="4" class="form-control input50" />&nbsp;
-                    <select name="unit" class="form-control input120">
-                        <option value="km" {sel_km}>{{kilometer}}</option>
-                        <option value="sm" {sel_sm}>{{mile}}</option>
-                        <option value="nm" {sel_nm}>{{nautical_mile}}</option>
-                    </select>
-                </td>
-                <td class="content-title-noshade"><input type="submit" value="{{search}}" class="btn btn-primary btn-sm" /></td>
-                <td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap2" /><label for="showonmap2">{{show_on_map}}</label></td>
-            </tr>
-            <tr><td class="buffer" colspan="3"></td></tr>
-        </table>
-    </form>
-</div> <div class="searchdiv">
-    <form action="search.php" onsubmit="javascript:return(_sbort_click());" method="{formmethod}" enctype="application/x-www-form-urlencoded" name="searchbyort" dir="ltr" style="display:inline;">
-        <input type="hidden" name="searchto" value="searchbyort" />
-        <input type="hidden" name="showresult" value="1" />
-        <input type="hidden" name="expert" value="0" />
-        <input type="hidden" name="output" value="HTML" />
-
-        <input type="hidden" name="sort" value="{hidopt_sort}" />
-        <input type="hidden" name="f_inactive" value="{hidopt_inactive}" />
-        <input type="hidden" name="f_ignored" value="{hidopt_ignored}" />
-        <input type="hidden" name="f_userfound" value="{hidopt_userfound}" />
-        <input type="hidden" name="f_userowner" value="{hidopt_userowner}" />
-        <input type="hidden" name="f_watched" value="{hidopt_watched}" />
-        <input type="hidden" name="f_geokret" value="{hidopt_geokret}" />
-        <input type="hidden" name="country" value="{country}" />
-        <input type="hidden" name="region" value="{region}" />
-        <input type="hidden" name="cachetype" value="{cachetype}" />
-        <input type="hidden" name="cache_attribs" value="{hidopt_attribs}" />
-        <input type="hidden" name="cache_attribs_not" value="{hidopt_attribs_not}" />
-
-        <input type="hidden" name="cachesize_1" value="{cachesize_1}" />
-        <input type="hidden" name="cachesize_2" value="{cachesize_2}" />
-        <input type="hidden" name="cachesize_3" value="{cachesize_3}" />
-        <input type="hidden" name="cachesize_4" value="{cachesize_4}" />
-        <input type="hidden" name="cachesize_5" value="{cachesize_5}" />
-        <input type="hidden" name="cachesize_6" value="{cachesize_6}" />
-        <input type="hidden" name="cachesize_7" value="{cachesize_7}" />
-        <input type="hidden" name="cachesize_8" value="{cachesize_8}" />
-        <input type="hidden" name="cachevote_1" value="{cachevote_1}" />
-        <input type="hidden" name="cachevote_2" value="{cachevote_2}" />
-        <input type="hidden" name="cachenovote" value="{cachenovote}" />
-        <input type="hidden" name="cachedifficulty_1" value="{cachedifficulty_1}" />
-        <input type="hidden" name="cachedifficulty_2" value="{cachedifficulty_2}" />
-        <input type="hidden" name="cacheterrain_1" value="{cacheterrain_1}" />
-        <input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
-        <input type="hidden" name="cacherating" value="{cacherating}" />
-        <input type="hidden" name="gpxLogLimit" value="{gpxLogLimitUserChoice}" />
-
-        <table class="table">
-            <colgroup>
-                <col width="200"/>
-                <col width="220"/>
-                <col/>
-            </colgroup>
-            <tr>
-                <td colspan="3"><p class="content-title-noshade-size1">{{search_by_city}}</p></td>
-            </tr>
-            <tr><td class="buffer" colspan="3"></td></tr>
-            {ortserror}
-        </table>
-
-        <table class="table">
-            <colgroup>
-                <col width="200"/>
-                <col width="220"/>
-                <col/>
-            </colgroup>
-            <tr class="form-group-sm">
-                <td class="content-title-noshade">{{city_name}}:</td>
-                <td class="content-title-noshade" colspan="2" valign="top"><input type="text" name="ort" value="{ort}" class="form-control input200" /></td>
-            </tr>
-            <tr class="form-group-sm">
-                <td class="content-title-noshade">{{max_distance}}:</td>
-                <td class="content-title-noshade">
-                    <input type="text" name="distance" value="{distance}" maxlength="4" class="form-control input50" />&nbsp;
-                    <select name="unit" class="form-control input120">
-                        <option value="km" {sel_km}>{{kilometer}}</option>
-                        <option value="sm" {sel_sm}>{{mile}}</option>
-                        <option value="nm" {sel_nm}>{{nautical_mile}}</option>
-                    </select>
-                </td>
-                <td class="content-title-noshade"><input type="submit" value="{{search}}" class="btn btn-primary btn-sm" /></td>
-                <td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap3" /><label for="showonmap3">{{show_on_map}}</label></td>
-            </tr>
-            <tr><td class="buffer" colspan="3"></td></tr>
-        </table>
-    </form>
-</div> <div class="searchdiv">
-    <form action="search.php" onsubmit="javascript:return(_sbft_click());" method="{formmethod}" enctype="application/x-www-form-urlencoded" name="searchbyfulltext" dir="ltr" style="display:inline;">
-        <input type="hidden" name="searchto" value="searchbyfulltext" />
-        <input type="hidden" name="showresult" value="1" />
-        <input type="hidden" name="expert" value="0" />
-        <input type="hidden" name="output" value="HTML" />
-
-        <input type="hidden" name="sort" value="{hidopt_sort}" />
-        <input type="hidden" name="f_inactive" value="{hidopt_inactive}" />
-        <input type="hidden" name="f_ignored" value="{hidopt_ignored}" />
-        <input type="hidden" name="f_userfound" value="{hidopt_userfound}" />
-        <input type="hidden" name="f_userowner" value="{hidopt_userowner}" />
-        <input type="hidden" name="f_watched" value="{hidopt_watched}" />
-        <input type="hidden" name="f_geokret" value="{hidopt_geokret}" />
-        <input type="hidden" name="country" value="{country}" />
-        <input type="hidden" name="region" value="{region}" />
-        <input type="hidden" name="cachetype" value="{cachetype}" />
-        <input type="hidden" name="cache_attribs" value="{hidopt_attribs}" />
-        <input type="hidden" name="cache_attribs_not" value="{hidopt_attribs_not}" />
-
-        <input type="hidden" name="cachesize_1" value="{cachesize_1}" />
-        <input type="hidden" name="cachesize_2" value="{cachesize_2}" />
-        <input type="hidden" name="cachesize_3" value="{cachesize_3}" />
-        <input type="hidden" name="cachesize_4" value="{cachesize_4}" />
-        <input type="hidden" name="cachesize_5" value="{cachesize_5}" />
-        <input type="hidden" name="cachesize_6" value="{cachesize_6}" />
-        <input type="hidden" name="cachesize_7" value="{cachesize_7}" />
-        <input type="hidden" name="cachesize_8" value="{cachesize_8}" />
-        <input type="hidden" name="cachevote_1" value="{cachevote_1}" />
-        <input type="hidden" name="cachevote_2" value="{cachevote_2}" />
-        <input type="hidden" name="cachenovote" value="{cachenovote}" />
-        <input type="hidden" name="cachedifficulty_1" value="{cachedifficulty_1}" />
-        <input type="hidden" name="cachedifficulty_2" value="{cachedifficulty_2}" />
-        <input type="hidden" name="cacheterrain_1" value="{cacheterrain_1}" />
-        <input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
-        <input type="hidden" name="cacherating" value="{cacherating}" />
-        <input type="hidden" name="gpxLogLimit" value="{gpxLogLimitUserChoice}" />
-
-        <table class="table">
-            <colgroup>
-                <col width="200"/>
-                <col width="220"/>
-                <col/>
-            </colgroup>
-            <tr>
-                <td colspan="3"><p class="content-title-noshade-size1">{{search_text}}</p></td>
-            </tr>
-            <tr><td class="buffer" colspan="3"></td></tr>
-            {fulltexterror}
-            <tr class="form-group-sm">
-                <td class="content-title-noshade">{{text}}:</td>
-                <td class="content-title-noshade"><input type="text" name="fulltext" value="{fulltext}" class="form-control input200" /></td>
-                <td class="content-title-noshade"><input type="submit" value="{{search}}" class="btn btn-primary btn-sm" /></td>
-                <td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap4" /><label for="showonmap4">{{show_on_map}}</label></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td colspan="2" align="center" class="content-title-noshade">
-                    <input type="checkbox" name="ft_name" id="ft_name" class="checkbox" value="1" {ft_name_checked} /> <label for="ft_name">{{cache_name}}</label>
-                    <input type="checkbox" name="ft_desc" id="ft_desc" class="checkbox" value="1" {ft_desc_checked} /> <label for="ft_desc">{{descriptions}}</label>
-                    <input type="checkbox" name="ft_logs" id="ft_logs" class="checkbox" value="1" {ft_logs_checked} /> <label for="ft_logs">{{logs_label}}</label>
-                    <input type="checkbox" name="ft_pictures" id="ft_pictures" class="checkbox" value="1" {ft_pictures_checked} /> <label for="ft_pictures">{{pictures}}</label>
-
-                </td>
-            </tr>
-            <tr><td class="buffer" colspan="3"></td></tr>
-        </table>
-    </form>
-</div> <div class="searchdiv">
-    <form action="search.php" onsubmit="javascript:return(_sbo_click());" method="{formmethod}" enctype="application/x-www-form-urlencoded" name="searchbyowner" dir="ltr" style="display:inline;">
-        <input type="hidden" name="searchto" value="searchbyowner" />
-        <input type="hidden" name="showresult" value="1" />
-        <input type="hidden" name="expert" value="0" />
-        <input type="hidden" name="output" value="HTML" />
-
-        <input type="hidden" name="sort" value="{hidopt_sort}" />
-        <input type="hidden" name="f_inactive" value="{hidopt_inactive}" />
-        <input type="hidden" name="f_ignored" value="{hidopt_ignored}" />
-        <input type="hidden" name="f_userfound" value="{hidopt_userfound}" />
-        <input type="hidden" name="f_userowner" value="{hidopt_userowner}" />
-        <input type="hidden" name="f_watched" value="{hidopt_watched}" />
-        <input type="hidden" name="f_geokret" value="{hidopt_geokret}" />
-        <input type="hidden" name="country" value="{country}" />
-        <input type="hidden" name="region" value="{region}" />
-        <input type="hidden" name="cachetype" value="{cachetype}" />
-        <input type="hidden" name="cache_attribs" value="{hidopt_attribs}" />
-        <input type="hidden" name="cache_attribs_not" value="{hidopt_attribs_not}" />
-
-        <input type="hidden" name="cachesize_1" value="{cachesize_1}" />
-        <input type="hidden" name="cachesize_2" value="{cachesize_2}" />
-        <input type="hidden" name="cachesize_3" value="{cachesize_3}" />
-        <input type="hidden" name="cachesize_4" value="{cachesize_4}" />
-        <input type="hidden" name="cachesize_5" value="{cachesize_5}" />
-        <input type="hidden" name="cachesize_6" value="{cachesize_6}" />
-        <input type="hidden" name="cachesize_7" value="{cachesize_7}" />
-        <input type="hidden" name="cachesize_8" value="{cachesize_8}" />
-        <input type="hidden" name="cachevote_1" value="{cachevote_1}" />
-        <input type="hidden" name="cachevote_2" value="{cachevote_2}" />
-        <input type="hidden" name="cachenovote" value="{cachenovote}" />
-        <input type="hidden" name="cachedifficulty_1" value="{cachedifficulty_1}" />
-        <input type="hidden" name="cachedifficulty_2" value="{cachedifficulty_2}" />
-        <input type="hidden" name="cacheterrain_1" value="{cacheterrain_1}" />
-        <input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
-        <input type="hidden" name="cacherating" value="{cacherating}" />
-        <input type="hidden" name="gpxLogLimit" value="{gpxLogLimitUserChoice}" />
-
-        <table class="table">
-            <colgroup>
-                <col width="200"/>
-                <col width="220"/>
-                <col/>
-            </colgroup>
-            <tr>
-                <td colspan="3"><p class="content-title-noshade-size1">{{search_by_owner}}</p></td>
-            </tr>
-            <tr><td class="buffer" colspan="3"></td></tr>
-            <tr class="form-group-sm">
-                <td class="content-title-noshade">{{owner_label}}:</td>
-                <td class="content-title-noshade"><input type="text" name="owner" value="{owner}" maxlength="40" class="form-control input200" /></td>
-                <td class="content-title-noshade"><input type="submit" value="{{search}}" class="btn btn-primary btn-sm" /></td>
-                <td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap5" /><label for="showonmap5">{{show_on_map}}</label></td>
-            </tr>
-            <tr><td class="buffer" colspan="3"></td></tr>
-        </table>
-    </form>
-</div><div class="searchdiv">
-    <form action="search.php" onsubmit="javascript:return(_sbf_click());" method="{formmethod}" enctype="application/x-www-form-urlencoded" name="searchbyfinder" dir="ltr" style="display:inline;">
-        <input type="hidden" name="searchto" value="searchbyfinder" />
-        <input type="hidden" name="showresult" value="1" />
-        <input type="hidden" name="expert" value="0" />
-        <input type="hidden" name="output" value="HTML" />
-
-        <input type="hidden" name="sort" value="{hidopt_sort}" />
-        <input type="hidden" name="f_inactive" value="{hidopt_inactive}" />
-        <input type="hidden" name="f_ignored" value="{hidopt_ignored}" />
-        <input type="hidden" name="f_userfound" value="{hidopt_userfound}" />
-        <input type="hidden" name="f_userowner" value="{hidopt_userowner}" />
-        <input type="hidden" name="f_watched" value="{hidopt_watched}" />
-        <input type="hidden" name="f_geokret" value="{hidopt_geokret}" />
-        <input type="hidden" name="country" value="{country}" />
-        <input type="hidden" name="region" value="{region}" />
-        <input type="hidden" name="cachetype" value="{cachetype}" />
-        <input type="hidden" name="cache_attribs" value="{hidopt_attribs}" />
-        <input type="hidden" name="cache_attribs_not" value="{hidopt_attribs_not}" />
-
-        <input type="hidden" name="cachesize_1" value="{cachesize_1}" />
-        <input type="hidden" name="cachesize_2" value="{cachesize_2}" />
-        <input type="hidden" name="cachesize_3" value="{cachesize_3}" />
-        <input type="hidden" name="cachesize_4" value="{cachesize_4}" />
-        <input type="hidden" name="cachesize_5" value="{cachesize_5}" />
-        <input type="hidden" name="cachesize_6" value="{cachesize_6}" />
-        <input type="hidden" name="cachesize_7" value="{cachesize_7}" />
-        <input type="hidden" name="cachesize_8" value="{cachesize_8}" />
-        <input type="hidden" name="cachevote_1" value="{cachevote_1}" />
-        <input type="hidden" name="cachevote_2" value="{cachevote_2}" />
-        <input type="hidden" name="cachenovote" value="{cachenovote}" />
-        <input type="hidden" name="cachedifficulty_1" value="{cachedifficulty_1}" />
-        <input type="hidden" name="cachedifficulty_2" value="{cachedifficulty_2}" />
-        <input type="hidden" name="cacheterrain_1" value="{cacheterrain_1}" />
-        <input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
-        <input type="hidden" name="cacherating" value="{cacherating}" />
-        <input type="hidden" name="gpxLogLimit" value="{gpxLogLimitUserChoice}" />
-
-        <table class="table">
-            <colgroup>
-                <col width="200"/>
-                <col width="220"/>
-                <col/>
-            </colgroup>
-            <tr>
-                <td colspan="3"><p class="content-title-noshade-size1">{{search_by_finder}}</p></td>
-            </tr>
-            <tr><td class="buffer" colspan="3"></td></tr>
-            <tr class="form-group-sm">
-                <td class="content-title-noshade">{{finder_label}}:</td>
-                <td class="content-title-noshade"><input type="text" name="finder" value="{finder}" maxlength="40" class="form-control input200" /></td>
-                <td class="content-title-noshade"><input type="submit" value="{{search}}" class="btn btn-primary btn-sm" /></td>
-                <td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap6" /><label for="showonmap6">{{show_on_map}}</label></td>
-            </tr>
-            <tr><td class="buffer" colspan="3"></td></tr>
-        </table>
-    </form>
-</div>
+</script>
