@@ -1311,6 +1311,11 @@ td.myneighborhood {
 }
 td.tab_date {
     white-space: nowrap;
+    max-width: 20%;
+}
+td.tab_icon
+{
+    width: 16px;
 }
 td.tab_user {
     width: 20%;
