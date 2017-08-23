@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCacheCommons;
+use lib\Controllers\LogEnteryController;
 
 
 //prepare the templates and include all neccessary
@@ -211,6 +212,7 @@ if ($error == false) {
                     XDb::xSql("UPDATE `cache_moved` SET `date`= ? WHERE log_id = ?",
                         date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
                         $log_id);
+                    LogEnteryController::recalculateMobileMovesByCacheId($log_record['cache_id']);
                 }
 
                 //store?
