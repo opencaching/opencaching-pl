@@ -41,11 +41,8 @@ if (isset($_SESSION['user_id'])) {
                     $query = "update caches set founds=founds-1 where cache_id = " . $cache_id;
                     XDb::xSql($query);
 
-                    $query = "SELECT 1 FROM `cache_rating` where user_id=" . $_SESSION['user_id'] . " and cache_id=" . $cache_id;
-                    $wynik = XDb::xSql($query);
-                    $czy_toprating = XDb::xFetchArray($wynik);
-
-                    if ($czy_toprating[0] == 1) {
+                    $check_toprating = Xdb::xMultiVariableQueryValue("SELECT COUNT(*) FROM `cache_rating` where user_id = :1 AND  cache_id = :2", 0, $_SESSION['user_id'], $cache_id);
+                    if ($check_toprating > 0) {
 
                         $query = "delete from `cache_rating` where user_id=" . $_SESSION['user_id'] . " and cache_id=" . $cache_id;
                         XDb::xSql($query);
@@ -62,11 +59,8 @@ if (isset($_SESSION['user_id'])) {
                         //XDb::xSql($query);
                     }
 
-                    $query = "SELECT 1 FROM `scores` where user_id=" . $_SESSION['user_id'] . " and cache_id=" . $cache_id;
-                    $wynik = XDb::xSql($query);
-                    $czy_scores = XDb::xFetchArray($wynik);
-
-                    if ($czy_scores[0] == 1) {
+                    $check_scores = Xdb::xMultiVariableQueryValue("SELECT COUNT(*) FROM `scores` where user_id = :1 AND  cache_id = :2", 0, $_SESSION['user_id'], $cache_id);
+                    if ($check_scores > 0) {
 
                         $query = "delete from `scores` where user_id=" . $_SESSION['user_id'] . " and cache_id=" . $cache_id;
                         XDb::xSql($query);
@@ -78,11 +72,13 @@ if (isset($_SESSION['user_id'])) {
                     break;
                 case 2:
                     $query = "update user set notfounds_count=notfounds_count-1 where user_id = " . $_SESSION['user_id'];
+                    XDb::xSql($query);
                     $query = "update caches set notfounds=notfounds-1 where cache_id = " . $cache_id;
                     XDb::xSql($query);
                     break;
                 case 3:
                     $query = "update user set log_notes_count=log_notes_count-1 where user_id = " . $_SESSION['user_id'];
+                    XDb::xSql($query);
                     $query = "update caches set notes=notes-1 where cache_id = " . $cache_id;
                     XDb::xSql($query);
                     break;
