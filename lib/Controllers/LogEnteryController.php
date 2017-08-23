@@ -6,8 +6,10 @@ use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\OcConfig\OcConfig;
 use Utils\Database\OcDb;
 use Utils\Email\EmailSender;
+use Utils\Gis\Gis;
 use lib\Objects\ApplicationContainer;
 use lib\Controllers\MeritBadgeController;
+use lib\Objects\GeoCache\GeoCache;
 
 class LogEnteryController
 {
@@ -154,24 +156,80 @@ class LogEnteryController
     private function handleMobileGeocachesAfterLogDelete(GeoCacheLog $log)
     {
         $db = OcDb::instance();
+        $delQuery = "DELETE FROM `cache_moved` WHERE `log_id`=:1 LIMIT 1";
+        $db->multiVariableQuery($delQuery, $log->getId());
+        self::recalculateMobileMoves($log->getGeoCache());
+    }
 
-        $checkcmlQuery = "SELECT `latitude`,`longitude`,`id` FROM `cache_moved` WHERE `log_id`= :1";
-        $s = $db->multiVariableQuery($checkcmlQuery, $log->getId());
-        if ($db->rowCount($s) != 0) {
-            $xy_log = $db->dbResultFetchOneRowOnly($s);
-            $geoCache = $log->getGeoCache();
-            $delQuery = "DELETE FROM `cache_moved` WHERE `log_id`=:1 LIMIT 1";
-            $db->multiVariableQuery($delQuery, $log->getId());
-            if ($geoCache->getCoordinates()->getLatitude() == $xy_log['latitude'] && $geoCache->getCoordinates()->getLongitude() == $xy_log['longitude']) {
-                $getxyQuery = "SELECT `latitude`,`longitude` FROM `cache_moved` WHERE `cache_id`=:1 ORDER BY `date` DESC LIMIT 1";
-                $s = $db->multiVariableQuery($getxyQuery, $geoCache->getCacheId());
-                $old_xy = $db->dbResultFetchOneRowOnly($s);
-                if (($old_xy['longitude'] != '') && ($old_xy['latitude'] != '')) {
-                    $updateQuery = "UPDATE `caches` SET `last_modified`=NOW(), `longitude`=:1, `latitude`=:2 WHERE `cache_id`=:3";
-                    $db->multiVariableQuery($updateQuery, $old_xy['longitude'], $old_xy['latitude'], $geoCache->getCacheId());
+    /**
+     * Method recalculates all moves of geocache (in cache_moved table)
+     * and updates cache coordinates and region from last move.
+     *
+     * You can safely remove cache_moved entry without any recalculations
+     * and next call this method to recalculate all (distances, coords, regions)
+     * You can also insert item into cache_moved without calculating distance
+     * and without setting new cords and next call this method.
+     * It also works while editing cache log.
+     *
+     * @param GeoCache $cache
+     * @return boolean - true is set when cache_moved or cache was changed, false - otherwise
+     */
+    public static function recalculateMobileMoves(GeoCache $cache)
+    {
+        $db = OcDb::instance();
+        $changed = false;
+
+        $query = "SELECT `id`, `user_id`, `latitude`,`longitude`, `km` FROM `cache_moved` WHERE `cache_id`= :1 ORDER BY `date` ASC";
+        $stmt = $db->multiVariableQuery($query, $cache->getCacheId());
+        $logMovedCount = $db->rowCount($stmt);
+        if ($logMovedCount == 0) { // Nothing to do. There are no cache_moved entries, we also cannot check cache coords
+            return $changed;
+        }
+        // Step 1 - ensure, that first log has distance 0km
+        $logMoved = $db->dbResultFetch($stmt);
+        if ($logMoved['km'] != '0') {
+            $db->multiVariableQuery("UPDATE `cache_moved` SET `km` = 0 WHERE `id` = :1", $logMoved['id']);
+            $changed = true;
+        }
+        // Step 2 - recalculate cache_moved distances
+        if ($logMovedCount > 1) {
+            require_once(__DIR__ . '/../../okapi/facade.php');
+            while ($newLogMoved = $db->dbResultFetch($stmt)) {
+                $distance = Gis::distance($logMoved['latitude'], $logMoved['longitude'], $newLogMoved['latitude'], $newLogMoved['longitude']);
+                $distance = round($distance, 2);
+                if ($distance != $newLogMoved['km']) { // save corrected distance in DB
+                    $db->multiVariableQuery("UPDATE `cache_moved` SET `km` = :1 WHERE `id` = :2", floatval($distance), $newLogMoved['id']);
+                    \okapi\Facade::schedule_user_entries_check($cache->getCacheId(), $newLogMoved['user_id']);
+                    \okapi\Facade::disable_error_handling();
+                    $changed = true;
                 }
+                $logMoved = $newLogMoved;
             }
         }
+        // Step 3 - set correct cache coordinates based on last cache_moved log
+        if ($cache->getCoordinates()->getLatitude() != $logMoved['latitude'] || $cache->getCoordinates()->getLongitude() != $logMoved['longitude']) {
+            $db->multiVariableQuery("UPDATE `caches` SET `last_modified`=NOW(),  `latitude`=:1, `longitude`=:2 WHERE `cache_id`=:3", doubleval($logMoved['latitude']), doubleval($logMoved['longitude']), $cache->getCacheId());
+
+            $regions = new \GetRegions();
+            $region = $regions->GetRegion($logMoved['latitude'], $logMoved['longitude']);
+            $db->multiVariableQuery("UPDATE `cache_location` SET adm1 = :1, adm3 = :2, code1= :3, code3= :4 WHERE cache_id = :5 ",
+                $region['adm1'], $region['adm3'], $region['code1'], $region['code3'], $cache->getCacheId());
+
+            $changed = true;
+        }
+        return $changed;
+    }
+
+    /**
+     * Method is similar to recalculateMobileMoves(), but param is cacheId, not GeoCache object
+     *
+     * @param unknown $cacheId
+     * @return boolean - true is set when cache_moved or cache was changed, false - otherwise
+     */
+    public static function recalculateMobileMovesByCacheId($cacheId)
+    {
+        $cache = new GeoCache(array('cacheId' => $cacheId));
+        return self::recalculateMobileMoves($cache);
     }
 
     private function updateGeocacheAfterLogRemove(GeoCacheLog $log, OcDb $db)

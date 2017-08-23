@@ -10,6 +10,7 @@ use lib\Objects\User\User;
 use lib\Objects\GeoKret\GeoKretLog;
 use lib\Controllers\MeritBadgeController;
 use Utils\Generators\Uuid;
+use lib\Controllers\LogEnteryController;
 
 /* todo:
   create and set up 4 template selector with wybor_WE wybor_NS.
@@ -495,7 +496,6 @@ if ($error == false) {
                             ($cache_type == GeoCache::TYPE_MOVING || $cache_type == GeoCache::TYPE_OWNCACHE)
                         ) {
 
-                        $doNotUpdateCoordinates = false;
                         ini_set('display_errors', 1);
                         // error_reporting(E_ALL);
                         // id of last SQL entery
@@ -544,86 +544,14 @@ if ($error == false) {
                                 VALUES ( ?, ?, LAST_INSERT_ID(), ?, ?, ?, '0')",
                                 $cache_id, $init_log_userID, $init_log_date, $init_log_longitude, $init_log_latitude);
 
-                            $dystans = sprintf("%.2f", Gis::distance($init_log_latitude, $init_log_longitude, $wspolrzedneNS, $wspolrzedneWE));
-                        } else {
-                            // $log_date - data+czas logu
-                            // calculate distance from piervous
-
-                            $cData = XDb::xSql(
-                                "SELECT `id`, `user_id`, `log_id`, `date`, `longitude`, `latitude`, `km` FROM  `cache_moved`
-                                WHERE `cache_id` = ? ORDER BY id DESC LIMIT 1", $cache_id );
-                            $ostatnie_dane_mobilniaka = XDb::xFetchArray($cData);
-
-                            // jeśli beżący (właśnie wpisywany) log jest ostatnim,
-                            // dystans zostanie wpisany do bazy. w przeciwnym wypadku
-                            // zmienna zostanie zastąpiona w if-ie
-                            $dystans = sprintf("%.2f", Gis::distance($ostatnie_dane_mobilniaka['latitude'], $ostatnie_dane_mobilniaka['longitude'], $wspolrzedneNS, $wspolrzedneWE));
-                            $logDatetime = new DateTime($log_date);
-                            $lastLogDateTime = new DateTime($ostatnie_dane_mobilniaka['date']);
-                            if ($logDatetime <= $lastLogDateTime) { // check if log date is beetwen, or last
-                                // find nearest log before
-                                $doNotUpdateCoordinates = true;
-                                $najblizszy_log_wczesniej_array = XDb::xSql(
-                                    "SELECT `id`, `user_id`, `log_id`, `date`, `longitude`, `latitude`, `km`
-                                     FROM  `cache_moved`
-                                     WHERE `cache_id` = ? AND `date` < ?
-                                     ORDER BY `date` DESC
-                                     LIMIT 1", $cache_id, $log_date);
-
-                                $najblizszy_log_wczesniej = XDb::xFetchArray($najblizszy_log_wczesniej_array);
-
-                                // find nearest log after
-                                $najblizszy_log_pozniej = XDb::xSql(
-                                    "SELECT `id`, `date`, `user_id`, `log_id`, `longitude`, `latitude`, `km`
-                                    FROM  `cache_moved`
-                                    WHERE `cache_id` = ? AND `date` > ?
-                                    ORDER BY `date` ASC
-                                    LIMIT 1", $cache_id, $cache_id);
-
-                                $najblizszy_log_pozniej = XDb::xFetchArray($najblizszy_log_pozniej);
-
-                                // wyliczenie zapisac w bazie dystans z obu wierszy modyfikowanych logow
-                                $najblizszy_log_wczesniej['id'];
-
-                                // dla logu przed obecnym
-                                $najblizszy_log_jeszcze_wczesniej = XDb::xFetchArray($najblizszy_log_wczesniej_array);
-                                $km_logu[$najblizszy_log_wczesniej['id']] = sprintf("%.2f", Gis::distance($najblizszy_log_jeszcze_wczesniej['latitude'], $najblizszy_log_jeszcze_wczesniej['longitude'], $najblizszy_log_wczesniej['latitude'], $najblizszy_log_wczesniej['longitude']));
-
-                                // dla logu po obecnym
-                                $km_logu[$najblizszy_log_pozniej['id']] = sprintf("%.2f", Gis::distance($wspolrzedneNS, $wspolrzedneWE, $najblizszy_log_pozniej['latitude'], $najblizszy_log_pozniej['longitude']));
-
-                                XDb::xSql(
-                                    "UPDATE `cache_moved` SET `km`= ? WHERE id = ? ",
-                                    $km_logu[$najblizszy_log_pozniej['id']], $najblizszy_log_pozniej['id']);
-
-                                XDb::xSql(
-                                    "UPDATE `cache_moved` SET `km`= ? WHERE id = ? ",
-                                    $km_logu[$najblizszy_log_wczesniej['id']], $najblizszy_log_wczesniej['id']);
-
-                                // wyliczenie dystansu dla obecnego logu.
-                                $dystans = sprintf("%.2f", Gis::distance($najblizszy_log_wczesniej['latitude'], $najblizszy_log_wczesniej['longitude'], $wspolrzedneNS, $wspolrzedneWE));
-                            }
                         }
 
-                        if($doNotUpdateCoordinates === false){ // update main cache coordinates
                         // insert into table cache_moved
                         XDb::xSql(
-                            "INSERT INTO `cache_moved`(`id`, `cache_id`, `user_id`, `log_id`, `date`, `longitude`, `latitude`,`km`)
-                            VALUES ('',?,?,?,?,?,?,?)",
-                            $cache_id, $usr['userid'], $last_id_4_mobile_moved, $log_date, $wspolrzedneWE, $wspolrzedneNS, $dystans);
-
-                        // update main cache coordinates
-                        XDb::xSql(
-                            "UPDATE `caches` SET `longitude` = ?, `latitude` = ?
-                            WHERE `cache_id`= ? ", $wspolrzedneWE, $wspolrzedneNS, $cache_id);
-
-                        // get new region (names and codes) from coordinates and put it into database.
-                        $region = new GetRegions();
-                        $regiony = $region->GetRegion($wspolrzedneNS, $wspolrzedneWE);
-                        XDb::xSql(
-                            "UPDATE `cache_location` SET adm1 = ?, adm3 = ?, code1= ?, code3= ? WHERE cache_id = ? ",
-                            $regiony['adm1'], $regiony['adm3'], $regiony['code1'], $regiony['code3'], $cache_id );
-                        }
+                            "INSERT INTO `cache_moved`(`cache_id`, `user_id`, `log_id`, `date`, `longitude`, `latitude`,`km`)
+                            VALUES (?, ?, ?, ?, ?, ?, 0)",
+                            $cache_id, $usr['userid'], $last_id_4_mobile_moved, $log_date, $wspolrzedneWE, $wspolrzedneNS);
+                        LogEnteryController::recalculateMobileMovesByCacheId($cache_id);
                     }
                     // mobilne by Łza - koniec
                     //inc cache stat and "last found"

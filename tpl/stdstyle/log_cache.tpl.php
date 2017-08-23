@@ -5,7 +5,6 @@ require_once('./lib/common.inc.php');
 
 $view->callChunk('tinyMCE', false);
 ?>
-<link href="tpl/stdstyle/css/confirmCancelButtons.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript">
     function subs_days(days_number) {
         //alert('ok');
