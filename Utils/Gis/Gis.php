@@ -178,6 +178,10 @@ class Gis
         return $bearing;
     }
 
+    public static function calcBearingBetween(Coordinates $c1, Coordinates $c2){
+        return self::calcBearing($c1->getLatitude(), $c1->getLongitude(), $c2->getLatitude(), $c2->getLongitude());
+    }
+
     public static function distance($latFrom, $lonFrom, $latTo, $lonTo, $distanceMultiplier = 1){
         $distance = acos(
             cos((90 - $latFrom) * M_PI / 180) * cos((90 - $latTo) * M_PI / 180) +
