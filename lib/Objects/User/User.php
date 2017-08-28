@@ -70,6 +70,9 @@ class User extends BaseObject
     private $geokretyApiSecid;
 
     private $rulesConfirmed = false;
+    private $watchmailMode;
+    private $watchmailDay;
+    private $watchmailHour;
 
     const REGEX_USERNAME = '^[a-zA-Z0-9ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ@-][a-zA-ZęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ0-9\.\-=_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\ -=&*+~#]{2,59}$';
     const REGEX_PASSWORD = '^[a-zA-Z0-9\.\-_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\$&*+~#]{3,60}$';
@@ -78,7 +81,7 @@ class User extends BaseObject
     const COMMON_COLLUMNS = "user_id, username, founds_count, notfounds_count,
                        hidden_count, latitude, longitude, country,
                        email, admin, guru, verify_all, rules_confirmed,
-                       notify_radius";
+                       notify_radius, watchmail_mode, watchmail_day, watchmail_hour";
 
     /**
      * construct class using $userId (fields will be loaded from db)
@@ -279,6 +282,15 @@ class User extends BaseObject
                     break;
                 case 'hide_flag':
                     $this->hideBan = (int) $value;
+                    break;
+                case 'watchmail_mode':
+                    $this->watchmailMode = (int) $value;
+                    break;
+                case 'watchmail_day':
+                    $this->watchmailDay = (int) $value;
+                    break;
+                case 'watchmail_hour':
+                    $this->watchmailHour = (int) $value;
                     break;
                 /* db fields not used in this class yet*/
                 case 'password':
@@ -681,6 +693,21 @@ class User extends BaseObject
     public function getLastLoginDate()
     {
         return $this->lastLogin;
+    }
+
+    public function getWatchmailMode()
+    {
+        return $this->watchmailMode;
+    }
+
+    public function getWatchmailDay()
+    {
+        return $this->watchmailDay;
+    }
+
+    public function getWatchmailHour()
+    {
+        return $this->watchmailHour;
     }
 
     public function isActive()
