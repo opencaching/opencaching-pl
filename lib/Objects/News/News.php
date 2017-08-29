@@ -204,6 +204,24 @@ class News extends BaseObject
                 case 'date_lastmod':
                     $this->date_lastmod = new \DateTime($val);
                     break;
+
+                // TODO: Will be removed after all OC nodes do sqlAlter
+                // Compatibility block
+                case 'date_posted':
+                    $this->date_publication = new \DateTime($val);
+                    $this->date_mainpageexp = new \DateTime($val);
+                    $this->date_mainpageexp->add(new \DateInterval('P31D'));
+                    break;
+                case 'topic':
+                    $this->show_onmainpage = ($val == 2) ? true : false;
+                    break;
+                case 'display':
+                    if ($val == 0) {
+                        $this->date_expiration = \DateTime::createFromFormat('d/m/Y', '6/08/2017');
+                    }
+                    break;
+                // End of compatibility block
+
                 default:
                     error_log(__METHOD__ . ": Unknown column: $key");
             }
@@ -218,8 +236,18 @@ class News extends BaseObject
         return $n;
     }
 
+    public static function compatibileMode() // TODO: Remove it!
+    {
+        $query = "SHOW COLUMNS FROM `news` LIKE 'display'";
+        $stmt = self::db()->simpleQuery($query);
+        return self::db()->rowCount($stmt);
+    }
+
     public static function getAllNews($loggeduser = false, $mainpage = false, $offset = null, $limit = null)
     {
+        if (self::compatibileMode()) { // TODO: Remove it!
+            return self::getAllNewsCompat($mainpage, $offset, $limit);
+        }
         $query = 'SELECT * FROM news
             WHERE (date_expiration > NOW()
                 OR date_expiration IS NULL)
@@ -247,6 +275,9 @@ class News extends BaseObject
 
     public static function getAllNewsCount($loggeduser = false, $mainpage = false)
     {
+        if (self::compatibileMode()) { // TODO: Remove it!
+            return self::getAllNewsCountCompat($mainpage);
+        }
         $query = 'SELECT COUNT(*) FROM news
             WHERE (date_expiration > NOW() OR date_expiration IS NULL)
                 AND (date_publication < NOW() OR date_publication IS NULL)';
@@ -278,6 +309,35 @@ class News extends BaseObject
     public static function getAdminNewsCount()
     {
         return self::db()->simpleQueryValue('SELECT COUNT(*) FROM news', 0);
+    }
+
+    private static function getAllNewsCompat($mainpage = false, $offset = null, $limit = null) // TODO: Remove it!
+    {
+        $query = 'SELECT * FROM news WHERE display = 1';
+        if ($mainpage) {
+            $query .= ' AND topic = 2 AND date_posted > NOW() - INTERVAL 31 DAY';
+        }
+        $query .= ' ORDER BY date_posted DESC';
+        if (! is_null($limit)) {
+            $query .= ' LIMIT ' . $limit;
+            if (! is_null($offset)) {
+                $query .= ' OFFSET ' . $offset;
+            }
+        }
+        $stmt = self::db()->simpleQuery($query);
+
+        return self::db()->dbFetchAllAsObjects($stmt, function ($row) {
+            return self::fromDbRowFactory($row);
+        });
+    }
+
+    private static function getAllNewsCountCompat($mainpage = false) // TODO: Remove it!
+    {
+        $query = 'SELECT COUNT(*) FROM news WHERE display = 1';
+        if ($mainpage) {
+            $query .= ' AND topic = 2 AND date_posted > NOW() - INTERVAL 31 DAY';
+        }
+        return self::db()->simpleQueryValue($query, 0);
     }
 
     public function generateDefaultValues()

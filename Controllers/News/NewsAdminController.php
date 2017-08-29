@@ -21,6 +21,11 @@ class NewsAdminController extends BaseController
             $this->view->redirect('/');
             exit();
         }
+        if (News::compatibileMode()) { // TODO: REMOVE THIS!
+            $this->adminDisabled();
+            exit();
+        }
+
         if (isset($_REQUEST['action'])) {
             switch ($_REQUEST['action']) {
                 case 'edit':
@@ -110,4 +115,10 @@ class NewsAdminController extends BaseController
         exit();
     }
 
+    private function adminDisabled() // TODO: REMOVE THIS
+    {
+        tpl_set_tplname('news/newsDisabled');
+        tpl_BuildTemplate();
+        exit();
+    }
 }
