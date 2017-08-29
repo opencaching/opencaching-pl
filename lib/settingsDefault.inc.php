@@ -14,6 +14,9 @@ $mail_cog = 'cog@localhost';    // OCPL COG = reviewers and regional service for
 $mail_rt = 'root@localhost';    // OCPL technical contact
 $mail_oc = 'ocpl@localhost';    // OCPL general contact
 
+// enable detailed cache access logging
+$enable_cache_access_logs = false;
+
 $config = array(
     /**
      *Add button to a shop. Set true otherwise false
