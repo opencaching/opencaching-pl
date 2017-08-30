@@ -210,3 +210,15 @@ textarea.userNoteTextarea {
 #userNote-div {
   margin: 0 20px;
 }
+
+label.two-state-btn input{
+  display: none;
+}
+
+label.two-state-btn input:checked ~ span.uncheckedLabel {
+  display: none;
+}
+
+label.two-state-btn input:not(:checked) ~ span.checkedLabel {
+  display: none;
+}

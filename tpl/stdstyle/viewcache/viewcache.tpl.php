@@ -26,9 +26,14 @@
                   <img src="images/actions/new-entry-16.png" alt="new-entry"/>&nbsp;<?=tr('new_log_entry')?>
                 </a>
                 <?php if($view->showWatchButton ){ ?>
-                    <a class="btn btn-default btn-md" href="<?=$view->watchLink?>">
-                      <img src="images/actions/watch-16.png" alt="" />&nbsp;<?=$view->watchLabel?>
-                    </a>
+                    <label class="btn btn-default btn-md two-state-btn">
+                        <input type="checkbox" onclick="watchIt(this)"
+                              value="<?=$view->geoCache->getWaypointId()?>"
+                              <?=($view->watched)?'checked':''?> />
+                        <img src="images/actions/watch-16.png" alt="" />&nbsp;
+                        <span class="checkedLabel"><?=tr('watch_not')?></span>
+                        <span class="uncheckedLabel"><?=tr('watch')?></span>
+                    </label>
                 <?php } //if-showWatchButton ?>
                 <?php if($view->showIgnoreButton ){ ?>
                     <a class="btn btn-default btn-md" href="<?=$view->ignoreLink?>">

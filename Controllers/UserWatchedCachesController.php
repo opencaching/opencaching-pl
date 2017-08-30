@@ -93,9 +93,10 @@ class UserWatchedCachesController extends BaseController
     }
 
     /**
-     * This is former removewatch.php script
+     * (This is former removewatch.php script)
+     *
      */
-    public function removeFromWatches($cacheId, $target=null)
+    public function removeFromWatchesAjax($cacheId)
     {
         if(!$this->isUserLogged()){
             $this->ajaxErrorResposne("User not logged", 401);
@@ -113,9 +114,9 @@ class UserWatchedCachesController extends BaseController
     }
 
     /**
-     * This is former watchcache.php script
+     * (This is former watchcache.php script)
      */
-    public function addToWatches($cacheId, $target=null)
+    public function addToWatchesAjax($cacheId)
     {
         if(!$this->isUserLogged()){
             $this->ajaxErrorResposne("User not logged", 401);

@@ -15,10 +15,13 @@ if(isset($_GET['action'])){
 
 switch($action){
     case 'remove':
-        $ctrl->removeFromWatches($_GET['cacheWp']);
+        $ctrl->removeFromWatchesAjax($_GET['cacheWp']);
         break;
     case 'add':
-        $ctrl->addToWatches($_GET['cacheWp']);
+        $ctrl->addToWatchesAjax($_GET['cacheWp']);
+        break;
+    case 'map':
+        $ctrl->mapOfWatches();
         break;
     default:
         $ctrl->index();
