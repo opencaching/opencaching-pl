@@ -1,11 +1,10 @@
 DELIMITER ;;
 
+--
+--
+--
 
---
---
---
 DROP TRIGGER IF EXISTS cachesBeforeUpdate;;
-
 
 CREATE TRIGGER `cachesBeforeUpdate` BEFORE UPDATE ON `caches`
 FOR EACH ROW BEGIN
@@ -15,10 +14,7 @@ IF OLD.`longitude`!=NEW.`longitude` OR OLD.`latitude`!=NEW.`latitude` THEN
     END;;
     
     
-    
-    
 DROP TRIGGER IF EXISTS cachesAfterDelete;;
-
 
 CREATE TRIGGER `cachesAfterDelete` AFTER DELETE ON `caches`
 FOR EACH ROW BEGIN
@@ -32,12 +28,8 @@ UPDATE `user`, (
 SET `user`.`hidden_count`=`c`.`hidden_count` 
 WHERE `user`.`user_id`=OLD.`user_id`;
     END;;
-
-
-    
     
 DROP TRIGGER IF EXISTS cachesAfterInsert;;
-
 
 CREATE TRIGGER `cachesAfterInsert` AFTER INSERT ON `caches`
 FOR EACH ROW BEGIN
@@ -55,10 +47,7 @@ SET `user`.`hidden_count`=`c`.`hidden_count` WHERE `user`.`user_id`=NEW.`user_id
     END;;
 
     
-    
-
 DROP TRIGGER IF EXISTS cachesAfterUpdate;;
-
 
 CREATE TRIGGER `cachesAfterUpdate` AFTER UPDATE ON `caches`
     FOR EACH ROW BEGIN
@@ -93,6 +82,36 @@ END IF;
 
 END;; --FOR EACH ROW
 
+
+
+
+--
+-- This procedure increment cache-watchers-counter (column watchers) for selected cache 
+-- It is called from cache_watches trigger.    
+--
+DROP PROCEDURE IF EXISTS inc_cache_watchers;;
+    
+CREATE PROCEDURE inc_cache_watchers (
+    IN `p_cache_id` int(11)    
+)
+BEGIN        
+    UPDATE caches SET watcher=watcher+1
+    WHERE `p_cache_id` = `cache_id` LIMIT 1;
+END ;;
+
+--
+-- This procedure decrement cache-watchers-counter (column watchers) for selected cache 
+-- It is called from cache_watches trigger.
+--
+DROP PROCEDURE IF EXISTS dec_cache_watchers;;
+    
+CREATE PROCEDURE dec_cache_watchers (
+    IN `p_cache_id` int(11)    
+)
+BEGIN        
+    UPDATE caches SET watcher=watcher-1
+    WHERE `p_cache_id` = `cache_id` AND watcher > 0 LIMIT 1;
+END ;;
 
 
 DELIMITER ;
