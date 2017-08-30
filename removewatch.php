@@ -13,11 +13,6 @@ if ($error == false) {
 
     if ($userId) {
         if ($cacheId == 'all') {
-            //stop watching any caches
-
-            //remove from caches
-            XDb::xSql('UPDATE caches SET watcher=watcher-1 WHERE watcher > 0 AND
-                       `cache_id` IN ( SELECT cache_id FROM cache_watches WHERE user_id = ?)', $userId);
 
             //remove watch
             XDb::xSql('DELETE FROM cache_watches WHERE user_id= ?', $userId);
@@ -35,11 +30,6 @@ if ($error == false) {
                 //remove watch
                 XDb::xSql('DELETE FROM cache_watches
                            WHERE cache_id= ? AND user_id= ?',$cacheId, $userId);
-
-                //remove from caches
-                XDb::xSql('UPDATE caches SET watcher=watcher-1
-                           WHERE cache_id=? AND watcher > 0',$cacheId);
-
 
             }
         }

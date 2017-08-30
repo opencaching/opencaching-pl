@@ -21,7 +21,6 @@ class UserWatchedCache extends BaseObject
 
 
     public static function removeFromWatched($userId, $cacheWp){
-        // TODO: UPDATE caches SET watcher=watcher-1 ??
 
         $params = [
            'cache_code' => $cacheWp,

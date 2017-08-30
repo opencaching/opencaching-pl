@@ -22,9 +22,6 @@ if ($error == false) {
             // if so proceed to add to database
             if ( $isWatched < 1) {
 
-                // increase this cache watchers count
-                XDb::xSql('UPDATE caches SET watcher=watcher+1  WHERE cache_id= ? ',$cache_id);
-
                 //add watch
                 XDb::xSql('INSERT INTO `cache_watches` (`cache_id`, `user_id`, `last_executed`) VALUES (?, ?, NOW())',
                     $cache_id, $usr['userid']);
