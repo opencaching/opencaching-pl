@@ -23,6 +23,12 @@ switch($action){
     case 'map':
         $ctrl->mapOfWatches();
         break;
+    case 'emailSettings':
+        $ctrl->emailSettings();
+        break;
+    case 'updateEmailSettings':
+        $ctrl->updateEmailSettings();
+        break;
     default:
         $ctrl->index();
 }

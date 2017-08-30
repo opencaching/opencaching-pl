@@ -5,8 +5,9 @@ use Utils\Database\OcDb;
 
 abstract class BaseObject
 {
-
+    /** @var OcDb */
     protected $db;
+
     protected $dataLoaded = false; //are data loaded to this object
 
 
@@ -19,6 +20,9 @@ abstract class BaseObject
         return $this->dataLoaded;
     }
 
+    /**
+     * @return \Utils\Database\OcDb
+     */
     public static function db()
     {
         return OcDb::instance();

@@ -7,6 +7,9 @@ use Utils\Debug\Debug;
 
 class UserWatchedCache extends BaseObject
 {
+    const SEND_NOTIFICATION_DAILY = 0;
+    const SEND_NOTIFICATION_HOURLY = 1;
+    const SEND_NOTIFICATION_WEEKLY = 2;
 
     public static function addCacheToWatched($userId, $cacheWp){
         $params = [
@@ -18,7 +21,6 @@ class UserWatchedCache extends BaseObject
 
         return (isset($okapiResp['success']) && $okapiResp['success'] == true );
     }
-
 
     public static function removeFromWatched($userId, $cacheWp){
 
@@ -86,7 +88,5 @@ class UserWatchedCache extends BaseObject
         return $db->dbResultFetchAll($stmt);
     }
 
-
 }
-
 

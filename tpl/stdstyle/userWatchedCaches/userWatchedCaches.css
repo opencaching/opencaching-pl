@@ -1,6 +1,5 @@
 
 
-
 #listOfWatchedCaches {
   width: 95%;  
 }
@@ -8,3 +7,25 @@
 #downloadMenu {
   padding: 20px;
 }
+
+#emailSettingsForm {
+  width: 100%;
+  text-align: center;
+}
+
+#emailSettingsForm select {
+  padding: 5px;
+  margin: 5px;
+}
+
+#emailSettingsForm .settingsDiv{
+  text-align: left;
+  width: 100%;
+}
+
+#emailSettingsForm .submitDiv{
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
+}
+

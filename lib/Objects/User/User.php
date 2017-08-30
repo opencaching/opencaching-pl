@@ -6,10 +6,8 @@ use lib\Objects\GeoCache\GeoCache;
 use lib\Controllers\Php7Handler;
 use Utils\Database\XDb;
 use lib\Objects\OcConfig\OcConfig;
-use lib\Objects\BaseObject;
 use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\PowerTrail\PowerTrail;
-
 
 /**
  * Description of user
@@ -649,9 +647,12 @@ class User extends UserCommons
     public function getEventsAttendsCount()
     {
         if($this->eventsAttendsCount == null) {
-            $this->eventsAttendsCount = XDb::xSimpleQueryValue("SELECT COUNT(*) events_count
-                            FROM cache_logs
-                            WHERE user_id=".$this->userId." AND type=7 AND deleted=0", 0);
+            $this->eventsAttendsCount =
+                XDb::xSimpleQueryValue(
+                    "SELECT COUNT(*) events_count
+                    FROM cache_logs
+                    WHERE user_id=".$this->userId."
+                        AND type=7 AND deleted=0", 0);
         }
         return $this->eventsAttendsCount;
     }
@@ -722,10 +723,10 @@ class User extends UserCommons
     public function getGeokretyApiSecid()
     {
         if($this->geokretyApiSecid === null){
-            $query = 'SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` = :1 LIMIT 1';
-            $db = OcDb::instance();
-            $result = $db->dbResultFetchOneRowOnly($db->multiVariableQuery($query, $this->userId));
-            $this->geokretyApiSecid = $result['secid'];
+            $this->geokretyApiSecid =
+            $this->db->multiVariableQueryValue(
+                    'SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` = :1 LIMIT 1',
+                    '', $this->userId);
         }
         return $this->geokretyApiSecid;
     }
@@ -750,4 +751,23 @@ class User extends UserCommons
 
         return $result;
     }
+
+    public function getCacheWatchEmailSettings(){
+
+        return $this->db->dbResultFetchOneRowOnly(
+            $this->db->multiVariableQuery(
+                'SELECT watchmail_mode, watchmail_hour, watchmail_day
+                FROM user WHERE user_id = :1 LIMIT 1', $this->userId));
+    }
+
+    public function updateCacheWatchEmailSettings(
+        $watchmail_mode, $watchmail_hour, $watchmail_day){
+
+        $this->db->multiVariableQuery(
+            'UPDATE user SET watchmail_mode=:1, watchmail_hour=:2, watchmail_day=:3
+             WHERE user_id=:4 LIMIT 1',
+            $watchmail_mode, $watchmail_hour, $watchmail_day, $this->userId);
+
+    }
+
 }

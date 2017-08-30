@@ -13,6 +13,9 @@ use Utils\Uri\Uri;
 class UserWatchedCachesController extends BaseController
 {
 
+    private $infoMsg = null;
+    private $errorMsg = null;
+
     public function __construct()
     {
         parent::__construct();
@@ -25,6 +28,10 @@ class UserWatchedCachesController extends BaseController
 
     public function mapOfWatches()
     {
+        if(!$this->isUserLogged()){
+            $this->redirectToLoginPage();
+        }
+
         echo "temporary-unavailable :( ";
     }
 
@@ -92,11 +99,72 @@ class UserWatchedCachesController extends BaseController
         $this->view->buildView();
     }
 
+    public function emailSettings(){
+        if(!$this->isUserLogged()){
+            $this->redirectToLoginPage();
+        }
+
+        $this->view->setTemplate('userWatchedCaches/emailSettings');
+        $this->view->addLocalCss(
+            Uri::getLinkWithModificationTime(
+                '/tpl/stdstyle/userWatchedCaches/userWatchedCaches.css'));
+
+        $this->view->loadJQuery();
+
+        $this->view->setVar('infoMsg', $this->infoMsg);
+        $this->view->setVar('errorMsg', $this->errorMsg);
+
+
+        $settings = $this->loggedUser->getCacheWatchEmailSettings();
+        $this->view->setVar('intervalSelected', $settings['watchmail_mode']);
+        $this->view->setVar('weekDaySelected', $settings['watchmail_day']);
+        $this->view->setVar('hourSelected', $settings['watchmail_hour']);
+
+        $this->view->buildView();
+    }
+
     /**
+     * Save new email settings and display settings form
+     */
+    public function updateEmailSettings(){
+        if(!$this->isUserLogged()){
+            $this->redirectToLoginPage();
+        }
+
+        $watchmailMode = isset($_POST['watchmail_mode'])?$_POST['watchmail_mode']:'';
+        $watchmailHour = isset($_POST['watchmail_hour'])?$_POST['watchmail_hour']:'';
+        $watchmailDay = isset($_POST['watchmail_day'])?$_POST['watchmail_day']:'';
+
+        if(is_numeric($watchmailMode) &&
+            in_array($watchmailMode,
+                [UserWatchedCache::SEND_NOTIFICATION_DAILY,
+                    UserWatchedCache::SEND_NOTIFICATION_HOURLY,
+                    UserWatchedCache::SEND_NOTIFICATION_WEEKLY]) &&
+            is_numeric($watchmailHour) &&
+            $watchmailHour >= 0 && $watchmailHour <= 23 &&
+            is_numeric($watchmailDay) &&
+            $watchmailDay >= 1 && $watchmailDay <= 7){
+
+            $this->loggedUser->updateCacheWatchEmailSettings(
+                $watchmailMode, $watchmailHour, $watchmailDay);
+
+            $this->infoMsg = tr('usrWatch_settingsSaved');
+
+        }else{
+            $this->errorMsg = tr('usrWatch_settingsSavedError');
+        }
+
+        $this->emailSettings();
+    }
+
+    /**
+     * This method removed given cache from list of watched geocaches for current user.
+     * This should be called by AJAX.
+     *
      * (This is former removewatch.php script)
      *
      */
-    public function removeFromWatchesAjax($cacheId)
+    public function removeFromWatchesAjax($cacheWp)
     {
         if(!$this->isUserLogged()){
             $this->ajaxErrorResposne("User not logged", 401);
@@ -104,7 +172,7 @@ class UserWatchedCachesController extends BaseController
         }
 
         $resp = UserWatchedCache::removeFromWatched(
-            $this->loggedUser->getUserId(), $_GET['cacheWp']);
+            $this->loggedUser->getUserId(), $cacheWp);
 
         if($resp){
             $this->ajaxSuccessResposne();
@@ -114,9 +182,12 @@ class UserWatchedCachesController extends BaseController
     }
 
     /**
+     * This method add given cache to list of watched geocaches for current user.
+     * This should be called by AJAX.
+     *
      * (This is former watchcache.php script)
      */
-    public function addToWatchesAjax($cacheId)
+    public function addToWatchesAjax($cacheWp)
     {
         if(!$this->isUserLogged()){
             $this->ajaxErrorResposne("User not logged", 401);
@@ -124,7 +195,7 @@ class UserWatchedCachesController extends BaseController
         }
 
         $resp = UserWatchedCache::addCacheToWatched(
-            $this->loggedUser->getUserId(), $_GET['cacheWp']);
+            $this->loggedUser->getUserId(), $cacheWp);
 
         if($resp){
             $this->ajaxSuccessResposne();

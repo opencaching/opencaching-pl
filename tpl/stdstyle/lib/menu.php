@@ -575,7 +575,7 @@ $menu = array(
                 'title' => tr('settings_notifications'),
                 'menustring' => tr('settings_notifications'),
                 'visible' => true,
-                'filename' => 'mywatches.php?rq=properties',
+                'filename' => 'mywatches.php?action=emailSettings',
                 'siteid' => 'mywatches_properties'
             ),
             array(
@@ -603,7 +603,7 @@ $menu = array(
                         'title' => tr('map_watched_caches'),
                         'menustring' => tr('map_watched_caches'),
                         'visible' => true,
-                        'filename' => 'mywatches.php?rq=map',
+                        'filename' => 'mywatches.php?action=map',
                         'siteid' => 'mywatches_map',
                     ),
                 ),
