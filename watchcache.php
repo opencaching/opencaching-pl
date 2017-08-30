@@ -29,9 +29,7 @@ if ($error == false) {
                 XDb::xSql('INSERT INTO `cache_watches` (`cache_id`, `user_id`, `last_executed`) VALUES (?, ?, NOW())',
                     $cache_id, $usr['userid']);
 
-                //add to user
-                XDb::xSql('UPDATE user SET cache_watches=cache_watches+1 WHERE user_id= ? ',$usr['userid']);
-            }
+             }
             tpl_redirect($target);
         }
     }

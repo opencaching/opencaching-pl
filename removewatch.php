@@ -22,8 +22,6 @@ if ($error == false) {
             //remove watch
             XDb::xSql('DELETE FROM cache_watches WHERE user_id= ?', $userId);
 
-            //remove from user
-            XDb::xSql('UPDATE user SET cache_watches=0 WHERE user_id=? ',$userId);
         } else {
 
             // check if user really watching specified cache
@@ -42,9 +40,6 @@ if ($error == false) {
                 XDb::xSql('UPDATE caches SET watcher=watcher-1
                            WHERE cache_id=? AND watcher > 0',$cacheId);
 
-                //remove from user
-                XDb::xSql('UPDATE user SET cache_watches=cache_watches-1
-                           WHERE user_id=? AND cache_watches > 0',$userId);
 
             }
         }
