@@ -122,7 +122,7 @@ class Notify extends BaseObject
      * @param int $type
      * @return Notify[]
      */
-    public static function getAllNotifiesForUserId(int $itemUserId, $type = self::TYPE_NEWCACHE)
+    public static function getAllNotifiesForUserId($itemUserId, $type = self::TYPE_NEWCACHE)
     {
         $query = "SELECT *
             FROM `notify_waiting`
@@ -156,7 +156,7 @@ class Notify extends BaseObject
      * 
      * @param int $userId
      */
-    public static function deleteNotifiesForUserId(int $userId, $type = self::TYPE_NEWCACHE)
+    public static function deleteNotifiesForUserId($userId, $type = self::TYPE_NEWCACHE)
     {
         $query ="
             DELETE
