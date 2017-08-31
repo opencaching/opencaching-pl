@@ -11,7 +11,7 @@
 1    0   *   *   *   wget -O - -q https://opencaching.pl/tpl/stdstyle/etc/write_chartsdata.php
 
 # e-mail notifications about new caches
-*/13 */3 *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/notification/run_notify.php  run_notify.html
+*/13 *   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/notification/run_notify.php  run_notify.html
 
 # Publish new caches
 0    *   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/publish_caches/run_publish.php  run_publish.html
