@@ -59,8 +59,6 @@ parsePowerTrailFilter(false);
 setTheRestOfCommonVars(); // open current cache
 tpl_set_var('map_type', "0"); // fixed to default map
 
-setCommonMap3Vars();
-
 $view->loadJQuery();
 $view->loadGMapApi();
 

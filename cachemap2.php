@@ -2,14 +2,7 @@
 
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\PrintList;
-function onTheList($theArray, $item)
-{
-    for ($i = 0; $i < count($theArray); $i++) {
-        if ($theArray[$i] == $item)
-            return $i;
-    }
-    return -1;
-}
+
 
 function getDBFilter($userid)
 {

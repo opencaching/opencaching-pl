@@ -9,6 +9,7 @@ use lib\Objects\ChunkModels\ListOfCaches\Column_CacheLastLog;
 use lib\Objects\ChunkModels\ListOfCaches\Column_OnClickActionIcon;
 use lib\Objects\ChunkModels\PaginationModel;
 use Utils\Uri\Uri;
+use lib\Objects\ChunkModels\DynamicMap\DynamicMapModel;
 
 class UserWatchedCachesController extends BaseController
 {
@@ -31,8 +32,19 @@ class UserWatchedCachesController extends BaseController
         if(!$this->isUserLogged()){
             $this->redirectToLoginPage();
         }
+        $this->view->setTemplate('userWatchedCaches/mapOfWatched');
+        $this->view->addLocalCss(
+            Uri::getLinkWithModificationTime(
+                '/tpl/stdstyle/userWatchedCaches/userWatchedCaches.css'));
+        $this->view->loadJQuery();
+        $this->view->loadGMapApi();
 
-        echo "temporary-unavailable :( ";
+        $mapModel = new DynamicMapModel();
+
+
+        $this->view->setVar('mapModel', $mapModel);
+
+        $this->view->buildView();
     }
 
     public function listOfWatches()

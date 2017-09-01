@@ -6,23 +6,15 @@ use lib\Objects\User\User;
 use lib\Objects\PowerTrail\PowerTrail;
 
 
-/*
+/**
  *
  * This is common code for mapv3
- * this is used by:
+ *
+ * This is used by:
  * -- /cachemap3.php
  * -- /cachemap-full.php
  * -- /cachemap-mini.php
  */
-function onTheList($theArray, $item)
-{
-    for ($i = 0; $i < count($theArray); $i ++) {
-        if ($theArray[$i] == $item) {
-            return $i;
-        }
-    }
-    return - 1;
-}
 
 /**
  * Reads user map settings from the DB
@@ -348,26 +340,23 @@ function setTheRestOfCommonVars()
 
     tpl_set_var('doopen', isset($_REQUEST['cacheid']) ? "true" : "false");
 
-    setCommonMap3Vars();
-}
-
-function setCommonMap3Vars()
-{
-    global $rootpath, $cachemap_mapper; // from global settings.inc.php
+    global $cachemap_mapper; // from global settings.inc.php
 
     tpl_set_var("cachemap_mapper", $cachemap_mapper);
 
-    tpl_set_var('cachemap_header', '<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">');
+    tpl_set_var('cachemap_header',
+        '<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">');
 
     /*
-     * Generate dynamic URL to cachemap3.js file, this will make sure it will be reloaded by the browser.
-     * The time-stamp will be stripped by a rewrite rule in lib/.htaccess.
+     * Generate dynamic URL to cachemap3.js file, this will make sure
+     * it will be reloaded by the browser.
      */
+    global $rootpath;
     $cacheMapVersion = filemtime($rootpath . 'lib/cachemap3.js') % 1000000;
-    $cacheMapVersion += filemtime($rootpath . 'lib/cachemap3.php') % 1000000;
-    $cacheMapVersion += filemtime($rootpath . 'lib/cachemap3lib.inc.php') % 1000000;
+    $cacheMapVersion += filemtime($rootpath . 'lib/cachemap3.js.php') % 1000000;
     $cacheMapVersion += filemtime($rootpath . 'lib/settings.inc.php') % 1000000;
-    tpl_set_var('lib_cachemap3_js', "lib/cachemap3." . $cacheMapVersion . ".js");
+    tpl_set_var('lib_cachemap3_js', "lib/cachemap3.js.php?$cacheMapVersion");
+
 }
 
 function handleUserLogged()

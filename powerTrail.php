@@ -5,7 +5,7 @@ use lib\Objects\ApplicationContainer;
 use lib\Objects\PowerTrail\PowerTrail;
 use lib\Objects\GeoCache\GeoCache;
 use Utils\Uri\Uri;
-
+use lib\Objects\OcConfig\OcDynamicMapConfig;
 
 /**
  *  powerTrail.php
@@ -27,7 +27,6 @@ $ocConfig = OcConfig::instance();
 $appContainer = ApplicationContainer::Instance();
 
 require_once('lib/cache.php');
-require_once(__DIR__ . '/lib/cachemap3lib.inc.php');
 
 $_SESSION['powerTrail']['userFounds'] = $usr['userFounds'];
 
@@ -131,9 +130,11 @@ if ($error == false) {
     tpl_set_var('ocWaypoint', $oc_waypoint);
     tpl_set_var('commentsPaginateCount', powerTrailBase::commentsPaginateCount);
 
-    tpl_set_var('attributionMap', CacheMap3Lib::GenerateAttributionMap());
-    tpl_set_var('mapItems', CacheMap3Lib::GenerateMapItems());
-    tpl_set_var('showMapsWhenMore', CacheMap3Lib::GenerateShowMapsWhenMore());
+    tpl_set_var('attributionMap', OcDynamicMapConfig::getJsAttributionMap());
+    tpl_set_var('mapItems', OcDynamicMapConfig::getJsMapItems());
+    tpl_set_var('mapWMSConfigLoader', OcDynamicMapConfig::getWMSImageMapTypeOptions());
+
+
     tpl_set_var('googlemap_key', $googlemap_key);
     tpl_set_var('powerTrailId', '');
     tpl_set_var('keszynki', '');

@@ -1,17 +1,21 @@
 <?php
+
+namespace lib\Objects\OcConfig;
+
 /**
- * This class is used to generate maps description based on maps configuration from settings.inc.php
+ * This class is place for code used to load map config fomr settings.
+ * This is a little bit complicated (complex JS and PHP code) and need further refactoring.
  *
+ * Most of the code based on former /lib/CacheMap3Lib.inc.php file.
  */
-use lib\Objects\OcConfig\OcConfig;
 
-class CacheMap3Lib {
-
-    public static function GenerateAttributionMap()
+class OcDynamicMapConfig
+{
+    public static function getJsAttributionMap()
     {
         $result = '';
         foreach(OcConfig::mapsConfig() as $key => $val){
-            if (self::ShouldSkip($val)){
+            if (self::shouldSkip($val)){
                 continue;
             }
             if (isset($val['attribution'])){
@@ -27,39 +31,79 @@ class CacheMap3Lib {
 
     }
 
-    public static function GenerateMapItems()
+    public static function getJsMapItems()
     {
         $result = '';
         foreach(OcConfig::mapsConfig() as $key => $val){
-            if (self::ShouldSkip($val)){
+            if (self::shouldSkip($val)){
                 continue;
             }
 
             if ($result !== ''){
                 $result .= ",\n";
             }
-            $result .= "\t$key:" . self::GenerateMapItem($key, $val);
+            $result .= "\t$key:" . self::generateMapItem($key, $val);
         }
         return "{\n" . $result . "\n}";
 
     }
 
-    public static function GenerateShowMapsWhenMore()
-    {
-        $result = '';
-        foreach(OcConfig::mapsConfig() as $key => $val){
-            if (self::ShouldSkip($val)){
-                continue;
-            }
-            if (!isset($val['showOnlyIfMore'])){
-                continue;
-            }
-            if ($result !== ''){
-                $result .= ",\n";
-            }
-            $result .= "\t$key:" . ($val['showOnlyIfMore'] ? 'true' : 'false');
-        }
-        return "{\n" . $result . "\n}";
+    /**
+     * This function provides JS function WMSImageMapTypeOptions necessary for config
+     * (setting.inc.php) parsing.
+     *
+     *
+     * BE SURE THAT you defined the JS getGoogleMapObject()
+     * function which returns proper variable
+     */
+    public static function getWMSImageMapTypeOptions(){
+        return <<<'EOF'
+
+
+function WMSImageMapTypeOptions(
+    wmsName, wmsURL, wmsLayers, wmsStyles, wmsFormat, wmsVersion, wmsBgColor)
+{
+    var myBaseURL = wmsURL;
+    var myLayers = wmsLayers;
+    var myStyles = (wmsStyles ? wmsStyles : "");
+    var myFormat = (wmsFormat ? wmsFormat : "image/gif");
+    var myVersion = (wmsVersion ? wmsVersion : "1.1.1");
+    var myBgColor = (wmsBgColor ? wmsBgColor : "0xFFFFFF");
+
+    this.tileSize = new google.maps.Size(512, 512);
+    this.name = wmsName;
+    this.maxZoom = 19;
+
+    this.getTileUrl = function(point, zoom) {
+        var proj = getGoogleMapObject().getProjection();
+        var zfactor = Math.pow(2, zoom);
+        var lULP = new google.maps.Point(
+            point.x * 512 / zfactor, (point.y + 1) * 512 / zfactor);
+        var lLRP = new google.maps.Point(
+            (point.x + 1) * 512 / zfactor, point.y * 512 / zfactor);
+        var lUL = proj.fromPointToLatLng(lULP);
+        var lLR = proj.fromPointToLatLng(lLRP);
+        var lBbox = lUL.lng() + "," + lUL.lat() + "," + lLR.lng() + "," + lLR.lat();
+        var lSRS = "EPSG:4326";
+        var lURL = myBaseURL;
+        lURL += "?REQUEST=GetMap";
+        lURL += "&SERVICE=WMS";
+        lURL += "&VERSION=" + myVersion;
+        lURL += "&LAYERS=" + myLayers;
+        lURL += "&STYLES=" + myStyles;
+        lURL += "&FORMAT=" + myFormat;
+        lURL += "&BGCOLOR=" + myBgColor;
+        lURL += "&SRS=" + lSRS;
+        lURL += "&BBOX=" + lBbox;
+        lURL += "&WIDTH=768";
+        lURL += "&HEIGHT=768";
+        return lURL;
+    };
+}
+
+EOF;
+
+//BEWARE OF BUGS!: EOF must be at the beginig of line!
 
     }
 
@@ -67,21 +111,17 @@ class CacheMap3Lib {
      * Check if mapItem is marked to be hidden
      * @param array $mapItem
      */
-    protected static function ShouldSkip(array $mapItem)
+    private static function shouldSkip(array $mapItem)
     {
-        if (isset($mapItem['hidden']) && $mapItem['hidden'] === true){
-            return true;
-        }
-        return false;
+        return (isset($mapItem['hidden']) && $mapItem['hidden'] === true);
     }
 
-    private static function GenerateMapItem($key, array $val)
+    private static function generateMapItem($key, array $val)
     {
         if (isset($val['imageMapTypeJS'])){
             return 'function(){return ' . $val['imageMapTypeJS'] . ";\n\t}";
         }
 
-        unset($val['showOnlyIfMore']);
         unset($val['showInPowerTrail']);
         unset($val['attribution']);
 
@@ -164,4 +204,7 @@ class CacheMap3Lib {
         $length = strlen($needle);
         return (substr($haystack, 0, $length) === $needle);
     }
+
 }
+
+

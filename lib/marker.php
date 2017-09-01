@@ -18,14 +18,6 @@ if ($usr == false) {
 
 $ENCODING = "UTF-8";
 
-function onTheList($theArray, $item)
-{
-    for ($i = 0; $i < count($theArray); $i++) {
-        if ($theArray[$i] == $item)
-            return $i;
-    }
-    return -1;
-}
 
 function typeLetter($intType)
 {

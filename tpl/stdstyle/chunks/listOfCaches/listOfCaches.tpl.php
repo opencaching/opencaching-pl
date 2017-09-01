@@ -18,7 +18,6 @@ return function (ListOfCachesModel $listModel){
 ?>
 
 <script type='text/javascript'>
-    // load infoBar chunk css
     var linkElement = document.createElement("link");
     linkElement.rel = "stylesheet";
     linkElement.href = "<?=$chunkCSS?>";
