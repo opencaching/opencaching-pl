@@ -1,1 +1,32 @@
 @charset "UTF-8";
+
+
+#map_copyright {
+  font-size: 10px;
+  font-family: Arial, sans-serif;
+  padding: 3px 6px;
+  whiteSpace: nowrap;
+  opacity: 0.7;
+  background-color: #fff;
+}
+
+
+.iw-container .iw-wp {
+  font-weight: bold;
+}
+
+.iw-container .iw-name {
+  font-weight: bold;
+}
+
+.iw-container .iw-title {
+  padding: 5px 0 10px 0;
+}
+
+.iw-container a {
+  text-decoration: none;
+}
+
+.iw-logUsername {
+  font-weight: bold;
+}

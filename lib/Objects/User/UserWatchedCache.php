@@ -3,7 +3,6 @@
 namespace lib\Objects\User;
 
 use lib\Objects\BaseObject;
-use Utils\Debug\Debug;
 
 class UserWatchedCache extends BaseObject
 {
@@ -50,6 +49,7 @@ class UserWatchedCache extends BaseObject
 
         $stmt = $db->multiVariableQuery(
             "SELECT c.cache_id, c.name, c.type, c.status, c.wp_oc,
+                    c.longitude, c.latitude,
                     cl.llog_id, cl.llog_text, cl.llog_type, cl.llog_date, cl.llog_user_id,
                     u.username AS llog_username,
                     sts.user_sts

@@ -2056,6 +2056,7 @@ $translations = array(
     'mytop5_1' => 'Do you want to remove your recommendation?',
 
     'usrWatch_title' => 'Watched geocaches',
+    'usrWatch_mapTitle' => 'Map of watched geocaches',
     'usrWatch_status' => 'Status',
     'usrWatch_watchedCache' => 'Watched geocache',
     'usrWatch_lastLog' => 'Last log',

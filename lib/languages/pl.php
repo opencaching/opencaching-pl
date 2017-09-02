@@ -2056,6 +2056,7 @@ $translations = array(
     'mytop5_1' => 'Czy na pewno chcesz usunąć tę rekomendację?',
 
     'usrWatch_title' => 'Obserwowane skrzynki',
+    'usrWatch_mapTitle' => 'Mapa obserwowanych skrzynek',
     'usrWatch_status' => 'Status',
     'usrWatch_watchedCache' => 'Obserwowane skrzynki',
     'usrWatch_lastLog' => 'Ostatni wpis w logu',

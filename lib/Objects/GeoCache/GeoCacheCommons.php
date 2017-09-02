@@ -39,6 +39,8 @@ class GeoCacheCommons{
 
     const RECOMENDATION_RATIO = 10; //percentage of founds which can be recomeded by user
 
+    const ICON_PATH = 'tpl/stdstyle/images/cache/'; //path to the dir with cache icons
+
     public static function CacheTypeTranslationKey($type){
 
         switch($type){
@@ -199,7 +201,8 @@ class GeoCacheCommons{
      * @param enum $status
      * @return string - path + filename of the right icon
      */
-    public static function CacheIconByType($type, $status, $logStatus = null)
+    public static function CacheIconByType(
+        $type, $status, $logStatus = null, $fileNameOnly = false)
     {
 
         $statusPart = ""; //part of icon name represents cache status
@@ -270,7 +273,11 @@ class GeoCacheCommons{
                 break;
         }
 
-        return 'tpl/stdstyle/images/cache/' . $typePart . $statusPart . $logStatusPart . '.png';
+        if($fileNameOnly){
+            return $typePart . $statusPart . $logStatusPart . '.png';
+        }else{
+            return self::ICON_PATH . $typePart . $statusPart . $logStatusPart . '.png';
+        }
     }
 
     /**

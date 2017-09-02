@@ -13,38 +13,30 @@ class OcDynamicMapConfig
 {
     public static function getJsAttributionMap()
     {
-        $result = '';
+        $result = [];
         foreach(OcConfig::mapsConfig() as $key => $val){
             if (self::shouldSkip($val)){
                 continue;
             }
             if (isset($val['attribution'])){
-                $attribution = $val['attribution'];
-                $attribution = str_replace('\'', '\\\'', $attribution);
-                if ($result !== ''){
-                    $result .= ",\n";
-                }
-                $result .= "\t$key:'$attribution'";
+                $result[$key] = $val['attribution'];
             }
         }
-        return "{\n" . $result . "\n}";
-
+        return json_encode($result,JSON_PRETTY_PRINT);
     }
 
     public static function getJsMapItems()
     {
-        $result = '';
+        $result = [];
         foreach(OcConfig::mapsConfig() as $key => $val){
+
             if (self::shouldSkip($val)){
                 continue;
             }
 
-            if ($result !== ''){
-                $result .= ",\n";
-            }
-            $result .= "\t$key:" . self::generateMapItem($key, $val);
+            $result[] = "\t$key:" . self::generateMapItem($key, $val);
         }
-        return "{\n" . $result . "\n}";
+        return "{\n" . implode(",\n",$result) . "\n}";
 
     }
 
@@ -133,6 +125,7 @@ EOF;
             $getTileUrl = $val['tileUrlJS'];
             unset($val['tileUrlJS']);
             unset($val['tileUrl']);
+
         } elseif (isset($val['tileUrl'])) {
             $tileUrl = $val['tileUrl'];
 

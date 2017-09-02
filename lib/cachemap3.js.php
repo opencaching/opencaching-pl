@@ -19,6 +19,9 @@ var mapItems = <?=OcDynamicMapConfig::getJsMapItems()?>;
 
 <?=OcDynamicMapConfig::getWMSImageMapTypeOptions()?>
 
-/* common JS for maps */
-<?= file_get_contents(dirname(__FILE__) . '/cachemap3.js');?>
+/* common JS for cachemap_v3 */
+<?=file_get_contents(__DIR__ . '/cachemap3.js');?>
 
+/* common JS for all dynamic maps */
+<?=file_get_contents(
+    __DIR__ . '/../tpl/stdstyle/chunks/dynamicMap/dynamicMapCommons.js');?>

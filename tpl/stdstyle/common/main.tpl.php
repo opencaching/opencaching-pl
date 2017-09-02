@@ -91,7 +91,9 @@ if (date('m') == 12 || date('m') == 1) {
                     Debug::errorLog("There is no googlemap_key value in site settings?!".
                                 "Map can't be loaded!");
                 }else{
-                    $view->callChunk('googleMapsApi', $GLOBALS['googlemap_key'], $view->getLang());
+                    $callback = isset($view->GMapApiCallback)?$view->GMapApiCallback:null;
+                    $view->callChunk('googleMapsApi',
+                        $GLOBALS['googlemap_key'], $view->getLang(), $callback);
                 }
             }
         ?>

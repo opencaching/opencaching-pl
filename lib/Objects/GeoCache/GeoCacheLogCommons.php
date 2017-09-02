@@ -23,8 +23,9 @@ class GeoCacheLogCommons {
     const LOGTYPE_TEMPORARYUNAVAILABLE = 11;
     const LOGTYPE_ADMINNOTE = 12;
 
+    const ICON_PATH = 'tpl/stdstyle/images/log/'; //path to the dir with log-type icons
 
-    public static function GetIconForType($logType){
+    public static function GetIconForType($logType, $fileNameOnly = false){
 
         switch($logType){
             case self::LOGTYPE_FOUNDIT:
@@ -69,7 +70,12 @@ class GeoCacheLogCommons {
                 break;
 
         }
-        return 'tpl/stdstyle/images/log/'.$icon;
+
+        if(!$fileNameOnly){
+            $icon = self::ICON_PATH . $icon;
+        }
+
+        return $icon;
     }
 
     public static function typeTranslationKey($logType){

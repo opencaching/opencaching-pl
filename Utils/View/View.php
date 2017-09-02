@@ -105,8 +105,9 @@ class View {
         $this->_loadJQuery = true; // lightBox needs jQuery!
     }
 
-    public function loadGMapApi(){
+    public function loadGMapApi($callback = null){
         $this->_loadGMapApi = true;
+        $this->setVar('GMapApiCallback', $callback);
     }
 
     /**

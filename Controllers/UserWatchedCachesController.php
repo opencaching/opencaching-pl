@@ -9,7 +9,9 @@ use lib\Objects\ChunkModels\ListOfCaches\Column_CacheLastLog;
 use lib\Objects\ChunkModels\ListOfCaches\Column_OnClickActionIcon;
 use lib\Objects\ChunkModels\PaginationModel;
 use Utils\Uri\Uri;
-use lib\Objects\ChunkModels\DynamicMap\DynamicMapModel;
+use lib\Objects\ChunkModels\DynamicMap\LastLogMapModel;
+use lib\Objects\GeoCache\GeoCacheCommons;
+use lib\Objects\GeoCache\GeoCacheLogCommons;
 
 class UserWatchedCachesController extends BaseController
 {
@@ -37,10 +39,40 @@ class UserWatchedCachesController extends BaseController
             Uri::getLinkWithModificationTime(
                 '/tpl/stdstyle/userWatchedCaches/userWatchedCaches.css'));
         $this->view->loadJQuery();
-        $this->view->loadGMapApi();
+        $this->view->loadGMapApi(); /*initializeMap*/
 
-        $mapModel = new DynamicMapModel();
+        $mapModel = new LastLogMapModel();
 
+        $mapModel->setDataRowExtractor(function($row){
+
+            $iconFile = GeoCacheCommons::CacheIconByType(
+                $row['type'], $row['status'], $row['user_sts'], true);
+
+            $logIconFile = !empty($row['llog_type'])?
+                GeoCacheLogCommons::GetIconForType($row['llog_type'], true):null;
+
+            $logTypeName = !empty($row['llog_type'])?
+                tr(GeoCacheLogCommons::typeTranslationKey($row['llog_type'])):null;
+
+            return [
+                'name' => $row['name'],
+                'wp_oc' => $row['wp_oc'],
+                'lon' => $row['longitude'],
+                'lat' => $row['latitude'],
+                'icon' => $iconFile,
+                'llog_id' => $row['llog_id'],
+                'llog_text' => strip_tags($row['llog_text']),
+                'llog_icon' => $logIconFile,
+                'llog_type_name' => $logTypeName,
+                'llog_date' => $row['llog_date'],
+                'llog_user_id' => $row['llog_user_id'],
+                'llog_username' => $row['llog_username']
+            ];
+        });
+
+
+        $mapModel->addMarkersDataRows(
+            UserWatchedCache::getWatchedCachesWithLastLogs($this->loggedUser->getUserId()));
 
         $this->view->setVar('mapModel', $mapModel);
 
@@ -111,6 +143,10 @@ class UserWatchedCachesController extends BaseController
         $this->view->buildView();
     }
 
+
+    /**
+     * TODO: this should be moved to user profile
+     */
     public function emailSettings(){
         if(!$this->isUserLogged()){
             $this->redirectToLoginPage();
