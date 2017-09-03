@@ -231,16 +231,16 @@ class ViewCacheController extends BaseController
     {
         if ($this->loggedUser) {
 
+            $showReportProblemButton = true; // "show-report" is always present
+
             if ($this->geocache->getOwnerId() == $this->loggedUser->getUserId()) {
                 $show_edit = true;
                 $show_ignore = false;
                 $show_watch = false;
-                $showReportProblemButton = false;
             } else {
                 $show_edit = $this->loggedUser->isAdmin();
                 $show_ignore = true;
                 $show_watch = true;
-                $showReportProblemButton = true;
             }
 
             $this->view->setVar('showEditButton',$show_edit);
