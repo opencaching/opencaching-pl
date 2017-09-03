@@ -38,8 +38,9 @@ class CacheAdoptionController extends BaseController
         // check if user is authorized
         if (!$this->loggedUser) {
             // redirect non-logged users
-            header("Location: index.php");
-            return;
+            // this view is only for authorized user
+            $this->redirectToLoginPage();
+            exit;
         }
 
         if( isset($_GET['action']) ){
