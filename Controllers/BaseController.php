@@ -40,7 +40,9 @@ abstract class BaseController
     protected function redirectToLoginPage()
     {
         $this->view->redirect(
-            Uri::setOrReplaceParamValue('target', Uri::getCurrentUri(), 'login.php'));
+            Uri::setOrReplaceParamValue('target', Uri::getCurrentUri(), '/login.php'));
+
+        exit;
     }
 
 }

@@ -16,7 +16,7 @@ class Uri {
         $paramName, $paramValue, $uri=null){
 
         if(is_null($uri)){
-            $uri = $_SERVER['REQUEST_URI'];
+            $uri = self::getCurrentUri(true);
         }
 
         $paramArr = [];
