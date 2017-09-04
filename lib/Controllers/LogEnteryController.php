@@ -24,6 +24,8 @@ class LogEnteryController
 
     public function removeLog(GeoCacheLog $log, $request = null)
     {
+        global $config;
+        
         $result = false;
         if ($log === false) {
             $this->errors[] = 'No such log';
@@ -58,8 +60,10 @@ class LogEnteryController
             if ($log->getType() == GeoCacheLog::LOGTYPE_FOUNDIT || $log->getType() == GeoCacheLog::LOGTYPE_ATTENDED) {
                 $this->cacheScoreHandlingAfterRemoveLog($log);
 
-                $ctrlMeritBadge = new MeritBadgeController;
-                $ctrlMeritBadge->updateCurrValUserMeritBadges($log->getGeoCache()->getCacheId(), $loggedUser->getUserId() );
+                if ($config['meritBadges']){
+                    $ctrlMeritBadge = new MeritBadgeController;
+                    $ctrlMeritBadge->updateCurrValUserMeritBadges($log->getGeoCache()->getCacheId(), $loggedUser->getUserId() );
+                }
             }
 
             //call eventhandler
