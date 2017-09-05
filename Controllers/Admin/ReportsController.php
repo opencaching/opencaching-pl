@@ -18,14 +18,24 @@ class ReportsController extends BaseController
     public function index()
     {
         // Check if user is logged and has admin rights
-        if (! $this->loggedUser || ! $this->loggedUser->isAdmin()) {
+        if (! $this->loggedUser) {
             $this->redirectToLoginPage();
+            exit();
+        } elseif (! $this->loggedUser->isAdmin()) {
+            $this->view->redirect('\\');
+            exit();
         }
         $this->view->setVar('user', $this->loggedUser);
+        $this->view->loadJQuery();
+
         if (isset($_REQUEST['action'])) {
             switch ($_REQUEST['action']) {
                 case 'showreport':
-                    $this->showSingleReport();
+                    if (isset($_REQUEST['id']) && Report::isValidReportId($_REQUEST['id'])) {
+                        $this->showSingleReport($_REQUEST['id']);
+                    } else {
+                        $this->view->setVar('errorMsg', tr('admin_reports_err_noID'));
+                    }
                     break;
             }
         }
@@ -34,36 +44,40 @@ class ReportsController extends BaseController
 
     private function showReportsList()
     {
+        if (isset($_REQUEST['reportId']) && ! isset($_REQUEST['reset'])) {
+            if (Report::isValidReportId($_REQUEST['reportId'])) {
+                $this->showSingleReport($_REQUEST['reportId']);
+            } else {
+                $this->view->setVar('errorMsg', tr('admin_reports_err_noID'));
+            }
+        }
         if (isset($_REQUEST['reset'])) {
             $this->resetSession();
         } else {
             $this->setSession();
         }
         $paginationModel = new PaginationModel(Report::REPORTS_PER_PAGE);
-        $paginationModel->setRecordsCount(Report::getReportsCounts($this->loggedUser, $_SESSION['reportWp'], $_SESSION['reportType'], $_SESSION['reportStatus'], $_SESSION['reportUser']));
+        $reportsCount = Report::getReportsCounts($this->loggedUser, $_SESSION['reportWp'], $_SESSION['reportType'], $_SESSION['reportStatus'], $_SESSION['reportUser']);
+        $paginationModel->setRecordsCount($reportsCount);
         list ($limit, $offset) = $paginationModel->getQueryLimitAndOffset();
         $reports = Report::getReports($this->loggedUser, $_SESSION['reportWp'], $_SESSION['reportType'], $_SESSION['reportStatus'], $_SESSION['reportUser'], $offset, $limit);
         $this->view->setVar('paginationModel', $paginationModel);
         $this->view->setVar('reports', $reports);
+        $this->view->setVar('reportsCount', $reportsCount);
         $this->view->setVar('dateFormat',OcConfig::instance()->getDbDateTimeFormat());
         $this->view->setVar('typeSelect', Report::generateTypeSelect($_SESSION['reportType']));
         $this->view->setVar('statusSelect', Report::generateStatusSelect($_SESSION['reportStatus']));
-        $this->view->setVar('userSelect', Report::generateUserSelect($_SESSION['reportUser']));
+        $this->view->setVar('userSelect', Report::generateUserSelect(false, $_SESSION['reportUser']));
         tpl_set_tplname('admin/reports_list');
         tpl_BuildTemplate();
         exit();
     }
 
-    private function showSingleReport()
+    private function showSingleReport($id)
     {
-        if (! isset($_REQUEST['id'])) {
-            Debug::errorLog('Attempt to show single report without report ID');
-            $this->view->redirect('/admin_reports.php');
-            exit();
-        }
-        $report = new Report(array('reportId' => $_REQUEST['id']));
+        $report = new Report(array('reportId' => $id));
         if ($report->getId() == null) {
-            Debug::errorLog('Attempt to show single report with incorrect report ID');
+            Debug::errorLog('Attempt to show single report with incorrect report ID: ' . $id);
             $this->view->redirect('/admin_reports.php');
             exit();
         }

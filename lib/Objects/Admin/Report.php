@@ -405,11 +405,15 @@ class Report extends BaseObject
             $params['user']['value'] = $currentUser->getUserId();
             $params['user']['data_type'] = 'integer';
         } elseif ($user == self::USER_YOU2) {
-            $query .= ' AND (reports.responsible_id = :user OR reports.responsible_id IS NULL)';
+            $query .= ' AND (reports.responsible_id = :user OR reports.responsible_id IS NULL OR reports.status = :statuslook)';
             $params['user']['value'] = $currentUser->getUserId();
             $params['user']['data_type'] = 'integer';
+            $params['statuslook']['value'] = self::STATUS_LOOK_HERE;
+            $params['statuslook']['data_type'] = 'integer';
         } elseif ($user == self::USER_NOBODY) {
-            $query .= ' AND reports.responsible_id IS NULL';
+            $query .= ' AND (reports.responsible_id IS NULL OR reports.status = :statuslook)';
+            $params['statuslook']['value'] = self::STATUS_LOOK_HERE;
+            $params['statuslook']['data_type'] = 'integer';
         } else {
             $query .= ' AND reports.responsible_id = :user';
             $params['user']['value'] = $user;
@@ -417,7 +421,7 @@ class Report extends BaseObject
         }
         $query .= ' ORDER BY reports.id DESC LIMIT :limit OFFSET :offset';
         $stmt = self::db()->paramQuery($query, $params);
-        
+
         return self::db()->dbFetchAllAsObjects($stmt, function ($row) {
             return self::fromDbRowFactory($row);
         });
@@ -460,11 +464,15 @@ class Report extends BaseObject
             $params['user']['value'] = $currentUser->getUserId();
             $params['user']['data_type'] = 'integer';
         } elseif ($user == self::USER_YOU2) {
-            $query .= ' AND (reports.responsible_id = :user OR reports.responsible_id IS NULL)';
+            $query .= ' AND (reports.responsible_id = :user OR reports.responsible_id IS NULL OR reports.status = :statuslook)';
             $params['user']['value'] = $currentUser->getUserId();
             $params['user']['data_type'] = 'integer';
+            $params['statuslook']['value'] = self::STATUS_LOOK_HERE;
+            $params['statuslook']['data_type'] = 'integer';
         } elseif ($user == self::USER_NOBODY) {
-            $query .= ' AND reports.responsible_id IS NULL';
+            $query .= ' AND (reports.responsible_id IS NULL OR reports.status = :statuslook)';
+            $params['statuslook']['value'] = self::STATUS_LOOK_HERE;
+            $params['statuslook']['data_type'] = 'integer';
         } else {
             $query .= ' AND reports.responsible_id = :user';
             $params['user']['value'] = $user;
@@ -514,21 +522,23 @@ class Report extends BaseObject
         return $result;
     }
 
-    public static function generateUserSelect($default = self::DEFAULT_REPORTS_USER)
+    public static function generateUserSelect($onlyOcTeam = false, $default = self::DEFAULT_REPORTS_USER)
     {
-        $users = [
-            self::USER_ALL,
-            self::USER_NOBODY,
-            self::USER_YOU,
-            self::USER_YOU2
-        ];
         $result = '';
-        foreach ($users as $user) {
-            $result .= '<option value="' . $user . '"';
-            if ($user == $default) {
-                $result .= ' selected="selected"';
+        if (! $onlyOcTeam) {
+            $users = [
+                self::USER_ALL,
+                self::USER_NOBODY,
+                self::USER_YOU,
+                self::USER_YOU2
+            ];
+            foreach ($users as $user) {
+                $result .= '<option value="' . $user . '"';
+                if ($user == $default) {
+                    $result .= ' selected="selected"';
+                }
+                $result .= '>' . tr(self::ReportUserTranslationKey($user)) . '</option>';
             }
-            $result .= '>' . tr(self::ReportUserTranslationKey($user)) . '</option>';
         }
         $users = self::getOcTeamArray();
         foreach ($users as $user) {
@@ -539,6 +549,21 @@ class Report extends BaseObject
             $result .= '>' . $user['username'] . '</option>';
         }
         return $result;
+    }
+
+    public static function isValidReportId($reportId)
+    {
+        if (! is_numeric($reportId)) {
+            return false;
+        }
+        $query = 'SELECT COUNT(*) FROM reports WHERE id = :reportid';
+        $params = array();
+        $params['reportid']['value'] = $reportId;
+        $params['reportid']['data_type'] = 'integer';
+        if ( self::db()->paramQueryValue($query, 0, $params) == '1') {
+            return true;
+        }
+        return false;
     }
 
     private static function getOcTeamArray()

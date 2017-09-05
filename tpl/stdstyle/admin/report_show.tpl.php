@@ -1,11 +1,14 @@
 <?php ?>
 <div class="content2-container">
   <div class="content2-pagetitle">
+    <div style="float: right;"><button type="button" class="btn btn-primary" onclick="window.location.href = '/admin_reports.php'">{{admin_reports_title_reportslist}}</button></div>
     <img src="tpl/stdstyle/images/blue/rproblems.png" class="icon32" alt=""> {{admin_reports_title_reportshow}}
   </div>
   <table class="table full-width">
     <tr>
-      <td colspan="2"><p class="content-title-noshade-size1">{{admin_reports_lbl_report}}</p></td>
+      <td colspan="2">
+        <p class="content-title-noshade-size1">{{admin_reports_lbl_report}}</p>
+      </td>
     </tr>
     <tr>
       <td class="content-title-noshade" style="text-align: right;">{{admin_reports_lbl_id}}</td>
