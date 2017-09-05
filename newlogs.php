@@ -53,7 +53,7 @@ if ($error == false) {
         $pages .= ' {next_img_inactive} {last_img_inactive}';
     }
 
-    $rsQuery = "SELECT `cache_logs`.`id` FROM `cache_logs` USE INDEX(date_created), `caches`
+    $rsQuery = "SELECT `cache_logs`.`id` FROM `cache_logs`, `caches`
                     WHERE `cache_logs`.`cache_id`=`caches`.`cache_id`
                     AND `cache_logs`.`deleted`=0
                     AND `caches`.`status` IN (1, 2, 3)
