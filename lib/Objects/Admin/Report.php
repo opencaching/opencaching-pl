@@ -405,7 +405,7 @@ class Report extends BaseObject
             $params['user']['value'] = $currentUser->getUserId();
             $params['user']['data_type'] = 'integer';
         } elseif ($user == self::USER_YOU2) {
-            $query .= ' AND reports.responsible_id = :user OR reports.responsible_id IS NULL';
+            $query .= ' AND (reports.responsible_id = :user OR reports.responsible_id IS NULL)';
             $params['user']['value'] = $currentUser->getUserId();
             $params['user']['data_type'] = 'integer';
         } elseif ($user == self::USER_NOBODY) {
@@ -460,7 +460,7 @@ class Report extends BaseObject
             $params['user']['value'] = $currentUser->getUserId();
             $params['user']['data_type'] = 'integer';
         } elseif ($user == self::USER_YOU2) {
-            $query .= ' AND reports.responsible_id = :user OR reports.responsible_id IS NULL';
+            $query .= ' AND (reports.responsible_id = :user OR reports.responsible_id IS NULL)';
             $params['user']['value'] = $currentUser->getUserId();
             $params['user']['data_type'] = 'integer';
         } elseif ($user == self::USER_NOBODY) {
