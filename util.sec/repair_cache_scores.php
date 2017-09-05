@@ -53,7 +53,7 @@ class RepairCacheScores
             $notes = $db->multiVariableQueryValue("SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = :1 AND type=3", 0, $cache_id);
             $watchers = $db->multiVariableQueryValue("SELECT count(*) FROM cache_watches WHERE cache_id = :1", 0, $cache_id);
             $ignorers = $db->multiVariableQueryValue("SELECT count(*) FROM cache_ignore WHERE cache_id = :1", 0, $cache_id);
-            $last_found = $db->multiVariableQueryValue("SELECT MAX(`cache_logs`.`date`) FROM `cache_logs` WHERE ((cache_logs.`type`=1) AND (cache_logs.`cache_id`= :1 ) AND (cache_logs.`deleted`=0))", null, $cache_id);
+            $last_found = $db->multiVariableQueryValue("SELECT MAX(`cache_logs`.`date`) FROM `cache_logs` WHERE `cache_logs`.`type`IN (1, 7) AND `cache_logs`.`cache_id`= :1 AND `cache_logs`.`deleted` = 0", null, $cache_id);
             $sql = "
                 UPDATE caches
                 SET
