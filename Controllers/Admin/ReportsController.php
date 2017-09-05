@@ -44,7 +44,7 @@ class ReportsController extends BaseController
 
     private function showReportsList()
     {
-        if (isset($_REQUEST['reportId']) && ! isset($_REQUEST['reset'])) {
+        if (isset($_REQUEST['reportId']) && ! empty($_REQUEST['reportId']) && ! isset($_REQUEST['reset'])) {
             if (Report::isValidReportId($_REQUEST['reportId'])) {
                 $this->showSingleReport($_REQUEST['reportId']);
             } else {
