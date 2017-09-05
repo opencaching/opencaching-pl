@@ -399,6 +399,13 @@ $menu = array(
                 'filename' => 'viewreports.php'
             ),
             array(
+                'title' => tr('reports'),
+                'menustring' => tr('reports') . ' TEST',
+                'siteid' => ['admin/reports_list', 'admin/report_show'],
+                'visible' => true,
+                'filename' => 'admin_reports.php'
+            ),
+            array(
                 'title' => tr('pendings'),
                 'menustring' => tr('pendings'),
                 'siteid' => 'viewpendings',
