@@ -2,7 +2,10 @@
 
 namespace okapi;
 
+use okapi\Consumer\OkapiFacadeConsumer;
 use okapi\lib\OCSession;
+use okapi\Request\OkapiInternalRequest;
+use okapi\Token\OkapiFacadeAccessToken;
 
 # OKAPI Framework -- Wojciech Rygielski <rygielski@mimuw.edu.pl>
 
@@ -40,8 +43,7 @@ if (!in_array($GLOBALS['rootpath'], explode(PATH_SEPARATOR, get_include_path()))
     set_include_path(get_include_path().PATH_SEPARATOR.$GLOBALS['rootpath']);
 }
 
-require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/core.php';
+require_once __DIR__ . '/autoload.php';
 OkapiErrorHandler::$treat_notices_as_errors = true;
 Okapi::init_internals();
 
@@ -181,9 +183,8 @@ class Facade
      */
     public static function database_update()
     {
-        require_once __DIR__ . "/views/update.php";
         $update = new views\update\View;
-        $update->call();
+        $update::call();
     }
 
     /**
