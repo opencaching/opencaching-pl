@@ -8,7 +8,7 @@ use lib\Controllers\MeritBadgeController;
 
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
-global $usr;
+global $usr, $config;
 
 //Preprocessing
 if ($error == false) {
