@@ -3,7 +3,7 @@
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Controllers\LogEnteryController;
-
+use lib\Controllers\MeritBadgeController;
 
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
