@@ -605,12 +605,6 @@ if ($error == false) {
                             XDb::xSql("DELETE FROM `cache_rating` WHERE `user_id`=? AND `cache_id`=?", $usr['userid'], $cache_id);
                     }
 
-                    // Notify OKAPI's replicate module of the change.
-                    // Details: https://github.com/opencaching/okapi/issues/265
-//                    require_once($rootpath . 'okapi/Facade.php');
-//                    \okapi\Facade::schedule_user_entries_check($cache_id, $usr['userid']);
-//                    \okapi\Facade::disable_error_handling();
-
                     //call eventhandler
                     require_once($rootpath . 'lib/eventhandler.inc.php');
                     event_new_log($cache_id, $usr['userid'] + 0);
