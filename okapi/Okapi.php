@@ -13,6 +13,7 @@ use okapi\OAuth\OkapiOAuthServer;
 use okapi\Request\OkapiInternalRequest;
 use okapi\Request\OkapiRequest;
 use okapi\Response\OkapiHttpResponse;
+use okapi\Settings;
 
 /** Container for various OKAPI functions. */
 class Okapi
