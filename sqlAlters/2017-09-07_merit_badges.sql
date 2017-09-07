@@ -16,7 +16,7 @@ CREATE TABLE `badges` (
   `short_description` char(100) NOT NULL,
   `description` text NOT NULL,
   `cfg_period_threshold` char(1) NOT NULL COMMENT 'Table in badge.php: Level of the badge. Column: (P)eriod or (T)hreshold',
-  `cfg_show_positions` char(1) NOT NULL COMMENT '- none,  L - List M - Map',
+  `cfg_show_positions` char(2) NOT NULL COMMENT ' - none,  L - list, M - map',
   `graphic_author` text NOT NULL,
   `description_author` text NOT NULL,
   `attendant` text NOT NULL

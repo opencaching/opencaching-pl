@@ -2,6 +2,8 @@
 
 namespace Controllers;
 
+use lib\Controllers\MeritBadgeController;
+
 class ViewBadgeShowPositionsController extends BaseController{
     
     private $sCode = "";
@@ -28,7 +30,12 @@ class ViewBadgeShowPositionsController extends BaseController{
         
         $badge_id = $_REQUEST['badge_id'];
         
-        $this->preapareCode();
+        $ctrlMeritBadge = new MeritBadgeController;
+        $meritBadge = $ctrlMeritBadge->buildMeritBadge( $badge_id );
+        if ( $meritBadge->getCfgShowPositions() == "" )
+            return "";
+        
+        $this->prepareCode();
         
         $this->setVar( 'user_id', $userid);
         $this->setVar( 'badge_id', $badge_id);
@@ -36,7 +43,7 @@ class ViewBadgeShowPositionsController extends BaseController{
         return $this->sCode;
     }
         
-    private function preapareCode(){
+    private function prepareCode(){
         global $stylepath;
         $this->sCode = file_get_contents($stylepath . '/badge_show_positions.tpl.php');
         $this->sCode = tpl_do_translate($this->sCode);

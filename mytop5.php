@@ -3,6 +3,7 @@
 
 
 use Utils\Database\OcDb;
+use lib\Controllers\MeritBadgeController;
 
 require('./lib/cache.php');
 $cache = cache::instance();
@@ -10,6 +11,9 @@ $st = $cache->getCacheStatuses();
 
 require('./lib/common.inc.php');
 require($stylepath . '/mytop5.inc.php');
+
+global $config;
+
 
 if ($error == false) {
     //user logged in?
@@ -49,6 +53,11 @@ if ($error == false) {
                 $query = "DELETE FROM cache_rating WHERE cache_id = :cache_id AND user_id = :user_id";
                 $dbc->paramQuery($query, $params);
 
+                if ($config['meritBadges']){
+                    $ctrlMeritBadge = new MeritBadgeController;
+                    $ctrlMeritBadge->updateTriggerRecommendationAuthor($cache_id);
+                }
+                
                 // Notify OKAPI's replicate module of the change.
                 // Details: https://github.com/opencaching/okapi/issues/265
                 require_once($rootpath . 'okapi/Facade.php');

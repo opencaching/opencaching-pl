@@ -5,6 +5,7 @@ use lib\Objects\MeritBadge\MeritBadge;
 use lib\Objects\MeritBadge\LevelMeritBadge;
 use lib\Objects\MeritBadge\CategoryMeritBadge;
 use lib\Objects\MeritBadge\PositionMeritBadge;
+use lib\Objects\GeoCache\GeoCache;
 
 use Utils\Database\OcDb;
 
@@ -22,6 +23,7 @@ class MeritBadgeController{
     const TRIGGER_LOG_GEOPATH = 6;
     const TRIGGER_LOG_GEOPATH_AUTHOR = 7;
     const TRIGGER_RECOMMENDATION = 8; // add/remove the recommendation
+    const TRIGGER_RECOMMENDATION_AUTHOR = 9; // add/remove the recommendation
     
     //N = none    
     //C = cache
@@ -41,15 +43,30 @@ class MeritBadgeController{
                     self::TRIGGER_TITLED_CACHE_AUTHOR => "C",
                     self::TRIGGER_LOG_GEOPATH => "G",
                     self::TRIGGER_LOG_GEOPATH_AUTHOR => "G",
-                    self::TRIGGER_RECOMMENDATION => "C" );
+                    self::TRIGGER_RECOMMENDATION => "C",
+                    self::TRIGGER_RECOMMENDATION_AUTHOR => "N" 
+    );
     
     public function __construct(){
         $this->db = OcDb::instance();
         //$this->db->setDebug(true);
     }
 
+    //Update CurrVal for badges which are triggering by TRIGGER_LOG_CACHE
+    public function updateTriggerLogCache( $cache_id, $user_id ){
+        $meritBadges = $this->buildArrayMeritBadgesTriggerBy(self::TRIGGER_LOG_CACHE);
+        return $this->updateCurrValUserMeritBadges( $meritBadges, $cache_id, $user_id );
+    }
+    
 
-
+    //Update CurrVal for badges which are triggering by self::TRIGGER_RECOMMENDATION_AUTHOR
+    public function updateTriggerRecommendationAuthor( $cache_id ){
+        $meritBadges = $this->buildArrayMeritBadgesTriggerBy(self::TRIGGER_RECOMMENDATION_AUTHOR);
+        $geoCache = new GeoCache(array('cacheId' => $cache_id));
+        return $this->updateCurrValUserMeritBadges( $meritBadges, $cache_id, $geoCache->getOwnerId());
+    }
+    
+    
     //one user merit badge
     public function buildUserBadge( $user_id, $badge_id ){
 
@@ -75,8 +92,6 @@ class MeritBadgeController{
 
         return $retArray;
     }
-    
-
     
     
     //levels list of the badge (badge_id)
@@ -147,50 +162,8 @@ class MeritBadgeController{
         return $this->buildArray( $obj, $stm );
     }
     
+
     
-    ///////////////////////////////////////////////////////////////////////
-    //Update Merit Badges of User
-    //
-    // Check, which merit badges we need to change
-    // Next: set curr_val, and proper level
-    //
-    // Return: The array of badge ids, which have changed the level
-    ///////////////////////////////////////////////////////////////////////
-    public function updateCurrValUserMeritBadges( $cache_id, $user_id ){
-        $meritBadges = $this->buildArrayMeritBadgesTriggerLogs();
-        $changedLevelBadgesIds = "";
-        $first = true;
-
-        foreach( $meritBadges as $oneMeritBadge ){
-
-            if ( !$this->isToUpdate( $cache_id, $oneMeritBadge ) )
-                continue;
-
-             $currValue = $this->calcCurrValForUserBadge($user_id, $oneMeritBadge);
-
-            if (!$currValue)
-                continue;
-
-             if ( !$this->isExistUserBadge( $user_id, $oneMeritBadge->getId() ) ){
-                 $this->insertUserBadge($currValue, $user_id, $oneMeritBadge->getId() );
-             }
-             else{
-                 $this->updateCurrValInUserBadge($currValue, $user_id, $oneMeritBadge->getId() );
-             }
-
-             if ( $this->setProperValueUserBadge( $user_id, $oneMeritBadge->getId() ) ){
-                 if (!$first)
-                     $changedLevelBadgesIds .= ",";
-
-                 $changedLevelBadgesIds .= $oneMeritBadge->getId(); //the level was changed
-                 $first = false;
-             }
-        }
-
-
-        return $changedLevelBadgesIds;
-    }
-
 
     public function prepareHtmlChangeLevelMeritBadges( $arrBadgesNextLevel, $user_id ){
         $html = "";
@@ -225,12 +198,56 @@ class MeritBadgeController{
     // private functions
     //////////////////////////////////////////////////////////////////////
 
-    private function buildArrayMeritBadgesTriggerLogs(){
-        $condition = " WHERE trigger_type=".self::TRIGGER_LOG_CACHE;
+    ///////////////////////////////////////////////////////////////////////
+    // Update CurrVal in Merit Badges
+    //
+    // Check, which merit badges we need to change
+    // Next: set curr_val, and proper level
+    //
+    // Return: The array of badge ids, which have changed the level
+    ///////////////////////////////////////////////////////////////////////
+    private function updateCurrValUserMeritBadges( $meritBadges, $cache_id, $user_id ){
+        $changedLevelBadgesIds = "";
+        $first = true;
+        
+        foreach( $meritBadges as $oneMeritBadge ){
+            
+            if ( !$this->isToUpdate( $cache_id, $oneMeritBadge ) )
+                continue;
+                
+                $currValue = $this->calcCurrValForUserBadge($user_id, $oneMeritBadge);
+                
+                if (!$currValue)
+                    continue;
+                    
+                    if ( !$this->isExistUserBadge( $user_id, $oneMeritBadge->getId() ) ){
+                        $this->insertUserBadge($currValue, $user_id, $oneMeritBadge->getId() );
+                    }
+                    else{
+                        $this->updateCurrValInUserBadge($currValue, $user_id, $oneMeritBadge->getId() );
+                    }
+                    
+                    if ( $this->setProperValueUserBadge( $user_id, $oneMeritBadge->getId() ) ){
+                        if (!$first)
+                            $changedLevelBadgesIds .= ",";
+                            
+                            $changedLevelBadgesIds .= $oneMeritBadge->getId(); //the level was changed
+                            $first = false;
+                    }
+        }
+        
+        
+        return $changedLevelBadgesIds;
+    }
+    
+    
+    
+    private function buildArrayMeritBadgesTriggerBy( $trigger ){
+        $condition = " WHERE trigger_type=".$trigger;
         $stm = $this->db->simpleQuery( $this->getMeritBadgeQuery( $condition ) );
         return $this->buildArray( '\lib\Objects\MeritBadge\MeritBadge', $stm );
     }
-    
+        
     
     private function patternHtmlChangeLevelMeritBadges($firstEl){
         $header = "<p style='font-size:12px; font-weight:bold; color:green; text-decoration: underline;'>" 
@@ -394,12 +411,21 @@ class MeritBadgeController{
             return 0;
             
         $stm = $this->db->multiVariableQuery( $query, $user_id );
-    
         return $stm;
     }
 
     private function calcCurrValForUserBadge($user_id, $oneMeritBadge){
         $stm = $this->preapareGainedPositions($user_id, $oneMeritBadge);
+        
+        $currVal = $this->db->rowCount($stm);
+        
+        if (!$currVal)
+            return 0;
+        
+        $rec = $this->db->dbResultFetch($stm);
+        if ( isset($rec['position_count']) )
+            return $rec['position_count'];
+
         return $this->db->rowCount($stm);        
     }
     
@@ -412,7 +438,8 @@ class MeritBadgeController{
                 badges.id badges_id,
                 badges.trigger_type badges_trigger_type,
                 badges.belonging_query badges_belonging_query,
-                badges.gained_query badges_gained_query
+                badges.gained_query badges_gained_query,
+                badges.cfg_show_positions badges_cfg_show_positions
 
                 FROM badges ". $condition;
 

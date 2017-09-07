@@ -623,10 +623,12 @@ if ($error == false) {
                         $log_type == GeoCacheLog::LOGTYPE_ATTENDED ){
 
                         $ctrlMeritBadge = new MeritBadgeController;
-                        $changedLevelBadgesIds = $ctrlMeritBadge->updateCurrValUserMeritBadges($cache_id, $usr['userid']);
-
+                        $changedLevelBadgesIds = $ctrlMeritBadge->updateTriggerLogCache($cache_id, $usr['userid']);
+                        
                         if ( $changedLevelBadgesIds != "" )
                             $badgetParam = "&badgesPopupFor=" . $changedLevelBadgesIds;
+                        
+                        $ctrlMeritBadge->updateTriggerRecommendationAuthor($cache_id);
                     }
                 }
                 //redirect to viewcache

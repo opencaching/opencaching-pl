@@ -62,7 +62,7 @@ class LogEnteryController
 
                 if ($config['meritBadges']){
                     $ctrlMeritBadge = new MeritBadgeController;
-                    $ctrlMeritBadge->updateCurrValUserMeritBadges($log->getGeoCache()->getCacheId(), $loggedUser->getUserId() );
+                    $ctrlMeritBadge->updateTriggerLogCache($log->getGeoCache()->getCacheId(), $loggedUser->getUserId() );
                 }
             }
 
