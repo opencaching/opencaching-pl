@@ -385,22 +385,22 @@ if ($error == false) {
 
                     
 
-                    $badgetParam = "";
+//                     $badgetParam = "";
                     
-                    if ($config['meritBadges']){
-                        $cache_id = $log_record['cache_id'];
-                        if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT ||
-                            $log_type == GeoCacheLog::LOGTYPE_ATTENDED ){
+//                     if ($config['meritBadges']){
+//                         $cache_id = $log_record['cache_id'];
+//                         if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT ||
+//                             $log_type == GeoCacheLog::LOGTYPE_ATTENDED ){
                                 
-                            $ctrlMeritBadge = new MeritBadgeController;
-                            $changedLevelBadgesIds = $ctrlMeritBadge->updateTriggerLogCache($cache_id, $usr['userid']);
+//                             $ctrlMeritBadge = new MeritBadgeController;
+//                             $changedLevelBadgesIds = $ctrlMeritBadge->updateTriggerLogCache($cache_id, $usr['userid']);
                             
-                            if ( $changedLevelBadgesIds != "" )
-                                $badgetParam = "&badgesPopupFor=" . $changedLevelBadgesIds;
+//                             if ( $changedLevelBadgesIds != "" )
+//                                 $badgetParam = "&badgesPopupFor=" . $changedLevelBadgesIds;
                                 
-                            $ctrlMeritBadge->updateTriggerRecommendationAuthor($cache_id);
-                        }
-                    }
+//                             $ctrlMeritBadge->updateTriggerRecommendationAuthor($cache_id);
+//                         }
+//                     }
                     
                     unset($cache_record);
                     
