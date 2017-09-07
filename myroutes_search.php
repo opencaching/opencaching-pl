@@ -933,7 +933,7 @@ if ($error == false) {
                 tpl_set_var('zip_links', $links_content);
                 tpl_BuildTemplate();
             } else {
-                require_once($rootpath . 'okapi/facade.php');
+                require_once($rootpath . 'okapi/Facade.php');
                 try {
                     $waypoints = implode("|", $waypoints_tab);
                     // TODO: why the langpref is fixed to pl? shouldn't it depend on current user/session language?

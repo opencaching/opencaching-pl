@@ -19,7 +19,7 @@ use Utils\Database\XDb;
 
 $rootpath = '../../';
 require_once($rootpath . 'lib/ClassPathDictionary.php');
-require_once($rootpath . 'okapi/facade.php');
+require_once($rootpath . 'okapi/Facade.php');
 \okapi\Facade::disable_error_handling();
 
 /* database connection */

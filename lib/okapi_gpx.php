@@ -9,7 +9,7 @@
 
 $rootpath = "../";
 
-require_once($rootpath . 'okapi/facade.php');
+require_once($rootpath . 'okapi/Facade.php');
 
 try {
     $user_id = \okapi\Facade::detect_user_id();

@@ -4,7 +4,7 @@ use lib\Objects\OcConfig\OcConfig;
 
 $rootpath = "../";
 require_once ($rootpath . 'lib/common.inc.php');
-require_once ($rootpath . 'okapi/facade.php');
+require_once ($rootpath . 'okapi/Facade.php');
 
 $obj = new tmp_Xmlmap();
 

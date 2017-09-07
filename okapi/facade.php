@@ -29,7 +29,7 @@ use okapi\Token\OkapiFacadeAccessToken;
 
 # EXAMPLE OF USAGE:
 
-# require_once $rootpath.'okapi/facade.php';
+# require_once $rootpath.'okapi/Facade.php';
 # \okapi\Facade::schedule_user_entries_check(...);
 # \okapi\Facade::disable_error_handling();
 
