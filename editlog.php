@@ -388,13 +388,10 @@ if ($error == false) {
                     
                     $badgetParam = "";
                     if ($config['meritBadges']){
-                        $badgetParam = "&test1";
-                        
+
                         $cache_id = $log_record['cache_id'];
                         if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT ||
                             $log_type == GeoCacheLog::LOGTYPE_ATTENDED ){
-                            
-                            $badgetParam .= "&test2";
                                 
                             $ctrlMeritBadge = new MeritBadgeController;
                             $changedLevelBadgesIds = $ctrlMeritBadge->updateTriggerLogCache($cache_id, $usr['userid']);
