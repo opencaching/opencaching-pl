@@ -169,7 +169,8 @@
 <div class="content2-container">
     <div class="content2-container-2col-left" id="viewcache-baseinfo">
         <div class="content-title-noshade-size3">
-            <img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="compass" title="">
+            <a href="compass.php?wp=<?=$view->geoCache->getWaypointId()?>&amp;popup=y" target="_blank">
+            <img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="compass" title=""></a>
               <?php if($view->isUserAuthorized || $view->alwaysShowCoords ) { ?>
 
                 <?php if(!$view->userModifiedCacheCoords) { ?>
