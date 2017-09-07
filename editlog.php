@@ -382,8 +382,27 @@ if ($error == false) {
                         $lastFoundDate, $cache_record['founds'], $cache_record['notfounds'],
                         $cache_record['notes'], $log_record['cache_id']);
 
-                    unset($cache_record);
+                    
 
+                    $badgetParam = "";
+                    
+                    if ($config['meritBadges']){
+                        $cache_id = $log_record['cache_id'];
+                        if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT ||
+                            $log_type == GeoCacheLog::LOGTYPE_ATTENDED ){
+                                
+                            $ctrlMeritBadge = new MeritBadgeController;
+                            $changedLevelBadgesIds = $ctrlMeritBadge->updateTriggerLogCache($cache_id, $usr['userid']);
+                            
+                            if ( $changedLevelBadgesIds != "" )
+                                $badgetParam = "&badgesPopupFor=" . $changedLevelBadgesIds;
+                                
+                            $ctrlMeritBadge->updateTriggerRecommendationAuthor($cache_id);
+                        }
+                    }
+                    
+                    unset($cache_record);
+                    
                     //display cache page
                     tpl_redirect('viewcache.php?cacheid=' . urlencode($log_record['cache_id']));
                     exit;
