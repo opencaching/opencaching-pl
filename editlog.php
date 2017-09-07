@@ -385,7 +385,7 @@ if ($error == false) {
 
                     
 
-                    $badgetParam = "";
+                    $badgetParam = "&test";
                     
                     if ($config['meritBadges']){
                         $cache_id = $log_record['cache_id'];
