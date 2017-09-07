@@ -51,7 +51,7 @@ if ($error == false) {
 
                 // Notify OKAPI's replicate module of the change.
                 // Details: https://github.com/opencaching/okapi/issues/265
-                require_once($rootpath . 'okapi/facade.php');
+                require_once($rootpath . 'okapi/Facade.php');
                 \okapi\Facade::schedule_user_entries_check($cache_id, $usr['userid']);
                 \okapi\Facade::disable_error_handling();
 

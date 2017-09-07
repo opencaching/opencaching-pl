@@ -12,7 +12,7 @@
 
 $rootpath = "../";
 
-require_once($rootpath . 'okapi/facade.php');
+require_once($rootpath . 'okapi/Facade.php');
 
 # The code below may produce notices, so we will disable OKAPI's default
 # error handler.
