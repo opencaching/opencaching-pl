@@ -385,9 +385,11 @@ if ($error == false) {
 
                     
 
-                    $badgetParam = "&test";
+                    
                     
                     if ($config['meritBadges']){
+                        $badgetParam = "&test1";
+                        
                         $cache_id = $log_record['cache_id'];
                         if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT ||
                             $log_type == GeoCacheLog::LOGTYPE_ATTENDED ){
@@ -405,7 +407,7 @@ if ($error == false) {
                     unset($cache_record);
                     
                     //display cache page
-                    tpl_redirect('viewcache.php?Xcacheid=' . urlencode($log_record['cache_id']) . $badgetParam);
+                    tpl_redirect('viewcache.php?cacheid=' . urlencode($log_record['cache_id']) . $badgetParam);
                     exit;
                 }
 
