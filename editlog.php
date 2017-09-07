@@ -405,7 +405,7 @@ if ($error == false) {
                     unset($cache_record);
                     
                     //display cache page
-                    tpl_redirect('viewcache.php?cacheid=' . urlencode($log_record['cache_id']) . $badgetParam);
+                    tpl_redirect('viewcache.php?Xcacheid=' . urlencode($log_record['cache_id']) . $badgetParam);
                     exit;
                 }
 
