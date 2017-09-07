@@ -13,7 +13,6 @@ use okapi\OAuth\OkapiOAuthServer;
 use okapi\Request\OkapiInternalRequest;
 use okapi\Request\OkapiRequest;
 use okapi\Response\OkapiHttpResponse;
-use okapi\Settings;
 
 /** Container for various OKAPI functions. */
 class Okapi
@@ -22,8 +21,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1568;
-    public static $git_revision = '09af5493f3140192e441fdd6f14ba31765df707e';
+    public static $version_number = 1572;
+    public static $git_revision = 'cf72659d346b18e66f03063903439b7f12767b1d';
 
     private static $okapi_vars = null;
 
