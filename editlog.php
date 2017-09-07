@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCacheCommons;
+use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Controllers\LogEnteryController;
 use lib\Controllers\MeritBadgeController;
 
@@ -404,7 +405,7 @@ if ($error == false) {
                     unset($cache_record);
                     
                     //display cache page
-                    tpl_redirect('viewcache.php?cacheid=' . urlencode($log_record['cache_id']));
+                    tpl_redirect('viewcache.php?cacheid=' . urlencode($log_record['cache_id']) . $badgetParam);
                     exit;
                 }
 
