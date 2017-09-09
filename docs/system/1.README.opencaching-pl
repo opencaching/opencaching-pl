@@ -12,7 +12,9 @@ directory, an oc-admin directory be created to host these scripts.
 ocpl-update.sh
 --------------
 	bash script to perform automatic update on every git commit to the repository.
-	This file MUST be installed in /var/www
+	This file should be placed or linked from /var/www. If your hosting does 
+    not allow it, use the $config['server']['update']['script'] directive 
+    in settings.inc.php to define it's location and name.
 
 	Choose one of the following and edit it with your node's configuration:
 
@@ -35,10 +37,21 @@ ocpl-update.sh
 			replace HTTPD_USER with unix user Apache web server run as.
 			(usually apache or www)
 
-	Deploy under oc-admin/scripts and create a symlink in /var/www:
+	Default:
+    ********
+    Deploy under oc-admin/scripts and create a symlink in /var/www:
 
 	/path/to/oc-admin/scripts/ocpl-update.sh
 	ln -s /path/to/oc-admin/scripts/ocpl-update.sh /var/www/ocpl-update.sh
+    
+    Custom location:
+    ***************
+    Hosting does not allow placement under /var/www:
+    
+    /path/to/oc-admin/scripts/ocpl-update.sh
+    In lib/settings.inc.php of your opencaching-pl installation, add:
+    $config['server']['update']['script'] = '/path/to/oc-admin/scripts/ocpl-update.sh';
+    
 
 do-wget-url.sh
 --------------

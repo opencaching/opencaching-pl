@@ -149,6 +149,9 @@ $config = array(
     'dateformat' => '%Y-%m-%d'
 );
 
+// *** Repository automatic updates script location
+$config['server']['update']['script'] = '/var/www/ocpl-update.sh';
+
 /* ************************************************************************
  * Modules
  * Activate and configure modules.
