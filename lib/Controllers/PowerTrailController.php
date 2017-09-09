@@ -17,7 +17,7 @@ class PowerTrailController
 
     public function __construct()
     {
-        include __DIR__ . '/../settings.inc.php';
+        include __DIR__ . '/../settingsGlue.inc.php';
         $this->config = $powerTrailMinimumCacheCount;
         $this->serverUrl = $absolute_server_URI;
 

@@ -18,7 +18,7 @@ class OpenCheckerSetup {
 
     function __construct() {
         $this->scriptname = 'openchecker.php';
-        include __DIR__.'/../../lib/settings.inc.php';
+        include __DIR__.'/../../lib/settingsGlue.inc.php';
 
         // Limit number of checks
         // how many times a user can try his answer

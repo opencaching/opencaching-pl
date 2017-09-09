@@ -2,7 +2,7 @@
 
 session_start();
 
-require_once('../lib/settings.inc.php');
+require_once('../lib/settingsGlue.inc.php');
 require_once('./lib/smarty/Smarty.class.php');
 require_once('./lib/functions.inc.php');
 require_once("./lib/cookie.class.php");

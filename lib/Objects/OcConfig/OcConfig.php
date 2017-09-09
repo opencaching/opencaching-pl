@@ -81,7 +81,7 @@ final class OcConfig
 
     private function loadConfig()
     {
-        require __DIR__ . '/../../settings.inc.php';
+        require __DIR__ . '/../../settingsGlue.inc.php';
         $this->datetimeFormat = $datetimeFormat;
         $this->ocNodeId = $oc_nodeid;
         $this->absolute_server_URI = $absolute_server_URI;

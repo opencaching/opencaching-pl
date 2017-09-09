@@ -1,7 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
-require('../lib/settings.inc.php');
+require('../lib/settingsGlue.inc.php');
 
 /* begin with some constants */
 $t1 = "\t";

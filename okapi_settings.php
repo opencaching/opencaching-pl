@@ -25,7 +25,7 @@ function get_okapi_settings()
     # OKAPI defines only *one* global variable, named 'rootpath'.
     # You may access it to get a proper path to your own settings file.
 
-    require($GLOBALS['rootpath'].'lib/settings.inc.php');  # (into the *local* scope)
+    require($GLOBALS['rootpath'].'lib/settingsGlue.inc.php');  # (into the *local* scope)
 
     return array(
         # These first section of settings is OKAPI-specific, OCPL's
