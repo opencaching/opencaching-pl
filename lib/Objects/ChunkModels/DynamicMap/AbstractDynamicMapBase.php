@@ -7,8 +7,8 @@ use Utils\View\View;
 
 abstract class AbstractDynamicMapBase
 {
+		// place where maps flavour are stored
     const CHUNK_DIR = __DIR__.'/../../../../tpl/stdstyle/chunks/dynamicMap';
-
 
     /** @var Coordinates */
     private $coords;    // center of the map

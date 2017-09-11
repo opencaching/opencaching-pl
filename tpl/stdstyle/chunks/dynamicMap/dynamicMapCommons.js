@@ -38,18 +38,3 @@ function controlGoogleContent(map){
     }
 }
 
-
-function js_template(tpl, dataArr){
-  strings = tpl.split("%");
-  result = '';
-
-  strings.forEach(function(part, i){
-    if(i%2==0){ //this is text
-      result += part;
-    }else{ //this is %var% -replace it!
-      result += dataArr[part];
-    }
-  });
-
-  return result;
-}

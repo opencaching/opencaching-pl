@@ -4,6 +4,11 @@ use lib\Objects\ChunkModels\DynamicMap\LastLogMapModel;
 use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\GeoCache\GeoCacheLogCommons;
 
+/**
+	This is flavour-object for dynamic map.
+	It handle markers with 
+*/
+
 return function (LastLogMapModel $model){
 
     $iconPath = GeoCacheCommons::ICON_PATH;

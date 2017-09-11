@@ -4,6 +4,18 @@ use lib\Objects\GeoCache\GeoCacheLogCommons;
 use lib\Objects\User\UserCommons;
 use Utils\DateTime\OcDate;
 
+/**
+	This is column with log-icon and log-text.
+  It needs vars in $data:
+		- logId - id of the log
+    - logType - type of the log
+    - logText - text of the log
+    - logUserId - id of the loff author
+    - logUserName - name of the author
+    - logDate - date of the log
+*/
+
+
 return function (array $data){
 
     if( !isset($data['logId']) || is_null($data['logId']) ){

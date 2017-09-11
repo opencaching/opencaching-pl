@@ -133,11 +133,7 @@ function refreshMapCopyright(map){
 
 <?=file_get_contents(__DIR__ . '/dynamicMapCommons.js');?>
 
-
-
 var DynamicMapMarkersObject = <?=$mapModel->getJsDynamicMapMarkerObject()?>
-
-
 
 var lastOpenedInfoWindow = null;
 
@@ -162,11 +158,12 @@ function loadMarkers(map){
       infowindow.open(map, marker);
 
     });
-
+		// find bbox which contains all markers
     bounds.extend(marker.getPosition());
 
   });
 
+	// resize map to see all markers
   map.fitBounds(bounds);
 
 }

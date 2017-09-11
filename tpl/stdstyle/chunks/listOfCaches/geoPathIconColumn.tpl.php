@@ -2,6 +2,14 @@
 
 use lib\Objects\PowerTrail\PowerTrail;
 
+/**
+	Geopatch icon for the cache.
+	$date needs to contain:
+		- ptId - id of the powertrails
+		- ptType - type of the powertrail
+    - ptName - name of the powertrails
+*/
+
 return function (array $data){
 
     $geopathcIconSrc = PowerTrail::GetPowerTrailIconsByType($data['ptType']);
