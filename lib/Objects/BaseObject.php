@@ -2,6 +2,7 @@
 namespace lib\Objects;
 
 use Utils\Database\OcDb;
+use okapi\Facade;
 
 abstract class BaseObject
 {
@@ -34,19 +35,18 @@ abstract class BaseObject
 
     protected static function callOkapi($service, $params){
 
-        require_once( __DIR__.'/../../okapi/facade.php');
 
         /** @var \lib\Objects\User\User */
         $user = self::getCurrentUser();
 
         $userId = is_null($user) ? null : $user->getUserId();
 
-        \okapi\OkapiErrorHandler::disable();
+        Facade::disable_error_handling();
 
-        $okapiResp = \okapi\Facade::service_call(
+        $okapiResp = Facade::service_call(
             $service, $userId, $params);
 
-        \okapi\OkapiErrorHandler::reenable();
+        Facade::reenable_error_handling();
 
         return $okapiResp;
     }
