@@ -2,8 +2,6 @@
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\OcConfig\OcConfig;
 use okapi\Facade;
-use okapi\core\OkapiErrorHandler;
-use okapi\core\Cache;
 
 $rootpath = "../";
 require_once ($rootpath . 'lib/common.inc.php');
@@ -275,7 +273,7 @@ class tmp_Xmlmap
 
     private function loadSearchData($searchData)
     {
-        OkapiErrorHandler::reenable();
+        Facade::reenable_error_handling();
 
         // We need to transform OC's "searchdata" into OKAPI's "search set".
         // First, we need to determine if we ALREADY did that.
@@ -284,7 +282,7 @@ class tmp_Xmlmap
         // for each searchdata, so we will ignore it.
 
         $cache_key = "OC_searchdata_" . $searchData;
-        $set_id = Cache::get($cache_key);
+        $set_id = Facade::cache_get($cache_key);
         if ($set_id === null) {
             // Read the searchdata file into a temporary table.
 
@@ -309,12 +307,12 @@ class tmp_Xmlmap
 
             $set_info = Facade::import_search_set("temp_" . $searchData, 7200, 7200);
             $set_id = $set_info['set_id'];
-            Cache::set($cache_key, $set_id, 7200);
+            Facade::cache_set($cache_key, $set_id, 7200);
         }
         $this->search_params['set_and'] = $set_id;
         $this->search_params['status'] = "Available|Temporarily unavailable|Archived";
 
-        OkapiErrorHandler::disable();
+        Facade::disable_error_handling();
         return true;
     }
 
@@ -333,7 +331,7 @@ class tmp_Xmlmap
             exit(0);
         }
 
-        OkapiErrorHandler::disable();
+        Facade::disable_error_handling();
 
         if ($okapi_resp->count() == 0) {
             // no caches found
