@@ -3,6 +3,7 @@
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use lib\Objects\GeoCache\GeoCacheCommons;
+use okapi\core\Exception\BadRequest;
 
 //prepare the templates and include all neccessary
 global $rootpath;
@@ -946,7 +947,7 @@ if ($error == false) {
 
                     // This outputs headers and the ZIP file.
                     $okapi_response->display();
-                } catch (\okapi\BadRequest $e) {
+                } catch (BadRequest $e) {
                     # In case of bad requests, simply output OKAPI's error response.
                     # In case of other, internal errors, don't catch the error. This
                     # will cause OKAPI's default error hangler to kick in (so the admins

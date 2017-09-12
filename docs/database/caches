@@ -146,6 +146,7 @@ Create Table: CREATE TABLE `caches` (
   PRIMARY KEY (`cache_id`),
   UNIQUE KEY `wp_oc` (`wp_oc`),
   KEY `date_created` (`date_created`),
+  KEY `date_hidden` (`date_hidden`),
   KEY `latitude` (`latitude`),
   KEY `country` (`country`),
   KEY `status` (`status`,`date_activate`),
@@ -167,3 +168,4 @@ Create Table: CREATE TABLE `caches` (
 
 Changelog
 ---------
+2017-09-08  added key `date_created`

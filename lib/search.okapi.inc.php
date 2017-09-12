@@ -1,5 +1,7 @@
 <?php
 use Utils\Database\XDb;
+use okapi\core\Exception\BadRequest;
+use okapi\Facade;
 /**
  * This script is used (can be loaded) by /search.php
  */
@@ -179,7 +181,7 @@ if ($usr || !$hide_coords) {
 
             // This outputs headers and the file content.
             $okapi_response->display();
-        } catch (\okapi\BadRequest $e) {
+        } catch (BadRequest $e) {
             # In case of bad requests, simply output OKAPI's error response.
             # In case of other, internal errors, don't catch the error. This
             # will cause OKAPI's default error hangler to kick in (so the admins

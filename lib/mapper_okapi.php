@@ -1,5 +1,7 @@
 <?php
 
+use okapi\Facade;
+
 # This is a wrapper for OKAPI's "services/tilemap/tile" method. If takes
 # request parameters in the "legacy" mapper.php/mapper.fcgi format, converts
 # them to OKAPI's parameters, then executes OKAPI's tile-serving method.
@@ -17,7 +19,7 @@ require_once($rootpath . 'okapi/Facade.php');
 # The code below may produce notices, so we will disable OKAPI's default
 # error handler.
 
-\okapi\OkapiErrorHandler::disable();
+Facade::disable_error_handling();
 
 # mapper.php/mapper.fcgi used to take the following parameters:
 #
@@ -60,7 +62,7 @@ $user_id = $_GET['userid'];
 $searchdata = (isset($_GET['searchdata']) && preg_match('/^[a-f0-9]{6,32}/', $_GET['searchdata'])) ? $_GET['searchdata'] : null;
 
 if ($searchdata) {  # Mode 2 - with "searchdata".
-    \okapi\OkapiErrorHandler::reenable();
+    Facade::reenable_error_handling();
 
     # We need to transform OC's "searchdata" into OKAPI's "search set".
     # First, we need to determine if we ALREADY did that.
@@ -69,18 +71,18 @@ if ($searchdata) {  # Mode 2 - with "searchdata".
     # for each searchdata, so we will ignore it.
 
     $cache_key = "OC_searchdata_" . $searchdata;
-    $set_id = \okapi\Cache::get($cache_key);
+    $set_id = Facade::cache_get($cache_key);
     if ($set_id === null) {
         # Read the searchdata file into a temporary table.
 
         $filepath = \okapi\Settings::get('VAR_DIR') . "/searchdata/" . $searchdata;
-        \okapi\Db::execute("
+        \okapi\core\Db::execute("
             create temporary table temp_" . $searchdata . " (
                 cache_id integer primary key
             ) engine=memory
         ");
         if (file_exists($filepath)) {
-            \okapi\Db::execute("
+            \okapi\core\Db::execute("
                 load data local infile '$filepath'
                 into table temp_" . $searchdata . "
                 fields terminated by ' '
@@ -92,14 +94,14 @@ if ($searchdata) {  # Mode 2 - with "searchdata".
         # Tell OKAPI to import the table into its own internal structures.
         # Cache it for two hours.
 
-        $set_info = \okapi\Facade::import_search_set("temp_" . $searchdata, 7200, 7200);
+        $set_info = Facade::import_search_set("temp_" . $searchdata, 7200, 7200);
         $set_id = $set_info['set_id'];
-        \okapi\Cache::set($cache_key, $set_id, 7200);
+        Facade::cache_set($cache_key, $set_id, 7200);
     }
     $params['set_and'] = $set_id;
     $params['status'] = "Available|Temporarily unavailable|Archived";
 
-    \okapi\OkapiErrorHandler::disable();
+    Facade::disable_error_handling();
 } else {  # Mode 1 - without "searchdata".
     # h_ignored - convert to OKAPI's "exclude_ignored".
     if ($_GET['h_ignored'] == "true")
@@ -221,8 +223,8 @@ if (!$user_id)
 
 # End of "buggy" code. Re-enable OKAPI's error handler.
 
-\okapi\OkapiErrorHandler::reenable();
+Facade::reenable_error_handling();
 
 # Get OKAPI's response and display it. Add proper Cache-Control headers.
 
-\okapi\Facade::service_display('services/caches/map/tile', $user_id, $params);
+Facade::service_display('services/caches/map/tile', $user_id, $params);
