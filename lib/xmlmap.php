@@ -1,6 +1,9 @@
 <?php
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\OcConfig\OcConfig;
+use okapi\Facade;
+use okapi\core\OkapiErrorHandler;
+use okapi\core\Cache;
 
 $rootpath = "../";
 require_once ($rootpath . 'lib/common.inc.php');
@@ -272,7 +275,7 @@ class tmp_Xmlmap
 
     private function loadSearchData($searchData)
     {
-        \okapi\OkapiErrorHandler::reenable();
+        OkapiErrorHandler::reenable();
 
         // We need to transform OC's "searchdata" into OKAPI's "search set".
         // First, we need to determine if we ALREADY did that.
@@ -281,18 +284,18 @@ class tmp_Xmlmap
         // for each searchdata, so we will ignore it.
 
         $cache_key = "OC_searchdata_" . $searchData;
-        $set_id = \okapi\Cache::get($cache_key);
+        $set_id = Cache::get($cache_key);
         if ($set_id === null) {
             // Read the searchdata file into a temporary table.
 
             $filepath = \okapi\Settings::get('VAR_DIR') . "/searchdata/" . $searchData;
-            \okapi\Db::execute("
+            \okapi\core\Db::execute("
             create temporary table temp_" . $searchData . " (
                 cache_id integer primary key
             ) engine=memory
         ");
             if (file_exists($filepath)) {
-                \okapi\Db::execute("
+                \okapi\core\Db::execute("
                         load data local infile '$filepath'
                         into table temp_" . $searchData . "
                 fields terminated by ' '
@@ -304,14 +307,14 @@ class tmp_Xmlmap
             // Tell OKAPI to import the table into its own internal structures.
             // Cache it for two hours.
 
-            $set_info = \okapi\Facade::import_search_set("temp_" . $searchData, 7200, 7200);
+            $set_info = Facade::import_search_set("temp_" . $searchData, 7200, 7200);
             $set_id = $set_info['set_id'];
-            \okapi\Cache::set($cache_key, $set_id, 7200);
+            Cache::set($cache_key, $set_id, 7200);
         }
         $this->search_params['set_and'] = $set_id;
         $this->search_params['status'] = "Available|Temporarily unavailable|Archived";
 
-        \okapi\OkapiErrorHandler::disable();
+        OkapiErrorHandler::disable();
         return true;
     }
 
@@ -323,14 +326,14 @@ class tmp_Xmlmap
     {
         $ocConfig = OcConfig::instance();
         //call OKAPI
-        $okapi_resp = \okapi\Facade::service_call('services/caches/shortcuts/search_and_retrieve', $this->user_id, $params);
+        $okapi_resp = Facade::service_call('services/caches/shortcuts/search_and_retrieve', $this->user_id, $params);
 
         if (! is_a($okapi_resp, "ArrayObject")) { // strange OKAPI return !?
             error_log(__METHOD__.": ERROR: strange OKAPI response - not an ArrayObject");
             exit(0);
         }
 
-        \okapi\OkapiErrorHandler::disable();
+        OkapiErrorHandler::disable();
 
         if ($okapi_resp->count() == 0) {
             // no caches found
@@ -409,7 +412,7 @@ class tmp_Xmlmap
         $params['retr_params'] = '{"fields":"url"}';
 
         //call OKAPI - OKAPI displays the results
-        \okapi\Facade::service_display('services/caches/shortcuts/search_and_retrieve', $this->user_id, $params);
+        Facade::service_display('services/caches/shortcuts/search_and_retrieve', $this->user_id, $params);
     }
 }
 
