@@ -44,7 +44,7 @@ class GeoCacheLogCommons {
                 $icon = '16x16-need-maintenance.png';
                 break;
             case self::LOGTYPE_MADEMAINTENANCE:
-                $icon = '16x16--made-maintenance.png';
+                $icon = '16x16-made-maintenance.png';
                 break;
             case self::LOGTYPE_ATTENDED:
                 $icon = '16x16-attend.png';
