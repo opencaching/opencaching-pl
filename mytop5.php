@@ -1,9 +1,8 @@
 <?php
 
-
-
 use Utils\Database\OcDb;
 use lib\Controllers\MeritBadgeController;
+use okapi\Facade;
 
 require('./lib/cache.php');
 $cache = cache::instance();
@@ -57,12 +56,11 @@ if ($error == false) {
                     $ctrlMeritBadge = new MeritBadgeController;
                     $ctrlMeritBadge->updateTriggerRecommendationAuthor($cache_id);
                 }
-                
+
                 // Notify OKAPI's replicate module of the change.
                 // Details: https://github.com/opencaching/okapi/issues/265
-                require_once($rootpath . 'okapi/Facade.php');
-                \okapi\Facade::schedule_user_entries_check($cache_id, $usr['userid']);
-                \okapi\Facade::disable_error_handling();
+                Facade::schedule_user_entries_check($cache_id, $usr['userid']);
+                Facade::disable_error_handling();
 
                 $query = "SELECT name FROM caches WHERE cache_id = :cache_id LIMIT 1";
                 $params = array(

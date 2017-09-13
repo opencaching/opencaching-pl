@@ -12,9 +12,9 @@ use okapi\Facade;
 # Please note, that this file is NOT part of the official API. It may
 # stop working at any time.
 
-$rootpath = "../";
+require_once __DIR__ . '/ClassPathDictionary.php'; // class autoloader
 
-require_once($rootpath . 'okapi/Facade.php');
+$rootpath = "../";
 
 # The code below may produce notices, so we will disable OKAPI's default
 # error handler.
@@ -75,12 +75,15 @@ if ($searchdata) {  # Mode 2 - with "searchdata".
     if ($set_id === null) {
         # Read the searchdata file into a temporary table.
 
-        $filepath = \okapi\Settings::get('VAR_DIR') . "/searchdata/" . $searchdata;
+        require (__DIR__.'/settings.inc.php');
+        $filepath = $dynbasepath."searchdata/" . $searchdata;
+
         \okapi\core\Db::execute("
             create temporary table temp_" . $searchdata . " (
                 cache_id integer primary key
             ) engine=memory
         ");
+
         if (file_exists($filepath)) {
             \okapi\core\Db::execute("
                 load data local infile '$filepath'

@@ -3,6 +3,7 @@
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use lib\Objects\GeoCache\GeoCacheCommons;
+use okapi\Facade;
 use okapi\core\Exception\BadRequest;
 
 //prepare the templates and include all neccessary
@@ -934,11 +935,10 @@ if ($error == false) {
                 tpl_set_var('zip_links', $links_content);
                 tpl_BuildTemplate();
             } else {
-                require_once($rootpath . 'okapi/Facade.php');
                 try {
                     $waypoints = implode("|", $waypoints_tab);
                     // TODO: why the langpref is fixed to pl? shouldn't it depend on current user/session language?
-                    $okapi_response = \okapi\Facade::service_call('services/caches/formatters/garmin', $usr['userid'], array('cache_codes' => $waypoints, 'langpref' => 'pl',
+                    $okapi_response = Facade::service_call('services/caches/formatters/garmin', $usr['userid'], array('cache_codes' => $waypoints, 'langpref' => 'pl',
                                 'location_source' => 'alt_wpt:user-coords', 'location_change_prefix' => '(F)'));
 
                     // Modifying OKAPI's default HTTP Response headers.

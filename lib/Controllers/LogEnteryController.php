@@ -10,6 +10,7 @@ use Utils\Gis\Gis;
 use lib\Objects\ApplicationContainer;
 use lib\Controllers\MeritBadgeController;
 use lib\Objects\GeoCache\GeoCache;
+use okapi\Facade;
 
 class LogEnteryController
 {
@@ -25,7 +26,7 @@ class LogEnteryController
     public function removeLog(GeoCacheLog $log, $request = null)
     {
         global $config;
-        
+
         $result = false;
         if ($log === false) {
             $this->errors[] = 'No such log';
@@ -132,9 +133,8 @@ class LogEnteryController
 
         // Notify OKAPI's replicate module of the change.
         // Details: https://github.com/opencaching/okapi/issues/265
-        require_once(__DIR__ . '/../../okapi/Facade.php');
-        \okapi\Facade::schedule_user_entries_check($log->getGeoCache()->getCacheId(), $log->getUser()->getUserId());
-        \okapi\Facade::disable_error_handling();
+        Facade::schedule_user_entries_check($log->getGeoCache()->getCacheId(), $log->getUser()->getUserId());
+        Facade::disable_error_handling();
 
         // recalc scores for this cache
         $queryDel = "DELETE FROM `scores` WHERE `user_id` = :1 AND `cache_id` = :2 ";
@@ -197,14 +197,13 @@ class LogEnteryController
         }
         // Step 2 - recalculate cache_moved distances
         if ($logMovedCount > 1) {
-            require_once(__DIR__ . '/../../okapi/Facade.php');
             while ($newLogMoved = $db->dbResultFetch($stmt)) {
                 $distance = Gis::distance($logMoved['latitude'], $logMoved['longitude'], $newLogMoved['latitude'], $newLogMoved['longitude']);
                 $distance = round($distance, 2);
                 if ($distance != $newLogMoved['km']) { // save corrected distance in DB
                     $db->multiVariableQuery("UPDATE `cache_moved` SET `km` = :1 WHERE `id` = :2", floatval($distance), $newLogMoved['id']);
-                    \okapi\Facade::schedule_user_entries_check($cache->getCacheId(), $newLogMoved['user_id']);
-                    \okapi\Facade::disable_error_handling();
+                    Facade::schedule_user_entries_check($cache->getCacheId(), $newLogMoved['user_id']);
+                    Facade::disable_error_handling();
                     $changed = true;
                 }
                 $logMoved = $newLogMoved;

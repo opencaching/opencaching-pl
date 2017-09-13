@@ -174,7 +174,6 @@ if ($usr || !$hide_coords) {
             session_start();# prevent downloading multiple parts at once
         // Including OKAPI's Facade. This is the only valid (and fast) interface to access
         // OKAPI services from within OC code.
-        require_once($rootpath . 'okapi/Facade.php');
 
         try {
             $okapi_response = call_okapi($usr, $waypoints, $lang, $sFilebasename, $zippart);
