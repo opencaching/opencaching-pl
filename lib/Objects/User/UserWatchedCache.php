@@ -62,25 +62,33 @@ class UserWatchedCache extends BaseObject
                     text AS llog_text,
                     type AS llog_type,
                     user_id AS llog_user_id,
-                    max(date) as llog_date
-                    FROM cache_logs
-                    WHERE cache_id in (
+                    date as llog_date
+                    FROM cache_logs AS cl
+                    JOIN
+                        (SELECT cache_id as max_cid, MAX(date) as max_date
+                         FROM cache_logs
+                         WHERE cache_id in (
                             SELECT cache_id FROM cache_watches
                             WHERE user_id = :1
-                        ) AND deleted = 0
-                    GROUP BY cache_id
+                            ) AND deleted = 0
+                         GROUP BY cache_id
+                        ) x ON x.max_cid = cl.cache_id AND x.max_date = cl.date
                 ) cl ON ( cw.cache_id = cl.cache_id )
                 LEFT OUTER JOIN user AS u
                     ON (u.user_id = cl.llog_user_id)
                 LEFT OUTER JOIN (
                     SELECT cache_id, type as user_sts,
-                    max(date) as sts_date
-                    FROM cache_logs
-                    WHERE cache_id in (
-                        SELECT cache_id FROM cache_watches
-                        WHERE user_id = :1
-                    ) AND deleted = 0 AND user_id = :1 AND type IN (1,2)
-                    GROUP BY cache_id
+                    date as sts_date
+                    FROM cache_logs AS cl
+                    JOIN (
+                        SELECT cache_id as max_cid, MAX(date) as max_date
+                        FROM cache_logs
+                        WHERE cache_id in (
+                          SELECT cache_id FROM cache_watches
+                          WHERE user_id = :1
+                        ) AND deleted = 0 AND user_id = :1 AND type IN (1,2)
+                        GROUP BY cache_id
+                    )x ON x.max_cid = cl.id AND x.max_date = cl.date
                 ) sts ON sts.cache_id = cw.cache_id
                 WHERE cw.user_id = :1
                 LIMIT $limit OFFSET $offset", $userId );
