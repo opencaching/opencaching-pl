@@ -36,9 +36,6 @@ tpl_set_var('userid', $user_id);
 tpl_set_tplname('myProvince');
 $view = tpl_getView();
 
-// load chunk 'list of caches'
-$view->loadChunk('listOfCaches');
-
 if( !isset($_GET['province']) ||
     !Region::checkProvinceCode($_GET['province']) ){
 

@@ -13,7 +13,7 @@
           <img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="Cache">
           &nbsp;{{newest_caches}}
         </p>
-        <?php $view->listOfCachesChunk($view->newCaches); ?>
+        <?php $view->callChunk('listOfCaches', $view->newCaches); ?>
     </div>
 
     <div class="content2-container-2col-left" id="local-events-area">
@@ -21,7 +21,7 @@
           <img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="" title="Event">
           &nbsp;{{incomming_events}}
         </p>
-        <?php $view->listOfCachesChunk($view->incommingEvents); ?>
+        <?php $view->callChunk('listOfCaches', $view->incommingEvents); ?>
     </div>
 
     <div class="content2-container-2col-left local-logs-area">
@@ -29,7 +29,7 @@
           <img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="Event">
           &nbsp;{{ftf_awaiting}}
         </p>
-        <?php $view->listOfCachesChunk($view->ftfs); ?>
+        <?php $view->callChunk('listOfCaches', $view->ftfs); ?>
     </div>
 
     <div class="content2-container-2col-left" id="local-logs-area">
@@ -37,7 +37,7 @@
           <img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="Event">
           &nbsp;{{latest_logs}}
         </p>
-        <?php $view->listOfCachesChunk($view->lastLogs); ?>
+        <?php $view->callChunk('listOfCaches', $view->lastLogs); ?>
     </div>
 
     <?php if($view->enableTitleCaches) { ?>
@@ -46,7 +46,7 @@
               <img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="Event">
               &nbsp;{titledCaches_title}
             </p>
-            <?php $view->listOfCachesChunk($view->titledCaches); ?>
+            <?php $view->callChunk('listOfCaches', $view->titledCaches); ?>
         </div>
     <?php } //$view->enableTitleCaches ?>
 
@@ -55,7 +55,7 @@
           <img src="tpl/stdstyle/images/blue/recommendation.png" class="icon32" alt="" title="Event">
           &nbsp;{{top_recommended}}
         </p>
-        <?php $view->listOfCachesChunk($view->topRecos); ?>
+        <?php $view->callChunk('listOfCaches', $view->topRecos); ?>
     </div>
 
 </div>

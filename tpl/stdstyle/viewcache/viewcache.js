@@ -96,3 +96,24 @@ function openGarminWindow(event, latitude, longitude, ocWaypoint, cachename)
         'GARMIN','width=450,height=160,resizable=no,scrollbars=0');
     return false;
 }
+
+function watchIt(input){
+
+  if(!input.checked){ // watched
+    var action = 'remove';
+  }else{             //not-watched
+    var action = 'add';
+  }
+
+  $.ajax({
+    type:  "get",
+    cache: false,
+    url:   'mywatches.php?action='+action+'&cacheWp='+$(input).val(),
+    error: function (xhr) {
+        console.log("watchIt error: " + xhr.responseText);
+    },
+    success: function (data, status) {
+        console.log("watchIt: success!");
+    }
+  });
+}

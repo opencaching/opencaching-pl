@@ -18,7 +18,11 @@ class Debug {
         array_shift($backtrace); //remove first element - call this method...
 
         foreach($backtrace as $trace){
-            $traceStr.= ' | '.$trace['file'].':'.$trace['line'];
+            if( isset($trace['file']) && isset($trace['line']) ){
+                $traceStr.= ' | '.$trace['file'].':'.$trace['line'];
+            }else{
+                $traceStr.= ' | ? : ?';
+            }
         }
         return $traceStr;
     }
@@ -30,5 +34,16 @@ class Debug {
         }
 
         error_log($message);
+    }
+
+    public static function dumpToLog($var, $message=null){
+
+        if(!is_null($message)){
+            $result = $message.': ';
+        }else{
+            $result = 'var-dump: ';
+        }
+        $result .= var_export($var, TRUE);
+        error_log($result);
     }
 }

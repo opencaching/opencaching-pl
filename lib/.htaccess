@@ -1,9 +1,0 @@
-# References to cachemap3.js script are generated dynamically in PHP and contain numeric time-stamps.
-# This is stripped here to return the actual file.
-
-RewriteEngine On
-RewriteBase /lib/
-RewriteRule ^cachemap3(\.\d+)?\.js$ cachemap3.php
-
-
-

@@ -28,19 +28,9 @@ function remove_watch($cache_id, $user_id) {
 
     printf("Watched cache ID: %s\n", $cache_id);
 
-    $db->beginTransaction();
-
     // Remove watch
     $db->multiVariableQuery('DELETE FROM cache_watches WHERE cache_id = :1 AND user_id = :2', $cache_id, $user_id);
 
-    // Reduce numer of watchers of cache
-    $watchers = $db->multiVariableQueryValue('SELECT watcher FROM caches WHERE cache_id = :1', -1, $cache_id);
-    if ($watchers > 0) {
-        $watchers -= 1;
-        $db->multiVariableQuery('UPDATE caches SET watcher = :1 WHERE cache_id = :2', $watchers, $cache_id);
-    }
-
-    $db->commit();
 }
 
 if (!isset($argv[1])) {

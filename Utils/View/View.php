@@ -9,7 +9,7 @@ class View {
     const CHUNK_DIR = __DIR__.'/../../tpl/stdstyle/chunks/';
 
     //NOTE: local View vars should be prefixed by "_"
-    
+
     private $_googleAnalyticsKey = '';      // GA key loaded from config
 
     private $_loadJQuery = false;
@@ -25,9 +25,6 @@ class View {
         // load google analytics key from the config
         $this->_googleAnalyticsKey = isset($GLOBALS['googleAnalytics_key']) ?
                 $GLOBALS['googleAnalytics_key'] : '';
-
-        $this->loadChunk('googleAnalytics'); // load GA chunk for all pages
-
     }
 
     /**
@@ -55,33 +52,37 @@ class View {
         }
     }
 
-    /**
-     * Load chunk by given name.
-     * Chunk should be an anonymous function
-     * defined in file of the same name in tpl/stdstyle/chunks
-     * It can be then called in template file by $view->$chunkName
-     *
-     * @param string $chunkName
-     */
-    public function loadChunk($chunkName){
-        if(property_exists($this, $chunkName)){
-            $this->error("Can't set View variable with name: $varName");
-            return;
-        }
-
-        $func = require(self::CHUNK_DIR.$chunkName.'.tpl.php');
-        $funcName = $chunkName.'Chunk';
-        $this->$funcName = $func;
-    }
-
     public function getGoogleAnalyticsKey(){
         return $this->_googleAnalyticsKey;
     }
 
-    public function callChunk($chunkName, ...$arg) {
-        $this->loadChunk($chunkName);
-        $funcName = $chunkName.'Chunk';
-        $this->$funcName(...$arg);
+    public function callChunk($chunkName, ...$args) {
+
+        $method = $chunkName.'Chunk';
+
+        if(!property_exists($this, $method)){
+            $func = self::getChunkFunc($chunkName);
+            $this->$method = $func;
+        }
+
+        if(is_callable($this->$method)){
+            $this->$method(...$args);
+        }else{
+            $this->error("Can't call chunk: $chunkName");
+        }
+    }
+
+    public function callChunkOnce($chunkName, ...$args){
+        self::callChunkInline($chunkName, ...$args);
+    }
+
+    public static function callChunkInline($chunkName, ...$args) {
+        $func = self::getChunkFunc($chunkName);
+        call_user_func_array($func, $args);
+    }
+
+    public static function getChunkFunc($chunkName){
+        return require(self::CHUNK_DIR.$chunkName.'.tpl.php');
     }
 
     public function loadJQuery(){
@@ -104,8 +105,9 @@ class View {
         $this->_loadJQuery = true; // lightBox needs jQuery!
     }
 
-    public function loadGMapApi(){
+    public function loadGMapApi($callback = null){
         $this->_loadGMapApi = true;
+        $this->setVar('GMapApiCallback', $callback);
     }
 
     /**
@@ -175,5 +177,20 @@ class View {
     public function getLocalCss(){
         return $this->_localCss;
     }
+
+    /**
+     * Set template name (former tpl_set_tplname())
+     * @param string $tplName
+     */
+    public function setTemplate($tplName){
+        //TODO: refactoring needed but this is still this way
+        tpl_set_tplname($tplName);
+    }
+
+    public function buildView(){
+        //TODO: refactoring needed but this is still this way
+        tpl_BuildTemplate();
+    }
+
 
 }

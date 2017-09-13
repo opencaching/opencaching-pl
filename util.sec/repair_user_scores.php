@@ -36,8 +36,6 @@ class RepairUserScores
                     "SELECT count(id) FROM cache_logs WHERE deleted=0 AND user_id = :1 AND type=2", 0, $user_id);
             $log_notes_count = $db->multiVariableQueryValue(
                     "SELECT count(id) FROM cache_logs WHERE deleted=0 AND user_id = :1 AND type=3", 0, $user_id);
-            $cache_watches = $db->multiVariableQueryValue(
-                    "SELECT count(id) FROM cache_watches WHERE user_id = :1", 0, $user_id);
             $cache_ignores = $db->multiVariableQueryValue(
                     "SELECT count(id) FROM cache_ignore WHERE user_id = :1", 0, $user_id);
             $hidden_count = $db->multiVariableQueryValue(
@@ -50,8 +48,7 @@ class RepairUserScores
                     cache_ignores=:new_cache_ignores,
                     log_notes_count=:new_log_notes_count,
                     founds_count=:new_founds_count,
-                    notfounds_count=:new_notfounds_count,
-                    cache_watches=:new_cache_watches
+                    notfounds_count=:new_notfounds_count
                 WHERE
                     user_id=:user_id
                     AND (
@@ -60,13 +57,11 @@ class RepairUserScores
                         OR log_notes_count is null
                         OR founds_count is null
                         OR notfounds_count is null
-                        OR cache_watches is null
                         OR hidden_count!=:new_hidden_count
                         OR cache_ignores!=:new_cache_ignores
                         OR log_notes_count!=:new_log_notes_count
                         OR founds_count!=:new_founds_count
                         OR notfounds_count!=:new_notfounds_count
-                        OR cache_watches!=:new_cache_watches
                     )
             ";
 
@@ -81,8 +76,6 @@ class RepairUserScores
             $params['new_founds_count']['data_type'] = 'integer';
             $params['new_notfounds_count']['value'] = intval($notfounds_count);
             $params['new_notfounds_count']['data_type'] = 'integer';
-            $params['new_cache_watches']['value'] = intval($cache_watches);
-            $params['new_cache_watches']['data_type'] = 'integer';
             $params['user_id']['value'] = intval($user_id);
             $params['user_id']['data_type'] = 'integer';
             $s = $db->paramQuery($sql, $params);
@@ -90,7 +83,7 @@ class RepairUserScores
                 echo "<b>user_id=$user_id</b><br>";
                 echo "hidden_count=$hidden_count<br>cache_ignores=$cache_ignores<br>";
                 echo "log_notes_count=$log_notes_count<br>founds_count=$founds_count<br>";
-                echo "notfounds_count=$notfounds_count<br>cache_watches=$cache_watches<br>";
+                echo "notfounds_count=$notfounds_count<br>";
                 $total_touched++;
             }
         }

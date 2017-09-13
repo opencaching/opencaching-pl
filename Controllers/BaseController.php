@@ -41,6 +41,49 @@ abstract class BaseController
     {
         $this->view->redirect(
             Uri::setOrReplaceParamValue('target', Uri::getCurrentUri(), '/login.php'));
+        exit;
+    }
+
+    protected function isUserLogged(){
+        return !is_null($this->loggedUser);
+    }
+
+    protected function ajaxSuccessResposne($message=null){
+        $response = [
+            'status' => 'OK'
+        ];
+
+        if(!is_null($message)){
+            $response['message'] = $message;
+        }
+
+        header('Content-Type: application/json');
+        print (json_encode($response));
+
+        exit;
+    }
+
+    protected function ajaxErrorResposne($message=null, $statusCode=null){
+        $response = [
+            'status' => 'ERROR'
+        ];
+
+        if(!is_null($message)){
+            $response['message'] = $message;
+        }
+
+        if(is_null($statusCode)){
+            $statusCode = 500;
+        }
+
+        http_response_code($statusCode);
+
+        header('Content-Type: application/json; charset=UTF-8');
+        print json_encode(
+                array(
+                'message' => $message,
+                'status' => 'ERROR')
+        );
 
         exit;
     }

@@ -1,0 +1,37 @@
+
+
+#listOfWatchedCaches {
+  width: 95%;  
+}
+
+#downloadMenu {
+  padding: 20px;
+}
+
+#emailSettingsForm {
+  width: 100%;
+  text-align: center;
+}
+
+#emailSettingsForm select {
+  padding: 5px;
+  margin: 5px;
+}
+
+#emailSettingsForm .settingsDiv{
+  text-align: left;
+  width: 100%;
+}
+
+#emailSettingsForm .submitDiv{
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+#mapCanvas {
+    height: 460px;
+    width: 767px;
+    padding: 0px;
+    border: 1px solid #0051B9
+}

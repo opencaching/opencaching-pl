@@ -251,13 +251,10 @@ class ViewCacheController extends BaseController
 
             if($show_watch) {
                 //is this cache watched by this user?
-
-                if (!$this->geocache->isWatchedBy($this->loggedUser->getUserId())) {
-                    $this->view->setVar('watchLink','watchcache.php?cacheid=' . $this->cache_id . '&amp;target=' . Uri::getCurrentUri());
-                    $this->view->setVar('watchLabel',tr('watch'));
+                if ($this->geocache->isWatchedBy($this->loggedUser->getUserId())) {
+                    $this->view->setVar('watched',true);
                 } else {
-                    $this->view->setVar('watchLink','removewatch.php?cacheid=' . $this->cache_id . '&amp;target=' . Uri::getCurrentUri());
-                    $this->view->setVar('watchLabel',tr('watch_not'));
+                    $this->view->setVar('watched',false);
                 }
             }
 
@@ -265,7 +262,6 @@ class ViewCacheController extends BaseController
                 //is this cache ignored by this user?
 
                 if(!$this->geocache->isIgnoredBy($this->loggedUser->getUserId())){
-
                     $this->view->setVar('ignoreLink',"addignore.php?cacheid=" . $this->cache_id . "&amp;target=" . Uri::getCurrentUri());
                     $this->view->setVar('ignoreLabel',tr('ignore'));
                 } else {

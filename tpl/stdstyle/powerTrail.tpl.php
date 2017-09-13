@@ -1,10 +1,7 @@
-<?php
-$view->callChunk('tinyMCE');
-?>
+<?php $view->callChunk('tinyMCE'); ?>
 
 <link href='https://fonts.googleapis.com/css?family=Shojumaru&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 <script src="tpl/stdstyle/js/jquery.cookie.js" type="text/javascript"></script>
-<script src="/lib/cachemap3lib.js" type="text/javascript"></script>
 
 
 <script type="text/javascript">
@@ -1176,7 +1173,8 @@ $view->callChunk('tinyMCE');
     console.log('initialize ');
     var attributionMap = {attributionMap};
     var mapItems = {mapItems};
-    var showMapsWhenMore = {showMapsWhenMore};
+
+    {mapWMSConfigLoader}
 
     var ptMapCenterLat = {mapCenterLat};
     var ptMapCenterLon = {mapCenterLon};
@@ -1187,14 +1185,7 @@ $view->callChunk('tinyMCE');
     for (var type in google.maps.MapTypeId) {
         mapTypeIds.push(google.maps.MapTypeId[type]);
     }
-    /*
-    // non-google maps are disabled because of Google API restrictions with Google Content displaying on non-Google maps
-    var mapTypeId2 = jQuery.cookie('mapTypeId');
-    for (var mapType in mapItems){
-        if ((!showMapsWhenMore[mapType]) || mapTypeId2 == mapType){
-            mapTypeIds.push(mapType);
-        }
-    }*/
+
 
     var myLatlng = new google.maps.LatLng(ptMapCenterLat, ptMapCenterLon);
     var mapOptions = {
@@ -1239,7 +1230,16 @@ $view->callChunk('tinyMCE');
                     google.maps.event.addListener(marker, 'click', onMarkerClick);
             });
             if (fullCountryMap == '0') map.fitBounds(bounds);
-            var attributionDiv = createAttributionDiv();
+
+            var attributionDiv = document.createElement('div');
+            attributionDiv.id = "map-copyright";
+            attributionDiv.style.fontSize = "10px";
+            attributionDiv.style.fontFamily = "Arial, sans-serif";
+            attributionDiv.style.padding = "3px 6px";
+            attributionDiv.style.whiteSpace = "nowrap";
+            attributionDiv.style.opacity = "0.7";
+            attributionDiv.style.background = "#fff";
+
             map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(attributionDiv);
             if (typeof mapTypeId2 != 'undefined' && mapTypeId2 != '' && typeof mapItems[mapTypeId2] != 'undefined'){
                 map.setMapTypeId(mapTypeId2);

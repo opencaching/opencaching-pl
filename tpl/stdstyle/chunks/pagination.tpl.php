@@ -3,11 +3,14 @@
  * This is pagintaion chunk.
  * To use it prepare and use PaginationModel.
  *
- * Usage:
+ * Usage (example):
  * - in controller:
- *      TODO:
+ *     $pagination = new PaginationModel(20); //per-page number of caches
+ *     $pagination->setRecordsCount($numberOfAllRecords);
+ *     list($queryLimit, $queryOffset) = $pagination->getQueryLimitAndOffset();
+ *
  * - in template:
- *      TODO:
+ *     View::callChunkInline('pagination', $this->paginationModel);
  */
 use lib\Objects\ChunkModels\PaginationModel;
 use Utils\Uri\Uri;
@@ -15,6 +18,11 @@ use Utils\Uri\Uri;
 return function (PaginationModel $pagination){
 
 // begining of chunk
+
+    if( count($pagination->getPagesList()) < 2 ){
+        // there is only one page - so hide pagination
+        return;
+    }
 
     $chunkCSS = Uri::getLinkWithModificationTime('/tpl/stdstyle/chunks/pagination.css');
 

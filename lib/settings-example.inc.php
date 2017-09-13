@@ -424,7 +424,6 @@ $defaultCountryList = array("AT", "BE", "BY", "BG", "HR", "CZ", "DK", "EE", "FI"
  * * second dimension
  * KEYS:
  *  - hidden: boolean attribute to hide the map entirerly, without removing it from config
- *  - showOnlyIfMore: show this map item only in large views (like full screen)
  *  - attribution: the HTML snippet that will be shown in bottom-right part of the map
  *  - imageMapTypeJS: the complete JS expression returning instance of google.maps.ImageMapType,
  *      if set, not other properties below will work
@@ -458,8 +457,7 @@ $mapsConfig = array(
         'attribution' => '&copy; <a href="//www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors <a href="//creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC BY-SA</a>',
         'tileUrl' => 'http://tile.openstreetmap.org/{z}/{x}/{y}.png',
         'maxZoom' => 18,
-        'tileSize' => '256x256',
-        'showOnlyIfMore' => true
+        'tileSize' => '256x256'
     ),
     'UMP' => array(
         'name' => 'UMP',
@@ -470,7 +468,6 @@ $mapsConfig = array(
     ),
     'Topo' => array(
         'attribution' => '&copy; <a href="http://geoportal.gov.pl/" target="_blank">geoportal.gov.pl</a>',
-        'showOnlyIfMore' => true,
         'imageMapTypeJS' => 'new google.maps.ImageMapType(new WMSImageMapTypeOptions(
                                         "Topo",
                                         "http://mapy.geoportal.gov.pl:80/wss/service/img/guest/TOPO/MapServer/WmsServer",
@@ -480,7 +477,6 @@ $mapsConfig = array(
     ),
     'Orto' => array(
         'attribution' => '&copy; <a href="http://geoportal.gov.pl/" target="_blank">geoportal.gov.pl</a>',
-        'showOnlyIfMore' => true,
         'imageMapTypeJS' => 'new google.maps.ImageMapType(new WMSImageMapTypeOptions(
                                         "Orto",
                                         "http://mapy.geoportal.gov.pl:80/wss/service/img/guest/ORTO/MapServer/WmsServer",
