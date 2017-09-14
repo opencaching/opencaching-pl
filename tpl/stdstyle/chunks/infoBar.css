@@ -9,6 +9,7 @@
 .infoBar-close-but {
     position: absolute;
     right: 5%;
+    cursor: pointer;
 }
 
 .infoBar-message{
