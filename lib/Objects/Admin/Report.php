@@ -139,6 +139,11 @@ class Report extends BaseObject
      */
     private $dateChangeStatus = null;
 
+    /**
+     * @var string
+     */
+    private $uuid;
+
     public function __construct(array $params = array())
     {
         parent::__construct();
@@ -197,6 +202,9 @@ class Report extends BaseObject
                     break;
                 case 'responsible_id':
                     $this->userIdLeader = ($val == self::USER_NOBODY) ? null : $val;
+                    break;
+                case 'uuid':
+                    $this->uuid = $val;
                     break;
                 default:
                     error_log(__METHOD__ . ": Unknown column: $key");
@@ -304,6 +312,11 @@ class Report extends BaseObject
     public function getDateChangeStatus()
     {
         return $this->dateChangeStatus;
+    }
+
+    public function getUuid()
+    {
+        return $this->uuid;
     }
 
     public function getReportTypeTranslationKey()
