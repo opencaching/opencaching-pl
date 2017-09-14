@@ -108,7 +108,6 @@ class UserWatchedCachesController extends BaseController
                     return [
                         'logId'         => $row['llog_id'],
                         'logType'       => $row['llog_type'],
-                        'logUserId'     => $row['llog_user_id'],
                         'logText'       => $row['llog_text'],
                         'logUserName'   => $row['llog_username'],
                         'logDate'       => $row['llog_date']

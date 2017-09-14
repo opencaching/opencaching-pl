@@ -65,14 +65,12 @@ class UserWatchedCache extends BaseObject
                     date as llog_date
                     FROM cache_logs AS cl
                     JOIN
-                        (SELECT cache_id as max_cid, MAX(date) as max_date
-                         FROM cache_logs
-                         WHERE cache_id in (
-                            SELECT cache_id FROM cache_watches
-                            WHERE user_id = :1
-                            ) AND deleted = 0
-                         GROUP BY cache_id
-                        ) x ON x.max_cid = cl.cache_id AND x.max_date = cl.date
+                        (SELECT MAX(date), MAX(id) AS id
+                         FROM cache_logs llcl
+                         WHERE cache_id IN ( SELECT cache_id FROM cache_watches WHERE user_id = :1)
+                           AND deleted = 0
+                         GROUP BY llcl.cache_id
+                        )y USING (id)
                 ) cl ON ( cw.cache_id = cl.cache_id )
                 LEFT OUTER JOIN user AS u
                     ON (u.user_id = cl.llog_user_id)
@@ -81,14 +79,12 @@ class UserWatchedCache extends BaseObject
                     date as sts_date
                     FROM cache_logs AS cl
                     JOIN (
-                        SELECT cache_id as max_cid, MAX(date) as max_date
-                        FROM cache_logs
-                        WHERE cache_id in (
-                          SELECT cache_id FROM cache_watches
-                          WHERE user_id = :1
-                        ) AND deleted = 0 AND user_id = :1 AND type IN (1,2)
-                        GROUP BY cache_id
-                    )x ON x.max_cid = cl.id AND x.max_date = cl.date
+                        SELECT MAX(date), MAX(id) as id
+                        FROM cache_logs as mcl
+                        WHERE cache_id IN ( SELECT cache_id FROM cache_watches WHERE user_id = 1)
+                          AND deleted = 0 AND user_id = :1 AND type IN (1,2)
+                        GROUP BY mcl.cache_id
+                    )x USING (id)
                 ) sts ON sts.cache_id = cw.cache_id
                 WHERE cw.user_id = :1
                 LIMIT $limit OFFSET $offset", $userId );
