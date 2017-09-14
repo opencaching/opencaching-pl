@@ -439,9 +439,9 @@ class EmailSender
             $line = mb_ereg_replace('{cache_distance}', round(Gis::distanceBetween($user->getHomeCoordinates(), $item->getCache()->getCoordinates())), $line);
             $line = mb_ereg_replace('{cache_unit}', 'km', $line);
             $line = mb_ereg_replace('{cache_diff_icon}', $item->getCache()->getDifficultyIcon(), $line);
-            $line = mb_ereg_replace('{cache_diff}', $item->getCache()->getDifficulty(), $line);
+            $line = mb_ereg_replace('{cache_diff}', $item->getCache()->getDifficulty() / 2, $line);
             $line = mb_ereg_replace('{cache_ter_icon}', $item->getCache()->getTerrainIcon(), $line);
-            $line = mb_ereg_replace('{cache_ter}', $item->getCache()->getTerrain(), $line);
+            $line = mb_ereg_replace('{cache_ter}', $item->getCache()->getTerrain() / 2, $line);
             $line = mb_ereg_replace('{cache_author_id}', $item->getCache()->getOwnerId(), $line);
             $line = mb_ereg_replace('{cache_author}', $item->getCache()->getOwner()->getUserName(), $line);
             $line = mb_ereg_replace('{cache_author_activity}', tr('user_activity01'), $line);
