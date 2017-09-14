@@ -6,6 +6,7 @@ use Utils\Debug\Debug;
 use lib\Objects\Admin\Report;
 use lib\Objects\ChunkModels\PaginationModel;
 use lib\Objects\OcConfig\OcConfig;
+use lib\Controllers\LogEnteryController;
 
 class ReportsController extends BaseController
 {
@@ -18,7 +19,7 @@ class ReportsController extends BaseController
     public function index()
     {
         // Check if user is logged and has admin rights
-        if (! $this->loggedUser) {
+        if (! $this->isUserLogged()) {
             $this->redirectToLoginPage();
             exit();
         } elseif (! $this->loggedUser->isAdmin()) {
@@ -81,6 +82,9 @@ class ReportsController extends BaseController
             $this->view->redirect('/admin_reports.php');
             exit();
         }
+        $logController = new LogEnteryController();
+        $lastLogs = $logController->loadLogs($report->getCache(), false, 0, 5);
+        $this->view->setVar('lastLogs', $lastLogs);
         $this->view->setVar('report', $report);
         $this->view->setVar('dateFormat',OcConfig::instance()->getDbDateTimeFormat());
         tpl_set_tplname('admin/report_show');

@@ -1,4 +1,8 @@
-<?php ?>
+<?php
+use lib\Objects\GeoCache\GeoCacheLogCommons;
+use lib\Objects\GeoCache\GeoCacheCommons;
+?>
+<script type="text/javascript" src="/lib/js/wz_tooltip.js"></script>
 <div class="content2-container">
   <div class="content2-pagetitle">
     <div style="float: right;"><button type="button" class="btn btn-primary" onclick="window.location.href = '/admin_reports.php'">{{admin_reports_title_reportslist}}</button></div>
@@ -46,7 +50,25 @@
       <td>
         <img src="/<?=$view->report->getCache()->getCacheIcon($view->user)?>" height=20 alt="">
         <a href="/viewcache.php?wp=<?=$view->report->getCache()->getWaypointId()?>" class="links" target="_blank"><?=$view->report->getCache()->getCacheName()?> (<?=$view->report->getCache()->getWaypointId()?>)</a><br>
-        <?=$view->report->getCache()->getCacheLocationObj()->getLocationDesc(' &gt; ')?>
+        <?=$view->report->getCache()->getCacheLocationObj()->getLocationDesc(' &gt; ')?><br>
+        <?php if ($view->report->getCache()->getCacheType() == GeoCacheCommons::TYPE_EVENT) { ?>
+            <img src="/tpl/stdstyle/images/log/16x16-attend.png" class="icon16" alt="{{attendends}}"> x<?=$view->report->getCache()->getFounds()?> 
+            <img src="/tpl/stdstyle/images/log/16x16-will_attend.png" class="icon16" alt="{{will_attend}}"> x<?=$view->report->getCache()->getNotFounds()?> 
+            <img src="/tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{note}}"> x<?=$view->report->getCache()->getNotesCount()?>
+            <br>
+        <?php  } else { ?>
+            <img src="/tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="{{found}}"> x<?=$view->report->getCache()->getFounds()?> 
+            <img src="/tpl/stdstyle/images/log/16x16-dnf.png" class="icon16" alt="{{not_found}}"> x<?=$view->report->getCache()->getNotFounds()?> 
+            <img src="/tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{note}}"> x<?=$view->report->getCache()->getNotesCount()?>
+        <?php }?>
+      </td>
+    </tr>
+    <tr>
+      <td class="content-title-noshade" style="text-align: right;">{{new_logs}}</td>
+      <td>
+        <?php foreach ($view->lastLogs as $log) { ?>
+          <img src="/<?=GeoCacheLogCommons::GetIconForType($log->getType())?>" alt="<?=tr(GeoCacheLogCommons::typeTranslationKey($log->getType()))?>" onmouseover="Tip('<b><?=$log->getUser()->getUserName()?></b>&nbsp;(<?=$log->getDate()->format($view->dateFormat)?>)<br><?=GeoCacheLogCommons::cleanLogTextForToolTip($log->getText())?>',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"> 
+        <?php  }?>
       </td>
     </tr>
     <tr>

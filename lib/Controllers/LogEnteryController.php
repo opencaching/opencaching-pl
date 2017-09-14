@@ -94,32 +94,37 @@ class LogEnteryController
 
         $geoCacheLog = false;
         if ($logRow) {
-            $geoCacheLog = new GeoCacheLog();
-            $geoCacheLog
-                    ->setGeoCache($logRow['cache_id'])
-                    ->setDate(new \DateTime($logRow['date']))
-                    ->setDateCreated(new \DateTime($logRow['date_created']))
-                    ->setDelByUserId($logRow['del_by_user_id'])
-                    ->setDeleted($logRow['deleted'])
-                    ->setEditByUserId($logRow['edit_by_user_id'])
-                    ->setEditCount($logRow['edit_count'])
-                    ->setLastDeleted($logRow['last_deleted'])
-                    ->setLastModified(new \DateTime($logRow['last_modified']))
-                    ->setId($logRow['id'])
-                    ->setMp3count($logRow['mp3count'])
-                    ->setNode($logRow['node'])
-                    ->setOkapiSyncbase(new \DateTime($logRow['okapi_syncbase']))
-                    ->setOwnerNotified($logRow['owner_notified'])
-                    ->setPicturesCount($logRow['picturescount'])
-                    ->setText($logRow['text'])
-                    ->setTextHtml($logRow['text_html'])
-                    ->setTextHtmlEdit($logRow['text_htmledit'])
-                    ->setType($logRow['type'])
-                    ->setUser($logRow['user_id'])
-                    ->setUuid($logRow['uuid'])
-            ;
+            $geoCacheLog = $this->buildLogFromDbRow($logRow);
         }
         return $geoCacheLog;
+    }
+
+    private function buildLogFromDbRow($row)
+    {
+        $log = new GeoCacheLog();
+        $log
+            ->setGeoCache($row['cache_id'])
+            ->setDate(new \DateTime($row['date']))
+            ->setDateCreated(new \DateTime($row['date_created']))
+            ->setDelByUserId($row['del_by_user_id'])
+            ->setDeleted($row['deleted'])
+            ->setEditByUserId($row['edit_by_user_id'])
+            ->setEditCount($row['edit_count'])
+            ->setLastDeleted($row['last_deleted'])
+            ->setLastModified(new \DateTime($row['last_modified']))
+            ->setId($row['id'])
+            ->setMp3count($row['mp3count'])
+            ->setNode($row['node'])
+            ->setOkapiSyncbase(new \DateTime($row['okapi_syncbase']))
+            ->setOwnerNotified($row['owner_notified'])
+            ->setPicturesCount($row['picturescount'])
+            ->setText($row['text'])
+            ->setTextHtml($row['text_html'])
+            ->setTextHtmlEdit($row['text_htmledit'])
+            ->setType($row['type'])
+            ->setUser($row['user_id'])
+            ->setUuid($row['uuid']);
+    return $log;
     }
 
     private function cacheScoreHandlingAfterRemoveLog(GeoCacheLog $log)
@@ -227,7 +232,7 @@ class LogEnteryController
     /**
      * Method is similar to recalculateMobileMoves(), but param is cacheId, not GeoCache object
      *
-     * @param unknown $cacheId
+     * @param int $cacheId
      * @return boolean - true is set when cache_moved or cache was changed, false - otherwise
      */
     public static function recalculateMobileMovesByCacheId($cacheId)
@@ -262,6 +267,47 @@ class LogEnteryController
     public function getErrors()
     {
         return $this->errors;
+    }
+
+    /**
+     * Returns array of GeoCacheLogs objects - newest logs meeting criteria given as parameters
+     *
+     * @param GeoCache $cache
+     * @param bool $includeDeletedLogs
+     * @param int $offset
+     * @param int $limit
+     * @return \lib\Objects\GeoCache\GeoCacheLog[]
+     */
+    public function loadLogs(GeoCache $cache, $includeDeletedLogs = false, $offset = 0, $limit = -1)
+    {
+        $query = 'SELECT * FROM `cache_logs` WHERE `cache_logs`.`cache_id` = :cacheid';
+        if (! $includeDeletedLogs) {
+            $query .= ' AND `cache_logs`.`deleted` = 0';
+        }
+        $query .= ' ORDER BY `cache_logs`.`date` DESC
+            LIMIT :limit OFFSET :offset';
+        $params = array(
+            'cacheid' => array(
+                'value' => (integer) $cache->getCacheId(),
+                'data_type' => 'integer',
+            ),
+            'limit' => array(
+                'value' => (integer) $limit,
+                'data_type' => 'integer',
+            ),
+            'offset' => array(
+                'value' => (integer) $offset,
+                'data_type' => 'integer',
+            ),
+        );
+        $db = OcDb::instance();
+        $stmt = $db->paramQuery($query, $params);
+        $logs = $db->dbResultFetchAll($stmt);
+        $result = array();
+        foreach ($logs as $logitem) {
+            $result[] = $this->buildLogFromDbRow($logitem);
+        }
+        return $result;
     }
 
     public function loadLogsFromDb($geocacheId, $includeDeletedLogs = false, $offset = 0, $limit = -1, $logId = false)
