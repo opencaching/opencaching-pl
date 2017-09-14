@@ -3,6 +3,6 @@
 # temporary dummy file until postcommit.py is updated on the OCPL deployment server
 
 /*
-public static $version_number = 1621;
-public static $git_revision = '0d2b0fc3b7eafdfb000280070b814eb52441f6ce';
+public static $version_number = 1622;
+public static $git_revision = '84cd2663d36813d4c25ac57d2494886bb7c609e9';
 */
