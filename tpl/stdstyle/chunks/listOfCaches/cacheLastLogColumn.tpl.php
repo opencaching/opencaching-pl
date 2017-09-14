@@ -7,10 +7,9 @@ use Utils\DateTime\OcDate;
 /**
 	This is column with log-icon and log-text.
   It needs vars in $data:
-		- logId - id of the log
+	- logId - id of the log
     - logType - type of the log
     - logText - text of the log
-    - logUserId - id of the loff author
     - logUserName - name of the author
     - logDate - date of the log
 */
@@ -24,7 +23,7 @@ return function (array $data){
     }else{
         $nolog = false;
         $logIcon = GeoCacheLogCommons::GetIconForType($data['logType']);
-        $userProfileUrl = UserCommons::GetUserProfileUrl($data['logUserId']);
+        $logUrl = "/viewlogs.php?logid=${data['logId']}";
         $userName = $data['logUserName'];
         $logText = GeoCacheLogCommons::cleanLogTextForToolTip($data['logText']);
         $logDate = OcDate::getFormattedDate($data['logDate']);
@@ -35,7 +34,7 @@ return function (array $data){
 ?>
   <?php if(!$nolog) { ?>
 
-      <a href="<?=$userProfileUrl?>"
+      <a href="<?=$logUrl?>" target="_blank"
          onmouseover="Tip('<b><?=$userName?> (<?=$logTypeName?>):</b><br/><?=$logText?>',
            PADDING,5,WIDTH,280,SHADOW,true)"
          onmouseout="UnTip()" >
