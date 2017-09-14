@@ -81,12 +81,13 @@ class UserWatchedCache extends BaseObject
                     JOIN (
                         SELECT MAX(date), MAX(id) as id
                         FROM cache_logs as mcl
-                        WHERE cache_id IN ( SELECT cache_id FROM cache_watches WHERE user_id = 1)
+                        WHERE cache_id IN ( SELECT cache_id FROM cache_watches WHERE user_id = :1)
                           AND deleted = 0 AND user_id = :1 AND type IN (1,2)
                         GROUP BY mcl.cache_id
                     )x USING (id)
                 ) sts ON sts.cache_id = cw.cache_id
                 WHERE cw.user_id = :1
+                ORDER BY c.name
                 LIMIT $limit OFFSET $offset", $userId );
 
         return $db->dbResultFetchAll($stmt);
