@@ -246,7 +246,6 @@ $translations = array(
     'statpic_label' => 'Obraz statistiky',
     'html_statpic_link' => 'HTML kód na obrázku statistiky',
     'bbcode_statpic' => 'BBCode pro Image statistiky',
-    'pmr_message' => 'I používat PMR-radio na kanálu 2',
     'no_auto_logout' => 'No log-automatické vypnutí po 15 minutách nečinnosti.',
     'hide_html_editor' => 'Nepoužívejte HTML editor.',
     'notify_new_caches_radius' => 'Oznámení o nových případů v okruhu',

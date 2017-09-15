@@ -266,7 +266,6 @@ $translations = array(
     'statpic_label' => 'Imagine cu statistici',
     'html_statpic_link' => 'Cod HTML code pentru imaginea cu statistici',
     'bbcode_statpic' => 'BBCode pentru imaginea cu statistici',
-    'pmr_message' => 'Folosesc staţie radio pe canalul 2',
     'no_auto_logout' => 'Nu deconecta automat după 15 minute de inactivitate.',
     'notify_new_caches_radius' => 'Notificări referitoare la noile geocutii din zona',
     'no_new_caches_notification' => 'Notificările despre geocutiile noi nu sunt active.',

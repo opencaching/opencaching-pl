@@ -266,7 +266,6 @@ $translations = array(
     'statpic_label' => 'Statpic',
     'html_statpic_link' => 'HTML code for your statpic',
     'bbcode_statpic' => 'BBCode for your statpic',
-    'pmr_message' => 'I\'m using PMR-radio on channel 2',
     'no_auto_logout' => 'DO NOT auto logout after 15 minutes of inactivity.',
     'notify_new_caches_radius' => 'Notification about new caches within',
     'no_new_caches_notification' => 'Notification about new caches is turned off.',

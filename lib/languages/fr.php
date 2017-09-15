@@ -241,7 +241,6 @@ $translations = array(
     'statpic_label' => 'L"image de statistiques',
     'html_statpic_link' => 'Code HTML a l"image de statistiques',
     'bbcode_statpic' => 'BBCode for Image statistiques',
-    'pmr_message' => 'J"utilise le PMR-radio sur le canal 2',
     'no_auto_logout' => 'Pas de fermeture de session automatique apres 15 minutes d"inactivité.',
     'hide_html_editor' => 'Ne pas utiliser l"éditeur HTML.',
     'notify_new_caches_radius' => 'La notification des nouveaux cas dans un rayon',
