@@ -161,13 +161,40 @@ class UserWatchedCachesController extends BaseController
         $this->view->setVar('infoMsg', $this->infoMsg);
         $this->view->setVar('errorMsg', $this->errorMsg);
 
-
         $settings = $this->loggedUser->getCacheWatchEmailSettings();
-        $this->view->setVar('intervalSelected', $settings['watchmail_mode']);
-        $this->view->setVar('weekDaySelected', $settings['watchmail_day']);
-        $this->view->setVar('hourSelected', $settings['watchmail_hour']);
+
+        // check settings and reset to defaults if necessary
+        $watchmailMode = $settings['watchmail_mode'];
+        $watchmailHour = $settings['watchmail_hour'];
+        $watchmailDay = $settings['watchmail_day'];
+
+        if(!$this->areEmailSettingsInScope(
+            $watchmailMode, $watchmailHour, $watchmailDay )){
+                // by default send notification: everyday at 18 o'clock
+                $watchmailMode = UserWatchedCache::SEND_NOTIFICATION_DAILY;
+                $watchmailHour = 18;
+                $watchmailDay = 1;
+        }
+
+        $this->view->setVar('intervalSelected', $watchmailMode);
+        $this->view->setVar('weekDaySelected', $watchmailDay);
+        $this->view->setVar('hourSelected', $watchmailHour);
 
         $this->view->buildView();
+    }
+
+    private function areEmailSettingsInScope(
+        $watchmailMode, $watchmailHour, $watchmailDay){
+
+        return (is_numeric($watchmailMode) &&
+            in_array($watchmailMode,
+                [UserWatchedCache::SEND_NOTIFICATION_DAILY,
+                    UserWatchedCache::SEND_NOTIFICATION_HOURLY,
+                    UserWatchedCache::SEND_NOTIFICATION_WEEKLY]) &&
+            is_numeric($watchmailHour) &&
+            $watchmailHour >= 0 && $watchmailHour <= 23 &&
+            is_numeric($watchmailDay) &&
+            $watchmailDay >= 1 && $watchmailDay <= 7);
     }
 
     /**
@@ -182,15 +209,9 @@ class UserWatchedCachesController extends BaseController
         $watchmailHour = isset($_POST['watchmail_hour'])?$_POST['watchmail_hour']:'';
         $watchmailDay = isset($_POST['watchmail_day'])?$_POST['watchmail_day']:'';
 
-        if(is_numeric($watchmailMode) &&
-            in_array($watchmailMode,
-                [UserWatchedCache::SEND_NOTIFICATION_DAILY,
-                    UserWatchedCache::SEND_NOTIFICATION_HOURLY,
-                    UserWatchedCache::SEND_NOTIFICATION_WEEKLY]) &&
-            is_numeric($watchmailHour) &&
-            $watchmailHour >= 0 && $watchmailHour <= 23 &&
-            is_numeric($watchmailDay) &&
-            $watchmailDay >= 1 && $watchmailDay <= 7){
+
+        if($this->areEmailSettingsInScope(
+            $watchmailMode, $watchmailHour, $watchmailDay)){
 
             $this->loggedUser->updateCacheWatchEmailSettings(
                 $watchmailMode, $watchmailHour, $watchmailDay);
