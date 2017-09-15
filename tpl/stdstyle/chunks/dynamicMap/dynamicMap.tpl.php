@@ -158,13 +158,23 @@ function loadMarkers(map){
       infowindow.open(map, marker);
 
     });
-		// find bbox which contains all markers
+
+    // find bbox which contains all markers
     bounds.extend(marker.getPosition());
 
   });
 
-	// resize map to see all markers
-  map.fitBounds(bounds);
+  if(!bounds.isEmpty()){
+      // register event which zoom-out map if there is only one marker or markers are very closed
+      google.maps.event.addListenerOnce(map, 'bounds_changed', function(event) {
+        if (this.getZoom() > 12) {
+          this.setZoom(12);
+        }
+      });
+
+      // resize map to see all markers
+      map.fitBounds(bounds);
+  }
 
 }
 
