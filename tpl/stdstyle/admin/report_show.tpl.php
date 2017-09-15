@@ -60,6 +60,7 @@ use lib\Objects\GeoCache\GeoCacheCommons;
             <img src="/tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="{{found}}"> x<?=$view->report->getCache()->getFounds()?> 
             <img src="/tpl/stdstyle/images/log/16x16-dnf.png" class="icon16" alt="{{not_found}}"> x<?=$view->report->getCache()->getNotFounds()?> 
             <img src="/tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{note}}"> x<?=$view->report->getCache()->getNotesCount()?>
+            <img src="/images/rating-star.png" class="icon16" alt="{{recommendations}}"> x<?=$view->report->getCache()->getRecommendations()?>
         <?php }?>
       </td>
     </tr>
