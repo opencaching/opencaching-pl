@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use okapi\Facade;
 /* * *************************************************************************
   ./util.sec/geokrety/geokrety.new.php
   --------------------
@@ -19,10 +20,8 @@ use Utils\Database\XDb;
 
 $rootpath = '../../';
 require_once($rootpath . 'lib/ClassPathDictionary.php');
-require_once($rootpath . 'okapi/Facade.php');
-\okapi\Facade::disable_error_handling();
 
-/* database connection */
+Facade::disable_error_handling();
 
 /* last synchro check */
 $last_updated = XDb::xSimpleQueryValue(
@@ -68,7 +67,7 @@ foreach ($gkxml->geokret as $geokret) {
     $cache_codes = array();
     while ($row = XDb::xFetchArray($rs))
         $cache_codes[] = $row[0];
-    \okapi\Facade::schedule_geocache_check($cache_codes);
+    Facade::schedule_geocache_check($cache_codes);
 
     /* waypoints update */
     XDb::xSql("DELETE FROM gk_item_waypoint WHERE id= ?", $id);
@@ -89,9 +88,11 @@ foreach ($gkxml->geokret as $geokret) {
 /* Notify OKAPI. https://github.com/opencaching/okapi/issues/179 */
 $rs = XDb::xSql("SELECT distinct wp FROM gk_item_waypoint WHERE id NOT IN (SELECT id FROM gk_item)");
 $cache_codes = array();
-while ($row = XDb::xFetchArray($rs))
+while ($row = XDb::xFetchArray($rs)){
     $cache_codes[] = $row[0];
-\okapi\Facade::schedule_geocache_check($cache_codes);
+}
+
+Facade::schedule_geocache_check($cache_codes);
 
 XDb::xSql("DELETE FROM gk_item_waypoint WHERE id NOT IN (SELECT id FROM gk_item)");
 

@@ -12,8 +12,6 @@ use okapi\Facade;
 
 $rootpath = "../";
 
-require_once($rootpath . 'okapi/Facade.php');
-
 try {
     $user_id = Facade::detect_user_id();
     if ($user_id === null) {

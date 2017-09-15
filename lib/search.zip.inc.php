@@ -1,5 +1,7 @@
 <?php
 
+use okapi\Facade;
+
 function call_okapi($usr, $waypoints, $lang, $file_base_name, $zip_part)
 {
     $okapi_params = array('cache_codes' => $waypoints, 'langpref' => $lang,
@@ -7,7 +9,7 @@ function call_okapi($usr, $waypoints, $lang, $file_base_name, $zip_part)
     // TODO: limit log entries per geocache?
     if (isset($_GET['format']))
         $okapi_params['caches_format'] = $_GET['format'];
-    $okapi_response = \okapi\Facade::service_call('services/caches/formatters/garmin', $usr['userid'], $okapi_params);
+    $okapi_response = Facade::service_call('services/caches/formatters/garmin', $usr['userid'], $okapi_params);
     // Modifying OKAPI's default HTTP Response headers.
     $okapi_response->content_disposition = 'attachment; filename=' . $file_base_name . (($zip_part != 0) ? '-' . $zip_part : '') . '.zip';
     return $okapi_response;
@@ -54,4 +56,4 @@ function get_pagination_page_title()
 
 // all the logic is done here
 include 'search.okapi.inc.php';
-?>
+

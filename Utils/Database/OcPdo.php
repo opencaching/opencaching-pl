@@ -34,6 +34,7 @@ class OcPdo extends PDO
         $options = array(
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::MYSQL_ATTR_LOCAL_INFILE => true,
             PDO::ATTR_EMULATE_PREPARES => true /* TODO: we should consider disabling the emulation!
             But this means that placeholders can't be reuse in one query (case: multiVariableQuery) */
         );

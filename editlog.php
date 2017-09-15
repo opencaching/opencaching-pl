@@ -5,6 +5,7 @@ use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Controllers\LogEnteryController;
 use lib\Controllers\MeritBadgeController;
+use okapi\Facade;
 
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
@@ -368,9 +369,8 @@ if ($error == false) {
 
                     // Notify OKAPI's replicate module of the change.
                     // Details: https://github.com/opencaching/okapi/issues/265
-                    require_once($rootpath . 'okapi/Facade.php');
-                    \okapi\Facade::schedule_user_entries_check($log_record['cache_id'], $log_record['user_id']);
-                    \okapi\Facade::disable_error_handling();
+                    Facade::schedule_user_entries_check($log_record['cache_id'], $log_record['user_id']);
+                    Facade::disable_error_handling();
 
                     //Update last found
                     $lastFoundDate = XDb::xMultiVariableQueryValue(
@@ -383,28 +383,28 @@ if ($error == false) {
                         $lastFoundDate, $cache_record['founds'], $cache_record['notfounds'],
                         $cache_record['notes'], $log_record['cache_id']);
 
-                    
 
-                    
+
+
                     $badgetParam = "";
                     if ($config['meritBadges']){
 
                         $cache_id = $log_record['cache_id'];
                         if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT ||
                             $log_type == GeoCacheLog::LOGTYPE_ATTENDED ){
-                                
+
                             $ctrlMeritBadge = new MeritBadgeController;
                             $changedLevelBadgesIds = $ctrlMeritBadge->updateTriggerLogCache($cache_id, $usr['userid']);
-                            
+
                             if ( $changedLevelBadgesIds != "" )
                                 $badgetParam = "&badgesPopupFor=" . $changedLevelBadgesIds;
-                                
+
                             $ctrlMeritBadge->updateTriggerRecommendationAuthor($cache_id);
                         }
                     }
-                    
+
                     unset($cache_record);
-                    
+
                     //display cache page
                     tpl_redirect('viewcache.php?cacheid=' . urlencode($log_record['cache_id']) . $badgetParam);
                     exit;
