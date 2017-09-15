@@ -22,8 +22,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1631;
-    public static $git_revision = 'df488d9932593517626aad4530ebd95f692acf22';
+    public static $version_number = 1632;
+    public static $git_revision = '429b57d0232fda93382abe0cee7409eeb17d390f';
 
     private static $okapi_vars = null;
 
@@ -279,6 +279,7 @@ class Okapi
                     );
                 } else {
                     $urls = array(
+                        "http://www.opencaching.de/okapi/",
                         "https://www.opencaching.de/okapi/",
                     );
                 }
