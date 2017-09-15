@@ -1,9 +1,8 @@
 <div class="content2-pagetitle">
   <?=tr('usrWatch_title')?>
 </div>
-
 <?php if($view->cachesCount > 0) { ?>
-    <div id="listOfWatchedCaches">
+    <div class="content2-container">
       <?php $view->callChunk('listOfCaches/listOfCaches', $view->listCacheModel);?>
     </div>
 
@@ -26,7 +25,6 @@
         <?=tr('usrWatch_nothingWatched')?>
     </div>
 <?php } //$view->cachesCount == 0 ?>
-
 
 <script type="text/javascript">
 
