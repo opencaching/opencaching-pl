@@ -125,7 +125,7 @@ class UserWatchedCachesController extends BaseController
                 }
             ));
 
-            $pagination = new PaginationModel(20); //per-page number of caches
+            $pagination = new PaginationModel(50); //per-page number of caches
             $pagination->setRecordsCount($watchedCachesCount);
 
             list($queryLimit, $queryOffset) = $pagination->getQueryLimitAndOffset();;
