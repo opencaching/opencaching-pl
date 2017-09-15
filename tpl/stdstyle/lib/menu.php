@@ -576,7 +576,7 @@ $menu = array(
                 'menustring' => tr('settings_notifications'),
                 'visible' => true,
                 'filename' => 'mywatches.php?action=emailSettings',
-                'siteid' => 'mywatches_properties'
+                'siteid' => 'userWatchedCaches/emailSettings'
             ),
             array(
                 'title' => tr('clipboard'),
@@ -597,14 +597,14 @@ $menu = array(
                 'menustring' => tr('watched_caches'),
                 'visible' => true,
                 'filename' => 'mywatches.php',
-                'siteid' => 'mywatches',
+                'siteid' => 'userWatchedCaches/userWatchedCaches',
                 'submenu' => array(
                     array(
                         'title' => tr('map_watched_caches'),
                         'menustring' => tr('map_watched_caches'),
                         'visible' => true,
                         'filename' => 'mywatches.php?action=map',
-                        'siteid' => 'mywatches_map',
+                        'siteid' => 'userWatchedCaches/mapOfWatched',
                     ),
                 ),
             ),
