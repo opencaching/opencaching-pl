@@ -164,7 +164,19 @@ function loadMarkers(map){
 
   });
 
-  if(!bounds.isEmpty()){
+
+  google.maps.event.addListener(map, 'click', function(event){
+
+      // hide current info-window
+    if(lastOpenedInfoWindow){
+      lastOpenedInfoWindow.close();
+    }
+
+  });
+
+
+  if(!bounds.isEmpty()){ // only if bound are present (there are markers)
+
       // register event which zoom-out map if there is only one marker or markers are very closed
       google.maps.event.addListenerOnce(map, 'bounds_changed', function(event) {
         if (this.getZoom() > 12) {

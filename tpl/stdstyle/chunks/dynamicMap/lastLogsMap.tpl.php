@@ -6,7 +6,7 @@ use lib\Objects\GeoCache\GeoCacheLogCommons;
 
 /**
 	This is flavour-object for dynamic map.
-	It handle markers with 
+	It handle markers with
 */
 
 return function (LastLogMapModel $model){
@@ -44,7 +44,8 @@ return function (LastLogMapModel $model){
 
       var t = '<div class="iw-container">' +
               '  <div class="iw-title">' +
-              '    <a href="/viewcache.php?wp='+dataRow.wp_oc+'">' +
+              '    <a href="/viewcache.php?wp=' + dataRow.wp_oc + '" target="_blank">' +
+              '      <img class="iw-icon" src="<?=$iconPath?>' + dataRow.icon + '">' +
               '      <span class="iw-wp">'+dataRow.wp_oc+':</span>' +
               '      <span class="iw-name">'+dataRow.name+'</span>' +
               '    </a>' +
@@ -55,7 +56,7 @@ return function (LastLogMapModel $model){
       if(dataRow.llog_id){ //there is a log to display
         t += '     <img src="<?=$logIconPath?>'+dataRow.llog_icon+'" ' +
                         'title="'+dataRow.llog_type_name+'" alt="'+dataRow.llog_type_name+'">';
-        t += '     <a class="iw-logUsername" ' +
+        t += '     <a class="iw-logUsername" target="_blank"' +
                       'href="/viewprofile.php?userid='+dataRow.llog_user_id+'">';
         t +=          dataRow.llog_username+'</a>:';
         t += '     <span class="iw-logText">'+dataRow.llog_text+'</span>';
