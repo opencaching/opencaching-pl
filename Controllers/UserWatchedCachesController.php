@@ -92,6 +92,7 @@ class UserWatchedCachesController extends BaseController
 
         $this->view->loadJQuery();
 
+        // find the number of watched caches
         $watchedCachesCount = UserWatchedCache::getWatchedCachesCount(
             $this->loggedUser->getUserId());
 

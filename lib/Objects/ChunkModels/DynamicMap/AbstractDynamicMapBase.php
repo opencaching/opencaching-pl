@@ -69,7 +69,10 @@ abstract class AbstractDynamicMapBase
         }
 
         foreach($this->dataRows as $row){
-            $result[] = call_user_func($this->dataExtractor, $row);
+            $rowExtracted = call_user_func($this->dataExtractor, $row);
+            if(!is_null($rowExtracted)){
+                $result[] = $rowExtracted;
+            }
         }
 
         return $result;
