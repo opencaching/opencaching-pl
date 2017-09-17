@@ -66,14 +66,15 @@ function initializeMap(){
       center: new google.maps.LatLng(<?=$lat?>, <?=$lot?>),
       zoom: <?=$mapModel->getZoom()?>,
 
-      disableDefaultUI: true, // by default disable all controls and show:
-      scaleControl: true,     // show scale on the bottom of map
-      zoomControl: true,      // +/- constrols
-      mapTypeControl: true,   // list of the maps
-      streetViewControl: true,// streetview guy
-      rotateControl:true,     // this is visible only on huge zoom
-      keyboardShortcuts: true,// for example key '+' = zoom+
-      clickableIcons: false,  // POI on the map doesn't open balons on clicks
+      disableDefaultUI: true,   // by default disable all controls and show:
+      scaleControl: true,       // show scale on the bottom of map
+      zoomControl: true,        // +/- constrols
+      mapTypeControl: true,     // list of the maps
+      streetViewControl: true,  // streetview guy
+      rotateControl: true,      // this is visible only on huge zoom
+      keyboardShortcuts: true,  // for example key '+' = zoom+
+      clickableIcons: false,    // POI on the map doesn't open balons on clicks
+      gestureHandling: 'greedy',//disable ctrl+ zooming
 
       draggableCursor: 'crosshair',
       draggingCursor: 'pointer',

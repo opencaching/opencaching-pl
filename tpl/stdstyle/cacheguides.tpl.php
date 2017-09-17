@@ -23,14 +23,12 @@
     function initialize() {
 
         map0 = new google.maps.Map(
-                document.getElementById("map0"),
-        {
-        center: new google.maps.LatLng({mapcenterLat}, {mapcenterLon}),
-                zoom: {mapzoom}
-        ,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-        );
+                document.getElementById("map0"),{
+                  center: new google.maps.LatLng({mapcenterLat}, {mapcenterLon}),
+                  zoom: {mapzoom},
+                  gestureHandling: 'greedy', //disable ctrl+ zooming
+                  mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
         {points}
 
     }
