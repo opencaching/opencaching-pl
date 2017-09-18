@@ -1,0 +1,37 @@
+.report-status-warning {
+	background-image: url("/tpl/stdstyle/images/background/orange5px.png");
+	background-repeat: repeat-y;
+}
+
+.report-status-error {
+	background-image: url("/tpl/stdstyle/images/background/red5px.png");
+	background-repeat: repeat-y;
+}
+
+.report-status-new {
+	background-image: url("/tpl/stdstyle/images/background/pencil.svg");
+	background-repeat: no-repeat;
+	background-size: 4em;
+	background-position: center;
+}
+
+.report-status-inprogress {
+	background-image: url("/tpl/stdstyle/images/background/gear.svg");
+	background-repeat: no-repeat;
+	background-size: 4em;
+	background-position: center;
+}
+
+.report-status-lookhere {
+	background-image: url("/tpl/stdstyle/images/background/exclamation.svg");
+	background-repeat: no-repeat;
+	background-size: 4em;
+	background-position: center;
+}
+
+.report-status-closed {
+	background-image: url("/tpl/stdstyle/images/background/padlock.svg");
+	background-repeat: no-repeat;
+	background-size: 4em;
+	background-position: center;
+}

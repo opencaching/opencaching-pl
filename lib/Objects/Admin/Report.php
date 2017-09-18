@@ -34,112 +34,131 @@ class Report extends BaseObject
     const USER_YOU = - 2;
     const USER_YOU2 = - 3;
 
+    // Types of objects reported
+    const OBJECT_CACHE = 1;
+    const OBJECT_POWERTRAIL = 2;
+
     /**
      * ID of the report
-     * 
+     *
      * @var int
      */
     private $id = null;
 
     /**
      * Id of who submits the report
-     * 
+     *
      * @var int
      */
     private $userIdSubmit = null;
 
     /**
      * User who submits the report
-     * 
+     *
      * @var User
      */
     private $userSubmit = null;
 
     /**
      * Id of user who is leader of the report
-     * 
+     *
      * @var int
      */
     private $userIdLeader = null;
 
     /**
      * User who is leader of the report
-     * 
+     *
      * @var User
      */
     private $userLeader = null;
 
     /**
      * Id of user who last changed status of the report
-     * 
+     *
      * @var int
      */
     private $userIdChangeStatus = null;
 
     /**
      * User who last changed status of the report
-     * 
+     *
      * @var User
      */
     private $userChangeStatus = null;
 
     /**
+     * Type of object reported
+     *
+     * @var int
+     */
+    private $objectType;
+
+    /**
      * Id of cache reported
-     * 
+     *
      * @var int
      */
     private $cacheId = null;
 
     /**
      * Cache reported
-     * 
+     *
      * @var GeoCache
      */
     private $cache = null;
 
     /**
+     * PowerTrail reported
+     *
+     * @var int
+     */
+    private $powerTrailId;
+
+    /**
      * Type of the report
-     * 
+     *
      * @var int
      */
     private $type;
 
     /**
      * Text content of the report
-     * 
+     *
      * @var string
      */
     private $content;
 
     /**
      * History of the report
-     * 
+     *
      * @var string
      */
     private $note;
 
     /**
      * Status of the report
-     * 
+     *
      * @var int
      */
     private $status;
 
     /**
      * Date of report submit
-     * 
+     *
      * @var \DateTime
      */
     private $dateSubmit = null;
 
     /**
      * Date of last status change
-     * 
+     *
      * @var \DateTime
      */
     private $dateChangeStatus = null;
 
     /**
+     *
      * @var string
      */
     private $uuid;
@@ -205,6 +224,12 @@ class Report extends BaseObject
                     break;
                 case 'uuid':
                     $this->uuid = $val;
+                    break;
+                case 'object_type':
+                    $this->objectType = $val;
+                    break;
+                case 'PowerTrail_id':
+                    $this->powerTrailId = $val;
                     break;
                 default:
                     error_log(__METHOD__ . ": Unknown column: $key");
@@ -317,6 +342,16 @@ class Report extends BaseObject
     public function getUuid()
     {
         return $this->uuid;
+    }
+
+    public function getObjectType()
+    {
+        return $this->objectType;
+    }
+
+    public function getPowerTrailId()
+    {
+        return $this->powerTrailId;
     }
 
     public function getReportTypeTranslationKey()
@@ -564,6 +599,12 @@ class Report extends BaseObject
         return $result;
     }
 
+    /**
+     * Returns bool - if given parameter is a valid report ID
+     *
+     * @param int $reportId
+     * @return boolean
+     */
     public static function isValidReportId($reportId)
     {
         if (! is_numeric($reportId)) {
@@ -573,16 +614,99 @@ class Report extends BaseObject
         $params = array();
         $params['reportid']['value'] = $reportId;
         $params['reportid']['data_type'] = 'integer';
-        if ( self::db()->paramQueryValue($query, 0, $params) == '1') {
+        if (self::db()->paramQueryValue($query, 0, $params) == '1') {
             return true;
         }
         return false;
     }
 
+    /**
+     * Returns name of CSS class coresponding to delay of report management.
+     * It counts how many days report is unassigned or has no activity.
+     *
+     * @return string
+     */
+    public function getReportStyle()
+    {
+        if ($this->status == self::STATUS_IN_PROGRESS || $this->status == self::STATUS_LOOK_HERE) {
+            $interval = $this->dateChangeStatus->diff(new \DateTime('now'))->days;
+        } elseif ($this->status == self::STATUS_NEW) {
+            $interval = $this->dateSubmit->diff(new \DateTime('now'))->days;
+        } else {
+            $interval = 0;
+        }
+        if ($interval >= 7) {
+            return 'report-status-error';
+        } elseif ($interval >= 5) {
+            return 'report-status-warning';
+        }
+        return '';
+    }
+
+    /**
+     * Method returns CSS class name corresponding to status of report object
+     * Used in i.e.
+     * report list to show status in graphic form
+     *
+     * @return string
+     */
+    public function getStatusClass()
+    {
+        return self::getReportStatusClass($this->status);
+    }
+
+    /**
+     * Returns CSS class name corresponding to given status of report
+     * Used in i.e.
+     * report list to show status in graphic form
+     *
+     * @param int $status
+     * @return string
+     */
+    public static function getReportStatusClass($status)
+    {
+        switch ($status) {
+            case self::STATUS_NEW:
+                return 'report-status-new';
+            case self::STATUS_IN_PROGRESS:
+                return 'report-status-inprogress';
+            case self::STATUS_CLOSED:
+                return 'report-status-closed';
+            case self::STATUS_LOOK_HERE:
+                return 'report-status-lookhere';
+        }
+    }
+
+    /**
+     * Returns array of admin users.
+     * Array consist of user_id and username
+     *
+     * @return array
+     */
     private static function getOcTeamArray()
     {
         $query = "SELECT user_id, username FROM user WHERE admin = 1 AND is_active_flag = 1 ORDER BY username";
         $stmt = self::db()->simpleQuery($query);
         return self::db()->dbResultFetchAll($stmt);
+    }
+
+    /**
+     * Method check if report is wathed by logged user
+     * @return boolean
+     */
+    public function isReportWatched()
+    {
+        return self::isReportWatchedById($this->id);
+    }
+
+    /**
+     * Returns bool - check if logged user has watched report with given $reportId
+     *
+     * @param int $reportId
+     * @return boolean
+     */
+    public static function isReportWatchedById($reportId)
+    {
+        return rand(0, 1) == 1; // TODO after database schema update!
     }
 }

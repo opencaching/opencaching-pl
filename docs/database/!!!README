@@ -122,7 +122,7 @@ countries
 	Contains country names as translation strings and definition flags
 	FIXME: is this still valid?
 email_schemas
-	FIXME
+	Schemas of e-mails are sent to users while reports management
 email_user
 	FIXME
 foreign_caches
@@ -249,7 +249,9 @@ queries
 removed_objects
 	FIXME
 reports
-	FIXME
+	Reports of caches and PowerTrails
+reports_watches
+    Stores info about OC Team users who watches reports
 route_points
 	FIXME
 routes

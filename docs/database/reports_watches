@@ -1,0 +1,31 @@
+Table reports_watches
+----------
+
++--------------+-----------+------+-----+---------------------+-------------------------------+
+| Field        | Type      | Null | Key | Default             | Extra                         |
++--------------+-----------+------+-----+---------------------+-------------------------------+
+| report_id    | int(11)   | NO   | PRI | NULL                |                               |
+| user_id      | int(11)   | NO   | PRI | NULL                |                               |
+| date_created | timestamp | NO   |     | current_timestamp() | on update current_timestamp() |
++--------------+-----------+------+-----+---------------------+-------------------------------+
+
++--------------+
+| COLUMN_NAME  |
++--------------+
+| report_id    |
+| user_id      |
+| date_created |
++--------------+
+
+CREATE TABLE `reports_watches` (
+  `report_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `date_created` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`report_id`,`user_id`),
+  KEY `report_id` (`report_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Stores info about OC Team users who watches reports'
+
+Changelog
+---------
+2017-09-19 (deg)
+    - create table reports_watches
