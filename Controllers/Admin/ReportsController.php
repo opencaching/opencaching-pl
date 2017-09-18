@@ -7,6 +7,7 @@ use lib\Objects\Admin\Report;
 use lib\Objects\ChunkModels\PaginationModel;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Controllers\LogEnteryController;
+use Utils\Uri\Uri;
 
 class ReportsController extends BaseController
 {
@@ -69,6 +70,7 @@ class ReportsController extends BaseController
         $this->view->setVar('typeSelect', Report::generateTypeSelect($_SESSION['reportType']));
         $this->view->setVar('statusSelect', Report::generateStatusSelect($_SESSION['reportStatus']));
         $this->view->setVar('userSelect', Report::generateUserSelect(false, $_SESSION['reportUser']));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/admin/reports.css'));
         tpl_set_tplname('admin/reports_list');
         tpl_BuildTemplate();
         exit();

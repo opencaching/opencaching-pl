@@ -1123,6 +1123,14 @@
                 "__comment": "",
                 "__action": "get-data"
             },
+            "version": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "object_type": {
+                "__comment": "",
+                "__action": "get-data"
+            },
             "shortdesc": {
                 "__comment": "",
                 "__action": "get-data"
@@ -1132,6 +1140,18 @@
                 "__action": "get-data"
             },
             "receiver": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "author_id": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "date_created": {
+                "__comment": "",
+                "__action": "get-data"
+            },
+            "deleted": {
                 "__comment": "",
                 "__action": "get-data"
             }
@@ -3305,11 +3325,19 @@
                 "__comment": "",
                 "__action": "skip-data"
             },
+            "object_type": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
             "user_id": {
                 "__comment": "",
                 "__action": "skip-data"
             },
             "cache_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "PowerTrail_id": {
                 "__comment": "",
                 "__action": "skip-data"
             },
@@ -3342,6 +3370,21 @@
                 "__action": "skip-data"
             },
             "responsible_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            }
+        },
+        "reports_watches": {
+            "__table_comment": "",
+            "report_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "user_id": {
+                "__comment": "",
+                "__action": "skip-data"
+            },
+            "date_created": {
                 "__comment": "",
                 "__action": "skip-data"
             }

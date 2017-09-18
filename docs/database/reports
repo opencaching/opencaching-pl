@@ -1,28 +1,32 @@
 Table reports
 ----------
 
-+----------------+---------------+------+-----+-------------------+----------------+
-| Field          | Type          | Null | Key | Default           | Extra          |
-+----------------+---------------+------+-----+-------------------+----------------+
-| id             | int(11)       | NO   | PRI | NULL              | auto_increment |
-| user_id        | int(11)       | NO   |     | NULL              |                |
-| cache_id       | int(11)       | NO   |     | NULL              |                |
-| type           | tinyint(10)   | NO   |     | 4                 |                |
-| text           | varchar(4096) | NO   |     | NULL              |                |
-| note           | text          | NO   |     | NULL              |                |
-| submit_date    | timestamp     | NO   |     | CURRENT_TIMESTAMP |                |
-| status         | tinyint(3)    | NO   |     | 0                 |                |
-| changed_by     | int(11)       | NO   |     | 0                 |                |
-| changed_date   | timestamp     | YES  |     | NULL              |                |
-| responsible_id | int(11)       | YES  |     | NULL              |                |
-+----------------+---------------+------+-----+-------------------+----------------+
++----------------+---------------+------+-----+---------------------+----------------+
+| Field          | Type          | Null | Key | Default             | Extra          |
++----------------+---------------+------+-----+---------------------+----------------+
+| id             | int(11)       | NO   | PRI | NULL                | auto_increment |
+| object_type    | int(11)       | NO   |     | 1                   |                |
+| user_id        | int(11)       | NO   |     | NULL                |                |
+| cache_id       | int(11)       | YES  |     | NULL                |                |
+| PowerTrail_id  | int(11)       | YES  |     | NULL                |                |
+| type           | tinyint(10)   | NO   | MUL | 4                   |                |
+| text           | varchar(4096) | NO   |     | NULL                |                |
+| note           | text          | NO   |     | ''                  |                |
+| submit_date    | timestamp     | NO   |     | current_timestamp() |                |
+| status         | tinyint(3)    | NO   | MUL | 0                   |                |
+| changed_by     | int(11)       | NO   |     | 0                   |                |
+| changed_date   | timestamp     | YES  |     | NULL                |                |
+| responsible_id | int(11)       | YES  | MUL | NULL                |                |
++----------------+---------------+------+-----+---------------------+----------------+
 
 Column description
 -------------------
 
 id
+object_type
 user_id
 cache_id
+PowerTrail_id
 type
 text
 note
@@ -33,22 +37,29 @@ changed_date
 responsible_id
 
 
-*************************** 1. row ***************************
-       Table: reports
-Create Table: CREATE TABLE `reports` (
+CREATE TABLE `reports` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `object_type` int(11) NOT NULL DEFAULT 1 COMMENT '1 - cache, 2 - PowerTrail',
   `user_id` int(11) NOT NULL,
-  `cache_id` int(11) NOT NULL,
-  `type` tinyint(10) NOT NULL DEFAULT '4',
+  `cache_id` int(11) DEFAULT NULL,
+  `PowerTrail_id` int(11) DEFAULT NULL,
+  `type` tinyint(10) NOT NULL DEFAULT 4,
   `text` varchar(4096) NOT NULL,
-  `note` text NOT NULL,
-  `submit_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `status` tinyint(3) NOT NULL DEFAULT '0',
-  `changed_by` int(11) NOT NULL DEFAULT '0',
+  `note` text NOT NULL DEFAULT '',
+  `submit_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `status` tinyint(3) NOT NULL DEFAULT 0,
+  `changed_by` int(11) NOT NULL DEFAULT 0,
   `changed_date` timestamp NULL DEFAULT NULL,
   `responsible_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8
+  PRIMARY KEY (`id`),
+  KEY `type` (`type`),
+  KEY `status` (`status`),
+  KEY `responsible_id` (`responsible_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8
 
 Changelog
 ---------
+2017-09-19 (deg)
+    - add columns: object_type, PowerTrail_id
+    - change column: cache_id
+    - add indexes on colums: type, responsible_id
