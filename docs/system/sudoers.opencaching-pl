@@ -5,4 +5,4 @@ Defaults:SITE_USER !requiretty
 
 # allow sudo
 
-HTTPD_USER ALL = NOPASSWD: /var/www/ocpl-update.sh
+HTTPD_USER ALL = NOPASSWD: /path/to/ocpl-update.sh

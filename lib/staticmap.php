@@ -31,7 +31,7 @@ ini_set('display_errors', 'off');
 if (!isset($rootpath))
     $rootpath = '../';
 
-require_once ($rootpath . 'lib/settings.inc.php');
+require_once ($rootpath . 'lib/settingsGlue.inc.php');
 
 
 

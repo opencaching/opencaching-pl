@@ -9,7 +9,7 @@ use lib\Objects\GeoCache\GeoCache;
 $rootpath = '../../';
 require_once($rootpath . 'lib/ClassPathDictionary.php');
 require_once($rootpath . 'lib/eventhandler.inc.php');
-require_once($rootpath . 'lib/settings.inc.php');
+require_once($rootpath . 'lib/settingsGlue.inc.php');
 
 $rsPublish = XDb::xSql(
                 "SELECT `cache_id`, `user_id`

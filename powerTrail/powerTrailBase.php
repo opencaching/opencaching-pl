@@ -19,12 +19,12 @@ class powerTrailBase{
     const iconPath = 'tpl/stdstyle/images/blue/';
 
     public static function minimumCacheCount(){
-        include __DIR__.'/../lib/settings.inc.php';
+        include __DIR__.'/../lib/settingsGlue.inc.php';
         return $powerTrailMinimumCacheCount['current'];
     }
 
     public static function historicMinimumCacheCount(){
-        include __DIR__.'/../lib/settings.inc.php';
+        include __DIR__.'/../lib/settingsGlue.inc.php';
         $min = $powerTrailMinimumCacheCount['current'];
         foreach ($powerTrailMinimumCacheCount['old'] as $date) {
             //var_dump($date['dateFrom'], $ptPublished, $date['dateTo']);
@@ -36,7 +36,7 @@ class powerTrailBase{
     }
 
     public static function userMinimumCacheFoundToSetNewPowerTrail(){
-        include __DIR__.'/../lib/settings.inc.php';
+        include __DIR__.'/../lib/settingsGlue.inc.php';
         return $powerTrailUserMinimumCacheFoundToSetNewPowerTrail;
     }
 

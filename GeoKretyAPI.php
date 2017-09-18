@@ -26,7 +26,7 @@ class GeoKretyApi
 
     function __construct($secid = null, $cacheWpt = null)
     {
-        include 'lib/settings.inc.php';
+        include 'lib/settingsGlue.inc.php';
         $this->server = $absolute_server_URI;
         $this->secid = $secid;
         $this->cacheWpt = $cacheWpt;

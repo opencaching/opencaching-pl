@@ -29,7 +29,7 @@ $users = XDb::xSimpleQueryValue(
         ) AS `t`', 0);
 
 
-require_once($rootpath . 'lib/settings.inc.php');
+require_once($rootpath . 'lib/settingsGlue.inc.php');
 $hiddens = number_format($hiddens, 0, $config['numberFormatDecPoint'], $config['numberFormatThousandsSep']);
 $total_hiddens = number_format($total_hiddens, 0, $config['numberFormatDecPoint'], $config['numberFormatThousandsSep']);
 $founds = number_format($founds, 0, $config['numberFormatDecPoint'], $config['numberFormatThousandsSep']);

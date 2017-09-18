@@ -22,7 +22,7 @@ use Utils\Database\OcDb;
 
         global $lang;
 
-        require_once('settings.inc.php');
+        require_once('settingsGlue.inc.php');
         require_once('language.inc.php');
         require_once('cookie.class.php');
 
