@@ -266,7 +266,6 @@ $translations = array(
     'statpic_label' => 'Statistikbild',
     'html_statpic_link' => 'HTML-Code für dein Statistikbild',
     'bbcode_statpic' => 'BBCode für dein Statistikbild',
-    'pmr_message' => 'Ich nehme ein PMR-Funkgerät auf Kanal 2 mit zum Cachen.',
     'no_auto_logout' => 'Keine automatische Abmeldung nach 15 Minuten der Inaktivität.',
     'notify_new_caches_radius' => 'Benachrichtigung über neue Caches in',
     'no_new_caches_notification' => 'Benachrichtigung über neue Caches ist deaktiviert.',

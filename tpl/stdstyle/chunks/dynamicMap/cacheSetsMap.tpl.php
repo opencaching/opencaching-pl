@@ -1,18 +1,16 @@
 <?php
 
-use lib\Objects\ChunkModels\DynamicMap\LastLogMapModel;
-use lib\Objects\GeoCache\GeoCacheCommons;
-use lib\Objects\GeoCache\GeoCacheLogCommons;
+use lib\Objects\ChunkModels\DynamicMap\CacheSetsMapModel;
 
 /**
-	This is flavour-object for dynamic map.
+	This is flavour-object for map of cacheSets.
 	It handle markers with
 */
 
-return function (LastLogMapModel $model){
+return function (CacheSetsMapModel $model){
 
-    $iconPath = GeoCacheCommons::ICON_PATH;
-    $logIconPath = GeoCacheLogCommons::ICON_PATH;
+    $iconPath = "";//GeoCacheCommons::ICON_PATH;
+    $logIconPath = ""; //GeoCacheLogCommons::ICON_PATH;
 
 ?>
 
@@ -42,6 +40,8 @@ return function (LastLogMapModel $model){
 
     infoWindowContent: function(dataRow){
 
+<?php
+/*
       var t = '<div class="iw-container">' +
               '  <div class="iw-title">' +
               '    <a href="/viewcache.php?wp=' + dataRow.wp_oc + '" target="_blank">' +
@@ -66,8 +66,8 @@ return function (LastLogMapModel $model){
 
       t +=    '  </div>';
       t +=    '</div>';
-
-      return t;
+*/?>
+      return "hello";
 
     },
 

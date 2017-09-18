@@ -20,7 +20,8 @@
                 var map_opts = {
                     zoom: 5,
                     center: latlng,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    gestureHandling: 'greedy', //disable ctrl+ zooming
                 };
                 map = new google.maps.Map(document.getElementById("map_canvas"), map_opts);
                 geocoder = new google.maps.Geocoder();

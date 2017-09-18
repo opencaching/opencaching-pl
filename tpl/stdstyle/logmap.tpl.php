@@ -32,7 +32,8 @@ function initialize() {
         {
             center: new google.maps.LatLng({mapcenterLat},{mapcenterLon}),
             zoom: {mapzoom},
-            mapTypeId: google.maps.MapTypeId.ROADMAP
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            gestureHandling: 'greedy', //disable ctrl+ zooming
         }
     );
 

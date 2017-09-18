@@ -153,6 +153,10 @@ class CacheSet extends CacheSetCommon
         return self::db()->simpleQueryValue($query,0);
     }
 
+    public static function getCacheSetUrlById($id){
+        return "/powerTrail.php?ptAction=showSerie&ptrail=$id";
+    }
+
 
     public function getId()
     {
@@ -167,6 +171,11 @@ class CacheSet extends CacheSetCommon
     public function getName()
     {
         return $this->name;
+    }
+
+    public function getType()
+    {
+        return $this->type;
     }
 
     public function getIcon()
@@ -203,6 +212,15 @@ class CacheSet extends CacheSetCommon
     public function getGainedCount()
     {
         return $this->conquestedCount;
+    }
+
+    /**
+     *
+     * @return NULL|\lib\Objects\Coordinates\Coordinates
+     */
+    public function getCoordinates()
+    {
+        return $this->centerCoordinates;
     }
 
 

@@ -375,7 +375,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
     }
     $rs = XDb::xSql(
         'SELECT `user`.`user_id` `id`, `user`.`node` `node`, `user`.`uuid` `uuid`, `user`.`username` `username`,
-                `user`.`pmr_flag` `pmr_flag`, `user`.`date_created` `date_created`, `user`.`last_modified` `last_modified`
+                `user`.`date_created` `date_created`, `user`.`last_modified` `last_modified`
         FROM `tmpxml_users`, `user`
         WHERE `tmpxml_users`.`id`=`user`.`user_id`');
 
@@ -384,7 +384,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 
         fwrite($f, $t2 . '<id id="' . $r['id'] . '" node="' . $r['node'] . '">' . $r['uuid'] . '</id>' . "\n");
         fwrite($f, $t2 . '<username>' . xmlcdata($r['username']) . '</username>' . "\n");
-        fwrite($f, $t2 . '<pmr>' . (($r['pmr_flag'] == 0) ? '0' : '1') . '</pmr>' . "\n");
+        fwrite($f, $t2 . '<pmr>0</pmr>' . "\n");
         fwrite($f, $t2 . '<datecreated>' . date($sDateformat, strtotime($r['date_created'])) . '</datecreated>' . "\n");
         fwrite($f, $t2 . '<lastmodified>' . date($sDateformat, strtotime($r['last_modified'])) . '</lastmodified>' . "\n");
 

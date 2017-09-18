@@ -242,7 +242,6 @@ $translations = array(
     'statpic_label' => 'Statistikbild',
     'html_statpic_link' => 'HTML-kod till din statistikbild',
     'bbcode_statpic' => 'BBCode för din statistikbild',
-    'pmr_message' => 'Jag använder PMR på kanal 2',
     'no_auto_logout' => 'Ingen automatisk utloggning efter 15 minuters inaktivitet.',
     'hide_html_editor' => 'Använd inte HTML-editor.',
     'notify_new_caches_radius' => 'Meddelande om nya cacher inom',

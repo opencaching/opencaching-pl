@@ -1194,6 +1194,7 @@
             scrollwheel: {scrollwheel},
             scaleControl: {scaleControl},
             center: myLatlng,
+            gestureHandling: 'greedy', //disable ctrl+ zooming
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             mapTypeControlOptions: {
                 mapTypeIds: mapTypeIds

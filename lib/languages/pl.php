@@ -266,7 +266,6 @@ $translations = array(
     'statpic_label' => 'Obrazek statystyki',
     'html_statpic_link' => 'Kod HTML do obrazka statystyki',
     'bbcode_statpic' => 'BBCode do obrazka statystyki',
-    'pmr_message' => 'Używam PMR-radio na kanale 2',
     'no_auto_logout' => 'Brak automatycznego wylogowania po 15 minutach nieaktywności.',
     'notify_new_caches_radius' => 'Powiadamianie o nowych skrzynkach w promieniu',
     'no_new_caches_notification' => 'Powiadamianie o nowych skrzynkach jest wyłączone.',

@@ -314,8 +314,8 @@ if ($error == false) {
                                 $db->multiVariableQuery("DELETE FROM `GeoKretyAPI` WHERE `userID` = :1", $usr['userid']);
                                 tpl_set_var('GeoKretyApiIntegration', tr('no'));
                             }
-                            $q = "UPDATE `user` SET `last_modified`=NOW(), `latitude`=:2, `longitude`=:3, `pmr_flag`=:4, `country`=:5, `permanent_login_flag`=:6, `power_trail_email`=:8 , `notify_radius`=:9, `ozi_filips`=:10, `guru`=:1 WHERE `user_id`=:7";
-                            $db->multiVariableQuery($q, $guide, $latitude, $longitude, 0, $country, $using_permantent_login, (int) $usr['userid'], $geoPathsEmail, $radius, $ozi_path);
+                            $q = "UPDATE `user` SET `last_modified`=NOW(), `latitude`=:2, `longitude`=:3, `country`=:5, `permanent_login_flag`=:6, `power_trail_email`=:8 , `notify_radius`=:9, `ozi_filips`=:10, `guru`=:1 WHERE `user_id`=:7";
+                            $db->multiVariableQuery($q, $guide, $latitude, $longitude, $country, $using_permantent_login, (int) $usr['userid'], $geoPathsEmail, $radius, $ozi_path);
 
                             // update user nick
                             if ($username != $usr['username']) {

@@ -92,6 +92,7 @@ class UserWatchedCachesController extends BaseController
 
         $this->view->loadJQuery();
 
+        // find the number of watched caches
         $watchedCachesCount = UserWatchedCache::getWatchedCachesCount(
             $this->loggedUser->getUserId());
 
@@ -125,7 +126,7 @@ class UserWatchedCachesController extends BaseController
                 }
             ));
 
-            $pagination = new PaginationModel(20); //per-page number of caches
+            $pagination = new PaginationModel(50); //per-page number of caches
             $pagination->setRecordsCount($watchedCachesCount);
 
             list($queryLimit, $queryOffset) = $pagination->getQueryLimitAndOffset();;
@@ -170,10 +171,16 @@ class UserWatchedCachesController extends BaseController
 
         if(!$this->areEmailSettingsInScope(
             $watchmailMode, $watchmailHour, $watchmailDay )){
-                // by default send notification: everyday at 18 o'clock
-                $watchmailMode = UserWatchedCache::SEND_NOTIFICATION_DAILY;
-                $watchmailHour = 18;
-                $watchmailDay = 1;
+
+            // email settings are wrong - reset to defaults
+
+            // by default send notification: hourly
+            $watchmailMode = UserWatchedCache::SEND_NOTIFICATION_HOURLY;
+            $watchmailHour = 0; // default at midnight
+            $watchmailDay = 7;  // default sunday
+
+            $this->loggedUser->updateCacheWatchEmailSettings(
+                $watchmailMode, $watchmailHour, $watchmailDay);
         }
 
         $this->view->setVar('intervalSelected', $watchmailMode);

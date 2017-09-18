@@ -200,8 +200,10 @@ while( $rUser = XDb::xFetchArray($rsUsers) ){
         $nextmail = date($sDateformat, mktime($rUser['watchmail_hour'], 0, 0, date('n'), date('j') + 1, date('Y')));
     elseif ($rUser['watchmail_mode'] == 2) {
         $weekday = date('w');
-        if ($weekday == 0)
+
+        if ($weekday == 0){
             $weekday = 7;
+        }
 
         if ($weekday >= $rUser['watchmail_day']){
             // We are on or after specified day in the week - next run should be next week
@@ -357,7 +359,7 @@ function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUs
     $mailbody = mb_ereg_replace('{absolute_server_URI}', OcConfig::instance()->getAbsolute_server_URI(), $mailbody);
     $mailbody = mb_ereg_replace('{header_logo}', OcConfig::instance()->getHeaderLogo(), $mailbody);
     $mailbody = mb_ereg_replace('{site_name}', OcConfig::instance()->getSiteName(), $mailbody);
-    
+
     if ($currUserOwnerLogs != '') {
         $logtexts = $currUserOwnerLogs;
 

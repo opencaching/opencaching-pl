@@ -266,7 +266,6 @@ $translations = array(
     'statpic_label' => 'Statpic',
     'html_statpic_link' => 'HTML code voor je statpic',
     'bbcode_statpic' => 'BBCode voor je statpic',
-    'pmr_message' => 'Ik gebruik PMR-radio op kanaal 2',
     'no_auto_logout' => 'Niet automatisch uitloggen na 15 minuten inactivieteit.',
     'notify_new_caches_radius' => 'Notificatie van nieuwe caches binnen',
     'no_new_caches_notification' => 'Notificatie van nieuwe caches is uitgeschakeld.',

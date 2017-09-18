@@ -66,14 +66,15 @@ function initializeMap(){
       center: new google.maps.LatLng(<?=$lat?>, <?=$lot?>),
       zoom: <?=$mapModel->getZoom()?>,
 
-      disableDefaultUI: true, // by default disable all controls and show:
-      scaleControl: true,     // show scale on the bottom of map
-      zoomControl: true,      // +/- constrols
-      mapTypeControl: true,   // list of the maps
-      streetViewControl: true,// streetview guy
-      rotateControl:true,     // this is visible only on huge zoom
-      keyboardShortcuts: true,// for example key '+' = zoom+
-      clickableIcons: false,  // POI on the map doesn't open balons on clicks
+      disableDefaultUI: true,   // by default disable all controls and show:
+      scaleControl: true,       // show scale on the bottom of map
+      zoomControl: true,        // +/- constrols
+      mapTypeControl: true,     // list of the maps
+      streetViewControl: true,  // streetview guy
+      rotateControl: true,      // this is visible only on huge zoom
+      keyboardShortcuts: true,  // for example key '+' = zoom+
+      clickableIcons: false,    // POI on the map doesn't open balons on clicks
+      gestureHandling: 'greedy',//disable ctrl+ zooming
 
       draggableCursor: 'crosshair',
       draggingCursor: 'pointer',
@@ -158,13 +159,35 @@ function loadMarkers(map){
       infowindow.open(map, marker);
 
     });
-		// find bbox which contains all markers
+
+    // find bbox which contains all markers
     bounds.extend(marker.getPosition());
 
   });
 
-	// resize map to see all markers
-  map.fitBounds(bounds);
+
+  google.maps.event.addListener(map, 'click', function(event){
+
+      // hide current info-window
+    if(lastOpenedInfoWindow){
+      lastOpenedInfoWindow.close();
+    }
+
+  });
+
+
+  if(!bounds.isEmpty()){ // only if bound are present (there are markers)
+
+      // register event which zoom-out map if there is only one marker or markers are very closed
+      google.maps.event.addListenerOnce(map, 'bounds_changed', function(event) {
+        if (this.getZoom() > 12) {
+          this.setZoom(12);
+        }
+      });
+
+      // resize map to see all markers
+      map.fitBounds(bounds);
+  }
 
 }
 
