@@ -48,7 +48,7 @@ abstract class BaseController
         return !is_null($this->loggedUser);
     }
 
-    protected function ajaxSuccessResposne($message=null){
+    protected function ajaxSuccessResponse($message=null){
         $response = [
             'status' => 'OK'
         ];
@@ -63,7 +63,7 @@ abstract class BaseController
         exit;
     }
 
-    protected function ajaxErrorResposne($message=null, $statusCode=null){
+    protected function ajaxErrorResponse($message=null, $statusCode=null){
         $response = [
             'status' => 'ERROR'
         ];

@@ -35,3 +35,8 @@
 	background-size: 4em;
 	background-position: center;
 }
+
+.report-watch-img {
+	width: 16px;
+	cursor: pointer;
+}

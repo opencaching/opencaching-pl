@@ -2,8 +2,8 @@
 namespace lib\Objects\Admin;
 
 use lib\Objects\BaseObject;
-use lib\Objects\User\User;
 use lib\Objects\GeoCache\GeoCache;
+use lib\Objects\User\User;
 
 class Report extends BaseObject
 {
@@ -529,6 +529,12 @@ class Report extends BaseObject
         return self::db()->paramQueryValue($query, 0, $params);
     }
 
+    /**
+     * Generates <option></option> list of all types of reports
+     *
+     * @param int $default  // Type which should be selected
+     * @return string
+     */
     public static function generateTypeSelect($default = self::DEFAULT_REPORTS_TYPE)
     {
         $types = [
@@ -549,16 +555,20 @@ class Report extends BaseObject
         return $result;
     }
 
-    public static function generateStatusSelect($default = self::DEFAULT_REPORTS_STATUS)
+    /**
+     * Generates <option></option> list of available report statuses
+     *
+     * @param bool $includeVirtual  // if true - add virtual "All" nad "Not closed" statuses
+     * @param int $default  // status which should be selected by default
+     * @return string
+     */
+    public static function generateStatusSelect($includeVirtual = true, $default = self::DEFAULT_REPORTS_STATUS)
     {
-        $statuses = [
-            self::STATUS_ALL,
-            self::STATUS_OPEN,
-            self::STATUS_NEW,
-            self::STATUS_IN_PROGRESS,
-            self::STATUS_LOOK_HERE,
-            self::STATUS_CLOSED
-        ];
+        $statuses = [];
+        if ($includeVirtual) {
+            $statuses = [ self::STATUS_ALL, self::STATUS_OPEN ];
+        }
+        $statuses = array_merge($statuses, self::getStatusesArray());
         $result = '';
         foreach ($statuses as $status) {
             $result .= '<option value="' . $status . '"';
@@ -570,9 +580,19 @@ class Report extends BaseObject
         return $result;
     }
 
+    /**
+     * Generates <option></option> list of OC Team users
+     *
+     * @param bool $onlyOcTeam  // if false - add virtual users like "All users", "Not assigned" etc.
+     * @param int $default  // userId of user which sould be selected on list
+     * @return string
+     */
     public static function generateUserSelect($onlyOcTeam = false, $default = self::DEFAULT_REPORTS_USER)
     {
         $result = '';
+        if ($default == null) {
+            $result .= '<option value="' . self::USER_NOBODY . '" selected="selected"></option>';
+        }
         if (! $onlyOcTeam) {
             $users = [
                 self::USER_ALL,
@@ -678,6 +698,21 @@ class Report extends BaseObject
     }
 
     /**
+     * Returns array of all allowed report statuses
+     * 
+     * @return int[]
+     */
+    public static function getStatusesArray()
+    {
+        return [
+            self::STATUS_NEW,
+            self::STATUS_IN_PROGRESS,
+            self::STATUS_LOOK_HERE,
+            self::STATUS_CLOSED
+        ];
+    }
+
+    /**
      * Returns array of admin users.
      * Array consist of user_id and username
      *
@@ -690,23 +725,35 @@ class Report extends BaseObject
         return self::db()->dbResultFetchAll($stmt);
     }
 
-    /**
-     * Method check if report is wathed by logged user
+     /**
+     * Method check if report is wathed by given userId
+     *
+     * @param int $userId
      * @return boolean
      */
-    public function isReportWatched()
+    public function isReportWatched($userId)
     {
-        return self::isReportWatchedById($this->id);
+        return ReportWatches::isReportWatchedByReportId($this->id, $userId);
     }
 
     /**
-     * Returns bool - check if logged user has watched report with given $reportId
+     * Turns ON watch of report for given user
      *
-     * @param int $reportId
-     * @return boolean
+     * @param int $userId
      */
-    public static function isReportWatchedById($reportId)
+    public function turnWatchOn($userId)
     {
-        return rand(0, 1) == 1; // TODO after database schema update!
+        ReportWatches::turnWatchOnByReportId($this->id, $userId);
     }
+
+    /**
+     * Turns OFF watch of report for given user
+     *
+     * @param int $userId
+     */
+    public function turnWatchOff($userId)
+    {
+        ReportWatches::turnWatchOffByReportId($this->id, $userId);
+    }
+
 }
