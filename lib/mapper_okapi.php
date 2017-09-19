@@ -38,7 +38,7 @@ $force_result_empty = false;
 
 $params['x'] = $_GET['x'];
 $params['y'] = $_GET['y'];
-$params['z'] = $_GET['z'];
+$params['z'] = $_GET['z']; //zoom
 
 # userid - we will simulate an OAuth call in the name of this user.
 #
