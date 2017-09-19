@@ -121,7 +121,7 @@ class Log
             ddd('TODO');
         } else {
             if($this->type === self::TYPE_ADD_WARNING && $this->user->getIsAdmin() === false){
-                return false; /* regular user is not allowed to add entery of this type */
+                return false; /* regular user is not allowed to add entry of this type */
             }
             $query = 'INSERT INTO `PowerTrail_comments`
                       (`userId`, `PowerTrailId`, `commentType`, `commentText`,

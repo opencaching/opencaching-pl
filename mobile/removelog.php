@@ -1,6 +1,6 @@
 <?php
 use Utils\Database\XDb;
-use lib\Controllers\LogEnteryController;
+use lib\Controllers\LogEntryController;
 use okapi\Facade;
 
 require_once("./lib/common.inc.php");
@@ -85,7 +85,7 @@ if (isset($_SESSION['user_id'])) {
                 case 4:
                     $query = "DELETE FROM `cache_moved` WHERE `log_id`= " . $id . " LIMIT 1";
                     XDb::xSql($query);
-                    LogEnteryController::recalculateMobileMovesByCacheId($cache_id);
+                    LogEntryController::recalculateMobileMovesByCacheId($cache_id);
                     break;
             }
 

@@ -2,7 +2,7 @@
 
 use Utils\Database\OcDb;
 use Utils\Uri\Uri;
-use lib\Controllers\LogEnteryController;
+use lib\Controllers\LogEntryController;
 use Utils\Text\TextConverter;
 use Utils\Text\SmilesInText;
 
@@ -184,11 +184,11 @@ if ($error == false) {
 
         $logs = '';
 
-        $logEnteryController = new LogEnteryController();
+        $logEntryController = new LogEntryController();
         if($logid){ /* load and display one log only */
-            $logEneries = $logEnteryController->loadLogsFromDb($cache_id, $includeDeletedLogs, 0, 1, $logid);
+            $logEneries = $logEntryController->loadLogsFromDb($cache_id, $includeDeletedLogs, 0, 1, $logid);
         } else {
-            $logEneries = $logEnteryController->loadLogsFromDb($cache_id, $includeDeletedLogs, 0, 9999);
+            $logEneries = $logEntryController->loadLogsFromDb($cache_id, $includeDeletedLogs, 0, 9999);
         }
         foreach ($logEneries as $record) {
             $record['text_listing'] = ucfirst(tr('logType' . $record['type'])); //add new attrib 'text_listing based on translation (instead of query as before)'

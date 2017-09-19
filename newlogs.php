@@ -133,7 +133,7 @@ if ($error == false) {
                 $file_content .= '<td style="width: 22px;">&nbsp;</td>';
             }
 
-            if ($log_record['log_type'] == 12 && !$usr['admin']) {//hide COG entery
+            if ($log_record['log_type'] == 12 && !$usr['admin']) {//hide COG entry
                 $log_record['user_id'] = '0';
                 $log_record['user_name'] = tr('cog_user_name');
             }

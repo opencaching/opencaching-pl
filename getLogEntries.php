@@ -1,7 +1,7 @@
 <?php
 
 use Utils\Database\OcDb;
-use lib\Controllers\LogEnteryController;
+use lib\Controllers\LogEntryController;
 use Utils\Text\TextConverter;
 use Utils\Text\SmilesInText;
 
@@ -46,10 +46,10 @@ if(isset($_REQUEST['includeDeletedLogs']) && $_REQUEST['includeDeletedLogs'] == 
     $includeDeletedLogs = false;
 }
 
-$logEnteryController = new LogEnteryController();
-$logEneries = $logEnteryController->loadLogsFromDb($geocacheId, $includeDeletedLogs, $offset, $limit);
+$logEntryController = new LogEntryController();
+$logEntries = $logEntryController->loadLogsFromDb($geocacheId, $includeDeletedLogs, $offset, $limit);
 $result = '';
-foreach ($logEneries as $record) {
+foreach ($logEntries as $record) {
     $record['text_listing'] = ucfirst(tr('logType' . $record['type'])); //add new attrib 'text_listing based on translation (instead of query as before)'
 
     $show_deleted = "";

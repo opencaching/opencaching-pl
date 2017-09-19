@@ -1,7 +1,7 @@
 <?php
 
 use Utils\Log\CacheAccessLog;
-use lib\Controllers\LogEnteryController;
+use lib\Controllers\LogEntryController;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\OcConfig\OcConfig;
 
@@ -13,8 +13,8 @@ function find_news($start, $limit)
 {
     global $tpl, $znalezione, $cache;
 
-    $logEnteryController = new LogEnteryController();
-    $logs = $logEnteryController->loadLogsFromDb($cache->getCacheId(), false, $start, $limit);
+    $logEntryController = new LogEntryController();
+    $logs = $logEntryController->loadLogsFromDb($cache->getCacheId(), false, $start, $limit);
 
     // detailed cache access logging
     if (OcConfig::instance()->isCacheAccesLogEnabled()) {

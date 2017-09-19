@@ -12,7 +12,7 @@ use lib\Controllers\MeritBadgeController;
 use lib\Objects\GeoCache\GeoCache;
 use okapi\Facade;
 
-class LogEnteryController
+class LogEntryController
 {
 
     private $errors = array();
@@ -260,7 +260,7 @@ class LogEnteryController
         } else {
             $lastFound = $lastfoundRecord['date'];
         }
-        $geoCache->setLastFound($lastFound)->updateGeocacheLogenteriesStats();
+        $geoCache->setLastFound($lastFound)->updateGeocacheLogentriesStats();
     }
 
     public function getErrors()
@@ -334,9 +334,9 @@ class LogEnteryController
         }
         $db = OcDb::instance();
         $s = $db->paramQuery($query, $params);
-        $logEnteries = $db->dbResultFetchAll($s);
+        $logEntries = $db->dbResultFetchAll($s);
 
-        return $logEnteries;
+        return $logEntries;
     }
 
     private function generateGetLogsQuery($includeDeletedLogs, $logId)

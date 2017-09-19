@@ -2,7 +2,7 @@
 namespace Controllers;
 
 
-use lib\Controllers\LogEnteryController;
+use lib\Controllers\LogEntryController;
 
 class CacheLogController extends BaseController
 {
@@ -31,12 +31,12 @@ class CacheLogController extends BaseController
 
         $logId = intval($_REQUEST['logid']);
 
-        $logEnteryController = new LogEnteryController();
-        $result = $logEnteryController->removeLogById($logId);
+        $logEntryController = new LogEntryController();
+        $result = $logEntryController->removeLogById($logId);
 
         echo json_encode( array (
             'removeLogResult' => $result,
-            'errors' => $logEnteryController->getErrors())
+            'errors' => $logEntryController->getErrors())
             );
 
     }

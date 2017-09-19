@@ -402,11 +402,11 @@ class ViewCacheController extends BaseController
             $this->view->setVar('deletedLogsDisplayText',$deletedLogsDisplayText);
         }
 
-        $logEnteriesCount = intval($this->geocache->getLogEntriesCount($displayDeletedLogs));
+        $logEntriesCount = intval($this->geocache->getLogEntriesCount($displayDeletedLogs));
 
         $this->view->setVar('showDeletedLogsDisplayLink', $showDeletedLogsDisplayLink);
-        $this->view->setVar('displayAllLogsLink', 0 < $logEnteriesCount );
-        $this->view->setVar('logEnteriesCount', $logEnteriesCount);
+        $this->view->setVar('displayAllLogsLink', 0 < $logEntriesCount );
+        $this->view->setVar('logEntriesCount', $logEntriesCount);
         $this->view->setVar('displayDeletedLogs', $displayDeletedLogs);
 
     }
