@@ -3,9 +3,18 @@ use lib\Objects\GeoCache\GeoCacheLogCommons;
 use lib\Objects\GeoCache\GeoCacheCommons;
 ?>
 <script type="text/javascript" src="/lib/js/wz_tooltip.js"></script>
+<script src="<?=$view->reports_js?>"></script>
 <div class="content2-container">
   <div class="content2-pagetitle">
-    <div style="float: right;"><button type="button" class="btn btn-primary" onclick="window.location.href = '/admin_reports.php'">{{admin_reports_title_reportslist}}</button></div>
+    <div style="float: right;">
+      <button type="button" class="btn btn-default" onclick="watchOff(<?=$view->report->getId()?>)" id="report-btn-on" <?php if (!$view->report->isReportWatched($view->user->getUserId())) {?>style="display: none;"<?php }?>>
+        <img src="/tpl/stdstyle/images/misc/eye.svg" class="report-watch-img" alt="{{admin_reports_watch_on}}" id="report-img-on"> {{admin_reports_watch_on}}
+      </button>
+      <button type="button" class="btn btn-default" onclick="watchOn(<?=$view->report->getId()?>)" id="report-btn-off" <?php if ($view->report->isReportWatched($view->user->getUserId())) {?>style="display: none;"<?php }?>>
+        <img src="/tpl/stdstyle/images/misc/eye-off.svg" class="report-watch-img" alt="{{admin_reports_watch_off}}" id="report-img-off"> {{admin_reports_watch_off}}
+      </button>
+      <button type="button" class="btn btn-primary" onclick="window.location.href = '/admin_reports.php'">{{admin_reports_title_reportslist}}</button>
+    </div>
     <img src="tpl/stdstyle/images/blue/rproblems.png" class="icon32" alt=""> {{admin_reports_title_reportshow}}
   </div>
   <table class="table full-width">
@@ -28,13 +37,24 @@ use lib\Objects\GeoCache\GeoCacheCommons;
     </tr>
     <tr>
       <td class="content-title-noshade" style="text-align: right;">{{admin_reports_lbl_leader}}</td>
-      <td><?php if ($view->report->getUserIdLeader() != null) { ?><a href="/viewprofile.php?userid=<?=$view->report->getUserIdLeader()?>" class="links" target="_blank"><?=$view->report->getUserLeader()->getUserName()?></a><?php }?></td>
+      <td>
+        <select name="reportLeader" class="form-control input200" id="leaderSelectCtrl"><?=$view->leaderSelect?></select>
+        <button type="button" class="btn btn-default" onclick="changeLeader(<?=$view->report->getId()?>)">{{admin_reports_btn_change}}</button>
+        <?php if ($view->report->getUserIdLeader() != null) { ?>(<a href="/viewprofile.php?userid=<?=$view->report->getUserIdLeader()?>" class="links" target="_blank"><?=$view->report->getUserLeader()->getUserName()?></a>)<?php }?>&nbsp;
+      </td>
     </tr>
     <tr>
       <td class="content-title-noshade" style="text-align: right;">{{status_label}}</td>
       <td>
-        <strong><?=tr($view->report->getReportStatusTranslationKey())?></strong>
-        <?php if ($view->report->getDateChangeStatus() != null) { ?><br>{{last_modified_label}} <?php echo $view->report->getDateChangeStatus()->format($view->dateFormat); }?>
+        <select name="reportStatus" class="form-control input200" id="statusSelectCtrl"><?=$view->statusSelect?></select>
+        <button type="button" class="btn btn-default" onclick="changeStatus(<?=$view->report->getId()?>)">{{admin_reports_btn_change}}</button>
+        (<strong><?=tr($view->report->getReportStatusTranslationKey())?></strong>)
+      </td>
+    </tr>
+    <tr>
+      <td class="content-title-noshade" style="text-align: right;">{{last_modified_label}}</td>
+      <td>
+        <?php if ($view->report->getDateChangeStatus() != null) { echo $view->report->getDateChangeStatus()->format($view->dateFormat); }?>
         <?php if ($view->report->getUserIdChangeStatus() != null) {?>(<a href="/viewprofile.php?userid=<?=$view->report->getUserIdChangeStatus()?>" class="links" target="_blank"><?=$view->report->getUserChangeStatus()->getUserName()?></a>) <?php }?>
       </td>
     </tr>

@@ -1,4 +1,5 @@
 <?php ?>
+<script src="<?=$view->reports_js?>"></script>
 <div class="content2-container">
   <form action="/admin_reports.php" method="post">
   <div class="content2-pagetitle">
@@ -35,11 +36,8 @@
     <tr>
       <td style="text-align: center;">
         <a href="/admin_reports.php?action=showreport&amp;id=<?=$report->getId()?>" class="links"><?=$report->getId()?></a><br>
-        <?php if ($report->isReportWatched()) {?>
-          <img src="/tpl/stdstyle/images/misc/eye.svg" alt="" width="16" title="">
-        <?php } else {?>
-          <img src="/tpl/stdstyle/images/misc/eye-off.svg" alt="" width="16" title="" style="opacity:0.4;">
-        <?php }?>
+          <img src="/tpl/stdstyle/images/misc/eye.svg" class="report-watch-img" alt="{{admin_reports_watch_on}}" title="{{admin_reports_watch_on}} | {{admin_reports_watch_info}}" onclick="watchOff(<?=$report->getId()?>)" id="img-on-<?=$report->getId()?>" <?php if (!$report->isReportWatched($view->user->getUserId())) {?>style="display: none;"<?php }?>>
+          <img src="/tpl/stdstyle/images/misc/eye-off.svg" class="report-watch-img" alt="{{admin_reports_watch_off}}" title="{{admin_reports_watch_off}} | {{admin_reports_watch_info}}" onclick="watchOn(<?=$report->getId()?>)" id="img-off-<?=$report->getId()?>" <?php if ($report->isReportWatched($view->user->getUserId())) {?>style="display: none;"<?php }?>>
       </td>
       <td>
         <a href="/viewcache.php?wp=<?=$report->getCache()->getWaypointId()?>" class="links" target="_blank"><img src="/<?=$report->getCache()->getCacheIcon($view->user)?>" height=20 title="<?=tr($report->getCache()->getStatusTranslationKey())?>" alt="<?=tr($report->getCache()->getStatusTranslationKey())?>"> <?=$report->getCache()->getCacheName()?> (<?=$report->getCache()->getWaypointId()?>)</a><br>
