@@ -151,8 +151,8 @@ class CacheAdoptionController extends BaseController
         // put log into cache logs.
         $logMessage = tr('adopt_32');
 
-        $oldUserName = ' <a href="' . $GLOBALS['absolute_server_URI'] . 'viewprofile.php?userid=' . $oldOwner->getUserId() . '">' . $oldOwner->getUserName() . '</a> ';
-        $newUserName = ' <a href="' . $GLOBALS['absolute_server_URI'] . 'viewprofile.php?userid=' . $this->loggedUser->getUserId() . '">' . $this->loggedUser->getUserName() . '</a>';
+        $oldUserName = ' <a href="' . $GLOBALS['absolute_server_URI'] . 'viewprofile.php?userid=' . $oldOwner->getUserId() . '">' . htmlspecialchars($oldOwner->getUserName()) . '</a> ';
+        $newUserName = ' <a href="' . $GLOBALS['absolute_server_URI'] . 'viewprofile.php?userid=' . $this->loggedUser->getUserId() . '">' . htmlspecialchars($this->loggedUser->getUserName()) . '</a>';
 
         $logMessage = str_replace('{oldUserName}', $oldUserName, $logMessage);
         $logMessage = str_replace('{newUserName}', $newUserName, $logMessage);
@@ -164,7 +164,7 @@ class CacheAdoptionController extends BaseController
                             type = 3,
                             date = NOW(),
                             text= :2,
-                            text_html = 1,
+                            text_html = 2,
                             text_htmledit = 1,
                             date_created = NOW(),
                             last_modified = NOW(),

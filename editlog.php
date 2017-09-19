@@ -242,7 +242,7 @@ if ($error == false) {
                             /*1*/$log_type,
                             /*2*/date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
                             /*3*/userInputFilter::purifyHtmlString(((true) ? $log_text : nl2br($log_text))),
-                            /*4*/1, /*5*/1, $usr['userid'], $log_id);
+                            /*4*/2, /*5*/1, $usr['userid'], $log_id);
                     } else {
                         XDb::xSql(
                             "UPDATE `cache_logs`
@@ -252,7 +252,7 @@ if ($error == false) {
                             /*1*/$log_type,
                             /*2*/date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
                             /*3*/userInputFilter::purifyHtmlString(((true) ? $log_text : nl2br($log_text))),
-                            /*4*/1, /*5*/1, $usr['userid'], $log_id);
+                            /*4*/2, /*5*/1, $usr['userid'], $log_id);
                     }
 
                     //update user-stat if type changed
@@ -498,7 +498,7 @@ if ($error == false) {
                 tpl_set_var('date_message', ($date_not_ok == true) ? $date_message : '');
                 tpl_set_var('bodyMod', ' onload="chkMoved()"');
 
-                $log_text = userInputFilter::purifyHtmlStringAndDecodeHtmlSpecialChars($log_text);
+                $log_text = userInputFilter::purifyHtmlStringAndDecodeHtmlSpecialChars($log_text, $log_record['text_html']);
                 tpl_set_var('logtext', htmlspecialchars($log_text, ENT_NOQUOTES, 'UTF-8'), true);
 
                 if ($use_log_pw == true && $log_pw != '') {

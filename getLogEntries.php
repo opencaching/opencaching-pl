@@ -170,7 +170,7 @@ foreach ($logEntries as $record) {
         $processed_text = htmlspecialchars($processed_text, ENT_COMPAT, 'UTF-8');
         $processed_text = TextConverter::addHyperlinkToURL($processed_text);
     } else {
-        $processed_text = userInputFilter::purifyHtmlStringAndDecodeHtmlSpecialChars($processed_text);
+        $processed_text = userInputFilter::purifyHtmlStringAndDecodeHtmlSpecialChars($processed_text, $record['text_html']);
     }
 
     $processed_text = SmilesInText::process($processed_text);

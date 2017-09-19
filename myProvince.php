@@ -241,7 +241,6 @@ $rs = $db->simpleQuery(
     "SELECT
         cl.id, cl.cache_id, cl.type AS log_type,
         cl.date AS log_date, cl.text AS log_text,
-        cl.text_html,
 
         c.name AS cache_name,
         c.wp_oc AS wp_name, c.type AS cache_type,

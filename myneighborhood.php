@@ -484,7 +484,6 @@ if ($usr == false) {
                             cache_logs.type            AS log_type,
                             cache_logs.date            AS log_date,
                             cache_logs.text            AS log_text,
-                            cache_logs.text_html       AS text_html,
                             local_caches.name          AS cache_name,
                             user.username              AS user_name,
                             user.user_id               AS luser_id,
