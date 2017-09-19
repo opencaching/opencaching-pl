@@ -6,7 +6,7 @@ use Utils\Debug\Debug;
 use lib\Objects\Admin\Report;
 use lib\Objects\ChunkModels\PaginationModel;
 use lib\Objects\OcConfig\OcConfig;
-use lib\Controllers\LogEnteryController;
+use lib\Controllers\LogEntryController;
 use Utils\Uri\Uri;
 
 class ReportsController extends BaseController
@@ -84,7 +84,7 @@ class ReportsController extends BaseController
             $this->view->redirect('/admin_reports.php');
             exit();
         }
-        $logController = new LogEnteryController();
+        $logController = new LogEntryController();
         $lastLogs = $logController->loadLogs($report->getCache(), false, 0, 5);
         $this->view->setVar('lastLogs', $lastLogs);
         $this->view->setVar('report', $report);

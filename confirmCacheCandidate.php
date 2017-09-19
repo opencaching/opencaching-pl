@@ -42,7 +42,7 @@ if ($error == false) {
 
             if ($usr['userid'] == $dbData['user_id']) { // go on
                 if ($ownerDecision === 0) { // just remove cache from candidate table
-                    removeDbEntery($code);
+                    removeDbEntry($code);
                     tpl_set_var('ptNo', 'block');
                 }
                 if ($ownerDecision === 1) { // addcachetoPt
@@ -50,7 +50,7 @@ if ($error == false) {
                     $_REQUEST['projectId'] = $dbData['PowerTrailId'];
                     $_REQUEST['cacheId'] = $dbData['cache_id'];
                     include_once 'powerTrail/ajaxAddCacheToPt.php';
-                    removeDbEntery($code);
+                    removeDbEntry($code);
                     if ($cacheAddedToPt == true) {
                         tpl_set_var('ptYes', 'block');
                     }
@@ -66,7 +66,7 @@ if ($error == false) {
     }
 }
 
-function removeDbEntery($code)
+function removeDbEntry($code)
 {
 
     $db = OcDb::instance();

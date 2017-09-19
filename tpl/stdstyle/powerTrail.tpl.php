@@ -1268,7 +1268,7 @@ $( document ).ready(function() {
 </script>
 
     <input type="hidden" id="xmd34nfywr54" value="{powerTrailId}">
-    <!-- deleting entery comfirmation dialog  -->
+    <!-- deleting entry comfirmation dialog  -->
     <div id="dialog-form" title="{{pt151}}" style="display: none">
         <form>
             <label for="delReason">{{pt152}} (max. 500 {{pt154}})</label><br><br>

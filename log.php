@@ -10,7 +10,7 @@ use lib\Objects\User\User;
 use lib\Objects\GeoKret\GeoKretLog;
 use lib\Controllers\MeritBadgeController;
 use Utils\Generators\Uuid;
-use lib\Controllers\LogEnteryController;
+use lib\Controllers\LogEntryController;
 
 /* todo:
   create and set up 4 template selector with wybor_WE wybor_NS.
@@ -498,7 +498,7 @@ if ($error == false) {
 
                         ini_set('display_errors', 1);
                         // error_reporting(E_ALL);
-                        // id of last SQL entery
+                        // id of last SQL entry
                         $last_id_4_mobile_moved = XDb::xLastInsertId();
 
                         // converting from HH MM.MMM to DD.DDDDDD
@@ -551,7 +551,7 @@ if ($error == false) {
                             "INSERT INTO `cache_moved`(`cache_id`, `user_id`, `log_id`, `date`, `longitude`, `latitude`,`km`)
                             VALUES (?, ?, ?, ?, ?, ?, 0)",
                             $cache_id, $usr['userid'], $last_id_4_mobile_moved, $log_date, $wspolrzedneWE, $wspolrzedneNS);
-                        LogEnteryController::recalculateMobileMovesByCacheId($cache_id);
+                        LogEntryController::recalculateMobileMovesByCacheId($cache_id);
                     }
                     // mobilne by Łza - koniec
                     //inc cache stat and "last found"

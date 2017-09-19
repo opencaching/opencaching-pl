@@ -35,26 +35,26 @@ function rmLog(event, logId){
 }
 
 
-var currentLogEnteriessOffset = 0;
-var currentLogEnteriessLimit = 10;
-var logEnteryUnderExecution = false;
+var currentLogEntriesOffset = 0;
+var currentLogEntriesLimit = 10;
+var logEntryUnderExecution = false;
 
 $(window).scroll(function (event) {
     if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-        var logEnteriesCount = parseInt($('#logEnteriesCount').val());
-        if(currentLogEnteriessOffset < logEnteriesCount){
-           loadLogEnteries(currentLogEnteriessOffset,currentLogEnteriessLimit);
+        var logEntriesCount = parseInt($('#logEntriesCount').val());
+        if(currentLogEntriesOffset < logEntriesCount){
+           loadLogEntries(currentLogEntriesOffset,currentLogEntriesLimit);
         }
     }
 });
 
-function loadLogEnteries(offset, limit){
-    if(logEnteryUnderExecution === false){
-        logEnteryUnderExecution = true;
+function loadLogEntries(offset, limit){
+    if(logEntryUnderExecution === false){
+        logEntryUnderExecution = true;
         var geocacheId = $("#cacheid").val();
         var owner_id = $("#owner_id").val();
         request = $.ajax({
-            url: "getLogEnteries.php",
+            url: "getLogEntries.php",
             type: "post",
             data:{
                     offset: offset,
@@ -66,8 +66,8 @@ function loadLogEnteries(offset, limit){
         });
         request.done(function (response, textStatus, jqXHR){
             $("#viewcache-logs").html($("#viewcache-logs").html() + response);
-            currentLogEnteriessOffset = currentLogEnteriessOffset + currentLogEnteriessLimit;
-            logEnteryUnderExecution = false;
+            currentLogEntriesOffset = currentLogEntriesOffset + currentLogEntriesLimit;
+            logEntryUnderExecution = false;
         });
     }
 }

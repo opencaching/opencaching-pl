@@ -191,7 +191,7 @@ if (!$cache_id) {
         ?>
         <input type="hidden" id="cacheid" value="<?=$cache_id?>" />
         <input type="hidden" id="owner_id" value="0" />
-        <input type="hidden" id="logEnteriesCount" value="{logEnteriesCount}" />
+        <input type="hidden" id="logEntriesCount" value="{logEntriesCount}" />
         <input type="hidden" id="showlogs" value="<?=$showlogs ?>" />
 
         <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>

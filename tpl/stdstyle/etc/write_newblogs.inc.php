@@ -1,5 +1,5 @@
 <?php
-/* This file to be run with CRON. Generate last blog and forum entery list on main page */
+/* This file to be run with CRON. Generate last blog and forum entry list on main page */
 
 if (!isset($rootpath)) {
     $rootpath = __DIR__ . '/../../../';

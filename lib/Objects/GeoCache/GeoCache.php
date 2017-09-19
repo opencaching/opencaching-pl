@@ -428,7 +428,7 @@ class GeoCache extends GeoCacheCommons
      * perform update on specified elements only.
      * @param array $elementsToUpdate
      */
-    public function updateGeocacheLogenteriesStats()
+    public function updateGeocacheLogentriesStats()
     {
         $sqlQuery = "UPDATE `caches` SET `last_found`=:1, `founds`=:2, `notfounds`= :3, `notes`= :4 WHERE `cache_id`= :5";
         $db = OcDb::instance();
@@ -887,7 +887,7 @@ class GeoCache extends GeoCacheCommons
     }
 
     /**
-     * if geocache require password for log entery, return true. otherwse false.
+     * if geocache require password for log entry, return true. otherwse false.
      * @return boolean
      */
     public function hasPassword()

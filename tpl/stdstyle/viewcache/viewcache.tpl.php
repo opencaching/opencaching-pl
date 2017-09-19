@@ -8,7 +8,7 @@
 
 
 <input type="hidden" id="cacheid" value="{cacheid}">
-<input type="hidden" id="logEnteriesCount" value="<?=$view->logEnteriesCount?>">
+<input type="hidden" id="logEntriesCount" value="<?=$view->logEntriesCount?>">
 <input type="hidden" id="owner_id" value="<?=$view->ownerId?>">
 <input type="hidden" id="includeDeletedLogs" value="<?=$view->displayDeletedLogs?>">
 <input type="hidden" id="uType" value="<?=($view->isAdminAuthorized)?'1':'0'?>">
@@ -1004,7 +1004,7 @@
                    title="<?=tr('show_all_log_entries')?>" / -->
               <?=tr("show_all_log_entries_short")?>
             </a>
-        <?php } //if-logEnteriesCount ?>
+        <?php } //if-logEntriesCount ?>
 
 
         <?php if($view->showDeletedLogsDisplayLink) { ?>
@@ -1019,7 +1019,7 @@
 </div>
 
 <div class="content2-container" id="viewcache-logs">
-    <!-- log enteries - to be loaded dynamicly by ajax -->
+    <!-- log entries - to be loaded dynamicly by ajax -->
 </div>
 
 

@@ -2,18 +2,18 @@
     var showlogs = $("#showlogs").val();
     if(showlogs == ''){
     } else if(showlogs == '&showlogs=4') {
-        loadLogEnteries(0,4);
+        loadLogEntries(0,4);
     } else if (showlogs == '&showlogsall=y'){
-        loadLogEnteries(0,9999);
+        loadLogEntries(0,9999);
     }
 });
 
-function loadLogEnteries(offset, limit){
+function loadLogEntries(offset, limit){
     var owner_id = $("#owner_id").val();
     var geocacheId = $("#cacheid").val();
 
     request = $.ajax({
-        url: "getLogEnteries.php",
+        url: "getLogEntries.php",
         type: "post",
         data:{
                 offset: offset,
