@@ -10,6 +10,7 @@ use lib\Controllers\LogEntryController;
 use Utils\Uri\Uri;
 use lib\Objects\Admin\ReportWatches;
 use lib\Objects\User\User;
+use lib\Objects\Admin\ReportEmailTemplate;
 
 class ReportsController extends BaseController
 {
@@ -41,6 +42,14 @@ class ReportsController extends BaseController
                         $this->view->setVar('errorMsg', tr('admin_reports_err_noID'));
                     }
                     break;
+                case 'addnote':
+                    if (isset($_REQUEST['id']) && Report::isValidReportId($_REQUEST['id'])) {
+                        $this->addNote();
+                        $this->showSingleReport($_REQUEST['id']);
+                    } else {
+                        $this->view->setVar('errorMsg', tr('admin_reports_err_noID'));
+                    }
+                    break;
             }
         }
         $this->showReportsList();
@@ -64,11 +73,13 @@ class ReportsController extends BaseController
     {
         $this->watchAjaxCheck($reportId);
         if (! in_array($newStatus, Report::getStatusesArray())) {
-            $this->ajaxErrorResponse("Incorrect new status", 400);
+            $this->ajaxErrorResponse("Invalid new status", 400);
             exit();
         }
-// TODO !!!
-        $this->ajaxSuccessResponse();
+        $report = new Report(['reportId' => $reportId]);
+        $report->changeStatus($newStatus);
+        $this->ajaxSuccessResponse(tr($report->getReportStatusTranslationKey()));
+        exit();
     }
 
     public function changeLeaderAjax($reportId, $newLeader)
@@ -78,13 +89,35 @@ class ReportsController extends BaseController
             $usr = new User(['userId' => $newLeader]);
             if (! $usr->isAdmin()) {
                 unset($usr);
-                $this->ajaxErrorResponse("Incorrect new leader", 400);
+                $this->ajaxErrorResponse("Invalid new leader", 400);
                 exit();
             }
             unset($usr);
         }
-// TODO !!!
-        $this->ajaxSuccessResponse();
+        $report = new Report(['reportId' => $reportId]);
+        $oldstatus = $report->getStatus();
+        $report->changeLeader($newLeader);
+        if ($oldstatus == Report::STATUS_NEW) { //Status changed new -> in progress => Page needs to be reloaded
+            $this->ajaxSuccessResponse('reqReloadPage');
+        } else {
+            $this->ajaxSuccessResponse($report->getUserLeader()->getUserName());
+        }
+        exit();
+    }
+
+    public function getEmailTemplatesAjax($recipient, $objectType)
+    {
+        //TODO - check params!!!
+        $this->ajaxSuccessResponse(ReportEmailTemplate::generateTemplateArray($recipient, $objectType));
+    }
+
+    public function getTemplateByIdAjax($templateId)
+    {
+        // TODO - check params!!!
+        $this->ajaxSuccessResponse(ReportEmailTemplate::getContentByTemplateId($templateId));
+    }
+    public function ajaxError($message, $code) {
+        $this->ajaxErrorResponse($message, $code);
     }
 
     private function watchAjaxCheck($reportId)
@@ -156,6 +189,16 @@ class ReportsController extends BaseController
         tpl_set_tplname('admin/report_show');
         tpl_BuildTemplate();
         exit();
+    }
+
+    private function addNote()
+    {
+        if (isset($_REQUEST['note'])) {
+            $report = new Report(array('reportId' => $_REQUEST['id']));
+            $report->addNote($_REQUEST['note']);
+            $this->view->setVar('infoMsg', tr('admin_reports_info_notesaved'));
+        }
+        $this->showSingleReport($_REQUEST['id']);
     }
 
     private function setSession()

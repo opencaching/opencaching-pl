@@ -40,3 +40,27 @@
 	width: 16px;
 	cursor: pointer;
 }
+
+.report-strong {
+	font-weight: bold;
+}
+
+textarea.report-note {
+	width: 100%;
+	resize: vertical;
+}
+textarea#form-note-textarea {
+	height: 6em;
+}
+
+textarea#form-email-textarea {
+	height: 15em;
+}
+
+.reports-form {
+	font-size: 12px;
+}
+
+fieldset.reports-fieldset {
+	border-width: 0px;
+}
