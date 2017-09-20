@@ -4,6 +4,8 @@ namespace lib\Objects\Admin;
 use lib\Objects\BaseObject;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\User\User;
+use lib\Objects\OcConfig\OcConfig;
+use Utils\Generators\Uuid;
 
 class Report extends BaseObject
 {
@@ -92,7 +94,7 @@ class Report extends BaseObject
      *
      * @var int
      */
-    private $objectType;
+    private $objectType = self::OBJECT_CACHE;
 
     /**
      * Id of cache reported
@@ -141,7 +143,7 @@ class Report extends BaseObject
      *
      * @var int
      */
-    private $status;
+    private $status = self::STATUS_NEW;
 
     /**
      * Date of report submit
@@ -756,4 +758,173 @@ class Report extends BaseObject
         ReportWatches::turnWatchOffByReportId($this->id, $userId);
     }
 
+    public function changeLeader($newLeader)
+    {
+        if (! $this->isDataLoaded()) {
+            return false;
+        }
+        $this->userIdLeader = $newLeader;
+        unset($this->userLeader);
+        $this->userLeader = new User(['userId' => $newLeader]);
+        $this->updateLastChanged();
+        $log = '[' . $this->dateChangeStatus->format(OcConfig::instance()->getDatetimeFormat()) . '] <strong>';
+        $log .= $this->userChangeStatus->getUserName();
+        $log .= ' ' . tr('admin_reports_tpl_leaderhdr') . ': ' . $this->userLeader->getUserName() . '</strong><br>';
+        if ($this->status == self::STATUS_NEW) {
+            $this->status = self::STATUS_IN_PROGRESS;
+            $log .= '[' . $this->dateChangeStatus->format(OcConfig::instance()->getDatetimeFormat()) . '] <strong>';
+            $log .= $this->userChangeStatus->getUserName();
+            $log .= ' ' . tr('admin_reports_tpl_statushdr') . ' ' . tr($this->getReportStatusTranslationKey()) . '</strong><br>';
+        }
+        $this->addLog($log);
+// TODO: Jesli nowym prowadzacym nie jest osoba, ktora zmieniła lidera - powiadom nowego lidera
+// TODO: Powiadom osoby, które obserwują, z wyjątkiem nowego lidera i zalogowanego użytkownika
+    }
+
+    public function changeStatus($newStatus)
+    {
+        if (! $this->isDataLoaded()) {
+            return false;
+        }
+        $this->status = $newStatus;
+        $this->updateLastChanged();
+        $log = '[' . $this->dateChangeStatus->format(OcConfig::instance()->getDatetimeFormat()) . '] <strong>';
+        $log .= $this->userChangeStatus->getUserName();
+        $log .= ' ' . tr('admin_reports_tpl_statushdr') . ': ' . tr($this->getReportStatusTranslationKey()) . '</strong><br>';
+        $this->addLog($log);
+// TODO: Jesli zmiana na Zajrzyj tu - wyslij maila do wszystkich
+// TODO: Powiadom osoby, ktore obserwuja, za wyjątkiem zalogowanego użytkownika
+    }
+
+    public function addNote($submittedNote) {
+        if (! $this->isDataLoaded()) {
+            return false;
+        }
+        $submittedNote = \userInputFilter::purifyHtmlString($submittedNote);
+        $this->updateLastChanged();
+        $log = '[' . $this->dateChangeStatus->format(OcConfig::instance()->getDatetimeFormat()) . '] <strong>';
+        $log .= $this->userChangeStatus->getUserName();
+        $log .= ' ' . tr('admin_reports_tpl_infohdr') . ':</strong><br>' . $submittedNote . '<br>';
+        $this->addLog($log);
+// TODO: Powiadom osoby, które obserwują
+    }
+
+    private function updateLastChanged() {
+        unset($this->dateChangeStatus);
+        $this->dateChangeStatus = new \DateTime('now');
+        $this->userIdChangeStatus = $this->getCurrentUser()->getUserId();
+        unset($this->userChangeStatus);
+        $this->userChangeStatus = $this->getCurrentUser();
+    }
+    private function addLog($log) {
+        if (! $this->isDataLoaded()) {
+            return false;
+        }
+        $this->note = $log . '<br>' . $this->note;
+        $this->saveReport();
+    }
+
+    public function saveReport() {
+        if (! $this->isDataLoaded()) {
+            return false;
+        }
+        if ($this->uuid == null || $this->uuid == "") {
+            $this->uuid = Uuid::create();
+        }
+        if (self::isValidReportId($this->id)) {
+            return $this->saveToDb();
+        } else {
+            return $this->insertToDb();
+        }
+    }
+
+    private function saveToDb() {
+        $query = "
+            UPDATE `reports`
+             SET `object_type` = :object_type,
+            `user_id` = :user_id,
+            `cache_id` = :cache_id,
+            `PowerTrail_id` = :PowerTrail_id,
+            `type` = :type,
+            `text` = :text,
+            `note` = :note,
+            `submit_date` = :submit_date,
+            `status` = :status,
+            `changed_by` = :changed_by,
+            `changed_date` = :changed_date,
+            `responsible_id` = :responsible_id
+            WHERE `id` = :id";
+        $params = [];
+        $params['object_type']['value'] = (int) $this->objectType;
+        $params['object_type']['data_type'] = 'integer';
+        $params['user_id']['value'] = (int) $this->userIdSubmit;
+        $params['user_id']['data_type'] = 'integer';
+        $params['cache_id']['value'] = $this->cacheId;
+        $params['cache_id']['data_type'] = ($this->cacheId == null) ? 'null' : 'integer';
+        $params['PowerTrail_id']['value'] = $this->powerTrailId;
+        $params['PowerTrail_id']['data_type'] = ($this->powerTrailId == null) ? 'null' : 'integer';
+        $params['type']['value'] = (int) $this->type;
+        $params['type']['data_type'] = 'integer';
+        $params['text']['value'] = $this->content;
+        $params['text']['data_type'] = 'string';
+        $params['note']['value'] = $this->note;
+        $params['note']['data_type'] = 'string';
+        $params['submit_date']['value'] = $this->dateSubmit->format(OcConfig::instance()->getDbDateTimeFormat());
+        $params['submit_date']['data_type'] = 'string';
+        $params['status']['value'] = (int) $this->status;
+        $params['status']['data_type'] = 'integer';
+        $params['changed_by']['value'] = (int) $this->userIdChangeStatus;
+        $params['changed_by']['data_type'] = 'integer';
+        $params['changed_date']['value'] = $this->dateChangeStatus->format(OcConfig::instance()->getDbDateTimeFormat());
+        $params['changed_date']['data_type'] = 'string';
+        $params['responsible_id']['value'] = $this->userIdLeader;
+        $params['responsible_id']['data_type'] = ($this->userIdLeader == null) ? 'null' : 'integer';
+        $params['id']['value'] = (int) $this->id;
+        $params['id']['data_type'] = 'integer';
+        return (self::db()->paramQuery($query, $params) !== null);
+    }
+
+    private function insertToDb() {
+// TODO: Sprawdzić!!!
+        $query = "
+            INSERT INTO `reports`
+            (`object_type`, `user_id`, `cache_id`,
+            `PowerTrail_id`, `type`, `text`,
+            `note`, `submit_date`, `status`,
+            `changed_by`, `changed_date`, `responsible_id`)
+            VALUES
+            (:object_type, :user_id, :cache_id,
+            :PowerTrail_id, :type, :text,
+            :note, :submit_date, :status,
+            :changed_by, :changed_date, :responsible_id)";
+        $params = [];
+        $params['object_type']['value'] = $this->objectType;
+        $params['object_type']['data_type'] = 'integer';
+        $params['user_id']['value'] = $this->userIdSubmit;
+        $params['user_id']['data_type'] = 'integer';
+        $params['cache_id']['value'] = $this->cacheId;
+        $params['cache_id']['data_type'] = ($this->cacheId == null) ? 'null' : 'integer';
+        $params['PowerTrail_id']['value'] = $this->powerTrailId;
+        $params['PowerTrail_id']['data_type'] = ($this->powerTrailId == null) ? 'null' : 'integer';
+        $params['type']['value'] = $this->type;
+        $params['type']['data_type'] = 'integer';
+        $params['text']['value'] = $this->content;
+        $params['text']['data_type'] = 'string';
+        $params['note']['value'] = $this->note;
+        $params['note']['data_type'] = 'string';
+        $params['submit_date']['value'] = $this->dateSubmit->format(OcConfig::instance()->getDbDateTimeFormat());
+        $params['submit_date']['data_type'] = 'string';
+        $params['status']['value'] = $this->status;
+        $params['status']['data_type'] = 'integer';
+        $params['changed_by']['value'] = $this->userIdChangeStatus;
+        $params['changed_by']['data_type'] = 'integer';
+        $params['changed_date']['value'] = $this->dateChangeStatus->format(OcConfig::instance()->getDbDateTimeFormat());
+        $params['changed_date']['data_type'] = 'string';
+        $params['responsible_id']['value'] = $this->userIdLeader;
+        $params['responsible_id']['data_type'] = 'integer';
+        $params['id']['value'] = $this->id;
+        $params['id']['data_type'] = 'integer';
+        self::db()->paramQuery($query, $params);
+        return self::db()->lastInsertId();
+    }
 }

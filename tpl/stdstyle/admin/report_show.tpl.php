@@ -1,9 +1,12 @@
 <?php
 use lib\Objects\GeoCache\GeoCacheLogCommons;
 use lib\Objects\GeoCache\GeoCacheCommons;
+use lib\Objects\Admin\ReportEmailTemplate;
+use lib\Objects\Admin\Report;
 ?>
 <script type="text/javascript" src="/lib/js/wz_tooltip.js"></script>
 <script src="<?=$view->reports_js?>"></script>
+<link rel="prefetch" href="/tpl/stdstyle/images/loader/spinning-circles.svg">
 <div class="content2-container">
   <div class="content2-pagetitle">
     <div style="float: right;">
@@ -13,10 +16,11 @@ use lib\Objects\GeoCache\GeoCacheCommons;
       <button type="button" class="btn btn-default" onclick="watchOn(<?=$view->report->getId()?>)" id="report-btn-off" <?php if ($view->report->isReportWatched($view->user->getUserId())) {?>style="display: none;"<?php }?>>
         <img src="/tpl/stdstyle/images/misc/eye-off.svg" class="report-watch-img" alt="{{admin_reports_watch_off}}" id="report-img-off"> {{admin_reports_watch_off}}
       </button>
-      <button type="button" class="btn btn-primary" onclick="window.location.href = '/admin_reports.php'">{{admin_reports_title_reportslist}}</button>
+      <button type="button" class="btn btn-primary" onclick="window.location.href='/admin_reports.php'">{{admin_reports_title_reportslist}}</button>
     </div>
     <img src="tpl/stdstyle/images/blue/rproblems.png" class="icon32" alt=""> {{admin_reports_title_reportshow}}
   </div>
+  <?php if (isset($view->infoMsg)) { $view->callChunk('infoBar', null, $view->infoMsg, null); }?>
   <table class="table full-width">
     <tr>
       <td colspan="2">
@@ -40,7 +44,7 @@ use lib\Objects\GeoCache\GeoCacheCommons;
       <td>
         <select name="reportLeader" class="form-control input200" id="leaderSelectCtrl"><?=$view->leaderSelect?></select>
         <button type="button" class="btn btn-default" onclick="changeLeader(<?=$view->report->getId()?>)">{{admin_reports_btn_change}}</button>
-        <?php if ($view->report->getUserIdLeader() != null) { ?>(<a href="/viewprofile.php?userid=<?=$view->report->getUserIdLeader()?>" class="links" target="_blank"><?=$view->report->getUserLeader()->getUserName()?></a>)<?php }?>&nbsp;
+        (<span class="report-strong" id="report-leader"><?php if ($view->report->getUserIdLeader() != null) { echo $view->report->getUserLeader()->getUserName(); } ?></span>)
       </td>
     </tr>
     <tr>
@@ -48,7 +52,7 @@ use lib\Objects\GeoCache\GeoCacheCommons;
       <td>
         <select name="reportStatus" class="form-control input200" id="statusSelectCtrl"><?=$view->statusSelect?></select>
         <button type="button" class="btn btn-default" onclick="changeStatus(<?=$view->report->getId()?>)">{{admin_reports_btn_change}}</button>
-        (<strong><?=tr($view->report->getReportStatusTranslationKey())?></strong>)
+        (<span class="report-strong" id="report-status"><?=tr($view->report->getReportStatusTranslationKey())?></span>)
       </td>
     </tr>
     <tr>
@@ -110,15 +114,57 @@ use lib\Objects\GeoCache\GeoCacheCommons;
       <td class="content-title-noshade" style="text-align: right;">{{size}}</td>
       <td><?=tr($view->report->getCache()->getSizeTranslationKey())?></td>
     </tr>
-<!-- 
-    <tr>
-      <td colspan="2"><p class="content-title-noshade-size1">{{actions}}</p></td>
+    <tr id="report-note-row">
+      <td colspan="2">
+        <p class="content-title-noshade-size1">
+          {{admin_reports_lbl_note}}&nbsp;&nbsp;
+          <button type="button" class="btn btn-sm btn-default" onclick="enableEmail()">{{admin_reports_lbl_email}}</button>
+        </p>
+      </td>
     </tr>
-    <tr>
-      <td class="content-title-noshade" style="text-align: right;"></td>
-      <td></td>
+    <tr id="report-note-row2">
+      <td colspan="2" style="text-align: center">
+        <form action="?action=addnote" method="post" class="reports-form">
+          <textarea rows="6" name="note" class="report-note form-control" id="form-note-textarea"></textarea><br>
+          <input type="submit" class="btn btn-default" value="{{save}}">
+          <input type="hidden" name="id" value="<?=$view->report->getId()?>">
+        </form>
+      </td>
     </tr>
-     -->
+    <tr id="report-email-row" style="display: none;">
+      <td colspan="2">
+        <p class="content-title-noshade-size1">
+          {{admin_reports_lbl_email}}&nbsp;&nbsp;
+          <button type="button" class="btn btn-sm btn-default" onclick="enableNote()">{{admin_reports_lbl_note}}</button> &nbsp;
+          <img src="/tpl/stdstyle/images/loader/spinning-circles.svg" class="report-watch-img" alt="" id="email-spinning-img" style="display: none;">
+        </p>
+      </td>
+    </tr>
+    <tr id="report-email-row2" style="display: none;">
+      <td colspan="2">
+        <form action="?action=sendemail" method="post" class="reports-form">
+          <fieldset id="email-recipient" class="reports-fieldset">
+            <legend class="content-title-noshade">{{admin_reports_lbl_recipient}}</legend>
+            <input type="radio" value="<?=ReportEmailTemplate::RECIPIENT_SUBMITTER?>" name="email-recipient" id="radio-recipient-submitter" onchange="getTemplates(<?=Report::OBJECT_CACHE?>)">
+            <label for="radio-recipient-submitter">{{admin_reports_lbl_submitter}}</label>
+            <input type="radio" value="<?=ReportEmailTemplate::RECIPIENT_CACHEOWNER?>" name="email-recipient" id="radio-recipient-cacheowner" onchange="getTemplates(<?=Report::OBJECT_CACHE?>)">
+            <label for="radio-recipient-cacheowner">{{admin_reports_lbl_cacheowner}}</label>
+            <input type="radio" value="<?=ReportEmailTemplate::RECIPIENT_ALL?>" name="email-recipient" id="radio-recipient-all" onchange="getTemplates(<?=Report::OBJECT_CACHE?>)">
+            <label for="radio-recipient-all">{{admin_reports_lbl_submitter}} &amp; {{admin_reports_lbl_cacheowner}}</label>
+          </fieldset>
+          <fieldset id="email-template" class="reports-fieldset" style="display: none;">
+            <legend class="content-title-noshade">{{admin_reports_lbl_template}}</legend>
+            <select class="form-control" id="templateSelect" onchange="getTemplate()"></select>
+          </fieldset>
+          <fieldset id="email-content" class="reports-fieldset" style="display: none;">
+            <legend class="content-title-noshade">{{admin_reports_lbl_content}}</legend>
+            <textarea class="report-note form-control" name="content" id="form-email-textarea"></textarea>
+            <button class="btn btn-default" type="button">{{email_submit}}</button>
+          </fieldset>
+          <input type="hidden" name="id" value="<?=$view->report->getId()?>">
+        </form>
+      </td>
+    </tr>
     <tr>
       <td colspan="2"><p class="content-title-noshade-size1">{{admin_reports_lbl_archive}}</p></td>
     </tr>

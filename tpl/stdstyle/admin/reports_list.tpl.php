@@ -1,5 +1,6 @@
 <?php ?>
 <script src="<?=$view->reports_js?>"></script>
+<link rel="prefetch" href="/tpl/stdstyle/images/loader/spinning-circles.svg">
 <div class="content2-container">
   <form action="/admin_reports.php" method="post">
   <div class="content2-pagetitle">
