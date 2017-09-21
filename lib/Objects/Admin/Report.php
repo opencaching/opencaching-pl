@@ -31,6 +31,7 @@ class Report extends BaseObject
     const STATUS_ALL = - 1;
     const STATUS_OPEN = - 2;  // = not STATUS_CLOSED
 
+    // "Virtual" types of users
     const USER_NOBODY = 0;
     const USER_ALL = - 1;
     const USER_YOU = - 2;
@@ -165,7 +166,7 @@ class Report extends BaseObject
      */
     private $uuid;
 
-    public function __construct(array $params = array())
+    public function __construct(array $params = [])
     {
         parent::__construct();
         if (isset($params['reportId'])) {
@@ -758,6 +759,23 @@ class Report extends BaseObject
         ReportWatches::turnWatchOffByReportId($this->id, $userId);
     }
 
+    /**
+     * Returns URI of report. (maybe we will use routing in future?)
+     *
+     * @param int $reportId
+     * @return string
+     */
+    public static function getLinkToReport($reportId)
+    {
+        return '/admin_reports.php?action=showreport&id=' . $reportId;
+    }
+
+    /**
+     * Changes leader of report to $newLeader, changes "last change" data and sends notifications
+     *
+     * @param int $newLeader
+     * @return boolean
+     */
     public function changeLeader($newLeader)
     {
         if (! $this->isDataLoaded()) {
@@ -777,10 +795,20 @@ class Report extends BaseObject
             $log .= ' ' . tr('admin_reports_tpl_statushdr') . ' ' . tr($this->getReportStatusTranslationKey()) . '</strong><br>';
         }
         $this->addLog($log);
-// TODO: Jesli nowym prowadzacym nie jest osoba, ktora zmieniła lidera - powiadom nowego lidera
-// TODO: Powiadom osoby, które obserwują, z wyjątkiem nowego lidera i zalogowanego użytkownika
+        if ($this->userIdLeader == $this->userIdChangeStatus) {
+            $this->sendWatchEmails($log);
+        } else {
+            ReportEmailSender::sendReportNewLeader($this, $this->userLeader);
+            $this->sendWatchEmails($log, [ $this->userIdLeader ]);
+        }
     }
 
+    /**
+     * Changes status of report, changes "last change" data and sends notifications
+     *
+     * @param int $newStatus
+     * @return boolean
+     */
     public function changeStatus($newStatus)
     {
         if (! $this->isDataLoaded()) {
@@ -792,10 +820,31 @@ class Report extends BaseObject
         $log .= $this->userChangeStatus->getUserName();
         $log .= ' ' . tr('admin_reports_tpl_statushdr') . ': ' . tr($this->getReportStatusTranslationKey()) . '</strong><br>';
         $this->addLog($log);
-// TODO: Jesli zmiana na Zajrzyj tu - wyslij maila do wszystkich
-// TODO: Powiadom osoby, ktore obserwuja, za wyjątkiem zalogowanego użytkownika
+        // Send notification about new status
+        if ($this->status == self::STATUS_LOOK_HERE) {
+            $userlist = Report::getOcTeamArray();
+            foreach ($userlist as $user) { // Send mails to all OC Team members
+                if ($user['user_id'] == $this->userIdChangeStatus) { // Notify user who changed status?
+                    if ($this->isReportWatched($this->userIdChangeStatus)) { // YES, but only if he wants it
+                        ReportEmailSender::sendReportWatch($this, $this->userChangeStatus, $log);
+                    }
+                } else { // Notify other OC Team users
+                    $usr = new User(['userId' => $user['user_id']]);
+                    ReportEmailSender::sendReportLookHere($this, $usr);
+                    unset($usr);
+                }
+            }
+        } else { //Status changed NOT to look here
+            $this->sendWatchEmails($log); // If it is not change to "Look here", send standard watch mails
+        }
     }
 
+    /**
+     * Adds $submittedNote as note to report
+     *
+     * @param string $submittedNote
+     * @return boolean
+     */
     public function addNote($submittedNote) {
         if (! $this->isDataLoaded()) {
             return false;
@@ -806,9 +855,14 @@ class Report extends BaseObject
         $log .= $this->userChangeStatus->getUserName();
         $log .= ' ' . tr('admin_reports_tpl_infohdr') . ':</strong><br>' . $submittedNote . '<br>';
         $this->addLog($log);
-// TODO: Powiadom osoby, które obserwują
+        $this->sendWatchEmails($log);
+        return true;
     }
 
+    /**
+     * "Touch" report. Update last change date and last change user.
+     * This method don't save "touched" report!
+     */
     private function updateLastChanged() {
         unset($this->dateChangeStatus);
         $this->dateChangeStatus = new \DateTime('now');
@@ -816,12 +870,32 @@ class Report extends BaseObject
         unset($this->userChangeStatus);
         $this->userChangeStatus = $this->getCurrentUser();
     }
+
     private function addLog($log) {
         if (! $this->isDataLoaded()) {
             return false;
         }
         $this->note = $log . '<br>' . $this->note;
         $this->saveReport();
+    }
+
+    /**
+     * Sends $log to users who watch report except users in $dontSend array od userId's
+     *
+     * @param string $log
+     * @param array $dontSend
+     */
+    private function sendWatchEmails($log, $dontSend = [])
+    {
+        $userlist = ReportWatches::getWatchersByReportId($this->id);
+        foreach ($userlist as $user) {
+            if (in_array($user['user_id'], $dontSend)) {
+                continue;
+            }
+            $usr = new User(['userId' => $user['user_id']]);
+            ReportEmailSender::sendReportWatch($this, $usr, $log);
+            unset($usr);
+        }
     }
 
     public function saveReport() {
@@ -838,6 +912,11 @@ class Report extends BaseObject
         }
     }
 
+    /**
+     * Saves object to DB. If you want to save Report - use saveReport()!
+     *
+     * @return boolean
+     */
     private function saveToDb() {
         $query = "
             UPDATE `reports`
@@ -884,6 +963,11 @@ class Report extends BaseObject
         return (self::db()->paramQuery($query, $params) !== null);
     }
 
+    /**
+     * Inserts object to DB. Use saveReport() instead of this!
+     * NOT TESTED!!!
+     * @return int
+     */
     private function insertToDb() {
 // TODO: Sprawdzić!!!
         $query = "
@@ -925,6 +1009,7 @@ class Report extends BaseObject
         $params['id']['value'] = $this->id;
         $params['id']['data_type'] = 'integer';
         self::db()->paramQuery($query, $params);
-        return self::db()->lastInsertId();
+        $this->id = self::db()->lastInsertId();
+        return $this->id;
     }
 }

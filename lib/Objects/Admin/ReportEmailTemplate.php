@@ -110,7 +110,7 @@ class ReportEmailTemplate extends BaseObject
         $query = "
             SELECT `id`, `shortdesc`, MAX(`version`) AS version
             FROM `email_schemas`
-            WHERE `object_type` = :object_type AND `receiver` = :receiver
+            WHERE `object_type` = :object_type AND `receiver` = :receiver AND deleted = 0
             GROUP BY `name`
             ORDER BY `shortdesc`";
         $params = [];
