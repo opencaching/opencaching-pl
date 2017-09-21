@@ -69,4 +69,23 @@ class ReportWatches extends BaseObject
         $params['userId']['data_type'] = 'integer';
         return (self::db()->paramQueryValue($query, 0, $params) > 0);
     }
+
+    /**
+     * Returns array with user_id of users which watch given report
+     *
+     * @param int $reportId
+     * @return array
+     */
+    public static function getWatchersByReportId($reportId)
+    {
+        $query = "
+            SELECT `user_id` FROM `reports_watches`
+            WHERE report_id = :reportId";
+        $params = [];
+        $params['reportId']['value'] = $reportId;
+        $params['reportId']['data_type'] = 'integer';
+        $stmt = self::db()->paramQuery($query, $params);
+        return (self::db()->dbResultFetchAll($stmt));
+
+    }
 }
