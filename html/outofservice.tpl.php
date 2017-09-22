@@ -5,10 +5,8 @@
         <meta http-equiv="content-type" content="text/xhtml; charset=ISO-8859-1" />
         <meta http-equiv="Content-Language" content="pl" />
         <meta http-equiv="gallerimg" content="no" />
-        <!-- Favicon noch nicht vorhanden <link rel="shortcut icon" href="favicon.ico" />-->
-        <!-- <link rel="stylesheet" type="text/css" href="tpl/stdstyle/css/main.css" /> -->
     </head>
-    <body bgcolor="white">
+    <body>
         <center>
             <img src="/images/logo.jpg" alt="oc-Logo" style="border:0px;"/>
             <div id="content">

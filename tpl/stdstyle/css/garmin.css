@@ -1,3 +1,6 @@
+/* This css is used only by /garmin.php script */ 
+
+
 #SendToGPS { BACKGROUND: #dde3d6; BORDER-RIGHT: #005e9d 2px outset; BORDER-TOP: #000000 1px outset; FONT-WEIGHT: bold; FONT-SIZE: 8pt; PADDING-BOTTOM: 2px; BORDER-LEFT: #000000 1px outset; PADDING-TOP: 2px; BORDER-BOTTOM: #005e9d 2px outset; FONT-FAMILY: verdana }
 
 #garminDisplay {
