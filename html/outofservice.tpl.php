@@ -16,8 +16,5 @@
                     <p><br/>Zapraszamy na <a href="http://forum.opencaching.pl">forum</a></p>
             </div>
             <hr noshade="noshade" />
-            <div id="footBox">
-
-            </div>
     </body>
 </html>

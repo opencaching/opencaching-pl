@@ -2,15 +2,8 @@ body, html {
     background-color: white;
 }
 
-div#seasonalBackground {
-    display: none;
-}
-
-
-
-
 .noprint, .navflag-container, .site-slogan-container, #loginbox-container, .footer, 
-.page-container-1-2, #logo, .header, .site-name, #nav2, #nav3, 
+.page-container-1-2, #logo, .header, .site-name, #nav2, #nav3, div#seasonalBackground,
 .notlogged-cacheview
 {
     display: none;
