@@ -1,5 +1,0 @@
-# References to viewcache.js script are generated dynamically in PHP and contain numeric time-stamps.
-# This is stripped here to return the actual file.
-
-RewriteEngine On
-RewriteRule ^viewcache\.\d+\.js$ viewcache.js

@@ -50,7 +50,6 @@ if (date('m') == 12 || date('m') == 1) {
         <meta name="author" content="{site_name}">
 
         <link rel="stylesheet" type="text/css" media="screen" href="<?=$view->screenCss?>">
-        <link rel="stylesheet" type="text/css" media="screen" href="<?=$view->seasonCss?>">
         <link rel="stylesheet" type="text/css" media="print" href="<?=$view->printCss?>">
 
 

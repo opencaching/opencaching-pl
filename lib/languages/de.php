@@ -453,7 +453,7 @@ $translations = array(
     'images' => 'Bilder',
     'mp3_files_info' => 'PodCasts - MP3 Datei',
     'utilities' => 'Dienstprogramme',
-    'search_geocaches_nearby' => 'Cache suchen in Umkreis von 100km',
+    'search_geocaches_nearby' => 'Cache suchen in Umkreis von 20km',
     'download_as_file' => 'Als Datei download',
     'accept_terms_of_use' => 'Mit dem Download dieser Datei akzeptierst du unsere <a href="{wiki_link_rules_en}">Nutzungsbedigungen</a>.',
     'find_geocaches_on' => 'Geocaches finden an',

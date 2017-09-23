@@ -453,7 +453,7 @@ $translations = array(
     'images' => 'Pictures',
     'mp3_files_info' => 'PodCasts - listen to the instructions that will lead you to a cache - MP3 files',
     'utilities' => 'Utilities',
-    'search_geocaches_nearby' => 'Find geocaches nearby (radius 100 km)',
+    'search_geocaches_nearby' => 'Find geocaches nearby (radius 20 km)',
     'download_as_file' => 'Download as file',
     'accept_terms_of_use' => 'By downloading this file, you accept our <a href="{wiki_link_rules}">terms of use</a>.',
     'find_geocaches_on' => 'Find geocaches on',

@@ -418,7 +418,7 @@ $translations = array(
     'mp3_files_info' => 'PodCasts - MP3 files',
     'utilities' => 'Utilities',
     'log_entries' => 'Logentries',
-    'search_geocaches_nearby' => 'Hledat blízké keše na OC PL (do vzdálenosti 100 km)',
+    'search_geocaches_nearby' => 'Hledat blízké keše na OC PL (do vzdálenosti 20 km)',
     'download_as_file' => 'Stáhnout jako soubor',
     'accept_terms_of_use' => 'Stažením souboru souhlasíte s našimi  <a href="{wiki_link_rules_en}" target="_blank">podmínkami použití</a>.',
     'find_geocaches_on' => 'Find geocaches on',
