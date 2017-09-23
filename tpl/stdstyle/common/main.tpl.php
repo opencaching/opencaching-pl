@@ -147,12 +147,22 @@ if (date('m') == 12 || date('m') == 1) {
                 <div class="site-slogan-container">
                     <form method="get" action="search.php" name="search_form" id="search_form">
                         <div class="site-slogan">
-                            <div style="width:100%; text-align:left;">
+                            <div>
                                 <p class="search">
-                                    <input type="radio" onclick="chname('waypointname','search.php');" name="searchto" id="st_1" value="searchbywaypointname" class="radio" checked="checked"> <label for="st_1">{{waypointname_label}}</label>&nbsp;&nbsp;
-                                    <?php if ($config['quick_search']['byowner']) { ?><input type="radio" onclick="chname('owner','search.php');" name="searchto" id="st_2" value="searchbyowner" class="radio"> <label for="st_2">{{owner_label}}</label>&nbsp;&nbsp; <?php } ?>
-                                    <?php if ($config['quick_search']['byfinder']) { ?><input type="radio" onclick="chname('finder','search.php');" name="searchto" id="st_3" value="searchbyfinder" class="radio"> <label for="st_3">{{finder_label}}</label>&nbsp;&nbsp; <?php } ?>
-                                    <?php if ($config['quick_search']['byuser']) { ?><input type="radio" onclick="chname('username','searchuser.php');" name="searchto" id="st_4" value="searchbyuser" class="radio"> <label for="st_4">{{user}}</label>&nbsp;&nbsp; <?php } ?>
+                                    <input type="radio" onclick="chname('waypointname','search.php');" name="searchto" id="st_1" value="searchbywaypointname" class="radio" checked="checked">
+                                    <label for="st_1">{{waypointname_label}}</label>&nbsp;&nbsp;
+                                    <?php if ($config['quick_search']['byowner']) { ?>
+                                      <input type="radio" onclick="chname('owner','search.php');" name="searchto" id="st_2" value="searchbyowner" class="radio">
+                                      <label for="st_2">{{owner_label}}</label>&nbsp;&nbsp;
+                                    <?php } ?>
+                                    <?php if ($config['quick_search']['byfinder']) { ?>
+                                      <input type="radio" onclick="chname('finder','search.php');" name="searchto" id="st_3" value="searchbyfinder" class="radio">
+                                      <label for="st_3">{{finder_label}}</label>&nbsp;&nbsp;
+                                    <?php } ?>
+                                    <?php if ($config['quick_search']['byuser']) { ?>
+                                      <input type="radio" onclick="chname('username','searchuser.php');" name="searchto" id="st_4" value="searchbyuser" class="radio">
+                                      <label for="st_4">{{user}}</label>&nbsp;&nbsp;
+                                    <?php } ?>
                                     <input type="hidden" name="showresult" value="1">
                                     <input type="hidden" name="expert" value="0">
                                     <input type="hidden" name="output" value="HTML">
@@ -165,7 +175,7 @@ if (date('m') == 12 || date('m') == 1) {
                                     <input type="hidden" name="f_geokret" value="0">
                                 </p>
                             </div>
-                            <div style="float:right;" class="form-group-xs">
+                            <div class="form-group-xs">
                                 <input id="search_input" type="text" name="waypointname" class="form-control input100" style="color:gray;">
                                 <input type="submit" name="submit" value="{{search}}" class="btn btn-default btn-xs">
                             </div>
@@ -173,14 +183,12 @@ if (date('m') == 12 || date('m') == 1) {
                     </form>
                 </div>
 
-                <!-- Navigation Level 1 -->
-                <div class="nav1-container">
-                    <div class="nav1" style="text-align:right;margin-right:20px;">
-                        <!-- loginbox -->
+                <div id="loginbox-container">
+                    <div id="loginbox">
                         <?php if($view->_isUserLogged){ //if-user-logged ?>
                             <?=tr('logged_as')?>
-                            <a href="viewprofile.php"><?=$view->_username?></a> -
-                            <a href="logout.php?token=<?=$view->_logoutCookie?>"><?=tr('logout')?></a>
+                            <a href="/viewprofile.php"><?=$view->_username?></a> -
+                            <a href="/logout.php?token=<?=$view->_logoutCookie?>"><?=tr('logout')?></a>
 
                         <?php } else { //user-not-logged ?>
                             <form action="login.php" method="post" enctype="application/x-www-form-urlencoded" name="login" dir="ltr"
@@ -203,8 +211,8 @@ if (date('m') == 12 || date('m') == 1) {
                     <div style="width:970px; padding-top:1px;"><img src="/images/head/rotator.php" alt="Banner" style="border:0px;"></div>
                 </div>
 
-                <!-- Navigation Level 2 -->
-                <div class="nav2">
+                <!-- Navigation - horizontal menu bar -->
+                <div id="nav2">
                     <ul>
                         <?php
                         $dowydrukuidx = mnu_MainMenuIndexFromPageId($menu, "mylist");
@@ -228,9 +236,9 @@ if (date('m') == 12 || date('m') == 1) {
                 <div class="buffer" style="height:30px;"></div>
 
                 <!-- NAVIGATION -->
-                <!-- Navigation Level 3 -->
+                <!-- Navigation Left menu -->
 
-                <div class="nav3">
+                <div id="nav3">
                     <?php
                     //Main menu
                     $mainmenuidx = mnu_MainMenuIndexFromPageId($menu, "start");
@@ -297,12 +305,12 @@ if (date('m') == 12 || date('m') == 1) {
                 </div>
 
                 <!--     CONTENT -->
-                <div class="content2">
+                <div id="templateContainer">
                     {template}
                 </div>
 
                 <!-- FOOTER -->
-                <div class="footer">
+                <div id="footer">
 
                     <?php
                     global $usr, $onlineusers, $dynstylepath;

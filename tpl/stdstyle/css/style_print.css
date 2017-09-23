@@ -9,8 +9,8 @@ div#seasonalBackground {
 
 
 
-.noprint, .navflag-container, .site-slogan-container, .nav1-container, .footer, 
-.page-container-1-2, #logo, .header, .site-name, .nav2, .nav3, 
+.noprint, .navflag-container, .site-slogan-container, #loginbox-container, .footer, 
+.page-container-1-2, #logo, .header, .site-name, #nav2, #nav3, 
 .notlogged-cacheview
 {
     display: none;
@@ -25,7 +25,7 @@ div#seasonalBackground {
     border-bottom: 0.3em solid #CCC;
 }
 
-.content2-container, .content3-container {clear: both; float: none; width: 769px; margin: 0px 0px 15px 0px; padding: 0px;}
+.content2-container {clear: both; float: none; width: 769px; margin: 0px 0px 15px 0px; padding: 0px;}
 .line-box {width:769px; border-bottom: solid 1px rgb(200,200,200); padding-bottom: 7px; margin: 0px 0px 15px 0px;}
 
 div.frame {

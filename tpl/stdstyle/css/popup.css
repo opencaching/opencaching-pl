@@ -1,9 +1,6 @@
 /* this css is used only for pages display as popup window */
 
-#SendToGPS { BACKGROUND: #dde3d6; BORDER-RIGHT: #005e9d 2px outset; BORDER-TOP: #000000 1px outset; FONT-WEIGHT: bold; FONT-SIZE: 8pt; PADDING-BOTTOM: 2px; BORDER-LEFT: #000000 1px outset; PADDING-TOP: 2px; BORDER-BOTTOM: #005e9d 2px outset; FONT-FAMILY: verdana }
-
 img {}
-div#map_canvas img { behavior: none; }
 
 .topframe {
     padding:5px;
@@ -501,27 +498,6 @@ input.formbuttons { background-color:white;
 
 .ul_icons { margin-top:0px; margin-bottom:0px; }    /* ul for action-links in viewcache */
 
-.menuBar
-{
-    background-color:#F0F0EE;
-    margin:2px 2px 2px 2px;
-    padding:2px 2px 2px 2px;
-    border:solid 1px #CCCCCC;
-    font-size:smaller;
-    width:155px;
-    cursor:default;
-}
-
-.buttonNormal
-{
-    padding:3px 4px 3px 4px;
-    cursor:default;
-}
-
-.buttonSplitter
-{
-    color:#CCCCCC;
-}
 
 .filters
 {
