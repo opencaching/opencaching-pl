@@ -111,12 +111,14 @@ if (date('m') == 12 || date('m') == 1) {
         </script>
 
     </head>
-    <body {bodyMod}>
+    <body {bodyMod} class="<?=$view->backgroundSeason?>">
 
         <div id="overall">
             <div class="page-container-1" style="position: relative;">
-                <div id="bg1">&nbsp;</div>
-                <div id="bg2">&nbsp;</div>
+
+                <div class="seasonalBackground left <?=$view->backgroundSeason?>">&nbsp;</div>
+                <div class="seasonalBackground right <?=$view->backgroundSeason?>">&nbsp;</div>
+
                 <!-- HEADER -->
                 <!-- OC-Logo -->
                 <div><img src="/images/<?=$logo3?>" alt="OC logo" style="margin-top:5px; margin-left:3px;"></div>

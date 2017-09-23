@@ -2,11 +2,18 @@ body, html {
     background-color: white;
 }
 
-.noprint, .navflag-container, .site-slogan-container, .nav1-container, .footer, .page-container-1-2, #logo, #bg1, #bg2, .header, .site-name, .nav2, .nav3, .notlogged-cacheview, #cachemenu
+div#seasonalBackground {
+    display: none;
+}
+
+
+
+
+.noprint, .navflag-container, .site-slogan-container, .nav1-container, .footer, 
+.page-container-1-2, #logo, .header, .site-name, .nav2, .nav3, 
+.notlogged-cacheview
 {
     display: none;
-    width:0;
-    height:0;
 }
 
 #overall {
