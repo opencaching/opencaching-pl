@@ -304,7 +304,7 @@ if (date('m') == 12 || date('m') == 1) {
                 </div>
 
                 <!--     CONTENT -->
-                <div id="templateContainer">
+                <div class="templateContainer">
                     {template}
                 </div>
 
