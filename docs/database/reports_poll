@@ -1,0 +1,36 @@
+Table reports_poll
+----------
+
++------------+----------+------+-----+---------+----------------+
+| Field      | Type     | Null | Key | Default | Extra          |
++------------+----------+------+-----+---------+----------------+
+| id         | int(11)  | NO   | PRI | NULL    | auto_increment |
+| report_id  | int(11)  | NO   | MUL | NULL    |                |
+| date_start | datetime | NO   |     | NULL    |                |
+| date_end   | datetime | NO   | MUL | NULL    |                |
+| question   | tinytext | NO   |     | NULL    |                |
+| ans1       | tinytext | NO   |     | NULL    |                |
+| ans2       | tinytext | NO   |     | NULL    |                |
+| ans3       | tinytext | YES  |     | NULL    |                |
++------------+----------+------+-----+---------+----------------+
+
+Column description
+-------------------
+
+
+
+*************************** 1. row ***************************
+       Table: reports_poll
+Create Table: CREATE TABLE `reports_poll` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `report_id` int(11) NOT NULL,
+  `date_start` datetime NOT NULL,
+  `date_end` datetime NOT NULL,
+  `question` tinytext COLLATE utf8_bin NOT NULL,
+  `ans1` tinytext COLLATE utf8_bin NOT NULL,
+  `ans2` tinytext COLLATE utf8_bin NOT NULL,
+  `ans3` tinytext COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `report_id` (`report_id`),
+  KEY `date_end` (`date_end`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_bin

@@ -1,0 +1,28 @@
+Table reports_poll_votes
+----------
+
++--------------+-----------+------+-----+---------------------+-------+
+| Field        | Type      | Null | Key | Default             | Extra |
++--------------+-----------+------+-----+---------------------+-------+
+| poll_id      | int(11)   | NO   | PRI | NULL                |       |
+| user_id      | int(11)   | NO   | PRI | NULL                |       |
+| vote         | int(11)   | NO   | MUL | NULL                |       |
+| date_created | timestamp | NO   |     | current_timestamp() |       |
++--------------+-----------+------+-----+---------------------+-------+
+
+Column description
+-------------------
+
+
+
+*************************** 1. row ***************************
+       Table: reports_poll_votes
+Create Table: CREATE TABLE `reports_poll_votes` (
+  `poll_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `vote` int(11) NOT NULL,
+  `date_created` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`poll_id`,`user_id`),
+  KEY `vote` (`vote`),
+  KEY `poll_id` (`poll_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin

@@ -250,6 +250,12 @@ removed_objects
 	FIXME
 reports
 	Reports of caches and PowerTrails
+reports_log
+    All activity related to Reports
+reports_poll
+    Polls used in Reports
+reports_poll_votes
+    Votes in polls (used in Reports)
 reports_watches
     Stores info about OC Team users who watches reports
 route_points
