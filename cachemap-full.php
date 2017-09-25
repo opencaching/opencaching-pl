@@ -1,5 +1,6 @@
 <?php
 use lib\Objects\GeoCache\PrintList;
+use Utils\Uri\Uri;
 
 /**
  *
@@ -58,6 +59,8 @@ setTheRestOfCommonVars();
 
 $view->loadJQuery();
 $view->loadGMapApi();
+$view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/map/cachemap3-full.css'));
+
 
 //...and lest run template in fullscrean mode...
 tpl_BuildTemplate(true, true);

@@ -222,3 +222,48 @@ label.two-state-btn input:checked ~ span.uncheckedLabel {
 label.two-state-btn input:not(:checked) ~ span.checkedLabel {
   display: none;
 }
+
+a.links2:link {
+    font-weight:bold;
+    color: #323232;
+    text-decoration:none;
+}
+
+a.links2:visited {
+    font-weight:bold;
+    color: #323232;
+    text-decoration:none;
+}
+
+a.links2:active {
+    text-decoration:none;
+}
+
+a.links2:hover {
+    font-weight:bold;
+    color:black;
+    text-decoration: none;
+}
+
+/*links with color  */
+a.links4:link {
+    font-weight:bold;
+    color: rgb(88,144,168);
+    text-decoration:none;
+}
+
+a.links4:visited {
+    font-weight:bold;
+    color: rgb(88,144,168);
+    text-decoration:none;
+}
+
+a.links4:active {
+    text-decoration:none;
+}
+
+a.links4:hover {
+    font-weight:bold;
+    color:blue;
+    text-decoration: underline;
+}

@@ -1197,10 +1197,17 @@
             gestureHandling: 'greedy', //disable ctrl+ zooming
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             mapTypeControlOptions: {
-                mapTypeIds: mapTypeIds
+                mapTypeIds: mapTypeIds,
+                position: google.maps.ControlPosition.TOP_RIGHT
+            },
+            fullscreenControlOptions: {
+               position: google.maps.ControlPosition.TOP_LEFT
             }
         }
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+
+
     for (var mapType in mapItems){
         var mapObj = mapItems[mapType]();
         map.mapTypes.set(mapType, mapObj);
@@ -1293,7 +1300,9 @@ $( document ).ready(function() {
         <!-- map -->
         <div id="mapOuterdiv" style="display: {mapOuterdiv}" class="content2-container">
             <div class="align-right" style="height: 32px">
-                <a id="fullscreenOn" style="cursor: pointer" href="cachemap-full.php?pt={powerTrailId}&lat={mapCenterLat}&lon={mapCenterLon}&calledFromPt=1" ><img src="images/fullscreen.png" alt="{{fullscreen}}" title="{{fullscreen}}"></a>
+                <a id="fullscreenOn" style="cursor: pointer" href="cachemap-full.php?pt={powerTrailId}&lat={mapCenterLat}&lon={mapCenterLon}&calledFromPt=1" >
+                  <img src="images/fullscreen.png" alt="{{fullscreen}}" title="{{fullscreen}}">
+                </a>
             </div>
             <div id="map-canvas"></div>
         </div>

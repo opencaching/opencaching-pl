@@ -452,7 +452,7 @@ $translations = array(
     'images' => 'Pictures',
     'mp3_files_info' => 'PodCasts - listen to the instructions that will lead you to a cache - MP3 files',
     'utilities' => 'Unelte utile',
-    'search_geocaches_nearby' => 'Caută geocutii în apropiere (pe o rază de 100 km)',
+    'search_geocaches_nearby' => 'Caută geocutii în apropiere (pe o rază de 20 km)',
     'download_as_file' => 'Descarcă fişier',
     'accept_terms_of_use' => 'Descărcând acest fişier accepţi <a href="{wiki_link_rules}">Condiţiile de Utilizare</a>.',
     'find_geocaches_on' => 'Caută geocutii pe',

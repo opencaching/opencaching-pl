@@ -1,3 +1,5 @@
+/* This css is used only by /logbook.php script */
+
 form#logbookopts label {
     display: block;  /* block float the labels to left column, set a width */
     float: left;

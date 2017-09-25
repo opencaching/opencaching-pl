@@ -404,7 +404,7 @@ $translations = array(
     'mp3_files_info' => 'PodCasts - MP3 files',
     'utilities' => 'Utilities',
     'log_entries' => 'Logentries',
-    'search_geocaches_nearby' => 'Find geocaches nearby on OC PL (radius 100 km)',
+    'search_geocaches_nearby' => 'Find geocaches nearby on OC PL (radius 20 km)',
     'download_as_file' => 'Download as file',
     'accept_terms_of_use' => 'When downloading this file, you accept our <a href="{wiki_link_rules_en}" target="_blank">terms of use</a>.',
     'find_geocaches_on' => 'Find geocaches on',

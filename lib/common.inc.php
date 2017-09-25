@@ -106,16 +106,6 @@ function processAuthentication(){
             $_SESSION['user_id'] = $user->getUserId();
         }
 
-        if($GLOBALS['config']['checkRulesConfirmation']){
-
-            if (! $user->areRulesConfirmed() ) {
-                if (!isset($_SESSION['called_from_confirm']))
-                    header("Location: confirm.php");
-                    else
-                        unset($_SESSION['called_from_confirm']);
-            }
-        }
-
         if (!(isset($_SESSION['logout_cookie']))) {
             $_SESSION['logout_cookie'] = mt_rand(1000, 9999) . mt_rand(1000, 9999);
         }

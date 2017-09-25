@@ -453,7 +453,7 @@ $translations = array(
     'images' => 'Obrazki/zdjęcia',
     'mp3_files_info' => 'PodCast - słuchaj jak dotrzeć do skrzynki - plik MP3',
     'utilities' => 'Użyteczne',
-    'search_geocaches_nearby' => 'Szukaj skrzynek w promieniu 100 km',
+    'search_geocaches_nearby' => 'Szukaj skrzynek w promieniu 20 km',
     'download_as_file' => 'Pobierz dane',
     'accept_terms_of_use' => 'Pobierając dane z Opencaching PL akceptujesz <a href="{wiki_link_rules}">warunki ich użycia</a>.',
     'find_geocaches_on' => 'Pokaż najbliższe skrzynki na',

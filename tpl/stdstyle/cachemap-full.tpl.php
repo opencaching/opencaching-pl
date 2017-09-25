@@ -1,16 +1,3 @@
-<style>
-    .opt_table input { border: 0; }
-    .opt_table { background: #eee; margin: 3px auto; width:100% }
-    .opt_table th { background: #888; padding: 3px 8px 5px 8px; font-family: Tahoma; font-size: 13px; font-weight: bold; color: #fff; }
-    .opt_table td { padding: 3px 3px 3px 6px; font-family: Tahoma; font-size: 13px; vertical-align: top; }
-    .opt_table select { padding: 1px; font-family: Tahoma; font-size: 13px; border: 1px solid #888; }
-    .opt_table td.i { position: relative; width: 35px; display: block; }
-    .opt_table td.i img { position: absolute; top: 0; }
-    .opt_table .dim { color: #888; }
-    .opt_table .dim img { opacity: .3; }
-    #ext_search input.gsc-input { width: 10em; }
-</style>
-
 <div id="map_canvas" style="width: 100%; height: 100%; position: absolute; top: 0px;">
 </div>
 

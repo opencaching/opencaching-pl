@@ -57,7 +57,7 @@ setTheRestOfCommonVars();
 
 $view->loadJQuery();
 $view->loadGMapApi();
-$view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/css/cachemap3.css'));
+$view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/map/cachemap3.css'));
 
 // ...and lest run template...
 tpl_BuildTemplate();
