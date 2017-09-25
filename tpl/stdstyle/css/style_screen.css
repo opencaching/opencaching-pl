@@ -152,7 +152,7 @@ ul#statmenu { padding: 0px; margin: 0px;}
 .content2-pagetitle            { overflow: hidden; width: 769px; margin: 0px 0px 10px 0px; padding: 0px 0px 2px 0px; border-bottom: solid 3px rgb(88,144,168); color: rgb(88,144,168); font-weight: bold; font-size: 180%;}
 
 
-#templateContainer a           { color: rgb(75,75,75); text-decoration: underline;}
+#templateContainer a           { color: rgb(75,75,75);}
 /*********************************/
 /* SECTION 6 - COMMON PARAMETERS */
 /*********************************/
@@ -1008,6 +1008,33 @@ div.listitems {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
 }
+
+/* This is for myRoutes only */
+div.ver {
+    height: 30px;
+    margin-top:3px;
+    margin-bottom:3px;
+    margin-right:5px;
+    margin-left:5px;
+    float:left;
+    border-left: 2px solid white;
+}
+div.ver35 {
+    height: 100%;
+    margin-top:3px;
+    margin-bottom:3px;
+    margin-right:5px;
+    margin-left:5px;
+    float:left;
+    border-left: 2px solid #7fa2ca;
+}
+div.myr{
+    vertical-align: middle;
+    text-align:center;
+    float:left;
+    font-size:12px;
+    font-weight:bold;
+    line-height:1.6em;}
 
 td.myr{
     text-align:center;
