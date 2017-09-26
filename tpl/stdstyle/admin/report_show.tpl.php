@@ -138,8 +138,8 @@ use lib\Objects\Admin\ReportPoll;
         <td colspan="2">
           <p class="content-title-noshade-size1">{{admin_reports_lbl_pollactive}}
           (<?=$poll->getDateStart()->format($view->dateFormat)?> - <?=$poll->getDateEnd()->format($view->dateFormat)?>)
-          <a href="?action=remindpoll&id=<?=$view->report->getId()?>&pollid=<?=$poll->getId()?>" class="btn btn-default btn-xs">{{admin_reports_lbl_pollremind}}</a>
-          <?php if ($poll->getVotesCount() == 0) { ?><a href="?action=cancelpoll&id=<?=$view->report->getId()?>&pollid=<?=$poll->getId()?>" class="btn btn-xs btn-default">{{cancel}}</a><?php }?>
+          <a href="?action=remindpoll&amp;id=<?=$view->report->getId()?>&amp;pollid=<?=$poll->getId()?>" class="btn btn-default btn-xs">{{admin_reports_lbl_pollremind}}</a>
+          <?php if ($poll->getVotesCount() == 0) { ?><a href="?action=cancelpoll&amp;id=<?=$view->report->getId()?>&amp;pollid=<?=$poll->getId()?>" class="btn btn-xs btn-default">{{cancel}}</a><?php }?>
           </p>
         </td>
       </tr>
