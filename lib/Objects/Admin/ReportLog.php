@@ -171,6 +171,12 @@ class ReportLog extends BaseObject
         $this->pollId = $pollId;
     }
 
+    /**
+     * Returns ready - HTML formatted log for reports
+     * Appearance of log entry depends of log type
+     *
+     * @return string
+     */
     public function getFormattedLog() {
         if (! $this->dataLoaded) {
             return null;
@@ -247,6 +253,12 @@ class ReportLog extends BaseObject
         return $output;
     }
 
+    /**
+     * This is a static version of getFormattedLog()
+     *
+     * @param int $logId
+     * @return string
+     */
     public static function getFormattedLogById($logId) {
         $log = new ReportLog(['logId' => $logId]);
         $output = $log->getFormattedLog();
@@ -381,7 +393,7 @@ class ReportLog extends BaseObject
     }
 
     /**
-     * Inserts ReportLog as new log in DB, returns id of new ReportLog
+     * Inserts ReportLog as new log in DB, returns id of new ReportLog Id
      *
      * @return int
      */
@@ -406,5 +418,4 @@ class ReportLog extends BaseObject
         $this->id = self::db()->lastInsertId();
         return $this->id;
     }
-
 }

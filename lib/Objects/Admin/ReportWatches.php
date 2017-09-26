@@ -41,7 +41,7 @@ class ReportWatches extends BaseObject
     {
         $query = '
             DELETE FROM `reports_watches`
-            WHERE report_id = :reportId AND user_id = :userId';
+            WHERE `report_id` = :reportId AND `user_id` = :userId';
         $params = [];
         $params['reportId']['value'] = $reportId;
         $params['reportId']['data_type'] = 'integer';
@@ -61,7 +61,7 @@ class ReportWatches extends BaseObject
     {
         $query = '
             SELECT COUNT(*) FROM `reports_watches`
-            WHERE report_id = :reportId AND user_id = :userId';
+            WHERE `report_id` = :reportId AND `user_id` = :userId';
         $params = [];
         $params['reportId']['value'] = $reportId;
         $params['reportId']['data_type'] = 'integer';
@@ -80,12 +80,11 @@ class ReportWatches extends BaseObject
     {
         $query = '
             SELECT `user_id` FROM `reports_watches`
-            WHERE report_id = :reportId';
+            WHERE `report_id` = :reportId';
         $params = [];
         $params['reportId']['value'] = $reportId;
         $params['reportId']['data_type'] = 'integer';
         $stmt = self::db()->paramQuery($query, $params);
         return (self::db()->dbResultFetchAll($stmt));
-
     }
 }

@@ -185,5 +185,4 @@ class ReportEmailSender
         $email->setBody($formattedMessage->getEmailContent(), true);
         $email->send();
     }
-
 }

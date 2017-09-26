@@ -157,7 +157,7 @@ class ReportEmailTemplate extends BaseObject
                 FROM `email_schemas`
                 GROUP BY `name`
             ) b ON a.name = b.name AND a.version = b.ver
-            WHERE `object_type` = :object_type AND `receiver` = :receiver AND deleted = 0
+            WHERE `object_type` = :object_type AND `receiver` = :receiver AND `deleted` = 0
             ORDER BY `shortdesc`';
         $params = [];
         $params['object_type']['value'] = $objectType;

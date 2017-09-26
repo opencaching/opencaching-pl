@@ -324,7 +324,7 @@ class ReportsController extends BaseController
         $this->checkParam('ans1', true);
         $this->checkParam('ans2', true);
         $report = new Report(['reportId' => $_REQUEST['id']]);
-        $report->createPoll($_REQUEST['id'], $_POST['period'], $_POST['question'], $_POST['ans1'], $_POST['ans2'], (isset($_POST['ans3'])) ? $_POST['ans3'] : null);
+        $report->createPoll($_POST['period'], $_POST['question'], $_POST['ans1'], $_POST['ans2'], (isset($_POST['ans3'])) ? $_POST['ans3'] : null);
         unset($report);
         $this->infoMsg = tr('admin_reports_info_pollok');
         $this->redirectToSingleReport($_REQUEST['id']);

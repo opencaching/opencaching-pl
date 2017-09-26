@@ -190,7 +190,7 @@ class Report extends BaseObject
 
     private function loadById($reportId)
     {
-        $query = 'SELECT * FROM `reports` WHERE id = :1 LIMIT 1';
+        $query = 'SELECT * FROM `reports` WHERE `id` = :1 LIMIT 1';
         $stmt = self::db()->multiVariableQuery($query, $reportId);
         $dbRow = self::db()->dbResultFetch($stmt);
 
@@ -381,16 +381,32 @@ class Report extends BaseObject
         return $this->powerTrailId;
     }
 
+    /**
+     * Returns translation key of type of the current report
+     *
+     * @return string
+     */
     public function getReportTypeTranslationKey()
     {
         return self::ReportTypeTranslationKey($this->type);
     }
 
+    /**
+     * Returns translation key of status of the current report
+     *
+     * @return string
+     */
     public function getReportStatusTranslationKey()
     {
         return self::ReportStatusTranslationKey($this->status);
     }
 
+    /**
+     * Returns translation key for given report type
+     *
+     * @param int $type
+     * @return string
+     */
     public static function ReportTypeTranslationKey($type)
     {
         switch ($type) {
@@ -407,6 +423,12 @@ class Report extends BaseObject
         }
     }
 
+    /**
+     * Returns translation key of given status of the report
+     *
+     * @param int $status
+     * @return string
+     */
     public static function ReportStatusTranslationKey($status)
     {
         switch ($status) {
@@ -425,9 +447,15 @@ class Report extends BaseObject
         }
     }
 
-    public static function ReportUserTranslationKey($status)
+    /**
+     * Returns translation key for given "virtual" user type
+     *
+     * @param int $status
+     * @return string
+     */
+    public static function ReportUserTranslationKey($virtUser)
     {
-        switch ($status) {
+        switch ($virtUser) {
             case self::USER_NOBODY:
                 return 'admin_reports_usr_nobody';
             case self::USER_YOU:
@@ -439,6 +467,18 @@ class Report extends BaseObject
         }
     }
 
+    /**
+     * Returns array of Reports objects fulfilling given conditions
+     *
+     * @param User $currentUser
+     * @param string $waypoint
+     * @param int $type
+     * @param int $status
+     * @param int $user
+     * @param int $offset
+     * @param int $limit
+     * @return Report[]
+     */
     public static function getReports(User $currentUser, $waypoint = '', $type = self::DEFAULT_REPORTS_TYPE, $status = self::DEFAULT_REPORTS_STATUS, $user = self::DEFAULT_REPORTS_USER, $offset = 0, $limit = self::REPORTS_PER_PAGE)
     {
         $params = [];
@@ -446,10 +486,10 @@ class Report extends BaseObject
         $params['limit']['data_type'] = 'integer';
         $params['offset']['value'] = $offset;
         $params['offset']['data_type'] = 'integer';
-        $query = 'SELECT reports.* FROM reports';
+        $query = 'SELECT `reports`.* FROM `reports`';
         if ($waypoint != '' and ! is_null($waypoint)) {
-            $query .= ' INNER JOIN caches ON reports.cache_id = caches.cache_id
-                    WHERE (caches.wp_oc LIKE :waypoint OR caches.name LIKE :waypoint)';
+            $query .= ' INNER JOIN `caches` ON `reports`.`cache_id` = `caches`.`cache_id`
+                    WHERE (`caches`.`wp_oc` LIKE :waypoint OR `caches`.`name` LIKE :waypoint)';
             $params['waypoint']['value'] = '%' . $waypoint . '%';
             $params['waypoint']['data_type'] = 'string';
         } else {
@@ -458,43 +498,43 @@ class Report extends BaseObject
         if ($type == self::TYPE_ALL) {
             $query .= '';
         } else {
-            $query .= ' AND reports.type = :type';
+            $query .= ' AND `reports`.`type` = :type';
             $params['type']['value'] = $type;
             $params['type']['data_type'] = 'integer';
         }
         if ($status == self::STATUS_ALL) {
             $query .= '';
         } elseif ($status == self::STATUS_OPEN) {
-            $query .= ' AND reports.status != :status';
+            $query .= ' AND `reports`.`status` != :status';
             $params['status']['value'] = self::STATUS_CLOSED;
             $params['status']['data_type'] = 'integer';
         } else {
-            $query .= ' AND reports.status = :status';
+            $query .= ' AND `reports`.`status` = :status';
             $params['status']['value'] = $status;
             $params['status']['data_type'] = 'integer';
         }
         if ($user == self::USER_ALL) {
             $query .= '';
         } elseif ($user == self::USER_YOU) {
-            $query .= ' AND reports.responsible_id = :user';
+            $query .= ' AND `reports`.`responsible_id` = :user';
             $params['user']['value'] = $currentUser->getUserId();
             $params['user']['data_type'] = 'integer';
         } elseif ($user == self::USER_YOU2) {
-            $query .= ' AND (reports.responsible_id = :user OR reports.responsible_id IS NULL OR reports.status = :statuslook)';
+            $query .= ' AND (`reports`.`responsible_id` = :user OR `reports`.`responsible_id` IS NULL OR `reports`.`status` = :statuslook)';
             $params['user']['value'] = $currentUser->getUserId();
             $params['user']['data_type'] = 'integer';
             $params['statuslook']['value'] = self::STATUS_LOOK_HERE;
             $params['statuslook']['data_type'] = 'integer';
         } elseif ($user == self::USER_NOBODY) {
-            $query .= ' AND (reports.responsible_id IS NULL OR reports.status = :statuslook)';
+            $query .= ' AND (`reports`.`responsible_id` IS NULL OR `reports`.`status` = :statuslook)';
             $params['statuslook']['value'] = self::STATUS_LOOK_HERE;
             $params['statuslook']['data_type'] = 'integer';
         } else {
-            $query .= ' AND reports.responsible_id = :user';
+            $query .= ' AND `reports`.`responsible_id` = :user';
             $params['user']['value'] = $user;
             $params['user']['data_type'] = 'integer';
         }
-        $query .= ' ORDER BY reports.id DESC LIMIT :limit OFFSET :offset';
+        $query .= ' ORDER BY `reports`.`id` DESC LIMIT :limit OFFSET :offset';
         $stmt = self::db()->paramQuery($query, $params);
 
         return self::db()->dbFetchAllAsObjects($stmt, function ($row) {
@@ -502,13 +542,24 @@ class Report extends BaseObject
         });
     }
 
+    /**
+     * Counts total number of rows for parameters like in getReports, but without limit.
+     * For use in pagination / counters
+     *
+     * @param User $currentUser
+     * @param string $waypoint
+     * @param int $type
+     * @param int $status
+     * @param int $user
+     * @return int
+     */
     public static function getReportsCounts(User $currentUser, $waypoint = '', $type = self::DEFAULT_REPORTS_TYPE, $status = self::DEFAULT_REPORTS_STATUS, $user = self::DEFAULT_REPORTS_USER)
     {
         $params = [];
-        $query = 'SELECT COUNT(*) FROM reports';
+        $query = 'SELECT COUNT(*) FROM `reports`';
         if ($waypoint != '' and ! is_null($waypoint)) {
-            $query .= ' INNER JOIN caches ON reports.cache_id = caches.cache_id
-                    WHERE (caches.wp_oc LIKE :waypoint OR caches.name LIKE :waypoint)';
+            $query .= ' INNER JOIN `caches` ON `reports`.`cache_id` = `caches`.`cache_id`
+                    WHERE (`caches`.`wp_oc` LIKE :waypoint OR `caches`.`name` LIKE :waypoint)';
             $params['waypoint']['value'] = '%' . $waypoint . '%';
             $params['waypoint']['data_type'] = 'string';
         } else {
@@ -517,45 +568,53 @@ class Report extends BaseObject
         if ($type == self::TYPE_ALL) {
             $query .= ' ';
         } else {
-            $query .= ' AND reports.type = :type';
+            $query .= ' AND `reports`.`type` = :type';
             $params['type']['value'] = $type;
             $params['type']['data_type'] = 'integer';
         }
         if ($status == self::STATUS_ALL) {
             $query .= '';
         } elseif ($status == self::STATUS_OPEN) {
-            $query .= ' AND reports.status != :status';
+            $query .= ' AND `reports`.`status` != :status';
             $params['status']['value'] = self::STATUS_CLOSED;
             $params['status']['data_type'] = 'integer';
         } else {
-            $query .= ' AND reports.status = :status';
+            $query .= ' AND `reports`.`status` = :status';
             $params['status']['value'] = $status;
             $params['status']['data_type'] = 'integer';
         }
         if ($user == self::USER_ALL) {
             $query .= '';
         } elseif ($user == self::USER_YOU) {
-            $query .= ' AND reports.responsible_id = :user';
+            $query .= ' AND `reports`.`responsible_id` = :user';
             $params['user']['value'] = $currentUser->getUserId();
             $params['user']['data_type'] = 'integer';
         } elseif ($user == self::USER_YOU2) {
-            $query .= ' AND (reports.responsible_id = :user OR reports.responsible_id IS NULL OR reports.status = :statuslook)';
+            $query .= ' AND (`reports`.`responsible_id` = :user OR `reports`.`responsible_id` IS NULL OR `reports`.`status` = :statuslook)';
             $params['user']['value'] = $currentUser->getUserId();
             $params['user']['data_type'] = 'integer';
             $params['statuslook']['value'] = self::STATUS_LOOK_HERE;
             $params['statuslook']['data_type'] = 'integer';
         } elseif ($user == self::USER_NOBODY) {
-            $query .= ' AND (reports.responsible_id IS NULL OR reports.status = :statuslook)';
+            $query .= ' AND (`reports`.`responsible_id` IS NULL OR `reports`.`status` = :statuslook)';
             $params['statuslook']['value'] = self::STATUS_LOOK_HERE;
             $params['statuslook']['data_type'] = 'integer';
         } else {
-            $query .= ' AND reports.responsible_id = :user';
+            $query .= ' AND `reports`.`responsible_id` = :user';
             $params['user']['value'] = $user;
             $params['user']['data_type'] = 'integer';
         }
         return self::db()->paramQueryValue($query, 0, $params);
     }
 
+    /**
+     * Returns Report[] of reports watched by $user
+     *
+     * @param User $user
+     * @param int $offset
+     * @param int $limit
+     * @return Report[]
+     */
     public static function getWatchedReports(User $user, $offset = 0, $limit = self::REPORTS_PER_PAGE)
     {
         $query = '
@@ -580,6 +639,12 @@ class Report extends BaseObject
         });
     }
 
+    /**
+     * Returns count of watched reports by $user
+     *
+     * @param User $user
+     * @return int
+     */
     public static function getWatchedReportsCount(User $user)
     {
         $query = '
@@ -704,7 +769,7 @@ class Report extends BaseObject
     }
 
     /**
-     * Returns name of CSS class coresponding to delay of report management.
+     * Returns CSS class name coresponding to delay of report management.
      * It counts how many days report is unassigned or has no activity.
      *
      * @return string
@@ -782,7 +847,11 @@ class Report extends BaseObject
      */
     public static function getOcTeamArray()
     {
-        $query = 'SELECT user_id, username FROM user WHERE admin = 1 AND is_active_flag = 1 ORDER BY username';
+        $query = '
+            SELECT `user_id`, `username`
+            FROM `user`
+            WHERE `admin` = 1 AND `is_active_flag` = 1
+            ORDER BY username';
         $stmt = self::db()->simpleQuery($query);
         return self::db()->dbResultFetchAll($stmt);
     }
@@ -951,6 +1020,12 @@ class Report extends BaseObject
         return true;
     }
 
+    /**
+     * Sends e-mail OC Team -> user. $recipient is one of ReportEmailTemplate::RECIPIENT_*
+     *
+     * @param int $recipient
+     * @param string $content
+     */
     public function sendEmail($recipient, $content)
     {
         $content = strip_tags($content, '<br>');
@@ -979,9 +1054,18 @@ class Report extends BaseObject
         }
     }
 
-    public function createPoll($reportId, $period, $question, $ans1, $ans2, $ans3 = null)
+ /**
+  * Create new poll in report.
+  *
+  * @param int $period  // in days
+  * @param string $question
+  * @param string $ans1
+  * @param string $ans2
+  * @param string $ans3
+  */
+    public function createPoll($period, $question, $ans1, $ans2, $ans3 = null)
     {
-        $pollId = ReportPoll::createPoll($reportId, $period, $question, $ans1, $ans2, $ans3);
+        $pollId = ReportPoll::createPoll($this->id, $period, $question, $ans1, $ans2, $ans3);
         $this->updateLastChanged();
         $this->saveReport();
         ReportLog::addLog($this->id, ReportLog::TYPE_POLL, null, $pollId);
@@ -1024,6 +1108,11 @@ class Report extends BaseObject
         }
     }
 
+    /**
+     * Saves report to DB
+     *
+     * @return boolean
+     */
     public function saveReport() {
         if (! $this->isDataLoaded()) {
             return false;
@@ -1056,6 +1145,7 @@ class Report extends BaseObject
             `note` = :note,
             `submit_date` = :submit_date,
             `status` = :status,
+            `secret` = :secret,
             `changed_by` = :changed_by,
             `changed_date` = :changed_date,
             `responsible_id` = :responsible_id
@@ -1081,6 +1171,8 @@ class Report extends BaseObject
         $params['submit_date']['data_type'] = 'string';
         $params['status']['value'] = (int) $this->status;
         $params['status']['data_type'] = 'integer';
+        $params['secret']['value'] = $this->secret;
+        $params['secret']['data_type'] = 'string';
         $params['changed_by']['value'] = (int) $this->userIdLastChange;
         $params['changed_by']['data_type'] = 'integer';
         $params['changed_date']['value'] = $this->dateLastChange->format(OcConfig::instance()->getDbDateTimeFormat());
@@ -1097,18 +1189,17 @@ class Report extends BaseObject
      * NOT TESTED!!!
      * @return int
      */
-/*
     private function insertToDb() {
         $query = '
             INSERT INTO `reports`
             (`object_type`, `user_id`, `cache_id`,
             `PowerTrail_id`, `type`, `text`,
-            `note`, `submit_date`, `status`,
+            `note`, `submit_date`, `status`, `secret`,
             `changed_by`, `changed_date`, `responsible_id`)
             VALUES
             (:object_type, :user_id, :cache_id,
             :PowerTrail_id, :type, :text,
-            :note, :submit_date, :status,
+            :note, :submit_date, :status, :secret
             :changed_by, :changed_date, :responsible_id)';
         $params = [];
         $params['object_type']['value'] = $this->objectType;
@@ -1129,6 +1220,8 @@ class Report extends BaseObject
         $params['submit_date']['data_type'] = 'string';
         $params['status']['value'] = $this->status;
         $params['status']['data_type'] = 'integer';
+        $params['secret']['value'] = $this->secret;
+        $params['secret']['data_type'] = 'string';
         $params['changed_by']['value'] = $this->userIdLastChange;
         $params['changed_by']['data_type'] = 'integer';
         $params['changed_date']['value'] = $this->dateLastChange->format(OcConfig::instance()->getDbDateTimeFormat());
@@ -1140,5 +1233,5 @@ class Report extends BaseObject
         self::db()->paramQuery($query, $params);
         $this->id = self::db()->lastInsertId();
         return $this->id;
-    }*/
+    }
 }

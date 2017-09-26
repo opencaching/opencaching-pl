@@ -441,7 +441,7 @@ class ReportPoll extends BaseObject
     }
 
     /**
-     * Inserts ReportPoll as new poll in DB, returns id of new ReportPoll
+     * Inserts ReportPoll as new poll in DB, returns id of new ReportPoll ID
      *
      * @return int
      */
@@ -518,7 +518,7 @@ class ReportPoll extends BaseObject
 
     private function loadById($pollId)
     {
-        $query = 'SELECT * FROM `reports_poll` WHERE id = :id LIMIT 1';
+        $query = 'SELECT * FROM `reports_poll` WHERE `id` = :id LIMIT 1';
         $params = [];
         $params['id']['value'] = $pollId;
         $params['id']['data_type'] = 'integer';
