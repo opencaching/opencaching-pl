@@ -940,11 +940,11 @@ class Report extends BaseObject
         $this->userLeader = new User(['userId' => $newLeader]);
         $this->updateLastChanged();
         $this->saveReport();
-        $logId = ReportLog::addLog($this->id, ReportLog::TYPE_CHANGELEADER, $this->userLeader->getUserName());
+        $logId = ReportLog::addLog($this->id, ReportLog::TYPE_CHANGELEADER, $this->getUserLeader()->getUserName());
         if ($this->userIdLeader == $this->userIdLastChange) { // Assign report to yourself
             $this->sendWatchEmails($logId);
         } else { // Assign report to other user
-            ReportEmailSender::sendReportNewLeader($this, $this->userLeader);
+            ReportEmailSender::sendReportNewLeader($this, $this->getUserLeader());
             $this->sendWatchEmails($logId, [ $this->userIdLeader ]);
         }
         if (! $this->isReportWatched($oldLeaderId)) { // If previeous leader don't watch this report - inform him anyway
@@ -988,9 +988,9 @@ class Report extends BaseObject
                 }
             } else { //Status changed NOT to look here
                 $this->sendWatchEmails($logId); // If it is not change to "Look here", send standard watch mails
-                if ($this->userIdLeader != self::USER_NOBODY && self::getCurrentUser()->getUserId() != $this->userIdLeader && $this->isReportWatched($this->userIdLeader)) {
+                if ($this->userIdLeader != self::USER_NOBODY && self::getCurrentUser()->getUserId() != $this->userIdLeader && ! $this->isReportWatched($this->userIdLeader)) {
                     // If somebody change status of the report assigned to another user - inform leader even if he don't watch this report
-                    ReportEmailSender::sendReportWatch($this, $this->userLeader, $logId);
+                    ReportEmailSender::sendReportWatch($this, $this->getUserLeader(), $logId);
                 }
             }
         }
@@ -1013,9 +1013,9 @@ class Report extends BaseObject
         $this->saveReport();
         $logId = ReportLog::addLog($this->id, ReportLog::TYPE_NOTE, $submittedNote);
         $this->sendWatchEmails($logId);
-        if ($this->userIdLeader != self::USER_NOBODY && self::getCurrentUser()->getUserId() != $this->userIdLeader && $this->isReportWatched($this->userIdLeader)) {
+        if ($this->userIdLeader != self::USER_NOBODY && self::getCurrentUser()->getUserId() != $this->userIdLeader && ! $this->isReportWatched($this->userIdLeader)) {
             // If somebody adds note to the report assigned to another user - inform leader even if he don't watch this report
-            ReportEmailSender::sendReportWatch($this, $this->userLeader, $logId);
+            ReportEmailSender::sendReportWatch($this, $this->getUserLeader(), $logId);
         }
         return true;
     }
@@ -1048,9 +1048,9 @@ class Report extends BaseObject
         $this->updateLastChanged();
         $this->saveReport();
         $this->sendWatchEmails($logId);
-        if ($this->userIdLeader != self::USER_NOBODY && self::getCurrentUser()->getUserId() != $this->userIdLeader && $this->isReportWatched($this->userIdLeader)) {
+        if ($this->userIdLeader != self::USER_NOBODY && self::getCurrentUser()->getUserId() != $this->userIdLeader && ! $this->isReportWatched($this->userIdLeader)) {
             // If somebody adds note to the report assigned to another user - inform leader even if he don't watch this report
-            ReportEmailSender::sendReportWatch($this, $this->userLeader, $logId);
+            ReportEmailSender::sendReportWatch($this, $this->getUserLeader(), $logId);
         }
     }
 

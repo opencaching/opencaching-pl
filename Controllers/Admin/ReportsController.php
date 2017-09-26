@@ -345,6 +345,10 @@ class ReportsController extends BaseController
                 $logid = ReportLog::addLog($_REQUEST['id'], ReportLog::TYPE_POLL_CANCEL, null, $_REQUEST['pollid']);
                 $report = new Report(['reportId' => $_REQUEST['id']]);
                 $report->sendWatchEmails($logid);
+                if ($report->getUserIdLeader() != Report::USER_NOBODY && $report->getUserIdLeader() != $this->loggedUser->getUserId() && ! $report->isReportWatched($report->getUserIdLeader())) {
+                    // If somebody cancels pool in the report assigned to another user - inform leader even if he don't watch this report
+                    ReportEmailSender::sendReportWatch($report, $report->getUserLeader(), $logid);
+                }
                 unset($report);
                 $this->infoMsg = tr('admin_reports_info_pollcanceled');
             }
