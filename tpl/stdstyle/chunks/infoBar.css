@@ -10,6 +10,14 @@
     position: absolute;
     right: 5%;
     cursor: pointer;
+    background-image: url("/tpl/stdstyle/images/misc/btn_close_normal.svg");
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+.infoBar-close-but:hover {
+    background-image: url("/tpl/stdstyle/images/misc/btn_close_hover.svg");
 }
 
 .infoBar-message{
