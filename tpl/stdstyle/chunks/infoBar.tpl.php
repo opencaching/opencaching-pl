@@ -60,6 +60,7 @@ return function ($reloadUrl=null, $infoMsg=null, $errorMsg=null) {
           </h5>
         </div>
     <?php } ?>
+<link rel="prefetch" href="/tpl/stdstyle/images/misc/btn_close_hover.svg">
 
 <?php
 };
