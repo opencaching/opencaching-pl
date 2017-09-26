@@ -414,7 +414,7 @@ $translations = array(
     'mp3_files_info' => 'PodCasts - MP3 files',
     'utilities' => 'Tjänster',
     'log_entries' => 'Loggar',
-    'search_geocaches_nearby' => 'Hitta cacher i närheten på OC PL (radie 100 km)',
+    'search_geocaches_nearby' => 'Hitta cacher i närheten på OC PL (radie 20 km)',
     'download_as_file' => 'Ladda ner filen som',
     'accept_terms_of_use' => 'När du hämtar filen, accepterar du våra <a href="{wiki_link_rules_en}">användarvillkor</a>.',
     'find_geocaches_on' => 'Hitta cacher på',

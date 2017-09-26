@@ -1,0 +1,31 @@
+
+.opt_table input { border: 0; }
+.opt_table { background: #eee; margin: 3px auto; width:100% }
+.opt_table th { background: #888; padding: 3px 8px 5px 8px; font-family: Tahoma; font-size: 13px; font-weight: bold; color: #fff; }
+.opt_table td { padding: 3px 3px 3px 6px; font-family: Tahoma; font-size: 13px; vertical-align: top; }
+.opt_table select { padding: 1px; font-family: Tahoma; font-size: 13px; border: 1px solid #888; }
+.opt_table td.i { position: relative; width: 35px; display: block; }
+.opt_table td.i img { position: absolute; top: 0; }
+.opt_table .dim { color: #888; }
+.opt_table .dim img { opacity: .3; }
+
+#ext_search input.gsc-input { 
+  width: 10em; 
+  font-size: 15px;
+  border: 1px solid #aaa;
+  padding: 4px 5px;
+  margin-right: 5px;
+}
+
+#ext_search input.gsc-search-button {
+  background: #696;
+  padding: 3px 10px 4px 10px;
+  font-weight: bold;
+  font-size: 14px;
+  border-top: 2px solid #9c9;
+  border-left: 2px solid #9c9;
+  border-bottom: 2px solid #464;
+  border-right: 2px solid #464;
+  color: #fff;
+  cursor: pointer;
+}

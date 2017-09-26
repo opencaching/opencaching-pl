@@ -1,23 +1,42 @@
-/*************************************************************/
-/*   Design:  MultiFlex-2 (Screen)                           */
-/*   Author:  G. Wolfgang (gw@actamail.com)                  */
-/*   Date:    June 8, 2006                                   */
-/*-----------------------------------------------------------*/
-/*   Recommended CSS-Editor: TopStyle Lite 3.10 (Freeware)   */
-/*   http://www.newsgator.com/download/products/ts3lite.exe  */
-/*-----------------------------------------------------------*/
-/*   You can use this stylesheet any way you want!           */
-/*   Check out my favorite website: www.sda.org              */
-/*************************************************************/
 
 img                 { vertical-align:middle; border-width:0px;border-style:none; }
-div#map_canvas img  { behavior: none; }
-div#cacheinfo       { background-color: blue;}
+
+
 div#overall         { min-width: 970px; width: 100%; overflow: hidden; }
-div#bg1             { display: none;}
-div#bg2             { display: none;}
-body                { font-size: 62.5%; line-height: 1.42857143; margin: 0px auto; padding: 0px; background-color: #cccccc; font-family: arial, sans-serif, Tahoma, Verdana;}
-.page-container-1   { width: 970px; margin: 0px auto; padding: 0px; background-color:#ffffff; border: solid 1px rgb(100,100,100);}
+
+
+body                { font-size: 62.5%; line-height: 1.42857143; margin: 0px auto; 
+                      padding: 0px; background-color: #cccccc; 
+                      font-family: arial, sans-serif, Tahoma, Verdana;}
+                      
+.page-container-1   { width: 970px; margin: 0px auto; padding: 0px; background-color:#ffffff; 
+                      border: solid 1px rgb(100,100,100);}
+
+
+body.summer { background-color: #feec98; }
+body.autumn { background-color: #e0ed9d; }
+body.winter { background-color: #ddebf5; }
+body.spring { background-color: #feec98; }
+
+div.seasonalBackground {
+  display: block; 
+  position: absolute; 
+  width: 330px; 
+  height: 100%; 
+  top: -2px; 
+  background-repeat: no-repeat; 
+}
+
+div.seasonalBackground.left{ left: -331px; }
+div.seasonalBackground.right{ right: -331px; }
+
+div.seasonalBackground.summer{ background-image: url(/images/css/summer.jpg);}
+div.seasonalBackground.autumn{ background-image: url(/images/css/autumn.jpg);}
+div.seasonalBackground.winter{ background-image: url(/images/css/winter.jpg);}
+div.seasonalBackground.spring{ background-image: url(/images/css/spring.jpg);}
+
+
+
 
 /*************************************/
 /* SECTION 2 - HEADER AND NAVIGATION */
@@ -37,21 +56,21 @@ tr.highlighted > td {border-width:2px;}
 /* 2.1 - Sitename, slogan and banner */
 /*-----------------------------------*/
 .header                     { height:80px;width: 970px;}
-.mapa                       { background-image: url(../../../images/css/celownik.png); height:180px; width:180px;}
+
 .site-name                  { width: 300px; height: 45px; top: 12px; position: absolute; z-index: 4; overflow: hidden; margin: 0px; padding-left: 80px;}
 .site-name p.title          { margin: 0px; padding: 0px; font-family: "trebuchet ms", arial, sans serif; font-weight: bold; font-size: 24px;}
-.site-name p.subtitle       { clear: both; width: 300px; margin: -6px 0px 0px 0px; padding: 0px; background-color: transparent; font-family: "trebuchet ms", arial, sans serif; font-size: 12px;}
+.site-name p.subtitle       { clear: both; width: 300px; margin: -6px 0px 0px 0px; padding: 0px; 
+                              background-color: transparent; font-family: "trebuchet ms", arial, sans serif; font-size: 12px;}
 .site-name a                { margin: 0px; padding: 0px; text-decoration: none; color: #323232;}
 .site-name a:hover          { text-decoration: none;}
+
+
 .site-slogan-container      { text-align:right; width: 970px; top: 83px; position: absolute; z-index: 1; overflow: hidden; background-color: transparent;}
 .site-slogan                { float: right; width: auto; margin: 0px; padding: 5px 15px 5px 5px; background-image: url(../../../images/css/darkbluetransparent.png); background-repeat: repeat; font-size: 10px; border-left:1px solid rgb(100,100,100); border-top:1px solid rgb(100,100,100); border-bottom:1px solid rgb(100,100,100);}
 .site-slogan input          { background-image: url(../../../images/css/blank.gif); }
 .site-slogan form           { background-color: transparent; }
-.site-slogan p.title        { float: right; width: 900px; margin: 0px; padding: 0px; color: rgb(234,239,247); font-family: arial, sans serif;  text-align: right; font-weight: bold; font-size: 220%;}
-.site-slogan p.subtitle     { clear: both; float: right; width: 900px; margin: -5px 0px 0px 0px; padding: 0px; color: rgb(234,239,247); font-family: arial, sans serif; text-align: right; font-weight: bold; font-size: 200%;}
-//.site-slogan p.text       { clear: both; float: right; width: 300px; margin: 10px 0px 0px 0px; padding: 10px; color: rgb(234,239,247); background-color: rgb(127,162,202); font-family: arial, sans serif; text-align: right; font-weight: bold; line-height: 1.0em; font-size: 140%;}
 .site-slogan p.search       { clear: both; float: right; margin-right: -5px; padding: 0px; color: rgb(255,255,255); /*font-family: arial, sans serif; */ text-align: right; line-height: 1.0em; font-size: 10px; white-space: nowrap;}
-.site-slogan P.search LABEL { position: relative; bottom: 0.2em;}
+.site-slogan p.search label { position: relative; bottom: 0.2em;}
 .site-slogan a              { color: rgb(234,239,247); text-decoration: underline;}
 .site-slogan a:hover        { text-decoration: none; color: rgb(50,50,50);}
 
@@ -67,46 +86,45 @@ tr.highlighted > td {border-width:2px;}
 .img-navflag        { display: inline; width: 23px; height: 15px; margin: 0px; padding: 0px; border: none;}
 
 /*----------------------------*/
-/* 2.3 - Navigation - Level 1 */
+/* 2.3 - LoginBox */
 /*----------------------------*/
-.nav1-container                 { width: 970px; top: 35px; position: absolute; z-index: 3; background: transparent;}
-.nav1                           { margin: 0px; padding: 0px; font-family: verdana, arial, sans serif; font-size: 1.0em;}
-.nav1 ul                        { float: right; margin: 0px; padding: 0px 20px 0px 0px; border-left: solid 1px rgb(115,162,182); background-color: rgb(255,255,255); font-weight: bold;}
-.nav1 li                        { display: inline; list-style: none; margin: 0px; padding: 0px;}
-.nav1 li a                      { display: block; float: left; margin: 0px; padding: 2px 5px 2px 5px; border-right: solid 1px rgb(115,162,182); color: rgb(115,162,182); text-decoration: none; font-size: 10px;}
-.nav1 a                         { color: #337ab7;}
-.nav1 a:hover { color: rgb(50,50,50); }
-.nav1 a, .nav1 a:hover, .nav2 a.selected {text-decoration: none;}
+#loginbox-container  { width: 970px; top: 35px; position: absolute; 
+                       z-index: 3; background: transparent;}
+#loginbox            { margin: 0px; padding: 0px; font-family: verdana, arial, sans serif; font-size: 1.0em; text-align:right; margin-right:20px;}
+#loginbox a          { color: #337ab7;}
+#loginbox a:hover    { color: rgb(50,50,50); }
+#loginbox a, #loginbox a:hover {text-decoration: none;}
 
 /*----------------------------*/
-/* 2.4 - Navigation - Level 2 */
+/* 2.4 - Navigation - horizontal menu bar */
 /*----------------------------*/
-.nav2                               { clear: both; margin: 0px; padding: 0px; font-family: verdana, arial, sans serif; font-size: 1.0em;}
-.nav2 ul                            { float: left; width: 970px; margin: 0px; padding: 0px; background-color: #7FA2CA; font-weight: bold; box-sizing: border-box;}
-.nav2 li                            { display: inline; list-style: none; margin: 0px; padding: 0px;}
-.nav2 a:hover                       { background-color: #52769E;}
-.nav2 li a                          { display: block; float: left; margin: 0px 0px 0px 0px; padding: 8px 10px; color: rgb(255,255,255); text-transform: uppercase; text-decoration: none; font-size: 100%;}
-.nav2 a:hover, .nav2 a.selected     { text-decoration: none;}
-.nav2 a.selected                    { background-color: #184E89;}
+#nav2                               { clear: both; margin: 0px; padding: 0px; font-family: verdana, arial, sans serif; font-size: 1.0em;}
+#nav2 ul                            { float: left; width: 970px; margin: 0px; padding: 0px; background-color: #7FA2CA; font-weight: bold; box-sizing: border-box;}
+#nav2 li                            { display: inline; list-style: none; margin: 0px; padding: 0px;}
+#nav2 a:hover                       { background-color: #52769E;}
+#nav2 li a                          { display: block; float: left; margin: 0px 0px 0px 0px; padding: 8px 10px; color: rgb(255,255,255); text-transform: uppercase; text-decoration: none; font-size: 100%;}
+#nav2 a:hover, #nav2 a.selected     { text-decoration: none;}
+#nav2 a.selected                    { background-color: #184E89;}
 .buffer                             { clear: both; width: 1px; height: 15px; margin: 0px; padding: 0px; background-color: rgb(255,255,255);}
 
 /*----------------------------*/
-/* 2.5 - Navigation - Level 3 */
+/* 2.5 - Navigation - left menus */
 /*----------------------------*/
-.nav3                                           { overflow: hidden; clear: both; float: left; width: 160px; min-height: 500px; margin: 0px; padding: 0px; color: rgb(75,75,75); font-size: 1.0em;}
-.nav3 ul                                        { width: 160px; margin: 0px 0px 20px 0px; padding: 0px; border-bottom: solid 1px rgb(216,206,159); background-color: rgb(219,230,241);}
-.nav3 li                                        { list-style: none; margin: 0px; padding: 0px;}
-.nav3 li.title                                  { margin: 0px 0px 0px 0px; padding: 3px 5px 2px 15px; background-color: rgb(156,186,214); color: rgb(255,255,255); text-transform: uppercase; font-weight: bold; font-size: 120%;}
-.nav3 li.group a                                { display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; padding: 0px 7px 0px 15px; border-top: solid 1px rgb(200,200,200); border-left: solid 7px rgb(219,230,241); color: rgb(75,75,75); font-weight: bold; font-size: 120%;}
-.nav3 li.group_active a                         { border-left: solid 7px rgb(156,186,214); background-color: rgb(156,186,214);}
-.nav3 li.subgroup a                             { display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; padding: 0px 7px 0px 15px; border-top: solid 1px rgb(200,200,200); border-left: solid 14px rgb(219,230,241); color: rgb(75,75,75); font-weight: normal; font-size: 120%;}
-.nav3 li.subgroup_active a                      { border-left: solid 14px rgb(156,186,214); background-color: rgb(156,186,214);}
-.nav3 li a                                      { display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; padding: 0px 7px 0px 20px; border-left: solid 7px rgb(219,230,241); color: rgb(75,75,75); text-decoration: none; font-size: 120%;}
-.nav3 li a:hover, .nav3 li a.selected           { border-left: solid 7px rgb(156,186,214);  color: rgb(100,100,100); text-decoration: none;}
-.nav3 li.subgroup a:hover, .nav3 li a.selected  { border-left: solid 14px rgb(156,186,214);  color: rgb(100,100,100); text-decoration: none;}
+#nav3                                           { overflow: hidden; clear: both; float: left; width: 160px; min-height: 500px; margin: 0px; padding: 0px; color: rgb(75,75,75); font-size: 1.0em;}
+#nav3 ul                                        { width: 160px; margin: 0px 0px 20px 0px; padding: 0px; border-bottom: solid 1px rgb(216,206,159); background-color: rgb(219,230,241);}
+#nav3 li                                        { list-style: none; margin: 0px; padding: 0px;}
+#nav3 li.title                                  { margin: 0px 0px 0px 0px; padding: 3px 5px 2px 15px; background-color: rgb(156,186,214); color: rgb(255,255,255); text-transform: uppercase; font-weight: bold; font-size: 120%;}
+#nav3 li.group a                                { display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; padding: 0px 7px 0px 15px; border-top: solid 1px rgb(200,200,200); border-left: solid 7px rgb(219,230,241); color: rgb(75,75,75); font-weight: bold; font-size: 120%;}
+#nav3 li.group_active a                         { border-left: solid 7px rgb(156,186,214); background-color: rgb(156,186,214);}
+#nav3 li.subgroup a                             { display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; padding: 0px 7px 0px 15px; border-top: solid 1px rgb(200,200,200); border-left: solid 14px rgb(219,230,241); color: rgb(75,75,75); font-weight: normal; font-size: 120%;}
+#nav3 li.subgroup_active a                      { border-left: solid 14px rgb(156,186,214); background-color: rgb(156,186,214);}
+#nav3 li a                                      { display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; padding: 0px 7px 0px 20px; border-left: solid 7px rgb(219,230,241); color: rgb(75,75,75); text-decoration: none; font-size: 120%;}
+#nav3 li a:hover, #nav3 li a.selected           { border-left: solid 7px rgb(156,186,214);  color: rgb(100,100,100); text-decoration: none;}
+#nav3 li.subgroup a:hover, #nav3 li a.selected  { border-left: solid 14px rgb(156,186,214);  color: rgb(100,100,100); text-decoration: none;}
 
 /*----------------------------*/
 /* 2.5 - Navigation - Level 4 */
+/* TODO: refactor! - used only in viewProfile  */
 /*----------------------------*/
 .nav4 li                                        { float: left; list-style: none; margin: 0px; padding: 0px;padding-bottom: 5px;}
 .nav4 li.title                                  { display: none; margin: 0px 0px 0px 0px; padding: 3px 5px 2px 5px; background-color: rgb(156,186,214); color: rgb(255,255,255); text-transform: uppercase; font-weight: bold; font-size: 120%;}
@@ -117,27 +135,26 @@ tr.highlighted > td {border-width:2px;}
 .nav4 li a                                      { display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; border-left: solid 40px rgb(219,230,241); color: rgb(75,75,75); text-decoration: none; font-size: 120%;}
 .nav4 li a:hover, .nav4 li a.selected           { border-left: solid 7px rgb(156,186,214);  color: rgb(100,100,100); text-decoration: none;}
 .nav4 li.subgroup a:hover, .nav4 li a.selected  { border-left: solid 14px rgb(156,186,214);  color: rgb(100,100,100); text-decoration: none;}
-ul#cachemenu { padding: 0px; margin: 0px;}
 ul#statmenu { padding: 0px; margin: 0px;}
 .notlogged-cacheview                            { display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; padding: 0px 0px 6px 7px; color: rgb(150,75,75); font-size: 120%; }
 
 /******************************************************/
 /* SECTION 4 - SPECIFIC CLASSES FOR LAYOUTS #2 and #3 */
 /******************************************************/
-.notice                                                         { overflow: hidden; width: 97%; height: auto; margin: 0px 0px 0px 0px; padding: 0px 16px 12px 20px; color: rgb(88,144,168); font-style: italic; font-size: 11px; background-image: url(../images/misc/16x16-info.png); background-position: top left; background-repeat:no-repeat;}
-.notice2                                                        { overflow: hidden; width: 735px; margin: 0px 0px 0px 0px; padding: 0px 16px 12px 20px; color: rgb(88,144,168); font-style: italic; font-size: 11px; background-image: url(../images/misc/16x16-info.png); background-position: top left; background-repeat:no-repeat;}
-.warning                                                        { overflow: hidden;  width: 735px; height: 24px; border: 1px solid black; background-color: rgb(240,100,100); margin: 0px 0px 0px 0px; padding: 8px 0px 0px 32px; color: rgb(50,50,50); font-weight: bold; font-size: 12px; background-image: url(../images/misc/32x32-impressum.png); background-position: top left; background-repeat:no-repeat;}
-.errormsg                                                       { color: rgb(240,100,100); font-weight: bold;}
-.successmsg                                                     { color: rgb(50,150,20); font-weight: bold;}
-.content2                                                       { float: left; width: 790px; min-height: 500px; margin: 0px; padding: 0px 0px 0px 20px; color: rgb(75,75,75); font-size: 1.0em;}
-.content3                                                       { float: left; width: 790px; min-height: 500px; margin: 0px; padding: 0px 0px 0px 20px; color: rgb(75,75,75); font-size: 1.0em;}
-.content2-container, .content3-container                        { clear: both; float: left; width: 769px; margin: 0px 0px 15px 0px; padding: 0px;}
-.content2-container-1col, .content3-container-1col              { overflow: hidden; width: 769px; margin: 0px; padding: 0px;}
-.content2-container-2col                                        { overflow: hidden; width: 272px; margin: 0px; padding: 0px;}
-.content2-container-2col-left, .content3-container-2col-left    { overflow: hidden; float: left; width: 272px; margin: 0px; padding: 0px;}
-.content2-container-2col-right, .content3-container-2col-right  { overflow: hidden; float: right; width: 372px; margin: 0px; padding: 0px;}
-.content2-pagetitle, .content3-pagetitle { overflow: hidden; width: 769px; margin: 0px 0px 10px 0px; padding: 0px 0px 2px 0px; border-bottom: solid 3px rgb(88,144,168); color: rgb(88,144,168); font-weight: bold; font-size: 180%;}
+.notice                        { overflow: hidden; width: 97%; height: auto; margin: 0px 0px 0px 0px; padding: 0px 16px 12px 20px; color: rgb(88,144,168); font-style: italic; font-size: 11px; background-image: url(../images/misc/16x16-info.png); background-position: top left; background-repeat:no-repeat;}
+.warning                       { overflow: hidden;  width: 735px; height: 24px; border: 1px solid black; background-color: rgb(240,100,100); margin: 0px 0px 0px 0px; padding: 8px 0px 0px 32px; color: rgb(50,50,50); font-weight: bold; font-size: 12px; background-image: url(../images/misc/32x32-impressum.png); background-position: top left; background-repeat:no-repeat;}
+.errormsg                      { color: rgb(240,100,100); font-weight: bold;}
+.successmsg                    { color: rgb(50,150,20); font-weight: bold;}
 
+.templateContainer             { float: left; width: 790px; min-height: 500px; margin: 0px; padding: 0px 0px 0px 20px; color: rgb(75,75,75); font-size: 1.0em;}
+.content2-container            { clear: both; float: left; width: 769px; margin: 0px 0px 15px 0px; padding: 0px;}
+.content2-container-1col       { overflow: hidden; width: 769px; margin: 0px; padding: 0px;}
+.content2-container-2col-left  { overflow: hidden; float: left; width: 272px; margin: 0px; padding: 0px;}
+.content2-container-2col-right { overflow: hidden; float: right; width: 372px; margin: 0px; padding: 0px;}
+.content2-pagetitle            { overflow: hidden; width: 769px; margin: 0px 0px 10px 0px; padding: 0px 0px 2px 0px; border-bottom: solid 3px rgb(88,144,168); color: rgb(88,144,168); font-weight: bold; font-size: 180%;}
+
+
+.templateContainer a           { color: rgb(75,75,75);}
 /*********************************/
 /* SECTION 6 - COMMON PARAMETERS */
 /*********************************/
@@ -156,7 +173,7 @@ ul#statmenu { padding: 0px; margin: 0px;}
 .content-title-noshade-size3    { margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 160%;}
 .content-title-noshade-size5    { margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 200%;}
 .content-txtbox-noshade         { margin: 0px; padding: 7px 0px 0px 0px; background-color: rgb(255,255,255);}
-.content-score                  { margin: 0px; margin-top: 3px; padding: 4px 0px 0px 0px; background-color: rgb(255,255,255); border-style:dotted; border-width:1px; width:75px; height:20px;vertical-align:middle;}
+
 
 /* Headings */
 h1 { margin: 1.0em 0px 0.5em 0px; font-weight: bold; font-size: 160%;}
@@ -167,99 +184,43 @@ h5 { margin: 0px 0px 0.2em 0px; font-weight: bold; font-size: 130%;}
 h6 { margin: 0px 0px 0.2em 0px;font-weight: bold; font-style: italic; font-size: 130%;}
 
 /* Paragraphs */
-p                   { margin: 0px 0px 0.5em 0px; padding: 0px; line-height: 1.3em; font-family: arial, sans serif; font-size: 12px; }
-p.readmore          { margin: 1.0em 0px 0.5em 0px; padding: 0px; line-height: 1.2em; font-size: 110%; }
-p.quote             { margin: 0em 30px 0.6em 30px;    line-height: 120%; font-size: 120%;}
-p.embed             { float: left; width: 120px; margin: 7px 7px 5px 0px; padding: 5px 5px 5px 5px; background-color: rgb(238,237,249); font-style: italic; font-weight: bold;  line-height: 1.2em; font-size: 140%;}
-p.embed-caption     { float: left; margin: 5px 0px 0px 0px; padding: 0px; font-style: italic; font-weight: normal; line-height: 1.2em; font-size: 70%;}
-
-/* Quote */
-p.quote { clear: left; margin: 0em 30px 0.6em 30px;    line-height: 120%; font-size: 110%;}
-
-/* Embedded emphasis */
-.embed          { float: left; width: 120px; margin: 2px 7px 2px 1px; padding: 5px 5px 5px 5px; background-color: rgb(238,237,249); font-style: italic; font-weight: bold;  line-height: 1.2em; font-size: 140%;}
-.embed-caption  { float: left; margin: 5px 0px 0px 0px; padding: 0px; font-style: italic; font-weight: normal; line-height: 1.2em; font-size: 70%;}
+p  { margin: 0px 0px 0.5em 0px; padding: 0px; line-height: 1.3em; font-family: arial, sans serif; font-size: 12px; }
 
 /* Lists */
-ul.noindent             { margin: 0px 0px 7px 15px; padding: 0px; list-style-type: disc; list-style-position: outside; font-size: 120%;}
-ul.indent               { margin: 0px 0px 7px 15px; padding: 0px 0px 0px 15px; list-style-type: disc; font-family: arial; font-size: 120%;}
-ol                      { margin: 0px 0px 0px 9px; padding: 0px 0px 0px 25px; list-style-type: decimal; list-style-position: outside; font-size: 120%;}
-ul.linklist-noindent    { margin: -0.3em 0px 0.5em 0px; padding: 0px; list-style-type: none; line-height: 1.2em; font-size: 120%; }
-ul.linklist-indent      { margin: -0.3em 0px 0.5em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 120%; }
-ul.newcache_list {
-    list-style-type: none;
-    font-size: 11px;
-}
-ul.tick {
-    list-style-image: url('/tpl/stdstyle/images/free_icons/tick.png');
-}
-li.newcache_list_multi {
-    margin-bottom:8px;
-}
+ul.indent        { margin: 0px 0px 7px 15px; padding: 0px 0px 0px 15px; list-style-type: disc; font-family: arial; font-size: 120%;}
+ol               { margin: 0px 0px 0px 9px; padding: 0px 0px 0px 25px; list-style-type: decimal; list-style-position: outside; font-size: 120%;}
+ul.newcache_list { list-style-type: none; font-size: 11px; }
+ul.tick          { list-style-image: url('/tpl/stdstyle/images/free_icons/tick.png'); }
+li.newcache_list_multi { margin-bottom:8px; }
 
 /* Tables */
-.table          { font-size: 10px; line-height: 2.0em; clear: left; padding: 0px; margin: 0.5em 0px 0.2em 0px; border: solid 0px rgb(150,150,150); empty-cells: show; border-collapse: collapse; background-color: rgb(255,255,255);}
-.table tr       { margin: 0px; padding: 0px;}
-.table td       { padding: 2px 7px 2px 7px; border: solid 0px rgb(150,150,150); text-align: left; font-size: 120%;}
-.table th       { margin: 0px; background-color: rgb(127,162,202); padding: 2px 7px 2px 7px; border: solid 0px rgb(150,150,150); empty-cells: show; text-align: left; font-size: 120%; color: rgb(255,255,255);    }
-.table-caption  { margin: 0.5em 0px 1.0em 30px; padding: 0px; clear: both; text-align: left; font-size: 120%;}
-.table td.options {
-    padding: 0.5em 0.5em;
-}
+.table            { font-size: 10px; line-height: 2.0em; clear: left; padding: 0px; margin: 0.5em 0px 0.2em 0px; border: solid 0px rgb(150,150,150); empty-cells: show; border-collapse: collapse; background-color: rgb(255,255,255);}
+.table tr         { margin: 0px; padding: 0px;}
+.table td         { padding: 2px 7px 2px 7px; border: solid 0px rgb(150,150,150); text-align: left; font-size: 120%;}
+.table th         { margin: 0px; background-color: rgb(127,162,202); padding: 2px 7px 2px 7px; border: solid 0px rgb(150,150,150); empty-cells: show; text-align: left; font-size: 120%; color: rgb(255,255,255);    }
+.table-caption    { margin: 0.5em 0px 1.0em 30px; padding: 0px; clear: both; text-align: left; font-size: 120%;}
+.table td.options { padding: 0.5em 0.5em; }
 
 /* Images */
-.img-left-noborder-notopmargin      { float: left; margin: 0px 10px 0px 0px;}
-.img-left-noborder-topmargin        { float: left; margin: 3px 10px 0px 0px;}
-.img-left-border-notopmargin        { float: left; margin: 0px 10px 0px 0px; border: solid 1px rgb(150,150,150);}
-.img-left-border-topmargin          { float: left; margin: 3px 10px 0px 0px; border: solid 1px rgb(150,150,150);}
-.img-right-noborder-notopmargin     { float: right; margin: 0px 0px 0px 10px;}
-.img-right-noborder-topmargin       { float: right; margin: 3px 0px 0px 10px;}
-.img-right-border-notopmargin       { float: right; margin: 0px 0px 0px 10px; border: solid 1px rgb(150,150,150);}
-.img-right-border-topmargin         { float: right; margin: 3px 0px 0px 10px; border: solid 1px rgb(150,150,150);}
 .img-difficulty                     { margin: 0px; border-width:0px; border-style:none;}
-
-/*--------------------*/
-/* 6.2 - Sidebar Area */
-/*--------------------*/
-.sidebar                    { overflow: hidden; float: right; width: 160px; min-height: 500px; margin: 0px; padding: 0px 0px 10px 0px; text-align: left; color: rgb(75,75,75);}
-.sidebar-maintitle          { margin: 0px 0px 10px 0px; padding: 3px 10px 2px 10px; background-color: rgb(156,186,214); color: rgb(255,255,255); text-transform: uppercase; font-weight: bold; font-size: 120%;}
-.sidebar-title-noshade      { margin: 0px; padding: 2px 10px 3px 10px; border-top: solid 1px rgb(215,215,215); color: rgb(75,75,75); font-weight: bold; font-size: 120%;}
-.sidebar-title-shade        { margin: 0px; padding: 2px 10px 3px 10px; background-color: rgb(215,215,215); color: rgb(75,75,75); font-weight: bold; font-size: 120%;}
-.sidebar-txtbox-noshade     { margin: 0px 0px 10px 0px; padding: 2px 10px 3px 10px;}
-.sidebar-txtbox-shade       { margin: 0px 0px 10px 0px; padding: 2px 10px 3px 10px; background-color: rgb(235,235,235);}
-.sidebar-txtbox-noshade p   { margin: 0px 0px 5px 0px; padding: 0px; line-height: 1.25em; font-size: 110%;}
-.sidebar-txtbox-shade p     { margin: 0px 0px 5px 0px; padding: 0px; line-height: 1.25em; font-size: 110%;}
 
 /*--------------------*/
 /* 6.3 - Footer Area  height: 3.0em;*/
 /*--------------------*/
-.footer     { overflow: hidden; clear: both; width: 970px;  margin: 0px; padding: 0.5em 0px 0.5em 0px; border-top: solid 1px rgb(125,125,125); background-color: rgb(128,161,202); color: rgb(255,255,255); font-size: 1.0em;}
-.footer p   { margin: 0px; padding: 0px; text-align: center; line-height: 1.3em; font-size: 110%;}
+#footer     { overflow: hidden; clear: both; width: 970px;  margin: 0px; padding: 0.5em 0px 0.5em 0px; border-top: solid 1px rgb(125,125,125); background-color: rgb(128,161,202); color: rgb(255,255,255); font-size: 1.0em;}
+#footer p   { margin: 0px; padding: 0px; text-align: center; line-height: 1.3em; font-size: 110%;}
+#footer a        { color: rgb(255,255,255); text-decoration: underline;}
+#footer a:hover  { color: rgb(0,0,0); text-decoration: none;}
 
-/*-------------------*/
-/* 6.4 - Hyperlinks  */
-/*-------------------*/
-.footer a                                                                                                                           { color: rgb(255,255,255); text-decoration: underline;}
-.footer a:hover                                                                                                                     { color: rgb(0,0,0); text-decoration: none;}
-.content1 a, .content2 a, .content3 a, .sidebar-txtbox-noshade a, .sidebar-txtbox-shade a                                           { color: rgb(75,75,75); text-decoration: underline;}
-.content1 a:hover, .content2 a:hover, .content3 a:hover, .sidebar-txtbox-noshade a:hover, .sidebar-txtbox-shade a:hover             { color: rgb(0,0,0); text-decoration: none;}
 
 /*******************************/
 /* SECTION 7 - GENERIC CLASSES */
 /*******************************/
 
-/*----------------------------*/
-/* 7.1 - Title decoration box */
-/*----------------------------*/
-.box-on     { float: left; min-width: 0.3em; margin-right: 0.2em; padding: 0px 0.2em 0px 0.3em;}
-.box-off    { display: none;}
-/* html box-on { width: 1%;} /* IE6-Hack for min-width. Also compliant with IE7-Beta2 */ */
-
 /*-----------------------------*/
 /* 7.2 - Horizontal alignments */
 /*-----------------------------*/
 
-.align-left     { text-align: left;}
 .align-right    { text-align: right;}
 .align-center   { text-align: center;}
 
@@ -391,75 +352,18 @@ li.newcache_list_multi {
 .box-blue       { width:750px; padding: 15px 9px 5px 10px; margin:10px 10px 10px 10px;border-top:1px solid rgb(88,144,168);border-left:1px solid rgb(88,144,168);border-right:1px solid rgb(88,144,168);border-bottom:1px solid rgb(88,144,168);}
 .line-box       { width:769px; border-bottom: solid 1px rgb(200,200,200); padding-bottom: 7px; margin: 0px 0px 15px 0px;}
 
-.line-white     { border-bottom: solid 1px rgb(255,255,255); padding-bottom: 2px; margin: 0px 0px 1px 0px;}
-.line-black     { border-bottom: solid 1px rgb(0,0,0); padding-bottom: 2px; margin: 0px 0px 1px 0px;}
-
-.line-grey01    { border-bottom: solid 1px rgb(242,242,242); padding-bottom: 2px; margin-bottom: 1px;}
-.line-grey02    { border-bottom: solid 1px rgb(230,230,230); padding-bottom: 2px; margin-bottom: 1px;}
-.line-grey03    { border-bottom: solid 1px rgb(217,217,217); padding-bottom: 2px; margin-bottom: 1px;}
-.line-grey04    { border-bottom: solid 1px rgb(204,204,204); padding-bottom: 2px; margin-bottom: 1px;}
-.line-grey05    { border-bottom: solid 1px rgb(191,191,191); padding-bottom: 2px; margin-bottom: 1px;}
-.line-grey06    { border-bottom: solid 1px rgb(178,178,178); padding-bottom: 2px; margin-bottom: 1px;}
-.line-grey07    { border-bottom: solid 1px rgb(153,153,153); padding-bottom: 2px; margin-bottom: 1px;}
-.line-grey08    { border-bottom: solid 1px rgb(127,127,127); padding-bottom: 2px; margin-bottom: 1px;}
-.line-grey09    { border-bottom: solid 1px rgb(89,89,89);    padding-bottom: 2px; margin-bottom: 1px;}
-.line-grey10    { border-bottom: solid 1px rgb(51,51,51);    padding-bottom: 2px; margin-bottom: 1px;}
-
-.line-yellow01  { border-bottom: solid 1px rgb(254,252,232); padding-bottom: 2px; margin-bottom: 1px;}
-.line-yellow02  { border-bottom: solid 1px rgb(253,249,201); padding-bottom: 2px; margin-bottom: 1px;}
-.line-yellow03  { border-bottom: solid 1px rgb(253,246,185); padding-bottom: 2px; margin-bottom: 1px;}
-.line-yellow04  { border-bottom: solid 1px rgb(252,243,162); padding-bottom: 2px; margin-bottom: 1px;}
-.line-yellow05  { border-bottom: solid 1px rgb(251,239,139); padding-bottom: 2px; margin-bottom: 1px;}
-.line-yellow06  { border-bottom: solid 1px rgb(250,236,116); padding-bottom: 2px; margin-bottom: 1px;}
-.line-yellow07  { border-bottom: solid 1px rgb(249,233,93);  padding-bottom: 2px; margin-bottom: 1px;}
-.line-yellow08  { border-bottom: solid 1px rgb(249,230,69);  padding-bottom: 2px; margin-bottom: 1px;}
-.line-yellow09  { border-bottom: solid 1px rgb(248,227,46);  padding-bottom: 2px; margin-bottom: 1px;}
-.line-yellow10  { border-bottom: solid 1px rgb(247,224,23);  padding-bottom: 2px; margin-bottom: 1px;}
-
-.line-blue01    { border-bottom: solid 1px rgb(238,237,249); padding-bottom: 2px; margin-bottom: 1px;}
-.line-blue02    { border-bottom: solid 1px rgb(222,220,242); padding-bottom: 2px; margin-bottom: 1px;}
-.line-blue03    { border-bottom: solid 1px rgb(205,202,236); padding-bottom: 2px; margin-bottom: 1px;}
-.line-blue04    { border-bottom: solid 1px rgb(189,185,229); padding-bottom: 2px; margin-bottom: 1px;}
-.line-blue05    { border-bottom: solid 1px rgb(172,167,223); padding-bottom: 2px; margin-bottom: 1px;}
-.line-blue06    { border-bottom: solid 1px rgb(155,149,217); padding-bottom: 2px; margin-bottom: 1px;}
-.line-blue07    { border-bottom: solid 1px rgb(139,132,210); padding-bottom: 2px; margin-bottom: 1px;}
-.line-blue08    { border-bottom: solid 1px rgb(122,114,204); padding-bottom: 2px; margin-bottom: 1px;}
-.line-blue09    { border-bottom: solid 1px rgb(106,97,197);  padding-bottom: 2px; margin-bottom: 1px;}
-.line-blue10    { border-bottom: solid 1px rgb(89,79,191);   padding-bottom: 2px; margin-bottom: 1px;}
-
-.line-green01   { border-bottom: solid 1px rgb(237,246,229); padding-bottom: 2px; margin-bottom: 1px;}
-.line-green02   { border-bottom: solid 1px rgb(220,238,204); padding-bottom: 2px; margin-bottom: 1px;}
-.line-green03   { border-bottom: solid 1px rgb(202,229,178); padding-bottom: 2px; margin-bottom: 1px;}
-.line-green04   { border-bottom: solid 1px rgb(185,220,153); padding-bottom: 2px; margin-bottom: 1px;}
-.line-green05   { border-bottom: solid 1px rgb(167,211,127); padding-bottom: 2px; margin-bottom: 1px;}
-.line-green06   { border-bottom: solid 1px rgb(149,203,102); padding-bottom: 2px; margin-bottom: 1px;}
-.line-green07   { border-bottom: solid 1px rgb(132,194,76);  padding-bottom: 2px; margin-bottom: 1px;}
-.line-green08   { border-bottom: solid 1px rgb(114,185,51);  padding-bottom: 2px; margin-bottom: 1px;}
-.line-green09   { border-bottom: solid 1px rgb(97,177,25);   padding-bottom: 2px; margin-bottom: 1px;}
-.line-green10   { border-bottom: solid 1px rgb(79,168,0);    padding-bottom: 2px; margin-bottom: 1px;}
-
-.line-red01     { border-bottom: solid 1px rgb(252,235,233); padding-bottom: 2px; margin-bottom: 1px;}
-.line-red02     { border-bottom: solid 1px rgb(248,216,211); padding-bottom: 2px; margin-bottom: 1px;}
-.line-red03     { border-bottom: solid 1px rgb(245,196,188); padding-bottom: 2px; margin-bottom: 1px;}
-.line-red04     { border-bottom: solid 1px rgb(242,177,166); padding-bottom: 2px; margin-bottom: 1px;}
-.line-red05     { border-bottom: solid 1px rgb(238,157,144); padding-bottom: 2px; margin-bottom: 1px;}
-.line-red06     { border-bottom: solid 1px rgb(235,137,122); padding-bottom: 2px; margin-bottom: 1px;}
-.line-red07     { border-bottom: solid 1px rgb(232,118,100); padding-bottom: 2px; margin-bottom: 1px;}
-.line-red08     { border-bottom: solid 1px rgb(229,98,77);   padding-bottom: 2px; margin-bottom: 1px;}
-.line-red09     { border-bottom: solid 1px rgb(225,79,55);   padding-bottom: 2px; margin-bottom: 1px;}
-.line-red10     { border-bottom: solid 1px rgb(222,59,33);   padding-bottom: 2px; margin-bottom: 1px;}
 
 /*****************************/
 /* SECTION 8 - MISCELLANEOUS */
 /*****************************/
-.showcode           { font-family: monospace; font-weight: bold; font-size: 13px; color: rgb(255,0,0);}
-.clear              { clear: both;}
-.hide               { display: none;}
-br                  { clear: none;}
+br { clear: none;} /* TODO: is it neccessary? */
+
+
+
 
 
 /*****************************/
-/* BS TABLES
+/* BS TABLES - Table with two-colored rows
 /*****************************/
 .bs-table {
     background-color: transparent;
@@ -517,6 +421,8 @@ table.bs-table td > a:hover {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+
 /*****************************/
 /* BUTTONS */
 /*****************************/
@@ -867,39 +773,6 @@ input.radio         { border:0px; border-width: 0px; width:12px; height:12px; ba
 select              { border:1px solid black; background-color:white; padding:1px; font-size:12px; color: black;}
 input.formbuttons   { background-color:rgb(219,230,241); width:120px; border:1px solid black; padding:0px; color: #000000; }
 
-.menuBar
-{
-    background-color:#F0F0EE;
-    margin:2px 2px 2px 2px;
-    padding:2px 2px 2px 2px;
-    border:solid 1px #CCCCCC;
-    font-size:smaller;
-    width:155px;
-    cursor:default;
-}
-
-.buttonNormal
-{
-    padding:3px 4px 3px 4px;
-    cursor:default;
-}
-
-.buttonSplitter
-{
-    color:#CCCCCC;
-}
-
-.filters
-{
-    font-family:sans-serif;
-    border:1px solid black;
-    background:#DDDDDD;
-    padding-bottom:15px;
-    padding-top:15px;
-    text-align:left;
-    font-size:small;
-    vertical-align: top;
-}
 
 textarea.desc, textarea.cachelog {
     width: 100%;
@@ -928,12 +801,12 @@ tooltip {
     -moz-border-radius: 5px;
 }
 
+/* used in start.tpl.php only! */
 div#new-caches-area                                     { width: 500px; }
 div#new-events-area                                     { width: 100%; }
 div#local-caches-area                                   { width: 400px; }
 div#local-events-area                                   { width: 400px; }
 div#local-logs-area                                     { width: 750px; }
-div#cacheview-attributesinfo                            { }
 div#viewlogs-end                                        { font-weight: bold; font-size: 120%; margin-bottom: 10px;}
 div.local-caches-area                                   { width: 400px; }
 div.local-logs-area                                     { width: 750px; }
@@ -943,9 +816,9 @@ div.viewlogs-logpictures div.allimages                  { background-color: rgb(
 div.viewlogs-logpictures span.desc                      { vertical-align: middle; display: block; float: right; width: 112px; margin-top: 5px; padding-left: 3px;font-size: 12px;} /* should fit 4 images */
 div.viewlogs-logpictures img                            { max-width: 64px; max-height: 64px; vertical-align: middle;}
 div.viewlogs-logpictures span.removepic                 { display: block; font-size: 12px;}
-div#cacheTitled {
-    width: 100%;
-}
+
+
+div#cacheTitled { width: 100%; }
 div.cache-titled-content {
     margin-left: 40px;
     margin-top: 11px;
@@ -960,7 +833,7 @@ div.logs {
     -moz-border-radius: 5px;
 }
 
-.content2 span.user_aktywnosc
+span.user_aktywnosc
 {
     color: #000000;
     font-weight: normal;
@@ -972,16 +845,15 @@ div.viewcache_log-content {
     margin: 5px;
     line-height: 1.3em;
     font-size: 12px;
-    }
+}
 div.viewcache_log-content * {
     font-family: arial, sans serif;
     line-height: 1.3em;
     font-size: 12px;
-    }
+}
 
 div#main-cachemap-block                 { width: 265px; margin-top: 80px; }
 div#local-cachemap-block                { width: 365px; margin-top: 7px; }
-#viewprofile-table td                   { width: 260px; }
 p.main-totalstats                       { font-weight: bold; }
 
 .img-shadow {
@@ -1008,43 +880,6 @@ form, input, textarea, button {
     font-size: 8pt;
 }
 
-/* kolor dla klawisza Wysli Waypoint do GPS */
-#send-to-gps    { BACKGROUND: rgb(234,239,247); BORDER-RIGHT: #005e9d 2px outset; BORDER-TOP: #000000 1px outset; FONT-WEIGHT: bold; FONT-SIZE: 8pt; PADDING-BOTTOM: 2px; BORDER-LEFT: #000000 1px outset; PADDING-TOP: 2px; BORDER-BOTTOM: #005e9d 2px outset; FONT-FAMILY: verdana }
-#SendToGPS      { BACKGROUND: rgb(234,239,247); BORDER-RIGHT: #005e9d 2px outset; BORDER-TOP: #000000 1px outset; FONT-WEIGHT: bold; FONT-SIZE: 8pt; PADDING-BOTTOM: 2px; BORDER-LEFT: #000000 1px outset; PADDING-TOP: 2px; BORDER-BOTTOM: #005e9d 2px outset; FONT-FAMILY: verdana }
-
-div.gsc-resultsRoot, div.gsc-branding-text, img.gsc-branding-img {
-    display: none;
-}
-
-#ext_search input.gsc-input {
-    font-size: 15px;
-    width: 200px;
-    border: 1px solid #aaa;
-    padding: 4px 5px;
-    margin-right: 5px;
-}
-
-#ext_search input.gsc-search-button {
-    background: #696;
-    padding: 3px 10px 4px 10px;
-    font-weight: bold;
-    font-size: 14px;
-    border-top: 2px solid #9c9;
-    border-left: 2px solid #9c9;
-    border-bottom: 2px solid #464;
-    border-right: 2px solid #464;
-    color: #fff;
-    cursor: pointer;
-}
-
-
-#map_canvas input.gsc-input {
-    font-size: 15px;
-}
-
-#map_canvas input.gsc-search-button {
-    font-size: 14px;
-}
 
 /* linki w recomendation cache sp2ong */
 a.links:link {
@@ -1085,27 +920,7 @@ a.links-onlusers:active {
 a.links-onlusers:hover {
     text-decoration: underline;
 }
-a.links2:link {
-    font-weight:bold;
-    color: #323232;
-    text-decoration:none;
-}
 
-a.links2:visited {
-    font-weight:bold;
-    color: #323232;
-    text-decoration:none;
-}
-
-a.links2:active {
-    text-decoration:none;
-}
-
-a.links2:hover {
-    font-weight:bold;
-    color:black;
-    text-decoration: none;
-}
 a.info{
     position:relative; /*this is the key*/
     z-index:24; background-color:#FFFFFF;
@@ -1127,49 +942,6 @@ a.info:hover span{ /*the span will display just on :hover state*/
     background-color:#FFFFCC; color:#000;
     text-align: left; font-size: 11px;
 }
-/* links without decorations */
-a.links3:link {
-    text-decoration:none;
-}
-a.links3:visited {
-    text-decoration:none;
-}
-a.links3:active {
-    text-decoration:none;
-}
-a.links3:hover {
-    text-decoration: none;
-}
-/*links with color  */
-a.links4:link {
-    font-weight:bold;
-    color: rgb(88,144,168);
-    text-decoration:none;
-}
-
-a.links4:visited {
-    font-weight:bold;
-    color: rgb(88,144,168);
-    text-decoration:none;
-}
-
-a.links4:active {
-    text-decoration:none;
-}
-
-a.links4:hover {
-    font-weight:bold;
-    color:blue;
-    text-decoration: underline;
-}
-/* external Links with symbol*/
-#ocmain a[href^="http:"], #ocmain a[href^="https:"]
-{
-    padding-right: 14px;
-    background-image: url('../images/misc/linkicon.png');
-    background-repeat: no-repeat;
-    background-position: right center;
-}
 
 
 /* Gradien stylee */
@@ -1184,6 +956,9 @@ a.links4:hover {
     color: #000000;
     background: #fff url(/tpl/stdstyle/images/misc/bg-gradient-blue.png) repeat-x top left;
 }
+
+
+
 table.border {    background: url(/images/css/bg_blue.png) repeat-x;
                   color: #333;
                   padding: 2px;
@@ -1193,25 +968,15 @@ table.border {    background: url(/images/css/bg_blue.png) repeat-x;
                   border-left: 1px solid #CCCCCC;
                   border-right: 1px solid #CCCCCC;
 }
+
+
 table.ptPromo-table {
     width: 100%;
     font-size: 11px;
     vertical-align: middle;
 }
-.img_cache {
-    border:solid 1px silver; padding:5px;
-    margin-left:10px;width:195px;
-    height:200px;float:right;
-    margin-bottom:3px;
-}
-.img_log {
-    border:solid 1px silver; padding:5px;
-    margin-left:10px;width:80px;
-    height:120px;float:right;
-    margin-bottom:3px;
-}
-.img_log img                        { max-width: 64px; max-height: 64px; vertical-align: top;}
-.img_cache img                      { max-width: 175px; max-height: 175px; vertical-align: top;}
+
+
 div.gallery-pictureblock            { float: left; max-width: 180px; height:220px;padding-left: 10px; padding-right: 10px;vertical-align: middle;}
 div.gallery-pictureblock span.title { display: block; max-width: 175px; padding-left: 10px; padding-right: 5px;clear: left; font-size: 10px;}
 
@@ -1222,26 +987,8 @@ div.searchdiv {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
 }
-div.isarchived {
-    clear: both;
-    float: left;
-    width: 735px;
-    margin: 0px 0px 10px 0px;
-    padding: 15px;
-    border: solid 2px red;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-}
-div#havefound {
-    position: absolute;
-    z-index: 25;
-    top: 250px;
-    right: 20px;
-    width: 35px;
-    padding: 5px 5px 5px 0px;
-    font-weight: bold;
-    height: 35px;
-}
+
+
 
 div.headitems {
     width: 95%;
@@ -1263,6 +1010,8 @@ div.listitems {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
 }
+
+/* This is for myRoutes only */
 div.ver {
     height: 30px;
     margin-top:3px;
@@ -1296,11 +1045,7 @@ td.myr{
     font-weight:bold;
     line-height:1.4em;}
 
-#oclogo {
-    width: 68px;
-    height: 64px;
-    margin-top:5px; margin-left:3px;
-}
+
 /* ===================================================================================== */
 /*              Tabele w myneighborhood    jg-geo(at)pwr.pl                              */
 /* ===================================================================================== */
@@ -1321,17 +1066,6 @@ td.tab_user {
     width: 20%;
 }
 
-/* This is a red/green frame, like this one: http://i.imgur.com/xHpnKD7.png */
-
-#wrinfo { margin: 10px 20px 10px 0; padding: 10px 15px; }
-#wrinfo p { font-family: Tahoma, Verdana, Arial; font-size: 14px; margin: 12px 0; }
-#wrinfo p.podpis { text-align: right; }
-#wrinfo.red { border: 2px solid #944; background: #faa; }
-#wrinfo.red p { color: #200; }
-#wrinfo.red p.podpis { color: #a66; }
-#wrinfo.green { border: 2px solid #494; background: #afa; }
-#wrinfo.green p { color: #020; }
-#wrinfo.green p.podpis { color: #6a6; }
 
 /*power trails (geoPaths) medals (viewprofile)*/
 .ptMedal {

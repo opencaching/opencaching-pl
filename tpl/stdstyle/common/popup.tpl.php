@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
   <link rel="shortcut icon" href="/images/<?=$config['headerFavicon']?>">
-  <link rel="stylesheet" type="text/css" href="tpl/stdstyle/css/main.css">
+  <link rel="stylesheet" type="text/css" href="tpl/stdstyle/css/popup.css">
 
   <?php foreach( $view->getLocalCss() as $css ) { ?>
     <link rel="stylesheet" type="text/css" href="<?=$css?>">

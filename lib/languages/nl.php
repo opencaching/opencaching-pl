@@ -453,7 +453,7 @@ $translations = array(
     'images' => 'Afbeeldingen',
     'mp3_files_info' => 'PodCasts - luister naar de instructies om je naar de cache te leiden - MP3 bestenden',
     'utilities' => 'Hulpmiddelen',
-    'search_geocaches_nearby' => 'Zoek caches dichtbij (radius 100 km)',
+    'search_geocaches_nearby' => 'Zoek caches dichtbij (radius 20 km)',
     'download_as_file' => 'Download als bestand',
     'accept_terms_of_use' => 'Met het downloaden van dit bestand, accepteer je onze <a href="{wiki_link_rules}">gebruikersvoorwaarden</a>.',
     'find_geocaches_on' => 'Zoek caches op',

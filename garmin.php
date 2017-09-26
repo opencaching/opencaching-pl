@@ -62,9 +62,24 @@ function convert($str)
     return $str;
 }
 
-$tplname = 'garmin';
 require_once('./lib/common.inc.php');
-require($stylepath . '/garmin.inc.php');
+
+$tplname = 'garmin';
+
+tpl_set_var('htmlheaders', '<link rel="stylesheet" href="tpl/stdstyle/css/garmin.css" type="text/css" media="screen" />
+<script type="text/javascript" src="tpl/stdstyle/js/garmin/prototype.js"></script>
+<script type="text/javascript" src="tpl/stdstyle/js/garmin/device/GarminDeviceDisplay.js"> </script>');
+
+tpl_set_var('bodyMod', ' onload="load()"');
+
+$garminKeyStr = '';
+if (isset($config['garmin-key'])){
+    foreach($config['garmin-key'] as $k => $v){
+        $garminKeyStr .= '"'.$k.'", "'.$v.'", ';
+    }
+    $garminKeyStr = rtrim($garminKeyStr, ', ');
+}
+tpl_set_var('garminKeyStr', $garminKeyStr);
 
 global $hide_coords;
 if ($usr == false && $hide_coords) {
@@ -88,4 +103,4 @@ tpl_set_var('cachename', $str);
 
 //make the template and send it out
 tpl_BuildTemplate();
-?>
+
