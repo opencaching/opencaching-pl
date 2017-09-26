@@ -1,7 +1,11 @@
-{{admin_reports_mail_txtwatch}} #{reportid}<br>
-<pre>{content}</pre>
+<div style="font-size: 14px; font-family: Verdana;">
+{{admin_reports_mail_txtwatch}}
+<div style="padding: 10px; margin: 10px; border: 1px solid #ccc; border-radius: 10px">
+{content}
+</div>
 <br>
 {{cache}}: <a href="{server}{cacheurl}">{cachename} ({cacheWP})</a><br>
 {{admin_reports_lbl_report}}: <a href="{server}{reporturl}">#{reportid} - {reporttype}</a> ({reportstatus})<br>
 {{admin_reports_lbl_leader}}: {reportleader}<br>
 {{admin_reports_lbl_submiter}}: {reportsubmitter}<br>
+</div>

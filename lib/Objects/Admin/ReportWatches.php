@@ -19,10 +19,10 @@ class ReportWatches extends BaseObject
      */
     public static function turnWatchOnByReportId($reportId, $userId)
     {
-        $query = "
+        $query = '
             INSERT INTO `reports_watches` (`report_id`, `user_id`, `date_created`)
             VALUES (:reportId, :userId, NOW())
-            ON DUPLICATE KEY UPDATE `date_created` = NOW()";
+            ON DUPLICATE KEY UPDATE `date_created` = NOW()';
         $params = [];
         $params['reportId']['value'] = $reportId;
         $params['reportId']['data_type'] = 'integer';
@@ -39,9 +39,9 @@ class ReportWatches extends BaseObject
      */
     public static function turnWatchOffByReportId($reportId, $userId)
     {
-        $query = "
+        $query = '
             DELETE FROM `reports_watches`
-            WHERE report_id = :reportId AND user_id = :userId";
+            WHERE report_id = :reportId AND user_id = :userId';
         $params = [];
         $params['reportId']['value'] = $reportId;
         $params['reportId']['data_type'] = 'integer';
@@ -59,9 +59,9 @@ class ReportWatches extends BaseObject
      */
     public static function isReportWatchedByReportId($reportId, $userId)
     {
-        $query = "
+        $query = '
             SELECT COUNT(*) FROM `reports_watches`
-            WHERE report_id = :reportId AND user_id = :userId";
+            WHERE report_id = :reportId AND user_id = :userId';
         $params = [];
         $params['reportId']['value'] = $reportId;
         $params['reportId']['data_type'] = 'integer';
@@ -78,9 +78,9 @@ class ReportWatches extends BaseObject
      */
     public static function getWatchersByReportId($reportId)
     {
-        $query = "
+        $query = '
             SELECT `user_id` FROM `reports_watches`
-            WHERE report_id = :reportId";
+            WHERE report_id = :reportId';
         $params = [];
         $params['reportId']['value'] = $reportId;
         $params['reportId']['data_type'] = 'integer';

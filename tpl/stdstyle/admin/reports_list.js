@@ -13,7 +13,6 @@ function watchOn(reportId) {
 			img_old.style = "display: none;";
 			img_new.src = "/tpl/stdstyle/images/misc/eye.svg";
 			img_new.style = "";
-			console.log("watchOn: OK!");
 		}
 	});
 }
@@ -33,7 +32,6 @@ function watchOff(reportId) {
 			img_old.style = "display: none;";
 			img_new.src = "/tpl/stdstyle/images/misc/eye-off.svg";
 			img_new.style = "";
-			console.log("watchOff: OK!");
 		}
 	});
 }

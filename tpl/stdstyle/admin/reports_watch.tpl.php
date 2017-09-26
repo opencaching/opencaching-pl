@@ -3,19 +3,12 @@ use lib\Objects\Admin\Report;
 ?>
 <script src="<?=$view->reports_js?>"></script>
 <div class="content2-container">
-  <form action="/admin_reports.php" method="post">
   <div class="content2-pagetitle">
     <div class="content-title-noshade-size0" style="float: right;">
-      {{admin_reports_found_reports}}: <?=$view->reportsCount?>&nbsp;&nbsp;
-      <div class="btn-group btn-group">
-        <button type="submit" class="btn btn-primary">{{filter}}</button>
-        <button type="submit" name="reset" class="btn btn-default">{{reset}}</button>
-        <button type="button" class="btn btn-default" onclick="location.href='/admin_reports.php?action=showwatch';">{{admin_reports_watch_on}}</button>
-      </div>
+      <button type="button" class="btn btn-primary" onclick="location.href='/admin_reports.php';">{{admin_reports_title_reportslist}}</button>
     </div>
-    <img src="tpl/stdstyle/images/blue/rproblems.png" class="icon32" alt=""> {{admin_reports_title_reportslist}}
+    <img src="tpl/stdstyle/images/blue/rproblems.png" class="icon32" alt=""> {{reports}}: {{admin_reports_watch_on}}
   </div>
-  <?=$view->callChunk('infoBar', $view->cleanUri, $view->infoMsg, $view->errorMsg)?>
   <table class="table table-striped full-width">
     <tr>
       <th>{{admin_reports_lbl_id}}</th>
@@ -23,17 +16,6 @@ use lib\Objects\Admin\Report;
       <th>{{admin_reports_lbl_report}}</th>
       <th>{{status_label}}</th>
       <th>{{admin_reports_lbl_leader}}</th>
-    </tr>
-    <tr>
-      <td style="text-align: center;">
-        <input type="text" placeholder="{{admin_reports_lbl_id}}" name="reportId" class="form-control input50">
-      </td>
-      <td>
-        <input type="text" placeholder="{{waypointname_label}}" name="reportWp" value="<?=$_SESSION['reportWp']?>" class="form-control">
-      </td>
-      <td><select name="reportType" class="form-control"><?=$view->typeSelect?></select></td>
-      <td><select name="reportStatus" class="form-control"><?=$view->statusSelect?></select></td>
-      <td><select name="reportUser" class="form-control"><?=$view->userSelect?></select></td>
     </tr>
 <?php foreach ($view->reports as $report) { ?>
     <tr>
@@ -72,7 +54,6 @@ use lib\Objects\Admin\Report;
 <?php } ?>
   </table>
   <?php $view->callChunk('pagination', $view->paginationModel); ?>
-  </form>
 </div>
 <link rel="prefetch" href="/tpl/stdstyle/images/loader/spinning-circles.svg">
 <link rel="prefetch" href="https://www.gstatic.com/charts/loader.js">

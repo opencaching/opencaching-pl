@@ -400,8 +400,8 @@ $menu = array(
             ),
             array(
                 'title' => tr('reports'),
-                'menustring' => tr('reports') . ' TEST',
-                'siteid' => ['admin/reports_list', 'admin/report_show'],
+                'menustring' => tr('reports'),
+                'siteid' => ['admin/reports_list', 'admin/report_show', 'admin/reports_watch'],
                 'visible' => true,
                 'filename' => 'admin_reports.php'
             ),
