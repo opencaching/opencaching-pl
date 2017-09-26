@@ -263,13 +263,23 @@ class ReportPoll extends BaseObject
     /**
      * Lists all polls after voting term on the report
      * Returns array of ReportPoll object for given $reportId
+     * If $empty = false - array will not include polls without votes
      *
      * @param int $reportId
+     * @param boolean $empty
      * @return ReportPoll[]
      */
-    public static function getInActivePolls($reportId)
+    public static function getInActivePolls($reportId, $empty = false)
     {
-        return self::getPollsObj($reportId, false);
+        $polls = self::getPollsObj($reportId, false);
+        if (! $empty) {
+            foreach ($polls as $key => $value) {
+                if ($value->getVotesCount() == 0) {
+                    unset($polls[$key]);
+                }
+            }
+        }
+        return $polls;
     }
 
     /**
@@ -531,6 +541,11 @@ class ReportPoll extends BaseObject
         }
     }
 
+    /**
+     * @param int $reportId
+     * @param string $active
+     * @return ReportPoll[]
+     */
     private static function getPollsObj($reportId, $active = true)
     {
         $query = '
