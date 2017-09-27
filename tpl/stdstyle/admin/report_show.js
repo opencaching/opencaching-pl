@@ -54,7 +54,11 @@ function changeStatus(reportId) {
 					console.log("changeStatus error: " + xhr.responseText);
 				},
 				success : function(data) {
-					inform.innerHTML = data.message;
+					if (data.message == "reqReloadPage") {
+						location.reload();
+					} else {
+						inform.innerHTML = data.message;
+					}
 				}
 			});
 }

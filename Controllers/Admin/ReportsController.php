@@ -132,8 +132,13 @@ class ReportsController extends BaseController
             exit();
         }
         $report = new Report(['reportId' => $_REQUEST['id']]);
+        $oldleader = $report->getUserIdLeader();
         if ($report->changeStatus($_REQUEST['status'])) {
-            $this->ajaxSuccessResponse(tr($report->getReportStatusTranslationKey()));
+            if ($oldleader != $report->getUserIdLeader()) {
+                $this->ajaxSuccessResponse('reqReloadPage');
+            } else {
+                $this->ajaxSuccessResponse(tr($report->getReportStatusTranslationKey()));
+            }
         } else {
             $this->ajaxErrorResponse('Poll is active!', 400);
         }

@@ -1024,6 +1024,11 @@ class Report extends BaseObject
                 }
             }
         }
+        if ($this->userIdLeader == null && $newStatus != self::STATUS_NEW) {
+            // If sbd changes status to other than "New", and report has no leader -
+            // Set current logged user as leader!
+            $this->changeLeader($this->getCurrentUser()->getUserId());
+        }
         return true;
     }
 
