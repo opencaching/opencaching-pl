@@ -517,11 +517,13 @@ class Report extends BaseObject
         if ($user == self::USER_ALL) {
             $query .= '';
         } elseif ($user == self::USER_YOU) {
-            $query .= ' AND `reports`.`responsible_id` = :user';
+            $query .= ' AND (`reports`.`responsible_id` = :user  OR `reports`.`status` = :statuslook)';
             $params['user']['value'] = $currentUser->getUserId();
             $params['user']['data_type'] = 'integer';
+            $params['statuslook']['value'] = self::STATUS_LOOK_HERE;
+            $params['statuslook']['data_type'] = 'integer';
         } elseif ($user == self::USER_YOU2) {
-            $query .= ' AND (`reports`.`responsible_id` = :user OR `reports`.`responsible_id` IS NULL OR `reports`.`status` = :statuslook)';
+            $query .= ' AND (`reports`.`responsible_id` = :user OR `reports`.`responsible_id` IS NULL OR `reports`.`responsible_id` = 0 OR `reports`.`status` = :statuslook)';
             $params['user']['value'] = $currentUser->getUserId();
             $params['user']['data_type'] = 'integer';
             $params['statuslook']['value'] = self::STATUS_LOOK_HERE;
@@ -587,11 +589,13 @@ class Report extends BaseObject
         if ($user == self::USER_ALL) {
             $query .= '';
         } elseif ($user == self::USER_YOU) {
-            $query .= ' AND `reports`.`responsible_id` = :user';
+            $query .= ' AND (`reports`.`responsible_id` = :user  OR `reports`.`status` = :statuslook)';
             $params['user']['value'] = $currentUser->getUserId();
             $params['user']['data_type'] = 'integer';
+            $params['statuslook']['value'] = self::STATUS_LOOK_HERE;
+            $params['statuslook']['data_type'] = 'integer';
         } elseif ($user == self::USER_YOU2) {
-            $query .= ' AND (`reports`.`responsible_id` = :user OR `reports`.`responsible_id` IS NULL OR `reports`.`status` = :statuslook)';
+            $query .= ' AND (`reports`.`responsible_id` = :user OR `reports`.`responsible_id` IS NULL OR `reports`.`responsible_id` = 0 OR `reports`.`status` = :statuslook)';
             $params['user']['value'] = $currentUser->getUserId();
             $params['user']['data_type'] = 'integer';
             $params['statuslook']['value'] = self::STATUS_LOOK_HERE;
