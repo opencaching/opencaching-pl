@@ -151,12 +151,12 @@ function notifyOwner($cacheid, $msgType)
         //send email to approver
         mb_send_mail($usr['email'], tr('viewPending_01') . ": " . $cachename, tr('viewPending_02') . ":\n" . $email_content, $email_headers);
         // generate automatic log about status cache
-        $log_text = tr("viewPending_03");
+        $log_text = htmlspecialchars(tr("viewPending_03"));
         $log_uuid = Uuid::create();
         XDb::xSql(
             "INSERT INTO `cache_logs`
                 (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
-            VALUES ('', ?, ?, '12', NOW(), ?, '0', '0', NOW(), NOW(), ?, ?)",
+            VALUES ('', ?, ?, '12', NOW(), ?, '2', '1', NOW(), NOW(), ?, ?)",
             $cacheid, $usr['userid'], $log_text, $log_uuid, $oc_nodeid);
 
     } else {
@@ -166,13 +166,13 @@ function notifyOwner($cacheid, $msgType)
         mb_send_mail($usr['email'], tr('viewPending_04') . ": " . $cachename, tr('viewPending_05') . ":\n" . $email_content, $email_headers);
 
         // generate automatic log about status cache
-        $log_text = tr("viewPending_06");
+        $log_text = htmlspecialchars(tr("viewPending_06"));
         $log_uuid = Uuid::create();
         XDb::xSql(
             "INSERT INTO `cache_logs`
                 (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
             VALUES ('', ?, ?, ?, NOW(), ?, ?, ?, NOW(), NOW(), ?, ?)",
-            $cacheid, $usr['userid'], 12, $log_text, 0, 0, $log_uuid, $oc_nodeid);
+            $cacheid, $usr['userid'], 12, $log_text, 2, 1, $log_uuid, $oc_nodeid);
     }
 }
 

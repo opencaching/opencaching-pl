@@ -99,7 +99,7 @@ if ($error == false) {
         if( !empty($log_ids) ){
             $rs = XDb::xSql(
                 "SELECT cache_logs.id, cache_logs.cache_id AS cache_id, cache_logs.type AS log_type,
-                        cache_logs.date AS log_date, cache_logs.text AS log_text, cache_logs.text_html AS text_html,
+                        cache_logs.date AS log_date, cache_logs.text AS log_text,
                         caches.name AS cache_name, caches.user_id AS cache_owner,
                         user.username AS user_name, cache_logs.user_id AS luser_id,
                         caches.wp_oc AS wp_name,

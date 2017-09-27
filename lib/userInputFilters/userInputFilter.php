@@ -120,37 +120,50 @@ class userInputFilter
      * @param string $dirtyHtml
      * @return string
      */
-    public static function purifyHtmlStringAndDecodeHtmlSpecialChars($dirtyHtml)
+    public static function purifyHtmlStringAndDecodeHtmlSpecialChars($dirtyHtml, $htmlMode)
     {
         if (isset($_GET['use_purifier'])) {
             $upo = $_GET['use_purifier'];
             switch ($upo) {
                 case '0':
-                    return self::purifyHtmlStringAndDecodeHtmlSpecialChars_old($dirtyHtml);
+                    return self::purifyHtmlStringAndDecodeHtmlSpecialChars_old($dirtyHtml, $htmlMode);
                 case '1':
                 case '':
-                    return self::purifyHtmlStringAndDecodeHtmlSpecialChars_new($dirtyHtml);
+                    return self::purifyHtmlStringAndDecodeHtmlSpecialChars_new($dirtyHtml, $htmlMode);
             }
         }
 
         // current working implementation - the old way
-        return htmlspecialchars_decode($dirtyHtml);
+        if ($htmlMode < 2) {
+            // see https://github.com/opencaching/opencaching-pl/issues/1218
+            return htmlspecialchars_decode($dirtyHtml);
+        } else {
+            return $dirtyHtml;
+        }
     }
 
     /**
      * the oldest version of the function - for backward compatibility
      */
-    private static function purifyHtmlStringAndDecodeHtmlSpecialChars_old($dirtyHtml)
+    private static function purifyHtmlStringAndDecodeHtmlSpecialChars_old($dirtyHtml, $htmlMode)
     {
-        return htmlspecialchars_decode($dirtyHtml);
+        if ($htmlMode < 2) {
+            // see https://github.com/opencaching/opencaching-pl/issues/1218
+            return htmlspecialchars_decode($dirtyHtml);
+        } else {
+            return $dirtyHtml;
+        }
     }
 
     /**
      * the newest possible version of the function - all the experiments should be done here
      */
-    private static function purifyHtmlStringAndDecodeHtmlSpecialChars_new($dirtyHtml)
+    private static function purifyHtmlStringAndDecodeHtmlSpecialChars_new($dirtyHtml, $htmlMode)
     {
-        $dirtyHtml = htmlspecialchars_decode($dirtyHtml);
+        if ($htmlMode < 2) {
+            // see https://github.com/opencaching/opencaching-pl/issues/1218
+            $dirtyHtml = htmlspecialchars_decode($dirtyHtml);
+        }
         $cleanHtml = self::purifyHtmlString($dirtyHtml);
         return $cleanHtml;
     }

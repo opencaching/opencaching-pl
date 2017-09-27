@@ -37,7 +37,7 @@ user_id
 type
 date
 text
-text_html
+text_html         0 = plain text, 1 = old HTML, 2 = new HTML (see https://github.com/opencaching/opencaching-pl/issues/1218)
 text_htmledit
 last_modified
 okapi_syncbase

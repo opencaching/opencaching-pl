@@ -236,7 +236,7 @@ fclose($lock_file);
 function process_owner_log($user_id, $log_id)
 {
     $rsLog = XDb::xSql(
-        "SELECT cache_logs.cache_id cache_id, cache_logs.text text, cache_logs.text_html text_html,
+        "SELECT cache_logs.cache_id cache_id, cache_logs.text text,
                 cache_logs.date logdate, user.username username, user.hidden_count ch, user.founds_count cf,
                 user.notfounds_count cn, caches.wp_oc wp,caches.name cachename, cache_logs.type type,
                 IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
@@ -295,7 +295,7 @@ function process_owner_log($user_id, $log_id)
 function process_log_watch($user_id, $log_id)
 {
     $rsLog = XDb::xSql(
-        "SELECT cache_logs.cache_id cache_id, cache_logs.text text, cache_logs.text_html text_html,
+        "SELECT cache_logs.cache_id cache_id, cache_logs.text text,
                 cache_logs.date logdate, user.username username, user.hidden_count ch, user.founds_count cf,
                 user.notfounds_count cn, caches.wp_oc wp,caches.name cachename, cache_logs.type type,
                 IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`

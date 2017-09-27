@@ -21,7 +21,7 @@ class OrgCacheOwners
             "SELECT cl.id, cl.cache_id, cl.text
             FROM cache_logs cl join caches c using (cache_id)
             WHERE cl.user_id = -1 AND cl.type = 3
-                AND cl.text_html = 1 AND
+                AND cl.text_html >= 1 AND
                 (
                     cl.text like '%Przeprowadzono procedurę adopcji skrzynki%'
                     OR cl.text like '%The adoption process has been completed%'

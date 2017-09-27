@@ -151,7 +151,6 @@ if ($usr == false) {
                             cache_logs.date                             AS log_date,
                             cache_logs.user_id                          AS luser_id,
                             cache_logs.text                             AS log_text,
-                            cache_logs.text_html                        AS text_html,
                             caches.name                                 AS cache_name,
                             caches.user_id                              AS cache_owner,
                             caches.user_id                              AS user_id,
