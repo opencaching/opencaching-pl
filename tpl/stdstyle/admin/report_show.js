@@ -84,29 +84,49 @@ function changeLeader(reportId) {
 
 function enableEmail() {
 	document.getElementById("report-email-row").style = "";
-	document.getElementById("report-email-row2").style = "";
 	document.getElementById("report-note-row").style = "display: none;";
-	document.getElementById("report-note-row2").style = "display: none;";
 	document.getElementById("report-poll-row").style = "display: none;";
-	document.getElementById("report-poll-row2").style = "display: none;";
+	document.getElementById("report-log-row").style = "display: none;";
+	document.getElementById("reports-btn-note").className = "btn btn-sm btn-default";
+	document.getElementById("reports-btn-log").className = "btn btn-sm btn-default";
+	document.getElementById("reports-btn-email").className = "btn btn-sm btn-success";
+	document.getElementById("reports-btn-poll").className = "btn btn-sm btn-default";
 }
 
 function enableNote() {
 	document.getElementById("report-note-row").style = "";
-	document.getElementById("report-note-row2").style = "";
 	document.getElementById("report-email-row").style = "display: none;";
-	document.getElementById("report-email-row2").style = "display: none;";
 	document.getElementById("report-poll-row").style = "display: none;";
-	document.getElementById("report-poll-row2").style = "display: none;";
+	document.getElementById("report-log-row").style = "display: none;";
+	document.getElementById("reports-btn-note").className = "btn btn-sm btn-success";
+	document.getElementById("reports-btn-log").className = "btn btn-sm btn-default";
+	document.getElementById("reports-btn-email").className = "btn btn-sm btn-default";
+	document.getElementById("reports-btn-poll").className = "btn btn-sm btn-default";
 }
 
 function enablePoll() {
 	document.getElementById("report-poll-row").style = "";
-	document.getElementById("report-poll-row2").style = "";
 	document.getElementById("report-note-row").style = "display: none;";
-	document.getElementById("report-note-row2").style = "display: none;";
 	document.getElementById("report-email-row").style = "display: none;";
-	document.getElementById("report-email-row2").style = "display: none;";
+	document.getElementById("report-log-row").style = "display: none;";
+	document.getElementById("reports-btn-note").className = "btn btn-sm btn-default";
+	document.getElementById("reports-btn-log").className = "btn btn-sm btn-default";
+	document.getElementById("reports-btn-email").className = "btn btn-sm btn-default";
+	document.getElementById("reports-btn-poll").className = "btn btn-sm btn-success";
+}
+
+function enableLog() {
+	document.getElementById("report-log-row").style = "";
+	document.getElementById("report-poll-row").style = "display: none;";
+	document.getElementById("report-note-row").style = "display: none;";
+	document.getElementById("report-email-row").style = "display: none;";
+	document.getElementById("reports-btn-note").className = "btn btn-sm btn-default";
+	document.getElementById("reports-btn-log").className = "btn btn-sm btn-success";
+	document.getElementById("reports-btn-email").className = "btn btn-sm btn-default";
+	document.getElementById("reports-btn-poll").className = "btn btn-sm btn-default";
+	if (document.getElementById("logTemplateSelect") !== null) {
+		getLogTemplate();
+	}
 }
 
 function clearAns3() {
@@ -152,7 +172,7 @@ function getTemplates(objecttype) {
 			});
 }
 
-function getTemplate(reportid) {
+function getTemplate() {
 	document.getElementById("email-spinning-img").style = "";
 	var templateid = document.getElementById("templateSelect").value;
 	var reportid = document.getElementById("reportid").value;
@@ -167,6 +187,26 @@ function getTemplate(reportid) {
 				},
 				success : function(data) {
 					document.getElementById("form-email-textarea").innerHTML = data.message;
+					document.getElementById("email-spinning-img").style = "display: none;";
+				}
+			});
+}
+
+function getLogTemplate() {
+	document.getElementById("email-spinning-img").style = "";
+	var templateid = document.getElementById("logTemplateSelect").value;
+	var reportid = document.getElementById("reportid").value;
+	$
+			.ajax({
+				type : "get",
+				url : "/admin_reports.php?action=getTemplate&ajax=true&id="
+						+ reportid + "&templateid=" + templateid,
+				error : function(xhr) {
+					document.getElementById("email-spinning-img").style = "display: none;";
+					console.log("getLogTemplate error: " + xhr.responseText);
+				},
+				success : function(data) {
+					document.getElementById("form-log-textarea").innerHTML = data.message;
 					document.getElementById("email-spinning-img").style = "display: none;";
 				}
 			});

@@ -5,13 +5,13 @@ use Controllers\BaseController;
 use Utils\Uri\Uri;
 use lib\Controllers\LogEntryController;
 use lib\Objects\Admin\Report;
+use lib\Objects\Admin\ReportEmailSender;
 use lib\Objects\Admin\ReportEmailTemplate;
+use lib\Objects\Admin\ReportLog;
+use lib\Objects\Admin\ReportPoll;
 use lib\Objects\Admin\ReportWatches;
 use lib\Objects\ChunkModels\PaginationModel;
 use lib\Objects\User\User;
-use lib\Objects\Admin\ReportLog;
-use lib\Objects\Admin\ReportPoll;
-use lib\Objects\Admin\ReportEmailSender;
 
 class ReportsController extends BaseController
 {
@@ -56,6 +56,9 @@ class ReportsController extends BaseController
                     break;
                 case 'addnote':
                     $this->addNote();
+                    break;
+                case 'newlog':
+                    $this->addLog();
                     break;
                 case 'addpoll':
                     $this->addPoll();
@@ -262,6 +265,7 @@ class ReportsController extends BaseController
         $this->view->setVar('activePolls', ReportPoll::getActivePolls($id));
         $this->view->setVar('inactivePolls', $inactivePolls);
         $this->view->setVar('includeGCharts', ! empty($inactivePolls));
+        $this->view->setVar('logSelect', ReportEmailTemplate::generateTemplateSelect(ReportEmailTemplate::RECIPIENT_CACHELOG), $report->getType());
         $this->view->setVar('infoMsg', $this->infoMsg);
         $this->view->setVar('errorMsg', $this->errorMsg);
         $this->view->setVar('cleanUri', $this->getCleanUri());
@@ -299,6 +303,27 @@ class ReportsController extends BaseController
         $report->addNote($_POST['note']);
         unset($report);
         $this->infoMsg = tr('admin_reports_info_notesaved');
+        $this->redirectToSingleReport($_REQUEST['id']);
+    }
+
+    private function addLog()
+    {
+        $this->checkSecurity();
+        $this->checkReportId();
+        $this->checkParam('content', true);
+        $report = new Report(['reportId' => $_REQUEST['id']]);
+        if ($report->addOcTeamLog($_REQUEST['content'])) {
+            $report->updateLastChanged();
+            $report->saveReport();
+            $logid = ReportLog::addLog($_REQUEST['id'], ReportLog::TYPE_CACHELOG_ADD, nl2br(strip_tags($_REQUEST['content'])));
+            $report->sendWatchEmails($logid);
+            if ($report->getUserIdLeader() != Report::USER_NOBODY && $this->loggedUser->getUserId() != $report->getUserIdLeader() && ! $report->isReportWatched($report->getUserIdLeader())) {
+                ReportEmailSender::sendReportWatch($report, $report->getUserLeader(), $logid);
+            }
+            $this->infoMsg = tr('admin_reports_info_logok');
+        } else {
+            $this->errorMsg = tr('admin_reports_err_log');
+        }
         $this->redirectToSingleReport($_REQUEST['id']);
     }
 

@@ -7,7 +7,7 @@ use lib\Objects\Admin\Report;
   <div class="content2-pagetitle">
     <div class="content-title-noshade-size0" style="float: right;">
       {{admin_reports_found_reports}}: <?=$view->reportsCount?>&nbsp;&nbsp;
-      <div class="btn-group btn-group">
+      <div class="btn-group">
         <button type="submit" class="btn btn-primary">{{filter}}</button>
         <button type="submit" name="reset" class="btn btn-default">{{reset}}</button>
         <button type="button" class="btn btn-default" onclick="location.href='/admin_reports.php?action=showwatch';">{{admin_reports_watch_on}}</button>

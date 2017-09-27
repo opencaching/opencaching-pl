@@ -8,11 +8,13 @@ class ReportEmailTemplate extends BaseObject
 {
 
     // Recipients
-    const RECIPIENT_ALL = 0;
+    const RECIPIENT_ALL = 0; // RECIPIENT_CACHEOWNER & RECIPIENT_SUBMITTER
 
     const RECIPIENT_CACHEOWNER = 1;
 
     const RECIPIENT_SUBMITTER = 2;
+
+    const RECIPIENT_CACHELOG = 3; // Templates to use in OC Team cachelogs
 
     /**
      * Unique ID of report email template
@@ -123,6 +125,9 @@ class ReportEmailTemplate extends BaseObject
      * {reportid} - ID of the report
      * {cachename} - full name of cache
      * {cachewp} - Waypoint of cache (i.e. OP12345)
+     * {cacheowner} - Username of cacheowner
+     * {submitter} - Username of user submits report
+     * {leader} - Username of user who is the leader of the report
      *
      * @param string $content
      * @param Report $report
@@ -131,10 +136,13 @@ class ReportEmailTemplate extends BaseObject
     public static function processTemplate($content, Report $report)
     {
         $content = mb_ereg_replace('{reportid}', $report->getId(), $content);
+        $content = mb_ereg_replace('{cacheowner}', $report->getCache()->getOwner()->getUserName(), $content);
         $content = mb_ereg_replace('{cachename}', $report->getCache()->getCacheName(), $content);
         $content = mb_ereg_replace('{cachewp}', $report->getCache()->getWaypointId(), $content);
         $content = mb_ereg_replace('{authorname}', self::getCurrentUser()->getUserName(), $content);
-        $content = mb_ereg_replace('{user}', $report->getUserLastChange()->getUserName(), $content);
+        $content = mb_ereg_replace('{user}', ($report->getUserLastChange() !== null) ? $report->getUserLastChange()->getUserName() : '', $content);
+        $content = mb_ereg_replace('{submitter}', $report->getUserSubmit()->getUserName(), $content);
+        $content = mb_ereg_replace('{leader}', ($report->getUserLeader() !== null) ? $report->getUserLeader()->getUserName() : '', $content);
         $content = mb_ereg_replace('%cachename%', $report->getCache()->getCacheName(), $content);  // Backward compatibility
         $content = mb_ereg_replace('%rr_member_name%', self::getCurrentUser()->getUserName(), $content);  // Backward compatibility
         return $content;
@@ -166,6 +174,24 @@ class ReportEmailTemplate extends BaseObject
         $params['receiver']['data_type'] = 'integer';
         $stmt = self::db()->paramQuery($query, $params);
         return self::db()->dbResultFetchAll($stmt);
+    }
+
+    /**
+     * Creates <option></option> select code for all templates for
+     * given $recipient and $objectType
+     *
+     * @param int $recipient
+     * @param int $objectType
+     * @return string
+     */
+    public static function generateTemplateSelect($recipient, $objectType = Report::OBJECT_CACHE)
+    {
+        $content = '';
+        $templates = self::generateTemplateArray($recipient, $objectType);
+        foreach ($templates as $template) {
+            $content .= '<option value="' . $template['id'] . '">' . $template['shortdesc']. '</option>';
+        }
+        return $content;
     }
 
     private static function getContentByTemplateId($templateId)
