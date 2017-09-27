@@ -146,11 +146,11 @@ if ( $dDiff->days < $securityPeriod )
     $SystemUser = -1;
     $LogType = 12; //OCTeam
     $ntitled_cache = $titled_cache_period_prefix.'_titled_cache_congratulations';
-    $msgText = str_replace('{ownerName}', $rec['userName'], tr($ntitled_cache));
+    $msgText = str_replace('{ownerName}', htmlspecialchars($rec['userName']), tr($ntitled_cache));
     $LogUuid = Uuid::create();
 
     $dbc->multiVariableQuery($queryLogI, $rec[ "cacheId" ], $SystemUser, $LogType, $date_alg,
-            $msgText, '1', '1', $date_alg, $date_alg, $LogUuid, '0', '0',
+            $msgText, '2', '1', $date_alg, $date_alg, $LogUuid, '0', '0',
             $date_alg, '0', $oc_nodeid );
 
 unset($dbc);

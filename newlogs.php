@@ -82,7 +82,7 @@ if ($error == false) {
             "SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
                     cache_logs.type AS log_type, cache_logs.date AS log_date,
                     cache_logs.user_id AS luser_id, cache_logs.text AS log_text,
-                    cache_logs.text_html AS text_html, caches.name AS cache_name,
+                    caches.name AS cache_name,
                     caches.user_id AS cache_owner, user.username AS user_name,
                     caches.user_id AS user_id, user.user_id AS xuser_id,
                     caches.wp_oc AS wp_name, caches.type AS cache_type,

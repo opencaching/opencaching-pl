@@ -462,8 +462,8 @@ if ($error == false) {
                         /* GeoKretyApi: call method logging selected Geokrets  (by Łza) */
                         processGeoKrety($logDateTime, $user, $geoCache);
 
-                        $dmde_1 = 1;
-                        $dmde_2 = 1;
+                        $text_html = 2;  // see https://github.com/opencaching/opencaching-pl/issues/1218
+                        $text_htmledit = 1;
 
                         // This query INSERT cache_log entry ONLY IF such entry NOT EXISTS
                         XDb::xSql(
@@ -480,7 +480,7 @@ if ($error == false) {
                                     AND `deleted` = '0')
                             LIMIT 1",
                                 $cache_id, $usr['userid'], $log_type, $log_date, $log_text,
-                                $dmde_1, $dmde_2, $log_uuid, $oc_nodeid, $usr['userid'], $cache_id
+                                $text_html, $text_htmledit, $log_uuid, $oc_nodeid, $usr['userid'], $cache_id
                             );
 
                     } else {
@@ -488,7 +488,7 @@ if ($error == false) {
                             "INSERT INTO `cache_logs` (`cache_id`, `user_id`, `type`, `date`, `text`, `text_html`,
                                          `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
                             VALUES ( ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)",
-                            $cache_id, $usr['userid'], $log_type, $log_date, $log_text, 1, 1, $log_uuid, $oc_nodeid);
+                            $cache_id, $usr['userid'], $log_type, $log_date, $log_text, 2, 1, $log_uuid, $oc_nodeid);
                     }
 
                     // insert to database.
