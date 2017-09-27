@@ -4,6 +4,7 @@ use Utils\Database\OcDb;
 use lib\Objects\GeoCache\PrintList;
 use Utils\DateTime\Year;
 use Utils\Debug\Debug;
+use lib\Objects\Admin\Report as ReportCtl;
 
 // load menu
 global $mnu_selmenuitem, $tpl_subtitle, $absolute_server_URI, $mnu_siteid /* which menu item should be highlighted */, $site_name;
@@ -270,17 +271,18 @@ if (date('m') == 12 || date('m') == 1) {
                     }
 
                     if (isset($usr['admin']) && $usr['admin']) {
+                        $new_reports = ReportCtl::getReportsCountByStatus(ReportCtl::STATUS_NEW);
+                        $active_reports = ReportCtl::getReportsCountByStatus(ReportCtl::STATUS_OPEN);
+
                         $db = OcDb::instance();
-                        $new_reports = $db->simpleQueryValue("SELECT count(status) FROM reports WHERE status = 0", 0);
-                        $active_reports = $db->simpleQueryValue("SELECT count(status) FROM reports WHERE status <> 2", 0);
                         $new_pendings = $db->simpleQueryValue("SELECT COUNT(status) FROM caches WHERE status = 4", 0);
                         $in_review_count = $db->simpleQueryValue(
                             "SELECT COUNT(*) FROM caches JOIN approval_status ON approval_status.cache_id = caches.cache_id
                             WHERE caches.status = 4", 0);
 
-                        $adminidx = mnu_MainMenuIndexFromPageId($menu, "viewreports");
+                        $adminidx = mnu_MainMenuIndexFromPageId($menu, "admin/reports_list");
                         $menu[$adminidx]['visible'] = false;
-                        $zgloszeniaidx = mnu_MainMenuIndexFromPageId($menu[$adminidx]["submenu"], "viewreports");
+                        $zgloszeniaidx = mnu_MainMenuIndexFromPageId($menu[$adminidx]["submenu"], "admin/reports_list");
                         if ($active_reports > 0){
                             $menu[$adminidx]["submenu"][$zgloszeniaidx]['menustring'] .= " (" . $new_reports . "/" . $active_reports . ")";
                         }
