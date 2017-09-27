@@ -225,7 +225,7 @@ class ReportsController extends BaseController
         $this->view->setVar('paginationModel', $paginationModel);
         $this->view->setVar('reports', $reports);
         $this->view->setVar('reportsCount', $reportsCount);
-        $this->view->setVar('dateFormat', $this->ocConfig::instance()->getDbDateTimeFormat());
+        $this->view->setVar('dateFormat', $this->ocConfig->getDatetimeFormat());
         $this->view->setVar('typeSelect', Report::generateTypeSelect($_SESSION['reportType']));
         $this->view->setVar('statusSelect', Report::generateStatusSelect(true, $_SESSION['reportStatus']));
         $this->view->setVar('userSelect', Report::generateUserSelect(false, $_SESSION['reportUser']));
@@ -254,7 +254,7 @@ class ReportsController extends BaseController
         $lastLogs = $logController->loadLogs($report->getCache(), false, 0, 5);
         $this->view->setVar('lastLogs', $lastLogs);
         $this->view->setVar('report', $report);
-        $this->view->setVar('dateFormat',$this->ocConfig::instance()->getDbDateTimeFormat());
+        $this->view->setVar('dateFormat',$this->ocConfig->getDatetimeFormat());
         $this->view->setVar('leaderSelect', Report::generateUserSelect(true, $report->getUserIdLeader()));
         $this->view->setVar('statusSelect', Report::generateStatusSelect(false, $report->getStatus()));
         $this->view->setVar('reports_js', Uri::getLinkWithModificationTime('/tpl/stdstyle/admin/report_show.js'));
@@ -281,7 +281,7 @@ class ReportsController extends BaseController
         $reports = Report::getWatchedReports($this->loggedUser, $offset, $limit);
         $this->view->setVar('paginationModel', $paginationModel);
         $this->view->setVar('reports', $reports);
-        $this->view->setVar('dateFormat', $this->ocConfig::instance()->getDbDateTimeFormat());
+        $this->view->setVar('dateFormat', $this->ocConfig->getDatetimeFormat());
         $this->view->setVar('reports_js', Uri::getLinkWithModificationTime('/tpl/stdstyle/admin/reports_list.js'));
         $this->view->loadJQuery();
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/admin/reports.css'));
@@ -413,7 +413,7 @@ class ReportsController extends BaseController
     }
 
     private function checkSecurity($ajax = false) {
-        if (! isset($_SERVER['HTTP_REFERER']) || (parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST) != parse_url($this->ocConfig::getAbsolute_server_URI(), PHP_URL_HOST))) {
+        if (! isset($_SERVER['HTTP_REFERER']) || (parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST) != parse_url($this->ocConfig->getAbsolute_server_URI(), PHP_URL_HOST))) {
             if ($ajax) {
                 $this->ajaxErrorResponse('No hacking please!', 403);
                 exit();

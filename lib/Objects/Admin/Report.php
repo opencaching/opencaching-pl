@@ -856,7 +856,36 @@ class Report extends BaseObject
         return self::db()->dbResultFetchAll($stmt);
     }
 
-     /**
+    /**
+     * Counts reports with given status. "Virtual" statuses are allowed
+     *
+     * @param int $status
+     * @return int
+     */
+    public static function getReportsCountByStatus($status)
+    {
+        $params = [];
+        $query = '
+            SELECT COUNT(*)
+            FROM `reports`';
+        switch ($status) {
+            case self::STATUS_ALL:
+                break;
+            case self::STATUS_OPEN:
+                $query .= ' WHERE `status` != :status';
+                $params['status']['value'] = self::STATUS_CLOSED;
+                $params['status']['data_type'] = 'int';
+                break;
+            default:
+                $query .= ' WHERE `status` = :status';
+                $params['status']['value'] = (int) $status;
+                $params['status']['data_type'] = 'int';
+                break;
+        }
+        return self::db()->paramQueryValue($query, 0, $params);
+    }
+
+    /**
      * Method check if report is wathed by given userId
      *
      * @param int $userId
