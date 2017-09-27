@@ -3,10 +3,29 @@ use lib\Objects\GeoCache\GeoCacheLogCommons;
 use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\Admin\ReportEmailTemplate;
 use lib\Objects\Admin\Report;
+use lib\Objects\Admin\ReportPoll;
 ?>
+<?php if ($view->includeGCharts) {?>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+  google.charts.load('current', {'packages':['corechart']});
+  <?php foreach ($view->inactivePolls as $inactPoll) {?>
+    google.charts.setOnLoadCallback(drawpoll<?=$inactPoll->getId()?>);
+    <?=$inactPoll->getJsCode()?>
+  <?php }?>
+</script>
+<?php }?>
 <script type="text/javascript" src="/lib/js/wz_tooltip.js"></script>
 <script src="<?=$view->reports_js?>"></script>
-<link rel="prefetch" href="/tpl/stdstyle/images/loader/spinning-circles.svg">
+<div id="report-confirm-poll"><p><strong>{{admin_reports_poll_confirm}}</strong></p>
+  <p style="text-align: left">{{admin_reports_lbl_question}}: <em><span id="confirm-dlg-question"></span></em></p>
+  <p style="text-align: left">{{admin_reports_lbl_ans}} 1: <em><span id="confirm-dlg-ans1"></span></em></p>
+  <p style="text-align: left">{{admin_reports_lbl_ans}} 2: <em><span id="confirm-dlg-ans2"></span></em></p>
+  <p style="text-align: left">{{admin_reports_lbl_ans}} 3: <em><span id="confirm-dlg-ans3"></span></em></p>
+  <span class="notice">{{admin_reports_poll_info}}</span><br>
+  <button class="btn btn-primary" id="confirm-dlg-yes">{{yes}}</button>
+  <button class="btn btn-default" id="confirm-dlg-no">{{no}}</button>
+</div>
 <div class="content2-container">
   <div class="content2-pagetitle">
     <div style="float: right;">
@@ -20,7 +39,7 @@ use lib\Objects\Admin\Report;
     </div>
     <img src="tpl/stdstyle/images/blue/rproblems.png" class="icon32" alt=""> {{admin_reports_title_reportshow}}
   </div>
-  <?php if (isset($view->infoMsg)) { $view->callChunk('infoBar', null, $view->infoMsg, null); }?>
+  <?=$view->callChunk('infoBar', $view->cleanUri, $view->infoMsg, $view->errorMsg)?>
   <table class="table full-width">
     <tr>
       <td colspan="2">
@@ -58,8 +77,8 @@ use lib\Objects\Admin\Report;
     <tr>
       <td class="content-title-noshade" style="text-align: right;">{{last_modified_label}}</td>
       <td>
-        <?php if ($view->report->getDateChangeStatus() != null) { echo $view->report->getDateChangeStatus()->format($view->dateFormat); }?>
-        <?php if ($view->report->getUserIdChangeStatus() != null) {?>(<a href="/viewprofile.php?userid=<?=$view->report->getUserIdChangeStatus()?>" class="links" target="_blank"><?=$view->report->getUserChangeStatus()->getUserName()?></a>) <?php }?>
+        <?php if ($view->report->getDateLastChange() != null) { echo $view->report->getDateLastChange()->format($view->dateFormat); }?>
+        <?php if ($view->report->getUserIdLastChange() != null) {?>(<a href="/viewprofile.php?userid=<?=$view->report->getUserIdLastChange()?>" class="links" target="_blank"><?=$view->report->getUserLastChange()->getUserName()?></a>) <?php }?>
       </td>
     </tr>
     <tr>
@@ -114,11 +133,52 @@ use lib\Objects\Admin\Report;
       <td class="content-title-noshade" style="text-align: right;">{{size}}</td>
       <td><?=tr($view->report->getCache()->getSizeTranslationKey())?></td>
     </tr>
+    <?php foreach ($view->activePolls as $poll) {?>
+      <tr>
+        <td colspan="2">
+          <p class="content-title-noshade-size1">{{admin_reports_lbl_pollactive}}
+          (<?=$poll->getDateStart()->format($view->dateFormat)?> - <?=$poll->getDateEnd()->format($view->dateFormat)?>)
+          <a href="?action=remindpoll&amp;id=<?=$view->report->getId()?>&amp;pollid=<?=$poll->getId()?>" class="btn btn-default btn-xs">{{admin_reports_lbl_pollremind}}</a>
+          <?php if ($poll->getVotesCount() == 0) { ?><a href="?action=cancelpoll&amp;id=<?=$view->report->getId()?>&amp;pollid=<?=$poll->getId()?>" class="btn btn-xs btn-default">{{cancel}}</a><?php }?>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+        <?php if ($poll->userVoted()) { ?>
+          {{admin_reports_lbl_question}}: <?=$poll->getQuestion()?><br>
+          <strong>{{admin_reports_info_voted}}.</strong><br>
+        <?php } else { ?>
+          <form action="?action=savevote" method="post" class="reports-form">
+            <fieldset class="reports-fieldset" onchange="showButton(<?=$poll->getId()?>)">
+              <legend class="content-title-noshade"><?=$poll->getQuestion()?></legend>
+              <input type="radio" value="1" name="vote" id="vote-<?=$poll->getId()?>-1">
+              <label for="vote-<?=$poll->getId()?>-1"><?=$poll->getAns1()?></label>
+              <input type="radio" value="2" name="vote" id="vote-<?=$poll->getId()?>-2">
+              <label for="vote-<?=$poll->getId()?>-2"><?=$poll->getAns2()?></label>
+              <?php if ($poll->getAns3() != null) {?>
+                <input type="radio" value="3" name="vote" id="vote-<?=$poll->getId()?>-3">
+                <label for="vote-<?=$poll->getId()?>-3"><?=$poll->getAns3()?></label>
+              <?php } ?>
+              &nbsp;&nbsp;<button type="submit" class="btn btn-sm btn-default" id="vote-<?=$poll->getId()?>-btn" style="display: none">{{save}}</button>
+            </fieldset>
+            <input type="hidden" name="pollid" value="<?=$poll->getId()?>">
+            <input type="hidden" name="id" value="<?=$view->report->getId()?>">
+          </form>
+        <?php } ?>
+        <?php if ($poll->getVotesCount() > 0) { ?>
+          {{admin_reports_lbl_voters}}: <?=$poll->getVotersList(',')?>
+        <?php } ?>
+        </td>
+      </tr>
+    <?php }?>
     <tr id="report-note-row">
       <td colspan="2">
-        <p class="content-title-noshade-size1">
+      <p class="content-title-noshade-size1">{{actions}}</p>
+        <p class="content-title-noshade">
           {{admin_reports_lbl_note}}&nbsp;&nbsp;
           <button type="button" class="btn btn-sm btn-default" onclick="enableEmail()">{{admin_reports_lbl_email}}</button>
+          <button type="button" class="btn btn-sm btn-default" onclick="enablePoll()">{{admin_reports_lbl_poll}}</button>
         </p>
       </td>
     </tr>
@@ -133,9 +193,11 @@ use lib\Objects\Admin\Report;
     </tr>
     <tr id="report-email-row" style="display: none;">
       <td colspan="2">
-        <p class="content-title-noshade-size1">
+      <p class="content-title-noshade-size1">{{actions}}</p>
+        <p class="content-title-noshade">
           {{admin_reports_lbl_email}}&nbsp;&nbsp;
-          <button type="button" class="btn btn-sm btn-default" onclick="enableNote()">{{admin_reports_lbl_note}}</button> &nbsp;
+          <button type="button" class="btn btn-sm btn-default" onclick="enableNote()">{{admin_reports_lbl_note}}</button>
+          <button type="button" class="btn btn-sm btn-default" onclick="enablePoll()">{{admin_reports_lbl_poll}}</button>&nbsp;
           <img src="/tpl/stdstyle/images/loader/spinning-circles.svg" class="report-watch-img" alt="" id="email-spinning-img" style="display: none;">
         </p>
       </td>
@@ -159,19 +221,81 @@ use lib\Objects\Admin\Report;
           <fieldset id="email-content" class="reports-fieldset" style="display: none;">
             <legend class="content-title-noshade">{{admin_reports_lbl_content}}</legend>
             <textarea class="report-note form-control" name="content" id="form-email-textarea"></textarea>
-            <button class="btn btn-default" type="button">{{email_submit}}</button>
+            <button class="btn btn-default" type="submit">{{email_submit}}</button>
           </fieldset>
+          <input type="hidden" name="id" value="<?=$view->report->getId()?>" id="reportid">
+        </form>
+      </td>
+    </tr>
+    <tr id="report-poll-row" style="display: none;">
+      <td colspan="2">
+      <p class="content-title-noshade-size1">{{actions}}</p>
+        <p class="content-title-noshade">
+          {{admin_reports_lbl_poll}}&nbsp;&nbsp;
+          <button type="button" class="btn btn-sm btn-default" onclick="enableNote()">{{admin_reports_lbl_note}}</button>
+          <button type="button" class="btn btn-sm btn-default" onclick="enableEmail()">{{admin_reports_lbl_email}}</button>
+        </p>
+      </td>
+    </tr>
+    <tr id="report-poll-row2" style="display: none;">
+      <td colspan="2">
+        <form action="?action=addpoll" method="post" class="reports-form" id="reports-form-addpoll">
+          <table class="table full-width">
+            <tr>
+              <td colspan="3">
+                <div class="content-title-noshade">{{admin_reports_lbl_question}}</div>
+                <input type="text" class="form-control" name="question" maxlength="200" onkeypress="return event.keyCode != 13;" id="poll-input-question">
+              </td>
+            </tr>
+            <tr>
+              <td width="33%">
+                <div class="content-title-noshade">{{admin_reports_lbl_ans}} 1</div>
+                <input type="text" class="form-control" name="ans1" maxlength="50" onkeypress="return event.keyCode != 13;" id="poll-input-ans1">
+              </td>
+              <td width="33%">
+               <div class="content-title-noshade">{{admin_reports_lbl_ans}} 2</div>
+               <input type="text" class="form-control" name="ans2" maxlength="50" onkeypress="return event.keyCode != 13;" id="poll-input-ans2">
+              </td>
+              <td width="34%">
+               <span class="content-title-noshade">{{admin_reports_lbl_ans}} 3</span>
+               <input type="checkbox" name="noans3" id="noans3" onchange="clearAns3()" checked="checked">
+               <label for="noans3">{{admin_reports_lbl_none}}</label><br>
+               <input type="text" class="form-control" name="ans3" maxlength="50" id="ans3" oninput="clearNoans3()" onkeypress="return event.keyCode != 13;">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="content-title-noshade">{{admin_reports_lbl_perdiod}}</div>
+                <select name="period" class="form-control input70" id="poll-interval"><?=ReportPoll::generatePollIntervalSelect()?></select> {{admin_reports_lbl_days}}&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-default" onclick="confirmPoll()">{{save}}</button>
+              </td>
+              <td colspan="2">
+                <span class="notice">{{admin_reports_poll_info}}</span>
+              </td>
+            </tr>
+          </table>
           <input type="hidden" name="id" value="<?=$view->report->getId()?>">
         </form>
       </td>
     </tr>
-    <tr>
-      <td colspan="2"><p class="content-title-noshade-size1">{{admin_reports_lbl_archive}}</p></td>
-    </tr>
-    <tr>
-      <td colspan="2"><p><?=nl2br($view->report->getNote())?></p></td>
-    </tr>
+    <?php if (!empty($view->reportLogs)) { ?>
+      <tr>
+        <td colspan="2"><p class="content-title-noshade-size1">{{admin_reports_lbl_activity}}</p></td>
+      </tr>
+      <?php foreach ($view->reportLogs as $reportLog) {?>
+        <tr>
+          <td colspan="2"><p><?=$reportLog->getFormattedLog()?></p></td>
+        </tr>
+      <?php }?>
+    <?php }?>
+    <?php if ($view->report->getNote() != '') { ?>
+      <tr>
+        <td colspan="2"><p class="content-title-noshade-size1">{{admin_reports_lbl_archive}}</p></td>
+      </tr>
+      <tr>
+        <td colspan="2"><p><?=nl2br($view->report->getNote())?></p></td>
+      </tr>
+    <?php }?>
   </table>
-
-
 </div>
+<link rel="prefetch" href="/tpl/stdstyle/images/loader/spinning-circles.svg">

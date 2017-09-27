@@ -8,9 +8,10 @@ class Uri {
      * Returns url with set given param to given value
      * + remove old value of given param if neccessary
      *
-     * @param unknown $paramName
-     * @param unknown $paramValue
-     * @param unknown $uri
+     * @param string $paramName
+     * @param string $paramValue
+     * @param string $uri
+     * @return string
      */
     public static function setOrReplaceParamValue(
         $paramName, $paramValue, $uri=null){
@@ -43,8 +44,9 @@ class Uri {
     /**
      * Remove given param from URL
      *
-     * @param unknown $paramName
-     * @param unknown $uri
+     * @param string $paramName
+     * @param string $uri
+     * @return string
      */
     public static function removeParam($paramName, $uri=null){
         if(is_null($uri)){
@@ -58,7 +60,10 @@ class Uri {
             unset($paramArr[$paramName]);
 
             //rebuild the uri
-            $uri = strtok($uri, '?').'?'.http_build_query($paramArr);
+            $uri = strtok($uri, '?');
+            if (!empty($paramArr)) {
+                $uri .= '?'.http_build_query($paramArr);
+            }
         }
 
         return $uri;

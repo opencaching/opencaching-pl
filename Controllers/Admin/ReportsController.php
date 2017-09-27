@@ -2,18 +2,22 @@
 namespace Controllers\Admin;
 
 use Controllers\BaseController;
-use Utils\Debug\Debug;
-use lib\Objects\Admin\Report;
-use lib\Objects\ChunkModels\PaginationModel;
-use lib\Objects\OcConfig\OcConfig;
-use lib\Controllers\LogEntryController;
 use Utils\Uri\Uri;
-use lib\Objects\Admin\ReportWatches;
-use lib\Objects\User\User;
+use lib\Controllers\LogEntryController;
+use lib\Objects\Admin\Report;
 use lib\Objects\Admin\ReportEmailTemplate;
+use lib\Objects\Admin\ReportWatches;
+use lib\Objects\ChunkModels\PaginationModel;
+use lib\Objects\User\User;
+use lib\Objects\Admin\ReportLog;
+use lib\Objects\Admin\ReportPoll;
+use lib\Objects\Admin\ReportEmailSender;
 
 class ReportsController extends BaseController
 {
+
+    private $infoMsg = null;
+    private $errorMsg = null;
 
     public function __construct()
     {
@@ -24,79 +28,133 @@ class ReportsController extends BaseController
     {
         // Check if user is logged and has admin rights
         if (! $this->isUserLogged()) {
-            $this->redirectToLoginPage();
+            if (isset($_REQUEST['ajax'])) {
+                $this->ajaxErrorResponse('User not logged', 401);
+            } else {
+                $this->redirectToLoginPage();
+            }
             exit();
         } elseif (! $this->loggedUser->isAdmin()) {
-            $this->view->redirect('\\');
+            if (isset($_REQUEST['ajax'])) {
+                $this->ajaxErrorResponse('User is not admin', 401);
+            } else {
+                $this->view->redirect('\\');
+            }
             exit();
         }
+
         $this->view->setVar('user', $this->loggedUser);
-        $this->view->loadJQuery();
 
         if (isset($_REQUEST['action'])) {
             switch ($_REQUEST['action']) {
                 case 'showreport':
-                    if (isset($_REQUEST['id']) && Report::isValidReportId($_REQUEST['id'])) {
-                        $this->showSingleReport($_REQUEST['id']);
-                    } else {
-                        $this->view->setVar('errorMsg', tr('admin_reports_err_noID'));
-                    }
+                    $this->checkReportId();
+                    $this->showSingleReport($_REQUEST['id']);
+                    break;
+                case 'showwatch':
+                    $this->showWatch();
                     break;
                 case 'addnote':
-                    if (isset($_REQUEST['id']) && Report::isValidReportId($_REQUEST['id'])) {
-                        $this->addNote();
-                        $this->showSingleReport($_REQUEST['id']);
-                    } else {
-                        $this->view->setVar('errorMsg', tr('admin_reports_err_noID'));
-                    }
+                    $this->addNote();
                     break;
+                case 'addpoll':
+                    $this->addPoll();
+                    break;
+                case 'cancelpoll':
+                    $this->cancelPoll();
+                    break;
+                case 'remindpoll':
+                    $this->remindPoll();
+                    break;
+                case 'savevote':
+                    $this->saveVote();
+                    break;
+                case 'sendemail':
+                    $this->sendEmail();
+                    break;
+                case 'watchOn':
+                    $this->turnWatchReportOnAjax();
+                    exit();
+                case 'watchOff':
+                    $this->turnWatchReportOffAjax();
+                    exit();
+                case 'changeStatus':
+                    $this->changeStatusAjax();
+                    exit();
+                case 'changeLeader':
+                    $this->changeLeaderAjax();
+                    exit();
+                case 'getTemplates':
+                    $this->getEmailTemplatesAjax();
+                    exit();
+                case 'getTemplate':
+                    $this->getTemplateByIdAjax();
+                    exit();
+                default:
+                    if (isset($_REQUEST['ajax'])) {
+                        $this->ajaxErrorResponse('Invalid/no action', 400);
+                        exit();
+                    }
             }
         }
         $this->showReportsList();
     }
 
-    public function turnWatchReportOnAjax($reportId)
+    private function turnWatchReportOnAjax()
     {
-        $this->watchAjaxCheck($reportId);
-        ReportWatches::turnWatchOnByReportId($reportId, $this->loggedUser->getUserId());
+        $this->checkSecurity(true);
+        $this->paramAjaxCheck('id');
+        $this->reportIdAjaxCheck($_REQUEST['id']);
+        ReportWatches::turnWatchOnByReportId($_REQUEST['id'], $this->loggedUser->getUserId());
         $this->ajaxSuccessResponse();
     }
 
-    public function turnWatchReportOffAjax($reportId)
+    private function turnWatchReportOffAjax()
     {
-        $this->watchAjaxCheck($reportId);
-        ReportWatches::turnWatchOffByReportId($reportId, $this->loggedUser->getUserId());
+        $this->checkSecurity(true);
+        $this->paramAjaxCheck('id');
+        $this->reportIdAjaxCheck($_REQUEST['id']);
+        ReportWatches::turnWatchOffByReportId($_REQUEST['id'], $this->loggedUser->getUserId());
         $this->ajaxSuccessResponse();
     }
 
-    public function changeStatusAjax($reportId, $newStatus)
+    private function changeStatusAjax()
     {
-        $this->watchAjaxCheck($reportId);
-        if (! in_array($newStatus, Report::getStatusesArray())) {
-            $this->ajaxErrorResponse("Invalid new status", 400);
+        $this->checkSecurity(true);
+        $this->paramAjaxCheck('id');
+        $this->reportIdAjaxCheck($_REQUEST['id']);
+        $this->paramAjaxCheck('status');
+        if (! in_array($_REQUEST['status'], Report::getStatusesArray())) {
+            $this->ajaxErrorResponse('Invalid new status', 400);
             exit();
         }
-        $report = new Report(['reportId' => $reportId]);
-        $report->changeStatus($newStatus);
-        $this->ajaxSuccessResponse(tr($report->getReportStatusTranslationKey()));
+        $report = new Report(['reportId' => $_REQUEST['id']]);
+        if ($report->changeStatus($_REQUEST['status'])) {
+            $this->ajaxSuccessResponse(tr($report->getReportStatusTranslationKey()));
+        } else {
+            $this->ajaxErrorResponse('Poll is active!', 400);
+        }
         exit();
     }
 
-    public function changeLeaderAjax($reportId, $newLeader)
+    private function changeLeaderAjax()
     {
-        $this->watchAjaxCheck($reportId);
-        if ($newLeader != Report::USER_NOBODY) {
-            $usr = new User(['userId' => $newLeader]);
+        $this->checkSecurity(true);
+        $this->paramAjaxCheck('id');
+        $this->reportIdAjaxCheck($_REQUEST['id']);
+        $this->paramAjaxCheck('leader');
+        if ($_REQUEST['leader'] != Report::USER_NOBODY) {
+            $usr = new User(['userId' => $_REQUEST['leader']]);
             if (! $usr->isAdmin()) {
                 unset($usr);
-                $this->ajaxErrorResponse("Invalid new leader", 400);
+                $this->ajaxErrorResponse('Invalid new leader', 400);
                 exit();
             }
             unset($usr);
         }
-        $report = new Report(['reportId' => $reportId]);
+        $report = new Report(['reportId' => $_REQUEST['id']]);
         $oldstatus = $report->getStatus();
-        $report->changeLeader($newLeader);
+        $report->changeLeader($_REQUEST['leader']);
         if ($oldstatus == Report::STATUS_NEW) { //Status changed new -> in progress => Page needs to be reloaded
             $this->ajaxSuccessResponse('reqReloadPage');
         } else {
@@ -105,34 +163,37 @@ class ReportsController extends BaseController
         exit();
     }
 
-    public function getEmailTemplatesAjax($recipient, $objectType)
+    private function getEmailTemplatesAjax()
     {
-        //TODO - check params!!!
-        $this->ajaxSuccessResponse(ReportEmailTemplate::generateTemplateArray($recipient, $objectType));
+        $this->checkSecurity(true);
+        $this->paramAjaxCheck('recipient');
+        $this->paramAjaxCheck('objecttype');
+        $this->ajaxSuccessResponse(ReportEmailTemplate::generateTemplateArray($_REQUEST['recipient'], $_REQUEST['objecttype']));
     }
 
-    public function getTemplateByIdAjax($templateId)
+    private function getTemplateByIdAjax()
     {
-        // TODO - check params!!!
-        $this->ajaxSuccessResponse(ReportEmailTemplate::getContentByTemplateId($templateId));
-    }
-    public function ajaxError($message, $code) {
-        $this->ajaxErrorResponse($message, $code);
+        $this->checkSecurity(true);
+        $this->paramAjaxCheck('id');
+        $this->reportIdAjaxCheck($_REQUEST['id']);
+        $this->paramAjaxCheck('templateid');
+        $report = new Report(['reportId' => $_REQUEST['id']]);
+        $content = ReportEmailTemplate::getProcessedTemplate($_REQUEST['templateid'], $report);
+        unset($report);
+        $this->ajaxSuccessResponse($content);
     }
 
-    private function watchAjaxCheck($reportId)
-    {
-        if(! $this->isUserLogged()) {
-            $this->ajaxErrorResponse("User not logged", 401);
+    private function paramAjaxCheck($paramName) {
+        if (! isset($_REQUEST[$paramName])) {
+            $this->ajaxErrorResponse('No parameter: ' . $paramName, 400);
             exit();
-        } elseif (! $this->loggedUser->isAdmin()) {
-            $this->ajaxErrorResponse("User is not admin", 401);
+        }
+    }
+
+    private function reportIdAjaxCheck($reportId) {
+        if (! Report::isValidReportId($reportId)) {
+            $this->ajaxErrorResponse('Incorrect report ID', 400);
             exit();
-        } elseif (! Report::isValidReportId($reportId)) {
-            $this->ajaxErrorResponse("Incorrect report ID", 400);
-            exit();
-        } else {
-            return true;
         }
     }
 
@@ -140,15 +201,21 @@ class ReportsController extends BaseController
     {
         if (isset($_REQUEST['reportId']) && ! empty($_REQUEST['reportId']) && ! isset($_REQUEST['reset'])) {
             if (Report::isValidReportId($_REQUEST['reportId'])) {
-                $this->showSingleReport($_REQUEST['reportId']);
+                $this->redirectToSingleReport($_REQUEST['reportId']);
             } else {
-                $this->view->setVar('errorMsg', tr('admin_reports_err_noID'));
+                $this->errorMsg = tr('admin_reports_err_noID');
             }
         }
         if (isset($_REQUEST['reset'])) {
             $this->resetSession();
         } else {
             $this->setSession();
+        }
+        if (isset($_REQUEST['infomsg'])) {
+            $this->infoMsg = strip_tags(urldecode($_REQUEST['infomsg']));
+        }
+        if (isset($_REQUEST['errormsg'])) {
+            $this->errorMsg = strip_tags(urldecode($_REQUEST['errormsg']));
         }
         $paginationModel = new PaginationModel(Report::REPORTS_PER_PAGE);
         $reportsCount = Report::getReportsCounts($this->loggedUser, $_SESSION['reportWp'], $_SESSION['reportType'], $_SESSION['reportStatus'], $_SESSION['reportUser']);
@@ -158,47 +225,235 @@ class ReportsController extends BaseController
         $this->view->setVar('paginationModel', $paginationModel);
         $this->view->setVar('reports', $reports);
         $this->view->setVar('reportsCount', $reportsCount);
-        $this->view->setVar('dateFormat',OcConfig::instance()->getDbDateTimeFormat());
+        $this->view->setVar('dateFormat', $this->ocConfig::instance()->getDbDateTimeFormat());
         $this->view->setVar('typeSelect', Report::generateTypeSelect($_SESSION['reportType']));
         $this->view->setVar('statusSelect', Report::generateStatusSelect(true, $_SESSION['reportStatus']));
         $this->view->setVar('userSelect', Report::generateUserSelect(false, $_SESSION['reportUser']));
         $this->view->setVar('reports_js', Uri::getLinkWithModificationTime('/tpl/stdstyle/admin/reports_list.js'));
+        $this->view->setVar('infoMsg', $this->infoMsg);
+        $this->view->setVar('errorMsg', $this->errorMsg);
+        $this->view->setVar('cleanUri', $this->getCleanUri());
+        $this->view->loadJQuery();
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/admin/reports.css'));
-        tpl_set_tplname('admin/reports_list');
-        tpl_BuildTemplate();
+        $this->view->setTemplate('admin/reports_list');
+        $this->view->buildView();
         exit();
     }
 
     private function showSingleReport($id)
     {
-        $report = new Report(array('reportId' => $id));
-        if ($report->getId() == null) {
-            Debug::errorLog('Attempt to show single report with incorrect report ID: ' . $id);
-            $this->view->redirect('/admin_reports.php');
-            exit();
+        if (isset($_REQUEST['infomsg'])) {
+            $this->infoMsg = strip_tags(urldecode($_REQUEST['infomsg']));
         }
+        if (isset($_REQUEST['errormsg'])) {
+            $this->errorMsg = strip_tags(urldecode($_REQUEST['errormsg']));
+        }
+        $report = new Report(['reportId' => $id]);
         $logController = new LogEntryController();
+        $inactivePolls = ReportPoll::getInActivePolls($id);
         $lastLogs = $logController->loadLogs($report->getCache(), false, 0, 5);
         $this->view->setVar('lastLogs', $lastLogs);
         $this->view->setVar('report', $report);
-        $this->view->setVar('dateFormat',OcConfig::instance()->getDbDateTimeFormat());
+        $this->view->setVar('dateFormat',$this->ocConfig::instance()->getDbDateTimeFormat());
         $this->view->setVar('leaderSelect', Report::generateUserSelect(true, $report->getUserIdLeader()));
         $this->view->setVar('statusSelect', Report::generateStatusSelect(false, $report->getStatus()));
         $this->view->setVar('reports_js', Uri::getLinkWithModificationTime('/tpl/stdstyle/admin/report_show.js'));
+        $this->view->setVar('reportLogs', ReportLog::getLogs($id));
+        $this->view->setVar('activePolls', ReportPoll::getActivePolls($id));
+        $this->view->setVar('inactivePolls', $inactivePolls);
+        $this->view->setVar('includeGCharts', ! empty($inactivePolls));
+        $this->view->setVar('infoMsg', $this->infoMsg);
+        $this->view->setVar('errorMsg', $this->errorMsg);
+        $this->view->setVar('cleanUri', $this->getCleanUri());
+        $this->view->loadJQuery();
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/admin/reports.css'));
-        tpl_set_tplname('admin/report_show');
-        tpl_BuildTemplate();
+        $this->view->setTemplate('admin/report_show');
+        $this->view->buildView();
+        exit();
+    }
+
+    private function showWatch()
+    {
+        $paginationModel = new PaginationModel(Report::REPORTS_PER_PAGE);
+        $reportsCount = Report::getReportsCounts($this->loggedUser, $_SESSION['reportWp'], $_SESSION['reportType'], $_SESSION['reportStatus'], $_SESSION['reportUser']);
+        $paginationModel->setRecordsCount($reportsCount);
+        list ($limit, $offset) = $paginationModel->getQueryLimitAndOffset();
+        $reports = Report::getWatchedReports($this->loggedUser, $offset, $limit);
+        $this->view->setVar('paginationModel', $paginationModel);
+        $this->view->setVar('reports', $reports);
+        $this->view->setVar('dateFormat', $this->ocConfig::instance()->getDbDateTimeFormat());
+        $this->view->setVar('reports_js', Uri::getLinkWithModificationTime('/tpl/stdstyle/admin/reports_list.js'));
+        $this->view->loadJQuery();
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/admin/reports.css'));
+        $this->view->setTemplate('admin/reports_watch');
+        $this->view->buildView();
         exit();
     }
 
     private function addNote()
     {
-        if (isset($_REQUEST['note'])) {
-            $report = new Report(array('reportId' => $_REQUEST['id']));
-            $report->addNote($_REQUEST['note']);
-            $this->view->setVar('infoMsg', tr('admin_reports_info_notesaved'));
+        $this->checkSecurity();
+        $this->checkReportId();
+        $this->checkParam('note', true);
+        $report = new Report(['reportId' => $_REQUEST['id']]);
+        $report->addNote($_POST['note']);
+        unset($report);
+        $this->infoMsg = tr('admin_reports_info_notesaved');
+        $this->redirectToSingleReport($_REQUEST['id']);
+    }
+
+    private function sendEmail()
+    {
+        $this->checkSecurity();
+        $this->checkReportId();
+        $this->checkParam('email-recipient', true);
+        $this->checkParam('content', true);
+        $report = new Report(['reportId' => $_REQUEST['id']]);
+        $report->sendEmail($_POST['email-recipient'], $_POST['content']);
+        unset($report);
+        $this->infoMsg = tr('mailto_messageSent');
+        $this->redirectToSingleReport($_REQUEST['id']);
+    }
+
+    private function addPoll()
+    {
+        $this->checkSecurity();
+        $this->checkReportId();
+        $this->checkParam('period', true);
+        $this->checkParam('question', true);
+        $this->checkParam('ans1', true);
+        $this->checkParam('ans2', true);
+        $report = new Report(['reportId' => $_REQUEST['id']]);
+        $report->createPoll($_POST['period'], $_POST['question'], $_POST['ans1'], $_POST['ans2'], (isset($_POST['ans3'])) ? $_POST['ans3'] : null);
+        unset($report);
+        $this->infoMsg = tr('admin_reports_info_pollok');
+        $this->redirectToSingleReport($_REQUEST['id']);
+    }
+
+    private function cancelPoll()
+    {
+        $this->checkSecurity();
+        $this->checkReportId();
+        $this->checkParam('pollid');
+        if (! ReportPoll::isValidPollId($_REQUEST['pollid'])) {
+            $this->errorMsg = tr('admin_reports_info_errform');
+        } else {
+            $poll = new ReportPoll(['pollId' => $_REQUEST['pollid']]);
+            if (! $poll->cancelPoll()) {
+                $this->errorMsg = tr('admin_reports_err_poll');
+            } else {
+                $logid = ReportLog::addLog($_REQUEST['id'], ReportLog::TYPE_POLL_CANCEL, null, $_REQUEST['pollid']);
+                $report = new Report(['reportId' => $_REQUEST['id']]);
+                $report->sendWatchEmails($logid);
+                if ($report->getUserIdLeader() != Report::USER_NOBODY && $report->getUserIdLeader() != $this->loggedUser->getUserId() && ! $report->isReportWatched($report->getUserIdLeader())) {
+                    // If somebody cancels pool in the report assigned to another user - inform leader even if he don't watch this report
+                    ReportEmailSender::sendReportWatch($report, $report->getUserLeader(), $logid);
+                }
+                unset($report);
+                $this->infoMsg = tr('admin_reports_info_pollcanceled');
+            }
         }
-        $this->showSingleReport($_REQUEST['id']);
+        $this->redirectToSingleReport($_REQUEST['id']);
+    }
+
+    private function remindPoll()
+    {
+        $this->checkSecurity();
+        $this->checkReportId();
+        $this->checkParam('pollid');
+        $voterlist = ReportPoll::getVotersArray($_REQUEST['pollid']);
+        $userlist = Report::getOcTeamArray();
+        foreach ($userlist as $user) {
+            if (! in_array($user['user_id'], $voterlist) && $user['user_id'] != $this->loggedUser->getUserId()) {
+                ReportEmailSender::sendNewPoll(new ReportPoll(['pollId' => $_REQUEST['pollid']]), new User(['userId' => $user['user_id']]), true);
+            }
+        }
+        $this->infoMsg = tr('admin_reports_info_reminder');
+        $this->redirectToSingleReport($_REQUEST['id']);
+    }
+
+    private function saveVote()
+    {
+        $this->checkSecurity();
+        $this->checkReportId();
+        $this->checkParam('pollid', true);
+        $this->checkParam('vote', true);
+        if (! ReportPoll::isValidPollId($_POST['pollid'])) { // check if pollid id valid
+            $this->errorMsg = tr('admin_reports_info_errform');
+        } else {
+            $poll = new ReportPoll(['pollId' => $_POST['pollid']]);
+            // All checks will be done in addVote
+            if ($poll->addVote($_POST['vote'])) {
+                $this->infoMsg = tr('admin_reports_info_voteok');
+            } else {
+                $this->errorMsg = tr('admin_reports_info_errform');
+            }
+            unset($poll);
+        }
+        $this->redirectToSingleReport($_REQUEST['id']);
+    }
+
+    private function checkReportId()
+    {
+        if (! (isset($_REQUEST['id']) && Report::isValidReportId($_REQUEST['id']))) {
+            $this->errorMsg = tr('admin_reports_err_noID');
+            $this->redirectToReportList();
+        }
+    }
+
+    private function checkParam($paramName, $post = false)
+    {
+        if ($post == false && ! isset($_REQUEST[$paramName])) {
+            $this->errorMsg = tr('admin_reports_info_errform');
+            $this->redirectToReportList();
+        } elseif ($post == true && ! isset($_POST[$paramName])) {
+            $this->errorMsg = tr('admin_reports_info_errform');
+            $this->redirectToReportList();
+        }
+    }
+
+    private function checkSecurity($ajax = false) {
+        if (! isset($_SERVER['HTTP_REFERER']) || (parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST) != parse_url($this->ocConfig::getAbsolute_server_URI(), PHP_URL_HOST))) {
+            if ($ajax) {
+                $this->ajaxErrorResponse('No hacking please!', 403);
+                exit();
+            } else {
+                $this->errorMsg = 'No hacking please!';
+                $this->redirectToReportList();
+            }
+        }
+    }
+
+    private function redirectToSingleReport($id)
+    {
+        $uri = '/admin_reports.php?action=showreport&id=' . $id;
+        if ($this->errorMsg !== null) {
+            $uri .= '&errormsg=' . urlencode($this->errorMsg);
+        }
+        if ($this->infoMsg !== null) {
+            $uri .= '&infomsg=' . urlencode($this->infoMsg);
+        }
+        $this->view->redirect($uri);
+    }
+
+    private function redirectToReportList()
+    {
+        $uri = '/admin_reports.php';
+        if ($this->errorMsg !== null) {
+            $uri = Uri::setOrReplaceParamValue('errormsg', $this->errorMsg, $uri);
+        }
+        if ($this->infoMsg !== null) {
+            $uri = Uri::setOrReplaceParamValue('infomsg', $this->infoMsg, $uri);
+        }
+        $this->view->redirect($uri);
+        exit();
+    }
+
+    private function getCleanUri()
+    {
+        $cleanuri = Uri::removeParam('errormsg');
+        $cleanuri = Uri::removeParam('infomsg', $cleanuri);
+        return $cleanuri;
     }
 
     private function setSession()
@@ -224,6 +479,7 @@ class ReportsController extends BaseController
             $_SESSION['reportWp'] = '';
         }
     }
+
     private function resetSession()
     {
         $_SESSION['reportType'] = Report::DEFAULT_REPORTS_TYPE;

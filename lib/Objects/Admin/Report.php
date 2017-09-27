@@ -41,6 +41,11 @@ class Report extends BaseObject
     const OBJECT_CACHE = 1;
     const OBJECT_POWERTRAIL = 2;
 
+    // Polls status of report
+    const POLLS_NOACTIVE = 0; // Report has no active polls
+    const POLLS_ACTIVE_VOTED = 1; // Report has active poll(s) but logged user already voted
+    const POLLS_ACTIVE = 2; // Report has active poll(s) and logged user not voted one or more of them
+
     /**
      * ID of the report
      *
@@ -49,49 +54,49 @@ class Report extends BaseObject
     private $id = null;
 
     /**
-     * Id of who submits the report
+     * Id of user who submits the report
      *
      * @var int
      */
     private $userIdSubmit = null;
 
     /**
-     * User who submits the report
+     * User object - who submits the report
      *
      * @var User
      */
     private $userSubmit = null;
 
     /**
-     * Id of user who is leader of the report
+     * Id of user who is the leader of the report
      *
      * @var int
      */
     private $userIdLeader = null;
 
     /**
-     * User who is leader of the report
+     * User object of the leader of the report
      *
      * @var User
      */
     private $userLeader = null;
 
     /**
-     * Id of user who last changed status of the report
+     * Id of user who last changed the report
      *
      * @var int
      */
-    private $userIdChangeStatus = null;
+    private $userIdLastChange = null;
 
     /**
-     * User who last changed status of the report
+     * User who last changed the report
      *
      * @var User
      */
-    private $userChangeStatus = null;
+    private $userLastChange = null;
 
     /**
-     * Type of object reported
+     * Type of object reported (cache or geopath)
      *
      * @var int
      */
@@ -105,7 +110,7 @@ class Report extends BaseObject
     private $cacheId = null;
 
     /**
-     * Cache reported
+     * Cache object reported
      *
      * @var GeoCache
      */
@@ -119,7 +124,7 @@ class Report extends BaseObject
     private $powerTrailId;
 
     /**
-     * Type of the report
+     * Type of the report (reason - see self::TYPE_*)
      *
      * @var int
      */
@@ -133,14 +138,15 @@ class Report extends BaseObject
     private $content;
 
     /**
-     * History of the report
+     * History of the report - OBSOLETE, for historic compatibility only.
+     * Use ReportLog instead!
      *
      * @var string
      */
     private $note;
 
     /**
-     * Status of the report
+     * Status of the report (see self::STATUS_*)
      *
      * @var int
      */
@@ -154,17 +160,25 @@ class Report extends BaseObject
     private $dateSubmit = null;
 
     /**
-     * Date of last status change
+     * Date of last report change
      *
      * @var \DateTime
      */
-    private $dateChangeStatus = null;
+    private $dateLastChange = null;
 
     /**
+     * UUID for OKAPI
      *
      * @var string
      */
     private $uuid;
+
+    /**
+     * "secret" used in user's links to reports
+     *
+     * @var string
+     */
+    private $secret = null;
 
     public function __construct(array $params = [])
     {
@@ -176,10 +190,10 @@ class Report extends BaseObject
 
     private function loadById($reportId)
     {
-        $query = 'SELECT * FROM `reports` WHERE id = :1 LIMIT 1';
+        $query = 'SELECT * FROM `reports` WHERE `id` = :1 LIMIT 1';
         $stmt = self::db()->multiVariableQuery($query, $reportId);
         $dbRow = self::db()->dbResultFetch($stmt);
-        
+
         if (is_array($dbRow)) {
             $this->loadFromDbRow($dbRow);
         } else {
@@ -217,10 +231,10 @@ class Report extends BaseObject
                     $this->status = $val;
                     break;
                 case 'changed_by':
-                    $this->userIdChangeStatus = ($val == 0) ? null : $val;
+                    $this->userIdLastChange = ($val == 0) ? null : $val;
                     break;
                 case 'changed_date':
-                    $this->dateChangeStatus = ($val == null || $val == '') ? null : new \DateTime($val);
+                    $this->dateLastChange = ($val == null || $val == '') ? null : new \DateTime($val);
                     break;
                 case 'responsible_id':
                     $this->userIdLeader = ($val == self::USER_NOBODY) ? null : $val;
@@ -233,6 +247,9 @@ class Report extends BaseObject
                     break;
                 case 'PowerTrail_id':
                     $this->powerTrailId = $val;
+                    break;
+                case 'secret':
+                    $this->secret = $val;
                     break;
                 default:
                     error_log(__METHOD__ . ": Unknown column: $key");
@@ -252,17 +269,25 @@ class Report extends BaseObject
         return $this->id;
     }
 
+    /**
+     * Returns userId of user who submits the report
+     *
+     * @return int
+     */
     public function getUserIdSubmit()
     {
         return $this->userIdSubmit;
     }
 
+    /**
+     * Returns User object od user who submits the report
+     *
+     * @return \lib\Objects\User\User
+     */
     public function getUserSubmit()
     {
         if ($this->userSubmit == null && $this->isDataLoaded()) {
-            $this->userSubmit = new User(array(
-                'userId' => $this->userIdSubmit
-            ));
+            $this->userSubmit = new User([ 'userId' => $this->userIdSubmit ]);
         }
         return $this->userSubmit;
     }
@@ -275,26 +300,22 @@ class Report extends BaseObject
     public function getUserLeader()
     {
         if ($this->userLeader == null && $this->isDataLoaded()) {
-            $this->userLeader = new User(array(
-                'userId' => $this->userIdLeader
-            ));
+            $this->userLeader = new User([ 'userId' => $this->userIdLeader]);
         }
         return $this->userLeader;
     }
 
-    public function getUserIdChangeStatus()
+    public function getUserIdLastChange()
     {
-        return $this->userIdChangeStatus;
+        return $this->userIdLastChange;
     }
 
-    public function getUserChangeStatus()
+    public function getUserLastChange()
     {
-        if ($this->userChangeStatus == null && $this->isDataLoaded()) {
-            $this->userChangeStatus = new User(array(
-                'userId' => $this->userIdChangeStatus
-            ));
+        if ($this->userLastChange == null && $this->isDataLoaded()) {
+            $this->userLastChange = new User([ 'userId' => $this->userIdLastChange ]);
         }
-        return $this->userChangeStatus;
+        return $this->userLastChange;
     }
 
     public function getCacheId()
@@ -305,9 +326,7 @@ class Report extends BaseObject
     public function getCache()
     {
         if ($this->cache == null && $this->isDataLoaded()) {
-            $this->cache = new GeoCache(array(
-                'cacheId' => $this->cacheId
-            ));
+            $this->cache = new GeoCache([ 'cacheId' => $this->cacheId ]);
         }
         return $this->cache;
     }
@@ -337,14 +356,19 @@ class Report extends BaseObject
         return $this->dateSubmit;
     }
 
-    public function getDateChangeStatus()
+    public function getDateLastChange()
     {
-        return $this->dateChangeStatus;
+        return $this->dateLastChange;
     }
 
     public function getUuid()
     {
         return $this->uuid;
+    }
+
+    public function getSecret()
+    {
+        return $this->secret;
     }
 
     public function getObjectType()
@@ -357,16 +381,32 @@ class Report extends BaseObject
         return $this->powerTrailId;
     }
 
+    /**
+     * Returns translation key of type of the current report
+     *
+     * @return string
+     */
     public function getReportTypeTranslationKey()
     {
         return self::ReportTypeTranslationKey($this->type);
     }
 
+    /**
+     * Returns translation key of status of the current report
+     *
+     * @return string
+     */
     public function getReportStatusTranslationKey()
     {
         return self::ReportStatusTranslationKey($this->status);
     }
 
+    /**
+     * Returns translation key for given report type
+     *
+     * @param int $type
+     * @return string
+     */
     public static function ReportTypeTranslationKey($type)
     {
         switch ($type) {
@@ -383,6 +423,12 @@ class Report extends BaseObject
         }
     }
 
+    /**
+     * Returns translation key of given status of the report
+     *
+     * @param int $status
+     * @return string
+     */
     public static function ReportStatusTranslationKey($status)
     {
         switch ($status) {
@@ -401,9 +447,15 @@ class Report extends BaseObject
         }
     }
 
-    public static function ReportUserTranslationKey($status)
+    /**
+     * Returns translation key for given "virtual" user type
+     *
+     * @param int $status
+     * @return string
+     */
+    public static function ReportUserTranslationKey($virtUser)
     {
-        switch ($status) {
+        switch ($virtUser) {
             case self::USER_NOBODY:
                 return 'admin_reports_usr_nobody';
             case self::USER_YOU:
@@ -415,17 +467,29 @@ class Report extends BaseObject
         }
     }
 
+    /**
+     * Returns array of Reports objects fulfilling given conditions
+     *
+     * @param User $currentUser
+     * @param string $waypoint
+     * @param int $type
+     * @param int $status
+     * @param int $user
+     * @param int $offset
+     * @param int $limit
+     * @return Report[]
+     */
     public static function getReports(User $currentUser, $waypoint = '', $type = self::DEFAULT_REPORTS_TYPE, $status = self::DEFAULT_REPORTS_STATUS, $user = self::DEFAULT_REPORTS_USER, $offset = 0, $limit = self::REPORTS_PER_PAGE)
     {
-        $params = array();
+        $params = [];
         $params['limit']['value'] = $limit;
         $params['limit']['data_type'] = 'integer';
         $params['offset']['value'] = $offset;
         $params['offset']['data_type'] = 'integer';
-        $query = 'SELECT reports.* FROM reports';
+        $query = 'SELECT `reports`.* FROM `reports`';
         if ($waypoint != '' and ! is_null($waypoint)) {
-            $query .= ' INNER JOIN caches ON reports.cache_id = caches.cache_id
-                    WHERE (caches.wp_oc LIKE :waypoint OR caches.name LIKE :waypoint)';
+            $query .= ' INNER JOIN `caches` ON `reports`.`cache_id` = `caches`.`cache_id`
+                    WHERE (`caches`.`wp_oc` LIKE :waypoint OR `caches`.`name` LIKE :waypoint)';
             $params['waypoint']['value'] = '%' . $waypoint . '%';
             $params['waypoint']['data_type'] = 'string';
         } else {
@@ -434,43 +498,43 @@ class Report extends BaseObject
         if ($type == self::TYPE_ALL) {
             $query .= '';
         } else {
-            $query .= ' AND reports.type = :type';
+            $query .= ' AND `reports`.`type` = :type';
             $params['type']['value'] = $type;
             $params['type']['data_type'] = 'integer';
         }
         if ($status == self::STATUS_ALL) {
             $query .= '';
         } elseif ($status == self::STATUS_OPEN) {
-            $query .= ' AND reports.status != :status';
+            $query .= ' AND `reports`.`status` != :status';
             $params['status']['value'] = self::STATUS_CLOSED;
             $params['status']['data_type'] = 'integer';
         } else {
-            $query .= ' AND reports.status = :status';
+            $query .= ' AND `reports`.`status` = :status';
             $params['status']['value'] = $status;
             $params['status']['data_type'] = 'integer';
         }
         if ($user == self::USER_ALL) {
             $query .= '';
         } elseif ($user == self::USER_YOU) {
-            $query .= ' AND reports.responsible_id = :user';
+            $query .= ' AND `reports`.`responsible_id` = :user';
             $params['user']['value'] = $currentUser->getUserId();
             $params['user']['data_type'] = 'integer';
         } elseif ($user == self::USER_YOU2) {
-            $query .= ' AND (reports.responsible_id = :user OR reports.responsible_id IS NULL OR reports.status = :statuslook)';
+            $query .= ' AND (`reports`.`responsible_id` = :user OR `reports`.`responsible_id` IS NULL OR `reports`.`status` = :statuslook)';
             $params['user']['value'] = $currentUser->getUserId();
             $params['user']['data_type'] = 'integer';
             $params['statuslook']['value'] = self::STATUS_LOOK_HERE;
             $params['statuslook']['data_type'] = 'integer';
         } elseif ($user == self::USER_NOBODY) {
-            $query .= ' AND (reports.responsible_id IS NULL OR reports.status = :statuslook)';
+            $query .= ' AND (`reports`.`responsible_id` IS NULL OR `reports`.`status` = :statuslook)';
             $params['statuslook']['value'] = self::STATUS_LOOK_HERE;
             $params['statuslook']['data_type'] = 'integer';
         } else {
-            $query .= ' AND reports.responsible_id = :user';
+            $query .= ' AND `reports`.`responsible_id` = :user';
             $params['user']['value'] = $user;
             $params['user']['data_type'] = 'integer';
         }
-        $query .= ' ORDER BY reports.id DESC LIMIT :limit OFFSET :offset';
+        $query .= ' ORDER BY `reports`.`id` DESC LIMIT :limit OFFSET :offset';
         $stmt = self::db()->paramQuery($query, $params);
 
         return self::db()->dbFetchAllAsObjects($stmt, function ($row) {
@@ -478,13 +542,24 @@ class Report extends BaseObject
         });
     }
 
+    /**
+     * Counts total number of rows for parameters like in getReports, but without limit.
+     * For use in pagination / counters
+     *
+     * @param User $currentUser
+     * @param string $waypoint
+     * @param int $type
+     * @param int $status
+     * @param int $user
+     * @return int
+     */
     public static function getReportsCounts(User $currentUser, $waypoint = '', $type = self::DEFAULT_REPORTS_TYPE, $status = self::DEFAULT_REPORTS_STATUS, $user = self::DEFAULT_REPORTS_USER)
     {
-        $params = array();
-        $query = "SELECT COUNT(*) FROM reports";
+        $params = [];
+        $query = 'SELECT COUNT(*) FROM `reports`';
         if ($waypoint != '' and ! is_null($waypoint)) {
-            $query .= ' INNER JOIN caches ON reports.cache_id = caches.cache_id
-                    WHERE (caches.wp_oc LIKE :waypoint OR caches.name LIKE :waypoint)';
+            $query .= ' INNER JOIN `caches` ON `reports`.`cache_id` = `caches`.`cache_id`
+                    WHERE (`caches`.`wp_oc` LIKE :waypoint OR `caches`.`name` LIKE :waypoint)';
             $params['waypoint']['value'] = '%' . $waypoint . '%';
             $params['waypoint']['data_type'] = 'string';
         } else {
@@ -493,42 +568,92 @@ class Report extends BaseObject
         if ($type == self::TYPE_ALL) {
             $query .= ' ';
         } else {
-            $query .= ' AND reports.type = :type';
+            $query .= ' AND `reports`.`type` = :type';
             $params['type']['value'] = $type;
             $params['type']['data_type'] = 'integer';
         }
         if ($status == self::STATUS_ALL) {
             $query .= '';
         } elseif ($status == self::STATUS_OPEN) {
-            $query .= ' AND reports.status != :status';
+            $query .= ' AND `reports`.`status` != :status';
             $params['status']['value'] = self::STATUS_CLOSED;
             $params['status']['data_type'] = 'integer';
         } else {
-            $query .= ' AND reports.status = :status';
+            $query .= ' AND `reports`.`status` = :status';
             $params['status']['value'] = $status;
             $params['status']['data_type'] = 'integer';
         }
         if ($user == self::USER_ALL) {
             $query .= '';
         } elseif ($user == self::USER_YOU) {
-            $query .= ' AND reports.responsible_id = :user';
+            $query .= ' AND `reports`.`responsible_id` = :user';
             $params['user']['value'] = $currentUser->getUserId();
             $params['user']['data_type'] = 'integer';
         } elseif ($user == self::USER_YOU2) {
-            $query .= ' AND (reports.responsible_id = :user OR reports.responsible_id IS NULL OR reports.status = :statuslook)';
+            $query .= ' AND (`reports`.`responsible_id` = :user OR `reports`.`responsible_id` IS NULL OR `reports`.`status` = :statuslook)';
             $params['user']['value'] = $currentUser->getUserId();
             $params['user']['data_type'] = 'integer';
             $params['statuslook']['value'] = self::STATUS_LOOK_HERE;
             $params['statuslook']['data_type'] = 'integer';
         } elseif ($user == self::USER_NOBODY) {
-            $query .= ' AND (reports.responsible_id IS NULL OR reports.status = :statuslook)';
+            $query .= ' AND (`reports`.`responsible_id` IS NULL OR `reports`.`status` = :statuslook)';
             $params['statuslook']['value'] = self::STATUS_LOOK_HERE;
             $params['statuslook']['data_type'] = 'integer';
         } else {
-            $query .= ' AND reports.responsible_id = :user';
+            $query .= ' AND `reports`.`responsible_id` = :user';
             $params['user']['value'] = $user;
             $params['user']['data_type'] = 'integer';
         }
+        return self::db()->paramQueryValue($query, 0, $params);
+    }
+
+    /**
+     * Returns Report[] of reports watched by $user
+     *
+     * @param User $user
+     * @param int $offset
+     * @param int $limit
+     * @return Report[]
+     */
+    public static function getWatchedReports(User $user, $offset = 0, $limit = self::REPORTS_PER_PAGE)
+    {
+        $query = '
+            SELECT `reports`.*
+            FROM `reports_watches`
+            INNER JOIN `reports`
+            ON `reports`.`id` = `reports_watches`.`report_id`
+            WHERE `reports_watches`.`user_id` = :user_id
+            ORDER BY `reports_watches`.`report_id` DESC
+            LIMIT :limit OFFSET :offset';
+        $params = [];
+        $params['user_id']['value'] = $user->getUserId();
+        $params['user_id']['data_type'] = 'integer';
+        $params['limit']['value'] = $limit;
+        $params['limit']['data_type'] = 'integer';
+        $params['offset']['value'] = $offset;
+        $params['offset']['data_type'] = 'integer';
+        $stmt = self::db()->paramQuery($query, $params);
+        
+        return self::db()->dbFetchAllAsObjects($stmt, function ($row) {
+            return self::fromDbRowFactory($row);
+        });
+    }
+
+    /**
+     * Returns count of watched reports by $user
+     *
+     * @param User $user
+     * @return int
+     */
+    public static function getWatchedReportsCount(User $user)
+    {
+        $query = '
+            SELECT COUNT(*)
+            FROM `reports_watches`
+            WHERE `reports_watches`.`user_id` = :user_id';
+        $params = [];
+        $params['user_id']['value'] = $user->getUserId();
+        $params['user_id']['data_type'] = 'integer';
         return self::db()->paramQueryValue($query, 0, $params);
     }
 
@@ -633,8 +758,8 @@ class Report extends BaseObject
         if (! is_numeric($reportId)) {
             return false;
         }
-        $query = 'SELECT COUNT(*) FROM reports WHERE id = :reportid';
-        $params = array();
+        $query = 'SELECT COUNT(*) FROM `reports` WHERE `id` = :reportid';
+        $params = [];
         $params['reportid']['value'] = $reportId;
         $params['reportid']['data_type'] = 'integer';
         if (self::db()->paramQueryValue($query, 0, $params) == '1') {
@@ -644,7 +769,7 @@ class Report extends BaseObject
     }
 
     /**
-     * Returns name of CSS class coresponding to delay of report management.
+     * Returns CSS class name coresponding to delay of report management.
      * It counts how many days report is unassigned or has no activity.
      *
      * @return string
@@ -652,7 +777,7 @@ class Report extends BaseObject
     public function getReportStyle()
     {
         if ($this->status == self::STATUS_IN_PROGRESS || $this->status == self::STATUS_LOOK_HERE) {
-            $interval = $this->dateChangeStatus->diff(new \DateTime('now'))->days;
+            $interval = $this->dateLastChange->diff(new \DateTime('now'))->days;
         } elseif ($this->status == self::STATUS_NEW) {
             $interval = $this->dateSubmit->diff(new \DateTime('now'))->days;
         } else {
@@ -668,8 +793,7 @@ class Report extends BaseObject
 
     /**
      * Method returns CSS class name corresponding to status of report object
-     * Used in i.e.
-     * report list to show status in graphic form
+     * Used in i.e. report list to show status in graphic form
      *
      * @return string
      */
@@ -721,9 +845,13 @@ class Report extends BaseObject
      *
      * @return array
      */
-    private static function getOcTeamArray()
+    public static function getOcTeamArray()
     {
-        $query = "SELECT user_id, username FROM user WHERE admin = 1 AND is_active_flag = 1 ORDER BY username";
+        $query = '
+            SELECT `user_id`, `username`
+            FROM `user`
+            WHERE `admin` = 1 AND `is_active_flag` = 1
+            ORDER BY username';
         $stmt = self::db()->simpleQuery($query);
         return self::db()->dbResultFetchAll($stmt);
     }
@@ -760,7 +888,7 @@ class Report extends BaseObject
     }
 
     /**
-     * Returns URI of report. (maybe we will use routing in future?)
+     * Returns URI of the report (maybe we will use routing in future?)
      *
      * @param int $reportId
      * @return string
@@ -768,6 +896,31 @@ class Report extends BaseObject
     public static function getLinkToReport($reportId)
     {
         return '/admin_reports.php?action=showreport&id=' . $reportId;
+    }
+
+    /**
+     * Check if report has active polls. If no -> returns self::POLLS_NOACTIVE
+     * If yes, checks if user not yet voted at least one of them.
+     * If not voted - returns self::POLLS_ACTIVE. If voted all polls -
+     * returns self::POLLS_ACTIVE_VOTED
+     *
+     * @return int
+     */
+    public function getPollStatus()
+    {
+        if (! $this->dataLoaded) {
+            return null;
+        }
+        $polls = ReportPoll::getActivePolls($this->id);
+        if (empty($polls)) {
+            return self::POLLS_NOACTIVE;
+        }
+        foreach ($polls as $poll) {
+            if (! $poll->userVoted()) {
+                return self::POLLS_ACTIVE;
+            }
+        }
+        return self::POLLS_ACTIVE_VOTED;
     }
 
     /**
@@ -781,66 +934,71 @@ class Report extends BaseObject
         if (! $this->isDataLoaded()) {
             return false;
         }
+        $oldLeaderId = $this->userIdLeader;
         $this->userIdLeader = $newLeader;
         unset($this->userLeader);
         $this->userLeader = new User(['userId' => $newLeader]);
         $this->updateLastChanged();
-        $log = '[' . $this->dateChangeStatus->format(OcConfig::instance()->getDatetimeFormat()) . '] <strong>';
-        $log .= $this->userChangeStatus->getUserName();
-        $log .= ' ' . tr('admin_reports_tpl_leaderhdr') . ': ' . $this->userLeader->getUserName() . '</strong><br>';
-        if ($this->status == self::STATUS_NEW) {
-            $this->status = self::STATUS_IN_PROGRESS;
-            $log .= '[' . $this->dateChangeStatus->format(OcConfig::instance()->getDatetimeFormat()) . '] <strong>';
-            $log .= $this->userChangeStatus->getUserName();
-            $log .= ' ' . tr('admin_reports_tpl_statushdr') . ' ' . tr($this->getReportStatusTranslationKey()) . '</strong><br>';
+        $this->saveReport();
+        $logId = ReportLog::addLog($this->id, ReportLog::TYPE_CHANGELEADER, $this->getUserLeader()->getUserName());
+        if ($this->userIdLeader == $this->userIdLastChange) { // Assign report to yourself
+            $this->sendWatchEmails($logId);
+        } else { // Assign report to other user
+            ReportEmailSender::sendReportNewLeader($this, $this->getUserLeader());
+            $this->sendWatchEmails($logId, [ $this->userIdLeader ]);
         }
-        $this->addLog($log);
-        if ($this->userIdLeader == $this->userIdChangeStatus) {
-            $this->sendWatchEmails($log);
-        } else {
-            ReportEmailSender::sendReportNewLeader($this, $this->userLeader);
-            $this->sendWatchEmails($log, [ $this->userIdLeader ]);
+        if (! $this->isReportWatched($oldLeaderId)) { // If previeous leader don't watch this report - inform him anyway
+            ReportEmailSender::sendReportWatch($this, new User(['userId' => $oldLeaderId]), $logId);
         }
+        if ($this->status == self::STATUS_NEW) { // If sb assign user to new report -> change status to "In progress"
+            $this->changeStatus(self::STATUS_IN_PROGRESS);
+        }
+        return true;
     }
 
     /**
-     * Changes status of report, changes "last change" data and sends notifications
+     * Changes status of report, changes "last change" data and sends notifications (if silent == false)
      *
      * @param int $newStatus
+     * @param boolean $silent
      * @return boolean
      */
-    public function changeStatus($newStatus)
+    public function changeStatus($newStatus, $silent = false)
     {
         if (! $this->isDataLoaded()) {
             return false;
         }
+        if ($newStatus != self::STATUS_LOOK_HERE && ! empty(ReportPoll::getActivePolls($this->id))) { // If polls are active - status should be Look Here!
+            return false;
+        }
         $this->status = $newStatus;
         $this->updateLastChanged();
-        $log = '[' . $this->dateChangeStatus->format(OcConfig::instance()->getDatetimeFormat()) . '] <strong>';
-        $log .= $this->userChangeStatus->getUserName();
-        $log .= ' ' . tr('admin_reports_tpl_statushdr') . ': ' . tr($this->getReportStatusTranslationKey()) . '</strong><br>';
-        $this->addLog($log);
-        // Send notification about new status
-        if ($this->status == self::STATUS_LOOK_HERE) {
-            $userlist = Report::getOcTeamArray();
-            foreach ($userlist as $user) { // Send mails to all OC Team members
-                if ($user['user_id'] == $this->userIdChangeStatus) { // Notify user who changed status?
-                    if ($this->isReportWatched($this->userIdChangeStatus)) { // YES, but only if he wants it
-                        ReportEmailSender::sendReportWatch($this, $this->userChangeStatus, $log);
+        $this->saveReport();
+        $logId = ReportLog::addLog($this->id, ReportLog::TYPE_CHANGESTATUS, tr($this->getReportStatusTranslationKey()));
+        if (! $silent) {
+            // Send notification about new status
+            if ($this->status == self::STATUS_LOOK_HERE) {
+                $userlist = Report::getOcTeamArray();
+                foreach ($userlist as $user) { // Send mails to all OC Team members
+                    if ($user['user_id'] != $this->userIdLastChange) { // Don't notify logged user
+                        $usr = new User(['userId' => $user['user_id']]);
+                        ReportEmailSender::sendReportLookHere($this, $usr);
+                        unset($usr);
                     }
-                } else { // Notify other OC Team users
-                    $usr = new User(['userId' => $user['user_id']]);
-                    ReportEmailSender::sendReportLookHere($this, $usr);
-                    unset($usr);
+                }
+            } else { //Status changed NOT to look here
+                $this->sendWatchEmails($logId); // If it is not change to "Look here", send standard watch mails
+                if ($this->userIdLeader != self::USER_NOBODY && self::getCurrentUser()->getUserId() != $this->userIdLeader && ! $this->isReportWatched($this->userIdLeader)) {
+                    // If somebody change status of the report assigned to another user - inform leader even if he don't watch this report
+                    ReportEmailSender::sendReportWatch($this, $this->getUserLeader(), $logId);
                 }
             }
-        } else { //Status changed NOT to look here
-            $this->sendWatchEmails($log); // If it is not change to "Look here", send standard watch mails
         }
+        return true;
     }
 
     /**
-     * Adds $submittedNote as note to report
+     * Adds $submittedNote as note to the report
      *
      * @param string $submittedNote
      * @return boolean
@@ -849,14 +1007,77 @@ class Report extends BaseObject
         if (! $this->isDataLoaded()) {
             return false;
         }
-        $submittedNote = \userInputFilter::purifyHtmlString($submittedNote);
+        $submittedNote = strip_tags($submittedNote, '<br>');
+        $submittedNote = nl2br($submittedNote);
         $this->updateLastChanged();
-        $log = '[' . $this->dateChangeStatus->format(OcConfig::instance()->getDatetimeFormat()) . '] <strong>';
-        $log .= $this->userChangeStatus->getUserName();
-        $log .= ' ' . tr('admin_reports_tpl_infohdr') . ':</strong><br>' . $submittedNote . '<br>';
-        $this->addLog($log);
-        $this->sendWatchEmails($log);
+        $this->saveReport();
+        $logId = ReportLog::addLog($this->id, ReportLog::TYPE_NOTE, $submittedNote);
+        $this->sendWatchEmails($logId);
+        if ($this->userIdLeader != self::USER_NOBODY && self::getCurrentUser()->getUserId() != $this->userIdLeader && ! $this->isReportWatched($this->userIdLeader)) {
+            // If somebody adds note to the report assigned to another user - inform leader even if he don't watch this report
+            ReportEmailSender::sendReportWatch($this, $this->getUserLeader(), $logId);
+        }
         return true;
+    }
+
+    /**
+     * Sends e-mail OC Team -> user. $recipient is one of ReportEmailTemplate::RECIPIENT_*
+     *
+     * @param int $recipient
+     * @param string $content
+     */
+    public function sendEmail($recipient, $content)
+    {
+        $content = strip_tags($content, '<br>');
+        $content = nl2br($content);
+        switch ($recipient) {
+            case ReportEmailTemplate::RECIPIENT_ALL:
+                ReportEmailSender::sendMailToUser($this, $this->getCache()->getOwner(), $content);
+                ReportEmailSender::sendMailToUser($this, $this->getUserSubmit(), $content);
+                $logId = ReportLog::addLog($this->id, ReportLog::TYPE_MAILTO_BOTH, $content);
+                break;
+            case ReportEmailTemplate::RECIPIENT_SUBMITTER:
+                ReportEmailSender::sendMailToUser($this, $this->getUserSubmit(), $content);
+                $logId = ReportLog::addLog($this->id, ReportLog::TYPE_MAILTO_SUBMITTER, $content);
+                break;
+            case ReportEmailTemplate::RECIPIENT_CACHEOWNER:
+                ReportEmailSender::sendMailToUser($this, $this->getCache()->getOwner(), $content);
+                $logId = ReportLog::addLog($this->id, ReportLog::TYPE_MAILTO_CACHEOWNER, $content);
+                break;
+        }
+        $this->updateLastChanged();
+        $this->saveReport();
+        $this->sendWatchEmails($logId);
+        if ($this->userIdLeader != self::USER_NOBODY && self::getCurrentUser()->getUserId() != $this->userIdLeader && ! $this->isReportWatched($this->userIdLeader)) {
+            // If somebody adds note to the report assigned to another user - inform leader even if he don't watch this report
+            ReportEmailSender::sendReportWatch($this, $this->getUserLeader(), $logId);
+        }
+    }
+
+ /**
+  * Create new poll in report.
+  *
+  * @param int $period  // in days
+  * @param string $question
+  * @param string $ans1
+  * @param string $ans2
+  * @param string $ans3
+  */
+    public function createPoll($period, $question, $ans1, $ans2, $ans3 = null)
+    {
+        $pollId = ReportPoll::createPoll($this->id, $period, $question, $ans1, $ans2, $ans3);
+        $this->updateLastChanged();
+        $this->saveReport();
+        ReportLog::addLog($this->id, ReportLog::TYPE_POLL, null, $pollId);
+        if ($this->status != self::STATUS_LOOK_HERE) {
+            $this->changeStatus(self::STATUS_LOOK_HERE, true);
+        }
+        $userlist = Report::getOcTeamArray();
+        foreach ($userlist as $user) { // Send mails to all OC Team members
+            if ($user['user_id'] != $this->userIdLastChange) { // Don't notify logged user
+                ReportEmailSender::sendNewPoll(new ReportPoll(['pollId' => $pollId]), new User(['userId' => $user['user_id']]));
+            }
+        }
     }
 
     /**
@@ -864,45 +1085,39 @@ class Report extends BaseObject
      * This method don't save "touched" report!
      */
     private function updateLastChanged() {
-        unset($this->dateChangeStatus);
-        $this->dateChangeStatus = new \DateTime('now');
-        $this->userIdChangeStatus = $this->getCurrentUser()->getUserId();
-        unset($this->userChangeStatus);
-        $this->userChangeStatus = $this->getCurrentUser();
-    }
-
-    private function addLog($log) {
-        if (! $this->isDataLoaded()) {
-            return false;
-        }
-        $this->note = $log . '<br>' . $this->note;
-        $this->saveReport();
+        unset($this->dateLastChange);
+        $this->dateLastChange = new \DateTime('now');
+        $this->userIdLastChange = $this->getCurrentUser()->getUserId();
+        unset($this->userLastChange);
+        $this->userLastChange = $this->getCurrentUser();
     }
 
     /**
-     * Sends $log to users who watch report except users in $dontSend array od userId's
+     * Sends $logId to users who watch report except logged user and users in $excludeUsers array of userId's
      *
-     * @param string $log
-     * @param array $dontSend
+     * @param int $logId
+     * @param array $excludeUsers
      */
-    private function sendWatchEmails($log, $dontSend = [])
-    {
+    public function sendWatchEmails($logId, $excludeUsers = []) {
         $userlist = ReportWatches::getWatchersByReportId($this->id);
         foreach ($userlist as $user) {
-            if (in_array($user['user_id'], $dontSend)) {
+            if (in_array($user['user_id'], $excludeUsers) || $user['user_id'] == self::getCurrentUser()->getUserId()) {
                 continue;
             }
-            $usr = new User(['userId' => $user['user_id']]);
-            ReportEmailSender::sendReportWatch($this, $usr, $log);
-            unset($usr);
+            ReportEmailSender::sendReportWatch($this, new User(['userId' => $user['user_id']]), $logId);
         }
     }
 
+    /**
+     * Saves report to DB
+     *
+     * @return boolean
+     */
     public function saveReport() {
         if (! $this->isDataLoaded()) {
             return false;
         }
-        if ($this->uuid == null || $this->uuid == "") {
+        if ($this->uuid == null || $this->uuid == '') {
             $this->uuid = Uuid::create();
         }
         if (self::isValidReportId($this->id)) {
@@ -918,9 +1133,10 @@ class Report extends BaseObject
      * @return boolean
      */
     private function saveToDb() {
-        $query = "
+        $query = '
             UPDATE `reports`
-             SET `object_type` = :object_type,
+             SET `uuid` = :uuid,
+            `object_type` = :object_type,
             `user_id` = :user_id,
             `cache_id` = :cache_id,
             `PowerTrail_id` = :PowerTrail_id,
@@ -929,11 +1145,14 @@ class Report extends BaseObject
             `note` = :note,
             `submit_date` = :submit_date,
             `status` = :status,
+            `secret` = :secret,
             `changed_by` = :changed_by,
             `changed_date` = :changed_date,
             `responsible_id` = :responsible_id
-            WHERE `id` = :id";
+            WHERE `id` = :id';
         $params = [];
+        $params['uuid']['value'] = $this->uuid;
+        $params['uuid']['data_type'] = ($this->uuid == null) ? 'null' : 'string';
         $params['object_type']['value'] = (int) $this->objectType;
         $params['object_type']['data_type'] = 'integer';
         $params['user_id']['value'] = (int) $this->userIdSubmit;
@@ -952,9 +1171,11 @@ class Report extends BaseObject
         $params['submit_date']['data_type'] = 'string';
         $params['status']['value'] = (int) $this->status;
         $params['status']['data_type'] = 'integer';
-        $params['changed_by']['value'] = (int) $this->userIdChangeStatus;
+        $params['secret']['value'] = $this->secret;
+        $params['secret']['data_type'] = 'string';
+        $params['changed_by']['value'] = (int) $this->userIdLastChange;
         $params['changed_by']['data_type'] = 'integer';
-        $params['changed_date']['value'] = $this->dateChangeStatus->format(OcConfig::instance()->getDbDateTimeFormat());
+        $params['changed_date']['value'] = $this->dateLastChange->format(OcConfig::instance()->getDbDateTimeFormat());
         $params['changed_date']['data_type'] = 'string';
         $params['responsible_id']['value'] = $this->userIdLeader;
         $params['responsible_id']['data_type'] = ($this->userIdLeader == null) ? 'null' : 'integer';
@@ -969,18 +1190,17 @@ class Report extends BaseObject
      * @return int
      */
     private function insertToDb() {
-// TODO: Sprawdzić!!!
-        $query = "
+        $query = '
             INSERT INTO `reports`
             (`object_type`, `user_id`, `cache_id`,
             `PowerTrail_id`, `type`, `text`,
-            `note`, `submit_date`, `status`,
+            `note`, `submit_date`, `status`, `secret`,
             `changed_by`, `changed_date`, `responsible_id`)
             VALUES
             (:object_type, :user_id, :cache_id,
             :PowerTrail_id, :type, :text,
-            :note, :submit_date, :status,
-            :changed_by, :changed_date, :responsible_id)";
+            :note, :submit_date, :status, :secret
+            :changed_by, :changed_date, :responsible_id)';
         $params = [];
         $params['object_type']['value'] = $this->objectType;
         $params['object_type']['data_type'] = 'integer';
@@ -1000,9 +1220,11 @@ class Report extends BaseObject
         $params['submit_date']['data_type'] = 'string';
         $params['status']['value'] = $this->status;
         $params['status']['data_type'] = 'integer';
-        $params['changed_by']['value'] = $this->userIdChangeStatus;
+        $params['secret']['value'] = $this->secret;
+        $params['secret']['data_type'] = 'string';
+        $params['changed_by']['value'] = $this->userIdLastChange;
         $params['changed_by']['data_type'] = 'integer';
-        $params['changed_date']['value'] = $this->dateChangeStatus->format(OcConfig::instance()->getDbDateTimeFormat());
+        $params['changed_date']['value'] = $this->dateLastChange->format(OcConfig::instance()->getDbDateTimeFormat());
         $params['changed_date']['data_type'] = 'string';
         $params['responsible_id']['value'] = $this->userIdLeader;
         $params['responsible_id']['data_type'] = 'integer';

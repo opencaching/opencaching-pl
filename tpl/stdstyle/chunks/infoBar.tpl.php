@@ -38,9 +38,9 @@ return function ($reloadUrl=null, $infoMsg=null, $errorMsg=null) {
             <?=$infoMsg?>
 
             <?php if($reloadUrl) { ?>
-                <span class="infoBar-close-but" onclick="infoBarReload()">[X]</span>
+                <span class="infoBar-close-but" onclick="infoBarReload()"></span>
             <?php }else{ //if-reloadUrl ?>
-                <span class="infoBar-close-but" onclick="infoBarHide()">[X]</span>
+                <span class="infoBar-close-but" onclick="infoBarHide()"></span>
             <?php } //if-reloadUrl ?>
           </h5>
         </div>
@@ -52,14 +52,15 @@ return function ($reloadUrl=null, $infoMsg=null, $errorMsg=null) {
             <?=$errorMsg?>
 
             <?php if($reloadUrl) { ?>
-                <span class="infoBar-close-but" onclick="infoBarReload()">[X]</span>
+                <span class="infoBar-close-but" onclick="infoBarReload()"></span>
             <?php }else{ //if-reloadUrl ?>
-                <span class="infoBar-close-but" onclick="infoBarHide()">[X]</span>
+                <span class="infoBar-close-but" onclick="infoBarHide()"></span>
             <?php } //if-reloadUrl ?>
 
           </h5>
         </div>
     <?php } ?>
+<link rel="prefetch" href="/tpl/stdstyle/images/misc/btn_close_hover.svg">
 
 <?php
 };
