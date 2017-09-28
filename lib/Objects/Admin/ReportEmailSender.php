@@ -27,7 +27,7 @@ class ReportEmailSender
         $formattedMessage->setVariable('cacheurl', GeoCacheCommons::GetCacheUrlByWp($report->getCache()->getWaypointId()));
         $formattedMessage->setVariable('cachename', $report->getCache()->getCacheName());
         $formattedMessage->setVariable('cacheregion', $report->getCache()->getCacheLocationObj()->getLocationDesc(' &gt; '));
-        $formattedMessage->setVariable('reporturl', Report::getLinkToReport($report->getId()));
+        $formattedMessage->setVariable('reporturl', $report->getLinkToReport());
         $formattedMessage->setVariable('reportid', $report->getId());
         $formattedMessage->setVariable('reporttype', tr($report->getReportTypeTranslationKey()));
         $formattedMessage->setVariable('reportstatus', tr($report->getReportStatusTranslationKey()));
@@ -57,7 +57,7 @@ class ReportEmailSender
         $formattedMessage->setVariable('user', $report->getUserLastChange()->getUserName());
         $formattedMessage->setVariable('reportid', $report->getId());
         $formattedMessage->setVariable('reporttype', tr($report->getReportTypeTranslationKey()));
-        $formattedMessage->setVariable('reporturl', Report::getLinkToReport($report->getId()));
+        $formattedMessage->setVariable('reporturl', $report->getLinkToReport());
         $formattedMessage->setVariable('server', rtrim(OcConfig::getAbsolute_server_URI(), '/'));
         $formattedMessage->setVariable('cacheWP', $report->getCache()->getWaypointId());
         $formattedMessage->setVariable('cacheurl', GeoCacheCommons::GetCacheUrlByWp($report->getCache()->getWaypointId()));
@@ -88,7 +88,7 @@ class ReportEmailSender
         $formattedMessage->setVariable('user', $report->getUserLastChange()->getUserName());
         $formattedMessage->setVariable('reportid', $report->getId());
         $formattedMessage->setVariable('reporttype', tr($report->getReportTypeTranslationKey()));
-        $formattedMessage->setVariable('reporturl', Report::getLinkToReport($report->getId()));
+        $formattedMessage->setVariable('reporturl', $report->getLinkToReport());
         $formattedMessage->setVariable('reportstatus', tr($report->getReportStatusTranslationKey()));
         $formattedMessage->setVariable('reportleader', $report->getUserLeader()->getUserName());
         $formattedMessage->setVariable('reportsubmitter', $report->getUserSubmit()->getUserName());
@@ -129,14 +129,14 @@ class ReportEmailSender
         $formattedMessage->setVariable('date_end', $poll->getDateEnd()->format(OcConfig::instance()->getDatetimeFormat()));
         $formattedMessage->setVariable('reportid', $poll->getReport()->getId());
         $formattedMessage->setVariable('reporttype', tr($poll->getReport()->getReportTypeTranslationKey()));
-        $formattedMessage->setVariable('reporturl', Report::getLinkToReport($poll->getReport()->getId()));
+        $formattedMessage->setVariable('reporturl', $poll->getReport()->getLinkToReport());
         $formattedMessage->setVariable('reportstatus', tr($poll->getReport()->getReportStatusTranslationKey()));
         $formattedMessage->setVariable('reportleader', $poll->getReport()->getUserLeader()->getUserName());
         $formattedMessage->setVariable('reportsubmitter', $poll->getReport()->getUserSubmit()->getUserName());
         $formattedMessage->setVariable('cacheWP', $poll->getReport()->getCache()->getWaypointId());
         $formattedMessage->setVariable('cacheurl', GeoCacheCommons::GetCacheUrlByWp($poll->getReport()->getCache()->getWaypointId()));
         $formattedMessage->setVariable('cachename', $poll->getReport()->getCache()->getCacheName());
-        $formattedMessage->setVariable('cacheregion', $report->getCache()->getCacheLocationObj()->getLocationDesc(' &gt; '));
+        $formattedMessage->setVariable('cacheregion', $poll->getReport()->getCache()->getCacheLocationObj()->getLocationDesc(' &gt; '));
         $formattedMessage->setVariable('server', rtrim(OcConfig::getAbsolute_server_URI(), '/'));
         if ($remind) {
             $header = tr('admin_reports_mail_txtpollrem');

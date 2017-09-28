@@ -1,5 +1,5 @@
 <?php
-use lib\Objects\Admin\Report;
+use lib\Objects\Admin\ReportCommons;
 ?>
 <script src="<?=$view->reports_js?>"></script>
 <div class="content2-container">
@@ -40,11 +40,11 @@ use lib\Objects\Admin\Report;
       <td style="text-align: center;">
         <a href="/admin_reports.php?action=showreport&amp;id=<?=$report->getId()?>" class="links">
         <?php switch ($report->getPollStatus()) {
-            case Report::POLLS_ACTIVE :  ?>
+            case ReportCommons::POLLS_ACTIVE :  ?>
                 <img src="/tpl/stdstyle/images/misc/poll-vote.svg" class="report-vote-img" alt="{{admin_reports_poll_active}}" title="{{admin_reports_poll_active}}"><br>
                 <?php
                 break;
-            case Report::POLLS_ACTIVE_VOTED : ?>
+            case ReportCommons::POLLS_ACTIVE_VOTED : ?>
                 <img src="/tpl/stdstyle/images/misc/poll-voted.svg" class="report-vote-img" alt="{{admin_reports_poll_voted}}" title="{{admin_reports_poll_voted}}"><br>
                 <?php
                 break; }?>

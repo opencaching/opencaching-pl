@@ -12,6 +12,7 @@ use lib\Objects\Admin\ReportPoll;
 use lib\Objects\Admin\ReportWatches;
 use lib\Objects\ChunkModels\PaginationModel;
 use lib\Objects\User\User;
+use lib\Objects\Admin\ReportCommons;
 
 class ReportsController extends BaseController
 {
@@ -127,7 +128,7 @@ class ReportsController extends BaseController
         $this->paramAjaxCheck('id');
         $this->reportIdAjaxCheck($_REQUEST['id']);
         $this->paramAjaxCheck('status');
-        if (! in_array($_REQUEST['status'], Report::getStatusesArray())) {
+        if (! in_array($_REQUEST['status'], ReportCommons::getStatusesArray())) {
             $this->ajaxErrorResponse('Invalid new status', 400);
             exit();
         }
@@ -151,7 +152,7 @@ class ReportsController extends BaseController
         $this->paramAjaxCheck('id');
         $this->reportIdAjaxCheck($_REQUEST['id']);
         $this->paramAjaxCheck('leader');
-        if ($_REQUEST['leader'] != Report::USER_NOBODY) {
+        if ($_REQUEST['leader'] != ReportCommons::USER_NOBODY) {
             $usr = new User(['userId' => $_REQUEST['leader']]);
             if (! $usr->isAdmin()) {
                 unset($usr);
@@ -163,7 +164,7 @@ class ReportsController extends BaseController
         $report = new Report(['reportId' => $_REQUEST['id']]);
         $oldstatus = $report->getStatus();
         $report->changeLeader($_REQUEST['leader']);
-        if ($oldstatus == Report::STATUS_NEW) { //Status changed new -> in progress => Page needs to be reloaded
+        if ($oldstatus == ReportCommons::STATUS_NEW) { //Status changed new -> in progress => Page needs to be reloaded
             $this->ajaxSuccessResponse('reqReloadPage');
         } else {
             $this->ajaxSuccessResponse($report->getUserLeader()->getUserName());
@@ -199,7 +200,7 @@ class ReportsController extends BaseController
     }
 
     private function reportIdAjaxCheck($reportId) {
-        if (! Report::isValidReportId($reportId)) {
+        if (! ReportCommons::isValidReportId($reportId)) {
             $this->ajaxErrorResponse('Incorrect report ID', 400);
             exit();
         }
@@ -208,7 +209,7 @@ class ReportsController extends BaseController
     private function showReportsList()
     {
         if (isset($_REQUEST['reportId']) && ! empty($_REQUEST['reportId']) && ! isset($_REQUEST['reset'])) {
-            if (Report::isValidReportId($_REQUEST['reportId'])) {
+            if (ReportCommons::isValidReportId($_REQUEST['reportId'])) {
                 $this->redirectToSingleReport($_REQUEST['reportId']);
             } else {
                 $this->errorMsg = tr('admin_reports_err_noID');
@@ -225,18 +226,18 @@ class ReportsController extends BaseController
         if (isset($_REQUEST['errormsg'])) {
             $this->errorMsg = strip_tags(urldecode($_REQUEST['errormsg']));
         }
-        $paginationModel = new PaginationModel(Report::REPORTS_PER_PAGE);
-        $reportsCount = Report::getReportsCounts($this->loggedUser, $_SESSION['reportWp'], $_SESSION['reportType'], $_SESSION['reportStatus'], $_SESSION['reportUser']);
+        $paginationModel = new PaginationModel(ReportCommons::REPORTS_PER_PAGE);
+        $reportsCount = ReportCommons::getReportsCounts($this->loggedUser, $_SESSION['reportWp'], $_SESSION['reportType'], $_SESSION['reportStatus'], $_SESSION['reportUser']);
         $paginationModel->setRecordsCount($reportsCount);
         list ($limit, $offset) = $paginationModel->getQueryLimitAndOffset();
-        $reports = Report::getReports($this->loggedUser, $_SESSION['reportWp'], $_SESSION['reportType'], $_SESSION['reportStatus'], $_SESSION['reportUser'], $offset, $limit);
+        $reports = ReportCommons::getReports($this->loggedUser, $_SESSION['reportWp'], $_SESSION['reportType'], $_SESSION['reportStatus'], $_SESSION['reportUser'], $offset, $limit);
         $this->view->setVar('paginationModel', $paginationModel);
         $this->view->setVar('reports', $reports);
         $this->view->setVar('reportsCount', $reportsCount);
         $this->view->setVar('dateFormat', $this->ocConfig->getDatetimeFormat());
-        $this->view->setVar('typeSelect', Report::generateTypeSelect($_SESSION['reportType']));
-        $this->view->setVar('statusSelect', Report::generateStatusSelect(true, $_SESSION['reportStatus']));
-        $this->view->setVar('userSelect', Report::generateUserSelect(false, $_SESSION['reportUser']));
+        $this->view->setVar('typeSelect', ReportCommons::generateTypeSelect($_SESSION['reportType'], true));
+        $this->view->setVar('statusSelect', ReportCommons::generateStatusSelect(true, $_SESSION['reportStatus']));
+        $this->view->setVar('userSelect', ReportCommons::generateUserSelect(false, $_SESSION['reportUser']));
         $this->view->setVar('reports_js', Uri::getLinkWithModificationTime('/tpl/stdstyle/admin/reports_list.js'));
         $this->view->setVar('infoMsg', $this->infoMsg);
         $this->view->setVar('errorMsg', $this->errorMsg);
@@ -263,8 +264,8 @@ class ReportsController extends BaseController
         $this->view->setVar('lastLogs', $lastLogs);
         $this->view->setVar('report', $report);
         $this->view->setVar('dateFormat',$this->ocConfig->getDatetimeFormat());
-        $this->view->setVar('leaderSelect', Report::generateUserSelect(true, $report->getUserIdLeader()));
-        $this->view->setVar('statusSelect', Report::generateStatusSelect(false, $report->getStatus()));
+        $this->view->setVar('leaderSelect', ReportCommons::generateUserSelect(true, $report->getUserIdLeader()));
+        $this->view->setVar('statusSelect', ReportCommons::generateStatusSelect(false, $report->getStatus()));
         $this->view->setVar('reports_js', Uri::getLinkWithModificationTime('/tpl/stdstyle/admin/report_show.js'));
         $this->view->setVar('reportLogs', ReportLog::getLogs($id));
         $this->view->setVar('activePolls', ReportPoll::getActivePolls($id));
@@ -283,11 +284,11 @@ class ReportsController extends BaseController
 
     private function showWatch()
     {
-        $paginationModel = new PaginationModel(Report::REPORTS_PER_PAGE);
-        $reportsCount = Report::getReportsCounts($this->loggedUser, $_SESSION['reportWp'], $_SESSION['reportType'], $_SESSION['reportStatus'], $_SESSION['reportUser']);
+        $paginationModel = new PaginationModel(ReportCommons::REPORTS_PER_PAGE);
+        $reportsCount = ReportCommons::getReportsCounts($this->loggedUser, $_SESSION['reportWp'], $_SESSION['reportType'], $_SESSION['reportStatus'], $_SESSION['reportUser']);
         $paginationModel->setRecordsCount($reportsCount);
         list ($limit, $offset) = $paginationModel->getQueryLimitAndOffset();
-        $reports = Report::getWatchedReports($this->loggedUser, $offset, $limit);
+        $reports = ReportCommons::getWatchedReports($this->loggedUser, $offset, $limit);
         $this->view->setVar('paginationModel', $paginationModel);
         $this->view->setVar('reports', $reports);
         $this->view->setVar('dateFormat', $this->ocConfig->getDatetimeFormat());
@@ -322,7 +323,7 @@ class ReportsController extends BaseController
             $report->saveReport();
             $logid = ReportLog::addLog($_REQUEST['id'], ReportLog::TYPE_CACHELOG_ADD, nl2br(strip_tags($_REQUEST['content'])));
             $report->sendWatchEmails($logid);
-            if ($report->getUserIdLeader() != Report::USER_NOBODY && $this->loggedUser->getUserId() != $report->getUserIdLeader() && ! $report->isReportWatched($report->getUserIdLeader())) {
+            if ($report->getUserIdLeader() != ReportCommons::USER_NOBODY && $this->loggedUser->getUserId() != $report->getUserIdLeader() && ! $report->isReportWatched($report->getUserIdLeader())) {
                 ReportEmailSender::sendReportWatch($report, $report->getUserLeader(), $logid);
             }
             $this->infoMsg = tr('admin_reports_info_logok');
@@ -375,7 +376,7 @@ class ReportsController extends BaseController
                 $logid = ReportLog::addLog($_REQUEST['id'], ReportLog::TYPE_POLL_CANCEL, null, $_REQUEST['pollid']);
                 $report = new Report(['reportId' => $_REQUEST['id']]);
                 $report->sendWatchEmails($logid);
-                if ($report->getUserIdLeader() != Report::USER_NOBODY && $report->getUserIdLeader() != $this->loggedUser->getUserId() && ! $report->isReportWatched($report->getUserIdLeader())) {
+                if ($report->getUserIdLeader() != ReportCommons::USER_NOBODY && $report->getUserIdLeader() != $this->loggedUser->getUserId() && ! $report->isReportWatched($report->getUserIdLeader())) {
                     // If somebody cancels pool in the report assigned to another user - inform leader even if he don't watch this report
                     ReportEmailSender::sendReportWatch($report, $report->getUserLeader(), $logid);
                 }
@@ -392,7 +393,7 @@ class ReportsController extends BaseController
         $this->checkReportId();
         $this->checkParam('pollid');
         $voterlist = ReportPoll::getVotersArray($_REQUEST['pollid']);
-        $userlist = Report::getOcTeamArray();
+        $userlist = ReportCommons::getOcTeamArray();
         foreach ($userlist as $user) {
             if (! in_array($user['user_id'], $voterlist) && $user['user_id'] != $this->loggedUser->getUserId()) {
                 ReportEmailSender::sendNewPoll(new ReportPoll(['pollId' => $_REQUEST['pollid']]), new User(['userId' => $user['user_id']]), true);
@@ -425,7 +426,7 @@ class ReportsController extends BaseController
 
     private function checkReportId()
     {
-        if (! (isset($_REQUEST['id']) && Report::isValidReportId($_REQUEST['id']))) {
+        if (! (isset($_REQUEST['id']) && ReportCommons::isValidReportId($_REQUEST['id']))) {
             $this->errorMsg = tr('admin_reports_err_noID');
             $this->redirectToReportList();
         }
@@ -491,17 +492,17 @@ class ReportsController extends BaseController
         if (isset($_REQUEST['reportType'])) {
             $_SESSION['reportType'] = (int) $_REQUEST['reportType'];
         } elseif (! isset($_SESSION['reportType'])) {
-            $_SESSION['reportType'] = Report::DEFAULT_REPORTS_TYPE;
+            $_SESSION['reportType'] = ReportCommons::DEFAULT_REPORTS_TYPE;
         }
         if (isset($_REQUEST['reportStatus'])) {
             $_SESSION['reportStatus'] = (int) $_REQUEST['reportStatus'];
         } elseif (! isset($_SESSION['reportStatus'])) {
-            $_SESSION['reportStatus'] = Report::DEFAULT_REPORTS_STATUS;
+            $_SESSION['reportStatus'] = ReportCommons::DEFAULT_REPORTS_STATUS;
         }
         if (isset($_REQUEST['reportUser'])) {
             $_SESSION['reportUser'] = (int) $_REQUEST['reportUser'];
         } elseif (! isset($_SESSION['reportUser'])) {
-            $_SESSION['reportUser'] = Report::DEFAULT_REPORTS_USER;
+            $_SESSION['reportUser'] = ReportCommons::DEFAULT_REPORTS_USER;
         }
         if (isset($_REQUEST['reportWp']) && $_REQUEST != '') {
             $_SESSION['reportWp'] = $_REQUEST['reportWp'];
@@ -512,9 +513,9 @@ class ReportsController extends BaseController
 
     private function resetSession()
     {
-        $_SESSION['reportType'] = Report::DEFAULT_REPORTS_TYPE;
-        $_SESSION['reportStatus'] = Report::DEFAULT_REPORTS_STATUS;
-        $_SESSION['reportUser'] = Report::DEFAULT_REPORTS_USER;
+        $_SESSION['reportType'] = ReportCommons::DEFAULT_REPORTS_TYPE;
+        $_SESSION['reportStatus'] = ReportCommons::DEFAULT_REPORTS_STATUS;
+        $_SESSION['reportUser'] = ReportCommons::DEFAULT_REPORTS_USER;
         $_SESSION['reportWp'] = '';
     }
 }

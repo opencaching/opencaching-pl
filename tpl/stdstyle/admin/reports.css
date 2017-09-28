@@ -57,11 +57,7 @@ textarea#form-note-textarea {
 	height: 6em;
 }
 
-textarea#form-email-textarea {
-	height: 15em;
-}
-
-textarea#form-log-textarea {
+textarea#form-email-textarea, textarea#form-log-textarea, textarea#form-reason-textarea {
 	height: 15em;
 }
 

@@ -2,8 +2,8 @@
 use lib\Objects\GeoCache\GeoCacheLogCommons;
 use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\Admin\ReportEmailTemplate;
-use lib\Objects\Admin\Report;
 use lib\Objects\Admin\ReportPoll;
+use lib\Objects\Admin\ReportCommons;
 ?>
 <?php if ($view->includeGCharts) {?>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -218,11 +218,11 @@ use lib\Objects\Admin\ReportPoll;
         <form action="?action=sendemail" method="post" class="reports-form">
           <fieldset id="email-recipient" class="reports-fieldset">
             <legend class="content-title-noshade">{{admin_reports_lbl_recipient}}</legend>
-            <input type="radio" value="<?=ReportEmailTemplate::RECIPIENT_SUBMITTER?>" name="email-recipient" id="radio-recipient-submitter" onchange="getTemplates(<?=Report::OBJECT_CACHE?>)">
+            <input type="radio" value="<?=ReportEmailTemplate::RECIPIENT_SUBMITTER?>" name="email-recipient" id="radio-recipient-submitter" onchange="getTemplates(<?=ReportCommons::OBJECT_CACHE?>)">
             <label for="radio-recipient-submitter">{{admin_reports_lbl_submitter}}</label>
-            <input type="radio" value="<?=ReportEmailTemplate::RECIPIENT_CACHEOWNER?>" name="email-recipient" id="radio-recipient-cacheowner" onchange="getTemplates(<?=Report::OBJECT_CACHE?>)">
+            <input type="radio" value="<?=ReportEmailTemplate::RECIPIENT_CACHEOWNER?>" name="email-recipient" id="radio-recipient-cacheowner" onchange="getTemplates(<?=ReportCommons::OBJECT_CACHE?>)">
             <label for="radio-recipient-cacheowner">{{admin_reports_lbl_cacheowner}}</label>
-            <input type="radio" value="<?=ReportEmailTemplate::RECIPIENT_ALL?>" name="email-recipient" id="radio-recipient-all" onchange="getTemplates(<?=Report::OBJECT_CACHE?>)">
+            <input type="radio" value="<?=ReportEmailTemplate::RECIPIENT_ALL?>" name="email-recipient" id="radio-recipient-all" onchange="getTemplates(<?=ReportCommons::OBJECT_CACHE?>)">
             <label for="radio-recipient-all">{{admin_reports_lbl_submitter}} &amp; {{admin_reports_lbl_cacheowner}}</label>
           </fieldset>
           <fieldset id="email-template" class="reports-fieldset" style="display: none;">

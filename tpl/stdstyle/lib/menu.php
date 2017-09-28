@@ -669,6 +669,13 @@ $menu = array(
         'navicolor' => '#BDE3E7',
         'submenu' => array(
             array(
+                'title' => tr('reports_user_title'),
+                'menustring' => tr('reports_user_title'),
+                'siteid' => ['report/report_add', 'report/report_info', 'report/report_show'],
+                'visible' => false,
+                'filename' => 'report.php'
+            ),
+            array(
                 'title' => tr('search'),
                 'menustring' => tr('search'),
                 'visible' => true,

@@ -8,14 +8,34 @@ use lib\Objects\OcConfig\OcConfig;
 class ReportLog extends BaseObject
 {
 
+    /**
+     * Log types
+     */
+    // Just note
     const TYPE_NOTE = 1;
+
+    // User x changed status to y
     const TYPE_CHANGESTATUS = 2;
+
+    // User x changed leader to x/y
     const TYPE_CHANGELEADER = 3;
+
+    // User x send mail to the report submitter
     const TYPE_MAILTO_SUBMITTER = 4;
+
+    // User x send mail to cacheowner
     const TYPE_MAILTO_CACHEOWNER = 5;
+
+    // User x send mail to cacheowner and report submitter
     const TYPE_MAILTO_BOTH = 6;
+
+    // User x created a poll
     const TYPE_POLL = 7;
+
+    // User x canceled the poll
     const TYPE_POLL_CANCEL = 8;
+
+    // User x added OC Team log to the cache
     const TYPE_CACHELOG_ADD = 9;
 
     /**
@@ -304,7 +324,7 @@ class ReportLog extends BaseObject
      */
     public static function addLog($reportId, $type, $content = null, $pollId = null)
     {
-        if (!in_array($type, self::getTypeDictionary())) {
+        if (!in_array($type, self::getTypeArray())) {
             return null;
         }
         $newlog = new ReportLog();
@@ -323,7 +343,7 @@ class ReportLog extends BaseObject
      *
      * @return string[]
      */
-    public static function getTypeDictionary()
+    public static function getTypeArray()
     {
         return ([
             self::TYPE_NOTE,

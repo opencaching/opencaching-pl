@@ -7,9 +7,13 @@ use lib\Objects\OcConfig\OcConfig;
 class ReportPoll extends BaseObject
 {
 
-    // Configuration
+    /**
+     * Configuration
+     */
+    // Min duration time of the poll (in days)
     const POLL_INTERVAL_MIN = 3;
 
+    // Max duration time of the poll (in days)
     const POLL_INTERVAL_MAX = 7;
 
     /**
@@ -218,19 +222,17 @@ class ReportPoll extends BaseObject
      *
      * @param int $reportId
      * @param int $period
-     *            // in days
      * @param string $question
      * @param string $ans1
      * @param string $ans2
      * @param string $ans3
-     *            // or null
      * @return int
      */
     public static function createPoll($reportId, $period, $question, $ans1, $ans2, $ans3 = null)
     {
         if (! ($period >= self::POLL_INTERVAL_MIN && $period <= self::POLL_INTERVAL_MAX)) {
             return null;
-        } elseif (! Report::isValidReportId($reportId)) {
+        } elseif (! ReportCommons::isValidReportId($reportId)) {
             return null;
         }
         $poll = new ReportPoll();

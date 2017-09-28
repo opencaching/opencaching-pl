@@ -7,14 +7,20 @@ use lib\Objects\User\User;
 class ReportEmailTemplate extends BaseObject
 {
 
-    // Recipients
-    const RECIPIENT_ALL = 0; // RECIPIENT_CACHEOWNER & RECIPIENT_SUBMITTER
+    /**
+     * Recipients of emails
+     */
+    // RECIPIENT_CACHEOWNER & RECIPIENT_SUBMITTER
+    const RECIPIENT_ALL = 0;
 
+    // Owner of cache
     const RECIPIENT_CACHEOWNER = 1;
 
+    // Report submitter
     const RECIPIENT_SUBMITTER = 2;
 
-    const RECIPIENT_CACHELOG = 3; // Templates to use in OC Team cachelogs
+    // Direct to cachelog
+    const RECIPIENT_CACHELOG = 3;
 
     /**
      * Unique ID of report email template
@@ -42,7 +48,7 @@ class ReportEmailTemplate extends BaseObject
     /**
      * Type of object which template concerns to
      * 1 - cache, 2 -geopath.
-     * See consts Report::OBJECT_*
+     * See consts ReportCommons::OBJECT_*
      *
      * @var int
      */
@@ -155,7 +161,7 @@ class ReportEmailTemplate extends BaseObject
      * @param int $objectType
      * @return array
      */
-    public static function generateTemplateArray($recipient, $objectType = Report::OBJECT_CACHE)
+    public static function generateTemplateArray($recipient, $objectType = ReportCommons::OBJECT_CACHE)
     {
         $query = '
             SELECT `a`.`id` AS id, `a`.`shortdesc` AS shortdesc, `a`.`version` AS `version`
@@ -184,7 +190,7 @@ class ReportEmailTemplate extends BaseObject
      * @param int $objectType
      * @return string
      */
-    public static function generateTemplateSelect($recipient, $objectType = Report::OBJECT_CACHE)
+    public static function generateTemplateSelect($recipient, $objectType = ReportCommons::OBJECT_CACHE)
     {
         $content = '';
         $templates = self::generateTemplateArray($recipient, $objectType);
