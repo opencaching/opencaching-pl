@@ -293,6 +293,11 @@ class Report extends BaseObject
         return ReportCommons::ReportStatusTranslationKey($this->status);
     }
 
+    public function getSecretLink()
+    {
+        return null; //TODO!!!
+    }
+
     /*
      * Setters
      */
@@ -687,6 +692,7 @@ class Report extends BaseObject
             || $this->type === null) {
             return false;
         }
+        $this->dataLoaded = true;
         return true;
     }
 
@@ -794,7 +800,7 @@ class Report extends BaseObject
             $this->dataLoaded = false;
         }
     }
-    
+
     private function loadFromDbRow(array $dbRow)
     {
         foreach ($dbRow as $key => $val) {
@@ -848,14 +854,13 @@ class Report extends BaseObject
                     error_log(__METHOD__ . ": Unknown column: $key");
             }
         }
-        $this->dataLoaded = $this->isDataComplete(true);
+        $this->isDataComplete(true);
     }
-    
+
     public static function fromDbRowFactory(array $dbRow)
     {
         $n = new self();
         $n->loadFromDbRow($dbRow);
         return $n;
     }
-    
 }

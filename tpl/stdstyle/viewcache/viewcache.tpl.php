@@ -12,7 +12,7 @@
 <input type="hidden" id="owner_id" value="<?=$view->ownerId?>">
 <input type="hidden" id="includeDeletedLogs" value="<?=$view->displayDeletedLogs?>">
 <input type="hidden" id="uType" value="<?=($view->isAdminAuthorized)?'1':'0'?>">
-
+<?=$view->callChunk('infoBar', null, $view->infoMsg, $view->errorMsg)?>
 <!-- cache-menu-buttons -->
 <div class="content2-container line-box">
 
@@ -49,7 +49,7 @@
             </span>
             <span id="buttons-right">
                 <?php if($view->showReportProblemButton) { ?>
-                    <a class="btn btn-default btn-md" href="reportcache.php?cacheid=<?=$view->geoCache->getCacheId()?>">
+                    <a class="btn btn-default btn-md" href="report.php?action=add&amp;cacheid=<?=$view->geoCache->getCacheId()?>">
                       <img src="images/actions/report-problem-18.png" alt="report-problem" />&nbsp;<?=tr('report_problem')?>
                     </a>
                 <?php } //if-showReportProblemButton ?>
