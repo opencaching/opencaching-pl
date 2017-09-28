@@ -257,7 +257,7 @@ $founds = XDb::xMultiVariableQueryValue(
     </div>
     <div class="buffer"></div>
     <div class="notice">{{empty_entry_notice}}</div>
-    <div class="notice">{{report_problem_notice}} <a class="links" href="reportcache.php?cacheid={cacheid}">{{report_problem}}</a></div>
+    <div class="notice">{{report_problem_notice}} <a class="links" href="report.php?action=add&cacheid={cacheid}">{{report_problem}}</a></div>
 
     <table class="table">
         <tr class="form-group-sm">
