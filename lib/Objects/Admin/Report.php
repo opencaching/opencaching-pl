@@ -7,6 +7,7 @@ use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\GeoCache\GeoCacheLogCommons;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\User\User;
+use Controllers\Admin\ReportsController;
 
 class Report extends BaseObject
 {
@@ -513,7 +514,7 @@ class Report extends BaseObject
                 }
             }
         }
-        if ($this->userIdLeader == null && $newStatus != ReportCommons::STATUS_NEW) {
+        if ($this->userIdLeader == null && $newStatus != ReportCommons::STATUS_NEW && $newStatus != ReportCommons::STATUS_LOOK_HERE) {
             // If sbd changes status to other than "New", and report has no leader -
             // Set current logged user as leader!
             $this->changeLeader($this->getCurrentUser()->getUserId());
