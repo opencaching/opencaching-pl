@@ -389,7 +389,7 @@ $menu = array(
         'menustring' => tr('administration'),
         'siteid' => 'viewreports',
         'visible' => false,
-        'filename' => 'viewreports.php',
+        'filename' => '',
         'submenu' => array(
             array(
                 'title' => tr('reports'),
@@ -397,13 +397,6 @@ $menu = array(
                 'siteid' => ['admin/reports_list', 'admin/report_show', 'admin/reports_watch'],
                 'visible' => true,
                 'filename' => 'admin_reports.php'
-            ),
-            array(
-                'title' => tr('reports'),
-                'menustring' => tr('reports') . ' OLD',
-                'siteid' => 'viewreports',
-                'visible' => true,
-                'filename' => 'viewreports.php'
             ),
             array(
                 'title' => tr('pendings'),
