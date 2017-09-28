@@ -172,17 +172,21 @@ use lib\Objects\Admin\ReportPoll;
         </td>
       </tr>
     <?php }?>
-    <tr id="report-note-row">
+    <tr>
       <td colspan="2">
-      <p class="content-title-noshade-size1">{{actions}}</p>
-        <p class="content-title-noshade">
-          {{admin_reports_lbl_note}}&nbsp;&nbsp;
-          <button type="button" class="btn btn-sm btn-default" onclick="enableEmail()">{{admin_reports_lbl_email}}</button>
-          <button type="button" class="btn btn-sm btn-default" onclick="enablePoll()">{{admin_reports_lbl_poll}}</button>
+      <p class="content-title-noshade-size1">
+        {{actions}}&nbsp;&nbsp;
+        <span class="btn-group">
+          <button type="button" class="btn btn-sm btn-success" id="reports-btn-note" onclick="enableNote()">{{admin_reports_lbl_note}}</button>
+          <button type="button" class="btn btn-sm btn-default" id="reports-btn-log" onclick="enableLog()">{{new_log_entry}}</button>
+          <button type="button" class="btn btn-sm btn-default" id="reports-btn-email" onclick="enableEmail()">{{admin_reports_lbl_email}}</button>
+          <button type="button" class="btn btn-sm btn-default" id="reports-btn-poll" onclick="enablePoll()">{{admin_reports_lbl_poll}}</button>
+        </span>
+        <img src="/tpl/stdstyle/images/loader/spinning-circles.svg" class="report-watch-img" alt="" id="email-spinning-img" style="display: none;">
         </p>
       </td>
     </tr>
-    <tr id="report-note-row2">
+    <tr id="report-note-row">
       <td colspan="2" style="text-align: center">
         <form action="?action=addnote" method="post" class="reports-form">
           <textarea rows="6" name="note" class="report-note form-control" id="form-note-textarea"></textarea><br>
@@ -191,18 +195,25 @@ use lib\Objects\Admin\ReportPoll;
         </form>
       </td>
     </tr>
-    <tr id="report-email-row" style="display: none;">
+    <tr id="report-log-row" style="display: none;">
       <td colspan="2">
-      <p class="content-title-noshade-size1">{{actions}}</p>
-        <p class="content-title-noshade">
-          {{admin_reports_lbl_email}}&nbsp;&nbsp;
-          <button type="button" class="btn btn-sm btn-default" onclick="enableNote()">{{admin_reports_lbl_note}}</button>
-          <button type="button" class="btn btn-sm btn-default" onclick="enablePoll()">{{admin_reports_lbl_poll}}</button>&nbsp;
-          <img src="/tpl/stdstyle/images/loader/spinning-circles.svg" class="report-watch-img" alt="" id="email-spinning-img" style="display: none;">
-        </p>
+        <form action="?action=newlog" method="post" class="reports-form">
+          <?php if ($view->logSelect != '') {?>
+          <fieldset id="log-template" class="reports-fieldset">
+            <legend class="content-title-noshade">{{admin_reports_lbl_template}}</legend>
+            <select class="form-control" id="logTemplateSelect" onchange="getLogTemplate()"><?=$view->logSelect?></select>
+          </fieldset>
+          <?php }?>
+          <fieldset id="log-content" class="reports-fieldset">
+            <legend class="content-title-noshade">{{admin_reports_lbl_content}}</legend>
+            <textarea class="report-note form-control" name="content" id="form-log-textarea"></textarea>
+            <div style="text-align: center"><button class="btn btn-default" type="submit">{{email_submit}}</button></div>
+          </fieldset>
+          <input type="hidden" name="id" value="<?=$view->report->getId()?>">
+        </form>
       </td>
     </tr>
-    <tr id="report-email-row2" style="display: none;">
+    <tr id="report-email-row" style="display: none;">
       <td colspan="2">
         <form action="?action=sendemail" method="post" class="reports-form">
           <fieldset id="email-recipient" class="reports-fieldset">
@@ -221,7 +232,7 @@ use lib\Objects\Admin\ReportPoll;
           <fieldset id="email-content" class="reports-fieldset" style="display: none;">
             <legend class="content-title-noshade">{{admin_reports_lbl_content}}</legend>
             <textarea class="report-note form-control" name="content" id="form-email-textarea"></textarea>
-            <button class="btn btn-default" type="submit">{{email_submit}}</button>
+            <div style="text-align: center"><button class="btn btn-default" type="submit">{{email_submit}}</button></div>
           </fieldset>
           <input type="hidden" name="id" value="<?=$view->report->getId()?>" id="reportid">
         </form>
@@ -229,18 +240,8 @@ use lib\Objects\Admin\ReportPoll;
     </tr>
     <tr id="report-poll-row" style="display: none;">
       <td colspan="2">
-      <p class="content-title-noshade-size1">{{actions}}</p>
-        <p class="content-title-noshade">
-          {{admin_reports_lbl_poll}}&nbsp;&nbsp;
-          <button type="button" class="btn btn-sm btn-default" onclick="enableNote()">{{admin_reports_lbl_note}}</button>
-          <button type="button" class="btn btn-sm btn-default" onclick="enableEmail()">{{admin_reports_lbl_email}}</button>
-        </p>
-      </td>
-    </tr>
-    <tr id="report-poll-row2" style="display: none;">
-      <td colspan="2">
         <form action="?action=addpoll" method="post" class="reports-form" id="reports-form-addpoll">
-          <table class="table full-width">
+          <table class="table" id="report-email-table">
             <tr>
               <td colspan="3">
                 <div class="content-title-noshade">{{admin_reports_lbl_question}}</div>
@@ -248,15 +249,15 @@ use lib\Objects\Admin\ReportPoll;
               </td>
             </tr>
             <tr>
-              <td width="33%">
+              <td>
                 <div class="content-title-noshade">{{admin_reports_lbl_ans}} 1</div>
                 <input type="text" class="form-control" name="ans1" maxlength="50" onkeypress="return event.keyCode != 13;" id="poll-input-ans1">
               </td>
-              <td width="33%">
+              <td>
                <div class="content-title-noshade">{{admin_reports_lbl_ans}} 2</div>
                <input type="text" class="form-control" name="ans2" maxlength="50" onkeypress="return event.keyCode != 13;" id="poll-input-ans2">
               </td>
-              <td width="34%">
+              <td>
                <span class="content-title-noshade">{{admin_reports_lbl_ans}} 3</span>
                <input type="checkbox" name="noans3" id="noans3" onchange="clearAns3()" checked="checked">
                <label for="noans3">{{admin_reports_lbl_none}}</label><br>

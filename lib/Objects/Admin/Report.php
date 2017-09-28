@@ -6,6 +6,7 @@ use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\User\User;
 use lib\Objects\OcConfig\OcConfig;
 use Utils\Generators\Uuid;
+use lib\Objects\GeoCache\GeoCacheLogCommons;
 
 class Report extends BaseObject
 {
@@ -516,11 +517,13 @@ class Report extends BaseObject
         if ($user == self::USER_ALL) {
             $query .= '';
         } elseif ($user == self::USER_YOU) {
-            $query .= ' AND `reports`.`responsible_id` = :user';
+            $query .= ' AND (`reports`.`responsible_id` = :user  OR `reports`.`status` = :statuslook)';
             $params['user']['value'] = $currentUser->getUserId();
             $params['user']['data_type'] = 'integer';
+            $params['statuslook']['value'] = self::STATUS_LOOK_HERE;
+            $params['statuslook']['data_type'] = 'integer';
         } elseif ($user == self::USER_YOU2) {
-            $query .= ' AND (`reports`.`responsible_id` = :user OR `reports`.`responsible_id` IS NULL OR `reports`.`status` = :statuslook)';
+            $query .= ' AND (`reports`.`responsible_id` = :user OR `reports`.`responsible_id` IS NULL OR `reports`.`responsible_id` = 0 OR `reports`.`status` = :statuslook)';
             $params['user']['value'] = $currentUser->getUserId();
             $params['user']['data_type'] = 'integer';
             $params['statuslook']['value'] = self::STATUS_LOOK_HERE;
@@ -586,11 +589,13 @@ class Report extends BaseObject
         if ($user == self::USER_ALL) {
             $query .= '';
         } elseif ($user == self::USER_YOU) {
-            $query .= ' AND `reports`.`responsible_id` = :user';
+            $query .= ' AND (`reports`.`responsible_id` = :user  OR `reports`.`status` = :statuslook)';
             $params['user']['value'] = $currentUser->getUserId();
             $params['user']['data_type'] = 'integer';
+            $params['statuslook']['value'] = self::STATUS_LOOK_HERE;
+            $params['statuslook']['data_type'] = 'integer';
         } elseif ($user == self::USER_YOU2) {
-            $query .= ' AND (`reports`.`responsible_id` = :user OR `reports`.`responsible_id` IS NULL OR `reports`.`status` = :statuslook)';
+            $query .= ' AND (`reports`.`responsible_id` = :user OR `reports`.`responsible_id` IS NULL OR `reports`.`responsible_id` = 0 OR `reports`.`status` = :statuslook)';
             $params['user']['value'] = $currentUser->getUserId();
             $params['user']['data_type'] = 'integer';
             $params['statuslook']['value'] = self::STATUS_LOOK_HERE;
@@ -719,7 +724,7 @@ class Report extends BaseObject
     {
         $result = '';
         if ($default == null) {
-            $result .= '<option value="' . self::USER_NOBODY . '" selected="selected"></option>';
+            $result .= '<option value="' . self::USER_NOBODY . '" selected="selected">---</option>';
         }
         if (! $onlyOcTeam) {
             $users = [
@@ -1023,6 +1028,11 @@ class Report extends BaseObject
                 }
             }
         }
+        if ($this->userIdLeader == null && $newStatus != self::STATUS_NEW) {
+            // If sbd changes status to other than "New", and report has no leader -
+            // Set current logged user as leader!
+            $this->changeLeader($this->getCurrentUser()->getUserId());
+        }
         return true;
     }
 
@@ -1109,11 +1119,43 @@ class Report extends BaseObject
         }
     }
 
+    // TODO: This method should use GeoCacheLog, but for now this object has no code to save obj.
+    /**
+     * Adds $content as OC Team log to reported cache
+     *
+     * @param string $content
+     * @return boolean
+     */
+    public function addOcTeamLog($content = '')
+    {
+        $query = '
+            INSERT INTO `cache_logs`
+            (`cache_id`, `user_id`, `type`, `date`, `text`, `text_html`,
+            `text_htmledit`, `last_modified`, `uuid`, `date_created`, `node`)
+            VALUES
+            (:cache_id, :user_id, :type, NOW(), :text, 1, 1, NOW(), :uuid,
+            NOW(), :node)';
+        $params = [];
+        $params['cache_id']['value'] = $this->cacheId;
+        $params['cache_id']['data_type'] = 'integer';
+        $params['user_id']['value'] = $this->getCurrentUser()->getUserId();
+        $params['user_id']['data_type'] = 'integer';
+        $params['type']['value'] = GeoCacheLogCommons::LOGTYPE_ADMINNOTE;
+        $params['type']['data_type'] = 'integer';
+        $params['text']['value'] = nl2br(strip_tags($content));
+        $params['text']['data_type'] = 'string';
+        $params['uuid']['value'] = Uuid::create();
+        $params['uuid']['data_type'] = 'string';
+        $params['node']['value'] = OcConfig::instance()->getOcNodeId();
+        $params['node']['data_type'] = 'string';
+        return (self::db()->paramQuery($query, $params) !== null);
+    }
+
     /**
      * "Touch" report. Update last change date and last change user.
      * This method don't save "touched" report!
      */
-    private function updateLastChanged() {
+    public function updateLastChanged() {
         unset($this->dateLastChange);
         $this->dateLastChange = new \DateTime('now');
         $this->userIdLastChange = $this->getCurrentUser()->getUserId();

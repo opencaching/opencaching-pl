@@ -16,6 +16,7 @@ class ReportLog extends BaseObject
     const TYPE_MAILTO_BOTH = 6;
     const TYPE_POLL = 7;
     const TYPE_POLL_CANCEL = 8;
+    const TYPE_CACHELOG_ADD = 9;
 
     /**
      * Id of ReportLog
@@ -242,6 +243,10 @@ class ReportLog extends BaseObject
                     $content .= tr('admin_reports_lbl_ans') . ' 3: <i>' . $this->getPoll()->getAns3() . '</i><br>';
                 }
                 break;
+            case self::TYPE_CACHELOG_ADD:
+                $header = tr('admin_reports_tpl_log') . ':';
+                $content = $this->content;
+                break;
         }
         $header = mb_ereg_replace('{user}', $this->getUser()->getUserName(), $header);
         $output = '[' . $this->dateCreated->format(OcConfig::instance()->getDatetimeFormat()) . '] ';
@@ -328,7 +333,8 @@ class ReportLog extends BaseObject
             self::TYPE_MAILTO_CACHEOWNER,
             self::TYPE_MAILTO_BOTH,
             self::TYPE_POLL,
-            self::TYPE_POLL_CANCEL
+            self::TYPE_POLL_CANCEL,
+            self::TYPE_CACHELOG_ADD
         ]);
     }
 

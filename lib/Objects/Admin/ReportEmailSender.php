@@ -26,6 +26,7 @@ class ReportEmailSender
         $formattedMessage->setVariable('cacheWP', $report->getCache()->getWaypointId());
         $formattedMessage->setVariable('cacheurl', GeoCacheCommons::GetCacheUrlByWp($report->getCache()->getWaypointId()));
         $formattedMessage->setVariable('cachename', $report->getCache()->getCacheName());
+        $formattedMessage->setVariable('cacheregion', $report->getCache()->getCacheLocationObj()->getLocationDesc(' &gt; '));
         $formattedMessage->setVariable('reporturl', Report::getLinkToReport($report->getId()));
         $formattedMessage->setVariable('reportid', $report->getId());
         $formattedMessage->setVariable('reporttype', tr($report->getReportTypeTranslationKey()));
@@ -61,6 +62,7 @@ class ReportEmailSender
         $formattedMessage->setVariable('cacheWP', $report->getCache()->getWaypointId());
         $formattedMessage->setVariable('cacheurl', GeoCacheCommons::GetCacheUrlByWp($report->getCache()->getWaypointId()));
         $formattedMessage->setVariable('cachename', $report->getCache()->getCacheName());
+        $formattedMessage->setVariable('cacheregion', $report->getCache()->getCacheLocationObj()->getLocationDesc(' &gt; '));
         $formattedMessage->setVariable('reportstatus', tr($report->getReportStatusTranslationKey()));
         $formattedMessage->setVariable('reportsubmitter', $report->getUserSubmit()->getUserName());
         $formattedMessage->addFooterAndHeader($toUser->getUserName(), true);
@@ -93,6 +95,7 @@ class ReportEmailSender
         $formattedMessage->setVariable('cacheWP', $report->getCache()->getWaypointId());
         $formattedMessage->setVariable('cacheurl', GeoCacheCommons::GetCacheUrlByWp($report->getCache()->getWaypointId()));
         $formattedMessage->setVariable('cachename', $report->getCache()->getCacheName());
+        $formattedMessage->setVariable('cacheregion', $report->getCache()->getCacheLocationObj()->getLocationDesc(' &gt; '));
         $formattedMessage->setVariable('server', rtrim(OcConfig::getAbsolute_server_URI(), '/'));
         $formattedMessage->addFooterAndHeader($toUser->getUserName(), true);
         $email = new Email();
@@ -133,6 +136,7 @@ class ReportEmailSender
         $formattedMessage->setVariable('cacheWP', $poll->getReport()->getCache()->getWaypointId());
         $formattedMessage->setVariable('cacheurl', GeoCacheCommons::GetCacheUrlByWp($poll->getReport()->getCache()->getWaypointId()));
         $formattedMessage->setVariable('cachename', $poll->getReport()->getCache()->getCacheName());
+        $formattedMessage->setVariable('cacheregion', $report->getCache()->getCacheLocationObj()->getLocationDesc(' &gt; '));
         $formattedMessage->setVariable('server', rtrim(OcConfig::getAbsolute_server_URI(), '/'));
         if ($remind) {
             $header = tr('admin_reports_mail_txtpollrem');
