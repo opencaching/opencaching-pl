@@ -85,6 +85,7 @@ div.report-poll {
 	padding: 8px;
 	box-sizing: border-box;
 	text-align: center;
+	z-index: 999;
 }
 
 table#report-email-table {
