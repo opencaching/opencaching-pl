@@ -599,7 +599,7 @@ if ($usr || ! $hide_coords) {
                 $logtype = $gpxLogType[0];
 
             $thislog = str_replace('{type}', $logtype, $thislog);
-            $thislog = str_replace('{text}', cleanup_text($rLog['text']), $thislog);
+            $thislog = str_replace('{text}', xmlencode_text($rLog['text']), $thislog);
             $logentries .= $thislog . "\n";
         }
         $thisline = str_replace('{logs}', $logentries, $thisline);

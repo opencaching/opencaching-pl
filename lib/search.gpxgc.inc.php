@@ -472,7 +472,7 @@ if ($usr || ! $hide_coords) {
             $thislog = str_replace('{username}', xmlentities(convert_string($rLog['username'])), $thislog);
             $thislog = str_replace('{finder_id}', xmlentities($rLog['userid']), $thislog);
             $thislog = str_replace('{type}', $logtype, $thislog);
-            $thislog = str_replace('{text}', cleanup_text($rLog['text']), $thislog);
+            $thislog = str_replace('{text}', xmlencode_text($rLog['text']), $thislog);
             $logentries .= $thislog . "\n";
         }
         $thisline = str_replace('{logs}', $logentries, $thisline);
