@@ -22,6 +22,9 @@ class ViewCacheController extends BaseController
 
     private $userModifiedCacheCoords = null;
 
+    private $infoMsg = null;
+    private $errorMsg = null;
+
     public function __construct()
     {
         parent::__construct();
@@ -69,6 +72,14 @@ class ViewCacheController extends BaseController
             $this->view->loadJQuery();
             $this->view->loadJQueryUI();
             $this->view->loadLightBox();
+            if (isset($_REQUEST['infomsg'])) {
+                $this->infoMsg = $_REQUEST['infomsg'];
+            }
+            if (isset($_REQUEST['errormsg'])) {
+                $this->errorMsg = $_REQUEST['errormsg'];
+            }
+            $this->view->setVar('infoMsg', $this->infoMsg);
+            $this->view->setVar('errorMsg', $this->errorMsg);
         }
         set_tpl_subtitle(htmlspecialchars($this->geocache->getCacheName()) . ' - ');
 

@@ -57,11 +57,7 @@ textarea#form-note-textarea {
 	height: 6em;
 }
 
-textarea#form-email-textarea {
-	height: 15em;
-}
-
-textarea#form-log-textarea {
+textarea#form-email-textarea, textarea#form-log-textarea, textarea#form-reason-textarea {
 	height: 15em;
 }
 
@@ -89,6 +85,7 @@ div.report-poll {
 	padding: 8px;
 	box-sizing: border-box;
 	text-align: center;
+	z-index: 999;
 }
 
 table#report-email-table {

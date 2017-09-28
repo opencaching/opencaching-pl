@@ -4,7 +4,7 @@ use Utils\Database\OcDb;
 use lib\Objects\GeoCache\PrintList;
 use Utils\DateTime\Year;
 use Utils\Debug\Debug;
-use lib\Objects\Admin\Report as ReportCtl;
+use lib\Objects\Admin\ReportCommons as ReportCtl;
 
 // load menu
 global $mnu_selmenuitem, $tpl_subtitle, $absolute_server_URI, $mnu_siteid /* which menu item should be highlighted */, $site_name;
