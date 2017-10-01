@@ -64,6 +64,8 @@ class LogEntryController
                 if ($config['meritBadges']){
                     $ctrlMeritBadge = new MeritBadgeController;
                     $ctrlMeritBadge->updateTriggerLogCache($log->getGeoCache()->getCacheId(), $loggedUser->getUserId() );
+                    $ctrlMeritBadge->updateTriggerTitledCache($log->getGeoCache()->getCacheId(), $loggedUser->getUserId());
+                    $ctrlMeritBadge->updateTriggerRecommendationAuthor($log->getGeoCache()->getCacheId());
                 }
             }
 
@@ -333,7 +335,10 @@ class LogEntryController
            );
         }
         $db = OcDb::instance();
+        
+        //Test JG
         $s = $db->paramQuery($query, $params);
+        //$s = $db->paramQuery($query, NULL);
         $logEntries = $db->dbResultFetchAll($s);
 
         return $logEntries;

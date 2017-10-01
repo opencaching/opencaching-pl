@@ -384,8 +384,6 @@ if ($error == false) {
                         $cache_record['notes'], $log_record['cache_id']);
 
 
-
-
                     $badgetParam = "";
                     if ($config['meritBadges']){
 
@@ -394,8 +392,15 @@ if ($error == false) {
                             $log_type == GeoCacheLog::LOGTYPE_ATTENDED ){
 
                             $ctrlMeritBadge = new MeritBadgeController;
+                            
                             $changedLevelBadgesIds = $ctrlMeritBadge->updateTriggerLogCache($cache_id, $usr['userid']);
-
+                            $titledIds= $ctrlMeritBadge->updateTriggerTitledCache($cache_id, $usr['userid']);
+                            
+                            if ( $changedLevelBadgesIds != "" && $titledIds!= "")
+                                $changedLevelBadgesIds .= ",";
+                                
+                            $changedLevelBadgesIds .= $titledIds;
+                            
                             if ( $changedLevelBadgesIds != "" )
                                 $badgetParam = "&badgesPopupFor=" . $changedLevelBadgesIds;
 

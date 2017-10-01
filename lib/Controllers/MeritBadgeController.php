@@ -7,6 +7,8 @@ use lib\Objects\MeritBadge\CategoryMeritBadge;
 use lib\Objects\MeritBadge\PositionMeritBadge;
 use lib\Objects\GeoCache\GeoCache;
 
+use lib\Controllers\LogEntryController;
+
 use Utils\Database\OcDb;
 
 
@@ -64,6 +66,22 @@ class MeritBadgeController{
         $meritBadges = $this->buildArrayMeritBadgesTriggerBy(self::TRIGGER_RECOMMENDATION_AUTHOR);
         $geoCache = new GeoCache(array('cacheId' => $cache_id));
         return $this->updateCurrValUserMeritBadges( $meritBadges, $cache_id, $geoCache->getOwnerId());
+    }
+    
+    //Update CurrVal for badges which are triggering by self::TRIGGER_TITLED_CACHE
+    public function updateTriggerTitledCache( $cache_id, $user_id ){
+        $meritBadges = $this->buildArrayMeritBadgesTriggerBy(self::TRIGGER_TITLED_CACHE);
+        return $this->updateCurrValUserMeritBadges( $meritBadges, $cache_id, $user_id );
+    }
+    
+    //Update CurrVal for badges which are triggering by NEW self::TRIGGER_TITLED_CACHE
+    public function updateTriggerByNewTitledCache( $cache_id ){
+        $logEntryController = new LogEntryController();
+        $logEneries = $logEntryController->loadLogsFromDb($cache_id, false, 0, 999999);
+        
+        foreach ($logEneries as $record) {
+            $this->updateTriggerTitledCache( $cache_id, $record['userid']);
+        }
     }
     
     

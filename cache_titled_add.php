@@ -2,14 +2,17 @@
 
 use Utils\Database\OcDb;
 use Utils\Generators\Uuid;
+use lib\Controllers\MeritBadgeController;
 
 global $titled_cache_nr_found, $titled_cache_period_prefix;
 
 require_once('./lib/common.inc.php');
 
+
 if ( !isset( $_REQUEST[ 'CRON' ] ) )
     exit;
-
+    
+    
 $dbc = OcDb::instance();
 
 $queryMax = "SELECT max( date_alg ) dataMax FROM cache_titled";
@@ -153,4 +156,7 @@ if ( $dDiff->days < $securityPeriod )
             $msgText, '2', '1', $date_alg, $date_alg, $LogUuid, '0', '0',
             $date_alg, '0', $oc_nodeid );
 
+    $ctrlMeritBadge = new MeritBadgeController;
+    $titledIds= $ctrlMeritBadge->updateTriggerByNewTitledCache($rec[ "cacheId" ]);
+    
 unset($dbc);
