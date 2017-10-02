@@ -296,7 +296,7 @@ if ($usr || ! $hide_coords) {
         $logpw = ($r['logpw'] == "" ? "" : "" . cleanup_text(tr('search_gpxgc_01')) . " <br />");
 
         $thisline = str_replace('{shortdesc}', cleanup_text($r['short_desc']), $thisline);
-        $thisline = str_replace('{desc}', cleanup_text($logpw . $r['desc']), $thisline);
+        $thisline = str_replace('{desc}', xmlencode_text($logpw . $r['desc']), $thisline);
         if ($usr == true) {
             $notes_rs = XDb::xSql(
                 "SELECT `cache_notes`.`desc` `desc` FROM `cache_notes`
@@ -472,7 +472,7 @@ if ($usr || ! $hide_coords) {
             $thislog = str_replace('{username}', xmlentities(convert_string($rLog['username'])), $thislog);
             $thislog = str_replace('{finder_id}', xmlentities($rLog['userid']), $thislog);
             $thislog = str_replace('{type}', $logtype, $thislog);
-            $thislog = str_replace('{text}', cleanup_text($rLog['text']), $thislog);
+            $thislog = str_replace('{text}', xmlencode_text($rLog['text']), $thislog);
             $logentries .= $thislog . "\n";
         }
         $thisline = str_replace('{logs}', $logentries, $thisline);

@@ -426,7 +426,7 @@ if ($usr || ! $hide_coords) {
 
         $logpw = ($r['logpw'] == "" ? "" : "" . tr('search_gpxgc_01') . " <br />");
         $thisline = str_replace('{shortdesc}', cleanup_text($r['short_desc']), $thisline);
-        $thisline = str_replace('{desc}', cleanup_text($logpw . $r['desc']), $thisline);
+        $thisline = str_replace('{desc}', xmlencode_text($logpw . $r['desc']), $thisline);
 
         // add personal cache info if user login to OC
         if ($usr == true) {
@@ -599,7 +599,7 @@ if ($usr || ! $hide_coords) {
                 $logtype = $gpxLogType[0];
 
             $thislog = str_replace('{type}', $logtype, $thislog);
-            $thislog = str_replace('{text}', cleanup_text($rLog['text']), $thislog);
+            $thislog = str_replace('{text}', xmlencode_text($rLog['text']), $thislog);
             $logentries .= $thislog . "\n";
         }
         $thisline = str_replace('{logs}', $logentries, $thisline);

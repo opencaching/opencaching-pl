@@ -54,6 +54,18 @@ function xmlentities($str) {
 }
 
 /**
+ * This function prepares some text (which may be HTML) for including
+ * into an XML element. Copied from Okapi::xmlescape.
+ * @param unknown $str
+ */
+function xmlencode_text($str)
+{
+    static $pattern = '/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u';
+    $str = preg_replace($pattern, '', $str);
+    return strtr($str, array("<" => "&lt;", ">" => "&gt;", "\"" => "&quot;", "'" => "&apos;", "&" => "&amp;"));
+}
+
+/**
  * -- This function was moved here from search.inc.* --
  * Cleanup textReplace reserved XML characters with entities
  * @param unknown $str
