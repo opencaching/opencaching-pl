@@ -8,7 +8,7 @@ $nodeDetect = substr($absolute_server_URI, - 3, 2);
 
 $gpxHead = '<?xml version="1.0" encoding="utf-8"?>
 <gpx xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://www.groundspeak.com/cache/1/0/1 http://www.groundspeak.com/cache/1/0/1/cache.xsd http://www.gsak.net/xmlv1/5 http://www.gsak.net/xmlv1/5/gsak.xsd"
+    xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://www.groundspeak.com/cache/1/0/1 http://www.groundspeak.com/cache/1/0/1/cache.xsd http://www.gsak.net/xmlv1/5 http://www.gsak.net/xmlv1/5/gsak.xsd https://github.com/opencaching/gpx-extension-v1 https://raw.githubusercontent.com/following5/gpx-extension-v1/oc-logs/schema.xsd"
     xmlns="http://www.topografix.com/GPX/1/0" version="1.0"
     creator="' . convert_string($site_name) . '">
 
@@ -57,12 +57,23 @@ $gpxLine = '
             </groundspeak:long_description>
             <groundspeak:encoded_hints>{hints}</groundspeak:encoded_hints>
             <groundspeak:logs>
-{logs}
+{gs_logs}
             </groundspeak:logs>
             <groundspeak:travelbugs>
 {geokrety}
             </groundspeak:travelbugs>
         </groundspeak:cache>
+        <oc:cache xmlns:oc="https://github.com/opencaching/gpx-extension-v1">
+            <oc:type>{oc_type}</oc:type>
+            <oc:size>{oc_size}</oc:size>
+{oc_trip_time}
+{oc_trip_distance}
+            <oc:requires_password>{oc_password}</oc:requires_password>
+{oc_other_codes}
+            <oc:logs>
+{oc_logs}
+            </oc:logs>
+        </oc:cache>
     </wpt>
 
 {cache_waypoints}
@@ -101,6 +112,15 @@ $gpxWaypoints = '    <wpt lat="{wp_lat}" lon="{wp_lon}">
     </wpt>
 ';
 
+$gpxOcTripTime = '            <oc:trip_time>{time}</oc:trip_time>';
+$gpxOcTripDistance = '            <oc:trip_distance>{distance}</oc:trip_distance>';
+$gpxOcOtherCode = '            <oc:other_code>{code}</oc:other_code>';
+
+$gpxOcLog = '                <oc:log id="{id}" uuid="{uuid}">
+{oc_team_entry}                </oc:log>';
+$gpxOcIsTeamEntry = '                    <oc:site_team_entry>true</oc:site_team_entry>
+';
+
 $gpxFoot = '</gpx>';
 
 $gpxTimeFormat = 'Y-m-d\TH:i:s\Z';
@@ -129,7 +149,6 @@ $gpxArchived[6] = 'True';       // OC: STATUS_BLOCKED
 
 // These strings must not be translated
 // Ref: see http://forum.opencaching.pl/viewtopic.php?p=121737#p121737
-$gpxContainer[0] = 'Unknown';       // OC: UNDEFINED
 $gpxContainer[1] = 'Other';         // OC: SIZE_OTHER
 $gpxContainer[2] = 'Micro';         // OC: SIZE_MICRO
 $gpxContainer[3] = 'Small';         // OC: SIZE_SMALL
@@ -138,6 +157,16 @@ $gpxContainer[5] = 'Large';         // OC: SIZE_LARGE
 $gpxContainer[6] = 'Very Large';    // OC: SIZE_XLARGE
 $gpxContainer[7] = 'No container';  // OC: SIZE_NONE
 $gpxContainer[8] = 'Nano';          // OC: SIZE_NANO
+
+// size strings for oc:size (OC GPX extension)
+$gpxOcSize[1] = 'Other';
+$gpxOcSize[2] = 'Micro';
+$gpxOcSize[3] = 'Small';
+$gpxOcSize[4] = 'Regular';
+$gpxOcSize[5] = 'Large';
+$gpxOcSize[6] = 'Very large';
+$gpxOcSize[7] = 'No container';
+$gpxOcSize[8] = 'Nano';
 
 // ************************************************************************
 // Geocache type
@@ -155,6 +184,18 @@ $gpxType[7] = 'Unknown Cache';      // OC: TYPE_QUIZ
 $gpxType[8] = 'Unknown Cache';      // OC: TYPE_MOVING
 $gpxType[9] = 'Unknown Cache';      // OC: TYPE_GEOPATHFINAL
 $gpxType[10] = 'Unknown Cache';     // OC: TYPE_OWNCACHE
+
+// type strings for oc:type (OC GPX extension)
+$gpxOcType[1] = 'Other Cache';
+$gpxOcType[2] = 'Traditional Cache';
+$gpxOcType[3] = 'Multi-cache';
+$gpxOcType[4] = 'Virtual Cache';
+$gpxOcType[5] = 'Webcam Cache';
+$gpxOcType[6] = 'Event Cache';
+$gpxOcType[7] = 'Quiz Cache';
+$gpxOcType[8] = 'Moving Cache';
+$gpxOcType[9] = 'Podcast Cache';
+$gpxOcType[10] = 'Own Cache';
 
 /* Groundspeak IDs:
 2       Traditional Cache
