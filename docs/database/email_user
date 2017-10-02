@@ -28,9 +28,7 @@ from_email
 to_user_id
 to_email
 mail_subject
-mail_text
 send_emailaddress
-date_sent
 
 
 *************************** 1. row ***************************
@@ -44,12 +42,10 @@ Create Table: CREATE TABLE `email_user` (
   `to_user_id` int(11) NOT NULL DEFAULT '0',
   `to_email` varchar(60) NOT NULL,
   `mail_subject` varchar(255) NOT NULL,
-  `mail_text` text NOT NULL,
   `send_emailaddress` int(1) NOT NULL DEFAULT '0',
-  `date_sent` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
-  KEY `date_sent` (`date_sent`),
-  KEY `from_user_id` (`from_user_id`)
+  KEY `from_user_id` (`from_user_id`),
+  KEY `date_generated` (`date_generated`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8
 
 Changelog

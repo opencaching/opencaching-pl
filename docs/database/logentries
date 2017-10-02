@@ -41,7 +41,8 @@ Create Table: CREATE TABLE `logentries` (
   `logtext` mediumtext NOT NULL,
   `details` blob NOT NULL,
   `logtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `logtime` (`logtime`)
 ) ENGINE=MyISAM AUTO_INCREMENT=778 DEFAULT CHARSET=utf8
 
 Changelog
