@@ -43,7 +43,7 @@ final class ApplicationContainer
         return $this->loggedUser;
     }
 
-    public static function GetLoggedUser(){
+    public static function GetAuthorizedUser(){
         return self::Instance()->getLoggedUser();
     }
 
@@ -53,12 +53,10 @@ final class ApplicationContainer
         return $this;
     }
 
-    public static function SetLoggedUser(User $loggedUser)
+    public static function SetAuthorizedUser(User $loggedUser=null)
     {
         self::Instance()->loggedUser = $loggedUser;
-        return $this;
     }
-
 
     /**
      *

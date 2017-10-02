@@ -6,7 +6,9 @@ use lib\Objects\ApplicationContainer;
 use lib\Objects\BaseObject;
 use lib\Objects\User\User;
 use Utils\Debug\Debug;
-
+use Utils\Uri\Cookie;
+use Utils\Uri\Uri;
+use lib\Objects\User\PasswordManager;
 
 class UserAuthorization extends BaseObject
 {
@@ -37,9 +39,10 @@ class UserAuthorization extends BaseObject
     public static function verify(){
 
         // try to read sessionId stored in AUTH-cookie
-        if(!$cookieSession = self::getSessionFromAuthCookie()){
+        if(! $cookieSession = self::getSessionFromAuthCookie()){
             // there is no such sessionId
             self::clearContextVars();
+
             return null;
         }
 
@@ -47,7 +50,7 @@ class UserAuthorization extends BaseObject
         // and ApplicationContainer contains logged user:
         // user has been already verified
         if($cookieSession === self::getLoggedUserSessionId() &&
-            $user = ApplicationContainer::GetLoggedUser() ){
+            $user = ApplicationContainer::GetAuthorizedUser() ){
             // generally it shouldn't happen unless this method is calls again
             // in the same request
             return $user;
@@ -101,11 +104,11 @@ class UserAuthorization extends BaseObject
         self::deleteObsolateOcSessions();
 
         // add 'permanent_login' collumn to collumns to read from DB
-        $neededUserColumns = User::COMMON_COLLUMNS.', permanent_login_flag';
+        $neededUserColumns = User::AUTH_COLLUMS;
 
         // try to find the user based on given username/email
-        if( $user = User::fromUsernameFactory($username, $neededUserColumns) ||
-            $user = User::fromEmailFactory($username, $neededUserColumns)){
+        if( ($user = User::fromUsernameFactory($username, $neededUserColumns)) ||
+            ($user = User::fromEmailFactory($username, $neededUserColumns))){
 
             if($user->isActive()){
                 // user active - check password
@@ -116,7 +119,7 @@ class UserAuthorization extends BaseObject
                     self::initOcSession($user);
                     self::initContextVars($user);
 
-                    return LOGIN_OK;
+                    return self::LOGIN_OK;
                 }
             }else{
                 // skip saving this login try - this is just inactive user
@@ -163,7 +166,7 @@ class UserAuthorization extends BaseObject
 
         // delete session from DB
         if( $sessionId = self::getLoggedUserSessionId() ){
-            self::deleteOcSessionFromDb($user->getUserId(), $sessionId);
+            self::deleteOcSessionFromDb( $sessionId );
         }
 
         // clear sessionId at serverSide (in PHP session)
@@ -178,7 +181,7 @@ class UserAuthorization extends BaseObject
     private static function initContextVars(User $user){
 
         //init $user in ApplicationContainer
-        ApplicationContainer::SetLoggedUser($user);
+        ApplicationContainer::SetAuthorizedUser($user);
 
         // set obsolate user_is in session
         $_SESSION['user_id'] = $user->getUserId();
@@ -202,8 +205,7 @@ class UserAuthorization extends BaseObject
     private static function clearContextVars(){
 
         // clear AppContainer
-        ApplicationContainer::SetLoggedUser(null);
-
+        ApplicationContainer::SetAuthorizedUser(null);
 
         // clear obsolate global $usr[] array
         global $usr;
@@ -211,21 +213,43 @@ class UserAuthorization extends BaseObject
 
         // set obsolate user_is in session
         unset($_SESSION['user_id']);
-        session_destroy();
 
+        if(!session_id()){
+            // there is initialized session - destroy it!
+            session_destroy();
+        }
     }
 
 
     private static function initAuthCookie($sessionId){
-        //TODO!
+
+        $cookieExpiry = time() + self::PERMANENT_LOGIN_TIMEOUT;
+
+        $result = Cookie::setCookie(self::AUTH_COOKIE_NAME, $sessionId, $cookieExpiry, '/',
+            false, true, Cookie::SAME_SITE_RESTRICTION_STRICT);
+
+        if(!$result){
+            Debug::errorLog(__METHOD__.": Can't set AUTH cookie");
+        }
     }
 
     private static function getSessionFromAuthCookie(){
-        //TODO
+
+        if(isset($_COOKIE[self::AUTH_COOKIE_NAME])){
+            return $_COOKIE[self::AUTH_COOKIE_NAME];
+        }
+
+        return null;
     }
 
     private static function destroyAuthCookie(){
-        //TODO!
+
+        unset($_COOKIE[self::AUTH_COOKIE_NAME]);
+
+        $result = Cookie::deleteCookie(self::AUTH_COOKIE_NAME);
+        if(!$result){
+            Debug::errorLog(__METHOD__.": Can't delete AUTH cookie");
+        }
     }
 
 
@@ -264,7 +288,7 @@ class UserAuthorization extends BaseObject
 
     private static function insertOcSessionToDb($sessionId, $userId, $permanentSession){
         self::db()->multiVariableQuery(
-            "INSERT INTO `sys_sessions` (`uuid`, `user_id`, `permanent`, `last_login`)
+            "INSERT INTO sys_sessions (uuid, user_id, permanent, last_login)
              VALUES (:1, :2, :3, NOW())", $sessionId, $userId, ($permanentSession ? 1 : 0));
     }
 
@@ -293,7 +317,7 @@ class UserAuthorization extends BaseObject
     private static function deleteOcSessionFromDb($sessionId){
         // delete oc-session from DB
         self::db()->multiVariableQuery(
-            "DELETE FROM sys_sessions WHERE uuid =: 1 LIMIT 1", $sessionId);
+            "DELETE FROM sys_sessions WHERE uuid = :1 LIMIT 1", $sessionId);
     }
 
     private static function deleteObsolateOcSessions(){
@@ -305,10 +329,10 @@ class UserAuthorization extends BaseObject
             "DELETE FROM sys_sessions
              WHERE (
                 permanent = 0
-                AND last_login < DATE_SUB( NOW(), INTERVAL $loginTimeout SECONDS)
+                AND last_login < DATE_SUB( NOW(), INTERVAL $loginTimeout SECOND)
                 ) OR (
                 permanent = 1
-                AND last_login < DATE_SUB( NOW(), INTERVAL $permLoginTimeout SECONDS)
+                AND last_login < DATE_SUB( NOW(), INTERVAL $permLoginTimeout SECOND)
                 )");
 
     }
@@ -321,7 +345,7 @@ class UserAuthorization extends BaseObject
     }
 
     private static function generateSessionId(){
-        self::db()->simpleQueryValue('SELECT UUID()',null);
+        return self::db()->simpleQueryValue('SELECT UUID()',null);
     }
 
 }

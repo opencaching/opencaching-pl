@@ -50,18 +50,18 @@ if(isset($_POST['email']) && isset($_POST['password'])){
         $loginResult = UserAuthorization::checkCredensials($userEmail, $userPassword);
 
         switch ($loginResult) {
-            case LOGIN_OK:
+            case UserAuthorization::LOGIN_OK:
                 tpl_redirect('login.php?action=cookieverify&target=' . urlencode($target));
                 exit;
 
                 break;
-            case LOGIN_TOOMUCHLOGINS:
+            case UserAuthorization::LOGIN_TOOMUCHLOGINS:
                 $view->setVar('errorMsg', tr('login_tooManyTries'));
                 break;
-            case LOGIN_USERNOTACTIVE:
+            case UserAuthorization::LOGIN_USERNOTACTIVE:
                 $view->setVar('errorMsg', tr('error_usernotactive'));
                 break;
-            case LOGIN_BADUSERPW:
+            case UserAuthorization::LOGIN_BADUSERPW:
             default:
                 $view->setVar('errorMsg', tr('login_badCredentials'));
         }

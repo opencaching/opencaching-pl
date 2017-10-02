@@ -1,6 +1,8 @@
 <?php
+namespace lib\Objects\User;
 
 use Utils\Database\OcDb;
+
 class PasswordManager
 {
 
@@ -54,7 +56,7 @@ class PasswordManager
         $row = $c->fetch();
 
         if ($row == null) {
-            throw new Exception("Invalid user_id");
+            throw new \Exception("Invalid user_id");
         }
 
         $this->hash = $row['password'];
@@ -210,7 +212,7 @@ class PasswordManager
     private function computeHash($password, $skippedRounds = 0)
     {
         if ($skippedRounds > $this->rounds) {
-            throw new Exception();
+            throw new \Exception();
         }
         $input = $password;
         for ($i = $skippedRounds; $i < $this->rounds; $i++) {

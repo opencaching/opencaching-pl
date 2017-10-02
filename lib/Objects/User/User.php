@@ -84,6 +84,8 @@ class User extends UserCommons
                        email, admin, guru, verify_all, rules_confirmed,
                        notify_radius, watchmail_mode, watchmail_day, watchmail_hour";
 
+    const AUTH_COLLUMS = self::COMMON_COLLUMNS . ', is_active_flag, permanent_login_flag';
+
     /**
      * construct class using $userId (fields will be loaded from db)
      * OR, if you have already user data row fetched from db row ($userDbRow), object is created using this data
