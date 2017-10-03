@@ -213,17 +213,18 @@ $gpxLogType[11] = 'Temporarily Disable Listing';        // OC: XXX_TEMPORARILY_U
 $gpxLogType[12] = 'OC Team Comment';                    // OC: XXX_OC_TEAM_COMMENT
 // Note: log types implementation incomplete.
 
-// ************************************************************************
-// Attributes
+/************************************************************************
+Attributes
 
-// GPX ID mapping of all attributes of OC.PL .NL .RO .UK. .US, as of 3 October 2017.
-// If there is a matching DE attribute with other ID, the DE ID is given in the "DE" column.
-//
-// IDs < 100 are original GC.com, 101-199 are pseudo-GC IDs for special Opencaching attributes.
-// Appended ".0" means inc="0".
-//
-// Note that there are some redundant IDs, e.h. UK/RO 46 and NL/PL/US 83 both map to
-// GC 51 "Special tool required".
+GPX ID mapping of all attributes of OC.PL .NL .RO .UK. .US, as of 3 October 2017.
+If there is a matching DE attribute with other ID, the DE ID is given in the "DE" column.
+
+IDs < 100 are original GC.com, 101-199 are pseudo-GC IDs for special Opencaching attributes.
+Appended ".0" means inc="0".
+
+Note that there are some redundant IDs, e.h. UK/RO 46 and NL/PL/US 83 both map to
+GC 51 "Special tool required".
+*/
 
 // common assignments
 $gpxAttribID[1] = '52';     $gpxAttribName[1] = 'Night cache';                // DE UK
@@ -301,6 +302,27 @@ $gpxAttribID[155] = '47';   $gpxAttribName[155] = 'Field puzzle';             //
 $gpxAttribID[156] = '153';  $gpxAttribName[156] = 'Aircraft required';        // 53 UK
 $gpxAttribID[157] = '125';  $gpxAttribName[157] = 'Rated on Handicaching.com';//    UK
 $gpxAttribID[158] = '126';  $gpxAttribName[158] = 'Contains a Munzee';        //    UK
+
+/*
+ATTENTION:
+
+If you add a new attribute to your OC site, follow these steps to assign a GPX ID:
+
+1. Try to map it to an existing Groundspeak attribute. Consult the table in the
+   upper section of okapi/services/attrs/attribute-definitions.xml for all known
+   GS attribs. If no GS attribute is available:
+
+2. Try to map it to an existing OCDE attribute. You will find all OCDE attributes here:
+   https://github.com/OpencachingDeutschland/oc-server3/blob/development/sql/static-data/cache_attrib.sql
+   The column "gc_id" contains the GPX ID for the attribute, and the column "gc_inc"
+   the inc-value. If no OCDE attribute is available:
+
+3. Use the first number from this list of unassigned GPX IDs, and remove if from the list:
+   128, 129, 136, 138, 139, 140, 142, 144, 146, 148, 149, 151, 152, 155, 159, 160.
+
+4. Inform the Okapi project about your new attribute, so that it will be added to
+   okapi/services/attrs/attribute-definitions.
+*/
 
 // special UK assignemnts
 $gpxAI['UK'][40] = '14.0';  $gpxAInm['UK'][40] = 'Not recommended at night';  // DE UK
