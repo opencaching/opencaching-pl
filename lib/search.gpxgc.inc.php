@@ -1,16 +1,30 @@
 <?php
 
-ob_start();
-
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use lib\Objects\GeoCache\GeoCacheCommons;
+
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $queryFilter;
 
 require_once($rootpath . 'lib/format.gpx.inc.php');
 require_once($rootpath . 'lib/calculation.inc.php');
 
 set_time_limit(1800);
+
+// cleanup old temporary files
+
+$downloadPath = $picdir . '/';
+if (is_dir($downloadPath . 'gpx')) {
+    $olddirs = glob($downloadPath . 'gpx/*', GLOB_ONLYDIR);
+    foreach ($olddirs as $dir) {
+        if (substr($dir, 0, 1) != '.') {
+            $stat = stat($dir);
+            if (time() - $stat['atime'] > 60*3) {   // delete after 30  minutes
+               exec('rm -rf ' . $dir);
+            }
+        }
+    }
+}
 
 function getPictures($cacheid, $picturescount)
 {
@@ -197,11 +211,10 @@ if ($usr || ! $hide_coords) {
 
     // Implementation ready, but do not use ZIP for now.
     $bUseZip = false;
-    if ($bUseZip == true) {
-        $content = '';
-        require_once ($rootpath . 'lib/phpzip/ss_zip.class.php');
-        $phpzip = new ss_zip('', 6);
-    }
+
+    $outfile = false;
+    $dirCreated = false;
+    $downloadMemoryLimit = ($config['downloadMemorylimit'] > 0 ? $config['downloadMemorylimit'] : PHP_INT_MAX);
 
     $children = '';
     $time = date($gpxTimeFormat, time());
@@ -217,8 +230,7 @@ if ($usr || ! $hide_coords) {
             $children = "(HasChildren)";
         }
     }
-    $gpxHead = str_replace('{wpchildren}', $children, $gpxHead);
-    echo $gpxHead;
+    $gpxData = str_replace('{wpchildren}', $children, $gpxHead);
 
     $stmt = XDb::xSql(
         'SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`,
@@ -543,27 +555,58 @@ if ($usr || ! $hide_coords) {
         }
         $thisline = str_replace('{cache_waypoints}', $waypoints, $thisline);
 
-        echo $thisline;
-        // DO NOT USE HERE:
-        // ob_flush();
+        $gpxData .= $thisline;
+
+        if (!$dirCreated && ($bUseZip || strlen($gpxData) > $downloadMemoryLimit)) {
+            // make new random download dir
+            $path = 'gpx' . '/' . md5(uniqid(mt_rand(), true));
+            if (!is_dir($downloadPath . $path)) {
+                mkdir($downloadPath . $path, 0777, true);
+            }
+            $path .= '/' . $sFilebasename;
+            $file_url = $picurl . '/' . $path;
+            $dirCreated = true;
+        }
+        if (!$outfile && strlen($gpxData) > $downloadMemoryLimit) {
+            // buffer large GPX data in .gpx file
+            $outfile = fopen($downloadPath . $path . '.gpx', 'w');
+        }
+        if ($outfile) {
+            fwrite($outfile, $gpxData);
+            $gpxData = '';
+        }
     }
 
-    echo $gpxFoot;
+    $gpxData .= $gpxFoot;
+    if ($outfile) {
+        fwrite($outfile, $gpxData);
+        fclose($outfile);
+    }
 
-    // compress using phpzip
     if ($bUseZip == true) {
-        $content = ob_get_clean();
-        $phpzip->add_data($sFilebasename . '.gpx', $content);
-        $out = $phpzip->save($sFilebasename . '.zip', 'b');
-
-        header("content-type: application/zip");
-        header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
-        echo $out;
-        ob_end_flush();
+        $zip = new ZipArchive();
+        $zip->open($downloadPath . $path . '.zip', ZIPARCHIVE::CREATE);
+        if ($outfile) {
+            // zipped data from file
+            $zip->addFile($downloadPath . $path . '.gpx', $sFilebasename . '.gpx');
+        } else {
+            // zipped data from string
+            $zip->addFromString($sFilebasename . '.gpx', $gpxData);
+        }
+        $zip->close();
+        unlink($downloadPath . $path . '.gpx');
+        header('Location: ' . $file_url. '.zip');
     } else {
-        header("Content-type: application/gpx");
-        header("Content-Disposition: attachment; filename=" . $sFilebasename . ".gpx");
-        ob_end_flush();
+        if ($outfile) {
+            // plain data from file;
+            // GPX Content-type and Content-Disposition must be configured in Webserver!
+            header('Location: ' . $file_url . '.gpx');
+        } else {
+            // plain data from string
+            header('Content-Type: application/gpx+xml');
+            header('Content-Disposition: attachment; filename=' . $sFilebasename . '.gpx');
+            echo $gpxData;
+        }
     }
 }
 

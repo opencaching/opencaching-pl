@@ -139,7 +139,10 @@ $config = array(
      * Common datetime and date format
      */
     'datetimeformat' => '%Y-%m-%d %H:%M:%S',
-    'dateformat' => '%Y-%m-%d'
+    'dateformat' => '%Y-%m-%d',
+
+    /** size limit in bytes for buffering downloads in a file, or 0 to disable buffering **/
+    'downloadMemorylimit' => 0,
 );
 
 // *** Repository automatic updates script location
