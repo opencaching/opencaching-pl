@@ -207,7 +207,6 @@ $translations = array(
     'register_confirm' => 'Potwierdzenie rejestracji',
     'impressum' => 'O projekcie',
     'user' => 'Użytkownik',
-    'user_or_email' => 'Użytkownik / e-mail',
     'password' => 'Hasło',
     'logged_as' => 'Zalogowany jako',
     'coords_other' => 'Współrzędne w innych systemach',
@@ -506,10 +505,6 @@ $translations = array(
     'security_code' => 'Kod aktywacyjny',
     'change_password_msg1' => 'Zmiana hasła',
     'logoutsuccess' => 'Wylogowanie przebiegło z powodzeniem.',
-    'error_usernotactive' => 'Twoje konto nie było jeszcze aktywowane lub zostało dezaktywowane.',
-    'not_registered' => 'Chcesz się zarejestrować? <a href="register.php">Rejestracja</a>',
-    'forgotten_your_password' => 'Zapomniałeś hasła? <a href="newpw.php">Nowe hasło</a>',
-    'forGottenEmailAddress' => 'Zapomniałeś adresu e-mail? <a href="remindemail.php"> Przypomnij</a>',
     'cache_logged_required' => 'Musisz być zalogowany, by wpisywać się do logu i dokonywać operacji na skrzynce.',
     'basic_information' => 'Podstawowe informacje',
     'rating_poor' => 'słaba',
@@ -2022,9 +2017,6 @@ $translations = array(
     'cacheSize_xLarge' => 'Bardzo duża',
     'cacheSize_none' => 'Bez pojemnika',
     'cacheSize_other' => 'Nieokreślony',
-    'login_tooManyTries' => 'Logowanie nie powiodło się.<br />Zbyt dużo prób logowania. Próbowałeś przez ostatnią godzinę 25 razy zalogować się do {site_name} podając błędne dane.',
-    'login_badCredentials' => 'Logowanie nie powiodło się.<br />Wprowadzona nazwa użytkownika lub hasło są nieprawidłowe.',
-    'login_cantSetCookie' => 'Twoja przeglądarka nie zapisała ciasteczek dla {site_name}.',
     'login_message_09' => 'Strona, którą zamierzasz otworzyć, wymaga zalogowania.',
     'graph_statistics_01' => 'Statystyka dla {site_name} :: Data',
     'graph_statistics_02' => 'Aktywne skrzynki',
@@ -2701,6 +2693,16 @@ $translations = array(
     'merit_badge_show_gained' => 'Pokaż wszystkie zdobyte',
     'prepublication_visits' => 'Wizyty przed publikacją',
     'no_visits' => 'brak wizyt',
+
+    'loginForm_userOrEmail' => 'Użytkownik / e-mail',
+    'loginForm_userNotActive' => 'Twoje konto nie było jeszcze aktywowane lub zostało dezaktywowane.',
+    'loginForm_notRegistered' => 'Chcesz się zarejestrować?',
+    'loginForm_lostPassword' => 'Zapomniałeś hasła? <a href="newpw.php">Nowe hasło</a>',
+    'loginForm_lostEmail' => 'Zapomniałeś adresu e-mail? <a href="remindemail.php"> Przypomnij</a>',
+    'loginForm_tooManyTries' => 'Logowanie nie powiodło się.<br />Zbyt dużo prób logowania. Próbowałeś przez ostatnią godzinę 25 razy zalogować się do {site_name} podając błędne dane.',
+    'loginForm_badCredentials' => 'Logowanie nie powiodło się.<br />Wprowadzona nazwa użytkownika lub hasło są nieprawidłowe.',
+    'loginForm_cantSetCookie' => 'Twoja przeglądarka nie zapisała ciasteczek dla {site_name}.',
+
 );
 
 

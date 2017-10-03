@@ -189,7 +189,6 @@ $translations = array(
     'register_confirm' => 'Inscripción',
     'impressum' => 'Acerca de',
     'user' => 'Usuario',
-    'user_or_email' => 'Usuario / e-mail',
     'password' => 'Contrasena',
     'logged_as' => 'Firmado en como',
     'coords_other' => 'Las coordenadas de los otros sistemas',
@@ -463,9 +462,6 @@ $translations = array(
     'security_code' => 'Security code',
     'change_password' => 'Change password',
     'logoutsuccess' => 'Logout was successful',
-    'error_usernotactive' => 'Yor account is not active or deactive.',
-    'not_registered' => 'Not registered? <a href="register.php">Register</a>',
-    'forgotten_your_password' => 'Forgot your e-mail? <a href="newpw.php">Remind me</a>',
     'cache_logged_required' => 'You have to be logged to add new log entries and operate on this cache.',
     'basic_information' => 'Basic information.',
     'rating_poor' => 'poor',
@@ -494,4 +490,10 @@ $translations = array(
     'add_new_mp3' => 'Add new MP3 file',
     'region' => 'Region',
     'okapi_apps' => 'Your Apps',
+
+    'loginForm_userOrEmail' => 'Usuario / e-mail',
+    'loginForm_userNotActive' => 'Yor account is not active or deactive.',
+    'loginForm_notRegistered' => 'Not registered?',
+    'loginForm_lostPassword' => 'Forgot your e-mail? <a href="newpw.php">Remind me</a>',
+
 );

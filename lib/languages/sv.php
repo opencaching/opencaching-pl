@@ -187,7 +187,6 @@ $translations = array(
     'register_confirm' => 'Bekräfta registrering',
     'impressum' => 'Om',
     'user' => 'Användare',
-    'user_or_email' => 'Användare / e-postadress',
     'password' => 'Lösenord',
     'logged_as' => 'Inloggad som',
     'coords_other' => 'Koordinater i andra system',
@@ -461,9 +460,6 @@ $translations = array(
     'security_code' => 'Säkerhetskod',
     'change_password' => 'Byt lösenord',
     'logoutsuccess' => 'Utloggad',
-    'error_usernotactive' => 'Ditt konto inte är aktivt eller avaktiverat.',
-    'not_registered' => 'Inte registrerad? <a href=register.php>Registrera dig</a>',
-    'forgotten_your_password' => 'Glömt ditt lösenord? <a href=newpw.php>Påminn mig</a>',
     'basic_information' => 'Basic information.',
     'rating_poor' => 'poor',
     'rating_mediocre' => 'mediocre',
@@ -491,4 +487,10 @@ $translations = array(
     'add_new_mp3' => 'Add new MP3 file',
     'region' => 'Region',
     'okapi_apps' => 'Your Apps',
+
+    'loginForm_userOrEmail' => 'Användare / e-postadress',
+    'loginForm_userNotActive' => 'Ditt konto inte är aktivt eller avaktiverat.',
+    'loginForm_notRegistered' => 'Inte registrerad?',
+    'loginForm_lostPassword' => 'Glömt ditt lösenord? <a href=newpw.php>Påminn mig</a>',
+
 );

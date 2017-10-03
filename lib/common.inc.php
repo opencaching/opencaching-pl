@@ -78,22 +78,17 @@ function processAuthentication(){
 
     if ($user = UserAuthorization::verify()) {   //user already logged in
 
-        if (!(isset($_SESSION['logout_cookie']))) {
-            $_SESSION['logout_cookie'] = mt_rand(1000, 9999) . mt_rand(1000, 9999);
-        }
-
         //set view vars used by main template
         //TODO: remove it from here!
         $view->setVar('_isUserLogged', true);
         $view->setVar('_username', $user->getUserName());
-        $view->setVar('_logoutCookie', $_SESSION['logout_cookie']);
 
     } else {
 
         //set view vars used by main template
         //TODO: remove it from here!
         $view->setVar('_isUserLogged', false);
-        $view->setVar('_target',Uri::getCurrentUri());
+        $view->setVar('_target',Uri::getCurrentUri(true));
 
     }
 }

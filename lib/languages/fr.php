@@ -188,7 +188,6 @@ $translations = array(
     'register_confirm' => 'Inscription',
     'impressum' => 'A propos',
     'user' => 'Utilisateur',
-    'user_or_email' => 'Utilisateur / e-mail',
     'password' => 'Mot de passe',
     'logged_as' => 'Signé en tant que',
     'coords_other' => 'Les coordonnées des autres systemes',
@@ -451,9 +450,6 @@ $translations = array(
     'security_code' => 'Security code',
     'change_password' => 'Change password',
     'logoutsuccess' => 'Logout was successful',
-    'error_usernotactive' => 'Yor account is not active or deactive.',
-    'not_registered' => 'Not registered? <a href="register.php">Register</a>',
-    'forgotten_your_password' => 'Forgot your e-mail? <a href="newpw.php">Remind me</a>',
     'cache_logged_required' => 'You have to be logged to add new log entries and operate on this cache.',
     'basic_information' => 'Basic information.',
     'rating_poor' => 'poor',
@@ -488,4 +484,10 @@ $translations = array(
     'timePicker_nowButtonText' => 'Maintenant',
     'timePicker_closeButtonText' => 'Fermer',
     'timePicker_deselectButtonText' => 'Désélectionne',
+
+    'loginForm_userOrEmail' => 'Utilisateur / e-mail',
+    'loginForm_userNotActive' => 'Yor account is not active or deactive.',
+    'loginForm_notRegistered' => 'Not registered?',
+    'loginForm_lostPassword' => 'Forgot your e-mail? <a href="newpw.php">Remind me</a>',
+
 );

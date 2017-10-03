@@ -207,7 +207,6 @@ $translations = array(
     'register_confirm' => 'Registratie bevestiging',
     'impressum' => 'Over',
     'user' => 'Gebruiker',
-    'user_or_email' => 'Gebruiker / E-mail',
     'password' => 'Wachtwoord',
     'logged_as' => 'Ingelogd als',
     'coords_other' => 'Andere coördinaatstelsels',
@@ -507,10 +506,6 @@ $translations = array(
     'security_code' => 'Security code',
     'change_password_msg1' => 'Verander wachtwoord',
     'logoutsuccess' => 'Succesvol uitgelogd',
-    'error_usernotactive' => 'Dit account is niet actief of gedeactiveerd.',
-    'not_registered' => 'Niet geregistreerd? <a href="register.php">Registeer</a>',
-    'forgotten_your_password' => 'Wachtwoord vergeten? <a href="newpw.php">Vraag nieuw wachtwoord aan</a>',
-    'forGottenEmailAddress' => 'E-mail vergeten? <a href="remindemail.php">Vraag het E-mailadres op</a>',
     'cache_logged_required' => 'Je moet ingelogd zijn om deze cache te loggen of te bewerken.',
     'basic_information' => 'Basis informatie.',
     'rating_poor' => 'slecht',
@@ -1174,7 +1169,7 @@ $translations = array(
     'printcache_09' => 'Veranderen',
     'yes' => 'Ja',
     'no' => 'Nee',
-    'reports_user_title' => 'Probleem rapport', //TODO: Check this please. 
+    'reports_user_title' => 'Probleem rapport', //TODO: Check this please.
     'reports_user_lbl_recipient' => 'Meld het probleem aan',
     'reports_user_lbl_owner' => 'Cache eigenaar',
     'reports_user_lbl_octeam' => 'OC team {site_name} (er wordt ook een kopie naar de cache eigenaar verzonden)',
@@ -2023,9 +2018,6 @@ $translations = array(
     'cacheSize_xLarge' => 'Extra groot',
     'cacheSize_none' => 'Geen behuizing',
     'cacheSize_other' => 'Niet opgegeven',
-    'login_tooManyTries' => 'Inloggen mislukt.<br />Er zijn in het afgelopen uur 25 keer onjuiste inlog pogingen gedaan op {site_name}.',
-    'login_badCredentials' => 'Inloggen mislukt.<br />Ingevoerde naam of wachtwoord is onjuist.',
-    'login_cantSetCookie' => 'Deze browser ondersteunt geen cookies van {site_name}',
     'login_message_09' => 'Om deze pagina te openen dient er ingelogd te zijn.',
     'graph_statistics_01' => 'Statistieken van www.{site_name} :: Datum ',
     'graph_statistics_02' => 'Actieve caches',
@@ -2702,7 +2694,17 @@ $translations = array(
     'merit_badge_show_not_gained' => 'Show not gained',
     'merit_badge_show_gained' => 'Show gained',
     'prepublication_visits' => 'Bekeken vóór publicatie',
-    'no_visits' => 'Nog niet bekeken'
+    'no_visits' => 'Nog niet bekeken',
+
+    'loginForm_userOrEmail' => 'Gebruiker / E-mail',
+    'loginForm_userNotActive' => 'Dit account is niet actief of gedeactiveerd.',
+    'loginForm_notRegistered' => 'Niet geregistreerd?',
+    'loginForm_lostPassword' => 'Wachtwoord vergeten? <a href="newpw.php">Vraag nieuw wachtwoord aan</a>',
+    'loginForm_lostEmail' => 'E-mail vergeten? <a href="remindemail.php">Vraag het E-mailadres op</a>',
+    'loginForm_tooManyTries' => 'Inloggen mislukt.<br />Er zijn in het afgelopen uur 25 keer onjuiste inlog pogingen gedaan op {site_name}.',
+    'loginForm_badCredentials' => 'Inloggen mislukt.<br />Ingevoerde naam of wachtwoord is onjuist.',
+    'loginForm_cantSetCookie' => 'Deze browser ondersteunt geen cookies van {site_name}',
+
 
 );
 

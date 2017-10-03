@@ -207,7 +207,6 @@ $translations = array(
     'register_confirm' => 'Bestätigung',
     'impressum' => 'Über',
     'user' => 'Benutzer',
-    'user_or_email' => 'Benutzer / E-Mail-Adresse',
     'password' => 'Passwort',
     'logged_as' => 'Eingeloggt als',
     'coords_other' => 'Andere Koordinatensysteme',
@@ -506,10 +505,6 @@ $translations = array(
     'security_code' => 'Sicherheitskode',
     'change_password' => 'Passwort ändern',
     'logoutsuccess' => 'Abmeldung war erfolgreich',
-    'error_usernotactive' => 'Konto ist nicht aktiv oder deaktiv.',
-    'not_registered' => 'Not registered? <a href="register.php">Registrieren</a>',
-    'forgotten_your_password' => 'Passwort vergessen? <a href="newpw.php">Erinnern mich</a>',
-    'forGottenEmailAddress' => 'E-mail adresse vergessen? <a href="remindemail.php">Frage hier deine E-mailadresse</a>',
     'cache_logged_required' => 'Du musst eingeloggt sein, um neue Log-Einträge hinzuzufügen oder den Cache zu bearbeiten.',
     'basic_information' => 'Grundlegende Informationen.',
     'rating_poor' => 'schlecht',
@@ -2022,9 +2017,6 @@ $translations = array(
     'cacheSize_xLarge' => 'Extra größ',
     'cacheSize_none' => 'Kein Behälter',
     'cacheSize_other' => 'Nicht angegeben',
-    'login_tooManyTries' => 'Login failed.<br />There were 25 false login attempts during the past hour on {site_name}',
-    'login_badCredentials' => 'Login failed.<br />Username or password not recognized.',
-    'login_cantSetCookie' => 'Your browser does not accept cookies from {site_name}',
     'login_message_09' => 'To view this page, you need to log in.',
     'graph_statistics_01' => 'Statistike von www.{site_name} :: Datum',
     'graph_statistics_02' => 'Active caches',
@@ -2705,6 +2697,16 @@ $translations = array(
     'merit_badge_show_not_gained' => 'Show not gained',
     'merit_badge_show_gained' => 'Show gained',
     'prepublication_visits' => 'Visited before publication',
-    'no_visits' => 'No such visits'
+    'no_visits' => 'No such visits',
+
+    'loginForm_userOrEmail' => 'Benutzer / E-Mail-Adresse',
+    'loginForm_userNotActive' => 'Konto ist nicht aktiv oder deaktiv.',
+    'loginForm_notRegistered' => 'Not registered?',
+    'loginForm_lostPassword' => 'Passwort vergessen? <a href="newpw.php">Erinnern mich</a>',
+    'loginForm_lostEmail' => 'E-mail adresse vergessen? <a href="remindemail.php">Frage hier deine E-mailadresse</a>',
+    'loginForm_tooManyTries' => 'Login failed.<br />There were 25 false login attempts during the past hour on {site_name}',
+    'loginForm_badCredentials' => 'Login failed.<br />Username or password not recognized.',
+    'loginForm_cantSetCookie' => 'Your browser does not accept cookies from {site_name}',
+
 );
 

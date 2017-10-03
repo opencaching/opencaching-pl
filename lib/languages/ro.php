@@ -207,7 +207,6 @@ $translations = array(
     'register_confirm' => 'Confirmarea înregistrării',
     'impressum' => 'Despre',
     'user' => 'Utilizator',
-    'user_or_email' => 'Utilizator / e-mail',
     'password' => 'Parolă',
     'logged_as' => 'Conectat ca',
     'coords_other' => 'Alte sisteme de coordonate',
@@ -505,10 +504,6 @@ $translations = array(
     'security_code' => 'Security code',
     'change_password_msg1' => 'Change password',
     'logoutsuccess' => 'Successfully logged out',
-    'error_usernotactive' => 'Yor account is not activated.',
-    'not_registered' => 'Not registered? <a href="register.php">Register</a>',
-    'forgotten_your_password' => 'Forgot your password? <a href="newpw.php">Remind me</a>',
-    'forGottenEmailAddress' => 'Forgotten your E-mail? <a href="remindemail.php"> Ask it here</a>',
     'cache_logged_required' => 'You have to be logged-in in order to perform operations on this cache.',
     'basic_information' => 'Informaţii de bază.',
     'rating_poor' => 'foarte slabă',
@@ -2020,9 +2015,6 @@ $translations = array(
     'cacheSize_xLarge' => 'Foarte mare',
     'cacheSize_none' => 'Fără cutie',
     'cacheSize_other' => 'Nespecificat',
-    'login_tooManyTries' => 'Autentificare eşuată.<br />Au fost cel puţin 25 de încercări de conectare în ultima oră pe {site_name} pentru utilizatorul tău',
-    'login_badCredentials' => 'Autentificare eşuată.<br />Nume utilizator sau parolă greşită.',
-    'login_cantSetCookie' => 'Browser-ul tău nu accepta cookies de la {site_name}',
     'login_message_09' => 'Trebuie să fi autentificat pentru a vedea această pagină.',
     'graph_statistics_01' => 'Statistici pentru www.{site_name} :: Datum',
     'graph_statistics_02' => 'Geocutii active',
@@ -2656,6 +2648,16 @@ $translations = array(
     'merit_badge_gain_next_level' => 'You gained the next level:',
     'merit_badge_graphic_author' => 'Graphic Author:',
     'merit_badge_description_author' => 'Description Author:',
-    'merit_badge_attendant' => 'Attendant:'
+    'merit_badge_attendant' => 'Attendant:',
+
+    'loginForm_userOrEmail' => 'Utilizator / e-mail',
+    'loginForm_userNotActive' => 'Yor account is not activated.',
+    'loginForm_notRegistered' => 'Not registered?',
+    'loginForm_lostPassword' => 'Forgot your password? <a href="newpw.php">Remind me</a>',
+    'loginForm_lostEmail' => 'Forgotten your E-mail? <a href="remindemail.php"> Ask it here</a>',
+    'loginForm_tooManyTries' => 'Autentificare eşuată.<br />Au fost cel puţin 25 de încercări de conectare în ultima oră pe {site_name} pentru utilizatorul tău',
+    'loginForm_badCredentials' => 'Autentificare eşuată.<br />Nume utilizator sau parolă greşită.',
+    'loginForm_cantSetCookie' => 'Browser-ul tău nu accepta cookies de la {site_name}',
+
 
 );
