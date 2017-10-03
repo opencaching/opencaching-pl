@@ -22,8 +22,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1643;
-    public static $git_revision = 'caf26bf9ced84c7f28700a65f8cb02eba0c6e42f';
+    public static $version_number = 1644;
+    public static $git_revision = '3170c4019f2454616847eb709047106b1b5f1eb2';
 
     private static $okapi_vars = null;
 
