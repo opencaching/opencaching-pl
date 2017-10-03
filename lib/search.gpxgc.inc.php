@@ -318,17 +318,34 @@ if ($usr || ! $hide_coords) {
             $r['cacheid']);
 
         $attribentries = '';
+        if (isset($gpxNodemap[$oc_nodeid]) && isset($gpxAI[$gpxNodemap[$oc_nodeid]])) {
+            $nodeCode = $gpxNodemap[$oc_nodeid];
+        } else {
+            $nodeCode = '';
+        }
+
         while ($rAttrib = XDb::xFetchArray($rsAttributes)) {
-            if (isset($gpxAttribID[$rAttrib['attrib_id']])) {
-                $thisattribute = $gpxAttributes;
+            $attrib_id = $rAttrib['attrib_id'];
+            if ($nodeCode !== '' && isset($gpxAI[$nodeCode][$attrib_id])) {
+                # special attribute definition of one OC site
+                $gpx_id = (int) $gpxAI[$nodeCode][$attrib_id];
+                $gpx_inc = (substr($gpxAI[$nodeCode][$attrib_id], -2) == '.0' ? '0' : '1');
+                $gpx_name = $gpxAInm[$nodeCode][$attrib_id];
+            } elseif (isset($gpxAttribID[$attrib_id])) {
+                # common attribute definition
+                $gpx_id = (int) $gpxAttribID[$attrib_id];
+                $gpx_inc = (substr($gpxAttribID[$attrib_id], -2) == '.0' ? '0' : '1');
+                $gpx_name = $gpxAttribName[$attrib_id];
+            } else {
+                # definition is missing
+                $gpx_id = 0;
+            }
 
-                $thisattribute = mb_ereg_replace('{attrib_id}', $gpxAttribID[$rAttrib['attrib_id']], $thisattribute);
-                $thisattribute = mb_ereg_replace('{attrib_text_long}', $gpxAttribName[$rAttrib['attrib_id']], $thisattribute);
-                if (isset($gpxAttribInc[$rAttrib['attrib_id']]))
-                    $thisattribute = mb_ereg_replace('{attrib_id}', $gpxAttribInc[$rAttrib['attrib_id']], $thisattribute);
-                else
-                    $thisattribute = mb_ereg_replace('{attrib_inc}', 1, $thisattribute);
-
+            if ($gpx_id > 0) {
+                $thisattribute = $gpxAttribute;
+                $thisattribute = mb_ereg_replace('{attrib_id}', $gpx_id, $thisattribute);
+                $thisattribute = mb_ereg_replace('{attrib_inc}', $gpx_inc, $thisattribute);
+                $thisattribute = mb_ereg_replace('{attrib_text_long}', $gpx_name, $thisattribute);
                 $attribentries .= $thisattribute . "\n";
             }
         }
