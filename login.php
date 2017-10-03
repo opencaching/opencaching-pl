@@ -14,10 +14,11 @@ if (isset($_REQUEST['target'])){
 
 
 if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'cookieverify') {
-    if (!isset($_COOKIE[$opt['cookie']['name'] . 'data'])){
-        tpl_errorMsg('login', tr('login_cantSetCookie'));
-    } else {
+    if (UserAuthorization::isAuthCookiePresent()){
         tpl_redirect($target);
+    } else {
+        // display message if cookie can't be set in browser
+        tpl_errorMsg('login', tr('login_cantSetCookie'));
     }
     exit;
 }

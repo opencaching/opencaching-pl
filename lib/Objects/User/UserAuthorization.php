@@ -10,6 +10,7 @@ use Utils\Uri\Cookie;
 use Utils\Uri\Uri;
 use lib\Objects\User\PasswordManager;
 
+
 class UserAuthorization extends BaseObject
 {
 
@@ -23,12 +24,10 @@ class UserAuthorization extends BaseObject
     const LOGIN_TIMEOUT = 60 * 60; //1-hour
     const PERMANENT_LOGIN_TIMEOUT = 90 * 24 * 60 * 60; //90-days
 
-    // auth cookie settings
-    const AUTH_COOKIE_NAME = 'ocAuthCookie';
     const SESSION_ID_KEY = 'loggedUserOcSessionId';
 
     // limit of login fails per hour
-    const MAX_LOGIN_TRIES_PER_HOUR = 24;
+    const MAX_LOGIN_TRIES_PER_HOUR = 12;
 
     /**
      * This method check if current session is authorized
@@ -221,11 +220,16 @@ class UserAuthorization extends BaseObject
     }
 
 
+    private static function getAuthCookieName(){
+        global $config;
+        return $config['cookie']['name'].'_auth';
+    }
+
     private static function initAuthCookie($sessionId){
 
         $cookieExpiry = time() + self::PERMANENT_LOGIN_TIMEOUT;
 
-        $result = Cookie::setCookie(self::AUTH_COOKIE_NAME, $sessionId, $cookieExpiry, '/',
+        $result = Cookie::setCookie(self::getAuthCookieName(), $sessionId, $cookieExpiry, '/',
             false, true, Cookie::SAME_SITE_RESTRICTION_STRICT);
 
         if(!$result){
@@ -234,19 +238,22 @@ class UserAuthorization extends BaseObject
     }
 
     private static function getSessionFromAuthCookie(){
-
-        if(isset($_COOKIE[self::AUTH_COOKIE_NAME])){
-            return $_COOKIE[self::AUTH_COOKIE_NAME];
+        if(isset($_COOKIE[self::getAuthCookieName()])){
+            return $_COOKIE[self::getAuthCookieName()];
         }
 
         return null;
     }
 
+    public static function isAuthCookiePresent(){
+        return isset($_COOKIE[self::getAuthCookieName()]);
+    }
+
     private static function destroyAuthCookie(){
 
-        unset($_COOKIE[self::AUTH_COOKIE_NAME]);
+        unset($_COOKIE[self::getAuthCookieName()]);
 
-        $result = Cookie::deleteCookie(self::AUTH_COOKIE_NAME);
+        $result = Cookie::deleteCookie(self::getAuthCookieName());
         if(!$result){
             Debug::errorLog(__METHOD__.": Can't delete AUTH cookie");
         }
