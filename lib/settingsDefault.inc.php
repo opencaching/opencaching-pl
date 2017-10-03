@@ -289,3 +289,15 @@ $config['feed']['blog']['showAuthor'] = true;
 
 $subject_prefix_for_site_mails = "OCXX";
 $subject_prefix_for_reviewers_mails = "";
+
+/*
+ * Configuration of automatic cleanup of logging tables
+ * (see https://github.com/opencaching/opencaching-pl/issues/1200).
+ *
+ * Time in MONTHS to keep old entries, or 0 to disable. You may also set
+ * a fraction of a month, e.g. 0.25 for approximately a week.
+ */
+$config['logging_cleanup']['approval_status'] = 0;
+$config['logging_cleanup']['email_user'] = 0;
+$config['logging_cleanup']['logentries'] = 0;
+$config['logging_cleanup']['CACHE_ACCESS_LOGS'] = 0;

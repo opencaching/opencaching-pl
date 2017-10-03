@@ -5,12 +5,13 @@ namespace lib\Objects\User;
 use lib\Objects\BaseObject;
 use Utils\Database\XDb;
 use Utils\Email\EmailSender;
-
+use Utils\Log\Log;
 
 class UserMessage extends BaseObject
 {
     public static function SendUserMessage(User $from, User $to, $subject, $text, $attachSenderAddress)
     {
+        Log::cleanup('email_user');
 
         // save email trace
         XDb::xSql(

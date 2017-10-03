@@ -3,6 +3,7 @@
 use Utils\Database\XDb;
 use lib\Objects\User\AdminNote;
 use Utils\Generators\Uuid;
+use Utils\Log\Log;
 
 global $bgcolor1, $bgcolor2;
 
@@ -103,6 +104,8 @@ function assignUserToCase($userid, $cacheid)
 
         return false;
     }
+
+    Log::cleanup('approval_status');
 
     XDb::xSql(
         "INSERT INTO approval_status (cache_id, user_id, status, date_approval)
