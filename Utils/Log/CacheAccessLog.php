@@ -11,12 +11,17 @@ use Utils\Database\XDb;
 
 class CacheAccessLog
 {
-
     const SOURCE_BROWSER = "B";
     const SOURCE_MOBILE = "M";
     const SOURCE_OKAPI = "O";
 
-    public static function logCacheAccess($cacheId, $userId, $event, $source){
+    public static function logCacheAccess($cacheId, $userId, $event, $source)
+    {
+        // There are many other places where rows are inserted into CACHE_ACCESS_LOG,
+        // but this probably is the most frequented one. So we do the cleanup just
+        // from here.
+        Log::cleanup('CACHE_ACCESS_LOGS');
+
         $accessLog = @$_SESSION['CACHE_ACCESS_LOG_VC_' . $userId];
         if ($accessLog === null) {
             $_SESSION['CACHE_ACCESS_LOG_VC_' . $userId] = array();
