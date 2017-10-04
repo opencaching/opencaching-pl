@@ -41,7 +41,6 @@ class UserAuthorization extends BaseObject
         if(! $cookieSession = self::getSessionFromAuthCookie()){
             // there is no such sessionId
             self::clearContextVars();
-
             return null;
         }
 
@@ -54,9 +53,6 @@ class UserAuthorization extends BaseObject
             // in the same request
             return $user;
         }
-
-        // first remove all obsolate sessions
-        self::deleteObsolateOcSessions();
 
         //find this session in DB
         if(! $userId = self::getUserIdFromOcSession($cookieSession)){
@@ -99,9 +95,6 @@ class UserAuthorization extends BaseObject
             return self::LOGIN_TOOMUCHLOGINS;
         }
 
-        // remove obsolate sessions stored in DB
-        self::deleteObsolateOcSessions();
-
         // add 'permanent_login' collumn to collumns to read from DB
         $neededUserColumns = User::AUTH_COLLUMS;
 
@@ -110,9 +103,9 @@ class UserAuthorization extends BaseObject
             ($user = User::fromEmailFactory($username, $neededUserColumns))){
 
             if($user->isActive()){
+
                 // user active - check password
-                $pm = new PasswordManager($user->getUserId());
-                if ($pm->verify($password) ) {
+                if ( PasswordManager::verifyPassword($user->getUserId(), $password) ) {
 
                     //login OK, password OK
                     self::initOcSession($user);
@@ -144,6 +137,7 @@ class UserAuthorization extends BaseObject
         self::clearOcSession();
         self::clearContextVars();
     }
+
 
     private static function initOcSession(User $user){
 
@@ -245,10 +239,6 @@ class UserAuthorization extends BaseObject
         return null;
     }
 
-    public static function isAuthCookiePresent(){
-        return isset($_COOKIE[self::getAuthCookieName()]);
-    }
-
     private static function destroyAuthCookie(){
 
         unset($_COOKIE[self::getAuthCookieName()]);
@@ -257,6 +247,10 @@ class UserAuthorization extends BaseObject
         if(!$result){
             Debug::errorLog(__METHOD__.": Can't delete AUTH cookie");
         }
+    }
+
+    public static function isAuthCookiePresent(){
+        return isset($_COOKIE[self::getAuthCookieName()]);
     }
 
 
@@ -302,16 +296,27 @@ class UserAuthorization extends BaseObject
     private static function getUserIdFromOcSession($sessionId){
         $db = self::db();
         $stmt = $db->multiVariableQuery(
-            "SELECT *, TIMESTAMPDIFF(SECOND, NOW(), last_login) AS lastTouch
+            "SELECT *, TIMESTAMPDIFF(SECOND, last_login, NOW()) AS lastTouch
              FROM sys_sessions WHERE uuid = :1 LIMIT 1", $sessionId);
 
         $row = $db->dbResultFetchOneRowOnly($stmt);
         if($row && is_array($row) && isset($row['user_id'])){
 
+            // check if session is not obsolate
+            if(
+                ( $row['permanent'] == 1 && $row['lastTouch'] > self::PERMANENT_LOGIN_TIMEOUT ) ||
+                ( $row['permanent'] == 0 && $row['lastTouch'] > self::LOGIN_TIMEOUT )
+              ){
+
+               // obsolate session found 0 delete this and other obsolate sessions
+               self::deleteObsolateOcSessions();
+               return null;
+            }
+
             // touch last_login from time-to-time
             if( $row['lastTouch'] > self::LOGIN_TIMEOUT/10){
                 $db->multiVariableQuery(
-                    "UPDATE sys_sessions SET last_login=NOW() WHERE uuid`=:1", $sessionId);
+                    "UPDATE sys_sessions SET last_login=NOW() WHERE uuid = :1", $sessionId);
             }
             return $row['user_id'];
         }
