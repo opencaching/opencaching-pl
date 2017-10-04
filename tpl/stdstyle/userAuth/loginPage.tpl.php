@@ -1,9 +1,9 @@
 
 <div class="content2-pagetitle"><?=tr('loginForm_title')?></div>
 
-<?php $view->callChunk('infoBar', null, null, $view->errorMsg ); ?>
-
 <div class="content2-container">
+
+  <?php $view->callChunk('infoBar', null, null, $view->errorMsg ); ?>
 
   <div id="loginForm">
     <form action="/login.php?action=login" method="post" name="login_form">

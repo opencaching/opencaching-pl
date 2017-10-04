@@ -5,10 +5,7 @@
 
 */
 
-
-.infoBar-close-but {
-    position: absolute;
-    right: 5%;
+.infoBar-closeBtn {
     cursor: pointer;
     background-image: url("/tpl/stdstyle/images/misc/btn_close_normal.svg");
     background-size: cover;
@@ -16,25 +13,33 @@
     height: 20px;
     display: inline-block;
 }
-.infoBar-close-but:hover {
+.infoBar-closeBtn:hover {
     background-image: url("/tpl/stdstyle/images/misc/btn_close_hover.svg");
 }
 
-.infoBar-message{
+.infoBar-message {
     color: #3c763d;
     background-color: #dff0d8;
     border-color: #d6e9c6;
-
     width: 739px;
     text-align: center;
     padding:15px;
     margin-bottom: 10px;
-
     border-radius: 15px;
 }
 
-.infoBar-message-err{
+.infoBar-messageErr {
     color: #a94442;
     background-color: #f2dede;
     border-color: #ebccd1;
+}
+
+.infoBar-messageText {
+    width: 700px;
+    display: inline-block;
+    
+} 
+
+.infoBar-closeBtnContainer {
+      display: inline-block;
 }
