@@ -1,0 +1,11 @@
+
+
+#additionalBtns {
+  float: right;
+  text-align: right;
+}
+
+#loginForm {
+  max-width: 300px;
+  float:left;
+}

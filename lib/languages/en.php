@@ -2696,14 +2696,18 @@ $translations = array(
     'no_visits' => 'No such visits',
 
 
+    'loginForm_title' => 'Login',
     'loginForm_userOrEmail' => 'User / e-mail',
+    'loginForm_notRegistered' => 'Don\'t have an account?',
+    'loginForm_singUp' => 'Sign up',
+    'loginForm_lostPassword' => 'Forgot your password?',
+    'loginForm_resetPassword' => 'Reset your password',
     'loginForm_userNotActive' => 'Your account is not activated.',
-    'loginForm_notRegistered' => 'Not registered?',
-    'loginForm_lostPassword' => 'Forgot your password? <a href="newpw.php">Remind me</a>',
-    'loginForm_lostEmail' => 'Forgot your e-mail address? <a href="remindemail.php"> Ask for it here</a>',
     'loginForm_tooManyTries' => 'Login failed.<br />There were 25 false login attempts during the past hour on {site_name}',
     'loginForm_badCredentials' => 'Login failed.<br />Username or password not recognized.',
     'loginForm_cantSetCookie' => 'Your browser does not accept cookies from {site_name}',
+
+    'loginForm_lostEmail' => 'Forgot your e-mail address? <a href="remindemail.php"> Ask for it here</a>',
 
 );
 

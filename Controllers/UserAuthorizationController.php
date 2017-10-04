@@ -3,6 +3,7 @@ namespace Controllers;
 
 use lib\Objects\User\UserAuthorization;
 use Utils\Debug\Debug;
+use Utils\Uri\Uri;
 
 class UserAuthorizationController extends BaseController
 {
@@ -55,9 +56,11 @@ class UserAuthorizationController extends BaseController
             return;
         }
 
-        $this->view->setTemplate('loginPage');
-
+        $this->view->setTemplate('userAuth/loginPage');
         $this->view->loadJQuery();
+        $this->view->addLocalCss(
+            Uri::getLinkWithModificationTime('/tpl/stdstyle/userAuth/userAuth.css'));
+
         $this->view->setVar('target', $this->getRedirectTarget());
         $this->view->setVar('errorMsg', $error);
 

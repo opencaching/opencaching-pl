@@ -488,9 +488,4 @@ $translations = array(
     'region' => 'Region',
     'okapi_apps' => 'Your Apps',
 
-    'loginForm_userOrEmail' => 'Användare / e-postadress',
-    'loginForm_userNotActive' => 'Ditt konto inte är aktivt eller avaktiverat.',
-    'loginForm_notRegistered' => 'Inte registrerad?',
-    'loginForm_lostPassword' => 'Glömt ditt lösenord? <a href=newpw.php>Påminn mig</a>',
-
 );

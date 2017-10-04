@@ -2694,14 +2694,18 @@ $translations = array(
     'prepublication_visits' => 'Wizyty przed publikacją',
     'no_visits' => 'brak wizyt',
 
+    'loginForm_title' => 'Zaloguj się',
     'loginForm_userOrEmail' => 'Użytkownik / e-mail',
+    'loginForm_notRegistered' => 'Niemasz konta?',
+    'loginForm_singUp' => 'Zarejestruj się',
+    'loginForm_lostPassword' => 'Zapomniałeś hasła?',
+    'loginForm_resetPassword' => 'Zresetuj hasło',
     'loginForm_userNotActive' => 'Twoje konto nie było jeszcze aktywowane lub zostało dezaktywowane.',
-    'loginForm_notRegistered' => 'Chcesz się zarejestrować?',
-    'loginForm_lostPassword' => 'Zapomniałeś hasła? <a href="newpw.php">Nowe hasło</a>',
-    'loginForm_lostEmail' => 'Zapomniałeś adresu e-mail? <a href="remindemail.php"> Przypomnij</a>',
     'loginForm_tooManyTries' => 'Logowanie nie powiodło się.<br />Zbyt dużo prób logowania. Próbowałeś przez ostatnią godzinę 25 razy zalogować się do {site_name} podając błędne dane.',
     'loginForm_badCredentials' => 'Logowanie nie powiodło się.<br />Wprowadzona nazwa użytkownika lub hasło są nieprawidłowe.',
     'loginForm_cantSetCookie' => 'Twoja przeglądarka nie zapisała ciasteczek dla {site_name}.',
+
+    'loginForm_lostEmail' => 'Zapomniałeś adresu e-mail? <a href="remindemail.php"> Przypomnij</a>',
 
 );
 

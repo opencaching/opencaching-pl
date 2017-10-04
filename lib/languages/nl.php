@@ -2697,14 +2697,14 @@ $translations = array(
     'no_visits' => 'Nog niet bekeken',
 
     'loginForm_userOrEmail' => 'Gebruiker / E-mail',
-    'loginForm_userNotActive' => 'Dit account is niet actief of gedeactiveerd.',
     'loginForm_notRegistered' => 'Niet geregistreerd?',
-    'loginForm_lostPassword' => 'Wachtwoord vergeten? <a href="newpw.php">Vraag nieuw wachtwoord aan</a>',
-    'loginForm_lostEmail' => 'E-mail vergeten? <a href="remindemail.php">Vraag het E-mailadres op</a>',
+    'loginForm_lostPassword' => 'Wachtwoord vergeten?',
+    'loginForm_userNotActive' => 'Dit account is niet actief of gedeactiveerd.',
     'loginForm_tooManyTries' => 'Inloggen mislukt.<br />Er zijn in het afgelopen uur 25 keer onjuiste inlog pogingen gedaan op {site_name}.',
     'loginForm_badCredentials' => 'Inloggen mislukt.<br />Ingevoerde naam of wachtwoord is onjuist.',
     'loginForm_cantSetCookie' => 'Deze browser ondersteunt geen cookies van {site_name}',
 
+    'loginForm_lostEmail' => 'E-mail vergeten? <a href="remindemail.php">Vraag het E-mailadres op</a>',
 
 );
 

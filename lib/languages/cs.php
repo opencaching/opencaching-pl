@@ -2483,15 +2483,4 @@ $translations = array(
     'ZW' => 'Zimbabwe',
     'SU' => 'Soviet Union',
     'XX' => 'None (Not set)',
-
-
-    'loginForm_userOrEmail' => 'Uživatel / e-mail',
-    'loginForm_userNotActive' => 'Yor account is not active or deactive.',
-    'loginForm_notRegistered' => 'Not registered?',
-    'loginForm_lostPassword' => 'Forgot your e-mail? <a href="newpw.php">Remind me</a>',
-    'loginForm_tooManyTries' => 'Login failed.<br />There where 25 false login attempts in past our on {site_name}',
-    'loginForm_badCredentials' => 'Login failed.<br />Username or password not recognized.',
-    'loginForm_cantSetCookie' => 'Your browser does not accept cookies from {site_name}',
-    'loginForm_lostEmail' => 'Forgotten your E-mail? <a href="remindemail.php"> Ask it here</a>',
-    
 );

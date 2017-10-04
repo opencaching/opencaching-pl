@@ -2700,13 +2700,14 @@ $translations = array(
     'no_visits' => 'No such visits',
 
     'loginForm_userOrEmail' => 'Benutzer / E-Mail-Adresse',
-    'loginForm_userNotActive' => 'Konto ist nicht aktiv oder deaktiv.',
     'loginForm_notRegistered' => 'Not registered?',
-    'loginForm_lostPassword' => 'Passwort vergessen? <a href="newpw.php">Erinnern mich</a>',
-    'loginForm_lostEmail' => 'E-mail adresse vergessen? <a href="remindemail.php">Frage hier deine E-mailadresse</a>',
+    'loginForm_lostPassword' => 'Passwort vergessen?',
+    'loginForm_userNotActive' => 'Konto ist nicht aktiv oder deaktiv.',
     'loginForm_tooManyTries' => 'Login failed.<br />There were 25 false login attempts during the past hour on {site_name}',
     'loginForm_badCredentials' => 'Login failed.<br />Username or password not recognized.',
     'loginForm_cantSetCookie' => 'Your browser does not accept cookies from {site_name}',
+
+    'loginForm_lostEmail' => 'E-mail adresse vergessen? <a href="remindemail.php">Frage hier deine E-mailadresse</a>',
 
 );
 

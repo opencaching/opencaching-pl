@@ -485,9 +485,4 @@ $translations = array(
     'timePicker_closeButtonText' => 'Fermer',
     'timePicker_deselectButtonText' => 'Désélectionne',
 
-    'loginForm_userOrEmail' => 'Utilisateur / e-mail',
-    'loginForm_userNotActive' => 'Yor account is not active or deactive.',
-    'loginForm_notRegistered' => 'Not registered?',
-    'loginForm_lostPassword' => 'Forgot your e-mail? <a href="newpw.php">Remind me</a>',
-
 );

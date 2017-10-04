@@ -2651,13 +2651,14 @@ $translations = array(
     'merit_badge_attendant' => 'Attendant:',
 
     'loginForm_userOrEmail' => 'Utilizator / e-mail',
-    'loginForm_userNotActive' => 'Yor account is not activated.',
     'loginForm_notRegistered' => 'Not registered?',
-    'loginForm_lostPassword' => 'Forgot your password? <a href="newpw.php">Remind me</a>',
-    'loginForm_lostEmail' => 'Forgotten your E-mail? <a href="remindemail.php"> Ask it here</a>',
+    'loginForm_lostPassword' => 'Forgot your password?',
+    'loginForm_userNotActive' => 'Yor account is not activated.',
     'loginForm_tooManyTries' => 'Autentificare eşuată.<br />Au fost cel puţin 25 de încercări de conectare în ultima oră pe {site_name} pentru utilizatorul tău',
     'loginForm_badCredentials' => 'Autentificare eşuată.<br />Nume utilizator sau parolă greşită.',
     'loginForm_cantSetCookie' => 'Browser-ul tău nu accepta cookies de la {site_name}',
+
+    'loginForm_lostEmail' => 'Forgotten your E-mail? <a href="remindemail.php"> Ask it here</a>',
 
 
 );
