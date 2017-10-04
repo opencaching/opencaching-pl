@@ -14,7 +14,7 @@
         <input id="userName" name="email" maxlength="80" type="text" value=""
                class="form-control input150">
 
-        <label for="password"><?=tr('password')?>:</label>
+        <label for="password"><?=tr('loginForm_password')?>:</label>
         <input id="password" name="password" maxlength="60" type="password" value=""
                class="form-control input150">
 

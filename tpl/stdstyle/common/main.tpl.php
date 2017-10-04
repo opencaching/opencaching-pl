@@ -191,11 +191,11 @@ if (date('m') == 12 || date('m') == 1) {
                             <a href="/login.php?action=logout"><?=tr('logout')?></a>
 
                         <?php } else { //user-not-logged ?>
-                            <form action="login.php?action=login" method="post" enctype="application/x-www-form-urlencoded" name="login" dir="ltr"
+                            <form action="login.php?action=login" method="post" name="login"
                                   style="display: inline;" class="form-group-sm">
                                   <?=tr('loginForm_userOrEmail')?>:&nbsp;
                                   <input name="email" size="10" type="text" class="form-control input100" value="" />
-                                  &nbsp;<?=tr('password')?>:&nbsp;
+                                  &nbsp;<?=tr('loginForm_password')?>:&nbsp;
                                   <input name="password" size="10" type="password" class="form-control input100" value="" />
                                   &nbsp;
                                   <input type="hidden" name="target" value="<?=$view->_target?>" />

@@ -2698,6 +2698,7 @@ $translations = array(
 
     'loginForm_title' => 'Login',
     'loginForm_userOrEmail' => 'User / e-mail',
+    'loginForm_password' => 'Password',
     'loginForm_notRegistered' => 'Don\'t have an account?',
     'loginForm_singUp' => 'Sign up',
     'loginForm_lostPassword' => 'Forgot your password?',
