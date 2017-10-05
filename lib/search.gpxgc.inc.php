@@ -9,18 +9,34 @@ global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $queryFilter;
 require_once($rootpath . 'lib/format.gpx.inc.php');
 require_once($rootpath . 'lib/calculation.inc.php');
 
-set_time_limit(1800);
+$timeLimit = 1800;
+set_time_limit($timeLimit);
+
+if ($config['downloadPath'] != '') {
+    $downloadPath = $config['downloadPath'] . '/';
+} else {
+    $downloadPath = $picdir . '/';
+}
 
 // cleanup old temporary files
 
-$downloadPath = $picdir . '/';
 if (is_dir($downloadPath . 'gpx')) {
     $olddirs = glob($downloadPath . 'gpx/*', GLOB_ONLYDIR);
     foreach ($olddirs as $dir) {
         if (substr($dir, 0, 1) != '.') {
-            $stat = stat($dir);
-            if (time() - $stat['atime'] > 60*3) {   // delete after 30  minutes
-               exec('rm -rf ' . $dir);
+            if (file_exists($dir . '/created')) {
+                // Cleanup started downloads.
+                // File reference can be removed as soon as the download has started.
+                $stat = stat($dir . '/created');
+                if (time() - $stat['atime'] > 60*3) {
+                    exec('rm -rf ' . $dir);
+                }
+            } else {
+                // Cleanup aborted downloads.
+                $stat = stat($dir);
+                if (time() - $stat['atime'] > $timeLimit + 60*5) {
+                    exec('rm -rf ' . $dir);
+                }
             }
         }
     }
@@ -559,13 +575,18 @@ if ($usr || ! $hide_coords) {
 
         if (!$dirCreated && ($bUseZip || strlen($gpxData) > $downloadMemoryLimit)) {
             // make new random download dir
-            $path = 'gpx' . '/' . md5(uniqid(mt_rand(), true));
-            if (!is_dir($downloadPath . $path)) {
-                mkdir($downloadPath . $path, 0777, true);
+            $gpxdir = 'gpx' . '/' . md5(uniqid(mt_rand(), true));
+            if (!is_dir($downloadPath . $gpxdir)) {
+                mkdir($downloadPath . $gpxdir, 0777, true);
             }
-            $path .= '/' . $sFilebasename;
-            $file_url = $picurl . '/' . $path;
             $dirCreated = true;
+
+            $path = $gpxdir . '/' . $sFilebasename;
+            if ($config['downloadUrl'] != '') {
+                $file_url = $config['downloadUrl'] . '/' . $path;
+            } else {
+                $file_url = $picurl . '/' . $path;
+            }
         }
         if (!$outfile && strlen($gpxData) > $downloadMemoryLimit) {
             // buffer large GPX data in .gpx file
@@ -583,6 +604,22 @@ if ($usr || ! $hide_coords) {
         fclose($outfile);
     }
 
+    if ($bUseZip || $outfile) {
+        $htaccessPath = $downloadPath . '/gpx/.htaccess';
+        if (!file_exists($htaccessPath)) {
+            $htaccess = '
+                <FilesMatch "\.gpx$">
+                    ForceType application/gpx+xml
+                    Header set Content-Disposition attachment
+                </FilesMatch>
+                <FilesMatch "\.zip$">
+                    ForceType application/zip
+                    Header set Content-Disposition attachment
+                </FilesMatch>';
+            file_put_contents($htaccessPath, $htaccess);
+        }
+    }
+
     if ($bUseZip == true) {
         $zip = new ZipArchive();
         $zip->open($downloadPath . $path . '.zip', ZIPARCHIVE::CREATE);
@@ -598,8 +635,7 @@ if ($usr || ! $hide_coords) {
         header('Location: ' . $file_url. '.zip');
     } else {
         if ($outfile) {
-            // plain data from file;
-            // GPX Content-type and Content-Disposition must be configured in Webserver!
+            // plain data from file
             header('Location: ' . $file_url . '.gpx');
         } else {
             // plain data from string
@@ -608,6 +644,9 @@ if ($usr || ! $hide_coords) {
             echo $gpxData;
         }
     }
+
+    # Mark that the GPX data creation is finished.
+    file_put_contents($downloadPath . $gpxdir . '/created', '');
 }
 
 exit();
