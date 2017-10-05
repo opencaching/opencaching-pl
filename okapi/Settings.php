@@ -158,6 +158,12 @@ final class Settings
         'OC_NODE_ID' => null,
 
         /**
+         * Path to PHP script which returns the OKAPI version number and Git revision;
+         * used only with composer deployment.
+         */
+        'VERSION_FILE' => null,
+
+        /**
          * Your OC sites data licencing document. All OKAPI Consumers will be
          * required to accept this.
          */

@@ -22,10 +22,37 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1656;
-    public static $git_revision = '429977b75fe260aa3aa240e8005edb84524f2354';
+    /* TODO: Make these version variables private. */
+    public static $version_number = 1658;
+    public static $git_revision = 'af0236ccdd85a01d81c89eea6fe1d8149f4b086e';
 
     private static $okapi_vars = null;
+
+    public static function getVersionNumber()
+    {
+        if (!self::$version_number)
+        {
+            $versionFile = Settings::get('VERSION_FILE');
+            if ($versionFile) {
+                $meta = include $versionFile;
+                self::$version_number = $meta['version_number'];
+            }
+        }
+        return self::$version_number;
+    }
+
+    public static function getGitRevision()
+    {
+        if (!self::$git_revision)
+        {
+            $versionFile = Settings::get('VERSION_FILE');
+            if ($versionFile) {
+                $meta = include $versionFile;
+                self::$git_revision = $meta['git_revision'];
+            }
+        }
+        return self::$git_revision;
+    }
 
     /** Return a new, random UUID. */
     public static function create_uuid()
