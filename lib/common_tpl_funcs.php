@@ -154,8 +154,7 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
     /** @var View $view */
     global $view;
 
-
-    $view->setVar('languageFlags', I18n::getLanguagesFlagsData($lang));
+    $view->initMainLayout(); // init vars for main-layout
 
     //load main template
     if ($minitpl){

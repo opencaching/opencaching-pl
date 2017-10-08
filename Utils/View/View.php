@@ -3,12 +3,18 @@ namespace Utils\View;
 
 use Utils\DateTime\Year;
 use lib\Objects\ApplicationContainer;
+use Utils\Debug\Debug;
+use Utils\I18n\I18n;
+use Utils\Uri\Uri;
 
 class View {
 
-    const CHUNK_DIR = __DIR__.'/../../tpl/stdstyle/chunks/';
+    const TPL_DIR = __DIR__ . '/../../tpl/stdstyle/';
+    const CHUNK_DIR = self::TPL_DIR . 'chunks/';
 
     //NOTE: local View vars should be prefixed by "_"
+
+    private $_template = null;              // template used by current view
 
     private $_googleAnalyticsKey = '';      // GA key loaded from config
 
@@ -20,11 +26,13 @@ class View {
 
     private $_localCss = [];                // page-local css styles loaded from controller
 
+
     public function __construct(){
 
         // load google analytics key from the config
         $this->_googleAnalyticsKey = isset($GLOBALS['googleAnalytics_key']) ?
                 $GLOBALS['googleAnalytics_key'] : '';
+
     }
 
     /**
@@ -125,21 +133,31 @@ class View {
         return $this->_loadJQueryUI;
     }
 
-    public function isTimepickerEnabled(){
+    public function isTimepickerEnabled()
+    {
         return $this->_loadTimepicker;
     }
 
-    public function isLightBoxEnabled(){
+    public function isLightBoxEnabled()
+    {
         return $this->_loadLightBox;
     }
 
-    public function isGMapApiEnabled(){
+    public function isGMapApiEnabled()
+    {
         return $this->_loadGMapApi;
     }
 
 
-    private function error($message){
+    private function error($message)
+    {
         error_log($message);
+    }
+
+
+    public function errorLog($message)
+    {
+        Debug::errorLog("Template Error: $message", false);
     }
 
     /**
@@ -175,6 +193,7 @@ class View {
         return ApplicationContainer::Instance()->getLang();
     }
 
+
     /**
      * Add css which will be loaded in page header
      * @param $url - url to css
@@ -184,7 +203,8 @@ class View {
         $this->_localCss[] = $css_url;
     }
 
-    public function getLocalCss(){
+    public function getLocalCss()
+    {
         return $this->_localCss;
     }
 
@@ -192,14 +212,105 @@ class View {
      * Set template name (former tpl_set_tplname())
      * @param string $tplName
      */
-    public function setTemplate($tplName){
+    public function setTemplate($tplName)
+    {
         //TODO: refactoring needed but this is still this way
         tpl_set_tplname($tplName);
+        $this->_template = $tplName;
     }
 
-    public function buildView(){
-        //TODO: refactoring needed but this is still this way
+    /**
+     * TODO
+     */
+    public function buildView()
+    {
         tpl_BuildTemplate();
+    }
+
+    /**
+     * TODO
+     * @param unknown $layoutTemplate
+     */
+    public function display($layoutTemplate=null)
+    {
+
+        if(is_null($layoutTemplate)){
+            $layoutTemplate = 'common/mainLayout';
+            $this->initMainLayout();
+        }
+
+        $this->_callTemplate($layoutTemplate);
+
+        // nothing is called after this!
+        exit;
+
+    }
+
+    /**
+     * TODO
+     * @param unknown $template
+     */
+    public function _callTemplate($template=null)
+    {
+        if(is_null($template)){
+            $template = $this->_template;
+        }
+
+        // The only var accessed from within template code
+        $view = $this;      // $view var for use inside template
+        $tr = function($arg){
+          // TODO: it will be refactored to proper call
+          return tr($arg);
+        };
+
+        require_once(self::TPL_DIR . $template . '.tpl.php');
+
+    }
+
+    /**
+     * This function inits vars used by main-layout
+     */
+    public function initMainLayout()
+    {
+        global $config; //TODO: refactor
+
+        $this->setVar('_siteName', $config['siteName']);
+        $this->setVar('_keywords', $config['header']['keywords']);
+        $this->setVar('_favicon', '/images/'.$config['headerFavicon']);
+        $this->setVar('_appleLogo', $config['header']['appleLogo']);
+
+        $this->setVar('_title', "TODO-title"); //TODO!
+        $this->setVar('_backgroundSeason', $this->getSeasonCssName());
+
+        $this->addLocalCss(Uri::getLinkWithModificationTime(
+            '/tpl/stdstyle/common/mainLayout.css'));
+
+        if(Year::isPrimaAprilisToday()){
+            $logo = $config['headerLogo1stApril'];
+            $logoTitle = tr('oc_on_all_pages_top_1A');
+            $logoSubtitle = tr('oc_subtitle_on_all_pages_1A');
+        }else if(date('m') == 12 || date('m') == 1){
+            $logo = $config['headerLogoWinter'];
+            $logoTitle = tr('oc_on_all_pages_top_' . $config['ocNode']);
+            $logoSubtitle = tr('oc_subtitle_on_all_pages_' . $config['ocNode']);
+        }else{
+            $logo = $config['headerLogo'];
+            $logoTitle = tr('oc_on_all_pages_top_' . $config['ocNode']);
+            $logoSubtitle = tr('oc_subtitle_on_all_pages_' . $config['ocNode']);
+        }
+
+        $this->setVar('_mainLogo', '/images/'.$logo);
+        $this->setVar('_logoTitle', $logoTitle);
+        $this->setVar('_logoSubtitle', $logoSubtitle);
+
+        $this->setVar('_languageFlags',
+            I18n::getLanguagesFlagsData($this->getLang()));
+
+
+        $this->setVar('_qSearchByOwnerEnabled', $config['quick_search']['byowner']);
+        $this->setVar('_qSearchByFinderEnabled', $config['quick_search']['byfinder']);
+        $this->setVar('_qSearchByUserEnabled', $config['quick_search']['byuser']);
+
     }
 
 

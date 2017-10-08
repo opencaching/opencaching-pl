@@ -19,6 +19,12 @@ $enable_cache_access_logs = false;
 
 $config = array(
     /**
+     * country-id of the running node: pl|ro|nl...
+     */
+    'ocNode' => 'pl', // pl is a default
+
+
+    /**
      *Add button to a shop. Set true otherwise false
      *Add link to the shop of choise.
      */
@@ -289,3 +295,19 @@ $config['feed']['blog']['showAuthor'] = true;
 
 $subject_prefix_for_site_mails = "OCXX";
 $subject_prefix_for_reviewers_mails = "";
+
+
+// keywords in every header
+$config['header']['keywords'] = 'geocaching, opencaching, skarby,'.
+                                'poszukiwania, geocashing, longitude, latitude,'.
+                                'utm, coordinates, treasure hunting, treasure,'.
+                                'GPS, global positioning system, garmin, '.
+                                'magellan, mapping, geo, hiking, outdoors, '.
+                                'sport, hunt, stash, cache, geocaching, geocache,'.
+                                'cache, treasure, hunting, satellite, navigation,'.
+                                'tracking, bugs, travel bugs';
+
+// logo displayed as apple-touch-icon-precomposed
+$config['header']['appleLogo'] = '/images/oc_logo_144.png';
+
+

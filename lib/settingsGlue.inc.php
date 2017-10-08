@@ -68,6 +68,10 @@ if (isset($opt['db']['password']))
 /* *** END sample code **************************************************** */
 
 
+if (isset($site_name)){
+    $config['siteName'] = $site_name;
+}
+
 if ( isset($opt['cookie']['name']) ){
     $config['cookie']['name'] = $opt['cookie']['name'];
 }
