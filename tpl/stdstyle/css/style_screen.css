@@ -55,14 +55,25 @@ tr.highlighted > td {border-width:2px;}
 /*-----------------------------------*/
 /* 2.1 - Sitename, slogan and banner */
 /*-----------------------------------*/
-.header                     { height:80px;width: 970px;}
+.header                     { height:80px; width: 970px;}
 
-.site-name                  { width: 300px; height: 45px; top: 12px; position: absolute; z-index: 4; overflow: hidden; margin: 0px; padding-left: 80px;}
-.site-name p.title          { margin: 0px; padding: 0px; font-family: "trebuchet ms", arial, sans serif; font-weight: bold; font-size: 24px;}
+.site-name                  { width: 300px; height: 45px; top: 12px; 
+                              position: absolute; z-index: 4; overflow: hidden; 
+                              margin: 0px; padding-left: 80px;}
+                              
+.site-name p.title          { margin: 0px; padding: 0px; 
+                              font-family: "trebuchet ms", arial, sans serif; 
+                              font-weight: bold; font-size: 24px;}
+                              
 .site-name p.subtitle       { clear: both; width: 300px; margin: -6px 0px 0px 0px; padding: 0px; 
-                              background-color: transparent; font-family: "trebuchet ms", arial, sans serif; font-size: 12px;}
+                              background-color: transparent; 
+                              font-family: "trebuchet ms", arial, sans serif; font-size: 12px;}
+                              
 .site-name a                { margin: 0px; padding: 0px; text-decoration: none; color: #323232;}
+
 .site-name a:hover          { text-decoration: none;}
+
+
 
 
 .site-slogan-container      { text-align:right; width: 970px; top: 83px; position: absolute; z-index: 1; overflow: hidden; background-color: transparent;}

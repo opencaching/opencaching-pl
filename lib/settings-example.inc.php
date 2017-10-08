@@ -11,6 +11,9 @@ date_default_timezone_set('Europe/Warsaw');
 if (!isset($rootpath))
     $rootpath = './';
 
+// country-id of the running node: pl|ro|nl...
+$config['ocNode'] = 'pl';
+
 //default used language
 if (!isset($lang))
     $lang = 'pl';

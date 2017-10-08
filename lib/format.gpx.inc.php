@@ -3,9 +3,6 @@
 global $rootpath;
 require_once($rootpath . 'lib/common.inc.php');
 
-// sitename and slogan international handling
-$nodeDetect = substr($absolute_server_URI, - 3, 2);
-
 $gpxHead = '<?xml version="1.0" encoding="utf-8"?>
 <gpx xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://www.groundspeak.com/cache/1/0/1 http://www.groundspeak.com/cache/1/0/1/cache.xsd http://www.gsak.net/xmlv1/5 http://www.gsak.net/xmlv1/5/gsak.xsd"
@@ -17,7 +14,7 @@ $gpxHead = '<?xml version="1.0" encoding="utf-8"?>
     <author>' . convert_string($site_name) . '</author>
     <email>' . $mail_oc . '</email>
     <url>' . $absolute_server_URI . '</url>
-    <urlname>' . convert_string($site_name) . ' - ' . convert_string(tr('oc_subtitle_on_all_pages_' . $nodeDetect)) . '</urlname>
+    <urlname>' . convert_string($site_name) . ' - ' . convert_string(tr('oc_subtitle_on_all_pages_' . $config['ocNode'])) . '</urlname>
     <time>{time}</time>
     <keywords>cache, geocache</keywords>
 ';

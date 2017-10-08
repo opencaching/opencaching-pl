@@ -33,8 +33,6 @@ function getPictures($cacheid, $picturescount)
     return $retval;
 }
 
-// sitename and slogan international handling
-$nodeDetect = substr($absolute_server_URI, - 3, 2);
 
 $gpxHead = '<?xml version="1.0" encoding="utf-8"?>
 <gpx xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -43,7 +41,7 @@ $gpxHead = '<?xml version="1.0" encoding="utf-8"?>
   <desc>Cache Listing Generated from ' . convert_string($site_name) . ' {wpchildren}</desc>
   <author>' . convert_string($site_name) . '</author>
   <url>' . $absolute_server_URI . '</url>
-  <urlname>' . convert_string($site_name) . ' - ' . convert_string(tr('oc_subtitle_on_all_pages_' . $nodeDetect)) . '</urlname>
+  <urlname>' . convert_string($site_name) . ' - ' . convert_string(tr('oc_subtitle_on_all_pages_' . $config['ocNode'])) . '</urlname>
   <time>{time}</time>
 ';
 
