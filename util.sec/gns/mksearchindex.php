@@ -3,7 +3,7 @@
 /**
  * 19.04.2016, kojoty
  *
- * This script is obsolate and unmaintenance!!!
+ * This script is obsolete and unmaintenance!!!
  *
  *
  */

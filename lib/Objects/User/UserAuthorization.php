@@ -176,10 +176,10 @@ class UserAuthorization extends BaseObject
         //init $user in ApplicationContainer
         ApplicationContainer::SetAuthorizedUser($user);
 
-        // set obsolate user_is in session
+        // set obsolete user_is in session
         $_SESSION['user_id'] = $user->getUserId();
 
-        // set obsolate global $usr[] array
+        // set obsolete global $usr[] array
         global $usr;
         $usr['username'] = $user->getUserName();
         $usr['hiddenCacheCount'] = $user->getHiddenGeocachesCount();
@@ -200,11 +200,11 @@ class UserAuthorization extends BaseObject
         // clear AppContainer
         ApplicationContainer::SetAuthorizedUser(null);
 
-        // clear obsolate global $usr[] array
+        // clear obsolete global $usr[] array
         global $usr;
         $usr = false;
 
-        // set obsolate user_is in session
+        // set obsolete user_is in session
         unset($_SESSION['user_id']);
 
         if(!session_id()){
@@ -302,14 +302,14 @@ class UserAuthorization extends BaseObject
         $row = $db->dbResultFetchOneRowOnly($stmt);
         if($row && is_array($row) && isset($row['user_id'])){
 
-            // check if session is not obsolate
+            // check if session is not obsolete
             if(
                 ( $row['permanent'] == 1 && $row['lastTouch'] > self::PERMANENT_LOGIN_TIMEOUT ) ||
                 ( $row['permanent'] == 0 && $row['lastTouch'] > self::LOGIN_TIMEOUT )
               ){
 
-               // obsolate session found 0 delete this and other obsolate sessions
-               self::deleteObsolateOcSessions();
+               // obsolete session found 0 delete this and other obsolete sessions
+               self::deleteObsoleteOcSessions();
                return null;
             }
 
@@ -332,7 +332,7 @@ class UserAuthorization extends BaseObject
             "DELETE FROM sys_sessions WHERE uuid = :1 LIMIT 1", $sessionId);
     }
 
-    private static function deleteObsolateOcSessions(){
+    private static function deleteObsoleteOcSessions(){
 
         $permLoginTimeout = self::PERMANENT_LOGIN_TIMEOUT;
         $loginTimeout = self::LOGIN_TIMEOUT;
