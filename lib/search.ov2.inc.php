@@ -103,7 +103,7 @@ if ($usr || ! $hide_coords) {
 
     $queryLimit = ' LIMIT ' . $startat . ', ' . $count;
 
-    // temporĂ¤re tabelle erstellen
+    // create temporary table
     $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `ov2content` ' . $query . $queryLimit);
 
     $s = $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `ov2content`');

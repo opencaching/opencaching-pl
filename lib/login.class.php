@@ -40,8 +40,8 @@ class login
             $this->admin = (($cookie->get('admin') + 0) == 1);
             $this->verified = false;
 
-            // wenn lastlogin zu 50% abgelaufen, verify()
-            // permanent = 90 Tage, sonst 60 Minuten
+            // if lastlogin has expired by 50%, verify()
+            // permanent = 90 days, else 60 minutes
             if ((($this->permanent == true) && (strtotime($this->lastlogin) + LOGIN_TIME / 2 < time())) ||
                     (($this->permanent == false) && (strtotime($this->lastlogin) + LOGIN_TIME_PERMANENT / 2 < time())))
                 $this->verify();

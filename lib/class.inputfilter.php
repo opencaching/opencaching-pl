@@ -387,7 +387,7 @@ class InputFilter
             $nextsPos = mb_strpos($tag, '\'', $pos);
 
             if (($nextdPos === false) && ($nextsPos === false)) {
-                // keine weiteren Tags ... bis zum ende filtern
+                // no more more tags ... filter until end of text
                 $filter_len = mb_strlen($tag) - $pos;
                 $no_filter_len = 0;
             } else {
@@ -406,7 +406,7 @@ class InputFilter
                 }
                 $filter_len = $nextPos - $pos + 1;
 
-                // ok, wir haben einen Anfang ... nach dem Ende suchen
+                // ok, we have a starting point ... search for the end
                 $endFilter = mb_strpos($tag, $termchar, $nextPos + 1);
 
                 if ($endFilter === false) {
@@ -428,7 +428,7 @@ class InputFilter
             $retval .= $termchar;
 
         if (mb_substr($retval, 0, 1) == '/') {
-            //alle Attribute entfernen
+            // remove all attriutes
             $spacePos = mb_strpos($retval, ' ');
 
             if ($spacePos !== false)

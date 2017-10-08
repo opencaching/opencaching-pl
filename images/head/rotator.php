@@ -180,14 +180,14 @@ if ($img != null) {
     $imageInfo = pathinfo($img);
     header('Content-type: ' . $extList[$imageInfo['extension']]);
 
-    // Cache-Lebensdauer (in Minuten)
+    // caching time (in minutes)
     $exp_gmt = gmdate("D, d M Y H:i:s", time() + $interval) . " GMT";
     $mod_gmt = gmdate("D, d M Y H:i:s", time()) . " GMT";
 
     header("Expires: " . $exp_gmt);
     header("Last-Modified: " . $mod_gmt);
     header("Cache-Control: public, max-age=" . $interval);
-    // Speziell f�r MSIE 5
+    // for MSIE 5
     header("Cache-Control: pre-check=" . $interval, false);
 
     readfile($img);

@@ -38,7 +38,7 @@ if ($error == false) {
 
             //try to save
             if (!($statpic_text_not_ok)) {
-                //in DB updaten
+                //update in DB
                 XDb::xSql(
                     "UPDATE `user` SET `statpic_text`= ?, `statpic_logo`= ?
                      WHERE `user_id`= ? ", $statpic_text, $statpic_logo, $usr['userid']);
@@ -47,7 +47,7 @@ if ($error == false) {
                 require_once($rootpath . 'lib/eventhandler.inc.php');
                 event_change_statpic($usr['userid'] + 0);
 
-                //wieder normal anzeigen
+                //back to normal display
                 tpl_redirect('myprofile.php');
             } else {
                 tpl_set_var('statpic_text_message', $error_statpic_text);

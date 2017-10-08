@@ -103,7 +103,7 @@ if ($usr == false) {
 
             if ($queryid == 0)
             {
-                // das Suchformular wird initialisiert (keine Vorbelegungen vorhanden)
+                // initialize the search form (no presets exist)
                 $_REQUEST['cache_attribs'] = '';
                 $rs = XDb::xSql('SELECT `id` FROM `cache_attrib` WHERE `default`=1');
                 while ($r = XDb::xFetchArray($rs))
@@ -152,7 +152,7 @@ if ($usr == false) {
                 $sqlstr = "UPDATE `queries` SET `last_queried`=NOW() WHERE `id`= :1";
                 $s = $dbc->multiVariableQuery($sqlstr, $queryid );
 
-                // Ă¤nderbare werte Ăźberschreiben
+                // overwrite changeable values
                 if (isset($_REQUEST['output']))
                     $options['output'] =  $_REQUEST['output'];
 
@@ -168,7 +168,7 @@ if ($usr == false) {
                     }
                 }
 
-                // finderid in finder umsetzen
+                // get finder from finderid
                 $options['finderid'] = isset($options['finderid']) ? $options['finderid'] + 0 : 0;
                 if(isset($options['finder']) && $options['finderid'] > 0)
                 {
@@ -183,7 +183,7 @@ if ($usr == false) {
                     unset($record_name);
                 }
 
-                // ownerid in owner umsetzen
+                // get owner from ownerid
                 $options['ownerid'] = isset($options['ownerid']) ? $options['ownerid'] + 0 : 0;
                 if(isset($options['owner']) && $options['ownerid'] > 0)
                 {
@@ -535,13 +535,13 @@ if ($usr == false) {
                             }
                             else
                             {
-                                // ok, viele locations ... alle auflisten ...
+                                // ok, many locations ... list them all ...
                                 outputLocidSelectionForm($sqlstr, $options);
                                 exit;
                             }
                         }
 
-                        // ok, wir haben einen ort ... koordinaten ermitteln
+                        // ok, we have a location ... determine the coordinates
                         $locid = $locid + 0;
 
                         $sqlstr = "SELECT `lon`, `lat` FROM `geodb_coordinates` WHERE `loc_id`= :1 AND coord_type=200100000 LIMIT 1";
@@ -549,7 +549,7 @@ if ($usr == false) {
 
                         if ( $dbc->rowCount($s) ){
 
-                            // ok ... wir haben koordinaten ...
+                            // ok ... we have coordinates
                             $r = $dbc->dbResultFetch($s);
 
                             $lat = $r['lat'] + 0;
@@ -558,7 +558,7 @@ if ($usr == false) {
                             $distance_unit = 'km';
                             $distance = 20;
 
-                            // ab hier selber code wie bei bydistance ... TODO: in funktion auslagern
+                            // from here on same code like bydistance ... TODO: move to a function
 
                             //all target caches are between lat - max_lat_diff and lat + max_lat_diff
                             $max_lat_diff = $distance / (111.12 * $multiplier[$distance_unit]);
@@ -634,13 +634,13 @@ if ($usr == false) {
                                 outputSearchForm($options);
                             }
 
-                            // temporĂ¤re tabelle erstellen und dann eintrĂ¤ge entfernen, die nicht mindestens so oft vorkommen wie worte gegeben wurden
+                            // create temporary table and then remove entries that have less occurrences than words were given
                             XDb::xSql('CREATE TEMPORARY TABLE tmpuniids (`uni_id` int(11) NOT NULL, `cnt` int(11) NOT NULL, `olduni` int(11) NOT NULL, `simplehash` int(11) NOT NULL) ENGINE=MEMORY SELECT `gns_search`.`uni_id` `uni_id`, 0 `cnt`, 0 `olduni`, `simplehash` FROM `gns_search` WHERE ' . $sqlhashes);
                             XDb::xSql('ALTER TABLE `tmpuniids` ADD INDEX (`uni_id`)');
-//  BUGFIX: dieser Code sollte nur ausgefĂźhrt werden, wenn mehr als ein Suchbegriff eingegeben wurde
-//                  damit alle EintrĂ¤ge gefiltert, die nicht alle Suchbegriffe enthalten
-//                  nun wird dieser Quellcode auch ausgefĂźhrt, um mehrfache uni_id's zu filtern
-//          Notwendig, wenn nach Baden gesucht wird => Baden-Baden war doppelt in der Liste
+//  BUGFIX: This code should only be executed, if more than one search keyword was entered,
+//          so that all entries are fileters, which do not contain all keywords;
+//          now this code is also executed to filter multiple uni_id's.
+//          Necessary, if searching for "Baden" => the town "Baden-Baden" was duplicate in the list.
 //                          if ($wordscount > 1)
 //                          {
                                 XDb::xSql('CREATE TEMPORARY TABLE `tmpuniids2` (`uni_id` int(11) NOT NULL, `cnt` int(11) NOT NULL, `olduni` int(11) NOT NULL) ENGINE=MEMORY SELECT `uni_id`, COUNT(*) `cnt`, 0 olduni FROM `tmpuniids` GROUP BY `uni_id` HAVING `cnt` >= ' . $wordscount);
@@ -652,7 +652,7 @@ if ($usr == false) {
 //    add: SELECT g2.uni FROM `tmpuniids` JOIN gns_locations g1 ON tmpuniids.uni_id=g1.uni JOIN gns_locations g2 ON g1.ufi=g2.ufi WHERE g1.nt!='N' AND g2.nt='N'
 // remove: SELECT g1.uni FROM `tmpuniids` JOIN gns_locations g1 ON tmpuniids.uni_id=g1.uni JOIN gns_locations g2 ON g1.ufi=g2.ufi WHERE g1.nt!='N' AND g2.nt='N'
 
-                            // und jetzt noch alle englischen bezeichnungen durch deutsche ersetzen (wo mĂśglich) ...
+                            // and now replace all English names by German (where possible) ...
                             XDb::xSql('CREATE TEMPORARY TABLE `tmpuniidsAdd` (`uni` int(11) NOT NULL, `olduni` int(11) NOT NULL, PRIMARY KEY  (`uni`)) ENGINE=MEMORY SELECT g2.uni uni, g1.uni olduni FROM `tmpuniids` JOIN gns_locations g1 ON tmpuniids.uni_id=g1.uni JOIN gns_locations g2 ON g1.ufi=g2.ufi WHERE g1.nt!=\'N\' AND g2.nt=\'N\' GROUP BY uni');
                             XDb::xSql('CREATE TEMPORARY TABLE `tmpuniidsRemove` (`uni` int(11) NOT NULL, PRIMARY KEY  (`uni`)) ENGINE=MEMORY SELECT DISTINCT g1.uni uni FROM `tmpuniids` JOIN gns_locations g1 ON tmpuniids.uni_id=g1.uni JOIN gns_locations g2 ON g1.ufi=g2.ufi WHERE g1.nt!=\'N\' AND g2.nt=\'N\'');
                             XDb::xSql('DELETE FROM tmpuniids WHERE uni_id IN (SELECT uni FROM tmpuniidsRemove)');
@@ -695,14 +695,14 @@ if ($usr == false) {
                         }
 
 
-                        // ok, wir haben einen ort ... koordinaten ermitteln
+                        // ok, we have a location ... determin coordinates
                         $locid = $locid + 0;
                         $sqlstr="SELECT `lon`, `lat` FROM `gns_locations` WHERE `uni`= :1 LIMIT 1";
                         $s = $dbc->multiVariableQuery($sqlstr, $locid );
 
                         if ( $r =  $dbc->dbResultFetchOneRowOnly($s) ){
 
-                            // ok ... wir haben koordinaten ...
+                            // ok ... we have coordinates ...
 
                             $lat = $r['lat'] + 0;
                             $lon = $r['lon'] + 0;
@@ -716,7 +716,7 @@ if ($usr == false) {
                             $distance = $options['distance'];
                             $distance_unit = $options['unit'];
 
-                            // ab hier selber code wie bei bydistance ... TODO: in funktion auslagern
+                            // from here same code like bydistance ... TODO: move to function
 
                             //all target caches are between lat - max_lat_diff and lat + max_lat_diff
                             $max_lat_diff = $distance / (111.12 * $multiplier[$distance_unit]);
@@ -1738,7 +1738,7 @@ function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconun
             tpl_set_var('ft_pictures_checked', '');
     }
 
-    // errormeldungen
+    // error messages
     tpl_set_var('ortserror', '');
     if (isset($options['error_plz']))
         tpl_set_var('ortserror', $error_plz);
@@ -1771,7 +1771,7 @@ function outputUniidSelectionForm($uniSql, $urlparams)
 
     $tplname = 'selectlocid';
 
-    // urlparams zusammenbauen
+    // build urlparams
     $urlparamString = '';
     foreach ($urlparams AS $name => $param)
     {
@@ -1808,7 +1808,7 @@ function outputUniidSelectionForm($uniSql, $urlparams)
 
     tpl_set_var('resultscount', $rCount['count']);
 
-    // seitennummern erstellen
+    // create page numbers
     $maxsite = ceil($rCount['count'] / 20) - 1;
     $pages = '';
 
@@ -1861,7 +1861,7 @@ function outputUniidSelectionForm($uniSql, $urlparams)
     {
         $thislocation = $locline;
 
-        // locationsdings zusammenbauen
+        // build location thing
         $locString = '';
         if ($r['admtxt1'] != '')
         {
@@ -1886,13 +1886,13 @@ function outputUniidSelectionForm($uniSql, $urlparams)
 
         $thislocation = mb_ereg_replace('{parentlocations}', $locString, $thislocation);
 
-        // koordinaten ermitteln
+        // determine coordinates
         $coordString = help_latToDegreeStr($r['lat']) . ' ' . help_lonToDegreeStr($r['lon']);
         $thislocation = mb_ereg_replace('{coords}', htmlspecialchars($coordString, ENT_COMPAT, 'UTF-8'), $thislocation);
 
         if ($r['olduni'] != 0)
         {
-            // der alte name wurde durch den native-wert ersetzt
+            // the old name was replaced by the native value
             $thissecloc = $secondlocationname;
 
             $r['olduni'] = $r['olduni'] + 0;
@@ -1940,7 +1940,7 @@ function outputLocidSelectionForm($locSql, $urlparams)
 
     $tplname = 'selectlocid';
 
-    // urlparams zusammenbauen
+    // build urlparams
     $urlparamString = '';
     foreach ($urlparams AS $name => $param)
     {
@@ -1975,7 +1975,7 @@ function outputLocidSelectionForm($locSql, $urlparams)
     {
         $thislocation = $locline;
 
-        // locationsdings zusammenbauen
+        // build location thing
         $locString = '';
         $land = landFromLocid($r['loc_id']);
         if ($land != '') $locString .= htmlspecialchars($land, ENT_COMPAT, 'UTF-8');
@@ -1988,7 +1988,7 @@ function outputLocidSelectionForm($locSql, $urlparams)
 
         $thislocation = mb_ereg_replace('{parentlocations}', $locString, $thislocation);
 
-        // koordinaten ermitteln
+        // determine coordinates
         $r['loc_id'] = $r['loc_id'] + 0;
         $rsCoords = XDb::xSql('SELECT `lon`, `lat` FROM `geodb_coordinates` WHERE loc_id=' . $r['loc_id'] . ' LIMIT 1');
         if ($rCoords = XDb::xFetchArray($rsCoords))
@@ -2018,4 +2018,3 @@ function outputLocidSelectionForm($locSql, $urlparams)
     tpl_BuildTemplate();
     exit;
 }
-

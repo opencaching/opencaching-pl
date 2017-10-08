@@ -42,12 +42,12 @@ function search_text2simple($str)
 
     $str = search_text2sort($str);
 
-    // regeln anwenden
+    // apply rules
     foreach ($search_simplerules AS $rule) {
         $str = mb_ereg_replace($rule[0], $rule[1], $str);
     }
 
-    // doppelte chars ersetzen
+    // replace duplicate chars
     for ($c = ord('a'); $c <= ord('z'); $c++)
         $str = mb_ereg_replace(chr($c) . chr($c), chr($c), $str);
 
@@ -58,7 +58,7 @@ function search_text2sort($str)
 {
     $str = mb_strtolower($str);
 
-    // alles was nicht a-z ist ersetzen
+    // replace everything which is not a-z
     $str = mb_ereg_replace('0', '', $str);
     $str = mb_ereg_replace('1', '', $str);
     $str = mb_ereg_replace('2', '', $str);
@@ -70,7 +70,7 @@ function search_text2sort($str)
     $str = mb_ereg_replace('8', '', $str);
     $str = mb_ereg_replace('9', '', $str);
 
-    // deutsches
+    // German
     $str = mb_ereg_replace('ä', 'ae', $str);
     $str = mb_ereg_replace('ö', 'oe', $str);
     $str = mb_ereg_replace('ü', 'ue', $str);
@@ -79,7 +79,7 @@ function search_text2sort($str)
     $str = mb_ereg_replace('Ü', 'ue', $str);
     $str = mb_ereg_replace('ß', 'ss', $str);
 
-    // akzente usw.
+    // accents etc.
     $str = mb_ereg_replace('à', 'a', $str);
     $str = mb_ereg_replace('á', 'a', $str);
     $str = mb_ereg_replace('â', 'a', $str);
@@ -112,7 +112,7 @@ function search_text2sort($str)
     $str = mb_ereg_replace('æ', 'ae', $str);
     $str = mb_ereg_replace('œ', 'oe', $str);
 
-    //pl
+    // pl
     $str = mb_ereg_replace('Ż', 'Z', $str);
     $str = mb_ereg_replace('Ź', 'Z', $str);
     $str = mb_ereg_replace('Ć', 'C', $str);
@@ -132,7 +132,7 @@ function search_text2sort($str)
     $str = mb_ereg_replace('ó', 'o', $str);
     $str = mb_ereg_replace('ę', 'e', $str);
 
-    // interpunktion
+    // interpuction
     $str = mb_ereg_replace('\\?', '', $str);
     $str = mb_ereg_replace('\\)', '', $str);
     $str = mb_ereg_replace('\\(', '', $str);
@@ -141,9 +141,8 @@ function search_text2sort($str)
     $str = mb_ereg_replace('`', ' ', $str);
     $str = mb_ereg_replace('\'', ' ', $str);
 
-    // sonstiges
+    // other
     $str = str_replace('', '', $str);
-    // der rest
     $str = mb_ereg_replace('[^a-z]', '', $str);
     $str = mb_ereg_replace('/[[:cntrl:]]/', '', $str);
 

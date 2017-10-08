@@ -72,20 +72,20 @@ if (($ziptype != '0') && ($ziptype != 'zip') && ($ziptype != 'gzip') && ($ziptyp
     exit;
 }
 
-// aufräumen ... 24h nach letztem Abruf bylo 86400
+// clean up ... 245h nach the last call  bylo 86400
 $cleanerdate = date($sDateformat, time() - 10800);
 $rs = XDb::xSql("SELECT `id` FROM `xmlsession` WHERE `last_use`< ? AND `cleaned`=0", $cleanerdate);
 
 while ($r = XDb::xFetchArray($rs)) {
-    // xmlsession_data löschen
+    // delete xmlsession_data
     XDb::xSql('DELETE FROM `xmlsession_data` WHERE `session_id`= ? ', $r['id']);
 
-    // dateien löschen
+    // delete files
     $path = $zip_basedir . 'ocxml11/' . $r['id'];
     if (is_dir($path))
         unlinkrecursiv($path);
 
-    // cleaned speichern
+    // save cleaned
     XDb::xSql('UPDATE `xmlsession` SET `cleaned`=1 WHERE `id`= ? ', $r['id']);
 }
 
@@ -102,7 +102,7 @@ if (isset($_REQUEST['sessionid'])) {
     outputXmlSessionFile($sessionid, $filenr, $bOcXmlTag, $bDocType, $bXmlDecl, $ziptype);
 }
 else {
-    // fitler parameters
+    // filter parameters
     $dModifiedsince = isset($_REQUEST['modifiedsince']) ? $_REQUEST['modifiedsince'] : '0';
 
     // selections
@@ -274,7 +274,7 @@ exit;
 function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $ziptype)
 {
     global $zip_basedir, $zip_wwwdir, $sDateformat, $sDateshort, $t1, $t2, $t3, $safemode_zip, $safemode_zip, $sCharset, $bAttrlist, $absolute_server_URI;
-    // alle records aus tmpxml_* übertragen
+    // transfer all records from tmpxml_*
 
     if (!mb_ereg_match('^[0-9]{1,11}', $sessionid))
         die('sessionid invalid');
@@ -334,7 +334,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 
     /* end now a few dynamically loaded constants */
 
-    // temporäre Datei erstellen
+    // create temporary file
     if (!is_dir($zip_basedir . 'ocxml11/' . $sessionid))
         mkdir($zip_basedir . 'ocxml11/' . $sessionid);
 
@@ -577,7 +577,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
     $rel_xmlfile = 'ocxml11/' . $sessionid . '/' . $sessionid . '-' . $filenr . '-' . $fileid . '.xml';
     $rel_zipfile = 'ocxml11/' . $sessionid . '/' . $sessionid . '-' . $filenr . '-' . $fileid;
 
-    // zippen und url-redirect
+    // zip and redirect url
     if ($ziptype == '0') {
         tpl_redirect($zip_wwwdir . 'ocxml11/' . $sessionid . '/' . $sessionid . '-' . $filenr . '-' . $fileid . '.xml');
         exit;
@@ -593,7 +593,6 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
     $call = $safemode_zip . ' --type=' . escapeshellcmd($ziptype) . ' --src=' . escapeshellcmd($rel_xmlfile) . ' --dst=' . escapeshellcmd($rel_zipfile);
     system($call);
 
-    // datei vorhanden?
     if (!file_exists($zip_basedir . $rel_zipfile))
         die('all ok, but zip failed - internal server error');
 
@@ -606,7 +605,7 @@ function startXmlSession($sModifiedSince, $bCache, $bCachedesc, $bCachelog, $bUs
 {
     global $rootpath;
 
-    // session anlegen
+    // create session
     XDb::xSql(
         'INSERT INTO `xmlsession` (`last_use`, `modified_since`, `date_created`)
         VALUES (NOW(), ?, NOW())', date('Y-m-d H:i:s', strtotime($sModifiedSince)));
@@ -620,7 +619,7 @@ function startXmlSession($sModifiedSince, $bCache, $bCachedesc, $bCachelog, $bUs
     $recordcount['removedobjects'] = 0;
 
     if ($selection['type'] == 0) {
-        // ohne selection
+        // without selection
         if ($bCache == 1) {
             $stmt = XDb::xSql(
                 "INSERT INTO xmlsession_data (`session_id`, `object_type`, `object_id`)
