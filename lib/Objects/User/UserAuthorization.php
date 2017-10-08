@@ -182,10 +182,7 @@ class UserAuthorization extends BaseObject
         // set obsolete global $usr[] array
         global $usr;
         $usr['username'] = $user->getUserName();
-        $usr['hiddenCacheCount'] = $user->getHiddenGeocachesCount();
-        $usr['logNotesCount'] = $user->getLogNotesCount();
         $usr['userFounds'] = $user->getFoundGeocachesCount();
-        $usr['notFoundsCount'] = $user->getNotFoundGeocachesCount();
         $usr['userid'] = $user->getUserId();
         $usr['email'] = $user->getEmail();
         $usr['country'] = $user->getCountry();
