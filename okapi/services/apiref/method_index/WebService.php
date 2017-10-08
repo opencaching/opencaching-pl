@@ -57,8 +57,8 @@ class WebService
 
             /* Production. */
 
-            if (Okapi::$version_number !== null) {
-                return "api_ref/method_index#prod#".Okapi::$version_number;
+            if (Okapi::getVersionNumber() !== null) {
+                return "api_ref/method_index#prod#".Okapi::getVersionNumber();
             } else {
                 $methodnames = OkapiServiceRunner::$all_names;
                 sort($methodnames);
@@ -71,7 +71,7 @@ class WebService
 
             return (
                 "api_ref/method_index#dev#".
-                self::getDirModDateRecursive($GLOBALS['rootpath']."okapi/services")
+                self::getDirModDateRecursive(__DIR__. '/../../../../okapi/services')
             );
         }
     }

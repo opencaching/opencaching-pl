@@ -22,10 +22,37 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    public static $version_number = 1646;
-    public static $git_revision = 'bd14610a4d34e86d6ad2b67e9295b4a3a7e2cd1c';
+    /* TODO: Make these version variables private. */
+    public static $version_number = 1663;
+    public static $git_revision = 'c6a37a7f94d637525da29666e5b1df1229516204';
 
     private static $okapi_vars = null;
+
+    public static function getVersionNumber()
+    {
+        if (!self::$version_number)
+        {
+            $versionFile = Settings::get('VERSION_FILE');
+            if ($versionFile) {
+                $meta = include $versionFile;
+                self::$version_number = $meta['version_number'];
+            }
+        }
+        return self::$version_number;
+    }
+
+    public static function getGitRevision()
+    {
+        if (!self::$git_revision)
+        {
+            $versionFile = Settings::get('VERSION_FILE');
+            if ($versionFile) {
+                $meta = include $versionFile;
+                self::$git_revision = $meta['git_revision'];
+            }
+        }
+        return self::$git_revision;
+    }
 
     /** Return a new, random UUID. */
     public static function create_uuid()
@@ -1056,7 +1083,7 @@ class Okapi
     /**
      * "Fix" user-supplied HTML fetched from the OC database.
      */
-    public static function fix_oc_html($html, $object_type)
+    public static function fix_oc_html($html, $text_html)
     {
         /* There are thousands of relative URLs in cache descriptions. We will
          * attempt to find them and fix them. In theory, the "proper" way to do this
@@ -1071,11 +1098,11 @@ class Okapi
             $html
         );
 
-        if ($object_type == self::OBJECT_TYPE_CACHE_LOG
-            && Settings::get('OC_BRANCH') === 'oc.pl'
-        ) {
+        if (Settings::get('OC_BRANCH') === 'oc.pl' && $text_html == 1)
+        {
             # Decode special OCPL entity-encoding produced by logs/submit.
-            # See https://github.com/opencaching/okapi/issues/413.
+            # See https://github.com/opencaching/okapi/issues/413
+            # and https://github.com/opencaching/opencaching-pl/pull/1224.
             #
             # This might be restricted to log entries created by OKAPI (that are
             # recorded in okapi_submitted_objects). However, they may have been

@@ -1169,8 +1169,13 @@ $translations = array(
     'printcache_09' => 'Veranderen',
     'yes' => 'Ja',
     'no' => 'Nee',
+<<<<<<< HEAD
+    'reports_user_title' => 'Probleem rapport', //TODO: Check this please.
+    'reports_user_lbl_recipient' => 'Meld het probleem aan',
+=======
     'reports_user_title' => 'Probleem melding', 
     'reports_user_lbl_recipient' => 'Meld het probleem aan:',
+>>>>>>> upstream/master
     'reports_user_lbl_owner' => 'Cache eigenaar',
     'reports_user_lbl_octeam' => 'OC team {site_name} (er wordt ook een kopie naar de cache eigenaar verzonden)',
     'reports_user_lbl_type' => 'Soort probleem',
