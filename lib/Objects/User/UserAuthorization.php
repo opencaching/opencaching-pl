@@ -82,13 +82,13 @@ class UserAuthorization extends BaseObject
     }
 
     /**
-     * Try to login user based on credensials
+     * Try to login user based on credentials
      *
      * @param string $username
      * @param string $password
      * @return enum const LOGIN_* (look above)
      */
-    public static function checkCredensials($username, $password){
+    public static function checkCredentials($username, $password){
 
         // check if there is not too manby login tries
         if(self::areTooManyLoginAttempts()){

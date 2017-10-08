@@ -22,11 +22,11 @@ class UserAuthorizationController extends BaseController
             return;
         }
 
-        list($userEmail, $userPassword) = $this->getCredensialsData();
+        list($userEmail, $userPassword) = $this->getCredentialsData();
 
         if($userEmail && $userPassword){
 
-            switch (UserAuthorization::checkCredensials($userEmail, $userPassword)) {
+            switch (UserAuthorization::checkCredentials($userEmail, $userPassword)) {
                 case UserAuthorization::LOGIN_OK:
                     $this->redirectToAuthCookieVerify();
                     return;
@@ -68,7 +68,7 @@ class UserAuthorizationController extends BaseController
     }
 
 
-    private function getCredensialsData(){
+    private function getCredentialsData(){
         if(isset($_POST['email']) && isset($_POST['password'])){
             return [$_POST['email'], $_POST['password']];
         }else{
