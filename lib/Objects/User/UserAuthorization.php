@@ -276,7 +276,7 @@ class UserAuthorization extends BaseObject
 
         // remove login tries older that 1 HOUR
         $db->query("DELETE FROM sys_logins
-                    WHERE timestamp < DATE_SUB(NOW(), INTERVAL 1 HOUR)");
+                    WHERE `timestamp` < DATE_SUB(NOW(), INTERVAL 1 HOUR)");
 
         // find number of latest login fails
         $lastHourLoginFails = $db->multiVariableQueryValue(
@@ -352,7 +352,7 @@ class UserAuthorization extends BaseObject
     private static function saveLoginFail(){
 
         self::db()->multiVariableQuery(
-            "INSERT INTO sys_logins (remote_addr, timestamp)
+            "INSERT INTO sys_logins (remote_addr, `timestamp`)
              VALUES (:1, NOW())", $_SERVER['REMOTE_ADDR']);
     }
 
