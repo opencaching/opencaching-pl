@@ -410,17 +410,18 @@
         </div>
 
         <div id="viewcache-map" class="content2-container-2col-right">
-            <div class="img-shadow">
-                <?php if ($view->isUserAuthorized || $view->alwaysShowCoords) { ?>
-                    <img src="<?=$view->mapImgLink?>"
-                         longdesc="ifr::cachemap-mini.php?cacheId=<?=$view->geoCache->getCacheId()?>::480::345"
-                         onclick="enlarge(this);" alt="<?=tr('map')?>" title="<?=tr('map')?>">
 
-                <?php } else { ?>
-                    <?=$view->loginToSeeMapMsg?>
+            <?php if ($view->isUserAuthorized || $view->alwaysShowCoords) { ?>
+              <div class="img-shadow">
+                <img src="<?=$view->mapImgLink?>"
+                     longdesc="ifr::cachemap-mini.php?cacheId=<?=$view->geoCache->getCacheId()?>::480::345"
+                     onclick="enlarge(this);" alt="<?=tr('map')?>" title="<?=tr('map')?>">
+              </div>
+            <?php } else { ?>
+                <?=$view->loginToSeeMapMsg?>
 
-                <?php } //else $view->isUserAuthorized || $view->alwaysShowCoords ?>
-            </div>
+            <?php } //else $view->isUserAuthorized || $view->alwaysShowCoords ?>
+
         </div>
 
         <div id="links-to-ext-maps" class="">
