@@ -195,7 +195,7 @@ class GeoKretyLogController extends BaseController
             ];
 
             $context = stream_context_create($opts);
-            $result = file_get_contents('http://geokrety.org/ruchy.php', false, $context);
+            $result = file_get_contents('https://geokrety.org/ruchy.php', false, $context);
 
             if($result !== false){
                 // connection OK, return results
