@@ -118,7 +118,7 @@ if( $usr || !$hide_coords ) {
     // cleanup (old gpxcontent lingers if gpx-download is cancelled by user)
     $dbcSearch->simpleQuery( 'DROP TEMPORARY TABLE IF EXISTS `wptcontent`');
 
-    // temporäre tabelle erstellen
+    // create temporary table
     $dbcSearch->simpleQuery( 'CREATE TEMPORARY TABLE `wptcontent` ' . $query . $queryLimit);
 
     $s = $dbcSearch->simpleQuery( 'SELECT COUNT(*) `count` FROM `wptcontent`');

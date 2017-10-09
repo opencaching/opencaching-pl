@@ -46,7 +46,7 @@ if (!is_dir($dst))
     die("error: destination directory not exist\nuse " . $argv[0] . " --help\n");
 
 if (($type == 'gzip') || ($type == 'bzip2')) {
-    // zu dst-directory noch den dateinamen anh�ngen
+    // add filename to dst directory
     $filename = basename($src);
     if (strrpos($filename, '.') !== false)
         $filename = substr($filename, 0, strrpos($filename, '.'));

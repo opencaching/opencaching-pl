@@ -109,7 +109,7 @@ function savequery($queryid, $queryname, $saveas, $submit, $saveas_queryid)
     $error_duplicate_name = false;
 
 
-    // ok ... checken, ob die query uns gehört und dann speichern
+    // ok ... verify that it our query and then save
     $rs = XDb::xSql(
         "SELECT `user_id` FROM `queries` WHERE `id`= ? AND (`user_id`=0 OR `user_id`= ? )",
         $queryid, $usr['userid']);
@@ -125,7 +125,7 @@ function savequery($queryid, $queryname, $saveas, $submit, $saveas_queryid)
             $displayform = true;
             $error_no_name = true;
         } else {
-            // prüfen ob name bereits vorhanden
+            // test ob the name already exists
             $r['c'] = XDb::xMultiVariableQueryValue(
                 "SELECT COUNT(*) `c` FROM `queries`
                 WHERE `user_id`= :1 AND `name`= :2 ",
@@ -140,7 +140,7 @@ function savequery($queryid, $queryname, $saveas, $submit, $saveas_queryid)
         if ($saveas_queryid == 0) {
             $displayform = true;
         } else {
-            // prüfen ob saveas_queryid existiert und uns gehört
+            // test if saveas_queryid exists and is ours
             $rs = XDb::xSql(
                 "SELECT `user_id` FROM `queries` WHERE `id`= ? AND (`user_id`=0 OR `user_id`= ? )",
                 $saveas_queryid, $usr['userid']);
@@ -153,7 +153,7 @@ function savequery($queryid, $queryname, $saveas, $submit, $saveas_queryid)
     }
 
     if ($displayform == true) {
-        // abfrageform für name
+        // form to enter the name
         $tplname = 'savequery';
 
         if ($error_no_name == true)
@@ -166,7 +166,7 @@ function savequery($queryid, $queryname, $saveas, $submit, $saveas_queryid)
         tpl_set_var('queryname', htmlspecialchars($queryname, ENT_COMPAT, 'UTF-8'));
         tpl_set_var('queryid', htmlspecialchars($queryid, ENT_COMPAT, 'UTF-8'));
 
-        // oldqueries auslesen
+        // read oldqueries
         $options = '';
         $rs = XDb::xSql(
             "SELECT `id`, `name` FROM `queries` WHERE `user_id`= ? ORDER BY `name` ASC",
@@ -194,7 +194,7 @@ function savequery($queryid, $queryname, $saveas, $submit, $saveas_queryid)
     $r['options'] = XDb::xMultiVariableQueryValue(
         "SELECT `options` FROM `queries` WHERE `id`= :1 LIMIT 1", 0, $queryid);
 
-    // ok, speichern
+    // ok, save
     if ($saveas == true) {
         XDb::xSql(
             "UPDATE `queries` SET `options`= ?, `last_queried`=NOW() WHERE `id`= ? ",
