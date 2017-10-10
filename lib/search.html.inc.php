@@ -532,6 +532,7 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
     $tmpline = str_replace('{username}', htmlspecialchars($caches_record['username'], ENT_COMPAT, 'UTF-8'), $tmpline);
     $tmpline = str_replace('{usernameBIG}', strtoupper(trChar(htmlspecialchars($caches_record['username'], ENT_COMPAT, 'UTF-8'))), $tmpline);
     $tmpline = str_replace('{CacheID}', $caches_record['cache_id'], $tmpline);
+    $tmpline = str_replace('{style}', $caches_record['status'] >= 4 ? $unpublished_cache_style : '', $tmpline);
 
     if ($CalcDistance) {
         if ($usr || ! $hide_coords) {

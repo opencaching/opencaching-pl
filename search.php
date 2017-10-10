@@ -478,9 +478,9 @@ if ($usr == false) {
                 $sql_group = array();
 
                 // show only published caches
-                $sql_where[] = '`caches`.`status` != 4';
-                $sql_where[] = '`caches`.`status` != 5';
-                if(!$usr['admin'])
+                $sql_where[] = '(`caches`.`status` != 4 OR `caches`.`user_id`=' . XDb::xEscape($usr['userid']) . ')';
+                $sql_where[] = '(`caches`.`status` != 5 OR `caches`.`user_id`=' . XDb::xEscape($usr['userid']) . ')';
+                if (!$usr['admin'])
                 {
                     $sql_where[] = '`caches`.`status` != 6';
                 }
