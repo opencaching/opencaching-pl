@@ -12,6 +12,9 @@ require_once($rootpath . 'lib/calculation.inc.php');
 $timeLimit = 1800;
 set_time_limit($timeLimit);
 
+// do allow other sessions while the download is running
+session_write_close();
+
 if ($config['downloadPath'] != '') {
     $downloadPath = $config['downloadPath'] . '/';
 } else {
@@ -172,7 +175,7 @@ if ($usr || ! $hide_coords) {
     else
         $count = $caches_per_page;
 
-    $maxlimit = 1000000000;
+    $maxlimit = 10000;  // see https://github.com/opencaching/opencaching-pl/issues/1006
 
     if ($count == 'max')
         $count = $maxlimit;
@@ -267,7 +270,6 @@ if ($usr || ! $hide_coords) {
             AND `gpxcontent`.`user_id`=`user`.`user_id`');
 
     while ( $r = XDb::xFetchArray($stmt) ) {
-
         if (@$enable_cache_access_logs) {
 
             $dbc = OcDb::instance();
