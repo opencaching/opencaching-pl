@@ -318,7 +318,7 @@ If you add a new attribute to your OC site, follow these steps to assign a GPX I
    the inc-value. If no OCDE attribute is available:
 
 3. Use the first number from this list of unassigned GPX IDs, and remove if from the list:
-   128, 129, 136, 138, 139, 140, 142, 144, 146, 148, 149, 151, 152, 155, 159, 160.
+   128, 129, 136, 138, 139, 140, 144, 146, 148, 151, 152, 155, 159, 160.
 
 4. Inform the Okapi project about your new attribute, so that it will be added to
    okapi/services/attrs/attribute-definitions.
