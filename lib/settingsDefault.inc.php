@@ -139,14 +139,7 @@ $config = array(
      * Common datetime and date format
      */
     'datetimeformat' => '%Y-%m-%d %H:%M:%S',
-    'dateformat' => '%Y-%m-%d',
-
-    /** size limit in bytes for buffering downloads in a file, or 0 to disable buffering **/
-    'downloadMemorylimit' => 0,
-    /** path for temporary download files, WITHOUT trailing slash **/
-    'downloadPath' => '',
-    /** relative or absolute URL to access the download path, WITHOUT trailing slash **/
-    'downloadUrl' => '',
+    'dateformat' => '%Y-%m-%d'
 );
 
 // *** Repository automatic updates script location
