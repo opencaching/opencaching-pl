@@ -293,7 +293,7 @@ if ($error == false) {
                             $user_record['log_notes_count'] --;
                         }
 
-                        // falls eines der felder NULL
+                        // for the case that one of the fields is NULL
                         $user_record['founds_count'] = $user_record['founds_count'] + 0;
                         $user_record['notfounds_count'] = $user_record['notfounds_count'] + 0;
                         $user_record['log_notes_count'] = $user_record['log_notes_count'] + 0;
@@ -341,7 +341,7 @@ if ($error == false) {
                             $cache_record['notes'] --;
                         }
 
-                        // falls eines der felder NULL
+                        // for the case that one of the fields is NULL
                         $cache_record['founds'] = $cache_record['founds'] + 0;
                         $cache_record['notfounds'] = $cache_record['notfounds'] + 0;
                         $cache_record['notes'] = $cache_record['notes'] + 0;

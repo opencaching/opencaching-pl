@@ -40,11 +40,11 @@ if ($error == false) {
         }
 
         if ($allok == true) {
-            //ok, wir haben eine gĂźltige uuid und sind der owner ...
+            // ok, we have a valid uuid and are the owner ...
             $fna = mb_split('\\.', $url);
             $extension = mb_strtolower($fna[count($fna) - 1]);
 
-            // datei und in DB lĂśschen
+            // remove file and DB entry
             @unlink($picdir . '/' . $uuid . '.' . $extension);
             XDb::xSql("DELETE FROM `mp3` WHERE `uuid`= ? LIMIT 1", $uuid);
             XDb::xSql(

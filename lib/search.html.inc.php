@@ -452,7 +452,7 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
     $tmpline = str_replace('{notfind}', $typy[1], $tmpline);
     $tmpline = str_replace('{comment}', $typy[2], $tmpline);
 
-    // das letzte found suchen
+    // search the last found
     if ($CalcEntry) {
 
         $rs = $dbc->multiVariableQuery(
@@ -488,7 +488,7 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
     $lastlogs = "";
 
     if ($CalcDistance) {
-        // und jetzt noch die Richtung ...
+        // and now the direction ...
         if ($caches_record['distance'] > 0 && ($usr || ! $hide_coords)) {
             $tmpline = str_replace('{direction}',
                 Gis::bearing2Text(
@@ -531,6 +531,7 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
     $tmpline = str_replace('{username}', htmlspecialchars($caches_record['username'], ENT_COMPAT, 'UTF-8'), $tmpline);
     $tmpline = str_replace('{usernameBIG}', strtoupper(trChar(htmlspecialchars($caches_record['username'], ENT_COMPAT, 'UTF-8'))), $tmpline);
     $tmpline = str_replace('{CacheID}', $caches_record['cache_id'], $tmpline);
+    $tmpline = str_replace('{style}', $caches_record['status'] >= 4 ? $unpublished_cache_style : '', $tmpline);
 
     if ($CalcDistance) {
         if ($usr || ! $hide_coords) {
@@ -621,25 +622,25 @@ if ($topage > 1) {
 $lhideColumns = 'search.php?queryid=' . $options['queryid'] . '&amp;startat=0';
 tpl_set_var('lhideColumns', $lhideColumns);
 
-// speichern-link
+// save-link
 if ($usr === false)
     tpl_set_var('safelink', '');
 else
     tpl_set_var('safelink', str_replace('{queryid}', $options['queryid'], $safelink));
 
-    // downloads
+// downloads
 if ($usr || ! $hide_coords)
     tpl_set_var('queryid', $options['queryid']);
-tpl_set_var('startat', $startat);
+    tpl_set_var('startat', $startat);
 
-tpl_set_var('startatp1', $startat + 1);
+    tpl_set_var('startatp1', $startat + 1);
 
     //if (($resultcount - $startat) < 500)
         tpl_set_var('endat', $startat + $resultcount - $startat);
     //else
         //tpl_set_var('endat', $startat + 500);
 
-    // kompatibilitĂ¤t!
+    // compatibility!
     if ($distance_unit == 'sm')
         tpl_set_var('distanceunit', 'mi');
     else if ($distance_unit == 'nm')

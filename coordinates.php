@@ -56,7 +56,7 @@ tpl_set_var('owner', '');
 tpl_set_var('cachename', '');
 tpl_set_var('wp', '');
 
-// wp gesetzt?
+// wp set?
 
 $wp = isset($_REQUEST['wp']) ? $_REQUEST['wp'] : '';
 if ($wp != '') {

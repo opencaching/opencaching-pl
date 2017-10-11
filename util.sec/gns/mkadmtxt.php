@@ -32,7 +32,7 @@ while ($rLocations = sql_fetch_array($rsLocations)) {
     $minlon = getMinLon($rLocations['lon'], $rLocations['lat'], 10, 1);
     $maxlon = getMaxLon($rLocations['lon'], $rLocations['lat'], 10, 1);
 
-    // den nächsgelegenen Ort in den geodb ermitteln
+    // determine the nearest location in geodb
     $sql = 'SELECT ' . getSqlDistanceFormula($rLocations['lon'], $rLocations['lat'], 10, 1, 'lon', 'lat', 'geodb_coordinates') . ' `distance`,
                             `geodb_coordinates`.`loc_id` `loc_id`
                       FROM `geodb_coordinates`
@@ -55,7 +55,7 @@ while ($rLocations = sql_fetch_array($rsLocations)) {
         if ($admtxt1 == '0')
             $admtxt1 = '';
 
-        // bundesland ermitteln
+        // determine state
         $rsAdm2 = sql("SELECT `full_name`, `short_form` FROM `gns_locations` WHERE `rc`='&1' AND `fc`='A' AND `dsg`='ADM1' AND `cc1`='&2' AND `adm1`='&3' AND `nt`='N' LIMIT 1", $rLocations['rc'], $rLocations['cc1'], $rLocations['adm1']);
         if (mysql_num_rows($rsAdm2) == 1) {
             $rAdm2 = sql_fetch_array($rsAdm2);
@@ -77,7 +77,7 @@ while ($rLocations = sql_fetch_array($rsLocations)) {
         sql("UPDATE `gns_locations` SET `admtxt1`='&1', `admtxt2`='&2', `admtxt3`='&3', `admtxt4`='&4' WHERE uni='&5'", $admtxt1, $admtxt2, $admtxt3, $admtxt4, $rLocations['uni']);
     }
     else {
-        // was tun?
+        // what to do?
     }
 }
 mysql_free_result($rsLocations);

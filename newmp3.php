@@ -113,11 +113,11 @@ if ($error == false) {
             }
 
             if ($allok == true) {
-                //ok, wir haben eine gĂźltige objectid und sind der owner ... also form anzeigen oder in DB eintragen ...
+                // ok, we have a valid objectid and are the owner ... so show the form or write to DB ...
                 if (isset($_REQUEST['submit'])) {
-                    // kucken, ob die Datei erfolgreich hochgeladen wurde
+                    // was the file uploaded successfully ?
                     if ($_FILES['file']['error'] != 0) {
-                        // huch ... keine Ahnung was ich da noch machen soll ?!
+                        // oops ... no idea how to handle this.
                         $tplname = 'message';
                         tpl_set_var('messagetitle', $message_title_internal);
                         tpl_set_var('message_start', '');
@@ -126,7 +126,7 @@ if ($error == false) {
                         tpl_BuildTemplate();
                         exit;
                     } else {
-                        // Dateiendung korrekt?
+                        // correct file extension?
                         $fna = mb_split('\\.', $_FILES['file']['name']);
                         $extension = mb_strtolower($fna[count($fna) - 1]);
 
@@ -140,7 +140,7 @@ if ($error == false) {
                             exit;
                         }
 
-                        // Datei zu groĂź?
+                        // file too big?
                         if ($_FILES['file']['size'] > $maxmp3size) {
                             $tplname = 'message';
                             tpl_set_var('messagetitle', $message_title_toobig);
@@ -153,7 +153,7 @@ if ($error == false) {
 
                         $uuid = Uuid::create();
 
-                        // datei verschieben und in DB eintragen
+                        // move the file and insert entry to DB
                         move_uploaded_file($_FILES['file']['tmp_name'], $mp3dir . '/' . $uuid . '.' . $extension);
                         XDb::xSql(
                             "INSERT INTO mp3 (`uuid`, `url`, `last_modified`, `title`, `date_created`, `last_url_check`,

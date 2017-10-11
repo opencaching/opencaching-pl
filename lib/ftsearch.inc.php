@@ -60,7 +60,7 @@ function ftsearch_split(&$str, $simple)
 {
     global $ftsearch_ignores;
 
-    // interpunktion
+    // punctuations
     $str = mb_ereg_replace('\\?', ' ', $str);
     $str = mb_ereg_replace('\\)', ' ', $str);
     $str = mb_ereg_replace('\\(', ' ', $str);
@@ -126,12 +126,12 @@ function ftsearch_text2simple($str)
 
     $str = ftsearch_text2sort($str);
 
-    // regeln anwenden
+    // apply rules
     foreach ($ftsearch_simplerules AS $rule) {
         $str = mb_ereg_replace($rule[0], $rule[1], $str);
     }
 
-    // doppelte chars ersetzen
+    // replace duplicate chars
     for ($c = ord('a'); $c <= ord('z'); $c++) {
         $old_str = '';
         while ($old_str != $str) {
@@ -149,7 +149,7 @@ function ftsearch_text2sort($str)
 {
     $str = mb_strtolower($str);
 
-    // deutsches
+    // German
     $str = mb_ereg_replace('ä', 'ae', $str);
     $str = mb_ereg_replace('ö', 'oe', $str);
     $str = mb_ereg_replace('ü', 'ue', $str);
@@ -158,7 +158,7 @@ function ftsearch_text2sort($str)
     $str = mb_ereg_replace('Ü', 'ue', $str);
     $str = mb_ereg_replace('ß', 'ss', $str);
 
-    // akzente usw.
+    // accents etc.
     $str = mb_ereg_replace('a', 'a', $str);
     $str = mb_ereg_replace('á', 'a', $str);
     $str = mb_ereg_replace('â', 'a', $str);
@@ -191,7 +191,7 @@ function ftsearch_text2sort($str)
     $str = mb_ereg_replace('a', 'ae', $str);
     $str = mb_ereg_replace('o', 'oe', $str);
 
-    // sonstiges
+    // other
     $str = mb_ereg_replace('[^A-Za-z ]', '', $str);
 
     return $str;
