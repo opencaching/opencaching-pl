@@ -259,9 +259,9 @@ $gpxAttribID[34] = '134';   $gpxAttribName[34] = 'Hidden under water';        //
 $gpxAttribID[35] = '135';   $gpxAttribName[35] = 'No GPS required';           // DE UK
 $gpxAttribID[36] = '2';     $gpxAttribName[36] = 'Access or parking fee';     // DE UK
 $gpxAttribID[37] = '137';   $gpxAttribName[37] = 'Overnight stay necessary';  // DE UK
-$gpxAttribID[38] = '13';    $gpxAttribName[38] = 'Available at all times';    // DE UK
+$gpxAttribID[38] = '13';    $gpxAttribName[38] = 'Available at all times';    // DE UK RO NL
 $gpxAttribID[39] = '13.0';  $gpxAttribName[39] = 'Only available at specified times';
-                                                                              // DE UK
+                                                                              // DE UK RO NL
 $gpxAttribID[40] = '111';   $gpxAttribName[40] = 'Quick cache';               //       RO NL PL US
 $gpxAttribID[41] = '6';     $gpxAttribName[41] = 'Recommended for kids';      // (59)     NL PL US
 $gpxAttribID[42] = '62.0';  $gpxAttribName[42] = 'All seasons';               // DE UK
@@ -282,7 +282,8 @@ $gpxAttribID[55] = '118';   $gpxAttribName[55] = 'Wherigo cache';             //
 $gpxAttribID[56] = '108';   $gpxAttribName[56] = 'Letterbox cache';           // 8        NL PL
 $gpxAttribID[57] = '157';   $gpxAttribName[57] = 'Other cache type';          // DE UK
 $gpxAttribID[58] = '158';   $gpxAttribName[58] = 'Ask owner for start conditions';
-$gpxAttribID[59] = '6';     $gpxAttribName[59] = 'Recommended for kids';      // DE UK RO NL
+                                                                              // DE UK
+$gpxAttribID[59] = '6';     $gpxAttribName[59] = 'Recommended for kids';      // DE UK RO
 $gpxAttribID[60] = '119';   $gpxAttribName[60] = 'Hidden in natural surroundings';
                                                                               //       RO NL PL US
 $gpxAttribID[61] = '120';   $gpxAttribName[61] = 'Historic site';             //       RO NL PL US
@@ -296,9 +297,9 @@ $gpxAttribID[84] = '122';   $gpxAttribName[84] = 'Access only on foot';       //
 $gpxAttribID[85] = '32';    $gpxAttribName[85] = 'Bicycles';                  //       RO NL PL
     // TODO: https://github.com/opencaching/opencaching-pl/issues/1244
 $gpxAttribID[86] = '4';     $gpxAttribName[86] = 'Boat required';             // 52 UK RO NL PL
-$gpxAttribID[90] = '23';    $gpxAttribName[90] = 'Dangerous area';            //       RO NL PL US
-$gpxAttribID[91] = '14';    $gpxAttribName[91] = 'Recommended at night';      // 9     RO NL PL
-$gpxAttribID[155] = '47';   $gpxAttribName[155] = 'Field puzzle';             //    UK RO
+$gpxAttribID[90] = '23';    $gpxAttribName[90] = 'Dangerous area';            // 9        NL PL US
+$gpxAttribID[91] = '14';    $gpxAttribName[91] = 'Recommended at night';      //       RO NL PL
+$gpxAttribID[155] = '47';   $gpxAttribName[155] = 'Field puzzle';             // 55 UK RO
 $gpxAttribID[156] = '153';  $gpxAttribName[156] = 'Aircraft required';        // 53 UK
 $gpxAttribID[157] = '125';  $gpxAttribName[157] = 'Rated on Handicaching.com';//    UK
 $gpxAttribID[158] = '126';  $gpxAttribName[158] = 'Contains a Munzee';        //    UK
