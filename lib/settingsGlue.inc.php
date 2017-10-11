@@ -8,20 +8,20 @@
  *   (at your option) any later version.
  *
  ************************************************************************** */
- 
+
  require __DIR__.'/settings.inc.php';
- 
+
 /*
- * This file acts as an intermediary between old settings used in 
+ * This file acts as an intermediary between old settings used in
  * settings.inc.php and the new $config settings (as they are defined in
  * settingsDefault.inc.php).
- * 
+ *
  * This file will allow seamless transition while refactoring all settings
  * to the new format such that node admins are not required to intervene
  * until one single redefining of settings.inc.php at the end of this
  * project.
- */ 
- 
+ */
+
 /* ** Sample code *********************************************************
 
 === in settingsDefault.inc.php ============================================
@@ -30,7 +30,7 @@ $config['server']['db']['schema'] = 'ocpl';
 // database username. REQUIRED
 $config['server']['db']['username'] = 'my_username';
 // database password. REQUIRED
-$config['server']['db']['password'] = 'my_password'; 
+$config['server']['db']['password'] = 'my_password';
 ===========================================================================
 
 --- in settings.inc.php ---------------------------------------------------
@@ -43,30 +43,41 @@ $config['server']['db']['password'] = 'my_password';
     $opt['db']['server'] = 'localhost';
     $opt['db']['name'] = 'ocXX';
         $opt['db']['username'] = 'ocXX';
-        $opt['db']['password'] = '12345'; 
----------------------------------------------------------------------------        
+        $opt['db']['password'] = '12345';
+---------------------------------------------------------------------------
 
 */
 
-/* Glue code: 
+/* Glue code:
  * Note: this is a sample, it is unused at the moment.
-if (isset($dbname)) 
+if (isset($dbname))
     $config['server']['db']['schema'] = $dbname;
-if (isset($dbusername)) 
+if (isset($dbusername))
     $config['server']['db']['username'] = $dbusername;
-if (isset($dbpasswd)) 
+if (isset($dbpasswd))
     $config['server']['db']['password'] = $dbpasswd;
-    
-if (isset($opt['db']['name'])) 
+
+if (isset($opt['db']['name']))
     $config['server']['db']['schema'] = $opt['db']['name'];
-if (isset($opt['db']['username'])) 
+if (isset($opt['db']['username']))
     $config['server']['db']['username'] = $opt['db']['username'];
-if (isset($opt['db']['password'])) 
+if (isset($opt['db']['password']))
     $config['server']['db']['password'] = $opt['db']['password'];
 */
-    
-/* *** END sample code **************************************************** */ 
- 
- 
- 
-?>
+
+/* *** END sample code **************************************************** */
+
+
+if ( isset($opt['cookie']['name']) ){
+    $config['cookie']['name'] = $opt['cookie']['name'];
+}
+if ( isset($opt['cookie']['path']) ){
+    $config['cookie']['path'] = $opt['cookie']['path'];
+}
+if ( isset($opt['cookie']['domain']) ){
+    $config['cookie']['domain'] = $opt['cookie']['domain'];
+}
+
+
+
+

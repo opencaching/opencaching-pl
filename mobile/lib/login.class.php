@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use lib\Objects\User\PasswordManager;
 
 require_once('../lib/ClassPathDictionary.php');
 
@@ -91,8 +92,7 @@ class login
         if ($user_id) {
             /* User exists. Is the password correct? */
 
-            $pm = new PasswordManager($user_id);
-            if (!$pm->verify($password)) {
+            if(PasswordManager::verifyPassword($user_id, $password)){
                 $user_id = null;
             }
         }

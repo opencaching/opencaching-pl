@@ -382,7 +382,6 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
     $tmpline = str_replace('{toprating}', $ratingA, $tmpline);
     $tmpline = str_replace('{ratpic}', $ratingimg, $tmpline);
 
-    $login = 0;
     if ($usr == false) {
         $tmpline = str_replace('{long}', tr('please_login'), $tmpline);
         $tmpline = str_replace('{lat}', tr('to_see_coords'), $tmpline);

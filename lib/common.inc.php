@@ -8,6 +8,7 @@ use Utils\I18n\I18n;
 use Utils\I18n\Languages;
 use lib\Objects\ApplicationContainer;
 use lib\Objects\User\User;
+use lib\Objects\User\UserAuthorization;
 
 session_start();
 
@@ -43,7 +44,6 @@ $GLOBALS['pagetitle'] = $pagetitle;
 require_once($rootpath . 'lib/common_tpl_funcs.php'); // template engine
 require_once($rootpath . 'lib/cookie.class.php');     // class used to deal with cookies
 require_once($rootpath . 'lib/language.inc.php');     // main translation funcs
-require_once($rootpath . 'lib/login.class.php');      // authentication funcs
 
 // yepp, we will use UTF-8
 mb_internal_encoding('UTF-8');
@@ -76,50 +76,19 @@ function processAuthentication(){
 
     $view = tpl_getView();
 
-    //user authenification from cookie
-    global $usr, $login;
+    if ($user = UserAuthorization::verify()) {   //user already logged in
 
-    $login->verify();
-    if ($login->userid != 0) {   //user already logged in
-
-        $user = User::fromUserIdFactory($login->userid);
-
-        $applicationContainer = ApplicationContainer::Instance();
-        $applicationContainer->setLoggedUser($user);
-
-        // set obsolate global $usr[] array
-        $usr['username'] = $user->getUserName();
-        $usr['hiddenCacheCount'] = $user->getHiddenGeocachesCount();
-        $usr['logNotesCount'] = $user->getLogNotesCount();
-        $usr['userFounds'] = $user->getFoundGeocachesCount();
-        $usr['notFoundsCount'] = $user->getNotFoundGeocachesCount();
-        $usr['userid'] = $user->getUserId();
-        $usr['email'] = $user->getEmail();
-        $usr['country'] = $user->getCountry();
-        $usr['latitude'] = $user->getHomeCoordinates()->getLatitude();
-        $usr['longitude'] = $user->getHomeCoordinates()->getLongitude();
-        $usr['admin'] = $user->isAdmin();
-
-
-        // check for user_id in session
-        if (!isset($_SESSION['user_id'])) {
-            $_SESSION['user_id'] = $user->getUserId();
-        }
-
-        if (!(isset($_SESSION['logout_cookie']))) {
-            $_SESSION['logout_cookie'] = mt_rand(1000, 9999) . mt_rand(1000, 9999);
-        }
-
+        //set view vars used by main template
+        //TODO: remove it from here!
         $view->setVar('_isUserLogged', true);
         $view->setVar('_username', $user->getUserName());
-        $view->setVar('_logoutCookie', $_SESSION['logout_cookie']);
-
 
     } else {
-        $usr = false;
 
+        //set view vars used by main template
+        //TODO: remove it from here!
         $view->setVar('_isUserLogged', false);
-        $view->setVar('_target',Uri::getCurrentUri());
+        $view->setVar('_target',Uri::getCurrentUri(true));
 
     }
 }

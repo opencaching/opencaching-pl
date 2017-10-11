@@ -49,17 +49,9 @@ $oc_nodeid = 4;
 $GLOBALS['oc_waypoint'] = 'OP';
 
 //name of the cookie
-$opt['cookie']['name'] = 'oc';
-$opt['cookie']['path'] = '/';
-$opt['cookie']['domain'] = '.localhost';
-
-//name of the cookie
-if (!isset($cookiename))
-    $cookiename = 'oc';
-if (!isset($cookiepath))
-    $cookiepath = '/';
-if (!isset($cookiedomain))
-    $cookiedomain = '.locahost';
+$config['cookie']['name'] = 'oc';
+$config['cookie']['path'] = '/';
+$config['cookie']['domain'] = '.localhost';
 
 // Coordinates hidden for not-logged-ins?
 global $hide_coords;

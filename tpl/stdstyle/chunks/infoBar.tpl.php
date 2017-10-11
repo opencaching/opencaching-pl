@@ -34,32 +34,34 @@ return function ($reloadUrl=null, $infoMsg=null, $errorMsg=null) {
 
     <?php if(!empty($infoMsg)) { ?>
         <div class="infoBar-message">
-          <h5>
-            <?=$infoMsg?>
-
+          <div class="infoBar-messageText">
+              <h5><?=$infoMsg?></h5>
+          </div>
+          <div class="infoBar-closeBtnContainer">
             <?php if($reloadUrl) { ?>
-                <span class="infoBar-close-but" onclick="infoBarReload()"></span>
+                <span class="infoBar-closeBtn" onclick="infoBarReload()"></span>
             <?php }else{ //if-reloadUrl ?>
-                <span class="infoBar-close-but" onclick="infoBarHide()"></span>
+                <span class="infoBar-closeBtn" onclick="infoBarHide()"></span>
             <?php } //if-reloadUrl ?>
-          </h5>
+          </div>
         </div>
     <?php } ?>
 
     <?php if(!empty($errorMsg)) { ?>
-        <div class="infoBar-message infoBar-message-err">
-          <h5>
-            <?=$errorMsg?>
-
+        <div class="infoBar-message infoBar-messageErr">
+          <div class="infoBar-messageText">
+            <h5><?=$errorMsg?></h5>
+          </div>
+          <div class="infoBar-closeBtnContainer">
             <?php if($reloadUrl) { ?>
-                <span class="infoBar-close-but" onclick="infoBarReload()"></span>
+                <span class="infoBar-closeBtn" onclick="infoBarReload()"></span>
             <?php }else{ //if-reloadUrl ?>
-                <span class="infoBar-close-but" onclick="infoBarHide()"></span>
+                <span class="infoBar-closeBtn" onclick="infoBarHide()"></span>
             <?php } //if-reloadUrl ?>
-
-          </h5>
+          </div>
         </div>
     <?php } ?>
+
 <link rel="prefetch" href="/tpl/stdstyle/images/misc/btn_close_hover.svg">
 
 <?php

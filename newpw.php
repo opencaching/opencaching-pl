@@ -2,7 +2,10 @@
 
 use Utils\Database\XDb;
 use lib\Objects\User\User;
-//prepare the templates and include all neccessary
+use lib\Objects\User\PasswordManager;
+
+
+
 global $octeamEmailsSignature, $absolute_server_URI;
 require_once('./lib/common.inc.php');
 

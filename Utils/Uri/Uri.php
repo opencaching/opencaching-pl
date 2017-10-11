@@ -86,4 +86,9 @@ class Uri {
         return $rootPath.'?'.filemtime(__dir__.'/../../'.$rootPath);
     }
 
+    public static function getCurrentDomain(){
+        //TODO
+        return $_SERVER['HTTP_HOST'];
+    }
+
 }

@@ -138,7 +138,7 @@ $translations = array(
     'illegal_char' => 'Illegal character!',
     'main_page' => 'Main page',
     'what_is_geocaching' => 'Geocaching. What is it?',
-    'registration' => 'Register',
+    'registration' => 'Sign up',
     'news' => 'News',
     'new_caches' => 'New caches',
     'new_cache' => 'Hide a cache',
@@ -207,7 +207,6 @@ $translations = array(
     'register_confirm' => 'Registration confirmation',
     'impressum' => 'About',
     'user' => 'User',
-    'user_or_email' => 'User / e-mail',
     'password' => 'Password',
     'logged_as' => 'Logged in as',
     'coords_other' => 'Other coordinate systems',
@@ -506,10 +505,6 @@ $translations = array(
     'security_code' => 'Security code',
     'change_password_msg1' => 'Change password',
     'logoutsuccess' => 'Successfully logged out',
-    'error_usernotactive' => 'Your account is not activated.',
-    'not_registered' => 'Not registered? <a href="register.php">Register</a>',
-    'forgotten_your_password' => 'Forgot your password? <a href="newpw.php">Remind me</a>',
-    'forGottenEmailAddress' => 'Forgot your e-mail address? <a href="remindemail.php"> Ask for it here</a>',
     'cache_logged_required' => 'You have to be logged-in in order to perform operations on this cache.',
     'basic_information' => 'Basic information.',
     'rating_poor' => 'Poor',
@@ -2022,9 +2017,6 @@ $translations = array(
     'cacheSize_xLarge' => 'Very large',
     'cacheSize_none' => 'No container',
     'cacheSize_other' => 'Not specified',
-    'login_tooManyTries' => 'Login failed.<br />There were 25 false login attempts during the past hour on {site_name}',
-    'login_badCredentials' => 'Login failed.<br />Username or password not recognized.',
-    'login_cantSetCookie' => 'Your browser does not accept cookies from {site_name}',
     'login_message_09' => 'To view this page, you need to log in.',
     'graph_statistics_01' => 'Statistics for {site_name} :: Datum',
     'graph_statistics_02' => 'Active caches',
@@ -2701,7 +2693,23 @@ $translations = array(
     'merit_badge_show_not_gained' => 'Show not gained',
     'merit_badge_show_gained' => 'Show gained',
     'prepublication_visits' => 'Visited before publication',
-    'no_visits' => 'No such visits'
+    'no_visits' => 'No such visits',
+
+
+    'loginForm_title' => 'Login',
+    'loginForm_userOrEmail' => 'User / e-mail',
+    'loginForm_password' => 'Password',
+    'loginForm_notRegistered' => 'Don\'t have an account?',
+    'loginForm_singUp' => 'Sign up',
+    'loginForm_lostPassword' => 'Forgot your password?',
+    'loginForm_resetPassword' => 'Reset your password',
+    'loginForm_userNotActive' => 'Your account is not activated.',
+    'loginForm_tooManyTries' => 'Login failed.<br />There were 25 false login attempts during the past hour on {site_name}',
+    'loginForm_badCredentials' => 'Login failed.<br />Username or password not recognized.',
+    'loginForm_cantSetCookie' => 'Your browser does not accept cookies from {site_name}',
+
+    'loginForm_lostEmail' => 'Forgot your e-mail address? <a href="remindemail.php"> Ask for it here</a>',
+
 );
 
 

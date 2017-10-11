@@ -188,19 +188,18 @@ if (date('m') == 12 || date('m') == 1) {
                         <?php if($view->_isUserLogged){ //if-user-logged ?>
                             <?=tr('logged_as')?>
                             <a href="/viewprofile.php"><?=$view->_username?></a> -
-                            <a href="/logout.php?token=<?=$view->_logoutCookie?>"><?=tr('logout')?></a>
+                            <a href="/login.php?action=logout"><?=tr('logout')?></a>
 
                         <?php } else { //user-not-logged ?>
-                            <form action="login.php" method="post" enctype="application/x-www-form-urlencoded" name="login" dir="ltr"
+                            <form action="login.php?action=login" method="post" name="login"
                                   style="display: inline;" class="form-group-sm">
-                                  <?=tr('user_or_email')?>:&nbsp;
+                                  <?=tr('loginForm_userOrEmail')?>:&nbsp;
                                   <input name="email" size="10" type="text" class="form-control input100" value="" />
-                                  &nbsp;<?=tr('password')?>:&nbsp;
+                                  &nbsp;<?=tr('loginForm_password')?>:&nbsp;
                                   <input name="password" size="10" type="password" class="form-control input100" value="" />
                                   &nbsp;
-                                  <input type="hidden" name="action" value="login" />
                                   <input type="hidden" name="target" value="<?=$view->_target?>" />
-                                  <input type="submit" name="LogMeIn" value="<?=tr('login')?>" class="btn btn-primary btn-sm" />
+                                  <input type="submit" value="<?=tr('login')?>" class="btn btn-primary btn-sm" />
                             </form>
                         <?php } //user-not-logged ?>
                     </div>

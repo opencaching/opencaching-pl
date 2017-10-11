@@ -1,6 +1,8 @@
 <?php
+namespace lib\Objects\User;
 
 use Utils\Database\OcDb;
+
 class PasswordManager
 {
 
@@ -54,7 +56,7 @@ class PasswordManager
         $row = $c->fetch();
 
         if ($row == null) {
-            throw new Exception("Invalid user_id");
+            throw new \Exception("Invalid user_id");
         }
 
         $this->hash = $row['password'];
@@ -71,9 +73,18 @@ class PasswordManager
 
     /**
      * Return true, if the given password matches the one stored in the
+     * database (for the given userId)
+     */
+    public static function verifyPassword($userId, $password){
+        $pm = new self($userId);
+        return $pm->verify($password);
+    }
+
+    /**
+     * Return true, if the given password matches the one stored in the
      * database.
      */
-    public function verify($password)
+    private function verify($password)
     {
         $hash = $this->computeHash($password);
         if ($hash == $this->hash) {
@@ -210,7 +221,7 @@ class PasswordManager
     private function computeHash($password, $skippedRounds = 0)
     {
         if ($skippedRounds > $this->rounds) {
-            throw new Exception();
+            throw new \Exception();
         }
         $input = $password;
         for ($i = $skippedRounds; $i < $this->rounds; $i++) {

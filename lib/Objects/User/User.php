@@ -64,6 +64,9 @@ class User extends UserCommons
 
     private $verifyAll = null;
 
+    private $permanentLogin = false;
+
+
     /* user identifier used to communication with geoKrety Api*/
     private $geokretyApiSecid;
 
@@ -81,12 +84,14 @@ class User extends UserCommons
                        email, admin, guru, verify_all, rules_confirmed,
                        notify_radius, watchmail_mode, watchmail_day, watchmail_hour";
 
+    const AUTH_COLLUMS = self::COMMON_COLLUMNS . ', is_active_flag, permanent_login_flag';
+
     /**
      * construct class using $userId (fields will be loaded from db)
      * OR, if you have already user data row fetched from db row ($userDbRow), object is created using this data
      *
-     * @param type $userId - user identifier in db
-     * @param type $userDbRow - array - user data taken from db, from table user.
+     * @param int $userId - user identifier in db
+     * @param array $userDbRow - array - user data taken from db, from table user.
      */
     public function __construct(array $params=null)
     {
@@ -122,17 +127,40 @@ class User extends UserCommons
 
     /**
      * Factory
-     * @param unknown $username
+     * @param string $username
      * @return User object or null on error
      */
-    public static function fromUsernameFactory($username){
+    public static function fromUsernameFactory($username, $fields = null){
+
+        if(!$fields){
+            $fields = self::COMMON_COLLUMNS;
+        }
 
         $u = new self();
-        if($u->loadDataFromDbByUsername($username, self::COMMON_COLLUMNS)){
+        if($u->loadDataFromDbByUsername($username, $fields)){
             return $u;
         }
         return null;
     }
+
+    /**
+     * Factory
+     * @param string $email
+     * @return User object or null on error
+     */
+    public static function fromEmailFactory($email, $fields = null){
+
+        if(!$fields){
+            $fields = self::COMMON_COLLUMNS;
+        }
+
+        $u = new self();
+        if($u->loadDataFromDbByEmail($email, $fields)){
+            return $u;
+        }
+        return null;
+    }
+
 
     /**
      * Factory
@@ -216,6 +244,19 @@ class User extends UserCommons
         return false;
     }
 
+    private function loadDataFromDbByEmail($email, $fields){
+
+        $stmt = $this->db->multiVariableQuery(
+            "SELECT $fields FROM `user` WHERE `email`=:1 LIMIT 1", $email);
+
+        if($row = $this->db->dbResultFetchOneRowOnly($stmt)){
+            $this->setUserFieldsByUsedDbRow($row);
+            return true;
+        }
+        return false;
+    }
+
+
     private function setUserFieldsByUsedDbRow(array $dbRow)
     {
         $cordsPresent = false;
@@ -290,6 +331,10 @@ class User extends UserCommons
                 case 'watchmail_hour':
                     $this->watchmailHour = (int) $value;
                     break;
+                case 'permanent_login_flag':
+                    $this->permanentLogin = Php7Handler::Boolval($value);
+                    break;
+
                 /* db fields not used in this class yet*/
                 case 'password':
                     // just skip it...
@@ -714,6 +759,10 @@ class User extends UserCommons
     public function isActive()
     {
         return $this->isActive && !empty($this->getEmail());
+    }
+
+    public function usePermanentLogin(){
+        return $this->permanentLogin;
     }
 
     public function haveHideBan(){
