@@ -142,8 +142,18 @@ class View {
         error_log($message);
     }
 
+    /**
+     * Redirect to given uri at local OC node
+     * @param string $uri - uri should starts with "/"!
+     */
     public function redirect($uri)
     {
+
+        // if the first char of $uri is not a slash add slash
+        if(substr($uri, 0, 1) !== '/'){
+            $uri = '/'.$uri;
+        }
+
         header("Location: " . "//" . $_SERVER['HTTP_HOST'] . $uri);
     }
 
