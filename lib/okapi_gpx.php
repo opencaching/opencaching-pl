@@ -10,6 +10,7 @@ use okapi\Facade;
 # Please note, that this file is NOT part of the official API. It may
 # stop working at any time.
 
+require_once __DIR__ . '/ClassPathDictionary.php'; // class autoloader
 $rootpath = "../";
 
 try {

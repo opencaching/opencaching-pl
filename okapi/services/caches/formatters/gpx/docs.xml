@@ -181,18 +181,23 @@
         <p>Note: You need to use Level 3 Authentication in order to set it to anything else than "none".</p>
     </opt>
     <opt name='latest_logs' default='false'>
-        <p>Boolean. If <b>true</b> then the response will include a couple of
-        latest log entries for this cache (see also the <b>lpc</b> argument).</p>
+        <p>This argument controls if log entries are included. There are three options:</p>
+        <ul>
+            <li><b>true</b> - include the latest log entries for each cache; the <b>lpc</b>
+            argument controls the number of included entries,</li>
+            <li><b>user</b> - with Level 3 Authentication, include (only) the latest
+            log entries of your user for each cache. With Level 1 or 2 Authentication,
+            include (only) the latest log entries of the user given in the
+            <b>user_uuid</b> argument. The <b>lpc</b> argument controls the number of
+            included entries,</li>
+            <li><b>false</b> - do not include any log entries.</li>
+        </ul>
         <p>You <b>must</b> set <b>ns_ground</b> argument to <b>true</b> if you want to use this.</p>
     </opt>
     <opt name='lpc' default='10'>
         Log-entries per cache - the number of log entries included in each returned cache.
         This should be an integer or a special "all" value. Please note, that the <b>ns_ground</b>
         and <b>latest_logs</b> arguments must be set to <b>true</b> in order for the logs to be included.
-    </opt>
-    <opt name='log_user_uuids' default='(empty string)'>
-        Pipe-separated list of user IDs. If non-empty, only log entries of these users
-        will be included in the <b>latest_logs</b> field. Invalid IDs are ignored here.
     </opt>
     <opt name='alt_wpts' default='false'>
         <p>Boolean. If <b>true</b> then we will include additional (alternate) waypoints in the response.

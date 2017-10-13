@@ -125,9 +125,11 @@ class WebService
                 throw new InvalidParam('lpc', "Must be a positive value.");
         }
 
-        $log_user_uuids = $request->get_parameter('log_user_uuids');
-        # Invalid UUIDs are intentionally ignored here. This MUST NOT be changed
-        # to stay backward compatible.
+        $user_logs_only = $request->get_parameter('user_logs_only');
+        if ($user_logs_only === null)
+            $user_logs_only = 'false';
+        elseif (!in_array($user_logs_only, array('true', 'false')))
+            throw new InvalidParam('user_logs_only', "Unknown option: '$user_logs_only'.");
 
         if (in_array('distance', $fields) || in_array('bearing', $fields) || in_array('bearing2', $fields)
             || in_array('bearing3', $fields))
@@ -697,13 +699,16 @@ class WebService
 
         if (in_array('latest_logs', $fields))
         {
-            if ($log_user_uuids) {
-                $log_user_uuids = explode('|', $log_user_uuids);
-                $log_user_uuids_ecaped = array_map('\okapi\core\Db::escape_string', $log_user_uuids);
-                $add_from_sql = ", user";
-                $add_where_sql = " and user.user_id=cache_logs.user_id and user.uuid in ('".implode("','", $log_user_uuids_ecaped)."')";
+            if ($user_logs_only == 'true') {
+                if ($user_id == null) {
+                    # This error can also be triggered via caches/formatters/gpx, which has
+                    # the "latest_logs=user" option instead of "only_user_logs=true".
+                    # Therefore we avoid to mention "only_user_logs" in the error message.
+
+                    throw new BadRequest("Either 'user_uuid' parameter OR Level 3 Authentication is required to retrieve the user's logs.");
+                }
+                $add_where_sql = " and cache_logs.user_id = '".Db::escape_string($user_id)."'";
             } else {
-                $add_from_sql = "";
                 $add_where_sql = "";
             }
 
@@ -728,8 +733,8 @@ class WebService
             }
 
             $rs = Db::query("
-                select cache_id, cache_logs.uuid
-                from cache_logs".$add_from_sql."
+                select cache_id, uuid
+                from cache_logs
                 where
                     cache_id in ('".implode("','", array_map('\okapi\core\Db::escape_string', array_keys($cacheid2wptcode)))."')
                     and ".((Settings::get('OC_BRANCH') == 'oc.pl') ? "deleted = 0" : "true").
