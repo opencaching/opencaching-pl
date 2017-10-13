@@ -86,7 +86,7 @@
         });
     };
 
-    var generateOkapiParamSets = function(cacheCodes, formResponses) {
+    var generateOkapiParamSets = function(cacheCodes, userUuid, formResponses) {
         var params = {};
         params['ns_ground'] = "true";
 
@@ -94,6 +94,10 @@
         if (formResponses['lpc'] === "all") {
             params['latest_logs'] = "true";
             params['lpc'] = "all";
+        } else if (formResponses['lpc'] === "mine") {
+            params['latest_logs'] = "true";
+            params['lpc'] = "all";
+            params['log_user_uuids'] = userUuid;
         } else if (formResponses['lpc'] === "0") {
             params['latest_logs'] = "false";
         } else {
@@ -215,7 +219,7 @@
     }
 
     var getTemplate = function(id) {
-        var VERSION = 3;  // increment when template changed, set to 0 when debugging
+        var VERSION = 4;  // increment when template changed, set to 0 when debugging
         var url = "/tpl/stdstyle/js/okapiGpxFormatterWidget.template.html?v=" + VERSION;
         var contents = $("#" + id);
         if (contents.length == 0) {
@@ -254,6 +258,7 @@
     var show = function(opts) {
         var defaultOptions = {
             cacheCodes: [],
+            userUuid: '',
         };
         var options = $.extend({}, defaultOptions, opts);
         getTemplate("okapiGpxFormatterDialogContentsTemplate").done(function(innerContents) {
@@ -262,6 +267,9 @@
                 dialogContents.find("h2 b").addClass("multi");
             }
             dialogContents.find(".okapi-number-of-cachecodes").text(options.cacheCodes.length);
+            if (options.userUuid == '') {
+                dialogContents.find(".mylogs_option").css('display', 'none');
+            }
             var lastUsedFormResponses = cacheGet("lastUsedFormResponses");
             if (lastUsedFormResponses !== null) {
                 setFormResponses(dialogContents, lastUsedFormResponses);
@@ -278,7 +286,7 @@
                 ),
                 click: function() {
                     var paramSets = generateOkapiParamSets(
-                        options.cacheCodes, getFormResponses(dialogContents)
+                        options.cacheCodes, options.userUuid, getFormResponses(dialogContents)
                     );
                     if (paramSets.length == 1) {
                         performFormPost("/lib/okapi_gpx.php", {
