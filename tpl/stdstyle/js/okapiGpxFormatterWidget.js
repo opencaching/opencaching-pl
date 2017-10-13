@@ -94,6 +94,9 @@
         if (formResponses['lpc'] === "all") {
             params['latest_logs'] = "true";
             params['lpc'] = "all";
+        } else if (formResponses['lpc'] === "mine") {
+            params['latest_logs'] = "user";
+            params['lpc'] = "all";
         } else if (formResponses['lpc'] === "0") {
             params['latest_logs'] = "false";
         } else {
@@ -215,7 +218,7 @@
     }
 
     var getTemplate = function(id) {
-        var VERSION = 3;  // increment when template changed, set to 0 when debugging
+        var VERSION = 4;  // increment when template changed, set to 0 when debugging
         var url = "/tpl/stdstyle/js/okapiGpxFormatterWidget.template.html?v=" + VERSION;
         var contents = $("#" + id);
         if (contents.length == 0) {
