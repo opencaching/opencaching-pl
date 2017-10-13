@@ -118,7 +118,10 @@ if (!isset($maxmp3size))
 if (!isset($mp3extensions))
     $mp3extensions = ';mp3;';
 
-
+// download settings
+$config['downloadMemorylimit'] = 1024 * 1024 * 8;
+$config['downloadPath'] = $dynbasepath . 'download';
+$config['downloadUrl'] = '/download';
 
 // default coordinates for cachemap, set to your country's center of gravity
 $country_coordinates = "52.5,19.2";
