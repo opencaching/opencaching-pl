@@ -51,7 +51,7 @@ function get_okapi_settings()
         'IMAGE_MAX_UPLOAD_SIZE' => $config['limits']['image']['filesize'] * 1024 * 1024,
         'IMAGE_MAX_PIXEL_COUNT' => $config['limits']['image']['height'] * $config['limits']['image']['width'],
         'OC_NODE_ID' => $oc_nodeid,
-        'OC_COOKIE_NAME' => $config['cookie']['name'],
+        'OC_COOKIE_NAME' => $config['cookie']['name'].'_auth',
         //'OCPL_ENABLE_GEOCACHE_ACCESS_LOGS' => isset($enable_cache_access_logs) ? $enable_cache_access_logs : false
         'OCPL_ENABLE_GEOCACHE_ACCESS_LOGS' => false
     );

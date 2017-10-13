@@ -19,7 +19,8 @@
         });
         btnFetchSelected.on("click", function() {
             $.okapiGpxFormatterWidget.show({
-                cacheCodes: GetSelectedCacheCodes()
+                cacheCodes: GetSelectedCacheCodes(),
+                userUuid: "{user_uuid}"
             });
         });
         btnFetchAll.on("click", function() {
@@ -27,7 +28,8 @@
                 url: "ocpl{queryid}.jsoncodes"
             }).done(function(cacheCodes) {
                 $.okapiGpxFormatterWidget.show({
-                    cacheCodes: cacheCodes
+                    cacheCodes: cacheCodes,
+                    userUuid: "{user_uuid}"
                 });
             });
         });

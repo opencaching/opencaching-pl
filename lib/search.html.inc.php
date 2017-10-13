@@ -564,6 +564,20 @@ for ($i = 0; $i < $dbcSearch->rowCount($s); $i ++) {
     $caches_output .= $tmpline;
 }
 
+if ($usr !== false) {
+    // For the OKAPI GPX option "my logs". We may simplify and optimize this
+    // by adding a boolean "my logs" shortcut to the OKAPI GPX method.
+
+    $uuid_q = 'SELECT `uuid` FROM `user` WHERE `user_id` = :userid';
+    $params = [];
+    $params['userid']['value'] = (integer) $usr['userid'];
+    $params['userid']['data_type'] = 'integer';
+    tpl_set_var('user_uuid', $dbc->paramQueryValue($uuid_q, '', $params));
+    unset($params);
+} else {
+    tpl_set_var('user_uuid', '');
+}
+
 unset($dbc);
 
 tpl_set_var('results', $caches_output);
