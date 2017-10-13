@@ -101,11 +101,11 @@ if ($error == false) {
                     $rules_conf_req = 0;
                 //insert the user
                 XDb::xSql(
-                    "INSERT INTO `user` ( `user_id`, `username`, `password`, `email`, `latitude`,
-                                          `longitude`, `last_modified`, `login_faults`, `is_active_flag`,
+                    "INSERT INTO `user` ( `username`, `password`, `email`, `latitude`,
+                                          `longitude`, `last_modified`, `is_active_flag`,
                                           `country`, `date_created`,
                                           `uuid`, `activation_code`, `node`, `rules_confirmed` )
-                    VALUES ('', ?, ?, ?, NULL, NULL, NOW(), '0', '0', ?, NOW(), ?, ?, ?, ?)",
+                    VALUES (?, ?, ?, NULL, NULL, NOW(), '0', ?, NOW(), ?, ?, ?, ?)",
                     $username, hash('sha512', md5($password)),
                     $email, $country, $uuid, $activationcode, $oc_nodeid, $rules_conf_req);
 
