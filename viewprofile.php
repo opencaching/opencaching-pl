@@ -354,7 +354,7 @@ if ($usr == false) {
             if( $found > 1001 ){
                 $milestone = 1000;
             }
-            if( $found > 101 ){
+            else if( $found > 101 ){
                 $milestone = 100;
             }
             else {
