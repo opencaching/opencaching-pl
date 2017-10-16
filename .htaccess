@@ -11,6 +11,6 @@ RewriteRule ^(O[A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z])$ viewcache.php?wp=$1 [R=30
 
 RedirectMatch 403 ^/mobile/$
 
-RewriteRule ^/wp-login.php /error_pages/404.html [R,L]
+RewriteRule ^wp-login.php /error_pages/404.html [R,L]
 
 FileETag None
