@@ -72,6 +72,15 @@ if (isset($site_name)){
     $config['siteName'] = $site_name;
 }
 
+if (isset($onlineusers)){
+    $config['mainLayout']['displayOnlineUsers'] = ($onlineusers == 1);
+}
+
+if (isset($dynstylepath)){
+    $config['path']['dynamicFilesDir'] = $dynbasepath;
+}
+
+
 if ( isset($opt['cookie']['name']) ){
     $config['cookie']['name'] = $opt['cookie']['name'];
 }

@@ -4,8 +4,7 @@ namespace Utils\View;
 use Utils\DateTime\Year;
 use lib\Objects\ApplicationContainer;
 use Utils\Debug\Debug;
-use Utils\I18n\I18n;
-use Utils\Uri\Uri;
+use Controllers\PageLayout\MainLayoutController;
 
 class View {
 
@@ -220,7 +219,9 @@ class View {
     }
 
     /**
-     * TODO
+     * Wrapper for obsolate template system.
+     * Use display() instead!
+     *
      */
     public function buildView()
     {
@@ -228,15 +229,15 @@ class View {
     }
 
     /**
-     * TODO
-     * @param unknown $layoutTemplate
+     * Build template and display page.
+     * @param string|cont $layoutTemplate - base template to use
      */
     public function display($layoutTemplate=null)
     {
 
         if(is_null($layoutTemplate)){
-            $layoutTemplate = 'common/mainLayout';
-            $this->initMainLayout();
+            $layoutTemplate = MainLayoutController::MAIN_TEMPLATE;
+            MainLayoutController::init(); // init vars for main-layout
         }
 
         $this->_callTemplate($layoutTemplate);
@@ -266,52 +267,5 @@ class View {
         require_once(self::TPL_DIR . $template . '.tpl.php');
 
     }
-
-    /**
-     * This function inits vars used by main-layout
-     */
-    public function initMainLayout()
-    {
-        global $config; //TODO: refactor
-
-        $this->setVar('_siteName', $config['siteName']);
-        $this->setVar('_keywords', $config['header']['keywords']);
-        $this->setVar('_favicon', '/images/'.$config['headerFavicon']);
-        $this->setVar('_appleLogo', $config['header']['appleLogo']);
-
-        $this->setVar('_title', "TODO-title"); //TODO!
-        $this->setVar('_backgroundSeason', $this->getSeasonCssName());
-
-        $this->addLocalCss(Uri::getLinkWithModificationTime(
-            '/tpl/stdstyle/common/mainLayout.css'));
-
-        if(Year::isPrimaAprilisToday()){
-            $logo = $config['headerLogo1stApril'];
-            $logoTitle = tr('oc_on_all_pages_top_1A');
-            $logoSubtitle = tr('oc_subtitle_on_all_pages_1A');
-        }else if(date('m') == 12 || date('m') == 1){
-            $logo = $config['headerLogoWinter'];
-            $logoTitle = tr('oc_on_all_pages_top_' . $config['ocNode']);
-            $logoSubtitle = tr('oc_subtitle_on_all_pages_' . $config['ocNode']);
-        }else{
-            $logo = $config['headerLogo'];
-            $logoTitle = tr('oc_on_all_pages_top_' . $config['ocNode']);
-            $logoSubtitle = tr('oc_subtitle_on_all_pages_' . $config['ocNode']);
-        }
-
-        $this->setVar('_mainLogo', '/images/'.$logo);
-        $this->setVar('_logoTitle', $logoTitle);
-        $this->setVar('_logoSubtitle', $logoSubtitle);
-
-        $this->setVar('_languageFlags',
-            I18n::getLanguagesFlagsData($this->getLang()));
-
-
-        $this->setVar('_qSearchByOwnerEnabled', $config['quick_search']['byowner']);
-        $this->setVar('_qSearchByFinderEnabled', $config['quick_search']['byfinder']);
-        $this->setVar('_qSearchByUserEnabled', $config['quick_search']['byuser']);
-
-    }
-
 
 }

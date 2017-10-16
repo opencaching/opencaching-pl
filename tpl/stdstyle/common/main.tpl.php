@@ -299,20 +299,30 @@ if ($tplname != 'start'){
                 <!-- FOOTER -->
                 <div id="footer">
 
-                    <?php
-                    global $usr, $onlineusers, $dynstylepath;
-                    if ($usr == true && $onlineusers == 1) { ?>
+                    <?php if ($view->_isUserLogged && $view->_displayOnlineUsers) { ?>
                         <p>
                           <span class="txt-black">{{online_users}}: </span>
-                          <span class="txt-white"><?php include ($dynstylepath . "nonlusers.txt"); ?></span>
+                          <span class="txt-white">
+
+                              <?php foreach($view->_onlineUsers as $userId=>$username){ ?>
+                                <a class="links-onlusers" href="/viewprofile.php?userid=<?=$userId?>">
+                                  <?=$username?>&nbsp;
+                                </a>
+                              <?php } //foreach ?>
+
+                          </span>
                           <span class="txt-black"> ({{online_users_info}}):</span>
                         </p>
-                        <p><?php include ($dynstylepath . "onlineusers.html"); ?></p>
+                        <p><?=count($view->_onlineUsers)?></p>
                         <div class="spacer">&nbsp;</div>
-                    <?php }
+                    <?php } // user-logged && displayOnlineUsers ?>
+
+
+                    <?php
                     $bottomMenuResult = buildBottomMenu($config['bottom_menu']);
                     echo $bottomMenuResult;
                     ?>
+
                 </div>
                 <!-- (C) The Opencaching Project 2017 -->
             </div>

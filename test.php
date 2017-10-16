@@ -1,6 +1,7 @@
 <?php
 
 use Controllers\TestController;
+use Controllers\Cron\OnlineUsersController;
 
 require_once 'lib/common.inc.php';
 
@@ -16,6 +17,9 @@ if(isset($_GET['action'])){
 switch($action){
     case 'newLayout':
         $ctrl->newLayout();
+        break;
+    case 'onlineUsers':
+        OnlineUsersController::dumpOnlineUsers();
         break;
     default:
         $ctrl->index();
