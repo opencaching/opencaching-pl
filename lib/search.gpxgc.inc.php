@@ -5,6 +5,8 @@ ob_start();
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use lib\Objects\GeoCache\GeoCacheCommons;
+use lib\Objects\GeoCache\GeoCacheLog;
+
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $queryFilter;
 
 require_once($rootpath . 'lib/format.gpx.inc.php');
@@ -230,8 +232,9 @@ if ($usr || ! $hide_coords) {
                 `caches`.`size` `size`, `caches`.`type` `type`, `caches`.`status` `status`,
                 `user`.`username` `username`, `gpxcontent`.`user_id` `owner_id`,
                 `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`,
-                `cache_desc`.`rr_comment`, `caches`.`logpw`,`caches`.`votes` `votes`,`caches`.`score` `score`,
-                `caches`.`topratings` `topratings`
+                `cache_desc`.`rr_comment`, `caches`.`logpw`, `caches`.`votes` `votes`, `caches`.`score` `score`,
+                `caches`.`topratings` `topratings`, `caches`.`search_time`, `caches`.`way_length`,
+                `caches`.`wp_gc`, `caches`.`wp_nc`, `caches`.`wp_ge`, `caches`.`wp_tc`
         FROM `gpxcontent`, `caches`, `user`, `cache_desc`
         WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id`
             AND `caches`.`cache_id`=`cache_desc`.`cache_id`
@@ -434,7 +437,7 @@ if ($usr || ! $hide_coords) {
         if (isset($gpxContainer[$r['size']]))
             $thisline = str_replace('{container}', $gpxContainer[$r['size']], $thisline);
         else
-            $thisline = str_replace('{container}', $gpxContainer[0], $thisline);
+            $thisline = str_replace('{container}', $gpxContainer[1], $thisline);
 
         if (isset($gpxAvailable[$r['status']]))
             $thisline = str_replace('{available}', $gpxAvailable[$r['status']], $thisline);
@@ -457,6 +460,42 @@ if ($usr || ! $hide_coords) {
         $thisline = str_replace('{owner}', xmlentities(convert_string($r['username'])), $thisline);
         $thisline = str_replace('{owner_id}', xmlentities($r['owner_id']), $thisline);
 
+        // OC GPX extension
+        if (isset($gpxOcType[$r['type']]))
+            $thisline = str_replace('{oc_type}', $gpxOcType[$r['type']], $thisline);
+        else
+            $thisline = str_replace('{oc_type}', $gpxOcType[1], $thisline);
+
+        if (isset($gpxOcSize[$r['size']]))
+            $thisline = str_replace('{oc_size}', $gpxOcSize[$r['size']], $thisline);
+        else
+            $thisline = str_replace('{oc_size}', $gpxOcSize[1], $thisline);
+
+        if ($r['search_time'] > 0) {
+            $trip_time = mb_ereg_replace('{time}', $r['search_time'], $gpxOcTripTime);
+        } else {
+            $trip_time = '';
+        }
+        $thisline = mb_ereg_replace('{oc_trip_time}', $trip_time, $thisline);
+
+        if ($r['way_length'] > 0) {
+            $trip_distance = mb_ereg_replace('{distance}', $r['way_length'], $gpxOcTripDistance);
+        } else {
+            $trip_distance = '';
+        }
+        $thisline = mb_ereg_replace('{oc_trip_distance}', $trip_distance, $thisline);
+
+        $thisline = mb_ereg_replace('{oc_password}', $r['logpw'] != '' ? 'true' : 'false', $thisline);
+
+        $other_codes = [];
+        foreach (['GC', 'TC', 'NC', 'GE'] as $platform) {
+            $code = strtoupper($r['wp_'.strtolower($platform)]);
+            if (substr($code, 0, 2) == $platform && strlen($code) >= 4) {
+                $other_codes[] = mb_ereg_replace('{code}', $code, $gpxOcOtherCode);
+            }
+        }
+        $thisline = mb_ereg_replace('{oc_other_codes}', implode("\n", $other_codes), $thisline);
+
         // create log list
         if ($options['gpxLogLimit']) {
             $gpxLogLimit = 'LIMIT ' . (intval($options['gpxLogLimit'])) . ' ';
@@ -464,9 +503,10 @@ if ($usr || ! $hide_coords) {
             $gpxLogLimit = '';
         }
 
-        $logentries = '';
+        $gs_logentries = '';
+        $oc_logentries = '';
         $rsLogs = XDb::xSql(
-            "SELECT `cache_logs`.`id`, `cache_logs`.`type`, `cache_logs`.`date`, `cache_logs`.`text`, `user`.`username`, `cache_logs`.`user_id` `userid`
+            "SELECT `cache_logs`.`id`, `cache_logs`.`uuid`, `cache_logs`.`type`, `cache_logs`.`date`, `cache_logs`.`text`, `user`.`username`, `cache_logs`.`user_id` `userid`
             FROM `cache_logs`, `user`
             WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=`user`.`user_id`
                 AND `cache_logs`.`cache_id`= ?
@@ -474,8 +514,8 @@ if ($usr || ! $hide_coords) {
             $r['cacheid']);
 
         while ($rLog = XDb::xFetchArray($rsLogs)) {
+            // groundspeak:log
             $thislog = $gpxLog;
-
             $thislog = str_replace('{id}', $rLog['id'], $thislog);
             $thislog = str_replace('{date}', date($gpxTimeFormat, strtotime($rLog['date'])), $thislog);
             if (isset($gpxLogType[$rLog['type']]))
@@ -490,9 +530,21 @@ if ($usr || ! $hide_coords) {
             $thislog = str_replace('{finder_id}', xmlentities($rLog['userid']), $thislog);
             $thislog = str_replace('{type}', $logtype, $thislog);
             $thislog = str_replace('{text}', xmlencode_text($rLog['text']), $thislog);
-            $logentries .= $thislog . "\n";
+            $gs_logentries .= $thislog . "\n";
+
+            // oc:log
+            $thislog = $gpxOcLog;
+            $thislog = str_replace('{id}', $rLog['id'], $thislog);
+            $thislog = str_replace('{uuid}', $rLog['uuid'], $thislog);
+            if ($rLog['type'] == GeoCacheLog::LOGTYPE_ADMINNOTE) {
+                $thislog = str_Replace('{oc_team_entry}', $gpxOcIsTeamEntry, $thislog);
+            } else {
+                $thislog = str_Replace('{oc_team_entry}', '', $thislog);
+            }
+            $oc_logentries .= $thislog . "\n";
         }
-        $thisline = str_replace('{logs}', $logentries, $thisline);
+        $thisline = str_replace('{gs_logs}', $gs_logentries, $thisline);
+        $thisline = str_replace('{oc_logs}', $oc_logentries, $thisline);
 
         // Travel Bug - GeoKrety
         $waypoint = $r['waypoint'];

@@ -89,6 +89,7 @@
     var generateOkapiParamSets = function(cacheCodes, formResponses) {
         var params = {};
         params['ns_ground'] = "true";
+        params['ns_oc'] = "true";
 
         // lpc
         if (formResponses['lpc'] === "all") {
