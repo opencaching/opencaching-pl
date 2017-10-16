@@ -351,10 +351,7 @@ if ($usr == false) {
         if( $found >= 10 ){
             $content .= '<br /><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
 
-            if( $found > 1001 ){
-                $milestone = 1000;
-            }
-            else if( $found > 101 ){
+            if( $found > 101 ){
                 $milestone = 100;
             }
             else {
