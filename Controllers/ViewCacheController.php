@@ -161,6 +161,7 @@ class ViewCacheController extends BaseController
         if(!$this->isUserLogged()){
             // there is no logged user
             $this->view->setVar('badgesPopupHtml','');
+            $this->view->setVar('badgesPopUp', false);
             return;
         }
 
