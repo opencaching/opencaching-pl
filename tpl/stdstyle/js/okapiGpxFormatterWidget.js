@@ -43,7 +43,7 @@
     };
 
     var loadTranslationStrings = function(lang) {
-        var VERSION = 3;  // increment when translations changed, set to 0 when debugging
+        var VERSION = 4;  // increment when translations changed, set to 0 when debugging
         var url = "/tpl/stdstyle/js/okapiGpxFormatterWidget." + lang + ".js?v=" + VERSION;
         return $.ajax({
             dataType: "script",
