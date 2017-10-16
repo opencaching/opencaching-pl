@@ -819,4 +819,9 @@ class User extends UserCommons
 
     }
 
+    public static function updateLastLogin($userId){
+        self::db()->multiVariableQuery(
+            "UPDATE user SET last_login=NOW() WHERE user_id = :1", $userId);
+    }
+
 }

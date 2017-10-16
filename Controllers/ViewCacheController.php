@@ -158,6 +158,13 @@ class ViewCacheController extends BaseController
 
     private function processMeritBadgePopUp(){
 
+        if(!$this->isUserLogged()){
+            // there is no logged user
+            $this->view->setVar('badgesPopupHtml','');
+            return;
+        }
+
+
         if ( !isset($_REQUEST['badgesPopupFor']) || empty($_REQUEST['badgesPopupFor'])  ) {
             $this->view->setVar('badgesPopUp', false);
             return;

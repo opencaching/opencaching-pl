@@ -111,6 +111,8 @@ class UserAuthorization extends BaseObject
                     self::initOcSession($user);
                     self::initContextVars($user);
 
+                    User::updateLastLogin($user->getUserId());
+
                     return self::LOGIN_OK;
                 }
             }else{
@@ -314,6 +316,8 @@ class UserAuthorization extends BaseObject
             if( $row['lastTouch'] > self::LOGIN_TIMEOUT/10){
                 $db->multiVariableQuery(
                     "UPDATE sys_sessions SET last_login=NOW() WHERE uuid = :1", $sessionId);
+
+                User::updateLastLogin($row['user_id']); //also update last_login in user table
             }
             return $row['user_id'];
         }
