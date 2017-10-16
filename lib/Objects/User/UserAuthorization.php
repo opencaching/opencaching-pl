@@ -223,7 +223,7 @@ class UserAuthorization extends BaseObject
         $cookieExpiry = time() + self::PERMANENT_LOGIN_TIMEOUT;
 
         $result = Cookie::setCookie(self::getAuthCookieName(), $sessionId, $cookieExpiry, '/',
-            false, true, Cookie::SAME_SITE_RESTRICTION_STRICT);
+            false, true, Cookie::SAME_SITE_RESTRICTION_LAX);
 
         if(!$result){
             Debug::errorLog(__METHOD__.": Can't set AUTH cookie");
