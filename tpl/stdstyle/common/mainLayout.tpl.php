@@ -89,7 +89,7 @@
                     <?php if($view->_isUserLogged){ //if-user-logged ?>
                       <?=$tr('logged_as')?>
                       <a href="/viewprofile.php"><?=$view->_username?></a>
-                      <a href="/logout.php?token=<?=$view->_logoutCookie?>"
+                      <a href="/login.php?action=logout"
                          class="btn btn btn-outline-primary btn-sm ml-1">
                         <?=tr('logout')?>
                       </a>
@@ -211,9 +211,9 @@
                     </form>
 <!-- / quick search -->
                 </div><!-- col -->
+              </div><!-- row-banner -->
 
-              </div>
-              <div class="row">
+              <div class="row"><!-- horiznotal-nav -->
 <!-- horizontal nav-bar -->
 
                 <ul class="nav nav-pills">
@@ -229,24 +229,52 @@
                 </ul>
 
 <!-- / horizontal nav-bar -->
-              </div>
+              </div><!-- row-horizontal-nav -->
             </div>
           </div>
 
           <div class="row">
             <div class="col-lg-2 d-none d-lg-block sidebar">
-              ### SIDEBAR ###
+
+
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
+                  <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-expanded="true">Home</a>
+                  <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-expanded="true">Profile</a>
+                  <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-expanded="true">Messages</a>
+                  <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-expanded="true">Settings</a>
+                </div>
+                <div class="tab-content" id="v-pills-tabContent">
+                  <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">...</div>
+                  <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...</div>
+                  <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
+                  <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
+                </div>
+
+
             </div>
-            <div class="col-lg-10 ">
+            <div class="col-lg-10 content">
               <?php $view-> _callTemplate(); ?>
             </div>
-          </div>
+          </div> <!-- row-mainArea -->
+
 
           <div class="row">
-            <div class="col footer">
-              ### FOOTER ###
+            <div class="col footer text-center">
+
+              <?php if($view->_isUserLogged && $view->_displayOnlineUsers){ ?>
+                <h6>
+                <?=$tr('online_users')?>:
+                <?=count($view->_onlineUsers)?>
+
+                <?=$tr('online_users_info')?>:
+                <?php foreach($view->_onlineUsers as $userId=>$username){ ?>
+                <a href="/viewprofile.php?userid=<?=$userId?>"><?=$username?></a>
+                <?php } //foreach ?>
+                </h6>
+              <?php } // user-logged && displayOnlineUsers ?>
+
             </div>
-          </div>
+          </div><!-- row-container -->
 
         </div><!--/ container -->
 

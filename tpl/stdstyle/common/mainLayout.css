@@ -2,9 +2,8 @@
 /* reference font-size for all docs */
 html { font-size: 13px; }
 
-
 .page-wrapper {
-  background-color: brown;
+  background-color: #fff;
   position: relative;
   max-width: 960px; margin: 0px auto; padding: 0px;
 }
@@ -38,7 +37,7 @@ div.seasonalBackground.spring{ background-image: url(/images/css/spring.jpg);}
 /* /# Seasonal background images */
 
 /* # Header */
-#header { font-size: 10px; background-color: white; }
+#header { font-size: 10px; }
 
 #headerOcLogo { padding: 3px 0px 3px 5px; }
 #headerOcLogo a, a:hover { text-decoration: none; }
@@ -75,18 +74,16 @@ div.seasonalBackground.spring{ background-image: url(/images/css/spring.jpg);}
 
 
 
-
-
 .sidebar {
-  background-color: red;
+  border: 2px solid red;  
 }
 
 .content {
-    background-color: green;
+  border: 2px solid blue; 
 }
 
 .footer {
-    background-color: pink;
+  border: 2px solid green;
 }
 
 .margin {

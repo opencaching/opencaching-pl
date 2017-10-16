@@ -60,8 +60,8 @@ $config['cookie']['domain'] = '.localhost';
 global $hide_coords;
 $hide_coords = false;
 
-// display online users on footer pages off=0 on=1
-$onlineusers = 1;
+// display online users in page footer
+$config['mainLayout']['displayOnlineUsers'] = true;
 
 //block register new cache before first find xx nuber caches value -1 off this feature
 $NEED_FIND_LIMIT = 10;
@@ -92,6 +92,8 @@ if (!isset($emailaddr))
 
 // location for dynamically generated files
 $dynbasepath = '/var/www/ocpl-data/';
+$config['path']['dynamicFilesDir'] = '/var/www/ocpl-data/';
+
 $dynstylepath = $dynbasepath . 'tpl/stdstyle/html/';
 
 // location of cache images

@@ -4,10 +4,9 @@ namespace lib\Objects\User;
 
 use lib\Objects\ApplicationContainer;
 use lib\Objects\BaseObject;
-use lib\Objects\User\User;
+use Utils\Database\OcDb;
 use Utils\Debug\Debug;
 use Utils\Uri\Cookie;
-use Utils\Uri\Uri;
 use lib\Objects\User\PasswordManager;
 
 
@@ -35,7 +34,8 @@ class UserAuthorization extends BaseObject
      *
      * @return User object or null if ther is no authorized user
      */
-    public static function verify(){
+    public static function verify()
+    {
 
         // try to read sessionId stored in AUTH-cookie
         if(! $cookieSession = self::getSessionFromAuthCookie()){
@@ -88,7 +88,8 @@ class UserAuthorization extends BaseObject
      * @param string $password
      * @return enum const LOGIN_* (look above)
      */
-    public static function checkCredentials($username, $password){
+    public static function checkCredentials($username, $password)
+    {
 
         // check if there is not too manby login tries
         if(self::areTooManyLoginAttempts()){
@@ -134,7 +135,8 @@ class UserAuthorization extends BaseObject
     /**
      * Logout current user
      */
-    public static function logout(){
+    public static function logout()
+    {
 
         self::clearOcSession();
         self::clearContextVars();
@@ -349,6 +351,28 @@ class UserAuthorization extends BaseObject
                 )");
 
     }
+
+    /**
+     * Returns array with users with lastlog in last quater.
+     *
+     * @return array with columns "user_id, usernames"
+     */
+    public static function getOnlineUsersFromDb()
+    {
+        $stmt = self::db()->multiVariableQuery(
+            "SELECT DISTINCT s.user_id AS user_id, u.username
+             FROM sys_sessions AS s
+                LEFT JOIN user AS u USING (user_id)
+             WHERE s.last_login > DATE_SUB( NOW(), INTERVAL 15 MINUTE) ");
+
+        $result = [];
+        while($row = self::db()->dbResultFetch($stmt)){
+            $result[ $row['user_id'] ] = $row['username'];
+        }
+
+        return $result;
+    }
+
 
     private static function saveLoginFail(){
 
