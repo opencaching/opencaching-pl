@@ -11,7 +11,6 @@ use okapi\Facade;
 # stop working at any time.
 
 require_once __DIR__ . '/ClassPathDictionary.php'; // class autoloader
-$rootpath = "../";
 
 try {
     $user_id = Facade::detect_user_id();

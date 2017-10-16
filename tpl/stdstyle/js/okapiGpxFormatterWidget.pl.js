@@ -19,6 +19,7 @@
         paramLpcHeader: "Wpisy do logów:",
         paramLpc_0: "Nie dołączaj żadnych wpisów.",
         paramLpc_10: "Dołącz tylko 10 najświeższych wpisów.",
+        paramLpc_mine: "Dołącz tylko moje logi.",
         paramLpc_all: "Dołącz wszystkie wpisy.",
 
         paramTrackablesHeader: "Czy dołączać informacje o Geokretach (w opisie skrzynki)?",
