@@ -1,0 +1,91 @@
+
+/* reference font-size for all docs */
+html { font-size: 13px; }
+
+.page-wrapper {
+  background-color: #fff;
+  position: relative;
+  max-width: 960px; margin: 0px auto; padding: 0px;
+}
+
+
+/* # Seasonal background images */
+
+body.summer { background-color: #feec98; }
+body.autumn { background-color: #e0ed9d; }
+body.winter { background-color: #ddebf5; }
+body.spring { background-color: #feec98; }
+
+div.seasonalBackground {
+  display: block; 
+  position: absolute; 
+  width: 330px; 
+  height: 100%; 
+  top: 0px;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
+div.seasonalBackground.left{ left: -330px; }
+div.seasonalBackground.right{ right: -329px; }
+
+div.seasonalBackground.summer{ background-image: url(/images/css/summer.jpg);}
+div.seasonalBackground.autumn{ background-image: url(/images/css/autumn.jpg);}
+div.seasonalBackground.winter{ background-image: url(/images/css/winter.jpg);}
+div.seasonalBackground.spring{ background-image: url(/images/css/spring.jpg);}
+
+/* /# Seasonal background images */
+
+/* # Header */
+#header { font-size: 10px; }
+
+#headerOcLogo { padding: 3px 0px 3px 5px; }
+#headerOcLogo a, a:hover { text-decoration: none; }
+#headerOcLogo div { 
+  font-family: "trebuchet ms", arial, sans serif;
+  /*overflow: hidden;*/
+  color: #323232;
+}
+#headerOcLogo img { height: 68px; width: 68px; float: left; margin-right: 7px; }
+#headerOcLogo .title { font-size: 24px; font-weight: bold; margin-top: 10px; }
+#headerOcLogo .subtitle { font-size: 12px; margin-top: -10px; }
+
+
+#headerFlags {  }
+#headerFlags img { width: 23px; height: 15px; }
+
+
+#headerLoginBox {}
+
+#headerBanner { 
+  background: url(/images/head/rotator.php) no-repeat; 
+  background-size: cover;
+}
+
+#qSearchForm {
+  
+  background-color:rgba(0, 0, 0, 0.5);
+}
+
+/* /# Header */
+
+
+
+
+
+
+.sidebar {
+  border: 2px solid red;  
+}
+
+.content {
+  border: 2px solid blue; 
+}
+
+.footer {
+  border: 2px solid green;
+}
+
+.margin {
+  background-color: orange;
+}

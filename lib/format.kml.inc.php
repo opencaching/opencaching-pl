@@ -3,9 +3,6 @@
 global $rootpath;
 require_once($rootpath . 'lib/common.inc.php');
 
-// sitename and slogan international handling
-$nodeDetect = substr($absolute_server_URI, - 3, 2);
-
 $kmlHead = '<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://earth.google.com/kml/2.0">
     <Document>

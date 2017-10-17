@@ -24,26 +24,9 @@ if ($tplname != 'start'){
     $tpl_subtitle .= htmlspecialchars($mnu_selmenuitem['title'] . ' - ', ENT_COMPAT, 'UTF-8');
 }
 
-//detect OC node to handle logo translation
-$nodeDetect = substr($absolute_server_URI, -3, 2);
-$logo1 = tr('oc_on_all_pages_top_' . $nodeDetect);
-$logo2 = tr('oc_subtitle_on_all_pages_' . $nodeDetect);
-$logo3 = $config['headerLogo'];
-
-if (Year::isPrimaAprilisToday()) {
-    $logo1 = tr('oc_on_all_pages_top_1A');
-    $logo2 = tr('oc_subtitle_on_all_pages_1A');
-    $logo3 = $config['headerLogo1stApril'];
-}
-
-if (date('m') == 12 || date('m') == 1) {
-    $logo3 = $config['headerLogoWinter'];
-}
-
-
 ?>
 <!DOCTYPE html>
-<html lang="<?=$GLOBALS['lang']?>" xml:lang="<?=$GLOBALS['lang']?>">
+<html lang="<?=$view->getLang()?>" xml:lang="<?=$view->getLang()?>">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
@@ -121,17 +104,19 @@ if (date('m') == 12 || date('m') == 1) {
 
                 <!-- HEADER -->
                 <!-- OC-Logo -->
-                <div><img src="/images/<?=$logo3?>" alt="OC logo" style="margin-top:5px; margin-left:3px;"></div>
+                <div><img src="<?=$view->_mainLogo?>" alt="OC logo" style="margin-top:5px; margin-left:3px;"></div>
+
                 <!-- Sitename -->
                 <div class="site-name">
-                    <p class="title"><a href="index.php"><?=$logo1?></a></p>
-                    <p class="subtitle"><a href="index.php"><?=$logo2?></a></p>
+                    <p class="title"><a href="index.php"><?=$view->_logoTitle?></a></p>
+                    <p class="subtitle"><a href="index.php"><?=$view->_logoSubtitle?></a></p>
                 </div>
+
                 <!-- Flag navigations -->
                 <div class="navflag-container">
                     <div class="navflag">
                         <ul>
-                            <?php foreach($view->languageFlags as $langFlag){ ?>
+                            <?php foreach($view->_languageFlags as $langFlag){ ?>
                                 <li>
                                     <a rel="nofollow" href="<?=$langFlag['link']?>">
                                         <img class="img-navflag" src="<?=$langFlag['img']?>" alt="<?=$langFlag['name']?> version"
@@ -207,7 +192,9 @@ if (date('m') == 12 || date('m') == 1) {
 
                 <!-- Header banner     -->
                 <div class="header">
-                    <div style="width:970px; padding-top:1px;"><img src="/images/head/rotator.php" alt="Banner" style="border:0px;"></div>
+                    <div style="width:970px; padding-top:1px;">
+                      <img src="/images/head/rotator.php" alt="Banner" style="border:0px;">
+                    </div>
                 </div>
 
                 <!-- Navigation - horizontal menu bar -->
@@ -312,20 +299,30 @@ if (date('m') == 12 || date('m') == 1) {
                 <!-- FOOTER -->
                 <div id="footer">
 
-                    <?php
-                    global $usr, $onlineusers, $dynstylepath;
-                    if ($usr == true && $onlineusers == 1) { ?>
+                    <?php if ($view->_isUserLogged && $view->_displayOnlineUsers) { ?>
                         <p>
                           <span class="txt-black">{{online_users}}: </span>
-                          <span class="txt-white"><?php include ($dynstylepath . "nonlusers.txt"); ?></span>
+                          <span class="txt-white">
+
+                              <?php foreach($view->_onlineUsers as $userId=>$username){ ?>
+                                <a class="links-onlusers" href="/viewprofile.php?userid=<?=$userId?>">
+                                  <?=$username?>&nbsp;
+                                </a>
+                              <?php } //foreach ?>
+
+                          </span>
                           <span class="txt-black"> ({{online_users_info}}):</span>
                         </p>
-                        <p><?php include ($dynstylepath . "onlineusers.html"); ?></p>
+                        <p><?=count($view->_onlineUsers)?></p>
                         <div class="spacer">&nbsp;</div>
-                    <?php }
+                    <?php } // user-logged && displayOnlineUsers ?>
+
+
+                    <?php
                     $bottomMenuResult = buildBottomMenu($config['bottom_menu']);
                     echo $bottomMenuResult;
                     ?>
+
                 </div>
                 <!-- (C) The Opencaching Project 2017 -->
             </div>

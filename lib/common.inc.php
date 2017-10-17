@@ -41,9 +41,9 @@ $GLOBALS['contact_mail'] = $contact_mail;
 $GLOBALS['wikiLinks'] = $wikiLinks;
 $GLOBALS['pagetitle'] = $pagetitle;
 
+require_once($rootpath . 'lib/language.inc.php');     // main translation funcs
 require_once($rootpath . 'lib/common_tpl_funcs.php'); // template engine
 require_once($rootpath . 'lib/cookie.class.php');     // class used to deal with cookies
-require_once($rootpath . 'lib/language.inc.php');     // main translation funcs
 
 // yepp, we will use UTF-8
 mb_internal_encoding('UTF-8');
@@ -64,33 +64,11 @@ if (php_sapi_name() != "cli") { // this is not neccesarry for command-line scrip
         die($page_content);
     }
 
+    UserAuthorization::verify();
+
     initTemplateSystem();
-
-    processAuthentication();
-
     loadTranslation();
 
-}
-
-function processAuthentication(){
-
-    $view = tpl_getView();
-
-    if ($user = UserAuthorization::verify()) {   //user already logged in
-
-        //set view vars used by main template
-        //TODO: remove it from here!
-        $view->setVar('_isUserLogged', true);
-        $view->setVar('_username', $user->getUserName());
-
-    } else {
-
-        //set view vars used by main template
-        //TODO: remove it from here!
-        $view->setVar('_isUserLogged', false);
-        $view->setVar('_target',Uri::getCurrentUri(true));
-
-    }
 }
 
 function initTemplateSystem(){
@@ -173,10 +151,7 @@ function loadTranslation(){
 }
 
 
-
-
 //TODO: Remove all functions below from here!
-
 
 // decimal longitude to string E/W hhh°mm.mmm
 function help_lonToDegreeStr($lon, $type = 1)

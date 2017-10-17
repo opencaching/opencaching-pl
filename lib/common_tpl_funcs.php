@@ -3,6 +3,7 @@
 use Utils\View\View;
 use Utils\Uri\Uri;
 use Utils\I18n\I18n;
+use Controllers\PageLayout\MainLayoutController;
 
 //set the global template-name variable
 function tpl_set_tplname($local_tpl_name){
@@ -154,8 +155,7 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
     /** @var View $view */
     global $view;
 
-
-    $view->setVar('languageFlags', I18n::getLanguagesFlagsData($lang));
+    MainLayoutController::initLegacy(); // init vars for main-layout
 
     //load main template
     if ($minitpl){
