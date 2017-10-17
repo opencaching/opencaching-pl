@@ -155,7 +155,7 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
     /** @var View $view */
     global $view;
 
-    MainLayoutController::init(); // init vars for main-layout
+    MainLayoutController::initLegacy(); // init vars for main-layout
 
     //load main template
     if ($minitpl){
