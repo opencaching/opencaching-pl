@@ -13,9 +13,18 @@ class MainLayoutController extends BaseController
 
     const MAIN_TEMPLATE = 'common/mainLayout';
 
+    private $lagacyLayout = false;
+
     public static function init()
     {
         $main = new self();
+        $main->initMainLayout();
+    }
+
+    public static function initLegacy()
+    {
+        $main = new self();
+        $main->lagacyLayout = true;
         $main->initMainLayout();
     }
 
@@ -25,6 +34,7 @@ class MainLayoutController extends BaseController
 
     public function index()
     {}
+
 
     private function initMainLayout()
     {
@@ -48,8 +58,10 @@ class MainLayoutController extends BaseController
         $this->view->setVar('_title', "TODO-title"); //TODO!
         $this->view->setVar('_backgroundSeason', $this->view->getSeasonCssName());
 
-        $this->view->addLocalCss(Uri::getLinkWithModificationTime(
-            '/tpl/stdstyle/common/mainLayout.css'));
+        if(!$this->lagacyLayout){
+            $this->view->addLocalCss(Uri::getLinkWithModificationTime(
+                '/tpl/stdstyle/common/mainLayout.css'));
+        }
 
         if(Year::isPrimaAprilisToday()){
             $logo = $config['headerLogo1stApril'];
