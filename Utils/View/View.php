@@ -219,7 +219,7 @@ class View {
     }
 
     /**
-     * Wrapper for obsolate template system.
+     * Wrapper for obsolete template system.
      * Use display() instead!
      *
      */
