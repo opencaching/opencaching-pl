@@ -13,7 +13,7 @@ class MainLayoutController extends BaseController
 
     const MAIN_TEMPLATE = 'common/mainLayout';
 
-    private $lagacyLayout = false;
+    private $legacyLayout = false;
 
     public static function init()
     {
@@ -24,7 +24,7 @@ class MainLayoutController extends BaseController
     public static function initLegacy()
     {
         $main = new self();
-        $main->lagacyLayout = true;
+        $main->legacyLayout = true;
         $main->initMainLayout();
     }
 
@@ -58,7 +58,7 @@ class MainLayoutController extends BaseController
         $this->view->setVar('_title', "TODO-title"); //TODO!
         $this->view->setVar('_backgroundSeason', $this->view->getSeasonCssName());
 
-        if(!$this->lagacyLayout){
+        if(!$this->legacyLayout){
             $this->view->addLocalCss(Uri::getLinkWithModificationTime(
                 '/tpl/stdstyle/common/mainLayout.css'));
         }
