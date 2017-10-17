@@ -22,6 +22,11 @@ class OnlineUsersController extends BaseController
 
     public static function dumpOnlineUsers()
     {
+        if(!$config['mainLayout']['displayOnlineUsers']){
+            // skip this action if online users list is disabled in config
+            return;
+        }
+
         $obj = new \stdClass();
         $obj->onlineUsers = UserAuthorization::getOnlineUsersFromDb();
         $obj->dumpTs = time();
