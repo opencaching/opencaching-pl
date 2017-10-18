@@ -319,12 +319,12 @@ if ($tplname != 'start'){
 
                               <?php foreach($view->_onlineUsers as $userId=>$username){ ?>
                                 <a class="links-onlusers" href="/viewprofile.php?userid=<?=$userId?>">
-                                  <?=$username?>&nbsp;
-                                </a>
+                                  <?=$username?>
+                                </a>&nbsp;
                               <?php } //foreach ?>
 
                           </span>
-                          <span class="txt-black"> ({{online_users_info}}):</span>
+                          <span class="txt-black"> ({{online_users_info}})</span>
                         </p>
                         <div class="spacer">&nbsp;</div>
                     <?php } // user-logged && displayOnlineUsers ?>
