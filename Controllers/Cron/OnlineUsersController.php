@@ -40,6 +40,10 @@ class OnlineUsersController extends BaseController
      */
     public static function getOnlineUsers()
     {
+        if(!is_file(self::getOnlineUsersDumpFile())){
+            return null;
+        }
+
         $str = file_get_contents ( self::getOnlineUsersDumpFile() );
         if(empty($str)){
             //read error?!
@@ -48,20 +52,20 @@ class OnlineUsersController extends BaseController
             return null;
         }
 
-        $obj = json_decode($str);
+        $obj = json_decode($str, true);
         if(empty($obj)){
             // Debug::errorLog(__METHOD__.": ERROR: Can't decode list of online users.");
             return null;
         }
 
-        $dumpTs = $obj->dumpTs;
+        $dumpTs = $obj['dumpTs'];
         if(time() > $dumpTs + 60*60){
             // this dump is obsolete (older than 1 hour)
             // Debug::errorLog(__METHOD__.": ERROR: Obsolete list of online users.");
             return null;
         }
 
-        return $obj->onlineUsers;
+        return $obj['onlineUsers'];
     }
 
 }

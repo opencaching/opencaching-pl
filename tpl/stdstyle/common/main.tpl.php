@@ -326,7 +326,6 @@ if ($tplname != 'start'){
                           </span>
                           <span class="txt-black"> ({{online_users_info}}):</span>
                         </p>
-                        <p><?=count($view->_onlineUsers)?></p>
                         <div class="spacer">&nbsp;</div>
                     <?php } // user-logged && displayOnlineUsers ?>
 
