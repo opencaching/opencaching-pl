@@ -383,23 +383,6 @@ $contactDataDE = array(
 $contactData = $contactDataPL;
 // Contact data definition END
 
-/*
- * Bottom menu
- * See settingsDefault.inc.php for default values
- */
-// You can enable menu item by setting ['link'] and ['visible'] - for example:
-$config['bottom_menu']['impressum']['link'] = 'https://wiki.opencaching.pl/index.php/Opencaching_PL';
-$config['bottom_menu']['impressum']['visible'] = true;
-// You can also use your configured Wiki links:
-$config['bottom_menu']['history']['link'] = $wikiLinks['history'];
-$config['bottom_menu']['history']['visible'] = true;
-// You can disable single menu item:
-$config['bottom_menu']['main_page']['visible'] = false;
-// Or you can even add menu item. But remember - second index is a position from language file (/lib/languages/??.php)
-// and should be added to translation files first (in below case - 'guides').
-$config['bottom_menu']['guides']['link'] = '/cacheguides.php';
-$config['bottom_menu']['guides']['visible'] = true;
-
 // Configuration of license link at footer
 // You can select license and generate HTML at https://creativecommons.org/choose/
 $config['license_html'] = '<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>';

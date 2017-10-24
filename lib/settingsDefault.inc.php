@@ -267,20 +267,6 @@ $config['okapi']['admin_emails'] = false;
 // https://github.com/opencaching/opencaching-pl/issues/696
 $config['cache_log']['edit_time'] = 5;
 
-// Configuration of the bottom menu
-$config['bottom_menu']['impressum']['link'] = '';
-$config['bottom_menu']['impressum']['visible'] = false;
-$config['bottom_menu']['history']['link'] = '';
-$config['bottom_menu']['history']['visible'] = false;
-$config['bottom_menu']['api']['link'] = '/okapi';
-$config['bottom_menu']['api']['visible'] = true;
-$config['bottom_menu']['rss']['link'] = 'articles.php?page=rss';
-$config['bottom_menu']['rss']['visible'] = true;
-$config['bottom_menu']['contact']['link'] = 'articles.php?page=contact';
-$config['bottom_menu']['contact']['visible'] = true;
-$config['bottom_menu']['main_page']['link'] = '/index.php?page=sitemap';
-$config['bottom_menu']['main_page']['visible'] = true;
-
 // Configuration of license link at footer
 $config['license_html'] = '';
 

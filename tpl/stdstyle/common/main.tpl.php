@@ -329,11 +329,13 @@ if ($tplname != 'start'){
                         <div class="spacer">&nbsp;</div>
                     <?php } // user-logged && displayOnlineUsers ?>
 
+                    <p>
+                    <?php foreach($view->footerMenu as $menuEntry){ ?>
+                      <a href="<?=$menuEntry[1]?>"><?=tr($menuEntry[0])?></a>
+                    <?php } //oreach footerMenu ?>
+                    </p>
 
-                    <?php
-                    $bottomMenuResult = buildBottomMenu($config['bottom_menu']);
-                    echo $bottomMenuResult;
-                    ?>
+                    <p><br><?=$view->licenseHtml?></p>
 
                 </div>
                 <!-- (C) The Opencaching Project 2017 -->
