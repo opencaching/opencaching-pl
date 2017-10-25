@@ -3,6 +3,9 @@
 /mobile/lib/settings.inc.php
 /tmp/watchlist-runwatch.lock
 
+#ignore local configs
+/Config/*.local.php
+
 .buildpath
 .project
 ocpl-dynamic-files
