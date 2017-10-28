@@ -354,6 +354,8 @@ $menu = array(
         'menustring' => tr('add_newmp3'),
         'siteid' => 'newmp3'
     ),
+
+/*
     // OC management
     array(
         'title' => tr('administration'),
@@ -413,6 +415,8 @@ $menu = array(
             )
         )
     ),
+*/
+
     // My profile (my home) my_neighborhood
     array( //called from main.tpl
         'title' => tr('user_menu'),

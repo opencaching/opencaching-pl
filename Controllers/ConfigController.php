@@ -31,11 +31,24 @@ class ConfigController extends BaseController
 
     const CONFIG_PREFIX = 'config';
     const MENU_FOOTER_PREFIX = 'menuFooter';
-
+    const MENU_ADMIN_PREFIX = 'menuAdmin';
 
     public static function getFooterMenu()
     {
         return self::getConfig(self::MENU_FOOTER_PREFIX);
+    }
+
+    public static function getAdminMenu()
+    {
+        $result = [];
+        foreach(self::getConfig(self::MENU_ADMIN_PREFIX) as $key => $url){
+
+            $menuEntry = new \stdClass();
+            $menuEntry->url = htmlspecialchars($url);
+            $menuEntry->text = htmlspecialchars( tr($key) );
+            $result[] = $menuEntry;
+        }
+        return $result;
     }
 
 

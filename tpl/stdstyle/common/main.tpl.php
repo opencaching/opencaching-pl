@@ -4,7 +4,6 @@ use Utils\Database\OcDb;
 use lib\Objects\GeoCache\PrintList;
 use Utils\DateTime\Year;
 use Utils\Debug\Debug;
-use lib\Objects\Admin\ReportCommons as ReportCtl;
 
 // load menu
 global $mnu_selmenuitem, $tpl_subtitle, $absolute_server_URI, $mnu_siteid /* which menu item should be highlighted */, $site_name;
@@ -268,36 +267,27 @@ if ($tplname != 'start'){
                         mnu_EchoSubMenu($menu[$myhomeidx]['submenu'], $menu_item_siteid, 1, false);
                         echo '</ul>';
                     }
+                    ?>
 
-                    if (isset($usr['admin']) && $usr['admin']) {
-                        $new_reports = ReportCtl::getReportsCountByStatus(ReportCtl::STATUS_NEW);
-                        $active_reports = ReportCtl::getReportsCountByStatus(ReportCtl::STATUS_OPEN);
+                    <?php if (isset($usr['admin']) && $usr['admin']) { ?>
+                        <!-- admin menu -->
+                        <ul>
+                          <li class="title"><?=tr('administration')?></li>
+                          <?php foreach($view->_adminMenu as $key => $url){ ?>
+                            <li class="group">
+                              <a class="" href="<?=$url?>">
+                              <?=tr($key)?>
+                              </a>
+                            </li>
+                          <?php } //foreach ?>
+                        </ul>
 
-                        $db = OcDb::instance();
-                        $new_pendings = $db->simpleQueryValue("SELECT COUNT(status) FROM caches WHERE status = 4", 0);
-                        $in_review_count = $db->simpleQueryValue(
-                            "SELECT COUNT(*) FROM caches JOIN approval_status ON approval_status.cache_id = caches.cache_id
-                            WHERE caches.status = 4", 0);
-
-                        $adminidx = mnu_MainMenuIndexFromPageId($menu, "admin/reports_list");
-                        $menu[$adminidx]['visible'] = false;
-                        $zgloszeniaidx = mnu_MainMenuIndexFromPageId($menu[$adminidx]["submenu"], "admin/reports_list");
-                        if ($active_reports > 0){
-                            $menu[$adminidx]["submenu"][$zgloszeniaidx]['menustring'] .= " (" . $new_reports . "/" . $active_reports . ")";
-                        }
-                        $zgloszeniaidx = mnu_MainMenuIndexFromPageId($menu[$adminidx]["submenu"], "viewpendings");
-                        if ($new_pendings > 0){
-                            $waitingForAssigne = $new_pendings - $in_review_count;
-                        } else {
-                            $waitingForAssigne = 0;
-                        }
-                        $menu[$adminidx]["submenu"][$zgloszeniaidx]['menustring'] .= " (" . $waitingForAssigne . "/" . $new_pendings .  ")";
-                        ?>
-
+                        <!--
                         <ul>
                           <li class="title"><?=$menu[$adminidx]["title"]?></li>
                           <?php mnu_EchoSubMenu($menu[$adminidx]['submenu'], $menu_item_siteid, 1, false); ?>
                         </ul>
+                        -->
 
                     <?php } //admin ?>
 
@@ -330,9 +320,9 @@ if ($tplname != 'start'){
                     <?php } // user-logged && displayOnlineUsers ?>
 
                     <p>
-                    <?php foreach($view->footerMenu as $menuEntry){ ?>
-                      <a href="<?=$menuEntry[1]?>"><?=tr($menuEntry[0])?></a>
-                    <?php } //oreach footerMenu ?>
+                    <?php foreach($view->_footerMenu as $key=>$url){ ?>
+                      <a href="<?=$url?>"><?=tr($key)?></a>
+                    <?php } //foreach _footerMenu ?>
                     </p>
 
                     <p><br><?=$view->licenseHtml?></p>

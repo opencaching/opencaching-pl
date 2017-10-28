@@ -928,12 +928,17 @@ function mnu_EchoSubMenu($menustructure, $pageid, $level, $bHasSubmenu)
     }
 
     for ($i = 0; $i < count($menustructure); $i++) {
-        if (!isset($menustructure[$i]['newwindow']))
+
+        if (!isset($menustructure[$i]['newwindow'])){
             $menustructure[$i]['newwindow'] = false;
-        if ($menustructure[$i]['newwindow'] == true)
+        }
+
+        if ($menustructure[$i]['newwindow'] == true){
             $target_blank = "target='_blank'";
-        else
+        } else {
             $target_blank = "";
+        }
+
         if ($menustructure[$i]['visible'] == true) {
             if (!isset($menustructure[$i]['icon']))
                 $menustructure[$i]['icon'] = false;
@@ -947,10 +952,17 @@ function mnu_EchoSubMenu($menustructure, $pageid, $level, $bHasSubmenu)
                 continue;
             }
 
-            if ($menustructure[$i]['siteid'] === $pageid || is_array($menustructure[$i]['siteid']) && in_array($pageid, $menustructure[$i]['siteid'])) {
-                echo '<li class="' . $cssclass . ' ' . $cssclass . '_active "><a ' . $target_blank . ' href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
+            if ($menustructure[$i]['siteid'] === $pageid ||
+                is_array($menustructure[$i]['siteid'])
+                && in_array($pageid, $menustructure[$i]['siteid']))
+            {
+                echo '<li class="' . $cssclass . ' ' . $cssclass . '_active ">'.
+                     '<a ' . $target_blank . ' href="' . $menustructure[$i]['filename'] . '">' .
+                htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
+
             } else {
-                echo '<li class="' . $cssclass . '"><a ' . $icon . ' ' . $target_blank . ' href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
+                echo '<li class="' . $cssclass . '">'.
+                     '<a ' . $icon . ' ' . $target_blank . ' href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
             }
 
             if (isset($menustructure[$i]['submenu'])) {

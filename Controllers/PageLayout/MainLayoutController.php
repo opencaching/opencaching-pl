@@ -8,6 +8,8 @@ use Utils\DateTime\Year;
 use Utils\I18n\I18n;
 use Utils\Uri\Uri;
 use Controllers\ConfigController;
+use lib\Objects\Admin\GeoCacheApproval;
+use lib\Objects\Admin\ReportCommons;
 
 class MainLayoutController extends BaseController
 {
@@ -98,14 +100,66 @@ class MainLayoutController extends BaseController
             $this->view->setVar('_displayOnlineUsers', false);
         }
 
+        if($this->isUserLogged() && $this->loggedUser->isAdmin()){
+            $this->view->setVar('_adminMenu', $this->getAdminMenu());
+        }else{
+            $this->view->setVar('_adminMenu',null);
+        }
 
-        $this->view->setVar('footerMenu', ConfigController::getFooterMenu());
+        $this->view->setVar('_footerMenu', ConfigController::getFooterMenu());
 
         if(isset($config['license_html'])){
             $this->view->setVar('licenseHtml', $config['license_html']);
         }else{
             $this->view->setVar('licenseHtml', '');
         }
+    }
+
+    private function getAdminMenu()
+    {
+
+        $menu = ConfigController::getAdminMenu();
+
+        if(isset($menu['reports'])){
+            $new_reports = ReportCommons::getReportsCountByStatus(ReportCommons::STATUS_NEW);
+            $active_reports = ReportCommons::getReportsCountByStatus(ReportCommons::STATUS_OPEN);
+
+
+
+            $menu['reports']" (" . $new_reports . "/" . $active_reports . ")";
+
+        }
+
+        $new_pendings = GeoCacheApproval::getWaitingForApprovalCount();
+        $in_review_count = GeoCacheApproval::getInReviewCount();
+
+
+        /*
+
+         $adminidx = mnu_MainMenuIndexFromPageId($menu, "admin/reports_list");
+
+        $menu[$adminidx]['visible'] = false;
+
+        $zgloszeniaidx = mnu_MainMenuIndexFromPageId($menu[$adminidx]["submenu"], "admin/reports_list");
+        if ($active_reports > 0){
+            $menu[$adminidx]["submenu"][$zgloszeniaidx]['menustring'] .=
+            " (" . $new_reports . "/" . $active_reports . ")";
+        }
+
+        $zgloszeniaidx = mnu_MainMenuIndexFromPageId($menu[$adminidx]["submenu"], "viewpendings");
+        if ($new_pendings > 0){
+            $waitingForAssigne = $new_pendings - $in_review_count;
+        } else {
+            $waitingForAssigne = 0;
+        }
+
+        $menu[$adminidx]["submenu"][$zgloszeniaidx]['menustring'] .=
+            " (" . $waitingForAssigne . "/" . $new_pendings .  ")";
+
+        */
+
+        return $menu;
+
     }
 
 }

@@ -11,17 +11,18 @@
  */
 
 // DON'T CHANGE $config var name!
+
 $config = [
 
- /* [ 'translation key', 'url'                              ] */
+ /* 'translation key' => 'url' */
 
-    [ 'impressum',      $GLOBALS['wikiLinks']['impressum']  ],
-    [ 'history',        $GLOBALS['wikiLinks']['history']    ],
+    'impressum' => $GLOBALS['wikiLinks']['impressum'],
+    'history'   => $GLOBALS['wikiLinks']['history'],
 
-    [ 'api',            '/okapi'                            ],
-    [ 'rss',            'articles.php?page=rss'             ],
-    [ 'contact',        'articles.php?page=contact'         ],
-    [ 'main_page',      '/index.php?page=sitemap'           ],
+    'api'       => '/okapi',
+    'rss'       => 'articles.php?page=rss',
+    'contact'   => 'articles.php?page=contact',
+    'main_page' => '/index.php?page=sitemap',
 
 ];
 

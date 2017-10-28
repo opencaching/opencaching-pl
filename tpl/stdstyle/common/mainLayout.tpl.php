@@ -250,6 +250,16 @@
                   <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
                 </div>
 
+                <!-- admin menu -->
+                <ul class="nav nav-pills flex-column">
+                  <?php foreach($view->_adminMenu as $key => $url){ ?>
+                    <li class="nav-item">
+                      <a class="nav-link" href="<?=$url?>">
+                      <?=tr($key)?>
+                      </a>
+                    </li>
+                  <?php } //foreach ?>
+                </ul>
 
             </div>
             <div class="col-lg-10 content">
@@ -274,9 +284,10 @@
               <?php } // user-logged && displayOnlineUsers ?>
 
               <div class="m-2">
-                  <?php foreach($view->footerMenu as $menuEntry){ ?>
-                    <a class="btn btn-outline-primary btn-sm" href="<?=$menuEntry[1]?>"><?=$tr($menuEntry[0])?></a>
-                  <?php } //oreach footerMenu ?>
+                  <?php foreach($view->_footerMenu as $key => $url){ ?>
+                    <a class="btn btn-outline-primary btn-sm"
+                       href="<?=$url?>"><?=$tr($key)?></a>
+                  <?php } //foreach _footerMenu ?>
               </div>
 
               <div class="m-2">

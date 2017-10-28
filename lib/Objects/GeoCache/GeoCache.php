@@ -1450,5 +1450,7 @@ class GeoCache extends GeoCacheCommons
         return sprintf("/tpl/stdstyle/images/difficulty/terr-%d.gif", $this->terrain);
     }
 
+
+
 }
 
