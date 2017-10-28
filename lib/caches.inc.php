@@ -2,24 +2,8 @@
 
 use Utils\Database\XDb;
 
-$default_cachestatus_id = 1;
-
-$log_types = array();
-$cache_types = array();
-$wp_types = array();
-$cache_status = array();
-$cache_size = array();
-
-// Sachesize-ID selected by default
-$default_logtype_id = 1;
-
-// new: get *_types from database
-if (!isset($cachetype))
-    $cachetype = '';
-
 $log_types = get_log_types_from_database();
 $cache_types = get_cache_types_from_database();
-$wp_types = get_wp_types_from_database($cachetype);
 $cache_status = get_cache_status_from_database();
 $cache_size = get_cache_size_from_database();
 
@@ -82,21 +66,6 @@ function get_cache_size_from_database()
     return $cache_size;
 }
 
-function log_type_from_id($id, $lang)
-{
-    global $log_types;
-    if (Xdb::xContainsColumn('log_types', $lang))
-        $lang_db = $lang;
-    else
-        $lang_db = "en";
-
-    foreach ($log_types AS $type) {
-        if ($type['id'] == $id) {
-            return $type[$lang];
-        }
-    }
-}
-
 function cache_type_from_id($id, $lang)
 {
     global $cache_types;
@@ -112,34 +81,6 @@ function cache_type_from_id($id, $lang)
     }
 }
 
-function cache_size_from_id($id, $lang)
-{
-    global $cache_size;
-    if (Xdb::xContainsColumn('cache_size', $lang))
-        $lang_db = $lang;
-    else
-        $lang_db = "en";
 
-    foreach ($cache_size AS $size) {
-        if ($size['id'] == $id) {
-            return $size[$lang_db];
-        }
-    }
-}
-
-function cache_status_from_id($id, $lang)
-{
-    global $cache_status;
-    if (XDb::xContainsColumn('cache_status', $lang))
-        $lang_db = $lang;
-    else
-        $lang_db = "en";
-
-    foreach ($cache_status AS $status) {
-        if ($status['id'] == $id) {
-            return $status[$lang_db];
-        }
-    }
-}
 
 

@@ -29,7 +29,6 @@ $html_desc_errbox = '<br /><br /><p style="margin-top:0px;margin-left:0px;width:
 $cache_submitted = tr('cache_submitted');
 
 $sel_message = tr('choose');
-//$wp_types[] = array('id' => '-1', 'short' => 'n/a', 'pl' => $language['pl']['select_one'], 'en' => $language['en']['select_one'], 'nl' => $language['nl']['select_one'], 'ro' => $language['ro']['select_one']);
 
 $cache_attrib_js = "new Array({id}, {selected}, '{img_undef}', '{img_large}')";
 $cache_attrib_pic = '<img id="attr{attrib_id}" src="{attrib_pic}" alt="{attrib_text}" title="{attrib_text}" onmousedown="toggleAttr({attrib_id})" /> ';
