@@ -392,15 +392,15 @@ if ($error == false) {
                             $log_type == GeoCacheLog::LOGTYPE_ATTENDED ){
 
                             $ctrlMeritBadge = new MeritBadgeController;
-                            
+
                             $changedLevelBadgesIds = $ctrlMeritBadge->updateTriggerLogCache($cache_id, $usr['userid']);
                             $titledIds= $ctrlMeritBadge->updateTriggerTitledCache($cache_id, $usr['userid']);
-                            
+
                             if ( $changedLevelBadgesIds != "" && $titledIds!= "")
                                 $changedLevelBadgesIds .= ",";
-                                
+
                             $changedLevelBadgesIds .= $titledIds;
-                            
+
                             if ( $changedLevelBadgesIds != "" )
                                 $badgetParam = "&badgesPopupFor=" . $changedLevelBadgesIds;
 
@@ -437,7 +437,7 @@ if ($error == false) {
 
                 //build logtypeoptions
                 $logtypeoptions = '';
-                foreach ($log_types AS $type) {
+                foreach (get_log_types_from_database() AS $type) {
                     // skip if permission=O ???? and not owner or COG
                     if ($type['permission'] == 'B' && $log_record['user_id'] != $cache_user_id && !($usr['admin']))
                         continue;

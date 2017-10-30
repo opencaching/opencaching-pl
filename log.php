@@ -691,7 +691,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
 
     d($geoCache->isFoundByUser($user->getUserId()));
 
-    foreach ($log_types AS $type) {
+    foreach (get_log_types_from_database() AS $type) {
         // do not allow 'finding' or 'not finding' own or archived cache
         // (events can be logged) $geoCache->getStatus() == 2 || $geoCache->getStatus() == 3
 

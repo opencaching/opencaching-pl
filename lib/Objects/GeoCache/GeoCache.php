@@ -1476,6 +1476,10 @@ class GeoCache extends GeoCacheCommons
             GeoCacheLog::LOGTYPE_FOUNDIT) > 0;
     }
 
+    /**
+     * Returns TRUE if this cache is an event and has ATTENDED log for given user
+     * @param int $userId
+     */
     public function isAttendedByUser($userId)
     {
         // there is no way to "ATTEND" non event

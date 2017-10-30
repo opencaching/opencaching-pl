@@ -2,11 +2,6 @@
 
 use Utils\Database\XDb;
 
-$log_types = get_log_types_from_database();
-$cache_types = get_cache_types_from_database();
-$cache_status = get_cache_status_from_database();
-$cache_size = get_cache_size_from_database();
-
 function get_log_types_from_database()
 {
     $log_types = array();
@@ -44,37 +39,16 @@ function get_wp_types_from_database($cachetype)
     return $wp_types;
 }
 
-function get_cache_status_from_database()
-{
-    $cache_status = array();
 
-    $resp = XDb::xSql("SELECT * FROM cache_status ORDER BY id ASC");
-    while ($row = XDb::xFetchArray($resp)) {
-        $cache_status[] = $row;
-    }
-    return $cache_status;
-}
-
-function get_cache_size_from_database()
-{
-    $cache_size = array();
-
-    $resp = XDb::xSql("SELECT * FROM cache_size ORDER BY id ASC");
-    while ($row = XDb::xFetchArray($resp)) {
-        $cache_size[] = $row;
-    }
-    return $cache_size;
-}
 
 function cache_type_from_id($id, $lang)
 {
-    global $cache_types;
     if (Xdb::xContainsColumn('cache_type', $lang))
         $lang_db = $lang;
     else
         $lang_db = "en";
 
-    foreach ($cache_types AS $cache_type) {
+    foreach (get_cache_types_from_database() AS $cache_type) {
         if ($cache_type['id'] == $id) {
             return $cache_type[$lang_db];
         }
