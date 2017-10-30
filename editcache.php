@@ -701,7 +701,7 @@ if ($error == false) {
 
                 //build typeoptions
                 $types = '';
-                foreach ($cache_types as $type) {
+                foreach (get_cache_types_from_database() as $type) {
 
                     // blockforbidden cache types
                     if (($type['id'] != $cache_type) && in_array($type['id'], $config['forbidenCacheTypes']) && !$usr['admin']) {
@@ -724,6 +724,7 @@ if ($error == false) {
 
                 //build sizeoptions
                 $sizes = '';
+                $cache_size = get_cache_size_from_database();
                 foreach ($cache_size as $size) {
 
                     // blockforbidden cache sizes
@@ -781,7 +782,7 @@ if ($error == false) {
                 }
                 tpl_set_var('disablestatusoption', $disablestatusoption);
 
-                foreach ($cache_status AS $tmpstatus) {
+                foreach (get_cache_status_from_database() AS $tmpstatus) {
                     //hide id 4 => hidden by approvers, hide id 5 if it is not the current status
                     if (( $tmpstatus['id'] != $STATUS['HIDDEN_FOR_APPROVAL'] || $status_old == $STATUS['HIDDEN_FOR_APPROVAL'] ) &&
                             ( $tmpstatus['id'] != $STATUS['NOT_YET_AVAILABLE'] || $status_old == $STATUS['NOT_YET_AVAILABLE'] ) &&
@@ -1054,6 +1055,27 @@ $view->loadJQuery();
 //make the template and send it out
 tpl_BuildTemplate();
 
+function get_cache_size_from_database()
+{
+    $cache_size = array();
+
+    $resp = XDb::xSql("SELECT * FROM cache_size ORDER BY id ASC");
+    while ($row = XDb::xFetchArray($resp)) {
+        $cache_size[] = $row;
+    }
+    return $cache_size;
+}
+
+function get_cache_status_from_database()
+{
+    $cache_status = array();
+
+    $resp = XDb::xSql("SELECT * FROM cache_status ORDER BY id ASC");
+    while ($row = XDb::xFetchArray($resp)) {
+        $cache_status[] = $row;
+    }
+    return $cache_status;
+}
 
 /**
  * if coordinates were changed, update altitude

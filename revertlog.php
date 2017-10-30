@@ -27,7 +27,8 @@ function revertLog($log_id, $language, $lang)
     // set $debug = true to display debug messages (or false to hide).
     $debug = false;
 
-    global $tplname, $usr, $lang, $stylepath, $oc_nodeid, $error_wrong_node, $removed_message_title, $removed_message_end, $rootpath, $cacheid, $log_record, $cache_types, $cache_size, $cache_status;
+    global $tplname, $usr, $lang, $stylepath, $oc_nodeid, $error_wrong_node, $removed_message_title,
+    $removed_message_end, $rootpath, $cacheid, $log_record;
 
     $logRs = OcDb::instance();
 
@@ -171,4 +172,4 @@ if ($error == false) {
         revertLog($log_id, $language, $lang);
     }
 }
-?>
+

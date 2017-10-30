@@ -2,13 +2,14 @@
 namespace lib\Objects\GeoCache;
 
 use Utils\DateTime\Year;
+use lib\Objects\BaseObject;
 
 /**
  * Common consts etc. for geocaches
  *
  */
 
-class GeoCacheCommons{
+class GeoCacheCommons extends BaseObject {
 
     const TYPE_OTHERTYPE = 1;
     const TYPE_TRADITIONAL = 2;
@@ -40,6 +41,11 @@ class GeoCacheCommons{
     const RECOMENDATION_RATIO = 10; //percentage of founds which can be recomeded by user
 
     const ICON_PATH = 'tpl/stdstyle/images/cache/'; //path to the dir with cache icons
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     public static function CacheTypeTranslationKey($type){
 

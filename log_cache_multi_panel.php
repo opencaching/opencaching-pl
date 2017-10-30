@@ -7,7 +7,6 @@ if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache
     tpl_redirect('log_cache_multi_send.php');
 } else {
     require_once($rootpath . 'lib/caches.inc.php');
-    require($stylepath . '/log_cache.inc.php');
     ?>
     <html>
         <head>
