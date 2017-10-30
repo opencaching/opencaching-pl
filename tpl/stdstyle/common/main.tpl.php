@@ -11,12 +11,18 @@ global $mnu_selmenuitem, $tpl_subtitle, $absolute_server_URI, $mnu_siteid /* whi
 
 require_once $stylepath . '/lib/menu.php';
 
+
 // decide which menu item should be selected
-$menu_item_siteid = $tplname;
 if ( isset($mnu_siteid) ) {
+    // dla wybranych stron (viewprofile i ustatsg1|2) nie utawia sie menu na template
+    // tylko na start...
     $menu_item_siteid = $mnu_siteid;
+}else{
+    // dla pozostałych templateName
+    $menu_item_siteid = $tplname;
 }
 
+// znajdz pageIdx dla bieżacego templatu
 $pageidx = mnu_MainMenuIndexFromPageId($menu, $menu_item_siteid);
 
 // add selected menu item as a apendix to site title (tpl_subtitle) (?)
@@ -201,13 +207,16 @@ if ($tplname != 'start'){
                 <div id="nav2">
                     <ul>
                         <?php
+                        // znajdz idx dla 'mylist'
                         $dowydrukuidx = mnu_MainMenuIndexFromPageId($menu, "mylist");
+
+                        // dodaj liczbę pozycji printlisty do opsiu menu 'mylist'
                         if ( !empty(PrintList::GetContent()) ) {
-
                             $menu[$dowydrukuidx]['visible'] = true;
-                            $menu[$dowydrukuidx]['menustring'] .= " (" . count(PrintList::GetContent()) . ")";
-
+                            $menu[$dowydrukuidx]['menustring'] .=
+                                " (" . count(PrintList::GetContent()) . ")";
                         }
+
 
                         if (isset($menu[$pageidx])) {
                             mnu_EchoMainMenu($menu[$pageidx]['siteid']);
@@ -228,12 +237,16 @@ if ($tplname != 'start'){
                     <?php
                     //Main menu
                     $mainmenuidx = mnu_MainMenuIndexFromPageId($menu, "start");
+
                     if (isset($menu[$mainmenuidx]['submenu'])) {
+
                         $registeridx = mnu_MainMenuIndexFromPageId($menu[$mainmenuidx]["submenu"], "register");
+
                         if ($usr) {
                             $menu[$mainmenuidx]['submenu'][$registeridx]['visible'] = false;
-                        } else
+                        } else {
                             $menu[$mainmenuidx]['submenu'][$registeridx]['visible'] = true;
+                        }
                         echo '<ul>';
                         echo '<li class="title">' . tr('main_menu') . '</li>';
                         mnu_EchoSubMenu($menu[$mainmenuidx]['submenu'], $menu_item_siteid, 1, false);
@@ -306,21 +319,23 @@ if ($tplname != 'start'){
 
                               <?php foreach($view->_onlineUsers as $userId=>$username){ ?>
                                 <a class="links-onlusers" href="/viewprofile.php?userid=<?=$userId?>">
-                                  <?=$username?>&nbsp;
-                                </a>
+                                  <?=$username?>
+                                </a>&nbsp;
                               <?php } //foreach ?>
 
                           </span>
-                          <span class="txt-black"> ({{online_users_info}}):</span>
+                          <span class="txt-black"> ({{online_users_info}})</span>
                         </p>
                         <div class="spacer">&nbsp;</div>
                     <?php } // user-logged && displayOnlineUsers ?>
 
+                    <p>
+                    <?php foreach($view->footerMenu as $menuEntry){ ?>
+                      <a href="<?=$menuEntry[1]?>"><?=tr($menuEntry[0])?></a>
+                    <?php } //oreach footerMenu ?>
+                    </p>
 
-                    <?php
-                    $bottomMenuResult = buildBottomMenu($config['bottom_menu']);
-                    echo $bottomMenuResult;
-                    ?>
+                    <p><br><?=$view->licenseHtml?></p>
 
                 </div>
                 <!-- (C) The Opencaching Project 2017 -->

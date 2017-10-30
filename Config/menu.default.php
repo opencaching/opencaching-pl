@@ -1,44 +1,15 @@
 <?php
 
-/* * **************************************************************************
- *
- * $menu contains the entire menu structure
- *
- * possible array elements are:
- *
- * title         displayed HTML title
- * menustring    displayed menu text
- * siteid        unique id of this page
- * visible       bool, if true this site is shown in the menu structure
- * quicklinks    array of relativ pages
- *               (contains assotiativ array with href and text for each page)
- * submenu       array of submenues. Only the first 3 levels are displayed, deeper levels
- *               are only for the breadcrump. Each submenu has the same structure as $menu
- * navicolor     (only top-level menus) backgroundcolor of the menu
- * filename      filename for href
- *
-  array(
-  'title' => 'Mapa skrzynek OC PL',
-  'menustring' => 'Mapa skrzynek OC PL',
-  'siteid' => 'cachemap',
-  'visible' => false,
-  'filename' => 'cachemap.php'
-  ),
-
- * ************************************************************************** */
-include_once('lib/language.inc.php');
-global $menu, $usr, $lang, $cache_menu, $stat_menu, $wikiLinks, $SiteOutsideCountryString, $config,
- $powerTrailModuleSwitchOn, $powerTrailFaqLink, $forum_url, $blogsite_url;
 
 $menu = array(
-    array(
+    array( //not-logged menu - called from main.tpl
         'title' => tr('main_page'),
         'menustring' => tr('main_page'),
         'siteid' => array('start', 'articles/impressum'),
         'visible' => true,
         'filename' => 'index.php',
         'submenu' => array(
-            array(
+            array( //called from main.tpl
                 'title' => tr('registration'),
                 'menustring' => tr('registration'),
                 'visible' => true,
@@ -175,9 +146,9 @@ $menu = array(
             ),
             array(
                 'title' => tr('rules'),
+                'menustring' => tr('rules'),
                 'visible' => isset($wikiLinks['rules']) ? true : false,
                 'filename' => @$wikiLinks['rules'],
-                'menustring' => tr('rules'),
                 'newwindow' => true,
                 'siteid' => 'articles/regulamin'
             ),
@@ -291,7 +262,7 @@ $menu = array(
         'filename' => $config['showShopButtonUrl'],
         'newwindow' => 'true'
     ),
-    array(
+    array( //called from main.tpl
         'title' => tr('clipboard'),
         'menustring' => tr('clipboard'),
         'siteid' => 'mylist',
@@ -443,7 +414,7 @@ $menu = array(
         )
     ),
     // My profile (my home) my_neighborhood
-    array(
+    array( //called from main.tpl
         'title' => tr('user_menu'),
         'menustring' => tr('user_menu'),
         'siteid' => 'myhome',
@@ -826,159 +797,3 @@ $menu = array(
         'visible' => false
     )
 );
-
-// znajduje indeks wybranej strony w menu (dopasowuje $pageId do $siteid)
-// z uwzglednieniem submenu...
-function mnu_MainMenuIndexFromPageId($menustructure, $pageid)
-{
-    /* selmenuitem contains the selected (bold) menu item */
-    global $mnu_selmenuitem;
-
-    for ($i = 0, $ret = -1; ($i < count($menustructure)) && ($ret == -1); $i++) {
-        if ($menustructure[$i]['siteid'] === $pageid ||
-            is_array($menustructure[$i]['siteid']) &&
-            in_array($pageid, $menustructure[$i]['siteid'])) {
-
-            $mnu_selmenuitem = $menustructure[$i];
-            return $i;
-
-        } else {
-            if (isset($menustructure[$i]['submenu'])) {
-                $ret = mnu_MainMenuIndexFromPageId($menustructure[$i]['submenu'], $pageid);
-                if ($ret != -1)
-                    return $i;
-            }
-        }
-    }
-    return $ret;
-}
-
-/*
- * mnu_EchoMainMenu - echos the top level menus
- *
- * selmenuid   p.e. mnu_MainMenuIndexFromPageId($menu, $siteid)
- */
-
-
-// called from main.tpl
-// drukuje głóœne pozycje menu (na horizontal bar)
-function mnu_EchoMainMenu($selmenuid)
-{
-    global $menu;
-    for ($i = 0; $i < count($menu); $i++) {
-        if ($menu[$i]['visible'] == true) {
-
-            if (!isset($menu[$i]['newwindow'])){
-                $menu[$i]['newwindow'] = false;
-            }
-
-            if ($menu[$i]['newwindow'] == true){
-                $target_blank = "target='_blank'";
-            } else {
-                $target_blank = "";
-            }
-
-            if ($menu[$i]['siteid'] == $selmenuid ||
-                is_array($menu[$i]['siteid']) &&
-                in_array($selmenuid, $menu[$i]['siteid'])) {
-
-                echo '<li><a class="selected bg-green06" href="' . $menu[$i]['filename'] . '">' . htmlspecialchars($menu[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>';
-
-            } else {
-
-                echo '<li><a ' . $target_blank . ' href="' . $menu[$i]['filename'] . '">' . htmlspecialchars($menu[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>';
-
-            }
-        }
-    }
-}
-
-/*
- * mnu_EchoSubMenu - echos the 2. and 3. menu level
- *
- * menustructure   $menu
- * pageid          siteid to search for
- * level           has to be 1
- * bHasSubmenu     has to be false
- */
-
-// many calls
-// wyswietla rekursywnie kawałek menu
-function mnu_EchoSubMenu($menustructure, $pageid, $level, $bHasSubmenu)
-{
-
-    global $usr;
-
-    if (!$bHasSubmenu) {
-        for ($i = 0, $bSubmenu = false; ($i < count($menustructure)) && ($bSubmenu == false); $i++) {
-            if (isset($menustructure[$i]['submenu'])) {
-                $bSubmenu = true;
-            }
-        }
-    }
-
-    if (!$bHasSubmenu) {
-        $cssclass = 'group';
-    } else {
-        if ($level == 1) {
-            $cssclass = 'group';
-        } else {
-            $cssclass = 'subgroup';
-        }
-    }
-
-    for ($i = 0; $i < count($menustructure); $i++) {
-        if (!isset($menustructure[$i]['newwindow']))
-            $menustructure[$i]['newwindow'] = false;
-        if ($menustructure[$i]['newwindow'] == true)
-            $target_blank = "target='_blank'";
-        else
-            $target_blank = "";
-        if ($menustructure[$i]['visible'] == true) {
-            if (!isset($menustructure[$i]['icon']))
-                $menustructure[$i]['icon'] = false;
-            if ($menustructure[$i]['icon']) {
-                $icon = 'style="background-image: url(' . $menustructure[$i]['icon'] . '-18.png);background-repeat:no-repeat;"';
-            } else
-                $icon = "";
-            if (!isset($menustructure[$i]['onlylogged']))
-                $menustructure[$i]['onlylogged'] = false;
-            if ($menustructure[$i]['onlylogged'] == true && $usr == false) {
-                continue;
-            }
-
-            if ($menustructure[$i]['siteid'] === $pageid || is_array($menustructure[$i]['siteid']) && in_array($pageid, $menustructure[$i]['siteid'])) {
-                echo '<li class="' . $cssclass . ' ' . $cssclass . '_active "><a ' . $target_blank . ' href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
-            } else {
-                echo '<li class="' . $cssclass . '"><a ' . $icon . ' ' . $target_blank . ' href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
-            }
-
-            if (isset($menustructure[$i]['submenu'])) {
-                mnu_EchoSubMenu($menustructure[$i]['submenu'], $pageid, $level + 1, true);
-            }
-        }
-    }
-}
-
-// main tpl only
-// wyswietla kawalek menu - uzyty tylko do wyswietlenia w stopce
-function buildBottomMenu($menuArray)
-{
-    global $config;
-    $result = '<p>';
-    $first = true;
-    foreach ($menuArray as $name => $item)
-        if ($item['visible']) {
-            if ($first) {
-                $first = false;
-            } else {
-                $result .= ' | ';
-            }
-            $result .= '<a href="' . $item['link'] . '">' . tr($name) . '</a>';
-        }
-    $result .= '</p>';
-    if (isset($config['license_html']) && !empty($config['license_html'])) {
-        $result .= '<p><br>' . $config['license_html'] . '</p>';
-    }
-    return $result;
-}

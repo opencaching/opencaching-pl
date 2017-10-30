@@ -90,7 +90,7 @@
                       <?=$tr('logged_as')?>
                       <a href="/viewprofile.php"><?=$view->_username?></a>
                       <a href="/login.php?action=logout"
-                         class="btn btn btn-outline-primary btn-sm ml-1">
+                         class="btn btn-outline-primary btn-sm ml-1">
                         <?=tr('logout')?>
                       </a>
 
@@ -273,6 +273,15 @@
                 </h6>
               <?php } // user-logged && displayOnlineUsers ?>
 
+              <div class="m-2">
+                  <?php foreach($view->footerMenu as $menuEntry){ ?>
+                    <a class="btn btn-outline-primary btn-sm" href="<?=$menuEntry[1]?>"><?=$tr($menuEntry[0])?></a>
+                  <?php } //oreach footerMenu ?>
+              </div>
+
+              <div class="m-2">
+                <?=$view->licenseHtml?>
+              </div>
             </div>
           </div><!-- row-container -->
 

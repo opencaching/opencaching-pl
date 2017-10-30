@@ -7,6 +7,7 @@ use Controllers\Cron\OnlineUsersController;
 use Utils\DateTime\Year;
 use Utils\I18n\I18n;
 use Utils\Uri\Uri;
+use Controllers\ConfigController;
 
 class MainLayoutController extends BaseController
 {
@@ -97,6 +98,14 @@ class MainLayoutController extends BaseController
             $this->view->setVar('_displayOnlineUsers', false);
         }
 
+
+        $this->view->setVar('footerMenu', ConfigController::getFooterMenu());
+
+        if(isset($config['license_html'])){
+            $this->view->setVar('licenseHtml', $config['license_html']);
+        }else{
+            $this->view->setVar('licenseHtml', '');
+        }
     }
 
 }
