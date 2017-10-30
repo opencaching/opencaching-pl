@@ -92,7 +92,6 @@ $log_date_month = isset($_POST['logmonth']) ? ($_POST['logmonth'] + 0) : $propos
 $log_date_year = isset($_POST['logyear']) ? ($_POST['logyear'] + 0) : $proposedDateTime->format('Y');
 $top_cache = isset($_POST['rating']) ? $_POST['rating'] + 0 : 0;
 
-// mobilne by Łza
 $wybor_NS = isset($_POST['wybor_NS']) ? $_POST['wybor_NS'] : 0;
 $wsp_NS_st = isset($_POST['wsp_NS_st']) ? $_POST['wsp_NS_st'] : null;
 $wsp_NS_min = isset($_POST['wsp_NS_min']) ? $_POST['wsp_NS_min'] : null;
@@ -101,9 +100,9 @@ $wsp_WE_st = isset($_POST['wsp_WE_st']) ? $_POST['wsp_WE_st'] : null;
 $wsp_WE_min = isset($_POST['wsp_WE_min']) ? $_POST['wsp_WE_min'] : null;
 
 
-$is_top = XDb::xMultiVariableQueryValue(
-    "SELECT COUNT(`cache_id`) FROM `cache_rating`
-    WHERE `user_id`= :1 AND `cache_id`= :2 ", 0, $user->getUserId(), $geoCache->getCacheId() );
+$userRecoCountForThisCache = XDb::xMultiVariableQueryValue(
+    "SELECT COUNT(*) FROM cache_rating
+    WHERE user_id = :1 AND cache_id = :2 ", 0, $user->getUserId(), $geoCache->getCacheId() );
 
 // check if user has exceeded his top5% limit
 $user_founds = XDb::xMultiVariableQueryValue(
@@ -112,7 +111,7 @@ $user_founds = XDb::xMultiVariableQueryValue(
 $user_tops = XDb::xMultiVariableQueryValue(
     "SELECT COUNT(`user_id`) FROM `cache_rating` WHERE `user_id`= :1 ", 0, $user->getUserId());
 
-if ($is_top == 0) { //not-yet-recommended
+if ($userRecoCountForThisCache == 0) { //not-yet-recommended
 
     if ( ($user_founds * GeoCacheCommons::RECOMENDATION_RATIO / 100) < 1) {
         // user doesn't have enough founds to recommend anything
@@ -168,10 +167,6 @@ $is_scored_query = XDb::xMultiVariableQueryValue(
     "SELECT count(*) FROM scores WHERE user_id= :1 AND cache_id= :2",
     0, $user->getUserId(), $geoCache->getCacheId());
 
-d($user->getUserId());
-d($geoCache->getOwnerId());
-d($is_scored_query);
-
 if ( $is_scored_query == 0 && $user->getUserId() != $geoCache->getOwnerId() ) {
 
     $color_table = array("#DD0000", "#F06464", "#DD7700", "#77CC00", "#00DD00");
@@ -225,8 +220,6 @@ if ( $is_scored_query == 0 && $user->getUserId() != $geoCache->getOwnerId() ) {
     $score_header = "";
     $display = "none";
 }
-
-d($score);
 
 tpl_set_var('score', $score);
 tpl_set_var('score_header', $score_header);
@@ -422,6 +415,7 @@ if (
 
 
 if (isset($_POST['submitform']) && ($all_ok == true)) {
+
     if (isset($_POST['r']) && $_POST['r'] >= -3 && $_POST['r'] <= 3 && $mark_as_rated == true) {
         //mark_as_rated to avoid possbility to set rate to 0,1,2
         //then change to Comment log type and actually give score (what could take place before!)!
@@ -442,9 +436,11 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
                 $user->getUserId(), $geoCache->getCacheId(), $_POST['r']);
         }
     } else {
-        // nie wybrano opcji oceny
+        // rating score not set!
     }
+
     $log_date = date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year));
+
     $log_uuid = Uuid::create();
 
     $logDateTime = new DateTime($log_date);
@@ -457,194 +453,200 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
         unset($_SESSION["lastLogDateTime"]);
     }
 
-    //add logentry to db
-    if ($log_type < 0) {
-        // nie wybrano typu logu
+    // save log to DB
+    if ($log_type < 0) { //validate log-type value
+        tpl_errorMsg('log_cache', "Log type does'n set!");
+        exit;
     }
+
     // if comment is empty, then do not insert data into db
-    elseif (! ($log_type == GeoCacheLog::LOGTYPE_COMMENT && empty($log_text) )) {
-
-        if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT) {
-
-            /* GeoKretyApi: call method logging selected Geokrets  (by Łza) */
-            processGeoKrety($logDateTime, $user, $geoCache);
-
-            $text_html = 2;  // see https://github.com/opencaching/opencaching-pl/issues/1218
-            $text_htmledit = 1;
-
-            // This query INSERT cache_log entry ONLY IF such entry NOT EXISTS
-            XDb::xSql(
-               "INSERT INTO `cache_logs` (
-                    `cache_id`, `user_id`, `type`, `date`, `text`,
-                    `text_html`, `text_htmledit`, `date_created`, `last_modified`,
-                    `uuid`, `node`)
-                SELECT ?, ?, ?, ?, ?, ? ,? ,NOW(), NOW(), ?, ?
-                FROM  `cache_logs`
-                WHERE NOT EXISTS (
-                    SELECT * FROM `cache_logs`
-                    WHERE `type`=1 AND `user_id` = ?
-                        AND `cache_id` = ?
-                        AND `deleted` = '0'
-                    LIMIT 1)
-                LIMIT 1",
-                    $geoCache->getCacheId(), $user->getUserId(), $log_type, $log_date, $log_text,
-                    $text_html, $text_htmledit, $log_uuid, $oc_nodeid, $user->getUserId(), $geoCache->getCacheId()
-                );
-
-        } else {
-            XDb::xSql(
-                "INSERT INTO `cache_logs` (`cache_id`, `user_id`, `type`, `date`, `text`, `text_html`,
-                             `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
-                VALUES ( ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)",
-                $geoCache->getCacheId(), $user->getUserId(), $log_type, $log_date, $log_text, 2, 1, $log_uuid, $oc_nodeid);
-        }
-
-        // insert to database.
-        if (
-            $log_type == GeoCacheLog::LOGTYPE_MOVED &&
-            ( $geoCache->getCacheType() == GeoCache::TYPE_MOVING ||
-              $geoCache->getCacheType() == GeoCache::TYPE_OWNCACHE )
-        ) {
-
-            ini_set('display_errors', 1);
-            // error_reporting(E_ALL);
-            // id of last SQL entry
-            $last_id_4_mobile_moved = XDb::xLastInsertId();
-
-            // converting from HH MM.MMM to DD.DDDDDD
-            $wspolrzedneNS = $wsp_NS_st + round($wsp_NS_min, 3) / 60;
-            if ($wybor_NS == 'S')
-                $wspolrzedneNS = -$wspolrzedneNS;
-            $wspolrzedneWE = $wsp_WE_st + round($wsp_WE_min, 3) / 60;
-            if ($wybor_WE == 'W')
-                $wspolrzedneWE = -$wspolrzedneWE;
-
-            // if it is first log "cache mooved" then move start coordinates from table caches
-            // to table cache_moved and create log type cache_moved, witch description
-            // "depart point" or something like this.
-
-            $is_any_cache_movedlog = XDb::xMultiVariableQueryValue(
-                "SELECT COUNT(*) FROM `cache_moved` WHERE `cache_id` = :1 ", 0, $geoCache->getCacheId());
-
-            if ($is_any_cache_movedlog == 0) {
-                $tmp_move_query = XDb::xSql(
-                    "SELECT `user_id`, `longitude`, `latitude`, `date_hidden`
-                     FROM `caches` WHERE `cache_id` = ? ", $geoCache->getCacheId());
-                $tmp_move_data = XDb::xFetchArray($tmp_move_query);
-
-                // create initial log in cache_logs and copy coords to table caches
-                $init_log_desc = tr('log_mobile_init');
-                $init_log_latitude = $tmp_move_data['latitude'];
-                $init_log_longitude = $tmp_move_data['longitude'];
-                $init_log_userID = $tmp_move_data['user_id'];
-                $init_log_date = $tmp_move_data['date_hidden'];
-
-                $init_log_uuid = Uuid::create();
-
-                XDb::xSql(
-                    "INSERT INTO `cache_logs` (
-                        `id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`,
-                        `date_created`, `last_modified`, `uuid`, `node`)
-                    VALUES ('', ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)",
-                    $geoCache->getCacheId(), $init_log_userID, 4, $init_log_date,
-                    $init_log_desc, 0, 0, $init_log_uuid, $oc_nodeid);
-
-                // print $init_log_longitude; exit;
-                XDb::xSql(
-                    "INSERT INTO `cache_moved`(
-                        `cache_id`, `user_id`, `log_id`, `date`, `longitude`, `latitude`, `km`)
-                    VALUES ( ?, ?, LAST_INSERT_ID(), ?, ?, ?, '0')",
-                    $geoCache->getCacheId(), $init_log_userID, $init_log_date,
-                    $init_log_longitude, $init_log_latitude);
-
-            }
-
-            // insert into table cache_moved
-            XDb::xSql(
-                "INSERT INTO `cache_moved`(`cache_id`, `user_id`, `log_id`, `date`, `longitude`, `latitude`,`km`)
-                VALUES (?, ?, ?, ?, ?, ?, 0)",
-                $geoCache->getCacheId(), $user->getUserId(), $last_id_4_mobile_moved,
-                $log_date, $wspolrzedneWE, $wspolrzedneNS);
-            LogEntryController::recalculateMobileMovesByCacheId($geoCache->getCacheId());
-        }
-        // mobilne by Łza - koniec
-        //inc cache stat and "last found"
-        $rs = XDb::xSql(
-            "SELECT `founds`, `notfounds`, `notes`, `last_found` FROM `caches`
-            WHERE `cache_id`= ? ", $geoCache->getCacheId() );
-
-        $record = XDb::xFetchArray($rs);
-        $last_found = '';
-        if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT ||
-            $log_type == GeoCacheLog::LOGTYPE_ATTENDED
-        ) {
-
-            $dlog_date = mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year);
-            if ($record['last_found'] == NULL) {
-                $last_found = ', `last_found`=\'' . XDb::xEscape(date('Y-m-d H:i:s', $dlog_date)) . '\'';
-            } elseif (strtotime($record['last_found']) < $dlog_date) {
-                $last_found = ', `last_found`=\'' . XDb::xEscape(date('Y-m-d H:i:s', $dlog_date)) . '\'';
-            }
-        }
-        if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT       ||
-            $log_type == GeoCacheLog::LOGTYPE_DIDNOTFIND    ||
-            $log_type == GeoCacheLog::LOGTYPE_COMMENT       ||
-            $log_type == GeoCacheLog::LOGTYPE_ATTENDED      ||
-            $log_type == GeoCacheLog::LOGTYPE_WILLATTENDED
-        ) {
-            recalculateCacheStats($geoCache->getCacheId(), $geoCache->getCacheType(), $last_found);
-        }
-
-        //inc user stat
-        $rs = XDb::xSql(
-            "SELECT `log_notes_count`, `founds_count`, `notfounds_count` FROM `user`
-            WHERE `user_id`= ? ", $user->getUserId());
-        $record = XDb::xFetchArray($rs);
-
-        if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT || $log_type == GeoCacheLog::LOGTYPE_ATTENDED) {
-
-            XDb::xSql("UPDATE `user` SET founds_count=founds_count+1
-                       WHERE `user_id`= ? ", $user->getUserId());
-
-        } elseif ($log_type == GeoCacheLog::LOGTYPE_DIDNOTFIND) {
-
-            XDb::xSql("UPDATE `user` SET notfounds_count=notfounds_count+1
-                       WHERE `user_id`= ? ", $user->getUserId());
-
-        } elseif ($log_type == GeoCacheLog::LOGTYPE_COMMENT) {
-
-            XDb::xSql("UPDATE `user` SET log_notes_count=log_notes_count+1
-                       WHERE `user_id`= ? ", $user->getUserId());
-
-        }
-
-        // update cache_status
-        $cache_status = XDb::xMultiVariableQueryValue(
-            "SELECT `log_types`.`cache_status` FROM `log_types` WHERE `id`= :1 LIMIT 1", 0, $log_type);
-
-            if ($cache_status != 0) {
-                $rs = XDb::xSql(
-                    "UPDATE `caches` SET `last_modified` = NOW(), `status`= ?
-                    WHERE `cache_id`= ? ", $cache_status, $geoCache->getCacheId());
-            }
-
-        // update top-list
-        if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT ||
-            $log_type == GeoCacheLog::LOGTYPE_COMMENT
-        ) {
-
-            if ($top_cache == 1)
-                XDb::xSql("INSERT IGNORE INTO `cache_rating` (`user_id`, `cache_id`) VALUES(?, ?)",
-                    $user->getUserId(), $geoCache->getCacheId());
-            else
-                XDb::xSql("DELETE FROM `cache_rating` WHERE `user_id`=? AND `cache_id`=?",
-                    $user->getUserId(), $geoCache->getCacheId());
-        }
-
-        //call eventhandler
-        require_once($rootpath . 'lib/eventhandler.inc.php');
-        event_new_log($geoCache->getCacheId(), $user->getUserId() + 0);
+    if ( $log_type == GeoCacheLog::LOGTYPE_COMMENT && empty($log_text) ) {
+        tpl_errorMsg('log_cache', "Empty comment log?!");
+        exit;
     }
+
+    if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT) {
+
+        /* GeoKretyApi: call method logging selected Geokrets  (by Łza) */
+        processGeoKrety($logDateTime, $user, $geoCache);
+
+        $text_html = 2;  // see https://github.com/opencaching/opencaching-pl/issues/1218
+        $text_htmledit = 1;
+
+        // This query INSERT cache_log entry ONLY IF such entry NOT EXISTS
+        XDb::xSql(
+           "INSERT INTO `cache_logs` (
+                `cache_id`, `user_id`, `type`, `date`, `text`,
+                `text_html`, `text_htmledit`, `date_created`, `last_modified`,
+                `uuid`, `node`)
+            SELECT ?, ?, ?, ?, ?, ? ,? ,NOW(), NOW(), ?, ?
+            FROM  `cache_logs`
+            WHERE NOT EXISTS (
+                SELECT * FROM `cache_logs`
+                WHERE `type`=1 AND `user_id` = ?
+                    AND `cache_id` = ?
+                    AND `deleted` = '0'
+                LIMIT 1)
+            LIMIT 1",
+                $geoCache->getCacheId(), $user->getUserId(), $log_type, $log_date, $log_text,
+                $text_html, $text_htmledit, $log_uuid, $oc_nodeid, $user->getUserId(), $geoCache->getCacheId()
+            );
+
+    } else {
+        XDb::xSql(
+            "INSERT INTO `cache_logs` (`cache_id`, `user_id`, `type`, `date`, `text`, `text_html`,
+                         `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
+            VALUES ( ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)",
+            $geoCache->getCacheId(), $user->getUserId(), $log_type, $log_date, $log_text, 2, 1, $log_uuid, $oc_nodeid);
+    }
+
+    // insert to database.
+    if (
+        $log_type == GeoCacheLog::LOGTYPE_MOVED &&
+        ( $geoCache->getCacheType() == GeoCache::TYPE_MOVING ||
+          $geoCache->getCacheType() == GeoCache::TYPE_OWNCACHE )
+    ) {
+
+        ini_set('display_errors', 1);
+        // error_reporting(E_ALL);
+        // id of last SQL entry
+        $last_id_4_mobile_moved = XDb::xLastInsertId();
+
+        // converting from HH MM.MMM to DD.DDDDDD
+        $wspolrzedneNS = $wsp_NS_st + round($wsp_NS_min, 3) / 60;
+        if ($wybor_NS == 'S')
+            $wspolrzedneNS = -$wspolrzedneNS;
+        $wspolrzedneWE = $wsp_WE_st + round($wsp_WE_min, 3) / 60;
+        if ($wybor_WE == 'W')
+            $wspolrzedneWE = -$wspolrzedneWE;
+
+        // if it is first log "cache mooved" then move start coordinates from table caches
+        // to table cache_moved and create log type cache_moved, witch description
+        // "depart point" or something like this.
+
+        $is_any_cache_movedlog = XDb::xMultiVariableQueryValue(
+            "SELECT COUNT(*) FROM `cache_moved` WHERE `cache_id` = :1 ", 0, $geoCache->getCacheId());
+
+        if ($is_any_cache_movedlog == 0) {
+            $tmp_move_query = XDb::xSql(
+                "SELECT `user_id`, `longitude`, `latitude`, `date_hidden`
+                 FROM `caches` WHERE `cache_id` = ? ", $geoCache->getCacheId());
+            $tmp_move_data = XDb::xFetchArray($tmp_move_query);
+
+            // create initial log in cache_logs and copy coords to table caches
+            $init_log_desc = tr('log_mobile_init');
+            $init_log_latitude = $tmp_move_data['latitude'];
+            $init_log_longitude = $tmp_move_data['longitude'];
+            $init_log_userID = $tmp_move_data['user_id'];
+            $init_log_date = $tmp_move_data['date_hidden'];
+
+            $init_log_uuid = Uuid::create();
+
+            XDb::xSql(
+                "INSERT INTO `cache_logs` (
+                    `id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`,
+                    `date_created`, `last_modified`, `uuid`, `node`)
+                VALUES ('', ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)",
+                $geoCache->getCacheId(), $init_log_userID, 4, $init_log_date,
+                $init_log_desc, 0, 0, $init_log_uuid, $oc_nodeid);
+
+            // print $init_log_longitude; exit;
+            XDb::xSql(
+                "INSERT INTO `cache_moved`(
+                    `cache_id`, `user_id`, `log_id`, `date`, `longitude`, `latitude`, `km`)
+                VALUES ( ?, ?, LAST_INSERT_ID(), ?, ?, ?, '0')",
+                $geoCache->getCacheId(), $init_log_userID, $init_log_date,
+                $init_log_longitude, $init_log_latitude);
+
+        }
+
+        // insert into table cache_moved
+        XDb::xSql(
+            "INSERT INTO `cache_moved`(`cache_id`, `user_id`, `log_id`, `date`, `longitude`, `latitude`,`km`)
+            VALUES (?, ?, ?, ?, ?, ?, 0)",
+            $geoCache->getCacheId(), $user->getUserId(), $last_id_4_mobile_moved,
+            $log_date, $wspolrzedneWE, $wspolrzedneNS);
+        LogEntryController::recalculateMobileMovesByCacheId($geoCache->getCacheId());
+    }
+
+
+    //inc cache stat and "last found"
+    $rs = XDb::xSql(
+        "SELECT `founds`, `notfounds`, `notes`, `last_found` FROM `caches`
+        WHERE `cache_id`= ? ", $geoCache->getCacheId() );
+
+    $record = XDb::xFetchArray($rs);
+    $last_found = '';
+    if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT ||
+        $log_type == GeoCacheLog::LOGTYPE_ATTENDED
+    ) {
+
+        $dlog_date = mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year);
+        if ($record['last_found'] == NULL) {
+            $last_found = ', `last_found`=\'' . XDb::xEscape(date('Y-m-d H:i:s', $dlog_date)) . '\'';
+        } elseif (strtotime($record['last_found']) < $dlog_date) {
+            $last_found = ', `last_found`=\'' . XDb::xEscape(date('Y-m-d H:i:s', $dlog_date)) . '\'';
+        }
+    }
+    if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT       ||
+        $log_type == GeoCacheLog::LOGTYPE_DIDNOTFIND    ||
+        $log_type == GeoCacheLog::LOGTYPE_COMMENT       ||
+        $log_type == GeoCacheLog::LOGTYPE_ATTENDED      ||
+        $log_type == GeoCacheLog::LOGTYPE_WILLATTENDED
+    ) {
+        recalculateCacheStats($geoCache->getCacheId(), $geoCache->getCacheType(), $last_found);
+    }
+
+    //inc user stat
+    $rs = XDb::xSql(
+        "SELECT `log_notes_count`, `founds_count`, `notfounds_count` FROM `user`
+        WHERE `user_id`= ? ", $user->getUserId());
+    $record = XDb::xFetchArray($rs);
+
+    if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT || $log_type == GeoCacheLog::LOGTYPE_ATTENDED) {
+
+        XDb::xSql("UPDATE `user` SET founds_count=founds_count+1
+                   WHERE `user_id`= ? ", $user->getUserId());
+
+    } elseif ($log_type == GeoCacheLog::LOGTYPE_DIDNOTFIND) {
+
+        XDb::xSql("UPDATE `user` SET notfounds_count=notfounds_count+1
+                   WHERE `user_id`= ? ", $user->getUserId());
+
+    } elseif ($log_type == GeoCacheLog::LOGTYPE_COMMENT) {
+
+        XDb::xSql("UPDATE `user` SET log_notes_count=log_notes_count+1
+                   WHERE `user_id`= ? ", $user->getUserId());
+
+    }
+
+    // update cache_status
+    $cache_status = XDb::xMultiVariableQueryValue(
+        "SELECT `log_types`.`cache_status` FROM `log_types` WHERE `id`= :1 LIMIT 1", 0, $log_type);
+
+        if ($cache_status != 0) {
+            $rs = XDb::xSql(
+                "UPDATE `caches` SET `last_modified` = NOW(), `status`= ?
+                WHERE `cache_id`= ? ", $cache_status, $geoCache->getCacheId());
+        }
+
+    // update top-list
+    if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT ||
+        $log_type == GeoCacheLog::LOGTYPE_COMMENT
+    ) {
+
+        if ($top_cache == 1)
+            XDb::xSql("INSERT IGNORE INTO `cache_rating` (`user_id`, `cache_id`) VALUES(?, ?)",
+                $user->getUserId(), $geoCache->getCacheId());
+        else
+            XDb::xSql("DELETE FROM `cache_rating` WHERE `user_id`=? AND `cache_id`=?",
+                $user->getUserId(), $geoCache->getCacheId());
+    }
+
+    //call eventhandler
+    require_once($rootpath . 'lib/eventhandler.inc.php');
+    event_new_log($geoCache->getCacheId(), $user->getUserId() + 0);
+
 
     $badgetParam = "";
 
@@ -688,8 +690,6 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
 
         tpl_set_var('display', "none");
     }
-
-    d($geoCache->isFoundByUser($user->getUserId()));
 
     foreach (get_log_types_from_database() AS $type) {
         // do not allow 'finding' or 'not finding' own or archived cache
@@ -1034,12 +1034,6 @@ function validate_coords($lat_h, $lat_min, $lon_h, $lon_min, $lonEW, $latNS)
     return ($error);
 }
 
-function debug($label, $array)
-{
-    print "<pre>$label ===============================";
-    print_r($array);
-    print "===========================================</pre>";
-}
 
 /**
  * after add a log it is a good idea to full recalculate stats of cache, that can avoid
@@ -1054,7 +1048,7 @@ function debug($label, $array)
  */
 function recalculateCacheStats($cacheId, $cacheType, $lastFoundQueryString)
 {
-    if ($cacheType == 6) { // event (no idea who developed so irracional rules, not me!)
+    if ($cacheType == GeoCache::TYPE_EVENT) { // event (no idea who developed so irracional rules, not me!)
         $query = "
             UPDATE `caches`
             SET `founds`   = (SELECT count(*) FROM `cache_logs` WHERE `cache_id` =:1 AND TYPE =7 AND `deleted` =0 ),
@@ -1138,19 +1132,20 @@ function isGeokretInCache($cacheid)
 
     // get cache waypoint
     $cache_wp = '';
-    if ($cache_record['wp_oc'] != '')
+    if ($cache_record['wp_oc'] != ''){
         $cache_wp = $cache_record['wp_oc'];
-        else if ($cache_record['wp_gc'] != '')
-            $cache_wp = $cache_record['wp_gc'];
-            else if ($cache_record['wp_nc'] != '')
-                $cache_wp = $cache_record['wp_nc'];
-                else if ($cache_record['wp_ge'] != '')
-                    $cache_wp = $cache_record['wp_ge'];
-                    else if ($cache_record['wp_tc'] != '')
-                        $cache_wp = $cache_record['wp_tc'];
+    } else if ($cache_record['wp_gc'] != ''){
+        $cache_wp = $cache_record['wp_gc'];
+    } else if ($cache_record['wp_nc'] != ''){
+        $cache_wp = $cache_record['wp_nc'];
+    } else if ($cache_record['wp_ge'] != ''){
+        $cache_wp = $cache_record['wp_ge'];
+    } else if ($cache_record['wp_tc'] != ''){
+        $cache_wp = $cache_record['wp_tc'];
+    }
 
-                        $gkNum = XDb::xMultiVariableQueryValue(
-                            "SELECT COUNT(*) FROM gk_item
+    $gkNum = XDb::xMultiVariableQueryValue(
+       "SELECT COUNT(*) FROM gk_item
         WHERE id IN (
             SELECT id FROM gk_item_waypoint
             WHERE wp = :1

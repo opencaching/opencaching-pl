@@ -72,7 +72,7 @@ if ($error == false) {
                     $log_pw = $log_record['logpw'];
 
                 // check if user has exceeded his top5% limit
-                $is_top = XDb::xMultiVariableQueryValue(
+                $userRecoCountForThisCache = XDb::xMultiVariableQueryValue(
                     "SELECT COUNT(`cache_id`) FROM `cache_rating`
                     WHERE `user_id`= :1 AND `cache_id`=:2 ", 0, $log_record['user_id'], $log_record['cache_id']);
 
@@ -82,7 +82,7 @@ if ($error == false) {
                 $user_tops = XDb::xMultiVariableQueryValue(
                     "SELECT COUNT(`user_id`) FROM `cache_rating` WHERE `user_id`= :1 ", 0, $log_record['user_id']);
 
-                if ($is_top == 0) {
+                if ($userRecoCountForThisCache == 0) {
                     if (($user_founds * GeoCacheCommons::RECOMENDATION_RATIO / 100) < 1) {
                         $top_cache = 0;
                         $recommendationsNr = 100 / GeoCacheCommons::RECOMENDATION_RATIO - $user_founds;
