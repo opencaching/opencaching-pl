@@ -269,25 +269,18 @@ if ($tplname != 'start'){
                     }
                     ?>
 
-                    <?php if (isset($usr['admin']) && $usr['admin']) { ?>
+                    <?php if ($view->_isAdmin) { ?>
                         <!-- admin menu -->
                         <ul>
                           <li class="title"><?=tr('administration')?></li>
                           <?php foreach($view->_adminMenu as $key => $url){ ?>
                             <li class="group">
                               <a class="" href="<?=$url?>">
-                              <?=tr($key)?>
+                              <?=$key?>
                               </a>
                             </li>
                           <?php } //foreach ?>
                         </ul>
-
-                        <!--
-                        <ul>
-                          <li class="title"><?=$menu[$adminidx]["title"]?></li>
-                          <?php mnu_EchoSubMenu($menu[$adminidx]['submenu'], $menu_item_siteid, 1, false); ?>
-                        </ul>
-                        -->
 
                     <?php } //admin ?>
 
@@ -321,7 +314,7 @@ if ($tplname != 'start'){
 
                     <p>
                     <?php foreach($view->_footerMenu as $key=>$url){ ?>
-                      <a href="<?=$url?>"><?=tr($key)?></a>
+                      <a href="<?=$url?>"><?=$key?></a>
                     <?php } //foreach _footerMenu ?>
                     </p>
 

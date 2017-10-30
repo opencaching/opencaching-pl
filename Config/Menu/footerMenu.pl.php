@@ -4,17 +4,16 @@
  * This is simple configuration of links presented in footer of the OCPL page.
  * This is configuration for OCPL only.
  *
- * Every record of $menu table should be an inline array in form:
+ * Every record of $menu table should be table record in form:
  *
- *  [ '<translation-key-used-as-link-text>', '<url>' ],
+ *  '<translation-key-used-as-link-text>', '<url>',
  *
  */
 
-// DON'T CHANGE $config var name!
+// DON'T CHANGE $menu var name!
+$menu = [
 
-$config = [
-
- /* 'translation key' => 'url' */
+    /* 'translation key' => 'url' */
 
     'impressum' => $GLOBALS['wikiLinks']['impressum'],
     'history'   => $GLOBALS['wikiLinks']['history'],

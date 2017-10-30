@@ -100,13 +100,28 @@ class MainLayoutController extends BaseController
             $this->view->setVar('_displayOnlineUsers', false);
         }
 
-        if($this->isUserLogged() && $this->loggedUser->isAdmin()){
-            $this->view->setVar('_adminMenu', $this->getAdminMenu());
+
+        if(!$this->isUserLogged()){
+            // user not authorized
+            $this->view->setVar('_isAdmin', false);
+            $this->view->setVar('_nonAuthUserMenu',
+                $this->getMenu(ConfigController::MENU_NON_AUTH_USER));
         }else{
-            $this->view->setVar('_adminMenu',null);
+            // user authorized
+            $this->view->setVar('_authUserMenu',
+                $this->getMenu(ConfigController::MENU_AUTH_USER));
+
+            if($this->loggedUser->isAdmin()){
+                $this->view->setVar('_isAdmin', true);
+                $this->view->setVar('_adminMenu', $this->getAdminMenu());
+            }else{
+                $this->view->setVar('_isAdmin', false);
+                $this->view->setVar('_adminMenu',null);
+            }
         }
 
-        $this->view->setVar('_footerMenu', ConfigController::getFooterMenu());
+        $this->view->setVar('_footerMenu',
+            $this->getMenu(ConfigController::MENU_FOOTER_PREFIX));
 
         if(isset($config['license_html'])){
             $this->view->setVar('licenseHtml', $config['license_html']);
@@ -115,51 +130,66 @@ class MainLayoutController extends BaseController
         }
     }
 
+    /**
+     * Prepare the admin menu. Admin menu has counters for special menu entries
+     * so it needs special processing.
+     *
+     * @return array - $key->$url style of menu
+     */
     private function getAdminMenu()
     {
+        $menu = [];
+        foreach(ConfigController::getMenu(ConfigController::MENU_ADMIN_PREFIX)
+            as $key => $url){
 
-        $menu = ConfigController::getAdminMenu();
+            switch($key){
+                case 'reports':
+                    // add new/active reports counters
+                    $new_reports = ReportCommons::getReportsCountByStatus(ReportCommons::STATUS_NEW);
+                    $active_reports = ReportCommons::getReportsCountByStatus(ReportCommons::STATUS_OPEN);
+                    $key = tr($key) . " ($new_reports/$active_reports)";
 
-        if(isset($menu['reports'])){
-            $new_reports = ReportCommons::getReportsCountByStatus(ReportCommons::STATUS_NEW);
-            $active_reports = ReportCommons::getReportsCountByStatus(ReportCommons::STATUS_OPEN);
+                    break;
+                case 'pendings':
 
+                    $new_pendings = GeoCacheApproval::getWaitingForApprovalCount();
+                    if($new_pendings > 0){
+                        $in_review_count = GeoCacheApproval::getInReviewCount();
+                        $waitingForAssigne = $new_pendings - $in_review_count;
+                        $key = tr($key) . " ($waitingForAssigne/$new_pendings)";
+                    }else{
+                        $key = tr($key);
+                    }
+                    break;
+                default:
+                    $key = tr($key); // by default menu key is just a translation
+            }
 
-
-            $menu['reports']" (" . $new_reports . "/" . $active_reports . ")";
-
+            $menu[$key] = htmlspecialchars($url);
         }
-
-        $new_pendings = GeoCacheApproval::getWaitingForApprovalCount();
-        $in_review_count = GeoCacheApproval::getInReviewCount();
-
-
-        /*
-
-         $adminidx = mnu_MainMenuIndexFromPageId($menu, "admin/reports_list");
-
-        $menu[$adminidx]['visible'] = false;
-
-        $zgloszeniaidx = mnu_MainMenuIndexFromPageId($menu[$adminidx]["submenu"], "admin/reports_list");
-        if ($active_reports > 0){
-            $menu[$adminidx]["submenu"][$zgloszeniaidx]['menustring'] .=
-            " (" . $new_reports . "/" . $active_reports . ")";
-        }
-
-        $zgloszeniaidx = mnu_MainMenuIndexFromPageId($menu[$adminidx]["submenu"], "viewpendings");
-        if ($new_pendings > 0){
-            $waitingForAssigne = $new_pendings - $in_review_count;
-        } else {
-            $waitingForAssigne = 0;
-        }
-
-        $menu[$adminidx]["submenu"][$zgloszeniaidx]['menustring'] .=
-            " (" . $waitingForAssigne . "/" . $new_pendings .  ")";
-
-        */
 
         return $menu;
+    }
 
+    private function getMenu($menuPrefix)
+    {
+        switch($menuPrefix){
+            case ConfigController::MENU_ADMIN_PREFIX:
+                return $this->getAdminMenu();
+
+            case ConfigController::MENU_AUTH_USER:
+            case ConfigController::MENU_NON_AUTH_USER:
+            case ConfigController::MENU_FOOTER_PREFIX:
+            case ConfigController::MENU_HORIZONTAL_BAR:
+                $menu = [];
+                foreach(ConfigController::getMenu($menuPrefix) as $key => $url){
+                    $menu[tr($key)] = htmlspecialchars($url);
+                }
+                return $menu;
+
+            default:
+                return array();
+        }
     }
 
 }

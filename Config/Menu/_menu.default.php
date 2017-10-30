@@ -177,7 +177,7 @@ $menu = array(
             )
         )
     ),
-    array(
+/*    array(
         'title' => tr('abc'),
         'menustring' => tr('abc'),
         'siteid' => 'articles/info',
@@ -354,7 +354,7 @@ $menu = array(
         'menustring' => tr('add_newmp3'),
         'siteid' => 'newmp3'
     ),
-
+*/
 /*
     // OC management
     array(

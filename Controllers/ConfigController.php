@@ -26,33 +26,58 @@ use Utils\Debug\Debug;
 class ConfigController extends BaseController
 {
     const CONFIG_DIR = __DIR__.'/../Config/';
+    const MENU_DIR = self::CONFIG_DIR.'Menu/';
     const LEGACY_LOCAL_CONFIG = __DIR__.'/../lib/settings.inc.php';
 
-
     const CONFIG_PREFIX = 'config';
-    const MENU_FOOTER_PREFIX = 'menuFooter';
-    const MENU_ADMIN_PREFIX = 'menuAdmin';
 
-    public static function getFooterMenu()
-    {
-        return self::getConfig(self::MENU_FOOTER_PREFIX);
-    }
-
-    public static function getAdminMenu()
-    {
-        $result = [];
-        foreach(self::getConfig(self::MENU_ADMIN_PREFIX) as $key => $url){
-
-            $menuEntry = new \stdClass();
-            $menuEntry->url = htmlspecialchars($url);
-            $menuEntry->text = htmlspecialchars( tr($key) );
-            $result[] = $menuEntry;
-        }
-        return $result;
-    }
-
+    const MENU_FOOTER_PREFIX = 'footerMenu';
+    const MENU_ADMIN_PREFIX = 'adminMenu';
+    const MENU_AUTH_USER = 'authUserMenu';
+    const MENU_NON_AUTH_USER = 'nonAuthUserMenu';
+    const MENU_HORIZONTAL_BAR = 'horizontalBarMenu';
 
     /**
+     * Return given menu based on rules:
+     *  - return local version of file if present
+     *  - next return node-specific version of menu-config file if present
+     *  - next return default version of menu file (always should be present!)
+     *
+     * @param const-string $menuPrefix
+     * @return array $menu
+     */
+    public static function getMenu($menuPrefix)
+    {
+        $menu = null;
+
+        $localMenuFile = self::MENU_DIR."$menuPrefix.local.php";
+        if(is_file($localMenuFile)){
+            include($localMenuFile);
+            return $menu;
+        }
+
+        $ocNode = self::getOcNode();
+        $nodeMenuFile = self::MENU_DIR."$menuPrefix.$ocNode.php";
+        if(is_file($nodeMenuFile)){
+            include($nodeMenuFile);
+            return $menu;
+        }
+
+        $defaultMenuFile = self::MENU_DIR."$menuPrefix.default.php";
+        if(is_file($defaultMenuFile)){
+            include($defaultMenuFile);
+            return $menu;
+        }
+
+        Debug::errorLog("ERROR: Can't load menu file: $menuPrefix");
+        return null;
+    }
+
+    /**
+     * Return $config merged from:
+     * - default config file overrirded by
+     * - node-config file overrided by
+     * - local config file
      *
      * @param string $configName - prefix of the config file - see consts above
      * @return NULL
