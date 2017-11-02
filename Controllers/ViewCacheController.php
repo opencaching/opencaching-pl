@@ -258,9 +258,17 @@ class ViewCacheController extends BaseController
                 $show_watch = false;
             } else {
                 $show_edit = $this->loggedUser->isAdmin();
-                $show_ignore = true;
-                $show_watch = true;
+
+                if($this->geocache->getStatus() == GeoCache::STATUS_WAITAPPROVERS){
+                    // skip watching/ignoring for non-published caches
+                    $show_ignore = false;
+                    $show_watch = false;
+                } else {
+                    $show_ignore = true;
+                    $show_watch = true;
+                }
             }
+
 
             $this->view->setVar('showEditButton',$show_edit);
             $this->view->setVar('showWatchButton',$show_watch);

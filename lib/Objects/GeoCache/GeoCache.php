@@ -157,6 +157,8 @@ class GeoCache extends GeoCacheCommons
      */
     public function __construct(array $params = array())
     {
+        parent::__construct();
+
         if (isset($params['cacheId'])) { // load from DB if cachId param is set
             $this->loadByCacheId($params['cacheId']);
 
@@ -362,7 +364,7 @@ class GeoCache extends GeoCacheCommons
         $this->recommendations = (int) $geocacheDbRow['topratings'];
         $this->difficulty = $geocacheDbRow['difficulty'];
         $this->terrain = $geocacheDbRow['terrain'];
-        $this->logPassword = $geocacheDbRow['logpw'] != '' ? $geocacheDbRow['logpw'] : false;
+        $this->logPassword = !empty($geocacheDbRow['logpw']) ? $geocacheDbRow['logpw'] : false;
         $this->ratingVotes = $geocacheDbRow['votes'];
         $this->notesCount = (int) $geocacheDbRow['notes'];
         $this->wayLenght = $geocacheDbRow['way_length'];
@@ -884,6 +886,11 @@ class GeoCache extends GeoCacheCommons
     public function getLogPassword()
     {
         return $this->logPassword;
+    }
+
+    public function hasLogPassword()
+    {
+        return $this->logPassword != false;
     }
 
     /**
@@ -1450,7 +1457,43 @@ class GeoCache extends GeoCacheCommons
         return sprintf("/tpl/stdstyle/images/difficulty/terr-%d.gif", $this->terrain);
     }
 
+    /**
+     * Returns TRUE if this cache has FOUND log by given user
+     * @param int $userId
+     */
+    public function isFoundByUser($userId)
+    {
+        // there is no way to "FOUND" an event
+        if($this->getCacheType() == self::TYPE_EVENT){
+            return false;
+        }
 
+        return $this->db->multiVariableQueryValue(
+            "SELECT COUNT(*) FROM cache_logs
+             WHERE deleted=0 AND user_id=:1 AND cache_id=:2
+                AND type=:3
+             LIMIT 1", -1, $userId, $this->getCacheId(),
+            GeoCacheLog::LOGTYPE_FOUNDIT) > 0;
+    }
 
+    /**
+     * Returns TRUE if this cache is an event and has ATTENDED log for given user
+     * @param int $userId
+     */
+    public function isAttendedByUser($userId)
+    {
+        // there is no way to "ATTEND" non event
+        if($this->getCacheType() != self::TYPE_EVENT){
+            return false;
+        }
+
+        return $this->db->multiVariableQueryValue(
+            "SELECT COUNT(*) FROM cache_logs
+             WHERE deleted=0 AND user_id=:1 AND cache_id=:2
+                AND type=:3
+             LIMIT 1", -1, $userId, $this->getCacheId(),
+            GeoCacheLog::LOGTYPE_ATTENDED) > 0;
+
+    }
 }
 
