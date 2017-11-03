@@ -205,24 +205,9 @@ if ($tplname != 'start'){
                 <!-- Navigation - horizontal menu bar -->
                 <div id="nav2">
                     <ul>
-                        <?php
-                        // znajdz idx dla 'mylist'
-                        $dowydrukuidx = mnu_MainMenuIndexFromPageId($menu, "mylist");
-
-                        // dodaj liczbę pozycji printlisty do opsiu menu 'mylist'
-                        if ( !empty(PrintList::GetContent()) ) {
-                            $menu[$dowydrukuidx]['visible'] = true;
-                            $menu[$dowydrukuidx]['menustring'] .=
-                                " (" . count(PrintList::GetContent()) . ")";
-                        }
-
-
-                        if (isset($menu[$pageidx])) {
-                            mnu_EchoMainMenu($menu[$pageidx]['siteid']);
-                        }else{
-                            mnu_EchoMainMenu(null);
-                        }
-                        ?>
+                        <?php foreach($view->_menuBar as $key=>$url) { ?>
+                          <li><a href="<?=$url?>"><?=$key?></a>
+                        <?php } //foreach _menuBar?>
                     </ul>
                 </div>
 

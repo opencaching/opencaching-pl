@@ -243,7 +243,7 @@ $menu = array(
         'menustring' => tr('geokrets'),
         'siteid' => 'GeoKrety',
         'visible' => isset($config['geokrety_url']) ? true : false,
-        'filename' => $config['geokrety_url'],
+        //'filename' => $config['geokrety_url'],
         'newwindow' => 'true'
     ),
     array(

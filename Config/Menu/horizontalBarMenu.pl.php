@@ -24,9 +24,10 @@ $menu = [
 
     'main_page'     => '/index.php',
     'abc'           => $links['wiki']['main'],
-    //'forum'       => $links['forum'],
-    //'mnu_blog'    => $links['blog'],
-    //'geokrets'    => $links['geokrety'],
+    'forum'         => $links['forum'],
+    'mnu_blog'      => $links['blog'],
+    'geokrets'      => $links['geokrety'],
+    'mnu_download'      => $links['wiki']['downloads'],
     'links'         => '/articles.php?page=links',
     'contact'       => '/articles.php?page=contact',
     'guides'        => '/cacheguides.php',

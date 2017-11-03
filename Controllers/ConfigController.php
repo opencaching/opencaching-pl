@@ -31,11 +31,15 @@ class ConfigController extends BaseController
 
     const CONFIG_PREFIX = 'config';
 
+    const LINKS_PREFIX = 'links';
+
     const MENU_FOOTER_PREFIX = 'footerMenu';
     const MENU_ADMIN_PREFIX = 'adminMenu';
     const MENU_AUTH_USER = 'authUserMenu';
     const MENU_NON_AUTH_USER = 'nonAuthUserMenu';
     const MENU_HORIZONTAL_BAR = 'horizontalBarMenu';
+
+    private $links = null;
 
     /**
      * Return given menu based on rules:
@@ -49,6 +53,7 @@ class ConfigController extends BaseController
     public static function getMenu($menuPrefix)
     {
         $menu = null;
+        $links = self::getLinks();
 
         $localMenuFile = self::MENU_DIR."$menuPrefix.local.php";
         if(is_file($localMenuFile)){
@@ -73,6 +78,17 @@ class ConfigController extends BaseController
         return null;
     }
 
+    public static function getLinks()
+    {
+        /** @var /ConfigController */
+        $ctrl = self::instance();
+        if(!$ctrl->links){
+            $ctrl->links = self::getConfig(self::LINKS_PREFIX, 'links');
+        }
+
+        return $ctrl->links;
+    }
+
     /**
      * Return $config merged from:
      * - default config file overrirded by
@@ -80,11 +96,20 @@ class ConfigController extends BaseController
      * - local config file
      *
      * @param string $configName - prefix of the config file - see consts above
+     * @param string $configVarName - name of the var in config file
+     *      (for example: links for links.* files, config for setting.* files etc.)
      * @return NULL
      */
-    private static function getConfig($configName)
+    private static function getConfig($configName, $configVarName=null)
     {
-        $config = null; //first init local variable
+        if(is_null($configVarName)){
+            $localConfigArr = 'config';
+        }else{
+            $localConfigArr = $configVarName;
+        }
+
+        // $$x means var with the name stored in var $x!
+        $$localConfigArr = null; //first init local variable
         $ocNode = self::getOcNode();
 
         $defaultConfigFile  = self::CONFIG_DIR."$configName.default.php";
@@ -106,7 +131,7 @@ class ConfigController extends BaseController
             include($localConfigFile);
         }
 
-        return $config;
+        return $$localConfigArr;
     }
 
     /**
@@ -164,6 +189,23 @@ class ConfigController extends BaseController
         echo "FATAL-ERROR!";
         exit;
 
+    }
+
+    /**
+     * This the ONLY way on which instance of this class
+     * should be accessed
+     *
+     * Returns instance of itself.
+     *
+     * @return OcDb object
+     */
+    protected static function instance()
+    {
+        static $instance = null;
+        if ($instance === null) {
+            $instance = new static();
+        }
+        return $instance;
     }
 
     public function index()

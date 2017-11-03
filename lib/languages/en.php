@@ -2708,6 +2708,9 @@ $translations = array(
 
     'loginForm_lostEmail' => 'Forgot your e-mail address? <a href="remindemail.php"> Ask for it here</a>',
 
+    'mnu_blog' => 'Blog',
+    'mnu_download' => 'Download',
+
 );
 
 

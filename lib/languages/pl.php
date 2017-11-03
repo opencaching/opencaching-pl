@@ -2703,8 +2703,11 @@ $translations = array(
     'loginForm_tooManyTries' => 'Logowanie nie powiodło się.<br />Zbyt dużo prób logowania. Próbowałeś przez ostatnią godzinę 25 razy zalogować się do {site_name} podając błędne dane.',
     'loginForm_badCredentials' => 'Logowanie nie powiodło się.<br />Wprowadzona nazwa użytkownika lub hasło są nieprawidłowe.',
     'loginForm_cantSetCookie' => 'Twoja przeglądarka nie zapisała ciasteczek dla {site_name}.',
-
     'loginForm_lostEmail' => 'Zapomniałeś adresu e-mail? <a href="remindemail.php"> Przypomnij</a>',
+
+    'mnu_blog' => 'Blog',
+    'mnu_download' => 'Download',
+
 
 );
 

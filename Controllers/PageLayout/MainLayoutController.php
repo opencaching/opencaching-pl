@@ -10,6 +10,7 @@ use Utils\Uri\Uri;
 use Controllers\ConfigController;
 use lib\Objects\Admin\GeoCacheApproval;
 use lib\Objects\Admin\ReportCommons;
+use lib\Objects\GeoCache\PrintList;
 
 class MainLayoutController extends BaseController
 {
@@ -113,15 +114,21 @@ class MainLayoutController extends BaseController
 
             if($this->loggedUser->isAdmin()){
                 $this->view->setVar('_isAdmin', true);
-                $this->view->setVar('_adminMenu', $this->getAdminMenu());
+                $this->view->setVar('_adminMenu',
+                    $this->getMenu(ConfigController::MENU_ADMIN_PREFIX));
             }else{
                 $this->view->setVar('_isAdmin', false);
                 $this->view->setVar('_adminMenu',null);
             }
         }
 
+        $this->view->setVar('_menuBar',
+            $this->getMenu(ConfigController::MENU_HORIZONTAL_BAR));
+
         $this->view->setVar('_footerMenu',
             $this->getMenu(ConfigController::MENU_FOOTER_PREFIX));
+
+
 
         if(isset($config['license_html'])){
             $this->view->setVar('licenseHtml', $config['license_html']);
@@ -136,60 +143,82 @@ class MainLayoutController extends BaseController
      *
      * @return array - $key->$url style of menu
      */
-    private function getAdminMenu()
+    private function adminMenuHandler(&$key, &$url)
     {
-        $menu = [];
-        foreach(ConfigController::getMenu(ConfigController::MENU_ADMIN_PREFIX)
-            as $key => $url){
+        switch($key){
+            case 'reports':
+                // add new/active reports counters
+                $new_reports = ReportCommons::getReportsCountByStatus(ReportCommons::STATUS_NEW);
+                $active_reports = ReportCommons::getReportsCountByStatus(ReportCommons::STATUS_OPEN);
+                $key = tr($key) . " ($new_reports/$active_reports)";
 
-            switch($key){
-                case 'reports':
-                    // add new/active reports counters
-                    $new_reports = ReportCommons::getReportsCountByStatus(ReportCommons::STATUS_NEW);
-                    $active_reports = ReportCommons::getReportsCountByStatus(ReportCommons::STATUS_OPEN);
-                    $key = tr($key) . " ($new_reports/$active_reports)";
+                break;
+            case 'pendings':
 
-                    break;
-                case 'pendings':
-
-                    $new_pendings = GeoCacheApproval::getWaitingForApprovalCount();
-                    if($new_pendings > 0){
-                        $in_review_count = GeoCacheApproval::getInReviewCount();
-                        $waitingForAssigne = $new_pendings - $in_review_count;
-                        $key = tr($key) . " ($waitingForAssigne/$new_pendings)";
-                    }else{
-                        $key = tr($key);
-                    }
-                    break;
-                default:
-                    $key = tr($key); // by default menu key is just a translation
-            }
-
-            $menu[$key] = htmlspecialchars($url);
+                $new_pendings = GeoCacheApproval::getWaitingForApprovalCount();
+                if($new_pendings > 0){
+                    $in_review_count = GeoCacheApproval::getInReviewCount();
+                    $waitingForAssigne = $new_pendings - $in_review_count;
+                    $key = tr($key) . " ($waitingForAssigne/$new_pendings)";
+                }else{
+                    $key = tr($key);
+                }
+                break;
+            default:
+                $key = tr($key); // by default menu key is just a translation
         }
+    }
 
-        return $menu;
+    /**
+     * Prepare the admin menu. Admin menu has counters for special menu entries
+     * so it needs special processing.
+     *
+     * @return array - $key->$url style of menu
+     */
+    private function horizontalMenuHandler(&$key, &$url)
+    {
+        switch($key){
+            case 'clipboard':
+                // add number of caches in clipboard
+                if ( !empty(PrintList::GetContent()) ) {
+                    $cachesInClipboard = count(PrintList::GetContent());
+                    $key = tr($key)." ($cachesInClipboard)";
+                } else {
+                    $key = tr($key);
+                }
+                break;
+            default:
+                $key = tr($key); // by default menu key is just a translation
+        }
     }
 
     private function getMenu($menuPrefix)
     {
-        switch($menuPrefix){
-            case ConfigController::MENU_ADMIN_PREFIX:
-                return $this->getAdminMenu();
+        $menu = [];
+        foreach(ConfigController::getMenu($menuPrefix) as $key => $url){
 
-            case ConfigController::MENU_AUTH_USER:
-            case ConfigController::MENU_NON_AUTH_USER:
-            case ConfigController::MENU_FOOTER_PREFIX:
-            case ConfigController::MENU_HORIZONTAL_BAR:
-                $menu = [];
-                foreach(ConfigController::getMenu($menuPrefix) as $key => $url){
-                    $menu[tr($key)] = htmlspecialchars($url);
-                }
-                return $menu;
+            if(empty($url)){
+                continue;
+            }
 
-            default:
-                return array();
+            switch($menuPrefix){
+                case ConfigController::MENU_ADMIN_PREFIX:
+                    $this->adminMenuHandler($key, $url);
+                    break;
+
+                case ConfigController::MENU_HORIZONTAL_BAR:
+                    $this->horizontalMenuHandler($key, $url);
+                    break;
+
+                default:
+                    $key = tr($key);
+                    $url = htmlspecialchars($url);
+
+            }
+
+            $menu[$key] = $url;
         }
+        return $menu;
     }
 
 }
