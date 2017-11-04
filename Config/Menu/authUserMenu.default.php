@@ -18,5 +18,15 @@
 // DON'T CHANGE $menu var name!
 $menu = [
     /* 'translation key' => 'url' */
-
+    'news' => '/news.php',
+    'new_caches' => '/newcaches.php',
+    'new_logs' => '/newlogs.php',
+    'incomming_events' => '/newevents.php',
+    'cache_map' => '/cachemap3.php',
+    'cache_mapv2' => '/cachemap2.php', //PL only!
+    'Flopp_map' => 'http://www.flopp-caching.de',
+    'logmap_04' => '/logmap.php',
+    'search_cache' => '/search.php',
+    'recommended_caches' => '/cacheratings.php',
+    'statistics' => '/articles.php?page=stat',
 ];

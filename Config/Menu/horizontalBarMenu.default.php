@@ -15,8 +15,10 @@
  *
  */
 
-// Links config is present under $links durring load this script - feel free to use it
-// $links
+/*
+ * Links config is present under $links durring load of this script
+ * - feel free to use it
+ */
 
 // DON'T CHANGE $menu var name!
 $menu = [

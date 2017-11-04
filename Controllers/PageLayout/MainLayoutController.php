@@ -129,7 +129,6 @@ class MainLayoutController extends BaseController
             $this->getMenu(ConfigController::MENU_FOOTER_PREFIX));
 
 
-
         if(isset($config['license_html'])){
             $this->view->setVar('licenseHtml', $config['license_html']);
         }else{

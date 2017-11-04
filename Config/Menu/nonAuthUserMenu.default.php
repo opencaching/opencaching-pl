@@ -15,11 +15,18 @@
  *
  */
 
+/*
+ * Links config is present under $links durring load of this script
+ * - feel free to use it
+ */
+
+
 // DON'T CHANGE $menu var name!
 $menu = [
     /* 'translation key' => 'url' */
+
     'registration' => '/register.php',
     'news' => '/news.php',
-    'rules' => $GLOBALS['wikiLinks']['rules'],
+    'rules' => $links['wiki']['rules'],
 
 ];

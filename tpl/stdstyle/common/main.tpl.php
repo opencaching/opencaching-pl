@@ -218,25 +218,68 @@ if ($tplname != 'start'){
                 <!-- Navigation Left menu -->
 
                 <div id="nav3">
+                    <?php if(!$view->_isUserLogged) { ?>
+                    <!-- non-authorized user menu -->
+                    <ul>
+                      <li class="title"><?=$tr('main_menu')?></li>
+
+                      <?php foreach($view->_nonAuthUserMenu as $key => $url){ ?>
+                        <li class="group">
+                          <a href="<?=$url?>">
+                            <?=$key?>
+                          </a>
+                        </li>
+                      <?php } //foreach ?>
+
+                    </ul>
+
+                <?php } else { //if-_isUserLogged ?>
+
+                    <!-- authorized menu -->
+                    <ul>
+                      <li class="title"><?=tr('main_menu')?></li>
+                      <?php foreach($view->_authUserMenu as $key => $url){ ?>
+                        <li class="group">
+                            <a href="<?=$url?>">
+                              <?=$key?>
+                            </a>
+                        </li>
+                      <?php } //foreach ?>
+                    </ul>
+
+                    <!-- authorized user menu -->
+                    <ul>
+                      <li class="title"><?=tr('main_menu')?></li>
+                      <?php foreach($view->_authUserMenu as $key => $url){ ?>
+                        <li class="group">
+                            <a href="<?=$url?>">
+                              <?=$key?>
+                            </a>
+                        </li>
+                      <?php } //foreach ?>
+                    </ul>
+
+
+                    <?php if ($view->_isAdmin) { ?>
+                      <!-- admin menu -->
+                      <ul>
+                          <li class="title"><?=tr('administration')?></li>
+                          <?php foreach($view->_adminMenu as $key => $url){ ?>
+                            <li class="group">
+                              <a class="" href="<?=$url?>">
+                              <?=$key?>
+                              </a>
+                            </li>
+                          <?php } //foreach ?>
+                      </ul>
+                    <?php } //admin ?>
+
+                <?php } //if-_isUserLogged ?>
+
+
                     <?php
-                    //Main menu
-                    $mainmenuidx = mnu_MainMenuIndexFromPageId($menu, "start");
 
-                    if (isset($menu[$mainmenuidx]['submenu'])) {
-
-                        $registeridx = mnu_MainMenuIndexFromPageId($menu[$mainmenuidx]["submenu"], "register");
-
-                        if ($usr) {
-                            $menu[$mainmenuidx]['submenu'][$registeridx]['visible'] = false;
-                        } else {
-                            $menu[$mainmenuidx]['submenu'][$registeridx]['visible'] = true;
-                        }
-                        echo '<ul>';
-                        echo '<li class="title">' . tr('main_menu') . '</li>';
-                        mnu_EchoSubMenu($menu[$mainmenuidx]['submenu'], $menu_item_siteid, 1, false);
-                        echo '</ul>';
-                    }
-
+                    /*
                     if ($usr && isset($_SESSION['user_id'])) {
                         $myhomeidx = mnu_MainMenuIndexFromPageId($menu, "myhome");
                         $myprofileidx = mnu_MainMenuIndexFromPageId($menu[$myhomeidx]["submenu"], "myprofile");
@@ -252,22 +295,10 @@ if ($tplname != 'start'){
                         mnu_EchoSubMenu($menu[$myhomeidx]['submenu'], $menu_item_siteid, 1, false);
                         echo '</ul>';
                     }
+                    */
                     ?>
 
-                    <?php if ($view->_isAdmin) { ?>
-                        <!-- admin menu -->
-                        <ul>
-                          <li class="title"><?=tr('administration')?></li>
-                          <?php foreach($view->_adminMenu as $key => $url){ ?>
-                            <li class="group">
-                              <a class="" href="<?=$url?>">
-                              <?=$key?>
-                              </a>
-                            </li>
-                          <?php } //foreach ?>
-                        </ul>
 
-                    <?php } //admin ?>
 
                     <!-- Main title -->
                 </div>
