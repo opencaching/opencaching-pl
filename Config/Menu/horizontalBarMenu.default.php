@@ -24,14 +24,14 @@
 $menu = [
     /* 'translation key' => 'url' */
 
-    'main_page'     => '/index.php',
-    'abc'           => $links['wiki']['main'],
+    'mnu_main_page' => '/index.php',
+    'mnu_abcOfGCaching' => $links['wiki']['main'],
     //'forum'       => $links['forum'],
     //'mnu_blog'    => $links['blog'],
     //'geokrets'    => $links['geokrety'],
     'links'         => '/articles.php?page=links',
     'contact'       => '/articles.php?page=contact',
     'guides'        => '/cacheguides.php',
-    'clipboard'     => 'mylist.php',      /* counters added in MainLayoutCtrl */
+    'mnu_clipboard' => 'mylist.php',      /* counters added in MainLayoutCtrl */
 
 ];

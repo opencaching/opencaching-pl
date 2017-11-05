@@ -3,8 +3,8 @@
 
 $menu = array(
     array( //not-logged menu - called from main.tpl
-        'title' => tr('main_page'),
-        'menustring' => tr('main_page'),
+        'title' => tr('mnu_main_page'),
+        'menustring' => tr('mnu_main_page'),
         'siteid' => array('start', 'articles/impressum'),
         'visible' => true,
         'filename' => 'index.php',
@@ -178,8 +178,8 @@ $menu = array(
         )
     ),
 /*    array(
-        'title' => tr('abc'),
-        'menustring' => tr('abc'),
+        'title' => tr('mnu_abcOfGCaching'),
+        'menustring' => tr('mnu_abcOfGCaching'),
         'siteid' => 'articles/info',
         'visible' => isset($wikiLinks['main']) ? true : false,
         'filename' => @$wikiLinks['main'],
@@ -263,8 +263,8 @@ $menu = array(
         'newwindow' => 'true'
     ),
     array( //called from main.tpl
-        'title' => tr('clipboard'),
-        'menustring' => tr('clipboard'),
+        'title' => tr('mnu_clipboard'),
+        'menustring' => tr('mnu_clipboard'),
         'siteid' => 'mylist',
         'visible' => false,
         'filename' => 'mylist.php'
@@ -341,10 +341,10 @@ $menu = array(
         'siteid' => 'mapa1'
     ),
     array(
-        'title' => tr('main_page'),
+        'title' => tr('mnu_main_page'),
         'visible' => false,
         'filename' => 'index.php',
-        'menustring' => tr('main_page'),
+        'menustring' => tr('mnu_main_page'),
         'siteid' => 'sitemap'
     ),
     array(
@@ -547,8 +547,8 @@ $menu = array(
                 'siteid' => 'userWatchedCaches/emailSettings'
             ),
             array(
-                'title' => tr('clipboard'),
-                'menustring' => tr('clipboard'),
+                'title' => tr('mnu_clipboard'),
+                'menustring' => tr('mnu_clipboard'),
                 'siteid' => 'mylist',
                 'visible' => false,
                 'filename' => 'mylist.php'

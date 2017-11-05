@@ -21,7 +21,7 @@ $menu = [
     'api'       => '/okapi',
     'rss'       => 'articles.php?page=rss',
     'contact'   => 'articles.php?page=contact',
-    'main_page' => '/index.php?page=sitemap',
+    'mnu_main_page' => '/index.php?page=sitemap',
 
 ];
 

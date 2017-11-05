@@ -188,7 +188,7 @@ class MainLayoutController extends BaseController
     private function horizontalMenuHandler(&$key, &$url)
     {
         switch($key){
-            case 'clipboard':
+            case 'mnu_clipboard':
                 // add number of caches in clipboard
                 if ( !empty(PrintList::GetContent()) ) {
                     $cachesInClipboard = count(PrintList::GetContent());
