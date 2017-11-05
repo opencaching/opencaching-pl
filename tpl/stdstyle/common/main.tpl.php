@@ -5,29 +5,7 @@ use lib\Objects\GeoCache\PrintList;
 use Utils\DateTime\Year;
 use Utils\Debug\Debug;
 
-// load menu
-global $mnu_selmenuitem, $tpl_subtitle, $absolute_server_URI, $mnu_siteid /* which menu item should be highlighted */, $site_name;
-
-require_once $stylepath . '/lib/menu.php';
-
-
-// decide which menu item should be selected
-if ( isset($mnu_siteid) ) {
-    // dla wybranych stron (viewprofile i ustatsg1|2) nie utawia sie menu na template
-    // tylko na start...
-    $menu_item_siteid = $mnu_siteid;
-}else{
-    // dla pozostałych templateName
-    $menu_item_siteid = $tplname;
-}
-
-// znajdz pageIdx dla bieżacego templatu
-$pageidx = mnu_MainMenuIndexFromPageId($menu, $menu_item_siteid);
-
-// add selected menu item as a apendix to site title (tpl_subtitle) (?)
-if ($tplname != 'start'){
-    $tpl_subtitle .= htmlspecialchars($mnu_selmenuitem['title'] . ' - ', ENT_COMPAT, 'UTF-8');
-}
+global $tpl_subtitle, $absolute_server_URI, $site_name;
 
 ?>
 <!DOCTYPE html>
@@ -275,30 +253,6 @@ if ($tplname != 'start'){
                     <?php } //admin ?>
 
                 <?php } //if-_isUserLogged ?>
-
-
-                    <?php
-
-                    /*
-                    if ($usr && isset($_SESSION['user_id'])) {
-                        $myhomeidx = mnu_MainMenuIndexFromPageId($menu, "myhome");
-                        $myprofileidx = mnu_MainMenuIndexFromPageId($menu[$myhomeidx]["submenu"], "myprofile");
-                        // [fixme] Have to do the menu unrolling... in not such a crappy way
-                        // ^ agreed, but it's 1:30 AM
-                        if ($menu_item_siteid == "myprofile" || $menu_item_siteid == "myprofile_change" || $menu_item_siteid == "newemail" || $menu_item_siteid == "newpw" || $menu_item_siteid == "change_statpic") {
-                            for ($i = 0; $i < count($menu[$myhomeidx]["submenu"][$myprofileidx]['submenu']); $i++) {
-                                $menu[$myhomeidx]["submenu"][$myprofileidx]['submenu'][$i]['visible'] = true;
-                            }
-                        }
-                        echo '<ul>';
-                        echo '<li class="title">' . $menu[$myhomeidx]["title"] . '</li>';
-                        mnu_EchoSubMenu($menu[$myhomeidx]['submenu'], $menu_item_siteid, 1, false);
-                        echo '</ul>';
-                    }
-                    */
-                    ?>
-
-
 
                     <!-- Main title -->
                 </div>
