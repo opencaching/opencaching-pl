@@ -270,9 +270,6 @@ $powerTrailMinimumCacheCount = array(
 // user who found less than $powerTrailUserMinimumCacheFoundToSetNewPowerTrail can't create new PT
 $powerTrailUserMinimumCacheFoundToSetNewPowerTrail = 500;
 
-// link to FAQ/info of power trail module
-$powerTrailFaqLink = 'http://info.opencaching.pl/node/13';
-
 /* end of power Trail module switch and settings */
 
 // enable detailed cache access logging

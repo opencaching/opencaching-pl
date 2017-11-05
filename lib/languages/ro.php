@@ -1896,7 +1896,7 @@ $translations = array(
     'pt152' => 'Specify a reason for deleting this entry',
     'pt153' => 'Reason of delete an entry',
     'pt154' => 'marks',
-    'pt155' => 'geoPath - help',
+    'cs_wikiLink' => 'geoPath - help',
     'pt156' => 'remove optional cache',
     'pt157' => 'Enter the cache waypoint which you want add to the geoPath',
     'pt158' => 'Enter the cache waypoint which you want remove from the geoPath',
@@ -2658,5 +2658,7 @@ $translations = array(
 
     'loginForm_lostEmail' => 'Forgotten your E-mail? <a href="remindemail.php"> Ask it here</a>',
 
-
+    'mnu_blog' => 'Blog',
+    'mnu_download' => 'Download',
+    'mnu_qrCode' => 'QR Code',
 );

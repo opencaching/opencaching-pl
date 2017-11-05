@@ -1898,7 +1898,7 @@ $translations = array(
     'pt152' => 'Podaj przyczynę usunięcia wpisu:',
     'pt153' => 'Przyczyna usunięcia wpisu:',
     'pt154' => 'znaków',
-    'pt155' => 'GeoŚcieżki - pomoc',
+    'cs_wikiLink' => 'GeoŚcieżki - pomoc',
     'pt156' => 'Usuń dowolną skrzynkę',
     'pt157' => 'Podaj waypoint skrzynki, którą chcesz dodać do geoŚcieżki',
     'pt158' => 'Podaj waypoint skrzynki, którą chcesz usunąć z geoŚcieżki',
@@ -2707,7 +2707,7 @@ $translations = array(
 
     'mnu_blog' => 'Blog',
     'mnu_download' => 'Download',
-
+    'mnu_qrCode' => 'QR Code',
 
 );
 

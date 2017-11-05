@@ -47,6 +47,7 @@ $links['wiki'] = [
     'cacheAttrib_en'    => $_wiki.'/index.php/Cache_parameters#Attributes',
     'cacheLogPass'      => $_wiki.'/index.php/Parametry_skrzynki#Has.C5.82o_do_wpisu_do_Logu',
     'cacheLogPass_en'   => $_wiki.'/index.php/Cache_parameters#Log_password',
+    'geoPaths'          => $_wiki.'/index.php/Geo%C5%9Bcie%C5%BCka',
 ];
 
 

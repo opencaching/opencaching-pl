@@ -6,6 +6,7 @@ use lib\Objects\PowerTrail\PowerTrail;
 use lib\Objects\GeoCache\GeoCache;
 use Utils\Uri\Uri;
 use lib\Objects\OcConfig\OcDynamicMapConfig;
+use Controllers\ConfigController;
 
 /**
  *  powerTrail.php
@@ -149,6 +150,8 @@ if ($error == false) {
         tpl_set_var('ptMenu', 'none');
     $ptMenu = new powerTrailMenu($usr);
     tpl_set_var("powerTrailMenu", buildPowerTrailMenu($ptMenu->getPowerTrailsMenu()));
+
+    $view->setVar('csWikiLink', ConfigController::getLinks()['wiki']['geoPaths']);
 
     $pt = new powerTrailController($usr);
     $result = $pt->run();

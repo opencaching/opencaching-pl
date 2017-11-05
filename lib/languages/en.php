@@ -1898,7 +1898,7 @@ $translations = array(
     'pt152' => 'Specify a reason for deleting this entry',
     'pt153' => 'Reason for deleting an entry',
     'pt154' => 'Marks',
-    'pt155' => 'GeoPath - help',
+    'cs_wikiLink' => 'GeoPath - help',
     'pt156' => 'Remove cache',
     'pt157' => 'Enter the waypoint of the cache you want to add to the GeoPath',
     'pt158' => 'Enter the waypoint of the cache you want to remove from the GeoPath',
@@ -2710,6 +2710,7 @@ $translations = array(
 
     'mnu_blog' => 'Blog',
     'mnu_download' => 'Download',
+    'mnu_qrCode' => 'QR Code',
 
 );
 

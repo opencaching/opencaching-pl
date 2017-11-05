@@ -1898,7 +1898,7 @@ $translations = array(
     'pt152' => 'Specify a reason for deleting this entry',
     'pt153' => 'Reason for deleting an entry',
     'pt154' => 'Marks',
-    'pt155' => 'GeoPath Hilfe',
+    'cs_wikiLink' => 'GeoPath Hilfe',
     'pt156' => 'Remove cache',
     'pt157' => 'Enter the waypoint of the cache you want to add to the GeoPath',
     'pt158' => 'Enter the waypoint of the cache you want to remove from the GeoPath',
@@ -2706,6 +2706,10 @@ $translations = array(
     'loginForm_cantSetCookie' => 'Your browser does not accept cookies from {site_name}',
 
     'loginForm_lostEmail' => 'E-mail adresse vergessen? <a href="remindemail.php">Frage hier deine E-mailadresse</a>',
+
+    'mnu_blog' => 'Blog',
+    'mnu_download' => 'Download',
+    'mnu_qrCode' => 'QR Code',
 
 );
 

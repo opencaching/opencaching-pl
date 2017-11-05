@@ -101,6 +101,17 @@ class MainLayoutController extends BaseController
             $this->view->setVar('_displayOnlineUsers', false);
         }
 
+        $this->initMenu();
+
+        if(isset($config['license_html'])){
+            $this->view->setVar('licenseHtml', $config['license_html']);
+        }else{
+            $this->view->setVar('licenseHtml', '');
+        }
+    }
+
+    private function initMenu()
+    {
 
         if(!$this->isUserLogged()){
             // user not authorized
@@ -129,11 +140,6 @@ class MainLayoutController extends BaseController
             $this->getMenu(ConfigController::MENU_FOOTER_PREFIX));
 
 
-        if(isset($config['license_html'])){
-            $this->view->setVar('licenseHtml', $config['license_html']);
-        }else{
-            $this->view->setVar('licenseHtml', '');
-        }
     }
 
     /**

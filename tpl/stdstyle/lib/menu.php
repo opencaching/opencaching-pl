@@ -28,7 +28,7 @@
  * ************************************************************************** */
 include_once('lib/language.inc.php');
 global $menu, $usr, $lang, $cache_menu, $stat_menu, $wikiLinks, $SiteOutsideCountryString, $config,
- $powerTrailModuleSwitchOn, $powerTrailFaqLink, $forum_url, $blogsite_url;
+ $powerTrailModuleSwitchOn, $forum_url, $blogsite_url;
 
 $menu = array(
     array(
@@ -197,12 +197,13 @@ $menu = array(
                 'filename' => 'powerTrail.php',
                 'submenu' => array(
                     array(
-                        'title' => tr('pt155'),
-                        'menustring' => tr('pt155'),
+                        'title' => tr('cs_wikiLink'),
+                        'menustring' => tr('cs_wikiLink'),
                         'siteid' => 'geoSciezkiFAQ',
                         'visible' => $powerTrailModuleSwitchOn,
-                        'filename' => $powerTrailFaqLink,
-                    ),),
+                        'filename' => 'not-used-anymore' // $powerTrailFaqLink, //kojoty: currently $links[wiki][geopath]
+                    ),
+                ),
             )
         )
     ),
@@ -853,45 +854,6 @@ function mnu_MainMenuIndexFromPageId($menustructure, $pageid)
     return $ret;
 }
 
-/*
- * mnu_EchoMainMenu - echos the top level menus
- *
- * selmenuid   p.e. mnu_MainMenuIndexFromPageId($menu, $siteid)
- */
-
-
-// called from main.tpl
-// drukuje głóœne pozycje menu (na horizontal bar)
-function mnu_EchoMainMenu($selmenuid)
-{
-    global $menu;
-    for ($i = 0; $i < count($menu); $i++) {
-        if ($menu[$i]['visible'] == true) {
-
-            if (!isset($menu[$i]['newwindow'])){
-                $menu[$i]['newwindow'] = false;
-            }
-
-            if ($menu[$i]['newwindow'] == true){
-                $target_blank = "target='_blank'";
-            } else {
-                $target_blank = "";
-            }
-
-            if ($menu[$i]['siteid'] == $selmenuid ||
-                is_array($menu[$i]['siteid']) &&
-                in_array($selmenuid, $menu[$i]['siteid'])) {
-
-                echo '<li><a class="selected bg-green06" href="' . $menu[$i]['filename'] . '">' . htmlspecialchars($menu[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>';
-
-            } else {
-
-                echo '<li><a ' . $target_blank . ' href="' . $menu[$i]['filename'] . '">' . htmlspecialchars($menu[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>';
-
-            }
-        }
-    }
-}
 
 /*
  * mnu_EchoSubMenu - echos the 2. and 3. menu level
@@ -970,27 +932,4 @@ function mnu_EchoSubMenu($menustructure, $pageid, $level, $bHasSubmenu)
             }
         }
     }
-}
-
-// main tpl only
-// wyswietla kawalek menu - uzyty tylko do wyswietlenia w stopce
-function buildBottomMenu($menuArray)
-{
-    global $config;
-    $result = '<p>';
-    $first = true;
-    foreach ($menuArray as $name => $item)
-        if ($item['visible']) {
-            if ($first) {
-                $first = false;
-            } else {
-                $result .= ' | ';
-            }
-            $result .= '<a href="' . $item['link'] . '">' . tr($name) . '</a>';
-        }
-    $result .= '</p>';
-    if (isset($config['license_html']) && !empty($config['license_html'])) {
-        $result .= '<p><br>' . $config['license_html'] . '</p>';
-    }
-    return $result;
 }

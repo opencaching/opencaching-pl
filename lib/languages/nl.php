@@ -1899,7 +1899,7 @@ $translations = array(
     'pt152' => 'Reden om de log te verwijderen:',
     'pt153' => 'Tekst bij verwijdering:',
     'pt154' => 'tekens',
-    'pt155' => 'GeoPath help',
+    'cs_wikiLink' => 'GeoPath help',
     'pt156' => 'Verwijder een cache',
     'pt157' => 'Vul het toe te voegen cachewaypoint in en druk op enter',
     'pt158' => 'Vul het te verwijderen cachewaypoint in en druk op enter',
@@ -2708,5 +2708,8 @@ $translations = array(
 
     'loginForm_lostEmail' => 'E-mail vergeten? <a href="remindemail.php">Vraag het E-mailadres op</a>',
 
+    'mnu_blog' => 'Blog',
+    'mnu_download' => 'Download',
+    'mnu_qrCode' => 'QR Code',
 );
 

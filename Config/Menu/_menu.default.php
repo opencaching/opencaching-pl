@@ -168,11 +168,11 @@ $menu = array(
                 'filename' => 'powerTrail.php',
                 'submenu' => array(
                     array(
-                        'title' => tr('pt155'),
-                        'menustring' => tr('pt155'),
+                        'title' => tr('cs_wikiLink'),
+                        'menustring' => tr('cs_wikiLink'),
                         'siteid' => 'geoSciezkiFAQ',
                         'visible' => $powerTrailModuleSwitchOn,
-                        'filename' => $powerTrailFaqLink,
+                        'filename' => $powerTrailFaqLink, //kojoty: currently $links[wiki][geopath]
                     ),),
             )
         )

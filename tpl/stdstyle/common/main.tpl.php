@@ -247,19 +247,6 @@ if ($tplname != 'start'){
                       <?php } //foreach ?>
                     </ul>
 
-                    <!-- authorized user menu -->
-                    <ul>
-                      <li class="title"><?=tr('main_menu')?></li>
-                      <?php foreach($view->_authUserMenu as $key => $url){ ?>
-                        <li class="group">
-                            <a href="<?=$url?>">
-                              <?=$key?>
-                            </a>
-                        </li>
-                      <?php } //foreach ?>
-                    </ul>
-
-
                     <?php if ($view->_isAdmin) { ?>
                       <!-- admin menu -->
                       <ul>
