@@ -79,8 +79,8 @@ $menu = array(
                 'filename' => 'cachemap3.php',
                 'submenu' => array(
                     array(
-                        'title' => tr('cache_mapv2'),
-                        'menustring' => tr('cache_mapv2'),
+                        'title' => tr('mnu_oldCacheMap'),
+                        'menustring' => tr('mnu_oldCacheMap'),
                         'siteid' => 'cachemap2',
                         'visible' => $config['map2SwithedOn'],
                         'onlylogged' => true,

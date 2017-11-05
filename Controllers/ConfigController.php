@@ -36,6 +36,7 @@ class ConfigController extends BaseController
     const MENU_FOOTER_PREFIX = 'footerMenu';
     const MENU_ADMIN_PREFIX = 'adminMenu';
     const MENU_AUTH_USER = 'authUserMenu';
+    const MENU_CUSTOM_USER = 'customUserMenu';
     const MENU_NON_AUTH_USER = 'nonAuthUserMenu';
     const MENU_HORIZONTAL_BAR = 'horizontalBarMenu';
 

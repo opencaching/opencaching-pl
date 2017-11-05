@@ -123,6 +123,11 @@ class MainLayoutController extends BaseController
             $this->view->setVar('_authUserMenu',
                 $this->getMenu(ConfigController::MENU_AUTH_USER));
 
+            // custom user menu
+            $this->view->setVar('_customUserMenu',
+                $this->getMenu(ConfigController::MENU_CUSTOM_USER));
+
+
             if($this->loggedUser->isAdmin()){
                 $this->view->setVar('_isAdmin', true);
                 $this->view->setVar('_adminMenu',

@@ -189,8 +189,7 @@ $translations = array(
     'allowed_html_tags' => 'Dozwolone znaczniki HTML',
     'special_caches' => 'Skrzynki specjalne',
     'user_ident' => 'Identyfikacja użytkownika',
-    'cache_map' => 'Mapa skrzynek v3',
-    'cache_mapv2' => 'Mapa skrzynek v2',
+    'cache_map' => 'Mapa skrzynek',
     'old_cache_map' => 'Starsza wersja mapy skrzynek',
     'abc' => 'ABC Geocachingu',
     'forum' => 'Forum',
@@ -2708,6 +2707,8 @@ $translations = array(
     'mnu_blog' => 'Blog',
     'mnu_download' => 'Download',
     'mnu_qrCode' => 'QR Code',
+    'mnu_oldCacheMap' => 'Dawna mapa skrzynek',
+
 
 );
 

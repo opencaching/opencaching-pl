@@ -255,6 +255,15 @@
                       <?php } //foreach ?>
                     </div>
 
+                    <!-- custom user menu -->
+                    <div class="nav nav-pills flex-column">
+                      <?php foreach($view->_customUserMenu as $key => $url){ ?>
+                        <a class="nav-link" href="<?=$url?>">
+                          <?=$key?>
+                        </a>
+                      <?php } //foreach ?>
+                    </div>
+
                     <?php if ($view->_isAdmin) { ?>
                         <!-- admin menu -->
                         <div class="nav nav-pills flex-column">

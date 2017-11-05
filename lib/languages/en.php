@@ -189,8 +189,7 @@ $translations = array(
     'allowed_html_tags' => 'Allowed HTML tags',
     'special_caches' => 'Special caches',
     'user_ident' => 'User\'s identification',
-    'cache_map' => 'Map of caches v3',
-    'cache_mapv2' => 'Map of caches v2',
+    'cache_map' => 'Map of caches',
     'old_cache_map' => 'Map of caches older version',
     'abc' => 'Geocaching ABC',
     'forum' => 'Forum',
@@ -2711,7 +2710,7 @@ $translations = array(
     'mnu_blog' => 'Blog',
     'mnu_download' => 'Download',
     'mnu_qrCode' => 'QR Code',
-
+    'mnu_oldCacheMap' => 'Old map of caches',
 );
 
 

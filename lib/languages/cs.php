@@ -173,7 +173,6 @@ $translations = array(
     'special_caches' => 'Speciální případy',
     'user_ident' => 'Identifikace uživatele',
     'cache_map' => 'Mapa keší',
-    'cache_mapv2' => 'Mapa keší v2',
     'old_cache_map' => 'Starší verze mapy keší',
     'Flopp_map' => 'Flopp\'s map',
     'abc' => 'ABC Geocachingu',
