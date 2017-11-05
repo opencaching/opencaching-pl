@@ -25,7 +25,6 @@ $menu = [
     'cache_map'     => '/cachemap3.php',
     'mnu_oldCacheMap'   => '/cachemap2.php', //PL only!
     'Flopp_map'     => 'http://www.flopp-caching.de',
-    'logmap_04'     => '/logmap.php',
     'search_cache'  => '/search.php',
     'recommended_caches' => '/cacheratings.php',
     'statistics'    => '/articles.php?page=stat',
