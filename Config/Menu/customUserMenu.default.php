@@ -27,11 +27,12 @@ $menu = [
     'mycache_note' => '/mycache_notes.php',
     'my_statistics' => '/viewprofile.php',
     'Field_Notes' => '/log_cache_multi_send.php',
+    'mnu_oldCacheMap'   => '/cachemap2.php', //PL only!
+    'Flopp_map'     => 'http://www.flopp-caching.de',
     'my_account' => '/myprofile.php',
     'settings_notifications' => 'mywatches.php?action=emailSettings',
     'collected_queries' => 'query.php',
     'watched_caches' => 'mywatches.php',
-    'map_watched_caches' =>  'mywatches.php?action=map',
     'ignored_caches' => 'myignores.php',
     'my_recommendations' => 'mytop5.php',
     'adoption_cache' => 'chowner.php',

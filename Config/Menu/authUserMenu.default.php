@@ -23,8 +23,6 @@ $menu = [
     'new_logs'      => '/newlogs.php',
     'incomming_events' => '/newevents.php',
     'cache_map'     => '/cachemap3.php',
-    'mnu_oldCacheMap'   => '/cachemap2.php', //PL only!
-    'Flopp_map'     => 'http://www.flopp-caching.de',
     'search_cache'  => '/search.php',
     'recommended_caches' => '/cacheratings.php',
     'statistics'    => '/articles.php?page=stat',
