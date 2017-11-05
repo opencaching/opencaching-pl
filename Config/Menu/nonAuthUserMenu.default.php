@@ -29,4 +29,8 @@ $menu = [
     'news' => '/news.php',
     'rules' => $links['wiki']['rules'],
 
+    'new_caches'    => '/newcaches.php',
+    'new_logs'      => '/newlogs.php',
+    'incomming_events' => '/newevents.php',
+
 ];

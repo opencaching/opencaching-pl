@@ -22,22 +22,28 @@ $menu = [
     /* 'translation key' => 'url' */
     'new_cache' => '/newcache.php',
     'my_caches' => '/mycaches.php',
-    'my_neighborhood' => '/myneighborhood.php',
+    'my_statistics' => '/viewprofile.php',
+    'my_account' => '/myprofile.php',
+
     'myroutes' => '/myroutes.php',
     'mycache_note' => '/mycache_notes.php',
-    'my_statistics' => '/viewprofile.php',
-    'Field_Notes' => '/log_cache_multi_send.php',
-    'mnu_oldCacheMap'   => '/cachemap2.php', //PL only!
-    'Flopp_map'     => 'http://www.flopp-caching.de',
-    'my_account' => '/myprofile.php',
-    'settings_notifications' => 'mywatches.php?action=emailSettings',
-    'collected_queries' => 'query.php',
     'watched_caches' => 'mywatches.php',
     'ignored_caches' => 'myignores.php',
     'my_recommendations' => 'mytop5.php',
+    'collected_queries' => 'query.php',
+    'okapi_apps' => 'okapi/apps/?langpref=' . $GLOBALS['lang'],
+
     'adoption_cache' => 'chowner.php',
     'search_user' => 'searchuser.php',
+
+    'new_caches'    => '/newcaches.php',
+    'new_logs'      => '/newlogs.php',
+    'incomming_events' => '/newevents.php',
+    'recommended_caches' => '/cacheratings.php',
+
+    'mnu_oldCacheMap'   => '/cachemap2.php', //PL only!
+    'Flopp_map'     => 'http://www.flopp-caching.de',
+    'Field_Notes' => '/log_cache_multi_send.php',
     'openchecker_name' => 'openchecker.php', //ENABLE?!
-    'okapi_apps' => 'okapi/apps/?langpref=' . $GLOBALS['lang'],
     'mnu_qrCode' => '/qrcode.php',
 ];

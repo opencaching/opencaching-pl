@@ -1,13 +1,15 @@
-<?php
 
-?>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="{{my_account}}" title="{{my_account}}" />&nbsp;{{my_account}}</div>
 <div class="searchdiv">
 
-    <a class="btn btn-primary" href="myprofile.php?action=change">{{change_data}}</a>
-    <a class="btn btn-default" href="newemail.php">{{change_email}}</a>
-    <a class="btn btn-default" href="newpw.php">{{change_password}}</a>
-    <a class="btn btn-default" href="change_statpic.php">{{choose_statpic}}</a>
+<div class="align-right">
+    <a class="btn btn-success btn-sm" href="myprofile.php?action=change">{{change_data}}</a>
+    <a class="btn btn-default btn-sm" href="newemail.php">{{change_email}}</a>
+    <a class="btn btn-default btn-sm" href="newpw.php">{{change_password}}</a>
+    <a class="btn btn-default btn-sm" href="change_statpic.php">{{choose_statpic}}</a>
+    <a class="btn btn-default btn-sm" href="/mywatches.php?action=emailSettings">{{settings_notifications}}</a>
+</div>
+
     <br/><br/>
     <div class="notice" style="height:44px;">
         {{myprofile01}}

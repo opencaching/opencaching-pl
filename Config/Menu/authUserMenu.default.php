@@ -19,13 +19,14 @@
 $menu = [
     /* 'translation key' => 'url' */
     'news'          => '/news.php',
-    'new_caches'    => '/newcaches.php',
-    'new_logs'      => '/newlogs.php',
-    'incomming_events' => '/newevents.php',
     'cache_map'     => '/cachemap3.php',
+
+    'my_neighborhood' => '/myneighborhood.php',
     'search_cache'  => '/search.php',
-    'recommended_caches' => '/cacheratings.php',
-    'statistics'    => '/articles.php?page=stat',
-    'rules'         => $links['wiki']['rules'],
     'gp_mainTitile' => '/powerTrail.php',
+
+
+    'rules'         => $links['wiki']['rules'],
+    'statistics'    => '/articles.php?page=stat',
+
 ];

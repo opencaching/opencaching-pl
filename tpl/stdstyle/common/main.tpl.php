@@ -221,7 +221,7 @@ if ($tplname != 'start'){
                     <?php if(!$view->_isUserLogged) { ?>
                     <!-- non-authorized user menu -->
                     <ul>
-                      <li class="title"><?=$tr('main_menu')?></li>
+                      <li class="title"><?=tr('main_menu')?></li>
 
                       <?php foreach($view->_nonAuthUserMenu as $key => $url){ ?>
                         <li class="group">
