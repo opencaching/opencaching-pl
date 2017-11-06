@@ -515,6 +515,10 @@ class GeoCache extends GeoCacheCommons
         return $this->id;
     }
 
+    /**
+     * Return OC waypoint code like OC1234
+     * @return string
+     */
     public function getWaypointId()
     {
         return $this->geocacheWaypointId;
