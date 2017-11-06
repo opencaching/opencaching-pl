@@ -42,7 +42,7 @@ $menu = [
     'recommended_caches' => '/cacheratings.php',
 
     'mnu_oldCacheMap'   => '/cachemap2.php', //PL only!
-    'Flopp_map'     => 'http://www.flopp-caching.de',
+    'Flopp_map'     => 'http://flopp-caching.de',
     'Field_Notes' => '/log_cache_multi_send.php',
     'openchecker_name' => 'openchecker.php', //ENABLE?!
     'mnu_qrCode' => '/qrcode.php',
