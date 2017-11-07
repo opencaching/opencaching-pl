@@ -3,6 +3,8 @@
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\GeoCache\Waypoint;
+use lib\Objects\Coordinates\Coordinates;
+use lib\Objects\GeoCache\GeoCacheCommons;
 
 class OpenCheckerSetup {
 
@@ -113,31 +115,23 @@ class OpenCheckerCore {
     public function CoordsComparing($OpenCheckerSetup) {
 
         // get data from post.
-        $degrees_N = XDb::xEscape($_POST['degrees_N']);
-        $minutes_N = XDb::xEscape($_POST['minutes_N']);
-        $degrees_E = XDb::xEscape($_POST['degrees_E']);
-        $minutes_E = XDb::xEscape($_POST['minutes_E']);
-        $cache_id = XDb::xEscape($_POST['cacheid']);
+        $lat = $_POST['guessedCoordsFinalLatitude'];
+        $lon = $_POST['guessedCoordsFinalLongitude'];
 
-        $rs = XDb::xSql("SELECT `caches`.`name`,
-                `caches`.`cache_id`,
-                `caches`.`type`,
-                `caches`.`user_id`,
-                `caches`.`wp_oc`,
-                `cache_type`.`icon_large`,
-                `user`.`username`
-                FROM   `caches`, `user`, `cache_type`
-                WHERE  `caches`.`user_id` = `user`.`user_id`
-                AND    `caches`.`type` = `cache_type`.`id`
-                AND    `caches`.`cache_id` = ? ", $cache_id);
+        $guessCorrds = Coordinates::FromCoordsFactory($lat, $lon);
 
         tpl_set_var("section_2_start", '');
         tpl_set_var("section_2_stop", '');
-        tpl_set_var("section_openchecker_form_start", '<!--');
-        tpl_set_var("section_openchecker_form_stop", '-->');
+
+        $view = tpl_getView();
+        $view->setVar('displayOpencheckerForm', false);
         tpl_set_var("openchecker_not_enabled", '');
 
-        if (!$record = Xdb::xFetchArray($rs)) {
+        $cache_id = XDb::xEscape($_POST['cacheid']);
+        /** @var GeoCache */
+        $geoCache = GeoCache::fromCacheIdFactory($cache_id);
+
+        if (!$geoCache) { //there is no such geocache?
             tpl_set_var("openchecker_wrong_cache", tr(openchecker_wrong_cache));
             tpl_set_var("section_2_start", '<!--');
             tpl_set_var("section_2_stop", '-->');
@@ -146,40 +140,16 @@ class OpenCheckerCore {
             $this->Finalize();
         }
 
-        tpl_set_var("wp_oc", $record['wp_oc']);
-        tpl_set_var("cache_icon", '<img src="tpl/stdstyle/images/' . $record['icon_large'] . '" />');
+        $owner = $geoCache->getOwner();
+
+        tpl_set_var('wp_oc', $geoCache->getWaypointId());
+
+        tpl_set_var("cache_icon",
+            '<img src="tpl/stdstyle/images/' . $geoCache->getCacheIcon() . '" />');
         tpl_set_var("cacheid", $cache_id);
-        tpl_set_var("user_name", $record['username']);
-        tpl_set_var("cachename", $record['name']);
-        tpl_set_var("user_id", $record['user_id']);
-
-        Xdb::xFreeResults($rs);
-
-        if ($degrees_N == '')
-            $degrees_N = 0;
-        if ($degrees_E == '')
-            $degrees_E = 0;
-        if ($minutes_N == '')
-            $minutes_N = 0;
-        if ($minutes_E == '')
-            $minutes_E = 0;
-
-        // converting from HH MM.MMM to DD.DDDDDD
-
-        $coordN = new convertLongLat($degrees_N, $minutes_N);
-        $coordE = new convertLongLat($degrees_E, $minutes_E);
-
-        //setting long & lat. signs
-        if ($degrees_N >= 0) {
-            $NorS = "N";
-        } else {
-            $NorS = "S";
-        };
-        if ($degrees_E >= 0) {
-            $EorW = "E";
-        } else {
-            $EorW = "W";
-        };
+        tpl_set_var("user_name", $owner->getUserName());
+        tpl_set_var("cachename", $geoCache->getCacheName());
+        tpl_set_var("user_id", $owner->getUserId());
 
         // geting data from database
         $conn = XDb::instance();
@@ -210,13 +180,12 @@ class OpenCheckerCore {
         $coordN_master = $data['latitude'];
         $coordE_master = $data['longitude'];
 
-
         // comparing data from post with data from database
         if (
-                (($coordN_master - $coordN->CoordsDecimal) < 0.00001) &&
-                (($coordN_master - $coordN->CoordsDecimal) > -0.00001) &&
-                (($coordE_master - $coordE->CoordsDecimal) < 0.00001) &&
-                (($coordE_master - $coordE->CoordsDecimal) > -0.00001)
+                (($coordN_master - $guessCorrds->getLatitude()) < 0.00001) &&
+                (($coordN_master - $guessCorrds->getLatitude()) > -0.00001) &&
+                (($coordE_master - $guessCorrds->getLongitude()) < 0.00001) &&
+                (($coordE_master - $guessCorrds->getLongitude()) > -0.00001)
         ) {
             //puzzle solved - result ok
             $hits_counter = $data['sukcesy'] + 1;
@@ -238,8 +207,10 @@ class OpenCheckerCore {
                 $post_viewcache_form = '
     <form name="post_coord" action="viewcache.php?cacheid=' . $cache_id . '" method="post">
         <button type="submit" name="userModifiedCoordsSubmited" value="modCoords" style="font-size:14px;">' . tr('openchecker_modify_coords_button') . '</button>
-        <input type="hidden" name="userCoordsFinalLatitude" value="' . $coordN->CoordsDecimal . '"/>
-        <input type="hidden" name="userCoordsFinalLongitude" value="' . $coordE->CoordsDecimal . '"/>
+        <input type="hidden" name="userCoordsFinalLatitude"
+               value="' . $guessCorrds->getLatitude() . '"/>
+        <input type="hidden" name="userCoordsFinalLongitude"
+               value="' . $guessCorrds->getLongitude() . '"/>
     </form>
                 ';
             } else {
@@ -261,13 +232,16 @@ class OpenCheckerCore {
             } else {
                 tpl_set_var('waypoint_desc','');
             }
+
         } else {
             //puzzle not solved - wrong result
 
             try {
                 $pdo = XDb::instance();
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $updateCounters = $pdo->exec("UPDATE `opensprawdzacz` SET `proby`='$attempts_counter'  WHERE `cache_id` = $cache_id");
+                $updateCounters = $pdo->exec(
+                    "UPDATE `opensprawdzacz` SET `proby`='$attempts_counter'
+                    WHERE `cache_id` = $cache_id");
             } catch (PDOException $e) {
                 echo "Error PDO Library: ($OpenCheckerSetup->scriptname) " . $e->getMessage();
                 exit;
@@ -277,12 +251,10 @@ class OpenCheckerCore {
             tpl_set_var("save_mod_coord", '');
             tpl_set_var("waypoint_desc",'');
         }
-        //tpl_set_var("score", $wspolrzedneN.'/'.$$coordN_master.'<br>'.$wspolrzedneE.'/'. $$coordE_master);
         tpl_set_var("score", '');
 
-        // tpl_set_var("wsp_NS", );
-        // tpl_set_var("wsp_EW", );
-        tpl_set_var("result_text", tr('openchecker_your_coordinates') . '<b> ' . $NorS . ' ' . $degrees_N . '° ' . $minutes_N . '</b> / <b>' . $EorW . ' ' . $degrees_E . '° ' . $minutes_E . '</b>');
+        tpl_set_var("result_text", tr('openchecker_your_coordinates') .
+            '<b>'.$guessCorrds->getAsText(Coordinates::COORDINATES_FORMAT_DECIMAL).'</b>');
         tpl_set_var("cache_id", $cache_id);
 
         $this->Finalize();
@@ -475,8 +447,10 @@ class OpenCheckerCore {
             tpl_set_var("section_3_stop", '-->');
             tpl_set_var("section_4_start", '<!--');
             tpl_set_var("section_4_stop", '-->');
-            tpl_set_var("section_openchecker_form_start", '<!--');
-            tpl_set_var("section_openchecker_form_stop", '');
+
+            $view = tpl_getView();
+            $view->setVar('displayOpencheckerForm', false);
+
             tpl_set_var("openchecker_form", $openchecker_form);
             tpl_set_var("caches_table", $caches_table);
 
