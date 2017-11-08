@@ -254,7 +254,7 @@ class OpenCheckerCore {
         tpl_set_var("score", '');
 
         tpl_set_var("result_text", tr('openchecker_your_coordinates') .
-            '<b>'.$guessCorrds->getAsText(Coordinates::COORDINATES_FORMAT_DECIMAL).'</b>');
+            '<b>'.$guessCorrds->getAsText(Coordinates::COORDINATES_FORMAT_DEG_MIN).'</b>');
         tpl_set_var("cache_id", $cache_id);
 
         $this->Finalize();
