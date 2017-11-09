@@ -144,8 +144,7 @@ class OpenCheckerCore {
 
         tpl_set_var('wp_oc', $geoCache->getWaypointId());
 
-        tpl_set_var("cache_icon",
-            '<img src="tpl/stdstyle/images/' . $geoCache->getCacheIcon() . '" />');
+        tpl_set_var("cache_icon", '<img src="'. $geoCache->getCacheIcon() . '" />');
         tpl_set_var("cacheid", $cache_id);
         tpl_set_var("user_name", $owner->getUserName());
         tpl_set_var("cachename", $geoCache->getCacheName());
