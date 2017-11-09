@@ -18,7 +18,10 @@ $links['forum'] = null;
 // former $config['geokrety_url']
 $links['geokrety'] = 'https://geokrety.org/index.php?lang=en_EN.UTF-8';
 
+// former $wiki_url
 $_wiki = 'https://wiki.opencache.uk';
+
+// former $wikiLinks
 $links['wiki'] = [
     'rules' => $_wiki.'/index.php/Terms_of_Use_OC_UK',
     'rules_en' => $_wiki.'/index.php/Terms_of_Use_OC_UK',

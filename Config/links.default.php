@@ -22,7 +22,10 @@ $links['forum'] = 'https://forum.opencaching.pl';
 // former $config['geokrety_url']
 $links['geokrety'] = 'https://geokrety.org';
 
+// former $wiki_url
 $_wiki = 'https://wiki.opencaching.pl';
+
+// former $wikiLinks
 $links['wiki'] = [
     'main'              => $_wiki,
     'rules'             => $_wiki.'/index.php/Regulamin_OC_PL',

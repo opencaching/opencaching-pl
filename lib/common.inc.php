@@ -9,6 +9,7 @@ use Utils\I18n\Languages;
 use lib\Objects\ApplicationContainer;
 use lib\Objects\User\User;
 use lib\Objects\User\UserAuthorization;
+use lib\Objects\OcConfig\OcConfig;
 
 session_start();
 
@@ -38,7 +39,6 @@ $GLOBALS['lang'] = $lang;
 $GLOBALS['style'] = $style;
 $GLOBALS['site_name'] = $site_name;
 $GLOBALS['contact_mail'] = $contact_mail;
-$GLOBALS['wikiLinks'] = $wikiLinks;
 $GLOBALS['pagetitle'] = $pagetitle;
 
 require_once($rootpath . 'lib/language.inc.php');     // main translation funcs
@@ -96,7 +96,9 @@ function initTemplateSystem(){
     tpl_set_var('site_name', $GLOBALS['site_name']);
     tpl_set_var('contact_mail', $GLOBALS['contact_mail']);
 
-    foreach($GLOBALS['wikiLinks'] as $key => $value){
+
+    // set wikiLinks used in translations
+    foreach(OcConfig::getWikiLinks() as $key => $value){
         tpl_set_var('wiki_link_'.$key, $value);
     }
 

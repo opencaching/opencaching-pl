@@ -7,10 +7,10 @@ use Controllers\Cron\OnlineUsersController;
 use Utils\DateTime\Year;
 use Utils\I18n\I18n;
 use Utils\Uri\Uri;
-use Controllers\ConfigController;
 use lib\Objects\Admin\GeoCacheApproval;
 use lib\Objects\Admin\ReportCommons;
 use lib\Objects\GeoCache\PrintList;
+use lib\Objects\OcConfig\OcConfig;
 
 class MainLayoutController extends BaseController
 {
@@ -117,21 +117,21 @@ class MainLayoutController extends BaseController
             // user not authorized
             $this->view->setVar('_isAdmin', false);
             $this->view->setVar('_nonAuthUserMenu',
-                $this->getMenu(ConfigController::MENU_NON_AUTH_USER));
+                $this->getMenu(OcConfig::MENU_NON_AUTH_USER));
         }else{
             // user authorized
             $this->view->setVar('_authUserMenu',
-                $this->getMenu(ConfigController::MENU_AUTH_USER));
+                $this->getMenu(OcConfig::MENU_AUTH_USER));
 
             // custom user menu
             $this->view->setVar('_customUserMenu',
-                $this->getMenu(ConfigController::MENU_CUSTOM_USER));
+                $this->getMenu(OcConfig::MENU_CUSTOM_USER));
 
 
             if($this->loggedUser->isAdmin()){
                 $this->view->setVar('_isAdmin', true);
                 $this->view->setVar('_adminMenu',
-                    $this->getMenu(ConfigController::MENU_ADMIN_PREFIX));
+                    $this->getMenu(OcConfig::MENU_ADMIN_PREFIX));
             }else{
                 $this->view->setVar('_isAdmin', false);
                 $this->view->setVar('_adminMenu',null);
@@ -139,10 +139,10 @@ class MainLayoutController extends BaseController
         }
 
         $this->view->setVar('_menuBar',
-            $this->getMenu(ConfigController::MENU_HORIZONTAL_BAR));
+            $this->getMenu(OcConfig::MENU_HORIZONTAL_BAR));
 
         $this->view->setVar('_footerMenu',
-            $this->getMenu(ConfigController::MENU_FOOTER_PREFIX));
+            $this->getMenu(OcConfig::MENU_FOOTER_PREFIX));
 
 
     }
@@ -205,18 +205,18 @@ class MainLayoutController extends BaseController
     private function getMenu($menuPrefix)
     {
         $menu = [];
-        foreach(ConfigController::getMenu($menuPrefix) as $key => $url){
+        foreach(OcConfig::getMenu($menuPrefix) as $key => $url){
 
             if(empty($url)){
                 continue;
             }
 
             switch($menuPrefix){
-                case ConfigController::MENU_ADMIN_PREFIX:
+                case OcConfig::MENU_ADMIN_PREFIX:
                     $this->adminMenuHandler($key, $url);
                     break;
 
-                case ConfigController::MENU_HORIZONTAL_BAR:
+                case OcConfig::MENU_HORIZONTAL_BAR:
                     $this->horizontalMenuHandler($key, $url);
                     break;
 

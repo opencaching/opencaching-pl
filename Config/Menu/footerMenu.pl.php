@@ -10,13 +10,16 @@
  *
  */
 
+// OcConfig::$links var is accessible in this scope!
+
+
 // DON'T CHANGE $menu var name!
 $menu = [
 
     /* 'translation key' => 'url' */
 
-    'impressum' => $GLOBALS['wikiLinks']['impressum'],
-    'history'   => $GLOBALS['wikiLinks']['history'],
+    'impressum' => $links['wiki']['impressum'],
+    'history'   => $links['wiki']['history'],
 
     'api'       => '/okapi',
     'rss'       => 'articles.php?page=rss',

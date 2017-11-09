@@ -1,5 +1,12 @@
 <?php
+exit; //this file shouldn't be used anywhere!
 
+/**
+ * This is old menu configuration
+ * This is here only as reference fro nods admins.
+ *
+ * This file will be removed soon
+ */
 
 $menu = array(
     array( //not-logged menu - called from main.tpl
@@ -177,7 +184,7 @@ $menu = array(
             )
         )
     ),
-/*    array(
+    array(
         'title' => tr('mnu_abcOfGCaching'),
         'menustring' => tr('mnu_abcOfGCaching'),
         'siteid' => 'articles/info',
@@ -354,8 +361,6 @@ $menu = array(
         'menustring' => tr('add_newmp3'),
         'siteid' => 'newmp3'
     ),
-*/
-/*
     // OC management
     array(
         'title' => tr('administration'),
@@ -415,7 +420,7 @@ $menu = array(
             )
         )
     ),
-*/
+
 
     // My profile (my home) my_neighborhood
     array( //called from main.tpl

@@ -1,11 +1,12 @@
 <?php
 
-namespace Controllers;
+namespace lib\Objects\OcConfig;
 use lib\Objects\ApplicationContainer;
 use Utils\Debug\Debug;
+use lib\Objects\BaseObject;
 
 /**
- * This controller read and return requested configuration container
+ * This object reads and return requested configuration container
  * - for example $menu for menu config or $config for site configuration.
  *
  * All config files should be stored in: CONFIG_DIR.
@@ -23,11 +24,11 @@ use Utils\Debug\Debug;
  *
  */
 
-class ConfigController extends BaseController
+abstract class ConfigReader
 {
-    const CONFIG_DIR = __DIR__.'/../Config/';
+    const CONFIG_DIR = __DIR__.'/../../../Config/';
     const MENU_DIR = self::CONFIG_DIR.'Menu/';
-    const LEGACY_LOCAL_CONFIG = __DIR__.'/../lib/settings.inc.php';
+    const LEGACY_LOCAL_CONFIG = __DIR__.'/../../settingsGlue.inc.php';
 
     const CONFIG_PREFIX = 'config';
 
@@ -40,7 +41,13 @@ class ConfigController extends BaseController
     const MENU_NON_AUTH_USER = 'nonAuthUserMenu';
     const MENU_HORIZONTAL_BAR = 'horizontalBarMenu';
 
-    private $links = null;
+    protected $links = null;
+
+
+    protected function __construct()
+    {
+
+    }
 
     /**
      * Return given menu based on rules:
@@ -81,8 +88,8 @@ class ConfigController extends BaseController
 
     public static function getLinks()
     {
-        /** @var /ConfigController */
-        $ctrl = self::instance();
+        /** @var /ConfigReader */
+        $ctrl = static::instance();
         if(!$ctrl->links){
             $ctrl->links = self::getConfig(self::LINKS_PREFIX, 'links');
         }
@@ -101,7 +108,7 @@ class ConfigController extends BaseController
      *      (for example: links for links.* files, config for setting.* files etc.)
      * @return NULL
      */
-    private static function getConfig($configName, $configVarName=null)
+    protected static function getConfig($configName, $configVarName=null)
     {
         if(is_null($configVarName)){
             $localConfigArr = 'config';
@@ -145,7 +152,7 @@ class ConfigController extends BaseController
      * @return string identifier of the node
      *
      */
-    private static function getOcNode()
+    protected static function getOcNode()
     {
         if(!is_null($ocNode = ApplicationContainer::GetOcNode())){
             return $ocNode;
@@ -192,26 +199,7 @@ class ConfigController extends BaseController
 
     }
 
-    /**
-     * This the ONLY way on which instance of this class
-     * should be accessed
-     *
-     * Returns instance of itself.
-     *
-     * @return OcDb object
-     */
-    protected static function instance()
-    {
-        static $instance = null;
-        if ($instance === null) {
-            $instance = new static();
-        }
-        return $instance;
-    }
-
-    public function index()
-    {}
-
+    abstract public static function instance();
 }
 
 

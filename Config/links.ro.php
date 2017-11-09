@@ -3,7 +3,7 @@
  * Thee are pl node overrides of external links config used in many places in the OC code
  * for example in menu, descriptions (translations) etc.
  *
- * This is configuration for OCUK node only and contains only overrided values
+ * This is configuration for OCRO node only and contains only overrided values
  * from links.default.php.
  *
  */
@@ -18,7 +18,10 @@ $links['forum'] = null; // no-link
 // former $config['geokrety_url']
 $links['geokrety'] = 'https://geokrety.org/index.php?lang=en_EN.UTF-8';
 
+// former $wiki_url
 $_wiki = 'https://wiki.opencache.uk';
+
+// former $wikiLinks
 $links['wiki'] = [
     'rules' => $_wiki.'/index.php/Terms_of_Use_OC_UK',
     'rules_en' => $_wiki.'/index.php/Terms_of_Use_OC_UK',
