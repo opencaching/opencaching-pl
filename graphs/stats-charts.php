@@ -68,7 +68,7 @@ function genChartDataCachesFound()
                 $temp = array();
                 $caches += (int) $rStats['caches'];
                 $finds += (int) $rStats['founds'];
-                $temp[] = array('v' => 'Date(' . (string) $rStats['year'] . ', ' . (string) $rStats['month'] . ')');
+                $temp[] = array('v' => 'Date(' . (string) $rStats['year'] . ', ' . (string) ($rStats['month'] - 1) . ')');
                 $temp[] = array('v' => $caches);
                 $temp[] = array('v' => $finds);
                 $rows[] = array('c' => $temp);
