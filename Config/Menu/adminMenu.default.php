@@ -14,14 +14,14 @@
  *
  */
 
-// DON'T CHANGE $menu var name!
-$menu = [
-    'reports' => '/admin_reports.php', /* counters added in MainLayoutCtrl */
-    'pendings' => '/viewpendings.php', /* counters added in MainLayoutCtrl */
-    'stat_octeam' => '/articles.php?page=cog',
-    'cache_notfound' => '/admin_cachenotfound.php',
-    'search_user' => '/admin_searchuser.php',
-    'news_menu_OCTeam' => '/admin_news.php',
-    'pt208' => '/powerTrailCOG.php',
+$menu = [ // DON'T CHANGE $menu var name!
+
+    'mnu_reports'       => '/admin_reports.php', /* counters added in MainLayoutCtrl */
+    'mnu_pendings'      => '/viewpendings.php', /* counters added in MainLayoutCtrl */
+    'mnu_octeamStats'   => '/articles.php?page=cog',
+    'mnu_notFoundCaches' => '/admin_cachenotfound.php',
+    'mnu_searchUser'    => '/admin_searchuser.php',
+    'mnu_ocTeamNews'    => '/admin_news.php',
+    'mnu_geoPathAdmin'  => '/powerTrailCOG.php',
 ];
 

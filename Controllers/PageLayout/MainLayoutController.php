@@ -156,14 +156,14 @@ class MainLayoutController extends BaseController
     private function adminMenuHandler(&$key, &$url)
     {
         switch($key){
-            case 'reports':
+            case 'mnu_reports':
                 // add new/active reports counters
                 $new_reports = ReportCommons::getReportsCountByStatus(ReportCommons::STATUS_NEW);
                 $active_reports = ReportCommons::getReportsCountByStatus(ReportCommons::STATUS_OPEN);
                 $key = tr($key) . " ($new_reports/$active_reports)";
 
                 break;
-            case 'pendings':
+            case 'mnu_pendings':
 
                 $new_pendings = GeoCacheApproval::getWaitingForApprovalCount();
                 if($new_pendings > 0){

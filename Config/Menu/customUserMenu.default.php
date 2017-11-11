@@ -14,33 +14,32 @@
  *
  */
 
-// DON'T CHANGE $menu var name!
-$menu = [
+$menu = [ // DON'T CHANGE $menu var name!
     /* 'translation key' => 'url' */
-    'new_cache' => '/newcache.php',
-    'my_caches' => '/mycaches.php',
-    'my_statistics' => '/viewprofile.php',
-    'my_account' => '/myprofile.php',
+    'mnu_newCache'  => '/newcache.php',
+    'mnu_myCaches'  => '/mycaches.php',
+    'mnu_myStats'   => '/viewprofile.php',
+    'mnu_myAccount' => '/myprofile.php',
 
-    'myroutes' => '/myroutes.php',
-    'mycache_note' => '/mycache_notes.php',
-    'watched_caches' => 'mywatches.php',
-    'ignored_caches' => 'myignores.php',
-    'my_recommendations' => 'mytop5.php',
-    'collected_queries' => 'query.php',
-    'okapi_apps' => 'okapi/apps/?langpref=' . $GLOBALS['lang'],
+    'mnu_myRoutes'      => '/myroutes.php',
+    'mnu_myCacheNotes'  => '/mycache_notes.php',
+    'mnu_watchedCaches' => '/mywatches.php',
+    'mnu_ignoredCaches' => '/myignores.php',
+    'mnu_myRecommends'  => '/mytop5.php',
+    'mnu_savedQueries'  => '/query.php',
+    'mnu_okapiExtApps'  => '/okapi/apps/?langpref=' . $GLOBALS['lang'],
 
-    'adoption_cache' => 'chowner.php',
-    'search_user' => 'searchuser.php',
+    'mnu_cacheAdoption' => '/chowner.php',
+    'mnu_searchUser'    => '/searchuser.php',
 
-    'mnu_newCaches'    => '/newcaches.php',
-    'mnu_newLogs'      => '/newlogs.php',
-    'mnu_incommingEvents' => '/newevents.php',
-    'recommended_caches' => '/cacheratings.php',
+    'mnu_newCaches'         => '/newcaches.php',
+    'mnu_newLogs'           => '/newlogs.php',
+    'mnu_incommingEvents'   => '/newevents.php',
+    'mnu_recoCaches'        => '/cacheratings.php',
 
     'mnu_oldCacheMap'   => '/cachemap2.php', //PL only!
-    'Flopp_map'     => 'https://www.flopp-caching.de',
-    'Field_Notes' => '/log_cache_multi_send.php',
-    'openchecker_name' => 'openchecker.php', //ENABLE?!
-    'mnu_qrCode' => '/qrcode.php',
+    'mnu_FloppMap'      => 'https://www.flopp-caching.de',
+    'mnu_massLogsSave'  => '/log_cache_multi_send.php',
+    'mnu_openchecker'   => '/openchecker.php',
+    'mnu_qrCode'        => '/qrcode.php',
 ];
