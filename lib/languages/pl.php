@@ -189,7 +189,7 @@ $translations = array(
     'allowed_html_tags' => 'Dozwolone znaczniki HTML',
     'special_caches' => 'Skrzynki specjalne',
     'user_ident' => 'Identyfikacja użytkownika',
-    'cache_map' => 'Mapa skrzynek',
+    'mnu_cacheMap' => 'Mapa skrzynek',
     'old_cache_map' => 'Starsza wersja mapy skrzynek',
     'mnu_abcOfGCaching' => 'ABC Geocachingu',
     'mnu_forum' => 'Forum',
@@ -2715,6 +2715,16 @@ $translations = array(
     'mnu_rss' => 'RSS',
     'mnu_history' => 'Historia OC PL',
     'mnu_shop' => 'Shop',
+    'mnu_registration' => 'Zarejestruj się',
+    'mnu_news' => 'Aktualności',
+    'mnu_rules' => 'Regulamin',
+    'mnu_newCaches' => 'Najnowsze skrzynki',
+    'mnu_newLogs' => 'Najnowsze logi',
+    'mnu_incommingEvents' => 'Nadchodzące wydarzenia',
+    'mnu_myNeighborhood' => 'Moja okolica',
+    'mun_searchCache' => 'Wyszukiwarka skrzynek',
+    'mnu_geoPaths' => 'GeoŚcieżki',
+    'mnu_statistics' => 'Statystyki',
 
 
 );

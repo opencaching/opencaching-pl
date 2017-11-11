@@ -189,7 +189,7 @@ $translations = array(
     'allowed_html_tags' => 'Erlaubte HTML-Tags',
     'special_caches' => 'Besondere Caches',
     'user_ident' => 'Benutzers Identifikation',
-    'cache_map' => 'Karte mit Caches',
+    'mnu_cacheMap' => 'Karte mit Caches',
     'old_cache_map' => 'Ältere karte',
     'mnu_abcOfGCaching' => 'Geocaching ABC',
     'mnu_forum' => 'Forum',
@@ -2716,6 +2716,16 @@ $translations = array(
     'mnu_rss' => 'RSS',
     'mnu_history' => 'Geschichte OC',
     'mnu_shop' => 'Shop',
+    'mnu_registration' => 'Registrieren',
+    'mnu_news' => 'Aktuelles',
+    'mnu_rules' => 'Nutzungsbedingungen',
+    'mnu_newCaches' => 'Neueste Caches',
+    'mnu_newLogs' => 'Neueste Logs',
+    'mnu_incommingEvents' => 'Nächste Events',
+    'mnu_myNeighborhood' => 'Meine Umgebung',
+    'mnu_searchCache' => 'Caches suchen',
+    'mnu_geoPaths' => 'GeoPath',
+    'mnu_statistics' => 'Statistik',
 
 
 

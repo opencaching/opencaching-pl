@@ -1,7 +1,4 @@
 <?php
-
-
-
 /**
  * This is simple configuration of links presented in sidebar of the page
  * for authorized users only.
@@ -36,13 +33,13 @@ $menu = [
     'adoption_cache' => 'chowner.php',
     'search_user' => 'searchuser.php',
 
-    'new_caches'    => '/newcaches.php',
-    'new_logs'      => '/newlogs.php',
-    'incomming_events' => '/newevents.php',
+    'mnu_newCaches'    => '/newcaches.php',
+    'mnu_newLogs'      => '/newlogs.php',
+    'mnu_incommingEvents' => '/newevents.php',
     'recommended_caches' => '/cacheratings.php',
 
     'mnu_oldCacheMap'   => '/cachemap2.php', //PL only!
-    'Flopp_map'     => 'http://www.flopp-caching.de',
+    'Flopp_map'     => 'https://www.flopp-caching.de',
     'Field_Notes' => '/log_cache_multi_send.php',
     'openchecker_name' => 'openchecker.php', //ENABLE?!
     'mnu_qrCode' => '/qrcode.php',

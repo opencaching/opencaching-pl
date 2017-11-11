@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This is simple configuration of links presented in sidebar of the page
  * for non-authorized users only.
@@ -20,17 +19,14 @@
  * - feel free to use it
  */
 
+$menu = [ // DON'T CHANGE $menu var name!
 
-// DON'T CHANGE $menu var name!
-$menu = [
     /* 'translation key' => 'url' */
-
-    'registration' => '/register.php',
-    'news' => '/news.php',
-    'rules' => $links['wiki']['rules'],
-
-    'new_caches'    => '/newcaches.php',
-    'new_logs'      => '/newlogs.php',
-    'incomming_events' => '/newevents.php',
+    'mnu_registration'     => '/register.php',
+    'mnu_news'             => '/news.php',
+    'mnu_rules'            => $links['wiki']['rules'],
+    'mnu_newCaches'        => '/newcaches.php',
+    'mnu_newLogs'          => '/newlogs.php',
+    'mnu_incommingEvents'  => '/newevents.php',
 
 ];

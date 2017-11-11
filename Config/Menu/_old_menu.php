@@ -17,8 +17,8 @@ $menu = array(
         'filename' => 'index.php',
         'submenu' => array(
             array( //called from main.tpl
-                'title' => tr('registration'),
-                'menustring' => tr('registration'),
+                'title' => tr('mnu_registration'),
+                'menustring' => tr('mnu_registration'),
                 'visible' => true,
                 'filename' => 'register.php',
                 'siteid' => 'register',
@@ -40,15 +40,15 @@ $menu = array(
                 )
             ),
             array(
-                'title' => tr('news'),
-                'menustring' => tr('news'),
+                'title' => tr('mnu_news'),
+                'menustring' => tr('mnu_news'),
                 'visible' => true,
                 'filename' => 'news.php',
                 'siteid' => 'news/newsList'
             ),
             array(
-                'title' => tr('new_caches'),
-                'menustring' => tr('new_caches'),
+                'title' => tr('mnu_newCaches'),
+                'menustring' => tr('mnu_newCaches'),
                 'visible' => true,
                 'filename' => 'newcaches.php',
                 'siteid' => 'newcaches',
@@ -64,22 +64,22 @@ $menu = array(
                 )
             ),
             array(
-                'title' => tr('new_logs'),
-                'menustring' => tr('new_logs'),
+                'title' => tr('mnu_newLogs'),
+                'menustring' => tr('mnu_newLogs'),
                 'visible' => true,
                 'filename' => 'newlogs.php',
                 'siteid' => 'newlogs'
             ),
             array(
-                'title' => tr('incomming_events'),
-                'menustring' => tr('incomming_events'),
+                'title' => tr('mnu_incommingEvents'),
+                'menustring' => tr('mnu_incommingEvents'),
                 'visible' => true,
                 'filename' => 'newevents.php',
                 'siteid' => 'newevents'
             ),
             array(
-                'title' => tr('cache_map'),
-                'menustring' => tr('cache_map'),
+                'title' => tr('mnu_cacheMap'),
+                'menustring' => tr('mnu_cacheMap'),
                 'siteid' => 'cachemap3',
                 'visible' => true,
                 'onlylogged' => true,
@@ -113,8 +113,8 @@ $menu = array(
                 )
             ),
             array(
-                'title' => tr('search_cache'),
-                'menustring' => tr('search_cache'),
+                'title' => tr('mnu_searchCache'),
+                'menustring' => tr('mnu_searchCache'),
                 'siteid' => 'search',
                 'onlylogged' => true,
                 'visible' => true,
@@ -129,8 +129,8 @@ $menu = array(
                 'siteid' => 'cacheratings'
             ),
             array(
-                'title' => tr('statistics'),
-                'menustring' => tr('statistics'),
+                'title' => tr('mnu_statistics'),
+                'menustring' => tr('mnu_statistics'),
                 'visible' => true,
                 'onlylogged' => true,
                 'filename' => 'articles.php?page=stat',
@@ -152,8 +152,8 @@ $menu = array(
                 )
             ),
             array(
-                'title' => tr('rules'),
-                'menustring' => tr('rules'),
+                'title' => tr('mnu_rules'),
+                'menustring' => tr('mnu_rules'),
                 'visible' => isset($wikiLinks['rules']) ? true : false,
                 'filename' => @$wikiLinks['rules'],
                 'newwindow' => true,
@@ -168,8 +168,8 @@ $menu = array(
                 'filename' => 'articles.php?page=links'
             ),
             array(
-                'title' => tr('gp_mainTitile'),
-                'menustring' => tr('gp_mainTitile'),
+                'title' => tr('mnu_geoPaths'),
+                'menustring' => tr('mnu_geoPaths'),
                 'siteid' => 'powerTrail',
                 'visible' => $powerTrailModuleSwitchOn,
                 'filename' => 'powerTrail.php',
@@ -341,10 +341,10 @@ $menu = array(
         'siteid' => 'register_confirm'
     ),
     array(
-        'title' => tr('cache_map'),
+        'title' => tr('mnu_cacheMap'),
         'visible' => false,
         'filename' => 'cachemap.php',
-        'menustring' => tr('cache_map'),
+        'menustring' => tr('mnu_cacheMap'),
         'siteid' => 'mapa1'
     ),
     array(
@@ -446,8 +446,8 @@ $menu = array(
                 'siteid' => 'mycaches'
             ),
             array(
-                'title' => tr('my_neighborhood'),
-                'menustring' => tr('my_neighborhood'),
+                'title' => tr('mnu_myNeighborhood'),
+                'menustring' => tr('mnu_myNeighborhood'),
                 'visible' => true,
                 'filename' => 'myneighborhood.php',
                 'siteid' =>  'myneighborhood'
@@ -481,8 +481,8 @@ $menu = array(
                 'siteid' => array('log_cache_multi_send', 'log_cache_multi')   //JG 2013-10-25 było 'autolog'
             ),
             array(
-                'title' => tr('new_logs'),
-                'menustring' => tr('new_logs'),
+                'title' => tr('mnu_newLogs'),
+                'menustring' => tr('mnu_newLogs'),
                 'visible' => false,
                 'filename' => 'myn_newlogs.php',
                 'siteid' => 'myn_newlogs'

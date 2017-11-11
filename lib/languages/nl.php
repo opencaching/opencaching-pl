@@ -189,7 +189,7 @@ $translations = array(
     'allowed_html_tags' => 'Toegstane HTML tags',
     'special_caches' => 'Speciale caches',
     'user_ident' => 'Gebruikers profiel',
-    'cache_map' => 'Kaart met caches',
+    'mnu_cacheMap' => 'Kaart met caches',
     'old_cache_map' => 'Oude kaart',
     'mnu_abcOfGCaching' => 'wiki',
     'mnu_forum' => 'Forum',
@@ -2717,6 +2717,16 @@ $translations = array(
     'mnu_rss' => 'RSS',
     'mnu_history' => 'Historie OC',
     'mnu_shop' => 'Shop',
+    'mnu_registration' => 'Registreren',
+    'mnu_news' => 'Nieuws',
+    'mnu_rules' => 'Gebruikersvoorwaarden',
+    'mnu_newCaches' => 'Nieuwste caches',
+    'mnu_newLogs' => 'Nieuwste logs',
+    'mnu_incommingEvents' => 'Aankomende evenementen',
+    'mnu_myNeighborhood' => 'Mijn omgeving',
+    'mnu_searchCache' => 'Zoek een cache',
+    'mnu_geoPaths' => 'GeoPath',
+    'mnu_statistics' => 'Statistieken',
 
 
 );

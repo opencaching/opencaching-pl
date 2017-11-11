@@ -30,7 +30,7 @@ require_once('lib/cache.php');
 
 $_SESSION['powerTrail']['userFounds'] = $usr['userFounds'];
 
-if ($ocConfig->getPowerTrailModuleSwitchOn() === false) {
+if ($ocConfig->isPowerTrailModuleSwitchOn() === false) {
     header("location: $absolute_server_URI");
 }
 

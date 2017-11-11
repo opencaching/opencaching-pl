@@ -180,8 +180,7 @@ class MainLayoutController extends BaseController
     }
 
     /**
-     * Prepare the admin menu. Admin menu has counters for special menu entries
-     * so it needs special processing.
+     * Prepare the horizontal menu bar.
      *
      * @return array - $key->$url style of menu
      */
@@ -203,6 +202,25 @@ class MainLayoutController extends BaseController
         }
     }
 
+    /**
+     * Prepare the auth user menu.
+     *
+     * @return array - $key->$url style of menu
+     */
+    private function authUserMenuHandler(&$key, &$url)
+    {
+        switch($key){
+            case 'mnu_geoPaths':
+                // disable geopaths link if disabled in config
+                if ( !OcConfig::isPowertrailsEnabled() ) {
+                    $url = '';
+                    break;
+                }
+            default:
+                $key = tr($key); // by default menu key is just a translation
+        }
+    }
+
     private function getMenu($menuPrefix)
     {
         $menu = [];
@@ -215,6 +233,10 @@ class MainLayoutController extends BaseController
 
                 case OcConfig::MENU_HORIZONTAL_BAR:
                     $this->horizontalMenuHandler($key, $url);
+                    break;
+
+                case OcConfig::MENU_AUTH_USER:
+                    $this->authUserMenuHandler($key, $url);
                     break;
 
                 default:

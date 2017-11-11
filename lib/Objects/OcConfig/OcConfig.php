@@ -209,7 +209,12 @@ final class OcConfig extends ConfigReader
         return $this->dynamicFilesPath;
     }
 
-    public function getPowerTrailModuleSwitchOn()
+    public static function isPowertrailsEnabled()
+    {
+        return self::instance()->instance()->isPowerTrailModuleSwitchOn();
+    }
+
+    public function isPowerTrailModuleSwitchOn()
     {
         return $this->powerTrailModuleSwitchOn;
     }
@@ -218,7 +223,6 @@ final class OcConfig extends ConfigReader
     {
         return self::instance()->instance()->noreplyEmailAddress;
     }
-
 
     public function isCacheAccesLogEnabled()
     {

@@ -189,7 +189,7 @@ $translations = array(
     'allowed_html_tags' => 'Elemente HTML permise',
     'special_caches' => 'Geocutii speciale',
     'user_ident' => 'Identificarea utilizatorului',
-    'cache_map' => 'Hartă cu geocutii',
+    'mnu_cacheMap' => 'Hartă cu geocutii',
     'old_cache_map' => 'Versiune mai veche a hărţii',
     'mnu_abcOfGCaching' => 'Introducere în geocaching',
     'mnu_forum' => 'Forum',
@@ -2667,6 +2667,16 @@ $translations = array(
     'mnu_rss' => 'RSS',
     'mnu_history' => 'Istoric OC',
     'mnu_shop' => 'Shop',
+    'mnu_registration' => 'Înregistrare',
+    'mnu_news' => 'Noutăţi',
+    'mnu_rules' => 'Reguli',
+    'mnu_newCaches' => 'Geocutii noi',
+    'mnu_newLogs' => 'Ultimele însemnări',
+    'mnu_incommingEevents' => 'În curând',
+    'mnu_myNeighborhood' => 'În apropiere',
+    'mnu_searchCache' => 'Caută o geocutie',
+    'mnu_geoPaths' => 'GeoTrasee',
+    'mnu_statistics' => 'Statistici',
 
 
 );

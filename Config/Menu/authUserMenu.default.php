@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This is simple configuration of links presented in sidebar of the page
  * for authorized users only.
@@ -14,19 +13,16 @@
  *  '<translation-key-used-as-link-text>', '<url>',
  *
  */
-
-// DON'T CHANGE $menu var name!
-$menu = [
+$menu = [ // DON'T CHANGE $menu var name!
     /* 'translation key' => 'url' */
-    'news'          => '/news.php',
-    'cache_map'     => '/cachemap3.php',
+    'mnu_news'          => '/news.php',
+    'mnu_cacheMap'      => '/cachemap3.php',
 
-    'my_neighborhood' => '/myneighborhood.php',
-    'search_cache'  => '/search.php',
-    'gp_mainTitile' => '/powerTrail.php',
+    'mnu_myNeighborhood'=> '/myneighborhood.php',
+    'mnu_searchCache'   => '/search.php',
+    'mnu_geoPaths'      => '/powerTrail.php',
 
-
-    'rules'         => $links['wiki']['rules'],
-    'statistics'    => '/articles.php?page=stat',
+    'mnu_rules'         => $links['wiki']['rules'],
+    'mnu_statistics'    => '/articles.php?page=stat',
 
 ];
