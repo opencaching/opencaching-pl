@@ -22,36 +22,40 @@ $links['forum'] = 'https://forum.opencaching.pl';
 // former $config['geokrety_url']
 $links['geokrety'] = 'https://geokrety.org';
 
-// former $wiki_url
+/**
+ * This is local base for wiki links
+ * (former $wiki_url in /lib/setting.inc.php)
+ */
 $_wiki = 'https://wiki.opencaching.pl';
 
-// former $wikiLinks
-$links['wiki'] = [
-    'main'              => $_wiki,
-    'rules'             => $_wiki.'/index.php/Regulamin_OC_PL',
-    'rules_en'          => $_wiki.'/index.php/OC_PL_Conditions_of_Use',
-    'cacheParams'       => $_wiki.'/index.php/Parametry_skrzynki',
-    'cacheParams_en'    => $_wiki.'/index.php/Cache_parameters',
-    'ratingDesc'        => $_wiki.'/index.php/Oceny_skrzynek',
-    'ratingDesc_en'     => $_wiki.'/index.php/Cache_rating',
-    'forBeginers'       => $_wiki.'/index.php/Dla_pocz%C4%85tkuj%C4%85cych',
-    'placingCache'      => $_wiki.'/index.php/Zak%C5%82adanie_skrzynki',
-    'makingCaches'      => $_wiki.'/index.php/Jakość_skrzynki',
-    'makingRoutes'      => $_wiki.'/index.php/Moje_trasy',
-    'cacheQuality'      => $_wiki.'/index.php/Jako%C5%9B%C4%87_skrzynki',
-    'myRoutes'          => $_wiki.'/index.php/Moje_trasy',
-    'cacheNotes'        => $_wiki.'/index.php/Notatki_skrzynki',
-    'additionalWaypoints' => $_wiki.'/index.php/Dodatkowe_waypointy_w_skrzynce',
-    'cachingCode'       => $_wiki.'/index.php/Kodeks_geocachera',
-    'usefulFiles'       => $_wiki.'/index.php/U%C5%BCyteczne_pliki_zwi%C4%85zane_z_OC_PL',
-    'ocSiteRules'       => $_wiki.'/index.php/Zasady_funkcjonowania_Serwisu_OC_PL',
-    'cacheTypes'        => $_wiki.'/index.php/Typ_skrzynki',
-    'cacheAttrib'       => $_wiki.'/index.php/Parametry_skrzynki#Atrybuty_skrzynki',
-    'cacheAttrib_en'    => $_wiki.'/index.php/Cache_parameters#Attributes',
-    'cacheLogPass'      => $_wiki.'/index.php/Parametry_skrzynki#Has.C5.82o_do_wpisu_do_Logu',
-    'cacheLogPass_en'   => $_wiki.'/index.php/Cache_parameters#Log_password',
-    'geoPaths'          => $_wiki.'/index.php/Geo%C5%9Bcie%C5%BCka',
-];
+/**
+ * This array contains wiki links.
+ * Links below are defaults (used by OCPL node).
+ *
+ * (former $wikiLinks in /lib/setting.inc.php)
+ */
+$links['wiki'] = [];
+
+$links['wiki']['main'] = $_wiki;
+
+$links['wiki']['additionalWaypoints']   = $_wiki.'/index.php/Dodatkowe_waypointy_w_skrzynce';
+$links['wiki']['cacheAttrib']           = $_wiki.'/index.php/Parametry_skrzynki#Atrybuty_skrzynki';
+$links['wiki']['cacheAttrib_en']        = $_wiki.'/index.php/Cache_parameters#Attributes';
+$links['wiki']['cacheLogPass']          = $_wiki.'/index.php/Parametry_skrzynki#Has.C5.82o_do_wpisu_do_Logu';
+$links['wiki']['cacheLogPass_en']       = $_wiki.'/index.php/Cache_parameters#Log_password';
+$links['wiki']['cacheNotes']            = $_wiki.'/index.php/Notatki_skrzynki';
+$links['wiki']['cacheParams']           = $_wiki.'/index.php/Parametry_skrzynki';
+$links['wiki']['cacheParams_en']        = $_wiki.'/index.php/Cache_parameters';
+$links['wiki']['cacheTypes']            = $_wiki.'/index.php/Typ_skrzynki';
+$links['wiki']['cachingCode']           = $_wiki.'/index.php/Kodeks_geocachera';
+$links['wiki']['forBeginers']           = $_wiki.'/index.php/Dla_pocz%C4%85tkuj%C4%85cych';
+$links['wiki']['geoPaths']              = $_wiki.'/index.php/Geo%C5%9Bcie%C5%BCka';
+$links['wiki']['myRoutes']              = $_wiki.'/index.php/Moje_trasy';
+$links['wiki']['placingCache']          = $_wiki.'/index.php/Zak%C5%82adanie_skrzynki';
+$links['wiki']['ratingDesc']            = $_wiki.'/index.php/Oceny_skrzynek';
+$links['wiki']['ratingDesc_en']         = $_wiki.'/index.php/Cache_rating';
+$links['wiki']['rules']                 = $_wiki.'/index.php/Regulamin_OC_PL';
+$links['wiki']['rules_en']              = $_wiki.'/index.php/OC_PL_Conditions_of_Use';
 
 
 

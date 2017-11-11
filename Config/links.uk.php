@@ -8,7 +8,6 @@
  *
  */
 
-
 //former $blogsite_url from settings.inc.php
 $links['blog'] = null; //there is no blog
 
@@ -18,27 +17,39 @@ $links['forum'] = null;
 // former $config['geokrety_url']
 $links['geokrety'] = 'https://geokrety.org/index.php?lang=en_EN.UTF-8';
 
-// former $wiki_url
+/**
+ * This is local base for wiki links
+ * (former $wiki_url in /lib/setting.inc.php)
+ */
 $_wiki = 'https://wiki.opencache.uk';
 
-// former $wikiLinks
-$links['wiki'] = [
-    'rules' => $_wiki.'/index.php/Terms_of_Use_OC_UK',
-    'rules_en' => $_wiki.'/index.php/Terms_of_Use_OC_UK',
-    'cachingCode' => $_wiki.'/index.php/OC_UK_Mission_statement',
-    'placingCache' => $_wiki.'/index.php/How_to_create_a_cache',
-    'makingRoutes' => $_wiki.'/index.php/My_Routes',
-    'myRoutes' => $_wiki.'/index.php/My_Routes',
-    'usefulFiles' => $_wiki.'/index.php/Downloads',
-    'downloads' => $_wiki.'/index.php/Downloads',
-    'cacheTypes' => $_wiki.'/index.php/Cache_Types',
-    'cacheParams' => $_wiki.'/index.php/Cache_Parameters',
-    'cacheParams_en' => $_wiki.'/index.php/Cache_Parameters',
-    'cacheAttrib' => $_wiki.'/index.php/Cache_Attributes',
-    'cacheAttrib_en' => $_wiki.'/index.php/Cache_Attributes',
-    'cacheLogPass' => $_wiki.'/index.php/Cache_Log_Passwords',
-    'cacheLogPass_en' => $_wiki.'/index.php/Cache_Log_Passwords',
-    'cacheNotes' => $_wiki.'/index.php/Cache_Notes',
-    'history' => $_wiki.'/index.php/Main_Page',
-    'impressum' => $_wiki.'/index.php/Main_Page',
-];
+$links['wiki']['main'] = $_wiki;
+
+// overrides of defaults
+
+//DEFAULT USED: $links['wiki']['additionalWaypoints']
+$links['wiki']['cacheAttrib']           = $_wiki.'/index.php/Cache_Attributes';
+$links['wiki']['cacheAttrib_en']        = $_wiki.'/index.php/Cache_Attributes';
+$links['wiki']['cacheLogPass']          = $_wiki.'/index.php/Cache_Log_Passwords';
+$links['wiki']['cacheLogPass_en']       = $_wiki.'/index.php/Cache_Log_Passwords';
+$links['wiki']['cacheNotes']            = $_wiki.'/index.php/Cache_Notes';
+$links['wiki']['cacheParams']           = $_wiki.'/index.php/Cache_Parameters';
+$links['wiki']['cacheParams_en']        = $_wiki.'index.php/Cache_Parameters';
+$links['wiki']['cacheTypes']            = $_wiki.'/index.php/Cache_Types';
+$links['wiki']['cachingCode']           = $_wiki.'/index.php/OC_UK_Mission_statement';
+//DEFAULT USED: $links['wiki']['forBeginers']
+//DEFAULT USED: $links['wiki']['geoPaths']
+$links['wiki']['myRoutes']              = $_wiki.'/index.php/My_Routes';
+$links['wiki']['placingCache']          = $_wiki.'/index.php/How_to_create_a_cache';
+//DEFAULT USED: $links['wiki']['ratingDesc']
+//DEFAULT USED: $links['wiki']['ratingDesc_en']
+$links['wiki']['rules']                 = $_wiki.'/index.php/Terms_of_Use_OC_UK';
+$links['wiki']['rules_en']              = $_wiki.'/index.php/Terms_of_Use_OC_UK';
+
+/**
+ * additional links - not used in main code - used only in node-custom menu
+ */
+$links['wiki']['downloads']             = $_wiki.'/index.php/Downloads';
+$links['wiki']['history']               = $_wiki.'/index.php/Main_Page';
+$links['wiki']['impressum']             = $_wiki.'/index.php/Main_Page';
+

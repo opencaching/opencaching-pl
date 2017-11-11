@@ -16,29 +16,35 @@ $links['blog'] = 'http://blog.opencaching.ro';
 $links['forum'] = null; // no-link
 
 // former $config['geokrety_url']
-$links['geokrety'] = 'https://geokrety.org/index.php?lang=en_EN.UTF-8';
+$links['geokrety'] = null;
 
-// former $wiki_url
-$_wiki = 'https://wiki.opencache.uk';
+/**
+ * This is local base for wiki links
+ * (former $wiki_url in /lib/setting.inc.php)
+ */
+$_wiki = 'http://wiki.opencaching.ro';
 
 // former $wikiLinks
-$links['wiki'] = [
-    'rules' => $_wiki.'/index.php/Terms_of_Use_OC_UK',
-    'rules_en' => $_wiki.'/index.php/Terms_of_Use_OC_UK',
-    'cachingCode' => $_wiki.'/index.php/OC_UK_Mission_statement',
-    'placingCache' => $_wiki.'/index.php/How_to_create_a_cache',
-    'makingRoutes' => $_wiki.'/index.php/My_Routes',
-    'myRoutes' => $_wiki.'/index.php/My_Routes',
-    'usefulFiles' => $_wiki.'/index.php/Downloads',
-    'downloads' => $_wiki.'/index.php/Downloads',
-    'cacheTypes' => $_wiki.'/index.php/Cache_Types',
-    'cacheParams' => $_wiki.'/index.php/Cache_Parameters',
-    'cacheParams_en' => $_wiki.'/index.php/Cache_Parameters',
-    'cacheAttrib' => $_wiki.'/index.php/Cache_Attributes',
-    'cacheAttrib_en' => $_wiki.'/index.php/Cache_Attributes',
-    'cacheLogPass' => $_wiki.'/index.php/Cache_Log_Passwords',
-    'cacheLogPass_en' => $_wiki.'/index.php/Cache_Log_Passwords',
-    'cacheNotes' => $_wiki.'/index.php/Cache_Notes',
-    'history' => $_wiki.'/index.php/Main_Page',
-    'impressum' => $_wiki.'/index.php/Main_Page',
-];
+$links['wiki']['main'] = $_wiki;
+
+$links['wiki']['main'] = $_wiki;
+
+$links['wiki']['additionalWaypoints']   = $_wiki.'/index.php/Dodatkowe_waypointy_w_skrzynce';
+$links['wiki']['cacheAttrib']           = $_wiki.'/index.php/Parametry_skrzynki#Atrybuty_skrzynki';
+$links['wiki']['cacheAttrib_en']        = $_wiki.'/index.php/Cache_parameters#Attributes';
+$links['wiki']['cacheLogPass']          = $_wiki.'/index.php/Parametry_skrzynki#Has.C5.82o_do_wpisu_do_Logu';
+$links['wiki']['cacheLogPass_en']       = $_wiki.'/index.php/Cache_parameters#Log_password';
+$links['wiki']['cacheNotes']            = $_wiki.'/index.php/Notatki_skrzynki';
+$links['wiki']['cacheParams']           = $_wiki.'/index.php/Parametry_skrzynki';
+$links['wiki']['cacheParams_en']        = $_wiki.'/index.php/Cache_parameters';
+$links['wiki']['cacheTypes']            = $_wiki.'/index.php/Typ_skrzynki';
+$links['wiki']['cachingCode']           = $_wiki.'/index.php/Kodeks_geocachera';
+$links['wiki']['forBeginers']           = $_wiki.'/index.php/Dla_pocz%C4%85tkuj%C4%85cych';
+$links['wiki']['geoPaths']              = $_wiki.'/index.php/Geo%C5%9Bcie%C5%BCka';
+$links['wiki']['myRoutes']              = $_wiki.'/index.php/Moje_trasy';
+$links['wiki']['placingCache']          = $_wiki.'/index.php/Zak%C5%82adanie_skrzynki';
+$links['wiki']['ratingDesc']            = $_wiki.'/index.php/Oceny_skrzynek';
+$links['wiki']['ratingDesc_en']         = $_wiki.'/index.php/Cache_rating';
+$links['wiki']['rules']                 = $_wiki.'/index.php/Regulamin_OC_PL';
+$links['wiki']['rules_en']              = $_wiki.'/index.php/OC_PL_Conditions_of_Use';
+
