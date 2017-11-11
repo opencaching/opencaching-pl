@@ -1,9 +1,8 @@
 <?php
-
 /**
  * This is simple configuration of links presented in footer of the page.
  *
- * This is a DEFAULT configuration for ALL nodes.
+ * This is a DEFAULT configuration (used if node-specific is not defined).
  *
  * If you want to customize footer for your node
  * create config for your node by copied this file and changing its name.
@@ -14,13 +13,11 @@
  *
  */
 
-// DON'T CHANGE $menu var name!
-$menu = [
+$menu = [ // DON'T CHANGE $menu var name!
 
     /* 'translation key' => 'url' */
-
-    'api'       => '/okapi',
-    'rss'       => 'articles.php?page=rss',
-    'contact'   => 'articles.php?page=contact',
+    'api'           => '/okapi',
+    'rss'           => 'articles.php?page=rss',
+    'contact'       => 'articles.php?page=contact',
     'mnu_main_page' => '/index.php?page=sitemap',
 ];

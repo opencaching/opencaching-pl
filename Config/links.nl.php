@@ -46,6 +46,6 @@ $links['wiki']['ratingDesc_en']         = $_wiki.'/index.php/Cache_rating';
 $links['wiki']['rules']                 = $_wiki.'/index.php/Gebruikersvoorwaarden';
 $links['wiki']['rules_en']              = $_wiki.'/index.php/Terms_of_Use';
 
-//Optional item
+// optional items - used in node-specific menu only
 $links['wiki']['downloads']             = $_wiki.'/index.php/Downloads';
-
+$links['wiki']['history']               = $_wiki.'/index.php/Historie';
