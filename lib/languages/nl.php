@@ -136,7 +136,7 @@ $translations = array(
     'available_statpics' => 'Beschikbare statpics',
     'statpic_text_message' => '(max. 30 tekens)',
     'illegal_char' => 'Verkeerde teken(s)!',
-    'mnu_main_page' => 'Startpagina',
+    'mnu_mainPage' => 'Startpagina',
     'what_is_geocaching' => 'Geocaching. What is it?',
     'registration' => 'Registreren',
     'news' => 'Nieuws',
@@ -192,8 +192,8 @@ $translations = array(
     'cache_map' => 'Kaart met caches',
     'old_cache_map' => 'Oude kaart',
     'mnu_abcOfGCaching' => 'wiki',
-    'forum' => 'Forum',
-    'geokrets' => 'Geokrety',
+    'mnu_forum' => 'Forum',
+    'mnu_geokrets' => 'Geokrety',
     'geoblog' => 'Geoblog',
     'reports' => 'Meldingen',
     'bugs' => 'Bugs',
@@ -204,7 +204,7 @@ $translations = array(
     'personal_data' => 'Persoonlijke gegevens',
     'message' => 'Logtekst',
     'register_confirm' => 'Registratie bevestiging',
-    'impressum' => 'Over',
+    'mnu_impressum' => 'Over',
     'user' => 'Gebruiker',
     'password' => 'Wachtwoord',
     'logged_as' => 'Ingelogd als',
@@ -2710,5 +2710,14 @@ $translations = array(
     'mnu_blog' => 'Blog',
     'mnu_download' => 'Download',
     'mnu_qrCode' => 'QR Code',
+    'mnu_contact' => 'Contact',
+    'mnu_guides' => 'Cache hulp',
+    'mnu_links' => 'Links',
+    'mnu_api' => 'API',
+    'mnu_rss' => 'RSS',
+    'mnu_history' => 'Historie OC',
+    'mnu_shop' => 'Shop',
+
+
 );
 

@@ -194,7 +194,8 @@ class MainLayoutController extends BaseController
                     $cachesInClipboard = count(PrintList::GetContent());
                     $key = tr($key)." ($cachesInClipboard)";
                 } else {
-                    $key = tr($key);
+                    $key = ''; //empty link
+                    $url = '';
                 }
                 break;
             default:
@@ -206,10 +207,6 @@ class MainLayoutController extends BaseController
     {
         $menu = [];
         foreach(OcConfig::getMenu($menuPrefix) as $key => $url){
-
-            if(empty($url)){
-                continue;
-            }
 
             switch($menuPrefix){
                 case OcConfig::MENU_ADMIN_PREFIX:
@@ -223,7 +220,10 @@ class MainLayoutController extends BaseController
                 default:
                     $key = tr($key);
                     $url = htmlspecialchars($url);
+            }
 
+            if(empty($url)){
+                continue;
             }
 
             $menu[$key] = $url;

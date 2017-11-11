@@ -10,8 +10,8 @@ exit; //this file shouldn't be used anywhere!
 
 $menu = array(
     array( //not-logged menu - called from main.tpl
-        'title' => tr('mnu_main_page'),
-        'menustring' => tr('mnu_main_page'),
+        'title' => tr('mnu_mainPage'),
+        'menustring' => tr('mnu_mainPage'),
         'siteid' => array('start', 'articles/impressum'),
         'visible' => true,
         'filename' => 'index.php',
@@ -160,8 +160,8 @@ $menu = array(
                 'siteid' => 'articles/regulamin'
             ),
             array(
-                'title' => tr('links'),
-                'menustring' => tr('links'),
+                'title' => tr('mnu_links'),
+                'menustring' => tr('mnu_links'),
                 'siteid' => 'links',
                 'navicolor' => '#FFFFC5',
                 'visible' => false,
@@ -194,7 +194,7 @@ $menu = array(
     ),
     array(
         'title' => tr('forum'),
-        'menustring' => tr('forum'),
+        'menustring' => tr('mnu_forum'),
         'siteid' => 'forum',
         'visible' => isset($forum_url) ? true : false,
         'filename' => $forum_url,
@@ -217,8 +217,8 @@ $menu = array(
         'newwindow' => true
     ),
     array(
-        'title' => tr('geokrets'),
-        'menustring' => tr('geokrets'),
+        'title' => tr('mnu_geokrets'),
+        'menustring' => tr('mnu_geokrets'),
         'siteid' => 'GeoKrety',
         'visible' => isset($config['geokrety_url']) ? true : false,
         'filename' => $config['geokrety_url'],
@@ -241,22 +241,22 @@ $menu = array(
         'newwindow' => 'true'
     ),
     array(
-        'title' => tr('links'),
+        'title' => tr('mnu_links'),
         'visible' => true,
         'filename' => 'articles.php?page=links',
-        'menustring' => tr('links'),
+        'menustring' => tr('mnu_links'),
         'siteid' => 'articles/links'
     ),
     array(
-        'title' => tr('contact'),
+        'title' => tr('mnu_contact'),
         'visible' => true,
         'filename' => 'articles.php?page=contact',
-        'menustring' => tr('contact'),
+        'menustring' => tr('mnu_contact'),
         'siteid' => 'articles/contact'
     ),
     array(
-        'title' => tr('guides'),
-        'menustring' => tr('guides'),
+        'title' => tr('mnu_guides'),
+        'menustring' => tr('mnu_guides'),
         'visible' => true,
         'filename' => 'cacheguides.php',
         'siteid' => 'cacheguides'
@@ -313,10 +313,10 @@ $menu = array(
         'siteid' => 'error'
     ),
     array(
-        'title' => tr('contact'),
+        'title' => tr('mnu_contact'),
         'visible' => false,
         'filename' => 'articles.php?page=contact',
-        'menustring' => tr('contact'),
+        'menustring' => tr('mnu_contact'),
         'siteid' => 'articles/contact'
     ),
     array(
@@ -348,10 +348,10 @@ $menu = array(
         'siteid' => 'mapa1'
     ),
     array(
-        'title' => tr('mnu_main_page'),
+        'title' => tr('mnu_mainPage'),
         'visible' => false,
         'filename' => 'index.php',
-        'menustring' => tr('mnu_main_page'),
+        'menustring' => tr('mnu_mainPage'),
         'siteid' => 'sitemap'
     ),
     array(

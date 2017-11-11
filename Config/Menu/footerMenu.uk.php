@@ -14,11 +14,11 @@ $menu = [ // DON'T CHANGE $menu var name!
 
     /* 'translation key' => 'url' */
 
-    'impressum'     => $links['wiki']['impressum'],
-    'api'           => '/okapi',
-    'rss'           => 'articles.php?page=rss',
-    'contact'       => 'articles.php?page=contact',
-    'mnu_main_page' => '/index.php?page=sitemap',
+    'mnu_impressum' => $links['wiki']['impressum'],
+    'mnu_api'       => '/okapi',
+    'mnu_rss'       => 'articles.php?page=rss',
+    'mnu_contact'   => 'articles.php?page=contact',
+    'mnu_mainPage'  => '/index.php?page=sitemap',
 
 ];
 

@@ -16,7 +16,7 @@ $links['blog'] = 'http://blog.opencaching.ro';
 $links['forum'] = null; // no-link
 
 // former $config['geokrety_url']
-$links['geokrety'] = null;
+$links['geokrety'] = 'https://geokrety.org/';
 
 /**
  * This is local base for wiki links
@@ -47,4 +47,7 @@ $links['wiki']['ratingDesc']            = $_wiki.'/index.php/Oceny_skrzynek';
 $links['wiki']['ratingDesc_en']         = $_wiki.'/index.php/Cache_rating';
 $links['wiki']['rules']                 = $_wiki.'/index.php/Regulamin_OC_PL';
 $links['wiki']['rules_en']              = $_wiki.'/index.php/OC_PL_Conditions_of_Use';
+
+// optional items - used in node-specific menu only
+$links['wiki']['downloads']             = $_wiki.'/index.php/U%C5%BCyteczne_pliki_zwi%C4%85zane_z_OC_PL';
 

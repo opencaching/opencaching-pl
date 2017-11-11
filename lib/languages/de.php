@@ -136,7 +136,7 @@ $translations = array(
     'available_statpics' => 'Verfügbare Statistikbilder',
     'statpic_text_message' => 'Statpics (max. 30 Zeichen)',
     'illegal_char' => 'Nicht erlaubtes Zeichen!',
-    'mnu_main_page' => 'Startseite',
+    'mnu_mainPage' => 'Startseite',
     'what_is_geocaching' => 'Was ist Geocaching?',
     'registration' => 'Registrieren',
     'news' => 'Aktuelles',
@@ -192,8 +192,8 @@ $translations = array(
     'cache_map' => 'Karte mit Caches',
     'old_cache_map' => 'Ältere karte',
     'mnu_abcOfGCaching' => 'Geocaching ABC',
-    'forum' => 'Forum',
-    'geokrets' => 'Geokrety',
+    'mnu_forum' => 'Forum',
+    'mnu_geokrets' => 'Geokrety',
     'geoblog' => 'Geoblog',
     'reports' => 'Berichte',
     'bugs' => 'Bugs',
@@ -204,7 +204,7 @@ $translations = array(
     'personal_data' => 'Persönliche Daten',
     'message' => 'Nachricht',
     'register_confirm' => 'Bestätigung',
-    'impressum' => 'Über',
+    'mnu_impressum' => 'Über',
     'user' => 'Benutzer',
     'password' => 'Passwort',
     'logged_as' => 'Eingeloggt als',
@@ -2709,6 +2709,15 @@ $translations = array(
     'mnu_blog' => 'Blog',
     'mnu_download' => 'Download',
     'mnu_qrCode' => 'QR Code',
+    'mnu_contact' => 'Kontakt',
+    'mnu_guides' => 'Guides',
+    'mnu_links' => 'Links',
+    'mnu_api' => 'API',
+    'mnu_rss' => 'RSS',
+    'mnu_history' => 'Geschichte OC',
+    'mnu_shop' => 'Shop',
+
+
 
 );
 
