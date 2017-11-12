@@ -2693,6 +2693,7 @@ $translations = array(
     'mnu_notFoundCaches' => 'Not found geocache',
     'mnu_pendings' => 'Caches waiting to be accepted',
     'mnu_ocTeamNews' => 'News management',
+    'mnu_additionalMenu' => 'Menu adiţional',
 
 
 );

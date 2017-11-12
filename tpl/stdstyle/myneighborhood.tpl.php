@@ -34,7 +34,9 @@
 
 <div class="content2-container">
 
-  <div class="callout callout-warning">{noCordsInfo}</div>
+  <?php if($view->displayNoCordsInfo) { ?>
+  <div class="callout callout-warning"><?=tr("myn_info")?></div>
+  <?php } //if-displayNoCordsInfo?>
 
   <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="">
     {{newest_caches}}

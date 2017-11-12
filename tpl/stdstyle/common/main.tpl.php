@@ -238,6 +238,18 @@ global $tpl_subtitle, $absolute_server_URI, $site_name;
                     </ul>
 
 
+                    <!-- additional menu -->
+                    <ul>
+                      <li class="title"><?=tr('mnu_additionalMenu')?></li>
+                      <?php foreach($view->_additionalMenu as $key => $url){ ?>
+                        <li class="group">
+                            <a href="<?=$url?>">
+                              <?=$key?>
+                            </a>
+                        </li>
+                      <?php } //foreach ?>
+                    </ul>
+
                     <?php if ($view->_isAdmin) { ?>
                       <!-- admin menu -->
                       <ul>

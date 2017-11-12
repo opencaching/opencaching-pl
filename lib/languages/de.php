@@ -2742,6 +2742,7 @@ $translations = array(
     'mnu_notFoundCaches' => 'Nicht gefundene caches',
     'mnu_pendings' => 'Caches erwarten für Genehmigung',
     'mnu_ocTeamNews' => 'News management',
+    'mnu_additionalMenu' => 'Extra Menu',
 
 
 

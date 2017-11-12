@@ -2722,7 +2722,7 @@ $translations = array(
     'mnu_newLogs' => 'Najnowsze logi',
     'mnu_incommingEvents' => 'Nadchodzące wydarzenia',
     'mnu_myNeighborhood' => 'Moja okolica',
-    'mun_searchCache' => 'Wyszukiwarka skrzynek',
+    'mnu_searchCache' => 'Wyszukiwarka skrzynek',
     'mnu_geoPaths' => 'GeoŚcieżki',
     'mnu_statistics' => 'Statystyki',
     'mnu_newCache' => 'Załóż skrzynkę',
@@ -2741,7 +2741,7 @@ $translations = array(
     'mnu_notFoundCaches' => 'Skrzynki nieznalezione',
     'mnu_pendings' => 'Skrzynki oczekujące na akceptację',
     'mnu_ocTeamNews' => 'Newsy - zarządzanie',
-
+    'mnu_additionalMenu' => 'Menu dodatkowe',
 
 );
 

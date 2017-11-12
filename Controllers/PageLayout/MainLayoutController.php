@@ -144,6 +144,10 @@ class MainLayoutController extends BaseController
         $this->view->setVar('_footerMenu',
             $this->getMenu(OcConfig::MENU_FOOTER_PREFIX));
 
+        $this->view->setVar('_additionalMenu',
+            $this->getMenu(OcConfig::MENU_ADDITIONAL_PAGES));
+
+
 
     }
 

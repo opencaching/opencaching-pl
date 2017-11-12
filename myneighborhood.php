@@ -21,6 +21,8 @@ if ($usr == false) {
     exit;
 }
 
+
+
 $applicationContainer = ApplicationContainer::Instance();
 $db = $applicationContainer->db;
 //get user record
@@ -194,9 +196,9 @@ $latitude = $applicationContainer->getLoggedUser()->getHomeCoordinates()->getLat
 $longitude = $applicationContainer->getLoggedUser()->getHomeCoordinates()->getLongitude();
 
 if ($longitude == NULL || $latitude == NULL || ($longitude == 0 && $latitude == 0)) {
-    tpl_set_var('noCordsInfo', tr("myn_info") );
+    $view->setVar('displayNoCordsInfo', true);
 } else {
-    tpl_set_var('noCordsInfo', '');
+    $view->setVar('displayNoCordsInfo', false);
 }
 
 if ($latitude == NULL || $latitude == 0) {

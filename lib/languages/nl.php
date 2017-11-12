@@ -2743,6 +2743,7 @@ $translations = array(
     'mnu_notFoundCaches' => 'Niet gevonden caches',
     'mnu_pendings' => 'Caches keuren',
     'mnu_ocTeamNews' => 'Nieuws beheren',
+    'mnu_additionalMenu' => 'Extra Menu',
 
 
 );

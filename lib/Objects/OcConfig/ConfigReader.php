@@ -35,11 +35,13 @@ abstract class ConfigReader
     const LINKS_PREFIX = 'links';
 
     const MENU_FOOTER_PREFIX = 'footerMenu';
-    const MENU_ADMIN_PREFIX = 'adminMenu';
-    const MENU_AUTH_USER = 'authUserMenu';
+    const MENU_ADMIN_PREFIX = 'adminPages';
+    const MENU_AUTH_USER = 'authUserMainMenu';
     const MENU_CUSTOM_USER = 'customUserMenu';
-    const MENU_NON_AUTH_USER = 'nonAuthUserMenu';
+    const MENU_NON_AUTH_USER = 'noUserMainMenu';
     const MENU_HORIZONTAL_BAR = 'horizontalBarMenu';
+    const MENU_ADDITIONAL_PAGES = 'additionalPages';
+
 
     protected $links = null;
 
