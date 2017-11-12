@@ -190,7 +190,7 @@ global $tpl_subtitle, $absolute_server_URI, $site_name;
                 </div>
 
                 <!-- Buffer after header -->
-                <div class="buffer" style="height:30px;"></div>
+                <div class="buffer" style="height:20px;"></div>
 
                 <!-- NAVIGATION -->
                 <!-- Navigation Left menu -->
