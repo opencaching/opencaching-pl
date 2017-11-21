@@ -24,7 +24,7 @@ $menu = [ // DON'T CHANGE $menu var name!
     'mnu_incommingEvents'   => '/newevents.php',
     'mnu_recoCaches'        => '/cacheratings.php',
 
-    'mnu_FloppMap'      => 'https://www.flopp-caching.de',
+    'mnu_FloppMap'      => 'https://flopp-caching.de',
     'mnu_massLogsSave'  => '/log_cache_multi_send.php',
     'mnu_openchecker'   => '/openchecker.php',
     'mnu_qrCode'        => '/qrcode.php',

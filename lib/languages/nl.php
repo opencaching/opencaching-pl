@@ -2693,6 +2693,7 @@ $translations = array(
     'prepublication_visits' => 'Bekeken vóór publicatie',
     'no_visits' => 'Nog niet bekeken',
 
+
     'loginForm_title' => 'Login',
     'loginForm_userOrEmail' => 'Gebruiker / E-mail',
     'loginForm_password' => 'Wachtwoord',
@@ -2710,6 +2711,7 @@ $translations = array(
     'mnu_blog' => 'Blog',
     'mnu_download' => 'Download',
     'mnu_qrCode' => 'QR Code',
+    'mnu_oldCacheMap' => 'Oude kaart met caches',
     'mnu_contact' => 'Contact',
     'mnu_guides' => 'Cache hulp',
     'mnu_links' => 'Links',
@@ -2744,6 +2746,11 @@ $translations = array(
     'mnu_pendings' => 'Caches keuren',
     'mnu_ocTeamNews' => 'Nieuws beheren',
     'mnu_additionalMenu' => 'Extra Menu',
+
+    'admCs_degradedCs'  => 'Degraded GeoPaths',
+    'admCs_cacheSet'  => 'GeoPaths',
+    'admCs_currentRatio' => 'Ratio of active caches',
+    'admCs_requiredRatio' => 'Ratio of required caches',
 
 
 );
