@@ -2,6 +2,7 @@
 
 use Controllers\TestController;
 use Controllers\Cron\OnlineUsersController;
+use Controllers\Admin\CacheSetAdminController;
 
 require_once 'lib/common.inc.php';
 
@@ -21,10 +22,14 @@ switch($action){
     case 'onlineUsers':
         OnlineUsersController::dumpOnlineUsers();
         break;
+    case 'cacheSetAdmin':
+        $ctrl = new CacheSetAdminController();
+        $ctrl->cacheSetsToArchive();
+        break;
     default:
         $ctrl->index();
 }
 
 
-exit;
+exit(0);
 
