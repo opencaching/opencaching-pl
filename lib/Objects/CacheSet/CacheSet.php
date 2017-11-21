@@ -243,7 +243,7 @@ class CacheSet extends CacheSetCommon
                 WHERE pt.status = ".CacheSet::STATUS_OPEN."
                     AND c.status = ".GeoCache::STATUS_READY."
                 GROUP BY pt.id
-            ) AS allPts WHERE currentRatio <= ratioRequired");
+            ) AS allPts WHERE currentRatio < ratioRequired");
 
         return $db->dbResultFetchAll($rs, OcDb::FETCH_ASSOC);
     }

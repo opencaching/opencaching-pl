@@ -1,6 +1,6 @@
 <div class="content2-container">
 
-  <div class="content2-pagetitle">{{gp_mainTitile}}</div>
+  <div class="content2-pagetitle"><?=tr('admCs_degradedCs')?></div>
 
 
     <!-- listOfCaches-chunk start -->
