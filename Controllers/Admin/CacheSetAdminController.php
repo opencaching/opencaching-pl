@@ -54,7 +54,7 @@ class CacheSetAdminController extends BaseController
         // prepare model for list of watched caches
         $listModel = new ListOfCachesModel();
         $listModel->addColumn(
-            new Column_CacheSetNameAndIcon( 'geoscieżka',
+            new Column_CacheSetNameAndIcon( tr('admCs_cacheSet'),
                 function($row){
                     return [
                         'id' => $row['id'],
@@ -63,12 +63,12 @@ class CacheSetAdminController extends BaseController
                     ];
                 }));
         $listModel->addColumn(
-            new Column_SimpleText( 'current', function($row){
+            new Column_SimpleText( tr('admCs_currentRatio'), function($row){
                 return round($row['currentRatio']).'%';
             }));
 
         $listModel->addColumn(
-            new Column_SimpleText( 'expected', function($row){
+            new Column_SimpleText( tr('admCs_requiredRatio'), function($row){
                 return round($row['ratioRequired']).'%';
             }));
 

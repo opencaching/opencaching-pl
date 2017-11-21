@@ -2746,6 +2746,12 @@ $translations = array(
     'mnu_ocTeamNews' => 'News management',
     'mnu_additionalMenu' => 'Additional menu',
 
+    'admCs_degradedCs'  => 'Degraded GeoPaths',
+    'admCs_cacheSet'  => 'GeoPaths',
+    'admCs_currentRatio' => 'Ratio of active caches',
+    'admCs_requiredRatio' => 'Ratio of required caches',
+
+
 );
 
 

@@ -2743,6 +2743,11 @@ $translations = array(
     'mnu_ocTeamNews' => 'Newsy - zarządzanie',
     'mnu_additionalMenu' => 'Menu dodatkowe',
 
+
+    'admCs_degradedCs'  => 'Niezdobywalne geościeżki',
+    'admCs_cacheSet'  => 'Geościeżka',
+    'admCs_currentRatio' => 'Aktywne skrzynki',
+    'admCs_requiredRatio' => 'Wymagane do zaliczenia',
 );
 
 
