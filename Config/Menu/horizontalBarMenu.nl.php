@@ -29,6 +29,6 @@ $menu = [
     'mnu_contact'       => '/articles.php?page=contact',
     'mnu_guides'        => '/cacheguides.php',
     'mnu_shop'          => 'https://www.geogeek.nl',
-    'mnu_clipboard'     => 'mylist.php', /* counters added in MainLayoutCtrl */
+    'mnu_clipboard'     => '/mylist.php', /* counters added in MainLayoutCtrl */
 ];
 
