@@ -402,7 +402,7 @@ class GeoCache extends GeoCacheCommons
      */
     public function isPowerTrailPart()
     {
-        if (! OcConfig::instance()->getPowerTrailModuleSwitchOn()) {
+        if (! OcConfig::instance()->isPowerTrailModuleSwitchOn()) {
             return false;
         }
 

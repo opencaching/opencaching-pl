@@ -1285,10 +1285,17 @@ $( document ).ready(function() {
 
     <div id="oldIE" style="display: none">{{pt129}}</div>
     <div id="powerTrailContentWraper">
+
+        <div class="align-right">
+          <a class="btn btn-default btn-sm" href="<?=$view->csWikiLink?>">{{cs_wikiLink}}</a>
+        </div>
+
         <div class="content2-pagetitle">
             <img src="tpl/stdstyle/images/blue/050242-blue-jelly-icon-natural-wonders-flower13-sc36_32x32.png" class="icon32" alt="geocache" title="geocache">
             {{gp_mainTitile}}
         </div>
+
+
 
         <div id="ptMenus" style="text-align: center; display: {ptMenu}">
             <ul id="css3menu1" class="topmenu">

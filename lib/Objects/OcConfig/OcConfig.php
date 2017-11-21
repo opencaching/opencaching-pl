@@ -2,24 +2,27 @@
 
 namespace lib\Objects\OcConfig;
 
-/**
- * Settings container
- *
- * @author Andrzej Łza Wozniak
- */
-final class OcConfig
+
+
+final class OcConfig extends ConfigReader
 {
 
-    const OCNODE_GERMANY = 1; /* Opencaching Germany http://www.opencaching.de OC */
-    const OCNODE_POLAND = 2; /* Opencaching Poland http://www.opencaching.pl OP */
-    const OCNODE_CZECH = 3; /* Opencaching Czech http://www.opencaching.cz OZ */
-    const OCNODE_DEVELOPER = 4; /* Local Development */
-    const OCNODE_UK = 6; /* Opencaching Great Britain http://www.opencaching.org.uk OK */
-    const OCNODE_SWEDEN = 7; /* Opencaching Sweden http://www.opencaching.se OS =>OC Scandinavia */
-    const OCNODE_USA = 10; /* Opencaching United States http://www.opencaching.us OU */
-    const OCNODE_RUSSIA = 12; /* Opencaching Russia http://www.opencaching.org.ru */
-    const OCNODE_BENELUX = 14; /* Opencaching Nederland http://www.opencaching.nl OB => OC Benelux */
-    const OCNODE_ROMANIA = 16; /* Opencaching Romania http://www.opencaching.ro OR */
+/*
+    const OCNODE_GERMANY    = 1;  // Opencaching Germany http://www.opencaching.de OC
+    const OCNODE_POLAND     = 2;  // Opencaching Poland http://www.opencaching.pl OP
+    const OCNODE_CZECH      = 3;  // Opencaching Czech http://www.opencaching.cz OZ
+    const OCNODE_DEVELOPER  = 4;  // Local Development
+    const OCNODE_UK         = 6;  // Opencaching Great Britain http://www.opencaching.org.uk OK
+    const OCNODE_SWEDEN     = 7;  // Opencaching Sweden http://www.opencaching.se OS =>OC Scandinavia
+    const OCNODE_USA        = 10; // Opencaching United States http://www.opencaching.us OU
+    const OCNODE_RUSSIA     = 12; // Opencaching Russia http://www.opencaching.org.ru
+    const OCNODE_BENELUX    = 14; // Opencaching Nederland http://www.opencaching.nl OB => OC Benelux
+    const OCNODE_ROMANIA    = 16; // Opencaching Romania http://www.opencaching.ro OR
+*/
+
+
+// old-style values - values from new-style config shoul be accessed through
+// $config[''] etc...
 
     private $dbDatetimeFormat = 'Y-m-d H:i:s';
     private $datetimeFormat = 'Y-m-d H:i';
@@ -39,7 +42,6 @@ final class OcConfig
     private $pictureDirectory;
     private $pictureUrl;
     private $contactMail;
-    private $wikiLinks;
     private $dateFormat;
     private $noreplyEmailAddress;
     private $mapsConfig;            //settings.inc: $config['mapsConfig']
@@ -52,7 +54,6 @@ final class OcConfig
     private $mailSubjectPrefixForReviewers;
     private $enableCacheAccessLogs;
 
-    // db config
     private $dbUser;
     private $dbPass;
     private $dbHost;
@@ -66,7 +67,7 @@ final class OcConfig
     {
         static $inst = null;
         if ($inst === null) {
-            $inst = new ocConfig();
+            $inst = new self();
         }
         return $inst;
     }
@@ -74,14 +75,16 @@ final class OcConfig
     /**
      * Private ctor so nobody else can instance it
      */
-    private function __construct()
+    protected function __construct()
     {
+        parent::__construct();
         $this->loadConfig();
     }
 
     private function loadConfig()
     {
-        require __DIR__ . '/../../settingsGlue.inc.php';
+        require self::LEGACY_LOCAL_CONFIG;
+
         $this->datetimeFormat = $datetimeFormat;
         $this->ocNodeId = $oc_nodeid;
         $this->absolute_server_URI = $absolute_server_URI;
@@ -100,7 +103,6 @@ final class OcConfig
         $this->pictureDirectory = $picdir;
         $this->pictureUrl = $picurl;
         $this->contactMail = $contact_mail;
-        $this->wikiLinks = $wikiLinks;
         $this->dateFormat = $dateFormat;
         $this->noreplyEmailAddress = $emailaddr;
         $this->headerLogo = $config['headerLogo'];
@@ -136,52 +138,38 @@ final class OcConfig
         return $this->datetimeFormat;
     }
 
+
+
+    /**
+     * Returns array of wiki-links readed from config
+     * @return array
+     */
     public static function getWikiLinks()
     {
-        return self::instance()->wikiLinks;
+        return self::instance()->getLinks()['wiki'];
     }
 
-    function getContactMail()
+    /**
+     * Returns single link to wiki
+     * @param string $wikiLinkKey
+     * @return url - link to wiki
+     */
+    public static function getWikiLink($wikiLinkKey)
     {
-        return $this->contactMail;
+        return self::getWikiLinks()[$wikiLinkKey];
     }
 
-    function getPictureDirectory()
-    {
-        return $this->pictureDirectory;
-    }
 
-    function getPictureUrl()
-    {
-        return $this->pictureUrl;
-    }
 
-    function getDefaultLanguage()
-    {
-        return $this->defaultLanguage;
-    }
 
-    function getSiteInService()
-    {
-        return $this->siteInService;
-    }
 
-    function getPagetitle()
-    {
-        return $this->pagetitle;
-    }
 
-    function getGoogleMapKey()
-    {
-        return $this->googleMapKey;
-    }
-
-    function getMainPageMapCenterLat()
+    public function getMainPageMapCenterLat()
     {
         return $this->mainPageMapCenterLat;
     }
 
-    function getMainPageMapCenterLon()
+    public function getMainPageMapCenterLon()
     {
         return $this->mainPageMapCenterLon;
     }
@@ -221,7 +209,12 @@ final class OcConfig
         return $this->dynamicFilesPath;
     }
 
-    public function getPowerTrailModuleSwitchOn()
+    public static function isPowertrailsEnabled()
+    {
+        return self::instance()->instance()->isPowerTrailModuleSwitchOn();
+    }
+
+    public function isPowerTrailModuleSwitchOn()
     {
         return $this->powerTrailModuleSwitchOn;
     }
@@ -229,15 +222,6 @@ final class OcConfig
     public static function getNoreplyEmailAddress()
     {
         return self::instance()->instance()->noreplyEmailAddress;
-    }
-
-
-    /**
-     * returns true if google automatic translation is enabled in config
-     */
-    public function isGoogleTranslationEnabled()
-    {
-        return $this->isGoogleTranslationEnabled;
     }
 
     public function isCacheAccesLogEnabled()

@@ -90,7 +90,7 @@
                       <?=$tr('logged_as')?>
                       <a href="/viewprofile.php"><?=$view->_username?></a>
                       <a href="/login.php?action=logout"
-                         class="btn btn btn-outline-primary btn-sm ml-1">
+                         class="btn btn-outline-primary btn-sm ml-1">
                         <?=tr('logout')?>
                       </a>
 
@@ -220,12 +220,11 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
-                  <li class="nav-item">
-                    <a class="nav-link active" href="#">Active</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                  </li>
+                  <?php foreach($view->_menuBar as $key=>$url) { ?>
+                    <li class="nav-item">
+                      <a class="nav-link" href="<?=$url?>"><?=$key?></a>
+                    </li>
+                  <?php } //foreach _menuBar?>
                 </ul>
 
 <!-- / horizontal nav-bar -->
@@ -236,21 +235,56 @@
           <div class="row">
             <div class="col-lg-2 d-none d-lg-block sidebar">
 
+                <?php if(!$view->_isUserLogged) { ?>
+                    <!-- non-authorized user menu -->
+                    <div class="nav nav-pills flex-column">
+                      <?php foreach($view->_nonAuthUserMenu as $key => $url){ ?>
+                        <a class="nav-link" href="<?=$url?>">
+                          <?=$key?>
+                        </a>
+                      <?php } //foreach ?>
+                    </div>
 
-                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
-                  <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-expanded="true">Home</a>
-                  <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-expanded="true">Profile</a>
-                  <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-expanded="true">Messages</a>
-                  <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-expanded="true">Settings</a>
-                </div>
-                <div class="tab-content" id="v-pills-tabContent">
-                  <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">...</div>
-                  <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...</div>
-                  <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
-                  <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
-                </div>
+                <?php } else { //if-_isUserLogged ?>
+                    <!-- authorized user menu -->
+                    <div class="nav nav-pills flex-column">
+                      <?php foreach($view->_authUserMenu as $key => $url){ ?>
+                        <a class="nav-link" href="<?=$url?>">
+                          <?=$key?>
+                        </a>
+                      <?php } //foreach ?>
+                    </div>
 
+                    <!-- custom user menu -->
+                    <div class="nav nav-pills flex-column">
+                      <?php foreach($view->_customUserMenu as $key => $url){ ?>
+                        <a class="nav-link" href="<?=$url?>">
+                          <?=$key?>
+                        </a>
+                      <?php } //foreach ?>
+                    </div>
 
+                    <!-- additional menu -->
+                    <div class="nav nav-pills flex-column">
+                      <?php foreach($view->_additionalMenu as $key => $url){ ?>
+                        <a class="nav-link" href="<?=$url?>">
+                          <?=$key?>
+                        </a>
+                      <?php } //foreach ?>
+                    </div>
+
+                    <?php if ($view->_isAdmin) { ?>
+                        <!-- admin menu -->
+                        <div class="nav nav-pills flex-column">
+                          <?php foreach($view->_adminMenu as $key => $url){ ?>
+                            <a class="nav-link" href="<?=$url?>">
+                              <?=$key?>
+                            </a>
+                          <?php } //foreach ?>
+                        </div>
+                    <?php } //if-is-admin ?>
+
+                <?php } //if-_isUserLogged ?>
             </div>
             <div class="col-lg-10 content">
               <?php $view-> _callTemplate(); ?>
@@ -273,6 +307,16 @@
                 </h6>
               <?php } // user-logged && displayOnlineUsers ?>
 
+              <div class="m-2">
+                  <?php foreach($view->_footerMenu as $key => $url){ ?>
+                    <a class="btn btn-outline-primary btn-sm"
+                       href="<?=$url?>"><?=$key?></a>
+                  <?php } //foreach _footerMenu ?>
+              </div>
+
+              <div class="m-2">
+                <?=$view->licenseHtml?>
+              </div>
             </div>
           </div><!-- row-container -->
 

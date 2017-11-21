@@ -30,7 +30,7 @@ require_once('lib/cache.php');
 
 $_SESSION['powerTrail']['userFounds'] = $usr['userFounds'];
 
-if ($ocConfig->getPowerTrailModuleSwitchOn() === false) {
+if ($ocConfig->isPowerTrailModuleSwitchOn() === false) {
     header("location: $absolute_server_URI");
 }
 
@@ -149,6 +149,8 @@ if ($error == false) {
         tpl_set_var('ptMenu', 'none');
     $ptMenu = new powerTrailMenu($usr);
     tpl_set_var("powerTrailMenu", buildPowerTrailMenu($ptMenu->getPowerTrailsMenu()));
+
+    $view->setVar('csWikiLink', OcConfig::getWikiLink('geoPaths'));
 
     $pt = new powerTrailController($usr);
     $result = $pt->run();

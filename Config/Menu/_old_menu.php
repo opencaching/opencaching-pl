@@ -1,46 +1,24 @@
 <?php
+exit; //this file shouldn't be used anywhere!
 
-/* * **************************************************************************
+/**
+ * This is old menu configuration
+ * This is here only as reference fro nods admins.
  *
- * $menu contains the entire menu structure
- *
- * possible array elements are:
- *
- * title         displayed HTML title
- * menustring    displayed menu text
- * siteid        unique id of this page
- * visible       bool, if true this site is shown in the menu structure
- * quicklinks    array of relativ pages
- *               (contains assotiativ array with href and text for each page)
- * submenu       array of submenues. Only the first 3 levels are displayed, deeper levels
- *               are only for the breadcrump. Each submenu has the same structure as $menu
- * navicolor     (only top-level menus) backgroundcolor of the menu
- * filename      filename for href
- *
-  array(
-  'title' => 'Mapa skrzynek OC PL',
-  'menustring' => 'Mapa skrzynek OC PL',
-  'siteid' => 'cachemap',
-  'visible' => false,
-  'filename' => 'cachemap.php'
-  ),
-
- * ************************************************************************** */
-include_once('lib/language.inc.php');
-global $menu, $usr, $lang, $cache_menu, $stat_menu, $wikiLinks, $SiteOutsideCountryString, $config,
- $powerTrailModuleSwitchOn, $powerTrailFaqLink, $forum_url, $blogsite_url;
+ * This file will be removed soon
+ */
 
 $menu = array(
-    array(
-        'title' => tr('main_page'),
-        'menustring' => tr('main_page'),
+    array( //not-logged menu - called from main.tpl
+        'title' => tr('mnu_mainPage'),
+        'menustring' => tr('mnu_mainPage'),
         'siteid' => array('start', 'articles/impressum'),
         'visible' => true,
         'filename' => 'index.php',
         'submenu' => array(
-            array(
-                'title' => tr('registration'),
-                'menustring' => tr('registration'),
+            array( //called from main.tpl
+                'title' => tr('mnu_registration'),
+                'menustring' => tr('mnu_registration'),
                 'visible' => true,
                 'filename' => 'register.php',
                 'siteid' => 'register',
@@ -62,15 +40,15 @@ $menu = array(
                 )
             ),
             array(
-                'title' => tr('news'),
-                'menustring' => tr('news'),
+                'title' => tr('mnu_news'),
+                'menustring' => tr('mnu_news'),
                 'visible' => true,
                 'filename' => 'news.php',
                 'siteid' => 'news/newsList'
             ),
             array(
-                'title' => tr('new_caches'),
-                'menustring' => tr('new_caches'),
+                'title' => tr('mnu_newCaches'),
+                'menustring' => tr('mnu_newCaches'),
                 'visible' => true,
                 'filename' => 'newcaches.php',
                 'siteid' => 'newcaches',
@@ -86,38 +64,38 @@ $menu = array(
                 )
             ),
             array(
-                'title' => tr('new_logs'),
-                'menustring' => tr('new_logs'),
+                'title' => tr('mnu_newLogs'),
+                'menustring' => tr('mnu_newLogs'),
                 'visible' => true,
                 'filename' => 'newlogs.php',
                 'siteid' => 'newlogs'
             ),
             array(
-                'title' => tr('incomming_events'),
-                'menustring' => tr('incomming_events'),
+                'title' => tr('mnu_incommingEvents'),
+                'menustring' => tr('mnu_incommingEvents'),
                 'visible' => true,
                 'filename' => 'newevents.php',
                 'siteid' => 'newevents'
             ),
             array(
-                'title' => tr('cache_map'),
-                'menustring' => tr('cache_map'),
+                'title' => tr('mnu_cacheMap'),
+                'menustring' => tr('mnu_cacheMap'),
                 'siteid' => 'cachemap3',
                 'visible' => true,
                 'onlylogged' => true,
                 'filename' => 'cachemap3.php',
                 'submenu' => array(
                     array(
-                        'title' => tr('cache_mapv2'),
-                        'menustring' => tr('cache_mapv2'),
+                        'title' => tr('mnu_oldCacheMap'),
+                        'menustring' => tr('mnu_oldCacheMap'),
                         'siteid' => 'cachemap2',
                         'visible' => $config['map2SwithedOn'],
                         'onlylogged' => true,
                         'filename' => 'cachemap2.php'
                     ),
                     array(
-                        'title' => tr('Flopp_map'),
-                        'menustring' => tr('Flopp_map'),
+                        'title' => tr('mnu_FloppMap'),
+                        'menustring' => tr('mnu_FloppMap'),
                         'siteid' => 'flopmap2',
                         'visible' => $config['FloppSwithedOn'],
                         'onlylogged' => true,
@@ -135,24 +113,24 @@ $menu = array(
                 )
             ),
             array(
-                'title' => tr('search_cache'),
-                'menustring' => tr('search_cache'),
+                'title' => tr('mnu_searchCache'),
+                'menustring' => tr('mnu_searchCache'),
                 'siteid' => 'search',
                 'onlylogged' => true,
                 'visible' => true,
                 'filename' => 'search.php'
             ),
             array(
-                'title' => tr('recommended_caches'),
-                'menustring' => tr('recommended_caches'),
+                'title' => tr('mnu_recoCaches'),
+                'menustring' => tr('mnu_recoCaches'),
                 'visible' => true,
                 'onlylogged' => true,
                 'filename' => 'cacheratings.php',
                 'siteid' => 'cacheratings'
             ),
             array(
-                'title' => tr('statistics'),
-                'menustring' => tr('statistics'),
+                'title' => tr('mnu_statistics'),
+                'menustring' => tr('mnu_statistics'),
                 'visible' => true,
                 'onlylogged' => true,
                 'filename' => 'articles.php?page=stat',
@@ -174,41 +152,41 @@ $menu = array(
                 )
             ),
             array(
-                'title' => tr('rules'),
+                'title' => tr('mnu_rules'),
+                'menustring' => tr('mnu_rules'),
                 'visible' => isset($wikiLinks['rules']) ? true : false,
                 'filename' => @$wikiLinks['rules'],
-                'menustring' => tr('rules'),
                 'newwindow' => true,
                 'siteid' => 'articles/regulamin'
             ),
             array(
-                'title' => tr('links'),
-                'menustring' => tr('links'),
+                'title' => tr('mnu_links'),
+                'menustring' => tr('mnu_links'),
                 'siteid' => 'links',
                 'navicolor' => '#FFFFC5',
                 'visible' => false,
                 'filename' => 'articles.php?page=links'
             ),
             array(
-                'title' => tr('gp_mainTitile'),
-                'menustring' => tr('gp_mainTitile'),
+                'title' => tr('mnu_geoPaths'),
+                'menustring' => tr('mnu_geoPaths'),
                 'siteid' => 'powerTrail',
                 'visible' => $powerTrailModuleSwitchOn,
                 'filename' => 'powerTrail.php',
                 'submenu' => array(
                     array(
-                        'title' => tr('pt155'),
-                        'menustring' => tr('pt155'),
+                        'title' => tr('cs_wikiLink'),
+                        'menustring' => tr('cs_wikiLink'),
                         'siteid' => 'geoSciezkiFAQ',
                         'visible' => $powerTrailModuleSwitchOn,
-                        'filename' => $powerTrailFaqLink,
+                        'filename' => $powerTrailFaqLink, //kojoty: currently $links[wiki][geopath]
                     ),),
             )
         )
     ),
     array(
-        'title' => tr('abc'),
-        'menustring' => tr('abc'),
+        'title' => tr('mnu_abcOfGCaching'),
+        'menustring' => tr('mnu_abcOfGCaching'),
         'siteid' => 'articles/info',
         'visible' => isset($wikiLinks['main']) ? true : false,
         'filename' => @$wikiLinks['main'],
@@ -216,7 +194,7 @@ $menu = array(
     ),
     array(
         'title' => tr('forum'),
-        'menustring' => tr('forum'),
+        'menustring' => tr('mnu_forum'),
         'siteid' => 'forum',
         'visible' => isset($forum_url) ? true : false,
         'filename' => $forum_url,
@@ -239,8 +217,8 @@ $menu = array(
         'newwindow' => true
     ),
     array(
-        'title' => tr('geokrets'),
-        'menustring' => tr('geokrets'),
+        'title' => tr('mnu_geokrets'),
+        'menustring' => tr('mnu_geokrets'),
         'siteid' => 'GeoKrety',
         'visible' => isset($config['geokrety_url']) ? true : false,
         'filename' => $config['geokrety_url'],
@@ -263,22 +241,22 @@ $menu = array(
         'newwindow' => 'true'
     ),
     array(
-        'title' => tr('links'),
+        'title' => tr('mnu_links'),
         'visible' => true,
         'filename' => 'articles.php?page=links',
-        'menustring' => tr('links'),
+        'menustring' => tr('mnu_links'),
         'siteid' => 'articles/links'
     ),
     array(
-        'title' => tr('contact'),
+        'title' => tr('mnu_contact'),
         'visible' => true,
         'filename' => 'articles.php?page=contact',
-        'menustring' => tr('contact'),
+        'menustring' => tr('mnu_contact'),
         'siteid' => 'articles/contact'
     ),
     array(
-        'title' => tr('guides'),
-        'menustring' => tr('guides'),
+        'title' => tr('mnu_guides'),
+        'menustring' => tr('mnu_guides'),
         'visible' => true,
         'filename' => 'cacheguides.php',
         'siteid' => 'cacheguides'
@@ -291,9 +269,9 @@ $menu = array(
         'filename' => $config['showShopButtonUrl'],
         'newwindow' => 'true'
     ),
-    array(
-        'title' => tr('clipboard'),
-        'menustring' => tr('clipboard'),
+    array( //called from main.tpl
+        'title' => tr('mnu_clipboard'),
+        'menustring' => tr('mnu_clipboard'),
         'siteid' => 'mylist',
         'visible' => false,
         'filename' => 'mylist.php'
@@ -335,10 +313,10 @@ $menu = array(
         'siteid' => 'error'
     ),
     array(
-        'title' => tr('contact'),
+        'title' => tr('mnu_contact'),
         'visible' => false,
         'filename' => 'articles.php?page=contact',
-        'menustring' => tr('contact'),
+        'menustring' => tr('mnu_contact'),
         'siteid' => 'articles/contact'
     ),
     array(
@@ -363,17 +341,17 @@ $menu = array(
         'siteid' => 'register_confirm'
     ),
     array(
-        'title' => tr('cache_map'),
+        'title' => tr('mnu_cacheMap'),
         'visible' => false,
         'filename' => 'cachemap.php',
-        'menustring' => tr('cache_map'),
+        'menustring' => tr('mnu_cacheMap'),
         'siteid' => 'mapa1'
     ),
     array(
-        'title' => tr('main_page'),
+        'title' => tr('mnu_mainPage'),
         'visible' => false,
         'filename' => 'index.php',
-        'menustring' => tr('main_page'),
+        'menustring' => tr('mnu_mainPage'),
         'siteid' => 'sitemap'
     ),
     array(
@@ -392,58 +370,60 @@ $menu = array(
         'filename' => '',
         'submenu' => array(
             array(
-                'title' => tr('reports'),
-                'menustring' => tr('reports'),
+                'title' => tr('mnu_reports'),
+                'menustring' => tr('mnu_reports'),
                 'siteid' => ['admin/reports_list', 'admin/report_show', 'admin/reports_watch'],
                 'visible' => true,
                 'filename' => 'admin_reports.php'
             ),
             array(
-                'title' => tr('pendings'),
-                'menustring' => tr('pendings'),
+                'title' => tr('mnu_pendings'),
+                'menustring' => tr('mnu_pendings'),
                 'siteid' => 'viewpendings',
                 'visible' => true,
                 'filename' => 'viewpendings.php'
             ),
             array(
-                'title' => tr('stat_octeam'),
-                'menustring' => tr('stat_octeam'),
+                'title' => tr('mnu_octeamStats'),
+                'menustring' => tr('mnu_octeamStats'),
                 'siteid' => 'articles/bog',
                 'visible' => true,
                 'filename' => 'articles.php?page=cog'
             ),
             array(
-                'title' => tr('cache_notfound'),
-                'menustring' => tr('cache_notfound'),
+                'title' => tr('mnu_notFoundCaches'),
+                'menustring' => tr('mnu_notFoundCaches'),
                 'siteid' => 'admin_cachenotfound',
                 'visible' => true,
                 'filename' => 'admin_cachenotfound.php'
             ),
             array(
-                'title' => tr('search_user'),
-                'menustring' => tr('search_user'),
+                'title' => tr('mnu_searchUser'),
+                'menustring' => tr('mnu_searchUser'),
                 'siteid' => 'admin_searchuser',
                 'visible' => true,
                 'filename' => 'admin_searchuser.php'
             ),
             array(
-                'title' => tr('news_menu_OCTeam'),
-                'menustring' => tr('news_menu_OCTeam'),
+                'title' => tr('mnu_ocTeamNews'),
+                'menustring' => tr('mnu_ocTeamNews'),
                 'siteid' => array('news/newsAdmin', 'news/newsAdminEdit'),
                 'visible' => true,
                 'filename' => 'admin_news.php'
             ),
             array(
-                'title' => tr('pt208'),
-                'menustring' => tr('pt208'),
+                'title' => tr('mnu_geoPathAdmin'),
+                'menustring' => tr('mnu_geoPathAdmin'),
                 'siteid' => 'powerTrailCOG',
                 'visible' => $powerTrailModuleSwitchOn,
                 'filename' => 'powerTrailCOG.php'
             )
         )
     ),
+
+
     // My profile (my home) my_neighborhood
-    array(
+    array( //called from main.tpl
         'title' => tr('user_menu'),
         'menustring' => tr('user_menu'),
         'siteid' => 'myhome',
@@ -452,57 +432,57 @@ $menu = array(
         'navicolor' => '#D5D9FF',
         'submenu' => array(
             array(
-                'title' => tr('new_cache'),
-                'menustring' => tr('new_cache'),
+                'title' => tr('mnu_newCache'),
+                'menustring' => tr('mnu_newCache'),
                 'visible' => true,
                 'filename' => 'newcache.php',
                 'siteid' => array('newcache_info', 'newcache_forbidden', 'newcache_beginner', 'newcache')
             ),
             array(
-                'title' => tr('my_caches'),
-                'menustring' => tr('my_caches'),
+                'title' => tr('mnu_myCaches'),
+                'menustring' => tr('mnu_myCaches'),
                 'visible' => true,
                 'filename' => 'mycaches.php',
                 'siteid' => 'mycaches'
             ),
             array(
-                'title' => tr('my_neighborhood'),
-                'menustring' => tr('my_neighborhood'),
+                'title' => tr('mnu_myNeighborhood'),
+                'menustring' => tr('mnu_myNeighborhood'),
                 'visible' => true,
                 'filename' => 'myneighborhood.php',
                 'siteid' =>  'myneighborhood'
             ),
             array(
-                'title' => tr('myroutes'),
-                'menustring' => tr('myroutes'),
+                'title' => tr('mnu_myRoutes'),
+                'menustring' => tr('mnu_myRoutes'),
                 'visible' => true,
                 'filename' => 'myroutes.php',
-                'siteid' => 'myroutes'
+                'siteid' => 'mnu_myRoutes'
             ),
             array(
-                'title' => tr('mycache_note'),
-                'menustring' => tr('mycache_note'),
+                'title' => tr('mnu_myCacheNotes'),
+                'menustring' => tr('mnu_myCacheNotes'),
                 'visible' => true,
                 'filename' => 'mycache_notes.php',
                 'siteid' => 'mycache_notes'
             ),
             array(
-                'title' => tr('my_statistics'),
-                'menustring' => tr('my_statistics'),
+                'title' => tr('mnu_myStats'),
+                'menustring' => tr('mnu_myStats'),
                 'visible' => true,
                 'filename' => isset($usr['userid']) ? 'viewprofile.php?userid=' . $usr['userid'] : '',
                 'siteid' => array('myhome', 'viewprofile', 'ustat', 'my_logs')
             ),
             array(
-                'title' => tr('Field_Notes'),
-                'menustring' => tr('Field_Notes'),
+                'title' => tr('mnu_massLogsSave'),
+                'menustring' => tr('mnu_massLogsSave'),
                 'visible' => true,
                 'filename' => 'log_cache_multi_send.php',
                 'siteid' => array('log_cache_multi_send', 'log_cache_multi')   //JG 2013-10-25 było 'autolog'
             ),
             array(
-                'title' => tr('new_logs'),
-                'menustring' => tr('new_logs'),
+                'title' => tr('mnu_newLogs'),
+                'menustring' => tr('mnu_newLogs'),
                 'visible' => false,
                 'filename' => 'myn_newlogs.php',
                 'siteid' => 'myn_newlogs'
@@ -529,8 +509,8 @@ $menu = array(
                 'siteid' => 'myn_ftf'
             ),
             array(
-                'title' => tr('my_account'),
-                'menustring' => tr('my_account'),
+                'title' => tr('mnu_myAccount'),
+                'menustring' => tr('mnu_myAccount'),
                 'visible' => true,
                 'filename' => 'myprofile.php',
                 'siteid' => 'myprofile',
@@ -572,22 +552,22 @@ $menu = array(
                 'siteid' => 'userWatchedCaches/emailSettings'
             ),
             array(
-                'title' => tr('clipboard'),
-                'menustring' => tr('clipboard'),
+                'title' => tr('mnu_clipboard'),
+                'menustring' => tr('mnu_clipboard'),
                 'siteid' => 'mylist',
                 'visible' => false,
                 'filename' => 'mylist.php'
             ),
             array(
-                'title' => tr('collected_queries'),
-                'menustring' => tr('collected_queries'),
+                'title' => tr('mnu_savedQueries'),
+                'menustring' => tr('mnu_savedQueries'),
                 'visible' => true,
                 'filename' => 'query.php',
                 'siteid' => 'viewqueries'
             ),
             array(
-                'title' => tr('watched_caches'),
-                'menustring' => tr('watched_caches'),
+                'title' => tr('mnu_watchedCaches'),
+                'menustring' => tr('mnu_watchedCaches'),
                 'visible' => true,
                 'filename' => 'mywatches.php',
                 'siteid' => 'userWatchedCaches/userWatchedCaches',
@@ -602,44 +582,44 @@ $menu = array(
                 ),
             ),
             array(
-                'title' => tr('ignored_caches'),
-                'menustring' => tr('ignored_caches'),
+                'title' => tr('mnu_ignoredCaches'),
+                'menustring' => tr('mnu_ignoredCaches'),
                 'visible' => true,
                 'filename' => 'myignores.php',
                 'siteid' => 'myignores'
             ),
             array(
-                'title' => tr('my_recommendations'),
-                'menustring' => tr('my_recommendations'),
+                'title' => tr('mnu_myRecommends'),
+                'menustring' => tr('mnu_myRecommends'),
                 'visible' => true,
                 'filename' => 'mytop5.php',
                 'siteid' => 'mytop5'
             ),
             array(
-                'title' => tr('adoption_cache'),
-                'menustring' => tr('adoption_cache'),
+                'title' => tr('mnu_cacheAdoption'),
+                'menustring' => tr('mnu_cacheAdoption'),
                 'visible' => true,
                 'filename' => 'chowner.php',
                 'siteid' => 'chowner'
             ),
             array(
-                'title' => tr('search_user'),
-                'menustring' => tr('search_user'),
+                'title' => tr('mnu_searchUser'),
+                'menustring' => tr('mnu_searchUser'),
                 'siteid' => 'searchuser',
                 'visible' => true,
                 'filename' => 'searchuser.php'
             ),
             array(
-                'title' => tr('openchecker_name'),
-                'menustring' => tr('openchecker_name'),
+                'title' => tr('mnu_openchecker'),
+                'menustring' => tr('mnu_openchecker'),
                 'visible' => $config['module']['openchecker']['enabled'],
                 'filename' => 'openchecker.php',
                 'siteid' => 'openchecker'
             ),
             array(
-                'title' => tr('okapi_apps'),
-                'menustring' => tr('okapi_apps'),
-                'siteid' => 'okapi_apps',
+                'title' => tr('mnu_okapiExtApps'),
+                'menustring' => tr('mnu_okapiExtApps'),
+                'siteid' => 'mnu_okapiExtApps',
                 'visible' => true,
                 'filename' => 'okapi/apps/?langpref=' . $GLOBALS['lang']
             ),
@@ -771,8 +751,8 @@ $menu = array(
                 )
             ),
             array(
-                'title' => tr('new_cache'),
-                'menustring' => tr('new_cache'),
+                'title' => tr('mnu_newCache'),
+                'menustring' => tr('mnu_newCache'),
                 'visible' => true,
                 'filename' => 'newcache.php',
                 'siteid' => 'newcache',
@@ -826,237 +806,3 @@ $menu = array(
         'visible' => false
     )
 );
-
-function mnu_MainMenuIndexFromPageId($menustructure, $pageid)
-{
-    /* selmenuitem contains the selected (bold) menu item */
-    global $mnu_selmenuitem;
-
-    for ($i = 0, $ret = -1; ($i < count($menustructure)) && ($ret == -1); $i++) {
-        if ($menustructure[$i]['siteid'] === $pageid || is_array($menustructure[$i]['siteid']) && in_array($pageid, $menustructure[$i]['siteid'])) {
-            $mnu_selmenuitem = $menustructure[$i];
-            return $i;
-        } else {
-            if (isset($menustructure[$i]['submenu'])) {
-                $ret = mnu_MainMenuIndexFromPageId($menustructure[$i]['submenu'], $pageid);
-                if ($ret != -1)
-                    return $i;
-            }
-        }
-    }
-    return $ret;
-}
-
-/*
- * mnu_EchoMainMenu - echos the top level menus
- *
- * selmenuid   p.e. mnu_MainMenuIndexFromPageId($menu, $siteid)
- */
-
-function mnu_EchoMainMenu($selmenuid)
-{
-    global $menu;
-    for ($i = 0; $i < count($menu); $i++) {
-        if ($menu[$i]['visible'] == true) {
-            if (!isset($menu[$i]['newwindow']))
-                $menu[$i]['newwindow'] = false;
-            if ($menu[$i]['newwindow'] == true)
-                $target_blank = "target='_blank'";
-            else
-                $target_blank = "";
-
-            if ($menu[$i]['siteid'] == $selmenuid || is_array($menu[$i]['siteid']) && in_array($selmenuid, $menu[$i]['siteid'])) {
-                echo '<li><a class="selected bg-green06" href="' . $menu[$i]['filename'] . '">' . htmlspecialchars($menu[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>';
-            } else {
-                echo '<li><a ' . $target_blank . ' href="' . $menu[$i]['filename'] . '">' . htmlspecialchars($menu[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>';
-            }
-        }
-    }
-}
-
-/*
- * mnu_EchoSubMenu - echos the 2. and 3. menu level
- *
- * menustructure   $menu
- * pageid          siteid to search for
- * level           has to be 1
- * bHasSubmenu     has to be false
- */
-
-function mnu_EchoSubMenu($menustructure, $pageid, $level, $bHasSubmenu)
-{
-
-    global $usr;
-
-    if (!$bHasSubmenu) {
-        for ($i = 0, $bSubmenu = false; ($i < count($menustructure)) && ($bSubmenu == false); $i++) {
-            if (isset($menustructure[$i]['submenu'])) {
-                $bSubmenu = true;
-            }
-        }
-    }
-
-    if (!$bHasSubmenu) {
-        $cssclass = 'group';
-    } else {
-        if ($level == 1) {
-            $cssclass = 'group';
-        } else {
-            $cssclass = 'subgroup';
-        }
-    }
-
-    for ($i = 0; $i < count($menustructure); $i++) {
-        if (!isset($menustructure[$i]['newwindow']))
-            $menustructure[$i]['newwindow'] = false;
-        if ($menustructure[$i]['newwindow'] == true)
-            $target_blank = "target='_blank'";
-        else
-            $target_blank = "";
-        if ($menustructure[$i]['visible'] == true) {
-            if (!isset($menustructure[$i]['icon']))
-                $menustructure[$i]['icon'] = false;
-            if ($menustructure[$i]['icon']) {
-                $icon = 'style="background-image: url(' . $menustructure[$i]['icon'] . '-18.png);background-repeat:no-repeat;"';
-            } else
-                $icon = "";
-            if (!isset($menustructure[$i]['onlylogged']))
-                $menustructure[$i]['onlylogged'] = false;
-            if ($menustructure[$i]['onlylogged'] == true && $usr == false) {
-                continue;
-            }
-
-            if ($menustructure[$i]['siteid'] === $pageid || is_array($menustructure[$i]['siteid']) && in_array($pageid, $menustructure[$i]['siteid'])) {
-                echo '<li class="' . $cssclass . ' ' . $cssclass . '_active "><a ' . $target_blank . ' href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
-            } else {
-                echo '<li class="' . $cssclass . '"><a ' . $icon . ' ' . $target_blank . ' href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
-            }
-
-            if (isset($menustructure[$i]['submenu'])) {
-                mnu_EchoSubMenu($menustructure[$i]['submenu'], $pageid, $level + 1, true);
-            }
-        }
-    }
-}
-
-/*
- * mnu_IsMenuParentOf - returns true if menuitemid is part of $parentmenuitems, otherwise false
- *
- * parentmenuitems   p.e. $menu
- * menuitemid        siteid to search for
- */
-
-function mnu_IsMenuParentOf($parentmenuitems, $menuitemid)
-{
-    for ($i = 0; $i < count($parentmenuitems); $i++) {
-        if ($parentmenuitems[$i]['siteid'] === $menuitemid || is_array($parentmenuitems[$i]['siteid']) && in_array($menuitemid, $parentmenuitems[$i]['siteid'])) {
-            return true;
-        }
-
-        if (isset($parentmenuitems[$i]['submenu'])) {
-            $ret = mnu_IsMenuParentOf($parentmenuitems[$i]['submenu'], $menuitemid);
-            if ($ret == true)
-                return true;
-        }
-    }
-
-    return false;
-}
-
-/*
- * mnu_EchoBreadCrumb - echos the breadcrumb
- *
- * pageid          siteid to search for
- * mainmenuindex   index of the top level menu
- */
-
-function mnu_EchoBreadCrumb($pageid, $mainmenuindex)
-{
-    global $menu;
-
-    echo htmlspecialchars($menu[$mainmenuindex]['menustring'], ENT_COMPAT, 'UTF-8');
-
-    if (isset($menu[$mainmenuindex]['submenu']) && !(
-            $menu[$mainmenuindex]['siteid'] === $pageid || is_array($menu[$mainmenuindex]['siteid']) && in_array($pageid, $menu[$mainmenuindex]['siteid']))) {
-        mnu_prv_EchoBreadCrumbSubItem($pageid, $menu[$mainmenuindex]['submenu']);
-    }
-}
-
-/*
- * mnu_prv_EchoBreadCrumbSubItem - private helper function
- */
-
-function mnu_prv_EchoBreadCrumbSubItem($pageid, $menustructure)
-{
-    for ($i = 0; $i < count($menustructure); $i++) {
-        if ($menustructure[$i]['siteid'] == $pageid || is_array($menustructure[$i]['siteid']) && in_array($pageid, $menustructure[$i]['siteid'])) {
-            echo '&nbsp;&gt;&nbsp;' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8');
-            return;
-        } else {
-            if (isset($menustructure[$i]['submenu'])) {
-                if (mnu_IsMenuParentOf($menustructure[$i]['submenu'], $pageid)) {
-                    echo '&nbsp;&gt;&nbsp;' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8');
-                    mnu_prv_EchoBreadCrumbSubItem($pageid, $menustructure[$i]['submenu']);
-                    return;
-                }
-            }
-        }
-    }
-}
-
-/*
- * mnu_EchoQuicklinks - echos the 'relative pages'
- *
- * selmenuitem   siteid
- */
-
-function mnu_EchoQuicklinks($selmenuitem)
-{
-    if (isset($selmenuitem['quicklinks'])) {
-        echo '<div style="float:right;font-family:sans-serif;font-size:small;">' . "\n";
-        echo '<br/>' . "\n";
-        echo '<table cellpadding="0" cellspacing="0" id="quicklinksbox">' . "\n";
-        echo '<tr><td id="quicklinkstop">Strony zwiazane z OC.pl:</td></tr>' . "\n";
-
-        for ($i = 0; $i < count($selmenuitem['quicklinks']); $i++) {
-            if ($i == 0) {
-                echo '<tr><td class="navilevel2n" style="padding-top:1ex;">';
-            } else {
-                echo '<tr><td class="navilevel2n">';
-            }
-
-            if (mb_substr($selmenuitem['quicklinks'][$i]['href'], 0, 7) == "http://") {
-                echo '<a href="' . $selmenuitem['quicklinks'][$i]['href'] . '" target="_blank">';
-            } else {
-                echo '<a href="' . $selmenuitem['quicklinks'][$i]['href'] . '">';
-            }
-
-            echo htmlspecialchars($selmenuitem['quicklinks'][$i]['text'], ENT_COMPAT, 'UTF-8') . '</a></td></tr>' . "\n";
-        }
-
-        echo '<tr><td class="navi2bottom">&nbsp;</td></tr>' . "\n";
-        echo '</table>' . "\n";
-        echo '</div>' . "\n";
-    }
-}
-
-function buildBottomMenu($menuArray)
-{
-    global $config;
-    $result = '<p>';
-    $first = true;
-    foreach ($menuArray as $name => $item)
-        if ($item['visible']) {
-            if ($first) {
-                $first = false;
-            } else {
-                $result .= ' | ';
-            }
-            $result .= '<a href="' . $item['link'] . '">' . tr($name) . '</a>';
-        }
-    $result .= '</p>';
-    if (isset($config['license_html']) && !empty($config['license_html'])) {
-        $result .= '<p><br>' . $config['license_html'] . '</p>';
-    }
-    return $result;
-}

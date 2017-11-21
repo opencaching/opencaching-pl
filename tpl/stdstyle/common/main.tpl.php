@@ -4,25 +4,8 @@ use Utils\Database\OcDb;
 use lib\Objects\GeoCache\PrintList;
 use Utils\DateTime\Year;
 use Utils\Debug\Debug;
-use lib\Objects\Admin\ReportCommons as ReportCtl;
 
-// load menu
-global $mnu_selmenuitem, $tpl_subtitle, $absolute_server_URI, $mnu_siteid /* which menu item should be highlighted */, $site_name;
-
-require_once $stylepath . '/lib/menu.php';
-
-// decide which menu item should be selected
-$menu_item_siteid = $tplname;
-if ( isset($mnu_siteid) ) {
-    $menu_item_siteid = $mnu_siteid;
-}
-
-$pageidx = mnu_MainMenuIndexFromPageId($menu, $menu_item_siteid);
-
-// add selected menu item as a apendix to site title (tpl_subtitle) (?)
-if ($tplname != 'start'){
-    $tpl_subtitle .= htmlspecialchars($mnu_selmenuitem['title'] . ' - ', ENT_COMPAT, 'UTF-8');
-}
+global $tpl_subtitle, $absolute_server_URI, $site_name;
 
 ?>
 <!DOCTYPE html>
@@ -200,93 +183,88 @@ if ($tplname != 'start'){
                 <!-- Navigation - horizontal menu bar -->
                 <div id="nav2">
                     <ul>
-                        <?php
-                        $dowydrukuidx = mnu_MainMenuIndexFromPageId($menu, "mylist");
-                        if ( !empty(PrintList::GetContent()) ) {
-
-                            $menu[$dowydrukuidx]['visible'] = true;
-                            $menu[$dowydrukuidx]['menustring'] .= " (" . count(PrintList::GetContent()) . ")";
-
-                        }
-
-                        if (isset($menu[$pageidx])) {
-                            mnu_EchoMainMenu($menu[$pageidx]['siteid']);
-                        }else{
-                            mnu_EchoMainMenu(null);
-                        }
-                        ?>
+                        <?php foreach($view->_menuBar as $key=>$url) { ?>
+                          <li><a href="<?=$url?>"><?=$key?></a>
+                        <?php } //foreach _menuBar?>
                     </ul>
                 </div>
 
                 <!-- Buffer after header -->
-                <div class="buffer" style="height:30px;"></div>
+                <div class="buffer" style="height:20px;"></div>
 
                 <!-- NAVIGATION -->
                 <!-- Navigation Left menu -->
 
                 <div id="nav3">
-                    <?php
-                    //Main menu
-                    $mainmenuidx = mnu_MainMenuIndexFromPageId($menu, "start");
-                    if (isset($menu[$mainmenuidx]['submenu'])) {
-                        $registeridx = mnu_MainMenuIndexFromPageId($menu[$mainmenuidx]["submenu"], "register");
-                        if ($usr) {
-                            $menu[$mainmenuidx]['submenu'][$registeridx]['visible'] = false;
-                        } else
-                            $menu[$mainmenuidx]['submenu'][$registeridx]['visible'] = true;
-                        echo '<ul>';
-                        echo '<li class="title">' . tr('main_menu') . '</li>';
-                        mnu_EchoSubMenu($menu[$mainmenuidx]['submenu'], $menu_item_siteid, 1, false);
-                        echo '</ul>';
-                    }
+                    <?php if(!$view->_isUserLogged) { ?>
+                    <!-- non-authorized user menu -->
+                    <ul>
+                      <li class="title"><?=tr('main_menu')?></li>
 
-                    if ($usr && isset($_SESSION['user_id'])) {
-                        $myhomeidx = mnu_MainMenuIndexFromPageId($menu, "myhome");
-                        $myprofileidx = mnu_MainMenuIndexFromPageId($menu[$myhomeidx]["submenu"], "myprofile");
-                        // [fixme] Have to do the menu unrolling... in not such a crappy way
-                        // ^ agreed, but it's 1:30 AM
-                        if ($menu_item_siteid == "myprofile" || $menu_item_siteid == "myprofile_change" || $menu_item_siteid == "newemail" || $menu_item_siteid == "newpw" || $menu_item_siteid == "change_statpic") {
-                            for ($i = 0; $i < count($menu[$myhomeidx]["submenu"][$myprofileidx]['submenu']); $i++) {
-                                $menu[$myhomeidx]["submenu"][$myprofileidx]['submenu'][$i]['visible'] = true;
-                            }
-                        }
-                        echo '<ul>';
-                        echo '<li class="title">' . $menu[$myhomeidx]["title"] . '</li>';
-                        mnu_EchoSubMenu($menu[$myhomeidx]['submenu'], $menu_item_siteid, 1, false);
-                        echo '</ul>';
-                    }
+                      <?php foreach($view->_nonAuthUserMenu as $key => $url){ ?>
+                        <li class="group">
+                          <a href="<?=$url?>">
+                            <?=$key?>
+                          </a>
+                        </li>
+                      <?php } //foreach ?>
 
-                    if (isset($usr['admin']) && $usr['admin']) {
-                        $new_reports = ReportCtl::getReportsCountByStatus(ReportCtl::STATUS_NEW);
-                        $active_reports = ReportCtl::getReportsCountByStatus(ReportCtl::STATUS_OPEN);
+                    </ul>
 
-                        $db = OcDb::instance();
-                        $new_pendings = $db->simpleQueryValue("SELECT COUNT(status) FROM caches WHERE status = 4", 0);
-                        $in_review_count = $db->simpleQueryValue(
-                            "SELECT COUNT(*) FROM caches JOIN approval_status ON approval_status.cache_id = caches.cache_id
-                            WHERE caches.status = 4", 0);
+                <?php } else { //if-_isUserLogged ?>
 
-                        $adminidx = mnu_MainMenuIndexFromPageId($menu, "admin/reports_list");
-                        $menu[$adminidx]['visible'] = false;
-                        $zgloszeniaidx = mnu_MainMenuIndexFromPageId($menu[$adminidx]["submenu"], "admin/reports_list");
-                        if ($active_reports > 0){
-                            $menu[$adminidx]["submenu"][$zgloszeniaidx]['menustring'] .= " (" . $new_reports . "/" . $active_reports . ")";
-                        }
-                        $zgloszeniaidx = mnu_MainMenuIndexFromPageId($menu[$adminidx]["submenu"], "viewpendings");
-                        if ($new_pendings > 0){
-                            $waitingForAssigne = $new_pendings - $in_review_count;
-                        } else {
-                            $waitingForAssigne = 0;
-                        }
-                        $menu[$adminidx]["submenu"][$zgloszeniaidx]['menustring'] .= " (" . $waitingForAssigne . "/" . $new_pendings .  ")";
-                        ?>
+                    <!-- authorized menu -->
+                    <ul>
+                      <li class="title"><?=tr('main_menu')?></li>
+                      <?php foreach($view->_authUserMenu as $key => $url){ ?>
+                        <li class="group">
+                            <a href="<?=$url?>">
+                              <?=$key?>
+                            </a>
+                        </li>
+                      <?php } //foreach ?>
+                    </ul>
 
-                        <ul>
-                          <li class="title"><?=$menu[$adminidx]["title"]?></li>
-                          <?php mnu_EchoSubMenu($menu[$adminidx]['submenu'], $menu_item_siteid, 1, false); ?>
-                        </ul>
+                    <!-- custom user menu -->
+                    <ul>
+                      <li class="title"><?=tr('user_menu')?></li>
+                      <?php foreach($view->_customUserMenu as $key => $url){ ?>
+                        <li class="group">
+                            <a href="<?=$url?>">
+                              <?=$key?>
+                            </a>
+                        </li>
+                      <?php } //foreach ?>
+                    </ul>
 
+
+                    <!-- additional menu -->
+                    <ul>
+                      <li class="title"><?=tr('mnu_additionalMenu')?></li>
+                      <?php foreach($view->_additionalMenu as $key => $url){ ?>
+                        <li class="group">
+                            <a href="<?=$url?>">
+                              <?=$key?>
+                            </a>
+                        </li>
+                      <?php } //foreach ?>
+                    </ul>
+
+                    <?php if ($view->_isAdmin) { ?>
+                      <!-- admin menu -->
+                      <ul>
+                          <li class="title"><?=tr('administration')?></li>
+                          <?php foreach($view->_adminMenu as $key => $url){ ?>
+                            <li class="group">
+                              <a class="" href="<?=$url?>">
+                              <?=$key?>
+                              </a>
+                            </li>
+                          <?php } //foreach ?>
+                      </ul>
                     <?php } //admin ?>
+
+                <?php } //if-_isUserLogged ?>
 
                     <!-- Main title -->
                 </div>
@@ -306,21 +284,23 @@ if ($tplname != 'start'){
 
                               <?php foreach($view->_onlineUsers as $userId=>$username){ ?>
                                 <a class="links-onlusers" href="/viewprofile.php?userid=<?=$userId?>">
-                                  <?=$username?>&nbsp;
-                                </a>
+                                  <?=$username?>
+                                </a>&nbsp;
                               <?php } //foreach ?>
 
                           </span>
-                          <span class="txt-black"> ({{online_users_info}}):</span>
+                          <span class="txt-black"> ({{online_users_info}})</span>
                         </p>
                         <div class="spacer">&nbsp;</div>
                     <?php } // user-logged && displayOnlineUsers ?>
 
+                    <p>
+                    <?php foreach($view->_footerMenu as $key=>$url){ ?>
+                      <a href="<?=$url?>"><?=$key?></a>
+                    <?php } //foreach _footerMenu ?>
+                    </p>
 
-                    <?php
-                    $bottomMenuResult = buildBottomMenu($config['bottom_menu']);
-                    echo $bottomMenuResult;
-                    ?>
+                    <p><br><?=$view->licenseHtml?></p>
 
                 </div>
                 <!-- (C) The Opencaching Project 2017 -->

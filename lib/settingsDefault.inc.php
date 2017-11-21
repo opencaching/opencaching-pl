@@ -28,17 +28,19 @@ $config = array(
      *Add button to a shop. Set true otherwise false
      *Add link to the shop of choise.
      */
-    'showShopButton' => false,
-    'showShopButtonUrl' => 'http://www.shop of choise',
-    /* link to geokrety site
-     * to disable geokrety in main menu set:
-     * $config['geokrety_url'] = NULL;
-     * */
-    'geokrety_url' => 'https://geokrety.org',
+    //NOT USED: 'showShopButton' => false, - to display/hide mapv2 change menu conf.
+    //NOT USED: 'showShopButtonUrl' => 'http://www.shop of choise', - to display/hide mapv2 change menu conf.
+
+
     /** to switch cache map v2 on set true otherwise false */
-    'map2SwithedOn' => true,
+    //NOT USED: 'map2SwithedOn' => true, - to display/hide mapv2 change menu conf.
+
+
     /** to switch flopp's map on set true otherwise false */
-    'FloppSwithedOn' => false,
+    //NOT USED: 'FloppSwithedOn' => false, - to display/hide Flopp's map change menu conf.
+
+
+
     /* === Node personalizations === */
 
     /** main logo picture (to be placed in /images/) */
@@ -266,20 +268,6 @@ $config['okapi']['admin_emails'] = false;
 // Number of minutes to edit cache log without increment the "edit_count" field. Usefull eg. to correct spelling errors.
 // https://github.com/opencaching/opencaching-pl/issues/696
 $config['cache_log']['edit_time'] = 5;
-
-// Configuration of the bottom menu
-$config['bottom_menu']['impressum']['link'] = '';
-$config['bottom_menu']['impressum']['visible'] = false;
-$config['bottom_menu']['history']['link'] = '';
-$config['bottom_menu']['history']['visible'] = false;
-$config['bottom_menu']['api']['link'] = '/okapi';
-$config['bottom_menu']['api']['visible'] = true;
-$config['bottom_menu']['rss']['link'] = 'articles.php?page=rss';
-$config['bottom_menu']['rss']['visible'] = true;
-$config['bottom_menu']['contact']['link'] = 'articles.php?page=contact';
-$config['bottom_menu']['contact']['visible'] = true;
-$config['bottom_menu']['main_page']['link'] = '/index.php?page=sitemap';
-$config['bottom_menu']['main_page']['visible'] = true;
 
 // Configuration of license link at footer
 $config['license_html'] = '';

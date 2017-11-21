@@ -1,6 +1,6 @@
 <?php
 
-$standard_title = tr('clipboard');
+$standard_title = tr('mnu_clipboard');
 $no_list = '<tr><td colspan="4">' . tr('mylist_01') . '</td></tr>';
 
 $list_e = '<tr><td><a href="viewcache.php?cacheid={urlencode_cacheid}">{mod_suffix}{cachename}</a></td><td>&nbsp;</td><td nowrap style="text-align:center;">{lastfound}</td><td nowrap style="text-align:center;">[<a href="removelist.php?cacheid={cacheid}&target=mylist.php">' . tr('mylist_02') . '</a>]</td></tr>';

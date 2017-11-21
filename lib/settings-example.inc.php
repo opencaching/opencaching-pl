@@ -179,16 +179,17 @@ $dberrormail = 'rt@localhost';
 $cachemap_mapper = "lib/mapper_okapi.php";
 
 //Links to blog page on oc site
-$blogsite_url = 'http://blog.opencaching.pl';
+//NOT-USED: $blogsite_url = 'http://blog.opencaching.pl';
 
 //links to forum page on oc site
-$forum_url = 'http://forum.opencaching.pl';
+//NOT-USED: $forum_url = 'http://forum.opencaching.pl';
 
 //links to wiki page on oc site
 // they are available in tpl files under {wiki_link_<name>}, i.e. {wiki_link_forBeginers}
 // protocol agnostic links - just for fun
-$wiki_url  = '//wiki.opencaching.pl';
-$wikiLinks = array(
+//NOT-USED: $wiki_url  = '//wiki.opencaching.pl';
+
+/* NOT-USED: $wikiLinks = array(
     'main'  => $wiki_url,
     'rules' => $wiki_url.'/index.php/Regulamin_OC_PL',
     'rules_en' => $wiki_url.'/index.php/OC_PL_Conditions_of_Use',
@@ -215,6 +216,7 @@ $wikiLinks = array(
     // optional item
     'downloads' => $wiki_url.'/index.php/U%C5%BCyteczne_pliki_zwi%C4%85zane_z_OC_PL',
 );
+*/
 
 $rules_url = 'http://wiki.opencaching.pl/index.php/Regulamin_OC_PL';
 $cache_params_url = 'http://wiki.opencaching.pl/index.php/Parametry_skrzynki';
@@ -269,9 +271,6 @@ $powerTrailMinimumCacheCount = array(
 // minimum cahes Found count of user, to alow user set new Power Trail
 // user who found less than $powerTrailUserMinimumCacheFoundToSetNewPowerTrail can't create new PT
 $powerTrailUserMinimumCacheFoundToSetNewPowerTrail = 500;
-
-// link to FAQ/info of power trail module
-$powerTrailFaqLink = 'http://info.opencaching.pl/node/13';
 
 /* end of power Trail module switch and settings */
 
@@ -382,23 +381,6 @@ $contactDataDE = array(
 //
 $contactData = $contactDataPL;
 // Contact data definition END
-
-/*
- * Bottom menu
- * See settingsDefault.inc.php for default values
- */
-// You can enable menu item by setting ['link'] and ['visible'] - for example:
-$config['bottom_menu']['impressum']['link'] = 'https://wiki.opencaching.pl/index.php/Opencaching_PL';
-$config['bottom_menu']['impressum']['visible'] = true;
-// You can also use your configured Wiki links:
-$config['bottom_menu']['history']['link'] = $wikiLinks['history'];
-$config['bottom_menu']['history']['visible'] = true;
-// You can disable single menu item:
-$config['bottom_menu']['main_page']['visible'] = false;
-// Or you can even add menu item. But remember - second index is a position from language file (/lib/languages/??.php)
-// and should be added to translation files first (in below case - 'guides').
-$config['bottom_menu']['guides']['link'] = '/cacheguides.php';
-$config['bottom_menu']['guides']['visible'] = true;
 
 // Configuration of license link at footer
 // You can select license and generate HTML at https://creativecommons.org/choose/

@@ -101,7 +101,9 @@ class EmailSender
         $formattedMessage->setVariable("postactivationmail02", tr("postactivationmail02"));
         $formattedMessage->setVariable("postactivationmail03", tr("postactivationmail03"));
         $formattedMessage->setVariable("user", $username);
+
         $wikiLinks = OcConfig::getWikiLinks();
+
         $formattedMessage->setVariable("wikiaddress", $wikiLinks['forBeginers']);
         $formattedMessage->setVariable("sitename", OcConfig::getSiteName());
 

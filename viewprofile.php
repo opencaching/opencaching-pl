@@ -18,7 +18,6 @@ if (!isset($rootpath)){
     $rootpath = '';
 }
 require_once ('./lib/common.inc.php');
-global $stat_menu, $mnu_siteid;
 
 //user logged in?
 if ($usr == false) {
@@ -60,13 +59,6 @@ if ($usr == false) {
     tpl_set_var('userid', $user_id);
     require ($stylepath . '/lib/icons.inc.php');
     $tplname = 'viewprofile';
-
-    if ($user_id != $usr['userid']) {
-        // do not highlight My stats menu item if browsing other users stats
-        $mnu_siteid = 'start';
-    }
-
-    $stat_menu = array('title' => tr('Statictics'), 'menustring' => tr('Statictics'), 'siteid' => 'statlisting', 'navicolor' => '#E8DDE4', 'visible' => false, 'filename' => 'viewprofile.php?userid=' . $user_id, 'submenu' => array(array('title' => tr('graph_find'), 'menustring' => tr('graph_find'), 'visible' => true, 'filename' => 'ustatsg2.php?userid=' . $user_id, 'newwindow' => false, 'siteid' => 'findstat', 'icon' => 'images/actions/stat'), array('title' => tr('graph_created'), 'menustring' => tr('graph_created'), 'visible' => true, 'filename' => 'ustatsg1.php?userid=' . $user_id, 'newwindow' => false, 'siteid' => 'createstat', 'icon' => 'images/actions/stat')));
 
     $content = "";
 
@@ -355,7 +347,7 @@ if ($usr == false) {
                 $milestone = 100;
             }
             else {
-                
+
                 $milestone = 10;
             }
 
@@ -898,10 +890,10 @@ foreach($userCategories as $oneCategory){
 
     foreach($badgesInCategory as $oneBadge){
 
-        $short_desc = MeritBadge::prepareShortDescription(  $oneBadge->getOBadge()->getShortDescription(), 
-                                                            $oneBadge->getNextVal(), 
+        $short_desc = MeritBadge::prepareShortDescription(  $oneBadge->getOBadge()->getShortDescription(),
+                                                            $oneBadge->getNextVal(),
                                                             $oneBadge->getCurrVal());
-        
+
         $short_desc = mb_ereg_replace( "'", "\\'", $short_desc);
 
         $element=$content_element_badge;
