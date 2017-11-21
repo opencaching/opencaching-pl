@@ -7,6 +7,7 @@ use lib\Objects\Coordinates\Coordinates;
 use Utils\Database\OcDb;
 use lib\Objects\OcConfig\OcConfig;
 use Utils\Database\QueryBuilder;
+use lib\Objects\GeoCache\GeoCache;
 
 class CacheSet extends CacheSetCommon
 {
@@ -223,6 +224,29 @@ class CacheSet extends CacheSetCommon
         return $this->centerCoordinates;
     }
 
+
+    /**
+     * Return all cacheSets which has less active caches than required ratio for completion
+     * @return array
+     */
+    public static function getCacheSetsToArchive()
+    {
+        $db = self::db();
+        $rs = $db->simpleQuery(
+            "SELECT * FROM (
+                SELECT pt.id, pt.type, pt.name,
+                    100*count(*)/pt.cacheCount AS currentRatio,
+                    pt.perccentRequired AS ratioRequired
+                FROM PowerTrail AS pt
+                JOIN powerTrail_caches AS ptc ON ptc.PowerTrailId = pt.id
+                JOIN caches AS c ON ptc.cacheId = c.cache_id
+                WHERE pt.status = ".CacheSet::STATUS_OPEN."
+                    AND c.status = ".GeoCache::STATUS_READY."
+                GROUP BY pt.id
+            ) AS allPts WHERE currentRatio <= ratioRequired");
+
+        return $db->dbResultFetchAll($rs, OcDb::FETCH_ASSOC);
+    }
 
 }
 

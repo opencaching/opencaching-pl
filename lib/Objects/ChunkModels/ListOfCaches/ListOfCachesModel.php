@@ -59,7 +59,9 @@ class ListOfCachesModel {
     }
 
     public function callPaginationChunk(){
-        View::callChunkInline('pagination', $this->paginationModel);
+        if($this->paginationModel){
+            View::callChunkInline('pagination', $this->paginationModel);
+        }
     }
 
     public function isHeaderEnabled(){
