@@ -5,6 +5,7 @@
 
 #ignore local configs
 /Config/*.local.php
+/Config/Menu/*.local.php
 
 .buildpath
 .project

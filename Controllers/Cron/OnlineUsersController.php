@@ -3,7 +3,6 @@ namespace Controllers\Cron;
 
 use Controllers\BaseController;
 use lib\Objects\User\UserAuthorization;
-use Utils\Debug\Debug;
 
 class OnlineUsersController extends BaseController
 {
@@ -22,6 +21,7 @@ class OnlineUsersController extends BaseController
 
     public static function dumpOnlineUsers()
     {
+        global $config;
         if(!$config['mainLayout']['displayOnlineUsers']){
             // skip this action if online users list is disabled in config
             return;
@@ -46,7 +46,6 @@ class OnlineUsersController extends BaseController
 
         $str = file_get_contents ( self::getOnlineUsersDumpFile() );
         if(empty($str)){
-            //read error?!
             // Debug::errorLog(__METHOD__.": ERROR: Can't read file with list of online users: ".
             //    self::getOnlineUsersDumpFile());
             return null;
