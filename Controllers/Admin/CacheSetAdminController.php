@@ -64,12 +64,17 @@ class CacheSetAdminController extends BaseController
                 }));
         $listModel->addColumn(
             new Column_SimpleText( tr('admCs_currentRatio'), function($row){
-                return round($row['currentRatio']).'%';
+                return $row['activeCaches'] . ' ( '. round($row['currentRatio']).'% ) ';
             }));
+
+
+
 
         $listModel->addColumn(
             new Column_SimpleText( tr('admCs_requiredRatio'), function($row){
-                return round($row['ratioRequired']).'%';
+                // find number of required caches
+                $requiredCachesNum = ceil($row['cacheCount']*$row['ratioRequired']/100);
+                return $requiredCachesNum . ' ( '. round($row['ratioRequired']).'% )';
             }));
 
         $listModel->addDataRows($csToArchive);

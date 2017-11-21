@@ -234,8 +234,8 @@ class CacheSet extends CacheSetCommon
         $db = self::db();
         $rs = $db->simpleQuery(
             "SELECT * FROM (
-                SELECT pt.id, pt.type, pt.name,
-                    100*count(*)/pt.cacheCount AS currentRatio,
+                SELECT pt.id, pt.type, pt.name, pt.cacheCount, COUNT(*) AS activeCaches,
+                    100*COUNT(*)/pt.cacheCount AS currentRatio,
                     pt.perccentRequired AS ratioRequired
                 FROM PowerTrail AS pt
                 JOIN powerTrail_caches AS ptc ON ptc.PowerTrailId = pt.id
