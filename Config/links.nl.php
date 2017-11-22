@@ -16,8 +16,7 @@ $links['blog'] = 'http://blog.opencaching.nl';
 $links['forum'] = 'http://forum.opencaching.nl';
 
 // former $config['geokrety_url']
-$links['geokrety'] = null; // geokrety not listed
-
+$links['geokrety'] = 'https://geokrety.org';
 
 /**
  * This is local base for wiki links
