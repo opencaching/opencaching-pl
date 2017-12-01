@@ -28,7 +28,7 @@ div.seasonalBackground {
 }
 
 div.seasonalBackground.left{ left: -331px; }
-div.seasonalBackground.right{ right: -331px; }
+div.seasonalBackground.right{ right: -331px; transform: scaleX(-1); }
 
 div.seasonalBackground.summer{ background-image: url(/images/css/summer.jpg);}
 div.seasonalBackground.autumn{ background-image: url(/images/css/autumn.jpg);}
