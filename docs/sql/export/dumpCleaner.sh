@@ -50,7 +50,7 @@ function trimFile () {
     zcat $SQL_FILE | grep -Ev "$TRIM_PATTERN" > $TRIMMED_FILE
 }
 
-# change all email addresses to DEFAULT-EMAIL - actually not used becaus user email needs to be unique!
+# change all email addresses to DEFAULT-EMAIL - actually not used because user email needs to be unique!
 function blureEmails () {
 
     # email address to set in all user rows
@@ -107,7 +107,7 @@ function changeCachesPassword() {
     rm $TMP_FILE $TMP2_FILE
 }
 
-# change all user passwords to default value: haslo
+# change all user passwords to default value: haslo + email to: uid@localhost
 function changeUserPasswords() {
 
     #pass=haslo
