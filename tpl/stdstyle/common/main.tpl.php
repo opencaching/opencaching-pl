@@ -184,7 +184,11 @@ global $tpl_subtitle, $absolute_server_URI, $site_name;
                 <div id="nav2">
                     <ul>
                         <?php foreach($view->_menuBar as $key=>$url) { ?>
-                          <li><a href="<?=$url?>"><?=$key?></a>
+                          <?php if(is_array($url)) { //array="open in new window" ?>
+                            <li><a href="<?=$url[0]?>" target="_blank" rel="noopener"><?=$key?></a>
+                          <?php } else { ?>
+                            <li><a href="<?=$url?>" rel="noopener"><?=$key?></a>
+                          <?php } ?>
                         <?php } //foreach _menuBar?>
                     </ul>
                 </div>
@@ -203,9 +207,11 @@ global $tpl_subtitle, $absolute_server_URI, $site_name;
 
                       <?php foreach($view->_nonAuthUserMenu as $key => $url){ ?>
                         <li class="group">
-                          <a href="<?=$url?>">
-                            <?=$key?>
-                          </a>
+                            <?php if(is_array($url)) { //array="open in new window" ?>
+                              <a href="<?=$url[0]?>" target="_blank" rel="noopener"><?=$key?></a>
+                            <?php } else { // !is_array($url) ?>
+                              <a href="<?=$url?>" rel="noopener"><?=$key?></a>
+                            <?php } // if-is_array($url) ?>
                         </li>
                       <?php } //foreach ?>
 
@@ -218,9 +224,11 @@ global $tpl_subtitle, $absolute_server_URI, $site_name;
                       <li class="title"><?=tr('main_menu')?></li>
                       <?php foreach($view->_authUserMenu as $key => $url){ ?>
                         <li class="group">
-                            <a href="<?=$url?>">
-                              <?=$key?>
-                            </a>
+                            <?php if(is_array($url)) { //array="open in new window" ?>
+                              <a href="<?=$url[0]?>" target="_blank" rel="noopener"><?=$key?></a>
+                            <?php } else { // !is_array($url) ?>
+                              <a href="<?=$url?>" rel="noopener"><?=$key?></a>
+                            <?php } // if-is_array($url) ?>
                         </li>
                       <?php } //foreach ?>
                     </ul>
@@ -243,9 +251,11 @@ global $tpl_subtitle, $absolute_server_URI, $site_name;
                       <li class="title"><?=tr('mnu_additionalMenu')?></li>
                       <?php foreach($view->_additionalMenu as $key => $url){ ?>
                         <li class="group">
-                            <a href="<?=$url?>">
-                              <?=$key?>
-                            </a>
+                            <?php if(is_array($url)) { //array="open in new window" ?>
+                              <a href="<?=$url[0]?>" target="_blank" rel="noopener"><?=$key?></a>
+                            <?php } else { // !is_array($url) ?>
+                              <a href="<?=$url?>" rel="noopener"><?=$key?></a>
+                            <?php } // if-is_array($url) ?>
                         </li>
                       <?php } //foreach ?>
                     </ul>
@@ -256,9 +266,11 @@ global $tpl_subtitle, $absolute_server_URI, $site_name;
                           <li class="title"><?=tr('administration')?></li>
                           <?php foreach($view->_adminMenu as $key => $url){ ?>
                             <li class="group">
-                              <a class="" href="<?=$url?>">
-                              <?=$key?>
-                              </a>
+                                <?php if(is_array($url)) { //array="open in new window" ?>
+                                  <a href="<?=$url[0]?>" target="_blank" rel="noopener"><?=$key?></a>
+                                <?php } else { // !is_array($url) ?>
+                                  <a href="<?=$url?>" rel="noopener"><?=$key?></a>
+                                <?php } // if-is_array($url) ?>
                             </li>
                           <?php } //foreach ?>
                       </ul>
@@ -296,7 +308,11 @@ global $tpl_subtitle, $absolute_server_URI, $site_name;
 
                     <p>
                     <?php foreach($view->_footerMenu as $key=>$url){ ?>
-                      <a href="<?=$url?>"><?=$key?></a>
+                      <?php if(is_array($url)) { //array="open in new window" ?>
+                        <a href="<?=$url[0]?>" target="_blank" rel="noopener"><?=$key?></a>
+                      <?php } else { // !is_array($url) ?>
+                        <a href="<?=$url?>" rel="noopener"><?=$key?></a>
+                      <?php } // if-is_array($url) ?>
                     <?php } //foreach _footerMenu ?>
                     </p>
 
