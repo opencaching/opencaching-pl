@@ -1,6 +1,6 @@
 #!/bin/bash 
 #
-# usage: dumpCleaner <file-with-sql-dump> <file-with-list-of-UNNEED-tables>
+# usage: dumpCleaner <gzipped-sql-backup-dump> <file-with-list-of-UNNEED-tables>
 # 
 #
 
