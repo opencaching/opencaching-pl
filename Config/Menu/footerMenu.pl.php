@@ -5,8 +5,10 @@
  * This is configuration for OCPL only.
  *
  * Every record of $menu table should be table record in form:
+ *  '<translation-key-used-as-link-text>' => '<url>',
  *
- *  '<translation-key-used-as-link-text>', '<url>',
+ * or if link needs to be open in a new window (use php array)
+ *  '<translation-key-used-as-link-text>' => ['<url>'],
  *
  */
 // OcConfig::$links var is accessible in this scope!
