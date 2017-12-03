@@ -1,0 +1,22 @@
+.intro {
+  line-height: 1.6em;
+}
+
+
+div.news-item {
+    font-size: 12px;
+    margin-left: 40px;
+    padding: 2px;
+}
+
+div.news-statusline {
+    margin: 5px 0px;
+}
+
+.newsTitle {
+  font-weight: bold;
+}
+
+p.main-totalstats { 
+  font-weight: bold;
+}

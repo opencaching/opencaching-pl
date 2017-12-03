@@ -1,4 +1,7 @@
 <?php
+use Utils\Uri\SimpleRouter;
+use Controllers\Admin\CacheSetAdminController;
+
 /**
  * This is simple configuration of links presented in sidebar of the page
  * for authorized admins (COG) only.
@@ -25,5 +28,7 @@ $menu = [ // DON'T CHANGE $menu var name!
     'mnu_searchUser'    => '/admin_searchuser.php',
     'mnu_ocTeamNews'    => '/admin_news.php',
     'mnu_geoPathAdmin'  => '/powerTrailCOG.php',
+    'xxx'               => SimpleRouter::getLink(
+                                CacheSetAdminController::class, 'cacheSetsToArchive'),
 ];
 

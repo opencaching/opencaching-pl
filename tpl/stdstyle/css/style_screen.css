@@ -813,8 +813,6 @@ tooltip {
 }
 
 /* used in start.tpl.php only! */
-div#new-caches-area                                     { width: 500px; }
-div#new-events-area                                     { width: 100%; }
 div#local-caches-area                                   { width: 400px; }
 div#local-events-area                                   { width: 400px; }
 div#local-logs-area                                     { width: 750px; }
@@ -829,7 +827,6 @@ div.viewlogs-logpictures img                            { max-width: 64px; max-h
 div.viewlogs-logpictures span.removepic                 { display: block; font-size: 12px;}
 
 
-div#cacheTitled { width: 100%; }
 div.cache-titled-content {
     margin-left: 40px;
     margin-top: 11px;
@@ -865,7 +862,6 @@ div.viewcache_log-content * {
 
 div#main-cachemap-block                 { width: 265px; margin-top: 80px; }
 div#local-cachemap-block                { width: 365px; margin-top: 7px; }
-p.main-totalstats                       { font-weight: bold; }
 
 .img-shadow {
     float:left;
@@ -1137,16 +1133,6 @@ ul.feedList {
 div.feedArea {
     width: 100%;
     display: block;
-}
-
-div.news-item {
-    font-size: 12px;
-    margin-left: 40px;
-    padding: 2px;
-}
-
-div.news-statusline {
-    margin: 5px 0px;
 }
 
 sup {
