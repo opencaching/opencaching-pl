@@ -36,7 +36,7 @@ class GeoCacheLog extends GeoCacheLogCommons
 
     public function __construct()
     {
-
+        parent::construct();
     }
 
     public function getId()
@@ -283,6 +283,20 @@ class GeoCacheLog extends GeoCacheLogCommons
     {
         $this->lastDeleted = $lastDeleted;
         return $this;
+    }
+
+
+    public static function getTotalFoundsNumber()
+    {
+        $countedTypes = implode(',',[
+            self::LOGTYPE_FOUNDIT,
+            self::LOGTYPE_DIDNOTFIND
+        ]);
+
+        return self::db()->simpleQueryValue(
+            "SELECT COUNT(*) FROM cache_logs
+            WHERE type IN ($countedTypes)
+                AND deleted = 0", 0);
     }
 
 }

@@ -39,10 +39,10 @@
 
     <div>
       <p class="main-totalstats">
-        <?=tr('startPage_stsAllCaches')?>:<span class="content-title-noshade"><?=$view->totalStats->totalHidden?></span>
-        <?=tr('startPage_stsActiveCaches')?>: <span class="content-title-noshade"><?=$view->totalStats->hidden?></span>
+        <?=tr('startPage_stsAllCaches')?>:<span class="content-title-noshade"><?=$view->totalStats->totalCaches?></span>
+        <?=tr('startPage_stsActiveCaches')?>: <span class="content-title-noshade"><?=$view->totalStats->activeCaches?></span>
       | <?=tr('startPage_stsFounds')?>: <span class="content-title-noshade"><?=$view->totalStats->founds?></span>
-      | <?=tr('startPage_stsUsers')?>: <span class="content-title-noshade"><?=$view->totalStats->registeredUsers?></span>
+      | <?=tr('startPage_stsUsers')?>: <span class="content-title-noshade"><?=$view->totalStats->activeUsers?></span>
       </p>
     </div>
 

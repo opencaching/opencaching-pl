@@ -5,6 +5,8 @@ use Controllers\News\NewsListController;
 use Utils\Database\OcDb;
 use Utils\Uri\Uri;
 use myninc;
+use lib\Objects\Stats\TotalStats;
+use lib\Objects\ApplicationContainer;
 
 class StartPageController extends BaseController
 {
@@ -26,6 +28,7 @@ class StartPageController extends BaseController
         $this->processTotalStats();
         $this->processFeeds();
         $this->processTitleCaches();
+        $this->processGeopathOfTheDay();
 
         $this->view->buildView();
 
@@ -45,20 +48,12 @@ class StartPageController extends BaseController
 
     private function processTotalStats()
     {
-        //TODO
-        //include ($dynstylepath . "totalstats.inc.php");
-
-        $totalStats = new \stdClass();
-        $totalStats->totalHidden = 1234;
-        $totalStats->hidden = 456;
-        $totalStats->founds = 789;
-        $totalStats->registeredUsers = 1011;
-
-        $this->view->setVar('totalStats', $totalStats);
+        $this->view->setVar('totalStats', TotalStats::getBasicTotalStats());
     }
 
     private function processFeeds()
     {
+        global $config;
         $feeds = '';
         foreach ($config['feed']['enabled'] as $feed_position) {
             $feed_txt = file_get_contents($dynstylepath . "feed." . $feed_position . ".html");
@@ -75,12 +70,14 @@ class StartPageController extends BaseController
         // Titled Caches
         // /////////////////////////////////////////////////
 
-        $usrid = - 1;
         $TitledCaches = "";
         $dbc = OcDb::instance();
 
-        if ($usr != false)
-            $usrid = $usr['userid'];
+        if ($this->isUserLogged()){
+            $usrid = $this->loggedUser->getUserId();
+        }else{
+            $userId = -1;
+        }
 
             $query = "SELECT caches.cache_id, caches.name cacheName, adm1 cacheCountry, adm3 cacheRegion, caches.type cache_type,
         caches.user_id, user.username userName, cache_titled.date_alg, cache_logs.text,
@@ -95,7 +92,7 @@ class StartPageController extends BaseController
         ORDER BY date_alg DESC
         LIMIT 1";
 
-            $s = $dbc->multiVariableQuery($query, $lang);
+            $s = $dbc->multiVariableQuery($query, ApplicationContainer::Instance()->getLang());
 
             $pattern = "<img src='{cacheIcon}' class='icon16' alt='Cache' title='Cache'>
         <a href='viewcache.php?cacheid={cacheId}' class='links'>{cacheName}</a>&nbsp;" . tr('hidden_by') . "

@@ -24,12 +24,12 @@ abstract class BaseObject
     /**
      * @return \Utils\Database\OcDb
      */
-    public static function db()
+    protected static function db()
     {
         return OcDb::instance();
     }
 
-    public static function getCurrentUser(){
+    protected static function getCurrentUser(){
         return ApplicationContainer::Instance()->getLoggedUser();
     }
 

@@ -1090,12 +1090,13 @@ class GeoCache extends GeoCacheCommons
             AND `cache_logs`.`deleted`= ? ", $cacheid, 0);
     }
 
+
     public static function getUserActiveCachesCountByType($userId){
 
         $stmt = XDb::xSql(
             'SELECT type, COUNT(*) as cacheCount
-             FROM `caches` WHERE `user_id` = ? AND STATUS != 3
-             GROUP by type', $userId);
+             FROM `caches` WHERE `user_id` = ? AND STATUS != ?
+             GROUP by type', $userId, self::STATUS_ARCHIVED);
 
         $result = [];
         while($row = Xdb::xFetchArray($stmt)){
@@ -1104,6 +1105,26 @@ class GeoCache extends GeoCacheCommons
 
         return $result;
     }
+
+    public static function getAllCachesCount($activeOnly=false)
+    {
+
+        if($activeOnly){
+            $countedStatuses = implode(',',[
+                self::STATUS_READY
+            ]);
+        }else{
+            $countedStatuses = implode(',',[
+                self::STATUS_ARCHIVED,
+                self::STATUS_UNAVAILABLE,
+                self::STATUS_READY
+            ]);
+        }
+
+        return self::db()->simpleQueryValue(
+            "SELECT COUNT(*) FROM caches WHERE status IN ($countedStatuses)", 0);
+    }
+
 
 
     /**
