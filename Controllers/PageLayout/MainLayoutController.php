@@ -245,7 +245,9 @@ class MainLayoutController extends BaseController
 
                 default:
                     $key = tr($key);
-                    $url = htmlspecialchars($url);
+                    if(!is_array($url)){
+                        $url = htmlspecialchars($url);
+                    }
             }
 
             if(empty($url)){
