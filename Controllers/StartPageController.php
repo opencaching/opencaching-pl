@@ -2,11 +2,8 @@
 namespace Controllers;
 
 use Controllers\News\NewsListController;
-use Utils\Database\OcDb;
 use Utils\Uri\Uri;
-use myninc;
 use lib\Objects\Stats\TotalStats;
-use lib\Objects\ApplicationContainer;
 use lib\Objects\GeoCache\MultiCacheQueries;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\User\User;
@@ -17,8 +14,6 @@ use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\GeoCache\CacheTitled;
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\CacheSet\CacheSet;
-use Utils\Gis\Region;
-use lib\Objects\Coordinates\NutsLocation;
 
 class StartPageController extends BaseController
 {
@@ -27,14 +22,20 @@ class StartPageController extends BaseController
         parent::__construct();
     }
 
+    public function isCallableFromRouter($actionName)
+    {
+        // all public methods can be called by router
+        return TRUE;
+    }
+
     public function index()
     {
         $this->view->setTemplate('startPage/startPage');
 
-        $this->view->addLocalCss('tpl/stdstyle/css/lightTooltip.css');
+        $this->view->addLocalCss('/tpl/stdstyle/css/lightTooltip.css');
 
         $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime('tpl/stdstyle/startPage/startPage.css'));
+            Uri::getLinkWithModificationTime('/tpl/stdstyle/startPage/startPage.css'));
 
         $this->view->loadJQuery();
 
@@ -74,7 +75,7 @@ class StartPageController extends BaseController
         $map_width = $main_page_map_width;
         $map_height = $main_page_map_height;
 
-        $staticMapUrl = sprintf("lib/staticmap.php?center=%F,%F&amp;zoom=%d&amp;size=%dx%d&amp;maptype=%s",
+        $staticMapUrl = sprintf("/lib/staticmap.php?center=%F,%F&amp;zoom=%d&amp;size=%dx%d&amp;maptype=%s",
             $map_center_lat, $map_center_lon, $map_zoom, $map_width, $map_height, $map_type);
         $this->view->setVar('staticMapUrl', $staticMapUrl);
 

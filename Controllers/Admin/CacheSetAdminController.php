@@ -29,6 +29,12 @@ class CacheSetAdminController extends BaseController
 
     }
 
+    public function isCallableFromRouter($actionName)
+    {
+        // all public methods can be called by router
+        return TRUE;
+    }
+
     public function index()
     {
 
@@ -66,9 +72,6 @@ class CacheSetAdminController extends BaseController
             new Column_SimpleText( tr('admCs_currentRatio'), function($row){
                 return $row['activeCaches'] . ' ( '. round($row['currentRatio']).'% ) ';
             }));
-
-
-
 
         $listModel->addColumn(
             new Column_SimpleText( tr('admCs_requiredRatio'), function($row){

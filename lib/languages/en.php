@@ -2739,12 +2739,14 @@ $translations = array(
     'mnu_searchUser' => 'Search for users',
     'mnu_openchecker' => 'OpenChecker',
     'mnu_recoCaches' => 'Recommended caches',
-    'mnu_geoPathAdmin' => 'GeoPath OC Team',
+    'mnu_geoPathAdmin' => 'CacheSets Admin',
     'mnu_reports' => 'Reports',
     'mnu_notFoundCaches' => 'Not found geocache',
     'mnu_pendings' => 'Caches waiting to be accepted',
     'mnu_ocTeamNews' => 'News management',
     'mnu_additionalMenu' => 'Additional menu',
+    'mnu_abandonCacheSets' => 'Abandon cacheSets',
+
 
     'admCs_degradedCs'  => 'Degraded GeoPaths',
     'admCs_cacheSet'  => 'GeoPaths',

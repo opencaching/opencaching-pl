@@ -23,7 +23,7 @@
 
     <div class="news">
         <p class="content-title-noshade-size3">
-          <img src="tpl/stdstyle/images/blue/newspaper.png" width="32" alt="">
+          <img src="/tpl/stdstyle/images/blue/newspaper.png" width="32" alt="">
           <?=tr('news')?>
         </p>
 

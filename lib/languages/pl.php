@@ -2742,6 +2742,7 @@ $translations = array(
     'mnu_pendings' => 'Skrzynki oczekujące na akceptację',
     'mnu_ocTeamNews' => 'Newsy - zarządzanie',
     'mnu_additionalMenu' => 'Menu dodatkowe',
+    'mnu_abandonCacheSets' => 'Niezdobywalne geościeżki',
 
 
     'admCs_degradedCs'  => 'Niezdobywalne geościeżki',

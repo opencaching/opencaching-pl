@@ -32,6 +32,12 @@ class ViewCacheController extends BaseController
 
     }
 
+    public function isCallableFromRouter($actionName)
+    {
+        // all public methods can be called by router
+        return TRUE;
+    }
+
     public function index()
     {
 

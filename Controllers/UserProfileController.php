@@ -18,6 +18,12 @@ class UserProfileController extends BaseController
         $this->requestedUser = $this->loadRequestedUser();
     }
 
+    public function isCallableFromRouter($actionName)
+    {
+        //all public methods can be called by router
+        return TRUE;
+    }
+
     public function index()
     {
         // there is nothing here yet

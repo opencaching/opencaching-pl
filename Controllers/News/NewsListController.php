@@ -24,9 +24,12 @@ class NewsListController extends BaseController
         parent::__construct();
     }
 
-    /**
-     * Default
-     */
+    public function isCallableFromRouter($actionName)
+    {
+        // all public methods can be called by router
+        return TRUE;
+    }
+
     public function index()
     {
         $this->showNews();
@@ -67,7 +70,7 @@ class NewsListController extends BaseController
      * Method is used by index.php to generate list of news on mainpage
      * (should be removed / refactored after index.php refactoring)
      *
-     * @param string $logged            
+     * @param string $logged
      * @return array of News objects
      */
     public static function listNewsOnMainPage($logged = false)

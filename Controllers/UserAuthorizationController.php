@@ -2,7 +2,6 @@
 namespace Controllers;
 
 use lib\Objects\User\UserAuthorization;
-use Utils\Debug\Debug;
 use Utils\Uri\Uri;
 
 class UserAuthorizationController extends BaseController
@@ -12,6 +11,16 @@ class UserAuthorizationController extends BaseController
 
     public function __construct(){
         parent::__construct();
+    }
+
+    public function isCallableFromRouter($actionName)
+    {
+        // all public methods can be called by router
+        return TRUE;
+    }
+
+    public function index(){
+        $this->displayLoginPage();
     }
 
     public function login(){
@@ -114,9 +123,6 @@ class UserAuthorizationController extends BaseController
         exit;
     }
 
-    public function index(){
-        $this->displayLoginPage();
-    }
 
 
 

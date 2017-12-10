@@ -26,7 +26,7 @@ return function (ListOfCachesModel $listModel){
 </script>
 
 <?php //becacus some of columns uses tooltip() //TODO: remove this tooltips ?>
-<script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
+<script type="text/javascript" src="/lib/js/wz_tooltip.js"></script>
 
 <table class="listOfCaches bs-table table-striped">
 

@@ -40,7 +40,7 @@ class GeoCacheCommons extends BaseObject {
 
     const RECOMENDATION_RATIO = 10; //percentage of founds which can be recomeded by user
 
-    const ICON_PATH = 'tpl/stdstyle/images/cache/'; //path to the dir with cache icons
+    const ICON_PATH = '/tpl/stdstyle/images/cache/'; //path to the dir with cache icons
 
     public function __construct()
     {

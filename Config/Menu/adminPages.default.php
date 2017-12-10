@@ -21,14 +21,14 @@ use Controllers\Admin\CacheSetAdminController;
 
 $menu = [ // DON'T CHANGE $menu var name!
 
-    'mnu_reports'       => '/admin_reports.php', /* counters added in MainLayoutCtrl */
-    'mnu_pendings'      => '/viewpendings.php', /* counters added in MainLayoutCtrl */
-    'mnu_octeamStats'   => '/articles.php?page=cog',
-    'mnu_notFoundCaches' => '/admin_cachenotfound.php',
-    'mnu_searchUser'    => '/admin_searchuser.php',
-    'mnu_ocTeamNews'    => '/admin_news.php',
-    'mnu_geoPathAdmin'  => '/powerTrailCOG.php',
-    'xxx'               => SimpleRouter::getLink(
+    'mnu_reports'           => '/admin_reports.php', /* counters added in MainLayoutCtrl */
+    'mnu_pendings'          => '/viewpendings.php', /* counters added in MainLayoutCtrl */
+    'mnu_octeamStats'       => '/articles.php?page=cog',
+    'mnu_notFoundCaches'    => '/admin_cachenotfound.php',
+    'mnu_searchUser'        => '/admin_searchuser.php',
+    'mnu_ocTeamNews'        => '/admin_news.php',
+    'mnu_geoPathAdmin'      => '/powerTrailCOG.php',
+    'mnu_abandonCacheSets'  => SimpleRouter::getLink(
                                 CacheSetAdminController::class, 'cacheSetsToArchive'),
 ];
 

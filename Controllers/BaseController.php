@@ -12,7 +12,22 @@ require_once(__DIR__.'/../lib/common.inc.php');
 
 abstract class BaseController
 {
-    /** @var View $view */
+    /**
+     * Every Controller should have index method
+     * which should is called by router as a default action
+     */
+    abstract public function index();
+
+    /**
+     * This method is call by router to be sure that given action is allowed
+     * to call by router.
+     *
+     * @param string $actionName - method which router will call
+     * @return boolean - TRUE if given method can be call from router
+     */
+    abstract public function isCallableFromRouter($actionName);
+
+/** @var View $view */
     protected $view = null;
 
     /** @var ApplicationContainer $applicationContainer */
@@ -35,7 +50,6 @@ abstract class BaseController
         // there is no DB access init - DB operations should be performed in models/objects
     }
 
-    abstract public function index(); //every Controller should have index method whoch should be call to handle requests
 
     protected function redirectToLoginPage()
     {

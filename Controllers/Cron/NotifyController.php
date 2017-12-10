@@ -23,6 +23,12 @@ class NotifyController extends BaseController
         parent::__construct();
     }
 
+    public function isCallableFromRouter($actionName)
+    {
+        // this controller is used by cron only - router shouldn't call it!
+        return FALSE;
+    }
+
     public function index()
     {
         $this->processNotifyQueue();
@@ -35,7 +41,7 @@ class NotifyController extends BaseController
         }
         $this->lastRun = $this->getFlagTime();
         $this->touchFlag();
-        
+
         $notifiesWaiting = Notify::getUniqueUserIdNotifiesList(Notify::TYPE_NEWCACHE);
         foreach ($notifiesWaiting as $uniqueUser) {
             $itemUser = new User(array(
@@ -59,7 +65,7 @@ class NotifyController extends BaseController
     {
         $right_time = new \DateTime();
         $hour_now = $right_time->format('H');
-        
+
         switch ($user->getWatchmailMode()) {
             case '1': // Send notifications every hour
                 $right_time->setTime(intval($hour_now), 0, 0);

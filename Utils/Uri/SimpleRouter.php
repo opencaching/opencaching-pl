@@ -1,6 +1,8 @@
 <?php
 namespace Utils\Uri;
 
+use Utils\Debug\Debug;
+
 /**
  *
  * Route schema:
@@ -20,6 +22,8 @@ class SimpleRouter
 
     const DEFAULT_ACTION = 'index';
     const DEFAULT_CTRL = 'StartPage';
+
+    const CTRL_BASE_CLASS = '\Controllers\BaseController';
 
     const ROOT_DIR = __DIR__.'/../..';
 
@@ -53,15 +57,30 @@ class SimpleRouter
 
     /**
      * This is router entry point.
-     * After call router parse url and load requeset route.
+     * After call router parse url and load requested route.
      */
     public static function run()
     {
+        // identify requested (or default) Controller/Action/params
         list($ctrlName, $actionName, $params) = self::parse();
 
-        $ctrl = new $ctrlName;
-        call_user_func_array(array($ctrl, $actionName), $params);
+        // create controller object
+        $ctrl = new $ctrlName();
 
+        // check if controller/action is ready to be call by router
+        if( !is_a($ctrl, self::CTRL_BASE_CLASS) ||
+            !$ctrl->isCallableFromRouter($actionName)){
+
+            // router prevent this call - use defaults instead!
+            $ctrlName = self::getControllerWithNamespace(self::DEFAULT_CTRL);
+            $actionName = self::DEFAULT_ACTION;
+            $params = [];
+
+            $ctrl = new $ctrlName();
+        }
+
+        call_user_func_array(array($ctrl, $actionName), $params);
+        exit;
     }
 
     /**
@@ -83,7 +102,7 @@ class SimpleRouter
      */
     private static function getClassFilePath($classNamespace)
     {
-        return self::ROOT_DIR.str_replace('/', '\\', $classNamespace).'.php';
+        return self::ROOT_DIR.str_replace('\\', '/', $classNamespace).'.php';
     }
 
     /**
@@ -100,10 +119,10 @@ class SimpleRouter
             $routeParts = explode('/', $_GET[self::ROUTE_GET_VAR]);
         }
 
-        if(empty($parts)){
+        if(empty($routeParts)){
             $routeParts[0] = self::DEFAULT_CTRL;
         }else{
-            if(empty($parts[0])){
+            if(empty($routeParts[0])){
                 array_shift($routeParts);
             }
         }
@@ -112,11 +131,14 @@ class SimpleRouter
 
         if(!file_exists(self::getClassFilePath($ctrl))){
             // there is no such file!
-            $ctrlPath = self::getControllerWithNamespace(self::DEFAULT_CTRL);
-        }
+            $ctrl = self::getControllerWithNamespace(self::DEFAULT_CTRL);
+            $action = self::DEFAULT_ACTION;
+            $params = [];
 
-        $action = ( isset($parts[1]) ? $routeParts[1] : self::DEFAULT_ACTION );
-        $params = array_slice($routeParts, 2);
+        }else{
+            $action = ( isset($routeParts[1]) ? $routeParts[1] : self::DEFAULT_ACTION );
+            $params = array_slice($routeParts, 2);
+        }
 
         return array($ctrl, $action, $params);
     }
