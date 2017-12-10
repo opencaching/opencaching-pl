@@ -1,12 +1,26 @@
-<div class="content2-pagetitle"><?=tr('startPage_title')?></div>
+
+<div class="content2-pagetitle">
+  <?php if($view->isUserLogged) { ?>
+    <?=tr('startPage_welcome')?>&nbsp;<?=$view->username?>
+  <?php } else { //if-isUserLogged ?>
+    <?=tr('startPage_title')?>
+  <?php } //if-isUserLogged ?>
+</div>
 
 <div class="content2-container">
-    <div class="intro"><?=$view->introText?></div>
 
+    <?php if(!$view->isUserLogged) { ?>
+      <!-- INTRO -->
+      <div class="intro"><?=$view->introText?></div>
+      <!-- /INTRO -->
+    <?php } //if-isUserLogged ?>
+
+
+    <?php if($view->isUserLogged && !empty($view->newsList)){ ?>
     <!-- NEWS -->
-    <div class="intro"><?=$view->introText?></div>
 
-    <?php if(!empty($view->newsList)){ ?>
+    <?php //TODO: https://www.w3schools.com/w3css/w3css_slideshow.asp ?>
+
     <div class="news">
         <p class="content-title-noshade-size3">
           <img src="tpl/stdstyle/images/blue/newspaper.png" width="32" alt="">
@@ -32,10 +46,9 @@
             <?=$news->getContent()?>
           </div>
         <?php } //foreach-newsList ?>
-
     </div>
-    <?php } //if-!empty($view->newsList) ?>
     <!-- /NEWS -->
+    <?php } //if-!empty($view->newsList) ?>
 
     <div>
       <p class="main-totalstats">
@@ -47,110 +60,147 @@
     </div>
 
     <!-- newest caches -->
-    <div>
+    <div id="map">
+      <div style="position: relative;">
+
+        <img src="<?=$view->staticMapUrl?>" id="main-cachemap" alt="<?=tr('map')?>" />
+        <?php foreach($view->mapMarkers as $m) { ?>
+
+          <img id="<?=$m['id']?>" class="mapMarker lightTipped" style="left:<?=$m['left']?>px; top:<?=$m['top']?>px"
+              alt="" src="<?=$m['img']?>">
+          <div class="lightTip" style="left:<?=($m['left']+20)?>px; top:<?=$m['top']?>px">
+            <b><?=$m['toolTip']?></b>
+          </div>
+
+        <?php } //foreach mapMarkers ?>
+        <script type="text/javascript">
+            function showMarker(id) {
+              $('#'+id).toggleClass('hovered');
+            }
+
+            function hideMarker(id) {
+              $('#'+id).toggleClass('hovered');
+            }
+        </script>
+      </div>
+    </div>
+
+    <div id="newCachesList">
       <p class="content-title-noshade-size3">
-        <img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Cache" title="Cache">
         {{newest_caches}}
       </p>
 
-      <?php
-        global $dynstylepath;
-        $tmpTxt = file_get_contents($dynstylepath . "start_newcaches.inc.php");
-        $tmpTxt = str_replace('hidden_by', tr('hidden_by'), $tmpTxt);
-        echo $tmpTxt;
-        unset($tmpTxt);
-      ?>
-    </div>
+      <ul>
+        <?php foreach($view->latestCaches as $c){ ?>
+          <li>
+            <span class="content-title-noshade"><?=$c['location']?></span>
+            (<?=$c['date']?>):
+            <br/>
 
-    <div style="position: relative">
-      <?php
-        global $dynstylepath;
-        include ($dynstylepath . "main_cachemap.inc.php");
-      ?>
+            <a class="links" href="<?=$c['link']?>"
+               onmouseover="showMarker('<?=$c['markerId']?>')"
+               onmouseout="hideMarker('<?=$c['markerId']?>')">
+
+              <img src="<?=$c['icon']?>" class="icon16" alt="CacheIcon" title="">
+              <?=$c['cacheName']?>
+
+            </a>
+            &nbsp;<?=tr('hidden_by')?>&nbsp;
+            <a class="links" href="<?=$c['userUrl']?>"><?=$c['userName']?></a>
+
+          </li>
+        <?php } //foreach ?>
+
     </div>
 
     <!-- /newest caches -->
 
     <!-- incomming events -->
-    <div>
-        <p class="content-title-noshade-size3">
-          <img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="Event" title="Event">
-          &nbsp;{{incomming_events}}
-        </p>
-        <?php
-            global $dynstylepath;
-            $tmpTxt = file_get_contents($dynstylepath . "nextevents.inc.php");
-            if ($tmpTxt == '') {
-                $tmpTxt = tr('list_of_events_is_empty');
-            }
-            $tmpTxt = str_replace('hidden_by', tr('org1'), $tmpTxt);
-            echo $tmpTxt;
-            unset($tmpTxt);
-        ?>
+    <div id="newCachesList">
+      <p class="content-title-noshade-size3">
+        {{incomming_events}}
+      </p>
+
+      <ul>
+        <?php foreach($view->incomingEvents as $c){ ?>
+          <li>
+            <span class="content-title-noshade"><?=$c['location']?></span>
+            (<?=$c['date']?>):
+            <br/>
+
+            <a class="links" href="<?=$c['link']?>"
+               onmouseover="showMarker('<?=$c['markerId']?>')"
+               onmouseout="hideMarker('<?=$c['markerId']?>')">
+
+              <img src="<?=$c['icon']?>" class="icon16" alt="CacheIcon" title="">
+              <?=$c['cacheName']?>
+
+            </a>
+            &nbsp;<?=tr('hidden_by')?>&nbsp;
+            <a class="links" href="<?=$c['userUrl']?>"><?=$c['userName']?></a>
+
+          </li>
+        <?php } //foreach ?>
+
     </div>
     <!-- /incomming events -->
 
     <!-- titled caches -->
-    <div class="content2-container-2col-left" id="cacheTitled" style="display: {ptDisplay};">
-      <?php
-        global $is_titled, $titled_cache_period_prefix;
+    <?php if($view->titledCacheData){ ?>
+    <div id="cacheTitled">
+      <p class="content-title-noshade-size3">
+        XSkrzynki-tygodniaX
+      </p>
 
-        if ($is_titled == '1'){
-            $ntitled_cache = $titled_cache_period_prefix.'_titled_cache';
-            $tmpTxt = '<p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/TitledCache.png" class="icon32" alt="Titled Cache" title="Titled Cache">&nbsp;'.tr($ntitled_cache).'</p>';
-            $tmpTxt .= '<div class="cache-titled-content">';
-            echo $tmpTxt;
-        }
-      ?>
+      <img src='<?=$view->titledCacheData['cacheIcon']?>' class='icon16' alt='Cache' title='Cache'>
+      <a href='<?=$view->titledCacheData['cacheUrl']?>' class='links'>
+        <?=$view->titledCacheData['cacheName']?>
+      </a>
+      &nbsp;<?=tr('hidden_by')?>
+      <a href='<?=$view->titledCacheData['cacheOwnerUrl']?>' class='links'>
+        <?=$view->titledCacheData['cacheOwnerName']?>
+      </a>
+      <br>
 
-      {TitledCaches}
+      <p class='content-title-noshade'><?=$view->titledCacheData['cacheLocation']?></p>
+      <div class='CacheTitledLog'>
+        <img src='images/rating-star.png' alt='Star'>
+          &nbsp;
+          <a href='<?=$view->titledCacheData['logOwnerUrl']?>' class='links'>
+            <?=$view->titledCacheData['logOwnerName']?>
+          </a>:<br><br>
+                <?=$view->titledCacheData['logText']?>
+      </div>
 
-      <?php
-        global $is_titled;
-
-        if ($is_titled == '1'){
-            $tmpTxt = '<p class="show-more"><a href="cache_titled.php" class="links">' . tr("show_more_titled_caches") . '...</a></p>';
-            $tmpTxt .= '</div><br>';
-            echo $tmpTxt;
-        }
-      ?>
     </div>
+    <?php } //if-titledCacheData ?>
     <!-- /titled caches -->
 
-    <!-- pathOfTheDay -->
-    <?php if($view->displayGeoPathOfTheDay){ ?>
-        <div style="width: 100%">
+    <!-- last-cacheSets -->
+    <?php if($view->displayLastCacheSets){ ?>
+        <div id="newestCacheSets">
           <p class="content-title-noshade-size3">
-            <img src="tpl/stdstyle/images/blue/050242-blue-jelly-icon-natural-wonders-flower13-sc36_32x32.png" class="icon32" alt="GeoPath" title="GeoPath">
-            &nbsp;{{pt137}}
+            <?=tr('startPage_promotedCacheSet')?>
           </p>
-          <?php
-            if (file_exists($dynstylepath . 'ptPromo.inc-' . $lang . '.php')){
-                include ($dynstylepath . 'ptPromo.inc-' . $lang . '.php');
-            }
-          ?>
+          <ul>
+          <?php foreach($view->lastCacheSets AS $cs){ ?>
+            <li>
+              <p class='content-title-noshade'>
+                <?=$cs->getLocation()->getDescription(' > ')?>
+              </p>
+              <a href="<?=$cs->getUrl()?>">
+                <img src="<?=$cs->getImage()?>" />
+                <?=$cs->getName()?>
+              </a>
+            </li>
+          <?php } //foreach-lastCacheSets ?>
+          </ul>
         </div>
     <?php } // if-displayGeoPathOfTheDay) ?>
-    <!-- /pathOfTheDay -->
+    <!-- /last-cacheSets -->
 
     <!-- feeds -->
     {Feeds}
     <!-- /feeds -->
 </div>
 <!-- /CONTENT -->
-
-
-<script type="text/javascript">
-
-    //image swapping function:
-    function Lite(nn) {
-        document.getElementById('smallmark' + nn).style.visibility = 'hidden';
-        document.getElementById('bigmark' + nn).style.visibility = 'visible';
-    }
-
-    function Unlite(nn) {
-        document.getElementById('bigmark' + nn).style.visibility = 'hidden';
-        document.getElementById('smallmark' + nn).style.visibility = 'visible';
-    }
-
-</script>

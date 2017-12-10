@@ -3,6 +3,7 @@
 }
 
 
+/* NEWS: */
 div.news-item {
     font-size: 12px;
     margin-left: 40px;
@@ -17,6 +18,55 @@ div.news-statusline {
   font-weight: bold;
 }
 
+
+
+
+/* Total-stats: */
+
 p.main-totalstats { 
   font-weight: bold;
 }
+
+
+.mapMarker {
+  position: absolute;
+  border: none; 
+  background-color: transparent;
+}
+
+
+.hovered {
+    transform: scale(1.4);
+}
+
+/* leatest caches */
+
+#map {
+  width: 30%;
+  float: right;
+  margin-right: 20px;
+}
+
+#newCachesList {
+  width: 70%;
+}
+#newCachesList ul {
+  list-style-type: none; 
+}
+
+#newCachesList img {
+  width: 16px; heigth: 16px; 
+}
+
+#newestCacheSets {
+  width: 100%;
+  padding-top: 20px;
+}
+
+#newestCacheSets img {
+  height: 30px;
+  max-width: 50px;
+  
+}
+
+

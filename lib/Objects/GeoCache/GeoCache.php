@@ -82,7 +82,7 @@ class GeoCache extends GeoCacheCommons
     private $ownerId;
 
     /* @var $owner User */
-    private $owner;
+    private $owner = null;
 
     /* @var $altitude Altitude */
     private $altitude;
@@ -239,12 +239,11 @@ class GeoCache extends GeoCacheCommons
     }
 
     private function loadByCacheId($cacheId){
-        $db = OcDb::instance();
 
         //find cache by Id
-        $s = $db->multiVariableQuery("SELECT * FROM caches WHERE cache_id = :1 LIMIT 1", $cacheId);
+        $s = $this->db->multiVariableQuery("SELECT * FROM caches WHERE cache_id = :1 LIMIT 1", $cacheId);
 
-        $cacheDbRow = $db->dbResultFetch($s);
+        $cacheDbRow = $this->db->dbResultFetch($s);
 
         if(is_array($cacheDbRow)) {
             $this->loadFromRow($cacheDbRow);
@@ -733,7 +732,7 @@ class GeoCache extends GeoCacheCommons
     public function isTitled()
     {
         if (is_null($this->isTitled)) {
-            $this->isTitled = CacheTitled::isTitled($this->id) > 0 ? true : false;
+            $this->isTitled = CacheTitled::isTitled($this->id);
         }
         return $this->isTitled;
     }

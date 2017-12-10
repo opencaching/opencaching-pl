@@ -27,7 +27,8 @@ $map_type = $config['maps']['main_page_map']['source'] ;
 $markerpositions = get_marker_positions();
 
 // Generate include file for map with new caches
-$static_map = sprintf("lib/staticmap.php?center=%F,%F&amp;zoom=%d&amp;size=%dx%d&amp;maptype=%s", $map_center_lat, $map_center_lon, $map_zoom, $map_width, $map_height, $map_type);
+$static_map = sprintf("lib/staticmap.php?center=%F,%F&amp;zoom=%d&amp;size=%dx%d&amp;maptype=%s",
+    $map_center_lat, $map_center_lon, $map_zoom, $map_width, $map_height, $map_type);
 $file_content = '<img src="' . $static_map . '" id="main-cachemap" alt="' . tr('map') . '" />';
 
 // Calculate positions for small and large images highlighting recent caches and events
@@ -37,7 +38,9 @@ $big_markers = '';
 foreach ($markers as $i => $marker) {
     $markerposleft = lon_offset($marker['lon'], $map_center_lon, $map_width, $map_zoom);
     $markerpostop = lat_offset($marker['lat'], $map_center_lat, $map_height, $map_zoom);
+
     $type = strtoupper(GeoCacheCommons::Type2Letter($marker['type']));
+
     if (strcmp($type, 'E') == 0) {
         $small_marker = 'mark-small-orange.png';
         $big_marker = 'marker-orangeE.png';
@@ -45,8 +48,15 @@ foreach ($markers as $i => $marker) {
         $small_marker = 'mark-small-blue.png';
         $big_marker = 'marker-blue' . $type . '.png';
     }
-    $small_markers .= '<img id="smallmark' . $marker['nn'] . '" style="position: absolute; left: ' . ($markerposleft - 7) . 'px; top: ' . ($markerpostop - 21) . 'px; border: none; background-color: transparent;" alt="" src="/images/markers/' . $small_marker . '">';
-    $big_markers .= '<img id="bigmark' . $marker['nn'] . '" style="position: absolute; left: ' . ($markerposleft - 11) . 'px; top: ' . ($markerpostop - 36) . 'px; border: none; background-color: transparent; visibility: hidden;" alt="" src="/images/markers/' . $big_marker . '">';
+
+    $small_markers .= '<img id="smallmark' . $marker['nn'] . '" style="position: absolute; left: ' .
+        ($markerposleft - 7) . 'px; top: ' . ($markerpostop - 21) .
+        'px; border: none; background-color: transparent;" alt="" src="/images/markers/' . $small_marker . '">';
+    $big_markers .= '<img id="bigmark' . $marker['nn'] . '" style="position: absolute; left: ' .
+        ($markerposleft - 11) . 'px; top: ' . ($markerpostop - 36) .
+        'px; border: none; background-color: transparent; visibility: hidden;" alt="" src="/images/markers/' .
+        $big_marker . '">';
+
 }
 
 $file_content .= $small_markers . $big_markers;
@@ -54,29 +64,44 @@ $n_file = fopen($dynstylepath . "main_cachemap.inc.php", 'w');
 fwrite($n_file, $file_content);
 fclose($n_file);
 
+
+
+
+
 //start_newcaches.include
 $rs = XDb::xSql(
-    "SELECT `user`.`user_id` `user_id`, `user`.`username` `username`, `caches`.`cache_id` `cache_id`,
-            `caches`.`name` `name`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`,
-            `caches`.`wp_oc` `wp`, `caches`.`date_hidden` `date_hidden`, `caches`.`date_created` `date_created`,
+    "SELECT `user`.`user_id` `user_id`, `user`.`username` `username`,
+            `caches`.`cache_id` `cache_id`,
+            `caches`.`name` `name`, `caches`.`longitude` `longitude`,
+            `caches`.`latitude` `latitude`,
+            `caches`.`wp_oc` `wp`, `caches`.`date_hidden` `date_hidden`,
+            `caches`.`date_created` `date_created`,
             IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`,
-            `caches`.`date_created`) AS `date`, `caches`.`country` `country`, `caches`.`difficulty` `difficulty`,
+            `caches`.`date_created`) AS `date`, `caches`.`country` `country`,
+            `caches`.`difficulty` `difficulty`,
             `caches`.`terrain` `terrain`, `cache_type`.`icon_large` `icon_large`,
+
             IFNULL(`cache_location`.`adm1`, '') AS `adm1`,
             IFNULL(`cache_location`.`code1`, '') AS `code1`,
             IFNULL(`cache_location`.`adm2`, '') AS `adm2`,
             IFNULL(`cache_location`.`adm3`, '') AS `adm3`,
             IFNULL(`cache_location`.`code3`, '') AS `code3`,
             IFNULL(`cache_location`.`adm4`, '') AS `adm4`
-    FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`)
-        INNER JOIN countries ON (caches.country = countries.short), `cache_type`, `user`
+    FROM (`caches`
+            LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`)
+        INNER JOIN countries ON (caches.country = countries.short),
+        cache_type,
+        user
     WHERE `caches`.`user_id`=`user`.`user_id`
         AND `caches`.`type`!=6
         AND `caches`.`status`=1
         AND `caches`.`type`=`cache_type`.`id`
         AND `caches`.`date_hidden` <= NOW()
         AND `caches`.`date_created` <= NOW()
-    ORDER BY IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) DESC, `caches`.`cache_id` DESC
+    ORDER BY IF(
+        (`caches`.`date_hidden`>`caches`.`date_created`),
+            `caches`.`date_hidden`, `caches`.`date_created`
+        ) DESC, `caches`.`cache_id` DESC
     LIMIT 0 , 10");
 
 
@@ -125,6 +150,9 @@ $file_content .= '</ul>';
 $n_file = fopen($dynstylepath . "start_newcaches.inc.php", 'w');
 fwrite($n_file, $file_content);
 fclose($n_file);
+
+
+
 
 //nextevents.include
 $rs = XDb::xSql(

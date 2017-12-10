@@ -36,7 +36,7 @@ class GeoCacheLog extends GeoCacheLogCommons
 
     public function __construct()
     {
-        parent::construct();
+        parent::__construct();
     }
 
     public function getId()
@@ -299,4 +299,61 @@ class GeoCacheLog extends GeoCacheLogCommons
                 AND deleted = 0", 0);
     }
 
+    private function loadByLogId($logId){
+
+        //find log by Id
+        $s = $this->db->multiVariableQuery(
+            "SELECT * FROM cache_logs WHERE id = :1 LIMIT 1", $logId);
+
+        $logDbRow = $this->db->dbResultFetchOneRowOnly($s);
+
+        if(is_array($logDbRow)) {
+            $this->loadFromDbRow($logDbRow);
+        } else {
+            throw new \Exception("No such cache_log");
+        }
+    }
+
+    private function loadFromDbRow($row)
+    {
+        $this
+        ->setGeoCache($row['cache_id'])
+        ->setDate(new \DateTime($row['date']))
+        ->setDateCreated(new \DateTime($row['date_created']))
+        ->setDelByUserId($row['del_by_user_id'])
+        ->setDeleted($row['deleted'])
+        ->setEditByUserId($row['edit_by_user_id'])
+        ->setEditCount($row['edit_count'])
+        ->setLastDeleted($row['last_deleted'])
+        ->setLastModified(new \DateTime($row['last_modified']))
+        ->setId($row['id'])
+        ->setMp3count($row['mp3count'])
+        ->setNode($row['node'])
+        ->setOkapiSyncbase(new \DateTime($row['okapi_syncbase']))
+        ->setOwnerNotified($row['owner_notified'])
+        ->setPicturesCount($row['picturescount'])
+        ->setText($row['text'])
+        ->setTextHtml($row['text_html'])
+        ->setTextHtmlEdit($row['text_htmledit'])
+        ->setType($row['type'])
+        ->setUser($row['user_id'])
+        ->setUuid($row['uuid']);
+    }
+
+    /**
+     * Create GeoCacheLog object based on logId
+     *
+     * @param integer $logId
+     * @return GeoCacheLog|NULL
+     */
+    public static function fromLogIdFactory($logId)
+    {
+        $obj = new self();
+        try{
+            $obj->loadByLogId($logId);
+            return $obj;
+        }catch (\Exception $e){
+            return null;
+        }
+    }
 }

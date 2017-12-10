@@ -5,9 +5,9 @@ namespace lib\Objects\CacheSet;
 
 use lib\Objects\Coordinates\Coordinates;
 use Utils\Database\OcDb;
-use lib\Objects\OcConfig\OcConfig;
 use Utils\Database\QueryBuilder;
 use lib\Objects\GeoCache\GeoCache;
+use lib\Objects\Coordinates\NutsLocation;
 
 class CacheSet extends CacheSetCommon
 {
@@ -24,6 +24,9 @@ class CacheSet extends CacheSetCommon
     private $description;
     private $perccentRequired;
     private $conquestedCount;
+
+    /** @var NutsLocation */
+    private $location = null;
 
     public function __construct()
     {
@@ -184,6 +187,11 @@ class CacheSet extends CacheSetCommon
         return self::GetTypeIcon($this->type);
     }
 
+    public function getImage()
+    {
+        return $this->image;
+    }
+
     public function getTypeTranslation()
     {
         return tr(self::GetTypeTranslationKey($this->type));
@@ -224,6 +232,22 @@ class CacheSet extends CacheSetCommon
         return $this->centerCoordinates;
     }
 
+    /**
+     *
+     * @return \lib\Objects\Coordinates\NutsLocation
+     */
+    public function getLocation()
+    {
+        if(!$this->location){
+            $this->location = NutsLocation::fromCoordsFactory($this->centerCoordinates);
+        }
+        return $this->location;
+    }
+
+    public function getUrl()
+    {
+        return self::getCacheSetUrlById($this->id);
+    }
 
     /**
      * Return all cacheSets which has less active caches than required ratio for completion
@@ -248,5 +272,27 @@ class CacheSet extends CacheSetCommon
         return $db->dbResultFetchAll($rs, OcDb::FETCH_ASSOC);
     }
 
+    public static function getLastCreatedSets($limit)
+    {
+
+        $db = self::db();
+
+        list ($limit, $offset) = $db->quoteLimitOffset($limit);
+
+        $rs = $db->multiVariableQuery(
+            "SELECT id, name, centerLatitude, centerLongitude,
+                    status, dateCreated, cacheCount, image
+            FROM PowerTrail
+            WHERE status = :1
+            ORDER BY dateCreated DESC
+            LIMIT $offset, $limit", self::STATUS_OPEN);
+
+        $result=[];
+        while($row = $db->dbResultFetch($rs, OcDb::FETCH_ASSOC)){
+            $result[] = self::FromDbRowFactory($row);
+        }
+
+        return $result;
+    }
 }
 

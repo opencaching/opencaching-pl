@@ -7,6 +7,18 @@ use Utils\Uri\Uri;
 use myninc;
 use lib\Objects\Stats\TotalStats;
 use lib\Objects\ApplicationContainer;
+use lib\Objects\GeoCache\MultiCacheQueries;
+use lib\Objects\GeoCache\GeoCache;
+use lib\Objects\User\User;
+use Utils\DateTime\OcDate;
+use Utils\Cache\OcMemCache;
+use Utils\Gis\Gis;
+use lib\Objects\Coordinates\Coordinates;
+use lib\Objects\GeoCache\CacheTitled;
+use lib\Objects\GeoCache\GeoCacheLog;
+use lib\Objects\CacheSet\CacheSet;
+use Utils\Gis\Region;
+use lib\Objects\Coordinates\NutsLocation;
 
 class StartPageController extends BaseController
 {
@@ -18,26 +30,141 @@ class StartPageController extends BaseController
     public function index()
     {
         $this->view->setTemplate('startPage/startPage');
+
+        $this->view->addLocalCss('tpl/stdstyle/css/lightTooltip.css');
+
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime('tpl/stdstyle/startPage/startPage.css'));
 
-        $this->view->setVar('introText',
-            tr('what_do_you_find_intro_' . $this->ocConfig->getOcNode() ));
+        $this->view->loadJQuery();
 
+
+        $this->view->setVar('isUserLogged', $this->isUserLogged());
+        if($this->isUserLogged()){
+            $this->view->setVar('username', $this->loggedUser->getUserName());
+        }
+
+        $this->view->setVar('introText',
+            tr('startPage_intro_' . $this->ocConfig->getOcNode() ));
+
+        $this->processNewCaches();
         $this->processNews();
         $this->processTotalStats();
         $this->processFeeds();
         $this->processTitleCaches();
-        $this->processGeopathOfTheDay();
+        $this->processLastCacheSets();
 
         $this->view->buildView();
 
     }
 
-    private function processGeopathOfTheDay()
+    private function processNewCaches()
     {
-        $this->view->setVar('displayGeoPathOfTheDay',
+
+        // map prepare
+        global $main_page_map_center_lat, $main_page_map_center_lon, $main_page_map_zoom;
+        global $main_page_map_width, $main_page_map_height;
+        global $config;
+
+        $map_type = $config['maps']['main_page_map']['source'] ;
+
+        $map_center_lat = $main_page_map_center_lat;
+        $map_center_lon = $main_page_map_center_lon;
+        $map_zoom = $main_page_map_zoom;
+        $map_width = $main_page_map_width;
+        $map_height = $main_page_map_height;
+
+        $staticMapUrl = sprintf("lib/staticmap.php?center=%F,%F&amp;zoom=%d&amp;size=%dx%d&amp;maptype=%s",
+            $map_center_lat, $map_center_lon, $map_zoom, $map_width, $map_height, $map_type);
+        $this->view->setVar('staticMapUrl', $staticMapUrl);
+
+
+        $newestCaches = OcMemCache::getOrCreate(
+            __CLASS__.':newestCaches', 3*60*60,
+            function()
+            use($map_center_lat, $map_center_lon, $map_zoom, $map_width, $map_height){
+
+                $result = new \stdClass();
+                $result->markers = [];
+                $result->latestCaches = [];
+                $result->incomingEvents = [];
+
+                $mapCenterCoords = Coordinates::FromCoordsFactory(
+                    $map_center_lat, $map_center_lon);
+
+                // find latest caches
+                foreach (MultiCacheQueries::getLatestCaches(10) as $c){
+                    $result->latestCaches[] = [
+                        'icon' => GeoCache::CacheIconByType($c['type'], $c['status']),
+                        'date' => OcDate::getFormattedDate($c['date']),
+                        'link' => GeoCache::GetCacheUrlByWp($c['wp_oc']),
+                        'markerId' => $c['wp_oc'],
+                        'cacheName' => $c['name'],
+                        'userName' => $c['username'],
+                        'userUrl' => User::GetUserProfileUrl($c['user_id']),
+                        'location' => 'locationXXX'];
+
+
+                    $markerCoords = Coordinates::FromCoordsFactory(
+                        $c['latitude'], $c['longitude']);
+
+                    list($left, $top) = Gis::positionAtMapImg(
+                        $markerCoords, $mapCenterCoords, $map_zoom,
+                        $map_width, $map_height);
+
+                    $result->markers[] = [
+                        "id" => $c['wp_oc'],
+                        "toolTip" => $c['wp_oc'].': '.$c['name'],
+                        "left" => ($left-7),
+                        "top" => ($top-21),
+                        "img" => "/images/markers/mark-small-orange.png",
+                    ];
+                }
+
+                // find incoming events
+
+                foreach (MultiCacheQueries::getIncomingEvents(10) as $c){
+                    $result->incomingEvents[] = [
+                        'icon' => GeoCache::CacheIconByType($c['type'], $c['status']),
+                        'date' => OcDate::getFormattedDate($c['date']),
+                        'link' => GeoCache::GetCacheUrlByWp($c['wp_oc']),
+                        'markerId' => $c['wp_oc'],
+                        'cacheName' => $c['name'],
+                        'userName' => $c['username'],
+                        'userUrl' => User::GetUserProfileUrl($c['user_id']),
+                        'location' => 'locationXXX'];
+
+                    $markerCoords = Coordinates::FromCoordsFactory(
+                        $c['latitude'], $c['longitude']);
+
+                    list($left, $top) = Gis::positionAtMapImg(
+                        $markerCoords, $mapCenterCoords, $map_zoom,
+                        $map_width, $map_height);
+
+                    $result->markers[] = [
+                        "id" => $c['wp_oc'],
+                        "toolTip" => $c['wp_oc'].': '.$c['name'],
+                        "left" => ($left-7),
+                        "top" => ($top-21),
+                        "img" => "/images/markers/mark-small-blue.png",
+                    ];
+                }
+
+                return $result;
+            });
+
+        $this->view->setVar('latestCaches', $newestCaches->latestCaches);
+        $this->view->setVar('incomingEvents', $newestCaches->incomingEvents);
+        $this->view->setVar('mapMarkers', $newestCaches->markers);
+    }
+
+    private function processLastCacheSets()
+    {
+        $this->view->setVar('displayLastCacheSets',
             $this->ocConfig->isPowertrailsEnabled());
+
+        $lastCacheSets = CacheSet::getLastCreatedSets(1);
+        $this->view->setVar('lastCacheSets', $lastCacheSets);
     }
 
     private function processNews()
@@ -66,73 +193,34 @@ class StartPageController extends BaseController
     private function processTitleCaches()
     {
 
-        // ///////////////////////////////////////////////////
-        // Titled Caches
-        // /////////////////////////////////////////////////
+        $titledCacheData = OcMemCache::getOrCreate(
+            __CLASS__.':titledCacheData', 5*60*60, function(){
 
-        $TitledCaches = "";
-        $dbc = OcDb::instance();
+            $lastTitledCache = CacheTitled::getLastCacheTitled();
+            if(is_null($lastTitledCache)){
+                return null;
+            } else {
+                $geocache = GeoCache::fromCacheIdFactory($lastTitledCache->getCacheId());
+                $log = GeoCacheLog::fromLogIdFactory($lastTitledCache->getLogId());
 
-        if ($this->isUserLogged()){
-            $usrid = $this->loggedUser->getUserId();
-        }else{
-            $userId = -1;
-        }
+                $geocache->getCacheIcon($this->loggedUser);
 
-            $query = "SELECT caches.cache_id, caches.name cacheName, adm1 cacheCountry, adm3 cacheRegion, caches.type cache_type,
-        caches.user_id, user.username userName, cache_titled.date_alg, cache_logs.text,
-        logUser.user_id logUserId, logUser.username logUserName
-        FROM cache_titled
-            JOIN caches ON cache_titled.cache_id = caches.cache_id
-            LEFT JOIN cache_desc ON caches.cache_id = cache_desc.cache_id and language=:1
-            JOIN cache_location ON caches.cache_id = cache_location.cache_id
-            JOIN user ON caches.user_id = user.user_id
-            JOIN cache_logs ON cache_logs.id = cache_titled.log_id
-            JOIN user logUser ON logUser.user_id = cache_logs.user_id
-        ORDER BY date_alg DESC
-        LIMIT 1";
-
-            $s = $dbc->multiVariableQuery($query, ApplicationContainer::Instance()->getLang());
-
-            $pattern = "<img src='{cacheIcon}' class='icon16' alt='Cache' title='Cache'>
-        <a href='viewcache.php?cacheid={cacheId}' class='links'>{cacheName}</a>&nbsp;" . tr('hidden_by') . "
-        <a href='viewprofile.php?userid={userId}' class='links'>{userName}</a><br>
-
-        <p class='content-title-noshade'>{country} > {region}</p>
-        <div class='CacheTitledLog'>
-                <img src='images/rating-star.png' alt='Star'>&nbsp;<a href='viewprofile.php?userid={logUserId}' class='links'>{logUserName}</a>:<br><br>
-                {logText}
-        </div>";
-
-            while ($rec = $dbc->dbResultFetch($s)) {
-
-                $line = $pattern;
-
-                $line = mb_ereg_replace('{cacheIcon}', myninc::checkCacheStatusByUser($rec, $usrid), $line);
-                $line = mb_ereg_replace('{dateAlg}', $rec["date_alg"], $line);
-                $line = mb_ereg_replace('{cacheName}', $rec["cacheName"], $line);
-                $line = mb_ereg_replace('{userId}', $rec["user_id"], $line);
-                $line = mb_ereg_replace('{userName}', $rec["userName"], $line);
-                $line = mb_ereg_replace('{cacheId}', $rec["cache_id"], $line);
-                $line = mb_ereg_replace('{country}', $rec["cacheCountry"], $line);
-                $line = mb_ereg_replace('{region}', $rec["cacheRegion"], $line);
-                $line = mb_ereg_replace('{logUserId}', $rec["logUserId"], $line);
-                $line = mb_ereg_replace('{logUserName}', $rec["logUserName"], $line);
-
-                $text = mb_ereg_replace('<p>', '', $rec["text"]);
-                $text = mb_ereg_replace('</p>', '<br>', $text);
-
-                $line = mb_ereg_replace('{logText}', $text, $line);
-
-                $TitledCaches .= $line;
+                return [
+                    'cacheIcon' => $geocache->getCacheIcon($this->loggedUser),
+                    'cacheUrl' => $geocache->getCacheUrl(),
+                    'cacheName' => $geocache->getCacheName(),
+                    'cacheOwnerName' => $geocache->getOwner()->getUserName(),
+                    'cacheOwnerUrl' => $geocache->getOwner()->getProfileUrl(),
+                    'cacheLocation' => $geocache->getCacheLocationObj()->getLocationDesc(' > '),
+                    'logText' => $log->getText(),
+                    'logOwnerName' => $log->getUser()->getUserName(),
+                    'logOwnerUrl' => $log->getUser()->getProfileUrl(),
+                ];
             }
+        });
 
-            $is_titled = ($dbc->rowCount($s) ? '1' : '0');
-            if ($is_titled == '0')
-                $TitledCaches = '';
+        $this->view->setVar('titledCacheData',$titledCacheData);
 
-                tpl_set_var('TitledCaches', $TitledCaches);
-                tpl_set_var('is_titled', $is_titled);
     }
 
 }

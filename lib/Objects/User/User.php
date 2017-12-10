@@ -413,6 +413,9 @@ class User extends UserCommons
 
     public function getProfileUrl()
     {
+        if(!$this->profileUrl){
+            $this->profileUrl = self::GetUserProfileUrl($this->getUserId());
+        }
         return $this->profileUrl;
     }
 

@@ -9,6 +9,11 @@ use Utils\Cache\OcMemCache;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\GeoCache\GeoCacheLog;
 
+/**
+ * This class provides general statsistics
+ *
+ */
+
 class TotalStats extends BaseObject
 {
 
@@ -47,13 +52,14 @@ class TotalStats extends BaseObject
         return $basicStats;
     }
 
-
-
 }
 
 
 namespace lib\Objects\Stats\TotalStats;
 
+/**
+ * Simple object which provides basic total stats
+ */
 class BasicStats
 {
     const KEY = __CLASS__;

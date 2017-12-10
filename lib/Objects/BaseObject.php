@@ -26,6 +26,7 @@ abstract class BaseObject
      */
     protected static function db()
     {
+        //TODO: if PDO error!
         return OcDb::instance();
     }
 
