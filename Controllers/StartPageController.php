@@ -61,7 +61,6 @@ class StartPageController extends BaseController
 
     private function processNewCaches()
     {
-
         // map prepare
         global $main_page_map_center_lat, $main_page_map_center_lon, $main_page_map_zoom;
         global $main_page_map_width, $main_page_map_height;
@@ -95,6 +94,9 @@ class StartPageController extends BaseController
 
                 // find latest caches
                 foreach (MultiCacheQueries::getLatestCaches(10) as $c){
+
+                    $loc = $c['location'];
+
                     $result->latestCaches[] = [
                         'icon' => GeoCache::CacheIconByType($c['type'], $c['status']),
                         'date' => OcDate::getFormattedDate($c['date']),
@@ -103,7 +105,8 @@ class StartPageController extends BaseController
                         'cacheName' => $c['name'],
                         'userName' => $c['username'],
                         'userUrl' => User::GetUserProfileUrl($c['user_id']),
-                        'location' => 'locationXXX'];
+                        'location' => $loc->getLocationDesc(' > '),
+                    ];
 
 
                     $markerCoords = Coordinates::FromCoordsFactory(
@@ -125,6 +128,9 @@ class StartPageController extends BaseController
                 // find incoming events
 
                 foreach (MultiCacheQueries::getIncomingEvents(10) as $c){
+
+                    $loc = $c['location'];
+
                     $result->incomingEvents[] = [
                         'icon' => GeoCache::CacheIconByType($c['type'], $c['status']),
                         'date' => OcDate::getFormattedDate($c['date']),
@@ -133,7 +139,8 @@ class StartPageController extends BaseController
                         'cacheName' => $c['name'],
                         'userName' => $c['username'],
                         'userUrl' => User::GetUserProfileUrl($c['user_id']),
-                        'location' => 'locationXXX'];
+                        'location' => $loc->getLocationDesc(' > '),
+                    ];
 
                     $markerCoords = Coordinates::FromCoordsFactory(
                         $c['latitude'], $c['longitude']);

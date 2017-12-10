@@ -10,15 +10,49 @@ class CacheLocation extends BaseObject{
     /** @var NutsLocation */
     private $location;
 
-    public function __construct($cacheId){
+    public function __construct($cacheId=null){
         parent::__construct();
         $this->location = new NutsLocation();
 
-        $this->loadCacheLocation($cacheId);
+        if($cacheId){
+            $this->loadCacheLocation($cacheId);
+        }
+    }
+
+    public static function fromDbRowFactory($dbRow)
+    {
+        $instance = new self();
+        $instance->loadFromDbRow($dbRow);
+        return $instance;
     }
 
     public function getLocationDesc($separator='-'){
         return $this->location->getDescription($separator);
+    }
+
+    private function loadFromDbRow($dbRow)
+    {
+        if(is_array($dbRow)){
+            if(isset($dbRow['code1'], $dbRow['adm1'])){
+                $this->location->setLevel(NutsLocation::LEVEL_COUNTRY,
+                    $dbRow['code1'], $dbRow['adm1']);
+            }
+
+            if(isset($dbRow['code2'], $dbRow['adm2'])){
+                $this->location->setLevel(NutsLocation::LEVEL_1,
+                    $dbRow['code2'], $dbRow['adm2']);
+            }
+
+            if(isset($dbRow['code3'], $dbRow['adm3'])){
+                $this->location->setLevel(NutsLocation::LEVEL_2,
+                    $dbRow['code3'], $dbRow['adm3']);
+            }
+
+            if(isset($dbRow['code4'], $dbRow['adm4'])){
+                $this->location->setLevel(NutsLocation::LEVEL_3,
+                    $dbRow['code4'], $dbRow['adm4']);
+            }
+        }
     }
 
     /**
@@ -33,20 +67,7 @@ class CacheLocation extends BaseObject{
             WHERE `cache_id` =:1 LIMIT 1', $cacheId);
 
         $dbResult = $this->db->dbResultFetch($stmt);
-        if(is_array($dbResult)){
-            $this->location->setLevel(NutsLocation::LEVEL_COUNTRY,
-                $dbResult['code1'], $dbResult['adm1']);
-
-            $this->location->setLevel(NutsLocation::LEVEL_1,
-                $dbResult['code2'], $dbResult['adm2']);
-
-            $this->location->setLevel(NutsLocation::LEVEL_2,
-                $dbResult['code3'], $dbResult['adm3']);
-
-            $this->location->setLevel(NutsLocation::LEVEL_3,
-                $dbResult['code4'], $dbResult['adm4']);
-
-        }
+        $this->loadFromDbRow($dbResult);
 
     }
 }

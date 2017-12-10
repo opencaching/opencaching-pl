@@ -10,13 +10,13 @@ class MultiCacheQueries extends BaseObject
 
     /**
      * EVENTS NOT INCLUDED!
-     * @param unknown $limit
+     * @param integer $limit
      */
-    public static function getLatestCaches($limit)
+    public static function getLatestCaches($limit, $offset=null)
     {
 
         $db = self::db();
-        list($limit, $offset) = $db->quoteLimitOffset($limit, 0);
+        list($limit, $offset) = $db->quoteLimitOffset($limit, $offset);
 
         $rs = $db->multiVariableQuery(
             "SELECT
@@ -37,7 +37,13 @@ class MultiCacheQueries extends BaseObject
                 c.cache_id DESC
             LIMIT $offset, $limit", GeoCache::TYPE_EVENT, GeoCache::STATUS_READY);
 
-        return $db->dbResultFetchAll($rs);
+        $result = [];
+        while($row = $db->dbResultFetch($rs)){
+            $row['location'] = CacheLocation::fromDbRowFactory($row);
+            $result[] = $row;
+        }
+
+        return $result;
     }
 
     public static function getIncomingEvents($limit)
@@ -62,7 +68,14 @@ class MultiCacheQueries extends BaseObject
                 c.date_hidden ASC
             LIMIT $offset, $limit", GeoCache::TYPE_EVENT, GeoCache::STATUS_READY);
 
-        return $db->dbResultFetchAll($rs);
+
+        $result = [];
+        while($row = $db->dbResultFetch($rs)){
+            $row['location'] = CacheLocation::fromDbRowFactory($row);
+            $result[] = $row;
+        }
+
+        return $result;
     }
 
 
