@@ -308,13 +308,11 @@ class OcDb extends OcPdo
 
             $i = 1;
             foreach($argList as $param){
-                //echo "Bind $i = $param <br/>"; //TMP_DEBUG!
                 $stmt->bindValue(self::BIND_CHAR . $i++, $param);
             }
             $stmt->setFetchMode(self::FETCH_ASSOC);
             $stmt->execute();
         } catch (PDOException $e) {
-            //d($e); //TMP_DEBUG!
             $message = 'Query|Params: '.$query.' | '.implode(' | ', $argList);
             $this->error($message, $e);
             return null;
@@ -421,7 +419,7 @@ class OcDb extends OcPdo
      * @param int $offset
      * @return number[$limit, $offset]
      */
-    public function quoteLimitOffset($limit, $offset){
+    public function quoteLimitOffset($limit, $offset=null){
         if(is_null($limit) || !is_numeric($limit)){
             $limit = 1000000000; //very large row number
         }else{

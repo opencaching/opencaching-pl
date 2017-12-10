@@ -92,7 +92,9 @@ class OcPdo extends PDO
         //get short version of the trace
         $traceStr = '';
         foreach($e->getTrace() as $trace){
-            $traceStr.= ' | '.$trace['file'].'::'.$trace['line'];
+            if(isset($trace['file']) && isset($trace['line'])){
+                $traceStr.= ' | '.$trace['file'].'::'.$trace['line'];
+            }
         }
 
         //send email to RT
