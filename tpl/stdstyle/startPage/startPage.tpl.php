@@ -9,35 +9,37 @@
 
 <div class="content2-container">
 
+
     <?php if(!$view->isUserLogged) { ?>
       <!-- INTRO -->
-      <div class="intro"><?=$view->introText?></div>
+      <div id="intro">
+        <?=$view->introText?>
+      </div>
       <!-- /INTRO -->
     <?php } //if-isUserLogged ?>
+
+
 
 
     <?php if($view->isUserLogged && !empty($view->newsList)){ ?>
     <!-- NEWS -->
 
-    <?php //TODO: https://www.w3schools.com/w3css/w3css_slideshow.asp ?>
-
-    <div class="news">
+    <div id="newsDiv">
         <p class="content-title-noshade-size3">
-          <img src="/tpl/stdstyle/images/blue/newspaper.png" width="32" alt="">
           <?=tr('news')?>
         </p>
 
         <?php foreach($view->newsList as $news) { ?>
-          <div class="news-item">
+          <div class="newsItem">
             <div class="news-statusline">
-              <img src="/tpl/stdstyle/images/free_icons/newspaper.png" width="16" height="16" alt="">
+              <img src="/tpl/stdstyle/images/free_icons/newspaper.png" alt="">
               <?=$news->getDatePublication(true)?>
                  <span class="newsTitle">
                     <?=$news->getTitle()?>
                     <?php if($news->isAuthorHidden()) { ?>
                       <?=tr('news_OCTeam')?>
                     <?php } else { // if-$news->isAuthorHidden() ?>
-                      <a href="viewprofile.php?userid=<?=$news->getAuthor()->getUserId()?>" class="links">
+                      <a href="<?=$news->getAuthor()->getProfileUrl()?>" class="links">
                         <?=$news->getAuthor()->getUserName()?>
                       </a>
                     <?php } // if-$news->isAuthorHidden() ?>
@@ -50,16 +52,62 @@
     <!-- /NEWS -->
     <?php } //if-!empty($view->newsList) ?>
 
-    <div>
-      <p class="main-totalstats">
-        <?=tr('startPage_stsAllCaches')?>:<span class="content-title-noshade"><?=$view->totalStats->totalCaches?></span>
-        <?=tr('startPage_stsActiveCaches')?>: <span class="content-title-noshade"><?=$view->totalStats->activeCaches?></span>
-      | <?=tr('startPage_stsFounds')?>: <span class="content-title-noshade"><?=$view->totalStats->founds?></span>
-      | <?=tr('startPage_stsUsers')?>: <span class="content-title-noshade"><?=$view->totalStats->activeUsers?></span>
-      </p>
+    <div id="totalStatsDiv">
+        <p class="content-title-noshade-size3">
+          Nasz liczby (stan zabawy)
+        </p>
+
+      <div id="totalStatsCounters">
+        <div class="counterWidget">
+          <div class="counterTitle">Skrzynek ogółem</div>
+          <div class="counterNumber"><?=$view->totalStats->totalCaches?></div>
+        </div>
+
+        <div class="counterWidget">
+          <div class="counterTitle">Gotowych do szukania</div>
+          <div class="counterNumber"><?=$view->totalStats->activeCaches?></div>
+        </div>
+
+        <div class="counterWidget">
+          <div class="counterTitle">Ocenionych jako "znakomite"</div>
+          <div class="counterNumber"><?=$view->totalStats->founds?></div>
+        </div>
+
+        <div class="counterWidget">
+          <div class="counterTitle">Założonych w tym /tygodniu/</div>
+          <div class="counterNumber"><?=$view->totalStats->founds?></div>
+        </div>
+
+        <div class="counterWidget">
+          <div class="counterTitle">Aktywych geoscieżek</div>
+          <div class="counterNumber"><?=$view->totalStats->founds?></div>
+        </div>
+
+        <div class="counterWidget">
+          <div class="counterTitle">Zarejestrowanych poszukiwaczy</div>
+          <div class="counterNumber"><?=$view->totalStats->founds?></div>
+        </div>
+
+        <div class="counterWidget">
+          <div class="counterTitle">Poszukiwań ogółem</div>
+          <div class="counterNumber"><?=$view->totalStats->founds?></div>
+        </div>
+
+        <div class="counterWidget">
+          <div class="counterTitle">Znalezień w tym tygodniu</div>
+          <div class="counterNumber"><?=$view->totalStats->founds?></div>
+        </div>
+
+        <div class="counterWidget">
+          <div class="counterTitle">Rekomendacji w tym tygodniu</div>
+          <div class="counterNumber"><?=$view->totalStats->founds?></div>
+        </div>
+      </div>
+
     </div>
 
     <!-- newest caches -->
+
     <div id="map">
       <div style="position: relative;">
 
@@ -111,6 +159,10 @@
           </li>
         <?php } //foreach ?>
 
+          <li class="showMoreLink">
+            <a href="hello" class="btn btn-sm">Pokaż więcej</a>
+          </li>
+       </ul>
     </div>
 
     <!-- /newest caches -->
@@ -142,6 +194,10 @@
           </li>
         <?php } //foreach ?>
 
+          <li class="showMoreLink">
+            <a href="hello" class="btn btn-sm">Pokaż więcej</a>
+          </li>
+       </ul>
     </div>
     <!-- /incomming events -->
 
@@ -165,16 +221,20 @@
       <p class='content-title-noshade'><?=$view->titledCacheData['cacheLocation']?></p>
       <div class='CacheTitledLog'>
         <img src='images/rating-star.png' alt='Star'>
-          &nbsp;
           <a href='<?=$view->titledCacheData['logOwnerUrl']?>' class='links'>
             <?=$view->titledCacheData['logOwnerName']?>
           </a>:<br><br>
                 <?=$view->titledCacheData['logText']?>
       </div>
 
+      <div class="showMoreLink">
+        <a href="hello" class="btn btn-sm">Pokaż więcej</a>
+      </div>
     </div>
     <?php } //if-titledCacheData ?>
     <!-- /titled caches -->
+
+
 
     <!-- last-cacheSets -->
     <?php if($view->displayLastCacheSets){ ?>
@@ -194,13 +254,31 @@
               </a>
             </li>
           <?php } //foreach-lastCacheSets ?>
+            <li class="showMoreLink">
+              <a href="hello" class="btn btn-sm">Pokaż więcej</a>
+            </li>
           </ul>
         </div>
     <?php } // if-displayGeoPathOfTheDay) ?>
     <!-- /last-cacheSets -->
 
     <!-- feeds -->
-    {Feeds}
+    <?php foreach($view->feeds as $feedName => $feedPosts) { ?>
+      <div id="feedArea">
+        <p class="content-title-noshade-size3"><?=tr('feed_'.$feedName)?></p>
+        <ul id="feedList">
+          <?php foreach($feedPosts as $post){ ?>
+              <li>
+                <?=$post->date?>
+                <a class="links" href="<?=$post->link?>">
+                  <?=$post->title?>
+                </a>
+                (<?=$post->author?>)
+              </li>
+          <?php } //foreach-feedPosts ?>
+        </ul>
+      </div>
+    <?php }//foreach-feeds ?>
     <!-- /feeds -->
 </div>
 <!-- /CONTENT -->

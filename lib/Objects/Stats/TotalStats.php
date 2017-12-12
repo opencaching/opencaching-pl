@@ -8,6 +8,7 @@ use lib\Objects\Stats\TotalStats\BasicStats;
 use Utils\Cache\OcMemCache;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\GeoCache\GeoCacheLog;
+use Utils\Text\Formatter;
 
 /**
  * This class provides general statsistics
@@ -43,10 +44,10 @@ class TotalStats extends BaseObject
     {
         $basicStats = new BasicStats();
 
-        $basicStats->totalCaches = GeoCache::getAllCachesCount();
-        $basicStats->activeCaches = GeoCache::getAllCachesCount(true);
-        $basicStats->founds = GeoCacheLog::getTotalFoundsNumber();
-        $basicStats->activeUsers = UserStats::getActiveUsersCount();
+        $basicStats->totalCaches = Formatter::number(GeoCache::getAllCachesCount());
+        $basicStats->activeCaches = Formatter::number(GeoCache::getAllCachesCount(true));
+        $basicStats->founds = Formatter::number(GeoCacheLog::getTotalFoundsNumber());
+        $basicStats->activeUsers = Formatter::number(UserStats::getActiveUsersCount());
 
 
         return $basicStats;

@@ -1117,21 +1117,13 @@ div.gm-style {
     margin-top: 1em;
 }
 
-/* Styles for blog and forum items on main page */
-ul.feedList {
-    font-size: 11px;
-    list-style-image: url(/tpl/stdstyle/images/free_icons/page.png);
-    list-style-position: inside;
-}
+
 
 .full-width {
     width: 100%;
 }
 
-div.feedArea {
-    width: 100%;
-    display: block;
-}
+
 
 sup {
     font-size: 0.7em !important;

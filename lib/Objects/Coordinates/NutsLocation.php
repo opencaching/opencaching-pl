@@ -91,6 +91,11 @@ class NutsLocation extends BaseObject
 
     public function getDescription($separator='-'){
 
+        if(!isset($this->codes[self::LEVEL_COUNTRY])){
+            // location is unknown
+            return "? $separator ?";
+        }
+
         // try to translate country name
         if (tr_available($this->codes[self::LEVEL_COUNTRY])){
             $country = tr($this->codes[self::LEVEL_COUNTRY]);

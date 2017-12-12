@@ -1,8 +1,7 @@
 <?php
 
 use lib\Objects\GeoCache\GeoCacheLogCommons;
-use lib\Objects\User\UserCommons;
-use Utils\DateTime\OcDate;
+use Utils\Text\Formatter;
 
 /**
 	This is column with log-icon and log-text.
@@ -26,7 +25,7 @@ return function (array $data){
         $logUrl = "/viewlogs.php?logid=${data['logId']}";
         $userName = $data['logUserName'];
         $logText = GeoCacheLogCommons::cleanLogTextForToolTip($data['logText']);
-        $logDate = OcDate::getFormattedDate($data['logDate']);
+        $logDate = Formatter::date($data['logDate']);
         $logTypeName = GeoCacheLogCommons::cleanLogTextForToolTip(
             tr(GeoCacheLogCommons::typeTranslationKey($data['logType'])));
     }

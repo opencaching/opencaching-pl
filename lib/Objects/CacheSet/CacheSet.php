@@ -241,6 +241,7 @@ class CacheSet extends CacheSetCommon
         if(!$this->location){
             $this->location = NutsLocation::fromCoordsFactory($this->centerCoordinates);
         }
+
         return $this->location;
     }
 

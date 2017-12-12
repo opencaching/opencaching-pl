@@ -1,11 +1,17 @@
 <?php
+
+namespace Utils\Feed;
+
+use Exception;
+use SimpleXMLElement;
+
 /**
  * Simple reader for RSS and Atom feeds.
  * Requires: SimpleXML, fopen_wrappers
  * Limitations: Not content encoding support.
  *
  * Usage:
- *     $feed = new Feed('http://www.example.com/feed.rss');
+ *     $feed = new RssFeed('http://www.example.com/feed.rss');
  *
  *     //Get items with next() or current()
  *     echo $feed->next()->title;           // "Blog post 1"
@@ -38,7 +44,7 @@
  *     echo $feed->count();                 // int(10)
  */
 
-class Feed {
+class RssFeed {
     private $url;
     private $reader;
     private $current;
@@ -115,7 +121,7 @@ class Feed {
      */
     public function find($count) {
         $items = array();
-        
+
         while ($item = $this->next()) {
             $items[] = $item;
             if (count($items) >= $count) {

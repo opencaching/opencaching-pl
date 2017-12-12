@@ -7,13 +7,14 @@ use lib\Objects\Stats\TotalStats;
 use lib\Objects\GeoCache\MultiCacheQueries;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\User\User;
-use Utils\DateTime\OcDate;
 use Utils\Cache\OcMemCache;
+use Utils\Feed\RssFeed;
 use Utils\Gis\Gis;
 use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\GeoCache\CacheTitled;
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\CacheSet\CacheSet;
+use Utils\Text\Formatter;
 
 class StartPageController extends BaseController
 {
@@ -93,13 +94,13 @@ class StartPageController extends BaseController
                     $map_center_lat, $map_center_lon);
 
                 // find latest caches
-                foreach (MultiCacheQueries::getLatestCaches(10) as $c){
+                foreach (MultiCacheQueries::getLatestCaches(7) as $c){
 
                     $loc = $c['location'];
 
                     $result->latestCaches[] = [
                         'icon' => GeoCache::CacheIconByType($c['type'], $c['status']),
-                        'date' => OcDate::getFormattedDate($c['date']),
+                        'date' => Formatter::date($c['date']),
                         'link' => GeoCache::GetCacheUrlByWp($c['wp_oc']),
                         'markerId' => $c['wp_oc'],
                         'cacheName' => $c['name'],
@@ -127,13 +128,13 @@ class StartPageController extends BaseController
 
                 // find incoming events
 
-                foreach (MultiCacheQueries::getIncomingEvents(10) as $c){
+                foreach (MultiCacheQueries::getIncomingEvents(7) as $c){
 
                     $loc = $c['location'];
 
                     $result->incomingEvents[] = [
                         'icon' => GeoCache::CacheIconByType($c['type'], $c['status']),
-                        'date' => OcDate::getFormattedDate($c['date']),
+                        'date' => Formatter::date($c['date']),
                         'link' => GeoCache::GetCacheUrlByWp($c['wp_oc']),
                         'markerId' => $c['wp_oc'],
                         'cacheName' => $c['name'],
@@ -171,7 +172,7 @@ class StartPageController extends BaseController
         $this->view->setVar('displayLastCacheSets',
             $this->ocConfig->isPowertrailsEnabled());
 
-        $lastCacheSets = CacheSet::getLastCreatedSets(1);
+        $lastCacheSets = CacheSet::getLastCreatedSets(3);
         $this->view->setVar('lastCacheSets', $lastCacheSets);
     }
 
@@ -188,14 +189,33 @@ class StartPageController extends BaseController
 
     private function processFeeds()
     {
-        global $config;
-        $feeds = '';
-        foreach ($config['feed']['enabled'] as $feed_position) {
-            $feed_txt = file_get_contents($dynstylepath . "feed." . $feed_position . ".html");
-            $feed_txt = mb_ereg_replace('{feed_' . $feed_position . '}', tr('feed_' . $feed_position), $feed_txt);
-            $feeds .= $feed_txt;
-        }
-        tpl_set_var('Feeds', $feeds);
+        $feeds = OcMemCache::getOrCreate(__CLASS__.':feeds', 12*60*60,
+            function(){
+                global $config;//TODO
+
+                $feeds = [];
+                foreach ($config['feed']['enabled'] as $feedName) {
+
+                    $feed = new RssFeed($config['feed'][$feedName]['url']);
+                    $postsCount = min($config['feed'][$feedName]['posts'], $feed->count());
+                    $feeds[$feedName] = [];
+
+                    for ($i=0; $i<$postsCount; $i++) {
+                        $post = new \stdClass();
+                        $post->author = ( !empty($feed->next()->author)
+                            && $config['feed'][$feedName]['showAuthor']) ? $feed->current()->author : '';
+
+                        $post->link = $feed->current()->link;
+                        $post->title = $feed->current()->title;
+                        $post->date = Formatter::date($feed->current()->date);
+                        $feeds[$feedName][] = $post;
+                    }
+                }//foreach
+
+                return $feeds;
+            });
+
+        $this->view->setVar('feeds', $feeds);
     }
 
     private function processTitleCaches()
