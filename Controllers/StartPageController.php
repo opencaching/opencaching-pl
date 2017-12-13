@@ -4,8 +4,8 @@ namespace Controllers;
 use Controllers\News\NewsListController;
 use Utils\Uri\Uri;
 use lib\Objects\Stats\TotalStats;
-use lib\Objects\GeoCache\MultiCacheQueries;
 use lib\Objects\GeoCache\GeoCache;
+use lib\Objects\GeoCache\MultiCacheStats;
 use lib\Objects\User\User;
 use Utils\Cache\OcMemCache;
 use Utils\Feed\RssFeed;
@@ -94,7 +94,7 @@ class StartPageController extends BaseController
                     $map_center_lat, $map_center_lon);
 
                 // find latest caches
-                foreach (MultiCacheQueries::getLatestCaches(7) as $c){
+                foreach (MultiCacheStats::getLatestCaches(7) as $c){
 
                     $loc = $c['location'];
 
@@ -128,7 +128,7 @@ class StartPageController extends BaseController
 
                 // find incoming events
 
-                foreach (MultiCacheQueries::getIncomingEvents(7) as $c){
+                foreach (MultiCacheStats::getIncomingEvents(7) as $c){
 
                     $loc = $c['location'];
 
@@ -222,29 +222,31 @@ class StartPageController extends BaseController
     {
 
         $titledCacheData = OcMemCache::getOrCreate(
-            __CLASS__.':titledCacheData', 5*60*60, function(){
+            __CLASS__.':titledCacheData', 5*60*60,
+            function(){
 
-            $lastTitledCache = CacheTitled::getLastCacheTitled();
-            if(is_null($lastTitledCache)){
-                return null;
-            } else {
-                $geocache = GeoCache::fromCacheIdFactory($lastTitledCache->getCacheId());
-                $log = GeoCacheLog::fromLogIdFactory($lastTitledCache->getLogId());
+                $lastTitledCache = CacheTitled::getLastCacheTitled();
+                if(is_null($lastTitledCache)){
+                    return null;
+                } else {
+                    $geocache = GeoCache::fromCacheIdFactory($lastTitledCache->getCacheId());
+                    $log = GeoCacheLog::fromLogIdFactory($lastTitledCache->getLogId());
 
-                $geocache->getCacheIcon($this->loggedUser);
+                    $geocache->getCacheIcon($this->loggedUser);
 
-                return [
-                    'cacheIcon' => $geocache->getCacheIcon($this->loggedUser),
-                    'cacheUrl' => $geocache->getCacheUrl(),
-                    'cacheName' => $geocache->getCacheName(),
-                    'cacheOwnerName' => $geocache->getOwner()->getUserName(),
-                    'cacheOwnerUrl' => $geocache->getOwner()->getProfileUrl(),
-                    'cacheLocation' => $geocache->getCacheLocationObj()->getLocationDesc(' > '),
-                    'logText' => $log->getText(),
-                    'logOwnerName' => $log->getUser()->getUserName(),
-                    'logOwnerUrl' => $log->getUser()->getProfileUrl(),
-                ];
-            }
+                    return [
+                        'date' => Formatter::date($lastTitledCache->getTitledDate()),
+                        'cacheIcon' => $geocache->getCacheIcon($this->loggedUser),
+                        'cacheUrl' => $geocache->getCacheUrl(),
+                        'cacheName' => $geocache->getCacheName(),
+                        'cacheOwnerName' => $geocache->getOwner()->getUserName(),
+                        'cacheOwnerUrl' => $geocache->getOwner()->getProfileUrl(),
+                        'cacheLocation' => $geocache->getCacheLocationObj()->getLocationDesc(' > '),
+                        'logText' => $log->getText(),
+                        'logOwnerName' => $log->getUser()->getUserName(),
+                        'logOwnerUrl' => $log->getUser()->getProfileUrl(),
+                    ];
+                }
         });
 
         $this->view->setVar('titledCacheData',$titledCacheData);

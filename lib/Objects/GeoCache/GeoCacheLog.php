@@ -285,20 +285,6 @@ class GeoCacheLog extends GeoCacheLogCommons
         return $this;
     }
 
-
-    public static function getTotalFoundsNumber()
-    {
-        $countedTypes = implode(',',[
-            self::LOGTYPE_FOUNDIT,
-            self::LOGTYPE_DIDNOTFIND
-        ]);
-
-        return self::db()->simpleQueryValue(
-            "SELECT COUNT(*) FROM cache_logs
-            WHERE type IN ($countedTypes)
-                AND deleted = 0", 0);
-    }
-
     private function loadByLogId($logId){
 
         //find log by Id

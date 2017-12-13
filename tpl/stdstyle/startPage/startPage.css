@@ -55,6 +55,7 @@
   text-align: center;
 }
 
+
 .counterWidget {
   border: 1px solid darkblue;
   display: inline-block;
@@ -65,7 +66,9 @@
   font-weight: bold;
   margin: 5px 3px;
 }
-
+.counterTitle {
+  max-width: 100px;
+}
 .counterNumber {
   font-size: 16px;
   color: rgb(88,144,168);
@@ -96,29 +99,38 @@
   margin-right: 20px;
 }
 
-.showMoreLink {
+
+ul.startPageList{
+  list-style-type: none;
+}
+
+li.showMoreLink {
   text-align: left;
   margin-left: 20px;
 }
+
+a.highlite {
+  font-size: 1.1em;
+}
+
 
 
 
 #newCachesList {
   width: 70%;
 }
-#newCachesList ul {
-  list-style-type: none; 
-}
+
 
 #newCachesList img {
   width: 16px; heigth: 16px; 
 }
 
-
+#cacheTitled img {
+  width: 16px; heigth: 16px; 
+}
 
 #newestCacheSets {
   width: 100%;
-  padding-top: 20px;
 }
 
 #newestCacheSets img {
@@ -126,11 +138,19 @@
   max-width: 50px;
 }
 
-#newestCacheSets ul {
-  list-style-type: none; 
+
+#cacheTitled img {
+  width: 16px; heigth: 16px; 
 }
 
-
+#cacheTitled .cacheTitledLog {
+    border-radius: 5px;
+    border: solid 1px grey;
+    background: #F9F9F9;
+    padding: 5px;
+    font-size: 11px;
+    margin-top: 5px;
+}
 
 
 /* Styles for blog and forum items on main page */

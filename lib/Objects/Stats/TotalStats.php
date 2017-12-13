@@ -5,10 +5,12 @@ namespace lib\Objects\Stats;
 
 use lib\Objects\BaseObject;
 use lib\Objects\Stats\TotalStats\BasicStats;
+use lib\Objects\User\MultiUserStats;
 use Utils\Cache\OcMemCache;
-use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\GeoCache\GeoCacheLog;
 use Utils\Text\Formatter;
+use lib\Objects\CacheSet\CacheSet;
+use lib\Objects\GeoCache\MultiCacheStats;
+use lib\Objects\GeoCache\MultiLogStats;
 
 /**
  * This class provides general statsistics
@@ -42,13 +44,28 @@ class TotalStats extends BaseObject
 
     private static function contructBasicTotalStats()
     {
+        $periodDays = 130;
         $basicStats = new BasicStats();
 
-        $basicStats->totalCaches = Formatter::number(GeoCache::getAllCachesCount());
-        $basicStats->activeCaches = Formatter::number(GeoCache::getAllCachesCount(true));
-        $basicStats->founds = Formatter::number(GeoCacheLog::getTotalFoundsNumber());
-        $basicStats->activeUsers = Formatter::number(UserStats::getActiveUsersCount());
+        $basicStats->totalCaches = Formatter::number(MultiCacheStats::getAllCachesCount());
+        $basicStats->activeCaches = Formatter::number(MultiCacheStats::getAllCachesCount(true));
+        $basicStats->topRatedCaches = Formatter::number(MultiCacheStats::getTopRatedCachesCount());
 
+        $basicStats->latestCaches = MultiCacheStats::getNewCachesCount($periodDays);
+
+        $basicStats->activeCacheSets =Formatter::number(CacheSet::getActiveCacheSetsCount());
+
+        $basicStats->totalUsers = Formatter::number(MultiUserStats::getActiveUsersCount());
+
+        $basicStats->newUsers = MultiUserStats::getUsersRegistratedCount($periodDays);
+
+        $basicStats->totalSearches = Formatter::number(MultiLogStats::getTotalSearchesNumber());
+
+        $basicStats->latestSearches = Formatter::number(
+            MultiLogStats::getLastSearchesCount($periodDays));
+
+        $basicStats->latestRecomendations = Formatter::number(
+            MultiLogStats::getLastRecomendationsCount($periodDays));
 
         return $basicStats;
     }
@@ -68,7 +85,12 @@ class BasicStats
 
     public $totalCaches;
     public $activeCaches;
-    public $founds;
-    public $activeUsers;
-
+    public $topRatedCaches;
+    public $latestCaches;
+    public $activeCacheSets;
+    public $totalUsers;
+    public $newUsers;
+    public $totalSearches;
+    public $latestSearches;
+    public $latestRecomendations;
 }

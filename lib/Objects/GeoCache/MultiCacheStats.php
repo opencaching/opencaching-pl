@@ -2,10 +2,13 @@
 
 namespace lib\Objects\GeoCache;
 
-
 use lib\Objects\BaseObject;
 
-class MultiCacheQueries extends BaseObject
+/**
+ * This class should contains mostly static, READ-ONLY queries
+ * used to generates statistics etc. around caches db table
+ */
+class MultiCacheStats extends BaseObject
 {
 
     /**
@@ -78,6 +81,63 @@ class MultiCacheQueries extends BaseObject
         return $result;
     }
 
+    public static function getTopRatedCachesCount($activeOnly=false)
+    {
+        if($activeOnly){
+            $countedStatuses = implode(',',[
+                GeoCache::STATUS_READY
+            ]);
+        }else{
+            $countedStatuses = implode(',',[
+                GeoCache::STATUS_ARCHIVED,
+                GeoCache::STATUS_UNAVAILABLE,
+                GeoCache::STATUS_READY
+            ]);
+        }
+
+        return self::db()->multiVariableQueryValue(
+            "SELECT COUNT(*) FROM caches
+            WHERE status IN ($countedStatuses)
+            AND score >= :1", 0, GeoCache::MIN_SCORE_OF_RATING_5);
+    }
+
+    public static function getAllCachesCount($activeOnly=false)
+    {
+
+        if($activeOnly){
+            $countedStatuses = implode(',',[
+                GeoCache::STATUS_READY
+            ]);
+        }else{
+            $countedStatuses = implode(',',[
+                GeoCache::STATUS_ARCHIVED,
+                GeoCache::STATUS_UNAVAILABLE,
+                GeoCache::STATUS_READY
+            ]);
+        }
+
+        return self::db()->simpleQueryValue(
+            "SELECT COUNT(*) FROM caches WHERE status IN ($countedStatuses)", 0);
+    }
+
+    public static function getNewCachesCount($fromLastDays){
+
+        $days = (int) $fromLastDays;
+
+        $countedStatuses = implode(',',[
+            GeoCache::STATUS_ARCHIVED,
+            GeoCache::STATUS_UNAVAILABLE,
+            GeoCache::STATUS_READY
+        ]);
+
+        return self::db()->simpleQueryValue(
+            "SELECT COUNT(*) FROM caches
+            WHERE status IN ($countedStatuses)
+            AND (
+                date_hidden > DATE_SUB(NOW(), INTERVAL $days day)
+                OR date_hidden > DATE_SUB(NOW(), INTERVAL $days day)
+            )", 0);
+    }
 
 }
 

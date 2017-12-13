@@ -1104,14 +1104,7 @@ td.tab_user {
 div.gm-style {
     font-family: "arial", sans-serif, "Tahoma", "Verdana";
 }
-.CacheTitledLog {
-    border-radius: 5px;
-    border: solid 1px grey;
-    background: #F9F9F9;
-    padding: 5px;
-    margin-top: 1.5em;
-    font-size: 11px;
-}
+
 .show-more {
     font-size: 10px;
     margin-top: 1em;

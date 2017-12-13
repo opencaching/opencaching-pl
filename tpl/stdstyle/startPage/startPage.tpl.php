@@ -58,49 +58,56 @@
         </p>
 
       <div id="totalStatsCounters">
-        <div class="counterWidget">
-          <div class="counterTitle">Skrzynek ogółem</div>
+        <div class="counterWidget" title="XZałożone kiedykolwiek...">
+          <div class="counterTitle">XSkrzynek ogółem</div>
           <div class="counterNumber"><?=$view->totalStats->totalCaches?></div>
         </div>
 
-        <div class="counterWidget">
-          <div class="counterTitle">Gotowych do szukania</div>
+        <div class="counterWidget" title="XRuszaj w teren i znajdź którąś...">
+          <div class="counterTitle">XGotowych do szukania</div>
           <div class="counterNumber"><?=$view->totalStats->activeCaches?></div>
         </div>
 
-        <div class="counterWidget">
-          <div class="counterTitle">Ocenionych jako "znakomite"</div>
-          <div class="counterNumber"><?=$view->totalStats->founds?></div>
+        <div class="counterWidget" title="XRuszaj w teren i znajdź którąś...">
+          <div class="counterTitle">XOcenionych jako "znakomite"</div>
+          <div class="counterNumber"><?=$view->totalStats->topRatedCaches?></div>
         </div>
 
-        <div class="counterWidget">
-          <div class="counterTitle">Założonych w tym /tygodniu/</div>
-          <div class="counterNumber"><?=$view->totalStats->founds?></div>
+        <div class="counterWidget" title="">
+          <div class="counterTitle">XZałożonych w tym miesiacu</div>
+          <div class="counterNumber"><?=$view->totalStats->latestCaches?></div>
         </div>
 
-        <div class="counterWidget">
-          <div class="counterTitle">Aktywych geoscieżek</div>
-          <div class="counterNumber"><?=$view->totalStats->founds?></div>
+        <div class="counterWidget" title="">
+          <div class="counterTitle">XAktywych geoscieżek</div>
+          <div class="counterNumber"><?=$view->totalStats->activeCacheSets?></div>
         </div>
 
-        <div class="counterWidget">
+        <div class="counterWidget" title="XZnaleźli lub ukryli...">
           <div class="counterTitle">Zarejestrowanych poszukiwaczy</div>
-          <div class="counterNumber"><?=$view->totalStats->founds?></div>
+          <div class="counterNumber"><?=$view->totalStats->totalUsers?></div>
         </div>
 
-        <div class="counterWidget">
-          <div class="counterTitle">Poszukiwań ogółem</div>
-          <div class="counterNumber"><?=$view->totalStats->founds?></div>
+        <div class="counterWidget" title="XZnaleźli lub ukryli...">
+          <div class="counterTitle">
+            Nowych poszukiwaczy <?=$view->totalStats->newUsersPeriod?>
+          </div>
+          <div class="counterNumber"><?=$view->totalStats->newUsers?></div>
         </div>
 
-        <div class="counterWidget">
-          <div class="counterTitle">Znalezień w tym tygodniu</div>
-          <div class="counterNumber"><?=$view->totalStats->founds?></div>
+        <div class="counterWidget" title="">
+          <div class="counterTitle">XPoszukiwań ogółem</div>
+          <div class="counterNumber"><?=$view->totalStats->totalSearches?></div>
         </div>
 
-        <div class="counterWidget">
-          <div class="counterTitle">Rekomendacji w tym tygodniu</div>
-          <div class="counterNumber"><?=$view->totalStats->founds?></div>
+        <div class="counterWidget" title="">
+          <div class="counterTitle">XZnalezień w tym tygodniu</div>
+          <div class="counterNumber"><?=$view->totalStats->latestSearches?></div>
+        </div>
+
+        <div class="counterWidget" title="">
+          <div class="counterTitle">XRekomendacji w tym tygodniu</div>
+          <div class="counterNumber"><?=$view->totalStats->latestRecomendations?></div>
         </div>
       </div>
 
@@ -138,29 +145,30 @@
         {{newest_caches}}
       </p>
 
-      <ul>
+      <ul class="startPageList">
         <?php foreach($view->latestCaches as $c){ ?>
           <li>
-            <span class="content-title-noshade"><?=$c['location']?></span>
-            (<?=$c['date']?>):
-            <br/>
+            <div>
+              (<?=$c['date']?>)
+              <span class="content-title-noshade"><?=$c['location']?></span>
+            </div>
+            <div>
+              <a class="links highlite" href="<?=$c['link']?>"
+                 onmouseover="showMarker('<?=$c['markerId']?>')"
+                 onmouseout="hideMarker('<?=$c['markerId']?>')">
 
-            <a class="links" href="<?=$c['link']?>"
-               onmouseover="showMarker('<?=$c['markerId']?>')"
-               onmouseout="hideMarker('<?=$c['markerId']?>')">
+                <img src="<?=$c['icon']?>" class="icon16" alt="CacheIcon" title="">
+                <?=$c['cacheName']?>
 
-              <img src="<?=$c['icon']?>" class="icon16" alt="CacheIcon" title="">
-              <?=$c['cacheName']?>
-
-            </a>
-            &nbsp;<?=tr('hidden_by')?>&nbsp;
-            <a class="links" href="<?=$c['userUrl']?>"><?=$c['userName']?></a>
-
+              </a>
+              <?=tr('hidden_by')?>
+              <a class="links" href="<?=$c['userUrl']?>"><?=$c['userName']?></a>
+            </div>
           </li>
         <?php } //foreach ?>
 
           <li class="showMoreLink">
-            <a href="hello" class="btn btn-sm">Pokaż więcej</a>
+            <a href="/newcaches.php" class="btn btn-sm">XPokaż więcej</a>
           </li>
        </ul>
     </div>
@@ -173,29 +181,30 @@
         {{incomming_events}}
       </p>
 
-      <ul>
+      <ul class="startPageList">
         <?php foreach($view->incomingEvents as $c){ ?>
           <li>
-            <span class="content-title-noshade"><?=$c['location']?></span>
-            (<?=$c['date']?>):
-            <br/>
+            <div>
+              (<?=$c['date']?>)
+              <span class="content-title-noshade"><?=$c['location']?></span>
+            </div>
+            <div>
+                <a class="links highlite" href="<?=$c['link']?>"
+                   onmouseover="showMarker('<?=$c['markerId']?>')"
+                   onmouseout="hideMarker('<?=$c['markerId']?>')">
 
-            <a class="links" href="<?=$c['link']?>"
-               onmouseover="showMarker('<?=$c['markerId']?>')"
-               onmouseout="hideMarker('<?=$c['markerId']?>')">
+                  <img src="<?=$c['icon']?>" class="icon16" alt="CacheIcon" title="">
+                  <?=$c['cacheName']?>
 
-              <img src="<?=$c['icon']?>" class="icon16" alt="CacheIcon" title="">
-              <?=$c['cacheName']?>
-
-            </a>
-            &nbsp;<?=tr('hidden_by')?>&nbsp;
-            <a class="links" href="<?=$c['userUrl']?>"><?=$c['userName']?></a>
-
+                </a>
+                <?=tr('hidden_by')?>
+                <a class="links" href="<?=$c['userUrl']?>"><?=$c['userName']?></a>
+            </div>
           </li>
         <?php } //foreach ?>
 
           <li class="showMoreLink">
-            <a href="hello" class="btn btn-sm">Pokaż więcej</a>
+            <a href="/newevents.php" class="btn btn-sm">XPokaż więcej</a>
           </li>
        </ul>
     </div>
@@ -207,29 +216,38 @@
       <p class="content-title-noshade-size3">
         XSkrzynki-tygodniaX
       </p>
+      <ul class="startPageList">
+        <li>
+          <div>
+            (<?=$view->titledCacheData['date']?>)
+            <span class="content-title-noshade">
+              <?=$view->titledCacheData['cacheLocation']?>
+            </span>
+          </div>
+          <div>
+            <img src="<?=$view->titledCacheData['cacheIcon']?>" class="icon16" alt="Cache" title="Cache">
+            <a href="<?=$view->titledCacheData['cacheUrl']?>" class="links highlite">
+              <?=$view->titledCacheData['cacheName']?>
+            </a>
+            <?=tr('hidden_by')?>
+            <a href="<?=$view->titledCacheData['cacheOwnerUrl']?>" class="links">
+              <?=$view->titledCacheData['cacheOwnerName']?>
+            </a>
+          </div>
 
-      <img src='<?=$view->titledCacheData['cacheIcon']?>' class='icon16' alt='Cache' title='Cache'>
-      <a href='<?=$view->titledCacheData['cacheUrl']?>' class='links'>
-        <?=$view->titledCacheData['cacheName']?>
-      </a>
-      &nbsp;<?=tr('hidden_by')?>
-      <a href='<?=$view->titledCacheData['cacheOwnerUrl']?>' class='links'>
-        <?=$view->titledCacheData['cacheOwnerName']?>
-      </a>
-      <br>
 
-      <p class='content-title-noshade'><?=$view->titledCacheData['cacheLocation']?></p>
-      <div class='CacheTitledLog'>
-        <img src='images/rating-star.png' alt='Star'>
-          <a href='<?=$view->titledCacheData['logOwnerUrl']?>' class='links'>
-            <?=$view->titledCacheData['logOwnerName']?>
-          </a>:<br><br>
-                <?=$view->titledCacheData['logText']?>
-      </div>
-
-      <div class="showMoreLink">
-        <a href="hello" class="btn btn-sm">Pokaż więcej</a>
-      </div>
+          <div class="cacheTitledLog">
+            <img src="images/rating-star.png" alt="Star">
+              <a href="<?=$view->titledCacheData['logOwnerUrl']?>" class="links">
+                <?=$view->titledCacheData['logOwnerName']?>
+              </a>:<br><br>
+                    <?=$view->titledCacheData['logText']?>
+          </div>
+        </li>
+        <li class="showMoreLink">
+          <a href="/cache_titled.php" class="btn btn-sm">XPokaż więcej</a>
+        </li>
+      </ul>
     </div>
     <?php } //if-titledCacheData ?>
     <!-- /titled caches -->
@@ -242,20 +260,27 @@
           <p class="content-title-noshade-size3">
             <?=tr('startPage_promotedCacheSet')?>
           </p>
-          <ul>
+          <ul class="startPageList">
           <?php foreach($view->lastCacheSets AS $cs){ ?>
             <li>
-              <p class='content-title-noshade'>
-                <?=$cs->getLocation()->getDescription(' > ')?>
-              </p>
-              <a href="<?=$cs->getUrl()?>">
-                <img src="<?=$cs->getImage()?>" />
-                <?=$cs->getName()?>
-              </a>
+              <div>
+                (<?=$cs->getCreationDate(true)?>)
+                <span class='content-title-noshade'>
+                  <?=$cs->getLocation()->getDescription(' > ')?>
+                </span>
+              </div>
+              <div>
+                <a href="<?=$cs->getUrl()?>" class="links highlite">
+                  <img src="<?=$cs->getImage()?>" />
+                  <?=$cs->getName()?>
+                </a>
+                <?=tr('hidden_by')?>
+                lista autorów...
+              </div>
             </li>
           <?php } //foreach-lastCacheSets ?>
             <li class="showMoreLink">
-              <a href="hello" class="btn btn-sm">Pokaż więcej</a>
+              <a href="/powerTrail.php" class="btn btn-sm">XPokaż więcej</a>
             </li>
           </ul>
         </div>

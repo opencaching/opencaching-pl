@@ -1105,25 +1105,6 @@ class GeoCache extends GeoCacheCommons
         return $result;
     }
 
-    public static function getAllCachesCount($activeOnly=false)
-    {
-
-        if($activeOnly){
-            $countedStatuses = implode(',',[
-                self::STATUS_READY
-            ]);
-        }else{
-            $countedStatuses = implode(',',[
-                self::STATUS_ARCHIVED,
-                self::STATUS_UNAVAILABLE,
-                self::STATUS_READY
-            ]);
-        }
-
-        return self::db()->simpleQueryValue(
-            "SELECT COUNT(*) FROM caches WHERE status IN ($countedStatuses)", 0);
-    }
-
 
 
     /**

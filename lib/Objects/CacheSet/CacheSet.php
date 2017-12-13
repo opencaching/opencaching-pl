@@ -8,6 +8,7 @@ use Utils\Database\OcDb;
 use Utils\Database\QueryBuilder;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\Coordinates\NutsLocation;
+use Utils\Text\Formatter;
 
 class CacheSet extends CacheSetCommon
 {
@@ -202,9 +203,13 @@ class CacheSet extends CacheSetCommon
         return tr(self::GetStatusTranslationKey($this->status));
     }
 
-    public function getCreationDate()
+    public function getCreationDate($formatted=false)
     {
-        return $this->dateCreated;
+        if($formatted){
+            return Formatter::date($this->dateCreated);
+        }else{
+            return $this->dateCreated;
+        }
     }
 
     public function getCreationDateString()
@@ -294,6 +299,13 @@ class CacheSet extends CacheSetCommon
         }
 
         return $result;
+    }
+
+    public static function getActiveCacheSetsCount()
+    {
+        return self::db()->multiVariableQueryValue(
+            'SELECT COUNT(*) FROM PowerTrail WHERE status = :1',
+            0,self::STATUS_OPEN);
     }
 }
 
