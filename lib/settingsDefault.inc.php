@@ -299,3 +299,25 @@ $config['header']['keywords'] = 'geocaching, opencaching, skarby,'.
 $config['header']['appleLogo'] = '/images/oc_logo_144.png';
 
 
+/*
+ * *** Watchlist config ***
+ * lock_file:
+ *      the path of a file used for lock to ensure only one instance runs at the time,
+ *      set to empty string to disable file lock
+ * diag_file:
+ *      the path of a file used for operating time diagnosis
+ *      set to empty string to disable diagnosis
+ * max_sqldata:
+ *      the maximum size of data string in bulk insert/update sql queries
+ * use_logentries:
+ *      set to true if you want to use turn on Log::logentries in the code,
+ *      set to false if Log::logentries can be ommited
+ * max_logentries:
+ *      the maximum size of LogEntry elements in array before the will be stored in database
+ *      used only when use_logentries is set to true
+ */
+$config['watchlist']['lock_file'] = '/tmp/watchlist-runwatch.lock';
+$config['watchlist']['diag_file'] = '/var/log/ocpl/runwatch.log';
+$config['watchlist']['max_sqldata'] = 4096;
+$config['watchlist']['use_logentries'] = true;
+$config['watchlist']['max_logentries'] = 200;
