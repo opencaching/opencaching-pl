@@ -53,6 +53,11 @@ final class OcConfig extends ConfigReader
     private $mailSubjectPrefixForSite;
     private $mailSubjectPrefixForReviewers;
     private $enableCacheAccessLogs;
+    /**
+     * the watchlist configuration array
+     * will be empty array if not found in settings
+     */
+    private $watchlistConfig;
 
     private $dbUser;
     private $dbPass;
@@ -120,6 +125,12 @@ final class OcConfig extends ConfigReader
         }
 
         $this->isGoogleTranslationEnabled = !( isset( $disable_google_translation ) && $disable_google_translation );
+
+        if( isset($config['watchlist']) && is_array( $config['watchlist'] ) ){
+            $this->watchlistConfig = $config['watchlist'];
+        }else{
+            $this->watchlistConfig = array();
+        }
 
         $this->dbHost = $opt['db']['server'];
         $this->dbName = $opt['db']['name'];
@@ -241,6 +252,13 @@ final class OcConfig extends ConfigReader
     public static function mapsConfig()
     {
         return self::instance()->getMapsConfig();
+    }
+
+    /**
+     * @return array watchlist configuration ({@see /lib/settingsDefault.inc.php})
+     */
+    public function watchlistConfig() {
+        return $this->watchlistConfig;
     }
 
     public function getDbUser(){

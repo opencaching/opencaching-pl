@@ -52,6 +52,15 @@ class EmailSender
     }
 
     /**
+     * @return string a default path of directory containing email templates in current style
+     */
+    public static function getDefaultTemplatePath()
+    {
+        global $config;
+        return __DIR__ . '/../../tpl/'.$config['style'].'/email/';
+    }
+
+    /**
      * @param $emailTemplateFile
      * @param $username
      * @param $country
@@ -427,5 +436,196 @@ class EmailSender
         $email->setSubject($subject);
         $email->setBody($formattedMessage->getEmailContent(), true);
         $email->send();
+    }
+
+    /**
+     * Prepares and sends mail with watchlist report according to values of parameters
+     *
+     * @param string $username the name of user to send the mail to
+     * @param string $usermail the email address to send to
+     * @param string $ownerLogs the logs regarding the user own caches
+     * @param string $watchLogs the logs regarding caches watched by user
+     * @param string $emailTemplatePath the directory path where to find the mail template, if null default is used
+     *
+     * @return int sending mail operation status
+     */
+    public static function sendWatchlistMail($username, $usermail, $ownerLogs, $watchLogs, $emailTemplatePath = null)
+    {
+        $subject = tr('runwatch03') . ' ' . OcConfig::getSiteName() . ': ' . date('Y-m-d H:i:s');
+
+        $formattedMessage = new EmailFormatter(($emailTemplatePath != null ? $emailTemplatePath : self::getDefaultTemplatePath()) . 'watchlist.email.html', true);
+        $formattedMessage->addFooterAndHeader($username);
+        $formattedMessage->setVariable('absolute_server_URI', OcConfig::getAbsolute_server_URI());
+        $formattedMessage->setVariable('runwatch01', tr('runwatch01'));
+        $formattedMessage->setVariable('runwatch02', tr('runwatch02'));
+        $formattedMessage->setVariable('runwatch03', tr('runwatch03'));
+        $formattedMessage->setVariable('runwatch04', tr('runwatch04'));
+        $formattedMessage->setVariable('runwatch05', tr('runwatch05'));
+        $formattedMessage->setVariable('runwatch06', tr('runwatch06'));
+        $formattedMessage->setVariable('runwatch07', tr('runwatch07'));
+        $formattedMessage->setVariable('runwatch08', tr('runwatch08'));
+        $formattedMessage->setVariable('runwatch09', tr('runwatch09'));
+        $formattedMessage->setVariable('runwatch10', tr('runwatch10'));
+        $formattedMessage->setVariable('runwatch11', tr('runwatch11'));
+        $formattedMessage->setVariable('runwatch12', tr('runwatch12'));
+        $formattedMessage->setVariable('runwatch13', tr('runwatch13'));
+        $formattedMessage->setVariable('runwatch14', tr('runwatch14'));
+        $formattedMessage->setVariable('emailSign', OcConfig::getOcteamEmailsSignature());
+
+        if ($ownerLogs != '') {
+            $logtexts = $ownerLogs;
+
+            while ((mb_substr($logtexts, -1) == "\n") || (mb_substr($logtexts, -1) == "\r")) {
+                $logtexts = mb_substr($logtexts, 0, mb_strlen($logtexts) - 1);
+            }
+            $formattedMessage->setVariable('ownerlogs', $logtexts);
+            $formattedMessage->setVariable('cachesOwnedDisplay', 'block');
+        } else {
+            $formattedMessage->setVariable('ownerlogs', tr('runwatch15'));
+            $formattedMessage->setVariable('cachesOwnedDisplay', 'none');
+        }
+
+        if ($watchLogs != '') {
+            $logtexts = $watchLogs;
+
+            while ((mb_substr($logtexts, -1) == "\n") || (mb_substr($logtexts, -1) == "\r")) {
+                $logtexts = mb_substr($logtexts, 0, mb_strlen($logtexts) - 1);
+            }
+            $formattedMessage->setVariable('watchlogs', $logtexts);
+            $formattedMessage->setVariable('cachesWatchedDisplay', 'block');
+        } else {
+            $formattedMessage->setVariable('watchlogs', tr('runwatch15'));
+            $formattedMessage->setVariable('cachesWatchedDisplay', 'none');
+        }
+
+        $email = new Email();
+        $email->addToAddr($usermail);
+        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
+        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
+        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
+        $email->setSubject($subject);
+        $email->setBody($formattedMessage->getEmailContent(), true);
+        return $email->send();
+    }
+
+    /**
+     * @return string the source text of template used for watchlist item presentation
+     */
+    public static function prepareWatchlistItemSrc($emailTemplatePath = null)
+    {
+        return file_get_contents(($emailTemplatePath != null ? $emailTemplatePath : self::getDefaultTemplatePath()) . 'watchlist_item.html');
+    }
+
+    /**
+     * Prepares single watchlist item for use in report sent in email
+     *
+     * @param string $logdate date of the cache log
+     * @param string $logger the user who entered log to the cache
+     * @param int $logtype the type of entered log
+     * @param string $wp the waypoint code of the cache
+     * @param string $cachename the name of the cache
+     * @param string $logtext the text entered by user
+     * @param int $recommended if not zero the user has recommended the cache
+     * @param string $srcWatchListItemText the source text of template used for watchlist item, if null default will be used
+     *
+     * @return string prepared watchlist item
+     */
+    public static function prepareWatchlistItem($logdate, $logger, $logtype, $wp, $cachename, $logtext, $recommended, $srcWatchlistItemText = null)
+    {
+        if ($srcWatchlistItemText == null or mb_strlen($srcWatchlistItemText) == 0) {
+            $srcWatchlistItemText = self::prepareWatchlistItemSrc();
+        }
+
+        $text = preg_replace("/<img[^>]+\>/i", "", $logtext);
+
+        $logtypeParams = self::getWatchlistLogtypeParams($logtype);
+        if (isset($logtypeParams['username'])) {
+            $user = $logtypeParams['username'];
+        } else {
+            $user = $logger;
+        }
+
+        if ($recommended != 0 && $logtype == 1) {
+            $rcmd = ' + ' . tr('recommendation');
+        } else {
+            $rcmd = '';
+        }
+
+        $watchlistItemText = mb_ereg_replace('{date}', date('Y-m-d H:i', strtotime($logdate)), $srcWatchlistItemText);
+        $watchlistItemText = mb_ereg_replace('{user}', $user, $watchlistItemText);
+        $watchlistItemText = mb_ereg_replace('{logtypeColor}', $logtypeParams['logtypeColor'], $watchlistItemText);
+        $watchlistItemText = mb_ereg_replace('{logtype}', $logtypeParams['logtype'] . $rcmd, $watchlistItemText);
+        $watchlistItemText = mb_ereg_replace('{wp}', $wp, $watchlistItemText);
+        $watchlistItemText = mb_ereg_replace('{cachename}', $cachename, $watchlistItemText);
+        $watchlistItemText = mb_ereg_replace('{text}', $text, $watchlistItemText);
+        return $watchlistItemText;
+    }
+
+    /**
+     * Prepares a set of parameters corresponding to the given type of log
+     *
+     * @param int $logType the type of log
+     *
+     * @return array prepared parameters
+     */
+    private static function getWatchlistLogtypeParams($logType)
+    {
+        global $COGname;
+
+        switch ($logType) {
+            case '1':
+                $logtypeParams['logtype'] = tr('logType1');
+                $logtypeParams['logtypeColor'] = 'green';
+                break;
+            case '2':
+                $logtypeParams['logtype'] = tr('logType2');
+                $logtypeParams['logtypeColor'] = 'red';
+                break;
+            case '3':
+                $logtypeParams['logtype'] = tr('logType3');
+                $logtypeParams['logtypeColor'] = 'black';
+                break;
+            case '4':
+                $logtypeParams['logtype'] = tr('logType4');
+                $logtypeParams['logtypeColor'] = 'green';
+                break;
+            case '5':
+                $logtypeParams['logtype'] = tr('logType5');
+                $logtypeParams['logtypeColor'] = 'orange';
+                break;
+            case '6':
+                $logtypeParams['logtype'] = tr('logType6');
+                $logtypeParams['logtypeColor'] = 'red';
+                break;
+            case '7':
+                $logtypeParams['logtype'] = tr('logType7');
+                $logtypeParams['logtypeColor'] = 'green';
+                break;
+            case '8':
+                $logtypeParams['logtype'] = tr('logType8');
+                $logtypeParams['logtypeColor'] = 'green';
+                break;
+            case '9':
+                $logtypeParams['logtype'] = tr('logType9');
+                $logtypeParams['logtypeColor'] = 'red';
+                break;
+            case '10':
+                $logtypeParams['logtype'] = tr('logType10');
+                $logtypeParams['logtypeColor'] = 'green';
+                break;
+            case '11':
+                $logtypeParams['logtype'] = tr('logType11');
+                $logtypeParams['logtypeColor'] = 'red';
+                break;
+            case '12':
+                $logtypeParams['logtype'] = tr('logType12');
+                $logtypeParams['username'] = $COGname;
+                $logtypeParams['logtypeColor'] = 'black';
+                break;
+            default:
+                $logtypeParams['logtype'] = "";
+                $logtypeParams['logtypeColor'] = 'black';
+        }
+        return $logtypeParams;
     }
 }

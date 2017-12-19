@@ -1,488 +1,378 @@
 <?php
-/**
- *
- * This script sends emails notification about new logs to cache owner and watchers
- * It should be called from CRON quite often (to not delay messages)
- *
- */
-use Utils\Database\XDb;
-use Utils\Log\Log;
+use Utils\Database\OcDb;
+use Utils\Email\EmailSender;
 use lib\Objects\OcConfig\OcConfig;
+use Utils\Log\Log;
+use Utils\Log\LogEntry;
 
-$rootpath = '../../';
+// TODO: think about better way to set paths and include settings
+$GLOBALS['rootpath'] = "../../";
+require_once($GLOBALS['rootpath'] . 'lib/common.inc.php');
 
-require_once($rootpath . 'lib/common.inc.php');
-
-// Check if another instance of the script is running
-$lock_file = fopen("/tmp/watchlist-runwatch.lock", "w");
-if (!flock($lock_file, LOCK_EX | LOCK_NB)) {
-    // Another instance of the script is running - exit
-    echo "Another instance of runwatch.php is currently running.\nExiting.\n";
-    fclose($lock_file);
-    exit;
-}
-
-// No other instance - do normal processing
-$sDateformat = 'Y-m-d H:i:s';
-$mailsubject = tr('runwatch03') . ' ' . $site_name . ': ' . date('Y-m-d H:i:s');
-$nologs = tr('runwatch15');
-
-$diag_log_file = fopen("/var/log/ocpl/runwatch.log", "a");
-$diag_start_time = microtime(true);
-fprintf($diag_log_file, "start;%s\n", date("Y-m-d H:i:s"));
-
-/* Stage I: Notify
- * - cache owners
- * - cache watchers
- * about new logs in their caches
- */
-$rsNewLogs = XDb::xSql(
-    "SELECT cache_logs.id log_id, caches.user_id user_id, cache_logs.cache_id cache_id
-    FROM cache_logs, caches
-    WHERE cache_logs.deleted=0
-        AND cache_logs.cache_id=caches.cache_id
-        AND cache_logs.owner_notified=0");
-
-while( $rNewLog = XDb::xFetchArray($rsNewLogs) ){
-
-    //foreach cache with new log entry..
-
-    $rNewLog_log_id = $rNewLog['log_id'];
-    $rNewLog_user_id = $rNewLog['user_id'];
-    $rNewLog_cache_id = $rNewLog['cache_id'];
-
-    // Notify owner
-    $rsNotified = XDb::xMultiVariableQueryValue(
-        "SELECT COUNT(`id`) FROM watches_notified
-        WHERE user_id= :1
-            AND object_id= :2
-            AND object_type=1",
-        -1, $rNewLog_user_id, $rNewLog_log_id);
-
-    if ( $rsNotified == 0) {
-
-        XDb::xSql(
-            "INSERT IGNORE INTO `watches_notified` (`user_id`, `object_id`, `object_type`, `date_processed`)
-            VALUES ( ?,  ?, 1, NOW())",
-            $rNewLog_user_id, $rNewLog_log_id);
-
-        process_owner_log($rNewLog_user_id, $rNewLog_log_id);
-    }
-
-    // Notify watchers
-    $rscw = XDb::xSql(
-        "SELECT user_id FROM cache_watches WHERE cache_id = ?", $rNewLog_cache_id);
-
-    while( $rcw = XDb::xFetchArray($rscw) ){
-
-        $rcw_user_id = $rcw['user_id'];
-
-        // check if this notification was send before...
-        $rsNotified = XDb::xMultiVariableQueryValue(
-            "SELECT COUNT(`id`) FROM watches_notified
-            WHERE user_id= :1
-                AND object_id= :2
-                AND object_type=1",
-            -1, $rcw_user_id, $rNewLog_log_id);
-
-        if ( $rsNotified == 0) {
-            XDb::xSql(
-                "INSERT IGNORE INTO `watches_notified` (`user_id`, `object_id`, `object_type`, `date_processed`)
-                VALUES ( ?, ?, 1, NOW())",
-                $rcw_user_id, $rNewLog_log_id);
-
-            process_log_watch($rcw_user_id, $rNewLog_log_id);
-        }
-    }
-    XDb::xFreeResults($rscw);
-
-    XDb::xSql("UPDATE cache_logs SET owner_notified=1 WHERE id= ? LIMIT 1", $rNewLog_log_id);
-}
-
-XDb::xFreeResults($rsNewLogs);
-/* end owner notifies and cache watches */
-
-fprintf($diag_log_file, "after-owner-notifies-cache-watches;%s;%lf\n", date("Y-m-d H:i:s"), microtime(true) - $diag_start_time);
-$diag_start_time = microtime(true);
-
-
-/* Stage II: begin send out everything that has to be sent */
-
-/* Stage IIA: send messages to users who have requested immediate notification */
-
-$currUserID = '';
-$currUserName = '';
-$currUserEMail = '';
-$currUserOwnerLogs = '';
-$currUserWatchLogs = '';
-
-$rsWatchesUsers = XDb::xSql(
-    'SELECT watches_waiting.id AS id, watches_waiting.watchtext AS watchtext, watches_waiting.watchtype AS watchtype,
-            `user`.user_id AS user_id, `user`.username AS username, `user`.email AS email
-    FROM `user`, watches_waiting
-    WHERE `user`.user_id = watches_waiting.user_id
-        AND `user`.watchmail_mode = 1
-    ORDER BY watches_waiting.user_id, watches_waiting.id DESC');
-
-while( $rWatchUser = XDb::xFetchArray($rsWatchesUsers) ){
-
-    if ($currUserID != $rWatchUser['user_id']) {
-        // Time to send all gathered info for the previous user (if any)
-        send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUserEMail, $currUserOwnerLogs, $currUserWatchLogs);
-
-        // After sending e-mail prepare the stage for the next user
-        $currUserID = $rWatchUser['user_id'];
-        $currUserName = $rWatchUser['username'];
-        $currUserEMail = $rWatchUser['email'];
-        $currUserOwnerLogs = '';
-        $currUserWatchLogs = '';
-    }
-
-    if ($rWatchUser['watchtype'] == '1') {
-        $currUserOwnerLogs .= $rWatchUser['watchtext'];
-    }
-    if ($rWatchUser['watchtype'] == '2') {
-        $currUserWatchLogs .= $rWatchUser['watchtext'];
-    }
-}
-XDb::xFreeResults($rsWatchesUsers);
-
-// Send all gathered info for the last user (if any)
-send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUserEMail, $currUserOwnerLogs, $currUserWatchLogs);
-
-
-/* Stage IIB: check/send messages to users who have requested daily/weekly notification */
-
-$rsUsers = XDb::xSql(
-    'SELECT user_id, username, email, watchmail_mode, watchmail_hour, watchmail_day, watchmail_nextmail
-    FROM `user` WHERE watchmail_mode IN (0, 2) AND watchmail_nextmail < NOW()');
-
-while( $rUser = XDb::xFetchArray($rsUsers) ){
-
-    if ($rUser['watchmail_nextmail'] != '0000-00-00 00:00:00') {
-
-        $r['count'] = XDb::xMultiVariableQueryValue(
-            "SELECT COUNT(*) count FROM watches_waiting WHERE user_id= :1 ", 0, $rUser['user_id']);
-
-        if ($r['count'] > 0) {
-            $currUserID = $rUser['user_id'];
-            $currUserName = $rUser['username'];
-            $currUserEMail = $rUser['email'];
-            $currUserOwnerLogs = '';
-            $currUserWatchLogs = '';
-
-            $rsWatchesOwner = XDb::xSql(
-                "SELECT id, watchtext FROM watches_waiting
-                WHERE user_id= ? AND watchtype=1
-                ORDER BY id DESC", $rUser['user_id']);
-
-            while( $rWatch = XDb::xFetchArray($rsWatchesOwner) ){
-                $currUserOwnerLogs .= $rWatch['watchtext'];
-            }
-            XDb::xFreeResults($rsWatchesOwner);
-
-            $rsWatchesLog = XDb::xSql(
-                "SELECT id, watchtext FROM watches_waiting
-                WHERE user_id= ? AND watchtype=2
-                ORDER BY id DESC",
-                $rUser['user_id']);
-
-            while ( $rWatch = XDb::xFetchArray($rsWatchesLog) ){
-                $currUserWatchLogs .= $rWatch['watchtext'];
-            }
-
-            // send mail
-            send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUserEMail, $currUserOwnerLogs, $currUserWatchLogs);
-        }
-    }
-
-    if ($rUser['watchmail_mode'] == 0)
-        $nextmail = date($sDateformat, mktime($rUser['watchmail_hour'], 0, 0, date('n'), date('j') + 1, date('Y')));
-    elseif ($rUser['watchmail_mode'] == 2) {
-        $weekday = date('w');
-
-        if ($weekday == 0){
-            $weekday = 7;
-        }
-
-        if ($weekday >= $rUser['watchmail_day']){
-            // We are on or after specified day in the week - next run should be next week
-            $nextmail = date($sDateformat, mktime($rUser['watchmail_hour'], 0, 0, date('n'), date('j') - $weekday + $rUser['watchmail_day'] + 7, date('Y')));
-        } else {
-            // We are still before specified day in the week - next run should be this week
-            $nextmail = date($sDateformat, mktime($rUser['watchmail_hour'], 0, 0, date('n'), date('j') - $weekday + $rUser['watchmail_day'] + 0, date('Y')));
-        }
-    }
-
-    XDb::xSql("UPDATE user SET watchmail_nextmail= ? WHERE user_id= ? LIMIT 1", $nextmail, $rUser['user_id']);
-}
-XDb::xFreeResults($rsUsers);
-
-/* end send out everything that has to be sent */
-
-
-fprintf($diag_log_file, "after-send-out;%s;%lf\n", date("Y-m-d H:i:s"), microtime(true) - $diag_start_time);
-$diag_start_time = microtime(true);
-fclose($diag_log_file);
-
-// Release lock
-fclose($lock_file);
+WatchlistCronJobController::run();
 
 /**
- * This function prepares message to cache owner about new log entry
- * @param unknown $user_id
- * @param unknown $log_id
+ * Purposes of this class:
+ *  - prepare and send reports for watched caches as well as the owned ones
+ *  - update next timedate scheduled for sending reports
+ *
  */
-function process_owner_log($user_id, $log_id)
+class WatchlistCronJobController
 {
-    $rsLog = XDb::xSql(
-        "SELECT cache_logs.cache_id cache_id, cache_logs.text text,
-                cache_logs.date logdate, user.username username, user.hidden_count ch, user.founds_count cf,
-                user.notfounds_count cn, caches.wp_oc wp,caches.name cachename, cache_logs.type type,
-                IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
-        FROM `cache_logs`
-            LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id`
-            AND `cache_logs`.`user_id`=`cache_rating`.`user_id`, `user`, `caches`
-        WHERE `cache_logs`.`deleted`=0 AND (cache_logs.user_id = user.user_id)
-            AND (cache_logs.cache_id = caches.cache_id)
-            AND (cache_logs.id = ? )
-        LIMIT 1", $log_id);
+    /**
+     * Current class instance in singleton pattern
+     */
+    private static $instance;
 
-    $rLog = XDb::xFetchArray($rsLog);
-    XDb::xFreeResults($rsLog);
+    /**
+     * SQL query used for retrieving new logs and their watchers at once
+     */
+    private static $newLogsSql =
+        "SELECT cl.id log_id, c.user_id owner_id, cl.cache_id cache_id, cl.text text, u.username logger,
+            c.wp_oc wp, c.name cachename, cl.type type, cl.date logdate, cw.user_id watcher_id,
+            IF(ISNULL(cr.cache_id), 0, 1) AS recommended
+         FROM user u, caches c, cache_logs cl
+              LEFT OUTER JOIN(cache_rating cr) ON (cl.cache_id=cr.cache_id AND cl.user_id=cr.user_id)
+              LEFT OUTER JOIN(cache_watches cw) ON (cw.cache_id=cl.cache_id)
+              LEFT OUTER JOIN(watches_notified wn) ON (wn.user_id=cw.user_id AND wn.object_id=cl.id AND wn.object_type=1)
+         WHERE cl.cache_id=c.cache_id AND u.user_id = cl.user_id AND cl.deleted=0 AND cl.owner_notified=0 AND wn.id IS NULL
+         ORDER BY log_id, cache_id, watcher_id";
 
-//    $userActivity = $rLog['ch'] + $rLog['cf'] + $rLog['cn'];
-    $watchtext = file_get_contents(dirname(__FILE__) . '/item.email.html');
-    $logtext = $rLog['text'];
-    $logtext = preg_replace("/<img[^>]+\>/i", "", $logtext);
+    /**
+     * SQL query used for retrieving watchers and waiting watches at once
+     */
+    private static $watchToSendSql =
+        "SELECT u.user_id user_id, u.username username, u.email email, u.watchmail_mode watchmail_mode, u.watchmail_hour watchmail_hour,
+            u.watchmail_day watchmail_day, u.watchmail_nextmail watchmail_nextmail, ww.watchtext watchtext, ww.watchtype watchtype
+         FROM user u LEFT OUTER JOIN (watches_waiting ww) ON (ww.user_id = u.user_id)
+         WHERE (u.watchmail_mode = 1 AND ww.id IS NOT NULL) OR (u.watchmail_mode IN (0, 2) AND u.watchmail_nextmail < NOW())
+         ORDER BY u.user_id, ww.id DESC";
 
-    $logtypeParams = getLogtypeParams($rLog['type']);
-    if (isset($logtypeParams['username'])) {
-        $rLog['username'] = $logtypeParams['username'];
+    /**
+     * SQL query used for insert data into watches_waiting - starting part
+     */
+    private static $watchWaitingSql = "INSERT IGNORE INTO watches_waiting (user_id, object_id, object_type, date_added, watchtext, watchtype) VALUES";
+    /**
+     * SQL query used for insert data into watches_notified - starting part
+     */
+    private static $watchNotifySql = "INSERT IGNORE INTO watches_notified (user_id, object_id, object_type, date_processed) VALUES";
+    /**
+     * SQL query used for updating owner_notified in cache_logs - starting part
+     */
+    private static $ownerNotifiedSql = "UPDATE cache_logs SET owner_notified=1 WHERE id IN (";
+    /**
+     * SQL query used for deleting rows by user_id from watches_waiting - starting part
+     */
+    private static $watchWaitingDelSql = "DELETE FROM watches_waiting WHERE watchtype IN (1, 2) AND user_id IN (";
+    /**
+     * SQL query used for updating nextmail for user_id in user - starting part
+     */
+    private static $nextmailUpdateSql = "INSERT IGNORE INTO user (user_id, watchmail_nextmail) VALUES";
+    /**
+     * SQL query used for updating nextmail for user_id in user - final part
+     */
+    private static $nextmailUpdateSqlSuffix = " ON DUPLICATE KEY UPDATE watchmail_nextmail=VALUES(watchmail_nextmail)";
+
+    /**
+     * Maximum size of data string for insert/update queries, defined in settings, default value 4096
+     */
+    private $maxDataSize;
+    /**
+     * Maximum size of LogEntry array before it is passed to database, defined in settings, default value 200
+     */
+    private $maxLogEntries;
+    /**
+     * If true, logentries are generated during processing
+     */
+    private $generateLockEntries;
+    /**
+     * Date format, compatible with SQL queries (can be refactored to static)
+     */
+    private $dateFormat;
+    /**
+     * Source text for log report item, the same for each log; initialized as an atrribute in purpose to load it only once
+     */
+    private $srcWatchListItemText;
+    /**
+     * OcDb instance
+     */
+    private $db;
+    /**
+     * Diagnosis log file handle
+     */
+    private $diagLogFile;
+    /**
+     * Diagnosis stage starting time, used for time measurement
+     */
+    private $diagStartTime;
+    /**
+     * Data string for delete watches_waiting, promoted to class level to share between methods
+     */
+    private $watchWaitingDeletes;
+    /**
+     * Data string for update nextmail, promoted to class level to share between methods
+     */
+    private $nextmailUpdates;
+    /**
+     * LogEntry array for watchlist event 2, promoted to class level to share between methods
+     */
+    private $sendLogEntries;
+
+    /**
+     * The only public entry to the class, performs the whole process
+     */
+    public static function run()
+    {
+        $watchlistConfig = OcConfig::instance()->watchlistConfig();
+        $lockFile = null;
+        $lockFilePath = isset($watchlistConfig['lock_file'])?$watchlistConfig['lock_file']:'/tmp/watchlist-runwatch.lock';
+        if (mb_strlen($lockFilePath) > 0) {
+            $lockFile = fopen($lockFilePath, "w");
+            if (!flock($lockFile, LOCK_EX | LOCK_NB)) {
+                // Another instance of the script is running - exit
+                echo "Another instance of ".basename(__FILE__)." is currently running.\nExiting.\n";
+                fclose($lockFile);
+                return;
+            }
+        }
+        if (self::$instance == null) {
+            self::$instance = new WatchlistCronJobController($watchlistConfig);
+        }
+        $instance = self::$instance;
+        $instance->processNewLogs();
+        $instance->processWaitingAndWatchers();
+
+        if ($lockFile != null) {
+            fclose($lockFile);
+        }
     }
 
-    if ($rLog['recommended'] != 0 && $rLog['type'] == 1) {
-        $recommended = ' + ' . tr('recommendation');
-    } else {
-        $recommended = '';
+    /**
+     * Private constructor - singleton pattern
+     *
+     * @param array $watchlistConfig the config array, defined in settings ({@see /lib/settingsDefault.inc.php})
+     */
+    private function __construct(array $watchlistConfig)
+    {
+        $this->maxDataSize = !empty($watchlistConfig['max_sqldata'])?intval($watchlistConfig['max_sqldata']):4096;
+        $this->generateLogEntries = !empty($watchlistConfig['use_logentries'])?$watchlistConfig['use_logentries']:false;
+        $this->maxLogEntries = !empty($watchlistConfig['max_logentries'])?intval($watchlistConfig['max_logentries']):200;
+        $this->dateFormat = 'Y-m-d H:i:s';
+        $this->srcWatchlistItemText = EmailSender::prepareWatchlistItemSrc();
+        $this->srcWatchlistItemText = mb_ereg_replace('{absolute_server_URI}', OcConfig::instance()->getAbsolute_server_URI(), $this->srcWatchlistItemText);
+        $this->db = OcDb::instance();
+        $diagFilePath = isset($watchlistConfig['diag_file'])?$watchlistConfig['diag_file']:'/var/log/ocpl/runwatch.log';
+        if (mb_strlen($diagFilePath) > 0) {
+            $this->diagLogFile = fopen($diagFilePath, "a");
+        }
+        $this->watchWaitingDeletes = "";
+        $this->nextmailUpdates = "";
+        $this->sendLogEntries = array();
     }
-    $watchtext = mb_ereg_replace('{date}', date('Y-m-d H:i', strtotime($rLog['logdate'])), $watchtext);
-    $watchtext = mb_ereg_replace('{wp}', $rLog['wp'], $watchtext);
-    $watchtext = mb_ereg_replace('{text}', $logtext, $watchtext);
-    $watchtext = mb_ereg_replace('{user}', $rLog['username'], $watchtext);
-    $watchtext = mb_ereg_replace('{logtype}', $logtypeParams['logtype'] . $recommended, $watchtext);
-    $watchtext = mb_ereg_replace('{cachename}', $rLog['cachename'], $watchtext);
-    $watchtext = mb_ereg_replace('{logtypeColor}', $logtypeParams['logtypeColor'], $watchtext);
-    $watchtext = mb_ereg_replace('{runwatch01}', tr('runwatch01'), $watchtext);
-    $watchtext = mb_ereg_replace('{runwatch02}', tr('runwatch02'), $watchtext);
-    $watchtext = mb_ereg_replace('{absolute_server_URI}', OcConfig::instance()->getAbsolute_server_URI(), $watchtext);
-    $watchtext = mb_ereg_replace('{emailSign}', OcConfig::instance()->getOcteamEmailsSignature(), $watchtext);
-//    $watchtext = mb_ereg_replace('{userActivity}', $userActivity, $watchtext);
 
-    XDb::xSql(
-        "INSERT IGNORE INTO watches_waiting (`user_id`, `object_id`, `object_type`, `date_added`, `watchtext`, `watchtype`)
-        VALUES ( ?, ?, 1, NOW(), ?, 1)",
-        $user_id, $log_id, $watchtext);
+    /**
+     * Stage I - retrieves new logs, prepares text items for each, stores them in watches_waiting,
+     * inserts notifications to watches_notified table and updates owner_notified
+     */
+    private function processNewLogs()
+    {
+        if ($this->diagLogFile != null) {
+            $this->diagStartTime = microtime(true);
+            fprintf($this->diagLogFile, "start;%s\n", date($this->dateFormat));
+        }
+        $newLogs = $this->db->query(self::$newLogsSql);
+        if ($newLogs) {
+            $logEntries = array();
+            $watchWaitingInserts="";
+            $watchNotifyInserts="";
+            $ownerNotifiedUpdates="";
+            $currentLogId = -1;
+            foreach ($newLogs as $row) {
+                $resultWatchText = EmailSender::prepareWatchlistItem(
+                    $row["logdate"], $row["logger"], $row["type"], $row["wp"], $row["cachename"], $row["text"], $row["recommended"],
+                    $this->srcWatchlistItemText);
+                if ($currentLogId != $row["log_id"]) {
+                    $now = date($this->dateFormat);
 
-    Log::logentry('watchlist', 1, $user_id, $log_id, 0, $watchtext, array());
+                    $watchWaitingInserts = $this->processBulkSql(
+                        self::$watchWaitingSql, $watchWaitingInserts, "",
+                        "(".intval($row["owner_id"]).",".intval($row["log_id"]).",1,".$this->db->quote($now).",". $this->db->quote($resultWatchText).",1)",
+                        $this->maxDataSize);
+
+                    $watchNotifyInserts = $this->processBulkSql(
+                        self::$watchNotifySql, $watchNotifyInserts, "",
+                        "(".intval($row["owner_id"]).",".intval($row["log_id"]).",1,".$this->db->quote($now).")",
+                        $this->maxDataSize);
+
+                    $ownerNotifiedUpdates = $this->processBulkSql(self::$ownerNotifiedSql, $ownerNotifiedUpdates, ")", "".intval($row["log_id"]), $this->maxDataSize);
+                    if ($this->generateLogEntries) {
+                        array_push($logEntries, new LogEntry('watchlist', 1, $row["owner_id"], $row["log_id"], 0, $resultWatchText, array(), $now));
+                        if (sizeof($logEntries) > $this->maxLogEntries) {
+                            Log::logentries($logEntries);
+                            $logEntries = array();
+                        }
+                    }
+                    $currentLogId = $row["log_id"];
+                }
+                if ($row["watcher_id"] != null) {
+                    $now = date($this->dateFormat);
+
+                    $watchWaitingInserts = $this->processBulkSql(
+                        self::$watchWaitingSql, $watchWaitingInserts, "",
+                        "(".intval($row["watcher_id"]).",".intval($row["log_id"]).",1,".$this->db->quote($now).",".$this->db->quote($resultWatchText).",2)",
+                        $this->maxDataSize);
+
+                    $watchNotifyInserts = $this->processBulkSql(
+                        self::$watchNotifySql, $watchNotifyInserts, "",
+                        "(".intval($row["watcher_id"]).",".intval($row["log_id"]).",1,".$this->db->quote($now).")",
+                        $this->maxDataSize);
+                }
+            }
+            $newLogs->closeCursor();
+            $this->processBulkSql(self::$watchWaitingSql, $watchWaitingInserts, "", "", 0);
+            $this->processBulkSql(self::$watchNotifySql, $watchNotifyInserts, "", "", 0);
+            $this->processBulkSql(self::$ownerNotifiedSql, $ownerNotifiedUpdates, ")", "", 0);
+            if ($this->generateLogEntries && sizeof($logEntries) > 0) {
+                Log::logentries($logEntries);
+            }
+        }
+        if ($this->diagLogFile != null) {
+            fprintf($this->diagLogFile, "after-owner-notifies-cache-watches;%s;%lf\n", date("Y-m-d H:i:s"), microtime(true) - $this->diagStartTime);
+            $this->diagStartTime = microtime(true);
+        }
+    }
+
+    /**
+     * Stage II - retrieves items waiting to send, groups them in owwer and watch list,
+     * calls processWatchUser to perform sending mail
+     */
+    private function processWaitingAndWatchers()
+    {
+        $watchToSend = $this->db->query(self::$watchToSendSql);
+        if ($watchToSend) {
+            $currentUserId = -1;
+            $currentUsername = "";
+            $currentUsermail = "";
+            $currentWatchmailMode = "";
+            $currentWatchmailHour = "";
+            $currentWatchmailDay = "";
+            $currentWatchmailNextMail = "";
+            $ownerLogs = "";
+            $watchLogs = "";
+            foreach ($watchToSend as $row) {
+                if ($currentUserId != $row["user_id"]) {
+                    $this->processWatchUser(
+                        $currentUserId, $currentUsername, $currentUsermail, $currentWatchmailMode,
+                        $currentWatchmailHour, $currentWatchmailDay, $ownerLogs, $watchLogs);
+
+                    $currentUserId = $row["user_id"];
+                    $currentUsername = $row["username"];
+                    $currentUsermail = $row["email"];
+                    $currentWatchmailMode = $row['watchmail_mode'];
+                    $currentWatchmailHour = $row['watchmail_hour'];
+                    $currentWatchmailDay = $row['watchmail_day'];
+                    $currentWatchmailNextMail = $row['watchmail_nextmail'];
+                    $ownerLogs = "";
+                    $watchLogs = "";
+                }
+                if ($row['watchtext'] != null && ($currentWatchmailMode == 1 || $currentWatchmailNextMail != '0000-00-00 00:00:00')) {
+                    if ($row["watchtype"] == 1) {
+                        $ownerLogs .= $row["watchtext"];
+                    } elseif ($row["watchtype"] == 2) {
+                        $watchLogs .= $row["watchtext"];
+                    }
+                }
+            }
+            $watchToSend->closeCursor();
+            if ($currentUserId >= 0) {
+                $this->processWatchUser(
+                    $currentUserId, $currentUsername, $currentUsermail, $currentWatchmailMode,
+                    $currentWatchmailHour, $currentWatchmailDay, $ownerLogs, $watchLogs);
+            }
+            $this->processBulkSql(self::$watchWaitingDelSql, $this->watchWaitingDeletes, ")", "", 0);
+            $this->processBulkSql(self::$nextmailUpdateSql, $this->nextmailUpdates, self::$nextmailUpdateSqlSuffix, "", 0);
+            if ($this->generateLogEntries && sizeof($this->sendLogEntries) > 0) {
+                Log::logentries($this->sendLogEntries);
+            }
+        }
+        if ($this->diagLogFile !=null) {
+            fprintf($this->diagLogFile, "after-send-out;%s;%lf\n", date("Y-m-d H:i:s"), microtime(true) - $this->diagStartTime);
+            fclose($this->diagLogFile);
+        }
+    }
+
+    /**
+     * Commisions sending email to single user either/or computes new nextmail datetime if applicable
+     *
+     * @param int $userid the id of processed user
+     * @param string $username the processed user name
+     * @param string $usermail the mail of processed user
+     * @param int $watchmailMode the mode of periodic sending mail to user
+     * @param int $watchmailHour the hour to send mail to user if applicable
+     * @param int $watchmailDay the week day to send mail to user if applicable
+     * @param string $ownerLogs the logs regarding the user own caches
+     * @param string $watchLogs the logs regarding caches watched by user
+     */
+    private function processWatchUser($userid, $username, $usermail, $watchmailMode, $watchmailHour, $watchmailDay, $ownerLogs, $watchLogs)
+    {
+        if (mb_strlen($ownerLogs) > 0 || mb_strlen($watchLogs) > 0) {
+            $now = date($this->dateFormat);
+            $status = EmailSender::sendWatchlistMail($username, $usermail, $ownerLogs, $watchLogs);
+            $this->watchWaitingDeletes = $this->processBulkSql(self::$watchWaitingDelSql, $this->watchWaitingDeletes, ")", $userid, $this->maxDataSize);
+            if ($this->generateLogEntries) {
+                array_push($this->sendLogEntries, new LogEntry('watchlist', 2, $userid, 0, 0, 'Sending mail to ' . $usermail, array('status' => $status), $now));
+                if (sizeof($this->sendLogEntries) > $this->maxLogEntries) {
+                    Log::logentries($this->sendLogEntries);
+                    $this->sendLogEntries = array();
+                }
+            }
+        }
+        if ($userid >= 0 && ($watchmailMode == 0 || $watchmailMode == 2)) {
+            if ($watchmailMode == 0) {
+                $nextmail = date($this->dateFormat, mktime($watchmailHour, 0, 0, date('n'), date('j') + 1, date('Y')));
+            } elseif ($watchmailMode == 2) {
+                $weekday = date('w');
+                if ($weekday == 0){
+                    $weekday = 7;
+                }
+                if ($weekday >= $watchmailDay) {
+                    // We are on or after specified day in the week - next run should be next week
+                    $nextmail = date($this->dateFormat, mktime($watchmailHour, 0, 0, date('n'), date('j') - $weekday + $watchmailDay + 7, date('Y')));
+                } else {
+                    // We are still before specified day in the week - next run should be this week
+                    $nextmail = date($this->dateFormat, mktime($watchmailHour, 0, 0, date('n'), date('j') - $weekday + $watchmailDay + 0, date('Y')));
+                }
+            }
+            $this->nextmailUpdates = $this->processBulkSql(
+                self::$nextmailUpdateSql, $this->nextmailUpdates, self::$nextmailUpdateSqlSuffix,
+                "(".intval($userid).",".$this->db->quote($nextmail).")", $this->maxDataSize);
+        }
+    }
+
+    /**
+     * Builds SQL data string and executes the bulk query if data string size exceeds maxDataSize
+     *
+     * @param string $sqlPrefix starting part of SQL query to execute
+     * @param string $sqlDataString current SQL data string contents
+     * @param string $sqlSuffix final part of SQL query to execute
+     * @param string $sqlEntry the data to compose with existing SQL data string
+     * @param int $maxDataSize maximum size of resulting SQL data string, when exceeded the query is executed
+     *
+     * @return string the resulting SQL data string for future use, may be empty if query has been executed
+     */
+    private function processBulkSql($sqlPrefix, $sqlDataString, $sqlSuffix, $sqlEntry, $maxDataSize)
+    {
+        if (mb_strlen($sqlEntry) > 0) {
+            if (mb_strlen($sqlDataString) > 0) {
+                $sqlDataString .= ",";
+            }
+            $sqlDataString .= $sqlEntry;
+        }
+        if (mb_strlen($sqlDataString) > $maxDataSize) {
+            $this->db->exec($sqlPrefix.$sqlDataString.$sqlSuffix);
+            $sqlDataString = "";
+        }
+        return $sqlDataString;
+    }
+
 }
-
-/**
- * This function prepares message to text watcher about new log entry
- * @param unknown $user_id
- * @param unknown $log_id
- */
-function process_log_watch($user_id, $log_id)
-{
-    $rsLog = XDb::xSql(
-        "SELECT cache_logs.cache_id cache_id, cache_logs.text text,
-                cache_logs.date logdate, user.username username, user.hidden_count ch, user.founds_count cf,
-                user.notfounds_count cn, caches.wp_oc wp,caches.name cachename, cache_logs.type type,
-                IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
-        FROM `cache_logs`
-            LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id`
-            AND `cache_logs`.`user_id`=`cache_rating`.`user_id`, `user`, `caches`
-        WHERE `cache_logs`.`deleted`=0 AND (cache_logs.user_id = user.user_id)
-            AND (cache_logs.cache_id = caches.cache_id)
-            AND (cache_logs.id = ?)
-        LIMIT 1", $log_id);
-
-    $rLog = XDb::xFetchArray($rsLog);
-    XDb::xFreeResults($rsLog);
-
-    $logtypeParams = getLogtypeParams($rLog['type']);
-    if (isset($logtypeParams['username'])) {
-        $rLog['username'] = $logtypeParams['username'];
-    }
-
-    if ($rLog['recommended'] != 0 && $rLog['type'] == 1) {
-        $recommended = ' + ' . tr('recommendation');
-    } else {
-        $recommended = '';
-    }
-
-    $watchtext = file_get_contents(dirname(__FILE__) . '/item.email.html');
-    $logtext = $rLog['text'];
-
-    $logtext = preg_replace("/<img[^>]+\>/i", "", $logtext);
-
-    $watchtext = mb_ereg_replace('{date}', date('Y-m-d H:i', strtotime($rLog['logdate'])), $watchtext);
-    $watchtext = mb_ereg_replace('{wp}', $rLog['wp'], $watchtext);
-    $watchtext = mb_ereg_replace('{text}', $logtext, $watchtext);
-    $watchtext = mb_ereg_replace('{user}', $rLog['username'], $watchtext);
-    $watchtext = mb_ereg_replace('{logtype}', $logtypeParams['logtype'] . $recommended, $watchtext);
-    $watchtext = mb_ereg_replace('{cachename}', $rLog['cachename'], $watchtext);
-    $watchtext = mb_ereg_replace('{logtypeColor}', $logtypeParams['logtypeColor'], $watchtext);
-    $watchtext = mb_ereg_replace('{runwatch02}', tr('runwatch02'), $watchtext);
-    $watchtext = mb_ereg_replace('{absolute_server_URI}', OcConfig::instance()->getAbsolute_server_URI(), $watchtext);
-//    $watchtext = mb_ereg_replace('{userActivity}', $userActivity, $watchtext);
-
-    XDb::xSql(
-        "INSERT IGNORE INTO watches_waiting (`user_id`, `object_id`, `object_type`, `date_added`, `watchtext`, `watchtype`)
-        VALUES (?, ?, 1, NOW(), ?, 2)",
-        $user_id, $log_id, $watchtext);
-}
-
-function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUserEMail, $currUserOwnerLogs, $currUserWatchLogs)
-{
-    global $nologs, $watchlistMailfrom, $mailsubject;
-
-    if ($currUserID == '')
-        return;
-
-    $email_headers = 'MIME-Version: 1.0' . "\r\n";
-    $email_headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-    $email_headers .= 'From: "' . $watchlistMailfrom . '" <' . $watchlistMailfrom . '>';
-
-    $mailbody = file_get_contents(dirname(__FILE__) . '/watchlist.email.html');
-    $mailbody = mb_ereg_replace('{username}', $currUserName, $mailbody);
-    $mailbody = mb_ereg_replace('{absolute_server_URI}', OcConfig::instance()->getAbsolute_server_URI(), $mailbody);
-    $mailbody = mb_ereg_replace('{header_logo}', OcConfig::instance()->getHeaderLogo(), $mailbody);
-    $mailbody = mb_ereg_replace('{site_name}', OcConfig::instance()->getSiteName(), $mailbody);
-
-    if ($currUserOwnerLogs != '') {
-        $logtexts = $currUserOwnerLogs;
-
-        while ((mb_substr($logtexts, -1) == "\n") || (mb_substr($logtexts, -1) == "\r"))
-            $logtexts = mb_substr($logtexts, 0, mb_strlen($logtexts) - 1);
-
-        $mailbody = mb_ereg_replace('{ownerlogs}', $logtexts, $mailbody);
-        $mailbody = mb_ereg_replace('{cachesOwnedDisplay}', 'block', $mailbody);
-    } else {
-        $mailbody = mb_ereg_replace('{ownerlogs}', $nologs, $mailbody);
-        $mailbody = mb_ereg_replace('{cachesOwnedDisplay}', 'none', $mailbody);
-    }
-
-    if ($currUserWatchLogs != '') {
-        $logtexts = $currUserWatchLogs;
-
-        while ((mb_substr($logtexts, -1) == "\n") || (mb_substr($logtexts, -1) == "\r"))
-            $logtexts = mb_substr($logtexts, 0, mb_strlen($logtexts) - 1);
-
-        $mailbody = mb_ereg_replace('{watchlogs}', $logtexts, $mailbody);
-        $mailbody = mb_ereg_replace('{cachesWatchedDisplay}', 'block', $mailbody);
-    } else {
-        $mailbody = mb_ereg_replace('{watchlogs}', $nologs, $mailbody);
-        $mailbody = mb_ereg_replace('{cachesWatchedDisplay}', 'none', $mailbody);
-    }
-
-    $mailbody = mb_ereg_replace('{runwatch01}', tr('runwatch01'), $mailbody);
-    $mailbody = mb_ereg_replace('{runwatch02}', tr('runwatch02'), $mailbody);
-    $mailbody = mb_ereg_replace('{runwatch03}', tr('runwatch03'), $mailbody);
-    $mailbody = mb_ereg_replace('{runwatch04}', tr('runwatch04'), $mailbody);
-    $mailbody = mb_ereg_replace('{runwatch05}', tr('runwatch05'), $mailbody);
-    $mailbody = mb_ereg_replace('{runwatch06}', tr('runwatch06'), $mailbody);
-    $mailbody = mb_ereg_replace('{runwatch07}', tr('runwatch07'), $mailbody);
-    $mailbody = mb_ereg_replace('{runwatch08}', tr('runwatch08'), $mailbody);
-    $mailbody = mb_ereg_replace('{runwatch09}', tr('runwatch09'), $mailbody);
-    $mailbody = mb_ereg_replace('{runwatch10}', tr('runwatch10'), $mailbody);
-    $mailbody = mb_ereg_replace('{runwatch11}', tr('runwatch11'), $mailbody);
-    $mailbody = mb_ereg_replace('{runwatch12}', tr('runwatch12'), $mailbody);
-    $mailbody = mb_ereg_replace('{runwatch13}', tr('runwatch13'), $mailbody);
-    $mailbody = mb_ereg_replace('{runwatch14}', tr('runwatch14'), $mailbody);
-    $mailbody = mb_ereg_replace('{emailSign}', OcConfig::instance()->getOcteamEmailsSignature(), $mailbody);
-
-
-    $mailadr = $currUserEMail;
-
-    // $mailbody;
-    $status = mb_send_mail($mailadr, $mailsubject, $mailbody, $email_headers);
-    if(!$status){
-        error_log(__FILE__.':'.__LINE__.': Mail sending failure: to:'.$mailadr);
-    }
-    Log::logentry('watchlist', 2, $currUserID, 0, 0, 'Sending mail to ' . $mailadr, array('status' => $status));
-
-    XDb::xSql("DELETE FROM watches_waiting WHERE user_id= ? AND watchtype IN (1, 2)", $currUserID);
-}
-
-function getLogtypeParams($logType)
-{
-    global $COGname;
-
-    switch ($logType) {
-        case '1':
-            $logtypeParams['logtype'] = tr('logType1');
-            $logtypeParams['logtypeColor'] = 'green';
-            break;
-        case '2':
-            $logtypeParams['logtype'] = tr('logType2');
-            $logtypeParams['logtypeColor'] = 'red';
-            break;
-        case '3':
-            $logtypeParams['logtype'] = tr('logType3');
-            $logtypeParams['logtypeColor'] = 'black';
-            break;
-        case '4':
-            $logtypeParams['logtype'] = tr('logType4');
-            ;
-            $logtypeParams['logtypeColor'] = 'green';
-            break;
-        case '5':
-            $logtypeParams['logtype'] = tr('logType5');
-            ;
-            $logtypeParams['logtypeColor'] = 'orange';
-            break;
-        case '6':
-            $logtypeParams['logtype'] = tr('logType6');
-            ;
-            $logtypeParams['logtypeColor'] = 'red';
-            break;
-        case '7':
-            $logtypeParams['logtype'] = tr('logType7');
-            ;
-            $logtypeParams['logtypeColor'] = 'green';
-            break;
-        case '8':
-            $logtypeParams['logtype'] = tr('logType8');
-            ;
-            $logtypeParams['logtypeColor'] = 'green';
-            break;
-        case '9':
-            $logtypeParams['logtype'] = tr('logType9');
-            ;
-            $logtypeParams['logtypeColor'] = 'red';
-            break;
-        case '10':
-            $logtypeParams['logtype'] = tr('logType10');
-            ;
-            $logtypeParams['logtypeColor'] = 'green';
-            break;
-        case '11':
-            $logtypeParams['logtype'] = tr('logType11');
-            ;
-            $logtypeParams['logtypeColor'] = 'red';
-            break;
-        case '12':
-            $logtypeParams['logtype'] = tr('logType12');
-            ;
-            $logtypeParams['username'] = $COGname;
-            $logtypeParams['logtypeColor'] = 'black';
-            break;
-        default:
-            $logtypeParams['logtype'] = "";
-            $logtypeParams['logtypeColor'] = 'black';
-    }
-    return $logtypeParams;
-}
-
-
