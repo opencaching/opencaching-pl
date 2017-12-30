@@ -1877,7 +1877,6 @@ $translations = array(
     'pt134' => 'Comment date (entered by the user)',
     'pt135' => 'Cachers have wasted total cache-days',
     'pt136' => 'geographical center of geoPath',
-    'startPage_promotedCacheSet' => 'geoPath of the day',
     'pt138' => 'caches',
     'pt139' => 'geoPath',
     'pt140' => 'Number of points in the geoPath category',

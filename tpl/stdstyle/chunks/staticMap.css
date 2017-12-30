@@ -1,0 +1,51 @@
+
+
+.cssStaticMapMarker .circle {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 20px;
+}
+
+.cssStaticMapMarker .circleBorder {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 14px;
+  height: 14px;
+  background-color: black;
+  border-radius: 20px;
+}
+
+.cssStaticMapMarker .triangleBorder {
+  position: absolute;
+  width: 0; 
+  height: 0;
+  top: 11px;
+  left:2px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 14px solid black;
+
+}
+
+.cssStaticMapMarker .triangle {
+  position: absolute;
+  width: 0; 
+  height: 0;
+  top: 11px;
+  left:4px;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  /*border-top: 9px solid red;*/
+  border-top-style: solid;
+  border-top-width: 9px;
+}
+
+.cssStaticMapMarker{
+  position: absolute;
+}
+
+

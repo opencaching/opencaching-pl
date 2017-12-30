@@ -7,18 +7,16 @@
   <?php } //if-isUserLogged ?>
 </div>
 
+
 <div class="content2-container">
 
-
     <?php if(!$view->isUserLogged) { ?>
-      <!-- INTRO -->
+      <!-- intro -->
       <div id="intro">
         <?=$view->introText?>
       </div>
-      <!-- /INTRO -->
+      <!-- /intro -->
     <?php } //if-isUserLogged ?>
-
-
 
 
     <?php if($view->isUserLogged && !empty($view->newsList)){ ?>
@@ -49,100 +47,89 @@
           </div>
         <?php } //foreach-newsList ?>
     </div>
-    <!-- /NEWS -->
+    <!-- /news -->
     <?php } //if-!empty($view->newsList) ?>
 
+
+    <!-- total Stats -->
     <div id="totalStatsDiv">
         <p class="content-title-noshade-size3">
-          Nasz liczby (stan zabawy)
+          <?=tr('startPage_totalStatsTitle')?>
         </p>
 
       <div id="totalStatsCounters">
-        <div class="counterWidget" title="XZałożone kiedykolwiek...">
-          <div class="counterTitle">XSkrzynek ogółem</div>
+        <div class="counterWidget" title="<?=tr('startPage_totalCachesDesc')?>">
+          <div class="counterTitle"><?=tr('startPage_totalCaches')?></div>
           <div class="counterNumber"><?=$view->totalStats->totalCaches?></div>
         </div>
 
-        <div class="counterWidget" title="XRuszaj w teren i znajdź którąś...">
-          <div class="counterTitle">XGotowych do szukania</div>
+        <div class="counterWidget" title="<?=tr('startPage_readyToSearchDesc')?>">
+          <div class="counterTitle"><?=tr('startPage_readyToSearch')?></div>
           <div class="counterNumber"><?=$view->totalStats->activeCaches?></div>
         </div>
 
-        <div class="counterWidget" title="XRuszaj w teren i znajdź którąś...">
-          <div class="counterTitle">XOcenionych jako "znakomite"</div>
+        <div class="counterWidget" title="<?=tr('startPage_topRatedCachesDesc')?>">
+          <div class="counterTitle"><?=tr('startPage_topRatedCaches')?></div>
           <div class="counterNumber"><?=$view->totalStats->topRatedCaches?></div>
         </div>
 
-        <div class="counterWidget" title="">
-          <div class="counterTitle">XZałożonych w tym miesiacu</div>
+        <div class="counterWidget" title="<?=tr('startPage_newCachesDesc')?>">
+          <div class="counterTitle"><?=tr('startPage_newCaches')?></div>
           <div class="counterNumber"><?=$view->totalStats->latestCaches?></div>
         </div>
 
-        <div class="counterWidget" title="">
-          <div class="counterTitle">XAktywych geoscieżek</div>
+        <div class="counterWidget" title="<?=tr('startPage_activeCacheSetsDesc')?>">
+          <div class="counterTitle"><?=tr('startPage_activeCacheSets')?></div>
           <div class="counterNumber"><?=$view->totalStats->activeCacheSets?></div>
         </div>
 
-        <div class="counterWidget" title="XZnaleźli lub ukryli...">
-          <div class="counterTitle">Zarejestrowanych poszukiwaczy</div>
+        <div class="counterWidget" title="<?=tr('startPage_totalUsersDesc')?>">
+          <div class="counterTitle"><?=tr('startPage_totalUsers')?></div>
           <div class="counterNumber"><?=$view->totalStats->totalUsers?></div>
         </div>
 
-        <div class="counterWidget" title="XZnaleźli lub ukryli...">
-          <div class="counterTitle">
-            Nowych poszukiwaczy <?=$view->totalStats->newUsersPeriod?>
-          </div>
+        <div class="counterWidget" title="<?=tr('startPage_newUsersDesc')?>">
+          <div class="counterTitle"><?=tr('startPage_newUsers')?></div>
           <div class="counterNumber"><?=$view->totalStats->newUsers?></div>
         </div>
 
-        <div class="counterWidget" title="">
-          <div class="counterTitle">XPoszukiwań ogółem</div>
+        <div class="counterWidget" title="<?=tr('startPage_totalSearchesDesc')?>">
+          <div class="counterTitle"><?=tr('startPage_totalSearches')?></div>
           <div class="counterNumber"><?=$view->totalStats->totalSearches?></div>
         </div>
 
-        <div class="counterWidget" title="">
-          <div class="counterTitle">XZnalezień w tym tygodniu</div>
+        <div class="counterWidget" title="<?=tr('startPage_newSearchesDesc')?>">
+          <div class="counterTitle"><?=tr('startPage_newSearches')?></div>
           <div class="counterNumber"><?=$view->totalStats->latestSearches?></div>
         </div>
 
-        <div class="counterWidget" title="">
-          <div class="counterTitle">XRekomendacji w tym tygodniu</div>
+        <div class="counterWidget" title="<?=tr('startPage_newoRecomDesc')?>">
+          <div class="counterTitle"><?=tr('startPage_newoRecom')?></div>
           <div class="counterNumber"><?=$view->totalStats->latestRecomendations?></div>
         </div>
       </div>
-
     </div>
+    <!-- /total Stats -->
 
-    <!-- newest caches -->
 
     <div id="map">
-      <div style="position: relative;">
-
-        <img src="<?=$view->staticMapUrl?>" id="main-cachemap" alt="<?=tr('map')?>" />
-        <?php foreach($view->mapMarkers as $m) { ?>
-
-          <img id="<?=$m['id']?>" class="mapMarker lightTipped" style="left:<?=$m['left']?>px; top:<?=$m['top']?>px"
-              alt="" src="<?=$m['img']?>">
-          <div class="lightTip" style="left:<?=($m['left']+20)?>px; top:<?=$m['top']?>px">
-            <b><?=$m['toolTip']?></b>
-          </div>
-
-        <?php } //foreach mapMarkers ?>
-        <script type="text/javascript">
-            function showMarker(id) {
-              $('#'+id).toggleClass('hovered');
-            }
-
-            function hideMarker(id) {
-              $('#'+id).toggleClass('hovered');
-            }
-        </script>
-      </div>
+      <?php $view->callChunk('staticMap', $view->staticMapModel); ?>
     </div>
 
+    <script type="text/javascript">
+        function showMarker(id) {
+          $('#'+id).toggleClass('hovered');
+        }
+
+        function hideMarker(id) {
+          $('#'+id).toggleClass('hovered');
+        }
+    </script>
+
+    <!-- Newest caches -->
     <div id="newCachesList">
       <p class="content-title-noshade-size3">
-        {{newest_caches}}
+        <?=tr('startPage_latestCachesList')?>
       </p>
 
       <ul class="startPageList">
@@ -168,17 +155,19 @@
         <?php } //foreach ?>
 
           <li class="showMoreLink">
-            <a href="/newcaches.php" class="btn btn-sm">XPokaż więcej</a>
+            <a href="/newcaches.php" class="btn btn-sm">
+              <?=tr('startPage_showMore')?>
+            </a>
           </li>
        </ul>
     </div>
-
     <!-- /newest caches -->
+
 
     <!-- incomming events -->
     <div id="newCachesList">
       <p class="content-title-noshade-size3">
-        {{incomming_events}}
+        <?=tr('incomming_events')?>
       </p>
 
       <ul class="startPageList">
@@ -204,17 +193,20 @@
         <?php } //foreach ?>
 
           <li class="showMoreLink">
-            <a href="/newevents.php" class="btn btn-sm">XPokaż więcej</a>
+            <a href="/newevents.php" class="btn btn-sm">
+              <?=tr('startPage_showMore')?>
+            </a>
           </li>
        </ul>
     </div>
     <!-- /incomming events -->
 
+
     <!-- titled caches -->
     <?php if($view->titledCacheData){ ?>
     <div id="cacheTitled">
       <p class="content-title-noshade-size3">
-        XSkrzynki-tygodniaX
+        <?=tr('startPage_latesttitledCaches')?>
       </p>
       <ul class="startPageList">
         <li>
@@ -235,7 +227,6 @@
             </a>
           </div>
 
-
           <div class="cacheTitledLog">
             <img src="images/rating-star.png" alt="Star">
               <a href="<?=$view->titledCacheData['logOwnerUrl']?>" class="links">
@@ -245,7 +236,9 @@
           </div>
         </li>
         <li class="showMoreLink">
-          <a href="/cache_titled.php" class="btn btn-sm">XPokaż więcej</a>
+          <a href="/cache_titled.php" class="btn btn-sm">
+            <?=tr('startPage_showMore')?>
+          </a>
         </li>
       </ul>
     </div>
@@ -258,7 +251,7 @@
     <?php if($view->displayLastCacheSets){ ?>
         <div id="newestCacheSets">
           <p class="content-title-noshade-size3">
-            <?=tr('startPage_promotedCacheSet')?>
+            <?=tr('startPage_latestCacheSets')?>
           </p>
           <ul class="startPageList">
           <?php foreach($view->lastCacheSets AS $cs){ ?>
@@ -280,12 +273,15 @@
             </li>
           <?php } //foreach-lastCacheSets ?>
             <li class="showMoreLink">
-              <a href="/powerTrail.php" class="btn btn-sm">XPokaż więcej</a>
+              <a href="/powerTrail.php" class="btn btn-sm">
+                <?=tr('startPage_showMore')?>
+              </a>
             </li>
           </ul>
         </div>
     <?php } // if-displayGeoPathOfTheDay) ?>
     <!-- /last-cacheSets -->
+
 
     <!-- feeds -->
     <?php foreach($view->feeds as $feedName => $feedPosts) { ?>
@@ -306,4 +302,6 @@
     <?php }//foreach-feeds ?>
     <!-- /feeds -->
 </div>
+
+
 <!-- /CONTENT -->

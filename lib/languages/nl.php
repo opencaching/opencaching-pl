@@ -1879,7 +1879,6 @@ $translations = array(
     'pt134' => 'Datum van log (ingevoerd door gebruiker)',
     'pt135' => 'Totale cachedagen',
     'pt136' => 'Geografisch middelpunt van deze GeoPath',
-    'startPage_promotedCacheSet' => 'GeoPath van de dag',
     'pt138' => 'caches',
     'pt139' => 'GeoPath',
     'pt140' => 'Aantal punten in GeoPath',

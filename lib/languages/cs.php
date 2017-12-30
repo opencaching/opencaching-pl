@@ -682,7 +682,6 @@ $translations = array(
     'pt126' => 'Information',
     'pt127' => 'Add a new comment',
     'pt128' => 'Add a new comment for geoPath',
-    'startPage_promotedCacheSet' => 'geoCesta dne',
     'pt138' => 'keší',
     'feed_blog' => 'Nejnovější blogové zápisky',
     'feed_forum' => 'Poslední příspěvky na fóru',

@@ -52,4 +52,14 @@ abstract class BaseObject
         return $okapiResp;
     }
 
+    public function prepareForSerialization()
+    {
+        $this->db = null;
+    }
+
+    public function restoreAfterSerialization()
+    {
+        $this->db = self::db();
+    }
+
 }

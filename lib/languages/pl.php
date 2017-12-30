@@ -1879,7 +1879,6 @@ $translations = array(
     'pt134' => 'data wpisu (podana przez użytkownika)',
     'pt135' => 'Keszerzy poświęcili łącznie keszo-dni',
     'pt136' => 'geograficzny środek geoŚcieżki',
-    'startPage_promotedCacheSet' => 'GeoŚcieżka dnia',
     'pt138' => 'skrzynek',
     'pt139' => 'geoŚcieżka',
     'pt140' => 'Ilość zdobytych punktów w kategorii geoŚcieżki',
@@ -2749,6 +2748,36 @@ $translations = array(
     'admCs_cacheSet'  => 'Geościeżka',
     'admCs_currentRatio' => 'Aktywne skrzynki',
     'admCs_requiredRatio' => 'Wymagane do zaliczenia',
+
+    'startPage_totalStatsTitle' => 'Stan gry (ostatni miesiąc)',
+    'startPage_totalCaches' => 'Skrzynek ogółem',
+    'startPage_totalCachesDesc' => 'Liczba skrzynek utworzonych',
+    'startPage_readyToSearch' => 'Gotowych do szukania',
+    'startPage_readyToSearchDesc' => 'Liczba skrzynek aktywnych w tej chwili',
+    'startPage_topRatedCaches' => 'Ocenionych jako znakomite',
+    'startPage_topRatedCachesDesc' => 'Liczba skrzynek najwyższej jakości',
+    'startPage_newCaches' => 'Nowych skrzynek',
+    'startPage_newCachesDesc' => 'Liczba skrzynek nowoutowrzonych',
+    'startPage_activeCacheSets' => 'Aktywnych geościeżek',
+    'startPage_activeCacheSetsDesc' => 'Liczba aktywnych geościeżek',
+    'startPage_totalUsers' => 'Aktywnych użytkowników',
+    'startPage_totalUsersDesc' => 'Liczba użytkowników, którzy znaleźli lub założyli skrzynkę',
+    'startPage_newUsers' => 'Nowych użytkowników',
+    'startPage_newUsersDesc' => 'Kont utworzonych ostatnio',
+    'startPage_totalSearches' => 'Licza poszukiwań ogółem',
+    'startPage_totalSearchesDesc' => 'Liczba wszystkich odnotowanych poszukiwań',
+    'startPage_newSearches' => 'Poszukiwań ostatnio',
+    'startPage_newSearchesDesc' => 'Liczba poszukiwań w ostatnim okresie',
+    'startPage_newoRecom' => 'Nowych rekomendacji',
+    'startPage_newoRecomDesc' => 'Liczba przyznanych ostatnio rekomendacji',
+
+    'startPage_showMore' => 'Pokaż więcej',
+    'startPage_latestCachesList' => 'Najnowsze skrzynki',
+    'startPage_latestCacheSets' => 'Najnowsze geościezki',
+    'startPage_latesttitledCaches' => 'Ostatnio wyróżnione',
+
+
+
 );
 
 

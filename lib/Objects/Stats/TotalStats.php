@@ -44,7 +44,7 @@ class TotalStats extends BaseObject
 
     private static function contructBasicTotalStats()
     {
-        $periodDays = 130;
+        $periodDays = 30;
         $basicStats = new BasicStats();
 
         $basicStats->totalCaches = Formatter::number(MultiCacheStats::getAllCachesCount());

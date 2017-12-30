@@ -178,7 +178,7 @@ class GeoCache extends GeoCacheCommons
     /**
      * Factory
      * @param unknown $cacheId
-     * @return GeoCache object or null if no such geocache
+     * @return GeoCache|null (null if no such geocache)
      */
     public static function fromCacheIdFactory($cacheId){
         try{

@@ -2,6 +2,9 @@
 
 namespace Utils\Cache;
 
+use Exception;
+use Utils\Debug\Debug;
+
 
 /**
  * This is just wrapper fpr apc/apcu now,
@@ -25,7 +28,12 @@ class OcMemCache
 
         if( ($var = apcu_fetch($key)) === FALSE ){
             $var = call_user_func($creatorCallback);
-            apcu_store($key, $var, $ttl);
+
+            try{
+                apcu_store($key, $var, $ttl);
+            }catch(Exception $e){
+                Debug::errorLog("Can't serialize object");
+            }
         }
 
         return $var;
@@ -43,7 +51,13 @@ class OcMemCache
     public static function refreshAndReturn($key, $ttl, callable $creatorCallback)
     {
         $var = $creatorCallback();
-        apcu_store($key, $var, $ttl);
+
+        try{
+            apcu_store($key, $var, $ttl);
+        }catch(Exception $e){
+            Debug::errorLog("Can't serialize object");
+        }
+
         return $var;
     }
 }

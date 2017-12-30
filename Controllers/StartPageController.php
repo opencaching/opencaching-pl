@@ -15,9 +15,13 @@ use lib\Objects\GeoCache\CacheTitled;
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\CacheSet\CacheSet;
 use Utils\Text\Formatter;
+use lib\Objects\ChunkModels\StaticMapModel;
+use lib\Objects\ChunkModels\StaticMapMarker;
 
 class StartPageController extends BaseController
 {
+    private $staticMapModel = null;
+
     public function __construct()
     {
         parent::__construct();
@@ -46,6 +50,8 @@ class StartPageController extends BaseController
             $this->view->setVar('username', $this->loggedUser->getUserName());
         }
 
+        $this->staticMapModel = StaticMapModel::defaultFullCountryMap();
+
         $this->view->setVar('introText',
             tr('startPage_intro_' . $this->ocConfig->getOcNode() ));
 
@@ -55,6 +61,8 @@ class StartPageController extends BaseController
         $this->processFeeds();
         $this->processTitleCaches();
         $this->processLastCacheSets();
+
+        $this->view->setVar('staticMapModel', $this->staticMapModel);
 
         $this->view->buildView();
 
@@ -67,7 +75,6 @@ class StartPageController extends BaseController
         global $main_page_map_width, $main_page_map_height;
         global $config;
 
-        $map_type = $config['maps']['main_page_map']['source'] ;
 
         $map_center_lat = $main_page_map_center_lat;
         $map_center_lon = $main_page_map_center_lon;
@@ -75,15 +82,10 @@ class StartPageController extends BaseController
         $map_width = $main_page_map_width;
         $map_height = $main_page_map_height;
 
-        $staticMapUrl = sprintf("/lib/staticmap.php?center=%F,%F&amp;zoom=%d&amp;size=%dx%d&amp;maptype=%s",
-            $map_center_lat, $map_center_lon, $map_zoom, $map_width, $map_height, $map_type);
-        $this->view->setVar('staticMapUrl', $staticMapUrl);
-
-
         $newestCaches = OcMemCache::getOrCreate(
             __CLASS__.':newestCaches', 3*60*60,
             function()
-            use($map_center_lat, $map_center_lon, $map_zoom, $map_width, $map_height){
+                use($map_center_lat, $map_center_lon, $map_zoom, $map_width, $map_height){
 
                 $result = new \stdClass();
                 $result->markers = [];
@@ -117,13 +119,9 @@ class StartPageController extends BaseController
                         $markerCoords, $mapCenterCoords, $map_zoom,
                         $map_width, $map_height);
 
-                    $result->markers[] = [
-                        "id" => $c['wp_oc'],
-                        "toolTip" => $c['wp_oc'].': '.$c['name'],
-                        "left" => ($left-7),
-                        "top" => ($top-21),
-                        "img" => "/images/markers/mark-small-orange.png",
-                    ];
+                    $result->markers[] = StaticMapMarker::createWithImgPosition(
+                        $c['wp_oc'], $top, $left,
+                        '#ff0000', $c['wp_oc'].': '.$c['name']);
                 }
 
                 // find incoming events
@@ -150,13 +148,10 @@ class StartPageController extends BaseController
                         $markerCoords, $mapCenterCoords, $map_zoom,
                         $map_width, $map_height);
 
-                    $result->markers[] = [
-                        "id" => $c['wp_oc'],
-                        "toolTip" => $c['wp_oc'].': '.$c['name'],
-                        "left" => ($left-7),
-                        "top" => ($top-21),
-                        "img" => "/images/markers/mark-small-blue.png",
-                    ];
+
+                    $result->markers[] = StaticMapMarker::createWithImgPosition(
+                        $c['wp_oc'], $top, $left,
+                        '#00ff00', $c['wp_oc'].': '.$c['name']);
                 }
 
                 return $result;
@@ -164,7 +159,8 @@ class StartPageController extends BaseController
 
         $this->view->setVar('latestCaches', $newestCaches->latestCaches);
         $this->view->setVar('incomingEvents', $newestCaches->incomingEvents);
-        $this->view->setVar('mapMarkers', $newestCaches->markers);
+        $this->staticMapModel->addMarkers($newestCaches->markers);
+
     }
 
     private function processLastCacheSets()
@@ -173,6 +169,15 @@ class StartPageController extends BaseController
             $this->ocConfig->isPowertrailsEnabled());
 
         $lastCacheSets = CacheSet::getLastCreatedSets(3);
+
+        foreach($lastCacheSets as $cs){
+
+            $this->staticMapModel->addMarker(
+                StaticMapMarker::createWithImgPosition(
+                    'cs_'.$cs->getId(), 10, 10, /* TODO */
+                    '#0000ff', $cs->getName()));
+        }
+
         $this->view->setVar('lastCacheSets', $lastCacheSets);
     }
 
@@ -221,33 +226,75 @@ class StartPageController extends BaseController
     private function processTitleCaches()
     {
 
+        $mapModel = $this->staticMapModel;
+
         $titledCacheData = OcMemCache::getOrCreate(
             __CLASS__.':titledCacheData', 5*60*60,
-            function(){
+            function() use($mapModel){
 
                 $lastTitledCache = CacheTitled::getLastCacheTitled();
                 if(is_null($lastTitledCache)){
                     return null;
                 } else {
+
+                    $lastTitledCache->prepareForSerialization();
+
+                    /** @var GeoCache */
                     $geocache = GeoCache::fromCacheIdFactory($lastTitledCache->getCacheId());
+                    if(!$geocache){
+                        return null;
+                    }
+                    $geocache->prepareForSerialization();
+
                     $log = GeoCacheLog::fromLogIdFactory($lastTitledCache->getLogId());
+                    if(!$log){
+                        return null;
+                    }
+                    $log->prepareForSerialization();
 
-                    $geocache->getCacheIcon($this->loggedUser);
+                    $titleCacheDataObj = new \stdClass();
+                    $titleCacheDataObj->geocache = $geocache;
+                    $titleCacheDataObj->log = $log;
+                    $titleCacheDataObj->cacheTitled = $lastTitledCache;
 
-                    return [
-                        'date' => Formatter::date($lastTitledCache->getTitledDate()),
-                        'cacheIcon' => $geocache->getCacheIcon($this->loggedUser),
-                        'cacheUrl' => $geocache->getCacheUrl(),
-                        'cacheName' => $geocache->getCacheName(),
-                        'cacheOwnerName' => $geocache->getOwner()->getUserName(),
-                        'cacheOwnerUrl' => $geocache->getOwner()->getProfileUrl(),
-                        'cacheLocation' => $geocache->getCacheLocationObj()->getLocationDesc(' > '),
-                        'logText' => $log->getText(),
-                        'logOwnerName' => $log->getUser()->getUserName(),
-                        'logOwnerUrl' => $log->getUser()->getProfileUrl(),
-                    ];
+                    list($left, $top) = Gis::positionAtMapImg(
+                        $geocache->getCoordinates(),
+                        $mapModel->getMapCenterCoords(),
+                        $mapModel->getZoom(),
+                        $mapModel->getImgWidth(), $mapModel->getImgHeight());
+
+                    $titleCacheDataObj->marker = StaticMapMarker::createWithImgPosition(
+                        'titled_'.$geocache->getWaypointId(),
+                        $top, $left,
+                        '#000000', $geocache->getWaypointId().': '.$geocache->getCacheName());
+
+                    return $titleCacheDataObj;
                 }
         });
+
+        if(!$titledCacheData){
+            // some error occured!
+            return;
+        }
+        $geocache = $titledCacheData->geocache;
+        $log = $titledCacheData->log;
+        $lastTitledCache = $titledCacheData->cacheTitled;
+        $marker = $titledCacheData->marker;
+
+        $this->staticMapModel->addMarker($marker);
+
+        $titledCacheData = [
+            'date' => Formatter::date($lastTitledCache->getTitledDate()),
+            'cacheIcon' => $geocache->getCacheIcon($this->loggedUser),
+            'cacheUrl' => $geocache->getCacheUrl(),
+            'cacheName' => $geocache->getCacheName(),
+            'cacheOwnerName' => $geocache->getOwner()->getUserName(),
+            'cacheOwnerUrl' => $geocache->getOwner()->getProfileUrl(),
+            'cacheLocation' => $geocache->getCacheLocationObj()->getLocationDesc(' > '),
+            'logText' => $log->getText(),
+            'logOwnerName' => $log->getUser()->getUserName(),
+            'logOwnerUrl' => $log->getUser()->getProfileUrl(),
+        ];
 
         $this->view->setVar('titledCacheData',$titledCacheData);
 
