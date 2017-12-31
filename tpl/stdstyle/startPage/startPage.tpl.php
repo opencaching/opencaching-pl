@@ -218,7 +218,9 @@
           </div>
           <div>
             <img src="<?=$view->titledCacheData['cacheIcon']?>" class="icon16" alt="Cache" title="Cache">
-            <a href="<?=$view->titledCacheData['cacheUrl']?>" class="links highlite">
+            <a href="<?=$view->titledCacheData['cacheUrl']?>" class="links highlite"
+                 onmouseover="showMarker('<?=$view->titledCacheData['markerId']?>')"
+                 onmouseout="hideMarker('<?=$view->titledCacheData['markerId']?>')">
               <?=$view->titledCacheData['cacheName']?>
             </a>
             <?=tr('hidden_by')?>
@@ -263,7 +265,9 @@
                 </span>
               </div>
               <div>
-                <a href="<?=$cs->getUrl()?>" class="links highlite">
+                <a href="<?=$cs->getUrl()?>" class="links highlite"
+                    onmouseover="showMarker('<?='cs_'.$cs->getId()?>')"
+                    onmouseout="hideMarker('<?='cs_'.$cs->getId()?>')">
                   <img src="<?=$cs->getImage()?>" />
                   <?=$cs->getName()?>
                 </a>

@@ -17,18 +17,24 @@ class StaticMapModel
 
     private $markers = [];
 
-    public static function defaultFullCountryMap()
+    public static function defaultFullCountryMap($scale=null)
     {
         global $main_page_map_center_lat, $main_page_map_center_lon, $main_page_map_zoom;
         global $main_page_map_width, $main_page_map_height;
         global $config;
 
+        if(!$scale){
+            $scale = 1;
+        }
+        $imgWidth = $main_page_map_width * $scale;
+        $imgHeight = $main_page_map_height * $scale;
+        $zoom = $main_page_map_zoom;
+
         $mapCenter = Coordinates::FromCoordsFactory(
             $main_page_map_center_lat, $main_page_map_center_lon);
 
-        return self::fixedZoomMapFactory($mapCenter, $main_page_map_zoom,
-            $main_page_map_width, $main_page_map_height,
-            $config['maps']['main_page_map']['source']);
+        return self::fixedZoomMapFactory($mapCenter, $zoom,
+            $imgWidth, $imgHeight, $config['maps']['main_page_map']['source']);
 
     }
 

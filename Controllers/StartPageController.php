@@ -9,14 +9,12 @@ use lib\Objects\GeoCache\MultiCacheStats;
 use lib\Objects\User\User;
 use Utils\Cache\OcMemCache;
 use Utils\Feed\RssFeed;
-use Utils\Gis\Gis;
 use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\GeoCache\CacheTitled;
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\CacheSet\CacheSet;
 use Utils\Text\Formatter;
 use lib\Objects\ChunkModels\StaticMapModel;
-use lib\Objects\ChunkModels\StaticMapMarker;
 
 class StartPageController extends BaseController
 {
@@ -70,97 +68,68 @@ class StartPageController extends BaseController
 
     private function processNewCaches()
     {
-        // map prepare
-        global $main_page_map_center_lat, $main_page_map_center_lon, $main_page_map_zoom;
-        global $main_page_map_width, $main_page_map_height;
-        global $config;
-
-
-        $map_center_lat = $main_page_map_center_lat;
-        $map_center_lon = $main_page_map_center_lon;
-        $map_zoom = $main_page_map_zoom;
-        $map_width = $main_page_map_width;
-        $map_height = $main_page_map_height;
-
         $newestCaches = OcMemCache::getOrCreate(
             __CLASS__.':newestCaches', 3*60*60,
-            function()
-                use($map_center_lat, $map_center_lon, $map_zoom, $map_width, $map_height){
+            function(){
 
                 $result = new \stdClass();
-                $result->markers = [];
                 $result->latestCaches = [];
                 $result->incomingEvents = [];
-
-                $mapCenterCoords = Coordinates::FromCoordsFactory(
-                    $map_center_lat, $map_center_lon);
 
                 // find latest caches
                 foreach (MultiCacheStats::getLatestCaches(7) as $c){
 
                     $loc = $c['location'];
-                    $cacheLink = GeoCache::GetCacheUrlByWp($c['wp_oc']);
 
                     $result->latestCaches[] = [
                         'icon' => GeoCache::CacheIconByType($c['type'], $c['status']),
                         'date' => Formatter::date($c['date']),
-                        'link' => $cacheLink,
+                        'link' => GeoCache::GetCacheUrlByWp($c['wp_oc']),
                         'markerId' => $c['wp_oc'],
                         'cacheName' => $c['name'],
                         'userName' => $c['username'],
                         'userUrl' => User::GetUserProfileUrl($c['user_id']),
                         'location' => $loc->getLocationDesc(' > '),
+                        'coords' => Coordinates::FromCoordsFactory(
+                            $c['latitude'], $c['longitude']),
                     ];
-
-
-                    $markerCoords = Coordinates::FromCoordsFactory(
-                        $c['latitude'], $c['longitude']);
-
-                    list($left, $top) = Gis::positionAtMapImg(
-                        $markerCoords, $mapCenterCoords, $map_zoom,
-                        $map_width, $map_height);
-
-                    $result->markers[] = StaticMapMarker::createWithImgPosition(
-                        $c['wp_oc'], $top, $left,
-                        '#ff0000', $c['wp_oc'].': '.$c['name'], $cacheLink);
                 }
 
                 // find incoming events
-
                 foreach (MultiCacheStats::getIncomingEvents(7) as $c){
 
                     $loc = $c['location'];
-                    $cacheLink = GeoCache::GetCacheUrlByWp($c['wp_oc']);
+
                     $result->incomingEvents[] = [
                         'icon' => GeoCache::CacheIconByType($c['type'], $c['status']),
                         'date' => Formatter::date($c['date']),
-                        'link' => $cacheLink,
+                        'link' => GeoCache::GetCacheUrlByWp($c['wp_oc']),
                         'markerId' => $c['wp_oc'],
                         'cacheName' => $c['name'],
                         'userName' => $c['username'],
                         'userUrl' => User::GetUserProfileUrl($c['user_id']),
                         'location' => $loc->getLocationDesc(' > '),
+                        'coords' => Coordinates::FromCoordsFactory(
+                            $c['latitude'], $c['longitude']),
                     ];
-
-                    $markerCoords = Coordinates::FromCoordsFactory(
-                        $c['latitude'], $c['longitude']);
-
-                    list($left, $top) = Gis::positionAtMapImg(
-                        $markerCoords, $mapCenterCoords, $map_zoom,
-                        $map_width, $map_height);
-
-
-                    $result->markers[] = StaticMapMarker::createWithImgPosition(
-                        $c['wp_oc'], $top, $left,
-                        '#00ff00', $c['wp_oc'].': '.$c['name'], $cacheLink);
                 }
 
                 return $result;
             });
 
         $this->view->setVar('latestCaches', $newestCaches->latestCaches);
+        // add markers
+        foreach($newestCaches->latestCaches as $c){
+            $this->staticMapModel->createMarker($c['markerId'], $c['coords'],
+                '#ff0000', $c['markerId'].': '.$c['cacheName'], $c['link']);
+        }
+
         $this->view->setVar('incomingEvents', $newestCaches->incomingEvents);
-        $this->staticMapModel->addMarkers($newestCaches->markers);
+        // add markers
+        foreach($newestCaches->incomingEvents as $c){
+            $this->staticMapModel->createMarker($c['markerId'], $c['coords'],
+                '#00ff00', $c['markerId'].': '.$c['cacheName'], $c['link']);
+        }
 
     }
 
@@ -223,12 +192,9 @@ class StartPageController extends BaseController
 
     private function processTitleCaches()
     {
-
-        $mapModel = $this->staticMapModel;
-
         $titledCacheData = OcMemCache::getOrCreate(
             __CLASS__.':titledCacheData', 5*60*60,
-            function() use($mapModel){
+            function(){
 
                 $lastTitledCache = CacheTitled::getLastCacheTitled();
                 if(is_null($lastTitledCache)){
@@ -255,17 +221,6 @@ class StartPageController extends BaseController
                     $titleCacheDataObj->log = $log;
                     $titleCacheDataObj->cacheTitled = $lastTitledCache;
 
-                    list($left, $top) = Gis::positionAtMapImg(
-                        $geocache->getCoordinates(),
-                        $mapModel->getMapCenterCoords(),
-                        $mapModel->getZoom(),
-                        $mapModel->getImgWidth(), $mapModel->getImgHeight());
-
-                    $titleCacheDataObj->marker = StaticMapMarker::createWithImgPosition(
-                        'titled_'.$geocache->getWaypointId(),
-                        $top, $left,
-                        '#fff', $geocache->getWaypointId().': '.$geocache->getCacheName());
-
                     return $titleCacheDataObj;
                 }
         });
@@ -275,12 +230,17 @@ class StartPageController extends BaseController
             $this->view->setVar('titledCacheData',null);
             return;
         }
+        /** @var GeoCache */
         $geocache = $titledCacheData->geocache;
         $log = $titledCacheData->log;
         $lastTitledCache = $titledCacheData->cacheTitled;
-        $marker = $titledCacheData->marker;
 
-        $this->staticMapModel->addMarker($marker);
+        $markerId = 'titled_'.$geocache->getWaypointId();
+        $this->staticMapModel->createMarker(
+            $markerId,
+            $geocache->getCoordinates(), '#fff',
+            $geocache->getWaypointId().': '.$geocache->getCacheName(),
+            $geocache->getCacheUrl());
 
         $titledCacheData = [
             'date' => Formatter::date($lastTitledCache->getTitledDate()),
@@ -293,6 +253,7 @@ class StartPageController extends BaseController
             'logText' => $log->getText(),
             'logOwnerName' => $log->getUser()->getUserName(),
             'logOwnerUrl' => $log->getUser()->getProfileUrl(),
+            'markerId' => $markerId,
         ];
 
         $this->view->setVar('titledCacheData',$titledCacheData);
