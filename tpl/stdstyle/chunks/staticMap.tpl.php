@@ -33,12 +33,17 @@ return function (StaticMapModel $m){
 
         <div id="<?=$mx->id?>" class="cssStaticMapMarker lightTipped"
               style="left:<?=($mx->left-7)?>px; top:<?=($mx->top-24)?>px;">
-
+              <?php if($mx->link){ ?>
+                <a href="<?=$mx->link?>">
+              <?php } //if-link-present ?>
               <div class="circleBorder"></div>
               <div class="circle" style="background-color:<?=$mx->color?>"></div>
 
               <div class="triangleBorder"></div>
               <div class="triangle" style="border-top-color:<?=$mx->color?>"></div>
+              <?php if($mx->link){ ?>
+                </a>
+              <?php } //if-link-present ?>
         </div>
 
       <?php } else { // if-markerType ?>

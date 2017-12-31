@@ -99,11 +99,12 @@ class StartPageController extends BaseController
                 foreach (MultiCacheStats::getLatestCaches(7) as $c){
 
                     $loc = $c['location'];
+                    $cacheLink = GeoCache::GetCacheUrlByWp($c['wp_oc']);
 
                     $result->latestCaches[] = [
                         'icon' => GeoCache::CacheIconByType($c['type'], $c['status']),
                         'date' => Formatter::date($c['date']),
-                        'link' => GeoCache::GetCacheUrlByWp($c['wp_oc']),
+                        'link' => $cacheLink,
                         'markerId' => $c['wp_oc'],
                         'cacheName' => $c['name'],
                         'userName' => $c['username'],
@@ -121,7 +122,7 @@ class StartPageController extends BaseController
 
                     $result->markers[] = StaticMapMarker::createWithImgPosition(
                         $c['wp_oc'], $top, $left,
-                        '#ff0000', $c['wp_oc'].': '.$c['name']);
+                        '#ff0000', $c['wp_oc'].': '.$c['name'], $cacheLink);
                 }
 
                 // find incoming events
@@ -129,11 +130,11 @@ class StartPageController extends BaseController
                 foreach (MultiCacheStats::getIncomingEvents(7) as $c){
 
                     $loc = $c['location'];
-
+                    $cacheLink = GeoCache::GetCacheUrlByWp($c['wp_oc']);
                     $result->incomingEvents[] = [
                         'icon' => GeoCache::CacheIconByType($c['type'], $c['status']),
                         'date' => Formatter::date($c['date']),
-                        'link' => GeoCache::GetCacheUrlByWp($c['wp_oc']),
+                        'link' => $cacheLink,
                         'markerId' => $c['wp_oc'],
                         'cacheName' => $c['name'],
                         'userName' => $c['username'],
@@ -151,7 +152,7 @@ class StartPageController extends BaseController
 
                     $result->markers[] = StaticMapMarker::createWithImgPosition(
                         $c['wp_oc'], $top, $left,
-                        '#00ff00', $c['wp_oc'].': '.$c['name']);
+                        '#00ff00', $c['wp_oc'].': '.$c['name'], $cacheLink);
                 }
 
                 return $result;
@@ -169,13 +170,10 @@ class StartPageController extends BaseController
             $this->ocConfig->isPowertrailsEnabled());
 
         $lastCacheSets = CacheSet::getLastCreatedSets(3);
-
         foreach($lastCacheSets as $cs){
-
-            $this->staticMapModel->addMarker(
-                StaticMapMarker::createWithImgPosition(
-                    'cs_'.$cs->getId(), 10, 10, /* TODO */
-                    '#0000ff', $cs->getName()));
+            $this->staticMapModel->createMarker(
+                'cs_'.$cs->getId(), $cs->getCoordinates(),
+                '#0000ff', $cs->getName(), $cs->getUrl());
         }
 
         $this->view->setVar('lastCacheSets', $lastCacheSets);
@@ -266,14 +264,15 @@ class StartPageController extends BaseController
                     $titleCacheDataObj->marker = StaticMapMarker::createWithImgPosition(
                         'titled_'.$geocache->getWaypointId(),
                         $top, $left,
-                        '#000000', $geocache->getWaypointId().': '.$geocache->getCacheName());
+                        '#fff', $geocache->getWaypointId().': '.$geocache->getCacheName());
 
                     return $titleCacheDataObj;
                 }
         });
 
         if(!$titledCacheData){
-            // some error occured!
+            // there is no titledCache? - some errror occured?!
+            $this->view->setVar('titledCacheData',null);
             return;
         }
         $geocache = $titledCacheData->geocache;

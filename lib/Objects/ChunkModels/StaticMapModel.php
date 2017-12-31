@@ -2,6 +2,7 @@
 namespace lib\Objects\ChunkModels;
 
 use lib\Objects\Coordinates\Coordinates;
+use Utils\Gis\Gis;
 
 class StaticMapModel
 {
@@ -59,12 +60,30 @@ class StaticMapModel
 
     public function addMarker(StaticMapMarker $m)
     {
+        // filter out markers with coords outside of the map img
+        if($m->top < 0 || $m->top > $this->imgHeight ||
+            $m->left < 0 || $m->left > $this->imgWidth){
+            return;
+        }
+
         $this->markers[] = $m;
     }
 
     public function addMarkers(array $markers)
     {
         $this->markers = array_merge($this->markers, $markers);
+    }
+
+    public function createMarker($id, Coordinates $coords, $color,
+        $tooltip=null, $link=null){
+
+        list($left, $top, ) = Gis::positionAtMapImg(
+            $coords, $this->mapCenter, $this->mapZoom, $this->imgWidth, $this->imgHeight);
+
+        $marker = StaticMapMarker::createWithImgPosition(
+            $id, $top, $left, $color, $tooltip, $link);
+
+        $this->addMarker($marker);
     }
 
     public function getMapMarkers()
@@ -108,7 +127,7 @@ class StaticMapMarker
 
     public $markerImg;      // optional image to display
     public $coords = null;  // coordinates of the marker
-
+    public $link = null;    // marker can be clickable
 
     public function getClasses(){
         $cssClasses = [];
@@ -120,7 +139,8 @@ class StaticMapMarker
         return implode(' ', $cssClasses);
     }
 
-    public static function createWithImgPosition($id, $top, $left, $color, $tooltip=null)
+    public static function createWithImgPosition($id, $top, $left, $color,
+        $tooltip=null, $link=null)
     {
         $marker = new self();
         $marker->id = $id;
@@ -132,6 +152,7 @@ class StaticMapMarker
         $marker->markerType = self::TYPE_CSS_MARKER;
         $marker->coords = null;
         $marker->tooltip = $tooltip;
+        $marker->link = $link;
         return $marker;
     }
 
