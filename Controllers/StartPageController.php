@@ -15,6 +15,7 @@ use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\CacheSet\CacheSet;
 use Utils\Text\Formatter;
 use lib\Objects\ChunkModels\StaticMapModel;
+use Utils\Uri\SimpleRouter;
 
 class StartPageController extends BaseController
 {
@@ -56,9 +57,9 @@ class StartPageController extends BaseController
         $this->processNewCaches();
         $this->processNews();
         $this->processTotalStats();
-        $this->processFeeds();
         $this->processTitleCaches();
         $this->processLastCacheSets();
+        $this->processFeeds();
 
         $this->view->setVar('staticMapModel', $this->staticMapModel);
 
@@ -159,37 +160,6 @@ class StartPageController extends BaseController
         $this->view->setVar('totalStats', TotalStats::getBasicTotalStats());
     }
 
-    private function processFeeds()
-    {
-        $feeds = OcMemCache::getOrCreate(__CLASS__.':feeds', 12*60*60,
-            function(){
-                global $config;//TODO
-
-                $feeds = [];
-                foreach ($config['feed']['enabled'] as $feedName) {
-
-                    $feed = new RssFeed($config['feed'][$feedName]['url']);
-                    $postsCount = min($config['feed'][$feedName]['posts'], $feed->count());
-                    $feeds[$feedName] = [];
-
-                    for ($i=0; $i<$postsCount; $i++) {
-                        $post = new \stdClass();
-                        $post->author = ( !empty($feed->next()->author)
-                            && $config['feed'][$feedName]['showAuthor']) ? $feed->current()->author : '';
-
-                        $post->link = $feed->current()->link;
-                        $post->title = $feed->current()->title;
-                        $post->date = Formatter::date($feed->current()->date);
-                        $feeds[$feedName][] = $post;
-                    }
-                }//foreach
-
-                return $feeds;
-            });
-
-        $this->view->setVar('feeds', $feeds);
-    }
-
     private function processTitleCaches()
     {
         $titledCacheData = OcMemCache::getOrCreate(
@@ -260,5 +230,47 @@ class StartPageController extends BaseController
 
     }
 
+    private function processFeeds()
+    {
+        $feedsUrl = SimpleRouter::getLink(self::class, 'getFeeds');
+        $this->view->setVar('feedsUrl', $feedsUrl);
+    }
+
+    /**
+     * This action is called by ajax from startPage
+     */
+    public function getFeeds()
+    {
+        $this->view->setTemplate('startPage/feeds');
+
+        $feeds = OcMemCache::getOrCreate(__CLASS__.':feeds', 12*60*60,
+            function(){
+                global $config;//TODO
+
+                $feeds = [];
+                foreach ($config['feed']['enabled'] as $feedName) {
+
+                    $feed = new RssFeed($config['feed'][$feedName]['url']);
+                    $postsCount = min($config['feed'][$feedName]['posts'], $feed->count());
+                    $feeds[$feedName] = [];
+
+                    for ($i=0; $i<$postsCount; $i++) {
+                        $post = new \stdClass();
+                        $post->author = ( !empty($feed->next()->author)
+                            && $config['feed'][$feedName]['showAuthor']) ? $feed->current()->author : '';
+
+                            $post->link = $feed->current()->link;
+                            $post->title = $feed->current()->title;
+                            $post->date = Formatter::date($feed->current()->date);
+                            $feeds[$feedName][] = $post;
+                    }
+                }//foreach
+
+                return $feeds;
+            });
+
+        $this->view->setVar('feeds', $feeds);
+        $this->view->buildOnlySelectedTpl();
+    }
 }
 
