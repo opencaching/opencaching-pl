@@ -1,7 +1,7 @@
 <?php foreach($view->feeds as $feedName => $feedPosts) { ?>
-  <div id="feedArea">
+  <div class="feedArea">
     <p class="content-title-noshade-size3"><?=tr('feed_'.$feedName)?></p>
-    <ul id="feedList">
+    <ul class="feedList">
       <?php foreach($feedPosts as $post){ ?>
           <li>
             <?=$post->date?>

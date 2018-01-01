@@ -13,7 +13,6 @@ use Utils\Text\Formatter;
     - logDate - date of the log
 */
 
-
 return function (array $data){
 
     if( !isset($data['logId']) || is_null($data['logId']) ){

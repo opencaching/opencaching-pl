@@ -123,6 +123,11 @@ class StaticMapMarker
     const TYPE_IMG_MARKER=0;
     const TYPE_CSS_MARKER=1;
 
+    const COLOR_TITLED_CACHE = '#fff';
+    const COLOR_CACHE = '#27FF00';
+    const COLOR_CACHESET = '#D800FF';
+    const COLOR_EVENT = '#FF5900';
+
     public $markerType; //TYPE_* enum
 
     public $id;             // markerId in HTML

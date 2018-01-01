@@ -14,13 +14,14 @@ abstract class BaseController
 {
     /**
      * Every Controller should have index method
-     * which should is called by router as a default action
+     * which should be called by router as a default action
      */
     abstract public function index();
 
     /**
      * This method is call by router to be sure that given action is allowed
-     * to call by router.
+     * to call by router (it is possible that router has public method which 
+     * shouldn't be accessible on request). 
      *
      * @param string $actionName - method which router will call
      * @return boolean - TRUE if given method can be call from router

@@ -23,10 +23,12 @@ return function (StaticMapModel $m){
     document.head.appendChild(linkElement);
 </script>
 
-<div style="position: relative;">
+<div class="staticMapChunk" style="position: relative;">
 
+    <!-- map imgage -->
     <img src="<?=$m->getMapImgSrc()?>" alt="<?=$m->getMapTitle()?>" title="<?=$m->getMapTitle()?>" />
 
+    <!-- markers -->
     <?php foreach($m->getMapMarkers() as $mx) { ?>
 
       <?php if($mx->markerType == StaticMapMarker::TYPE_CSS_MARKER) { ?>
@@ -54,7 +56,6 @@ return function (StaticMapModel $m){
 
       <?php } // if-markerType ?>
 
-
       <?php if($mx->tooltip) { ?>
 
         <div class="lightTip" style="left:<?=($mx->left+20)?>px; top:<?=$mx->top?>px">
@@ -65,6 +66,13 @@ return function (StaticMapModel $m){
 
     <?php } //foreach mapMarkers ?>
 
+    <script type="text/javascript">
+      function highliteStaticMapMarker(id) {
+        $('#'+id).toggleClass('hovered');
+      }
+    </script>
+
 </div>
 <?php
 }; //end of chunk
+

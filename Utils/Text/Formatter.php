@@ -4,8 +4,25 @@ namespace Utils\Text;
 use DateTime;
 use lib\Objects\OcConfig\OcConfig;
 
+/**
+ * This class implements common formatters which format:
+ * - date
+ * - date-time (not implemented yet!)
+ * - number
+ *
+ * according to
+ *
+ */
 class Formatter
 {
+    /**
+     * Format deciml fractions or bigger numbers (with thousand point)
+     * according to values set in config
+     *
+     * @param $number
+     * @param $decimals - how many decimals should be display
+     * @return string - formatted number
+     */
     public static function number($number, $decimals=0)
     {
         global $config; //TODO
@@ -14,6 +31,12 @@ class Formatter
             $config['numberFormatDecPoint'], $config['numberFormatThousandsSep']);
     }
 
+    /**
+     * Format date according to config setting
+     *
+     * @param $date - can be timestamp or DateTime obj
+     * @return string - formatted date
+     */
     public static function date($date)
     {
         if( $date instanceof DateTime){
@@ -33,4 +56,6 @@ class Formatter
 
         return $dateObj->format(OcConfig::instance()->getDateFormat());
     }
+
+
 }

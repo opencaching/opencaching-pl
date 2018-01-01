@@ -36,7 +36,6 @@ abstract class BaseObject
 
     protected static function callOkapi($service, $params){
 
-
         /** @var \lib\Objects\User\User */
         $user = self::getCurrentUser();
 

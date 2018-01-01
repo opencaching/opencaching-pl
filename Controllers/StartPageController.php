@@ -16,6 +16,7 @@ use lib\Objects\CacheSet\CacheSet;
 use Utils\Text\Formatter;
 use lib\Objects\ChunkModels\StaticMapModel;
 use Utils\Uri\SimpleRouter;
+use lib\Objects\ChunkModels\StaticMapMarker;
 
 class StartPageController extends BaseController
 {
@@ -36,13 +37,14 @@ class StartPageController extends BaseController
     {
         $this->view->setTemplate('startPage/startPage');
 
+        // extended tooltips
         $this->view->addLocalCss('/tpl/stdstyle/css/lightTooltip.css');
 
+        // local css
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime('/tpl/stdstyle/startPage/startPage.css'));
 
         $this->view->loadJQuery();
-
 
         $this->view->setVar('isUserLogged', $this->isUserLogged());
         if($this->isUserLogged()){
@@ -64,7 +66,6 @@ class StartPageController extends BaseController
         $this->view->setVar('staticMapModel', $this->staticMapModel);
 
         $this->view->buildView();
-
     }
 
     private function processNewCaches()
@@ -122,14 +123,16 @@ class StartPageController extends BaseController
         // add markers
         foreach($newestCaches->latestCaches as $c){
             $this->staticMapModel->createMarker($c['markerId'], $c['coords'],
-                '#ff0000', $c['markerId'].': '.$c['cacheName'], $c['link']);
+                StaticMapMarker::COLOR_CACHE,
+                $c['markerId'].': '.$c['cacheName'], $c['link']);
         }
 
         $this->view->setVar('incomingEvents', $newestCaches->incomingEvents);
         // add markers
         foreach($newestCaches->incomingEvents as $c){
             $this->staticMapModel->createMarker($c['markerId'], $c['coords'],
-                '#00ff00', $c['markerId'].': '.$c['cacheName'], $c['link']);
+                StaticMapMarker::COLOR_EVENT,
+                $c['markerId'].': '.$c['cacheName'], $c['link']);
         }
 
     }
@@ -143,7 +146,7 @@ class StartPageController extends BaseController
         foreach($lastCacheSets as $cs){
             $this->staticMapModel->createMarker(
                 'cs_'.$cs->getId(), $cs->getCoordinates(),
-                '#0000ff', $cs->getName(), $cs->getUrl());
+                StaticMapMarker::COLOR_CACHESET, $cs->getName(), $cs->getUrl());
         }
 
         $this->view->setVar('lastCacheSets', $lastCacheSets);
@@ -208,7 +211,7 @@ class StartPageController extends BaseController
         $markerId = 'titled_'.$geocache->getWaypointId();
         $this->staticMapModel->createMarker(
             $markerId,
-            $geocache->getCoordinates(), '#fff',
+            $geocache->getCoordinates(), StaticMapMarker::COLOR_TITLED_CACHE,
             $geocache->getWaypointId().': '.$geocache->getCacheName(),
             $geocache->getCacheUrl());
 
@@ -237,7 +240,10 @@ class StartPageController extends BaseController
     }
 
     /**
-     * This action is called by ajax from startPage
+     * This action is called by ajax from startPage.
+     * This is loaded by ajax because feeds can be downloaded
+     * from remote server what can increse page load time to few seconds.
+     *
      */
     public function getFeeds()
     {

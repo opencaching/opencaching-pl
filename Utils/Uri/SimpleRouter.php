@@ -80,6 +80,8 @@ class SimpleRouter
         }
 
         call_user_func_array(array($ctrl, $actionName), $params);
+        
+        // this should be a dead code!
         exit;
     }
 

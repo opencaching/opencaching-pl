@@ -7,8 +7,12 @@ use Utils\Debug\Debug;
 
 
 /**
- * This is just wrapper fpr apc/apcu now,
- * but maybe we change to something else later...
+ * This is just wrapper for apc/apcu.
+ *
+ * PLEASE NOTE: that PDO object can't be serialized and every "oc-object" h
+ * as reference PDO instance. It is handled in BaseObject class as
+ * prepare/restore(...)Serialization methods.
+ *
  */
 class OcMemCache
 {
@@ -27,6 +31,7 @@ class OcMemCache
         //return apc_entry($key, $creatorCalback, $ttl);
 
         if( ($var = apcu_fetch($key)) === FALSE ){
+
             $var = call_user_func($creatorCallback);
 
             try{

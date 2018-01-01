@@ -13,10 +13,8 @@ use lib\Objects\GeoCache\MultiCacheStats;
 use lib\Objects\GeoCache\MultiLogStats;
 
 /**
- * This class provides general statsistics
- *
+ * This class provides general statsistics of service
  */
-
 class TotalStats extends BaseObject
 {
 
@@ -69,7 +67,6 @@ class TotalStats extends BaseObject
 
         return $basicStats;
     }
-
 }
 
 
@@ -94,3 +91,4 @@ class BasicStats
     public $latestSearches;
     public $latestRecomendations;
 }
+

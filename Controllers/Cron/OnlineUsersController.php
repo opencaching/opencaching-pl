@@ -18,7 +18,9 @@ class OnlineUsersController extends BaseController
     }
 
     public function index()
-    {}
+    {
+        // there is nothing to do here
+    }
 
     private static function getOnlineUsersDumpFile(){
        global $config;

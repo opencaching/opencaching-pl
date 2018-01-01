@@ -29,7 +29,7 @@
 
         <?php foreach($view->newsList as $news) { ?>
           <div class="newsItem">
-            <div class="news-statusline">
+            <div class="newsStatusLine">
               <img src="/tpl/stdstyle/images/free_icons/newspaper.png" alt="">
               <?=$news->getDatePublication(true)?>
                  <span class="newsTitle">
@@ -54,85 +54,101 @@
     <!-- total Stats -->
     <div id="totalStatsDiv">
         <p class="content-title-noshade-size3">
-          <?=tr('startPage_totalStatsTitle')?>
+          <?=tr('startPage_wholeStatsTitle')?>
         </p>
 
-      <div id="totalStatsCounters">
+      <div class="totalStatsCounters">
         <div class="counterWidget" title="<?=tr('startPage_totalCachesDesc')?>">
-          <div class="counterTitle"><?=tr('startPage_totalCaches')?></div>
-          <div class="counterNumber"><?=$view->totalStats->totalCaches?></div>
+          <div class="counterInner">
+            <div class="counterTitle"><?=tr('startPage_totalCaches')?></div>
+            <div class="counterNumber"><?=$view->totalStats->totalCaches?></div>
+          </div>
         </div>
 
         <div class="counterWidget" title="<?=tr('startPage_readyToSearchDesc')?>">
-          <div class="counterTitle"><?=tr('startPage_readyToSearch')?></div>
-          <div class="counterNumber"><?=$view->totalStats->activeCaches?></div>
+          <div class="counterInner">
+            <div class="counterTitle"><?=tr('startPage_readyToSearch')?></div>
+            <div class="counterNumber"><?=$view->totalStats->activeCaches?></div>
+          </div>
         </div>
 
         <div class="counterWidget" title="<?=tr('startPage_topRatedCachesDesc')?>">
-          <div class="counterTitle"><?=tr('startPage_topRatedCaches')?></div>
-          <div class="counterNumber"><?=$view->totalStats->topRatedCaches?></div>
-        </div>
-
-        <div class="counterWidget" title="<?=tr('startPage_newCachesDesc')?>">
-          <div class="counterTitle"><?=tr('startPage_newCaches')?></div>
-          <div class="counterNumber"><?=$view->totalStats->latestCaches?></div>
-        </div>
-
-        <div class="counterWidget" title="<?=tr('startPage_activeCacheSetsDesc')?>">
-          <div class="counterTitle"><?=tr('startPage_activeCacheSets')?></div>
-          <div class="counterNumber"><?=$view->totalStats->activeCacheSets?></div>
+          <div class="counterInner">
+            <div class="counterTitle"><?=tr('startPage_topRatedCaches')?></div>
+            <div class="counterNumber"><?=$view->totalStats->topRatedCaches?></div>
+          </div>
         </div>
 
         <div class="counterWidget" title="<?=tr('startPage_totalUsersDesc')?>">
-          <div class="counterTitle"><?=tr('startPage_totalUsers')?></div>
-          <div class="counterNumber"><?=$view->totalStats->totalUsers?></div>
+          <div class="counterInner">
+            <div class="counterTitle"><?=tr('startPage_totalUsers')?></div>
+            <div class="counterNumber"><?=$view->totalStats->totalUsers?></div>
+          </div>
         </div>
 
-        <div class="counterWidget" title="<?=tr('startPage_newUsersDesc')?>">
-          <div class="counterTitle"><?=tr('startPage_newUsers')?></div>
-          <div class="counterNumber"><?=$view->totalStats->newUsers?></div>
+        <div class="counterWidget" title="<?=tr('startPage_activeCacheSetsDesc')?>">
+          <div class="counterInner">
+            <div class="counterTitle"><?=tr('startPage_activeCacheSets')?></div>
+            <div class="counterNumber"><?=$view->totalStats->activeCacheSets?></div>
+          </div>
         </div>
 
         <div class="counterWidget" title="<?=tr('startPage_totalSearchesDesc')?>">
-          <div class="counterTitle"><?=tr('startPage_totalSearches')?></div>
-          <div class="counterNumber"><?=$view->totalStats->totalSearches?></div>
+          <div class="counterInner">
+            <div class="counterTitle"><?=tr('startPage_totalSearches')?></div>
+            <div class="counterNumber"><?=$view->totalStats->totalSearches?></div>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="content-title-noshade-size3">
+        <?=tr('startPage_lastStatsTitle')?>
+      </p>
+      <div class="totalStatsCounters">
+
+        <div class="counterWidget" title="<?=tr('startPage_newCachesDesc')?>">
+          <div class="counterInner">
+            <div class="counterTitle"><?=tr('startPage_newCaches')?></div>
+            <div class="counterNumber"><?=$view->totalStats->latestCaches?></div>
+          </div>
+        </div>
+
+        <div class="counterWidget" title="<?=tr('startPage_newUsersDesc')?>">
+          <div class="counterInner">
+            <div class="counterTitle"><?=tr('startPage_newUsers')?></div>
+            <div class="counterNumber"><?=$view->totalStats->newUsers?></div>
+          </div>
         </div>
 
         <div class="counterWidget" title="<?=tr('startPage_newSearchesDesc')?>">
-          <div class="counterTitle"><?=tr('startPage_newSearches')?></div>
-          <div class="counterNumber"><?=$view->totalStats->latestSearches?></div>
+          <div class="counterInner">
+            <div class="counterTitle"><?=tr('startPage_newSearches')?></div>
+            <div class="counterNumber"><?=$view->totalStats->latestSearches?></div>
+          </div>
         </div>
 
         <div class="counterWidget" title="<?=tr('startPage_newoRecomDesc')?>">
-          <div class="counterTitle"><?=tr('startPage_newoRecom')?></div>
-          <div class="counterNumber"><?=$view->totalStats->latestRecomendations?></div>
+          <div class="counterInner">
+            <div class="counterTitle"><?=tr('startPage_newoRecom')?></div>
+            <div class="counterNumber"><?=$view->totalStats->latestRecomendations?></div>
+          </div>
         </div>
       </div>
     </div>
     <!-- /total Stats -->
 
-
     <div id="map">
       <?php $view->callChunk('staticMap', $view->staticMapModel); ?>
     </div>
 
-    <script type="text/javascript">
-        function showMarker(id) {
-          $('#'+id).toggleClass('hovered');
-        }
-
-        function hideMarker(id) {
-          $('#'+id).toggleClass('hovered');
-        }
-    </script>
-
-    <!-- Newest caches -->
+    <!-- newest caches -->
     <div id="newCachesList">
       <p class="content-title-noshade-size3">
         <?=tr('startPage_latestCachesList')?>
       </p>
 
-      <ul class="startPageList">
+      <ul class="latestCachesList">
         <?php foreach($view->latestCaches as $c){ ?>
           <li>
             <div>
@@ -141,8 +157,8 @@
             </div>
             <div>
               <a class="links highlite" href="<?=$c['link']?>"
-                 onmouseover="showMarker('<?=$c['markerId']?>')"
-                 onmouseout="hideMarker('<?=$c['markerId']?>')">
+                 onmouseover="highliteStaticMapMarker('<?=$c['markerId']?>')"
+                 onmouseout="highliteStaticMapMarker('<?=$c['markerId']?>')">
 
                 <img src="<?=$c['icon']?>" class="icon16" alt="CacheIcon" title="">
                 <?=$c['cacheName']?>
@@ -163,14 +179,13 @@
     </div>
     <!-- /newest caches -->
 
-
     <!-- incomming events -->
-    <div id="newCachesList">
+    <div id="nearestEventsList">
       <p class="content-title-noshade-size3">
         <?=tr('incomming_events')?>
       </p>
 
-      <ul class="startPageList">
+      <ul class="latestCachesList">
         <?php foreach($view->incomingEvents as $c){ ?>
           <li>
             <div>
@@ -179,8 +194,8 @@
             </div>
             <div>
                 <a class="links highlite" href="<?=$c['link']?>"
-                   onmouseover="showMarker('<?=$c['markerId']?>')"
-                   onmouseout="hideMarker('<?=$c['markerId']?>')">
+                   onmouseover="highliteStaticMapMarker('<?=$c['markerId']?>')"
+                   onmouseout="highliteStaticMapMarker('<?=$c['markerId']?>')">
 
                   <img src="<?=$c['icon']?>" class="icon16" alt="CacheIcon" title="">
                   <?=$c['cacheName']?>
@@ -201,61 +216,13 @@
     </div>
     <!-- /incomming events -->
 
-
-    <!-- titled caches -->
-    <?php if($view->titledCacheData){ ?>
-    <div id="cacheTitled">
-      <p class="content-title-noshade-size3">
-        <?=tr('startPage_latesttitledCaches')?>
-      </p>
-      <ul class="startPageList">
-        <li>
-          <div>
-            (<?=$view->titledCacheData['date']?>)
-            <span class="content-title-noshade">
-              <?=$view->titledCacheData['cacheLocation']?>
-            </span>
-          </div>
-          <div>
-            <img src="<?=$view->titledCacheData['cacheIcon']?>" class="icon16" alt="Cache" title="Cache">
-            <a href="<?=$view->titledCacheData['cacheUrl']?>" class="links highlite"
-                 onmouseover="showMarker('<?=$view->titledCacheData['markerId']?>')"
-                 onmouseout="hideMarker('<?=$view->titledCacheData['markerId']?>')">
-              <?=$view->titledCacheData['cacheName']?>
-            </a>
-            <?=tr('hidden_by')?>
-            <a href="<?=$view->titledCacheData['cacheOwnerUrl']?>" class="links">
-              <?=$view->titledCacheData['cacheOwnerName']?>
-            </a>
-          </div>
-
-          <div class="cacheTitledLog">
-            <img src="images/rating-star.png" alt="Star">
-              <a href="<?=$view->titledCacheData['logOwnerUrl']?>" class="links">
-                <?=$view->titledCacheData['logOwnerName']?>
-              </a>:<br><br>
-                    <?=$view->titledCacheData['logText']?>
-          </div>
-        </li>
-        <li class="showMoreLink">
-          <a href="/cache_titled.php" class="btn btn-sm">
-            <?=tr('startPage_showMore')?>
-          </a>
-        </li>
-      </ul>
-    </div>
-    <?php } //if-titledCacheData ?>
-    <!-- /titled caches -->
-
-
-
     <!-- last-cacheSets -->
     <?php if($view->displayLastCacheSets){ ?>
         <div id="newestCacheSets">
           <p class="content-title-noshade-size3">
             <?=tr('startPage_latestCacheSets')?>
           </p>
-          <ul class="startPageList">
+          <ul class="latestCachesList">
           <?php foreach($view->lastCacheSets AS $cs){ ?>
             <li>
               <div>
@@ -266,8 +233,8 @@
               </div>
               <div>
                 <a href="<?=$cs->getUrl()?>" class="links highlite"
-                    onmouseover="showMarker('<?='cs_'.$cs->getId()?>')"
-                    onmouseout="hideMarker('<?='cs_'.$cs->getId()?>')">
+                    onmouseover="highliteStaticMapMarker('<?='cs_'.$cs->getId()?>')"
+                    onmouseout="highliteStaticMapMarker('<?='cs_'.$cs->getId()?>')">
                   <img src="<?=$cs->getImage()?>" />
                   <?=$cs->getName()?>
                 </a>
@@ -286,6 +253,53 @@
     <?php } // if-displayGeoPathOfTheDay) ?>
     <!-- /last-cacheSets -->
 
+
+    <!-- titled caches -->
+    <?php if($view->titledCacheData){ ?>
+    <div id="cacheTitled">
+      <p class="content-title-noshade-size3">
+        <?=tr('startPage_latesttitledCaches')?>
+      </p>
+      <ul class="latestCachesList">
+        <li>
+          <div>
+            (<?=$view->titledCacheData['date']?>)
+            <span class="content-title-noshade">
+              <?=$view->titledCacheData['cacheLocation']?>
+            </span>
+          </div>
+          <div>
+            <img src="<?=$view->titledCacheData['cacheIcon']?>" class="icon16" alt="Cache" title="Cache">
+            <a href="<?=$view->titledCacheData['cacheUrl']?>" class="links highlite"
+                 onmouseover="highliteStaticMapMarker('<?=$view->titledCacheData['markerId']?>')"
+                 onmouseout="highliteStaticMapMarker('<?=$view->titledCacheData['markerId']?>')">
+              <?=$view->titledCacheData['cacheName']?>
+            </a>
+            <?=tr('hidden_by')?>
+            <a href="<?=$view->titledCacheData['cacheOwnerUrl']?>" class="links">
+              <?=$view->titledCacheData['cacheOwnerName']?>
+            </a>
+          </div>
+
+          <div class="cacheTitledLog">
+            <img src="images/rating-star.png" alt="Star">
+              <a href="<?=$view->titledCacheData['logOwnerUrl']?>" class="links">
+                <?=$view->titledCacheData['logOwnerName']?>:
+              </a>
+              <div>
+                <?=$view->titledCacheData['logText']?>
+              </div>
+          </div>
+        </li>
+        <li class="showMoreLink">
+          <a href="/cache_titled.php" class="btn btn-sm">
+            <?=tr('startPage_showMore')?>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <?php } //if-titledCacheData ?>
+    <!-- /titled caches -->
 
     <!-- feeds -->
     <div id="feedsContainer">
