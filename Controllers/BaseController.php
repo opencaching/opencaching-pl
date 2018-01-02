@@ -19,7 +19,7 @@ abstract class BaseController
     abstract public function index();
 
     /**
-     * This method is call by router to be sure that given action is allowed
+     * This method is called by router to be sure that given action is allowed
      * to be called by router (it is possible that ctrl has public method which 
      * shouldn't be accessible on request). 
      *
