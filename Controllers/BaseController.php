@@ -13,14 +13,14 @@ require_once(__DIR__.'/../lib/common.inc.php');
 abstract class BaseController
 {
     /**
-     * Every Controller should have index method
-     * which should be called by router as a default action
+     * Every ctrl should have index method
+     * which is called by router as a default action
      */
     abstract public function index();
 
     /**
      * This method is call by router to be sure that given action is allowed
-     * to call by router (it is possible that router has public method which 
+     * to be called by router (it is possible that ctrl has public method which 
      * shouldn't be accessible on request). 
      *
      * @param string $actionName - method which router will call
