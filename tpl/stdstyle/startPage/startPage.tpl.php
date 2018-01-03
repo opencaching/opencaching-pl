@@ -50,7 +50,6 @@
     <!-- /news -->
     <?php } //if-!empty($view->newsList) ?>
 
-
     <!-- total Stats -->
     <div id="totalStatsDiv">
         <p class="content-title-noshade-size3">
@@ -139,22 +138,22 @@
     <!-- /total Stats -->
 
     <div id="map">
-      <?php $view->callChunk('staticMap', $view->staticMapModel); ?>
+      <?php $view->callChunk('staticMap/staticMap', $view->staticMapModel); ?>
     </div>
+
+
+
 
     <!-- newest caches -->
     <div id="newCachesList">
-      <p class="content-title-noshade-size3">
-        <?=tr('startPage_latestCachesList')?>
-      </p>
+      <div>
+        <p class="content-title-noshade-size3"><?=tr('startPage_latestCachesList')?></p>
+        <?php $view->callChunk('staticMap/staticMapMarker', $view->newestCachesLegendMarker); ?>
+      </div>
 
       <ul class="latestCachesList">
         <?php foreach($view->latestCaches as $c){ ?>
           <li>
-            <div>
-              (<?=$c['date']?>)
-              <span class="content-title-noshade"><?=$c['location']?></span>
-            </div>
             <div>
               <a class="links highlite" href="<?=$c['link']?>"
                  onmouseover="highliteStaticMapMarker('<?=$c['markerId']?>')"
@@ -166,6 +165,10 @@
               </a>
               <?=tr('hidden_by')?>
               <a class="links" href="<?=$c['userUrl']?>"><?=$c['userName']?></a>
+            </div>
+            <div class="cacheLocationBox">
+              (<?=$c['date']?>)
+              <span class="content-title-noshade"><?=$c['location']?></span>
             </div>
           </li>
         <?php } //foreach ?>
@@ -183,15 +186,12 @@
     <div id="nearestEventsList">
       <p class="content-title-noshade-size3">
         <?=tr('incomming_events')?>
+        <?php $view->callChunk('staticMap/staticMapMarker', $view->newestEventsLegendMarker); ?>
       </p>
 
       <ul class="latestCachesList">
         <?php foreach($view->incomingEvents as $c){ ?>
           <li>
-            <div>
-              (<?=$c['date']?>)
-              <span class="content-title-noshade"><?=$c['location']?></span>
-            </div>
             <div>
                 <a class="links highlite" href="<?=$c['link']?>"
                    onmouseover="highliteStaticMapMarker('<?=$c['markerId']?>')"
@@ -203,6 +203,10 @@
                 </a>
                 <?=tr('hidden_by')?>
                 <a class="links" href="<?=$c['userUrl']?>"><?=$c['userName']?></a>
+            </div>
+            <div class="cacheLocationBox">
+              (<?=$c['date']?>)
+              <span class="content-title-noshade"><?=$c['location']?></span>
             </div>
           </li>
         <?php } //foreach ?>
@@ -216,31 +220,45 @@
     </div>
     <!-- /incomming events -->
 
-    <!-- last-cacheSets -->
+    <!-- latest-cacheSets -->
     <?php if($view->displayLastCacheSets){ ?>
         <div id="newestCacheSets">
           <p class="content-title-noshade-size3">
             <?=tr('startPage_latestCacheSets')?>
+            <?php $view->callChunk('staticMap/staticMapMarker', $view->newestCsLegendMarker); ?>
           </p>
           <ul class="latestCachesList">
           <?php foreach($view->lastCacheSets AS $cs){ ?>
             <li>
-              <div>
-                (<?=$cs->getCreationDate(true)?>)
-                <span class='content-title-noshade'>
-                  <?=$cs->getLocation()->getDescription(' > ')?>
-                </span>
-              </div>
-              <div>
                 <a href="<?=$cs->getUrl()?>" class="links highlite"
                     onmouseover="highliteStaticMapMarker('<?='cs_'.$cs->getId()?>')"
                     onmouseout="highliteStaticMapMarker('<?='cs_'.$cs->getId()?>')">
-                  <img src="<?=$cs->getImage()?>" />
-                  <?=$cs->getName()?>
+                  <div class="csImgBox">
+                    <img src="<?=$cs->getImage()?>" />
+                  </div>
                 </a>
-                <?=tr('hidden_by')?>
-                lista autorów...
-              </div>
+                <div class="csNameBox">
+                  <a href="<?=$cs->getUrl()?>" class="links highlite"
+                    onmouseover="highliteStaticMapMarker('<?='cs_'.$cs->getId()?>')"
+                    onmouseout="highliteStaticMapMarker('<?='cs_'.$cs->getId()?>')">
+                    <?=$cs->getName()?>
+                  </a>
+                  <?=tr('hidden_by')?>
+                  <?php foreach($cs->getOwners() as $csOwner) { ?>
+                    <a href="<?=$csOwner->getUserProfileUrl()?>" class="links">
+                      <?=$csOwner->getUserName()?>
+                    </a>
+                  <?php } // foreach csOwner?>
+
+                  <br>
+
+                    (<?=$cs->getCreationDate(true)?>)
+                    <span class='content-title-noshade'>
+                      <?=$cs->getLocation()->getDescription(' > ')?>
+                    </span>
+                  </div>
+                </a>
+
             </li>
           <?php } //foreach-lastCacheSets ?>
             <li class="showMoreLink">
@@ -257,17 +275,14 @@
     <!-- titled caches -->
     <?php if($view->titledCacheData){ ?>
     <div id="cacheTitled">
-      <p class="content-title-noshade-size3">
-        <?=tr('startPage_latesttitledCaches')?>
-      </p>
+      <div>
+          <p class="content-title-noshade-size3">
+            <?=tr('startPage_latesttitledCaches')?>
+          </p>
+          <?php $view->callChunk('staticMap/staticMapMarker', $view->newestTitledLegendMarker); ?>
+      </div>
       <ul class="latestCachesList">
         <li>
-          <div>
-            (<?=$view->titledCacheData['date']?>)
-            <span class="content-title-noshade">
-              <?=$view->titledCacheData['cacheLocation']?>
-            </span>
-          </div>
           <div>
             <img src="<?=$view->titledCacheData['cacheIcon']?>" class="icon16" alt="Cache" title="Cache">
             <a href="<?=$view->titledCacheData['cacheUrl']?>" class="links highlite"
@@ -280,7 +295,12 @@
               <?=$view->titledCacheData['cacheOwnerName']?>
             </a>
           </div>
-
+          <div class="cacheLocationBox">
+            (<?=$view->titledCacheData['date']?>)
+            <span class="content-title-noshade">
+              <?=$view->titledCacheData['cacheLocation']?>
+            </span>
+          </div>
           <div class="cacheTitledLog">
             <img src="images/rating-star.png" alt="Star">
               <a href="<?=$view->titledCacheData['logOwnerUrl']?>" class="links">

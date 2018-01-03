@@ -14,9 +14,10 @@ use lib\Objects\GeoCache\CacheTitled;
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\CacheSet\CacheSet;
 use Utils\Text\Formatter;
-use lib\Objects\ChunkModels\StaticMapModel;
+use lib\Objects\ChunkModels\StaticMap\StaticMapModel;
 use Utils\Uri\SimpleRouter;
-use lib\Objects\ChunkModels\StaticMapMarker;
+use lib\Objects\ChunkModels\StaticMap\StaticMapMarker;
+use lib\Objects\CacheSet\CacheSetOwner;
 
 class StartPageController extends BaseController
 {
@@ -120,6 +121,11 @@ class StartPageController extends BaseController
             });
 
         $this->view->setVar('latestCaches', $newestCaches->latestCaches);
+
+        //legend marker
+        $this->view->setVar('newestCachesLegendMarker',
+            StaticMapMarker::getCssMarkerForLegend(StaticMapMarker::COLOR_CACHE));
+
         // add markers
         foreach($newestCaches->latestCaches as $c){
             $this->staticMapModel->createMarker($c['markerId'], $c['coords'],
@@ -128,12 +134,18 @@ class StartPageController extends BaseController
         }
 
         $this->view->setVar('incomingEvents', $newestCaches->incomingEvents);
+
+        //legend marker
+        $this->view->setVar('newestEventsLegendMarker',
+            StaticMapMarker::getCssMarkerForLegend(StaticMapMarker::COLOR_EVENT));
+
         // add markers
         foreach($newestCaches->incomingEvents as $c){
             $this->staticMapModel->createMarker($c['markerId'], $c['coords'],
                 StaticMapMarker::COLOR_EVENT,
                 $c['markerId'].': '.$c['cacheName'], $c['link']);
         }
+
 
     }
 
@@ -143,6 +155,9 @@ class StartPageController extends BaseController
             $this->ocConfig->isPowertrailsEnabled());
 
         $lastCacheSets = CacheSet::getLastCreatedSets(3);
+        $lastCacheSets = CacheSetOwner::setOwnersToCacheSets($lastCacheSets);
+
+
         foreach($lastCacheSets as $cs){
             $this->staticMapModel->createMarker(
                 'cs_'.$cs->getId(), $cs->getCoordinates(),
@@ -150,6 +165,10 @@ class StartPageController extends BaseController
         }
 
         $this->view->setVar('lastCacheSets', $lastCacheSets);
+
+        //legend marker
+        $this->view->setVar('newestCsLegendMarker',
+            StaticMapMarker::getCssMarkerForLegend(StaticMapMarker::COLOR_CACHESET));
     }
 
     private function processNews()
@@ -214,6 +233,10 @@ class StartPageController extends BaseController
             $geocache->getCoordinates(), StaticMapMarker::COLOR_TITLED_CACHE,
             $geocache->getWaypointId().': '.$geocache->getCacheName(),
             $geocache->getCacheUrl());
+
+        //legend marker
+        $this->view->setVar('newestTitledLegendMarker',
+            StaticMapMarker::getCssMarkerForLegend(StaticMapMarker::COLOR_TITLED_CACHE));
 
         $titledCacheData = [
             'date' => Formatter::date($lastTitledCache->getTitledDate()),

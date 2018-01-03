@@ -1137,7 +1137,7 @@ class GeoCache extends GeoCacheCommons
         if(empty($result)){
             $result[] = tr('no_visits');
         }
-        return $result;
+        return array_values($result);
     }
 
     public function incCacheVisits(User $user=null, $ip)

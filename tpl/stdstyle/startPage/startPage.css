@@ -11,6 +11,7 @@
 /* News */
 #newsDiv {
   border-bottom: 1px solid gray;
+  margin-bottom: 10px;
 }
 
 #newsDiv .newsItem {
@@ -47,7 +48,7 @@
   vertical-align: middle;
   padding: 2px 10px 2px 10px;
   border-radius: 3px;
-  background-color: #DBE6F1;
+  /* background-color: #DBE6F1; */
   text-align: center;
   font-weight: bold;
   margin: 5px 2px;
@@ -90,10 +91,15 @@ ul.latestCachesList {
 
 ul.latestCachesList li {
   padding-bottom: 3px;
+  margin-left: 10px;
 }
 
 li.showMoreLink {
   text-align: left;
+  margin-left: 20px;
+}
+
+li .cacheLocationBox {
   margin-left: 20px;
 }
 
@@ -120,21 +126,46 @@ a.highlite {
   height: 16px; 
 }
 
+#newCachesList p, 
+#nearestEventsList p, 
+#cacheTitled p,
+#newestCacheSets p {
+  display: inline-block;
+  margin-right: 3px;
+}
+
 #newestCacheSets {
   width: 49%;
   display: inline-block;
   
 }
+#newestCacheSets .csImgBox {
+  width: 40px;
+  height: 25px;
+  display: inline-block;
+  text-align: center;
+}
+
+#newestCacheSets .csNameBox {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: left;
+  width: 305px;
+}
+
+#newestCacheSets li {
+  padding: 3px 0;
+}
 
 #newestCacheSets img {
-  height: 30px;
-  max-width: 50px;
+  height: 25px;
+  max-width: 40px;
 }
 
 #cacheTitled .cacheTitledLog {
     border-radius: 3px;
     border: solid 2px rgb(88,144,168);
-    background: #DBE6F1; /*#F9F9F9;*/
+    /*background: #DBE6F1; /*#F9F9F9;*/
     padding: 5px;
     font-size: 11px;
     margin-top: 5px;
