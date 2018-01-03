@@ -14,9 +14,11 @@ use lib\Objects\GeoCache\CacheTitled;
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\CacheSet\CacheSet;
 use Utils\Text\Formatter;
-use lib\Objects\ChunkModels\StaticMapModel;
+use lib\Objects\ChunkModels\StaticMap\StaticMapModel;
 use Utils\Uri\SimpleRouter;
-use lib\Objects\ChunkModels\StaticMapMarker;
+use lib\Objects\ChunkModels\StaticMap\StaticMapMarker;
+use lib\Objects\CacheSet\CacheSetOwner;
+use lib\Objects\Stats\TotalStats\BasicStats;
 
 class StartPageController extends BaseController
 {
@@ -75,6 +77,7 @@ class StartPageController extends BaseController
             function(){
 
                 $result = new \stdClass();
+                $result->createdAt = time();
                 $result->latestCaches = [];
                 $result->incomingEvents = [];
 
@@ -120,6 +123,11 @@ class StartPageController extends BaseController
             });
 
         $this->view->setVar('latestCaches', $newestCaches->latestCaches);
+
+        //legend marker
+        $this->view->setVar('newestCachesLegendMarker',
+            StaticMapMarker::getCssMarkerForLegend(StaticMapMarker::COLOR_CACHE));
+
         // add markers
         foreach($newestCaches->latestCaches as $c){
             $this->staticMapModel->createMarker($c['markerId'], $c['coords'],
@@ -128,6 +136,11 @@ class StartPageController extends BaseController
         }
 
         $this->view->setVar('incomingEvents', $newestCaches->incomingEvents);
+
+        //legend marker
+        $this->view->setVar('newestEventsLegendMarker',
+            StaticMapMarker::getCssMarkerForLegend(StaticMapMarker::COLOR_EVENT));
+
         // add markers
         foreach($newestCaches->incomingEvents as $c){
             $this->staticMapModel->createMarker($c['markerId'], $c['coords'],
@@ -135,6 +148,8 @@ class StartPageController extends BaseController
                 $c['markerId'].': '.$c['cacheName'], $c['link']);
         }
 
+        $this->view->setVar('newestCachesValidAt',
+            Formatter::dateTime($newestCaches->createdAt));
     }
 
     private function processLastCacheSets()
@@ -143,6 +158,9 @@ class StartPageController extends BaseController
             $this->ocConfig->isPowertrailsEnabled());
 
         $lastCacheSets = CacheSet::getLastCreatedSets(3);
+        $lastCacheSets = CacheSetOwner::setOwnersToCacheSets($lastCacheSets);
+
+
         foreach($lastCacheSets as $cs){
             $this->staticMapModel->createMarker(
                 'cs_'.$cs->getId(), $cs->getCoordinates(),
@@ -150,6 +168,10 @@ class StartPageController extends BaseController
         }
 
         $this->view->setVar('lastCacheSets', $lastCacheSets);
+
+        //legend marker
+        $this->view->setVar('newestCsLegendMarker',
+            StaticMapMarker::getCssMarkerForLegend(StaticMapMarker::COLOR_CACHESET));
     }
 
     private function processNews()
@@ -160,12 +182,36 @@ class StartPageController extends BaseController
 
     private function processTotalStats()
     {
-        $this->view->setVar('totalStats', TotalStats::getBasicTotalStats());
+        /** @var BasicStats */
+        $ts = TotalStats::getBasicTotalStats();
+
+        // prepare total-stats array
+        $totStsArr = [];
+        $totStsArr[0] = ['val'=>$ts->totalCaches, 'desc'=>tr('startPage_totalCaches'), 'ldesc'=>tr('startPage_totalCachesDesc')];
+        $totStsArr[1] = ['val'=>$ts->activeCaches, 'desc'=>tr('startPage_readyToSearch'), 'ldesc'=>tr('startPage_readyToSearchDesc')];
+        $totStsArr[2] = ['val'=>$ts->topRatedCaches, 'desc'=>tr('startPage_topRatedCaches'), 'ldesc'=>tr('startPage_topRatedCachesDesc')];
+        $totStsArr[3] = ['val'=>$ts->totalUsers, 'desc'=>tr('startPage_totalUsers'), 'ldesc'=>tr('startPage_totalUsersDesc')];
+        $totStsArr[4] = ['val'=>$ts->activeCacheSets, 'desc'=>tr('startPage_activeCacheSets'), 'ldesc'=>tr('startPage_activeCacheSetsDesc')];
+        $totStsArr[5] = ['val'=>$ts->totalSearches, 'desc'=>tr('startPage_totalSearches'), 'ldesc'=>tr('startPage_totalSearchesDesc')];
+        $totStsArr[6] = ['val'=>$ts->latestCaches, 'desc'=>tr('startPage_newCaches'), 'ldesc'=>tr('startPage_newCachesDesc')];
+        $totStsArr[7] = ['val'=>$ts->newUsers, 'desc'=>tr('startPage_newUsers'), 'ldesc'=>tr('startPage_newUsersDesc')];
+        $totStsArr[8] = ['val'=>$ts->latestSearches, 'desc'=>tr('startPage_newSearches'), 'ldesc'=>tr('startPage_newSearchesDesc')];
+        $totStsArr[9] = ['val'=>$ts->latestRecomendations, 'desc'=>tr('startPage_newoRecom'), 'ldesc'=>tr('startPage_newoRecomDesc')];
+
+        // rotate stats tabele random number of times
+        $rotator = rand(0,9);
+        for($i=0; $i<$rotator; $i++){
+            array_push($totStsArr, array_shift($totStsArr));
+        }
+
+        $this->view->setVar('totStsArr', $totStsArr);
+        $this->view->setVar('totStsValidAt', Formatter::dateTime($ts->createdAt));
+
     }
 
     private function processTitleCaches()
     {
-        $titledCacheData = OcMemCache::getOrCreate(
+        $titledCacheDataObj = OcMemCache::getOrCreate(
             __CLASS__.':titledCacheData', 5*60*60,
             function(){
 
@@ -193,20 +239,21 @@ class StartPageController extends BaseController
                     $titleCacheDataObj->geocache = $geocache;
                     $titleCacheDataObj->log = $log;
                     $titleCacheDataObj->cacheTitled = $lastTitledCache;
+                    $titleCacheDataObj->createdAt = time();
 
                     return $titleCacheDataObj;
                 }
         });
 
-        if(!$titledCacheData){
+        if(!$titledCacheDataObj){
             // there is no titledCache? - some errror occured?!
             $this->view->setVar('titledCacheData',null);
             return;
         }
         /** @var GeoCache */
-        $geocache = $titledCacheData->geocache;
-        $log = $titledCacheData->log;
-        $lastTitledCache = $titledCacheData->cacheTitled;
+        $geocache = $titledCacheDataObj->geocache;
+        $log = $titledCacheDataObj->log;
+        $lastTitledCache = $titledCacheDataObj->cacheTitled;
 
         $markerId = 'titled_'.$geocache->getWaypointId();
         $this->staticMapModel->createMarker(
@@ -214,6 +261,10 @@ class StartPageController extends BaseController
             $geocache->getCoordinates(), StaticMapMarker::COLOR_TITLED_CACHE,
             $geocache->getWaypointId().': '.$geocache->getCacheName(),
             $geocache->getCacheUrl());
+
+        //legend marker
+        $this->view->setVar('newestTitledLegendMarker',
+            StaticMapMarker::getCssMarkerForLegend(StaticMapMarker::COLOR_TITLED_CACHE));
 
         $titledCacheData = [
             'date' => Formatter::date($lastTitledCache->getTitledDate()),
@@ -230,6 +281,8 @@ class StartPageController extends BaseController
         ];
 
         $this->view->setVar('titledCacheData',$titledCacheData);
+        $this->view->setVar('titledCacheValidAt',
+            Formatter::dateTime($titledCacheDataObj->createdAt));
 
     }
 

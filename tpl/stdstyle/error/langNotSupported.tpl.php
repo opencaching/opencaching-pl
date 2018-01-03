@@ -1,5 +1,4 @@
 <?php
-use Utils\Uri\Uri;
 
 /**
  * This template is displayed when user request not supported language

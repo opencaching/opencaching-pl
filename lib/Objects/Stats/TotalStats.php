@@ -25,7 +25,6 @@ class TotalStats extends BaseObject
 
     public static function getBasicTotalStats($dropCache=null)
     {
-
         if(!$dropCache){
             return OcMemCache::getOrCreate(
                 BasicStats::KEY, BasicStats::TTL, function(){
@@ -65,6 +64,7 @@ class TotalStats extends BaseObject
         $basicStats->latestRecomendations = Formatter::number(
             MultiLogStats::getLastRecomendationsCount($periodDays));
 
+        $basicStats->createdAt = time();
         return $basicStats;
     }
 }
@@ -80,6 +80,7 @@ class BasicStats
     const KEY = __CLASS__;
     const TTL = 6*60*60; //sec.
 
+    public $createdAt;
     public $totalCaches;
     public $activeCaches;
     public $topRatedCaches;

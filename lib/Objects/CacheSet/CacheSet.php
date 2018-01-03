@@ -29,6 +29,9 @@ class CacheSet extends CacheSetCommon
     /** @var NutsLocation */
     private $location = null;
 
+    /** @var array of CacheSetOwner */
+    private $owners = null;
+
     public function __construct()
     {
         parent::__construct();
@@ -255,6 +258,26 @@ class CacheSet extends CacheSetCommon
         return self::getCacheSetUrlById($this->id);
     }
 
+    public function getOwners()
+    {
+        if(!$this->owners){
+            $arr = CacheSetOwner::getOwnersOfCacheSets([$this->getId()]);
+            $this->owners = $arr[$this->getId()];
+        }
+
+        return $this->owners;
+    }
+
+    /**
+     * Set array of CacheSetOwners as cacheSet owners
+     *
+     * @param array $owners
+     */
+    public function setOwners(array $owners)
+    {
+        $this->owners = $owners;
+    }
+
     /**
      * Return all cacheSets which has less active caches than required ratio for completion
      * @return array
@@ -307,5 +330,7 @@ class CacheSet extends CacheSetCommon
             'SELECT COUNT(*) FROM PowerTrail WHERE status = :1',
             0,self::STATUS_OPEN);
     }
+
+
 }
 
