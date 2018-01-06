@@ -109,6 +109,9 @@
       <?php $view->callChunk('staticMap/staticMap', $view->staticMapModel); ?>
     </div>
 
+
+
+
     <!-- newest caches -->
     <div id="newCachesList">
       <div>

@@ -266,6 +266,10 @@ class StartPageController extends BaseController
         $this->view->setVar('newestTitledLegendMarker',
             StaticMapMarker::getCssMarkerForLegend(StaticMapMarker::COLOR_TITLED_CACHE));
 
+        //legend marker
+        $this->view->setVar('newestTitledLegendMarker',
+            StaticMapMarker::getCssMarkerForLegend(StaticMapMarker::COLOR_TITLED_CACHE));
+
         $titledCacheData = [
             'date' => Formatter::date($lastTitledCache->getTitledDate()),
             'cacheIcon' => $geocache->getCacheIcon($this->loggedUser),
