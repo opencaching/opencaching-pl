@@ -154,12 +154,26 @@ class StartPageController extends BaseController
 
     private function processLastCacheSets()
     {
-        $this->view->setVar('displayLastCacheSets',
-            $this->ocConfig->isPowertrailsEnabled());
+        $cacheSetsEnabledInConfig = $this->ocConfig->isPowertrailsEnabled();
 
-        $lastCacheSets = CacheSet::getLastCreatedSets(3);
-        $lastCacheSets = CacheSetOwner::setOwnersToCacheSets($lastCacheSets);
+        $this->view->setVar('displayLastCacheSets', $cacheSetsEnabledInConfig);
+        if(!$cacheSetsEnabledInConfig){
+            return;
+        }
 
+        $lastCacheSets = OcMemCache::getOrCreate(
+            __CLASS__.':latestCacheSets', 3*60*60,
+            function(){
+                $lastCacheSets = CacheSet::getLastCreatedSets(3);
+                $lastCacheSets = CacheSetOwner::setOwnersToCacheSets($lastCacheSets);
+
+                array_walk($lastCacheSets, function(&$cs){
+                    /** @var CacheSet */
+                    $cs->prepareForSerialization();
+                });
+                d($lastCacheSets);
+                return $lastCacheSets;
+            });
 
         foreach($lastCacheSets as $cs){
             $this->staticMapModel->createMarker(
@@ -261,10 +275,6 @@ class StartPageController extends BaseController
             $geocache->getCoordinates(), StaticMapMarker::COLOR_TITLED_CACHE,
             $geocache->getWaypointId().': '.$geocache->getCacheName(),
             $geocache->getCacheUrl());
-
-        //legend marker
-        $this->view->setVar('newestTitledLegendMarker',
-            StaticMapMarker::getCssMarkerForLegend(StaticMapMarker::COLOR_TITLED_CACHE));
 
         //legend marker
         $this->view->setVar('newestTitledLegendMarker',
