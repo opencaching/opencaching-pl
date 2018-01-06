@@ -1,4 +1,4 @@
-
+<!--
 <div class="content2-pagetitle">
   <?php if($view->isUserLogged) { ?>
     <?=tr('startPage_welcome')?>&nbsp;<?=$view->username?>
@@ -6,7 +6,7 @@
     <?=tr('startPage_title')?>
   <?php } //if-isUserLogged ?>
 </div>
-
+-->
 
 <div class="content2-container">
 
