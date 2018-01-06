@@ -2773,7 +2773,7 @@ $translations = array(
     'startPage_showMore' => 'Pokaż więcej',
     'startPage_latestCachesList' => 'Najnowsze skrzynki',
     'startPage_latestCacheSets' => 'Najnowsze geościezki',
-    'startPage_latesttitledCaches' => 'Ostatnio wyróżnione',
+    'startPage_latestTitledCaches' => 'Ostatnio wyróżnione',
     'startPage_validAt' => 'Aktualność',
 
 

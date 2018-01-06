@@ -250,8 +250,7 @@
       <div>
           <p class="content-title-noshade-size3"
              title="<?=tr('startPage_validAt')?>: <?=$view->titledCacheValidAt?>">
-
-            <?=tr('startPage_latesttitledCaches')?>
+            <?=tr('startPage_latestTitledCaches')?>
           </p>
           <?php $view->callChunk('staticMap/staticMapMarker', $view->newestTitledLegendMarker); ?>
       </div>
