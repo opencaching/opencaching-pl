@@ -64,7 +64,7 @@ foreach($userCategories as $oneCategory){
     $content.=mb_ereg_replace('{content_badge_img}', $content_badge, $category_table);
 }
 
-
+$content.="<a class='links'  href='user_badges.php?user_id=999999'>[".tr('merit_badge_show_list')."]</a><br><br>";
 
 tpl_set_var( 'content', $content );
 
