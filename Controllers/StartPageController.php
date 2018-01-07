@@ -171,7 +171,6 @@ class StartPageController extends BaseController
                     /** @var CacheSet */
                     $cs->prepareForSerialization();
                 });
-                d($lastCacheSets);
                 return $lastCacheSets;
             });
 
