@@ -23,11 +23,11 @@ $menu = [
 
     /* 'translation key' => 'url' */
     'mnu_mainPage'      => '/index.php',
-    'mnu_abcOfGCaching' => $links['wiki']['main'],
-    'mnu_forum'         => $links['forum'],
-    'mnu_blog'          => $links['blog'],
-    'mnu_geokrets'      => $links['geokrety'],
-    'mnu_download'      => $links['wiki']['downloads'],
+    'mnu_abcOfGCaching' => [$links['wiki']['main']],
+    'mnu_forum'         => [$links['forum']],
+    'mnu_blog'          => [$links['blog']],
+    'mnu_geokrets'      => [$links['geokrety']],
+    'mnu_download'      => [$links['wiki']['downloads']],
     'mnu_links'         => '/articles.php?page=links',
     'mnu_contact'       => '/articles.php?page=contact',
     'mnu_guides'        => '/cacheguides.php',
