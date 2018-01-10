@@ -20,8 +20,8 @@ abstract class BaseController
 
     /**
      * This method is called by router to be sure that given action is allowed
-     * to be called by router (it is possible that ctrl has public method which 
-     * shouldn't be accessible on request). 
+     * to be called by router (it is possible that ctrl has public method which
+     * shouldn't be accessible on request).
      *
      * @param string $actionName - method which router will call
      * @return boolean - TRUE if given method can be call from router
@@ -103,4 +103,29 @@ abstract class BaseController
         exit;
     }
 
+    /**
+     * This method can be used to just exit and display error page to user
+     *
+     * @param unknown $message - simple message to be displayed (in english)
+     * @param unknown $httpStatusCode - http status code to return in response
+     */
+    public function displayCommonErrorPageAndExit($message=null, $httpStatusCode=null)
+    {
+        $this->view->setTemplate('error/commonFatalError');
+        if($httpStatusCode){
+            switch($httpStatusCode){
+                case 404:
+                    header("HTTP/1.0 404 Not Found");
+                    break;
+                case 403:
+                    header("HTTP/1.0 403 Forbidden");
+                    break;
+                default:
+                    //TODO...
+            }
+        }
+
+        $this->view->setVar('message', $message);
+        $this->view->buildOnlySelectedTpl();
+    }
 }

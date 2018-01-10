@@ -10,10 +10,10 @@ class StaticMapMarker
     const TYPE_CSS_LEGEND_MARKER=2; // same as CSS_MARKER but to display in legend
 
     // default colors for markers
-    const COLOR_TITLED_CACHE = '#fff';
-    const COLOR_CACHE = '#27FF00';
-    const COLOR_CACHESET = '#D800FF';
-    const COLOR_EVENT = '#FF5900';
+    const COLOR_TITLED_CACHE = '#FF4500';
+    const COLOR_CACHE = '#61D8A2 ';
+    const COLOR_CACHESET = '#65A5D1';
+    const COLOR_EVENT = '#FFC273';
 
     public $markerType;     //TYPE_* enum
 

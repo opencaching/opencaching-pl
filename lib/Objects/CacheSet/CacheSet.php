@@ -331,6 +331,18 @@ class CacheSet extends CacheSetCommon
             0,self::STATUS_OPEN);
     }
 
+    public function prepareForSerialization()
+    {
+        parent::prepareForSerialization();
+        array_walk($this->owners, function (&$element, $key){
+            $element->prepareForSerialization();
+        });
+    }
+
+    public function restoreAfterSerialization()
+    {
+        parent::restoreAfterSerialization();
+    }
 
 }
 

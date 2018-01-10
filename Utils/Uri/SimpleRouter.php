@@ -18,15 +18,21 @@ use Utils\Debug\Debug;
 
 class SimpleRouter
 {
-    const ROUTE_GET_VAR = 'r';
+    // action which will be used if no action is indicated in request
+    const DEFAULT_ACTION = 'index'; //
+    // controller which will be used if no controller is indicated in request
+    const DEFAULT_CTRL = 'StartPage'; //
 
-    const DEFAULT_ACTION = 'index';
-    const DEFAULT_CTRL = 'StartPage';
+    // ctrl used if request is improper (eg. there is no such ctrl)
+    const ERROR_CTRL = 'StartPage';
+    // action used if request is improper (eg. there is no such action)
+    const ERROR_ACTION = 'displayCommonErrorPageAndExit';
 
     const CTRL_BASE_CLASS = '\Controllers\BaseController';
-
     const ROOT_DIR = __DIR__.'/../..';
 
+    // GET (url) var used to transfer route
+    const ROUTE_GET_VAR = 'r';
 
     /**
      * Generate proper link from given params
@@ -69,18 +75,19 @@ class SimpleRouter
 
         // check if controller/action is ready to be call by router
         if( !is_a($ctrl, self::CTRL_BASE_CLASS) ||
+            !method_exists ( $ctrl, $actionName ) ||
             !$ctrl->isCallableFromRouter($actionName)){
 
             // router prevent this call - use defaults instead!
-            $ctrlName = self::getControllerWithNamespace(self::DEFAULT_CTRL);
-            $actionName = self::DEFAULT_ACTION;
-            $params = [];
+            $ctrlName = self::getControllerWithNamespace(self::ERROR_CTRL);
+            $actionName = self::ERROR_ACTION;
+            $params = ['Requested action not found',403];
 
             $ctrl = new $ctrlName();
         }
 
         call_user_func_array(array($ctrl, $actionName), $params);
-        
+
         // this should be a dead code!
         exit;
     }
@@ -122,23 +129,33 @@ class SimpleRouter
         }
 
         if(empty($routeParts)){
+            // this is just emprty route - display DEFAUTS
             $routeParts[0] = self::DEFAULT_CTRL;
         }else{
+            // ctrl part is empty - hmm... assume some one add too many slashes
             if(empty($routeParts[0])){
                 array_shift($routeParts);
             }
         }
 
+        // assume that this is ctrl name - add full namespace path to it
         $ctrl = self::getControllerWithNamespace($routeParts[0]);
 
+        // check if such file exists
         if(!file_exists(self::getClassFilePath($ctrl))){
-            // there is no such file!
-            $ctrl = self::getControllerWithNamespace(self::DEFAULT_CTRL);
-            $action = self::DEFAULT_ACTION;
-            $params = [];
+            // there is no such file! - display error
+            $ctrl = self::getControllerWithNamespace(self::ERROR_CTRL);
+            $action = self::ERROR_ACTION;
+            $params = ['Requested resource not found!?', 404];
 
         }else{
-            $action = ( isset($routeParts[1]) ? $routeParts[1] : self::DEFAULT_ACTION );
+            // ctrl found, check the action
+            if( !isset($routeParts[1]) || empty($routeParts[1]) ){
+                $action = self::DEFAULT_ACTION;
+            } else {
+                $action = $routeParts[1];
+            }
+            // and params...
             $params = array_slice($routeParts, 2);
         }
 

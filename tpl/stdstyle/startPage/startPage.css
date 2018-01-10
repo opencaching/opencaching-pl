@@ -3,14 +3,14 @@
   font-size: 12px;
   line-height: 1.6em;
   width: 100%;
-  margin: 0 0 10px 0;
-  border-bottom: 1px solid gray;
+  /* margin: 0 0 10px 0; */
+  /*border-bottom: 1px solid gray;*/
   padding: 10px 0;
 }
 
 /* News */
 #newsDiv {
-  border-bottom: 1px solid gray;
+  /*border-bottom: 1px solid gray;*/
   margin-bottom: 10px;
 }
 
@@ -34,8 +34,34 @@
 
 /* Total-stats: */
 #totalStatsDiv {
-  margin: 10px 0;
-  border-bottom: 1px solid gray;
+  margin: 0 0 10px 0;
+  /*border-bottom: 1px solid gray;*/
+  text-align: center;
+}
+#totalStatsDiv #totalStatsCounters {
+  display: inline-block;
+}
+#totalStatsDiv #arrowLeft {
+  border-right:15px solid rgb(88,144,168); 
+}
+
+#totalStatsDiv #arrowRight {
+  border-left: 15px solid rgb(88,144,168);
+}
+
+
+#totalStatsDiv .counterArrow {
+  display: inline-block;
+  width: 0; 
+  height: 0;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent; 
+  vertical-align: middle;
+}
+
+#totalStatsDiv .counterLeftHidden,
+#totalStatsDiv .counterRightHidden {
+  display: none !important ;
 }
 
 #totalStatsDiv .totalStatsCounters {
@@ -46,21 +72,19 @@
   border: 2px solid rgb(88,144,168);
   display: inline-block;
   vertical-align: middle;
-  padding: 2px 10px 2px 10px;
   border-radius: 3px;
-  /* background-color: #DBE6F1; */
   text-align: center;
   font-weight: bold;
   margin: 5px 2px;
   height: 50px;
-  width: 95px;
+  width: 130px;
 }
 
 #totalStatsDiv .counterInner {
     vertical-align: middle;
     display: table-cell;
     height: 50px;
-    width: 90px;
+    width: 130px;
     text-align: center;
 }
 

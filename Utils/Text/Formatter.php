@@ -57,5 +57,31 @@ class Formatter
         return $dateObj->format(OcConfig::instance()->getDateFormat());
     }
 
+    /**
+     * Format date-time value according to config setting
+     *
+     * @param $date - can be timestamp or DateTime obj
+     * @return string - formatted date
+     */
+    public static function dateTime($date)
+    {
+        if( $date instanceof DateTime){
+            $dateObj = $date;
+        }else{
+            if(is_numeric($date)){
+                //this is timestamp
+                $date = "@$date"; // DateTime uses such format
+            }
+
+            try{
+                $dateObj = new DateTime($date);
+            }catch (\Exception $e){
+                return '-';
+            }
+        }
+
+        return $dateObj->format(OcConfig::instance()->getDatetimeFormat());
+    }
+
 
 }
