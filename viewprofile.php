@@ -919,7 +919,8 @@ foreach($userCategories as $oneCategory){
 }
 
 $content.=mb_ereg_replace('{content_badge_rows}', $content_badge_rows, $content_table_badge);
-$content.="<a class='links'  href='user_badges.php?user_id=$user_id'>[".tr('merit_badge_show_details')."]</a><br><br>";
+$content.="<a class='links'  href='user_badges.php?user_id=$user_id'>[".tr('merit_badge_show_details')."]</a>&nbsp&nbsp&nbsp&nbsp";
+$content.="<a class='links'  href='user_badges.php?user_id=999999'>[".tr('merit_badge_show_list')."]</a><br><br>";
 return $content;
 }
 

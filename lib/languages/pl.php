@@ -2678,6 +2678,7 @@ $translations = array(
     'merit_badge_number' =>  'Postęp',
     'merit_badge_number_threshold' =>  'Progi',
     'merit_badge_show_details' => 'Pokaż szczegóły zdobytych sprawności ... ',
+    'merit_badge_show_list' => 'Pokaż wszystkie dostępne sprawności ... ',
     'merit_badge_gain_max_level' => 'Osiągnąłeś najwyższy poziom',
     'merit_badge_gain_next_level' => 'Osiągnąłeś kolejny poziom sprawności:',
     'merit_badge_graphic_author' => 'Grafika:',
