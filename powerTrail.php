@@ -307,7 +307,7 @@ if ($error == false) {
             }
             break;
         default:
-            tpl_set_var('PowerTrails', displayPTrails($pt->getpowerTrails()), false);
+            tpl_set_var('PowerTrails', displayPTrails($pt->getpowerTrails(), false));
             tpl_set_var('displayPowerTrails', 'block');
             break;
     }

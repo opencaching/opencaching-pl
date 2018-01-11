@@ -1,5 +1,19 @@
 <?php
+/**
+ * There is a great code usefull for refactoring of this code here:
+ * https://www.phpclasses.org/browse/file/10671.html
+ *
+ */
 
+/**
+ * This function converts coordinates in lat-lon system to UMT
+ *
+ * @param unknown $Lat
+ * @param unknown $Lon
+ * @param unknown $NS
+ * @param unknown $EW
+ * @return number[]|string[]|unknown[]
+ */
 function ll2utm($Lat, $Lon, $NS = null, $EW = null)
 {
     if ($Lat > 90)
