@@ -6,6 +6,7 @@ use lib\Objects\PowerTrail\PowerTrail;
 use lib\Objects\GeoCache\GeoCache;
 use Utils\Uri\Uri;
 use lib\Objects\OcConfig\OcDynamicMapConfig;
+use Utils\View\View;
 
 /**
  *  powerTrail.php
@@ -218,6 +219,11 @@ if ($error == false) {
 
 
         case 'showSerie':
+            if(!isset($_GET['ptrail'])){
+                // just redirect to all powertrails
+                header("Location: " . "//" . $_SERVER['HTTP_HOST'] . '/powerTrail.php');
+                exit;
+            }
             $powerTrail = new PowerTrail(array('id' => (int) $_GET['ptrail']));
             $ptOwners = $pt->getPtOwners();
             $_SESSION['ptName'] = powerTrailBase::clearPtNames($powerTrail->getName());
@@ -301,7 +307,7 @@ if ($error == false) {
             }
             break;
         default:
-            tpl_set_var('PowerTrails', displayPTrails($pt->getpowerTrails()), false);
+            tpl_set_var('PowerTrails', displayPTrails($pt->getpowerTrails(), false));
             tpl_set_var('displayPowerTrails', 'block');
             break;
     }
