@@ -162,9 +162,9 @@ global $tpl_subtitle, $absolute_server_URI, $site_name;
                             <form action="login.php?action=login" method="post" name="login"
                                   style="display: inline;" class="form-group-sm">
                                   <?=tr('loginForm_userOrEmail')?>:&nbsp;
-                                  <input name="email" size="10" type="text" class="form-control input100" value="" />
+                                  <input name="email" size="10" type="text" class="form-control input100" value="" autocomplete="username">
                                   &nbsp;<?=tr('loginForm_password')?>:&nbsp;
-                                  <input name="password" size="10" type="password" class="form-control input100" value="" />
+                                  <input name="password" size="10" type="password" class="form-control input100" value="" autocomplete="current-password">
                                   &nbsp;
                                   <input type="hidden" name="target" value="<?=$view->_target?>" />
                                   <input type="submit" value="<?=tr('login')?>" class="btn btn-primary btn-sm" />
