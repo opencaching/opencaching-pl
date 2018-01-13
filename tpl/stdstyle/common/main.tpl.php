@@ -30,7 +30,7 @@ global $tpl_subtitle, $absolute_server_URI, $site_name;
 
         <title><?=$tpl_subtitle?>{title}</title>
 
-        <script type="text/javascript" src="/lib/enlargeit/enlargeit.js"></script>
+        <script type="text/javascript" src="/lib/enlargeit/enlargeit.js" async="async"></script>
 
 
         {htmlheaders}
