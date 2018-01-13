@@ -64,8 +64,7 @@ global $tpl_subtitle, $absolute_server_URI, $site_name;
             }
         ?>
 
-        <script type='text/javascript' src='/lib/js/CookiesInfo.js'></script>
-        <script type='text/javascript'>WHSetText('{{cookiesInfo}}');</script>
+        <script type='text/javascript' src='/lib/js/CookiesInfo.js' async></script>
 
         <script type="text/javascript">
             // this is used by search widget
@@ -80,8 +79,14 @@ global $tpl_subtitle, $absolute_server_URI, $site_name;
     <body {bodyMod} class="<?=$view->backgroundSeason?>">
 
         <div id="overall">
-            <div class="page-container-1" style="position: relative;">
+          <!-- Cookies info -->
+          <div class="cookies-message" id="cookies-message-div" style="display: none;" hidden="hidden">
+            <p class="align-center">{{cookiesInfo}}
+              <a href="javascript:WHCloseCookiesWindow();" class="btn btn-sm btn-success">&nbsp;X&nbsp;</a>
+            </p>
+          </div>
 
+            <div class="page-container-1" style="position: relative;">
                 <div class="seasonalBackground left <?=$view->backgroundSeason?>">&nbsp;</div>
                 <div class="seasonalBackground right <?=$view->backgroundSeason?>">&nbsp;</div>
 

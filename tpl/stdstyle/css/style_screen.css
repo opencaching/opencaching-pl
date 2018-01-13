@@ -57,6 +57,22 @@ tr.highlighted > td {border-width:2px;}
 /*-----------------------------------*/
 .header                     { height:80px; width: 970px;}
 
+.cookies-message {
+	position: fixed;
+	opacity: 0.75;
+	color: white;
+	background: black;
+	top: 0;
+	left: 0;
+	z-index: 999;
+	width: 100%;
+	font-weight: bold;
+}
+
+.cookies-message a {
+	color: white !important;
+}
+
 .site-name                  { width: 300px; height: 45px; top: 12px; 
                               position: absolute; z-index: 4; overflow: hidden; 
                               margin: 0px; padding-left: 80px;}
