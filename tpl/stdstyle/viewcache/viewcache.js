@@ -117,3 +117,30 @@ function watchIt(input){
     }
   });
 }
+
+/**
+ * This function switch coords format
+ */
+var currentCordsFormat = 'CoordsDegMin';
+function changeCoordsFormat(){
+  switch(currentCordsFormat){
+    case 'CoordsDegMin':
+      $('.CoordsDegMin').hide();
+      $('.CoordsDegMinSec').show();
+      currentCordsFormat = 'CoordsDegMinSec';
+      break;
+
+    case 'CoordsDegMinSec':
+      $('.CoordsDegMinSec').hide();
+      $('.CoordsDecimal').show();
+      currentCordsFormat = 'CoordsDecimal';
+      break;
+
+    case 'CoordsDecimal':
+      $('.CoordsDecimal').hide();
+      $('.CoordsDegMin').show();
+      currentCordsFormat = 'CoordsDegMin';
+      break;
+  }
+}
+

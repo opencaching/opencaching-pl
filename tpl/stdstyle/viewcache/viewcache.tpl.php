@@ -1,3 +1,6 @@
+<?php
+use lib\Objects\Coordinates\Coordinates;
+?>
 <link rel="stylesheet" href="tpl/stdstyle/css/lightTooltip.css">
 
 <script>
@@ -174,53 +177,63 @@
 <div class="content2-container">
     <div class="content2-container-2col-left" id="viewcache-baseinfo">
         <div class="content-title-noshade-size3">
-            <a href="compass.php?wp=<?=$view->geoCache->getWaypointId()?>&amp;popup=y" target="_blank">
-            <img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="compass" title=""></a>
-              <?php if($view->isUserAuthorized || $view->alwaysShowCoords ) { ?>
+            <a href="compass.php?wp=<?=$view->geoCache->getWaypointId()?>&amp;popup=y"
+                class="links" target="_blank">
+              <img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="compass" title="">
+            </a>
 
+            <?php if($view->isUserAuthorized || $view->alwaysShowCoords ) { ?>
+                <span id="cacheCoordinates" onclick="changeCoordsFormat()" title="<?=tr('viewCache_switchCoordsFormat')?>">
                 <?php if(!$view->userModifiedCacheCoords) { ?>
-                  <?=$view->geoCache->getCoordinates()->getAsText()?>
-
+                  <span class="CoordsDegMin">
+                    <?=$view->geoCache->getCoordinates()->getAsText(
+                        Coordinates::COORDINATES_FORMAT_DEG_MIN)?>
+                  </span>
+                  <span class="CoordsDegMinSec">
+                    <?=$view->geoCache->getCoordinates()->getAsText(
+                        Coordinates::COORDINATES_FORMAT_DEG_MIN_SEC)?>
+                  </span>
+                  <span class="CoordsDecimal">
+                    <?=$view->geoCache->getCoordinates()->getAsText(
+                        Coordinates::COORDINATES_FORMAT_DECIMAL)?>
+                  </span>
                 <?php } else { // if-userModifiedCacheCoords ?>
-                  <?=$view->userModifiedCacheCoords->getAsText()?>
+                  <span class="CoordsDegMin">
+                    <?=$view->userModifiedCacheCoords->getAsText(
+                        Coordinates::COORDINATES_FORMAT_DEG_MIN)?>
+                  </span>
+                  <span class="CoordsDegMinSec">
+                    <?=$view->userModifiedCacheCoords->getAsText(
+                        Coordinates::COORDINATES_FORMAT_DEG_MIN_SEC)?>
+                  </span>
+                  <span class="CoordsDecimal">
+                    <?=$view->userModifiedCacheCoords->getAsText(
+                        Coordinates::COORDINATES_FORMAT_DECIMAL)?>
+                  </span>
 
                 <?php } // if-userModifiedCacheCoords ?>
+                </span>
 
-              <?php } else { //user-not-authorized ?>
-                <?=tr('hidden_coords')?>
-              <?php } //else-user-not-authorized ?>
-            <span class="content-title-noshade-size0">
-                (WGS84)
+                <span class="content-title-noshade-size0">(WGS84)</span>
+
                 <?php if($view->userModifiedCacheCoords) { ?>
-                  <a href="#coords_mod_section">
-                    <img src="tpl/stdstyle/images/blue/signature1-orange.png" class="icon32"
-                      alt="<?=tr('orig_coord_modified_info')?><?=$view->geoCache->getCoordinates()->getAsText()?>"
-                      title="<?=tr('orig_coord_modified_info')?><?=$view->geoCache->getCoordinates()->getAsText()?>" />
-                  </a>
+                    <span class="content-title-noshade-size0">
+                      <a href="#coords_mod_section">
+                        <img src="tpl/stdstyle/images/blue/signature1-orange.png" class="icon32"
+                          alt="<?=tr('orig_coord_modified_info')?><?=$view->geoCache->getCoordinates()->getAsText()?>"
+                          title="<?=tr('orig_coord_modified_info')?><?=$view->geoCache->getCoordinates()->getAsText()?>" />
+                      </a>
+                    </span>
                 <?php } //coords modified ?>
-            </span>
+
+            <?php } else { //user-not-authorized ?>
+                <?=tr('hidden_coords')?>
+            <?php } //else-user-not-authorized ?>
+
+
         </div>
 
         <div class="list-of-details">
-
-            <?php if($view->isUserAuthorized || $view->alwaysShowCoords ) { ?>
-            <div>
-                <img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="map" title="" />
-                <script type="text/javascript">
-                    function coordinatesPopup(){
-                      var url = "coordinates.php?lat=<?=$view->geoCache->getCoordinates()->getLatitude()?>"+
-                        "&lon=<?=$view->geoCache->getCoordinates()->getLongitude()?>"+
-                        "&popup=y&wp=<?=$view->geoCache->getWaypointId()?>";
-
-                      window.open(url,'<?=tr('list_of_participants')?>',"width=240,height=334,resizable=yes,scrollbars=1");
-                    }
-                </script>
-                <span class="no-whitespace">
-                    <a href="#" class="links" onclick="coordinatesPopup()"><?=tr('coords_other')?></a>
-                    <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link" class="img12" />
-                </span>
-            </div>
-            <?php } //show-other-coords ?>
 
             <div>
                 <img src="tpl/stdstyle/images/free_icons/mountain.png" class="icon16" width=16 height=16 alt="altitude" title="">

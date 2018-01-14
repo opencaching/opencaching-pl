@@ -267,3 +267,11 @@ a.links4:hover {
     color:blue;
     text-decoration: underline;
 }
+
+.CoordsDegMinSec, .CoordsDecimal {
+    display: none;  
+}
+
+#cacheCoordinates {
+    cursor: pointer;
+}
