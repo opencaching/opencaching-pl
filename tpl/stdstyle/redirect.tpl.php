@@ -8,7 +8,6 @@
         <meta http-equiv="content-language" content="de" />
         <meta http-equiv="gallerimg" content="no" />
         <meta http-equiv="refresh" content="3;url={url}" />
-        <meta http-equiv="pragma" content="no-cache" />
         <style type="text/css">
             <!--
             table, tr, td

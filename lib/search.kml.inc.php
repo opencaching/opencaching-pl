@@ -220,8 +220,7 @@ if ($usr || ! $hide_coords) {
         $out = $phpzip->save($sFilebasename . '.kmz', 'r');
         header('Content-Type: application/vnd.google-earth.kmz; charset=utf8');
         header('Content-Disposition: attachment; filename="' . $sFilebasename . '.kmz"');
-        header('Pragma: no-cache');
-        header('Cache-Control: no-store,no-cache,must-revalidate,post-check=0,pre-check=0,private');
+        header('Cache-Control: no-store');
         // header('Content-Transfer-Encoding: binary');
         echo $out;
         ob_end_flush();

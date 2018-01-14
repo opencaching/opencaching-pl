@@ -6,8 +6,6 @@
         <meta http-equiv="Content-Style-Type" content="text/css" />
         <meta http-equiv="Content-Language" content="{lang}" />
         <meta http-equiv="gallerimg" content="no" />
-        <meta http-equiv="pragma" content="no-cache" />
-        <meta http-equiv="cache-control" content="no-cache" />
         <!-- Favicon noch nicht vorhanden <link rel="shortcut icon" href="favicon.ico" />-->
         <link rel="stylesheet" type="text/css" href="tpl/{style}/css/style_print.css" />
 

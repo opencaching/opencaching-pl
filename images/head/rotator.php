@@ -187,8 +187,6 @@ if ($img != null) {
     header("Expires: " . $exp_gmt);
     header("Last-Modified: " . $mod_gmt);
     header("Cache-Control: public, max-age=" . $interval);
-    // for MSIE 5
-    header("Cache-Control: pre-check=" . $interval, false);
 
     readfile($img);
 } else {

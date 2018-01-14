@@ -412,8 +412,7 @@ Class staticMapLite
     {
         header('Content-Type: image/png');
         $expires = 60 * 60 * 24 * 14;
-        header("Pragma: public");
-        header("Cache-Control: maxage=" . $expires);
+        header("Cache-Control: private, maxage=" . $expires);
         header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $expires) . ' GMT');
     }
 
