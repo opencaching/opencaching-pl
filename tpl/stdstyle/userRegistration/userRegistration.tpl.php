@@ -1,8 +1,37 @@
+<div class="content2-pagetitle"><?=tr('register_pageTitle')?></div>
 
-<div class="content2-pagetitle">
-  <img src="tpl/stdstyle/images/blue/profile.png" alt=""
-        title="{{register_pageTitle}}" class="icon32">&nbsp;{{register_pageTitle}}</div>
+<div class="content2-container">
 
+    <div id="leftBox">
+      <div id="wecomeMessage" class="callout callout-info">
+        <?=tr('register_welcomeMessage')?>
+      </div>
+    </div>
+
+    <div id="rightBox">
+
+        <div id="externalServices">
+
+          <a class="btn" href="">XXXRejestracja przez Google</a>
+
+          <?php if($view->fbLoginEnabled) { ?>
+          <a class="btn" href="<?=$view->fbRedirectUrl?>">XXXRejestracja przez Facebooka</a>
+          <?php } // if-fbLoginEnabled ?>
+
+        </div>
+
+        <div id="ocRegistrationBox">
+          Rejestracja przez FB
+        </div>
+
+    </div>
+
+</div>
+<!-- /content -->
+
+
+
+<!--
 <form name="register" action="register.php" method="post"
       enctype="application/x-www-form-urlencoded" style="display: inline;" id="register">
 
@@ -51,3 +80,5 @@
         <input type="submit" name="submit" value="{{registration}}" class="btn btn-primary">
     </div>
 </form>
+-->
+

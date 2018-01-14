@@ -1,0 +1,13 @@
+
+
+#leftBox {
+  display: inline-block;
+  width: 50%;
+  border: 1px solid green;
+}
+
+#rightBox {
+  float: right;
+  width: 49%;
+  border: 1px solid red;
+}

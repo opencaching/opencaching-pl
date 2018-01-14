@@ -1,0 +1,17 @@
+
+
+.loginBtnTxt {
+  display:inline-block; 
+  vertical-align: middle;
+}
+
+.loginBtnLogo {
+  display:inline-block; 
+  vertical-align: middle;
+  width: 16px;
+  margin-right: 10px;
+}
+
+#googleLogo {
+  transform:scale(2.0);
+}
