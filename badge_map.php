@@ -84,7 +84,9 @@ function addCachesToTmpTable( $db, $tmp_badge_map, $show, $gainedList, $belongin
     //Y - gained
 
     if ( !(strpos($show, 'N') === false) ){ //not gained
-        $db->simpleQuery($insQuery . $belongingList);
+        if(!empty($belongingList)){
+            $db->simpleQuery($insQuery . $belongingList);
+        }
     }
 
     if ( strpos($show, 'Y') === false ){ //only not gained
@@ -93,7 +95,9 @@ function addCachesToTmpTable( $db, $tmp_badge_map, $show, $gainedList, $belongin
         }
 
     } else { //gained
-        $db->simpleQuery($insQuery . $gainedList);
+        if(!empty($gainedList)){
+            $db->simpleQuery($insQuery . $gainedList);
+        }
     }
 }
 
