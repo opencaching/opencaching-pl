@@ -88,7 +88,7 @@ if (!isset($rootpath))
         ORDER BY 1 DESC, user.username ASC";
     }
 
-    $cache_key = md5($a);
+    $cache_key = 'articles_s2'.md5($a);
     $lines = apc_fetch($cache_key);
 
     if ($lines === false) {

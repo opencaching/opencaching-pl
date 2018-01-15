@@ -23,7 +23,7 @@ setlocale(LC_TIME, 'pl_PL.UTF-8');
 
 # This page took >60 seconds to render! Added daily caching.
 
-$cache_key = "t6.php-result-" . $lang;
+$cache_key = "articles_s7-" . $lang;
 $result = apc_fetch($cache_key);
 if ($result === false) {
     ob_start();
@@ -82,8 +82,8 @@ if ($result === false) {
 }
 print $result;
 
-        
-        
+
+
         ?>
         </td></tr>
 </table>
