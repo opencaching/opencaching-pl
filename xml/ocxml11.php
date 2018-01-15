@@ -1012,7 +1012,9 @@ function unlinkrecursiv($path)
     closedir($hDir);
 
     if ($notunlinked == 0) {
-        rmdir($path);
+        if(is_dir($path)){
+            rmdir($path);
+        }
         return true;
     } else
         return false;
