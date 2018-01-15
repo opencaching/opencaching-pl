@@ -66,7 +66,7 @@ tpl_redirect("cachemap3.php?userid=$userid&searchdata=$hash&fromlat=$minlat&from
 function getCachesList($positions){
 
     foreach( $positions as &$pos){
-        $pos = '(' . $pos . ')';
+        $pos = '(' . $pos->getId() . ')';
     }
 
     return implode(',', $positions);
