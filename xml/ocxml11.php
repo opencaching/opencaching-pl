@@ -984,7 +984,11 @@ function unlinkrecursiv($path)
 
     $notunlinked = 0;
 
-    $hDir = opendir($path);
+    if(!is_dir($path)){
+        return true;
+    }
+
+    $hDir = @opendir($path);
     if($hDir===false){
         return true;
     }
