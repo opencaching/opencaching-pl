@@ -25,6 +25,12 @@ class ReportsController extends BaseController
         parent::__construct();
     }
 
+    public function isCallableFromRouter($actionName)
+    {
+        // all public methods can be called by router
+        return TRUE;
+    }
+
     public function index()
     {
         // Check if user is logged and has admin rights

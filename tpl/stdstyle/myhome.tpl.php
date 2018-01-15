@@ -1,7 +1,6 @@
-<?php
 
-?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/home.png" class="icon32" alt="Moje konto" title="Moje konto" align="left" />&nbsp;{{welcome}}, {username}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/home.png" class="icon32" alt="Moje konto" title="Moje konto" align="left" />
+&nbsp;<?=tr('startPage_welcome')?>, {username}</div>
 <br/><p style="font-size: 12px;">[<a class="links" href="viewprofile.php?userid={userid}">{{view_your_profile}}</a>]</p><br/><br/>
 <p class="content-title-noshade-size3">{founds}&nbsp;{events}</p>
 [<a href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=byname&amp;finderid={userid}&amp;searchbyfinder=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">{{show_all}}</a>]<br/><br/>

@@ -11,8 +11,16 @@ class OnlineUsersController extends BaseController
         parent::__construct();
     }
 
+    public function isCallableFromRouter($actionName)
+    {
+        // this router is called by cron only
+        return FALSE;
+    }
+
     public function index()
-    {}
+    {
+        // there is nothing to do here
+    }
 
     private static function getOnlineUsersDumpFile(){
        global $config;

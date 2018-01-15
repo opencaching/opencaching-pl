@@ -2,15 +2,32 @@ RewriteEngine on
 
 RewriteBase /
 
+
 RewriteRule ^search\.(gpx|kml|loc|ov2|ovl|txt|wpt|uam|xml|zip|ggz)$ search.php?%{QUERY_STRING} [NC]
 RewriteRule ^ocpl(\d+)\.(gpx|kml|loc|ov2|ovl|txt|wpt|uam|xml|zip|ggz|jsoncodes)$ search.php?queryid=$1&output=$2&%{QUERY_STRING} [NC]
 RewriteRule ^ocplgpx(\d+)\.(gpx)$ search.php?queryid=$1&output=gpxgc&%{QUERY_STRING} [NC]
+
 RewriteRule ^/statpics/([0-9]+)\.jpg$ ocstats.php?userid=$1 [R,L]
 
+# redirect requests like OP123F to viewcache page 
 RewriteRule ^(O[A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z])$ viewcache.php?wp=$1 [R=301,L,NC]
 
+# block (403) requests to /mobile/*
 RedirectMatch 403 ^/mobile/$
 
+# permanentely block Wordpress login page - too many such requests 
 RewriteRule ^wp-login.php /error_pages/404.html [R,L]
 
 FileETag None
+
+
+
+# if: there is no such file
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# if: there is no such directory 
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# then: let's go to index.php
+RewriteRule ^(.*)$ /index.php?r=$1 [NC,L,QSA]
+

@@ -1,8 +1,8 @@
 <?php
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\ChunkModels\ListOfCaches;
-use Utils\Gis\Region;
 use lib\Objects\ApplicationContainer;
+use lib\Objects\Coordinates\NutsLocation;
 
 
 if (! isset($rootpath))
@@ -37,7 +37,7 @@ tpl_set_tplname('myProvince');
 $view = tpl_getView();
 
 if( !isset($_GET['province']) ||
-    !Region::checkProvinceCode($_GET['province']) ){
+    !NutsLocation::checkProvinceCode($_GET['province']) ){
 
         echo "<p><b>[temporary error message] There is no 'province' parameter in url or this parameter value is wrong!</b></p>";
 
@@ -58,7 +58,7 @@ if( !isset($_GET['province']) ||
 
 
 $province = $_GET['province'];
-$view->setVar('provinceName', Region::getRegionName($province));
+$view->setVar('provinceName', NutsLocation::getRegionName($province));
 
 
 $db->multiVariableQuery(

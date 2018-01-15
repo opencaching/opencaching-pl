@@ -18,6 +18,7 @@
  * limitations under the License.
  *
  * @author Gerhard Koch <gerhard.koch AT ymail.com>
+ * @link: https://github.com/dfacts/staticmaplite
  *
  * USAGE:
  *

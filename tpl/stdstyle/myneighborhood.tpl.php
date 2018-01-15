@@ -75,7 +75,7 @@
   {new_logs}
   {more_logs}
 
-  <div id="cacheTitled" style="display: {ptDisplay};">
+  <div id="cacheTitled" style="width:100%; display: {ptDisplay};">
   <div class="buffer"></div>
     {Title_titledCaches}
     {titledCaches}

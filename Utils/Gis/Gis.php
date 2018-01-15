@@ -6,6 +6,7 @@ use lib\Objects\Coordinates\Coordinates;
 class Gis
 {
     const PI = M_PI;
+    const HALF_EARTH_CIRCUMFERENCE_AT_ZOOM21_IN_PX = 268435456;
 
     const DEGREE_LENGTH = 111.12;
     // length of one degree in KM (only for latitude!)
@@ -196,5 +197,43 @@ class Gis
     public static function distanceBetween(Coordinates $c1, Coordinates $c2){
         return self::distance($c1->getLatitude(), $c1->getLongitude(), $c2->getLatitude(), $c2->getLongitude());
     }
+
+    /**
+     * Caclucate and return relative position at the map image for given marker.
+     *
+     *
+     * @param Coordinates $marker
+     * @param Coordinates $mapCenter
+     * @param unknown $mapZoom
+     * @param unknown $mapImgWidth
+     * @param unknown $mapImgHeight
+     * @return array ($left, $top)
+     */
+    public static function positionAtMapImg(Coordinates $marker, Coordinates $mapCenter,
+        $mapZoom, $mapImgWidth, $mapImgHeight)
+    {
+
+       // find the px coords of central point at map for given zoom
+       // (for given zoom map has fixed scale - see e.g. http://wiki.openstreetmap.org/wiki/Zoom_levels)
+       $offset = self::HALF_EARTH_CIRCUMFERENCE_AT_ZOOM21_IN_PX >> (21 - $mapZoom);
+       $radius = $offset / self::PI;
+
+       $marker_X = round($offset + $offset * $marker->getLongitude() / 180);
+       $mapCenter_X = round($offset + $offset * $mapCenter->getLongitude() / 180);
+       $left = $marker_X - $mapCenter_X + ($mapImgWidth/2);
+
+       $marker_Y = round($offset - $radius * log(
+           (1 + sin($marker->getLatitude() * self::PI / 180)) /
+           (1 - sin($marker->getLatitude() * self::PI / 180))) / 2);
+
+       $mapCenter_Y = round($offset - $radius * log(
+           (1 + sin($mapCenter->getLatitude() * self::PI / 180)) /
+           (1 - sin($mapCenter->getLatitude() * self::PI / 180))) / 2);
+
+       $top = $marker_Y - $mapCenter_Y + ($mapImgHeight/2);
+
+       return [$left, $top];
+    }
+
 }
 

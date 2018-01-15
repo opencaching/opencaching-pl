@@ -2,13 +2,14 @@
 namespace lib\Objects\GeoCache;
 
 use Utils\Debug\Debug;
+use lib\Objects\BaseObject;
 
 /**
  * Common consts etc. for geocache log
  *
  */
 
-class GeoCacheLogCommons {
+class GeoCacheLogCommons extends BaseObject{
 
     const LOGTYPE_FOUNDIT = 1;
     const LOGTYPE_DIDNOTFIND = 2;
@@ -24,6 +25,11 @@ class GeoCacheLogCommons {
     const LOGTYPE_ADMINNOTE = 12;
 
     const ICON_PATH = 'tpl/stdstyle/images/log/'; //path to the dir with log-type icons
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     public static function GetIconForType($logType, $fileNameOnly = false){
 

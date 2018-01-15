@@ -35,7 +35,7 @@ class CacheSetCommon extends BaseObject
 
     public static function GetTypeIcon($type)
     {
-        $iconPath = 'tpl/stdstyle/images/blue/';
+        $iconPath = '/tpl/stdstyle/images/blue/';
 
         switch($type){
             case self::TYPE_GEODRAW:    return $iconPath.'footprintRed.png';

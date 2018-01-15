@@ -413,6 +413,9 @@ class User extends UserCommons
 
     public function getProfileUrl()
     {
+        if(!$this->profileUrl){
+            $this->profileUrl = self::GetUserProfileUrl($this->getUserId());
+        }
         return $this->profileUrl;
     }
 
@@ -780,6 +783,12 @@ class User extends UserCommons
         return $this->geokretyApiSecid;
     }
 
+    /**
+     * Returns arraywhere row[userId] = username
+     *
+     * @param array $userIds - array of userIds
+     * @return array|mixed[]
+     */
     public static function GetUserNamesForListOfIds(array $userIds)
     {
 
@@ -787,18 +796,15 @@ class User extends UserCommons
             return array();
         }
 
+        $db = self::db();
+
         $userIdsStr = XDb::xEscape(implode($userIds, ','));
 
-        $s = XDb::xSql(
-            "SELECT username FROM `user`
-            WHERE `user_id` IN ( $userIdsStr )");
+        $s = $db->simpleQuery(
+            "SELECT user_id, username FROM user
+            WHERE user_id IN ( $userIdsStr )");
 
-        $result = array();
-        while($row = XDb::xFetchArray($s)){
-            $result[] = $row['username'];
-        }
-
-        return $result;
+        return $db->dbFetchAsKeyValArray($s, 'user_id', 'username' );
     }
 
     public function getCacheWatchEmailSettings(){

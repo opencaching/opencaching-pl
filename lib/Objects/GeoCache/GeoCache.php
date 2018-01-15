@@ -82,7 +82,7 @@ class GeoCache extends GeoCacheCommons
     private $ownerId;
 
     /* @var $owner User */
-    private $owner;
+    private $owner = null;
 
     /* @var $altitude Altitude */
     private $altitude;
@@ -178,7 +178,7 @@ class GeoCache extends GeoCacheCommons
     /**
      * Factory
      * @param unknown $cacheId
-     * @return GeoCache object or null if no such geocache
+     * @return GeoCache|null (null if no such geocache)
      */
     public static function fromCacheIdFactory($cacheId){
         try{
@@ -239,12 +239,11 @@ class GeoCache extends GeoCacheCommons
     }
 
     private function loadByCacheId($cacheId){
-        $db = OcDb::instance();
 
         //find cache by Id
-        $s = $db->multiVariableQuery("SELECT * FROM caches WHERE cache_id = :1 LIMIT 1", $cacheId);
+        $s = $this->db->multiVariableQuery("SELECT * FROM caches WHERE cache_id = :1 LIMIT 1", $cacheId);
 
-        $cacheDbRow = $db->dbResultFetch($s);
+        $cacheDbRow = $this->db->dbResultFetch($s);
 
         if(is_array($cacheDbRow)) {
             $this->loadFromRow($cacheDbRow);
@@ -733,7 +732,7 @@ class GeoCache extends GeoCacheCommons
     public function isTitled()
     {
         if (is_null($this->isTitled)) {
-            $this->isTitled = CacheTitled::isTitled($this->id) > 0 ? true : false;
+            $this->isTitled = CacheTitled::isTitled($this->id);
         }
         return $this->isTitled;
     }
@@ -1090,12 +1089,13 @@ class GeoCache extends GeoCacheCommons
             AND `cache_logs`.`deleted`= ? ", $cacheid, 0);
     }
 
+
     public static function getUserActiveCachesCountByType($userId){
 
         $stmt = XDb::xSql(
             'SELECT type, COUNT(*) as cacheCount
-             FROM `caches` WHERE `user_id` = ? AND STATUS != 3
-             GROUP by type', $userId);
+             FROM `caches` WHERE `user_id` = ? AND STATUS != ?
+             GROUP by type', $userId, self::STATUS_ARCHIVED);
 
         $result = [];
         while($row = Xdb::xFetchArray($stmt)){
@@ -1104,6 +1104,7 @@ class GeoCache extends GeoCacheCommons
 
         return $result;
     }
+
 
 
     /**
@@ -1136,7 +1137,7 @@ class GeoCache extends GeoCacheCommons
         if(empty($result)){
             $result[] = tr('no_visits');
         }
-        return $result;
+        return array_values($result);
     }
 
     public function incCacheVisits(User $user=null, $ip)

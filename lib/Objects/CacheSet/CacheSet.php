@@ -5,9 +5,10 @@ namespace lib\Objects\CacheSet;
 
 use lib\Objects\Coordinates\Coordinates;
 use Utils\Database\OcDb;
-use lib\Objects\OcConfig\OcConfig;
 use Utils\Database\QueryBuilder;
 use lib\Objects\GeoCache\GeoCache;
+use lib\Objects\Coordinates\NutsLocation;
+use Utils\Text\Formatter;
 
 class CacheSet extends CacheSetCommon
 {
@@ -24,6 +25,12 @@ class CacheSet extends CacheSetCommon
     private $description;
     private $perccentRequired;
     private $conquestedCount;
+
+    /** @var NutsLocation */
+    private $location = null;
+
+    /** @var array of CacheSetOwner */
+    private $owners = null;
 
     public function __construct()
     {
@@ -184,6 +191,11 @@ class CacheSet extends CacheSetCommon
         return self::GetTypeIcon($this->type);
     }
 
+    public function getImage()
+    {
+        return $this->image;
+    }
+
     public function getTypeTranslation()
     {
         return tr(self::GetTypeTranslationKey($this->type));
@@ -194,9 +206,13 @@ class CacheSet extends CacheSetCommon
         return tr(self::GetStatusTranslationKey($this->status));
     }
 
-    public function getCreationDate()
+    public function getCreationDate($formatted=false)
     {
-        return $this->dateCreated;
+        if($formatted){
+            return Formatter::date($this->dateCreated);
+        }else{
+            return $this->dateCreated;
+        }
     }
 
     public function getCreationDateString()
@@ -224,6 +240,43 @@ class CacheSet extends CacheSetCommon
         return $this->centerCoordinates;
     }
 
+    /**
+     *
+     * @return \lib\Objects\Coordinates\NutsLocation
+     */
+    public function getLocation()
+    {
+        if(!$this->location){
+            $this->location = NutsLocation::fromCoordsFactory($this->centerCoordinates);
+        }
+
+        return $this->location;
+    }
+
+    public function getUrl()
+    {
+        return self::getCacheSetUrlById($this->id);
+    }
+
+    public function getOwners()
+    {
+        if(!$this->owners){
+            $arr = CacheSetOwner::getOwnersOfCacheSets([$this->getId()]);
+            $this->owners = $arr[$this->getId()];
+        }
+
+        return $this->owners;
+    }
+
+    /**
+     * Set array of CacheSetOwners as cacheSet owners
+     *
+     * @param array $owners
+     */
+    public function setOwners(array $owners)
+    {
+        $this->owners = $owners;
+    }
 
     /**
      * Return all cacheSets which has less active caches than required ratio for completion
@@ -246,6 +299,49 @@ class CacheSet extends CacheSetCommon
             ) AS allPts WHERE currentRatio < ratioRequired");
 
         return $db->dbResultFetchAll($rs, OcDb::FETCH_ASSOC);
+    }
+
+    public static function getLastCreatedSets($limit)
+    {
+
+        $db = self::db();
+
+        list ($limit, $offset) = $db->quoteLimitOffset($limit);
+
+        $rs = $db->multiVariableQuery(
+            "SELECT id, name, centerLatitude, centerLongitude,
+                    status, dateCreated, cacheCount, image
+            FROM PowerTrail
+            WHERE status = :1
+            ORDER BY dateCreated DESC
+            LIMIT $offset, $limit", self::STATUS_OPEN);
+
+        $result=[];
+        while($row = $db->dbResultFetch($rs, OcDb::FETCH_ASSOC)){
+            $result[] = self::FromDbRowFactory($row);
+        }
+
+        return $result;
+    }
+
+    public static function getActiveCacheSetsCount()
+    {
+        return self::db()->multiVariableQueryValue(
+            'SELECT COUNT(*) FROM PowerTrail WHERE status = :1',
+            0,self::STATUS_OPEN);
+    }
+
+    public function prepareForSerialization()
+    {
+        parent::prepareForSerialization();
+        array_walk($this->owners, function (&$element, $key){
+            $element->prepareForSerialization();
+        });
+    }
+
+    public function restoreAfterSerialization()
+    {
+        parent::restoreAfterSerialization();
     }
 
 }

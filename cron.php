@@ -1,10 +1,8 @@
 <?php
 
 $rootpath = __DIR__ . '/';
-include __DIR__ . '/tpl/stdstyle/etc/write_newcaches.inc.php';
 //include __DIR__.'/tpl/stdstyle/etc/write_newblogs.inc.php';
 //include __DIR__.'/tpl/stdstyle/etc/write_onlusers.inc.php';
-//include __DIR__.'/tpl/stdstyle/etc/write_totalstats.inc.php';
 //include __DIR__.'/util.sec/email_sender/email_sender.php';
 //include __DIR__.'/util.sec/importcaches/import.php';
 //include __DIR__.'/util.sec/notification/run_notify.php';

@@ -279,7 +279,7 @@ $translations = array(
     'no_not_published_caches' => 'Nici o geocutie nepublicată',
     'no_logs' => 'Nici o însemnare',
     'no_time_indicated' => 'Momentul activării nu este specificat',
-    'welcome' => 'Bine ai venit',
+    'startPage_welcome' => 'Bine ai venit',
     'administrating_oc' => 'Administrare OC',
     'view_your_profile' => 'Afişează profilul tău',
     'you_have_found' => 'Ai găsit',
@@ -432,17 +432,17 @@ $translations = array(
     'ozi_path_info' => 'Applicable for Ozi Explorer users with Filips" database. When you provide correct path to "op" folder, you will be able to download WPT files as search results with localization of information about cache description. After that, you can tap on the cache on Ozi Explorer"s map and choose \"Open attachment\" option. This will open detailed description about the cache. Examples: <b>\\SDMMC\\baza\\</b>, <b>\\Memory card\\BF\\</b>***',
     'newest_caches' => 'Ultimele geocutii publicate',
     'total_of_active_caches' => 'Numărul total de geocutii active',
-    'total_of_caches' => 'Numărul total de geocutii',
+    'startPage_stsAllCaches' => 'Numărul total de geocutii',
     'total_moved' => 'Numărul de geocutii mobile mutate***',
-    'active_caches' => 'cutii active',
-    'number_of_active_users' => 'Utilizatori activi',
-    'number_of_founds' => 'Găsite',
-    'what_do_you_find' => 'Bine ai venit pe {site_name}',
-    'what_do_you_find_intro_pl' => 'Geocaching is an outdoor sport or activity in which cachers use a GPS receiver to find a "treasure" hidden by other participants. Caches are secured in watertight containers, containing gifts and a logbook in which they record their discovery of the cache. The coordinates of the location of the caches are stored on online databases such as opencaching.se along with descriptions and instructions necessary to find them.<br/>On this site you can find everything about geocaching in Poland. Opencaching.pl in Poland was started in <span class="content-title-noshade">May 2006</span>. This is the main Poland geocaching site. Our database working on <b>opensource project Opencaching</b>. The idea is to have several opencaching nodes for different countries around the world with a synchronized database of users and caches. Runs on <a href="https://github.com/opencaching/opencaching-pl/wiki">Opencaching.PL opensource project</a>.',
-    'what_do_you_find_intro_nl' => 'Geocaching is an outdoor sport or activity in which cachers use a GPS receiver to find a "treasure" hidden by other participants. Caches are secured in watertight containers, containing gifts and a logbook in which they record their discovery of the cache. The coordinates of the location of the caches are stored on online databases such as opencaching.se along with descriptions and instructions necessary to find them.<br/>On this site you can find everything about geocaching in The Netherlands, Luxembourgh and Belgium. Opencaching.nl in The Netherlands was started in <span class="content-title-noshade">October 2002</span>. Our database working on <b>opensource project Opencaching</b>. The idea is to have several opencaching nodes for different countries around the world with a synchronized database of users and caches.',
-    'what_do_you_find_intro_en' => 'Geocaching is an outdoor sport or activity in which cachers use a GPS receiver to find a "treasure" hidden by other participants. Caches are secured in watertight containers, containing gifts and a logbook in which they record their discovery of the cache. The coordinates of the location of the caches are stored on online databases such as opencaching.se along with descriptions and instructions necessary to find them.<br/>On this site you can find everything about geocaching in The Netherlands, Luxembourgh and Belgium. Opencaching.nl in The Netherlands was started in <span class="content-title-noshade">October 2002</span>. Our database working on <b>opensource project Opencaching</b>. The idea is to have several opencaching nodes for different countries around the world with a synchronized database of users and caches.',
-    'what_do_you_find_intro_ro' => 'Geocaching este un joc în aer liber prin care jucătorii încearcă să găsească cu ajutorul unui receptor GPS "comori" ascunse de alţi jucători. Aceste "comori" (<i>geocutii</i>) sunt cutii ermetice de diverse forme şi mărimi, care conţin mici jucării sau cadouri şi un carneţel (<i>jurnal</i>) în care fiecare jucător înregistrează descoperirea geocutiei. Coordonatele geografice la care se află geocutia sunt păstrate într-o bază de date publică precum opencaching.ro împreună cu o descriere şi instrucţiuni care să ajute la găsirea ei. <br /> Pe acest site afli despre geocaching în România. Opencaching.ro funcţionează din <span class="content-title-noshade">aprilie 2014</span> pentru a sprijini şi promova acest joc în România. <br /><br /> Proiectul Opencaching este o abordare <b>open-source</b> a jocului "geocaching" şi se bazează pe mai multe noduri în diferite ţări, care fac schimb de informaţii între ele despre geocutiile si utilizatorii fiecăruia. <br /> Opencaching.ro funcţionează pe platforma open-source <span class="content-title-noshade">opencaching-pl</span>.',
-    'what_do_you_find_intro_uk' => '<b>Geocaching</b> is an outdoor sport or activity in which cachers use a GPS receiver to find a "treasure" hidden by other participants. Caches are secured in watertight containers, containing tradable items (mostly inexpensive trinkets) and a logbook in which they record their discovery of the cache. The coordinates of the location of the caches are stored on online databases, along with descriptions and instructions necessary to find them.',
+    'startPage_stsActiveCaches' => 'cutii active',
+    'startPage_stsUsers' => 'Utilizatori activi',
+    'startPage_stsFounds' => 'Găsite',
+    'startPage_title' => 'Bine ai venit pe {site_name}',
+    'startPage_intro_pl' => 'Geocaching is an outdoor sport or activity in which cachers use a GPS receiver to find a "treasure" hidden by other participants. Caches are secured in watertight containers, containing gifts and a logbook in which they record their discovery of the cache. The coordinates of the location of the caches are stored on online databases such as opencaching.se along with descriptions and instructions necessary to find them.<br/>On this site you can find everything about geocaching in Poland. Opencaching.pl in Poland was started in <span class="content-title-noshade">May 2006</span>. This is the main Poland geocaching site. Our database working on <b>opensource project Opencaching</b>. The idea is to have several opencaching nodes for different countries around the world with a synchronized database of users and caches. Runs on <a href="https://github.com/opencaching/opencaching-pl/wiki">Opencaching.PL opensource project</a>.',
+    'startPage_intro_nl' => 'Geocaching is an outdoor sport or activity in which cachers use a GPS receiver to find a "treasure" hidden by other participants. Caches are secured in watertight containers, containing gifts and a logbook in which they record their discovery of the cache. The coordinates of the location of the caches are stored on online databases such as opencaching.se along with descriptions and instructions necessary to find them.<br/>On this site you can find everything about geocaching in The Netherlands, Luxembourgh and Belgium. Opencaching.nl in The Netherlands was started in <span class="content-title-noshade">October 2002</span>. Our database working on <b>opensource project Opencaching</b>. The idea is to have several opencaching nodes for different countries around the world with a synchronized database of users and caches.',
+    'startPage_intro_en' => 'Geocaching is an outdoor sport or activity in which cachers use a GPS receiver to find a "treasure" hidden by other participants. Caches are secured in watertight containers, containing gifts and a logbook in which they record their discovery of the cache. The coordinates of the location of the caches are stored on online databases such as opencaching.se along with descriptions and instructions necessary to find them.<br/>On this site you can find everything about geocaching in The Netherlands, Luxembourgh and Belgium. Opencaching.nl in The Netherlands was started in <span class="content-title-noshade">October 2002</span>. Our database working on <b>opensource project Opencaching</b>. The idea is to have several opencaching nodes for different countries around the world with a synchronized database of users and caches.',
+    'startPage_intro_ro' => 'Geocaching este un joc în aer liber prin care jucătorii încearcă să găsească cu ajutorul unui receptor GPS "comori" ascunse de alţi jucători. Aceste "comori" (<i>geocutii</i>) sunt cutii ermetice de diverse forme şi mărimi, care conţin mici jucării sau cadouri şi un carneţel (<i>jurnal</i>) în care fiecare jucător înregistrează descoperirea geocutiei. Coordonatele geografice la care se află geocutia sunt păstrate într-o bază de date publică precum opencaching.ro împreună cu o descriere şi instrucţiuni care să ajute la găsirea ei. <br /> Pe acest site afli despre geocaching în România. Opencaching.ro funcţionează din <span class="content-title-noshade">aprilie 2014</span> pentru a sprijini şi promova acest joc în România. <br /><br /> Proiectul Opencaching este o abordare <b>open-source</b> a jocului "geocaching" şi se bazează pe mai multe noduri în diferite ţări, care fac schimb de informaţii între ele despre geocutiile si utilizatorii fiecăruia. <br /> Opencaching.ro funcţionează pe platforma open-source <span class="content-title-noshade">opencaching-pl</span>.',
+    'startPage_intro_uk' => '<b>Geocaching</b> is an outdoor sport or activity in which cachers use a GPS receiver to find a "treasure" hidden by other participants. Caches are secured in watertight containers, containing tradable items (mostly inexpensive trinkets) and a logbook in which they record their discovery of the cache. The coordinates of the location of the caches are stored on online databases, along with descriptions and instructions necessary to find them.',
     'filename_rules' => '{wiki_link_rules}',
     'filename_describe_cache' => '{wiki_link_cacheParams_en}',
     'map_msg' => 'In order to view coordinates and <br/>the map of caches<br/> you must be <a href="login.php?target={target}">logged in</a>',
@@ -1877,7 +1877,6 @@ $translations = array(
     'pt134' => 'Comment date (entered by the user)',
     'pt135' => 'Cachers have wasted total cache-days',
     'pt136' => 'geographical center of geoPath',
-    'pt137' => 'geoPath of the day',
     'pt138' => 'caches',
     'pt139' => 'geoPath',
     'pt140' => 'Number of points in the geoPath category',
@@ -2696,5 +2695,31 @@ $translations = array(
     'mnu_ocTeamNews' => 'News management',
     'mnu_additionalMenu' => 'Menu adiţional',
 
-
+    'startPage_wholeStatsTitle' => 'Current state of the game', /* EN! */
+    'startPage_totalCaches' => 'All caches number', /* EN! */
+    'startPage_totalCachesDesc' => 'Total number of created caches',  /* EN! */
+    'startPage_readyToSearch' => 'Ready to search geocaches',  /* EN! */
+    'startPage_readyToSearchDesc' => 'Total number of currently active caches',  /* EN! */
+    'startPage_topRatedCaches' => 'Geocaches rated as excelent',  /* EN! */
+    'startPage_topRatedCachesDesc' => 'The number of caches rated as excelent',  /* EN! */
+    'startPage_newCaches' => 'New geocaches',  /* EN! */
+    'startPage_newCachesDesc' => 'Number of new caches (last 30 days)',  /* EN! */
+    'startPage_activeCacheSets' => 'Active geopaths',  /* EN! */
+    'startPage_activeCacheSetsDesc' => 'Total number of active geopaths',  /* EN! */
+    'startPage_totalUsers' => 'Active users',  /* EN! */
+    'startPage_totalUsersDesc' => 'The number of users which find or create a cache',  /* EN! */
+    'startPage_newUsers' => 'New user accounts',  /* EN! */
+    'startPage_newUsersDesc' => 'The number of new user accounts (last 30 days)',  /* EN! */
+    'startPage_totalSearches' => 'Searches number',  /* EN! */
+    'startPage_totalSearchesDesc' => 'The number of all searches ever',  /* EN! */
+    'startPage_newSearches' => 'Latest searches',  /* EN! */
+    'startPage_newSearchesDesc' => 'The number of recent searches (last 30 days)',  /* EN! */
+    'startPage_newoRecom' => 'New recomendations granted',  /* EN! */
+    'startPage_newoRecomDesc' => 'The number of recomendations granted in last 30 days',  /* EN! */
+    'startPage_showMore' => 'Show more',  /* EN! */
+    'startPage_latestCachesList' => 'Latest caches',  /* EN! */
+    'startPage_latestCacheSets' => 'Latest geopaths',  /* EN! */
+    'startPage_latestTitledCaches' => 'Latest awarded',  /* EN! */
+    'startPage_validAt' => 'Valid at',  /* EN! */
+    
 );

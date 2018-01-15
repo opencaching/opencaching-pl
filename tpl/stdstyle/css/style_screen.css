@@ -200,9 +200,7 @@ p  { margin: 0px 0px 0.5em 0px; padding: 0px; line-height: 1.3em; font-family: a
 /* Lists */
 ul.indent        { margin: 0px 0px 7px 15px; padding: 0px 0px 0px 15px; list-style-type: disc; font-family: arial; font-size: 120%;}
 ol               { margin: 0px 0px 0px 9px; padding: 0px 0px 0px 25px; list-style-type: decimal; list-style-position: outside; font-size: 120%;}
-ul.newcache_list { list-style-type: none; font-size: 11px; }
 ul.tick          { list-style-image: url('/tpl/stdstyle/images/free_icons/tick.png'); }
-li.newcache_list_multi { margin-bottom:8px; }
 
 /* Tables */
 .table            { font-size: 10px; line-height: 2.0em; clear: left; padding: 0px; margin: 0.5em 0px 0.2em 0px; border: solid 0px rgb(150,150,150); empty-cells: show; border-collapse: collapse; background-color: rgb(255,255,255);}
@@ -813,8 +811,6 @@ tooltip {
 }
 
 /* used in start.tpl.php only! */
-div#new-caches-area                                     { width: 500px; }
-div#new-events-area                                     { width: 100%; }
 div#local-caches-area                                   { width: 400px; }
 div#local-events-area                                   { width: 400px; }
 div#local-logs-area                                     { width: 750px; }
@@ -829,7 +825,6 @@ div.viewlogs-logpictures img                            { max-width: 64px; max-h
 div.viewlogs-logpictures span.removepic                 { display: block; font-size: 12px;}
 
 
-div#cacheTitled { width: 100%; }
 div.cache-titled-content {
     margin-left: 40px;
     margin-top: 11px;
@@ -865,7 +860,6 @@ div.viewcache_log-content * {
 
 div#main-cachemap-block                 { width: 265px; margin-top: 80px; }
 div#local-cachemap-block                { width: 365px; margin-top: 7px; }
-p.main-totalstats                       { font-weight: bold; }
 
 .img-shadow {
     float:left;
@@ -1110,43 +1104,14 @@ td.tab_user {
 div.gm-style {
     font-family: "arial", sans-serif, "Tahoma", "Verdana";
 }
-.CacheTitledLog {
-    border-radius: 5px;
-    border: solid 1px grey;
-    background: #F9F9F9;
-    padding: 5px;
-    margin-top: 1.5em;
-    font-size: 11px;
-}
+
 .show-more {
     font-size: 10px;
     margin-top: 1em;
 }
 
-/* Styles for blog and forum items on main page */
-ul.feedList {
-    font-size: 11px;
-    list-style-image: url(/tpl/stdstyle/images/free_icons/page.png);
-    list-style-position: inside;
-}
-
 .full-width {
     width: 100%;
-}
-
-div.feedArea {
-    width: 100%;
-    display: block;
-}
-
-div.news-item {
-    font-size: 12px;
-    margin-left: 40px;
-    padding: 2px;
-}
-
-div.news-statusline {
-    margin: 5px 0px;
 }
 
 sup {

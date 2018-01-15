@@ -78,17 +78,25 @@ class Uri {
      * This is usefull if to prevent browser to cache for example css/js file
      * Returns link to file with ?<modification-time> which makes browser to download file if contents has changed
      *
-     * @param unknown $rootPath - path to the file (from root of thw site)
+     * @param string $rootPath - path to the file (from root of thw site)
      * @return string
      */
     public static function getLinkWithModificationTime($rootPath)
     {
-        return $rootPath.'?'.filemtime(__dir__.'/../../'.$rootPath);
+        // be sure that the path has preceding slash
+        $rootPath = self::addPrecedingSlashIfNecessary($rootPath);
+
+        return $rootPath.'?'.filemtime(__dir__.'/../..'.$rootPath);
     }
 
     public static function getCurrentDomain(){
         //TODO
         return $_SERVER['HTTP_HOST'];
+    }
+
+    private static function addPrecedingSlashIfNecessary($path)
+    {
+        return '/' . ltrim($path, '/');
     }
 
 }

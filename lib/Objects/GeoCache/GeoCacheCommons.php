@@ -40,7 +40,12 @@ class GeoCacheCommons extends BaseObject {
 
     const RECOMENDATION_RATIO = 10; //percentage of founds which can be recomeded by user
 
-    const ICON_PATH = 'tpl/stdstyle/images/cache/'; //path to the dir with cache icons
+    const MIN_SCORE_OF_RATING_5 = 2.2;
+    const MIN_SCORE_OF_RATING_4 = 1.4;
+    const MIN_SCORE_OF_RATING_3 = 0.1;
+    const MIN_SCORE_OF_RATING_2 = -1.0;
+
+    const ICON_PATH = '/tpl/stdstyle/images/cache/'; //path to the dir with cache icons
 
     public function __construct()
     {
@@ -292,17 +297,17 @@ class GeoCacheCommons extends BaseObject {
      * - RatingId is counted by OKAPI and has value in range <1;5>
      * Do not confuse them with each other!
      *
-     * @param unknown $score
+     * @param float $score
      * @return number
      */
     public static function ScoreAsRatingNum($score)
     {
         // former score2ratingnum
 
-        if ($score >= 2.2) return 5;
-        if ($score >= 1.4) return 4;
-        if ($score >= 0.1) return 3;
-        if ($score >= -1.0) return 2;
+        if ($score >= self::MIN_SCORE_OF_RATING_5) return 5;
+        if ($score >= self::MIN_SCORE_OF_RATING_4) return 4;
+        if ($score >= self::MIN_SCORE_OF_RATING_3) return 3;
+        if ($score >= self::MIN_SCORE_OF_RATING_2) return 2;
         return 1;
     }
 

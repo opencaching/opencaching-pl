@@ -24,17 +24,17 @@ abstract class BaseObject
     /**
      * @return \Utils\Database\OcDb
      */
-    public static function db()
+    protected static function db()
     {
+        //TODO: if PDO error!
         return OcDb::instance();
     }
 
-    public static function getCurrentUser(){
+    protected static function getCurrentUser(){
         return ApplicationContainer::Instance()->getLoggedUser();
     }
 
     protected static function callOkapi($service, $params){
-
 
         /** @var \lib\Objects\User\User */
         $user = self::getCurrentUser();
@@ -49,6 +49,16 @@ abstract class BaseObject
         Facade::reenable_error_handling();
 
         return $okapiResp;
+    }
+
+    public function prepareForSerialization()
+    {
+        $this->db = null;
+    }
+
+    public function restoreAfterSerialization()
+    {
+        $this->db = self::db();
     }
 
 }

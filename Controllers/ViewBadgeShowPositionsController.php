@@ -13,6 +13,12 @@ class ViewBadgeShowPositionsController extends BaseController{
         parent::__construct();
     }
 
+    public function isCallableFromRouter($actionName)
+    {
+        // all public methods can be called by router
+        return TRUE;
+    }
+
     public function index()
     {
         if( $this->loggedUser->getUserId()== null ){

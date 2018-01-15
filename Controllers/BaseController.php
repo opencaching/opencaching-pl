@@ -12,7 +12,23 @@ require_once(__DIR__.'/../lib/common.inc.php');
 
 abstract class BaseController
 {
-    /** @var View $view */
+    /**
+     * Every ctrl should have index method
+     * which is called by router as a default action
+     */
+    abstract public function index();
+
+    /**
+     * This method is called by router to be sure that given action is allowed
+     * to be called by router (it is possible that ctrl has public method which
+     * shouldn't be accessible on request).
+     *
+     * @param string $actionName - method which router will call
+     * @return boolean - TRUE if given method can be call from router
+     */
+    abstract public function isCallableFromRouter($actionName);
+
+/** @var View $view */
     protected $view = null;
 
     /** @var ApplicationContainer $applicationContainer */
@@ -35,7 +51,6 @@ abstract class BaseController
         // there is no DB access init - DB operations should be performed in models/objects
     }
 
-    abstract public function index(); //every Controller should have index method whoch should be call to handle requests
 
     protected function redirectToLoginPage()
     {
@@ -88,4 +103,29 @@ abstract class BaseController
         exit;
     }
 
+    /**
+     * This method can be used to just exit and display error page to user
+     *
+     * @param unknown $message - simple message to be displayed (in english)
+     * @param unknown $httpStatusCode - http status code to return in response
+     */
+    public function displayCommonErrorPageAndExit($message=null, $httpStatusCode=null)
+    {
+        $this->view->setTemplate('error/commonFatalError');
+        if($httpStatusCode){
+            switch($httpStatusCode){
+                case 404:
+                    header("HTTP/1.0 404 Not Found");
+                    break;
+                case 403:
+                    header("HTTP/1.0 403 Forbidden");
+                    break;
+                default:
+                    //TODO...
+            }
+        }
+
+        $this->view->setVar('message', $message);
+        $this->view->buildOnlySelectedTpl();
+    }
 }

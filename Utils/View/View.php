@@ -228,6 +228,11 @@ class View {
         tpl_BuildTemplate();
     }
 
+    public function buildOnlySelectedTpl()
+    {
+        tpl_BuildTemplate(false, false, true);
+    }
+
     /**
      * Build template and display page.
      * @param string|cont $layoutTemplate - base template to use

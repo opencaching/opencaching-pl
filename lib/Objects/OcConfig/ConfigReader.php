@@ -154,7 +154,7 @@ abstract class ConfigReader
      * @return string identifier of the node
      *
      */
-    protected static function getOcNode()
+    public static function getOcNode()
     {
         if(!is_null($ocNode = ApplicationContainer::GetOcNode())){
             return $ocNode;

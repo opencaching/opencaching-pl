@@ -12,6 +12,11 @@ class CacheLogController extends BaseController
         parent::__construct();
     }
 
+    public function isCallableFromRouter($actionName){
+        // all public method can be called by router
+        return TRUE;
+    }
+
     public function index()
     {
         //there is nothing to do here yet...
