@@ -2694,5 +2694,31 @@ $translations = array(
     'mnu_ocTeamNews' => 'News management',
     'mnu_additionalMenu' => 'Menu adiţional',
 
-
+    'startPage_wholeStatsTitle' => 'Current state of the game', /* EN! */
+    'startPage_totalCaches' => 'All caches number', /* EN! */
+    'startPage_totalCachesDesc' => 'Total number of created caches',  /* EN! */
+    'startPage_readyToSearch' => 'Ready to search geocaches',  /* EN! */
+    'startPage_readyToSearchDesc' => 'Total number of currently active caches',  /* EN! */
+    'startPage_topRatedCaches' => 'Geocaches rated as excelent',  /* EN! */
+    'startPage_topRatedCachesDesc' => 'The number of caches rated as excelent',  /* EN! */
+    'startPage_newCaches' => 'New geocaches',  /* EN! */
+    'startPage_newCachesDesc' => 'Number of new caches (last 30 days)',  /* EN! */
+    'startPage_activeCacheSets' => 'Active geopaths',  /* EN! */
+    'startPage_activeCacheSetsDesc' => 'Total number of active geopaths',  /* EN! */
+    'startPage_totalUsers' => 'Active users',  /* EN! */
+    'startPage_totalUsersDesc' => 'The number of users which find or create a cache',  /* EN! */
+    'startPage_newUsers' => 'New user accounts',  /* EN! */
+    'startPage_newUsersDesc' => 'The number of new user accounts (last 30 days)',  /* EN! */
+    'startPage_totalSearches' => 'Searches number',  /* EN! */
+    'startPage_totalSearchesDesc' => 'The number of all searches ever',  /* EN! */
+    'startPage_newSearches' => 'Latest searches',  /* EN! */
+    'startPage_newSearchesDesc' => 'The number of recent searches (last 30 days)',  /* EN! */
+    'startPage_newoRecom' => 'New recomendations granted',  /* EN! */
+    'startPage_newoRecomDesc' => 'The number of recomendations granted in last 30 days',  /* EN! */
+    'startPage_showMore' => 'Show more',  /* EN! */
+    'startPage_latestCachesList' => 'Latest caches',  /* EN! */
+    'startPage_latestCacheSets' => 'Latest geopaths',  /* EN! */
+    'startPage_latestTitledCaches' => 'Latest awarded',  /* EN! */
+    'startPage_validAt' => 'Valid at',  /* EN! */
+    
 );
