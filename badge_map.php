@@ -69,7 +69,7 @@ function getCachesList($positions){
         $pos = '(' . $pos->getId() . ')';
     }
 
-    return implode(',', $positions);
+    return implode(',', iterator_to_array($positions));
 }
 
 
