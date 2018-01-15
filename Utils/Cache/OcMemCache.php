@@ -27,7 +27,7 @@ class OcMemCache
     public static function getOrCreate($key, $ttl, callable $generator)
     {
         // apcu_entry was added in APCu version 5.1
-        if(function_exists(apcu_entry)){
+        if(function_exists('apcu_entry')){
             return apcu_entry($key, $generator, $ttl);
         }
 
