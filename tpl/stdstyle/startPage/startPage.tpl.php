@@ -354,7 +354,7 @@
 
     <!-- feeds -->
     <div id="feedsContainer">
-      <?php //$view->callChunk('dynamicHtmlLoad', $view->feedsUrl, 'feedsContainer'); ?>
+      <?php $view->callChunk('dynamicHtmlLoad', $view->feedsUrl, 'feedsContainer'); ?>
     </div>
     <!-- /feeds -->
 </div>
