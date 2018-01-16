@@ -200,16 +200,18 @@ class StartPageController extends BaseController
 
         // prepare total-stats array
         $totStsArr = [];
-        $totStsArr[0] = ['val'=>$ts->totalCaches, 'desc'=>tr('startPage_totalCaches'), 'ldesc'=>tr('startPage_totalCachesDesc')];
-        $totStsArr[1] = ['val'=>$ts->activeCaches, 'desc'=>tr('startPage_readyToSearch'), 'ldesc'=>tr('startPage_readyToSearchDesc')];
-        $totStsArr[2] = ['val'=>$ts->topRatedCaches, 'desc'=>tr('startPage_topRatedCaches'), 'ldesc'=>tr('startPage_topRatedCachesDesc')];
-        $totStsArr[3] = ['val'=>$ts->totalUsers, 'desc'=>tr('startPage_totalUsers'), 'ldesc'=>tr('startPage_totalUsersDesc')];
-        $totStsArr[4] = ['val'=>$ts->activeCacheSets, 'desc'=>tr('startPage_activeCacheSets'), 'ldesc'=>tr('startPage_activeCacheSetsDesc')];
-        $totStsArr[5] = ['val'=>$ts->totalSearches, 'desc'=>tr('startPage_totalSearches'), 'ldesc'=>tr('startPage_totalSearchesDesc')];
-        $totStsArr[6] = ['val'=>$ts->latestCaches, 'desc'=>tr('startPage_newCaches'), 'ldesc'=>tr('startPage_newCachesDesc')];
-        $totStsArr[7] = ['val'=>$ts->newUsers, 'desc'=>tr('startPage_newUsers'), 'ldesc'=>tr('startPage_newUsersDesc')];
-        $totStsArr[8] = ['val'=>$ts->latestSearches, 'desc'=>tr('startPage_newSearches'), 'ldesc'=>tr('startPage_newSearchesDesc')];
-        $totStsArr[9] = ['val'=>$ts->latestRecomendations, 'desc'=>tr('startPage_newoRecom'), 'ldesc'=>tr('startPage_newoRecomDesc')];
+        $totStsArr[] = ['val'=>$ts->totalCaches, 'desc'=>tr('startPage_totalCaches'), 'ldesc'=>tr('startPage_totalCachesDesc')];
+        $totStsArr[] = ['val'=>$ts->activeCaches, 'desc'=>tr('startPage_readyToSearch'), 'ldesc'=>tr('startPage_readyToSearchDesc')];
+        $totStsArr[] = ['val'=>$ts->topRatedCaches, 'desc'=>tr('startPage_topRatedCaches'), 'ldesc'=>tr('startPage_topRatedCachesDesc')];
+        $totStsArr[] = ['val'=>$ts->totalUsers, 'desc'=>tr('startPage_totalUsers'), 'ldesc'=>tr('startPage_totalUsersDesc')];
+        if($this->ocConfig->isPowertrailsEnabled()){
+            $totStsArr[] = ['val'=>$ts->activeCacheSets, 'desc'=>tr('startPage_activeCacheSets'), 'ldesc'=>tr('startPage_activeCacheSetsDesc')];
+        }
+        $totStsArr[] = ['val'=>$ts->totalSearches, 'desc'=>tr('startPage_totalSearches'), 'ldesc'=>tr('startPage_totalSearchesDesc')];
+        $totStsArr[] = ['val'=>$ts->latestCaches, 'desc'=>tr('startPage_newCaches'), 'ldesc'=>tr('startPage_newCachesDesc')];
+        $totStsArr[] = ['val'=>$ts->newUsers, 'desc'=>tr('startPage_newUsers'), 'ldesc'=>tr('startPage_newUsersDesc')];
+        $totStsArr[] = ['val'=>$ts->latestSearches, 'desc'=>tr('startPage_newSearches'), 'ldesc'=>tr('startPage_newSearchesDesc')];
+        $totStsArr[] = ['val'=>$ts->latestRecomendations, 'desc'=>tr('startPage_newoRecom'), 'ldesc'=>tr('startPage_newoRecomDesc')];
 
         // rotate stats tabele random number of times
         $rotator = rand(0,9);
