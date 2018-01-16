@@ -69,6 +69,10 @@ class CacheSetOwner extends BaseObject
     {
         $db = self::db();
 
+        if( empty($cacheSetIds) ){
+            return [];
+        }
+        
         $csIdsStr = implode(',', $cacheSetIds);
 
         $stmt = $db->simpleQuery(
