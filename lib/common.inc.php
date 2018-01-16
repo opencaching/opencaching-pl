@@ -65,11 +65,10 @@ if (php_sapi_name() != "cli") { // this is not neccesarry for command-line scrip
     }
 
     UserAuthorization::verify();
-
-    initTemplateSystem();
-    loadTranslation();
-
 }
+initTemplateSystem();
+loadTranslation();
+
 
 function initTemplateSystem(){
 

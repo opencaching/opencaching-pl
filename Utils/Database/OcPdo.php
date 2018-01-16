@@ -158,6 +158,27 @@ class OcPdo extends PDO
     }
 
     /**
+     * Retrieves current query result buffering setting for mysql connection
+     *
+     * @return boolean true if query result buffering is set
+     */
+    public function getMysqlQueryBuffering()
+    {
+        return $this->getAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY);
+    }
+
+    /**
+     * Sets query result buffering for mysql connection
+     *
+     * @param boolean $buffered true if query result should be buffered,
+     *                          false otherwise
+     */
+    public function setMysqlQueryBuffering($buffered)
+    {
+        $this->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, $buffered);
+    }
+
+    /**
      * Private clone method to prevent cloning of the instance of the
      * *Singleton* instance.
      *
