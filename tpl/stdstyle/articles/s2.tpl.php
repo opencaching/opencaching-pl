@@ -15,26 +15,26 @@ global $lang, $rootpath;
 
 if (!isset($rootpath))
     $rootpath = './';
-    
+
     //include template handling
     require_once($rootpath . 'lib/common.inc.php');
     setlocale(LC_TIME, 'pl_PL.UTF-8');
-    
+
     $userscount = XDb::xSimpleQueryValue(
         'SELECT COUNT( DISTINCT user_id) FROM cache_logs WHERE type=1 AND `deleted`=0', 0);
-    
+
     $cachelogscount = XDb::xSimpleQueryValue(
         'SELECT COUNT(*) FROM `cache_logs` WHERE type=1 AND `deleted`=0', 0);
-    
+
     echo '<center><table width="97%" border="0"><tr><td align="center"><center><b>' . tr('ranking_by_number_of_finds') . '</b><br />' . tr('total_amount_loggers');
     echo $userscount;
     echo ' .::. ' . tr('total_amount_logs');
     echo $cachelogscount;
     echo '</center></td></tr>';
     echo '<tr><td class="bgcolor2"><b>' . tr('filter_out_caches') . '</b><br /><form action="articles.php" method="GET">';
-    
+
     $res_q = XDb::xSql('SELECT id, pl FROM cache_type WHERE id != 6');
-    
+
     $no_types = 0;
     $typ = "";
     while ( $res = XDb::xFetchArray($res_q) ) {
@@ -48,25 +48,25 @@ if (!isset($rootpath))
             }
         } else
             $checked = '';
-            
+
             echo '<input type="checkbox" value="1" name="' . intval($res['id']) . '" id="' . intval($res['id']) . '" ' . $checked . ' /><label for="' . intval($res['id']) . '">' . strip_tags($res['pl']) . '</label>';
             if ($no_types % 5 != 0)
                 echo ' | ';
                 if ($no_types == 5)
                     echo '<br />';
     }
-    
+
     if ($typ != ''){
         $typ .= ')';
     }
-    
+
     echo '<input type="hidden" name="page" value="s2">';
     echo '<br/><input type="submit" value=' . tr('filter') . '>';
-    
+
     echo '</form></td></tr></table>';
     echo '<table border="1" bgcolor="white" width="97%" style="font-size:11px; line-height:1.6em;">' . "\n";
-    
-    
+
+
     if( $typ == '' ) { //without cache-type filter
         $a = "SELECT COUNT(*) count, username, stat_ban, user.user_id
           FROM cache_logs, user
@@ -75,7 +75,7 @@ if (!isset($rootpath))
             AND cache_logs.type=1
           GROUP BY user.user_id
           ORDER BY 1 DESC, user.username ASC";
-        
+
     } else { //with cache-type filter : very expensive!!!
         $a = "SELECT COUNT(*) count, username, stat_ban, user.user_id
         FROM caches, cache_logs, user
@@ -87,32 +87,35 @@ if (!isset($rootpath))
         GROUP BY user.user_id
         ORDER BY 1 DESC, user.username ASC";
     }
-    
-    $cache_key = md5($a);
+
+    $cache_key = 'articles_s2'.md5($a);
     $lines = apc_fetch($cache_key);
-    
+
     if ($lines === false) {
         $r = XDb::xSql( $a );
-        while ( $line = XDb::xFetchArray($r) )
+
+        $lines = [];
+        while ( $line = XDb::xFetchArray($r) ){
             $lines[] = $line;
-            
-            unset($r);
-            apc_store($cache_key, $lines, 3600);
+        }
+
+        unset($r);
+        apc_store($cache_key, $lines, 3600);
     }
-    
+
     echo "<br />";
-    
-    
+
+
     echo '<tr class="bgcolor2">' .
         '<td align="center">&nbsp;&nbsp;<b>' . tr('ranking') . '</b>&nbsp;&nbsp;</td>' .
         '<td align="center"><b>' . tr('shared_place') . '</b></td>' .
         '<td align="center"><b>' . tr('number_found_caches') . '</b></td>' .
         '<td align="center">&nbsp;&nbsp;<b>' . tr('username') . '</b>&nbsp;&nbsp;</td></tr><tr><td>';
-    
+
     $l2 = ""; // number of users within the same rank
     $rank = 0; // rank number; increamented by one for each group of users having the same caches discovered
     $position = 1; // position ex aequo; incremented by number of users in each rank
-    
+
     foreach ($lines as $line) {
         $color = "black";
         $banned = "";

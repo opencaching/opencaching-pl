@@ -984,7 +984,14 @@ function unlinkrecursiv($path)
 
     $notunlinked = 0;
 
-    $hDir = opendir($path);
+    if(!is_dir($path)){
+        return true;
+    }
+
+    $hDir = @opendir($path);
+    if($hDir===false){
+        return true;
+    }
     while (false !== ($file = readdir($hDir))) {
         if (($file != '.') && ($file != '..')) {
             if (is_dir($path . $file)) {
@@ -1005,7 +1012,9 @@ function unlinkrecursiv($path)
     closedir($hDir);
 
     if ($notunlinked == 0) {
-        rmdir($path);
+        if(is_dir($path)){
+            rmdir($path);
+        }
         return true;
     } else
         return false;

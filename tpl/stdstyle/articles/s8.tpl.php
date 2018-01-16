@@ -21,7 +21,7 @@ setlocale(LC_TIME, 'pl_PL.UTF-8');
 
 # This page took >60 seconds to render! Added daily caching.
 
-$cache_key = "t7.php-result" . $lang;
+$cache_key = "articles_s8-" . $lang;
 $result = apc_fetch($cache_key);
 
 if ($result === false) {

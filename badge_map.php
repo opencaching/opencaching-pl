@@ -25,7 +25,7 @@ $badge_id = $_REQUEST['badge_id'];
 $show = $_REQUEST['show'];
 
 
-$meritBadgeCtrl = new \lib\Controllers\MeritBadgeController;
+$meritBadgeCtrl = new MeritBadgeController;
 $tmp_badge_map = "tmp_badge_map";
 
 $gainedPositions = $meritBadgeCtrl->buildArrayGainedPositions($userid, $badge_id);
@@ -64,39 +64,40 @@ tpl_redirect("cachemap3.php?userid=$userid&searchdata=$hash&fromlat=$minlat&from
 
 
 function getCachesList($positions){
-    $valQuery = "";
-            
-    foreach( $positions as $onePos ){
-        if ( $valQuery != "" )
-            $valQuery .= ",";
-            
-        $valQuery .= "(". $onePos->getId() . ")";
+
+    foreach( $positions as &$pos){
+        $pos = '(' . $pos->getId() . ')';
     }
-    
-    return $valQuery;
+
+    return implode(',', iterator_to_array($positions));
 }
 
 
 function addCachesToTmpTable( $db, $tmp_badge_map, $show, $gainedList, $belongingList ){
-    
-    $query = "CREATE TEMPORARY TABLE $tmp_badge_map(cache_id int(11)) ENGINE=MEMORY";
-    $db->simpleQuery($query);
+
+    $db->simpleQuery(
+        "CREATE TEMPORARY TABLE $tmp_badge_map(cache_id int(11)) ENGINE=MEMORY");
 
     $insQuery = "INSERT INTO $tmp_badge_map values ";
-    $delGainedQuery = "DELETE FROM $tmp_badge_map WHERE cache_id in (" . $gainedList. ")";
-    
+
     //N - not gained
     //Y - gained
-    
+
     if ( !(strpos($show, 'N') === false) ){ //not gained
-        $db->simpleQuery($insQuery . $belongingList);
+        if(!empty($belongingList)){
+            $db->simpleQuery($insQuery . $belongingList);
+        }
     }
-    
-    if ( strpos($show, 'Y') === false){ //only not gained
-        $db->simpleQuery($delGainedQuery);
-    }
-    else { //gained
-        $db->simpleQuery($insQuery . $gainedList);
+
+    if ( strpos($show, 'Y') === false ){ //only not gained
+        if(!empty($gainedList)){
+            $db->simpleQuery("DELETE FROM $tmp_badge_map WHERE cache_id IN (" . $gainedList. ")");
+        }
+
+    } else { //gained
+        if(!empty($gainedList)){
+            $db->simpleQuery($insQuery . $gainedList);
+        }
     }
 }
 

@@ -21,19 +21,20 @@ class OcMemCache
      *
      * @param string $key - should be a __CLASS__ of saved object
      * @param integer $ttl - ttl at which this var should be saved in cache
-     * @param callable $creatorCallback
+     * @param callable $generator - function used for creation of the value if it is not found in cache
      * @return mixed - requested var
      */
-    public static function getOrCreate($key, $ttl, callable $creatorCallback)
+    public static function getOrCreate($key, $ttl, callable $generator)
     {
-        //TODO: it should be just wrapper for apc_entry
-        //      but there is no such func. in APCu 4.*
-        //return apc_entry($key, $creatorCalback, $ttl);
+        // apcu_entry was added in APCu version 5.1
+        //if(function_exists('apcu_entry')){
+        //    return apcu_entry($key, $generator, $ttl);
+        //}
 
-        if( ($var = apcu_fetch($key)) === FALSE ){
-
-            $var = call_user_func($creatorCallback);
-
+        // this is older installation - there is no apcu_entry function
+        // TODO: these lines can be safetly removed when all nodes moved to PHP7 (APCu 5)
+        if( ($var = apcu_fetch($key)) === false ){
+            $var = call_user_func($generator);
             try{
                 apcu_store($key, $var, $ttl);
             }catch(Exception $e){

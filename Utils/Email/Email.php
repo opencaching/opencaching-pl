@@ -10,6 +10,7 @@
 
 namespace Utils\Email;
 
+use Exception;
 use lib\Objects\OcConfig\OcConfig;
 
 class Email
@@ -83,7 +84,8 @@ class Email
             $to = implode(',', $this->toAddr);
         } else {
             $to = OcConfig::getNoreplyEmailAddress();
-            $this->error(__METHOD__.": Setting dummy TO address: $to");
+            $this->error(__METHOD__.": Setting dummy TO address: $to",
+                new Exception("Email with empty 'To' field!"));
 
         }
 
@@ -98,7 +100,8 @@ class Email
             $this->toAddr[] = $addr;
             return true;
         }else{
-            $this->error(__METHOD__.': improper email address: '.$addr);
+            $this->error(__METHOD__.': improper email address: '.$addr,
+                new Exception("Invalid email address!"));
             return false;
         }
     }
@@ -108,7 +111,8 @@ class Email
             $this->ccAddr[] = $addr;
             return true;
         }else{
-            $this->error(__METHOD__.': improper email address: '. $addr);
+            $this->error(__METHOD__.': improper email address: '. $addr,
+                new Exception("Invalid CC email address!"));
             return false;
         }
     }
@@ -118,7 +122,8 @@ class Email
             $this->bccAddr[] = $addr;
             return true;
         }else{
-            $this->error(__METHOD__.': improper email address: '. $addr);
+            $this->error(__METHOD__.': improper email address: '. $addr,
+                new Exception("Invalid BCC email address!"));
             return false;
         }
     }
@@ -128,7 +133,8 @@ class Email
             $this->fromAddr = $addr;
             return true;
         }else{
-            $this->error(__METHOD__.': improper email address: '. $addr);
+            $this->error(__METHOD__.': improper email address: '. $addr,
+                new Exception("Invalid FROM email address!"));
             return false;
         }
     }
@@ -138,7 +144,8 @@ class Email
             $this->replyToAddr = $addr;
             return true;
         }else{
-            $this->error(__METHOD__.': improper email address: '. $addr);
+            $this->error(__METHOD__.': improper email address: '. $addr,
+                new Exception("Invalid REPLAY-TO email address!"));
             return false;
         }
     }
@@ -179,7 +186,7 @@ class Email
     }
 
     private function error($message, Exception $e=null){
-        //TODO:
+
         if(!is_null($e)){
             error_log(__METHOD__.": Stack trace:");
             error_log($e->getTraceAsString());
@@ -195,14 +202,16 @@ class Email
             empty($this->bccAddr) ){
 
                 //no recipient of this email
-                $this->error(__METHOD__.": Trying to send email with no recipients.");
+                $this->error(__METHOD__.": Trying to send email with no recipients.",
+                    new Exception("No recipients on sending!"));
                 return false;
         }
 
         //check subject
         if($this->subject == ''){
             //empty subject email
-            $this->error(__METHOD__.": Trying to send email without subject.");
+            $this->error(__METHOD__.": Trying to send email without subject.",
+                new Exception("Email with empty subjec!"));
             return false;
         }
 
