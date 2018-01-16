@@ -171,7 +171,6 @@ $translations = array(
     'special_caches' => 'Special cacher',
     'user_ident' => 'Användarid',
     'mnu_cacheMap' => 'Karta över cacher',
-    'old_cache_map' => 'Äldre version av cachekarta',
     'mnu_abcOfGCaching' => 'Geocaching ABC',
     'mnu_forum' => 'Forum',
     'mnu_geokrets' => 'Geokrety',
