@@ -222,10 +222,7 @@ function write_cookie_settings()
 function http_write_no_cache()
 {
     // HTTP/1.1
-    header("Cache-Control: no-cache, must-revalidate");
-    header("Cache-Control: post-check=0, pre-check=0", false);
-    // HTTP/1.0
-    header("Pragma: no-cache");
+    header("Cache-Control: no-cache");
     // Date in the past
     header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
     // always modified

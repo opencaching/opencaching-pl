@@ -8,7 +8,7 @@ require_once __DIR__ . '/lib/settingsGlue.inc.php';
 ignore_user_abort(true);
 set_time_limit(0);
 
-header("Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0");
+header("Cache-Control: no-store");
 header("Content-Type: text/plain; charset=utf-8");
 
 # Script file ocpl-update.sh contains proper "git pull" commands. 

@@ -27,7 +27,7 @@ global $tpl_subtitle;
 
         <title><?=$tpl_subtitle?>{title}</title>
 
-        <script type="text/javascript" src="/lib/enlargeit/enlargeit.js"></script>
+        <script type="text/javascript" src="/lib/enlargeit/enlargeit.js" async="async"></script>
 
 
         {htmlheaders}
@@ -61,8 +61,7 @@ global $tpl_subtitle;
             }
         ?>
 
-        <script type='text/javascript' src='/lib/js/CookiesInfo.js'></script>
-        <script type='text/javascript'>WHSetText('{{cookiesInfo}}');</script>
+        <script type='text/javascript' src='/lib/js/CookiesInfo.js' async></script>
 
         <script type="text/javascript">
             // this is used by search widget
@@ -77,8 +76,14 @@ global $tpl_subtitle;
     <body {bodyMod} class="<?=$view->backgroundSeason?>">
 
         <div id="overall">
-            <div class="page-container-1" style="position: relative;">
+          <!-- Cookies info -->
+          <div class="cookies-message" id="cookies-message-div" style="display: none;" hidden="hidden">
+            <p class="align-center">{{cookiesInfo}}
+              <a href="javascript:WHCloseCookiesWindow();" class="btn btn-sm btn-success">&nbsp;X&nbsp;</a>
+            </p>
+          </div>
 
+            <div class="page-container-1" style="position: relative;">
                 <div class="seasonalBackground left <?=$view->backgroundSeason?>">&nbsp;</div>
                 <div class="seasonalBackground right <?=$view->backgroundSeason?>">&nbsp;</div>
 
@@ -159,9 +164,9 @@ global $tpl_subtitle;
                             <form action="login.php?action=login" method="post" name="login"
                                   style="display: inline;" class="form-group-sm">
                                   <?=tr('loginForm_userOrEmail')?>:&nbsp;
-                                  <input name="email" size="10" type="text" class="form-control input100" value="" />
+                                  <input name="email" size="10" type="text" class="form-control input100" value="" autocomplete="username">
                                   &nbsp;<?=tr('loginForm_password')?>:&nbsp;
-                                  <input name="password" size="10" type="password" class="form-control input100" value="" />
+                                  <input name="password" size="10" type="password" class="form-control input100" value="" autocomplete="current-password">
                                   &nbsp;
                                   <input type="hidden" name="target" value="<?=$view->_target?>" />
                                   <input type="submit" value="<?=tr('login')?>" class="btn btn-primary btn-sm" />

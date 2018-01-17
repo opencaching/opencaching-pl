@@ -32,8 +32,6 @@ if (!$cache_id) {
         <meta http-equiv="Content-Style-Type" content="text/css" />
         <meta http-equiv="Content-Language" content="<?php echo $lang; ?>" />
         <meta http-equiv="gallerimg" content="no" />
-        <meta http-equiv="pragma" content="no-cache" />
-        <meta http-equiv="cache-control" content="no-cache" />
         <link rel="shortcut icon" href="/images/<?php print $config['headerFavicon']; ?>" />
         <link rel="stylesheet" type="text/css" href="tpl/stdstyle/css/style_print.css" />
     </head>

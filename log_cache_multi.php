@@ -79,7 +79,7 @@ if (isset($_POST['submitDownloadGpx'])) {
         $filname = date("Ymd-Hi") . ".gpx";
         header("Content-type: application/x-download");
         header("Content-type: text/plain; charset=utf-8");
-        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Cache-Control: no-cache');
 
 //      header("Content-type: application/octet-stream");
         header("Content-Disposition: attachment; filename=\"" . $filname . "\"");
