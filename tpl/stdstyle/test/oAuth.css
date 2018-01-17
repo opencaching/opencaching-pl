@@ -15,3 +15,11 @@
 #googleLogo {
   transform:scale(2.0);
 }
+
+.success {
+  text-color: green;
+}
+
+.fail {
+  text-color: red;
+}
