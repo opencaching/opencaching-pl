@@ -3,6 +3,7 @@
 namespace lib\Objects\Coordinates;
 
 use lib\Objects\BaseObject;
+use Utils\Debug\Debug;
 
 /**
  * Class represents location of the point in NUTS nomenclature.
@@ -112,7 +113,13 @@ class NutsLocation extends BaseObject
             $region = $this->names[self::LEVEL_1];
 
         }else{
-            $region = $this->names[self::LEVEL_3];
+            if(!empty($this->codes[self::LEVEL_3])){
+                $region = $this->names[self::LEVEL_3];
+            }else{
+                $region = '?';
+                // bug in NUTS data?! country present, no level names!?
+                Debug::errorLog("NUTS data error? No code for ".$this->codes[self::LEVEL_COUNTRY]);
+            }
         }
 
         return $country . $separator . $region;
