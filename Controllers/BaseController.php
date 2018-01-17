@@ -127,5 +127,6 @@ abstract class BaseController
 
         $this->view->setVar('message', $message);
         $this->view->buildOnlySelectedTpl();
+        exit;
     }
 }

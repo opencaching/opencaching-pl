@@ -1,0 +1,1 @@
+#### This dir contains Google official logo. All usage should follow Google guidelines at [https://developers.google.com/identity/branding-guidelines](https://developers.google.com/identity/branding-guidelines)

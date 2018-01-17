@@ -35,7 +35,8 @@ class SimpleRouter
     const ROUTE_GET_VAR = 'r';
 
     /**
-     * Generate proper link from given params
+     * Generate proper link from given params.
+     * Link is relative (without protocol and server - this is just path started with '/')
      *
      * @param string $ctrl - controller class name (and path) - use php ControllerName::class
      * @param string $action - method name from given controller
@@ -50,7 +51,9 @@ class SimpleRouter
             $action = 'index';
         }
 
-        $link = '/index.php?'.self::ROUTE_GET_VAR."=/$ctrl/$action";
+        //$link = '/index.php?'.self::ROUTE_GET_VAR."=/$ctrl/$action";
+        $link = "/$ctrl/$action";
+
         if($params){
             if(is_array($params)){
                 $link .= '/'.implode(",",$params);
@@ -59,6 +62,12 @@ class SimpleRouter
             }
         }
         return $link;
+    }
+
+    public static function getAbsLink($ctrl, $action=null, $params=null){
+        $link = self::getLink($ctrl, $action, $params);
+
+        return Uri::getCurrentUriBase().$link;
     }
 
     /**

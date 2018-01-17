@@ -89,9 +89,53 @@ class Uri {
         return $rootPath.'?'.filemtime(__dir__.'/../..'.$rootPath);
     }
 
+
+    /**
+     * Return current protocol (http vs https)
+     * @return string - https|http
+     */
+    public static function getCurrentProtocol()
+    {
+        return $_SERVER['REQUEST_SCHEME'];
+    }
+
+    /**
+     * Return current domain used by server
+     * for example: opencaching.pl
+     *
+     * @return string
+     */
     public static function getCurrentDomain(){
-        //TODO
         return $_SERVER['HTTP_HOST'];
+    }
+
+    /**
+     * Returns protocol://domain
+     * for example: https://opencaching.pl
+     * @return string
+     */
+    public static function getCurrentUriBase()
+    {
+        return self::getCurrentProtocol() . '://' . self::getCurrentDomain();
+    }
+
+    /**
+     * Returns request URI (without params) (works for dynamic routs too).
+     *
+     * For example for: http://opencaching.pl/StartPage/index?fooParam=1234
+     * it returns: http://opencaching.pl/StartPage/index (defult)
+     * or: /StartPage/index if $withProtoAndDomain == false
+     *
+     */
+    public static function getCurrentRequestUri($withProtoAndDomain=true)
+    {
+        $parts = explode('?', $_SERVER['REQUEST_URI'], 2);
+
+        if($withProtoAndDomain){
+            return self::getCurrentUriBase() . $parts[0];
+        }else{
+            return $parts[0];
+        }
     }
 
     private static function addPrecedingSlashIfNecessary($path)

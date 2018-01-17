@@ -1,0 +1,1 @@
+#### This dir contains Facebook official logo. All usage should follow Facebook guidelines at [https://en.facebookbrand.com/guidelines/brand](https://en.facebookbrand.com/guidelines/brand)

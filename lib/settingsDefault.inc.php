@@ -298,4 +298,15 @@ $config['header']['keywords'] = 'geocaching, opencaching, skarby,'.
 // logo displayed as apple-touch-icon-precomposed
 $config['header']['appleLogo'] = '/images/oc_logo_144.png';
 
+// FB login conf
+$config['oAuth']['facebook']['prodEnabled'] = false;
+$config['oAuth']['facebook']['testEnabled'] = false;
+$config['oAuth']['facebook']['appId'] = null;
+$config['oAuth']['facebook']['appSecret'] = null;
+
+// Google login conf
+$config['oAuth']['google']['prodEnabled'] = false;
+$config['oAuth']['google']['testEnabled'] = false;
+$config['oAuth']['google']['clientId'] = null;
+$config['oAuth']['google']['clientSecret'] = null;
 
