@@ -132,7 +132,7 @@ class GoogleOAuth extends OAuthSimpleUserBase
         $tokenServiceUrl = 'https://www.googleapis.com/oauth2/v4/token';
         $postData = [
             'code' => $code,
-            'client_id' => self::getCientId(),
+            'client_id' => self::getClientId(),
             'client_secret' => self::getClientSecret(),
             'redirect_uri' => Uri::getCurrentRequestUri(),
             'grant_type' => 'authorization_code'
