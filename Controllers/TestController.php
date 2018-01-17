@@ -42,12 +42,23 @@ class TestController extends BaseController
 
         $this->view->setTemplate('test/oAuth');
 
-        $this->view->setVar('fbLink',
-            FacebookOAuth::getOAuthStartUrl(
-                Uri::getCurrentUriBase().'/Test/oAuthCallback/Facebook'));
-        $this->view->setVar('gLink',
-            GoogleOAuth::getOAuthStartUrl(
-                Uri::getCurrentUriBase().'/Test/oAuthCallback/Google'));
+        $fbTestEnabled = FacebookOAuth::isEnabledForTests();
+        $gTestEnabled = GoogleOAuth::isEnabledForTests();
+
+        $this->view->setVar('fbTestEn', $fbTestEnabled);
+        if($fbTestEnabled){
+            $this->view->setVar('fbLink',
+                FacebookOAuth::getOAuthStartUrl(
+                    Uri::getCurrentUriBase().'/Test/oAuthCallback/Facebook'));
+        }
+
+
+        $this->view->setVar('gTestEn', $gTestEnabled);
+        if($gTestEnabled){
+            $this->view->setVar('gLink',
+                GoogleOAuth::getOAuthStartUrl(
+                    Uri::getCurrentUriBase().'/Test/oAuthCallback/Google'));
+        }
 
         $this->view->buildView();
     }
@@ -65,10 +76,20 @@ class TestController extends BaseController
 
         switch($service){
             case 'Facebook':
-                $oAuth = FacebookOAuth::oAuthCallbackHandler();
+                if(FacebookOAuth::isEnabledForTests()){
+                    $oAuth = FacebookOAuth::oAuthCallbackHandler();
+                }else{
+                    $this->displayCommonErrorPageAndExit('Unknown oAuth service', 404);
+                    exit;
+                }
                 break;
             case 'Google':
-                $oAuth = GoogleOAuth::oAuthCallbackHandler();
+                if(GoogleOAuth::isEnabledForTests()){
+                    $oAuth = GoogleOAuth::oAuthCallbackHandler();
+                }else{
+                    $this->displayCommonErrorPageAndExit('Unknown oAuth service', 404);
+                    exit;
+                }
                 break;
             default:
                 $this->displayCommonErrorPageAndExit('Unknown oAuth service', 404);

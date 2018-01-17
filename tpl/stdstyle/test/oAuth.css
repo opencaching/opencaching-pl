@@ -17,9 +17,9 @@
 }
 
 .success {
-  text-color: green;
+  color: green;
 }
 
 .fail {
-  text-color: red;
+  color: red;
 }
