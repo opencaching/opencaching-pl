@@ -21,3 +21,4 @@ This is here for debug purpose only.
   </div>
 <?php } //if-error ?>
 
+<a class="btn" href="/Test/oAuth">Back to the begining...</a>
