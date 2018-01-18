@@ -33,10 +33,9 @@ $view->callChunk('tinyMCE');
     $('#scriptwarning').hide();
             chkcountry2();
             $.datepicker.setDefaults($.datepicker.regional['pl']);
-            $('#hiddenDatePicker, #activateDatePicker').datepicker({
-    dateFormat: 'yy-mm-dd',
-            regional: '{language4js}'
-    }).val();
+            $('#hiddenDatePicker, #activateDatePicker').datepicker(
+                $.datepicker.regional["{language4js}"]
+            ).datepicker("option", "dateFormat", "yy-mm-dd").val();
     });
             function checkRegion(){
             // console.log($('#lat_min').val().length);
