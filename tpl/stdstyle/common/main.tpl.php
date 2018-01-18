@@ -7,89 +7,73 @@ global $tpl_subtitle;
 ?>
 <!DOCTYPE html>
 <html lang="<?=$view->getLang()?>" xml:lang="<?=$view->getLang()?>">
-    <head>
-        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="keywords" content="<?=$view->_keywords?>">
+  <meta name="author" content="<?=$view->_siteName?>">
+  <link rel="shortcut icon" href="/images/<?=$config['headerFavicon']?>">
+  <link rel="apple-touch-icon-precomposed" href="/images/oc_logo_144.png">
 
-        <meta name="keywords" content="<?=$view->_keywords?>">
-        <meta name="author" content="<?=$view->_siteName?>">
+  <title><?=$tpl_subtitle?>{title}</title>
 
-        <link rel="stylesheet" type="text/css" media="screen" href="<?=$view->screenCss?>">
-        <link rel="stylesheet" type="text/css" media="print" href="<?=$view->printCss?>">
+  <link rel="stylesheet" type="text/css" media="screen" href="<?=$view->screenCss?>">
+  <link rel="stylesheet" type="text/css" media="print" href="<?=$view->printCss?>">
+  <?php foreach( $view->getLocalCss() as $css ) { ?>
+    <link rel="stylesheet" type="text/css" href="<?=$css?>">
+  <?php } //foreach-css ?>
 
+  {htmlheaders}
+  {cachemap_header}
 
-        <link rel="shortcut icon" href="/images/<?=$config['headerFavicon']?>">
-        <link rel="apple-touch-icon-precomposed" href="/images/oc_logo_144.png">
+  <?php
+      if( $view->isGoogleAnalyticsEnabled() ){
+          $view->callChunkOnce( 'googleAnalytics', $view->getGoogleAnalyticsKey() );
+      }
+      if( $view->isjQueryEnabled()){
+          $view->callChunk('jQuery');
+      }
+      if( $view->isjQueryUIEnabled()){
+          $view->callChunk('jQueryUI');
+      }
+      if( $view->isTimepickerEnabled()){
+          $view->callChunk('timepicker');
+      }
+      if( $view->isLightBoxEnabled()){
+          $view->callChunk('lightBoxLoader', true, false);
+      }
+      if( $view->isGMapApiEnabled() ){
+          if( !isset($GLOBALS['googlemap_key']) || empty($GLOBALS['googlemap_key']) ){
+              Debug::errorLog("There is no googlemap_key value in site settings! Map can't be loaded!");
+          } else {
+              $callback = isset($view->GMapApiCallback)?$view->GMapApiCallback:null;
+              $view->callChunk('googleMapsApi',
+                  $GLOBALS['googlemap_key'], $view->getLang(), $callback);
+          }
+      }
+  ?>
 
+  <script type='text/javascript' src='/lib/js/CookiesInfo.js' async="async"></script>
+  <script type='text/javascript' src='/lib/js/search.widget.js' async="async"></script>
+  <script type="text/javascript" src="/lib/enlargeit/enlargeit.js" async="async"></script>
 
-        <?php foreach( $view->getLocalCss() as $css ) { ?>
-          <link rel="stylesheet" type="text/css" href="<?=$css?>">
-        <?php } //foreach-css ?>
+</head>
+<body {bodyMod} class="<?=$view->backgroundSeason?>">
 
-        <title><?=$tpl_subtitle?>{title}</title>
+  <div id="overall">
+    <!-- Cookies info -->
+    <div class="cookies-message" id="cookies-message-div" style="display: none;" hidden="hidden">
+      <p class="align-center">{{cookiesInfo}}
+        <a href="javascript:WHCloseCookiesWindow();" class="btn btn-sm btn-success">&nbsp;X&nbsp;</a>
+      </p>
+    </div>
 
-        <script type="text/javascript" src="/lib/enlargeit/enlargeit.js" async="async"></script>
-
-
-        {htmlheaders}
-        {cachemap_header}
-
-        <?php
-            if( $view->isGoogleAnalyticsEnabled() ){
-                $view->callChunkOnce( 'googleAnalytics', $view->getGoogleAnalyticsKey() );
-            }
-            if( $view->isjQueryEnabled()){
-                $view->callChunk('jQuery');
-            }
-            if( $view->isjQueryUIEnabled()){
-                $view->callChunk('jQueryUI');
-            }
-            if( $view->isTimepickerEnabled()){
-                $view->callChunk('timepicker');
-            }
-            if( $view->isLightBoxEnabled()){
-                $view->callChunk('lightBoxLoader', true, false);
-            }
-            if( $view->isGMapApiEnabled() ){
-                if( !isset($GLOBALS['googlemap_key']) || empty($GLOBALS['googlemap_key']) ){
-                    Debug::errorLog("There is no googlemap_key value in site settings?!".
-                                "Map can't be loaded!");
-                }else{
-                    $callback = isset($view->GMapApiCallback)?$view->GMapApiCallback:null;
-                    $view->callChunk('googleMapsApi',
-                        $GLOBALS['googlemap_key'], $view->getLang(), $callback);
-                }
-            }
-        ?>
-
-        <script type='text/javascript' src='/lib/js/CookiesInfo.js' async="async"></script>
-
-        <script type="text/javascript">
-            // this is used by search widget
-            function chname(newName,searchPage) {
-                document.getElementById("search_input").name = newName;
-                document.getElementById("search_form").action = searchPage;
-                return false;
-            }
-        </script>
-
-    </head>
-    <body {bodyMod} class="<?=$view->backgroundSeason?>">
-
-        <div id="overall">
-          <!-- Cookies info -->
-          <div class="cookies-message" id="cookies-message-div" style="display: none;" hidden="hidden">
-            <p class="align-center">{{cookiesInfo}}
-              <a href="javascript:WHCloseCookiesWindow();" class="btn btn-sm btn-success">&nbsp;X&nbsp;</a>
-            </p>
-          </div>
-
-            <div class="page-container-1" style="position: relative;">
+            <div class="page-container-1">
                 <div class="seasonalBackground left <?=$view->backgroundSeason?>">&nbsp;</div>
                 <div class="seasonalBackground right <?=$view->backgroundSeason?>">&nbsp;</div>
 
                 <!-- HEADER -->
                 <!-- OC-Logo -->
-                <div><img src="<?=$view->_mainLogo?>" alt="OC logo" style="margin-top:5px; margin-left:3px;"></div>
+                <img src="<?=$view->_mainLogo?>" alt="OC logo" class="oc-logo">
 
                 <!-- Sitename -->
                 <div class="site-name">
@@ -108,7 +92,7 @@ global $tpl_subtitle;
                                              title="<?=$langFlag['name']?> version">
                                     </a>
                                 </li>
-                            <?php } //forach-lang-flags ?>
+                            <?php } //foreach-lang-flags ?>
                         </ul>
                     </div>
                 </div>
@@ -146,7 +130,7 @@ global $tpl_subtitle;
                                 </p>
                             </div>
                             <div class="form-group-xs">
-                                <input id="search_input" type="text" name="waypointname" class="form-control input100" style="color:gray;">
+                                <input id="search_input" type="text" name="waypointname" class="form-control input100">
                                 <input type="submit" name="submit" value="{{search}}" class="btn btn-default btn-xs">
                             </div>
                         </div>
@@ -177,9 +161,7 @@ global $tpl_subtitle;
 
                 <!-- Header banner     -->
                 <div class="header">
-                    <div style="width:970px; padding-top:1px;">
-                      <img src="/images/head/rotator.php" alt="Banner" style="border:0px;">
-                    </div>
+                  <img src="/images/head/rotator.php" alt="Banner">
                 </div>
 
                 <!-- Navigation - horizontal menu bar -->
@@ -247,7 +229,6 @@ global $tpl_subtitle;
                       <?php } //foreach ?>
                     </ul>
 
-
                     <!-- additional menu -->
                     <ul>
                       <li class="title"><?=tr('mnu_additionalMenu')?></li>
@@ -280,7 +261,6 @@ global $tpl_subtitle;
 
                 <?php } //if-_isUserLogged ?>
 
-                    <!-- Main title -->
                 </div>
 
                 <!--     CONTENT -->
@@ -323,12 +303,12 @@ global $tpl_subtitle;
                 </div>
                 <!-- (C) The Opencaching Project 2018 -->
             </div>
-        </div>
-        <?php
-            // lightbox js should be loaded at th end of page
-            if( $view->isLightBoxEnabled()){
-                $view->callChunk('lightBoxLoader', false, true);
-            }
-        ?>
-    </body>
+  </div>
+  <?php
+      // lightbox js should be loaded at th end of page
+      if( $view->isLightBoxEnabled()){
+          $view->callChunk('lightBoxLoader', false, true);
+      }
+  ?>
+</body>
 </html>
