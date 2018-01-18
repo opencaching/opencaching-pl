@@ -61,7 +61,7 @@ global $tpl_subtitle;
             }
         ?>
 
-        <script type='text/javascript' src='/lib/js/CookiesInfo.js' async></script>
+        <script type='text/javascript' src='/lib/js/CookiesInfo.js' async="async"></script>
 
         <script type="text/javascript">
             // this is used by search widget
@@ -321,7 +321,7 @@ global $tpl_subtitle;
                     <p><br><?=$view->licenseHtml?></p>
 
                 </div>
-                <!-- (C) The Opencaching Project 2017 -->
+                <!-- (C) The Opencaching Project 2018 -->
             </div>
         </div>
         <?php
