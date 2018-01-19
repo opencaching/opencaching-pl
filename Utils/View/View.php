@@ -8,8 +8,8 @@ use Controllers\PageLayout\MainLayoutController;
 
 class View {
 
-    const TPL_DIR = __DIR__ . '/../../tpl/stdstyle/';
-    const CHUNK_DIR = self::TPL_DIR . 'chunks/';
+    const TPL_DIR = __DIR__ . '/../../tpl/stdstyle';
+    const CHUNK_DIR = self::TPL_DIR . '/chunks/';
 
     //NOTE: local View vars should be prefixed by "_"
 
@@ -91,6 +91,30 @@ class View {
     public static function getChunkFunc($chunkName){
         return require(self::CHUNK_DIR.$chunkName.'.tpl.php');
     }
+
+    /**
+     * Call sub-template in some place of template.
+     * Please note the meaning of context in subtemplate -
+     * subtemplate used only $view var
+     *
+     * @param string $subTplPath - relative to: /tpl/stdstyle
+     * @return string
+     */
+    public function callSubTpl($subTplPath)
+    {
+        $subTplFile = self::TPL_DIR.$subTplPath.'.tpl.php';
+
+        if(!is_file($subTplFile)){
+            $this->errorLog("Trying to call unknown sub-template: $subTplFile");
+            return '';
+        }
+
+        ob_start();
+        $view = $this; //context for sub-template
+        include $subTplFile;
+        return ob_get_clean();
+    }
+
 
     public function loadJQuery(){
         $this->_loadJQuery = true;
@@ -269,7 +293,7 @@ class View {
           return tr($arg);
         };
 
-        require_once(self::TPL_DIR . $template . '.tpl.php');
+        require_once(self::TPL_DIR . '/'. $template . '.tpl.php');
 
     }
 

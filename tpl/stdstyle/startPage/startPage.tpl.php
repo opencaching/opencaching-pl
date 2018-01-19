@@ -350,11 +350,14 @@
     <!-- /total Stats -->
     <?php } //if-isUserLogged ?>
 
-
-
     <!-- feeds -->
     <div id="feedsContainer">
-      <?php $view->callChunk('dynamicHtmlLoad', $view->feedsUrl, 'feedsContainer'); ?>
+      <?php if($view->feedsData) { ?>
+          <?=$view->callSubTpl('/startPage/feeds')?>
+      <?php }else{ //if-feedsData?>
+        <?php $view->callChunk('dynamicHtmlLoad', $view->feedsUrl, 'feedsContainer'); ?>
+      <?php } //if-feedsData ?>
+
     </div>
     <!-- /feeds -->
 </div>
