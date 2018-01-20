@@ -163,7 +163,8 @@ class StartPageController extends BaseController
         $lastCacheSets = OcMemCache::getOrCreate(
             __CLASS__.':latestCacheSets', 3*60*60,
             function(){
-                $lastCacheSets = CacheSet::getLastCreatedSets(3);
+                global $config;
+                $lastCacheSets = CacheSet::getLastCreatedSets($config['startPage']['latestCacheSetsCount']);
                 $lastCacheSets = CacheSetOwner::setOwnersToCacheSets($lastCacheSets);
 
                 array_walk($lastCacheSets, function(&$cs){
