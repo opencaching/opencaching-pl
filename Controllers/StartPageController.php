@@ -45,6 +45,10 @@ class StartPageController extends BaseController
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime('/tpl/stdstyle/startPage/startPage.css'));
 
+        // local JS
+        $this->view->addLocalJs(
+            Uri::getLinkWithModificationTime('/tpl/stdstyle/startPage/startPage.js'));
+
         $this->view->loadJQuery();
 
         $this->view->setVar('isUserLogged', $this->isUserLogged());

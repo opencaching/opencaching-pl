@@ -40,6 +40,8 @@
 }
 #totalStatsDiv #totalStatsCounters {
   display: inline-block;
+  text-align: center;
+  width: 705px;
 }
 #totalStatsDiv #arrowLeft {
   border-right:15px solid rgb(88,144,168); 
@@ -62,10 +64,6 @@
 #totalStatsDiv .counterLeftHidden,
 #totalStatsDiv .counterRightHidden {
   display: none !important ;
-}
-
-#totalStatsDiv .totalStatsCounters {
-  text-align: center;
 }
 
 #totalStatsDiv .counterWidget {

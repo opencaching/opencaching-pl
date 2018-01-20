@@ -20,15 +20,17 @@ global $tpl_subtitle;
         <link rel="shortcut icon" href="/images/<?=$config['headerFavicon']?>">
         <link rel="apple-touch-icon-precomposed" href="/images/oc_logo_144.png">
 
+        <title><?=$tpl_subtitle?>{title}</title>
 
         <?php foreach( $view->getLocalCss() as $css ) { ?>
           <link rel="stylesheet" type="text/css" href="<?=$css?>">
         <?php } //foreach-css ?>
 
-        <title><?=$tpl_subtitle?>{title}</title>
+        <?php foreach( $view->getLocalJs() as $js ) { ?>
+          <script type="text/javascript" async="async" src="<?=$js?>"></script>
+        <?php } //foreach-css ?>
 
         <script type="text/javascript" src="/lib/enlargeit/enlargeit.js" async="async"></script>
-
 
         {htmlheaders}
         {cachemap_header}

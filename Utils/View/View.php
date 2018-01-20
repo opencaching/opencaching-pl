@@ -23,7 +23,8 @@ class View {
     private $_loadGMapApi = false;
     private $_loadLightBox = false;
 
-    private $_localCss = [];                // page-local css styles loaded from controller
+    private $_localCss = [];    // page-local css styles loaded from controller
+    private $_localJs = [];     // page-local JS scripts loaded from controller
 
 
     public function __construct(){
@@ -114,6 +115,7 @@ class View {
         include $subTplFile;
         return ob_get_clean();
     }
+
 
 
     public function loadJQuery(){
@@ -220,7 +222,6 @@ class View {
     /**
      * Add css which will be loaded in page header
      * @param $url - url to css
-
      */
     public function addLocalCss($css_url){
         $this->_localCss[] = $css_url;
@@ -229,6 +230,21 @@ class View {
     public function getLocalCss()
     {
         return $this->_localCss;
+    }
+
+    /**
+     * Add JavaScript script which will be loaded in page header
+     * @param $url - url to js Script
+     */
+    public function addLocalJs($jsUrl)
+    {
+        $this->_localJs[] = $jsUrl;
+
+    }
+
+    public function getLocalJs()
+    {
+        return $this->_localJs;
     }
 
     /**
