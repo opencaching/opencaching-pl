@@ -161,10 +161,6 @@ class CacheSet extends CacheSetCommon
         return self::db()->simpleQueryValue($query,0);
     }
 
-    public static function getCacheSetUrlById($id){
-        return "/powerTrail.php?ptAction=showSerie&ptrail=$id";
-    }
-
 
     public function getId()
     {
@@ -287,7 +283,9 @@ class CacheSet extends CacheSetCommon
         $db = self::db();
         $rs = $db->simpleQuery(
             "SELECT * FROM (
-                SELECT pt.id, pt.type, pt.name, pt.cacheCount, COUNT(*) AS activeCaches,
+                SELECT pt.id, pt.type, pt.name, pt.cacheCount,
+                    pt.centerLongitude, pt.centerLatitude,
+                    COUNT(*) AS activeCaches,
                     100*COUNT(*)/pt.cacheCount AS currentRatio,
                     pt.perccentRequired AS ratioRequired
                 FROM PowerTrail AS pt

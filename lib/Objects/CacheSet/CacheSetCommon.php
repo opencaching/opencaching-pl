@@ -18,6 +18,8 @@ class CacheSetCommon extends BaseObject
     const STATUS_CLOSED = 3;
     const STATUS_INSERVICE = 4;
 
+    const CACHESET_URL_BASE = '/powerTrail.php?ptAction=showSerie&ptrail=';
+
 
     public static function GetTypeTranslationKey($type)
     {
@@ -63,6 +65,8 @@ class CacheSetCommon extends BaseObject
         }
     }
 
-
+    public static function getCacheSetUrlById($id){
+        return self::CACHESET_URL_BASE.$id;
+    }
 }
 
