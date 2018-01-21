@@ -1991,10 +1991,13 @@ $translations = array(
     'statpic_hidden' => 'Hidden:',
     'statpic_html_link' => '- Statistics for',
     'cog_user_name' => 'OC Team',
+
     'region_01' => 'Region from coordinates:',
     'region_02' => 'Country',
-    'region_03' => 'Region found by {site_name}',
+    'region_03' => 'Region found by local data (NUTS)',
     'region_04' => 'Region found by Google Maps',
+    'region_mapQuest' => 'Region found by MapQuest API',
+
     'cacheType_1' => 'Traditional',
     'cacheType_2' => 'Multicache',
     'cacheType_3' => 'Puzzle',

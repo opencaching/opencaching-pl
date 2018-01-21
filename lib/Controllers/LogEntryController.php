@@ -11,6 +11,7 @@ use lib\Objects\ApplicationContainer;
 use lib\Controllers\MeritBadgeController;
 use lib\Objects\GeoCache\GeoCache;
 use okapi\Facade;
+use lib\Objects\Coordinates\Coordinates;
 
 class LogEntryController
 {
@@ -196,12 +197,14 @@ class LogEntryController
         if ($logMovedCount == 0) { // Nothing to do. There are no cache_moved entries, we also cannot check cache coords
             return $changed;
         }
+
         // Step 1 - ensure, that first log has distance 0km
         $logMoved = $db->dbResultFetch($stmt);
         if ($logMoved['km'] != '0') {
             $db->multiVariableQuery("UPDATE `cache_moved` SET `km` = 0 WHERE `id` = :1", $logMoved['id']);
             $changed = true;
         }
+
         // Step 2 - recalculate cache_moved distances
         if ($logMovedCount > 1) {
             while ($newLogMoved = $db->dbResultFetch($stmt)) {
@@ -216,17 +219,16 @@ class LogEntryController
                 $logMoved = $newLogMoved;
             }
         }
+
         // Step 3 - set correct cache coordinates based on last cache_moved log
-        if ($cache->getCoordinates()->getLatitude() != $logMoved['latitude'] || $cache->getCoordinates()->getLongitude() != $logMoved['longitude']) {
-            $db->multiVariableQuery("UPDATE `caches` SET `last_modified`=NOW(),  `latitude`=:1, `longitude`=:2 WHERE `cache_id`=:3", doubleval($logMoved['latitude']), doubleval($logMoved['longitude']), $cache->getCacheId());
+        $newCoords = Coordinates::FromCoordsFactory( $logMoved['latitude'], $logMoved['longitude'] );
 
-            $regions = new \GetRegions();
-            $region = $regions->GetRegion($logMoved['latitude'], $logMoved['longitude']);
-            $db->multiVariableQuery("UPDATE `cache_location` SET adm1 = :1, adm3 = :2, code1= :3, code3= :4 WHERE cache_id = :5 ",
-                $region['adm1'], $region['adm3'], $region['code1'], $region['code3'], $cache->getCacheId());
+        if(!$cache->getCoordinates()->areSameAs($newCoords)){
 
+            $cache->updateCoordinates($newCoords);
             $changed = true;
         }
+
         return $changed;
     }
 
@@ -335,7 +337,7 @@ class LogEntryController
            );
         }
         $db = OcDb::instance();
-        
+
         //Test JG
         $s = $db->paramQuery($query, $params);
         //$s = $db->paramQuery($query, NULL);

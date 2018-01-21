@@ -275,6 +275,17 @@ class Coordinates
         return "&#10;". $this->getLatitudeString($format)."&#10;".$this->getLongitudeString($format);
     }
 
+    /**
+     * Return TRUE if given coords are the same
+     *
+     * @param Coordinates $coords
+     * @return boolean
+     */
+    public function areSameAs(Coordinates $coords){
+        return $this->latitude == $coords->getLatitude() &&
+               $this->longitude == $coords->getLongitude();
+    }
+
     private function getParts($coordinate)
     {
         $deg = abs($coordinate);

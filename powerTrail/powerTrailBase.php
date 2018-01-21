@@ -329,25 +329,6 @@ class powerTrailBase{
         return $result;
     }
 
-    public static function writePromoPt4mainPage($oldPtId){
-        $q = 'SELECT * FROM `PowerTrail`
-                WHERE `id` != :1 AND `status` = 1
-                    AND `cacheCount` >= '.self::historicMinimumCacheCount().'
-                ORDER BY `id` ASC';
-
-        $db = OcDb::instance();
-
-        $s = $db->multiVariableQuery($q, $oldPtId);
-        $r = $db->dbResultFetchAll($s);
-
-        foreach ($r as $pt) {
-            if ($pt['id'] > $oldPtId){
-                return $pt;
-            }
-        }
-
-        return (!empty($r)) ? $r[0] : null;
-    }
 
     public static function getPtCaches($PtId){
         $db = OcDb::instance();
