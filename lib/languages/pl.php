@@ -1995,10 +1995,13 @@ $translations = array(
     'statpic_hidden' => 'Ukrył:',
     'statpic_html_link' => '- Statystyka dla',
     'cog_user_name' => 'Centrum Obsługi Geocachera',
-    'region_01' => 'Województwo dla współrzędnych',
+
+    'region_01' => 'Region dla współrzędnych',
     'region_02' => 'Kraj',
-    'region_03' => 'Województwo na podstawie bazy {site_name}',
-    'region_04' => 'Województwo na podstawie Google Map',
+    'region_03' => 'Region na podstawie danych lokalnych (NUTS)',
+    'region_04' => 'Region na podstawie Google Geocoding API',
+    'region_mapQuest' => 'Region na podstawie MapQuest API',
+
     'cacheType_1' => 'Tradycyjna',
     'cacheType_2' => 'Multicache',
     'cacheType_3' => 'Quiz',

@@ -1329,6 +1329,35 @@ class GeoCache extends GeoCacheCommons
     }
 
     /**
+     * Update coordinates of the cache
+     *
+     * @param Coordinates $newCoords
+     */
+    public function updateCoordinates(Coordinates $newCoords)
+    {
+        if($this->coordinates->areSameAs($newCoords)){
+            return;
+        }
+
+        $this->db->multiVariableQuery(
+            "UPDATE caches SET last_modified=NOW(), latitude=:1, longitude=:2
+             WHERE cache_id=:3",
+            $newCoords->getLatitude(), $newCoords->getLongitude(), $this->getCacheId());
+
+        $this->coordinates = $newCoords;
+        $this->updateCacheLocation();
+    }
+
+    /**
+     * Update (or set) cache location record based on current coords of the cache
+     */
+    public function updateCacheLocation()
+    {
+        $this->cacheLocationObj = CacheLocation::createForCache($this);
+        $this->cacheLocationObj->updateInDb();
+    }
+
+    /**
      *
      * @param string $changeUrlForSpilers - is used to hide spoilers if neccessary
      */

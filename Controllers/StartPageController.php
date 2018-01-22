@@ -18,7 +18,6 @@ use lib\Objects\ChunkModels\StaticMap\StaticMapModel;
 use Utils\Uri\SimpleRouter;
 use lib\Objects\ChunkModels\StaticMap\StaticMapMarker;
 use lib\Objects\CacheSet\CacheSetOwner;
-use lib\Objects\Stats\TotalStats\BasicStats;
 
 class StartPageController extends BaseController
 {
@@ -45,6 +44,10 @@ class StartPageController extends BaseController
         // local css
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime('/tpl/stdstyle/startPage/startPage.css'));
+
+        // local JS
+        $this->view->addLocalJs(
+            Uri::getLinkWithModificationTime('/tpl/stdstyle/startPage/startPage.js'));
 
         $this->view->loadJQuery();
 
@@ -164,7 +167,8 @@ class StartPageController extends BaseController
         $lastCacheSets = OcMemCache::getOrCreate(
             __CLASS__.':latestCacheSets', 3*60*60,
             function(){
-                $lastCacheSets = CacheSet::getLastCreatedSets(3);
+                global $config;
+                $lastCacheSets = CacheSet::getLastCreatedSets($config['startPage']['latestCacheSetsCount']);
                 $lastCacheSets = CacheSetOwner::setOwnersToCacheSets($lastCacheSets);
 
                 array_walk($lastCacheSets, function(&$cs){
@@ -303,8 +307,13 @@ class StartPageController extends BaseController
 
     private function processFeeds()
     {
-        $feedsUrl = SimpleRouter::getLink(self::class, 'getFeeds');
-        $this->view->setVar('feedsUrl', $feedsUrl);
+        $feedsData = $this->getFeedsData(true); // get feeds if ready in cache
+        $this->view->setVar('feedsData', $feedsData);
+
+        if(!$feedsData){
+            $feedsUrl = SimpleRouter::getLink(self::class, 'getFeeds');
+            $this->view->setVar('feedsUrl', $feedsUrl);
+        }
     }
 
     /**
@@ -316,35 +325,44 @@ class StartPageController extends BaseController
     public function getFeeds()
     {
         $this->view->setTemplate('startPage/feeds');
+        $feeds = $this->getFeedsData();
 
-        $feeds = OcMemCache::getOrCreate(__CLASS__.':feeds', 12*60*60,
-            function(){
-                global $config;//TODO
-
-                $feeds = [];
-                foreach ($config['feed']['enabled'] as $feedName) {
-
-                    $feed = new RssFeed($config['feed'][$feedName]['url']);
-                    $postsCount = min($config['feed'][$feedName]['posts'], $feed->count());
-                    $feeds[$feedName] = [];
-
-                    for ($i=0; $i<$postsCount; $i++) {
-                        $post = new \stdClass();
-                        $post->author = ( !empty($feed->next()->author)
-                            && $config['feed'][$feedName]['showAuthor']) ? $feed->current()->author : '';
-
-                            $post->link = $feed->current()->link;
-                            $post->title = $feed->current()->title;
-                            $post->date = Formatter::date($feed->current()->date);
-                            $feeds[$feedName][] = $post;
-                    }
-                }//foreach
-
-                return $feeds;
-            });
-
-        $this->view->setVar('feeds', $feeds);
+        $this->view->setVar('feedsData', $feeds);
         $this->view->buildOnlySelectedTpl();
+    }
+
+    private function getFeedsData($onlyIfReady=false)
+    {
+        $feedsKey = __CLASS__.':feeds';
+        if($onlyIfReady){
+            return OcMemCache::get($feedsKey);
+        }else{
+            return OcMemCache::getOrCreate($feedsKey, 60*60 /*1h*/,
+                function(){
+                    global $config;//TODO
+
+                    $feeds = [];
+                    foreach ($config['feed']['enabled'] as $feedName) {
+
+                        $feed = new RssFeed($config['feed'][$feedName]['url']);
+                        $postsCount = min($config['feed'][$feedName]['posts'], $feed->count());
+                        $feeds[$feedName] = [];
+
+                        for ($i=0; $i<$postsCount; $i++) {
+                            $post = new \stdClass();
+                            $post->author = ( !empty($feed->next()->author)
+                                && $config['feed'][$feedName]['showAuthor']) ? $feed->current()->author : '';
+
+                                $post->link = $feed->current()->link;
+                                $post->title = $feed->current()->title;
+                                $post->date = Formatter::date($feed->current()->date);
+                                $feeds[$feedName][] = $post;
+                        }
+                    }//foreach
+
+                    return $feeds;
+                });
+        }
     }
 }
 

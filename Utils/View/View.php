@@ -8,8 +8,8 @@ use Controllers\PageLayout\MainLayoutController;
 
 class View {
 
-    const TPL_DIR = __DIR__ . '/../../tpl/stdstyle/';
-    const CHUNK_DIR = self::TPL_DIR . 'chunks/';
+    const TPL_DIR = __DIR__ . '/../../tpl/stdstyle';
+    const CHUNK_DIR = self::TPL_DIR . '/chunks/';
 
     //NOTE: local View vars should be prefixed by "_"
 
@@ -23,7 +23,8 @@ class View {
     private $_loadGMapApi = false;
     private $_loadLightBox = false;
 
-    private $_localCss = [];                // page-local css styles loaded from controller
+    private $_localCss = [];    // page-local css styles loaded from controller
+    private $_localJs = [];     // page-local JS scripts loaded from controller
 
 
     public function __construct(){
@@ -91,6 +92,31 @@ class View {
     public static function getChunkFunc($chunkName){
         return require(self::CHUNK_DIR.$chunkName.'.tpl.php');
     }
+
+    /**
+     * Call sub-template in some place of template.
+     * Please note the meaning of context in subtemplate -
+     * subtemplate used only $view var
+     *
+     * @param string $subTplPath - relative to: /tpl/stdstyle
+     * @return string
+     */
+    public function callSubTpl($subTplPath)
+    {
+        $subTplFile = self::TPL_DIR.$subTplPath.'.tpl.php';
+
+        if(!is_file($subTplFile)){
+            $this->errorLog("Trying to call unknown sub-template: $subTplFile");
+            return '';
+        }
+
+        ob_start();
+        $view = $this; //context for sub-template
+        include $subTplFile;
+        return ob_get_clean();
+    }
+
+
 
     public function loadJQuery(){
         $this->_loadJQuery = true;
@@ -196,7 +222,6 @@ class View {
     /**
      * Add css which will be loaded in page header
      * @param $url - url to css
-
      */
     public function addLocalCss($css_url){
         $this->_localCss[] = $css_url;
@@ -205,6 +230,21 @@ class View {
     public function getLocalCss()
     {
         return $this->_localCss;
+    }
+
+    /**
+     * Add JavaScript script which will be loaded in page header
+     * @param $url - url to js Script
+     */
+    public function addLocalJs($jsUrl)
+    {
+        $this->_localJs[] = $jsUrl;
+
+    }
+
+    public function getLocalJs()
+    {
+        return $this->_localJs;
     }
 
     /**
@@ -269,7 +309,7 @@ class View {
           return tr($arg);
         };
 
-        require_once(self::TPL_DIR . $template . '.tpl.php');
+        require_once(self::TPL_DIR . '/'. $template . '.tpl.php');
 
     }
 

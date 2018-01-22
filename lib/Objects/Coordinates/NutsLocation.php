@@ -118,11 +118,21 @@ class NutsLocation extends BaseObject
             }else{
                 $region = '?';
                 // bug in NUTS data?! country present, no level names!?
-                Debug::errorLog("NUTS data error? No code for ".$this->codes[self::LEVEL_COUNTRY]);
+                //Debug::errorLog("NUTS data error? No code for ".$this->codes[self::LEVEL_COUNTRY]);
             }
         }
 
         return $country . $separator . $region;
+    }
+
+    public function getCode($level)
+    {
+        return $this->codes[$level];
+    }
+
+    public function getName($level)
+    {
+        return $this->names[$level];
     }
 
     public function setLevel($level, $code, $name)

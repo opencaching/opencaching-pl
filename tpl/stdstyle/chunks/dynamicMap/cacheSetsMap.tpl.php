@@ -1,6 +1,7 @@
 <?php
 
 use lib\Objects\ChunkModels\DynamicMap\CacheSetsMapModel;
+use lib\Objects\CacheSet\CacheSet;
 
 /**
 	This is flavour-object for map of cacheSets.
@@ -38,9 +39,13 @@ return function (CacheSetsMapModel $model){
       return iw;
     },
 
-    infoWindowContent: function(dataRow){
+    infoWindowContent: function(row){
+
+      return '<a class="links" href="<?=CacheSet::CACHESET_URL_BASE?>'+row.id+'">'+row.name+'</a>';
 
 <?php
+
+
 /*
       var t = '<div class="iw-container">' +
               '  <div class="iw-title">' +
@@ -67,7 +72,6 @@ return function (CacheSetsMapModel $model){
       t +=    '  </div>';
       t +=    '</div>';
 */?>
-      return "hello";
 
     },
 

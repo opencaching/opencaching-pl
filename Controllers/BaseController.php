@@ -28,7 +28,7 @@ abstract class BaseController
      */
     abstract public function isCallableFromRouter($actionName);
 
-/** @var View $view */
+    /** @var View $view */
     protected $view = null;
 
     /** @var ApplicationContainer $applicationContainer */

@@ -1,23 +1,35 @@
 <?php
+/**
+ * This callback is used by newcache to select region based on coords
+ */
+
+use lib\Objects\Coordinates\Coordinates;
+use lib\Objects\Coordinates\NutsLocation;
 
 require_once __DIR__ . '/lib/ClassPathDictionary.php';
-spl_autoload_register(function ($className) {
-    include_once ClassPathDictionary::getClassPath($className);
-});
+
 session_start();
-//ajaxRetreiveRegionByCoordinates.php
 if (!isset($_SESSION['user_id'])) {
-    print 'no hacking please!';
+    print 'please login!';
     exit;
 }
-require_once __DIR__ . '/GetRegions.php';
 
-$latitude = $_REQUEST['lat'];
-$longitude = $_REQUEST['lon'];
+if( !isset($_REQUEST['lat'], $_REQUEST['lon']) ){
+    print 'no coords?!';
+    exit;
+}
 
-$region = new GetRegions();
-$regiony = $region->GetRegion($latitude, $longitude);
-echo json_encode($regiony);
-//print '<pre>';
-//var_dump($regiony);
+$coords = Coordinates::FromCoordsFactory($_REQUEST['lat'], $_REQUEST['lon']);
+$nutsLocation = NutsLocation::fromCoordsFactory($coords);
 
+// this is old format still used by newcache page
+$wynik['adm1'] = $nutsLocation->getName(NutsLocation::LEVEL_COUNTRY);
+$wynik['adm2'] = $nutsLocation->getName(NutsLocation::LEVEL_1);
+$wynik['adm3'] = $nutsLocation->getName(NutsLocation::LEVEL_2);
+$wynik['adm4'] = $nutsLocation->getName(NutsLocation::LEVEL_3);
+$wynik['code1'] = $nutsLocation->getCode(NutsLocation::LEVEL_COUNTRY);
+$wynik['code2'] = $nutsLocation->getCode(NutsLocation::LEVEL_1);
+$wynik['code3'] = $nutsLocation->getCode(NutsLocation::LEVEL_2);
+$wynik['code4'] = $nutsLocation->getCode(NutsLocation::LEVEL_3);
+
+echo json_encode($wynik);
