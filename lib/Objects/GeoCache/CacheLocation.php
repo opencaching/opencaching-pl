@@ -60,7 +60,7 @@ class CacheLocation extends BaseObject{
             return;
         }
 
-        $db->multiVariableQuery(
+        $this->db->multiVariableQuery(
             "INSERT INTO cache_location
              (cache_id, last_modified, adm1, adm2, adm3, adm4, code1, code2, code3, code4)
              VALUES(:1, NOW(), :2, :3, :4, :5, :6, :7, :8, :9 )
