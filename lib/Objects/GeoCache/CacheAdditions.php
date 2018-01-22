@@ -49,7 +49,7 @@ class CacheAdditions extends BaseObject
                 "SELECT * FROM caches_additions
                 WHERE cache_id = :1 LIMIT 1", $this->cacheId);
 
-        $row = $this->db->dbResultFetchOneRowOnly();
+        $row = $this->db->dbResultFetchOneRowOnly($rs);
         if($row){
             $this->altitude = $row['altitude'];
         }
