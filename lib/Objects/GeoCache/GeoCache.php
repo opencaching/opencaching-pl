@@ -8,8 +8,8 @@ use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use lib\Objects\User\User;
 use lib\Objects\Coordinates\Coordinates;
-use lib\Objects\GeoCache\Altitude;
 use lib\Objects\GeoCache\CacheLocation;
+use lib\Objects\Coordinates\Altitude;
 
 /**
  * Description of geoCache
@@ -84,8 +84,8 @@ class GeoCache extends GeoCacheCommons
     /* @var $owner User */
     private $owner = null;
 
-    /* @var $altitude Altitude */
-    private $altitude;
+    /** @var CacheAdditions */
+    private $cacheAddtitions = null;
 
     /**
      * geocache coordinates object (instance of Coordinates class)
@@ -377,7 +377,6 @@ class GeoCache extends GeoCacheCommons
         $this->coordinates = new Coordinates(array(
             'dbRow' => $geocacheDbRow
         ));
-        $this->altitude = new Altitude($this);
 
         $this->ownerId = (int) $geocacheDbRow['user_id'];
         $this->owner = null; //reset owner data
@@ -421,9 +420,13 @@ class GeoCache extends GeoCacheCommons
         return $this->isPowerTrailPart;
     }
 
-
-
-
+    /**
+     * Load CacheAddition object for this cache
+     */
+    private function loadCacheAdditions()
+    {
+        $this->cacheAddtitions = new CacheAdditions($this->getCacheId());
+    }
 
     /**
      * perform update on specified elements only.
@@ -501,12 +504,15 @@ class GeoCache extends GeoCacheCommons
     }
 
     /**
-     *
-     * @return Altitude
+     * @return int altitude of the cache
      */
-    public function getAltitudeObj()
+    public function getAltitude()
     {
-        return $this->altitude;
+        if(!$this->cacheAddtitions){
+            $this->loadCacheAdditions();
+        }
+
+        return $this->cacheAddtitions->getAltitude();
     }
 
     public function getCacheId()
@@ -1529,5 +1535,22 @@ class GeoCache extends GeoCacheCommons
             GeoCacheLog::LOGTYPE_ATTENDED) > 0;
 
     }
+
+    /**
+     * This method update altitude for this geocache
+     */
+    public function updateAltitude($newAltitude=null)
+    {
+        $oldAltitude = $this->getAltitude();
+
+        if(is_null($newAltitude)){
+            $newAltitude = Altitude::getAltitude($this->getCoordinates());
+        }
+
+        if($oldAltitude != $newAltitude){
+            $this->cacheAddtitions->updateAltitude($newAltitude);
+        }
+    }
+
 }
 

@@ -1,8 +1,6 @@
 <?php
 namespace Utils\Uri;
 
-use Utils\Debug\Debug;
-
 /**
  *
  * Route schema:
@@ -64,6 +62,14 @@ class SimpleRouter
         return $link;
     }
 
+    /**
+     * Return link with full domain name
+     *
+     * @param string $ctrl - controller class name (and path) - use php ControllerName::class
+     * @param string $action - method name
+     * @param string $params - comma separated list of params
+     * @return string
+     */
     public static function getAbsLink($ctrl, $action=null, $params=null){
         $link = self::getLink($ctrl, $action, $params);
 
@@ -109,6 +115,9 @@ class SimpleRouter
      */
     private static function getControllerWithNamespace($ctrl)
     {
+        //be sure the first letter of controller (class) is uppper letter
+        $ctrl = ucfirst($ctrl);
+
         return '\\Controllers\\'.str_replace('.', '\\', $ctrl).'Controller';
     }
 
