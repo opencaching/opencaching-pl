@@ -33,6 +33,9 @@ require_once ($rootpath . 'lib/common.inc.php');
 
 global $lang;
 
+
+// select caches which don't have cache_location record
+// OR modification time is later cache location mod.time
 $rsCache = XDb::xSql(
     "SELECT `caches`.`cache_id`, `caches`.`latitude`, `caches`.`longitude`
     FROM `caches`

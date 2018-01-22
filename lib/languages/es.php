@@ -173,7 +173,6 @@ $translations = array(
     'special_caches' => 'Casos especiales',
     'user_ident' => 'Identificación de Usuario',
     'mnu_cacheMap' => 'Mapa de las cajas',
-    'old_cache_map' => 'Una versión anterior del mapa cajas',
     'mnu_abcOfGCaching' => 'Geocachingu ABC',
     'mnu_forum' => 'Forum',
     'mnu_geokrets' => 'Geokrety',

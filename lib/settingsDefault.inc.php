@@ -285,6 +285,10 @@ $subject_prefix_for_site_mails = "OCXX";
 $subject_prefix_for_reviewers_mails = "";
 
 
+// customization of the start page
+$config['startPage']['latestCacheSetsCount'] = 3;
+
+
 // keywords in every header
 $config['header']['keywords'] = 'geocaching, opencaching, skarby,'.
                                 'poszukiwania, geocashing, longitude, latitude,'.
@@ -310,3 +314,5 @@ $config['oAuth']['google']['testEnabled'] = false;
 $config['oAuth']['google']['clientId'] = null;
 $config['oAuth']['google']['clientSecret'] = null;
 
+// MapQuest Key - used to access MapQuest API - to obtain key see: https://developer.mapquest.com/
+$config['maps']['mapQuestKey'] = null;

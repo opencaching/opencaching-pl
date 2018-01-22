@@ -67,6 +67,7 @@ class CacheSetsListController extends BaseController
         $listModel->addDataRows($allCacheSets);
         $this->view->setVar('listCacheModel', $listModel);
 
+
         // init map-chunk model
         $mapModel = new CacheSetsMapModel();
         $mapModel->setDataRowExtractor(function($row){

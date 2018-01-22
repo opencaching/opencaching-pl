@@ -52,57 +52,7 @@
 
     <?php if(!$view->isUserLogged) { ?>
     <!-- total Stats -->
-    <p class="content-title-noshade-size3"
-       title="<?=tr('startPage_validAt')?>: <?=$view->totStsValidAt?>">
-      <?=tr('startPage_wholeStatsTitle')?>
-    </p>
-    <div id="totalStatsDiv">
-
-        <div id="arrowLeft" class="counterArrow" onclick="countersLeft()"></div>
-        <div id="totalStatsCounters">
-        <?php foreach($view->totStsArr as $key=>$sts) { ?>
-
-            <div class="counterWidget <?=($key>4)?'counterRightHidden':''?>" title="<?=$sts['ldesc']?>">
-              <div class="counterInner">
-                <div class="counterTitle"><?=$sts['desc']?></div>
-                <div class="counterNumber"><?=$sts['val']?></div>
-              </div>
-            </div>
-
-        <?php } //foreach-totStsArr ?>
-        </div>
-        <div id="arrowRight" class="counterArrow" onclick="countersRight()"></div>
-
-    </div>
-    <script type="text/javascript">
-      function countersLeft(){
-        // hide left element
-        $("#totalStatsDiv .counterWidget:not(.counterLeftHidden):first").toggleClass('counterLeftHidden');
-
-        if( $("#totalStatsDiv .counterRightHidden:first").length == 0 ){
-          // move counter from left to right
-          el = $("#totalStatsDiv .counterLeftHidden:first");
-          el.appendTo($("#totalStatsCounters"));
-          el.toggleClass('counterLeftHidden');
-          el.toggleClass('counterRightHidden');
-        }
-        $("#totalStatsDiv .counterRightHidden:first").toggleClass('counterRightHidden');
-      }
-
-      function countersRight(){
-        // hide left element
-        $("#totalStatsDiv .counterWidget:not(.counterRightHidden):last").toggleClass('counterRightHidden');
-
-        if( $("#totalStatsDiv .counterLeftHidden:last").length == 0 ){
-          // move counter from right to left
-          el = $("#totalStatsDiv .counterRightHidden:last");
-          el.prependTo($("#totalStatsCounters"));
-          el.toggleClass('counterLeftHidden');
-          el.toggleClass('counterRightHidden');
-        }
-        $("#totalStatsDiv .counterLeftHidden:last").toggleClass('counterLeftHidden');
-      }
-    </script>
+      <?=$view->callSubTpl('/startPage/totalStatsSlider')?>
     <!-- /total Stats -->
     <?php } //if-isUserLogged ?>
 
@@ -296,65 +246,18 @@
 
     <?php if($view->isUserLogged) { ?>
     <!-- total Stats -->
-    <p class="content-title-noshade-size3"
-       title="<?=tr('startPage_validAt')?>: <?=$view->totStsValidAt?>">
-      <?=tr('startPage_wholeStatsTitle')?>
-    </p>
-    <div id="totalStatsDiv">
-
-        <div id="arrowLeft" class="counterArrow" onclick="countersLeft()"></div>
-        <div id="totalStatsCounters">
-        <?php foreach($view->totStsArr as $key=>$sts) { ?>
-
-            <div class="counterWidget <?=($key>4)?'counterRightHidden':''?>" title="<?=$sts['ldesc']?>">
-              <div class="counterInner">
-                <div class="counterTitle"><?=$sts['desc']?></div>
-                <div class="counterNumber"><?=$sts['val']?></div>
-              </div>
-            </div>
-
-        <?php } //foreach-totStsArr ?>
-        </div>
-        <div id="arrowRight" class="counterArrow" onclick="countersRight()"></div>
-
-    </div>
-    <script type="text/javascript">
-      function countersLeft(){
-        // hide left element
-        $("#totalStatsDiv .counterWidget:not(.counterLeftHidden):first").toggleClass('counterLeftHidden');
-
-        if( $("#totalStatsDiv .counterRightHidden:first").length == 0 ){
-          // move counter from left to right
-          el = $("#totalStatsDiv .counterLeftHidden:first");
-          el.appendTo($("#totalStatsCounters"));
-          el.toggleClass('counterLeftHidden');
-          el.toggleClass('counterRightHidden');
-        }
-        $("#totalStatsDiv .counterRightHidden:first").toggleClass('counterRightHidden');
-      }
-
-      function countersRight(){
-        // hide left element
-        $("#totalStatsDiv .counterWidget:not(.counterRightHidden):last").toggleClass('counterRightHidden');
-
-        if( $("#totalStatsDiv .counterLeftHidden:last").length == 0 ){
-          // move counter from right to left
-          el = $("#totalStatsDiv .counterRightHidden:last");
-          el.prependTo($("#totalStatsCounters"));
-          el.toggleClass('counterLeftHidden');
-          el.toggleClass('counterRightHidden');
-        }
-        $("#totalStatsDiv .counterLeftHidden:last").toggleClass('counterLeftHidden');
-      }
-    </script>
+      <?=$view->callSubTpl('/startPage/totalStatsSlider') ?>
     <!-- /total Stats -->
     <?php } //if-isUserLogged ?>
 
-
-
     <!-- feeds -->
     <div id="feedsContainer">
-      <?php $view->callChunk('dynamicHtmlLoad', $view->feedsUrl, 'feedsContainer'); ?>
+      <?php if($view->feedsData) { ?>
+          <?=$view->callSubTpl('/startPage/feeds')?>
+      <?php }else{ //if-feedsData?>
+        <?php $view->callChunk('dynamicHtmlLoad', $view->feedsUrl, 'feedsContainer'); ?>
+      <?php } //if-feedsData ?>
+
     </div>
     <!-- /feeds -->
 </div>

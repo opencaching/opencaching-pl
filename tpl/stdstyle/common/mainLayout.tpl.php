@@ -17,6 +17,9 @@
       <link rel="stylesheet" type="text/css" href="<?=$css?>">
     <?php } //foreach-css ?>
 
+    <?php foreach( $view->getLocalJs() as $js ) { ?>
+      <script type="text/javascript" async="async" src="<?=$js?>"></script>
+    <?php } //foreach-css ?>
 
     <?php
 

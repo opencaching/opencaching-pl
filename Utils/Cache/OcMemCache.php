@@ -66,5 +66,17 @@ class OcMemCache
 
         return $var;
     }
+
+    /**
+     * Fetch from cache if given entry is present
+     *
+     * @param string $key - should be a __CLASS__ of saved object
+     * @return mixed - requested entry value or false if there is no such entry
+     */
+    public static function get($key)
+    {
+        return apcu_fetch($key);
+    }
+
 }
 

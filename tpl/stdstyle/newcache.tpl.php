@@ -33,10 +33,9 @@ $view->callChunk('tinyMCE');
     $('#scriptwarning').hide();
             chkcountry2();
             $.datepicker.setDefaults($.datepicker.regional['pl']);
-            $('#hiddenDatePicker, #activateDatePicker').datepicker({
-    dateFormat: 'yy-mm-dd',
-            regional: '{language4js}'
-    }).val();
+            $('#hiddenDatePicker, #activateDatePicker').datepicker(
+                $.datepicker.regional["{language4js}"]
+            ).datepicker("option", "dateFormat", "yy-mm-dd").val();
     });
             function checkRegion(){
             // console.log($('#lat_min').val().length);
@@ -51,26 +50,29 @@ $view->callChunk('tinyMCE');
                     if ($('#latNS').val() == 'S') lat = - lat;
                     var lon = parseFloat($('#lon_h').val()) + lonmin / 60;
                     if ($('#lonEW').val() == 'W') lon = - lon;
+
                     request = $.ajax({
-                    url: "ajaxRetreiveRegionByCoordinates.php",
+                      url: "ajaxRetreiveRegionByCoordinates.php",
                             type: "post",
-                            data:{lat: lat, lon: lon },
-                    });
+                            data:{lat: lat, lon: lon},
+                      });
+
                     // callback handler that will be called on success
                     request.done(function (response, textStatus, jqXHR){
-                    if (response == 'false') {
-                    return false;
-                    }
+                      if (response == 'false') {
+                        return false;
+                      }
                     obj = JSON.parse(response);
-                            if ($('#country').val() == obj['code1']) {
-                    $('#region1').val(obj['code3']);
+
+                    if ($('#country').val() == obj['code1']) {
+                      $('#region1').val(obj['code3']);
                     } else {
-                    $('#country').val(obj['code1']);
+                      $('#country').val(obj['code1']);
                             chkcountry2();
                             $(function() {
-                            setTimeout(function() {
-                            $('#region1').val(obj['code3']);
-                            }, 2000);
+                              setTimeout(function() {
+                                $('#region1').val(obj['code3']);
+                              }, 2000);
                             });
                     }
                     });

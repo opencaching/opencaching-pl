@@ -2,7 +2,9 @@
 namespace Controllers\Admin;
 
 use Controllers\BaseController;
+use Utils\Uri\Uri;
 use lib\Objects\CacheSet\CacheSet;
+use lib\Objects\ChunkModels\DynamicMap\CacheSetsMapModel;
 use lib\Objects\ChunkModels\ListOfCaches\Column_CacheSetNameAndIcon;
 use lib\Objects\ChunkModels\ListOfCaches\ListOfCachesModel;
 use lib\Objects\ChunkModels\ListOfCaches\Column_SimpleText;
@@ -47,7 +49,12 @@ class CacheSetAdminController extends BaseController
     public function cacheSetsToArchive()
     {
         $this->view->setTemplate('admin/cacheSet/cacheSetsToArchive');
+        $this->view->addLocalCss(
+            Uri::getLinkWithModificationTime(
+                '/tpl/stdstyle/admin/cacheSet/cacheSetsToArchive.css'));
+
         $this->view->loadJQuery();
+        $this->view->loadGMapApi();
 
         $csToArchive = CacheSet::getCacheSetsToArchive();
 
@@ -82,6 +89,26 @@ class CacheSetAdminController extends BaseController
 
         $listModel->addDataRows($csToArchive);
         $this->view->setVar('listOfCssToArchiveModel', $listModel);
+
+
+
+        // init map-chunk model
+        $mapModel = new CacheSetsMapModel();
+        $mapModel->setDataRowExtractor(function($row){
+
+            $ratioTxt = round($row['currentRatio']).'/'.$row['ratioRequired'].'%';
+
+            return [
+                'id' => $row['id'],
+                'type' => $row['type'],
+                'name' => $row['name']." ($ratioTxt)",
+                'icon' => CacheSet::GetTypeIcon($row['type']),
+                'lon' => $row['centerLongitude'],
+                'lat' => $row['centerLatitude'],
+            ];
+        });
+        $mapModel->addMarkersDataRows($csToArchive);
+        $this->view->setVar('mapModel', $mapModel);
 
 
         $this->view->buildView();
