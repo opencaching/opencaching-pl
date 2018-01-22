@@ -24,7 +24,7 @@
 
   <div id="additionalBtns">
       <?=tr('loginForm_notRegistered')?>&nbsp;&nbsp;
-      <a class="btn btn-md btn-success" href="register.php"><?=tr('loginForm_singUp')?></a>
+      <a class="btn btn-md btn-success" href="register.php"><?=tr('loginForm_signUp')?></a>
       <br>
 
       <?=tr('loginForm_lostPassword')?>&nbsp;&nbsp;

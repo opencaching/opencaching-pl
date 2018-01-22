@@ -172,7 +172,6 @@ $translations = array(
     'special_caches' => 'Cas particuliers',
     'user_ident' => 'Identification de l"utilisateur',
     'mnu_cacheMap' => 'Carte de boîtes',
-    'old_cache_map' => 'Une ancienne version de la carte de décodeurs',
     'mnu_abcOfGCaching' => 'ABC Geocachingu',
     'mnu_forum' => 'Forum',
     'mnu_geokrets' => 'Geokrety',
