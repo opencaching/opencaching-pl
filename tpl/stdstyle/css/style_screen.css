@@ -8,15 +8,10 @@ div#overall         { min-width: 970px; width: 100%; overflow: hidden; }
 body                { font-size: 62.5%; line-height: 1.42857143; margin: 0px auto; 
                       padding: 0px; background-color: #cccccc; 
                       font-family: arial, sans-serif, Tahoma, Verdana;}
+                      
+.page-container-1   { width: 970px; margin: 0px auto; padding: 0px; background-color:#ffffff; 
+                      border: solid 1px rgb(100,100,100);}
 
-.page-container-1 {
-	width: 970px;
-	margin: 0px auto;
-	padding: 0px;
-	background-color:#ffffff;
-	border: solid 1px rgb(100,100,100);
-	position: relative;
-}
 
 body.summer { background-color: #feec98; }
 body.autumn { background-color: #e0ed9d; }
@@ -60,15 +55,8 @@ tr.highlighted > td {border-width:2px;}
 /*-----------------------------------*/
 /* 2.1 - Sitename, slogan and banner */
 /*-----------------------------------*/
-.header {
-	height: 80px;
-	width: 970px;
-	padding-top: 1px;
-}
+.header                     { height:80px; width: 970px;}
 
-.header img {
-	border: 0px;
-}
 .cookies-message {
 	position: fixed;
 	opacity: 0.75;
@@ -83,11 +71,6 @@ tr.highlighted > td {border-width:2px;}
 
 .cookies-message a {
 	color: white !important;
-}
-
-.oc-logo {
-	margin-top: 5px;
-	margin-left: 3px;
 }
 
 .site-name                  { width: 300px; height: 45px; top: 12px; 
