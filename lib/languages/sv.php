@@ -402,7 +402,6 @@ $translations = array(
     'total_of_active_caches' => 'Totalt aktiva cacher',
     'startPage_stsUsers' => 'Antalet aktiva användare',
     'startPage_stsFounds' => 'Antal loggar av typen "Hittad"',
-    'startPage_title' => 'Vad hittar du på denna webbplats',
     'what_do_you_find_intro' => 'Du kan hitta allt om geocaching i Polen. Opencaching i Polen inleddes i <b><font color=blue>maj 2006</font></b>. <br> Detta är den viktigaste Polska Geocachingwebbplatsen. Vår databas använder <b>opensource projektet OpenCaching</b><br>',
     'filename_rules' => '{wiki_link_rules_en}',
     'filename_describe_cache' => '{wiki_link_cacheParams_en}',

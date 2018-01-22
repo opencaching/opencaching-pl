@@ -404,7 +404,6 @@ $translations = array(
     'total_of_active_caches' => 'El número de cajas',
     'startPage_stsUsers' => 'El número de miembros activos',
     'startPage_stsFounds' => 'El número de descubrimientos cajas',
-    'startPage_title' => 'Welcome on Opencaching.pl',
     'what_do_you_find_intro' => 'En esta página encontrarás toda la geocachingu aplicable en Polonia - del <b> <a href="{wiki_link_main}" target="_blank"> ABC Geocachingu </a> </b> para un foro en el que usted puede llevar las conversaciones con otros acerca de la Geocache. <b> Opencaching PL </b> se inició en <span class="content-title-noshade"> mayo de 2006 </span>. Nuestros buzones están trabajando en el proyecto de base de datos opensource <b> Opencaching </b>.',
     'filename_rules' => '{wiki_link_rules_en}',
     'filename_describe_cache' => '{wiki_link_cacheParams_en}',
