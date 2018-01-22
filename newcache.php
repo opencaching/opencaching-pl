@@ -8,8 +8,7 @@ use lib\Objects\User\User;
 use Utils\Email\EmailSender;
 use Utils\Generators\Uuid;
 use lib\Objects\GeoCache\GeoCacheCommons;
-
-
+use lib\Objects\GeoCache\CacheAdditions;
 
 //prepare the templates and include all neccessary
 global $site_name, $absolute_server_URI;
@@ -147,7 +146,7 @@ if ($error == false) {
         $sel_region = isset($_POST['region']) ? $_POST['region'] : $default_region;
         $show_all_countries = isset($_POST['show_all_countries']) ? $_POST['show_all_countries'] : 0;
         $show_all_langs = isset($_POST['show_all_langs']) ? $_POST['show_all_langs'] : 0;
-        $altitude = isset($_POST['altitude']) ? $_POST['altitude'] : NULL;
+        $altitude = isset($_POST['altitude']) ? $_POST['altitude'] : null;
 
         //coords
         $lonEW = isset($_POST['lonEW']) ? $_POST['lonEW'] : $default_EW;
@@ -772,9 +771,10 @@ if ($error == false) {
                         ApplicationContainer::Instance()->getLoggedUser(), $name, $cache_id, $adm3, $adm1);
                 }
 
-                /* add cache altitude altitude */
-                $geoCache = new GeoCache(array('cacheId' => $cache_id));
-                $geoCache->getAltitudeObj()->pickAndStoreAltitude($altitude);
+
+                /* add cache altitude */
+                $geoCache = Geocache::fromCacheIdFactory($cache_id);
+                $geoCache->updateAltitude($altitude);
 
                 // redirection
                 tpl_redirect('mycaches.php?status=' . urlencode($sel_status));
