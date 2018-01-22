@@ -5,6 +5,7 @@ use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use Utils\I18n\Languages;
 use Utils\Generators\Uuid;
+use lib\Objects\Coordinates\Coordinates;
 
 //prepare the templates and include all neccessary
 global $rootpath;
@@ -1081,12 +1082,15 @@ function get_cache_status_from_database()
  * if coordinates were changed, update altitude
  * @param array $oldCacheRecord
  * @param integer $cacheId
- * @param integer $altitude
  */
-function updateAltitudeIfNeeded($oldCacheRecord, $cacheId, $altitude = NULL){
-    /* add cache altitude altitude */
-    $geoCache = new GeoCache(array('cacheId' => $cacheId));
-    if($geoCache->getCoordinates()->getLatitude() != $oldCacheRecord['latitude'] || $geoCache->getCoordinates()->getLongitude() != $oldCacheRecord['longitude']){
-        $geoCache->getAltitudeObj()->pickAndStoreAltitude($altitude);
+function updateAltitudeIfNeeded($oldCacheRecord, $cacheId){
+
+    $geoCache = GeoCache::fromCacheIdFactory($cacheId);
+    $oldCoords = Coordinates::FromCoordsFactory($oldCacheRecord['latitude'], $oldCacheRecord['longitude']);
+    $newCoords = $geoCache->getCoordinates();
+
+    if(!$newCoords->areSameAs($oldCoords)){
+        //cords was changed - update altitude value
+        $geoCache->updateAltitude();
     }
 }

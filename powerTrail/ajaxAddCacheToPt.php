@@ -3,6 +3,8 @@
 use lib\Objects\GeoCache\GeoCache;
 use Utils\Database\OcDb;
 use Utils\Database\XDb;
+use lib\Objects\Coordinates\Altitude;
+use lib\Objects\Coordinates\Coordinates;
 
 /**
  * ajaxAddCacheToPt.php
@@ -199,13 +201,16 @@ function getCachePoints($cacheId)
     $sizePoints = powerTrailBase::cacheSizePoints();
     $typePoints = $typePoints[$cacheData['type']];
     $sizePoints = $sizePoints[$cacheData['size']];
-    $url = 'http://maps.googleapis.com/maps/api/elevation/xml?locations=' . $cacheData['latitude'] . ',' . $cacheData['longitude'] . '&sensor=false';
-    $altitude = simplexml_load_file($url);
-    $altitude = round($altitude->result->elevation);
-    if ($altitude <= 400)
+
+    $altitude = Altitude::getAltitude(
+        Coordinates::FromCoordsFactory($cacheData['latitude'], $cacheData['longitude']));
+
+    $altitude = round($altitude);
+    if ($altitude <= 400){
         $altPoints = 1;
-    else
+    }else{
         $altPoints = 1 + ($altitude - 400) / 200;
+    }
     $difficPoint = round($cacheData['difficulty'] / 3, 2);
     $terrainPoints = round($cacheData['terrain'] / 3, 2);
     return ($altPoints + $typePoints + $sizePoints + $difficPoint + $terrainPoints);
