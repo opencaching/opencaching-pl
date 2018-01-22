@@ -1976,10 +1976,13 @@ $translations = array(
     'statpic_hidden' => 'Ascunse:',
     'statpic_html_link' => '- Statistici pentru',
     'cog_user_name' => 'Geocacher service center**',
+
     'region_01' => 'Zonă după coordonate:',
     'region_02' => 'Ţara',
-    'region_03' => 'Zonă găsită de {site_name}',
+    'region_03' => 'Zonă găsită în gaza de date locală (NUTS)',
     'region_04' => 'Zonă găsită de Google Maps',
+    'region_mapQuest' => 'Zonă găsită de MapQuest API',
+
     'cacheType_1' => 'Traditională',
     'cacheType_2' => 'Multiplă',
     'cacheType_3' => 'Puzzle',
