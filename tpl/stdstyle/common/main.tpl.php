@@ -7,115 +7,93 @@ global $tpl_subtitle;
 ?>
 <!DOCTYPE html>
 <html lang="<?=$view->getLang()?>" xml:lang="<?=$view->getLang()?>">
-    <head>
-        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="keywords" content="<?=$view->_keywords?>">
+  <meta name="author" content="<?=$view->_siteName?>">
 
-        <meta name="keywords" content="<?=$view->_keywords?>">
-        <meta name="author" content="<?=$view->_siteName?>">
+  <title><?=$tpl_subtitle?>{title}</title>
 
-        <link rel="stylesheet" type="text/css" media="screen" href="<?=$view->screenCss?>">
-        <link rel="stylesheet" type="text/css" media="print" href="<?=$view->printCss?>">
+  <link rel="shortcut icon" href="/images/<?=$config['headerFavicon']?>">
+  <link rel="apple-touch-icon-precomposed" href="/images/oc_logo_144.png">
 
+  <link rel="stylesheet" type="text/css" media="screen" href="<?=$view->screenCss?>">
+  <link rel="stylesheet" type="text/css" media="print" href="<?=$view->printCss?>">
 
-        <link rel="shortcut icon" href="/images/<?=$config['headerFavicon']?>">
-        <link rel="apple-touch-icon-precomposed" href="/images/oc_logo_144.png">
+  <?php foreach( $view->getLocalCss() as $css ) { ?>
+      <link rel="stylesheet" type="text/css" href="<?=$css?>">
+  <?php } //foreach-css ?>
 
-        <title><?=$tpl_subtitle?>{title}</title>
+  <?php foreach( $view->getLocalJs() as $js ) { ?>
+    <script type="text/javascript" async="async" src="<?=$js?>"></script>
+  <?php } //foreach-css ?>
 
-        <?php foreach( $view->getLocalCss() as $css ) { ?>
-          <link rel="stylesheet" type="text/css" href="<?=$css?>">
-        <?php } //foreach-css ?>
+  {htmlheaders}
+  {cachemap_header}
 
-        <?php foreach( $view->getLocalJs() as $js ) { ?>
-          <script type="text/javascript" async="async" src="<?=$js?>"></script>
-        <?php } //foreach-css ?>
+  <?php
+      if( $view->isGoogleAnalyticsEnabled() ){
+          $view->callChunkOnce( 'googleAnalytics', $view->getGoogleAnalyticsKey() );
+      }
+      if( $view->isjQueryEnabled()){
+          $view->callChunk('jQuery');
+      }
+      if( $view->isjQueryUIEnabled()){
+          $view->callChunk('jQueryUI');
+      }
+      if( $view->isTimepickerEnabled()){
+          $view->callChunk('timepicker');
+      }
+      if( $view->isLightBoxEnabled()){
+          $view->callChunk('lightBoxLoader', true, false);
+      }
+      if( $view->isGMapApiEnabled() ){
+          if( !isset($GLOBALS['googlemap_key']) || empty($GLOBALS['googlemap_key']) ){
+              Debug::errorLog("There is no googlemap_key value in site settings?! Map can't be loaded!");
+          } else {
+              $callback = isset($view->GMapApiCallback) ? $view->GMapApiCallback : null;
+              $view->callChunk('googleMapsApi',
+                  $GLOBALS['googlemap_key'], $view->getLang(), $callback);
+          }
+      }
+  ?>
 
-        <script type="text/javascript" src="/lib/enlargeit/enlargeit.js" async="async"></script>
+  <script type="text/javascript" src="/lib/js/CookiesInfo.js" async="async"></script>
+  <script type="text/javascript" src="/lib/enlargeit/enlargeit.js" async="async"></script>
 
-        {htmlheaders}
-        {cachemap_header}
+</head>
+<body {bodyMod} class="<?=$view->backgroundSeason?>">
+  <div id="overall">
+    <div class="page-container-1">
+      <div class="seasonalBackground left <?=$view->backgroundSeason?>">&nbsp;</div>
+      <div class="seasonalBackground right <?=$view->backgroundSeason?>">&nbsp;</div>
 
-        <?php
-            if( $view->isGoogleAnalyticsEnabled() ){
-                $view->callChunkOnce( 'googleAnalytics', $view->getGoogleAnalyticsKey() );
-            }
-            if( $view->isjQueryEnabled()){
-                $view->callChunk('jQuery');
-            }
-            if( $view->isjQueryUIEnabled()){
-                $view->callChunk('jQueryUI');
-            }
-            if( $view->isTimepickerEnabled()){
-                $view->callChunk('timepicker');
-            }
-            if( $view->isLightBoxEnabled()){
-                $view->callChunk('lightBoxLoader', true, false);
-            }
-            if( $view->isGMapApiEnabled() ){
-                if( !isset($GLOBALS['googlemap_key']) || empty($GLOBALS['googlemap_key']) ){
-                    Debug::errorLog("There is no googlemap_key value in site settings?!".
-                                "Map can't be loaded!");
-                }else{
-                    $callback = isset($view->GMapApiCallback)?$view->GMapApiCallback:null;
-                    $view->callChunk('googleMapsApi',
-                        $GLOBALS['googlemap_key'], $view->getLang(), $callback);
-                }
-            }
-        ?>
+      <!-- HEADER -->
+      <!-- OC-Logo -->
+      <img src="<?=$view->_mainLogo?>" alt="OC logo" class="oc-logo">
 
-        <script type='text/javascript' src='/lib/js/CookiesInfo.js' async></script>
+      <!-- Sitename -->
+      <div class="site-name">
+        <p class="title"><a href="index.php"><?=$view->_logoTitle?></a></p>
+        <p class="subtitle"><a href="index.php"><?=$view->_logoSubtitle?></a></p>
+      </div>
 
-        <script type="text/javascript">
-            // this is used by search widget
-            function chname(newName,searchPage) {
-                document.getElementById("search_input").name = newName;
-                document.getElementById("search_form").action = searchPage;
-                return false;
-            }
-        </script>
+      <!-- Flag navigations -->
+      <div class="navflag-container">
+        <div class="navflag">
+          <ul>
+            <?php foreach($view->_languageFlags as $langFlag){ ?>
+                <li>
+                  <a rel="nofollow" href="<?=$langFlag['link']?>">
+                    <img class="img-navflag" src="<?=$langFlag['img']?>" alt="<?=$langFlag['name']?> version" title="<?=$langFlag['name']?> version">
+                  </a>
+                </li>
+            <?php } //forach-lang-flags ?>
+          </ul>
+        </div>
+      </div>
 
-    </head>
-    <body {bodyMod} class="<?=$view->backgroundSeason?>">
-
-        <div id="overall">
-          <!-- Cookies info -->
-          <div class="cookies-message" id="cookies-message-div" style="display: none;" hidden="hidden">
-            <p class="align-center">{{cookiesInfo}}
-              <a href="javascript:WHCloseCookiesWindow();" class="btn btn-sm btn-success">&nbsp;X&nbsp;</a>
-            </p>
-          </div>
-
-            <div class="page-container-1" style="position: relative;">
-                <div class="seasonalBackground left <?=$view->backgroundSeason?>">&nbsp;</div>
-                <div class="seasonalBackground right <?=$view->backgroundSeason?>">&nbsp;</div>
-
-                <!-- HEADER -->
-                <!-- OC-Logo -->
-                <div><img src="<?=$view->_mainLogo?>" alt="OC logo" style="margin-top:5px; margin-left:3px;"></div>
-
-                <!-- Sitename -->
-                <div class="site-name">
-                    <p class="title"><a href="index.php"><?=$view->_logoTitle?></a></p>
-                    <p class="subtitle"><a href="index.php"><?=$view->_logoSubtitle?></a></p>
-                </div>
-
-                <!-- Flag navigations -->
-                <div class="navflag-container">
-                    <div class="navflag">
-                        <ul>
-                            <?php foreach($view->_languageFlags as $langFlag){ ?>
-                                <li>
-                                    <a rel="nofollow" href="<?=$langFlag['link']?>">
-                                        <img class="img-navflag" src="<?=$langFlag['img']?>" alt="<?=$langFlag['name']?> version"
-                                             title="<?=$langFlag['name']?> version">
-                                    </a>
-                                </li>
-                            <?php } //forach-lang-flags ?>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Site slogan -->
+      <!-- Site slogan -->
                 <div class="site-slogan-container">
                     <form method="get" action="search.php" name="search_form" id="search_form">
                         <div class="site-slogan">
@@ -179,9 +157,7 @@ global $tpl_subtitle;
 
                 <!-- Header banner     -->
                 <div class="header">
-                    <div style="width:970px; padding-top:1px;">
-                      <img src="/images/head/rotator.php" alt="Banner" style="border:0px;">
-                    </div>
+                  <img src="/images/head/rotator.php" alt="Banner">
                 </div>
 
                 <!-- Navigation - horizontal menu bar -->
@@ -285,52 +261,61 @@ global $tpl_subtitle;
                     <!-- Main title -->
                 </div>
 
-                <!--     CONTENT -->
-                <div class="templateContainer">
-                    {template}
-                </div>
+      <!--     CONTENT -->
+      <div class="templateContainer">
+        {template}
+      </div>
 
-                <!-- FOOTER -->
-                <div id="footer">
+      <!-- FOOTER -->
+      <div id="footer">
+        <?php if ($view->_isUserLogged && $view->_displayOnlineUsers) { ?>
+            <p>
+              <span class="txt-black">{{online_users}}: </span>
+              <span class="txt-white">
+                <?php foreach($view->_onlineUsers as $userId=>$username){ ?>
+                    <a class="links-onlusers" href="/viewprofile.php?userid=<?=$userId?>"><?=$username?></a>&ensp;
+                <?php } //foreach ?>
+              </span>
+              <span class="txt-black"> ({{online_users_info}})</span>
+            </p>
+            <div class="spacer">&nbsp;</div>
+        <?php } // user-logged && displayOnlineUsers ?>
 
-                    <?php if ($view->_isUserLogged && $view->_displayOnlineUsers) { ?>
-                        <p>
-                          <span class="txt-black">{{online_users}}: </span>
-                          <span class="txt-white">
+        <p>
+          <?php foreach($view->_footerMenu as $key=>$url){ ?>
+              <?php if(is_array($url)) { //array="open in new window" ?>
+                  <a href="<?=$url[0]?>" target="_blank" rel="noopener"><?=$key?></a>
+              <?php } else { // !is_array($url) ?>
+                  <a href="<?=$url?>" rel="noopener"><?=$key?></a>
+              <?php } // if-is_array($url) ?>
+          <?php } //foreach _footerMenu ?>
+        </p>
 
-                              <?php foreach($view->_onlineUsers as $userId=>$username){ ?>
-                                <a class="links-onlusers" href="/viewprofile.php?userid=<?=$userId?>">
-                                  <?=$username?>
-                                </a>&nbsp;
-                              <?php } //foreach ?>
+        <p><br><?=$view->licenseHtml?></p>
 
-                          </span>
-                          <span class="txt-black"> ({{online_users_info}})</span>
-                        </p>
-                        <div class="spacer">&nbsp;</div>
-                    <?php } // user-logged && displayOnlineUsers ?>
-
-                    <p>
-                    <?php foreach($view->_footerMenu as $key=>$url){ ?>
-                      <?php if(is_array($url)) { //array="open in new window" ?>
-                        <a href="<?=$url[0]?>" target="_blank" rel="noopener"><?=$key?></a>
-                      <?php } else { // !is_array($url) ?>
-                        <a href="<?=$url?>" rel="noopener"><?=$key?></a>
-                      <?php } // if-is_array($url) ?>
-                    <?php } //foreach _footerMenu ?>
-                    </p>
-
-                    <p><br><?=$view->licenseHtml?></p>
-
-                </div>
-                <!-- (C) The Opencaching Project 2017 -->
-            </div>
-        </div>
-        <?php
-            // lightbox js should be loaded at th end of page
-            if( $view->isLightBoxEnabled()){
-                $view->callChunk('lightBoxLoader', false, true);
-            }
-        ?>
-    </body>
+      </div>
+    </div>
+    <!-- Cookies info -->
+    <div class="cookies-message" id="cookies-message-div" style="display: none;" hidden="hidden">
+      <p class="align-center">{{cookiesInfo}}
+        <a href="javascript:WHCloseCookiesWindow();" class="btn btn-sm btn-success">&nbsp;X&nbsp;</a>
+      </p>
+    </div>
+  </div>
+  <?php
+      // lightbox js should be loaded at th end of page
+      if( $view->isLightBoxEnabled()){
+          $view->callChunk('lightBoxLoader', false, true);
+      }
+  ?>
+  <script type="text/javascript">
+    // this is used by search widget
+    function chname(newName,searchPage) {
+      document.getElementById("search_input").name = newName;
+      document.getElementById("search_form").action = searchPage;
+      return false;
+    }
+  </script>
+  <!-- (C) The Opencaching Project 2018 -->
+</body>
 </html>
