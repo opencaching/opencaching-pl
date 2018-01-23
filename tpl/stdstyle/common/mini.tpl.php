@@ -53,7 +53,7 @@
             }
         ?>
 
-        <script type="text/javascript" src="lib/enlargeit/enlargeit.js" async="async"></script>
+        <script type="text/javascript" src="lib/enlargeit/enlargeit.js"></script>
         <title>{title}</title>
         {htmlheaders}
         {cachemap_header}
