@@ -66,7 +66,7 @@ class StartPageController extends BaseController
         $this->processTotalStats();
         $this->processTitleCaches();
         $this->processLastCacheSets();
-        $this->processFeeds();
+        //$this->processFeeds();
 
         $this->view->setVar('staticMapModel', $this->staticMapModel);
 
