@@ -326,7 +326,18 @@ class StartPageController extends BaseController
     private function processFeeds()
     {
         $feedsData = $this->getFeedsData(true); // get feeds if ready in cache
-        $this->view->setVar('feedsData', $feedsData);
+        if(is_object($feedsData)){
+            $this->view->setVar('feedsData',$feedsData->feeds);
+            $this->view->setVar('feedsDataValidAt',
+                Formatter::dateTime($feedsData->createdAt));
+        }else{
+            // TODO: this version is only to handle old value stored in cache
+            // it should be removed in next commit
+            if(is_array($feedsData)){
+                $this->view->setVar('feedsData', $feeds);
+                $this->view->setVar('feedsDataValidAt',null);
+            }
+        }
 
         if(!$feedsData){
             $feedsUrl = SimpleRouter::getLink(self::class, 'getFeeds');
