@@ -150,9 +150,13 @@ class SimpleRouter
             // this is just emprty route - display DEFAUTS
             $routeParts[0] = self::DEFAULT_CTRL;
         }else{
-            // ctrl part is empty - hmm... assume some one add too many slashes
+            // ctrl part is empty - hmm... assume someone add too many slashes
             if(empty($routeParts[0])){
                 array_shift($routeParts);
+                if( empty($routeParts) || empty($routeParts[0]) ){
+                    // stop guess - came back to default
+                    $routeParts[0] = self::DEFAULT_CTRL;
+                }
             }
         }
 
