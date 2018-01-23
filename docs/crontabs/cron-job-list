@@ -3,10 +3,8 @@
 
 # m  h  dom mon dow command
 # Main page static sections
-*/30 *   *   *   *   wget -O - -q https://opencaching.pl/tpl/stdstyle/etc/write_newcaches.inc.php
-*/55 *   *   *   *   wget -O - -q https://opencaching.pl/tpl/stdstyle/etc/write_newblogs.inc.php
 */14 *   *   *   *   wget -O - -q https://opencaching.pl/tpl/stdstyle/etc/write_onlusers.inc.php
-*/30 *   *   *   *   wget -O - -q https://opencaching.pl/tpl/stdstyle/etc/write_totalstats.inc.php
+
 # Prepare static data for charts on statistics page
 1    0   *   *   *   wget -O - -q https://opencaching.pl/tpl/stdstyle/etc/write_chartsdata.php
 
@@ -26,7 +24,7 @@
 45   4   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/geokrety/geokrety.new.php  geokrety.html
 */10 *   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/geokrety/processGeoKretyDbQueue.php  processGeoKretyDbQueue.php
 
-# GeoPath of the day
+# GeoPath automatic maintenance
 11   0   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/powerTrail/PowerTrailCronJob.php  PowerTrailCronJob.html
 
 # Titled Cache (weekly example)
@@ -41,5 +39,6 @@
 
 # Database maintanance
 10   6   *   *   *   /home/ocpl/cron-defs/do-mysql-flush
+
 # Database backup
 27   3   *   *   *   /home/ocpl/cron-defs/do-mysql-backup
