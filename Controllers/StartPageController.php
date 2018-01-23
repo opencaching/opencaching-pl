@@ -185,13 +185,12 @@ class StartPageController extends BaseController
                 return $result;
             });
 
-        foreach($lastCacheSets as $cs){
-            $this->staticMapModel->createMarker(
-                'cs_'.$cs->getId(), $cs->getCoordinates(),
-                StaticMapMarker::COLOR_CACHESET, $cs->getName(), $cs->getUrl());
-        }
-
         if(is_object($lastCacheSetsData)){
+            foreach($lastCacheSetsData->lastCacheSets as $cs){
+                $this->staticMapModel->createMarker(
+                    'cs_'.$cs->getId(), $cs->getCoordinates(),
+                    StaticMapMarker::COLOR_CACHESET, $cs->getName(), $cs->getUrl());
+            }
             $this->view->setVar('lastCacheSets', $lastCacheSetsData->lastCacheSets);
             $this->view->setVar('latestCacheSetsValidAt',
                 Formatter::dateTime($lastCacheSetsData->createdAt));
@@ -199,6 +198,11 @@ class StartPageController extends BaseController
             if(is_array($lastCacheSetsData)){
                 // TODO: old style: remove in next comit
                 // it needst to be handled because old version of data in cache
+                foreach($lastCacheSetsData as $cs){
+                    $this->staticMapModel->createMarker(
+                        'cs_'.$cs->getId(), $cs->getCoordinates(),
+                        StaticMapMarker::COLOR_CACHESET, $cs->getName(), $cs->getUrl());
+                }
                 $this->view->setVar('lastCacheSets', $lastCacheSetsData);
                 $this->view->setVar('latestCacheSetsValidAt', null);
             }
