@@ -338,8 +338,10 @@ class StartPageController extends BaseController
             // TODO: this version is only to handle old value stored in cache
             // it should be removed in next commit
             if(is_array($feedsData)){
-                $this->view->setVar('feedsData', $feeds);
+                $this->view->setVar('feedsData', $feedsData);
                 $this->view->setVar('feedsDataValidAt',null);
+            }else{
+                $this->view->setVar('feedsData', null);
             }
         }
 
@@ -368,11 +370,12 @@ class StartPageController extends BaseController
             // TODO: this version is only to handle old value stored in cache
             // it should be removed in next commit
             if(is_array($feedsData)){
-                $this->view->setVar('feedsData', $feeds);
+                $this->view->setVar('feedsData', $feedsData);
                 $this->view->setVar('feedsDataValidAt',null);
+            }else{
+                $this->view->setVar('feedsData', null);
             }
         }
-
 
         $this->view->buildOnlySelectedTpl();
     }
