@@ -66,7 +66,7 @@ class StartPageController extends BaseController
         $this->processTotalStats();
         $this->processTitleCaches();
         $this->processLastCacheSets();
-        //$this->processFeeds();
+        $this->processFeeds();
 
         $this->view->setVar('staticMapModel', $this->staticMapModel);
 
@@ -194,18 +194,10 @@ class StartPageController extends BaseController
             $this->view->setVar('lastCacheSets', $lastCacheSetsData->lastCacheSets);
             $this->view->setVar('latestCacheSetsValidAt',
                 Formatter::dateTime($lastCacheSetsData->createdAt));
-        }else{
-            if(is_array($lastCacheSetsData)){
-                // TODO: old style: remove in next comit
-                // it needst to be handled because old version of data in cache
-                foreach($lastCacheSetsData as $cs){
-                    $this->staticMapModel->createMarker(
-                        'cs_'.$cs->getId(), $cs->getCoordinates(),
-                        StaticMapMarker::COLOR_CACHESET, $cs->getName(), $cs->getUrl());
-                }
-                $this->view->setVar('lastCacheSets', $lastCacheSetsData);
-                $this->view->setVar('latestCacheSetsValidAt', null);
-            }
+        } else {
+            // something is wrong - no object returned from cache!
+            $this->view->setVar('lastCacheSets', []);
+            $this->view->setVar('latestCacheSetsValidAt',null);
         }
 
         //legend marker
@@ -329,25 +321,20 @@ class StartPageController extends BaseController
 
     private function processFeeds()
     {
-        $feedsData = $this->getFeedsData(true); // get feeds if ready in cache
-        if(is_object($feedsData)){
+        // check if feeds are ready in cache
+        $feedsData = $this->getFeedsData(true);
+
+        if($feedsData && is_object($feedsData)){
+            // it seems that proper data is retrived from APCu cache
             $this->view->setVar('feedsData',$feedsData->feeds);
             $this->view->setVar('feedsDataValidAt',
                 Formatter::dateTime($feedsData->createdAt));
+            $this->view->setVar('feedsUrl',null);
         }else{
-            // TODO: this version is only to handle old value stored in cache
-            // it should be removed in next commit
-            if(is_array($feedsData)){
-                $this->view->setVar('feedsData', $feedsData);
-                $this->view->setVar('feedsDataValidAt',null);
-            }else{
-                $this->view->setVar('feedsData', null);
-            }
-        }
-
-        if(!$feedsData){
-            $feedsUrl = SimpleRouter::getLink(self::class, 'getFeeds');
-            $this->view->setVar('feedsUrl', $feedsUrl);
+            // no feeds data so try to load it by AJAX
+            $this->view->setVar('feedsData', null);
+            $this->view->setVar('feedsUrl',
+                SimpleRouter::getLink(self::class, 'getFeeds'));
         }
     }
 
@@ -360,21 +347,15 @@ class StartPageController extends BaseController
     public function getFeeds()
     {
         $this->view->setTemplate('startPage/feeds');
+
         $feedsData = $this->getFeedsData();
 
-        if(is_object($feedsData)){
+        if($feedsData && is_object($feedsData)){
             $this->view->setVar('feedsData',$feedsData->feeds);
             $this->view->setVar('feedsDataValidAt',
                 Formatter::dateTime($feedsData->createdAt));
         }else{
-            // TODO: this version is only to handle old value stored in cache
-            // it should be removed in next commit
-            if(is_array($feedsData)){
-                $this->view->setVar('feedsData', $feedsData);
-                $this->view->setVar('feedsDataValidAt',null);
-            }else{
-                $this->view->setVar('feedsData', null);
-            }
+            $this->view->setVar('feedsData', null);
         }
 
         $this->view->buildOnlySelectedTpl();

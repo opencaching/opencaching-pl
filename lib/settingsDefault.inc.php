@@ -316,3 +316,13 @@ $config['oAuth']['google']['clientSecret'] = null;
 
 // MapQuest Key - used to access MapQuest API - to obtain key see: https://developer.mapquest.com/
 $config['maps']['mapQuestKey'] = null;
+
+
+// APC local monior config - see /lib/apc for details
+$config['apc']['username'] = 'admin';
+
+// the word 'password' as password is prohibited and will allow to login - override in settings.inc.php
+$config['apc']['password'] = 'password';
+
+
+

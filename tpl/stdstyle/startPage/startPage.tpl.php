@@ -251,8 +251,8 @@
     <div id="feedsContainer">
       <?php if($view->feedsData) { ?>
           <?=$view->callSubTpl('/startPage/feeds')?>
-      <?php }else{ //if-feedsData?>
-        <?php //$view->callChunk('dynamicHtmlLoad', $view->feedsUrl, 'feedsContainer'); ?>
+      <?php } else { //if-!feedsData ?>
+        <?php $view->callChunk('dynamicHtmlLoad', $view->feedsUrl, 'feedsContainer'); ?>
       <?php } //if-feedsData ?>
     </div>
     <!-- /feeds -->
