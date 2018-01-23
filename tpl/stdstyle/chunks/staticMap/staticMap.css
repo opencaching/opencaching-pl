@@ -14,11 +14,11 @@
   position: absolute;
   width: 0; 
   height: 0;
-  top: 11px;
+  top: 12px;
   left:2px;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-top: 14px solid black;
+  border-top: 12px solid black;
 
 }
 
