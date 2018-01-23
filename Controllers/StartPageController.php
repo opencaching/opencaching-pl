@@ -164,27 +164,49 @@ class StartPageController extends BaseController
             return;
         }
 
-        $lastCacheSets = OcMemCache::getOrCreate(
+        $lastCacheSetsData = OcMemCache::getOrCreate(
             __CLASS__.':latestCacheSets', 3*60*60,
             function(){
                 global $config;
-                $lastCacheSets = CacheSet::getLastCreatedSets($config['startPage']['latestCacheSetsCount']);
+
+                $lastCacheSets = CacheSet::getLastCreatedSets(
+                    $config['startPage']['latestCacheSetsCount']);
+
                 $lastCacheSets = CacheSetOwner::setOwnersToCacheSets($lastCacheSets);
 
                 array_walk($lastCacheSets, function(&$cs){
                     /** @var CacheSet */
                     $cs->prepareForSerialization();
                 });
-                return $lastCacheSets;
+
+                $result = new \stdClass();
+                $result->createdAt = time();
+                $result->lastCacheSets = $lastCacheSets;
+                return $result;
             });
 
-        foreach($lastCacheSets as $cs){
-            $this->staticMapModel->createMarker(
-                'cs_'.$cs->getId(), $cs->getCoordinates(),
-                StaticMapMarker::COLOR_CACHESET, $cs->getName(), $cs->getUrl());
+        if(is_object($lastCacheSetsData)){
+            foreach($lastCacheSetsData->lastCacheSets as $cs){
+                $this->staticMapModel->createMarker(
+                    'cs_'.$cs->getId(), $cs->getCoordinates(),
+                    StaticMapMarker::COLOR_CACHESET, $cs->getName(), $cs->getUrl());
+            }
+            $this->view->setVar('lastCacheSets', $lastCacheSetsData->lastCacheSets);
+            $this->view->setVar('latestCacheSetsValidAt',
+                Formatter::dateTime($lastCacheSetsData->createdAt));
+        }else{
+            if(is_array($lastCacheSetsData)){
+                // TODO: old style: remove in next comit
+                // it needst to be handled because old version of data in cache
+                foreach($lastCacheSetsData as $cs){
+                    $this->staticMapModel->createMarker(
+                        'cs_'.$cs->getId(), $cs->getCoordinates(),
+                        StaticMapMarker::COLOR_CACHESET, $cs->getName(), $cs->getUrl());
+                }
+                $this->view->setVar('lastCacheSets', $lastCacheSetsData);
+                $this->view->setVar('latestCacheSetsValidAt', null);
+            }
         }
-
-        $this->view->setVar('lastCacheSets', $lastCacheSets);
 
         //legend marker
         $this->view->setVar('newestCsLegendMarker',
@@ -308,7 +330,18 @@ class StartPageController extends BaseController
     private function processFeeds()
     {
         $feedsData = $this->getFeedsData(true); // get feeds if ready in cache
-        $this->view->setVar('feedsData', $feedsData);
+        if(is_object($feedsData)){
+            $this->view->setVar('feedsData',$feedsData->feeds);
+            $this->view->setVar('feedsDataValidAt',
+                Formatter::dateTime($feedsData->createdAt));
+        }else{
+            // TODO: this version is only to handle old value stored in cache
+            // it should be removed in next commit
+            if(is_array($feedsData)){
+                $this->view->setVar('feedsData', $feeds);
+                $this->view->setVar('feedsDataValidAt',null);
+            }
+        }
 
         if(!$feedsData){
             $feedsUrl = SimpleRouter::getLink(self::class, 'getFeeds');
@@ -325,9 +358,22 @@ class StartPageController extends BaseController
     public function getFeeds()
     {
         $this->view->setTemplate('startPage/feeds');
-        $feeds = $this->getFeedsData();
+        $feedsData = $this->getFeedsData();
 
-        $this->view->setVar('feedsData', $feeds);
+        if(is_object($feedsData)){
+            $this->view->setVar('feedsData',$feedsData->feeds);
+            $this->view->setVar('feedsDataValidAt',
+                Formatter::dateTime($feedsData->createdAt));
+        }else{
+            // TODO: this version is only to handle old value stored in cache
+            // it should be removed in next commit
+            if(is_array($feedsData)){
+                $this->view->setVar('feedsData', $feeds);
+                $this->view->setVar('feedsDataValidAt',null);
+            }
+        }
+
+
         $this->view->buildOnlySelectedTpl();
     }
 
@@ -341,26 +387,29 @@ class StartPageController extends BaseController
                 function(){
                     global $config;//TODO
 
-                    $feeds = [];
+                    $result = new \stdClass();
+                    $result->feeds = [];
+
                     foreach ($config['feed']['enabled'] as $feedName) {
 
                         $feed = new RssFeed($config['feed'][$feedName]['url']);
                         $postsCount = min($config['feed'][$feedName]['posts'], $feed->count());
-                        $feeds[$feedName] = [];
+                        $result->feeds[$feedName] = [];
 
                         for ($i=0; $i<$postsCount; $i++) {
                             $post = new \stdClass();
-                            $post->author = ( !empty($feed->next()->author)
-                                && $config['feed'][$feedName]['showAuthor']) ? $feed->current()->author : '';
+                            $post->author = ( !empty($feed->next()->author) &&
+                                $config['feed'][$feedName]['showAuthor'] ) ? $feed->current()->author : '';
 
                                 $post->link = $feed->current()->link;
                                 $post->title = $feed->current()->title;
                                 $post->date = Formatter::date($feed->current()->date);
-                                $feeds[$feedName][] = $post;
+                                $result->feeds[$feedName][] = $post;
                         }
                     }//foreach
 
-                    return $feeds;
+                    $result->createdAt = time();
+                    return $result;
                 });
         }
     }

@@ -405,7 +405,6 @@ $translations = array(
     'total_of_active_caches' => 'Počet aktivních keší',
     'startPage_stsUsers' => 'Počet aktivních členů',
     'startPage_stsFounds' => 'Počet nálezů',
-    'startPage_title' => 'Vítejte na Opencaching.pl',
     'what_do_you_find_intro' => 'Na této stránce najdete všechny použitelné geocachingu v Polsku - od <b> <a href="{wiki_link_main}"> ABC Geocachingu</a> </b> na fórum, kde si můžete vést diskuse s ostatními o geocache. <b> Opencaching PL </b> začal v <span class="content-title-noshade"> mai 2006 </span>. Naše schránek se pracuje na databázi projekt opensource <b> Opencaching </b>.',
     'filename_rules' => '{wiki_link_rules_en}',
     'filename_describe_cache' => '{wiki_link_cacheParams_en}',

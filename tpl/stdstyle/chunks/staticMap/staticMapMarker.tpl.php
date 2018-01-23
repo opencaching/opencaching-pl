@@ -17,7 +17,6 @@ return function (StaticMapMarker $mx){
         <a href="<?=$mx->link?>">
       <?php } //if-link-present ?>
 
-      <div class="stmCircleBorder"></div>
       <div class="stmCircle" style="background-color:<?=$mx->color?>"></div>
 
       <div class="stmTriangleBorder"></div>
@@ -33,7 +32,6 @@ return function (StaticMapMarker $mx){
   <?php if($mx->markerType == StaticMapMarker::TYPE_CSS_LEGEND_MARKER) { ?>
     <div class="cssStaticMapMarker cssStaticMapMarkerRel">
 
-      <div class="stmCircleBorder"></div>
       <div class="stmCircle" style="background-color:<?=$mx->color?>"></div>
 
       <div class="stmTriangleBorder"></div>

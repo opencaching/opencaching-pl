@@ -33,7 +33,7 @@ class ClassPathDictionary
     /**
 
      * While new class creating, try use namespace, leading to class php file. Thanks to that class
-     * can be loaded automaticly witch function getClassPath().
+     * can be loaded automatically with function getClassPath().
      *
      * use this method if using namespace is not possible any reason
      *

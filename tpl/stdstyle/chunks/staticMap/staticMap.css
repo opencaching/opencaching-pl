@@ -2,21 +2,12 @@
 
 .cssStaticMapMarker .stmCircle {
   position: absolute;
-  top: 2px;
-  left: 2px;
+  top: 0px;
+  left: 0px;
   width: 10px;
   height: 10px;
   border-radius: 20px;
-}
-
-.cssStaticMapMarker .stmCircleBorder {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 14px;
-  height: 14px;
-  background-color: black;
-  border-radius: 20px;
+  border: 2px solid black;
 }
 
 .cssStaticMapMarker .stmTriangleBorder {
@@ -39,7 +30,6 @@
   left:4px;
   border-left: 3px solid transparent;
   border-right: 3px solid transparent;
-  /*border-top: 9px solid red;*/
   border-top-style: solid;
   border-top-width: 9px;
 }
@@ -50,6 +40,7 @@
 
 .cssStaticMapMarkerRel{
   position: relative;
+  top: 2px;
   width: 20px;
   height: 20px;
   display: inline-block;
@@ -58,6 +49,6 @@
 
 
 .staticMapChunk .hovered {
-  transform: scale(1.4);
+  transform: scale(1.4,1.4);
 }
 

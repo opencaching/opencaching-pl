@@ -2,6 +2,7 @@
    title="<?=tr('startPage_validAt')?>: <?=$view->totStsValidAt?>">
   <?=tr('startPage_wholeStatsTitle')?>
 </p>
+
 <div id="totalStatsDiv">
 
     <div id="arrowLeft" class="counterArrow" onclick="countersRight()"></div>
@@ -9,10 +10,8 @@
     <?php foreach($view->totStsArr as $key=>$sts) { ?>
 
         <div class="counterWidget <?=($key>4)?'counterRightHidden':''?>" title="<?=$sts['ldesc']?>">
-          <div class="counterInner">
             <div class="counterTitle"><?=$sts['desc']?></div>
             <div class="counterNumber"><?=$sts['val']?></div>
-          </div>
         </div>
 
     <?php } //foreach-totStsArr ?>

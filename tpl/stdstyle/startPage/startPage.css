@@ -32,16 +32,18 @@
   font-weight: bold;
 }
 
+
 /* Total-stats: */
 #totalStatsDiv {
-  margin: 0 0 10px 0;
-  /*border-bottom: 1px solid gray;*/
-  text-align: center;
+  margin: 0 5px 10px 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 #totalStatsDiv #totalStatsCounters {
-  display: inline-block;
-  text-align: center;
-  width: 705px;
+  display: flex;
+  justify-content: space-around;
+  width: 716px;
 }
 #totalStatsDiv #arrowLeft {
   border-right:15px solid rgb(88,144,168); 
@@ -68,8 +70,11 @@
 
 #totalStatsDiv .counterWidget {
   border: 2px solid rgb(88,144,168);
-  display: inline-block;
-  vertical-align: middle;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  
+  /*vertical-align: middle;*/
   border-radius: 3px;
   text-align: center;
   font-weight: bold;
@@ -78,23 +83,16 @@
   width: 130px;
 }
 
-#totalStatsDiv .counterInner {
-    vertical-align: middle;
-    display: table-cell;
-    height: 50px;
-    width: 130px;
-    text-align: center;
-}
-
 #totalStatsDiv .counterTitle {
-  width: 100%;
+  width: 130px;
   text-align: center;
+  vertical-align: middle;
 }
 
 #totalStatsDiv .counterNumber {
+  width: 130px;
   font-size: 16px;
   color: rgb(88,144,168);
-  font-size: 1.4em;
 }
 
 /* latest caches */

@@ -1,12 +1,3 @@
-<!--
-<div class="content2-pagetitle">
-  <?php if($view->isUserLogged) { ?>
-    <?=tr('startPage_welcome')?>&nbsp;<?=$view->username?>
-  <?php } else { //if-isUserLogged ?>
-    <?=tr('startPage_title')?>
-  <?php } //if-isUserLogged ?>
-</div>
--->
 
 <div class="content2-container">
 
@@ -20,8 +11,7 @@
 
 
     <?php if($view->isUserLogged && !empty($view->newsList)){ ?>
-    <!-- NEWS -->
-
+    <!-- news -->
     <div id="newsDiv">
         <p class="content-title-noshade-size3">
           <?=tr('news')?>
@@ -49,6 +39,7 @@
     </div>
     <!-- /news -->
     <?php } //if-!empty($view->newsList) ?>
+
 
     <?php if(!$view->isUserLogged) { ?>
     <!-- total Stats -->
@@ -103,6 +94,7 @@
     </div>
     <!-- /newest caches -->
 
+
     <!-- incomming events -->
     <div id="nearestEventsList">
       <p class="content-title-noshade-size3"
@@ -142,10 +134,13 @@
     </div>
     <!-- /incomming events -->
 
+
     <!-- latest-cacheSets -->
     <?php if($view->displayLastCacheSets){ ?>
         <div id="newestCacheSets">
-          <p class="content-title-noshade-size3">
+          <p class="content-title-noshade-size3"
+             title="<?=tr('startPage_validAt')?>: <?=$view->latestCacheSetsValidAt?>">
+
             <?=tr('startPage_latestCacheSets')?>
             <?php $view->callChunk('staticMap/staticMapMarker', $view->newestCsLegendMarker); ?>
           </p>
@@ -244,11 +239,13 @@
     <?php } //if-titledCacheData ?>
     <!-- /titled caches -->
 
+
     <?php if($view->isUserLogged) { ?>
     <!-- total Stats -->
       <?=$view->callSubTpl('/startPage/totalStatsSlider') ?>
     <!-- /total Stats -->
     <?php } //if-isUserLogged ?>
+
 
     <!-- feeds -->
     <div id="feedsContainer">
@@ -257,9 +254,9 @@
       <?php }else{ //if-feedsData?>
         <?php $view->callChunk('dynamicHtmlLoad', $view->feedsUrl, 'feedsContainer'); ?>
       <?php } //if-feedsData ?>
-
     </div>
     <!-- /feeds -->
+
 </div>
 
 <!-- /CONTENT -->

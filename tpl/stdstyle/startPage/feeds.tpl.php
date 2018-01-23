@@ -1,6 +1,9 @@
 <?php foreach($view->feedsData as $feedName => $feedPosts) { ?>
   <div class="feedArea">
-    <p class="content-title-noshade-size3"><?=tr('feed_'.$feedName)?></p>
+    <p class="content-title-noshade-size3"
+       title="<?=tr('startPage_validAt')?>: <?=$view->feedsDataValidAt?>">
+      <?=tr('feed_'.$feedName)?>
+    </p>
     <ul class="feedList">
       <?php foreach($feedPosts as $post){ ?>
           <li>

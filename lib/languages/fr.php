@@ -392,7 +392,6 @@ $translations = array(
     'total_of_active_caches' => 'Le nombre de boîtes',
     'startPage_stsUsers' => 'Le nombre des membres actifs',
     'startPage_stsFounds' => 'Le nombre des découvertes de décodeurs',
-    'startPage_title' => 'Welcome on Opencaching.pl',
     'what_do_you_find_intro' => 'Sur cette page vous trouverez tous les geocachingu en Pologne - de <b> <a href="{wiki_link_main}" target="_blank"> ABC Geocachingu </a> </b> a un forum ou vous pouvez mener des discussions avec les autres de la géocache. <b> Opencaching PL </b> a débuté en <span class="content-title-noshade"> Mai 2006 </span>. Nos boîtes aux lettres sont de travail sur le projet de base de données opensource <b> Opencaching </b>.',
     'filename_rules' => '{wiki_link_rules_en}',
     'filename_describe_cache' => '{wiki_link_cacheParams_en}',
