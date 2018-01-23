@@ -127,12 +127,20 @@ class NutsLocation extends BaseObject
 
     public function getCode($level)
     {
-        return $this->codes[$level];
+        if(isset($this->codes[$level])){
+            return $this->codes[$level];
+        }else{
+            return null;
+        }
     }
 
     public function getName($level)
     {
-        return $this->names[$level];
+        if(isset($this->names[$level])){
+            return $this->names[$level];
+        }else{
+            return null;
+        }
     }
 
     public function setLevel($level, $code, $name)
