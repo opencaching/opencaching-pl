@@ -28,18 +28,18 @@ return function (array $data){
         $logTypeName = GeoCacheLogCommons::cleanLogTextForToolTip(
             tr(GeoCacheLogCommons::typeTranslationKey($data['logType'])));
     }
-
 ?>
   <?php if(!$nolog) { ?>
 
-      <a href="<?=$logUrl?>" target="_blank"
-         onmouseover="Tip('<b><?=$userName?> (<?=$logTypeName?>):</b><br/><?=$logText?>',
-           PADDING,5,WIDTH,280,SHADOW,true)"
-         onmouseout="UnTip()" >
+      <a href="<?=$logUrl?>" target="_blank" class="lightTipped">
 
         <img src="<?=$logIcon?>" class="icon16" alt="LogIcon" title="LogIcon" />
         <?=$logDate?>
       </a>
+      <div class="lightTip">
+        <b><?=$userName?> (<?=$logTypeName?>):</b>
+        <br/><?=$logText?>
+      </div>
 
   <?php } else { // $nolog ?>
       <?=tr('usrWatch_noLogs')?>

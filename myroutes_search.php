@@ -5,6 +5,7 @@ use Utils\Database\OcDb;
 use lib\Objects\GeoCache\GeoCacheCommons;
 use okapi\Facade;
 use okapi\core\Exception\BadRequest;
+use lib\Objects\GeoCache\CacheNote;
 
 global $rootpath;
 
@@ -772,22 +773,25 @@ if (isset($_POST['submit_gpx'])) {
     // create cache list
     $caches_list = caches_along_route($route_id, $distance);
 
-    $q = ("SELECT
-        `caches`.`cache_id` `cache_id`,
-        `caches`.`wp_oc` `cache_wp`,
-        `caches`.`status` `status`,
-        `caches`.`type` `type`,
-        `caches`.`size` `size`,
-        IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`,
-        IFNULL(`cache_mod_cords`.`latitude`, `caches`.`latitude`) `latitude`,
-        IFNULL(cache_mod_cords.id,0) as cache_mod_cords_id,
-        `caches`.`user_id` `user_id` ,
-        `caches`.`votes` `votes`,
-        `caches`.`score` `score`,
-        `caches`.`topratings` `topratings`
-                FROM `caches`
-                LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = " . $usr['userid'] . "
-                WHERE `caches`.`wp_oc` IN ('" . implode("', '", $caches_list) . "') AND `caches`.`cache_id` IN (" . $qFilter . ")");
+    $q = (
+        "SELECT
+            `caches`.`cache_id` `cache_id`,
+            `caches`.`wp_oc` `cache_wp`,
+            `caches`.`status` `status`,
+            `caches`.`type` `type`,
+            `caches`.`size` `size`,
+            IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`,
+            IFNULL(`cache_mod_cords`.`latitude`, `caches`.`latitude`) `latitude`,
+            IF(cache_mod_cords.cache_id, 1, 0) AS cache_mod_cords_used,
+            `caches`.`user_id` `user_id` ,
+            `caches`.`votes` `votes`,
+            `caches`.`score` `score`,
+            `caches`.`topratings` `topratings`
+        FROM `caches`
+            LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id`
+                AND `cache_mod_cords`.`user_id` = " . $usr['userid'] . "
+        WHERE `caches`.`wp_oc` IN ('" . implode("', '", $caches_list) . "')
+            AND `caches`.`cache_id` IN (" . $qFilter . ")");
 
     // cleanup (old gpxcontent lingers if gpx-download is cancelled by user)
     XDb::xSql('DROP TEMPORARY TABLE IF EXISTS `gpxcontent`');
@@ -830,7 +834,7 @@ if (isset($_POST['submit_gpx'])) {
 
     $stmt = XDb::xSql(
         'SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`,
-                `gpxcontent`.`latitude` `latitude`, `gpxcontent`.cache_mod_cords_id,
+                `gpxcontent`.`latitude` `latitude`, `gpxcontent`.cache_mod_cords_used,
                 `caches`.`wp_oc` `waypoint`,
                 `caches`.`date_hidden` `date_hidden`, `caches`.`picturescount` `picturescount`,
                 `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`,
@@ -891,7 +895,7 @@ if (isset($_POST['submit_gpx'])) {
 
         $thisline = str_replace('{region}', $region, $thisline);
         // modified coords
-        if ($r['cache_mod_cords_id'] > 0) { // check if we have user coords
+        if ($r['cache_mod_cords_used'] > 0) { // check if we have user coords
             $thisline = str_replace('{mod_suffix}', '(F)', $thisline);
         } else {
             $thisline = str_replace('{mod_suffix}', '', $thisline);
@@ -907,13 +911,14 @@ if (isset($_POST['submit_gpx'])) {
         $thisline = str_replace('{shortdesc}', cleanup_text($r['short_desc']), $thisline);
         $thisline = str_replace('{desc}', cleanup_text($logpw . $r['desc']), $thisline);
         if ($usr == true) {
-            $notes_rs = XDb::xSql(
-                "SELECT `cache_notes`.`desc` `desc` FROM `cache_notes`
-                WHERE `cache_notes` .`user_id`= ? AND `cache_notes`.`cache_id`= ? ",
-                $usr['userid'], $r['cacheid']);
 
-            if ($cn = XDb::xFetchArray($notes_rs)) {
-                $thisline = str_replace('{personal_cache_note}', cleanup_text("<br/><br/>-- " . cleanup_text(tr('search_gpxgc_02')) . ": -- <br/> " . $cn['desc'] . "<br/>"), $thisline);
+            $cacheNote = CacheNote::getNote($usr['userid'], $r['cacheid']);
+
+            if ( !empty($cacheNote) ) {
+
+                $thisline = str_replace('{personal_cache_note}',
+                    cleanup_text("<br/><br/>-- " . cleanup_text(tr('search_gpxgc_02')) .
+                        ": -- <br/> " . $cacheNote . "<br/>"), $thisline);
             } else {
                 $thisline = str_replace('{personal_cache_note}', "", $thisline);
             }

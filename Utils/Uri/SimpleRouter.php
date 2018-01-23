@@ -45,12 +45,16 @@ class SimpleRouter
     {
         $ctrl = self::checkControllerName($ctrl);
 
-        if(!$action){ //action not set - user default
-            $action = 'index';
-        }
+        $link = "/$ctrl";
 
-        //$link = '/index.php?'.self::ROUTE_GET_VAR."=/$ctrl/$action";
-        $link = "/$ctrl/$action";
+        if($action){
+            $link .= "/$action";
+        }else{
+            if($params){
+                // set default action only if $params are present
+                $link .= "/".self::DEFAULT_ACTION;
+            }
+        }
 
         if($params){
             if(is_array($params)){
@@ -59,6 +63,9 @@ class SimpleRouter
                 $link .= '/'.$params;
             }
         }
+
+
+
         return $link;
     }
 

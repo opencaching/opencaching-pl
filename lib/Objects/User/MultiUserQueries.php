@@ -3,13 +3,12 @@ namespace lib\Objects\User;
 
 use lib\Objects\BaseObject;
 use lib\Objects\GeoCache\GeoCacheLog;
-use Utils\Database\OcDb;
 
 /**
  * This class should contains mostly static, READ-ONLY queries
  * used to generates statistics etc. around user db table
  */
-class MultiUserStats extends BaseObject
+class MultiUserQueries extends BaseObject
 {
 
     /**
@@ -43,4 +42,29 @@ class MultiUserStats extends BaseObject
             "SELECT COUNT(*) FROM user
              WHERE date_created > DATE_SUB(NOW(), INTERVAL $days day) ", 0);
     }
+
+    /**
+     * Returns arraywhere row[userId] = username
+     *
+     * @param array $userIds - array of userIds
+     * @return array|mixed[]
+     */
+    public static function GetUserNamesForListOfIds(array $userIds)
+    {
+
+        if(empty($userIds)){
+            return array();
+        }
+
+        $db = self::db();
+
+        $userIdsStr = $db->quoteString(implode($userIds, ','));
+
+        $s = $db->simpleQuery(
+            "SELECT user_id, username FROM user
+            WHERE user_id IN ( $userIdsStr )");
+
+        return $db->dbFetchAsKeyValArray($s, 'user_id', 'username' );
+    }
+
 }

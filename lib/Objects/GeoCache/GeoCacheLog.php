@@ -342,4 +342,5 @@ class GeoCacheLog extends GeoCacheLogCommons
             return null;
         }
     }
+
 }

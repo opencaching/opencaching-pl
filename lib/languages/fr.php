@@ -215,7 +215,6 @@ $translations = array(
     'enter_text' => 'Entrez le texte',
     'enter_text_error' => 'Vous ne l"avez pas, entrez le texte',
     'password_required' => 'Pour ce faire, l"entrée dans le journal, vous devez entrer le mot de passe.',
-    'last_log_entries' => 'Les dernieres entrées dans le journal',
     'terrain_difficulty' => 'La difficulté de la terre',
     'task_difficulty' => 'Task difficulté',
     'out_of' => 'z',

@@ -214,7 +214,6 @@ $translations = array(
     'enter_text' => 'Ange text',
     'enter_text_error' => 'Ingen text har skrivits in',
     'password_required' => 'Lösenord krävs för att lägga till en logg.',
-    'last_log_entries' => 'De senaste loggarna',
     'terrain_difficulty' => 'Terräng',
     'task_difficulty' => 'Svårighet',
     'out_of' => 'av',
