@@ -8,23 +8,23 @@
 # Prepare static data for charts on statistics page
 1    0   *   *   *   wget -O - -q https://opencaching.pl/tpl/stdstyle/etc/write_chartsdata.php
 
-# e-mail notifications about new caches
-*/13 *   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/notification/run_notify.php  run_notify.html
-
 # Publish new caches
 0    *   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/publish_caches/run_publish.php  run_publish.html
+
+# Send e-mail notifications about new caches
+13   *   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/notification/run_notify.php  run_notify.html
 
 # Check for watched caches and send mails
 5    *   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/watchlist/runwatch.php  runwatch.html
 
-# Auto archivisation of caches
+# Auto archiving of caches
 30   4   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/auto_arch.php  auto_arch.html
 
-# Geokrety
+# GeoKrety
 45   4   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/geokrety/geokrety.new.php  geokrety.html
 */10 *   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/geokrety/processGeoKretyDbQueue.php  processGeoKretyDbQueue.php
 
-# GeoPath automatic maintenance
+# GeoPaths automatic maintenance
 11   0   *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/powerTrail/PowerTrailCronJob.php  PowerTrailCronJob.html
 
 # Titled Cache (weekly example)
