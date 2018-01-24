@@ -59,7 +59,7 @@ global $tpl_subtitle;
   ?>
 
   <script type="text/javascript" src="/lib/js/CookiesInfo.js" async="async"></script>
-  <script type="text/javascript" src="/lib/enlargeit/enlargeit.js" async="async"></script>
+  <script type="text/javascript" src="/lib/enlargeit/enlargeit.js"></script>
 
 </head>
 <body {bodyMod} class="<?=$view->backgroundSeason?>">
