@@ -3,8 +3,8 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
-        <meta name="keywords" content="geocaching, opencaching, skarby, poszukiwania, geocashing, longitude, latitude, utm, coordinates, treasure hunting, treasure, GPS, global positioning system, garmin, magellan, mapping, geo, hiking, outdoors, sport, hunt, stash, cache, geocaching, geocache, cache, treasure, hunting, satellite, navigation, tracking, bugs, travel bugs">
-        <meta name="author" content="{site_name}">
+        <meta name="keywords" content="<?=$view->_keywords?>">
+        <meta name="author" content="<?=$view->_siteName?>">
 
         <link rel="stylesheet" type="text/css" media="screen" href="<?=$view->screenCss?>">
         <link rel="stylesheet" type="text/css" media="print" href="<?=$view->printCss?>">
@@ -25,7 +25,7 @@
         <?php } //foreach-css ?>
 
         <?php foreach( $view->getLocalJs() as $js ) { ?>
-          <script type="text/javascript" async="async" src="<?=$js?>"></script>
+          <script async="async" src="<?=$js?>"></script>
         <?php } //foreach-css ?>
 
 
@@ -53,7 +53,6 @@
             }
         ?>
 
-        <script type="text/javascript" src="lib/enlargeit/enlargeit.js"></script>
         <title>{title}</title>
         {htmlheaders}
         {cachemap_header}

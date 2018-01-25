@@ -25,7 +25,7 @@ global $tpl_subtitle;
   <?php } //foreach-css ?>
 
   <?php foreach( $view->getLocalJs() as $js ) { ?>
-    <script type="text/javascript" async="async" src="<?=$js?>"></script>
+    <script async="async" src="<?=$js?>"></script>
   <?php } //foreach-css ?>
 
   {htmlheaders}
@@ -58,8 +58,7 @@ global $tpl_subtitle;
       }
   ?>
 
-  <script type="text/javascript" src="/lib/js/CookiesInfo.js" async="async"></script>
-  <script type="text/javascript" src="/lib/enlargeit/enlargeit.js"></script>
+  <script src="/lib/js/CookiesInfo.js" async="async"></script>
 
 </head>
 <body {bodyMod} class="<?=$view->backgroundSeason?>">
@@ -308,7 +307,7 @@ global $tpl_subtitle;
           $view->callChunk('lightBoxLoader', false, true);
       }
   ?>
-  <script type="text/javascript">
+  <script>
     // this is used by search widget
     function chname(newName,searchPage) {
       document.getElementById("search_input").name = newName;

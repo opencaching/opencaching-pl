@@ -848,7 +848,6 @@ tooltip {
 div#local-caches-area                                   { width: 400px; }
 div#local-events-area                                   { width: 400px; }
 div#local-logs-area                                     { width: 750px; }
-div#viewlogs-end                                        { font-weight: bold; font-size: 120%; margin-bottom: 10px;}
 div.local-caches-area                                   { width: 400px; }
 div.local-logs-area                                     { width: 750px; }
 div.viewlogs-logpictures span.info                      { font-weight: bold; font-size: 120%;display: block;}
@@ -900,7 +899,6 @@ div#local-cachemap-block                { width: 365px; margin-top: 7px; }
     float:left;
     background: url(shadowAlpha.png) no-repeat bottom right !important;
     margin: 10px 0 0 10px !important;
-    margin: 10px 0 0 5px;
 }
 
 .img-shadow img {
@@ -1016,10 +1014,6 @@ table.ptPromo-table {
     vertical-align: middle;
 }
 
-
-div.gallery-pictureblock            { float: left; max-width: 180px; height:220px;padding-left: 10px; padding-right: 10px;vertical-align: middle;}
-div.gallery-pictureblock span.title { display: block; max-width: 175px; padding-left: 10px; padding-right: 5px;clear: left; font-size: 10px;}
-
 div.searchdiv {
     width: 94%;
     margin: 5px;
@@ -1027,8 +1021,6 @@ div.searchdiv {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
 }
-
-
 
 div.headitems {
     width: 95%;

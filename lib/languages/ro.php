@@ -2136,7 +2136,6 @@ $translations = array(
     'mc_by_reco' => 'După recomandări',
     'mc_by_gk' => 'După GeoKrety din cutie',
     'mc_by_visits' => 'După vizitatori',
-    'vc_spoiler_disable_msg' => 'Trebuie să fi autentificat pentru a vedea ***spoilers!',
     'ec_bike_set_msg' => '***Cache attribute [Bike] or [Boat] has been set. Are you sure to set [Access only by walk] attribute?',
     'ec_walk_set_msg' => '***Cache attribute [Access only by walk] or [Boat] has been set. Are you sure to set [Bike] attribute?',
     'ec_boat_set_msg' => '***Cache attribute [Access only by walk] or [Bike] has been set. Are you sure to set [Boat] attribute?',
