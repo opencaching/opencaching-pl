@@ -2133,7 +2133,6 @@ $translations = array(
     'mc_by_reco' => 'Per aanbevelingen',
     'mc_by_gk' => 'Per GeoKrets',
     'mc_by_visits' => 'Per bekeken',
-    'vc_spoiler_disable_msg' => 'Om spoilers te zien moet men ingelogt zijn!',
     'ec_bike_set_msg' => 'Cache attribute [Bike] or [Boat] has been set. Are you sure to set [Access only by walk] attribute?***',
     'ec_walk_set_msg' => 'Cache attribute [Access only by walk] or [Boat] has been set. Are you sure to set [Bike] attribute?***',
     'ec_boat_set_msg' => 'Cache attribute [Access only by walk] or [Bike] has been set. Are you sure to set [Boat] attribute?***',

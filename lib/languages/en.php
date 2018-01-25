@@ -2136,7 +2136,6 @@ $translations = array(
     'mc_by_reco' => 'By recommendations',
     'mc_by_gk' => 'By GeoKrety in',
     'mc_by_visits' => 'By visitors',
-    'vc_spoiler_disable_msg' => 'You must be logged-in to view spoilers!',
     'ec_bike_set_msg' => 'Cache attribute [Bike] or [Boat] has been set. Did you mean to set the [Access only by walk] attribute?',
     'ec_walk_set_msg' => 'Cache attribute [Access only by walk] or [Boat] has been set. Did you mean to set the [Bike] attribute?',
     'ec_boat_set_msg' => 'Cache attribute [Access only by walk] or [Bike] has been set. Did you mean to set the [Boat] attribute?',

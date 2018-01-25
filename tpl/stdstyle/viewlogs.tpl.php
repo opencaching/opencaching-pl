@@ -1,5 +1,4 @@
-
-<script type="text/javascript">
+<script>
     var rot13tables;
     function createROT13tables() {
         var A = 0, C = [], D = "abcdefghijklmnopqrstuvwxyz", B = D.length;
@@ -78,5 +77,6 @@
 <div class="content2-container" id="viewcache-logs">
     {logs}
 </div>
-<div id="viewlogs-end">[<a class="links" href="viewcache.php?cacheid={cacheid}">{{back_to_the_geocache_listing}}</a>]</div>
-
+<div class="content2-container">
+  <a href="viewcache.php?cacheid={cacheid}" class="btn btn-sm btn-default">{{back_to_the_geocache_listing}}</a>
+</div>

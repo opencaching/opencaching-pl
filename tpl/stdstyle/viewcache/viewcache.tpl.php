@@ -3,6 +3,7 @@ use lib\Objects\Coordinates\Coordinates;
 ?>
 <link rel="stylesheet" href="tpl/stdstyle/css/lightTooltip.css">
 
+<script src="lib/enlargeit/enlargeit.js"></script>
 <script>
     var confirmRmLogTranslation = '{{confirm_remove_log}}';
 </script>
@@ -995,10 +996,6 @@ use lib\Objects\Coordinates\Coordinates;
         <?php if( $view->geoCache->getPicsInLogsCount() > 0 ) { ?>
             <img src="tpl/stdstyle/images/free_icons/photo.png" alt="Photo" class="icon16"/>
             <?=$view->geoCache->getPicsInLogsCount()?>x
-
-            <a href="gallery_cache.php?cacheid=<?=$view->geoCache->getCacheId()?>">
-                 <?=tr('gallery_short')?>
-            </a>
         <?php } //if-getNumberOfPicsInLogs > 0 ?>
 
     </span>
@@ -1029,6 +1026,12 @@ use lib\Objects\Coordinates\Coordinates;
                 </a>
             </span>
         <?php } //if-showDeletedLogsDisplayLink ?>
+
+        <?php if( $view->geoCache->getPicsInLogsCount() > 0 ) { ?>
+            <a class="btn btn-sm btn-default" href="gallery_cache.php?cacheid=<?=$view->geoCache->getCacheId()?>">
+               <?=tr('gallery_short')?>
+            </a>
+        <?php } //if-getNumberOfPicsInLogs > 0 ?>
     </span>
 </div>
 

@@ -223,7 +223,6 @@ foreach ($logEntries as $record) {
     if (($record['picturescount'] > 0) && (($record['deleted'] == false) || ($usr['admin']))) { // show pictures if (any added) and ((not deleted) or (user is admin))
         //END: edit by FelixP - 2013'10
         $logpicturelines = '';
-        $append_atag = '';
 
         $dbc = OcDb::instance();
         $thatquery = "SELECT `url`, `title`, `uuid`, `user_id`, `spoiler` FROM `pictures`
@@ -239,11 +238,9 @@ foreach ($logEntries as $record) {
             $thisline = $logpictureline;
 
             if ($disable_spoiler_view && intval($pic_record['spoiler']) == 1) {  // if hide spoiler (due to user not logged in) option is on prevent viewing pic link and show alert
-                $thisline = mb_ereg_replace('{log_picture_onclick}', "alert('" . $spoiler_disable_msg . "'); return false;", $thisline);
                 $thisline = mb_ereg_replace('{link}', 'index.php', $thisline);
                 $thisline = mb_ereg_replace('{longdesc}', 'index.php', $thisline);
             } else {
-                $thisline = mb_ereg_replace('{log_picture_onclick}', "enlarge(this)", $thisline);
                 $thisline = mb_ereg_replace('{link}', $pic_record['url'], $thisline);
                 $thisline = mb_ereg_replace('{longdesc}', str_replace("images/uploads", "upload", $pic_record['url']), $thisline);
             };

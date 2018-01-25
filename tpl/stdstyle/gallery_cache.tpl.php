@@ -1,29 +1,45 @@
-<?php
-
-?>
 <div class="content2-container bg-blue02">
-    <p class="content-title-noshade-size1">&nbsp;
-        <img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt=""/>
-        &nbsp;{{gallery_of_cache}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;&nbsp;
-        &nbsp;&nbsp;
-    </p>
+  <span class="content-title-noshade-size1">
+    <img src="<?=$view->cacheicon?>" class="icon32" alt="">
+    {{gallery_of_cache}} <?=$view->cache->getCacheName() ?>
+  </span>
+  <span id="log-start-buttons">
+    <a href="<?=$view->cache->getCacheUrl() ?>" class="btn btn-sm btn-default">{{back_to_the_geocache_listing}}</a>
+  </span>
 </div>
-<div class="content2-container">
-    {cache_images_start}
-    <div class="logs">
-        <span style="font-size:12px;font-weight:bold;float:left;">{{images_cache}}</span><br/><br/>
-        <center><table>
-                <tr><td>{cachepictures}
-                    </td></tr></table></center>
-    </div>
-    {cache_images_end}
-    {logs_images_start}
-    <div class="logs">
-        <span style="font-size:12px;font-weight:bold;">{{images_logs}}</span><br/><br/>
-        <center><table>
-                <tr><td>{logpictures}
-                    </td></tr></table></center>
-    </div>
-    {logs_images_end}
-</div>
-<div id="viewlogs-end">[<a class="links" href="viewcache.php?cacheid={cacheid}">{{back_to_the_geocache_listing}}</a>]</div>
+
+<?php if (count($view->cachepictures) > 0) { ?>
+  <div class="content2-container">
+    <p class="content-title-noshade-size1">{{images_cache}}</p>
+    <?php foreach ($view->cachepictures as $picture) { 
+        if (!($picture->spoiler && $view->hidespoilers)) {?>
+        <div class="viewcache-pictureblock">
+          <div class="img-shadow">
+            <a href="<?=$picture->url ?>" data-lightbox="picture-cache" data-title="<?=$picture->title ?>">
+              <img src="<?=$picture->thumbUrl ?>" alt="<?=$picture->title ?>">
+            </a>
+          </div>
+          <span class="title"><?=$picture->title ?></span>
+        </div>
+    <?php } // if !$view->hidespoilers
+    } // foreach ?>
+  </div>
+<?php } // if count() ?>
+
+<?php if (count($view->logpictures) > 0) { ?>
+  <div class="content2-container">
+    <p class="content-title-noshade-size1">{{images_logs}}</p>
+    <?php foreach ($view->logpictures as $picture) { 
+        if (!($picture['spoiler'] == '1' && $view->hidespoilers)) {?>
+        <div class="viewcache-pictureblock">
+          <div class="img-shadow">
+            <a href="<?=$picture['url'] ?>" data-lightbox="picture-logs" data-title="<?=$picture['title'] ?>">
+              <img src="<?=$picture['thumbUrl'] ?>" alt="<?=$picture['title'] ?>">
+            </a>
+          </div>
+          <span class="title"><a href="/viewlogs.php?logid=<?=$picture['object_id'] ?>"><?=$picture['title'] ?></a></span>
+        </div>
+    <?php } // if !$view->hidespoilers
+    } // foreach ?>
+  </div>
+<?php } // if count() ?>
