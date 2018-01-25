@@ -10,25 +10,14 @@ global $hide_coords;
 $view = tpl_getView();
 $app = ApplicationContainer::Instance();
 
-// Check param
-if (! isset($_REQUEST['cacheid'])) {
-    $view->redirect('/');
-    exit();
-}
-
-// Check if cache exist and initialize $cache object
-try {
-    $cache = new GeoCache([
-        'cacheId' => (integer) $_REQUEST['cacheid']
-    ]);
-} catch (\Exception $e) {
+if (($cache = GeoCache::fromCacheIdFactory($_REQUEST['cacheid'])) === null) {
     $view->redirect('/');
     exit();
 }
 
 // Chceck if gallery should be visible
 if (($cache->getStatus() == GeoCache::STATUS_WAITAPPROVERS
-        || $cache->getStatus() == GeoCache::STATUS_NOTYETAVAILABLE 
+        || $cache->getStatus() == GeoCache::STATUS_NOTYETAVAILABLE
         || $cache->getStatus() == GeoCache::STATUS_BLOCKED)
     && ($app->getLoggedUser() === null
         || ($app->getLoggedUser()->getUserId() != $cache->getOwnerId()
