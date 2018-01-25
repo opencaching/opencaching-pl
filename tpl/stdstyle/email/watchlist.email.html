@@ -1,0 +1,45 @@
+<p  style="font-size: 12px; font-family: Verdana; padding-bottom: 2.2em;">
+    {{watchlist_intro}}
+</p>
+
+<div style="display: {cachesOwnedDisplay}">
+    <p  style="font-size: 12px; font-family: Verdana;">
+        {{watchlist_intro_owned}}:
+    </p>
+    <table style="border-collapse: collapse;">
+        <tr>
+            <td valign="top" style="border-left: 1px solid gray; border-top: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; font-weight: bold;" align="center"> {{watchlist_datetime}} </td>
+            <td valign="top" style="border-top: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; font-weight: bold;" align="center"> {{watchlist_logger}} </td>
+            <td valign="top" style="border-top: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; font-weight: bold;" align="center"> {{watchlist_made}} </td>
+            <td valign="top" style="border-top: 1px solid gray; border-right: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; font-weight: bold;" align="center"> {{watchlist_cache}} </td>
+        </tr>
+        <tr>
+            <td colspan="4" valign="top" style="border-right: 1px solid gray; border-left: 1px solid gray; border-bottom: 3px solid #1E90FF;border-top: 1px solid #CCC;padding-right: 4px; padding-left: 4px; font-size: 10px; font-family: Verdana; font-weight: bold;" align="center"> {{watchlist_logtext}} </td>
+        </tr>
+        {ownerlogs}
+    </table>
+    <hr />
+</div>
+
+<div style="display: {cachesWatchedDisplay}">
+    <p  style="font-size: 12px; font-family: Verdana;">
+        {{watchlist_intro_watched}}:
+    </p>
+    <table style="border-collapse: collapse;">
+        <tr>
+            <td valign="top" style="border-left: 1px solid gray; border-top: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; font-weight: bold;" align="center"> {{watchlist_datetime}} </td>
+            <td valign="top" style="border-top: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; font-weight: bold;" align="center"> {{watchlist_logger}} </td>
+            <td valign="top" style="border-top: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; font-weight: bold;" align="center"> {{watchlist_made}} </td>
+            <td valign="top" style="border-top: 1px solid gray; border-right: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; font-weight: bold;" align="center"> {{watchlist_cache}} </td>
+        </tr>
+        <tr>
+            <td colspan="4" valign="top" style="border-right: 1px solid gray; border-left: 1px solid gray; border-bottom: 3px solid #1E90FF;border-top: 1px solid #CCC;padding-right: 4px; padding-left: 4px; font-size: 10px; font-family: Verdana; font-weight: bold;" align="center"> {{watchlist_logtext}} </td>
+        </tr>
+        {watchlogs}
+    </table>
+    <hr />
+</div>
+
+<p style="font-size: 12px; font-family: Verdana;">
+    {{watchlist_canbefound}} <a href="{absolute_server_URI}mywatches.php">{{watchlist_clickhere}}</a>
+</p>
