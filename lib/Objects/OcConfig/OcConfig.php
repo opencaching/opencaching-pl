@@ -59,6 +59,11 @@ final class OcConfig extends ConfigReader
     private $dbHost;
     private $dbName;
 
+    /** @var array the \Utils\Lock objects configuration array */
+    private $lockConfig;
+    /** @var array the watchlist configuration array */
+    private $watchlistConfig;
+
     /**
      * Call this method to get singleton
      * @return ocConfig
@@ -126,6 +131,12 @@ final class OcConfig extends ConfigReader
         $this->dbUser = $opt['db']['username'];
         $this->dbPass = $opt['db']['password'];
 
+        if (isset($config['lock']) && is_array($config['lock'])) {
+            $this->lockConfig = $config['lock'];
+        }
+        if (isset($config['watchlist']) && is_array($config['watchlist'])) {
+            $this->watchlistConfig = $config['watchlist'];
+        }
     }
 
     public function getDateFormat()
@@ -293,5 +304,33 @@ final class OcConfig extends ConfigReader
 
     public static function getMailSubjectPrefixForReviewers() {
         return self::instance()->mailSubjectPrefixForReviewers;
+    }
+
+    /**
+     * Gives \Utils\Lock objects configuration, tries to initialize it if null
+     *
+     * @return array \Utils\Lock objects configuration
+     *               ({@see /Config/lock.default.php})
+     */
+    public function getLockConfig()
+    {
+        if ($this->lockConfig == null) {
+            $this->lockConfig = self::getConfig("lock", "lock");
+        }
+        return $this->lockConfig;
+    }
+
+    /**
+     * Gives watchlist configuration, tries to initialize it if null
+     *
+     * @return array watchlist configuration
+     *               ({@see /Config/watchlist.default.php})
+     */
+    public function getWatchlistConfig()
+    {
+        if ($this->watchlistConfig == null) {
+            $this->watchlistConfig = self::getConfig("watchlist", "watchlist");
+        }
+        return $this->watchlistConfig;
     }
 }
