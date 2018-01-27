@@ -3,7 +3,6 @@ use lib\Objects\Coordinates\Coordinates;
 ?>
 <link rel="stylesheet" href="tpl/stdstyle/css/lightTooltip.css">
 
-<script src="lib/enlargeit/enlargeit.js"></script>
 <script>
     var confirmRmLogTranslation = '{{confirm_remove_log}}';
 </script>
@@ -427,9 +426,9 @@ use lib\Objects\Coordinates\Coordinates;
 
             <?php if ($view->isUserAuthorized || $view->alwaysShowCoords) { ?>
               <div class="img-shadow">
-                <img src="<?=$view->mapImgLink?>"
-                     longdesc="ifr::cachemap-mini.php?cacheId=<?=$view->geoCache->getCacheId()?>::480::345"
-                     onclick="enlarge(this);" alt="<?=tr('map')?>" title="<?=tr('map')?>">
+                <a data-fancybox data-type="iframe" data-src="cachemap-mini.php?cacheId=<?=$view->geoCache->getCacheId()?>" href="javascript:;">
+                  <img src="<?=$view->mapImgLink?>" alt="<?=tr('map')?>" title="<?=tr('map')?>">
+                 </a>
               </div>
             <?php } else { ?>
                 <?=$view->loginToSeeMapMsg?>
