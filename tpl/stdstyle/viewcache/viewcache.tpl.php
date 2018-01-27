@@ -867,8 +867,8 @@ use lib\Objects\Coordinates\Coordinates;
 
                 <div class="viewcache-pictureblock">
                     <div class="img-shadow">
-                        <a href="<?=$pic->url?>" data-lightbox="cache-pics" data-title="<?=$pic->title?>">
-                            <img src="<?=$pic->thumbUrl?>" alt="<?=$pic->title?>" />
+                        <a href="<?=$pic->url?>" data-fancybox="cache-pics" data-caption="<?=$pic->title?>">
+                            <img src="<?=$pic->thumbUrl?>" alt="<?=$pic->title?>">
                         </a>
                     </div>
                     <span class="title"><?=$pic->title?></span>

@@ -17,7 +17,7 @@ if ($error == false) {
     $tplname = 'viewlogs';
 
     $view = tpl_getView();
-    $view->loadLightBox();
+    $view->loadFancyBox();
 
     tpl_set_var('viewcache_js', Uri::getLinkWithModificationTime("tpl/stdstyle/viewcache/viewcache.js"));
     require($stylepath . '/lib/icons.inc.php');
