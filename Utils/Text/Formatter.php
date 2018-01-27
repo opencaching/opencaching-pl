@@ -3,11 +3,11 @@ namespace Utils\Text;
 
 use DateTime;
 use lib\Objects\OcConfig\OcConfig;
-
+use lib\Controllers\Php7Handler;
 /**
  * This class implements common formatters which format:
  * - date
- * - date-time (not implemented yet!)
+ * - date-time
  * - number
  *
  * according to
@@ -34,10 +34,12 @@ class Formatter
     /**
      * Format date according to config setting
      *
-     * @param $date - can be timestamp or DateTime obj
-     * @return string - formatted date
+     * @param mixed $date can be timestamp or DateTime obj
+     * @param boolean $useTime true if the result string should contain date and
+     *     time
+     * @return string formatted date or date and time
      */
-    public static function date($date)
+    public static function date($date = null, $useTime = false)
     {
         if( $date instanceof DateTime){
             $dateObj = $date;
@@ -54,34 +56,21 @@ class Formatter
             }
         }
 
-        return $dateObj->format(OcConfig::instance()->getDateFormat());
+        return $dateObj->format(
+            Php7Handler::Boolval($useTime) ?
+            OcConfig::instance()->getDatetimeFormat() :
+            OcConfig::instance()->getDateFormat()
+        );
     }
 
     /**
-     * Format date-time value according to config setting
+     * Formats date and time according to config setting
      *
-     * @param $date - can be timestamp or DateTime obj
-     * @return string - formatted date
+     * @param mixed $datetime can be timestamp or DateTime obj
+     * @return string formatted date and time
      */
-    public static function dateTime($date)
+    public static function dateTime($datetime = null)
     {
-        if( $date instanceof DateTime){
-            $dateObj = $date;
-        }else{
-            if(is_numeric($date)){
-                //this is timestamp
-                $date = "@$date"; // DateTime uses such format
-            }
-
-            try{
-                $dateObj = new DateTime($date);
-            }catch (\Exception $e){
-                return '-';
-            }
-        }
-
-        return $dateObj->format(OcConfig::instance()->getDatetimeFormat());
+        return self::date($datetime, true);
     }
-
-
 }
