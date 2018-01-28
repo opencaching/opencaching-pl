@@ -14,8 +14,8 @@ return function (){
 ?>
 
 <!-- jQuery chunk -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!-- <script src="https://code.jquery.com/jquery-migrate-1.4.1.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-migrate-3.0.1.min.js"></script> -->
 <!-- End of jQuery chunk -->
 
 <?php
