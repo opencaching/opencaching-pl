@@ -44,8 +44,8 @@ global $tpl_subtitle;
       if( $view->isTimepickerEnabled()){
           $view->callChunk('timepicker');
       }
-      if( $view->isLightBoxEnabled()){
-          $view->callChunk('lightBoxLoader', true, false);
+      if( $view->isFancyBoxEnabled()){
+          $view->callChunk('fancyBoxLoader', true, false);
       }
       if( $view->isGMapApiEnabled() ){
           if( !isset($GLOBALS['googlemap_key']) || empty($GLOBALS['googlemap_key']) ){
@@ -302,9 +302,9 @@ global $tpl_subtitle;
     </div>
   </div>
   <?php
-      // lightbox js should be loaded at th end of page
-      if( $view->isLightBoxEnabled()){
-          $view->callChunk('lightBoxLoader', false, true);
+      // fancyBox js should be loaded at th end of page
+      if( $view->isFancyBoxEnabled()){
+          $view->callChunk('fancyBoxLoader', false, true);
       }
   ?>
   <script>

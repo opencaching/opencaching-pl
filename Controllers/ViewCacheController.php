@@ -77,7 +77,7 @@ class ViewCacheController extends BaseController
             tpl_set_tplname('viewcache/viewcache');
             $this->view->loadJQuery();
             $this->view->loadJQueryUI();
-            $this->view->loadLightBox();
+            $this->view->loadFancyBox();
             if (isset($_REQUEST['infomsg'])) {
                 $this->infoMsg = $_REQUEST['infomsg'];
             }

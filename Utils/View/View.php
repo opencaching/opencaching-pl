@@ -21,7 +21,7 @@ class View {
     private $_loadJQueryUI = false;
     private $_loadTimepicker = false;
     private $_loadGMapApi = false;
-    private $_loadLightBox = false;
+    private $_loadFancyBox = false;
 
     private $_localCss = [];    // page-local css styles loaded from controller
     private $_localJs = [];     // page-local JS scripts loaded from controller
@@ -133,9 +133,9 @@ class View {
         $this->_loadJQuery = true;
     }
 
-    public function loadLightBox(){
-        $this->_loadLightBox = true;
-        $this->_loadJQuery = true; // lightBox needs jQuery!
+    public function loadFancyBox(){
+        $this->_loadFancyBox = true;
+        $this->_loadJQuery = true; // fancyBox needs jQuery!
     }
 
     public function loadGMapApi($callback = null){
@@ -163,9 +163,12 @@ class View {
         return $this->_loadTimepicker;
     }
 
-    public function isLightBoxEnabled()
+    /**
+     * @return boolean
+     */
+    public function isFancyBoxEnabled()
     {
-        return $this->_loadLightBox;
+        return $this->_loadFancyBox;
     }
 
     public function isGMapApiEnabled()

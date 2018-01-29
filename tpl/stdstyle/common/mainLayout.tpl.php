@@ -34,8 +34,8 @@
         if( $view->isTimepickerEnabled()){
             $view->callChunk('timepicker');
         }
-        if( $view->isLightBoxEnabled()){
-            $view->callChunk('lightBoxLoader', true, false);
+        if( $view->isFancyBoxEnabled()){
+            $view->callChunk('fancyBoxLoader', true, false);
         }
         if( $view->isGMapApiEnabled() ){
             if( !isset($GLOBALS['googlemap_key']) || empty($GLOBALS['googlemap_key']) ){
@@ -353,9 +353,8 @@
         // JS scripts to loaded at the end
         $view->callChunk('jQuery');      // always load jQuery
         $view->callChunk('bootstrapJs'); // always load bootstrap
-
-        if( $view->isLightBoxEnabled()){
-            $view->callChunk('lightBoxLoader', false, true);
+        if( $view->isFancyBoxEnabled()){
+            $view->callChunk('fancyBoxLoader', false, true);
         }
     ?>
 </body>

@@ -33,21 +33,18 @@
             if( $view->isGoogleAnalyticsEnabled() ){
                 $view->callChunkOnce( 'googleAnalytics', $view->getGoogleAnalyticsKey() );
             }
-
             if( $view->isjQueryEnabled()){
                 $view->callChunk('jQuery');
             }
-
             if( $view->isjQueryUIEnabled()){
                 $view->callChunk('jQueryUI');
             }
             if( $view->isTimepickerEnabled()){
                 $view->callChunk('timepicker');
             }
-            if( $view->isLightBoxEnabled()){
-                $view->callChunk('lightBoxLoader', true, false);
+            if( $view->isFancyBoxEnabled()){
+                $view->callChunk('fancyBoxLoader', true, false);
             }
-
             if( $view->isGMapApiEnabled()){
                 $view->callChunk('googleMapsApi', $GLOBALS['googlemap_key'], $view->getLang());
             }
@@ -61,9 +58,9 @@
         {template}
 
         <?php
-        		// lightbox js should be loaded at th end of page
-            if( $view->isLightBoxEnabled()){
-                $view->callChunk('lightBoxLoader', false, true);
+            // fancybox js should be loaded at th end of page
+            if( $view->isFancyBoxEnabled()){
+                $view->callChunk('fancyBoxLoader', false, true);
             }
         ?>
     </body>

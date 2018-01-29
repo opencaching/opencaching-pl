@@ -15,7 +15,7 @@
         if (!($picture->spoiler && $view->hidespoilers)) {?>
         <div class="viewcache-pictureblock">
           <div class="img-shadow">
-            <a href="<?=$picture->url ?>" data-lightbox="picture-cache" data-title="<?=$picture->title ?>">
+            <a href="<?=$picture->url ?>" data-fancybox="picture-cache" data-caption="<?=$picture->title ?>">
               <img src="<?=$picture->thumbUrl ?>" alt="<?=$picture->title ?>">
             </a>
           </div>
@@ -33,7 +33,7 @@
         if (!($picture['spoiler'] == '1' && $view->hidespoilers)) {?>
         <div class="viewcache-pictureblock">
           <div class="img-shadow">
-            <a href="<?=$picture['url'] ?>" data-lightbox="picture-logs" data-title="<?=$picture['title'] ?>">
+            <a href="<?=$picture['url'] ?>" data-fancybox="picture-logs" data-caption="<?=$picture['title'] ?>">
               <img src="<?=$picture['thumbUrl'] ?>" alt="<?=$picture['title'] ?>">
             </a>
           </div>
