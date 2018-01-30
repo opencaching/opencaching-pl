@@ -415,7 +415,7 @@ use lib\Objects\Coordinates\Coordinates;
                 <div>
                     <img src="images/gk.png" class="icon16" alt="geokret" title="GeoKrety visited" />
                     <span class="no-whitespace">
-                        <a class="links no-whitespace" href="http://geokrety.org/szukaj.php?wpt=<?=$view->geoCache->getWaypointId()?>" target="_blank">{{history_gk}}</a>
+                        <a class="links no-whitespace" href="https://geokrety.org/szukaj.php?wpt=<?=$view->geoCache->getWaypointId()?>" target="_blank" rel="noopener">{{history_gk}}</a>
                         <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link" class="img12" >
                     </span>
                 </div>
@@ -441,7 +441,7 @@ use lib\Objects\Coordinates\Coordinates;
             <?php if ($view->isUserAuthorized || $view->alwaysShowCoords) { ?>
                 <b>{{available_maps}}:</b>
                 <?php foreach($view->externalMaps as $mapName => $url) { ?>
-                  <a target="_blank" href="<?=$url?>"><?=$mapName?></a>
+                  <a target="_blank" href="<?=$url?>" rel="noopener"><?=$mapName?></a>
                 <?php } //foreach ?>
             <?php } //else $view->isUserAuthorized || $view->alwaysShowCoords ?>
         </div>
@@ -907,13 +907,11 @@ use lib\Objects\Coordinates\Coordinates;
                 <div>
                     <img src="tpl/stdstyle/images/action/16x16-search.png" class="icon16" alt="" />
                         {{find_geocaches_on}}:
-
-                        <a target="_blank" href="//www.geocaching.com/seek/nearest.aspx?origin_lat={latitude}&amp;origin_long={longitude}&amp;dist=100&amp;submit8=Submit\">geocaching.com</a> |
-                        <a target="_blank" href="http://www.terracaching.com/gmap.cgi#center_lat={latitude}&amp;center_lon={longitude}&amp;center_zoom=7&cselect=all&ctselect=all">terracaching.com</a> |
-                        <a target="_blank" href="http://www.navicache.com/cgi-bin/db/distancedp.pl?latNS={latNS}&amp;latHours={latitude}&amp;longWE={lonEW}&amp;longHours={longitudeNC}&amp;Distance=100&amp;Units=M">navicache.com</a> |
-                        <a target="_blank" href="http://geocaching.gpsgames.org/cgi-bin/ge.pl?basic=yes&amp;download=Google+Maps&amp;zoom=8&amp;lat_1={latitude}&amp;lon_1={longitude}">gpsgames.org</a> |
-                        <a href="http://www.opencaching.cz/search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;country=&amp;cachetype=&amp;cache_attribs=&amp;cache_attribs_not=7&amp;latNS={latNS}&amp;lat_h={lat_h}&amp;lat_min={lat_min}&amp;lonEW={lonEW}&amp;lon_h={lon_h}&amp;lon_min={lon_min}&amp;distance=100&amp;unit=km">oc.cz</a> |
-                        <a href="http://www.opencaching.de/search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;country=&amp;cachetype=&amp;cache_attribs=&amp;cache_attribs_not=7&amp;latNS={latNS}&amp;lat_h={lat_h}&amp;lat_min={lat_min}&amp;lonEW={lonEW}&amp;lon_h={lon_h}&amp;lon_min={lon_min}&amp;distance=100&amp;unit=km">oc.de</a>
+                        <a target="_blank" href="//www.geocaching.com/seek/nearest.aspx?origin_lat={latitude}&amp;origin_long={longitude}&amp;dist=100&amp;submit8=Submit\" rel="noopener">geocaching.com</a> |
+                        <a target="_blank" href="http://www.navicache.com/cgi-bin/db/distancedp.pl?latNS={latNS}&amp;latHours={latitude}&amp;longWE={lonEW}&amp;longHours={longitudeNC}&amp;Distance=100&amp;Units=M" rel="noopener">navicache.com</a> |
+                        <a target="_blank" href="http://geocaching.gpsgames.org/cgi-bin/ge.pl?basic=yes&amp;download=Google+Maps&amp;zoom=8&amp;lat_1={latitude}&amp;lon_1={longitude}" rel="noopener">gpsgames.org</a> |
+                        <a href="http://www.opencaching.cz/search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;country=&amp;cachetype=&amp;cache_attribs=&amp;cache_attribs_not=7&amp;latNS={latNS}&amp;lat_h={lat_h}&amp;lat_min={lat_min}&amp;lonEW={lonEW}&amp;lon_h={lon_h}&amp;lon_min={lon_min}&amp;distance=100&amp;unit=km" rel="noopener">oc.cz</a> |
+                        <a href="http://www.opencaching.de/search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;country=&amp;cachetype=&amp;cache_attribs=&amp;cache_attribs_not=7&amp;latNS={latNS}&amp;lat_h={lat_h}&amp;lat_min={lat_min}&amp;lonEW={lonEW}&amp;lon_h={lon_h}&amp;lon_min={lon_min}&amp;distance=100&amp;unit=km" rel="noopener">oc.de</a>
                 </div>
             <?php } //if-searchAtOtherSites ?>
 
