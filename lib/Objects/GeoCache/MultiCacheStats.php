@@ -66,7 +66,7 @@ class MultiCacheStats extends BaseObject
                 LEFT JOIN user AS u USING (user_id)
             WHERE c.type = :1
                 AND c.status = :2
-                AND c.date_hidden >= NOW()
+                AND c.date_hidden >= DATE(NOW())
             ORDER BY
                 c.date_hidden ASC
             LIMIT $offset, $limit", GeoCache::TYPE_EVENT, GeoCache::STATUS_READY);
