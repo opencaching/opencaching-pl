@@ -1,13 +1,12 @@
 <?php
 use Utils\Database\XDb;
 
-    $rootpath = './';
-    require_once($rootpath . 'lib/common.inc.php');
+    require_once('./lib/common.inc.php');
 ?>
 
 <div class="content2-container">
 <p class="content-title-noshade-size3">{{Stats_t4_01}}</p>
-<table class="table full-width">
+<table class="table full-width table-striped">
   <thead>
     <tr>
       <th class="align-center">{{Position}}</th>
@@ -22,7 +21,7 @@ $results = XDb::xSql(
     "SELECT `caches`.`founds` AS `count`, `caches`.`name`, `caches`.`cache_id`, `user`.`username`, `user`.`user_id`
     FROM `caches`
         INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id`
-    WHERE `caches`.`type` NOT IN (4, 5, 6) ORDER BY `count` DESC, `caches`.`name` ASC");
+    WHERE `caches`.`type` NOT IN (4, 5, 6) AND `caches`.`status` = 1 AND `caches`.`founds` > 0 ORDER BY `count` DESC, `caches`.`name` ASC");
 
 $position = 0;
 $prevCount = 0;
@@ -32,8 +31,6 @@ while ($result = XDb::xFetchArray($results)) {
         $prevCount = $result['count'];
         if ($position == 1) {
             echo '<tr>';
-        } elseif ($position % 2 == 0) {
-            echo '</td></tr><tr class="element-even">';
         } else {
             echo '</td></tr><tr>';
         }
