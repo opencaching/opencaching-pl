@@ -6,13 +6,7 @@ use Utils\Database\XDb;
 ?>
 
 <div class="content2-container">
-  <div class="content2-pagetitle">
-    <img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="">
-    {{statistics}}
-  </div>
-<div class="buffer"></div>
 <p class="content-title-noshade-size3">{{Stats_t4_01}}</p>
-<div class="buffer"></div>
 <table class="table full-width">
   <thead>
     <tr>
@@ -25,7 +19,7 @@ use Utils\Database\XDb;
 
 <?php
 $results = XDb::xSql(
-    "SELECT `caches`.`founds` AS `count`, `caches`.`name`, `caches`.`cache_id`, `user`.`username`
+    "SELECT `caches`.`founds` AS `count`, `caches`.`name`, `caches`.`cache_id`, `user`.`username`, `user`.`user_id`
     FROM `caches`
         INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id`
     WHERE `caches`.`type` NOT IN (4, 5, 6) ORDER BY `count` DESC, `caches`.`name` ASC");
@@ -47,7 +41,7 @@ while ($result = XDb::xFetchArray($results)) {
     } else {
         echo " | ";
     }
-    echo "<a href=\"/viewcache.php?cacheid=" . $result['cache_id'] . "\" class=\"links\">" . $result['name'] . "</a> (" . $result['name'] . ")";
+    echo '<a href="/viewcache.php?cacheid=' . $result['cache_id'] . '" class="links">' . $result['name'] . '</a> (<a href="/viewprofile.php?userid='. $result['user_id'] .'" class="links">' . $result['username'] . '</a>)';
 }
 ?>
       </td>
