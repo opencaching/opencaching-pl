@@ -23,10 +23,6 @@ class Watchlist extends BaseObject
     private $insertOwnerWaitingsStmt;
     /** @var \PDOStatement statement for inserting watcher to watches_waitings */
     private $insertWatchersWaitingsStmt;
-    /** @var \PDOStatement statement for inserting owner to watches_notified */
-    private $insertOwnerNotifyStmt;
-    /** @var \PDOStatement statement for inserting watcher to watches_notified */
-    private $insertWatchersNotifyStmt;
     /**
      * @var \PDOStatement statement for updating owner_notified status
      *      in cache_logs
@@ -97,7 +93,6 @@ class Watchlist extends BaseObject
     ) {
         if (!empty($itemText)) {
             $this->updateWatchesWaiting($log, $itemText);
-            $this->updateWatchesNotified($log);
             if ($this->updateCacheLogsStmt == null) {
                 $this->updateCacheLogsStmt = $this->db->prepare(
                     "UPDATE cache_logs SET owner_notified=1 WHERE id=?"
@@ -157,39 +152,6 @@ class Watchlist extends BaseObject
             $itemText,
             $log->getLogId()
         ]);
-    }
-
-    /**
-     * Saves notifications about processing the cache log for its owner and
-     * the cache watching users
-     *
-     * @param WatchlistGeoCacheLog $log the log to process
-     */
-    private function updateWatchesNotified(WatchlistGeoCacheLog $log)
-    {
-        if ($this->insertOwnerNotifyStmt == null) {
-            $this->insertOwnerNotifyStmt = $this->db->prepare(
-                "INSERT IGNORE INTO watches_notified (
-                     user_id, object_id, object_type, date_processed)
-                 VALUES(?, ?, 1, NOW())"
-            );
-        }
-        $this->insertOwnerNotifyStmt->execute([
-            $log->getCacheOwnerId(),
-            $log->getLogId()
-        ]);
-        if ($this->insertWatchersNotifyStmt == null) {
-            $this->insertWatchersNotifyStmt = $this->db->prepare(
-                "INSERT IGNORE INTO watches_notified (
-                     user_id, object_id, object_type, date_processed)
-                 SELECT cw.user_id, cl.id, 1, NOW()
-                 FROM cache_watches cw, cache_logs cl, watches_waiting ww
-                 WHERE cl.cache_id=cw.cache_id AND cl.id=ww.object_id
-                    AND ww.user_id=cw.user_id AND ww.watchtype="
-                    . self::WATCHTYPE_WATCH . " AND cl.id=?"
-            );
-        }
-        $this->insertWatchersNotifyStmt->execute([$log->getLogId()]);
     }
 
     /**
