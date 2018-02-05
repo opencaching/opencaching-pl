@@ -59,8 +59,8 @@
         <div class="content-title-noshade-size3"
            title="<?=tr('startPage_validAt')?>: <?=$view->newestCachesValidAt?>">
            <?=tr('startPage_latestCachesList')?>
+           <?php $view->callChunk('staticMap/staticMapMarker', $view->newestCachesLegendMarker); ?>
         </div>
-        <?php $view->callChunk('staticMap/staticMapMarker', $view->newestCachesLegendMarker); ?>
       </div>
 
       <ul class="latestCachesList">
@@ -194,8 +194,8 @@
           <div class="content-title-noshade-size3"
              title="<?=tr('startPage_validAt')?>: <?=$view->titledCacheValidAt?>">
             <?=tr('startPage_latestTitledCaches')?>
+            <?php $view->callChunk('staticMap/staticMapMarker', $view->newestTitledLegendMarker); ?>
           </div>
-          <?php $view->callChunk('staticMap/staticMapMarker', $view->newestTitledLegendMarker); ?>
       </div>
       <ul class="latestCachesList">
         <li>
