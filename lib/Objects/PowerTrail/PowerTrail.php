@@ -374,9 +374,11 @@ class PowerTrail extends BaseObject
     public function isUserOwner($userId)
     {
         $owners = $this->getOwners();
-        foreach ($owners as $owner) {
-            if ($userId == $owner->getUserId()) {
-                return true;
+        if(is_array($owners)){
+            foreach ($owners as $owner) {
+                if ($userId == $owner->getUserId()) {
+                    return true;
+                }
             }
         }
         return false;
