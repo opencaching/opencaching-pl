@@ -9,7 +9,18 @@ class CacheTitled extends BaseObject
 
     private $cacheId;
     private $logId;
-    private $dateAlg;
+    /**
+     * @var \DateTime
+     */
+    private $dateTitled;
+
+    public function __construct(array $params = [])
+    {
+        parent::__construct();
+        if (isset($params['cacheId'])) { // load from DB if cachId param is set
+            $this->loadByCacheId($params['cacheId']);
+        }
+    }
 
     public function getCacheId()
     {
@@ -21,9 +32,25 @@ class CacheTitled extends BaseObject
         return $this->logId;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getTitledDate()
     {
-        return $this->dateAlg;
+        return $this->dateTitled;
+    }
+
+    /**
+     * Factory
+     * @param int $cacheId
+     * @return CacheTitled|null (null if no such CacheTitled entry in DB)
+     */
+    public static function fromCacheIdFactory($cacheId){
+        try {
+            return new self( array('cacheId' => $cacheId) );
+        } catch (\Exception $e){
+            return null;
+        }
     }
 
     private function loadFromRow(array $cacheTitledDbRow)
@@ -32,7 +59,7 @@ class CacheTitled extends BaseObject
 
         $this->cacheId = $cacheTitledDbRow['cache_id'];
         $this->logId = $cacheTitledDbRow['log_id'];
-        $this->dateAlg = $cacheTitledDbRow['date_alg'];
+        $this->dateTitled = new \DateTime($cacheTitledDbRow['date_alg']);
 
         return $this;
     }
@@ -64,6 +91,17 @@ class CacheTitled extends BaseObject
         }else{
             // strange - titledCaches table is empty ?!
             return null;
+        }
+    }
+
+    private function loadByCacheId($cacheId)
+    {
+        $s = $this->db->multiVariableQuery("SELECT * FROM `cache_titled` WHERE cache_id = :1 LIMIT 1", $cacheId);
+        $cacheTitledDbRow = $this->db->dbResultFetch($s);
+        if (is_array($cacheTitledDbRow)) {
+            $this->loadFromRow($cacheTitledDbRow);
+        } else {
+            throw new \Exception("CacheTitled row not found");
         }
     }
 
