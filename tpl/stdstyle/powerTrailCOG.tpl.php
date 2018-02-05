@@ -2,7 +2,7 @@
 $view->callChunk('tinyMCE', false);
 ?>
 
-<script type="text/javascript">
+<script>
     function chgStatus() {
         var newComment = tinyMCE.activeEditor.getContent();
         $('#ptStatSelectSpan').hide();

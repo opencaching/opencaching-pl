@@ -4,7 +4,7 @@ use Utils\Database\XDb;
 
 $view->callChunk('tinyMCE', false);
 ?>
-<script type="text/javascript">
+<script>
 
     function subs_days(days_number) {
         //alert('ok');

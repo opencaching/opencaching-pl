@@ -44,6 +44,6 @@ $view->callChunk('tinyMCE');
         <input type="submit" name="submitform" value="{{submit}}" class="btn btn-primary"/>
     </div>
 </form>
-<script type="text/javascript">
+<script>
   document.getElementById('scriptwarning').style.display = 'none';
 </script>

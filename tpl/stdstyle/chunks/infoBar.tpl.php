@@ -13,7 +13,7 @@ return function ($reloadUrl=null, $infoMsg=null, $errorMsg=null) {
 // begining of chunk
 ?>
 
-    <script type='text/javascript'>
+    <script>
         // load infoBar chunk css
         var linkElement = document.createElement("link");
         linkElement.rel = "stylesheet";
@@ -22,7 +22,7 @@ return function ($reloadUrl=null, $infoMsg=null, $errorMsg=null) {
         document.head.appendChild(linkElement);
     </script>
 
-    <script type='text/javascript'>
+    <script>
         function infoBarReload(){
           window.location = "<?=$reloadUrl?>";
         }

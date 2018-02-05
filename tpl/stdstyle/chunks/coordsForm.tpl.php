@@ -43,7 +43,7 @@ return function (Coordinates $initCoords = null, $inputPrefix='') {
 
 ?>
 <script src="lib/js/jquery.mask.min.js"></script>
-<script type="text/javascript">
+<script>
 
   function <?=$prefix?>updateCoords(){
     // recalculate current values

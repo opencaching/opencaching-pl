@@ -1,4 +1,4 @@
-<script type='text/javascript'>
+<script>
 gct.addEmptyRow();
 gct.addToLastRow( 0, "{CacheID}" );
 gct.addToLastRow( 1, "<img span='{cachetype}' src='tpl/stdstyle/images/{icon_large}' alt='{cachetype}' title='{cachetype}' height='16' width='16' />" );

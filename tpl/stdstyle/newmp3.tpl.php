@@ -1,7 +1,5 @@
-<?php
 
-?>
-<script type="text/javascript">
+<script>
     function checkForm()
     {
         if (document.newmp3_form.title.value == "")

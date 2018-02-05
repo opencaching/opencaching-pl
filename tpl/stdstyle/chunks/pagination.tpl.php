@@ -28,7 +28,7 @@ return function (PaginationModel $pagination){
 
 ?>
 
-<script type='text/javascript'>
+<script>
     // load pagination chunk css
     var linkElement = document.createElement("link");
     linkElement.rel = "stylesheet";

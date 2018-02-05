@@ -15,7 +15,7 @@ return function (StaticMapModel $m){
         '/tpl/stdstyle/chunks/staticMap/staticMap.css');
     ?>
 
-<script type='text/javascript'>
+<script>
     // load pagination chunk css
     var linkElement = document.createElement("link");
     linkElement.rel = "stylesheet";
@@ -34,7 +34,7 @@ return function (StaticMapModel $m){
         View::callChunkInline('staticMap/staticMapMarker', $mx);
     } //foreach mapMarkers ?>
 
-    <script type="text/javascript">
+    <script>
       function highliteStaticMapMarker(id) {
         $('#'+id).toggleClass('hovered');
       }

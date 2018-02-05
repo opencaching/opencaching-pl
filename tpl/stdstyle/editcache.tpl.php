@@ -1,7 +1,5 @@
-<?php
 
-?>
-<script type="text/javascript">
+<script>
     $(function () {
         chkcountry2();
     });
@@ -460,6 +458,6 @@
         </tr>
     </table>
 </form>
-<script type="text/javascript">
+<script>
     _chkVirtual();
 </script>

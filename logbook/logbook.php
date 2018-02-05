@@ -9,13 +9,13 @@ echo '<?xml-stylesheet type="text/css" href="style.css"?'.">\n";
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl">
-    <script src="ajax.js" type="text/javascript" charset="utf-8"></script>
+    <script src="ajax.js" charset="utf-8"></script>
     <head>
         <title>Generator LogBook
         </title>
     </head>
     <body>
-        <script type="text/javascript">
+        <script>
             //<![CDATA[
 
             var cururl;

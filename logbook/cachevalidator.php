@@ -27,12 +27,12 @@ $_REQUEST = array_map('stripslashes_deep', $_REQUEST);
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl">
     <head>
         <title>Naprawiacz opisu</title>
-        <script src="ajax.js" type="text/javascript" charset="utf-8"></script>
+        <script src="ajax.js" charset="utf-8"></script>
     </head>
 
 
     <body>
-        <script type="text/javascript">
+        <script>
             //<![CDATA[
 
             var cururl;

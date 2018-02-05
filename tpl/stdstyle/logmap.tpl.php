@@ -1,7 +1,5 @@
-<?php
 
-?>
-<script type="text/javascript">
+<script>
 var map0 = null;
 var currentinfowindow = null;
 

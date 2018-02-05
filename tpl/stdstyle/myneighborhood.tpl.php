@@ -1,5 +1,5 @@
-<script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
-<script type="text/javascript">
+<script src="lib/js/wz_tooltip.js"></script>
+<script>
     var map_image_cache;
 
     window.onload = function () {

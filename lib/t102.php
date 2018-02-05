@@ -1,10 +1,8 @@
-<?php
-?>
 
 <div id='idGTC' align = "center"> </div>
-<script type='text/javascript'>GCTLoad( 'ChartTable', '" . $lang . "' );</script>
+<script>GCTLoad( 'ChartTable', '" . $lang . "' );</script>
 
-<script type='text/javascript'>
+<script>
     var gct = new GCT('idGTC');
 
     gct.addColumn('number', "<?php echo tr('Pos') ?>", 'text-align: left; ');
@@ -18,7 +16,7 @@
 </script>
 
 <?php
-echo "<script type='text/javascript'>";
+echo "<script>";
 echo "gct.addChartOption('pagingSymbols', { prev: '" . tr('Prev1') . "', next: '" . tr('Next1') . "' });";
 echo "</script>";
 
@@ -157,7 +155,7 @@ if ($sNameOfStat == "MaintenanceOfCaches") {
 
 $s = $dbc->multiVariableQuery($query);
 
-echo "<script type='text/javascript'>";
+echo "<script>";
 
 
 $nRanking = 0;

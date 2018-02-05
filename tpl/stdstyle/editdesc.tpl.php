@@ -46,6 +46,6 @@ $view->callChunk('tinyMCE');
     </div>
 </form>
 
-<script type="text/javascript">
+<script>
   document.getElementById('scriptwarning').style.display = 'none';
 </script>

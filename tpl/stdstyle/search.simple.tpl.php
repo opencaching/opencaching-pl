@@ -1,7 +1,5 @@
-<?php
 
-?>
-<script type="text/javascript">
+<script>
     var mnAttributesShowCat2 = 1;
     var maAttributes = new Array({attributes_jsarray});
     var firstBtnClicked = false;
@@ -669,7 +667,7 @@
             <option value="N" {latN_sel}>N</option>
             <option value="S" {latS_sel}>S</option>
           </select>
-          <input type="text" name="lat_h" maxlength="2" value="{lat_h}" class="form-control input30">&nbsp;°&nbsp; 
+          <input type="text" name="lat_h" maxlength="2" value="{lat_h}" class="form-control input30">&nbsp;°&nbsp;
           <input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="form-control input50">&nbsp;'
           <span class="notice"><a href="javascript:void(0)" onclick="showGeoCoder()">{{where_i_am}}</a></span>
         </td>
@@ -835,7 +833,7 @@
       </tr>
     </table>
   </form>
-</div> 
+</div>
 
 <div class="buffer"></div>
 
@@ -951,7 +949,7 @@
 
 <div class="buffer"></div>
 
-<script type="text/javascript">
+<script>
     document.getElementById("scriptwarning").firstChild.nodeValue = "";
     // erweiterte attribute ausblenden, falls kein erweitertes attribute selektiert
     var i = 0;

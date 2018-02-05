@@ -1,8 +1,6 @@
-<?php
 
-?>
-<script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
-<script type="text/javascript">
+<script src="lib/js/wz_tooltip.js"></script>
+<script>
 
     function check_logs() {
         if (document.myroute_form.cache_log[1].checked == true) {

@@ -1,7 +1,4 @@
-<?php
-
-?>
-<script type="text/javascript">
+<script>
     var map0 = null;
     var currentinfowindow = null;
     var icon1 = {url: "tpl/stdstyle/images/google_maps/guru.png"};

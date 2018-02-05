@@ -1,4 +1,4 @@
-  <script type="text/javascript">
+  <script>
     function gctUShowUsers( level ){
         gctU.removeAllRows();
         {contentUsr}
@@ -51,11 +51,11 @@
 </div>
 
 
-<script type='text/javascript'>
+<script>
 <?php echo "GCTLoad( 'ChartTable', '" . $lang . "' );"?>
 </script>
 
-<script type='text/javascript'>
+<script>
 var gct = new GCT('idGCTLevel');
 gct.addColumn('string', ''); //0
 gct.addColumn('string',  '', 'font-size: 12px; ' ); //1

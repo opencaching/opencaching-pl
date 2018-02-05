@@ -67,8 +67,8 @@ require_once('./lib/common.inc.php');
 $tplname = 'garmin';
 
 tpl_set_var('htmlheaders', '<link rel="stylesheet" href="tpl/stdstyle/css/garmin.css" type="text/css" media="screen" />
-<script type="text/javascript" src="tpl/stdstyle/js/garmin/prototype.js"></script>
-<script type="text/javascript" src="tpl/stdstyle/js/garmin/device/GarminDeviceDisplay.js"> </script>');
+<script src="tpl/stdstyle/js/garmin/prototype.js"></script>
+<script src="tpl/stdstyle/js/garmin/device/GarminDeviceDisplay.js"> </script>');
 
 tpl_set_var('bodyMod', ' onload="load()"');
 

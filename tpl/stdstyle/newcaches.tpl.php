@@ -1,5 +1,5 @@
 
-<script type='text/javascript' src="lib/js/wz_tooltip.js"></script>
+<script src="lib/js/wz_tooltip.js"></script>
 
 <div class="content2-container">
 

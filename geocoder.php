@@ -5,9 +5,9 @@
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
         <title>Where Am I?</title>
 
-        <script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=true"></script>
+        <script src="//maps.google.com/maps/api/js?sensor=true"></script>
 
-        <script type="text/javascript">
+        <script>
 
             var map = null;
             var geocoder = null;

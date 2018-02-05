@@ -2,8 +2,8 @@
 global $rootpath;
 ?>
 
-<script src="lib/js/gmap.<?= date("YmdHis", filemtime($rootpath . 'lib/js/gmap.js')) ?>.js" type="text/javascript"></script>
-<script type="text/javascript">
+<script src="lib/js/gmap.<?= date("YmdHis", filemtime($rootpath . 'lib/js/gmap.js')) ?>.js"></script>
+<script>
 //<![CDATA[
     function checkForm()
     {
