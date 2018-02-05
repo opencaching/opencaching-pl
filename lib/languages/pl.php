@@ -2752,6 +2752,7 @@ $translations = array(
     'admCs_cacheSet'  => 'Geościeżka',
     'admCs_currentRatio' => 'Aktywne skrzynki',
     'admCs_requiredRatio' => 'Wymagane do zaliczenia',
+    'admCs_emptyList' => 'WOW! Brak aktywnych, niezdobywalnych geościeżek odpowiednich do pokazania tutaj!',
 
     'startPage_wholeStatsTitle' => 'Garść aktualnych statystyk',
     'startPage_totalCaches' => 'Wszystkich skrzynek',

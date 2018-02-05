@@ -2748,6 +2748,7 @@ $translations = array(
     'admCs_cacheSet'  => 'GeoPaths***',
     'admCs_currentRatio' => 'Active caches ratio***',
     'admCs_requiredRatio' => 'Required caches ratio***',
+    'admCs_emptyList' => 'WOW! There is no active but degraded geopaths to list here!', /* EN */
 
     'startPage_wholeStatsTitle' => 'Stadiul jocului',
     'startPage_totalCaches' => 'Toate geocutiile',

@@ -2742,6 +2742,7 @@ $translations = array(
     'admCs_cacheSet'  => 'GeoPaths',
     'admCs_currentRatio' => 'Active caches ratio',
     'admCs_requiredRatio' => 'Required caches ratio',
+    'admCs_emptyList' => 'WOW! There is no active but degraded geopaths to list here!', /* EN */
 
     'startPage_wholeStatsTitle' => 'Current state of the game',
     'startPage_totalCaches' => 'All caches number',
