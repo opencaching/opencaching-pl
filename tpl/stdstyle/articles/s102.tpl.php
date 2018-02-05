@@ -1,10 +1,10 @@
 <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCT.css" />
 <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCTStats.css" />
-<script type='text/javascript' src='https://www.google.com/jsapi'></script>
-<script type='text/javascript' src="lib/js/GCT.js"></script>
-<script type="text/javascript" src="lib/js/GCT.lang.php"></script>
-<script type='text/javascript' src="lib/js/GCTStats.js"></script>
-<script type='text/javascript' src="lib/js/wz_tooltip.js"></script>
+<script src='https://www.google.com/jsapi'></script>
+<script src="lib/js/GCT.js"></script>
+<script src="lib/js/GCT.lang.php"></script>
+<script src="lib/js/GCTStats.js"></script>
+<script src="lib/js/wz_tooltip.js"></script>
 
 <script>
   $( function() {
@@ -151,7 +151,7 @@ else
 
 </div>
 
-<script type="text/javascript">
+<script>
     google.load('visualization', '1', {'packages': ['corechart'], 'language': '{language4js}'});
 </script>
 

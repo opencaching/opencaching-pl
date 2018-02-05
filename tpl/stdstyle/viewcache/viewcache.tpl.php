@@ -83,7 +83,7 @@ use lib\Objects\Coordinates\Coordinates;
 
                     <?php if (($view->geoCache->getFounds() + $view->geoCache->getNotFounds() + $view->geoCache->getNotesCount()) != 0) { ?>
 
-                      <script type="text/javascript">
+                      <script>
                         function cacheStatPopup(){
                           var url = "cache_stats.php?cacheid=<?=$view->geoCache->getCacheId()?>&popup=y";
                           window.open(url,'Cache_Statistics',"width=500,height=750,resizable=yes,scrollbars=1");
@@ -137,7 +137,7 @@ use lib\Objects\Coordinates\Coordinates;
                 <?php if($view->geoCache->isEvent()) { ?>
                     <div class="common-desc">
                         <img src="tpl/stdstyle/images/blue/meeting.png" width="22" height="22" alt="meeting" />
-                        <script type="text/javascript">
+                        <script>
                             function eventAttendancePopup(){
                               var url = "event_attendance.php?id=<?=$view->geoCache->getCacheId()?>&popup=y";
                               window.open(url,'<?=tr('list_of_participants')?>',"width=320,height=440,resizable=no,scrollbars=1");
@@ -592,7 +592,7 @@ use lib\Objects\Coordinates\Coordinates;
                             <?php if($wp->areCoordsHidden()) { ?>
                                 N ?? ??????<br/>E ?? ??????
                             <?php } else { // if-coords-visible?>
-                                <script type="text/javascript">
+                                <script>
                                     function wpCoordinatesPopup<?=$wp->getId()?>(){
                                       var url = "coordinates.php?lat=<?=$wp->getCoordinates()->getLatitude()?>&"+
                                                 "lon=<?=$wp->getCoordinates()->getLongitude()?>&popup=y&"+
@@ -677,7 +677,7 @@ use lib\Objects\Coordinates\Coordinates;
         <form id="form-coords-mod" action="viewcache.php?cacheid=<?=$view->geoCache->getCacheId()?>" method="post" name="form_coords_mod">
             <?php $view->callChunk('coordsForm', $view->userModifiedCacheCoords, 'userCoords'); ?>
 
-            <script type="text/javascript">
+            <script>
               // disable subit button if coords are not set
               $('#userCoordsFinalCoordsReady').change(function(){
                   if( $('#userCoordsFinalCoordsReady').val() ){
@@ -727,7 +727,7 @@ use lib\Objects\Coordinates\Coordinates;
         </form>
     </div>
 
-    <script type="text/javascript">
+    <script>
       <?php if(empty($view->userNoteText)) { ?>
         //empty note - enable userNoteEdit
         $('#cacheNoteForm .userNoteDisplay').hide();
@@ -1039,7 +1039,7 @@ use lib\Objects\Coordinates\Coordinates;
 
 <?php if($view->badgesPopUp) { ?>
 
-<script type='text/javascript'>
+<script>
         $( function() {
             $( '#dialog' ).dialog({
                 autoOpen: true,

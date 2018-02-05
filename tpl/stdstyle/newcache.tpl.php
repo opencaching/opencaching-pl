@@ -2,7 +2,7 @@
 $view->callChunk('tinyMCE');
 ?>
 
-<script type="text/javascript">
+<script>
 
             $(function() {
             $("#waypointsToChose").dialog({
@@ -362,7 +362,7 @@ $view->callChunk('tinyMCE');
 
 
 </script>
-<script type="text/javascript">
+<script>
     function nearbycache()
     {
     var latNS = document.forms['newcacheform'].latNS.value;
@@ -401,7 +401,7 @@ $view->callChunk('tinyMCE');
     }
 
 </script>
-<script type="text/javascript">
+<script>
     function nearbycachemapOC()
     {
     var lat_h = document.forms['newcacheform'].lat_h.value;

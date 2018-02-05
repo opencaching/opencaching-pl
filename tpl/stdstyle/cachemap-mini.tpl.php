@@ -28,8 +28,8 @@
 
 <input class="chbox" id="zoom" name="zoom" value="{zoom}" type="hidden" />
 
-<script src="{lib_cachemap3_js}" type="text/javascript"></script>
-<script type="text/javascript">
+<script src="{lib_cachemap3_js}"></script>
+<script>
 
 var map_params = { //params for cachemaps3.js
     cachemap_mapper: "{cachemap_mapper}",

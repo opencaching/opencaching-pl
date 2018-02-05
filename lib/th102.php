@@ -7,9 +7,9 @@ use Utils\Database\OcDb;
 
     <body>
         <div id="idGCL"></div>
-<script type='text/javascript'>GCTLoad( 'ChartLine', '', 1 );</script>
+<script>GCTLoad( 'ChartLine', '', 1 );</script>
 
-        <script type="text/javascript">
+        <script>
             var gcl = new GCT('idGCL');
             gcl.addColumn('date', 'Date');
         </script>
@@ -62,7 +62,7 @@ use Utils\Database\OcDb;
         if (count($asUserID) > 10)
             $sEND = tr2('more10', $lang);
 
-        echo "<script type='text/javascript'>";
+        echo "<script>";
         if ($sEND <> "") {
             echo "alert( '$sEND' );";
             $asUserID = explode(",", "");
@@ -106,7 +106,7 @@ use Utils\Database\OcDb;
 
 
 
-        echo "<script type='text/javascript'>";
+        echo "<script>";
 
         $i = 0;
         foreach ($asUserID as $sID) {
@@ -151,7 +151,7 @@ use Utils\Database\OcDb;
             $anCount[$sID] = 0;
         }
 
-        echo "<script type='text/javascript'>";
+        echo "<script>";
 
         while ($record = $dbc->dbResultFetch($s)) {
             $nYear = $record['year'];
@@ -182,7 +182,7 @@ use Utils\Database\OcDb;
         ?>
 
 
-        <script type="text/javascript">
+        <script>
             gcl.drawChart(1);
         </script>
     </body>

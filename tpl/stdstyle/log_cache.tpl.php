@@ -5,7 +5,7 @@ require_once('./lib/common.inc.php');
 
 $view->callChunk('tinyMCE', false);
 ?>
-<script type="text/javascript">
+<script>
     function subs_days(days_number) {
         //alert('ok');
         var d_day = document.getElementById('logday').value;
@@ -347,7 +347,7 @@ $founds = XDb::xMultiVariableQueryValue(
         <input type="hidden" name="submitform" value="{{submit}}">
     </div>
 </form>
-<script type="text/javascript">
+<script>
     handle_score_note();
     function highlight_score_labels() {
         var score_rates = document.getElementsByName('r');

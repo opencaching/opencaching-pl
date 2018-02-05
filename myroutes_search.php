@@ -46,7 +46,7 @@ if (isset($_POST['distance'])) {
 }
 
 
-tpl_set_var('cachemap_header', '<script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&amp;key=' . $googlemap_key . '&amp;language=' . $lang . '" type="text/javascript"></script>');
+tpl_set_var('cachemap_header', '<script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&amp;key=' . $googlemap_key . '&amp;language=' . $lang . '"></script>');
 
 $s = $database->paramQuery(
         'SELECT `user_id`,`name`, `description`, `radius`, `options` FROM `routes`

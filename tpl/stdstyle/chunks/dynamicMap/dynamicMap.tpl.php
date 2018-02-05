@@ -15,7 +15,7 @@ return function (AbstractDynamicMapBase $mapModel, $canvasId){
 
 ?>
 
-<script type='text/javascript'>
+<script>
     var linkElement = document.createElement("link");
     linkElement.rel = "stylesheet";
     linkElement.href = "<?=$chunkCSS?>";

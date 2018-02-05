@@ -11,7 +11,7 @@ use Utils\Database\XDb;
 <?php
 global $debug_page;
 if ($debug_page)
-    echo "<script type='text/javascript'>TimeTrack( 'DEBUG' );</script>";
+    echo "<script>TimeTrack( 'DEBUG' );</script>";
 ?>
 
 <table class="table" width="760" style="line-height: 1.6em; font-size: 10px;">

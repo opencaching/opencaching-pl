@@ -26,7 +26,7 @@ return function ($inputName, $accepted, $maxFileSize=0) {
             <input id="<?=$inputName?>_fileName" class="form-control" placeholder="<?= tr('newcache_no_file') ?>" disabled="disabled" />
         </div>
     </div>
-    <script type="text/javascript">
+    <script>
             console.log("helo");
         document.getElementById("<?=$inputName?>").onchange = function () {
             var str = this.value;

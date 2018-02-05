@@ -1,4 +1,4 @@
-<script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
+<script src="lib/js/wz_tooltip.js"></script>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/recommendation.png" class="icon32" alt="" title="Recommendation" align="middle"/>&nbsp;{{recommended_caches}}</div>
 <!-- Text container -->
 <p style="font-size: 12px; line-height: 1.6em;"><span class="content-title-noshade txt-blue08" >

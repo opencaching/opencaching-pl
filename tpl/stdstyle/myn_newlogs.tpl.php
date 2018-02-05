@@ -1,5 +1,5 @@
-<?php ?>
-<script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
+
+<script src="lib/js/wz_tooltip.js"></script>
 
 <div class="content2-pagetitle">
   <img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="">

@@ -3,7 +3,7 @@ $secret = "dupa231";
 ?>
 <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/logbook.css" />
 </style>
-<script type="text/javascript">
+<script>
 //AJAX
 
 var AJAX =
@@ -132,7 +132,7 @@ AIM = {
 
 }
 </script>
-<script type="text/javascript">
+<script>
 //<![CDATA[
 
     var cururl;

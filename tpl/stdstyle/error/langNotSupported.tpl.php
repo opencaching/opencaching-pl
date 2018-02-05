@@ -6,7 +6,7 @@
  */
 ?>
 
-<script type='text/javascript'>
+<script>
     // load page css
     var linkElement = document.createElement("link");
     linkElement.rel = "stylesheet";

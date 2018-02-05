@@ -1,6 +1,5 @@
-<?php ?>
 
-<script type="text/javascript">
+<script>
 function clearForms() {
     var i;
     for (i = 0; (i < document.forms.length); i++) {

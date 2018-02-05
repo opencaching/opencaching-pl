@@ -1,7 +1,5 @@
-<?php
 
-?>
-<script type="text/javascript">
+<script>
     var mnAttributesShowCat2 = 1;
     var maAttributes = new Array({attributes_jsarray});
 

@@ -18,7 +18,7 @@
     <?php } //foreach-css ?>
 
     <?php foreach( $view->getLocalJs() as $js ) { ?>
-      <script type="text/javascript" async="async" src="<?=$js?>"></script>
+      <script async="async" src="<?=$js?>"></script>
     <?php } //foreach-css ?>
 
     <?php
@@ -127,7 +127,7 @@
 
                 <div class="col py-2 pr-0 text-right">
 <!-- quick search -->
-                    <script type="text/javascript">
+                    <script>
                       // this is used by search widget below
                       function qSearch_setMode(newName,searchPage) {
                         $("#qSearchText").attr("name", newName);

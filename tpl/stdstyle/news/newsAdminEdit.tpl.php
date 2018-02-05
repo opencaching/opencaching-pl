@@ -2,7 +2,7 @@
 $view->callChunk('tinyMCE');
 ?>
 
-<script type="text/javascript">
+<script>
   $( function() {
     $.datepicker.setDefaults($.datepicker.regional["<?=$GLOBALS['lang']?>"]);
     $.datepicker.setDefaults({ dateFormat: '<?=$view->dateformat_jQuery?>' });

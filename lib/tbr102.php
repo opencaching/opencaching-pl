@@ -8,9 +8,9 @@ use Utils\Database\OcDb;
     <body>
         <div id="idGCB"></div>
 
-<script type='text/javascript'>GCTLoad( 'ChartBar', '', 1 );</script>
+<script>GCTLoad( 'ChartBar', '', 1 );</script>
 
-        <script type="text/javascript">
+        <script>
             var gcb = new GCT('idGCB');
             gcb.addColumn('string', 'UserName');
         </script>
@@ -85,7 +85,7 @@ use Utils\Database\OcDb;
             $sEND = tr2('more30', $lang);
 
         if ($sEND <> "") {
-            echo "<script type='text/javascript'>";
+            echo "<script>";
             echo "alert( '$sEND' );";
             //$asUserID = explode(",", "");
             echo "</script>";
@@ -94,7 +94,7 @@ use Utils\Database\OcDb;
 
 
         if ($sEND <> "") {
-            echo "<script type='text/javascript'>";
+            echo "<script>";
             echo "return;";
             echo "</script>";
         }
@@ -140,7 +140,7 @@ use Utils\Database\OcDb;
         $aNrColumn = array();
         $i = 0;
 
-        echo "<script type='text/javascript'>";
+        echo "<script>";
 
         while ($record = $dbc->dbResultFetch($s)) {
 
@@ -184,7 +184,7 @@ use Utils\Database\OcDb;
             $s = $dbc->multiVariableQuery($query);
 
 
-            echo "<script type='text/javascript'>";
+            echo "<script>";
 
             $nStart = 1;
             while ($record = $dbc->dbResultFetch($s)) {
@@ -216,7 +216,7 @@ use Utils\Database\OcDb;
         ?>
 
 
-        <script type="text/javascript">
+        <script>
             gcb.drawChart(1);
         </script>
     </body>

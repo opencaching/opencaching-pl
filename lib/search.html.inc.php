@@ -52,7 +52,7 @@ function fHideColumn($nr, $set)
         return $C;
 
     if ($C == 1) {
-        echo "<script type='text/javascript'>
+        echo "<script>
         gct.hideColumns([$nr]);
         </script>";
     } else {

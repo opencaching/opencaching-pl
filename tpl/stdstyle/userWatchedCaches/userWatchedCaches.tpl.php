@@ -35,7 +35,7 @@
         </div>
     <?php } //$view->cachesCount == 0 ?>
 
-    <script type="text/javascript">
+    <script>
 
       function removeFromWatched(icon, cacheWp){
 
