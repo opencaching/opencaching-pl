@@ -2,7 +2,6 @@
 
 namespace lib\Objects\GeoCache;
 
-use Utils\Database\OcDb;
 use lib\Objects\BaseObject;
 
 class CacheTitled extends BaseObject
