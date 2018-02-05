@@ -20,7 +20,7 @@
         <?php foreach($view->newsList as $news) { ?>
           <div class="newsItem">
             <div class="newsStatusLine">
-              <img src="/tpl/stdstyle/images/free_icons/newspaper.png" alt="" class="img16">
+              <img src="/tpl/stdstyle/images/free_icons/newspaper.png" alt="newsImage" class="img16">
               <?=$news->getDatePublication(true)?>
                  <span class="newsTitle">
                     <?=$news->getTitle()?>
@@ -151,7 +151,7 @@
                     onmouseover="highliteStaticMapMarker('<?='cs_'.$cs->getId()?>')"
                     onmouseout="highliteStaticMapMarker('<?='cs_'.$cs->getId()?>')">
                   <div class="csImgBox">
-                    <img src="<?=$cs->getImage()?>" />
+                    <img src="<?=$cs->getImage()?>" alt="Geopath image" />
                   </div>
                 </a>
                 <div class="csNameBox">
@@ -169,13 +169,11 @@
 
                   <br>
 
-                    (<?=$cs->getCreationDate(true)?>)
-                    <span class='content-title-noshade'>
-                      <?=$cs->getLocation()->getDescription(' > ')?>
-                    </span>
-                  </div>
-                </a>
-
+                  (<?=$cs->getCreationDate(true)?>)
+                  <span class='content-title-noshade'>
+                    <?=$cs->getLocation()->getDescription(' > ')?>
+                  </span>
+                </div>
             </li>
           <?php } //foreach-lastCacheSets ?>
             <li class="showMoreLink">
@@ -202,7 +200,7 @@
       <ul class="latestCachesList">
         <li>
           <div>
-            <img src="<?=$view->titledCacheData['cacheIcon']?>" class="img16" alt="Cache" title="Cache">
+            <img src="<?=$view->titledCacheData['cacheIcon']?>" class="img16" alt="CacheIcon">
             <a href="<?=$view->titledCacheData['cacheUrl']?>" class="links highlite"
                  onmouseover="highliteStaticMapMarker('<?=$view->titledCacheData['markerId']?>')"
                  onmouseout="highliteStaticMapMarker('<?=$view->titledCacheData['markerId']?>')">
