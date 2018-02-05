@@ -13,9 +13,9 @@
     <?php if($view->isUserLogged && !empty($view->newsList)){ ?>
     <!-- news -->
     <div id="newsDiv">
-        <p class="content-title-noshade-size3">
+        <div class="content-title-noshade-size3">
           <?=tr('news')?>
-        </p>
+        </div>
 
         <?php foreach($view->newsList as $news) { ?>
           <div class="newsItem">
@@ -56,10 +56,10 @@
     <!-- newest caches -->
     <div id="newCachesList">
       <div>
-        <p class="content-title-noshade-size3"
+        <div class="content-title-noshade-size3"
            title="<?=tr('startPage_validAt')?>: <?=$view->newestCachesValidAt?>">
            <?=tr('startPage_latestCachesList')?>
-        </p>
+        </div>
         <?php $view->callChunk('staticMap/staticMapMarker', $view->newestCachesLegendMarker); ?>
       </div>
 
@@ -97,11 +97,11 @@
 
     <!-- incomming events -->
     <div id="nearestEventsList">
-      <p class="content-title-noshade-size3"
+      <div class="content-title-noshade-size3"
          title="<?=tr('startPage_validAt')?>: <?=$view->newestCachesValidAt?>">
         <?=tr('incomming_events')?>
         <?php $view->callChunk('staticMap/staticMapMarker', $view->newestEventsLegendMarker); ?>
-      </p>
+      </div>
 
       <ul class="latestCachesList">
         <?php foreach($view->incomingEvents as $c){ ?>
@@ -138,12 +138,12 @@
     <!-- latest-cacheSets -->
     <?php if($view->displayLastCacheSets){ ?>
         <div id="newestCacheSets">
-          <p class="content-title-noshade-size3"
+          <div class="content-title-noshade-size3"
              title="<?=tr('startPage_validAt')?>: <?=$view->latestCacheSetsValidAt?>">
 
             <?=tr('startPage_latestCacheSets')?>
             <?php $view->callChunk('staticMap/staticMapMarker', $view->newestCsLegendMarker); ?>
-          </p>
+          </div>
           <ul class="latestCachesList">
           <?php foreach($view->lastCacheSets AS $cs){ ?>
             <li>
@@ -193,10 +193,10 @@
     <?php if($view->titledCacheData){ ?>
     <div id="cacheTitled">
       <div>
-          <p class="content-title-noshade-size3"
+          <div class="content-title-noshade-size3"
              title="<?=tr('startPage_validAt')?>: <?=$view->titledCacheValidAt?>">
             <?=tr('startPage_latestTitledCaches')?>
-          </p>
+          </div>
           <?php $view->callChunk('staticMap/staticMapMarker', $view->newestTitledLegendMarker); ?>
       </div>
       <ul class="latestCachesList">
