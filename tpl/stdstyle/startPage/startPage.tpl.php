@@ -20,7 +20,7 @@
         <?php foreach($view->newsList as $news) { ?>
           <div class="newsItem">
             <div class="newsStatusLine">
-              <img src="/tpl/stdstyle/images/free_icons/newspaper.png" alt="">
+              <img src="/tpl/stdstyle/images/free_icons/newspaper.png" alt="" class="img16">
               <?=$news->getDatePublication(true)?>
                  <span class="newsTitle">
                     <?=$news->getTitle()?>
@@ -71,7 +71,7 @@
                  onmouseover="highliteStaticMapMarker('<?=$c['markerId']?>')"
                  onmouseout="highliteStaticMapMarker('<?=$c['markerId']?>')">
 
-                <img src="<?=$c['icon']?>" class="icon16" alt="CacheIcon" title="">
+                <img src="<?=$c['icon']?>" class="img16" alt="CacheIcon" title="">
                 <?=$c['cacheName']?>
 
               </a>
@@ -111,7 +111,7 @@
                    onmouseover="highliteStaticMapMarker('<?=$c['markerId']?>')"
                    onmouseout="highliteStaticMapMarker('<?=$c['markerId']?>')">
 
-                  <img src="<?=$c['icon']?>" class="icon16" alt="CacheIcon" title="">
+                  <img src="<?=$c['icon']?>" class="img16" alt="CacheIcon" title="">
                   <?=$c['cacheName']?>
 
                 </a>
@@ -202,7 +202,7 @@
       <ul class="latestCachesList">
         <li>
           <div>
-            <img src="<?=$view->titledCacheData['cacheIcon']?>" class="icon16" alt="Cache" title="Cache">
+            <img src="<?=$view->titledCacheData['cacheIcon']?>" class="img16" alt="Cache" title="Cache">
             <a href="<?=$view->titledCacheData['cacheUrl']?>" class="links highlite"
                  onmouseover="highliteStaticMapMarker('<?=$view->titledCacheData['markerId']?>')"
                  onmouseout="highliteStaticMapMarker('<?=$view->titledCacheData['markerId']?>')">
