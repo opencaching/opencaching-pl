@@ -3,6 +3,7 @@ namespace Controllers;
 
 use lib\Objects\User\OAuthSimpleUser\FacebookOAuth;
 use lib\Objects\User\OAuthSimpleUser\GoogleOAuth;
+use Utils\Text\UserInputFilter;
 use Utils\Uri\Uri;
 
 class TestController extends BaseController
@@ -109,5 +110,40 @@ class TestController extends BaseController
         $this->view->buildView();
     }
 
+
+    /**
+     * This method allow testing of HTML strings cleaning used by OC code
+     */
+    public function userInputFilter()
+    {
+        $this->view->setTemplate('test/userInputFilterTest');
+
+        if(isset($_POST['html'])){
+            $html = htmlentities($_POST['html']);
+            $context = [];
+            $rawCleanedHtml = UserInputFilter::purifyHtmlString($_POST['html'], $context);
+            if(isset($context['errors'])){
+                $errors = $context['errors'];
+                $errorHTML = $errors->getHTMLFormatted(UserInputFilter::getConfig());
+            }else{
+                $errorHTML = '';
+            }
+            $cleanedHTML = htmlentities($rawCleanedHtml);
+
+        }else{
+            $html='';
+            $errorHTML='';
+            $rawCleanedHtml = '';
+            $cleanedHTML = '';
+        }
+
+        $this->view->setVar('html', $html);
+        $this->view->setVar('errorHTML', $errorHTML);
+        $this->view->setVar('rawCleanedHtml', $rawCleanedHtml);
+        $this->view->setVar('cleanedHTML', $cleanedHTML);
+
+        $this->view->buildView();
+
+    }
 }
 

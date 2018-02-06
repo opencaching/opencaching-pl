@@ -5,6 +5,7 @@ namespace lib\Objects\GeoCache;
 use Utils\Email\EmailSender;
 use Utils\Database\XDb;
 use Utils\Text\SmilesInText;
+use Utils\Text\UserInputFilter;
 use lib\Objects\User\User;
 
 
@@ -72,13 +73,7 @@ class GeoCacheDesc
 
             // unsafe HTML, needs purifying
             $desc = htmlspecialchars_decode($desc);
-
-            //TODO: anyone use it?
-            //if ( isset($_GET['use_purifier']) && $_GET['use_purifier'] == 0) {
-                // skip using HTML Purifier - to let show original content
-            //} else {
-                $desc = \userInputFilter::purifyHtmlString($desc);
-            //}
+            $desc = UserInputFilter::purifyHtmlString($desc);
 
         } else {
             // safe HTML - pass as is
