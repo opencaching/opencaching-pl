@@ -1,23 +1,23 @@
 [
     {
-        "name": "raveren/kint",
-        "version": "1.0.10",
-        "version_normalized": "1.0.10.0",
+        "name": "kint-php/kint",
+        "version": "1.1",
+        "version_normalized": "1.1.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/raveren/kint.git",
-            "reference": "c8423b9928bd35bf6ad14c688ab9c6d17d97d0eb"
+            "url": "https://github.com/kint-php/kint.git",
+            "reference": "a8549198558560b24e2879c6bac2875de5371483"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/raveren/kint/zipball/c8423b9928bd35bf6ad14c688ab9c6d17d97d0eb",
-            "reference": "c8423b9928bd35bf6ad14c688ab9c6d17d97d0eb",
+            "url": "https://api.github.com/repos/kint-php/kint/zipball/a8549198558560b24e2879c6bac2875de5371483",
+            "reference": "a8549198558560b24e2879c6bac2875de5371483",
             "shasum": ""
         },
         "require": {
             "php": ">=5.1.0"
         },
-        "time": "2015-09-16 14:09:00",
+        "time": "2017-01-15 14:23:43",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -37,15 +37,15 @@
         "authors": [
             {
                 "name": "Rokas Šleinius",
-                "homepage": "https://github.com/raveren"
+                "homepage": "https://github.com/kint-php"
             },
             {
                 "name": "Contributors",
-                "homepage": "https://github.com/raveren/kint/contributors"
+                "homepage": "https://github.com/kint-php/kint/contributors"
             }
         ],
         "description": "Kint - debugging helper for PHP developers",
-        "homepage": "https://github.com/raveren/kint",
+        "homepage": "https://github.com/kint-php/kint",
         "keywords": [
             "debug",
             "kint",
