@@ -36,6 +36,7 @@ final class OcConfig extends ConfigReader
     private $googleMapKey;
     private $mainPageMapCenterLat;
     private $mainPageMapCenterLon;
+    private $mainPageMapZoom;
     private $siteInService = false;
     private $pagetitle;
     private $defaultLanguage;
@@ -97,6 +98,7 @@ final class OcConfig extends ConfigReader
         $this->googleMapKey = $googlemap_key;
         $this->mainPageMapCenterLat = $main_page_map_center_lat;
         $this->mainPageMapCenterLon = $main_page_map_center_lon;
+        $this->mainPageMapZoom = $main_page_map_zoom;
         $this->siteInService = $site_in_service;
         $this->pagetitle = $pagetitle;
         $this->defaultLanguage = $lang;
@@ -172,6 +174,11 @@ final class OcConfig extends ConfigReader
     public function getMainPageMapCenterLon()
     {
         return $this->mainPageMapCenterLon;
+    }
+
+    public function getMainPageMapZoom()
+    {
+        return $this->mainPageMapZoom;
     }
 
     public static function getAbsolute_server_URI()

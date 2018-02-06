@@ -24,10 +24,6 @@ global $tpl_subtitle;
       <link rel="stylesheet" type="text/css" href="<?=$css?>">
   <?php } //foreach-css ?>
 
-  <?php foreach( $view->getLocalJs() as $js ) { ?>
-    <script async="async" src="<?=$js?>"></script>
-  <?php } //foreach-css ?>
-
   {htmlheaders}
   {cachemap_header}
 
@@ -58,6 +54,10 @@ global $tpl_subtitle;
       }
   ?>
 
+  <?php foreach( $view->getLocalJs() as $js ) { ?>
+    <script src="<?=$js?>"></script>
+  <?php } //foreach-js ?>
+
   <script src="/lib/js/CookiesInfo.js" async="async"></script>
 
 </head>
@@ -73,8 +73,8 @@ global $tpl_subtitle;
 
       <!-- Sitename -->
       <div class="site-name">
-        <p class="title"><a href="index.php"><?=$view->_logoTitle?></a></p>
-        <p class="subtitle"><a href="index.php"><?=$view->_logoSubtitle?></a></p>
+        <p class="title"><a href="/index.php"><?=$view->_logoTitle?></a></p>
+        <p class="subtitle"><a href="/index.php"><?=$view->_logoSubtitle?></a></p>
       </div>
 
       <!-- Flag navigations -->

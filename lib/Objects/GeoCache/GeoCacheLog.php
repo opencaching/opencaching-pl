@@ -159,6 +159,36 @@ class GeoCacheLog extends GeoCacheLogCommons
         return $this->lastDeleted;
     }
 
+    /**
+     * Return URL of the log object
+     * @return string
+     */
+    public function getLogUrl()
+    {
+        return '/viewlogs.php?logid=' . $this->id;
+    }
+
+    /**
+     * Returns true if $userid recommended cache related with log
+     * @param integer $userid
+     * @return boolean
+     */
+    public function isRecommendedByUser($userid)
+    {
+        $params = [];
+        $params['cacheid']['value'] = $this->geoCache->getCacheId();
+        $params['cacheid']['data_type'] = 'integer';
+        $params['userid']['value'] = $userid;
+        $params['userid']['data_type'] = 'integer';
+        $query = '
+            SELECT COUNT(*)
+            FROM `cache_rating`
+            WHERE `cache_id` = :cacheid
+              AND `user_id` = :userid
+        ';
+        return (bool) $this->db->paramQueryValue($query, 0, $params);
+    }
+
     public function setId($logId)
     {
         $this->id = $logId;
