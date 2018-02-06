@@ -41,3 +41,8 @@ ALTER TABLE cache_mod_cords_temp COMMENT = 'Custom coordinates of geocache set b
 
 DROP TABLE cache_mod_cords;
 RENAME TABLE cache_mod_cords_temp TO cache_mod_cords;
+
+-- cache_visits is no more used anywhere - cache_visits2 is used instead
+DROP TABLE cache_visits;
+ALTER TABLE cache_visits2 COMMENT = 'User visits at geocache webpage counter';
+
