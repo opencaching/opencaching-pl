@@ -2,16 +2,15 @@
 namespace Utils\Uri;
 
 /**
- *
  * Route schema:
- * <site>/index.php?r=/[ctrl-dir.]<controller>/<action>/<params>
+ * <site>/[ctrl-dir.]<controller>/<action>/<params>
  *
- * - <controller> should be WITHOUT word "Controller"
- * - <action> - must be the public method name of controller
- * - <params> - are optional
+ * - <controller> is a Controller class name (WITHOUT word "Controller")
+ * - <action> - must be the public method name of Controller
+ * - <params> - are optional values passed to action-method as params
  *
  * Example:
- * opencaching.pl/index.php?r=/Admin.Reports
+ * opencaching.pl/Admin.Reports
  */
 
 class SimpleRouter
@@ -47,24 +46,22 @@ class SimpleRouter
 
         $link = "/$ctrl";
 
-        if($action){
+        if(!is_null($action)){
             $link .= "/$action";
         }else{
-            if($params){
+            if(!is_null($params)){
                 // set default action only if $params are present
                 $link .= "/".self::DEFAULT_ACTION;
             }
         }
 
-        if($params){
+        if(!is_null($params)){
             if(is_array($params)){
                 $link .= '/'.implode(",",$params);
             }else{
                 $link .= '/'.$params;
             }
         }
-
-
 
         return $link;
     }
