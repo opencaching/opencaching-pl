@@ -2,6 +2,7 @@
 
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\PrintList;
+use Utils\View\View;
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
@@ -126,21 +127,13 @@ if (!$cache_id) {
         $caches_list = PrintList::GetContent();
     }
 
-
-    /* $caches_list = array();
-      $nr = 0;
-      for( $i=1000;$i<2000;$i+=200)
-      {
-
-      $caches_list[$nr] = $i;
-      $nr++;
-      }
-     */
-
-    if (!isset($include_caches))
+    if (!isset($include_caches)){
         $include_caches = '';
-    if (!isset($include_caches_list))
+    }
+    if (!isset($include_caches_list)){
         $include_caches_list = '';
+    }
+
     foreach ($caches_list as $id) {
         $include_caches .= "clientSideInclude('include" . $id . "', 'viewcache.php?cacheid=" . $id . "&print=y" . $pictures . $showlogs . $nocrypt . $spoiler_only . "');";
         $include_caches_list .= "<div id=\"include" . $id . "\" class=\"content-cache\"></div>";
@@ -192,7 +185,7 @@ if (!$cache_id) {
         <input type="hidden" id="logEntriesCount" value="{logEntriesCount}" />
         <input type="hidden" id="showlogs" value="<?=$showlogs ?>" />
 
-        <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
+        <?php View::callChunkInline('jQuery') ?>
         <script src="tpl/stdstyle/js/printcache.js"></script>
 
         <form action="printcache.php?cacheid=<?php print $cache_id; ?>" method="POST">
