@@ -1,12 +1,12 @@
 /**
- * This function displays div with given id as popup.
+swdf * This function displays div with given id as popup.
  * Element shows top-left corner of the popup.
  *
  * @param element
  * @param popupId
  * @returns
  */
-function showLightPopup(element,popupId){
+function showLightPopup(parentElement,popupId){
 
   var popup = $('#'+popupId);
   popupVisible = popup.hasClass('lightPopupVisible');
@@ -14,18 +14,10 @@ function showLightPopup(element,popupId){
   // hide all visible popups
   $('.lightPopupVisible').toggleClass('lightPopupVisible lightPopupHidden');
 
-  // find positions of el.
-  var parentPosition = $(element).offset();
-
-  if(!popupVisible){
+  if(!popupVisible){ // popup is not visible right now - so let's show it
+    // set same position as parent
     popup.toggleClass('lightPopupVisible lightPopupHidden');
+    popup.offset($(parentElement).offset());
   }
-
-  var popupLeft = (parentPosition.left + $(document).width()/2)/2
-  var popupTop = parentPosition.top;
-
-  // set same position
-  popup.css({top: popupTop, left: popupLeft});
-
 }
 
