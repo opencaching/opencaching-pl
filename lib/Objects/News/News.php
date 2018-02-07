@@ -1,6 +1,7 @@
 <?php
 namespace lib\Objects\News;
 
+use Utils\Text\UserInputFilter;
 use lib\Objects\BaseObject;
 use lib\Objects\User\User;
 use lib\Objects\OcConfig\OcConfig;
@@ -60,8 +61,8 @@ class News extends BaseObject
                 date_publication = :8, date_expiration = :9,
                 date_mainpageexp = :10
             WHERE id = :11',
-            \userInputFilter::purifyHtmlString($this->title),
-            \userInputFilter::purifyHtmlString($this->content),
+            UserInputFilter::purifyHtmlString($this->title),
+            UserInputFilter::purifyHtmlString($this->content),
             (is_null($this->author)) ? 0 : $this->author->getUserId(),
             (is_null($this->last_editor)) ? 0 : $this->last_editor->getUserId(),
             (int) $this->hide_author,
@@ -80,8 +81,8 @@ class News extends BaseObject
                 (title, content, user_id, edited_by, hide_author, show_onmainpage,
                 show_notlogged, date_publication, date_expiration, date_mainpageexp)
             VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10)',
-            \userInputFilter::purifyHtmlString($this->title),
-            \userInputFilter::purifyHtmlString($this->content),
+            UserInputFilter::purifyHtmlString($this->title),
+            UserInputFilter::purifyHtmlString($this->content),
             (is_null($this->author)) ? 0 : $this->author->getUserId(),
             (is_null($this->last_editor)) ? 0 : $this->last_editor->getUserId(),
             (int) $this->hide_author,

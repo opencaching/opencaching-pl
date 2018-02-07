@@ -7,6 +7,7 @@ use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\User\User;
 use Utils\Email\EmailSender;
 use Utils\Generators\Uuid;
+use Utils\Text\UserInputFilter;
 use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\GeoCache\CacheAdditions;
 
@@ -735,7 +736,7 @@ if ($error == false) {
 
                 $desc_uuid = Uuid::create();
                 //add record to cache_desc table
-                $desc = userInputFilter::purifyHtmlString($desc);
+                $desc = UserInputFilter::purifyHtmlString($desc);
 
                 $db->multiVariableQuery(
                     "INSERT INTO `cache_desc` (

@@ -3,6 +3,7 @@
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCache;
 use Utils\Generators\Uuid;
+use Utils\Text\UserInputFilter;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 
@@ -44,7 +45,7 @@ if ($error == false) {
                 $sel_lang = isset($_POST['desc_lang']) ? $_POST['desc_lang'] : $default_lang;
                 $desc = isset($_POST['desc']) ? $_POST['desc'] : '';
 
-                $desc = userInputFilter::purifyHtmlString($desc);
+                $desc = UserInputFilter::purifyHtmlString($desc);
                 $hints = htmlspecialchars($hints, ENT_COMPAT, 'UTF-8');
 
                 $desc_lang_exists = false;
