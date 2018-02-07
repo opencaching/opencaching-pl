@@ -1,6 +1,7 @@
 {
   "require": {
     "kint-php/kint": "^1.0",
-    "ezyang/htmlpurifier": "^4.9"
+    "ezyang/htmlpurifier": "^4.9",
+    "aferrandini/phpqrcode": "^1.0"
   }
 }
