@@ -88,6 +88,5 @@
     echo '</select>&nbsp;
         <button type="submit" name="Generuj" value="Generuj" style="font-size:14px;width:120px"><b>Generuj</b></button>';
 
-    // benchmark
-    //QRtools::timeBenchmark();
+
 

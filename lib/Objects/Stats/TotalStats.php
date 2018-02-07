@@ -5,7 +5,7 @@ namespace lib\Objects\Stats;
 
 use lib\Objects\BaseObject;
 use lib\Objects\Stats\TotalStats\BasicStats;
-use lib\Objects\User\MultiUserStats;
+use lib\Objects\User\MultiUserQueries;
 use Utils\Cache\OcMemCache;
 use Utils\Text\Formatter;
 use lib\Objects\CacheSet\CacheSet;
@@ -52,9 +52,9 @@ class TotalStats extends BaseObject
 
         $basicStats->activeCacheSets =Formatter::number(CacheSet::getActiveCacheSetsCount());
 
-        $basicStats->totalUsers = Formatter::number(MultiUserStats::getActiveUsersCount());
+        $basicStats->totalUsers = Formatter::number(MultiUserQueries::getActiveUsersCount());
 
-        $basicStats->newUsers = MultiUserStats::getUsersRegistratedCount($periodDays);
+        $basicStats->newUsers = MultiUserQueries::getUsersRegistratedCount($periodDays);
 
         $basicStats->totalSearches = Formatter::number(MultiLogStats::getTotalSearchesNumber());
 

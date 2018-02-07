@@ -8,6 +8,7 @@ ob_start();
 use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use lib\Objects\GeoCache\GeoCacheCommons;
+use lib\Objects\GeoCache\CacheNote;
 
 global $content, $bUseZip, $usr, $hide_coords, $dbcSearch, $queryFilter;
 require_once ('lib/common.inc.php');
@@ -367,7 +368,24 @@ if ($usr || ! $hide_coords) {
     echo $gpxHead;
 
 
-    $stmt = XDb::xSql('SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`, `gpxcontent`.`latitude` `latitude`, `gpxcontent`.cache_mod_cords_id, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`picturescount` `picturescount`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `caches`.`size` `size`, `caches`.`type` `type`, `caches`.`status` `status`, `user`.`username` `username`, `gpxcontent`.`user_id` `owner_id`,`cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`rr_comment`, `caches`.`logpw`, `caches`.`votes` `votes`, `caches`.`score` `score`, `caches`.`topratings` `topratings` FROM `gpxcontent`, `caches`, `user`, `cache_desc` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `gpxcontent`.`user_id`=`user`.`user_id`');
+    $stmt = XDb::xSql(
+        'SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`,
+        `gpxcontent`.`latitude` `latitude`, `gpxcontent`.cache_mod_cords_id,
+        `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`,
+        `caches`.`picturescount` `picturescount`, `caches`.`name` `name`,
+        `caches`.`country` `country`, `caches`.`terrain` `terrain`,
+        `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`,
+        `caches`.`size` `size`, `caches`.`type` `type`, `caches`.`status` `status`,
+        `user`.`username` `username`, `gpxcontent`.`user_id` `owner_id`,
+        `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`,
+        `cache_desc`.`hint` `hint`, `cache_desc`.`rr_comment`, `caches`.`logpw`,
+        `caches`.`votes` `votes`, `caches`.`score` `score`, `caches`.`topratings` `topratings`
+    FROM `gpxcontent`, `caches`, `user`, `cache_desc`
+    WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id`
+        AND `caches`.`cache_id`=`cache_desc`.`cache_id`
+        AND `caches`.`default_desclang`=`cache_desc`.`language`
+        AND `gpxcontent`.`user_id`=`user`.`user_id`');
+
     while ($r = XDb::xFetchArray($stmt)) {
         if (@$enable_cache_access_logs) {
 
@@ -428,11 +446,13 @@ if ($usr || ! $hide_coords) {
 
         // add personal cache info if user login to OC
         if ($usr == true) {
-            $notes_rs = XDb::xSql("SELECT  `cache_notes`.`desc` `desc` FROM `cache_notes`
-                    WHERE `cache_notes` .`user_id`= ? AND `cache_notes`.`cache_id`= ? ", $usr['userid'], $r['cacheid']);
 
-            if ($cn = XDb::xFetchArray($notes_rs)) {
-                $thisline = str_replace('{personal_cache_note}', cleanup_text("<br/><br/>-- " . tr('search_gpxgc_02') . ": --<br/> " . $cn['desc'] . "<br/>"), $thisline);
+            $cacheNote = CacheNote::getNote($usr['userid'], $r['cacheid']);
+
+            if (!empty($cacheNote)) {
+                $thisline = str_replace('{personal_cache_note}',
+                    cleanup_text("<br/><br/>-- " . tr('search_gpxgc_02') .
+                        ": --<br/> " . $cacheNote . "<br/>"), $thisline);
             } else {
                 $thisline = str_replace('{personal_cache_note}', "", $thisline);
             }

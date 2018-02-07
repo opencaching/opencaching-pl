@@ -9,6 +9,7 @@ use Utils\Database\XDb;
 use Utils\Database\OcDb;
 use Utils\Text\Rot13;
 use lib\Objects\GeoCache\GeoCacheCommons;
+use lib\Objects\GeoCache\CacheNote;
 
 global $content, $bUseZip, $hide_coords, $usr, $lang, $dbcSearch;
 
@@ -244,13 +245,13 @@ if( $usr || !$hide_coords ) {
         }
 
         if ($usr == true) {
-            $notes_rs = XDb::xSql(
-                "SELECT  `cache_notes`.`desc` `desc` FROM `cache_notes`
-                WHERE `cache_notes` .`user_id`= ? AND `cache_notes`.`cache_id`= ? ",
-                $usr['userid'], $r['cacheid']);
 
-            if ( $cn = XDb::xFetchArray($notes_rs) ) {
-                $thisline = str_replace('{personal_cache_note}', html2txt("<br/><br/>-- ".tr('search_text_16')." --<br/> ".$cn['desc']."<br/>"), $thisline);
+            $cacheNote = CacheNote::getNote($usr['userid'], $r['cacheid']);
+
+            if ( !empty($cacheNote) ) {
+                $thisline = str_replace('{personal_cache_note}',
+                    html2txt("<br/><br/>-- ".tr('search_text_16')." --<br/> ".
+                        $cacheNote . "<br/>"), $thisline);
             } else {
                 $thisline = str_replace('{personal_cache_note}', "", $thisline);
             }

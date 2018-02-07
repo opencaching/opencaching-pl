@@ -58,11 +58,11 @@ class UserWatchedCache extends BaseObject
                     ON (cw.cache_id = c.cache_id)
                 LEFT OUTER JOIN (
                     SELECT cache_id,
-                    id AS llog_id,
-                    text AS llog_text,
-                    type AS llog_type,
-                    user_id AS llog_user_id,
-                    date as llog_date
+                        id AS llog_id,
+                        text AS llog_text,
+                        type AS llog_type,
+                        user_id AS llog_user_id,
+                        date as llog_date
                     FROM cache_logs AS cl
                     JOIN
                         (SELECT MAX(date), MAX(id) AS id

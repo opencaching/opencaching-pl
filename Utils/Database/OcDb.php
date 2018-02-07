@@ -124,6 +124,27 @@ class OcDb extends OcPdo
     }
 
     /**
+     * Returns array with values of $keyCol column.
+     *
+     * @param PDOStatement $stmt
+     * @param string $keyCol - column name to use for result key
+     * @return array
+     */
+    public function dbFetchOneColumnArray(PDOStatement $stmt, $keyCol)
+    {
+        $result = [];
+        if(!is_null($stmt)){
+            while($row = $this->dbResultFetch($stmt, OcDb::FETCH_ASSOC)){
+                $result[] = $row[$keyCol];
+            }
+            return $result;
+        }
+
+        $this->error('', new PDOException(__METHOD__.': call PDOstatement issue!'));
+    }
+
+
+    /**
      * This method returns the value from first column of first row in statement
      *
      * @param PDOStatement $stmt -
@@ -454,6 +475,21 @@ class OcDb extends OcPdo
         }
 
         return array($limit, $offset);
+    }
+
+    /**
+     * Quote string before use in DB query
+     * (needs for IN strings etc.)
+     *
+     * @param string $str
+     * @return string
+     */
+    public function quoteString($str)
+    {
+        $value = $this->quote($str, self::PARAM_STR);
+        $value = substr($value, 1, -1); //remove ' char from the begining and end of the string
+        $value = mb_ereg_replace('&', '\&', $value); //escape '&' char
+        return $value;
     }
 
 }

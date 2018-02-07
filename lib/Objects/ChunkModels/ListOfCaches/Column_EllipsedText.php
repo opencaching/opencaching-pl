@@ -4,19 +4,24 @@ namespace lib\Objects\ChunkModels\ListOfCaches;
 
 /**
  * This class just display text returned by dataRowExtractor.
+ * If text is longer it will be trimmed to $maxChars + popup will be generated on click
+ *
  * Example:
  *
  * $model->addColumn(
- *      new Column_SimpleText(
+ *      new Column_EllipsedText(
  *              tr('columnTitle'),
  *              function($row){
- *                 return Row['value'];
+ *                 return [
+ *                   'text' => '<text-to-display',
+ *                   'maxChars' => '<max-chars-to-display>'
+ *                 ];
  *              }
  *      )
  * );
  *
  */
-class Column_SimpleText extends AbstractColumn {
+class Column_EllipsedText extends AbstractColumn {
 
     /**
      * Returns the name of the chunk template
@@ -25,7 +30,7 @@ class Column_SimpleText extends AbstractColumn {
      */
     protected function getChunkName()
     {
-        return "listOfCaches/simpleTextColumn";
+        return "listOfCaches/ellipsedTextColumn";
     }
 
     public function getCssClass(){

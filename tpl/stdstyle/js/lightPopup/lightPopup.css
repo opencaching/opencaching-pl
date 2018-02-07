@@ -1,0 +1,25 @@
+.lightPopupHidden{
+  display: none;
+}
+
+.lightPopupVisible{
+  display: block;
+  position: absolute;
+  border: 1px solid grey;
+  background-color: white;
+  text-align: center;
+  padding: 5px;
+  margin: 10px;
+}
+
+.popupContainer {
+  text-align: left;
+}
+
+.popupClose {
+  display: block;
+  float: right;
+  border: 1px solid grey;
+  width: 1.2em;
+  height: 1.2em;
+}

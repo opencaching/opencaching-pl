@@ -5,6 +5,7 @@ use Utils\Database\OcDb;
 use Utils\Database\XDb;
 use lib\Objects\Coordinates\Altitude;
 use lib\Objects\Coordinates\Coordinates;
+use Utils\Generators\TextGen;
 
 /**
  * ajaxAddCacheToPt.php
@@ -287,7 +288,7 @@ function isCacheCanditate($ptId, $cacheId)
 
 function addCacheToCacheCandidate($cacheId, $ptId)
 {
-    $linkCode = randomPassword(50);
+    $linkCode = TextGen::randomText(50);
 
     $db = OcDb::instance();
     $db->multiVariableQuery(
@@ -300,14 +301,4 @@ function addCacheToCacheCandidate($cacheId, $ptId)
     exit;
 }
 
-function randomPassword($passLenght)
-{
-    $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
-    $pass = array();
-    $alphaLength = strlen($alphabet) - 1;
-    for ($i = 0; $i < $passLenght; $i++) {
-        $n = rand(0, $alphaLength);
-        $pass[] = $alphabet[$n];
-    }
-    return implode($pass); //turn the array into a string
-}
+
