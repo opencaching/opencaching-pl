@@ -146,5 +146,98 @@
             "php",
             "qrcode"
         ]
+    },
+    {
+        "name": "cweagans/composer-patches",
+        "version": "1.6.4",
+        "version_normalized": "1.6.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/cweagans/composer-patches.git",
+            "reference": "462e65061606dc6149349535d4322241515d1b16"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/cweagans/composer-patches/zipball/462e65061606dc6149349535d4322241515d1b16",
+            "reference": "462e65061606dc6149349535d4322241515d1b16",
+            "shasum": ""
+        },
+        "require": {
+            "composer-plugin-api": "^1.0",
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "composer/composer": "~1.0",
+            "phpunit/phpunit": "~4.6"
+        },
+        "time": "2017-12-07 16:16:31",
+        "type": "composer-plugin",
+        "extra": {
+            "class": "cweagans\\Composer\\Patches"
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "cweagans\\Composer\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-2-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Cameron Eagans",
+                "email": "me@cweagans.net"
+            }
+        ],
+        "description": "Provides a way to patch Composer packages."
+    },
+    {
+        "name": "jpgraph/jpgraph",
+        "version": "4.0.2",
+        "version_normalized": "4.0.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/ztec/JpGraph.git",
+            "reference": "e82db7da6a546d3926c24c9a346226da7aa49094"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/ztec/JpGraph/zipball/e82db7da6a546d3926c24c9a346226da7aa49094",
+            "reference": "e82db7da6a546d3926c24c9a346226da7aa49094",
+            "shasum": ""
+        },
+        "time": "2017-02-23 09:44:15",
+        "type": "library",
+        "extra": {
+            "patches_applied": {
+                "Fix imageantialias PHP-GD issue": "composer_jpgraph_fix.patch"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "lib/JpGraph.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "QPL 1.0"
+        ],
+        "authors": [
+            {
+                "name": "JpGraph team"
+            }
+        ],
+        "description": "jpGraph, library to make graphs and charts",
+        "homepage": "http://jpgraph.net/",
+        "keywords": [
+            "chart",
+            "data",
+            "graph",
+            "jpgraph",
+            "pie"
+        ]
     }
 ]

@@ -2097,7 +2097,6 @@ $translations = array(
     'GarminGgz_06' => 'Connect the Garmin Oregon 6xx via cable',
     'GarminGgz_07' => '<b>Copy</b> all the files to the directory <b>Garmin/GGZ</b> of device\'s memory (it can also be a SD card memory)',
     'GarminZipGgz_02' => 'You are trying to download a ZIP file containing the data as GGZ with <b><u>pictures</u></b> for {zip_total_cache_count} caches.<br/> Unfortunately, due to server and file size limitations, one ZIP with pictures can contain up to {zip_max_count} caches.<br/> The requested content was divided into several smaller zip files, links to which are below',
-    'JpGraph_25121' => 'Empty input data array specified for plot. Must have at least one data point.',
     'Stats_s3_01' => 'Cache ranking by finds per region',
     'Stats_s3_02' => 'Pořadí',
     'Stats_s3_03' => 'Nálezy',
