@@ -284,11 +284,10 @@ transaction_test
 	FIXME
 user
 	registered users info
-user_backup_201403032233
-	backup of table user and date of creation.
-	FIXME: purpose? (seems very old)
 user_finds
 	FIXME
+user_neighbourhoods
+    Stores additional user MyNeighborhood areas
 user_nick_history
 	FIXME: seems a history of username changes
 user_settings
@@ -317,3 +316,4 @@ Changelog
 ---------
 2016-03-05: created by andrixnet. Documented only what I managed to
 	investigate so far.
+2018-02-08: add user_neighbourhoods table and delete backup user table (deg-pl)
