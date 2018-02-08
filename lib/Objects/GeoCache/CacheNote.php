@@ -105,7 +105,7 @@ class CacheNote extends BaseObject
         return $db->dbFetchOneColumnArray($stmt, 'cache_id');
     }
 
-    public static function getNotesByCacheIds(array $cacheIds)
+    public static function getNotesByCacheIds(array $cacheIds, $userId)
     {
         if(empty($cacheIds)){
             return [];
@@ -114,9 +114,9 @@ class CacheNote extends BaseObject
 
         $cacheIdsStr = $db->quoteString( implode(',', $cacheIds) );
 
-        $rs = $db->simpleQuery(
+        $rs = $db->multiVariableQuery(
                 "SELECT * FROM cache_notes
-                WHERE cache_id IN ($cacheIdsStr)");
+                WHERE user_id = :1 AND cache_id IN ($cacheIdsStr)", $userId);
 
         return $db->dbResultFetchAll($rs);
     }
