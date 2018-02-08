@@ -199,12 +199,12 @@ class CacheNotesController extends BaseController
         $result = array_fill_keys($cacheIds, []);
 
         // fill notes
-        foreach (CacheNote::getNotesByCacheIds($cacheIds) as $note){
+        foreach (CacheNote::getNotesByCacheIds($cacheIds, $userId) as $note){
             $result[ $note['cache_id'] ]['noteTxt'] = $note['desc'];
         }
 
         // fill mod-coords
-        foreach ( UserCacheCoords::getCoordsByCacheIds($cacheIds) as $coord){
+        foreach ( UserCacheCoords::getCoordsByCacheIds($cacheIds, $userId) as $coord){
             $result[ $coord['cache_id'] ]['coords'] =
                 Coordinates::FromCoordsFactory($coord['lat'], $coord['lot']);
 
