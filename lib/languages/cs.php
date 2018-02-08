@@ -910,7 +910,6 @@ $translations = array(
     'recently_seen' => 'recently seen',
     'moved_text' => 'moved',
     'my_neighborhood' => 'Moje okolí',
-    'my_neighborhood_v2' => 'My neighborhood v2',
     'my_neighborhood_radius' => 'My neighborhood in radius',
     'new_caches_myn' => 'New geocaches',
     'ftf_awaiting' => 'Awaiting First Find Caches',

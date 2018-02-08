@@ -53,21 +53,21 @@ use lib\Objects\Admin\ReportCommons;
         <img src="/tpl/stdstyle/images/misc/eye-off.svg" class="report-watch-img" alt="{{admin_reports_watch_off}}" title="{{admin_reports_watch_off}} | {{admin_reports_watch_info}}" onclick="watchOn(<?=$report->getId()?>)" id="img-off-<?=$report->getId()?>" <?php if ($report->isReportWatched($view->user->getUserId())) {?>style="display: none;"<?php }?>>
       </td>
       <td>
-        <a href="/viewcache.php?wp=<?=$report->getCache()->getWaypointId()?>" class="links" target="_blank"><img src="/<?=$report->getCache()->getCacheIcon($view->user)?>" height=20 title="<?=tr($report->getCache()->getStatusTranslationKey())?>" alt="<?=tr($report->getCache()->getStatusTranslationKey())?>"> <?=$report->getCache()->getCacheName()?> (<?=$report->getCache()->getWaypointId()?>)</a><br>
+        <a href="<?=$report->getCache()->getCacheUrl()?>" class="links" target="_blank"><img src="<?=$report->getCache()->getCacheIcon($view->user)?>" height=20 title="<?=tr($report->getCache()->getStatusTranslationKey())?>" alt="<?=tr($report->getCache()->getStatusTranslationKey())?>"> <?=$report->getCache()->getCacheName()?> (<?=$report->getCache()->getWaypointId()?>)</a><br>
         <?=$report->getCache()->getCacheLocationObj()->getLocationDesc(' &gt; ')?><br>
-        <a href="/viewprofile.php?userid=<?=$report->getCache()->getOwnerId()?>" class="links" target="_blank"><?=$report->getCache()->getOwner()->getUserName()?></a>
+        <a href="<?=$report->getCache()->getOwner()->getProfileUrl()?>" class="links" target="_blank"><?=$report->getCache()->getOwner()->getUserName()?></a>
       </td>
       <td class="<?=$report->getReportStyle()?>">
         <a href="/admin_reports.php?action=showreport&amp;id=<?=$report->getId()?>" class="links"><?=tr($report->getReportTypeTranslationKey())?></a><br>
         <?=$report->getDateSubmit()->format($view->dateFormat)?><br>
-        <a href="/viewprofile.php?userid=<?=$report->getUserIdSubmit()?>" class="links" target="_blank"><?=$report->getUserSubmit()->getUserName()?></a>
+        <a href="<?=$report->getUserSubmit()->getProfileUrl()?>" class="links" target="_blank"><?=$report->getUserSubmit()->getUserName()?></a>
       </td>
       <td class="<?=$report->getStatusClass()?>">
         <a href="/admin_reports.php?action=showreport&amp;id=<?=$report->getId()?>" class="links"><?=tr($report->getReportStatusTranslationKey())?></a><br>
         <?php if ($report->getDateLastChange() != null) { echo $report->getDateLastChange()->format($view->dateFormat);}?>
-        <?php if ($report->getUserIdLastChange() != null) {?><br><a href="/viewprofile.php?userid=<?=$report->getUserIdLastChange()?>" class="links" target="_blank"><?=$report->getUserLastChange()->getUserName()?></a><?php }?>
+        <?php if ($report->getUserIdLastChange() != null) {?><br><a href="<?=$report->getUserLastChange()->getProfileUrl()?>" class="links" target="_blank"><?=$report->getUserLastChange()->getUserName()?></a><?php }?>
       </td>
-      <td><?php if ($report->getUserIdLeader() != null) { ?><a href="/viewprofile.php?userid=<?=$report->getUserIdLeader()?>" class="links" target="_blank"><?=$report->getUserLeader()->getUserName()?></a><?php }?></td>
+      <td><?php if ($report->getUserIdLeader() != null) { ?><a href="<?=$report->getUserLeader()->getProfileUrl()?>" class="links" target="_blank"><?=$report->getUserLeader()->getUserName()?></a><?php }?></td>
     </tr>
 <?php } ?>
   </table>

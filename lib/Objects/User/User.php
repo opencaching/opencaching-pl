@@ -801,6 +801,20 @@ class User extends UserCommons
 
     }
 
+    public function updateUserNeighbourhood(Coordinates $coords, $radius)
+    {
+        $this->homeCoordinates = $coords;
+        $this->notifyRadius = $radius;
+        return (null !== $this->db->multiVariableQuery('
+            UPDATE `user` SET
+              `latitude` = :1,
+              `longitude` = :2,
+              `notify_radius` = :3
+            WHERE `user_id` = :4
+            LIMIT 1
+            ', $coords->getLatitude(), $coords->getLongitude(), (int) $radius, $this->userId));
+    }
+
     public static function updateLastLogin($userId){
         self::db()->multiVariableQuery(
             "UPDATE user SET last_login=NOW() WHERE user_id = :1", $userId);

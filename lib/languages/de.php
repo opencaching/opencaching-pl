@@ -693,7 +693,6 @@ $translations = array(
     'recently_seen' => 'Letztens gesehen',
     'moved_text' => 'bewegt',
     'my_neighborhood' => 'Meine Umgebung',
-    'my_neighborhood_v2' => 'Meine Umgebung v2',
     'my_neighborhood_radius' => 'Meine Umgebung in Radius',
     'new_caches_myn' => 'Neue Caches',
     'ftf_awaiting' => 'Caches erwarten für "FTF"',

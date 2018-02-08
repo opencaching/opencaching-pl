@@ -694,7 +694,6 @@ $translations = array(
     'recently_seen' => 'recentelijk gezien',
     'moved_text' => 'Verplaatst',
     'my_neighborhood' => 'Mijn omgeving',
-    'my_neighborhood_v2' => 'Mijn omgeving v2',
     'my_neighborhood_radius' => 'Mijn omgeving met radius van',
     'new_caches_myn' => 'Nieuwste caches',
     'ftf_awaiting' => 'Nog niet gevonden caches',
