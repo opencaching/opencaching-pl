@@ -85,6 +85,9 @@ class UserWatchedCachesController extends BaseController
         $this->view->buildView();
     }
 
+    /**
+     * Display paginated list of caches watched by current user
+     */
     public function listOfWatches()
     {
         if(!$this->isUserLogged()){
@@ -135,7 +138,7 @@ class UserWatchedCachesController extends BaseController
             $pagination = new PaginationModel(50); //per-page number of caches
             $pagination->setRecordsCount($watchedCachesCount);
 
-            list($queryLimit, $queryOffset) = $pagination->getQueryLimitAndOffset();;
+            list($queryLimit, $queryOffset) = $pagination->getQueryLimitAndOffset();
             $model->setPaginationModel($pagination);
 
             $model->addDataRows(

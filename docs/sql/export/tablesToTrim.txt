@@ -13,7 +13,6 @@ cache_coordinates
 cache_ignore
 cache_mod_cords
 cache_notes
-cache_visits
 cache_visits2
 cache_watches
 chowner

@@ -1,4 +1,7 @@
 <?php
+use Utils\Uri\SimpleRouter;
+use Controllers\CacheNotesController;
+
 /**
  * This is simple configuration of links presented in sidebar of the page
  * for authorized users only.
@@ -24,7 +27,7 @@ $menu = [ // DON'T CHANGE $menu var name!
     'mnu_myAccount' => '/myprofile.php',
 
     'mnu_myRoutes'      => '/myroutes.php',
-    'mnu_myCacheNotes'  => '/mycache_notes.php',
+    'mnu_myCacheNotes'  => SimpleRouter::getLink(CacheNotesController::class),
     'mnu_watchedCaches' => '/mywatches.php',
     'mnu_ignoredCaches' => '/myignores.php',
     'mnu_myRecommends'  => '/mytop5.php',

@@ -1,5 +1,5 @@
 
-<script type="text/javascript">
+<script>
     function hidediv() {
         if (document.getElementById) { // DOM3 = IE5, NS6
             document.getElementById('hideshow').style.visibility = 'hidden';

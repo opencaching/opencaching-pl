@@ -1,7 +1,5 @@
-<?php
 
-?>
-<script type="text/javascript">
+<script>
     function _chkType()
     {
         var nextstage = document.forms['waypoints_form'].nextstage.value;

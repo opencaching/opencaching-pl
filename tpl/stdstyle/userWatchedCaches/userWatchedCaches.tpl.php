@@ -1,7 +1,8 @@
 <div class="content2-container">
 
     <div class="align-right">
-      <a class="btn btn-default btn-sm" href="/mywatches.php?action=map"><?=tr('map_watched_caches')?></a>
+      <a class="btn btn-default btn-sm" href="/mywatches.php?action=map">
+      <?=tr('map_watched_caches')?></a>
     </div>
 
 
@@ -35,7 +36,7 @@
         </div>
     <?php } //$view->cachesCount == 0 ?>
 
-    <script type="text/javascript">
+    <script>
 
       function removeFromWatched(icon, cacheWp){
 

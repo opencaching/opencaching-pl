@@ -3,6 +3,7 @@
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCache;
 use Utils\I18n\Languages;
+use Utils\Text\UserInputFilter;
 
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
@@ -58,7 +59,7 @@ if ( $desc_record = XDb::xFetchArray($desc_rs) ) {
 
         // Text from textarea
         $desc = $_POST['desc'];
-        $desc = userInputFilter::purifyHtmlString($desc);
+        $desc = UserInputFilter::purifyHtmlString($desc);
         $hints = htmlspecialchars($hints, ENT_COMPAT, 'UTF-8');
 
         if (isset($_POST['submitform'])) {

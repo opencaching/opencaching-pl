@@ -50,8 +50,6 @@ class ClassPathDictionary
         'powerTrailBase' => 'powerTrail/powerTrailBase.php',
         'powerTrailController' => 'powerTrail/powerTrailController.php',
         'sendEmail' => 'powerTrail/sendEmail.php',
-        'Kint' => 'lib/kint/Kint.class.php',
-        'userInputFilter' => 'lib/userInputFilters/userInputFilter.php',
         'PlotLine' => 'lib/jpgraph/src/jpgraph_plotline.php'
     );
 

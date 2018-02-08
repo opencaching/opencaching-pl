@@ -1,4 +1,4 @@
-<script type='text/javascript'>
+<script>
     //On touch-screen devices use full-screen map by default
     //Check for touch device below should be kept in sync with analogous check in lib/cachemap3.js
 
@@ -191,8 +191,8 @@
   </table>
   </div>
 </div>
-<script src="{lib_cachemap3_js}" type="text/javascript"></script>
-<script type="text/javascript">
+<script src="{lib_cachemap3_js}"></script>
+<script>
 
 var map_params = { //params for cachemaps3.js
     cachemap_mapper: "{cachemap_mapper}",

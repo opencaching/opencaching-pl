@@ -15,7 +15,7 @@ return function ($gMapKey, $lang, $callback=null){
     //start of chunk
 
     $uri = 'https://maps.googleapis.com/maps/api/js';
-    $uri = Uri::setOrReplaceParamValue('v', '3.30', $uri);
+    $uri = Uri::setOrReplaceParamValue('v', '3.31', $uri);
     $uri = Uri::setOrReplaceParamValue('key', $gMapKey, $uri);
     $uri = Uri::setOrReplaceParamValue('language', $lang, $uri);
     if(!is_null($callback)){

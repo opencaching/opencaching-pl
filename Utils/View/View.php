@@ -237,7 +237,7 @@ class View {
 
     /**
      * Add JavaScript script which will be loaded in page header
-     * @param $url - url to js Script
+     * @param $jsUrl - url to js Script
      */
     public function addLocalJs($jsUrl)
     {

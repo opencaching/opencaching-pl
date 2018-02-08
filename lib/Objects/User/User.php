@@ -783,30 +783,6 @@ class User extends UserCommons
         return $this->geokretyApiSecid;
     }
 
-    /**
-     * Returns arraywhere row[userId] = username
-     *
-     * @param array $userIds - array of userIds
-     * @return array|mixed[]
-     */
-    public static function GetUserNamesForListOfIds(array $userIds)
-    {
-
-        if(empty($userIds)){
-            return array();
-        }
-
-        $db = self::db();
-
-        $userIdsStr = XDb::xEscape(implode($userIds, ','));
-
-        $s = $db->simpleQuery(
-            "SELECT user_id, username FROM user
-            WHERE user_id IN ( $userIdsStr )");
-
-        return $db->dbFetchAsKeyValArray($s, 'user_id', 'username' );
-    }
-
     public function getCacheWatchEmailSettings(){
 
         return $this->db->dbResultFetchOneRowOnly(

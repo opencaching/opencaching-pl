@@ -1,11 +1,11 @@
 <?php
 ?>
 
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript" src="lib/js/GCT.js"></script>
-<script type="text/javascript" src="lib/js/GCT.lang.php"></script>
-<script type="text/javascript" src="tpl/stdstyle/js/search.js"></script>
-<script type="text/javascript" src="tpl/stdstyle/js/okapiGpxFormatterWidget.js?v=2"></script>
+<script src="https://www.google.com/jsapi"></script>
+<script src="lib/js/GCT.js"></script>
+<script src="lib/js/GCT.lang.php"></script>
+<script src="tpl/stdstyle/js/search.js"></script>
+<script src="tpl/stdstyle/js/okapiGpxFormatterWidget.js?v=2"></script>
 <script>
     $(function() {
 
@@ -41,13 +41,13 @@ if ( !$SearchWithSort )
 {
     if ( $NrColSortSearch != -1 && !isset($_REQUEST["startat"]) )
     {
-        echo "<script type='text/javascript'>
+        echo "<script>
             alert( '".tr('MaxSearchRec')."' );
             </script>; ";
     }
 }
 
-echo "<script type='text/javascript'>";
+echo "<script>";
 echo " GCTLoad( 'ChartTable', '". $lang ."' );";
 echo "</script>";
 
@@ -63,7 +63,7 @@ if ( !$SearchWithSort &&  $NrColSortSearch != -1 )
     $NrColSortSearch = -1;
 ?>
 
-<script type='text/javascript'>
+<script>
     var gct = new GCT( 'idGTC' );
 
     /* 0 */gct.addColumn('string', "<?php echo $colNameSearch[0]["C"]?>", 'text-align: center; font-size: 12px;');
@@ -103,7 +103,7 @@ if ( !$SearchWithSort &&  $NrColSortSearch != -1 )
 </script>
 
 <?php
-    echo "<script type='text/javascript'>";
+    echo "<script>";
     if ($SearchWithSort)
     {
         echo "gct.addChartOption('sortColumn', $NrColSortToSet );";
@@ -172,7 +172,7 @@ $C17 = fHideColumn( 17, true );
 $C18 = fHideColumn( 18, true );
 ?>
 
-<script type='text/javascript'>
+<script>
     gct.drawChart();
     gct.addSelectEvent( EventSelectPosFunction );
     gct.addPageEvent( EventPageFunction );
@@ -321,7 +321,7 @@ echo"
   <p>{{accept_terms_of_use}}</p>
 </div>
 
-<script type='text/javascript'>
+<script>
     document.getElementById("exportGPX").style.cursor = "pointer";
     document.getElementById("exportZIP").style.cursor = "pointer";
     document.getElementById("exportGGZ").style.cursor = "pointer";

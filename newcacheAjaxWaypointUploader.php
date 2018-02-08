@@ -86,4 +86,4 @@ function loadWaypointFromGpx($wpts)
 }
 ?>
 
-<script type="text/javascript">window.top.window.stopUpload(<?php echo "'" . $result . "'"; ?>);</script>
+<script>window.top.window.stopUpload(<?php echo "'" . $result . "'"; ?>);</script>

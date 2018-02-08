@@ -216,7 +216,6 @@ $translations = array(
     'enter_text' => 'Escriba el texto',
     'enter_text_error' => 'No ha introducido el texto',
     'password_required' => 'Para hacer esta entrada en el registro, debe introducir la contrasena.',
-    'last_log_entries' => 'El último entradas en el registro',
     'terrain_difficulty' => 'La dificultad de la tierra',
     'task_difficulty' => 'Grupo de crisis',
     'out_of' => 'z',

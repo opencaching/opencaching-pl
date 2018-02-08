@@ -990,25 +990,6 @@
                 "__action": "get-data"
             }
         },
-        "cache_visits": {
-            "__table_comment": "",
-            "cache_id": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "user_id_ip": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "count": {
-                "__comment": "",
-                "__action": "skip-data"
-            },
-            "last_visited": {
-                "__comment": "",
-                "__action": "skip-data"
-            }
-        },
         "cache_visits2": {
             "__table_comment": "",
             "cache_id": {

@@ -1,7 +1,5 @@
-<?php
 
-?>
-<script type="text/javascript">
+<script>
     function checkForm()
     {
         if (document.editpic_form.title.value == "")

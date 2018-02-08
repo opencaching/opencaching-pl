@@ -727,16 +727,17 @@ if ($usr == false) {
                             $max_lon_diff = $distance * 180 / (abs(sin((90 - $lat) * 3.14159 / 180 )) * 6378 * $multiplier[$distance_unit] * 3.14159);
 
                             $sqlstr = 'CREATE TEMPORARY TABLE result_caches ENGINE=MEMORY
-                                                    SELECT
-                                                        (' . getCalcDistanceSqlFormula($usr !== false,$lon, $lat, $distance, $multiplier[$distance_unit]) . ') `distance`,
-                                                        `caches`.`cache_id` `cache_id`
-                                                    FROM `caches` FORCE INDEX (`latitude`)
-                                                LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = :1
-                                                    WHERE IFNULL(cache_mod_cords.longitude, `caches`.`longitude`) >  :2
-                                                        AND IFNULL(cache_mod_cords.longitude, `caches`.`longitude`)  < :3
-                                                        AND IFNULL(cache_mod_cords.latitude, `caches`.`latitude`)  >  :4
-                                                        AND IFNULL(cache_mod_cords.latitude, `caches`.`latitude`) < :5
-                                                    HAVING `distance` < :6';
+                                SELECT
+                                    (' . getCalcDistanceSqlFormula($usr !== false,$lon, $lat, $distance, $multiplier[$distance_unit]) . ') `distance`,
+                                    `caches`.`cache_id` `cache_id`
+                                FROM `caches` FORCE INDEX (`latitude`)
+                                LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id`
+                                    AND `cache_mod_cords`.`user_id` = :1
+                                WHERE IFNULL(cache_mod_cords.longitude, `caches`.`longitude`) >  :2
+                                    AND IFNULL(cache_mod_cords.longitude, `caches`.`longitude`)  < :3
+                                    AND IFNULL(cache_mod_cords.latitude, `caches`.`latitude`)  >  :4
+                                    AND IFNULL(cache_mod_cords.latitude, `caches`.`latitude`) < :5
+                                HAVING `distance` < :6';
 
                             $dbcSearch->multiVariableQuery( $sqlstr, $usr['userid'], ($lon - $max_lon_diff), ($lon + $max_lon_diff), ($lat - $max_lat_diff), ($lat + $max_lat_diff), $distance );
 
@@ -838,11 +839,12 @@ if ($usr == false) {
                         (' . getCalcDistanceSqlFormula($usr !== false,$lon, $lat, $distance, $multiplier[$distance_unit]) . ') `distance`,
                         `caches`.`cache_id` `cache_id`
                     FROM `caches` FORCE INDEX (`latitude`)
-                        LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = :1
-                            WHERE IFNULL(cache_mod_cords.longitude, `caches`.`longitude`) > :2
-                                AND IFNULL(cache_mod_cords.longitude, `caches`.`longitude`)  < :3
-                                AND IFNULL(cache_mod_cords.latitude, `caches`.`latitude`)  > :4
-                                AND IFNULL(cache_mod_cords.latitude, `caches`.`latitude`) < :5
+                        LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id`
+                            AND `cache_mod_cords`.`user_id` = :1
+                    WHERE IFNULL(cache_mod_cords.longitude, `caches`.`longitude`) > :2
+                        AND IFNULL(cache_mod_cords.longitude, `caches`.`longitude`)  < :3
+                        AND IFNULL(cache_mod_cords.latitude, `caches`.`latitude`)  > :4
+                        AND IFNULL(cache_mod_cords.latitude, `caches`.`latitude`) < :5
                     HAVING `distance` < :6';
 
                     $dbcSearch->multiVariableQuery( $sqlstr, $usr['userid'], ($lon - $max_lon_diff), ($lon + $max_lon_diff), ($lat - $max_lat_diff), ($lat + $max_lat_diff), $distance );

@@ -24,11 +24,11 @@ for ($i = 0; false != ($record = XDb::xFetchArray($rscp)); $i++) {
 $encoder = new PolylineEncoder();
 $polyline = $encoder->encode($points);
 ?>
-<script type="text/javascript" src="/lib/jsts/attache.array.min.js"></script>
-<script type="text/javascript" src="/lib/jsts/javascript.util.js"></script>
-<script type="text/javascript" src="/lib/jsts/jsts.0.13.2.js"></script>
-<script type="text/javascript" src="/lib/js/myroutes_map.<?= date("YmdHis", filemtime($rootpath . 'lib/js/myroutes_map.js')) ?>.js"></script>
-<script type="text/javascript">
+<script src="/lib/jsts/attache.array.min.js"></script>
+<script src="/lib/jsts/javascript.util.js"></script>
+<script src="/lib/jsts/jsts.0.13.2.js"></script>
+<script src="/lib/js/myroutes_map.<?= date("YmdHis", filemtime($rootpath . 'lib/js/myroutes_map.js')) ?>.js"></script>
+<script>
 //<![CDATA[
 
     var currentinfowindow = null;

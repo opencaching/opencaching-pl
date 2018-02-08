@@ -1,5 +1,6 @@
 {
   "require": {
-    "raveren/kint": "^1.0"
+    "kint-php/kint": "^1.0",
+    "ezyang/htmlpurifier": "^4.9"
   }
 }

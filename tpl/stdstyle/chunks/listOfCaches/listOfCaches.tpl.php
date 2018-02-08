@@ -2,8 +2,6 @@
 
 use lib\Objects\ChunkModels\ListOfCaches\ListOfCachesModel;
 use Utils\Uri\Uri;
-use lib\Objects\ChunkModels\ListOfCaches\AbstractColumn;
-use Utils\View\View;
 
 /**
  * This is generic list-of-caches. This list needs properly initialized model.
@@ -17,7 +15,7 @@ return function (ListOfCachesModel $listModel){
 
 ?>
 
-<script type='text/javascript'>
+<script>
     var linkElement = document.createElement("link");
     linkElement.rel = "stylesheet";
     linkElement.href = "<?=$chunkCSS?>";
@@ -25,9 +23,7 @@ return function (ListOfCachesModel $listModel){
     document.head.appendChild(linkElement);
 </script>
 
-<?php //becacus some of columns uses tooltip() //TODO: remove this tooltips ?>
-<script type="text/javascript" src="/lib/js/wz_tooltip.js"></script>
-
+<script src="/lib/js/wz_tooltip.js"></script>
 <table class="listOfCaches bs-table table-striped">
 
     <?php if($listModel->isHeaderEnabled()) { ?>
@@ -44,7 +40,7 @@ return function (ListOfCachesModel $listModel){
     <?php foreach ($listModel->getRows() as $row){ ?>
         <tr>
           <?php foreach ($listModel->getColumns() as /** @var AbstractColumn */ $column){ ?>
-            <td class="<?=$column->getCssClass()?>">
+            <td class="<?=$column->getCssClass()?><?=$column->getAdditionalClass()?>">
               <?=$column->callColumnChunk($row)?>
             </td>
           <?php } //foreach column ?>

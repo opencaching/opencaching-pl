@@ -25,7 +25,7 @@
         <?php } //foreach-css ?>
 
         <?php foreach( $view->getLocalJs() as $js ) { ?>
-          <script async="async" src="<?=$js?>"></script>
+          <script src="<?=$js?>"></script>
         <?php } //foreach-css ?>
 
 

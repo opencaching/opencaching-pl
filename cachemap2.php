@@ -201,8 +201,8 @@ if ($usr == false) {
     }
 
     /* SET YOUR MAP CODE HERE */
-    tpl_set_var('cachemap_header', '<script src="//maps.google.com/maps?file=api&amp;v=2.x&amp;key=' . $googlemap_key . '" type="text/javascript"></script>
-    <script language="JavaScript1.2" type="text/javascript">
+    tpl_set_var('cachemap_header', '<script src="//maps.google.com/maps?file=api&amp;v=2.x&amp;key=' . $googlemap_key . '"></script>
+    <script language="JavaScript1.2">
         window.onbeforeunload = saveMapType;
         function saveMapType(){
             var ajaxRequest;  // The variable that makes Ajax possible!

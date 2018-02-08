@@ -16,11 +16,11 @@
 
 <br>
 
-<script type='text/javascript'>
+<script>
 <?php echo "GCTLoad( 'ChartTable', '" . $lang . "' );"?>
 </script>
 
-<script type='text/javascript'>
+<script>
     var gct = new GCT('idGCTPosition');
     gct.addColumn('string', '' ); //
     gct.addColumn('string',  '<?php echo tr("geocache") ?>', 'font-size: 12px; ' ); //1
@@ -32,7 +32,7 @@
     gct.addChartOption('pageSize', 30);
 </script>
 
-<script type='text/javascript'>
+<script>
 {content}
 gct.drawChart();
 </script>

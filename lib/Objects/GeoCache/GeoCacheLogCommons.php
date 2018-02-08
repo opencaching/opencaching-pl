@@ -24,7 +24,7 @@ class GeoCacheLogCommons extends BaseObject{
     const LOGTYPE_TEMPORARYUNAVAILABLE = 11;
     const LOGTYPE_ADMINNOTE = 12;
 
-    const ICON_PATH = 'tpl/stdstyle/images/log/'; //path to the dir with log-type icons
+    const ICON_PATH = '/tpl/stdstyle/images/log/'; //path to the dir with log-type icons
 
     public function __construct()
     {

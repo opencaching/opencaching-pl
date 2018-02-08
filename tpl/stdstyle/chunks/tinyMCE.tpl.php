@@ -6,17 +6,17 @@
  * $view->callChunk('tinyMCE');
  * and later use:
  * <textarea class="tinymce"></textarea>
- * 
+ *
  * Parameters:
  * $media - support for insert/edit media like YouTube videos. Default is true. Set it to false to disable media feature
  * $selector - selector to use in <textarea>. Can be ".class" or "#id" or even "viewcache.editor". Default selector is class "tinymce".
- * 
+ *
  * Size of editor set via CSS. For example:
  * textarea.desc, textarea.cachelog {
  *     width: 100%;
  *     height: 30em;
  * }
- * 
+ *
  */
 
 return function ($media = true, $selector = '.tinymce') {
@@ -25,8 +25,8 @@ return function ($media = true, $selector = '.tinymce') {
     ?>
 
 <!-- TinyMCE chunk start -->
-<script type="text/javascript" src="lib/tinymce4/tinymce.min.js"></script>
-<script type="text/javascript">
+<script src="lib/tinymce4/tinymce.min.js"></script>
+<script>
   tinymce.init({
     selector: "<?=$selector?>",
     menubar: false,

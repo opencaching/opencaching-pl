@@ -127,7 +127,7 @@ class Coordinates
         }
 
 
-        $prefix = $this->getLatitudeHemisphereSymbol() . ' ';
+        $prefix = $this->getLatitudeHemisphereSymbol() . '&nbsp';
         switch ($format) {
             case self::COORDINATES_FORMAT_DECIMAL:
                 return $prefix . $this->convertToDecString(abs($this->latitude));
@@ -164,7 +164,7 @@ class Coordinates
         if ($format === false) { /* pick defaut format */
             $format = $this->defaultFormat;
         }
-        $prefix = $this->getLongitudeHemisphereSymbol() . ' ';
+        $prefix = $this->getLongitudeHemisphereSymbol() . '&nbsp;';
         switch ($format) {
             case self::COORDINATES_FORMAT_DECIMAL:
                 return $prefix . $this->convertToDecString(abs($this->longitude));
@@ -272,7 +272,7 @@ class Coordinates
      * Returns coordinates string to display
      */
     public function getAsText($format = false){
-        return "&#10;". $this->getLatitudeString($format)."&#10;".$this->getLongitudeString($format);
+        return $this->getLatitudeString($format).' '.$this->getLongitudeString($format);
     }
 
     /**
@@ -296,7 +296,7 @@ class Coordinates
 
     private function convertToDegMin($decimalCoordinate)
     {
-        $degMinCoordinate = sprintf("%02d", floor($decimalCoordinate)) . '° ';
+        $degMinCoordinate = sprintf("%02d", floor($decimalCoordinate)) . '°&nbsp;';
         $coordinate = $decimalCoordinate - floor($decimalCoordinate);
         $degMinCoordinate .= sprintf("%06.3f", round($coordinate * 60, 3)) . '\'';
         return $degMinCoordinate;
@@ -304,10 +304,10 @@ class Coordinates
 
     private function convertToDegMinSec($decimalCoordinate)
     {
-        $degMinSecCoordinate = sprintf("%02d", floor($decimalCoordinate)) . '° ';
+        $degMinSecCoordinate = sprintf("%02d", floor($decimalCoordinate)) . '°&nbsp;';
         $coordinate = $decimalCoordinate - floor($decimalCoordinate);
         $coordinate *= 60;
-        $degMinSecCoordinate .= sprintf("%02d", floor($coordinate)) . '\' ';
+        $degMinSecCoordinate .= sprintf("%02d", floor($coordinate)) . '\'&nbsp;';
         $latmin = $coordinate - floor($coordinate);
         $degMinSecCoordinate .= sprintf("%02.02f", $latmin * 60) . '\'\'';
         return $degMinSecCoordinate;
@@ -315,7 +315,7 @@ class Coordinates
 
     private function convertToDecString($coordinate, $afterComaPlacesCount = 5)
     {
-        return sprintf('%.' . $afterComaPlacesCount . 'f', $coordinate) . '° ';
+        return sprintf('%.' . $afterComaPlacesCount . 'f', $coordinate) . '°&nbsp;';
     }
 
     private function getLatitudeHemisphereSymbol()

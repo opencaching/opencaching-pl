@@ -10,6 +10,7 @@ use lib\Objects\User\User;
 use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\GeoCache\CacheLocation;
 use lib\Objects\Coordinates\Altitude;
+use lib\Objects\User\MultiUserQueries;
 
 /**
  * Description of geoCache
@@ -203,7 +204,7 @@ class GeoCache extends GeoCacheCommons
 
     /**
      * Factory - creats Geocache object based on geocache UUID
-     * @param unknown $wp
+     * @param string $wp
      * @return GeoCache object or null if no such geocache
      */
     public static function fromUUIDFactory($uuid){
@@ -1137,7 +1138,7 @@ class GeoCache extends GeoCacheCommons
 
     public function getPrePublicationVisits()
     {
-        $result = User::GetUserNamesForListOfIds(
+        $result = MultiUserQueries::GetUserNamesForListOfIds(
             CacheVisits::GetPrePublicationVisits($this->id));
 
         if(empty($result)){
@@ -1237,65 +1238,32 @@ class GeoCache extends GeoCacheCommons
      */
     public function getUserCoordinates($userId)
     {
-        $s = XDb::xSql(
-            "SELECT longitude AS lon, latitude AS lat FROM cache_mod_cords
-            WHERE cache_id = ? AND user_id = ? LIMIT 1", $this->id, $userId);
-
-        if($row = XDb::xFetchArray($s)){
-            return Coordinates::FromCoordsFactory($row['lat'], $row['lon']);
-        }else{
-            return null;
-        }
-
+        return UserCacheCoords::getCoords($userId, $this->getCacheId());
     }
 
     public function saveUserCoordinates(Coordinates $coords, $userId)
     {
-        //TODO: Table cache_mod_cords should have index on cache_id/user_id instead of autoincrement index!
-        //      Then it could be possible to use INSERT ... ON DUPLICATE KEY UPDATE Syntax
-        //      DELETE old coords to be sure there is no duplicates...
-        $this->deleteUserCoordinates($userId);
-
-        XDb::xSql("INSERT INTO cache_mod_cords
-            (cache_id, user_id, longitude, latitude, date)
-            VALUES(?, ?, ?, ?, NOW() );",
-            $this->id, $userId, $coords->getLongitude(), $coords->getLatitude());
+        UserCacheCoords::storeCoords($userId, $this->getCacheId(), $coords);
     }
 
     public function deleteUserCoordinates($userId)
     {
-        XDb::xSql("DELETE FROM cache_mod_cords
-                   WHERE cache_id = ? AND user_id = ?", $this->id, $userId);
+        UserCacheCoords::deleteCoords($this->getCacheId(), $userId);
     }
 
     public function getUserNote($userId)
     {
-        return XDb::xMultiVariableQueryValue(
-            "SELECT `desc` FROM cache_notes WHERE cache_id = :1 AND user_id = :2 LIMIT 1",
-            '', $this->id, $userId);
+        return CacheNote::getNote($userId, $this->getCacheId());
     }
 
     public function saveUserNote($userId, $noteContent)
     {
-        //TODO: Table cache_notes should have index on cache_id/user_id instead of autoincrement index!
-        //      Then it could be possible to use INSERT ... ON DUPLICATE KEY UPDATE Syntax
-        //      DELETE old coords to be sure there is no duplicates...
-        $this->deleteUserNote($userId);
-
-
-        $noteContent = htmlspecialchars($noteContent, ENT_COMPAT, 'UTF-8');
-
-        XDb::xSql("INSERT INTO cache_notes
-            (cache_id, user_id, `desc`, desc_html, date)
-            VALUES(?, ?, ?, ?, NOW() );",
-            $this->id, $userId, $noteContent, '0');
-
+        CacheNote::storeNote($userId, $this->getCacheId(), $noteContent);
     }
 
     public function deleteUserNote($userId)
     {
-        XDb::xSql("DELETE FROM cache_notes
-                   WHERE cache_id = ? AND user_id = ?", $this->id, $userId);
+        CacheNote::deleteNote($userId, $this->getCacheId());
     }
 
     public function getGeokretsHosted()
