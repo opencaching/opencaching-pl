@@ -44,7 +44,7 @@ class UserCacheCoords extends BaseObject
             $cacheId, $userId);
     }
 
-    public static function getCoordsByCacheIds(array $cacheIds)
+    public static function getCoordsByCacheIds(array $cacheIds, $userId)
     {
         if(empty($cacheIds)){
             return [];
@@ -53,10 +53,10 @@ class UserCacheCoords extends BaseObject
 
         $cacheIdsStr = implode(',', $cacheIds);
 
-        $rs = $db->simpleQuery(
+        $rs = $db->multiVariableQuery(
             "SELECT cache_id, latitude AS lat, longitude AS lot, date
             FROM cache_mod_cords
-            WHERE cache_id IN ($cacheIdsStr)");
+            WHERE user_id = :1 AND cache_id IN ($cacheIdsStr)", $userId);
 
         return $db->dbResultFetchAll($rs);
     }
