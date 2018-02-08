@@ -1969,10 +1969,13 @@ $translations = array(
     'statpic_hidden' => 'Geplaatst:',
     'statpic_html_link' => '- statistieken van',
     'cog_user_name' => 'OC Team',
+
     'region_01' => 'Provincie via opgegeven coördinaten:',
     'region_02' => 'Land',
     'region_03' => 'Provincie gevonden via {site_name}',
     'region_04' => 'Provincie gevonden via Google Map',
+    'region_mapQuest' => 'Provincie gevonden via MapQuest API',
+
     'cacheType_1' => 'Traditionele Cache',
     'cacheType_2' => 'Multi Cache',
     'cacheType_3' => 'Puzzel Cache',
@@ -2733,45 +2736,46 @@ $translations = array(
     'mnu_FloppMap' => 'Flopp\'s kaart',
     'mnu_clipboard' => 'Klembord',
 
-    'admCs_degradedCs'  => 'Degraded GeoPaths',
+    'admCs_degradedCs'  => 'Degraded GeoPaths', /* EN! */
     'admCs_cacheSet'  => 'GeoPaths',
-    'admCs_currentRatio' => 'Ratio of active caches',
-    'admCs_requiredRatio' => 'Ratio of required caches',
+    'admCs_currentRatio' => 'Ratio of active caches', /* EN! */
+    'admCs_requiredRatio' => 'Ratio of required caches', /* EN! */
     'admCs_emptyList' => 'WOW! There are no active but degraded geopaths to list here!', /* EN */
 
-    'startPage_wholeStatsTitle' => 'Current state of the game',
+    'startPage_wholeStatsTitle' => 'Huidige status van het spel', /* EN! */
     'startPage_totalCaches' => 'Totale caches',
     'startPage_totalCachesDesc' => 'Totaal aantal gemaakte caches',
     'startPage_readyToSearch' => 'Actieve caches',
     'startPage_readyToSearchDesc' => 'Totaal aantal actieve caches',
-    'startPage_topRatedCaches' => 'Geocaches rated as excelent',
-    'startPage_topRatedCachesDesc' => 'The number of caches rated as excelent',
+    'startPage_topRatedCaches' => 'Geocaches rated as excelent', /* EN! */
+    'startPage_topRatedCachesDesc' => 'The number of caches rated as excelent', /* EN! */
     'startPage_newCaches' => 'Nieuwe caches',
     'startPage_newCachesDesc' => 'Aantal nieuwe caches (laatste 30 dagen)',
-    'startPage_activeCacheSets' => 'Aktieve geopaths',
+    'startPage_activeCacheSets' => 'Actieve geopaths',
     'startPage_activeCacheSetsDesc' => 'Totaal aantal actieve geopaths',
     'startPage_totalUsers' => 'Actieve gebruikers',
     'startPage_totalUsersDesc' => 'Aantal gebruikers met gemaakte of gevonden caches',
     'startPage_newUsers' => 'Nieuwste gebruikers',
     'startPage_newUsersDesc' => 'Aantal nieuwe gebruikers (laatste 30 dagen)',
-    'startPage_totalSearches' => 'Searches number',
-    'startPage_totalSearchesDesc' => 'The number of all searches ever',
-    'startPage_newSearches' => 'Latest searches',
-    'startPage_newSearchesDesc' => 'The number of recent searches (laatste 30 dagen)',
+    'startPage_totalSearches' => 'Searches number', /* EN! */
+    'startPage_totalSearchesDesc' => 'The number of all searches ever', /* EN! */
+    'startPage_newSearches' => 'Latest searches', /* EN! */
+    'startPage_newSearchesDesc' => 'The number of recent searches (laatste 30 dagen)', /* EN! */
     'startPage_newoRecom' => 'Nieuwste aanbevelingen',
     'startPage_newoRecomDesc' => 'Aantal gegeven aanbevelingen in de laatste 30 dagen',
     'startPage_showMore' => 'Toon meer',
     'startPage_latestCachesList' => 'Nieuwste caches',
     'startPage_latestCacheSets' => 'Nieuwste geopaths',
-    'startPage_latestTitledCaches' => 'Latest awarded',
-    'startPage_validAt' => 'Valid at',
+    'startPage_latestTitledCaches' => 'Latest awarded', /* EN! */
+    'startPage_validAt' => 'Valid at', /* EN! */
+
 
     'myNotes_title' => 'Mijn cache notities',
-    'myNotes_removeConfirmation' => 'Moet deze cache notitie werkelijk verwijderd worden?',
+    'myNotes_lastLogEntry' => 'Laatste log',
     'myNotes_modCacheCoords' => 'Gecorrigeerde coördinaten',
-    'myNotes_status' => 'Status', /* EN! */
-    'myNotes_cacheName' => 'Geocache', /* EN! */
-    'myNotes_note' => 'Note', /* EN! */
+    'myNotes_status' => 'Status',
+    'myNotes_cacheName' => 'Cache',
+    'myNotes_note' => 'Notitie',
     'myNotes_removeNote' => 'Del. note', /* EN! */
     'myNotes_noteRemovingSuccess' => 'Note removed', /* EN! */
     'myNotes_noteRemovingError' => 'Note removing failed', /* EN! */
@@ -2779,6 +2783,7 @@ $translations = array(
     'myNotes_coordsRemovingSuccess' => 'User coordinates removed', /* EN! */
     'myNotes_coordsRemovingError' => 'User coordinates removing failed', /* EN! */
     'myNotes_emptyList' => 'No notes found in geocaches', /* EN! */
-    'myNotes_showFullNote' => 'more', /* EN! */
-    'myNotes_removeConfirmation' => 'Vrei să ştergi această notă?', /* EN! */
+    'myNotes_showFullNote' => 'meer',
+    'myNotes_removeConfirmation' => 'Moet deze cache notitie werkelijk verwijderd worden?',
+
 );
