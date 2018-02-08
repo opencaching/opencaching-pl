@@ -26,7 +26,7 @@ return function ($data){
 
     if( strlen($data['text']) > $data['maxChars'] ){
         //trim the text
-        $text = substr($data['text'], 0, $data['maxChars']).'...';
+        $text = mb_substr($data['text'], 0, $data['maxChars']).'...';
         $fullText = $data['text'];
     }else{
         $text = $data['text'];
