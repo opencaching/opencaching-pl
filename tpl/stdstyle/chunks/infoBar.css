@@ -4,42 +4,48 @@
   There is no need to load it manually!
 
 */
-
 .infoBar-closeBtn {
-    cursor: pointer;
-    background-image: url("/tpl/stdstyle/images/misc/btn_close_normal.svg");
-    background-size: cover;
-    width: 20px;
-    height: 20px;
-    display: inline-block;
+	cursor: pointer;
+	background-image: url("/tpl/stdstyle/images/misc/btn_close_normal.svg");
+	background-size: cover;
+	height: 20px;
+	width: 20px;
+	display: inline-block;
 }
+
 .infoBar-closeBtn:hover {
-    background-image: url("/tpl/stdstyle/images/misc/btn_close_hover.svg");
+	background-image: url("/tpl/stdstyle/images/misc/btn_close_hover.svg");
 }
 
 .infoBar-message {
-    color: #3c763d;
-    background-color: #dff0d8;
-    border-color: #d6e9c6;
-    width: 739px;
-    text-align: center;
-    padding:15px;
-    margin-bottom: 10px;
-    border-radius: 15px;
+	width: 93%;
+	text-align: center;
+	padding: 15px;
+	margin-bottom: 10px;
+	border-radius: 7px;
 }
 
 .infoBar-messageErr {
-    color: #a94442;
-    background-color: #f2dede;
-    border-color: #ebccd1;
+	color: #d80707;
+	background-color: #fef1ec;
+	border: 1px solid #d80707;
+}
+
+.infoBar-messageInfo {
+	color: #3c763d;
+	background-color: #f5fff1;
+	border: 1px solid #3c763d;
 }
 
 .infoBar-messageText {
-    width: 700px;
-    display: inline-block;
-    
-} 
+	width: 95%;
+	display: inline-block;
+	font-size: 14px;
+	font-weight: bold;
+	font-family: Verdana, Arial, sans-serif;
+}
 
 .infoBar-closeBtnContainer {
-      display: inline-block;
+	display: inline-block;
+	vertical-align: middle;
 }
