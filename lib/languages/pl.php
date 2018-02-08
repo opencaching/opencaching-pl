@@ -700,7 +700,6 @@ $translations = array(
     'recently_seen' => 'ostatnio widziana',
     'moved_text' => 'przeniesiona',
     'my_neighborhood' => 'Moja okolica',
-    'my_neighborhood_v2' => 'Moja okolica v2',
     'my_neighborhood_radius' => 'Moja okolica w promieniu',
     'new_caches_myn' => 'Nowe skrzynki',
     'ftf_awaiting' => 'Skrzynki czekające na "FTF"',

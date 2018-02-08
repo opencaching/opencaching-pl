@@ -696,7 +696,6 @@ $translations = array(
     'recently_seen' => 'vizitată de curând',
     'moved_text' => 'mutată',
     'my_neighborhood' => 'În apropiere',
-    'my_neighborhood_v2' => 'În apropiere v2',
     'my_neighborhood_radius' => 'În apropierea mea pe o rază de',
     'new_caches_myn' => 'Geocutii noi',
     'ftf_awaiting' => 'Geocutii care aşteaptă să fie găsite pentru prima oară',

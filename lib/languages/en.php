@@ -696,7 +696,6 @@ $translations = array(
     'recently_seen' => 'recently seen',
     'moved_text' => 'moved',
     'my_neighborhood' => 'My neighbourhood',
-    'my_neighborhood_v2' => 'My neighbourhood v2',
     'my_neighborhood_radius' => 'My neighbourhood radius',
     'new_caches_myn' => 'New geocaches',
     'ftf_awaiting' => 'Caches awaiting First Find',
