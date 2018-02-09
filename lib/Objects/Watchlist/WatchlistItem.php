@@ -139,7 +139,7 @@ class WatchlistItem
         $logTypeParams['logtype'] = tr(
             GeoCacheLogCommons::typeTranslationKey($logType)
         );
-        if (isset(self::LOGTYPE_COLORS[$logType])) {
+        if (array_key_exists($logType, self::LOGTYPE_COLORS)) {
             $logTypeParams['logtypeColor'] = self::LOGTYPE_COLORS[$logType];
         } else {
             $logTypeParams['logtypeColor'] = self::LOGTYPE_COLOR_DEFAULT;
