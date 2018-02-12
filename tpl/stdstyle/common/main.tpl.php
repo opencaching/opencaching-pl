@@ -6,7 +6,7 @@ global $tpl_subtitle;
 
 ?>
 <!DOCTYPE html>
-<html lang="<?=$view->getLang()?>" xml:lang="<?=$view->getLang()?>">
+<html lang="<?=$view->getLang()?>">
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="keywords" content="<?=$view->_keywords?>">
@@ -55,9 +55,9 @@ global $tpl_subtitle;
   ?>
 
   <?php foreach( $view->getLocalJs() as $js ) { ?>
-    <script src="<?=$js?>"></script>
-  <?php } //foreach-css ?>
-  <script src="/lib/js/CookiesInfo.js" async="async" defer="defer"></script>
+    <script src="<?=$js['url']?>"<?=$js['async'] ? ' async' : ''?><?=$js['async'] ? ' defer' : ''?>></script>
+  <?php } //foreach-js ?>
+  <script src="/lib/js/CookiesInfo.js" async defer></script>
 
 </head>
 <body {bodyMod} class="<?=$view->backgroundSeason?>">

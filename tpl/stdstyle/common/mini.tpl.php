@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<?=$view->getLang()?>" xml:lang="<?=$view->getLang()?>">
+<html lang="<?=$view->getLang()?>">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
@@ -24,11 +24,6 @@
           <link rel="stylesheet" type="text/css" href="<?=$css?>">
         <?php } //foreach-css ?>
 
-        <?php foreach( $view->getLocalJs() as $js ) { ?>
-          <script src="<?=$js?>"></script>
-        <?php } //foreach-css ?>
-
-
         <?php
             if( $view->isGoogleAnalyticsEnabled() ){
                 $view->callChunkOnce( 'googleAnalytics', $view->getGoogleAnalyticsKey() );
@@ -49,6 +44,10 @@
                 $view->callChunk('googleMapsApi', $GLOBALS['googlemap_key'], $view->getLang());
             }
         ?>
+
+        <?php foreach( $view->getLocalJs() as $js ) { ?>
+          <script src="<?=$js['url']?>"<?=$js['async'] ? ' async' : ''?><?=$js['async'] ? ' defer' : ''?>></script>
+        <?php } //foreach-js ?>
 
         <title>{title}</title>
         {htmlheaders}

@@ -237,12 +237,17 @@ class View {
 
     /**
      * Add JavaScript script which will be loaded in page header
-     * @param $jsUrl - url to js Script
+     * @param string $jsUrl - url to js Script
+     * @param boolean $async - load script asynchronous
+     * @param boolean $defer - load script after the page has loaded
      */
-    public function addLocalJs($jsUrl)
+    public function addLocalJs($jsUrl, $async = false, $defer = false)
     {
-        $this->_localJs[] = $jsUrl;
-
+        $this->_localJs[] = [
+            'url' => $jsUrl,
+            'async' => $async,
+            'defer' => $defer
+        ];
     }
 
     public function getLocalJs()

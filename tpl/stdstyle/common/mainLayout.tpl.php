@@ -17,10 +17,6 @@
       <link rel="stylesheet" type="text/css" href="<?=$css?>">
     <?php } //foreach-css ?>
 
-    <?php foreach( $view->getLocalJs() as $js ) { ?>
-      <script src="<?=$js?>"></script>
-    <?php } //foreach-css ?>
-
     <?php
 
         $view->callChunk('bootstrapCss'); // always load bootstrap
@@ -47,8 +43,11 @@
                     $GLOBALS['googlemap_key'], $view->getLang(), $callback);
             }
         }
-    ?>
+        ?>
 
+    <?php foreach( $view->getLocalJs() as $js ) { ?>
+    <script src="<?=$js['url']?>"<?=$js['async'] ? ' async' : ''?><?=$js['async'] ? ' defer' : ''?>></script>
+    <?php } //foreach-js ?>
 
 <!-- (C) The Opencaching Project 2017 -->
 
