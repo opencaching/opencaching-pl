@@ -179,8 +179,6 @@ class CacheNotesController extends BaseController
             return;
         }
 
-        Debug::errorLog($cacheId);
-
         //check cacheId
         if(!is_numeric($cacheId)){
             $this->ajaxErrorResponse("Invalid param", 400);
