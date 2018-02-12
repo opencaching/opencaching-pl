@@ -92,7 +92,7 @@ class ErrMsgText {
         return $msg;
     }
 }
-     
+
 //
 // A wrapper class that is used to access the specified error object
 // (to hide the global error parameter and avoid having a GLOBAL directive
@@ -113,23 +113,23 @@ class JpGraphError {
         throw new JpGraphExceptionL($errnbr,$a1,$a2,$a3,$a4,$a5);
     }
     public static function SetImageFlag($aFlg=true) {
-    	self::$__iImgFlg = $aFlg;
+        self::$__iImgFlg = $aFlg;
     }
     public static function GetImageFlag() {
-    	return self::$__iImgFlg;
+        return self::$__iImgFlg;
     }
     public static function SetLogFile($aFile) {
-    	self::$__iLogFile = $aFile;
+        self::$__iLogFile = $aFile;
     }
     public static function GetLogFile() {
-    	return self::$__iLogFile;
+        return self::$__iLogFile;
     }
     public static function SetTitle($aTitle) {
-    	self::$__iTitle = $aTitle;
+        self::$__iTitle = $aTitle;
     }
     public static function GetTitle() {
-    	return self::$__iTitle;
-    }    
+        return self::$__iTitle;
+    }
 }
 
 class JpGraphException extends Exception {
@@ -144,15 +144,15 @@ class JpGraphException extends Exception {
     }
     // custom representation of error as an image
     public function Stroke() {
-    	if( JpGraphError::GetImageFlag() ) {
-        	$errobj = new JpGraphErrObjectImg();
-        	$errobj->SetTitle(JpGraphError::GetTitle());
-    	}
-    	else {    		
-    		$errobj = new JpGraphErrObject();
-        	$errobj->SetTitle(JpGraphError::GetTitle());    		
-    		$errobj->SetStrokeDest(JpGraphError::GetLogFile());
-    	}
+        if( JpGraphError::GetImageFlag() ) {
+            $errobj = new JpGraphErrObjectImg();
+            $errobj->SetTitle(JpGraphError::GetTitle());
+        }
+        else {
+            $errobj = new JpGraphErrObject();
+            $errobj->SetTitle(JpGraphError::GetTitle());
+            $errobj->SetStrokeDest(JpGraphError::GetLogFile());
+        }
         $errobj->Raise($this->getMessage());
     }
     static public function defaultHandler(Exception $exception) {
@@ -212,31 +212,31 @@ class JpGraphErrObject {
     // If aHalt is true then execution can't continue. Typical used for fatal errors
     function Raise($aMsg,$aHalt=false) {
         if( $this->iDest != '' ) {
-        	if( $this->iDest == 'syslog' ) {
-        		error_log($this->iTitle.$aMsg);	
-        	} 
-        	else {
-        		$str = '['.date('r').'] '.$this->iTitle.$aMsg."\n";
-        		$f = @fopen($this->iDest,'a');
-    	        if( $f ) {            	
-        	        @fwrite($f,$str);
-            	    @fclose($f);
-            	}
-        	}
+            if( $this->iDest == 'syslog' ) {
+                error_log($this->iTitle.$aMsg);
+            }
+            else {
+                $str = '['.date('r').'] '.$this->iTitle.$aMsg."\n";
+                $f = @fopen($this->iDest,'a');
+                if( $f ) {
+                    @fwrite($f,$str);
+                    @fclose($f);
+                }
+            }
         }
         else {
-        	$aMsg = $this->iTitle.$aMsg;        	
-        	// Check SAPI and if we are called from the command line
-        	// send the error to STDERR instead
-        	if( PHP_SAPI == 'cli' ) {
-        		fwrite(STDERR,$aMsg);
-        	}
-        	else {
-            	echo $aMsg;
-        	}
+            $aMsg = $this->iTitle.$aMsg;
+            // Check SAPI and if we are called from the command line
+            // send the error to STDERR instead
+            if( PHP_SAPI == 'cli' ) {
+                fwrite(STDERR,$aMsg);
+            }
+            else {
+                echo $aMsg;
+            }
         }
         if( $aHalt )
-        	exit(1);
+            exit(1);
     }
 }
 
@@ -244,7 +244,7 @@ class JpGraphErrObject {
 // An image based error handler
 //==============================================================
 class JpGraphErrObjectImg extends JpGraphErrObject {
-    
+
     function __construct() {
         parent::__construct();
         // Empty. Reserved for future use
@@ -268,7 +268,7 @@ class JpGraphErrObjectImg extends JpGraphErrObject {
      'vd69OLMddVOPCGVnmrFD8bVYd3JXfxXPtLR/+mtv59/ALWiiMx'.
      'qL72fwAAAABJRU5ErkJggg==' ;
 
-        
+
         if( function_exists("imagetypes") ) {
             $supported = imagetypes();
         } else {
@@ -278,7 +278,7 @@ class JpGraphErrObjectImg extends JpGraphErrObject {
         if( !function_exists('imagecreatefromstring') ) {
             $supported = 0;
         }
-        
+
         if( ob_get_length() || headers_sent() || !($supported & IMG_PNG) ) {
             // Special case for headers already sent or that the installation doesn't support
             // the PNG format (which the error icon is encoded in).
@@ -364,6 +364,6 @@ class JpGraphErrObjectImg extends JpGraphErrObject {
 
 
 if( ! USE_IMAGE_ERROR_HANDLER ) {
-	JpGraphError::SetImageFlag(false);
+    JpGraphError::SetImageFlag(false);
 }
 ?>

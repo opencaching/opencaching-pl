@@ -473,7 +473,7 @@ class GanttGraph extends Graph {
 
     // Set user specified scale zoom factor when auto sizing is used
     function SetZoomFactor($aZoom) {
-    	$this->iZoomFactor = $aZoom;
+        $this->iZoomFactor = $aZoom;
     }
 
 
@@ -502,7 +502,7 @@ class GanttGraph extends Graph {
                 $this->AddIcon($aObject);
             }
             elseif( class_exists('Text',false) && ($cl instanceof Text) ) {
-            	$this->AddText($aObject);
+                $this->AddText($aObject);
             }
             else {
                 $n = count($aObject);
@@ -515,7 +515,7 @@ class GanttGraph extends Graph {
                 $this->AddIcon($aObject);
             }
             elseif( class_exists('Text',false) && ($aObject instanceof Text) ) {
-            	$this->AddText($aObject);
+                $this->AddText($aObject);
             }
             else {
                 $this->iObj[] = $aObject;
@@ -523,23 +523,23 @@ class GanttGraph extends Graph {
         }
     }
 
-	function StrokeTexts() {
+    function StrokeTexts() {
         // Stroke any user added text objects
         if( $this->texts != null ) {
-        	$n = count($this->texts);
+            $n = count($this->texts);
             for($i=0; $i < $n; ++$i) {
-            	if( $this->texts[$i]->iScalePosX !== null && $this->texts[$i]->iScalePosY !== null ) {
-            		$x = $this->scale->TranslateDate($this->texts[$i]->iScalePosX);
-            		$y = $this->scale->TranslateVertPos($this->texts[$i]->iScalePosY);
-            		$y -= $this->scale->GetVertSpacing()/2;
-            	}
-            	else {
-            		$x = $y = null;
-            	}
+                if( $this->texts[$i]->iScalePosX !== null && $this->texts[$i]->iScalePosY !== null ) {
+                    $x = $this->scale->TranslateDate($this->texts[$i]->iScalePosX);
+                    $y = $this->scale->TranslateVertPos($this->texts[$i]->iScalePosY);
+                    $y -= $this->scale->GetVertSpacing()/2;
+                }
+                else {
+                    $x = $y = null;
+                }
                 $this->texts[$i]->Stroke($this->img,$x,$y);
             }
         }
-	}
+    }
 
     // Override inherit method from Graph and give a warning message
     function SetScale($aAxisType,$aYMin=1,$aYMax=1,$aXMin=1,$aXMax=1) {
@@ -664,7 +664,7 @@ class GanttGraph extends Graph {
             // the title.
            $hadj = $vadj = 0;
            if( $this->doshadow ) {
-           		$hadj = $this->shadow_width;
+                $hadj = $this->shadow_width;
                 $vadj = $this->shadow_width+5;
             }
 
@@ -678,11 +678,11 @@ class GanttGraph extends Graph {
             // If there are any added GanttVLine we must make sure that the
             // bottom margin is wide enough to hold a title.
             $n = count($this->iObj);
-        	for($i=0; $i < $n; ++$i) {
-            	if( $this->iObj[$i] instanceof GanttVLine ) {
-					$bm = max($bm,$this->iObj[$i]->title->GetHeight($this->img)+10);
-            	}
-        	}
+            for($i=0; $i < $n; ++$i) {
+                if( $this->iObj[$i] instanceof GanttVLine ) {
+                    $bm = max($bm,$this->iObj[$i]->title->GetHeight($this->img)+10);
+                }
+            }
 
             // First find out the height
             $n=$this->GetBarMaxLineNumber()+1;
@@ -873,8 +873,8 @@ class GanttGraph extends Graph {
             }
 
             if( !$this->scale->IsDisplayDay() && !$this->scale->IsDisplayHour() &&
-            	!( ($this->scale->week->iStyle==WEEKSTYLE_FIRSTDAYWNBR ||
-            		$this->scale->week->iStyle==WEEKSTYLE_FIRSTDAY2WNBR) && $this->scale->IsDisplayWeek() ) ) {
+                !( ($this->scale->week->iStyle==WEEKSTYLE_FIRSTDAYWNBR ||
+                    $this->scale->week->iStyle==WEEKSTYLE_FIRSTDAY2WNBR) && $this->scale->IsDisplayWeek() ) ) {
                 // If we don't display the individual days we can shrink the
                 // scale a little bit. This is a little bit pragmatic at the
                 // moment and should be re-written to take into account
@@ -900,8 +900,8 @@ class GanttGraph extends Graph {
                 // Add the width of the vertivcal divider line
                 $titlewidth += $this->scale->divider->iWeight*2;
 
-				// Adjust the width by the user specified zoom factor
-				$fw *= $this->iZoomFactor;
+                // Adjust the width by the user specified zoom factor
+                $fw *= $this->iZoomFactor;
 
                 // Now get the total width taking
                 // titlewidth, left and rigt margin, dayfont size
@@ -980,7 +980,7 @@ class GanttGraph extends Graph {
         }
         // If it hasn't been set find out the maximum line number
         if( $this->scale->iVertLines == -1 )
-        	$this->scale->iVertLines = $this->GetBarMaxLineNumber()+1;
+            $this->scale->iVertLines = $this->GetBarMaxLineNumber()+1;
 
         $maxwidth=max($this->scale->actinfo->GetWidth($this->img),
         max($this->GetMaxLabelWidth(),
@@ -1531,9 +1531,9 @@ class IconImage {
         }
 
         $aImg->Copy($this->iGDImage,
-        			$x,$y,0,0,
-        			round($this->iWidth*$this->iScale),round($this->iHeight*$this->iScale),
-        			$this->iWidth,$this->iHeight);
+                    $x,$y,0,0,
+                    round($this->iWidth*$this->iScale),round($this->iHeight*$this->iScale),
+                    $this->iWidth,$this->iHeight);
     }
 }
 
@@ -1801,7 +1801,7 @@ class TextProperty {
                             else {
                                 $aImg->SetFont($this->iFFamily,$this->iFStyle,$this->iFSize);
                             }
-                        	$aImg->StrokeText($aX[$i],$aY[$i],str_replace("\t"," ",$tmp));
+                            $aImg->StrokeText($aX[$i],$aY[$i],str_replace("\t"," ",$tmp));
                         }
                     }
                 }
@@ -1854,7 +1854,7 @@ class HeaderProperty {
     }
 
     function SetIntervall($aInt) {
-    	$this->iIntervall = $aInt;
+        $this->iIntervall = $aInt;
     }
 
     function SetInterval($aInt) {
@@ -2321,7 +2321,7 @@ class GanttScale {
     function TranslateVertPos($aPos,$atTop=false) {
         $img=$this->iImg;
         if( $aPos > $this->iVertLines )
-        	JpGraphError::RaiseL(6015,$aPos);
+            JpGraphError::RaiseL(6015,$aPos);
         // 'Illegal vertical position %d'
         if( $this->iVertLayout == GANTT_EVEN ) {
             // Position the top bar at 1 vert spacing from the scale
@@ -2968,8 +2968,8 @@ class GanttScale {
     // Main entry point to stroke scale
     function Stroke() {
         if( !$this->IsRangeSet() ) {
-        	JpGraphError::RaiseL(6022);
-        	//("Gantt scale has not been specified.");
+            JpGraphError::RaiseL(6022);
+            //("Gantt scale has not been specified.");
         }
         $img=$this->iImg;
 
@@ -3009,7 +3009,7 @@ class GanttScale {
 
         $this->iVertHeaderSize = $offmin;
         if( $this->iVertSpacing == -1 )
-        	$this->iVertSpacing = $this->iAvailableHeight / $this->iVertLines;
+            $this->iVertSpacing = $this->iAvailableHeight / $this->iVertLines;
     }
 }
 
@@ -3139,8 +3139,8 @@ class Progress {
 
     function Set($aProg) {
         if( $aProg < 0.0 || $aProg > 1.0 ) {
-        	JpGraphError::RaiseL(6027);
-        	//("Progress value must in range [0, 1]");
+            JpGraphError::RaiseL(6027);
+            //("Progress value must in range [0, 1]");
         }
         $this->iProgress = $aProg;
     }
@@ -3265,14 +3265,14 @@ class GanttBar extends GanttPlotObject {
             // If end date has been specified without a time we will asssume
             // end date is at the end of that date
             if( strpos($aEnd,':') === false ) {
-            	$this->iEnd = strtotime($aEnd)+SECPERDAY-1;
+                $this->iEnd = strtotime($aEnd)+SECPERDAY-1;
             }
             else {
-            	$this->iEnd = $aEnd;
+                $this->iEnd = $aEnd;
             }
         }
         elseif(is_int($aEnd) || is_float($aEnd) ) {
-        	$this->iEnd = strtotime($aStart)+round($aEnd*SECPERDAY);
+            $this->iEnd = strtotime($aStart)+round($aEnd*SECPERDAY);
         }
         $this->iVPos = $aPos;
         $this->iHeightFactor = $aHeightFactor;
@@ -3294,9 +3294,9 @@ class GanttBar extends GanttPlotObject {
     }
 
     function SetBreakStyle($aFlg=true,$aLineStyle='dotted',$aLineWeight=1) {
-    	$this->iBreakStyle = $aFlg;
-    	$this->iBreakLineStyle = $aLineStyle;
-    	$this->iBreakLineWeight = $aLineWeight;
+        $this->iBreakStyle = $aFlg;
+        $this->iBreakLineStyle = $aLineStyle;
+        $this->iBreakLineWeight = $aLineWeight;
     }
 
     function GetMaxDate() {
@@ -3319,15 +3319,15 @@ class GanttBar extends GanttPlotObject {
         if( is_int($this->iHeightFactor) || $this->leftMark->show || $this->rightMark->show ) {
             $m=-1;
             if( is_int($this->iHeightFactor) )
-            	$m = $this->iHeightFactor;
+                $m = $this->iHeightFactor;
             if( $this->leftMark->show )
-            	$m = max($m,$this->leftMark->width*2);
+                $m = max($m,$this->leftMark->width*2);
             if( $this->rightMark->show )
-            	$m = max($m,$this->rightMark->width*2);
+                $m = max($m,$this->rightMark->width*2);
             return $m;
         }
         else
-        	return -1;
+            return -1;
     }
 
     function SetPattern($aPattern,$aColor="blue",$aDensity=95) {
@@ -3345,12 +3345,12 @@ class GanttBar extends GanttPlotObject {
         // percetage of the scale width between horizontal line.
         // If it is an integer > 1 we take it to mean the absolute height in pixels
         if( $this->iHeightFactor > -0.0 && $this->iHeightFactor <= 1.1)
-        	$vs = $aScale->GetVertSpacing()*$this->iHeightFactor;
+            $vs = $aScale->GetVertSpacing()*$this->iHeightFactor;
         elseif(is_int($this->iHeightFactor) && $this->iHeightFactor>2 && $this->iHeightFactor < 200 )
-        	$vs = $this->iHeightFactor;
+            $vs = $this->iHeightFactor;
         else {
-        	JpGraphError::RaiseL(6028,$this->iHeightFactor);
-        	//	("Specified height (".$this->iHeightFactor.") for gantt bar is out of range.");
+            JpGraphError::RaiseL(6028,$this->iHeightFactor);
+            //  ("Specified height (".$this->iHeightFactor.") for gantt bar is out of range.");
         }
 
         // Clip date to min max dates to show
@@ -3396,7 +3396,7 @@ class GanttBar extends GanttPlotObject {
 
         // Check if the bar is totally outside the current scale range
         if( $en <  $aScale->iStartDate || $st > $aScale->iEndDate )
-        	return;
+            return;
 
 
         // Remember the positions for the bar
@@ -3407,27 +3407,27 @@ class GanttBar extends GanttPlotObject {
         $prect->ShowFrame(false);
         $prect->SetBackground($this->iFillColor);
         if( $this->iBreakStyle ) {
-        	$aImg->SetColor($this->iFrameColor);
-        	$olds = $aImg->SetLineStyle($this->iBreakLineStyle);
-        	$oldw = $aImg->SetLineWeight($this->iBreakLineWeight);
-        	$aImg->StyleLine($xt,$yt,$xb,$yt);
-        	$aImg->StyleLine($xt,$yb,$xb,$yb);
-        	$aImg->SetLineStyle($olds);
-        	$aImg->SetLineWeight($oldw);
+            $aImg->SetColor($this->iFrameColor);
+            $olds = $aImg->SetLineStyle($this->iBreakLineStyle);
+            $oldw = $aImg->SetLineWeight($this->iBreakLineWeight);
+            $aImg->StyleLine($xt,$yt,$xb,$yt);
+            $aImg->StyleLine($xt,$yb,$xb,$yb);
+            $aImg->SetLineStyle($olds);
+            $aImg->SetLineWeight($oldw);
         }
         else {
-	        if( $this->iShadow ) {
-	            $aImg->SetColor($this->iFrameColor);
-	            $aImg->ShadowRectangle($xt,$yt,$xb,$yb,$this->iFillColor,$this->iShadowWidth,$this->iShadowColor);
-	            $prect->SetPos(new Rectangle($xt+1,$yt+1,$xb-$xt-$this->iShadowWidth-2,$yb-$yt-$this->iShadowWidth-2));
-	            $prect->Stroke($aImg);
-	        }
-	        else {
-	            $prect->SetPos(new Rectangle($xt,$yt,$xb-$xt+1,$yb-$yt+1));
-	            $prect->Stroke($aImg);
-	            $aImg->SetColor($this->iFrameColor);
-	            $aImg->Rectangle($xt,$yt,$xb,$yb);
-	        }
+            if( $this->iShadow ) {
+                $aImg->SetColor($this->iFrameColor);
+                $aImg->ShadowRectangle($xt,$yt,$xb,$yb,$this->iFillColor,$this->iShadowWidth,$this->iShadowColor);
+                $prect->SetPos(new Rectangle($xt+1,$yt+1,$xb-$xt-$this->iShadowWidth-2,$yb-$yt-$this->iShadowWidth-2));
+                $prect->Stroke($aImg);
+            }
+            else {
+                $prect->SetPos(new Rectangle($xt,$yt,$xb-$xt+1,$yb-$yt+1));
+                $prect->Stroke($aImg);
+                $aImg->SetColor($this->iFrameColor);
+                $aImg->Rectangle($xt,$yt,$xb,$yb);
+            }
         }
         // CSIM for bar
         if( ! empty($this->csimtarget) ) {
@@ -3472,7 +3472,7 @@ class GanttBar extends GanttPlotObject {
                 $prog->SetBackground($this->progress->iFillColor);
                 $barheight = ($yb-$yt+1);
                 if( $this->iShadow )
-                	$barheight -= $this->iShadowWidth;
+                    $barheight -= $this->iShadowWidth;
                 $progressheight = floor($barheight*$this->progress->iHeight);
                 $marg = ceil(($barheight-$progressheight)/2);
                 $pos = new Rectangle($xtp,$yt + $marg, $len,$barheight-2*$marg);
@@ -3504,7 +3504,7 @@ class GanttBar extends GanttPlotObject {
 
             $margin = $this->iCaptionMargin;
             if( $this->rightMark->show )
-            	$margin += $this->rightMark->GetWidth();
+                $margin += $this->rightMark->GetWidth();
             $this->caption->Stroke($aImg,$xb+$margin,$middle);
         }
     }
@@ -3583,7 +3583,7 @@ class MileStone extends GanttPlotObject {
         }
 
         if( $d <  $aScale->iStartDate || $d > $aScale->iEndDate )
-        	return;
+            return;
 
         // Remember the coordinates for any constrains linking to
         // this milestone
@@ -3651,8 +3651,8 @@ class GanttVLine extends GanttPlotObject {
 
     function SetDayOffset($aOff=0.5) {
         if( $aOff < 0.0 || $aOff > 1.0 ) {
-        	JpGraphError::RaiseL(6029);
-        	//("Offset for vertical line must be in range [0,1]");
+            JpGraphError::RaiseL(6029);
+            //("Offset for vertical line must be in range [0,1]");
         }
         $this->iDayOffset = $aOff;
     }

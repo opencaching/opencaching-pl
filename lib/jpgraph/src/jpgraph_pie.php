@@ -249,8 +249,8 @@ class PiePlot {
     // Should we display actual value or percentage?
     function SetLabelType($aType) {
         if( $aType < 0 || $aType > 2 )
-        	JpGraphError::RaiseL(15008,$aType);
-	        //("PiePlot::SetLabelType() Type for pie plots must be 0 or 1 (not $t).");
+            JpGraphError::RaiseL(15008,$aType);
+            //("PiePlot::SetLabelType() Type for pie plots must be 0 or 1 (not $t).");
         $this->labeltype = $aType;
     }
 
@@ -296,16 +296,14 @@ class PiePlot {
 
         // Make sure we don't plot more values than data points
         // (in case the user added more legends than data points)
-        $legendsCount = is_array($this->legends) ? count($this->legends) : 0;
-        $n = min($legendsCount,count($this->data));
+        $n = min(count($this->legends),count($this->data));
         if( $this->legends != "" ) {
             $this->legends = array_reverse(array_slice($this->legends,0,$n));
         }
         for( $i=$n-1; $i >= 0; --$i ) {
             $l = $this->legends[$i];
             // Replace possible format with actual values
-            $count = is_array($this->csimalts) ? count($this->csimalts) : 0;
-            if( $count > $i ) {
+            if( count($this->csimalts) > $i ) {
                 $fmt = $this->csimalts[$i];
             }
             else {
@@ -1309,7 +1307,7 @@ class PieGraph extends Graph {
         foreach($this->plots as $p ) {
             $csim .= $p->GetCSIMareas();
         }
-        
+
         $csim.= $this->legend->GetCSIMareas();
         if (preg_match_all("/area shape=\"(\w+)\" coords=\"([0-9\, ]+)\"/", $csim, $coords)) {
             $this->img->SetColor($this->csimcolor);

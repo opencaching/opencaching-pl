@@ -141,16 +141,10 @@ class GTextTableCell {
     }
 
     function SetGridWeight($aLeft=null,$aTop=null,$aBottom=null,$aRight=null) {
-        $weight_arr = array($aLeft, $aTop, $aBottom, $aRight);
-        for ($i = 0; $i < count($weight_arr); $i++) {
-            if ($weight_arr[$i] === "") {
-                $weight_arr[$i] = 0;
-            }
-        }
-        if( $aLeft !== null ) $this->iGridWeight[0] = $weight_arr[0];
-        if( $aTop !== null ) $this->iGridWeight[1] = $weight_arr[1];
-        if( $aBottom !== null ) $this->iGridWeight[2] = $weight_arr[2];
-        if( $aRight !== null ) $this->iGridWeight[3] = $weight_arr[3];
+        if( $aLeft !== null ) $this->iGridWeight[0] = $aLeft;
+        if( $aTop !== null ) $this->iGridWeight[1] = $aTop;
+        if( $aBottom !== null ) $this->iGridWeight[2] = $aBottom;
+        if( $aRight !== null ) $this->iGridWeight[3] = $aRight;
     }
 
     function SetMargin($aLeft,$aRight,$aTop,$aBottom) {
@@ -163,13 +157,13 @@ class GTextTableCell {
     function GetWidth($aImg) {
         if( $this->iIcon !== null ) {
             if( $this->iIconConstrain[0] == TIMG_WIDTH ) {
-            	$this->iIcon->SetScale(1);
-            	$tmp = $this->iIcon->GetWidthHeight();
+                $this->iIcon->SetScale(1);
+                $tmp = $this->iIcon->GetWidthHeight();
                 $this->iIcon->SetScale($this->iIconConstrain[1]/$tmp[0]);
             }
             elseif( $this->iIconConstrain[0] == TIMG_HEIGHT ) {
-            	$this->iIcon->SetScale(1);
-            	$tmp = $this->iIcon->GetWidthHeight();
+                $this->iIcon->SetScale(1);
+                $tmp = $this->iIcon->GetWidthHeight();
                 $this->iIcon->SetScale($this->iIconConstrain[1]/$tmp[1]);
             }
             $tmp = $this->iIcon->GetWidthHeight();
@@ -195,13 +189,13 @@ class GTextTableCell {
     function GetHeight($aImg) {
         if( $this->iIcon !== null ) {
             if( $this->iIconConstrain[0] == TIMG_WIDTH ) {
-            	$this->iIcon->SetScale(1);
-            	$tmp = $this->iIcon->GetWidthHeight();
-            	$this->iIcon->SetScale($this->iIconConstrain[1]/$tmp[0]);
+                $this->iIcon->SetScale(1);
+                $tmp = $this->iIcon->GetWidthHeight();
+                $this->iIcon->SetScale($this->iIconConstrain[1]/$tmp[0]);
             }
             elseif( $this->iIconConstrain[0] == TIMG_HEIGHT ) {
-            	$this->iIcon->SetScale(1);
-            	$tmp = $this->iIcon->GetWidthHeight();
+                $this->iIcon->SetScale(1);
+                $tmp = $this->iIcon->GetWidthHeight();
                 $this->iIcon->SetScale($this->iIconConstrain[1]/$tmp[1]);
             }
             $tmp = $this->iIcon->GetWidthHeight();

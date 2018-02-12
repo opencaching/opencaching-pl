@@ -129,7 +129,7 @@ class PolarPlot {
                 $this->csimareas .= $this->mark->GetCSIMAreas();
             }
             else {
-            	$this->mark->Stroke($img,$x1,$y1);
+                $this->mark->Stroke($img,$x1,$y1);
             }
 
             ++$i;
@@ -423,7 +423,6 @@ class PolarAxis extends Axis {
                         $this->img->Line($x1,$y1,$x2,$y2);
                     }
                 }
-                $a = (int) $a;
                 $a += $this->angle_step;
             }
         }
@@ -481,14 +480,13 @@ class PolarAxis extends Axis {
                 }
                 $t->Align($ha,$va);
                 if( $this->show_angle_mark && $t->font_family > 4 ) {
-                	$a .= SymChar::Get('degree');
+                    $a .= SymChar::Get('degree');
                 }
                 $t->Set($a);
                 $t->Stroke($this->img,$xt,$yt);
                 if( $this->show_angle_tick ) {
                     $this->img->Line($x1,$y1,$x2,$y2);
                 }
-                $a = (int) $a;
                 $a += $this->angle_step;
             }
         }
@@ -615,7 +613,7 @@ class PolarScale extends LinearScale {
         $aRad = $aRad/$m*$w;
 
         $a = $aAngle/180 * M_PI;
-        if( $this->clockwise ) { 
+        if( $this->clockwise ) {
             $a = 2*M_PI-$a;
         }
 
@@ -797,10 +795,10 @@ class PolarGraph extends Graph {
         }
 
         if( $this->iType ==  POLAR_180 ) {
-        	$pos = $this->img->height - $this->img->bottom_margin;
+            $pos = $this->img->height - $this->img->bottom_margin;
         }
         else {
-        	$pos = $this->img->plotheight/2 + $this->img->top_margin;
+            $pos = $this->img->plotheight/2 + $this->img->top_margin;
         }
 
         if( !$_csim ) {
@@ -878,7 +876,7 @@ class PolarGraph extends Graph {
 
             // Draw an outline around the image map
             if(_JPG_DEBUG)
-            	$this->DisplayClientSideaImageMapAreas();
+                $this->DisplayClientSideaImageMapAreas();
 
             // If the filename is given as the special "__handle"
             // then the image handler is returned and the image is NOT

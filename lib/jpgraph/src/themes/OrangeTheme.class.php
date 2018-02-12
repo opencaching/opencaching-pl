@@ -3,7 +3,7 @@
 /**
 * Orange Theme class
 */
-class OrangeTheme extends Theme 
+class OrangeTheme extends Theme
 {
     private $font_color       = '#CC4400';
     private $background_color = '#FFEEDD';
@@ -55,14 +55,14 @@ class OrangeTheme extends Theme
         $graph->legend->SetMarkAbsSize(5);
 
         // xaxis
-        $graph->xaxis->title->SetColor($this->font_color);  
-        $graph->xaxis->SetColor($this->axis_color, $this->font_color);    
+        $graph->xaxis->title->SetColor($this->font_color);
+        $graph->xaxis->SetColor($this->axis_color, $this->font_color);
         $graph->xaxis->SetTickSide(SIDE_BOTTOM);
         $graph->xaxis->SetLabelMargin(10);
-                
+
         // yaxis
-        $graph->yaxis->title->SetColor($this->font_color);  
-        $graph->yaxis->SetColor($this->axis_color, $this->font_color);    
+        $graph->yaxis->title->SetColor($this->font_color);
+        $graph->yaxis->SetColor($this->axis_color, $this->font_color);
         $graph->yaxis->SetTickSide(SIDE_LEFT);
         $graph->yaxis->SetLabelMargin(8);
         $graph->yaxis->HideLine();
@@ -111,19 +111,15 @@ class OrangeTheme extends Theme
     function PreStrokeApply($graph) {
         if ($graph->legend->HasItems()) {
             $img = $graph->img;
-            $graph->SetMargin(
-                $img->raw_left_margin, 
-                $img->raw_right_margin, 
-                $img->raw_top_margin, 
-                is_numeric($img->raw_bottom_margin) ? $img->raw_bottom_margin : $img->height * 0.25
-            );
+            $height = $img->height;
+            $graph->SetMargin($img->left_margin, $img->right_margin, $img->top_margin, $height * 0.25);
         }
     }
 
     function ApplyPlot($plot) {
 
         switch (get_class($plot))
-        { 
+        {
             case 'GroupBarPlot':
             {
                 foreach ($plot->plots as $_plot) {
@@ -172,7 +168,7 @@ class OrangeTheme extends Theme
                 $plot->SetSliceColors($this->GetThemeColors());
                 break;
             }
-    
+
             default:
             {
             }
