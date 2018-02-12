@@ -4,7 +4,6 @@ use Utils\Database\XDb;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\GeoCache\Waypoint;
 use lib\Objects\Coordinates\Coordinates;
-use lib\Objects\GeoCache\GeoCacheCommons;
 
 class OpenCheckerSetup {
 
@@ -181,6 +180,7 @@ class OpenCheckerCore {
 
         // comparing data from post with data from database
         if (
+                $guessCorrds !== null &&
                 (($coordN_master - $guessCorrds->getLatitude()) < 0.00001) &&
                 (($coordN_master - $guessCorrds->getLatitude()) > -0.00001) &&
                 (($coordE_master - $guessCorrds->getLongitude()) < 0.00001) &&
@@ -251,9 +251,12 @@ class OpenCheckerCore {
             tpl_set_var("waypoint_desc",'');
         }
         tpl_set_var("score", '');
-
-        tpl_set_var("result_text", tr('openchecker_your_coordinates') .
-            '<b>'.$guessCorrds->getAsText(Coordinates::COORDINATES_FORMAT_DEG_MIN).'</b>');
+        if ($guessCorrds !== null) {
+            tpl_set_var("result_text", tr('openchecker_your_coordinates') .
+                '<b>'.$guessCorrds->getAsText(Coordinates::COORDINATES_FORMAT_DEG_MIN).'</b>');
+        } else {
+            tpl_set_var("result_text", '');
+        }
         tpl_set_var("cache_id", $cache_id);
 
         $this->Finalize();

@@ -4,6 +4,7 @@ namespace lib\Objects\ChunkModels\DynamicMap;
 use lib\Objects\Coordinates\Coordinates;
 use Utils\Debug\Debug;
 use Utils\View\View;
+use lib\Objects\OcConfig\OcConfig;
 
 abstract class AbstractDynamicMapBase
 {
@@ -21,7 +22,9 @@ abstract class AbstractDynamicMapBase
     protected $dataExtractor = null;
 
     public function __construct(){
-        $this->coords = Coordinates::FromCoordsFactory(54,18); //todo
+        $this->coords = Coordinates::FromCoordsFactory(
+            OcConfig::instance()->getMainPageMapCenterLat(),
+            OcConfig::instance()->getMainPageMapCenterLon());
         $this->zoom = 11;
         $this->mapTypeName = 'roadmap';
     }

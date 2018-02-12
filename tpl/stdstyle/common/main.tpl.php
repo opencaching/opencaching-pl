@@ -24,10 +24,6 @@ global $tpl_subtitle;
       <link rel="stylesheet" type="text/css" href="<?=$css?>">
   <?php } //foreach-css ?>
 
-  <?php foreach( $view->getLocalJs() as $js ) { ?>
-    <script src="<?=$js?>"></script>
-  <?php } //foreach-css ?>
-
   {htmlheaders}
   {cachemap_header}
 
@@ -58,7 +54,10 @@ global $tpl_subtitle;
       }
   ?>
 
-  <script src="/lib/js/CookiesInfo.js" async="async"></script>
+  <?php foreach( $view->getLocalJs() as $js ) { ?>
+    <script src="<?=$js?>"></script>
+  <?php } //foreach-css ?>
+  <script src="/lib/js/CookiesInfo.js" async="async" defer="defer"></script>
 
 </head>
 <body {bodyMod} class="<?=$view->backgroundSeason?>">

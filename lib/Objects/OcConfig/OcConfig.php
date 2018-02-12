@@ -172,11 +172,6 @@ final class OcConfig extends ConfigReader
         return self::getWikiLinks()[$wikiLinkKey];
     }
 
-
-
-
-
-
     public function getMainPageMapCenterLat()
     {
         return $this->mainPageMapCenterLat;

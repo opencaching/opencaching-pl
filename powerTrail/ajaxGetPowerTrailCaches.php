@@ -2,7 +2,6 @@
 
 use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\PowerTrail\PowerTrail;
-use lib\Objects\GeoCache\GeoCache;
 
 
 require_once __DIR__ . '/../lib/ClassPathDictionary.php';
@@ -31,7 +30,7 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
     }
 
 
-    if (count($powerTrail->getCacheCount()) == 0) {
+    if ($powerTrail->getCacheCount() == 0) {
         return '<br /><br />' . tr2('pt082', $language);
     }
 
@@ -139,6 +138,8 @@ function displayAllCachesOfPowerTrail(PowerTrail $powerTrail, $choseFinalCaches)
     $countCaches = $powerTrail->getCacheCount();
     if($countCaches > 0) {
         $restCachesPercent = round(($restCaches * 100) / $countCaches);
+        $cachePercent = [];
+        $cacheSizePercent = [];
         foreach ($cachetypes as $key => $value) {
             $cachePercent[$key] = round(($value * 100) / $countCaches);
         }
