@@ -12,6 +12,7 @@ use lib\Objects\MeritBadge\MeritBadge;
 use lib\Controllers\MeritBadgeController;
 use Utils\Text\TextConverter;
 use Utils\DateTime\Year;
+use Utils\View\View;
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath)){
@@ -59,6 +60,10 @@ if ($usr == false) {
     tpl_set_var('userid', $user_id);
     require ($stylepath . '/lib/icons.inc.php');
     $tplname = 'viewprofile';
+
+    /** @var View */
+    $view = tpl_getView();
+    $view->loadJQuery();
 
     $content = "";
 

@@ -114,7 +114,7 @@ Imagejpeg($im, $dynbasepath . 'images/statpics/mapstat' . $user_id . '.jpg', $jp
 ImageDestroy($im);
 // generate number for refresh image
 $rand = rand();
-$content .= '<p style="margin-left: 125px;"><img src=/images/statpics/mapstat' . $user_id . '.jpg?rand=' . $rand . ' border="0" alt="" width="250" height="235" /></p>';
+$content .= '<p style="margin-left: 125px;"><img src="/images/statpics/mapstat' . $user_id . '.jpg?rand=' . $rand . '" border="0" alt="" width="250" height="235" /></p>';
 
 tpl_set_var('content', $content);
 

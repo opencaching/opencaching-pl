@@ -50,7 +50,6 @@ class ClassPathDictionary
         'powerTrailBase' => 'powerTrail/powerTrailBase.php',
         'powerTrailController' => 'powerTrail/powerTrailController.php',
         'sendEmail' => 'powerTrail/sendEmail.php',
-        'PlotLine' => 'lib/jpgraph/src/jpgraph_plotline.php'
     );
 
     public static function getClassPath($className)

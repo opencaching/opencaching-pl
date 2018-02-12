@@ -25,12 +25,12 @@ class UserPreferences extends BaseObject
      * <key-name-in-db> => <class-derrived-from-UserPreferencesBaseData>
      */
     const ALLOWED_KEYS = [
-        // 'testKey' => 'lib\Objects\User\UserPreferences\TestData'
+        // 'testKey' => 'TestData::class'
+        TestUserPref::KEY => TestUserPref::class,
     ];
 
     /** @var UserPreferencesBaseData[] */
     private $dataObjects = []; //UserPreferencesBaseData objects loaded from DB
-
 
 
     /**
@@ -121,11 +121,11 @@ class UserPreferences extends BaseObject
      */
     private static function getUserPrefObjForKey($key){
 
-        $className = self::ALLOWED_KEYS[$key];
-        if ( class_exists($className) ) {
+        if ( isset(self::ALLOWED_KEYS[$key]) ) {
+            $className = self::ALLOWED_KEYS[$key];
             return new $className($key);
         }else{
-            Debug::errorLog(__METHOD__.": Unknown class name: $className");
+            Debug::errorLog(__METHOD__.": Unknown class for key: $key");
             return null;
         }
     }
@@ -148,10 +148,13 @@ class UserPreferences extends BaseObject
 
         $userId = $user->getUserId();
 
-        $keysStr = "'". implode("','", $keys) . "'";
-
         $db = self::db();
-        $keysStr = $db->quote($keysStr);
+
+        $quotedKeys = [];
+        foreach($keys as $k){
+            $quotedKeys[] = $db->quote($k);
+        }
+        $keysStr = implode(',', $quotedKeys);
 
         $stmt = $db->multiVariableQuery(
             "SELECT * FROM user_preferences

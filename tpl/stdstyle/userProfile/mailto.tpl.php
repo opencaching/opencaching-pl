@@ -1,15 +1,4 @@
 
-<script>
-    // load page css
-    var linkElement = document.createElement("link");
-    linkElement.rel = "stylesheet";
-    linkElement.href = "<?=$view->mailto_css?>";
-    linkElement.type = "text/css";
-    document.head.appendChild(linkElement);
-</script>
-
-<script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
-
 <?php $view->callChunk('infoBar', $view->reloadUrl, $view->infoMsg, $view->errorMsg ); ?>
 
 <div class="content2-pagetitle">

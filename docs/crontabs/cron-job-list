@@ -2,8 +2,6 @@
 # sudo crontab -u ocpl cron-job-list
 
 # m  h  dom mon dow command
-# Main page static sections
-*/14 *   *   *   *   wget -O - -q https://opencaching.pl/tpl/stdstyle/etc/write_onlusers.inc.php
 
 # Prepare static data for charts on statistics page
 1    0   *   *   *   wget -O - -q https://opencaching.pl/tpl/stdstyle/etc/write_chartsdata.php

@@ -270,9 +270,9 @@ global $tpl_subtitle;
         <?php if ($view->_isUserLogged && $view->_displayOnlineUsers) { ?>
             <p>
               <span class="txt-black">{{online_users}}: </span>
-              <span class="txt-white">
+              <span class="txt-white">&nbsp;
                 <?php foreach($view->_onlineUsers as $userId=>$username){ ?>
-                    <a class="links-onlusers" href="/viewprofile.php?userid=<?=$userId?>"><?=$username?></a>&ensp;
+                    <a class="links-onlusers" href="/viewprofile.php?userid=<?=$userId?>"><?=$username?></a>&nbsp;
                 <?php } //foreach ?>
               </span>
               <span class="txt-black"> ({{online_users_info}})</span>
