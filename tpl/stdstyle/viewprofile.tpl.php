@@ -21,12 +21,7 @@ jQuery(function($) {
 </script>
 
 <script src="lib/js/wz_tooltip.js"></script>
-<script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 <script>
-
-
-
-
 
     function ajaxGetFTF() {
         $('#showFtfBtn').hide();

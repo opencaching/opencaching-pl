@@ -1,5 +1,5 @@
 /**
-swdf * This function displays div with given id as popup.
+ * This function displays div with given id as popup.
  * Element shows top-left corner of the popup.
  *
  * @param element

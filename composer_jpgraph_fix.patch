@@ -1,0 +1,13 @@
+diff --git a/vendor/jpgraph/jpgraph/lib/jpgraph/src/gd_image.inc.php b/vendor/jpgraph/jpgraph/lib/jpgraph/src/gd_image.inc.php
+index d13ce28..3709d7e 100644
+--- a/vendor/jpgraph/jpgraph/lib/jpgraph/src/gd_image.inc.php
++++ b/vendor/jpgraph/jpgraph/lib/jpgraph/src/gd_image.inc.php
+@@ -107,7 +107,7 @@ class Image {
+             imageantialias($this->img,$aFlg);
+         }
+         else {
+-            JpGraphError::RaiseL(25128);//('The function imageantialias() is not available in your PHP installation. Use the GD version that comes with PHP and not the standalone version.')
++            // PATCH: skip this error JpGraphError::RaiseL(25128);//('The function imageantialias() is not available in your PHP installation. Use the GD version that comes with PHP and not the standalone version.')
+         }
+     }
+ 

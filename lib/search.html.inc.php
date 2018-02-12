@@ -309,7 +309,7 @@ if ($usr === false) {
 } else {
     if ($CalcCoordinates) {
         $query .= ', IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`,
-                            `caches`.`latitude`) `latitude`, IFNULL(cache_mod_cords.id,0) as cache_mod_cords_id';
+                            `caches`.`latitude`) `latitude`, IFNULL(cache_mod_cords.longitude,0) as cache_mod_cords_id';
     }
 
     $query .= ' FROM `caches` ';

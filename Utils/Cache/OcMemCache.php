@@ -16,6 +16,8 @@ use Utils\Debug\Debug;
  */
 class OcMemCache
 {
+    const KEY_PREFIX = 'OC_';
+
     /**
      * Fetch from cache or create by callback-creator if there is no such entry
      *
@@ -26,6 +28,8 @@ class OcMemCache
      */
     public static function getOrCreate($key, $ttl, callable $generator)
     {
+        $key = self::KEY_PREFIX.$key;
+
         // apcu_entry was added in APCu version 5.1
         //if(function_exists('apcu_entry')){
         //    return apcu_entry($key, $generator, $ttl);
@@ -58,6 +62,8 @@ class OcMemCache
     {
         $var = $creatorCallback();
 
+        $key = self::KEY_PREFIX.$key;
+
         try{
             apcu_store($key, $var, $ttl);
         }catch(Exception $e){
@@ -75,6 +81,8 @@ class OcMemCache
      */
     public static function get($key)
     {
+        $key = self::KEY_PREFIX.$key;
+
         return apcu_fetch($key);
     }
 

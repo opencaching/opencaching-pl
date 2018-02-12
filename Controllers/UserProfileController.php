@@ -37,8 +37,8 @@ class UserProfileController extends BaseController
         }
 
         tpl_set_tplname('userProfile/mailto');
-
-        $this->view->setVar('mailto_css',
+        $this->view->loadJQuery();
+        $this->view->addLocalCss(
             Uri::getLinkWithModificationTime('tpl/stdstyle/userProfile/mailto.css'));
 
         $this->view->setVar('requestedUser', $this->requestedUser);

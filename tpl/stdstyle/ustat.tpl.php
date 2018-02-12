@@ -10,7 +10,7 @@
 
         <ul id="statmenu">
           <li class="group">
-            <a style="background-image: url(images/actions/stat-18.png);background-repeat:no-repeat;"
+            <a style="background-image: url(/images/actions/stat-18.png);background-repeat:no-repeat;"
                href="/viewprofile.php?userid=<?=$view->userId?>">
               <?=tr('general_stat')?>
             </a>

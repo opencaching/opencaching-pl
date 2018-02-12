@@ -3,7 +3,6 @@
 namespace Controllers\PageLayout;
 
 use Controllers\BaseController;
-use Controllers\Cron\OnlineUsersController;
 use Utils\DateTime\Year;
 use Utils\I18n\I18n;
 use Utils\Uri\Uri;
@@ -11,6 +10,8 @@ use lib\Objects\Admin\GeoCacheApproval;
 use lib\Objects\Admin\ReportCommons;
 use lib\Objects\GeoCache\PrintList;
 use lib\Objects\OcConfig\OcConfig;
+use lib\Objects\User\UserAuthorization;
+use Utils\Cache\OcMemCache;
 
 class MainLayoutController extends BaseController
 {
@@ -99,10 +100,10 @@ class MainLayoutController extends BaseController
         $this->view->setVar('_qSearchByFinderEnabled', $config['quick_search']['byfinder']);
         $this->view->setVar('_qSearchByUserEnabled', $config['quick_search']['byuser']);
 
-        $onlineUsers = OnlineUsersController::getOnlineUsers();
+        $onlineUsers = self::getOnlineUsers();
         if(!empty($onlineUsers)){
             $this->view->setVar('_displayOnlineUsers', $config['mainLayout']['displayOnlineUsers']);
-            $this->view->setVar('_onlineUsers', OnlineUsersController::getOnlineUsers());
+            $this->view->setVar('_onlineUsers', $onlineUsers->listOfUsers);
         }else{
             $this->view->setVar('_displayOnlineUsers', false);
         }
@@ -263,6 +264,27 @@ class MainLayoutController extends BaseController
             $menu[$key] = $url;
         }
         return $menu;
+    }
+
+    /**
+     * Returns online users list stored in cache
+     * @return array|mixed
+     */
+    private function getOnlineUsers()
+    {
+        global $config;
+
+        if(!$config['mainLayout']['displayOnlineUsers']){
+            // skip this action if online users list is disabled in config
+            return null;
+        }
+
+        return OcMemCache::getOrCreate(__METHOD__, 5*60, function(){
+            $obj = new \stdClass();
+            $obj->listOfUsers = UserAuthorization::getOnlineUsersFromDb();
+            $obj->validAt = time();
+            return $obj;
+        });
     }
 
 }

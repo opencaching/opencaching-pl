@@ -5,6 +5,8 @@ use lib\Objects\User\OAuthSimpleUser\FacebookOAuth;
 use lib\Objects\User\OAuthSimpleUser\GoogleOAuth;
 use Utils\Text\UserInputFilter;
 use Utils\Uri\Uri;
+use lib\Objects\User\UserPreferences\UserPreferences;
+use lib\Objects\User\UserPreferences\TestUserPref;
 
 class TestController extends BaseController
 {
@@ -143,6 +145,25 @@ class TestController extends BaseController
         $this->view->setVar('cleanedHTML', $cleanedHTML);
 
         $this->view->buildView();
+
+    }
+
+
+    public function userPreferences()
+    {
+
+        // is key supported (proper config done)
+        d(UserPreferences::isKeyAllowed(TestUserPref::KEY));
+
+        // get defaults for key
+        d(UserPreferences::getUserPrefsByKey(TestUserPref::KEY));
+
+        // save some value
+        d(UserPreferences::savePreferencesJson(TestUserPref::KEY, '{"fooVar":"X"}'));
+
+        // read some value
+        d(UserPreferences::getUserPrefsByKey(TestUserPref::KEY));
+
 
     }
 }

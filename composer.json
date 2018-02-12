@@ -1,6 +1,16 @@
 {
   "require": {
     "kint-php/kint": "^1.0",
-    "ezyang/htmlpurifier": "^4.9"
+    "ezyang/htmlpurifier": "^4.9",
+    "aferrandini/phpqrcode": "^1.0",
+    "jpgraph/jpgraph": "^4.0",
+    "cweagans/composer-patches": "^1.6"
+  },
+  "extra": {
+    "patches": {
+      "jpgraph/jpgraph": {
+        "Fix imageantialias PHP-GD issue": "composer_jpgraph_fix.patch"
+      }
+    }
   }
 }
