@@ -25,7 +25,7 @@ class ParseArgs {
     }
 
     function PrintUsage() {
-        $n = $this->argv[0];
+    	$n = $this->argv[0];
         echo "$n -b <symbology> [-r -h -c -o <output format> -m <width> -s <scale> -y <height> -f <filename> ] datastring \n".
             "Create the specified barcode\n".
             "-b           What symbology to use, one of the following strings (case insensitive)\n".
@@ -46,11 +46,11 @@ class ParseArgs {
             "-m           Module width\n".
             "-s           Scale factor\n".
             "-h           Show this help\n".
-            "-f           Filename to write to\n".
-            "-r           Rotate barcode 90 degrees\n".
-            "-y height    Set height in pixels\n".
+			"-f           Filename to write to\n".
+        	"-r           Rotate barcode 90 degrees\n".
+        	"-y height    Set height in pixels\n".
             "-x           Hide the human readable text\n".
-            "--silent     Silent. Don't give any error mesages\n";
+        	"--silent     Silent. Don't give any error mesages\n";
         exit(1);
     }
 
@@ -83,7 +83,7 @@ class ParseArgs {
                     case '-y':
                         $height = (int)$this->argv[++$i];
                         break;
-                    case '-x':
+					case '-x':
                         $hide=true;
                         break;
                     case '-r':
@@ -105,13 +105,13 @@ class ParseArgs {
                         $filename = $this->argv[++$i];
                         break;
                     default:
-                        if( $data == '' ) {
-                            $data = $this->argv[$i];
-                        }
-                        else {
-                            $this->PrintUsage();
-                            die("Illegal specified parameters");
-                        }
+                    	if( $data == '' ) {
+                        	$data = $this->argv[$i];
+                    	}
+                    	else {
+  							$this->PrintUsage();
+  							die("Illegal specified parameters");
+                    	}
                         break;
                 }
                 ++$i;
@@ -120,40 +120,40 @@ class ParseArgs {
         }
 
         if( $output < 0 || $output > 2 ) {
-            fwrite(STDERR,"Unkown output format ($output)\n");
-            exit(1);
+        	fwrite(STDERR,"Unkown output format ($output)\n");
+        	exit(1);
         }
 
         if( $output === 0  ) {
-            $modulewidth = floor($modulewidth);
+        	$modulewidth = floor($modulewidth);
         }
 
         // Sanity check
         if( $modulewidth > 15 ) {
-            fwrite(STDERR,"Too large modulewidth\n");
-            exit(1);
+        	fwrite(STDERR,"Too large modulewidth\n");
+        	exit(1);
         }
 
         // Sanity check
         if( $height > 1000 ) {
-            fwrite(STDERR,"Too large height\n");
-            exit(1);
+        	fwrite(STDERR,"Too large height\n");
+        	exit(1);
         }
 
-        // Sanity check
+		// Sanity check
         if( $scale > 15 ) {
-            fwrite(STDERR,"Too large scale factor\n");
-            exit(1);
+        	fwrite(STDERR,"Too large scale factor\n");
+        	exit(1);
         }
 
         if( strlen($filename) > 256 ) {
-            fwrite(STDERR,"Too long filename\n");
-            exit(1);
+        	fwrite(STDERR,"Too long filename\n");
+        	exit(1);
         }
 
         if( trim($data) == '' ) {
-            fwrite(STDERR,"No input data specified\n");
-            exit(1);
+			fwrite(STDERR,"No input data specified\n");
+			exit(1);
         }
 
         $barcodes = array(
@@ -172,28 +172,28 @@ class ParseArgs {
         );
         $barcode = strtoupper($barcode);
         if( key_exists($barcode,$barcodes) ) {
-            $barcode = $barcodes[$barcode];
+        	$barcode = $barcodes[$barcode];
         }
         else {
-            fwrite(STDERR,'Specified barcode symbology ('.$barcode.") is not supported\n");
-            exit(1);
+        	fwrite(STDERR,'Specified barcode symbology ('.$barcode.") is not supported\n");
+        	exit(1);
         }
 
-        $ret = array(
-                'barcode'     => $barcode,
-                'hide'        => $hide,
-                'modulewidth' => $modulewidth,
-                'scale'       => $scale,
-                'output'      => $output,
-                'data'        => $data,
-                'silent'      => $silent,
-                'rotate'      => $rotate,
-                'height'      => $height,
-                'checkdigit'  => $checkdigit,
-                'filename'    => $filename
-            );
+		$ret = array(
+				'barcode'     => $barcode,
+		        'hide' 	      => $hide,
+		        'modulewidth' => $modulewidth,
+		        'scale'       => $scale,
+		        'output'      => $output,
+		        'data'        => $data,
+		        'silent'      => $silent,
+		        'rotate'      => $rotate,
+		        'height'      => $height,
+				'checkdigit'  => $checkdigit,
+		        'filename'    => $filename
+			);
 
-        return $ret;
+		return $ret;
     }
 
     function _Dump() {
@@ -212,62 +212,62 @@ class ParseArgs {
 //----------------------------------------------------------------------
 class Driver {
 
-    private $iParams;
-    static public $silent=false;
+	private $iParams;
+	static public $silent=false;
 
-    static public function ErrHandlerPS(Exception $e) {
-        if( !Driver::$silent )
-            fwrite(STDERR,$e->getMessage()."\n");
+	static public function ErrHandlerPS(Exception $e) {
+		if( !Driver::$silent )
+			fwrite(STDERR,$e->getMessage()."\n");
         exit(1);
-    }
+	}
 
-    static public function ErrHandlerImg(Exception $e) {
-        if( !Driver::$silent )
-            fwrite(STDERR,$e->getMessage()."\n");
+	static public function ErrHandlerImg(Exception $e) {
+		if( !Driver::$silent )
+			fwrite(STDERR,$e->getMessage()."\n");
         $errobj = new JpGraphErrObjectImg();
         $errobj->Raise($e->getMessage());
         exit(1);
-    }
+	}
 
-    function Run($aParams) {
+	function Run($aParams) {
 
-        $this->iParams = $aParams;
+		$this->iParams = $aParams;
 
-        Driver::$silent = $aParams['silent'];
+		Driver::$silent = $aParams['silent'];
 
-        $encoder = BarcodeFactory::Create($aParams['barcode']);
-        $encoder->AddChecksum($aParams['checkdigit']);
-        switch( $aParams['output'] ) {
-            case 0:
-                $e = BackendFactory::Create(BACKEND_IMAGE,$encoder);
-                set_exception_handler(array('Driver','ErrHandlerImg'));
-                break;
-            case 1:
-                $e = BackendFactory::Create(BACKEND_PS,$encoder);
-                set_exception_handler(array('Driver','ErrHandlerPS'));
-                break;
-            case 2:
-                $e = BackendFactory::Create(BACKEND_PS,$encoder);
-                $e->SetEPS();
-                set_exception_handler(array('Driver','ErrHandlerPS'));
-                break;
-        }
-        $e->SetHeight($aParams['height']);
-        $e->SetVertical($aParams['rotate']);
-        $e->SetModuleWidth($aParams['modulewidth']);
-        $e->SetScale($aParams['scale']);
-        $e->HideText($aParams['hide']);
-        if( $aParams['output'] === 0 ) {
-            $err = $e->Stroke($aParams['data'], $aParams['filename']);
-        }
-        else {
-            $s = $e->Stroke($aParams['data'], $aParams['filename']);
-            if( $aParams['filename'] == '' ) {
-                // If no filename specified then return the generated postscript
-                echo $s;
-            }
-        }
-    }
+		$encoder = BarcodeFactory::Create($aParams['barcode']);
+		$encoder->AddChecksum($aParams['checkdigit']);
+		switch( $aParams['output'] ) {
+			case 0:
+				$e = BackendFactory::Create(BACKEND_IMAGE,$encoder);
+				set_exception_handler(array('Driver','ErrHandlerImg'));
+				break;
+			case 1:
+				$e = BackendFactory::Create(BACKEND_PS,$encoder);
+				set_exception_handler(array('Driver','ErrHandlerPS'));
+				break;
+			case 2:
+				$e = BackendFactory::Create(BACKEND_PS,$encoder);
+				$e->SetEPS();
+				set_exception_handler(array('Driver','ErrHandlerPS'));
+				break;
+		}
+		$e->SetHeight($aParams['height']);
+		$e->SetVertical($aParams['rotate']);
+		$e->SetModuleWidth($aParams['modulewidth']);
+		$e->SetScale($aParams['scale']);
+		$e->HideText($aParams['hide']);
+		if( $aParams['output'] === 0 ) {
+			$err = $e->Stroke($aParams['data'], $aParams['filename']);
+		}
+		else {
+			$s = $e->Stroke($aParams['data'], $aParams['filename']);
+			if( $aParams['filename'] == '' ) {
+				// If no filename specified then return the generated postscript
+				echo $s;
+			}
+		}
+	}
 }
 
 $pa = new ParseArgs();

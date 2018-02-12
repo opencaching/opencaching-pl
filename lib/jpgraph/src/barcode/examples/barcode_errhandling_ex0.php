@@ -9,8 +9,8 @@ $encoder = BarcodeFactory::Create(ENCODING_CODE39);
 $e = BackendFactory::Create(BACKEND_IMAGE,$encoder);
 $e->Stroke('abc123');
 } catch( JpGraphException $e ) {
-    //echo 'Error: ' . $e->getMessage()."\n";
-    JpGraphError::Raise($e->getMessage());
+	//echo 'Error: ' . $e->getMessage()."\n";
+	JpGraphError::Raise($e->getMessage());
 }
 
 ?>

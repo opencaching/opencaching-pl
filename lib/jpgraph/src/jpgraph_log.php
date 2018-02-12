@@ -33,7 +33,7 @@ class LogScale extends LinearScale {
     // Translate between world and screen
     function Translate($a) {
         if( !is_numeric($a) ) {
-            if( $a != '' && $a != '-' && $a != 'x' ) {
+            if( $a != '' && $a != '-' && $a != 'x' ) { 
                 JpGraphError::RaiseL(11001);
                 // ('Your data contains non-numeric values.');
             }
@@ -131,7 +131,7 @@ class LogTicks extends Ticks{
     private $ticklabels_pos = array();
     //---------------
     // CONSTRUCTOR
-    function LogTicks() {
+    function __construct() {
     }
     //---------------
     // PUBLIC METHODS
@@ -177,7 +177,7 @@ class LogTicks extends Ticks{
             // left or right side.
             $a=$pos + $this->direction*$this->GetMinTickAbsSize();
             $a2=$pos + $this->direction*$this->GetMajTickAbsSize();
-
+             
             $count=1;
             $this->maj_ticks_pos[0]=$scale->Translate($start);
             $this->maj_ticklabels_pos[0]=$scale->Translate($start);
