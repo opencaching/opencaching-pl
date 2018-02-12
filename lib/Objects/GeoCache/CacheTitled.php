@@ -17,9 +17,6 @@ class CacheTitled extends BaseObject
     public function __construct(array $params = [])
     {
         parent::__construct();
-        if (isset($params['cacheId'])) { // load from DB if cachId param is set
-            $this->loadByCacheId($params['cacheId']);
-        }
     }
 
     public function getCacheId()
@@ -46,8 +43,10 @@ class CacheTitled extends BaseObject
      * @return CacheTitled|null (null if no such CacheTitled entry in DB)
      */
     public static function fromCacheIdFactory($cacheId){
+        $result = new self();
         try {
-            return new self( array('cacheId' => $cacheId) );
+            $result->loadByCacheId($cacheId);
+            return $result;
         } catch (\Exception $e){
             return null;
         }
