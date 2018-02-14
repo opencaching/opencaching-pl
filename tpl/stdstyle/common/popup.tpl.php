@@ -2,7 +2,7 @@
 <html lang="<?=$GLOBALS['lang']?>">
 <head>
   <title><?php echo isset($tpl_subtitle) ? $tpl_subtitle : ''; ?>{title}</title>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta charset="utf-8">
 
   <link rel="shortcut icon" href="/images/<?=$config['headerFavicon']?>">
   <link rel="stylesheet" type="text/css" href="tpl/stdstyle/css/popup.css">

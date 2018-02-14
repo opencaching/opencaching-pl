@@ -62,7 +62,6 @@ class MainLayoutController extends BaseController
 
 
         $this->view->setVar('_siteName', $config['siteName']);
-        $this->view->setVar('_keywords', $config['header']['keywords']);
         $this->view->setVar('_favicon', '/images/'.$config['headerFavicon']);
         $this->view->setVar('_appleLogo', $config['header']['appleLogo']);
 

@@ -288,17 +288,6 @@ $subject_prefix_for_reviewers_mails = "";
 // customization of the start page
 $config['startPage']['latestCacheSetsCount'] = 3;
 
-
-// keywords in every header
-$config['header']['keywords'] = 'geocaching, opencaching, skarby,'.
-                                'poszukiwania, geocashing, longitude, latitude,'.
-                                'utm, coordinates, treasure hunting, treasure,'.
-                                'GPS, global positioning system, garmin, '.
-                                'magellan, mapping, geo, hiking, outdoors, '.
-                                'sport, hunt, stash, cache, geocaching, geocache,'.
-                                'cache, treasure, hunting, satellite, navigation,'.
-                                'tracking, bugs, travel bugs';
-
 // logo displayed as apple-touch-icon-precomposed
 $config['header']['appleLogo'] = '/images/oc_logo_144.png';
 

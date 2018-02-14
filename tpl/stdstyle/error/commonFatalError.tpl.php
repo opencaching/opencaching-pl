@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="<?=$view->getLang()?>">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <meta name="keywords" content="<?=$view->_keywords?>">
-    <meta name="author" content="<?=$view->_siteName?>">
+    <title>Opencaching: error</title>
 <style>
     body {
         text-align: center;
@@ -34,13 +31,13 @@
 <div id="container">
 
     <a href="/">
-      <img src="<?=$view->_mainLogo?>" alt="Opencaching logo" />
+      <img src="<?=$view->_mainLogo?>" alt="Opencaching logo">
     </a>
     <h3>This is ERROR!</h3>
 
     <?php if($view->message) { ?>
       <h4>The only detail which maybe explain something:
-      <span class="error"><?=$view->message?></span></h5>
+      <span class="error"><?=$view->message?></span></h4>
     <?php } //if-message ?>
 
     If you think this error is OUR fault and we shoud know about it please:

@@ -2,7 +2,7 @@
 <html lang="<?=$view->getLang()?>">
 <head>
   <title><?php echo isset($tpl_subtitle) ? $tpl_subtitle : ''; ?>{title}</title>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" media="print" href="<?=$view->printCss?>">
   <?php foreach( $view->getLocalCss() as $css ) { ?>
     <link rel="stylesheet" type="text/css" href="<?=$css?>">

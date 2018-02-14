@@ -8,9 +8,7 @@ global $tpl_subtitle;
 <!DOCTYPE html>
 <html lang="<?=$view->getLang()?>">
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="keywords" content="<?=$view->_keywords?>">
-  <meta name="author" content="<?=$view->_siteName?>">
+  <meta charset="utf-8">
 
   <title><?=$tpl_subtitle?>{title}</title>
 
