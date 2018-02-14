@@ -1,46 +1,11 @@
-<?php
+    <div data-content="author"></div>
+    <div data-content="date"></div>
+    <div data-content="post"></div>
 
-use lib\Objects\ChunkModels\DynamicMap\LastLogMapModel;
-use lib\Objects\GeoCache\GeoCacheCommons;
-use lib\Objects\GeoCache\GeoCacheLogCommons;
 
-/**
-	This is flavour-object for dynamic map.
-	It handle markers with
-*/
+    <!--
 
-return function (LastLogMapModel $model){
-
-    $iconPath = GeoCacheCommons::ICON_PATH;
-    $logIconPath = GeoCacheLogCommons::ICON_PATH;
-
-?>
-
-{
-    markerFactory: function(dataRow){
-
-      var marker = new google.maps.Marker({
-        position: new google.maps.LatLng(dataRow.lat, dataRow.lon),
-        icon: {
-            url: '<?=$iconPath?>'+dataRow.icon,
-            scaledSize: new google.maps.Size(20, 20),
-          },
-        title: dataRow.wp_oc+': '+dataRow.name,
-      });
-
-      return marker;
-    },
-
-    infoWindowFactory: function(dataRow){
-      var iw = new google.maps.InfoWindow({
-        content: this.infoWindowContent(dataRow),
-        maxWidth: 350
-      });
-
-      return iw;
-    },
-
-    infoWindowContent: function(dataRow){
+        infoWindowContent: function(dataRow){
 
       var t = '<div class="iw-container">' +
               '  <div class="iw-title">' +
@@ -71,10 +36,5 @@ return function (LastLogMapModel $model){
 
     },
 
-    data: <?=json_encode($model->getDataRows(), JSON_PRETTY_PRINT)?>
 
-}
-
-<?php
-};
-
+     -->

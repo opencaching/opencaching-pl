@@ -1,200 +1,202 @@
 <?php
 
 use Utils\Uri\Uri;
+use Utils\View\View;
+use lib\Objects\ChunkModels\DynamicMap\DynamicMapModel;
 use lib\Objects\OcConfig\OcDynamicMapConfig;
-use lib\Objects\ChunkModels\DynamicMap\AbstractDynamicMapBase;
 
+/**
+ * This chunk displays dynamic map with different kinds of markers.
+ * Markers should be passed by $mapModel.
+ */
+return function (DynamicMapModel $mapModel, $canvasId){
 
-return function (AbstractDynamicMapBase $mapModel, $canvasId){
-
-    $chunkCSS = Uri::getLinkWithModificationTime(
-        '/tpl/stdstyle/chunks/dynamicMap/dynamicMap.css');
-
-    $lat = $mapModel->getCoords()->getLatitude();
-    $lot = $mapModel->getCoords()->getLongitude();
+  // load chunk CSS
+  View::callChunkInline('loadCssByJs',
+    Uri::getLinkWithModificationTime(
+        '/tpl/stdstyle/chunks/dynamicMap/dynamicMap.css'));
 
 ?>
+<!-- load info-window templates -->
+<?php foreach($mapModel->getInfoWindowTemplates() as $tplId => $infoWinScr) { ?>
+  <script  type="text/html" id="<?=$tplId?>" >
+    <?=file_get_contents(__DIR__.$infoWinScr)?>
+  </script>
+<?php } //foreach-InfoWindowTemplates ?>
+
+<script src="/tpl/stdstyle/chunks/dynamicMap/dynamicMapCommons.js"></script>
+<script src="/lib/js/jQueryTemplate/jquery.loadTemplate.min.js"></script>
 
 <script>
-    var linkElement = document.createElement("link");
-    linkElement.rel = "stylesheet";
-    linkElement.href = "<?=$chunkCSS?>";
-    linkElement.type = "text/css";
-    document.head.appendChild(linkElement);
-</script>
 
-<script>
+// global object containing dynamic all map properties
+var dynamicMapParams_<?=$canvasId?> = {};
 
-var globalMapParams = {};
+{ //ECMA6-block-scoping
 
-//on-load function
-$(function() {
-  initializeMap(globalMapParams);
-});
-
-<?=OcDynamicMapConfig::getWMSImageMapTypeOptions()?>
-
-function initializeMap(){
-
-  params = {};
-
-  // init global map object
-  params.__map = new google.maps.Map(
-      document.getElementById('<?=$canvasId?>'), {}
-  );
-
-  // access to map object because of WMSImageMapTypeOptions
-  window.getGoogleMapObject = function(){ return params.__map; }
-
-  // initialize list of mapTypeIds (used to display control etc.)
-  params.__ocMapTypesIds = [];
-
-  //first add native maps from Google
-  for (var type in google.maps.MapTypeId) {
-    params.__ocMapTypesIds.push( google.maps.MapTypeId[type] );
-  }
-
-  //then add custom OC maps
-  var mapItems = <?=OcDynamicMapConfig::getJsMapItems()?>;
-  for (var mapType in mapItems){
-      params.__map.mapTypes.set(mapType, mapItems[mapType]()); //add this OC map
-      params.__ocMapTypesIds.push(mapType);
-  }
-
-  var map_options = {
-      mapTypeId: '<?=$mapModel->getMapTypeName()?>',
-      center: new google.maps.LatLng(<?=$lat?>, <?=$lot?>),
-      zoom: <?=$mapModel->getZoom()?>,
-
-      disableDefaultUI: true,   // by default disable all controls and show:
-      scaleControl: true,       // show scale on the bottom of map
-      zoomControl: true,        // +/- constrols
-      mapTypeControl: true,     // list of the maps
-      streetViewControl: true,  // streetview guy
-      rotateControl: true,      // this is visible only on huge zoom
-      keyboardShortcuts: true,  // for example key '+' = zoom+
-      clickableIcons: false,    // POI on the map doesn't open balons on clicks
-      gestureHandling: 'greedy',//disable ctrl+ zooming
-
-      draggableCursor: 'crosshair',
-      draggingCursor: 'pointer',
-
-      mapTypeControlOptions: {
-          mapTypeIds: params.__ocMapTypesIds,
-          position: google.maps.ControlPosition.TOP_RIGHT,
-          style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-      }
-  };
-
-  //set map options
-  params.__map.setOptions( map_options );
-
-  //register map change custom callback
-  google.maps.event.addListener(params.__map, "maptypeid_changed", function() {
-
-      //called when user switch the map
-      refreshMapCopyright(params.__map);
-      controlGoogleContent(params.__map);
-  });
-
-  loadMarkers(params.__map);
-
-
-  // ...and again when the map is fully loaded
-  google.maps.event.addListenerOnce(params.__map, 'idle', function(){
-
-    // called only on the first time the map is loaded
-    refreshMapCopyright(params.__map);
-    controlGoogleContent(params.__map);
-
-  });
-} // initializeMap
-
-
-function refreshMapCopyright(map){
-
-  var copyrightTexts = <?=OcDynamicMapConfig::getJsAttributionMap()?>;
-
-  var copyrightText = copyrightTexts[map.getMapTypeId()];
-  var element = $('#map_copyright');
-
-  if(copyrightText){ // we have copyright text for this custom map
-
-    if(!element.length){
-        element = $('<div id="map_copyright"></div>');
-
-        //add this div to map
-        map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(element[0]);
-    }
-    element.html(copyrightText);
-  }else{ // this is native google map or there is no attribution text for it
-    element.hide();
-  }
-}
-
-<?=file_get_contents(__DIR__ . '/dynamicMapCommons.js');?>
-
-var DynamicMapMarkersObject = <?=$mapModel->getJsDynamicMapMarkerObject()?>
-
-var lastOpenedInfoWindow = null;
-
-function loadMarkers(map){
-
-  var bounds = new google.maps.LatLngBounds();
-
-  DynamicMapMarkersObject.data.forEach(function(m) {
-
-    var marker = DynamicMapMarkersObject.markerFactory(m);
-    marker.setMap(map);
-
-    marker.addListener('click', function() {
-
-      if(lastOpenedInfoWindow){
-        lastOpenedInfoWindow.close();
-      }
-
-      var infowindow = DynamicMapMarkersObject.infoWindowFactory(m);
-
-      lastOpenedInfoWindow = infowindow;
-      infowindow.open(map, marker);
-
+    $(document).ready(function(){
+      initializeMap(dynamicMapParams_<?=$canvasId?>);
     });
 
-    // find bbox which contains all markers
-    bounds.extend(marker.getPosition());
+    function initializeMap(params){
 
-  });
+      console.log(params);
 
+      // init global map object
+      params.map = new google.maps.Map(
+          document.getElementById('<?=$canvasId?>'), {}
+      );
 
-  google.maps.event.addListener(map, 'click', function(event){
+      // access to map object because of WMSImageMapTypeOptions
+      window.getGoogleMapObject = function(){ return params.map; }
 
-      // hide current info-window
-    if(lastOpenedInfoWindow){
-      lastOpenedInfoWindow.close();
-    }
+      // initialize list of mapTypeIds (used to display control etc.)
+      params.ocMapTypesIds = [];
 
-  });
+      //first add native maps from Google
+      for (var type in google.maps.MapTypeId) {
+        params.ocMapTypesIds.push( google.maps.MapTypeId[type] );
+      }
 
+      //then add custom OC maps
+      var mapItems = <?=OcDynamicMapConfig::getJsMapItems()?>;
+      for (var mapType in mapItems){
+          params.map.mapTypes.set(mapType, mapItems[mapType]()); //add this OC map
+          params.ocMapTypesIds.push(mapType);
+      }
 
-  if(!bounds.isEmpty()){ // only if bound are present (there are markers)
+      var map_options = {
+          mapTypeId: '<?=$mapModel->getMapTypeName()?>',
+          center: new google.maps.LatLng(<?=$mapModel->getCoords()->getLatitude()?>,<?=$mapModel->getCoords()->getLongitude()?>),
+          zoom: <?=$mapModel->getZoom()?>,
 
-      // register event which zoom-out map if there is only one marker or markers are very closed
-      google.maps.event.addListenerOnce(map, 'bounds_changed', function(event) {
-        if (this.getZoom() > 12) {
-          this.setZoom(12);
+          disableDefaultUI: true,   // by default disable all controls and show:
+          scaleControl: true,       // show scale on the bottom of map
+          zoomControl: true,        // +/- constrols
+          mapTypeControl: true,     // list of the maps
+          streetViewControl: true,  // streetview guy
+          rotateControl: true,      // this is visible only on huge zoom
+          keyboardShortcuts: true,  // for example key '+' = zoom+
+          clickableIcons: false,    // POI on the map doesn't open balons on clicks
+          gestureHandling: 'greedy',// disable ctrl+ zooming
+
+          draggableCursor: 'crosshair',
+          draggingCursor: 'pointer',
+
+          tilt: 0,                  // disable auto-switch to tilted view
+
+          mapTypeControlOptions: {
+              mapTypeIds: params.ocMapTypesIds,
+              position: google.maps.ControlPosition.TOP_RIGHT,
+              style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+          }
+      };
+
+      // set map options
+      params.map.setOptions( map_options );
+
+      // register map change custom callback
+      google.maps.event.addListener(params.map, "maptypeid_changed", function() {
+        // called when user switch the map
+        refreshMapCopyright(params.map);
+        controlGoogleContent(params.map);
+      });
+
+      // register infowindow close at map click
+      google.maps.event.addListener(params.map, 'click', function(event){
+        // hide current info-window
+        if(params.lastOpenedInfoWindow){
+          params.lastOpenedInfoWindow.close();
         }
       });
 
-      // resize map to see all markers
-      map.fitBounds(bounds);
-  }
+      // load markers from given map model
+      loadMarkers(params);
 
+      // ...and again when the map is fully loaded
+      google.maps.event.addListenerOnce(params.map, 'idle', function(){
+        // called only on the first time the map is loaded
+        refreshMapCopyright(params.map);
+        controlGoogleContent(params.map);
+      });
+
+    } // initializeMap
+
+
+    function loadMarkers(params){
+
+      var bounds = new google.maps.LatLngBounds();
+
+      // add markers
+      params.markerMgr = {};
+      <?php foreach ($mapModel->getMarkersData() as $markerClass => $markersData) { ?>
+
+        params.markerMgr.<?=$markerClass?> =
+            <?php View::callChunkInline($mapModel->getMarkersMrgs($markerClass), $markersData);?>;
+
+        for(markerData of params.markerMgr.<?=$markerClass?>.data) {
+
+          var marker = params.markerMgr.<?=$markerClass?>.markerFactory(markerData);
+          marker.setMap(params.map);
+
+          marker.addListener('click', function() {
+
+            if(params.lastOpenedInfoWindow){
+              params.lastOpenedInfoWindow.close();
+            }
+
+            var infoWindow = params.markerMgr.<?=$markerClass?>.infoWindowFactory(markerData);
+            params.lastOpenedInfoWindow = infoWindow;
+            infoWindow.open(params.map, this);
+
+          });
+
+          // find bbox which contains all markers
+          bounds.extend(marker.getPosition());
+
+        }
+
+      <?php } //foreach-markersMgr ?>
+
+      if(!bounds.isEmpty()){ // only if bound are present (there are markers)
+        // register event which zoom-out map if there is only one marker or markers are very closed
+        google.maps.event.addListenerOnce(params.map, 'bounds_changed', function(event) {
+          if (this.getZoom() > 12) {
+            this.setZoom(12);
+          }
+        });
+
+        // resize map to see all markers
+        params.map.fitBounds(bounds);
+      }
+
+    }
+
+    function refreshMapCopyright(map){
+
+      var copyrightTexts = <?=OcDynamicMapConfig::getJsAttributionMap()?>;
+
+      var copyrightText = copyrightTexts[map.getMapTypeId()];
+      var element = $('#map_copyright');
+
+      if(copyrightText){ // we have copyright text for this custom map
+
+        if(!element.length){
+            element = $('<div id="map_copyright"></div>');
+
+            //add this div to map
+            map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(element[0]);
+        }
+        element.html(copyrightText);
+      }else{ // this is native google map or there is no attribution text for it
+        element.hide();
+      }
+    }
+
+    <?=OcDynamicMapConfig::getWMSImageMapTypeOptions()?>
 }
-
 </script>
-
 
 <?php
 };
 //end of chunk - nothing should be after this line
-

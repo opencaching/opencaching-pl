@@ -1,6 +1,4 @@
 
-
-
 /**
  * We are not allowed to display Google-content on non-Google-maps
  * We recived correspondence from Google Maps Team about it.
@@ -8,7 +6,8 @@
  */
 function controlGoogleContent(map){
     var type = map.getMapTypeId(); //current map type
-    var googleTypes = $.map(google.maps.MapTypeId, function(value, index) { return [value]; });
+    var googleTypes = $.map(google.maps.MapTypeId,
+                            function(value, index) { return [value]; });
 
     if( -1 != $.inArray(type, googleTypes) ){
         // This is google-map - display Google content

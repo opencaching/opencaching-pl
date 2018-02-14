@@ -1,12 +1,18 @@
 <?php
 namespace Controllers;
 
+use lib\Objects\CacheSet\CacheSet;
 use lib\Objects\User\OAuthSimpleUser\FacebookOAuth;
 use lib\Objects\User\OAuthSimpleUser\GoogleOAuth;
 use Utils\Text\UserInputFilter;
 use Utils\Uri\Uri;
 use lib\Objects\User\UserPreferences\UserPreferences;
 use lib\Objects\User\UserPreferences\TestUserPref;
+use lib\Objects\ChunkModels\DynamicMap\CacheMarkerModel;
+use lib\Objects\ChunkModels\DynamicMap\DynamicMapModel;
+use lib\Objects\ChunkModels\DynamicMap\CacheSetMarkerModel;
+use lib\Objects\GeoCache\GeoCache;
+use lib\Objects\GeoCache\MultiCacheStats;
 
 class TestController extends BaseController
 {
@@ -165,6 +171,71 @@ class TestController extends BaseController
         d(UserPreferences::getUserPrefsByKey(TestUserPref::KEY));
 
 
+    }
+
+    /**
+     * This method allows test of dynamic map chunk
+     */
+    public function dynamicMap()
+    {
+        $this->view->setTemplate('test/dynamicMap');
+        $this->view->loadJQuery();
+        $this->view->loadGMapApi();
+
+        $this->view->addLocalCss(
+            Uri::getLinkWithModificationTime('/tpl/stdstyle/test/dynamicMap.css'));
+
+
+        $mapModel = new DynamicMapModel();
+
+        // get some geopaths
+        $csToArchive = CacheSet::getCacheSetsToArchive();
+
+        $mapModel->addMarkers(
+            CacheSetMarkerModel::class, $csToArchive, function($row){
+
+                $markerModel = new CacheSetMarkerModel();
+
+                $markerModel->id = $row['id'];
+                $markerModel->type = $row['type'];
+                $markerModel->name = $row['name'];
+
+                $markerModel->icon = CacheSet::GetTypeIcon($row['type']);
+                $markerModel->lon = $row['centerLongitude'];
+                $markerModel->lat = $row['centerLatitude'];
+
+                return $markerModel;
+        });
+
+        // get some caches
+        $cachesToShow = MultiCacheStats::getLatestCaches(5);
+        $mapModel->addMarkers(
+            CacheMarkerModel::class, $cachesToShow, function($row){
+
+                $markerModel = new CacheMarkerModel();
+
+                $markerModel->wp_oc = $row['wp_oc'];
+                $markerModel->type = $row['type'];
+                $markerModel->name = $row['name'];
+
+                $markerModel->icon = GeoCache::CacheIconByType(
+                    $row['type'], $row['status']);
+
+                $markerModel->lon = $row['longitude'];
+                $markerModel->lat = $row['latitude'];
+
+                return $markerModel;
+            });
+
+        $this->view->setVar('mapModel', $mapModel);
+
+
+        // and one more map... this should stay empty for now
+        $emptyMap = new DynamicMapModel();
+        $this->view->setVar('emptyMap', $emptyMap);
+
+
+        $this->view->buildView();
     }
 }
 
