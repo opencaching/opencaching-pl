@@ -13,7 +13,7 @@ return function ($loadCss = false, $loadJs = false) {
     //start of chunk
     ?>
 
-<!-- lightbox chunk -->
+<!-- fancyBox chunk -->
 <?php if($loadCss){ ?>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css">
 <?php } ?>
@@ -21,7 +21,6 @@ return function ($loadCss = false, $loadJs = false) {
 <?php if($loadJs){ ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
 <?php } ?>
-
 <!-- End of fancyBox chunk -->
 
 <?php
