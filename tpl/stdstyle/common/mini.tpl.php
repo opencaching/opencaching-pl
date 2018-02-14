@@ -43,11 +43,12 @@
             if( $view->isGMapApiEnabled()){
                 $view->callChunk('googleMapsApi', $GLOBALS['googlemap_key'], $view->getLang());
             }
-        ?>
 
-        <?php foreach( $view->getLocalJs() as $js ) { ?>
-          <script src="<?=$js['url']?>"<?=$js['async'] ? ' async' : ''?><?=$js['async'] ? ' defer' : ''?>></script>
-        <?php } //foreach-js ?>
+            foreach( $view->getLocalJs() as $js ) {
+                if (! $js['defer']) {?>
+              <script src="<?=$js['url']?>"<?=$js['async'] ? ' async' : ''?>></script>
+  <?php     }
+        } //foreach-js ?>
 
         <title>{title}</title>
         {htmlheaders}
@@ -61,6 +62,11 @@
             if( $view->isFancyBoxEnabled()){
                 $view->callChunk('fancyBoxLoader', false, true);
             }
-        ?>
+            // load defer JS at the end
+            foreach( $view->getLocalJs() as $js ) {
+                if ($js['defer']) {?>
+            <script src="<?=$js['url']?>"<?=$js['async'] ? ' async' : ''?> defer></script>
+  <?php   } //if
+      } //foreach-js ?>
     </body>
 </html>

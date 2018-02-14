@@ -43,11 +43,11 @@
                     $GLOBALS['googlemap_key'], $view->getLang(), $callback);
             }
         }
-        ?>
-
-    <?php foreach( $view->getLocalJs() as $js ) { ?>
-    <script src="<?=$js['url']?>"<?=$js['async'] ? ' async' : ''?><?=$js['async'] ? ' defer' : ''?>></script>
-    <?php } //foreach-js ?>
+        foreach( $view->getLocalJs() as $js ) {
+            if (! $js['defer']) {?>
+              <script src="<?=$js['url']?>"<?=$js['async'] ? ' async' : ''?>></script>
+  <?php     }
+        } //foreach-js ?>
 
 <!-- (C) The Opencaching Project 2017 -->
 
@@ -355,7 +355,12 @@
         if( $view->isFancyBoxEnabled()){
             $view->callChunk('fancyBoxLoader', false, true);
         }
-    ?>
+        // load defer JS at the end
+        foreach( $view->getLocalJs() as $js ) {
+            if ($js['defer']) {?>
+            <script src="<?=$js['url']?>"<?=$js['async'] ? ' async' : ''?> defer></script>
+  <?php   } //if
+      } //foreach-js ?>
 </body>
 
 </html>
