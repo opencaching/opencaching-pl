@@ -180,8 +180,6 @@ log_types_text
     FIXME: is this still valid?
 logentries
 	FIXME
-logentries_types
-	FIXME
 map_settings
 	FIXME
 map_settings_v2

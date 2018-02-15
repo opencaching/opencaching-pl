@@ -102,8 +102,7 @@ class Watchlist extends BaseObject
         }
         if ($useLogentries) {
             Log::logentry(
-                'watchlist',
-                1,
+                Log::EVENT_OWNERNOTIFY,
                 $log->getCacheOwnerId(),
                 $log->getLogId(),
                 0,
@@ -272,8 +271,7 @@ class Watchlist extends BaseObject
                     }
                     if ($useLogentries) {
                         Log::logentry(
-                            'watchlist',
-                            2,
+                            Log::EVENT_MAILWATCHLIST,
                             $watcher->getUserId(),
                             0,
                             0,

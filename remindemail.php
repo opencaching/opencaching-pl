@@ -49,7 +49,7 @@ require_once('./lib/common.inc.php');
 
             mb_send_mail($r['email'], $mail_subject, $email_content, $emailheaders);
 
-            Log::logentry('remindemail', 3, $r['user_id'], 0, 0, 'Remind-E-Mail-Adress an ' . $r['username'] . ' / ' . $r['email'] , array());
+            Log::logentry(Log::EVENT_REMINDERMAIL, $r['user_id'], 0, 0, 'Remind-E-Mail-Adress an ' . $r['username'] . ' / ' . $r['email'] , array());
 
             tpl_set_var('username', htmlspecialchars($username, ENT_COMPAT, 'UTF-8'));
             tpl_set_var('message', $mail_send);
