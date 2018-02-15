@@ -1,16 +1,28 @@
+@charset "UTF-8";
 
-#sendEmailForm label{
-  font-weight: bold;
+.content2-container {
+	font-size: 12px;
 }
 
-#sendEmailForm .form-section {
-  padding: 5px 0 10px 0;
+#contentArea {
+	min-height: 100px;
+	height: 170px;
+	width: 100%;
+	resize: vertical;
 }
 
-#mailSubject {
-  width: 600px;
+.input-group-addon {
+	min-width: 70px;
 }
 
-#mailText {
-  width: 630px;
+label {
+	font-weight: bold !important;
+}
+
+#showMyEmail, #recieveCopy {
+	margin: 10px 3px;
+}
+
+#checkbox-container {
+	height: initial;
 }

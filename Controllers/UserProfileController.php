@@ -1,26 +1,36 @@
 <?php
 namespace Controllers;
 
-
-use lib\Objects\User\User;
+use Utils\Log\Log;
 use Utils\Uri\Uri;
-use lib\Objects\User\UserMessage;
+use lib\Objects\User\U2UEmailSender;
+use lib\Objects\User\User;
+use lib\Objects\User\UserPreferences\UserPreferences;
 
 class UserProfileController extends BaseController
 {
 
+    const USERPreferencesKey = 'UserProfile';
+
     /** @var User $requestedUser */
     private $requestedUser;
+
+    /** @var array */
+    private $preferences;
+
+    private $infoMsg = '';
+
+    private $errorMsg = '';
 
     public function __construct()
     {
         parent::__construct();
-        $this->requestedUser = $this->loadRequestedUser();
+        // $this->requestedUser = $this->loadRequestedUser();
     }
 
     public function isCallableFromRouter($actionName)
     {
-        //all public methods can be called by router
+        // all public methods can be called by router
         return TRUE;
     }
 
@@ -29,82 +39,82 @@ class UserProfileController extends BaseController
         // there is nothing here yet
     }
 
-    public function mailTo()
+    public function mailTo($userId = null)
     {
-        if(!$this->loggedUser){
+        if (! $this->loggedUser) {
             // this view is only for authorized user
             $this->redirectToLoginPage();
         }
-
-        tpl_set_tplname('userProfile/mailto');
-        $this->view->loadJQuery();
-        $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime('tpl/stdstyle/userProfile/mailto.css'));
-
+        if (! $this->prepareUserData($userId)) {
+            // Bad request - user not selected.
+            $this->view->redirect('/');
+        }
+        $subject = '';
+        $content = '';
+        if (isset($_POST['sendEmailAction'])) {
+            $this->sendEmail($subject, $content);
+        }
         $this->view->setVar('requestedUser', $this->requestedUser);
+        $this->view->setVar('preferences', $this->preferences);
+        $this->view->setVar('subject', $subject);
+        $this->view->setVar('content', $content);
+        $this->view->setVar('errorMsg', $this->errorMsg);
+        $this->view->setVar('infoMsg', $this->infoMsg);
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/userProfile/mailto.css'));
+        $this->view->setTemplate('userProfile/mailto');
+        $this->view->buildView();
+    }
 
-        $sendAction = isset($_REQUEST['sendEmailAction']);
-        $displaySubjectError = $sendAction &&
-            (!isset($_REQUEST['mailSubject']) || empty($_REQUEST['mailSubject']));
-        $displayTextError = $sendAction &&
-            (!isset($_REQUEST['mailText']) || empty($_REQUEST['mailText']));
-
-        if(!$sendAction){
-            $mailSubject = '';
-            $mailText = '';
-            $attachEmailAddress = false;
-        }else{
-            $mailSubject = (!$displaySubjectError) ? strip_tags($_REQUEST['mailSubject']) : '';
-            $mailText = (!$displayTextError) ? strip_tags($_REQUEST['mailText']) : '';
-            $attachEmailAddress = isset($_REQUEST['attachEmailAddress']);
+    /**
+     * Sends U2U message.
+     * Is called by mailTo() method after POST data detected
+     * Params are needed to return given form data if sth is missing
+     * 
+     * @param string $subject
+     * @param string $content
+     */
+    private function sendEmail(&$subject, &$content)
+    {
+        // Check content
+        if (! isset($_POST['content']) || (mb_strlen($content = strip_tags(trim($_POST['content']))) == 0)) {
+            $this->errorMsg = tr('mailto_lackOfText');
         }
-
-        $formDisabled = false;
-        $infoMsg = null;
-        $errorMsg = null;
-        if(!$this->requestedUser){
-            //disable form if there is no recipient! - it should never happen.
-            $formDisabled = true;
-            $errorMsg = 'No recipient selected? Try to send mail again and if it happens contact site admins.';
-
-        }else{
-            if($sendAction && !$displaySubjectError && !$displayTextError){
-
-                if(! isset($_SESSION['mailTo-mail-send']) ){
-                    UserMessage::SendUserMessage($this->loggedUser, $this->requestedUser, $mailSubject, htmlspecialchars($mailText), $attachEmailAddress);
-                }
-                $formDisabled = true; //disable form on send with no-errors
-                $infoMsg = tr('mailto_messageSent');
-
-                $_SESSION['mailTo-mail-send'] = true; //set marker that mail was sent - prevents resend by page refresh
-
-            }else{
-                if($displaySubjectError){
-                    $errorMsg = tr('mailto_lackOfSubject');
-                }elseif ($displayTextError){
-                    $errorMsg = tr('mailto_lackOfText');
-                }
-            }
+        // Check subject
+        if (! isset($_POST['subject']) || (mb_strlen($subject = mb_substr(strip_tags(trim($_POST['subject'])), 0, 150)) == 0)) {
+            $this->errorMsg = tr('mailto_lackOfSubject');
         }
-
-        if(!$formDisabled && isset($_SESSION['mailTo-mail-send'])){
-            unset($_SESSION['mailTo-mail-send']);
+        if ($this->errorMsg !== '') {
+            return;
         }
+        // Save user preferences
+        $this->preferences['email']['showMyEmail'] = isset($_POST['showMyEmail']);
+        $this->preferences['email']['recieveCopy'] = isset($_POST['recieveCopy']);
+        UserPreferences::savePreferencesJson(self::USERPreferencesKey, json_encode($this->preferences));
+        // Send mail to recipient
+        $result = U2UEmailSender::sendU2UMessage($this->loggedUser, $this->requestedUser, $subject, $content, $this->preferences['email']['showMyEmail']);
+        if ($result && $this->preferences['email']['recieveCopy']) {
+            // Send copy of email - to sender
+            $result = U2UEmailSender::sendU2UCopy($this->loggedUser, $this->requestedUser, $subject, $content);
+        }
+        // Insert log entry into email_user
+        Log::logEmail($this->loggedUser, $this->requestedUser, $subject, $this->preferences['email']['showMyEmail']);
+        // Redirect to user profile page
+        $uri = $this->requestedUser->getProfileUrl();
+        if ($result) {
+            $uri = Uri::setOrReplaceParamValue('infoMsg', tr('mailto_messageSent'), $uri);
+        } else {
+            $uri = Uri::setOrReplaceParamValue('errorMsg', tr('mailto_messageError'), $uri);
+        }
+        $this->view->redirect($uri);
+    }
 
-        $this->view->setVar('mailSubject', $mailSubject);
-        $this->view->setVar('mailText', $mailText);
-        $this->view->setVar('attachEmailAddress', $attachEmailAddress);
-
-        $this->view->setVar('displaySubjectError', $displaySubjectError);
-        $this->view->setVar('displayTextError', $displayTextError);
-
-        $this->view->setVar('formDisabled', $formDisabled);
-
-        $this->view->setVar('errorMsg', $errorMsg);
-        $this->view->setVar('infoMsg', $infoMsg);
-        $this->view->setVar('reloadUrl', '');
-
-        tpl_BuildTemplate();
+    private function prepareUserData($userId)
+    {
+        if (($this->requestedUser = User::fromUserIdFactory($userId)) == null) {
+            return false;
+        }
+        $this->preferences = UserPreferences::getUserPrefsByKey(self::USERPreferencesKey)->getValues();
+        return true;
     }
 
     private function loadRequestedUser()
@@ -115,5 +125,3 @@ class UserProfileController extends BaseController
         return null;
     }
 }
-
-
