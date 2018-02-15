@@ -1,4 +1,7 @@
 <?php
+use Utils\Uri\SimpleRouter;
+use Controllers\UserUtilsController;
+
 /**
  * This is simple configuration of links presented in sidebar of the page
  * for authorized users only.
@@ -29,5 +32,5 @@ $menu = [ // DON'T CHANGE $menu var name!
     'mnu_FloppMap'      => 'https://flopp-caching.de',
     'mnu_massLogsSave'  => '/log_cache_multi_send.php',
     'mnu_openchecker'   => '/openchecker.php',
-    'mnu_qrCode'        => '/qrcode.php',
+    'mnu_qrCode'        => SimpleRouter::getLink(UserUtilsController::class, 'qrCodeGen'),
 ];
