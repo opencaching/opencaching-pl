@@ -170,20 +170,14 @@
               <td align="center" valign="middle"><center><img src="<?=$wp->getIconName()?>" alt="" title="<?=tr($wp->getTypeTranslationKey())?>" /></center></td>
               <td style="text-align: left; vertical-align: middle;"><?=tr($wp->getTypeTranslationKey())?></td>
 
-              <td align="left" valign="middle">
-                <b><span style="color: rgb(88,144,168)">
+              <td align="center" valign="middle">
                   <?php if($wp->areCoordsHidden()) { ?>
-                    N ?? ?????? <br/> E ?? ??????
-
+                    - - -
                   <?php } else { // if-coords-visible?>
-                    <a class="links4" href="#"
-                       onclick="javascript:window.open('coordinates.php?lat=<?=$wp->getCoordinates()->getLatitude()?>&amp;lon=<?=$wp->getCoordinates()->getLongitude()?>&amp;popup=y&amp;wp=<?=$view->geoCache->getWaypointId()?>,'','width=240,height=334,resizable=yes,scrollbars=1'); return event.returnValue=false">
 
-                      <?=$wp->getCoordinates()->getLatitudeString() ?> <br/> <?=$wp->getCoordinates()->getLongitudeString()?>
+                      <?=$wp->getCoordinates()->getLatitudeString()?><br/><?=$wp->getCoordinates()->getLongitudeString()?>
 
-                    </a>
                   <?php } // if-coords-visible ?>
-                </span></b>
               </td>
 
               <td align="left" valign="middle"><?=$wp->getDesc4Html()?></td>
