@@ -10,7 +10,7 @@ use lib\Objects\User\UserPreferences\UserPreferences;
 class UserProfileController extends BaseController
 {
 
-    const USERPreferencesKey = 'UserProfile';
+    const USER_PREFERENCES_KEY = 'UserProfile';
 
     /** @var User $requestedUser */
     private $requestedUser;
@@ -83,13 +83,13 @@ class UserProfileController extends BaseController
         if (! isset($_POST['subject']) || (mb_strlen($subject = mb_substr(strip_tags(trim($_POST['subject'])), 0, 150)) == 0)) {
             $this->errorMsg = tr('mailto_lackOfSubject');
         }
-        if ($this->errorMsg !== '') {
+        if (! empty($this->errorMsg)) {
             return;
         }
         // Save user preferences
         $this->preferences['email']['showMyEmail'] = isset($_POST['showMyEmail']);
         $this->preferences['email']['recieveCopy'] = isset($_POST['recieveCopy']);
-        UserPreferences::savePreferencesJson(self::USERPreferencesKey, json_encode($this->preferences));
+        UserPreferences::savePreferencesJson(self::USER_PREFERENCES_KEY, json_encode($this->preferences));
         // Send mail to recipient
         $result = U2UEmailSender::sendU2UMessage($this->loggedUser, $this->requestedUser, $subject, $content, $this->preferences['email']['showMyEmail']);
         if ($result && $this->preferences['email']['recieveCopy']) {
@@ -113,7 +113,7 @@ class UserProfileController extends BaseController
         if (($this->requestedUser = User::fromUserIdFactory($userId)) == null) {
             return false;
         }
-        $this->preferences = UserPreferences::getUserPrefsByKey(self::USERPreferencesKey)->getValues();
+        $this->preferences = UserPreferences::getUserPrefsByKey(self::USER_PREFERENCES_KEY)->getValues();
         return true;
     }
 
