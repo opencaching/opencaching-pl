@@ -384,7 +384,7 @@ class ReportEmailSender
         $formattedMessage->setVariable('intro', $intro);
         $formattedMessage->setVariable('reason', '<a href="' . $server . $report->getLinkToReport() . '">' . tr(ReportCommons::reportTypeTranslationKey($report->getType())) . '</a>');
         $formattedMessage->setVariable('content', $report->getContent());
-        $formattedMessage->addFooterAndHeader($toUser->getUserName(), false);
+        $formattedMessage->addFooterAndHeader($toUser->getUserName(), true);
         $email = new Email();
         $email->addToAddr($toUser->getEmail());
         $email->setReplyToAddr(OcConfig::getCogEmailAddress());
