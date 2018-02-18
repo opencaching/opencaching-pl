@@ -1,4 +1,6 @@
 <?php
+use Utils\Uri\Uri;
+
 /**
  * This chunk is used to load TinyMCE
  *
@@ -25,7 +27,7 @@ return function ($media = true, $selector = '.tinymce') {
     ?>
 
 <!-- TinyMCE chunk start -->
-<script src="lib/tinymce4/tinymce.min.js"></script>
+<script src="<?=Uri::getLinkWithModificationTime('/lib/tinymce4/tinymce.min.js')?>"></script>
 <script>
   tinymce.init({
     selector: "<?=$selector?>",
@@ -40,10 +42,10 @@ return function ($media = true, $selector = '.tinymce') {
     language: "<?=$GLOBALS['lang']?>",
     toolbar1: "newdocument | styleselect formatselect fontselect fontsizeselect",
     toolbar2: "cut copy paste searchreplace | bullist numlist | outdent indent | undo redo | nonbreaking link unlink image<?=$mediatxt?> | code fullscreen",
-    toolbar3: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | hr | subscript superscript | charmap emoticons | forecolor backcolor",
+    toolbar3: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | hr | subscript superscript | charmap | forecolor backcolor",
     plugins: [
       "advlist autolink autosave link image lists charmap hr anchor spellchecker searchreplace wordcount code fullscreen nonbreaking",
-      "emoticons textcolor paste<?=$mediatxt?>"
+      "textcolor paste<?=$mediatxt?>"
     ],
   });
 </script>
