@@ -99,8 +99,28 @@ div#viewcache-maptypes { width: 380px; text-align: right;}
 div#viewcache-numstats { width: 190px; height: 230px; text-align: left; }
 div#viewcache-map { width: 185px; height: 190px; float: right;}
 
-div#viewcache-description               { font-family: arial, sans serif; line-height: 1.3em; font-size: 12px; margin-top: 5px;}
-div#viewcache-description *             { max-width: 770px; line-height: 1.3em; font-size: 12px; margin: 0px 0px 0.5em 0em;}
+div#viewcache-description {
+	max-width: 100%;
+	font-family: arial, sans serif;
+	line-height: 1.3em;
+	font-size: 12px;
+	margin: 0px 0px 0.5em 0em;
+}
+
+div#viewcache-description>p,
+div#viewcache-description>ul {
+	font-size: 12px;
+	font-family: arial, sans serif;
+}
+
+div#viewcache-description>ol {
+	padding: 0px 0px 0px 25px;
+}
+
+div#viewcache-description>sub,
+div#viewcache-description>sup {
+	font-size: 0.7em;
+}
 
 div#viewcache-utility                   { font-size: 12px; }
 div.viewcache-pictureblock              { float: left; }
