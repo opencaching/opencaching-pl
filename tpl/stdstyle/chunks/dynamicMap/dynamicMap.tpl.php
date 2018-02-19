@@ -40,8 +40,6 @@ var dynamicMapParams_<?=$canvasId?> = {};
 
     function initializeMap(params){
 
-      console.log(params);
-
       // init global map object
       params.map = new google.maps.Map(
           document.getElementById('<?=$canvasId?>'), {}

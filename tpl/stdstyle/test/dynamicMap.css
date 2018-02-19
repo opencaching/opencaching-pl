@@ -1,6 +1,6 @@
 
 
-#mapCanvas, #emptyMapCanvas {
+#mapCanvas, #emptyMapCanvas, #drawingMapCanvas {
     height: 460px;
     width: 767px;
     padding: 0px;
