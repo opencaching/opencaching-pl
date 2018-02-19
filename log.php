@@ -759,10 +759,9 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
         }
 
 
-        // if virtual, webcam or own = archived -> allow only comment log type
+        // if virtual, webcam = archived -> allow only comment log type
         if (($geoCache->getCacheType() == GeoCache::TYPE_VIRTUAL ||
-             $geoCache->getCacheType() == GeoCache::TYPE_WEBCAM  ||
-             $geoCache->getCacheType() == GeoCache::TYPE_OWNCACHE )
+             $geoCache->getCacheType() == GeoCache::TYPE_WEBCAM )
             && $geoCache->getStatus() == GeoCache::STATUS_ARCHIVED) {
 
             if ($type['id'] != 3) {

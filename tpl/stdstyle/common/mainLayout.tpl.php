@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html lang="<?=$view->getLang()?>">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <meta name="keywords" content="<?=$view->_keywords?>">
-    <meta name="author" content="<?=$view->_siteName?>">
 
     <title><?=$view->_title?></title>
 
@@ -18,7 +14,6 @@
     <?php } //foreach-css ?>
 
     <?php
-
         $view->callChunk('bootstrapCss'); // always load bootstrap
 
         if( $view->isGoogleAnalyticsEnabled() ){
@@ -43,11 +38,11 @@
                     $GLOBALS['googlemap_key'], $view->getLang(), $callback);
             }
         }
-        ?>
-
-    <?php foreach( $view->getLocalJs() as $js ) { ?>
-    <script src="<?=$js['url']?>"<?=$js['async'] ? ' async' : ''?><?=$js['async'] ? ' defer' : ''?>></script>
-    <?php } //foreach-js ?>
+        foreach( $view->getLocalJs() as $js ) {
+            if (! $js['defer']) {?>
+              <script src="<?=$js['url']?>"<?=$js['async'] ? ' async' : ''?>></script>
+  <?php     }
+        } //foreach-js ?>
 
 <!-- (C) The Opencaching Project 2017 -->
 
@@ -355,7 +350,12 @@
         if( $view->isFancyBoxEnabled()){
             $view->callChunk('fancyBoxLoader', false, true);
         }
-    ?>
+        // load defer JS at the end
+        foreach( $view->getLocalJs() as $js ) {
+            if ($js['defer']) {?>
+            <script src="<?=$js['url']?>"<?=$js['async'] ? ' async' : ''?> defer></script>
+  <?php   } //if
+      } //foreach-js ?>
 </body>
 
 </html>

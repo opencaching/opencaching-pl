@@ -177,10 +177,7 @@ use lib\Objects\Coordinates\Coordinates;
 <div class="content2-container">
     <div class="content2-container-2col-left" id="viewcache-baseinfo">
         <div class="content-title-noshade-size3">
-            <a href="compass.php?wp=<?=$view->geoCache->getWaypointId()?>&amp;popup=y"
-                class="links" target="_blank">
-              <img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="compass" title="">
-            </a>
+          <img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="compass" title="">
 
             <?php if($view->isUserAuthorized || $view->alwaysShowCoords ) { ?>
                 <span id="cacheCoordinates" onclick="changeCoordsFormat()" title="<?=tr('viewCache_switchCoordsFormat')?>">

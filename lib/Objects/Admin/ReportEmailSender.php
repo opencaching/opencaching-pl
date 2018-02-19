@@ -8,6 +8,7 @@ use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\User\User;
 use lib\Objects\User\UserCommons;
+use Utils\Uri\SimpleRouter;
 
 class ReportEmailSender
 {
@@ -228,12 +229,12 @@ class ReportEmailSender
         $email = new Email();
         $email->addToAddr($toUser->getEmail());
         if ($publishMail) {
-            $formattedMessage->setVariable('reply', tr('mailto_respByEmail') . '<br><a href="' . $server . '/mailto.php?userid=' . $submitter->getUserId() . '">' . tr('reports_user_mail_send') . '</a>');
+            $formattedMessage->setVariable('reply', tr('mailto_respByEmail') . '<br><a href="' . $server . SimpleRouter::getLink('UserProfile','mailTo', $submitter->getUserId()) . '">' . tr('reports_user_mail_send') . '</a>');
             $formattedMessage->addFooterAndHeader($toUser->getUserName(), false);
             $email->setReplyToAddr($submitter->getEmail());
             $email->setFromAddr($submitter->getEmail());
         } else {
-            $formattedMessage->setVariable('reply', tr('mailto_respByOc') . '<br><a href="' . $server . '/mailto.php?userid=' . $submitter->getUserId() . '">' . tr('reports_user_mail_send') . '</a>');
+            $formattedMessage->setVariable('reply', tr('mailto_respByOc') . '<br><a href="' . $server . SimpleRouter::getLink('UserProfile','mailTo', $submitter->getUserId()) . '">' . tr('reports_user_mail_send') . '</a>');
             $formattedMessage->addFooterAndHeader($toUser->getUserName(), true);
             $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
             $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
@@ -383,7 +384,7 @@ class ReportEmailSender
         $formattedMessage->setVariable('intro', $intro);
         $formattedMessage->setVariable('reason', '<a href="' . $server . $report->getLinkToReport() . '">' . tr(ReportCommons::reportTypeTranslationKey($report->getType())) . '</a>');
         $formattedMessage->setVariable('content', $report->getContent());
-        $formattedMessage->addFooterAndHeader($toUser->getUserName(), false);
+        $formattedMessage->addFooterAndHeader($toUser->getUserName(), true);
         $email = new Email();
         $email->addToAddr($toUser->getEmail());
         $email->setReplyToAddr(OcConfig::getCogEmailAddress());

@@ -1,12 +1,13 @@
+
 <script>
     var map0 = null;
     var currentinfowindow = null;
     var icon1 = {url: "tpl/stdstyle/images/google_maps/guru.png"};
 
-    function addMarker(lat, lon, userid, username, nrec) {
+    function addMarker(lat, lon, userid, username, nrec, mailurl) {
         var marker = new google.maps.Marker({position: new google.maps.LatLng(lat, lon), icon: icon1, map: map0});
         var infowindow = new google.maps.InfoWindow({
-            content: '<span style="color:blue;"><table><tr><td><img src="tpl/stdstyle/images/free_icons/vcard.png" alt="img"><b>&nbsp;<a class="links" href="viewprofile.php?userid=' + userid + '">' + username + '</a></td></tr><tr><td><b><img src="images/rating-star.png" alt="rekomendacje" title="rekomendacje"><b>&nbsp;' + nrec + ' {{guru_15}}</td></tr><tr><td><img src="tpl/stdstyle/images/free_icons/email.png" alt="img"><b>&nbsp;<a class="links" href="mailto.php?userid=' + userid + '">{{guru_16}}</a></b></td></tr></table></span>'
+            content: '<span style="color:blue;"><table><tr><td><img src="tpl/stdstyle/images/free_icons/vcard.png" alt="img"><b>&nbsp;<a class="links" href="viewprofile.php?userid=' + userid + '">' + username + '</a></td></tr><tr><td><b><img src="images/rating-star.png" alt="rekomendacje" title="rekomendacje"><b>&nbsp;' + nrec + ' {{guru_15}}</td></tr><tr><td><img src="tpl/stdstyle/images/free_icons/email.png" alt="img"><b>&nbsp;<a class="links" href="' + mailurl + '">{{guru_16}}</a></b></td></tr></table></span>'
         });
         google.maps.event.addListener(marker, "click", function () {
             if (currentinfowindow !== null) {

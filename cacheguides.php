@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use Utils\Uri\SimpleRouter;
 
 if (!isset($rootpath))
     $rootpath = '';
@@ -60,7 +61,7 @@ if ($error == false) {
                                     AND `caches`.`user_id`= ? ", $record['userid']);
             $nr = XDb::xFetchArray($nrec);
             if ($nr['nrecom'] != NULL && $nr['nrecom'] >= 20) {
-                $point.="addMarker(" . $x . "," . $y . "," . $record['userid'] . ",'" . $username . "'," . $nr['nrecom'] . ");\n";
+                $point.="addMarker(" . $x . "," . $y . "," . $record['userid'] . ",'" . $username . "'," . $nr['nrecom'] . ",'" . SimpleRouter::getLink('UserProfile','mailTo', $record['userid']) . "');\n";
                 $nrows++;
             }
         }

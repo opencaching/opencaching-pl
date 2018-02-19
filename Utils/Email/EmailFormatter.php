@@ -15,7 +15,7 @@ class EmailFormatter {
 
     public function __construct($emailTemplateFile, $autoLoadTranslations=false) {
 
-        $this->emailContent = $emailContent = file_get_contents($emailTemplateFile);
+        $this->emailContent = file_get_contents($emailTemplateFile);
 
         if($autoLoadTranslations){
             $this->loadTranslations();

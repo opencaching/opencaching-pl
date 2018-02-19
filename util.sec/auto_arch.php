@@ -112,7 +112,7 @@ class AutoArch
         if(!$status){
             error_log(__FILE__.':'.__LINE__.': Mail sending failure: to:'.$cache->getOwner()->getEmail());
         }
-        Log::logentry('autoarchive', 6, $cache->getOwner()->getUserId(), $cache->getCacheId(), 0, 'Sending mail to ' . $cache->getOwner()->getEmail(), array('status' => $status));
+        Log::logentry(Log::EVENT_AUTOARCHIVE, $cache->getOwner()->getUserId(), $cache->getCacheId(), 0, 'Sending mail to ' . $cache->getOwner()->getEmail(), array('status' => $status));
     }
 
     private function loadCachesToProcess()
@@ -149,7 +149,7 @@ class AutoArch
 
     /**
      * 6 months from last
-     * @param type $rs
+     * @param array $rs
      */
     private function archiveGeocache($rs)
     {
@@ -175,7 +175,7 @@ class AutoArch
 
     /**
      * second notification
-     * @param type $rs
+     * @param array $rs
      */
     private function proceedSecondStep($rs)
     {

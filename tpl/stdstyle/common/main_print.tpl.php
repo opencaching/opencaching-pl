@@ -1,37 +1,32 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title><?php echo isset($tpl_subtitle) ? $tpl_subtitle : ''; ?>{title}</title>
-        <meta http-equiv="content-type" content="text/xhtml; charset=UTF-8" />
-        <meta http-equiv="Content-Style-Type" content="text/css" />
-        <meta http-equiv="Content-Language" content="{lang}" />
-        <meta http-equiv="gallerimg" content="no" />
-        <!-- Favicon noch nicht vorhanden <link rel="shortcut icon" href="favicon.ico" />-->
-        <link rel="stylesheet" type="text/css" href="tpl/{style}/css/style_print.css" />
+<!DOCTYPE html>
+<html lang="<?=$view->getLang()?>">
+<head>
+  <title><?php echo isset($tpl_subtitle) ? $tpl_subtitle : ''; ?>{title}</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" media="print" href="<?=$view->printCss?>">
+  <?php foreach( $view->getLocalCss() as $css ) { ?>
+    <link rel="stylesheet" type="text/css" href="<?=$css?>">
+  <?php } //foreach-css ?>
 
-        <?php foreach( $view->getLocalCss() as $css ) { ?>
-          <link rel="stylesheet" type="text/css" href="<?=$css?>">
-        <?php } //foreach-css ?>
+  {htmlheaders}
+  {cachemap_header}
 
-        {htmlheaders}
-        {cachemap_header}
+  <?php
+    if( $view->isGoogleAnalyticsEnabled() ) {
+        $view->callChunkOnce( 'googleAnalytics', $view->getGoogleAnalyticsKey() );
+    }
 
-        <?php
-            if( $view->isGoogleAnalyticsEnabled() ){
-                $view->callChunkOnce( 'googleAnalytics', $view->getGoogleAnalyticsKey() );
-            }
+    if( $view->isjQueryEnabled()) {
+        $view->callChunk('jQuery');
+    }
 
-            if( $view->isjQueryEnabled()){
-                $view->callChunk('jQuery');
-            }
+    if( $view->isjQueryUIEnabled()) {
+        $view->callChunk('jQueryUI');
+    }
+  ?>
 
-            if( $view->isjQueryUIEnabled()){
-                $view->callChunk('jQueryUI');
-            }
-        ?>
-
-    </head>
-    <body onload="load()" onunload="GNuload()">
-        {template}
-    </body>
+</head>
+<body{bodyMod}>
+  {template}
+</body>
 </html>

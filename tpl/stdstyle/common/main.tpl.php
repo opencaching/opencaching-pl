@@ -8,9 +8,7 @@ global $tpl_subtitle;
 <!DOCTYPE html>
 <html lang="<?=$view->getLang()?>">
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="keywords" content="<?=$view->_keywords?>">
-  <meta name="author" content="<?=$view->_siteName?>">
+  <meta charset="utf-8">
 
   <title><?=$tpl_subtitle?>{title}</title>
 
@@ -52,11 +50,11 @@ global $tpl_subtitle;
                   $GLOBALS['googlemap_key'], $view->getLang(), $callback);
           }
       }
-  ?>
-
-  <?php foreach( $view->getLocalJs() as $js ) { ?>
-    <script src="<?=$js['url']?>"<?=$js['async'] ? ' async' : ''?><?=$js['async'] ? ' defer' : ''?>></script>
-  <?php } //foreach-js ?>
+      foreach( $view->getLocalJs() as $js ) {
+          if (! $js['defer']) {?>
+            <script src="<?=$js['url']?>"<?=$js['async'] ? ' async' : ''?>></script>
+  <?php   }
+      } //foreach-js ?>
   <script src="/lib/js/CookiesInfo.js" async defer></script>
 
 </head>
@@ -300,12 +298,6 @@ global $tpl_subtitle;
       </p>
     </div>
   </div>
-  <?php
-      // fancyBox js should be loaded at th end of page
-      if( $view->isFancyBoxEnabled()){
-          $view->callChunk('fancyBoxLoader', false, true);
-      }
-  ?>
   <script>
     // this is used by search widget
     function chname(newName,searchPage) {
@@ -314,6 +306,17 @@ global $tpl_subtitle;
       return false;
     }
   </script>
+  <?php
+      // fancyBox js should be loaded at the end of page
+      if( $view->isFancyBoxEnabled()) {
+          $view->callChunk('fancyBoxLoader', false, true);
+      }
+      // load defer JS at the end
+      foreach( $view->getLocalJs() as $js ) {
+          if ($js['defer']) {?>
+            <script src="<?=$js['url']?>"<?=$js['async'] ? ' async' : ''?> defer></script>
+  <?php   } //if
+      } //foreach-js ?>
   <!-- (C) The Opencaching Project 2018 -->
 </body>
 </html>

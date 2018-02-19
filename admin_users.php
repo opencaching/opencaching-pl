@@ -7,10 +7,12 @@ use Utils\Database\OcDb;
 require_once('./lib/common.inc.php');
 
 if ($usr['admin']) {
+    $view = tpl_getView();
 
     if (isset($_REQUEST['userid'])) {
         $user_id = $_REQUEST['userid'];
         tpl_set_var('userid', $user_id);
+        $view->setVar('userid', $user_id);
     }
 
     if (Xdb::xContainsColumn('countries', $lang))
@@ -142,7 +144,7 @@ if ($usr['admin']) {
             } else {
                 $translation = tr('ignoreFoundLimitAdd');
             }
-            $ignoreFoundLimitHtml = '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<span class="content-title-noshade txt-blue08"><a href="admin_users.php?userid=' . $user_id . '&amp;ignoreFoundLimit='. (int) !$ignoreFoundLimit .'"><font color="#ff0000">'.$translation.'</font></a><img src="' . $stylepath . '/images/blue/atten-red.png" align="top" alt="" /></span></p>';
+            $ignoreFoundLimitHtml = '<p><span class="content-title-noshade txt-blue08"><a href="admin_users.php?userid=' . $user_id . '&amp;ignoreFoundLimit='. (int) !$ignoreFoundLimit .'"><font color="#ff0000">'.$translation.'</font></a><img src="' . $stylepath . '/images/blue/atten-red.png" align="top" alt="" /></span></p>';
             tpl_set_var('ignoreFoundLimit', $ignoreFoundLimitHtml);
         } else {
             tpl_set_var('ignoreFoundLimit', '');
@@ -152,9 +154,9 @@ if ($usr['admin']) {
         $verify_all = $record['verify_all'];
 
         if ($verify_all == 0) {
-            tpl_set_var('hide_flag', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="admin_users.php?userid=' . $user_id . '&amp;verify_all=1"><font color="#ff0000">' . tr('admin_users_verify_all') . '</font></a>&nbsp;<img src="' . $stylepath . '/images/blue/atten-red.png" align="top" alt="" /></p>');
+            tpl_set_var('hide_flag', '<p><a href="admin_users.php?userid=' . $user_id . '&amp;verify_all=1"><font color="#ff0000">' . tr('admin_users_verify_all') . '</font></a>&nbsp;<img src="' . $stylepath . '/images/blue/atten-red.png" align="top" alt="" /></p>');
         } else {
-            tpl_set_var('hide_flag', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="admin_users.php?userid=' . $user_id . '&amp;verify_all=0"><font color="#228b22">' . tr('admin_users_verify_none') . '</font></a>&nbsp;<img src="' . $stylepath . '/images/blue/atten-green.png" align="top" alt="" /></p>');
+            tpl_set_var('hide_flag', '<p><a href="admin_users.php?userid=' . $user_id . '&amp;verify_all=0"><font color="#228b22">' . tr('admin_users_verify_none') . '</font></a>&nbsp;<img src="' . $stylepath . '/images/blue/atten-green.png" align="top" alt="" /></p>');
         }
 
         tpl_set_var('form_title', tr('admin_notes_content'));

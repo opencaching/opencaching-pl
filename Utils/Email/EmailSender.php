@@ -9,12 +9,11 @@
 
 namespace Utils\Email;
 
+use Utils\Gis\Gis;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\User\User;
-use lib\Objects\User\UserMessage;
-use Utils\Gis\Gis;
 
 class EmailSender
 {
@@ -255,90 +254,6 @@ class EmailSender
         $email->setSubject(tr('adopt_28'));
         $email->setBody($formattedMessage->getEmailContent(), true);
         $email->send();
-    }
-
-    /**
-     * Sends user2user message (used by mailTo)
-     * Returns true on success;
-     *
-     * @param UserMessage $msg
-     * @return boolean
-     */
-    public static function sendUser2UserMessage(User $from, User $to, $subject, $text, $attachSenderAddress)
-    {
-
-        // add additional prefix to subject
-        $subject = tr('mailto_emailFrom').' '.$from->getUserName().': '.$subject;
-
-        // prepare message text
-        if($attachSenderAddress){
-            $userMessage = new EmailFormatter(__DIR__ . '/../../tpl/stdstyle/email/user2user/messageWithSenderEmail.email.html', true);
-        }else{
-            $userMessage = new EmailFormatter(__DIR__ . '/../../tpl/stdstyle/email/user2user/messageWithoutSenderEmail.email.html', true);
-        }
-
-        $userMessage->setVariable('toUsername', $to->getUserName());
-        $userMessage->setVariable('fromUsername', $from->getUserName());
-        $userMessage->setVariable('fromEmail', $from->getEmail());
-        $userMessage->setVariable('absoluteServerURI', OcConfig::getAbsolute_server_URI());
-        $userMessage->setVariable('fromUserid', $from->getUserId());
-        $userMessage->setVariable('text', nl2br($text));
-        $userMessage->addFooterAndHeader($to->getUserName(), !$attachSenderAddress);
-
-
-        // prepare copy for sender
-        $senderCopy = new EmailFormatter(__DIR__ . '/../../tpl/stdstyle/email/user2user/messageCopyForSender.email.html', true);
-
-        if(preg_match('/(?:<body[^>]*>)(.*)<\/body>/isU', $userMessage->getEmailContent(), $matches)) {
-            $bodyOfMessage = $matches[1];
-        }else{
-            $bodyOfMessage = '';
-        }
-
-        $senderCopy->setVariable('text', $bodyOfMessage);
-        $senderCopy->setVariable('toUsername', $to->getUserName());
-        $senderCopy->addFooterAndHeader($from->getUserName());
-
-
-
-        $noReplyAddress = OcConfig::getNoreplyEmailAddress();
-
-        //send email to Recipient
-        $email = new Email();
-        $email->addToAddr($to->getEmail());
-        if($attachSenderAddress){
-            $email->setReplyToAddr($from->getEmail());
-            $email->setFromAddr($from->getEmail());
-        }else{
-            $email->setReplyToAddr($noReplyAddress);
-            $email->setFromAddr($noReplyAddress);
-        }
-
-        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
-        $email->setSubject($subject);
-        $email->setBody($userMessage->getEmailContent(), true);
-        $result = $email->send();
-
-        if(!$result){
-            error_log(__METHOD__.': Mail sending failure to: '.$to->getEmail());
-            return $result;
-        }else{
-
-            //send copy of email to sender
-            $email = new Email();
-            $email->addToAddr($from->getEmail());
-            $email->setReplyToAddr($noReplyAddress);
-            $email->setFromAddr($noReplyAddress);
-            $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
-            $email->setSubject($subject);
-            $email->setBody($senderCopy->getEmailContent(), true);
-
-            if(!$email->send()){
-                error_log(__METHOD__.': Sender copy sending failure to: '.$from->getEmail());
-            }
-        }
-
-        return $result;
     }
 
     public static function sendNotifyAboutNewCacheToOcTeam($emailTemplateFile, User $owner, $newCacheName, $newCacheId,

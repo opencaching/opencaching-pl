@@ -467,7 +467,7 @@ class Report extends BaseObject
             ReportEmailSender::sendReportNewLeader($this, $this->getUserLeader());
             $this->sendWatchEmails($logId, [ $this->userIdLeader ]);
         }
-        if (! $this->isReportWatched($oldLeaderId)) { // If previeous leader don't watch this report - inform him anyway
+        if (! $this->isReportWatched($oldLeaderId) && ! is_null($oldLeaderId)) { // If previeous leader don't watch this report - inform him anyway
             ReportEmailSender::sendReportWatch($this, new User(['userId' => $oldLeaderId]), $logId);
         }
         if ($this->status == ReportCommons::STATUS_NEW) { // If sb assign user to new report -> change status to "In progress"

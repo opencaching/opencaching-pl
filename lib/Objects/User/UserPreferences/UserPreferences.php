@@ -4,8 +4,6 @@ namespace lib\Objects\User\UserPreferences;
 
 use lib\Objects\BaseObject;
 use Utils\Debug\Debug;
-use lib\Objects\User\User;
-
 
 /**
  * This class is used to manage user preferences at oc pages
@@ -26,7 +24,8 @@ class UserPreferences extends BaseObject
      */
     const ALLOWED_KEYS = [
         // 'testKey' => 'TestData::class'
-        TestUserPref::KEY => TestUserPref::class,
+        // TestUserPref::KEY => TestUserPref::class,
+        UserProfilePref::KEY => UserProfilePref::class
     ];
 
     /** @var UserPreferencesBaseData[] */

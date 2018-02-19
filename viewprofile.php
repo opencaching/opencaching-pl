@@ -26,10 +26,16 @@ if ($usr == false) {
     tpl_redirect('login.php?target=' . $target);
 
 } else {
-
+    $infoMsg = '';
+    $errorMsg = '';
     $checkBadges = 1;
     $checkGeoPaths = 1;
-
+    if (isset($_REQUEST['infoMsg'])) {
+        $infoMsg = strip_tags(urldecode($_REQUEST['infoMsg']));
+    }
+    if (isset($_REQUEST['errorMsg'])) {
+        $errorMsg = strip_tags(urldecode($_REQUEST['errorMsg']));
+    }
     if (isset($_REQUEST['save'])){
 
         if (isset($_REQUEST['checkBadges']))
@@ -58,6 +64,7 @@ if ($usr == false) {
         $user_id = $usr['userid'];
     }
     tpl_set_var('userid', $user_id);
+    $view->setVar('userid', $user_id);
     require ($stylepath . '/lib/icons.inc.php');
     $tplname = 'viewprofile';
 
@@ -768,8 +775,9 @@ if ($usr == false) {
 
     tpl_set_var('content', $content);
 }
-
-tpl_BuildTemplate();
+$view->setVar('infoMsg', $infoMsg);
+$view->setVar('errorMsg', $errorMsg);
+$view->buildView();
 
 /**
  * generate html string displaying geoPaths completed by user (power trail) medals

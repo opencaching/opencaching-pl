@@ -1,5 +1,7 @@
 <?php
 
+use Utils\Uri\SimpleRouter;
+
 global $user_id;
 ?>
 
@@ -62,15 +64,16 @@ jQuery(function($) {
 </style>
 <!--    CONTENT -->
 <div class="content2-container">
-    <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="{title_text}" title="{title_text}" />&nbsp;{{user_profile}}: {username} </div>
+  <?php $view->callChunk('infoBar', '', $view->infoMsg, $view->errorMsg ); ?>
+    <div class="content2-pagetitle">{{user_profile}} {username} </div>
     <div class="content-title-noshade">
         <table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px;font-size: 115%;" width="97%">
             <tr>
                 <td rowspan="3" width="64"><img src="tpl/stdstyle/images/blue/{profile_img}.png"  alt="" title="{profile_info}" align="middle"/></td>
                 <td><span class="txt-blue08" >{{registered_since_label}}:</span> <span class="txt-black"> {registered}</span><br /><br/><span class="txt-blue08" >{{country_label}}:</span><span class="txt-black"> {country}</span></td>
                 <td rowspan="3" width="30%">
-                    <img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt="Email" title="Email" align="middle"/>&nbsp;<a href="mailto.php?userid={userid}">{{email_user}}</a><br />
-                    <img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="Mapa" title="Map" align="middle"/>&nbsp;<a href="cachemap3.php?userid={userid}">{{show_user_map}}</a>
+                    <img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt="Email" title="Email" align="middle">&nbsp;<a href="<?=SimpleRouter::getLink('UserProfile', 'mailTo', $view->userid)?>" class="links">{{email_user}}</a><br />
+                    <img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="Mapa" title="Map" align="middle">&nbsp;<a href="cachemap3.php?userid={userid}" class="links">{{show_user_map}}</a>
                 </td>
             </tr>
             <tr>
