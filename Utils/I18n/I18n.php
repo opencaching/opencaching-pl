@@ -56,7 +56,7 @@ class I18n
         foreach(self::getSupportedTranslations() as $lang){
             if(!isset($currentLang) || $lang != $currentLang){
                 $result[$lang]['name'] = $lang;
-                $result[$lang]['img'] = '/images/flags/' . $lang . '.gif';
+                $result[$lang]['img'] = '/images/flags/' . $lang . '.svg';
                 $result[$lang]['link'] = Uri::setOrReplaceParamValue('lang',$lang);
             }
         }

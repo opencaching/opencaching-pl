@@ -34,67 +34,30 @@
 
 
 /* Total-stats: */
-#totalStatsDiv {
-  margin: 0 5px 10px 5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-#totalStatsDiv #totalStatsCounters {
-  display: flex;
-  justify-content: space-around;
-  width: 716px;
-}
-#totalStatsDiv #arrowLeft {
-  border-right:15px solid rgb(88,144,168); 
+.totalStatsSlider {
+	margin: 10px 20px;
 }
 
-#totalStatsDiv #arrowRight {
-  border-left: 15px solid rgb(88,144,168);
+.totalStatsFrame {
+	width: 130px !important;
+	height: 50px !important;
+	margin: 0px 6px;
+	text-align: center;
+	vertical-align: middle;
+	border: 2px solid rgb(88,144,168);
+	font-weight: bold;
+	display: flex !important;
+	flex-direction: column;
+	justify-content: space-evenly;
+	border-radius: 3px;
 }
 
-
-#totalStatsDiv .counterArrow {
-  display: inline-block;
-  width: 0; 
-  height: 0;
-  border-top: 15px solid transparent;
-  border-bottom: 15px solid transparent; 
-  vertical-align: middle;
+.totalStatsTitle {
 }
 
-#totalStatsDiv .counterLeftHidden,
-#totalStatsDiv .counterRightHidden {
-  display: none !important ;
-}
-
-#totalStatsDiv .counterWidget {
-  border: 2px solid rgb(88,144,168);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  
-  /*vertical-align: middle;*/
-  border-radius: 3px;
-  text-align: center;
-  font-weight: bold;
-  margin: 5px 2px;
-  height: 50px;
-  width: 130px;
-}
-
-#totalStatsDiv .counterTitle {
-  width: 130px;
-  text-align: center;
-  vertical-align: middle;
-  user-select: none;
-}
-
-#totalStatsDiv .counterNumber {
-  width: 130px;
-  font-size: 16px;
-  color: rgb(88,144,168);
-  user-select: none;
+.totalStatsNumber {
+	font-size: 16px;
+	color: rgb(88,144,168);
 }
 
 /* latest caches */

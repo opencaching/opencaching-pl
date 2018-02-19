@@ -1,11 +1,4 @@
-
-
-#additionalBtns {
-  float: right;
-  text-align: right;
-}
-
-#loginForm {
-  max-width: 300px;
-  float:left;
+.loginLabel {
+	min-width: 170px;
+	font-weight: bold;
 }

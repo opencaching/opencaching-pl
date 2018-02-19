@@ -44,10 +44,15 @@ class StartPageController extends BaseController
         // local css
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime('/tpl/stdstyle/startPage/startPage.css'));
+        $this->view->addLocalCss(
+            Uri::getLinkWithModificationTime('/tpl/stdstyle/js/slick/slick.css'));
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/js/slick/slick-theme.css'));
 
         // local JS
         $this->view->addLocalJs(
-            Uri::getLinkWithModificationTime('/tpl/stdstyle/startPage/startPage.js'));
+            Uri::getLinkWithModificationTime('/tpl/stdstyle/js/slick/slick.min.js'), true, false);
+        $this->view->addLocalJs(
+            Uri::getLinkWithModificationTime('/tpl/stdstyle/startPage/startPage.js'), true, true);
 
         $this->view->loadJQuery();
 

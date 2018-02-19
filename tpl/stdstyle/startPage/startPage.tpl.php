@@ -86,7 +86,7 @@
         <?php } //foreach ?>
 
           <li class="showMoreLink">
-            <a href="/newcaches.php" class="btn btn-sm">
+            <a href="/newcaches.php" class="btn btn-sm btn-default">
               <?=tr('startPage_showMore')?>
             </a>
           </li>
@@ -126,7 +126,7 @@
         <?php } //foreach ?>
 
           <li class="showMoreLink">
-            <a href="/newevents.php" class="btn btn-sm">
+            <a href="/newevents.php" class="btn btn-sm btn-default">
               <?=tr('startPage_showMore')?>
             </a>
           </li>
@@ -177,7 +177,7 @@
             </li>
           <?php } //foreach-lastCacheSets ?>
             <li class="showMoreLink">
-              <a href="/powerTrail.php" class="btn btn-sm">
+              <a href="/powerTrail.php" class="btn btn-sm btn-default">
                 <?=tr('startPage_showMore')?>
               </a>
             </li>
@@ -228,7 +228,7 @@
           </div>
         </li>
         <li class="showMoreLink">
-          <a href="/cache_titled.php" class="btn btn-sm">
+          <a href="/cache_titled.php" class="btn btn-sm btn-default">
             <?=tr('startPage_showMore')?>
           </a>
         </li>

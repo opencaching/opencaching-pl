@@ -3,13 +3,15 @@ namespace Controllers;
 
 use lib\Objects\User\UserAuthorization;
 use Utils\Uri\Uri;
+use Utils\Uri\SimpleRouter;
 
 class UserAuthorizationController extends BaseController
 {
 
     const DEFAULT_TARGET = '/index.php';
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -19,13 +21,15 @@ class UserAuthorizationController extends BaseController
         return TRUE;
     }
 
-    public function index(){
+    public function index()
+    {
         $this->displayLoginPage();
     }
 
-    public function login(){
+    public function login()
+    {
 
-        if($this->isUserLogged()){
+        if ($this->isUserLogged()) {
             // alredy logged in...
             $this->redirectToAuthCookieVerify();
             return;
@@ -33,7 +37,7 @@ class UserAuthorizationController extends BaseController
 
         list($userEmail, $userPassword) = $this->getCredentialsData();
 
-        if($userEmail && $userPassword){
+        if ($userEmail && $userPassword) {
 
             switch (UserAuthorization::checkCredentials($userEmail, $userPassword)) {
                 case UserAuthorization::LOGIN_OK:
@@ -51,15 +55,16 @@ class UserAuthorizationController extends BaseController
                     $error = tr('loginForm_badCredentials');
             }
 
-        }else{
+        } else {
             $error = tr('loginForm_badCredentials');
         }
 
         $this->displayLoginPage($error);
     }
 
-    private function displayLoginPage($error=null){
-        if($this->isUserLogged()){
+    private function displayLoginPage($error=null)
+    {
+        if ($this->isUserLogged()) {
             // alredy logged in...
             $this->redirectToAuthCookieVerify();
             return;
@@ -77,28 +82,30 @@ class UserAuthorizationController extends BaseController
     }
 
 
-    private function getCredentialsData(){
-        if(isset($_POST['email']) && isset($_POST['password'])){
+    private function getCredentialsData()
+    {
+        if (isset($_POST['email']) && isset($_POST['password'])) {
             return [$_POST['email'], $_POST['password']];
-        }else{
+        } else {
             return [null, null];
         }
     }
 
-    public function verifyAuthCookie(){
+    public function verifyAuthCookie()
+    {
 
-        if (UserAuthorization::isAuthCookiePresent()){
+        if (UserAuthorization::isAuthCookiePresent()) {
             // cookie OK, redirect to target...
             $this->view->redirect( urldecode($this->getRedirectTarget()) );
             exit;
-        }else{
+        } else {
             // display message if cookie can't be set in browser
             $this->displayLoginPage(tr('loginForm_cantSetCookie'));
         }
     }
 
-    public function logout(){
-
+    public function logout()
+    {
         UserAuthorization::logout();
 
         $target = urldecode($this->getRedirectTarget());
@@ -107,23 +114,22 @@ class UserAuthorizationController extends BaseController
 
     }
 
-    private function getRedirectTarget(){
-
-        if(isset($_REQUEST['target'])){
+    private function getRedirectTarget()
+    {
+        if (isset($_REQUEST['target'])) {
             return $_REQUEST['target'];
-        }else{
+        } else {
             return urlencode(self::DEFAULT_TARGET);
         }
     }
 
-    private function redirectToAuthCookieVerify(){
-        $this->view->redirect(
-            '/login.php?action=verifyAuthCookie&target='.$this->getRedirectTarget());
+    private function redirectToAuthCookieVerify()
+    {
+        $uri = SimpleRouter::getLink('UserAuthorization', 'verifyAuthCookie');
+        $uri = Uri::setOrReplaceParamValue('target', $this->getRedirectTarget(), $uri);
+        $this->view->redirect($uri);
         $this->view->buildView();
         exit;
     }
-
-
-
 
 }
