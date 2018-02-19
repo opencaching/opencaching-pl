@@ -28,7 +28,7 @@ class UserAuthorizationController extends BaseController
 
     public function login()
     {
-
+d($_POST);
         if ($this->isUserLogged()) {
             // alredy logged in...
             $this->redirectToAuthCookieVerify();
@@ -74,7 +74,8 @@ class UserAuthorizationController extends BaseController
         $this->view->loadJQuery();
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime('/tpl/stdstyle/userAuth/userAuth.css'));
-
+        $this->view->setVar('prevEmail', (isset($_POST['email']) ? $_POST['email'] : ''));
+        $this->view->setVar('prevPassword', (isset($_POST['password']) ? $_POST['password'] : ''));
         $this->view->setVar('target', $this->getRedirectTarget());
         $this->view->setVar('errorMsg', $error);
 

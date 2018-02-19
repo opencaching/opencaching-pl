@@ -11,13 +11,13 @@ use Utils\Uri\SimpleRouter;
   <form action="<?=SimpleRouter::getLink('UserAuthorization', 'login')?>" method="post" name="login_form">
     <div class="input-group input-group-md">
       <label for="userName" class="input-group-addon loginLabel"><?=tr('loginForm_userOrEmail')?></label>
-      <input id="userName" name="email" maxlength="80" type="text" value=""
+      <input id="userName" name="email" maxlength="80" type="text" value="<?=$view->prevEmail?>"
              class="form-control input300" autocomplete="username"  required>
     </div>
     <div class="buffer"></div>
     <div class="input-group input-group-md">
       <label for="password" class="input-group-addon loginLabel"><?=tr('loginForm_password')?></label>
-      <input id="password" name="password" maxlength="60" type="password" value=""
+      <input id="password" name="password" maxlength="60" type="password" value="<?=$view->prevPassword?>"
              class="form-control input300" autocomplete="current-password" required>
     </div>
     <div class="buffer"></div>
