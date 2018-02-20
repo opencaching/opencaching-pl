@@ -31,17 +31,22 @@ return function (array $markersData){
     },
 
     infoWindowContent: function( markerModel ) {
-      var el = $('<div></div>').loadTemplate(
-        $("#<?=$markerInstance->getKey()?>"),
-        {
-            author: 'Geościeżka!',
-            date: '25th May 2013',
-            authorPicture: 'Authors/JoeBloggs.jpg',
-            post: 'This is the contents of my post'
-        });
 
-      return el.html();
+      if(!this.infoWindowCompiled){
+        source = $('#<?=$markerInstance->getKey()?>Tpl').html();
+        this.infoWindowCompiled = Handlebars.compile(source);
+      }
+
+      var context = {
+        link: markerModel.link,
+        name: markerModel.name,
+      };
+
+      return this.infoWindowCompiled(context);
+
     },
+
+    infoWindowCompiled: null,
 
     data: <?=json_encode($markersData, JSON_PRETTY_PRINT)?>,
 

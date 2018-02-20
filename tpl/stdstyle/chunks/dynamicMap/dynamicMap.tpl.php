@@ -19,13 +19,13 @@ return function (DynamicMapModel $mapModel, $canvasId){
 ?>
 <!-- load info-window templates -->
 <?php foreach($mapModel->getInfoWindowTemplates() as $tplId => $infoWinScr) { ?>
-  <script  type="text/html" id="<?=$tplId?>" >
-    <?=file_get_contents(__DIR__.$infoWinScr)?>
+  <script type="text/x-handlebars-template" id="<?=$tplId?>Tpl" >
+    <?php include(__DIR__.$infoWinScr); ?>
   </script>
 <?php } //foreach-InfoWindowTemplates ?>
 
 <script src="/tpl/stdstyle/chunks/dynamicMap/dynamicMapCommons.js"></script>
-<script src="/lib/js/jQueryTemplate/jquery.loadTemplate.min.js"></script>
+<script src="/lib/js/handlebarsjs/handlebars.min-v4.0.11.js"></script>
 
 <script>
 
@@ -136,14 +136,14 @@ var dynamicMapParams_<?=$canvasId?> = {};
 
           var marker = params.markerMgr.<?=$markerClass?>.markerFactory(markerData);
           marker.setMap(params.map);
+          marker.ocData = markerData;
 
           marker.addListener('click', function() {
 
             if(params.lastOpenedInfoWindow){
               params.lastOpenedInfoWindow.close();
             }
-
-            var infoWindow = params.markerMgr.<?=$markerClass?>.infoWindowFactory(markerData);
+            var infoWindow = params.markerMgr.<?=$markerClass?>.infoWindowFactory(this.ocData);
             params.lastOpenedInfoWindow = infoWindow;
             infoWindow.open(params.map, this);
 

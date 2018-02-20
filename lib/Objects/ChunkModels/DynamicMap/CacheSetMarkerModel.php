@@ -19,8 +19,7 @@ class CacheSetMarkerModel extends AbstractMarkerModelBase
         return '/cacheSetMarkerInfoWindow.tpl.php';
     }
 
-    public $wp_oc;
-    public $type;
+    public $link;
     public $name;
     public $icon;
     public $lon;

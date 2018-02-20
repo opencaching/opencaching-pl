@@ -19,14 +19,12 @@ class CacheMarkerModel extends AbstractMarkerModelBase
         return '/cacheMarkerInfoWindow.tpl.php';
     }
 
-    public $id;
-    public $type;
+    public $wp;
+    public $link;
     public $name;
     public $icon;
     public $lon;
     public $lat;
-
-
 
 }
 

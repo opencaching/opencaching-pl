@@ -196,9 +196,8 @@ class TestController extends BaseController
 
                 $markerModel = new CacheSetMarkerModel();
 
-                $markerModel->id = $row['id'];
-                $markerModel->type = $row['type'];
                 $markerModel->name = $row['name'];
+                $markerModel->link = CacheSet::getCacheSetUrlById($row['id']);
 
                 $markerModel->icon = CacheSet::GetTypeIcon($row['type']);
                 $markerModel->lon = $row['centerLongitude'];
@@ -214,10 +213,9 @@ class TestController extends BaseController
 
                 $markerModel = new CacheMarkerModel();
 
-                $markerModel->wp_oc = $row['wp_oc'];
-                $markerModel->type = $row['type'];
+                $markerModel->wp = $row['wp_oc'];
                 $markerModel->name = $row['name'];
-
+                $markerModel->link = GeoCache::GetCacheUrlByWp($row['wp_oc']);
                 $markerModel->icon = GeoCache::CacheIconByType(
                     $row['type'], $row['status']);
 
