@@ -122,23 +122,58 @@ tr.highlighted > td {border-width:2px;}
 /*--------------------------*/
 /* 2.2 - Navigation - Flags */
 /*--------------------------*/
-.navflag-container  { width: 970px; top: 14px; position: absolute; z-index: 2; background-color: transparent;}
-.navflag            { margin: 0px; padding: 0px; font-size: 1.0em;}
-.navflag ul         { float: right; margin: 0px; padding: 0px 20px 0px 0px;}
-.navflag li         { display: inline; list-style: none; margin: 0px; padding: 0px;}
-.navflag li a       { margin: 0px; padding: 0px 0px 0px 1px; text-decoration: none;}
-.navflag a:hover    { color: rgb(0,0,0); text-decoration: none;}
-.img-navflag        { display: inline; width: 23px; height: 15px; margin: 0px; padding: 0px; border: none;}
+.bottom-flags {
+	display: inline;
+	margin: 0px 10px;
+}
+
+.bottom-flags img {
+	height: 20px;
+	border: 1px solid #bfbfbf;
+}
+
+.bottom-page-container {
+	display: block;
+	vertical-align: middle;
+	text-align: center;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+}
 
 /*----------------------------*/
 /* 2.3 - LoginBox */
 /*----------------------------*/
-#loginbox-container  { width: 970px; top: 35px; position: absolute; 
-                       z-index: 3; background: transparent;}
-#loginbox            { margin: 0px; padding: 0px; font-family: verdana, arial, sans serif; font-size: 1.0em; text-align:right; margin-right:20px;}
-#loginbox a          { color: #337ab7;}
-#loginbox a:hover    { color: rgb(50,50,50); }
-#loginbox a, #loginbox a:hover {text-decoration: none;}
+#loginbox-container {
+	width: 100%;
+	top: 20px;
+	position: absolute;
+	z-index: 3;
+	background: transparent;
+}
+
+#loginbox {
+	margin: 0px;
+	padding: 0px;
+	font-family: verdana, arial, sans serif;
+	font-size: 1.0em;
+	text-align: right;
+	margin-right: 20px;
+	float: right;
+}
+
+.loginbox-lbl {
+	border-top-right-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
+	margin-right: -2px !important;
+	vertical-align: middle;
+}
+.loginbox-input {
+	border-top-left-radius: 0 !important;
+	border-bottom-left-radius: 0 !important;
+	margin-left: -2px !important;
+	vertical-align: middle;
+}
 
 /*----------------------------*/
 /* 2.4 - Navigation - horizontal menu bar */
@@ -252,7 +287,7 @@ ul.tick          { list-style-image: url('/tpl/stdstyle/images/free_icons/tick.p
 /*--------------------*/
 #footer     { overflow: hidden; clear: both; width: 970px;  margin: 0px; padding: 0.5em 0px 0.5em 0px; border-top: solid 1px rgb(125,125,125); background-color: rgb(128,161,202); color: rgb(255,255,255); font-size: 1.0em;}
 #footer p   { margin: 0px; padding: 0px; text-align: center; line-height: 1.3em; font-size: 110%;}
-#footer a        { color: rgb(255,255,255); text-decoration: underline;}
+#footer a        { color: rgb(255,255,255); text-decoration: none;}
 #footer a:hover  { color: rgb(0,0,0); text-decoration: none;}
 
 
@@ -588,7 +623,7 @@ a.btn {
 }
 
 .btn-md {
-    padding: 3px 5px;
+    padding: 3px 10px;
     font-size: 13px;
     line-height: 1.5;
     border-radius: 3px;
@@ -695,6 +730,15 @@ a.btn {
     z-index: 2;
     float: left;
     margin-bottom: 0;
+}
+
+.input-group-md .form-control,
+.input-group-md .input-group-addon {
+    height: 31px;
+    padding: 4px 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    border-radius: 4px;
 }
 
 .input-group-sm .form-control,

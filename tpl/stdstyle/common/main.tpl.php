@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Debug\Debug;
+use Utils\Uri\SimpleRouter as SRouter;
 
 global $tpl_subtitle;
 
@@ -74,21 +75,6 @@ global $tpl_subtitle;
         <p class="subtitle"><a href="/index.php"><?=$view->_logoSubtitle?></a></p>
       </div>
 
-      <!-- Flag navigations -->
-      <div class="navflag-container">
-        <div class="navflag">
-          <ul>
-            <?php foreach($view->_languageFlags as $langFlag){ ?>
-                <li>
-                  <a rel="nofollow" href="<?=$langFlag['link']?>">
-                    <img class="img-navflag" src="<?=$langFlag['img']?>" alt="<?=$langFlag['name']?> version" title="<?=$langFlag['name']?> version">
-                  </a>
-                </li>
-            <?php } //forach-lang-flags ?>
-          </ul>
-        </div>
-      </div>
-
       <!-- Site slogan -->
                 <div class="site-slogan-container">
                     <form method="get" action="search.php" name="search_form" id="search_form">
@@ -132,20 +118,30 @@ global $tpl_subtitle;
                 <div id="loginbox-container">
                     <div id="loginbox">
                         <?php if($view->_isUserLogged){ //if-user-logged ?>
-                            <?=tr('logged_as')?>
-                            <a href="/viewprofile.php"><?=$view->_username?></a> -
-                            <a href="/login.php?action=logout"><?=tr('logout')?></a>
-
+                            [ <?=$view->_username?> ]
+                            <div class="btn-group btn-group-sm">
+                              <a href="/viewprofile.php" class="btn btn-default btn-sm">
+                                <img src="/tpl/stdstyle/images/misc/user.svg" class="icon16" alt="<?=tr('user_profile')?>" title="<?=tr('user_profile')?>">
+                              </a>
+                              <a href="<?=SRouter::getLink('UserAuthorization', 'logout')?>" class="btn btn-default btn-sm">
+                                <img src="/tpl/stdstyle/images/misc/exit.svg" class="icon16" alt="<?=tr('logout')?>" title="<?=tr('logout')?>">
+                              </a>
+                            </div>
                         <?php } else { //user-not-logged ?>
-                            <form action="login.php?action=login" method="post" name="login"
-                                  style="display: inline;" class="form-group-sm">
-                                  <?=tr('loginForm_userOrEmail')?>:&nbsp;
-                                  <input name="email" size="10" type="text" class="form-control input100" value="" autocomplete="username">
-                                  &nbsp;<?=tr('loginForm_password')?>:&nbsp;
-                                  <input name="password" size="10" type="password" class="form-control input100" value="" autocomplete="current-password">
-                                  &nbsp;
-                                  <input type="hidden" name="target" value="<?=$view->_target?>" />
-                                  <input type="submit" value="<?=tr('login')?>" class="btn btn-primary btn-sm" />
+                            <form action="<?=SRouter::getLink('UserAuthorization', 'login')?>" method="post" name="login" class="form-group-sm">
+                              <label for="top-form-email" class="btn btn-sm btn-default loginbox-lbl">
+                                <img src="/tpl/stdstyle/images/misc/user.svg" class="icon16" alt="<?=tr('loginForm_userOrEmail')?>" title="<?=tr('loginForm_userOrEmail')?>">
+                              </label>
+                              <input name="email" id="top-form-email" type="text" class="form-control input120 loginbox-input" value="" autocomplete="username" placeholder="<?=tr('loginForm_userOrEmail')?>" required>
+                              <label for="top-form-password" class="btn btn-sm btn-default loginbox-lbl">
+                                <img src="/tpl/stdstyle/images/misc/key.svg" class="icon16" alt="<?=tr('loginForm_password')?>" title="<?=tr('loginForm_password')?>">
+                              </label>
+                              <input name="password" id="top-form-password" type="password" class="form-control input120 loginbox-input" value="" autocomplete="current-password" placeholder="<?=tr('loginForm_password')?>" required>
+                              <input type="hidden" name="target" value="<?=$view->_target?>">
+                              <div class="btn-group btn-group-sm">
+                                <input type="submit" value="<?=tr('login')?>" class="btn btn-primary btn-sm">
+                                <a href="/register.php" class="btn btn-success btn-sm"><?=tr('registration')?></a>
+                              </div>
                             </form>
                         <?php } //user-not-logged ?>
                     </div>
@@ -266,13 +262,13 @@ global $tpl_subtitle;
       <div id="footer">
         <?php if ($view->_isUserLogged && $view->_displayOnlineUsers) { ?>
             <p>
-              <span class="txt-black">{{online_users}}: </span>
-              <span class="txt-white">&nbsp;
+              <span class="txt-black">{{online_users}}:</span>
+              <span class="txt-white">
                 <?php foreach($view->_onlineUsers as $userId=>$username){ ?>
                     <a class="links-onlusers" href="/viewprofile.php?userid=<?=$userId?>"><?=$username?></a>&nbsp;
                 <?php } //foreach ?>
               </span>
-              <span class="txt-black"> ({{online_users_info}})</span>
+              <span class="txt-black">({{online_users_info}})</span>
             </p>
             <div class="spacer">&nbsp;</div>
         <?php } // user-logged && displayOnlineUsers ?>
@@ -282,12 +278,19 @@ global $tpl_subtitle;
               <?php if(is_array($url)) { //array="open in new window" ?>
                   <a href="<?=$url[0]?>" target="_blank" rel="noopener"><?=$key?></a>
               <?php } else { // !is_array($url) ?>
-                  <a href="<?=$url?>" rel="noopener"><?=$key?></a>
+                  <a href="<?=$url?>" rel="noopener"><?=$key?></a> &nbsp;
               <?php } // if-is_array($url) ?>
           <?php } //foreach _footerMenu ?>
         </p>
 
-        <p><br><?=$view->licenseHtml?></p>
+        <div class="bottom-page-container">
+          <?=$view->licenseHtml?>
+          <span class="bottom-flags">
+            <?php foreach($view->_languageFlags as $langFlag){ ?>
+              <a rel="nofollow" href="<?=$langFlag['link']?>"><img class="img-navflag" src="<?=$langFlag['img']?>" alt="<?=$langFlag['name']?> version" title="<?=$langFlag['name']?> version"></a>
+            <?php } //forach-lang-flags ?>
+          </span>
+        </div>
 
       </div>
     </div>
