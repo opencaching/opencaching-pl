@@ -585,23 +585,14 @@ use lib\Objects\Coordinates\Coordinates;
                         <?=tr($wp->getTypeTranslationKey())?>
                     </td>
                     <td>
-                        <b style="color: rgb(88,144,168)">
-                            <?php if($wp->areCoordsHidden()) { ?>
-                                N ?? ??????<br/>E ?? ??????
-                            <?php } else { // if-coords-visible?>
-                                <script>
-                                    function wpCoordinatesPopup<?=$wp->getId()?>(){
-                                      var url = "coordinates.php?lat=<?=$wp->getCoordinates()->getLatitude()?>&"+
-                                                "lon=<?=$wp->getCoordinates()->getLongitude()?>&popup=y&"+
-                                                "wp=<?=$view->geoCache->getWaypointId()?>";
-                                      window.open(url,"","width=240,height=334,resizable=yes,scrollbars=1");
-                                    }
-                                </script>
-                                <a class="links4" href="#" onclick="wpCoordinatesPopup<?=$wp->getId()?>()">
-                                    <?=$wp->getCoordinates()->getLatitudeString() ?><br/><?=$wp->getCoordinates()->getLongitudeString() ?>
-                                </a>
-                            <?php } // if-coords-visible ?>
-                         </b>
+                            <?php if(!$wp->areCoordsHidden()) { ?>
+
+                              <?=$wp->getCoordinates()->getLatitudeString()?><br/><?=$wp->getCoordinates()->getLongitudeString()?>
+
+                            <?php } else { // if-coords-visible ?>
+                                ---
+                            <?php }  // if-coords-visible ?>
+
                     </td>
                     <td>
                         <?=$wp->getDesc4Html()?>
