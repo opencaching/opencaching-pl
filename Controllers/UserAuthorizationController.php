@@ -28,7 +28,6 @@ class UserAuthorizationController extends BaseController
 
     public function login()
     {
-d($_POST);
         if ($this->isUserLogged()) {
             // alredy logged in...
             $this->redirectToAuthCookieVerify();
