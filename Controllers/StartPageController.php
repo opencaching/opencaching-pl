@@ -50,7 +50,7 @@ class StartPageController extends BaseController
 
         // local JS
         $this->view->addLocalJs(
-            Uri::getLinkWithModificationTime('/tpl/stdstyle/js/slick/slick.min.js'), true, false);
+            Uri::getLinkWithModificationTime('/tpl/stdstyle/js/slick/slick.min.js'));
         $this->view->addLocalJs(
             Uri::getLinkWithModificationTime('/tpl/stdstyle/startPage/startPage.js'), true, true);
 
