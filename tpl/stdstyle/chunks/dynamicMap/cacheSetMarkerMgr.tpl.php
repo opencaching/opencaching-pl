@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * This is JS object containing functions used to handle markers
+ * - markerFactory - creates marker based on data row
+ * - infoWindowFactory - creates inforWindow based on row data
+ * - data - data rows of this type
+ *
+ * All functions are used from within dynamic map.
+ */
 return function (array $markersData){
 
     $markerInstance = $markersData[0];
@@ -8,8 +15,7 @@ return function (array $markersData){
 
 {
     markerFactory: function( markerModel ){
-
-      var marker = new google.maps.Marker({
+      return new google.maps.Marker({
         position: new google.maps.LatLng(markerModel.lat, markerModel.lon),
         icon: {
             url: markerModel.icon,
@@ -17,24 +23,20 @@ return function (array $markersData){
           },
         title: markerModel.name,
       });
-
-      return marker;
     },
 
     infoWindowFactory: function( markerModel ){
-      var infoWin = new google.maps.InfoWindow({
-        content: this.infoWindowContent( markerModel ),
+      return new google.maps.InfoWindow({
+        content: this.__infoWindowContent( markerModel ),
         maxWidth: 350
       });
-
-      return infoWin;
     },
 
-    infoWindowContent: function( markerModel ) {
+    __infoWindowContent: function( markerModel ) {
 
-      if(!this.infoWindowCompiled){
+      if(!this.__infoWindowCompiled){
         source = $('#<?=$markerInstance->getKey()?>Tpl').html();
-        this.infoWindowCompiled = Handlebars.compile(source);
+        this.__infoWindowCompiled = Handlebars.compile(source);
       }
 
       var context = {
@@ -42,11 +44,10 @@ return function (array $markersData){
         name: markerModel.name,
       };
 
-      return this.infoWindowCompiled(context);
-
+      return this.__infoWindowCompiled(context);
     },
 
-    infoWindowCompiled: null,
+    __infoWindowCompiled: null,
 
     data: <?=json_encode($markersData, JSON_PRETTY_PRINT)?>,
 
