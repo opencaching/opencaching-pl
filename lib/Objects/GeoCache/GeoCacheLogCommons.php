@@ -148,5 +148,10 @@ class GeoCacheLogCommons extends BaseObject{
         return preg_replace('/[\x00-\x08\x0E-\x1F\x7F\x0A\x0C]+/', '', $text);
 
     }
+
+    public static function getLogUrlByLogId($logId){
+        return "/viewlogs.php?logid=$logId";
+    }
+
 }
 

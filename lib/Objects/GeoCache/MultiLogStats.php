@@ -66,7 +66,7 @@ class MultiLogStats extends BaseObject
             return [];
         }
 
-        if( is_null($logFields) ){
+        if( empty($logFields) ){
             $logFields = ['*'];
         }
 

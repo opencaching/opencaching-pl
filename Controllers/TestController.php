@@ -9,10 +9,15 @@ use Utils\Uri\Uri;
 use lib\Objects\User\UserPreferences\UserPreferences;
 use lib\Objects\User\UserPreferences\TestUserPref;
 use lib\Objects\ChunkModels\DynamicMap\CacheMarkerModel;
+use lib\Objects\ChunkModels\DynamicMap\CacheWithLogMarkerModel;
 use lib\Objects\ChunkModels\DynamicMap\DynamicMapModel;
 use lib\Objects\ChunkModels\DynamicMap\CacheSetMarkerModel;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\GeoCache\MultiCacheStats;
+use lib\Objects\GeoCache\MultiLogStats;
+use lib\Objects\User\User;
+use lib\Objects\User\MultiUserQueries;
+use lib\Objects\GeoCache\GeoCacheLog;
 
 class TestController extends BaseController
 {
@@ -174,7 +179,8 @@ class TestController extends BaseController
     }
 
     /**
-     * This method allows test of dynamic map chunk
+     * This method allows test dynamic map chunk
+     * Could be used as example of dynamic-map-chunk usage
      */
     public function dynamicMap()
     {
@@ -188,9 +194,10 @@ class TestController extends BaseController
 
         $mapModel = new DynamicMapModel();
 
-        // get some geopaths
+        // get some geopaths...
         $csToArchive = CacheSet::getCacheSetsToArchive();
 
+        //...and add to map
         $mapModel->addMarkers(
             CacheSetMarkerModel::class, $csToArchive, function($row){
 
@@ -206,8 +213,9 @@ class TestController extends BaseController
                 return $markerModel;
         });
 
-        // get some caches
+        // get some caches...
         $cachesToShow = MultiCacheStats::getLatestCaches(5);
+        // ..and add to map
         $mapModel->addMarkers(
             CacheMarkerModel::class, $cachesToShow, function($row){
 
@@ -225,13 +233,60 @@ class TestController extends BaseController
                 return $markerModel;
             });
 
+
+        // get some caches with logs...
+        $caches = [];
+        $userIds = [];
+        foreach(MultiCacheStats::getGeocachesById([1,2,3,4,5]) as $c){
+            $caches[$c['cache_id']] = $c;
+            $userIds[$c['user_id']] = null;
+        }
+
+        foreach(MultiLogStats::getLastLogForEachCache(array_keys($caches),
+            ['id as log_id','cache_id','text','date','type as log_type','user_id as log_user_id']) as $log){
+            $caches[$log['cache_id']] = array_merge($log, $caches[$log['cache_id']]);
+            $userIds[$log['log_user_id']] = null;
+        }
+
+        $users = MultiUserQueries::GetUserNamesForListOfIds(array_keys($userIds));
+
+        foreach ($caches as &$c){
+            $c['owner'] = $users[$c['user_id']];
+            $c['log_username'] = $users[$c['log_user_id']];
+        }
+
+        // ...and add to map
+        $mapModel->addMarkers(
+            CacheWithLogMarkerModel::class, $caches, function($row){
+
+                $markerModel = new CacheWithLogMarkerModel();
+
+                $markerModel->wp = $row['wp_oc'];
+                $markerModel->name = $row['name'];
+                $markerModel->link = GeoCache::GetCacheUrlByWp($row['wp_oc']);
+                $markerModel->icon = GeoCache::CacheIconByType(
+                    $row['type'], $row['status']);
+
+                $markerModel->lon = $row['longitude'];
+                $markerModel->lat = $row['latitude'];
+
+                $markerModel->log_icon = GeoCacheLog::GetIconForType($row['log_type']);
+                $markerModel->log_text = $row['text'];
+                $markerModel->log_userLink = User::GetUserProfileUrl($row['log_user_id']);
+                $markerModel->log_username = $row['log_username'];
+                $markerModel->log_typeName = tr(GeoCacheLog::typeTranslationKey($row['type']));
+                $markerModel->log_link = GeoCacheLog::getLogUrlByLogId($row['log_id']);
+
+                return $markerModel;
+            });
+
         $this->view->setVar('mapModel', $mapModel);
 
 
         // and one more map... this should stay empty for now
+        // it is used in drawing example as well
         $emptyMap = new DynamicMapModel();
         $this->view->setVar('emptyMap', $emptyMap);
-
 
         $this->view->buildView();
     }
