@@ -171,7 +171,7 @@ class RssFeed {
         } else if ($xml = $this->getURLXML()) {
             return $xml;
         } else {
-            return new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?>');
+            return new SimpleXMLElement('<empty>ThereIsNoData</empty>');
         }
     }
 
