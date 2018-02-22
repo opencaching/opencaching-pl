@@ -22,6 +22,8 @@ return function ($gMapKey, $lang, $callback=null){
         $uri = Uri::setOrReplaceParamValue('callback', $callback, $uri);
     }
 
+    $uri = Uri::setOrReplaceParamValue('libraries','drawing', $uri);
+
 ?>
 
     <!-- Google Maps API chunk -->
