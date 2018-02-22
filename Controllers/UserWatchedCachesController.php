@@ -15,6 +15,7 @@ use lib\Objects\GeoCache\GeoCacheLogCommons;
 use lib\Objects\ChunkModels\DynamicMap\CacheWithLogMarkerModel;
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\User\User;
+use lib\Objects\GeoCache\GeoCache;
 
 class UserWatchedCachesController extends BaseController
 {
@@ -71,6 +72,7 @@ class UserWatchedCachesController extends BaseController
                 $m->wp = $row['wp_oc'];
                 $m->lon = $row['longitude'];
                 $m->lat = $row['latitude'];
+                $m->link = GeoCache::GetCacheUrlByWp($row['wp_oc']);
                 $m->icon = $iconFile;
                 $m->log_icon = $logIconFile;
                 $m->log_text = strip_tags($row['llog_text']);
