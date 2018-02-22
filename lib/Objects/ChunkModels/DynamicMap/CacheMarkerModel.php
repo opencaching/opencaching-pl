@@ -23,7 +23,7 @@ class CacheMarkerModel extends AbstractMarkerModelBase
      */
     public function getKey()
     {
-        return 'CacheMarkers';
+        return 'CacheMarker';
     }
 
     /**
