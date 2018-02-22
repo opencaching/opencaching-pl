@@ -17,17 +17,15 @@ use Utils\Uri\SimpleRouter;
     <div class="buffer"></div>
     <div class="input-group input-group-md">
       <label for="password" class="input-group-addon loginLabel"><?=tr('loginForm_password')?></label>
-      <input id="password" name="password" maxlength="60" type="password" value="<?=$view->prevPassword?>"
+      <input id="password" name="password" maxlength="60" type="password"
              class="form-control input300" autocomplete="current-password" required>
     </div>
     <div class="buffer"></div>
     <input type="hidden" name="target" value="<?=$view->target?>">
     <div class="align-center">
-      <div class="btn-group">
-        <input type="submit" value="<?=tr('login')?>" class="btn btn-primary btn-md">
-        <a class="btn btn-md btn-success" href="/register.php"><?=tr('loginForm_signUp')?></a>
-        <a class="btn btn-md btn-default" href="/newpw.php"><?=tr('loginForm_resetPassword')?></a>
-      </div>
+      <input type="submit" value="<?=tr('login')?>" class="btn btn-primary btn-md">
+      <a class="btn btn-md btn-success" href="/register.php"><?=tr('loginForm_signUp')?></a>
+      <a class="btn btn-md btn-default" href="/newpw.php"><?=tr('loginForm_resetPassword')?></a>
     </div>
   </form>
 </div>

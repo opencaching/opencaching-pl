@@ -138,10 +138,8 @@ global $tpl_subtitle;
                               </label>
                               <input name="password" id="top-form-password" type="password" class="form-control input120 loginbox-input" value="" autocomplete="current-password" placeholder="<?=tr('loginForm_password')?>" required>
                               <input type="hidden" name="target" value="<?=$view->_target?>">
-                              <div class="btn-group btn-group-sm">
-                                <input type="submit" value="<?=tr('login')?>" class="btn btn-primary btn-sm">
-                                <a href="/register.php" class="btn btn-success btn-sm"><?=tr('registration')?></a>
-                              </div>
+                              <input type="submit" value="<?=tr('login')?>" class="btn btn-primary btn-sm">
+                              <a href="/register.php" class="btn btn-success btn-sm"><?=tr('registration')?></a>
                             </form>
                         <?php } //user-not-logged ?>
                     </div>

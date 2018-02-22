@@ -57,7 +57,7 @@ class UserAuthorizationController extends BaseController
         } else {
             $error = tr('loginForm_badCredentials');
         }
-
+        $this->view->loadJQuery();
         $this->displayLoginPage($error);
     }
 
@@ -74,7 +74,6 @@ class UserAuthorizationController extends BaseController
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime('/tpl/stdstyle/userAuth/userAuth.css'));
         $this->view->setVar('prevEmail', (isset($_POST['email']) ? $_POST['email'] : ''));
-        $this->view->setVar('prevPassword', (isset($_POST['password']) ? $_POST['password'] : ''));
         $this->view->setVar('target', $this->getRedirectTarget());
         $this->view->setVar('errorMsg', $error);
 
