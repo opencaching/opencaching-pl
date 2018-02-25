@@ -51,6 +51,21 @@ class Php7Handler
         }
     }
 
+    /**
+     * Throwable interface is a new feature of PHP7
+     *
+     * @param object $e
+     * @return boolean - true if given object is implements Throwable intercae
+     */
+    public static function isThrowableInstance($e)
+    {
+        if(self::isPhp7()){
+            return $e instanceof \Throwable;
+        }else{
+            return false;
+        }
+    }
+
 
     private static function isPhp7()
     {

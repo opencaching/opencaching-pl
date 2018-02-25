@@ -16,11 +16,9 @@ RewriteRule ^(O[A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z])$ viewcache.php?wp=$1 [R=30
 RedirectMatch 403 ^/mobile/$
 
 # permanentely block Wordpress login page - too many such requests 
-RewriteRule ^wp-login.php /error_pages/404.html [R,L]
+RewriteRule ^wp-login.php - [R=404,L]
 
 FileETag None
-
-
 
 # if: there is no such file
 RewriteCond %{REQUEST_FILENAME} !-f
