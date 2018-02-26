@@ -1,11 +1,14 @@
+<?php
+use Utils\Uri\SimpleRouter;
 
+?>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="{{my_account}}" title="{{my_account}}" />&nbsp;{{my_account}}</div>
 <div class="searchdiv">
 
 <div class="align-right">
     <a class="btn btn-success btn-sm" href="myprofile.php?action=change">{{change_data}}</a>
     <a class="btn btn-default btn-sm" href="newemail.php">{{change_email}}</a>
-    <a class="btn btn-default btn-sm" href="newpw.php">{{change_password}}</a>
+    <a class="btn btn-default btn-sm" href="<?=SimpleRouter::getLink('UserAuthorization', 'newPassword')?>">{{change_password}}</a>
     <a class="btn btn-default btn-sm" href="change_statpic.php">{{choose_statpic}}</a>
     <a class="btn btn-default btn-sm" href="/mywatches.php?action=emailSettings">{{settings_notifications}}</a>
 </div>

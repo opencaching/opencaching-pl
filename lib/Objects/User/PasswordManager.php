@@ -230,18 +230,56 @@ class PasswordManager
         return $input;
     }
 
+
     /**
      * Utility function. Return a random string of specified length.
+     * 
+     * @param int $length - lenght of returned string
+     * @param boolean $userFriendly - if set, exclude similar characters
+     * @return string
      */
-    public static function generateRandomString($length)
+    public static function generateRandomString($length, $userFriendly = true)
     {
         $characters = '23456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
+        if (! $userFriendly) {
+            $characters .= '01lO';
+        }
         $charactersLength = strlen($characters);
         $randomString = '';
         for ($i = 0; $i < $length; $i++) {
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         return $randomString;
+    }
+
+    /**
+     * Verifies strength of the password.
+     * Returns true if password contains of 6+ characters AND
+     * minimum two of: uppercase letters, lowercase letters, digits, special chars
+     * 
+     * @param string $password
+     * @return boolean
+     */
+    public static function checkStrength($password)
+    {
+        $diff = 0;
+        if (preg_match('/[a-z]/', $password)) {
+            $diff += 1;
+        }
+        if (preg_match('/[A-Z]/', $password)) {
+            $diff += 1;
+        }
+        if (preg_match('/[0-9]/', $password)) {
+            $diff += 1;
+        }
+        if (preg_match('/[!,%,&,@,#,$,^,*,?,_,~]/', $password)) {
+            $diff += 1;
+        }
+        if (mb_strlen($password) > 5 && $diff > 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
