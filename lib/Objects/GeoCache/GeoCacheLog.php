@@ -165,7 +165,7 @@ class GeoCacheLog extends GeoCacheLogCommons
      */
     public function getLogUrl()
     {
-        return '/viewlogs.php?logid=' . $this->id;
+        return parent::getLogUrlByLogId($this->id);
     }
 
     /**

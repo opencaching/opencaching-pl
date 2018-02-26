@@ -143,9 +143,14 @@ class MultiCacheStats extends BaseObject
      * Return array of Geocaches based on given cache Ids
      * @param array $cacheIds
      */
-    public static function getGeocachesById(array $cacheIds, array $fieldsArr)
+    public static function getGeocachesById(array $cacheIds, array $fieldsArr=null)
     {
         $db = self::db();
+
+        if(empty($fieldsArr)){
+            $fieldsArr = ['cache_id','status','type','wp_oc','user_id',
+                'latitude','longitude','name'];
+        }
 
         $cacheIdsStr = implode(',', $cacheIds);
         $fields = implode(',', $fieldsArr);

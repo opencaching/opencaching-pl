@@ -1,6 +1,7 @@
 <?php
 namespace Controllers;
 
+use lib\Objects\ChunkModels\DynamicMap\DynamicMapModel;
 use lib\Objects\ChunkModels\ListOfCaches\ListOfCachesModel;
 use lib\Objects\User\UserWatchedCache;
 use lib\Objects\ChunkModels\ListOfCaches\Column_CacheName;
@@ -9,9 +10,12 @@ use lib\Objects\ChunkModels\ListOfCaches\Column_CacheLastLog;
 use lib\Objects\ChunkModels\ListOfCaches\Column_OnClickActionIcon;
 use lib\Objects\ChunkModels\PaginationModel;
 use Utils\Uri\Uri;
-use lib\Objects\ChunkModels\DynamicMap\LastLogMapModel;
 use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\GeoCache\GeoCacheLogCommons;
+use lib\Objects\ChunkModels\DynamicMap\CacheWithLogMarkerModel;
+use lib\Objects\GeoCache\GeoCacheLog;
+use lib\Objects\User\User;
+use lib\Objects\GeoCache\GeoCache;
 
 class UserWatchedCachesController extends BaseController
 {
@@ -47,38 +51,37 @@ class UserWatchedCachesController extends BaseController
         $this->view->loadJQuery();
         $this->view->loadGMapApi(); /*initializeMap*/
 
-        $mapModel = new LastLogMapModel();
+        $mapModel = new DynamicMapModel();
 
-        $mapModel->setDataRowExtractor(function($row){
+        $mapModel->addMarkers(
+            CacheWithLogMarkerModel::class,
+            UserWatchedCache::getWatchedCachesWithLastLogs($this->loggedUser->getUserId()),
+            function($row){
 
-            $iconFile = GeoCacheCommons::CacheIconByType(
-                $row['type'], $row['status'], $row['user_sts'], true);
+                $iconFile = GeoCacheCommons::CacheIconByType(
+                    $row['type'], $row['status'], $row['user_sts']);
 
-            $logIconFile = !empty($row['llog_type'])?
-                GeoCacheLogCommons::GetIconForType($row['llog_type'], true):null;
+                $logIconFile = !empty($row['llog_type'])?
+                    GeoCacheLogCommons::GetIconForType($row['llog_type']):null;
 
-            $logTypeName = !empty($row['llog_type'])?
-                tr(GeoCacheLogCommons::typeTranslationKey($row['llog_type'])):null;
+                $logTypeName = !empty($row['llog_type'])?
+                    tr(GeoCacheLogCommons::typeTranslationKey($row['llog_type'])):null;
 
-            return [
-                'name' => $row['name'],
-                'wp_oc' => $row['wp_oc'],
-                'lon' => $row['longitude'],
-                'lat' => $row['latitude'],
-                'icon' => $iconFile,
-                'llog_id' => $row['llog_id'],
-                'llog_text' => strip_tags($row['llog_text']),
-                'llog_icon' => $logIconFile,
-                'llog_type_name' => $logTypeName,
-                'llog_date' => $row['llog_date'],
-                'llog_user_id' => $row['llog_user_id'],
-                'llog_username' => $row['llog_username']
-            ];
+                $m = new CacheWithLogMarkerModel();
+                $m->name = $row['name'];
+                $m->wp = $row['wp_oc'];
+                $m->lon = $row['longitude'];
+                $m->lat = $row['latitude'];
+                $m->link = GeoCache::GetCacheUrlByWp($row['wp_oc']);
+                $m->icon = $iconFile;
+                $m->log_icon = $logIconFile;
+                $m->log_text = strip_tags($row['llog_text']);
+                $m->log_link = GeoCacheLog::getLogUrlByLogId($row['llog_id']);
+                $m->log_typeName = $logTypeName;
+                $m->log_userLink = User::GetUserProfileUrl($row['llog_user_id']);
+                $m->log_username = $row['llog_username'];
+                return $m;
         });
-
-
-        $mapModel->addMarkersDataRows(
-            UserWatchedCache::getWatchedCachesWithLastLogs($this->loggedUser->getUserId()));
 
         $this->view->setVar('mapModel', $mapModel);
 

@@ -9,8 +9,8 @@ use lib\Objects\ChunkModels\PaginationModel;
 use lib\Objects\CacheSet\CacheSetCommon;
 use lib\Objects\ChunkModels\ListOfCaches\Column_CacheSetNameAndIcon;
 use lib\Objects\ChunkModels\ListOfCaches\ListOfCachesModel;
-use lib\Objects\ChunkModels\DynamicMap\CacheSetsMapModel;
-use Utils\Debug\Debug;
+use lib\Objects\ChunkModels\DynamicMap\CacheSetMarkerModel;
+use lib\Objects\ChunkModels\DynamicMap\DynamicMapModel;
 
 class CacheSetsListController extends BaseController
 {
@@ -69,24 +69,18 @@ class CacheSetsListController extends BaseController
 
 
         // init map-chunk model
-        $mapModel = new CacheSetsMapModel();
-        $mapModel->setDataRowExtractor(function($row){
-            if(is_null($row->getCoordinates())){
+        $mapModel = new DynamicMapModel();
+        $mapModel->addMarkers(CacheSetMarkerModel::class, $allCacheSets,
+            function(CacheSet $cs){
+
+            if(is_null($cs->getCoordinates())){
                 // skip cachesets without coords
                 return null;
             }
-            return [
-                'id' => $row->getId(),
-                'type' => $row->getType(),
-                'name' => $row->getName(),
-                'icon' => $row->getIcon(),
-                'lon' => $row->getCoordinates()->getLongitude(),
-                'lat' => $row->getCoordinates()->getLatitude()
-            ];
+            return CacheSetMarkerModel::fromCacheSetFactory($cs);
         });
-        $mapModel->addMarkersDataRows($allCacheSets);
-        $this->view->setVar('mapModel', $mapModel);
 
+        $this->view->setVar('mapModel', $mapModel);
 
         $this->showList();
     }
