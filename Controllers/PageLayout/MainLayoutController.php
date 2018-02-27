@@ -13,6 +13,11 @@ use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\User\UserAuthorization;
 use Utils\Cache\OcMemCache;
 
+/**
+ * This controller prepares common data used by almost every page at oc
+ * It should be call internal from VIEW class or something so there is no need to call it intentionally.
+ *
+ */
 class MainLayoutController extends BaseController
 {
 
@@ -40,13 +45,16 @@ class MainLayoutController extends BaseController
     public function isCallableFromRouter($actionName)
     {
         // this controller is for internal use only and shouldn't be call by router
-        return FALSE;
+        return false;
     }
 
     public function index()
     {}
 
 
+    /**
+     * Prepare everything what is neede for display almost every page at OC
+     */
     private function initMainLayout()
     {
         global $config; //TODO: refactor
@@ -71,6 +79,15 @@ class MainLayoutController extends BaseController
         if(!$this->legacyLayout){
             $this->view->addLocalCss(Uri::getLinkWithModificationTime(
                 '/tpl/stdstyle/common/mainLayout.css'));
+        }
+
+        if(Year::isPrimaAprilisToday() /*|| true */){
+            // add rythm JS
+            $this->view->addLocalJs(
+                'https://cdnjs.cloudflare.com/ajax/libs/rythm.js/2.2.3/rythm.min.js');
+
+            $this->view->addLocalJs(Uri::getLinkWithModificationTime(
+                '/tpl/stdstyle/common/primaAprilis/rythmOc.js'));
         }
 
         if(Year::isPrimaAprilisToday()){
