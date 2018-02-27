@@ -8,9 +8,9 @@
  * All functions are used from within dynamic map.
  */
 return function (array $markersData){
-
+    
     $markerInstance = $markersData[0];
-?>
+    ?>
 
 {
     markerFactory: function( markerModel ){
@@ -18,8 +18,8 @@ return function (array $markersData){
       return new google.maps.Marker({
         position: new google.maps.LatLng(markerModel.lat, markerModel.lon),
         icon: {
-          url: markerModel.icon,
-          scaledSize: new google.maps.Size(20, 20),
+          url: markerModel.log_icon,
+          scaledSize: new google.maps.Size(16, 16),
         },
         title: markerModel.wp +': '+ markerModel.name,
       });
