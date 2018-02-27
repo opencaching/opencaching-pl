@@ -18,6 +18,7 @@ use lib\Objects\GeoCache\MultiLogStats;
 use lib\Objects\User\User;
 use lib\Objects\User\MultiUserQueries;
 use lib\Objects\GeoCache\GeoCacheLog;
+use Utils\Text\Formatter;
 
 class TestController extends BaseController
 {
@@ -223,6 +224,7 @@ class TestController extends BaseController
 
                 $markerModel->wp = $row['wp_oc'];
                 $markerModel->name = $row['name'];
+                $markerModel->username = $row['username'];
                 $markerModel->link = GeoCache::GetCacheUrlByWp($row['wp_oc']);
                 $markerModel->icon = GeoCache::CacheIconByType(
                     $row['type'], $row['status']);
@@ -271,11 +273,11 @@ class TestController extends BaseController
                 $markerModel->lat = $row['latitude'];
 
                 $markerModel->log_icon = GeoCacheLog::GetIconForType($row['log_type']);
-                $markerModel->log_text = $row['text'];
-                $markerModel->log_userLink = User::GetUserProfileUrl($row['log_user_id']);
+                $markerModel->log_text = strip_tags($row['text'], '<br><p>');
                 $markerModel->log_username = $row['log_username'];
                 $markerModel->log_typeName = tr(GeoCacheLog::typeTranslationKey($row['type']));
                 $markerModel->log_link = GeoCacheLog::getLogUrlByLogId($row['log_id']);
+                $markerModel->log_date = Formatter::date($row['date']);
 
                 return $markerModel;
             });

@@ -18,8 +18,8 @@ return function (array $markersData){
       return new google.maps.Marker({
         position: new google.maps.LatLng(markerModel.lat, markerModel.lon),
         icon: {
-          url: markerModel.icon,
-          scaledSize: new google.maps.Size(20, 20),
+          url: markerModel.log_icon,
+          scaledSize: new google.maps.Size(16, 16),
         },
         title: markerModel.wp +': '+ markerModel.name,
       });
@@ -43,13 +43,14 @@ return function (array $markersData){
         icon:         markerModel.icon,
         link:         markerModel.link,
         name:         markerModel.name,
+        username:     markerModel.username,
         wp:           markerModel.wp,
         log_link:     markerModel.log_link,
         log_text:     markerModel.log_text,
         log_username: markerModel.log_username,
         log_icon:     markerModel.log_icon,
         log_typeName: markerModel.log_typeName,
-        log_userLink: markerModel.log_userLink,
+        log_date:     markerModel.log_date,
       };
 
       return this.__infoWindowCompiled(context);

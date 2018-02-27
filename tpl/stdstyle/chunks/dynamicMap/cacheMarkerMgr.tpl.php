@@ -43,6 +43,7 @@ return function (array $markersData){
         icon:         markerModel.icon,
         link:         markerModel.link,
         name:         markerModel.name,
+        username:     markerModel.username,
         wp:           markerModel.wp,
       };
 

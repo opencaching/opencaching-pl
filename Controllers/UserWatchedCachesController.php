@@ -16,6 +16,7 @@ use lib\Objects\ChunkModels\DynamicMap\CacheWithLogMarkerModel;
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\User\User;
 use lib\Objects\GeoCache\GeoCache;
+use Utils\Text\Formatter;
 
 class UserWatchedCachesController extends BaseController
 {
@@ -75,11 +76,11 @@ class UserWatchedCachesController extends BaseController
                 $m->link = GeoCache::GetCacheUrlByWp($row['wp_oc']);
                 $m->icon = $iconFile;
                 $m->log_icon = $logIconFile;
-                $m->log_text = strip_tags($row['llog_text']);
+                $m->log_text = strip_tags($row['llog_text'], '<br><p>');
                 $m->log_link = GeoCacheLog::getLogUrlByLogId($row['llog_id']);
                 $m->log_typeName = $logTypeName;
-                $m->log_userLink = User::GetUserProfileUrl($row['llog_user_id']);
                 $m->log_username = $row['llog_username'];
+                $m->log_date = Formatter::date($row['llog_date']);
                 return $m;
         });
 

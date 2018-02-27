@@ -2,24 +2,21 @@
 
 <div class="iw-container">
   <div class="iw-title">
+    <img class="iw-icon" src="{{icon}}" alt="{{wp}}" title="{{wp}}">
     <a href="{{link}}" target="_blank">
-      <img class="iw-icon" src="{{icon}}">
-      <span class="iw-wp">{{wp}}:</span>
-      <span class="iw-name">{{name}}</span>
-    </a>
+      <span class="iw-name">{{name}}</span></a>
+    {{#if username}}({{username}}){{/if}}
   </div>
 
   {{#if log_link}}
   <div class="iw-log">
+    <a href="{{log_link}}" target="_blank">
+      <img src="{{log_icon}}" title="{{log_typeName}}" alt="{{log_typeName}}">
+      <strong>{{log_username}}</strong> ({{log_date}})
       {{#if log_text}}
-        <img src="{{log_icon}}" title="{{log_typeName}}" alt="{{log_typeName}}">
-        <a class="iw-logUsername" target="_blank" href="{{log_userLink}}">
-          {{log_username}}
-        </a>:
-        <span class="iw-logText">{{log_text}}</span>
-      {{else}}
-        <?=tr('usrWatch_noLogs')?>
+        <div class="iw-logText">{{{log_text}}}</div>
       {{/if}}
+    </a>
   </div>
   {{/if}}
 </div>
