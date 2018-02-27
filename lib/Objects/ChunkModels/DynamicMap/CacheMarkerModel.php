@@ -58,7 +58,7 @@ class CacheMarkerModel extends AbstractMarkerModelBase
         $marker->name = $c->getCacheName();
         $marker->icon = $c->getCacheIcon($user);
         $marker->lon = $c->getCoordinates()->getLongitude();
-        $marker->lat = $c->getCoordinates()->getLongitude();
+        $marker->lat = $c->getCoordinates()->getLatitude();
         return $marker;
     }
 
