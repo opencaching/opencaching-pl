@@ -169,6 +169,15 @@ class GeoCacheLog extends GeoCacheLogCommons
     }
 
     /**
+     * Returns URL of the log icon
+     * @return string
+     */
+    public function getLogIcon()
+    {
+        return parent::GetIconForType($this->getType());
+    }
+
+    /**
      * Returns true if $userid recommended cache related with log
      * @param integer $userid
      * @return boolean
