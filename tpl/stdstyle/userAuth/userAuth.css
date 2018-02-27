@@ -2,3 +2,59 @@
 	min-width: 170px;
 	font-weight: bold;
 }
+
+.newpw-pass-meter {
+	display: inline-block;
+	height: 14px;
+	margin-left: 20px;
+}
+.newpw-pass-meter>meter {
+	height: 17px;
+	width: 100px;
+	margin: 6px 5px;
+}
+
+meter[value="1"]::-webkit-meter-optimum-value { background: darkred; }
+meter[value="2"]::-webkit-meter-optimum-value { background: red; }
+meter[value="3"]::-webkit-meter-optimum-value { background: darkorange; }
+meter[value="4"]::-webkit-meter-optimum-value { background: orange; }
+meter[value="5"]::-webkit-meter-optimum-value { background: gold; }
+meter[value="6"]::-webkit-meter-optimum-value { background: yellow; }
+meter[value="7"]::-webkit-meter-optimum-value { background: palegreen; }
+meter[value="8"]::-webkit-meter-optimum-value { background: lightgreen; }
+meter[value="9"]::-webkit-meter-optimum-value { background: yellowgreen; }
+meter[value="10"]::-webkit-meter-optimum-value { background: green; }
+
+meter[value="1"]::-moz-meter-bar { background: darkred; }
+meter[value="2"]::-moz-meter-bar { background: red; }
+meter[value="3"]::-moz-meter-bar { background: darkorange; }
+meter[value="4"]::-moz-meter-bar { background: orange; }
+meter[value="5"]::-moz-meter-bar { background: gold; }
+meter[value="6"]::-moz-meter-bar { background: yellow; }
+meter[value="7"]::-moz-meter-bar { background: palegreen; }
+meter[value="8"]::-moz-meter-bar { background: lightgreen; }
+meter[value="9"]::-moz-meter-bar { background: yellowgreen; }
+meter[value="10"]::-moz-meter-bar { background: green; }
+
+.newpw-showpass {
+	display: inline-block;
+	margin-left: 5px;
+	margin-top: 3px;
+	position: relative;
+	z-index: 3;
+	height: 18px;
+	width: 18px;
+	padding: 3px;
+}
+
+.newpw-eyeopen {
+	background: url(/tpl/stdstyle/images/misc/eye.svg) no-repeat top left;
+}
+
+.newpw-eyeclosed {
+	background: url(/tpl/stdstyle/images/misc/eye-off.svg) no-repeat top left;
+}
+
+.newpw-nodisplay {
+	opacity: 0.1;
+}

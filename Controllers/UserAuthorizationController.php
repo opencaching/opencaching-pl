@@ -1,9 +1,11 @@
 <?php
 namespace Controllers;
 
+use lib\Objects\User\User;
 use lib\Objects\User\UserAuthorization;
 use Utils\Uri\Uri;
 use Utils\Uri\SimpleRouter;
+use lib\Objects\User\PasswordManager;
 
 class UserAuthorizationController extends BaseController
 {
@@ -59,6 +61,152 @@ class UserAuthorizationController extends BaseController
         }
         $this->view->loadJQuery();
         $this->displayLoginPage($error);
+    }
+
+    /**
+     * Displays form to send code for password change
+     * and supports form submit
+     */
+    public function newPassword()
+    {
+        $errorMsg= '';
+        $this->view->setTemplate('userAuth/newPassword');
+        if (isset($_POST['submitNewPw'])) {
+            $errorMsg = $this->newPasswordStage2();
+            if (is_null($errorMsg)) {
+                $this->showSuccessMessage(tr('newpw_info_send'));
+            }
+        }
+        $username = (isset($_POST['email'])) ? $_POST['email'] : '';
+        $username = ($this->isUserLogged()) ? $this->loggedUser->getUserName() : '';
+        $this->view->setVar('username', $username);
+        $this->view->setVar('errorMsg', $errorMsg);
+        $this->view->loadJQuery();
+        $this->view->addLocalCss(
+            Uri::getLinkWithModificationTime('/tpl/stdstyle/userAuth/userAuth.css'));
+        $this->view->buildView();
+    }
+
+    /**
+     * Check $_POST param and send new password code to $_POST['userName']
+     * $_POST['userName'] may be username or e-mail
+     * Returns translated error string or null on success
+     * 
+     * @return string|NULL
+     */
+    private function newPasswordStage2()
+    {
+        if (!isset($_POST['userName'])) { // Check POST params
+            return tr('page_error');
+        }
+        $username = strip_tags(trim($_POST['userName']));
+        if (($user = User::fromUsernameFactory($username, User::AUTH_COLLUMS)) ||
+            ($user = User::fromEmailFactory($username, User::AUTH_COLLUMS))) {
+                if (! $user->isActive()) {
+                    return tr('newpw_err_notact');
+                }
+                UserAuthorization::sendPwCode($user);
+                return null;
+            } else {
+                return tr('newpw_err_notusr');
+            }
+        return null;
+    }
+
+    /**
+     * Displays form to change password and supports pwd change
+     * 
+     * @param string $usr - urlencoded username
+     * @param string $code - new password code (send by e-mail)
+     */
+    public function newPasswordInput( $usr = null, $code = null )
+    {
+        $errorMsg = '';
+        if (is_null($user = self::checkUserAndCode($usr, $code))) {
+            $this->showSecurityAlert();
+        }
+        if (isset($_POST['submitNewPw'])) {
+            if (! isset($_POST['password'])) {
+                $this->showSecurityAlert();
+            }
+            $password = trim($_POST['password']);
+            if (PasswordManager::checkStrength($password)) {
+                $pm = new PasswordManager($user->getUserId());
+                $pm->change($password);
+                UserAuthorization::removePwCode($user);
+                $this->showSuccessMessage(tr('newpw_info_changed'));
+            } else {
+                $errorMsg = tr('password_weak'); // It should never happen, because JS script doesn't allow to send weak password
+            }
+        }
+        $this->view->setTemplate('userAuth/newPasswordInput');
+        $this->view->setVar('returnUrl', SimpleRouter::getLink('UserAuthorization', 'newPasswordInput', [$usr, $code]));
+        $this->view->setVar('errorMsg', $errorMsg);
+        $this->view->addLocalCss(
+            Uri::getLinkWithModificationTime('/tpl/stdstyle/userAuth/userAuth.css'));
+        $this->view->addLocalJs(
+            Uri::getLinkWithModificationTime('/tpl/stdstyle/userAuth/newPassword.js'), true, true);
+        $this->view->loadJQuery();
+        $this->view->buildView();
+    }
+
+    /**
+     * Security check of parametrs given. This method checks if:
+     * - params are not null
+     * - $usr is real username
+     * - user is active
+     * - $code is valid and not expired
+     * If all above are true - returns User object. Null is returned elsewise.
+     * If code is not valid or expired - removes code from DB for security
+     * reason (anti brute-force strategy)
+     * 
+     * @param string $usr - urlencoded username
+     * @param string $code - new password code
+     * @return NULL|\lib\Objects\User\User
+     */
+    private function checkUserAndCode($usr, $code)
+    {
+        if (is_null($usr) || is_null($code)) {
+            return null;
+        }
+        $usr = urldecode($usr);
+        if (is_null($user = User::fromUsernameFactory($usr, User::AUTH_COLLUMS))) {
+            return null;
+        }
+        if (! $user->isActive()) {
+            return null;
+        }
+        if (! UserAuthorization::checkPwCode($user, $code)) {
+            UserAuthorization::removePwCode($user);
+            return null;
+        }
+        return $user;
+    }
+
+    /**
+     * Shows simple security alert based on callout
+     */
+    private function showSecurityAlert()
+    {
+        $this->view->setTemplate('userAuth/newPasswordAlert');
+        $this->view->setVar('notLogged', is_null($this->loggedUser));
+        $this->view->buildView();
+        exit();
+    }
+
+
+    /**
+     * Shows simple success message based on callout
+     * 
+     * @param string $message
+     */
+    private function showSuccessMessage($message)
+    {
+        $this->view->setTemplate('userAuth/newPasswordOK');
+        $this->view->setVar('notLogged', is_null($this->loggedUser));
+        $this->view->setVar('message', $message);
+        $this->view->buildView();
+        exit();
     }
 
     private function displayLoginPage($error=null)

@@ -1,4 +1,7 @@
+<?php
+use Utils\Uri\SimpleRouter;
 
+?>
 <div class="content2-pagetitle">
   <img src="tpl/stdstyle/images/blue/profile.png" alt=""
         title="{{register_pageTitle}}" class="icon32">&nbsp;{{register_pageTitle}}</div>
@@ -46,8 +49,8 @@
     <div class="notice" style="height:44px;">
         {{register_msg7}}
     </div>
-    <div>
-        <input type="reset" name="reset" value="{{register04}}" class="btn btn-default">&nbsp;&nbsp;
-        <input type="submit" name="submit" value="{{registration}}" class="btn btn-primary">
+    <div class="align-center">
+        <input type="submit" name="submit" value="{{registration}}" class="btn btn-md btn-primary">
+        <a href="<?=SimpleRouter::getLink('UserAuthorization', 'newPassword')?>" class="btn btn-md btn-default"><?=tr('loginForm_resetPassword')?></a>
     </div>
 </form>

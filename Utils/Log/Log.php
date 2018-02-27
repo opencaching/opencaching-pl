@@ -15,8 +15,6 @@ class Log
 
     const EVENT_MAILWATCHLIST = 2;
 
-    const EVENT_REMINDERMAIL = 3;
-
     const EVENT_DELETECACHE = 4;
 
     const EVENT_AUTOARCHIVE = 6;
@@ -59,9 +57,6 @@ class Log
             case self::EVENT_OWNERNOTIFY:
             case self::EVENT_MAILWATCHLIST:
                 return 'watchlist';
-                break;
-            case self::EVENT_REMINDERMAIL:
-                return 'reminderemail';
                 break;
             case self::EVENT_DELETECACHE:
                 return 'approving';

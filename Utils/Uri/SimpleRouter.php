@@ -37,7 +37,7 @@ class SimpleRouter
      *
      * @param string $ctrl - controller class name (and path) - use php ControllerName::class
      * @param string $action - method name from given controller
-     * @param string|array $params - params -
+     * @param string|array $params - param as string or array of params
      * @return string - link to use
      */
     public static function getLink($ctrl, $action=null, $params=null)
@@ -57,7 +57,7 @@ class SimpleRouter
 
         if(!is_null($params)){
             if(is_array($params)){
-                $link .= '/'.implode(",",$params);
+                $link .= '/'.implode("/",$params);
             }else{
                 $link .= '/'.$params;
             }
@@ -71,10 +71,11 @@ class SimpleRouter
      *
      * @param string $ctrl - controller class name (and path) - use php ControllerName::class
      * @param string $action - method name
-     * @param string $params - comma separated list of params
+     * @param string|array $params - param as string or array of params
      * @return string
      */
-    public static function getAbsLink($ctrl, $action=null, $params=null){
+    public static function getAbsLink($ctrl, $action=null, $params=null)
+    {
         $link = self::getLink($ctrl, $action, $params);
 
         return Uri::getCurrentUriBase().$link;

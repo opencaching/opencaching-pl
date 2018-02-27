@@ -1,14 +1,14 @@
 <?php
 namespace lib\Objects\User;
 
-
+use Utils\Debug\Debug;
+use Utils\Email\Email;
+use Utils\Email\EmailFormatter;
+use Utils\Uri\Cookie;
 use lib\Objects\ApplicationContainer;
 use lib\Objects\BaseObject;
-use Utils\Database\OcDb;
-use Utils\Debug\Debug;
-use Utils\Uri\Cookie;
-use lib\Objects\User\PasswordManager;
-
+use Utils\Uri\SimpleRouter;
+use Utils\Generators\TextGen;
 
 class UserAuthorization extends BaseObject
 {
@@ -383,6 +383,82 @@ class UserAuthorization extends BaseObject
 
     private static function generateSessionId(){
         return self::db()->simpleQueryValue('SELECT UUID()',null);
+    }
+
+    /**
+     * Generates new code for password change, stores it in DB
+     * and sends e-mail with link to change password to $user
+     * 
+     * @param User $user - recipient of mail
+     * @return boolean - true on success
+     */
+    public static function sendPwCode(User $user)
+    {
+        // Stage 1 - generate code and store in DB
+        $code = TextGen::randomText(36);
+        $result = self::db()->multiVariableQuery('
+            UPDATE `user`
+            SET `new_pw_code` = :1,
+                `new_pw_exp` = DATE_ADD( NOW(), INTERVAL 24 HOUR)
+            WHERE `user_id` = :2',
+            $code, $user->getUserId());
+        if (is_null($result)) {
+            return false;
+        }
+        // Stage 2 - send code via e-mail
+        $userTxt = urlencode($user->getUserName());
+        $userMessage = new EmailFormatter(__DIR__ . '/../../../tpl/stdstyle/email/reminder_password.email.html', true);
+        $userMessage->setVariable('newPwUri', SimpleRouter::getAbsLink('UserAuthorization', 'newPasswordInput', [$userTxt, $code]));
+        $userMessage->addFooterAndHeader($user->getUserName());
+        $email = new Email();
+        $email->addToAddr($user->getEmail());
+        $email->setReplyToAddr(ApplicationContainer::Instance()->getOcConfig()->getNoreplyEmailAddress());
+        $email->setFromAddr(ApplicationContainer::Instance()->getOcConfig()->getNoreplyEmailAddress());
+        $email->addSubjectPrefix(ApplicationContainer::Instance()->getOcConfig()->getMailSubjectPrefixForSite());
+        $subject = tr('newpw_mail_subject') . ' ' . ApplicationContainer::Instance()->getOcConfig()->getSiteName();
+        $email->setSubject($subject);
+        $email->setBody($userMessage->getEmailContent(), true);
+        $result = $email->send();
+        if (! $result) {
+            error_log(__METHOD__ . ': Mail sending failure to: ' . $user->getEmail());
+        }
+        return $result;
+    }
+
+    /**
+     * Check if new password $code is valid for $user
+     * 
+     * @param User $user
+     * @param string $code
+     * @return boolean
+     */
+    public static function checkPwCode(User $user, $code) {
+        return (bool) self::db()->multiVariableQueryValue('
+            SELECT COUNT(*)
+            FROM `user`
+            WHERE `user_id` = :1
+                AND `is_active_flag` = TRUE
+                AND `new_pw_code` LIKE :2
+                AND `new_pw_exp` > NOW()
+            LIMIT 1
+            ', 0, $user->getUserId(), $code);
+    }
+
+    /**
+     * Removes new password code from DB for $user
+     * 
+     * @param User $user
+     * @return boolean
+     */
+    public static function removePwCode(User $user)
+    {
+        $result = self::db()->multiVariableQuery('
+            UPDATE `user`
+            SET `new_pw_code` = NULL,
+                `new_pw_exp` = NULL
+            WHERE `user_id` = :1',
+            $user->getUserId());
+        return (! is_null($result));
     }
 
 }
