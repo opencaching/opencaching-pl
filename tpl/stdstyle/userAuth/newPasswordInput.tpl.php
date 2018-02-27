@@ -1,5 +1,3 @@
-<?php
-?>
 <div class="content2-pagetitle">
   <?=tr('newpw_title')?> - <?=tr('step2')?>
 </div>

@@ -233,17 +233,14 @@ class PasswordManager
 
     /**
      * Utility function. Return a random string of specified length.
+     * Exclude similar characters like 0-O,1-l
      * 
      * @param int $length - lenght of returned string
-     * @param boolean $userFriendly - if set, exclude similar characters
      * @return string
      */
-    public static function generateRandomString($length, $userFriendly = true)
+    public static function generateRandomString($length)
     {
         $characters = '23456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
-        if (! $userFriendly) {
-            $characters .= '01lO';
-        }
         $charactersLength = strlen($characters);
         $randomString = '';
         for ($i = 0; $i < $length; $i++) {

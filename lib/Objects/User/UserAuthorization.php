@@ -8,6 +8,7 @@ use Utils\Uri\Cookie;
 use lib\Objects\ApplicationContainer;
 use lib\Objects\BaseObject;
 use Utils\Uri\SimpleRouter;
+use Utils\Generators\TextGen;
 
 class UserAuthorization extends BaseObject
 {
@@ -394,7 +395,7 @@ class UserAuthorization extends BaseObject
     public static function sendPwCode(User $user)
     {
         // Stage 1 - generate code and store in DB
-        $code = PasswordManager::generateRandomString(36, false);
+        $code = TextGen::randomText(36);
         $result = self::db()->multiVariableQuery('
             UPDATE `user`
             SET `new_pw_code` = :1,
