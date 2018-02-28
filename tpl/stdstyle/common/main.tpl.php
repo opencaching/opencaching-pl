@@ -77,22 +77,22 @@ global $tpl_subtitle;
 
       <!-- Site slogan -->
                 <div class="site-slogan-container">
-                    <form method="get" action="search.php" name="search_form" id="search_form">
+                    <form method="get" action="/search.php" name="search_form" id="search_form">
                         <div class="site-slogan">
                             <div>
                                 <p class="search">
-                                    <input type="radio" onclick="chname('waypointname','search.php');" name="searchto" id="st_1" value="searchbywaypointname" class="radio" checked="checked">
+                                    <input type="radio" onclick="chname('waypointname','/search.php');" name="searchto" id="st_1" value="searchbywaypointname" class="radio" checked="checked">
                                     <label for="st_1">{{waypointname_label}}</label>&nbsp;&nbsp;
                                     <?php if ($config['quick_search']['byowner']) { ?>
-                                      <input type="radio" onclick="chname('owner','search.php');" name="searchto" id="st_2" value="searchbyowner" class="radio">
+                                      <input type="radio" onclick="chname('owner','/search.php');" name="searchto" id="st_2" value="searchbyowner" class="radio">
                                       <label for="st_2">{{owner_label}}</label>&nbsp;&nbsp;
                                     <?php } ?>
                                     <?php if ($config['quick_search']['byfinder']) { ?>
-                                      <input type="radio" onclick="chname('finder','search.php');" name="searchto" id="st_3" value="searchbyfinder" class="radio">
+                                      <input type="radio" onclick="chname('finder','/search.php');" name="searchto" id="st_3" value="searchbyfinder" class="radio">
                                       <label for="st_3">{{finder_label}}</label>&nbsp;&nbsp;
                                     <?php } ?>
                                     <?php if ($config['quick_search']['byuser']) { ?>
-                                      <input type="radio" onclick="chname('username','searchuser.php');" name="searchto" id="st_4" value="searchbyuser" class="radio">
+                                      <input type="radio" onclick="chname('username','/searchuser.php');" name="searchto" id="st_4" value="searchbyuser" class="radio">
                                       <label for="st_4">{{user}}</label>&nbsp;&nbsp;
                                     <?php } ?>
                                     <input type="hidden" name="showresult" value="1">
