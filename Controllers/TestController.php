@@ -8,7 +8,6 @@ use Utils\Text\UserInputFilter;
 use Utils\Uri\Uri;
 use lib\Objects\User\UserPreferences\UserPreferences;
 use lib\Objects\User\UserPreferences\TestUserPref;
-use Utils\Debug\OcException;
 use lib\Objects\ChunkModels\DynamicMap\CacheMarkerModel;
 use lib\Objects\ChunkModels\DynamicMap\CacheWithLogMarkerModel;
 use lib\Objects\ChunkModels\DynamicMap\DynamicMapModel;
@@ -290,16 +289,6 @@ class TestController extends BaseController
         $this->view->setVar('emptyMap', $emptyMap);
 
         $this->view->buildView();
-    }
-
-    public function exceptionTest()
-    {
-        throw new OcException("OOO TEST EXCEPTION MESSAGE OOO", true, true);
-    }
-
-    public function errorTest()
-    {
-      trigger_error("test error", E_USER_ERROR);
     }
 }
 
