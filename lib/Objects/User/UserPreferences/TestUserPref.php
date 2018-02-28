@@ -16,8 +16,6 @@ class TestUserPref extends UserPreferencesBaseData
         return [
             'fooVar' =>'defaultFoo',
             'booVar' => 'defaultBoo',
-            'thirdVar' => 'default3',
-            'fourthVar' =>'default4',
         ];
     }
 

@@ -20,8 +20,6 @@
  * **************************************************************************
  */
 
-use Utils\Database\XDb;
-
 ob_start();
 
 require_once ("./lib/cs2cs.inc.php");

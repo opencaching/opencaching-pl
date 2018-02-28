@@ -6,12 +6,10 @@ use Utils\View\View;
 use Utils\Uri\Uri;
 use Utils\I18n\I18n;
 use Utils\I18n\Languages;
+use lib\Objects\ApplicationContainer;
+use lib\Objects\User\User;
 use lib\Objects\User\UserAuthorization;
 use lib\Objects\OcConfig\OcConfig;
-use Controllers\ErrorController;
-
-// register error handlers
-ErrorController::registerErrorHandlers();
 
 session_start();
 

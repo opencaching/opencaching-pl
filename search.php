@@ -10,6 +10,7 @@ if (!isset($rootpath)) $rootpath = '';
 
 require_once('./lib/common.inc.php');
 require_once('./lib/search.inc.php');
+require_once('./lib/search-signatures.inc.php');
 require_once('./lib/export.inc.php');
 require_once('./lib/calculation.inc.php');
 
@@ -58,6 +59,7 @@ $dbcSearch = OcDb::instance();
 $dbc = OcDb::instance();
 
 // extract user data for KML search
+$usr = requestSigner::extract_user($usr);
 if ($usr == false) {
     $target = urlencode(tpl_get_current_page());
     tpl_redirect('login.php?target='.$target);

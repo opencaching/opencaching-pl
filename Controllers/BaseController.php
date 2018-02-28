@@ -129,6 +129,4 @@ abstract class BaseController
         $this->view->buildOnlySelectedTpl();
         exit;
     }
-
-
 }
