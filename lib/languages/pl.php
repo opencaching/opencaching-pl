@@ -744,6 +744,7 @@ $translations = array(
     'myn_delete_confirm' => 'Czy na pewno chcesz usunąć okolicę? Operacja jest nieodwracalna, choć zawsze możesz na jej miejsce utworzyć nową',
     'myn_save_success' => 'Dane zapisane poprawnie',
     'myn_save_error' => 'Wystąpił błąd podczas zapisu',
+    'myn_coords_error' => 'Aby dodać okolicę, należy podać zarówno nazwę, jak i narysować na mapie okrąg, którego okolica dotyczy', /* EN */
     'myn_delete_success' => 'Okolica została usunięta',
     'myn_delete_error' => 'Wystąpił błąd podczas usuwania okolicy',
     'myn_hlp_more' => 'Wyświetl pełną listę',

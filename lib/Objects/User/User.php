@@ -801,6 +801,14 @@ class User extends UserCommons
 
     }
 
+    /**
+     * Updates primary user's MyNeighbourhood coords
+     * These coords are also "home coords" for user
+     * 
+     * @param Coordinates $coords
+     * @param int $radius
+     * @return boolean
+     */
     public function updateUserNeighbourhood(Coordinates $coords, $radius)
     {
         $this->homeCoordinates = $coords;
