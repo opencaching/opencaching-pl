@@ -109,5 +109,10 @@ class DynamicMapModel
         return $this->mapTypeName;
     }
 
+    public function setZoom($zoom)
+    {
+        $this->zoom = $zoom;
+    }
+
 }
 

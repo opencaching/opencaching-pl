@@ -9,7 +9,7 @@ use Utils\Text\Formatter;
  * This is map marker which has log information in infowindow
  * Cache properties are inherited from CacheMarkerModel
  */
-class CacheWithLogMarkerModel extends CacheMarkerModel
+class LogMarkerModel extends CacheMarkerModel
 {
     public $log_link = null; // if there is no link there is no log :)
     public $log_text;
@@ -17,23 +17,23 @@ class CacheWithLogMarkerModel extends CacheMarkerModel
     public $log_typeName;
     public $log_username;
     public $log_date;
-
+    
     public function getKey()
     {
-        return 'CacheWithLogMarker';
+        return 'LogMarker';
     }
-
+    
     public function getJSMarkersMgr()
     {
-        return self::CHUNK_DIR.'/cacheWithLogMarkerMgr';
-
+        return self::CHUNK_DIR.'/logMarkerMgr';
+        
     }
-
+    
     public function getInfoWinTpl()
     {
-        return '/cacheWithLogMarkerInfoWindow.tpl.php';
+        return '/logMarkerInfoWindow.tpl.php';
     }
-
+    
     public static function fromGeoCacheLogFactory(GeoCacheLog $log, User $user = null)
     {
         $marker = new self();
@@ -58,6 +58,6 @@ class CacheWithLogMarkerModel extends CacheMarkerModel
         $marker->log_date = Formatter::date($log->getDateCreated());
         return $marker;
     }
-
+    
 }
 

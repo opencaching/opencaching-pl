@@ -43,13 +43,14 @@ return function (array $markersData){
         icon:         markerModel.icon,
         link:         markerModel.link,
         name:         markerModel.name,
+        username:     markerModel.username,
         wp:           markerModel.wp,
         log_link:     markerModel.log_link,
         log_text:     markerModel.log_text,
         log_username: markerModel.log_username,
         log_icon:     markerModel.log_icon,
         log_typeName: markerModel.log_typeName,
-        log_userLink: markerModel.log_userLink,
+        log_date:     markerModel.log_date,
       };
 
       return this.__infoWindowCompiled(context);

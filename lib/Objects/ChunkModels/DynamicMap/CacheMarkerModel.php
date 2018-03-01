@@ -13,6 +13,7 @@ class CacheMarkerModel extends AbstractMarkerModelBase
     public $wp;
     public $link;
     public $name;
+    public $username = null;
     public $icon;
     public $lon;
     public $lat;
@@ -56,9 +57,10 @@ class CacheMarkerModel extends AbstractMarkerModelBase
         $marker->wp = $c->getGeocacheWaypointId();
         $marker->link = $c->getCacheUrl();
         $marker->name = $c->getCacheName();
+        $marker->username = $c->getOwner()->getUserName();
         $marker->icon = $c->getCacheIcon($user);
         $marker->lon = $c->getCoordinates()->getLongitude();
-        $marker->lat = $c->getCoordinates()->getLongitude();
+        $marker->lat = $c->getCoordinates()->getLatitude();
         return $marker;
     }
 
