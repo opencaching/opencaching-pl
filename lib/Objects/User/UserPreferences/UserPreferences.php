@@ -24,8 +24,9 @@ class UserPreferences extends BaseObject
      */
     const ALLOWED_KEYS = [
         // 'testKey' => 'TestData::class'
-        // TestUserPref::KEY => TestUserPref::class,
-        UserProfilePref::KEY => UserProfilePref::class
+        TestUserPref::KEY => TestUserPref::class,
+        UserProfilePref::KEY => UserProfilePref::class,
+        NeighbourhoodPref::KEY => NeighbourhoodPref::class
     ];
 
     /** @var UserPreferencesBaseData[] */

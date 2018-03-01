@@ -1,0 +1,149 @@
+@charset "UTF-8";
+
+.content2-container {
+	font-size: 12px;
+}
+
+.nbh-pageheader {
+	color: rgb(88, 144, 168);
+	font-weight: bold;
+	font-size: 1.3em;
+}
+
+.nbh-nodisplay {
+	display: none;
+}
+
+.nbh-nowrap {
+	white-space: nowrap;
+}
+
+fieldset {
+	border: 1px solid #d3d3d3 !important;
+	border-radius: 3px !important;
+	padding: 10px 30px;
+	min-width: 40%;
+	display: inline-box;
+}
+
+legend {
+	font-size: 14px;
+}
+
+.ui-icon-background {
+	background-color: #fff !important;
+}
+
+#nbh-custom-handle {
+	width: 3em;
+	height: 1.6em;
+	top: 50%;
+	margin-top: -.8em;
+	margin-left: -1.6em;
+	text-align: center;
+	line-height: 1.6em;
+}
+
+.nbh-map {
+	height: 400px;
+	width: 100%;
+}
+
+.nbh-usermap {
+	height: 350px;
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
+
+#nbh-delete-dialog-icon {
+	float: left;
+	margin: 12px 12px 20px 0;
+}
+
+.nbh-block {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.nbh-half {
+	width: 49%;
+}
+
+.nbh-full {
+	width: 99%;
+}
+
+.nbh-line-container>a, .nbh-desc-container>a, .lightTipped>a {
+	text-decoration: none;
+}
+
+.lightTip {
+	margin: 0px 10px 0px 60px !important;
+}
+
+.nbh-block-placeholder {
+	border: 1px dotted #ccc;
+	border-radius: 3px;
+	margin: 10px 1em 1em 0;
+	height: 30px;
+	width: 49%;
+	display: inline-block;
+	vertical-align: top;
+	background-color: rgb(156, 186, 214);
+}
+
+.nbh-block-header {
+	background-color: #f9fcfc;
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	color: rgb(88, 144, 168);
+	font-weight: bold;
+	font-size: 1.2em;
+	margin: 10px 0px 0px 0px;
+	cursor: move;
+}
+
+.nbh-back-btn {
+	display: inline !important;
+	font-weight: normal;
+}
+.nbh-sm-buttons,
+.nbh-md-buttons {
+	float: right;
+}
+
+.nbh-line-container {
+	padding: 2px;
+	width: 99%;
+}
+
+.nbh-desc-container {
+	padding: 5px;
+	display: table-cell;
+	vertical-align: middle;
+	line-height: 1.5em;
+	vertical-align: middle;
+}
+
+.nbh-image-container {
+	display: table-cell;
+	vertical-align: middle;
+	padding: 5px;
+}
+
+.nbh-arrow-north {
+	width: 10px;
+}
+
+.nbh-eye {
+	background-image: url("/tpl/stdstyle/images/misc/eye-uni.svg");
+	width: 16px;
+	height: 13px;
+	display: inline-block;
+	background-repeat: no-repeat;
+	background-size: 14px 13px;
+	vertical-aling: middle;
+	margin-bottom: -3px;
+}

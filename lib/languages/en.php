@@ -741,6 +741,7 @@ $translations = array(
     'myn_delete_confirm' => 'Are you sure you want to delete the neighbourhood? The operation is irreversible, although you can always create a new one',
     'myn_save_success' => 'Data saved correctly',
     'myn_save_error' => 'An error occurred while saving',
+    'myn_coords_error' => 'To add a new neighborhood, you should enter both the name and draw on the map the circle that the area applies to.', /* EN */
     'myn_delete_success' => 'Neighbourhood has been removed',
     'myn_delete_error' => 'An error occurred while deleting the neighbourhood',
     'myn_hlp_more' => 'Show full list',
