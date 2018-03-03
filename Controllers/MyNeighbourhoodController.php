@@ -510,28 +510,6 @@ class MyNeighbourhoodController extends BaseController
     }
 
     /**
-     * Simple hack to redirect not logged users to login page
-     */
-    private function redirectNotLoggedUsers()
-    {
-        if (! $this->isUserLogged()) {
-            $this->redirectToLoginPage();
-            exit();
-        }
-    }
-
-    /**
-     * Check if user is logged. If not - generates 401 AJAX response
-     */
-    private function checkUserLoggedAjax()
-    {
-        if (! $this->isUserLogged()) {
-            $this->ajaxErrorResponse('User not logged', 401);
-            exit();
-        }
-    }
-
-    /**
      * Check if $_POST[$paramName] is set. If not - generates 400 AJAX response
      *
      * @param string $paramName
