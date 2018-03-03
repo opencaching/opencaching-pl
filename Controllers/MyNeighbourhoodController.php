@@ -66,18 +66,16 @@ class MyNeighbourhoodController extends BaseController
 
         $neighbourhoodsList = Neighbourhood::getNeighbourhoodsList($this->loggedUser);
         if (count($neighbourhoodsList) == 0) { // User doesn't have any MyNeighbourhoods set, so redirect to config
-            $uri = SimpleRouter::getLink('MyNeighbourhood', 'config');
-            $this->view->redirect($uri);
+            $this->view->redirect(SimpleRouter::getLink('MyNeighbourhood', 'config'));
             exit();
         }
         $selectedNbh = (int) $nbhSeq;
         if (! array_key_exists($selectedNbh, $neighbourhoodsList)) { // Selected MyNeighbourhood not found
             if ($selectedNbh == 0) { // User has no Home Coords -> redirect to config
-                $uri = SimpleRouter::getLink('MyNeighbourhood', 'config');
+                $this->view->redirect(SimpleRouter::getLink('MyNeighbourhood', 'config'));
             } else { // Redirect to default MyNeighbourhood
-                $uri = SimpleRouter::getLink('MyNeighbourhood', 'index', 0);
+                $this->view->redirect(SimpleRouter::getLink('MyNeighbourhood', 'index', 0));
             }
-            $this->view->redirect($uri);
             exit();
         }
         $preferences = UserPreferences::getUserPrefsByKey(NeighbourhoodPref::KEY)->getValues();
