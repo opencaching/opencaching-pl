@@ -65,7 +65,7 @@ class MyNeighbourhoodController extends BaseController
         $this->redirectNotLoggedUsers();
 
         $neighbourhoodsList = Neighbourhood::getNeighbourhoodsList($this->loggedUser);
-        if (count($neighbourhoodsList) == 0) { // User doesn't have any MyNeighbourhoods set, so redirect to config
+        if (empty($neighbourhoodsList)) { // User doesn't have any MyNeighbourhoods set, so redirect to config
             $this->view->redirect(SimpleRouter::getLink('MyNeighbourhood', 'config'));
             exit();
         }
