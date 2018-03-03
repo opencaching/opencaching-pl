@@ -81,7 +81,8 @@ use Utils\Uri\SimpleRouter;
       let circleOptionsTemplate = {
             fillColor: '#ffff00',
             fillOpacity: 0.35,
-            strokeWeight: 3,
+            strokeWeight: 1,
+            strokeOpacity: 0.8,
             clickable: true,
             editable: true,
             draggable: false,
