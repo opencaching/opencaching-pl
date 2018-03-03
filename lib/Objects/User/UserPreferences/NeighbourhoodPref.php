@@ -5,13 +5,13 @@ use lib\Objects\Neighbourhood\Neighbourhood;
 
 class NeighbourhoodPref extends UserPreferencesBaseData
 {
-    const KEY = 'MyNSettings';
+    const KEY = 'MyNeighbourhood';
 
     public function getDefaults()
     {
         return [
             'style' => [ 'name' => 'full', 'caches-count' => 5],
-            'items' => [ 
+            'items' => [
                 Neighbourhood::ITEM_LATESTCACHES => [ 'order' => 1, 'show' => 1, 'fullsize' => 0],
                 Neighbourhood::ITEM_UPCOMINGEVENTS => [ 'order' => 4, 'show' => 1, 'fullsize' => 0],
                 Neighbourhood::ITEM_MAP => [ 'order' => 3, 'show' => 1, 'fullsize' => 1],

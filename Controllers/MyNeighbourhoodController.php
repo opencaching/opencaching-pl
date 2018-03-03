@@ -12,6 +12,7 @@ use lib\Objects\Neighbourhood\MyNbhSets;
 use lib\Objects\Neighbourhood\Neighbourhood;
 use lib\Objects\User\UserPreferences\UserPreferences;
 use Utils\Text\UserInputFilter;
+use lib\Objects\User\UserPreferences\NeighbourhoodPref;
 
 // Po merge:
 // TODO: Sprawdzić jak zachowuje się okolica, gdy site ma wyłączone titled caches (OC RO)
@@ -43,9 +44,6 @@ class MyNeighbourhoodController extends BaseController
     // Caches/Logs per page (on details pages)
     const ITEMS_PER_DETAIL_PAGE = 25;
 
-    // Key to user preferences. Don't change!
-    const MY_NEIGHBOURHOOD_KEY = 'MyNSettings';
-
     /** @var string */
     private $infoMsg = null;
 
@@ -59,13 +57,13 @@ class MyNeighbourhoodController extends BaseController
 
     /**
      * Displays main MyNeighbourhood page
-     * 
+     *
      * @param int $nbhSeq - MyNbh number (seq). 0 = default user's Nbh
      */
     public function index($nbhSeq = 0)
     {
         $this->redirectNotLoggedUsers();
-        
+
         $neighbourhoodsList = Neighbourhood::getNeighbourhoodsList($this->loggedUser);
         if (count($neighbourhoodsList) == 0) { // User doesn't have any MyNeighbourhoods set, so redirect to config
             $uri = SimpleRouter::getLink('MyNeighbourhood', 'config');
@@ -82,7 +80,7 @@ class MyNeighbourhoodController extends BaseController
             $this->view->redirect($uri);
             exit();
         }
-        $preferences = UserPreferences::getUserPrefsByKey(self::MY_NEIGHBOURHOOD_KEY)->getValues();
+        $preferences = UserPreferences::getUserPrefsByKey(NeighbourhoodPref::KEY)->getValues();
         $cacheset = new MyNbhSets($neighbourhoodsList[$selectedNbh]->getCoords(), $neighbourhoodsList[$selectedNbh]->getRadius());
         $latestCaches = $cacheset->getLatestCaches($preferences['style']['caches-count'], 0, false);
         $upcomingEvents = $cacheset->getUpcomingEvents($preferences['style']['caches-count'], 0);
@@ -121,14 +119,14 @@ class MyNeighbourhoodController extends BaseController
 
     /**
      * Displays latest caches detailed page for Nbh selected as $nbhSeq
-     * 
+     *
      * @param int $nbhSeq
      */
     public function latestCaches($nbhSeq = 0)
     {
         $this->redirectNotLoggedUsers();
         $selectedNbh = (int) $nbhSeq;
-        $preferences = UserPreferences::getUserPrefsByKey(self::MY_NEIGHBOURHOOD_KEY)->getValues();
+        $preferences = UserPreferences::getUserPrefsByKey(NeighbourhoodPref::KEY)->getValues();
         $neighbourhoodsList = Neighbourhood::getNeighbourhoodsList($this->loggedUser);
         if (! array_key_exists($selectedNbh, $neighbourhoodsList)) { // Selected MyNeighbourhood not found
             $this->view->redirect(SimpleRouter::getLink('MyNeighbourhood', 'index'));
@@ -154,14 +152,14 @@ class MyNeighbourhoodController extends BaseController
 
     /**
      * Displays most recommended caches detailed page for Nbh selected as $nbhSeq
-     * 
+     *
      * @param int $nbhSeq
      */
     public function mostRecommended($nbhSeq = 0)
     {
         $this->redirectNotLoggedUsers();
         $selectedNbh = (int) $nbhSeq;
-        $preferences = UserPreferences::getUserPrefsByKey(self::MY_NEIGHBOURHOOD_KEY)->getValues();
+        $preferences = UserPreferences::getUserPrefsByKey(NeighbourhoodPref::KEY)->getValues();
         $neighbourhoodsList = Neighbourhood::getNeighbourhoodsList($this->loggedUser);
         if (! array_key_exists($selectedNbh, $neighbourhoodsList)) { // Selected MyNeighbourhood not found
             $this->view->redirect(SimpleRouter::getLink('MyNeighbourhood', 'index'));
@@ -187,14 +185,14 @@ class MyNeighbourhoodController extends BaseController
 
     /**
      * Displays FTF caches detailed page for Nbh selected as $nbhSeq
-     * 
+     *
      * @param int $nbhSeq
      */
     public function ftfCaches($nbhSeq = 0)
     {
         $this->redirectNotLoggedUsers();
         $selectedNbh = (int) $nbhSeq;
-        $preferences = UserPreferences::getUserPrefsByKey(self::MY_NEIGHBOURHOOD_KEY)->getValues();
+        $preferences = UserPreferences::getUserPrefsByKey(NeighbourhoodPref::KEY)->getValues();
         $neighbourhoodsList = Neighbourhood::getNeighbourhoodsList($this->loggedUser);
         if (! array_key_exists($selectedNbh, $neighbourhoodsList)) { // Selected MyNeighbourhood not found
             $this->view->redirect(SimpleRouter::getLink('MyNeighbourhood', 'index'));
@@ -220,14 +218,14 @@ class MyNeighbourhoodController extends BaseController
 
     /**
      * Displays titled caches detailed page for Nbh selected as $nbhSeq
-     * 
+     *
      * @param int $nbhSeq
      */
     public function titledCaches($nbhSeq = 0)
     {
         $this->redirectNotLoggedUsers();
         $selectedNbh = (int) $nbhSeq;
-        $preferences = UserPreferences::getUserPrefsByKey(self::MY_NEIGHBOURHOOD_KEY)->getValues();
+        $preferences = UserPreferences::getUserPrefsByKey(NeighbourhoodPref::KEY)->getValues();
         $neighbourhoodsList = Neighbourhood::getNeighbourhoodsList($this->loggedUser);
         if (! array_key_exists($selectedNbh, $neighbourhoodsList)) { // Selected MyNeighbourhood not found
             $this->view->redirect(SimpleRouter::getLink('MyNeighbourhood', 'index'));
@@ -253,14 +251,14 @@ class MyNeighbourhoodController extends BaseController
 
     /**
      * Displays upcomming events detailed page for Nbh selected as $nbhSeq
-     * 
+     *
      * @param int $nbhSeq
      */
     public function upcommingEvents($nbhSeq = 0)
     {
         $this->redirectNotLoggedUsers();
         $selectedNbh = (int) $nbhSeq;
-        $preferences = UserPreferences::getUserPrefsByKey(self::MY_NEIGHBOURHOOD_KEY)->getValues();
+        $preferences = UserPreferences::getUserPrefsByKey(NeighbourhoodPref::KEY)->getValues();
         $neighbourhoodsList = Neighbourhood::getNeighbourhoodsList($this->loggedUser);
         if (! array_key_exists($selectedNbh, $neighbourhoodsList)) { // Selected MyNeighbourhood not found
             $this->view->redirect(SimpleRouter::getLink('MyNeighbourhood', 'index'));
@@ -286,14 +284,14 @@ class MyNeighbourhoodController extends BaseController
 
     /**
      * Displays latest logs detailed page for Nbh selected as $nbhSeq
-     * 
+     *
      * @param int $nbhSeq
      */
     public function latestLogs($nbhSeq = 0)
     {
         $this->redirectNotLoggedUsers();
         $selectedNbh = (int) $nbhSeq;
-        $preferences = UserPreferences::getUserPrefsByKey(self::MY_NEIGHBOURHOOD_KEY)->getValues();
+        $preferences = UserPreferences::getUserPrefsByKey(NeighbourhoodPref::KEY)->getValues();
         $neighbourhoodsList = Neighbourhood::getNeighbourhoodsList($this->loggedUser);
         if (! array_key_exists($selectedNbh, $neighbourhoodsList)) { // Selected MyNeighbourhood not found
             $this->view->redirect(SimpleRouter::getLink('MyNeighbourhood', 'index'));
@@ -319,16 +317,16 @@ class MyNeighbourhoodController extends BaseController
 
     /**
      * Displays MyNeighbour config
-     * 
+     *
      * @param number $nbhSeq - number of MyNbh (seq). 0 = default user's Nbh
      */
     public function config($nbhSeq = 0)
     {
         $this->redirectNotLoggedUsers();
         $selectedNbh = (int) $nbhSeq;
-        
-        $preferences = UserPreferences::getUserPrefsByKey(self::MY_NEIGHBOURHOOD_KEY)->getValues();
-        
+
+        $preferences = UserPreferences::getUserPrefsByKey(NeighbourhoodPref::KEY)->getValues();
+
         $neighbourhoodsList = Neighbourhood::getNeighbourhoodsList($this->loggedUser);
         if ($selectedNbh != - 1 && ! array_key_exists($selectedNbh, $neighbourhoodsList)) {
             $selectedNbh = 0;
@@ -361,7 +359,7 @@ class MyNeighbourhoodController extends BaseController
 
     /**
      * Saves new/modified MyNbh. Called by MyNbh config form
-     * 
+     *
      * @param number $nbhSeq - number of MyNbh (seq). 0 = default user's Nbh
      */
     public function save($nbhSeq = 0)
@@ -413,10 +411,10 @@ class MyNeighbourhoodController extends BaseController
             } elseif ($cachesPerpage < self::CACHES_PER_PAGE_MIN) {
                 $cachesPerpage = self::CACHES_PER_PAGE_MIN;
             }
-            $preferences = UserPreferences::getUserPrefsByKey(self::MY_NEIGHBOURHOOD_KEY)->getValues();
+            $preferences = UserPreferences::getUserPrefsByKey(NeighbourhoodPref::KEY)->getValues();
             $preferences['style']['name'] = $_POST['style'];
             $preferences['style']['caches-count'] = $cachesPerpage;
-            if (! UserPreferences::savePreferencesJson(self::MY_NEIGHBOURHOOD_KEY, json_encode($preferences))) {
+            if (! UserPreferences::savePreferencesJson(NeighbourhoodPref::KEY, json_encode($preferences))) {
                 $error = tr('myn_save_error'); // Error during storing user preferences
             }
         }
@@ -430,7 +428,7 @@ class MyNeighbourhoodController extends BaseController
 
     /**
      * Deletes My Nbh - called by form in config
-     * 
+     *
      * @param number $param - MyNbh number (seq). 0 = default user's Nbh
      */
     public function delete($param = 0)
@@ -462,13 +460,13 @@ class MyNeighbourhoodController extends BaseController
         $this->paramAjaxCheck('order');
         $order = [];
         parse_str($_POST['order'], $order);
-        $preferences = UserPreferences::getUserPrefsByKey(self::MY_NEIGHBOURHOOD_KEY)->getValues();
+        $preferences = UserPreferences::getUserPrefsByKey(NeighbourhoodPref::KEY)->getValues();
         $counter = 1;
         foreach ($order['item'] as $itemOrder) {
             $preferences['items'][$itemOrder]['order'] = $counter;
             $counter += 1;
         }
-        if (! UserPreferences::savePreferencesJson(self::MY_NEIGHBOURHOOD_KEY, json_encode($preferences))) {
+        if (! UserPreferences::savePreferencesJson(NeighbourhoodPref::KEY, json_encode($preferences))) {
             $this->ajaxErrorResponse('Error saving UserPreferences');
         }
         $this->ajaxSuccessResponse();
@@ -482,10 +480,10 @@ class MyNeighbourhoodController extends BaseController
         $this->checkUserLoggedAjax();
         $this->paramAjaxCheck('size');
         $this->paramAjaxCheck('item');
-        $preferences = UserPreferences::getUserPrefsByKey(self::MY_NEIGHBOURHOOD_KEY)->getValues();
+        $preferences = UserPreferences::getUserPrefsByKey(NeighbourhoodPref::KEY)->getValues();
         $itemNr = ltrim($_POST['item'], 'item_');
         $preferences['items'][$itemNr]['fullsize'] = filter_var($_POST['size'], FILTER_VALIDATE_BOOLEAN);
-        if (! UserPreferences::savePreferencesJson(self::MY_NEIGHBOURHOOD_KEY, json_encode($preferences))) {
+        if (! UserPreferences::savePreferencesJson(NeighbourhoodPref::KEY, json_encode($preferences))) {
             $this->ajaxErrorResponse('Error saving UserPreferences');
         }
         $this->ajaxSuccessResponse();
@@ -499,10 +497,10 @@ class MyNeighbourhoodController extends BaseController
         $this->checkUserLoggedAjax();
         $this->paramAjaxCheck('hide');
         $this->paramAjaxCheck('item');
-        $preferences = UserPreferences::getUserPrefsByKey(self::MY_NEIGHBOURHOOD_KEY)->getValues();
+        $preferences = UserPreferences::getUserPrefsByKey(NeighbourhoodPref::KEY)->getValues();
         $itemNr = ltrim($_POST['item'], 'item_');
         $preferences['items'][$itemNr]['show'] = ! filter_var($_POST['hide'], FILTER_VALIDATE_BOOLEAN);
-        if (! UserPreferences::savePreferencesJson(self::MY_NEIGHBOURHOOD_KEY, json_encode($preferences))) {
+        if (! UserPreferences::savePreferencesJson(NeighbourhoodPref::KEY, json_encode($preferences))) {
             $this->ajaxErrorResponse('Error saving UserPreferences');
         }
         $this->ajaxSuccessResponse();
@@ -537,7 +535,7 @@ class MyNeighbourhoodController extends BaseController
 
     /**
      * Check if $_POST[$paramName] is set. If not - generates 400 AJAX response
-     * 
+     *
      * @param string $paramName
      */
     private function paramAjaxCheck($paramName)
