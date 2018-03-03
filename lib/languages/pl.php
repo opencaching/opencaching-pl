@@ -724,7 +724,7 @@ $translations = array(
     'top_recommended' => 'Rekomendowane skrzynki',
     'myn_info' => 'Nie masz ustawionych współrzędnych Twojej okolicy. Możesz to zrobić w swoim <a href="myprofile.php?action=change">profilu</a>. Jeśli chcesz mieć inny promień niż domyślny 35 km, ustaw go w swoim profilu opcja: "Powiadamianie". Poniżej przykład dla współrzędnych ustawionych systemowo.',
     'myn_intro' => 'Ustaw współrzędne Twojej okolicy. Dzięki temu zyskasz informacje o najnowszych skrzynkach, wpisach czy wydarzeniach w okolicy, poznasz najciekawsze kesze, które warto odwiedzić. Możesz też otrzymywać powiadomienia o najnowszych keszach czy logach w pobliżu.',
-    'myn_map_info1' => 'Współrzędne ustawisz klikając w wybranym przez Ciebie miejscu mapy. Możesz wybrać np. pobliski skwer lub las. Następnym kliknięciem wybierasz promień w którym chcesz obserwować kesze.',
+    'myn_map_info1' => 'Współrzędne ustawisz klikając w wybranym przez Ciebie miejscu mapy. Możesz wybrać np. swoje miasto czy też park w nim, las w okolicy czy inne miejsce, które zapragniesz. Następnym kliknięciem wybierasz promień w którym chcesz obserwować kesze.',
     'myn_map_info2' => 'Możesz przenieść wybrany wcześniej obszar przeciągając jego środek lub też zmienić promień - przeciągając brzeg okręgu. Promień może wynosić od 1 do 150km.',
     'myn_name_default' => 'To jest Twoja podstawowa Okolica. Będziesz z niej otrzymywać powiadomienia o nowych keszach (zgodnie z ustawieniami powiadomień), nie możesz edytować jej nazwy.',
     'myn_name_addition' => 'To jest Twoja dodatkowa Okolica. Nie będziesz otrzymywać powiadomień o nowych keszach w jej promieniu.',
