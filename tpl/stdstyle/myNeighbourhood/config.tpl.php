@@ -6,7 +6,7 @@ use Utils\Uri\SimpleRouter;
   <?=$view->callChunk('infoBar', null, $view->infoMsg, $view->errorMsg)?>
   <div class="btn-group btn-group-md">
     <a class="btn btn-md <?=($view->selectedNbh == 0) ? 'btn-primary' : 'btn-default'?>" href="<?=SimpleRouter::getLink('MyNeighbourhood', 'config', 0)?>"><?=tr('my_neighborhood')?></a>
-  <?php foreach ($view->neighbourhoodsList as $nbh) { 
+  <?php foreach ($view->neighbourhoodsList as $nbh) {
     if ($nbh->getSeq() == 0) {
         continue;
     } ?>
@@ -20,7 +20,7 @@ use Utils\Uri\SimpleRouter;
   <?php } // end if ?>
   </div>
 
-<?php if ($view->coordsOK == 0) { 
+<?php if ($view->coordsOK == 0) {
     if ($view->selectedNbh == 0) { ?>
       <div class="callout callout-warning"><?=tr('myn_intro')?></div>
     <?php } // if selectedNbh == 0 ?>
@@ -81,7 +81,7 @@ use Utils\Uri\SimpleRouter;
             strokeWeight: 3,
             clickable: true,
             editable: true,
-            draggable: true,
+            draggable: false,
         };
     let drawingManager = new google.maps.drawing.DrawingManager({
           drawingMode: 'circle',      // nothing is drown by default
