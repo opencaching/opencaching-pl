@@ -427,14 +427,14 @@ class MyNeighbourhoodController extends BaseController
     /**
      * Deletes My Nbh - called by form in config
      *
-     * @param number $param - MyNbh number (seq). 0 = default user's Nbh
+     * @param number $nbhSeq - MyNbh number (seq). 0 = default user's Nbh
      */
-    public function delete($param = 0)
+    public function delete($nbhSeq = 0)
     {
         $this->redirectNotLoggedUsers();
         $success = true;
-        if ($param > 0) { // User cannot delete HomeCoords!
-            if (! Neighbourhood::removeUserNeighbourhood($this->loggedUser, $param)) {
+        if ($nbhSeq > 0) { // User cannot delete HomeCoords!
+            if (! Neighbourhood::removeUserNeighbourhood($this->loggedUser, $nbhSeq)) {
                 $success = false;
             }
         } else {
