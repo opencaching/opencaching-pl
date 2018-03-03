@@ -24,6 +24,10 @@ use Utils\Uri\SimpleRouter;
       <div class="callout callout-warning"><?=tr('myn_intro')?></div>
     <?php } // if selectedNbh == 0 ?>
   <div class="notice"><?=tr('myn_map_info1')?></div>
+<?php } elseif ($view->selectedNbh == 0) { ?>
+  <div class="notice"><?=tr('myn_name_default')?></div>
+<?php } else { ?>
+  <div class="notice"><?=tr('myn_name_addition')?></div>
 <?php } // end if coordsOK ?>
   <div class="notice"><?=tr('myn_map_info2')?></div>
   <div id="nbhmapmain" class="nbh-map"></div>
