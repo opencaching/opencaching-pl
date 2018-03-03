@@ -79,13 +79,13 @@ class MyNeighbourhoodController extends BaseController
             exit();
         }
         $preferences = UserPreferences::getUserPrefsByKey(NeighbourhoodPref::KEY)->getValues();
-        $cacheset = new MyNbhSets($neighbourhoodsList[$selectedNbh]->getCoords(), $neighbourhoodsList[$selectedNbh]->getRadius());
-        $latestCaches = $cacheset->getLatestCaches($preferences['style']['caches-count'], 0, false);
-        $upcomingEvents = $cacheset->getUpcomingEvents($preferences['style']['caches-count'], 0);
-        $ftfCaches = $cacheset->getLatestCaches($preferences['style']['caches-count'], 0, true);
-        $latestLogs = $cacheset->getLatestLogs($preferences['style']['caches-count'], 0);
-        $topRatedCaches = $cacheset->getTopRatedCaches($preferences['style']['caches-count'], 0);
-        $latestTitled = $cacheset->getLatestTitledCaches($preferences['style']['caches-count'], 0);
+        $nbhItemSet = new MyNbhSets($neighbourhoodsList[$selectedNbh]->getCoords(), $neighbourhoodsList[$selectedNbh]->getRadius());
+        $latestCaches = $nbhItemSet->getLatestCaches($preferences['style']['caches-count'], 0, false);
+        $upcomingEvents = $nbhItemSet->getUpcomingEvents($preferences['style']['caches-count'], 0);
+        $ftfCaches = $nbhItemSet->getLatestCaches($preferences['style']['caches-count'], 0, true);
+        $latestLogs = $nbhItemSet->getLatestLogs($preferences['style']['caches-count'], 0);
+        $topRatedCaches = $nbhItemSet->getTopRatedCaches($preferences['style']['caches-count'], 0);
+        $latestTitled = $nbhItemSet->getLatestTitledCaches($preferences['style']['caches-count'], 0);
         $this->view->setVar('latestCaches', $latestCaches);
         $this->view->setVar('upcomingEvents', $upcomingEvents);
         $this->view->setVar('FTFCaches', $ftfCaches);
@@ -131,11 +131,11 @@ class MyNeighbourhoodController extends BaseController
             exit();
         }
         $coords = $neighbourhoodsList[$selectedNbh]->getCoords();
-        $cacheset = new MyNbhSets($coords, $neighbourhoodsList[$selectedNbh]->getRadius());
+        $nbhItemSet = new MyNbhSets($coords, $neighbourhoodsList[$selectedNbh]->getRadius());
         $paginationModel = new PaginationModel(self::ITEMS_PER_DETAIL_PAGE);
-        $paginationModel->setRecordsCount($cacheset->getLatestCachesCount(false));
+        $paginationModel->setRecordsCount($nbhItemSet->getLatestCachesCount(false));
         list ($limit, $offset) = $paginationModel->getQueryLimitAndOffset();
-        $this->view->setVar('caches', $cacheset->getLatestCaches($limit, $offset, false));
+        $this->view->setVar('caches', $nbhItemSet->getLatestCaches($limit, $offset, false));
         $this->view->setVar('neighbourhoodsList', $neighbourhoodsList);
         $this->view->setVar('paginationModel', $paginationModel);
         $this->view->setVar('selectedNbh', $selectedNbh);
@@ -164,11 +164,11 @@ class MyNeighbourhoodController extends BaseController
             exit();
         }
         $coords = $neighbourhoodsList[$selectedNbh]->getCoords();
-        $cacheset = new MyNbhSets($coords, $neighbourhoodsList[$selectedNbh]->getRadius());
+        $nbhItemSet = new MyNbhSets($coords, $neighbourhoodsList[$selectedNbh]->getRadius());
         $paginationModel = new PaginationModel(self::ITEMS_PER_DETAIL_PAGE);
-        $paginationModel->setRecordsCount($cacheset->getTopRatedCachesCount());
+        $paginationModel->setRecordsCount($nbhItemSet->getTopRatedCachesCount());
         list ($limit, $offset) = $paginationModel->getQueryLimitAndOffset();
-        $this->view->setVar('caches', $cacheset->getTopRatedCaches($limit, $offset));
+        $this->view->setVar('caches', $nbhItemSet->getTopRatedCaches($limit, $offset));
         $this->view->setVar('neighbourhoodsList', $neighbourhoodsList);
         $this->view->setVar('paginationModel', $paginationModel);
         $this->view->setVar('selectedNbh', $selectedNbh);
@@ -197,11 +197,11 @@ class MyNeighbourhoodController extends BaseController
             exit();
         }
         $coords = $neighbourhoodsList[$selectedNbh]->getCoords();
-        $cacheset = new MyNbhSets($coords, $neighbourhoodsList[$selectedNbh]->getRadius());
+        $nbhItemSet = new MyNbhSets($coords, $neighbourhoodsList[$selectedNbh]->getRadius());
         $paginationModel = new PaginationModel(self::ITEMS_PER_DETAIL_PAGE);
-        $paginationModel->setRecordsCount($cacheset->getLatestCachesCount(true));
+        $paginationModel->setRecordsCount($nbhItemSet->getLatestCachesCount(true));
         list ($limit, $offset) = $paginationModel->getQueryLimitAndOffset();
-        $this->view->setVar('caches', $cacheset->getLatestCaches($limit, $offset, true));
+        $this->view->setVar('caches', $nbhItemSet->getLatestCaches($limit, $offset, true));
         $this->view->setVar('neighbourhoodsList', $neighbourhoodsList);
         $this->view->setVar('paginationModel', $paginationModel);
         $this->view->setVar('selectedNbh', $selectedNbh);
@@ -230,11 +230,11 @@ class MyNeighbourhoodController extends BaseController
             exit();
         }
         $coords = $neighbourhoodsList[$selectedNbh]->getCoords();
-        $cacheset = new MyNbhSets($coords, $neighbourhoodsList[$selectedNbh]->getRadius());
+        $nbhItemSet = new MyNbhSets($coords, $neighbourhoodsList[$selectedNbh]->getRadius());
         $paginationModel = new PaginationModel(self::ITEMS_PER_DETAIL_PAGE);
-        $paginationModel->setRecordsCount($cacheset->getLatestTitledCachesCount());
+        $paginationModel->setRecordsCount($nbhItemSet->getLatestTitledCachesCount());
         list ($limit, $offset) = $paginationModel->getQueryLimitAndOffset();
-        $this->view->setVar('caches', $cacheset->getLatestTitledCaches($limit, $offset));
+        $this->view->setVar('caches', $nbhItemSet->getLatestTitledCaches($limit, $offset));
         $this->view->setVar('neighbourhoodsList', $neighbourhoodsList);
         $this->view->setVar('paginationModel', $paginationModel);
         $this->view->setVar('selectedNbh', $selectedNbh);
@@ -263,11 +263,11 @@ class MyNeighbourhoodController extends BaseController
             exit();
         }
         $coords = $neighbourhoodsList[$selectedNbh]->getCoords();
-        $cacheset = new MyNbhSets($coords, $neighbourhoodsList[$selectedNbh]->getRadius());
+        $nbhItemSet = new MyNbhSets($coords, $neighbourhoodsList[$selectedNbh]->getRadius());
         $paginationModel = new PaginationModel(self::ITEMS_PER_DETAIL_PAGE);
-        $paginationModel->setRecordsCount($cacheset->getUpcomingEventsCount());
+        $paginationModel->setRecordsCount($nbhItemSet->getUpcomingEventsCount());
         list ($limit, $offset) = $paginationModel->getQueryLimitAndOffset();
-        $this->view->setVar('caches', $cacheset->getUpcomingEvents($limit, $offset));
+        $this->view->setVar('caches', $nbhItemSet->getUpcomingEvents($limit, $offset));
         $this->view->setVar('neighbourhoodsList', $neighbourhoodsList);
         $this->view->setVar('paginationModel', $paginationModel);
         $this->view->setVar('selectedNbh', $selectedNbh);
