@@ -4,18 +4,17 @@ use lib\Objects\Neighbourhood\Neighbourhood;
 
 ?>
 <div class="content2-container">
-  <div class="btn-group">
-    <?php foreach ($view->neighbourhoodsList as $nbh) { 
-        if ($nbh->getSeq() == $view->selectedNbh) {
-            $btnClassMod = 'btn-primary';
-        } else {
-            $btnClassMod = 'btn-default';
-        }
-        ?>
-      <a class="btn btn-md <?=$btnClassMod?>" href="<?=SimpleRouter::getLink('MyNeighbourhood', 'index', $nbh->getSeq())?>"><?=$nbh->getName()?></a>
-    <?php } // end foreach neighbourhoodsList ?>
-    <a class="btn btn-md btn-success" href="<?=SimpleRouter::getLink('MyNeighbourhood', 'config', $view->selectedNbh)?>"><img src="/tpl/stdstyle/images/free_icons/cog.png" class="icon16" alt="<?=tr('config')?>">&nbsp;<?=tr('config')?></a>
-  </div>
+  <?php foreach ($view->neighbourhoodsList as $nbh) {
+      if ($nbh->getSeq() == $view->selectedNbh) {
+          $btnClassMod = 'btn-primary';
+      } else {
+          $btnClassMod = 'btn-default';
+      }
+      ?>
+    <a class="btn btn-md <?=$btnClassMod?>" href="<?=SimpleRouter::getLink('MyNeighbourhood', 'index', $nbh->getSeq())?>"><?=$nbh->getName()?></a>
+  <?php } // end foreach neighbourhoodsList ?>
+  <a class="btn btn-md btn-success" href="<?=SimpleRouter::getLink('MyNeighbourhood', 'config', $view->selectedNbh)?>"><img src="/tpl/stdstyle/images/free_icons/cog.png" class="icon16" alt="<?=tr('config')?>">&nbsp;<?=tr('config')?></a>
+
   <div class="nbh-sort-list">
   <?php
     $order = [];

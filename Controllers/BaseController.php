@@ -129,4 +129,27 @@ abstract class BaseController
         $this->view->buildOnlySelectedTpl();
         exit;
     }
+
+    /**
+     * Simple redirect not logged users to login page
+     */
+    protected function redirectNotLoggedUsers()
+    {
+        if (! $this->isUserLogged()) {
+            $this->redirectToLoginPage();
+            exit();
+        }
+    }
+
+    /**
+     * Check if user is logged. If not - generates 401 AJAX response
+     */
+    protected function checkUserLoggedAjax()
+    {
+        if (! $this->isUserLogged()) {
+            $this->ajaxErrorResponse('User not logged', 401);
+            exit();
+        }
+    }
+
 }

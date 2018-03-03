@@ -4,9 +4,8 @@ use Utils\Uri\SimpleRouter;
 ?>
 <div class="content2-container">
   <?=$view->callChunk('infoBar', null, $view->infoMsg, $view->errorMsg)?>
-  <div class="btn-group btn-group-md">
-    <a class="btn btn-md <?=($view->selectedNbh == 0) ? 'btn-primary' : 'btn-default'?>" href="<?=SimpleRouter::getLink('MyNeighbourhood', 'config', 0)?>"><?=tr('my_neighborhood')?></a>
-  <?php foreach ($view->neighbourhoodsList as $nbh) { 
+  <a class="btn btn-md <?=($view->selectedNbh == 0) ? 'btn-primary' : 'btn-default'?>" href="<?=SimpleRouter::getLink('MyNeighbourhood', 'config', 0)?>"><?=tr('my_neighborhood')?></a>
+  <?php foreach ($view->neighbourhoodsList as $nbh) {
     if ($nbh->getSeq() == 0) {
         continue;
     } ?>
@@ -18,13 +17,17 @@ use Utils\Uri\SimpleRouter;
     if (count($view->neighbourhoodsList) <= $view->maxnbh) { ?>
     <a class="btn btn-md btn-success" href="<?=SimpleRouter::getLink('MyNeighbourhood', 'config', '-1')?>" title="<?=tr('myn_addarea_info')?>"><img src="/tpl/stdstyle/images/misc/plus-sign.svg" class="icon16" alt="<?=tr('new')?>">&nbsp;<?=tr('new')?></a>
   <?php } // end if ?>
-  </div>
 
-<?php if ($view->coordsOK == 0) { 
+
+<?php if ($view->coordsOK == 0) {
     if ($view->selectedNbh == 0) { ?>
       <div class="callout callout-warning"><?=tr('myn_intro')?></div>
     <?php } // if selectedNbh == 0 ?>
   <div class="notice"><?=tr('myn_map_info1')?></div>
+<?php } elseif ($view->selectedNbh == 0) { ?>
+  <div class="notice"><?=tr('myn_name_default')?></div>
+<?php } else { ?>
+  <div class="notice"><?=tr('myn_name_addition')?></div>
 <?php } // end if coordsOK ?>
   <div class="notice"><?=tr('myn_map_info2')?></div>
   <div id="nbhmapmain" class="nbh-map"></div>
@@ -78,10 +81,11 @@ use Utils\Uri\SimpleRouter;
       let circleOptionsTemplate = {
             fillColor: '#ffff00',
             fillOpacity: 0.35,
-            strokeWeight: 3,
+            strokeWeight: 1,
+            strokeOpacity: 0.8,
             clickable: true,
             editable: true,
-            draggable: true,
+            draggable: false,
         };
     let drawingManager = new google.maps.drawing.DrawingManager({
           drawingMode: 'circle',      // nothing is drown by default
@@ -178,7 +182,7 @@ use Utils\Uri\SimpleRouter;
   </fieldset>
   <div class="buffer"></div>
   <input type="hidden" name="caches-perpage" id="input-caches" value="<?=$view->preferences['style']['caches-count']?>">
-  <div class="btn-group">
+  <div class="align-center">
     <button class="btn btn-primary btn-md"><?=tr('save_changes')?></button>
     <a href="/mywatches.php?action=emailSettings" class="btn btn-default btn-md"><?=tr('settings_notifications')?></a>
     <a href="<?=SimpleRouter::getLink('MyNeighbourhood', 'index', $view->selectedNbh) ?>" class="btn btn-default btn-md"><?=tr('exit_config')?></a>
@@ -189,7 +193,7 @@ use Utils\Uri\SimpleRouter;
     <input type="text" name="name" id="input-name" class="ui-widget ui-widget-content ui-corner-all" value="<?=($view->selectedNbh == -1) ? '' : $view->neighbourhoodsList[$view->selectedNbh]->getName()?>" maxlength="16" required>
     </fieldset>
   <div class="buffer"></div>
-  <div class="btn-group">
+  <div class="align-center">
     <button class="btn btn-primary btn-md"><?=tr('save_changes')?></button>
     <button class="btn btn-danger btn-md" id="nbh-delete-btn"><?=tr('myn_delete')?></button>
     <a href="<?=SimpleRouter::getLink('MyNeighbourhood', 'index', $view->selectedNbh) ?>" class="btn btn-default btn-md"><?=tr('exit_config')?></a>

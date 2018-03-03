@@ -10,6 +10,7 @@ use lib\Objects\ApplicationContainer;
 use lib\Objects\User\User;
 use lib\Objects\User\UserAuthorization;
 use lib\Objects\OcConfig\OcConfig;
+use Utils\Text\UserInputFilter;
 
 session_start();
 
@@ -122,7 +123,7 @@ function loadTranslation(){
 
         //language changed?
         if(isset($_REQUEST['lang'])){
-            $lang = $_REQUEST['lang'];
+            $lang = UserInputFilter::purifyHtmlString($_REQUEST['lang']);
         }
 
         //check if $lang is supported by site

@@ -1,4 +1,5 @@
 <?php
+use Utils\Gis\Gis;
 use Utils\Text\Formatter;
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\Neighbourhood\Neighbourhood;
@@ -21,7 +22,7 @@ use Utils\Text\UserInputFilter;
 
 <?php if (empty($view->latestLogs)) { ?>
     <div class="notice"><?=tr('list_of_latest_logs_is_empty')?></div>
-<?php } else { 
+<?php } else {
   foreach ($view->latestLogs as $log) {?>
   <div class="nbh-line-container">
   <div class="lightTipped">
@@ -39,6 +40,8 @@ use Utils\Text\UserInputFilter;
         <img src="/images/rating-star.png" alt="<?=tr('number_obtain_recommendations')?>"> |
       <?php } // end of if isRecommendedByUser ?>
       <span class="nbh-nowrap"><?=Formatter::date($log->getDate())?></span>
+      | <span class="nbh-nowrap"><?=round(Gis::distanceBetween($view->neighbourhoodsList[$view->selectedNbh]->getCoords(), $log->getGeoCache()->getCoordinates()))?> km
+      <img src="/tpl/stdstyle/images/misc/arrow-north.svg" class="nbh-arrow-north" alt="<?=tr('direction')?>" style="transform: rotate(<?=round(Gis::calcBearingBetween($view->neighbourhoodsList[$view->selectedNbh]->getCoords(), $log->getGeoCache()->getCoordinates()))?>deg)"></span>
       | <strong><?=$log->getUser()->getUserName()?></strong>
       </div>
   </div>
