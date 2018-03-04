@@ -39,7 +39,7 @@ $links['wiki'] = [];
 $links['wiki']['main'] = $_wiki;
 
 $links['wiki']['additionalWaypoints']   = $_wiki.'/index.php/Dodatkowe_waypointy_w_skrzynce';
-$links['wiki']['cacheAttrib']           = $_wiki.'/index.php/Parametry_skrzynki#Atrybuty_skrzynki';
+$links['wiki']['cacheAttrib']           = $_wiki.'/index.php/Atrybuty_skrzynki';
 $links['wiki']['cacheAttrib_en']        = $_wiki.'/index.php/Cache_parameters#Attributes';
 $links['wiki']['cacheLogPass']          = $_wiki.'/index.php/Parametry_skrzynki#Has.C5.82o_do_wpisu_do_Logu';
 $links['wiki']['cacheLogPass_en']       = $_wiki.'/index.php/Cache_parameters#Log_password';
