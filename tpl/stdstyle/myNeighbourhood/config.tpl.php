@@ -34,9 +34,12 @@ use Utils\Uri\SimpleRouter;
   <?php $view->callChunk('dynamicMap/dynamicMap', $view->mapModel, "nbhmapmain");?>
 
   <div class="align-center">
-    <span id="nbh-coords-lat"></span>
-    <span id="nbh-coords-lon"></span> |
-    <span id="nbh-radius"></span> km
+    <div id="nbh-startdraw-btn" class="btn btn-md btn-success"><?=tr('myn_map_drawbtn')?></div>
+    <div id="nbh-coords-line">
+      <span id="nbh-coords-lat"></span>
+      <span id="nbh-coords-lon"></span> |
+      <span id="nbh-radius"></span> km
+    </div>
   </div>
 
 <script>
@@ -49,6 +52,8 @@ use Utils\Uri\SimpleRouter;
         $('#nbh-coords-lat').text(latToText($('#input-lat').val()));
         $('#nbh-coords-lon').text(lonToText($('#input-lon').val()));
         $('#nbh-radius').text($('#input-radius').val());
+        $('#nbh-startdraw-btn').hide();
+        $('#nbh-coords-line').show();
         <?php } // end if coordsOK ?>
     });
 
@@ -88,7 +93,7 @@ use Utils\Uri\SimpleRouter;
             draggable: false,
         };
     let drawingManager = new google.maps.drawing.DrawingManager({
-          drawingMode: 'circle',      // nothing is drown by default
+          drawingMode: null,      // nothing is drown by default
           drawingControl: false,  // hide drawing controls
           circleOptions: circleOptionsTemplate,
           map: map,
@@ -159,6 +164,11 @@ use Utils\Uri\SimpleRouter;
             $('#nbh-coords-lon').text(lonToText(circle.getCenter().lng()));
         });
       });
+    $('#nbh-startdraw-btn').click(function() {
+        drawingManager.setDrawingMode('circle');
+        $('#nbh-startdraw-btn').hide();
+        $('#nbh-coords-line').show();
+        });
     <?php } // end if coordsOK ?>
   }
   </script>
