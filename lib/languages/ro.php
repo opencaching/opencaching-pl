@@ -720,8 +720,9 @@ $translations = array(
     'top_recommended' => 'Geocutiile cele mai recomandate',
     'myn_info' => 'Nu ţi-ai selectat coordonatele de acasă. Poţi face asta în <a href="myprofile.php?action=change">profile</a>. Acolo îţi poţi modifica şi raza zonei pentru care primeşti în mod implicit notificări.',
     'myn_intro' => 'Set the coordinates of your area. Thanks to this you will get information about the latest caches, logentries or events in your neighbourhood, you will learn about the most interesting caches that are worth visiting. You can also receive notifications about the latest caches or logs nearby.',  /* EN */
-    'myn_map_info1' => 'You set the coordinates by clicking on the map location of your choice. You can choose, for example, a nearby square or forest. Next click you choose the radius where you want to watch caches.', /* EN */
-    'myn_map_info2' => 'You can move the previously selected area by dragging its center or change the radius by dragging the edge of the circle. The radius can range from 1 to 150 km.', /* EN */
+    'myn_map_info1' => 'The size and location of the Neighborhood will be set by clicking the "Start drawing" button. The first click on the map will determine the center of the area, the second - the radius where you want to observe the caches. You can choose, for example, your city or park in it, the forest in the area or other place that you desire.', /* EN */
+    'myn_map_info2' => 'You can move the previously selected area by dragging its center or change the radius by dragging highlighted point on the edge of the circle. The radius can range from 1 to 150 km.', /* EN */
+    'myn_map_drawbtn' => 'Start drawing', /* EN */
     'myn_name_default' => 'This is your primary Neighborhood. You will receive notifications about new caches (according to the notification settings), you can not edit its name.', /* EN */
     'myn_name_addition' => 'This is your additional Neighborhood. You will not receive notifications about new caches in its radius.', /* EN */
     'myn_dragdrop' => 'You can move elements of this page at any time by "grabbing" for their headline. Using the small arrows next to the header, you can either collapse the section or stretch it to the entire width of the page.', /* EN */
