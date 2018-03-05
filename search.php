@@ -86,7 +86,8 @@ if ($usr == false) {
         else
         {
             $bCookieQueryid = true;
-            $queryid = get_cookie_setting('lastqueryid');
+            $queryid = (isset($_REQUEST['resetqueryid'])) ? false : get_cookie_setting('lastqueryid');
+//            $queryid = get_cookie_setting('lastqueryid');
             if ($queryid == false) $queryid = 0;
 
             if ($queryid != 0)

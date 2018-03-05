@@ -1,6 +1,7 @@
 <?php
 use Utils\Uri\SimpleRouter;
 use lib\Objects\Neighbourhood\Neighbourhood;
+use lib\Objects\Coordinates\Coordinates;
 
 ?>
 <div class="content2-container">
@@ -55,6 +56,16 @@ use lib\Objects\Neighbourhood\Neighbourhood;
           <?=$view->callSubTpl($subTemplate)?>
       </div>
   <?php } ?>
+  </div>
+  <?php
+    list($latNS, $lat_h, $lat_min) = $view->neighbourhoodsList[$view->selectedNbh]->getCoords()->getLatitudeParts(Coordinates::COORDINATES_FORMAT_DEG_MIN);
+    list($lonEW, $lon_h, $lon_min) =  $view->neighbourhoodsList[$view->selectedNbh]->getCoords()->getLongitudeParts(Coordinates::COORDINATES_FORMAT_DEG_MIN);
+  ?>
+  <div class="buffer"></div>
+  <div class="align-center">
+  <a href="/search.php?searchbydistance&resetqueryid=y&distance=<?=$view->neighbourhoodsList[$view->selectedNbh]->getRadius()?>&latNS=<?=$latNS?>&lat_h=<?=$lat_h?>&lat_min=<?=$lat_min?>&lonEW=<?=$lonEW?>&lon_h=<?=$lon_h?>&lon_min=<?=$lon_min?>#search-by-distance-table" class="btn btn-primary btn-md">
+    <?=tr('mnu_searchCache')?> (<?=$view->neighbourhoodsList[$view->selectedNbh]->getName()?>)
+  </a>
   </div>
   <div class="buffer"></div>
   <div class="notice"><?=tr('myn_dragdrop')?></div>
