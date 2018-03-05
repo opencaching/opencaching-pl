@@ -656,7 +656,7 @@
     <input type="hidden" name="cacherating" value="{cacherating}" />
     <input type="hidden" name="gpxLogLimit" value="{gpxLogLimitUserChoice}" />
 
-    <table class="table full-width">
+    <table class="table full-width" id="search-by-distance-table">
       <tr>
         <td colspan="3"><p class="content-title-noshade-size1">{{search_by_distance}}</p></td>
       </tr>

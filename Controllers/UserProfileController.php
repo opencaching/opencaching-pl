@@ -6,6 +6,7 @@ use Utils\Uri\Uri;
 use lib\Objects\User\U2UEmailSender;
 use lib\Objects\User\User;
 use lib\Objects\User\UserPreferences\UserPreferences;
+use Utils\Text\UserInputFilter;
 
 class UserProfileController extends BaseController
 {
@@ -39,7 +40,7 @@ class UserProfileController extends BaseController
         // there is nothing here yet
     }
 
-    public function mailTo($userId = null)
+    public function mailTo($userId = null, $subject = '')
     {
         if (! $this->loggedUser) {
             // this view is only for authorized user
@@ -49,7 +50,7 @@ class UserProfileController extends BaseController
             // Bad request - user not selected.
             $this->view->redirect('/');
         }
-        $subject = '';
+        $subject = UserInputFilter::purifyHtmlString(urldecode($subject));
         $content = '';
         if (isset($_POST['sendEmailAction'])) {
             $this->sendEmail($subject, $content);
@@ -69,7 +70,7 @@ class UserProfileController extends BaseController
      * Sends U2U message.
      * Is called by mailTo() method after POST data detected
      * Params are needed to return given form data if sth is missing
-     * 
+     *
      * @param string $subject
      * @param string $content
      */
