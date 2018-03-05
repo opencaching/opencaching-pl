@@ -24,11 +24,10 @@ class U2UEmailSender
      */
     public static function sendU2UMessage(User $from, User $to, $subject, $text, $attachSenderAddress)
     {
-        // add additional prefix to subject
-        $subject = tr('mailto_emailFrom') . ' ' . $from->getUserName() . ': ' . $subject;
+
         // prepare message text
         $userMessage = new EmailFormatter(self::TEMPLATE_PATH . 'messageU2U.email.html', true);
-        $userMessage->setVariable('fromUserMailUrl', SimpleRouter::getLink('UserProfile', 'mailTo', $from->getUserId()));
+        $userMessage->setVariable('fromUserMailUrl', SimpleRouter::getAbsLink('UserProfile', 'mailTo', [ $from->getUserId(), urlencode($subject)]));
         $userMessage->setVariable('fromUserProfileUrl', $from->getProfileUrl());
         $userMessage->setVariable('fromUsername', $from->getUserName());
         $userMessage->setVariable('absoluteServerURI', rtrim(OcConfig::getAbsolute_server_URI(), '/'));
@@ -51,6 +50,8 @@ class U2UEmailSender
             $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
         }
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
+        // add additional prefix to subject
+        $subject = tr('mailto_emailFrom') . ' ' . $from->getUserName() . ': ' . $subject;
         $email->setSubject($subject);
         $email->setBody($userMessage->getEmailContent(), true);
         $result = $email->send();
