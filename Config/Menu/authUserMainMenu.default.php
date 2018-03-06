@@ -1,4 +1,6 @@
 <?php
+use Utils\Uri\SimpleRouter;
+
 /**
  * This is simple configuration of links presented in sidebar of the page
  * for authorized users only.
@@ -20,7 +22,7 @@ $menu = [ // DON'T CHANGE $menu var name!
     'mnu_news'          => '/news.php',
     'mnu_cacheMap'      => '/cachemap3.php',
 
-    'mnu_myNeighborhood'=> '/myneighborhood.php',
+    'mnu_myNeighborhood'=> SimpleRouter::getLink('MyNeighbourhood','index'),
     'mnu_searchCache'   => '/search.php',
     'mnu_geoPaths'      => '/powerTrail.php',
 

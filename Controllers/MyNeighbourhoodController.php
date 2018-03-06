@@ -16,14 +16,11 @@ use lib\Objects\User\UserPreferences\NeighbourhoodPref;
 
 // Po merge:
 // TODO: Sprawdzić jak zachowuje się okolica, gdy site ma wyłączone titled caches (OC RO)
-// TODO: Zmiana mailach powiadamiających o nowych keszach w okolicy - żeby wysyłały się z poprawnym linkiem do zmiany promienia.
-// TODO: Zmiana linka w menu głównym
-// TODO: Link zwrotny z ustawień powiadomień
 // Późniejsza przyszłosć (notify_logs i notify_caches)
-// TODO: Zmiana na stronie z ustawieniami powiadomień - dodanie notify_logs i notify_caches, przycisk linkujący z moją okolicą
+// TODO: Zmiana na stronie z ustawieniami powiadomień - dodanie notify_logs i notify_caches
 // TODO: Obsługa w kodzie notify_logs i notify_caches
 // TODO: Dodanie do panelu COG User obsługi notify_logs i notify_caches
-//
+
 class MyNeighbourhoodController extends BaseController
 {
 
