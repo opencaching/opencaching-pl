@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 15 15" width="16" height="16">
+    <defs>
+        <linearGradient id="linearGradient1" x1="50%" y1="0%" x2="50%" y2="100%" gradientUnits="userSpaceOnUse" >
+            <stop style="stop-color:#5f8cbb;stop-opacity:1" offset="0"/>
+            <stop style="stop-color:#5887b8;stop-opacity:1" offset="1" />
+        </linearGradient>
+        <radialGradient id="radialGradient1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+            <stop offset="0%" style="stop-color:#e6eff7;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
+        </radialGradient>
+    </defs>
+    <g>
+        <path
+            style="fill:url(#radialGradient1);fill-opacity:0.7;fill-rule:evenodd;stroke:url(#linearGradient1);stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.7;paint-order:normal"
+            d="m 0.5,2 a 2,2 0 0,1 2,-2 h 5.5 a 2,2 0 0,1 2,2 v 2.5 a 2,2 0 0,1 -2,2 h -3 l -2.5,2.5 v -2.5 a 2,2 0 0,1 -2,-2 z"
+        />
+    </g>
+    <g transform="translate(5,4)">
+        <path
+            style="fill:url(#radialGradient1);fill-opacity:1;fill-rule:evenodd;stroke:url(#linearGradient1);stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+            d="m 0.5,2 a 2,2 0 0,1 2,-2 h 5.5 a 2,2 0 0,1 2,2 v 2.5 a 2,2 0 0,1 -2,2 h -3 l -2.5,2.5 v -2.5 a 2,2 0 0,1 -2,-2 z"
+        />
+    </g>
+</svg>
