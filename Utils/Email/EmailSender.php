@@ -14,6 +14,7 @@ use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\User\User;
+use Utils\Uri\SimpleRouter;
 
 class EmailSender
 {
@@ -332,6 +333,7 @@ class EmailSender
         $formattedMessage->addFooterAndHeader($user->getUserName());
         $formattedMessage->setVariable('intro', tr('notify_intro' . $pluralSuffix));
         $formattedMessage->setVariable('absolute_server_URI', OcConfig::getAbsolute_server_URI());
+        $formattedMessage->setVariable('mynbhUrl', SimpleRouter::getAbsLink('MyNeighbourhood','config'));
         $formattedMessage->setVariable('content', $content);
 
         $email = new Email();

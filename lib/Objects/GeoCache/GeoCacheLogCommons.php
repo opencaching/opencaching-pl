@@ -6,10 +6,10 @@ use lib\Objects\BaseObject;
 
 /**
  * Common consts etc. for geocache log
- *
  */
 
-class GeoCacheLogCommons extends BaseObject{
+class GeoCacheLogCommons extends BaseObject
+{
 
     const LOGTYPE_FOUNDIT = 1;
     const LOGTYPE_DIDNOTFIND = 2;
@@ -35,44 +35,44 @@ class GeoCacheLogCommons extends BaseObject{
 
         switch($logType){
             case self::LOGTYPE_FOUNDIT:
-                $icon = '16x16-found.png';
+                $icon = 'found.svg';
                 break;
             case self::LOGTYPE_DIDNOTFIND:
-                $icon = '16x16-dnf.png';
+                $icon = 'dnf.svg';
                 break;
             case self::LOGTYPE_COMMENT:
-                $icon = '16x16-note.png';
+                $icon = 'note.svg';
                 break;
             case self::LOGTYPE_MOVED:
-                $icon = '16x16-moved.png';
+                $icon = 'moved.svg';
                 break;
             case self::LOGTYPE_NEEDMAINTENANCE:
-                $icon = '16x16-need-maintenance.png';
+                $icon = 'need-maintenance.svg';
                 break;
             case self::LOGTYPE_MADEMAINTENANCE:
-                $icon = '16x16-made-maintenance.png';
+                $icon = 'made-maintenance.svg';
                 break;
             case self::LOGTYPE_ATTENDED:
-                $icon = '16x16-attend.png';
+                $icon = 'attend.svg';
                 break;
             case self::LOGTYPE_WILLATTENDED:
-                $icon = '16x16-will_attend.png';
+                $icon = 'will_attend.svg';
                 break;
             case self::LOGTYPE_ARCHIVED:
-                $icon = '16x16-trash.png';
+                $icon = 'trash.svg';
                 break;
             case self::LOGTYPE_READYTOSEARCH:
-                $icon = '16x16-published.png';
+                $icon = 'published.svg';
                 break;
             case self::LOGTYPE_TEMPORARYUNAVAILABLE:
-                $icon = '16x16-temporary.png';
+                $icon = 'temporary.svg';
                 break;
             case self::LOGTYPE_ADMINNOTE:
-                $icon = '16x16-octeam.png';
+                $icon = 'octeam.svg';
                 break;
             default:
                 Debug::errorLog("Unknown log type: $logType");
-                $icon = '16x16-found.png';
+                $icon = 'found.svg';
                 break;
 
         }
@@ -154,4 +154,3 @@ class GeoCacheLogCommons extends BaseObject{
     }
 
 }
-

@@ -1,9 +1,8 @@
 <?php
 
-use Utils\Database\XDb;
 use Utils\Database\OcDb;
+use Utils\Text\Formatter;
 
-global $dateFormat;
 require_once('./lib/common.inc.php');
 
 $tplname = 'cache_titled';
@@ -24,15 +23,6 @@ $query="SELECT
     JOIN user on user.user_id = caches.user_id
     JOIN cache_location ON cache_location.cache_id = cache_titled.cache_id
     WHERE caches.status=1";
-
-if ( isset( $_REQUEST[ 'type' ] ) )
-{
-    $latitude = XDb::xSimpleQueryValue("SELECT `latitude` FROM user WHERE user_id='" . XDb::xEscape($usr['userid']) . "'", 0);
-    $longitude = XDb::xSimpleQueryValue("SELECT `longitude` FROM user WHERE user_id='" . XDb::xEscape($usr['userid']) . "'", 0);
-    $distance = XDb::xSimpleQueryValue("SELECT `notify_radius` FROM user WHERE user_id='" . XDb::xEscape($usr['userid']) . "'", 0);
-
-    localCachesInc::createLocalCaches($dbcLocCache, $longitude, $latitude, $distance, $usrid);
-}
 
 $s = $dbcLocCache->simpleQuery($query);
 
@@ -61,7 +51,7 @@ for( $i = 0; $i < $dbcLocCache->rowCount($s); $i++ )
    $userNameRef = str_replace('{userId}', $ownId, $userNameRef );
    $userNameRef = str_replace('{userName}', $userName, $userNameRef );
 
-   $dateAlg = date($dateFormat, strtotime($record[ 'dateAlg' ]));
+   $dateAlg = Formatter::date($record[ 'dateAlg' ]);
    $dateAlgSort = date("y.m.d", strtotime($record[ 'dateAlg' ]));
 
    $cacheType = $record[ 'cache_type' ];
@@ -84,4 +74,3 @@ $view->loadJQueryUI();
 tpl_set_var( 'contentTable', $content );
 
 tpl_BuildTemplate();
-

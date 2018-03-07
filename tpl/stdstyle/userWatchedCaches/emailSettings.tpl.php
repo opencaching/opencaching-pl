@@ -1,6 +1,7 @@
 <?php
 
 use lib\Objects\User\UserWatchedCache;
+use Utils\Uri\SimpleRouter;
 
 ?>
 
@@ -54,7 +55,8 @@ use lib\Objects\User\UserWatchedCache;
         </label>
       </div>
       <div class="submitDiv">
-        <input type="submit" class="btn btn-primary btn-md" value="{{store}}" />
+        <input type="submit" class="btn btn-primary btn-md" value="{{store}}">
+        <a href="<?=SimpleRouter::getLink('MyNeighbourhood','config')?>" class="btn btn-default btn-md"><?=tr('my_neighborhood')?> (<?=tr('config')?>)</a>
       </div>
     </form>
 </div>

@@ -46,7 +46,6 @@ class ClassPathDictionary
         'cache' => 'lib/cache.php',
         'GeoKretyApi' => 'GeoKretyAPI.php',
         'myninc' => 'lib/myn.inc.php',
-        'localCachesInc' => 'lib/local_caches.inc.php',
         'powerTrailBase' => 'powerTrail/powerTrailBase.php',
         'powerTrailController' => 'powerTrail/powerTrailController.php',
         'sendEmail' => 'powerTrail/sendEmail.php',
