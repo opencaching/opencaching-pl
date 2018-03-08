@@ -21,7 +21,7 @@
   <g>
     <path
        style="fill:url(#linearGradient2);fill-opacity:1;fill-rule:evenodd;stroke:url(#linearGradient1);stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 1,11.2 a 2,2 0 0,0 2.5,3.1 l 3.5,-3.5 a 1.2,1.2 0 0,0 -2.5,-3.1 z"
+       d="m 1.1,11.1 a 2,2 0 0,0 2.5,3.1 l 3.5,-3.5 a 1.2,1.2 0 0,0 -2.5,-3.1 z"
        />
     <path
        style="fill:url(#linearGradient2);fill-opacity:1;fill-rule:evenodd;stroke:url(#linearGradient1);stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
@@ -33,7 +33,7 @@
        />
     <path
        style="fill:url(#linearGradient4);stroke:#8a8a8a;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:6;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 6.7,6.9 l 1,-1 a 3.2,3.2 0 0,1 2.8,-5.4 a 1,1 0 0,1 0.8,1 a 2,2 0 1,0 2.4,2.4 a 1,1 0 0,1 1,0.8 a 3.2,3.2 0 0,1 -5.4,2.8 l -1,1 a 1.8,1.8 0 0,1 -1.25,-1.25 z"
+       d="m 6.7,6.9 l 1,-1 a 3.2,3.2 0 0,1 2.8,-5.3 a 1,1 0 0,1 0.8,1 a 2,2 0 1,0 2.2,2.2 a 1,1 0 0,1 1,0.8 a 3.2,3.2 0 0,1 -5.3,2.8 l -1,1 a 1.8,1.8 0 0,1 -1.5,-1.5 z"
        />
   </g>
 </svg>
