@@ -31,6 +31,9 @@ $(".nbh-hide-toggle").on(
 					item : itemId
 				}
 			})
+			if (this.id == "nbh-map-hide") {
+				google.maps.event.trigger(dynamicMapParams_nbhmap.map, "resize");
+	}
 		});
 
 $(".nbh-size-toggle").on("click", function() {
