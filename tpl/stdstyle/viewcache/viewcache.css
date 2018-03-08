@@ -104,7 +104,6 @@ div#viewcache-description {
 	font-family: arial, sans serif;
 	line-height: 1.3em;
 	font-size: 12px;
-	margin: 0px 0px 0.5em 0em;
 }
 div#viewcache-description img {
 	max-width: 770px;
@@ -123,6 +122,10 @@ div#viewcache-description>ol {
 div#viewcache-description>sub,
 div#viewcache-description>sup {
 	font-size: 0.7em;
+}
+
+div#viewcache-description * {
+	margin: 0px 0px 0.5em 0px;
 }
 
 div#viewcache-utility                   { font-size: 12px; }
