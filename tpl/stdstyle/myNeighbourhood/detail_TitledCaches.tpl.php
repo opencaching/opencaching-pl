@@ -40,7 +40,7 @@ $logController = new LogEntryController();
             <span class="nbh-full-only"><br>
             <img src="<?=$cache->getDifficultyIcon()?>" alt="<?=tr('task_difficulty')?>: <?=$cache->getDifficulty() / 2?>" title="<?=tr('task_difficulty')?>: <?=$cache->getDifficulty() / 2?>">
             <img src="<?=$cache->getTerrainIcon()?>" alt="<?=tr('terrain_difficulty')?>: <?=$cache->getTerrain() / 2?>" title="<?=tr('terrain_difficulty')?>: <?=$cache->getTerrain() / 2?>">
-            <?=tr($cache->getSizeTranslationKey())?></span> | 
+            <?=tr($cache->getSizeTranslationKey())?></span> |
             <span class="nbh-nowrap"><?=round(Gis::distanceBetween($view->coords, $cache->getCoordinates()))?> km
             <img src="/tpl/stdstyle/images/misc/arrow-north.svg" class="nbh-arrow-north" alt="<?=tr('direction')?>" style="transform: rotate(<?=round(Gis::calcBearingBetween($view->coords, $cache->getCoordinates()))?>deg)"></span>
             <?php if ($cache->getRecommendations() > 0) { ?>
@@ -59,7 +59,7 @@ $logController = new LogEntryController();
           ?>
         </td>
         <?php
-          $log = $logController->loadLogs($cache, false, 0, 1); 
+          $log = $logController->loadLogs($cache, false, 0, 1);
           if (! empty($log)) { ?>
             <td onclick="location.href='<?=$log[0]->getLogUrl()?>';" style="cursor: pointer;">
               <div class="lightTipped">
@@ -83,5 +83,5 @@ $logController = new LogEntryController();
   </table>
   <?php $view->callChunkInline('pagination', $view->paginationModel);?>
   <div class="buffer"></div>
-  <div class="notice"><?=tr('myn_distances')?></div>>
+  <div class="notice"><?=tr('myn_distances')?></div>
 </div>

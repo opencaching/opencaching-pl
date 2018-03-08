@@ -1,6 +1,7 @@
 <?php
 use Utils\Gis\Gis;
 use lib\Objects\Neighbourhood\Neighbourhood;
+use Utils\Text\Formatter;
 use Utils\Uri\SimpleRouter;
 
 ?>
@@ -19,7 +20,7 @@ use Utils\Uri\SimpleRouter;
 
 <?php if (empty($view->latestCaches)) { ?>
   <div class="notice"><?=tr('list_of_caches_is_empty')?></div>
-<?php } else { 
+<?php } else {
   foreach ($view->latestCaches as $cache) {?>
   <div class="nbh-line-container">
     <a href="<?=$cache->getCacheUrl()?>">
@@ -34,8 +35,9 @@ use Utils\Uri\SimpleRouter;
         <span class="nbh-full-only"><?=tr('hidden_by')?></span><span class="nbh-min-only">|</span> <strong><?=$cache->getOwner()->getUserName()?></strong>
         <span class="nbh-full-only"><br>
         <img src="<?=$cache->getDifficultyIcon()?>" alt="<?=tr('task_difficulty')?>: <?=$cache->getDifficulty() / 2?>" title="<?=tr('task_difficulty')?>: <?=$cache->getDifficulty() / 2?>">
-        <img src="<?=$cache->getTerrainIcon()?>" alt="<?=tr('terrain_difficulty')?>: <?=$cache->getTerrain() / 2?>" title="<?=tr('terrain_difficulty')?>: <?=$cache->getTerrain() / 2?>">
-        <?=tr($cache->getSizeTranslationKey())?></span> | 
+        <img src="<?=$cache->getTerrainIcon()?>" alt="<?=tr('terrain_difficulty')?>: <?=$cache->getTerrain() / 2?>" title="<?=tr('terrain_difficulty')?>: <?=$cache->getTerrain() / 2?>"></span>
+        <span class="nbh-nowrap"><?=Formatter::date($cache->getDatePlaced())?></span> |
+        <span class="nbh-full-only"><?=tr($cache->getSizeTranslationKey())?> |</span>
         <span class="nbh-nowrap"><?=round(Gis::distanceBetween($view->neighbourhoodsList[$view->selectedNbh]->getCoords(), $cache->getCoordinates()))?> km
         <img src="/tpl/stdstyle/images/misc/arrow-north.svg" class="nbh-arrow-north" alt="<?=tr('direction')?>" style="transform: rotate(<?=round(Gis::calcBearingBetween($view->neighbourhoodsList[$view->selectedNbh]->getCoords(), $cache->getCoordinates()))?>deg)"></span>
         <?php if ($cache->getRecommendations() > 0) { ?>

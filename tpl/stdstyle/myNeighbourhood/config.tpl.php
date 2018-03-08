@@ -17,7 +17,7 @@ use Utils\Uri\SimpleRouter;
     if (count($view->neighbourhoodsList) <= $view->maxnbh) { ?>
     <a class="btn btn-md btn-success" href="<?=SimpleRouter::getLink('MyNeighbourhood', 'config', '-1')?>" title="<?=tr('myn_addarea_info')?>"><img src="/tpl/stdstyle/images/misc/plus-sign.svg" class="icon16" alt="<?=tr('new')?>">&nbsp;<?=tr('new')?></a>
   <?php } // end if ?>
-
+    <a href="<?=SimpleRouter::getLink('MyNeighbourhood', 'index', $view->selectedNbh) ?>" class="btn btn-default btn-md"><?=tr('exit_config')?></a>
 
 <?php if ($view->coordsOK == 0) {
     if ($view->selectedNbh == 0) { ?>

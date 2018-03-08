@@ -7,11 +7,10 @@ use lib\Objects\User\U2UEmailSender;
 use lib\Objects\User\User;
 use lib\Objects\User\UserPreferences\UserPreferences;
 use Utils\Text\UserInputFilter;
+use lib\Objects\User\UserPreferences\UserProfilePref;
 
 class UserProfileController extends BaseController
 {
-
-    const USER_PREFERENCES_KEY = 'UserProfile';
 
     /** @var User $requestedUser */
     private $requestedUser;
@@ -32,7 +31,7 @@ class UserProfileController extends BaseController
     public function isCallableFromRouter($actionName)
     {
         // all public methods can be called by router
-        return TRUE;
+        return true;
     }
 
     public function index()
@@ -42,10 +41,7 @@ class UserProfileController extends BaseController
 
     public function mailTo($userId = null, $subject = '')
     {
-        if (! $this->loggedUser) {
-            // this view is only for authorized user
-            $this->redirectToLoginPage();
-        }
+        $this->redirectNotLoggedUsers();
         if (! $this->prepareUserData($userId)) {
             // Bad request - user not selected.
             $this->view->redirect('/');
@@ -90,7 +86,7 @@ class UserProfileController extends BaseController
         // Save user preferences
         $this->preferences['email']['showMyEmail'] = isset($_POST['showMyEmail']);
         $this->preferences['email']['recieveCopy'] = isset($_POST['recieveCopy']);
-        UserPreferences::savePreferencesJson(self::USER_PREFERENCES_KEY, json_encode($this->preferences));
+        UserPreferences::savePreferencesJson(UserProfilePref::KEY, json_encode($this->preferences));
         // Send mail to recipient
         $result = U2UEmailSender::sendU2UMessage($this->loggedUser, $this->requestedUser, $subject, $content, $this->preferences['email']['showMyEmail']);
         if ($result && $this->preferences['email']['recieveCopy']) {
@@ -114,7 +110,7 @@ class UserProfileController extends BaseController
         if (($this->requestedUser = User::fromUserIdFactory($userId)) == null) {
             return false;
         }
-        $this->preferences = UserPreferences::getUserPrefsByKey(self::USER_PREFERENCES_KEY)->getValues();
+        $this->preferences = UserPreferences::getUserPrefsByKey(UserProfilePref::KEY)->getValues();
         return true;
     }
 
