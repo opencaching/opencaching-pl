@@ -31,18 +31,20 @@ use Utils\Text\UserInputFilter;
     </div>
     <div class="nbh-desc-container" onclick="location.href='<?=$log->getLogUrl()?>';" style="cursor: pointer;">
       <img src="<?=$log->getGeoCache()->getCacheIcon($view->user) ?>" class="icon16" title="<?=tr($log->getGeoCache()->getCacheTypeTranslationKey()) ?>" alt="<?=tr('cache') ?>">
-      <strong><?=$log->getGeoCache()->getCacheName() ?></strong>
-      <?php if ($log->getGeoCache()->isPowerTrailPart()) { ?>
-        <img src="<?=$log->getGeoCache()->getPowerTrail()->getFootIcon()?>" alt="<?=tr('pt002')?>" title="<?=htmlspecialchars($log->getGeoCache()->getPowerTrail()->getName())?>">
-      <?php } // end of if isPowerTrailPart?>
-      <span class="nbh-full-only"><?=tr('hidden_by')?> <strong><?=$log->getGeoCache()->getOwner()->getUserName()?></strong><br></span>
-      <?php if ($log->isRecommendedByUser($log->getUser()->getUserId())) { ?>
-        <img src="/images/rating-star.png" alt="<?=tr('number_obtain_recommendations')?>"> |
-      <?php } // end of if isRecommendedByUser ?>
-      <span class="nbh-nowrap"><?=Formatter::date($log->getDate())?></span>
-      | <span class="nbh-nowrap"><?=round(Gis::distanceBetween($view->neighbourhoodsList[$view->selectedNbh]->getCoords(), $log->getGeoCache()->getCoordinates()))?> km
-      <img src="/tpl/stdstyle/images/misc/arrow-north.svg" class="nbh-arrow-north" alt="<?=tr('direction')?>" style="transform: rotate(<?=round(Gis::calcBearingBetween($view->neighbourhoodsList[$view->selectedNbh]->getCoords(), $log->getGeoCache()->getCoordinates()))?>deg)"></span>
-      | <strong><?=$log->getUser()->getUserName()?></strong>
+      <a href="<?=$log->getLogUrl()?>">
+        <strong><?=$log->getGeoCache()->getCacheName() ?></strong>
+        <?php if ($log->getGeoCache()->isPowerTrailPart()) { ?>
+          <img src="<?=$log->getGeoCache()->getPowerTrail()->getFootIcon()?>" alt="<?=tr('pt002')?>" title="<?=htmlspecialchars($log->getGeoCache()->getPowerTrail()->getName())?>">
+        <?php } // end of if isPowerTrailPart?>
+        <span class="nbh-full-only"><?=tr('hidden_by')?> <strong><?=$log->getGeoCache()->getOwner()->getUserName()?></strong><br></span>
+        <?php if ($log->isRecommendedByUser($log->getUser()->getUserId())) { ?>
+          <img src="/images/rating-star.png" alt="<?=tr('number_obtain_recommendations')?>"> |
+        <?php } // end of if isRecommendedByUser ?>
+        <span class="nbh-nowrap"><?=Formatter::date($log->getDate())?></span>
+        | <span class="nbh-nowrap"><?=round(Gis::distanceBetween($view->neighbourhoodsList[$view->selectedNbh]->getCoords(), $log->getGeoCache()->getCoordinates()))?> km
+        <img src="/tpl/stdstyle/images/misc/arrow-north.svg" class="nbh-arrow-north" alt="<?=tr('direction')?>" style="transform: rotate(<?=round(Gis::calcBearingBetween($view->neighbourhoodsList[$view->selectedNbh]->getCoords(), $log->getGeoCache()->getCoordinates()))?>deg)"></span>
+        | <strong><?=$log->getUser()->getUserName()?></strong>
+      </a>
       </div>
   </div>
   <div class="lightTip"><?=UserInputFilter::purifyHtmlString($log->getText())?></div>
