@@ -95,13 +95,38 @@ class MyNeighbourhoodController extends BaseController
         $this->view->setVar('preferences', $preferences);
         $this->view->setVar('user', $this->loggedUser);
         $mapModel = new DynamicMapModel();
-        $allCaches = array_merge($latestCaches, $upcomingEvents, $ftfCaches, $topRatedCaches, $latestTitled);
+        $allCaches = [];
+        foreach ($preferences['items'] as $sectionName => $sectionConfig) {
+            if ($sectionConfig['show']) {
+                switch ($sectionName) {
+                    case Neighbourhood::ITEM_LATESTCACHES:
+                        $allCaches = array_merge($allCaches, $latestCaches);
+                        break;
+                    case Neighbourhood::ITEM_UPCOMINGEVENTS:
+                        $allCaches = array_merge($allCaches, $upcomingEvents);
+                        break;
+                    case Neighbourhood::ITEM_FTFCACHES:
+                        $allCaches = array_merge($allCaches, $ftfCaches);
+                        break;
+                    case Neighbourhood::ITEM_TITLEDCACHES:
+                        $allCaches = array_merge($allCaches, $latestTitled);
+                        break;
+                    case Neighbourhood::ITEM_RECOMMENDEDCACHES:
+                        $allCaches = array_merge($allCaches, $topRatedCaches);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
         $mapModel->addMarkers(CacheMarkerModel::class, $allCaches, function($row){
             return CacheMarkerModel::fromGeocacheFactory($row, $this->loggedUser);
         });
-        $mapModel->addMarkers(LogMarkerModel::class, $latestLogs, function($row){
-            return LogMarkerModel::fromGeoCacheLogFactory($row, $this->loggedUser);
-                });
+        if ($preferences['items'][Neighbourhood::ITEM_LATESTLOGS]['show']) {
+            $mapModel->addMarkers(LogMarkerModel::class, $latestLogs, function($row){
+                return LogMarkerModel::fromGeoCacheLogFactory($row, $this->loggedUser);
+            });
+            }
         $this->view->setVar('mapModel', $mapModel);
         $this->view->loadGMapApi();
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/myNeighbourhood-' . $preferences['style']['name'] . '.css'));
