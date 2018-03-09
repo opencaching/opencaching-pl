@@ -19,7 +19,7 @@ use Utils\Uri\SimpleRouter;
 <div class="nbh-block-content<?=$view->preferences['items'][Neighbourhood::ITEM_LATESTCACHES]['show'] == true ? '' : ' nbh-nodisplay'?>">
 
 <?php if (empty($view->latestCaches)) { ?>
-  <div class="notice"><?=tr('list_of_caches_is_empty')?></div>
+  <div class="align-center"><?=tr('list_of_caches_is_empty')?></div>
 <?php } else {
   foreach ($view->latestCaches as $cache) {?>
   <div class="nbh-line-container">

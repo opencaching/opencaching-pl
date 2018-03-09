@@ -19,8 +19,8 @@ use Utils\Uri\SimpleRouter;
 <div class="nbh-block-content<?=$view->preferences['items'][Neighbourhood::ITEM_UPCOMINGEVENTS]['show'] == true ? '' : ' nbh-nodisplay'?>">
 
 <?php if (empty($view->upcomingEvents)) { ?>
-  <div class="notice"><?=tr('list_of_events_is_empty')?></div>
-<?php } else { 
+  <div class="align-center"><?=tr('list_of_events_is_empty')?></div>
+<?php } else {
   foreach ($view->upcomingEvents as $cache) {?>
   <div class="nbh-line-container">
     <a href="<?=$cache->getCacheUrl()?>">
@@ -38,6 +38,6 @@ use Utils\Uri\SimpleRouter;
       </div>
     </a>
   </div>
-  <?php } //end foreach 
+  <?php } //end foreach
 } ?>
 </div>

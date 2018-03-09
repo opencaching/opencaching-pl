@@ -20,7 +20,7 @@ use Utils\Uri\SimpleRouter;
 <div class="nbh-block-content<?=$view->preferences['items'][Neighbourhood::ITEM_TITLEDCACHES]['show'] == true ? '' : ' nbh-nodisplay'?>">
 
 <?php if (empty($view->latestTitled)) { ?>
-  <div class="notice"><?=tr('list_of_caches_is_empty')?></div>
+  <div class="align-center"><?=tr('list_of_caches_is_empty')?></div>
 <?php } else { ?>
   <?php foreach ($view->latestTitled as $cache) {
       $cacheTitled = CacheTitled::fromCacheIdFactory($cache->getCacheId());
@@ -52,6 +52,6 @@ use Utils\Uri\SimpleRouter;
   </div>
   <?php
       unset($cacheTitled);
-  } //end foreach 
+  } //end foreach
 } ?>
 </div>

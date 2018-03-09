@@ -18,8 +18,8 @@ use Utils\Uri\SimpleRouter;
 <div class="nbh-block-content<?=$view->preferences['items'][Neighbourhood::ITEM_RECOMMENDEDCACHES]['show'] == true ? '' : ' nbh-nodisplay'?>">
 
 <?php if (empty($view->topRatedCaches)) { ?>
-  <div class="notice"><?=tr('list_of_caches_is_empty')?></div>
-<?php } else { 
+  <div class="align-center"><?=tr('list_of_caches_is_empty')?></div>
+<?php } else {
   foreach ($view->topRatedCaches as $cache) {?>
   <div class="nbh-line-container">
     <a href="<?=$cache->getCacheUrl()?>">
@@ -35,7 +35,7 @@ use Utils\Uri\SimpleRouter;
         <span class="nbh-full-only"><br>
         <img src="<?=$cache->getDifficultyIcon()?>" alt="<?=tr('task_difficulty')?>: <?=$cache->getDifficulty() / 2?>" title="<?=tr('task_difficulty')?>: <?=$cache->getDifficulty() / 2?>">
         <img src="<?=$cache->getTerrainIcon()?>" alt="<?=tr('terrain_difficulty')?>: <?=$cache->getTerrain() / 2?>" title="<?=tr('terrain_difficulty')?>: <?=$cache->getTerrain() / 2?>">
-        <?=tr($cache->getSizeTranslationKey())?></span> | 
+        <?=tr($cache->getSizeTranslationKey())?></span> |
         <span class="nbh-nowrap"><?=round(Gis::distanceBetween($view->neighbourhoodsList[$view->selectedNbh]->getCoords(), $cache->getCoordinates()))?> km
         <img src="/tpl/stdstyle/images/misc/arrow-north.svg" class="nbh-arrow-north" alt="<?=tr('direction')?>" style="transform: rotate(<?=round(Gis::calcBearingBetween($view->neighbourhoodsList[$view->selectedNbh]->getCoords(), $cache->getCoordinates()))?>deg)"></span>
         | <img src="/images/rating-star.png" alt="<?=tr('number_obtain_recommendations')?>">
