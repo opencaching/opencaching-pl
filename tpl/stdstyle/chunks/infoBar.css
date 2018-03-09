@@ -8,8 +8,8 @@
 	cursor: pointer;
 	background-image: url("/tpl/stdstyle/images/misc/btn_close_normal.svg");
 	background-size: cover;
-	height: 20px;
-	width: 20px;
+	height: 18px;
+	width: 18px;
 	display: inline-block;
 }
 
@@ -22,7 +22,8 @@
 	text-align: center;
 	padding: 15px;
 	margin-bottom: 10px;
-	border-radius: 7px;
+	border-radius: 5px;
+	position: relative;
 }
 
 .infoBar-messageErr {
@@ -46,6 +47,7 @@
 }
 
 .infoBar-closeBtnContainer {
-	display: inline-block;
-	vertical-align: middle;
+	position: absolute;
+	top: 5px;
+	right: 5px;
 }
