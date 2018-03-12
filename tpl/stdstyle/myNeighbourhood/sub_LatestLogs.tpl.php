@@ -21,7 +21,7 @@ use Utils\Text\UserInputFilter;
 <div class="nbh-block-content<?=$view->preferences['items'][Neighbourhood::ITEM_LATESTLOGS]['show'] == true ? '' : ' nbh-nodisplay'?>">
 
 <?php if (empty($view->latestLogs)) { ?>
-    <div class="notice"><?=tr('list_of_latest_logs_is_empty')?></div>
+    <div class="align-center"><?=tr('list_of_latest_logs_is_empty')?></div>
 <?php } else {
   foreach ($view->latestLogs as $log) {?>
   <div class="nbh-line-container">

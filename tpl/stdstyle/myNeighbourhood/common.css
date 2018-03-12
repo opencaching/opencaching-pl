@@ -154,3 +154,13 @@ legend {
 	vertical-aling: middle;
 	margin-bottom: -3px;
 }
+
+.nbh-top-config-btns {
+	background-color: #df4e49;
+	padding: 3px 10px;
+	border-radius: 3px;
+	margin-bottom: 5px;
+}
+.nbh-button-right {
+	float: right;
+}

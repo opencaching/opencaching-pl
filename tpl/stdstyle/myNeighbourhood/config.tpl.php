@@ -4,20 +4,24 @@ use Utils\Uri\SimpleRouter;
 ?>
 <div class="content2-container">
   <?=$view->callChunk('infoBar', null, $view->infoMsg, $view->errorMsg)?>
-  <a class="btn btn-md <?=($view->selectedNbh == 0) ? 'btn-primary' : 'btn-default'?>" href="<?=SimpleRouter::getLink('MyNeighbourhood', 'config', 0)?>"><?=tr('my_neighborhood')?></a>
-  <?php foreach ($view->neighbourhoodsList as $nbh) {
-    if ($nbh->getSeq() == 0) {
-        continue;
-    } ?>
+  <div class="nbh-top-config-btns">
+    <a class="btn btn-md <?=($view->selectedNbh == 0) ? 'btn-primary' : 'btn-default'?>" href="<?=SimpleRouter::getLink('MyNeighbourhood', 'config', 0)?>"><?=tr('my_neighborhood')?></a>
+    <?php foreach ($view->neighbourhoodsList as $nbh) {
+      if ($nbh->getSeq() == 0) {
+          continue;
+      } ?>
     <a class="btn btn-md <?=($view->selectedNbh == $nbh->getSeq()) ? 'btn-primary' : 'btn-default'?>" href="<?=SimpleRouter::getLink('MyNeighbourhood', 'config', $nbh->getSeq())?>"><?=$nbh->getName()?></a>
-  <?php } // end foreach neighbourhoodsList ?>
-  <?php if ($view->selectedNbh == -1) { ?>
+    <?php } // end foreach neighbourhoodsList ?>
+    <?php if ($view->selectedNbh == -1) { ?>
     <a class="btn btn-md btn-primary" href="<?=SimpleRouter::getLink('MyNeighbourhood', 'config', '-1')?>">?</a>
-  <?php } // end if selectedNbh = -1
-    if (count($view->neighbourhoodsList) <= $view->maxnbh) { ?>
+    <?php } // end if selectedNbh = -1
+      if (count($view->neighbourhoodsList) <= $view->maxnbh) { ?>
     <a class="btn btn-md btn-success" href="<?=SimpleRouter::getLink('MyNeighbourhood', 'config', '-1')?>" title="<?=tr('myn_addarea_info')?>"><img src="/tpl/stdstyle/images/misc/plus-sign.svg" class="icon16" alt="<?=tr('new')?>">&nbsp;<?=tr('new')?></a>
-  <?php } // end if ?>
-    <a href="<?=SimpleRouter::getLink('MyNeighbourhood', 'index', $view->selectedNbh) ?>" class="btn btn-default btn-md"><?=tr('exit_config')?></a>
+    <?php } // end if ?>
+    <span class="nbh-button-right">
+      <a href="<?=SimpleRouter::getLink('MyNeighbourhood', 'index', $view->selectedNbh) ?>" class="btn btn-default btn-md"><?=tr('exit_config')?></a>
+    </span>
+  </div>
 
 <?php if ($view->coordsOK == 0) {
     if ($view->selectedNbh == 0) { ?>
