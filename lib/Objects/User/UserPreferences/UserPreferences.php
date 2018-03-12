@@ -121,10 +121,10 @@ class UserPreferences extends BaseObject
      */
     private static function getUserPrefObjForKey($key){
 
-        if ( isset(self::ALLOWED_KEYS[$key]) ) {
+        if (array_key_exists($key, self::ALLOWED_KEYS)) {
             $className = self::ALLOWED_KEYS[$key];
             return new $className($key);
-        }else{
+        } else {
             Debug::errorLog(__METHOD__.": Unknown class for key: $key");
             return null;
         }
