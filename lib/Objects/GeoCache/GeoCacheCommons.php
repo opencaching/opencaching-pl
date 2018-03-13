@@ -208,12 +208,17 @@ class GeoCacheCommons extends BaseObject {
     /**
      * Retrurn cache icon based on its type and status
      *
-     * @param enum $type
-     * @param enum $status
+     * @param enum $type the cache type
+     * @param enum $status the cache status
+     * @param enum $logStatus (optional) log status information to include in icon
+     * @param bool $fileNameOnly (optional) true if the result should be a filename,
+     *     false (default) if it should be prefixed by full path
+     * @param bool $isOwner (optional) true if the icon should be for the cache owner,
+     *     false (default) otherwise
      * @return string - path + filename of the right icon
      */
     public static function CacheIconByType(
-        $type, $status, $logStatus = null, $fileNameOnly = false)
+        $type, $status, $logStatus = null, $fileNameOnly = false, $isOwner = false)
     {
 
         $statusPart = ""; //part of icon name represents cache status
@@ -242,6 +247,10 @@ class GeoCacheCommons extends BaseObject {
             case GeoCacheLog::LOGTYPE_DIDNOTFIND:
                 $logStatusPart = '-dnf';
                 break;
+            default:
+                if ($isOwner) {
+                    $logStatusPart = '-owner';
+                }
         }
 
         $typePart = ""; //part of icon name represents cache type
