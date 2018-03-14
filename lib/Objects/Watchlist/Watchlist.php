@@ -5,7 +5,7 @@
 namespace lib\Objects\Watchlist;
 
 use lib\Objects\BaseObject;
-use lib\Objects\User\UserWatchedCache;
+use lib\Objects\Notify\Notify;
 use Utils\Database\OcDb;
 use Utils\Log\Log;
 
@@ -172,12 +172,12 @@ class Watchlist extends BaseObject
                  . self::WATCHTYPE_OWNER . ", " . self::WATCHTYPE_WATCH . ")
              WHERE
                  (u.watchmail_mode = "
-                     . UserWatchedCache::SEND_NOTIFICATION_HOURLY .
+                     . Notify::SEND_NOTIFICATION_HOURLY .
                  " AND ww.id IS NOT NULL)
                  OR
                  (u.watchmail_mode IN ("
-                     . UserWatchedCache::SEND_NOTIFICATION_DAILY
-                     . ", " . UserWatchedCache::SEND_NOTIFICATION_WEEKLY . ")
+                     . Notify::SEND_NOTIFICATION_DAILY
+                     . ", " . Notify::SEND_NOTIFICATION_WEEKLY . ")
                   AND u.watchmail_nextmail < NOW()
                  )
              ORDER BY u.user_id, ww.id DESC"
@@ -206,7 +206,7 @@ class Watchlist extends BaseObject
             if ($row['watchtype'] != null && (
                 (
                     $currentWatcher->getWatchmailMode() ==
-                    UserWatchedCache::SEND_NOTIFICATION_HOURLY
+                    Notify::SEND_NOTIFICATION_HOURLY
                 ) || (
                     $currentWatcher->getWatchmailNext() != null
                     && $currentWatcher->getWatchmailNext()->getTimestamp() > 0

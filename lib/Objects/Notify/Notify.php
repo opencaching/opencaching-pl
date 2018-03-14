@@ -8,6 +8,13 @@ use lib\Objects\User\User;
 class Notify extends BaseObject
 {
 
+    // Frequency of sending notifications
+    const SEND_NOTIFICATION_DAILY = 0;
+
+    const SEND_NOTIFICATION_HOURLY = 1;
+
+    const SEND_NOTIFICATION_WEEKLY = 2;
+
     /* @var integer */
     private $id;
 
@@ -141,7 +148,7 @@ class Notify extends BaseObject
      */
     public static function generateNotifiesForCache($cacheId)
     {
-        if (is_null($cache = GeoCache::fromCacheIdFactory($cacheId))) { //Check for sure
+        if (is_null($cache = GeoCache::fromCacheIdFactory($cacheId))) { // Check for sure
             exit();
         }
         // Check user's home coords

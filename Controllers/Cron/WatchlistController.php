@@ -10,6 +10,7 @@ use lib\Objects\Watchlist\WatchlistItem;
 use lib\Objects\Watchlist\WatchlistReport;
 use lib\Objects\Watchlist\WatchlistWatcher;
 use lib\Objects\Watchlist\Watchlist;
+use lib\Objects\Notify\Notify;
 use lib\Objects\User\UserWatchedCache;
 use Utils\Lock\Lock;
 
@@ -195,12 +196,12 @@ class WatchlistController extends BaseController
         $result = null;
         if (
             $watcher->getWatchmailMode() !=
-                UserWatchedCache::SEND_NOTIFICATION_HOURLY
+                Notify::SEND_NOTIFICATION_HOURLY
         ) {
             $now = new \DateTime();
             if (
                 $watcher->getWatchmailMode() ==
-                    UserWatchedCache::SEND_NOTIFICATION_DAILY
+                    Notify::SEND_NOTIFICATION_DAILY
             ) {
                 $result = $now ->
                     setDate(
@@ -211,7 +212,7 @@ class WatchlistController extends BaseController
                     setTime($watcher->getWatchmailHour(), 0, 0);
             } elseif (
                 $watcher->getWatchmailMode() ==
-                    UserWatchedCache::SEND_NOTIFICATION_WEEKLY
+                    Notify::SEND_NOTIFICATION_WEEKLY
             ) {
                 $weekday = $now->format('w');
                 if ($weekday == 0) {

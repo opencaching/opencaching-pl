@@ -6,10 +6,6 @@ use lib\Objects\BaseObject;
 
 class UserWatchedCache extends BaseObject
 {
-    const SEND_NOTIFICATION_DAILY = 0;
-    const SEND_NOTIFICATION_HOURLY = 1;
-    const SEND_NOTIFICATION_WEEKLY = 2;
-
     public static function addCacheToWatched($userId, $cacheWp){
         $params = [
             'cache_code' => $cacheWp,

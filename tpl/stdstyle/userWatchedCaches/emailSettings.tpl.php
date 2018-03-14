@@ -1,6 +1,6 @@
 <?php
 
-use lib\Objects\User\UserWatchedCache;
+use lib\Objects\Notify\Notify;
 use Utils\Uri\SimpleRouter;
 
 ?>
@@ -20,13 +20,13 @@ use Utils\Uri\SimpleRouter;
             <?=tr('usrWatch_sendNotifications')?>
             <select id="intervalSelect" name="watchmail_mode" onChange="intervalChanged()"
                     class="">
-                <option value="<?=UserWatchedCache::SEND_NOTIFICATION_HOURLY?>">
+                <option value="<?=Notify::SEND_NOTIFICATION_HOURLY?>">
                   <?=tr('usrWatch_hourlyMode');?>
                 </option>
-                <option value="<?=UserWatchedCache::SEND_NOTIFICATION_DAILY?>">
+                <option value="<?=Notify::SEND_NOTIFICATION_DAILY?>">
                   <?=tr('usrWatch_dailyMode');?>
                 </option>
-                <option value="<?=UserWatchedCache::SEND_NOTIFICATION_WEEKLY?>">
+                <option value="<?=Notify::SEND_NOTIFICATION_WEEKLY?>">
                   <?=tr('usrWatch_weeklyMode');?>
                 </option>
             </select>
@@ -65,18 +65,18 @@ use Utils\Uri\SimpleRouter;
 function intervalChanged(){
 
   switch( $( "#intervalSelect" ).val() ){
-    case '<?=UserWatchedCache::SEND_NOTIFICATION_HOURLY?>':
+    case '<?=Notify::SEND_NOTIFICATION_HOURLY?>':
       console.log('A');
       $("#watch_hour_selector").hide();
       $("#watch_day_selector").hide();
 
       break;
-    case '<?=UserWatchedCache::SEND_NOTIFICATION_DAILY?>':
+    case '<?=Notify::SEND_NOTIFICATION_DAILY?>':
       console.log('B');
       $("#watch_hour_selector").show();
       $("#watch_day_selector").hide();
       break;
-    case '<?=UserWatchedCache::SEND_NOTIFICATION_WEEKLY?>':
+    case '<?=Notify::SEND_NOTIFICATION_WEEKLY?>':
       console.log('C');
       $("#watch_hour_selector").show();
       $("#watch_day_selector").show();

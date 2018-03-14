@@ -3,6 +3,7 @@ namespace Controllers;
 
 use lib\Objects\ChunkModels\DynamicMap\DynamicMapModel;
 use lib\Objects\ChunkModels\ListOfCaches\ListOfCachesModel;
+use lib\Objects\Notify\Notify;
 use lib\Objects\User\UserWatchedCache;
 use lib\Objects\ChunkModels\ListOfCaches\Column_CacheName;
 use lib\Objects\ChunkModels\ListOfCaches\Column_CacheTypeIcon;
@@ -14,7 +15,6 @@ use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\GeoCache\GeoCacheLogCommons;
 use lib\Objects\ChunkModels\DynamicMap\CacheWithLogMarkerModel;
 use lib\Objects\GeoCache\GeoCacheLog;
-use lib\Objects\User\User;
 use lib\Objects\GeoCache\GeoCache;
 use Utils\Text\Formatter;
 
@@ -188,7 +188,7 @@ class UserWatchedCachesController extends BaseController
             // email settings are wrong - reset to defaults
 
             // by default send notification: hourly
-            $watchmailMode = UserWatchedCache::SEND_NOTIFICATION_HOURLY;
+            $watchmailMode = Notify::SEND_NOTIFICATION_HOURLY;
             $watchmailHour = 0; // default at midnight
             $watchmailDay = 7;  // default sunday
 
@@ -208,9 +208,9 @@ class UserWatchedCachesController extends BaseController
 
         return (is_numeric($watchmailMode) &&
             in_array($watchmailMode,
-                [UserWatchedCache::SEND_NOTIFICATION_DAILY,
-                    UserWatchedCache::SEND_NOTIFICATION_HOURLY,
-                    UserWatchedCache::SEND_NOTIFICATION_WEEKLY]) &&
+                [Notify::SEND_NOTIFICATION_DAILY,
+                    Notify::SEND_NOTIFICATION_HOURLY,
+                    Notify::SEND_NOTIFICATION_WEEKLY]) &&
             is_numeric($watchmailHour) &&
             $watchmailHour >= 0 && $watchmailHour <= 23 &&
             is_numeric($watchmailDay) &&
