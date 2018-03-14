@@ -4,6 +4,7 @@ namespace lib\Objects\Neighbourhood;
 use lib\Objects\BaseObject;
 use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\User\User;
+use lib\Controllers\Php7Handler;
 
 class Neighbourhood extends BaseObject
 {
@@ -18,7 +19,7 @@ class Neighbourhood extends BaseObject
 
     /**
      * Id in DB
-     * 
+     *
      * @var integer
      */
     private $id;
@@ -30,38 +31,45 @@ class Neighbourhood extends BaseObject
 
     /**
      * User who neighbourhood belongs to
-     * 
+     *
      * @var User
      */
     private $user = null;
 
     /**
      * Number in neighbourhoods sequence
-     * 
+     *
      * @var integer
      */
     private $seq;
 
     /**
      * Name of neighbourhood
-     * 
+     *
      * @var string
      */
     private $name;
 
     /**
      * Coords of neighbourhood's center
-     * 
+     *
      * @var Coordinates
      */
     private $coords;
 
     /**
      * Radius of neighbourhood
-     * 
+     *
      * @var int
      */
     private $radius;
+
+    /**
+     * User will receive new cache notifications from this Nbh
+     *
+     * @var bool
+     */
+    private $notify = false;
 
     public function __construct()
     {
@@ -106,6 +114,11 @@ class Neighbourhood extends BaseObject
         return $this->radius;
     }
 
+    public function getNotify()
+    {
+        return $this->notify;
+    }
+
     public function setId($id)
     {
         $this->id = $id;
@@ -136,9 +149,14 @@ class Neighbourhood extends BaseObject
         $this->radius = $radius;
     }
 
+    public function setNotify($notify)
+    {
+        $this->notify = $notify;
+    }
+
     /**
      * Factory
-     * 
+     *
      * @param integer $id - Id of Neighbourhood in DB
      * @return Neighbourhood|null
      */
@@ -172,6 +190,7 @@ class Neighbourhood extends BaseObject
             $myNgh->setName(tr('my_neighborhood'));
             $myNgh->setCoords($user->getHomeCoordinates());
             $myNgh->setRadius($user->getNotifyRadius());
+            $myNgh->setNotify($user->getNotifyCaches());
             $myNgh->dataLoaded = true;
             $myNgh->prepareForSerialization();
             $result[0] = $myNgh;
@@ -209,7 +228,7 @@ class Neighbourhood extends BaseObject
 
     /**
      * Stores (create lub modify in DB) additional user's neighbourhood
-     * 
+     *
      * @param User $user
      * @param Coordinates $coords
      * @param int $radius
@@ -217,23 +236,24 @@ class Neighbourhood extends BaseObject
      * @param int $seq - if null - get first available number
      * @return boolean
      */
-    public static function storeUserNeighbourhood(User $user, Coordinates $coords, $radius, $name, $seq = null)
+    public static function storeUserNeighbourhood(User $user, Coordinates $coords, $radius, $name, $seq = null, $notify = false)
     {
         if (is_null($seq)) {
             $seq = self::getMaxUserSeq($user) + 1;
         }
         $query = '
             INSERT INTO `user_neighbourhoods`
-              (`user_id`, `seq`, `name`, `longitude`, `latitude`, `radius`)
+              (`user_id`, `seq`, `name`, `longitude`, `latitude`, `radius`, `notify`)
             VALUES
-              (:1, :2, :3, :4, :5, :6)
+              (:1, :2, :3, :4, :5, :6, :7)
             ON DUPLICATE KEY UPDATE
               `name` = :3,
               `longitude` = :4,
               `latitude` = :5,
-              `radius` = :6
+              `radius` = :6,
+              `notify` = :7
             ';
-        return (self::db()->multiVariableQuery($query, $user->getUserId(), (int) $seq, $name, $coords->getLongitude(), $coords->getLatitude(), (int) $radius) !== null);
+        return (self::db()->multiVariableQuery($query, $user->getUserId(), (int) $seq, $name, $coords->getLongitude(), $coords->getLatitude(), (int) $radius, Php7Handler::Boolval($notify)) !== null);
     }
 
     /**
@@ -259,7 +279,7 @@ class Neighbourhood extends BaseObject
 
     /**
      * Returns max seq number for user's additional nbh
-     * 
+     *
      * @param User $user
      * @return int
      */
@@ -301,6 +321,7 @@ class Neighbourhood extends BaseObject
         $this->name = $neighbourhoodDbRow['name'];
         $this->coords = Coordinates::FromCoordsFactory($neighbourhoodDbRow['latitude'], $neighbourhoodDbRow['longitude']);
         $this->radius = $neighbourhoodDbRow['radius'];
+        $this->notify = $neighbourhoodDbRow['notify'];
         $this->dataLoaded = true;
         return $this;
     }
