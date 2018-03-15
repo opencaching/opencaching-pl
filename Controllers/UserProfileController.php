@@ -2,11 +2,14 @@
 namespace Controllers;
 
 use Utils\Log\Log;
+use Utils\Text\UserInputFilter;
 use Utils\Uri\Uri;
+use lib\Objects\Neighbourhood\Neighbourhood;
+use lib\Objects\Notify\Notify;
 use lib\Objects\User\U2UEmailSender;
 use lib\Objects\User\User;
+use lib\Objects\User\UserNotify;
 use lib\Objects\User\UserPreferences\UserPreferences;
-use Utils\Text\UserInputFilter;
 use lib\Objects\User\UserPreferences\UserProfilePref;
 
 class UserProfileController extends BaseController
@@ -39,6 +42,138 @@ class UserProfileController extends BaseController
         // there is nothing here yet
     }
 
+    /**
+     * Displays page to change notification settings
+     */
+    public function notifySettings()
+    {
+        $this->redirectNotLoggedUsers();
+
+        $neighbourhoods = Neighbourhood::getAdditionalNeighbourhoodsList($this->loggedUser);
+
+        $settings = $this->loggedUser->getCacheWatchEmailSettings();
+        // check settings and reset to defaults if necessary
+        $watchmailMode = $settings['watchmail_mode'];
+        $watchmailHour = $settings['watchmail_hour'];
+        $watchmailDay = $settings['watchmail_day'];
+
+        if (! $this->areEmailSettingsInScope($watchmailMode, $watchmailHour, $watchmailDay)) {
+
+            // email settings are wrong - reset to defaults
+            // by default send notification: hourly
+            $watchmailMode = Notify::SEND_NOTIFICATION_HOURLY;
+            $watchmailHour = 0; // default at midnight
+            $watchmailDay = 7; // default sunday
+
+            $this->loggedUser->updateCacheWatchEmailSettings($watchmailMode, $watchmailHour, $watchmailDay);
+        }
+
+        $this->view->setVar('intervalSelected', $watchmailMode);
+        $this->view->setVar('weekDaySelected', $watchmailDay);
+        $this->view->setVar('hourSelected', $watchmailHour);
+        $this->view->setVar('notifyCaches', $this->loggedUser->getNotifyCaches());
+        $this->view->setVar('notifyLogs', $this->loggedUser->getNotifyLogs());
+        $this->view->setVar('neighbourhoods', $neighbourhoods);
+        $this->view->setTemplate('userProfile/notifySettings');
+        $this->view->loadJQuery();
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/userProfile/userProfile.css'));
+        $this->view->buildView();
+    }
+
+    /**
+     * Checks if given params are right settings for notification period
+     *
+     * @param int $watchmailMode
+     * @param int $watchmailHour
+     * @param int $watchmailDay
+     * @return boolean
+     */
+    private function areEmailSettingsInScope($watchmailMode, $watchmailHour, $watchmailDay)
+    {
+        return (is_numeric($watchmailMode) && in_array($watchmailMode, [
+            Notify::SEND_NOTIFICATION_DAILY,
+            Notify::SEND_NOTIFICATION_HOURLY,
+            Notify::SEND_NOTIFICATION_WEEKLY
+        ]) && is_numeric($watchmailHour) && $watchmailHour >= 0 && $watchmailHour <= 23 && is_numeric($watchmailDay) && $watchmailDay >= 1 && $watchmailDay <= 7);
+    }
+
+    /**
+     * Sets user.notify_caches for logged user (via AJAX)
+     *
+     * @param number $state
+     */
+    public function ajaxSetNotifyCaches($state = 0)
+    {
+        $this->checkUserLoggedAjax();
+
+        if (UserNotify::setUserCachesNotify($this->loggedUser, $state)) {
+            $this->ajaxSuccessResponse();
+        } else {
+            $this->ajaxErrorResponse();
+        }
+    }
+
+    /**
+     * Sets user.notify_logs for logged user (via AJAX)
+     *
+     * @param number $state
+     */
+    public function ajaxSetNotifyLogs($state = 0)
+    {
+        $this->checkUserLoggedAjax();
+
+        if (UserNotify::setUserLogsNotify($this->loggedUser, $state)) {
+            $this->ajaxSuccessResponse();
+        } else {
+            $this->ajaxErrorResponse();
+        }
+    }
+
+    /**
+     * Sets notify flag for logged user Neighbourhood (via AJAX)
+     *
+     * $_POST['nbh'] - number (seq) of user's Nbh
+     * $_POST['state'] - new state of notify flag
+     */
+    public function ajaxSetNeighbourhoodNotify()
+    {
+        $this->checkUserLoggedAjax();
+
+        if (isset($_POST['nbh']) && isset($_POST['state'])) {
+            if (Neighbourhood::setNeighbourhoodNotify($this->loggedUser, (int) $_POST['nbh'], $_POST['state'])) {
+                $this->ajaxSuccessResponse();
+            }
+        }
+        $this->ajaxErrorResponse();
+    }
+
+    /**
+     * Sets user's notifications period (via AJAX)
+     *
+     * $_POST['watchmail_mode'] - one of Notify::SEND_NOTIFICATION_*
+     * $_POST['watchmail_hour'] & $_POST['watchmail_day'] - notyfication period settings
+     */
+    public function ajaxSetNotifySettings()
+    {
+        $this->checkUserLoggedAjax();
+
+        $watchmailMode = isset($_POST['watchmail_mode']) ? $_POST['watchmail_mode'] : '';
+        $watchmailHour = isset($_POST['watchmail_hour']) ? $_POST['watchmail_hour'] : '';
+        $watchmailDay = isset($_POST['watchmail_day']) ? $_POST['watchmail_day'] : '';
+
+        if ($this->areEmailSettingsInScope($watchmailMode, $watchmailHour, $watchmailDay)) {
+            $this->loggedUser->updateCacheWatchEmailSettings($watchmailMode, $watchmailHour, $watchmailDay);
+            $this->ajaxSuccessResponse();
+        }
+        $this->ajaxErrorResponse();
+    }
+
+    /**
+     * Supports U2U mails
+     *
+     * @param int $userId
+     * @param string $subject
+     */
     public function mailTo($userId = null, $subject = '')
     {
         $this->redirectNotLoggedUsers();

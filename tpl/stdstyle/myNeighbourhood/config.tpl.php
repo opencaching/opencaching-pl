@@ -198,7 +198,7 @@ use Utils\Uri\SimpleRouter;
   <input type="hidden" name="caches-perpage" id="input-caches" value="<?=$view->preferences['style']['caches-count']?>">
   <div class="align-center">
     <button class="btn btn-primary btn-md"><?=tr('save_changes')?></button>
-    <a href="/mywatches.php?action=emailSettings" class="btn btn-default btn-md"><?=tr('settings_notifications')?></a>
+    <a href="<?=SimpleRouter::getLink('UserProfile', 'notifySettings')?>" class="btn btn-default btn-md"><?=tr('settings_notifications')?></a>
     <a href="<?=SimpleRouter::getLink('MyNeighbourhood', 'index', $view->selectedNbh) ?>" class="btn btn-default btn-md"><?=tr('exit_config')?></a>
   </div>
 <?php } else { // Additional Myneighbourhood area ?>

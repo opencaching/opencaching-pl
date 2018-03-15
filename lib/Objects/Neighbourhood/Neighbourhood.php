@@ -278,6 +278,25 @@ class Neighbourhood extends BaseObject
     }
 
     /**
+     * Changes "Notify" state for $seq Neighbourhood for $user
+     *
+     * @param User $user
+     * @param int $seq
+     * @param boolean $state
+     * @return boolean
+     */
+    public static function setNeighbourhoodNotify(User $user, $seq, $state)
+    {
+        return (null !== self::db()->multiVariableQuery('
+            UPDATE `user_neighbourhoods`
+            SET `notify` = :1
+            WHERE `user_id` = :2
+                AND `seq` = :3
+            LIMIT 1
+        ', Php7Handler::Boolval($state), $user->getUserId(), $seq));
+    }
+
+    /**
      * Returns max seq number for user's additional nbh
      *
      * @param User $user

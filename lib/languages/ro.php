@@ -6,6 +6,7 @@ $translations = array(
     'new' => 'NOU',
     'save' => 'Salvează',
     'save_changes' => 'Save changes', /* EN */
+    'autosave' => 'Changes are saved automatically', /* EN */
     'config' => 'Setup', /* EN */
     'exit_config' => 'Exit from setup', /* EN */
     'more' => 'More...', /* EN */
@@ -2053,24 +2054,6 @@ $translations = array(
     'usrWatch_removingError' => 'Eroare la scoaterea din lista celor urmărite!',
     'usrWatch_removingSuccess' => 'Geocutia a fost scoasă din lista celor urmărite.',
 
-    'usrWatch_emailSettingsTitle' => 'Configurare notificări despre geocutiile urmărite',
-    'usrWatch_sendNotifications' => 'Îţi vom trimite notificări despre geocutiile urmărite de tine:',
-    'usrWatch_hourlyMode' => 'odată pe oră',
-    'usrWatch_dailyMode' => 'odată pe zi',
-    'usrWatch_weeklyMode' => 'odată pe săptămână',
-    'usrWatch_everyWeekday' => 'fiecare',
-    'usrWatch_atHour' => 'la ora',
-    'usrWatch_settingsSaved' => 'Configuraţia a fost salvată.',
-    'usrWatch_settingsSavedError' => 'Eroare la salvarea configuraţiei.',
-
-    'usrWatch_monday' => 'Luni',
-    'usrWatch_tuesday' => 'Marţi',
-    'usrWatch_wednesday' => 'Miercuri',
-    'usrWatch_thursday' => 'Joi',
-    'usrWatch_friday' => 'Vineri',
-    'usrWatch_saturday' => 'Sâmbătă',
-    'usrWatch_sunday' => 'Duminică',
-
     'myignores_1' => 'Vrei să anulezi ignorarea acestei geocutii?',
     'myviewqueries_1' => 'Vrei să ştergi această colecţie de căutări?',
     'search_gpxgc_01' => 'ATENŢIE! Ai nevoie de o PAROLĂ ca să-ţi anunţi găsirea. Trebuie s-o găseşti în cutie (ţine minte să ţi-o notezi) sau să o obţii din altă parte, vezi descrierea!!!',
@@ -2378,6 +2361,31 @@ $translations = array(
     'notify_lbl_direction' => 'Azimut',
     'notify_freq' => 'Notificări',
     'notify_radius' => 'Notificări referitoare la noile geocutii din zona',
+
+    'notify_settings_intro' => 'The system sends notifications about new caches in yhe Neighbourhood area defined by you and about logs in the observed caches. On this page you can choose the frequency and types of notifications you receive.', /* EN */
+    'notify_settings_freq' => 'Frequency of sending notifications', /* EN */
+    'notify_settings_freq2' => 'Send notifications', /* EN */
+    'notify_settings_caches' => 'Notifications about new caches', /* EN */
+    'notify_settings_cachesonoff' => 'Send notifications about new caches in the area designated in My Neighbourhood', /* EN */
+    'notify_settings_addnbh' => 'also send notifications from additional Neighbourhoods', /* EN */
+    'notify_settings_logs' => 'Notifications about new logs', /* EN */
+    'notify_settings_logsonoff' => 'Send notifications about new logs in the watched caches', /* EN */
+    'notify_settings_watchinfo' => 'Warning! You will not receive information about new logs in caches marked as watched.', /* EN */
+
+    'notify_settings_hourlyMode' => 'odată pe oră',
+    'notify_settings_dailyMode' => 'odată pe zi',
+    'notify_settings_weeklyMode' => 'odată pe săptămână',
+    'notify_settings_everyWeekday' => 'fiecare',
+    'notify_settings_atHour' => 'la ora',
+
+    'notify_settings_monday' => 'Luni',
+    'notify_settings_tuesday' => 'Marţi',
+    'notify_settings_wednesday' => 'Miercuri',
+    'notify_settings_thursday' => 'Joi',
+    'notify_settings_friday' => 'Vineri',
+    'notify_settings_saturday' => 'Sâmbătă',
+    'notify_settings_sunday' => 'Duminică',
+
     'newEmailAddr_01' => 'Bună',
     'newEmailAddr_02' => 'Pe',
     'newEmailAddr_03' => 'ai cerut schimbarea adresei de e-mail',

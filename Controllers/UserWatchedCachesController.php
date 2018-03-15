@@ -1,22 +1,21 @@
 <?php
 namespace Controllers;
 
+use Utils\Text\Formatter;
+use Utils\Uri\Uri;
+use lib\Objects\ChunkModels\PaginationModel;
+use lib\Objects\ChunkModels\DynamicMap\CacheWithLogMarkerModel;
 use lib\Objects\ChunkModels\DynamicMap\DynamicMapModel;
-use lib\Objects\ChunkModels\ListOfCaches\ListOfCachesModel;
-use lib\Objects\Notify\Notify;
-use lib\Objects\User\UserWatchedCache;
+use lib\Objects\ChunkModels\ListOfCaches\Column_CacheLastLog;
 use lib\Objects\ChunkModels\ListOfCaches\Column_CacheName;
 use lib\Objects\ChunkModels\ListOfCaches\Column_CacheTypeIcon;
-use lib\Objects\ChunkModels\ListOfCaches\Column_CacheLastLog;
 use lib\Objects\ChunkModels\ListOfCaches\Column_OnClickActionIcon;
-use lib\Objects\ChunkModels\PaginationModel;
-use Utils\Uri\Uri;
-use lib\Objects\GeoCache\GeoCacheCommons;
-use lib\Objects\GeoCache\GeoCacheLogCommons;
-use lib\Objects\ChunkModels\DynamicMap\CacheWithLogMarkerModel;
-use lib\Objects\GeoCache\GeoCacheLog;
+use lib\Objects\ChunkModels\ListOfCaches\ListOfCachesModel;
 use lib\Objects\GeoCache\GeoCache;
-use Utils\Text\Formatter;
+use lib\Objects\GeoCache\GeoCacheCommons;
+use lib\Objects\GeoCache\GeoCacheLog;
+use lib\Objects\GeoCache\GeoCacheLogCommons;
+use lib\Objects\User\UserWatchedCache;
 
 class UserWatchedCachesController extends BaseController
 {
@@ -156,95 +155,6 @@ class UserWatchedCachesController extends BaseController
         $this->view->buildView();
     }
 
-
-    /**
-     * TODO: this should be moved to user profile
-     */
-    public function emailSettings(){
-        if(!$this->isUserLogged()){
-            $this->redirectToLoginPage();
-        }
-
-        $this->view->setTemplate('userWatchedCaches/emailSettings');
-        $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime(
-                '/tpl/stdstyle/userWatchedCaches/userWatchedCaches.css'));
-
-        $this->view->loadJQuery();
-
-        $this->view->setVar('infoMsg', $this->infoMsg);
-        $this->view->setVar('errorMsg', $this->errorMsg);
-
-        $settings = $this->loggedUser->getCacheWatchEmailSettings();
-
-        // check settings and reset to defaults if necessary
-        $watchmailMode = $settings['watchmail_mode'];
-        $watchmailHour = $settings['watchmail_hour'];
-        $watchmailDay = $settings['watchmail_day'];
-
-        if(!$this->areEmailSettingsInScope(
-            $watchmailMode, $watchmailHour, $watchmailDay )){
-
-            // email settings are wrong - reset to defaults
-
-            // by default send notification: hourly
-            $watchmailMode = Notify::SEND_NOTIFICATION_HOURLY;
-            $watchmailHour = 0; // default at midnight
-            $watchmailDay = 7;  // default sunday
-
-            $this->loggedUser->updateCacheWatchEmailSettings(
-                $watchmailMode, $watchmailHour, $watchmailDay);
-        }
-
-        $this->view->setVar('intervalSelected', $watchmailMode);
-        $this->view->setVar('weekDaySelected', $watchmailDay);
-        $this->view->setVar('hourSelected', $watchmailHour);
-
-        $this->view->buildView();
-    }
-
-    private function areEmailSettingsInScope(
-        $watchmailMode, $watchmailHour, $watchmailDay){
-
-        return (is_numeric($watchmailMode) &&
-            in_array($watchmailMode,
-                [Notify::SEND_NOTIFICATION_DAILY,
-                    Notify::SEND_NOTIFICATION_HOURLY,
-                    Notify::SEND_NOTIFICATION_WEEKLY]) &&
-            is_numeric($watchmailHour) &&
-            $watchmailHour >= 0 && $watchmailHour <= 23 &&
-            is_numeric($watchmailDay) &&
-            $watchmailDay >= 1 && $watchmailDay <= 7);
-    }
-
-    /**
-     * Save new email settings and display settings form
-     */
-    public function updateEmailSettings(){
-        if(!$this->isUserLogged()){
-            $this->redirectToLoginPage();
-        }
-
-        $watchmailMode = isset($_POST['watchmail_mode'])?$_POST['watchmail_mode']:'';
-        $watchmailHour = isset($_POST['watchmail_hour'])?$_POST['watchmail_hour']:'';
-        $watchmailDay = isset($_POST['watchmail_day'])?$_POST['watchmail_day']:'';
-
-
-        if($this->areEmailSettingsInScope(
-            $watchmailMode, $watchmailHour, $watchmailDay)){
-
-            $this->loggedUser->updateCacheWatchEmailSettings(
-                $watchmailMode, $watchmailHour, $watchmailDay);
-
-            $this->infoMsg = tr('usrWatch_settingsSaved');
-
-        }else{
-            $this->errorMsg = tr('usrWatch_settingsSavedError');
-        }
-
-        $this->emailSettings();
-    }
-
     /**
      * This method removed given cache from list of watched geocaches for current user.
      * This should be called by AJAX.
@@ -294,5 +204,3 @@ class UserWatchedCachesController extends BaseController
     }
 
 }
-
-
