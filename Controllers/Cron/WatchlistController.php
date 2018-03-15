@@ -5,14 +5,13 @@
 namespace Controllers\Cron;
 
 use Controllers\BaseController;
-use lib\Objects\ApplicationContainer;
 use lib\Objects\Watchlist\WatchlistItem;
 use lib\Objects\Watchlist\WatchlistReport;
 use lib\Objects\Watchlist\WatchlistWatcher;
 use lib\Objects\Watchlist\Watchlist;
 use lib\Objects\Notify\Notify;
-use lib\Objects\User\UserWatchedCache;
 use Utils\Lock\Lock;
+use lib\Objects\User\UserNotify;
 
 /**
  * Initiates and performs operations included in watchlist processing: new logs
@@ -43,8 +42,7 @@ class WatchlistController extends BaseController
      */
     public function __construct()
     {
-        $this->applicationContainer = ApplicationContainer::Instance();
-        $this->ocConfig = $this->applicationContainer->getOcConfig();
+        parent::__construct();
         $this->watchlistConfig = $this->ocConfig->getWatchlistConfig();
         if ($this->watchlistConfig == null) {
             $this->watchlistConfig = [];
@@ -154,8 +152,9 @@ class WatchlistController extends BaseController
         $watchers = $this->watchlist->getWatchersAndWaitings();
         foreach ($watchers as $watcher) {
             if (
-                sizeof($watcher->getOwnerLogs()) > 0
-                || sizeof($watcher->getWatchLogs()) > 0
+                (sizeof($watcher->getOwnerLogs()) > 0
+                || sizeof($watcher->getWatchLogs()) > 0)
+                && UserNotify::getUserLogsNotify($watcher->getUserId())
             ) {
                 $sendStatus = $this->watchlistReport->prepareAndSend($watcher);
                 $watcher->setSendStatus($sendStatus);

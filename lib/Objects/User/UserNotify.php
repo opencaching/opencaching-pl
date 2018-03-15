@@ -8,6 +8,22 @@ use lib\Controllers\Php7Handler;
 class UserNotify extends BaseObject
 {
     /**
+     * Returns notify_logs status for given $userId
+     *
+     * @param int $userId
+     * @return boolean
+     */
+    public static function getUserLogsNotify($userId)
+    {
+        return Php7Handler::Boolval(self::db()->multiVariableQueryValue('
+            SELECT `notify_logs`
+            FROM `user`
+            WHERE `user_id` = :1
+            LIMIT 1
+        ', 0, $userId));
+    }
+
+    /**
      * Sets notify_caches flag in user table - depending on $state
      *
      * @param User $user
