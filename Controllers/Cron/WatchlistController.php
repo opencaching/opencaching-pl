@@ -5,13 +5,12 @@
 namespace Controllers\Cron;
 
 use Controllers\BaseController;
+use Utils\Lock\Lock;
+use lib\Objects\User\UserNotify;
+use lib\Objects\Watchlist\Watchlist;
 use lib\Objects\Watchlist\WatchlistItem;
 use lib\Objects\Watchlist\WatchlistReport;
 use lib\Objects\Watchlist\WatchlistWatcher;
-use lib\Objects\Watchlist\Watchlist;
-use lib\Objects\Notify\Notify;
-use Utils\Lock\Lock;
-use lib\Objects\User\UserNotify;
 
 /**
  * Initiates and performs operations included in watchlist processing: new logs
@@ -195,12 +194,12 @@ class WatchlistController extends BaseController
         $result = null;
         if (
             $watcher->getWatchmailMode() !=
-                Notify::SEND_NOTIFICATION_HOURLY
+                UserNotify::SEND_NOTIFICATION_HOURLY
         ) {
             $now = new \DateTime();
             if (
                 $watcher->getWatchmailMode() ==
-                    Notify::SEND_NOTIFICATION_DAILY
+                    UserNotify::SEND_NOTIFICATION_DAILY
             ) {
                 $result = $now ->
                     setDate(
@@ -211,7 +210,7 @@ class WatchlistController extends BaseController
                     setTime($watcher->getWatchmailHour(), 0, 0);
             } elseif (
                 $watcher->getWatchmailMode() ==
-                    Notify::SEND_NOTIFICATION_WEEKLY
+                    UserNotify::SEND_NOTIFICATION_WEEKLY
             ) {
                 $weekday = $now->format('w');
                 if ($weekday == 0) {

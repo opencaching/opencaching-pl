@@ -8,13 +8,6 @@ use lib\Objects\User\User;
 class Notify extends BaseObject
 {
 
-    // Frequency of sending notifications
-    const SEND_NOTIFICATION_DAILY = 0;
-
-    const SEND_NOTIFICATION_HOURLY = 1;
-
-    const SEND_NOTIFICATION_WEEKLY = 2;
-
     /* @var integer */
     private $id;
 

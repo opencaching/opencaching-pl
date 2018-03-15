@@ -1,7 +1,7 @@
 <?php
 
 use Utils\Uri\SimpleRouter;
-use lib\Objects\Notify\Notify;
+use lib\Objects\User\UserNotify;
 
 ?>
 
@@ -16,13 +16,13 @@ use lib\Objects\Notify\Notify;
 
   <?=tr('notify_settings_freq2')?>
   <select id="intervalSelect" name="watchmail_mode" onChange="intervalChanged()" class="form-control input200">
-    <option value="<?=Notify::SEND_NOTIFICATION_HOURLY?>">
+    <option value="<?=UserNotify::SEND_NOTIFICATION_HOURLY?>">
       <?=tr('notify_settings_hourlyMode');?>
     </option>
-    <option value="<?=Notify::SEND_NOTIFICATION_DAILY?>">
+    <option value="<?=UserNotify::SEND_NOTIFICATION_DAILY?>">
       <?=tr('notify_settings_dailyMode');?>
     </option>
-    <option value="<?=Notify::SEND_NOTIFICATION_WEEKLY?>">
+    <option value="<?=UserNotify::SEND_NOTIFICATION_WEEKLY?>">
       <?=tr('notify_settings_weeklyMode');?>
     </option>
   </select>
@@ -146,15 +146,15 @@ function intervalChanged(update = true) {
 		notifySettingsChange();
 	}
 	switch( $( "#intervalSelect" ).val() ){
-		case '<?=Notify::SEND_NOTIFICATION_HOURLY?>':
+		case '<?=UserNotify::SEND_NOTIFICATION_HOURLY?>':
 			$("#watch_hour_selector").hide();
 			$("#watch_day_selector").hide();
 			break;
-		case '<?=Notify::SEND_NOTIFICATION_DAILY?>':
+		case '<?=UserNotify::SEND_NOTIFICATION_DAILY?>':
 			$("#watch_hour_selector").show();
 			$("#watch_day_selector").hide();
 			break;
-		case '<?=Notify::SEND_NOTIFICATION_WEEKLY?>':
+		case '<?=UserNotify::SEND_NOTIFICATION_WEEKLY?>':
 			$("#watch_hour_selector").show();
 			$("#watch_day_selector").show();
 			break;

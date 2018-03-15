@@ -7,6 +7,13 @@ use lib\Controllers\Php7Handler;
 
 class UserNotify extends BaseObject
 {
+    // Frequency of sending notifications
+    const SEND_NOTIFICATION_DAILY = 0;
+
+    const SEND_NOTIFICATION_HOURLY = 1;
+
+    const SEND_NOTIFICATION_WEEKLY = 2;
+
     /**
      * Returns notify_logs status for given $userId
      *

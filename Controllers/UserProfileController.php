@@ -61,7 +61,7 @@ class UserProfileController extends BaseController
 
             // email settings are wrong - reset to defaults
             // by default send notification: hourly
-            $watchmailMode = Notify::SEND_NOTIFICATION_HOURLY;
+            $watchmailMode = UserNotify::SEND_NOTIFICATION_HOURLY;
             $watchmailHour = 0; // default at midnight
             $watchmailDay = 7; // default sunday
 
@@ -91,9 +91,9 @@ class UserProfileController extends BaseController
     private function areEmailSettingsInScope($watchmailMode, $watchmailHour, $watchmailDay)
     {
         return (is_numeric($watchmailMode) && in_array($watchmailMode, [
-            Notify::SEND_NOTIFICATION_DAILY,
-            Notify::SEND_NOTIFICATION_HOURLY,
-            Notify::SEND_NOTIFICATION_WEEKLY
+            UserNotify::SEND_NOTIFICATION_DAILY,
+            UserNotify::SEND_NOTIFICATION_HOURLY,
+            UserNotify::SEND_NOTIFICATION_WEEKLY
         ]) && is_numeric($watchmailHour) && $watchmailHour >= 0 && $watchmailHour <= 23 && is_numeric($watchmailDay) && $watchmailDay >= 1 && $watchmailDay <= 7);
     }
 
@@ -150,7 +150,7 @@ class UserProfileController extends BaseController
     /**
      * Sets user's notifications period (via AJAX)
      *
-     * $_POST['watchmail_mode'] - one of Notify::SEND_NOTIFICATION_*
+     * $_POST['watchmail_mode'] - one of UserNotify::SEND_NOTIFICATION_*
      * $_POST['watchmail_hour'] & $_POST['watchmail_day'] - notyfication period settings
      */
     public function ajaxSetNotifySettings()
