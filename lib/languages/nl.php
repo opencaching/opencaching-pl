@@ -2362,7 +2362,7 @@ $translations = array(
     'notify_freq' => 'Meldingsinstellingen wijzigen',
     'notify_radius' => 'Melding radius wijzigen',
 
-    'notify_settings_intro' => 'The system sends notifications about new caches in yhe Neighbourhood area defined by you and about logs in the observed caches. On this page you can choose the frequency and types of notifications you receive.', /* EN */
+    'notify_settings_intro' => 'The system sends notifications about new caches in the Neighbourhood area defined by you and about logs in the observed caches. On this page you can choose the frequency and types of notifications you receive.', /* EN */
     'notify_settings_freq' => 'Frequency of sending notifications', /* EN */
     'notify_settings_freq2' => 'Send notifications', /* EN */
     'notify_settings_caches' => 'Notifications about new caches', /* EN */
