@@ -2375,7 +2375,7 @@ $translations = array(
     'notify_settings_addnbh' => 'wysyłaj również powiadomienia z dodatkowych Okolic',
     'notify_settings_logs' => 'Powiadomienia o nowych logach',
     'notify_settings_logsonoff' => 'Wysyłaj powiadomienia o nowych logach w obserwowanych skrzynkach',
-    'notify_settings_watchinfo' => 'Uwaga! Nie otrzymasz informacji o nowych logach w keszach oznaczonych jako obserwowane.',
+    'notify_settings_watchinfo' => 'Uwaga! Nie otrzymasz informacji o nowych logach w Twoich keszach oraz oznaczonych jako obserwowane.',
 
     'notify_settings_hourlyMode' => 'co godzinę',
     'notify_settings_dailyMode' => 'raz dziennie',

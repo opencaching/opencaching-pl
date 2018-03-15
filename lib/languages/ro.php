@@ -2370,7 +2370,7 @@ $translations = array(
     'notify_settings_addnbh' => 'also send notifications from additional Neighbourhoods', /* EN */
     'notify_settings_logs' => 'Notifications about new logs', /* EN */
     'notify_settings_logsonoff' => 'Send notifications about new logs in the watched caches', /* EN */
-    'notify_settings_watchinfo' => 'Warning! You will not receive information about new logs in caches marked as watched.', /* EN */
+    'notify_settings_watchinfo' => 'Warning! You will not receive information about new logs in your caches and caches marked as watched.', /* EN */
 
     'notify_settings_hourlyMode' => 'odată pe oră',
     'notify_settings_dailyMode' => 'odată pe zi',

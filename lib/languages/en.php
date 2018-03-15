@@ -2371,7 +2371,7 @@ $translations = array(
     'notify_settings_addnbh' => 'also send notifications from additional Neighbourhoods',
     'notify_settings_logs' => 'Notifications about new logs',
     'notify_settings_logsonoff' => 'Send notifications about new logs in the watched caches',
-    'notify_settings_watchinfo' => 'Warning! You will not receive information about new logs in caches marked as watched.',
+    'notify_settings_watchinfo' => 'Warning! You will not receive information about new logs in your caches and caches marked as watched.',
 
     'notify_settings_hourlyMode' => 'once per hour',
     'notify_settings_dailyMode' => 'once per day',
