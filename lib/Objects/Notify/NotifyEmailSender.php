@@ -82,8 +82,8 @@ class NotifyEmailSender
         $formattedMessage = new EmailFormatter(self::EMAIL_TEMPLATE_PATH . 'newcache_notify.email.html', true);
         $formattedMessage->addFooterAndHeader($user->getUserName());
         $formattedMessage->setVariable('intro', tr('notify_intro' . $pluralSuffix));
-        $formattedMessage->setVariable('absolute_server_URI', $serverUri);
         $formattedMessage->setVariable('mynbhUrl', SimpleRouter::getAbsLink('MyNeighbourhood', 'config'));
+        $formattedMessage->setVariable('notifySettingsUrl', SimpleRouter::getAbsLink('UserProfile', 'notifySettings'));
         $formattedMessage->setVariable('content', $content);
 
         $email = new Email();
