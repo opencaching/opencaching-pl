@@ -388,7 +388,7 @@ class UserAuthorization extends BaseObject
     /**
      * Generates new code for password change, stores it in DB
      * and sends e-mail with link to change password to $user
-     * 
+     *
      * @param User $user - recipient of mail
      * @return boolean - true on success
      */
@@ -427,7 +427,7 @@ class UserAuthorization extends BaseObject
 
     /**
      * Check if new password $code is valid for $user
-     * 
+     *
      * @param User $user
      * @param string $code
      * @return boolean
@@ -446,7 +446,7 @@ class UserAuthorization extends BaseObject
 
     /**
      * Removes new password code from DB for $user
-     * 
+     *
      * @param User $user
      * @return boolean
      */
@@ -461,4 +461,15 @@ class UserAuthorization extends BaseObject
         return (! is_null($result));
     }
 
+    /**
+     * Removes all sessions of $user from DB. Used while lock/ban user
+     *
+     * @param User $user
+     * @return boolean
+     */
+    public static function removeUserSessions(User $user)
+    {
+        return (null !== self::db()->multiVariableQuery(
+            "DELETE FROM sys_sessions WHERE user_id = :1", $user->getUserId()));
+    }
 }

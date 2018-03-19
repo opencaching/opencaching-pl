@@ -21,12 +21,14 @@ class User extends UserCommons
     private $userName;
 
     private $foundGeocachesCount;
+    /** @var int */
+    private $foundPhysicalGeocachesCount = null;
     private $notFoundGeocachesCount;
     private $hiddenGeocachesCount;
     private $logNotesCount;
     private $email;
 
-    /* @var $homeCoordinates Coordinates */
+    /** @var $homeCoordinates Coordinates */
     private $homeCoordinates;
     private $notifyRadius;
 
@@ -36,22 +38,25 @@ class User extends UserCommons
 
     private $ingnoreGeocacheLimitWhileCreatingNewGeocache = null;
 
-    /* @var $powerTrailCompleted \ArrayObject() */
+    /** @var boolean */
+    private $newCachesNoLimit = null;
+
+    /** @var $powerTrailCompleted \ArrayObject() */
     private $powerTrailCompleted = null;
 
-    /* @var $powerTrailOwed \ArrayObject() */
+    /** @var $powerTrailOwed \ArrayObject() */
     private $powerTrailOwed = null;
 
-    /* @var $geocaches \ArrayObject() */
+    /** @var $geocaches \ArrayObject() */
     private $geocaches = null;
 
-    /* @var $geocachesNotPublished \ArrayObject() */
+    /** @var $geocachesNotPublished \ArrayObject() */
     private $geocachesNotPublished = null;
 
-    /* @var $geocachesWaitAproove \ArrayObject() */
+    /** @var $geocachesWaitAproove \ArrayObject() */
     private $geocachesWaitAproove = null;
 
-    /* @var $geocachesBlocked \ArrayObject() */
+    /** @var $geocachesBlocked \ArrayObject() */
     private $geocachesBlocked = null;
 
     private $eventsAttendsCount = null;
@@ -63,6 +68,9 @@ class User extends UserCommons
     private $hideBan = false;
 
     private $verifyAll = null;
+
+    /** @var boolean */
+    private $statBan;
 
     private $permanentLogin = false;
 
@@ -78,17 +86,20 @@ class User extends UserCommons
     private $notifyCaches;
     /** @var bool */
     private $notifyLogs;
+    private $activationCode;
 
     const REGEX_USERNAME = '^[a-zA-Z0-9ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ@-][a-zA-ZęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ0-9\.\-=_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\ -=&*+~#]{2,59}$';
     const REGEX_PASSWORD = '^[a-zA-Z0-9\.\-_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\$&*+~#]{3,60}$';
 
-
     const COMMON_COLLUMNS = "user_id, username, founds_count, notfounds_count,
                        hidden_count, latitude, longitude, country,
                        email, admin, guru, verify_all, rules_confirmed,
-                       notify_radius, watchmail_mode, watchmail_day, watchmail_hour, notify_caches, notify_logs";
+                       notify_radius, watchmail_mode, watchmail_day,
+                       watchmail_hour, notify_caches, notify_logs,
+                       is_active_flag, stat_ban, description, activation_code,
+                       date_created, last_login";
 
-    const AUTH_COLLUMS = self::COMMON_COLLUMNS . ', is_active_flag, permanent_login_flag';
+    const AUTH_COLLUMS = self::COMMON_COLLUMNS . ', permanent_login_flag';
 
     /**
      * construct class using $userId (fields will be loaded from db)
@@ -101,7 +112,7 @@ class User extends UserCommons
     {
         parent::__construct();
 
-        if(is_null($params)){
+        if (is_null($params)) {
             $params = array();
         }
 
@@ -134,14 +145,15 @@ class User extends UserCommons
      * @param string $username
      * @return User object or null on error
      */
-    public static function fromUsernameFactory($username, $fields = null){
+    public static function fromUsernameFactory($username, $fields = null)
+    {
 
-        if(!$fields){
+        if (!$fields) {
             $fields = self::COMMON_COLLUMNS;
         }
 
         $u = new self();
-        if($u->loadDataFromDbByUsername($username, $fields)){
+        if ($u->loadDataFromDbByUsername($username, $fields)) {
             return $u;
         }
         return null;
@@ -152,14 +164,15 @@ class User extends UserCommons
      * @param string $email
      * @return User object or null on error
      */
-    public static function fromEmailFactory($email, $fields = null){
+    public static function fromEmailFactory($email, $fields = null)
+    {
 
-        if(!$fields){
+        if (!$fields) {
             $fields = self::COMMON_COLLUMNS;
         }
 
         $u = new self();
-        if($u->loadDataFromDbByEmail($email, $fields)){
+        if ($u->loadDataFromDbByEmail($email, $fields)) {
             return $u;
         }
         return null;
@@ -172,33 +185,33 @@ class User extends UserCommons
      * @param $fields - comma separatd list of columns to get from DB
      * @return User object or null on error
      */
-    public static function fromUserIdFactory($userId, $fields = null){
+    public static function fromUserIdFactory($userId, $fields = null)
+    {
         $u = new self();
         $u->userId = $userId;
 
-        if(is_null($fields)){
+        if (is_null($fields)) {
             $fields = self::COMMON_COLLUMNS;
         }
 
-        if($u->loadDataFromDb($fields)){
+        if ($u->loadDataFromDb($fields)) {
             return $u;
         }
         return null;
     }
 
-    public function loadExtendedSettings()
+    /**
+     * Load extended settings from user_settings table
+     */
+    private function loadExtendedSettings()
     {
-        $db = OcDb::instance();
-        $queryById = "SELECT `newcaches_no_limit` AS ingnoreGeocacheLimitWhileCreatingNewGeocache "
-                   . "FROM `user_settings` WHERE `user_id` = :1 LIMIT 1";
-        $stmt = $db->multiVariableQuery($queryById, $this->userId);
-        $dbRow = $db->dbResultFetchOneRowOnly($stmt);
-
-        if ($dbRow && $dbRow['ingnoreGeocacheLimitWhileCreatingNewGeocache'] == 1) {
-            $this->ingnoreGeocacheLimitWhileCreatingNewGeocache = true;
-        }else{
-            $this->ingnoreGeocacheLimitWhileCreatingNewGeocache = false;
-        }
+        $value = $this->db->multiVariableQueryValue("
+            SELECT `newcaches_no_limit`
+            FROM `user_settings`
+            WHERE `user_id` = :1
+            LIMIT 1
+            ", 0, $this->userId);
+        $this->newCachesNoLimit = Php7Handler::Boolval($value);
     }
 
     public function loadFromOKAPIRsp($okapiRow)
@@ -224,36 +237,39 @@ class User extends UserCommons
 
     }
 
-    private function loadDataFromDb($fields){
+    private function loadDataFromDb($fields)
+    {
 
         $stmt = $this->db->multiVariableQuery(
             "SELECT $fields FROM `user` WHERE `user_id`=:1 LIMIT 1", $this->userId);
 
-        if($row = $this->db->dbResultFetchOneRowOnly($stmt)){
+        if ($row = $this->db->dbResultFetchOneRowOnly($stmt)) {
             $this->setUserFieldsByUsedDbRow($row);
             return true;
         }
         return false;
     }
 
-    private function loadDataFromDbByUsername($username, $fields){
+    private function loadDataFromDbByUsername($username, $fields)
+    {
 
         $stmt = $this->db->multiVariableQuery(
             "SELECT $fields FROM `user` WHERE `username`=:1 LIMIT 1", $username);
 
-        if($row = $this->db->dbResultFetchOneRowOnly($stmt)){
+        if ($row = $this->db->dbResultFetchOneRowOnly($stmt)) {
             $this->setUserFieldsByUsedDbRow($row);
             return true;
         }
         return false;
     }
 
-    private function loadDataFromDbByEmail($email, $fields){
+    private function loadDataFromDbByEmail($email, $fields)
+    {
 
         $stmt = $this->db->multiVariableQuery(
             "SELECT $fields FROM `user` WHERE `email`=:1 LIMIT 1", $email);
 
-        if($row = $this->db->dbResultFetchOneRowOnly($stmt)){
+        if ($row = $this->db->dbResultFetchOneRowOnly($stmt)) {
             $this->setUserFieldsByUsedDbRow($row);
             return true;
         }
@@ -306,7 +322,10 @@ class User extends UserCommons
                     $this->logNotesCount = $value;
                     break;
                 case 'verify_all':
-                    $this->verifyAll = $value;
+                    $this->verifyAll = Php7Handler::Boolval($value);
+                    break;
+                case 'stat_ban':
+                    $this->statBan = Php7Handler::Boolval($value);
                     break;
                 case 'rules_confirmed':
                     $this->rulesConfirmed = Php7Handler::Boolval($value);
@@ -334,6 +353,9 @@ class User extends UserCommons
                     break;
                 case 'watchmail_hour':
                     $this->watchmailHour = (int) $value;
+                    break;
+                case 'activation_code':
+                    $this->activationCode = $value;
                     break;
                 case 'notify_caches':
                     $this->notifyCaches = Php7Handler::Boolval($value);
@@ -423,24 +445,23 @@ class User extends UserCommons
 
     public function getProfileUrl()
     {
-        if(!$this->profileUrl){
+        if (!$this->profileUrl) {
             $this->profileUrl = self::GetUserProfileUrl($this->getUserId());
         }
         return $this->profileUrl;
     }
 
     /**
+     * Can user create cache without any finds (from user_settings table)
      *
      * @return boolean
      */
-    public function isIngnoreGeocacheLimitWhileCreatingNewGeocache()
+    public function getNewCachesNoLimit()
     {
-
-        if( is_null( $this->ingnoreGeocacheLimitWhileCreatingNewGeocache )){
+        if (is_null($this->newCachesNoLimit)) {
             $this->loadExtendedSettings();
         }
-
-        return $this->ingnoreGeocacheLimitWhileCreatingNewGeocache;
+        return $this->newCachesNoLimit;
     }
 
     /**
@@ -478,7 +499,8 @@ class User extends UserCommons
         return $this->isAdmin;
     }
 
-    public function isAdmin(){
+    public function isAdmin()
+    {
         return $this->isAdmin;
     }
 
@@ -492,11 +514,13 @@ class User extends UserCommons
         return $this->isGuide;
     }
 
-    public function getCountry(){
+    public function getCountry()
+    {
         return $this->country;
     }
 
-    public function areRulesConfirmed(){
+    public function areRulesConfirmed()
+    {
         return $this->rulesConfirmed;
     }
 
@@ -506,7 +530,7 @@ class User extends UserCommons
      */
     public function getPowerTrailCompleted()
     {
-        if($this->powerTrailCompleted === null) {
+        if ($this->powerTrailCompleted === null) {
             $this->powerTrailCompleted = new \ArrayObject();
             $queryPtList = 'SELECT * FROM `PowerTrail` WHERE `id` IN (SELECT `PowerTrailId` FROM `PowerTrail_comments` WHERE `commentType` =2 AND `deleted` =0 AND `userId` =:1 ORDER BY `logDateTime` DESC)';
             $db = OcDb::instance();
@@ -526,7 +550,7 @@ class User extends UserCommons
      */
     public function getPowerTrailOwed()
     {
-        if($this->powerTrailOwed === null) {
+        if ($this->powerTrailOwed === null) {
             $this->powerTrailOwed = new \ArrayObject();
 
             $db = OcDb::instance();
@@ -544,7 +568,7 @@ class User extends UserCommons
 
     public function getGeocaches()
     {
-        if($this->geocaches === null){
+        if ($this->geocaches === null) {
             $this->geocaches = new \ArrayObject;
             $db = OcDb::instance();
 
@@ -555,13 +579,13 @@ class User extends UserCommons
                 $geocache = new GeoCache();
                 $geocache->loadFromRow($geocacheRow);
                 $this->geocaches->append($geocache);
-                if($geocache->getStatus() === GeoCache::STATUS_NOTYETAVAILABLE){
+                if ($geocache->getStatus() === GeoCache::STATUS_NOTYETAVAILABLE) {
                     $this->appendNotPublishedGeocache($geocache);
                 }
-                if($geocache->getStatus() === GeoCache::STATUS_WAITAPPROVERS){
+                if ($geocache->getStatus() === GeoCache::STATUS_WAITAPPROVERS) {
                     $this->appendWaitAprooveGeocache($geocache);
                 }
-                if($geocache->getStatus() === GeoCache::STATUS_BLOCKED){
+                if ($geocache->getStatus() === GeoCache::STATUS_BLOCKED) {
                     $this->appendBlockedGeocache($geocache);
                 }
             }
@@ -573,7 +597,7 @@ class User extends UserCommons
 
     public function appendNotPublishedGeocache(GeoCache $geocache)
     {
-        if($this->geocachesNotPublished === null){
+        if ($this->geocachesNotPublished === null) {
             $this->geocachesNotPublished = new \ArrayObject;
         }
         $this->geocachesNotPublished->append($geocache);
@@ -581,7 +605,7 @@ class User extends UserCommons
 
     public function getGeocachesNotPublished()
     {
-        if($this->geocachesNotPublished === null){
+        if ($this->geocachesNotPublished === null) {
             $this->geocachesNotPublished = new \ArrayObject;
             $this->getGeocaches();
         }
@@ -590,7 +614,7 @@ class User extends UserCommons
 
     public function appendWaitAprooveGeocache(GeoCache $geocache)
     {
-        if($this->geocachesWaitAproove === null){
+        if ($this->geocachesWaitAproove === null) {
             $this->geocachesWaitAproove = new \ArrayObject;
         }
         $this->geocachesWaitAproove->append($geocache);
@@ -598,7 +622,7 @@ class User extends UserCommons
 
     public function getGeocachesWaitAproove()
     {
-        if($this->geocachesWaitAproove === null){
+        if ($this->geocachesWaitAproove === null) {
             $this->geocachesWaitAproove = new \ArrayObject;
             $this->getGeocaches();
         }
@@ -607,7 +631,7 @@ class User extends UserCommons
 
     public function appendBlockedGeocache(GeoCache $geocache)
     {
-        if($this->geocachesBlocked === null){
+        if ($this->geocachesBlocked === null) {
             $this->geocachesBlocked = new \ArrayObject;
         }
         $this->geocachesBlocked->append($geocache);
@@ -615,26 +639,33 @@ class User extends UserCommons
 
     public function getGeocachesBlocked()
     {
-        if($this->geocachesBlocked === null){
+        if ($this->geocachesBlocked === null) {
             $this->geocachesBlocked = new \ArrayObject;
             $this->getGeocaches();
         }
         return $this->geocachesBlocked;
     }
 
-    public function getVerifyAll(){
+    public function getVerifyAll()
+    {
         return $this->verifyAll;
+    }
+
+    public function getStatBan()
+    {
+        return $this->statBan;
     }
 
     /**
      * This function return true if user:
      * - own less than 3 (APPROVE_LIMIT) active caches
      * - has 'verify-all' flag set by COG/admins
-     * -
+     *
+     * @return boolean
      */
-    public function isUnderCacheVerification(){
-
-        if( $this->getVerifyAll() == 1 ){
+    public function isUnderCacheVerification()
+    {
+        if ( $this->getVerifyAll() == 1 ) {
             return true;
         }
 
@@ -644,56 +675,53 @@ class User extends UserCommons
              WHERE `user_id` = :1 AND status = 1",
              0, $this->getUserId());
 
-        if($activeCachesNum < OcConfig::getNeedAproveLimit()){
-
+        if ($activeCachesNum < OcConfig::getNeedAproveLimit()) {
             return true;
         }
-
-
         return false;
-
     }
 
     /**
-     * Returns true if user is able to create new cache:
-     * - when found more than X caches
-     * - is
+     * Returns true if user is able to create new cache
+     *
+     * @return boolean
      */
-    public function canCreateNewCache(){
-
-        // calculate found caches number
-        $num_find_caches = XDb::xMultiVariableQueryValue(
-            "SELECT COUNT(`cache_logs`.`cache_id`) as num_fcaches
-             FROM cache_logs, caches
-             WHERE cache_logs.cache_id=caches.cache_id
-                AND caches.type IN (1,2,3,7,8)
-                AND cache_logs.type=1
-                AND cache_logs.deleted=0
-                AND `cache_logs`.`user_id` = :1 ",
-                0, $this->getUserId() );
-
-
-        if ($num_find_caches < OcConfig::getNeedFindLimit() &&
-            !$this->isIngnoreGeocacheLimitWhileCreatingNewGeocache()){
-
-
-            return false;
-        }
-
-        return true;
-
+    public function canCreateNewCache()
+    {
+        return ($this->getFoundPhysicalGeocachesCount() >= OcConfig::getNeedFindLimit()
+            || $this->getNewCachesNoLimit());
     }
 
-    /*
+    /**
+     * Returns number of finds caches with physical container (used by newcache)
+     *
+     * @return int
+     */
+    public function getFoundPhysicalGeocachesCount()
+    {
+        if (is_null($this->foundPhysicalGeocachesCount)) {
+            $this->foundPhysicalGeocachesCount = $this->db->multiVariableQueryValue("
+                SELECT COUNT(`cache_logs`.`cache_id`)
+                FROM `cache_logs`, `caches`
+                WHERE `cache_logs`.`cache_id` = `caches`.`cache_id`
+                AND `caches`.`type` IN (1, 2, 3, 7, 8)
+                AND `cache_logs`.`type` = 1
+                AND `cache_logs`.`deleted` = 0
+                AND `cache_logs`.`user_id` = :1
+                ", 0, $this->getUserId());
+        }
+        return $this->foundPhysicalGeocachesCount;
+    }
+
+    /**
      * This function return true if user is allowed to adopt caches
      * This means when:
      * - is not under verification
      * - has rights to create new cache
      */
-    public function isAdoptionApplicable(){
-
-        if( $this->canCreateNewCache() && !$this->isUnderCacheVerification() ){
-
+    public function isAdoptionApplicable()
+    {
+        if ( $this->canCreateNewCache() && !$this->isUnderCacheVerification() ) {
             return true;
         }
         return false;
@@ -704,7 +732,7 @@ class User extends UserCommons
      */
     public function getEventsAttendsCount()
     {
-        if($this->eventsAttendsCount == null) {
+        if ($this->eventsAttendsCount == null) {
             $this->eventsAttendsCount =
                 XDb::xSimpleQueryValue(
                     "SELECT COUNT(*) events_count
@@ -779,22 +807,34 @@ class User extends UserCommons
         return $this->notifyLogs;
     }
 
+    public function getActivationCode()
+    {
+        return $this->activationCode;
+    }
+
     public function isActive()
     {
         return $this->isActive && !empty($this->getEmail());
     }
 
-    public function usePermanentLogin(){
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    public function usePermanentLogin()
+    {
         return $this->permanentLogin;
     }
 
-    public function haveHideBan(){
+    public function haveHideBan()
+    {
         return $this->hideBan == 10;
     }
 
     public function getGeokretyApiSecid()
     {
-        if($this->geokretyApiSecid === null){
+        if ($this->geokretyApiSecid === null) {
             $this->geokretyApiSecid =
             $this->db->multiVariableQueryValue(
                     'SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` = :1 LIMIT 1',
@@ -803,7 +843,8 @@ class User extends UserCommons
         return $this->geokretyApiSecid;
     }
 
-    public function getCacheWatchEmailSettings(){
+    public function getCacheWatchEmailSettings()
+    {
 
         return $this->db->dbResultFetchOneRowOnly(
             $this->db->multiVariableQuery(
@@ -812,7 +853,7 @@ class User extends UserCommons
     }
 
     public function updateCacheWatchEmailSettings(
-        $watchmail_mode, $watchmail_hour, $watchmail_day){
+        $watchmail_mode, $watchmail_hour, $watchmail_day) {
 
         $this->db->multiVariableQuery(
             'UPDATE user SET watchmail_mode=:1, watchmail_hour=:2, watchmail_day=:3
@@ -843,9 +884,10 @@ class User extends UserCommons
             ', $coords->getLatitude(), $coords->getLongitude(), (int) $radius, $this->userId));
     }
 
-    public static function updateLastLogin($userId){
+    public static function updateLastLogin($userId)
+    {
         self::db()->multiVariableQuery(
-            "UPDATE user SET last_login=NOW() WHERE user_id = :1", $userId);
+            "UPDATE `user` SET `last_login` = NOW() WHERE `user_id` = :1", $userId);
     }
 
 }
