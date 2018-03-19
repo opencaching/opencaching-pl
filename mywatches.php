@@ -1,19 +1,17 @@
 <?php
-
-
 use Controllers\UserWatchedCachesController;
 
-require_once('./lib/common.inc.php');
+require_once ('./lib/common.inc.php');
 
 $ctrl = new UserWatchedCachesController();
 
-if(isset($_GET['action'])){
+if (isset($_GET['action'])) {
     $action = $_GET['action'];
-}else{
+} else {
     $action = '';
 }
 
-switch($action){
+switch ($action) {
     case 'remove':
         $ctrl->removeFromWatchesAjax($_GET['cacheWp']);
         break;
@@ -23,15 +21,8 @@ switch($action){
     case 'map':
         $ctrl->mapOfWatches();
         break;
-    case 'emailSettings':
-        $ctrl->emailSettings();
-        break;
-    case 'updateEmailSettings':
-        $ctrl->updateEmailSettings();
-        break;
     default:
         $ctrl->index();
 }
 
-exit;
-
+exit();

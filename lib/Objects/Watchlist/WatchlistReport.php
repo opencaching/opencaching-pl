@@ -8,6 +8,7 @@ use lib\Objects\OcConfig\OcConfig;
 use Utils\Text\Formatter;
 use Utils\Email\EmailFormatter;
 use Utils\Email\Email;
+use Utils\Uri\SimpleRouter;
 
 /**
  * Used for preparing and sending email to watcher
@@ -86,6 +87,7 @@ class WatchlistReport
             $report->setVariable('watchlogs', $this->noLogs);
             $report->setVariable('cachesWatchedDisplay', 'none');
         }
+        $report->setVariable('urlNotifySettings', SimpleRouter::getAbsLink('UserProfile', 'notifySettings'));
 
         $email = new Email();
         $email->addToAddr($watcher->getEmail());

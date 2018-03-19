@@ -6,6 +6,7 @@ $translations = array(
     'new' => 'Neu',
     'save' => 'Speichern',
     'save_changes' => 'Save changes', /* EN */
+    'autosave' => 'Changes are saved automatically', /* EN */
     'config' => 'Setup', /* EN */
     'exit_config' => 'Exit from setup', /* EN */
     'more' => 'More...', /* EN */
@@ -694,7 +695,7 @@ $translations = array(
     'myn_map_info2' => 'You can move the previously selected area by dragging its center or change the radius by dragging highlighted point on the edge of the circle. The radius can range from 1 to 150 km.', /* EN */
     'myn_map_drawbtn' => 'Start drawing', /* EN */
     'myn_name_default' => 'This is your primary Neighborhood. You will receive notifications about new caches (according to the notification settings), you can not edit its name.', /* EN */
-    'myn_name_addition' => 'This is your additional Neighborhood. You will not receive notifications about new caches in its radius.', /* EN */
+    'myn_name_addition' => 'This is your additional Neighborhood. If you want to receive notifications about new caches - enable the appropriate option in Notification Settings.', /* EN */
     'myn_dragdrop' => 'You can move elements of this page at any time by "grabbing" for their headline. Using the small arrows next to the header, you can either collapse the section or stretch it to the entire width of the page.', /* EN */
     'myn_distances' => 'The distance between the cache and the area center of the neighborhood you set is displayed.', /* EN */
     'myn_addarea_info' => 'You can define more neighbourhoods that you watch', /* EN */
@@ -2048,24 +2049,6 @@ $translations = array(
     'usrWatch_removingError' => 'Unexpected error on removing from watched!',
     'usrWatch_removingSuccess' => 'Geocache successful removed from watched.',
 
-    'usrWatch_emailSettingsTitle' => 'Settings of notifications about watched caches',
-    'usrWatch_sendNotifications' => 'Notifications about watched caches will be sent: ',
-    'usrWatch_hourlyMode' => 'jede Stunde',
-    'usrWatch_dailyMode' => 'Ein mal pro Tag',
-    'usrWatch_weeklyMode' => 'Ein mal pro Woche',
-    'usrWatch_everyWeekday' => 'every',
-    'usrWatch_atHour' => 'at',
-    'usrWatch_settingsSaved' => 'New settings were saved successful.',
-    'usrWatch_settingsSavedError' => 'Unexpected error occured durring saving settings.',
-
-    'usrWatch_monday' => 'Montag',
-    'usrWatch_tuesday' => 'Dienstag',
-    'usrWatch_wednesday' => 'Mittwoch',
-    'usrWatch_thursday' => 'Donnerstag',
-    'usrWatch_friday' => 'Freitag',
-    'usrWatch_saturday' => 'Samstag',
-    'usrWatch_sunday' => 'Sontag',
-
     'myignores_1' => 'Do you want to switch off ignore?',
     'myviewqueries_1' => 'Do you want to remove this query collection?',
     'search_gpxgc_01' => 'WARNING! There is a PASSWORD in the cache - please remember to write it down!',
@@ -2373,6 +2356,31 @@ $translations = array(
     'notify_lbl_direction' => 'Bearing',
     'notify_freq' => 'Benachrichtigungen Einstellungen',
     'notify_radius' => 'Benachrichtigung über neue Caches in',
+
+    'notify_settings_intro' => 'The system sends notifications about new caches in the Neighbourhood area defined by you and about logs in the observed caches. On this page you can choose the frequency and types of notifications you receive.', /* EN */
+    'notify_settings_freq' => 'Frequency of sending notifications', /* EN */
+    'notify_settings_freq2' => 'Send notifications', /* EN */
+    'notify_settings_caches' => 'Notifications about new caches', /* EN */
+    'notify_settings_cachesonoff' => 'Send notifications about new caches in the area designated in My Neighbourhood', /* EN */
+    'notify_settings_addnbh' => 'also send notifications from additional Neighbourhoods', /* EN */
+    'notify_settings_logs' => 'Notifications about new logs', /* EN */
+    'notify_settings_logsonoff' => 'Send notifications about new logs in the watched caches', /* EN */
+    'notify_settings_watchinfo' => 'Warning! You will not receive information about new logs in your caches and caches marked as watched.', /* EN */
+
+    'notify_settings_hourlyMode' => 'jede Stunde',
+    'notify_settings_dailyMode' => 'Ein mal pro Tag',
+    'notify_settings_weeklyMode' => 'Ein mal pro Woche',
+    'notify_settings_everyWeekday' => 'every', /* EN */
+    'notify_settings_atHour' => 'at', /* EN */
+
+    'notify_settings_monday' => 'Montag',
+    'notify_settings_tuesday' => 'Dienstag',
+    'notify_settings_wednesday' => 'Mittwoch',
+    'notify_settings_thursday' => 'Donnerstag',
+    'notify_settings_friday' => 'Freitag',
+    'notify_settings_saturday' => 'Samstag',
+    'notify_settings_sunday' => 'Sontag',
+
     'newEmailAddr_01' => 'Hello',
     'newEmailAddr_02' => 'On',
     'newEmailAddr_03' => 'you have asked to set a new e-mail address',

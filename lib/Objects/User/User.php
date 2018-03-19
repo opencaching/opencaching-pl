@@ -74,6 +74,10 @@ class User extends UserCommons
     private $watchmailMode;
     private $watchmailDay;
     private $watchmailHour;
+    /** @var bool */
+    private $notifyCaches;
+    /** @var bool */
+    private $notifyLogs;
 
     const REGEX_USERNAME = '^[a-zA-Z0-9ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ@-][a-zA-ZęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ0-9\.\-=_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\ -=&*+~#]{2,59}$';
     const REGEX_PASSWORD = '^[a-zA-Z0-9\.\-_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\$&*+~#]{3,60}$';
@@ -82,7 +86,7 @@ class User extends UserCommons
     const COMMON_COLLUMNS = "user_id, username, founds_count, notfounds_count,
                        hidden_count, latitude, longitude, country,
                        email, admin, guru, verify_all, rules_confirmed,
-                       notify_radius, watchmail_mode, watchmail_day, watchmail_hour";
+                       notify_radius, watchmail_mode, watchmail_day, watchmail_hour, notify_caches, notify_logs";
 
     const AUTH_COLLUMS = self::COMMON_COLLUMNS . ', is_active_flag, permanent_login_flag';
 
@@ -330,6 +334,12 @@ class User extends UserCommons
                     break;
                 case 'watchmail_hour':
                     $this->watchmailHour = (int) $value;
+                    break;
+                case 'notify_caches':
+                    $this->notifyCaches = Php7Handler::Boolval($value);
+                    break;
+                case 'notify_logs':
+                    $this->notifyLogs = Php7Handler::Boolval($value);
                     break;
                 case 'permanent_login_flag':
                     $this->permanentLogin = Php7Handler::Boolval($value);
@@ -759,6 +769,16 @@ class User extends UserCommons
         return $this->watchmailHour;
     }
 
+    public function getNotifyCaches()
+    {
+        return $this->notifyCaches;
+    }
+
+    public function getNotifyLogs()
+    {
+        return $this->notifyLogs;
+    }
+
     public function isActive()
     {
         return $this->isActive && !empty($this->getEmail());
@@ -804,7 +824,7 @@ class User extends UserCommons
     /**
      * Updates primary user's MyNeighbourhood coords
      * These coords are also "home coords" for user
-     * 
+     *
      * @param Coordinates $coords
      * @param int $radius
      * @return boolean

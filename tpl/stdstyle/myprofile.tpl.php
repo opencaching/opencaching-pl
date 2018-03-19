@@ -10,7 +10,7 @@ use Utils\Uri\SimpleRouter;
     <a class="btn btn-default btn-sm" href="/newemail.php">{{change_email}}</a>
     <a class="btn btn-default btn-sm" href="<?=SimpleRouter::getLink('UserAuthorization', 'newPassword')?>">{{change_password}}</a>
     <a class="btn btn-default btn-sm" href="/change_statpic.php">{{choose_statpic}}</a>
-    <a class="btn btn-default btn-sm" href="/mywatches.php?action=emailSettings">{{settings_notifications}}</a>
+    <a class="btn btn-default btn-sm" href="<?=SimpleRouter::getLink('UserProfile', 'notifySettings')?>">{{settings_notifications}}</a>
   </div>
 
   <div class="buffer"></div>

@@ -5,13 +5,12 @@
 namespace Controllers\Cron;
 
 use Controllers\BaseController;
-use lib\Objects\ApplicationContainer;
+use Utils\Lock\Lock;
+use lib\Objects\User\UserNotify;
+use lib\Objects\Watchlist\Watchlist;
 use lib\Objects\Watchlist\WatchlistItem;
 use lib\Objects\Watchlist\WatchlistReport;
 use lib\Objects\Watchlist\WatchlistWatcher;
-use lib\Objects\Watchlist\Watchlist;
-use lib\Objects\User\UserWatchedCache;
-use Utils\Lock\Lock;
 
 /**
  * Initiates and performs operations included in watchlist processing: new logs
@@ -42,8 +41,7 @@ class WatchlistController extends BaseController
      */
     public function __construct()
     {
-        $this->applicationContainer = ApplicationContainer::Instance();
-        $this->ocConfig = $this->applicationContainer->getOcConfig();
+        parent::__construct();
         $this->watchlistConfig = $this->ocConfig->getWatchlistConfig();
         if ($this->watchlistConfig == null) {
             $this->watchlistConfig = [];
@@ -153,8 +151,9 @@ class WatchlistController extends BaseController
         $watchers = $this->watchlist->getWatchersAndWaitings();
         foreach ($watchers as $watcher) {
             if (
-                sizeof($watcher->getOwnerLogs()) > 0
-                || sizeof($watcher->getWatchLogs()) > 0
+                (sizeof($watcher->getOwnerLogs()) > 0
+                || sizeof($watcher->getWatchLogs()) > 0)
+                && UserNotify::getUserLogsNotify($watcher->getUserId())
             ) {
                 $sendStatus = $this->watchlistReport->prepareAndSend($watcher);
                 $watcher->setSendStatus($sendStatus);
@@ -195,12 +194,12 @@ class WatchlistController extends BaseController
         $result = null;
         if (
             $watcher->getWatchmailMode() !=
-                UserWatchedCache::SEND_NOTIFICATION_HOURLY
+                UserNotify::SEND_NOTIFICATION_HOURLY
         ) {
             $now = new \DateTime();
             if (
                 $watcher->getWatchmailMode() ==
-                    UserWatchedCache::SEND_NOTIFICATION_DAILY
+                    UserNotify::SEND_NOTIFICATION_DAILY
             ) {
                 $result = $now ->
                     setDate(
@@ -211,7 +210,7 @@ class WatchlistController extends BaseController
                     setTime($watcher->getWatchmailHour(), 0, 0);
             } elseif (
                 $watcher->getWatchmailMode() ==
-                    UserWatchedCache::SEND_NOTIFICATION_WEEKLY
+                    UserNotify::SEND_NOTIFICATION_WEEKLY
             ) {
                 $weekday = $now->format('w');
                 if ($weekday == 0) {

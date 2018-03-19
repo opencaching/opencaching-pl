@@ -2,18 +2,15 @@
 namespace Controllers\Cron;
 
 use Controllers\BaseController;
-use Utils\Email\EmailSender;
+use Utils\Lock\Lock;
 use lib\Objects\Notify\Notify;
 use lib\Objects\User\User;
+use lib\Objects\Notify\NotifyEmailSender;
 
 class NotifyController extends BaseController
 {
 
-    const NOTIFY_LOCK = "/tmp/notification-run_notify.lock";
-
     const NOTIFY_FLAG = "/tmp/notification-run_notify.date";
-
-    private $lockFile;
 
     /* @var \DateTime */
     private $lastRun;
@@ -26,7 +23,7 @@ class NotifyController extends BaseController
     public function isCallableFromRouter($actionName)
     {
         // this controller is used by cron only - router shouldn't call it!
-        return FALSE;
+        return false;
     }
 
     public function index()
@@ -36,23 +33,25 @@ class NotifyController extends BaseController
 
     private function processNotifyQueue()
     {
-        if (! $this->setLock()) {
-            die("Another instance is running or problem with lock file");
+        $lockHandle = Lock::tryLock($this, Lock::EXCLUSIVE | Lock::NONBLOCKING);
+        if (! $lockHandle) {
+            die("Another instance of NotifyController is running or problem with lock file");
         }
         $this->lastRun = $this->getFlagTime();
         $this->touchFlag();
 
-        $notifiesWaiting = Notify::getUniqueUserIdNotifiesList(Notify::TYPE_NEWCACHE);
+        $notifiesWaiting = Notify::getUniqueUserIdNotifiesList();
         foreach ($notifiesWaiting as $uniqueUser) {
-            $itemUser = new User(array(
-                'userId' => $uniqueUser['user_id']
-            ));
-            if ($this->checkIfShouldSendToUser($itemUser)) {
+            $itemUser = User::fromUserIdFactory($uniqueUser['user_id']);
+            // Check if user wants to receive notifications
+            if (! $itemUser->getNotifyCaches()) { // If not - delete waiting notifications for him
+                Notify::deleteNotifiesForUserId($itemUser->getUserId());
+            } elseif ($this->checkIfShouldSendToUser($itemUser)) {
                 $this->sendNotifiesAndClean($itemUser);
             }
             unset($itemUser);
         }
-        $this->unsetLock();
+        Lock::unlock($lockHandle);
     }
 
     /**
@@ -93,33 +92,9 @@ class NotifyController extends BaseController
 
     private function sendNotifiesAndClean(User $user)
     {
-        $notifiesList = Notify::getAllNotifiesForUserId($user->getUserId(), Notify::TYPE_NEWCACHE);
-        EmailSender::sendNewCacheNotify(__DIR__ . '/../../tpl/stdstyle/email/', $notifiesList, $user);
-        Notify::deleteNotifiesForUserId($user->getUserId(), Notify::TYPE_NEWCACHE);
-    }
-
-    /**
-     * Make lock to prevent multiple instances run at once
-     *
-     * @return boolean - false if other instance are running
-     */
-    private function setLock()
-    {
-        $this->lockFile = fopen(self::NOTIFY_LOCK, "w");
-        if (! flock($this->lockFile, LOCK_EX | LOCK_NB)) {
-            fclose($this->lockFile);
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Unset lock made by setLock();
-     */
-    private function unsetLock()
-    {
-        flock($this->lockFile, LOCK_UN);
-        fclose($this->lockFile);
+        $notifiesList = Notify::getAllNotifiesForUserId($user->getUserId());
+        NotifyEmailSender::sendNewCacheNotify($notifiesList, $user);
+        Notify::deleteNotifiesForUserId($user->getUserId());
     }
 
     /**

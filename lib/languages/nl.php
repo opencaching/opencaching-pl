@@ -6,6 +6,7 @@ $translations = array(
     'new' => 'NIEUW',
     'save' => 'Opslaan',
     'save_changes' => 'Veranderingen opslaan',
+    'autosave' => 'Changes are saved automatically', /* EN */
     'config' => 'Setup', /* EN */
     'exit_config' => 'Setup verlaten', /* EN */
     'more' => 'Meer...',
@@ -695,7 +696,7 @@ $translations = array(
     'myn_map_info2' => 'You can move the previously selected area by dragging its center or change the radius by dragging highlighted point on the edge of the circle. The radius can range from 1 to 150 km.', /* EN */
     'myn_map_drawbtn' => 'Start drawing', /* EN */
     'myn_name_default' => 'This is your primary Neighborhood. You will receive notifications about new caches (according to the notification settings), you can not edit its name.', /* EN */
-    'myn_name_addition' => 'This is your additional Neighborhood. You will not receive notifications about new caches in its radius.', /* EN */
+    'myn_name_addition' => 'This is your additional Neighborhood. If you want to receive notifications about new caches - enable the appropriate option in Notification Settings.', /* EN */
     'myn_dragdrop' => 'You can move elements of this page at any time by "grabbing" for their headline. Using the small arrows next to the header, you can either collapse the section or stretch it to the entire width of the page.', /* EN */
     'myn_distances' => 'The distance between the cache and the area center of the neighborhood you set is displayed.', /* EN */
     'myn_addarea_info' => 'You can define more neighbourhoods that you watch', /* EN */
@@ -2053,24 +2054,6 @@ $translations = array(
     'usrWatch_removingError' => 'Onverwachte fout bij verwijderen uit volglijst!',
     'usrWatch_removingSuccess' => 'Cache met succes verwijderd uit volglijst.',
 
-    'usrWatch_emailSettingsTitle' => 'Instellingen voor berichten van gevolgde caches',
-    'usrWatch_sendNotifications' => 'Verzendingen van berichten van gevolgde caches: ',
-    'usrWatch_hourlyMode' => 'eens per uur',
-    'usrWatch_dailyMode' => 'eens per dag',
-    'usrWatch_weeklyMode' => 'eens per week',
-    'usrWatch_everyWeekday' => 'elke',
-    'usrWatch_atHour' => 'op',
-    'usrWatch_settingsSaved' => 'Nieuwe instellingen zijn opgeslagen.',
-    'usrWatch_settingsSavedError' => 'Onverwachte fout tijdens opslaan van instellingen.',
-
-    'usrWatch_monday' => 'Maandag',
-    'usrWatch_tuesday' => 'Dinsdag',
-    'usrWatch_wednesday' => 'Woensdag',
-    'usrWatch_thursday' => 'Donderdag',
-    'usrWatch_friday' => 'Vrijdag',
-    'usrWatch_saturday' => 'Zaterdag',
-    'usrWatch_sunday' => 'Zondag',
-
     'myignores_1' => 'Moet het negeren werkelijk uitgeschakeld worden?',
     'myviewqueries_1' => 'Moet deze zoekopdracht werkelijk verwijderd worden?',
     'search_gpxgc_01' => 'Let op! Dit is een cache met logwachtwoord, neem dit mee om te loggen.',
@@ -2378,6 +2361,31 @@ $translations = array(
     'notify_lbl_direction' => 'Richting',
     'notify_freq' => 'Meldingsinstellingen wijzigen',
     'notify_radius' => 'Melding radius wijzigen',
+
+    'notify_settings_intro' => 'The system sends notifications about new caches in the Neighbourhood area defined by you and about logs in the observed caches. On this page you can choose the frequency and types of notifications you receive.', /* EN */
+    'notify_settings_freq' => 'Frequency of sending notifications', /* EN */
+    'notify_settings_freq2' => 'Send notifications', /* EN */
+    'notify_settings_caches' => 'Notifications about new caches', /* EN */
+    'notify_settings_cachesonoff' => 'Send notifications about new caches in the area designated in My Neighbourhood', /* EN */
+    'notify_settings_addnbh' => 'also send notifications from additional Neighbourhoods', /* EN */
+    'notify_settings_logs' => 'Notifications about new logs', /* EN */
+    'notify_settings_logsonoff' => 'Send notifications about new logs in the watched caches', /* EN */
+    'notify_settings_watchinfo' => 'Warning! You will not receive information about new logs in your caches and caches marked as watched.', /* EN */
+
+    'notify_settings_hourlyMode' => 'eens per uur',
+    'notify_settings_dailyMode' => 'eens per dag',
+    'notify_settings_weeklyMode' => 'eens per week',
+    'notify_settings_everyWeekday' => 'elke',
+    'notify_settings_atHour' => 'op',
+
+    'notify_settings_monday' => 'Maandag',
+    'notify_settings_tuesday' => 'Dinsdag',
+    'notify_settings_wednesday' => 'Woensdag',
+    'notify_settings_thursday' => 'Donderdag',
+    'notify_settings_friday' => 'Vrijdag',
+    'notify_settings_saturday' => 'Zaterdag',
+    'notify_settings_sunday' => 'Zondag',
+
     'newEmailAddr_01' => 'Hallo',
     'newEmailAddr_02' => 'Op',
     'newEmailAddr_03' => 'heb je een code opgevraagd voor een nieuw e-mailadres',

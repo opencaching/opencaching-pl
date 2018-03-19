@@ -5,9 +5,9 @@
 namespace lib\Objects\Watchlist;
 
 use lib\Objects\BaseObject;
-use lib\Objects\User\UserWatchedCache;
 use Utils\Database\OcDb;
 use Utils\Log\Log;
+use lib\Objects\User\UserNotify;
 
 /**
  * DAO for performing watchlist operations
@@ -123,19 +123,21 @@ class Watchlist extends BaseObject
         WatchlistGeoCacheLog $log,
         $itemText
     ) {
-        if ($this->insertOwnerWaitingsStmt == null) {
-            $this->insertOwnerWaitingsStmt = $this->db->prepare(
-                "INSERT IGNORE INTO watches_waiting (
+        if (UserNotify::getUserLogsNotify($log->getCacheOwnerId())) {
+            if ($this->insertOwnerWaitingsStmt == null) {
+                $this->insertOwnerWaitingsStmt = $this->db->prepare(
+                    "INSERT IGNORE INTO watches_waiting (
                      user_id, object_id, object_type, date_added,
                      watchtext, watchtype)
                  VALUES(?, ?, 1, NOW(), ?, " . self::WATCHTYPE_OWNER . ")"
-            );
+                    );
+            }
+            $this->insertOwnerWaitingsStmt->execute([
+                $log->getCacheOwnerId(),
+                $log->getLogId(),
+                $itemText
+            ]);
         }
-        $this->insertOwnerWaitingsStmt->execute([
-            $log->getCacheOwnerId(),
-            $log->getLogId(),
-            $itemText
-        ]);
         if ($this->insertWatchersWaitingsStmt == null) {
             $this->insertWatchersWaitingsStmt = $this->db->prepare(
                 "INSERT IGNORE INTO watches_waiting (
@@ -143,8 +145,11 @@ class Watchlist extends BaseObject
                      watchtext, watchtype)
                  SELECT
                     cw.user_id, cl.id, 1, NOW(), ?, " . self::WATCHTYPE_WATCH .
-                 " FROM cache_watches cw, cache_logs cl
-                 WHERE cl.cache_id=cw.cache_id AND cl.id=?"
+                 " FROM cache_watches cw, cache_logs cl, user u
+                 WHERE cl.cache_id=cw.cache_id
+                    AND cw.user_id = u.user_id
+                    AND u.notify_logs = 1
+                    AND cl.id=?"
             );
         }
         $this->insertWatchersWaitingsStmt->execute([
@@ -172,12 +177,12 @@ class Watchlist extends BaseObject
                  . self::WATCHTYPE_OWNER . ", " . self::WATCHTYPE_WATCH . ")
              WHERE
                  (u.watchmail_mode = "
-                     . UserWatchedCache::SEND_NOTIFICATION_HOURLY .
+                     . UserNotify::SEND_NOTIFICATION_HOURLY .
                  " AND ww.id IS NOT NULL)
                  OR
                  (u.watchmail_mode IN ("
-                     . UserWatchedCache::SEND_NOTIFICATION_DAILY
-                     . ", " . UserWatchedCache::SEND_NOTIFICATION_WEEKLY . ")
+                     . UserNotify::SEND_NOTIFICATION_DAILY
+                     . ", " . UserNotify::SEND_NOTIFICATION_WEEKLY . ")
                   AND u.watchmail_nextmail < NOW()
                  )
              ORDER BY u.user_id, ww.id DESC"
@@ -206,7 +211,7 @@ class Watchlist extends BaseObject
             if ($row['watchtype'] != null && (
                 (
                     $currentWatcher->getWatchmailMode() ==
-                    UserWatchedCache::SEND_NOTIFICATION_HOURLY
+                    UserNotify::SEND_NOTIFICATION_HOURLY
                 ) || (
                     $currentWatcher->getWatchmailNext() != null
                     && $currentWatcher->getWatchmailNext()->getTimestamp() > 0

@@ -8,8 +8,6 @@ use lib\Objects\User\User;
 class Notify extends BaseObject
 {
 
-    const TYPE_NEWCACHE = 1;
-
     /* @var integer */
     private $id;
 
@@ -25,15 +23,9 @@ class Notify extends BaseObject
     /* @var $user User */
     private $user = null;
 
-    /* @var integer */
-    private $type;
-
-    public function __construct(array $params = array())
+    public function __construct()
     {
         parent::__construct();
-        if (isset($params['notifyId'])) {
-            $this->loadById($params['notifyId']);
-        }
     }
 
     public function getId()
@@ -49,9 +41,7 @@ class Notify extends BaseObject
     public function getCache()
     {
         if ($this->cache == null && $this->isDataLoaded()) {
-            $this->cache = new GeoCache(array(
-                'cacheId' => $this->cacheId
-            ));
+            $this->cache = GeoCache::fromCacheIdFactory($this->cacheId);
         }
         return $this->cache;
     }
@@ -64,24 +54,9 @@ class Notify extends BaseObject
     public function getUser()
     {
         if ($this->user == null && $this->isDataLoaded()) {
-            $this->user = new User(array(
-                'userId' => $this->userId
-            ));
+            $this->user = User::fromUserIdFactory($this->userId);
         }
         return $this->user;
-    }
-
-    private function loadById($notifyId)
-    {
-        $query = 'SELECT * FROM `notify_waiting` WHERE id = :1 LIMIT 1';
-        $stmt = self::db()->multiVariableQuery($query, $notifyId);
-        $dbRow = self::db()->dbResultFetch($stmt);
-        
-        if (is_array($dbRow)) {
-            $this->loadFromDbRow($dbRow);
-        } else {
-            $this->dataLoaded = false;
-        }
     }
 
     private function loadFromDbRow(array $dbRow)
@@ -89,7 +64,7 @@ class Notify extends BaseObject
         foreach ($dbRow as $key => $val) {
             switch ($key) {
                 case 'id':
-                    $this->id = (int) $val;
+                    $this->id = $val;
                     $this->dataLoaded = true;
                     break;
                 case 'cache_id':
@@ -97,9 +72,6 @@ class Notify extends BaseObject
                     break;
                 case 'user_id':
                     $this->userId = $val;
-                    break;
-                case 'type':
-                    $this->type = $val;
                     break;
                 default:
                     error_log(__METHOD__ . ": Unknown column: $key");
@@ -114,21 +86,19 @@ class Notify extends BaseObject
         return $n;
     }
 
-    
     /**
      * Returns array of Notify obiects for given user_id
-     * 
+     *
      * @param int $itemUserId
-     * @param int $type
      * @return Notify[]
      */
-    public static function getAllNotifiesForUserId($itemUserId, $type = self::TYPE_NEWCACHE)
+    public static function getAllNotifiesForUserId($itemUserId)
     {
         $query = "SELECT *
             FROM `notify_waiting`
-            WHERE `user_id` = :1 AND `type` = :2
+            WHERE `user_id` = :1
             ORDER BY `id` ASC";
-        $stmt = self::db()->multiVariableQuery($query, $itemUserId, $type);
+        $stmt = self::db()->multiVariableQuery($query, $itemUserId);
 
         return self::db()->dbFetchAllAsObjects($stmt, function ($row) {
             return self::fromDbRowFactory($row);
@@ -137,32 +107,76 @@ class Notify extends BaseObject
 
     /**
      * Returns array of unique user_id's in notify queue
-     * 
-     * @param int $type
+     *
      * @return int[]
      */
-    public static function getUniqueUserIdNotifiesList($type = self::TYPE_NEWCACHE)
+    public static function getUniqueUserIdNotifiesList()
     {
-        $query ="
+        $query = "
             SELECT DISTINCT `user_id`
-            FROM `notify_waiting`
-            WHERE `type` = :1";
-        $stmt = self::db()->multiVariableQuery($query, $type);
+                FROM `notify_waiting`";
+        $stmt = self::db()->multiVariableQuery($query);
         return self::db()->dbResultFetchAll($stmt);
     }
 
     /**
      * Deletes all notifies from DB for given userId
-     * 
+     *
      * @param int $userId
      */
-    public static function deleteNotifiesForUserId($userId, $type = self::TYPE_NEWCACHE)
+    public static function deleteNotifiesForUserId($userId)
     {
-        $query ="
+        $query = "
             DELETE
-            FROM `notify_waiting`
-            WHERE `user_id` = :1 AND `type` = :2";
-        self::db()->multiVariableQuery($query, $userId, $type);
+                FROM `notify_waiting`
+                WHERE `user_id` = :1";
+        self::db()->multiVariableQuery($query, $userId);
     }
 
+    /**
+     * Inserts into notify_waiting table info about new cache notifications
+     * for users - for given by $cacheId cache.
+     *
+     * @param int $cacheId
+     */
+    public static function generateNotifiesForCache($cacheId)
+    {
+        if (is_null($cache = GeoCache::fromCacheIdFactory($cacheId))) { // Check for sure
+            exit();
+        }
+        // Check user's home coords
+        self::db()->multiVariableQuery('
+            INSERT INTO `notify_waiting` (`cache_id`, `user_id`)
+                SELECT :1, `user`.`user_id`
+                FROM `user`
+                WHERE `user`.`notify_caches` = TRUE
+                AND `user`.`is_active_flag` = TRUE
+                AND `user`.`notify_radius` > 0
+                AND NOT ISNULL(`user`.`latitude`)
+                AND NOT ISNULL(`user`.`longitude`)
+                AND (acos(cos((90 - :2) * PI() / 180) * cos((90-`user`.`latitude`) * PI() / 180) +
+                    sin((90 - :2) * PI() / 180) * sin((90 - `user`.`latitude`) * PI() / 180) * cos((:3 -`user`.`longitude`) *
+                    PI() / 180)) * 6370) <= `user`.`notify_radius`
+            ON DUPLICATE KEY UPDATE `notify_waiting`.`user_id` = `notify_waiting`.`user_id`
+                ', $cache->getCacheId(), $cache->getCoordinates()
+            ->getLatitude(), $cache->getCoordinates()
+            ->getLongitude());
+
+        // Check additional neighbourhoods
+        self::db()->multiVariableQuery('
+            INSERT INTO `notify_waiting` (`cache_id`, `user_id`)
+                SELECT :1, `user`.`user_id`
+                FROM `user`
+                LEFT JOIN `user_neighbourhoods` ON `user`.`user_id` = `user_neighbourhoods`.`user_id`
+                WHERE `user`.`notify_caches` = TRUE
+                    AND `user`.`is_active_flag` = TRUE
+                    AND `user_neighbourhoods`.`notify` = TRUE
+                    AND (acos(cos((90 - :2) * PI() / 180) * cos((90-`user_neighbourhoods`.`latitude`) * PI() / 180) +
+                        sin((90 - :2) * PI() / 180) * sin((90 - `user_neighbourhoods`.`latitude`) * PI() / 180) * cos((:3 -`user_neighbourhoods`.`longitude`) *
+                        PI() / 180)) * 6370) <= `user_neighbourhoods`.`radius`
+                ON DUPLICATE KEY UPDATE `notify_waiting`.`user_id` = `notify_waiting`.`user_id`
+                ', $cache->getCacheId(), $cache->getCoordinates()
+            ->getLatitude(), $cache->getCoordinates()
+            ->getLongitude());
+    }
 }

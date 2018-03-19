@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+.content2-container {
+	font-size: 12px;
+}
+
+form {
+	font-size: 1em;
+}
+
+.no-display {
+	display: none;
+}
+
+.notify-switch-img {
+	width: 45px;
+	cursor: pointer;
+}
+
+.notify-add-nbh {
+	margin-left: 70px;
+}

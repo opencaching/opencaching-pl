@@ -1,8 +1,14 @@
+<?php
+use Utils\Uri\SimpleRouter;
+
+?>
 <div class="content2-container">
 
     <div class="align-right">
+      <a href="<?=SimpleRouter::getLink('UserProfile', 'notifySettings')?>" class="btn btn-default btn-sm">
+        <?=tr('settings_notifications')?></a>
       <a class="btn btn-default btn-sm" href="/mywatches.php?action=map">
-      <?=tr('map_watched_caches')?></a>
+        <?=tr('map_watched_caches')?></a>
     </div>
 
 

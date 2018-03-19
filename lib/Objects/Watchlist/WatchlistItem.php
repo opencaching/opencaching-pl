@@ -7,6 +7,7 @@ namespace lib\Objects\Watchlist;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\GeoCache\GeoCacheLogCommons;
 use Utils\Text\Formatter;
+use lib\Objects\GeoCache\GeoCache;
 
 /**
  * Used for preparing formatted items of watchlist report based on log data
@@ -114,6 +115,11 @@ class WatchlistItem
             $log->getCacheWaypoint(),
             $watchlistItemText
         );
+        $watchlistItemText = mb_ereg_replace(
+            '{cacheurl}',
+            ltrim(GeoCache::GetCacheUrlByWp($log->getCacheWaypoint()), '/'),
+            $watchlistItemText
+            );
         $watchlistItemText = mb_ereg_replace(
             '{cachename}',
             $log->getCacheName(),
