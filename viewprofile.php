@@ -13,6 +13,7 @@ use lib\Controllers\MeritBadgeController;
 use Utils\Text\TextConverter;
 use Utils\DateTime\Year;
 use Utils\View\View;
+use Utils\Uri\SimpleRouter;
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath)){
@@ -182,8 +183,8 @@ if ($usr == false) {
 
     //Admin Note (table only)
     if($usr['admin']) {
-        $content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="Cog Note" title="Cog Note" />&nbsp;&nbsp;&nbsp;' . tr('admin_notes') . '</p></div>';
-        $content .= '<div class="content-title-noshade txt-blue08"><img src="tpl/stdstyle/images/misc/16x16-info.png" class="icon16" alt="Info" /> '.tr('admin_notes_visible').'<br /><img src="tpl/stdstyle/images/blue/arrow.png" class="icon16" alt="Link" /> '.tr('management_users').': <a href="admin_users.php?userid='.$user_id.'"> ['.tr('here').']</a></div><br />';
+        $content .= '<div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="/tpl/stdstyle/images/blue/logs.png" class="icon32" alt="Cog Note" title="Cog Note"> ' . tr('admin_notes') . '</p></div>';
+        $content .= '<div class="notice">'.tr('admin_notes_visible').'</div><p><a href="' . SimpleRouter::getLink('Admin.UserAdmin', 'index', $user_id) . '" class="links">'.tr('admin_user_management').' <img src="/tpl/stdstyle/images/misc/linkicon.png" alt="user admin"></a></p>';
         $content .= adminNoteTable(AdminNote::getAllUserNotes($user_id));
     }
 

@@ -64,15 +64,9 @@ if ($error == false) {
         }
 
         // display info for begginner about number of find caches to possible register first cache
-        $num_find_caches = XDb::xMultiVariableQueryValue(
-            "SELECT COUNT(`cache_logs`.`cache_id`) as num_fcaches FROM cache_logs, caches
-            WHERE cache_logs.cache_id=caches.cache_id AND (caches.type='1'
-                OR caches.type='2' OR caches.type='3' OR caches.type='7'
-                OR caches.type='8') AND cache_logs.type='1'
-                AND cache_logs.deleted='0' AND `cache_logs`.`user_id` = :1 ", 0,$usr['userid'] );
-        tpl_set_var('number_finds_caches', $num_find_caches);
+        tpl_set_var('number_finds_caches', $user->getFoundPhysicalGeocachesCount());
 
-        if ($num_find_caches < $NEED_FIND_LIMIT && !$user->isIngnoreGeocacheLimitWhileCreatingNewGeocache()) {
+        if (! $user->canCreateNewCache()) {
             $tplname = 'newcache_beginner';
             require_once($rootpath . '/lib/caches.inc.php');
         }

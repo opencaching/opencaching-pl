@@ -22,6 +22,10 @@ class AdminNote
     const CACHE_BLOCKED = "8";
     const IGNORE_FOUND_LIMIT = "9";
     const IGNORE_FOUND_LIMIT_RM = "10";
+    const NOTIFY_CACHES_ON = "11";
+    const NOTIFY_CACHES_OFF = "12";
+    const NOTIFY_LOGS_ON = "13";
+    const NOTIFY_LOGS_OFF = "14";
 
     private $note_id;
     private $user_id;

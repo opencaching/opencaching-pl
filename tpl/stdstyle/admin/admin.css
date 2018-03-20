@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.content2-container {
+	font-size: 12px;
+}
+
+.admin-onoff-switch {
+	height: 24px;
+}
+
+.admin-note-textarea {
+	height: 120px;
+}
