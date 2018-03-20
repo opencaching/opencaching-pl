@@ -1,9 +1,4 @@
-<?php
-
-?>
-
 <div class="content2-pagetitle">
-  <img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="">
   {{mc_beginn_00}}
 </div>
 <div class="callout callout-info">
