@@ -629,7 +629,6 @@ $translations = array(
     'latest_logs_in_caches' => 'Neueste Log-Einträge in Caches des Benutzers',
     'caches_waiting_approve' => 'Caches erwarten für Verifikation bei OC Team',
     'caches_blocked' => 'Meine gesperrte Caches bei OC Team',
-    'blocked_create_caches' => 'ACHTUNG! Deine Möglichkeit für Cache Versteckung ist gesperrt. Bitte um Kontakt mit OC Team rr@opencaching.pl',
     'npa_info' => 'Wahrscheinlich Cache ist versteck an Bereich',
     'check_nearby_caches_info' => 'Vor einsetzung der Cache bitte prüfen ob in geplante Platz <br /> keine Cache in Radius 150 m schon versteckt ist, wann ja - bitte um andere Platz suchen.',
     'check_nearby_caches' => 'Caches versteckt in Nähe auf {site_name}',

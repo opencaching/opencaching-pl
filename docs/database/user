@@ -50,7 +50,6 @@ Table user
 | rules_confirmed         | int(1)        | NO   |     | 0                   |                |
 | get_bulletin            | tinyint(1)    | NO   |     | 1                   |                |
 | ozi_filips              | varchar(255)  | YES  |     | NULL                |                |
-| hide_flag               | int(1)        | NO   |     | 0                   |                |
 | verify_all              | tinyint(1)    | NO   |     | 0                   |                |
 +-------------------------+---------------+------+-----+---------------------+----------------+
 
@@ -108,7 +107,6 @@ Create Table: CREATE TABLE `user` (
   `rules_confirmed` int(1) NOT NULL DEFAULT 0,
   `get_bulletin` tinyint(1) NOT NULL DEFAULT 1,
   `ozi_filips` varchar(255) DEFAULT NULL COMMENT 'path to the op dir at mobile device',
-  `hide_flag` int(1) NOT NULL DEFAULT 0,
   `verify_all` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`user_id`),
   KEY `notify_radius` (`notify_radius`),

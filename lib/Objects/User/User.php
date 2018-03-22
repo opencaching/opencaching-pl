@@ -65,7 +65,6 @@ class User extends UserCommons
     private $description;
     private $lastLogin;
     private $isActive = null;
-    private $hideBan = false;
 
     private $verifyAll = null;
 
@@ -341,9 +340,6 @@ class User extends UserCommons
                     break;
                 case 'is_active_flag':
                     $this->isActive = Php7Handler::Boolval($value);
-                    break;
-                case 'hide_flag':
-                    $this->hideBan = (int) $value;
                     break;
                 case 'watchmail_mode':
                     $this->watchmailMode = (int) $value;
@@ -825,11 +821,6 @@ class User extends UserCommons
     public function usePermanentLogin()
     {
         return $this->permanentLogin;
-    }
-
-    public function haveHideBan()
-    {
-        return $this->hideBan == 10;
     }
 
     public function getGeokretyApiSecid()

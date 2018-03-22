@@ -762,11 +762,6 @@ if ($usr == false) {
             $content .= '</ul></div>';
         }
 
-        // if user have blocked create new cache, display this info for owner of profile
-        if ($user->haveHideBan()) {
-            $content .= '<p>&nbsp</p><p><span class="content-title-noshade txt-red08"><strong>' . tr('blocked_create_caches') . '</strong></span></p><br />';
-        }
-
         if ($rscheck != 0) {
             $content .= '</div>';
         }

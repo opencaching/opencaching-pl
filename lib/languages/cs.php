@@ -812,7 +812,6 @@ $translations = array(
     'latest_logs_in_caches' => 'Latest log entry in caches owned',
     'caches_waiting_approve' => 'Caches waiting for approval by OC Team',
     'caches_blocked' => 'Caches blocked by OC Team',
-    'blocked_create_caches' => 'You are NOT ALLOWED to create new caches. Please contact the OC Team',
     'npa_info' => 'This geocache is probably placed in a nature protection area',
     'check_nearby_caches_info' => 'Before placing your cache, make sure there are no other caches within a {limits_promixity} m radius',
     'check_nearby_caches' => 'Check for nearby caches on {short_sitename} &nbsp;&nbsp;&nbsp;',

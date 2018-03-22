@@ -634,7 +634,6 @@ $translations = array(
     'latest_logs_in_caches' => 'Najnowsze wpisy w logach w skrzynkach użytkownika',
     'caches_waiting_approve' => 'Moje skrzynki oczekujące na weryfikację przez OC Team',
     'caches_blocked' => 'Moje skrzynki zablokowane przez OC Team',
-    'blocked_create_caches' => 'UWAGA! Masz zablokowaną możliwość zakładania nowych skrzynek. Proszę kontaktować się z OC Team',
     'npa_info' => 'Prawdopodobnie skrzynka znajduje się na obszarze',
     'check_nearby_caches_info' => 'Przed założeniem skrzynki sprawdź, czy w planowanym miejscu nie ma już założonych <br />skrzynek w promieniu {limits_promixity} m, jeśli są już prosimy rozważ, czy nie warto poszukać innego ciekawego miejsca.',
     'check_nearby_caches' => 'Sprawdź czy są już skrzynki w okolicy na {short_sitename}',

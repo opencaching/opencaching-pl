@@ -1,14 +1,14 @@
 <?php
-use lib\Objects\ApplicationContainer;
 use Utils\Database\OcDb;
 use Utils\Database\XDb;
-use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\User\User;
 use Utils\Email\EmailSender;
 use Utils\Generators\Uuid;
 use Utils\Text\UserInputFilter;
+use lib\Objects\ApplicationContainer;
+use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\OcConfig\OcConfig;
+use lib\Objects\User\User;
 
 // prepare the templates and include all neccessary
 if (! isset($rootpath)) {

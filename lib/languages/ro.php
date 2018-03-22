@@ -630,7 +630,6 @@ $translations = array(
     'latest_logs_in_caches' => 'Ultimele însemnări la geocutiile proprii',
     'caches_waiting_approve' => 'Geocutii care aşteaptă aprobarea Echipei OC',
     'caches_blocked' => 'Geocutii blocate de Echipa OC',
-    'blocked_create_caches' => 'Nu mai poţi adăuga geocutii noi. Contactează Echipa OC',
     'npa_info' => 'Probabil că această geocutie este ascunsă într-o rezervaţie naturală',
     'check_nearby_caches_info' => 'Înainte ca să ascunzi o geocutie, asigură-te că nu există alte geocutii pe o raza de {limits_promixity}m',
     'check_nearby_caches' => 'Caută geocutii din apropiere pe OCRO',

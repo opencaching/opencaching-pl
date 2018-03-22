@@ -630,7 +630,6 @@ $translations = array(
     'latest_logs_in_caches' => 'Laatste logs van gebruikers caches',
     'caches_waiting_approve' => 'Mijn caches wachtend op goedkeuring van het OC Team',
     'caches_blocked' => 'Mijn caches afgekeurd door het OC Team',
-    'blocked_create_caches' => 'De mogelijkheid om nieuwe caches te maken is geblokkeerd. Neem contact op met het Opencaching team.',
     'npa_info' => 'Deze cache bevind zich waarschijnlijk in een beschermd natuurgebied',
     'check_nearby_caches_info' => 'Controleer voor het plaatsen van een cache of er geen andere cache ligt in <br /> een straal van {limits_promixity} m',
     'check_nearby_caches' => 'Contoleer caches dichtbij op {short_sitename}',
