@@ -4,7 +4,7 @@ body, html {
 
 .noprint, .navflag-container, .site-slogan-container, #loginbox-container, .footer, 
 .page-container-1-2, #logo, .header, .site-name, #nav2, #nav3, div#seasonalBackground,
-.notlogged-cacheview
+.notlogged-cacheview, .img-navflag, #footer
 {
     display: none;
 }
@@ -47,14 +47,18 @@ div.frame {
     padding: 2px;
 }
 .icon32 {
-    margin-left: 0.2em;
-    margin-right: 0.2em;
-    vertical-align: middle;
+	width: 32px;
+	height: 32px;
+	margin-left: 0.2em;
+	margin-right: 0.2em;
+	vertical-align: middle;
 }
 .icon16 {
-    margin-left: 0.1em;
-    margin-right: 0.1em;
-    vertical-align: middle;
+	width: 16px;
+	height: 16px;
+	margin-left: 0.1em;
+	margin-right: 0.1em;
+	vertical-align: middle;
 }
 
 P.cache-title {
