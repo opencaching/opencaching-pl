@@ -308,7 +308,6 @@ $translations = array(
     'size_incorrect' => 'Cachestorlek är felaktigt!',
     'diff_incorrect' => 'Svårighet är fel!',
     'virtual_cache_size' => 'Cachestorlek måste ställas in som "ingen behållare" när cachtypen är inställd så!',
-    'cache_submitted' => 'Cachen har registrerats på Opencaching PL.',
     'full_description' => 'Fullständig beskrivning',
     'mandatory_field' => 'Detta fält är obligatoriskt',
     'full_desc_long_text' => 'Skriv t.ex. varför du har gömt en cache här. Tänk på att det ska gå att hitta cachen med bara dess koordinater och denna beskrivning, så ange all nödvändig information här.',

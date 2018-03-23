@@ -311,7 +311,6 @@ $translations = array(
     'size_incorrect' => 'No schránky velikost!',
     'diff_incorrect' => 'Úroveň obtížnosti, je špatně!',
     'virtual_cache_size' => 'Velikost schránky v případě EVENT a musí být nastavena na "no box"!',
-    'cache_submitted' => 'Vaše schránka zosała zarejstrowana na Opencaching PL.',
     'full_description' => 'Jméno',
     'mandatory_field' => 'Povinný',
     'full_desc_long_text' => 'Zadejte zde informace o tom, proč ukryłeś box je na tomto místě, a <span class="txt-red07"> všechny nezbytné informace, </span> najít krabici. Hledání v boxech se musí opírat o poznatky z jeho souřadnice a jméno.',

@@ -335,7 +335,6 @@ $translations = array(
     'diff_incorrect' => 'Moeilijkheid is niet correct!',
     'status_incorrect' => 'Status komt niet overeen met publicatiegegevens.',
     'virtual_cache_size' => 'Cache grootte voor "eventenement" moet zijn "geen behuizing"',
-    'cache_submitted' => 'De cache is nu geregistreerd bij {site_name}.',
     'full_description' => 'Beschrijving',
     'mandatory_field' => 'Dit veld is verplicht',
     'full_desc_long_text' => 'Beschrijf hier waarom deze cache geplaatst is en bedenk ook dat dat de cache met de coordinaten en beschrijving te vinden moet zijn. Geef dus alle mogelijke informatie weer.',

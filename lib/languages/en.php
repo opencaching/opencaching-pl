@@ -336,7 +336,6 @@ $translations = array(
     'diff_incorrect' => 'Difficulty is incorrect!',
     'status_incorrect' => 'Status does not match published data.',
     'virtual_cache_size' => 'Cache size for "event" has to be set as "no container"',
-    'cache_submitted' => 'Your cache has been successfully registered at {site_name}.',
     'full_description' => 'Full description',
     'mandatory_field' => 'This field is required',
     'full_desc_long_text' => 'Describe your cache here. Why did you choose the place? What the user should know before he/she starts searching? Make sure you provide all necessary information, so that the cache can be found.',

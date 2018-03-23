@@ -310,7 +310,6 @@ $translations = array(
     'size_incorrect' => 'No de tamano de buzón!',
     'diff_incorrect' => 'El nivel de dificultad, está mal!',
     'virtual_cache_size' => 'El tamano del buzón de correo en el caso de la event y debe ser ajustado a \"ningún cuadro de\"!',
-    'cache_submitted' => 'Su buzón zosała zarejstrowana en Opencaching PL .',
     'full_description' => 'Nombre completo',
     'mandatory_field' => 'La obligación',
     'full_desc_long_text' => 'Pulse aquí información acerca de por qué ukryłeś cuadro se encuentra en este lugar, y <span class="txt-red07"> toda la información necesaria </span> para encontrar la caja. La búsqueda de las cajas debe basarse en el conocimiento de sus coordenadas y el nombre .',

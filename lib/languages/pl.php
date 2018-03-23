@@ -336,7 +336,6 @@ $translations = array(
     'diff_incorrect' => 'Poziom trudności jest niepoprawny!',
     'status_incorrect' => 'Status skrzynki nie pasuje do opcji publikacji.',
     'virtual_cache_size' => 'Wielkość skrzynki dla wydarzenia musi być ustawiona na "bez pojemnika"!',
-    'cache_submitted' => 'Twoja skrzynka została zarejstrowana na {site_name}.',
     'full_description' => 'Pełen opis',
     'mandatory_field' => 'Pole obowiązkowe',
     'full_desc_long_text' => 'Wpisz tutaj informacje o tym, dlaczego ukryłeś skrzynkę właśnie w tym miejscu, a także <span class="txt-red07">wszystkie informacje niezbędne</span> do odnalezienia skrzynki. Odnalezienie skrzynki musi być możliwe na podstawie znajomości jej współrzędnych oraz tego opisu.',

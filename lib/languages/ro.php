@@ -335,7 +335,6 @@ $translations = array(
     'diff_incorrect' => 'Dificultatea geocutiei este greşită!',
     'status_incorrect' => 'Statutul nu corespunde cu informaţiile publicate.',
     'virtual_cache_size' => 'Dimensiunea pentru geocutii de tip "evenimenti" trebuie să fie "fără cutie"',
-    'cache_submitted' => 'Geocutia ta a fost înregistrată pe {site_name}.',
     'full_description' => 'Descriere completă',
     'mandatory_field' => 'Acest câmp este obligatoriu',
     'full_desc_long_text' => 'Descrie geocutia aici. De ce ai ales locul? Ce ar trebui să ştie căutătorii atunci când doresc să o găsească? Scrie toate informaţiile necesare astfel incât cutia să poată fi într-adevăr găsită.',

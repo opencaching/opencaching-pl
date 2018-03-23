@@ -335,7 +335,6 @@ $translations = array(
     'diff_incorrect' => 'Schwierigkeitsgrad ist falsch!',
     'status_incorrect' => 'Status kommt nicht überein mit publizierten Datei.',
     'virtual_cache_size' => 'Cache-Größe muss als "ohne Container", wenn Cache eingestellt ist oder als Event!',
-    'cache_submitted' => 'Ihr Cache wurde auf {site_name} veröffentilicht.',
     'full_description' => 'Beschreibung',
     'mandatory_field' => 'Dieses Feld ist obligatorisch',
     'full_desc_long_text' => 'Bitte schreiben Sie zum Beispiel, warum haben Sie den Cache verstecken und merken Sie sich hier - ein in der Lage sein muß, um den Cache mit den Koordinaten und diese Beschreibung nur, so geben Sie alle erforderlichen Informationen finden Sie hier.',
