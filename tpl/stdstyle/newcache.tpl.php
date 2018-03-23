@@ -457,7 +457,7 @@ $view->callChunk('tinyMCE');
                     <?php $view->callChunk('fileUpload','myfile','.gpx'); ?>
                     <input class="btn btn-primary btn-sm btn-upload" type="submit" value="<?= tr('newcache_upload') ?>"/>
                 </div>
-                <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
+                <iframe id="upload_target" name="upload_target" src="about:blank" style="width:0;height:0;border:0px solid #fff;"></iframe>
             </form>
             <img style="display: none" id="ajaxLoaderLogo" src="tpl/stdstyle/images/misc/ptPreloader.gif" alt="">
         </td>

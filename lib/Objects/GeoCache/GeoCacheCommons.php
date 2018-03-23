@@ -360,22 +360,12 @@ class GeoCacheCommons extends BaseObject {
      */
     public static function CacheRatingTranslationKey($ratingId)
     {
-        if (!Year::isPrimaAprilisToday()) {
-            switch($ratingId){
-                case 1: return 'rating_poor';
-                case 2: return 'rating_mediocre';
-                case 3: return 'rating_avarage';
-                case 4: return 'rating_good';
-                case 5: return 'rating_excellent';
-            }
-        } else {
-            switch($ratingId){
-                case 1: return 'rating_poor_1A';
-                case 2: return 'rating_mediocre_1A';
-                case 3: return 'rating_avarage_1A';
-                case 4: return 'rating_good_1A';
-                case 5: return 'rating_excellent_1A';
-            }
+        switch($ratingId){
+            case 1: return 'rating_poor_1A';
+            case 2: return 'rating_mediocre_1A';
+            case 3: return 'rating_avarage_1A';
+            case 4: return 'rating_good_1A';
+            case 5: return 'rating_excellent_1A';
         }
     }
 

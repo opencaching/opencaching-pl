@@ -81,7 +81,7 @@ class MainLayoutController extends BaseController
                 '/tpl/stdstyle/common/mainLayout.css'));
         }
 
-        if(Year::isPrimaAprilisToday() /*|| true */){
+        if(Year::isPrimaAprilisToday()){
             // add rythm JS
             $this->view->addLocalJs(
                 'https://cdnjs.cloudflare.com/ajax/libs/rythm.js/2.2.3/rythm.min.js');
@@ -91,9 +91,10 @@ class MainLayoutController extends BaseController
         }
 
         if(Year::isPrimaAprilisToday()){
-            $logo = $config['headerLogo1stApril'];
-            $logoTitle = tr('oc_on_all_pages_top_1A');
-            $logoSubtitle = tr('oc_subtitle_on_all_pages_1A');
+            $this->view->loadJQuery();
+            $logo = $config['headerLogo'];
+            $logoTitle = 'discoCaching';
+            $logoSubtitle = 'The first discoCaching portal!';
         }else if(date('m') == 12 || date('m') == 1){
             $logo = $config['headerLogoWinter'];
             $logoTitle = tr('oc_on_all_pages_top_' . $config['ocNode']);
