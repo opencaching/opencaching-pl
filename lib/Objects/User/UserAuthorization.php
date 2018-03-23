@@ -4,7 +4,7 @@ namespace lib\Objects\User;
 use Utils\Debug\Debug;
 use Utils\Email\Email;
 use Utils\Email\EmailFormatter;
-use Utils\Uri\Cookie;
+use Utils\Uri\CookieBase;
 use lib\Objects\ApplicationContainer;
 use lib\Objects\BaseObject;
 use Utils\Uri\SimpleRouter;
@@ -223,8 +223,8 @@ class UserAuthorization extends BaseObject
 
         $cookieExpiry = time() + self::PERMANENT_LOGIN_TIMEOUT;
 
-        $result = Cookie::setCookie(self::getAuthCookieName(), $sessionId, $cookieExpiry, '/',
-            false, true, Cookie::SAME_SITE_RESTRICTION_LAX);
+        $result = CookieBase::setCookie(self::getAuthCookieName(), $sessionId, $cookieExpiry, '/',
+            false, true, CookieBase::SAME_SITE_RESTRICTION_LAX);
 
         if(!$result){
             Debug::errorLog(__METHOD__.": Can't set AUTH cookie");
@@ -243,7 +243,7 @@ class UserAuthorization extends BaseObject
 
         unset($_COOKIE[self::getAuthCookieName()]);
 
-        $result = Cookie::deleteCookie(self::getAuthCookieName());
+        $result = CookieBase::deleteCookie(self::getAuthCookieName());
         if(!$result){
             Debug::errorLog(__METHOD__.": Can't delete AUTH cookie");
         }
