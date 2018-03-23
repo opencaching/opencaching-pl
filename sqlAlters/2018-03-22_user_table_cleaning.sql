@@ -2,6 +2,7 @@
 -- @author: deg-pl
 
 -- drop unused user.hide_flag
+UPDATE `user` SET `verify_all`= 1 WHERE `hide_flag`= 1;
 ALTER TABLE `user` DROP `hide_flag`;
 
 -- first try to add foregin keys in DB
