@@ -83,7 +83,7 @@ if ($usr == false) {
 
     $user = User::fromUserIdFactory($user_id,
         "user_id, admin, guru, hidden_count, founds_count, is_active_flag, email, password, log_notes_count,
-         notfounds_count, username, last_login, country, date_created, description, hide_flag");
+         notfounds_count, username, last_login, country, date_created, description");
 
     if(is_null($user)){
         tpl_errorMsg("viewprofile", "User not found!");
