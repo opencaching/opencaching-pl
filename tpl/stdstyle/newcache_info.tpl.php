@@ -1,8 +1,9 @@
 <div class="content2-pagetitle">
-  {{mc_beginn_00}}
+  <?=tr('nc_begin_title')?>
 </div>
+
 <div class="callout callout-info">
-  <div class="callout-title">{{nc01}},</div>
+  <div class="callout-title">{{nc01}}</div>
   {{nc02}}
   <ul class="callout-highlight">
     <li>{{nc03}}</li>
