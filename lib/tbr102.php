@@ -1,5 +1,6 @@
 <?php
 use Utils\Database\OcDb;
+use Utils\Uri\OcCookie;
 ?>
 <html>
     <head>
@@ -24,10 +25,8 @@ use Utils\Database\OcDb;
 
         require_once('settingsGlue.inc.php');
         require_once('language.inc.php');
-        require_once('cookie.class.php');
 
-        if ($cookie->is_set('lang'))
-            $lang = $cookie->get('lang');
+        $lang = OcCookie::getOrDefault('lang', $lang);
 
         require_once __DIR__.'/ClassPathDictionary.php';
 

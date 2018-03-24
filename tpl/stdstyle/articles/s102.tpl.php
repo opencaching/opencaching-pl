@@ -1,3 +1,6 @@
+<?php
+use Utils\Uri\OcCookie;
+?>
 <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCT.css" />
 <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCTStats.css" />
 <script src='https://www.google.com/jsapi'></script>
@@ -36,7 +39,6 @@ else
 <div class="searchdiv">
 
     <?php
-    global $cookie;
 
     $sRok = "";
     $sMc = "";
@@ -48,7 +50,7 @@ else
     $sIsEmptDate = "";
 
     if (isset($_REQUEST["init"])) {
-        $sIsEmptDate = $cookie->get($sNameOfStatCookieEmptyDate);
+        $sIsEmptDate = OcCookie::get($sNameOfStatCookieEmptyDate);
     }
 
 
@@ -62,12 +64,12 @@ else
         $sRD = $_REQUEST["rRD"];
 
 
-        if ($sRD == "R" && $sRok == "" && $sMc == "")
-            $cookie->set($sNameOfStatCookieEmptyDate, "Yes");
-        else
-            $cookie->set($sNameOfStatCookieEmptyDate, "No");
+        if ($sRD == "R" && $sRok == "" && $sMc == ""){
+            OcCookie::set($sNameOfStatCookieEmptyDate, "Yes", true);
+        }else{
+            OcCookie::set($sNameOfStatCookieEmptyDate, "No", true);
+        }
 
-        $cookie->header();
     }
 
     if (( isset($_REQUEST["init"]) or intval($sMc) > 12 or intval($sMc) < 0 or intval($sRok) < 0 )
