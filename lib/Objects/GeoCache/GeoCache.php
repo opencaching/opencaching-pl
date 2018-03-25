@@ -608,6 +608,7 @@ class GeoCache extends GeoCacheCommons
     public function getCacheIcon(User $forUser=null)
     {
         $logStatus = null;
+        $isOwner = false;
         if(!is_null($forUser)){
             $logsCount = $this->getLogsCountByType($forUser, array(GeoCacheLog::LOGTYPE_FOUNDIT, GeoCacheLog::LOGTYPE_DIDNOTFIND));
             if(isset($logsCount[GeoCacheLog::LOGTYPE_FOUNDIT]) && $logsCount[GeoCacheLog::LOGTYPE_FOUNDIT]>0){
@@ -615,9 +616,16 @@ class GeoCache extends GeoCacheCommons
             }else if(isset($logsCount[GeoCacheLog::LOGTYPE_DIDNOTFIND]) && $logsCount[GeoCacheLog::LOGTYPE_DIDNOTFIND]>0){
                 $logStatus = GeoCacheLog::LOGTYPE_DIDNOTFIND;
             }
+            $isOwner = ($this->getOwnerId() == $forUser->getUserId());
         }
 
-        return self::CacheIconByType($this->cacheType, $this->status, $logStatus);
+        return self::CacheIconByType(
+            $this->cacheType,
+            $this->status,
+            $logStatus,
+            false,
+            $isOwner
+        );
     }
 
     public function getSizeId()
