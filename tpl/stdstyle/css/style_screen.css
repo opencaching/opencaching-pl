@@ -75,13 +75,17 @@ tr.highlighted > td {border-width:2px;}
 	opacity: 0.75;
 	color: white;
 	background: black;
-	top: 0;
+	bottom: 0;
 	left: 0;
 	z-index: 999;
 	width: 100%;
 	font-weight: bold;
+	padding-top: 2px;
 }
 
+.cookies-message>p {
+	margin-bottom: 0;
+}
 .cookies-message a {
 	color: white !important;
 }
