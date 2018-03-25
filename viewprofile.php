@@ -83,7 +83,7 @@ if ($usr == false) {
 
     $user = User::fromUserIdFactory($user_id,
         "user_id, admin, guru, hidden_count, founds_count, is_active_flag, email, password, log_notes_count,
-         notfounds_count, username, last_login, country, date_created, description");
+         notfounds_count, username, last_login, date_created, description");
 
     if(is_null($user)){
         tpl_errorMsg("viewprofile", "User not found!");
@@ -95,7 +95,6 @@ if ($usr == false) {
     if ((date('m') == 4) and ( date('d') == 1)) {
         tpl_set_var('username', tr('primaAprilis1'));
     }
-    tpl_set_var('country', tr($user->getCountry()));
     tpl_set_var('registered', TextConverter::fixPlMonth(strftime(
         $GLOBALS['config']['dateformat'], strtotime($user->getDateCreated()))));
 

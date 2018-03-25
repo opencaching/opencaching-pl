@@ -70,7 +70,7 @@ jQuery(function($) {
         <table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px;font-size: 115%;" width="97%">
             <tr>
                 <td rowspan="3" width="64"><img src="tpl/stdstyle/images/blue/{profile_img}.png"  alt="" title="{profile_info}" align="middle"/></td>
-                <td><span class="txt-blue08" >{{registered_since_label}}:</span> <span class="txt-black"> {registered}</span><br /><br/><span class="txt-blue08" >{{country_label}}:</span><span class="txt-black"> {country}</span></td>
+                <td><span class="txt-blue08" >{{registered_since_label}}:</span> <span class="txt-black"> {registered}</span><br></td>
                 <td rowspan="3" width="30%">
                     <img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt="Email" title="Email" align="middle">&nbsp;<a href="<?=SimpleRouter::getLink('UserProfile', 'mailTo', $view->userid)?>" class="links">{{email_user}}</a><br />
                     <img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="Mapa" title="Map" align="middle">&nbsp;<a href="cachemap3.php?userid={userid}" class="links">{{show_user_map}}</a>
@@ -83,8 +83,9 @@ jQuery(function($) {
                 <td><span class="txt-blue08" >{{lastlogins}}:</span><span class="txt-black" style="line-height: 0.5cm;"> {lastlogin}</span></td>
             </tr>
             <tr>
-                <td colspan="3"><hr></hr></td>
-            </tr></table>
+                <td colspan="3"><hr></td>
+            </tr>
+        </table>
     </div>
     {guide_info}
     <div class="nav4">

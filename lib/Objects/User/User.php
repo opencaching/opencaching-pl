@@ -32,8 +32,6 @@ class User extends UserCommons
     private $homeCoordinates;
     private $notifyRadius;
 
-    private $country;
-
     private $profileUrl = null;
 
     private $ingnoreGeocacheLimitWhileCreatingNewGeocache = null;
@@ -91,7 +89,7 @@ class User extends UserCommons
     const REGEX_PASSWORD = '^[a-zA-Z0-9\.\-_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\$&*+~#]{3,60}$';
 
     const COMMON_COLLUMNS = "user_id, username, founds_count, notfounds_count,
-                       hidden_count, latitude, longitude, country,
+                       hidden_count, latitude, longitude,
                        email, admin, guru, verify_all, rules_confirmed,
                        notify_radius, watchmail_mode, watchmail_day,
                        watchmail_hour, notify_caches, notify_logs,
@@ -300,9 +298,6 @@ class User extends UserCommons
                 case 'email':
                     $this->email = $value;
                     break;
-                case 'country':
-                    $this->country = $value;
-                    break;
                 case 'latitude':
                 case 'longitude':
                     // lat|lon are handling below
@@ -508,11 +503,6 @@ class User extends UserCommons
     public function isGuide()
     {
         return $this->isGuide;
-    }
-
-    public function getCountry()
-    {
-        return $this->country;
     }
 
     public function areRulesConfirmed()

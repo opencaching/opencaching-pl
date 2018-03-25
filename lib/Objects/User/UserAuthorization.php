@@ -189,7 +189,6 @@ class UserAuthorization extends BaseObject
         $usr['userFounds'] = $user->getFoundGeocachesCount();
         $usr['userid'] = $user->getUserId();
         $usr['email'] = $user->getEmail();
-        $usr['country'] = $user->getCountry();
         $usr['latitude'] = $user->getHomeCoordinates()->getLatitude();
         $usr['longitude'] = $user->getHomeCoordinates()->getLongitude();
         $usr['admin'] = $user->isAdmin();

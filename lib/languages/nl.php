@@ -452,8 +452,6 @@ $translations = array(
     'rate_cache' => 'Beoordeel deze cache: <br/><a href="{wiki_link_ratingDesc}">Uitleg over beoordeling</a>',
     'do_not_rate' => 'Ik wil deze cache niet beoordelen',
     'listed_other' => 'Log deze cache ook op de volgende sites',
-    'not_spcified' => 'Niet geselecteerd',
-    'all_countries' => 'toon alle landen',
     'register_email_subject' => 'Registratie bevestiging {site_name}',
     'post_activation_email_subject' => 'Welkom op {site_name}',
     'error_username_not_ok' => 'Gebruikersnaam is niet geldig',

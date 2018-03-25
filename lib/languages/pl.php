@@ -458,8 +458,6 @@ $translations = array(
     'rate_cache' => 'Oceń skrzynkę: <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<a class="links" target="_blank" href="{wiki_link_ratingDesc}">opis skali</a>)',
     'do_not_rate' => 'Nie chcę oceniać tej skrzynki',
     'listed_other' => 'Proszę wpisać się w logi także na następujących stronach',
-    'not_spcified' => 'nie wybrano',
-    'all_countries' => 'pokaż wszystkie kraje',
     'register_email_subject' => 'Rejestracja użytkownika {site_name}',
     'post_activation_email_subject' => 'Witamy w serwisie {site_name}',
     'error_username_not_ok' => 'Nazwa użytkownika jest niepoprawna',

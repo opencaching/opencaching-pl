@@ -451,8 +451,6 @@ $translations = array(
     'rate_cache' => 'Cache bewerten: <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/arrow_right.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" href="{wiki_link_ratingDesc_en}">Bereich Beschreibung</a>',
     'do_not_rate' => 'Ich möchte diese Cache nicht bewerten',
     'listed_other' => 'Dieser Cache bitte loggen auf den folgenden Webseiten',
-    'not_spcified' => 'keine Angabe',
-    'all_countries' => 'alle Länder zeigen',
     'register_email_subject' => 'Ranmeldebestätigung {site_name}',
     'post_activation_email_subject' => 'Wilkommen auf {site_name}',
     'error_username_not_ok' => 'Benutzername ist falsch',

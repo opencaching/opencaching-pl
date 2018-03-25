@@ -453,8 +453,6 @@ $translations = array(
     'rate_cache' => 'Rate this cache: <br/><a href="{wiki_link_ratingDesc_en}">Description of the rating scale</a>',
     'do_not_rate' => 'I do not want to rate this cache',
     'listed_other' => 'You can also submit the log for this cache on other sites',
-    'not_spcified' => 'not specified',
-    'all_countries' => 'show all countries',
     'register_email_subject' => 'New user registration {site_name}',
     'post_activation_email_subject' => 'Welcome to the site {site_name}',
     'error_username_not_ok' => 'Username is incorrect',

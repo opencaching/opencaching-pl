@@ -33,7 +33,6 @@ $user = new User(array(
     'userId' => $usr['userid']
 ));
 
-$default_country = getDefaultCountry($usr, $lang);
 if (isset($_REQUEST['newcache_info']) && $_REQUEST['newcache_info'] != 1) {
     // set here the template to process
     $tplname = 'newcache';
@@ -118,7 +117,7 @@ if (! isset($_POST['size'])) {
     }
 }
 $sel_lang = isset($_POST['desc_lang']) ? $_POST['desc_lang'] : $default_lang;
-$sel_country = isset($_POST['country']) ? $_POST['country'] : $default_country;
+$sel_country = isset($_POST['country']) ? $_POST['country'] : strtoupper($lang);
 $sel_region = isset($_POST['region']) ? $_POST['region'] : $default_region;
 $show_all_countries = isset($_POST['show_all_countries']) ? $_POST['show_all_countries'] : 0;
 $show_all_langs = isset($_POST['show_all_langs']) ? $_POST['show_all_langs'] : 0;
@@ -768,15 +767,6 @@ function buildCacheSizeSelector($sel_type, $sel_size)
         }
     }
     return $sizes;
-}
-
-function getDefaultCountry($usr, $lang)
-{
-    if ($usr['country'] != '') {
-        return $usr['country'];
-    } else {
-        return strtoupper($lang);
-    }
 }
 
 function buildDescriptionLanguageSelector($show_all_langs, $lang, $defaultLangugaeList, $db, $show_all)

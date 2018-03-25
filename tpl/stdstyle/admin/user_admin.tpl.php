@@ -23,7 +23,6 @@ use Utils\Uri\SimpleRouter;
     <img src="/tpl/stdstyle/images/free_icons/email.png" alt="<?=tr('email_user')?>" title="<?=tr('email_user')?>"></a>
   <br>
   <?=tr('activation_code')?>: <strong><?=(empty($view->user->getActivationCode())) ? tr('account_is_actived') : $view->user->getActivationCode()?></strong><br>
-  <?=tr('country_label')?>: <strong><?=$view->user->getCountry()?></strong>
   <br>
 
   <?php if ($view->user->getNotifyCaches()) { ?>
