@@ -38,10 +38,6 @@ use Utils\Uri\SimpleRouter;
       <td class="content-title-noshade"><img src="tpl/stdstyle/images/description/22x22-geokret.png" width="16" height="16" class="icon16" alt="" align="middle">&nbsp;{{GKApi01}}:</td>
       <td class="txt-grey07">{GeoKretyApiIntegration}</td>
     </tr>
-    <tr>
-      <td class="content-title-noshade"><img src="tpl/stdstyle/images/free_icons/world.png" class="icon16" alt="" align="middle">&nbsp;{{country_label}}:</td>
-      <td>{country}</td>
-    </tr>
     {guides_start}
     <tr>
       <td class="buffer" colspan="2"></td>
