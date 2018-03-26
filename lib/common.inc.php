@@ -120,7 +120,7 @@ function loadTranslation(){
 
         //language changed?
         if(isset($_REQUEST['lang'])){
-            $lang = UserInputFilter::purifyHtmlString($_REQUEST['lang']);
+            $lang = $_REQUEST['lang'];
         }else{
             $lang = OcCookie::getOrDefault('lang', $lang);
         }
@@ -137,7 +137,7 @@ function loadTranslation(){
             $view->loadJQuery();
             $view->setVar("localCss",
                 Uri::getLinkWithModificationTime('/tpl/stdstyle/error/error.css'));
-            $view->setVar('requestedLang', $lang);
+            $view->setVar('requestedLang', UserInputFilter::purifyHtmlString($lang));
             $lang = 'en'; //English must be always supported
 
             $view->setVar('allLanguageFlags', I18n::getLanguagesFlagsData());

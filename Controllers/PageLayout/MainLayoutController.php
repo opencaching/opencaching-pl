@@ -84,17 +84,23 @@ class MainLayoutController extends BaseController
         if(Year::isPrimaAprilisToday()){
             // add rythm JS
             $this->view->addLocalJs(
-                'https://cdnjs.cloudflare.com/ajax/libs/rythm.js/2.2.3/rythm.min.js');
+                Uri::getLinkWithModificationTime(
+                    '/tpl/stdstyle/common/primaAprilis/rythm.min.js'));
+                //'https://cdnjs.cloudflare.com/ajax/libs/rythm.js/2.2.3/rythm.min.js');
 
             $this->view->addLocalJs(Uri::getLinkWithModificationTime(
                 '/tpl/stdstyle/common/primaAprilis/rythmOc.js'));
+
+            $this->view->addLocalJs(Uri::getLinkWithModificationTime(
+                '/vendor/js-cookie/js-cookie/src/js.cookie.js'));
+
         }
 
         if(Year::isPrimaAprilisToday()){
             $this->view->loadJQuery();
             $logo = $config['headerLogo'];
             $logoTitle = 'discoCaching';
-            $logoSubtitle = 'The first discoCaching portal!';
+            $logoSubtitle = 'The first discoCaching site!';
         }else if(date('m') == 12 || date('m') == 1){
             $logo = $config['headerLogoWinter'];
             $logoTitle = tr('oc_on_all_pages_top_' . $config['ocNode']);

@@ -2,12 +2,19 @@
 var rythm;
 
 $( document ).ready(function() {
-    console.log( "ready!" );
 
     addTurnOffButton()
 
     rythm = new Rythm()
-    prepeareMusic()
+    rythm.oc_prepared = false;
+
+    if(isMusicDisabled()){
+      stopMusic()
+
+    }else{
+      prepeareMusic()
+      startMusic()
+    }
 });
 
 function prepeareMusic()
@@ -44,7 +51,7 @@ function prepeareMusic()
   })
 
   rythm.addRythm('site-name', 'kern', 0, 10,{ min: -5, max: 5, reverse:true })
-  startMusic()
+  rythm.oc_prepared = true;
 }
 
 function addTurnOffButton(){
@@ -54,14 +61,31 @@ function addTurnOffButton(){
 
 function startMusic()
 {
+  if(!rythm.oc_prepared){
+    prepeareMusic()
+  }
   rythm.start()
-  $('#rythmBtn').html("Music OFF")
+  $('#rythmBtn').html("Music OFF &#x1f50a;")
   $('#rythmBtn').click(function(){stopMusic()})
+
+  Cookies.set('rythmOc', 'musicOn');
 }
 
 function stopMusic()
 {
   rythm.stop()
-  $('#rythmBtn').html("Music ON")
+  $('#rythmBtn').html("Music ON &#x1f50a;")
   $('#rythmBtn').click(function(){startMusic()})
+
+  Cookies.set('rythmOc', 'musicOff');
+}
+
+function isMusicDisabled()
+{
+  if($cookieVal = Cookies.get('rythmOc')){
+    return $cookieVal === 'musicOff';
+  }
+
+  //cookie not set
+  return false;
 }
