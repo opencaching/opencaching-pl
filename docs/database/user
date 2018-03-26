@@ -16,7 +16,6 @@ Table user
 | last_login              | datetime      | NO   |     | 0000-00-00 00:00:00 |                |
 | last_login_mobile       | datetime      | NO   |     | 0000-00-00 00:00:00 |                |
 | is_active_flag          | int(11)       | YES  |     | NULL                |                |
-| country                 | char(2)       | YES  |     | NULL                |                |
 | new_pw_code             | varchar(13)   | YES  |     | NULL                |                |
 | new_pw_date             | int(11)       | YES  |     | NULL                |                |
 | date_created            | datetime      | YES  |     | NULL                |                |
@@ -73,7 +72,6 @@ Create Table: CREATE TABLE `user` (
   `last_login` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `last_login_mobile` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `is_active_flag` int(11) DEFAULT NULL,
-  `country` char(2) DEFAULT NULL,
   `new_pw_code` varchar(13) DEFAULT NULL,
   `new_pw_date` int(11) DEFAULT NULL,
   `date_created` datetime DEFAULT NULL,
