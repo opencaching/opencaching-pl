@@ -52,12 +52,11 @@ class EmailSender
     /**
      * @param $emailTemplateFile
      * @param $username
-     * @param $country
      * @param $code
      * @param $newUserEmailAddress
      * @param $uuid
      */
-    public static function sendActivationMessage($emailTemplateFile, $username, $country, $code, $newUserEmailAddress, $uuid) {
+    public static function sendActivationMessage($emailTemplateFile, $username, $code, $newUserEmailAddress, $uuid) {
         $formattedMessage = new EmailFormatter($emailTemplateFile);
         $formattedMessage->setVariable("registermail01", tr("registermail01"));
         $formattedMessage->setVariable("useractivationmail1", tr("useractivationmail1"));
@@ -68,7 +67,6 @@ class EmailSender
         $formattedMessage->setVariable("useractivationmail6", tr("useractivationmail6"));
         $formattedMessage->setVariable("user", $username);
         $formattedMessage->setVariable("code", $code);
-        $formattedMessage->setVariable("country", $country);
         $formattedMessage->setVariable("email", $newUserEmailAddress);
         $formattedMessage->setVariable("useruid", $uuid);
         $formattedMessage->setVariable("server", OcConfig::getAbsolute_server_URI());

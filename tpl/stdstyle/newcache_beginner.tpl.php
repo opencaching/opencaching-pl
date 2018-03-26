@@ -1,27 +1,25 @@
 <?php
+use lib\Objects\GeoCache\GeoCacheCommons;
 
-global $NEED_FIND_LIMIT, $NEED_APPROVE_LIMIT;
 ?>
 
-<table class="content" border="0">
-    <tr><td class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="{{new_cache}}" align="middle" /><font size="4"><b>{{mc_beginn_00}}</b></font></td></tr>
-    <tr><td class="spacer"></td></tr>
-</table>
-<br />
-<div class="searchdiv" style="background-color: #FFF9E3;">
-    <p style="margin: 10px;font-size: 12.5px; line-height:1.6em; text-align: justify;"><b>{{mc_beginn_01}} <span style="font-size: 14px;color:red;"><?php echo $NEED_FIND_LIMIT; ?></span> {{mc_beginn_02}}
-            <font color="blue">
-            <ul>
-                <li><img src="tpl/stdstyle/images/cache/traditional-i.png" alt="cache"> {{traditional}}, </li>
-                <li><img src="tpl/stdstyle/images/cache/multi-i.png" alt="cache"> {{multicache}},</li>
-                <li><img src="tpl/stdstyle/images/cache/quiz-i.png" alt="cache"> {{quiz}}, </li>
-                <li><img src="tpl/stdstyle/images/cache/moving-i.png" alt="cache"> {{moving}}, </li>
-                <li><img src="tpl/stdstyle/images/cache/unknown-i.png" alt="cache"> {{unknown_type}}.</li>
-            </ul></font><br/>
-            {{mc_beginn_03}} <span style="font-size: 14px;color:green;">{number_finds_caches}</span><br/><br/>
-
-            {{mc_beginn_04}} <span style="font-size: 14px;color:red;"><?php echo $NEED_APPROVE_LIMIT; ?></span> {{mc_beginn_05}}</b>
-    </p>
-    <br />
+<div class="content2-pagetitle">
+  <?=tr('nc_begin_title')?>
 </div>
 
+<div class="content2-container">
+  <div class="callout callout-info">
+    <p>{{nc_begin_01}} <strong><?=$view->need_find_limit ?></strong> {{nc_begin_02}}</p>
+    <p><img src="<?=GeoCacheCommons::CacheIconByType(GeoCacheCommons::TYPE_TRADITIONAL, GeoCacheCommons::STATUS_READY)?>" alt="<?=tr('traditional')?>" class="icon32"> <?=tr('traditional')?></p>
+    <p><img src="<?=GeoCacheCommons::CacheIconByType(GeoCacheCommons::TYPE_MULTICACHE, GeoCacheCommons::STATUS_READY)?>" alt="<?=tr('multicache')?>" class="icon32"> <?=tr('multicache')?></p>
+    <p><img src="<?=GeoCacheCommons::CacheIconByType(GeoCacheCommons::TYPE_QUIZ, GeoCacheCommons::STATUS_READY)?>" alt="<?=tr('quiz')?>" class="icon32"> <?=tr('quiz')?></p>
+    <p><img src="<?=GeoCacheCommons::CacheIconByType(GeoCacheCommons::TYPE_MOVING, GeoCacheCommons::STATUS_READY)?>" alt="<?=tr('moving')?>" class="icon32"> <?=tr('moving')?></p>
+    <p><img src="<?=GeoCacheCommons::CacheIconByType(GeoCacheCommons::TYPE_OTHERTYPE, GeoCacheCommons::STATUS_READY)?>" alt="<?=tr('unknown_type')?>" class="icon32"> <?=tr('unknown_type')?></p>
+    <div class="buffer"></div>
+    <p>
+      {{nc_begin_03}}
+      <strong><?=$view->caches_find ?></strong>
+      <progress value="<?=$view->caches_find ?>" max="<?=$view->need_find_limit ?>"></progress>
+    </p>
+  </div>
+</div>

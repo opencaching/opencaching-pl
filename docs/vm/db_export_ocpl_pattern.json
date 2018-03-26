@@ -3796,10 +3796,6 @@
                 "__comment": "",
                 "__action": "skip-data"
             },
-            "hide_flag": {
-                "__comment": "",
-                "__action": "get-data"
-            },
             "password_hashing_rounds": {
                 "__comment": "",
                 "__action": "set-to",

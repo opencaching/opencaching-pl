@@ -127,7 +127,7 @@ class Coordinates
         }
 
 
-        $prefix = $this->getLatitudeHemisphereSymbol() . '&nbsp';
+        $prefix = $this->getLatitudeHemisphereSymbol() . '&nbsp;';
         switch ($format) {
             case self::COORDINATES_FORMAT_DECIMAL:
                 return $prefix . $this->convertToDecString(abs($this->latitude));

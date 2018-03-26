@@ -20,45 +20,45 @@ use lib\Objects\Coordinates\Coordinates;
 <div class="content2-container line-box">
 
     <div id="cache-menu" class="line-box">
-        <?php if(!$view->isUserAuthorized){ ?>
+        <?php if (!$view->isUserAuthorized) { ?>
           <span class="notlogged-cacheview"><?=tr('cache_logged_required')?></span>
-        <?php }else{ ?>
+        <?php } else { ?>
 
             <span id="buttons-left">
                 <a class="btn btn-primary btn-md" href="log.php?cacheid=<?=$view->geoCache->getCacheId()?>">
-                  <img src="images/actions/new-entry-16.png" alt="new-entry"/>&nbsp;<?=tr('new_log_entry')?>
+                  <img src="images/actions/new-entry-16.png" alt="new-entry">&nbsp;<?=tr('new_log_entry')?>
                 </a>
-                <?php if($view->showWatchButton ){ ?>
+                <?php if ($view->showWatchButton) { ?>
                     <label class="btn btn-default btn-md two-state-btn">
                         <input type="checkbox" onclick="watchIt(this)"
                               value="<?=$view->geoCache->getWaypointId()?>"
-                              <?=($view->watched)?'checked':''?> />
-                        <img src="images/actions/watch-16.png" alt="" />&nbsp;
+                              <?=($view->watched)?'checked':''?> >
+                        <img src="images/actions/watch-16.png" alt="">&nbsp;
                         <span class="checkedLabel"><?=tr('watch_not')?></span>
                         <span class="uncheckedLabel"><?=tr('watch')?></span>
                     </label>
                 <?php } //if-showWatchButton ?>
-                <?php if($view->showIgnoreButton ){ ?>
+                <?php if ($view->showIgnoreButton) { ?>
                     <a class="btn btn-default btn-md" href="<?=$view->ignoreLink?>">
-                      <img src="images/actions/ignore-16.png" alt="" />&nbsp;<?=$view->ignoreLabel?>
+                      <img src="images/actions/ignore-16.png" alt="">&nbsp;<?=$view->ignoreLabel?>
                     </a>
                 <?php } //if-showIgnoreButton ?>
                 <a class="btn btn-default btn-md" href="printcache.php?cacheid=<?=$view->geoCache->getCacheId()?>">
-                  <img src="images/actions/print-16.png" alt="" />&nbsp;<?=tr('print')?>
+                  <img src="images/actions/print-16.png" alt="">&nbsp;<?=tr('print')?>
                 </a>
                 <a class="btn btn-default btn-md" href="<?=$view->printListLink?>">
-                  <img src="<?=$view->printListIcon?>" alt="" />&nbsp;<?=$view->printListLabel?>
+                  <img src="<?=$view->printListIcon?>" alt="">&nbsp;<?=$view->printListLabel?>
                 </a>
             </span>
             <span id="buttons-right">
-                <?php if($view->showReportProblemButton) { ?>
+                <?php if ($view->showReportProblemButton) { ?>
                     <a class="btn btn-default btn-md" href="report.php?action=add&amp;cacheid=<?=$view->geoCache->getCacheId()?>">
-                      <img src="images/actions/report-problem-18.png" alt="report-problem" />&nbsp;<?=tr('report_problem')?>
+                      <img src="images/actions/report-problem-18.png" alt="report-problem">&nbsp;<?=tr('report_problem')?>
                     </a>
                 <?php } //if-showReportProblemButton ?>
-                <?php if($view->showEditButton ){ ?>
+                <?php if ($view->showEditButton) { ?>
                     <a class="btn btn-success btn-md" href="editcache.php?cacheid=<?=$view->geoCache->getCacheId()?>">
-                      <img src="images/actions/edit-16.png" alt="edit" />&nbsp;<?=tr('edit')?>
+                      <img src="images/actions/edit-16.png" alt="edit">&nbsp;<?=tr('edit')?>
                     </a>
                 <?php } //if-showEditButton ?>
             </span>
@@ -71,7 +71,7 @@ use lib\Objects\Coordinates\Coordinates;
 
             <div class="align-center">
               <img src="<?=$view->cacheMainIcon?>" class="icon32"
-                alt="<?=tr($view->geoCache->getCacheTypeTranslationKey())?>" title="<?=tr($view->geoCache->getCacheTypeTranslationKey())?>" />
+                alt="<?=tr($view->geoCache->getCacheTypeTranslationKey())?>" title="<?=tr($view->geoCache->getCacheTypeTranslationKey())?>">
             </div>
             <div class="align-right">
               <img src='<?=$view->geoCache->getDifficultyIcon()?>' class='img-difficulty' width='19' height='16' alt='difficulty' title='<?=$view->diffTitle?>'>
@@ -79,24 +79,24 @@ use lib\Objects\Coordinates\Coordinates;
             </div>
             <div class="align-center">
 
-              <?php if( !$view->geoCache->isEvent() ) { ?>
+              <?php if ( !$view->geoCache->isEvent() ) { ?>
 
                     <?php if (($view->geoCache->getFounds() + $view->geoCache->getNotFounds() + $view->geoCache->getNotesCount()) != 0) { ?>
 
                       <script>
-                        function cacheStatPopup(){
+                        function cacheStatPopup() {
                           var url = "cache_stats.php?cacheid=<?=$view->geoCache->getCacheId()?>&popup=y";
                           window.open(url,'Cache_Statistics',"width=500,height=750,resizable=yes,scrollbars=1");
                         }
                       </script>
                       <a class="links2 lightTipped" href="#" onclick="cacheStatPopup()">
-                         <img src="tpl/stdstyle/images/blue/stat1.png" alt="stats" title="">
+                         <img src="tpl/stdstyle/images/blue/stat1.png" alt="stats">
                       </a>
                       <div class="lightTip"><?=tr('show_statictics_cache')?></div>
 
                     <?php } else { ?>
                       <a class="links2 lightTipped" href="#">
-                         <img src="tpl/stdstyle/images/blue/stat1.png" alt="stats" title="">
+                         <img src="tpl/stdstyle/images/blue/stat1.png" alt="stats">
                       </a>
                       <div class="lightTip"><?=tr('not_stat_cache')?></div>
                     <?php } ?>
@@ -112,8 +112,8 @@ use lib\Objects\Coordinates\Coordinates;
             <div id="cache-name">
                 <div class="content-title-noshade-size5">
                     <?=$view->cachename?> - <?=$view->geoCache->getWaypointId()?>
-                    <?php if($view->geoCache->isTitled()) { ?>
-                        <img src="tpl/stdstyle/images/free_icons/award_star_gold_1.png" class="icon16" alt="<?=$view->titledDesc?>" title="<?=$view->titledDesc?>" />
+                    <?php if ($view->geoCache->isTitled()) { ?>
+                        <img src="tpl/stdstyle/images/free_icons/award_star_gold_1.png" class="icon16" alt="<?=$view->titledDesc?>" title="<?=$view->titledDesc?>">
                     <?php } //if-titled ?>
                 </div>
 
@@ -123,22 +123,22 @@ use lib\Objects\Coordinates\Coordinates;
 
                 <div class="common-desc">
                   <?=tr('owner')?>:
-                  <a class="links" href="viewprofile.php?userid=<?=$view->ownerId?>"><?=$view->ownerName?></a>
+                  <a class="links" href="<?=$view->geoCache->getOwner()->getProfileUrl() ?>"><?=$view->ownerName?></a>
                 </div>
 
-                <?php if($view->geoCache->isAdopted() ) { ?>
+                <?php if ($view->geoCache->isAdopted()) { ?>
                   <div class="common-desc">
                     <?=tr('creator')?>:
-                    <a class="links" href="viewprofile.php?userid=<?=$view->founderId?>"><?=$view->founderName?></a>
+                    <a class="links" href="<?=$view->geoCache-> getFounder()->getProfileUrl() ?>"><?=$view->founderName?></a>
                   </div>
                 <?php } //if-is-adopted ?>
 
 
-                <?php if($view->geoCache->isEvent()) { ?>
+                <?php if ($view->geoCache->isEvent()) { ?>
                     <div class="common-desc">
-                        <img src="tpl/stdstyle/images/blue/meeting.png" width="22" height="22" alt="meeting" />
+                        <img src="tpl/stdstyle/images/blue/meeting.png" width="22" height="22" alt="meeting">
                         <script>
-                            function eventAttendancePopup(){
+                            function eventAttendancePopup() {
                               var url = "event_attendance.php?id=<?=$view->geoCache->getCacheId()?>&popup=y";
                               window.open(url,'<?=tr('list_of_participants')?>',"width=320,height=440,resizable=no,scrollbars=1");
                             }
@@ -148,16 +148,16 @@ use lib\Objects\Coordinates\Coordinates;
                 <?php } //if-is-event ?>
             </div>
 
-            <?php if($view->geoPathSectionDisplay) { ?>
+            <?php if ($view->geoPathSectionDisplay) { ?>
                 <div id="geoPath">
 
                     <div class="align-center" id="geoPath-head">
                       <?=tr('cache_belongs_to_geopath')?>!
                     </div>
 
-                    <?php foreach($view->geoPathsList as $geoPath){ ?>
+                    <?php foreach($view->geoPathsList as $geoPath) { ?>
                       <div class="flex-container test" id="geoPath-content">
-                        <img src="<?=$geoPath->img?>" alt="geopath" />
+                        <img src="<?=$geoPath->img?>" alt="geopath">
                         <span id="geoPath-link" class="align-center">
                           <a href="powerTrail.php?ptAction=showSerie&ptrail=<?=$geoPath->id?>"><?=$geoPath->name?></a>
                         </span>
@@ -165,7 +165,7 @@ use lib\Objects\Coordinates\Coordinates;
                     <?php } //foreach ?>
 
                 </div>
-            <?php } //if($view->ptDisplay) ?>
+            <?php } //if ($view->ptDisplay) ?>
 
         </div>
     </div>
@@ -177,11 +177,11 @@ use lib\Objects\Coordinates\Coordinates;
 <div class="content2-container">
     <div class="content2-container-2col-left" id="viewcache-baseinfo">
         <div class="content-title-noshade-size3">
-          <img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="compass" title="">
+          <img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="compass">
 
-            <?php if($view->isUserAuthorized || $view->alwaysShowCoords ) { ?>
+            <?php if ($view->isUserAuthorized || $view->alwaysShowCoords) { ?>
                 <span id="cacheCoordinates" onclick="changeCoordsFormat()" title="<?=tr('viewCache_switchCoordsFormat')?>">
-                <?php if(!$view->userModifiedCacheCoords) { ?>
+                <?php if (!$view->userModifiedCacheCoords) { ?>
                   <span class="CoordsDegMin">
                     <?=$view->geoCache->getCoordinates()->getAsText(
                         Coordinates::COORDINATES_FORMAT_DEG_MIN)?>
@@ -213,12 +213,12 @@ use lib\Objects\Coordinates\Coordinates;
 
                 <span class="content-title-noshade-size0">(WGS84)</span>
 
-                <?php if($view->userModifiedCacheCoords) { ?>
+                <?php if ($view->userModifiedCacheCoords) { ?>
                     <span class="content-title-noshade-size0">
                       <a href="#coords_mod_section">
                         <img src="tpl/stdstyle/images/blue/signature1-orange.png" class="icon32"
                           alt="<?=tr('orig_coord_modified_info')?><?=$view->geoCache->getCoordinates()->getAsText()?>"
-                          title="<?=tr('orig_coord_modified_info')?><?=$view->geoCache->getCoordinates()->getAsText()?>" />
+                          title="<?=tr('orig_coord_modified_info')?><?=$view->geoCache->getCoordinates()->getAsText()?>">
                       </a>
                     </span>
                 <?php } //coords modified ?>
@@ -233,39 +233,39 @@ use lib\Objects\Coordinates\Coordinates;
         <div class="list-of-details">
 
             <div>
-                <img src="tpl/stdstyle/images/free_icons/mountain.png" class="icon16" width=16 height=16 alt="altitude" title="">
+                <img src="tpl/stdstyle/images/free_icons/mountain.png" class="icon16" width=16 height=16 alt="altitude">
                 {{cache_alt}}: {altitude} {{abovesealevel}}
             </div>
 
             <div>
-                <img src="tpl/stdstyle/images/free_icons/world.png" class="icon16" alt="location" title="">&nbsp;{{region}}:
+                <img src="tpl/stdstyle/images/free_icons/world.png" class="icon16" alt="location">&nbsp;{{region}}:
                 <b>
                   <?=$view->geoCache->getCacheLocationObj()->getLocationDesc(' &gt; ')?>
                 </b>
             </div>
 
-            <?php if($view->displayDistanceToCache) { ?>
+            <?php if ($view->displayDistanceToCache) { ?>
               <div>
-                  <img src="tpl/stdstyle/images/free_icons/car.png" class="icon16" alt="distance" title="">
+                  <img src="tpl/stdstyle/images/free_icons/car.png" class="icon16" alt="distance">
                   <?=tr('distance_to_cache')?>:<b><?=$view->distanceToCache?>&nbsp;km</b>
 
               </div>
             <?php } // if-display-distance-to-cache ?>
 
             <div>
-                <img src="tpl/stdstyle/images/free_icons/box.png" class="icon16" alt="type" title="" />
+                <img src="tpl/stdstyle/images/free_icons/box.png" class="icon16" alt="type">
                 <?=tr('cache_type')?>: <b><?=tr($view->geoCache->getCacheTypeTranslationKey())?></b>
             </div>
 
             <div>
-                <img src="tpl/stdstyle/images/free_icons/package_green.png" class="icon16" alt="size" title="">
+                <img src="tpl/stdstyle/images/free_icons/package_green.png" class="icon16" alt="size">
                 <?=tr('size')?>: <b><?=tr($view->geoCache->getSizeTranslationKey())?></b>
             </div>
 
             <div>
-                <img src="tpl/stdstyle/images/free_icons/page.png" class="icon16" alt="status" title="">
+                <img src="tpl/stdstyle/images/free_icons/page.png" class="icon16" alt="status">
                 {{status_label}}:
-                <?php if($view->geoCache->isStatusReady()) { ?>
+                <?php if ($view->geoCache->isStatusReady()) { ?>
                   <span style="color:green;font-weight:bold;">
                 <?php } else { //if-cache-status-not-ready ?>
                   <span class="errormsg">
@@ -275,20 +275,20 @@ use lib\Objects\Coordinates\Coordinates;
             </div>
 
 
-            <?php if($view->geoCache->getWayLenght() || $view->geoCache->getSearchTime()) { ?>
+            <?php if ($view->geoCache->getWayLenght() || $view->geoCache->getSearchTime()) { ?>
                 <div>
-                    <img src="tpl/stdstyle/images/free_icons/time.png" class="icon16" alt="time" title="">
+                    <img src="tpl/stdstyle/images/free_icons/time.png" class="icon16" alt="time">
                     {{time}}:
-                    <?php if($view->geoCache->getSearchTime()) { ?>
+                    <?php if ($view->geoCache->getSearchTime()) { ?>
                         <?=$view->geoCache->getSearchTimeFormattedString() ?>
                     <?php } else { // no-search-time ?>
                         <?=tr('not_available')?>
                     <?php } //no-search-time ?>
                     &nbsp;&nbsp;
 
-                    <img src="tpl/stdstyle/images/free_icons/arrow_switch.png" class="icon16" alt="wayTo" title="">
+                    <img src="tpl/stdstyle/images/free_icons/arrow_switch.png" class="icon16" alt="wayTo">
                     {{length}}:
-                    <?php if($view->geoCache->getWayLenght()) { ?>
+                    <?php if ($view->geoCache->getWayLenght()) { ?>
                         <?=$view->geoCache->getWayLenghtFormattedString() ?>
                     <?php } else { // no-way-len ?>
                         <?=tr('not_available')?>
@@ -298,33 +298,32 @@ use lib\Objects\Coordinates\Coordinates;
             <?php } //if-way-length-and-search-time-present ?>
 
             <div>
-                <?php if($view->geoCache->isEvent()) { ?>
-                    <img src="tpl/stdstyle/images/cache/16x16-event.png" class="icon16" alt="event" title="">
+                <?php if ($view->geoCache->isEvent()) { ?>
+                    <img src="tpl/stdstyle/images/cache/16x16-event.png" class="icon16" alt="event">
                     <?=tr('date_event_label')?>: <strong> <?=$view->cacheHiddenDate?> </strong>
                 <?php } else { // cache-is-not-event ?>
-                    <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="hidden" title="">
+                    <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="hidden">
                     <?=tr('date_hidden_label')?>: <?=$view->cacheHiddenDate?>
                 <?php } // cache-is-not-event ?>
             </div>
 
             <div>
-                <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="creation-date" title="">
+                <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="creation-date">
                 {{date_created_label}}: <?=$view->cacheCreationDate?>
             </div>
 
             <div>
-                <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="last-mod" title="">
+                <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="last-mod">
                 {{last_modified_label}}: <?=$view->cacheLastModifiedDate?>
             </div>
 
-            <?php if(!empty($view->otherSitesListing)){ ?>
+            <?php if (!empty($view->otherSitesListing)) { ?>
                 <div>
-                    <img src="tpl/stdstyle/images/free_icons/link.png" class="icon16" alt="link" title="">
+                    <img src="tpl/stdstyle/images/free_icons/link.png" class="icon16" alt="link">
                     {{listed_also_on}}:
-                    <?php foreach ($view->otherSitesListing as $site){ ?>
+                    <?php foreach ($view->otherSitesListing as $site) { ?>
                         <span class="no-whitespace">
-                           <a href=<?=$site->link?> target="_blank"><?=$site->sitename?> (<?=$site->wp?>)</a>
-                           <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link" class="img12">
+                           <?=$site->sitename?> (<?=$site->wp?>)
                         </span>
                     <?php } //foreach ?>
 
@@ -336,70 +335,70 @@ use lib\Objects\Coordinates\Coordinates;
     <div class="content2-container-2col-right" id="viewcache-maptypes">
         <div class="content2-container-2col-left" id="viewcache-numstats">
             <div class="list-of-details">
-                <?php if($view->geoCache->isEvent()) { ?>
+                <?php if ($view->geoCache->isEvent()) { ?>
                     <div>
-                        <img src="tpl/stdstyle/images/log/16x16-attend.png" class="icon16" alt="attends" title=""/>
+                        <img src="tpl/stdstyle/images/log/16x16-attend.png" class="icon16" alt="attends">
                         <?=$view->geoCache->getFounds()?> <?=tr('attendends')?>
                     </div>
 
                     <div>
-                        <img src="tpl/stdstyle/images/log/16x16-will_attend.png" class="icon16" alt="not-found" title=""/>
+                        <img src="tpl/stdstyle/images/log/16x16-will_attend.png" class="icon16" alt="not-found">
                         <?=$view->geoCache->getNotFounds()?> <?=tr('will_attend')?>
                     </div>
 
                 <?php } else { //if-not-event ?>
                     <div>
-                        <img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="<?=tr('found')?>"/>
+                        <img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="<?=tr('found')?>">
                         <?=$view->geoCache->getFounds()?>x <?=tr('found')?>
                     </div>
                     <div>
-                        <?php if($view->geoCache->isMovable()) { ?>
-                            <img src="tpl/stdstyle/images/log/16x16-moved.png" class="icon16" alt="moved" />
+                        <?php if ($view->geoCache->isMovable()) { ?>
+                            <img src="tpl/stdstyle/images/log/16x16-moved.png" class="icon16" alt="moved">
                             <?=$view->geoCache->getMoveCount()?>x <?=tr('moved_text')?>&nbsp;&nbsp;
                             <?=$view->geoCache->getDistance()?>&nbsp;km
 
                         <?php } //if-mobile-cache ?>
                     </div>
                     <div>
-                        <img src="tpl/stdstyle/images/log/16x16-dnf.png" class="icon16" alt="{{not_found}}" />
+                        <img src="tpl/stdstyle/images/log/16x16-dnf.png" class="icon16" alt="{{not_found}}">
                         <?=$view->geoCache->getNotFounds()?>x <?=tr('not_found')?>
                     </div>
                 <?php } //if-not-event ?>
 
                 <div>
-                    <img src="tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{log_note}}" />
+                    <img src="tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{log_note}}">
                     <?=$view->geoCache->getNotesCount()?> <?=tr('log_notes')?>
                 </div>
                 <div>
-                    <img src="tpl/stdstyle/images/action/16x16-watch.png" class="icon16" alt="watchers" />
+                    <img src="tpl/stdstyle/images/action/16x16-watch.png" class="icon16" alt="watchers">
                     <?=$view->geoCache->getWatchingUsersCount()?> <?=tr('watchers')?>
                 </div>
 
                 <div class="lightTipped" style="display:inline;">
-                    <img src="tpl/stdstyle/images/free_icons/vcard.png" class="icon16" alt="visits" />
+                    <img src="tpl/stdstyle/images/free_icons/vcard.png" class="icon16" alt="visits">
                     <?=$view->geoCache->getCacheVisits()?> <?=tr('visitors')?>
                 </div>
-                <?php if($view->displayPrePublicationAccessInfo) {?>
-                    <div class="lightTip" >
+                <?php if ($view->displayPrePublicationAccessInfo) {?>
+                    <div class="lightTip">
                         <b><?=tr('prepublication_visits')?>:</b>
                         <?=implode($view->geoCache->getPrePublicationVisits(), ', ')?>
                     </div>
                 <?php } //if-displayPrePublicationAccessInfo ?>
 
                 <div>
-                    <img src="tpl/stdstyle/images/free_icons/thumb_up.png" class="icon16" alt="votes" />
+                    <img src="tpl/stdstyle/images/free_icons/thumb_up.png" class="icon16" alt="votes">
                     <?=$view->geoCache->getRatingVotes()?> x <?=tr('scored')?>
                 </div>
 
                 <div>
-                    <img src="images/cache-rate.png" class="icon16" alt="score" />
+                    <img src="images/cache-rate.png" class="icon16" alt="score">
                     <?=tr('score_label')?>: <b style="color:<?=$view->scoreColor?>"><?=$view->score?></b>
                 </div>
 
-                <?php if($view->geoCache->getRecommendations() > 0) { ?>
+                <?php if ($view->geoCache->getRecommendations() > 0) { ?>
                     <div>
                         <a class="links2 lightTipped" href="#">
-                            <img src="images/rating-star.png" alt="{{recommended}}" />
+                            <img src="images/rating-star.png" alt="{{recommended}}">
                             <?=$view->geoCache->getRecommendations()?> x <?=tr('recommended')?>
                         </a>
                         <div class="lightTip">
@@ -410,10 +409,10 @@ use lib\Objects\Coordinates\Coordinates;
                 <?php } // if-there-are-recommendations ?>
 
                 <div>
-                    <img src="images/gk.png" class="icon16" alt="geokret" title="GeoKrety visited" />
+                    <img src="images/gk.png" class="icon16" alt="geokret" title="GeoKrety visited">
                     <span class="no-whitespace">
                         <a class="links no-whitespace" href="https://geokrety.org/szukaj.php?wpt=<?=$view->geoCache->getWaypointId()?>" target="_blank" rel="noopener">{{history_gk}}</a>
-                        <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link" class="img12" >
+                        <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link" class="img12">
                     </span>
                 </div>
             </div>
@@ -445,7 +444,7 @@ use lib\Objects\Coordinates\Coordinates;
     </div>
 </div>
 
-<?php if(!empty($view->geoCache->getCacheAttributesList())) { ?>
+<?php if (!empty($view->geoCache->getCacheAttributesList())) { ?>
     <!-- cache attributes: -->
     <div class="content2-container bg-blue02">
         <span class="content-title-noshade-size1">
@@ -456,7 +455,7 @@ use lib\Objects\Coordinates\Coordinates;
 
     <div class="content2-container">
         <p>
-            <?php foreach($view->geoCache->getCacheAttributesList() as $attr){ ?>
+            <?php foreach($view->geoCache->getCacheAttributesList() as $attr) { ?>
               <img src="<?=$attr->iconLarge?>" title="<?=$attr->text?>" alt="<?=$attr->text?>">&nbsp;
 
             <?php } // foreach-attrib. ?>
@@ -470,7 +469,7 @@ use lib\Objects\Coordinates\Coordinates;
 
 
 
-<?php if(!empty($view->geoCacheDesc->getAdminComment() )) { ?>
+<?php if (!empty($view->geoCacheDesc->getAdminComment() )) { ?>
     <!-- admin comments: -->
     <div class="content2-container bg-blue02">
         <span class="content-title-noshade-size1">
@@ -490,9 +489,9 @@ use lib\Objects\Coordinates\Coordinates;
     </span>
 
     <span id="descLangs-span">
-        <?php foreach( $view->availableDescLangs as $descLang ){ ?>
+        <?php foreach ($view->availableDescLangs as $descLang) { ?>
             <a class="btn btn-sm btn-default" href="<?=$view->availableDescLangsLinks[$descLang]?>">
-            <?php if($view->usedDescLang == $descLang) { ?>
+            <?php if ($view->usedDescLang == $descLang) { ?>
                 <b><?=$descLang?></b>
 
             <?php } else { // available-desc-langs ?>
@@ -502,7 +501,7 @@ use lib\Objects\Coordinates\Coordinates;
             </a>
         <?php } //foreach-available-desc-langs ?>
     </span>
-    <?php if($view->isAdminAuthorized) { ?>
+    <?php if ($view->isAdminAuthorized) { ?>
         <a class="btn btn-sm btn-default" href="add_octeam_comment.php?cacheid=<?=$view->geoCache->getCacheId()?>">
             <?=tr('add_rr_comment')?>
         </a>
@@ -519,7 +518,7 @@ use lib\Objects\Coordinates\Coordinates;
     </div>
 </div>
 
-<?php if( !is_null($view->openChecker) ) { ?>
+<?php if ( !is_null($view->openChecker) ) { ?>
 <!-- openChecker container -->
 
     <div class="content2-container bg-blue02">
@@ -547,7 +546,7 @@ use lib\Objects\Coordinates\Coordinates;
 
 <?php } // if-openchacker-present ?>
 
-<?php if( !empty($view->waypointsList) ) { ?>
+<?php if ( !empty($view->waypointsList) ) { ?>
     <!-- waypoints: -->
     <div class="content2-container bg-blue02">
         <span class="content-title-noshade-size1">
@@ -558,7 +557,7 @@ use lib\Objects\Coordinates\Coordinates;
     <div class="content2-container">
         <table id="waypoints-table">
             <tr>
-                <?php if($view->cacheWithStages) { ?>
+                <?php if ($view->cacheWithStages) { ?>
                     <th style="width: 10%"><?=tr('stage_wp')?></th>
                 <?php } //if-cache-with-stages ?>
                 <th style="width: 10%"><?=tr('symbol_wp')?></th>
@@ -566,12 +565,12 @@ use lib\Objects\Coordinates\Coordinates;
                 <th style="width: 20%"><?=tr('coordinates_wp')?></th>
                 <th><?=tr('describe_wp')?></th>
             </tr>
-            <?php foreach( $view->waypointsList as $wp ) { ?>
+            <?php foreach ($view->waypointsList as $wp) { ?>
                 <tr>
-                    <?php if($view->cacheWithStages) { ?>
+                    <?php if ($view->cacheWithStages) { ?>
                         <td>
                             <strong>
-                            <?php if($wp->getStage() != 0) { ?>
+                            <?php if ($wp->getStage() != 0) { ?>
                                 <?=$wp->getStage() ?>
                             <?php } ?>
                             </strong>
@@ -579,15 +578,15 @@ use lib\Objects\Coordinates\Coordinates;
                     <?php } // if-cacheWithStages ?>
 
                     <td>
-                        <img src="<?=$wp->getIconName()?>" alt="waypoint-icon" title="<?=tr($wp->getTypeTranslationKey())?>" />
+                        <img src="<?=$wp->getIconName()?>" alt="waypoint-icon" title="<?=tr($wp->getTypeTranslationKey())?>">
                     </td>
                     <td>
                         <?=tr($wp->getTypeTranslationKey())?>
                     </td>
                     <td>
-                            <?php if(!$wp->areCoordsHidden()) { ?>
+                            <?php if (!$wp->areCoordsHidden()) { ?>
 
-                              <?=$wp->getCoordinates()->getLatitudeString()?><br/><?=$wp->getCoordinates()->getLongitudeString()?>
+                              <?=$wp->getCoordinates()->getLatitudeString()?><br><?=$wp->getCoordinates()->getLongitudeString()?>
 
                             <?php } else { // if-coords-visible ?>
                                 ---
@@ -610,7 +609,7 @@ use lib\Objects\Coordinates\Coordinates;
     </div>
 <?php } //if-waypoints-present ?>
 
-<?php if( !empty($view->geoCacheDesc->getHint()) ) { ?>
+<?php if ( !empty($view->geoCacheDesc->getHint()) ) { ?>
     <!-- cache hint: -->
     <div class="content2-container bg-blue02">
         <span class="content-title-noshade-size1">
@@ -621,14 +620,14 @@ use lib\Objects\Coordinates\Coordinates;
 
     <div class="content2-container">
         <div id="userNote-div">
-        <?php if($view->isUserAuthorized || $view->alwaysShowCoords) { ?>
+        <?php if ($view->isUserAuthorized || $view->alwaysShowCoords) { ?>
 
             <p id="hintEncrypted"><?=$view->hintDecrypted?></p>
             <p id="hintDecrypted" style="display: none"><?=$view->hintEncrypted?></p>
 
             <div id="hintEncTable">
-                <?php if(!$view->showUnencryptedHint) { ?>
-                    A|B|C|D|E|F|G|H|I|J|K|L|M<br/>
+                <?php if (!$view->showUnencryptedHint) { ?>
+                    A|B|C|D|E|F|G|H|I|J|K|L|M<br>
                     N|O|P|Q|R|S|T|U|V|W|X|Y|Z
                 <?php } //if-show-unencrypted-hint ?>
             </div>
@@ -636,8 +635,8 @@ use lib\Objects\Coordinates\Coordinates;
             <span class="notice"><?=tr('vc_hint_for_logged_only')?></span>
         <?php } // if-user-authorized or showAll set in config ?>
 
-        <?php if($view->isUserAuthorized || $view->alwaysShowCoords) { ?>
-            <?php if(!$view->showUnencryptedHint) { ?>
+        <?php if ($view->isUserAuthorized || $view->alwaysShowCoords) { ?>
+            <?php if (!$view->showUnencryptedHint) { ?>
                 <a class="btn btn-default btn-sm" href="#" onclick="return showHint(event);">
                     <span id="decryptLinkStr"><?=tr('decrypt')?></span>
                     <span id="encryptLinkStr" style="display:none"><?=tr('encrypt')?></span>
@@ -650,11 +649,11 @@ use lib\Objects\Coordinates\Coordinates;
 <?php } // if-hint-present ?>
 
 
-<?php if($view->cacheCoordsModificationAllowed) { ?>
+<?php if ($view->cacheCoordsModificationAllowed) { ?>
     <!-- coords user modification: -->
     <div id="coords_mod_section" class="content2-container bg-blue02">
         <span class="content-title-noshade-size1">
-            <img src="tpl/stdstyle/images/blue/signature1.png" class="icon32" alt="" />
+            <img src="tpl/stdstyle/images/blue/signature1.png" class="icon32" alt="">
             {{coords_modifier}}
         </span>
     </div>
@@ -667,16 +666,16 @@ use lib\Objects\Coordinates\Coordinates;
 
             <script>
               // disable subit button if coords are not set
-              $('#userCoordsFinalCoordsReady').change(function(){
-                  if( $('#userCoordsFinalCoordsReady').val() ){
+              $('#userCoordsFinalCoordsReady').change(function() {
+                  if ( $('#userCoordsFinalCoordsReady').val() ) {
                     $("#submitBtns > input[type=submit]").attr('disabled', false);
-                  }else{
+                  } else {
                     $("#submitBtns > input[type=submit]").attr('disabled', true);
                   }
               });
             </script>
 
-            <div id="submitBtns" >
+            <div id="submitBtns">
                 <input id="userModifiedCoordsSubmited" type="submit" name="userModifiedCoordsSubmited" value="{{modify_coords}}" disabled="disabled" class="btn btn-default btn-sm">
                 <input id="deleteUserModifiedCoords" type="submit" name="deleteUserModifiedCoords" value="{{reset_coords}}" disabled="disabled" class="btn btn-default btn-sm">
             </div>
@@ -688,7 +687,7 @@ use lib\Objects\Coordinates\Coordinates;
 <?php } //if-cacheCoordsModificationAllowed ?>
 
 
-<?php if($view->isUserAuthorized) { ?>
+<?php if ($view->isUserAuthorized) { ?>
     <!-- user-note:  -->
     <div class="content2-container bg-blue02" id="userNotes">
         <span class="content-title-noshade-size1">
@@ -704,7 +703,7 @@ use lib\Objects\Coordinates\Coordinates;
             </div>
 
             <div>
-                <input type="submit" name="saveUserNote" value="{{save}}" class="btn btn-default btn-sm userNoteEdit" style="display:none" />
+                <input type="submit" name="saveUserNote" value="{{save}}" class="btn btn-default btn-sm userNoteEdit" style="display:none">
                 <button id="editNoteBtn" type="button" class="btn btn-default btn-sm userNoteDisplay" style="display:none">{{Edit}}</button>
                 <input type="submit" name="removeUserNote" value="{{delete}}" class="btn btn-default btn-sm userNoteDisplay" style="display:none">
 
@@ -716,7 +715,7 @@ use lib\Objects\Coordinates\Coordinates;
     </div>
 
     <script>
-      <?php if(empty($view->userNoteText)) { ?>
+      <?php if (empty($view->userNoteText)) { ?>
         //empty note - enable userNoteEdit
         $('#cacheNoteForm .userNoteDisplay').hide();
         $('#cacheNoteForm .userNoteEdit').show();
@@ -726,7 +725,7 @@ use lib\Objects\Coordinates\Coordinates;
         $('#cacheNoteForm .userNoteEdit').hide();
       <?php } // if-empty-userNoteText ?>
 
-      $('#editNoteBtn').click( function(){
+      $('#editNoteBtn').click( function() {
         $('#cacheNoteForm .userNoteDisplay').toggle();
         $('#cacheNoteForm .userNoteEdit').toggle();
       });
@@ -734,7 +733,7 @@ use lib\Objects\Coordinates\Coordinates;
 
 <?php } //if-isUserAuthorized ?>
 
-<?php if( !empty($view->geoCache->getNatureRegions() ) || !empty($view->geoCache->getNatura2000Sites())) { ?>
+<?php if ( !empty($view->geoCache->getNatureRegions() ) || !empty($view->geoCache->getNatura2000Sites())) { ?>
     <!-- natura2000 etc. -->
     <div class="content2-container bg-blue02">
         <span class="content-title-noshade-size1">
@@ -744,7 +743,7 @@ use lib\Objects\Coordinates\Coordinates;
     </div>
 
     <div class="content2-container align-center">
-        <?php if( !empty($view->geoCache->getNatureRegions() ) ) { ?>
+        <?php if ( !empty($view->geoCache->getNatureRegions() ) ) { ?>
             <table class="naturaTable">
                 <tr>
                     <td>
@@ -760,14 +759,14 @@ use lib\Objects\Coordinates\Coordinates;
                           </a>
                       </td>
                       <td>
-                        <img src="tpl/stdstyle/images/pnk/<?=$npa['npalogo']?>" alt="" />
+                        <img src="tpl/stdstyle/images/pnk/<?=$npa['npalogo']?>" alt="">
                       </td>
                     </tr>
                 <?php } //foreach ?>
             </table>
 
         <?php } //if-NatureRegions-presents ?>
-        <?php if( !empty($view->geoCache->getNatura2000Sites())) { ?>
+        <?php if ( !empty($view->geoCache->getNatura2000Sites())) { ?>
             <table class="naturaTable">
                 <tr>
                     <td>
@@ -775,18 +774,18 @@ use lib\Objects\Coordinates\Coordinates;
                             <?=tr('npa_info')?>
                             <span style="color:green">NATURA 2000</span>
                         </b>:
-                        <br />
+                        <br>
                         <?php foreach ($view->geoCache->getNatura2000Sites() as $npa) {
                                 $npa_item = $config['nature2000link'];
                                 $npa_item = mb_ereg_replace('{linkid}', $npa['linkid'], $npa_item);
                                 $npa_item = mb_ereg_replace('{sitename}', $npa['npaSitename'], $npa_item);
                                 $npa_item = mb_ereg_replace('{sitecode}', $npa['npaSitecode'], $npa_item);
                                 echo $npa_item; ?>
-                                <br />
+                                <br>
                         <?php } //foreach ?>
                     </td>
                     <td>
-                      <img src="tpl/stdstyle/images/misc/natura2000.png" alt="natura2000" />
+                      <img src="tpl/stdstyle/images/misc/natura2000.png" alt="natura2000">
                     </td>
                 </tr>
             </table>
@@ -794,7 +793,7 @@ use lib\Objects\Coordinates\Coordinates;
     </div>
 <?php } //if-natureRegions-present ?>
 
-<?php if( !empty($view->geoCache->getGeokretsHosted())) { ?>
+<?php if ( !empty($view->geoCache->getGeokretsHosted())) { ?>
     <!-- geokrety: -->
     <div class="content2-container bg-blue02">
         <span class="content-title-noshade-size1">
@@ -808,7 +807,7 @@ use lib\Objects\Coordinates\Coordinates;
                 <?php foreach ($view->geoCache->getGeokretsHosted() as $gk) { ?>
                     <img src="/images/geokret.gif" alt="geokret">&nbsp;
                     <a href='https://geokrety.org/konkret.php?id=<?=$gk['id']?>'><?=$gk['name']?></a>
-                    - <?=tr('total_distance')?>: <?=$gk['distance']?> km <br/>
+                    - <?=tr('total_distance')?>: <?=$gk['distance']?> km <br>
                 <?php } ?>
             </p>
         </div>
@@ -816,7 +815,7 @@ use lib\Objects\Coordinates\Coordinates;
 <?php } //if-geokrety-inside ?>
 
 
-<?php if( !empty($view->geoCache->getMp3List() )) { ?>
+<?php if ( !empty($view->geoCache->getMp3List() )) { ?>
     <!-- mp3-list -->
     <div class="content2-container bg-blue02">
         <span class="content-title-noshade-size1">
@@ -826,11 +825,11 @@ use lib\Objects\Coordinates\Coordinates;
     </div>
     <div class="content2-container">
         <div id="viewcache-mp3s">
-          <?php foreach ($view->geoCache->getMp3List() as $mp3 ) { ?>
+          <?php foreach ($view->geoCache->getMp3List() as $mp3) { ?>
               <div class="viewcache-pictureblock">
               <div class="img-shadow">
                   <a href="<?=$mp3['url']?>" target="_blank">
-                      <img src="tpl/stdstyle/images/blue/32x32-get-mp3.png" alt="" title="" />
+                      <img src="tpl/stdstyle/images/blue/32x32-get-mp3.png" alt="">
                   </a>
               </div>
               <span class="title"><?=$mp3['title']?></span>
@@ -840,7 +839,7 @@ use lib\Objects\Coordinates\Coordinates;
     </div>
 <?php } // if-mp3-presents ?>
 
-<?php if( !empty($view->picturesToDisplay) ) { ?>
+<?php if ( !empty($view->picturesToDisplay) ) { ?>
     <!-- pics-list: -->
     <div class="content2-container bg-blue02">
         <span class="content-title-noshade-size1">
@@ -860,7 +859,7 @@ use lib\Objects\Coordinates\Coordinates;
                     </div>
                     <span class="title"><?=$pic->title?></span>
                 </div>
-                <?php if($key%4 == 3){ //add after every 4 pics ?>
+                <?php if ($key%4 == 3) { //add after every 4 pics ?>
                 <div style="clear:both"></div>
                 <?php } ?>
             <?php } //foreach ?>
@@ -868,7 +867,7 @@ use lib\Objects\Coordinates\Coordinates;
     </div>
 <?php } //if-pictures-to-display-present ?>
 
-<?php if($view->isUserAuthorized) { ?>
+<?php if ($view->isUserAuthorized) { ?>
     <!-- utils-section: -->
     <div class="content2-container bg-blue02">
         <span class="content-title-noshade-size1">
@@ -879,7 +878,7 @@ use lib\Objects\Coordinates\Coordinates;
     <div class="content2-container">
         <div id="viewcache-utility">
             <div>
-                <img src="tpl/stdstyle/images/action/16x16-search.png" class="icon16" alt="" />
+                <img src="tpl/stdstyle/images/action/16x16-search.png" class="icon16" alt="">
                 {{search_geocaches_nearby}}:
 
 
@@ -891,12 +890,10 @@ use lib\Objects\Coordinates\Coordinates;
                 </a>
             </div>
 
-            <?php if($view->searchAtOtherSites) { ?>
+            <?php if ($view->searchAtOtherSites) { ?>
                 <div>
-                    <img src="tpl/stdstyle/images/action/16x16-search.png" class="icon16" alt="" />
+                    <img src="tpl/stdstyle/images/action/16x16-search.png" class="icon16" alt="">
                         {{find_geocaches_on}}:
-                        <a target="_blank" href="//www.geocaching.com/seek/nearest.aspx?origin_lat={latitude}&amp;origin_long={longitude}&amp;dist=100&amp;submit8=Submit\" rel="noopener">geocaching.com</a> |
-                        <a target="_blank" href="http://www.navicache.com/cgi-bin/db/distancedp.pl?latNS={latNS}&amp;latHours={latitude}&amp;longWE={lonEW}&amp;longHours={longitudeNC}&amp;Distance=100&amp;Units=M" rel="noopener">navicache.com</a> |
                         <a target="_blank" href="http://geocaching.gpsgames.org/cgi-bin/ge.pl?basic=yes&amp;download=Google+Maps&amp;zoom=8&amp;lat_1={latitude}&amp;lon_1={longitude}" rel="noopener">gpsgames.org</a> |
                         <a href="http://www.opencaching.cz/search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;country=&amp;cachetype=&amp;cache_attribs=&amp;cache_attribs_not=7&amp;latNS={latNS}&amp;lat_h={lat_h}&amp;lat_min={lat_min}&amp;lonEW={lonEW}&amp;lon_h={lon_h}&amp;lon_min={lon_min}&amp;distance=100&amp;unit=km" rel="noopener">oc.cz</a> |
                         <a href="http://www.opencaching.de/search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;country=&amp;cachetype=&amp;cache_attribs=&amp;cache_attribs_not=7&amp;latNS={latNS}&amp;lat_h={lat_h}&amp;lat_min={lat_min}&amp;lonEW={lonEW}&amp;lon_h={lon_h}&amp;lon_min={lon_min}&amp;distance=100&amp;unit=km" rel="noopener">oc.de</a>
@@ -906,7 +903,7 @@ use lib\Objects\Coordinates\Coordinates;
             <hr style="color: blue;">
 
             <div>
-                <img src="tpl/stdstyle/images/action/16x16-save.png" class="icon16" alt="" />
+                <img src="tpl/stdstyle/images/action/16x16-save.png" class="icon16" alt="">
                 <b>{{download_as_file}}</b>
 
                 <table>
@@ -958,44 +955,44 @@ use lib\Objects\Coordinates\Coordinates;
         <img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="">
         {{log_entries}}:
 
-        <?php if($view->geoCache->isEvent()) { ?>
-            <img src="tpl/stdstyle/images/log/16x16-attend.png" class="icon16" alt="" title=""/>
+        <?php if ($view->geoCache->isEvent()) { ?>
+            <img src="tpl/stdstyle/images/log/16x16-attend.png" class="icon16" alt="">
             <?=$view->geoCache->getFounds()?>
 
-            <img src="tpl/stdstyle/images/log/16x16-will_attend.png" class="icon16" alt="" title=""/>
+            <img src="tpl/stdstyle/images/log/16x16-will_attend.png" class="icon16" alt="">
             <?=$view->geoCache->getNotFounds()?>
 
         <?php } else { //if-not-event ?>
 
-            <img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="<?=tr('found')?>"/>
+            <img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="<?=tr('found')?>">
             <?=$view->geoCache->getFounds()?>x
 
-            <img src="tpl/stdstyle/images/log/16x16-dnf.png" class="icon16" alt="{{not_found}}" />
+            <img src="tpl/stdstyle/images/log/16x16-dnf.png" class="icon16" alt="{{not_found}}">
             <?=$view->geoCache->getNotFounds()?>x
 
         <?php } //if-not-event ?>
 
-        <img src="tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{log_note}}" />
+        <img src="tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{log_note}}">
         <?=$view->geoCache->getNotesCount()?>x
 
-        <?php if( $view->geoCache->getPicsInLogsCount() > 0 ) { ?>
-            <img src="tpl/stdstyle/images/free_icons/photo.png" alt="Photo" class="icon16"/>
+        <?php if ( $view->geoCache->getPicsInLogsCount() > 0 ) { ?>
+            <img src="tpl/stdstyle/images/free_icons/photo.png" alt="Photo" class="icon16">
             <?=$view->geoCache->getPicsInLogsCount()?>x
         <?php } //if-getNumberOfPicsInLogs > 0 ?>
 
     </span>
     <span id="log-start-buttons">
 
-        <?php if($view->isUserAuthorized) { ?>
+        <?php if ($view->isUserAuthorized) { ?>
             <a class="btn btn-sm btn-primary" href="log.php?cacheid=<?=$view->geoCache->getCacheId()?>" title="<?=tr('new_log_entry')?>">
               <!-- img src="images/actions/new-entry-18.png" title="<?=tr('new_log_entry')?>" alt="<?=tr('new_log_entry')?>"-->
               <?=tr('new_log_entry_short')?>
             </a>
         <?php } //if-isUserAuthorized ?>
 
-        <?php if($view->displayAllLogsLink) { ?>
+        <?php if ($view->displayAllLogsLink) { ?>
 
-            <a class="btn btn-sm btn-default" href="viewlogs.php?cacheid=<?=$view->geoCache->getCacheId()?>" >
+            <a class="btn btn-sm btn-default" href="viewlogs.php?cacheid=<?=$view->geoCache->getCacheId()?>">
               <!-- img src="tpl/stdstyle/images/action/16x16-showall.png" class="icon16" alt="<?=tr('show_all_log_entries')?>"
                    title="<?=tr('show_all_log_entries')?>" / -->
               <?=tr("show_all_log_entries_short")?>
@@ -1003,7 +1000,7 @@ use lib\Objects\Coordinates\Coordinates;
         <?php } //if-logEntriesCount ?>
 
 
-        <?php if($view->showDeletedLogsDisplayLink) { ?>
+        <?php if ($view->showDeletedLogsDisplayLink) { ?>
             <span style="white-space: nowrap;">
                 <a class="btn btn-sm btn-default" href="<?=$view->deletedLogsDisplayLink?>" title="<?=$view->deletedLogsDisplayText?>">
                     <!-- img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="<?=$view->deletedLogsDisplayText?>" title="<?=$view->deletedLogsDisplayText?>" /-->
@@ -1012,7 +1009,7 @@ use lib\Objects\Coordinates\Coordinates;
             </span>
         <?php } //if-showDeletedLogsDisplayLink ?>
 
-        <?php if( $view->geoCache->getPicsInLogsCount() > 0 ) { ?>
+        <?php if ( $view->geoCache->getPicsInLogsCount() > 0 ) { ?>
             <a class="btn btn-sm btn-default" href="gallery_cache.php?cacheid=<?=$view->geoCache->getCacheId()?>">
                <?=tr('gallery_short')?>
             </a>
@@ -1025,7 +1022,7 @@ use lib\Objects\Coordinates\Coordinates;
 </div>
 
 
-<?php if($view->badgesPopUp) { ?>
+<?php if ($view->badgesPopUp) { ?>
 
 <script>
         $( function() {
@@ -1048,4 +1045,4 @@ use lib\Objects\Coordinates\Coordinates;
   <?=$view->badgesPopupHtml?>
 </div>
 
-<?php } //if($view->badgesPopUp ?>
+<?php } //if ($view->badgesPopUp ?>
