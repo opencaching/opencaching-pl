@@ -6,7 +6,6 @@
   <p class="content-title-noshade-size2">{{data_in_profile}}</p>
   <div class="buffer"></div>
   <form name="change" action="/myprofile.php?action=change" method="post" enctype="application/x-www-form-urlencoded"  style="display: inline;">
-    <input type="hidden" name="show_all_countries" value="{show_all_countries}">
     <table class="table">
       <colgroup>
         <col width="150">
@@ -30,15 +29,6 @@
         <td>&nbsp;</td>
         <td>
           <div class="notice" style="width:500px;height:44px;">{{GKApi03}} <a href="https://geokrety.org/mypage.php" target="_blank" rel="noopener">{{GKApi04}}</a></div>
-        </td>
-      </tr>
-      <tr class="form-group-sm">
-        <td class="content-title-noshade"><img src="tpl/stdstyle/images/free_icons/world.png" class="icon16" alt="" align="middle">&nbsp;{{country_label}}:</td>
-        <td>
-          <select name="country" class="form-control input200">
-            {countrylist}
-          </select>
-          {allcountriesbutton}
         </td>
       </tr>
       {guide_start}

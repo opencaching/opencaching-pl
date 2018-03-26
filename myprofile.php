@@ -38,7 +38,7 @@ if ($usr == false) {
         tpl_set_var('guide_end', '-->');
     }
 
-    $s = $db->multiVariableQuery("SELECT `description`, `guru`,`username`, `email`, `country`, `date_created`, `permanent_login_flag`, `power_trail_email`, `ozi_filips` FROM `user` WHERE `user_id`=:1 ", $usr['userid']);
+    $s = $db->multiVariableQuery("SELECT `description`, `guru`,`username`, `email`, `date_created`, `permanent_login_flag`, `power_trail_email`, `ozi_filips` FROM `user` WHERE `user_id`=:1 ", $usr['userid']);
     $record = $db->dbResultFetchOneRowOnly($s);
     $description = $record['description'];
     tpl_set_var('description', $description);
@@ -56,7 +56,6 @@ if ($usr == false) {
     tpl_set_var('username', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'));
     tpl_set_var('username_html', htmlspecialchars(htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), ENT_COMPAT, 'UTF-8'));
     tpl_set_var('email', htmlspecialchars($record['email'], ENT_COMPAT, 'UTF-8'));
-    tpl_set_var('country', htmlspecialchars(tr($record['country']), ENT_COMPAT, 'UTF-8'));
     tpl_set_var('registered_since', Formatter::date($record['date_created']));
 
     /* GeoKretyApi - display if secid from geokrety is set; (by Łza) */
@@ -79,7 +78,6 @@ if ($usr == false) {
         $action = $_REQUEST['action'];
         if ($action == 'change') { // display the change form
             $tplname = 'myprofile_change';
-            $allcountries = tr('show_all');
             $no_answer = tr('no_choice');
             $error_username_not_ok = '<span class="errormsg">' . tr('username_incorrect') . '</span>';
             $error_username_exists = '<span class="errormsg">' . tr('username_exists') . '</span>';
@@ -91,11 +89,9 @@ if ($usr == false) {
                 tpl_set_var('guide_end', '-->');
             }
             $guide = isset($_POST['guide']) ? (int) $_POST['guide'] : 0;
-            if (isset($_POST['submit']) || isset($_POST['submit_all_countries'])) {
+            if (isset($_POST['submit'])) {
                 // load datas from form
-                $show_all_countries = $_POST['show_all_countries'];
                 $username = $_POST['username'];
-                $country = $_POST['country'];
                 $ozi_path = strip_tags($_POST['ozi_path']);
                 tpl_set_var('ozi_path', $ozi_path);
 
@@ -170,10 +166,10 @@ if ($usr == false) {
                         }
 
                         $db->multiVariableQuery("UPDATE `user`
-                                  SET `last_modified`=NOW(),
-                                      `country`=:1, `permanent_login_flag`=:2,
-                                      `power_trail_email`=:3 , `ozi_filips`=:4, `guru`=:5
-                                  WHERE `user_id`=:6", $country, $using_permantent_login, $geoPathsEmail, $ozi_path, $guide, (int) $usr['userid']);
+                                  SET `last_modified` = NOW(),
+                                      `permanent_login_flag`=:1,
+                                      `power_trail_email`=:2 , `ozi_filips`=:3, `guru`=:4
+                                  WHERE `user_id`=:5", $using_permantent_login, $geoPathsEmail, $ozi_path, $guide, (int) $usr['userid']);
 
                         // update user nick
                         if ($username != $usr['username']) {
@@ -199,7 +195,6 @@ if ($usr == false) {
                         }
 
                         $tplname = 'myprofile';
-                        tpl_set_var('country', htmlspecialchars(tr($country), ENT_COMPAT, 'UTF-8'));
                     }
                 }
             } else { // display form
@@ -211,8 +206,6 @@ if ($usr == false) {
                     tpl_set_var('guides_end', '-->');
                 }
                 $geoPathsEmail = $record['power_trail_email'];
-                $show_all_countries = 0;
-                $country = $record['country'];
                 $guide = $record['guru'];
                 $using_permantent_login = $record['permanent_login_flag'];
                 $ozi_path = strip_tags($record['ozi_filips']);
@@ -244,60 +237,6 @@ if ($usr == false) {
             } else {
                 tpl_set_var('guides_start', '<!--');
                 tpl_set_var('guides_end', '-->');
-            }
-
-            // load the country list
-            if ($country == 'XX') {
-                $stmp = '<option value="XX" selected="selected">' . $no_answer . '</option>';
-            } else {
-                $stmp = '<option value="XX">' . $no_answer . '</option>';
-            }
-            if (isset($_POST['submit_all_countries'])) {
-                $show_all_countries = 1;
-            }
-            if (XDb::xContainsColumn('countries', 'list_default_' . $lang)) {
-                $lang_db = $lang;
-            } else {
-                $lang_db = "en";
-            }
-            // Country in defaults ?
-            if (($show_all_countries == 0) && ($country != 'XX')) {
-                $stmt = $db->multiVariableQuery("SELECT `list_default_" . XDb::xEscape($lang_db) . "`
-                        FROM `countries` WHERE `short`=:1 LIMIT 1", $country);
-
-                $record2 = $db->dbResultFetchOneRowOnly($stmt);
-
-                if ($record2['list_default_' . $lang_db] == 0) {
-                    $show_all_countries = 1;
-                } else {
-                    $show_all_countries = 0;
-                }
-            }
-
-            if ($show_all_countries == 1) {
-                $rs2 = XDb::xSql("SELECT `" . XDb::xEscape($lang_db) . "`, `list_default_" . XDb::xEscape($lang_db) . "`, `short`, `sort_" . XDb::xEscape($lang_db) . "` FROM `countries` ORDER BY `sort_" . XDb::xEscape($lang_db) . '` ASC', $lang_db);
-            } else {
-                $rs2 = XDb::xSql("SELECT `" . XDb::xEscape($lang_db) . "`, `list_default_" . XDb::xEscape($lang_db) . "`, `short`, `sort_" . XDb::xEscape($lang_db) . "` FROM `countries` WHERE `list_default_" . XDb::xEscape($lang_db) . "`=1 ORDER BY `sort_" . XDb::xEscape($lang_db) . '` ASC', $lang_db);
-            }
-
-            while ($record2 = XDb::xFetchArray($rs2)) {
-
-                if ($record2['short'] == $country) {
-                    $stmp .= '<option value="' . $record2['short'] . '" selected="selected">' . htmlspecialchars($record2[$lang_db], ENT_COMPAT, 'UTF-8') . "</option>\n";
-                } else {
-                    $stmp .= '<option value="' . $record2['short'] . '">' . htmlspecialchars($record2[$lang_db], ENT_COMPAT, 'UTF-8') . "</option>\n";
-                }
-            }
-            XDb::xFreeResults($rs2);
-
-            tpl_set_var('countrylist', $stmp);
-            unset($stmp);
-            tpl_set_var('show_all_countries', $show_all_countries);
-
-            if ($show_all_countries == 0) {
-                tpl_set_var('allcountriesbutton', '<input class="btn btn-default btn-sm" type="submit" name="submit_all_countries" value="' . $allcountries . '" >');
-            } else {
-                tpl_set_var('allcountriesbutton', '');
             }
         }
     }
