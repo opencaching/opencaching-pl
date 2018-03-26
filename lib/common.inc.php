@@ -117,11 +117,12 @@ function initTemplateSystem(){
 function loadTranslation(){
 
         global $lang;
-        $lang = OcCookie::getOrDefault('lang', $lang);
 
         //language changed?
         if(isset($_REQUEST['lang'])){
             $lang = UserInputFilter::purifyHtmlString($_REQUEST['lang']);
+        }else{
+            $lang = OcCookie::getOrDefault('lang', $lang);
         }
 
         //check if $lang is supported by site

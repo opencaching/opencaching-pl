@@ -1,7 +1,6 @@
 <?php $view->callChunk('tinyMCE'); ?>
 
 <link href='https://fonts.googleapis.com/css?family=Shojumaru&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-<script src="tpl/stdstyle/js/jquery.cookie.js"></script>
 
 
 <script>
