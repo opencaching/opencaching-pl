@@ -14,18 +14,11 @@ $translations = array(
     'Edit' => 'Bewerken',
     'back' => 'Terug',
     'cache_menu' => 'Cache Menu',
-    'activation_code_failed' => 'An error occurred while activating your account! Potential causes: <br /> - The activation code or e-mail address is incorrect. <br/> - Your account is already active (have you tried to log in?) <br /><br /> If after rechecking your information the problem persists, please report it to <span class = "mail">{contact_mail}</span>.<b>Be sure to include the username and e-mail address you registered with.</ b>.',
-    'email_incorrect' => 'E-mail adres is niet correct.',
-    'account_activation' => 'Account activatie',
     'finish_registration_hint' => 'Om het registratie proces te voltooien, moet je je e-mail adres bevestigen en de activatie code invullen.',
     'email_address' => 'E-mail adres',
     'activation_code' => 'Activatie code',
     'confirm' => 'Bevestig',
     'reset' => 'Herstellen',
-    'activation_success' => 'Je account is succesvol geactiveerd. Je kunt nu inloggen.',
-    'activation_error1' => 'Er is een probleem opgetreden tijdens het activeren. Controleer of het webadres hetzelfde is als die in de ontvangen mail. Blijft het probleem nog bestaan neem dan contact op via: <span class="mail">{contact_mail}</span> .',
-    'activation_error2' => 'Het account lijkt al geactiveerd. Al geprobeerd om in te loggen? Blijft het probleem nog bestaan neem dan contact op via: <span class="mail">{contact_mail}</span> .',
-    'goto_login' => 'Ga naar inlog pagina',
     'preview_attributes' => 'Voorbeeld van aanvullende cache attributen',
     'toxic_plants' => 'Giftige planten',
     'thorns' => 'Doornen',
@@ -427,7 +420,31 @@ $translations = array(
     'show_all_log_entries' => 'Toon alle logs',
     'show_all_log_entries_short' => 'Alle logs',
     'back_to_the_geocache_listing' => 'Terug naar de cachepagina',
-    'register_pageTitle' => ' Als nieuwe gebruiker registreren',
+
+    'register_pageTitle' => 'Als nieuwe gebruiker registreren',
+    'register_intro' => 'Please enter your valid e-mail address below - we will send you an activation link. During registration you will also choose a unique username (nickname) that you will use on the site.', /* EN edited register_msg1*/
+    'register_info' => 'The user may opt out of using the website. At the same time, all data entered during registration and in the user description will be irretrievably deleted. If you want to deactivate your account, please contact us using your e-mail account. In uncertain cases, please contact us ({contact_mail}). Thank you.', /* EN */
+    'register_rulesLbl' => 'Yes, I have read the <strong><a href="{wiki_link_rules}" target="_blank" rel="noopener">Terms of Service</a></strong> {site_name} and I agree to abide by it.', /* EN */
+    'register_ageLbl' => 'Yes, I am over {min_age} years old or my legal guardian has given permission to set up an account.', /* EN */
+    'register_confirm' => 'De activatie link is verzonden per e-mail.<div class="buffer"></div>Kijk eventueel in de spam folder wanneer geen bericht ontvangen is.',
+
+    'activation_title' => 'Account activatie',
+    'activation_success' => 'Je account is succesvol geactiveerd. Je kunt nu inloggen.',
+    'activation_error' => 'Het account lijkt al geactiveerd. Al geprobeerd om in te loggen? Blijft het probleem nog bestaan neem dan contact op via: {contact_mail} .',
+
+    'activate_mail_subject' => 'Registratie bevestiging - {site_name}',
+    'activate_mail_intro' => 'We are pleased to welcome you to the community looking for and creating caches on the site {OCsiteLink}.<br>With the account you can fully participate in the game, visit interesting places in the search of caches and participate in meetings with others cachers.', /* EN */
+    'activate_mail_clickhere' => 'Click the button below to complete the registration and activate your account.', /* EN */
+    'activate_mail_btn' => 'Activate account', /* EN */
+    'activate_mail_period' => 'If you don\'t activate your account within the next 48 hours, your account will be automatically deleted.', /* EN useractivationmail6 */
+
+    'postActivation_mail_subject' => 'Welkom op {site_name}',
+    'postActivation_mail_intro' => 'We are pleased that you have confirmed the registration in the community looking for and creating caches on the site {site_name}, thank you.', /* EN */
+    'postActivation_mail_01' => 'Om te beginnen kun je informatie terug vinden op Opencaching wiki, Deze site is nog niet compleet maar wordt regelmatig aangevuld. Opencaching wiki is beschikbaar op:',
+    'postActivation_mail_02' => 'Als je op zoek bent naar hulp via een interactieve kaart kun je in jouw gebied vrijwilligers vinden die hun hulp aanbieden aan beginnende cachers.',
+    'postActivation_mail_03' => 'Kijk eens op:',
+    'postActivation_mail_04' => 'Voordat je de eerste cache kunt plaatsen op {site_name} dien je eerst {NEED_FIND_LIMIT} caches gevonden te hebben zoals: traditional, quiz, multicache en andere soorten.',
+
     'password_confirm' => 'Bevestig wachtwoord',
     'register_msg1' => 'Om een gebruikersaccount aan te maken op {site_name}, dien je een geldig e-mail adres en een gebruikersnaam op te geven. Een e-mail bericht zal naar het opgegeven e-mail adres verzonden worden met een activatie link, waarmee het gebruikersaccount geactiveerd kan worden. Per e-mail adres kan één account aangemaakt worden.',
     'register_msg2' => '* zijn verplicht',
@@ -452,15 +469,12 @@ $translations = array(
     'rate_cache' => 'Beoordeel deze cache: <br/><a href="{wiki_link_ratingDesc}">Uitleg over beoordeling</a>',
     'do_not_rate' => 'Ik wil deze cache niet beoordelen',
     'listed_other' => 'Log deze cache ook op de volgende sites',
-    'register_email_subject' => 'Registratie bevestiging {site_name}',
-    'post_activation_email_subject' => 'Welkom op {site_name}',
     'error_username_not_ok' => 'Gebruikersnaam is niet geldig',
     'error_username_exists' => 'Deze gebruikersnaam bestaat al. Kies een andere gebruikersnaam',
     'error_email_not_ok' => 'E-mail adres is niet geldig',
     'error_email_exists' => 'Dit e-mail adres bestaat al. Kies een ander e-mailadres.',
-    'error_password_not_ok' => 'Wachtwoord bevat ongeldige tekens of is te kort',
-    'error_password_diffs' => 'Beide wachtwoorden zijn niet gelijk',
-    'error_tos' => 'Je dient de gebruiksvoorwaarden op <a href="{wiki_link_rules}" target="_blank">van {site_name} te accepteren.',
+    'error_tos' => 'Je dient de gebruiksvoorwaarden op van {site_name} te accepteren.',
+    'error_age' => 'To use the service you must be at least {min_age} years of age or have the consent of a legal guardian', /* EN */
     'security_error' => 'Er is een poging gedaan om de beveiliging te omzeilen.',
     'newpw_title' => 'Verander wachtwoord',
     'newpw_info' => 'Om het wachtwoordt te veranderen, vul je hier onder de gebruikersnaam of e-adres in. Een speciale link wordt per e-mail verzonden. Door op die link te klikken kan het wachtwoord veranderd worden.',
@@ -1385,7 +1399,6 @@ $translations = array(
     'watchlist_canbefound' => 'Om de lijst van gevolgde caches te zien of te bewerken',
     'watchlist_clickhere' => 'klik dan hier',
     'watchlist_nologs' => 'Er zijn nog geen logs',
-    'registermail01' => 'Welkom op',
     'activatemail01' => 'De cache:',
     'activatemail02' => 'is door het Opencaching team goed gekeurd.',
     'activatemail03' => 'Je kunt de status veranderen in "beschikbaar" op:',
@@ -2621,17 +2634,6 @@ $translations = array(
     'beginning' => 'Aanvang',
     'send_to' => 'Verzend naar',
     'send_to_cgeo' => 'c:geo',
-    'postactivationmail01' => 'Om te beginnen kun je informatie terug vinden op Opencaching wiki, Deze site is nog niet compleet maar wordt regelmatig aangevuld. Opencaching wiki is beschikbaar op:',
-    'postactivationmail02' => 'Als je op zoek bent naar hulp via een interactieve kaart kun je in jouw gebied vrijwilligers vinden die hun hulp aanbieden aan beginnende cachers.',
-    'postactivationmail03' => 'Kijk eens op:',
-    'postactivationmail04' => 'Voordat je de eerste cache kunt plaatsen op {site_name} dien je eerst {NEED_FIND_LIMIT} caches gevonden te hebben zoals: traditional, quiz, multicache en andere soorten.',
-    'postactivationmail05' => 'Je eerste {NEED_APPROVE_LIMIT} nieuwe caches zullen door het OC Team gekeurd worden.',
-    'useractivationmail1' => 'Wij hebben de volgende informatie opgeslagen voor registratie:',
-    'useractivationmail2' => 'E-mail adres:',
-    'useractivationmail3' => 'Gebruikersnaam:',
-    'useractivationmail4' => 'Land:',
-    'useractivationmail5' => 'Ga naar het volgende adres om de registratie te activeren en te voltooien:',
-    'useractivationmail6' => 'Indien binnen 14 dagen na de registratie niet aangemeld wordt, zal dit gemaakte account automatisch worden verwijderd.',
     'mail_auto_generated' => 'Dit bericht is automatisch gegenereerd, gelieve niet te reageren.',
     'mail_replyAllowed' => 'Om dit bericht te beantwoorden kan de antwoordfunctie van het e-mailprogramma gebruikt worden.',
     'mail_header_hi' => 'Hallo',

@@ -313,5 +313,5 @@ $config['apc']['username'] = 'admin';
 // the word 'password' as password is prohibited and will allow to login - override in settings.inc.php
 $config['apc']['password'] = 'password';
 
-
-
+// Minimum age to register on OC
+$config['register']['min_age'] = 13;

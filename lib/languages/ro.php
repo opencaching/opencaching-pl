@@ -14,18 +14,11 @@ $translations = array(
     'Edit' => 'Modifică',
     'back' => 'Înapoi',
     'cache_menu' => 'Meniul Cutiei',
-    'activation_code_failed' => 'Eroare la activarea contului tău! Posibile cauze: <br /> - Codul de activare sau adresa de email este incorectă. <br/> - Contul tău este deja activ (ai încercat să te autentifici?) <br /><br /> Verifică, te rog, informaţiile pe care le-ai introdus şi dacă problema persistă, te rugăm să ne contactezi la <span class = "mail">{contact_mail}</span>.<b>Include în mesajul tău numele de utilizator şi adresa de email folosite la înregistrare</ b>.',
-    'email_incorrect' => 'Adresă de e-mail greşită.',
-    'account_activation' => 'Activarea contului',
     'finish_registration_hint' => 'Pentru a finaliza procesul de înregistrare, trebuie să confirmi adresa de e-mail şi să introduci codul de activare',
     'email_address' => 'Adresa de e-mail',
     'activation_code' => 'Cod de activare',
     'confirm' => 'Confirmă',
     'reset' => 'Anulează',
-    'activation_success' => 'Contul tău a fost activat. Acum te poţi conecta.',
-    'activation_error1' => 'Eroare la activarea contului. Te rog verifică dacă ceea ce este în bara de adresă este exact acelaşi lucru cu legătura de activare primită prin E-Mail. Dacă mai întâmpini probleme, contactează-ne la: <span class="mail">{contact_mail}</span> .',
-    'activation_error2' => 'Contul tău pare să fie deja activ. Ai încercat să te autentifici? Dacă mai întâmpini probleme, contactează-ne la: <span class="mail">{contact_mail}</span> .',
-    'goto_login' => 'Du-te la pagina de autentificare',
     'preview_attributes' => 'Previzualizarea atributelor suplimentare ale geocutiei',
     'toxic_plants' => 'Plante otrăvitoare',
     'thorns' => 'Ţepi',
@@ -427,7 +420,31 @@ $translations = array(
     'show_all_log_entries' => 'Arată toate însemnările',
     'show_all_log_entries_short' => 'Toate însemnările',
     'back_to_the_geocache_listing' => 'Back to the geocache listing',
-    'register_pageTitle' => ' New user registration',
+
+    'register_pageTitle' => 'New user registration', /* EN */
+    'register_intro' => 'Please enter your valid e-mail address below - we will send you an activation link. During registration you will also choose a unique username (nickname) that you will use on the site.', /* EN edited register_msg1*/
+    'register_info' => 'The user may opt out of using the website. At the same time, all data entered during registration and in the user description will be irretrievably deleted. If you want to deactivate your account, please contact us using your e-mail account. In uncertain cases, please contact us ({contact_mail}). Thank you.', /* EN */
+    'register_rulesLbl' => 'Yes, I have read the <strong><a href="{wiki_link_rules}" target="_blank" rel="noopener">Terms of Service</a></strong> {site_name} and I agree to abide by it.', /* EN */
+    'register_ageLbl' => 'Yes, I am over {min_age} years old or my legal guardian has given permission to set up an account.', /* EN */
+    'register_confirm' => 'Codul de activare ţi-a fost trimis prin E-Mail<div class="buffer"></div>Verifică şi dosarul cu poştă nedorită (SPAM) dacă nu vezi mesajul de activare în căsuţa poştală.',
+
+    'activation_title' => 'Activarea contului',
+    'activation_success' => 'Contul tău a fost activat. Acum te poţi conecta.',
+    'activation_error' => 'Contul tău pare să fie deja activ. Ai încercat să te autentifici? Dacă mai întâmpini probleme, contactează-ne la: {contact_mail} .',
+
+    'activate_mail_subject' => 'Înregistrare utilizator nou - {site_name}',
+    'activate_mail_intro' => 'We are pleased to welcome you to the community looking for and creating caches on the site {OCsiteLink}.<br>With the account you can fully participate in the game, visit interesting places in the search of caches and participate in meetings with others cachers.', /* EN */
+    'activate_mail_clickhere' => 'Click the button below to complete the registration and activate your account.', /* EN */
+    'activate_mail_btn' => 'Activate account', /* EN */
+    'activate_mail_period' => 'If you don\'t activate your account within the next 48 hours, your account will be automatically deleted.', /* EN useractivationmail6 */
+
+    'postActivation_mail_subject' => 'Bine ai venit pe {site_name}',
+    'postActivation_mail_intro' => 'We are pleased that you have confirmed the registration in the community looking for and creating caches on the site {site_name}, thank you.', /* EN */
+    'postActivation_mail_01' => 'Pentru început ar fi bine să citeşti introducerea de pe OpenGeoWiki aici:',
+    'postActivation_mail_02' => 'Dacă ai nevoie de sprijin din partea unor căutători experimentaţi aruncă o privire pe această hartă interactivă unde poţi găsi căutători care s-au oferit voluntari să sprijine pe începători.',
+    'postActivation_mail_03' => 'Harta cu ghizi:',
+    'postActivation_mail_04' => 'Înainte de a publica prima geocutie pe {site_name} trebuie ca mai întâi să găseşti cel puţin {NEED_FIND_LIMIT} geocutii de următoarele tipuri: tradiţională, multiplă, puzzle sau alte tipuri (mai puţin evenimente).',
+
     'password_confirm' => 'Confirmare parolă',
     'register_msg1' => 'Pentru a crea un cont pe {site_name} este nevoie de o adresă de E-Mail valabilă şi un nume de utilizatoran. <br/>La adresa de E-Mail pe care o furnizezi vei primi un mesaj cu un cod de activare. Se poate crea un singur cont pentru o adresa de E-Mail.',
     'register_msg2' => 'Câmpurile marcate cu * sunt obligatorii',
@@ -452,15 +469,12 @@ $translations = array(
     'rate_cache' => 'Rate this cache: <br/><a href="{wiki_link_ratingDesc_en}">Description of the rating scale</a>',
     'do_not_rate' => 'I do not want to rate this cache',
     'listed_other' => 'You can also submit the log for this cache on other sites',
-    'register_email_subject' => 'Înregistrare utilizator nou {site_name}',
-    'post_activation_email_subject' => 'Bine ai venit pe {site_name}',
     'error_username_not_ok' => 'Nume de utilizator incorect',
     'error_username_exists' => 'Numele de utilizator ales deja există. Te rog alege alt nume de utilizator.',
     'error_email_not_ok' => 'Adresa de E-Mail este incorectă',
     'error_email_exists' => 'Această adresă de E-Mail a fost deja înregistrată. Te rog alege altă adresă de E-Mail.',
-    'error_password_not_ok' => 'Parola este prea scurtă sau conţine caractere nepermise.',
-    'error_password_diffs' => 'Parolele nu se potrivesc (verifică câmpul de confirmare a parolei)',
-    'error_tos' => 'Trebuie să accepţi <a href="{wiki_link_rules}" target="_blank">Condiţiile de Utilizare</a> ale {site_name}',
+    'error_tos' => 'Trebuie să accepţi Condiţiile de Utilizare ale {site_name}',
+    'error_age' => 'To use the service you must be at least {min_age} years of age or have the consent of a legal guardian', /* EN */
     'security_error' => 'An attempt to compromise the security of the system.', /* EN */
     'newpw_title' => 'Change password', /* EN change_password_msg1 */
     'newpw_info' => 'To change your password, enter your username or email address below. A special link will be sent to your e-mail address. By clicking this link you will be able to change your password.', /* EN */
@@ -1385,7 +1399,6 @@ $translations = array(
     'watchlist_canbefound' => 'lista cu geocutiile urmărite poate fi găsită la',
     'watchlist_clickhere' => 'apăsând pe',
     'watchlist_nologs' => 'Nu sunt însemnări',
-    'registermail01' => 'Bine ai venit pe',
     'activatemail01' => 'Geocutia',
     'activatemail02' => 'a fost aprobată de Echipa Opencaching.',
     'activatenail03' => 'Poţi schimba starea ei în "Gata să fie găsită" pe:',
@@ -2621,17 +2634,6 @@ $translations = array(
     'beginning' => 'Începând***',
     'send_to' => 'Trimite către',
     'send_to_cgeo' => 'c:geo',
-    'postactivationmail01' => 'Pentru început ar fi bine să citeşti introducerea de pe OpenGeoWiki aici:',
-    'postactivationmail02' => 'Dacă ai nevoie de sprijin din partea unor căutători experimentaţi aruncă o privire pe această hartă interactivă unde poţi găsi căutători care s-au oferit voluntari să sprijine pe începători.',
-    'postactivationmail03' => 'Harta cu ghizi:',
-    'postactivationmail04' => 'Înainte de a publica prima geocutie pe {site_name} trebuie ca mai întâi să găseşti cel puţin {NEED_FIND_LIMIT} geocutii de următoarele tipuri: tradiţională, multiplă, puzzle sau alte tipuri (mai puţin evenimente).',
-    'postactivationmail05' => 'Primele {NEED_APPROVE_LIMIT} geocutii pe care le ascunzi vor fi moderate de către Echipa OC.',
-    'useractivationmail1' => 'Am salvat următoarele informaţii în urma înregistrării:',
-    'useractivationmail2' => 'Adresa de E-Mail:',
-    'useractivationmail3' => 'Utilizator:',
-    'useractivationmail4' => 'Ţara:',
-    'useractivationmail5' => 'Apasă pe următoarea adresă pentru a confirma înregistrarea şi a-ţi activa contul:',
-    'useractivationmail6' => 'Dacă nu activezi contul în următoarele 14 zile, acesta va fi şters automat.',
     'mail_auto_generated' => 'Acesta mesaj este generat automat. Te rog nu răspunde.',
     'mail_replyAllowed' => 'To reply to this e-mail please use the answer function in your e-mail program.***',
     'mail_header_hi' => 'Bună',

@@ -1,16 +1,12 @@
 <?php
 
 $translations = array(
-    'email_incorrect' => 'E-postadressen är felaktig.',
     'new' => 'NEW',
-    'account_activation' => 'Kontoaktivering',
     'finish_registration_hint' => 'För att slutföra registreringen måste du bekräfta din e-postadress och ange aktiveringskoden',
     'email_address' => 'E-postadress',
     'activation_code' => 'Aktiveringskod',
     'confirm' => 'Bekräfta',
     'reset' => 'Återställ',
-    'activation_success' => 'Ditt konto har aktiverats framgångsrikt. Du kan nu logga in',
-    'goto_login' => 'Gå till inloggningssidan',
     'preview_attributes' => 'Förhandsgranska ytterligare cacheattribut',
     'toxic_plants' => 'Giftiga växter',
     'thorns' => 'Taggiga växter',
@@ -389,6 +385,12 @@ $translations = array(
     'searchable' => 'sökbar',
     'all_geocaches' => 'alla',
     'register_pageTitle' => 'Registrera ny användare',
+
+    'activation_title' => 'Kontoaktivering',
+    'activation_success' => 'Ditt konto har aktiverats framgångsrikt. Du kan nu logga in',
+
+    'activate_mail_subject' => 'Registrering bekräftelse - {site_name}',
+
     'password_confirm' => 'Bekräfta lösenord',
     'register_msg1' => 'För att skapa ett konto på opencaching.pl måste du ange en fungerande e-postadress och ett användarnamn. <br> Ett e-post med en aktiveringskod kommer att skickas till den adress du anger. Endast ett konto kan skapas per e-postadress.',
     'register_msg2' => '* Krävs',
@@ -412,14 +414,11 @@ $translations = array(
     'comments_log' => 'Kommentarer',
     'submit_log_entry' => 'Logga',
     'listed_other' => 'Denna cache hittar du på följande sidor',
-    'register_email_subject' => 'Registrering bekräftelse {site_name}',
     'error_username_not_ok' => 'Användarnamnet är felaktigt',
-    'error_username_exists' => 'Valt användarnamn finns i OpenCaching PL. Vänligen välj annat användarnamn',
+    'error_username_exists' => 'Valt användarnamn finns i {site_name}. Vänligen välj annat användarnamn',
     'error_email_not_ok' => 'E-post-adress är felaktig',
-    'error_email_exists' => 'Valda e-postadressen finns i OpenCaching PL. Du kan registrera en användare per e-postadress',
-    'error_password_not_ok' => 'Lösenordet är för kort',
-    'error_password_diffs' => 'Upprepat lösenord är annorlunda',
-    'error_tos' => 'Du behöver kryssa i att du har läst och accepterat Kundvillkor OpenCaching PL',
+    'error_email_exists' => 'Valda e-postadressen finns i {site_name}. Du kan registrera en användare per e-postadress',
+    'error_tos' => 'Du behöver kryssa i att du har läst och accepterat Kundvillkor {site_name}',
     'step1' => 'steg 1',
     'step2' => 'steg 2',
     'security_code' => 'Säkerhetskod',
