@@ -536,7 +536,7 @@ $view->callChunk('tinyMCE');
                 {show_all_countries_submit}
             </td>
         </tr>
-        <tr><td colspan="2"><input type="hidden" name="altitude" id="altitude" value="0"><!-- TODO: to be filled from gpx by ajax --></td></tr>
+
         <tr class="form-group-sm">
             <td><p id="region0" class="content-title-noshade">{{regiononly}}:</p></td>
             <td>

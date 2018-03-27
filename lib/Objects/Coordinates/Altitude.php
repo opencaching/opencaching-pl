@@ -63,8 +63,6 @@ class Altitude
         $resp = @file_get_contents($url);
         $data = json_decode($resp);
 
-        d($data);
-
         if(isset($data->results) && is_array($data->results) && !empty($data->results) ){
             if(is_object($data->results[0])){
                 if(isset($data->results[0]->elevation)){
