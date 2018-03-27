@@ -9,6 +9,7 @@ use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\User\User;
+use Utils\Debug\Debug;
 
 // prepare the templates and include all neccessary
 if (! isset($rootpath)) {
@@ -121,7 +122,6 @@ $sel_country = isset($_POST['country']) ? $_POST['country'] : strtoupper($lang);
 $sel_region = isset($_POST['region']) ? $_POST['region'] : $default_region;
 $show_all_countries = isset($_POST['show_all_countries']) ? $_POST['show_all_countries'] : 0;
 $show_all_langs = isset($_POST['show_all_langs']) ? $_POST['show_all_langs'] : 0;
-$altitude = isset($_POST['altitude']) ? $_POST['altitude'] : null;
 
 // coords
 $lonEW = isset($_POST['lonEW']) ? $_POST['lonEW'] : $default_EW;
@@ -373,7 +373,9 @@ foreach ($defaultCountryList as $record) {
 tpl_set_var('countryoptions', $countriesoptions);
 
 // cache-attributes
-$cache_attribs = isset($_POST['cache_attribs']) ? mb_split(';', $_POST['cache_attribs']) : array();
+$cache_attribs = (isset($_POST['cache_attribs'])&&!empty($_POST['cache_attribs'])) ? mb_split(';', $_POST['cache_attribs']) : array();
+
+
 
 // cache-attributes
 $cache_attrib_list = '';
@@ -420,6 +422,7 @@ tpl_set_var('jsattributes_array', $cache_attrib_array);
 tpl_set_var('cache_attribs', $cache_attribs_string);
 
 if (isset($_POST['submitform'])) {
+
     // check the entered data
     /* Prevent binary data in cache descriptions, e.g. <img src='data:...'> tags. */
     if (strlen($desc) > 300000) {
@@ -704,11 +707,9 @@ if (isset($_POST['submitform'])) {
         GeoCache::setCacheDefaultDescLang($cache_id);
 
         // insert cache-attributes
-        for ($i = 0; $i < count($cache_attribs); $i ++) {
-            if (($cache_attribs[$i] + 0) > 0) {
+        foreach ($cache_attribs as $attr) {
                 XDb::xSql("INSERT INTO `caches_attributes` (`cache_id`, `attrib_id`)
-                            VALUES ( ?, ?)", $cache_id, $cache_attribs[$i]);
-            }
+                            VALUES ( ?, ?)", $cache_id, $attr);
         }
 
         // only if no approval is needed and cache is published NOW or activate_date is in the past
@@ -726,7 +727,7 @@ if (isset($_POST['submitform'])) {
 
         /* add cache altitude */
         $geoCache = Geocache::fromCacheIdFactory($cache_id);
-        $geoCache->updateAltitude($altitude);
+        $geoCache->updateAltitude();
 
         // redirection
         tpl_redirect('mycaches.php?status=' . urlencode($sel_status));
