@@ -5,12 +5,11 @@ use Utils\Log\Log;
 use Utils\Text\UserInputFilter;
 use Utils\Uri\Uri;
 use lib\Objects\Neighbourhood\Neighbourhood;
-use lib\Objects\User\UserEmailSender;
 use lib\Objects\User\User;
+use lib\Objects\User\UserEmailSender;
 use lib\Objects\User\UserNotify;
 use lib\Objects\User\UserPreferences\UserPreferences;
 use lib\Objects\User\UserPreferences\UserProfilePref;
-use lib\Objects\User\UserEmailSender;
 
 class UserProfileController extends BaseController
 {
