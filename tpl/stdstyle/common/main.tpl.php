@@ -128,7 +128,7 @@ global $tpl_subtitle;
                               </a>
                             </div>
                         <?php } else { //user-not-logged ?>
-                            <form action="<?=SRouter::getLink('userAuthorization', 'login')?>" method="post" name="login" class="form-group-sm">
+                            <form action="<?=SRouter::getLink('UserAuthorization', 'login')?>" method="post" name="login" class="form-group-sm">
                               <label for="top-form-email" class="btn btn-sm btn-default loginbox-lbl">
                                 <img src="/tpl/stdstyle/images/misc/user.svg" class="icon16" alt="<?=tr('loginForm_userOrEmail')?>" title="<?=tr('loginForm_userOrEmail')?>">
                               </label>
@@ -139,7 +139,7 @@ global $tpl_subtitle;
                               <input name="password" id="top-form-password" type="password" class="form-control input120 loginbox-input" value="" autocomplete="current-password" placeholder="<?=tr('loginForm_password')?>" required>
                               <input type="hidden" name="target" value="<?=$view->_target?>">
                               <input type="submit" value="<?=tr('login')?>" class="btn btn-primary btn-sm">
-                              <a href="<?=SRouter::getLink('userAuthorization', 'register')?>" class="btn btn-success btn-sm"><?=tr('registration')?></a>
+                              <a href="<?=SRouter::getLink('UserAuthorization', 'register')?>" class="btn btn-success btn-sm"><?=tr('registration')?></a>
                             </form>
                         <?php } //user-not-logged ?>
                     </div>

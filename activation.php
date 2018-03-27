@@ -13,7 +13,7 @@ $code = (isset($_REQUEST['code'])) ? $_REQUEST['code'] : null;
 if (! empty($uuid) && ! empty($code)) {
     $db = OcDb::instance();
     $userId = $db->multiVariableQueryValue('SELECT `user_id` FROM `user` WHERE `uuid` = :1 LIMIT 1', null, $uuid);
-    $url = SimpleRouter::getLink('userAuthorization', 'activate', [$userId, $code]);
+    $url = SimpleRouter::getLink('UserAuthorization', 'activate', [$userId, $code]);
 } else {
     $url = '/';
 }

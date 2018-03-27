@@ -6,6 +6,6 @@ use Utils\Uri\SimpleRouter;
 
 require_once('./lib/common.inc.php');
 
-$url = SimpleRouter::getLink('userAuthorization', 'register');
+$url = SimpleRouter::getLink('UserAuthorization', 'register');
 header('Location: '. $url);
 exit();
