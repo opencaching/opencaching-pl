@@ -132,7 +132,7 @@ class UserAuthorizationController extends BaseController
                 $this->showErrorMessage(tr('security_error'));
             }
             $password = trim($_POST['password']);
-            if (PasswordManager::checkStrength($password)) {
+            if (Validator::checkStrength($password)) {
                 $pm = new PasswordManager($user->getUserId());
                 $pm->change($password);
                 UserAuthorization::removePwCode($user);
