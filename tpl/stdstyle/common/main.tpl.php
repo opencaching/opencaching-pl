@@ -152,7 +152,7 @@ global $tpl_subtitle;
 
                 <!-- Navigation - horizontal menu bar -->
                 <div id="nav2">
-                    <ul>
+                    <ul class="rythm_nav2">
                         <?php foreach($view->_menuBar as $key=>$url) { ?>
                           <?php if(is_array($url)) { //array="open in new window" ?>
                             <li><a href="<?=$url[0]?>" target="_blank" rel="noopener"><?=$key?></a>
@@ -172,7 +172,7 @@ global $tpl_subtitle;
                 <div id="nav3">
                     <?php if(!$view->_isUserLogged) { ?>
                     <!-- non-authorized user menu -->
-                    <ul>
+                    <ul class="rythm_nav3MainMenu">
                       <li class="title"><?=tr('main_menu')?></li>
 
                       <?php foreach($view->_nonAuthUserMenu as $key => $url){ ?>
@@ -190,7 +190,7 @@ global $tpl_subtitle;
                 <?php } else { //if-_isUserLogged ?>
 
                     <!-- authorized menu -->
-                    <ul>
+                    <ul class="rythm_nav3MainMenu">
                       <li class="title"><?=tr('main_menu')?></li>
                       <?php foreach($view->_authUserMenu as $key => $url){ ?>
                         <li class="group">
@@ -204,7 +204,7 @@ global $tpl_subtitle;
                     </ul>
 
                     <!-- custom user menu -->
-                    <ul>
+                    <ul class="rythm_nav3UserMenu">
                       <li class="title"><?=tr('user_menu')?></li>
                       <?php foreach($view->_customUserMenu as $key => $url){ ?>
                         <li class="group">
@@ -217,7 +217,7 @@ global $tpl_subtitle;
 
 
                     <!-- additional menu -->
-                    <ul>
+                    <ul class="rythm_nav3AddsMenu">
                       <li class="title"><?=tr('mnu_additionalMenu')?></li>
                       <?php foreach($view->_additionalMenu as $key => $url){ ?>
                         <li class="group">

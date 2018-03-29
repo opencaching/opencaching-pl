@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0cd0fd6d8da6c626115ac60c6cda476b",
-    "content-hash": "ea528f09fb614eaa59ed45f7231145bc",
+    "hash": "4cbb709c4d93f900c1768bebc3b7cac6",
+    "content-hash": "cc73a46d257cebb62a2b89d3b4b9b32b",
     "packages": [
         {
             "name": "aferrandini/phpqrcode",
@@ -97,16 +97,16 @@
         },
         {
             "name": "ezyang/htmlpurifier",
-            "version": "v4.9.3",
+            "version": "v4.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ezyang/htmlpurifier.git",
-                "reference": "95e1bae3182efc0f3422896a3236e991049dac69"
+                "reference": "d85d39da4576a6934b72480be6978fb10c860021"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/95e1bae3182efc0f3422896a3236e991049dac69",
-                "reference": "95e1bae3182efc0f3422896a3236e991049dac69",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/d85d39da4576a6934b72480be6978fb10c860021",
+                "reference": "d85d39da4576a6934b72480be6978fb10c860021",
                 "shasum": ""
             },
             "require": {
@@ -140,7 +140,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2017-06-03 02:28:16"
+            "time": "2018-02-23 01:58:20"
         },
         {
             "name": "jpgraph/jpgraph",
@@ -186,6 +186,23 @@
                 "pie"
             ],
             "time": "2017-02-23 09:44:15"
+        },
+        {
+            "name": "js-cookie/js-cookie",
+            "version": "v2.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mirko-pagliai/js-cookie.git",
+                "reference": "68acf18560eb7a5d21db7197ae24d975971d1ae0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mirko-pagliai/js-cookie/zipball/68acf18560eb7a5d21db7197ae24d975971d1ae0",
+                "reference": "68acf18560eb7a5d21db7197ae24d975971d1ae0",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/"
         },
         {
             "name": "kint-php/kint",

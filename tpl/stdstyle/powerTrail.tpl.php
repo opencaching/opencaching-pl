@@ -1,7 +1,6 @@
 <?php $view->callChunk('tinyMCE'); ?>
 
 <link href='https://fonts.googleapis.com/css?family=Shojumaru&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-<script src="tpl/stdstyle/js/jquery.cookie.js"></script>
 
 
 <script>
@@ -1479,7 +1478,7 @@ $( document ).ready(function() {
                                     <a href="javascript:void(0)" onclick="cancellImage()" class="editPtDataButton">{{pt031}}</a>
                                     <a href="javascript:void(0)" onclick="$(this).closest('form').submit()" class="editPtDataButton">{{pt044}}</a>
                                 </p>
-                                <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
+                                <iframe id="upload_target" src="about:blank" name="upload_target" style="width:0;height:0;border:0px solid #fff;"></iframe>
                         </div>
                     </td>
                     <td colspan="2">
