@@ -58,7 +58,7 @@ class OcCookie
      * Returns true if given $key is set in cookie
      * @param string $key
      */
-    public static function isSet($key)
+    public static function contains($key)
     {
         $data = self::getOcCookieData();
         return isset($data->$key);
