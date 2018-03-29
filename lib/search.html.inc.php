@@ -162,7 +162,7 @@ $colNameSearch = array(
 );
 
 $sDefCol4Search = "DefCol4Search";
-if (! OcCookie::isSet($sDefCol4Search)) {
+if (! OcCookie::contains($sDefCol4Search)) {
     OcCookie::set("NCSearch3", "1");
     OcCookie::set("NCSearch6", "1");
     OcCookie::set("NCSearch7", "1");
@@ -181,7 +181,7 @@ if (! OcCookie::isSet($sDefCol4Search)) {
 
 if (! isset($_REQUEST["NrColSort"])) {
 
-    if (OcCookie::isSet($sNrColumnsSortSearch)){
+    if (OcCookie::contains($sNrColumnsSortSearch)){
         $NrColSortSearch = OcCookie::get($sNrColumnsSortSearch);
     }else{
         OcCookie::set($sNrColumnsSortSearch, 1);
@@ -198,7 +198,7 @@ if (! isset($_REQUEST["NrColSort"])) {
 
 if (! isset($_REQUEST["OrderSortSearch"])) {
 
-    if (OcCookie::isSet($sOrderSortSearch)){
+    if (OcCookie::contains($sOrderSortSearch)){
         $OrderSortSearch = OcCookie::get($sOrderSortSearch);
     }else{
         OcCookie::set($sOrderSortSearch, "M");
