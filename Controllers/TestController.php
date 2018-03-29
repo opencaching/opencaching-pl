@@ -19,6 +19,7 @@ use lib\Objects\User\User;
 use lib\Objects\User\MultiUserQueries;
 use lib\Objects\GeoCache\GeoCacheLog;
 use Utils\Text\Formatter;
+use Utils\Uri\OcCookie;
 
 class TestController extends BaseController
 {
@@ -291,6 +292,33 @@ class TestController extends BaseController
         $this->view->setVar('emptyMap', $emptyMap);
 
         $this->view->buildView();
+    }
+
+    /**
+     * This method test the cookie work
+     */
+    public function cookieTest()
+    {
+        echo "Cookie test";
+
+        d($_COOKIE);
+
+        OcCookie::debug();
+
+        OcCookie::set('hello', 'buu');
+
+        OcCookie::debug();
+
+        OcCookie::saveInHeader();
+
+        OcCookie::set('bay!', 'foo');
+
+        OcCookie::saveInHeader();
+
+        OcCookie::debug();
+
+        d(headers_list());
+
     }
 }
 

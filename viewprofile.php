@@ -14,6 +14,7 @@ use Utils\Text\TextConverter;
 use Utils\DateTime\Year;
 use Utils\View\View;
 use Utils\Uri\SimpleRouter;
+use Utils\Uri\OcCookie;
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath)){
@@ -29,8 +30,8 @@ if ($usr == false) {
 } else {
     $infoMsg = '';
     $errorMsg = '';
-    $checkBadges = 1;
-    $checkGeoPaths = 1;
+
+
     if (isset($_REQUEST['infoMsg'])) {
         $infoMsg = strip_tags(urldecode($_REQUEST['infoMsg']));
     }
@@ -40,17 +41,14 @@ if ($usr == false) {
     if (isset($_REQUEST['save'])){
 
         if (isset($_REQUEST['checkBadges']))
-            $cookie->set("checkBadges", !$_REQUEST['checkBadges']);
+            OcCookie::set("checkBadges", !$_REQUEST['checkBadges']);
 
         if (isset($_REQUEST['checkGeoPaths']))
-            $cookie->set("checkGeoPaths", !$_REQUEST['checkGeoPaths']);
+            OcCookie::set("checkGeoPaths", !$_REQUEST['checkGeoPaths']);
     }
 
-    if ($cookie->is_set("checkBadges"))
-        $checkBadges= $cookie->get("checkBadges");
-
-    if ($cookie->is_set("checkGeoPaths"))
-        $checkGeoPaths= $cookie->get("checkGeoPaths");
+    $checkBadges = OcCookie::getOrDefault("checkBadges", 1);
+    $checkGeoPaths = OcCookie::getOrDefault("checkGeoPaths", 1);
 
 
     $cache_line = '<li style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">{cacheimage}&nbsp;{cachestatus} &nbsp; {date} &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong></li>';

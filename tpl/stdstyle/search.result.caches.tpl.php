@@ -35,7 +35,7 @@
 </script>
 
 <?php
-global $hide_coords, $colNameSearch, $cookie, $NrColSortSearch, $OrderSortSearch, $SearchWithSort, $usr, $lang, $selectList, $NrColVisable;
+global $hide_coords, $colNameSearch, $NrColSortSearch, $OrderSortSearch, $SearchWithSort, $usr, $lang, $selectList, $NrColVisable;
 
 if ( !$SearchWithSort )
 {

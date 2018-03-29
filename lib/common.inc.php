@@ -11,6 +11,7 @@ use lib\Objects\User\User;
 use lib\Objects\User\UserAuthorization;
 use lib\Objects\OcConfig\OcConfig;
 use Utils\Text\UserInputFilter;
+use Utils\Uri\OcCookie;
 
 session_start();
 
@@ -44,7 +45,6 @@ $GLOBALS['pagetitle'] = $pagetitle;
 
 require_once($rootpath . 'lib/language.inc.php');     // main translation funcs
 require_once($rootpath . 'lib/common_tpl_funcs.php'); // template engine
-require_once($rootpath . 'lib/cookie.class.php');     // class used to deal with cookies
 
 // yepp, we will use UTF-8
 mb_internal_encoding('UTF-8');
@@ -116,10 +116,8 @@ function initTemplateSystem(){
 
 function loadTranslation(){
 
-        global $lang, $cookie;
-        if ($cookie->is_set('lang')) {
-            $lang = $cookie->get('lang');
-        }
+        global $lang;
+        $lang = OcCookie::getOrDefault('lang', $lang);
 
         //language changed?
         if(isset($_REQUEST['lang'])){
