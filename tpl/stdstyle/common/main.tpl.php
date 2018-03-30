@@ -118,7 +118,7 @@ global $tpl_subtitle;
                 <div id="loginbox-container">
                     <div id="loginbox">
                         <?php if($view->_isUserLogged){ //if-user-logged ?>
-                            [ <?=$view->_username?> ]
+                            <a href="/viewprofile.php" class="transparent">[ <?=$view->_username?> ]</a>
                             <div class="btn-group btn-group-sm">
                               <a href="/viewprofile.php" class="btn btn-default btn-sm">
                                 <img src="/tpl/stdstyle/images/misc/user.svg" class="icon16" alt="<?=tr('user_profile')?>" title="<?=tr('user_profile')?>">

@@ -652,6 +652,16 @@ a.btn {
     border-radius: 3px;
 }
 
+a.transparent {
+    text-decoration: none;
+    color: inherit;
+    outline: none;
+}
+a.transparent::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
 /*****************************/
 /* CONTEINERS */
 /*****************************/
