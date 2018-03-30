@@ -74,7 +74,13 @@ if ($usr === false) {
         LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = '
             . $usr['userid'];
 }
-$query .= ' WHERE `caches`.`cache_id` IN (' . $queryFilter . ')';
+
+if(!empty($queryFilter)){
+    $query .= ' WHERE `caches`.`cache_id` IN (' . $queryFilter . ')';
+} else{
+    // empty $queryFilter == there is no results!
+    $query .= ' WHERE FALSE';
+}
 
 $sortby = $options['sort'];
 if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance')) {
