@@ -13,6 +13,7 @@ $translations = array(
     'options' => 'Options', /* EN */
     'Edit' => 'Modifică',
     'back' => 'Înapoi',
+    'direction' => 'Direction', /* EN */
     'cache_menu' => 'Meniul Cutiei',
     'activation_code_failed' => 'Eroare la activarea contului tău! Posibile cauze: <br /> - Codul de activare sau adresa de email este incorectă. <br/> - Contul tău este deja activ (ai încercat să te autentifici?) <br /><br /> Verifică, te rog, informaţiile pe care le-ai introdus şi dacă problema persistă, te rugăm să ne contactezi la <span class = "mail">{contact_mail}</span>.<b>Include în mesajul tău numele de utilizator şi adresa de email folosite la înregistrare</ b>.',
     'email_incorrect' => 'Adresă de e-mail greşită.',
@@ -561,6 +562,7 @@ $translations = array(
     'there_is_no_caches_registered' => 'There are no caches registered',
     'there_is_no_caches_found' => 'There are no caches found',
     'with_password' => 'Cache with password',
+
     'admin_user_management' => 'Managing the user',
     'admin_user_notifycaches' => 'The user receives notifications about new caches in Neighbourhoods', /* EN */
     'admin_user_notifylogs' => 'The user receives notifications about logs from the watched caches', /* EN */
@@ -823,12 +825,12 @@ $translations = array(
     'image_err_no_title' => 'Lipsă titlu pentru această imagine',
     'image_err_no_file' => 'Lipsă fişier imagine',
     'image_err_too_big' => 'Fişier prea mare',
-    'image_err_interal_title' => 'Limită internă a server-ului',
+    'file_err_interal_title' => 'Limită internă a server-ului',
     'file_err_internal_desc' => '<b>Fişierul nu a putut fi încărcat deoarece este prea mare.</b> Te rog mergi înapoi şi încarcă un fişier mai mic. <br /><br />Dacă eroarea persistă, te rog contactează Echipa OC la {contact_mail}. Pentru a putea reproduce eroarea, te rog descrie cât mai detaliat paşii parcurşi imediat înainte ca eroarea să apară, precum şi data şi ora când s-a întâmplat. Ataşează capturi de ecran, dacă se poate.',
     'image_max_size' => 'Dimensiunea maximă permisă este de',
     'image_max_size2' => 'MB. Te rog micşorează imaginea înainte de a o încărca.',
     'image_bad_format' => 'Format imagine incorect',
-    'bad_format_info' => 'Format incorect. Formatele acceptate sunt: BMP, GIF, PNG, JPG. Dimensiunea recomandată este {maxpicresolution} pixeli.',
+    'image_bad_format_info' => 'Format incorect. Formatele acceptate sunt: BMP, GIF, PNG, JPG. Dimensiunea recomandată este {maxpicresolution} pixeli.',
     'no_picture' => 'Imaginea nu a fost găsită',
     'title_picture' => 'Denumire',
     'file_name' => 'Fişier',
@@ -2767,6 +2769,7 @@ $translations = array(
     'startPage_latestCacheSets' => 'Cele mai noi Geopath***',
     'startPage_latestTitledCaches' => 'Cele mai noi premiate',
     'startPage_validAt' => 'Valabil la***',
+
 
     'myNotes_title' => 'Notiţele geocutiei mele',
     'myNotes_modCacheCoords' => 'Coordonatele utilizatorilor',
