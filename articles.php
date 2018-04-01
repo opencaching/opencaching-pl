@@ -43,11 +43,6 @@ if ($error == false) {
         $tplname = 'articles/' . $article;
     }
 }
-if ((date('m') == 4) and ( date('d') == 1)) {
-    tpl_set_var('list_of_news', tr('PrimaAprilis'));
-    tpl_set_var('news', tr('PMOnly'));
-    $tplname = 'news';
-}
 
 tpl_set_var('language4js', $lang);
 
