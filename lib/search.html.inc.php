@@ -148,7 +148,7 @@ $colNameSearch = array(
         "O" => tr('DirectionDistance')
     ),
     17 => array(
-        "C" => tr('TT'),
+        "C" => tr('T_T'),
         "O" => tr('TaskTerainDifficulty')
     ),
     18 => array(
