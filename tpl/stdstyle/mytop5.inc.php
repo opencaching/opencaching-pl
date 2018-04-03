@@ -3,9 +3,9 @@
 $viewtop5_line = '<tr>'
         . '<td style="background-color: {bgcolor}"><img src="{cacheicon}" alt="" /></td>'
         . '<td style= "background-color: {bgcolor}"><a href="viewcache.php?cacheid={cacheid}">{cachename}</a></td>'
-        . '<td style= "background-color: {bgcolor}">&nbsp</td>'
+        . '<td style= "background-color: {bgcolor}">&nbsp;</td>'
         . '<td style= "background-color: {bgcolor}"><a href=viewprofile.php?userid={owner_id}>{ownername}</a></td>'
-        . '<td style= "background-color: {bgcolor}">&nbsp</td>'
+        . '<td style= "background-color: {bgcolor}">&nbsp;</td>'
         . '<td style="width:23px;background-color: {bgcolor}; text-align: center"><a class="links"  href="mytop5.php?action=delete&amp;cacheid={cacheid}" onclick="return confirm(\'' . tr("mytop5_1") . '\');"><img style="vertical-align: middle;" src="tpl/stdstyle/images/log/16x16-trash.png" alt="" title=' . tr('delete') . ' /></a></td>'
         . '</tr>';
 //<td style= "background-color: {bgcolor}">[<a href="mytop5.php?action=delete&amp;cacheid={cacheid}">'.tr('delete').'</a>]</td>

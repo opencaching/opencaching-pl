@@ -925,7 +925,7 @@ foreach($userCategories as $oneCategory){
 }
 
 $content.=mb_ereg_replace('{content_badge_rows}', $content_badge_rows, $content_table_badge);
-$content.="<a class='links'  href='user_badges.php?user_id=$user_id'>[".tr('merit_badge_show_details')."]</a>&nbsp&nbsp&nbsp&nbsp";
+$content.="<a class='links'  href='user_badges.php?user_id=$user_id'>[".tr('merit_badge_show_details')."]</a>&nbsp;&nbsp;&nbsp;&nbsp;";
 $content.="<a class='links'  href='user_badges.php?user_id=999999'>[".tr('merit_badge_show_list')."]</a><br><br>";
 return $content;
 }
@@ -938,13 +938,13 @@ $content = "<form action='viewprofile.php' style='display:inline;'>";
 $content .= "<div class='content2-container bg-blue02'>
                                 <table style='width: 100%; padding: 5px;'><tr><td>
                                 <p class='content-title-noshade-size1'>
-                                <img src='tpl/stdstyle/images/blue/$pic' width='33' class='icon32' alt='$title' title='$title' />&nbsp$txt".
+                                <img src='tpl/stdstyle/images/blue/$pic' width='33' class='icon32' alt='$title' title='$title' />&nbsp;$txt".
                                 "</p></td>";
 
 $content .= "<td style='text-align: right'>
             <button type='submit' class='btn btn-primary btn-sm'>";
 
-if ($check == 1) $content .= "&nbsp-&nbsp"; else $content .= "&nbsp+&nbsp";
+if ($check == 1) $content .= "&nbsp;-&nbsp;"; else $content .= "&nbsp;+&nbsp;";
 $content .= "</td></tr></table>";
 $content .= "
 <input type='hidden' name='userid' value='$userid' >
