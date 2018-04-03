@@ -20,6 +20,11 @@ if( !isset($_REQUEST['lat'], $_REQUEST['lon']) ){
 }
 
 $coords = Coordinates::FromCoordsFactory($_REQUEST['lat'], $_REQUEST['lon']);
+if(is_null($coords)){
+    print 'improper coordinates!?';
+    exit;
+}
+
 $nutsLocation = NutsLocation::fromCoordsFactory($coords);
 
 // this is old format still used by newcache page
