@@ -162,7 +162,7 @@ if ($error == false) {
         case 'showAllSeries':
             $ptListData = displayPTrails($pt->getpowerTrails(), $pt->getPowerTrailOwn());
             tpl_set_var('filtersTrDisplay', 'table-row');
-            tpl_set_var('ptTypeSelector2', displayPtTypesSelector('filter', $_REQUEST['filter'], true));
+            tpl_set_var('ptTypeSelector2', displayPtTypesSelector('filter', isset($_REQUEST['filter'])?$_REQUEST['filter']:0, true));
             tpl_set_var('sortSelector', getSortBySelector($_REQUEST['sortBy']));
             tpl_set_var('sortDirSelector', getSortDirSelector($_REQUEST['sortDir']));
             tpl_set_var('myPowerTrailsBool', getMyPowerTrailsSelector($_REQUEST['myPowerTrailsBool']));
