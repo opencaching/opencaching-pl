@@ -107,41 +107,50 @@ if ($searchdata) {  # Mode 2 - with "searchdata".
     Facade::disable_error_handling();
 } else {  # Mode 1 - without "searchdata".
     # h_ignored - convert to OKAPI's "exclude_ignored".
-    if ($_GET['h_ignored'] == "true")
+    if ( isset($_GET['h_ignored']) && $_GET['h_ignored'] == "true"){
         $params['exclude_ignored'] = "true";
+    }
 
     # h_avail, h_temp_unavail, h_arch ("hide available" etc.) - convert to
     # OKAPI's "status" filter.
 
     $tmp = array();
-    if ($_GET['h_avail'] != "true")
+    if ( !isset($_GET['h_avail']) || $_GET['h_avail'] != "true"){
         $tmp[] = "Available";
-    if ($_GET['h_temp_unavail'] != "true")
+    }
+    if ( !isset($_GET['h_temp_unavail']) || $_GET['h_temp_unavail'] != "true"){
         $tmp[] = "Temporarily unavailable";
-    if ($_GET['h_arch'] != "true")
+    }
+    if ( !isset($_GET['h_arch']) || $_GET['h_arch'] != "true"){
         $tmp[] = "Archived";
+    }
     $params['status'] = implode("|", $tmp);
-    if (count($tmp) == 0)
+    if (count($tmp) == 0){
         $force_result_empty = true;
+    }
 
     # min_score, max_score - convert to OKAPI's "rating" filter. This code
     # is weird, because values passed to min_score/max_score are weird...
 
-    $t = floatval($_GET['min_score']);
-    $min_rating = ($t < 0) ? "1" : (($t < 1) ? "2" : (($t < 1.5) ? "3" : (($t < 2.2) ? "4" : "5")));
-    $t = floatval($_GET['max_score']);
-    $max_rating = ($t < 0.7) ? "1" : (($t < 1.3) ? "2" : (($t < 2.2) ? "3" : (($t < 2.7) ? "4" : "5")));
-    $params['rating'] = $min_rating . "-" . $max_rating;
-    unset($t, $min_rating, $max_rating);
+    if( !isset($_GET['min_score'],$_GET['max_score']) ){
+        $params['rating'] = "1-5|X"; // this is default rating - everything
+    } else {
+        $t = floatval($_GET['min_score']);
+        $min_rating = ($t < 0) ? "1" : (($t < 1) ? "2" : (($t < 1.5) ? "3" : (($t < 2.2) ? "4" : "5")));
+        $t = floatval($_GET['max_score']);
+        $max_rating = ($t < 0.7) ? "1" : (($t < 1.3) ? "2" : (($t < 2.2) ? "3" : (($t < 2.7) ? "4" : "5")));
+        $params['rating'] = $min_rating . "-" . $max_rating;
 
-    # h_noscore - convert to OKAPI's "rating" parameter.
+        # h_noscore - convert to OKAPI's "rating" parameter.
 
-    if ($_GET['h_noscore'] == "true")
-        $params['rating'] = $params['rating'] . "|X";
+        if (isset($_GET['h_noscore']) && $_GET['h_noscore'] == "true"){
+            $params['rating'] = $params['rating'] . "|X";
+        }
+    }
 
     # be_ftf (hunt for FTFs) - convert to OKAPI's "ftf_hunter" parameter.
 
-    if ($_GET['be_ftf'] == "true") {
+    if ( isset($_GET['be_ftf']) && $_GET['be_ftf'] == "true") {
         $params['ftf_hunter'] = "true";
 
         # Also, override previously set "status" filter. This behavior is
@@ -156,7 +165,7 @@ if ($searchdata) {  # Mode 2 - with "searchdata".
 
 
     # powertrail_only (hunt for powerTrails) - convert to OKAPI's "powertrail_only" parameter.
-    if (isset($_GET['powertrail_only']) && $_GET['powertrail_only'] == "true") {
+    if ( isset($_GET['powertrail_only']) && $_GET['powertrail_only'] == "true") {
         $params['powertrail_only'] = "true";
     }
 
@@ -168,8 +177,9 @@ if ($searchdata) {  # Mode 2 - with "searchdata".
 
     # h_nogeokret - Convert to OKAPI's "with_trackables_only" parameter.
 
-    if ($_GET['h_nogeokret'] == 'true')
+    if ( isset($_GET['h_nogeokret']) && $_GET['h_nogeokret'] == 'true'){
         $params['with_trackables_only'] = "true";
+    }
 
     # h_?, where ? is a single letter - hide a specific cache type.
     # Convert to OKAPI's "type" parameter.
@@ -196,13 +206,14 @@ if ($searchdata) {  # Mode 2 - with "searchdata".
 
     # h_own (hide user's own caches) - convert to OKAPI's "exclude_my_own" parameter.
 
-    if ($_GET['h_own'] == "true")
+    if ( isset($_GET['h_own']) && $_GET['h_own'] == "true"){
         $params['exclude_my_own'] = "true";
+    }
 
     # h_found, h_noattempt - convert to OKAPI's "found_status" parameter.
 
-    $h_found = ($_GET['h_found'] == "true");
-    $h_noattempt = ($_GET['h_noattempt'] == "true");
+    $h_found = ( isset($_GET['h_found']) && $_GET['h_found'] == "true");
+    $h_noattempt = ( isset($_GET['h_noattempt']) && $_GET['h_noattempt'] == "true");
     if ($h_found && (!$h_noattempt))
         $params['found_status'] = "notfound_only";
     elseif ((!$h_found) && $h_noattempt)
