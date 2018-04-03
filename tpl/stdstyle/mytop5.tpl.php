@@ -20,7 +20,7 @@
         <tr>
             <td class="content-title-noshade"></td>
             <td class="content-title-noshade">{{geocache}}</td>
-            <td class="content-title-noshade">&nbsp</td>
+            <td class="content-title-noshade">&nbsp;</td>
             <td class="content-title-noshade">{{created_by}}</td>
             <td class="content-title-noshade"></td>
             <td class="content-title-noshade" style = "text-align: center" >{{delete}}</td>

@@ -57,7 +57,7 @@ class sendEmail
         if (isset($commentTypes[$commentType]['translate']))
             $mailbody = mb_ereg_replace('{commentType}', tr($commentTypes[$commentType]['translate']), $mailbody);
         else
-            $mailbody = mb_ereg_replace('{commentType}', '&nbsp', $mailbody);
+            $mailbody = mb_ereg_replace('{commentType}', '&nbsp;', $mailbody);
         $mailbody = mb_ereg_replace('{ptName}', $ptDbRow['name'], $mailbody);
         $mailbody = mb_ereg_replace('{ptId}', $ptId, $mailbody);
         $mailbody = mb_ereg_replace('{pt133}', tr('pt133'), $mailbody);
