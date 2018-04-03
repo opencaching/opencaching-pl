@@ -7,6 +7,10 @@
 
 require_once __dir__ . '/cache.php';
 
+// default site name
+$site_name = 'OpenCaching.???';
+
+
 // OC specific email addresses for international use
 // override in settings.inc.php to values you want to locally use
 
