@@ -905,4 +905,14 @@ class User extends UserCommons
             WHERE `user_id`= :1
             ', $userId));
     }
+
+    /**
+     * Check if user is already activated (after registration)
+     *
+     * @return boolean
+     */
+    public function isUserActivated()
+    {
+        return (empty($this->activationCode) || ($this->isActive));
+    }
 }

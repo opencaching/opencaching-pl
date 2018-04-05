@@ -26,6 +26,7 @@ class AdminNote
     const NOTIFY_CACHES_OFF = "12";
     const NOTIFY_LOGS_ON = "13";
     const NOTIFY_LOGS_OFF = "14";
+    const ACTIVATE = "15";
 
     private $note_id;
     private $user_id;

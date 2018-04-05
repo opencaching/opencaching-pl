@@ -2,7 +2,6 @@
 
 $translations = array(
     'new' => 'NEW',
-    'finish_registration_hint' => 'För att slutföra registreringen måste du bekräfta din e-postadress och ange aktiveringskoden',
     'email_address' => 'E-postadress',
     'activation_code' => 'Aktiveringskod',
     'confirm' => 'Bekräfta',
@@ -421,7 +420,6 @@ $translations = array(
     'error_tos' => 'Du behöver kryssa i att du har läst och accepterat Kundvillkor {site_name}',
     'step1' => 'steg 1',
     'step2' => 'steg 2',
-    'security_code' => 'Säkerhetskod',
     'change_password' => 'Byt lösenord',
     'logoutsuccess' => 'Utloggad',
     'basic_information' => 'Basic information.',
