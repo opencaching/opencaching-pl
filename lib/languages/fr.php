@@ -461,6 +461,7 @@ $translations = array(
     'error_password_not_ok' => 'Votre mot de passe est trop court ou contient des caractères qui ne sont pas autorisés',
     'error_password_diffs' => 'Les mots de passe ne correspondent pas (vérifiez le champ « confirmer le mot de passe »)',
     'error_tos' => 'Vous devez accepter les <a href="{wiki_link_rules}" target="_blank">Conditions d\'Utilisation</a> du site {site_name}',
+    'error_age' => 'Only people who have reached the age of majority can use the system.', /* EN */
     'security_error' => 'Tentative de compromission de la sécurité du système.',
     'newpw_title' => 'Changement de mot de passe',
     'newpw_info' => 'Pour changer votre mot de passe, entrez votre nom d’utilisateur ou votre adresse électronique ci-dessous. Un lien spécial sera envoyé à votre adresse e-mail. En cliquant sur ce lien, vous serez en mesure de changer votre mot de passe.',

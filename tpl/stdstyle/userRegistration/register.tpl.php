@@ -44,7 +44,7 @@ use Utils\Uri\SimpleRouter;
     <div class="buffer"></div>
 
     <input type="checkbox" name="age" id="age-checkbox" required>
-    <label for="age-checkbox"><?=mb_ereg_replace('{min_age}', $view->min_age, tr('register_ageLbl')) ?></label>
+    <label for="age-checkbox"><?=tr('register_ageLbl')?></label>
 
     <div class="buffer"></div>
 

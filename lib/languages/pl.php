@@ -427,7 +427,7 @@ $translations = array(
     'register_intro' => 'Podaj proszę poniżej swój rzeczywisty adres e-mail - wyślemy na niego link aktywacyjny. Podczas rejestracji wybierasz także unikalną nazwę użytkownika (nick), którą będziesz posługiwać się w serwisie.',
     'register_info' => 'Użytkownik, może zrezygnować z korzystania z serwisu. Będą przy tym usunięte bezpowrotnie wszelkie dane, które wprowadził przy rejestracji oraz w opisie użytkownika Jeśli chcesz dezaktywować swoje konto skontaktuj się z nami za pomocą swojego konta e-mail. W przypadkach niejasnych prosimy o kontakt ({contact_mail}). Dziękujemy.',
     'register_rulesLbl' => 'Tak, zapoznałem się z <strong><a href="{wiki_link_rules}" target="_blank" rel="noopener">Regulaminem</a></strong> serwisu {site_name} i zobowiązuję się go przestrzegać.',
-    'register_ageLbl' => 'Tak, mam ukończone {min_age} lat lub zgodę na założenie konta wyraził mój opiekun prawny.',
+    'register_ageLbl' => 'Tak, jestem osobą pełnoletnią.',
     'register_confirm' => 'Link aktywacyjny został wysłany na twój adres e-mail.<div class="buffer"></div><strong>Uwaga! Niektóre serwery pocztowe odrzucają list z linkiem aktywacyjnym z serwera {site_name}.</strong> Jeśli nie potrafisz odnaleźć wiadomości aktywacyjnej, sprawdź w folderze SPAM. Jeśli nie otrzymasz jej w ciągu kilku godzin - prosimy o kontakt na adres {contact_mail}. W korespondencji podaj nazwę użytkownika jakiej użyłeś podczas rejestracji.',
 
     'activation_title' => 'Aktywacja konta',
@@ -478,7 +478,7 @@ $translations = array(
     'error_email_not_ok' => 'Adres e-mail jest niepoprawny',
     'error_email_exists' => 'Podany adres e-mail jest już zarejestrowany. Podaj inny adres.',
     'error_tos' => 'Do rejestracji niezbędne jest zaakceptowanie i przestrzeganie Regulaminu serwisu {site_name}',
-    'error_age' => 'Aby korzystać z serwisu trzeba mieć ukończone {min_age} lat lub posiadać zgodę opiekuna prawnego',
+    'error_age' => 'Aby korzystać z serwisu trzeba być osobą pełnoletnią.',
     'security_error' => 'Próba naruszenia bezpieczeństwa systemu.',
     'newpw_title' => 'Zmiana hasła',
     'newpw_info' => 'By zmienić hasło, wpisz poniżej swoją nazwę użytkownika lub e-mail. Na Twój adres e-mail wysłany zostanie specjalny link po kliknięciu którego będzie można zmienić hasło.',

@@ -73,7 +73,7 @@ class UserRegistrationController extends BaseController
 
         // Check if user accept rules
         if (! isset($_POST['age'])) {
-            $this->showRegisterForm($username, $email, mb_ereg_replace('{min_age}', $this->ocConfig->getMinAgeToRegister(), tr('error_age')));
+            $this->showRegisterForm($username, $email, tr('error_age'));
         }
 
         // Check password
@@ -104,7 +104,6 @@ class UserRegistrationController extends BaseController
         $this->view->setVar('username', $username);
         $this->view->setVar('email', $email);
         $this->view->setVar('errorMsg', $errorMsg);
-        $this->view->setVar('min_age', $this->ocConfig->getMinAgeToRegister());
         $this->view->setTemplate('userRegistration/register');
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/userAuth/userAuth.css'));
         $this->view->addLocalJs(Uri::getLinkWithModificationTime('/tpl/stdstyle/userAuth/newPassword.js'), true, true);

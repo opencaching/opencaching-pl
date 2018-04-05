@@ -54,7 +54,6 @@ final class OcConfig extends ConfigReader
     private $mailSubjectPrefixForSite;
     private $mailSubjectPrefixForReviewers;
     private $enableCacheAccessLogs;
-    private $minAgeToRegister;
 
     private $dbUser;
     private $dbPass;
@@ -120,7 +119,6 @@ final class OcConfig extends ConfigReader
         $this->mailSubjectPrefixForSite = $subject_prefix_for_site_mails;
         $this->mailSubjectPrefixForReviewers = $subject_prefix_for_reviewers_mails;
         $this->enableCacheAccessLogs = $enable_cache_access_logs;
-        $this->minAgeToRegister = $config['register']['min_age'];
 
         if( isset($config['mapsConfig']) && is_array( $config['mapsConfig'] ) ){
             $this->mapsConfig = $config['mapsConfig'];
@@ -256,11 +254,6 @@ final class OcConfig extends ConfigReader
     public static function mapsConfig()
     {
         return self::instance()->getMapsConfig();
-    }
-
-    public static function getMinAgeToRegister()
-    {
-        return self::instance()->minAgeToRegister;
     }
 
     public function getDbUser()

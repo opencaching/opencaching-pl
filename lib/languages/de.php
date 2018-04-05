@@ -427,7 +427,7 @@ $translations = array(
     'register_intro' => 'Please enter your valid e-mail address below - we will send you an activation link. During registration you will also choose a unique username (nickname) that you will use on the site.', /* EN edited register_msg1*/
     'register_info' => 'The user may opt out of using the website. At the same time, all data entered during registration and in the user description will be irretrievably deleted. If you want to deactivate your account, please contact us using your e-mail account. In uncertain cases, please contact us ({contact_mail}). Thank you.', /* EN */
     'register_rulesLbl' => 'Yes, I have read the <strong><a href="{wiki_link_rules}" target="_blank" rel="noopener">Terms of Service</a></strong> {site_name} and I agree to abide by it.', /* EN */
-    'register_ageLbl' => 'Yes, I am over {min_age} years old or my legal guardian has given permission to set up an account.', /* EN */
+    'register_ageLbl' => 'Yes, I have reached the age of majority.', /* EN */
     'register_confirm' => 'Die Aktivierungskode wan an deine Email geschickt.<div class="buffer"></div>Bitte den Anweisungen folgen, die sind über E-Mail geschickt.',
 
     'activation_title' => 'Account-Aktivierung',
@@ -475,7 +475,7 @@ $translations = array(
     'error_email_not_ok' => 'E-Mail-Address ist falsch',
     'error_email_exists' => 'Ausgewählte E-mail Addresse existiert. You can register one user per e-mail address',
     'error_tos' => ' Es war nicht bestätigt, dass die Nutzungsbedingungen {site_name} sind gelesen und abgestimmt',
-    'error_age' => 'To use the service you must be at least {min_age} years of age or have the consent of a legal guardian', /* EN */
+    'error_age' => 'Only people who have reached the age of majority can use the system.', /* EN */
     'security_error' => 'An attempt to compromise the security of the system.', /* EN */
     'newpw_title' => 'Change password', /* EN change_password_msg1 */
     'newpw_info' => 'To change your password, enter your username or email address below. A special link will be sent to your e-mail address. By clicking this link you will be able to change your password.', /* EN */
