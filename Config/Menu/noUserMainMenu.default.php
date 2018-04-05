@@ -26,7 +26,7 @@ use Utils\Uri\SimpleRouter;
 $menu = [ // DON'T CHANGE $menu var name!
 
     /* 'translation key' => 'url' */
-    'mnu_registration'     => SimpleRouter::getLink('UserAuthorization','register'),
+    'mnu_registration'     => SimpleRouter::getLink('UserRegistration'),
     'mnu_news'             => '/news.php',
     'mnu_rules'            => [$links['wiki']['rules']],
     'mnu_newCaches'        => '/newcaches.php',

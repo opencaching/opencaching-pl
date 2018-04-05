@@ -14,7 +14,7 @@ use Utils\Uri\SimpleRouter;
     <?=tr('register_intro')?>
   </div>
 
-  <form action="<?=SimpleRouter::getLink('UserAuthorization','registerSubmit')?>" method="post">
+  <form action="<?=SimpleRouter::getLink('UserRegistration','registerSubmit')?>" method="post">
     <div class="input-group input-group-md">
       <label for="username-input" class="input-group-addon loginLabel"><?=tr('username_label')?></label>
       <input id="username-input" name="username" type="text" value="<?=$view->username?>" class="form-control input200" maxlength="60" autocomplete="username" required>

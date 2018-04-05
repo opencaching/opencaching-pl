@@ -110,7 +110,7 @@ class UserEmailSender
     {
         $user = User::fromUsernameFactory($username);
         $intro = mb_ereg_replace('{OCsiteLink}', '<a href="' . OcConfig::getAbsolute_server_URI() . '">' . OcConfig::getSiteName() . '</a>', tr('activate_mail_intro'));
-        $activateUrl = SimpleRouter::getAbsLink('UserAuthorization', 'activate', [
+        $activateUrl = SimpleRouter::getAbsLink('UserRegistration', 'activate', [
             $user->getUserId(),
             urlencode($user->getActivationCode())
         ]);
