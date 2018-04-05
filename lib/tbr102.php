@@ -1,6 +1,9 @@
 <?php
 use Utils\Database\OcDb;
-use Utils\Uri\OcCookie;
+
+$rootpath = "../";
+require_once('common.inc.php');
+
 ?>
 <html>
     <head>
@@ -22,15 +25,6 @@ use Utils\Uri\OcCookie;
         $sTypeCondition = "";
 
         global $lang;
-
-        require_once('settingsGlue.inc.php');
-        require_once('language.inc.php');
-
-        $lang = OcCookie::getOrDefault('lang', $lang);
-
-        require_once __DIR__.'/ClassPathDictionary.php';
-
-
 
         $sUserIDLine = $_REQUEST["UserID"];
         $sDateFrom = $_REQUEST["DF"];

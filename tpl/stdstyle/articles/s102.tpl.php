@@ -115,7 +115,7 @@ else
                                 <td><input type="radio" name="rRD" id="rD" value="D" <?php if ($sRD == "D") echo "checked" ?>></td>
                                 <td>{{Dates}}:</td>
                                 <td colspan=2>
-                                    <input type="text" id="datepicker" name="DataOd" onclick="GCTStatsSetRadio('Data')" value="<?php echo $sDataOd ?>" style="width:60px; text-align: left"  maxlength="10">&nbsp&nbsp-
+                                    <input type="text" id="datepicker" name="DataOd" onclick="GCTStatsSetRadio('Data')" value="<?php echo $sDataOd ?>" style="width:60px; text-align: left"  maxlength="10">&nbsp;&nbsp;-
                                     <input type="text" id="datepicker1" name="DataDo" onclick="GCTStatsSetRadio('Data')" value="<?php echo $sDataDo ?>" style="width:60px; text-align: left"  maxlength="10">
                                 </td>
                             </tr>

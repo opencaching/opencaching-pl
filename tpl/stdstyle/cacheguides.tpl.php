@@ -54,7 +54,7 @@
                 <center>
                     <div id="map0" style="width:100%; height:500px"></div>
                 </center>
-                <br/>&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/rating-star.png" alt="rekomendacje" title="rekomendacje"><b>&nbsp{{guru_09}}</b><br/>
+                <br/>&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/rating-star.png" alt="rekomendacje" title="rekomendacje"><b>&nbsp;{{guru_09}}</b><br/>
             </div>
             <div class="searchdiv">
                 <span class="content-title-noshade" style="width: 600px;margin: 10px;line-height: 1.6em;font-size: 12px;">{{guru_10}}

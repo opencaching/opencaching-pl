@@ -14,7 +14,7 @@
         </colgroup>
         <tr>
             <td class="content-title-noshade">Geocache</td>
-            <td class="content-title-noshade">&nbsp</td>
+            <td class="content-title-noshade">&nbsp;</td>
             <td class="content-title-noshade">{{created_by}}</td>
 
         </tr>

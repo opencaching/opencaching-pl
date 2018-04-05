@@ -91,7 +91,7 @@ foreach ($result as $key => $dbEntry) {
     </tr>
     <tr>
         <td class="commentContent" valign="top"><span id="commentId-'.$dbEntry['id'].'" >'.htmlspecialchars_decode(stripslashes($dbEntry['commentText'])).'</span></td>
-    </tr><tr><td>&nbsp</td></tr>'
+    </tr><tr><td>&nbsp;</td></tr>'
     ;
 }
 $toDisplay .= '</table>';
