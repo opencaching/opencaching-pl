@@ -15,6 +15,7 @@ class Year
 
     public static function isPrimaAprilisToday()
     {
+        //return TRUE;
         return (date('m') == 4) && ( date('d') == 1);
     }
 }

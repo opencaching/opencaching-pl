@@ -4,6 +4,7 @@ use Utils\View\View;
 use Utils\Uri\Uri;
 use Utils\I18n\I18n;
 use Controllers\PageLayout\MainLayoutController;
+use Utils\Uri\OcCookie;
 
 //set the global template-name variable
 function tpl_set_tplname($local_tpl_name){
@@ -210,13 +211,8 @@ function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemp
 //store the cookie vars
 function write_cookie_settings()
 {
-    global $cookie, $lang;
-
-    //language
-    $cookie->set('lang', $lang);
-
-    //send cookie
-    $cookie->header();
+    global $lang;
+    OcCookie::set('lang', $lang, true);
 }
 
 function http_write_no_cache()

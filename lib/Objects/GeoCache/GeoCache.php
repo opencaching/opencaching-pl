@@ -11,6 +11,7 @@ use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\GeoCache\CacheLocation;
 use lib\Objects\Coordinates\Altitude;
 use lib\Objects\User\MultiUserQueries;
+use Utils\Debug\Debug;
 
 /**
  * Description of geoCache

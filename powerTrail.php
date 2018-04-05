@@ -7,6 +7,7 @@ use lib\Objects\GeoCache\GeoCache;
 use Utils\Uri\Uri;
 use lib\Objects\OcConfig\OcDynamicMapConfig;
 use Utils\View\View;
+use Utils\Uri\OcCookie;
 
 /**
  *  powerTrail.php
@@ -20,7 +21,7 @@ use Utils\View\View;
  *
  */
 // variables required by opencaching.pl
-global $lang, $rootpath, $usr, $absolute_server_URI, $cookie, $googlemap_key;
+global $lang, $rootpath, $usr, $absolute_server_URI, $googlemap_key;
 
 //prepare the templates and include all neccessary
 require_once('lib/common.inc.php');
@@ -38,34 +39,22 @@ if ($ocConfig->isPowerTrailModuleSwitchOn() === false) {
 $firePtMenu = true;
 //Preprocessing
 if ($error == false) {
+
     if (isset($_REQUEST['sortBy']) || isset($_REQUEST['filter']) || isset($_REQUEST['sortDir'])
-    || isset($_REQUEST['myPowerTrailsBool']) || isset($_REQUEST['gainedPowerTrailsBool']) || isset($_REQUEST['historicLimitBool'])){
-        saveCookie($cookie);
+        || isset($_REQUEST['myPowerTrailsBool']) || isset($_REQUEST['gainedPowerTrailsBool'])
+        || isset($_REQUEST['historicLimitBool'])){
+
+            saveCookie();
+
     } else {
-        if ($cookie->is_set("ptSrBy"))
-            $_REQUEST['sortBy'] = $cookie->get("ptSrBy");
-        else
-            $_REQUEST['sortBy'] = 'cacheCount';
-        if ($cookie->is_set("ptFltr"))
-            $_REQUEST['filter'] = $cookie->get("ptFltr");
-        else
-            $_REQUEST['filter'] = 0;
-        if ($cookie->is_set("ptSrDr"))
-            $_REQUEST['sortDir'] = $cookie->get("ptSrDr");
-        else
-            $_REQUEST['sortDir'] = 'desc';
-        if ($cookie->is_set("ptMyBool"))
-            $_REQUEST['myPowerTrailsBool'] = $cookie->get("ptMyBool");
-        else
-            $_REQUEST['myPowerTrailsBool'] = 'no';
-        if ($cookie->is_set("ptGaBool"))
-            $_REQUEST['gainedPowerTrailsBool'] = $cookie->get("ptGaBool");
-        else
-            $_REQUEST['gainedPowerTrailsBool'] = 'no';
-        if ($cookie->is_set("ptMiniBool"))
-            $_REQUEST['historicLimitBool'] = $cookie->get("ptMiniBool");
-        else
-            $_REQUEST['historicLimitBool'] = 'no';
+
+        $_REQUEST['sortBy'] = OcCookie::getOrDefault("ptSrBy", 'cacheCount');
+        $_REQUEST['sortBy'] = OcCookie::getOrDefault("ptFltr", 0);
+        $_REQUEST['sortBy'] = OcCookie::getOrDefault("ptSrDr", 'desc');
+        $_REQUEST['sortBy'] = OcCookie::getOrDefault("ptMyBool", 'no');
+        $_REQUEST['sortBy'] = OcCookie::getOrDefault("ptGaBool", 'no');
+        $_REQUEST['sortBy'] = OcCookie::getOrDefault("ptMiniBool", 'no');
+
     }
 
     $tplname = 'powerTrail';
@@ -639,14 +628,13 @@ function generateStatusSelector($currStatus)
     return $selector;
 }
 
-function saveCookie($cookie)
+function saveCookie()
 {
-    $cookie->set("ptFltr", $_REQUEST['filter']);
-    $cookie->set("ptSrBy", $_REQUEST['sortBy']);
-    $cookie->set("ptSrDr", $_REQUEST['sortDir']);
-    $cookie->set("ptGaBool", $_REQUEST['gainedPowerTrailsBool']);
-    $cookie->set("ptMyBool", $_REQUEST['myPowerTrailsBool']);
-    $cookie->set("ptMiniBool", $_REQUEST['historicLimitBool']);
+    OcCookie::set("ptFltr", $_REQUEST['filter']);
+    OcCookie::set("ptSrBy", $_REQUEST['sortBy']);
+    OcCookie::set("ptSrDr", $_REQUEST['sortDir']);
+    OcCookie::set("ptGaBool", $_REQUEST['gainedPowerTrailsBool']);
+    OcCookie::set("ptMyBool", $_REQUEST['myPowerTrailsBool']);
+    OcCookie::set("ptMiniBool", $_REQUEST['historicLimitBool']);
 }
 
-?>

@@ -10,7 +10,7 @@ namespace Utils\Uri;
  * Copyright (c) delight.im (https://www.delight.im/)
  * Licensed under the MIT License (https://opensource.org/licenses/MIT)
  */
-class Cookie
+class CookieBase
 {
 
     const HEADER_PREFIX = 'Set-Cookie: ';
@@ -26,7 +26,7 @@ class Cookie
      */
     public static function deleteCookie($name)
     {
-        $cookieDomain = Cookie::normalizeDomain(Uri::getCurrentDomain());
+        $cookieDomain = self::normalizeDomain(Uri::getCurrentDomain());
         return setcookie($name, '', 0, '/', $cookieDomain);
     }
 

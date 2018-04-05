@@ -4,6 +4,7 @@ use Utils\Database\OcDb;
 use Utils\Database\XDb;
 use lib\Objects\GeoCache\PrintList;
 use Utils\Text\TextConverter;
+use Utils\Uri\OcCookie;
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath)) $rootpath = '';
@@ -20,20 +21,13 @@ global $dbcSearch, $lang, $TestStartTime, $usr;
 //returns the cookie value, otherwise false
 function get_cookie_setting($name)
 {
-    global $cookie;
-
-    if ($cookie->is_set($name)) {
-        return $cookie->get($name);
-    } else {
-        return false;
-    }
+    return OcCookie::getOrDefault($name, false);
 }
 
 //sets the cookie value
 function set_cookie_setting($name, $value)
 {
-    global $cookie;
-    $cookie->set($name, $value);
+    OcCookie::set($name, $value);
 }
 
 /**

@@ -457,7 +457,7 @@ $view->callChunk('tinyMCE');
                     <?php $view->callChunk('fileUpload','myfile','.gpx'); ?>
                     <input class="btn btn-primary btn-sm btn-upload" type="submit" value="<?= tr('newcache_upload') ?>"/>
                 </div>
-                <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
+                <iframe id="upload_target" name="upload_target" src="about:blank" style="width:0;height:0;border:0px solid #fff;"></iframe>
             </form>
             <img style="display: none" id="ajaxLoaderLogo" src="tpl/stdstyle/images/misc/ptPreloader.gif" alt="">
         </td>
@@ -536,7 +536,7 @@ $view->callChunk('tinyMCE');
                 {show_all_countries_submit}
             </td>
         </tr>
-        <tr><td colspan="2"><input type="hidden" name="altitude" id="altitude" value="0"><!-- TODO: to be filled from gpx by ajax --></td></tr>
+
         <tr class="form-group-sm">
             <td><p id="region0" class="content-title-noshade">{{regiononly}}:</p></td>
             <td>

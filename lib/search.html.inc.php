@@ -3,6 +3,7 @@
 use Utils\Database\OcDb;
 use Utils\Gis\Gis;
 use Utils\Uri\Uri;
+use Utils\Uri\OcCookie;
 
 /**
  * This script is used (can be loaded) by /search.php
@@ -22,27 +23,25 @@ function findColumn($name, $type = "C")
 
 function fHideColumn($nr, $set)
 {
-    global $cookie, $selectList, $NrColVisable, $colNameSearch, $NrColSortSearch;
+    global $selectList, $NrColVisable, $colNameSearch, $NrColSortSearch;
 
     $sNameColumnsSearch = "NCSearch" . $nr;
 
     if (isset($_REQUEST["C" . $nr])) {
         $C = 1;
         if ($set) {
-            $cookie->set($sNameColumnsSearch, 1);
-            $cookie->header();
+            OcCookie::set($sNameColumnsSearch, 1, true);
         }
     } else {
         if (! isset($_REQUEST["notinit"])) // first ent.
 {
-            $C = 0;
-            if ($cookie->is_set($sNameColumnsSearch))
-                $C = $cookie->get($sNameColumnsSearch);
+
+            $C = OcCookie::getOrDefault($sNameColumnsSearch, 0);
+
         } else // next ent.
 {
             if ($set) {
-                $cookie->set($sNameColumnsSearch, 0);
-                $cookie->header();
+                OcCookie::set($sNameColumnsSearch, 0, true);
             }
             $C = 0;
         }
@@ -67,7 +66,7 @@ function fHideColumn($nr, $set)
     return $C;
 }
 
-global $dbcSearch, $usr, $lang, $hide_coords, $cookie, $NrColSortSearch, $OrderSortSearch, $SearchWithSort, $TestStartTime, $queryFilter;
+global $dbcSearch, $usr, $lang, $hide_coords, $NrColSortSearch, $OrderSortSearch, $SearchWithSort, $TestStartTime, $queryFilter;
 require_once ($stylepath . '/lib/icons.inc.php');
 require_once ('lib/cache_icon.inc.php');
 require_once ('lib/calculation.inc.php');
@@ -163,52 +162,53 @@ $colNameSearch = array(
 );
 
 $sDefCol4Search = "DefCol4Search";
-if (! $cookie->is_set($sDefCol4Search)) {
-    $cookie->set("NCSearch3", "1");
-    $cookie->set("NCSearch6", "1");
-    $cookie->set("NCSearch7", "1");
-    $cookie->set("NCSearch8", "1");
-    $cookie->set("NCSearch9", "1");
-    $cookie->set("NCSearch12", "1");
-    $cookie->set("NCSearch13", "1");
-    $cookie->set("NCSearch14", "1");
-    $cookie->set("NCSearch15", "1");
-    $cookie->set("NCSearch16", "1");
-    $cookie->set("NCSearch17", "1");
-    $cookie->set($sNrColumnsSortSearch, "-1");
-    $cookie->set($sOrderSortSearch, "M");
-
-    $cookie->set($sDefCol4Search, "Y");
-    $cookie->header();
+if (! OcCookie::contains($sDefCol4Search)) {
+    OcCookie::set("NCSearch3", "1");
+    OcCookie::set("NCSearch6", "1");
+    OcCookie::set("NCSearch7", "1");
+    OcCookie::set("NCSearch8", "1");
+    OcCookie::set("NCSearch9", "1");
+    OcCookie::set("NCSearch12", "1");
+    OcCookie::set("NCSearch13", "1");
+    OcCookie::set("NCSearch14", "1");
+    OcCookie::set("NCSearch15", "1");
+    OcCookie::set("NCSearch16", "1");
+    OcCookie::set("NCSearch17", "1");
+    OcCookie::set($sNrColumnsSortSearch, "-1");
+    OcCookie::set($sOrderSortSearch, "M");
+    OcCookie::set($sDefCol4Search, "Y");
 }
 
 if (! isset($_REQUEST["NrColSort"])) {
-    $NrColSortSearch = 1;
 
-    if ($cookie->is_set($sNrColumnsSortSearch))
-        $NrColSortSearch = $cookie->get($sNrColumnsSortSearch);
-    else
-        $cookie->set($sNrColumnsSortSearch, $NrColSortSearch);
+    if (OcCookie::contains($sNrColumnsSortSearch)){
+        $NrColSortSearch = OcCookie::get($sNrColumnsSortSearch);
+    }else{
+        OcCookie::set($sNrColumnsSortSearch, 1);
+    }
+
 } else {
+
     $NrColSortSearch = $_REQUEST["NrColSort"];
-    $cookie->set($sNrColumnsSortSearch, $NrColSortSearch);
+    OcCookie::set($sNrColumnsSortSearch, $NrColSortSearch);
+
 }
 
 // //////////////////////////////////
 
 if (! isset($_REQUEST["OrderSortSearch"])) {
-    $OrderSortSearch = "M";
 
-    if ($cookie->is_set($sOrderSortSearch))
-        $OrderSortSearch = $cookie->get($sOrderSortSearch);
-    else
-        $cookie->set($sOrderSortSearch, $OrderSortSearch);
+    if (OcCookie::contains($sOrderSortSearch)){
+        $OrderSortSearch = OcCookie::get($sOrderSortSearch);
+    }else{
+        OcCookie::set($sOrderSortSearch, "M");
+    }
 } else {
     $OrderSortSearch = $_REQUEST["OrderSortSearch"];
-    $cookie->set($sOrderSortSearch, $OrderSortSearch);
+    OcCookie::set($sOrderSortSearch, $OrderSortSearch);
 }
 
-$cookie->header();
+OcCookie::saveInHeader();
 
 // build SQL-list
 $countselect = mb_eregi_replace('^SELECT `cache_id`', 'SELECT COUNT(`cache_id`) `count`', $queryFilter);

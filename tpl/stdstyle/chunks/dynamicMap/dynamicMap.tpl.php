@@ -132,7 +132,10 @@ var dynamicMapParams_<?=$canvasId?> = {};
         params.markerMgr.<?=$markerClass?> =
             <?php View::callChunkInline($mapModel->getMarkersMrgs($markerClass), $markersData);?>;
 
-        for(markerData of params.markerMgr.<?=$markerClass?>.data) {
+
+        //for(markerData of params.markerMgr.<?=$markerClass?>.data) {
+        for (var i = 0, len = params.markerMgr.<?=$markerClass?>.data.length; i < len; i++) {
+          var markerData = params.markerMgr.<?=$markerClass?>.data[i];
 
           var marker = params.markerMgr.<?=$markerClass?>.markerFactory(markerData);
           marker.setMap(params.map);

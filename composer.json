@@ -4,7 +4,8 @@
     "ezyang/htmlpurifier": "^4.9",
     "aferrandini/phpqrcode": "^1.0",
     "jpgraph/jpgraph": "^4.0",
-    "cweagans/composer-patches": "^1.6"
+    "cweagans/composer-patches": "^1.6",
+    "js-cookie/js-cookie": "^2.1"
   },
   "extra": {
     "patches": {
