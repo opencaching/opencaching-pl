@@ -20,18 +20,18 @@
         <?php foreach($view->newsList as $news) { ?>
           <div class="newsItem">
             <div class="newsStatusLine">
-              <img src="/tpl/stdstyle/images/free_icons/newspaper.png" alt="newsImage" class="img16">
+              <img src="/tpl/stdstyle/images/free_icons/newspaper.png" alt="newsImage" class="icon16">
               <?=$news->getDatePublication(true)?>
-                 <span class="newsTitle">
-                    <?=$news->getTitle()?>
-                    <?php if($news->isAuthorHidden()) { ?>
-                      <?=tr('news_OCTeam')?>
-                    <?php } else { // if-$news->isAuthorHidden() ?>
-                      <a href="<?=$news->getAuthor()->getProfileUrl()?>" class="links">
-                        <?=$news->getAuthor()->getUserName()?>
-                      </a>
-                    <?php } // if-$news->isAuthorHidden() ?>
-                  </span>
+              <span class="newsTitle">
+                <?=$news->getTitle()?>
+              </span>
+              (<?=tr('news_lbl_author')?>:
+              <?php if($news->isAuthorHidden()) { ?>
+                <strong><?=tr('news_OCTeam')?></strong>)
+              <?php } else { // if-$news->isAuthorHidden() ?>
+                <a href="<?=$news->getAuthor()->getProfileUrl()?>" class="links">
+                <strong><?=$news->getAuthor()->getUserName()?></strong></a>)
+              <?php } // if-$news->isAuthorHidden() ?>
             </div>
             <?=$news->getContent()?>
           </div>
