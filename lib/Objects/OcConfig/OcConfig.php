@@ -256,23 +256,28 @@ final class OcConfig extends ConfigReader
         return self::instance()->getMapsConfig();
     }
 
-    public function getDbUser(){
+    public function getDbUser()
+    {
         return $this->dbUser;
     }
 
-    public function getDbPass(){
+    public function getDbPass()
+    {
         return $this->dbPass;
     }
 
-    public function getDbHost(){
+    public function getDbHost()
+    {
         return $this->dbHost;
     }
 
-    public function getDbName(){
+    public function getDbName()
+    {
         return $this->dbName;
     }
 
-    public static function getTechAdminsEmailAddr(){
+    public static function getTechAdminsEmailAddr()
+    {
         //it will be implemented in a future
         //currently this is only a stub...
         global $mail_rt;
@@ -280,31 +285,38 @@ final class OcConfig extends ConfigReader
         return $mail_rt;
     }
 
-    public static function getHeaderLogo() {
+    public static function getHeaderLogo()
+    {
         return self::instance()->headerLogo;
     }
 
-    public static function getShortSiteName() {
+    public static function getShortSiteName()
+    {
         return self::instance()->shortSiteName;
     }
 
-    public static function getNeedFindLimit() {
+    public static function getNeedFindLimit()
+    {
         return self::instance()->needFindLimit;
     }
 
-    public static function getNeedAproveLimit() {
+    public static function getNeedAproveLimit()
+    {
         return self::instance()->needAproveLimit;
     }
 
-    public static function getCogEmailAddress() {
+    public static function getCogEmailAddress()
+    {
         return self::instance()->cogEmailAddress;
     }
 
-    public static function getMailSubjectPrefixForSite() {
+    public static function getMailSubjectPrefixForSite()
+    {
         return self::instance()->mailSubjectPrefixForSite;
     }
 
-    public static function getMailSubjectPrefixForReviewers() {
+    public static function getMailSubjectPrefixForReviewers()
+    {
         return self::instance()->mailSubjectPrefixForReviewers;
     }
 

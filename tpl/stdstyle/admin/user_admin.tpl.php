@@ -21,9 +21,10 @@ use Utils\Uri\SimpleRouter;
   <a href="<?=SimpleRouter::getLink('UserProfile', 'mailTo', $view->user->getUserId())?>" class="links">
     <?=$view->user->getEmail()?>
     <img src="/tpl/stdstyle/images/free_icons/email.png" alt="<?=tr('email_user')?>" title="<?=tr('email_user')?>"></a>
-  <br>
-  <?=tr('activation_code')?>: <strong><?=(empty($view->user->getActivationCode())) ? tr('account_is_actived') : $view->user->getActivationCode()?></strong><br>
-  <br>
+  <div class="buffer"></div>
+
+
+<?php if ($view->user->isUserActivated()) { ?>
 
   <?php if ($view->user->getNotifyCaches()) { ?>
     <a href="<?=SimpleRouter::getLink('Admin.UserAdmin','notifyCaches', [$view->user->getUserId(), "0"])?>">
@@ -95,4 +96,13 @@ use Utils\Uri\SimpleRouter;
       <button type="submit" name="save" value="save" class="btn btn-primary btn-md"><?=tr('save')?></button>
     </div>
   </form>
+
+<?php } else { ?>
+
+  <div class="callout callout-warning align-center">
+    <?=tr('account_not_activated')?><br>
+    <a href="<?=SimpleRouter::getLink('Admin.UserAdmin','activateUser', $view->user->getUserId())?>" class="btn btn-md btn-default"><?=tr('activate_mail_btn')?></a>
+  </div>
+
+<?php } // end if $view->user->isUserActivated() ?>
 </div>

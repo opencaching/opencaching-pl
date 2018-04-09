@@ -6,10 +6,10 @@ use Utils\Email\EmailFormatter;
 use Utils\Uri\SimpleRouter;
 use lib\Objects\OcConfig\OcConfig;
 
-class U2UEmailSender
+class UserEmailSender
 {
 
-    const TEMPLATE_PATH = __DIR__ . '/../../../tpl/stdstyle/email/user2user/';
+    const TEMPLATE_PATH = __DIR__ . '/../../../tpl/stdstyle/email/user/';
 
     /**
      * Sends user2user message (used by mailTo)
@@ -27,7 +27,10 @@ class U2UEmailSender
 
         // prepare message text
         $userMessage = new EmailFormatter(self::TEMPLATE_PATH . 'messageU2U.email.html', true);
-        $userMessage->setVariable('fromUserMailUrl', SimpleRouter::getAbsLink('UserProfile', 'mailTo', [ $from->getUserId(), urlencode($subject)]));
+        $userMessage->setVariable('fromUserMailUrl', SimpleRouter::getAbsLink('UserProfile', 'mailTo', [
+            $from->getUserId(),
+            urlencode($subject)
+        ]));
         $userMessage->setVariable('fromUserProfileUrl', $from->getProfileUrl());
         $userMessage->setVariable('fromUsername', $from->getUserName());
         $userMessage->setVariable('absoluteServerURI', rtrim(OcConfig::getAbsolute_server_URI(), '/'));
@@ -96,5 +99,56 @@ class U2UEmailSender
             error_log(__METHOD__ . ': Sender copy sending failure to: ' . $from->getEmail());
         }
         return $result;
+    }
+
+    /**
+     * Sends activation message to user identyfied by nick $username
+     *
+     * @param string $username
+     */
+    public static function sendActivationMessage($username)
+    {
+        $user = User::fromUsernameFactory($username);
+        $intro = mb_ereg_replace('{OCsiteLink}', '<a href="' . OcConfig::getAbsolute_server_URI() . '">' . OcConfig::getSiteName() . '</a>', tr('activate_mail_intro'));
+        $activateUrl = SimpleRouter::getAbsLink('UserRegistration', 'activate', [
+            $user->getUserId(),
+            urlencode($user->getActivationCode())
+        ]);
+
+        $userMessage = new EmailFormatter(self::TEMPLATE_PATH . 'activation.email.html', true);
+        $userMessage->setVariable('activateUrl', $activateUrl);
+        $userMessage->setVariable('intro', $intro);
+        $userMessage->addFooterAndHeader($username);
+
+        $email = new Email();
+        $email->addToAddr($user->getEmail());
+        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
+        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
+        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
+        $email->setSubject(tr('activate_mail_subject'));
+        $email->setBody($userMessage->getEmailContent(), true);
+        $email->send();
+    }
+
+    /**
+     * Sends information e-mail to $user who just activated his account
+     *
+     * @param User $user
+     */
+    public static function sendPostActivationMessage(User $user)
+    {
+        $userMessage = new EmailFormatter(self::TEMPLATE_PATH . 'postactivation.email.html', true);
+        $userMessage->addFooterAndHeader($user->getUserName());
+        $userMessage->setVariable('wikiaddress', OcConfig::getWikiLink('forBeginers'));
+        $userMessage->setVariable('guidesurl', OcConfig::getAbsolute_server_URI() . 'cacheguides.php');
+        $userMessage->setVariable('postActivation_mail_04', mb_ereg_replace('{NEED_FIND_LIMIT}', OcConfig::getNeedFindLimit(), tr('postActivation_mail_04')));
+        $email = new Email();
+        $email->addToAddr($user->getEmail());
+        $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
+        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
+        $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
+        $email->setSubject(tr('postActivation_mail_subject'));
+        $email->setBody($userMessage->getEmailContent(), true);
+        $email->send();
     }
 }

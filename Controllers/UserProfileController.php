@@ -5,9 +5,8 @@ use Utils\Log\Log;
 use Utils\Text\UserInputFilter;
 use Utils\Uri\Uri;
 use lib\Objects\Neighbourhood\Neighbourhood;
-use lib\Objects\Notify\Notify;
-use lib\Objects\User\U2UEmailSender;
 use lib\Objects\User\User;
+use lib\Objects\User\UserEmailSender;
 use lib\Objects\User\UserNotify;
 use lib\Objects\User\UserPreferences\UserPreferences;
 use lib\Objects\User\UserPreferences\UserProfilePref;
@@ -223,10 +222,10 @@ class UserProfileController extends BaseController
         $this->preferences['email']['recieveCopy'] = isset($_POST['recieveCopy']);
         UserPreferences::savePreferencesJson(UserProfilePref::KEY, json_encode($this->preferences));
         // Send mail to recipient
-        $result = U2UEmailSender::sendU2UMessage($this->loggedUser, $this->requestedUser, $subject, $content, $this->preferences['email']['showMyEmail']);
+        $result = UserEmailSender::sendU2UMessage($this->loggedUser, $this->requestedUser, $subject, $content, $this->preferences['email']['showMyEmail']);
         if ($result && $this->preferences['email']['recieveCopy']) {
             // Send copy of email - to sender
-            $result = U2UEmailSender::sendU2UCopy($this->loggedUser, $this->requestedUser, $subject, $content);
+            $result = UserEmailSender::sendU2UCopy($this->loggedUser, $this->requestedUser, $subject, $content);
         }
         // Insert log entry into email_user
         Log::logEmail($this->loggedUser, $this->requestedUser, $subject, $this->preferences['email']['showMyEmail']);

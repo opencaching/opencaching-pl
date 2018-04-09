@@ -1,4 +1,6 @@
 <?php
+use Utils\Uri\SimpleRouter;
+
 /**
  * This is simple configuration of links presented in sidebar of the page
  * for non-authorized users only.
@@ -24,7 +26,7 @@
 $menu = [ // DON'T CHANGE $menu var name!
 
     /* 'translation key' => 'url' */
-    'mnu_registration'     => '/register.php',
+    'mnu_registration'     => SimpleRouter::getLink('UserRegistration'),
     'mnu_news'             => '/news.php',
     'mnu_rules'            => [$links['wiki']['rules']],
     'mnu_newCaches'        => '/newcaches.php',

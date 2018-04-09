@@ -24,7 +24,7 @@ use Utils\Uri\SimpleRouter;
     <input type="hidden" name="target" value="<?=$view->target?>">
     <div class="align-center">
       <input type="submit" value="<?=tr('login')?>" class="btn btn-primary btn-md">
-      <a class="btn btn-md btn-success" href="/register.php"><?=tr('loginForm_signUp')?></a>
+      <a class="btn btn-md btn-success" href="<?=SimpleRouter::getLink('UserAuthorization', 'register')?>"><?=tr('loginForm_signUp')?></a>
       <a class="btn btn-md btn-default" href="<?=SimpleRouter::getLink('UserAuthorization', 'newPassword')?>"><?=tr('loginForm_resetPassword')?></a>
     </div>
   </form>
