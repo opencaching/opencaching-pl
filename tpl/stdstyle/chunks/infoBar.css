@@ -8,8 +8,8 @@
 	cursor: pointer;
 	background-image: url("/tpl/stdstyle/images/misc/btn_close_normal.svg");
 	background-size: cover;
-	height: 18px;
-	width: 18px;
+	height: 13px;
+	width: 13px;
 	display: inline-block;
 }
 
