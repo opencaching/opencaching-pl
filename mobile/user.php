@@ -36,7 +36,6 @@ if (isset($_SESSION['user_id'])) {
         else {
             $tpl->assign('user_id', $id);
             $tpl->assign('username', $wiersz['username']);
-            $tpl->assign('country', $wiersz['country']);
             $tpl->assign('date_created', date("d-m-Y", strtotime($wiersz['date_created'])));
             $tpl->assign('hidden_count', $wiersz['hidden_count']);
             $tpl->assign('log_notes_count', $wiersz['log_notes_count']);
