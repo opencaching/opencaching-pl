@@ -1,5 +1,7 @@
 <?php
 
+namespace lib\Objects\GeoKret;
+
 use Utils\Database\OcDb;
 /**
  * This class contain methods used to communicate with Geokrety, via Geokrety Api
@@ -10,6 +12,8 @@ use Utils\Database\OcDb;
  */
 class GeoKretyApi
 {
+    const GEOKRETY_URL = 'https://geokrety.org';
+
 
     private $secid = null;
     private $cacheWpt = null;
@@ -41,7 +45,7 @@ class GeoKretyApi
      */
     private function TakeUserGeokrets()
     {
-        $url = "http://geokrety.org/export2.php?secid=$this->secid&inventory=1";
+        $url = self::GEOKRETY_URL."/export2.php?secid=$this->secid&inventory=1";
         $xml = $this->connect($url, $this->operationTypes[__FUNCTION__]);
         libxml_use_internal_errors(true);
         if ($xml) {
@@ -65,7 +69,7 @@ class GeoKretyApi
      */
     private function TakeGeoKretsInCache()
     {
-        $url = "http://geokrety.org/export2.php?wpt=$this->cacheWpt";
+        $url = self::GEOKRETY_URL."/export2.php?wpt=$this->cacheWpt";
         $xml = $this->connect($url, $this->operationTypes[__FUNCTION__]);
 
         if ($xml) {
@@ -93,7 +97,7 @@ class GeoKretyApi
         $lista = tr('GKApi23') . ': ' . count($krety->geokrety->geokret) . '<br>';
         $lista .= '<table>';
         foreach ($krety->geokrety->geokret as $kret) {
-            $lista .= '<tr><td></td><td><a href="http://geokrety.org/konkret.php?id=' . $kret->attributes()->id . '">' . $kret . '</a></td></tr>';
+            $lista .= '<tr><td></td><td><a href="'.self::GEOKRETY_URL.'/konkret.php?id=' . $kret->attributes()->id . '">' . $kret . '</a></td></tr>';
         }
         $lista .= '</table>';
         echo $lista;
@@ -118,7 +122,7 @@ class GeoKretyApi
             $MaxNr++;
             $selector .= '<tr class="form-group-sm">
                             <td>
-                              <a href="https://geokrety.org/konkret.php?id=' . $kret->attributes()->id . '" class="links">' . $kret . '</a>
+                              <a href="'.self::GEOKRETY_URL.'/konkret.php?id=' . $kret->attributes()->id . '" class="links">' . $kret . '</a>
                             </td>
                             <td>
                               <select id="GeoKretSelector' . $MaxNr . '" name="GeoKretIDAction' . $MaxNr . '[action]" onchange="GkActionMoved(' . $MaxNr . ')" class="form-control input120"><option value="-1">' . tr('GKApi13') . '</option><option value="0">' . tr('GKApi12') . '</option><option value="5">' . tr('GKApi14') . '</option></select>
@@ -148,7 +152,7 @@ class GeoKretyApi
             $MaxNr++;
             $selector .= '<tr class="form-group-sm">
                             <td>
-                              <a href="https://geokrety.org/konkret.php?id=' . $kret->attributes()->id . '" class="links">' . $kret . '</a>
+                              <a href="'.self::GEOKRETY_URL.'/konkret.php?id=' . $kret->attributes()->id . '" class="links">' . $kret . '</a>
                             </td>
                             <td>
                               <select id="GeoKretSelector' . $MaxNr . '" name="GeoKretIDAction' . $MaxNr . '[action]" onchange="GkActionMoved(' . $MaxNr . ')" class="form-control input120"><option value="-1">' . tr('GKApi13') . '</option><option value="1">' . tr('GKApi15') . '</option><option value="2">' . tr('GKApi16') . '</option><option value="3">' . tr('GKApi17') . '</option></select>
@@ -277,4 +281,4 @@ class GeoKretyApi
 
 }
 
-?>
+

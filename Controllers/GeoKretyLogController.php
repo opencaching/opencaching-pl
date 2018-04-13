@@ -4,6 +4,7 @@ namespace Controllers;
 
 use lib\Objects\GeoKret\GeoKretLog;
 use Controllers\BaseController;
+use lib\Objects\GeoKret\GeoKretyApi;
 
 /**
  * This class processing GeoKrety logs queue (stored in DB).
@@ -200,7 +201,7 @@ class GeoKretyLogController extends BaseController
             ];
 
             $context = stream_context_create($opts);
-            $result = file_get_contents('https://geokrety.org/ruchy.php', false, $context);
+            $result = file_get_contents(GeoKretyApi::GEOKRETY_URL.'/ruchy.php', false, $context);
 
             if($result !== false){
                 // connection OK, return results
