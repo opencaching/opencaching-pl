@@ -3,6 +3,7 @@ namespace Utils\Uri;
 
 
 use Utils\Debug\Debug;
+use Utils\Text\UserInputFilter;
 use lib\Objects\User\UserAuthorization;
 
 class OcCookie
@@ -35,11 +36,15 @@ class OcCookie
      * @param string $key
      * @return mixed | null - null if no data
      */
-    public static function get($key)
+    public static function get($key, $skipPurifying=false)
     {
         $data = self::getOcCookieData(); //init oc data
         if(isset($data->$key)){
-            return $data->$key;
+            if(!$skipPurifying){
+                return UserInputFilter::purifyHtmlString($data->$key);
+            }else{
+                return $data->$key;
+            }
         }else{
             return null;
         }
