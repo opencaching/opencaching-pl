@@ -1,3 +1,6 @@
+<?php
+use lib\Objects\GeoKret\GeoKretyApi;
+?>
 
 <script>
     function hidediv() {
@@ -298,7 +301,7 @@
         <?php foreach ($view->geoCache->getGeokretsHosted() as $gk) { ?>
 
             <img src="/images/geokret.gif" alt="">&nbsp;
-            <a href='https://geokrety.org/konkret.php?id=<?=$gk['id']?>'><?=$gk['name']?></a>
+            <a href='<?=GeoKretyApi::GEOKRETY_URL?>/konkret.php?id=<?=$gk['id']?>'><?=$gk['name']?></a>
             - <?=tr('total_distance')?>: <?=$gk['distance']?> km <br>
 
         <?php } ?>

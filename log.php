@@ -7,6 +7,7 @@ use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\User\User;
 use lib\Objects\GeoKret\GeoKretLog;
+use lib\Objects\GeoKret\GeoKretyApi;
 use lib\Controllers\MeritBadgeController;
 use Utils\Generators\Uuid;
 use lib\Controllers\LogEntryController;
@@ -234,7 +235,7 @@ tpl_set_var('log_reset_button', tr('log_reset_button'));
 if (isGeokretInCache($geoCache->getCacheId())) {
     tpl_set_var('log_geokret',
         "<br /><img src=\"images/gk.png\" class=\"icon16\" alt=\"\" title=\"GeoKrety\" align=\"middle\" />&nbsp;<b>" .
-        tr('geokret_log') . " <a href='http://geokrety.org/ruchy.php'>geokrety.org</a></b>");
+        tr('geokret_log') . " <a href='".GeoKretyApi::GEOKRETY_URL."/ruchy.php'>geokrety.org</a></b>");
 } else {
     tpl_set_var('log_geokret', "");
 }

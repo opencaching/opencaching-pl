@@ -1,3 +1,6 @@
+<?php
+use lib\Objects\GeoKret\GeoKretyApi;
+?>
 <div class="content2-pagetitle">{{change_account_data}}</div>
 <div class="content2-container">
   <div class="notice">{{gray_field_is_hidden}}</div>
@@ -28,7 +31,7 @@
       <tr>
         <td>&nbsp;</td>
         <td>
-          <div class="notice" style="width:500px;height:44px;">{{GKApi03}} <a href="https://geokrety.org/mypage.php" target="_blank" rel="noopener">{{GKApi04}}</a></div>
+          <div class="notice" style="width:500px;height:44px;">{{GKApi03}} <a href="<?=GeoKretyApi::GEOKRETY_URL?>/mypage.php" target="_blank" rel="noopener">{{GKApi04}}</a></div>
         </td>
       </tr>
       {guide_start}

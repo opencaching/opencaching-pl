@@ -218,7 +218,7 @@
             <tr>
                 <td></td>
                 <td>
-                    <a href="http://www.geokrety.org">www.geokrety.org</a>
+                    <a href="https://www.geokrety.org">www.geokrety.org</a>
                 </td>
             </tr>
             <tr>
