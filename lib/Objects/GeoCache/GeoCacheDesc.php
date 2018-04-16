@@ -7,10 +7,9 @@ use Utils\Database\XDb;
 use Utils\Text\SmilesInText;
 use Utils\Text\UserInputFilter;
 use lib\Objects\User\User;
+use lib\Objects\BaseObject;
 
-
-
-class GeoCacheDesc
+class GeoCacheDesc extends BaseObject
 {
 
     const HTML_SAFE = 2;
@@ -32,11 +31,33 @@ class GeoCacheDesc
 
     public function __construct($cacheId, $descLang){
 
-        $rs = XDb::xSql("SELECT * FROM cache_desc WHERE cache_id = ? AND language = ? LIMIT 1", $cacheId, $descLang);
-        $this->loadFromRow(XDb::xFetchArray($rs));
+        parent::__construct();
 
+        $rs = $this->db->multiVariableQuery(
+            "SELECT * FROM cache_desc
+            WHERE cache_id = :1
+                AND language = :2
+            LIMIT 1",
+            $cacheId, $descLang);
+
+        $descDbRow = $this->db->dbResultFetchOneRowOnly($rs);
+
+        if(is_array($descDbRow)){
+            $this->loadFromRow($descDbRow);
+        }else{
+            throw new \Exception("Description not found for cacheId=$cacheId");
+        }
     }
 
+
+    public static function fromCacheIdFactory($cacheId, $descLang)
+    {
+        try{
+            return new self( $cacheId, $descLang );
+        }catch (\Exception $e){
+            return null;
+        }
+    }
 
     public function loadFromRow(array $descDbRow){
         $this->id = $descDbRow['id'];

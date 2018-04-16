@@ -145,6 +145,10 @@ class MultiCacheStats extends BaseObject
      */
     public static function getGeocachesById(array $cacheIds, array $fieldsArr=null)
     {
+        if(empty($cacheIds)){
+            return [];
+        }
+
         $db = self::db();
 
         if(empty($fieldsArr)){
