@@ -402,6 +402,10 @@ class ViewCacheController extends BaseController
         $this->view->setVar('availableDescLangsLinks', $availableDescLangsLinks);
 
         $this->geoCacheDesc = $this->geocache->getCacheDescription($descLang);
+        if(is_null($this->geoCacheDesc)){
+            $this->geoCacheDesc = GeoCacheDesc::getEmptyDesc();
+        }
+
         $this->view->setVar('geoCacheDesc', $this->geoCacheDesc);
 
     }

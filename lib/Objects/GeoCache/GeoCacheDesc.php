@@ -16,23 +16,44 @@ class GeoCacheDesc extends BaseObject
 
     private $id;
     private $cacheId;
-    private $language;
-    private $desc;
-    private $desc_html;
+    private $language="";
+    private $desc="";
+    private $desc_html=0;
     private $desc_htmledit;
-    private $hint;
-    private $short_desc;
+    private $hint = "";
+    private $short_desc = "";
     private $date_created;
     private $last_modified;
     private $uuid;
     private $node;
-    private $rr_comment;
+    private $rr_comment="";
 
 
-    public function __construct($cacheId, $descLang){
+    public function __construct(){
 
         parent::__construct();
 
+    }
+
+    public static function fromCacheIdFactory($cacheId, $descLang)
+    {
+        try{
+            $obj = new self();
+            $obj->loadByCacheId($cacheId, $descLang);
+        }catch (\Exception $e){
+            return null;
+        }
+    }
+
+    public static function getEmptyDesc($cacheId=null)
+    {
+        $obj = new self();
+        $obj->cacheId = $cacheId;
+        return $obj;
+    }
+
+    private function loadByCacheId($cacheId, $descLang)
+    {
         $rs = $this->db->multiVariableQuery(
             "SELECT * FROM cache_desc
             WHERE cache_id = :1
@@ -46,16 +67,6 @@ class GeoCacheDesc extends BaseObject
             $this->loadFromRow($descDbRow);
         }else{
             throw new \Exception("Description not found for cacheId=$cacheId");
-        }
-    }
-
-
-    public static function fromCacheIdFactory($cacheId, $descLang)
-    {
-        try{
-            return new self( $cacheId, $descLang );
-        }catch (\Exception $e){
-            return null;
         }
     }
 
