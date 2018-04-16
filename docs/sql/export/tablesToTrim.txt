@@ -35,7 +35,6 @@ okapi_submitted_objects
 okapi_tile_caches
 okapi_tile_status
 okapi_tokens
-okapi_vars
 opensprawdzacz
 pds_send
 pds_was_sent
