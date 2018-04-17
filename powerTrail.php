@@ -542,7 +542,7 @@ function displayPowerTrailLogo($ptId, $img)
     if (empty($img)){
         return '/tpl/stdstyle/images/blue/powerTrailGenericLogo.png';
     }else {
-        return $image;
+        return $img;
     }
 }
 
