@@ -5,7 +5,6 @@ use Utils\Database\XDb;
 $rootpath = '../';
 require('../lib/common.inc.php');
 global $lang;
-setlocale(LC_TIME, 'pl_PL.utf-8');
 
 // jpgraph package doesn't contains fonts
 define('TTF_DIR',__DIR__.'/../lib/fonts/');

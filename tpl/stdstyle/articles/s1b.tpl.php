@@ -7,7 +7,6 @@ if (!isset($rootpath))
 
     //include template handling
     require_once($rootpath . 'lib/common.inc.php');
-    setlocale(LC_TIME, 'pl_PL.UTF-8');
 
     $userscount = XDb::xSimpleQueryValue(
         'SELECT COUNT(DISTINCT user_id) FROM caches WHERE (status=1 OR `status`=2 OR `status`=3)', 0);
@@ -35,7 +34,7 @@ if (!isset($rootpath))
     <th style="text-align: left; padding: 5px;">{{username}}</th>
   </tr>
 
-<?php 
+<?php
     $r = XDb::xSql(
         "SELECT COUNT(*) `count`, `user`.`username` `username`, `user`.`user_id` `user_id`
     FROM `caches`
@@ -44,7 +43,7 @@ if (!isset($rootpath))
         AND `caches`.`type`<>6 AND user.stat_ban = 0
     GROUP BY `user`.`user_id`
     ORDER BY `count` DESC, `user`.`username` ASC");
-    
+
     $l2 = "";
     $licznik = 0;
     while ( $line = XDb::xFetchArray($r) ) {

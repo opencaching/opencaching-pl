@@ -19,7 +19,6 @@ use Utils\Database\XDb;
             //include template handling
             require_once($rootpath . 'lib/common.inc.php');
 
-            setlocale(LC_TIME, 'pl_PL.UTF-8');
             if (isset($_REQUEST['region'])) {
                 $region = $_REQUEST['region'];
             }

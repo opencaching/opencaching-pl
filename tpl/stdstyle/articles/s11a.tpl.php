@@ -25,8 +25,6 @@ if ($debug_page)
             //include template handling
             require_once($rootpath . 'lib/common.inc.php');
 
-            setlocale(LC_TIME, 'pl_PL.UTF-8');
-
             echo '<center><table width="97%"><tr><td align="center"><center><b>{{Stats_s3a_01}}<br/></b>';
             echo '<br>({{Stats_s3a_02}})</center></td></tr></table><br><table border="1" bgcolor="white" width="30%">' . "\n";
 
