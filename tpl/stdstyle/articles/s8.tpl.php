@@ -17,8 +17,6 @@ if (!isset($rootpath))
 //include template handling
 require_once($rootpath . 'lib/common.inc.php');
 
-setlocale(LC_TIME, 'pl_PL.UTF-8');
-
 # This page took >60 seconds to render! Added daily caching.
 
 $cache_key = "articles_s8-" . $lang;

@@ -18,7 +18,6 @@ if (!isset($rootpath))
 
     //include template handling
     require_once($rootpath . 'lib/common.inc.php');
-    setlocale(LC_TIME, 'pl_PL.UTF-8');
 
     $userscount = XDb::xSimpleQueryValue(
         'SELECT COUNT( DISTINCT user_id) FROM cache_logs WHERE type=1 AND `deleted`=0', 0);

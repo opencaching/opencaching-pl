@@ -15,8 +15,6 @@ if (!isset($rootpath))
 //include template handling
 require_once($rootpath . 'lib/common.inc.php');
 
-setlocale(LC_TIME, 'pl_PL.UTF-8');
-
 $tops = array();
 ?>
 
@@ -52,7 +50,7 @@ $tops = array();
     <td colspan="5"><hr></td>
   </tr>
 
-<?php 
+<?php
 XDb::xSql(
     "CREATE TEMPORARY TABLE topFounds (`cache_id` INT(11) PRIMARY KEY, `founds` INT(11))
     SELECT `caches`.`cache_id`,

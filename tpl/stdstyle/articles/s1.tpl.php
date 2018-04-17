@@ -7,7 +7,6 @@ if (!isset($rootpath))
 
 //include template handling
 require_once($rootpath . 'lib/common.inc.php');
-setlocale(LC_TIME, 'pl_PL.UTF-8');
 
 $userscount = XDb::xSimpleQueryValue('SELECT COUNT(DISTINCT user_id) FROM caches WHERE status=1', 0);
 $cachescount = XDb::xSimpleQueryValue('SELECT COUNT(*) FROM `caches` WHERE `status`=1', 0);
@@ -32,7 +31,7 @@ $cachescount = XDb::xSimpleQueryValue('SELECT COUNT(*) FROM `caches` WHERE `stat
     <th style="text-align: left; padding: 5px;">{{username}}</th>
   </tr>
 
-<?php 
+<?php
 $r = XDb::xSql(
     "SELECT COUNT(*) `count`, `user`.`username` `username`, `user`.`user_id` `user_id`
     FROM `caches`
