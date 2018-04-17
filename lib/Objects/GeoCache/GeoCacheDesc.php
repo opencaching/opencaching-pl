@@ -40,6 +40,7 @@ class GeoCacheDesc extends BaseObject
         try{
             $obj = new self();
             $obj->loadByCacheId($cacheId, $descLang);
+            return $obj;
         }catch (\Exception $e){
             return null;
         }
