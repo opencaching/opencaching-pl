@@ -49,11 +49,11 @@ if ($error == false) {
     } else {
 
         $_REQUEST['sortBy'] = OcCookie::getOrDefault("ptSrBy", 'cacheCount');
-        $_REQUEST['sortBy'] = OcCookie::getOrDefault("ptFltr", 0);
-        $_REQUEST['sortBy'] = OcCookie::getOrDefault("ptSrDr", 'desc');
-        $_REQUEST['sortBy'] = OcCookie::getOrDefault("ptMyBool", 'no');
-        $_REQUEST['sortBy'] = OcCookie::getOrDefault("ptGaBool", 'no');
-        $_REQUEST['sortBy'] = OcCookie::getOrDefault("ptMiniBool", 'no');
+        $_REQUEST['filter'] = OcCookie::getOrDefault("ptFltr", 0);
+        $_REQUEST['sortDir'] = OcCookie::getOrDefault("ptSrDr", 'desc');
+        $_REQUEST['myPowerTrailsBool'] = OcCookie::getOrDefault("ptMyBool", 'no');
+        $_REQUEST['gainedPowerTrailsBool'] = OcCookie::getOrDefault("ptGaBool", 'no');
+        $_REQUEST['historicLimitBool'] = OcCookie::getOrDefault("ptMiniBool", 'no');
 
     }
 
@@ -100,7 +100,7 @@ if ($error == false) {
     tpl_set_var('PowerTrailCaches', 'none');
     tpl_set_var('language4js', $lang);
     tpl_set_var('powerTrailName', '');
-    tpl_set_var('powerTrailLogo', ':0');
+    tpl_set_var('powerTrailLogo', '');
     tpl_set_var('mainPtInfo', '');
     tpl_set_var('ptTypeSelector', displayPtTypesSelector('type'));
     tpl_set_var('displayToLowUserFound', 'none');
@@ -166,7 +166,8 @@ if ($error == false) {
             tpl_set_var('sortSelector', getSortBySelector($_REQUEST['sortBy']));
             tpl_set_var('sortDirSelector', getSortDirSelector($_REQUEST['sortDir']));
             tpl_set_var('myPowerTrailsBool', getMyPowerTrailsSelector($_REQUEST['myPowerTrailsBool']));
-            tpl_set_var('gainedPowerTrailsBool', getGainedPowerTrailsSelector($_REQUEST['gainedPowerTrailsBool']));
+            tpl_set_var('gainedPowerTrailsBool', getGainedPowerTrailsSelector(
+                isset($_REQUEST['gainedPowerTrailsBool'])?$_REQUEST['gainedPowerTrailsBool']:0));
             tpl_set_var('historicLimitBool', getMiniPowerTrailSelector($_REQUEST['historicLimitBool']));
             tpl_set_var('displayedPowerTrailsCount', $pt->getDisplayedPowerTrailsCount());
             tpl_set_var('mapCenterLat', $main_page_map_center_lat);
@@ -538,11 +539,11 @@ function displayPtCommentsSelector($htmlid, PowerTrail $powerTrail, $selectedId 
 function displayPowerTrailLogo($ptId, $img)
 {
     // global $picurl;
-    if ($img == '')
-        $image = 'tpl/stdstyle/images/blue/powerTrailGenericLogo.png';
-    else
-        $image = $img;
-    return $image;
+    if (empty($img)){
+        return '/tpl/stdstyle/images/blue/powerTrailGenericLogo.png';
+    }else {
+        return $img;
+    }
 }
 
 function getSortBySelector($sel)

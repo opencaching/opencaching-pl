@@ -2,8 +2,8 @@
 
 namespace lib\Objects\User;
 
-use lib\Objects\BaseObject;
 use lib\Controllers\Php7Handler;
+use lib\Objects\BaseObject;
 
 class UserAdmin extends BaseObject {
 
@@ -19,7 +19,7 @@ class UserAdmin extends BaseObject {
     {
         return (null !== self::db()->multiVariableQuery("
             UPDATE `user`
-            SET `is_active_flag` = :1
+            SET `is_active_flag` = :1, `activation_code` = ''
             WHERE `user_id` = :2
             LIMIT 1
         ", ! Php7Handler::Boolval($state), $user->getUserId()));

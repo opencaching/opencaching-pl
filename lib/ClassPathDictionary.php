@@ -44,7 +44,6 @@ class ClassPathDictionary
      */
     private static $classDictionary = array(
         'cache' => 'lib/cache.php',
-        'GeoKretyApi' => 'GeoKretyAPI.php',
         'myninc' => 'lib/myn.inc.php',
         'powerTrailBase' => 'powerTrail/powerTrailBase.php',
         'powerTrailController' => 'powerTrail/powerTrailController.php',

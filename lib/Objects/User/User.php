@@ -2,11 +2,13 @@
 namespace lib\Objects\User;
 
 use Utils\Database\OcDb;
-use lib\Objects\GeoCache\GeoCache;
-use lib\Controllers\Php7Handler;
 use Utils\Database\XDb;
-use lib\Objects\OcConfig\OcConfig;
+use Utils\Generators\TextGen;
+use Utils\Generators\Uuid;
+use lib\Controllers\Php7Handler;
 use lib\Objects\Coordinates\Coordinates;
+use lib\Objects\GeoCache\GeoCache;
+use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\PowerTrail\PowerTrail;
 
 /**
@@ -33,8 +35,6 @@ class User extends UserCommons
     private $notifyRadius;
 
     private $profileUrl = null;
-
-    private $ingnoreGeocacheLimitWhileCreatingNewGeocache = null;
 
     /** @var boolean */
     private $newCachesNoLimit = null;
@@ -84,9 +84,6 @@ class User extends UserCommons
     /** @var bool */
     private $notifyLogs;
     private $activationCode;
-
-    const REGEX_USERNAME = '^[a-zA-Z0-9ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ@-][a-zA-ZęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚ0-9\.\-=_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\ -=&*+~#]{2,59}$';
-    const REGEX_PASSWORD = '^[a-zA-Z0-9\.\-_ @ęóąśłżźćńĘÓĄŚŁŻŹĆŃăîşţâĂÎŞŢÂșțȘȚéáöőüűóúÉÁÖŐÜŰÓÚäüöÄÜÖ=)(\/\\\$&*+~#]{3,60}$';
 
     const COMMON_COLLUMNS = "user_id, username, founds_count, notfounds_count,
                        hidden_count, latitude, longitude,
@@ -871,4 +868,51 @@ class User extends UserCommons
             "UPDATE `user` SET `last_login` = NOW() WHERE `user_id` = :1", $userId);
     }
 
+    /**
+     * Adds new user into the DB
+     *
+     * @param string $username
+     * @param string $password
+     * @param string $email
+     * @param boolean $rulesConfirmed
+     * @return boolean
+     */
+    public static function addUser($username, $password, $email, $rulesConfirmed = true)
+    {
+        return (null !== self::db()->multiVariableQuery('
+            INSERT INTO `user`
+                (`username`, `password`, `email`, `last_modified`,
+                `is_active_flag`, `date_created`, `uuid`, `activation_code`,
+                `node`, `rules_confirmed`)
+            VALUES
+                (:1, :2, :3, NOW(), 0 , NOW(), :4, :5, :6, :7)
+            ', $username, hash('sha512', md5($password)),
+            $email, Uuid::create(), TextGen::randomText(13),
+            OcConfig::instance()->getOcNodeId(), Php7Handler::Boolval($rulesConfirmed)));
+    }
+
+    /**
+     * Activate user (after registration)
+     *
+     * @param int $userId
+     * @return boolean
+     */
+    public static function activateUser($userId)
+    {
+        return (null !== self::db()->multiVariableQuery('
+            UPDATE `user`
+            SET `is_active_flag` = 1, `activation_code`=\'\', `last_modified` = NOW()
+            WHERE `user_id`= :1
+            ', $userId));
+    }
+
+    /**
+     * Check if user is already activated (after registration)
+     *
+     * @return boolean
+     */
+    public function isUserActivated()
+    {
+        return (empty($this->activationCode) || ($this->isActive));
+    }
 }

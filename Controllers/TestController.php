@@ -320,5 +320,30 @@ class TestController extends BaseController
         d(headers_list());
 
     }
+
+    public function registration()
+    {
+        if($this->isUserLogged()){
+            return $this->alreadyRegistered();
+        }
+
+        $this->view->loadJQuery();
+        $this->view->setTemplate('test/userRegistration');
+        // local css
+        $this->view->addLocalCss( Uri::getLinkWithModificationTime(
+            '/tpl/stdstyle/test/userRegistration.css'));
+
+
+        $this->view->buildView();
+    }
+
+
+    private function alreadyRegistered()
+    {
+        $this->view->setTemplate('test/alreadyRegistered');
+
+
+        $this->view->buildView();
+    }
 }
 

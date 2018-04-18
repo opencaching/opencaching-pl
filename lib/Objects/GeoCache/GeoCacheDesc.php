@@ -7,36 +7,69 @@ use Utils\Database\XDb;
 use Utils\Text\SmilesInText;
 use Utils\Text\UserInputFilter;
 use lib\Objects\User\User;
+use lib\Objects\BaseObject;
 
-
-
-class GeoCacheDesc
+class GeoCacheDesc extends BaseObject
 {
 
     const HTML_SAFE = 2;
 
     private $id;
     private $cacheId;
-    private $language;
-    private $desc;
-    private $desc_html;
+    private $language="";
+    private $desc="";
+    private $desc_html=0;
     private $desc_htmledit;
-    private $hint;
-    private $short_desc;
+    private $hint = "";
+    private $short_desc = "";
     private $date_created;
     private $last_modified;
     private $uuid;
     private $node;
-    private $rr_comment;
+    private $rr_comment="";
 
 
-    public function __construct($cacheId, $descLang){
+    public function __construct(){
 
-        $rs = XDb::xSql("SELECT * FROM cache_desc WHERE cache_id = ? AND language = ? LIMIT 1", $cacheId, $descLang);
-        $this->loadFromRow(XDb::xFetchArray($rs));
+        parent::__construct();
 
     }
 
+    public static function fromCacheIdFactory($cacheId, $descLang)
+    {
+        try{
+            $obj = new self();
+            $obj->loadByCacheId($cacheId, $descLang);
+            return $obj;
+        }catch (\Exception $e){
+            return null;
+        }
+    }
+
+    public static function getEmptyDesc($cacheId=null)
+    {
+        $obj = new self();
+        $obj->cacheId = $cacheId;
+        return $obj;
+    }
+
+    private function loadByCacheId($cacheId, $descLang)
+    {
+        $rs = $this->db->multiVariableQuery(
+            "SELECT * FROM cache_desc
+            WHERE cache_id = :1
+                AND language = :2
+            LIMIT 1",
+            $cacheId, $descLang);
+
+        $descDbRow = $this->db->dbResultFetchOneRowOnly($rs);
+
+        if(is_array($descDbRow)){
+            $this->loadFromRow($descDbRow);
+        }else{
+            throw new \Exception("Description not found for cacheId=$cacheId");
+        }
+    }
 
     public function loadFromRow(array $descDbRow){
         $this->id = $descDbRow['id'];

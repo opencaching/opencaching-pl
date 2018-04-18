@@ -15,18 +15,10 @@ $translations = array(
     'back' => 'zurück',
     'direction' => 'Direction', /* EN */
     'cache_menu' => 'Cache Menu',
-    'activation_code_failed' => 'An error occurred while activating your account! Potential causes: <br /> - The activation code or e-mail address is incorrect. <br/> - Your account is already active (have you tried to log in?) <br /><br /> If after rechecking your information the problem persists, please report it to <span class = "mail">{contact_mail}</span>.<b>Be sure to include the username and e-mail address you registered with.</ b>.',
-    'email_incorrect' => 'E-Mail-Adresse ist nicht korrekt.',
-    'account_activation' => 'Account-Aktivierung',
-    'finish_registration_hint' => 'Um die Registrierung abzuschließen, müssen Sie Ihre E-Mail-Adresse und geben Sie den Aktivierungs-Code',
     'email_address' => 'E-Mail Adresse',
     'activation_code' => 'Aktivierungs Code',
     'confirm' => 'Bestätigen',
     'reset' => 'Reset',
-    'activation_success' => 'Ihr Konto wurde erfolgreich aktiviert. Jetzt können Sie sich anmelden',
-    'activation_error1' => 'There was a problem trying to activate your account. Please check that the address in the location bar is the same as the link received via e-mail. In case of further problems, please contact us: <span class="mail">{contact_mail}</span> .',
-    'activation_error2' => 'Your account appears to be active. Have you tried to log in yet? If you have any further problems, please contact us: <span class="mail">{contact_mail}</span> .',
-    'goto_login' => 'Gehen Sie zur Login-Seite',
     'preview_attributes' => 'Vorschau der zusätzlichen Cache-Attribute',
     'toxic_plants' => 'Giftige Pflanzen',
     'thorns' => 'Dornen',
@@ -428,8 +420,33 @@ $translations = array(
     'show_all_log_entries' => ' Alle Log Einträge',
     'show_all_log_entries_short' => 'Alle logs',
     'back_to_the_geocache_listing' => 'Zur Cache beschreibung',
-    'register_pageTitle' => 'Neuen Benutzer registrieren',
+
     'password_confirm' => 'Passwort bestätigen',
+
+    'register_pageTitle' => 'Neuen Benutzer registrieren',
+    'register_intro' => 'Please enter your valid e-mail address below - we will send you an activation link. During registration you will also choose a unique username (nickname) that you will use on the site.', /* EN edited register_msg1*/
+    'register_info' => 'The user may opt out of using the website. At the same time, all data entered during registration and in the user description will be irretrievably deleted. If you want to deactivate your account, please contact us using your e-mail account. In uncertain cases, please contact us ({contact_mail}). Thank you.', /* EN */
+    'register_rulesLbl' => 'Yes, I have read the <strong><a href="{wiki_link_rules}" target="_blank" rel="noopener">Terms of Service</a></strong> {site_name} and I agree to abide by it.', /* EN */
+    'register_ageLbl' => 'Yes, I have reached the age of majority.', /* EN */
+    'register_confirm' => 'Die Aktivierungskode wan an deine Email geschickt.<div class="buffer"></div>Bitte den Anweisungen folgen, die sind über E-Mail geschickt.',
+
+    'activation_title' => 'Account-Aktivierung',
+    'activation_success' => 'Ihr Konto wurde erfolgreich aktiviert. Jetzt können Sie sich anmelden',
+    'activation_error' => 'Your account appears to be active. Have you tried to log in yet? If you have any further problems, please contact us: {contact_mail} .', /* EN */
+
+    'activate_mail_subject' => 'Ranmeldebestätigung - {site_name}',
+    'activate_mail_intro' => 'We are pleased to welcome you to the community looking for and creating caches on the site {OCsiteLink}.<br>With the account you can fully participate in the game, visit interesting places in the search of caches and participate in meetings with others cachers.', /* EN */
+    'activate_mail_clickhere' => 'Click the button below to complete the registration and activate your account.', /* EN */
+    'activate_mail_btn' => 'Activate account', /* EN */
+    'activate_mail_period' => 'If you don\'t activate your account within the next 48 hours, your account will be automatically deleted.', /* EN */
+
+    'postActivation_mail_subject' => 'Wilkommen auf {site_name}',
+    'postActivation_mail_intro' => 'We are pleased that you have confirmed the registration in the community looking for and creating caches on the site {site_name}, thank you.', /* EN */
+    'postActivation_mail_01' => 'For a good start you should read the introduction on our OpenGeoWiki. You can find the OpenGeoWiki at:',
+    'postActivation_mail_02' => 'If you are looking for help from experienced players, please take a look at this interactive map where you can find volunteer guides willing to offer their help to beginners.',
+    'postActivation_mail_03' => 'Map of volunteer guides:',
+    'postActivation_mail_04' => 'Before you can publish your first cache on {site_name} you must find at least {NEED_FIND_LIMIT} caches of the following types: traditional, puzzle, multicache or other type.',
+
     'register_msg1' => 'Um ein neuen Account an {site_name} zu registrieren, musst du eine gültige E-Mail addresse und Benutzername eingeben. Ein E-Mail wird mit Aktivierungskode geschickt. Nur ein Account kann mit einen E-mail Adresse registriert werden.',
     'register_msg2' => '* sind erfordet',
     'register_msg3' => 'Für weitere Fragen, bitte um Kontakt mit uns vor Registrierung.',
@@ -453,15 +470,12 @@ $translations = array(
     'rate_cache' => 'Cache bewerten: <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/arrow_right.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" href="{wiki_link_ratingDesc_en}">Bereich Beschreibung</a>',
     'do_not_rate' => 'Ich möchte diese Cache nicht bewerten',
     'listed_other' => 'Dieser Cache bitte loggen auf den folgenden Webseiten',
-    'register_email_subject' => 'Ranmeldebestätigung {site_name}',
-    'post_activation_email_subject' => 'Wilkommen auf {site_name}',
     'error_username_not_ok' => 'Benutzername ist falsch',
-    'error_username_exists' => 'Ausgewählte Benutzername existiert an Opencaching PL. Bitte andere Benutzername wählen',
+    'error_username_exists' => 'Ausgewählte Benutzername existiert. Bitte andere Benutzername wählen',
     'error_email_not_ok' => 'E-Mail-Address ist falsch',
-    'error_email_exists' => 'Ausgewählte E-mail Addresse existiert an Opencaching PL. You can register one user per e-mail address',
-    'error_password_not_ok' => 'Passwort ist zu kurz',
-    'error_password_diffs' => 'Bestätigte Passwort ist unterschiedlich',
-    'error_tos' => ' Es war nicht bestätigt, dass die Nutzungsbedingungen Opencaching PL sind gelesen und abgestimmt',
+    'error_email_exists' => 'Ausgewählte E-mail Addresse existiert. You can register one user per e-mail address',
+    'error_tos' => ' Es war nicht bestätigt, dass die Nutzungsbedingungen {site_name} sind gelesen und abgestimmt',
+    'error_age' => 'Only people who have reached the age of majority can use the system.', /* EN */
     'security_error' => 'An attempt to compromise the security of the system.', /* EN */
     'newpw_title' => 'Change password', /* EN change_password_msg1 */
     'newpw_info' => 'To change your password, enter your username or email address below. A special link will be sent to your e-mail address. By clicking this link you will be able to change your password.', /* EN */
@@ -479,7 +493,6 @@ $translations = array(
     'password_weak' => 'The password is too weak. Use a more difficult password.', /* EN */
     'step1' => 'schritt 1',
     'step2' => 'schritt 2',
-    'security_code' => 'Sicherheitskode',
     'logoutsuccess' => 'Abmeldung war erfolgreich',
     'cache_logged_required' => 'Du musst eingeloggt sein, um neue Log-Einträge hinzuzufügen oder den Cache zu bearbeiten.',
     'basic_information' => 'Grundlegende Informationen.',
@@ -579,7 +592,7 @@ $translations = array(
     'mail_cc' => 'I want to receive a copy of the message', /* EN */
     'my_email_will_send' => 'Meine Email-Adresse wurde auf diesen Brief geschickt.',
     'email_publish' => 'Nach Auswahl dieser Option wird der Empfänger Deine E-Mail-Adresse kennenlernen, und könnte direkt antworten',
-    'account_is_actived' => 'Konto war aktiviert',
+    'account_not_activated' => 'Account is not activated', /* EN */
     'find_user' => 'Suche nach benutzer',
     'clear_list' => 'Liste löschen',
     'show_waypoints' => 'Waypoint schauen',
@@ -1387,7 +1400,6 @@ $translations = array(
     'watchlist_canbefound' => 'The list of your watched caches can be found at',
     'watchlist_clickhere' => 'by clicking at',
     'watchlist_nologs' => 'No log entries',
-    'registermail01' => 'Welcome to',
     'activatemail01' => 'The cache',
     'activatemail02' => 'was approved by the OC Team.',
     'activatemail03' => 'You can change the status to "Ready to be found" on:',
@@ -2612,6 +2624,7 @@ $translations = array(
     'admin_notes_12' => 'Notifications about caches in Neighbourhoods has been disabled', /* EN */
     'admin_notes_13' => 'Notifications about logs in the watched caches have been enabled', /* EN */
     'admin_notes_14' => 'Notifications about logs in the watched caches have been disabled', /* EN */
+    'admin_notes_15' => 'User has been activated', /* EN */
     'removingLog' => 'removing log entry',
     'wayPointType-1' => 'Select one waypoint',
     'wayPointType1' => 'Physische Punkt',
@@ -2623,17 +2636,6 @@ $translations = array(
     'beginning' => 'Beginning',
     'send_to' => 'Send to',
     'send_to_cgeo' => 'c:geo',
-    'postactivationmail01' => 'For a good start you should read the introduction on our OpenGeoWiki. You can find the OpenGeoWiki at:',
-    'postactivationmail02' => 'If you are looking for help from experienced players, please take a look at this interactive map where you can find volunteer guides willing to offer their help to beginners.',
-    'postactivationmail03' => 'Map of volunteer guides:',
-    'postactivationmail04' => 'Before you can publish your first cache on {site_name} you must find at least {NEED_FIND_LIMIT} caches of the following types: traditional, puzzle, multicache or other type.',
-    'postactivationmail05' => 'Your first {NEED_APPROVE_LIMIT} caches will be moderated by the OC Team.',
-    'useractivationmail1' => 'We have saved the following data from your registration:',
-    'useractivationmail2' => 'e-mail address:',
-    'useractivationmail3' => 'Username:',
-    'useractivationmail4' => 'Country:',
-    'useractivationmail5' => 'Go to the following address to complete the registration process and activate your account:',
-    'useractivationmail6' => 'If you don\'t activate your account within the next 14 days, your account will be automatically deleted.',
     'mail_auto_generated' => 'This message is auto-generated - please do not reply.',
     'mail_replyAllowed' => 'To reply to this e-mail please use the answer function in your e-mail program.',
     'mail_header_hi' => 'Hello',

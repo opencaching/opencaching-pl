@@ -1,7 +1,7 @@
 <?php
 use Utils\Database\XDb;
-use lib\Objects\User\User;
 use Utils\Text\Formatter;
+use Utils\Text\Validator;
 
 // prepare the templates and include all neccessary
 if (! isset($rootpath)) {
@@ -17,7 +17,7 @@ if ($usr == false) {
     tpl_redirect('login.php?target=' . $target);
 } else {
     tpl_set_var('desc_updated', '');
-    tpl_set_var('displayGeoPathSection', displayGeoPatchSection('table'));
+    tpl_set_var('displayGeoPathSection', displayGeoPathSection('table'));
     if (isset($_POST['description'])) {
         $q = "UPDATE user SET description = :1 WHERE user_id=:2";
         $db->multiVariableQuery($q, strip_tags($_POST['description']), (int) $usr['userid']);
@@ -136,7 +136,7 @@ if ($usr == false) {
 
                 // check if username is in the DB
                 $username_exists = false;
-                $username_not_ok = mb_ereg_match(User::REGEX_USERNAME, $username) ? false : true;
+                $username_not_ok = ! Validator::isValidUsername($username);
 
                 if ($username_not_ok) {
                     tpl_set_var('username_message', $error_username_not_ok);
@@ -247,7 +247,7 @@ if ($usr == false) {
         $user_options .= $using_permantent_login_message . '<br>';
     }
     if ($geoPathsEmail == 1) {
-        $user_options .= '<div style="display: ' . displayGeoPatchSection('div') . '">' . tr('pt235') . '</div><br>';
+        $user_options .= '<div style="display: ' . displayGeoPathSection('div') . '">' . tr('pt235') . '</div><br>';
     }
     if ($user_options == '') {
         $user_options = '&nbsp;';
@@ -264,7 +264,7 @@ if ($usr == false) {
 // make the template and send it out
 tpl_BuildTemplate();
 
-function displayGeoPatchSection($type)
+function displayGeoPathSection($type)
 {
     global $powerTrailModuleSwitchOn;
     if ($powerTrailModuleSwitchOn === true) {

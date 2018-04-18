@@ -1,5 +1,6 @@
 <?php
 use lib\Objects\Coordinates\Coordinates;
+use lib\Objects\GeoKret\GeoKretyApi;
 ?>
 <link rel="stylesheet" href="tpl/stdstyle/css/lightTooltip.css">
 
@@ -411,7 +412,7 @@ use lib\Objects\Coordinates\Coordinates;
                 <div>
                     <img src="images/gk.png" class="icon16" alt="geokret" title="GeoKrety visited">
                     <span class="no-whitespace">
-                        <a class="links no-whitespace" href="https://geokrety.org/szukaj.php?wpt=<?=$view->geoCache->getWaypointId()?>" target="_blank" rel="noopener">{{history_gk}}</a>
+                        <a class="links no-whitespace" href="<?=GeoKretyApi::GEOKRETY_URL?>/szukaj.php?wpt=<?=$view->geoCache->getWaypointId()?>" target="_blank" rel="noopener">{{history_gk}}</a>
                         <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link" class="img12">
                     </span>
                 </div>
@@ -806,7 +807,7 @@ use lib\Objects\Coordinates\Coordinates;
             <p>
                 <?php foreach ($view->geoCache->getGeokretsHosted() as $gk) { ?>
                     <img src="/images/geokret.gif" alt="geokret">&nbsp;
-                    <a href='https://geokrety.org/konkret.php?id=<?=$gk['id']?>'><?=$gk['name']?></a>
+                    <a href='<?=GeoKretyApi::GEOKRETY_URL?>/konkret.php?id=<?=$gk['id']?>'><?=$gk['name']?></a>
                     - <?=tr('total_distance')?>: <?=$gk['distance']?> km <br>
                 <?php } ?>
             </p>

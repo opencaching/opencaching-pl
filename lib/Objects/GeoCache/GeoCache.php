@@ -243,7 +243,8 @@ class GeoCache extends GeoCacheCommons
     private function loadByCacheId($cacheId){
 
         //find cache by Id
-        $s = $this->db->multiVariableQuery("SELECT * FROM caches WHERE cache_id = :1 LIMIT 1", $cacheId);
+        $s = $this->db->multiVariableQuery(
+            "SELECT * FROM caches WHERE cache_id = :1 LIMIT 1", $cacheId);
 
         $cacheDbRow = $this->db->dbResultFetch($s);
 
@@ -259,7 +260,8 @@ class GeoCache extends GeoCacheCommons
         $this->id = (int) $params['cacheId'];
 
         //find cache by Id
-        $s = $db->multiVariableQuery("SELECT * FROM caches WHERE uuid = :1 LIMIT 1", $uuid);
+        $s = $db->multiVariableQuery(
+            "SELECT * FROM caches WHERE uuid = :1 LIMIT 1", $uuid);
 
         $cacheDbRow = $db->dbResultFetch($s);
 
@@ -1238,7 +1240,7 @@ class GeoCache extends GeoCacheCommons
      */
     public function getCacheDescription($descLang)
     {
-         return new GeoCacheDesc($this->id, $descLang);
+         return GeoCacheDesc::fromCacheIdFactory($this->id, $descLang);
     }
 
     /**

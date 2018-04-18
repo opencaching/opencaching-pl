@@ -1,6 +1,15 @@
+.content2-container {
+	font-size: 12px;
+}
+
 .loginLabel {
 	min-width: 170px;
 	font-weight: bold;
+	text-align: right;
+}
+
+label {
+	font-size: 12px;
 }
 
 .newpw-pass-meter {

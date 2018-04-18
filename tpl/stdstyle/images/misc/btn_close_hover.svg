@@ -1,101 +1,72 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="79.999985"
-   height="80"
-   id="svg3067"
-   sodipodi:version="0.32"
-   inkscape:version="0.44"
-   version="1.0"
-   sodipodi:docname="Button_hover.svg">
-  <defs
-     id="defs3069">
-    <linearGradient
-       id="linearGradient2836">
-      <stop
-         id="stop2838"
-         offset="0"
-         style="stop-color:#ddd;stop-opacity:1;" />
-      <stop
-         id="stop2840"
-         offset="1"
-         style="stop-color:#666;stop-opacity:1;" />
-    </linearGradient>
-    <radialGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient2836"
-       id="radialGradient2828"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(-1.506942,0.489538,-0.357203,-1.099579,994.0482,875.7002)"
-       cx="334.58801"
-       cy="504.17926"
-       fx="334.58801"
-       fy="504.17926"
-       r="40.361156" />
-  </defs>
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     gridtolerance="10000"
-     guidetolerance="10"
-     objecttolerance="10"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="0.35"
-     inkscape:cx="375"
-     inkscape:cy="520"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer1"
-     inkscape:window-width="853"
-     inkscape:window-height="573"
-     inkscape:window-x="198"
-     inkscape:window-y="198" />
+   version="1.1"
+   viewBox="0 0 50 50"
+   id="svg10"
+   sodipodi:docname="btn_close_hover.svg"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)">
   <metadata
-     id="metadata3072">
+     id="metadata16">
     <rdf:RDF>
       <cc:Work
          rdf:about="">
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
+  <defs
+     id="defs14" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="706"
+     id="namedview12"
+     showgrid="false"
+     inkscape:zoom="4.72"
+     inkscape:cx="-3.1779661"
+     inkscape:cy="25"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg10" />
   <g
-     inkscape:label="Layer 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(-320,-369.505)">
-    <g
-       id="g2938"
-       transform="translate(-31.25579,-172.1039)">
-      <path
-         transform="matrix(0.993933,0,0,0.99387,59.53065,73.63238)"
-         sodipodi:open="true"
-         sodipodi:end="11.814546"
-         sodipodi:start="5.5376002"
-         d="M 363.32132,483.80651 A 40.25,40.25 0 1 1 363.15037,483.62253"
-         sodipodi:ry="40.25"
-         sodipodi:rx="40.25"
-         sodipodi:cy="511.11218"
-         sodipodi:cx="333.75"
-         id="path2822"
-         style="opacity:1;fill:url(#radialGradient2828);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.234;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-         sodipodi:type="arc" />
-      <path
-         id="rect2925"
-         d="M 409.64057,557.56727 L 391.25579,575.95205 L 372.87101,557.56727 L 367.21416,563.22412 L 385.59894,581.6089 L 367.21416,599.99368 L 372.87101,605.65053 L 391.25579,587.26575 L 409.64057,605.65053 L 415.29742,599.99368 L 396.91264,581.6089 L 415.29742,563.22412 L 409.64057,557.56727 z "
-         style="opacity:1;fill:white;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.234;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-    </g>
+     style="fill:#565656;fill-opacity:1"
+     id="g6"
+     transform="matrix(1.0898,0,0,1.0898,-2.2448,-1093.142)">
+    <rect
+       id="rect2"
+       ry="2.131"
+       height="45.244999"
+       width="7.9755001"
+       y="720.53003"
+       x="-711.78998"
+       transform="matrix(0.70711,-0.70711,0.70711,0.70711,0,0)"
+       style="fill:#565656;fill-opacity:1" />
+    <rect
+       id="rect4"
+       ry="2.131"
+       height="45.244999"
+       width="7.9755001"
+       y="685.17999"
+       x="739.16998"
+       transform="matrix(0.70711,0.70711,-0.70711,0.70711,0,0)"
+       style="fill:#565656;fill-opacity:1" />
   </g>
 </svg>

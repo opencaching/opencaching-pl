@@ -7,7 +7,7 @@
 <table class="table" width="760" style="line-height: 1.6em; font-size: 10px;">
     <tr>
         <td>
-        
+
         <?php
 use Utils\Database\XDb;
 global $rootpath;
@@ -18,7 +18,6 @@ if (!isset($rootpath))
 //include template handling
 require_once($rootpath . 'lib/common.inc.php');
 
-setlocale(LC_TIME, 'pl_PL.UTF-8');
 echo '<table width="97%"><tr><td align="center"><center><b>' . tr('Stats_t5_01') . '</b><br /><br />' . tr('Stats_t5_02') . ': (z% - <b><font color="green">X</font>/<font color="blue">Y</font></b>) X- ' . tr('Stats_t5_03') . ', Y - ' . tr('Stats_t5_04') . ', <br /> z - ' . tr('Stats_t5_05') . ' % ' . tr('Stats_t5_06') . ' (X/Y)*100<br /><br /></center></td></tr> </table>';
 echo '<table border="1" bgcolor="white" width="97%" style="font-size:11px; line-height:1.6em;">' . "\n";
 
