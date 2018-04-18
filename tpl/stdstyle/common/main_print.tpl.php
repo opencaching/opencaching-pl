@@ -23,6 +23,9 @@
     if( $view->isjQueryUIEnabled()) {
         $view->callChunk('jQueryUI');
     }
+    if ($view->isVueJsEnabled()) {
+        $view->callChunk('vuejs');
+    }
   ?>
 
 </head>

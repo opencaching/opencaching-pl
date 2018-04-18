@@ -30,7 +30,9 @@
       if( $view->isGMapApiEnabled()){
           $view->callChunk('googleMapsApi', $GLOBALS['googlemap_key'], $view->getLang());
       }
-
+      if ($view->isVueJsEnabled()) {
+          $view->callChunk('vuejs');
+      }
       foreach( $view->getLocalJs() as $js ) {
           if (! $js['defer']) {?>
             <script src="<?=$js['url']?>"<?=$js['async'] ? ' async' : ''?>></script>

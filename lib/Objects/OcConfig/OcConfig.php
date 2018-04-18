@@ -65,6 +65,8 @@ final class OcConfig extends ConfigReader
     /** @var array the watchlist configuration array */
     private $watchlistConfig;
 
+    private $cronConfig;
+    
     /**
      * Call this method to get singleton
      * @return ocConfig
@@ -138,6 +140,9 @@ final class OcConfig extends ConfigReader
         }
         if (isset($config['watchlist']) && is_array($config['watchlist'])) {
             $this->watchlistConfig = $config['watchlist'];
+        }
+        if (isset($config['cron']) && is_array($config['cron'])) {
+            $this->cronConfig = $config['cron'];
         }
     }
 
@@ -334,5 +339,13 @@ final class OcConfig extends ConfigReader
             $this->watchlistConfig = self::getConfig("watchlist", "watchlist");
         }
         return $this->watchlistConfig;
+    }
+    
+    public function getCronConfig()
+    {
+        if ($this->cronConfig == null) {
+            $this->cronConfig = self::getConfig("cron", "cron");
+        }
+        return $this->cronConfig;
     }
 }

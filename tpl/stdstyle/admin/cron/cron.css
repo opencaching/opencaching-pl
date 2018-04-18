@@ -1,0 +1,434 @@
+.refresh-bar-outline {
+    float: left;
+    margin-bottom: 5px;
+    min-width: 70%;
+}
+
+.refresh-bar {
+    display: table;
+    border-top: 1px solid #a0a0a0;
+    border-left: 1px solid #a0a0a0;
+    width: 100%;
+}
+
+.refresh-bar-date-time, .refresh-bar-time {
+    display: table-cell;
+    margin: 1px;
+    padding: 2px;
+    border-bottom: 1px solid #a0a0a0;
+    border-right: 1px solid #a0a0a0;
+    font-family: monospace;
+    font-size: 1.3em;
+    background-color: #efefef;
+}
+
+.refresh-bar-time {
+    color: #021D8B;
+}
+
+.refresh-bar-value {
+    font-weight: bold;
+}
+
+.ctrl-bar {
+    float: left;
+    clear: right;
+    padding-left: 5px;
+}
+
+.suspend-button {
+    display: inline-block;
+    background-color: #ffffff;
+    padding: 2px;
+    margin: 0px;
+    border: 1px solid #808080;
+    border-radius: 5px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+
+.suspend-button:hover {
+    background-color: #e0e0e0;
+}
+
+.suspend-button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+.suspend-button:focus {
+    outline: none;
+}
+
+.cron-status-views {
+}
+
+.cron-status-views-navbar, .cron-status-views-tabs {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cron-status-views-navtab {
+    display: table-cell;
+    padding: 5px;
+    font-size: 1.5em;
+    font-weight: bold;
+    border: 1px solid #a0a0a0;
+    background-color: #e0e0e0;
+    text-decoration: none;
+}
+
+.cron-status-views-navtab:hover {
+    text-decoration: none;
+    color: inherit;
+    background-color: #b0b0b0;
+}
+
+.cron-status-views-navtab:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
+.cron-status-views-navtab::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+.cron-status-views-navtab:focus {
+    outline: none;
+}
+
+.cron-status-views-navtab-selected {
+    border-bottom: none;
+    background-color: #ffffff;
+}
+
+.cron-status-views-navtab-selected:hover {
+    background-color: inherit;
+}
+
+.cron-status-views-tab {
+    display: table-cell;
+    width: 100%;
+    padding: 2px;
+    border: 1px solid #a0a0a0;
+    border-top: none;
+}
+
+.cron-status-views-tab-hidden {
+    display: none;
+}
+
+.cron-value-error {
+    color: #a00000;
+}
+
+.cron-value-ok {
+    color: #00a000;
+}
+
+.cron-summary-outline {
+    padding: 5px 10px 5px 10px;
+}
+
+.cron-summary {
+    display: table;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f2f2f2;
+}
+
+.cron-summary-lines {
+    display: table-row-group;
+}
+
+.cron-summary-line {
+    display: table-row;
+}
+
+.cron-summary-item {
+    display: table-cell;
+    margin: 0px;
+    padding: 2px;
+    border: 1px solid #c0c0c0;
+    vertical-align: top;
+}
+
+.cron-summary-name, .cron-summary-tasks, .cron-summary-results, .cron-summary-errors, .cron-summary-durations {
+    display: table;
+    width: 100%;
+    border-top: 1px solid #c0c0c0;
+    border-collapse: collapse;
+}
+
+.cron-summary-name-title, .cron-summary-tasks-title, .cron-summary-results-title, .cron-summary-errors-title, .cron-summary-durations-title {
+    display: table-caption;
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.cron-summary-name-title {
+    min-width: 12ex;
+    font-size: 1.3em;
+    text-align: left;
+    padding-top: 1em;
+}
+
+.cron-summary-results-label, .cron-summary-durations-label,
+.cron-summary-tasks-value, .cron-summary-results-value, .cron-summary-errors-value, .cron-summary-durations-value {
+    display: table-cell;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+    border-right: 1px solid #c0c0c0;
+}
+
+.cron-summary-results-label, .cron-summary-durations-label, .cron-summary-tasks-value, .cron-summary-errors-value {
+    font-weight: bold;
+}
+
+.cron-summary-label-last, .cron-summary-value-last {
+    border-right: none;
+}
+
+.cron-summary-tasks-value, .cron-summary-errors-value {
+    font-size: 1.4em;
+    padding-top: 0.5em;
+}
+
+.cron-section {
+    margin-top: 0.5em;
+    padding-top: 0.5em;
+}
+
+.cron-section-title {
+    font-weight: bold;
+    font-size: 1.5em;
+    padding-bottom: 0.5em;
+}
+
+.cron-section-entrypoints {
+    margin-top: 1em;
+}
+
+.cron-entrypoint {
+    display: table;
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.cron-entrypoint-line {
+    display: table-row;
+}
+
+.cron-entrypoint-item {
+    display: table-cell;
+    width: 100%;
+    border: 1px solid #c0c0c0;
+}
+
+.cron-entrypoint-title {
+    display: table-cell;
+    width: 100%;
+    font-weight: bold;
+    padding: 2px;
+    background-color: #fafafa;
+    border: 1px solid #c0c0c0;
+}
+
+.cron-entrypoint-title-label {
+}
+
+.cron-entrypoint-title-value {
+    font-size: 1.2em;
+}
+
+.cron-entrypoint-info {
+    display: table-cell;
+    border: 1px solid #c0c0c0;
+    padding: 2px;
+    padding-left: 1em;
+    background-color: #e0e0e0;
+}
+
+.cron-entrypoint-info-details {
+    display: table;
+    width: 100%;
+}
+
+.cron-entrypoint-info-item {
+    display: table-row;
+}
+
+.cron-entrypoint-info-item-label {
+    display: table-cell;
+    border-top: 1px solid #c0c0c0;
+    border-bottom: 1px solid #c0c0c0;
+    border-left: 1px solid #c0c0c0;
+    min-width: 10em;
+    padding: 0px 2px;
+}
+
+.cron-entrypoint-info-item-value {
+    display: table-cell;
+    border-top: 1px solid #c0c0c0;
+    border-bottom: 1px solid #c0c0c0;
+    border-right: 1px solid #c0c0c0;
+    background-color: #f5f5f5;
+    width: 100%;
+    padding: 0px 2px;
+}
+
+.cron-entrypoint-current, .cron-entrypoint-history {
+    display: table-cell;
+    border: 1px solid #c0c0c0;
+    padding: 2px 2px 1.5em 2px;
+}
+
+.cron-entrypoint-current-title, .cron-entrypoint-history-title {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.cron-entrypoint-tasks-notable {
+    
+}
+
+.cron-short-tasks {
+    display: table;
+    width: 100%;
+    margin-top: 1em;
+    border-collapse: separate;
+}
+
+.cron-tasks-group {
+    display: table-row-group;
+}
+
+.cron-tasks-item {
+    display: table-row;
+    border: 1px solid #c0c0c0;
+}
+
+.cron-task-outline {
+    margin-top: 1em;
+    padding: 1px;
+    padding-right: 2px;
+}
+
+.cron-task {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cron-tasks-inrow {
+    border-collapse: separate;
+}
+
+.cron-task-labels {
+    display: table-row;
+}
+
+.cron-task-labels-table {
+    display: table;
+    width: 100%;
+}
+
+.cron-task-label {
+    display: table-cell;
+    border: 1px solid #c0c0c0;
+    font-weight: bold;
+    background-color: #fafafa;
+    padding: 1px 2px;
+    white-space: nowrap;
+    min-width: 15ex;
+}
+
+.cron-task-field {
+    display: table-cell;
+    border: 1px solid #c0c0c0;
+    padding: 1px 2px;
+    font-family: monospace;
+    font-size: 1.2em;
+}
+
+.cron-task-output {
+    display: table;
+    width: 100%;
+}
+
+.cron-task-output-label {
+    border-top: none !important;
+}
+
+.cron-task-output-field {
+    border-top: none !important;
+}
+
+.cron-task-error-msg {
+    display: table;
+    width: 100%;
+}
+
+.cron-task-error-msg-label {
+    border-top: none !important;
+}
+
+.cron-task-error-msg-field {
+    border-top: none !important;
+}
+
+.cron-task-success {
+    border: 1px solid #00a000;
+}
+
+.cron-task-failure {
+    border: 1px solid #a00000;
+}
+
+.cron-task-field-inrow {
+    border-top: inherit;
+    border-bottom: inherit;
+}
+
+.cron-task-field-inrow-first {
+    border-left: inherit;
+}
+
+.cron-task-field-inrow-last {
+    border-right: inherit;
+}
+
+/*.cron-task-failure .cron-task-label, .cron-task-failure .cron-task-field {
+    border: 1px solid #a00000;
+}*/
+
+.cron-task-error .cron-task-label, .cron-task-error .cron-task-field {
+    color: #a00000;
+}
+
+.cron-task-oneline {
+    white-space: nowrap;
+}
+
+.cron-result {
+    margin: 5px 0px;
+    border-top: 1px solid #c0c0c0;
+}
+
+.cron-result-title {
+    display: table-caption;
+    font-weight: bold;
+    font-size: 1.2em;
+    text-align: left;
+    padding: 2px 0px;
+}

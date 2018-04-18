@@ -29,6 +29,9 @@
       if( $view->isFancyBoxEnabled()){
           $view->callChunk('fancyBoxLoader', true, false);
       }
+      if ($view->isVueJsEnabled()) {
+          $view->callChunk('vuejs');
+      }
   ?>
 </head>
 <body{bodyMod}>
