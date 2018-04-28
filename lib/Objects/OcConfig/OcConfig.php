@@ -66,7 +66,7 @@ final class OcConfig extends ConfigReader
     private $watchlistConfig;
 
     private $cronConfig;
-    
+
     /**
      * Call this method to get singleton
      * @return ocConfig
@@ -352,7 +352,7 @@ final class OcConfig extends ConfigReader
         }
         return $this->watchlistConfig;
     }
-    
+
     public function getCronConfig()
     {
         if ($this->cronConfig == null) {

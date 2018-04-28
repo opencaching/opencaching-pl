@@ -17,9 +17,17 @@ return function (){
 ?>
 
 <!-- Start of vue.js chunk -->
-<script src="<?=Uri::getLinkWithModificationTime('/tpl/stdstyle/js/vue/vue.min.js')?>"></script>
-<script src="<?=Uri::getLinkWithModificationTime('/tpl/stdstyle/js/vue/vue-resource.min.js')?>"></script>
-<script src="<?=Uri::getLinkWithModificationTime('/tpl/stdstyle/js/vue/vuex.min.js')?>"></script>
+<script src="<?php print Uri::getLinkWithModificationTime('/tpl/stdstyle/js/vue/vue.min.js')?>"></script>
+<script src="<?php print Uri::getLinkWithModificationTime('/tpl/stdstyle/js/vue/vue-resource.min.js')?>"></script>
+<script src="<?php print Uri::getLinkWithModificationTime('/tpl/stdstyle/js/vue/vuex.min.js')?>"></script>
+<script>
+if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
+    document.write(
+'<script src="<?php print Uri::getLinkWithModificationTime('/tpl/stdstyle/js/vue/es6-promise.min.js')?>"><\/script>'
++'<script src="<?php print Uri::getLinkWithModificationTime('/tpl/stdstyle/js/vue/es6-promise.auto.min.js')?>"><\/script>'
+    );
+}
+</script>
 <!-- End of vue.js chunk -->
 
 <?php

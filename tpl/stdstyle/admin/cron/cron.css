@@ -1,7 +1,7 @@
 .refresh-bar-outline {
     float: left;
     margin-bottom: 5px;
-    min-width: 70%;
+    min-width: 730px;
 }
 
 .refresh-bar {
@@ -17,8 +17,8 @@
     padding: 2px;
     border-bottom: 1px solid #a0a0a0;
     border-right: 1px solid #a0a0a0;
-    font-family: monospace;
-    font-size: 1.3em;
+    font-family: "DejaVu Sans Mono", "Courier New", "LM Mono 10", "Andale Mono", "Ubuntu Mono", monospace;
+    font-size: 11px;
     background-color: #efefef;
 }
 
@@ -31,14 +31,17 @@
 }
 
 .ctrl-bar {
-    float: left;
-    clear: right;
+    float: right;
     padding-left: 5px;
+    text-align: right;
 }
 
 .suspend-button {
     display: inline-block;
     background-color: #ffffff;
+    background-image: url('suspend.svg');
+    width: 18px;
+    height: 18px;
     padding: 2px;
     margin: 0px;
     border: 1px solid #808080;
@@ -46,6 +49,10 @@
     cursor: pointer;
     -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
+}
+
+.suspend-button-continue {
+    background-image: url('continue.svg');
 }
 
 .suspend-button:hover {
@@ -73,7 +80,7 @@
 .cron-status-views-navtab {
     display: table-cell;
     padding: 5px;
-    font-size: 1.5em;
+    font-size: 15px;
     font-weight: bold;
     border: 1px solid #a0a0a0;
     background-color: #e0e0e0;
@@ -171,18 +178,19 @@
     margin: 0px;
     padding: 0px;
     font-weight: bold;
-    font-size: 1.1em;
+    font-size: 10px;
 }
 
 .cron-summary-name-title {
     min-width: 12ex;
-    font-size: 1.3em;
+    font-size: 12px;
     text-align: left;
     padding-top: 1em;
 }
 
 .cron-summary-results-label, .cron-summary-durations-label,
-.cron-summary-tasks-value, .cron-summary-results-value, .cron-summary-errors-value, .cron-summary-durations-value {
+.cron-summary-tasks-value, .cron-summary-results-value,
+.cron-summary-errors-value, .cron-summary-durations-value {
     display: table-cell;
     margin: 0px;
     padding: 0px;
@@ -190,7 +198,13 @@
     border-right: 1px solid #c0c0c0;
 }
 
-.cron-summary-results-label, .cron-summary-durations-label, .cron-summary-tasks-value, .cron-summary-errors-value {
+.cron-summary-tasks-value, .cron-summary-results-value,
+.cron-summary-errors-value, .cron-summary-durations-value {
+    font-size: 11px;
+}
+
+.cron-summary-results-label, .cron-summary-durations-label,
+.cron-summary-tasks-value, .cron-summary-errors-value {
     font-weight: bold;
 }
 
@@ -199,7 +213,7 @@
 }
 
 .cron-summary-tasks-value, .cron-summary-errors-value {
-    font-size: 1.4em;
+    font-size: 14px;
     padding-top: 0.5em;
 }
 
@@ -210,7 +224,7 @@
 
 .cron-section-title {
     font-weight: bold;
-    font-size: 1.5em;
+    font-size: 15px;
     padding-bottom: 0.5em;
 }
 
@@ -223,6 +237,7 @@
     border-collapse: collapse;
     table-layout: fixed;
     width: 100%;
+    font-size: 9px;
 }
 
 .cron-entrypoint-line {
@@ -248,7 +263,7 @@
 }
 
 .cron-entrypoint-title-value {
-    font-size: 1.2em;
+    font-size: 13px;
 }
 
 .cron-entrypoint-info {
@@ -257,6 +272,7 @@
     padding: 2px;
     padding-left: 1em;
     background-color: #e0e0e0;
+    font-size: 10px;
 }
 
 .cron-entrypoint-info-details {
@@ -294,7 +310,7 @@
 }
 
 .cron-entrypoint-current-title, .cron-entrypoint-history-title {
-    font-size: 1.1em;
+    font-size: 12px;
     font-weight: bold;
 }
 
@@ -307,6 +323,7 @@
     width: 100%;
     margin-top: 1em;
     border-collapse: separate;
+    font-size: 10px;
 }
 
 .cron-tasks-group {
@@ -350,20 +367,33 @@
     background-color: #fafafa;
     padding: 1px 2px;
     white-space: nowrap;
-    min-width: 15ex;
+    font-size: 11px;
 }
 
 .cron-task-field {
     display: table-cell;
     border: 1px solid #c0c0c0;
     padding: 1px 2px;
-    font-family: monospace;
-    font-size: 1.2em;
+    font-family: "DejaVu Sans Mono", "Courier New", "LM Mono 10", "Andale Mono", "Ubuntu Mono", monospace;
+    font-size: 11px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cron-task-fixed {
+    width: 100px;
+    max-width: 100px;
+}
+
+.cron-task-fixed-dt {
+    width: 140px;
+    max-width: 140px;
 }
 
 .cron-task-output {
     display: table;
     width: 100%;
+    table-layout: fixed;
 }
 
 .cron-task-output-label {
@@ -372,11 +402,23 @@
 
 .cron-task-output-field {
     border-top: none !important;
+    overflow-wrap: break-word;
+}
+
+.cron-task-output-field pre {
+    margin: 0px;
+    padding: 0px;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 .cron-task-error-msg {
     display: table;
     width: 100%;
+    table-layout: fixed;
 }
 
 .cron-task-error-msg-label {
@@ -385,6 +427,17 @@
 
 .cron-task-error-msg-field {
     border-top: none !important;
+    overflow-wrap: break-word;
+}
+
+.cron-task-error-msg-field pre {
+    margin: 0px;
+    padding: 0px;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 .cron-task-success {

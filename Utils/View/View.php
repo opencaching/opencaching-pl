@@ -147,7 +147,7 @@ class View {
     public function loadVueJs() {
         $this->_loadVueJs = true;
     }
-    
+
     /**
      * Returns true if GA key is set in config (what means that GA is enabled)
      */
@@ -184,7 +184,7 @@ class View {
     public function isVueJsEnabled(){
         return $this->_loadVueJs;
     }
-    
+
     private function error($message)
     {
         error_log($message);

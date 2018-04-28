@@ -24,8 +24,8 @@ var sectionMixin = {
             let summaries = this.$store.state.summaries;
             if (
                 typeof(summaries) != 'undefined'
-                && typeof(summaries[name]) != undefined
-                && typeof(summaries[name]['summary']) != undefined
+                && typeof(summaries[name]) != 'undefined'
+                && typeof(summaries[name]['summary']) != 'undefined'
             ) {
                 result = summaries[name]['summary'];
             }
@@ -36,8 +36,8 @@ var sectionMixin = {
             let summaries = this.$store.state.summaries;
             if (
                 typeof(summaries) != 'undefined'
-                && typeof(summaries[sectionName]) != undefined
-                && typeof(summaries[sectionName]['entrypoints']) != undefined
+                && typeof(summaries[sectionName]) != 'undefined'
+                && typeof(summaries[sectionName]['entrypoints']) != 'undefined'
                 && typeof(summaries[sectionName]['entrypoints'][entryPoint])
                     != undefined
             ) {
@@ -113,6 +113,14 @@ var taskMixin = {
                 }
             }
             return this.tr[result];
+        },
+        getTitle: function(task) {
+            return (
+                typeof(task['display_name']) != 'undefined'
+                && task['display_name']
+            )
+            ? task['display_name']
+            : task['entry_point'];
         }
     }
 };
@@ -125,9 +133,9 @@ var commonMixin = {
             });
         }
     }
-}
+};
 
-var store = new Vuex.Store({ 
+var store = new Vuex.Store({
     state: {
         suspended: undefined,
         now: undefined,
@@ -140,66 +148,67 @@ var store = new Vuex.Store({
         summaries: undefined
     },
     mutations: {
-        setSuspended(state, { suspended, now }) {
-            state.suspended = suspended;
+        setSuspended: function(state, data) {
+            state.suspended = data.suspended;
+            state.now = data.now;
+        },
+        setNow: function(state, now) {
             state.now = now;
         },
-        setNow(state, now) {
-            state.now = now;
+        setLastRefresh: function(state, data) {
+            state.lastRefresh = data.lastRefresh;
+            state.lastSuspend = data.lastSuspend;
         },
-        setLastRefresh(state, { lastRefresh, lastSuspend }) {
-            state.lastRefresh = lastRefresh;
+        setLastSuspend: function(state, lastSuspend) {
             state.lastSuspend = lastSuspend;
         },
-        setLastSuspend(state, lastSuspend) {
-            state.lastSuspend = lastSuspend;
-        },
-        setRefreshInterval(state, refreshInterval) {
+        setRefreshInterval: function(state, refreshInterval) {
             state.refreshInterval = refreshInterval;
         },
-        setNextRefresh(state, nextRefresh) {
+        setNextRefresh: function(state, nextRefresh) {
             state.nextRefresh = nextRefresh;
         },
-        setTimeRemaining(state, timeRemaining) {
+        setTimeRemaining: function(state, timeRemaining) {
             state.timeRemaining = timeRemaining;
         },
-        setSections(state, sections) {
+        setSections: function(state, sections) {
             state.sections = sections;
         },
-        setSummaries(state, summaries) {
+        setSummaries: function(state, summaries) {
             state.summaries = summaries;
         }
     },
     actions: {
-        updateSuspended({ dispatch, commit}, data) {
-            commit('setSuspended', { suspended: data[0], now: data[1] });
-            dispatch('updateTimes');
+        updateSuspended: function(context, data) {
+            context.commit('setSuspended', { suspended: data[0], now: data[1] });
+            context.dispatch('updateTimes');
         },
-        updateLastRefresh({ dispatch, commit}, data) {
-            commit('setLastRefresh', {
+        updateLastRefresh: function(context, data) {
+            context.commit('setLastRefresh', {
                 lastRefresh: data[0], lastSuspend: data[1]
             });
-            dispatch('updateTimes');
+            context.dispatch('updateTimes');
         },
-        updateLastSuspend({ dispatch, commit}, lastSuspend) {
-            commit('setLastSuspend', lastSuspend);
-            dispatch('updateTimes');
+        updateLastSuspend: function(context, lastSuspend) {
+            context.commit('setLastSuspend', lastSuspend);
+            context.dispatch('updateTimes');
         },
-        updateRefreshInterval({ dispatch, commit}, refreshInterval) {
-            commit('setRefreshInterval', refreshInterval);
-            dispatch('updateTimes');
+        updateRefreshInterval: function(context, refreshInterval) {
+            context.commit('setRefreshInterval', refreshInterval);
+            context.dispatch('updateTimes');
         },
-        updateNow({ dispatch, commit}, now) {
-            commit('setNow', now);
-            dispatch('updateTimes');
+        updateNow: function(context, now) {
+            context.commit('setNow', now);
+            context.dispatch('updateTimes');
         },
-        updateTimes({ dispatch, commit, state}, debug) {
+        updateTimes: function(context) {
             let nextRefresh = undefined;
             let timeRemaining = undefined;
+            let state = context.state;
             if (!state.suspended) {
                 if (
                     typeof(state.refreshInterval) != 'undefined'
-                    && typeof(state.lastRefresh) != 'undefined' 
+                    && typeof(state.lastRefresh) != 'undefined'
                 ) {
                     let lastRefresh = state.lastRefresh;
                     let addTime = undefined;
@@ -210,7 +219,7 @@ var store = new Vuex.Store({
                     ) {
                         nextRefresh = state.nextRefresh;
                     } else {
-                        nextRefresh = 
+                        nextRefresh =
                         moment(state.lastRefresh)
                             .add(state.refreshInterval, 's')
                             .toDate();
@@ -230,29 +239,29 @@ var store = new Vuex.Store({
             } else {
                 if (
                     typeof(state.timeRemaining) != 'undefined'
-                    && typeof(state.lastSuspend) != 'undefined' 
+                    && typeof(state.lastSuspend) != 'undefined'
                     && state.lastSuspend != null
                 ) {
-                    nextRefresh = 
+                    nextRefresh =
                         moment(state.lastSuspend)
                             .add(state.timeRemaining, 'milliseconds')
                             .toDate();
                 }
             }
             if (typeof(nextRefresh) != 'undefined') {
-                commit('setNextRefresh', nextRefresh);
+                context.commit('setNextRefresh', nextRefresh);
             }
             if (typeof(timeRemaining) != 'undefined') {
-                commit('setTimeRemaining', timeRemaining);
+                context.commit('setTimeRemaining', timeRemaining);
             }
         },
-        updateStatus({ dispatch, commit, state}) {
-            return new Promise((resolve) => {
+        updateStatus: function(context) {
+            return new Promise(function(resolve) {
                 Vue.http.post('Admin.CronStatus/getStatus', {}).then(
-                    (response) => {
-                        commit('setSections', response.data['sections']);
-                        commit('setSummaries', response.data['summaries']);
-                        dispatch('updateLastRefresh', [ new Date(), null ]);
+                    function(response) {
+                        context.commit('setSections', response.data['sections']);
+                        context.commit('setSummaries', response.data['summaries']);
+                        context.dispatch('updateLastRefresh', [ new Date(), null ]);
                         resolve();
                     }
                 );
@@ -308,13 +317,13 @@ Vue.component('refresh-bar', {
                 timeRemaining = Math.floor(timeRemaining/1000);
                 result = "";
                 for (let i = 0; i < 2; i++) {
-                    result = 
+                    result =
                         ":"
                         + ( "" + (timeRemaining % 60) ).padStart(2, "0")
                         + result;
                     timeRemaining = Math.floor(timeRemaining / 60);
                 }
-                result = 
+                result =
                     ( "" + Math.floor(timeRemaining / 60)).padStart(2, "0")
                     + result;
             }
@@ -340,8 +349,10 @@ Vue.component('refresh-suspend', {
             :title="
                 suspended ? tr['sus_ctrl_continue'] : tr['sus_ctrl_suspend']
             "
-        >{{ suspended ? tr['sus_ctrl_continue'] : tr['sus_ctrl_suspend'] }}
-        </button>
+            :class="{
+                'suspend-button-continue': suspended
+            }"
+        />
     `,
     created: function() {
         this.suspended = false;
@@ -398,7 +409,7 @@ Vue.component('cron-status-views', {
        </div>
     `,
     mounted: function() {
-        let toSelect = 
+        let toSelect =
             (this.defaultSelected != null)
             ? 'ntab-' + this.defaultSelected
             : null
@@ -576,41 +587,48 @@ Vue.component('cron-short-task', {
                     class="cron-task-field cron-task-field-inrow
                     cron-task-field-inrow-first"
                 >
-                    {{ task['section'] }}
+                    {{
+                        typeof(tr['section_' + task['section']]) != 'undefined'
+                        ? tr['section_' + task['section']]
+                        : task['section']
+                    }}
                 </div>
                 <div
                     v-if="showEntrypoint && task['entry_point']"
-                    class="cron-task-field cron-task-field-inrow"
+                    class="cron-task-field cron-task-field-inrow
+                        cron-task-oneline cron-task-fixed"
                     :class="{
                         'cron-task-field-inrow-first': !showSection
                     }"
                 >
-                    {{ task['entry_point'] }}
+                    <span :title="getTitle(task)">{{ getTitle(task) }}</span>
                 </div>
                 <div
-                    class="cron-task-field cron-task-field-inrow"
+                    class="cron-task-field cron-task-field-inrow
+                        cron-task-oneline cron-task-fixed"
                     :class="{
                         'cron-task-field-inrow-first':
                             !showSection && !showEntrypoint
                     }"
                 >
-                    {{ uuid }}
+                    <span :title="uuid">{{ uuid }}</span>
                 </div>
                 <div
                     class="cron-task-field cron-task-field-inrow
-                    cron-task-oneline"
+                        cron-task-oneline cron-task-fixed-dt"
                 >
                     {{ formatDateTime(task['scheduled_time']) }}
                 </div>
                 <div
                     class="cron-task-field cron-task-field-inrow
-                    cron-task-oneline"
+                        cron-task-oneline cron-task-fixed-dt"
                 >
                     {{ formatDateTime(task['start_time']) }}
                 </div>
                 <div
                     class="cron-task-field cron-task-field-inrow
-                    cron-task-field-inrow-last cron-task-oneline"
+                        cron-task-field-inrow-last cron-task-oneline
+                        cron-task-fixed-dt"
                 >
                     {{ formatDateTime(task['end_time']) }}
                 </div>
@@ -644,14 +662,16 @@ Vue.component('cron-detailed-task', {
                     <div class="cron-task-label">{{ tr['result'] }}</div>
                     <div class="cron-task-label">{{ tr['failed'] }}</div>
                 </div>
-                <div class="cron-task-field">{{ uuid }}</div>
-                <div class="cron-task-field oneline">
+                <div class="cron-task-field cron-task-oneline cron-task-fixed">
+                    <span :title="uuid">{{ uuid }}</span>
+                </div>
+                <div class="cron-task-field cron-task-oneline cron-task-fixed-dt">
                     {{ formatDateTime(task['scheduled_time']) }}
                 </div>
-                <div class="cron-task-field oneline">
+                <div class="cron-task-field cron-task-oneline cron-task-fixed-dt">
                     {{ formatDateTime(task['start_time']) }}
                 </div>
-                <div class="cron-task-field oneline">
+                <div class="cron-task-field cron-task-oneline cron-task-fixed-dt">
                     {{ formatDateTime(task['end_time']) }}
                 </div>
                 <div class="cron-task-field">{{ task['ttl'] }}</div>
@@ -663,19 +683,19 @@ Vue.component('cron-detailed-task', {
                 </div>
             </div>
             <div class="cron-task-output" v-if="task['output']">
-                <div class="cron-task-label cron-task-output-label">
+                <div class="cron-task-label cron-task-output-label cron-task-fixed">
                     {{ tr['output'] }}:
                 </div>
                 <div class="cron-task-field cron-task-output-field">
-                    {{ task['output'] }}
+                    <pre>{{ task['output'] }}</pre>
                 </div>
             </div>
             <div class="cron-task-error-msg" v-if="task['error_msg']">
-                <div class="cron-task-label cron-task-error-msg-label">
+                <div class="cron-task-label cron-task-error-msg-label cron-task-fixed">
                     {{ tr['error_msg'] }}:
                 </div>
                 <div class="cron-task-field cron-task-error-msg-field">
-                    {{ task['error_msg'] }}
+                    <pre>{{ task['error_msg'] }}</pre>
                 </div>
             </div>
         </div>
@@ -691,10 +711,9 @@ Vue.component('cron-time-based-view', {
         <div>
             <a name="cron-time-based-view"/>
             <cron-time-section
-                v-for="(title, name) in parameters.sections"
+                v-for="name in parameters.sections"
                 :tr="tr"
                 :name="name"
-                :title="title"
             />
         </div>
     `
@@ -703,13 +722,18 @@ Vue.component('cron-time-based-view', {
 Vue.component('cron-time-section', {
     props: {
         tr: Object,
-        name: String,
-        title: String
+        name: String
     },
     mixins: [ sectionMixin, taskSetMixin ],
     template: `
         <div class="cron-section">
-            <div class="cron-section-title">{{ title }}:</div>
+            <div class="cron-section-title">
+                {{
+                    typeof(tr['section_' + name]) != 'undefined'
+                    ? tr['section_' + name]
+                    : name
+                }}:
+            </div>
             <cron-summary :tr="tr" :summary="sectionSummary"/>
             <div class="cron-short-tasks" v-if="tasks">
                 <div class="cron-task-labels">
@@ -785,10 +809,9 @@ Vue.component('cron-task-based-view', {
         <div>
             <a name="cron-task-based-view"/>
             <cron-task-section
-                v-for="(title, name) in parameters.sections"
+                v-for="name in parameters.sections"
                 :tr="tr"
                 :name="name"
-                :title="title"
             />
         </div>
     `
@@ -797,13 +820,18 @@ Vue.component('cron-task-based-view', {
 Vue.component('cron-task-section', {
     props: {
         tr: Object,
-        name: String,
-        title: String,
+        name: String
     },
     mixins: [ sectionMixin ],
     template: `
         <div class="cron-section">
-            <div class="cron-section-title">{{ title }}:</div>
+            <div class="cron-section-title">
+                {{
+                    typeof(tr['section_' + name]) != 'undefined'
+                    ? tr['section_' + name]
+                    : name
+                }}:
+            </div>
             <cron-summary :tr="tr" :summary="sectionSummary"/>
             <div class="cron-section-entrypoints">
                 <cron-task-section-entrypoint
@@ -848,12 +876,21 @@ Vue.component('cron-task-section-entrypoint', {
                             <span class="cron-entrypoint-title-label">
                                 {{ tr['entrypoint_label'] }}</span>:&#160;
                             <span class="cron-entrypoint-title-value">
-                                {{ entrypoint }}
+                                {{
+                                    typeof(modes.info['displayName'])
+                                            != 'undefined'
+                                    ? modes.info['displayName']
+                                    : entrypoint
+                                }}
                             </span>
                         </div>
                     </div>
                     <div class="cron-entrypoint-line">
-                        <cron-entrypoint-info :info="modes.info" :tr="tr"/>
+                        <cron-entrypoint-info
+                            :entrypoint="entrypoint"
+                            :info="modes.info"
+                            :tr="tr"
+                        />
                     </div>
                     <div class="cron-entrypoint-line">
                         <div class="cron-entrypoint-item">
@@ -879,11 +916,18 @@ Vue.component('cron-task-section-entrypoint', {
 Vue.component('cron-entrypoint-info', {
     props: {
         tr: Object,
+        entrypoint: String,
         info: Object
     },
     template: `
         <div class="cron-entrypoint-info">
             <div class="cron-entrypoint-info-details">
+                <cron-entrypoint-info-item
+                    v-if="info['displayName']"
+                    :name="'entrypoint_actual'"
+                    :value="entrypoint"
+                    :tr="tr"
+                />
                 <cron-entrypoint-info-item
                     v-for="name in columns"
                     v-if="info[name]"
@@ -975,7 +1019,7 @@ Vue.component('cron-entrypoint-history', {
                 />
             </div>
             <div class="cron-no-tasks" v-if="!tasks">
-                No tasks!
+                {{ tr['no_tasks'] }}:
             </div>
         </div>
     `,
@@ -1028,7 +1072,11 @@ Vue.component('cron-result-based-summaries', {
             <cron-summary
                 v-for="(items, section) in summaries"
                 :summary="items['summary']"
-                :name="section"
+                :name="
+                    typeof(tr['section_' + section]) != 'undefined'
+                    ? tr['section_' + section]
+                    : section
+                "
                 :tr="tr"
             />
         </div>
