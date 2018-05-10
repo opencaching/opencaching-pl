@@ -276,9 +276,14 @@ class View {
         tpl_BuildTemplate();
     }
 
+    public function buildInMiniTpl()
+    {
+        tpl_BuildTemplate(true);
+    }
+    
     public function buildOnlySelectedTpl()
     {
-        tpl_BuildTemplate(false, false, true);
+        tpl_BuildTemplate(false, true);
     }
 
     /**

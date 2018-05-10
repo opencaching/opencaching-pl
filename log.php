@@ -907,7 +907,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
 
 //make the template and send it out
 tpl_set_var('language4js', $lang);
-tpl_BuildTemplate(false);
+tpl_BuildTemplate();
 
 
 

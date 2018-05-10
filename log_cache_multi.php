@@ -344,7 +344,7 @@ if ($usr == false || (!isset($_FILES['userfile']) && !isset($_SESSION['log_cache
 
 if ($no_tpl_build == false) {
     //make the template and send it out
-    tpl_BuildTemplate(false);
+    tpl_BuildTemplate();
 }
 
 function UstawDatyZTimeStampa($rekord)
