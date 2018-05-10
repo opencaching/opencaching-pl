@@ -12,5 +12,5 @@ if ($usr == false) {
 
 if ($no_tpl_build == false) {
     //make the template and send it out
-    tpl_BuildTemplate(false);
+    tpl_BuildTemplate();
 }

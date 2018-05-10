@@ -147,7 +147,7 @@ function set_tpl_subtitle($title)
 }
 
 //read the templates and echo it to the user
-function tpl_BuildTemplate($dbdisconnect = true, $minitpl = false, $noCommonTemplate=false)
+function tpl_BuildTemplate($minitpl = false, $noCommonTemplate=false)
 {
     //template handling vars
     global $stylepath, $tplname, $vars, $lang, $config, $usr;
