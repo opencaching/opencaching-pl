@@ -422,8 +422,8 @@ $translations = array(
     'back_to_the_geocache_listing' => 'Terug naar de cachepagina',
 
     'register_pageTitle' => 'Als nieuwe gebruiker registreren',
-    'register_intro' => 'Vul hieronder een geldig e-mailadres in - we zullen een activatie link versturen. Voor registratie vul ook een unieke gebruikersnaam (nickname) in die op deze site gebruikt zal worden.',
-    'register_info' => 'The user may opt out of using the website. At the same time, all data entered during registration and in the user description will be irretrievably deleted. If you want to deactivate your account, please contact us using your e-mail account. In uncertain cases, please contact us ({contact_mail}). Bedankt.', /* EN */
+    'register_intro' => 'Vul hieronder een geldig e-mailadres in - we zullen een activatie link versturen. Vul voor registratie ook een unieke gebruikersnaam (nickname) in die op deze site gebruikt zal worden.',
+    'register_info' => 'Als gebruiker laten verwijderen van de website. Hiermee zullen alle opgegeven gegevens tijdens de registratie en de gebruikersomschrijving verwijderd worden. Neem contact met ons op om je account te deactiveren via een e-mail. In onduidelijke gevallen neem contact op via ({contact_mail}). Bedankt.',
     'register_rulesLbl' => 'Ja, Ik heb de <strong><a href="{wiki_link_rules}" target="_blank" rel="noopener">gebruikersvoorwaarden</a></strong> van {site_name} gelezen en accepteer deze.',
     'register_ageLbl' => 'Ja, ik ben wettelijke meerderjarig.',
     'register_confirm' => 'De activatie link is verzonden per e-mail.<div class="buffer"></div>Kijk eventueel in de spam folder wanneer geen bericht ontvangen is.',
@@ -433,13 +433,13 @@ $translations = array(
     'activation_error' => 'Het account lijkt al geactiveerd. Al geprobeerd om in te loggen? Blijft het probleem nog bestaan neem dan contact op via: {contact_mail} .',
 
     'activate_mail_subject' => 'Registratie bevestiging - {site_name}',
-    'activate_mail_intro' => 'We are pleased to welcome you to the community looking for and creating caches on the site {OCsiteLink}.<br>With the account you can fully participate in the game, visit interesting places in the search of caches and participate in meetings with others cachers.', /* EN */
-    'activate_mail_clickhere' => 'Click the button below to complete the registration and activate your account.', /* EN */
-    'activate_mail_btn' => 'Activate account', /* EN */
-    'activate_mail_period' => 'If you don\'t activate your account within the next 48 hours, your account will be automatically deleted.', /* EN useractivationmail6 */
+    'activate_mail_intro' => 'Wij verwelkomen je om caches te gaan zoeken en om caches te maken op onze site {OCsiteLink}.<br>Met dit account kan volledig meegedaan worden met dit spel zoals, het bezoeken van interesante plekken met het zoeken van caches en het bijwonen van evenementen om andere cachers te ontmoeten.',
+    'activate_mail_clickhere' => 'Klik op de knop hieronder om het account te voltooien en te activeren.',
+    'activate_mail_btn' => 'Activeer account',
+    'activate_mail_period' => 'Wanneer het acount binnen 48 uur niet wordt geactiveerd, zal deze automatisch worden verwijderd.',
 
     'postActivation_mail_subject' => 'Welkom op {site_name}',
-    'postActivation_mail_intro' => 'We are pleased that you have confirmed the registration in the community looking for and creating caches on the site {site_name}, thank you.', /* EN */
+    'postActivation_mail_intro' => 'Wij zijn blij met de activatie met jouw registratie voor het zoeken en maken van caches op onze site {site_name}, Bedankt.',
     'postActivation_mail_01' => 'Om te beginnen kun je informatie terug vinden op Opencaching wiki, Deze site is nog niet compleet maar wordt regelmatig aangevuld. Opencaching wiki is beschikbaar op:',
     'postActivation_mail_02' => 'Als je op zoek bent naar hulp via een interactieve kaart kun je in jouw gebied vrijwilligers vinden die hun hulp aanbieden aan beginnende cachers.',
     'postActivation_mail_03' => 'Kijk eens op:',
