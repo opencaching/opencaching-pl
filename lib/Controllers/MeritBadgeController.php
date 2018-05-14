@@ -389,11 +389,11 @@ class MeritBadgeController{
 
         //the badge has a wrong level
         
-        $badgeLevel = 0;
-        if ($newUserBadge)
+        //$badgeLevel = 0;
+        //if ($newUserBadge)
             $badgeLevel = $this->getProperBadgeLevel($badge_id, $userMeritBadge->getCurrVal() );
-        else
-            $badgeLevel = $badgeLevel->getLevel()+1; //next level
+        //else
+            //$badgeLevel = $badgeLevel->getLevel()+1; //next level
             
         $query = "UPDATE badge_user
                 SET level_id = :1, level_date= :2, prev_val = next_val, next_val = :3
