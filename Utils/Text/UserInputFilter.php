@@ -88,6 +88,13 @@ class UserInputFilter
         $useCache = !(isset($debug_page) ? $debug_page : false);
         $cache_key = 'HTMLPurifierConfig';
         $result = $useCache ? Php7Handler::apc_fetch($cache_key) : false;
+        
+        // we observed some rare apcu bugs(?) where there is null returned here 
+        if ( is_null($result) ) {
+            error_log (__METHOD__.': APCU BUG?! apc_fetch returns null');
+            $result = false;
+        }
+        
         if ($result === false) {
             $result = self::createConfig();
             // finalize and lock the config
