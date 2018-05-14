@@ -405,7 +405,7 @@ if ($error == false) {
                             if ( $changedLevelBadgesIds != "" )
                                 $badgetParam = "&badgesPopupFor=" . $changedLevelBadgesIds;
 
-                            $ctrlMeritBadge->updateTriggerRecommendationAuthor($cache_id);
+                            $ctrlMeritBadge->updateTriggerCacheAuthor($cache_id);
                         }
                     }
 

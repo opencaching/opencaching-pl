@@ -676,7 +676,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
             if ( $changedLevelBadgesIds != "" )
                 $badgetParam = "&badgesPopupFor=" . $changedLevelBadgesIds;
 
-            $ctrlMeritBadge->updateTriggerRecommendationAuthor($geoCache->getCacheId());
+            $ctrlMeritBadge->updateTriggerCacheAuthor($geoCache->getCacheId());
         }
     }
     //redirect to viewcache

@@ -19,14 +19,14 @@ class MeritBadgeController{
     const TRIGGER_NONE = 0;  
     const TRIGGER_CRON = 1; 
     const TRIGGER_LOG_CACHE = 2; // add/remove the cache entry
-    const TRIGGER_LOG_CACHE_AUTHOR = 3; // add/remove the cache entry, the author context
+    const TRIGGER_RESERVED_3 = 3;  
     const TRIGGER_TITLED_CACHE = 4; 
-    const TRIGGER_TITLED_CACHE_AUTHOR = 5;    
+    const TRIGGER_RESERVED_5= 5;    
     const TRIGGER_LOG_GEOPATH = 6;
     const TRIGGER_LOG_GEOPATH_AUTHOR = 7;
     const TRIGGER_RECOMMENDATION = 8; // add/remove the recommendation
-    const TRIGGER_RECOMMENDATION_AUTHOR = 9; // add/remove the recommendation
-    
+    const TRIGGER_CACHE_AUTHOR = 9; //
+
     //N = none    
     //C = cache
     //G - geoPath
@@ -40,13 +40,13 @@ class MeritBadgeController{
                     self::TRIGGER_NONE => "N",
                     self::TRIGGER_CRON => "N",
                     self::TRIGGER_LOG_CACHE => "C",
-                    self::TRIGGER_LOG_CACHE_AUTHOR => "C",
+                    self::TRIGGER_RESERVED_3=> "C",
                     self::TRIGGER_TITLED_CACHE => "C",
-                    self::TRIGGER_TITLED_CACHE_AUTHOR => "C",
+                    self::TRIGGER_RESERVED_5=> "C",
                     self::TRIGGER_LOG_GEOPATH => "G",
                     self::TRIGGER_LOG_GEOPATH_AUTHOR => "G",
                     self::TRIGGER_RECOMMENDATION => "C",
-                    self::TRIGGER_RECOMMENDATION_AUTHOR => "N" 
+                    self::TRIGGER_CACHE_AUTHOR=> "N" 
     );
     
     public function __construct(){
@@ -61,9 +61,9 @@ class MeritBadgeController{
     }
     
 
-    //Update CurrVal for badges which are triggering by self::TRIGGER_RECOMMENDATION_AUTHOR
-    public function updateTriggerRecommendationAuthor( $cache_id ){
-        $meritBadges = $this->buildArrayMeritBadgesTriggerBy(self::TRIGGER_RECOMMENDATION_AUTHOR);
+    //Update CurrVal for badges which are triggering by self::TRIGGER_CACHE_AUTHOR
+    public function updateTriggerCacheAuthor( $cache_id ){
+        $meritBadges = $this->buildArrayMeritBadgesTriggerBy(self::TRIGGER_CACHE_AUTHOR);
         $geoCache = new GeoCache(array('cacheId' => $cache_id));
         return $this->updateCurrValUserMeritBadges( $meritBadges, $cache_id, $geoCache->getOwnerId());
     }
@@ -238,20 +238,21 @@ class MeritBadgeController{
                 if (!$currValue)
                     continue;
                     
-                    if ( !$this->isExistUserBadge( $user_id, $oneMeritBadge->getId() ) ){
-                        $this->insertUserBadge($currValue, $user_id, $oneMeritBadge->getId() );
-                    }
-                    else{
-                        $this->updateCurrValInUserBadge($currValue, $user_id, $oneMeritBadge->getId() );
-                    }
-                    
-                    if ( $this->setProperValueUserBadge( $user_id, $oneMeritBadge->getId() ) ){
-                        if (!$first)
-                            $changedLevelBadgesIds .= ",";
-                            
-                            $changedLevelBadgesIds .= $oneMeritBadge->getId(); //the level was changed
-                            $first = false;
-                    }
+                $newUserBadge = !$this->isExistUserBadge( $user_id, $oneMeritBadge->getId() );
+                if ( $newUserBadge ){
+                    $this->insertUserBadge($currValue, $user_id, $oneMeritBadge->getId() );
+                }
+                else{
+                    $this->updateCurrValInUserBadge($currValue, $user_id, $oneMeritBadge->getId() );
+                }
+                
+                if ( $this->setProperValueUserBadge( $user_id, $oneMeritBadge->getId(), $newUserBadge ) ){
+                    if (!$first)
+                        $changedLevelBadgesIds .= ",";
+                        
+                    $changedLevelBadgesIds .= $oneMeritBadge->getId(); //the level was changed
+                    $first = false;
+                }
         }
         
         
@@ -378,7 +379,8 @@ class MeritBadgeController{
         return true;
     }
 
-    private function setProperValueUserBadge( $user_id, $badge_id ){
+    //@return = true - new level; set new value for badge_user 
+    private function setProperValueUserBadge( $user_id, $badge_id, $newUserBadge){
 
         $userMeritBadge = $this->buildUserBadge( $user_id, $badge_id );
 
@@ -386,9 +388,13 @@ class MeritBadgeController{
             return false;
 
         //the badge has a wrong level
-
-        $badgeLevel = $this->getProperBadgeLevel($badge_id, $userMeritBadge->getCurrVal() );
-
+        
+        $badgeLevel = 0;
+        if ($newUserBadge)
+            $badgeLevel = $this->getProperBadgeLevel($badge_id, $userMeritBadge->getCurrVal() );
+        else
+            $badgeLevel = $badgeLevel->getLevel()+1; //next level
+            
         $query = "UPDATE badge_user
                 SET level_id = :1, level_date= :2, prev_val = next_val, next_val = :3
                 WHERE user_id = :4 and badge_id= :5";
