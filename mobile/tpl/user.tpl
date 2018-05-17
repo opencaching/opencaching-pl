@@ -12,7 +12,6 @@
 
     {if $user_id}
         <b>{$username}</b><hr/><br/>
-        <i>{$country_user}</i> <b>{$country}</b><br/>
         <i>{$registered_user}</i> <b>{$date_created}</b><br/><br/>
         <i>{$hidden_count_user}</i> <b>{$hidden_count}</b><br/><br/>
         <i>{$founds_count_user}</i> <span style="color:green"><b>{$founds_count}</b></span><br/>

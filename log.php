@@ -466,10 +466,16 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
         exit;
     }
 
-    if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT) {
+    if (in_array(
+            $log_type,
+            [ GeoCacheLog::LOGTYPE_FOUNDIT, GeoCacheLog::LOGTYPE_ATTENDED ]
+        )
+    ) {
 
-        /* GeoKretyApi: call method logging selected Geokrets  (by Łza) */
-        processGeoKrety($logDateTime, $user, $geoCache);
+        if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT) {
+            /* GeoKretyApi: call method logging selected Geokrets  (by Łza) */
+            processGeoKrety($logDateTime, $user, $geoCache);
+        }
 
         $text_html = 2;  // see https://github.com/opencaching/opencaching-pl/issues/1218
         $text_htmledit = 1;
@@ -484,13 +490,15 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
             FROM  `cache_logs`
             WHERE NOT EXISTS (
                 SELECT * FROM `cache_logs`
-                WHERE `type`=1 AND `user_id` = ?
+                WHERE `type`= ? AND `user_id` = ?
                     AND `cache_id` = ?
                     AND `deleted` = '0'
                 LIMIT 1)
             LIMIT 1",
-                $geoCache->getCacheId(), $user->getUserId(), $log_type, $log_date, $log_text,
-                $text_html, $text_htmledit, $log_uuid, $oc_nodeid, $user->getUserId(), $geoCache->getCacheId()
+                $geoCache->getCacheId(), $user->getUserId(),
+                $log_type, $log_date, $log_text,
+                $text_html, $text_htmledit, $log_uuid, $oc_nodeid,
+                $log_type, $user->getUserId(), $geoCache->getCacheId()
             );
 
     } else {
@@ -668,7 +676,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
             if ( $changedLevelBadgesIds != "" )
                 $badgetParam = "&badgesPopupFor=" . $changedLevelBadgesIds;
 
-            $ctrlMeritBadge->updateTriggerRecommendationAuthor($geoCache->getCacheId());
+            $ctrlMeritBadge->updateTriggerCacheAuthor($geoCache->getCacheId());
         }
     }
     //redirect to viewcache
@@ -899,7 +907,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
 
 //make the template and send it out
 tpl_set_var('language4js', $lang);
-tpl_BuildTemplate(false);
+tpl_BuildTemplate();
 
 
 

@@ -18,7 +18,6 @@ if (!isset($rootpath))
 //include template handling
 require_once($rootpath . 'lib/common.inc.php');
 
-setlocale(LC_TIME, 'pl_PL.UTF-8');
 echo '<table width="97%"><tr><td align="center"><center><b>' . tr('Stats_t3_01') . '</b></center></td></tr> </table>';
 echo '<table border="1" bgcolor="white" width="97%" style="font-size:11px; line-height:1.6em;">' . "\n";
 

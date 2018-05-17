@@ -109,7 +109,6 @@ if ($tit == "csm") {
     XDb::xFreeResults($rsCachesFindMonth2);
 }
 
-setlocale(LC_ALL, 'pl_PL.utf8');
 $dateLocale = new DateLocale();
 
 // Create the graph. These two calls are always required

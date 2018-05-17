@@ -66,7 +66,7 @@ class LogEntryController
                     $ctrlMeritBadge = new MeritBadgeController;
                     $ctrlMeritBadge->updateTriggerLogCache($log->getGeoCache()->getCacheId(), $loggedUser->getUserId() );
                     $ctrlMeritBadge->updateTriggerTitledCache($log->getGeoCache()->getCacheId(), $loggedUser->getUserId());
-                    $ctrlMeritBadge->updateTriggerRecommendationAuthor($log->getGeoCache()->getCacheId());
+                    $ctrlMeritBadge->updateTriggerCacheAuthor($log->getGeoCache()->getCacheId());
                 }
             }
 

@@ -2,7 +2,6 @@
 
 use Utils\Database\XDb;
 use JpGraph\JpGraph;
-setlocale(LC_TIME, 'pl_PL.utf-8');
 
 $rootpath = '../';
 require('../lib/common.inc.php');

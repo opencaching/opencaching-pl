@@ -5,8 +5,6 @@ use Utils\Database\XDb;
 $rootpath = "../../";
 require('../../lib/common.inc.php');
 
-//setlocale(LC_ALL, 'pl_PL.utf-8');
-
 $NUTS_AT_CSV_FILE = $argv[1];
 
 $f = fopen($NUTS_AT_CSV_FILE, 'r');

@@ -1,10 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
-// Unicode Reminder ??
-setlocale(LC_TIME, 'pl_PL.UTF-8');
-//setlocale(LC_TIME, 'pl_PL.ISO-8859-2');
-//prepare the templates and include all neccessary
+
 require_once('./lib/common.inc.php');
 global $dynbasepath;
 

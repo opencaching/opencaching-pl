@@ -2,7 +2,10 @@
 #
 # usage: dumpCleaner <gzipped-sql-backup-dump> <file-with-list-of-UNNEED-tables>
 # 
-#
+# PLEASE NOTE that sql trimmed dump still contains at least:
+#  -  unpublished/blocked/werified caches (+ its data, comments etc)
+#  -  unpublished geopaths
+# so more data needs to be filtered - see shrink_and_prepare script file for more details
 
 # sql dump
 SQL_FILE=$1
