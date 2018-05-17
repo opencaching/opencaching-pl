@@ -1066,7 +1066,7 @@ $translations = array(
     'adopt_28' => 'User has rejected your geocache',
     'adopt_29' => 'Unfortunately, the user {userName} does not want to be the owner of your geocache {cacheName}.',
     'adopt_31' => 'The new owner of your geocache {cacheName} is user {userName}',
-    'adopt_32' => '<font color="blue"><b>The adoption process has been completed. The previous cache owner was {oldUserName}. The current owner of the caches is {newUserName}.</font></b>',
+    'adopt_32' => 'The adoption process has been completed:',
     'adopt_33' => 'This cache is already own by selected user.',
     'adopt_34' => 'Selected user is not eligible to adopt geocaches',
     'adopt_35' => 'You are not the owner of this cache',

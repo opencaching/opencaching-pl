@@ -1065,7 +1065,7 @@ $translations = array(
     'adopt_28' => 'Utilizatorul a refuzat să adopte geocutia ta',
     'adopt_29' => 'Din păcate utilizatorul {userName} nu doreşte să devină proprietarul geocutiei {cacheName}.',
     'adopt_31' => 'Noul proprietar al fostei tale geocutii {cacheName} este {userName}',
-    'adopt_32' => '<font color="blue"><b>Adopţia s-a efectuat. Proprietarul anterior a fost {oldUserName}. Proprietarul actual este {newUserName}.</font></b>',
+    'adopt_32' => 'Adopţia s-a efectuat:',
     'adopt_33' => 'Această geocutie se află deja în proprietatea utilizatorului selectat.',
     'adopt_34' => 'Utilizatorul selectat nu are dreptul să adopte geocutii',
     'adopt_35' => 'Nu eşti proprietarul acestei geocutii',
