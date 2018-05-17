@@ -1065,7 +1065,7 @@ $translations = array(
     'adopt_28' => 'Gebruiker heeft je cache niet aangenomen',
     'adopt_29' => 'Helaas wil gebruiker {userName} niet de nieuwe eigenaar worden van jouw cache {cacheName}.',
     'adopt_31' => 'De nieuwe eigenaar van jouw cache {cacheName} is gebruiker {userName}',
-    'adopt_32' => '<font color="blue"><b>De adoptie is voltooid. De vorige eigenaar was {oldUserName}. De nieuwe eigenaar is gebruiker {newUserName}.</font></b>',
+    'adopt_32' => 'De adoptie is voltooid:',
     'adopt_33' => 'Je bent al eigenaar van deze cache. Kies een andere gebruikersnaam.',
     'adopt_34' => 'De geselecteerde gebruiker kan nog geen caches adopteren.',
     'adopt_35' => 'Je bent niet de eigenaar van deze cache.',

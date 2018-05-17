@@ -1052,7 +1052,7 @@ $translations = array(
     'adopt_28' => 'L\'utilisateur a refusé votre proposition d\'adoption d\'une géocache',
     'adopt_29' => 'Malheureusement, l\'utilisateur {userName} ne souhaite pas adopter votre cache {cacheName}.',
     'adopt_31' => 'Le nouveau propriétaire de votre cache {cacheName} est utilisateur {userName}',
-    'adopt_32' => '<font color="blue"><b>Le processus d\'adoption a été achevée. L\'ancien propriétaire de la cache était {oldUserName}. Le propriétaire actuel de la cache est {newUserName}.</font></b>',
+    'adopt_32' => 'Le processus d\'adoption a été achevée:',
     'adopt_33' => 'Cette cache est déjà détenue par cet utilisateur.',
     'adopt_34' => 'L\'utilisateur sélectionné n’est pas admissible à l\'adoption des caches',
     'adopt_35' => 'Vous n\'êtes pas le propriétaire de cette cache',

@@ -1067,7 +1067,7 @@ $translations = array(
     'adopt_28' => 'Użytkownik nie przyjął Twojej skrzynki.',
     'adopt_29' => 'Niestety użytkownik {userName} nie chce być nowym właścicielem Twojej skrzynki {cacheName}.',
     'adopt_31' => 'Nowym właścicielem Twojej skrzynki {cacheName} został użytkownik {userName}',
-    'adopt_32' => '<font color="blue"><b>Przeprowadzono procedurę adopcji skrzynki. Dotychczasowym właścicielem był {oldUserName}. Nowym właścicielem został użytkownik {newUserName}.</font></b>',
+    'adopt_32' => 'Przeprowadzono procedurę adopcji skrzynki:',
     'adopt_33' => 'Ten kesz już należy do podanego użytkownika.',
     'adopt_34' => 'Wybrany użytkownik nie może adoptować keszy',
     'adopt_35' => 'Nie jesteś właścicielem wskazanego kesza',
