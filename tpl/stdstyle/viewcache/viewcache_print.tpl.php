@@ -228,7 +228,7 @@ use lib\Objects\GeoKret\GeoKretyApi;
                                     <br>
                                   </td>
                                   <td align="center" valign="middle">
-                                    <img src="tpl/stdstyle/images/pnk/"<?=$npa['npalogo']?>">
+                                    <img src="tpl/stdstyle/images/pnk/<?=$npa['npalogo']?>">
                                   </td>
                                 </tr>
                             <?php } //foreach ?>
@@ -252,7 +252,7 @@ use lib\Objects\GeoKret\GeoKretyApi;
                                 <?php } //foreach ?>
 
                               </td>
-                              <td align="center" valign="middle"><img src="tpl/stdstyle/images/misc/natura2000.png\"></td>
+                              <td align="center" valign="middle"><img src="/tpl/stdstyle/images/misc/natura2000.png"></td>
                             </tr>
                             </table>
 
