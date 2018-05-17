@@ -151,9 +151,9 @@ class PowerTrail extends BaseObject
                     WHERE `id` IN
                         ( SELECT `PowerTrailId` FROM `powerTrail_caches` WHERE `cacheId` =:1 )
                         AND `status` = 1 ';
-        $s = $this->db->multiVariableQuery($queryPt, $cacheId);
+        $s = self::db()->multiVariableQuery($queryPt, $cacheId);
 
-        return $this->db->dbResultFetchAll($s);
+        return self::db()->dbResultFetchAll($s);
     }
 
     public static function GetPowerTrailIconsByType($typeId = null)
