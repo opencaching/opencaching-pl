@@ -14,13 +14,6 @@ use lib\Objects\User\UserPreferences\UserPreferences;
 use Utils\Text\UserInputFilter;
 use lib\Objects\User\UserPreferences\NeighbourhoodPref;
 
-// Po merge:
-// TODO: Sprawdzić jak zachowuje się okolica, gdy site ma wyłączone titled caches (OC RO)
-// Późniejsza przyszłosć (notify_logs i notify_caches)
-// TODO: Zmiana na stronie z ustawieniami powiadomień - dodanie notify_logs i notify_caches
-// TODO: Obsługa w kodzie notify_logs i notify_caches
-// TODO: Dodanie do panelu COG User obsługi notify_logs i notify_caches
-
 class MyNeighbourhoodController extends BaseController
 {
 
