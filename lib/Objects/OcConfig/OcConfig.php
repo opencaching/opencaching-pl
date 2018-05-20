@@ -54,6 +54,7 @@ final class OcConfig extends ConfigReader
     private $mailSubjectPrefixForSite;
     private $mailSubjectPrefixForReviewers;
     private $enableCacheAccessLogs;
+    private $minumumAge;
 
     private $dbUser;
     private $dbPass;
@@ -119,14 +120,15 @@ final class OcConfig extends ConfigReader
         $this->mailSubjectPrefixForSite = $subject_prefix_for_site_mails;
         $this->mailSubjectPrefixForReviewers = $subject_prefix_for_reviewers_mails;
         $this->enableCacheAccessLogs = $enable_cache_access_logs;
+        $this->minumumAge = $config['limits']['minimum_age'];
 
-        if( isset($config['mapsConfig']) && is_array( $config['mapsConfig'] ) ){
+        if (isset($config['mapsConfig']) && is_array($config['mapsConfig'])) {
             $this->mapsConfig = $config['mapsConfig'];
-        }else{
+        } else {
             $this->mapsConfig = array();
         }
 
-        $this->isGoogleTranslationEnabled = !( isset( $disable_google_translation ) && $disable_google_translation );
+        $this->isGoogleTranslationEnabled = ! (isset($disable_google_translation) && $disable_google_translation);
 
         $this->dbHost = $opt['db']['server'];
         $this->dbName = $opt['db']['name'];
@@ -240,6 +242,14 @@ final class OcConfig extends ConfigReader
     public function isCacheAccesLogEnabled()
     {
         return $this->enableCacheAccessLogs;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getMinumumAge()
+    {
+        return $this->minumumAge;
     }
 
     protected function getMapsConfig()

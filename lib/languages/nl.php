@@ -425,7 +425,7 @@ $translations = array(
     'register_intro' => 'Vul hieronder een geldig e-mailadres in - we zullen een activatie link versturen. Vul voor registratie ook een unieke gebruikersnaam (nickname) in die op deze site gebruikt zal worden.',
     'register_info' => 'Als gebruiker laten verwijderen van de website. Hiermee zullen alle opgegeven gegevens tijdens de registratie en de gebruikersomschrijving verwijderd worden. Neem contact met ons op om je account te deactiveren via een e-mail. In onduidelijke gevallen neem contact op via ({contact_mail}). Bedankt.',
     'register_rulesLbl' => 'Ja, Ik heb de <strong><a href="{wiki_link_rules}" target="_blank" rel="noopener">gebruikersvoorwaarden</a></strong> van {site_name} gelezen en accepteer deze.',
-    'register_ageLbl' => 'Ja, ik ben wettelijke meerderjarig.',
+    'register_ageLbl' => 'Yes, I\'m {minAge} or older.', /* EN */
     'register_confirm' => 'De activatie link is verzonden per e-mail.<div class="buffer"></div>Kijk eventueel in de spam folder wanneer geen bericht ontvangen is.',
 
     'activation_title' => 'Account activatie',
