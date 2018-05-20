@@ -427,7 +427,7 @@ $translations = array(
     'register_intro' => 'Podaj proszę poniżej swój rzeczywisty adres e-mail - wyślemy na niego link aktywacyjny. Podczas rejestracji wybierasz także unikalną nazwę użytkownika (nick), którą będziesz posługiwać się w serwisie.',
     'register_info' => 'Użytkownik, może zrezygnować z korzystania z serwisu. Będą przy tym usunięte bezpowrotnie wszelkie dane, które wprowadził przy rejestracji oraz w opisie użytkownika Jeśli chcesz dezaktywować swoje konto skontaktuj się z nami za pomocą swojego konta e-mail. W przypadkach niejasnych prosimy o kontakt ({contact_mail}). Dziękujemy.',
     'register_rulesLbl' => 'Tak, zapoznałem się z <strong><a href="{wiki_link_rules}" target="_blank" rel="noopener">Regulaminem</a></strong> serwisu {site_name} i zobowiązuję się go przestrzegać.',
-    'register_ageLbl' => 'Tak, jestem osobą pełnoletnią.',
+    'register_ageLbl' => 'Tak, mam ukończone {minAge} lat.',
     'register_confirm' => 'Link aktywacyjny został wysłany na twój adres e-mail.<div class="buffer"></div><strong>Uwaga! Niektóre serwery pocztowe odrzucają list z linkiem aktywacyjnym z serwera {site_name}.</strong> Jeśli nie potrafisz odnaleźć wiadomości aktywacyjnej, sprawdź w folderze SPAM. Jeśli nie otrzymasz jej w ciągu kilku godzin - prosimy o kontakt na adres {contact_mail}. W korespondencji podaj nazwę użytkownika jakiej użyłeś podczas rejestracji.',
 
     'activation_title' => 'Aktywacja konta',

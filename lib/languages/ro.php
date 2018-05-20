@@ -425,7 +425,7 @@ $translations = array(
     'register_intro' => 'Please enter your valid e-mail address below - we will send you an activation link. During registration you will also choose a unique username (nickname) that you will use on the site.', /* EN edited register_msg1*/
     'register_info' => 'The user may opt out of using the website. At the same time, all data entered during registration and in the user description will be irretrievably deleted. If you want to deactivate your account, please contact us using your e-mail account. In uncertain cases, please contact us ({contact_mail}). Thank you.', /* EN */
     'register_rulesLbl' => 'Yes, I have read the <strong><a href="{wiki_link_rules}" target="_blank" rel="noopener">Terms of Service</a></strong> {site_name} and I agree to abide by it.', /* EN */
-    'register_ageLbl' => 'Yes, I have reached the age of majority.', /* EN */
+    'register_ageLbl' => 'Yes, I\'m {minAge} or older.', /* EN */
     'register_confirm' => 'Codul de activare ţi-a fost trimis prin E-Mail<div class="buffer"></div>Verifică şi dosarul cu poştă nedorită (SPAM) dacă nu vezi mesajul de activare în căsuţa poştală.',
 
     'activation_title' => 'Activarea contului',
