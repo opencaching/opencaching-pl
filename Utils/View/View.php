@@ -25,7 +25,8 @@ class View {
 
     private $_localCss = [];    // page-local css styles loaded from controller
     private $_localJs = [];     // page-local JS scripts loaded from controller
-
+    
+    private $_headerChunks = []; // chunks to load in <head> of the page
 
     public function __construct(){
 
@@ -249,12 +250,31 @@ class View {
             'defer' => $defer
         ];
     }
-
+    
     public function getLocalJs()
     {
         return $this->_localJs;
     }
 
+    /**
+     * Add chunk which shold be called in page header
+     *
+     * @param string $chunkName
+     */
+    public function addHeaderChunk($chunkName, array $args = null)
+    {
+        if(is_null($args)){
+            $this->_headerChunks[$chunkName] = [];
+        }else{
+            $this->_headerChunks[$chunkName] = $args;
+        }
+    }
+    
+    public function getHeaderChunks()
+    {
+        return $this->_headerChunks;
+    }
+    
     /**
      * Set template name (former tpl_set_tplname())
      * @param string $tplName
