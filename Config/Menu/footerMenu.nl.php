@@ -13,12 +13,13 @@
 
 // OcConfig::$links var is accessible in this scope!
 $menu = [ // DON'T CHANGE $menu var name!
+
     /* 'translation key' => 'url' */
-    'mnu_history'   => $links['wiki']['history'],
+
+    'mnu_history'   => [ $links['wiki']['history'] ],
     'mnu_api'       => '/okapi',
     'mnu_rss'       => '/articles.php?page=rss',
     'mnu_contact'   => '/articles.php?page=contact',
-    'mnu_mainPage'  => '/index.php?page=sitemap',
+    'mnu_mainPage'  => '/',
+    'mnu_privacyPolicy' => [ $links['wiki']['privacyPolicy'] ],
 ];
-
-

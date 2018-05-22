@@ -2738,6 +2738,7 @@ $translations = array(
     'mnu_okapiExtApps' => 'Meine Apps',
     'mnu_FloppMap' => 'Flopp"s karte',
     'mnu_clipboard' => 'Clipboard',
+    'mnu_privacyPolicy' => 'Privacy policy',
 
     'admCs_degradedCs'  => 'Degraded GeoPaths', /* EN! */
     'admCs_cacheSet'  => 'GeoPaths', /* EN! */

@@ -2742,6 +2742,7 @@ $translations = array(
     'mnu_okapiExtApps' => 'Moje aplikacje zewn.',
     'mnu_FloppMap' => 'Mapa Floppa',
     'mnu_clipboard' => 'Schowek',
+    'mnu_privacyPolicy' => 'Polityka prywatności',
 
     'admCs_degradedCs'  => 'Niezdobywalne geościeżki',
     'admCs_cacheSet'  => 'Geościeżka',
