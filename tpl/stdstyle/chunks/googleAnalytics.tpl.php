@@ -16,7 +16,7 @@ return function ($googleAnalyticsKey) {
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', '<?=$googleAnalyticsKey?>');
+  gtag('config', '<?=$googleAnalyticsKey?>', { 'anonymize_ip': true });
 </script>
 <!-- End Google Analytics -->
 
