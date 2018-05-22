@@ -240,7 +240,7 @@ $translations = array(
     'your_data' => 'Informaţiile tale',
     'data_in_profile' => 'Informaţiile de mai jos se află în profilul tău',
     'desc_updated' => 'Descrierea ta a fost actualizata cu succes.',
-    'gray_field_is_hidden' => 'Câmpurile gri nu sunt vizibile pentru ceilalţi utilizatori.',
+    'gray_field_is_hidden' => 'Remember that the profile information is available to other users. Câmpurile gri nu sunt vizibile pentru ceilalţi utilizatori.', /* EN */
     'username_label' => 'Utilizator',
     'country_label' => 'Ţară',
     'coordinates' => 'Coordonate',
@@ -2737,6 +2737,7 @@ $translations = array(
     'mnu_okapiExtApps' => 'Aplicaţiile mele',
     'mnu_FloppMap' => 'Flopp\'s map',
     'mnu_clipboard' => 'Memorie temporară',
+    'mnu_privacyPolicy' => 'Privacy policy',
 
     'admCs_degradedCs'  => 'Degraded GeoPaths***',
     'admCs_cacheSet'  => 'GeoPaths***',
@@ -2788,4 +2789,7 @@ $translations = array(
     'myNotes_showFullNote' => 'more', /* EN! */
     'myNotes_removeConfirmation' => 'Vrei să ştergi această notă?', /* EN! */
 
+    'gdpr_text' => 'From May 25, 2018, due to the provisions of the GDPR, we changed', /* EN */
+    'gdpr_text2' => 'To continue using the site, read the changes and accept them. <br> If you do not agree - <a href="mailto:{OCTeamEmail}"> contact us </a> to delete your account on the site.', /* EN */
+    'gdpr_acceptBtn' => 'I accept', /* EN */
 );

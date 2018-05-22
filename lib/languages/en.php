@@ -240,7 +240,7 @@ $translations = array(
     'your_data' => 'Your data',
     'data_in_profile' => 'The data below is currently stored in your profile',
     'desc_updated' => 'Your description has been updated successfully.',
-    'gray_field_is_hidden' => 'Grey fields are not visible to other users.',
+    'gray_field_is_hidden' => 'Remember that the profile information is available to other users. Grey fields are not visible to others.',
     'username_label' => 'Username',
     'country_label' => 'Country',
     'coordinates' => 'Coordinates',
@@ -1012,7 +1012,7 @@ $translations = array(
     'log16' => 'Refresh',
     'log17' => 'Open log-cache panel',
     'date' => 'Date',
-    'myprofile01' => 'A user who created a new cache or posted a log entry cannot be deleted. It is only possible to deactivate your account. All your personal information will be deleted from your profile but your user name will be saved. If you want to deactivate your account, please contact us with your e-mail address and we will deactivate your profile. In unclear cases please <a href="/articles.php?page=contact">contact us</a>. Thank you.',
+    'myprofile01' => 'A user may opt out of using this site. All data entered during registration and in the user description will be irretrievably deleted. If you want to deactivate your account, please contact us using your e-mail account. In vague cases, please <a href="/articles.php?page=contact">contact us</a>. Thank you.',
     'myprofile02' => 'Yes, I am a volunteer geocaching Guide for beginners. See&nbsp;',
     'myprofile03' => 'Guides',
     'myprofile04' => 'Yes, I want to be a volunteer geocaching Guide for beginners',
@@ -2737,6 +2737,7 @@ $translations = array(
     'mnu_okapiExtApps' => 'My Apps',
     'mnu_FloppMap' => 'Flopp\'s map',
     'mnu_clipboard' => 'Clipboard',
+    'mnu_privacyPolicy' => 'Privacy policy',
 
     'admCs_degradedCs'  => 'Degraded GeoPaths',
     'admCs_cacheSet'  => 'GeoPaths',
@@ -2788,4 +2789,7 @@ $translations = array(
     'myNotes_showFullNote' => 'more',
     'myNotes_removeConfirmation' => 'Do you want to delete this note?',
 
+    'gdpr_text' => 'From May 25, 2018, due to the provisions of the GDPR, we changed',
+    'gdpr_text2' => 'To continue using the site, read the changes and accept them. <br> If you do not agree - <a href="mailto:{OCTeamEmail}"> contact us </a> to delete your account on the site.',
+    'gdpr_acceptBtn' => 'I accept',
 );

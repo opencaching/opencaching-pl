@@ -167,7 +167,7 @@ final class OcConfig extends ConfigReader
     /**
      * Returns single link to wiki
      * @param string $wikiLinkKey
-     * @return url - link to wiki
+     * @return string - link to wiki
      */
     public static function getWikiLink($wikiLinkKey)
     {
