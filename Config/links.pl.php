@@ -16,7 +16,3 @@ $links['wiki']['history']   = $_wiki.'/index.php/Historia_serwisu_Opencaching.pl
 $links['wiki']['impressum'] = $_wiki.'/index.php/Opencaching_PL';
 
 // The rest of links is used as predented in links.default.php
-
-
-
-

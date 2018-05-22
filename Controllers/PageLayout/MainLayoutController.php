@@ -38,7 +38,8 @@ class MainLayoutController extends BaseController
         $main->initMainLayout();
     }
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -60,14 +61,22 @@ class MainLayoutController extends BaseController
         global $config; //TODO: refactor
 
 
-        if($this->isUserLogged()){
+        if ($this->isUserLogged()) {
             $this->view->setVar('_isUserLogged', true);
             $this->view->setVar('_username', $this->loggedUser->getUserName());
-        }else{
+            // GDPR check and prepare template
+            if (new \DateTime() > new \DateTime("2018-05-25 00:00:00") && ! $this->loggedUser->areRulesConfirmed()) {
+                $this->view->setShowGdprPage(true);
+                $this->view->setVar('_currentUri', urlencode(Uri::getCurrentUri(true)));
+                $this->view->setVar('_wikiLinkRules', $this->ocConfig->getWikiLink('rules'));
+                $this->view->setVar('_wikiLinkPrivacyPolicy',
+                    (empty($this->ocConfig->getWikiLinks()['privacyPolicy'])) ? null : $this->ocConfig->getWikiLink('privacyPolicy'));
+                $this->view->setVar('_ocTeamEmail', $this->ocConfig->getOcteamEmailAddress());
+            }
+        } else {
             $this->view->setVar('_isUserLogged', false);
             $this->view->setVar('_target',Uri::getCurrentUri(true));
         }
-
 
         $this->view->setVar('_siteName', $config['siteName']);
         $this->view->setVar('_favicon', '/images/'.$config['headerFavicon']);
@@ -76,12 +85,12 @@ class MainLayoutController extends BaseController
         $this->view->setVar('_title', "TODO-title"); //TODO!
         $this->view->setVar('_backgroundSeason', $this->view->getSeasonCssName());
 
-        if(!$this->legacyLayout){
+        if (!$this->legacyLayout) {
             $this->view->addLocalCss(Uri::getLinkWithModificationTime(
                 '/tpl/stdstyle/common/mainLayout.css'));
         }
 
-        if(Year::isPrimaAprilisToday()){
+        if (Year::isPrimaAprilisToday()) {
             // add rythm JS
             $this->view->addLocalJs(
                 Uri::getLinkWithModificationTime(
@@ -96,16 +105,16 @@ class MainLayoutController extends BaseController
 
         }
 
-        if(Year::isPrimaAprilisToday()){
+        if (Year::isPrimaAprilisToday()) {
             $this->view->loadJQuery();
             $logo = $config['headerLogo'];
             $logoTitle = 'discoCaching';
             $logoSubtitle = 'The first discoCaching site!';
-        }else if(date('m') == 12 || date('m') == 1){
+        } else if (date('m') == 12 || date('m') == 1) {
             $logo = $config['headerLogoWinter'];
             $logoTitle = tr('oc_on_all_pages_top_' . $config['ocNode']);
             $logoSubtitle = tr('oc_subtitle_on_all_pages_' . $config['ocNode']);
-        }else{
+        } else {
             $logo = $config['headerLogo'];
             $logoTitle = tr('oc_on_all_pages_top_' . $config['ocNode']);
             $logoSubtitle = tr('oc_subtitle_on_all_pages_' . $config['ocNode']);
@@ -118,24 +127,23 @@ class MainLayoutController extends BaseController
         $this->view->setVar('_languageFlags',
             I18n::getLanguagesFlagsData($this->view->getLang()));
 
-
         $this->view->setVar('_qSearchByOwnerEnabled', $config['quick_search']['byowner']);
         $this->view->setVar('_qSearchByFinderEnabled', $config['quick_search']['byfinder']);
         $this->view->setVar('_qSearchByUserEnabled', $config['quick_search']['byuser']);
 
         $onlineUsers = self::getOnlineUsers();
-        if(!empty($onlineUsers)){
+        if (! empty($onlineUsers)) {
             $this->view->setVar('_displayOnlineUsers', $config['mainLayout']['displayOnlineUsers']);
             $this->view->setVar('_onlineUsers', $onlineUsers->listOfUsers);
-        }else{
+        } else {
             $this->view->setVar('_displayOnlineUsers', false);
         }
 
         $this->initMenu();
 
-        if(isset($config['license_html'])){
+        if (isset($config['license_html'])) {
             $this->view->setVar('licenseHtml', $config['license_html']);
-        }else{
+        } else {
             $this->view->setVar('licenseHtml', '');
         }
     }
@@ -143,12 +151,12 @@ class MainLayoutController extends BaseController
     private function initMenu()
     {
 
-        if(!$this->isUserLogged()){
+        if (! $this->isUserLogged()) {
             // user not authorized
             $this->view->setVar('_isAdmin', false);
             $this->view->setVar('_nonAuthUserMenu',
                 $this->getMenu(OcConfig::MENU_NON_AUTH_USER));
-        }else{
+        } else {
             // user authorized
             $this->view->setVar('_authUserMenu',
                 $this->getMenu(OcConfig::MENU_AUTH_USER));
@@ -158,11 +166,11 @@ class MainLayoutController extends BaseController
                 $this->getMenu(OcConfig::MENU_CUSTOM_USER));
 
 
-            if($this->loggedUser->isAdmin()){
+            if ($this->loggedUser->isAdmin()) {
                 $this->view->setVar('_isAdmin', true);
                 $this->view->setVar('_adminMenu',
                     $this->getMenu(OcConfig::MENU_ADMIN_PREFIX));
-            }else{
+            } else {
                 $this->view->setVar('_isAdmin', false);
                 $this->view->setVar('_adminMenu',null);
             }
@@ -177,8 +185,6 @@ class MainLayoutController extends BaseController
         $this->view->setVar('_additionalMenu',
             $this->getMenu(OcConfig::MENU_ADDITIONAL_PAGES));
 
-
-
     }
 
     /**
@@ -189,7 +195,7 @@ class MainLayoutController extends BaseController
      */
     private function adminMenuHandler(&$key, &$url)
     {
-        switch($key){
+        switch ($key) {
             case 'mnu_reports':
                 // add new/active reports counters
                 $new_reports = ReportCommons::getReportsCountByStatus(ReportCommons::STATUS_NEW);
@@ -200,11 +206,11 @@ class MainLayoutController extends BaseController
             case 'mnu_pendings':
 
                 $new_pendings = GeoCacheApproval::getWaitingForApprovalCount();
-                if($new_pendings > 0){
+                if ($new_pendings > 0) {
                     $in_review_count = GeoCacheApproval::getInReviewCount();
                     $waitingForAssigne = $new_pendings - $in_review_count;
                     $key = tr($key) . " ($waitingForAssigne/$new_pendings)";
-                }else{
+                } else {
                     $key = tr($key);
                 }
                 break;
@@ -220,10 +226,10 @@ class MainLayoutController extends BaseController
      */
     private function horizontalMenuHandler(&$key, &$url)
     {
-        switch($key){
+        switch ($key) {
             case 'mnu_clipboard':
                 // add number of caches in clipboard
-                if ( !empty(PrintList::GetContent()) ) {
+                if (! empty(PrintList::GetContent()) ) {
                     $cachesInClipboard = count(PrintList::GetContent());
                     $key = tr($key)." ($cachesInClipboard)";
                 } else {
@@ -243,10 +249,10 @@ class MainLayoutController extends BaseController
      */
     private function authUserMenuHandler(&$key, &$url)
     {
-        switch($key){
+        switch ($key) {
             case 'mnu_geoPaths':
                 // disable geopaths link if disabled in config
-                if ( !OcConfig::isPowertrailsEnabled() ) {
+                if (! OcConfig::isPowertrailsEnabled() ) {
                     $url = '';
                     break;
                 }
@@ -258,9 +264,9 @@ class MainLayoutController extends BaseController
     private function getMenu($menuPrefix)
     {
         $menu = [];
-        foreach(OcConfig::getMenu($menuPrefix) as $key => $url){
+        foreach (OcConfig::getMenu($menuPrefix) as $key => $url) {
 
-            switch($menuPrefix){
+            switch ($menuPrefix) {
                 case OcConfig::MENU_ADMIN_PREFIX:
                     $this->adminMenuHandler($key, $url);
                     break;
@@ -275,12 +281,12 @@ class MainLayoutController extends BaseController
 
                 default:
                     $key = tr($key);
-                    if(!is_array($url)){
+                    if (!is_array($url)) {
                         $url = htmlspecialchars($url);
                     }
             }
 
-            if(empty($url)){
+            if (empty($url)) {
                 continue;
             }
 
@@ -297,12 +303,12 @@ class MainLayoutController extends BaseController
     {
         global $config;
 
-        if(!$config['mainLayout']['displayOnlineUsers']){
+        if (! $config['mainLayout']['displayOnlineUsers']) {
             // skip this action if online users list is disabled in config
             return null;
         }
 
-        return OcMemCache::getOrCreate(__METHOD__, 5*60, function(){
+        return OcMemCache::getOrCreate(__METHOD__, 5*60, function() {
             $obj = new \stdClass();
             $obj->listOfUsers = UserAuthorization::getOnlineUsersFromDb();
             $obj->validAt = time();

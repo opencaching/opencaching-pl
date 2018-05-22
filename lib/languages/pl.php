@@ -2793,4 +2793,7 @@ $translations = array(
     'myNotes_showFullNote' => 'więcej',
     'myNotes_removeConfirmation' => 'Czy na pewno chcesz usunąć notatkę?',
 
+    'gdpr_text' => 'Od dnia 25 maja 2018 ze względu na przepisy RODO zmieniliśmy',
+    'gdpr_text2' => 'Aby nadal korzystać z serwisu, zapoznaj się ze zmianami i zaakceptuj je.<br>Jeśli się nie zgadzasz - <a href="mailto:{OCTeamEmail}">skontaktuj się z nami</a> by usunąć Twoje konto w serwisie.',
+    'gdpr_acceptBtn' => 'Akceptuję',
 );

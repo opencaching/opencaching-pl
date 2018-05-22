@@ -2789,4 +2789,7 @@ $translations = array(
     'myNotes_showFullNote' => 'more', /* EN! */
     'myNotes_removeConfirmation' => 'Vrei să ştergi această notă?', /* EN! */
 
+    'gdpr_text' => 'From May 25, 2018, due to the provisions of the GDPR, we changed', /* EN */
+    'gdpr_text2' => 'To continue using the site, read the changes and accept them. <br> If you do not agree - <a href="mailto:{OCTeamEmail}"> contact us </a> to delete your account on the site.', /* EN */
+    'gdpr_acceptBtn' => 'I accept', /* EN */
 );
