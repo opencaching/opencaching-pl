@@ -240,7 +240,7 @@ $translations = array(
     'your_data' => 'Your data',
     'data_in_profile' => 'De volgende informatie is opgeslagen in jouw gebruikersprofiel',
     'desc_updated' => 'Jouw beschrijving is succevol opgeslagen.',
-    'gray_field_is_hidden' => 'Remember that the profile information is available to other users. Grijze velden zijn niet zichtbaar voor andere gebruikers.', /* EN */
+    'gray_field_is_hidden' => 'Je profiel informatie is zichtbaar voor andere gebruikers. Grijze velden zijn niet zichtbaar voor andere gebruikers.',
     'username_label' => 'Gebruikersnaam',
     'country_label' => 'Land',
     'coordinates' => 'Coördinaten',
@@ -2789,8 +2789,8 @@ $translations = array(
     'myNotes_showFullNote' => 'meer',
     'myNotes_removeConfirmation' => 'Moet deze cache notitie werkelijk verwijderd worden?',
 
-    'gdpr_text' => 'From May 25, 2018, due to the provisions of the GDPR, we changed', /* EN */
-    'gdpr_text2' => 'To continue using the site, read the changes and accept them. <br> If you do not agree - <a href="mailto:{OCTeamEmail}"> contact us </a> to delete your account on the site.', /* EN */
-    'gdpr_acceptBtn' => 'I accept', /* EN */
+    'gdpr_text' => 'Vanaf 25 Mei 2018, door bepalingen van de AVG, veranderen wij de',
+    'gdpr_text2' => 'Om de site verder te kunnen gebruiken dient men de veranderingen te lezen en te accepteren. <br> Wanneer je hier niet mee eens bent, <a href="mailto:{OCTeamEmail}"> contacteer ons </a> om je account van de site te verwijderen.',
+    'gdpr_acceptBtn' => 'Ik accepteer',
 
 );
