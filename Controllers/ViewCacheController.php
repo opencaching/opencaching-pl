@@ -541,7 +541,7 @@ class ViewCacheController extends BaseController
             switch($this->geocache->getScoreAsRatingNum()) {
                 case 1: $scoreColor = "#DD0000"; break;
                 case 2: $scoreColor = "#F06464"; break;
-                case 3: $scoreColor = "#DD7700"; break;
+                case 3: $scoreColor = "#7D7D7D"; break;
                 case 4: $scoreColor = "#77CC00"; break;
                 case 5: $scoreColor = "#00DD00"; break;
             }
