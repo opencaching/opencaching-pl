@@ -422,7 +422,7 @@ $translations = array(
     'back_to_the_geocache_listing' => 'Terug naar de cachepagina',
 
     'register_pageTitle' => 'Als nieuwe gebruiker registreren',
-    'register_intro' => 'Vul hieronder een geldig e-mailadres in - we zullen een activatie link versturen. Vul voor registratie ook een unieke gebruikersnaam (nickname) in die op deze site gebruikt zal worden.',
+    'register_intro' => 'Vul voor registratie een unieke gebruikersnaam (nickname) in die op deze site gebruikt zal worden. Vul hieronder ook een geldig e-mailadres in - we zullen een activatie link versturen. ',
     'register_info' => 'Als gebruiker laten verwijderen van de website. Hiermee zullen alle opgegeven gegevens tijdens de registratie en de gebruikersomschrijving verwijderd worden. Neem contact met ons op om je account te deactiveren via een e-mail. In onduidelijke gevallen neem contact op via ({contact_mail}). Bedankt.',
     'register_rulesLbl' => 'Ja, Ik heb de <strong><a href="{wiki_link_rules}" target="_blank" rel="noopener">gebruikersvoorwaarden</a></strong> van {site_name} gelezen en accepteer deze.',
     'register_ageLbl' => 'Ja, ik ben {minAge} jaar of ouder.',
