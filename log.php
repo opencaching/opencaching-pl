@@ -170,7 +170,7 @@ $is_scored_query = XDb::xMultiVariableQueryValue(
 
 if ( $is_scored_query == 0 && $user->getUserId() != $geoCache->getOwnerId() ) {
 
-    $color_table = array("#DD0000", "#F06464", "#DD7700", "#77CC00", "#00DD00");
+    $color_table = array("#DD0000", "#F06464", "#5A5A5A", "#77CC00", "#00DD00");
 
     $score = '';
     $line_cnt = 0;
