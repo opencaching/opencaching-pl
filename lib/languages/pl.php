@@ -2227,7 +2227,7 @@ $translations = array(
     'add_newmp3' => 'Dodaj MP3',
     'newCacheWpClose' => 'Zamknij',
     'contact_pl_about_title' => 'Zadawanie pytań o Geocaching',
-    'contact_pl_about_description_1' => 'Chciałbyś się dowiedzieć coś więcej o Geocaching? Znajdziesz to na stronie <a href="https://wiki.opencaching.pl" target="_blank">OpenGeoWiki</a>.',
+    'contact_pl_about_description_1' => 'Chciałbyś się dowiedzieć coś więcej o Geocaching? Znajdziesz to na stronie <a href="https://wiki.opencaching.pl" target="_blank">OpenGeoWiki</a> i na <a href="https://www.facebook.com/OpencachingPL/" target="_blank">oficjalnym profilu na Facebooku</a>.',
     'contact_pl_about_description_2' => 'Chciałbyś wymienić swoje uwagi zadać pytania innym, masz pomysł albo sugestie poprawy działania projektu <i>Opencaching</i>, chcesz pomóc w rozwoju projektu? Z wszystkimi tymi sprawami możesz pisać na <a href="https://forum.opencaching.pl">Forum</a>.',
     'contact_pl_about_team' => 'Opencaching PL Team',
     'contact_pl_rr_description' => '- Skład Rady Rejsu patrz &gt;&gt;&gt;<a href="{link}">TUTAJ</a>&lt;&lt;&lt;',
@@ -2743,6 +2743,7 @@ $translations = array(
     'mnu_FloppMap' => 'Mapa Floppa',
     'mnu_clipboard' => 'Schowek',
     'mnu_privacyPolicy' => 'Polityka prywatności',
+    'mnu_facebook' => 'Facebook',
 
     'admCs_degradedCs'  => 'Niezdobywalne geościeżki',
     'admCs_cacheSet'  => 'Geościeżka',
