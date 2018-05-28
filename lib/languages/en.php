@@ -2738,6 +2738,7 @@ $translations = array(
     'mnu_FloppMap' => 'Flopp\'s map',
     'mnu_clipboard' => 'Clipboard',
     'mnu_privacyPolicy' => 'Privacy policy',
+    'mnu_facebook' => 'Facebook',
 
     'admCs_degradedCs'  => 'Degraded GeoPaths',
     'admCs_cacheSet'  => 'GeoPaths',
