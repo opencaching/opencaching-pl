@@ -16,7 +16,7 @@ final class OcConfig extends ConfigReader
     const OCNODE_SWEDEN     = 7;  // Opencaching Sweden http://www.opencaching.se OS =>OC Scandinavia
     const OCNODE_USA        = 10; // Opencaching United States http://www.opencaching.us OU
     const OCNODE_RUSSIA     = 12; // Opencaching Russia http://www.opencaching.org.ru
-    const OCNODE_BENELUX    = 14; // Opencaching Nederland http://www.opencaching.nl OB => OC Benelux
+    const OCNODE_BENELUX    = 14; // Opencaching Nederland https://www.opencaching.nl OB => OC Benelux
     const OCNODE_ROMANIA    = 16; // Opencaching Romania http://www.opencaching.ro OR
 */
 
