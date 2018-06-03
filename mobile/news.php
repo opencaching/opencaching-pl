@@ -5,7 +5,7 @@ require_once ("./lib/common.inc.php");
 
 const NEWS_ON_PAGE = 5;
 
-if (isset($_GET['page'])) {
+if (isset($_GET['page']) && is_numeric($_GET['page'])) {
     $pagenr = $_GET['page'];
 } else {
     $pagenr = 1;
@@ -13,6 +13,7 @@ if (isset($_GET['page'])) {
 
 $newsCount = News::GetAllNewsCount(isset($_SESSION['user_id']), false);
 $pageMax = ceil($newsCount / NEWS_ON_PAGE);
+$pageMax = ($pageMax == 0) ? 1 : $pageMax;
 $tpl->assign('pagemax', $pageMax);
 
 if ($pagenr > 1) {
