@@ -158,6 +158,10 @@ function tpl_BuildTemplate($minitpl = false, $noCommonTemplate=false)
 
     MainLayoutController::initLegacy(); // init vars for main-layout
 
+    if ($view->showGdprPage()) {
+        $tplname = 'userProfile/gdpr';
+    }
+
     //load main template
     if ($minitpl){
         $sCode = file_get_contents($stylepath . '/common/mini.tpl.php');

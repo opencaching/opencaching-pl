@@ -25,6 +25,7 @@ $menu = [ // DON'T CHANGE $menu var name!
     'mnu_links'         => ['/articles.php?page=links'],
     'mnu_contact'       => ['/articles.php?page=contact'],
     'mnu_guides'        => '/cacheguides.php',
+    'mnu_facebook'      => ['https://www.facebook.com/OpencachingPL/'],
     'mnu_clipboard'     => '/mylist.php', /* counters added in MainLayoutCtrl */
 
 ];

@@ -104,6 +104,7 @@ class UserRegistrationController extends BaseController
         $this->view->setVar('username', $username);
         $this->view->setVar('email', $email);
         $this->view->setVar('errorMsg', $errorMsg);
+        $this->view->setVar('minAge', $this->ocConfig->getMinumumAge());
         $this->view->setTemplate('userRegistration/register');
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/userAuth/userAuth.css'));
         $this->view->addLocalJs(Uri::getLinkWithModificationTime('/tpl/stdstyle/userAuth/newPassword.js'), true, true);

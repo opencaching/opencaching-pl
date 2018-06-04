@@ -42,7 +42,7 @@ $site_name = 'localhost';
 // 10 Opencaching United States http://www.opencaching.us OU
 // 11 free
 // 12 Opencaching Russia http://www.opencaching.org.ru  (I don't know current status???)
-// 14 Opencaching Nederland http://www.opencaching.nl OB => OC Benelux
+// 14 Opencaching Nederland https://www.opencaching.nl OB => OC Benelux
 // 16 Opencaching Romania http://www.opencaching.ro OR
 //
 //id of the node 4 for local development

@@ -915,4 +915,20 @@ class User extends UserCommons
     {
         return (empty($this->activationCode) || ($this->isActive));
     }
+
+    /**
+     * Sets rules_confirmed flag for user and stores it in DB
+     *
+     * @return boolean
+     */
+    public function confirmRules()
+    {
+        $this->rulesConfirmed = true;
+        return (null !== $this->db->multiVariableQuery('
+            UPDATE `user`
+            SET `rules_confirmed` = 1
+            WHERE `user_id` = :1
+            LIMIT 1
+            ', $this->getUserId()));
+    }
 }

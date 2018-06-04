@@ -63,8 +63,11 @@ use lib\Objects\Coordinates\Coordinates;
   ?>
   <div class="buffer"></div>
   <div class="align-center">
-    <a href="/search.php?searchbydistance&amp;resetqueryid=y&amp;distance=<?=$view->neighbourhoodsList[$view->selectedNbh]->getRadius()?>&amp;latNS=<?=$latNS?>&amp;lat_h=<?=$lat_h?>&amp;lat_min=<?=$lat_min?>&amp;lonEW=<?=$lonEW?>&amp;lon_h=<?=$lon_h?>&amp;lon_min=<?=$lon_min?>#search-by-distance-table" class="btn btn-primary btn-md">
+    <a href="/search.php?searchbydistance&amp;resetqueryid=y&amp;distance=<?=$view->neighbourhoodsList[$view->selectedNbh]->getRadius()?>&amp;latNS=<?=$latNS?>&amp;lat_h=<?=$lat_h?>&amp;lat_min=<?=$lat_min?>&amp;lonEW=<?=$lonEW?>&amp;lon_h=<?=$lon_h?>&amp;lon_min=<?=$lon_min?>#search-by-distance-table" class="btn btn-default btn-md">
       <?=tr('mnu_searchCache')?> (<?=$view->neighbourhoodsList[$view->selectedNbh]->getName()?>)
+    </a>
+    <a href="/cachemap3.php?lat=<?=$view->neighbourhoodsList[$view->selectedNbh]->getCoords()->getLatitude()?>&amp;lon=<?=$view->neighbourhoodsList[$view->selectedNbh]->getCoords()->getLongitude()?>&amp;inputZoom=10" class="btn btn-default btn-md">
+      <?=tr('mnu_cacheMap')?> (<?=$view->neighbourhoodsList[$view->selectedNbh]->getName()?>)
     </a>
   </div>
   <div class="buffer"></div>

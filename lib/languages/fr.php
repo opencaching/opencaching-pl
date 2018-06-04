@@ -247,7 +247,7 @@ $translations = array(
     'your_data' => 'Vos informations personnelles',
     'data_in_profile' => 'Les données suivantes sont actuellement stockées dans votre profil',
     'desc_updated' => 'Votre description à été mise à jour avec succès.',
-    'gray_field_is_hidden' => 'Les champs grisés sont invisibles pour les autres utilisateurs.',
+    'gray_field_is_hidden' => 'Remember that the profile information is available to other users. Les champs grisés sont invisibles pour les autres utilisateurs.', /* EN */
     'username_label' => 'Nom d’utilisateur',
     'country_label' => 'Pays',
     'coordinates' => 'Coordonnées',
@@ -1052,7 +1052,7 @@ $translations = array(
     'adopt_28' => 'L\'utilisateur a refusé votre proposition d\'adoption d\'une géocache',
     'adopt_29' => 'Malheureusement, l\'utilisateur {userName} ne souhaite pas adopter votre cache {cacheName}.',
     'adopt_31' => 'Le nouveau propriétaire de votre cache {cacheName} est utilisateur {userName}',
-    'adopt_32' => '<font color="blue"><b>Le processus d\'adoption a été achevée. L\'ancien propriétaire de la cache était {oldUserName}. Le propriétaire actuel de la cache est {newUserName}.</font></b>',
+    'adopt_32' => 'Le processus d\'adoption a été achevée:',
     'adopt_33' => 'Cette cache est déjà détenue par cet utilisateur.',
     'adopt_34' => 'L\'utilisateur sélectionné n’est pas admissible à l\'adoption des caches',
     'adopt_35' => 'Vous n\'êtes pas le propriétaire de cette cache',
@@ -2236,13 +2236,13 @@ $translations = array(
     'contact_nl_desc_1_1' => 'Pour toute question concernant OpenCaching ou le thème du Geocaching, consultez notre <a href="http://wiki.opencaching.nl/">Wiki OpenCaching</a>, vous y trouverez pas mal de lectures sur le sujet. Il existe une <a href="https://www.youtube.com/watch?v=_ujk70YhKLA&feature=youtu.be">video d\'introduction</a> expliquant ce qu\'est OpenCaching.nl et le Géocaching. ',
     'contact_nl_desc_1_2' => 'Si vous ne trouvez pas réponse a votre question, vous pouvez aussi regarder du cote de notre <a href="http://forum.opencaching.nl">forum</a>. Il est probable que votre question ait déjà été posée.',
     'contact_nl_title_2' => 'Géocacheurs inscrits sur ce site et membres de l’équipe OC.',
-    'contact_nl_desc_2_1' => '<a href="http://www.opencaching.nl/viewprofile.php?userid=1"><b>harrieklomp</b></a> (Harrie) : Administration du site OpenCaching, prend soin du Wiki, modère les nouvelles caches, etc…',
-    'contact_nl_desc_2_2' => '<a href="http://www.opencaching.nl/viewprofile.php?userid=1995"><b>zjefke</b></a> (Jos) : Modère les nouvelles caches.',
-    'contact_nl_desc_2_3' => '<a href="http://www.opencaching.nl/viewprofile.php?userid=4456"><b>Raven</b></a> (Roelof) : Modère les nouvelles caches.',
+    'contact_nl_desc_2_1' => '<a href="https://www.opencaching.nl/viewprofile.php?userid=1"><b>harrieklomp</b></a> (Harrie) : Administration du site OpenCaching, prend soin du Wiki, modère les nouvelles caches, etc…',
+    'contact_nl_desc_2_2' => '<a href="https://www.opencaching.nl/viewprofile.php?userid=1995"><b>zjefke</b></a> (Jos) : Modère les nouvelles caches.',
+    'contact_nl_desc_2_3' => '<a href="https://www.opencaching.nl/viewprofile.php?userid=4456"><b>Raven</b></a> (Roelof) : Modère les nouvelles caches.',
     'contact_nl_title_3' => 'Utilisation du site Web, suggestions et critiques.',
     'contact_nl_desc_3_1' => 'Pour cela, nous avons une sous-rubrique sur le <a href="http://forum.opencaching.nl/viewforum.php?f=4">forum</a>. Vous y trouverez plus d’informations pour la plupart des questions, et si vous êtes intéressé pensez à rejoindre l\'équipe Opencaching.',
     'contact_nl_title_4' => 'Vous pourrez aussi retrouver « Opencaching Benelux » sur les réseaux sociaux suivants.',
-    'contact_nl_desc_4_1' => '<a href="https://twitter.com/Opencachingnl"><img src="http://www.opencaching.nl/images/social_media/Twitter-32.png" class="icon32" align="middle" /></a> <a href="https://www.facebook.com/groups/opencachingbenelux/"><img src="http://www.opencaching.nl/images/social_media/Facebook-32.png" class="icon32" align="middle" /></a> <a href="https://plus.google.com/u/0/communities/111177041019520838177"><img src="http://www.opencaching.nl/images/social_media/Google-32.png" class="icon32" align="middle" /></a> <a href="https://www.youtube.com/channel/UCLBglwWiI6HRjCwBVLZQfWw"><img src="http://www.opencaching.nl/images/social_media/YouTube-32.png" class="icon32" align="middle" /></a>',
+    'contact_nl_desc_4_1' => '<a href="https://twitter.com/Opencachingnl"><img src="https://www.opencaching.nl/images/social_media/Twitter-32.png" class="icon32" align="middle" /></a> <a href="https://www.facebook.com/groups/opencachingbenelux/"><img src="https://www.opencaching.nl/images/social_media/Facebook-32.png" class="icon32" align="middle" /></a> <a href="https://plus.google.com/u/0/communities/111177041019520838177"><img src="https://www.opencaching.nl/images/social_media/Google-32.png" class="icon32" align="middle" /></a> <a href="https://www.youtube.com/channel/UCLBglwWiI6HRjCwBVLZQfWw"><img src="https://www.opencaching.nl/images/social_media/YouTube-32.png" class="icon32" align="middle" /></a>',
     'contact_nl_title_5' => 'Autre',
     'contact_nl_desc_5_1' => 'Si les options ci-dessus ne vous donnent pas les réponses à vos questions, vous pouvez nous écrire directement un e-mail à <a href="mailto:contact@opencaching.nl">contact@opencaching.nl</a>',
     'contact_nl_desc_5_2' => 'Il est possible que les bénévoles d\'<i>opencaching.nl</i> n\'aient pas toujours le temps de répondre à vos questions. Alors ne soyez pas impatient, si vous n\'obtenez pas une réponse immédiate à votre question.',
@@ -2736,6 +2736,8 @@ $translations = array(
     'mnu_okapiExtApps' => 'Mes applications',
     'mnu_FloppMap' => 'Carte de Flopp',
     'mnu_clipboard' => 'Presse papier',
+    'mnu_privacyPolicy' => 'Privacy policy',
+    'mnu_facebook' => 'Facebook',
 
     'admCs_degradedCs'  => 'GeoPaths dégradées',
     'admCs_cacheSet'  => 'GeoPaths',
@@ -2786,5 +2788,9 @@ $translations = array(
     'myNotes_emptyList' => 'Aucune note trouvée dans les caches',
     'myNotes_showFullNote' => 'plus',
     'myNotes_removeConfirmation' => 'Souhaitez-vous supprimer cette note ?',
+
+    'gdpr_text' => 'From May 25, 2018, due to the provisions of the GDPR, we changed', /* EN */
+    'gdpr_text2' => 'To continue using the site, read the changes and accept them. <br> If you do not agree - <a href="mailto:{OCTeamEmail}"> contact us </a> to delete your account on the site.', /* EN */
+    'gdpr_acceptBtn' => 'I accept', /* EN */
 
 );

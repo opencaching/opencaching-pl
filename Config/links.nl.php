@@ -48,3 +48,4 @@ $links['wiki']['rules_en']              = $_wiki.'/index.php/Terms_of_Use';
 // optional items - used in node-specific menu only
 $links['wiki']['downloads']             = $_wiki.'/index.php/Downloads';
 $links['wiki']['history']               = $_wiki.'/index.php/Historie';
+$links['wiki']['privacyPolicy']         = $_wiki.'/index.php/Privacyverklaringen';

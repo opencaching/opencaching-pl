@@ -255,4 +255,13 @@ class UserProfileController extends BaseController
         }
         return null;
     }
+
+    public function confirmRules()
+    {
+        $uri = (empty($_REQUEST['url'])) ? '/' : urldecode($_REQUEST['url']);
+        if ($this->isUserLogged()) {
+            $this->loggedUser->confirmRules();
+        }
+        $this->view->redirect($uri);
+    }
 }

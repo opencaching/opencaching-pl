@@ -5,6 +5,7 @@ use Utils\DateTime\Year;
 use lib\Objects\ApplicationContainer;
 use Utils\Debug\Debug;
 use Controllers\PageLayout\MainLayoutController;
+use lib\Controllers\Php7Handler;
 
 class View {
 
@@ -26,8 +27,10 @@ class View {
     private $_localCss = [];    // page-local css styles loaded from controller
     private $_localJs = [];     // page-local JS scripts loaded from controller
 
+    private $_showGdprPage = false;
 
-    public function __construct(){
+    public function __construct()
+    {
 
         // load google analytics key from the config
         $this->_googleAnalyticsKey = isset($GLOBALS['googleAnalytics_key']) ?
@@ -43,8 +46,9 @@ class View {
      * @param String $varName
      * @param  $varValue
      */
-    public function setVar($varName, $varValue){
-        if(property_exists($this, $varName)){
+    public function setVar($varName, $varValue)
+    {
+        if (property_exists($this, $varName)) {
             $this->error("Can't set View variable with name: ".$varName);
             return;
         }
@@ -52,44 +56,55 @@ class View {
         $this->$varName = $varValue;
     }
 
-    public function __call($method, $args) {
+    public function __call($method, $args)
+    {
         if (property_exists($this, $method) && is_callable($this->$method)) {
             return call_user_func_array($this->$method, $args);
-        }else{
+        } else {
             $this->error("Trying to call non-existed method of View: $method");
         }
     }
 
-    public function getGoogleAnalyticsKey(){
+    public function getGoogleAnalyticsKey()
+    {
         return $this->_googleAnalyticsKey;
     }
 
-    public function callChunk($chunkName, ...$args) {
+    public function setGoogleAnalyticsKey($value)
+    {
+        $this->_googleAnalyticsKey = $value;
+    }
+
+    public function callChunk($chunkName, ...$args)
+    {
 
         $method = $chunkName.'Chunk';
 
-        if(!property_exists($this, $method)){
+        if (! property_exists($this, $method)) {
             $func = self::getChunkFunc($chunkName);
             $this->$method = $func;
         }
 
-        if(is_callable($this->$method)){
+        if (is_callable($this->$method)) {
             $this->$method(...$args);
-        }else{
+        } else {
             $this->error("Can't call chunk: $chunkName");
         }
     }
 
-    public function callChunkOnce($chunkName, ...$args){
+    public function callChunkOnce($chunkName, ...$args)
+    {
         self::callChunkInline($chunkName, ...$args);
     }
 
-    public static function callChunkInline($chunkName, ...$args) {
+    public static function callChunkInline($chunkName, ...$args)
+    {
         $func = self::getChunkFunc($chunkName);
         call_user_func_array($func, $args);
     }
 
-    public static function getChunkFunc($chunkName){
+    public static function getChunkFunc($chunkName)
+    {
         return require(self::CHUNK_DIR.$chunkName.'.tpl.php');
     }
 
@@ -105,7 +120,7 @@ class View {
     {
         $subTplFile = self::TPL_DIR.$subTplPath.'.tpl.php';
 
-        if(!is_file($subTplFile)){
+        if (! is_file($subTplFile)) {
             $this->errorLog("Trying to call unknown sub-template: $subTplFile");
             return '';
         }
@@ -117,28 +132,32 @@ class View {
     }
 
 
-
-    public function loadJQuery(){
+    public function loadJQuery()
+    {
         $this->_loadJQuery = true;
     }
 
-    public function loadJQueryUI(){
+    public function loadJQueryUI()
+    {
         $this->_loadJQueryUI = true;
         $this->_loadJQuery = true; // jQueryUI needs jQuery!
     }
 
-    public function loadTimepicker(){
+    public function loadTimepicker()
+    {
         $this->_loadTimepicker = true;
         $this->_loadJQueryUI = true;
         $this->_loadJQuery = true;
     }
 
-    public function loadFancyBox(){
+    public function loadFancyBox()
+    {
         $this->_loadFancyBox = true;
         $this->_loadJQuery = true; // fancyBox needs jQuery!
     }
 
-    public function loadGMapApi($callback = null){
+    public function loadGMapApi($callback = null)
+    {
         $this->_loadGMapApi = true;
         $this->setVar('GMapApiCallback', $callback);
     }
@@ -146,15 +165,18 @@ class View {
     /**
      * Returns true if GA key is set in config (what means that GA is enabled)
      */
-    public function isGoogleAnalyticsEnabled(){
+    public function isGoogleAnalyticsEnabled()
+    {
         return $this->_googleAnalyticsKey != '';
     }
 
-    public function isjQueryEnabled(){
+    public function isjQueryEnabled()
+    {
         return $this->_loadJQuery;
     }
 
-    public function isjQueryUIEnabled(){
+    public function isjQueryUIEnabled()
+    {
         return $this->_loadJQueryUI;
     }
 
@@ -196,7 +218,7 @@ class View {
     {
 
         // if the first char of $uri is not a slash add slash
-        if(substr($uri, 0, 1) !== '/'){
+        if (substr($uri, 0, 1) !== '/') {
             $uri = '/'.$uri;
         }
 
@@ -207,7 +229,7 @@ class View {
     {
 
         $season = Year::GetSeasonName();
-        switch($season){ //validate - for sure :)
+        switch ($season) { //validate - for sure :)
             case 'spring':
             case 'winter':
             case 'autumn':
@@ -221,12 +243,38 @@ class View {
         return ApplicationContainer::Instance()->getLang();
     }
 
+    /**
+     * @return boolean
+     */
+    public function showGdprPage()
+    {
+        return $this->_showGdprPage;
+    }
+
+    /**
+     * @param boolean $state
+     * @return boolean
+     */
+    public function setShowGdprPage($state)
+    {
+        $state = Php7Handler::Boolval($state);
+        $this->_showGdprPage = $state;
+        if ($state) {
+            $this->_googleAnalyticsKey = '';
+            $this->_loadGMapApi = false;
+            $this->_loadJQuery = false;
+            $this->_loadJQueryUI = false;
+            $this->_loadTimepicker = false;
+            $this->_loadFancyBox = false;
+        }
+    }
 
     /**
      * Add css which will be loaded in page header
      * @param $url - url to css
      */
-    public function addLocalCss($css_url){
+    public function addLocalCss($css_url)
+    {
         $this->_localCss[] = $css_url;
     }
 
@@ -280,7 +328,7 @@ class View {
     {
         tpl_BuildTemplate(true);
     }
-    
+
     public function buildOnlySelectedTpl()
     {
         tpl_BuildTemplate(false, true);
@@ -290,10 +338,10 @@ class View {
      * Build template and display page.
      * @param string|cont $layoutTemplate - base template to use
      */
-    public function display($layoutTemplate=null)
+    public function display($layoutTemplate = null)
     {
 
-        if(is_null($layoutTemplate)){
+        if (is_null($layoutTemplate)) {
             $layoutTemplate = MainLayoutController::MAIN_TEMPLATE;
             MainLayoutController::init(); // init vars for main-layout
         }
@@ -311,13 +359,13 @@ class View {
      */
     public function _callTemplate($template=null)
     {
-        if(is_null($template)){
+        if (is_null($template)) {
             $template = $this->_template;
         }
 
         // The only var accessed from within template code
         $view = $this;      // $view var for use inside template
-        $tr = function($arg){
+        $tr = function($arg) {
           // TODO: it will be refactored to proper call
           return tr($arg);
         };
