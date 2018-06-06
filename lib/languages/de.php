@@ -240,7 +240,7 @@ $translations = array(
     'your_data' => 'Ihre Daten',
     'data_in_profile' => 'Folgende Informationen sind in deinem Benutzerprofil gespeichert',
     'desc_updated' => 'Ihre Beschreibung wurde erfolgreich aktualisiert.',
-    'gray_field_is_hidden' => 'Graue Felder sind nicht sichtbar für andere Benutzer.',
+    'gray_field_is_hidden' => 'Remember that the profile information is available to other users. Graue Felder sind nicht sichtbar für andere Benutzer.', /* EN */
     'username_label' => 'Benutzername',
     'country_label' => 'Land',
     'coordinates' => 'Koordinaten',
@@ -427,7 +427,7 @@ $translations = array(
     'register_intro' => 'Please enter your valid e-mail address below - we will send you an activation link. During registration you will also choose a unique username (nickname) that you will use on the site.', /* EN edited register_msg1*/
     'register_info' => 'The user may opt out of using the website. At the same time, all data entered during registration and in the user description will be irretrievably deleted. If you want to deactivate your account, please contact us using your e-mail account. In uncertain cases, please contact us ({contact_mail}). Thank you.', /* EN */
     'register_rulesLbl' => 'Yes, I have read the <strong><a href="{wiki_link_rules}" target="_blank" rel="noopener">Terms of Service</a></strong> {site_name} and I agree to abide by it.', /* EN */
-    'register_ageLbl' => 'Yes, I have reached the age of majority.', /* EN */
+    'register_ageLbl' => 'Yes, I\'m {minAge} or older.', /* EN */
     'register_confirm' => 'Die Aktivierungskode wan an deine Email geschickt.<div class="buffer"></div>Bitte den Anweisungen folgen, die sind über E-Mail geschickt.',
 
     'activation_title' => 'Account-Aktivierung',
@@ -1066,7 +1066,7 @@ $translations = array(
     'adopt_28' => 'User has rejected your geocache',
     'adopt_29' => 'Unfortunately, the user {userName} does not want to be the owner of your geocache {cacheName}.',
     'adopt_31' => 'The new owner of your geocache {cacheName} is user {userName}',
-    'adopt_32' => '<font color="blue"><b>The adoption process has been completed. The previous cache owner was {oldUserName}. The current owner of the caches is {newUserName}.</font></b>',
+    'adopt_32' => 'The adoption process has been completed:',
     'adopt_33' => 'This cache is already own by selected user.',
     'adopt_34' => 'Selected user is not eligible to adopt geocaches',
     'adopt_35' => 'You are not the owner of this cache',
@@ -2249,13 +2249,13 @@ $translations = array(
     'contact_nl_desc_1_1' => 'For questions about opencaching and theme Geocaching our <a href="http://wiki.opencaching.nl/"> Open Caching Wiki </a> a good place to read a bit. <br/> There is a nice introduction video made which explains in detail what Opencaching.nl and Geocaching is about. Please take a look <a href="https://www.youtube.com/watch?v=_ujk70YhKLA&feature=youtu.be">here</a>.',
     'contact_nl_desc_1_2' => 'If no answer can be found on a certain question you may also look on our <a href="http://forum.opencaching.nl"> forum</a>. Maybe that question has been asked here.',
     'contact_nl_title_2' => 'Cachers who are committed to this site and are members of the OC Team.',
-    'contact_nl_desc_2_1' => '<a href="http://www.opencaching.nl/viewprofile.php?userid=1"><b>harrieklomp</b></a> (Harrie): Management von Open cachingsite, kümmert sich um die Wikipage, genehmigt neue Caches, etc. etc.',
-    'contact_nl_desc_2_2' => '<a href="http://www.opencaching.nl/viewprofile.php?userid=1995"><b>sjefke</b></a> (Jos): Genehmigt neue Caches',
-    'contact_nl_desc_2_3' => '<a href="http://www.opencaching.nl/viewprofile.php?userid=4456"><b>Raven</b></a> (Roelof): Genehmigt neue Caches',
+    'contact_nl_desc_2_1' => '<a href="https://www.opencaching.nl/viewprofile.php?userid=1"><b>harrieklomp</b></a> (Harrie): Management von Open cachingsite, kümmert sich um die Wikipage, genehmigt neue Caches, etc. etc.',
+    'contact_nl_desc_2_2' => '<a href="https://www.opencaching.nl/viewprofile.php?userid=1995"><b>sjefke</b></a> (Jos): Genehmigt neue Caches',
+    'contact_nl_desc_2_3' => '<a href="https://www.opencaching.nl/viewprofile.php?userid=4456"><b>Raven</b></a> (Roelof): Genehmigt neue Caches',
     'contact_nl_title_3' => 'Use of the website, suggestions and criticism.',
     'contact_nl_desc_3_1' => 'For this we have a subforum on <a href="http://forum.opencaching.nl/viewforum.php?f=4">forum.opencaching.nl</a>. Here you find more information for most questions, and if you are interested join our Opencaching-team.',
     'contact_nl_title_4' => 'Opencaching Benelux können auch auf folgenden sozialen Medien gefunden werden.',
-    'contact_nl_desc_4_1' => '<a href="https://twitter.com/Opencachingnl"><img src="http://www.opencaching.nl/images/social_media/Twitter-32.png" class="icon32" align="middle" /></a> <a href="https://www.facebook.com/groups/opencachingbenelux/"><img src="http://www.opencaching.nl/images/social_media/Facebook-32.png" class="icon32" align="middle" /></a> <a href="https://plus.google.com/u/0/communities/111177041019520838177"><img src="http://www.opencaching.nl/images/social_media/Google-32.png" class="icon32" align="middle" /></a> <a href="https://www.youtube.com/channel/UCLBglwWiI6HRjCwBVLZQfWw"><img src="http://www.opencaching.nl/images/social_media/YouTube-32.png" class="icon32" align="middle" /></a>',
+    'contact_nl_desc_4_1' => '<a href="https://twitter.com/Opencachingnl"><img src="https://www.opencaching.nl/images/social_media/Twitter-32.png" class="icon32" align="middle" /></a> <a href="https://www.facebook.com/groups/opencachingbenelux/"><img src="https://www.opencaching.nl/images/social_media/Facebook-32.png" class="icon32" align="middle" /></a> <a href="https://plus.google.com/u/0/communities/111177041019520838177"><img src="https://www.opencaching.nl/images/social_media/Google-32.png" class="icon32" align="middle" /></a> <a href="https://www.youtube.com/channel/UCLBglwWiI6HRjCwBVLZQfWw"><img src="https://www.opencaching.nl/images/social_media/YouTube-32.png" class="icon32" align="middle" /></a>',
     'contact_nl_title_5' => 'Sonstige',
     'contact_nl_desc_5_1' => 'If the above options does not provide the answer to your question, you also can write directly a mail to <i>opencaching.nl</i> via <a href="mailto:contact@opencaching.nl">contact@opencaching.nl</a>',
     'contact_nl_desc_5_2' => 'Because the volunteers at <i>opencaching.nl</i> do not always have time to answer your questions. So do not be impatient if there is not an immediate answer to a question.',
@@ -2738,6 +2738,8 @@ $translations = array(
     'mnu_okapiExtApps' => 'Meine Apps',
     'mnu_FloppMap' => 'Flopp"s karte',
     'mnu_clipboard' => 'Clipboard',
+    'mnu_privacyPolicy' => 'Privacy policy',
+    'mnu_facebook' => 'Facebook',
 
     'admCs_degradedCs'  => 'Degraded GeoPaths', /* EN! */
     'admCs_cacheSet'  => 'GeoPaths', /* EN! */
@@ -2788,6 +2790,10 @@ $translations = array(
     'myNotes_emptyList' => 'No notes found in geocaches', /* EN! */
     'myNotes_showFullNote' => 'more', /* EN! */
     'myNotes_removeConfirmation' => 'Do you want to delete this note?', /* EN! */
+
+    'gdpr_text' => 'From May 25, 2018, due to the provisions of the GDPR, we changed', /* EN */
+    'gdpr_text2' => 'To continue using the site, read the changes and accept them. <br> If you do not agree - <a href="mailto:{OCTeamEmail}"> contact us </a> to delete your account on the site.', /* EN */
+    'gdpr_acceptBtn' => 'I accept', /* EN */
 
     'cron_status_title' => 'Cron status', /* EN! */
     'cron_timeouted' => 'Timeouted, exceeded max. duration', /* EN! */
