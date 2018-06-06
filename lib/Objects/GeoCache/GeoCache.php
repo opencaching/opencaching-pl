@@ -38,6 +38,9 @@ class GeoCache extends GeoCacheCommons
     /* @var $dateActivate \DateTime */
     private $dateActivate;
 
+    /** @var \DateTime {@see GeoCache::setDatePublished()} */
+    private $datePublished;
+
     private $sizeId;
     private $ratingId;              //OKAPI rating calculated from score
     private $status;
@@ -393,6 +396,7 @@ class GeoCache extends GeoCacheCommons
         $this->ratingId = self::ScoreAsRatingNum($this->score); //rating is returned by OKAPI only-
 
         $this->setDateActivate($geocacheDbRow['date_activate']);
+        $this->setDatePublished($geocacheDbRow['date_published']);
         return $this;
     }
 
@@ -1023,6 +1027,28 @@ class GeoCache extends GeoCacheCommons
         }
     }
 
+    /**
+     * Gives the cache date of publication
+     *
+     * @return \DateTime the cache date of publication, null if not set
+     */
+    public function getDatePublished()
+    {
+        return $this->datePublished;
+    }
+
+    /**
+     * Sets the date of cache publication
+     *
+     * @param string the date to set
+     */
+    private function setDatePublished($datePublished)
+    {
+        if ($datePublished != null) {
+            $this->datePublished = new \DateTime($datePublished);
+        }
+    }
+
     public function getStatusTranslationIdentifier()
     {
         $statuses = $this->dictionary->getCacheStatuses();
@@ -1532,4 +1558,3 @@ class GeoCache extends GeoCacheCommons
     }
 
 }
-
