@@ -186,4 +186,4 @@ if ($error == false) {
     exit;
 }
 
-tpl_BuildTemplate(false);
+tpl_BuildTemplate();

@@ -235,6 +235,9 @@ $config['quick_search']['byowner'] = false;
 $config['quick_search']['byfinder'] = false;
 $config['quick_search']['byuser'] = true;
 
+// Minimum age to register (see GDPR policy)
+$config['limits']['minimum_age'] = 16;
+
   /** Limit for uplading pictures per node. */
 
 // Image file size limit in MB

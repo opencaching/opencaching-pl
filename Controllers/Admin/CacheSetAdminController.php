@@ -17,10 +17,7 @@ class CacheSetAdminController extends BaseController
         parent::__construct();
 
         // this controller is only for Admins
-        if(!$this->isUserLogged()){
-            $this->redirectToLoginPage();
-            exit;
-        }
+        $this->redirectNotLoggedUsers();
 
         /* !!!temporary disabled for tests:
 
@@ -35,7 +32,7 @@ class CacheSetAdminController extends BaseController
     public function isCallableFromRouter($actionName)
     {
         // all public methods can be called by router
-        return TRUE;
+        return true;
     }
 
     public function index()
@@ -63,6 +60,8 @@ class CacheSetAdminController extends BaseController
             $this->view->setVar('noCsToArchive', true);
             $this->view->buildView();
             exit;
+        } else {
+            $this->view->setVar('noCsToArchive', false);
         }
 
         // prepare model for list of watched caches
@@ -114,4 +113,3 @@ class CacheSetAdminController extends BaseController
 
     }
 }
-

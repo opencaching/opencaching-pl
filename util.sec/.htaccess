@@ -19,4 +19,7 @@ allow from 194.242.0.188
 # allow from private IP range (dev platforms etc)
 allow from 192.168.0.0/16
 
+# andrixnet's development server
+allow from 80.211.139.78
+
 Deny From All

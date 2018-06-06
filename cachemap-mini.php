@@ -63,4 +63,4 @@ $view->loadJQuery();
 $view->loadGMapApi();
 
 // ...and lest run template in fullscrean mode...
-tpl_BuildTemplate(true, true);
+tpl_BuildTemplate(true);

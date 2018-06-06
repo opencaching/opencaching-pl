@@ -14,8 +14,17 @@ global $tpl_subtitle;
   <title><?=$tpl_subtitle?>{title}</title>
 
   <link rel="shortcut icon" href="/images/<?=$config['headerFavicon']?>">
-  <link rel="apple-touch-icon-precomposed" href="/images/oc_logo_144.png">
-
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png">
+  <link rel="manifest" href="/images/icons/site.webmanifest">
+  <link rel="mask-icon" href="/images/icons/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="apple-mobile-web-app-title" content="Opencaching">
+  <meta name="application-name" content="Opencaching">
+  <meta name="msapplication-TileColor" content="#04bd00">
+  <meta name="msapplication-config" content="/images/icons/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+    
   <link rel="stylesheet" type="text/css" media="screen" href="<?=$view->screenCss?>">
   <link rel="stylesheet" type="text/css" media="print" href="<?=$view->printCss?>">
 

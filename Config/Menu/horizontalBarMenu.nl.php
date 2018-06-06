@@ -26,6 +26,7 @@ $menu = [
     'mnu_abcOfGCaching' => [$links['wiki']['main']],
     'mnu_forum'         => [$links['forum']],
     'mnu_blog'          => [$links['blog']],
+    'mnu_facebook'      => ['https://www.facebook.com/OpencachingBenelux/'],
     'mnu_geokrets'      => [$links['geokrety']],
     'mnu_download'      => [$links['wiki']['downloads']],
     'mnu_links'         => '/articles.php?page=links',

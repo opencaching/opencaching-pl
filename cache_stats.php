@@ -44,4 +44,4 @@ if ($error == false) {
         tpl_set_var('bodyMod', ' bgcolor="#FFFFFF" style="border:none"');
     }
 }
-tpl_BuildTemplate(true, true);
+tpl_BuildTemplate(true);

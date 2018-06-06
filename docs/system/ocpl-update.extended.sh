@@ -47,7 +47,9 @@ CMD_DIFF="git diff --stat --no-color"
 
 # sudo command to run the update as SITE_USER
 # comment it if unused
-SUDO_CMD="sudo -u ${SITE_USER}"
+if [ "`whoami`" -ne "$SITE_USER" ]; then
+    SUDO_CMD="sudo -u ${SITE_USER}"
+fi
 
 ###########################################################################
 # Updating $SITE_NAME at $SITE_ROOT ...

@@ -54,7 +54,7 @@ if ($error == false) {
 
                 if ($config['meritBadges']){
                     $ctrlMeritBadge = new MeritBadgeController;
-                    $ctrlMeritBadge->updateTriggerRecommendationAuthor($cache_id);
+                    $ctrlMeritBadge->updateTriggerCacheAuthor($cache_id);
                 }
 
                 // Notify OKAPI's replicate module of the change.

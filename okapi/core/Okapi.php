@@ -22,8 +22,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    private static $version_number = 1692;
-    private static $git_revision = '3f1f7a6db4fd68c17fea3c7c8b410c935f75daeb';
+    private static $version_number = 1693;
+    private static $git_revision = '1b04cdeea05ffa7afac38747a6e8f7e8c6b95593';
 
     private static $okapi_vars = null;
 
@@ -313,6 +313,7 @@ class Okapi
             case 'OCNL':
                 $urls = array(
                     "http://www.opencaching.nl/okapi/",
+                    "https://www.opencaching.nl/okapi/",
                 );
                 break;
             case 'OCRO':

@@ -397,7 +397,7 @@ class tmp_Xmlmap
 
 
         // make the template and send it out
-        tpl_BuildTemplate(false, false, true);
+        tpl_BuildTemplate(false, true);
     }
 
     /**

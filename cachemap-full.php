@@ -1,6 +1,7 @@
 <?php
 use lib\Objects\GeoCache\PrintList;
 use Utils\Uri\Uri;
+use Utils\View\View;
 
 /**
  *
@@ -29,6 +30,8 @@ require_once('./lib/cachemap3_common.php');
 handleUserLogged();
 
 tpl_set_tplname('cachemap-full');
+
+/** @var View */
 $view = tpl_getView();
 
 // locate user for which map is displayed
@@ -63,4 +66,4 @@ $view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/map/cachemap3
 
 
 //...and lest run template in fullscrean mode...
-tpl_BuildTemplate(true, true);
+tpl_BuildTemplate(true);

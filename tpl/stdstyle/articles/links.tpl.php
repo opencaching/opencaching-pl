@@ -56,7 +56,7 @@
                 </td>
 
                 <td>
-                    <a href="http://www.opencaching.nl">www.opencaching.nl </a>
+                    <a href="https://www.opencaching.nl">www.opencaching.nl </a>
                 </td>
             </tr>
 <!--            <tr>
