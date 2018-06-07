@@ -2,6 +2,7 @@
 
 namespace lib\Objects\PowerTrail;
 
+use powerTrailBase;
 use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\GeoCache\Collection;
 use lib\Objects\GeoCache\GeoCache;
@@ -627,6 +628,11 @@ class PowerTrail extends BaseObject
         if($this->activeGeocacheCount < $this->caclulateRequiredGeocacheCount()){
             return false;
         }
+
+        if( $this->cacheCount < powerTrailBase::minimumCacheCount() ){
+            return false;
+        }
+
         $appContainer = ApplicationContainer::Instance();
         if($this->status === self::STATUS_CLOSED && $appContainer->getLoggedUser()->getIsAdmin() === false){
             return false;
