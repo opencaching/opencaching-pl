@@ -207,6 +207,7 @@ $translations = array(
     'date_hidden_label' => 'Geplaatst op',
     'date_event_label' => 'Datum evenement',
     'date_created_label' => 'Gemaakt op',
+    'date_published_label' => 'Date published', /* EN! */
     'last_modified_label' => 'Laatste verandering',
     'last_modified2_label' => 'Laatste verandering',
     'waypoint' => 'Waypoint',

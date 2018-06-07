@@ -314,6 +314,11 @@ use lib\Objects\GeoKret\GeoKretyApi;
             </div>
 
             <div>
+                <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="published-date">
+                {{date_published_label}}: <?=$view->cachePublishedDate?>
+            </div>
+
+            <div>
                 <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="last-mod">
                 {{last_modified_label}}: <?=$view->cacheLastModifiedDate?>
             </div>

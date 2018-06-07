@@ -207,6 +207,7 @@ $translations = array(
     'date_hidden_label' => 'Data ascunderii',
     'date_event_label' => 'Data evenimentului',
     'date_created_label' => 'Data creării',
+    'date_published_label' => 'Date published', /* EN! */
     'last_modified_label' => 'Ultima modificare',
     'last_modified2_label' => 'Ultima modificare ***',
     'waypoint' => 'Punct',
