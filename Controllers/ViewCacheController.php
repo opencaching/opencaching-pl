@@ -136,12 +136,18 @@ class ViewCacheController extends BaseController
             'cacheLastModifiedDate',
             Formatter::date($this->geocache->getLastModificationDate())
         );
-        $this->view->setVar(
-            'cachePublishedDate',
-            empty($this->geocache->getDatePublished())
-            ? ""
-            : Formatter::date($this->geocache->getDatePublished())
-        );
+        if (empty($this->geocache->getDatePublished())) {
+            $datePublished = "";
+        } elseif (
+            $this->geocache->getDatePublished()
+                < $this->geocache->getDateCreated()
+        ) {
+            $datePublished = tr('date_published_unknown');
+        } else {
+            $datePublished
+                = Formatter::date($this->geocache->getDatePublished());
+        }
+        $this->view->setVar('cachePublishedDate', $datePublished);
 
         tpl_set_var('total_number_of_logs', $this->geocache->getFounds() + $this->geocache->getNotFounds() + $this->geocache->getNotesCount());
 

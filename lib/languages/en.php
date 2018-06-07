@@ -208,6 +208,7 @@ $translations = array(
     'date_event_label' => 'Event date',
     'date_created_label' => 'Date created',
     'date_published_label' => 'Date published',
+    'date_published_unknown' => 'unknown',
     'last_modified_label' => 'Last modification',
     'last_modified2_label' => 'Last modified',
     'waypoint' => 'Waypoint',

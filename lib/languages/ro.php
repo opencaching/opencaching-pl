@@ -208,6 +208,7 @@ $translations = array(
     'date_event_label' => 'Data evenimentului',
     'date_created_label' => 'Data creării',
     'date_published_label' => 'Date published', /* EN! */
+    'date_published_unknown' => 'unknown', /* EN! */
     'last_modified_label' => 'Ultima modificare',
     'last_modified2_label' => 'Ultima modificare ***',
     'waypoint' => 'Punct',
