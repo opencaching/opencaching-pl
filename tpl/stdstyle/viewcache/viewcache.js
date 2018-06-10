@@ -34,6 +34,27 @@ function rmLog(event, logId){
     return false;
 }
 
+// revert log by ajax
+function revertLog(event, logId) {
+	event.preventDefault();
+	$("#revertLogHrefSection-" + logId).hide();
+	$("#revertLogLoader-" + logId).show();
+	$.ajax({
+		url : "/CacheLog/revertLogAjax/" + logId,
+		type : "get",
+	})
+	.done(function(response, textStatus, jqXHR) {
+			$("#log" + logId).removeClass('show_deleted');
+			$("#log-title-" + logId).removeClass('show_deleted');
+			$("#log-content-" + logId).removeClass('show_deleted');
+	})
+	.fail(function(response, textStatus, jqXHR) {
+		$("#revertLogHrefSection-" + logId).html('<img src="/tpl/stdstyle/images/free_icons/cancel.png" class="icon16" alt="Cancel icon">');
+		$("#revertLogHrefSection-" + logId).show();
+	});
+	$("#revertLogLoader-" + logId).hide();
+	return false;
+}
 
 var currentLogEntriesOffset = 0;
 var currentLogEntriesLimit = 10;

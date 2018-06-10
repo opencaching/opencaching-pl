@@ -1,14 +1,9 @@
 <?php
-
 namespace lib\Objects\GeoCache;
 
 use lib\Objects\User\User;
 use lib\Controllers\Php7Handler;
 
-
-/**
- *
- */
 class GeoCacheLog extends GeoCacheLogCommons
 {
 
@@ -50,7 +45,7 @@ class GeoCacheLog extends GeoCacheLogCommons
      */
     public function getGeoCache()
     {
-        if(!($this->geoCache instanceof GeoCache)){
+        if (!($this->geoCache instanceof GeoCache)) {
             $this->geoCache = new GeoCache(array('cacheId' => $this->geoCache));
         }
 
@@ -63,7 +58,7 @@ class GeoCacheLog extends GeoCacheLogCommons
      */
     public function getUser()
     {
-        if(!($this->user instanceof User)){
+        if (!($this->user instanceof User)) {
             $this->user = new User(array('userId' => $this->user));
         }
         return $this->user;
@@ -324,7 +319,8 @@ class GeoCacheLog extends GeoCacheLogCommons
         return $this;
     }
 
-    private function loadByLogId($logId){
+    private function loadByLogId($logId)
+    {
 
         //find log by Id
         $s = $this->db->multiVariableQuery(
@@ -374,12 +370,49 @@ class GeoCacheLog extends GeoCacheLogCommons
     public static function fromLogIdFactory($logId)
     {
         $obj = new self();
-        try{
+        try {
             $obj->loadByLogId($logId);
             return $obj;
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return null;
         }
     }
 
+    /**
+     * Check if log can be reverted.
+     * Returns true if:
+     * - log is deleted
+     * - if log type is "found" | "attended" | "will attend" - there is not
+     *   an another active log in this type (should be only one)
+     *
+     * @return boolean
+     */
+    public function canBeReverted()
+    {
+        if (! $this->getDeleted())
+        {
+            return false; //log is NOT deleted
+        }
+        if (in_array($this->getType(),
+            [GeoCacheLog::LOGTYPE_FOUNDIT,
+            GeoCacheLog::LOGTYPE_ATTENDED,
+            GeoCacheLog::LOGTYPE_WILLATTENDED])) {
+                // There can be only one log "found", "attended", "will attend"
+                return (! $this->getGeoCache()->hasUserLogByType($this->getUser(), $this->getType()));
+            }
+        return true;
+    }
+
+    /**
+     * Reverts (undeletes) log
+     */
+    public function revertLog()
+    {
+        $this->setDeleted(false);
+        $this->db->multiVariableQuery(
+            'UPDATE `cache_logs`
+            SET `deleted` = :1
+            WHERE `id` = :2',
+            $this->getDeleted(), $this->getId());
+    }
 }
