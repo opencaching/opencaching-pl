@@ -12,6 +12,7 @@ use lib\Controllers\MeritBadgeController;
 use lib\Objects\GeoCache\GeoCache;
 use okapi\Facade;
 use lib\Objects\Coordinates\Coordinates;
+use Utils\EventHandler\EventHandler;
 
 class LogEntryController
 {
@@ -71,8 +72,7 @@ class LogEntryController
             }
 
             //call eventhandler
-            require_once(__DIR__ . '/../eventhandler.inc.php');
-            event_remove_log($log->getGeoCache()->getCacheId(), $loggedUser->getUserId());
+            EventHandler::logRemove($log);
 
             $log->getGeoCache()->recalculateCacheStats();
             $result = true;

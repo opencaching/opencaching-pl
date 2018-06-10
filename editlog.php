@@ -7,6 +7,7 @@ use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Controllers\LogEntryController;
 use lib\Controllers\MeritBadgeController;
 use okapi\Facade;
+use Utils\EventHandler\EventHandler;
 
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
@@ -321,8 +322,7 @@ if ($error == false) {
                         unset($user_record);
 
                         //call eventhandler
-                        require_once($rootpath . 'lib/eventhandler.inc.php');
-                        event_change_log_type($log_record['cache_id'], $log_record['user_id'] + 0);
+                        EventHandler::event_change_log_type($log_record['user_id'] + 0);
                     }
 
                     //update cache-stat if type or log_date changed

@@ -13,6 +13,7 @@ use Utils\Generators\Uuid;
 use lib\Controllers\LogEntryController;
 use lib\Objects\ApplicationContainer;
 use lib\Objects\GeoCache\GeoCacheLogCommons;
+use Utils\EventHandler\EventHandler;
 
 /*
  * todo: create and set up 4 template selector with wybor_WE wybor_NS.
@@ -611,9 +612,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
     }
 
     //call eventhandler
-    require_once($rootpath . 'lib/eventhandler.inc.php');
-    event_new_log($geoCache->getCacheId(), $user->getUserId() + 0);
-
+    EventHandler::logNewByUserId($user->getUserId());
 
     $badgetParam = "";
 

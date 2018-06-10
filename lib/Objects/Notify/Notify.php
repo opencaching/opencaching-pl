@@ -135,15 +135,12 @@ class Notify extends BaseObject
 
     /**
      * Inserts into notify_waiting table info about new cache notifications
-     * for users - for given by $cacheId cache.
+     * for users - for given by $cache.
      *
-     * @param int $cacheId
+     * @param GeoCache $cache
      */
-    public static function generateNotifiesForCache($cacheId)
+    public static function generateNotifiesForCache(GeoCache $cache)
     {
-        if (is_null($cache = GeoCache::fromCacheIdFactory($cacheId))) { // Check for sure
-            exit();
-        }
         // Check user's home coords
         self::db()->multiVariableQuery('
             INSERT INTO `notify_waiting` (`cache_id`, `user_id`)
