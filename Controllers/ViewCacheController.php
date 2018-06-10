@@ -651,4 +651,21 @@ class ViewCacheController extends BaseController
         }
     }
 
+    /**
+     * Displays event attenders page for cache with waypoint $cacheWp
+     *
+     * @param string $cacheWp
+     */
+    public function eventAttenders($cacheWp)
+    {
+        $cache = GeoCache::fromWayPointFactory($cacheWp);
+        if (is_null($cache) || ! $cache->isEvent()) {
+            $this->view->redirect('/');
+            die();
+        }
+        $this->view->setVar('cache', $cache);
+        $this->view->setVar('attenders', $cache->getAttenders());
+        $this->view->setTemplate('viewcache/event_attenders');
+        $this->view->buildInMiniTpl();
+    }
 }
