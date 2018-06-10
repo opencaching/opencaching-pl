@@ -21,8 +21,8 @@ class UserCommons extends BaseObject
     {
         $userId = intval($userId);
 
-        if (file_exists(OcConfig::instance()->getDynamicFilesPath() . 'images/statpics/statpic' . $userid . '.jpg')) {
-            unlink(OcConfig::instance()->getDynamicFilesPath() . 'images/statpics/statpic' . $userid . '.jpg');
+        if (file_exists(OcConfig::instance()->getDynamicFilesPath() . 'images/statpics/statpic' . $userId . '.jpg')) {
+            unlink(OcConfig::instance()->getDynamicFilesPath() . 'images/statpics/statpic' . $userId . '.jpg');
         }
     }
 }
