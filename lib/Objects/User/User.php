@@ -1,8 +1,6 @@
 <?php
 namespace lib\Objects\User;
 
-use Utils\Database\OcDb;
-use Utils\Database\XDb;
 use Utils\Generators\TextGen;
 use Utils\Generators\Uuid;
 use lib\Controllers\Php7Handler;
@@ -386,13 +384,13 @@ class User extends UserCommons
                 `log_notes_count`= (SELECT count(*) FROM `cache_logs` WHERE `user_id` =:1 AND `type` =3 AND `deleted` =0 )
             WHERE `user_id` =:1
         ";
-        $db = OcDb::instance();
-        $db->multiVariableQuery($query, $this->userId);
 
-        $stmt = $db->multiVariableQuery(
+        $this->db->multiVariableQuery($query, $this->userId);
+
+        $stmt = $this->db->multiVariableQuery(
             'SELECT `founds_count`, `notfounds_count`, `log_notes_count` FROM  `user` WHERE `user_id` =:1',
             $this->userId);
-        $dbResult = $db->dbResultFetchOneRowOnly($stmt);
+        $dbResult = $this->db->dbResultFetchOneRowOnly($stmt);
 
         $this->setUserFieldsByUsedDbRow($dbResult);
     }
@@ -516,9 +514,8 @@ class User extends UserCommons
         if ($this->powerTrailCompleted === null) {
             $this->powerTrailCompleted = new \ArrayObject();
             $queryPtList = 'SELECT * FROM `PowerTrail` WHERE `id` IN (SELECT `PowerTrailId` FROM `PowerTrail_comments` WHERE `commentType` =2 AND `deleted` =0 AND `userId` =:1 ORDER BY `logDateTime` DESC)';
-            $db = OcDb::instance();
-            $stmt = $db->multiVariableQuery($queryPtList, $this->userId);
-            $ptList = $db->dbResultFetchAll($stmt);
+            $stmt = $this->db->multiVariableQuery($queryPtList, $this->userId);
+            $ptList = $this->db->dbResultFetchAll($stmt);
 
             foreach ($ptList as $ptRow) {
                 $this->powerTrailCompleted->append(new PowerTrail(array('dbRow' => $ptRow)));
@@ -536,12 +533,11 @@ class User extends UserCommons
         if ($this->powerTrailOwed === null) {
             $this->powerTrailOwed = new \ArrayObject();
 
-            $db = OcDb::instance();
-            $stmt = $db->multiVariableQuery(
+            $stmt = $this->db->multiVariableQuery(
                 "SELECT `PowerTrail`.* FROM `PowerTrail`, PowerTrail_owners WHERE  PowerTrail_owners.userId = :1 AND PowerTrail_owners.PowerTrailId = PowerTrail.id",
                 $this->userId);
 
-            $ptList = $db->dbResultFetchAll( $stmt );
+            $ptList = $this->db->dbResultFetchAll( $stmt );
             foreach ($ptList as $ptRow) {
                 $this->powerTrailOwed->append(new PowerTrail(array('dbRow' => $ptRow)));
             }
@@ -553,12 +549,11 @@ class User extends UserCommons
     {
         if ($this->geocaches === null) {
             $this->geocaches = new \ArrayObject;
-            $db = OcDb::instance();
 
-            $stmt = $db->multiVariableQuery(
+            $stmt = $this->db->multiVariableQuery(
                 "SELECT * FROM `caches` where `user_id` = :1 ", $this->userId);
 
-            foreach ($db->dbResultFetchAll($stmt) as $geocacheRow) {
+            foreach ($this->db->dbResultFetchAll($stmt) as $geocacheRow) {
                 $geocache = new GeoCache();
                 $geocache->loadFromRow($geocacheRow);
                 $this->geocaches->append($geocache);
@@ -653,7 +648,7 @@ class User extends UserCommons
         }
 
         //get published geocaches count
-        $activeCachesNum = XDb::xMultiVariableQueryValue(
+        $activeCachesNum = $this->db->multiVariableQueryValue(
             "SELECT COUNT(*) FROM `caches`
              WHERE `user_id` = :1 AND status = 1",
              0, $this->getUserId());
@@ -717,7 +712,7 @@ class User extends UserCommons
     {
         if ($this->eventsAttendsCount == null) {
             $this->eventsAttendsCount =
-                XDb::xSimpleQueryValue(
+                $this->db->simpleQueryValue(
                     "SELECT COUNT(*) events_count
                     FROM cache_logs
                     WHERE user_id=".$this->userId."

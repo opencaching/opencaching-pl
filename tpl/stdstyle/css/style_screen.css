@@ -18,6 +18,11 @@ body                { font-size: 62.5%; line-height: 1.42857143; margin: 0px aut
 	position: relative;
 }
 
+.popup-container {
+	padding: 15px;
+	background-color: #fff;
+}
+
 body.summer { background-color: #feec98; }
 body.autumn { background-color: #e0ed9d; }
 body.winter { background-color: #ddebf5; }
@@ -1138,28 +1143,6 @@ td.myr{
     font-weight:bold;
     line-height:1.4em;}
 
-
-/* ===================================================================================== */
-/*              Tabele w myneighborhood    jg-geo(at)pwr.pl                              */
-/* ===================================================================================== */
-
-td.myneighborhood {
-    padding: 3px;
-    font-size: 12px;
-}
-td.tab_date {
-    white-space: nowrap;
-    width: 10%;
-}
-td.tab_icon
-{
-    width: 16px;
-}
-td.tab_user {
-    width: 20%;
-}
-
-
 /*power trails (geoPaths) medals (viewprofile)*/
 .ptMedal {
     float: left;
@@ -1240,4 +1223,8 @@ sub {
 {
     width: 32px;
     height: 32px;
+}
+
+.tab-text {
+	padding-left: 1.6em;
 }

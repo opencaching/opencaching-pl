@@ -10,6 +10,7 @@ use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\User\User;
 use Utils\Debug\Debug;
+use Utils\EventHandler\EventHandler;
 
 // prepare the templates and include all neccessary
 if (! isset($rootpath)) {
@@ -712,22 +713,19 @@ if (isset($_POST['submitform'])) {
                             VALUES ( ?, ?)", $cache_id, $attr);
         }
 
+        /* add cache altitude */
+        $geoCache = Geocache::fromCacheIdFactory($cache_id);
+        $geoCache->updateAltitude();
+
         // only if no approval is needed and cache is published NOW or activate_date is in the past
         if (! $needs_approvement && ($publish == 'now' || ($publish == 'later' && mktime($activate_hour, 0, 0, $activate_month, $activate_day, $activate_year) <= $today))) {
             // do event handling
-            include_once ($rootpath . '/lib/eventhandler.inc.php');
-
-            event_notify_new_cache($cache_id + 0);
-            event_new_cache($usr['userid'] + 0);
+            EventHandler::cacheNew($geoCache);
         }
 
         if ($needs_approvement) { // notify OC-Team that new cache has to be verified
             EmailSender::sendNotifyAboutNewCacheToOcTeam(__DIR__ . '/tpl/stdstyle/email/oc_team_notify_new_cache.email.html', ApplicationContainer::Instance()->getLoggedUser(), $name, $cache_id, $adm3, $adm1);
         }
-
-        /* add cache altitude */
-        $geoCache = Geocache::fromCacheIdFactory($cache_id);
-        $geoCache->updateAltitude();
 
         // redirection
         tpl_redirect('mycaches.php?status=' . urlencode($sel_status));

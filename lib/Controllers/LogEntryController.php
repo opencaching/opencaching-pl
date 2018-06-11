@@ -12,6 +12,7 @@ use lib\Controllers\MeritBadgeController;
 use lib\Objects\GeoCache\GeoCache;
 use okapi\Facade;
 use lib\Objects\Coordinates\Coordinates;
+use Utils\EventHandler\EventHandler;
 
 class LogEntryController
 {
@@ -71,10 +72,9 @@ class LogEntryController
             }
 
             //call eventhandler
-            require_once(__DIR__ . '/../eventhandler.inc.php');
-            event_remove_log($log->getGeoCache()->getCacheId(), $loggedUser->getUserId());
+            EventHandler::logRemove($log);
 
-            $this->updateGeocacheAfterLogRemove($log, $db);
+            $log->getGeoCache()->recalculateCacheStats();
             $result = true;
 
         } else {
@@ -242,29 +242,6 @@ class LogEntryController
     {
         $cache = new GeoCache(array('cacheId' => $cacheId));
         return self::recalculateMobileMoves($cache);
-    }
-
-    private function updateGeocacheAfterLogRemove(GeoCacheLog $log, OcDb $db)
-    {
-        $geoCache = $log->getGeoCache();
-        if ($log->getType() == GeoCacheLog::LOGTYPE_FOUNDIT || $log->getType() == GeoCacheLog::LOGTYPE_ATTENDED) {
-            $geoCache->setFounds($geoCache->getFounds()-1);
-        } elseif ($log->getType() == GeoCacheLog::LOGTYPE_DIDNOTFIND || $log->getType() == 8) {
-            $geoCache->setNotFounds($geoCache->getNotFounds()-1);
-        } elseif ($log->getType() == GeoCacheLog::LOGTYPE_COMMENT) {
-            $geoCache->setNotesCount($geoCache->getNotesCount()-1);
-        }
-
-        //Update last found
-        $lastfoundQuery = "SELECT MAX(`cache_logs`.`date`) AS `date` FROM `cache_logs` WHERE ((cache_logs.`type`=1) AND (cache_logs.`cache_id`= :1 ) AND (cache_logs.`deleted`=0))";
-        $s = $db->multiVariableQuery($lastfoundQuery, $geoCache->getCacheId());
-        $lastfoundRecord = $db->dbResultFetchOneRowOnly($s);
-        if ($lastfoundRecord['date'] === NULL) {
-            $lastFound = null;
-        } else {
-            $lastFound = $lastfoundRecord['date'];
-        }
-        $geoCache->setLastFound($lastFound)->updateGeocacheLogentriesStats();
     }
 
     public function getErrors()

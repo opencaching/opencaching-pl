@@ -137,11 +137,12 @@ use lib\Objects\GeoKret\GeoKretyApi;
 
                 <?php if ($view->geoCache->isEvent()) { ?>
                     <div class="common-desc">
-                        <img src="tpl/stdstyle/images/blue/meeting.png" width="22" height="22" alt="meeting">
+                        <img src="tpl/stdstyle/images/blue/meeting.png" class="icon16" alt="meeting">
+
                         <script>
                             function eventAttendancePopup() {
-                              var url = "event_attendance.php?id=<?=$view->geoCache->getCacheId()?>&popup=y";
-                              window.open(url,'<?=tr('list_of_participants')?>',"width=320,height=440,resizable=no,scrollbars=1");
+                              var url = "/ViewCache/eventAttenders/<?=$view->geoCache->getWaypointId()?>";
+                              window.open(url,'<?=tr('list_of_participants')?>',"width=500,resizable=no,scrollbars=1");
                             }
                         </script>
                         <a href="#" onclick="eventAttendancePopup()"><?=tr('list_of_participants')?></a>

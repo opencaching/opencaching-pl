@@ -6,6 +6,7 @@ use Utils\Database\OcDb;
 use Utils\I18n\Languages;
 use Utils\Generators\Uuid;
 use lib\Objects\Coordinates\Coordinates;
+use Utils\EventHandler\EventHandler;
 
 //prepare the templates and include all neccessary
 global $rootpath;
@@ -510,16 +511,17 @@ if ($error == false) {
 
                         updateAltitudeIfNeeded($cache_record, $cache_id);
 
+                        $cache = GeoCache::fromCacheIdFactory($cache_id);
+
                         //call eventhandler
-                        require_once($rootpath . 'lib/eventhandler.inc.php');
-                        event_edit_cache($cache_id, $usr['userid'] + 0);
+                        EventHandler::cacheEdit($cache);
 
                         // if old status is not yet published and new status is published => notify-event
                         if ($status_old == $STATUS['NOT_YET_AVAILABLE'] && $status != $STATUS['NOT_YET_AVAILABLE']) {
                             GeoCache::touchCache($cache_id);
 
                             // send new cache event
-                            event_notify_new_cache($cache_id);
+                            EventHandler::cacheNew($cache);
                         }
 
                         //generate automatic logs
