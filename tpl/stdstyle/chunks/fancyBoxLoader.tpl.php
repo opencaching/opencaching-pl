@@ -15,11 +15,11 @@ return function ($loadCss = false, $loadJs = false) {
 
 <!-- fancyBox chunk -->
 <?php if($loadCss){ ?>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
 <?php } ?>
 
 <?php if($loadJs){ ?>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
 <?php } ?>
 <!-- End of fancyBox chunk -->
 
