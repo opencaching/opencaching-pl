@@ -146,9 +146,9 @@ foreach ($logEntries as $record) {
 
     // display user activity (by Łza 2012)
     if ((date('m') == 4) and ( date('d') == 1)) {
-        $tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="' . tr('viewlog_aktywnosc') . '"/>' . rand(1, 9) . ') ';
+        $tmplog_username_aktywnosc = ' (<img src="/tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="' . tr('viewlog_aktywnosc') . '"/>' . rand(1, 9) . ') ';
     } else {
-        $tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="' . tr('viewlog_aktywnosc') . ' [' . $record['znalezione'] . '+' . $record['nieznalezione'] . '+' . $record['ukryte'] . ']"/>' . ($record['ukryte'] + $record['znalezione'] + $record['nieznalezione']) . ') ';
+        $tmplog_username_aktywnosc = ' (<img src="/tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="' . tr('viewlog_aktywnosc') . ' [' . $record['znalezione'] . '+' . $record['nieznalezione'] . '+' . $record['ukryte'] . ']"/>' . ($record['ukryte'] + $record['znalezione'] + $record['nieznalezione']) . ') ';
     }
 
     // hide nick of athor of COG(OC Team) for user
@@ -163,7 +163,7 @@ foreach ($logEntries as $record) {
     // mobile caches by Łza
     if (($record['type'] == 4) && ($record['mobile_latitude'] != 0) && ! $disable_spoiler_view) {
         $tmplog_kordy_mobilnej = mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_latToDegreeStr($record['mobile_latitude']), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($record['mobile_longitude']), ENT_COMPAT, 'UTF-8'));
-        $tmplog = mb_ereg_replace('{kordy_mobilniaka}', $record['km'] . ' km [<img src="tpl/stdstyle/images/blue/arrow_mobile.png" title="' . tr('viewlog_kordy') . '" />' . $tmplog_kordy_mobilnej . ']', $tmplog);
+        $tmplog = mb_ereg_replace('{kordy_mobilniaka}', $record['km'] . ' km [<img src="/tpl/stdstyle/images/blue/arrow_mobile.png" title="' . tr('viewlog_kordy') . '" />' . $tmplog_kordy_mobilnej . ']', $tmplog);
     } else
         $tmplog = mb_ereg_replace('{kordy_mobilniaka}', ' ', $tmplog);
 
@@ -184,12 +184,12 @@ foreach ($logEntries as $record) {
     $tmplog = mb_ereg_replace('{date}', $tmplog_date, $tmplog);
     $tmplog = mb_ereg_replace('{type}', $record['text_listing'], $tmplog);
     $tmplog = mb_ereg_replace('{logtext}', $tmplog_text, $tmplog);
-    $tmplog = mb_ereg_replace('{logimage}', '<a href="viewlogs.php?logid=' . $record['logid'] . '">' . icon_log_type($record['icon_small'], $record['logid']) . '</a>', $tmplog);
+    $tmplog = mb_ereg_replace('{logimage}', '<a href="/viewlogs.php?logid=' . $record['logid'] . '">' . icon_log_type($record['icon_small'], $record['logid']) . '</a>', $tmplog);
     $tmplog = mb_ereg_replace('{log_id}', $record['logid'], $tmplog);
 
     //$rating_picture
     if ($record['recommended'] == 1 && $record['type'] == 1)
-        $tmplog = mb_ereg_replace('{ratingimage}', '<img src="images/rating-star.png" alt="' . tr('recommendation') . '" />', $tmplog);
+        $tmplog = mb_ereg_replace('{ratingimage}', '<img src="/images/rating-star.png" alt="' . tr('recommendation') . '">', $tmplog);
     else
         $tmplog = mb_ereg_replace('{ratingimage}', '', $tmplog);
 
