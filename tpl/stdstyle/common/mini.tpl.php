@@ -31,7 +31,13 @@
           $view->callChunk('googleMapsApi', $GLOBALS['googlemap_key'], $view->getLang());
       }
 
-      foreach( $view->getLocalJs() as $js ) {
+      foreach ( $view->getHeaderChunks() as $chunkName => $args )
+      {
+          echo "<!-- load chunk $chunkName -->";          
+          $view->callChunk($chunkName, $args);
+      }
+      
+      foreach ( $view->getLocalJs() as $js ) {
           if (! $js['defer']) {?>
             <script src="<?=$js['url']?>"<?=$js['async'] ? ' async' : ''?>></script>
 <?php     }

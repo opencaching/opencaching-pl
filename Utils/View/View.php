@@ -29,6 +29,8 @@ class View {
 
     private $_showGdprPage = false;
 
+    private $_headerChunks = []; // chunks to load in <head> of the page
+
     public function __construct()
     {
 
@@ -304,6 +306,25 @@ class View {
     }
 
     /**
+     * Add chunk which shold be called in page header
+     *
+     * @param string $chunkName
+     */
+    public function addHeaderChunk($chunkName, array $args = null)
+    {
+        if(is_null($args)){
+            $this->_headerChunks[$chunkName] = [];
+        }else{
+            $this->_headerChunks[$chunkName] = $args;
+        }
+    }
+
+    public function getHeaderChunks()
+    {
+        return $this->_headerChunks;
+    }
+
+    /**
      * Set template name (former tpl_set_tplname())
      * @param string $tplName
      */
@@ -344,6 +365,8 @@ class View {
         if (is_null($layoutTemplate)) {
             $layoutTemplate = MainLayoutController::MAIN_TEMPLATE;
             MainLayoutController::init(); // init vars for main-layout
+        } else if($layoutTemplate = MainLayoutController::MINI_TEMPLATE) {
+            MainLayoutController::init();
         }
 
         $this->_callTemplate($layoutTemplate);

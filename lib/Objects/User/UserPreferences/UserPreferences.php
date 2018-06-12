@@ -26,7 +26,8 @@ class UserPreferences extends BaseObject
         // 'testKey' => 'TestData::class'
         TestUserPref::KEY => TestUserPref::class,
         UserProfilePref::KEY => UserProfilePref::class,
-        NeighbourhoodPref::KEY => NeighbourhoodPref::class
+        NeighbourhoodPref::KEY => NeighbourhoodPref::class,
+        UserMapSettings::KEY => UserMapSettings::class,
     ];
 
     /** @var UserPreferencesBaseData[] */
