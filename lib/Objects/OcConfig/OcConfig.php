@@ -66,6 +66,8 @@ final class OcConfig extends ConfigReader
     /** @var array the watchlist configuration array */
     private $watchlistConfig;
 
+    /** @var array array of map settings from /Config/map.* files */
+    private $mapConfig;
     /**
      * Call this method to get singleton
      * @return ocConfig
@@ -356,5 +358,19 @@ final class OcConfig extends ConfigReader
             $this->watchlistConfig = self::getConfig("watchlist", "watchlist");
         }
         return $this->watchlistConfig;
+    }
+
+    /**
+     * Gives map configuration, tries to initialize it if null
+     *
+     * @return array map configuration
+     *               ({@see /Config/map.default.php})
+     */
+    public function getMapConfig()
+    {
+        if ($this->mapConfig == null) {
+            $this->mapConfig = self::getConfig("map", "map");
+        }
+        return $this->mapConfig;
     }
 }

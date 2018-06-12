@@ -1,0 +1,157 @@
+
+#mapCanvas {
+    width: 100%; 
+    height: 100%; 
+    position: absolute; 
+    top: 0px;    
+}
+
+#mapControlsContainer {
+  display: none;
+}
+
+#layerSwitcher {
+  top: 10px;
+  right: 10px;
+}
+
+#layerSwitcher select {
+  padding: 5px;
+}
+
+#mapZoom {
+  bottom: 20px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+#mapZoomIn, #mapZoomOut {
+  width: 25px;
+  height: 25px;
+  /*background-color: white;*/
+  margin: 5px;
+}
+
+#mapZoom svg {
+  fill: red;
+}
+
+#controlCombo {
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center; 
+}
+
+#mapFilters {
+    top: 38px;
+    left: 2px;
+    width: 400px;
+}
+
+#mousePosition {
+  bottom: 10px;
+  left: 10px;
+}
+
+#mapScale {
+  bottom: 5px;
+  left: 250px;
+}
+
+#mapScale {
+  bottom: 5px;
+  left: 45%;
+}
+
+#mapScale .customScale {
+  border-width: 2px;
+  border-color: blue;
+  border-style: none double double double;
+  background-color: transparent;
+  text-align: center;
+  color: blue;
+}
+
+
+#mapClickMarker {
+  width: 32px;
+  height: 32px;
+  border: 3px solid green;
+  transform: translate(-50%,-50%)
+}
+
+#mapPopup {
+  position: absolute;
+  background-color: white;
+  -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+  filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+  padding: 15px;
+  border-radius: 0px;
+  border: 1px solid #cccccc;
+  bottom: 12px;
+  left: -48px;
+  min-width: 350px;
+}
+
+#mapPopup:after, #mapPopup:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+#mapPopup:after {
+  border-top-color: white;
+  border-width: 10px;
+  left: 48px;
+  margin-left: -10px;
+}
+#mapPopup:before {
+  border-top-color: #cccccc;
+  border-width: 11px;
+  left: 48px;
+  margin-left: -11px;
+}
+#mapPopup-closer {
+  text-decoration: none;
+  position: absolute;
+  top: 2px;
+  right: 8px;
+}
+#mapPopup-closer:after {
+  content: "✖";
+}
+
+#mapPopup-content p{
+  margin-bottom: 5px;
+}
+
+
+
+
+
+.mapFiltersHeader {
+  background: #888;
+  padding: 3px 8px 5px 8px;
+  font-family: Tahoma;
+  font-size: 13px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.mapFiltersControls {
+  background: #eee;
+  padding: 3px 3px 3px 6px;
+  font-family: Tahoma;
+  font-size: 13px;
+  vertical-align: top;
+}
+
+
