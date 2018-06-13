@@ -132,10 +132,10 @@ if ($lonEW == 'E') {
     tpl_set_var('lonE_sel', '');
     tpl_set_var('lonWsel', ' selected="selected"');
 }
-$lon_h = isset($_POST['lon_h']) ? $_POST['lon_h'] : '0';
+$lon_h = isset($_POST['lon_h']) ? $_POST['lon_h'] : '';
 tpl_set_var('lon_h', htmlspecialchars($lon_h, ENT_COMPAT, 'UTF-8'));
 
-$lon_min = isset($_POST['lon_min']) ? $_POST['lon_min'] : '00.000';
+$lon_min = isset($_POST['lon_min']) ? $_POST['lon_min'] : '';
 tpl_set_var('lon_min', htmlspecialchars($lon_min, ENT_COMPAT, 'UTF-8'));
 
 $latNS = isset($_POST['latNS']) ? $_POST['latNS'] : $default_NS;
@@ -146,10 +146,10 @@ if ($latNS == 'N') {
     tpl_set_var('latNsel', '');
     tpl_set_var('latSsel', ' selected="selected"');
 }
-$lat_h = isset($_POST['lat_h']) ? $_POST['lat_h'] : '0';
+$lat_h = isset($_POST['lat_h']) ? $_POST['lat_h'] : '';
 tpl_set_var('lat_h', htmlspecialchars($lat_h, ENT_COMPAT, 'UTF-8'));
 
-$lat_min = isset($_POST['lat_min']) ? $_POST['lat_min'] : '00.000';
+$lat_min = isset($_POST['lat_min']) ? $_POST['lat_min'] : '';
 tpl_set_var('lat_min', htmlspecialchars($lat_min, ENT_COMPAT, 'UTF-8'));
 
 // name
