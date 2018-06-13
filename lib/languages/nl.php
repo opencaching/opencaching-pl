@@ -2793,4 +2793,8 @@ $translations = array(
     'gdpr_text2' => 'Om de site verder te kunnen gebruiken dient men de veranderingen te lezen en te accepteren. <br> Wanneer je hier niet mee eens bent, <a href="mailto:{OCTeamEmail}"> contacteer ons </a> om je account van de site te verwijderen.',
     'gdpr_acceptBtn' => 'Ik accepteer',
 
+    'copy_coords_prompt' => 'Copy the coordinates to the clipboard', /* EN */
+    'copy_coords_success_prefix' => 'The coordinates', /* EN */
+    'copy_coords_success_suffix' => 'have been copied to the clipboard', /* EN */
+    'copy_coords_failure' => 'The coordinates have not been copied to the clipboard.<br>Check if your browser supports the clipbord copying operation.', /* EN */
 );

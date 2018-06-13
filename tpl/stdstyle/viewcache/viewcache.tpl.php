@@ -178,58 +178,72 @@ use lib\Objects\GeoKret\GeoKretyApi;
 
 <div class="content2-container">
     <div class="content2-container-2col-left" id="viewcache-baseinfo">
-        <div class="content-title-noshade-size3">
-          <img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="compass">
-
-            <?php if ($view->isUserAuthorized || $view->alwaysShowCoords) { ?>
-                <span id="cacheCoordinates" onclick="changeCoordsFormat()" title="<?=tr('viewCache_switchCoordsFormat')?>">
-                <?php if (!$view->userModifiedCacheCoords) { ?>
-                  <span class="CoordsDegMin">
-                    <?=$view->geoCache->getCoordinates()->getAsText(
-                        Coordinates::COORDINATES_FORMAT_DEG_MIN)?>
-                  </span>
-                  <span class="CoordsDegMinSec">
-                    <?=$view->geoCache->getCoordinates()->getAsText(
-                        Coordinates::COORDINATES_FORMAT_DEG_MIN_SEC)?>
-                  </span>
-                  <span class="CoordsDecimal">
-                    <?=$view->geoCache->getCoordinates()->getAsText(
-                        Coordinates::COORDINATES_FORMAT_DECIMAL)?>
-                  </span>
-                <?php } else { // if-userModifiedCacheCoords ?>
-                  <span class="CoordsDegMin">
-                    <?=$view->userModifiedCacheCoords->getAsText(
-                        Coordinates::COORDINATES_FORMAT_DEG_MIN)?>
-                  </span>
-                  <span class="CoordsDegMinSec">
-                    <?=$view->userModifiedCacheCoords->getAsText(
-                        Coordinates::COORDINATES_FORMAT_DEG_MIN_SEC)?>
-                  </span>
-                  <span class="CoordsDecimal">
-                    <?=$view->userModifiedCacheCoords->getAsText(
-                        Coordinates::COORDINATES_FORMAT_DECIMAL)?>
-                  </span>
-
-                <?php } // if-userModifiedCacheCoords ?>
+        <div class="content-title-noshade-size3" id="viewcache-coordsinfo">
+            <div class="viewcache-coordsinfo-block">
+                <span class="content-title-noshade-size0">
+                    <img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="compass"/>
                 </span>
-
-                <span class="content-title-noshade-size0">(WGS84)</span>
-
-                <?php if ($view->userModifiedCacheCoords) { ?>
-                    <span class="content-title-noshade-size0">
-                      <a href="#coords_mod_section">
-                        <img src="tpl/stdstyle/images/blue/signature1-orange.png" class="icon32"
-                          alt="<?=tr('orig_coord_modified_info')?><?=$view->geoCache->getCoordinates()->getAsText()?>"
-                          title="<?=tr('orig_coord_modified_info')?><?=$view->geoCache->getCoordinates()->getAsText()?>">
-                      </a>
+            </div>
+            <?php if ($view->isUserAuthorized || $view->alwaysShowCoords) { ?>
+                <div class="viewcache-coordsinfo-block viewcache-coords-values">
+                    <span
+                        id="cacheCoordinates"
+                        onclick="changeCoordsFormat()"
+                        title="<?=tr('viewCache_switchCoordsFormat')?>">
+                    <?php if (!$view->userModifiedCacheCoords) { ?>
+                        <span class="CoordsDegMin">
+                            <?=$view->geoCache->getCoordinates()->getAsText(
+                                Coordinates::COORDINATES_FORMAT_DEG_MIN)?>
+                        </span>
+                        <span class="CoordsDegMinSec">
+                            <?=$view->geoCache->getCoordinates()->getAsText(
+                                Coordinates::COORDINATES_FORMAT_DEG_MIN_SEC)?>
+                        </span>
+                        <span class="CoordsDecimal">
+                            <?=$view->geoCache->getCoordinates()->getAsText(
+                                Coordinates::COORDINATES_FORMAT_DECIMAL)?>
+                        </span>
+                    <?php } else { // if-userModifiedCacheCoords ?>
+                        <span class="CoordsDegMin">
+                            <?=$view->userModifiedCacheCoords->getAsText(
+                                Coordinates::COORDINATES_FORMAT_DEG_MIN)?>
+                        </span>
+                        <span class="CoordsDegMinSec">
+                            <?=$view->userModifiedCacheCoords->getAsText(
+                                Coordinates::COORDINATES_FORMAT_DEG_MIN_SEC)?>
+                        </span>
+                        <span class="CoordsDecimal">
+                            <?=$view->userModifiedCacheCoords->getAsText(
+                                Coordinates::COORDINATES_FORMAT_DECIMAL)?>
+                        </span>
+                    <?php } // if-userModifiedCacheCoords ?>
                     </span>
+                    <div class="content-title-noshade-size0" style="line-height: 1.0em;">(WGS84)</div>
+                </div>
+                <?php if ($view->userModifiedCacheCoords) { ?>
+                    <div class="viewcache-coordsinfo-block">
+                        <span class="content-title-noshade-size0">
+                          <a href="#coords_mod_section">
+                            <img src="tpl/stdstyle/images/blue/signature1-orange.png" class="icon32"
+                              alt="<?=tr('orig_coord_modified_info')?><?=$view->geoCache->getCoordinates()->getAsText()?>"
+                              title="<?=tr('orig_coord_modified_info')?><?=$view->geoCache->getCoordinates()->getAsText()?>">
+                          </a>
+                        </span>
+                    </div>
                 <?php } //coords modified ?>
-
             <?php } else { //user-not-authorized ?>
-                <?=tr('hidden_coords')?>
+                <div class="viewcache-coordsinfo-block" style="padding-top: 0.2em">
+                    <?=tr('hidden_coords')?>
+                </div>
             <?php } //else-user-not-authorized ?>
-
-
+                <script language="javascript">
+                    var tr = {
+                        'copy_coords_prompt': '<?php print tr('copy_coords_prompt') ?>',
+                        'copy_coords_success_prefix': '<?php print tr('copy_coords_success_prefix') ?>',
+                        'copy_coords_success_suffix': '<?php print tr('copy_coords_success_suffix') ?>',
+                        'copy_coords_failure': '<?php print tr('copy_coords_failure') ?>',
+                    };
+                </script>
         </div>
 
         <div class="list-of-details">
@@ -1053,3 +1067,5 @@ use lib\Objects\GeoKret\GeoKretyApi;
 </div>
 
 <?php } //if ($view->badgesPopUp ?>
+
+<div id="copy-coords-status" style="display: none"></div>

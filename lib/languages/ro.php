@@ -2792,4 +2792,9 @@ $translations = array(
     'gdpr_text' => 'From May 25, 2018, due to the provisions of the GDPR, we changed', /* EN */
     'gdpr_text2' => 'To continue using the site, read the changes and accept them. <br> If you do not agree - <a href="mailto:{OCTeamEmail}"> contact us </a> to delete your account on the site.', /* EN */
     'gdpr_acceptBtn' => 'De acord', /* EN */
+
+    'copy_coords_prompt' => 'Copy the coordinates to the clipboard', /* EN */
+    'copy_coords_success_prefix' => 'The coordinates', /* EN */
+    'copy_coords_success_suffix' => 'have been copied to the clipboard', /* EN */
+    'copy_coords_failure' => 'The coordinates have not been copied to the clipboard.<br>Check if your browser supports the clipbord copying operation.', /* EN */
 );
