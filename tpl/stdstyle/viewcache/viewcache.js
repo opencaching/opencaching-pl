@@ -234,7 +234,10 @@ function documentClickCloseDialog() {
 }
 
 $(document).ready(function() {
-    if (document.queryCommandSupported("copy")) {
+    if (
+        $("#cacheCoordinates").length
+        && document.queryCommandSupported("copy")
+    ) {
         $("#viewcache-coordsinfo").append(
             '<div class="viewcache-coordsinfo-block">'
             + '<span class="content-title-noshade-size0">'
