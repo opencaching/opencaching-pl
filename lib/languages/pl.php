@@ -2800,5 +2800,5 @@ $translations = array(
     'copy_coords_prompt' => 'Kopiuj współrzędne do schowka',
     'copy_coords_success_prefix' => 'Współrzędne',
     'copy_coords_success_suffix' => 'zostały skopiowane do schowka',
-    'copy_coords_failure' => 'Współrzędne nie zostały skopiowane do schowka.<br>Sprawdź czy Twoja przeglądarka wspiera operację kopiowania do schowka.',
+    'copy_coords_failure' => 'Współrzędne nie zostały skopiowane.<br>Twoja przeglądarka nie wspiera operacji kopiowania do schowka.',
 );

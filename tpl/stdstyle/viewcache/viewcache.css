@@ -308,13 +308,24 @@ a.links4:hover {
     top: -0.2em;
 }
 
+.coords-hidden {
+    padding-top: 0.2em
+}
+
 .CoordsDegMinSec, .CoordsDecimal {
     display: none;
 }
 
 #cacheCoordinates, #copy-coords {
     cursor: pointer;
+}
+
+.line1, #cacheCoordinates {
     line-height: 1.0em
+}
+
+#copy-coords-status {
+    display: none;
 }
 
 .copy-coords-status {
@@ -335,6 +346,10 @@ a.links4:hover {
   border: 0;
 }
 
-.copy-coords-status .failure {
+.copy-coords-status .copy-coords-failure {
     color: #a00000;
+}
+
+.copy-coords-status .copy-coords-values {
+    font-weight: bold;
 }

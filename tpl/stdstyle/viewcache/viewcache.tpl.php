@@ -218,7 +218,7 @@ use lib\Objects\GeoKret\GeoKretyApi;
                         </span>
                     <?php } // if-userModifiedCacheCoords ?>
                     </span>
-                    <div class="content-title-noshade-size0" style="line-height: 1.0em;">(WGS84)</div>
+                    <div class="content-title-noshade-size0 line1">(WGS84)</div>
                 </div>
                 <?php if ($view->userModifiedCacheCoords) { ?>
                     <div class="viewcache-coordsinfo-block">
@@ -232,16 +232,16 @@ use lib\Objects\GeoKret\GeoKretyApi;
                     </div>
                 <?php } //coords modified ?>
             <?php } else { //user-not-authorized ?>
-                <div class="viewcache-coordsinfo-block" style="padding-top: 0.2em">
+                <div class="viewcache-coordsinfo-block coords-hidden">
                     <?=tr('hidden_coords')?>
                 </div>
             <?php } //else-user-not-authorized ?>
                 <script language="javascript">
                     var tr = {
-                        'copy_coords_prompt': '<?php print tr('copy_coords_prompt') ?>',
-                        'copy_coords_success_prefix': '<?php print tr('copy_coords_success_prefix') ?>',
-                        'copy_coords_success_suffix': '<?php print tr('copy_coords_success_suffix') ?>',
-                        'copy_coords_failure': '<?php print tr('copy_coords_failure') ?>',
+                        'copy_coords_prompt': '<?=tr('copy_coords_prompt')?>',
+                        'copy_coords_success_prefix': '<?=tr('copy_coords_success_prefix')?>',
+                        'copy_coords_success_suffix': '<?=tr('copy_coords_success_suffix')?>',
+                        'copy_coords_failure': '<?=tr('copy_coords_failure')?>',
                     };
                 </script>
         </div>
@@ -1068,4 +1068,4 @@ use lib\Objects\GeoKret\GeoKretyApi;
 
 <?php } //if ($view->badgesPopUp ?>
 
-<div id="copy-coords-status" style="display: none"></div>
+<div id="copy-coords-status"></div>

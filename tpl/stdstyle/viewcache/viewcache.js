@@ -170,7 +170,7 @@ var dialogElement;
 
 function copyCoords(e) {
     let statusText = tr['copy_coords_failure'];
-    let statusClass = "failure";
+    let statusClass = "copy-coords-failure";
     let coordsElem = $('.' + currentCordsFormat);
     if (coordsElem != null) {
         let coords = coordsElem.text().trim();
@@ -184,7 +184,7 @@ function copyCoords(e) {
                 statusClass = "";
                 statusText =
                     tr['copy_coords_success_prefix']
-                    + "<br><span style=\"font-weight: bold\">"
+                    + "<br><span class=\"copy-coords-values\">"
                     + coords
                     + "</span><br>"
                     + tr['copy_coords_success_suffix']
