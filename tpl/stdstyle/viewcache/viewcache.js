@@ -165,3 +165,90 @@ function changeCoordsFormat(){
   }
 }
 
+var closeDialog = 0;
+var dialogElement;
+
+function copyCoords(e) {
+    let statusText = tr['copy_coords_failure'];
+    let statusClass = "copy-coords-failure";
+    let coordsElem = $('.' + currentCordsFormat);
+    if (coordsElem != null) {
+        let coords = coordsElem.text().trim();
+        let temp = $("<input>");
+        $("body").append(temp);
+        temp.val(coords).select();
+        if (document.queryCommandEnabled("copy")) {
+            let result = document.execCommand("copy", false, null);
+            temp.remove();
+            if (result) {
+                statusClass = "";
+                statusText =
+                    tr['copy_coords_success_prefix']
+                    + "<br><span class=\"copy-coords-values\">"
+                    + coords
+                    + "</span><br>"
+                    + tr['copy_coords_success_suffix']
+            }
+        }
+    }
+    let copyStatus = $("#copy-coords-status");
+    if (copyStatus.length) {
+        copyStatus.html(statusText);
+        copyStatus.dialog({
+            autoOpen: true,
+            minHeight: 20,
+            minWidth : 50,
+            width: "auto",
+            position: {
+                my: "center",
+                at: "center",
+                of: e.target
+            },
+            classes: {
+                "ui-dialog": "copy-coords-status ui-corner-all",
+                "ui-dialog-content": "copy-coords-status " + statusClass,
+                "ui-dialog-titlebar-close": "copy-coords-status",
+            },
+            open: function() {
+                closeDialog = 1;
+                $(document).bind('click', documentClickCloseDialog);
+            },
+            focus: function() {
+                closeDialog = 0;
+            },
+            close: function() {
+                $(document).unbind('click', documentClickCloseDialog);
+                dialogElement = null;
+            }
+        });
+        dialogElement = copyStatus;
+        closeDialog = 0;
+    }
+}
+
+function documentClickCloseDialog() {
+    if (closeDialog && dialogElement != null) {
+        dialogElement.dialog('close');
+    }
+    closeDialog = 1;
+}
+
+$(document).ready(function() {
+    if (
+        $("#cacheCoordinates").length
+        && document.queryCommandSupported("copy")
+    ) {
+        $("#viewcache-coordsinfo").append(
+            '<div class="viewcache-coordsinfo-block">'
+            + '<span class="content-title-noshade-size0">'
+            + '<img id="copy-coords"'
+            + ' src="tpl/stdstyle/images/misc/copy-coords.svg"'
+            + ' onclick="copyCoords(event)"'
+            + ' class="icon32"'
+            + ' alt="' + tr['copy_coords_prompt'] + '"'
+            + ' title="' + tr['copy_coords_prompt'] + '"/>'
+            + '</span>'
+            + '</div>'
+        );
+    }
+});

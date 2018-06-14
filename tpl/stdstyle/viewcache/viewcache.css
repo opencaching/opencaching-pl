@@ -294,10 +294,62 @@ a.links4:hover {
     text-decoration: underline;
 }
 
-.CoordsDegMinSec, .CoordsDecimal {
-    display: none;  
+#viewcache-coordsinfo {
+    padding-bottom: 0.5em;
 }
 
-#cacheCoordinates {
+.viewcache-coordsinfo-block {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.viewcache-coords-values {
+    position: relative;
+    top: -0.2em;
+}
+
+.coords-hidden {
+    padding-top: 0.2em
+}
+
+.CoordsDegMinSec, .CoordsDecimal {
+    display: none;
+}
+
+#cacheCoordinates, #copy-coords {
     cursor: pointer;
+}
+
+.line1, #cacheCoordinates {
+    line-height: 1.0em
+}
+
+#copy-coords-status {
+    display: none;
+}
+
+.copy-coords-status {
+    background: #fffbc6 !important;
+}
+
+.copy-coords-status .ui-widget-header {
+    border: none;
+    background: transparent;
+}
+
+.copy-coords-status .ui-dialog-titlebar-close:focus {
+    border: none;
+    outline: none;
+}
+
+.copy-coords-status .ui-dialog-titlebar-close::-moz-focus-inner {
+  border: 0;
+}
+
+.copy-coords-status .copy-coords-failure {
+    color: #a00000;
+}
+
+.copy-coords-status .copy-coords-values {
+    font-weight: bold;
 }
