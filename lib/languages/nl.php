@@ -231,7 +231,7 @@ $translations = array(
     'terrain_difficulty' => 'Terrein',
     'task_difficulty' => 'Moeilijkheid',
     'out_of' => 'van',
-    'list_of_participants' => 'Lijst van deelnemers',
+    'list_of_participants' => 'Lijst met deelnemers',
     'show_recommended' => 'Toon aanbeveling',
     'show_all' => 'toon alles',
     'no_choice' => 'Selectie niet beschikbaar',
@@ -1160,7 +1160,7 @@ $translations = array(
     'error_viewcache_04' => 'Cache is geblokkeerd door OC Team',
     'event_attendance_02' => 'Op',
     'event_attendance_03' => 'Georganiseerd door',
-    'event_attendance_04' => 'Het evenement',
+    'event_attendance_04' => 'Deelnemers',
     'printcache_00' => 'Verberg loggegevens',
     'printcache_01' => 'Toon zonder logs',
     'printcache_02' => 'Toon laatste logs',
@@ -2793,8 +2793,8 @@ $translations = array(
     'gdpr_text2' => 'Om de site verder te kunnen gebruiken dient men de veranderingen te lezen en te accepteren. <br> Wanneer je hier niet mee eens bent, <a href="mailto:{OCTeamEmail}"> contacteer ons </a> om je account van de site te verwijderen.',
     'gdpr_acceptBtn' => 'Ik accepteer',
 
-    'copy_coords_prompt' => 'Copy coordinates to the clipboard', /* EN */
-    'copy_coords_success_prefix' => 'Coordinates', /* EN */
-    'copy_coords_success_suffix' => 'have been copied to the clipboard', /* EN */
-    'copy_coords_failure' => 'Coordinates have not been copied.<br>Your browser does not support the copy-to-clipboard operation.', /* EN */
+    'copy_coords_prompt' => 'Kopieer coördinaten naar klembord',
+    'copy_coords_success_prefix' => 'Coördinaten',
+    'copy_coords_success_suffix' => 'zijn naar klembord gekopieerd',
+    'copy_coords_failure' => 'Coördinaten zijn niet gekopieerd.<br>Deze browser ondersteunt geen kopieer-naar-klembord.',
 );
