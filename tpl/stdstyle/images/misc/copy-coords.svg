@@ -1,50 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 31 31" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <defs>
-        <g id="p1">
-            <path
-                style="fill:#0000c0;stroke:#5050ff;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-                d="m 15 15 v 7 l 1 -1 z"
-            />
-            <path
-                style="fill:#ffffff;stroke:#707070;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-                d="m 15 15 v 7 l -1 -1 z"
-            />
-        </g>
-        <g id="p2">
-            <path
-                style="fill:none;stroke:#505050;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-                d="m 14 3 h 14"
-            />
-        </g>
-    </defs>
-    <g>
-        <rect
-            x="12" y="0.5" rx="3" ry="3" width="18" height="18"
-            style="fill:#ffffff;stroke:#707070;stroke-width:0.7;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-        />
-        <use xlink:href="#p2"/>
-        <use xlink:href="#p2" transform="translate(0 3)"/>
-        <use xlink:href="#p2" transform="translate(0 6)"/>
-        <use xlink:href="#p2" transform="translate(5.5 9) scale(0.6 1.0)"/>
-    </g>
-    <g transform="translate(-1.5 -1) rotate(-7 16.5 9.25)">
-        <path
-            style="fill:#05e050;stroke:#505050;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-            d="m 15 8.5 l 11 -2.5 -2.5 11 -2 -4 -5 5 -2.75 -2.75 5 -5 z"
-        />
-    </g>
-    <g transform="translate(-11, -12) scale(1.45 1.45)">
-        <circle cx="15" cy="22" r="5" style="fill:#e0e0ff;stroke:#505050;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"/>
-        <circle cx="15" cy="22" r="3" style="fill:#b0b0ff;stroke:#505050;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"/>
-        <use xlink:href="#p1" transform="scale(0.7 0.7) translate(6.4 9.4) rotate(45 15 22)"/>
-        <use xlink:href="#p1" transform="scale(0.7 0.7) translate(6.4 9.4) rotate(135 15 22)"/>
-        <use xlink:href="#p1" transform="scale(0.7 0.7) translate(6.4 9.4) rotate(225 15 22)"/>
-        <use xlink:href="#p1" transform="scale(0.7 0.7) translate(6.4 9.4) rotate(315 15 22)"/>
-        <use xlink:href="#p1"/>
-        <use xlink:href="#p1" transform="rotate(90 15 22)"/>
-        <use xlink:href="#p1" transform="rotate(180 15 22)"/>
-        <use xlink:href="#p1" transform="rotate(270 15 22)"/>
-    </g>
-    
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+ <g transform="matrix(.76829 0 0 .76829 -64.01 -258.4)" fill="#aaa">
+  <path d="m134.94 354c-3.324 0-6 2.676-6 6v96c0 3.324 2.676 6 6 6h82c3.324 0 6-2.676 6-6v-62h-40c-3.324 0-6-2.676-6-6v-34h-42z"/>
+  <path d="m113.66 374.22c-3.324 0-6 2.676-6 6v96c0 3.324 2.676 6 6 6h82c3.324 0 6-2.676 6-6v-7h-73c-3.324 0-6-2.676-6-6v-89h-9z"/>
+  <path d="m180.94 354v30c0 3.324 2.676 6 6 6h36z"/>
+ </g>
 </svg>
