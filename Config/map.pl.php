@@ -59,24 +59,23 @@ $map['jsConfig'] = "
   }),
 
   Orto: new ol.layer.Tile({
-        source: new ol.source.TileWMS({
-            url: 'http://mapy.geoportal.gov.pl:80/wss/service/img/guest/ORTO/MapServer/WmsServer',
-            attributions: \"&copy; <a href='http://geoportal.gov.pl/' target='_blank'>geoportal.gov.pl</a>\",
-            params: {
-                VERSION: '1.1.1',
-                LAYERS: 'Raster',
-                TILED: true,
-                FORMAT: 'image/jpeg',
-                BGCOLOR: '0xFFFFFF',
-                TRANSPARENT: false
-            },
-            projection: 'EPSG:4326',
-            tileGrid: ol.tilegrid.createXYZ({
-                extent: ol.proj.get('EPSG:4326').getExtent(),
-                tileSize: [768, 768]
-            }),
-        },
-    })
+      source: new ol.source.TileWMS({
+          url: 'http://mapy.geoportal.gov.pl:80/wss/service/img/guest/ORTO/MapServer/WmsServer',
+          attributions: \"&copy; <a href='http://geoportal.gov.pl/' target='_blank'>geoportal.gov.pl</a>\",
+          params: {
+              VERSION: '1.1.1',
+              LAYERS: 'Raster',
+              TILED: true,
+              FORMAT: 'image/jpeg',
+              BGCOLOR: '0xFFFFFF',
+              TRANSPARENT: false
+          },
+          projection: 'EPSG:4326',
+          tileGrid: ol.tilegrid.createXYZ({
+              extent: ol.proj.get('EPSG:4326').getExtent(),
+              tileSize: [768, 768]
+          }),
+      }),
   }),
 }
 ";
