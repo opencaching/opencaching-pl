@@ -238,17 +238,14 @@ $(document).ready(function() {
         $("#cacheCoordinates").length
         && document.queryCommandSupported("copy")
     ) {
-        $("#viewcache-coordsinfo").append(
-            '<div class="viewcache-coordsinfo-block">'
-            + '<span class="content-title-noshade-size0">'
+        $("#cacheCoordinates").after(
+            ''
             + '<img id="copy-coords"'
             + ' src="tpl/stdstyle/images/misc/copy-coords.svg"'
             + ' onclick="copyCoords(event)"'
-            + ' class="icon32"'
+            + ' class="coords-image"'
             + ' alt="' + tr['copy_coords_prompt'] + '"'
             + ' title="' + tr['copy_coords_prompt'] + '"/>'
-            + '</span>'
-            + '</div>'
         );
     }
 });

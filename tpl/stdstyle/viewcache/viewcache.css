@@ -295,21 +295,14 @@ a.links4:hover {
 }
 
 #viewcache-coordsinfo {
-    padding-bottom: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 .viewcache-coordsinfo-block {
     display: inline-block;
-    vertical-align: top;
-}
-
-.viewcache-coords-values {
-    position: relative;
-    top: -0.2em;
-}
-
-.coords-hidden {
-    padding-top: 0.2em
+    vertical-align: middle;
+    line-height: 1.0em;
+    padding: 0px 0.2em;
 }
 
 .CoordsDegMinSec, .CoordsDecimal {
@@ -320,12 +313,13 @@ a.links4:hover {
     cursor: pointer;
 }
 
-.line1, #cacheCoordinates {
-    line-height: 1.0em
-}
-
 #copy-coords-status {
     display: none;
+}
+
+.coords-image {
+    width: 1.0em;
+    height: auto;
 }
 
 .copy-coords-status {
