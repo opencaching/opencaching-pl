@@ -5,7 +5,7 @@ $translations = array(
     'user_menu' => 'Meniul Utilizatorului',
     'new' => 'NOU',
     'save' => 'Salvează',
-    'save_changes' => 'Save changes', /* EN */
+    'save_changes' => 'Salvează modificările',
     'autosave' => 'Changes are saved automatically', /* EN */
     'config' => 'Setup', /* EN */
     'exit_config' => 'Exit from setup', /* EN */
@@ -207,6 +207,7 @@ $translations = array(
     'date_hidden_label' => 'Data ascunderii',
     'date_event_label' => 'Data evenimentului',
     'date_created_label' => 'Data creării',
+    'date_published_label' => 'Date published', /* EN! */
     'last_modified_label' => 'Ultima modificare',
     'last_modified2_label' => 'Ultima modificare ***',
     'waypoint' => 'Punct',
@@ -1157,11 +1158,9 @@ $translations = array(
     'error_viewcache_02' => 'Geocutia nu a fost găsită în baza de date',
     'error_viewcache_03' => 'Geocutia nu este publicată',
     'error_viewcache_04' => 'Geocutia este blocată de Echipa OC',
-    'event_attendance_01' => 'Eveniment:',
-    'event_attendance_02' => 'În data de:',
-    'event_attendance_03' => 'Organizat de:',
-    'event_attendance_04' => 'Participanţi:',
-    'event_attendance_05' => 'Număr:',
+    'event_attendance_02' => 'În data de',
+    'event_attendance_03' => 'Organizat de',
+    'event_attendance_04' => 'Participanţi',
     'printcache_00' => 'Nu arăta jurnal',
     'printcache_01' => 'Nu afişa însemnările',
     'printcache_02' => 'Arată ultimele însemnări',
@@ -2792,7 +2791,12 @@ $translations = array(
 
     'gdpr_text' => 'From May 25, 2018, due to the provisions of the GDPR, we changed', /* EN */
     'gdpr_text2' => 'To continue using the site, read the changes and accept them. <br> If you do not agree - <a href="mailto:{OCTeamEmail}"> contact us </a> to delete your account on the site.', /* EN */
-    'gdpr_acceptBtn' => 'I accept', /* EN */
+    'gdpr_acceptBtn' => 'De acord', /* EN */
+
+    'copy_coords_prompt' => 'Copy coordinates to the clipboard', /* EN */
+    'copy_coords_success_prefix' => 'Coordinates', /* EN */
+    'copy_coords_success_suffix' => 'have been copied to the clipboard', /* EN */
+    'copy_coords_failure' => 'Coordinates have not been copied.<br>Your browser does not support the copy-to-clipboard operation.', /* EN */
 
     'cron_status_title' => 'Cron status', /* EN! */
     'cron_timeouted' => 'Timeouted, exceeded max. duration', /* EN! */

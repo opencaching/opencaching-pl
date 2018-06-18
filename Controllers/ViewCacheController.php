@@ -5,6 +5,7 @@ namespace Controllers;
 use Utils\Gis\Gis;
 use Utils\Log\CacheAccessLog;
 use Utils\Text\Rot13;
+use Utils\Text\Formatter;
 use Utils\Uri\Uri;
 use lib\Controllers\MeritBadgeController;
 use lib\Objects\Coordinates\Coordinates;
@@ -123,9 +124,24 @@ class ViewCacheController extends BaseController
 
         tpl_set_var('altitude', $this->geocache->getAltitude());
 
-        $this->view->setVar('cacheHiddenDate', $this->geocache->getDatePlaced()->format($this->ocConfig->getDateFormat()));
-        $this->view->setVar('cacheCreationDate', $this->geocache->getDateCreated()->format($this->ocConfig->getDateFormat()));
-        $this->view->setVar('cacheLastModifiedDate', $this->geocache->getLastModificationDate()->format($this->ocConfig->getDateFormat()));
+        $this->view->setVar(
+            'cacheHiddenDate',
+            Formatter::date($this->geocache->getDatePlaced())
+        );
+        $this->view->setVar(
+            'cacheCreationDate',
+            Formatter::date($this->geocache->getDateCreated())
+        );
+        $this->view->setVar(
+            'cacheLastModifiedDate',
+            Formatter::date($this->geocache->getLastModificationDate())
+        );
+        $this->view->setVar(
+            'cachePublishedDate',
+            empty($this->geocache->getDatePublished())
+            ? ""
+            : Formatter::date($this->geocache->getDatePublished())
+        );
 
         tpl_set_var('total_number_of_logs', $this->geocache->getFounds() + $this->geocache->getNotFounds() + $this->geocache->getNotesCount());
 
@@ -635,4 +651,21 @@ class ViewCacheController extends BaseController
         }
     }
 
+    /**
+     * Displays event attenders page for cache with waypoint $cacheWp
+     *
+     * @param string $cacheWp
+     */
+    public function eventAttenders($cacheWp)
+    {
+        $cache = GeoCache::fromWayPointFactory($cacheWp);
+        if (is_null($cache) || ! $cache->isEvent()) {
+            $this->view->redirect('/');
+            die();
+        }
+        $this->view->setVar('cache', $cache);
+        $this->view->setVar('attenders', $cache->getAttenders());
+        $this->view->setTemplate('viewcache/event_attenders');
+        $this->view->buildInMiniTpl();
+    }
 }

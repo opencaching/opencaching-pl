@@ -9,6 +9,11 @@
     <link rel="shortcut icon" href="<?=$view->_favicon?>">
     <link rel="apple-touch-icon-precomposed" href="<?=$view->_appleLogo?>">
 
+    <?php foreach ( $view->getHeaderChunks() as $chunkName => $args ) {?>
+        <!-- load chunk $chunkName -->
+        <?php $view->callChunk($chunkName, $args); ?>
+    <?php } //foreach getHeaderChunks ?>
+
     <?php foreach( $view->getLocalCss() as $css ) { ?>
       <link rel="stylesheet" type="text/css" href="<?=$css?>">
     <?php } //foreach-css ?>
@@ -47,7 +52,7 @@
   <?php     }
         } //foreach-js ?>
 
-<!-- (C) The Opencaching Project 2017 -->
+<!-- (C) The Opencaching Project 2018 -->
 
 </head>
 

@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
+use Utils\EventHandler\EventHandler;
 
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
@@ -44,8 +45,7 @@ if ($error == false) {
                      WHERE `user_id`= ? ", $statpic_text, $statpic_logo, $usr['userid']);
 
                 //call eventhandler
-                require_once($rootpath . 'lib/eventhandler.inc.php');
-                event_change_statpic($usr['userid'] + 0);
+                EventHandler::event_change_statpic($usr['userid'] + 0);
 
                 //back to normal display
                 tpl_redirect('myprofile.php');

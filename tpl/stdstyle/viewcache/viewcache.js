@@ -34,6 +34,27 @@ function rmLog(event, logId){
     return false;
 }
 
+// revert log by ajax
+function revertLog(event, logId) {
+	event.preventDefault();
+	$("#revertLogHrefSection-" + logId).hide();
+	$("#revertLogLoader-" + logId).show();
+	$.ajax({
+		url : "/CacheLog/revertLogAjax/" + logId,
+		type : "get",
+	})
+	.done(function(response, textStatus, jqXHR) {
+			$("#log" + logId).removeClass('show_deleted');
+			$("#log-title-" + logId).removeClass('show_deleted');
+			$("#log-content-" + logId).removeClass('show_deleted');
+	})
+	.fail(function(response, textStatus, jqXHR) {
+		$("#revertLogHrefSection-" + logId).html('<img src="/tpl/stdstyle/images/free_icons/cancel.png" class="icon16" alt="Cancel icon">');
+		$("#revertLogHrefSection-" + logId).show();
+	});
+	$("#revertLogLoader-" + logId).hide();
+	return false;
+}
 
 var currentLogEntriesOffset = 0;
 var currentLogEntriesLimit = 10;
@@ -144,3 +165,87 @@ function changeCoordsFormat(){
   }
 }
 
+var closeDialog = 0;
+var dialogElement;
+
+function copyCoords(e) {
+    let statusText = tr['copy_coords_failure'];
+    let statusClass = "copy-coords-failure";
+    let coordsElem = $('.' + currentCordsFormat);
+    if (coordsElem != null) {
+        let coords = coordsElem.text().trim();
+        let temp = $("<input>");
+        $("body").append(temp);
+        temp.val(coords).select();
+        if (document.queryCommandEnabled("copy")) {
+            let result = document.execCommand("copy", false, null);
+            temp.remove();
+            if (result) {
+                statusClass = "";
+                statusText =
+                    tr['copy_coords_success_prefix']
+                    + "<br><span class=\"copy-coords-values\">"
+                    + coords
+                    + "</span><br>"
+                    + tr['copy_coords_success_suffix']
+            }
+        }
+    }
+    let copyStatus = $("#copy-coords-status");
+    if (copyStatus.length) {
+        copyStatus.html(statusText);
+        copyStatus.dialog({
+            autoOpen: true,
+            minHeight: 20,
+            minWidth : 50,
+            width: "auto",
+            position: {
+                my: "center",
+                at: "center",
+                of: e.target
+            },
+            classes: {
+                "ui-dialog": "copy-coords-status ui-corner-all",
+                "ui-dialog-content": "copy-coords-status " + statusClass,
+                "ui-dialog-titlebar-close": "copy-coords-status",
+            },
+            open: function() {
+                closeDialog = 1;
+                $(document).bind('click', documentClickCloseDialog);
+            },
+            focus: function() {
+                closeDialog = 0;
+            },
+            close: function() {
+                $(document).unbind('click', documentClickCloseDialog);
+                dialogElement = null;
+            }
+        });
+        dialogElement = copyStatus;
+        closeDialog = 0;
+    }
+}
+
+function documentClickCloseDialog() {
+    if (closeDialog && dialogElement != null) {
+        dialogElement.dialog('close');
+    }
+    closeDialog = 1;
+}
+
+$(document).ready(function() {
+    if (
+        $("#cacheCoordinates").length
+        && document.queryCommandSupported("copy")
+    ) {
+        $("#cacheCoordinates").after(
+            ''
+            + '<img id="copy-coords"'
+            + ' src="tpl/stdstyle/images/misc/copy-coords.svg"'
+            + ' onclick="copyCoords(event)"'
+            + ' class="coords-image"'
+            + ' alt="' + tr['copy_coords_prompt'] + '"'
+            + ' title="' + tr['copy_coords_prompt'] + '"/>'
+        );
+    }
+});

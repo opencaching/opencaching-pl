@@ -4,7 +4,7 @@
     </colgroup>
     <tr>
         <td width="600" class="content2-pagetitle">
-            <img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="ABC" title="ABC" align="middle" />
+            <img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="World icon" align="middle">
             <font size="4">  <b>{{links_01}}</b></font>
         </td>
     </tr>
@@ -23,28 +23,28 @@
                     <b>Opencaching Network Sites:</b>
                 </td>
                 <td>
-                    <a href="http://www.opencaching.eu">www.opencaching.eu</a>
+                    <a href="https://opencaching.eu">www.opencaching.eu</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <img src="/images/flags/cs.png" class="icon32" align="middle" /> {{CZ}}
+                    <img src="/images/flags/cs.png" class="icon32" align="middle"> {{CZ}}
                 </td>
                 <td>
-                    <a href="http://www.opencaching.cz">www.opencaching.cz</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <img src="/images/flags/de.png" class="icon32" align="middle" /> {{DE}}
-                </td>
-                <td>
-                    <a href="http://www.opencaching.de">www.opencaching.de</a>
+                    <a href="https://opencaching.cz">www.opencaching.cz</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <img src="/images/flags/en.png" class="icon32" align="middle" /> {{GB}}
+                    <img src="/images/flags/de.png" class="icon32" align="middle"> {{DE}}
+                </td>
+                <td>
+                    <a href="https://www.opencaching.de">www.opencaching.de</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/images/flags/en.png" class="icon32" align="middle"> {{GB}}
                 </td>
                 <td>
                     <a href="https://opencache.uk">www.opencache.uk</a>
@@ -52,48 +52,32 @@
             </tr>
             <tr>
                 <td>
-                    <img src="/images/flags/nl.png" class="icon32" align="middle" /> {{NL}}
+                    <img src="/images/flags/nl.png" class="icon32" align="middle"> {{NL}}
                 </td>
 
                 <td>
                     <a href="https://www.opencaching.nl">www.opencaching.nl </a>
                 </td>
             </tr>
-<!--            <tr>
-                <td>
-                    <img src="/images/flags/no.png" class="icon32" align="middle" /> {{NO}}
-                </td>
-                <td>
-                    <a href="http://www.opencaching.no">www.opencaching.no</a>
-                </td>
-            </tr> -->
             <tr>
                 <td>
-                    <img src="/images/flags/pl.png" class="icon32" align="middle" /> {{PL}}
+                    <img src="/images/flags/pl.png" class="icon32" align="middle"> {{PL}}
                 </td>
                 <td>
-                    <a href="http://opencaching.pl">www.opencaching.pl</a>
+                    <a href="https://opencaching.pl">www.opencaching.pl</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <img src="/images/flags/ro.png" class="icon32" align="middle" /> {{RO}}
+                    <img src="/images/flags/ro.png" class="icon32" align="middle"> {{RO}}
                 </td>
                 <td>
-                    <a href="http://www.opencaching.ro">www.opencaching.ro</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <img src="/images/flags/sv.png" class="icon32" align="middle" /> {{SE}}
-                </td>
-                <td>
-                    <a href="http://www.opencaching.se">www.opencaching.se</a>
+                    <a href="https://www.opencaching.ro">www.opencaching.ro</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <img src="/images/flags/us.png" class="icon32" align="middle" /> {{US}}
+                    <img src="/images/flags/us.png" class="icon32" align="middle"> {{US}}
                 </td>
                 <td>
                     <a href="http://www.opencaching.us">www.opencaching.us</a>
@@ -114,7 +98,7 @@
                     {{AU}}
                 </td>
                 <td>
-                    <a href="http://www.geocaching.com.au">www.geocaching.com.au</a>
+                    <a href="https://geocaching.com.au">geocaching.com.au</a>
                 </td>
             </tr>
             <tr>
@@ -166,10 +150,9 @@
                     {{links_03}}:
                 </td>
                 <td>
-                    <a href="http://www.geocaching.com">www.geocaching.com</a><br />
-                    <a href="http://www.terracaching.com">www.terracaching.com</a><br />
-                    <a href="http://geocaching.gpsgames.org">www.gpsgames.org</a><br />
-                    <a href="http://www.navicache.com">www.navicache.com</a><br />
+                    <a href="https://www.terracaching.com">www.terracaching.com</a><br>
+                    <a href="http://geocaching.gpsgames.org">www.gpsgames.org</a><br>
+                    <a href="http://www.navicache.com">www.navicache.com</a><br>
                 </td>
             </tr>
         </tbody>
@@ -193,7 +176,7 @@
             <tr>
                 <td></td>
                 <td>
-                    <a href="http://www.atlasquest.com">www.atlasquest.com</a>
+                    <a href="https://www.atlasquest.com">www.atlasquest.com</a>
                 </td>
             </tr>
             <tr>
@@ -242,12 +225,6 @@
             <tr>
                 <td></td>
                 <td>
-                    <a href="http://www.travelertags.com">www.travelertags.com</a>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>
                     <a href="http://www.pathtags.com">www.pathtags.com</a>
                 </td>
             </tr>
@@ -260,22 +237,15 @@
         <tbody>
             <tr>
                 <td>
-                    <a href="http://www.qualitycaching.com">qualitycaching.com (BeNeLux only)</a>
+                    <a href="https://www.cistes.net">www.cistes.net</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="http://www.cistes.net">www.cistes.net</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="http://geocachen.be/">Geocachen.be</a>
+                    <a href="https://geocachen.be/">geocachen.be</a>
                 </td>
             </tr>
         </tbody>
     </table>
 
 </div>
-
-<br/>

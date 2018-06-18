@@ -66,7 +66,11 @@ final class OcConfig extends ConfigReader
     /** @var array the watchlist configuration array */
     private $watchlistConfig;
 
+   /** @var array the cron solution configuration array */
     private $cronConfig;
+
+    /** @var array array of map settings from /Config/map.* files */
+    private $mapConfig;
 
     /**
      * Call this method to get singleton
@@ -363,11 +367,31 @@ final class OcConfig extends ConfigReader
         return $this->watchlistConfig;
     }
 
+    /**
+     * Gives cron configuration, tries to initialize it if null
+     *
+     * @return array cron configuration
+     *               ({@see /Config/cron.default.php})
+     */
     public function getCronConfig()
     {
         if ($this->cronConfig == null) {
             $this->cronConfig = self::getConfig("cron", "cron");
         }
         return $this->cronConfig;
+    }
+  
+    /**
+     * Gives map configuration, tries to initialize it if null
+     *
+     * @return array map configuration
+     *               ({@see /Config/map.default.php})
+     */
+    public function getMapConfig()
+    {
+        if ($this->mapConfig == null) {
+            $this->mapConfig = self::getConfig("map", "map");
+        }
+        return $this->mapConfig;
     }
 }

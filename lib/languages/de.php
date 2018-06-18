@@ -207,6 +207,7 @@ $translations = array(
     'date_hidden_label' => 'Versteckt am',
     'date_event_label' => 'Veranstaltungsbeginn',
     'date_created_label' => 'Erstellt am',
+    'date_published_label' => 'Date published', /* EN! */
     'last_modified_label' => 'Zuletzt geändert am',
     'last_modified2_label' => 'Zuletzt geändert am',
     'waypoint' => 'Wegpunkte',
@@ -1158,11 +1159,9 @@ $translations = array(
     'error_viewcache_02' => 'Cache not found in database',
     'error_viewcache_03' => 'Cache is not published',
     'error_viewcache_04' => 'Cache was suspended by OC Team',
-    'event_attendance_01' => 'Event:',
-    'event_attendance_02' => 'On:',
-    'event_attendance_03' => 'Organized by:',
-    'event_attendance_04' => 'Event participants:',
-    'event_attendance_05' => 'Number:',
+    'event_attendance_02' => 'On',
+    'event_attendance_03' => 'Organized by',
+    'event_attendance_04' => 'Event participants',
     'printcache_00' => 'Hide logbook',
     'printcache_01' => 'Show only log stats',
     'printcache_02' => 'Show recent logs',
@@ -2795,6 +2794,11 @@ $translations = array(
     'gdpr_text2' => 'To continue using the site, read the changes and accept them. <br> If you do not agree - <a href="mailto:{OCTeamEmail}"> contact us </a> to delete your account on the site.', /* EN */
     'gdpr_acceptBtn' => 'I accept', /* EN */
 
+    'copy_coords_prompt' => 'Copy coordinates to the clipboard', /* EN */
+    'copy_coords_success_prefix' => 'Coordinates', /* EN */
+    'copy_coords_success_suffix' => 'have been copied to the clipboard', /* EN */
+    'copy_coords_failure' => 'Coordinates have not been copied.<br>Your browser does not support the copy-to-clipboard operation.', /* EN */
+  
     'cron_status_title' => 'Cron status', /* EN! */
     'cron_timeouted' => 'Timeouted, exceeded max. duration', /* EN! */
     'cron_scheduler_entrypoint' => 'Scheduler', /* EN! */

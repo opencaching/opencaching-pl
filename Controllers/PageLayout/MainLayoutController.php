@@ -22,6 +22,8 @@ class MainLayoutController extends BaseController
 {
 
     const MAIN_TEMPLATE = 'common/mainLayout';
+    const MINI_TEMPLATE = 'common/miniLayout';
+
 
     private $legacyLayout = false;
 

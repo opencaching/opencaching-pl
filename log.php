@@ -13,6 +13,7 @@ use Utils\Generators\Uuid;
 use lib\Controllers\LogEntryController;
 use lib\Objects\ApplicationContainer;
 use lib\Objects\GeoCache\GeoCacheLogCommons;
+use Utils\EventHandler\EventHandler;
 
 /*
  * todo: create and set up 4 template selector with wybor_WE wybor_NS.
@@ -351,11 +352,7 @@ if ($log_type == GeoCacheLog::LOGTYPE_MOVED) {
     $coords_not_ok = false;
 }
 
-
-
-
-if ( !$geoCache->isFoundByUser($user->getUserId())){
-
+if ( !$geoCache->hasUserLogByType($user, GeoCacheLog::LOGTYPE_FOUNDIT)) {
     if ($log_type != GeoCacheLog::LOGTYPE_FOUNDIT &&
         $log_type != GeoCacheLog::LOGTYPE_ATTENDED ) {
 
@@ -468,7 +465,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
 
     if (in_array(
             $log_type,
-            [ GeoCacheLog::LOGTYPE_FOUNDIT, GeoCacheLog::LOGTYPE_ATTENDED ]
+            [ GeoCacheLog::LOGTYPE_FOUNDIT, GeoCacheLog::LOGTYPE_ATTENDED, GeoCacheLog::LOGTYPE_WILLATTENDED ]
         )
     ) {
 
@@ -578,56 +575,18 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
         LogEntryController::recalculateMobileMovesByCacheId($geoCache->getCacheId());
     }
 
-
     //inc cache stat and "last found"
-    $rs = XDb::xSql(
-        "SELECT `founds`, `notfounds`, `notes`, `last_found` FROM `caches`
-        WHERE `cache_id`= ? ", $geoCache->getCacheId() );
-
-    $record = XDb::xFetchArray($rs);
-    $last_found = '';
-    if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT ||
-        $log_type == GeoCacheLog::LOGTYPE_ATTENDED
-    ) {
-
-        $dlog_date = mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year);
-        if ($record['last_found'] == NULL) {
-            $last_found = ', `last_found`=\'' . XDb::xEscape(date('Y-m-d H:i:s', $dlog_date)) . '\'';
-        } elseif (strtotime($record['last_found']) < $dlog_date) {
-            $last_found = ', `last_found`=\'' . XDb::xEscape(date('Y-m-d H:i:s', $dlog_date)) . '\'';
-        }
-    }
     if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT       ||
         $log_type == GeoCacheLog::LOGTYPE_DIDNOTFIND    ||
         $log_type == GeoCacheLog::LOGTYPE_COMMENT       ||
         $log_type == GeoCacheLog::LOGTYPE_ATTENDED      ||
         $log_type == GeoCacheLog::LOGTYPE_WILLATTENDED
     ) {
-        recalculateCacheStats($geoCache->getCacheId(), $geoCache->getCacheType(), $last_found);
+        $geoCache->recalculateCacheStats();
     }
 
     //inc user stat
-    $rs = XDb::xSql(
-        "SELECT `log_notes_count`, `founds_count`, `notfounds_count` FROM `user`
-        WHERE `user_id`= ? ", $user->getUserId());
-    $record = XDb::xFetchArray($rs);
-
-    if ($log_type == GeoCacheLog::LOGTYPE_FOUNDIT || $log_type == GeoCacheLog::LOGTYPE_ATTENDED) {
-
-        XDb::xSql("UPDATE `user` SET founds_count=founds_count+1
-                   WHERE `user_id`= ? ", $user->getUserId());
-
-    } elseif ($log_type == GeoCacheLog::LOGTYPE_DIDNOTFIND) {
-
-        XDb::xSql("UPDATE `user` SET notfounds_count=notfounds_count+1
-                   WHERE `user_id`= ? ", $user->getUserId());
-
-    } elseif ($log_type == GeoCacheLog::LOGTYPE_COMMENT) {
-
-        XDb::xSql("UPDATE `user` SET log_notes_count=log_notes_count+1
-                   WHERE `user_id`= ? ", $user->getUserId());
-
-    }
+    $user->recalculateAndUpdateStats();
 
     // update cache_status
     $cache_status = XDb::xMultiVariableQueryValue(
@@ -653,9 +612,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
     }
 
     //call eventhandler
-    require_once($rootpath . 'lib/eventhandler.inc.php');
-    event_new_log($geoCache->getCacheId(), $user->getUserId() + 0);
-
+    EventHandler::logNewByUserId($user->getUserId());
 
     $badgetParam = "";
 
@@ -706,7 +663,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
 
         if ($geoCache->getCacheType() != GeoCache::TYPE_EVENT &&
             ($user->getUserId() == $geoCache->getOwnerId() ||
-                $geoCache->isFoundByUser($user->getUserId()) ||
+                $geoCache->hasUserLogByType($user, GeoCacheLog::LOGTYPE_FOUNDIT) ||
                 $geoCache->getStatus() == GeoCache::STATUS_WAITAPPROVERS ||
                 $geoCache->getStatus() == GeoCache::STATUS_BLOCKED)) {
 
@@ -780,8 +737,14 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
 
         if ($geoCache->getCacheType() == GeoCache::TYPE_EVENT) {
             // if user logged event as attended before, do not display logtype 'attended'
-            if ($geoCache->isAttendedByUser($user->getUserId()) && $type['id'] == 7)
+            if ($geoCache->hasUserLogByType($user, GeoCacheLog::LOGTYPE_ATTENDED)
+                && $type['id'] == GeoCacheLog::LOGTYPE_ATTENDED) {
                 continue;
+            }
+            if ($geoCache->hasUserLogByType($user, GeoCacheLog::LOGTYPE_WILLATTENDED)
+                && $type['id'] == GeoCacheLog::LOGTYPE_WILLATTENDED) {
+                continue;
+            }
             if ($user->isAdmin()) {
                 if ($type['id'] == 1 || $type['id'] == 2 || $type['id'] == 4 ||
                     $type['id'] == 5 || $type['id'] == 9 || $type['id'] == 10 || $type['id'] == 11) {
