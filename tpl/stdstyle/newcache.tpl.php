@@ -423,7 +423,15 @@ $view->callChunk('tinyMCE');
     return false;
     }
 </script>
-
+<script>
+$(document).ready(function(){
+    $('input').keyup(function(){
+        if($(this).val().length==$(this).attr("maxlength")){
+            $(this).next('[type="text"]').focus();
+        }
+    });
+});
+</script>
 
 <style>
     #hiddenDatePicker, #activateDatePicker{
@@ -509,8 +517,8 @@ $view->callChunk('tinyMCE');
                         <option value="N"{latNsel}>N</option>
                         <option value="S"{latSsel}>S</option>
                     </select>
-                    &nbsp;<input type="text" id="lat_h"  name="lat_h" maxlength="2" value="{lat_h}" class="form-control input30" onchange="checkRegion()"/>
-                    &deg;&nbsp;<input type="text" id="lat_min" name="lat_min" maxlength="6" value="{lat_min}" class="form-control input50" onkeyup="this.value = this.value.replace(/,/g, '.');" onchange="checkRegion()" />&nbsp;'&nbsp;
+                    &nbsp;<input type="text" id="lat_h"  name="lat_h" maxlength="2" class="form-control input30" onchange="checkRegion()" placeholder="0" value="{lat_h}" />
+                    &deg;&nbsp;<input type="text" id="lat_min" name="lat_min" maxlength="6" class="form-control input50" onkeyup="this.value = this.value.replace(/,/g, '.');" onchange="checkRegion()" placeholder="00.000" value="{lat_min}" />&nbsp;'&nbsp;
                     <button class="btn btn-default btn-sm" onclick="return nearbycachemapOC()">{{check_nearby_caches_map}}</button>
                     {lat_message}<br />
                     &nbsp;&nbsp;&nbsp;
@@ -518,8 +526,8 @@ $view->callChunk('tinyMCE');
                         <option value="W"{lonWsel}>W</option>
                         <option value="E"{lonEsel}>E</option>
                     </select>
-                    &nbsp;<input type="text" id="lon_h" name="lon_h" maxlength="3" value="{lon_h}" class="form-control input30" onchange="checkRegion()" />
-                    &deg;&nbsp;<input type="text" id="lon_min" name="lon_min" maxlength="6" value="{lon_min}" class="form-control input50" onkeyup="this.value = this.value.replace(/,/g, '.');" onchange="checkRegion()" />&nbsp;'&nbsp;
+                    &nbsp;<input type="text" id="lon_h" name="lon_h" maxlength="3" class="form-control input30" onchange="checkRegion()" placeholder="0" value="{lon_h}" />
+                    &deg;&nbsp;<input type="text" id="lon_min" name="lon_min" maxlength="6" class="form-control input50" onkeyup="this.value = this.value.replace(/,/g, '.');" onchange="checkRegion()" placeholder="00.000" value="{lon_min}" />&nbsp;'&nbsp;
                     <button class="btn btn-default btn-sm" onclick="return nearbycache()">{{check_nearby_caches}}</button><br />
                     {lon_message}</fieldset>
             </td>
