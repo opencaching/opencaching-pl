@@ -96,11 +96,23 @@ function loadLogEntries(offset, limit){
 function showHint(event)
 {
     event.preventDefault();
-        $("#hintEncrypted").toggle();
-        $("#hintDecrypted").toggle();
-        $("#encryptLinkStr").toggle();
-        $("#decryptLinkStr").toggle();
+    togglePair("hintEncrypted", "hintDecrypted");
+    togglePair("encryptLinkStr", "decryptLinkStr");
     return false;
+}
+
+function togglePair(id1, id2) {
+    var e1 = document.getElementById(id1);
+    var e2 = document.getElementById(id2);
+    if (e1 != null && e2 != null) {
+        if (e1.style.display == "none") {
+            e1.style.display = "";
+            e2.style.display = "none";
+        } else {
+            e2.style.display = "";
+            e1.style.display = "none";
+        }
+    }
 }
 
 function openCgeoWindow(event, ocWaypoint)
