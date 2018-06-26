@@ -89,6 +89,7 @@ function WMSImageMapTypeOptions(
         lURL += "&BBOX=" + lBbox;
         lURL += "&WIDTH=768";
         lURL += "&HEIGHT=768";
+
         return lURL;
     };
 }
