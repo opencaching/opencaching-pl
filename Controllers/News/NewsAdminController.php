@@ -2,10 +2,11 @@
 namespace Controllers\News;
 
 use Controllers\BaseController;
+use Utils\DateTime\Converter;
+use Utils\Uri\SimpleRouter;
+use Utils\Uri\Uri;
 use lib\Objects\ChunkModels\PaginationModel;
 use lib\Objects\News\News;
-use Utils\Uri\Uri;
-use Utils\DateTime\Converter;
 
 class NewsAdminController extends BaseController
 {
@@ -18,28 +19,12 @@ class NewsAdminController extends BaseController
     public function isCallableFromRouter($actionName)
     {
         // all public methods can be called by router
-        return TRUE;
+        return true;
     }
 
     public function index()
     {
-        if (is_null($this->loggedUser) || ! $this->loggedUser->isAdmin()) {
-            $this->view->redirect('/');
-            exit();
-        }
-        if (isset($_REQUEST['action'])) {
-            switch ($_REQUEST['action']) {
-                case 'edit':
-                    $this->editNews();
-                    break;
-                case 'create':
-                    $this->createNews();
-                    break;
-                case 'save':
-                    $this->saveNews();
-                    break;
-            }
-        }
+        $this->checkUserIsAdmin();
 
         $this->showAdminNews();
     }
@@ -53,17 +38,17 @@ class NewsAdminController extends BaseController
         $this->showAdminNewsList(News::getAdminNews($offset, $limit));
     }
 
-    private function saveNews()
+    public function saveNews()
     {
-        $formResult = $_REQUEST;
+        $this->checkUserIsAdmin();
+
+        $formResult = $_POST;
         if (! is_array($formResult)) {
             return false;
         }
         header("X-XSS-Protection: 0");
         if ($formResult['id'] != 0) {
-            $news = new News([
-                'newsId' => $formResult['id']
-            ]);
+            $news = News::fromNewsIdFactory($formResult['id']);
         } else {
             $news = new News();
             $news->setAuthor($this->loggedUser);
@@ -71,24 +56,26 @@ class NewsAdminController extends BaseController
         $news->loadFromForm($formResult);
         $news->setEditor($this->loggedUser);
         $news->saveNews();
+
+        unset($news);
+        $this->view->redirect(SimpleRouter::getLink('News.NewsAdmin'));
     }
 
-    private function editNews()
+    public function editNews($newsId = null)
     {
-        if (! isset($_REQUEST['id'])) {
-            return;
-        }
-        $news = new News([
-            'newsId' => (int) $_REQUEST['id']
-        ]);
-        if (! $news->dataReady()) {
-            return;
+        $this->checkUserIsAdmin();
+        $news = News::fromNewsIdFactory($newsId);
+        if (is_null($news)) {
+            $this->view->redirect(SimpleRouter::getLink('News.NewsAdmin'));
+            exit();
         }
         $this->showEditForm($news);
     }
 
-    private function createNews()
+    public function createNews()
     {
+        $this->checkUserIsAdmin();
+
         $news = new News();
         $news->generateDefaultValues();
         $news->setAuthor($this->loggedUser);
@@ -102,18 +89,26 @@ class NewsAdminController extends BaseController
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/news/news.css'));
         $this->view->loadJQueryUI();
 
-        tpl_set_tplname('news/newsAdminEdit');
-        tpl_BuildTemplate();
+        $this->view->setTemplate('news/newsAdminEdit');
+        $this->view->buildView();
         exit();
     }
 
     private function showAdminNewsList(array $newsList)
     {
-        tpl_set_tplname('news/newsAdmin');
         $this->view->setVar('newsList', $newsList);
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/news/news.css'));
-        tpl_BuildTemplate();
+
+        $this->view->setTemplate('news/newsAdmin');
+        $this->view->buildView();
         exit();
     }
 
+    private function checkUserIsAdmin()
+    {
+        if (! $this->isUserLogged() || ! $this->loggedUser->isAdmin()) {
+            $this->view->redirect('/');
+            exit();
+        }
+    }
 }

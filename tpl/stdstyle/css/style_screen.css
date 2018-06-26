@@ -1219,6 +1219,12 @@ sub {
 	height: 16px;
 }
 
+.icon22
+{
+	max-width: 22px;
+	max-height: 22px;
+}
+
 .icon32
 {
     width: 32px;

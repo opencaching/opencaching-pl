@@ -1,7 +1,7 @@
 RewriteEngine on
 
-RewriteRule ^newcaches.xml[/]?$ %{DOCUMENT_ROOT}/rss/newcaches.php [L]
-RewriteRule ^newnews.xml[/]?$ %{DOCUMENT_ROOT}/rss/newnews.php [L]
-RewriteRule ^newlogs.xml[/]?$ %{DOCUMENT_ROOT}/rss/newlogs.php [L]
-RewriteRule ^my_logs.xml[/]?$ %{DOCUMENT_ROOT}/rss/my_logs.php [L]
-RewriteRule ^mycaches_logs.xml[/]?$ %{DOCUMENT_ROOT}/rss/mycaches_logs.php [L]
+RewriteRule ^newcaches\.xml$ %{DOCUMENT_ROOT}/RSS/newCaches [L]
+RewriteRule ^newnews\.xml$ %{DOCUMENT_ROOT}/RSS/newNews [L]
+RewriteRule ^newlogs\.xml$ %{DOCUMENT_ROOT}/RSS/newLogs [L]
+RewriteRule ^my_logs\.xml$ %{DOCUMENT_ROOT}/RSS/myLogs [L]
+RewriteRule ^mycaches_logs\.xml$ %{DOCUMENT_ROOT}/RSS/myCachesLogs [L]

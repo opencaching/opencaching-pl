@@ -37,11 +37,11 @@ class OcMemCache
 
         // this is older installation - there is no apcu_entry function
         // TODO: these lines can be safetly removed when all nodes moved to PHP7 (APCu 5)
-        if( ($var = apcu_fetch($key)) === false ){
+        if ( ($var = apcu_fetch($key)) === false || $var === null) {
             $var = call_user_func($generator);
-            try{
+            try {
                 apcu_store($key, $var, $ttl);
-            }catch(Exception $e){
+            } catch(Exception $e) {
                 Debug::errorLog("Can't serialize object");
             }
         }
@@ -64,9 +64,9 @@ class OcMemCache
 
         $key = self::KEY_PREFIX.$key;
 
-        try{
+        try {
             apcu_store($key, $var, $ttl);
-        }catch(Exception $e){
+        } catch(Exception $e){
             Debug::errorLog("Can't serialize object");
         }
 
@@ -87,4 +87,3 @@ class OcMemCache
     }
 
 }
-

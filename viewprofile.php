@@ -9,15 +9,15 @@ use lib\Objects\User\AdminNote;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\MeritBadge\MeritBadge;
-use lib\Controllers\MeritBadgeController;
 use Utils\Text\TextConverter;
 use Utils\DateTime\Year;
 use Utils\View\View;
 use Utils\Uri\SimpleRouter;
 use Utils\Uri\OcCookie;
+use lib\Controllers\MeritBadgeController;
 
 //prepare the templates and include all neccessary
-if (!isset($rootpath)){
+if (!isset($rootpath)) {
     $rootpath = '';
 }
 require_once ('./lib/common.inc.php');
@@ -38,7 +38,7 @@ if ($usr == false) {
     if (isset($_REQUEST['errorMsg'])) {
         $errorMsg = strip_tags(urldecode($_REQUEST['errorMsg']));
     }
-    if (isset($_REQUEST['save'])){
+    if (isset($_REQUEST['save'])) {
 
         if (isset($_REQUEST['checkBadges']))
             OcCookie::set("checkBadges", !$_REQUEST['checkBadges']);
@@ -53,8 +53,8 @@ if ($usr == false) {
 
     $cache_line = '<li style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">{cacheimage}&nbsp;{cachestatus} &nbsp; {date} &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong></li>';
     $cache_notpublished_line = '<li style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 115%;">{cacheimage}&nbsp;{cachestatus} &nbsp; <a class="links" href="editcache.php?cacheid={cacheid}">{date}</a> &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong></li>';
-    $log_line = '<li style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">{gkimage}&nbsp;{rateimage}&nbsp; {logimage} &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}"><img src="tpl/stdstyle/images/{cacheimage}" border="0" alt="" /></a>&nbsp; {date} &nbsp; <a class="links" href="viewlogs.php?logid={logid}" onmouseover="Tip(\'{logtext}\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong></li>';
-    $cache_line_my_caches = '<li style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">{gkimage}&nbsp; {rateimage} &nbsp;{logimage} &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}"><img src="tpl/stdstyle/images/{cacheimage}" border="0" alt="" /></a>&nbsp; {date} &nbsp; <a class="links" href="viewlogs.php?logid={logid}" onmouseover="Tip(\'{logtext}\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong>&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" />&nbsp; <a class="links" href="viewprofile.php?userid={userid}">{username}</a></li>';
+    $log_line = '<li style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">{gkimage}&nbsp;{rateimage}&nbsp; {logimage} &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}"><img src="tpl/stdstyle/images/{cacheimage}" border="0" alt=""></a>&nbsp; {date} &nbsp; <a class="links" href="viewlogs.php?logid={logid}" onmouseover="Tip(\'{logtext}\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong></li>';
+    $cache_line_my_caches = '<li style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">{gkimage}&nbsp; {rateimage} &nbsp;{logimage} &nbsp; <a class="links" href="viewcache.php?cacheid={cacheid}"><img src="tpl/stdstyle/images/{cacheimage}" border="0" alt=""></a>&nbsp; {date} &nbsp; <a class="links" href="viewlogs.php?logid={logid}" onmouseover="Tip(\'{logtext}\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">{cachename}</a>&nbsp;&nbsp;<strong>[{wpname}]</strong>&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="">&nbsp; <a class="links" href="viewprofile.php?userid={userid}">{username}</a></li>';
 
     // check for old-style parameters
     if (isset($_REQUEST['userid'])) {
@@ -83,7 +83,7 @@ if ($usr == false) {
         "user_id, admin, guru, hidden_count, founds_count, is_active_flag, email, password, log_notes_count,
          notfounds_count, username, last_login, date_created, description");
 
-    if(is_null($user)){
+    if (is_null($user)) {
         tpl_errorMsg("viewprofile", "User not found!");
         exit;
     }
@@ -122,7 +122,7 @@ if ($usr == false) {
     tpl_set_var('profile_img', $pimage);
     tpl_set_var('profile_info', $pinfo);
 
-    $guide_info = '<br/>';
+    $guide_info = '<br>';
     if ($user_id == $usr['userid']) {
         // Number of recommendations
         $nrecom = XDb::xMultiVariableQueryValue(
@@ -135,7 +135,7 @@ if ($usr == false) {
                 <span style="font-size:12px;"> ' . tr('guru_17') . '
                 <a class="links" href="myprofile.php?action=change"> ' . tr('guru_18') . '</a>.
                 ' . tr('guru_19') . ' <a class="links" href="cacheguides.php">' . tr('guru_20') . '</a>.</span>
-                </td></tr></table></div><br/>';
+                </td></tr></table></div><br>';
         }
     }
     tpl_set_var('guide_info', $guide_info);
@@ -149,13 +149,13 @@ if ($usr == false) {
      *       Can be removed after one year.
      *   6 = user account is not active
      */
-    if (!$user->isActive()){
+    if (!$user->isActive()) {
         tpl_set_var('lastlogin', tr('user_not_active'));
 
-    }else if ($user->getLastLoginDate() == null){
+    } else if ($user->getLastLoginDate() == null) {
 
         tpl_set_var('lastlogin', tr('unknown'));
-    }else {
+    } else {
 
 
         $lastLogin = strtotime($user->getLastLoginDate());
@@ -179,7 +179,7 @@ if ($usr == false) {
     }
 
     //Admin Note (table only)
-    if($usr['admin']) {
+    if ($usr['admin']) {
         $content .= '<div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="/tpl/stdstyle/images/blue/logs.png" class="icon32" alt="Cog Note" title="Cog Note"> ' . tr('admin_notes') . '</p></div>';
         $content .= '<div class="notice">'.tr('admin_notes_visible').'</div><p><a href="' . SimpleRouter::getLink('Admin.UserAdmin', 'index', $user_id) . '" class="links">'.tr('admin_user_management').' <img src="/tpl/stdstyle/images/misc/linkicon.png" alt="user admin"></a></p>';
         $content .= adminNoteTable(AdminNote::getAllUserNotes($user_id));
@@ -197,12 +197,12 @@ if ($usr == false) {
         $act = rand(-10, 10);
     }
 
-    $content .= '<br /><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;' . tr('user_activity01') . '</p></div><br /><p><span class="content-title-noshade txt-blue08">' . tr('user_activity02') . '</span>:&nbsp;<strong>' . $act . '</strong></p>';
+    $content .= '<br><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="Caches Find" title="Caches Find">&nbsp;&nbsp;&nbsp;' . tr('user_activity01') . '</p></div><br><p><span class="content-title-noshade txt-blue08">' . tr('user_activity02') . '</span>:&nbsp;<strong>' . $act . '</strong></p>';
 
     //////////////////////////////////////////////////////////////////////////////
 
     //Merit badges
-    if ($config['meritBadges']){
+    if ($config['meritBadges']) {
 
         $content .= buildOpenCloseButton($user_id, $checkBadges, "merit_badge.png", "checkBadges", tr('merit_badges'), "Merit badges");
 
@@ -218,7 +218,7 @@ if ($usr == false) {
 
         $content .= buildOpenCloseButton($user_id, $checkGeoPaths, "powerTrailGenericLogo.png", "checkGeoPaths", tr('gp_mainTitile'), "geoPaths");
 
-        if ($checkGeoPaths){
+        if ($checkGeoPaths) {
         //geoPaths medals
             $content .= buildPowerTrailIcons($user->getPowerTrailCompleted());
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt140') . '</span>:&nbsp;<strong>' . powerTrailBase::getUserPoints($user_id) . '</strong> (' . tr('pt093') . ' ' . powerTrailBase::getPoweTrailCompletedCountByUser($user_id) . ')</p>';
@@ -230,7 +230,7 @@ if ($usr == false) {
     }
 
     // -----------  begin Find section -------------------------------------
-    $content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/cache-open.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;' . tr('stat_number_found') . '</p></div><br />';
+    $content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/cache-open.png" class="icon32" alt="Caches Find" title="Caches Find">&nbsp;&nbsp;&nbsp;' . tr('stat_number_found') . '</p></div><br>';
 
     $seek = XDb::xMultiVariableQueryValue(
         "SELECT COUNT(*) FROM cache_logs
@@ -239,7 +239,7 @@ if ($usr == false) {
         0, $user_id);
 
     if ($seek == 0) {
-        $content .= '<br /><p> <b>' . tr('not_found_caches') . '</b></p>';
+        $content .= '<br><p> <b>' . tr('not_found_caches') . '</b></p>';
     } else {
 
         $events_count = XDb::xMultiVariableQueryValue(
@@ -297,7 +297,7 @@ if ($usr == false) {
         if ($found == 0) {
             $content .= '</p>';
         } else {
-            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="my_logsFind.php?userid=' . $user_id . '">' . tr('show') . '</a>]</p>';
+            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="my_logsFind.php?userid=' . $user_id . '">' . tr('show') . '</a>]</p>';
         }
 
         $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_dnf_caches') . ':</span> <strong>' . $userNotFounds . '</strong>';
@@ -305,20 +305,20 @@ if ($usr == false) {
         if ($userNotFounds == 0) {
             $content .= '</p>';
         } else {
-            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' . $user_id . '&amp;searchbyfinder=&amp;logtype=2&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
+            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' . $user_id . '&amp;searchbyfinder=&amp;logtype=2&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
         }
         $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_comments') . ':</span> <strong>' . $user->getLogNotesCount() . '</strong></p>';
         $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_moved') . ':</span> <strong>' . $moved . '</strong>';
         if ($moved == 0) {
             $content .= '</p>';
         } else {
-            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' . $user_id . '&amp;searchbyfinder=&amp;logtype=4&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
+            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' . $user_id . '&amp;searchbyfinder=&amp;logtype=4&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
         }
         $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_attended_events') . ':</span> <strong>' . $events_count . '</strong>';
         if ($events_count == 0) {
             $content .= '</p>';
         } else {
-            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' . $user_id . '&amp;searchbyfinder=&amp;logtype=7&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
+            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' . $user_id . '&amp;searchbyfinder=&amp;logtype=7&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
         }
 
         $recomendf = XDb::xMultiVariableQueryValue(
@@ -334,7 +334,7 @@ if ($usr == false) {
             else
                 $link_togo = "usertops.php?userid=$user_id";
 
-            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="' . $link_togo . '">' . tr('show') . '</a>]</p>';
+            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="' . $link_togo . '">' . tr('show') . '</a>]</p>';
         }
 
         $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('days_caching') . ':</span> <strong>' . $num_rows . '</strong>&nbsp;' . tr('from_total_days') . ': <strong>' . $ddays['diff'] . '</strong></p>';
@@ -350,10 +350,10 @@ if ($usr == false) {
         }
 
 
-        if( $found >= 10 ){
-            $content .= '<br /><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
+        if ( $found >= 10 ) {
+            $content .= '<br><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
 
-            if( $found > 101 ){
+            if ( $found > 101 ) {
                 $milestone = 100;
             }
             else {
@@ -391,8 +391,8 @@ if ($usr == false) {
         //ftf Ajax
         $content .= '<hr><center>
         <a href="javascript:void(0);" onclick="ajaxGetFTF();" id="showFtfBtn">' . tr('viewprofileFTF') . '</a>
-        <center><img style="display:none" id="commentsLoader" src="tpl/stdstyle/images/misc/ptPreloader.gif" /></center>
-        <div id="ftfDiv" style="display:none"></div></center><input type="hidden" id="userId" value="' . $user_id . '" />';
+        <center><img style="display:none" id="commentsLoader" src="tpl/stdstyle/images/misc/ptPreloader.gif"></center>
+        <div id="ftfDiv" style="display:none"></div></center><input type="hidden" id="userId" value="' . $user_id . '">';
 
         //------------ begin owner section
         //          if ($user_id == $usr['userid'])
@@ -423,24 +423,22 @@ if ($usr == false) {
 
         if (XDb::xNumRows($rs_logs) != 0) {
 
-            $content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08">' . tr('latest_logs_by_user') . ':</span>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="my_logs.php?userid=' . $user_id . '">' . tr('show_all') . '</a>] ';
-            if ($user_id == $usr['userid'] || $usr['admin']) {
-                $content .= '&nbsp;&nbsp;<a class="links" href="rss/my_logs.xml?userid=' . $user_id . '"><img src=images/rss.gif alt="" /></a>';
-            }
-            $content .= '</p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
+            $content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08">' . tr('latest_logs_by_user') . ':</span>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="my_logs.php?userid=' . $user_id . '">' . tr('show_all') . '</a>] ';
+            $content .= ' <a class="links" href="/rss/my_logs.xml?userid=' . $user_id . '"><img src="/tpl/stdstyle/images/misc/rss.svg" class="icon16" alt="RSS icon"></a>';
+            $content .= '</p><br><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
 
-            while( $record_logs = XDb::xFetchArray($rs_logs) ){
+            while( $record_logs = XDb::xFetchArray($rs_logs) ) {
                 $tmp_log = $log_line;
                 if ($record_logs['geokret_in'] != '0') {
-                    $tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/gk.png" border="0" alt="" title="GeoKret" />', $tmp_log);
+                    $tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/gk.png" border="0" alt="" title="GeoKret">', $tmp_log);
                 } else {
-                    $tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/rating-star-empty.png" border="0" alt=""/>', $tmp_log);
+                    $tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/rating-star-empty.png" border="0" alt="">', $tmp_log);
                 }
 
                 if ($record_logs['recommended'] == 1 && $record_logs['log_type'] == 1) {
-                    $tmp_log = mb_ereg_replace('{rateimage}', '<img src="images/rating-star.png" border="0" alt=""/>', $tmp_log);
+                    $tmp_log = mb_ereg_replace('{rateimage}', '<img src="images/rating-star.png" border="0" alt="">', $tmp_log);
                 } else {
-                    $tmp_log = mb_ereg_replace('{rateimage}', '<img src="images/rating-star-empty.png" border="0" alt=""/>', $tmp_log);
+                    $tmp_log = mb_ereg_replace('{rateimage}', '<img src="images/rating-star-empty.png" border="0" alt="">', $tmp_log);
                 }
                 $tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], "..."), $tmp_log);
                 $tmp_log = mb_ereg_replace('{cacheimage}', $record_logs['cache_icon_small'], $tmp_log);
@@ -462,14 +460,14 @@ if ($usr == false) {
 
         //          }
         // ----------- end owner section
-        //          $content .='<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;Odwiedzone województwa podczas poszukiwań (w przygotowaniu)</p></div><p><img src="images/PLmapa250.jpg" alt="" /></p>';
+        //          $content .='<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="Caches Find" title="Caches Find">&nbsp;&nbsp;&nbsp;Odwiedzone województwa podczas poszukiwań (w przygotowaniu)</p></div><p><img src="images/PLmapa250.jpg" alt=""></p>';
     }
     //------------ end find section
     //------------ begin created caches ---------------------------
-    $content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Caches created" title="Caches created" />&nbsp;&nbsp;&nbsp;' . tr('stat_created_caches') . '</p></div><br />';
+    $content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Caches created" title="Caches created">&nbsp;&nbsp;&nbsp;' . tr('stat_created_caches') . '</p></div><br>';
 
     if ($user->getHiddenGeocachesCount() == 0) {
-        $content .= '<br /><p> <b>' . tr('not_caches_created') . '</b></p>';
+        $content .= '<br><p> <b>' . tr('not_caches_created') . '</b></p>';
 
     } else {
 
@@ -504,7 +502,7 @@ if ($usr == false) {
                 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`)
             )AS COUNTS_IN_DAYS", 0, $user_id);
 
-        if($num_rows>0)
+        if ($num_rows>0)
             $aver2 = round(($user->getHiddenGeocachesCount() / $num_rows), 2);
         else
             $aver2 = 0;
@@ -527,7 +525,7 @@ if ($usr == false) {
         if ($total_owned_caches == 0) {
             $content .= '</p>';
         } else {
-            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;cachetype=1111101111&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
+            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;cachetype=1111101111&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
             if ($total_owned_caches_adopted > 0) {
                 $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_owned_caches_adopted') . ':  </span><strong>' . $total_owned_caches_adopted . '</strong></p>';
             }
@@ -543,7 +541,7 @@ if ($usr == false) {
         if ($hidden == 0) {
             $content .= '</p>';
         } else {
-            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;cachetype=1111101111&amp;searchbyowner=&amp;f_inactive=1&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
+            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;cachetype=1111101111&amp;searchbyowner=&amp;f_inactive=1&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
         }
 
         $hidden_temp = XDb::xMultiVariableQueryValue(
@@ -560,7 +558,7 @@ if ($usr == false) {
         if ($hidden_event == 0) {
             $content .= '</p>';
         } else {
-            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?searchto=searchbyowner&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;f_geokret=0&amp;country=&amp;cachetype=0000010000">' . tr('show') . '</a>]</p>';
+            $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="search.php?searchto=searchbyowner&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;f_geokret=0&amp;country=&amp;cachetype=0000010000">' . tr('show') . '</a>]</p>';
         }
         $recomendr = XDb::xMultiVariableQueryValue(
             "SELECT COUNT(*) FROM `cache_rating`, caches
@@ -573,7 +571,7 @@ if ($usr == false) {
 
         if ($recomendr != 0) {
             $ratio = sprintf("%u", ($recommend_caches / $total_owned_caches) * 100);
-            $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('number_obtain_recommendations') . ':</span> <strong>' . $recomendr . '</strong> ' . tr('for') . ' <strong>' . $recommend_caches . '</strong> ' . tr('_caches_') . ' &nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;cachetype=1111101111&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;cacherating=1">' . tr('show') . '</a>]</p>
+            $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('number_obtain_recommendations') . ':</span> <strong>' . $recomendr . '</strong> ' . tr('for') . ' <strong>' . $recommend_caches . '</strong> ' . tr('_caches_') . ' &nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;cachetype=1111101111&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;cacherating=1">' . tr('show') . '</a>]</p>
                          <p><span class="content-title-noshade txt-blue08">' . tr('ratio_recommendations') . ':</span> <strong>' . $ratio . '%</strong></p>';
         }
 
@@ -594,12 +592,12 @@ if ($usr == false) {
         $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('most_caches_made_day') . ':</span> <strong>' . sprintf("%u", $rcNumber) . '</strong></p>';
         $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('latest_created_cache') . ':</span>&nbsp;&nbsp;<strong><a class="links" href="viewcache.php?cacheid=' . $rcc2['cache_id'] . '">' . $rcc2['wp_oc'] . '</a>&nbsp;&nbsp;</strong>(' . $rcc2['data'] . ')</p>';
 
-        if( $total_created_and_owned_caches >= 10 ){
-            $content .= '<br /><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
+        if ( $total_created_and_owned_caches >= 10 ) {
+            $content .= '<br><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
 
-            if( $total_created_and_owned_caches > 101 ){
+            if ( $total_created_and_owned_caches > 101 ) {
                 $milestone = 100;
-            }else {
+            } else {
                 $milestone = 10;
             }
 
@@ -666,27 +664,25 @@ if ($usr == false) {
 
 
         if (XDb::xNumRows($rs_logs) != 0) {
-            $content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08">' . tr('latest_logs_in_caches') . ':</span>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="mycaches_logs.php?userid=' . $user_id . '">' . tr('show_all') . '</a>] ';
-            if ($user_id == $usr['userid'] || $usr['admin']) {
-                $content .= '&nbsp;&nbsp;<a class="links" href="rss/mycaches_logs.xml?userid=' . $user_id . '"><img src=images/rss.gif alt="" /></a>';
-            }
+            $content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08">' . tr('latest_logs_in_caches') . ':</span> <img src="tpl/stdstyle/images/blue/arrow.png" alt=""> [<a class="links" href="mycaches_logs.php?userid=' . $user_id . '">' . tr('show_all') . '</a>] ';
+            $content .= ' <a class="links" href="/rss/mycaches_logs.xml?userid=' . $user_id . '"><img src="/tpl/stdstyle/images/misc/rss.svg" class="icon16" alt="RSS icon"></a>';
 
-            $content .= '</p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">';
+            $content .= '</p><br><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">';
 
-            while($record_logs = XDb::xFetchArray($rs_logs)){
+            while ($record_logs = XDb::xFetchArray($rs_logs)) {
 
                 $tmp_log = $cache_line_my_caches;
 
                 if ($record_logs['geokret_in'] != '0') {
-                    $tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/gk.png" border="0" alt="" title="GeoKret" />', $tmp_log);
+                    $tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/gk.png" border="0" alt="" title="GeoKret">', $tmp_log);
                 } else {
-                    $tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/rating-star-empty.png" border="0" alt=""/>', $tmp_log);
+                    $tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/rating-star-empty.png" border="0" alt="">', $tmp_log);
                 }
 
                 if ($record_logs['recommended'] == 1 && $record_logs['log_type'] == 1) {
-                    $tmp_log = mb_ereg_replace('{rateimage}', '<img src="images/rating-star.png" border="0" alt=""/>', $tmp_log);
+                    $tmp_log = mb_ereg_replace('{rateimage}', '<img src="images/rating-star.png" border="0" alt="">', $tmp_log);
                 } else {
-                    $tmp_log = mb_ereg_replace('{rateimage}', '<img src="images/rating-star-empty.png" border="0" alt=""/>', $tmp_log);
+                    $tmp_log = mb_ereg_replace('{rateimage}', '<img src="images/rating-star-empty.png" border="0" alt="">', $tmp_log);
                 }
                 $tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], "..."), $tmp_log);
                 $tmp_log = mb_ereg_replace('{cacheimage}', $record_logs['cache_icon_small'], $tmp_log);
@@ -715,7 +711,7 @@ if ($usr == false) {
                 $content .= "\n" . $tmp_log;
             }
             XDb::xFreeResults($rs_logs);
-            $content .= '</ul></div><br />';
+            $content .= '</ul></div><br>';
         }
     }
 
@@ -726,7 +722,7 @@ if ($usr == false) {
             WHERE (status = 4 OR status = 5 OR status = 6) AND `user_id`= :1", 0, $user_id);
 
         if ($rscheck != 0) {
-            $content .= '<br /><div class="content-title-noshade box-blue">';
+            $content .= '<br><div class="content-title-noshade box-blue">';
         }
 
         //get not published caches DATE_FORMAT(`caches`.`date_activate`,'%d-%m-%Y'),
@@ -734,7 +730,7 @@ if ($usr == false) {
         $geocachesNotPublished = $user->getGeocachesNotPublished();
 
         if ($geocachesNotPublished->count() > 0) {
-            $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('not_yet_published') . ':</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
+            $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('not_yet_published') . ':</span></p><br><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
             foreach ($geocachesNotPublished as $geocache) {
                 $content .= "\n" . buildGeocacheHtml($geocache, $cache_notpublished_line);
             }
@@ -743,7 +739,7 @@ if ($usr == false) {
 
         $waitAproveGeocaches = $user->getGeocachesWaitAproove();
         if ($waitAproveGeocaches->count() > 0) {
-            $content .= '<br /><p><span class="content-title-noshade txt-blue08">' . tr('caches_waiting_approve') . ':</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
+            $content .= '<br><p><span class="content-title-noshade txt-blue08">' . tr('caches_waiting_approve') . ':</span></p><br><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
             foreach ($waitAproveGeocaches as $geocache) {
                 $content .= "\n" . buildGeocacheHtml($geocache, $cache_line);
             }
@@ -752,7 +748,7 @@ if ($usr == false) {
 
         $geocachesBlocked = $user->getGeocachesBlocked();
         if ($geocachesBlocked->count() > 0) {
-            $content .= '<br /><p><span class="content-title-noshade txt-blue08">' . tr('caches_blocked') . ':</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
+            $content .= '<br><p><span class="content-title-noshade txt-blue08">' . tr('caches_blocked') . ':</span></p><br><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
             foreach ($geocachesBlocked as $geocache) {
                 $content .= "\n" . buildGeocacheHtml($geocache, $cache_line);
             }
@@ -784,18 +780,18 @@ function buildPowerTrailIcons(ArrayObject $powerTrails)
     $result = '<table width="100%"><tr><td>';
     /* @var $powertrail PowerTrail */
     foreach ($powerTrails as $powertrail) {
-        if(in_array($powertrail->getStatus(), $allowedPtStatus)){
-            $result .= '<div class="ptMedal"><table style="padding-top: 7px;" align="center" height="51" width="51"><tr><td width=52 height=52 valign="center" align="center"><a title="' . $powertrail->getName() . '" href="powerTrail.php?ptAction=showSerie&ptrail=' . $powertrail->getId() . '"><img class="imgPtMedal" src="' . $powertrail->getImage() . '"></a></td></tr><tr><td align="center"><img src="' . $powertrail->getFootIcon() . '" /></td></tr></table></div><div class="ptMedalSpacer"></div>';
+        if (in_array($powertrail->getStatus(), $allowedPtStatus)) {
+            $result .= '<div class="ptMedal"><table style="padding-top: 7px;" align="center" height="51" width="51"><tr><td width=52 height=52 valign="center" align="center"><a title="' . $powertrail->getName() . '" href="powerTrail.php?ptAction=showSerie&ptrail=' . $powertrail->getId() . '"><img class="imgPtMedal" src="' . $powertrail->getImage() . '"></a></td></tr><tr><td align="center"><img src="' . $powertrail->getFootIcon() . '"></td></tr></table></div><div class="ptMedalSpacer"></div>';
         }
     }
-    return $result . '</td></tr></table><br /><br />';
+    return $result . '</td></tr></table><br><br>';
 }
 
 
 function parseNote($note_content, $automatic, $cache_id = -1) {
-    if($automatic) { //if note is collected automatically
+    if ($automatic) { //if note is collected automatically
         $note = tr('admin_notes_'.$note_content); //we get translate
-        if($cache_id != -1){ //if is any cache connected with note
+        if ($cache_id != -1) { //if is any cache connected with note
             $note .= ' <a class="links" href="viewcache.php?cacheid='.$cache_id.'">'.tr('cache').'</a>'; #we create href to that cache
         }
     }
@@ -805,8 +801,8 @@ function parseNote($note_content, $automatic, $cache_id = -1) {
     return $note;
 }
 
-function adminNoteTable($results){
-    if (!($results)){
+function adminNoteTable($results) {
+    if (!($results)) {
         return '<table style="border-collapse: collapse; font-size: 110%;" width="700" border="1"><tr>
             <td colspan="4" align="center" bgcolor="#DBE6F1">
                 <b> '. tr("admin_notes_no_infos") .'</b>
@@ -835,15 +831,15 @@ function adminNoteTable($results){
             </td>
         </tr>';
         foreach ($results as $result) {
-            if($result["automatic"]) {
-                $tr = '<tr><td><img title="'.tr("admin_notes_auto").'" alt="'.tr("admin_notes_auto").'" width="10" height="10" src="images/info.gif"</td>';
+            if ($result["automatic"]) {
+                $tr = '<tr><td><img title="'.tr("admin_notes_auto").'" alt="'.tr("admin_notes_auto").'" width="10" height="10" src="images/info.gif"></td>';
             } else {
-                $tr = '<tr><td><img title="'.tr("admin_notes_man").'" alt="'.tr("admin_notes_man").'" width="10" height="10" src="images/ok.gif"</td>';
+                $tr = '<tr><td><img title="'.tr("admin_notes_man").'" alt="'.tr("admin_notes_man").'" width="10" height="10" src="images/ok.gif"></td>';
             }
             $tr .= '
             <td>'.$result["datetime"].'</td>
             <td><a class="links" href="viewprofile.php?userid='.$result["admin_id"].'">'.$result["admin_username"].'</a></td><td>';
-            if(isset($result["cache_id"])){
+            if (isset($result["cache_id"])) {
                 $tr .= parseNote($result["content"], $result["automatic"], $result["cache_id"]);
             } else {
                 $tr .= parseNote($result["content"], $result["automatic"]);
@@ -860,7 +856,7 @@ function adminNoteTable($results){
 function buildGeocacheHtml(GeoCache $geocache, $html)
 {
     $ocConfig = OcConfig::instance();
-    $html = mb_ereg_replace('{cacheimage}', '<img src="'.$geocache->getCacheIcon().'" width="16" />', $html);
+    $html = mb_ereg_replace('{cacheimage}', '<img src="'.$geocache->getCacheIcon().'" width="16">', $html);
     $html = mb_ereg_replace('{cachestatus}', htmlspecialchars(tr($geocache->getStatusTranslationIdentifier()), ENT_COMPAT, 'UTF-8'), $html);
     $html = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($geocache->getCacheId()), ENT_COMPAT, 'UTF-8'), $html);
     if ($geocache->getDateActivate() === null) {
@@ -874,7 +870,7 @@ function buildGeocacheHtml(GeoCache $geocache, $html)
 }
 
 
-function buildMeritBadges($user_id){
+function buildMeritBadges($user_id) {
 
 global $content_table_badge, $content_row_pattern_badge, $content_tip_badge, $content_element_badge,
 $stylepath;
@@ -882,19 +878,19 @@ $stylepath;
 require($stylepath . '/viewprofile.inc.php');
 
 
-$meritBadgeCtrl = new \lib\Controllers\MeritBadgeController;
+$meritBadgeCtrl = new MeritBadgeController();
 $userCategories = $meritBadgeCtrl->buildArrayUserCategories($user_id);
 
 $content_badge_rows = '';
 $content = '';
 
-foreach($userCategories as $oneCategory){
+foreach ($userCategories as $oneCategory) {
 
     $badgesInCategory = $meritBadgeCtrl->buildArrayUserMeritBadgesInCategory( $user_id, $oneCategory->getId() );
 
     $content_badge = '';
 
-    foreach($badgesInCategory as $oneBadge){
+    foreach ($badgesInCategory as $oneBadge) {
 
         $short_desc = MeritBadge::prepareShortDescription(  $oneBadge->getOBadge()->getShortDescription(),
                                                             $oneBadge->getNextVal(),
@@ -924,21 +920,21 @@ foreach($userCategories as $oneCategory){
     $content_badge_rows = mb_ereg_replace('{category_table}', $oneCategory->getName(), $content_badge_rows);
 }
 
-$content.=mb_ereg_replace('{content_badge_rows}', $content_badge_rows, $content_table_badge);
-$content.="<a class='links'  href='user_badges.php?user_id=$user_id'>[".tr('merit_badge_show_details')."]</a>&nbsp;&nbsp;&nbsp;&nbsp;";
-$content.="<a class='links'  href='user_badges.php?user_id=999999'>[".tr('merit_badge_show_list')."]</a><br><br>";
+$content .= mb_ereg_replace('{content_badge_rows}', $content_badge_rows, $content_table_badge);
+$content .= "<a class='links'  href='user_badges.php?user_id=$user_id'>[".tr('merit_badge_show_details')."]</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+$content .= "<a class='links'  href='user_badges.php?user_id=999999'>[".tr('merit_badge_show_list')."]</a><br><br>";
 return $content;
 }
 
 
 
-function buildOpenCloseButton($userid, $check, $pic, $field, $txt, $title){
-$content = "<form action='viewprofile.php' style='display:inline;'>";
+function buildOpenCloseButton($userid, $check, $pic, $field, $txt, $title) {
+$content = "<form action='/viewprofile.php' style='display:inline;'>";
 
 $content .= "<div class='content2-container bg-blue02'>
                                 <table style='width: 100%; padding: 5px;'><tr><td>
                                 <p class='content-title-noshade-size1'>
-                                <img src='tpl/stdstyle/images/blue/$pic' width='33' class='icon32' alt='$title' title='$title' />&nbsp;$txt".
+                                <img src='/tpl/stdstyle/images/blue/$pic' width='33' class='icon32' alt='$title' title='$title'>&nbsp;$txt".
                                 "</p></td>";
 
 $content .= "<td style='text-align: right'>
@@ -950,10 +946,7 @@ $content .= "
 <input type='hidden' name='userid' value='$userid' >
 <input type='hidden' name='save' value='true' >
 <input type='hidden' name='$field' value='$check'>
-</form>";
-
-$content .= '</div>';
+</div></form>";
 
 return $content;
 }
-
