@@ -96,23 +96,11 @@ function loadLogEntries(offset, limit){
 function showHint(event)
 {
     event.preventDefault();
-    togglePair("hintEncrypted", "hintDecrypted");
-    togglePair("encryptLinkStr", "decryptLinkStr");
+    $("#hintEncrypted").toggle();
+    $("#hintDecrypted").toggle();
+    $("#encryptLinkStr").toggle();
+    $("#decryptLinkStr").toggle();
     return false;
-}
-
-function togglePair(id1, id2) {
-    var e1 = document.getElementById(id1);
-    var e2 = document.getElementById(id2);
-    if (e1 != null && e2 != null) {
-        if (e1.style.display == "none") {
-            e1.style.display = "";
-            e2.style.display = "none";
-        } else {
-            e2.style.display = "";
-            e1.style.display = "none";
-        }
-    }
 }
 
 function openCgeoWindow(event, ocWaypoint)
@@ -181,16 +169,16 @@ var closeDialog = 0;
 var dialogElement;
 
 function copyCoords(e) {
-    let statusText = tr['copy_coords_failure'];
-    let statusClass = "copy-coords-failure";
-    let coordsElem = $('.' + currentCordsFormat);
+    var statusText = tr['copy_coords_failure'];
+    var statusClass = "copy-coords-failure";
+    var coordsElem = $('.' + currentCordsFormat);
     if (coordsElem != null) {
-        let coords = coordsElem.text().trim();
-        let temp = $("<input>");
+        var coords = coordsElem.text().trim();
+        var temp = $("<input>");
         $("body").append(temp);
         temp.val(coords).select();
         if (document.queryCommandEnabled("copy")) {
-            let result = document.execCommand("copy", false, null);
+            var result = document.execCommand("copy", false, null);
             temp.remove();
             if (result) {
                 statusClass = "";
@@ -203,7 +191,7 @@ function copyCoords(e) {
             }
         }
     }
-    let copyStatus = $("#copy-coords-status");
+    var copyStatus = $("#copy-coords-status");
     if (copyStatus.length) {
         copyStatus.html(statusText);
         copyStatus.dialog({
