@@ -32,14 +32,15 @@ class CacheMapController extends BaseController
     /**
      * Display fullscreen map
      */
-    public function fullScreen()
+    public function fullScreen($debug=false)
     {
         $this->view->loadJQuery();
         $this->view->setTemplate('cacheMap/map');
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime('/tpl/stdstyle/cacheMap/cacheMap.css'));
 
-        $this->view->addHeaderChunk('openLayers', [true]);
+
+        $this->view->addHeaderChunk('openLayers', [$debug]);
         $this->view->addLocalJs(
             Uri::getLinkWithModificationTime('/tpl/stdstyle/cacheMap/mapv4Common.js'));
 
