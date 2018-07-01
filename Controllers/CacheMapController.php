@@ -29,29 +29,6 @@ class CacheMapController extends BaseController
         $this->fullScreeenMap();
     }
 
-    public function test($type=null)
-    {
-        $this->view->setTemplate('cacheMap/testMap');
-        $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime('/tpl/stdstyle/cacheMap/cacheMap.css'));
-
-        switch($type){
-            case 'leafLet':
-                $this->view->addHeaderChunk('leafLet');
-                break;
-            case 'openLayers':
-                $this->view->addHeaderChunk('openLayers');
-                break;
-            default:
-                d("What?!",$type);
-                exit;
-        }
-
-        $this->view->setVar('mapType', $type);
-
-        $this->view->buildOnlySelectedTpl();
-    }
-
     /**
      * Display fullscreen map
      */
