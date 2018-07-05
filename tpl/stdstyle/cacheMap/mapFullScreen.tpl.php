@@ -1,5 +1,5 @@
 
-<div id="mapCanvas"></div>
+<div id="mapCanvasFullScreen"></div>
 
 <div id="mapControlsContainer">
 
@@ -18,15 +18,19 @@
 
     <div id="mapClickMarker"></div>
 
+    <div id="ocAttribution" class="ol-control"></div>
+
     <div id="mapPopup">
       <a href="#" id="mapPopup-closer"></a>
       <div id="mapPopup-content"></div>
     </div>
 
     <div id="controlCombo" class="noprint ol-control">
+      <!--
+        // search temporary disabled
       <input id="searchControlInput" type="text" size="10" />
-
       <input id="searchControlButton" value="<?=$tr('search')?>" type="button" />
+       -->
 
       <img id="fullscreenToggle" src="/images/fullscreen-off.png"
            title="<?=$tr('disable_fullscreen')?>" />
@@ -40,7 +44,7 @@
            title="<?=$tr('toggle_filters')?>" />
     </div>
 
-    <div id="mapFilters" class="noprint ol-control">
+    <div id="mapFilters" class="noprint ol-control mapFiltersFullScreen">
       <?php if( isset($view->cacheSet) ) { ?>
         <div class="mapFiltersHeader"><?=$tr('gp_mainTitile')?></div>
         <div class="mapFiltersControls">
@@ -163,7 +167,7 @@ var ocMapInputParams = {
 
 $(function() {
   var ocMap = null; // global map object
-  mapEntryPoint(ocMap, "mapCanvas");
+  mapEntryPoint(ocMap, "mapCanvasFullScreen");
 })
 
 </script>

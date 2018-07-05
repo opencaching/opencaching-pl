@@ -9,8 +9,10 @@ function mapEntryPoint(map, targetDiv){
       zoom: 10,
     }),
     controls: ol.control.defaults({
-      attributionOptions: {
+      attributionOptions:
+      {
         collapsible: false,
+        target: $("#ocAttribution")[0],
       },
       zoom: false
     }),
@@ -19,6 +21,12 @@ function mapEntryPoint(map, targetDiv){
   map.addControl(new ol.control.Control(
       {
         element: $("#controlCombo")[0],
+      }
+  ))
+
+  map.addControl(new ol.control.Control(
+      {
+        element: $("#ocAttribution")[0],
       }
   ))
 
@@ -89,13 +97,20 @@ function layerSwitcherInit(map){
   switcherDropdown.change(function(a){
 
     map.getLayers().forEach(function(layer){
-        if( layer.get('ocLayerName') =='ocTiles' ||
-            layer.get('ocLayerName') == switcherDropdown.val() ){
+        if( layer.get('ocLayerName') != 'ocTiles'){
 
-          layer.setVisible(true)
+          if( layer.get('ocLayerName') == switcherDropdown.val() ){
+            layer.setVisible(true);
+            //$("#ocAttribution").html(layer.getSource().attributions_[0].html_)
+            //console.log(layer.getSource().get('attributions'));
+          }else{
+            layer.setVisible(false);
+          }
+
         }else{
-
-          layer.setVisible(false)
+          if( layer.getVisible() != true){
+            layer.setVisible(true);
+          }
         }
     })
 
@@ -116,7 +131,7 @@ function scaleLineInit(map){
       {
         className: 'customScale',
         target: element[0],
-        minWidth: 120,
+        minWidth: 100,
       }
   ))
 }

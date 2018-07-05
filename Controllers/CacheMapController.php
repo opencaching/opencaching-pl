@@ -34,8 +34,27 @@ class CacheMapController extends BaseController
      */
     public function fullScreen($debug=false)
     {
+        $this->view->setTemplate('cacheMap/mapFullScreen');
+        $this->view->setVar('embded', false);
+
+        $this->mapCommonInit($debug);
+
+        $this->view->display(MainLayoutController::MINI_TEMPLATE);
+    }
+
+    public function embededMap($debug=false)
+    {
+        $this->view->setTemplate('cacheMap/mapEmbeded');
+        $this->view->setVar('embded', true);
+
+        $this->mapCommonInit($debug);
+
+        $this->view->buildView();
+    }
+
+    private function mapCommonInit($debug)
+    {
         $this->view->loadJQuery();
-        $this->view->setTemplate('cacheMap/map');
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime('/tpl/stdstyle/cacheMap/cacheMap.css'));
 
@@ -60,7 +79,6 @@ class CacheMapController extends BaseController
         $userPref = UserPreferences::getUserPrefsByKey(UserMapSettings::KEY);
         $this->view->setVar('filterVal', $userPref->getJsonValues());
 
-        $this->view->display(MainLayoutController::MINI_TEMPLATE);
     }
 
     public function saveMapSettingsAjax()
