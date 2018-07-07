@@ -63,7 +63,6 @@
 
 #mapScale {
   bottom: 3px;
-  left: 40%;
   font-size: 13px;
 }
 
@@ -171,16 +170,10 @@
 }
 
 #ocAttribution {
-  display: block;
-  border-style: none;
-  background-color: red;
   bottom: 5px;
   right: 5px;
-  width: 250px;
-  
 }
 
 #ocAttribution div {
-  width: 250px;
+  display: contents;
 }
-  
