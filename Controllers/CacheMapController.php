@@ -29,40 +29,37 @@ class CacheMapController extends BaseController
         $this->fullScreeenMap();
     }
 
-    public function test($type=null)
-    {
-        $this->view->setTemplate('cacheMap/testMap');
-        $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime('/tpl/stdstyle/cacheMap/cacheMap.css'));
-
-        switch($type){
-            case 'leafLet':
-                $this->view->addHeaderChunk('leafLet');
-                break;
-            case 'openLayers':
-                $this->view->addHeaderChunk('openLayers');
-                break;
-            default:
-                d("What?!",$type);
-                exit;
-        }
-
-        $this->view->setVar('mapType', $type);
-
-        $this->view->buildOnlySelectedTpl();
-    }
-
     /**
      * Display fullscreen map
      */
-    public function fullScreen()
+    public function fullScreen($debug=false)
+    {
+        $this->view->setTemplate('cacheMap/mapFullScreen');
+        $this->view->setVar('embded', false);
+
+        $this->mapCommonInit($debug);
+
+        $this->view->display(MainLayoutController::MINI_TEMPLATE);
+    }
+
+    public function embededMap($debug=false)
+    {
+        $this->view->setTemplate('cacheMap/mapEmbeded');
+        $this->view->setVar('embded', true);
+
+        $this->mapCommonInit($debug);
+
+        $this->view->buildView();
+    }
+
+    private function mapCommonInit($debug)
     {
         $this->view->loadJQuery();
-        $this->view->setTemplate('cacheMap/map');
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime('/tpl/stdstyle/cacheMap/cacheMap.css'));
 
-        $this->view->addHeaderChunk('openLayers', [true]);
+
+        $this->view->addHeaderChunk('openLayers', [$debug]);
         $this->view->addLocalJs(
             Uri::getLinkWithModificationTime('/tpl/stdstyle/cacheMap/mapv4Common.js'));
 
@@ -82,7 +79,6 @@ class CacheMapController extends BaseController
         $userPref = UserPreferences::getUserPrefsByKey(UserMapSettings::KEY);
         $this->view->setVar('filterVal', $userPref->getJsonValues());
 
-        $this->view->display(MainLayoutController::MINI_TEMPLATE);
     }
 
     public function saveMapSettingsAjax()
