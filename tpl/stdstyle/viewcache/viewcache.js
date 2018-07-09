@@ -61,7 +61,9 @@ var currentLogEntriesLimit = 10;
 var logEntryUnderExecution = false;
 
 $(window).scroll(function (event) {
-    if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+    // in most browsers win.scrollTop + win.height == document.height for pages
+    // scrolled to bottom of the page but sometimes NOT! (at leas at Chrome Mobile)
+    if($(window).scrollTop() + $(window).height() > $(document).height() - 200) {
         var logEntriesCount = parseInt($('#logEntriesCount').val());
         if(currentLogEntriesOffset < logEntriesCount){
            loadLogEntries(currentLogEntriesOffset,currentLogEntriesLimit);
