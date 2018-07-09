@@ -22,34 +22,40 @@ function mapEntryPoint(map, targetDiv){
       {
         element: $("#controlCombo")[0],
       }
-  ))
+  ));
 
   map.addControl(new ol.control.Control(
       {
         element: $("#ocAttribution")[0],
       }
-  ))
+  ));
 
   // init filter box - should be called before layers init
-  filterBoxInit(map)
+  filterBoxInit(map);
 
   // init map layers
-  layerSwitcherInit(map)
+  layerSwitcherInit(map);
 
   // init scaleLine
-  scaleLineInit(map)
+  scaleLineInit(map);
 
   // init zoom controls
-  mapZoomControlsInit(map)
+  mapZoomControlsInit(map);
 
   // init map-click handlers
-  mapClickInit(map)
+  mapClickInit(map);
 
   // init mouse position coords
-  cordsUnderCursorInit(map)
+  cordsUnderCursorInit(map);
 
   // init button of GPS position
-  gpsPositionInit(map)
+  gpsPositionInit(map);
+
+  // actions for resize map
+  window.addEventListener('resize', function(){
+    mapWindowResize(map);
+  });
+  mapWindowResize(map);
 
 } // mapEntryPoint
 
@@ -118,7 +124,6 @@ function layerSwitcherInit(map){
   })
 }
 
-
 function scaleLineInit(map){
   element = $("#mapScale")
 
@@ -135,7 +140,6 @@ function scaleLineInit(map){
       }
   ))
 }
-
 
 /**
  * init zoom controls
@@ -185,10 +189,6 @@ function getOcTailSource(addRandomParam){
     if( $('#pt_selection').is(":checked") ){ //skip to see all caches
       ocTilesUrl += "&powertrail_ids="+ptIds
     }
-  }
-
-  if( extraUserId = ocMapConfig.getExtraUserId() ){
-    ocTilesUrl += "&userid="+ extraUserId;
   }
 
   return new ol.source.TileImage({
@@ -570,10 +570,6 @@ var ocMapConfig = {
     return ocMapInputParams.userSettings;
   },
 
-  getExtraUserId: function () {
-    return ocMapInputParams.extraUserId;
-  },
-
   getExtMapConfigs: function (){
     return ocMapInputParams.extMapConfigs;
   }
@@ -719,7 +715,6 @@ function GeolocationOnMap(map, iconId){
     return this;
 }
 
-
 var CoordinatesUtil = {
 
   FORMAT: Object.freeze({
@@ -783,3 +778,16 @@ var CoordinatesUtil = {
     return {deg: deg, min: min, sec: sec};
   },
 };
+
+function mapWindowResize(map) {
+
+  var mapIsSmall = map.getSize()[0] < 600;
+
+  if(mapIsSmall){
+    $('#mousePosition').hide();
+    $("#mapScale").css( {left:'0'} );
+  }else{
+    $('#mousePosition').show();
+    $("#mapScale").css( {left:'40%'} );
+  }
+}

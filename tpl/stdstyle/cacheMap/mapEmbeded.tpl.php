@@ -1,7 +1,10 @@
+<?php
+use Utils\Uri\SimpleRouter;
+?>
 
 <div class="content2-pagetitle">
-  <img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="">
-  <?=tr('user_map')?> <?=$view->username?>
+  <img src="/tpl/stdstyle/images/blue/world.png" class="icon32" alt="">
+  <?=tr('user_map')?> <?=$view->mapUserName?>
 </div>
 
 <div id="embededMapHeader">
@@ -41,17 +44,16 @@
       <input id="searchControlButton" value="<?=tr('search')?>" type="button" />
        -->
 
-      <img id="fullscreenToggle" src="/images/fullscreen.png"
+      <a href="<?=SimpleRouter::getLink("CacheMap", "fullScreen")?>">
+        <img id="fullscreenToggle" src="/images/fullscreen.png"
            title="<?=tr('fullscreen')?>" alt="<?=tr('fullscreen')?>" />
-
+      </a>
 
       <img id="refreshButton" src="/images/refresh.png"
            title="<?=tr('refresh_map')?>" />
 
       <img id="gpsPosition" src="/images/map_geolocation_0.png" title="<?=tr('where_i_am')?>" />
 
-      <img id="filtersToggle" src="/okapi/static/tilemap/legend_other.png"
-           title="<?=tr('toggle_filters')?>" />
     </div>
 
 </div>
@@ -168,11 +170,10 @@
 
 /* map params */
 var ocMapInputParams = {
-  userId:     <?=$view->userId?>,
+  userId:     <?=$view->mapUserId?>,
   searchData: <?= isset($view->searchData)?$view->searchData:"null"?>,
-  powertrailIds: null,                //TODO
+  powertrailIds: <?= isset($view->powerTrailIds)?$view->powerTrailIds:"null"?>,
   userSettings: <?=$view->filterVal?>,
-  extraUserId: null,                  //TODO
   fitToBounds: null,                  // { minLat: 123, maxLat: 123, minLon: 123, maxLon: 123 }
   centerOn: null,                     // { lat: 123, lon:123 }
   extMapConfigs: <?=$view->extMapConfigs?>,

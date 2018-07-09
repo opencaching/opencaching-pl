@@ -7,6 +7,7 @@ use Controllers\PageLayout\MainLayoutController;
 use lib\Objects\User\UserPreferences\UserPreferences;
 use lib\Objects\User\UserPreferences\UserMapSettings;
 use Utils\Debug\Debug;
+use lib\Objects\User\User;
 
 class CacheMapController extends BaseController
 {
@@ -42,7 +43,7 @@ class CacheMapController extends BaseController
         $this->view->display(MainLayoutController::MINI_TEMPLATE);
     }
 
-    public function embededMap($debug=false)
+    public function embeded($debug=false)
     {
         $this->view->setTemplate('cacheMap/mapEmbeded');
         $this->view->setVar('embded', true);
@@ -73,8 +74,29 @@ class CacheMapController extends BaseController
         }
         $this->view->setVar('extMapConfigs',$mapConfigArray['jsConfig']);
 
+        // find user for this map display
+        $user = null;
+        if(isset($_REQUEST['userid'])){
+            $user = User::fromUserIdFactory($_REQUEST['userid']);
+        }
+        if(!$user){
+            $user = $this->loggedUser;
+        }
+        $this->view->setVar('mapUserId', $user->getUserId());
+        $this->view->setVar('mapUserName', $user->getUserName());
 
-        $this->view->setVar('userId', $this->loggedUser->getUserId());
+        // parse searchData if given
+        if( isset($_REQUEST['searchdata'])){
+            $this->view->setVar('searchData', $_REQUEST['searchdata']);
+        }
+
+        // parse powerTrailIds if given
+        if( isset($_REQUEST['pt'])){
+            $this->view->setVar('powerTrailIds', $_REQUEST['pt']);
+        }
+
+
+
 
         $userPref = UserPreferences::getUserPrefsByKey(UserMapSettings::KEY);
         $this->view->setVar('filterVal', $userPref->getJsonValues());

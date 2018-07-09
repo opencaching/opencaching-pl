@@ -1,4 +1,6 @@
-
+<?php
+  use Utils\Uri\SimpleRouter;
+?>
 <div id="mapCanvasFullScreen"></div>
 
 <div id="mapControlsContainer">
@@ -32,8 +34,10 @@
       <input id="searchControlButton" value="<?=$tr('search')?>" type="button" />
        -->
 
-      <img id="fullscreenToggle" src="/images/fullscreen-off.png"
+      <a href="<?=SimpleRouter::getLink("CacheMap", "embeded")?>">
+        <img id="fullscreenToggle" src="/images/fullscreen-off.png"
            title="<?=$tr('disable_fullscreen')?>" />
+      </a>
 
       <img id="refreshButton" src="/images/refresh.png"
            title="<?=$tr('refresh_map')?>" />
@@ -155,11 +159,10 @@
 
 /* map params */
 var ocMapInputParams = {
-  userId:     <?=$view->userId?>,
+  userId:     <?=$view->mapUserId?>,
   searchData: <?= isset($view->searchData)?$view->searchData:"null"?>,
   powertrailIds: null,                //TODO
   userSettings: <?=$view->filterVal?>,
-  extraUserId: null,                  //TODO
   fitToBounds: null,                  // { minLat: 123, maxLat: 123, minLon: 123, maxLon: 123 }
   centerOn: null,                     // { lat: 123, lon:123 }
   extMapConfigs: <?=$view->extMapConfigs?>,
