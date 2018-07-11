@@ -27,7 +27,7 @@ class CacheMapController extends BaseController
 
     public function index()
     {
-        $this->fullScreeenMap();
+        $this->fullScreen();
     }
 
     /**
@@ -59,6 +59,7 @@ class CacheMapController extends BaseController
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime('/tpl/stdstyle/cacheMap/cacheMap.css'));
 
+        $this->view->addHeaderChunk('handlebarsJs');
 
         $this->view->addHeaderChunk('openLayers', [$debug]);
         $this->view->addLocalJs(
@@ -118,5 +119,6 @@ class CacheMapController extends BaseController
         }
 
     }
+
 }
 

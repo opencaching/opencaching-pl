@@ -63,6 +63,20 @@ abstract class BaseController
         return !is_null($this->loggedUser);
     }
 
+    protected function ajaxJsonResponse($response, $statusCode=null)
+    {
+        if(is_null($statusCode)){
+            $statusCode = 200;
+        }
+
+        http_response_code($statusCode);
+
+        header('Content-Type: application/json; charset=UTF-8');
+
+        print (json_encode($response));
+        exit;
+    }
+
     protected function ajaxSuccessResponse($message=null){
         $response = [
             'status' => 'OK'
@@ -72,10 +86,7 @@ abstract class BaseController
             $response['message'] = $message;
         }
 
-        header('Content-Type: application/json');
-        print (json_encode($response));
-
-        exit;
+        $this->ajaxJsonResponse($response);
     }
 
     protected function ajaxErrorResponse($message=null, $statusCode=null){
@@ -91,16 +102,7 @@ abstract class BaseController
             $statusCode = 500;
         }
 
-        http_response_code($statusCode);
-
-        header('Content-Type: application/json; charset=UTF-8');
-        print json_encode(
-                array(
-                'message' => $message,
-                'status' => 'ERROR')
-        );
-
-        exit;
+        $this->ajaxJsonResponse($response, $statusCode);
     }
 
     /**

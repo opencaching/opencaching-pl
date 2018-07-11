@@ -263,7 +263,7 @@ function mapClickInit(map){
     swCorner = ol.proj.transform(ol.extent.getBottomLeft(extent),'EPSG:3857','EPSG:4326')
     neCorner = ol.proj.transform(ol.extent.getTopRight(extent),'EPSG:3857','EPSG:4326')
 
-    var url="/lib/xmlmap.php"+
+    var url="/CacheMapBalloon/json"+
                 "?rspFormat="+"html"+
                 "&latmin="+swCorner[1]+"&lonmin="+swCorner[0]+
                 "&latmax="+neCorner[1]+"&lonmax="+neCorner[0]+
