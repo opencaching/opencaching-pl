@@ -1,5 +1,6 @@
 <?php
 use Utils\Uri\SimpleRouter;
+use Utils\View\View;
 ?>
 
 <div class="content2-pagetitle">
@@ -35,6 +36,10 @@ use Utils\Uri\SimpleRouter;
     <div id="mapPopup">
       <a href="#" id="mapPopup-closer"></a>
       <div id="mapPopup-content"></div>
+    </div>
+
+    <div id="cacheInforBallonTpl">
+        <?=$view->_callTemplate("/cacheMap/cacheInfoBalloon")?>
     </div>
 
     <div id="controlCombo" class="noprint ol-control">

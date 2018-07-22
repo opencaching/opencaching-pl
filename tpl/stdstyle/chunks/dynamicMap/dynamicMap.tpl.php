@@ -24,7 +24,7 @@ return function (DynamicMapModel $mapModel, $canvasId){
   </script>
 <?php } //foreach-InfoWindowTemplates ?>
 
-<?php View::callChunkInline('handlebarsjs'); ?>
+<?php View::callChunkInline('handlebarsJs'); ?>
 <script src="/tpl/stdstyle/chunks/dynamicMap/dynamicMapCommons.js"></script>
 
 

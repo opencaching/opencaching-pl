@@ -40,12 +40,44 @@ class CacheMapBalloonController extends BaseController
         $resp->url = $cache->getCacheUrl();
 
         if (!$urlOnly) {
-            $resp->name = $cache->getCacheName();
-            $resp->code = $cache->getGeocacheWaypointId();
-            $resp->icon = $cache->getCacheIcon();
-            $resp->coordsLat = $cache->getCoordinates()->getLatitude();
-            $resp->coordsLon = $cache->getCoordinates()->getLongitude();
-            // TODO
+            $resp->cacheName = $cache->getCacheName();
+            $resp->cacheCode = $cache->getGeocacheWaypointId();
+            $resp->cacheIcon = $cache->getCacheIcon();
+            $resp->cacheUrl = $cache->getCacheUrl();
+            $resp->cacheSizeDesc = tr($cache->getSizeTranslationKey());
+
+            $resp->coords = new \stdClass();
+            $resp->coords->lat = $cache->getCoordinates()->getLatitude();
+            $resp->coords->lon = $cache->getCoordinates()->getLongitude();
+
+            $resp->ratingDesc = $cache->getRatingDesc();
+
+            if($cache->isEvent()){
+                $resp->isEvent = true;
+                $resp->eventStartDate = $cache->getDatePlaced()->format(
+                    $this->ocConfig->getDateFormat());
+            }else{
+                $resp->isEvent = false;
+            }
+
+            $resp->ownerProfileUrl = $cache->getOwner()->getProfileUrl();
+            $resp->ownerName = $cache->getOwner()->getUserName();
+
+            $resp->cacheFounds = $cache->getFounds();
+            $resp->cacheNotFounds = $cache->getNotFounds();
+
+            $resp->cacheRatingVotes = $cache->getRatingVotes();
+            $resp->cacheRecosNumber = $cache->getRecommendations();
+            if( $cache->isTitled() ) {
+                global $titled_cache_period_prefix; //TODO: move it to the ocConfig
+                $resp->titledDesc = tr($titled_cache_period_prefix.'_titled_cache');
+            }
+
+            if ($cache->isPowerTrailPart()) {
+                $resp->powerTrailName = $cache->getPowerTrail()->getName();
+                $resp->powerTrailIcon = $cache->getPowerTrail()->getFootIcon();
+                $resp->powerTrailUrl = $cache->getPowerTrail()->getPowerTrailUrl();
+            }
         }
 
         $this->ajaxJsonResponse($resp);

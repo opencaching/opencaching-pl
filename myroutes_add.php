@@ -52,6 +52,9 @@ if ($error == false) {
                 exec("/usr/bin/gpsbabel -i kml -f " . $upload_filename . " -x interpolate,distance=0.25k -o kml -F " . $upload_filename . "");
                 $xml = simplexml_load_file($upload_filename);
 
+
+                ddd($xml);
+
                 // get length route
                 foreach ($xml->Document->Folder as $f) {
                     foreach ($f->Folder as $folder) {

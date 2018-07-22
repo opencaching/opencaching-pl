@@ -58,6 +58,8 @@ class CacheMapController extends BaseController
         $this->view->loadJQuery();
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime('/tpl/stdstyle/cacheMap/cacheMap.css'));
+        $this->view->addLocalCss(
+            Uri::getLinkWithModificationTime('/tpl/stdstyle/cacheMap/cacheInfoBalloon.css'));
 
         $this->view->addHeaderChunk('handlebarsJs');
 

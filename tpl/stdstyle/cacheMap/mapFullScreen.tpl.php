@@ -27,6 +27,10 @@
       <div id="mapPopup-content"></div>
     </div>
 
+    <div id="cacheInforBallonTpl">
+        <?=$view->_callTemplate("/cacheMap/cacheInfoBalloon")?>
+    </div>
+
     <div id="controlCombo" class="noprint ol-control">
       <!--
         // search temporary disabled

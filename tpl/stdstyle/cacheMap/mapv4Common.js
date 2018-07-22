@@ -303,16 +303,19 @@ function mapClickInit(map){
 
     pendingClickRequest.done( function( data ) {
 
-      if(data === "" ){ // nothing to display
+      console.log(data);
+
+      if(data === null ){ // nothing to display
           _hidePopup();
           return; //nothing more to do here
       }
 
-      cacheCords = $($.parseHTML(data)).filter('input[name="cache_cords"]').val();
-      cacheCords = jQuery.parseJSON(cacheCords);
+      //cacheCords = $($.parseHTML(data)).filter('input[name="cache_cords"]').val();
+      //cacheCords = jQuery.parseJSON(cacheCords);
       //cacheCords = ol.proj.fromLonLat([cacheCords.longitude,cacheCords.latitude])
 
-      cacheCords = ol.proj.transform([cacheCords.longitude,cacheCords.latitude],'EPSG:4326','EPSG:3857')
+      //cacheCords = ol.proj.transform([cacheCords.longitude,cacheCords.latitude],'EPSG:4326','EPSG:3857')
+      cacheCords = ol.proj.transform([data.coords.lon,data.coords.lat],'EPSG:4326','EPSG:3857')
 
 
       popup = map.getOverlayById('mapPopup')
@@ -341,7 +344,10 @@ function mapClickInit(map){
         popup.setPosition(cacheCords)
       }
 
-      $("#mapPopup-content").html(data)
+      var balloonTpl = $("#cacheInforBallonTpl").html();
+      var balloonTplCompiled = Handlebars.compile(balloonTpl);
+
+      $("#mapPopup-content").html(balloonTplCompiled(data));
 
     });
 
