@@ -245,7 +245,7 @@ class CacheMapBalloonController extends BaseController
         unset($t, $min_rating, $max_rating);
 
         // h_noscore - convert to OKAPI's "rating" parameter.
-        if (isset($_GET['h_noscore']) && $_GET['h_noscore'] == "true") {
+        if (!isset($_GET['h_noscore']) || $_GET['h_noscore'] == "true") {
             $this->search_params['rating'] = $this->search_params['rating'] . "|X";
         }
 

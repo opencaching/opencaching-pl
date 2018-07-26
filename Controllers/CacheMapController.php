@@ -45,6 +45,7 @@ class CacheMapController extends BaseController
 
     public function embeded($debug=false)
     {
+
         $this->view->setTemplate('cacheMap/mapEmbeded');
         $this->view->setVar('embded', true);
 
