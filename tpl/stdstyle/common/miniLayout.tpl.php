@@ -61,7 +61,7 @@
 
 </head>
 
-<body class="<?=$view->_backgroundSeason?>">
+<body>
 
     <?php $view-> _callTemplate(); ?>
 

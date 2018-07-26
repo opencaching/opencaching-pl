@@ -27,7 +27,7 @@ class CacheMapController extends BaseController
 
     public function index()
     {
-        $this->fullScreeenMap();
+        $this->fullScreen();
     }
 
     /**
@@ -45,6 +45,7 @@ class CacheMapController extends BaseController
 
     public function embeded($debug=false)
     {
+
         $this->view->setTemplate('cacheMap/mapEmbeded');
         $this->view->setVar('embded', true);
 
@@ -58,7 +59,10 @@ class CacheMapController extends BaseController
         $this->view->loadJQuery();
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime('/tpl/stdstyle/cacheMap/cacheMap.css'));
+        $this->view->addLocalCss(
+            Uri::getLinkWithModificationTime('/tpl/stdstyle/cacheMap/cacheInfoBalloon.css'));
 
+        $this->view->addHeaderChunk('handlebarsJs');
 
         $this->view->addHeaderChunk('openLayers', [$debug]);
         $this->view->addLocalJs(
@@ -118,5 +122,6 @@ class CacheMapController extends BaseController
         }
 
     }
+
 }
 

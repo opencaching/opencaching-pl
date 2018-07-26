@@ -10,6 +10,9 @@ html { font-size: 13px; }
 
 
 /* # Seasonal background images */
+body{
+  margin: 0px;
+}
 
 body.summer { background-color: #feec98; }
 body.autumn { background-color: #e0ed9d; }

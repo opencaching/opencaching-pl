@@ -1,0 +1,111 @@
+
+#mapPopup {
+  position: absolute;
+  background-color: white;
+  -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+  filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+  padding: 8px;
+  border-radius: 0px;
+  border: 1px solid #cccccc;
+  bottom: 12px;
+  left: -48px;
+  min-width: 350px;
+}
+
+#mapPopup:after, #mapPopup:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+#mapPopup:after {
+  border-top-color: white;
+  border-width: 10px;
+  left: 48px;
+  margin-left: -10px;
+}
+#mapPopup:before {
+  border-top-color: #cccccc;
+  border-width: 11px;
+  left: 48px;
+  margin-left: -11px;
+}
+#mapPopup-closer {
+  text-decoration: none;
+  position: absolute;
+  top: 2px;
+  right: 8px;
+}
+#mapPopup-closer:after {
+  content: "✖";
+  font-size: 15px;
+}
+
+#mapPopup-content {
+  display: flex;
+  flex-direction: column;
+}
+
+#mapPopup a {
+  text-decoration: none 
+}
+
+#mapPopup #balloonHeader {
+  margin-right: 15px;
+}
+
+#mapPopup #cacheName {
+  float: left; 
+  font-size: 120%;
+  max-width: 320px; 
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  padding-right: 10px
+}
+#mapPopup #cacheName img {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+#mapPopup #cacheCode {
+  float:right;
+}
+
+#mapPopup #cacheParams {
+  float: left; 
+  padding-right: 20px 
+}
+  
+#mapPopup #cacheCounters {
+  float: right;
+}
+
+#mapPopup #cacheCounters img {
+  width: 10px; 
+  height: 10px;
+}
+
+#mapPopup #cachePtLabel {
+  float: left;
+  clear: left;
+}
+#mapPopup #cachePT {
+  clear:left; 
+  padding-left:20px;
+  max-width: 350px; 
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  font-size:12px
+}
+
+#mapPopup #cachePT img {
+  width: 20px;
+  height: 20px; 
+}
