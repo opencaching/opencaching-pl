@@ -1,6 +1,7 @@
 <?php
 use Utils\Uri\SimpleRouter;
 use Controllers\UserUtilsController;
+use Controllers\CacheMapController;
 
 /**
  * This is simple configuration of links presented in sidebar of the page
@@ -29,6 +30,7 @@ $menu = [ // DON'T CHANGE $menu var name!
     'mnu_incommingEvents'   => '/newevents.php',
     'mnu_recoCaches'        => '/cacheratings.php',
 
+    'mnu_newMapBeta'    => SimpleRouter::getLink(CacheMapController::class, 'fullscreen'),
     'mnu_oldCacheMap'   => '/cachemap2.php',
     'mnu_FloppMap'      => 'https://flopp-caching.de',
     'mnu_massLogsSave'  => '/log_cache_multi_send.php',
