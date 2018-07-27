@@ -2743,6 +2743,7 @@ $translations = array(
     'mnu_clipboard' => 'Schowek',
     'mnu_privacyPolicy' => 'Polityka prywatności',
     'mnu_facebook' => 'Facebook',
+    'mnu_newMapBeta' => 'Nowa mapa (beta)',
 
     'admCs_degradedCs'  => 'Niezdobywalne geościeżki',
     'admCs_cacheSet'  => 'Geościeżka',

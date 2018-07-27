@@ -2738,6 +2738,7 @@ $translations = array(
     'mnu_clipboard' => 'Memorie temporară',
     'mnu_privacyPolicy' => 'Privacy policy',
     'mnu_facebook' => 'Facebook',
+    'mnu_newMapBeta' => 'New map (beta)', /* EN */
 
     'admCs_degradedCs'  => 'Degraded GeoPaths***',
     'admCs_cacheSet'  => 'GeoPaths***',
