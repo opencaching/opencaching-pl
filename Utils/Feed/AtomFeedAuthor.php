@@ -98,7 +98,7 @@ class AtomFeedAuthor
             return '';
         }
         $result = '<author>' . PHP_EOL;
-        $result .= '<name>' . $this->getName() . '</name>' . PHP_EOL;
+        $result .= '<name>' . htmlspecialchars($this->getName()) . '</name>' . PHP_EOL;
         if (! empty($this->getUri())) {
             $result .= '<uri>' . $this->getUri() . '</uri>' . PHP_EOL;
         }
