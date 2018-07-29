@@ -1,6 +1,7 @@
 <?php
 
 use Utils\Uri\SimpleRouter;
+use Utils\Uri\Uri;
 
 global $user_id;
 ?>
@@ -73,7 +74,7 @@ jQuery(function($) {
                 <td><span class="txt-blue08" >{{registered_since_label}}:</span> <span class="txt-black"> {registered}</span><br></td>
                 <td rowspan="3" width="30%">
                     <img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt="Email" title="Email" align="middle">&nbsp;<a href="<?=SimpleRouter::getLink('UserProfile', 'mailTo', $view->userid)?>" class="links">{{email_user}}</a><br />
-                    <img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="Mapa" title="Map" align="middle">&nbsp;<a href="cachemap3.php?userid={userid}" class="links">{{show_user_map}}</a>
+                    <img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="Mapa" title="Map" align="middle">&nbsp;<a href="<?=Uri::setOrReplaceParamValue('userid', $view->userid, SimpleRouter::getLink('CacheMap', 'embeded'))?>" class="links">{{show_user_map}}</a>
                 </td>
             </tr>
             <tr>
