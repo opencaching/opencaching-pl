@@ -5,8 +5,8 @@ function mapEntryPoint(map, targetDiv){
   map = new ol.Map({
     target: targetDiv,
     view: new ol.View({
-      center: ol.proj.fromLonLat([18.0, 54.0]),
-      zoom: 10,
+      center: ol.proj.fromLonLat([ocMapInputParams.centerOn.lon, ocMapInputParams.centerOn.lat]),
+      zoom: ocMapInputParams.mapStartZoom,
     }),
     controls: ol.control.defaults({
       attributionOptions:
@@ -76,15 +76,15 @@ function layerSwitcherInit(map){
   var switcherDropdown = $("#layerSwitcher select")
   $.each( ocMapConfig.getExtMapConfigs(), function(key, val){
 
-    switcherDropdown.append('<option value='+key+'>'+key+'</option>');
-
     val.set('ocLayerName', key)
     val.set('wrapX', true)
     val.set('zIndex', 1)
 
     if(key == ocMapConfig.getUserSettings().map){
+      switcherDropdown.append('<option value='+key+' selected>'+key+'</option>');
       val.setVisible(true);
     }else{
+      switcherDropdown.append('<option value='+key+'>'+key+'</option>');
       val.setVisible(false);
     }
 
@@ -579,6 +579,7 @@ var ocMapConfig = {
   getExtMapConfigs: function (){
     return ocMapInputParams.extMapConfigs;
   }
+
 };
 
 /**
