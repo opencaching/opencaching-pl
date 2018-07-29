@@ -228,7 +228,7 @@ class AtomFeedEntry
         }
 
         $result = '<entry>' . PHP_EOL;
-        $result .= '<title>' . $this->getTitle() . '</title>' . PHP_EOL;
+        $result .= '<title>' . htmlspecialchars($this->getTitle()) . '</title>' . PHP_EOL;
         if (! empty($this->getPublished())) {
             $result .= '<published>' . $this->getPublished()->format(\DateTime::ATOM) . '</published>' . PHP_EOL;
         }
