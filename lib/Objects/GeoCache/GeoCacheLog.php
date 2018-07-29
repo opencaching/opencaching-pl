@@ -69,6 +69,16 @@ class GeoCacheLog extends GeoCacheLogCommons
         return $this->type;
     }
 
+    /**
+     * Returns translation key for log type
+     *
+     * @return string
+     */
+    public function getTypeTranslationKey()
+    {
+        return self::typeTranslationKey($this->getType());
+    }
+
     public function getDate()
     {
         return $this->date;

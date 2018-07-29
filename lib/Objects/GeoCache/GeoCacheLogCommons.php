@@ -31,9 +31,10 @@ class GeoCacheLogCommons extends BaseObject
         parent::__construct();
     }
 
-    public static function GetIconForType($logType, $fileNameOnly = false){
+    public static function GetIconForType($logType, $fileNameOnly = false)
+    {
 
-        switch($logType){
+        switch ($logType) {
             case self::LOGTYPE_FOUNDIT:
                 $icon = 'found.svg';
                 break;
@@ -77,16 +78,17 @@ class GeoCacheLogCommons extends BaseObject
 
         }
 
-        if(!$fileNameOnly){
+        if (!$fileNameOnly) {
             $icon = self::ICON_PATH . $icon;
         }
 
         return $icon;
     }
 
-    public static function typeTranslationKey($logType){
+    public static function typeTranslationKey($logType)
+    {
 
-        switch($logType){
+        switch ($logType) {
             case self::LOGTYPE_FOUNDIT:         return 'logType1';
             case self::LOGTYPE_DIDNOTFIND:      return 'logType2';
             case self::LOGTYPE_COMMENT:         return 'logType3';
@@ -113,7 +115,8 @@ class GeoCacheLogCommons extends BaseObject
      * @param String $text - original log text
      * @return String - clean log text
      */
-    public static function cleanLogTextForToolTip( $text ){
+    public static function cleanLogTextForToolTip( $text )
+    {
 
         //strip all tags but not <li>
         $text = strip_tags($text, "<li>");
@@ -149,7 +152,8 @@ class GeoCacheLogCommons extends BaseObject
 
     }
 
-    public static function getLogUrlByLogId($logId){
+    public static function getLogUrlByLogId($logId)
+    {
         return "/viewlogs.php?logid=$logId";
     }
 

@@ -56,10 +56,11 @@ abstract class BaseController
     {
         $this->view->redirect(
             Uri::setOrReplaceParamValue('target', Uri::getCurrentUri(), '/login.php'));
-        exit;
+        exit();
     }
 
-    protected function isUserLogged(){
+    protected function isUserLogged()
+    {
         return !is_null($this->loggedUser);
     }
 
@@ -68,54 +69,44 @@ abstract class BaseController
         if(is_null($statusCode)){
             $statusCode = 200;
         }
-
         http_response_code($statusCode);
-
         header('Content-Type: application/json; charset=UTF-8');
-
         print (json_encode($response));
         exit;
     }
-
     protected function ajaxSuccessResponse($message=null){
         $response = [
             'status' => 'OK'
         ];
-
         if(!is_null($message)){
             $response['message'] = $message;
         }
-
         $this->ajaxJsonResponse($response);
     }
-
     protected function ajaxErrorResponse($message=null, $statusCode=null){
         $response = [
             'status' => 'ERROR'
         ];
-
         if(!is_null($message)){
             $response['message'] = $message;
         }
-
         if(is_null($statusCode)){
             $statusCode = 500;
         }
-
         $this->ajaxJsonResponse($response, $statusCode);
     }
 
     /**
      * This method can be used to just exit and display error page to user
      *
-     * @param unknown $message - simple message to be displayed (in english)
-     * @param unknown $httpStatusCode - http status code to return in response
+     * @param string $message - simple message to be displayed (in english)
+     * @param integer $httpStatusCode - http status code to return in response
      */
-    public function displayCommonErrorPageAndExit($message=null, $httpStatusCode=null)
+    public function displayCommonErrorPageAndExit($message = null, $httpStatusCode = null)
     {
         $this->view->setTemplate('error/commonFatalError');
-        if($httpStatusCode){
-            switch($httpStatusCode){
+        if ($httpStatusCode) {
+            switch ($httpStatusCode) {
                 case 404:
                     header("HTTP/1.0 404 Not Found");
                     break;
@@ -129,7 +120,7 @@ abstract class BaseController
 
         $this->view->setVar('message', $message);
         $this->view->buildOnlySelectedTpl();
-        exit;
+        exit();
     }
 
     /**

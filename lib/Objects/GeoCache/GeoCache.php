@@ -61,6 +61,7 @@ class GeoCache extends GeoCacheCommons
     private $descLanguagesList;
     private $mp3count;
     private $picturesCount;
+    private $uuid;
 
     /**
      * count of moves for mobile geocaches
@@ -398,6 +399,7 @@ class GeoCache extends GeoCacheCommons
 
         $this->setDateActivate($geocacheDbRow['date_activate']);
         $this->setDatePublished($geocacheDbRow['date_published']);
+        $this->uuid = $geocacheDbRow['uuid'];
         return $this;
     }
 
@@ -1100,6 +1102,11 @@ class GeoCache extends GeoCacheCommons
         if ($datePublished != null) {
             $this->datePublished = new \DateTime($datePublished);
         }
+    }
+
+    public function getUuid()
+    {
+        return $this->uuid;
     }
 
     public function getStatusTranslationIdentifier()

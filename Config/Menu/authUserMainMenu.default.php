@@ -19,7 +19,7 @@ use Utils\Uri\SimpleRouter;
  */
 $menu = [ // DON'T CHANGE $menu var name!
     /* 'translation key' => 'url' */
-    'mnu_news'          => '/news.php',
+    'mnu_news'          => SimpleRouter::getLink('News.NewsList'),
     'mnu_cacheMap'      => '/cachemap3.php',
 
     'mnu_myNeighborhood'=> SimpleRouter::getLink('MyNeighbourhood','index'),

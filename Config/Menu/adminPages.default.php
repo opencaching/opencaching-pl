@@ -26,9 +26,8 @@ $menu = [ // DON'T CHANGE $menu var name!
     'mnu_octeamStats'       => '/articles.php?page=cog',
     'mnu_notFoundCaches'    => '/admin_cachenotfound.php',
     'mnu_searchUser'        => '/admin_searchuser.php',
-    'mnu_ocTeamNews'        => '/admin_news.php',
+    'mnu_ocTeamNews'        => SimpleRouter::getLink('News.NewsAdmin'),
     'mnu_geoPathAdmin'      => '/powerTrailCOG.php',
     'mnu_abandonCacheSets'  => SimpleRouter::getLink(
                                 CacheSetAdminController::class, 'cacheSetsToArchive'),
 ];
-

@@ -8,9 +8,6 @@ use Utils\Uri\SimpleRouter;
 <div class="nbh-block-header">
   <?=tr('incomming_events')?>
   <div class='btn-group nbh-sm-buttons'>
-    <?php if (count($view->upcomingEvents) == $view->preferences['style']['caches-count']) { ?>
-      <a class="btn btn-xs btn-primary" href="<?SimpleRouter::getLink('MyNeighnourhood','upcommingEvents', $view->selectedNbh)?>" title="<?=tr('myn_hlp_more')?>"><?=tr('more')?></a>
-    <?php } // end if ?>
     <button class="btn btn-xs btn-default nbh-hide-toggle" title="<?=tr('myn_hlp_hide')?>"><span class="nbh-eye"></span></button>
     <button class="btn btn-xs btn-default nbh-size-toggle" title="<?=tr('myn_hlp_resize')?>"><span class="ui-icon ui-icon-arrow-2-e-w"></span></button>
   </div>
@@ -39,5 +36,10 @@ use Utils\Uri\SimpleRouter;
     </a>
   </div>
   <?php } //end foreach
+  if (count($view->upcomingEvents) == $view->preferences['style']['caches-count']) { ?>
+    <div class="align-right">
+      <a class="btn btn-sm btn-default" href="<?SimpleRouter::getLink('MyNeighnourhood','upcommingEvents', $view->selectedNbh)?>" title="<?=tr('myn_hlp_more')?>"><?=tr('more')?></a>
+    </div>
+  <?php } // end if
 } ?>
 </div>

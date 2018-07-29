@@ -14,9 +14,10 @@ class Uri {
      * @return string
      */
     public static function setOrReplaceParamValue(
-        $paramName, $paramValue, $uri=null){
+        $paramName, $paramValue, $uri = null)
+    {
 
-        if(is_null($uri)){
+        if (is_null($uri)) {
             $uri = self::getCurrentUri(true);
         }
 
@@ -25,19 +26,19 @@ class Uri {
         $paramArr[$paramName] = $paramValue;
 
         //rebuild the uri
-        return strtok($uri, '?').'?'.http_build_query($paramArr);
+        return strtok($uri, '?') . '?'.http_build_query($paramArr);
 
     }
 
-    public static function addAnchorName($anchorName, $uri=null)
+    public static function addAnchorName($anchorName, $uri = null)
     {
-        if(is_null($uri)){
+        if (is_null($uri)) {
             $uri = $_SERVER['REQUEST_URI'];
         }
 
         list ($uriWithoutHash) = explode('#', $uri);
 
-        return $uriWithoutHash.'#'.$anchorName;
+        return $uriWithoutHash.'#' . $anchorName;
 
     }
 
@@ -48,15 +49,16 @@ class Uri {
      * @param string $uri
      * @return string
      */
-    public static function removeParam($paramName, $uri=null){
-        if(is_null($uri)){
+    public static function removeParam($paramName, $uri = null)
+    {
+        if (is_null($uri)) {
             $uri = $_SERVER['REQUEST_URI'];
         }
 
         $paramArr = [];
         parse_str( parse_url($uri, PHP_URL_QUERY), $paramArr);
 
-        if( isset($paramArr[$paramName]) ){
+        if ( isset($paramArr[$paramName]) ) {
             unset($paramArr[$paramName]);
 
             //rebuild the uri
@@ -86,7 +88,7 @@ class Uri {
         // be sure that the path has preceding slash
         $rootPath = self::addPrecedingSlashIfNecessary($rootPath);
 
-        return $rootPath.'?'.filemtime(__dir__.'/../..'.$rootPath);
+        return $rootPath.'?' . filemtime(__dir__.'/../..'.$rootPath);
     }
 
 
@@ -105,7 +107,8 @@ class Uri {
      *
      * @return string
      */
-    public static function getCurrentDomain(){
+    public static function getCurrentDomain()
+    {
         return $_SERVER['HTTP_HOST'];
     }
 
@@ -127,15 +130,27 @@ class Uri {
      * or: /StartPage/index if $withProtoAndDomain == false
      *
      */
-    public static function getCurrentRequestUri($withProtoAndDomain=true)
+    public static function getCurrentRequestUri($withProtoAndDomain = true)
     {
         $parts = explode('?', $_SERVER['REQUEST_URI'], 2);
 
-        if($withProtoAndDomain){
+        if ($withProtoAndDomain) {
             return self::getCurrentUriBase() . $parts[0];
-        }else{
+        } else {
             return $parts[0];
         }
+    }
+
+    /**
+     * Returns full, absolute URI for (relative) $path
+     * $paht MAY have preceding slash
+     *
+     * @param string $path
+     * @return string
+     */
+    public static function getAbsUri($path = null)
+    {
+        return self::getCurrentUriBase() . self::addPrecedingSlashIfNecessary($path);
     }
 
     private static function addPrecedingSlashIfNecessary($path)

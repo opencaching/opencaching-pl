@@ -15,7 +15,7 @@ class MultiCacheStats extends BaseObject
      * EVENTS NOT INCLUDED!
      * @param integer $limit
      */
-    public static function getLatestCaches($limit, $offset=null)
+    public static function getLatestCaches($limit, $offset = null)
     {
 
         $db = self::db();
@@ -41,7 +41,7 @@ class MultiCacheStats extends BaseObject
             LIMIT $offset, $limit", GeoCache::TYPE_EVENT, GeoCache::STATUS_READY);
 
         $result = [];
-        while($row = $db->dbResultFetch($rs)){
+        while ($row = $db->dbResultFetch($rs)) {
             $row['location'] = CacheLocation::fromDbRowFactory($row);
             $result[] = $row;
         }
@@ -81,13 +81,13 @@ class MultiCacheStats extends BaseObject
         return $result;
     }
 
-    public static function getTopRatedCachesCount($activeOnly=false)
+    public static function getTopRatedCachesCount($activeOnly = false)
     {
-        if($activeOnly){
+        if ($activeOnly) {
             $countedStatuses = implode(',',[
                 GeoCache::STATUS_READY
             ]);
-        }else{
+        } else {
             $countedStatuses = implode(',',[
                 GeoCache::STATUS_ARCHIVED,
                 GeoCache::STATUS_UNAVAILABLE,
@@ -101,14 +101,14 @@ class MultiCacheStats extends BaseObject
             AND score >= :1", 0, GeoCache::MIN_SCORE_OF_RATING_5);
     }
 
-    public static function getAllCachesCount($activeOnly=false)
+    public static function getAllCachesCount($activeOnly = false)
     {
 
-        if($activeOnly){
+        if ($activeOnly) {
             $countedStatuses = implode(',',[
                 GeoCache::STATUS_READY
             ]);
-        }else{
+        } else {
             $countedStatuses = implode(',',[
                 GeoCache::STATUS_ARCHIVED,
                 GeoCache::STATUS_UNAVAILABLE,
@@ -120,7 +120,8 @@ class MultiCacheStats extends BaseObject
             "SELECT COUNT(*) FROM caches WHERE status IN ($countedStatuses)", 0);
     }
 
-    public static function getNewCachesCount($fromLastDays){
+    public static function getNewCachesCount($fromLastDays)
+    {
 
         $days = (int) $fromLastDays;
 
@@ -143,15 +144,15 @@ class MultiCacheStats extends BaseObject
      * Return array of Geocaches based on given cache Ids
      * @param array $cacheIds
      */
-    public static function getGeocachesById(array $cacheIds, array $fieldsArr=null)
+    public static function getGeocachesById(array $cacheIds, array $fieldsArr = null)
     {
-        if(empty($cacheIds)){
+        if (empty($cacheIds)) {
             return [];
         }
 
         $db = self::db();
 
-        if(empty($fieldsArr)){
+        if (empty($fieldsArr)) {
             $fieldsArr = ['cache_id','status','type','wp_oc','user_id',
                 'latitude','longitude','name'];
         }
@@ -166,5 +167,30 @@ class MultiCacheStats extends BaseObject
         return $db->dbResultFetchAll($rs);
     }
 
-}
+    /**
+     * Returns array of GeoCache objects - newest caches (including events)
+     *
+     * @param int $limit
+     * @param int $offset
+     * @return GeoCache[]
+     */
+    public static function getAllLatestCaches($limit, $offset = null)
+    {
+        list ($limit, $offset) = self::db()->quoteLimitOffset($limit, $offset);
 
+        $stmt = self::db()->multiVariableQuery("
+            SELECT `cache_id`
+            FROM `caches`
+            WHERE `status` = :1
+                AND `date_published` IS NOT NULL
+            ORDER BY
+                `date_published` DESC,
+                `cache_id` DESC
+            LIMIT $offset, $limit", GeoCache::STATUS_READY);
+
+        return self::db()->dbFetchAllAsObjects($stmt, function ($row) {
+            return GeoCache::fromCacheIdFactory($row['cache_id']);
+        });
+    }
+
+}

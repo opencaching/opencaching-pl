@@ -1,18 +1,15 @@
 <?php
 use Utils\Gis\Gis;
 use Utils\Text\Formatter;
+use Utils\Text\UserInputFilter;
+use Utils\Uri\SimpleRouter;
 use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\Neighbourhood\Neighbourhood;
-use Utils\Uri\SimpleRouter;
-use Utils\Text\UserInputFilter;
 
 ?>
 <div class="nbh-block-header">
   <?=tr('latest_logs')?>
   <div class="btn-group nbh-sm-buttons">
-    <?php if (count($view->latestLogs) == $view->preferences['style']['caches-count']) { ?>
-      <a class="btn btn-xs btn-primary" href="<?=SimpleRouter::getLink('MyNeighbourhood','latestLogs', $view->selectedNbh)?>" title="<?=tr('myn_hlp_more')?>"><?=tr('more')?></a>
-    <?php } // end if ?>
     <button class="btn btn-xs btn-default nbh-hide-toggle" title="<?=tr('myn_hlp_hide')?>"><span class="nbh-eye"></span></button>
     <button class="btn btn-xs btn-default nbh-size-toggle" title="<?=tr('myn_hlp_resize')?>"><span class="ui-icon ui-icon-arrow-2-e-w"></span></button>
   </div>
@@ -49,6 +46,9 @@ use Utils\Text\UserInputFilter;
   </div>
   <div class="lightTip"><?=UserInputFilter::purifyHtmlString($log->getText())?></div>
   </div>
-  <?php } //end foreach ?>
-<?php } ?>
+  <?php } //end foreach
+  if (count($view->latestLogs) == $view->preferences['style']['caches-count']) { ?>
+    <a class="btn btn-sm btn-default" href="<?=SimpleRouter::getLink('MyNeighbourhood','latestLogs', $view->selectedNbh)?>" title="<?=tr('myn_hlp_more')?>"><?=tr('more')?></a>
+  <?php } // end if
+  } ?>
 </div>

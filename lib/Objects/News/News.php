@@ -5,6 +5,7 @@ use Utils\Text\UserInputFilter;
 use lib\Objects\BaseObject;
 use lib\Objects\User\User;
 use lib\Objects\OcConfig\OcConfig;
+use Utils\Uri\SimpleRouter;
 
 class News extends BaseObject
 {
@@ -140,6 +141,27 @@ class News extends BaseObject
         }
     }
 
+    /**
+     * Factory
+     *
+     * @param integer $newsId
+     * @return News|null
+     */
+    public static function fromNewsIdFactory($newsId)
+    {
+        $obj = new self();
+        try {
+            $obj->loadById($newsId);
+            if ($obj->isDataLoaded()) {
+                return $obj;
+            } else {
+                return null;
+            }
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+
     private function loadById($newsId)
     {
         $query = 'SELECT * FROM news WHERE id = :1 LIMIT 1';
@@ -219,6 +241,13 @@ class News extends BaseObject
         return $n;
     }
 
+    /**
+     * @param boolean $loggeduser
+     * @param boolean $mainpage
+     * @param integer $offset
+     * @param integer $limit
+     * @return News[]
+     */
     public static function getAllNews($loggeduser = false, $mainpage = false, $offset = null, $limit = null)
     {
         $query = 'SELECT * FROM news
@@ -361,6 +390,48 @@ class News extends BaseObject
     public function getDateLastModified($asString = false)
     {
         return self::datePrepare($this->date_lastmod, $asString);
+    }
+
+    /**
+     * Returns URI to single news page
+     *
+     * @return string
+     */
+    public function getNewsUrl()
+    {
+        return SimpleRouter::getLink('News.NewsList','show', $this->getId());
+    }
+
+    /**
+     * Check if news can be viewed.
+     * Returns true if
+     * - publication date is in the past or is not set
+     * - expiration date is in the future or is not set
+     * - if news is only for logged user - user is logged
+     * Returns false otherwise.
+     *
+     * @param boolean $isUserLogged
+     * @return boolean
+     */
+    public function canBeViewed($isUserLogged)
+    {
+        $now = new \DateTime();
+        if ($this->getDatePublication() != null && $this->getDatePublication() > $now) {
+            // not published yet
+            return false;
+        }
+
+        if ($this->getDateExpiration() != null && $this->getDateExpiration() < $now) {
+            // news expired (archived)
+            return false;
+        }
+
+        $isUserLogged = boolval($isUserLogged);
+        if (! $this->getShowNotLogged() && ! $isUserLogged) {
+            // news only for logged user, but user is not logged in
+            return false;
+        }
+        return true;
     }
 
     public function dataReady()
