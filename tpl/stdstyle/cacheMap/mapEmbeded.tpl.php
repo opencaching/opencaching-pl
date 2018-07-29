@@ -1,6 +1,5 @@
 <?php
 use Utils\Uri\SimpleRouter;
-use Utils\View\View;
 ?>
 
 <div class="content2-pagetitle">
@@ -20,8 +19,8 @@ use Utils\View\View;
         </div>
 
         <div id="mapZoom" class="ol-control">
-          <img id="mapZoomIn" src="/images/icons/plus.svg">
-          <img id="mapZoomOut" src="/images/icons/minus.svg">
+          <img id="mapZoomIn" src="/images/icons/plus.svg" alt="+">
+          <img id="mapZoomOut" src="/images/icons/minus.svg" alt="-">
         </div>
 
         <div id="mousePosition" class="ol-control"></div>
@@ -44,19 +43,19 @@ use Utils\View\View;
         <div id="controlCombo" class="noprint ol-control">
           <!--
             // search temporary disabled
-          <input id="searchControlInput" type="text" size="10" />
-          <input id="searchControlButton" value="<?=tr('search')?>" type="button" />
+          <input id="searchControlInput" type="text" size="10">
+          <input id="searchControlButton" value="<?=tr('search')?>" type="button">
            -->
 
           <a href="<?=SimpleRouter::getLink("CacheMap", "fullScreen")?>">
             <img id="fullscreenToggle" src="/images/fullscreen.png"
-               title="<?=tr('fullscreen')?>" alt="<?=tr('fullscreen')?>" />
+               title="<?=tr('fullscreen')?>" alt="<?=tr('fullscreen')?>">
           </a>
 
           <img id="refreshButton" src="/images/refresh.png"
-               title="<?=tr('refresh_map')?>" />
+               title="<?=tr('refresh_map')?>" alt="<?=tr('refresh_map')?>">
 
-          <img id="gpsPosition" src="/images/map_geolocation_0.png" title="<?=tr('where_i_am')?>" />
+          <img id="gpsPosition" src="/images/map_geolocation_0.png" title="<?=tr('where_i_am')?>" alt="<?=tr('where_i_am')?>">
 
         </div>
 
@@ -68,13 +67,13 @@ use Utils\View\View;
         <div class="row">
             <div class="mapFiltersHeader"><?=tr('gp_mainTitile')?></div>
             <div class="mapFiltersControls">
-              <input id="powerTrailSelection" type="checkbox" checked  />
+              <input id="powerTrailSelection" type="checkbox" checked>
               <label for="powerTrailSelection">
                 <a href='<?=$view->cacheSet->getUrl()?>'
                    title='<?=$view->cacheSet->getName()?>' target='_blank'>
                   <img src="<?=$view->cacheSet->getIcon()?>"
                        alt="<?=tr('gp_mainTitile')?>"
-                       title='<?=$view->cacheSet->getName()?>' />
+                       title='<?=$view->cacheSet->getName()?>'>
                   <?=$view->cacheSet->getName()?>
                 </a>
               </label>
@@ -89,59 +88,68 @@ use Utils\View\View;
               <div class="mapFiltersControls row">
                 <div class="col">
                   <div>
-                      <input id="h_t" type="checkbox" />
-                      <label for="h_t"><?=tr('traditional')?>
-                        <img src='/okapi/static/tilemap/legend_traditional.png'/>
+                    <input id="h_t" type="checkbox">
+                    <label for="h_t">
+                      <?=tr('traditional')?>
+                      <img src="/okapi/static/tilemap/legend_traditional.png" alt="<?=tr('traditional')?>">
+                    </label>
+                  </div>
+                  <div>
+                    <input id="h_m" type="checkbox">
+                    <label for="h_m">
+                      <?=tr('multicache')?>
+                      <img src="/okapi/static/tilemap/legend_multi.png" alt="<?=tr('multicache')?>">
+                    </label>
+                  </div>
+                  <div>
+                    <input id="h_q" type="checkbox">
+                    <label for="h_q">
+                      <?=tr('quiz')?>
+                      <img src="/okapi/static/tilemap/legend_quiz.png" alt="<?=tr('quiz')?>">
                       </label>
                   </div>
                   <div>
-                      <input id="h_m" type="checkbox" />
-                      <label for="h_m"><?=tr('multicache')?>
-                        <img src='/okapi/static/tilemap/legend_multi.png'/>
-                      </label>
+                    <input id="h_v" type="checkbox">
+                    <label for="h_v">
+                      <?=tr('virtual')?>
+                      <img src="/okapi/static/tilemap/legend_virtual.png" alt="<?=tr('virtual')?>">
+                    </label>
                   </div>
                   <div>
-                      <input id="h_q" type="checkbox" />
-                      <label for="h_q"><?=tr('quiz')?>
-                        <img src='/okapi/static/tilemap/legend_quiz.png'/>
-                      </label>
-                  </div>
-                  <div>
-                      <input id="h_v" type="checkbox" />
-                      <label for="h_v"><?=tr('virtual')?>
-                        <img src='/okapi/static/tilemap/legend_virtual.png'/>
-                      </label>
-                  </div>
-                  <div>
-                      <input id="h_e" type="checkbox" />
-                      <label for="h_e"><?=tr('event')?>
-                        <img src='/okapi/static/tilemap/legend_event.png'/>
-                      </label>
+                    <input id="h_e" type="checkbox">
+                    <label for="h_e">
+                      <?=tr('event')?>
+                      <img src="/okapi/static/tilemap/legend_event.png" alt="<?=tr('event')?>">
+                    </label>
                   </div>
                 </div>
                 <div class="col">
                   <div>
-                      <input id="h_u" type="checkbox" />
-                      <label for="h_u"><?=tr('unknown_type')?>
-                        <img src='/okapi/static/tilemap/legend_unknown.png'/>
-                      </label>
+                    <input id="h_u" type="checkbox">
+                    <label for="h_u">
+                      <?=tr('unknown_type')?>
+                      <img src="/okapi/static/tilemap/legend_unknown.png" alt="<?=tr('unknown_type')?>">
+                    </label>
                   </div>
                   <div>
-                      <input id="h_w" type="checkbox" />
-                      <label for="h_w">Webcam
-                        <img src='/okapi/static/tilemap/legend_webcam.png'/>
-                      </label>
+                    <input id="h_w" type="checkbox">
+                    <label for="h_w">
+                      <?=tr('webcam')?>
+                      <img src="/okapi/static/tilemap/legend_webcam.png" alt="<?=tr('webcam')?>">
+                    </label>
                   </div>
                   <div>
-                      <input id="h_o" type="checkbox" />
-                      <label for="h_o"><?=tr('moving')?>
-                        <img src='/okapi/static/tilemap/legend_moving.png'/>
-                      </label>
+                    <input id="h_o" type="checkbox">
+                    <label for="h_o">
+                      <?=tr('moving')?>
+                      <img src="/okapi/static/tilemap/legend_moving.png" alt="<?=tr('moving')?>">
+                    </label>
                   </div>
                   <div>
-                      <input id="h_owncache" type="checkbox" />
-                      <label for="h_owncache"><?=tr('owncache')?>
-                        <img src='/okapi/static/tilemap/legend_own.png'/>
+                    <input id="h_owncache" type="checkbox">
+                    <label for="h_owncache">
+                      <?=tr('owncache')?>
+                      <img src="/okapi/static/tilemap/legend_own.png" alt="<?=tr('owncache')?>">
                       </label>
                   </div>
                </div>
@@ -157,45 +165,46 @@ use Utils\View\View;
               <div class="row">
                   <div class="col">
                     <div>
-                        <input id="h_ignored" type="checkbox" />
+                        <input id="h_ignored" type="checkbox">
                         <label for="h_ignored"><?=tr('ignored')?></label>
                     </div>
                     <div>
-                        <input id="h_own" type="checkbox" />
+                        <input id="h_own" type="checkbox">
                         <label for="h_own"><?=tr('own')?></label>
                     </div>
                     <div>
-                        <input id="h_found" type="checkbox" />
+                        <input id="h_found" type="checkbox">
                         <label for="h_found"><?=tr('founds')?></label>
                     </div>
                     <div>
-                        <input id="h_noattempt" type="checkbox" />
+                        <input id="h_noattempt" type="checkbox">
                         <label for="h_noattempt"><?=tr('not_yet_found')?></label>
                     </div>
                     <div>
-                        <input id="h_nogeokret" type="checkbox" />
+                        <input id="h_nogeokret" type="checkbox">
                         <label for="h_nogeokret"><?=tr('without_geokret')?></label>
                     </div>
                   </div>
                   <div class="col">
                     <div>
-                        <input id="h_temp_unavail" type="checkbox" />
+                        <input id="h_temp_unavail" type="checkbox">
                         <label for="h_temp_unavail"><?=tr('temp_unavailables')?></label>
                     </div>
                     <div>
-                        <input id="h_arch" type="checkbox" />
+                        <input id="h_arch" type="checkbox">
                         <label for="h_arch"><?=tr('archived_plural')?></label>
                     </div>
                     <div>
-                        <input id="be_ftf" type="checkbox" />
+                        <input id="be_ftf" type="checkbox">
                         <label for="be_ftf"><?=tr('map_01')?></label>
                     </div>
                     <div>
-                        <input id="powertrail_only" type="checkbox" />
+                        <input id="powertrail_only" type="checkbox">
                         <label for="powertrail_only"><?=tr('map_05')?></label>
                     </div>
                   </div>
               </div>
+              <hr>
               <div class="row">
                   <div>
                     <?=tr('map_02')?>
@@ -207,6 +216,12 @@ use Utils\View\View;
                       <option value="2.5"><?=tr('rating_ge_excellent')?></option>
                     </select>
                   </div>
+              </div>
+              <div class="row">
+                <div>
+                  <input id="h_noscore" type="checkbox">
+                  <label for="h_noscore"><?=tr('map_04')?></label>
+                </div>
               </div>
             </div>
           </div><!-- col -->
