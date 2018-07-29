@@ -8,6 +8,7 @@ use lib\Objects\User\UserPreferences\UserPreferences;
 use lib\Objects\User\UserPreferences\UserMapSettings;
 use Utils\Debug\Debug;
 use lib\Objects\User\User;
+use lib\Objects\Coordinates\Coordinates;
 
 class CacheMapController extends BaseController
 {
@@ -72,30 +73,39 @@ class CacheMapController extends BaseController
         // read map config + run keys injector
         $mapConfigArray = $this->ocConfig->getMapConfig();
         $mapConfigInitFunc = $mapConfigArray['keyInjectionCallback'];
-        if( !$mapConfigInitFunc($mapConfigArray) ){
+        if ( !$mapConfigInitFunc($mapConfigArray)) {
             Debug::errorLog('mapConfig init failed');
-            exit;
+            exit();
         }
-        $this->view->setVar('extMapConfigs',$mapConfigArray['jsConfig']);
+        $this->view->setVar('extMapConfigs', $mapConfigArray['jsConfig']);
 
         // find user for this map display
         $user = null;
-        if(isset($_REQUEST['userid'])){
+        if (isset($_REQUEST['userid'])) {
             $user = User::fromUserIdFactory($_REQUEST['userid']);
         }
-        if(!$user){
+        if (!$user) {
             $user = $this->loggedUser;
         }
+        $mapCenter = $user->getHomeCoordinates();
+        $mapStartZoom = 10;
+        if (! $mapCenter->areCordsReasonable()) {
+            $mapCenter = Coordinates::FromCoordsFactory($this->ocConfig->getMainPageMapCenterLat(), $this->ocConfig->getMainPageMapCenterLon());
+            $mapStartZoom = 8;
+        }
+        $centerOn = json_encode(['lat' => $mapCenter->getLatitude(), 'lon' => $mapCenter->getLongitude()]);
+        $this->view->setVar('centerOn', $centerOn);
+        $this->view->setVar('mapStartZoom', $mapStartZoom);
         $this->view->setVar('mapUserId', $user->getUserId());
         $this->view->setVar('mapUserName', $user->getUserName());
 
         // parse searchData if given
-        if( isset($_REQUEST['searchdata'])){
+        if (isset($_REQUEST['searchdata'])) {
             $this->view->setVar('searchData', $_REQUEST['searchdata']);
         }
 
         // parse powerTrailIds if given
-        if( isset($_REQUEST['pt'])){
+        if (isset($_REQUEST['pt'])) {
             $this->view->setVar('powerTrailIds', $_REQUEST['pt']);
         }
 
@@ -109,19 +119,18 @@ class CacheMapController extends BaseController
 
     public function saveMapSettingsAjax()
     {
-        if(!isset($_POST['userMapSettings'])){
+        if (!isset($_POST['userMapSettings'])) {
             $this->ajaxErrorResponse('no filtersData var in JSON', 400);
         }
 
         $json = $_POST['userMapSettings'];
 
-        if(UserPreferences::savePreferencesJson(UserMapSettings::KEY, $json)){
+        if (UserPreferences::savePreferencesJson(UserMapSettings::KEY, $json)) {
             $this->ajaxSuccessResponse("Data saved");
-        }else{
+        } else {
             $this->ajaxErrorResponse("Can't save a data", 500);
         }
 
     }
 
 }
-
