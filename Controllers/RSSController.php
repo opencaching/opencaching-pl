@@ -12,6 +12,9 @@ use lib\Objects\GeoCache\MultiCacheStats;
 use lib\Objects\GeoCache\MultiLogStats;
 use lib\Objects\News\News;
 use lib\Objects\User\User;
+use lib\Objects\Neighbourhood\MyNbhSets;
+use lib\Objects\Neighbourhood\Neighbourhood;
+use Utils\Uri\SimpleRouter;
 
 class RSSController extends BaseController
 {
@@ -270,12 +273,7 @@ class RSSController extends BaseController
      */
     public function myLogs()
     {
-        $userId = (isset($_GET['userid'])) ? $_GET['userid'] : null;
-        $user = User::fromUserIdFactory($userId);
-        if (is_null($user)) {
-            $this->index('message_user_not_found');
-            exit();
-        }
+        $user = $this->getUserFromParams();
 
         $rss = new AtomFeed();
         $rss->setId(Uri::getAbsUri('/rss/my_logs.xml?userid=' . $user->getUserId()));
@@ -321,12 +319,7 @@ class RSSController extends BaseController
      */
     public function myCachesLogs()
     {
-        $userId = (isset($_GET['userid'])) ? $_GET['userid'] : null;
-        $user = User::fromUserIdFactory($userId);
-        if (is_null($user)) {
-            $this->index('message_user_not_found');
-            exit();
-        }
+        $user = $this->getUserFromParams();
 
         $rss = new AtomFeed();
         $rss->setId(Uri::getAbsUri('/rss/mycaches_logs.xml?userid=' . $user->getUserId()));
@@ -364,6 +357,81 @@ class RSSController extends BaseController
         }
 
         $rss->publish();
+    }
+
+    public function nbhLatestCaches($userId = null, $nbhId = null)
+    {
+        $user = User::fromUserIdFactory($userId);
+        if (is_null($user)) {
+            $this->index('message_user_not_found');
+            exit();
+        }
+
+        $nbhId = intval($nbhId);
+
+
+        $nbhData = Neighbourhood::getCoordsAndRadius($user, $nbhId);
+        if (empty($nbhData['coords'])) {
+            //TODO: Wywalić błąd!
+            exit();
+        }
+
+        $nbhDataSet = new MyNbhSets($nbhData['coords'], $nbhData['radius']);
+
+        $caches = $nbhDataSet->getLatestCaches(self::ENTRIES_PER_FEED);
+
+        $rss = new AtomFeed();
+        $rss->setId(SimpleRouter::getAbsLink('RSS', 'nbhLatestCaches', [$userId, $nbhId]));
+        $rss->setTitle($this->ocConfig->getShortSiteName() . ' - ' . tr('rss_latestCaches')); //TODO !!!!!
+
+
+        foreach ($caches as $cache) {
+            $entry = new AtomFeedEntry();
+            $entry->setTitle($cache['cacheName'] . ' (' . $cache['cacheWp'] . ')');
+            $entry->setPublished($cache['datePublished']);
+            $entry->setUpdated($cache['dateUpdated']);
+            $entry->setId($cache['cacheUri']);
+            $entry->setLink($cache['cacheUri']);
+            $entry->setContent($cache['content']);
+
+            $entry->setAuthor(new AtomFeedAuthor());
+            $entry->getAuthor()->setName($cache['authorName']);
+            $entry->getAuthor()->setUri($cache['authorUrl']);
+
+            $rss->addEntry($entry);
+            unset($entry);
+        }
+
+        $rss->publish();
+        exit();
+
+    }
+
+    public function nbhLatestLogs($userId = null, $nbhId = null)
+    {
+        $user = User::fromUserIdFactory($userId);
+        if (is_null($user)) {
+            $this->index('message_user_not_found');
+            exit();
+        }
+    }
+
+    /**
+     * Checks if there is userid param ($_GET)
+     * If no - redirects to main RSS page with error message
+     * If yes - returns User object
+     *
+     * @return User
+     */
+    private function getUserFromParams()
+    {
+        $userId = (isset($_GET['userid'])) ? $_GET['userid'] : null;
+        $user = User::fromUserIdFactory($userId);
+        if (is_null($user)) {
+            $this->index('message_user_not_found');
+            exit();
+        }
+        return $user;
     }
 
 }

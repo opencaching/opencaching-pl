@@ -172,6 +172,45 @@ class Neighbourhood extends BaseObject
     }
 
     /**
+     * Returns simple array with Coords obj and radius - for given $user and nbhSeq
+     *
+     * @param User $user
+     * @param int $seq
+     * @return array
+     */
+    public static function getCoordsAndRadius(User $user, $seq)
+    {
+        $result = [];
+        $result['coords'] = null;
+        $result['radius'] = null;
+
+        if ($seq == 0) {
+            if (!empty($user->getHomeCoordinates())) {
+                $result['coords'] = $user->getHomeCoordinates();
+                $result['radius'] = $user->getNotifyRadius();
+            }
+        } else {
+            $query = '
+                SELECT `id`
+                FROM `user_neighbourhoods`
+                WHERE `user_id` = :1
+                    AND `seq` = :2
+                LIMIT 1';
+            $nbhId = self::db()->multiVariableQueryValue($query, null, $user->getUserId(), $seq);
+            $nbh = self::fromIdFactory($nbhId);
+            if (empty($nbh)) {
+                return $result;
+            } else {
+                $result['coords'] = $nbh->getCoords();
+                $result['radius'] = $nbh->getRadius();
+                unset($nbh);
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * Returns array of all Neighbourhoods of user.
      * HomeCoords & NotifyRadius has Id & Seq set to 0
      *
@@ -209,7 +248,7 @@ class Neighbourhood extends BaseObject
             SELECT `id`
             FROM `user_neighbourhoods`
             WHERE `user_id` = :userid
-            ORDER BY seq ASC
+            ORDER BY `seq` ASC
             ';
         $params = [];
         $params['userid']['value'] = $user->getUserId();
