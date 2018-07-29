@@ -371,7 +371,7 @@ class tmp_Xmlmap
         tpl_set_var('cache_founds', $geoCache->getFounds());
         tpl_set_var('cache_not_founds', $geoCache->getNotFounds());
         tpl_set_var('cache_rating_votes', $geoCache->getRatingVotes());
-        tpl_set_var('cache_willattends', $geoCache->getWillattends());
+        tpl_set_var('cache_willattends', $geoCache->getWillAttends());
 
         tpl_set_var('cache_url', $geoCache->getCacheUrl());
 

@@ -2724,6 +2724,7 @@ $translations = array(
     'mnu_clipboard' => 'Klembord',
     'mnu_privacyPolicy' => 'Privacyverklaringen',
     'mnu_facebook' => 'Facebook',
+    'mnu_newMapBeta' => 'New map (beta)', /* EN */
 
     'admCs_degradedCs'  => 'Verwaarloosde GeoPaths',
     'admCs_cacheSet'  => 'GeoPaths',

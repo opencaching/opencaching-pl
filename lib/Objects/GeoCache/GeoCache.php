@@ -48,7 +48,7 @@ class GeoCache extends GeoCacheCommons
     private $lastFound;
     private $score;
     private $ratingVotes;
-    private $willattends;           //for events only
+    private $willAttends;           //for events only
     private $natureRegions = false;
     private $natura2000Sites = false;
     private $usersRecomeded = false;
@@ -316,7 +316,7 @@ class GeoCache extends GeoCacheCommons
                     $this->notFounds = $value;
                     break;
                 case 'willattends':
-                    $this->willattends = $value;
+                    $this->willAttends = $value;
                     break;
                 case 'rating_votes':
                     $this->ratingVotes = $value;
@@ -652,9 +652,9 @@ class GeoCache extends GeoCacheCommons
         return $this->ratingVotes;
     }
 
-    public function getWillattends()
+    public function getWillAttends()
     {
-        return $this->willattends;
+        return $this->willAttends;
     }
 
     public function getRatingId()

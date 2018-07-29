@@ -1,13 +1,12 @@
 <?php
 use Utils\Uri\SimpleRouter;
 use Controllers\UserUtilsController;
-use Controllers\CacheMapController;
 
 /**
  * This is simple configuration of links presented in sidebar of the page
  * for authorized users only.
  *
- * This is the configuration for OCPL node only.
+ * This is the configuration for OCNL node only.
  *
  * If you want to customize footer for your node
  * create config for your node by copied this file and changing its name.
@@ -30,9 +29,7 @@ $menu = [ // DON'T CHANGE $menu var name!
     'mnu_incommingEvents'   => '/newevents.php',
     'mnu_recoCaches'        => '/cacheratings.php',
 
-    'mnu_newMapBeta'    => SimpleRouter::getLink(CacheMapController::class, 'fullscreen'),
-    'mnu_oldCacheMap'   => '/cachemap2.php',
-    'mnu_FloppMap'      => 'https://flopp-caching.de',
+    'mnu_FloppMap'      => ['https://flopp-caching.de'],
     'mnu_massLogsSave'  => '/log_cache_multi_send.php',
     'mnu_openchecker'   => '/openchecker.php',
     'mnu_qrCode'        => SimpleRouter::getLink(UserUtilsController::class, 'qrCodeGen'),

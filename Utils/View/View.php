@@ -308,7 +308,8 @@ class View {
     /**
      * Add chunk which shold be called in page header
      *
-     * @param string $chunkName
+     * @param string $chunkName - chunk name
+     * @param array $args - array of chunk arguments
      */
     public function addHeaderChunk($chunkName, array $args = null)
     {
