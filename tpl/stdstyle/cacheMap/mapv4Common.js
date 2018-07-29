@@ -468,19 +468,21 @@ function filterBoxInit(map){
       // be sure filters are hidden now
       $('#mapFilters').toggle(false)
 
-      // add filters click handlers
-      $('#mapFilters input').click(function(){
-        refreshOcTiles()
-      })
 
-      $('#mapFilters select').change(function(){
-        refreshOcTiles()
-      })
     }
 
     // hide/display filters box
     $('#mapFilters').toggle()
   });
+
+  // add filters click handlers
+  $('#mapFilters input').click(function(){
+    refreshOcTiles()
+  })
+
+  $('#mapFilters select').change(function(){
+    refreshOcTiles()
+  })
 
   $('#refreshButton').click(function(){
     refreshOcTiles(true);
