@@ -76,15 +76,15 @@ function layerSwitcherInit(map){
   var switcherDropdown = $("#layerSwitcher select")
   $.each( ocMapConfig.getExtMapConfigs(), function(key, val){
 
-    switcherDropdown.append('<option value='+key+'>'+key+'</option>');
-
     val.set('ocLayerName', key)
     val.set('wrapX', true)
     val.set('zIndex', 1)
 
     if(key == ocMapConfig.getUserSettings().map){
+      switcherDropdown.append('<option value='+key+' selected>'+key+'</option>');
       val.setVisible(true);
     }else{
+      switcherDropdown.append('<option value='+key+'>'+key+'</option>');
       val.setVisible(false);
     }
 
