@@ -47,10 +47,8 @@ use Utils\Uri\SimpleRouter;
           <input id="searchControlButton" value="<?=tr('search')?>" type="button">
            -->
 
-          <a href="<?=SimpleRouter::getLink("CacheMap", "fullScreen")?>">
             <img id="fullscreenToggle" src="/images/fullscreen.png"
                title="<?=tr('fullscreen')?>" alt="<?=tr('fullscreen')?>">
-          </a>
 
           <img id="refreshButton" src="/images/refresh.png"
                title="<?=tr('refresh_map')?>" alt="<?=tr('refresh_map')?>">
@@ -243,6 +241,7 @@ var ocMapInputParams = {
   centerOn: <?=$view->centerOn?>,                     // { lat: 123, lon:123 }
   mapStartZoom: <?=$view->mapStartZoom?>,
   extMapConfigs: <?=$view->extMapConfigs?>,
+  fullScreenToggleUri: '<?=SimpleRouter::getLink('CacheMap','fullScreen')?>',
 };
 
 $(function() {

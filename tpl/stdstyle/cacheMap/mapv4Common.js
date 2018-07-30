@@ -487,6 +487,25 @@ function filterBoxInit(map){
   $('#refreshButton').click(function(){
     refreshOcTiles(true);
   });
+  
+  if (document.getElementById('fullscreenToggle')) {
+	$('#fullscreenToggle').click(function() {
+		fullScreenToggle(map);
+	})
+  }
+
+}
+
+function fullScreenToggle(map) {
+	zoomCurrent = map.getView().getZoom();
+	coordsCurrent = map.getView().getCenter();
+	mapCoordsCode = map.getView().getProjection().getCode();
+	wgs84Coords = ol.proj.transform(coordsCurrent, mapCoordsCode, 'EPSG:4326');
+	uri = ocMapInputParams.fullScreenToggleUri;
+	uri += '?lon=' + wgs84Coords[0];
+	uri += '&lat=' + wgs84Coords[1];
+	uri += '&inputZoom=' + zoomCurrent;
+	window.location.href = uri;
 }
 
 function saveUserSettings(){
