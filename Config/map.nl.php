@@ -30,7 +30,7 @@ $map['jsConfig'] = "
 /**
  * Bing map key is set in node-local config file
  */
-$map['keys']['BingMap'] = 'AlzCtplL633ecWx_uoc49b7zn7dSpkYJamPUQMqhP0wQXrratNoRFzEFnrNaB1VO';
+$map['keys']['BingMap'] = 'NEEDS-TO-BE-SET-IN-LOCAL-CONFIG-FILE';
 
 
 /**
