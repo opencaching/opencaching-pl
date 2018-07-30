@@ -27,8 +27,8 @@
  */
 
 
-error_reporting(0);
-ini_set('display_errors', 'off');
+//error_reporting(0);
+//ini_set('display_errors', 'off');
 if (!isset($rootpath))
     $rootpath = '../';
 
@@ -111,8 +111,6 @@ Class staticMapLite
 
     public function parseParams()
     {
-        global $_GET;
-
         if (!empty($_GET['show'])) {
            $this->parseOjwParams();
         }
@@ -460,7 +458,6 @@ Class staticMapLite
     }
 
 }
-
 
 
 $map = new staticMapLite();

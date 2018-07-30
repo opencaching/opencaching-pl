@@ -55,6 +55,15 @@ class CacheMapController extends BaseController
         $this->view->buildView();
     }
 
+    public function mini()
+    {
+        $this->view->setTemplate('cacheMap/mapMini');
+
+        $this->mapCommonInit(false);
+
+        $this->view->display(MainLayoutController::MINI_TEMPLATE);
+    }
+
     private function mapCommonInit($debug)
     {
         $this->view->loadJQuery();
@@ -87,8 +96,22 @@ class CacheMapController extends BaseController
         if (!$user) {
             $user = $this->loggedUser;
         }
-        $mapCenter = $user->getHomeCoordinates();
-        $mapStartZoom = 10;
+        $this->view->setVar('mapUserId', $user->getUserId());
+        $this->view->setVar('mapUserName', $user->getUserName());
+
+        // Set center of the map coords
+        $mapCenter = null;
+        if (isset($_REQUEST['lat']) && ($_REQUEST['lon'])) {
+            $mapCenter = Coordinates::FromCoordsFactory((float) $_REQUEST['lat'], (float) $_REQUEST['lon']);
+        }
+        if (is_null($mapCenter)) {
+            $mapCenter = $user->getHomeCoordinates();
+        }
+        if (isset($_REQUEST['inputZoom'])) {
+            $mapStartZoom = intval($_REQUEST['inputZoom']);
+        } else {
+            $mapStartZoom = 10;
+        }
         if (! $mapCenter->areCordsReasonable()) {
             $mapCenter = Coordinates::FromCoordsFactory($this->ocConfig->getMainPageMapCenterLat(), $this->ocConfig->getMainPageMapCenterLon());
             $mapStartZoom = 8;
@@ -96,8 +119,8 @@ class CacheMapController extends BaseController
         $centerOn = json_encode(['lat' => $mapCenter->getLatitude(), 'lon' => $mapCenter->getLongitude()]);
         $this->view->setVar('centerOn', $centerOn);
         $this->view->setVar('mapStartZoom', $mapStartZoom);
-        $this->view->setVar('mapUserId', $user->getUserId());
-        $this->view->setVar('mapUserName', $user->getUserName());
+
+        // TODO: cacheid=??? is not supported yet
 
         // parse searchData if given
         if (isset($_REQUEST['searchdata'])) {

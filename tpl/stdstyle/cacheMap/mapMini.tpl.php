@@ -1,5 +1,5 @@
 <?php
-  use Utils\Uri\SimpleRouter;
+use Utils\Uri\SimpleRouter;
 ?>
 <div id="mapCanvasFullScreen"></div>
 
@@ -31,15 +31,17 @@
         <?=$view->_callTemplate("/cacheMap/cacheInfoBalloon")?>
     </div>
 
-    <div id="controlCombo" class="noprint ol-control">
+    <div id="controlCombo" class="noprint ol-control"  style="display: none">
       <!--
         // search temporary disabled
       <input id="searchControlInput" type="text" size="10">
       <input id="searchControlButton" value="<?=$tr('search')?>" type="button">
        -->
 
+      <a href="<?=SimpleRouter::getLink("CacheMap", "embeded")?>">
         <img id="fullscreenToggle" src="/images/fullscreen-off.png"
            title="<?=$tr('disable_fullscreen')?>" alt="<?=$tr('disable_fullscreen')?>">
+      </a>
 
       <img id="refreshButton" src="/images/refresh.png"
            title="<?=$tr('refresh_map')?>" alt="<?=$tr('refresh_map')?>">
@@ -224,7 +226,6 @@ var ocMapInputParams = {
   centerOn: <?=$view->centerOn?>,                     // { lat: 123, lon:123 }
   mapStartZoom: <?=$view->mapStartZoom?>,
   extMapConfigs: <?=$view->extMapConfigs?>,
-  fullScreenToggleUri: '<?=SimpleRouter::getLink('CacheMap','embeded')?>',
 };
 
 $(function() {
