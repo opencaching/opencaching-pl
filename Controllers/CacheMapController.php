@@ -55,6 +55,15 @@ class CacheMapController extends BaseController
         $this->view->buildView();
     }
 
+    public function mini()
+    {
+        $this->view->setTemplate('cacheMap/mapMini');
+
+        $this->mapCommonInit(false);
+
+        $this->view->display(MainLayoutController::MINI_TEMPLATE);
+    }
+
     private function mapCommonInit($debug)
     {
         $this->view->loadJQuery();
@@ -91,6 +100,7 @@ class CacheMapController extends BaseController
         $this->view->setVar('mapUserName', $user->getUserName());
 
         // Set center of the map coords
+        $mapCenter = null;
         if (isset($_REQUEST['lat']) && ($_REQUEST['lon'])) {
             $mapCenter = Coordinates::FromCoordsFactory((float) $_REQUEST['lat'], (float) $_REQUEST['lon']);
         }
@@ -109,6 +119,8 @@ class CacheMapController extends BaseController
         $centerOn = json_encode(['lat' => $mapCenter->getLatitude(), 'lon' => $mapCenter->getLongitude()]);
         $this->view->setVar('centerOn', $centerOn);
         $this->view->setVar('mapStartZoom', $mapStartZoom);
+
+        // TODO: cacheid=??? is not supported yet
 
         // parse searchData if given
         if (isset($_REQUEST['searchdata'])) {

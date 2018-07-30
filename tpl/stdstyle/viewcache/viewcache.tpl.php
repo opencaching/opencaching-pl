@@ -1,6 +1,7 @@
 <?php
 use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\GeoKret\GeoKretyApi;
+use Utils\Uri\SimpleRouter;
 ?>
 <link rel="stylesheet" href="tpl/stdstyle/css/lightTooltip.css">
 
@@ -419,7 +420,7 @@ use lib\Objects\GeoKret\GeoKretyApi;
                     <img src="images/gk.png" class="icon16" alt="geokret" title="GeoKrety visited">
                     <span class="no-whitespace">
                         <a class="links no-whitespace" href="<?=GeoKretyApi::GEOKRETY_URL?>/szukaj.php?wpt=<?=$view->geoCache->getWaypointId()?>" target="_blank" rel="noopener">{{history_gk}}</a>
-                        <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link" class="img12">
+                        <img src="/tpl/stdstyle/images/misc/linkicon.png" alt="link" class="img12">
                     </span>
                 </div>
             </div>
@@ -429,7 +430,7 @@ use lib\Objects\GeoKret\GeoKretyApi;
 
             <?php if ($view->isUserAuthorized || $view->alwaysShowCoords) { ?>
               <div class="img-shadow">
-                <a data-fancybox data-type="iframe" data-src="cachemap-mini.php?cacheId=<?=$view->geoCache->getCacheId()?>" href="javascript:;">
+                <a data-fancybox data-type="iframe" data-src="<?=SimpleRouter::getLink('CacheMap', 'mini')?>?lat=<?=$view->geoCache->getCoordinates()->getLatitude()?>&lon=<?=$view->geoCache->getCoordinates()->getLongitude()?>&inputZoom=14" href="javascript:;">
                   <img src="<?=$view->mapImgLink?>" alt="<?=tr('map')?>" title="<?=tr('map')?>">
                  </a>
               </div>
