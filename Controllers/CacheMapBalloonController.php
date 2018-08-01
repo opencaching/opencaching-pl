@@ -50,7 +50,10 @@ class CacheMapBalloonController extends BaseController
             $resp->coords->lat = $cache->getCoordinates()->getLatitude();
             $resp->coords->lon = $cache->getCoordinates()->getLongitude();
 
-            $resp->ratingDesc = $cache->getRatingDesc();
+            $resp->ratingDesc =
+                $cache->getRatingVotes() < 3
+                ? tr('not_available')
+                : $cache->getRatingDesc();
 
             if($cache->isEvent()){
                 $resp->isEvent = true;
