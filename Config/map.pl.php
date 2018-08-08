@@ -80,12 +80,21 @@ $map['jsConfig'] = "
         }),
     }),
 
-    ESRI: new ol.layer.Tile({
+    ESRITopo: new ol.layer.Tile({
         source: new ol.source.XYZ({
             attributions: 'Tiles © <a href=\"https://services.arcgisonline.com/ArcGIS/' +
                 'rest/services/World_Topo_Map/MapServer\">ArcGIS</a>',
             url: 'https://server.arcgisonline.com/ArcGIS/rest/services/' +
                 'World_Topo_Map/MapServer/tile/{z}/{y}/{x}'
+        })
+    }),
+
+    ESRIStreet: new ol.layer.Tile({
+        source: new ol.source.XYZ({
+            attributions: 'Tiles © <a href=\"https://services.arcgisonline.com/ArcGIS/' +
+                'rest/services/World_Street_Map/MapServer\">ArcGIS</a>',
+            url: 'https://server.arcgisonline.com/ArcGIS/rest/services/' +
+                'World_Street_Map/MapServer/tile/{z}/{y}/{x}'
         })
     }),
 }
