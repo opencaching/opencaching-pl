@@ -269,7 +269,6 @@ class ReportsController extends BaseController
         $lastLogs = $logController->loadLogs($report->getCache(), false, 0, 5);
         $this->view->setVar('lastLogs', $lastLogs);
         $this->view->setVar('report', $report);
-        $this->view->setVar('dateFormat',$this->ocConfig->getDatetimeFormat());
         $this->view->setVar('leaderSelect', ReportCommons::generateUserSelect(true, $report->getUserIdLeader()));
         $this->view->setVar('statusSelect', ReportCommons::generateStatusSelect(false, $report->getStatus()));
         $this->view->setVar('reports_js', Uri::getLinkWithModificationTime('/tpl/stdstyle/admin/report_show.js'));
