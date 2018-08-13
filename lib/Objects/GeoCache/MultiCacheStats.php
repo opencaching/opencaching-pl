@@ -26,17 +26,16 @@ class MultiCacheStats extends BaseObject
                 u.user_id, u.username,
                 c.name, c.longitude, c.latitude, c.wp_oc,
                 c.country, c.type, c.status,
-                IF((c.date_hidden > c.date_created), c.date_hidden,c.date_created) AS date,
+                c.date_published AS date,
                 cl.*
             FROM caches AS c
                 LEFT JOIN cache_location AS cl USING (cache_id)
                 LEFT JOIN user AS u USING (user_id)
             WHERE c.type <> :1
                 AND c.status = :2
-                AND c.date_hidden   <= NOW()
-                AND c.date_created  <= NOW()
+                AND c.date_published <= NOW()
             ORDER BY
-                IF( (c.date_hidden > c.date_created), c.date_hidden, c.date_created) DESC,
+                date_published DESC,
                 c.cache_id DESC
             LIMIT $offset, $limit", GeoCache::TYPE_EVENT, GeoCache::STATUS_READY);
 
@@ -135,8 +134,7 @@ class MultiCacheStats extends BaseObject
             "SELECT COUNT(*) FROM caches
             WHERE status IN ($countedStatuses)
             AND (
-                date_hidden > DATE_SUB(NOW(), INTERVAL $days day)
-                OR date_hidden > DATE_SUB(NOW(), INTERVAL $days day)
+                date_published > DATE_SUB(NOW(), INTERVAL $days day)
             )", 0);
     }
 

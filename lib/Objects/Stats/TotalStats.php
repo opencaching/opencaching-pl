@@ -1,16 +1,14 @@
 <?php
-
 namespace lib\Objects\Stats;
 
-
-use lib\Objects\BaseObject;
-use lib\Objects\Stats\TotalStats\BasicStats;
-use lib\Objects\User\MultiUserQueries;
 use Utils\Cache\OcMemCache;
 use Utils\Text\Formatter;
+use lib\Objects\BaseObject;
 use lib\Objects\CacheSet\CacheSet;
 use lib\Objects\GeoCache\MultiCacheStats;
 use lib\Objects\GeoCache\MultiLogStats;
+use lib\Objects\Stats\TotalStats\BasicStats;
+use lib\Objects\User\MultiUserQueries;
 
 /**
  * This class provides general statsistics of service
@@ -23,18 +21,15 @@ class TotalStats extends BaseObject
         parent::__construct();
     }
 
-    public static function getBasicTotalStats($dropCache=null)
+    public static function getBasicTotalStats($dropCache = null)
     {
-        if(!$dropCache){
-            return OcMemCache::getOrCreate(
-                BasicStats::KEY, BasicStats::TTL, function(){
-                    return self::contructBasicTotalStats();
+        if (! $dropCache) {
+            return OcMemCache::getOrCreate(BasicStats::KEY, BasicStats::TTL, function () {
+                return self::contructBasicTotalStats();
             });
-
-        }else{
-            return OcMemCache::refreshAndReturn(
-                BasicStats::KEY, BasicStats::TTL, function(){
-                    return self::contructBasicTotalStats();
+        } else {
+            return OcMemCache::refreshAndReturn(BasicStats::KEY, BasicStats::TTL, function () {
+                return self::contructBasicTotalStats();
             });
         }
     }
@@ -50,7 +45,7 @@ class TotalStats extends BaseObject
 
         $basicStats->latestCaches = MultiCacheStats::getNewCachesCount($periodDays);
 
-        $basicStats->activeCacheSets =Formatter::number(CacheSet::getActiveCacheSetsCount());
+        $basicStats->activeCacheSets = Formatter::number(CacheSet::getActiveCacheSetsCount());
 
         $basicStats->totalUsers = Formatter::number(MultiUserQueries::getActiveUsersCount());
 
@@ -58,18 +53,14 @@ class TotalStats extends BaseObject
 
         $basicStats->totalSearches = Formatter::number(MultiLogStats::getTotalSearchesNumber());
 
-        $basicStats->latestSearches = Formatter::number(
-            MultiLogStats::getLastSearchesCount($periodDays));
+        $basicStats->latestSearches = Formatter::number(MultiLogStats::getLastSearchesCount($periodDays));
 
-        $basicStats->latestRecomendations = Formatter::number(
-            MultiLogStats::getLastRecomendationsCount($periodDays));
+        $basicStats->latestRecomendations = Formatter::number(MultiLogStats::getLastRecomendationsCount($periodDays));
 
         $basicStats->createdAt = time();
         return $basicStats;
     }
 }
-
-
 namespace lib\Objects\Stats\TotalStats;
 
 /**
@@ -77,10 +68,14 @@ namespace lib\Objects\Stats\TotalStats;
  */
 class BasicStats
 {
-    const KEY = __CLASS__;
-    const TTL = 6*60*60; //sec.
 
+    const KEY = __CLASS__;
+
+    const TTL = 6 * 60 * 60;
+
+    // sec.
     public $createdAt;
+
     public $totalCaches;
     public $activeCaches;
     public $topRatedCaches;
@@ -92,4 +87,3 @@ class BasicStats
     public $latestSearches;
     public $latestRecomendations;
 }
-
