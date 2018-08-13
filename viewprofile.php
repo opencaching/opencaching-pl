@@ -11,10 +11,10 @@ use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\MeritBadge\MeritBadge;
 use Utils\Text\TextConverter;
 use Utils\DateTime\Year;
-use Utils\View\View;
 use Utils\Uri\SimpleRouter;
 use Utils\Uri\OcCookie;
 use lib\Controllers\MeritBadgeController;
+use Utils\Text\Formatter;
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath)) {
@@ -62,13 +62,13 @@ if ($usr == false) {
     } else {
         $user_id = $usr['userid'];
     }
-    tpl_set_var('userid', $user_id);
-    $view->setVar('userid', $user_id);
+
     require ($stylepath . '/lib/icons.inc.php');
     $tplname = 'viewprofile';
 
     /** @var View */
     $view = tpl_getView();
+    $view->setVar('userid', $user_id);
     $view->loadJQuery();
 
     $content = "";
@@ -792,7 +792,7 @@ function parseNote($note_content, $automatic, $cache_id = -1) {
     if ($automatic) { //if note is collected automatically
         $note = tr('admin_notes_'.$note_content); //we get translate
         if ($cache_id != -1) { //if is any cache connected with note
-            $note .= ' <a class="links" href="viewcache.php?cacheid='.$cache_id.'">'.tr('cache').'</a>'; #we create href to that cache
+            $note .= ' <a class="links" href="/viewcache.php?cacheid='.$cache_id.'">'.tr('cache').'</a>'; #we create href to that cache
         }
     }
     else {
@@ -803,42 +803,24 @@ function parseNote($note_content, $automatic, $cache_id = -1) {
 
 function adminNoteTable($results) {
     if (!($results)) {
-        return '<table style="border-collapse: collapse; font-size: 110%;" width="700" border="1"><tr>
-            <td colspan="4" align="center" bgcolor="#DBE6F1">
-                <b> '. tr("admin_notes_no_infos") .'</b>
-            </td>
-        </tr></table>';
+        return '<p>'. tr("admin_notes_no_infos") . '</p>';
     }
     else {
         $table = '
-    <table style="border-collapse: collapse; font-size: 110%;" width="700" border="1">
-        <tr>
-            <td colspan="4" align="center" bgcolor="#DBE6F1">
-                <b> '. tr("admin_notes_table_title") .'</b>
-            </td>
-        </tr>
-        <tr>
-            <td bgcolor="#EEEDF9">
-                <b> </b>
-            </td>
-            <td bgcolor="#EEEDF9">
-                <b> '. tr("time") .' </b>
-            </td>
-            <td bgcolor="#EEEDF9">
-                <b> '. tr("admin_notes_admin_name") .' </b></td>
-            <td bgcolor="#EEEDF9">
-                <b> '. tr("admin_notes_content"). ' </b>
-            </td>
-        </tr>';
+    <table class="table table-striped full-width">
+      <tr>
+        <th colspan="2">' . tr("admin_notes_table_title") . '</th>
+      </tr>';
         foreach ($results as $result) {
+
+            $tr = '<tr>
+            <td>' . Formatter::dateTime($result["datetime"]) . '
+            - <a class="links" href="/viewprofile.php?userid='.$result["admin_id"].'">'.$result["admin_username"].'</a></td><td>';
             if ($result["automatic"]) {
-                $tr = '<tr><td><img title="'.tr("admin_notes_auto").'" alt="'.tr("admin_notes_auto").'" width="10" height="10" src="images/info.gif"></td>';
+                $tr .= '<img title="'.tr("admin_notes_auto").'" alt="'.tr("admin_notes_auto").'" class="icon16" src="/tpl/stdstyle/images/misc/gears.svg"> ';
             } else {
-                $tr = '<tr><td><img title="'.tr("admin_notes_man").'" alt="'.tr("admin_notes_man").'" width="10" height="10" src="images/ok.gif"></td>';
+                $tr .= '<img title="'.tr("admin_notes_man").'" alt="'.tr("admin_notes_man").'" class="icon16" src="/tpl/stdstyle/images/log/octeam.svg"> ';
             }
-            $tr .= '
-            <td>'.$result["datetime"].'</td>
-            <td><a class="links" href="viewprofile.php?userid='.$result["admin_id"].'">'.$result["admin_username"].'</a></td><td>';
             if (isset($result["cache_id"])) {
                 $tr .= parseNote($result["content"], $result["automatic"], $result["cache_id"]);
             } else {
