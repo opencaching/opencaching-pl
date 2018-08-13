@@ -139,6 +139,7 @@ if ($usr == false) {
         }
     }
     tpl_set_var('guide_info', $guide_info);
+
     /* set last_login to one of 5 categories
      *   1 = this month or last month
      *   2 = between one and 6 months
@@ -149,33 +150,10 @@ if ($usr == false) {
      *       Can be removed after one year.
      *   6 = user account is not active
      */
-    if (!$user->isActive()) {
+    if (! $user->isActive()) {
         tpl_set_var('lastlogin', tr('user_not_active'));
-
-    } else if ($user->getLastLoginDate() == null) {
-
-        tpl_set_var('lastlogin', tr('unknown'));
     } else {
-
-
-        $lastLogin = strtotime($user->getLastLoginDate());
-
-        $lastLogin = mktime(
-            date('G', $lastLogin),
-            date('i', $lastLogin),
-            date('s', $lastLogin),
-            date('n', $lastLogin),
-            date(1, $lastLogin),
-            date('Y', $lastLogin));
-
-        if ($lastLogin >= mktime(0, 0, 0, date("m") - 1, 1, date("Y")))
-            tpl_set_var('lastlogin', tr('this_month'));
-        else if ($lastLogin >= mktime(0, 0, 0, date("m") - 6, 1, date("Y")))
-            tpl_set_var('lastlogin', tr('more_one_month'));
-        else if ($lastLogin >= mktime(0, 0, 0, date("m") - 12, 1, date("Y")))
-            tpl_set_var('lastlogin', tr('more_six_month'));
-        else
-            tpl_set_var('lastlogin', tr('more_12_month'));
+        tpl_set_var('lastlogin', tr($user->getLastLoginPeriodString()));
     }
 
     //Admin Note (table only)
