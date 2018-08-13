@@ -328,7 +328,7 @@ class User extends UserCommons
                     $this->description = $value;
                     break;
                 case 'last_login':
-                    if (empty($value)) {
+                    if (empty($value) || $value == '0000-00-00 00:00:00') {
                         $this->lastLogin = null;
                     } else {
                         $this->lastLogin = new \DateTime($value);
