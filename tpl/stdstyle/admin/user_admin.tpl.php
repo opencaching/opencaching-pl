@@ -96,6 +96,37 @@ use Utils\Uri\SimpleRouter;
       <button type="submit" name="save" value="save" class="btn btn-primary btn-md"><?=tr('save')?></button>
     </div>
   </form>
+  <table class="table table-striped full-width">
+    <tr>
+      <th colspan="2"><?=tr('admin_notes_table_title')?></th>
+    </tr>
+    <?php if (empty($view->userNotes)) {?>
+        <tr>
+          <td colspan="2"><?=tr('admin_notes_no_infos')?></td>
+        </tr>
+    <?php } else {
+        foreach ($view->userNotes as $note) { ?>
+            <tr>
+              <td>
+                <?=Formatter::dateTime($note->getDateTime())?>
+                - <a class="links" href="<?=$note->getAdmin()->getProfileUrl()?>"><?=$note->getAdmin()->getUserName()?></a></td>
+              </td>
+              <td>
+                <?php if ($note->isAutomatic()) {?>
+                  <img title="<?=tr("admin_notes_auto")?>" alt="" class="icon16" src="<?=$note->getAutomaticPictureUrl()?>">
+                  <?=tr($note->getContentTranslationKey())?>
+                    <?php if (! empty($note->getCacheId())) {?>
+                      <a class="links" href="<?=$note->getCache()->getCacheUrl()?>"><?=$note->getCache()->getCacheName()?> (<?=$note->getCache()->getGeocacheWaypointId()?>)</a>
+                    <?php } // if (! empty($note->getCacheId())) ?>
+                <?php } else { //if ($note->isAutomatic()) ?>
+                  <img title="<?=tr("admin_notes_man")?>" alt="" class="icon16" src="<?=$note->getAutomaticPictureUrl()?>">
+                  <?=$note->getContent()?>
+                <?php }?>
+              </td>
+            </tr>
+    <?php    } // foreach $view->userNotes
+    } // if (empty($view->userNotes)) ?>
+  </table>
 
 <?php } else { ?>
 

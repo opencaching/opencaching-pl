@@ -6,12 +6,13 @@ use Utils\Text\UserInputFilter;
 use Utils\Uri\SimpleRouter;
 use Utils\Uri\Uri;
 use lib\Controllers\Php7Handler;
-use lib\Objects\User\AdminNote;
+use lib\Objects\Admin\AdminNote;
 use lib\Objects\User\User;
 use lib\Objects\User\UserAdmin;
 use lib\Objects\User\UserAuthorization;
 use lib\Objects\User\UserEmailSender;
 use lib\Objects\User\UserNotify;
+use lib\Objects\Admin\AdminNoteSet;
 
 class UserAdminController extends BaseController
 {
@@ -44,6 +45,7 @@ class UserAdminController extends BaseController
         $this->view->setVar('user', $this->viewedUser);
         $this->view->setVar('infoMsg', $this->infoMsg);
         $this->view->setVar('errorMsg', $this->errorMsg);
+        $this->view->setVar('userNotes', AdminNoteSet::getNotesForUser($this->viewedUser, 10000));
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/admin/admin.css'));
         $this->view->loadJQuery();
         $this->view->setTemplate('admin/user_admin');

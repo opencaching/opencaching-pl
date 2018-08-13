@@ -5,7 +5,6 @@ use Utils\Database\OcDb;
 use lib\Objects\PowerTrail\PowerTrail;
 use lib\Objects\User\User;
 use lib\Objects\GeoCache\GeoCacheLog;
-use lib\Objects\User\AdminNote;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\MeritBadge\MeritBadge;
@@ -15,6 +14,9 @@ use Utils\Uri\SimpleRouter;
 use Utils\Uri\OcCookie;
 use lib\Controllers\MeritBadgeController;
 use Utils\Text\Formatter;
+use lib\Objects\Admin\AdminNoteSet;
+
+const ADMINNOTES_PER_PAGE = 10;
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath)) {
@@ -160,19 +162,46 @@ if ($usr == false) {
     if ($usr['admin']) {
         $content .= '<div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="/tpl/stdstyle/images/blue/logs.png" class="icon32" alt="Cog Note" title="Cog Note"> ' . tr('admin_notes') . '</p></div>';
         $content .= '<div class="notice">'.tr('admin_notes_visible').'</div><p><a href="' . SimpleRouter::getLink('Admin.UserAdmin', 'index', $user_id) . '" class="links">'.tr('admin_user_management').' <img src="/tpl/stdstyle/images/misc/linkicon.png" alt="user admin"></a></p>';
-        $content .= adminNoteTable(AdminNote::getAllUserNotes($user_id));
+        $adminNotes = AdminNoteSet::getNotesForUser($user, ADMINNOTES_PER_PAGE);
+
+
+
+        if (empty($adminNotes)) {
+            $content .= '<p>' . tr("admin_notes_no_infos") . '</p>';
+        } else {
+            $content .= '<table class="table table-striped full-width">
+              <tr>
+                <th colspan="2">' . tr("admin_notes_table_title") . '</th>
+              </tr>';
+            foreach ($adminNotes as $adminNote) {
+                $content .= '<tr>
+                  <td>' . Formatter::dateTime($adminNote->getDateTime()) . '
+                  - <a class="links" href="'. $adminNote->getAdmin()->getProfileUrl() . '">' . $adminNote->getAdmin()->getUserName() . '</a></td><td>';
+                if ($adminNote->isAutomatic()) {
+                    $content .= '<img title="'.tr("admin_notes_auto").'" alt="' . tr("admin_notes_auto") . '" class="icon16" src="' . $adminNote->getAutomaticPictureUrl() . '"> ';
+                    $content .= tr($adminNote->getContentTranslationKey());
+                    if (! empty($adminNote->getCacheId())) {
+                        $content .= ' <a class="links" href="' . $adminNote->getCache()->getCacheUrl() . '">' . $adminNote->getCache()->getCacheName() . ' (' . $adminNote->getCache()->getGeocacheWaypointId() . ')</a>';
+                    }
+
+                } else {
+                    $content .= '<img title="'.tr("admin_notes_man").'" alt="'.tr("admin_notes_man").'" class="icon16" src="' . $adminNote->getAutomaticPictureUrl() . '"> ';
+                    $content .= $adminNote->getContent();
+                }
+                $content .= '</td></tr>';
+            }
+            $content .= '</table>';
+        }
     }
 
-    $ars = XDb::xSql("SELECT
-                `user`.`hidden_count` AS    `ukryte`,
-                `user`.`founds_count` AS    `znalezione`,
-                `user`.`notfounds_count` AS `nieznalezione`
-            FROM `user` WHERE `user_id`= ? ", $user_id);
-    $record = XDb::xFetchArray($ars);
-    $act = $record['ukryte'] + $record['znalezione'] + $record['nieznalezione'];
+    if (AdminNoteSet::getNotesForUserCount($user) > ADMINNOTES_PER_PAGE) {
+        $content .= '<a href="' . SimpleRouter::getLink('Admin.UserAdmin', 'index', $user_id) . '" class="btn btn-default btn-sm">' . tr('more') . '</a>';
+    }
 
-    if ((date('m') == 4) and ( date('d') == 1)) {
+    if (Year::isPrimaAprilisToday()) {
         $act = rand(-10, 10);
+    } else {
+        $act = $user->getFoundGeocachesCount() + $user->getNotFoundGeocachesCount() + $user->getHiddenGeocachesCount();
     }
 
     $content .= '<br><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="Caches Find" title="Caches Find">&nbsp;&nbsp;&nbsp;' . tr('user_activity01') . '</p></div><br><p><span class="content-title-noshade txt-blue08">' . tr('user_activity02') . '</span>:&nbsp;<strong>' . $act . '</strong></p>';
@@ -763,54 +792,6 @@ function buildPowerTrailIcons(ArrayObject $powerTrails)
         }
     }
     return $result . '</td></tr></table><br><br>';
-}
-
-
-function parseNote($note_content, $automatic, $cache_id = -1) {
-    if ($automatic) { //if note is collected automatically
-        $note = tr('admin_notes_'.$note_content); //we get translate
-        if ($cache_id != -1) { //if is any cache connected with note
-            $note .= ' <a class="links" href="/viewcache.php?cacheid='.$cache_id.'">'.tr('cache').'</a>'; #we create href to that cache
-        }
-    }
-    else {
-        $note = $note_content; //if note is manually we just return this note
-    }
-    return $note;
-}
-
-function adminNoteTable($results) {
-    if (!($results)) {
-        return '<p>'. tr("admin_notes_no_infos") . '</p>';
-    }
-    else {
-        $table = '
-    <table class="table table-striped full-width">
-      <tr>
-        <th colspan="2">' . tr("admin_notes_table_title") . '</th>
-      </tr>';
-        foreach ($results as $result) {
-
-            $tr = '<tr>
-            <td>' . Formatter::dateTime($result["datetime"]) . '
-            - <a class="links" href="/viewprofile.php?userid='.$result["admin_id"].'">'.$result["admin_username"].'</a></td><td>';
-            if ($result["automatic"]) {
-                $tr .= '<img title="'.tr("admin_notes_auto").'" alt="'.tr("admin_notes_auto").'" class="icon16" src="/tpl/stdstyle/images/misc/gears.svg"> ';
-            } else {
-                $tr .= '<img title="'.tr("admin_notes_man").'" alt="'.tr("admin_notes_man").'" class="icon16" src="/tpl/stdstyle/images/log/octeam.svg"> ';
-            }
-            if (isset($result["cache_id"])) {
-                $tr .= parseNote($result["content"], $result["automatic"], $result["cache_id"]);
-            } else {
-                $tr .= parseNote($result["content"], $result["automatic"]);
-            }
-
-            $tr .= '</td></tr>';
-            $table .= $tr;
-        }
-        $table .= '</table>';
-    }
-    return $table;
 }
 
 function buildGeocacheHtml(GeoCache $geocache, $html)
