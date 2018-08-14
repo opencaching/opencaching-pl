@@ -15,7 +15,7 @@ use Utils\Uri\SimpleRouter;
     <?=$view->user->getUserName()?>
     <img src="/tpl/stdstyle/images/misc/linkicon.png" alt="user profile"></a>
   <br>
-  <?=tr('lastlogins')?>: <strong><?=Formatter::dateTime($view->user->getLastLoginDate())?></strong><br>
+  <p><?=tr('lastlogins')?>: <span class="<?=$view->user->getLastLoginPeriodClass()?>"><?=Formatter::dateTime($view->user->getLastLoginDate())?></span><br>
   <?=tr('registered_since_label')?>: <strong><?=Formatter::dateTime($view->user->getDateCreated())?></strong><br>
   <?=tr('email_address')?>:
   <a href="<?=SimpleRouter::getLink('UserProfile', 'mailTo', $view->user->getUserId())?>" class="links">

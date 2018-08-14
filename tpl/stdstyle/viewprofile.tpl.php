@@ -80,7 +80,7 @@ jQuery(function($) {
                 <td><span class="txt-blue08" >{{descriptions}}:</span><span class="txt-black" style="line-height: 0.5cm;"> {description_start}{description}{description_end}</span></td>
             </tr>
             <tr>
-                <td><span class="txt-blue08" >{{lastlogins}}:</span><span class="txt-black" style="line-height: 0.5cm;"> {lastlogin}</span></td>
+                <td><span class="txt-blue08" >{{lastlogins}}:</span><span class="{lastloginClass}" style="line-height: 0.5cm;"> {lastlogin}</span></td>
             </tr>
             <tr>
                 <td colspan="3"><hr></td>

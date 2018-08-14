@@ -961,4 +961,31 @@ class User extends UserCommons
         }
     }
 
+    /**
+     * Returns CSS class for user last_login date
+     * see also getLastLoginPeriodString()
+     *
+     * @return string
+     */
+    public function getLastLoginPeriodClass()
+    {
+        // User has no last login date in DB - return 'unknow'
+        if ($this->getLastLoginDate() === null) {
+            return 'text-color-dark';
+        }
+
+        $dateDiff = $this->getLastLoginDate()->diff(new \DateTime());
+        $monthsDiff = ($dateDiff->y * 12) + $dateDiff->m;
+
+        if ($monthsDiff > 12) {
+            return 'text-color-danger';
+        } elseif ($monthsDiff > 6) {
+            return 'text-color-warning';
+        } elseif ($monthsDiff > 1) {
+            return 'text-color-secondary';
+        } else {
+            return 'text-color-success';
+        }
+    }
+
 }
