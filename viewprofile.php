@@ -157,6 +157,7 @@ if ($usr == false) {
     } else {
         tpl_set_var('lastlogin', tr($user->getLastLoginPeriodString()));
     }
+    tpl_set_var('lastloginClass', $user->getLastLoginPeriodClass());
 
     //Admin Note (table only)
     if ($usr['admin']) {

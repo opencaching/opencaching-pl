@@ -668,7 +668,7 @@ a.transparent::-moz-focus-inner {
 }
 
 /*****************************/
-/* CONTEINERS */
+/* CONTAINERS */
 /*****************************/
 
 .flex-container {
@@ -1194,19 +1194,31 @@ sub {
 
 /* Bootstrap text colors */
 .text-color-primary {
-    color: #337ab7;
+	color: #007bff !important;
+}
+
+.text-color-secondary {
+	color: #6c757d !important;
 }
 
 .text-color-success {
-    color: #5cb85c;
+	color: #28a745 !important;
 }
 
 .text-color-warning {
-    color: #f0ad4e;
+	color: #ffc107 !important;
 }
 
 .text-color-danger {
-    color: #d9534f;
+	color: #dc3545 !important;
+}
+
+.text-color-info {
+	color: #17a2b8 !important;
+}
+
+.text-color-dark {
+	color: #343a40 !important;
 }
 
 .element-even {

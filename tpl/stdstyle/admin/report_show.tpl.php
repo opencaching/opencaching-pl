@@ -60,7 +60,7 @@ use Utils\Text\Formatter;
       <td>
         <a href="<?=$view->report->getUserSubmit()->getProfileUrl()?>" class="links" target="_blank"><?=$view->report->getUserSubmit()->getUserName()?></a>
         (<?php echo $view->report->getUserSubmit()->getFoundGeocachesCount() + $view->report->getUserSubmit()->getNotFoundGeocachesCount() + $view->report->getUserSubmit()->getHiddenGeocachesCount()?>)
-        | {{lastlogins}}: <?=Formatter::dateTime($view->report->getUserSubmit()->getLastLoginDate())?>
+        | {{lastlogins}}: <span class="<?=$view->report->getUserSubmit()->getLastLoginPeriodClass()?>"><?=Formatter::dateTime($view->report->getUserSubmit()->getLastLoginDate())?></span>
       </td>
     </tr>
     <tr>
@@ -125,7 +125,7 @@ use Utils\Text\Formatter;
       <td>
         <a href="<?=$view->report->getCache()->getOwner()->getProfileUrl()?>" class="links" target="_blank"><?=$view->report->getCache()->getOwner()->getUserName()?></a>
         (<?php echo $view->report->getCache()->getOwner()->getFoundGeocachesCount() + $view->report->getCache()->getOwner()->getNotFoundGeocachesCount() + $view->report->getCache()->getOwner()->getHiddenGeocachesCount()?>)
-        | {{lastlogins}}: <?=Formatter::dateTime($view->report->getCache()->getOwner()->getLastLoginDate())?>
+        | {{lastlogins}}: <span class="<?=$view->report->getCache()->getOwner()->getLastLoginPeriodClass()?>"><?=Formatter::dateTime($view->report->getCache()->getOwner()->getLastLoginDate())?></span>
       </td>
     </tr>
     <tr>
