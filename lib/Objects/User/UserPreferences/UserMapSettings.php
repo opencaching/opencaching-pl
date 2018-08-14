@@ -33,6 +33,7 @@ class UserMapSettings extends UserPreferencesBaseData
                 'h_v' => false,             /* hide virtuals */
                 'h_w' => false,             /* hide webcams */
                 'min_score' => -3,          /* minimum score of cache */
+                'h_noscore' => true,        /* show caches without score */
                 'powertrail_only' => false, /* */
             ],
             'map' => 'OSM',                 /* last used map */
@@ -41,4 +42,3 @@ class UserMapSettings extends UserPreferencesBaseData
 
 
 }
-
