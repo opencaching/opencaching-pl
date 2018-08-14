@@ -5,16 +5,18 @@ use Utils\Database\OcDb;
 use lib\Objects\PowerTrail\PowerTrail;
 use lib\Objects\User\User;
 use lib\Objects\GeoCache\GeoCacheLog;
-use lib\Objects\User\AdminNote;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\MeritBadge\MeritBadge;
 use Utils\Text\TextConverter;
 use Utils\DateTime\Year;
-use Utils\View\View;
 use Utils\Uri\SimpleRouter;
 use Utils\Uri\OcCookie;
 use lib\Controllers\MeritBadgeController;
+use Utils\Text\Formatter;
+use lib\Objects\Admin\AdminNoteSet;
+
+const ADMINNOTES_PER_PAGE = 10;
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath)) {
@@ -62,13 +64,13 @@ if ($usr == false) {
     } else {
         $user_id = $usr['userid'];
     }
-    tpl_set_var('userid', $user_id);
-    $view->setVar('userid', $user_id);
+
     require ($stylepath . '/lib/icons.inc.php');
     $tplname = 'viewprofile';
 
     /** @var View */
     $view = tpl_getView();
+    $view->setVar('userid', $user_id);
     $view->loadJQuery();
 
     $content = "";
@@ -139,6 +141,7 @@ if ($usr == false) {
         }
     }
     tpl_set_var('guide_info', $guide_info);
+
     /* set last_login to one of 5 categories
      *   1 = this month or last month
      *   2 = between one and 6 months
@@ -149,52 +152,56 @@ if ($usr == false) {
      *       Can be removed after one year.
      *   6 = user account is not active
      */
-    if (!$user->isActive()) {
+    if (! $user->isActive()) {
         tpl_set_var('lastlogin', tr('user_not_active'));
-
-    } else if ($user->getLastLoginDate() == null) {
-
-        tpl_set_var('lastlogin', tr('unknown'));
     } else {
-
-
-        $lastLogin = strtotime($user->getLastLoginDate());
-
-        $lastLogin = mktime(
-            date('G', $lastLogin),
-            date('i', $lastLogin),
-            date('s', $lastLogin),
-            date('n', $lastLogin),
-            date(1, $lastLogin),
-            date('Y', $lastLogin));
-
-        if ($lastLogin >= mktime(0, 0, 0, date("m") - 1, 1, date("Y")))
-            tpl_set_var('lastlogin', tr('this_month'));
-        else if ($lastLogin >= mktime(0, 0, 0, date("m") - 6, 1, date("Y")))
-            tpl_set_var('lastlogin', tr('more_one_month'));
-        else if ($lastLogin >= mktime(0, 0, 0, date("m") - 12, 1, date("Y")))
-            tpl_set_var('lastlogin', tr('more_six_month'));
-        else
-            tpl_set_var('lastlogin', tr('more_12_month'));
+        tpl_set_var('lastlogin', tr($user->getLastLoginPeriodString()));
     }
 
     //Admin Note (table only)
     if ($usr['admin']) {
         $content .= '<div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="/tpl/stdstyle/images/blue/logs.png" class="icon32" alt="Cog Note" title="Cog Note"> ' . tr('admin_notes') . '</p></div>';
         $content .= '<div class="notice">'.tr('admin_notes_visible').'</div><p><a href="' . SimpleRouter::getLink('Admin.UserAdmin', 'index', $user_id) . '" class="links">'.tr('admin_user_management').' <img src="/tpl/stdstyle/images/misc/linkicon.png" alt="user admin"></a></p>';
-        $content .= adminNoteTable(AdminNote::getAllUserNotes($user_id));
+        $adminNotes = AdminNoteSet::getNotesForUser($user, ADMINNOTES_PER_PAGE);
+
+
+
+        if (empty($adminNotes)) {
+            $content .= '<p>' . tr("admin_notes_no_infos") . '</p>';
+        } else {
+            $content .= '<table class="table table-striped full-width">
+              <tr>
+                <th colspan="2">' . tr("admin_notes_table_title") . '</th>
+              </tr>';
+            foreach ($adminNotes as $adminNote) {
+                $content .= '<tr>
+                  <td>' . Formatter::dateTime($adminNote->getDateTime()) . '
+                  - <a class="links" href="'. $adminNote->getAdmin()->getProfileUrl() . '">' . $adminNote->getAdmin()->getUserName() . '</a></td><td>';
+                if ($adminNote->isAutomatic()) {
+                    $content .= '<img title="'.tr("admin_notes_auto").'" alt="' . tr("admin_notes_auto") . '" class="icon16" src="' . $adminNote->getAutomaticPictureUrl() . '"> ';
+                    $content .= tr($adminNote->getContentTranslationKey());
+                    if (! empty($adminNote->getCacheId())) {
+                        $content .= ' <a class="links" href="' . $adminNote->getCache()->getCacheUrl() . '">' . $adminNote->getCache()->getCacheName() . ' (' . $adminNote->getCache()->getGeocacheWaypointId() . ')</a>';
+                    }
+
+                } else {
+                    $content .= '<img title="'.tr("admin_notes_man").'" alt="'.tr("admin_notes_man").'" class="icon16" src="' . $adminNote->getAutomaticPictureUrl() . '"> ';
+                    $content .= $adminNote->getContent();
+                }
+                $content .= '</td></tr>';
+            }
+            $content .= '</table>';
+        }
     }
 
-    $ars = XDb::xSql("SELECT
-                `user`.`hidden_count` AS    `ukryte`,
-                `user`.`founds_count` AS    `znalezione`,
-                `user`.`notfounds_count` AS `nieznalezione`
-            FROM `user` WHERE `user_id`= ? ", $user_id);
-    $record = XDb::xFetchArray($ars);
-    $act = $record['ukryte'] + $record['znalezione'] + $record['nieznalezione'];
+    if (AdminNoteSet::getNotesForUserCount($user) > ADMINNOTES_PER_PAGE) {
+        $content .= '<a href="' . SimpleRouter::getLink('Admin.UserAdmin', 'index', $user_id) . '" class="btn btn-default btn-sm">' . tr('more') . '</a>';
+    }
 
-    if ((date('m') == 4) and ( date('d') == 1)) {
+    if (Year::isPrimaAprilisToday()) {
         $act = rand(-10, 10);
+    } else {
+        $act = $user->getFoundGeocachesCount() + $user->getNotFoundGeocachesCount() + $user->getHiddenGeocachesCount();
     }
 
     $content .= '<br><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="Caches Find" title="Caches Find">&nbsp;&nbsp;&nbsp;' . tr('user_activity01') . '</p></div><br><p><span class="content-title-noshade txt-blue08">' . tr('user_activity02') . '</span>:&nbsp;<strong>' . $act . '</strong></p>';
@@ -785,72 +792,6 @@ function buildPowerTrailIcons(ArrayObject $powerTrails)
         }
     }
     return $result . '</td></tr></table><br><br>';
-}
-
-
-function parseNote($note_content, $automatic, $cache_id = -1) {
-    if ($automatic) { //if note is collected automatically
-        $note = tr('admin_notes_'.$note_content); //we get translate
-        if ($cache_id != -1) { //if is any cache connected with note
-            $note .= ' <a class="links" href="viewcache.php?cacheid='.$cache_id.'">'.tr('cache').'</a>'; #we create href to that cache
-        }
-    }
-    else {
-        $note = $note_content; //if note is manually we just return this note
-    }
-    return $note;
-}
-
-function adminNoteTable($results) {
-    if (!($results)) {
-        return '<table style="border-collapse: collapse; font-size: 110%;" width="700" border="1"><tr>
-            <td colspan="4" align="center" bgcolor="#DBE6F1">
-                <b> '. tr("admin_notes_no_infos") .'</b>
-            </td>
-        </tr></table>';
-    }
-    else {
-        $table = '
-    <table style="border-collapse: collapse; font-size: 110%;" width="700" border="1">
-        <tr>
-            <td colspan="4" align="center" bgcolor="#DBE6F1">
-                <b> '. tr("admin_notes_table_title") .'</b>
-            </td>
-        </tr>
-        <tr>
-            <td bgcolor="#EEEDF9">
-                <b> </b>
-            </td>
-            <td bgcolor="#EEEDF9">
-                <b> '. tr("time") .' </b>
-            </td>
-            <td bgcolor="#EEEDF9">
-                <b> '. tr("admin_notes_admin_name") .' </b></td>
-            <td bgcolor="#EEEDF9">
-                <b> '. tr("admin_notes_content"). ' </b>
-            </td>
-        </tr>';
-        foreach ($results as $result) {
-            if ($result["automatic"]) {
-                $tr = '<tr><td><img title="'.tr("admin_notes_auto").'" alt="'.tr("admin_notes_auto").'" width="10" height="10" src="images/info.gif"></td>';
-            } else {
-                $tr = '<tr><td><img title="'.tr("admin_notes_man").'" alt="'.tr("admin_notes_man").'" width="10" height="10" src="images/ok.gif"></td>';
-            }
-            $tr .= '
-            <td>'.$result["datetime"].'</td>
-            <td><a class="links" href="viewprofile.php?userid='.$result["admin_id"].'">'.$result["admin_username"].'</a></td><td>';
-            if (isset($result["cache_id"])) {
-                $tr .= parseNote($result["content"], $result["automatic"], $result["cache_id"]);
-            } else {
-                $tr .= parseNote($result["content"], $result["automatic"]);
-            }
-
-            $tr .= '</td></tr>';
-            $table .= $tr;
-        }
-        $table .= '</table>';
-    }
-    return $table;
 }
 
 function buildGeocacheHtml(GeoCache $geocache, $html)

@@ -7,7 +7,6 @@ use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\GeoCache\GeoCacheLogCommons;
 use lib\Objects\OcConfig\OcConfig;
 use lib\Objects\User\User;
-use Controllers\Admin\ReportsController;
 
 class Report extends BaseObject
 {
@@ -283,7 +282,7 @@ class Report extends BaseObject
     {
         return ReportCommons::ReportTypeTranslationKey($this->type);
     }
-    
+
     /**
      * Returns translation key of status of the current report
      *
@@ -794,7 +793,7 @@ class Report extends BaseObject
         $query = 'SELECT * FROM `reports` WHERE `id` = :1 LIMIT 1';
         $stmt = self::db()->multiVariableQuery($query, $reportId);
         $dbRow = self::db()->dbResultFetch($stmt);
-        
+
         if (is_array($dbRow)) {
             $this->loadFromDbRow($dbRow);
         } else {

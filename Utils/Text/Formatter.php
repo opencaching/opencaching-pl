@@ -50,7 +50,7 @@ class Formatter
             if (is_numeric($date)) {
                 // this is timestamp
                 $date = "@$date"; // DateTime uses such format
-            } elseif (in_array($date, ['0000-00-00', '0000-00-00 00:00:00'], true)) {
+            } elseif (in_array($date, ['0000-00-00', '0000-00-00 00:00:00', null], true)) {
                 return '-';
             }
 

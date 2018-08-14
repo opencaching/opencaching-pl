@@ -1,7 +1,7 @@
 <?php
 
 use Utils\Database\XDb;
-use lib\Objects\User\AdminNote;
+use lib\Objects\Admin\AdminNote;
 use Utils\Generators\Uuid;
 
 global $bgcolor1, $bgcolor2;
@@ -181,7 +181,7 @@ require_once('./lib/common.inc.php');
 $tplname = 'viewpendings';
 $content = '';
 // tylko dla członków COG
-if ($error == false && $usr['admin']) {
+if ($usr['admin']) {
     if (isset($_GET['cacheid'])) {
         if (isset($_GET['assign'])) {
             if (assignUserToCase($_GET['assign'], $_GET['cacheid'])) {

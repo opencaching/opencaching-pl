@@ -3,13 +3,12 @@
 use Utils\Uri\SimpleRouter;
 use Utils\Uri\Uri;
 
-global $user_id;
 ?>
 
-<link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/Badge.css" />
-<link rel="stylesheet" href="tpl/stdstyle/js/PieProgress/dist/css/asPieProgress.css">
-<script src="tpl/stdstyle/js/PieProgress/js/jquery.js"></script>
-<script src="tpl/stdstyle/js/PieProgress/dist/jquery-asPieProgress.js"></script>
+<link rel="stylesheet" type="text/css" media="screen,projection" href="/tpl/stdstyle/css/Badge.css">
+<link rel="stylesheet" href="/tpl/stdstyle/js/PieProgress/dist/css/asPieProgress.css">
+<script src="/tpl/stdstyle/js/PieProgress/js/jquery.js"></script>
+<script src="/tpl/stdstyle/js/PieProgress/dist/jquery-asPieProgress.js"></script>
 
 <script>
 jQuery(function($) {
@@ -93,13 +92,13 @@ jQuery(function($) {
         <ul id="statmenu">
           <li class="group">
             <a style="background-image: url(images/actions/stat-18.png);background-repeat:no-repeat;"
-               href="/ustatsg2.php?userid=<?=$user_id?>">
+               href="/ustatsg2.php?userid=<?=$view->userid?>">
               <?=tr('graph_find')?>
             </a>
           </li>
           <li class="group">
             <a style="background-image: url(images/actions/stat-18.png);background-repeat:no-repeat;"
-               href="/ustatsg1.php?userid=<?=$user_id?>">
+               href="/ustatsg1.php?userid=<?=$view->userid?>">
               <?=tr('graph_created')?>
             </a>
           </li>
