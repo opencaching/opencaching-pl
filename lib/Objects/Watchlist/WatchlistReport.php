@@ -61,7 +61,7 @@ class WatchlistReport
     {
         $subject = $this->watchlistSubject
             . ' ' . OcConfig::getSiteName() . ': '
-            . Formatter::dateTime();
+            . Formatter::dateTime(new \DateTime());
 
         $report = clone $this->reportTemplate;
         $report->addFooterAndHeader($watcher->getUsername());
