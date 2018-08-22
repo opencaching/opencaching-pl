@@ -5,6 +5,7 @@
 namespace Utils\Lock;
 
 use \RuntimeException;
+use lib\Objects\OcConfig\OcConfig;
 
 /**
  * Implements locking mechanism using flock function
@@ -25,7 +26,7 @@ final class FileLock extends RealLock
     {
         $lockDir = null;
         if (!empty($settings["dir"])) {
-            $lockDir = $settings["dir"];
+            $lockDir = OcConfig::instance()->getDynamicFilesPath() . $settings["dir"];
         }
         if ($lockDir != null && !is_dir($lockDir)) {
             mkdir($lockDir, 0755, true);

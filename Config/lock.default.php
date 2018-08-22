@@ -13,14 +13,14 @@
  *      - "class":
  *           Must be the 'Utils\Lock\FileLock' string
  *      - "dir":
- *           Full path of directory used in "file" locking mechanism to store
- *           locks. Created on first use attempt (including parent dirs) if not
- *           exists.
+ *           Path (subdirectory of $dynbasepath) of directory used in "file"
+ *           locking mechanism to store locks.
+ *           Created on first use attempt (including parent dirs) if not exists.
  */
 $lock = [
     "type" => "file",
     "file" => [
         "class" => "Utils\Lock\FileLock",
-        "dir" => "/tmp/oc_lock"
+        "dir" => "oc_lock"
     ]
 ];
