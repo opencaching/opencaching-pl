@@ -78,17 +78,17 @@ use Utils\Text\Formatter;
                 <?php if (!empty($view->showActivitiesTooltip) && !empty($view->userActivityLogs)) { ?>
                     <img src="<?=$view->cacheMainIcon?>" class="icon32 lightTipped" alt="" title="">
                     <div class="lightTip">
-                        <div style="display: table">
+                        <div class="currentuser-activity-logs-tooltip">
                         <?php foreach($view->userActivityLogs as $log) { ?>
-                            <div style="display: table-row">
-                                <div style="display: table-cell; padding: 0 5px; text-align: left;">
+                            <div class="currentuser-activity-logs-tooltip-line">
+                                <div class="currentuser-activity-logs-tooltip-item">
                                     <img src="<?=GeoCacheLogCommons::GetIconForType($log->getType())?>"
                                       alt="<?=tr($log->getTypeTranslationKey())?>" title="<?=tr($log->getTypeTranslationKey())?>"/>
                                 </div>
-                                <div style="display: table-cell; padding: 0 5px; text-align: left;">
+                                <div class="currentuser-activity-logs-tooltip-item">
                                     <?=Formatter::dateTime($log->getDate())?>
                                 </div>
-                                <div style="display: table-cell; padding: 0 5px; text-align: left;">
+                                <div class="currentuser-activity-logs-tooltip-item">
                                     <?=UserInputFilter::purifyHtmlString($log->getText())?>
                                 </div>
                             </div>
