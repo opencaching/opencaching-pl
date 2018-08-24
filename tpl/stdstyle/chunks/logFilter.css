@@ -6,6 +6,10 @@
     display: none;
 }
 
+.logfilter-line {
+    float: left;
+}
+
 .logfilter-field {
     padding: 0 15px;
 }

@@ -263,4 +263,17 @@ $(document).ready(function() {
             + ' title="' + tr['copy_coords_prompt'] + '"/>'
         );
     }
+    // load initial logs if viewcache-logs element is visible
+    // (little fix for logs not showing if page cannot be scrolled, because
+    //  it fully fits window height [android and short cache description f.ex.])
+    if ($("#viewcache-logs").length && $('#logEntriesCount').length) {
+        var el = $("#viewcache-logs").get(0);
+        var visibleBottom = ($(window).scrollTop() + $(window).height());
+        if (el.getBoundingClientRect().bottom < visibleBottom) {
+            var logEntriesCount = parseInt($('#logEntriesCount').val());
+            if (logEntriesCount > 0 && $(".logs").length == 0) {
+                loadLogEntries();
+            }
+        }
+    }
 });

@@ -1250,3 +1250,11 @@ sub {
 div.currentuser-log {
     border: 2px solid #0000a0;
 }
+
+.cachelog-line {
+    float: left;
+}
+
+.cachelog-line2 {
+    clear: both;
+}

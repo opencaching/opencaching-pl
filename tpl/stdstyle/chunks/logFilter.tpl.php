@@ -10,7 +10,7 @@ return function($isUserAuthorized, $cacheType) {
     if ($isUserAuthorized) {
 ?>
 <div class="content2-container bg-blue02 form-group-sm logfilter-container logfilter-hidden" id="logFilter">
-    <span class="content-title-noshade-size1">
+    <span class="content-title-noshade-size1 logfilter-line">
         <img src="tpl/stdstyle/images/blue/search3.png" class="icon32" alt="<?=tr('log_filter')?>"> <?=tr('log_filter')?>:
 
         <span class="logfilter-field">
@@ -32,6 +32,7 @@ return function($isUserAuthorized, $cacheType) {
                 <option name='filter_opt_octeam'><?=tr('cog_user_name')?></option>
             </select>
         </span>
+    </span>
 </div>
 <script>
     /* include CSS for log filtering */
