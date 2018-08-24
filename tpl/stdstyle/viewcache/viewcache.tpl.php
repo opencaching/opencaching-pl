@@ -1,7 +1,10 @@
 <?php
 use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\GeoKret\GeoKretyApi;
+use lib\Objects\GeoCache\GeoCacheLogCommons;
 use Utils\Uri\SimpleRouter;
+use Utils\Text\UserInputFilter;
+use Utils\Text\Formatter;
 ?>
 <link rel="stylesheet" href="tpl/stdstyle/css/lightTooltip.css">
 
@@ -72,8 +75,30 @@ use Utils\Uri\SimpleRouter;
         <div id="cache-title-icons">
 
             <div class="align-center">
-              <img src="<?=$view->cacheMainIcon?>" class="icon32"
-                alt="<?=tr($view->geoCache->getCacheTypeTranslationKey())?>" title="<?=tr($view->geoCache->getCacheTypeTranslationKey())?>">
+                <?php if (!empty($view->showActivitiesTooltip) && !empty($view->userActivityLogs)) { ?>
+                    <img src="<?=$view->cacheMainIcon?>" class="icon32 lightTipped" alt="" title="">
+                    <div class="lightTip">
+                        <div style="display: table">
+                        <?php foreach($view->userActivityLogs as $log) { ?>
+                            <div style="display: table-row">
+                                <div style="display: table-cell; padding: 0 5px; text-align: left;">
+                                    <img src="<?=GeoCacheLogCommons::GetIconForType($log->getType())?>"
+                                      alt="<?=tr($log->getTypeTranslationKey())?>" title="<?=tr($log->getTypeTranslationKey())?>"/>
+                                </div>
+                                <div style="display: table-cell; padding: 0 5px; text-align: left;">
+                                    <?=Formatter::dateTime($log->getDate())?>
+                                </div>
+                                <div style="display: table-cell; padding: 0 5px; text-align: left;">
+                                    <?=UserInputFilter::purifyHtmlString($log->getText())?>
+                                </div>
+                            </div>
+                        <?php } //foreach-userActivityLogs?>
+                        </div>
+                    </div>
+                <?php } else { //if-notempty-userActivityLogs ?>
+                    <img src="<?=$view->cacheMainIcon?>" class="icon32"
+                      alt="<?=tr($view->geoCache->getCacheTypeTranslationKey())?>" title="<?=tr($view->geoCache->getCacheTypeTranslationKey())?>">
+                <?php } //if-notempty-userActivityLogs-else ?>
             </div>
             <div class="align-right">
               <img src='<?=$view->geoCache->getDifficultyIcon()?>' class='img-difficulty' width='19' height='16' alt='difficulty' title='<?=$view->diffTitle?>'>
@@ -1024,6 +1049,8 @@ use Utils\Uri\SimpleRouter;
         <?php } //if-getNumberOfPicsInLogs > 0 ?>
     </span>
 </div>
+
+<?=$view->enableLogsFiltering ? $view->callChunk('logFilter', $view->isUserAuthorized, $view->geoCache->getCacheType()) : ""?>
 
 <div class="content2-container" id="viewcache-logs">
     <!-- log entries - to be loaded dynamicly by ajax -->

@@ -1,0 +1,19 @@
+.logfilter-container {
+    margin-top: -14px;
+}
+
+.logfilter-hidden {
+    display: none;
+}
+
+.logfilter-field {
+    padding: 0 15px;
+}
+
+.logfilter-prompt, .logfilter-select {
+    font-size: 10px !important;
+}
+
+.logfilter-select {
+    width: auto;
+}

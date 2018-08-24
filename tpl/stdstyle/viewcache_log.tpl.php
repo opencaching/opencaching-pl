@@ -1,4 +1,4 @@
-<div class="logs" id="log{log_id}">
+<div class="logs{log_classes}" id="log{log_id}" filterable="{filterable}">
   <p class="content-title-noshade-size1 {show_deleted}" id="log-title-{log_id}">
     {logimage}
     {date} <span style="font-size: 10px; color: #666666">{time}</span>

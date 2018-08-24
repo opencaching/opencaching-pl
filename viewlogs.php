@@ -6,6 +6,7 @@ use lib\Controllers\LogEntryController;
 use Utils\Text\TextConverter;
 use Utils\Text\SmilesInText;
 use Utils\Text\UserInputFilter;
+use lib\Objects\OcConfig\OcConfig;
 
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
@@ -24,7 +25,9 @@ if ($error == false) {
     require($stylepath . '/lib/icons.inc.php');
     require($stylepath . '/viewcache.inc.php');
     require($stylepath . '/viewlogs.inc.php');
+
     global $usr;
+    $view->setVar('isUserAuthorized', $usr != false);
 
     $cache_id = 0;
     if (isset($_REQUEST['cacheid'])) {
@@ -35,6 +38,7 @@ if ($error == false) {
     } else {
         $logid = false;
     }
+    $view->setVar('logId', $logid);
 
     $start = 0;
     if (isset($_REQUEST['start'])) {
@@ -134,6 +138,7 @@ if ($error == false) {
         $tpl_subtitle = $cache_name . ' - ';
         tpl_set_var('cachename', $cache_name);
         tpl_set_var('cacheid', $cache_id);
+        $view->setVar('cacheType', $cache_record['type']);
 
         if ($cache_record['type'] == 6) {
             tpl_set_var('found_icon', $exist_icon);
@@ -158,6 +163,11 @@ if ($error == false) {
             tpl_set_var('gallery', '');
         }
 
+        if (isset($_REQUEST['showdel'])) {
+            $showDel = $_REQUEST["showdel"];
+        } else if (isset($_SESSION["showdel"])) {
+            $showDel = $_SESSION["showdel"];
+        }
         if ($usr['admin'] == 1 || $logid) {
             $showhidedel_link = ""; //no need to hide/show deletion icon for COG (they always see deletions) or this is single log call
         } else {
@@ -165,7 +175,7 @@ if ($error == false) {
             if ($del_count == 0) {
                 $showhidedel_link = ""; //don't show link if no deletion '
             } else {
-                if (isset($_SESSION['showdel']) && $_SESSION['showdel'] == 'y') {
+                if (isset($showDel) && $showDel == 'y') {
                     $showhidedel_link = $hide_del_link;
                 } else {
                     $showhidedel_link = $show_del_link;
@@ -177,9 +187,9 @@ if ($error == false) {
 
         tpl_set_var('showhidedel_link', mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $showhidedel_link));
 
-        isset($_SESSION['showdel']) && $_SESSION['showdel'] == 'y' ? $HideDeleted = false : $HideDeleted = true;
+        isset($showDel) && $showDel == 'y' ? $HideDeleted = false : $HideDeleted = true;
         $includeDeletedLogs = true;
-        If (($HideDeleted && $logid && !$usr['admin'])) { //hide deletions if (hide_deletions opotions is on and this is single_log call=not and user is not COG)
+        If (($HideDeleted && !$logid && !$usr['admin'])) { //hide deletions if (hide_deletions opotions is on and this is single_log call=not and user is not COG)
             $includeDeletedLogs = false;
         }
 
@@ -191,6 +201,14 @@ if ($error == false) {
         } else {
             $logEneries = $logEntryController->loadLogsFromDb($cache_id, $includeDeletedLogs, 0, 9999);
         }
+
+        $logfilterConfig = (OcConfig::instance())->getLogfilterConfig();
+        $view->setVar(
+            'enableLogsFiltering',
+            !empty($logfilterConfig['enable_logs_filtering'])
+        );
+        $tmpSrcLog = file_get_contents($stylepath . '/viewcache_log.tpl.php');
+
         foreach ($logEneries as $record) {
             $record['text_listing'] = ucfirst(tr('logType' . $record['type'])); //add new attrib 'text_listing based on translation (instead of query as before)'
 
@@ -277,7 +295,7 @@ if ($error == false) {
                 $edit_footer = "";
             }
 
-            $tmplog = file_get_contents($stylepath . '/viewcache_log.tpl.php');
+            $tmplog = $tmpSrcLog;
 //END: same code ->viewlogs.php / viewcache.php
             $tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
             $tmplog_date = TextConverter::fixPlMonth(htmlspecialchars(strftime($GLOBALS['config']['dateformat'], strtotime($record['date'])), ENT_COMPAT, 'UTF-8'));
@@ -317,6 +335,27 @@ if ($error == false) {
             $processed_text = SmilesInText::process($processed_text);
 
             $tmplog_text = $processed_text . $edit_footer;
+
+            $logClasses =
+                !empty($logfilterConfig['mark_currentuser_logs'])
+                && $record['userid'] == $usr['userid']
+                ? " currentuser-log"
+                : "";
+            $tmplog = mb_ereg_replace('{log_classes}', $logClasses, $tmplog);
+
+            $filterable = "";
+            if (!empty($logfilterConfig['enable_logs_filtering'])) {
+                $filterable = ':' . $record['type'] . ':';
+                if ($record['userid'] == 0) {
+                    $filterable .= 'octeam';
+                } else if ($record['userid'] == $usr['userid']) {
+                    $filterable .= 'current';
+                } else if ($record['userid'] == $owner_id) {
+                    $filterable .= 'owner';
+                }
+                $filterable .= ':';
+            }
+            $tmplog = mb_ereg_replace('{filterable}', $filterable, $tmplog);
 
             $tmplog = mb_ereg_replace('{show_deleted}', $show_deleted, $tmplog);
             $tmplog = mb_ereg_replace('{username}', $tmplog_username, $tmplog);
@@ -413,4 +452,3 @@ if ($error == false) {
 unset($dbc);
 //make the template and send it out
 tpl_BuildTemplate();
-

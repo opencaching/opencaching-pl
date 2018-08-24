@@ -64,15 +64,22 @@ $(window).scroll(function (event) {
     // in most browsers win.scrollTop + win.height == document.height for pages
     // scrolled to bottom of the page but sometimes NOT! (at leas at Chrome Mobile)
     if($(window).scrollTop() + $(window).height() > $(document).height() - 200) {
-        var logEntriesCount = parseInt($('#logEntriesCount').val());
-        if(currentLogEntriesOffset < logEntriesCount){
-           loadLogEntries(currentLogEntriesOffset,currentLogEntriesLimit);
-        }
+        loadLogEntries();
     }
 });
 
-function loadLogEntries(offset, limit){
-    if(logEntryUnderExecution === false){
+/* contains functions to be called after every part of log entries is loaded */
+var logEntriesPostLoadHooks = Array();
+
+function loadLogEntries(){
+    if (logEntryUnderExecution === false && $('#logEntriesCount').length) {
+        var logEntriesCount = parseInt($('#logEntriesCount').val());
+        if (
+            isNaN(logEntriesCount)
+            || currentLogEntriesOffset >= logEntriesCount
+        ) {
+            return;
+        }
         logEntryUnderExecution = true;
         var geocacheId = $("#cacheid").val();
         var owner_id = $("#owner_id").val();
@@ -80,8 +87,8 @@ function loadLogEntries(offset, limit){
             url: "getLogEntries.php",
             type: "post",
             data:{
-                    offset: offset,
-                    limit: limit,
+                    offset: currentLogEntriesOffset,
+                    limit: currentLogEntriesLimit,
                     geocacheId: geocacheId,
                     owner_id: owner_id,
                     includeDeletedLogs: $('#includeDeletedLogs').val()
@@ -91,6 +98,12 @@ function loadLogEntries(offset, limit){
             $("#viewcache-logs").html($("#viewcache-logs").html() + response);
             currentLogEntriesOffset = currentLogEntriesOffset + currentLogEntriesLimit;
             logEntryUnderExecution = false;
+            /* executing post load hooks */
+            logEntriesPostLoadHooks.forEach(function(element, index) {
+                if (typeof element == "function") {
+                    element.call(this);
+                }
+            });
         });
     }
 }

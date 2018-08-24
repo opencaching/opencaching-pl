@@ -1246,3 +1246,7 @@ sub {
 .tab-text {
 	padding-left: 1.6em;
 }
+
+div.currentuser-log {
+    border: 2px solid #0000a0;
+}

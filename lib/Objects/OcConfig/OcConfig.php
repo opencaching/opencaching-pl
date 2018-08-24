@@ -65,6 +65,8 @@ final class OcConfig extends ConfigReader
     private $lockConfig;
     /** @var array the watchlist configuration array */
     private $watchlistConfig;
+    /** @var array the logfilter configuration array */
+    private $logfilterConfig;
 
     /** @var array array of map settings from /Config/map.* files */
     private $mapConfig;
@@ -142,6 +144,9 @@ final class OcConfig extends ConfigReader
         }
         if (isset($config['watchlist']) && is_array($config['watchlist'])) {
             $this->watchlistConfig = $config['watchlist'];
+        }
+        if (isset($config['logfilter']) && is_array($config['logfilter'])) {
+            $this->logfilterConfig = $config['logfilter'];
         }
     }
 
@@ -358,6 +363,20 @@ final class OcConfig extends ConfigReader
             $this->watchlistConfig = self::getConfig("watchlist", "watchlist");
         }
         return $this->watchlistConfig;
+    }
+
+    /**
+     * Gives logfilter configuration, tries to initialize it if null
+     *
+     * @return array logfilter configuration
+     *               ({@see /Config/logfilter.default.php})
+     */
+    public function getLogfilterConfig()
+    {
+        if ($this->logfilterConfig == null) {
+            $this->logfilterConfig = self::getConfig("logfilter", "logfilter");
+        }
+        return $this->logfilterConfig;
     }
 
     /**

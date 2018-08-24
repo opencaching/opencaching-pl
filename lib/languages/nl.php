@@ -2784,4 +2784,11 @@ $translations = array(
     'copy_coords_success_prefix' => 'Coördinaten',
     'copy_coords_success_suffix' => 'zijn naar klembord gekopieerd',
     'copy_coords_failure' => 'Coördinaten zijn niet gekopieerd.<br>Deze browser ondersteunt geen kopieer-naar-klembord.',
+
+    'log_filter' => 'Filter', /* EN */
+    'log_filter_type' => 'Log type', /* EN */
+    'log_filter_type_any' => 'Any', /* EN */
+    'log_filter_author' => 'Author', /* EN */
+    'log_filter_author_any' => 'Anyone', /* EN */
+    'log_filter_author_currentuser' => 'Me' /* EN */
 );
