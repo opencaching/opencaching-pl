@@ -2787,4 +2787,11 @@ $translations = array(
     'copy_coords_success_prefix' => 'Współrzędne',
     'copy_coords_success_suffix' => 'zostały skopiowane do schowka',
     'copy_coords_failure' => 'Współrzędne nie zostały skopiowane.<br>Twoja przeglądarka nie wspiera operacji kopiowania do schowka.',
+
+    'log_filter' => 'Filtr',
+    'log_filter_type' => 'Typ wpisu',
+    'log_filter_type_any' => 'Dowolny',
+    'log_filter_author' => 'Autor',
+    'log_filter_author_any' => 'Ktokolwiek',
+    'log_filter_author_currentuser' => 'Ja'
 );

@@ -2798,4 +2798,11 @@ $translations = array(
     'copy_coords_success_prefix' => 'Coordonnées',
     'copy_coords_success_suffix' => 'ont été copiés dans le presse-papiers',
     'copy_coords_failure' => 'Les coordonnées n\'ont pas été copiées.<br>Votre navigateur ne supporte pas l\'opération de copie-vers-le-presse-papiers.',
+
+    'log_filter' => 'Filter', /* EN */
+    'log_filter_type' => 'Log type', /* EN */
+    'log_filter_type_any' => 'Any', /* EN */
+    'log_filter_author' => 'Author', /* EN */
+    'log_filter_author_any' => 'Anyone', /* EN */
+    'log_filter_author_currentuser' => 'Me' /* EN */
 );

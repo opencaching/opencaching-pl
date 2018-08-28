@@ -2050,7 +2050,7 @@ $translations = array(
     'usrWatch_watchedCache' => 'Watched geocache',
     'usrWatch_lastLog' => 'Last log',
     'usrWatch_actionRemove' => 'Remove from watched',
-    'usrWatch_noLogs'   => 'No logs yet',
+    'usrWatch_noLogs' => 'No logs yet',
     'usrWatch_nothingWatched' => 'You are currently not observing any geocache.',
     'usrWatch_removeWatched' => 'Click to remove geocache from watched',
     'usrWatch_removingError' => 'Unexpected error on removing from watched!',
@@ -2787,4 +2787,11 @@ $translations = array(
     'copy_coords_success_prefix' => 'Coordinates',
     'copy_coords_success_suffix' => 'have been copied to the clipboard',
     'copy_coords_failure' => 'Coordinates have not been copied.<br>Your browser does not support the copy-to-clipboard operation.',
+
+    'log_filter' => 'Filter',
+    'log_filter_type' => 'Log type',
+    'log_filter_type_any' => 'Any',
+    'log_filter_author' => 'Author',
+    'log_filter_author_any' => 'Anyone',
+    'log_filter_author_currentuser' => 'Me'
 );

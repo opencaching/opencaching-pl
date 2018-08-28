@@ -2784,4 +2784,11 @@ $translations = array(
     'copy_coords_success_prefix' => 'Coordinates', /* EN */
     'copy_coords_success_suffix' => 'have been copied to the clipboard', /* EN */
     'copy_coords_failure' => 'Coordinates have not been copied.<br>Your browser does not support the copy-to-clipboard operation.', /* EN */
+
+    'log_filter' => 'Filter', /* EN */
+    'log_filter_type' => 'Log type', /* EN */
+    'log_filter_type_any' => 'Any', /* EN */
+    'log_filter_author' => 'Author', /* EN */
+    'log_filter_author_any' => 'Anyone', /* EN */
+    'log_filter_author_currentuser' => 'Me' /* EN */
 );

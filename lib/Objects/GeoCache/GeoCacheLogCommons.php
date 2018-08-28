@@ -157,4 +157,41 @@ class GeoCacheLogCommons extends BaseObject
         return "/viewlogs.php?logid=$logId";
     }
 
+    /**
+     * Creates an array of log type translation keys available for the cache
+     * of given type, for views and templates usability
+     *
+     * @param integer $cacheType the type of cache to create the list for
+     *
+     * @return array log type translation keys available for given cache,
+     *     ordered by log type value
+     */
+    public static function getLogTypeTplKeys(
+        $cacheType = GeoCacheCommons::TYPE_TRADITIONAL
+    ) {
+        $result = [];
+        $logTypes = [
+            self::LOGTYPE_COMMENT, self::LOGTYPE_NEEDMAINTENANCE,
+            self::LOGTYPE_MADEMAINTENANCE, self::LOGTYPE_ARCHIVED,
+            self::LOGTYPE_READYTOSEARCH, self::LOGTYPE_TEMPORARYUNAVAILABLE,
+            self::LOGTYPE_ADMINNOTE
+        ];
+        if ($cacheType == GeoCacheCommons::TYPE_EVENT) {
+            array_push($logTypes,
+                self::LOGTYPE_ATTENDED, self::LOGTYPE_WILLATTENDED
+            );
+        } else {
+            array_push($logTypes,
+                self::LOGTYPE_FOUNDIT, self::LOGTYPE_DIDNOTFIND
+            );
+            if ($cacheType == GeoCacheCommons::TYPE_MOVING) {
+                $logTypes[] = self::LOGTYPE_MOVED;
+            }
+        }
+        sort($logTypes);
+        foreach ($logTypes as $logType) {
+            $result[$logType] = self::typeTranslationKey($logType);
+        }
+        return $result;
+    }
 }
