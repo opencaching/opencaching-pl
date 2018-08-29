@@ -22,8 +22,6 @@
 
  */
 
-$VERSION='$Id$';
-
 ////////// READ OPTIONAL CONFIGURATION FILE ////////////
 if (file_exists("apc.conf.php")) include("apc.conf.php");
 ////////////////////////////////////////////////////////
@@ -66,7 +64,7 @@ $time = time();
 $host = php_uname('n');
 if($host) { $host = '('.$host.')'; }
 if (isset($_SERVER['SERVER_ADDR'])) {
-  $host .= ' ('.$_SERVER['SERVER_ADDR'].')';
+	$host .= ' ('.$_SERVER['SERVER_ADDR'].')';
 }
 
 // operation constants
@@ -196,25 +194,25 @@ header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");                                    // HTTP/1.0
 
 function duration($ts) {
-    global $time;
-    $years = (int)((($time - $ts)/(7*86400))/52.177457);
-    $rem = (int)(($time-$ts)-($years * 52.177457 * 7 * 86400));
-    $weeks = (int)(($rem)/(7*86400));
-    $days = (int)(($rem)/86400) - $weeks*7;
-    $hours = (int)(($rem)/3600) - $days*24 - $weeks*7*24;
-    $mins = (int)(($rem)/60) - $hours*60 - $days*24*60 - $weeks*7*24*60;
-    $str = '';
-    if($years==1) $str .= "$years year, ";
-    if($years>1) $str .= "$years years, ";
-    if($weeks==1) $str .= "$weeks week, ";
-    if($weeks>1) $str .= "$weeks weeks, ";
-    if($days==1) $str .= "$days day,";
-    if($days>1) $str .= "$days days,";
-    if($hours == 1) $str .= " $hours hour and";
-    if($hours>1) $str .= " $hours hours and";
-    if($mins == 1) $str .= " 1 minute";
-    else $str .= " $mins minutes";
-    return $str;
+	global $time;
+	$years = (int)((($time - $ts)/(7*86400))/52.177457);
+	$rem = (int)(($time-$ts)-($years * 52.177457 * 7 * 86400));
+	$weeks = (int)(($rem)/(7*86400));
+	$days = (int)(($rem)/86400) - $weeks*7;
+	$hours = (int)(($rem)/3600) - $days*24 - $weeks*7*24;
+	$mins = (int)(($rem)/60) - $hours*60 - $days*24*60 - $weeks*7*24*60;
+	$str = '';
+	if($years==1) $str .= "$years year, ";
+	if($years>1) $str .= "$years years, ";
+	if($weeks==1) $str .= "$weeks week, ";
+	if($weeks>1) $str .= "$weeks weeks, ";
+	if($days==1) $str .= "$days day,";
+	if($days>1) $str .= "$days days,";
+	if($hours == 1) $str .= " $hours hour and";
+	if($hours>1) $str .= " $hours hours and";
+	if($mins == 1) $str .= " 1 minute";
+	else $str .= " $mins minutes";
+	return $str;
 }
 
 // create graphics
@@ -234,7 +232,7 @@ if (isset($MYREQUEST['IMG']))
 
 
 		if (function_exists("imagefilledarc")) {
-			// exists only if GD 2.0.1 is avaliable
+			// exists only if GD 2.0.1 is available
 			imagefilledarc($im, $centerX+1, $centerY+1, $diameter, $diameter, $start, $end, $color1, IMG_ARC_PIE);
 			imagefilledarc($im, $centerX, $centerY, $diameter, $diameter, $start, $end, $color2, IMG_ARC_PIE);
 			imagefilledarc($im, $centerX, $centerY, $diameter, $diameter, $start, $end, $color1, IMG_ARC_NOFILL|IMG_ARC_EDGED);
@@ -862,9 +860,9 @@ EOB;
 				++$nseg;
 			}
 			$ptr = $block['offset'] + $block['size'];
-                        /* Only consider blocks <5M for the fragmentation % */
-                        if($block['size']<(5*1024*1024)) $fragsize+=$block['size'];
-                        $freetotal+=$block['size'];
+			/* Only consider blocks <5M for the fragmentation % */
+			if($block['size']<(5*1024*1024)) $fragsize+=$block['size'];
+			$freetotal+=$block['size'];
 		}
 		$freeseg += count($mem['block_lists'][$i]);
 	}
@@ -886,14 +884,14 @@ EOB;
 		</td>
 		</tr>
 EOB;
-        if(isset($mem['adist'])) {
-          foreach($mem['adist'] as $i=>$v) {
-            $cur = pow(2,$i); $nxt = pow(2,$i+1)-1;
-            if($i==0) $range = "1";
-            else $range = "$cur - $nxt";
-            echo "<tr><th align=right>$range</th><td align=right>$v</td></tr>\n";
-          }
-        }
+		if(isset($mem['adist'])) {
+			foreach($mem['adist'] as $i=>$v) {
+				$cur = pow(2,$i); $nxt = pow(2,$i+1)-1;
+				if($i==0) $range = "1";
+				else $range = "$cur - $nxt";
+				echo "<tr><th align=right>$range</th><td align=right>$v</td></tr>\n";
+			}
+		}
         echo <<<EOB
 		</tbody></table>
 		</div>
@@ -907,7 +905,7 @@ EOB;
 // -----------------------------------------------
 case OB_USER_CACHE:
 	if (!$AUTHENTICATED) {
-    echo '<div class="error">You need to login to see the user values here!<br/>&nbsp;<br/>';
+		echo '<div class="error">You need to login to see the user values here!<br/>&nbsp;<br/>';
 		put_login_link("Login now!");
 		echo '</div>';
 		break;
@@ -935,7 +933,7 @@ EOB;
 		"<option value=C",$MYREQUEST['SORT1']=='C' ? " selected":"",">Created at</option>",
 		"<option value=D",$MYREQUEST['SORT1']=='D' ? " selected":"",">Deleted at</option>";
 	if($fieldname=='info') echo
-		"<option value=D",$MYREQUEST['SORT1']=='T' ? " selected":"",">Timeout</option>";
+		"<option value=T",$MYREQUEST['SORT1']=='T' ? " selected":"",">Timeout</option>";
 	echo
 		'</select>',
 		'<select name=SORT2>',
@@ -956,17 +954,17 @@ EOB;
 		'&nbsp;<input type=submit value="GO!">',
 		'</form></div>';
 
-  if (isset($MYREQUEST['SEARCH'])) {
-   // Don't use preg_quote because we want the user to be able to specify a
-   // regular expression subpattern.
-   $MYREQUEST['SEARCH'] = '/'.str_replace('/', '\\/', $MYREQUEST['SEARCH']).'/i';
-   if (preg_match($MYREQUEST['SEARCH'], 'test') === false) {
-     echo '<div class="error">Error: enter a valid regular expression as a search query.</div>';
-     break;
-   }
-  }
+	if (isset($MYREQUEST['SEARCH'])) {
+		// Don't use preg_quote because we want the user to be able to specify a
+		// regular expression subpattern.
+		$MYREQUEST['SEARCH_REGEX'] = '/'.str_replace('/', '\\/', $MYREQUEST['SEARCH']).'/i';
+		if (preg_match($MYREQUEST['SEARCH_REGEX'], 'test') === false) {
+			echo '<div class="error">Error: enter a valid regular expression as a search query.</div>';
+			break;
+		}
+	}
 
-  echo
+	echo
 		'<div class="info"><table cellspacing=0><tbody>',
 		'<tr>',
 		'<th>',sortheader('S',$fieldheading,  "&OB=".$MYREQUEST['OB']),'</th>',
@@ -1016,45 +1014,45 @@ EOB;
 		// output list
 		$i=0;
 		foreach($list as $k => $entry) {
-      if(!$MYREQUEST['SEARCH'] || preg_match($MYREQUEST['SEARCH'], $entry[$fieldname]) != 0) {
-		$sh=md5($entry["info"]);
-        $field_value = htmlentities(strip_tags($entry[$fieldname],''), ENT_QUOTES, 'UTF-8');
-        echo
-          '<tr id="key-'. $sh .'" class=tr-',$i%2,'>',
-          "<td class=td-0><a href=\"$MY_SELF&OB=",$MYREQUEST['OB'],"&SH=",$sh,"#key-". $sh ."\">",$field_value,'</a></td>',
-          '<td class="td-n center">',$entry['num_hits'],'</td>',
-          '<td class="td-n right">',$entry['mem_size'],'</td>',
-          '<td class="td-n center">',date(DATE_FORMAT,$entry['access_time']),'</td>',
-          '<td class="td-n center">',date(DATE_FORMAT,$entry['mtime']),'</td>',
-          '<td class="td-n center">',date(DATE_FORMAT,$entry['creation_time']),'</td>';
+			if(empty($MYREQUEST['SEARCH_REGEX']) || preg_match($MYREQUEST['SEARCH_REGEX'], $entry[$fieldname]) != 0) {
+				$sh=md5($entry["info"]);
+				$field_value = htmlentities(strip_tags($entry[$fieldname],''), ENT_QUOTES, 'UTF-8');
+				echo
+					'<tr id="key-'. $sh .'" class=tr-',$i%2,'>',
+					"<td class=td-0><a href=\"$MY_SELF&OB=",$MYREQUEST['OB'],(!empty($MYREQUEST['SEARCH']) ? "&SEARCH=" . urlencode($MYREQUEST['SEARCH']) : ''),"&SH=",$sh,"#key-". $sh ."\">",$field_value,'</a></td>',
+					'<td class="td-n center">',$entry['num_hits'],'</td>',
+					'<td class="td-n right">',$entry['mem_size'],'</td>',
+					'<td class="td-n center">',date(DATE_FORMAT,$entry['access_time']),'</td>',
+					'<td class="td-n center">',date(DATE_FORMAT,$entry['mtime']),'</td>',
+					'<td class="td-n center">',date(DATE_FORMAT,$entry['creation_time']),'</td>';
 
-        if($fieldname=='info') {
-          if($entry['ttl'])
-            echo '<td class="td-n center">'.$entry['ttl'].' seconds</td>';
-          else
-            echo '<td class="td-n center">None</td>';
-        }
-        if ($entry['deletion_time']) {
-
-          echo '<td class="td-last center">', date(DATE_FORMAT,$entry['deletion_time']), '</td>';
-        } else if ($MYREQUEST['OB'] == OB_USER_CACHE) {
-
-          echo '<td class="td-last center">';
-          echo '[<a href="', $MY_SELF, '&OB=', $MYREQUEST['OB'], '&DU=', urlencode($entry[$fieldkey]), '">Delete Now</a>]';
-          echo '</td>';
-        } else {
-          echo '<td class="td-last center"> &nbsp; </td>';
-        }
-        echo '</tr>';
-		if ($sh == $MYREQUEST["SH"]) {
-			echo '<tr>';
-			echo '<td colspan="7"><pre>'.htmlentities(print_r(apcu_fetch($entry['info']), 1)).'</pre></td>';
-			echo '</tr>';
-		}
-        $i++;
-        if ($i == $MYREQUEST['COUNT'])
-          break;
-      }
+				if($fieldname=='info') {
+					if($entry['ttl']) {
+						echo '<td class="td-n center">'.$entry['ttl'].' seconds</td>';
+					} else {
+						echo '<td class="td-n center">None</td>';
+					}
+				}
+				if ($entry['deletion_time']) {
+					echo '<td class="td-last center">', date(DATE_FORMAT,$entry['deletion_time']), '</td>';
+				} else if ($MYREQUEST['OB'] == OB_USER_CACHE) {
+					echo '<td class="td-last center">';
+					echo '[<a href="', $MY_SELF, '&OB=', $MYREQUEST['OB'], '&DU=', urlencode($entry[$fieldkey]), '">Delete Now</a>]';
+					echo '</td>';
+				} else {
+					echo '<td class="td-last center"> &nbsp; </td>';
+				}
+				echo '</tr>';
+				if ($sh == $MYREQUEST["SH"]) {
+					echo '<tr>';
+					echo '<td colspan="7"><pre>'.htmlentities(print_r(apcu_fetch($entry['info']), 1)).'</pre></td>';
+					echo '</tr>';
+				}
+				$i++;
+				if ($i == $MYREQUEST['COUNT']) {
+					break;
+				}
+			}
 		}
 
 	} else {
@@ -1084,12 +1082,12 @@ case OB_VERSION_CHECK:
 		<th></th>
 		</tr>
 EOB;
-  if (defined('PROXY')) {
-    $ctxt = stream_context_create( array( 'http' => array( 'proxy' => PROXY, 'request_fulluri' => True ) ) );
-    $rss = @file_get_contents("http://pecl.php.net/feeds/pkg_apcu.rss", False, $ctxt);
-  } else {
-    $rss = @file_get_contents("http://pecl.php.net/feeds/pkg_apcu.rss");
-  }
+	if (defined('PROXY')) {
+		$ctxt = stream_context_create( array( 'http' => array( 'proxy' => PROXY, 'request_fulluri' => True ) ) );
+		$rss = @file_get_contents("http://pecl.php.net/feeds/pkg_apcu.rss", False, $ctxt);
+	} else {
+		$rss = @file_get_contents("http://pecl.php.net/feeds/pkg_apcu.rss");
+	}
 	if (!$rss) {
 		echo '<tr class="td-last center"><td>Unable to fetch version information.</td></tr>';
 	} else {
@@ -1115,12 +1113,12 @@ EOB;
 
 		for ($j = 2; $j + 1 < count($changelog); $j += 2) {
 			$v = $changelog[$j];
+			list(, $ver) = explode(' ', $v, 2);
 			if ($i < 0 && version_compare($apcversion, $ver, '>=')) {
 				break;
 			} else if (!$i--) {
 				break;
 			}
-			list($unused, $ver) = $v;
 			$changes = $changelog[$j + 1];
 			echo "<b><a href=\"http://pecl.php.net/package/APCu/$ver\">".htmlspecialchars($v, ENT_QUOTES, 'UTF-8')."</a></b><br><blockquote>";
 			echo nl2br(htmlspecialchars($changes, ENT_QUOTES, 'UTF-8'))."</blockquote>";
@@ -1135,12 +1133,12 @@ EOB;
 
 }
 
-echo <<< EOB
+	echo <<< EOB
 	</div>
 EOB;
 
 ?>
 
-<!-- <?php echo "\nBased on APCGUI By R.Becker\n$VERSION\n"?> -->
+<!-- <?php echo "\nBased on APCGUI By R.Becker\n"?> -->
 </body>
 </html>
