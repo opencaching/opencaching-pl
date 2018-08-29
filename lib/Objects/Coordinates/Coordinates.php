@@ -274,6 +274,10 @@ class Coordinates
         return $this->getLatitudeString($format).' '.$this->getLongitudeString($format);
     }
 
+    public function getAsOpenLayersFormat(){
+        return '{ lat:'.$this->getLatitude().', lon:'.$this->getLongitude().' }';
+    }
+
     /**
      * Return TRUE if given coords are the same
      *

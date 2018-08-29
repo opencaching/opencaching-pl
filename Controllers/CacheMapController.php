@@ -132,9 +132,6 @@ class CacheMapController extends BaseController
             $this->view->setVar('powerTrailIds', $_REQUEST['pt']);
         }
 
-
-
-
         $userPref = UserPreferences::getUserPrefsByKey(UserMapSettings::KEY);
         $this->view->setVar('filterVal', $userPref->getJsonValues());
 

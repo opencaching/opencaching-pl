@@ -20,6 +20,7 @@ use lib\Objects\User\MultiUserQueries;
 use lib\Objects\GeoCache\GeoCacheLog;
 use Utils\Text\Formatter;
 use Utils\Uri\OcCookie;
+use lib\Objects\Coordinates\Coordinates;
 
 class TestController extends BaseController
 {
@@ -181,120 +182,6 @@ class TestController extends BaseController
     }
 
     /**
-     * This method allows test dynamic Google map chunk
-     * Could be used as example of dynamic-map-chunk usage
-     */
-    public function dynamicGMap()
-    {
-        $this->view->setTemplate('test/dynamicGMap');
-        $this->view->loadJQuery();
-        $this->view->loadGMapApi();
-
-        $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime('/tpl/stdstyle/test/dynamicGMap.css'));
-
-
-        $mapModel = new DynamicMapModel();
-
-        // get some geopaths...
-        $csToArchive = CacheSet::getCacheSetsToArchive();
-
-        //...and add to map
-        $mapModel->addMarkers(
-            CacheSetMarkerModel::class, $csToArchive, function($row){
-
-                $markerModel = new CacheSetMarkerModel();
-
-                $markerModel->name = $row['name'];
-                $markerModel->link = CacheSet::getCacheSetUrlById($row['id']);
-
-                $markerModel->icon = CacheSet::GetTypeIcon($row['type']);
-                $markerModel->lon = $row['centerLongitude'];
-                $markerModel->lat = $row['centerLatitude'];
-
-                return $markerModel;
-        });
-
-        // get some caches...
-        $cachesToShow = MultiCacheStats::getLatestCaches(5);
-        // ..and add to map
-        $mapModel->addMarkers(
-            CacheMarkerModel::class, $cachesToShow, function($row){
-
-                $markerModel = new CacheMarkerModel();
-
-                $markerModel->wp = $row['wp_oc'];
-                $markerModel->name = $row['name'];
-                $markerModel->username = $row['username'];
-                $markerModel->link = GeoCache::GetCacheUrlByWp($row['wp_oc']);
-                $markerModel->icon = GeoCache::CacheIconByType(
-                    $row['type'], $row['status']);
-
-                $markerModel->lon = $row['longitude'];
-                $markerModel->lat = $row['latitude'];
-
-                return $markerModel;
-            });
-
-
-        // get some caches with logs...
-        $caches = [];
-        $userIds = [];
-        foreach(MultiCacheStats::getGeocachesById([1,2,3,4,5]) as $c){
-            $caches[$c['cache_id']] = $c;
-            $userIds[$c['user_id']] = null;
-        }
-
-        foreach(MultiLogStats::getLastLogForEachCache(array_keys($caches),
-            ['id as log_id','cache_id','text','date','type as log_type','user_id as log_user_id']) as $log){
-            $caches[$log['cache_id']] = array_merge($log, $caches[$log['cache_id']]);
-            $userIds[$log['log_user_id']] = null;
-        }
-
-        $users = MultiUserQueries::GetUserNamesForListOfIds(array_keys($userIds));
-
-        foreach ($caches as &$c){
-            $c['owner'] = $users[$c['user_id']];
-            $c['log_username'] = $users[$c['log_user_id']];
-        }
-
-        // ...and add to map
-        $mapModel->addMarkers(
-            CacheWithLogMarkerModel::class, $caches, function($row){
-
-                $markerModel = new CacheWithLogMarkerModel();
-
-                $markerModel->wp = $row['wp_oc'];
-                $markerModel->name = $row['name'];
-                $markerModel->link = GeoCache::GetCacheUrlByWp($row['wp_oc']);
-                $markerModel->icon = GeoCache::CacheIconByType(
-                    $row['type'], $row['status']);
-
-                $markerModel->lon = $row['longitude'];
-                $markerModel->lat = $row['latitude'];
-
-                $markerModel->log_icon = GeoCacheLog::GetIconForType($row['log_type']);
-                $markerModel->log_text = strip_tags($row['text'], '<br><p>');
-                $markerModel->log_username = $row['log_username'];
-                $markerModel->log_typeName = tr(GeoCacheLog::typeTranslationKey($row['type']));
-                $markerModel->log_link = GeoCacheLog::getLogUrlByLogId($row['log_id']);
-                $markerModel->log_date = Formatter::date($row['date']);
-
-                return $markerModel;
-            });
-
-        $this->view->setVar('mapModel', $mapModel);
-
-
-        // and one more map... this should stay empty for now
-        // it is used in drawing example as well
-        $emptyMap = new DynamicMapModel();
-        $this->view->setVar('emptyMap', $emptyMap);
-
-        $this->view->buildView();
-    }
-
-    /**
      * This method allows test dynamic OpenLayers map chunk
      * Could be used as example of dynamic-map-chunk usage
      */
@@ -302,11 +189,11 @@ class TestController extends BaseController
     {
         $this->view->setTemplate('test/dynamicMap');
         $this->view->loadJQuery();
-        $this->view->loadGMapApi();
+
+        $this->view->addHeaderChunk('openLayers5');
 
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime('/tpl/stdstyle/test/dynamicMap.css'));
-
 
         $mapModel = new DynamicMapModel();
 
@@ -314,17 +201,17 @@ class TestController extends BaseController
         $csToArchive = CacheSet::getCacheSetsToArchive();
 
         //...and add to map
-        $mapModel->addMarkers(
+        $mapModel->addMarkersWithExtractor(
             CacheSetMarkerModel::class, $csToArchive, function($row){
 
                 $markerModel = new CacheSetMarkerModel();
 
+                $markerModel->lat = $row['centerLatitude'];
+                $markerModel->lon = $row['centerLongitude'];
+                $markerModel->icon = CacheSet::GetTypeIcon($row['type']);
+
                 $markerModel->name = $row['name'];
                 $markerModel->link = CacheSet::getCacheSetUrlById($row['id']);
-
-                $markerModel->icon = CacheSet::GetTypeIcon($row['type']);
-                $markerModel->lon = $row['centerLongitude'];
-                $markerModel->lat = $row['centerLatitude'];
 
                 return $markerModel;
             });
@@ -332,20 +219,19 @@ class TestController extends BaseController
         // get some caches...
         $cachesToShow = MultiCacheStats::getLatestCaches(5);
         // ..and add to map
-        $mapModel->addMarkers(
+        $mapModel->addMarkersWithExtractor(
             CacheMarkerModel::class, $cachesToShow, function($row){
 
                 $markerModel = new CacheMarkerModel();
+
+                $markerModel->lat = $row['latitude'];
+                $markerModel->lon = $row['longitude'];
+                $markerModel->icon = GeoCache::CacheIconByType($row['type'], $row['status']);
 
                 $markerModel->wp = $row['wp_oc'];
                 $markerModel->name = $row['name'];
                 $markerModel->username = $row['username'];
                 $markerModel->link = GeoCache::GetCacheUrlByWp($row['wp_oc']);
-                $markerModel->icon = GeoCache::CacheIconByType(
-                    $row['type'], $row['status']);
-
-                $markerModel->lon = $row['longitude'];
-                $markerModel->lat = $row['latitude'];
 
                 return $markerModel;
             });
@@ -373,19 +259,20 @@ class TestController extends BaseController
         }
 
         // ...and add to map
-        $mapModel->addMarkers(
+        $mapModel->addMarkersWithExtractor(
             CacheWithLogMarkerModel::class, $caches, function($row){
 
                 $markerModel = new CacheWithLogMarkerModel();
 
+                $markerModel->lon = $row['longitude'];
+                $markerModel->lat = $row['latitude'];
+                $markerModel->icon = GeoCache::CacheIconByType($row['type'], $row['status']);
+
                 $markerModel->wp = $row['wp_oc'];
                 $markerModel->name = $row['name'];
                 $markerModel->link = GeoCache::GetCacheUrlByWp($row['wp_oc']);
-                $markerModel->icon = GeoCache::CacheIconByType(
-                    $row['type'], $row['status']);
+                $markerModel->username = $row['owner'];
 
-                $markerModel->lon = $row['longitude'];
-                $markerModel->lat = $row['latitude'];
 
                 $markerModel->log_icon = GeoCacheLog::GetIconForType($row['log_type']);
                 $markerModel->log_text = strip_tags($row['text'], '<br><p>');

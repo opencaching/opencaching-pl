@@ -1,27 +1,35 @@
 <?php
 namespace lib\Objects\ChunkModels\DynamicMap;
 
+use \ReflectionClass;
+
 /**
- * This is base class for all dynami map markers.
+ * This is base class for all dynamic map markers.
  */
 abstract class AbstractMarkerModelBase
 {
-    // dir to look for tpl for marker models
-    const CHUNK_DIR = 'dynamicMap';
+    public $lat;            // lat. of marker
+    public $lon;            // lon. of marker
+    public $icon;           // icon of marker
+
+    public function getMarkerTypeName(){
+        $str = (new ReflectionClass(static::class))->getShortName();
+        return preg_replace('/Model$/', '', lcfirst($str));
+    }
+
+    public function getMarkerJsData()
+    {
+        return json_encode($this, JSON_PRETTY_PRINT);
+    }
 
     /**
-     * Return link to Java-Script marker manager
+     * Check if all necessary data is set in this marker class
+     * @return boolean
      */
-    abstract public function getJSMarkersMgr();
+    public function checkMarkerData()
+    {
+        return isset($this->lat) && isset($this->lon) && isset($this->icon);
+    }
 
-    /**
-     * Return unique key for this type of markers
-     */
-    abstract public function getKey();
-
-    /**
-     * Return link to template used to generate infoWindow
-     */
-    abstract public function getInfoWinTpl();
 }
 

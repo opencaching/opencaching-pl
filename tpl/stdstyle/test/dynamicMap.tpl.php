@@ -45,8 +45,12 @@
 
   $(document).ready(function(){
     // start drawing whene everything is ready
-    draw();
+    // TODO: draw();
   });
+
+  /*
+
+  TODO: rewrite to OPENLAYERS API
 
   function draw(){
     var drawingDone = null; // this is used to allow draw only one thimg at once
@@ -144,6 +148,7 @@
     });
 
   }
+  */
   </script>
 
 <hr/>
