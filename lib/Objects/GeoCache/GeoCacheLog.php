@@ -69,6 +69,16 @@ class GeoCacheLog extends GeoCacheLogCommons
         return $this->type;
     }
 
+    /**
+     * Returns translation key for log type
+     *
+     * @return string
+     */
+    public function getTypeTranslationKey()
+    {
+        return self::typeTranslationKey($this->getType());
+    }
+
     public function getDate()
     {
         return $this->date;
@@ -378,6 +388,16 @@ class GeoCacheLog extends GeoCacheLogCommons
         }
     }
 
+    private static function fromDbRowFactory($row) {
+        $obj = new self();
+        try {
+            $obj->loadFromDbRow($row);
+            return $obj;
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+
     /**
      * Check if log can be reverted.
      * Returns true if:
@@ -414,5 +434,45 @@ class GeoCacheLog extends GeoCacheLogCommons
             SET `deleted` = :1
             WHERE `id` = :2',
             $this->getDeleted(), $this->getId());
+    }
+
+    /**
+     * Retrieves undeleted logs for given cache id and user id, optionally
+     * entries being given types and results limited to given number of entries.
+     *
+     * @param integer $cacheId The id of a cache to retrieve logs for.
+     * @param integer $userId The id of a user to retrieve logs for.
+     * @param array $types Log types to narrow down the result to, if null - any
+     *     type is considered.
+     * @param integer $limit The number of entries the result will be limited to,
+     *     if null there will be no limit.
+     *
+     * @return array The set of GeoCacheLog objects, sorted by the `date` field.
+     */
+    public function getCacheLogsForUser(
+        $cacheId, $userId, $types = null, $limit = null
+    ) {
+        $params = [$cacheId, $userId];
+        if ($types != null) {
+            $typesInString = "";
+            foreach($types as $type) {
+                if (strlen($typesInString) > 0) {
+                    $typesInString .= ",";
+                }
+                array_push($params, $type);
+                $typesInString .= ":" . count($params);
+            }
+        }
+        $stmt = $this->db->multiVariableQuery(
+            "SELECT * FROM `cache_logs` WHERE
+             `cache_id` = :1 AND `user_id` = :2 AND deleted = 0"
+             .(is_array($types) ? " AND `type` IN (" . $typesInString . ")" : "")
+             ." ORDER BY `date` DESC"
+             .($limit != null ? " LIMIT " . intval($limit) : ""),
+             $params
+        );
+        return $this->db->dbFetchAllAsObjects($stmt, function($row) {
+            return self::fromDbRowFactory($row);
+        });
     }
 }

@@ -48,7 +48,7 @@ class GeoCache extends GeoCacheCommons
     private $lastFound;
     private $score;
     private $ratingVotes;
-    private $willattends;           //for events only
+    private $willAttends;           //for events only
     private $natureRegions = false;
     private $natura2000Sites = false;
     private $usersRecomeded = false;
@@ -61,6 +61,7 @@ class GeoCache extends GeoCacheCommons
     private $descLanguagesList;
     private $mp3count;
     private $picturesCount;
+    private $uuid;
 
     /**
      * count of moves for mobile geocaches
@@ -315,7 +316,7 @@ class GeoCache extends GeoCacheCommons
                     $this->notFounds = $value;
                     break;
                 case 'willattends':
-                    $this->willattends = $value;
+                    $this->willAttends = $value;
                     break;
                 case 'rating_votes':
                     $this->ratingVotes = $value;
@@ -398,6 +399,7 @@ class GeoCache extends GeoCacheCommons
 
         $this->setDateActivate($geocacheDbRow['date_activate']);
         $this->setDatePublished($geocacheDbRow['date_published']);
+        $this->uuid = $geocacheDbRow['uuid'];
         return $this;
     }
 
@@ -650,9 +652,9 @@ class GeoCache extends GeoCacheCommons
         return $this->ratingVotes;
     }
 
-    public function getWillattends()
+    public function getWillAttends()
     {
-        return $this->willattends;
+        return $this->willAttends;
     }
 
     public function getRatingId()
@@ -1100,6 +1102,11 @@ class GeoCache extends GeoCacheCommons
         if ($datePublished != null) {
             $this->datePublished = new \DateTime($datePublished);
         }
+    }
+
+    public function getUuid()
+    {
+        return $this->uuid;
     }
 
     public function getStatusTranslationIdentifier()

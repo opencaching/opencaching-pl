@@ -1,6 +1,5 @@
 <?php
 use Utils\Uri\SimpleRouter;
-use Controllers\UserUtilsController;
 
 /**
  * This is simple configuration of links presented in sidebar of the page
@@ -29,9 +28,9 @@ $menu = [ // DON'T CHANGE $menu var name!
     'mnu_incommingEvents'   => '/newevents.php',
     'mnu_recoCaches'        => '/cacheratings.php',
 
-    'mnu_oldCacheMap'   => '/cachemap2.php',
+    'mnu_oldCacheMap'   => '/cachemap3.php',
     'mnu_FloppMap'      => 'https://flopp-caching.de',
     'mnu_massLogsSave'  => '/log_cache_multi_send.php',
     'mnu_openchecker'   => '/openchecker.php',
-    'mnu_qrCode'        => SimpleRouter::getLink(UserUtilsController::class, 'qrCodeGen'),
+    'mnu_qrCode'        => SimpleRouter::getLink('UserUtils', 'qrCodeGen'),
 ];

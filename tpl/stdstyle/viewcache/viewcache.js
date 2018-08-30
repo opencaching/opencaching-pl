@@ -61,16 +61,25 @@ var currentLogEntriesLimit = 10;
 var logEntryUnderExecution = false;
 
 $(window).scroll(function (event) {
-    if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-        var logEntriesCount = parseInt($('#logEntriesCount').val());
-        if(currentLogEntriesOffset < logEntriesCount){
-           loadLogEntries(currentLogEntriesOffset,currentLogEntriesLimit);
-        }
+    // in most browsers win.scrollTop + win.height == document.height for pages
+    // scrolled to bottom of the page but sometimes NOT! (at leas at Chrome Mobile)
+    if($(window).scrollTop() + $(window).height() > $(document).height() - 200) {
+        loadLogEntries();
     }
 });
 
-function loadLogEntries(offset, limit){
-    if(logEntryUnderExecution === false){
+/* contains functions to be called after every part of log entries is loaded */
+var logEntriesPostLoadHooks = Array();
+
+function loadLogEntries(){
+    if (logEntryUnderExecution === false && $('#logEntriesCount').length) {
+        var logEntriesCount = parseInt($('#logEntriesCount').val());
+        if (
+            isNaN(logEntriesCount)
+            || currentLogEntriesOffset >= logEntriesCount
+        ) {
+            return;
+        }
         logEntryUnderExecution = true;
         var geocacheId = $("#cacheid").val();
         var owner_id = $("#owner_id").val();
@@ -78,8 +87,8 @@ function loadLogEntries(offset, limit){
             url: "getLogEntries.php",
             type: "post",
             data:{
-                    offset: offset,
-                    limit: limit,
+                    offset: currentLogEntriesOffset,
+                    limit: currentLogEntriesLimit,
                     geocacheId: geocacheId,
                     owner_id: owner_id,
                     includeDeletedLogs: $('#includeDeletedLogs').val()
@@ -89,6 +98,12 @@ function loadLogEntries(offset, limit){
             $("#viewcache-logs").html($("#viewcache-logs").html() + response);
             currentLogEntriesOffset = currentLogEntriesOffset + currentLogEntriesLimit;
             logEntryUnderExecution = false;
+            /* executing post load hooks */
+            logEntriesPostLoadHooks.forEach(function(element, index) {
+                if (typeof element == "function") {
+                    element.call(this);
+                }
+            });
         });
     }
 }
@@ -96,10 +111,10 @@ function loadLogEntries(offset, limit){
 function showHint(event)
 {
     event.preventDefault();
-        $("#hintEncrypted").toggle();
-        $("#hintDecrypted").toggle();
-        $("#encryptLinkStr").toggle();
-        $("#decryptLinkStr").toggle();
+    $("#hintEncrypted").toggle();
+    $("#hintDecrypted").toggle();
+    $("#encryptLinkStr").toggle();
+    $("#decryptLinkStr").toggle();
     return false;
 }
 
@@ -169,16 +184,16 @@ var closeDialog = 0;
 var dialogElement;
 
 function copyCoords(e) {
-    let statusText = tr['copy_coords_failure'];
-    let statusClass = "copy-coords-failure";
-    let coordsElem = $('.' + currentCordsFormat);
+    var statusText = tr['copy_coords_failure'];
+    var statusClass = "copy-coords-failure";
+    var coordsElem = $('.' + currentCordsFormat);
     if (coordsElem != null) {
-        let coords = coordsElem.text().trim();
-        let temp = $("<input>");
+        var coords = coordsElem.text().trim();
+        var temp = $("<input>");
         $("body").append(temp);
         temp.val(coords).select();
         if (document.queryCommandEnabled("copy")) {
-            let result = document.execCommand("copy", false, null);
+            var result = document.execCommand("copy", false, null);
             temp.remove();
             if (result) {
                 statusClass = "";
@@ -191,7 +206,7 @@ function copyCoords(e) {
             }
         }
     }
-    let copyStatus = $("#copy-coords-status");
+    var copyStatus = $("#copy-coords-status");
     if (copyStatus.length) {
         copyStatus.html(statusText);
         copyStatus.dialog({
@@ -247,5 +262,18 @@ $(document).ready(function() {
             + ' alt="' + tr['copy_coords_prompt'] + '"'
             + ' title="' + tr['copy_coords_prompt'] + '"/>'
         );
+    }
+    // load initial logs if viewcache-logs element is visible
+    // (little fix for logs not showing if page cannot be scrolled, because
+    //  it fully fits window height [android and short cache description f.ex.])
+    if ($("#viewcache-logs").length && $('#logEntriesCount').length) {
+        var el = $("#viewcache-logs").get(0);
+        var visibleBottom = ($(window).scrollTop() + $(window).height());
+        if (el.getBoundingClientRect().bottom < visibleBottom) {
+            var logEntriesCount = parseInt($('#logEntriesCount').val());
+            if (logEntriesCount > 0 && $(".logs").length == 0) {
+                loadLogEntries();
+            }
+        }
     }
 });

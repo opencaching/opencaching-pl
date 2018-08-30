@@ -18,7 +18,7 @@ $menu = [ // DON'T CHANGE $menu var name!
 
     'mnu_impressum' => [ $links['wiki']['impressum'] ],
     'mnu_api'       => '/okapi',
-    'mnu_rss'       => '/articles.php?page=rss',
+    'mnu_rss'       => '/RSS',
     'mnu_contact'   => '/articles.php?page=contact',
     'mnu_mainPage'  => '/',
 

@@ -5,6 +5,7 @@ use Controllers\BaseController;
 use lib\Objects\News\News;
 use lib\Objects\ChunkModels\PaginationModel;
 use Utils\Uri\Uri;
+use Utils\Uri\SimpleRouter;
 
 class NewsListController extends BaseController
 {
@@ -14,11 +15,6 @@ class NewsListController extends BaseController
      */
     const NEWS_ON_MAINPAGE = 3;
 
-    /**
-     * How many news to display max in RSS feed
-     */
-    const NEWS_IN_RSS = 20;
-
     public function __construct()
     {
         parent::__construct();
@@ -27,7 +23,7 @@ class NewsListController extends BaseController
     public function isCallableFromRouter($actionName)
     {
         // all public methods can be called by router
-        return TRUE;
+        return true;
     }
 
     public function index()
@@ -36,42 +32,23 @@ class NewsListController extends BaseController
     }
 
     /**
-     * Method is used to generate news RSS feed
-     */
-    public function showRss()
-    {
-        header('Content-type: application/xml; charset="utf-8"');
-        $newsList = News::getAllNews(false, false, 0, self::NEWS_IN_RSS);
-        $content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\">\n<channel>\n<title>" . $this->ocConfig->getShortSiteName() . " - " . tr('rss_04') . "</title>\n";
-        $content .= "<ttl>60</ttl><link>" . $this->ocConfig->getAbsolute_server_URI() . "news.php</link>\n <description><![CDATA[" . tr('rss_12') . " " . $this->ocConfig->getSiteName() . "]]></description>";
-        $content .= "<image><title>" . $this->ocConfig->getShortSiteName() . " - " . tr('rss_04') . "</title><url>" . $this->ocConfig->getAbsolute_server_URI() . "images/oc.png</url>";
-        $content .= "<link>" . $this->ocConfig->getAbsolute_server_URI() . "news.php</link><width>100</width><height>28</height></image>\n";
-        foreach ($newsList as $news) {
-            $content .= "<item>\n<title>" . $news->getDatePublication(true) . " - " . $news->getTitle() . "</title>\n<description><![CDATA[" . $news->getContent() . "]]></description>\n<link>" . $this->ocConfig->getAbsolute_server_URI() . "news.php</link>\n<guid isPermaLink=\"false\">article " . $news->getId() . "</guid>\n</item>\n";
-        }
-        $content .= "</channel>\n</rss>\n";
-        echo $content;
-    }
-
-    /**
      * Method generates news list on News page
      */
     private function showNews()
     {
-        $logged = ($this->loggedUser) ? true : false;
         $paginationModel = new PaginationModel();
-        $paginationModel->setRecordsCount(News::getAllNewsCount($logged, false));
+        $paginationModel->setRecordsCount(News::getAllNewsCount($this->isUserLogged(), false));
         list ($limit, $offset) = $paginationModel->getQueryLimitAndOffset();
         $this->view->setVar('paginationModel', $paginationModel);
-        $this->showNewsList(News::getAllNews($logged, false, $offset, $limit));
+        $this->showNewsList(News::getAllNews($this->isUserLogged(), false, $offset, $limit));
     }
 
     /**
      * Method is used by index.php to generate list of news on mainpage
      * (should be removed / refactored after index.php refactoring)
      *
-     * @param string $logged
-     * @return array of News objects
+     * @param boolean $logged
+     * @return News[]
      */
     public static function listNewsOnMainPage($logged = false)
     {
@@ -80,9 +57,28 @@ class NewsListController extends BaseController
 
     private function showNewsList(array $newsList)
     {
-        tpl_set_tplname('news/newsList');
+        $this->view->setTemplate('news/newsList');
         $this->view->setVar('newsList', $newsList);
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/news/news.css'));
-        tpl_BuildTemplate();
+        $this->view->buildView();
     }
+
+    /**
+     * Shows page with single news identyfied by $newsId
+     *
+     * @param integer $newsId
+     */
+    public function show($newsId)
+    {
+        $news = News::fromNewsIdFactory($newsId);
+        if (is_null($news) || ! $news->canBeViewed($this->isUserLogged())) {
+           $this->view->redirect(SimpleRouter::getLink('News.NewsList'));
+           exit();
+        }
+        $this->view->setVar('news', $news);
+        $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/news/news.css'));
+        $this->view->setTemplate('news/newsItem');
+        $this->view->buildView();
+    }
+
 }

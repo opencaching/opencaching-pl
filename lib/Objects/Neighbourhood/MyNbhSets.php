@@ -52,15 +52,13 @@ class MyNbhSets extends BaseObject
                 SELECT `cache_id`
                   FROM `local_caches`
                   WHERE `type` NOT IN (:excludedtypes)
-                    AND `status` = :status
-                    AND `date_hidden` <= NOW()
-                    AND `date_created` <= NOW()';
+                    AND `status` = :status';
         if ($onlyFTF) {
             $query .= ' AND `founds` = 0 ';
         }
         $query .= '
                   ORDER BY
-                    IF( (`date_hidden` > `date_created`), `date_hidden`, `date_created`) DESC,
+                    `date_published` DESC,
                     `cache_id` DESC
                   LIMIT :offset, :limit';
         $stmt = $this->db->paramQuery($query, $params);
@@ -82,9 +80,7 @@ class MyNbhSets extends BaseObject
                 SELECT COUNT(*)
                   FROM `local_caches`
                   WHERE `type` NOT IN (:1)
-                    AND `status` = :2
-                    AND `date_hidden` <= NOW()
-                    AND `date_created` <= NOW()';
+                    AND `status` = :2';
         if ($onlyFTF) {
             $query .= ' AND `founds` = 0 ';
         }
@@ -283,7 +279,7 @@ class MyNbhSets extends BaseObject
     private function createLocalCachesTable()
     {
         $this->dropLocalCachesTable();
-        
+
         $params = [];
         $params['userid']['value'] = $this->getCurrentUser()->getUserId();
         $params['userid']['data_type'] = 'integer';
@@ -295,9 +291,9 @@ class MyNbhSets extends BaseObject
         $params['radius']['data_type'] = 'integer';
         $excludedstatus = GeoCache::STATUS_WAITAPPROVERS . ' , ' . GeoCache::STATUS_NOTYETAVAILABLE . ' , ' . GeoCache::STATUS_BLOCKED;
         self::db()->paramQuery("
-            CREATE TEMPORARY TABLE local_caches ENGINE=MEMORY
+            CREATE TEMPORARY TABLE `local_caches` ENGINE=MEMORY
                 SELECT `cache_id`, `status`, `type`,
-                    `founds`, `date_hidden`, `date_created`, `topratings`
+                    `founds`, `date_hidden`, `date_published`, `topratings`
                 FROM `caches`
                 WHERE `cache_id` NOT IN (SELECT `cache_ignore`.`cache_id` FROM `cache_ignore` WHERE `cache_ignore`.`user_id`= :userid)
                 AND caches.status NOT IN ($excludedstatus)
@@ -305,7 +301,7 @@ class MyNbhSets extends BaseObject
                     sin((90-`latitude`) * PI() / 180) * sin((90-:lat) * PI() / 180) * cos(( `longitude` - :lon) *
                     PI() / 180)) * 6370) <= :radius
             ", $params);
-        
+
         // TODO: Sprawdzić, czy indeksy faktycznie przyspieszają, czy są tu z przyzwyczajenia
         self::db()->simpleQuery('ALTER TABLE local_caches
                 ADD PRIMARY KEY ( `cache_id` ),
@@ -315,7 +311,7 @@ class MyNbhSets extends BaseObject
                 ADD INDEX(`founds`),
                 ADD INDEX(`topratings`),
                 ADD INDEX(`date_hidden`),
-                ADD INDEX(`date_created`)');
+                ADD INDEX(`date_published`)');
     }
 
     /**
@@ -325,7 +321,7 @@ class MyNbhSets extends BaseObject
     private function dropLocalCachesTable()
     {
         self::db()->simpleQuery('
-                DROP TEMPORARY TABLE IF EXISTS local_caches
+                DROP TEMPORARY TABLE IF EXISTS `local_caches`
             ');
     }
 }

@@ -2,22 +2,22 @@
 namespace Controllers;
 
 use Controllers\News\NewsListController;
-use Utils\Uri\Uri;
-use lib\Objects\Stats\TotalStats;
-use lib\Objects\GeoCache\GeoCache;
-use lib\Objects\GeoCache\MultiCacheStats;
-use lib\Objects\User\User;
 use Utils\Cache\OcMemCache;
 use Utils\Feed\RssFeed;
+use Utils\Text\Formatter;
+use Utils\Uri\SimpleRouter;
+use Utils\Uri\Uri;
+use lib\Objects\CacheSet\CacheSet;
+use lib\Objects\CacheSet\CacheSetOwner;
+use lib\Objects\ChunkModels\StaticMap\StaticMapMarker;
+use lib\Objects\ChunkModels\StaticMap\StaticMapModel;
 use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\GeoCache\CacheTitled;
+use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\GeoCache\GeoCacheLog;
-use lib\Objects\CacheSet\CacheSet;
-use Utils\Text\Formatter;
-use lib\Objects\ChunkModels\StaticMap\StaticMapModel;
-use Utils\Uri\SimpleRouter;
-use lib\Objects\ChunkModels\StaticMap\StaticMapMarker;
-use lib\Objects\CacheSet\CacheSetOwner;
+use lib\Objects\GeoCache\MultiCacheStats;
+use lib\Objects\Stats\TotalStats;
+use lib\Objects\User\User;
 
 class StartPageController extends BaseController
 {
@@ -403,4 +403,3 @@ class StartPageController extends BaseController
         }
     }
 }
-

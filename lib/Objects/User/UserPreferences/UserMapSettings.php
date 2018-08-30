@@ -23,7 +23,6 @@ class UserMapSettings extends UserPreferencesBaseData
                 'h_m' => false,             /* hide multi. */
                 'h_noattempt' => false,     /* hide ? */
                 'h_nogeokret' => false,     /* hide caches without geokrets */
-                'h_noscore' => false,       /* hide caches without score */
                 'h_o' => false,             /* hide ?? */
                 'h_own' => false,           /* hide owning caches */
                 'h_owncache' => false,      /* hide owncaches */
@@ -34,6 +33,7 @@ class UserMapSettings extends UserPreferencesBaseData
                 'h_v' => false,             /* hide virtuals */
                 'h_w' => false,             /* hide webcams */
                 'min_score' => -3,          /* minimum score of cache */
+                'h_noscore' => true,        /* show caches without score */
                 'powertrail_only' => false, /* */
             ],
             'map' => 'OSM',                 /* last used map */
@@ -42,4 +42,3 @@ class UserMapSettings extends UserPreferencesBaseData
 
 
 }
-

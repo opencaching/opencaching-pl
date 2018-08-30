@@ -213,7 +213,7 @@ $config['maps']['cache_mini_map']['zoom'] = 14;
  * $config['maps']['external']['MyMap_URL'] = '<a href="http://site/file?lat=%1$f&lon=%2$f&id=%3$s&name=%5$s">%6$s</a>';
  */
 $config['maps']['external']['Opencaching'] = 1;
-$config['maps']['external']['Opencaching_URL'] = 'cachemap3.php?lat=%1$f&lon=%2$f&cacheid=%3$s&inputZoom=14';
+$config['maps']['external']['Opencaching_URL'] = '/CacheMap/embeded?lat=%1$f&lon=%2$f&cacheid=%3$s&inputZoom=14';
 $config['maps']['external']['OSM'] = 1;
 $config['maps']['external']['OSM_URL'] = 'https://www.openstreetmap.org/index.html?mlat=%1$f&mlon=%2$f&zoom=16&layers=M';
 $config['maps']['external']['OSMapa'] = 0;

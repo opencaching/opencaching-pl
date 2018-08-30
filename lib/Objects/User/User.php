@@ -59,7 +59,9 @@ class User extends UserCommons
 
     private $dateCreated;
     private $description;
-    private $lastLogin;
+
+    /** @var \DateTime */
+    private $lastLogin = null;
     private $isActive = null;
 
     private $verifyAll = null;
@@ -326,7 +328,11 @@ class User extends UserCommons
                     $this->description = $value;
                     break;
                 case 'last_login':
-                    $this->lastLogin = $value;
+                    if (empty($value) || $value == '0000-00-00 00:00:00') {
+                        $this->lastLogin = null;
+                    } else {
+                        $this->lastLogin = new \DateTime($value);
+                    }
                     break;
                 case 'is_active_flag':
                     $this->isActive = Php7Handler::Boolval($value);
@@ -926,4 +932,60 @@ class User extends UserCommons
             LIMIT 1
             ', $this->getUserId()));
     }
+
+    /**
+     * Returns translations string for user last_login date
+     * see 'this_month', 'more_one_month', 'more_six_month', 'more_12_month'
+     * in translation files
+     *
+     * @return string
+     */
+    public function getLastLoginPeriodString()
+    {
+        // User has no last login date in DB - return 'unknow'
+        if ($this->getLastLoginDate() === null) {
+            return 'unknown';
+        }
+
+        $dateDiff = $this->getLastLoginDate()->diff(new \DateTime());
+        $monthsDiff = ($dateDiff->y * 12) + $dateDiff->m;
+
+        if ($monthsDiff > 12) {
+            return 'more_12_month';
+        } elseif ($monthsDiff > 6) {
+            return 'more_six_month';
+        } elseif ($monthsDiff > 1) {
+            return 'more_one_month';
+        } else {
+            return 'this_month';
+        }
+    }
+
+    /**
+     * Returns CSS class for user last_login date
+     * see also getLastLoginPeriodString()
+     *
+     * @return string
+     */
+    public function getLastLoginPeriodClass()
+    {
+        // User has no last login date in DB - return 'unknow'
+        if ($this->getLastLoginDate() === null) {
+            return 'text-color-dark';
+        }
+
+        $dateDiff = $this->getLastLoginDate()->diff(new \DateTime());
+        $monthsDiff = ($dateDiff->y * 12) + $dateDiff->m;
+
+        if ($monthsDiff > 12) {
+            return 'text-color-danger';
+        } elseif ($monthsDiff > 6) {
+            return 'text-color-warning';
+        } elseif ($monthsDiff > 1) {
+            return 'text-color-secondary';
+        } else {
+            return 'text-color-success';
+        }
+    }
+
 }

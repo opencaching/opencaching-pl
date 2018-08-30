@@ -1,16 +1,18 @@
 
-function mapEntryPoint(map, targetDiv){
+function mapEntryPoint(map, targetDiv) {
 
   // create main map file
   map = new ol.Map({
     target: targetDiv,
     view: new ol.View({
-      center: ol.proj.fromLonLat([18.0, 54.0]),
-      zoom: 10,
+      center: ol.proj.fromLonLat([ocMapInputParams.centerOn.lon, ocMapInputParams.centerOn.lat]),
+      zoom: ocMapInputParams.mapStartZoom,
     }),
     controls: ol.control.defaults({
-      attributionOptions: {
+      attributionOptions:
+      {
         collapsible: false,
+        target: $("#ocAttribution")[0],
       },
       zoom: false
     }),
@@ -20,32 +22,44 @@ function mapEntryPoint(map, targetDiv){
       {
         element: $("#controlCombo")[0],
       }
-  ))
+  ));
+
+  map.addControl(new ol.control.Control(
+      {
+        element: $("#ocAttribution")[0],
+      }
+  ));
 
   // init filter box - should be called before layers init
-  filterBoxInit(map)
+  filterBoxInit(map);
 
   // init map layers
-  layerSwitcherInit(map)
+  layerSwitcherInit(map);
 
   // init scaleLine
-  scaleLineInit(map)
+  scaleLineInit(map);
 
   // init zoom controls
-  mapZoomControlsInit(map)
+  mapZoomControlsInit(map);
 
   // init map-click handlers
-  mapClickInit(map)
+  mapClickInit(map);
 
   // init mouse position coords
-  cordsUnderCursorInit(map)
+  cordsUnderCursorInit(map);
 
   // init button of GPS position
-  gpsPositionInit(map)
+  gpsPositionInit(map);
+
+  // actions for resize map
+  window.addEventListener('resize', function() {
+    mapWindowResize(map);
+  });
+  mapWindowResize(map);
 
 } // mapEntryPoint
 
-function layerSwitcherInit(map){
+function layerSwitcherInit(map) {
 
   // add oc-Tiles layer
   map.addLayer(
@@ -60,17 +74,17 @@ function layerSwitcherInit(map){
 
   // add maps to switcher
   var switcherDropdown = $("#layerSwitcher select")
-  $.each( ocMapConfig.getExtMapConfigs(), function(key, val){
-
-    switcherDropdown.append('<option value='+key+'>'+key+'</option>');
+  $.each( ocMapConfig.getExtMapConfigs(), function(key, val) {
 
     val.set('ocLayerName', key)
     val.set('wrapX', true)
     val.set('zIndex', 1)
 
-    if(key == ocMapConfig.getUserSettings().map){
+    if (key == ocMapConfig.getUserSettings().map) {
+      switcherDropdown.append('<option value='+key+' selected>'+key+'</option>');
       val.setVisible(true);
-    }else{
+    } else {
+      switcherDropdown.append('<option value='+key+'>'+key+'</option>');
       val.setVisible(false);
     }
 
@@ -86,16 +100,23 @@ function layerSwitcherInit(map){
   ))
 
   // init switcher event
-  switcherDropdown.change(function(a){
+  switcherDropdown.change(function(a) {
 
-    map.getLayers().forEach(function(layer){
-        if( layer.get('ocLayerName') =='ocTiles' ||
-            layer.get('ocLayerName') == switcherDropdown.val() ){
+    map.getLayers().forEach(function(layer) {
+        if ( layer.get('ocLayerName') != 'ocTiles') {
 
-          layer.setVisible(true)
-        }else{
+          if ( layer.get('ocLayerName') == switcherDropdown.val() ) {
+            layer.setVisible(true);
+            //$("#ocAttribution").html(layer.getSource().attributions_[0].html_)
+            //console.log(layer.getSource().get('attributions'));
+          } else {
+            layer.setVisible(false);
+          }
 
-          layer.setVisible(false)
+        } else {
+          if ( layer.getVisible() != true) {
+            layer.setVisible(true);
+          }
         }
     })
 
@@ -103,8 +124,7 @@ function layerSwitcherInit(map){
   })
 }
 
-
-function scaleLineInit(map){
+function scaleLineInit(map) {
   element = $("#mapScale")
 
   map.addControl(new ol.control.Control(
@@ -116,16 +136,15 @@ function scaleLineInit(map){
       {
         className: 'customScale',
         target: element[0],
-        minWidth: 120,
+        minWidth: 100,
       }
   ))
 }
 
-
 /**
  * init zoom controls
  */
-function mapZoomControlsInit(map){
+function mapZoomControlsInit(map) {
 
   map.addControl(new ol.control.Control(
       {
@@ -133,13 +152,13 @@ function mapZoomControlsInit(map){
       }
   ))
 
-  $("#mapZoomIn").click(function(){
+  $("#mapZoomIn").click(function() {
     var view = map.getView()
     var zoom = view.getZoom()
     view.setZoom(zoom + 1)
   })
 
-  $("#mapZoomOut").click(function(){
+  $("#mapZoomOut").click(function() {
     var view = map.getView()
     var zoom = view.getZoom()
     view.setZoom(zoom - 1)
@@ -147,7 +166,7 @@ function mapZoomControlsInit(map){
 
 }
 
-function getOcTailSource(addRandomParam){
+function getOcTailSource(addRandomParam) {
 
   var ocTilesUrl = '/lib/mapper_okapi.php'
 
@@ -155,25 +174,21 @@ function getOcTailSource(addRandomParam){
   ocTilesUrl += '&z={z}&x={x}&y={y}'
   ocTilesUrl += dumpFiltersToStr()
 
-  if( addRandomParam != undefined ){
+  if ( addRandomParam != undefined ) {
     t = new Date();
     ocTilesUrl += "&rand=" + "r" + t.getTime();
   }
 
   // add searchdata param if necessary
-  if( searchData = ocMapConfig.getSearchData() ){
+  if ( searchData = ocMapConfig.getSearchData() ) {
     ocTilesUrl += "&searchdata="+searchdata;
   }
 
   // add powertrail ids list if necessary
-  if( ptIds = ocMapConfig.getPowerTrailIds() ){
-    if( $('#pt_selection').is(":checked") ){ //skip to see all caches
+  if ( ptIds = ocMapConfig.getPowerTrailIds() ) {
+    if ( $('#pt_selection').is(":checked") ) { //skip to see all caches
       ocTilesUrl += "&powertrail_ids="+ptIds
     }
-  }
-
-  if( extraUserId = ocMapConfig.getExtraUserId() ){
-    ocTilesUrl += "&userid="+ extraUserId;
   }
 
   return new ol.source.TileImage({
@@ -186,7 +201,7 @@ function getOcTailSource(addRandomParam){
 
 }
 
-function mapClickInit(map){
+function mapClickInit(map) {
 
   var pendingClickRequest = null; //last click ajax request
   var pendingClickRequestTimeout = 10000; // default timeout - in milliseconds
@@ -194,7 +209,7 @@ function mapClickInit(map){
   /**
    * Cancel previous ajax requests
    */
-  var _abortPreviousRequests = function (){
+  var _abortPreviousRequests = function () {
     if (pendingClickRequest) {
       pendingClickRequest.abort();
       pendingClickRequest = null;
@@ -204,16 +219,16 @@ function mapClickInit(map){
   /**
    * Returns extent 32px x 32px with center in coordinates
    */
-  var _getClickBounds = function (coords){
+  var _getClickBounds = function (coords) {
     unitsPerPixel = map.getView().getResolution();
     circleClicked = new ol.geom.Circle(coords, 16*unitsPerPixel)
     return circleClicked.getExtent()
   }
 
-  var _displayClickMarker = function (coords){
+  var _displayClickMarker = function (coords) {
 
     clickMarker = map.getOverlayById('mapClickMarker')
-    if(clickMarker==null){ //clickMarker is undefined
+    if (clickMarker==null) { //clickMarker is undefined
       // prepare map click marker overlay.
       map.addOverlay( new ol.Overlay(
           {
@@ -222,21 +237,21 @@ function mapClickInit(map){
             position: coords,
           }
       ))
-    }else{
+    } else {
       clickMarker.setPosition(coords)
     }
   }
 
-  var _hideClickMarker = function (){
+  var _hideClickMarker = function () {
     clickMarker = map.getOverlayById('mapClickMarker')
-    if( clickMarker ){ // clickMarker is present
+    if ( clickMarker ) { // clickMarker is present
       clickMarker.setPosition(undefined)
     }
   }
 
   var _hidePopup = function() {
     popup = map.getOverlayById('mapPopup')
-    if( popup ){ // clickMarker is present
+    if ( popup ) { // clickMarker is present
       popup.setPosition(undefined)
     }
   }
@@ -248,7 +263,7 @@ function mapClickInit(map){
     swCorner = ol.proj.transform(ol.extent.getBottomLeft(extent),'EPSG:3857','EPSG:4326')
     neCorner = ol.proj.transform(ol.extent.getTopRight(extent),'EPSG:3857','EPSG:4326')
 
-    var url="/lib/xmlmap.php"+
+    var url="/CacheMapBalloon/json"+
                 "?rspFormat="+"html"+
                 "&latmin="+swCorner[1]+"&lonmin="+swCorner[0]+
                 "&latmax="+neCorner[1]+"&lonmax="+neCorner[0]+
@@ -257,13 +272,13 @@ function mapClickInit(map){
                 dumpFiltersToStr()
 
     // add searchdata param if necessary
-    if(searchData = ocMapConfig.getSearchData()){
+    if (searchData = ocMapConfig.getSearchData()) {
       url += "&searchdata="+searchdata
     }
 
     // add powertrail ids list if necessary
-    if( ptIds = ocMapConfig.getPowerTrailIds() ){
-      if( $('#pt_selection').is(":checked")){ //skip to see all caches
+    if ( ptIds = ocMapConfig.getPowerTrailIds() ) {
+      if ( $('#pt_selection').is(":checked")) { //skip to see all caches
           url += "&powertrail_ids="+ptIds;
       }
     }
@@ -288,20 +303,23 @@ function mapClickInit(map){
 
     pendingClickRequest.done( function( data ) {
 
-      if(data === "" ){ // nothing to display
+      console.log(data);
+
+      if (data === null ) { // nothing to display
           _hidePopup();
           return; //nothing more to do here
       }
 
-      cacheCords = $($.parseHTML(data)).filter('input[name="cache_cords"]').val();
-      cacheCords = jQuery.parseJSON(cacheCords);
+      //cacheCords = $($.parseHTML(data)).filter('input[name="cache_cords"]').val();
+      //cacheCords = jQuery.parseJSON(cacheCords);
       //cacheCords = ol.proj.fromLonLat([cacheCords.longitude,cacheCords.latitude])
 
-      cacheCords = ol.proj.transform([cacheCords.longitude,cacheCords.latitude],'EPSG:4326','EPSG:3857')
+      //cacheCords = ol.proj.transform([cacheCords.longitude,cacheCords.latitude],'EPSG:4326','EPSG:3857')
+      cacheCords = ol.proj.transform([data.coords.lon,data.coords.lat],'EPSG:4326','EPSG:3857')
 
 
       popup = map.getOverlayById('mapPopup')
-      if(popup == null){
+      if (popup == null) {
 
         // there is no popup object - create it
         map.addOverlay( popup = new ol.Overlay(
@@ -326,7 +344,10 @@ function mapClickInit(map){
         popup.setPosition(cacheCords)
       }
 
-      $("#mapPopup-content").html(data)
+      var balloonTpl = $("#cacheInforBallonTpl").html();
+      var balloonTplCompiled = Handlebars.compile(balloonTpl);
+
+      $("#mapPopup-content").html(balloonTplCompiled(data));
 
     });
 
@@ -348,7 +369,7 @@ function mapClickInit(map){
 
 
   // assign left-click handler
-  map.on("singleclick", function(evt){
+  map.on("singleclick", function(evt) {
     onLeftClickFunc(evt.coordinate)
   })
 
@@ -360,7 +381,7 @@ function mapClickInit(map){
 
 }
 
-function cordsUnderCursorInit(map){
+function cordsUnderCursorInit(map) {
 
   element = $("#mousePosition")
   map.addControl(new ol.control.Control(
@@ -372,8 +393,8 @@ function cordsUnderCursorInit(map){
   var lastCoords = null
   var currentFormat = CoordinatesUtil.FORMAT.DEG_MIN
 
-  map.on('pointermove', function(event){
-    if(!CoordinatesUtil.cmp(lastCoords, event.coordinate)){
+  map.on('pointermove', function(event) {
+    if (!CoordinatesUtil.cmp(lastCoords, event.coordinate)) {
       lastCoords = event.coordinate
 
       $("#mousePosition").html(
@@ -381,8 +402,8 @@ function cordsUnderCursorInit(map){
     }
   })
 
-  element.dblclick(function(){
-    switch(currentFormat){
+  element.dblclick(function() {
+    switch(currentFormat) {
     case CoordinatesUtil.FORMAT.DEG_MIN:
       currentFormat = CoordinatesUtil.FORMAT.DEG_MIN_SEC
       break
@@ -403,14 +424,14 @@ function cordsUnderCursorInit(map){
 /**
  * init filters box
  */
-function filterBoxInit(map){
+function filterBoxInit(map) {
 
   var filtersControlAdded = false;
 
   /**
    * Filters changed - ocLayer should be refreshed
    */
-  var refreshOcTiles = function (refreshTiles){
+  var refreshOcTiles = function (refreshTiles) {
 
     ocLayer = map.getLayers().item(0) // item0=layer with ocTiles
     ocLayer.setSource(getOcTailSource(refreshTiles))
@@ -422,18 +443,18 @@ function filterBoxInit(map){
   // init
 
   // set values saved at server side
-  $.each(ocMapConfig.getUserSettings().filters, function(key, val){
+  $.each(ocMapConfig.getUserSettings().filters, function(key, val) {
     var el = $("#"+key);
-    if(el.is("input")){
+    if (el.is("input")) {
       el.prop('checked', val);
-    }else if(el.is("select")){
+    } else if (el.is("select")) {
       el.val(val)
     }
   })
 
-  $('#filtersToggle').click(function(){
+  $('#filtersToggle').click(function() {
 
-    if(!filtersControlAdded) {
+    if (!filtersControlAdded) {
       // init filters at the begining
       filtersControlAdded = true;
 
@@ -447,32 +468,53 @@ function filterBoxInit(map){
       // be sure filters are hidden now
       $('#mapFilters').toggle(false)
 
-      // add filters click handlers
-      $('#mapFilters input').click(function(){
-        refreshOcTiles()
-      })
 
-      $('#mapFilters select').change(function(){
-        refreshOcTiles()
-      })
     }
 
     // hide/display filters box
     $('#mapFilters').toggle()
   });
 
-  $('#refreshButton').click(function(){
+  // add filters click handlers
+  $('#mapFilters input').click(function() {
+    refreshOcTiles()
+  })
+
+  $('#mapFilters select').change(function() {
+    refreshOcTiles()
+  })
+
+  $('#refreshButton').click(function() {
     refreshOcTiles(true);
   });
+  
+  if (document.getElementById('fullscreenToggle')) {
+	$('#fullscreenToggle').click(function() {
+		fullScreenToggle(map);
+	})
+  }
+
 }
 
-function saveUserSettings(){
+function fullScreenToggle(map) {
+	zoomCurrent = map.getView().getZoom();
+	coordsCurrent = map.getView().getCenter();
+	mapCoordsCode = map.getView().getProjection().getCode();
+	wgs84Coords = ol.proj.transform(coordsCurrent, mapCoordsCode, 'EPSG:4326');
+	uri = ocMapInputParams.fullScreenToggleUri;
+	uri += '?lon=' + wgs84Coords[0];
+	uri += '&lat=' + wgs84Coords[1];
+	uri += '&inputZoom=' + zoomCurrent;
+	window.location.href = uri;
+}
+
+function saveUserSettings() {
   $.ajax({
     type: "POST",
     dataType: 'json',
     url: "/CacheMap/saveMapSettingsAjax",
     data: { userMapSettings: JSON.stringify(getUserMapSettingsJson()) },
-    success: function(){
+    success: function() {
       console.log("data saved")
     },
     error: function() {
@@ -481,7 +523,7 @@ function saveUserSettings(){
   })
 }
 
-function getUserMapSettingsJson(){
+function getUserMapSettingsJson() {
 
   return {
     filters: dumpFiltersToJson(),
@@ -490,25 +532,25 @@ function getUserMapSettingsJson(){
 
 }
 
-function dumpFiltersToJson(){
+function dumpFiltersToJson() {
 
   var json = {};
-  $('#mapFilters input').each(function(){
+  $('#mapFilters input').each(function() {
     json[$(this).prop('id')] = $(this).prop("checked")
   })
 
-  $('#mapFilters select').each(function(){
+  $('#mapFilters select').each(function() {
     json[$(this).prop('id')] = $(this).val()
   })
 
   return json;
 }
 
-function dumpFiltersToStr(){
+function dumpFiltersToStr() {
 
   var str = ""
 
-  $.each(dumpFiltersToJson(), function(key,val){
+  $.each(dumpFiltersToJson(), function(key,val) {
     str += '&'+key+'='+val
   })
 
@@ -518,12 +560,12 @@ function dumpFiltersToStr(){
   return str
 }
 
-function gpsPositionInit(map){
+function gpsPositionInit(map) {
   // check if geolocation is supported by the browser
-  if (("geolocation" in navigator)){
+  if (("geolocation" in navigator)) {
 
     var geolocationObj = new GeolocationOnMap(map, 'gpsPosition');
-    $('#gpsPosition').click(function(){
+    $('#gpsPosition').click(function() {
       geolocationObj.getCurrentPosition();
     })
 
@@ -536,39 +578,36 @@ function gpsPositionInit(map){
 
 var ocMapConfig = {
 
-  getUserId: function (){
+  getUserId: function () {
     //TODO: parse value
     return ocMapInputParams.userId;
   },
 
-  getSearchData: function (){
+  getSearchData: function () {
     //TODO: parse value
     return ocMapInputParams.searchData;
   },
 
-  getPowerTrailIds: function (){
+  getPowerTrailIds: function () {
     //TODO: parse value
     return ocMapInputParams.searchData;
   },
 
-  getUserSettings: function (){
+  getUserSettings: function () {
     return ocMapInputParams.userSettings;
   },
 
-  getExtraUserId: function () {
-    return ocMapInputParams.extraUserId;
-  },
-
-  getExtMapConfigs: function (){
+  getExtMapConfigs: function () {
     return ocMapInputParams.extMapConfigs;
   }
+
 };
 
 /**
  * Object used in processing geolocation on the map
  * It allows to show current position read from GPS
  */
-function GeolocationOnMap(map, iconId){
+function GeolocationOnMap(map, iconId) {
 
     this.iconId = iconId
     this.map = map
@@ -586,7 +625,7 @@ function GeolocationOnMap(map, iconId){
     this.getCurrentPosition = function() {
         console.log('get position...')
 
-        if (!("geolocation" in navigator)){
+        if (!("geolocation" in navigator)) {
           console.error('Geolocation not supported by browser!')
           return;
         }
@@ -660,7 +699,7 @@ function GeolocationOnMap(map, iconId){
             obj.positionMarkersCollection.push(accuracyFeature)
             obj.positionMarkersCollection.push(positionFeature)
 
-            if(obj.positionMarkersLayer == null){
+            if (obj.positionMarkersLayer == null) {
               obj.positionMarkersLayer = new ol.layer.Vector({
                 map: obj.map,
                 source: new ol.source.Vector({
@@ -675,7 +714,7 @@ function GeolocationOnMap(map, iconId){
     this.getErrorCallback = function() {
         var obj = this;
 
-        return function(positionError){
+        return function(positionError) {
             console.error('OC Map: positions reading error!')
             console.error(positionError)
 
@@ -704,7 +743,6 @@ function GeolocationOnMap(map, iconId){
     return this;
 }
 
-
 var CoordinatesUtil = {
 
   FORMAT: Object.freeze({
@@ -713,7 +751,7 @@ var CoordinatesUtil = {
     DEG_MIN_SEC: 3, /* degrees minutes seconds: N 40° 26′ 46″ W 79° 58′ 56″ */
   }),
 
-  cmp: function(coordsA, coordsB){
+  cmp: function(coordsA, coordsB) {
     return (
         Array.isArray(coordsA) &&
         Array.isArray(coordsB) &&
@@ -721,9 +759,9 @@ var CoordinatesUtil = {
         coordsA[1] == coordsB[1]);
   },
 
-  toWGS84: function (map, coords, outFormat){
+  toWGS84: function (map, coords, outFormat) {
 
-    if (outFormat == undefined){
+    if (outFormat == undefined) {
       // set default output format
       outFormat = this.FORMAT.DEG_MIN;
     }
@@ -740,7 +778,7 @@ var CoordinatesUtil = {
     lonParts = this.getParts(lon);
     latParts = this.getParts(lat);
 
-    switch(outFormat){
+    switch(outFormat) {
     case this.FORMAT.DEG_MIN:
       return latHemisfere + " " + Math.floor(latParts.deg) + "° " +
                 latParts.min.toFixed(3) + "' " +
@@ -761,10 +799,23 @@ var CoordinatesUtil = {
     }
   },
 
-  getParts: function(coordinate){
+  getParts: function(coordinate) {
     var deg = Math.abs(coordinate);
     var min = 60 * (deg - Math.floor(deg));
     var sec = 60 * (min - Math.floor(min));
     return {deg: deg, min: min, sec: sec};
   },
 };
+
+function mapWindowResize(map) {
+
+  var mapIsSmall = map.getSize()[0] < 600;
+
+  if (mapIsSmall) {
+    $('#mousePosition').hide();
+    $("#mapScale").css( {left:'0'} );
+  } else {
+    $('#mousePosition').show();
+    $("#mapScale").css( {left:'40%'} );
+  }
+}

@@ -74,6 +74,7 @@
         {showhidedel_link}
     </p>
 </div>
+<?=($view->enableLogsFiltering && !$view->logId) ? $view->callChunk('logFilter', $view->isUserAuthorized, $view->cacheType) : ""?>
 <div class="content2-container" id="viewcache-logs">
     {logs}
 </div>

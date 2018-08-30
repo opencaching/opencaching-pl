@@ -7,6 +7,8 @@ use Controllers\PageLayout\MainLayoutController;
 use lib\Objects\User\UserPreferences\UserPreferences;
 use lib\Objects\User\UserPreferences\UserMapSettings;
 use Utils\Debug\Debug;
+use lib\Objects\User\User;
+use lib\Objects\Coordinates\Coordinates;
 
 class CacheMapController extends BaseController
 {
@@ -26,43 +28,53 @@ class CacheMapController extends BaseController
 
     public function index()
     {
-        $this->fullScreeenMap();
-    }
-
-    public function test($type=null)
-    {
-        $this->view->setTemplate('cacheMap/testMap');
-        $this->view->addLocalCss(
-            Uri::getLinkWithModificationTime('/tpl/stdstyle/cacheMap/cacheMap.css'));
-
-        switch($type){
-            case 'leafLet':
-                $this->view->addHeaderChunk('leafLet');
-                break;
-            case 'openLayers':
-                $this->view->addHeaderChunk('openLayers');
-                break;
-            default:
-                d("What?!",$type);
-                exit;
-        }
-
-        $this->view->setVar('mapType', $type);
-
-        $this->view->buildOnlySelectedTpl();
+        $this->fullScreen();
     }
 
     /**
      * Display fullscreen map
      */
-    public function fullScreen()
+    public function fullScreen($debug=false)
+    {
+        $this->view->setTemplate('cacheMap/mapFullScreen');
+        $this->view->setVar('embded', false);
+
+        $this->mapCommonInit($debug);
+
+        $this->view->display(MainLayoutController::MINI_TEMPLATE);
+    }
+
+    public function embeded($debug=false)
+    {
+
+        $this->view->setTemplate('cacheMap/mapEmbeded');
+        $this->view->setVar('embded', true);
+
+        $this->mapCommonInit($debug);
+
+        $this->view->buildView();
+    }
+
+    public function mini()
+    {
+        $this->view->setTemplate('cacheMap/mapMini');
+
+        $this->mapCommonInit(false);
+
+        $this->view->display(MainLayoutController::MINI_TEMPLATE);
+    }
+
+    private function mapCommonInit($debug)
     {
         $this->view->loadJQuery();
-        $this->view->setTemplate('cacheMap/map');
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime('/tpl/stdstyle/cacheMap/cacheMap.css'));
+        $this->view->addLocalCss(
+            Uri::getLinkWithModificationTime('/tpl/stdstyle/cacheMap/cacheInfoBalloon.css'));
 
-        $this->view->addHeaderChunk('openLayers', [true]);
+        $this->view->addHeaderChunk('handlebarsJs');
+
+        $this->view->addHeaderChunk('openLayers', [$debug]);
         $this->view->addLocalJs(
             Uri::getLinkWithModificationTime('/tpl/stdstyle/cacheMap/mapv4Common.js'));
 
@@ -70,35 +82,78 @@ class CacheMapController extends BaseController
         // read map config + run keys injector
         $mapConfigArray = $this->ocConfig->getMapConfig();
         $mapConfigInitFunc = $mapConfigArray['keyInjectionCallback'];
-        if( !$mapConfigInitFunc($mapConfigArray) ){
+        if ( !$mapConfigInitFunc($mapConfigArray)) {
             Debug::errorLog('mapConfig init failed');
-            exit;
+            exit();
         }
-        $this->view->setVar('extMapConfigs',$mapConfigArray['jsConfig']);
+        $this->view->setVar('extMapConfigs', $mapConfigArray['jsConfig']);
+
+        // find user for this map display
+        $user = null;
+        if (isset($_REQUEST['userid'])) {
+            $user = User::fromUserIdFactory($_REQUEST['userid']);
+        }
+        if (!$user) {
+            $user = $this->loggedUser;
+        }
+        $this->view->setVar('mapUserId', $user->getUserId());
+        $this->view->setVar('mapUserName', $user->getUserName());
+
+        // Set center of the map coords
+        $mapCenter = null;
+        if (isset($_REQUEST['lat']) && ($_REQUEST['lon'])) {
+            $mapCenter = Coordinates::FromCoordsFactory((float) $_REQUEST['lat'], (float) $_REQUEST['lon']);
+        }
+        if (is_null($mapCenter)) {
+            $mapCenter = $user->getHomeCoordinates();
+        }
+        if (isset($_REQUEST['inputZoom'])) {
+            $mapStartZoom = intval($_REQUEST['inputZoom']);
+        } else {
+            $mapStartZoom = 10;
+        }
+        if (! $mapCenter->areCordsReasonable()) {
+            $mapCenter = Coordinates::FromCoordsFactory($this->ocConfig->getMainPageMapCenterLat(), $this->ocConfig->getMainPageMapCenterLon());
+            $mapStartZoom = 8;
+        }
+        $centerOn = json_encode(['lat' => $mapCenter->getLatitude(), 'lon' => $mapCenter->getLongitude()]);
+        $this->view->setVar('centerOn', $centerOn);
+        $this->view->setVar('mapStartZoom', $mapStartZoom);
+
+        // TODO: cacheid=??? is not supported yet
+
+        // parse searchData if given
+        if (isset($_REQUEST['searchdata'])) {
+            $this->view->setVar('searchData', $_REQUEST['searchdata']);
+        }
+
+        // parse powerTrailIds if given
+        if (isset($_REQUEST['pt'])) {
+            $this->view->setVar('powerTrailIds', $_REQUEST['pt']);
+        }
 
 
-        $this->view->setVar('userId', $this->loggedUser->getUserId());
+
 
         $userPref = UserPreferences::getUserPrefsByKey(UserMapSettings::KEY);
         $this->view->setVar('filterVal', $userPref->getJsonValues());
 
-        $this->view->display(MainLayoutController::MINI_TEMPLATE);
     }
 
     public function saveMapSettingsAjax()
     {
-        if(!isset($_POST['userMapSettings'])){
+        if (!isset($_POST['userMapSettings'])) {
             $this->ajaxErrorResponse('no filtersData var in JSON', 400);
         }
 
         $json = $_POST['userMapSettings'];
 
-        if(UserPreferences::savePreferencesJson(UserMapSettings::KEY, $json)){
+        if (UserPreferences::savePreferencesJson(UserMapSettings::KEY, $json)) {
             $this->ajaxSuccessResponse("Data saved");
-        }else{
+        } else {
             $this->ajaxErrorResponse("Can't save a data", 500);
         }
 
     }
-}
 
+}

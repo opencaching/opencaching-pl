@@ -1,9 +1,11 @@
 <?php
 
-$submit = 'Usun';
+tpl_set_var('mail_oc', $mail_oc);
 
-$message_title_internal = 'Wewnętrzny błąd servera';
-$message_internal = 'Podczas procesu przetwarzania wystąpił błąd. Jeśli błąd powtarza się prosimy wysłać informacje na adres ocpl @ opencachin.pl załączając opis procedury wykonanej oraz plik w celu powtórzenia sytuacji powodujące błąd.';
+$submit = tr('remove_pic_subject');
+
+$message_title_internal = tr('remove_pic_title_internal');
+$message_internal = tr('remove_pic_internal');
 
 $message_title_toobig = 'Plik za duży';
 $message_toobig = 'Wybrany plik jest za duży. Postaraj się zmniejszyć go poprzez zmiane rodzielczości lub jakości.';

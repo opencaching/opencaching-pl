@@ -1,14 +1,14 @@
 <?php
 
 use Utils\Uri\SimpleRouter;
+use Utils\Uri\Uri;
 
-global $user_id;
 ?>
 
-<link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/Badge.css" />
-<link rel="stylesheet" href="tpl/stdstyle/js/PieProgress/dist/css/asPieProgress.css">
-<script src="tpl/stdstyle/js/PieProgress/js/jquery.js"></script>
-<script src="tpl/stdstyle/js/PieProgress/dist/jquery-asPieProgress.js"></script>
+<link rel="stylesheet" type="text/css" media="screen,projection" href="/tpl/stdstyle/css/Badge.css">
+<link rel="stylesheet" href="/tpl/stdstyle/js/PieProgress/dist/css/asPieProgress.css">
+<script src="/tpl/stdstyle/js/PieProgress/js/jquery.js"></script>
+<script src="/tpl/stdstyle/js/PieProgress/dist/jquery-asPieProgress.js"></script>
 
 <script>
 jQuery(function($) {
@@ -73,14 +73,14 @@ jQuery(function($) {
                 <td><span class="txt-blue08" >{{registered_since_label}}:</span> <span class="txt-black"> {registered}</span><br></td>
                 <td rowspan="3" width="30%">
                     <img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt="Email" title="Email" align="middle">&nbsp;<a href="<?=SimpleRouter::getLink('UserProfile', 'mailTo', $view->userid)?>" class="links">{{email_user}}</a><br />
-                    <img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="Mapa" title="Map" align="middle">&nbsp;<a href="cachemap3.php?userid={userid}" class="links">{{show_user_map}}</a>
+                    <img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="Mapa" title="Map" align="middle">&nbsp;<a href="<?=Uri::setOrReplaceParamValue('userid', $view->userid, SimpleRouter::getLink('CacheMap', 'embeded'))?>" class="links">{{show_user_map}}</a>
                 </td>
             </tr>
             <tr>
                 <td><span class="txt-blue08" >{{descriptions}}:</span><span class="txt-black" style="line-height: 0.5cm;"> {description_start}{description}{description_end}</span></td>
             </tr>
             <tr>
-                <td><span class="txt-blue08" >{{lastlogins}}:</span><span class="txt-black" style="line-height: 0.5cm;"> {lastlogin}</span></td>
+                <td><span class="txt-blue08" >{{lastlogins}}:</span><span class="{lastloginClass}" style="line-height: 0.5cm;"> {lastlogin}</span></td>
             </tr>
             <tr>
                 <td colspan="3"><hr></td>
@@ -92,13 +92,13 @@ jQuery(function($) {
         <ul id="statmenu">
           <li class="group">
             <a style="background-image: url(images/actions/stat-18.png);background-repeat:no-repeat;"
-               href="/ustatsg2.php?userid=<?=$user_id?>">
+               href="/ustatsg2.php?userid=<?=$view->userid?>">
               <?=tr('graph_find')?>
             </a>
           </li>
           <li class="group">
             <a style="background-image: url(images/actions/stat-18.png);background-repeat:no-repeat;"
-               href="/ustatsg1.php?userid=<?=$user_id?>">
+               href="/ustatsg1.php?userid=<?=$view->userid?>">
               <?=tr('graph_created')?>
             </a>
           </li>

@@ -11,7 +11,7 @@
 
     <?php foreach ( $view->getHeaderChunks() as $chunkName => $args ) {?>
         <!-- load chunk $chunkName -->
-        <?php $view->callChunk($chunkName, $args); ?>
+        <?php $view->callChunk($chunkName, ...$args); ?>
     <?php } //foreach getHeaderChunks ?>
 
     <?php foreach( $view->getLocalCss() as $css ) { ?>
@@ -61,7 +61,7 @@
 
 </head>
 
-<body class="<?=$view->_backgroundSeason?>">
+<body>
 
     <?php $view-> _callTemplate(); ?>
 

@@ -10,7 +10,7 @@ use lib\Objects\Notify\NotifyEmailSender;
 class NotifyController extends BaseController
 {
 
-    const NOTIFY_FLAG = "/tmp/notification-run_notify.date";
+    const NOTIFY_FLAG = "notification-run_notify.date";
 
     /* @var \DateTime */
     private $lastRun;
@@ -104,7 +104,7 @@ class NotifyController extends BaseController
      */
     private function touchFlag()
     {
-        return touch(self::NOTIFY_FLAG);
+        return touch($this->getFlagFilename());
     }
 
     /**
@@ -115,11 +115,21 @@ class NotifyController extends BaseController
     private function getFlagTime()
     {
         $mTime = new \DateTime();
-        if (file_exists(self::NOTIFY_FLAG)) {
-            $mTime->setTimestamp(filemtime(self::NOTIFY_FLAG));
+        if (file_exists($this->getFlagFilename())) {
+            $mTime->setTimestamp(filemtime($this->getFlagFilename()));
         } else {
             $mTime->setTimestamp(0);
         }
         return $mTime;
+    }
+
+    /**
+     * Returns notify flag filename with full path
+     *
+     * @return string
+     */
+    private function getFlagFilename()
+    {
+        return $this->ocConfig->getDynamicFilesPath() . self::NOTIFY_FLAG;
     }
 }

@@ -6,6 +6,8 @@
 
 namespace Utils\Email;
 
+use lib\Objects\OcConfig\OcConfig;
+
 class OcSpamDomain {
 
     //domains - different error-trigger errors can have different domians
@@ -19,15 +21,16 @@ class OcSpamDomain {
      * @param enum $domain - only predefined domains are supported
      * @return boolean - true if email can be sent
      */
-    public static function isEmailAllowed($domain){
+    public static function isEmailAllowed($domain)
+    {
 
         $lockFile = self::getLockFile($domain);
-        if(is_null($lockFile)){
+        if (is_null($lockFile)) {
             //unknown domain - don't send anything
             return false;
         }
 
-        if ( file_exists($lockFile) ){
+        if (file_exists($lockFile)) {
 
             $lastEmail = filemtime($lockFile);
             $timeout = self::getTimeout($domain);
@@ -36,7 +39,7 @@ class OcSpamDomain {
                 //timeout not expired - don't send anything
                 return false;
             }
-        }else{
+        } else {
             //set permissions to allow touch file for apache|cron scripts
             touch($lockFile);
             chmod($lockFile,0666);
@@ -58,7 +61,7 @@ class OcSpamDomain {
      */
     private static function getTimeout($domain)
     {
-        switch ($domain){
+        switch ($domain) {
             case self::DB_ERRORS:
                 return 60;
                 break;
@@ -85,7 +88,7 @@ class OcSpamDomain {
     private static function getLockFile($domain)
     {
         $filename = '';
-        switch ($domain){
+        switch ($domain) {
             case self::DB_ERRORS:
                 $filename = 'ocSpamDomain-db-errors-emails.lock';
                 break;
@@ -101,6 +104,6 @@ class OcSpamDomain {
                 return null;
         }
 
-        return sys_get_temp_dir().'/'.$filename;
+        return OcConfig::instance()->getDynamicFilesPath() . $filename;
     }
 }

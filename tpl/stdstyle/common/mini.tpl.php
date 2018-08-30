@@ -37,8 +37,8 @@
 
       foreach ( $view->getHeaderChunks() as $chunkName => $args )
       {
-          echo "<!-- load chunk $chunkName -->";          
-          $view->callChunk($chunkName, $args);
+          echo "<!-- load chunk $chunkName -->";
+          $view->callChunk($chunkName, ...$args);
       }
 
       foreach ( $view->getLocalJs() as $js ) {

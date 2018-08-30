@@ -4,6 +4,7 @@ use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\Admin\ReportEmailTemplate;
 use lib\Objects\Admin\ReportPoll;
 use lib\Objects\Admin\ReportCommons;
+use Utils\Text\Formatter;
 ?>
 <?php if ($view->includeGCharts) {?>
 <script src="https://www.gstatic.com/charts/loader.js"></script>
@@ -52,11 +53,15 @@ use lib\Objects\Admin\ReportCommons;
     </tr>
     <tr>
       <td class="content-title-noshade" style="text-align: right;">{{date}}</td>
-      <td><?=$view->report->getDateSubmit()->format($view->dateFormat)?></td>
+      <td><?=Formatter::dateTime($view->report->getDateSubmit())?></td>
     </tr>
     <tr>
       <td class="content-title-noshade" style="text-align: right;">{{admin_reports_lbl_submiter}}</td>
-      <td><a href="<?=$view->report->getUserSubmit()->getProfileUrl()?>" class="links" target="_blank"><?=$view->report->getUserSubmit()->getUserName()?></a> (<?php echo $view->report->getUserSubmit()->getFoundGeocachesCount() + $view->report->getUserSubmit()->getNotFoundGeocachesCount() + $view->report->getUserSubmit()->getHiddenGeocachesCount()?>)</td>
+      <td>
+        <a href="<?=$view->report->getUserSubmit()->getProfileUrl()?>" class="links" target="_blank"><?=$view->report->getUserSubmit()->getUserName()?></a>
+        (<?php echo $view->report->getUserSubmit()->getFoundGeocachesCount() + $view->report->getUserSubmit()->getNotFoundGeocachesCount() + $view->report->getUserSubmit()->getHiddenGeocachesCount()?>)
+        | {{lastlogins}}: <span class="<?=$view->report->getUserSubmit()->getLastLoginPeriodClass()?>"><?=Formatter::dateTime($view->report->getUserSubmit()->getLastLoginDate())?></span>
+      </td>
     </tr>
     <tr>
       <td class="content-title-noshade" style="text-align: right;">{{admin_reports_lbl_leader}}</td>
@@ -77,7 +82,7 @@ use lib\Objects\Admin\ReportCommons;
     <tr>
       <td class="content-title-noshade" style="text-align: right;">{{last_modified_label}}</td>
       <td>
-        <?php if ($view->report->getDateLastChange() != null) { echo $view->report->getDateLastChange()->format($view->dateFormat); }?>
+        <?php if ($view->report->getDateLastChange() != null) { echo Formatter::dateTime($view->report->getDateLastChange()); }?>
         <?php if ($view->report->getUserIdLastChange() != null) {?>(<a href="<?=$view->report->getUserLastChange()->getProfileUrl()?>" class="links" target="_blank"><?=$view->report->getUserLastChange()->getUserName()?></a>) <?php }?>
       </td>
     </tr>
@@ -111,7 +116,7 @@ use lib\Objects\Admin\ReportCommons;
       <td class="content-title-noshade" style="text-align: right;">{{new_logs}}</td>
       <td>
         <?php foreach ($view->lastLogs as $log) { ?>
-          <img src="<?=GeoCacheLogCommons::GetIconForType($log->getType())?>" alt="<?=tr(GeoCacheLogCommons::typeTranslationKey($log->getType()))?>" onmouseover="Tip('<b><?=$log->getUser()->getUserName()?></b>&nbsp;(<?=$log->getDate()->format($view->dateFormat)?>)<br><?=GeoCacheLogCommons::cleanLogTextForToolTip($log->getText())?>',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">
+          <img src="<?=GeoCacheLogCommons::GetIconForType($log->getType())?>" alt="<?=tr(GeoCacheLogCommons::typeTranslationKey($log->getType()))?>" onmouseover="Tip('<b><?=$log->getUser()->getUserName()?></b>&nbsp;(<?=Formatter::dateTime($log->getDate())?>)<br><?=GeoCacheLogCommons::cleanLogTextForToolTip($log->getText())?>',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">
         <?php  }?>
       </td>
     </tr>
@@ -119,7 +124,9 @@ use lib\Objects\Admin\ReportCommons;
       <td class="content-title-noshade" style="text-align: right;">{{owner}}</td>
       <td>
         <a href="<?=$view->report->getCache()->getOwner()->getProfileUrl()?>" class="links" target="_blank"><?=$view->report->getCache()->getOwner()->getUserName()?></a>
-        (<?php echo $view->report->getCache()->getOwner()->getFoundGeocachesCount() + $view->report->getCache()->getOwner()->getNotFoundGeocachesCount() + $view->report->getCache()->getOwner()->getHiddenGeocachesCount()?>)</td>
+        (<?php echo $view->report->getCache()->getOwner()->getFoundGeocachesCount() + $view->report->getCache()->getOwner()->getNotFoundGeocachesCount() + $view->report->getCache()->getOwner()->getHiddenGeocachesCount()?>)
+        | {{lastlogins}}: <span class="<?=$view->report->getCache()->getOwner()->getLastLoginPeriodClass()?>"><?=Formatter::dateTime($view->report->getCache()->getOwner()->getLastLoginDate())?></span>
+      </td>
     </tr>
     <tr>
       <td class="content-title-noshade" style="text-align: right;">{{status_label}}</td>
@@ -137,7 +144,7 @@ use lib\Objects\Admin\ReportCommons;
       <tr>
         <td colspan="2">
           <p class="content-title-noshade-size1">{{admin_reports_lbl_pollactive}}
-          (<?=$poll->getDateStart()->format($view->dateFormat)?> - <?=$poll->getDateEnd()->format($view->dateFormat)?>)
+          (<?=Formatter::dateTime($poll->getDateStart())?> - <?=Formatter::dateTime($poll->getDateEnd())?>)
           <a href="?action=remindpoll&amp;id=<?=$view->report->getId()?>&amp;pollid=<?=$poll->getId()?>" class="btn btn-default btn-xs">{{admin_reports_lbl_pollremind}}</a>
           <?php if ($poll->getVotesCount() == 0) { ?><a href="?action=cancelpoll&amp;id=<?=$view->report->getId()?>&amp;pollid=<?=$poll->getId()?>" class="btn btn-xs btn-default">{{cancel}}</a><?php }?>
           </p>

@@ -1,6 +1,10 @@
 <?php
 use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\GeoKret\GeoKretyApi;
+use lib\Objects\GeoCache\GeoCacheLogCommons;
+use Utils\Uri\SimpleRouter;
+use Utils\Text\UserInputFilter;
+use Utils\Text\Formatter;
 ?>
 <link rel="stylesheet" href="tpl/stdstyle/css/lightTooltip.css">
 
@@ -71,8 +75,30 @@ use lib\Objects\GeoKret\GeoKretyApi;
         <div id="cache-title-icons">
 
             <div class="align-center">
-              <img src="<?=$view->cacheMainIcon?>" class="icon32"
-                alt="<?=tr($view->geoCache->getCacheTypeTranslationKey())?>" title="<?=tr($view->geoCache->getCacheTypeTranslationKey())?>">
+                <?php if (!empty($view->showActivitiesTooltip) && !empty($view->userActivityLogs)) { ?>
+                    <img src="<?=$view->cacheMainIcon?>" class="icon32 lightTipped" alt="" title="">
+                    <div class="lightTip">
+                        <div class="currentuser-activity-logs-tooltip">
+                        <?php foreach($view->userActivityLogs as $log) { ?>
+                            <div class="currentuser-activity-logs-tooltip-line">
+                                <div class="currentuser-activity-logs-tooltip-item">
+                                    <img src="<?=GeoCacheLogCommons::GetIconForType($log->getType())?>"
+                                      alt="<?=tr($log->getTypeTranslationKey())?>" title="<?=tr($log->getTypeTranslationKey())?>"/>
+                                </div>
+                                <div class="currentuser-activity-logs-tooltip-item">
+                                    <?=Formatter::dateTime($log->getDate())?>
+                                </div>
+                                <div class="currentuser-activity-logs-tooltip-item">
+                                    <?=UserInputFilter::purifyHtmlString($log->getText())?>
+                                </div>
+                            </div>
+                        <?php } //foreach-userActivityLogs?>
+                        </div>
+                    </div>
+                <?php } else { //if-notempty-userActivityLogs ?>
+                    <img src="<?=$view->cacheMainIcon?>" class="icon32"
+                      alt="<?=tr($view->geoCache->getCacheTypeTranslationKey())?>" title="<?=tr($view->geoCache->getCacheTypeTranslationKey())?>">
+                <?php } //if-notempty-userActivityLogs-else ?>
             </div>
             <div class="align-right">
               <img src='<?=$view->geoCache->getDifficultyIcon()?>' class='img-difficulty' width='19' height='16' alt='difficulty' title='<?=$view->diffTitle?>'>
@@ -419,7 +445,7 @@ use lib\Objects\GeoKret\GeoKretyApi;
                     <img src="images/gk.png" class="icon16" alt="geokret" title="GeoKrety visited">
                     <span class="no-whitespace">
                         <a class="links no-whitespace" href="<?=GeoKretyApi::GEOKRETY_URL?>/szukaj.php?wpt=<?=$view->geoCache->getWaypointId()?>" target="_blank" rel="noopener">{{history_gk}}</a>
-                        <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link" class="img12">
+                        <img src="/tpl/stdstyle/images/misc/linkicon.png" alt="link" class="img12">
                     </span>
                 </div>
             </div>
@@ -429,7 +455,7 @@ use lib\Objects\GeoKret\GeoKretyApi;
 
             <?php if ($view->isUserAuthorized || $view->alwaysShowCoords) { ?>
               <div class="img-shadow">
-                <a data-fancybox data-type="iframe" data-src="cachemap-mini.php?cacheId=<?=$view->geoCache->getCacheId()?>" href="javascript:;">
+                <a data-fancybox data-type="iframe" data-src="<?=SimpleRouter::getLink('CacheMap', 'mini')?>?lat=<?=$view->geoCache->getCoordinates()->getLatitude()?>&lon=<?=$view->geoCache->getCoordinates()->getLongitude()?>&inputZoom=14" href="javascript:;">
                   <img src="<?=$view->mapImgLink?>" alt="<?=tr('map')?>" title="<?=tr('map')?>">
                  </a>
               </div>
@@ -1023,6 +1049,8 @@ use lib\Objects\GeoKret\GeoKretyApi;
         <?php } //if-getNumberOfPicsInLogs > 0 ?>
     </span>
 </div>
+
+<?=$view->enableLogsFiltering ? $view->callChunk('logFilter', $view->isUserAuthorized, $view->geoCache->getCacheType()) : ""?>
 
 <div class="content2-container" id="viewcache-logs">
     <!-- log entries - to be loaded dynamicly by ajax -->

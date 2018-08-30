@@ -5,6 +5,8 @@ use lib\Controllers\LogEntryController;
 use Utils\Text\TextConverter;
 use Utils\Text\SmilesInText;
 use Utils\Text\UserInputFilter;
+use lib\Objects\GeoCache\GeoCache;
+use lib\Objects\OcConfig\OcConfig;
 
 $rootpath = "./";
 
@@ -18,10 +20,23 @@ if(isset($_REQUEST['geocacheId']) && $_REQUEST['geocacheId'] != ''){
 } else {
     ddd('error');
 }
-if(isset($_REQUEST['owner_id']) && $_REQUEST['owner_id'] != ''){
-    $owner_id = $_REQUEST['owner_id'];
-} else {
-    ddd('error - owner_id');
+$cache = GeoCache::fromCacheIdFactory($geocacheId);
+if ($cache == null) {
+    ddd('error - cache is not available');
+}
+$owner_id = $cache->getOwnerId();
+if (
+    !($usr['admin'] || $owner_id == $usr['userid'])
+    && !in_array(
+        $cache->getStatus(),
+        [
+            GeoCache::STATUS_READY,
+            GeoCache::STATUS_UNAVAILABLE,
+            GeoCache::STATUS_ARCHIVED
+        ]
+    )
+) {
+    ddd('error - cache is not available');
 }
 if(isset($_REQUEST['offset']) && $_REQUEST['offset'] != ''){
     $offset = (int) $_REQUEST['offset'];
@@ -50,6 +65,10 @@ if(isset($_REQUEST['includeDeletedLogs']) && $_REQUEST['includeDeletedLogs'] == 
 $logEntryController = new LogEntryController();
 $logEntries = $logEntryController->loadLogsFromDb($geocacheId, $includeDeletedLogs, $offset, $limit);
 $result = '';
+
+$logfilterConfig = (OcConfig::instance())->getLogfilterConfig();
+$tmpSrcLog = file_get_contents($stylepath . '/viewcache_log.tpl.php');
+
 foreach ($logEntries as $record) {
     $record['text_listing'] = ucfirst(tr('logType' . $record['type'])); //add new attrib 'text_listing based on translation (instead of query as before)'
 
@@ -135,7 +154,7 @@ foreach ($logEntries as $record) {
         $edit_footer = "";
     }
 
-    $tmplog = file_get_contents($stylepath . '/viewcache_log.tpl.php');
+    $tmplog = $tmpSrcLog;
 //END: same code ->viewlogs.php / viewcache.php
     $tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
     $tmplog_date = TextConverter::fixPlMonth(htmlspecialchars(strftime(
@@ -177,6 +196,27 @@ foreach ($logEntries as $record) {
     $processed_text = SmilesInText::process($processed_text);
 
     $tmplog_text = $processed_text . $edit_footer;
+
+    $logClasses =
+        !empty($logfilterConfig['mark_currentuser_logs'])
+        && $record['userid'] == $usr['userid']
+        ? " currentuser-log"
+        : "";
+    $tmplog = mb_ereg_replace('{log_classes}', $logClasses, $tmplog);
+
+    $filterable = "";
+    if (!empty($logfilterConfig['enable_logs_filtering'])) {
+        $filterable = ':' . $record['type'] . ':';
+        if ($record['userid'] == 0) {
+            $filterable .= 'octeam';
+        } else if ($record['userid'] == $usr['userid']) {
+            $filterable .= 'current';
+        } else if ($record['userid'] == $owner_id) {
+            $filterable .= 'owner';
+        }
+        $filterable .= ':';
+    }
+    $tmplog = mb_ereg_replace('{filterable}', $filterable, $tmplog);
 
     $tmplog = mb_ereg_replace('{show_deleted}', $show_deleted, $tmplog);
     $tmplog = mb_ereg_replace('{username}', $tmplog_username, $tmplog);

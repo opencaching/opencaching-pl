@@ -232,13 +232,12 @@ class ReportEmailSender
             $formattedMessage->setVariable('reply', tr('mailto_respByEmail') . '<br><a href="' . $server . SimpleRouter::getLink('UserProfile','mailTo', $submitter->getUserId()) . '">' . tr('reports_user_mail_send') . '</a>');
             $formattedMessage->addFooterAndHeader($toUser->getUserName(), false);
             $email->setReplyToAddr($submitter->getEmail());
-            $email->setFromAddr($submitter->getEmail());
         } else {
             $formattedMessage->setVariable('reply', tr('mailto_respByOc') . '<br><a href="' . $server . SimpleRouter::getLink('UserProfile','mailTo', $submitter->getUserId()) . '">' . tr('reports_user_mail_send') . '</a>');
             $formattedMessage->addFooterAndHeader($toUser->getUserName(), true);
             $email->setReplyToAddr(OcConfig::getNoreplyEmailAddress());
-            $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
         }
+        $email->setFromAddr(OcConfig::getNoreplyEmailAddress());
         $email->setSubject($subject);
         $email->addSubjectPrefix(OcConfig::getMailSubjectPrefixForSite());
         $email->setBody($formattedMessage->getEmailContent(), true);

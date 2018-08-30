@@ -24,13 +24,19 @@ global $tpl_subtitle;
   <meta name="msapplication-TileColor" content="#04bd00">
   <meta name="msapplication-config" content="/images/icons/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
-    
+
   <link rel="stylesheet" type="text/css" media="screen" href="<?=$view->screenCss?>">
   <link rel="stylesheet" type="text/css" media="print" href="<?=$view->printCss?>">
 
   <?php foreach( $view->getLocalCss() as $css ) { ?>
       <link rel="stylesheet" type="text/css" href="<?=$css?>">
   <?php } //foreach-css ?>
+
+  <?php foreach ( $view->getHeaderChunks() as $chunkName => $args ) {?>
+    <!-- load chunk $chunkName -->
+    <?php $view->callChunk($chunkName, ...$args); ?>
+  <?php } //foreach getHeaderChunks ?>
+
 
   {htmlheaders}
   {cachemap_header}
