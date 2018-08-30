@@ -65,8 +65,10 @@ final class OcConfig extends ConfigReader
     private $lockConfig;
     /** @var array the watchlist configuration array */
     private $watchlistConfig;
+    /** @var array the logfilter configuration array */
+    private $logfilterConfig;
 
-   /** @var array the cron solution configuration array */
+    /** @var array the cron solution configuration array */
     private $cronConfig;
 
     /** @var array array of map settings from /Config/map.* files */
@@ -146,6 +148,9 @@ final class OcConfig extends ConfigReader
         }
         if (isset($config['watchlist']) && is_array($config['watchlist'])) {
             $this->watchlistConfig = $config['watchlist'];
+        }
+        if (isset($config['logfilter']) && is_array($config['logfilter'])) {
+            $this->logfilterConfig = $config['logfilter'];
         }
         if (isset($config['cron']) && is_array($config['cron'])) {
             $this->cronConfig = $config['cron'];
@@ -368,6 +373,20 @@ final class OcConfig extends ConfigReader
     }
 
     /**
+     * Gives logfilter configuration, tries to initialize it if null
+     *
+     * @return array logfilter configuration
+     *               ({@see /Config/logfilter.default.php})
+     */
+    public function getLogfilterConfig()
+    {
+        if ($this->logfilterConfig == null) {
+            $this->logfilterConfig = self::getConfig("logfilter", "logfilter");
+        }
+        return $this->logfilterConfig;
+    }
+
+    /**
      * Gives cron configuration, tries to initialize it if null
      *
      * @return array cron configuration
@@ -380,7 +399,7 @@ final class OcConfig extends ConfigReader
         }
         return $this->cronConfig;
     }
-  
+
     /**
      * Gives map configuration, tries to initialize it if null
      *
