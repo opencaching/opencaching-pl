@@ -23,6 +23,7 @@ class View {
     private $_loadTimepicker = false;
     private $_loadGMapApi = false;
     private $_loadFancyBox = false;
+    private $_loadVueJs = false;
 
     private $_localCss = [];    // page-local css styles loaded from controller
     private $_localJs = [];     // page-local JS scripts loaded from controller
@@ -164,6 +165,10 @@ class View {
         $this->setVar('GMapApiCallback', $callback);
     }
 
+    public function loadVueJs() {
+        $this->_loadVueJs = true;
+    }
+
     /**
      * Returns true if GA key is set in config (what means that GA is enabled)
      */
@@ -200,6 +205,9 @@ class View {
         return $this->_loadGMapApi;
     }
 
+    public function isVueJsEnabled(){
+        return $this->_loadVueJs;
+    }
 
     private function error($message)
     {

@@ -31,6 +31,10 @@
           $view->callChunk('googleMapsApi', $GLOBALS['googlemap_key'], $view->getLang());
       }
 
+      if ($view->isVueJsEnabled()) {
+          $view->callChunk('vuejs');
+      }
+
       foreach ( $view->getHeaderChunks() as $chunkName => $args )
       {
           echo "<!-- load chunk $chunkName -->";

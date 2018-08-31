@@ -68,8 +68,12 @@ final class OcConfig extends ConfigReader
     /** @var array the logfilter configuration array */
     private $logfilterConfig;
 
+    /** @var array the cron solution configuration array */
+    private $cronConfig;
+
     /** @var array array of map settings from /Config/map.* files */
     private $mapConfig;
+
     /**
      * Call this method to get singleton
      * @return ocConfig
@@ -147,6 +151,9 @@ final class OcConfig extends ConfigReader
         }
         if (isset($config['logfilter']) && is_array($config['logfilter'])) {
             $this->logfilterConfig = $config['logfilter'];
+        }
+        if (isset($config['cron']) && is_array($config['cron'])) {
+            $this->cronConfig = $config['cron'];
         }
     }
 
@@ -377,6 +384,20 @@ final class OcConfig extends ConfigReader
             $this->logfilterConfig = self::getConfig("logfilter", "logfilter");
         }
         return $this->logfilterConfig;
+    }
+
+    /**
+     * Gives cron configuration, tries to initialize it if null
+     *
+     * @return array cron configuration
+     *               ({@see /Config/cron.default.php})
+     */
+    public function getCronConfig()
+    {
+        if ($this->cronConfig == null) {
+            $this->cronConfig = self::getConfig("cron", "cron");
+        }
+        return $this->cronConfig;
     }
 
     /**

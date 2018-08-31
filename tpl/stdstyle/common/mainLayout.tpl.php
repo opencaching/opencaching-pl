@@ -43,6 +43,9 @@
                     $GLOBALS['googlemap_key'], $view->getLang(), $callback);
             }
         }
+        if ($view->isVueJsEnabled()) {
+            $view->callChunk('vuejs');
+        }
         foreach( $view->getLocalJs() as $js ) {
             if (! $js['defer']) {?>
               <script src="<?=$js['url']?>"<?=$js['async'] ? ' async' : ''?>></script>
