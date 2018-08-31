@@ -241,9 +241,8 @@ class Coordinates
      */
     public function areCordsReasonable()
     {
-        return (!empty($this->latitude) && !empty($this->latitude) &&
-            $this->latitude >= -90 && $this->latitude <= 90 &&
-            $this->longitude >= -180 && $this->longitude <= 180);
+        return ($this->latitude >= -90 && $this->latitude <= 90 &&
+                $this->longitude >= -180 && $this->longitude <= 180);
     }
 
     /**
