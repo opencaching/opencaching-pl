@@ -152,10 +152,12 @@ class MyNbhSets extends BaseObject
         $params['offset']['data_type'] = 'integer';
         $params['limit']['value'] = $limit;
         $params['limit']['data_type'] = 'integer';
+        $statesSqlString = $this->fillAllowedStatesInQueryParams($params);
         $query = '
                 SELECT `local_caches`.`cache_id` AS cache_id
                   FROM `local_caches`
                   INNER JOIN `cache_titled` ON `local_caches`.`cache_id` = `cache_titled`.`cache_id`
+                  WHERE `status` IN (' . $statesSqlString . ')
                   ORDER BY `cache_titled`.`date_alg` DESC,
                     `local_caches`.`cache_id` DESC
                   LIMIT :offset, :limit';
@@ -172,12 +174,38 @@ class MyNbhSets extends BaseObject
      */
     public function getLatestTitledCachesCount()
     {
+        $params = [];
+        $statesSqlString = $this->fillAllowedStatesInQueryParams($params);
         $query = '
                 SELECT COUNT(*)
                   FROM `local_caches`
                   INNER JOIN `cache_titled` ON `local_caches`.`cache_id` = `cache_titled`.`cache_id`
+                  WHERE `status` IN (' . $statesSqlString . ')
                   LIMIT 1';
-        return $this->db->simpleQueryValue($query, 0);
+        return $this->db->paramQueryValue($query, 0, $params);
+    }
+
+    /**
+     * Adds parameters meant to be used in OcDb::paramQuery 'status IN()' clause,
+     * according to predefined states, creating corresponding sql fragment string
+     *
+     * @param array $params Parameters to update
+     *
+     * @return string sql fragment to be used in 'IN()' clause inside query
+     */
+    private function fillAllowedStatesInQueryParams(&$params)
+    {
+        $result = "";
+        foreach (
+            [GeoCache::STATUS_READY, GeoCache::STATUS_UNAVAILABLE] as $status
+        ) {
+            $varName = "status" . $status;
+            $params[$varName]['value'] = $status;
+            $params[$varName]['data_type'] = 'integer';
+            $result .=
+                (strlen($result)>0 ? ", " : ""). ":". $varName;
+        }
+        return $result;
     }
 
     /**
