@@ -73,6 +73,7 @@ $config = array(
     'supportedLanguages' => array (
         'pl', 'en', 'nl', 'ro'
     ),
+    'failoverLanguage' => 'en',
     /** default country in user registration form */
     'defaultCountry' => 'PL',
 

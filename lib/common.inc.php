@@ -116,13 +116,22 @@ function initTemplateSystem(){
 
 function loadTranslation(){
 
-        global $lang;
+        global $lang, $config;
 
         //language changed?
         if(isset($_REQUEST['lang'])){
             $lang = $_REQUEST['lang'];
         }else{
             $lang = OcCookie::getOrDefault('lang', $lang);
+        }
+
+        // load failover language settings
+        if (
+            !empty($config['failoverLanguage'])
+            && !isset($language[$config['failoverLanguage']])
+            && I18n::isTranslationSupported($config['failoverLanguage'])
+        ) {
+            load_language_file($config['failoverLanguage']);
         }
 
         //check if $lang is supported by site
@@ -147,8 +156,13 @@ function loadTranslation(){
             exit;
         }
 
-        // load language settings
-        load_language_file($lang);
+        // load language settings (only if different from failover)
+        if (
+            empty($config['failoverLanguage'])
+            || $lang != $config['failoverLanguage']
+        ) {
+            load_language_file($lang);
+        }
         Languages::setLocale($lang);
 }
 
@@ -213,6 +227,3 @@ function help_latToDegreeStr($lat, $type = 1)
 
     return $retval;
 }
-
-
-

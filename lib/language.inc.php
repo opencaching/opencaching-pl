@@ -14,31 +14,47 @@ function load_language_file($lang)
     return true;
 }
 
+function postProcessTr(&$ref)
+{
+    if (strpos($ref, "{") !== false)
+        return tpl_do_replace($ref, true);
+    else
+        return $ref;
+}
+
 function tr($str)
 {
-    global $language, $lang;
+    global $language, $lang, $config;
 
     if (isset($language[$lang][$str]) && $language[$lang][$str]) {
-        $ref = &$language[$lang][$str];
-        if (strpos($ref, "{") !== false)
-            return tpl_do_replace($ref, true);
-        else
-            return $ref;
-    } else
+        return postProcessTr($language[$lang][$str]);
+    } else if (
+        isset($config['failoverLanguage'])
+        && isset($language[$config['failoverLanguage']][$str])
+        && $language[$config['failoverLanguage']][$str]
+    ) {
+        return postProcessTr($language[$config['failoverLanguage']][$str]);
+    } else {
         return "No translation available (identifier: $str)-todo";
+    }
 }
 
 function tr2($str, $lang)
 {
-    global $language;
-    load_language_file($lang);
+    global $language, $config;
+
+    if (!isset($language[$lang])) {
+        load_language_file($lang);
+    }
 
     if (@$language[$lang][$str]) {
-        $ref = &$language[$lang][$str];
-        if (strpos($ref, "{") !== false)
-            return tpl_do_replace($ref, true);
-        else
-            return $ref;
+        return postProcessTr($language[$lang][$str]);
+    } else if (
+        isset($config['failoverLanguage'])
+        && isset($language[$config['failoverLanguage']][$str])
+        && $language[$config['failoverLanguage']][$str]
+    ) {
+        return postProcessTr($language[$config['failoverLanguage']][$str]);
     } else {
         return $str . "No translation available (identifier: $str)-todo";
     }
@@ -51,4 +67,3 @@ function tr_available($str){
 
     return isset($language[$lang][$str]) && $language[$lang][$str];
 }
-
