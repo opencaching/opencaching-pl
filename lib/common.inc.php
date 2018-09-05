@@ -3,15 +3,10 @@
 require_once __DIR__ . '/ClassPathDictionary.php'; // class autoloader
 
 use Utils\View\View;
-use Utils\Uri\Uri;
-use Utils\I18n\I18n;
-use Utils\I18n\Languages;
 use lib\Objects\ApplicationContainer;
 use lib\Objects\User\User;
 use lib\Objects\User\UserAuthorization;
 use lib\Objects\OcConfig\OcConfig;
-use Utils\Text\UserInputFilter;
-use Utils\Uri\OcCookie;
 
 session_start();
 
@@ -68,7 +63,7 @@ if (php_sapi_name() != "cli") { // this is not neccesarry for command-line scrip
     UserAuthorization::verify();
 
     initTemplateSystem();
-    loadTranslation();
+    initTranslations();
 
 }
 
@@ -113,59 +108,6 @@ function initTemplateSystem(){
 
     $GLOBALS['tpl_subtitle'] = '';
 }
-
-function loadTranslation(){
-
-        global $lang, $language, $config;
-
-        //language changed?
-        if(isset($_REQUEST['lang'])){
-            $lang = $_REQUEST['lang'];
-        }else{
-            $lang = OcCookie::getOrDefault('lang', $lang);
-        }
-
-        // load failover language settings
-        if (
-            !empty($config['failoverLanguage'])
-            && !isset($language[$config['failoverLanguage']])
-            && I18n::isTranslationSupported($config['failoverLanguage'])
-        ) {
-            load_language_file($config['failoverLanguage']);
-        }
-
-        //check if $lang is supported by site
-        if(!I18n::isTranslationSupported($lang)){
-
-            // requested language is not supported - display error...
-
-            tpl_set_tplname('error/langNotSupported');
-            header("HTTP/1.0 404 Not Found");
-            $view = tpl_getView();
-
-            $view->loadJQuery();
-            $view->setVar("localCss",
-                Uri::getLinkWithModificationTime('/tpl/stdstyle/error/error.css'));
-            $view->setVar('requestedLang', UserInputFilter::purifyHtmlString($lang));
-            $lang = 'en'; //English must be always supported
-
-            $view->setVar('allLanguageFlags', I18n::getLanguagesFlagsData());
-            load_language_file($lang);
-
-            tpl_BuildTemplate();
-            exit;
-        }
-
-        // load language settings (only if different from failover)
-        if (
-            empty($config['failoverLanguage'])
-            || $lang != $config['failoverLanguage']
-        ) {
-            load_language_file($lang);
-        }
-        Languages::setLocale($lang);
-}
-
 
 //TODO: Remove all functions below from here!
 
