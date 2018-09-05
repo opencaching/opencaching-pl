@@ -116,7 +116,7 @@ function initTemplateSystem(){
 
 function loadTranslation(){
 
-        global $lang, $config;
+        global $lang, $language, $config;
 
         //language changed?
         if(isset($_REQUEST['lang'])){
