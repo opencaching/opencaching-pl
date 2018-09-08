@@ -3,14 +3,14 @@
   <h3>Map with caches and cacheSets</h3>
   <div id="mapCanvas"></div>
   <!-- map-chunk start -->
-  <?php $view->callChunk('dynamicMap/dynamicMap', $view->mapModel, "mapCanvas");?>
+  <?php $view->callChunk('dynamicGMap/dynamicMap', $view->mapModel, "mapCanvas");?>
   <!-- map-chunk end -->
 
 <hr/>
   <h3>Just empty map</h3>
   <div id="emptyMapCanvas"></div>
   <!-- map-chunk start -->
-  <?php $view->callChunk('dynamicMap/dynamicMap', $view->emptyMap, "emptyMapCanvas");?>
+  <?php $view->callChunk('dynamicGMap/dynamicMap', $view->emptyMap, "emptyMapCanvas");?>
   <!-- map-chunk end -->
 
 <hr/>
@@ -19,7 +19,7 @@
   <div id="drawingMapCanvas"></div>
 
    <!-- map-chunk start -->
-  <?php $view->callChunk('dynamicMap/dynamicMap', $view->emptyMap, "drawingMapCanvas");?>
+  <?php $view->callChunk('dynamicGMap/dynamicMap', $view->emptyMap, "drawingMapCanvas");?>
   <!-- map-chunk end -->
 
   <div>
@@ -45,12 +45,8 @@
 
   $(document).ready(function(){
     // start drawing whene everything is ready
-    // TODO: draw();
+    draw();
   });
-
-  /*
-
-  TODO: rewrite to OPENLAYERS API
 
   function draw(){
     var drawingDone = null; // this is used to allow draw only one thimg at once
@@ -148,7 +144,6 @@
     });
 
   }
-  */
   </script>
 
 <hr/>
