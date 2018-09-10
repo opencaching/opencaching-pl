@@ -49,11 +49,12 @@ class UserWatchedCachesController extends BaseController
             Uri::getLinkWithModificationTime(
                 '/tpl/stdstyle/userWatchedCaches/userWatchedCaches.css'));
         $this->view->loadJQuery();
-        $this->view->loadGMapApi(); /*initializeMap*/
+
+        $this->view->addHeaderChunk('openLayers5');
 
         $mapModel = new DynamicMapModel();
 
-        $mapModel->addMarkers(
+        $mapModel->addMarkersWithExtractor(
             CacheWithLogMarkerModel::class,
             UserWatchedCache::getWatchedCachesWithLastLogs($this->loggedUser->getUserId()),
             function($row){
@@ -68,12 +69,16 @@ class UserWatchedCachesController extends BaseController
                     tr(GeoCacheLogCommons::typeTranslationKey($row['llog_type'])):null;
 
                 $m = new CacheWithLogMarkerModel();
+
+                $m->lat = $row['latitude'];
+                $m->lon = $row['longitude'];
+                $m->icon = $iconFile;
+
                 $m->name = $row['name'];
                 $m->wp = $row['wp_oc'];
-                $m->lon = $row['longitude'];
-                $m->lat = $row['latitude'];
+                $m->username = '-';
+
                 $m->link = GeoCache::GetCacheUrlByWp($row['wp_oc']);
-                $m->icon = $iconFile;
                 $m->log_icon = $logIconFile;
                 $m->log_text = strip_tags($row['llog_text'], '<br><p>');
                 $m->log_link = GeoCacheLog::getLogUrlByLogId($row['llog_id']);

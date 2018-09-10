@@ -220,8 +220,8 @@ var ocMapInputParams = {
   searchData: <?= isset($view->searchData)?$view->searchData:"null"?>,
   powertrailIds: null,                //TODO
   userSettings: <?=$view->filterVal?>,
-  fitToBounds: null,                  // { minLat: 123, maxLat: 123, minLon: 123, maxLon: 123 }
-  centerOn: <?=$view->centerOn?>,                     // { lat: 123, lon:123 }
+  fitToBounds: null,                      // { minLat: 123, maxLat: 123, minLon: 123, maxLon: 123 }
+  centerOn: <?=$view->centerOn?>,         // { lat: 123, lon:123 }
   mapStartZoom: <?=$view->mapStartZoom?>,
   extMapConfigs: <?=$view->extMapConfigs?>,
   fullScreenToggleUri: '<?=SimpleRouter::getLink('CacheMap','embeded')?>',
