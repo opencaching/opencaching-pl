@@ -37,7 +37,7 @@
     $error_ort = '<tr><td><span class="errormsg">'.tr('error_ort').'</span></td></tr>';
     $error_locidnocoords = '<tr><td><span class="errormsg">Für den ausgewählten Ort sind keine Koordinaten vorhanden</span></td></tr>';
     $error_noort = '<tr><td><span class="errormsg">Nie znaleziono współrzędnych dla wskazanej miejscowości</span></td></tr>';
-    $error_nofulltext = '<tr><td colspan="3"><span class="errormsg">Nieprawidłowy wpis. Zmień nazwę do poszukiwań.</span></td></tr>';
+    $error_nofulltext = '<tr><td colspan="3"><span class="errormsg">'.tr('error_nofulltext').'</span></td></tr>';
 
     $gns_countries['DE'] = 'Niemcy';
     $gns_countries['AU'] = 'Austria';

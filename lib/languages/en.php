@@ -965,6 +965,7 @@ $translations = array(
     'log_type_available' => 'Ready to find',
     'log_mobile_init' => 'Starting coordinates',
     'error_coords_not_ok' => 'Wrong coordinates!',
+    'error_nofulltext' => 'Invalid entry. Change the name to search.',
     'GKApi01' => 'Integration of your geokrety.org account',
     'GKApi02' => 'GeoKrety Secid',
     'GKApi03' => 'To integrate your geokrety.org account with {site_name}, please provide your <b>Secid</b>.<br />The <b>Secid</b> can be found in your geokrety.org account details page',

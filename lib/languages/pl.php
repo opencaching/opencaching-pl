@@ -965,6 +965,7 @@ $translations = array(
     'log_type_available' => 'Gotowa do szukania',
     'log_mobile_init' => 'Punkt startowy kesza',
     'error_coords_not_ok' => 'Niepoprawne współrzędne!',
+    'error_nofulltext' => 'Nieprawidłowy wpis. Zmień nazwę do poszukiwań.',
     'GKApi01' => 'Integracja konta OC z Geokretami',
     'GKApi02' => 'geoKrety Secid:',
     'GKApi03' => 'Aby zintegrować konto {site_name} ze swoim kontem na geoKrety.org, przeklej tu swój <b>Secid</b>. <b>Secid</b> znajdziesz na stronie geokretów w szczegółach swojego konta.',
