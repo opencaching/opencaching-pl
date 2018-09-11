@@ -45,110 +45,103 @@
 
   $(document).ready(function(){
     // start drawing whene everything is ready
-    // TODO: draw();
+    initDrawing();
   });
 
-  /*
 
-  TODO: rewrite to OPENLAYERS API
+  function initDrawing(params)
+  {
+    // https://openlayers.org/en/latest/examples/draw-features.html?q=draw
 
-  function draw(){
-    var drawingDone = null; // this is used to allow draw only one thimg at once
     var map = dynamicMapParams_drawingMapCanvas.map; // get right map object
 
-    var drawingManager = new google.maps.drawing.DrawingManager({
-          drawingMode: null,      // nothing is drown by default
-          drawingControl: false,  // hide drawing controls
+    var drawingLayer = new ol.layer.Vector ({
+      zIndex: 100,
+      visible: true,
+      source:  new ol.source.Vector([]),
+      ocLayerName: 'oc_drawing', // name of layer with oc_prefix = internal OC layer
 
-          circleOptions: {
-            fillColor: '#ffff00',
-            fillOpacity: 0.35,
-            strokeWeight: 3,
-            clickable: true,
-            editable: true,
-            draggable: true,
-          },
-          rectangleOptions: {
-            fillColor: '#ffff00',
-            fillOpacity: 0.35,
-            strokeWeight: 3,
-            clickable: true,
-            editable: true,
-            draggable: true,
-          }
+      style: new ol.style.Style({ // style for the whole layer (all features of this layer)
+        stroke: new ol.style.Stroke({
+          color: 'pink',
+          width: 3
+        }),
+        fill: new ol.style.Fill({
+          color: 'rgba(255, 0, 0, 0.5)'
+        })
+      }),
     });
+    map.addLayer(drawingLayer);
 
-    drawingManager.setMap(map);
+    var draw;
 
-    google.maps.event.addListener(drawingManager, 'rectanglecomplete', function(rectangle) {
-      // rectangle is done
-      drawingManager.setDrawingMode(null); //disable drawing (to prevent next rect.)
-      drawingDone = true;
-
-      $('#rectCornerNE').val(rectangle.getBounds().getNorthEast().toString());
-      $('#rectCornerSW').val(rectangle.getBounds().getSouthWest().toString());
-
-      google.maps.event.addListener(rectangle, 'bounds_changed', function (){
-        if(drawingDone){
-          $('#rectCornerNE').val(rectangle.getBounds().getNorthEast().toString());
-          $('#rectCornerSW').val(rectangle.getBounds().getSouthWest().toString());
-        }
-      });
-
-      // use rightclick to delete drawings
-      google.maps.event.addListener(rectangle, 'rightclick', function (){
-        rectangle.setMap(null);
-        drawingDone = null;
-
-        $('#rectCornerNE').val('-');
-        $('#rectCornerSW').val('-');
-
-      });
-    });
-
-
-    google.maps.event.addListener(drawingManager, 'circlecomplete', function(circle) {
-      drawingManager.setDrawingMode(null);
-      drawingDone = true;
-
-      $('#circleRadius').val(circle.getRadius());
-      $('#circleCenter').val(circle.getCenter().toString());
-
-      google.maps.event.addListener(circle, 'radius_changed', function (){
-        if(drawingDone){
-          $('#circleRadius').val(circle.getRadius());
-        }
-      });
-
-      google.maps.event.addListener(circle, 'center_changed', function (){
-        if(drawingDone){
-          $('#circleCenter').val(circle.getCenter().toString());
-        }
-      });
-
-      google.maps.event.addListener(circle, 'rightclick', function (){
-        circle.setMap(null);
-        drawingDone = null;
-        $('#circleRadius').val('-');
-        $('#circleCenter').val('-');
-      });
-    });
 
 
     $('#drawRectangle').click(function(){
-      if(!drawingDone){
-        drawingManager.setDrawingMode('rectangle');
-      }
+      map.removeInteraction(draw);
+      drawingLayer.getSource().clear(true);
+      $('#rectCornerNE').val('-');
+      $('#rectCornerSW').val('-');
+
+      draw = new ol.interaction.Draw({
+        source: drawingLayer.getSource(),
+        geometryFunction: ol.interaction.Draw.createBox(), //box
+        type: "Circle",
+        style: new ol.style.Style({
+          stroke: new ol.style.Stroke({
+            color: 'blue',
+            width: 3
+          }),
+          fill: new ol.style.Fill({
+            color: 'rgba(0, 0, 255, 0.1)'
+          })
+        }),
+      });
+
+      draw.on('drawend', function(evt){
+        map.removeInteraction(draw);
+        [minx, miny, maxx, maxy] = evt.feature.getGeometry().getExtent();
+        $('#rectCornerNE').val(CoordinatesUtil.toWGS84(map, [maxx, maxy]));
+        $('#rectCornerSW').val(CoordinatesUtil.toWGS84(map, [minx, miny]));
+      });
+
+      map.addInteraction(draw);
     });
 
     $('#drawCircle').click(function(){
-      if(!drawingDone){
-        drawingManager.setDrawingMode('circle');
-      }
-    });
+      map.removeInteraction(draw);
+      drawingLayer.getSource().clear(true);
 
+      $('#circleRadius').val('-');
+      $('#circleCenter').val('-');
+
+      draw = new ol.interaction.Draw({
+        source: drawingLayer.getSource(),
+        type: "Circle",
+        style: new ol.style.Style({
+          stroke: new ol.style.Stroke({
+            color: 'red',
+            width: 3
+          }),
+          fill: new ol.style.Fill({
+            color: 'rgba(0, 255, 0, 0.5)'
+          })
+        }),
+      });
+
+      draw.on('drawend', function(evt){
+        map.removeInteraction(draw);
+        var circle = evt.feature.getGeometry();
+        if(circle.getType() == 'Circle'){
+          $('#circleRadius').val((Math.round(circle.getRadius()/1000)) + ' km');
+          $('#circleCenter').val(CoordinatesUtil.toWGS84(map, circle.getCenter()));
+        }
+      });
+
+      map.addInteraction(draw);
+    });
   }
-  */
+
   </script>
 
 <hr/>
