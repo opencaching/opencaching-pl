@@ -90,9 +90,10 @@ function layerSwitcherInit(params) {
   switcherDropdown.change(function(a) {
 
     params.map.getLayers().forEach(function(layer) {
-        // make sure selected layer is visible
-        if ( layer.get('ocLayerName') != 'ocMarkers') {
+        // first skip OC-internal layers (prefix oc_)
+        if ( ! /^oc_.*/.test( layer.get('ocLayerName') )) {
 
+          // make sure selected layer is not internal OC layer is visible
           if ( layer.get('ocLayerName') == switcherDropdown.val() ) {
             layer.setVisible(true);
             //$("#ocAttribution").html(layer.getSource().attributions_[0].html_)
@@ -289,7 +290,7 @@ function loadMarkers(params) {
     zIndex: 100,
     visible: true,
     source: new ol.source.Vector({ features: featuresArr }),
-    ocLayerName: 'ocMarkers',
+    ocLayerName: 'oc_markers',
     });
 
   var ext = markersLayer.getSource().getExtent();
@@ -326,8 +327,13 @@ function loadMarkers(params) {
     if (feature) {
       popup.setPosition(feature.getGeometry().getCoordinates());
 
-      var markerType = feature.get('ocData').markerType;
-      var markerId = feature.get('ocData').markerId;
+      if( (ocData = feature.get('ocData')) == undefined){
+        popup.setPosition(undefined);
+        return true;
+      }
+
+      var markerType = ocData.markerType;
+      var markerId = ocData.markerId;
 
       if(!params.compiledPopupTpls[markerType]){
         var popupTpl = $('script[type="text/x-handlebars-template"].'+markerType).html();
