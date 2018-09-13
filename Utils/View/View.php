@@ -5,7 +5,6 @@ use Utils\DateTime\Year;
 use lib\Objects\ApplicationContainer;
 use Utils\Debug\Debug;
 use Controllers\PageLayout\MainLayoutController;
-use lib\Controllers\Php7Handler;
 
 class View {
 
@@ -260,7 +259,7 @@ class View {
      */
     public function setShowGdprPage($state)
     {
-        $state = Php7Handler::Boolval($state);
+        $state = boolval($state);
         $this->_showGdprPage = $state;
         if ($state) {
             $this->_googleAnalyticsKey = '';

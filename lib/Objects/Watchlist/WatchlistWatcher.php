@@ -5,7 +5,6 @@
 namespace lib\Objects\Watchlist;
 
 use lib\Objects\BaseObject;
-use lib\Controllers\Php7Handler;
 
 /**
  * Represents single row data from watchlist watchers query result, extended by

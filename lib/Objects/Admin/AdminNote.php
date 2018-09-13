@@ -4,7 +4,6 @@ namespace lib\Objects\Admin;
 use lib\Objects\BaseObject;
 use lib\Objects\User\User;
 use lib\Objects\GeoCache\GeoCache;
-use lib\Controllers\Php7Handler;
 
 class AdminNote extends BaseObject
 {
@@ -360,7 +359,7 @@ class AdminNote extends BaseObject
         $this->setUserId($row['user_id']);
         $this->setAdminId($row['admin_id']);
         $this->setCacheId($row['cache_id']);
-        $this->setAutomatic(Php7Handler::Boolval($row['automatic']));
+        $this->setAutomatic(boolval($row['automatic']));
         $this->setDate(new \DateTime($row['datetime']));
         $this->setContent($row['content']);
     }
