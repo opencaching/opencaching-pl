@@ -45,9 +45,6 @@ div.seasonalBackground.autumn{ background-image: url(/images/css/autumn.jpg);}
 div.seasonalBackground.winter{ background-image: url(/images/css/winter.jpg);}
 div.seasonalBackground.spring{ background-image: url(/images/css/spring.jpg);}
 
-
-
-
 /*************************************/
 /* SECTION 2 - HEADER AND NAVIGATION */
 /*************************************/
@@ -63,70 +60,104 @@ tr.highlighted > td {border-width:2px;}
 
 
 /*-----------------------------------*/
-/* 2.1 - Sitename, slogan and banner */
+/* 2.1 - Topline                     */
 /*-----------------------------------*/
-.header {
-	height:80px;
-	width: 970px;
-	padding-top: 1px;
-}
-
-.header img {
-	border: 0px;
-}
-
-.cookies-message {
-	position: fixed;
-	opacity: 0.75;
-	color: white;
-	background: black;
-	bottom: 0;
-	left: 0;
-	z-index: 999;
+.topline-container {
 	width: 100%;
-	font-weight: bold;
-	padding-top: 2px;
+	height: 32px;
+	font-size: 1em;
 }
 
-.cookies-message>p {
-	margin-bottom: 0;
-}
-.cookies-message a {
-	color: white !important;
+.topline-container div, form {
+	display: inline-block;
+	vertical-align: middle;
 }
 
-.oc-logo {
-	margin-top: 5px;
-	margin-left: 3px;
+.topline-logo {
+	margin: 3px 8px;
 }
 
-.site-name                  { width: 300px; height: 45px; top: 12px; 
-                              position: absolute; z-index: 4; overflow: hidden; 
-                              margin: 0px; padding-left: 80px;}
-                              
-.site-name p.title          { margin: 0px; padding: 0px; 
-                              font-family: "trebuchet ms", arial, sans serif; 
-                              font-weight: bold; font-size: 24px;}
-                              
-.site-name p.subtitle       { clear: both; width: 300px; margin: -6px 0px 0px 0px; padding: 0px; 
-                              background-color: transparent; 
-                              font-family: "trebuchet ms", arial, sans serif; font-size: 12px;}
-                              
-.site-name a                { margin: 0px; padding: 0px; text-decoration: none; color: #323232;}
+.topline-logo img {
+	max-width: 26px;
+	max-height: 26px;
+}
 
-.site-name a:hover          { text-decoration: none;}
+.topline-sitename {
+	font-size: 1.8em;
+}
 
+.topline-buttons {
+	float: right;
+	margin-right: 10px;
+	position: relative;
+}
 
+.topline-btn-wide {
+	padding: 1px 10px !important;
+}
 
+.topline-dropdown-icon {
+	max-width: 8px;
+	height: 8px;
+	padding: 4px 0px !important;
+}
 
-.site-slogan-container      { text-align:right; width: 970px; top: 83px; position: absolute; z-index: 1; overflow: hidden; background-color: transparent;}
-.site-slogan                { float: right; width: auto; margin: 0px; padding: 5px 15px 5px 5px; background-image: url(../../../images/css/darkbluetransparent.png); background-repeat: repeat; font-size: 10px; border-left:1px solid rgb(100,100,100); border-top:1px solid rgb(100,100,100); border-bottom:1px solid rgb(100,100,100);}
-.site-slogan input          { background-image: url(../../../images/css/blank.gif); }
-.site-slogan form           { background-color: transparent; }
-.site-slogan p.search       { clear: both; float: right; margin-right: -5px; padding: 0px; color: rgb(255,255,255); /*font-family: arial, sans serif; */ text-align: right; line-height: 1.0em; font-size: 10px; white-space: nowrap;}
-.site-slogan p.search label { position: relative; bottom: 0.2em;}
-.site-slogan a              { color: rgb(234,239,247); text-decoration: underline;}
-.site-slogan a:hover        { text-decoration: none; color: rgb(50,50,50);}
+.topline-dropdown-content {
+	display: none !important;
+	position: absolute;
+	top: 27px;
+	cursor: pointer;
+	background-color: white;
+	width: 252px;
+	font-size: 12px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	z-index: 999;
+}
+.topline-dropdown-content div {
+	color: black;
+	padding: 4px 10px;
+	display: block;
+}
+
+.topline-dropdown-content div:hover {
+	background-color: rgb(156,186,214);
+}
+
+.topline-dropdown-show {
+	display: block !important;
+}
+
+.topline-buffer {
+	width: 10px;
+}
+
+.top-video-container {
+	width: 970px;
+	height: 180px;
+	margin: 0px;
+	padding: 0px;
+	position: relative;
+}
+
+.top-video-container video {
+	width: 970px;
+	margin: 0px;
+	padding: 0px;
+}
+
+.top-video-slider {
+	position: absolute;
+	top: -180px;
+	width: 970px;
+	height: 0px;
+	line-height: 180px;
+	color: white;
+	text-shadow: 2px 2px 4px #000000;
+	text-align: center;
+	font-size: 3em;
+}
 
 /*--------------------------*/
 /* 2.2 - Navigation - Flags */
@@ -150,38 +181,27 @@ tr.highlighted > td {border-width:2px;}
 	margin-right: auto;
 }
 
-/*----------------------------*/
-/* 2.3 - LoginBox */
-/*----------------------------*/
-#loginbox-container {
-	width: 100%;
-	top: 20px;
-	position: absolute;
-	z-index: 3;
-	background: transparent;
+/*-----------------------------------*/
+/* 2.3 - Cookie info                 */
+/*-----------------------------------*/
+.cookies-message {
+    position: fixed;
+    opacity: 0.75;
+    color: white;
+    background: black;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+    font-weight: bold;
+    padding-top: 2px;
 }
 
-#loginbox {
-	margin: 0px;
-	padding: 0px;
-	font-family: verdana, arial, sans serif;
-	font-size: 1.0em;
-	text-align: right;
-	margin-right: 20px;
-	float: right;
+.cookies-message>p {
+    margin-bottom: 0;
 }
-
-.loginbox-lbl {
-	border-top-right-radius: 0 !important;
-	border-bottom-right-radius: 0 !important;
-	margin-right: -2px !important;
-	vertical-align: middle;
-}
-.loginbox-input {
-	border-top-left-radius: 0 !important;
-	border-bottom-left-radius: 0 !important;
-	margin-left: -2px !important;
-	vertical-align: middle;
+.cookies-message a {
+    color: white !important;
 }
 
 /*----------------------------*/
@@ -638,14 +658,14 @@ a.btn {
     padding: 3px 10px;
     font-size: 13px;
     line-height: 1.5;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 
 .btn-sm {
     padding: 1px 5px;
     font-size: 12px;
     line-height: 1.5;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 
 .btn-xs,
@@ -654,7 +674,21 @@ a.btn {
     padding: 1px 5px;
     font-size: 10px;
     line-height: 1.5;
-    border-radius: 3px;
+    border-radius: 5px;
+}
+
+.btn-right-straight {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    margin-right: -2px !important;
+    vertical-align: middle;
+}
+
+.btn-left-straight {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    margin-left: -2px !important;
+    vertical-align: middle;
 }
 
 a.transparent {
@@ -721,7 +755,7 @@ a.transparent::-moz-focus-inner {
     padding: 1px 5px;
     font-size: 12px;
     line-height: 1.5;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 
 .form-group-xs .form-control {
@@ -729,7 +763,7 @@ a.transparent::-moz-focus-inner {
     padding: 1px 5px;
     font-size: 10px;
     line-height: 1.5;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 
 .input-group {
@@ -769,7 +803,7 @@ a.transparent::-moz-focus-inner {
     padding: 1px 5px;
     font-size: 12px;
     line-height: 1.5;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 
 .input-group-addon {
@@ -830,7 +864,7 @@ input.form-upload {
     margin: 20px 20px 20px 0;
     border: 1px solid #ddd;
     border-left-width: 5px;
-    border-radius: 3px;
+    border-radius: 5px;
     font-size: 14px;
 }
 
@@ -1223,6 +1257,12 @@ sub {
 
 .element-even {
     background-color: #f5f5f5;
+}
+
+.icon6
+{
+	max-width: 6px;
+	max-height: 6px;
 }
 
 .icon16
