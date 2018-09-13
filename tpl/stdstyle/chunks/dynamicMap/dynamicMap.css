@@ -1,5 +1,17 @@
 @charset "UTF-8";
 
+.dynamicMap_cursor {
+    cursor: crosshair
+}
+
+.dynamicMap_cursorResize {
+    cursor: col-resize;
+}
+
+.dynamicMap_cursorMove {
+    cursor: pointer;
+}
+
 .dynamicMap_layerSwitcher {
   top: 5px;
   right: 5px;
@@ -92,4 +104,3 @@
   content: "✖";
   font-size: 15px;
 }
-

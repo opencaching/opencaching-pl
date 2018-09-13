@@ -47,19 +47,44 @@ use Utils\Uri\SimpleRouter;
   </div>
 
 <script>
-    let MIN_RADIUS = <?=$view->minRadius?>;
-    let MAX_RADIUS = <?=$view->maxRadius?>;
+    let configDraw;
+    let configDrawHooks = {
+        "updateConfig": updateConfig
+    };
 
-    $(document).ready(function(){
-        draw();
+    $(document).ready(function() {
+        configDraw = new ConfigDraw(
+            dynamicMapParams_nbhmapmain.map, <?=$view->minRadius?>, <?=$view->maxRadius?>
+        );
+        configDraw.setHooks(configDrawHooks);
+        let initLat, initLon, initRadius;
         <?php if ($view->coordsOK == 1) { ?>
+        initLat = <?=$view->neighbourhoodsList[$view->selectedNbh]->getCoords()->getLatitude()?>;
+        initLon = <?=$view->neighbourhoodsList[$view->selectedNbh]->getCoords()->getLongitude()?>;
+        initRadius = <?=$view->neighbourhoodsList[$view->selectedNbh]->getRadius()?>;
         $('#nbh-coords-lat').text(latToText($('#input-lat').val()));
         $('#nbh-coords-lon').text(lonToText($('#input-lon').val()));
         $('#nbh-radius').text($('#input-radius').val());
         $('#nbh-startdraw-btn').hide();
         $('#nbh-coords-line').show();
+        <?php } else { // else if coordsOK ?>
+        $('#nbh-startdraw-btn').click(function() {
+            configDraw.startDrawing();
+            $('#nbh-startdraw-btn').hide();
+            $('#nbh-coords-line').show();
+        });
         <?php } // end if coordsOK ?>
+        configDraw.init([ initLat, initLon ], initRadius);
     });
+
+    function updateConfig(lat, lon, radius) {
+        $('#input-radius').val(radius);
+        $('#nbh-radius').text(radius);
+        $('#input-lat').val(lat);
+        $('#input-lon').val(lon);
+        $('#nbh-coords-lat').text(latToText(lat));
+        $('#nbh-coords-lon').text(lonToText(lon));
+    }
 
     function latToText(lat) {
         let text = 'N ';
@@ -84,97 +109,6 @@ use Utils\Uri\SimpleRouter;
         text += v1 + '° ' + v2 + '\'';
         return text;
     }
-
-    function draw(){
-      let map = dynamicMapParams_nbhmapmain.map;
-      let circleOptionsTemplate = {
-            fillColor: '#ffff00',
-            fillOpacity: 0.35,
-            strokeWeight: 1,
-            strokeOpacity: 0.8,
-            clickable: true,
-            editable: true,
-            draggable: false,
-        };
-    let drawingManager = new google.maps.drawing.DrawingManager({
-          drawingMode: null,      // nothing is drown by default
-          drawingControl: false,  // hide drawing controls
-          circleOptions: circleOptionsTemplate,
-          map: map,
-    });
-
-    <?php if ($view->coordsOK == 1) { ?>
-    drawingManager.setDrawingMode(null);
-    let circle = new google.maps.Circle(circleOptionsTemplate);
-    circle.setCenter({
-        lat: <?=$view->neighbourhoodsList[$view->selectedNbh]->getCoords()->getLatitude()?>,
-        lng: <?=$view->neighbourhoodsList[$view->selectedNbh]->getCoords()->getLongitude()?>
-        });
-    circle.setRadius(<?=$view->neighbourhoodsList[$view->selectedNbh]->getRadius()?> * 1000);
-    circle.setMap(map);
-    map.fitBounds(circle.getBounds());
-    google.maps.event.addListener(circle, 'radius_changed', function (){
-        let newRadius = Math.round(circle.getRadius() / 1000);
-        if (newRadius > MAX_RADIUS) {
-            newRadius = MAX_RADIUS;
-            circle.setRadius(MAX_RADIUS * 1000);
-            } else if (newRadius < MIN_RADIUS) {
-                newRadius = MIN_RADIUS;
-                circle.setRadius(MIN_RADIUS * 1000);
-            }
-        $('#input-radius').val(newRadius);
-        $('#nbh-radius').text(newRadius);
-    });
-    google.maps.event.addListener(circle, 'center_changed', function (){
-        $('#input-lat').val(circle.getCenter().lat());
-        $('#input-lon').val(circle.getCenter().lng());
-        $('#nbh-coords-lat').text(latToText(circle.getCenter().lat()));
-        $('#nbh-coords-lon').text(lonToText(circle.getCenter().lng()));
-    });
-
-    <?php } else { ?>
-    google.maps.event.addListener(drawingManager, 'circlecomplete', function(circle) {
-        drawingManager.setDrawingMode(null);
-        let newRadius = Math.round(circle.getRadius() / 1000);
-        if (newRadius > MAX_RADIUS) {
-            newRadius = MAX_RADIUS;
-            circle.setRadius(MAX_RADIUS * 1000);
-            } else if (newRadius < MIN_RADIUS) {
-                newRadius = MIN_RADIUS;
-                circle.setRadius(MIN_RADIUS * 1000);
-            }
-        $('#input-radius').val(newRadius);
-        $('#nbh-radius').text(newRadius);
-        $('#input-lat').val(circle.getCenter().lat());
-        $('#input-lon').val(circle.getCenter().lng());
-        $('#nbh-coords-lat').text(latToText(circle.getCenter().lat()));
-        $('#nbh-coords-lon').text(lonToText(circle.getCenter().lng()));
-    google.maps.event.addListener(circle, 'radius_changed', function (){
-            let newRadius = Math.round(circle.getRadius() / 1000);
-            if (newRadius > MAX_RADIUS) {
-                newRadius = MAX_RADIUS;
-                circle.setRadius(MAX_RADIUS * 1000);
-                } else if (newRadius < MIN_RADIUS) {
-                    newRadius = MIN_RADIUS;
-                    circle.setRadius(MIN_RADIUS * 1000);
-                }
-            $('#input-radius').val(newRadius);
-            $('#nbh-radius').text(newRadius);
-        });
-        google.maps.event.addListener(circle, 'center_changed', function (){
-            $('#input-lat').val(circle.getCenter().lat());
-            $('#input-lon').val(circle.getCenter().lng());
-            $('#nbh-coords-lat').text(latToText(circle.getCenter().lat()));
-            $('#nbh-coords-lon').text(lonToText(circle.getCenter().lng()));
-        });
-      });
-    $('#nbh-startdraw-btn').click(function() {
-        drawingManager.setDrawingMode('circle');
-        $('#nbh-startdraw-btn').hide();
-        $('#nbh-coords-line').show();
-        });
-    <?php } // end if coordsOK ?>
-  }
   </script>
 
   <div class="buffer"></div>

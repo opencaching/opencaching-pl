@@ -31,6 +31,8 @@ function dynamicMapEntryPoint( params ) {
 
   });
 
+  mapDiv.addClass("dynamicMap_cursor");
+
   // add attributions control
   params.map.addControl(new ol.control.Control(
       {
@@ -278,6 +280,10 @@ function cordsUnderCursorInit(params) {
 
 function loadMarkers(params) {
 
+    if (!params.markerData || params.markerData.length == 0) {
+        return;
+    }
+
   // extract markers from params
   var featuresArr = [];
   Object.keys(params.markerData).forEach(function(markerType) {
@@ -356,6 +362,3 @@ function loadMarkers(params) {
   });
 
 }
-
-
-
