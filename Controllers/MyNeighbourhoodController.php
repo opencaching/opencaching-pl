@@ -365,11 +365,13 @@ class MyNeighbourhoodController extends BaseController
         $this->view->setVar('infoMsg', $this->infoMsg);
 
         $this->view->addHeaderChunk('openLayers5');
+        $this->view->addHeaderChunk('geodesy');
 
         $mapModel = new DynamicMapModel();
         $mapModel->setZoom(6);
         $this->view->setVar('mapModel', $mapModel);
         $this->view->addLocalJs(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/config.js'), true, true);
+        $this->view->addLocalJs(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/config_draw.js'));
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/common.css'));
         $this->view->setTemplate('myNeighbourhood/config');
         $this->view->loadJQueryUI();
