@@ -7,7 +7,7 @@
  */
 
 $bannerTxt = [
-    "Największy na świecie bezpłatny serwis geocachingowy",
+    "Największy na świecie niekomercyjny serwis geocachingowy",
     "Geościeżki - skupiające wiele keszy",
     "Ponad 500 Geościeżek w Polsce!",
     "Pełne statystyki, GPXy, wszystko za free!",
