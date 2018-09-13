@@ -8,6 +8,13 @@ use Utils\Uri\Uri;
 use lib\Objects\OcConfig\OcDynamicMapConfig;
 use Utils\View\View;
 use Utils\Uri\OcCookie;
+use lib\Objects\ChunkModels\DynamicMap\CacheMarkerModel;
+use lib\Objects\ChunkModels\DynamicMap\DynamicMapModel;
+use lib\Objects\ChunkModels\DynamicMap\CacheSetMarkerModel;
+use lib\Objects\CacheSet\CacheSetCommon;
+use lib\Objects\User\User;
+use Utils\Uri\SimpleRouter;
+use Controllers\CacheMapController;
 
 /**
  *  powerTrail.php
@@ -21,7 +28,7 @@ use Utils\Uri\OcCookie;
  *
  */
 // variables required by opencaching.pl
-global $lang, $rootpath, $usr, $absolute_server_URI, $googlemap_key;
+global $lang, $rootpath, $usr, $absolute_server_URI;
 
 //prepare the templates and include all neccessary
 require_once('lib/common.inc.php');
@@ -63,7 +70,8 @@ if ($error == false) {
     $view->loadJQuery();
     $view->loadJQueryUI();
     $view->loadTimepicker();
-    $view->loadGMapApi();
+    $view->addHeaderChunk('openLayers5');
+
 
     if (!$usr && $hide_coords) {
         $mapControls = 0;
@@ -109,14 +117,11 @@ if ($error == false) {
     tpl_set_var('mapInit', 0);
     tpl_set_var('mapCenterLat', 0);
     tpl_set_var('mapCenterLon', 0);
-    tpl_set_var('mapZoom', 15);
     tpl_set_var('zoomControl', $mapControls);
     tpl_set_var('scrollwheel', $mapControls);
     tpl_set_var('scaleControl', $mapControls);
 
-    tpl_set_var('ptList4map', '[]');
     tpl_set_var('fullCountryMap', '1');
-    tpl_set_var('googleMapApiKey', $googlemap_key);
     tpl_set_var('ocWaypoint', $oc_waypoint);
     tpl_set_var('commentsPaginateCount', powerTrailBase::commentsPaginateCount);
 
@@ -125,7 +130,6 @@ if ($error == false) {
     tpl_set_var('mapWMSConfigLoader', OcDynamicMapConfig::getWMSImageMapTypeOptions());
 
 
-    tpl_set_var('googlemap_key', $googlemap_key);
     tpl_set_var('powerTrailId', '');
     tpl_set_var('keszynki', '');
     tpl_set_var('cacheFound', '');
@@ -161,6 +165,28 @@ if ($error == false) {
             break;
         case 'showAllSeries':
             $ptListData = displayPTrails($pt->getpowerTrails(), $pt->getPowerTrailOwn());
+            tpl_set_var('PowerTrails', $ptListData[0]);
+
+            $mapModel = new DynamicMapModel();
+            $mapModel->addMarkersWithExtractor(CacheSetMarkerModel::class, $pt->getpowerTrails(), function($pt){
+                $marker = new CacheSetMarkerModel();
+                $marker->icon = CacheSetCommon::GetTypeIcon($pt['type']);
+                $marker->lat = $pt['centerLatitude'];
+                $marker->lon = $pt['centerLongitude'];
+                $marker->name = $pt['name'];
+                $marker->link = CacheSetCommon::getCacheSetUrlById($pt['id']);
+                return $marker;
+            });
+
+            tpl_set_var('mapCenterLat', $main_page_map_center_lat);
+            tpl_set_var('mapCenterLon', $main_page_map_center_lon);
+
+            $mapModel->forceDefaultZoom();
+
+            $view->setVar('dynamicMapModel', $mapModel);
+
+
+
             tpl_set_var('filtersTrDisplay', 'table-row');
             tpl_set_var('ptTypeSelector2', displayPtTypesSelector('filter', isset($_REQUEST['filter'])?$_REQUEST['filter']:0, true));
             tpl_set_var('sortSelector', getSortBySelector($_REQUEST['sortBy']));
@@ -170,11 +196,7 @@ if ($error == false) {
                 isset($_REQUEST['gainedPowerTrailsBool'])?$_REQUEST['gainedPowerTrailsBool']:0));
             tpl_set_var('historicLimitBool', getMiniPowerTrailSelector($_REQUEST['historicLimitBool']));
             tpl_set_var('displayedPowerTrailsCount', $pt->getDisplayedPowerTrailsCount());
-            tpl_set_var('mapCenterLat', $main_page_map_center_lat);
-            tpl_set_var('mapCenterLon', $main_page_map_center_lon);
-            tpl_set_var('mapZoom', 6);
-            tpl_set_var('PowerTrails', $ptListData[0]);
-            tpl_set_var('ptList4map', $ptListData[1]);
+
             tpl_set_var('displayPowerTrails', 'block');
             if ($pt->getPowerTrailOwn() === false)
                 tpl_set_var('statusOrPoints', tr('pt037'));
@@ -186,17 +208,35 @@ if ($error == false) {
             break;
         case 'showMySeries':
             $ptListData = displayPTrails($pt->getpowerTrails(), $pt->getPowerTrailOwn());
+            tpl_set_var('PowerTrails', $ptListData[0]);
+
+            $mapModel = new DynamicMapModel();
+            $mapModel->addMarkersWithExtractor(CacheSetMarkerModel::class, $pt->getpowerTrails(), function($pt){
+                $marker = new CacheSetMarkerModel();
+                $marker->icon = CacheSetCommon::GetTypeIcon($pt['type']);
+                $marker->lat = $pt['centerLatitude'];
+                $marker->lon = $pt['centerLongitude'];
+                $marker->name = $pt['name'];
+                $marker->link = CacheSetCommon::getCacheSetUrlById($pt['id']);
+                return $marker;
+            });
+
+
+            tpl_set_var('mapCenterLat', $main_page_map_center_lat);
+            tpl_set_var('mapCenterLon', $main_page_map_center_lon);
+            // no need to set coords in map-model - defaults are the same
+
+            $view->setVar('dynamicMapModel', $mapModel);
+
+
             // tpl_set_var('ptTypeSelector2', displayPtTypesSelector('filter',$_REQUEST['filter'], true));
             // tpl_set_var('sortSelector', getSortBySelector($_REQUEST['sortBy']));
             // tpl_set_var('sortDirSelector', getSortDirSelector($_REQUEST['sortDir']));
             tpl_set_var('filtersTrDisplay', 'none');
 
             tpl_set_var('displayedPowerTrailsCount', $pt->getDisplayedPowerTrailsCount());
-            tpl_set_var('mapCenterLat', $main_page_map_center_lat);
-            tpl_set_var('mapCenterLon', $main_page_map_center_lon);
-            tpl_set_var('mapZoom', 6);
-            tpl_set_var('PowerTrails', $ptListData[0]);
-            tpl_set_var('ptList4map', $ptListData[1]);
+
+
             tpl_set_var('displayPowerTrails', 'block');
             if ($pt->getPowerTrailOwn() === false)
                 tpl_set_var('statusOrPoints', tr('pt037'));
@@ -225,7 +265,9 @@ if ($error == false) {
             }
 
             $userIsOwner = $powerTrail->isUserOwner($usr['userid']);
-            if ($powerTrail->getStatus() == 1 || $userIsOwner || ($appContainer->getLoggedUser() !== null && $appContainer->getLoggedUser()->getIsAdmin())) {
+            if ($powerTrail->getStatus() == 1 || $userIsOwner ||
+                ($appContainer->getLoggedUser() !== null && $appContainer->getLoggedUser()->getIsAdmin())) {
+
                 $ptTypesArr = powerTrailBase::getPowerTrailTypes();
                 $ptStatusArr = \lib\Controllers\PowerTrailController::getPowerTrailStatus();
                 $foundCachsByUser = $powerTrail->getFoundCachsByUser($usr['userid']);
@@ -263,12 +305,6 @@ if ($error == false) {
                 tpl_set_var('powerTrailLogo', displayPowerTrailLogo($powerTrail->getId(), $powerTrail->getImage()));
                 tpl_set_var('powerTrailserStats', displayPowerTrailserStats($powerTrail, $foundCachsByUser));
 
-                //map
-                tpl_set_var('mapInit', 1);
-                tpl_set_var('mapCenterLat', $powerTrail->getCenterCoordinates()->getLatitude());
-                tpl_set_var('mapCenterLon', $powerTrail->getCenterCoordinates()->getLongitude());
-                tpl_set_var('mapZoom', 11);
-                tpl_set_var('ptList4map', "[" . $powerTrail->getCenterCoordinates()->getLatitude() . "," . $powerTrail->getCenterCoordinates()->getLongitude() . ",'" . tr('pt136') . "'],");
 
                 if ($userIsOwner) {
                     tpl_set_var('ptStatus', tr($ptStatusArr[$powerTrail->getStatus()]['translate']));
@@ -288,9 +324,30 @@ if ($error == false) {
                     tpl_set_var('cacheCountUserActions', '');
                     tpl_set_var('ownerListUserActions', '');
                 }
+
+                tpl_set_var('mapInit', 1);
+
+                $ptId = $powerTrail->getId();
+                $view->setVar('fullScreenMapPtLink',
+                    SimpleRouter::getLink(CacheMapController::class, 'fullScreen') . "?pt=$ptId&callFromPt");
+
+                $mapModel = new DynamicMapModel();
+
+                tpl_set_var('mapCenterLat', $powerTrail->getCenterCoordinates()->getLatitude());
+                tpl_set_var('mapCenterLon', $powerTrail->getCenterCoordinates()->getLongitude());
+
                 if ($usr || !$hide_coords) {
-                    tpl_set_var('ptList4map', displayAllCachesOfPowerTrail($powerTrail));
+
+                    $user = User::fromUserIdFactory($usr['userid']);
+                    $mapModel->addMarkersWithExtractor(CacheMarkerModel::class, $powerTrail->getGeocaches()->getArrayCopy(), function($geocache) use($user){
+
+                        return CacheMarkerModel::fromGeocacheFactory($geocache, $user);
+                    });
+
                 }
+
+                $view->setVar('dynamicMapModel', $mapModel);
+
             } else {
                 tpl_set_var('mapOuterdiv', 'none');
                 tpl_set_var('mainPtInfo', tr('pt018'));
@@ -368,20 +425,26 @@ function displayPTrails($pTrails, $areOwnSeries)
     $ptTypes = powerTrailBase::getPowerTrailTypes();
     $ptStatus = \lib\Controllers\PowerTrailController::getPowerTrailStatus();
 
-    $result = '';
+    $dataForList = '';
     $dataForMap = '';
 
     foreach ($pTrails as $pTkey => $pTrail) {
+
         $pTrail["name"] = str_replace("'", '&#39;', $pTrail["name"]);
-        $dataForMap .= "[" . $pTrail["centerLatitude"] . "," . $pTrail["centerLongitude"] . ",'<a href=powerTrail.php?ptAction=showSerie&ptrail=" . $pTrail["id"] . ">" . $pTrail["name"] . "</a>','" . $ptTypes[$pTrail['type']]['icon'] . "','" . $pTrail["name"] . "'],";
+
+        $dataForMap .= "[" . $pTrail["centerLatitude"] . "," . $pTrail["centerLongitude"] .
+            ",'<a href=powerTrail.php?ptAction=showSerie&ptrail=" . $pTrail["id"] . ">" . $pTrail["name"] .
+            "</a>','" . $ptTypes[$pTrail['type']]['icon'] . "','" . $pTrail["name"] . "'],";
+
         if (!$areOwnSeries)
             $ownOrAll = round($pTrail["points"], 2);
         else
             $ownOrAll = tr($ptStatus[$pTrail["status"]]['translate']);
+
         if (strlen($pTrail["name"]) > 40) {
             $pTrail["name"] = mb_substr($pTrail["name"], 0, 35) . ' (...)';
         }
-        $result .= '<tr>' .
+        $dataForList .= '<tr>' .
                 '<td style="text-align: right; padding-right: 5px;"><b><a href="powerTrail.php?ptAction=showSerie&ptrail=' . $pTrail["id"] . '">' . $pTrail["name"] . '</a></b></td>' .
                 '<td><img src="' . $ptTypes[$pTrail["type"]]['icon'] . '" alt=""> ' . tr($ptTypes[$pTrail["type"]]['translate']) . '</td>' .
                 '<td class="ptTd">' . $ownOrAll . '</td>' .
@@ -391,35 +454,7 @@ function displayPTrails($pTrails, $areOwnSeries)
         </tr>';
     }
 
-    $result = array($result, rtrim($dataForMap, ","));
-
-    return $result;
-}
-
-function displayAllCachesOfPowerTrail(PowerTrail $powerTrail)
-{
-    isset($_SESSION['user_id']) ? $userId = $_SESSION['user_id'] : $userId = -9999;
-
-    $powerTrailCachesUserLogsByCache = $powerTrail->getPowerTrailCachesLogsForCurrentUser();
-
-    $cacheTypesIcons = cache::getCacheIconsSet();
-    $pTrailCaches = $powerTrail->getGeocaches();
-    $cacheRows = '';
-    /* @var $geocache Geocache */
-    foreach ($pTrailCaches as $geocache) {
-        // avoid crash js on quotas (');
-        $cacheName = str_replace("'", '&#39;', $geocache->getCacheName());
-        if (isset($powerTrailCachesUserLogsByCache[$geocache->getCacheId()])) {
-            $image = $cacheTypesIcons[$geocache->getCacheType()]['iconSet'][1]['iconSmallFound'];
-        } elseif ($geocache->getOwner()->getUserId() == $userId) {
-            $image = $cacheTypesIcons[$geocache->getCacheType()]['iconSet'][1]['iconSmallOwner'];
-        } else {
-            $image = $cacheTypesIcons[$geocache->getCacheType()]['iconSet'][1]['iconSmall'];
-        }
-        $cacheRows .= '[' . $geocache->getCoordinates()->getLatitude() . "," . $geocache->getCoordinates()->getLongitude() . ",'<a href=" . $geocache->getWaypointId() . " target=_new>" . $cacheName . "</a>'," . "'$image','" . $cacheName . "',],";
-    }
-    $cacheRows = rtrim($cacheRows, ",");
-    return $cacheRows;
+    return array($dataForList, rtrim($dataForMap, ","));
 }
 
 function displayPowerTrailserStats(PowerTrail $powerTrail, $cachesFoundByUser)

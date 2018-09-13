@@ -17,6 +17,7 @@ class DynamicMapModel
     /** @var Coordinates */
     private $coords;         // center of the map
     private $zoom;           // zoom of the map, int,
+    private $forceZoom;      // force given zoom even if some markers will be hidden
     private $mapLayerName;   // name of the default map layer
 
     private $markerModels = [];
@@ -30,6 +31,7 @@ class DynamicMapModel
             $this->ocConfig->getMainPageMapCenterLon());
 
         $this->zoom = $this->ocConfig->getMainPageMapZoom();
+        $this->forceZoom = false;
         $this->mapLayerName = 'OSM';
     }
 
@@ -65,7 +67,7 @@ class DynamicMapModel
      *
      * @param AbstractMarkerModelBase $model
      */
-    private function addMarker(AbstractMarkerModelBase $model)
+    public function addMarker(AbstractMarkerModelBase $model)
     {
         $type = $model->getMarkerTypeName();
 
@@ -115,6 +117,11 @@ class DynamicMapModel
         return $this->zoom;
     }
 
+    public function isZoomForced()
+    {
+        return $this->forceZoom;
+    }
+
     public function getSelectedLayerName(){
         return $this->mapLayerName;
     }
@@ -122,6 +129,17 @@ class DynamicMapModel
     public function setZoom($zoom)
     {
         $this->zoom = $zoom;
+        $this->forceZoom = true;
+    }
+
+    public function forceDefaultZoom()
+    {
+        $this->forceZoom = true;
+    }
+
+    public function setCoords(Coordinates $cords)
+    {
+        $this->coords = $cords;
     }
 
 }
