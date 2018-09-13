@@ -426,7 +426,7 @@ $translations = array(
     'register_intro' => 'Please enter your valid e-mail address below - we will send you an activation link. During registration you will also choose a unique username (nickname) that you will use on the site.',
     'register_info' => 'The user may opt out of using the website. At the same time, all data entered during registration and in the user description will be irretrievably deleted. If you want to deactivate your account, please contact us using your e-mail account. In uncertain cases, please contact us ({contact_mail}). Thank you.',
     'register_rulesLbl' => 'Yes, I have read the <strong><a href="{wiki_link_rules}" target="_blank" rel="noopener">Terms of Service</a></strong> {site_name} and I agree to abide by it.',
-    'register_ageLbl' => 'Yes, I\'m {minAge} or older.', /* EN */
+    'register_ageLbl' => 'Yes, I\'m {minAge} or older.',
     'register_confirm' => 'The activation link was sent to you via e-mail.<div class="buffer"></div>If you don\'t see the activation message in your inbox, please check your SPAM folder.',
 
     'activation_title' => 'Account activation',
@@ -965,6 +965,7 @@ $translations = array(
     'log_type_available' => 'Ready to find',
     'log_mobile_init' => 'Starting coordinates',
     'error_coords_not_ok' => 'Wrong coordinates!',
+    'error_nofulltext' => 'Invalid entry. Change the name to search.',
     'GKApi01' => 'Integration of your geokrety.org account',
     'GKApi02' => 'GeoKrety Secid',
     'GKApi03' => 'To integrate your geokrety.org account with {site_name}, please provide your <b>Secid</b>.<br />The <b>Secid</b> can be found in your geokrety.org account details page',
@@ -1154,6 +1155,9 @@ $translations = array(
     'remove_desc_02' => 'from the cache',
     'remove_desc_03' => 'be removed?',
     'remove_desc_04' => 'Remove',
+    'remove_pic_subject' => 'Remove',
+    'remove_pic_title_internal' => 'Internal server error',
+    'remove_pic_internal' => 'There was an error during the processing. If the error persists, please send the information to the address {mail_oc} enclosing the description of the procedure performed and the file to repeat the situation causing the error.',
     'error_viewcache_01' => 'Cache can not be displayed.<br />Possible causes:',
     'error_viewcache_02' => 'Cache not found in database',
     'error_viewcache_03' => 'Cache is not published',
@@ -2047,7 +2051,7 @@ $translations = array(
     'usrWatch_watchedCache' => 'Watched geocache',
     'usrWatch_lastLog' => 'Last log',
     'usrWatch_actionRemove' => 'Remove from watched',
-    'usrWatch_noLogs'   => 'No logs yet',
+    'usrWatch_noLogs' => 'No logs yet',
     'usrWatch_nothingWatched' => 'You are currently not observing any geocache.',
     'usrWatch_removeWatched' => 'Click to remove geocache from watched',
     'usrWatch_removingError' => 'Unexpected error on removing from watched!',
@@ -2784,4 +2788,11 @@ $translations = array(
     'copy_coords_success_prefix' => 'Coordinates',
     'copy_coords_success_suffix' => 'have been copied to the clipboard',
     'copy_coords_failure' => 'Coordinates have not been copied.<br>Your browser does not support the copy-to-clipboard operation.',
+
+    'log_filter' => 'Filter',
+    'log_filter_type' => 'Log type',
+    'log_filter_type_any' => 'Any',
+    'log_filter_author' => 'Author',
+    'log_filter_author_any' => 'Anyone',
+    'log_filter_author_currentuser' => 'Me'
 );

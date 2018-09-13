@@ -1286,3 +1286,29 @@ sub {
 .tab-text {
 	padding-left: 1.6em;
 }
+
+.currentuser-activity-logs-tooltip {
+    display: table;
+}
+
+.currentuser-activity-logs-tooltip-line {
+    display: table-row;
+}
+
+.currentuser-activity-logs-tooltip-item {
+    display: table-cell;
+    padding: 0 5px;
+    text-align: left;
+}
+
+div.currentuser-log {
+    border: 2px solid #0000a0;
+}
+
+.cachelog-line {
+    float: left;
+}
+
+.cachelog-line2 {
+    clear: both;
+}

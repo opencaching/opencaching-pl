@@ -10,6 +10,7 @@ use Utils\Uri\Uri;
 use lib\Controllers\MeritBadgeController;
 use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\GeoCache\GeoCache;
+use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\GeoCache\GeoCacheDesc;
 use lib\Objects\GeoCache\OpenChecker;
 use lib\Objects\GeoCache\PrintList;
@@ -462,6 +463,46 @@ class ViewCacheController extends BaseController
         $this->view->setVar('logEntriesCount', $logEntriesCount);
         $this->view->setVar('displayDeletedLogs', $displayDeletedLogs);
 
+        $logfilterConfig = $this->ocConfig->getLogfilterConfig();
+        $this->view->setVar(
+            'enableLogsFiltering',
+            !empty($logfilterConfig['enable_logs_filtering'])
+        );
+        if (
+            $this->loggedUser
+            && !empty($logfilterConfig['show_activities_tooltip'])
+        ) {
+            $this->view->setVar('showActivitiesTooltip', true);
+
+            // check if user has any activites based on cache type
+            $activityTypes = [];
+            if ($this->geocache->getCacheType() == GeoCache::TYPE_EVENT) {
+                $activityTypes = [
+                    GeoCacheLog::LOGTYPE_ATTENDED
+                ];
+            } else {
+                $activityTypes = [
+                    GeoCacheLog::LOGTYPE_FOUNDIT,
+                    GeoCacheLog::LOGTYPE_DIDNOTFIND
+                ];
+            }
+            $userActivityLogsCount = $this->geocache->getLogsCountByType(
+                $this->loggedUser, $activityTypes
+            );
+            if (sizeof($userActivityLogsCount) > 0) {
+                // retrieve user activites
+                $this->view->setVar(
+                    'userActivityLogs',
+                    (new GeoCacheLog())->getCacheLogsForUser(
+                        $this->geocache->getCacheId(),
+                        $this->loggedUser->getUserId(),
+                        $activityTypes
+                    )
+                );
+            }
+        } else {
+            $this->view->setVar('showActivitiesTooltip', false);
+        }
     }
 
     private function processUserNote()
