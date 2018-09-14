@@ -100,13 +100,9 @@ class ConfigDraw {
         this.map.addInteraction(this.snap);
 
         if (initLatLon && initRadius) {
-            let initCoords = this._fromLatLon(initLatLon);
-            let radiusPoint = this._radiusToPoint(initLatLon, initRadius);
-
             let currentGeometry = this._configGeometry(
-                [initCoords, radiusPoint]
+                this._computeShapePoints(initLatLon, initRadius)
             );
-
             this.configSource.addFeature(new ol.Feature({
                 geometry: currentGeometry,
                 style: this.configDrawCommonStyles['GeometryCollection']
@@ -188,7 +184,7 @@ class ConfigDraw {
 
     _applyRestrictions(feature) {
         let circle = this._getConfigShapes(feature, true);
-        let radius = this._radiusToKm(circle.getExtent());
+        let radius = this._radiusToKm(circle);
         let adjust = false;
         if (radius > this.maxRadius) {
             radius = this.maxRadius;
@@ -198,10 +194,8 @@ class ConfigDraw {
             adjust = true;
         }
         if (adjust) {
-            let centerLatLon = this._toLatLon(circle.getCenter());
-            let radiusPoint = this._radiusToPoint(centerLatLon, radius);
             feature.setGeometry(this._configGeometry(
-                [circle.getCenter(), radiusPoint]
+                this._computeShapePoints(circle.getCenter(), radius, false)
             ));
         }
     }
@@ -265,7 +259,7 @@ class ConfigDraw {
     _computeNewConfigParams(feature) {
         let circle = this._getConfigShapes(feature, true);
         let newCoords = this._toLatLon(circle.getCenter());
-        let newRadius = this._radiusToKm(circle.getExtent());
+        let newRadius = this._radiusToKm(circle);
         return [ newCoords, newRadius ];
     }
 
@@ -275,22 +269,25 @@ class ConfigDraw {
         return Math.sqrt(dx * dx + dy * dy);
     }
 
-    _radiusToPoint(centerLatLon, radiusInKm) {
-        let radiusPointLatLon =
-            new LatLon(centerLatLon[0], centerLatLon[1]).destinationPoint(
-                radiusInKm * 1000, 90
-            );
-        return this._fromLatLon(radiusPointLatLon);
+    _computeShapePoints(centerCoords, radiusInKm, coordsAreLatLon = true) {
+        let centerLatLon =
+            coordsAreLatLon ? centerCoords : this._toLatLon(centerCoords);
+        let centerPoint =
+            coordsAreLatLon ? this._fromLatLon(centerCoords) : centerCoords;
+        let factor = 1/Math.cos(centerLatLon[0] * Math.PI / 180);
+        let radiusPoint = ol.extent.getTopRight(
+            (new ol.geom.Circle(
+                centerPoint, radiusInKm * 1000 * factor
+            )).getExtent()
+        );
+        radiusPoint[1] = centerPoint[1];
+        return [ centerPoint, radiusPoint ];
     }
 
-    _radiusToKm(extent) {
-        let centerPoint = this._toLatLon(ol.extent.getCenter(extent));
-        let topRightPoint = this._toLatLon(ol.extent.getTopRight(extent));
-        return Math.round(
-            new LatLon(centerPoint[0], centerPoint[1]).distanceTo(
-                new LatLon(centerPoint[0], topRightPoint[1])
-            ) / 1000
-        );
+    _radiusToKm(circle) {
+        let centerLatLon = this._toLatLon(circle.getCenter());
+        let factor = 1/Math.cos(centerLatLon[0] * Math.PI / 180);
+        return Math.round( ( circle.getRadius() / factor ) / 1000 );
     }
 
     _fromLatLon(latlonPoint) {

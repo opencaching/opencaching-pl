@@ -365,7 +365,6 @@ class MyNeighbourhoodController extends BaseController
         $this->view->setVar('infoMsg', $this->infoMsg);
 
         $this->view->addHeaderChunk('openLayers5');
-        $this->view->addHeaderChunk('geodesy');
 
         $mapModel = new DynamicMapModel();
         $mapModel->setZoom(6);
