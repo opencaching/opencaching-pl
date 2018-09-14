@@ -23,7 +23,7 @@
         image: new ol.style.Icon( {
           anchor: [0.5, 0.5],
           anchorXUnits: 'fraction',
-          anchorYUnits: 'pixels',
+          anchorYUnits: 'fraction',
           src: ocData.icon,
           scale: 0.5,
         })
