@@ -21,7 +21,8 @@
 
           iconFeature.setStyle(new ol.style.Style({
             image: new ol.style.Icon( {
-              anchor: [0.5, 46],
+              anchorOrigin: 'bottom-left',
+              anchor: [0.5, 0],
               anchorXUnits: 'fraction',
               anchorYUnits: 'pixels',
               src: ocData.icon,
