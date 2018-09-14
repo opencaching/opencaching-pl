@@ -51,8 +51,6 @@
 
   function initDrawing(params)
   {
-    // https://openlayers.org/en/latest/examples/draw-features.html?q=draw
-
     var map = dynamicMapParams_drawingMapCanvas.map; // get right map object
 
     var drawingLayer = new ol.layer.Vector ({
@@ -74,7 +72,6 @@
     map.addLayer(drawingLayer);
 
     var draw;
-
 
 
     $('#drawRectangle').click(function(){

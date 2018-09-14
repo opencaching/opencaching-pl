@@ -305,7 +305,7 @@ function loadMarkers(params) {
   params.map.addLayer( markersLayer );
 
   //zoom map to see all markers
-  if(!ol.extent.isEmpty(ext)){
+  if(!params.forceMapZoom && !ol.extent.isEmpty(ext)){
     // there are markers
     params.map.getView().fit(ext);
   }

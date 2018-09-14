@@ -308,7 +308,7 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
     float:right
 }
 
-#map-canvas, #map_canvas {
+#map_canvas {
     margin-top: 5px;
     height: 460px;
     width: 100%;
