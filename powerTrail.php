@@ -329,7 +329,7 @@ if ($error == false) {
 
                 $ptId = $powerTrail->getId();
                 $view->setVar('fullScreenMapPtLink',
-                    SimpleRouter::getLink(CacheMapController::class, 'fullScreen') . "?pt=$ptId&callFromPt");
+                    SimpleRouter::getLink(CacheMapController::class, 'fullScreen') . "?pt=$ptId");
 
                 $mapModel = new DynamicMapModel();
 

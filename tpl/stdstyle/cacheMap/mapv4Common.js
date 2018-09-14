@@ -107,8 +107,6 @@ function layerSwitcherInit(map) {
 
           if ( layer.get('ocLayerName') == switcherDropdown.val() ) {
             layer.setVisible(true);
-            //$("#ocAttribution").html(layer.getSource().attributions_[0].html_)
-            //console.log(layer.getSource().get('attributions'));
           } else {
             layer.setVisible(false);
           }
@@ -186,8 +184,9 @@ function getOcTailSource(addRandomParam) {
 
   // add powertrail ids list if necessary
   if ( ptIds = ocMapConfig.getPowerTrailIds() ) {
-    if ( $('#pt_selection').is(":checked") ) { //skip to see all caches
-      ocTilesUrl += "&powertrail_ids="+ptIds
+    if ( $('#powerTrailSelection').is(":checked") ) { //skip to see all caches
+      console.log(ptIds);
+      ocTilesUrl += "&powertrail_ids="+ptIds;
     }
   }
 
@@ -278,7 +277,7 @@ function mapClickInit(map) {
 
     // add powertrail ids list if necessary
     if ( ptIds = ocMapConfig.getPowerTrailIds() ) {
-      if ( $('#pt_selection').is(":checked")) { //skip to see all caches
+      if ( $('#powerTrailSelection').is(":checked")) { //skip to see all caches
           url += "&powertrail_ids="+ptIds;
       }
     }
@@ -487,7 +486,7 @@ function filterBoxInit(map) {
   $('#refreshButton').click(function() {
     refreshOcTiles(true);
   });
-  
+
   if (document.getElementById('fullscreenToggle')) {
 	$('#fullscreenToggle').click(function() {
 		fullScreenToggle(map);
@@ -590,7 +589,7 @@ var ocMapConfig = {
 
   getPowerTrailIds: function () {
     //TODO: parse value
-    return ocMapInputParams.searchData;
+    return ocMapInputParams.powertrailIds;
   },
 
   getUserSettings: function () {

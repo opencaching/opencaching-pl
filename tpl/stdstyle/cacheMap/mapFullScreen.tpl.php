@@ -217,8 +217,8 @@
 /* map params */
 var ocMapInputParams = {
   userId:     <?=$view->mapUserId?>,
-  searchData: <?= isset($view->searchData)?$view->searchData:"null"?>,
-  powertrailIds: null,                //TODO
+  searchData: <?=isset($view->searchData)?$view->searchData:"null"?>,
+  powertrailIds: <?=!is_null($view->cacheSet) ? $view->cacheSet->getId() : 'null';?>,
   userSettings: <?=$view->filterVal?>,
   fitToBounds: null,                      // { minLat: 123, maxLat: 123, minLon: 123, maxLon: 123 }
   centerOn: <?=$view->centerOn?>,         // { lat: 123, lon:123 }
