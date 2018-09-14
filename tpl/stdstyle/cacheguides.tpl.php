@@ -35,19 +35,20 @@
         initialize();
     };
 </script>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/guru.png" class="icon32" alt="" />&nbsp;{{cacheguides}}</div>
+<div class="content2-pagetitle">
+<img src="tpl/stdstyle/images/blue/guru.png" class="icon32" alt="" />&nbsp;{{cacheguides}}</div>
 <div class="searchdiv">
     <span style="font-size: 13px;">
-        {{guru_01}}
+        {{guides_intro}}
         <br/><br/>
-        {{guru_02}}
+        {{guides_listHeader}}
         <ul>
-            <li> {{guru_03}}</li>
-            <li> {{guru_04}}</li>
-            <li> {{guru_05}}</li>
+            <li> {{guides_toKnowMore}}</li>
+            <li> {{guides_howToRegisterAndFound}}</li>
+            <li> {{guides_visitOutdoor}}</li>
         </ul></br>
-        {{guru_06}} <br/><br/>
-        {{guru_07}} <b><font color="blue">{nguides}</font></b> {{guru_08}} <br/>
+        {{guides_howToContact}} <br/><br/>
+        {{guides_mapHeader}} <b><font color="blue">{nguides}</font></b> {{guides_mapHeaderEnd}} <br/>
         <span>
             </div>
             <div class="searchdiv">
@@ -57,13 +58,13 @@
                 <br/>&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/rating-star.png" alt="rekomendacje" title="rekomendacje"><b>&nbsp;{{guru_09}}</b><br/>
             </div>
             <div class="searchdiv">
-                <span class="content-title-noshade" style="width: 600px;margin: 10px;line-height: 1.6em;font-size: 12px;">{{guru_10}}
+                <span class="content-title-noshade" style="width: 600px;margin: 10px;line-height: 1.6em;font-size: 12px;">{{guides_howToBecomeGuide}}
                     <ul><font color="black">
-                        <li>{{guru_11}}</li>
+                        <li>{{guides_becomingGuideCond}}</li>
                         </font></ul>
-                    &nbsp;&nbsp;&nbsp;{{guru_12}} <a class="links" href="{serverURL}myprofile.php?action=change">{{guru_13}}</a>.
+                    &nbsp;&nbsp;&nbsp;{{guides_guideSetInProfile}} <a class="links" href="{serverURL}myprofile.php?action=change">{{guides_profileLink}}</a>.
                     <br/><br/>
-                    &nbsp;&nbsp;&nbsp;{{guru_14}}
+                    &nbsp;&nbsp;&nbsp;{{guides_thanks}}
                 </span></div>
             <br/>
 
