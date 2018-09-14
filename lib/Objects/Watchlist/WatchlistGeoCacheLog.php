@@ -280,6 +280,6 @@ class WatchlistGeoCacheLog extends BaseObject
      */
     public function setRecommended($recommended)
     {
-        $this->recommended = ($recommended);
+        $this->recommended = boolval($recommended);
     }
 }
