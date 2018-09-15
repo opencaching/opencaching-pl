@@ -116,6 +116,9 @@ global $tpl_subtitle;
               </button>
               <div id="topline-search-dropdown" class="topline-dropdown-content">
                 <div class="" onclick="chname('waypointname', '<?=tr('search')?>: <?=tr('waypointname_label')?>' , 'searchbywaypointname', '/search.php');"><?=tr('waypointname_label')?></div>
+                <?php if ($config['quick_search']['geopath']) { ?>
+                  <div class="" onclick="chname('name', '<?=tr('search')?>: <?=tr('pt000')?>', 'name', '<?=SRouter::getLink('GeoPath','searchByName')?>');"><?=tr('pt000')?></div>
+                <?php } ?>
                 <?php if ($config['quick_search']['byuser']) { ?>
                   <div class="" onclick="chname('username', '<?=tr('search')?>: <?=tr('user')?>', 'searchbyuser', '/searchuser.php');"><?=tr('user')?></div>
                 <?php } ?>

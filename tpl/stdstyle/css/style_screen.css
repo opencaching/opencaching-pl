@@ -750,6 +750,11 @@ a.transparent::-moz-focus-inner {
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 
+.form > label {
+	font-size: 14px;
+	padding: 4px;
+}
+
 .form-group-sm .form-control {
     height: 22px;
     padding: 1px 5px;
