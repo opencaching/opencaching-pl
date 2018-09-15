@@ -69,7 +69,7 @@
   border: 1px solid #cccccc;
   bottom: 12px;
   left: -48px;
-  min-width: 350px;
+  min-width: 300px;
 }
 
 .dynamicMap_mapPopup:after, .dynamicMap_mapPopup:before {
@@ -103,4 +103,14 @@
 .dynamicMap_mapPopup-closer:after {
   content: "✖";
   font-size: 15px;
+  cursor: pointer;
+}
+
+.dynamicMap_mapPopup-cacheIcon {
+    width: 19px;
+    height: 19px;
+}
+
+.dynamicMap_mapPopup-cacheLogBlock {
+    margin-top: 10px;
 }

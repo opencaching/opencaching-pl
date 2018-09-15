@@ -24,8 +24,8 @@
               anchor: [0.5, 0.5],
               anchorXUnits: 'fraction',
               anchorYUnits: 'fraction',
-              src: ocData.icon,
-              scale: 0.5,
+              src: ocData.log_icon,
+              scale: 1,
             })
           }));
       return iconFeature;

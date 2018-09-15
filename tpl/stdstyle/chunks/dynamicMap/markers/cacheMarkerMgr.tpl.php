@@ -25,7 +25,7 @@
           anchorXUnits: 'fraction',
           anchorYUnits: 'fraction',
           src: ocData.icon,
-          scale: 0.5,
+          scale: 0.6,
         })
       }));
       return iconFeature;

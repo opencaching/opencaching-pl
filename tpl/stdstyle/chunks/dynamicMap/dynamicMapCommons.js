@@ -331,12 +331,12 @@ function loadMarkers(params) {
       });
 
     if (feature) {
-      popup.setPosition(feature.getGeometry().getCoordinates());
-
       if( (ocData = feature.get('ocData')) == undefined){
         popup.setPosition(undefined);
         return true;
       }
+
+      popup.setPosition(feature.getGeometry().getCoordinates());
 
       var markerType = ocData.markerType;
       var markerId = ocData.markerId;
@@ -348,6 +348,9 @@ function loadMarkers(params) {
 
       var markerContext = params.markerData[markerType][markerId];
       $(popup.getElement()).html(params.compiledPopupTpls[markerType](markerContext));
+      $(".dynamicMap_mapPopup-closer").click(function(evt) {
+          popup.setPosition(undefined);
+      });
     } else {
       popup.setPosition(undefined);
     }
