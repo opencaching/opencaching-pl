@@ -103,8 +103,8 @@ $menu = array(
                         'newwindow' => true
                     ),
                     array(
-                        'title' => tr('logmap_04'),
-                        'menustring' => tr('logmap_04'),
+                        'title' => tr('lastLogMap_pageName'),
+                        'menustring' => tr('lastLogMap_pageName'),
                         'siteid' => 'logmap',
                         'visible' => true,
                         'onlylogged' => true,

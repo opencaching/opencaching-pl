@@ -25,7 +25,6 @@ if ($error == false) {
     tpl_set_var('language4js', $lang);
 
     $view->loadJQuery();
-    //$view->loadGMapApi();
     $view->addLocalCss(Uri::getLinkWithModificationTime('tpl/stdstyle/css/powerTrail.css'));
 
     if (isset($_REQUEST['ptSelector'])) {

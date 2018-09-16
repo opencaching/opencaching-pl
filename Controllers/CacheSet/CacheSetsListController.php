@@ -101,7 +101,6 @@ class CacheSetsListController extends BaseController
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/cacheSet/cacheSetsList.css'));
 
         $this->view->loadJQuery();
-        $this->view->loadGMapApi();
 
         tpl_BuildTemplate();
     }
