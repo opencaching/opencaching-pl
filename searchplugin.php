@@ -92,10 +92,7 @@ if (($sourceid == 'mozilla-search') && ($userinput != '')) {
                     $count = XDb::xNumRows($rs);
                     if ($count == 1) {
                         $record = XDb::xFetchArray($rs);
-                        if (isset($_POST['namapie']))
-                            $targeturl = 'cachemap2.php?lat=' . $record['latitude'] . '&lon=' . $record['longitude'] . '&cacheid=' . $record['cache_id'];
-                        else
-                            $targeturl = 'viewcache.php?cacheid=' . $record['cache_id'];
+                        $targeturl = 'viewcache.php?cacheid=' . $record['cache_id'];
                         unset($record);
                     }
                     else if ($count == 0) {

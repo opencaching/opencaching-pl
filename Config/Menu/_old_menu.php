@@ -3,7 +3,7 @@ exit; //this file shouldn't be used anywhere!
 
 /**
  * This is old menu configuration
- * This is here only as reference fro nods admins.
+ * This is here only as reference for nods admins.
  *
  * This file will be removed soon
  */
@@ -103,8 +103,8 @@ $menu = array(
                         'newwindow' => true
                     ),
                     array(
-                        'title' => tr('logmap_04'),
-                        'menustring' => tr('logmap_04'),
+                        'title' => tr('lastLogMap_pageName'),
+                        'menustring' => tr('lastLogMap_pageName'),
                         'siteid' => 'logmap',
                         'visible' => true,
                         'onlylogged' => true,

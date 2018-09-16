@@ -1,3 +1,7 @@
+<?php
+use Utils\Uri\SimpleRouter;
+use Controllers\CacheLogController;
+?>
 <script src="lib/js/wz_tooltip.js"></script>
 
 <div class="content2-container">
@@ -11,7 +15,10 @@
   </div>
 
   <div class="align-right">
-    <a class="btn btn-default btn-sm" href="/logmap.php">{{logmap_04}}</a>
+    <a class="btn btn-default btn-sm"
+       href="<?=SimpleRouter::getLink(CacheLogController::class, 'lastLogsMap')?>">
+       <?=tr('lastLogMap_pageName')?>
+    </a>
   </div>
 
   <p>

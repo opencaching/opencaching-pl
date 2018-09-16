@@ -89,6 +89,40 @@ class MultiLogStats extends BaseObject
         return $db->dbResultFetchAll($rs);
     }
 
+    public static function getLastLogs($numberOfLogs=100)
+    {
+        $db = self::db();
+
+        $numberOfLogs = (int) $numberOfLogs;
+
+        $allowedCacheStatuses = implode(',',[
+            GeoCache::STATUS_READY,
+            GeoCache::STATUS_UNAVAILABLE,
+            GeoCache::STATUS_ARCHIVED]);
+
+        $allowedLogTypes = implode(',',[
+            GeoCacheLog::LOGTYPE_COMMENT,
+            GeoCacheLog::LOGTYPE_DIDNOTFIND,
+            GeoCacheLog::LOGTYPE_FOUNDIT,
+            GeoCacheLog::LOGTYPE_MOVED,
+            GeoCacheLog::LOGTYPE_NEEDMAINTENANCE]);
+
+        $stmt = $db->simpleQuery(
+            "SELECT c.cache_id, c.type AS cacheType, c.status, c.wp_oc,
+                    c.name, c.latitude, c.longitude, c.user_id AS cacheOwner,
+                    cl.id, cl.user_id AS logAuthor, cl.text, cl.type, cl.date
+            FROM cache_logs AS cl, caches AS c
+            WHERE cl.cache_id = c.cache_id
+                AND cl.deleted = 0
+                AND cl.type IN ($allowedLogTypes)
+                AND c.status IN ($allowedCacheStatuses)
+            ORDER BY  cl.date_created DESC
+            LIMIT $numberOfLogs");
+
+        return $db->dbResultFetchAll($stmt);
+    }
+
+
     /**
      *
      * @param int $userId

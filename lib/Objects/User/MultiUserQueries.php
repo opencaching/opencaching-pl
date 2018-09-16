@@ -47,7 +47,7 @@ class MultiUserQueries extends BaseObject
     }
 
     /**
-     * Returns arraywhere row[userId] = username
+     * Returns array, where row[userId] = username
      *
      * @param array $userIds - array of userIds
      * @return array|mixed[]
