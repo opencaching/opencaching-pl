@@ -3,7 +3,7 @@ exit; //this file shouldn't be used anywhere!
 
 /**
  * This is old menu configuration
- * This is here only as reference fro nods admins.
+ * This is here only as reference for nods admins.
  *
  * This file will be removed soon
  */
