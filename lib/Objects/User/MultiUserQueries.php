@@ -101,9 +101,26 @@ class MultiUserQueries extends BaseObject
                  )
                  AND is_active_flag != 0
                  AND longitude IS NOT NULL
-                 AND latitude IS NOT NULL");
+                 AND latitude IS NOT NULL"
+        );
 
-        return $db->dbResultFetchAll($s);
+        $result = [];
+        foreach($db->dbResultFetchAll($s) as $row) {
+            $recStmt = $db->multiVariableQuery(
+                "SELECT COUNT(cache_id) as c_count, SUM(topratings) as r_count
+                 FROM caches
+                 WHERE caches.type <> 6
+                 AND caches.status IN ($cacheActiveStatusList)
+                 AND caches.user_id = :1",
+                $row["user_id"]
+            );
+            $recRes = $db->dbResultFetchOneRowOnly($recStmt);
+            if (isset($recRes['r_count']) && $recRes['r_count'] >= 20) {
+                $row['r_count'] = $recRes['r_count'];
+                $result[] = $row;
+            }
+        }
+        return $result;
     }
 
 }

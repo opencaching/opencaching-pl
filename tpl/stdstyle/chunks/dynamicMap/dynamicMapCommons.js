@@ -315,7 +315,7 @@ function loadMarkers(params) {
   var popup = new ol.Overlay({
     element: $('<div class="dynamicMap_mapPopup"></div>')[0],
     positioning: 'bottom-center',
-    stopEvent: false,
+    stopEvent: true,
     offset: [0, -50],
     autoPan: true,
     autoPanAnimation: {
@@ -338,6 +338,12 @@ function loadMarkers(params) {
 
       popup.setPosition(feature.getGeometry().getCoordinates());
 
+        im = feature.getStyle().getImage();
+        if (im && im instanceof ol.style.Icon) {
+            anc = im.getAnchor();
+            popup.setOffset([0, -(anc[1] * im.getScale()) - 2]);
+        }
+
       var markerType = ocData.markerType;
       var markerId = ocData.markerId;
 
@@ -347,6 +353,11 @@ function loadMarkers(params) {
       }
 
       var markerContext = params.markerData[markerType][markerId];
+        if (markerContext.translations) {
+            for (k in markerContext.translations) {
+                markerContext["_tr_" + k] = markerContext.translations[k];
+            }
+        }
       $(popup.getElement()).html(params.compiledPopupTpls[markerType](markerContext));
       $(".dynamicMap_mapPopup-closer").click(function(evt) {
           popup.setPosition(undefined);
@@ -358,6 +369,14 @@ function loadMarkers(params) {
 
   // change mouse cursor when over marker
   params.map.on('pointermove', function(e) {
+    var o = e.map.getTargetElement();
+    var isOverFeature = e.map.forEachFeatureAtPixel(e.pixel, function(feature) {
+        o.style.cursor = "pointer";
+        return true;
+    });
+    if (!isOverFeature) {
+        o.style.cursor = "";
+    }
     if (e.dragging) {
       popup.setPosition(undefined);
       return;
