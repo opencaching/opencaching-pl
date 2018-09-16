@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4cbb709c4d93f900c1768bebc3b7cac6",
-    "content-hash": "cc73a46d257cebb62a2b89d3b4b9b32b",
+    "hash": "12396e1948bcb5de0ad66ba4026a110e",
+    "content-hash": "556fa77fbfd6919382f461e7ddb0bebd",
     "packages": [
         {
             "name": "aferrandini/phpqrcode",
@@ -53,16 +53,16 @@
         },
         {
             "name": "cweagans/composer-patches",
-            "version": "1.6.4",
+            "version": "1.6.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cweagans/composer-patches.git",
-                "reference": "462e65061606dc6149349535d4322241515d1b16"
+                "reference": "2ec4f00ff5fb64de584c8c4aea53bf9053ecb0b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cweagans/composer-patches/zipball/462e65061606dc6149349535d4322241515d1b16",
-                "reference": "462e65061606dc6149349535d4322241515d1b16",
+                "url": "https://api.github.com/repos/cweagans/composer-patches/zipball/2ec4f00ff5fb64de584c8c4aea53bf9053ecb0b3",
+                "reference": "2ec4f00ff5fb64de584c8c4aea53bf9053ecb0b3",
                 "shasum": ""
             },
             "require": {
@@ -84,7 +84,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-2-Clause"
+                "BSD-3-Clause"
             ],
             "authors": [
                 {
@@ -93,7 +93,7 @@
                 }
             ],
             "description": "Provides a way to patch Composer packages.",
-            "time": "2017-12-07 16:16:31"
+            "time": "2018-05-11 18:00:16"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -141,51 +141,6 @@
                 "html"
             ],
             "time": "2018-02-23 01:58:20"
-        },
-        {
-            "name": "jpgraph/jpgraph",
-            "version": "4.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ztec/JpGraph.git",
-                "reference": "e82db7da6a546d3926c24c9a346226da7aa49094"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ztec/JpGraph/zipball/e82db7da6a546d3926c24c9a346226da7aa49094",
-                "reference": "e82db7da6a546d3926c24c9a346226da7aa49094",
-                "shasum": ""
-            },
-            "type": "library",
-            "extra": {
-                "patches_applied": {
-                    "Fix imageantialias PHP-GD issue": "composer_jpgraph_fix.patch"
-                }
-            },
-            "autoload": {
-                "classmap": [
-                    "lib/JpGraph.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "QPL 1.0"
-            ],
-            "authors": [
-                {
-                    "name": "JpGraph team"
-                }
-            ],
-            "description": "jpGraph, library to make graphs and charts",
-            "homepage": "http://jpgraph.net/",
-            "keywords": [
-                "chart",
-                "data",
-                "graph",
-                "jpgraph",
-                "pie"
-            ],
-            "time": "2017-02-23 09:44:15"
         },
         {
             "name": "js-cookie/js-cookie",
