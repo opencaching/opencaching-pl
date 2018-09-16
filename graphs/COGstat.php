@@ -1,7 +1,8 @@
 <?php
 
-use JpGraph\JpGraph;
+use Lib\JpGraph\JpGraphLoader;
 use Utils\Database\XDb;
+
 $rootpath = '../';
 require('../lib/common.inc.php');
 global $lang;
@@ -10,10 +11,10 @@ global $lang;
 // jpgraph package doesn't contains fonts
 define('TTF_DIR',__DIR__.'/../lib/fonts/');
 
-JpGraph::load();
-JpGraph::module('bar');
-JpGraph::module('date');
-JpGraph::module('mgraph');
+JpGraphLoader::load();
+JpGraphLoader::module('bar');
+JpGraphLoader::module('date');
+JpGraphLoader::module('mgraph');
 
 
 # Setup begining of stat for OC Team. Start timie 01 June every year
