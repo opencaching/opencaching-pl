@@ -31,8 +31,6 @@
 </div>
 
 <p>
-  <img src="/images/rating-star.png" alt="rekomendacje" title="rekomendacje">
-  <?=tr('guru_09')?>
 </p>
 
 <p>

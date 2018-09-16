@@ -104,6 +104,7 @@
   content: "✖";
   font-size: 15px;
   cursor: pointer;
+  color: #000;
 }
 
 .dynamicMap_mapPopup-cacheIcon {

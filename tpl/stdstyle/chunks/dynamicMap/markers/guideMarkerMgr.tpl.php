@@ -21,11 +21,12 @@
 
       iconFeature.setStyle(new ol.style.Style({
         image: new ol.style.Icon( {
-          anchor: [0.5, 0.5],
-          anchorXUnits: 'fraction',
-          anchorYUnits: 'fraction',
-          src: ocData.icon,
-          scale: 1,
+            anchorOrigin: "bottom-left",
+            anchor: [8, 0],
+            anchorXUnits: 'pixel',
+            anchorYUnits: 'pixel',
+            src: ocData.icon,
+            scale: 1,
         })
       }));
       return iconFeature;

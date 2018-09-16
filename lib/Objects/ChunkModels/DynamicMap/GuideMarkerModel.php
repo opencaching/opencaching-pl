@@ -12,6 +12,7 @@ class GuideMarkerModel extends AbstractMarkerModelBase
     public $username;
     public $link;
     public $userDesc;
+    public $recCount;
 
     /**
      * Check if all necessary data is set in this marker class
@@ -23,7 +24,8 @@ class GuideMarkerModel extends AbstractMarkerModelBase
             isset($this->link) &&
             isset($this->userId) &&
             isset($this->username) &&
-            isset($this->userDesc);
+            isset($this->userDesc) &&
+            isset($this->recCount);
     }
 }
 
