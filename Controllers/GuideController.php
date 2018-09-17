@@ -57,11 +57,6 @@ class GuideController extends BaseController
                     $row['description']
                 );
                 $marker->recCount = $row['r_count'];
-                foreach(
-                    ['guides_recommendations', 'guides_sendemail'] as $trKey
-                ) {
-                    $marker->translations[$trKey] = tr($trKey);
-                }
 
                 return $marker;
             }

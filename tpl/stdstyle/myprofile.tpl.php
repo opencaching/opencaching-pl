@@ -45,7 +45,7 @@ use Utils\Uri\SimpleRouter;
     <tr>
       <td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/book_open.png" class="icon16" alt="" align="middle">&nbsp;{{guide}}:</td>
       <td  valign="middle">
-        {{myprofile02}}<a class="links" href="/cacheguides.php">{{myprofile03}}</a></label>
+        {{myprofile02}}<a class="links" href="/guide">{{myprofile03}}</a></label>
       </td>
     </tr>
     {guides_end}

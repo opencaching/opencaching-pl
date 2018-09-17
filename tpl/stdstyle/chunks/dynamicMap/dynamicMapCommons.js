@@ -353,11 +353,6 @@ function loadMarkers(params) {
       }
 
       var markerContext = params.markerData[markerType][markerId];
-        if (markerContext.translations) {
-            for (k in markerContext.translations) {
-                markerContext["_tr_" + k] = markerContext.translations[k];
-            }
-        }
       $(popup.getElement()).html(params.compiledPopupTpls[markerType](markerContext));
       $(".dynamicMap_mapPopup-closer").click(function(evt) {
           popup.setPosition(undefined);

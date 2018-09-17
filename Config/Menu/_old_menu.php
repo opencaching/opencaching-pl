@@ -258,7 +258,7 @@ $menu = array(
         'title' => tr('mnu_guides'),
         'menustring' => tr('mnu_guides'),
         'visible' => true,
-        'filename' => 'cacheguides.php',
+        'filename' => 'guide',
         'siteid' => 'cacheguides'
     ),
     array(
