@@ -11,7 +11,6 @@ abstract class AbstractMarkerModelBase
     public $lat;            // lat. of marker
     public $lon;            // lon. of marker
     public $icon;           // icon of marker
-    public $translations = []; //translations to pass to model display
 
     public function getMarkerTypeName(){
         $str = (new ReflectionClass(static::class))->getShortName();
@@ -33,4 +32,3 @@ abstract class AbstractMarkerModelBase
     }
 
 }
-

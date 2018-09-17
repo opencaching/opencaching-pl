@@ -15,7 +15,7 @@
   </ul>
   {{nc13}} <a class="links" href="{wiki_link_placingCache}">{{nc14}} <img src="/tpl/stdstyle/images/misc/linkicon.png" alt="link"></a>
   {{nc15}} <a class="links" href="{wiki_link_cachingCode}">{{nc16}} <img src="/tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> {{nc17}}.<br>
-  {{nc08}} <a class="links" href="/cacheguides.php">{{nc09}} <img src="/tpl/stdstyle/images/misc/linkicon.png" alt="link"></a>, {{nc10}}.
+  {{nc08}} <a class="links" href="/guide">{{nc09}} <img src="/tpl/stdstyle/images/misc/linkicon.png" alt="link"></a>, {{nc10}}.
   <div class="buffer"></div>
   {{nc18}}<br><b>{{nc19}}</b>
 </div>

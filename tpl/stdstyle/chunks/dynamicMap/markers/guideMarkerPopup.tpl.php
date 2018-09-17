@@ -21,7 +21,7 @@
                 <img src="/images/rating-star.png" alt="rekomendacje" title="rekomendacje">
             </div>
             <div class="guideMarkerPopup-tableCell">
-                {{recCount}} {{_tr_guides_recommendations}}
+                {{recCount}} <?=tr('guides_recommendations')?>
             </div>
         </div>
         <div class="guideMarkerPopup-tableRow">
@@ -29,7 +29,7 @@
                 <img src="/tpl/stdstyle/images/free_icons/email.png" alt="mailTo">
             </div>
             <div class="guideMarkerPopup-tableCell">
-                <a class="links" href="/UserProfile/mailTo/{{user_id}}" target="_blank">{{_tr_guides_sendemail}}</a>
+                <a class="links" href="/UserProfile/mailTo/{{user_id}}" target="_blank"><?=tr('guides_sendemail')?></a>
             </div>
         </div>
     </div>
