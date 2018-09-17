@@ -3,7 +3,6 @@
 namespace lib\Objects\User;
 
 use lib\Objects\BaseObject;
-use lib\Controllers\Php7Handler;
 
 class UserNotify extends BaseObject
 {
@@ -22,7 +21,7 @@ class UserNotify extends BaseObject
      */
     public static function getUserLogsNotify($userId)
     {
-        return Php7Handler::Boolval(self::db()->multiVariableQueryValue('
+        return boolval(self::db()->multiVariableQueryValue('
             SELECT `notify_logs`
             FROM `user`
             WHERE `user_id` = :1
@@ -44,7 +43,7 @@ class UserNotify extends BaseObject
             SET `notify_caches` = :1
             WHERE `user_id` = :2
             LIMIT 1
-        ', Php7Handler::Boolval($state), $user->getUserId()));
+        ', boolval($state), $user->getUserId()));
     }
 
     /**
@@ -61,6 +60,6 @@ class UserNotify extends BaseObject
             SET `notify_logs` = :1
             WHERE `user_id` = :2
             LIMIT 1
-        ', Php7Handler::Boolval($state), $user->getUserId()));
+        ', boolval($state), $user->getUserId()));
     }
 }

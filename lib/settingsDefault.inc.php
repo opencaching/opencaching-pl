@@ -231,6 +231,7 @@ $config['maps']['external']['Flopp\'s Map_URL'] = 'http://flopp.net/?c=%1$f:%2$f
   * Search box on top page
   * ***********************/
 
+$config['quick_search']['geopath'] = true;
 $config['quick_search']['byowner'] = false;
 $config['quick_search']['byfinder'] = false;
 $config['quick_search']['byuser'] = true;
