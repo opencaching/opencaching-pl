@@ -163,7 +163,7 @@ global $tpl_subtitle;
 
       <?php if ($view->_showVideoBanner) { ?>
         <div class="top-video-container">
-          <video width="970" height="180" autoplay muted poster="/tpl/stdstyle/video/header/poster.png" preload="auto" id="topline-video-player">
+          <video width="970" height="180" autoplay muted preload="auto" id="topline-video-player">
             <source src="<?=$view->_topBannerVideo[0]?>" type="video/mp4">
           </video>
         </div>
