@@ -94,13 +94,13 @@ class MultiUserQueries extends BaseObject
                      user_id IN (
                          SELECT DISTINCT user_id FROM cache_logs
                          WHERE type = ".GeoCacheLogCommons::LOGTYPE_FOUNDIT."
-                             AND date_created > DATE_ADD(NOW(), INTERVAL -390 DAY)
+                             AND date_created > DATE_ADD(NOW(), INTERVAL -90 DAY)
                      )
                      OR
                      user_id IN (
                          SELECT DISTINCT user_id FROM caches
                          WHERE status IN ($cacheActiveStatusList)
-                             AND date_created > DATE_ADD(NOW(), INTERVAL -390 DAY)
+                             AND date_created > DATE_ADD(NOW(), INTERVAL -90 DAY)
                      )
                  )"
         );
