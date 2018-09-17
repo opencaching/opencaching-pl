@@ -385,8 +385,7 @@ class GeoCacheCommons extends BaseObject {
     }
 
     /**
-     * Returns comma separated list of cache status being active in play
-     * (not archived)
+     * Returns comma separated list of cache status being active (not archived)
      *
      * @return string cache status list, ready for use in SQL f.ex.
      */
