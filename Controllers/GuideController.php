@@ -6,6 +6,7 @@ use lib\Objects\ChunkModels\DynamicMap\DynamicMapModel;
 use lib\Objects\User\MultiUserQueries;
 use lib\Objects\ChunkModels\DynamicMap\GuideMarkerModel;
 use lib\Objects\User\User;
+use Utils\Cache\OcMemCache;
 
 class GuideController extends BaseController
 {
@@ -29,7 +30,9 @@ class GuideController extends BaseController
         $this->view->addLocalCss(
             Uri::getLinkWithModificationTime('/tpl/stdstyle/guide/guides.css'));
 
-        $guidesList = MultiUserQueries::getCurrentGuidesList();
+        $guidesList = OcMemCache::getOrCreate('currentGuides', 8*3600, function(){
+            return MultiUserQueries::getCurrentGuidesList();
+        });
 
         $this->view->setVar('guidesNumber', count($guidesList));
 
