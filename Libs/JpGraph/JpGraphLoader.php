@@ -1,5 +1,5 @@
 <?php
-namespace Lib\JpGraph;
+namespace Libs\JpGraph;
 
 use Utils\Debug\Debug;
 

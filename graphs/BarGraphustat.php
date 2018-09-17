@@ -1,6 +1,6 @@
 <?php
 
-use Lib\JpGraph\JpGraphLoader;
+use Libs\JpGraph\JpGraphLoader;
 use Utils\Database\XDb;
 
 
