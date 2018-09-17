@@ -82,45 +82,58 @@ class MultiUserQueries extends BaseObject
              GeoCache::STATUS_UNAVAILABLE,
              GeoCache::STATUS_ARCHIVED]);
 
+        // get active guides
         $s = $db->simpleQuery(
             "SELECT latitude,longitude,username,user_id,description
              FROM user
-             WHERE guru != 0
+             WHERE guru <> 0
+                 AND is_active_flag <> 0
+                 AND longitude IS NOT NULL
+                 AND latitude IS NOT NULL
                  AND (
                      user_id IN (
-                         SELECT user_id FROM cache_logs
+                         SELECT DISTINCT user_id FROM cache_logs
                          WHERE type = ".GeoCacheLogCommons::LOGTYPE_FOUNDIT."
-                             AND date_created > DATE_ADD(NOW(), INTERVAL -90 DAY)
+                             AND date_created > DATE_ADD(NOW(), INTERVAL -390 DAY)
                      )
                      OR
                      user_id IN (
-                         SELECT user_id FROM caches
+                         SELECT DISTINCT user_id FROM caches
                          WHERE status IN ($cacheActiveStatusList)
-                             AND date_created > DATE_ADD(NOW(), INTERVAL -90 DAY)
+                             AND date_created > DATE_ADD(NOW(), INTERVAL -390 DAY)
                      )
-                 )
-                 AND is_active_flag != 0
-                 AND longitude IS NOT NULL
-                 AND latitude IS NOT NULL"
+                 )"
         );
 
+        $activeGuidesDict = $db->dbResultFetchAllAsDict($s, function($row){
+            return [$row['user_id'], $row];
+        });
+
+        if(empty($activeGuidesDict) ){
+            // there is no guides...
+            return [];
+        }
+
+        // filter users with too low number of recomendations
+        $userIds = implode(',', array_keys($activeGuidesDict));
+
+        $s = $db->simpleQuery(
+            "SELECT user_id, SUM(topratings) AS recos
+            FROM caches
+            WHERE user_id IN ($userIds)
+                AND type <> ".GeoCache::TYPE_EVENT."
+            AND status IN ($cacheActiveStatusList)
+            GROUP BY user_id
+            HAVING recos > 20");
+
         $result = [];
-        foreach($db->dbResultFetchAll($s) as $row) {
-            $recStmt = $db->multiVariableQuery(
-                "SELECT COUNT(cache_id) as c_count, SUM(topratings) as r_count
-                 FROM caches
-                 WHERE caches.type <> 6
-                 AND caches.status IN ($cacheActiveStatusList)
-                 AND caches.user_id = :1",
-                $row["user_id"]
-            );
-            $recRes = $db->dbResultFetchOneRowOnly($recStmt);
-            if (isset($recRes['r_count']) && $recRes['r_count'] >= 20) {
-                $row['r_count'] = $recRes['r_count'];
-                $result[] = $row;
-            }
+        while($row = $db->dbResultFetch($s)){
+            $userData = $activeGuidesDict[$row['user_id']];
+            $userData['recomendations'] = $row['recos'];
+            $result[] = $userData;
         }
         return $result;
+
     }
 
 }

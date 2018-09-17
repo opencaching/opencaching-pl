@@ -56,8 +56,7 @@ class GuideController extends BaseController
                 $marker->userDesc = $this->getTruncatedDescription(
                     $row['description']
                 );
-                $marker->recCount = $row['r_count'];
-
+                $marker->recCount = $row['recomendations'];
                 return $marker;
             }
         );
@@ -74,7 +73,7 @@ class GuideController extends BaseController
      *
      * @param string $description Description to truncate
      *
-     * @return truncated description
+     * @return string truncated description
      */
     private function getTruncatedDescription($description)
     {
