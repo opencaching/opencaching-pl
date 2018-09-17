@@ -59,7 +59,7 @@ class OcDb extends OcPdo
     /**
      * The returned array of $key-$vals pair returned by extractor based on DB rows.
      *
-     * @param $extractor - callabse with argument $row (DB-ROW-ASSOC) which returns array [$key, $val]
+     * @param $extractor - callable with argument $row (DB-ROW-ASSOC) which returns array [$key, $val]
      *
      * @return array with key/val returned by extractor.
      */
