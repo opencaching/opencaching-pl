@@ -370,7 +370,23 @@ class GeoCacheCommons extends BaseObject {
     }
 
     /**
-     * Returns comma separated list of cache status being active
+     * Returns comma separated list of cache status being visible for common
+     * users
+     *
+     * @return string cache status list, ready for use in SQL f.ex.
+     */
+    public static function CacheVisibleStatusList()
+    {
+        return implode(', ', [
+            self::STATUS_READY,
+            self::STATUS_UNAVAILABLE,
+            self::STATUS_ARCHIVED
+        ]);
+    }
+
+    /**
+     * Returns comma separated list of cache status being active in play
+     * (not archived)
      *
      * @return string cache status list, ready for use in SQL f.ex.
      */
@@ -378,8 +394,7 @@ class GeoCacheCommons extends BaseObject {
     {
         return implode(', ', [
             self::STATUS_READY,
-            self::STATUS_UNAVAILABLE,
-            self::STATUS_ARCHIVED
+            self::STATUS_UNAVAILABLE
         ]);
     }
 
