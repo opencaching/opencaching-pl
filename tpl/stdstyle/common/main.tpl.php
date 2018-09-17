@@ -88,7 +88,7 @@ global $tpl_subtitle;
       <div class="seasonalBackground right <?=$view->backgroundSeason?>">&nbsp;</div>
       <div class="topline-container">
         <div class="topline-logo">
-          <img src="<?=$view->_mainLogo?>" alt="OC logo">
+          <a href="/" class="transparent"><img src="<?=$view->_mainLogo?>" alt="OC logo"></a>
         </div>
         <div class="topline-sitename">
           <a href="/" class="transparent"><?=$view->_logoTitle?></a>

@@ -13,6 +13,6 @@ $bannerTxt = [
     "Pełne statystyki, GPXy, wszystko za free!",
     "Powiadomienia mailem o nowych keszach i logach",
     "Centrum Obsługi Geokeszera wybierane przez Społeczność",
-    "100% funkcjonalności dostępnej jest bezpłatnie",
+    "100% funkcjonalności dostępne jest bezpłatnie",
     "Liberalne zasady publikacji keszy",
 ];
