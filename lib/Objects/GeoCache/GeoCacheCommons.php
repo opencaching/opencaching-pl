@@ -369,6 +369,19 @@ class GeoCacheCommons extends BaseObject {
         }
     }
 
+    /**
+     * Returns comma separated list of cache status being active
+     *
+     * @return string cache status list, ready for use in SQL f.ex.
+     */
+    public static function CacheActiveStatusList()
+    {
+        return implode(', ', [
+            self::STATUS_READY,
+            self::STATUS_UNAVAILABLE,
+            self::STATUS_ARCHIVED
+        ]);
+    }
 
     /**
      * This function provides abbreviation for cache type
@@ -401,4 +414,3 @@ class GeoCacheCommons extends BaseObject {
         return '/viewcache.php?wp=' . $ocWaypoint;
     }
 }
-

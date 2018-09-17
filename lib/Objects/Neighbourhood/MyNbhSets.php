@@ -5,6 +5,7 @@ use lib\Objects\BaseObject;
 use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\GeoCache\GeoCacheLog;
+use lib\Objects\GeoCache\GeoCacheCommons;
 
 class MyNbhSets extends BaseObject
 {
@@ -156,7 +157,7 @@ class MyNbhSets extends BaseObject
             SELECT `local_caches`.`cache_id` AS cache_id
               FROM `local_caches`
               INNER JOIN `cache_titled` ON `local_caches`.`cache_id` = `cache_titled`.`cache_id`
-              WHERE `status` IN (' . $this->getCacheActiveStatusList() . ')
+              WHERE `status` IN (' . GeoCacheCommons::CacheActiveStatusList() . ')
               ORDER BY `cache_titled`.`date_alg` DESC,
                 `local_caches`.`cache_id` DESC
               LIMIT :offset, :limit';
@@ -177,7 +178,7 @@ class MyNbhSets extends BaseObject
             SELECT COUNT(*)
               FROM `local_caches`
               INNER JOIN `cache_titled` ON `local_caches`.`cache_id` = `cache_titled`.`cache_id`
-              WHERE `status` IN (' . $this->getCacheActiveStatusList() . ')
+              WHERE `status` IN (' . GeoCacheCommons::CacheActiveStatusList() . ')
               LIMIT 1
         ', 0);
     }
@@ -325,20 +326,5 @@ class MyNbhSets extends BaseObject
         self::db()->simpleQuery('
                 DROP TEMPORARY TABLE IF EXISTS `local_caches`
             ');
-    }
-
-    // TODO: Maybe move as public to GeoCacheCommons?
-    /**
-     * Returns comma separated list of cache status being active
-     *
-     * @return string cache status list, ready for use in SQL
-     */
-    private function getCacheActiveStatusList()
-    {
-        return implode(', ', [
-            GeoCache::STATUS_READY,
-            GeoCache::STATUS_UNAVAILABLE,
-            GeoCache::STATUS_ARCHIVED
-        ]);
     }
 }
