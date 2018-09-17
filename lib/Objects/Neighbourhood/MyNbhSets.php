@@ -153,12 +153,13 @@ class MyNbhSets extends BaseObject
         $params['limit']['value'] = $limit;
         $params['limit']['data_type'] = 'integer';
         $query = '
-                SELECT `local_caches`.`cache_id` AS cache_id
-                  FROM `local_caches`
-                  INNER JOIN `cache_titled` ON `local_caches`.`cache_id` = `cache_titled`.`cache_id`
-                  ORDER BY `cache_titled`.`date_alg` DESC,
-                    `local_caches`.`cache_id` DESC
-                  LIMIT :offset, :limit';
+            SELECT `local_caches`.`cache_id` AS cache_id
+              FROM `local_caches`
+              INNER JOIN `cache_titled` ON `local_caches`.`cache_id` = `cache_titled`.`cache_id`
+              WHERE `status` IN (' . $this->getCacheActiveStatusList() . ')
+              ORDER BY `cache_titled`.`date_alg` DESC,
+                `local_caches`.`cache_id` DESC
+              LIMIT :offset, :limit';
         $stmt = $this->db->paramQuery($query, $params);
         return $this->db->dbFetchAllAsObjects($stmt, function ($row) {
             return GeoCache::fromCacheIdFactory($row['cache_id']);
@@ -172,12 +173,13 @@ class MyNbhSets extends BaseObject
      */
     public function getLatestTitledCachesCount()
     {
-        $query = '
-                SELECT COUNT(*)
-                  FROM `local_caches`
-                  INNER JOIN `cache_titled` ON `local_caches`.`cache_id` = `cache_titled`.`cache_id`
-                  LIMIT 1';
-        return $this->db->simpleQueryValue($query, 0);
+        return $this->db->simpleQueryValue('
+            SELECT COUNT(*)
+              FROM `local_caches`
+              INNER JOIN `cache_titled` ON `local_caches`.`cache_id` = `cache_titled`.`cache_id`
+              WHERE `status` IN (' . $this->getCacheActiveStatusList() . ')
+              LIMIT 1
+        ', 0);
     }
 
     /**
@@ -323,5 +325,20 @@ class MyNbhSets extends BaseObject
         self::db()->simpleQuery('
                 DROP TEMPORARY TABLE IF EXISTS `local_caches`
             ');
+    }
+
+    // TODO: Maybe move as public to GeoCacheCommons?
+    /**
+     * Returns comma separated list of cache status being active
+     *
+     * @return string cache status list, ready for use in SQL
+     */
+    private function getCacheActiveStatusList()
+    {
+        return implode(', ', [
+            GeoCache::STATUS_READY,
+            GeoCache::STATUS_UNAVAILABLE,
+            GeoCache::STATUS_ARCHIVED
+        ]);
     }
 }
