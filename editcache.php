@@ -990,9 +990,9 @@ if ($error == false) {
                             $waypoints .= $tmpline1;
                         }//while row
                         $waypoints .= '</table>';
-                        $waypoints .= '<br/><img src="tpl/stdstyle/images/free_icons/accept.png" class="icon32" alt=""  />&nbsp;<span>' . tr('wp_status1') . '</span>';
-                        $waypoints .= '<br/><img src="tpl/stdstyle/images/free_icons/error.png" class="icon32" alt=""  />&nbsp;<span>' . tr('wp_status2') . '</span>';
-                        $waypoints .= '<br/><img src="tpl/stdstyle/images/free_icons/stop.png" class="icon32" alt=""  />&nbsp;<span>' . tr('wp_status3') . '</span>';
+                        $waypoints .= '<br/><img src="tpl/stdstyle/images/free_icons/accept.png" class="icon16" alt=""  />&nbsp;<span>' . tr('wp_status1') . '</span>';
+                        $waypoints .= '<br/><img src="tpl/stdstyle/images/free_icons/error.png" class="icon16" alt=""  />&nbsp;<span>' . tr('wp_status2') . '</span>';
+                        $waypoints .= '<br/><img src="tpl/stdstyle/images/free_icons/stop.png" class="icon16" alt=""  />&nbsp;<span>' . tr('wp_status3') . '</span>';
                         tpl_set_var('cache_wp_list', $waypoints);
                     } else {
                         tpl_set_var('cache_wp_list', $nowp);
