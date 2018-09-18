@@ -98,10 +98,20 @@ class Patches implements PluginInterface, EventSubscriberInterface {
       $installationManager = $this->composer->getInstallationManager();
       $packages = $localRepository->getPackages();
 
+      $extra = $this->composer->getPackage()->getExtra();
+      $patches_ignore = isset($extra['patches-ignore']) ? $extra['patches-ignore'] : array();
+
       $tmp_patches = $this->grabPatches();
       foreach ($packages as $package) {
         $extra = $package->getExtra();
         if (isset($extra['patches'])) {
+          if (isset($patches_ignore[$package->getName()])) {
+            foreach ($patches_ignore[$package->getName()] as $package_name => $patches) {
+              if (isset($extra['patches'][$package_name])) {
+                $extra['patches'][$package_name] = array_diff($extra['patches'][$package_name], $patches);
+              }
+            }
+          }
           $this->installedPatches[$package->getName()] = $extra['patches'];
         }
         $patches = isset($extra['patches']) ? $extra['patches'] : array();
@@ -130,8 +140,8 @@ class Patches implements PluginInterface, EventSubscriberInterface {
         }
       }
     }
-      // If the Locker isn't available, then we don't need to do this.
-      // It's the first time packages have been installed.
+    // If the Locker isn't available, then we don't need to do this.
+    // It's the first time packages have been installed.
     catch (\LogicException $e) {
       return;
     }
@@ -300,7 +310,7 @@ class Patches implements PluginInterface, EventSubscriberInterface {
       $this->io->write('    <info>' . $url . '</info> (<comment>' . $description. '</comment>)');
       try {
         $this->eventDispatcher->dispatch(NULL, new PatchEvent(PatchEvents::PRE_PATCH_APPLY, $package, $url, $description));
-        $this->getAndApplyPatch($downloader, $install_path, $url);
+        $this->getAndApplyPatch($downloader, $install_path, $url, $package);
         $this->eventDispatcher->dispatch(NULL, new PatchEvent(PatchEvents::POST_PATCH_APPLY, $package, $url, $description));
         $extra['patches_applied'][$description] = $url;
       }
@@ -344,9 +354,10 @@ class Patches implements PluginInterface, EventSubscriberInterface {
    * @param RemoteFilesystem $downloader
    * @param $install_path
    * @param $patch_url
+   * @param PackageInterface $package
    * @throws \Exception
    */
-  protected function getAndApplyPatch(RemoteFilesystem $downloader, $install_path, $patch_url) {
+  protected function getAndApplyPatch(RemoteFilesystem $downloader, $install_path, $patch_url, PackageInterface $package) {
 
     // Local patch file.
     if (file_exists($patch_url)) {
@@ -366,6 +377,10 @@ class Patches implements PluginInterface, EventSubscriberInterface {
     // it might be useful. p4 is useful for Magento 2 patches
     $patch_levels = array('-p1', '-p0', '-p2', '-p4');
 
+    // Check for specified patch level for this package.
+    if (!empty($this->composer->getPackage()->getExtra()['patchLevel'][$package->getName()])){
+      $patch_levels = array($this->composer->getPackage()->getExtra()['patchLevel'][$package->getName()]);
+    }
     // Attempt to apply with git apply.
     $patched = $this->applyPatchWithGit($install_path, $patch_levels, $filename);
 

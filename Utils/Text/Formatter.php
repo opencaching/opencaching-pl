@@ -3,7 +3,6 @@ namespace Utils\Text;
 
 use DateTime;
 use lib\Objects\OcConfig\OcConfig;
-use lib\Controllers\Php7Handler;
 
 /**
  * This class implements common formatters which format:
@@ -62,7 +61,7 @@ class Formatter
         }
 
         return $dateObj->format(
-            Php7Handler::Boolval($useTime) ?
+            boolval($useTime) ?
             OcConfig::instance()->getDatetimeFormat() :
             OcConfig::instance()->getDateFormat()
         );

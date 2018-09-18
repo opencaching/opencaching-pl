@@ -5,7 +5,6 @@ use Controllers\BaseController;
 use Utils\Text\UserInputFilter;
 use Utils\Uri\SimpleRouter;
 use Utils\Uri\Uri;
-use lib\Controllers\Php7Handler;
 use lib\Objects\Admin\AdminNote;
 use lib\Objects\User\User;
 use lib\Objects\User\UserAdmin;
@@ -81,7 +80,7 @@ class UserAdminController extends BaseController
         $this->checkSecurityAndPrepare($userId);
 
         if (! is_null($state)) {
-            $state = Php7Handler::Boolval($state);
+            $state = boolval($state);
             UserAdmin::setBanStatus($this->viewedUser, $state);
 
             if ($state) { // ban
@@ -106,7 +105,7 @@ class UserAdminController extends BaseController
         $this->checkSecurityAndPrepare($userId);
 
         if (! is_null($state)) {
-            $state = Php7Handler::Boolval($state);
+            $state = boolval($state);
             UserAdmin::setStatBanStatus($this->viewedUser, $state);
 
             if ($state) { // ban stats
@@ -130,7 +129,7 @@ class UserAdminController extends BaseController
         $this->checkSecurityAndPrepare($userId);
 
         if (! is_null($state)) {
-            $state = Php7Handler::Boolval($state);
+            $state = boolval($state);
             UserAdmin::setVerifyAllStatus($this->viewedUser, $state);
 
             if ($state) { // verify all
@@ -154,7 +153,7 @@ class UserAdminController extends BaseController
         $this->checkSecurityAndPrepare($userId);
 
         if (! is_null($state)) {
-            $state = Php7Handler::Boolval($state);
+            $state = boolval($state);
             UserAdmin::setCreateWithoutLimitStatus($this->viewedUser, $state);
 
             if ($state) { // user can create
@@ -178,7 +177,7 @@ class UserAdminController extends BaseController
         $this->checkSecurityAndPrepare($userId);
 
         if (! is_null($state)) {
-            $state = Php7Handler::Boolval($state);
+            $state = boolval($state);
             UserNotify::setUserCachesNotify($this->viewedUser, $state);
 
             if ($state) { // turn on caches notify
@@ -202,7 +201,7 @@ class UserAdminController extends BaseController
         $this->checkSecurityAndPrepare($userId);
 
         if (! is_null($state)) {
-            $state = Php7Handler::Boolval($state);
+            $state = boolval($state);
             UserNotify::setUserLogsNotify($this->viewedUser, $state);
 
             if ($state) { // turn on logs notify

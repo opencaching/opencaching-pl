@@ -170,20 +170,23 @@ class SearchAssistant
                 $tmp = substr($tmp, 1);
                 $operator = "not in";
             }
-            $types = array();
+            $sizes  = array();
             foreach (explode("|", $tmp) as $name)
             {
                 try
                 {
                     $id = Okapi::cache_size2_to_sizeid($name);
-                    $types[] = $id;
+                    $sizes[] = $id;
                 }
                 catch (Exception $e)
                 {
                     throw new InvalidParam('size2', "'$name' is not a valid cache size.");
                 }
             }
-            $where_conds[] = "caches.size $operator ('".implode("','", array_map('\okapi\core\Db::escape_string', $types))."')";
+            if (count($sizes) > 0)
+                $where_conds[] = "caches.size $operator ('".implode("','", array_map('\okapi\core\Db::escape_string', $sizes))."')";
+            else if ($operator == "in")
+                $where_conds[] = "false";
         }
 
         #
@@ -227,10 +230,13 @@ class SearchAssistant
             {
                 throw new InvalidParam('owner_uuid', $e->whats_wrong_about_it);
             }
-            $user_ids = array();
-            foreach ($users as $user)
-                $user_ids[] = $user['internal_id'];
-            $where_conds[] = "caches.user_id $operator ('".implode("','", array_map('\okapi\core\Db::escape_string', $user_ids))."')";
+            if (count($users) > 0) {
+                $user_ids = array();
+                foreach ($users as $user)
+                    $user_ids[] = $user['internal_id'];
+                $where_conds[] = "caches.user_id $operator ('".implode("','", array_map('\okapi\core\Db::escape_string', $user_ids))."')";
+            } else if ($operator == "in")
+                $where_conds[] = "false";
         }
 
         #
@@ -241,6 +247,10 @@ class SearchAssistant
         {
             if ($tmp = $this->request->get_parameter($param_name))
             {
+                # Note:
+                # If searching for float terrain or difficulty values is enabled (e.g. 2.5-4),
+                # $min and $max need to be passed through Db::escape_float; see issue #536.
+
                 if (!preg_match("/^[1-5]-[1-5](\|X)?$/", $tmp))
                     throw new InvalidParam($param_name, "'$tmp'");
                 list($min, $max) = explode("-", $tmp);
@@ -294,8 +304,8 @@ class SearchAssistant
                                 /* no extra condition necessary */
                             } else {
                                 $divisors = array(-999, -1.0, 0.1, 1.4, 2.2, 999);
-                                $min = $divisors[$min - 1];
-                                $max = $divisors[$max];
+                                $min = Db::escape_float($divisors[$min - 1]);
+                                $max = Db::escape_float($divisors[$max]);
                                 $where_conds[] = "($X_SCORE >= $min and $X_SCORE < $max and $X_VOTES >= 3)".
                                     ($allow_null ? " or ($X_VOTES < 3)" : "");
                             }
@@ -324,12 +334,15 @@ class SearchAssistant
                 if ($tmp > 100 || $tmp < 0)
                     throw new InvalidParam('min_rcmds', "'$tmp'");
                 $tmp = floatval($tmp) / 100.0;
-                $where_conds[] = "$X_TOPRATINGS >= $X_FOUNDS * '".Db::escape_string($tmp)."'";
+                $where_conds[] = "$X_TOPRATINGS >= $X_FOUNDS * '".Db::escape_float($tmp)."'";
                 $where_conds[] = "$X_FOUNDS > 0";
             }
-            if (!is_numeric($tmp))
-                throw new InvalidParam('min_rcmds', "'$tmp'");
-            $where_conds[] = "$X_TOPRATINGS >= '".Db::escape_string($tmp)."'";
+            else
+            {
+                if (!is_numeric($tmp))
+                    throw new InvalidParam('min_rcmds', "'$tmp'");
+                $where_conds[] = "$X_TOPRATINGS >= '".Db::escape_string($tmp)."'";
+            }
         }
 
         #
@@ -382,7 +395,10 @@ class SearchAssistant
             {
                 $found_cache_ids = self::get_found_cache_ids(array($this->request->token->user_id));
                 $operator = ($tmp == 'found_only') ? "in" : "not in";
-                $where_conds[] = "caches.cache_id $operator ('".implode("','", array_map('\okapi\core\Db::escape_string', $found_cache_ids))."')";
+                if (count($found_cache_ids) > 0)
+                    $where_conds[] = "caches.cache_id $operator ('".implode("','", array_map('\okapi\core\Db::escape_string', $found_cache_ids))."')";
+                else if ($operator == 'in')
+                    $where_conds[] = "false";
             }
         }
 

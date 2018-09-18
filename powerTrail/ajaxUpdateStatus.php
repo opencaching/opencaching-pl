@@ -76,4 +76,8 @@ if($ptAPI::checkIfUserIsPowerTrailOwner($usr['userid'], $powerTrailId) == 1 || (
 $updateStatusResult['currentStatus'] = $powerTrail->getStatus();
 $updateStatusResult['currentStatusTranslation'] = $powerTrail->getStatusTranslation();
 
-print json_encode($updateStatusResult);
+if ($updateStatusResult['updateStatusResult']) {
+    print $updateStatusResult['currentStatusTranslation'];
+} else {
+    print $updateStatusResult['message'];
+}

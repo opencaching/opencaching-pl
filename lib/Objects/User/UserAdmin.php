@@ -2,7 +2,6 @@
 
 namespace lib\Objects\User;
 
-use lib\Controllers\Php7Handler;
 use lib\Objects\BaseObject;
 
 class UserAdmin extends BaseObject {
@@ -22,7 +21,7 @@ class UserAdmin extends BaseObject {
             SET `is_active_flag` = :1, `activation_code` = ''
             WHERE `user_id` = :2
             LIMIT 1
-        ", ! Php7Handler::Boolval($state), $user->getUserId()));
+        ", ! boolval($state), $user->getUserId()));
     }
 
     /**
@@ -40,7 +39,7 @@ class UserAdmin extends BaseObject {
             SET `stat_ban` = :1
             WHERE `user_id` = :2
             LIMIT 1
-        ", Php7Handler::Boolval($state), $user->getUserId()));
+        ", boolval($state), $user->getUserId()));
     }
 
     /**
@@ -58,7 +57,7 @@ class UserAdmin extends BaseObject {
             SET `verify_all` = :1
             WHERE `user_id` = :2
             LIMIT 1
-        ", Php7Handler::Boolval($state), $user->getUserId()));
+        ", boolval($state), $user->getUserId()));
     }
 
     /**
@@ -76,7 +75,7 @@ class UserAdmin extends BaseObject {
             INSERT INTO `user_settings` (`user_id`, `newcaches_no_limit`)
             VALUES (:2, :1)
             ON DUPLICATE KEY UPDATE `newcaches_no_limit` = :1
-        ", Php7Handler::Boolval($state), $user->getUserId()));
+        ", boolval($state), $user->getUserId()));
     }
 
 }

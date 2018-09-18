@@ -3,7 +3,6 @@ namespace lib\Objects\User;
 
 use Utils\Generators\TextGen;
 use Utils\Generators\Uuid;
-use lib\Controllers\Php7Handler;
 use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\OcConfig\OcConfig;
@@ -205,7 +204,7 @@ class User extends UserCommons
             WHERE `user_id` = :1
             LIMIT 1
             ", 0, $this->userId);
-        $this->newCachesNoLimit = Php7Handler::Boolval($value);
+        $this->newCachesNoLimit = boolval($value);
     }
 
     public function loadFromOKAPIRsp($okapiRow)
@@ -304,22 +303,22 @@ class User extends UserCommons
                     $this->notifyRadius = $value;
                     break;
                 case 'admin':
-                    $this->isAdmin = Php7Handler::Boolval($value);
+                    $this->isAdmin = boolval($value);
                     break;
                 case 'guru':
-                    $this->isGuide = Php7Handler::Boolval($value);
+                    $this->isGuide = boolval($value);
                     break;
                 case 'log_notes_count':
                     $this->logNotesCount = $value;
                     break;
                 case 'verify_all':
-                    $this->verifyAll = Php7Handler::Boolval($value);
+                    $this->verifyAll = boolval($value);
                     break;
                 case 'stat_ban':
-                    $this->statBan = Php7Handler::Boolval($value);
+                    $this->statBan = boolval($value);
                     break;
                 case 'rules_confirmed':
-                    $this->rulesConfirmed = Php7Handler::Boolval($value);
+                    $this->rulesConfirmed = boolval($value);
                     break;
                 case 'date_created':
                     $this->dateCreated = $value;
@@ -335,7 +334,7 @@ class User extends UserCommons
                     }
                     break;
                 case 'is_active_flag':
-                    $this->isActive = Php7Handler::Boolval($value);
+                    $this->isActive = boolval($value);
                     break;
                 case 'watchmail_mode':
                     $this->watchmailMode = (int) $value;
@@ -350,13 +349,13 @@ class User extends UserCommons
                     $this->activationCode = $value;
                     break;
                 case 'notify_caches':
-                    $this->notifyCaches = Php7Handler::Boolval($value);
+                    $this->notifyCaches = boolval($value);
                     break;
                 case 'notify_logs':
-                    $this->notifyLogs = Php7Handler::Boolval($value);
+                    $this->notifyLogs = boolval($value);
                     break;
                 case 'permanent_login_flag':
-                    $this->permanentLogin = Php7Handler::Boolval($value);
+                    $this->permanentLogin = boolval($value);
                     break;
 
                 /* db fields not used in this class yet*/
@@ -889,7 +888,7 @@ class User extends UserCommons
                 (:1, :2, :3, NOW(), 0 , NOW(), :4, :5, :6, :7)
             ', $username, hash('sha512', md5($password)),
             $email, Uuid::create(), TextGen::randomText(13),
-            OcConfig::instance()->getOcNodeId(), Php7Handler::Boolval($rulesConfirmed)));
+            OcConfig::instance()->getOcNodeId(), boolval($rulesConfirmed)));
     }
 
     /**

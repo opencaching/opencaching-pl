@@ -28,6 +28,12 @@ global $tpl_subtitle;
   <link rel="stylesheet" type="text/css" media="screen" href="<?=$view->screenCss?>">
   <link rel="stylesheet" type="text/css" media="print" href="<?=$view->printCss?>">
 
+  <?php if ($view->_showVideoBanner) {
+    foreach($view->_topBannerVideo as $videoPath) { ?>
+      <link rel="prefetch" href="<?=$videoPath?>">
+    <?php }
+  } ?>
+
   <?php foreach( $view->getLocalCss() as $css ) { ?>
       <link rel="stylesheet" type="text/css" href="<?=$css?>">
   <?php } //foreach-css ?>
@@ -74,96 +80,137 @@ global $tpl_subtitle;
   <script src="/lib/js/CookiesInfo.js" async defer></script>
 
 </head>
+
 <body {bodyMod} class="<?=$view->backgroundSeason?>">
   <div id="overall">
     <div class="page-container-1">
       <div class="seasonalBackground left <?=$view->backgroundSeason?>">&nbsp;</div>
       <div class="seasonalBackground right <?=$view->backgroundSeason?>">&nbsp;</div>
+      <div class="topline-container">
+        <div class="topline-logo">
+          <a href="/" class="transparent"><img src="<?=$view->_mainLogo?>" alt="OC logo"></a>
+        </div>
+        <div class="topline-sitename">
+          <a href="/" class="transparent"><?=$view->_logoTitle?></a>
+        </div>
+        <div class="topline-buttons">
+          <?php if ($view->_isUserLogged) { //if-user-logged ?>
+            <form method="get" action="/search.php" name="search_form" id="search_form" class="form-group-sm">
+              <input type="hidden" name="showresult" value="1">
+              <input type="hidden" name="expert" value="0">
+              <input type="hidden" name="output" value="HTML">
+              <input type="hidden" name="sort" value="bydistance">
+              <input type="hidden" name="f_inactive" value="0">
+              <input type="hidden" name="f_ignored" value="0">
+              <input type="hidden" name="f_userfound" value="0">
+              <input type="hidden" name="f_userowner" value="0">
+              <input type="hidden" name="f_watched" value="0">
+              <input type="hidden" name="f_geokret" value="0">
+              <input type="hidden" name="searchto" value="searchbywaypointname" id="search_by">
+              <input id="search_input" type="text" name="waypointname" placeholder="<?=tr('search')?>: <?=tr('waypointname_label')?>" class="form-control input200 btn-right-straight">
+                <button class="btn btn-sm btn-default btn-left-straight btn-right-straight topline-btn-wide" type="submit">
+                  <img class="icon16" src="/tpl/stdstyle/images/misc/magnifying-glass.svg" alt="<?=tr('search')?>" title="<?=tr('search')?>">
+                </button>
+              <button class="btn btn-sm btn-default btn-left-straight" type="button" onclick="topmenuTogle()">
+                <img class="topline-dropdown-icon" src="/tpl/stdstyle/images/misc/dropdown.svg" alt="<?=tr('search')?>" title="<?=tr('search')?>">
+              </button>
+              <div id="topline-search-dropdown" class="topline-dropdown-content">
+                <div class="" onclick="chname('waypointname', '<?=tr('search')?>: <?=tr('waypointname_label')?>' , 'searchbywaypointname', '/search.php');"><?=tr('waypointname_label')?></div>
+                <?php if ($config['quick_search']['geopath']) { ?>
+                  <div class="" onclick="chname('name', '<?=tr('search')?>: <?=tr('pt000')?>', 'name', '<?=SRouter::getLink('GeoPath','searchByName')?>');"><?=tr('pt000')?></div>
+                <?php } ?>
+                <?php if ($config['quick_search']['byuser']) { ?>
+                  <div class="" onclick="chname('username', '<?=tr('search')?>: <?=tr('user')?>', 'searchbyuser', '/searchuser.php');"><?=tr('user')?></div>
+                <?php } ?>
+                <?php if ($config['quick_search']['byowner']) { ?>
+                  <div class="" onclick="chname('owner', '<?=tr('search')?>: <?=tr('owner_label')?>', 'searchbyowner', '/search.php');"><?=tr('owner_label')?></div>
+                <?php } ?>
+                <?php if ($config['quick_search']['byfinder']) { ?>
+                  <div class="" onclick="chname('finder', '<?=tr('search')?>: <?=tr('finder_label')?>', 'searchbyfinder', '/search.php');"><?=tr('finder_label')?></div>
+                <?php } ?>
+                </div>
+            </form>
 
-      <!-- HEADER -->
-      <!-- OC-Logo -->
-      <img src="<?=$view->_mainLogo?>" alt="OC logo" class="oc-logo">
+            <div class="topline-buffer"></div>
 
-      <!-- Sitename -->
-      <div class="site-name">
-        <p class="title"><a href="/index.php"><?=$view->_logoTitle?></a></p>
-        <p class="subtitle"><a href="/index.php"><?=$view->_logoSubtitle?></a></p>
+            <div class="btn-group btn-group-sm">
+              <a href="/viewprofile.php" class="btn btn-default btn-sm topline-btn-wide">
+                <img src="/tpl/stdstyle/images/misc/user.svg" class="icon16" alt="<?=tr('user_profile')?>" title="<?=tr('user_profile')?>">
+                <?=$view->_username?>
+              </a>
+              <a href="<?=SRouter::getLink('UserAuthorization', 'logout')?>" class="btn btn-default btn-sm topline-btn-wide">
+                <img src="/tpl/stdstyle/images/misc/exit.svg" class="icon16" alt="<?=tr('logout')?>" title="<?=tr('logout')?>"> <?=tr('logout')?>
+              </a>
+            </div>
+          <?php } else { //user-not-logged ?>
+            <form action="<?=SRouter::getLink('UserAuthorization', 'login')?>" method="post" name="login" class="form-group-sm">
+              <label for="top-form-email" class="btn btn-sm btn-default btn-right-straight">
+                <img src="/tpl/stdstyle/images/misc/user.svg" class="icon16" alt="<?=tr('loginForm_userOrEmail')?>" title="<?=tr('loginForm_userOrEmail')?>">
+              </label>
+              <input name="email" id="top-form-email" type="text" class="form-control input120 btn-left-straight" value="" autocomplete="username" placeholder="<?=tr('loginForm_userOrEmail')?>" required>
+              <label for="top-form-password" class="btn btn-sm btn-default btn-right-straight">
+                <img src="/tpl/stdstyle/images/misc/key.svg" class="icon16" alt="<?=tr('loginForm_password')?>" title="<?=tr('loginForm_password')?>">
+              </label>
+              <input name="password" id="top-form-password" type="password" class="form-control input120 btn-left-straight" value="" autocomplete="current-password" placeholder="<?=tr('loginForm_password')?>" required>
+              <input type="hidden" name="target" value="<?=$view->_target?>">
+              <input type="submit" value="<?=tr('login')?>" class="btn btn-primary btn-sm">
+              <a href="<?=SRouter::getLink('UserRegistration')?>" class="btn btn-success btn-sm"><?=tr('registration')?></a>
+            </form>
+          <?php } //user-not-logged ?>
+
+        </div>
       </div>
 
-      <!-- Site slogan -->
-                <div class="site-slogan-container">
-                    <form method="get" action="/search.php" name="search_form" id="search_form">
-                        <div class="site-slogan">
-                            <div>
-                                <p class="search">
-                                    <input type="radio" onclick="chname('waypointname','/search.php');" name="searchto" id="st_1" value="searchbywaypointname" class="radio" checked="checked">
-                                    <label for="st_1">{{waypointname_label}}</label>&nbsp;&nbsp;
-                                    <?php if ($config['quick_search']['byowner']) { ?>
-                                      <input type="radio" onclick="chname('owner','/search.php');" name="searchto" id="st_2" value="searchbyowner" class="radio">
-                                      <label for="st_2">{{owner_label}}</label>&nbsp;&nbsp;
-                                    <?php } ?>
-                                    <?php if ($config['quick_search']['byfinder']) { ?>
-                                      <input type="radio" onclick="chname('finder','/search.php');" name="searchto" id="st_3" value="searchbyfinder" class="radio">
-                                      <label for="st_3">{{finder_label}}</label>&nbsp;&nbsp;
-                                    <?php } ?>
-                                    <?php if ($config['quick_search']['byuser']) { ?>
-                                      <input type="radio" onclick="chname('username','/searchuser.php');" name="searchto" id="st_4" value="searchbyuser" class="radio">
-                                      <label for="st_4">{{user}}</label>&nbsp;&nbsp;
-                                    <?php } ?>
-                                    <input type="hidden" name="showresult" value="1">
-                                    <input type="hidden" name="expert" value="0">
-                                    <input type="hidden" name="output" value="HTML">
-                                    <input type="hidden" name="sort" value="bydistance">
-                                    <input type="hidden" name="f_inactive" value="0">
-                                    <input type="hidden" name="f_ignored" value="0">
-                                    <input type="hidden" name="f_userfound" value="0">
-                                    <input type="hidden" name="f_userowner" value="0">
-                                    <input type="hidden" name="f_watched" value="0">
-                                    <input type="hidden" name="f_geokret" value="0">
-                                </p>
-                            </div>
-                            <div class="form-group-xs">
-                                <input id="search_input" type="text" name="waypointname" class="form-control input100" style="color:gray;">
-                                <input type="submit" name="submit" value="{{search}}" class="btn btn-default btn-xs">
-                            </div>
-                        </div>
-                    </form>
-                </div>
+      <?php if ($view->_showVideoBanner) { ?>
+        <div class="top-video-container">
+          <video width="970" height="180" autoplay muted preload="auto" id="topline-video-player">
+            <source src="<?=$view->_topBannerVideo[0]?>" type="video/mp4">
+          </video>
+        </div>
+        <div class="top-video-slider">
+        <?php foreach ($view->_topBannerTxt as $bannerTxt) { ?>
+          <div><?=$bannerTxt?></div>
+        <?php } //foreach videoBannerTxt ?>
+        </div>
 
-                <div id="loginbox-container">
-                    <div id="loginbox">
-                        <?php if($view->_isUserLogged){ //if-user-logged ?>
-                            <a href="/viewprofile.php" class="transparent" title="<?=tr('user_profile')?>">[ <?=$view->_username?> ]</a>
-                            <div class="btn-group btn-group-sm">
-                              <a href="/viewprofile.php" class="btn btn-default btn-sm">
-                                <img src="/tpl/stdstyle/images/misc/user.svg" class="icon16" alt="<?=tr('user_profile')?>" title="<?=tr('user_profile')?>">
-                              </a>
-                              <a href="<?=SRouter::getLink('UserAuthorization', 'logout')?>" class="btn btn-default btn-sm">
-                                <img src="/tpl/stdstyle/images/misc/exit.svg" class="icon16" alt="<?=tr('logout')?>" title="<?=tr('logout')?>">
-                              </a>
-                            </div>
-                        <?php } else { //user-not-logged ?>
-                            <form action="<?=SRouter::getLink('UserAuthorization', 'login')?>" method="post" name="login" class="form-group-sm">
-                              <label for="top-form-email" class="btn btn-sm btn-default loginbox-lbl">
-                                <img src="/tpl/stdstyle/images/misc/user.svg" class="icon16" alt="<?=tr('loginForm_userOrEmail')?>" title="<?=tr('loginForm_userOrEmail')?>">
-                              </label>
-                              <input name="email" id="top-form-email" type="text" class="form-control input120 loginbox-input" value="" autocomplete="username" placeholder="<?=tr('loginForm_userOrEmail')?>" required>
-                              <label for="top-form-password" class="btn btn-sm btn-default loginbox-lbl">
-                                <img src="/tpl/stdstyle/images/misc/key.svg" class="icon16" alt="<?=tr('loginForm_password')?>" title="<?=tr('loginForm_password')?>">
-                              </label>
-                              <input name="password" id="top-form-password" type="password" class="form-control input120 loginbox-input" value="" autocomplete="current-password" placeholder="<?=tr('loginForm_password')?>" required>
-                              <input type="hidden" name="target" value="<?=$view->_target?>">
-                              <input type="submit" value="<?=tr('login')?>" class="btn btn-primary btn-sm">
-                              <a href="<?=SRouter::getLink('UserRegistration')?>" class="btn btn-success btn-sm"><?=tr('registration')?></a>
-                            </form>
-                        <?php } //user-not-logged ?>
-                    </div>
-                </div>
+        <script>
+        var videoSource = new Array();
+        <?php foreach($view->_topBannerVideo as $key => $val) { ?>
+          videoSource[<?=$key?>]='<?=$val?>';
+        <?php } // foreach topBannerVideo ?>
+        var videoCount = videoSource.length;
+        var i = 0;
 
-                <!-- Header banner     -->
-                <div class="header">
-                  <img src="/images/head/rotator.php" alt="Banner">
-                </div>
+       document.getElementById("topline-video-player").setAttribute("src",videoSource[0]);
+
+       function videoPlay(videoNum) {
+         document.getElementById("topline-video-player").setAttribute("src", videoSource[videoNum]);
+         document.getElementById("topline-video-player").load();
+         document.getElementById("topline-video-player").play();
+       }
+
+       document.getElementById('topline-video-player').addEventListener('ended', toplineVideoHandler, false);
+
+       function toplineVideoHandler() {
+         i++;
+         if (i == (videoCount)) {
+           i = 0;
+         }
+         videoPlay(i);
+       }
+
+        $('.top-video-slider').slick({
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          autoplay: true,
+          autoplaySpeed: 5000,
+          arrows: false,
+        });
+
+        </script>
+      <?php } // if - showVideoBanner?>
+
+      <!-- HEADER -->
 
                 <!-- Navigation - horizontal menu bar -->
                 <div id="nav2">
@@ -316,10 +363,16 @@ global $tpl_subtitle;
   </div>
   <script>
     // this is used by search widget
-    function chname(newName,searchPage) {
+    function chname(newName, newHint, newSearchBy, searchPage) {
       document.getElementById("search_input").name = newName;
+      document.getElementById("search_input").placeholder = newHint;
       document.getElementById("search_form").action = searchPage;
-      return false;
+      document.getElementById("search_by").value = newSearchBy;
+      topmenuTogle();
+    }
+
+    function topmenuTogle() {
+    	document.getElementById("topline-search-dropdown").classList.toggle("topline-dropdown-show");;
     }
   </script>
   <?php

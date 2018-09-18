@@ -73,6 +73,8 @@ class StartPageController extends BaseController
         $this->processLastCacheSets();
         $this->processFeeds();
 
+        $this->view->setVideoBanner(true);
+
         $this->view->setVar('staticMapModel', $this->staticMapModel);
 
         $this->view->buildView();

@@ -173,6 +173,26 @@ class CacheSet extends CacheSetCommon
         return self::db()->simpleQueryValue($query,0);
     }
 
+    /**
+     * Returns CacheSet[] of open GeoPaths with names containing $name.
+     * If null $name given - all open GeoPaths will be returned
+     *
+     * @param string $name
+     * @return CacheSet[]|NULL
+     */
+    public static function getCacheSetsByName($name = null)
+    {
+        if (is_null($name) || !is_string($name)) {
+            $query = "SELECT * FROM `PowerTrail` WHERE `status` = :1 ORDER BY `name`";
+            $stmt = self::db()->multiVariableQuery($query, CacheSet::STATUS_OPEN);
+        } else {
+            $query = "SELECT * FROM `PowerTrail` WHERE `status` = :1 AND `name` LIKE :2 ORDER BY `name`";
+            $stmt = self::db()->multiVariableQuery($query, CacheSet::STATUS_OPEN, '%' . $name . '%');
+        }
+        return self::db()->dbFetchAllAsObjects($stmt, function ($row){
+            return self::FromDbRowFactory($row);
+        });
+    }
 
     public function getId()
     {
@@ -214,19 +234,13 @@ class CacheSet extends CacheSetCommon
         return tr(self::GetStatusTranslationKey($this->status));
     }
 
-    public function getCreationDate($formatted=false)
+    public function getCreationDate($formatted = false)
     {
-        if($formatted){
+        if ($formatted) {
             return Formatter::date($this->dateCreated);
-        }else{
+        } else {
             return $this->dateCreated;
         }
-    }
-
-    public function getCreationDateString()
-    {
-        global $dateFormat;
-        return $this->dateCreated->format($dateFormat);
     }
 
     public function getCacheCount()

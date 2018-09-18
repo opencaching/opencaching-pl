@@ -5,7 +5,6 @@
 namespace lib\Objects\Watchlist;
 
 use lib\Objects\BaseObject;
-use lib\Controllers\Php7Handler;
 
 /**
  * Represents single row data from watchlist new logs query result
@@ -281,7 +280,6 @@ class WatchlistGeoCacheLog extends BaseObject
      */
     public function setRecommended($recommended)
     {
-        $this->recommended = Php7Handler::Boolval($recommended);
+        $this->recommended = boolval($recommended);
     }
 }
-

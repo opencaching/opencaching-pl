@@ -74,6 +74,10 @@ final class OcConfig extends ConfigReader
     /** @var array - array of guides settings from /Config/guides.* files */
     private $guidesConfig;
 
+    /** @var array */
+    private $topBannerVideo;
+    /** @var array */
+    private $topBannerTxt;
 
     /**
      * Call this method to get singleton
@@ -403,4 +407,33 @@ final class OcConfig extends ConfigReader
         }
         return $this->guidesConfig;
     }
+
+    /**
+     * Gives top banner texts
+     *
+     * @return array
+     *               ({@see /Config/banner.default.php})
+     */
+    public function getTopBannerTxt()
+    {
+        if ($this->topBannerTxt == null) {
+            $this->topBannerTxt = self::getConfig("banner", "bannerTxt");
+        }
+        return $this->topBannerTxt;
+    }
+
+    /**
+     * Gives top banner video list
+     *
+     * @return array
+     *               ({@see /Config/banner.default.php})
+     */
+    public function getTopBannerVideo()
+    {
+        if ($this->topBannerVideo == null) {
+            $this->topBannerVideo = self::getConfig("banner", "bannerVideo");
+        }
+        return $this->topBannerVideo;
+    }
+
 }

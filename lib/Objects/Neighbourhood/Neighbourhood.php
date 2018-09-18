@@ -4,7 +4,6 @@ namespace lib\Objects\Neighbourhood;
 use lib\Objects\BaseObject;
 use lib\Objects\Coordinates\Coordinates;
 use lib\Objects\User\User;
-use lib\Controllers\Php7Handler;
 
 class Neighbourhood extends BaseObject
 {
@@ -292,7 +291,7 @@ class Neighbourhood extends BaseObject
               `radius` = :6,
               `notify` = :7
             ';
-        return (self::db()->multiVariableQuery($query, $user->getUserId(), (int) $seq, $name, $coords->getLongitude(), $coords->getLatitude(), (int) $radius, Php7Handler::Boolval($notify)) !== null);
+        return (self::db()->multiVariableQuery($query, $user->getUserId(), (int) $seq, $name, $coords->getLongitude(), $coords->getLatitude(), (int) $radius, boolval($notify)) !== null);
     }
 
     /**
@@ -332,7 +331,7 @@ class Neighbourhood extends BaseObject
             WHERE `user_id` = :2
                 AND `seq` = :3
             LIMIT 1
-        ', Php7Handler::Boolval($state), $user->getUserId(), $seq));
+        ', boolval($state), $user->getUserId(), $seq));
     }
 
     /**

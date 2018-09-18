@@ -87,6 +87,19 @@ class MainLayoutController extends BaseController
         $this->view->setVar('_title', "TODO-title"); //TODO!
         $this->view->setVar('_backgroundSeason', $this->view->getSeasonCssName());
 
+        $this->view->setVar('_showVideoBanner', $this->view->showVideoBanner());
+        if ($this->view->showVideoBanner()) {
+            $this->view->setVar('_topBannerTxt', $this->ocConfig->getTopBannerTxt());
+            $this->view->setVar('_topBannerVideo', $this->ocConfig->getTopBannerVideo());
+            $this->view->loadJQuery();
+            $this->view->addLocalCss(
+                    Uri::getLinkWithModificationTime('/tpl/stdstyle/js/slick/slick.css'));
+            $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/js/slick/slick-theme.css'));
+            $this->view->addLocalJs(
+                    Uri::getLinkWithModificationTime('/tpl/stdstyle/js/slick/slick.min.js'));
+
+        }
+
         if (!$this->legacyLayout) {
             $this->view->addLocalCss(Uri::getLinkWithModificationTime(
                 '/tpl/stdstyle/common/mainLayout.css'));

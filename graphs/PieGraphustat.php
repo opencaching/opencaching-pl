@@ -1,7 +1,8 @@
 <?php
 
-use JpGraph\JpGraph;
+use Libs\JpGraph\JpGraphLoader;
 use Utils\Database\XDb;
+
 $rootpath = '../';
 require('../lib/common.inc.php');
 global $lang;
@@ -9,9 +10,9 @@ global $lang;
 // jpgraph package doesn't contains fonts
 define('TTF_DIR',__DIR__.'/../lib/fonts/');
 
-JpGraph::load();
-JpGraph::module('pie');
-JpGraph::module('pie3d');
+JpGraphLoader::load();
+JpGraphLoader::module('pie');
+JpGraphLoader::module('pie3d');
 
 $year = '';
 // check for old-style parameters

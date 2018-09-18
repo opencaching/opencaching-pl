@@ -2,7 +2,6 @@
 namespace lib\Objects\GeoCache;
 
 use lib\Objects\User\User;
-use lib\Controllers\Php7Handler;
 
 class GeoCacheLog extends GeoCacheLogCommons
 {
@@ -301,7 +300,7 @@ class GeoCacheLog extends GeoCacheLogCommons
 
     public function setDeleted($deleted)
     {
-        $this->deleted = Php7Handler::Boolval($deleted);
+        $this->deleted = boolval($deleted);
         return $this;
     }
 

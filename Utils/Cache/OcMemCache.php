@@ -4,6 +4,7 @@ namespace Utils\Cache;
 
 use Exception;
 use Utils\Debug\Debug;
+use lib\Objects\OcConfig\OcConfig;
 
 
 /**
@@ -16,7 +17,6 @@ use Utils\Debug\Debug;
  */
 class OcMemCache
 {
-    const KEY_PREFIX = 'OC_';
 
     /**
      * Fetch from cache or create by callback-creator if there is no such entry
@@ -28,7 +28,7 @@ class OcMemCache
      */
     public static function getOrCreate($key, $ttl, callable $generator)
     {
-        $key = self::KEY_PREFIX.$key;
+        $key = self::getPrefix() . $key;
 
         // apcu_entry was added in APCu version 5.1
         //if(function_exists('apcu_entry')){
@@ -62,7 +62,7 @@ class OcMemCache
     {
         $var = $creatorCallback();
 
-        $key = self::KEY_PREFIX.$key;
+        $key = self::getPrefix() . $key;
 
         try {
             apcu_store($key, $var, $ttl);
@@ -81,9 +81,14 @@ class OcMemCache
      */
     public static function get($key)
     {
-        $key = self::KEY_PREFIX.$key;
+        $key = self::getPrefix() . $key;
 
         return apcu_fetch($key);
+    }
+
+    private static function getPrefix()
+    {
+        return OcConfig::getShortSiteName() . '_';
     }
 
 }

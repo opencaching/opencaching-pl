@@ -1,9 +1,9 @@
 <?php
 
 namespace lib\Objects\OcConfig;
+
 use lib\Objects\ApplicationContainer;
 use Utils\Debug\Debug;
-use lib\Objects\BaseObject;
 
 /**
  * This object reads and return requested configuration container

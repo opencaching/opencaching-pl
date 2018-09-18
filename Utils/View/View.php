@@ -5,7 +5,6 @@ use Utils\DateTime\Year;
 use lib\Objects\ApplicationContainer;
 use Utils\Debug\Debug;
 use Controllers\PageLayout\MainLayoutController;
-use lib\Controllers\Php7Handler;
 
 class View {
 
@@ -28,6 +27,7 @@ class View {
     private $_localJs = [];     // page-local JS scripts loaded from controller
 
     private $_showGdprPage = false;
+    private $_showVideoBannerState = false;
 
     private $_headerChunks = []; // chunks to load in <head> of the page
 
@@ -259,7 +259,7 @@ class View {
      */
     public function setShowGdprPage($state)
     {
-        $state = Php7Handler::Boolval($state);
+        $state = boolval($state);
         $this->_showGdprPage = $state;
         if ($state) {
             $this->_googleAnalyticsKey = '';
@@ -269,6 +269,29 @@ class View {
             $this->_loadTimepicker = false;
             $this->_loadFancyBox = false;
         }
+    }
+
+
+    /**
+     * Returns if should show video banner + slider on page
+     *
+     * @return boolean
+     */
+    public function showVideoBanner()
+    {
+        if (is_null(ApplicationContainer::Instance()->getLoggedUser()))
+            return true;
+        return $this->_showVideoBannerState;
+    }
+
+    /**
+     * Set to show (or not) video banner + slider on page
+     *
+     * @param boolean $state
+     */
+    public function setVideoBanner($state)
+    {
+        $this->_showVideoBannerState = boolval($state);
     }
 
     /**

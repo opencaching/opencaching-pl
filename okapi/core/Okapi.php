@@ -22,8 +22,8 @@ class Okapi
     public static $server;
 
     /* These two get replaced in automatically deployed packages. */
-    private static $version_number = 1693;
-    private static $git_revision = '1b04cdeea05ffa7afac38747a6e8f7e8c6b95593';
+    private static $version_number = 1708;
+    private static $git_revision = 'a2796287afaf2ded15d3a07c22a47dfb4d5730bd';
 
     private static $okapi_vars = null;
 
@@ -73,6 +73,21 @@ class Okapi
             mt_rand(0, 0x3fff) | 0x8000,
             mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
         );
+    }
+
+    /**
+     * Convert float to string independent from LC_NUMERIC setting, which is not
+     * thread-safe. See issue #536.
+     *
+     * 8 decimal places should exceed the precision of all Okapi float output:
+     * Coordinates, Terrain/Difficulty, Ratings, OX sizes etc.
+     */
+    public static function float2string($number)
+    {
+        if (round($number, 8) == round($number, 0))
+            return "" . round($number, 0);
+        else
+            return rtrim(number_format($number, 9, '.', ''), '0');
     }
 
     /** Get a variable stored in okapi_vars. If variable not found, return $default. */
@@ -644,6 +659,11 @@ class Okapi
      */
     public static function get_distance_sql($lat1, $lon1, $lat2, $lon2)
     {
+        $lat1 = Db::escape_float($lat1);
+        $lon1 = Db::escape_float($lon1);
+        $lat2 = Db::escape_float($lat2);
+        $lon2 = Db::escape_float($lon2);
+
         $x1 = "(90-$lat1) * 3.14159 / 180";
         $x2 = "(90-$lat2) * 3.14159 / 180";
         #

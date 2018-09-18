@@ -1,18 +1,19 @@
 <?php
 
+use Libs\JpGraph\JpGraphLoader;
 use Utils\Database\XDb;
-use JpGraph\JpGraph;
 
 $rootpath = '../';
 require('../lib/common.inc.php');
+
 global $lang;
 
 // jpgraph package doesn't contains fonts
 define('TTF_DIR',__DIR__.'/../lib/fonts/');
 
-JpGraph::load();
-JpGraph::module('bar');
-JpGraph::module('date');
+JpGraphLoader::load();
+JpGraphLoader::module('bar');
+JpGraphLoader::module('date');
 
 $year = '';
 if (isset($_REQUEST['cacheid']) && isset($_REQUEST['t'])) {

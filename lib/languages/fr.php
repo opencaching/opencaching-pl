@@ -963,6 +963,7 @@ $translations = array(
     'log_type_available' => 'Prête à être trouvée',
     'log_mobile_init' => 'Position de départ',
     'error_coords_not_ok' => 'Coordonnées invalides !',
+    'error_nofulltext' => 'Entrée invalide. Changez le nom à rechercher.',
     'GKApi01' => 'Intégration de votre compte GeoKrety.org',
     'GKApi02' => '« Secid » du site GeoKrety',
     'GKApi03' => 'Pour intégrer votre compte geokrety.org avec {site_name}, veuillez fournir votre « Secid ». Le « Secid » se trouve sur la page des détails de votre compte geokrety.org',

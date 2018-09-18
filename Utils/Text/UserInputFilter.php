@@ -13,9 +13,6 @@ use HTMLPurifier_HTMLModule_SafeEmbed;
 use HTMLPurifier_HTMLModule_SafeObject;
 use HTMLPurifier_Injector_SafeObject;
 
-use lib\Controllers\Php7Handler;
-
-
 /**
  * class designed to contain user input filters.
  */
@@ -87,14 +84,14 @@ class UserInputFilter
         }
         $useCache = !(isset($debug_page) ? $debug_page : false);
         $cache_key = 'HTMLPurifierConfig';
-        $result = $useCache ? Php7Handler::apc_fetch($cache_key) : false;
-        
-        // we observed some rare apcu bugs(?) where there is null returned here 
+        $result = $useCache ? apcu_fetch($cache_key) : false;
+
+        // we observed some rare apcu bugs(?) where there is null returned here
         if ( is_null($result) ) {
             error_log (__METHOD__.': APCU BUG?! apc_fetch returns null');
             $result = false;
         }
-        
+
         if ($result === false) {
             $result = self::createConfig();
             // finalize and lock the config
@@ -103,7 +100,7 @@ class UserInputFilter
             $result->getURIDefinition();
 
             if ($useCache) {
-                Php7Handler::apc_store($cache_key, $result, 60);  # cache it for 60 seconds
+                apcu_store($cache_key, $result, 60);  # cache it for 60 seconds
             }
         }
         return self::$config = $result;
@@ -254,4 +251,3 @@ class OC_HTMLPurifier_Injector_SafeObject extends HTMLPurifier_Injector_SafeObje
     }
 
 }
-
