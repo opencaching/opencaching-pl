@@ -65,11 +65,12 @@
   -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
   filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
   padding: 8px;
-  border-radius: 0px;
+  border-radius: 5px;
   border: 1px solid #cccccc;
   bottom: 12px;
   left: -48px;
   min-width: 300px;
+  font-size: 1.2em;
 }
 
 .dynamicMap_mapPopup:after, .dynamicMap_mapPopup:before {
@@ -97,14 +98,19 @@
 .dynamicMap_mapPopup-closer {
   text-decoration: none;
   position: absolute;
-  top: 2px;
-  right: 8px;
+  top: 0px;
+  right: 2px;
 }
 .dynamicMap_mapPopup-closer:after {
   content: "✖";
   font-size: 15px;
   cursor: pointer;
   color: #000;
+}
+
+/* a lot of log entries starts with a paragraph*/
+.dynamicMap_mapPopup  p {
+    font-size: inherit !important;
 }
 
 .dynamicMap_mapPopup-cacheIcon {
@@ -114,4 +120,27 @@
 
 .dynamicMap_mapPopup-cacheLogBlock {
     margin-top: 10px;
+}
+
+.dynamicMap_mapPopup-cacheLogUser {
+   font-size: 1.1em;
+}
+
+.dynamicMap_mapPopup-guide {
+    font-size: 13px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.dynamicMap_mapPopup-table {
+    display: table;
+}
+
+.dynamicMap_mapPopup-tableRow {
+    display: table-row;
+}
+
+.dynamicMap_mapPopup-tableCell {
+    display: table-cell;
+    padding: 2px 5px;
 }

@@ -50,7 +50,7 @@ class GuideController extends BaseController
         $mapModel->addMarkersWithExtractor(GuideMarkerModel::class, $guidesList,
             function($row){
                 $marker = new GuideMarkerModel();
-                $marker->icon = '/tpl/stdstyle/guide/guide_map.png';
+                $marker->icon = '/images/guide_map_marker.png';
                 $marker->link = User::GetUserProfileUrl($row['user_id']);
                 $marker->lat = $row['latitude'];
                 $marker->lon = $row['longitude'];
