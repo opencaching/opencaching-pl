@@ -85,8 +85,6 @@ class MultiUserQueries extends BaseObject
 
         $config = self::OcConfig()->getGuidesConfig();
 
-        d($config);
-
         $guideActivePeriod = (int) $config['guideActivePeriod'];
         $guideGotRecomendations = (int) $config['guideGotRecomendations'];
 
