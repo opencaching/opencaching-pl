@@ -3,6 +3,7 @@ namespace lib\Objects;
 
 use Utils\Database\OcDb;
 use okapi\Facade;
+use lib\Objects\OcConfig\OcConfig;
 
 abstract class BaseObject
 {
@@ -28,6 +29,11 @@ abstract class BaseObject
     {
         //TODO: if PDO error!
         return OcDb::instance();
+    }
+
+    protected static function OcConfig()
+    {
+        return OcConfig::instance();
     }
 
     protected static function getCurrentUser(){

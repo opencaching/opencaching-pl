@@ -6,6 +6,7 @@ use lib\Objects\GeoCache\GeoCacheLog;
 use lib\Objects\GeoCache\GeoCacheLogCommons;
 use lib\Objects\GeoCache\GeoCacheCommons;
 use lib\Objects\GeoCache\GeoCache;
+use lib\Objects\OcConfig\OcConfig;
 
 /**
  * This class should contains mostly static, READ-ONLY queries
@@ -82,6 +83,13 @@ class MultiUserQueries extends BaseObject
              GeoCache::STATUS_UNAVAILABLE,
              GeoCache::STATUS_ARCHIVED]);
 
+        $config = self::OcConfig()->getGuidesConfig();
+
+        d($config);
+
+        $guideActivePeriod = (int) $config['guideActivePeriod'];
+        $guideGotRecomendations = (int) $config['guideGotRecomendations'];
+
         // get active guides
         $s = $db->simpleQuery(
             "SELECT latitude,longitude,username,user_id,description
@@ -94,13 +102,13 @@ class MultiUserQueries extends BaseObject
                      user_id IN (
                          SELECT DISTINCT user_id FROM cache_logs
                          WHERE type = ".GeoCacheLogCommons::LOGTYPE_FOUNDIT."
-                             AND date_created > DATE_ADD(NOW(), INTERVAL -90 DAY)
+                             AND date_created > DATE_ADD(NOW(), INTERVAL -$guideActivePeriod DAY)
                      )
                      OR
                      user_id IN (
                          SELECT DISTINCT user_id FROM caches
                          WHERE status IN ($cacheActiveStatusList)
-                             AND date_created > DATE_ADD(NOW(), INTERVAL -90 DAY)
+                             AND date_created > DATE_ADD(NOW(), INTERVAL -$guideActivePeriod DAY)
                      )
                  )"
         );
@@ -124,7 +132,7 @@ class MultiUserQueries extends BaseObject
                 AND type <> ".GeoCache::TYPE_EVENT."
             AND status IN ($cacheActiveStatusList)
             GROUP BY user_id
-            HAVING recos > 20");
+            HAVING recos > $guideGotRecomendations");
 
         $result = [];
         while($row = $db->dbResultFetch($s)){

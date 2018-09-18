@@ -68,8 +68,13 @@ final class OcConfig extends ConfigReader
     /** @var array the logfilter configuration array */
     private $logfilterConfig;
 
-    /** @var array array of map settings from /Config/map.* files */
+    /** @var array - array of map settings from /Config/map.* files */
     private $mapConfig;
+
+    /** @var array - array of guides settings from /Config/guides.* files */
+    private $guidesConfig;
+
+
     /**
      * Call this method to get singleton
      * @return ocConfig
@@ -131,8 +136,6 @@ final class OcConfig extends ConfigReader
         } else {
             $this->mapsConfig = array();
         }
-
-        $this->isGoogleTranslationEnabled = ! (isset($disable_google_translation) && $disable_google_translation);
 
         $this->dbHost = $opt['db']['server'];
         $this->dbName = $opt['db']['name'];
@@ -391,5 +394,13 @@ final class OcConfig extends ConfigReader
             $this->mapConfig = self::getConfig("map", "map");
         }
         return $this->mapConfig;
+    }
+
+    public function getGuidesConfig()
+    {
+        if ($this->guidesConfig == null) {
+            $this->guidesConfig = self::getConfig("guides", "guides");
+        }
+        return $this->guidesConfig;
     }
 }
