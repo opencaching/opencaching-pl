@@ -477,8 +477,6 @@ $config['garmin-key'] = array(
 $titled_cache_nr_found=10;
 $titled_cache_period_prefix='week';
 
-// set this to true to disable automatic translation of cache descs
-$disable_google_translation = false;
 
 /* ************************************************************************
  * Cache page mini map
