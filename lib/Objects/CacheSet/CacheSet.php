@@ -37,6 +37,18 @@ class CacheSet extends CacheSetCommon
         parent::__construct();
     }
 
+    public static function fromCacheSetIdFactory($id)
+    {
+        $cs = new self();
+        $cs->id = $id;
+
+        if( $cs->loadDataFromDb() ){
+            return $cs;
+        }
+
+        return null;
+    }
+
     private function loadDataFromDb($fields = null)
     {
         if (is_null($fields)) {
@@ -46,7 +58,7 @@ class CacheSet extends CacheSetCommon
         $s = $this->db->multiVariableQuery(
             "SELECT $fields FROM PowerTrail WHERE id=:1 LIMIT 1", $this->id);
 
-        if($row = $db->dbResultFetch($s)){
+        if($row = $this->db->dbResultFetch($s)){
             $this->loadFromDbRow($row);
             return true;
         }

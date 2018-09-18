@@ -52,7 +52,6 @@ class CacheSetAdminController extends BaseController
                 '/tpl/stdstyle/admin/cacheSet/cacheSetsToArchive.css'));
 
         $this->view->loadJQuery();
-        $this->view->loadGMapApi();
 
         $csToArchive = CacheSet::getCacheSetsToArchive();
 
@@ -93,15 +92,19 @@ class CacheSetAdminController extends BaseController
 
 
         // init map-chunk model
+        $this->view->addHeaderChunk('openLayers5');
+
         $mapModel = new DynamicMapModel();
-        $mapModel->addMarkers(CacheSetMarkerModel::class, $csToArchive, function($row){
+        $mapModel->addMarkersWithExtractor(CacheSetMarkerModel::class, $csToArchive, function($row){
 
             $ratioTxt = round($row['currentRatio']).'/'.$row['ratioRequired'].'%';
 
             $marker = new CacheSetMarkerModel();
-            $marker->icon = CacheSet::GetTypeIcon($row['type']);
-            $marker->lat = $row['centerLatitude'];
+
             $marker->lon = $row['centerLongitude'];
+            $marker->lat = $row['centerLatitude'];
+            $marker->icon = CacheSet::GetTypeIcon($row['type']);
+
             $marker->link = CacheSet::getCacheSetUrlById($row['id']);
             $marker->name = $row['name']." ($ratioTxt)";
             return $marker;

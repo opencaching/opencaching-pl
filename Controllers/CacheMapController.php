@@ -9,6 +9,7 @@ use lib\Objects\User\UserPreferences\UserMapSettings;
 use Utils\Debug\Debug;
 use lib\Objects\User\User;
 use lib\Objects\Coordinates\Coordinates;
+use lib\Objects\CacheSet\CacheSet;
 
 class CacheMapController extends BaseController
 {
@@ -130,10 +131,8 @@ class CacheMapController extends BaseController
         // parse powerTrailIds if given
         if (isset($_REQUEST['pt'])) {
             $this->view->setVar('powerTrailIds', $_REQUEST['pt']);
+            $this->view->setVar('cacheSet', CacheSet::fromCacheSetIdFactory($_REQUEST['pt']));
         }
-
-
-
 
         $userPref = UserPreferences::getUserPrefsByKey(UserMapSettings::KEY);
         $this->view->setVar('filterVal', $userPref->getJsonValues());

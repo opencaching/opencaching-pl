@@ -14,27 +14,25 @@ $(".nbh-sort-list").sortable({
 	}
 });
 
-$(".nbh-hide-toggle").on(
-		"click",
-		function() {
-			let icon = $(this);
-			icon.closest(".nbh-block").find(".nbh-block-content").toggleClass(
-					'nbh-nodisplay');
-			let hidden = icon.closest(".nbh-block").find(".nbh-block-content")
-					.hasClass("nbh-nodisplay");
-			let itemId = icon.closest(".nbh-block").attr('id');
-			$.ajax({
-				url : changeDisplayAjaxUri,
-				type : "post",
-				data : {
-					hide : hidden,
-					item : itemId
-				}
-			})
-			if (this.id == "nbh-map-hide") {
-				google.maps.event.trigger(dynamicMapParams_nbhmap.map, "resize");
-	}
-		});
+$(".nbh-hide-toggle").on("click", function() {
+    let icon = $(this);
+    icon.closest(".nbh-block").find(".nbh-block-content").toggleClass(
+        'nbh-nodisplay');
+    let hidden = icon.closest(".nbh-block").find(".nbh-block-content")
+        .hasClass("nbh-nodisplay");
+    let itemId = icon.closest(".nbh-block").attr('id');
+    $.ajax({
+        url : changeDisplayAjaxUri,
+        type : "post",
+        data : {
+            hide : hidden,
+            item : itemId
+        }
+    })
+    if (this.id == "nbh-map-hide") {
+        dynamicMapParams_nbhmap.map.updateSize();
+    }
+});
 
 $(".nbh-size-toggle").on("click", function() {
 	let icon = $(this);
@@ -50,6 +48,6 @@ $(".nbh-size-toggle").on("click", function() {
 		}
 	});
 	if (this.id == "nbh-map-resize") {
-		google.maps.event.trigger(dynamicMapParams_nbhmap.map, "resize");
+		dynamicMapParams_nbhmap.map.updateSize();
 	}
 });

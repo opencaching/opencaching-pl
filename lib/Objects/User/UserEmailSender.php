@@ -139,7 +139,7 @@ class UserEmailSender
         $userMessage = new EmailFormatter(self::TEMPLATE_PATH . 'postactivation.email.html', true);
         $userMessage->addFooterAndHeader($user->getUserName());
         $userMessage->setVariable('wikiaddress', OcConfig::getWikiLink('forBeginers'));
-        $userMessage->setVariable('guidesurl', OcConfig::getAbsolute_server_URI() . 'cacheguides.php');
+        $userMessage->setVariable('guidesurl', OcConfig::getAbsolute_server_URI() . 'guide');
         $userMessage->setVariable('postActivation_mail_04', mb_ereg_replace('{NEED_FIND_LIMIT}', OcConfig::getNeedFindLimit(), tr('postActivation_mail_04')));
         $email = new Email();
         $email->addToAddr($user->getEmail());

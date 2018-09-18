@@ -22,7 +22,7 @@ class OcMemCache
      * Fetch from cache or create by callback-creator if there is no such entry
      *
      * @param string $key - should be a __CLASS__ of saved object
-     * @param integer $ttl - ttl at which this var should be saved in cache
+     * @param integer $ttl - ttl at which this var should be saved in cache [sec]
      * @param callable $generator - function used for creation of the value if it is not found in cache
      * @return mixed - requested var
      */

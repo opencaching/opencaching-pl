@@ -32,7 +32,6 @@ $menu = [
     'mnu_geokrets'      => isset($links['geokrety'])?[$links['geokrety']]:null,
     'mnu_links'         => '/articles.php?page=links',
     'mnu_contact'       => ['/articles.php?page=contact'],
-    'mnu_guides'        => '/cacheguides.php',
+    'mnu_guides'        => '/guide',
     'mnu_clipboard'     => '/mylist.php', /* counters added in MainLayoutCtrl */
 ];
-

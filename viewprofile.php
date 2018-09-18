@@ -136,7 +136,7 @@ if ($usr == false) {
             $guide_info = '<div class="content-title-noshade box-blue"><table><tr><td><img style="margin-right: 10px;margin-left:10px;" src="tpl/stdstyle/images/blue/info-b.png" alt="guide"></td><td>
                 <span style="font-size:12px;"> ' . tr('guru_17') . '
                 <a class="links" href="myprofile.php?action=change"> ' . tr('guru_18') . '</a>.
-                ' . tr('guru_19') . ' <a class="links" href="cacheguides.php">' . tr('guru_20') . '</a>.</span>
+                ' . tr('guru_19') . ' <a class="links" href="/guide">' . tr('guru_20') . '</a>.</span>
                 </td></tr></table></div><br>';
         }
     }

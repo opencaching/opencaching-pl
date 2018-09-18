@@ -87,6 +87,9 @@ class MyNeighbourhoodController extends BaseController
         $this->view->setVar('selectedNbh', $selectedNbh);
         $this->view->setVar('preferences', $preferences);
         $this->view->setVar('user', $this->loggedUser);
+
+        $this->view->addHeaderChunk('openLayers5');
+
         $mapModel = new DynamicMapModel();
         $allCaches = [];
         foreach ($preferences['items'] as $sectionName => $sectionConfig) {
@@ -112,16 +115,16 @@ class MyNeighbourhoodController extends BaseController
                 }
             }
         }
-        $mapModel->addMarkers(CacheMarkerModel::class, $allCaches, function($row){
+        $mapModel->addMarkersWithExtractor(CacheMarkerModel::class, $allCaches, function($row){
             return CacheMarkerModel::fromGeocacheFactory($row, $this->loggedUser);
         });
+
         if ($preferences['items'][Neighbourhood::ITEM_LATESTLOGS]['show']) {
-            $mapModel->addMarkers(LogMarkerModel::class, $latestLogs, function($row){
+            $mapModel->addMarkersWithExtractor(LogMarkerModel::class, $latestLogs, function($row){
                 return LogMarkerModel::fromGeoCacheLogFactory($row, $this->loggedUser);
             });
-            }
+        }
         $this->view->setVar('mapModel', $mapModel);
-        $this->view->loadGMapApi();
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/myNeighbourhood-' . $preferences['style']['name'] . '.css'));
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/common.css'));
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/css/lightTooltip.css'));
@@ -360,11 +363,14 @@ class MyNeighbourhoodController extends BaseController
         $this->view->setVar('maxRadius', self::NBH_RADIUS_MAX);
         $this->view->setVar('errorMsg', $this->errorMsg);
         $this->view->setVar('infoMsg', $this->infoMsg);
+
+        $this->view->addHeaderChunk('openLayers5');
+
         $mapModel = new DynamicMapModel();
         $mapModel->setZoom(6);
         $this->view->setVar('mapModel', $mapModel);
-        $this->view->loadGMapApi();
         $this->view->addLocalJs(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/config.js'), true, true);
+        $this->view->addLocalJs(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/config_draw.js'));
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/myNeighbourhood/common.css'));
         $this->view->setTemplate('myNeighbourhood/config');
         $this->view->loadJQueryUI();

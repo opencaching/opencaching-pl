@@ -106,7 +106,7 @@ abstract class ConfigReader
      * - local config file
      *
      * @param string $configName - prefix of the config file - see consts above
-     * @param string $configVarName - name of the var in config file
+     * @param string $configVarName - name of the var (array) in config file
      *      (for example: links for links.* files, config for setting.* files etc.)
      * @return NULL
      */

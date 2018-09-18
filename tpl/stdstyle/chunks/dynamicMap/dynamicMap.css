@@ -1,36 +1,117 @@
 @charset "UTF-8";
 
-
-#map_copyright {
-  font-size: 10px;
-  font-family: Arial, sans-serif;
-  padding: 3px 6px;
-  whiteSpace: nowrap;
-  opacity: 0.7;
-  background-color: #fff;
+.dynamicMap_cursor {
+    cursor: crosshair
 }
 
-.iw-container .iw-wp {
-  font-weight: bold;
+.dynamicMap_cursorResize {
+    cursor: col-resize;
 }
 
-.iw-container .iw-name {
-  font-weight: bold;
+.dynamicMap_cursorMove {
+    cursor: pointer;
 }
 
-.iw-container .iw-title {
-  padding: 5px 0 10px 0;
+.dynamicMap_layerSwitcher {
+  top: 5px;
+  right: 5px;
 }
 
-.iw-container a {
+.dynamicMap_attribution {
+  bottom: 5px;
+  right: 5px;
+}
+
+.dynamicMap_mapScale {
+  bottom: 3px;
+  font-size: 13px;
+  left: 250px;
+}
+
+.dynamicMap_mapScale .customScale {
+  border-width: 4px;
+  border-color: #000;
+  border-style: none solid solid solid;
+  background-color: rgb(238,238,238);
+  opacity: 0.4;
+  text-align: center;
+}
+
+.dynamicMap_mapZoom {
+  bottom: 30px;
+  right: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dynamicMap_mapZoomIn, .dynamicMap_mapZoomOut {
+  width: 25px;
+  height: 25px;
+  margin: 5px;
+}
+
+.dynamicMap_mousePosition {
+  bottom: 5px;
+  left: 5px;
+  background-color: rgb(238,238,238);
+  font-size: 13px;
+  padding: 2px 10px;
+}
+
+
+.dynamicMap_mapPopup {
+  position: absolute;
+  background-color: white;
+  -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+  filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+  padding: 8px;
+  border-radius: 0px;
+  border: 1px solid #cccccc;
+  bottom: 12px;
+  left: -48px;
+  min-width: 300px;
+}
+
+.dynamicMap_mapPopup:after, .dynamicMap_mapPopup:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.dynamicMap_mapPopup:after {
+  border-top-color: white;
+  border-width: 10px;
+  left: 48px;
+  margin-left: -10px;
+}
+.dynamicMap_mapPopup:before {
+  border-top-color: #cccccc;
+  border-width: 11px;
+  left: 48px;
+  margin-left: -11px;
+}
+.dynamicMap_mapPopup-closer {
   text-decoration: none;
+  position: absolute;
+  top: 2px;
+  right: 8px;
+}
+.dynamicMap_mapPopup-closer:after {
+  content: "✖";
+  font-size: 15px;
+  cursor: pointer;
+  color: #000;
 }
 
-.iw-logUsername {
-  font-weight: bold;
+.dynamicMap_mapPopup-cacheIcon {
+    width: 19px;
+    height: 19px;
 }
 
-.iw-icon {
-  width: 18px;
-  max-height: 18px;
+.dynamicMap_mapPopup-cacheLogBlock {
+    margin-top: 10px;
 }

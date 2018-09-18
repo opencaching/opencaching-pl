@@ -1161,117 +1161,13 @@
         }
     }
 
+
+
     /* maps */
-
-    function initialize() {
-
-    if ({mapInit} == '0') {
-        console.log('map is swithed off');
-        return false;
-    }
-    console.log('initialize ');
-    var attributionMap = {attributionMap};
-    var mapItems = {mapItems};
-
-    {mapWMSConfigLoader}
-
-    var ptMapCenterLat = {mapCenterLat};
-    var ptMapCenterLon = {mapCenterLon};
-    var mapZoom = {mapZoom};
-    var fullCountryMap = {fullCountryMap};
-    var caches = [ {ptList4map} ];
-    var mapTypeIds = [];
-    for (var type in google.maps.MapTypeId) {
-        mapTypeIds.push(google.maps.MapTypeId[type]);
-    }
-
-
-    var myLatlng = new google.maps.LatLng(ptMapCenterLat, ptMapCenterLon);
-    var mapOptions = {
-            zoom: mapZoom,
-            zoomControl: {zoomControl},
-            scrollwheel: {scrollwheel},
-            scaleControl: {scaleControl},
-            center: myLatlng,
-            gestureHandling: 'greedy', //disable ctrl+ zooming
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            mapTypeControlOptions: {
-                mapTypeIds: mapTypeIds,
-                position: google.maps.ControlPosition.TOP_RIGHT
-            },
-            fullscreenControlOptions: {
-               position: google.maps.ControlPosition.TOP_LEFT
-            }
-        }
-    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-
-
-    for (var mapType in mapItems){
-        var mapObj = mapItems[mapType]();
-        map.mapTypes.set(mapType, mapObj);
-    }
-
-    var bounds = new google.maps.LatLngBounds();
-
-            var infoWindow = new google.maps.InfoWindow;
-            var onMarkerClick = function() {
-            var markerx = this;
-                    //var latLng = markerx.getTitle();
-                    infoWindow.setContent('<div class="mapCloud"><img src="' + this.ic + '"> ' + this.txt + '<div>');
-                    infoWindow.open(map, markerx);
-            };
-            google.maps.event.addListener(map, 'click', function() {
-            infoWindow.close();
-            });
-            caches.forEach(function(cache) {
-            var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(cache[0], cache[1]),
-                    map: map,
-                    icon: new google.maps.MarkerImage(cache[3], new google.maps.Size(18, 21), new google.maps.Point(0, 0), new google.maps.Point(9, 21)),
-                    title: cache[4],
-                    txt: cache[2],
-                    ic: cache[3],
-            });
-                    bounds.extend(marker.getPosition());
-                    google.maps.event.addListener(marker, 'click', onMarkerClick);
-            });
-            if (fullCountryMap == '0') map.fitBounds(bounds);
-
-            var attributionDiv = document.createElement('div');
-            attributionDiv.id = "map-copyright";
-            attributionDiv.style.fontSize = "10px";
-            attributionDiv.style.fontFamily = "Arial, sans-serif";
-            attributionDiv.style.padding = "3px 6px";
-            attributionDiv.style.whiteSpace = "nowrap";
-            attributionDiv.style.opacity = "0.7";
-            attributionDiv.style.background = "#fff";
-
-            map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(attributionDiv);
-            if (typeof mapTypeId2 != 'undefined' && mapTypeId2 != '' && typeof mapItems[mapTypeId2] != 'undefined'){
-                map.setMapTypeId(mapTypeId2);
-                attributionDiv.innerHTML = attributionMap[mapTypeId2] || '';
-            }
-
-            google.maps.event.addListener(map, "maptypeid_changed", function() {
-                var newMapTypeId = map.getMapTypeId();
-                attributionDiv.innerHTML = attributionMap[newMapTypeId] || '';
-                jQuery.cookie('mapTypeId', newMapTypeId, {expires: 365});
-            });
-
-    }
-
-$( document ).ready(function() {
-    if(!$.isNumeric($("#xmd34nfywr54").val())){
-        $('#fullscreenOn').hide();
-    }
-});
-
-
-
-    google.maps.event.addDomListener(window, 'load', initialize);
-            /* maps end */
 </script>
+    <?php if(isset($view->dynamicMapModel)) { ?>
+      <?php $view->callChunk('dynamicMap/dynamicMap', $view->dynamicMapModel, "map_canvas");?>
+    <?php } //if-dynamicMap-present ?>
 
     <input type="hidden" id="xmd34nfywr54" value="{powerTrailId}">
     <!-- deleting entry comfirmation dialog  -->
@@ -1306,11 +1202,15 @@ $( document ).ready(function() {
         <!-- map -->
         <div id="mapOuterdiv" style="display: {mapOuterdiv}" class="content2-container">
             <div class="align-right" style="height: 32px">
-                <a id="fullscreenOn" style="cursor: pointer" href="cachemap-full.php?pt={powerTrailId}&lat={mapCenterLat}&lon={mapCenterLon}&calledFromPt=1" >
+                <?php if(isset($view->fullScreenMapPtLink)) { ?>
+                <a id="fullscreenOn" style="cursor: pointer"
+                   href="<?=$view->fullScreenMapPtLink?>" >
                   <img src="images/fullscreen.png" alt="{{fullscreen}}" title="{{fullscreen}}">
                 </a>
+                <?php } //if-fullScreenMapPtLink ?>
+
             </div>
-            <div id="map-canvas"></div>
+            <div id="map_canvas"></div>
         </div>
 
         <div style="display: {displayCreateNewPowerTrailForm}">

@@ -69,8 +69,10 @@ class CacheSetsListController extends BaseController
 
 
         // init map-chunk model
+        $this->view->addHeaderChunk('openLayers5');
+
         $mapModel = new DynamicMapModel();
-        $mapModel->addMarkers(CacheSetMarkerModel::class, $allCacheSets,
+        $mapModel->addMarkersWithExtractor(CacheSetMarkerModel::class, $allCacheSets,
             function(CacheSet $cs){
 
             if(is_null($cs->getCoordinates())){
@@ -99,7 +101,6 @@ class CacheSetsListController extends BaseController
         $this->view->addLocalCss(Uri::getLinkWithModificationTime('/tpl/stdstyle/cacheSet/cacheSetsList.css'));
 
         $this->view->loadJQuery();
-        $this->view->loadGMapApi();
 
         tpl_BuildTemplate();
     }

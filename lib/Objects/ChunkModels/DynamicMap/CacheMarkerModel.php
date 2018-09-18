@@ -10,40 +10,13 @@ use lib\Objects\User\User;
 
 class CacheMarkerModel extends AbstractMarkerModelBase
 {
+    // lat/lon/icon inherited from parent!
+
     public $wp;
     public $link;
     public $name;
-    public $username = null;
-    public $icon;
-    public $lon;
-    public $lat;
+    public $username;
 
-    /**
-     * {@inheritDoc}
-     * @see \lib\Objects\ChunkModels\DynamicMap\AbstractMarkerModelBase::getKey()
-     */
-    public function getKey()
-    {
-        return 'CacheMarker';
-    }
-
-    /**
-     * {@inheritDoc}
-     * @see \lib\Objects\ChunkModels\DynamicMap\AbstractMarkerModelBase::getJSMarkersMgr()
-     */
-    public function getJSMarkersMgr()
-    {
-        return self::CHUNK_DIR.'/cacheMarkerMgr';
-    }
-
-    /**
-     * {@inheritDoc}
-     * @see \lib\Objects\ChunkModels\DynamicMap\AbstractMarkerModelBase::getInfoWinTpl()
-     */
-    public function getInfoWinTpl()
-    {
-        return '/cacheMarkerInfoWindow.tpl.php';
-    }
 
     /**
      * Creates marker model from Geocache model
@@ -54,14 +27,34 @@ class CacheMarkerModel extends AbstractMarkerModelBase
     public static function fromGeocacheFactory(GeoCache $c, User $user=null)
     {
         $marker = new self();
-        $marker->wp = $c->getGeocacheWaypointId();
-        $marker->link = $c->getCacheUrl();
-        $marker->name = $c->getCacheName();
-        $marker->username = $c->getOwner()->getUserName();
-        $marker->icon = $c->getCacheIcon($user);
-        $marker->lon = $c->getCoordinates()->getLongitude();
-        $marker->lat = $c->getCoordinates()->getLatitude();
+        $marker->importDataFromGeoCache( $c, $user);
         return $marker;
+    }
+
+    protected function importDataFromGeoCache(GeoCache $c, User $user=null)
+    {
+        // Abstract-Marker data
+        $this->icon = $c->getCacheIcon($user);
+        $this->lat = $c->getCoordinates()->getLatitude();
+        $this->lon = $c->getCoordinates()->getLongitude();
+
+        $this->wp = $c->getGeocacheWaypointId();
+        $this->link = $c->getCacheUrl();
+        $this->name = $c->getCacheName();
+        $this->username = $c->getOwner()->getUserName();
+    }
+
+    /**
+     * Check if all necessary data is set in this marker class
+     * @return boolean
+     */
+    public function checkMarkerData()
+    {
+        return parent::checkMarkerData() &&
+        isset($this->wp) &&
+        isset($this->link) &&
+        isset($this->name) &&
+        isset($this->username);
     }
 
 }

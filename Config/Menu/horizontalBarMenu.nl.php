@@ -31,8 +31,7 @@ $menu = [
     'mnu_download'      => [$links['wiki']['downloads']],
     'mnu_links'         => '/articles.php?page=links',
     'mnu_contact'       => '/articles.php?page=contact',
-    'mnu_guides'        => '/cacheguides.php',
+    'mnu_guides'        => '/guide',
     'mnu_shop'          => 'https://www.geogeek.nl',
     'mnu_clipboard'     => '/mylist.php', /* counters added in MainLayoutCtrl */
 ];
-

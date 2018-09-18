@@ -3,6 +3,10 @@ namespace lib\Objects\User;
 
 use lib\Objects\BaseObject;
 use lib\Objects\GeoCache\GeoCacheLog;
+use lib\Objects\GeoCache\GeoCacheLogCommons;
+use lib\Objects\GeoCache\GeoCacheCommons;
+use lib\Objects\GeoCache\GeoCache;
+use lib\Objects\OcConfig\OcConfig;
 
 /**
  * This class should contains mostly static, READ-ONLY queries
@@ -44,7 +48,7 @@ class MultiUserQueries extends BaseObject
     }
 
     /**
-     * Returns arraywhere row[userId] = username
+     * Returns array, where row[userId] = username
      *
      * @param array $userIds - array of userIds
      * @return array|mixed[]
@@ -65,6 +69,79 @@ class MultiUserQueries extends BaseObject
             WHERE user_id IN ( $userIdsStr )");
 
         return $db->dbFetchAsKeyValArray($s, 'user_id', 'username' );
+    }
+
+    /**
+     * Returns array of user which are guides now
+     */
+    public static function getCurrentGuidesList()
+    {
+        $db = self::db();
+
+        $cacheActiveStatusList = implode(',',
+            [GeoCacheCommons::STATUS_READY,
+             GeoCache::STATUS_UNAVAILABLE,
+             GeoCache::STATUS_ARCHIVED]);
+
+        $config = self::OcConfig()->getGuidesConfig();
+
+        d($config);
+
+        $guideActivePeriod = (int) $config['guideActivePeriod'];
+        $guideGotRecomendations = (int) $config['guideGotRecomendations'];
+
+        // get active guides
+        $s = $db->simpleQuery(
+            "SELECT latitude,longitude,username,user_id,description
+             FROM user
+             WHERE guru <> 0
+                 AND is_active_flag <> 0
+                 AND longitude IS NOT NULL
+                 AND latitude IS NOT NULL
+                 AND (
+                     user_id IN (
+                         SELECT DISTINCT user_id FROM cache_logs
+                         WHERE type = ".GeoCacheLogCommons::LOGTYPE_FOUNDIT."
+                             AND date_created > DATE_ADD(NOW(), INTERVAL -$guideActivePeriod DAY)
+                     )
+                     OR
+                     user_id IN (
+                         SELECT DISTINCT user_id FROM caches
+                         WHERE status IN ($cacheActiveStatusList)
+                             AND date_created > DATE_ADD(NOW(), INTERVAL -$guideActivePeriod DAY)
+                     )
+                 )"
+        );
+
+        $activeGuidesDict = $db->dbResultFetchAllAsDict($s, function($row){
+            return [$row['user_id'], $row];
+        });
+
+        if(empty($activeGuidesDict) ){
+            // there is no guides...
+            return [];
+        }
+
+        // filter users with too low number of recomendations
+        $userIds = implode(',', array_keys($activeGuidesDict));
+
+        $s = $db->simpleQuery(
+            "SELECT user_id, SUM(topratings) AS recos
+            FROM caches
+            WHERE user_id IN ($userIds)
+                AND type <> ".GeoCache::TYPE_EVENT."
+            AND status IN ($cacheActiveStatusList)
+            GROUP BY user_id
+            HAVING recos > $guideGotRecomendations");
+
+        $result = [];
+        while($row = $db->dbResultFetch($s)){
+            $userData = $activeGuidesDict[$row['user_id']];
+            $userData['recomendations'] = $row['recos'];
+            $result[] = $userData;
+        }
+        return $result;
+
     }
 
 }
