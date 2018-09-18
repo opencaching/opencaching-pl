@@ -736,14 +736,25 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
         }
 
         if ($geoCache->getCacheType() == GeoCache::TYPE_EVENT) {
-            // if user logged event as attended before, do not display logtype 'attended'
-            if ($geoCache->hasUserLogByType($user, GeoCacheLog::LOGTYPE_ATTENDED)
-                && $type['id'] == GeoCacheLog::LOGTYPE_ATTENDED) {
-                continue;
+           // $datePlaced = ($geoCache->getDatePlaced()->format("Y-m-d H:i:s"));
+            $now = new DateTime("now");
+            $now->setTime(0, 0, 0); //there is no time in $geoCache->getDatePlaced(),
+            //so zero time here to allow logging WILLATTENDED or ATTENDED in the day of event
+
+            // if user logged event as willattended before or event it's over, do not display logtype 'attended'
+            if ($type['id'] == GeoCacheLog::LOGTYPE_WILLATTENDED) {
+                if ($geoCache->hasUserLogByType($user, GeoCacheLog::LOGTYPE_WILLATTENDED) ||
+                    $now > $geoCache->getDatePlaced()) {
+                    continue;
+                }
             }
-            if ($geoCache->hasUserLogByType($user, GeoCacheLog::LOGTYPE_WILLATTENDED)
-                && $type['id'] == GeoCacheLog::LOGTYPE_WILLATTENDED) {
-                continue;
+            // if user logged event as attended before or event has not happened yet,
+            //do not display logtype 'attended'
+            if ($type['id'] == GeoCacheLog::LOGTYPE_ATTENDED) {
+                if ($geoCache->hasUserLogByType($user, GeoCacheLog::LOGTYPE_ATTENDED) ||
+                $now < $geoCache->getDatePlaced()) {
+                    continue;
+                }
             }
             if ($user->isAdmin()) {
                 if ($type['id'] == 1 || $type['id'] == 2 || $type['id'] == 4 ||
