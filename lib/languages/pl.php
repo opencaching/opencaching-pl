@@ -1124,8 +1124,11 @@ $translations = array(
     'guides_howToContact' => 'Możesz skontaktować się z Przewodnikiem via e-mail i umówić się na spotkanie.',
     'guides_mapHeader' => 'Obecnie w bazie jest:',
     'guides_mapHeaderEnd' => 'aktywnych wolontariuszy - Przewodników.',
-    'guides_howToBecomeGuide' => 'Aby zostać wolontariuszem - Przewodnikiem, musisz spełnić warunek:',
-    'guides_becomingGuideCond' => 'otrzymać 20 rekomendacji dla skrzynek założonych przez Ciebie oraz być aktywnym przez poprzednie 90 dni.',
+    'guides_howToBecomeGuide' => 'Aby zostać wolontariuszem - Przewodnikiem, musisz spełnić warunki:',
+
+    'guides_requiredActivite' => 'Zalogować znalezienie skrzynki lub założyć skrzynkę w ciągu ostatnich %d dni',
+    'guides_requiredRecommendations' => 'Mieć przyznanych conajmniej %d rekomendacji w swoich skrzynkach',
+
     'guides_guideSetInProfile' => 'Będziesz mógł wtedy ustawić odpowiednią opcję w swoim',
     'guides_profileLink' => 'profilu',
     'guides_thanks' => 'Dziękujemy wszystkim, którzy chcą pomagać bezinteresownie innym keszerom.',

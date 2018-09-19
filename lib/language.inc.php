@@ -109,7 +109,7 @@ function tr($str, array $args = null)
     if(is_null($args)){
         return getTranslation($str, $lang);
     }else{
-        return vprintf(getTranslation($str, $lang), $args);
+        return vsprintf(getTranslation($str, $lang), $args);
     }
 }
 
