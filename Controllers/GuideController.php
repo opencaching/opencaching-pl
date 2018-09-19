@@ -40,8 +40,9 @@ class GuideController extends BaseController
         $this->view->loadJQuery();
 
         $mapModel = new DynamicMapModel();
-        if ($this->loggedUser->getHomeCoordinates()) {
-            $mapModel->setCoords($this->loggedUser->getHomeCoordinates());
+        $coords = $this->loggedUser->getHomeCoordinates();
+        if ($coords && $coords->getLatitude() && $coords->getLongitude()) {
+            $mapModel->setCoords($coords);
             $mapModel->setZoom(11);
         } else {
             $mapModel->setZoom($this->ocConfig->getMainPageMapZoom());
