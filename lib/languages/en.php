@@ -1124,7 +1124,6 @@ $translations = array(
     'guides_howToContact' => 'Contact a volunteer in your area and make an appointment.',
     'guides_mapHeader' => 'At the moment there are',
     'guides_mapHeaderEnd' => 'active volunteers',
-    'guru_09' => 'Number of received recommendations',
     'guides_howToBecomeGuide' => 'In order to become an active volunteer, you must meet the following condition:',
     'guides_becomingGuideCond' => 'You must have at least 20 recommendations for your caches.',
     'guides_guideSetInProfile' => 'This option can be set in your',

@@ -71,6 +71,11 @@ class GuideController extends BaseController
 
         $this->view->setVar('mapModel', $mapModel);
 
+
+        $guideConfig = $this->ocConfig->getGuidesConfig();
+        $this->view->setVar('requiredRecomCount', $guideConfig['guideGotRecommendations']);
+        $this->view->setVar('requiredActivity', $guideConfig['guideActivePeriod']);
+
         $this->view->buildView();
 
     }

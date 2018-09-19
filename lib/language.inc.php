@@ -96,10 +96,21 @@ function getTranslation($str, $lang) {
     return $result;
 }
 
-function tr($str)
+/**
+ * Return tranlated string
+ *
+ * @param string $str - translation key
+ * @param array $args - arguments to insert into string (see vsprinf for details)
+ * @return string - localized string
+ */
+function tr($str, array $args = null)
 {
     global $language, $lang;
-    return getTranslation($str, $lang);
+    if(is_null($args)){
+        return getTranslation($str, $lang);
+    }else{
+        return vprintf(getTranslation($str, $lang), $args);
+    }
 }
 
 function tr2($str, $lang)

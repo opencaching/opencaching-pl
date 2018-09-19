@@ -1123,7 +1123,6 @@ $translations = array(
     'guides_howToContact' => 'Contactează un voluntar din zona ta şi stabileşte o întâlnire.',
     'guides_mapHeader' => 'Acum sunt',
     'guides_mapHeaderEnd' => 'voluntari activi',
-    'guru_09' => 'Număr de recomandări primite',
     'guides_howToBecomeGuide' => 'Pentru a deveni un voluntar activ, trebuie să îndeplineşti următoarele condiţii:',
     'guides_becomingGuideCond' => 'Să fi primit 20 de recomandări pentru geocutiile ascunse de tine.',
     'guides_guideSetInProfile' => 'Această opţiune poate fi setată în',

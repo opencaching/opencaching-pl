@@ -492,7 +492,6 @@ $translations = array(
     'guides_howToContact' => 'Contact a volunteer in your area and make an appointment.',
     'guides_mapHeader' => 'V tuto chvíli je',
     'guides_mapHeaderEnd' => 'aktivních dobrovolníků',
-    'guru_09' => 'Number of received recommendations',
     'guides_howToBecomeGuide' => 'In order to become an active volunteer, you must meet the following condition:',
     'guides_becomingGuideCond' => 'Musíte mít alespoň 20 doporučení na svých keších.',
     'guides_guideSetInProfile' => 'This option can be set in your',
