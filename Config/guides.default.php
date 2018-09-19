@@ -12,6 +12,6 @@
 
 $guides = [
     'guideActivePeriod' => 90,      // every guide should found/create a geocache in last X days
-    'guideGotRecomendations' => 20, // guide should get X recomendations in his/her caches
+    'guideGotRecommendations' => 20, // guide should get X recomendations in his/her caches
 ];
 

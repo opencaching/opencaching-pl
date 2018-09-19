@@ -1124,7 +1124,6 @@ $translations = array(
     'guides_howToContact' => 'Contacter un bénévole dans votre région et prendre un rendez-vous.',
     'guides_mapHeader' => 'Pour le moment il y a',
     'guides_mapHeaderEnd' => 'bénévoles actifs',
-    'guru_09' => 'Nombre de recommandations reçues',
     'guides_howToBecomeGuide' => 'Pour devenir un bénévole actif, vous devez remplir la condition suivante :',
     'guides_becomingGuideCond' => 'Vous devez avoir au moins 20 recommandations pour vos caches.',
     'guides_guideSetInProfile' => 'Cette option peut être définie dans votre',

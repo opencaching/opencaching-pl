@@ -1124,7 +1124,6 @@ $translations = array(
     'guides_howToContact' => 'Neem contact op met een vrijwilliger in je buurt en maak een afspraak.',
     'guides_mapHeader' => 'Op dit moment zijn er:',
     'guides_mapHeaderEnd' => 'actieve vrijwilligers',
-    'guru_09' => 'Aantal ontvangen aanbevelingen',
     'guides_howToBecomeGuide' => 'Om een actieve vrijwilliger te worden, dient aan de volgende voorwaarde voldaan te worden:',
     'guides_becomingGuideCond' => 'Er moeten 20 aanbevelingen ontvangen zijn voor gemaakte caches.',
     'guides_guideSetInProfile' => 'Deze optie kan ingesteld worden in je',
