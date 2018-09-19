@@ -38,7 +38,16 @@ $force_result_empty = false;
 
 $params['x'] = $_GET['x'];
 $params['y'] = $_GET['y'];
-$params['z'] = $_GET['z']; //zoom
+
+
+define("OKAPI_MAX_ZOOM", "21");
+if( $_GET['z'] > OKAPI_MAX_ZOOM ){
+    // there is no such zoom
+    die();
+}else{
+    $params['z'] = $_GET['z'];
+}
+
 
 # userid - we will simulate an OAuth call in the name of this user.
 #
