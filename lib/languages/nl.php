@@ -1125,7 +1125,6 @@ $translations = array(
     'guides_mapHeader' => 'Op dit moment zijn er:',
     'guides_mapHeaderEnd' => 'actieve vrijwilligers',
     'guides_howToBecomeGuide' => 'Om een actieve vrijwilliger te worden, dient aan de volgende voorwaarde voldaan te worden:',
-    'guides_becomingGuideCond' => 'Er moeten 20 aanbevelingen ontvangen zijn voor gemaakte caches.',
     'guides_guideSetInProfile' => 'Deze optie kan ingesteld worden in je',
     'guides_profileLink' => 'profiel',
     'guides_thanks' => 'Met dank aan iedereen die anderen willen helpen met het verbeteren van het cachen.',

@@ -36,7 +36,8 @@
 <p>
   <?=tr('guides_howToBecomeGuide')?>
   <ul>
-    <li><?=tr('guides_becomingGuideCond')?></li>
+    <li><?=tr('guides_requiredActivite', [$view->requiredActivity])?></li>
+    <li><?=tr('guides_requiredRecommendations',[$view->requiredRecomCount])?></li>
   </ul>
 </p>
 

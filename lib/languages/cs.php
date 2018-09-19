@@ -493,7 +493,6 @@ $translations = array(
     'guides_mapHeader' => 'V tuto chvíli je',
     'guides_mapHeaderEnd' => 'aktivních dobrovolníků',
     'guides_howToBecomeGuide' => 'In order to become an active volunteer, you must meet the following condition:',
-    'guides_becomingGuideCond' => 'Musíte mít alespoň 20 doporučení na svých keších.',
     'guides_guideSetInProfile' => 'This option can be set in your',
     'guides_profileLink' => 'profile',
     'guides_thanks' => 'Děkujeme všem, kteří chtějí zlepšovat geocaching.',

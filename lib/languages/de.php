@@ -1125,7 +1125,6 @@ $translations = array(
     'guides_mapHeader' => 'At the moment there are',
     'guides_mapHeaderEnd' => 'active volunteers',
     'guides_howToBecomeGuide' => 'In order to become an active volunteer, you must meet the following condition:',
-    'guides_becomingGuideCond' => 'You must have at least 20 recommendations for your caches.',
     'guides_guideSetInProfile' => 'This option can be set in your',
     'guides_profileLink' => 'profile',
     'guides_thanks' => 'Thanks to everyone who wants to help others to improve geocaching.',
