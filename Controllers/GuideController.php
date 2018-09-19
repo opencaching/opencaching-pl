@@ -41,7 +41,11 @@ class GuideController extends BaseController
 
         $mapModel = new DynamicMapModel();
         $coords = $this->loggedUser->getHomeCoordinates();
-        if ($coords && $coords->getLatitude() && $coords->getLongitude()) {
+        if (
+            $coords
+            && $coords->getLatitude() != null
+            && $coords->getLongitude() != null
+        ) {
             $mapModel->setCoords($coords);
             $mapModel->setZoom(11);
         } else {
