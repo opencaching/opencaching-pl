@@ -87,7 +87,7 @@ if ($error == false) {
                 AND `caches`.`status` != 5
                 AND `caches`.`status` != 6
                 AND `cache_logs`.`user_id`= ?
-            ORDER BY  `cache_logs`.`date_created` DESC
+            ORDER BY  `cache_logs`.`date_created` DESC, `cache_logs`.`date` DESC, `cache_logs`.`id` DESC
             LIMIT " . intval($start) . ", " . intval($LOGS_PER_PAGE), $user_id );
 
         $log_ids = array();
@@ -120,7 +120,9 @@ if ($error == false) {
                 WHERE cache_logs.deleted=0 AND `cache_logs`.`type`=1
                     AND cache_logs.id IN (" . implode(',', $log_ids) . ")
                     AND `cache_logs`.`user_id`= ?
-                GROUP BY cache_logs.id ORDER BY cache_logs.date_created DESC", $user_id);
+                GROUP BY cache_logs.id
+                ORDER BY cache_logs.date_created DESC, `cache_logs`.`date` DESC, `cache_logs`.`id` DESC",
+                $user_id);
 
             $file_content = '';
             while( $log_record = XDb::xFetchArray($rs)){
