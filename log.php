@@ -651,7 +651,7 @@ if (isset($_POST['submitform']) && ($all_ok == true)) {
         //-2 = Chose log type
 
         if ($geoCache->getStatus() != GeoCache::STATUS_WAITAPPROVERS){
-            $logtypeoptions .= '<option value="-2" selected="selected" disabled="disabled">' . tr('wybrac_log') . '</option>';
+            $logtypeoptions .= '<option value="-2" selected="selected" disabled="disabled">' . tr('choose_log') . '</option>';
         }
 
         tpl_set_var('display', "none");
