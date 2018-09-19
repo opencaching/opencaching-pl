@@ -6,21 +6,3 @@
 
 }
 
-.guideMarkerPopup {
-    font-size: 13px;
-    font-weight: bold;
-    text-align: left;
-}
-
-.guideMarkerPopup-table {
-    display: table;
-}
-
-.guideMarkerPopup--tableRow {
-    display: table-row;
-}
-
-.guideMarkerPopup-tableCell {
-    display: table-cell;
-    padding: 2px 5px;
-}
