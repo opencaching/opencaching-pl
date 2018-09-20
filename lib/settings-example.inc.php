@@ -164,11 +164,6 @@ $sql_warntime = 1;
 $sql_replacements['db'] = $dbname;
 $sql_replacements['tmpdb'] = 'test';
 
-// safemode_zip-binary
-$safemode_zip = '/var/www/ocpl/bin/phpzip.php';
-$zip_basedir = $dynbasepath . 'download/zip/';
-$zip_wwwdir = '/download/zip/';
-
 // Your own Google map API key
 $googlemap_key = "";
 $googlemap_type = "G_MAP_TYPE"; // alternativ: _HYBRID_TYPE
