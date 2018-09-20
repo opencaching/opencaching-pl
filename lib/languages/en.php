@@ -2790,5 +2790,7 @@ $translations = array(
     'log_filter_type_any' => 'Any',
     'log_filter_author' => 'Author',
     'log_filter_author_any' => 'Anyone',
-    'log_filter_author_currentuser' => 'Me'
+    'log_filter_author_currentuser' => 'Me',
+
+    'map_popup_next' => 'See next information',
 );

@@ -64,7 +64,7 @@
   background-color: white;
   -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
   filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
-  padding: 8px;
+  padding: 8px 15px 8px 8px;
   border-radius: 5px;
   border: 1px solid #cccccc;
   bottom: 12px;
@@ -95,52 +95,126 @@
   left: 48px;
   margin-left: -11px;
 }
-.dynamicMap_mapPopup-closer {
+.dynamicMap_mapPopup .dmp-closer {
   text-decoration: none;
   position: absolute;
   top: 0px;
   right: 2px;
 }
-.dynamicMap_mapPopup-closer:after {
+.dynamicMap_mapPopup .dmp-closer:after {
   content: "✖";
   font-size: 15px;
   cursor: pointer;
   color: #000;
 }
 
+.dynamicMap_mapPopup .dmp-navi .dmp-backward {
+    float: left;
+}
+
+.dynamicMap_mapPopup .dmp-navi .dmp-forward {
+    float: right;
+}
+
+.dynamicMap_mapPopup .dmp-navi .dmp-backward, .dynamicMap_mapPopup .dmp-navi .dmp-forward {
+    padding: 0 3px;
+    font-weight: bold;
+}
+
+.dynamicMap_mapPopup .dmp-navi .dmp-backward img, .dynamicMap_mapPopup .dmp-navi .dmp-forward img {
+    width: 20px;
+    height: auto;
+    cursor: pointer;
+}
+
+.dynamicMap_mapPopup .dmp-navi .dmp-backward img {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+
+
 /* a lot of log entries starts with a paragraph*/
 .dynamicMap_mapPopup  p {
     font-size: inherit !important;
 }
 
-.dynamicMap_mapPopup-cacheIcon {
+.dynamicMap_mapPopup .dmp-cache {
+
+}
+
+.dynamicMap_mapPopup .dmp-cache .dmp-icon, .dynamicMap_mapPopup .dmp-cache .dmp-icon img,
+.dynamicMap_mapPopup .dmp-cache-log .dmp-cache-icon, .dynamicMap_mapPopup .dmp-cache-log .dmp-cache-icon img,
+.dynamicMap_mapPopup .dmp-cache-log .dmp-log-icon, .dynamicMap_mapPopup .dmp-cache-log .dmp-log-icon img {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.dynamicMap_mapPopup .dmp-cache .dmp-icon, .dynamicMap_mapPopup .dmp-cache .dmp-icon img,
+.dynamicMap_mapPopup .dmp-cache-log .dmp-cache-icon, .dynamicMap_mapPopup .dmp-cache-log .dmp-cache-icon img {
     width: 19px;
     height: 19px;
 }
 
-.dynamicMap_mapPopup-cacheLogBlock {
+.dynamicMap_mapPopup .dmp-cache .dmp-wp {
+    float: right;
+    font-weight: normal;
+    font-size: 90% !important;
+}
+
+.dynamicMap_mapPopup .dmp-cache .dmp-details {
+    font-size: 85%;
+}
+
+.dynamicMap_mapPopup .dmp-cache .dmp-details img {
+    width: 10px;
+    height: 10px;
+}
+
+.dynamicMap_mapPopup .dmp-cache .dmp-counter {
+    text-align: right;
+}
+
+.dynamicMap_mapPopup .dmp-cache .dmp-label {
+    font-weight: bold;
+}
+
+.dynamicMap_mapPopup .dmp-cache-log .dmp-block {
     margin-top: 10px;
 }
 
-.dynamicMap_mapPopup-cacheLogUser {
-   font-size: 1.1em;
+.dynamicMap_mapPopup .dmp-cache-log .dmp-content {
+    font-weight: normal;
 }
 
-.dynamicMap_mapPopup-guide {
+.dynamicMap_mapPopup .dmp-cache-log .dmp-user {
+   font-weight: bold;
+}
+
+.dynamicMap_mapPopup .dmp-guide {
     font-size: 13px;
     font-weight: bold;
     text-align: left;
 }
 
-.dynamicMap_mapPopup-table {
-    display: table;
+.dynamicMap_mapPopup .dmp-guide .dmp-desc {
+    max-height: 5em;
+    overflow: hidden;
 }
 
-.dynamicMap_mapPopup-tableRow {
+.dynamicMap_mapPopup .dmp-table {
+    display: table;
+    width: 100%;
+}
+
+.dynamicMap_mapPopup .dmp-table .dmp-row {
     display: table-row;
 }
 
-.dynamicMap_mapPopup-tableCell {
+.dynamicMap_mapPopup .dmp-table .dmp-cell {
     display: table-cell;
     padding: 2px 5px;
 }
