@@ -8,6 +8,6 @@
 
 $guides = [
     'guideActivePeriod' => 90,
-    'guideGotRecomendations' => 10,
+    'guideGotRecommendations' => 10,
 ];
 
