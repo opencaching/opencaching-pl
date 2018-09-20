@@ -18,18 +18,6 @@ require_once('./lib/calculation.inc.php');
 global $dbcSearch, $lang, $TestStartTime, $usr;
 
 
-//returns the cookie value, otherwise false
-function get_cookie_setting($name)
-{
-    return OcCookie::getOrDefault($name, false);
-}
-
-//sets the cookie value
-function set_cookie_setting($name, $value)
-{
-    OcCookie::set($name, $value);
-}
-
 /**
  * add slashes to each element of $array.
  * @param array $array
@@ -80,8 +68,7 @@ if ($usr == false) {
         else
         {
             $bCookieQueryid = true;
-            $queryid = (isset($_REQUEST['resetqueryid'])) ? false : get_cookie_setting('lastqueryid');
-//            $queryid = get_cookie_setting('lastqueryid');
+            $queryid = (isset($_REQUEST['resetqueryid'])) ? false : OcCookie::getOrDefault('lastqueryid', false);
             if ($queryid == false) $queryid = 0;
 
             if ($queryid != 0)
@@ -441,7 +428,7 @@ if ($usr == false) {
                 $options['queryid'] = 0;
             }
         }
-        set_cookie_setting('lastqueryid', $options['queryid']);
+        OcCookie::set('lastqueryid', $options['queryid']);
 
         //remove old queries (after 1 hour without use)
         $removedate = date('Y-m-d H:i:s', time() - 3600);
