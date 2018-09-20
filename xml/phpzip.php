@@ -1,16 +1,30 @@
+#!/usr/bin/php -q
 <?php
+/**
+ *
+ * This script shouldn't be used - it is here only becaus it is a part of old xml-interface to OC
+ * I suppose it is not used and not working - I leave it as is for now.
+ *
+ * (kojoty)
+ *
+ */
 
-$basedir = '/www/opencaching_www/www/download/zip/';
+if (PHP_SAPI !== 'cli') {
+    // this works only by cli
+    die();
+}
 
-$zipper['zip'] = 'nice --adjustment=19 unzip -qq -nj {src} -d {dst}';
-$zipper['gzip'] = 'nice --adjustment=19 gunzip -c -d -q {src} > {dst}';
-$zipper['bzip2'] = 'nice --adjustment=19 bunzip2 -c -d -q {src} > {dst}';
+$basedir = '/var/www/ocpl-data/download/zip/';
+
+$zipper['zip'] = 'nice --adjustment=19 zip -j -q -1 {dst} {src}';
+$zipper['gzip'] = 'nice --adjustment=19 gzip -1 -c {src} > {dst}';
+$zipper['bzip2'] = 'nice --adjustment=19 bzip2 -1 -c {src} > {dst}';
 
 if ($argv[1] == '--help') {
     echo $argv[0] . " --type=<ziptype> --src=<source> --dst=<destination>
 --type   can be zip, gzip or bzip2
 --src    relative* path to source file
---dst    relative* path to destination directory
+--dst    relative* path to destination file
 
 *relative to $basedir
 ";
@@ -40,22 +54,10 @@ $src = $basedir . $src;
 $dst = $basedir . $dst;
 
 if (!file_exists($src))
-    die("error: source file not exist\nuse " . $argv[0] . " --help\n");
+    die("error: source not exist\nuse " . $argv[0] . " --help\n");
 
-if (!is_dir($dst))
-    die("error: destination directory not exist\nuse " . $argv[0] . " --help\n");
-
-if (($type == 'gzip') || ($type == 'bzip2')) {
-    // add filename to dst directory
-    $filename = basename($src);
-    if (strrpos($filename, '.') !== false)
-        $filename = substr($filename, 0, strrpos($filename, '.'));
-
-    $dst .= '/' . $filename;
-
-    if (file_exists($dst))
-        die("error: destination file exists\nuse " . $argv[0] . " --help\n");
-}
+if (file_exists($dst))
+    die("error: destination already exists\nuse " . $argv[0] . " --help\n");
 
 $cmd = $zipper[$type];
 $cmd = str_replace('{src}', escapeshellcmd($src), $cmd);
@@ -81,4 +83,3 @@ function checkpath($path)
     return true;
 }
 
-?>

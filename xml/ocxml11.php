@@ -13,6 +13,11 @@ if ($error == true) {
     exit;
 }
 
+global $dynbasepath;
+$zip_basedir = $dynbasepath . 'download/zip/';
+$zip_wwwdir = '/download/zip/';
+
+
 /* end configuration */
 
 /* begin with some constants */
@@ -273,7 +278,7 @@ exit;
 
 function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $ziptype)
 {
-    global $zip_basedir, $zip_wwwdir, $sDateformat, $sDateshort, $t1, $t2, $t3, $safemode_zip, $safemode_zip, $sCharset, $bAttrlist, $absolute_server_URI;
+    global $zip_basedir, $zip_wwwdir, $sDateformat, $sDateshort, $t1, $t2, $t3, $sCharset, $bAttrlist, $absolute_server_URI;
     // transfer all records from tmpxml_*
 
     if (!mb_ereg_match('^[0-9]{1,11}', $sessionid))
@@ -577,11 +582,16 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
     $rel_xmlfile = 'ocxml11/' . $sessionid . '/' . $sessionid . '-' . $filenr . '-' . $fileid . '.xml';
     $rel_zipfile = 'ocxml11/' . $sessionid . '/' . $sessionid . '-' . $filenr . '-' . $fileid;
 
+
+
+
     // zip and redirect url
     if ($ziptype == '0') {
         tpl_redirect($zip_wwwdir . 'ocxml11/' . $sessionid . '/' . $sessionid . '-' . $filenr . '-' . $fileid . '.xml');
         exit;
-    } else if ($ziptype == 'zip')
+    }
+
+    if ($ziptype == 'zip')
         $rel_zipfile .= '.zip';
     else if ($ziptype == 'bzip2')
         $rel_zipfile .= '.bz2';
@@ -590,7 +600,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
     else
         die('unknown zip type');
 
-    $call = $safemode_zip . ' --type=' . escapeshellcmd($ziptype) . ' --src=' . escapeshellcmd($rel_xmlfile) . ' --dst=' . escapeshellcmd($rel_zipfile);
+    $call = __DIR__.'/phpzip.php' . ' --type=' . escapeshellcmd($ziptype) . ' --src=' . escapeshellcmd($rel_xmlfile) . ' --dst=' . escapeshellcmd($rel_zipfile);
     system($call);
 
     if (!file_exists($zip_basedir . $rel_zipfile))

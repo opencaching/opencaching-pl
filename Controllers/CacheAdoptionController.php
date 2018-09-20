@@ -120,12 +120,6 @@ class CacheAdoptionController extends BaseController
         // owner changing
         $this->db->beginTransaction();
 
-        // populate org cache user for this cache
-        //TODO: this is strange... needs investigation
-        require_once (__DIR__ . '/../lib/cache_owners.inc.php');
-        $pco = new \OrgCacheOwners($this->db);
-        $pco->populateForCache( $cacheObj->getCacheId() );
-
         // remove all adoption offers for this cache in DB
         $this->db->multiVariableQuery(
             "DELETE FROM chowner WHERE cache_id = :1", $cacheObj->getCacheId());

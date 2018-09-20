@@ -3,21 +3,12 @@
 require_once __DIR__ . '/ClassPathDictionary.php'; // class autoloader
 
 use Utils\View\View;
-use lib\Objects\ApplicationContainer;
-use lib\Objects\User\User;
 use lib\Objects\User\UserAuthorization;
 use lib\Objects\OcConfig\OcConfig;
 
 session_start();
 
-//TODO: kojoty: do we need no-ob check ???
-//if ((!isset($GLOBALS['no-ob'])) || ($GLOBALS['no-ob'] == false))
 ob_start();
-
-//TODO: kojoty: do we need it ???
-//if ((!isset($GLOBALS['oc_waypoint'])) && isset($GLOBALS['ocWP']))
-//    $GLOBALS['oc_waypoint'] = $GLOBALS['ocWP'];
-
 
 if (!isset($rootpath)){
     if(isset($GLOBALS['rootpath'])){
