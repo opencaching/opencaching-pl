@@ -34,6 +34,8 @@ class LogMarkerModel extends CacheMarkerModel
         $textLen = mb_strlen($text);
         if ($textLen > 200) {
             $text = mb_strcut($text, 0, 200);
+            // do not leave open tags on truncate
+            $text = preg_replace('/\<[^\>]*$/', '', $text);
             $text .= '...';
         }
         $this->log_text = $text;
@@ -58,4 +60,3 @@ class LogMarkerModel extends CacheMarkerModel
         isset($this->log_date);
     }
 }
-

@@ -54,18 +54,7 @@ class GuideController extends BaseController
 
         $mapModel->addMarkersWithExtractor(GuideMarkerModel::class, $guidesList,
             function($row){
-                $marker = new GuideMarkerModel();
-                $marker->icon = '/images/guide_map_marker.png';
-                $marker->link = User::GetUserProfileUrl($row['user_id']);
-                $marker->lat = $row['latitude'];
-                $marker->lon = $row['longitude'];
-                $marker->userId = $row['user_id'];
-                $marker->username = $row['username'];
-                $marker->userDesc = $this->getTruncatedDescription(
-                    $row['description']
-                );
-                $marker->recCount = $row['recomendations'];
-                return $marker;
+                return GuideMarkerModel::fromGuidesListRowFactory($row);
             }
         );
 
@@ -78,25 +67,5 @@ class GuideController extends BaseController
 
         $this->view->buildView();
 
-    }
-
-    /**
-     * Truncates description to be at least MAX_DSCR_LEN, ending it with
-     * ellipsis '(...)' if description is longer than MAX_DSCR_LEN.
-     *
-     * @param string $description Description to truncate
-     *
-     * @return string truncated description
-     */
-    private function getTruncatedDescription($description)
-    {
-        $result = "";
-        if (mb_strlen($description) > self::MAX_DSCR_LEN) {
-            $result = mb_substr($description, 0, self::MAX_DSCR_LEN - 5)
-                . "(...)";
-        } else {
-            $result = mb_substr($description, 0, self::MAX_DSCR_LEN);
-        }
-        return $result;
     }
 }

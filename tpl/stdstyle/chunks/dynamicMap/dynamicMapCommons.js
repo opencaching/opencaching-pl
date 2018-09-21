@@ -326,42 +326,103 @@ function loadMarkers(params) {
 
   params.map.addOverlay(popup);
 
-  params.map.on('click', function(evt) {
-    var feature = params.map.forEachFeatureAtPixel(evt.pixel, function(feature) {
-        return feature;
-      });
+    params.map.on('click', function(evt) {
+        // clears the featureIndex if it was set previously
+        popup.unset('featureIndex', true);
 
-    if (feature) {
-      if( (ocData = feature.get('ocData')) == undefined){
-        popup.setPosition(undefined);
-        return true;
-      }
+        var features = [];
+        var fCoords;
+        params.map.forEachFeatureAtPixel(evt.pixel, function(feature) {
+            if ((feature.get('ocData')) != undefined) {
+                var canAdd = true;
+                if (fCoords == undefined) {
+                    // save the first feature coordinates
+                    fCoords = feature.getGeometry().getCoordinates();
+                } else {
+                    // add another features only if coordinates match the first one
+                    var nfCoords = feature.getGeometry().getCoordinates();
+                    canAdd = (
+                        (
+                            (nfCoords[0] == fCoords[0])
+                            && (nfCoords[1] == fCoords[1])
+                        )
+                        || feature.getGeometry().intersectsCoordinate(fCoords)
+                    );
+                }
+                if (canAdd) {
+                    features.push(feature);
+                }
+            }
+        });
 
-        im = feature.getStyle().getImage();
-        if (im && im instanceof ol.style.Icon) {
-            anc = im.getAnchor();
-            popup.setOffset([0, -(anc[1] * im.getScale()) - 2]);
+        if (features.length > 0) {
+            switchPopupContent(popup, params, features, true);
+        } else {
+            popup.setPosition(undefined);
         }
+    });
 
-      var markerType = ocData.markerType;
-      var markerId = ocData.markerId;
+}
 
-      if(!params.compiledPopupTpls[markerType]){
-        var popupTpl = $('script[type="text/x-handlebars-template"].'+markerType).html();
-        params.compiledPopupTpls[markerType] = Handlebars.compile(popupTpl);
-      }
-
-      var markerContext = params.markerData[markerType][markerId];
-      $(popup.getElement()).html(params.compiledPopupTpls[markerType](markerContext));
-
-      $(".dynamicMap_mapPopup-closer").click(function(evt) {
-          popup.setPosition(undefined);
-      });
-
-      popup.setPosition(feature.getGeometry().getCoordinates());
+/**
+ * Selects the next or previous feature from features being under a popup point
+ * when the map was clicked. The selection depends on a 'forward' parameter
+ * value. If there is no feature previously selected, the first one on choosen.
+ * Next, the content and position of popup is set according to the selected
+ * feature values.
+ */
+function switchPopupContent(popup, params, features, forward) {
+    var i = popup.get('featureIndex');
+    if (i == undefined) {
+        i = 0;
     } else {
-      popup.setPosition(undefined);
+        // (+/-1) modulo features.length, negative value workaround
+        i = (
+                ((forward ? (i + 1) : (i - 1)) % features.length)
+                + features.length
+            ) % features.length;
     }
-  });
+    var feature = features[i];
+    var ocData = feature.get("ocData");
 
+    var im = feature.getStyle().getImage();
+    if (im && im instanceof ol.style.Icon) {
+        var anc = im.getAnchor();
+        popup.setOffset([0, -(anc[1] * im.getScale()) - 2]);
+    }
+
+    var markerType = ocData.markerType;
+    var markerId = ocData.markerId;
+
+    if(!params.compiledPopupTpls[markerType]){
+        var popupTpl =
+            $('script[type="text/x-handlebars-template"].' + markerType).html();
+        params.compiledPopupTpls[markerType] = Handlebars.compile(popupTpl);
+    }
+
+    var markerContext = params.markerData[markerType][markerId];
+    if (features.length > 1) {
+        markerContext['showNavi'] = true;
+    } else {
+        markerContext['showNavi'] = undefined;
+    }
+    $(popup.getElement()).html(
+        params.compiledPopupTpls[markerType](markerContext)
+    );
+
+    $(".dmp-closer").click(function(evt) {
+        popup.setPosition(undefined);
+    });
+
+    if (features.length > 1) {
+        $(".dmp-navi .dmp-backward > img").click(function(evt) {
+            switchPopupContent(popup, params, features, false);
+        });
+        $(".dmp-navi .dmp-forward > img").click(function(evt) {
+            switchPopupContent(popup, params, features, true);
+        });
+    }
+
+    popup.set('featureIndex', i);
+    popup.setPosition(feature.getGeometry().getCoordinates());
 }

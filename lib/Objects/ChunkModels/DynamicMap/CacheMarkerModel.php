@@ -3,6 +3,7 @@ namespace lib\Objects\ChunkModels\DynamicMap;
 
 use lib\Objects\GeoCache\GeoCache;
 use lib\Objects\User\User;
+use Utils\Text\Formatter;
 
 /**
  * This is model of geocache marker
@@ -16,7 +17,16 @@ class CacheMarkerModel extends AbstractMarkerModelBase
     public $link;
     public $name;
     public $username;
+    public $userProfile;
 
+    public $isEvent;
+    public $eventStartDate;
+    public $size;
+    public $rating;
+    public $founds;
+    public $notFounds;
+    public $ratingVotes;
+    public $recommendations;
 
     /**
      * Creates marker model from Geocache model
@@ -42,6 +52,22 @@ class CacheMarkerModel extends AbstractMarkerModelBase
         $this->link = $c->getCacheUrl();
         $this->name = $c->getCacheName();
         $this->username = $c->getOwner()->getUserName();
+        $this->userProfile = $c->getOwner()->getProfileUrl();
+
+        $this->isEvent= $c->isEvent();
+        if ($this->isEvent) {
+            $this->eventStartDate = Formatter::date($c->getDatePlaced());
+        }
+        $this->size = tr($c->getSizeTranslationKey());
+        $this->ratingVotes = $c->getRatingVotes();
+        $this->rating = (
+            $this->ratingVotes < 3
+            ? tr('not_available')
+            : $c->getRatingDesc()
+        );
+        $this->founds = $c->getFounds();
+        $this->notFounds = $c->getNotFounds();
+        $this->recommendations = $c->getRecommendations();
     }
 
     /**
@@ -50,12 +76,19 @@ class CacheMarkerModel extends AbstractMarkerModelBase
      */
     public function checkMarkerData()
     {
-        return parent::checkMarkerData() &&
-        isset($this->wp) &&
-        isset($this->link) &&
-        isset($this->name) &&
-        isset($this->username);
+        return parent::checkMarkerData()
+        && isset($this->wp)
+        && isset($this->link)
+        && isset($this->name)
+        && isset($this->username)
+        && isset($this->userProfile)
+        && isset($this->isEvent)
+        && isset($this->size)
+        && isset($this->founds)
+        && isset($this->notFounds)
+        && isset($this->ratingVotes)
+        && isset($this->recommendations)
+        ;
     }
 
 }
-
