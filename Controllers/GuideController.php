@@ -11,7 +11,7 @@ use Utils\Cache\OcMemCache;
 class GuideController extends BaseController
 {
     /** Maxiumum length of guide description passed to marker model */
-    const MAX_DSCR_LEN = 100;
+    const MAX_DSCR_LEN = 200;
 
     public function __construct(){
         parent::__construct();
@@ -54,7 +54,21 @@ class GuideController extends BaseController
 
         $mapModel->addMarkersWithExtractor(GuideMarkerModel::class, $guidesList,
             function($row){
-                return GuideMarkerModel::fromGuidesListRowFactory($row);
+                $marker = new GuideMarkerModel();
+                $marker->icon = '/images/guide_map_marker.png';
+                $marker->link = User::GetUserProfileUrl($row['user_id']);
+                $marker->lat = $row['latitude'];
+                $marker->lon = $row['longitude'];
+                $marker->userId = $row['user_id'];
+                $marker->username = $row['username'];
+                $text = $row['description'];
+                if (mb_strlen($text) > self::MAX_DSCR_LEN) {
+                    $text = mb_strcut($text, 0, self::MAX_DSCR_LEN);
+                    $text .= '...';
+                }
+                $marker->userDesc = nl2br($text);
+                $marker->recCount = $row['recomendations'];
+                return $marker;
             }
         );
 

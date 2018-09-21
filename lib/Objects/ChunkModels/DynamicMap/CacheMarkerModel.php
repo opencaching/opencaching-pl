@@ -27,7 +27,12 @@ class CacheMarkerModel extends AbstractMarkerModelBase
     public $notFounds;
     public $ratingVotes;
     public $recommendations;
-
+    public $titledDesc;
+    public $isStandingOut;
+    public $powerTrailName;
+    public $powerTrailIcon;
+    public $powerTrailUrl;
+    
     /**
      * Creates marker model from Geocache model
      * @param GeoCache $c
@@ -68,6 +73,17 @@ class CacheMarkerModel extends AbstractMarkerModelBase
         $this->founds = $c->getFounds();
         $this->notFounds = $c->getNotFounds();
         $this->recommendations = $c->getRecommendations();
+        $this->isTitled = $c->isTitled();
+        if ($c->isTitled() ) {
+            global $titled_cache_period_prefix; //TODO: move it to the ocConfig
+            $this->titledDesc = tr($titled_cache_period_prefix.'_titled_cache');
+        }
+        $this->isStandingOut = ($this->titledDesc || $this->recommendations);
+        if ($c->isPowerTrailPart()) {
+            $this->powerTrailName = $c->getPowerTrail()->getName();
+            $this->powerTrailIcon = $c->getPowerTrail()->getFootIcon();
+            $this->powerTrailUrl = $c->getPowerTrail()->getPowerTrailUrl();
+        }
     }
 
     /**
