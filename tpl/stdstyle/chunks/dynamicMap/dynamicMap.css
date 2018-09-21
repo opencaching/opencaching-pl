@@ -24,8 +24,8 @@
 
 .dynamicMap_mapScale {
   bottom: 3px;
-  font-size: 13px;
   left: 250px;
+  font-size: 13px;
 }
 
 .dynamicMap_mapScale .customScale {
@@ -37,6 +37,12 @@
   text-align: center;
 }
 
+.dynamicMap_gpsLocator {
+  bottom: 130px; 
+  right: 5px;
+}
+
+
 .dynamicMap_mapZoom {
   bottom: 30px;
   right: 5px;
@@ -44,7 +50,7 @@
   flex-direction: column;
 }
 
-.dynamicMap_mapZoomIn, .dynamicMap_mapZoomOut {
+.dynamicMap_mapZoom img, .dynamicMap_gpsLocator img {
   width: 25px;
   height: 25px;
   margin: 5px;
@@ -144,3 +150,5 @@
     display: table-cell;
     padding: 2px 5px;
 }
+
+

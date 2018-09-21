@@ -1,3 +1,4 @@
+
 /**
  * This function is a DynamicMap-chunk entrypoint
  *
@@ -49,6 +50,9 @@ function dynamicMapEntryPoint( params ) {
   // init zoom controls
   mapZoomControlsInit(params);
 
+  // init localization control
+  gpsLocatorInit(params);
+
   // init mouse position coords
   cordsUnderCursorInit(params);
 
@@ -56,15 +60,18 @@ function dynamicMapEntryPoint( params ) {
   loadMarkers(params);
 }
 
-function layerSwitcherInit(params) {
+function layerSwitcherInit( params ) {
+  var switcherDiv = $("<div class='ol-control dynamicMap_layerSwitcher'></div>");
 
   // prepare dropdown object
   var switcherDropdown = $('<select></select>');
 
+  switcherDiv.append(switcherDropdown);
+
   // add layers from config to map
   $.each( params.mapLayersConfig, function(key, layer) {
 
-    layer.set('ocLayerName', key)
+    OcLayerServices.setOcLayerName(layer, key);
     layer.set('wrapX', true)
     layer.set('zIndex', 1)
 
@@ -81,30 +88,27 @@ function layerSwitcherInit(params) {
   // add switcher to map
   params.map.addControl(new ol.control.Control(
       {
-        element: switcherDropdown[0],
+        element: switcherDiv[0],
       }
   ));
 
-  // wrap dropdow in div
-  switcherDropdown.wrap('<div class="ol-control dynamicMap_layerSwitcher"></div>')
-
   // init switcher change callback
-  switcherDropdown.change(function(a) {
+  switcherDropdown.change(function(evt) {
+
+    let selectedLayerName = switcherDropdown.val();
 
     params.map.getLayers().forEach(function(layer) {
         // first skip OC-internal layers (prefix oc_)
-        if ( ! /^oc_.*/.test( layer.get('ocLayerName') )) {
+        if ( ! OcLayerServices.isOcInternalLayer(layer) ) {
 
-          // make sure selected layer is not internal OC layer is visible
-          if ( layer.get('ocLayerName') == switcherDropdown.val() ) {
+          // this is external layer (like OSM)
+          if ( OcLayerServices.getOcLayerName(layer) == selectedLayerName ) {
             layer.setVisible(true);
-            //$("#ocAttribution").html(layer.getSource().attributions_[0].html_)
-            //console.log(layer.getSource().get('attributions'));
           } else {
             layer.setVisible(false);
           }
 
-        } else {
+        } else { // this is OC-generated layer
           if ( layer.getVisible() != true) {
             layer.setVisible(true);
           }
@@ -112,14 +116,13 @@ function layerSwitcherInit(params) {
     })
 
     // run callback if it is present
-    if ( typeof dynamicMap_layerSwitchCallback !== 'undefined'
-         && $.isFunction(dynamicMap_layerSwitchCallback) ) {
-
-      dynamicMap_layerSwitchCallback(params);
+    if ( typeof params.layerSwitchCallbacks !== 'undefined' ) {
+      $.each(params.layerSwitchCallbacks, function(key, callback){
+        callback(selectedLayerName);
+      });
     }
 
   });
-
 }
 
 function scaleLineInit(params) {
@@ -139,11 +142,36 @@ function scaleLineInit(params) {
   ))
 }
 
+function gpsLocatorInit(params) {
+
+  if (!("geolocation" in navigator)) {
+    console.log('Geolocation not supported by browser.')
+    return;
+  }
+
+  gpsDiv = $("<div class='ol-control dynamicMap_gpsLocator'></div>");
+  gpsImg = $('<img id="dynamicMap_gpsPositionImg" src="/images/map_geolocation_0.png" alt="gps">');
+
+  gpsDiv.append(gpsImg);
+
+  params.map.addControl(new ol.control.Control(
+      {
+        element: gpsDiv[0],
+      }
+  ))
+
+  var geolocationObj = new GeolocationOnMap(params.map, 'dynamicMap_gpsPositionImg');
+  gpsImg.click(function() {
+    geolocationObj.getCurrentPosition();
+  });
+
+}
+
 function mapZoomControlsInit(params) {
 
   zoomDiv = $('<div class="ol-control dynamicMap_mapZoom"></div>');
-  zoomIn = $('<img class="dynamicMap_mapZoomIn" src="/images/icons/plus.svg" alt="+">');
-  zoomOut = $('<img class="dynamicMap_mapZoomOut" src="/images/icons/minus.svg" alt="-">');
+  zoomIn = $('<img src="/images/icons/plus.svg" alt="+">');
+  zoomOut = $('<img src="/images/icons/minus.svg" alt="-">');
 
   zoomDiv.append(zoomIn);
   zoomDiv.append(zoomOut);
@@ -365,3 +393,227 @@ function loadMarkers(params) {
   });
 
 }
+
+
+/**
+ * Object used in processing geolocation on the map
+ * It allows to show current position read from GPS
+ */
+function GeolocationOnMap(map, iconId) {
+
+    this.iconId = iconId
+    this.map = map
+    this.positionMarkersCollection = new ol.Collection()
+    this.positionMarkersLayer = null
+
+    this.STATUS = Object.freeze({
+      INIT:              0, /* initial state */
+      IN_PROGRESS:       1, /* position reading in progress */
+      POSITION_AQQUIRED: 2, /* positions has been read */
+      ERROR:             3, /* some error occured */
+    })
+
+
+    this.getCurrentPosition = function() {
+        console.log('get position...')
+
+        if (!("geolocation" in navigator)) {
+          console.error('Geolocation not supported by browser!')
+          return;
+        }
+
+        this.changeGeolocIconStatus(this.STATUS.IN_PROGRESS);
+
+        navigator.geolocation.getCurrentPosition(
+                this.getSuccessCallback(),
+                this.getErrorCallback(),
+                { enableHighAccuracy: true }
+        )
+    }
+
+    // set new status and its icon
+    this.changeGeolocIconStatus = function(newStatus) {
+
+        // change icon for given status
+        $('#'+this.iconId).attr('src','/images/map_geolocation_' +
+            newStatus + '.png')
+    }
+
+    this.getSuccessCallback = function() {
+
+        var obj = this;
+
+        return function(position) {
+            console.log('position read')
+            console.log(position)
+
+            lat = position.coords.latitude
+            lon = position.coords.longitude
+
+            currCoords = ol.proj.fromLonLat([lon, lat])
+            accuracy = position.coords.accuracy
+
+
+            view = obj.map.getView()
+            view.setCenter(currCoords)
+            view.setZoom(obj.calculateZoomForAccuracy(accuracy))
+
+            // draw position marker
+
+            var accuracyFeature = new ol.Feature({
+              geometry: new ol.geom.Circle(currCoords, accuracy)
+            })
+
+            accuracyFeature.setStyle(
+                new ol.style.Style({
+                    stroke: new ol.style.Stroke({color: 'blue', width: 2}),
+                })
+            )
+
+            var positionFeature = new ol.Feature({
+              geometry: new ol.geom.Point(currCoords)
+            })
+
+            positionFeature.setStyle(
+                new ol.style.Style({
+                  image: new ol.style.RegularShape({
+                    /*fill: new ol.style.Fill({color: 'red'}),*/
+                    stroke: new ol.style.Stroke({color: 'blue', width: 2}),
+                    points: 4,
+                    radius: 10,
+                    radius2: 0,
+                    angle: Math.PI / 4
+                  })
+                })
+            )
+
+            obj.positionMarkersCollection.clear()
+            obj.positionMarkersCollection.push(accuracyFeature)
+            obj.positionMarkersCollection.push(positionFeature)
+
+            if (obj.positionMarkersLayer == null) {
+              obj.positionMarkersLayer = new ol.layer.Vector({
+                map: obj.map,
+                source: new ol.source.Vector({
+                  features: obj.positionMarkersCollection
+                })
+              });
+            }
+
+        }
+    }
+
+    this.getErrorCallback = function() {
+        var obj = this;
+
+        return function(positionError) {
+            console.error('OC Map: positions reading error!')
+            console.error(positionError)
+
+            if (positionError.code === 1) { // Permission denied
+                // User has denied geolocation - return to initial state
+                obj.changeGeolocStatus(obj.STATUS.INIT);
+            } else {
+                // Indicate actual problem with getting position
+                obj.changeGeolocStatus(obj.STATUS.ERROR);
+            }
+        }
+    }
+
+    this.calculateZoomForAccuracy = function(accuracy) {
+        // accuracy is in meters
+
+        if (accuracy <   300) return 16;
+        if (accuracy <   600) return 15;
+        if (accuracy <  1200) return 14;
+        if (accuracy <  2400) return 13;
+        if (accuracy <  5000) return 12;
+        if (accuracy < 10000) return 11;
+        return 10; // otherwise
+    }
+
+    return this;
+}
+
+
+/**
+ * This is global interface to DynamicMapChunk
+ */
+var DynamicMapServices = {
+
+  /**
+   * returns OpenLayers map object used as a base of this chunk instance
+   */
+  getMapObject: function (mapId){
+    return window['dynamicMapParams_'+mapId].map;
+  },
+
+  /**
+   * returns the name of currently selected map (layer) name
+   */
+  getSelectedLayerName: function (mapId){
+
+    map = this.getMapObject(mapId);
+
+    let visibleLayers = [];
+    map.getLayers().forEach(function(layer){
+
+      if ( !OcLayerServices.isOcInternalLayer(layer)
+           && layer.getVisible()) {
+
+        visibleLayers.push(OcLayerServices.getOcLayerName(layer));
+      }
+    });
+
+    if (visibleLayers.lenght <= 0){
+      console.err('--- no visible layer ?! ---');
+      return '';
+    }
+
+    if (visibleLayers.lenght > 1){
+      console.err('--- many visible layers ?! ---');
+    }
+
+    return visibleLayers.pop();
+  },
+
+  /**
+   * add callback which wil be call on map layer change
+   * callback should be function with one input parameter: "selectedLayerName"
+   */
+  addMapLayerSwitchCallback: function (mapId, callback){
+    if(typeof mapId === undefined){
+      console.error('mapId is required!');
+    }
+
+    if(typeof callback !== 'function'){
+      console.error('callback must be a function!');
+    }
+
+    params = window['dynamicMapParams_'+mapId];
+
+    if( ! params.layerSwitchCallbacks ) {
+      params.layerSwitchCallbacks = [];
+    }
+
+    params.layerSwitchCallbacks.push(callback);
+  },
+
+};
+
+var OcLayerServices = {
+
+    isOcInternalLayer: function (layer){
+      return ( /^oc_.*/.test( layer.get('ocLayerName') ));
+    },
+
+    setOcLayerName: function (layer, name){
+      layer.set('ocLayerName', name);
+    },
+
+    getOcLayerName: function(layer) {
+      return layer.get('ocLayerName');
+    }
+
+};
+

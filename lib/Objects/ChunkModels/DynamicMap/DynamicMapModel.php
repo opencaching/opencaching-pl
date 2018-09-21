@@ -132,6 +132,10 @@ class DynamicMapModel
         $this->forceZoom = true;
     }
 
+    public function setInitLayerName($name){
+        $this->mapLayerName = $name;
+    }
+
     public function forceDefaultZoom()
     {
         $this->forceZoom = true;

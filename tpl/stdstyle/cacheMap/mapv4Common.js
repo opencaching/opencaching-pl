@@ -430,7 +430,7 @@ function filterBoxInit(map) {
   /**
    * Filters changed - ocLayer should be refreshed
    */
-  var refreshOcTiles = function (refreshTiles) {
+  var refreshOcTiles = function (refreshOcTiles) {
 
     ocLayer = map.getLayers().item(0) // item0=layer with ocTiles
     ocLayer.setSource(getOcTailSource(refreshTiles))
