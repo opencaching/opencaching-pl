@@ -13,7 +13,7 @@
         </div>
         {{#if log_link}}
         <div class="dmp-row dmp-block">
-            <div class="dmp-cell dmp-log-icon"">
+            <div class="dmp-cell dmp-log-icon">
                 <img src="{{log_icon}}" title="{{log_typeName}}" alt="{{log_typeName}}">
             </div>
             <div class="dmp-cell">
