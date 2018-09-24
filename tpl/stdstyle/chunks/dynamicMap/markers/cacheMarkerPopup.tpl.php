@@ -48,10 +48,38 @@
                 {{#if username}}<a href="{{userProfile}}" class="links" alt="{{username}}" title="{{username}}"><span class="dmp-label"><?=tr('owner')?>:</span>&nbsp;{{username}}</a>{{/if}}
             </div>
             <div class="dmp-cell dmp-counter">
-                <img src="/tpl/stdstyle/images/free_icons/thumb_up.png" alt="<?=tr("scored")?>"> {{ratingVotes}} x <?=tr("scored")?> 
+                <img src="/tpl/stdstyle/images/free_icons/thumb_up.png" alt="<?=tr("scored")?>"> {{ratingVotes}} x <?=tr("scored")?>
+            </div>
+        </div>
+        {{#if isStandingOut}}
+        <div class="dmp-row">
+            <div class="dmp-cell">
+                {{#if titledDesc}}
+                <img src="/tpl/stdstyle/images/free_icons/award_star_gold_1.png" alt="{{titledDesc}}"> <span class="dmp-label">{{titledDesc}}</span>
+                {{/if}}
+            </div>
+            <div class="dmp-cell dmp-counter">
+                {{#if recommendations}}
+                <img src="/images/rating-star.png" alt="<?=tr("recommended")?>"> {{recommendations}} x <?=tr("recommended")?>
+                {{/if}}
+            </div>
+        </div>
+        {{/if}}
+    </div>
+    {{#if powerTrailName}}
+    <div class="dmp-table dmp-details">
+        <div class="dmp-row">
+            <div class="dmp-narrow-cell">
+                <span class="dmp-label"><?=tr("pt000")?>:</span>
+            </div>
+            <div class="dmp-cell">
+                <a href="{{powerTrailUrl}}" title="{{powerTrailName}}" target="_blank" class="links">
+                    <img src="{{powerTrailIcon}}" alt="<?=tr("pt000")?>" title="{{powerTrailName}}"> {{powerTrailName}}
+                </a>
             </div>
         </div>
     </div>
+    {{/if}}
   <span class="dmp-closer"></span>
 </div>
 {{#if showNavi}}

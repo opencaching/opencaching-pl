@@ -214,7 +214,13 @@
     display: table-row;
 }
 
-.dynamicMap_mapPopup .dmp-table .dmp-cell {
+.dynamicMap_mapPopup .dmp-table .dmp-cell,
+.dynamicMap_mapPopup .dmp-table .dmp-narrow-cell {
     display: table-cell;
     padding: 2px 5px;
+}
+
+.dynamicMap_mapPopup .dmp-table .dmp-narrow-cell {
+    width: 1%;
+    white-space: nowrap;
 }
