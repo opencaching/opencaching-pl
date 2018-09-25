@@ -23,7 +23,9 @@ $map['jsConfig'] = "
             attributions: \"&copy; Mapa z <a href='http://ump.waw.pl/' target='_blank'>UMP-pcPL</a>\",
         })
     }),
-
+/*
+    Bing maps disabled...
+    
     BingMap: new ol.layer.Tile ({
         source: new ol.source.BingMaps({
             key: '{Key-BingMap}',
@@ -39,7 +41,7 @@ $map['jsConfig'] = "
             maxZoom: 19
         })
     }),
-
+*/
     Topo: new ol.layer.Tile ({
         source: new ol.source.TileWMS({
             url: 'http://mapy.geoportal.gov.pl:80/wss/service/img/guest/TOPO/MapServer/WmsServer',
@@ -103,7 +105,8 @@ $map['jsConfig'] = "
 /**
  * Bing map key is set in node-local config file
  */
-$map['keys']['BingMap'] = 'NEEDS-TO-BE-SET-IN-LOCAL-CONFIG-FILE';
+// Bing maps disabled
+// $map['keys']['BingMap'] = 'NEEDS-TO-BE-SET-IN-LOCAL-CONFIG-FILE';
 
 
 /**
