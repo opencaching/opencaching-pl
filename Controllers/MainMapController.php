@@ -97,14 +97,14 @@ class MainMapController extends BaseController
         $mapModel = new DynamicMapModel();
 
         // set map center based on requested coords&zoom
-        if (isset($_GET['lat']) && isset($_GET['lon']) && isset($_GET['zoom'])) {
+        if ( isset($_GET['zoom'], $_GET['lat'], $_GET['lon']) ) {
 
             $mapCenter = Coordinates::FromCoordsFactory(
                 floatval($_GET['lat']), floatval($_GET['lon']));
             $zoom = intval($_GET['zoom']);
 
         // set map center based on requested coords and open popup at center (used to show geocache)
-        } else if(isset($_GET['lat']) && isset($_GET['lon']) && isset($_GET['openPopup'])) {
+        } else if( isset($_GET['openPopup'], $_GET['lat'], $_GET['lon']) ) {
 
             $mapCenter = Coordinates::FromCoordsFactory(
                 floatval($_GET['lat']), floatval($_GET['lon']));
@@ -112,6 +112,13 @@ class MainMapController extends BaseController
             $this->view->setVar('openPopup', true);
 
         // set map center based on user home-coords
+        } else if( isset($_GET['circle'], $_GET['lat'], $_GET['lon'])) {
+
+            $mapCenter = Coordinates::FromCoordsFactory(
+                floatval($_GET['lat']), floatval($_GET['lon']));
+            $zoom = 17;
+            $this->view->setVar('circle150m', true);
+
         } else {
             $mapCenter = $user->getHomeCoordinates();
             $zoom = 11; //default zoom for user-home coords
@@ -130,9 +137,6 @@ class MainMapController extends BaseController
 
         $this->view->setVar('mapModel', $mapModel);
 
-
-        // TODO: cacheid=??? is not supported yet
-
         // parse searchData if given
         if (isset($_GET['searchdata'])) {
             $this->view->setVar('searchData', $_GET['searchdata']);
@@ -140,13 +144,8 @@ class MainMapController extends BaseController
 
         // parse powerTrailIds if given
         if (isset($_GET['cs'])) {
-
-            //TODO: remove it
-            $this->view->setVar('powerTrailIds', $_GET['cs']);
-
             $this->view->setVar('cacheSet', CacheSet::fromCacheSetIdFactory($_GET['cs']));
         }
-
 
     }
 

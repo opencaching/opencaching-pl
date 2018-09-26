@@ -51,7 +51,7 @@
 
   function initDrawing(params)
   {
-    var map = dynamicMapParams_drawingMapCanvas.map; // get right map object
+    var map = DynamicMapServices.getMapObject("drawingMapCanvas"); // get right map object
 
     var drawingLayer = new ol.layer.Vector ({
       zIndex: 100,

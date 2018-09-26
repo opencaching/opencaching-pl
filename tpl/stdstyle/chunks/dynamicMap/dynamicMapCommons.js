@@ -115,7 +115,7 @@ function layerSwitcherInit( params ) {
         }
     })
 
-    // run callback if it is present
+    // run callback if present
     if ( typeof params.layerSwitchCallbacks !== 'undefined' ) {
       $.each(params.layerSwitchCallbacks, function(key, callback){
         callback(selectedLayerName);
@@ -261,7 +261,6 @@ var CoordinatesUtil = {
     },
   };
 
-
 function cordsUnderCursorInit(params) {
 
   params.curPos = {};
@@ -305,7 +304,6 @@ function cordsUnderCursorInit(params) {
 
 }
 
-
 function loadMarkers(params) {
 
     if (!params.markerData || params.markerData.length == 0) {
@@ -324,8 +322,10 @@ function loadMarkers(params) {
     zIndex: 100,
     visible: true,
     source: new ol.source.Vector({ features: featuresArr }),
-    ocLayerName: 'oc_markers',
     });
+
+  OcLayerServices.setOcLayerName(markersLayer, 'oc_markers');
+
 
   var ext = markersLayer.getSource().getExtent();
 
@@ -394,7 +394,6 @@ function loadMarkers(params) {
 
 }
 
-
 /**
  * Object used in processing geolocation on the map
  * It allows to show current position read from GPS
@@ -453,21 +452,37 @@ function GeolocationOnMap(map, iconId) {
             currCoords = ol.proj.fromLonLat([lon, lat])
             accuracy = position.coords.accuracy
 
-
             view = obj.map.getView()
             view.setCenter(currCoords)
             view.setZoom(obj.calculateZoomForAccuracy(accuracy))
 
             // draw position marker
-
             var accuracyFeature = new ol.Feature({
               geometry: new ol.geom.Circle(currCoords, accuracy)
             })
 
-            accuracyFeature.setStyle(
-                new ol.style.Style({
-                    stroke: new ol.style.Stroke({color: 'blue', width: 2}),
+            accuracyFeature.setStyle([
+                new ol.style.Style({ //circle
+                    stroke: new ol.style.Stroke({
+                      color: DynamicMapServices.styler.fgColor,
+                      width: 2}),
+                }),
+                new ol.style.Style({ //center marker
+                  geometry: function(feature){
+                    return new ol.geom.Point(feature.getGeometry().getCenter());
+                  },
+                  image: new ol.style.RegularShape({
+                    stroke: new ol.style.Stroke({
+                      color: DynamicMapServices.styler.fgColor,
+                      width: 2
+                    }),
+                    points: 4,
+                    radius: 10,
+                    radius2: 0,
+                    angle: Math.PI / 4
+                  })
                 })
+                ]
             )
 
             var positionFeature = new ol.Feature({
@@ -477,8 +492,10 @@ function GeolocationOnMap(map, iconId) {
             positionFeature.setStyle(
                 new ol.style.Style({
                   image: new ol.style.RegularShape({
-                    /*fill: new ol.style.Fill({color: 'red'}),*/
-                    stroke: new ol.style.Stroke({color: 'blue', width: 2}),
+                    stroke: new ol.style.Stroke({
+                      color: DynamicMapServices.styler.fgColor,
+                      width: 2
+                    }),
                     points: 4,
                     radius: 10,
                     radius2: 0,
@@ -598,6 +615,11 @@ var DynamicMapServices = {
 
     params.layerSwitchCallbacks.push(callback);
   },
+
+  styler: { // styles in OL format
+    fgColor: [100, 100, 255, 1], // main foreground color in OL format
+    bgColor: [238, 238, 238, 0.4], // main background color in OL fomrat
+  }
 
 };
 

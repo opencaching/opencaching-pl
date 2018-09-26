@@ -423,6 +423,81 @@ function initControls(params){
     window.location.href = uri;
   });
 
+
+  // add 150m circle at given coords
+  if ( params.circle150m ) {
+
+    let center = map.getView().getCenter();
+
+    var circle = new ol.Feature({
+      geometry: new ol.geom.Circle(center, 150),
+    });
+
+    var initCordsText = CoordinatesUtil.toWGS84(map, circle.getGeometry().getCenter());
+
+    circle.setStyle([
+        new ol.style.Style({ // style of circle
+            stroke: new ol.style.Stroke({
+              color: DynamicMapServices.styler.fgColor,
+              width: 2
+            }),
+            text: new ol.style.Text({
+              text: initCordsText,
+              offsetY: 30,
+              backgroundFill: new ol.style.Fill({color: DynamicMapServices.styler.bgColor}),
+              padding: [5,5,5,5],
+              scale: 1.2,
+            }),
+        }),
+        new ol.style.Style({ // style of center marker
+          geometry: function(feature){
+            return new ol.geom.Point(feature.getGeometry().getCenter());
+          },
+          image: new ol.style.RegularShape({
+            stroke: new ol.style.Stroke({
+              color: DynamicMapServices.styler.fgColor,
+              width: 2,
+            }),
+            points: 4,
+            radius: 10,
+            radius2: 0,
+            angle: Math.PI / 4
+          })
+        })
+        ]
+    );
+
+    var circleColection = new ol.Collection([circle]);
+
+    var circleLayer = new ol.layer.Vector ({
+      zIndex: 200,
+      visible: true,
+      source:  new ol.source.Vector({features: circleColection}),
+    });
+
+    OcLayerServices.setOcLayerName(circleLayer, 'oc_circle');
+
+    map.addLayer(circleLayer);
+
+    var movement = new ol.interaction.Translate({
+      layers: [circleLayer]
+    });
+
+    map.addInteraction( movement );
+
+    movement.on('translateend', function(evt){
+
+      let circle = evt.features.pop();
+      let coords = CoordinatesUtil.toWGS84(map, circle.getGeometry().getCenter());
+
+      var style = circle.getStyle();
+      var text = style[0].getText();
+      text.setText(coords);
+      style[0].setText(text);
+      circle.setStyle(style);
+    });
+  }
+
 }
 
 

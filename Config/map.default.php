@@ -1,5 +1,4 @@
 <?php
-use Controllers\CacheMapController;
 
 /**
  * This is simple configuration of maps in the OC code

@@ -37,6 +37,7 @@ var params = {
   isFullScreenMap: true,
   userId: "<?=$view->mapUserId?>",
   openPopupAtCenter: <?=isset($view->openPopup)?"true":"false"?>,
+  circle150m: <?=isset($view->circle150m)?"true":"false"?>,
   userName: "<?=$view->mapUserName?>",
   searchdata: "<?=isset($view->searchData)?$view->searchData:"null"?>",
   cacheSetId: <?=isset($view->cacheSet)?$view->cacheSet->getId():"null"?>,

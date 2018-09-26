@@ -44,6 +44,7 @@ var params = {
     mapId: "mapCanvasEmbeded",
     isFullScreenMap: false,
     openPopupAtCenter: <?=isset($view->openPopup)?"true":"false"?>,
+    circle150m: <?=isset($view->circle150m)?"true":"false"?>,
     userId: "<?=$view->mapUserId?>",
     userName: "<?=$view->mapUserName?>",
     searchdata: "<?=isset($view->searchData)?$view->searchData:"null"?>",

@@ -997,9 +997,6 @@ div.viewcache_log-content * {
     font-size: 12px;
 }
 
-div#main-cachemap-block                 { width: 265px; margin-top: 80px; }
-div#local-cachemap-block                { width: 365px; margin-top: 7px; }
-
 .img-shadow {
     float:left;
     background: url(shadowAlpha.png) no-repeat bottom right !important;
