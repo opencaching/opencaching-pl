@@ -42,6 +42,10 @@
   right: 5px;
 }
 
+.dynamicMap_compassDiv {
+  top: 70px;
+  right: 5px;
+}
 
 .dynamicMap_mapZoom {
   bottom: 30px;
@@ -50,7 +54,7 @@
   flex-direction: column;
 }
 
-.dynamicMap_mapZoom img, .dynamicMap_gpsLocator img {
+.dynamicMap_mapZoom img, .dynamicMap_gpsLocator img, .dynamicMap_compassDiv img {
   width: 25px;
   height: 25px;
   margin: 5px;

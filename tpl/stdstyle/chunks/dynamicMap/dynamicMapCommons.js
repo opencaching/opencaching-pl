@@ -27,7 +27,12 @@ function dynamicMapEntryPoint( params ) {
         collapsible: false,
         target: attributionDiv[0],
       },
-      zoom: false
+      zoom: false,
+      rotate: false,
+      //rotate: true,
+      //rotateOptions: {
+      //  className: 'buu'
+      //}
     }),
 
   });
@@ -49,6 +54,9 @@ function dynamicMapEntryPoint( params ) {
 
   // init zoom controls
   mapZoomControlsInit(params);
+
+  // init map compass (north-up reset button)
+  compassControlInit(params);
 
   // init localization control
   gpsLocatorInit(params);
@@ -150,7 +158,7 @@ function gpsLocatorInit(params) {
   }
 
   gpsDiv = $("<div class='ol-control dynamicMap_gpsLocator'></div>");
-  gpsImg = $('<img id="dynamicMap_gpsPositionImg" src="/images/map_geolocation_0.png" alt="gps">');
+  gpsImg = $('<img id="dynamicMap_gpsPositionImg" src="/images/icons/gps.svg" alt="gps">');
 
   gpsDiv.append(gpsImg);
 
@@ -169,9 +177,9 @@ function gpsLocatorInit(params) {
 
 function mapZoomControlsInit(params) {
 
-  zoomDiv = $('<div class="ol-control dynamicMap_mapZoom"></div>');
-  zoomIn = $('<img src="/images/icons/plus.svg" alt="+">');
-  zoomOut = $('<img src="/images/icons/minus.svg" alt="-">');
+  let zoomDiv = $('<div class="ol-control dynamicMap_mapZoom"></div>');
+  let zoomIn = $('<img src="/images/icons/plus.svg" alt="+">');
+  let zoomOut = $('<img src="/images/icons/minus.svg" alt="-">');
 
   zoomDiv.append(zoomIn);
   zoomDiv.append(zoomOut);
@@ -193,6 +201,31 @@ function mapZoomControlsInit(params) {
     var zoom = view.getZoom()
     view.setZoom(zoom - 1)
   })
+
+}
+
+function compassControlInit(params) {
+
+  let compassDiv = $('<div class="ol-control dynamicMap_compassDiv"></div>');
+  let compass = $('<img src="/images/icons/arrow.svg" alt="+">');
+  //let compass = $('<span class="dynamicMap_compass">⇧</span>');
+  compassDiv.append(compass);
+
+  params.map.addControl(new ol.control.Control(
+      {
+        element: compassDiv[0],
+      }
+  ));
+
+  compassDiv.click(function() {
+    params.map.getView().setRotation(0);
+  });
+
+  params.map.on('moveend', function (evt){
+    let roatation = evt.map.getView().getRotation()
+    console.log('map moved');
+    compass.css('transform', 'rotate('+roatation+'rad)');
+  });
 
 }
 
