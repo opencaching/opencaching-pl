@@ -8,13 +8,13 @@
       <input id="searchControlInput" type="text" size="10">
       <input id="searchControlButton" value="<?=tr('search')?>" type="button">
        -->
-      <img id="fullscreenToggle" src="/images/fullscreen-off.png"
+      <img id="fullscreenToggle" src="/images/icons/embeded.svg"
            title="<?=tr('disable_fullscreen')?>" alt="<?=tr('disable_fullscreen')?>">
 
-      <img id="refreshButton" src="/images/refresh.png"
+      <img id="refreshButton" src="/images/icons/refresh.svg"
            title="<?=tr('refresh_map')?>" alt="<?=tr('refresh_map')?>">
 
-      <img id="filtersToggle" src="/okapi/static/tilemap/legend_other.png"
+      <img id="filtersToggle" src="/images/icons/marker.svg"
            title="<?=tr('toggle_filters')?>" alt="<?=tr('toggle_filters')?>">
     </div>
 

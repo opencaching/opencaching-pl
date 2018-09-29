@@ -376,11 +376,6 @@ function saveUserSettings(params) {
 function initFullScreenMapControls(params) {
     var map = DynamicMapServices.getMapObject(params.mapId);
 
-    map.addControl(new ol.control.Control(
-        {
-          element: $("#mainMapControls")[0],
-        }
-    ));
 
     let filtersDiv = $('#mapFilters');
     filtersDiv.toggle(false); // to be sure filters are hidden now
@@ -403,6 +398,12 @@ function initFullScreenMapControls(params) {
 function initControls(params){
   var map = DynamicMapServices.getMapObject(params.mapId);
 
+  // add mainMap custom icons
+  map.addControl(new ol.control.Control(
+      {
+        element: $("#mainMapControls")[0],
+      }
+  ));
 
   // init fullscreen - embeded map toggler
   $('#fullscreenToggle').click(function() {

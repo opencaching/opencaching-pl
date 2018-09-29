@@ -9,8 +9,7 @@ function dynamicMapEntryPoint( params ) {
   var prefix = params.prefix;
   var mapDiv = $('#'+params.targetDiv);
 
-  // add attribution div
-  var attributionDiv = $('<div class="dynamicMap_attribution"></div>');
+  mapDiv.addClass("dynamicMap_cursor");
 
   params.map = new ol.Map({
     target: params.targetDiv,
@@ -23,34 +22,21 @@ function dynamicMapEntryPoint( params ) {
 
     controls: ol.control.defaults({
       attributionOptions:
-      {
+      { // attribution can't be display in custom control :( -
+        // there is no simple way to get attribution from layer
+        className: 'ol-attribution dynamicMap_attribution',
         collapsible: false,
-        target: attributionDiv[0],
       },
       zoom: false,
       rotate: false,
-      //rotate: true,
-      //rotateOptions: {
-      //  className: 'buu'
-      //}
-    }),
-
+    }).extend([
+      // note: scaleLine has two css OL classes: .ol-scale-line .ol-scale-line-inner
+      new ol.control.ScaleLine({ minWidth: 100 })]
+    ),
   });
-
-  mapDiv.addClass("dynamicMap_cursor");
-
-  // add attributions control
-  params.map.addControl(new ol.control.Control(
-      {
-        element: attributionDiv[0],
-      }
-  ));
 
   // init layer switcher
   layerSwitcherInit(params);
-
-  // init scaleLine
-  scaleLineInit(params);
 
   // init zoom controls
   mapZoomControlsInit(params);
@@ -115,7 +101,6 @@ function layerSwitcherInit( params ) {
           } else {
             layer.setVisible(false);
           }
-
         } else { // this is OC-generated layer
           if ( layer.getVisible() != true) {
             layer.setVisible(true);
@@ -131,23 +116,6 @@ function layerSwitcherInit( params ) {
     }
 
   });
-}
-
-function scaleLineInit(params) {
-  element = $("<div class='ol-control dynamicMap_mapScale'></div>");
-
-  params.map.addControl(new ol.control.Control(
-      {
-        element: element[0],
-      }
-  ))
-  params.map.addControl(new ol.control.ScaleLine(
-      {
-        className: 'customScale',
-        target: element[0],
-        minWidth: 100,
-      }
-  ))
 }
 
 function gpsLocatorInit(params) {
@@ -168,7 +136,7 @@ function gpsLocatorInit(params) {
       }
   ))
 
-  var geolocationObj = new GeolocationOnMap(params.map, 'dynamicMap_gpsPositionImg');
+  var geolocationObj = new GeolocationOnMap(params.map, '.dynamicMap_gpsLocator');
   gpsImg.click(function() {
     geolocationObj.getCurrentPosition();
   });
@@ -223,7 +191,6 @@ function compassControlInit(params) {
 
   params.map.on('moveend', function (evt){
     let roatation = evt.map.getView().getRotation()
-    console.log('map moved');
     compass.css('transform', 'rotate('+roatation+'rad)');
   });
 
@@ -431,18 +398,17 @@ function loadMarkers(params) {
  * Object used in processing geolocation on the map
  * It allows to show current position read from GPS
  */
-function GeolocationOnMap(map, iconId) {
+function GeolocationOnMap(map, iconSelector) {
 
-    this.iconId = iconId
     this.map = map
-    this.positionMarkersCollection = new ol.Collection()
-    this.positionMarkersLayer = null
+    this.positionMarkersCollection = new ol.Collection();
+    this.positionMarkersLayer = null;
 
     this.STATUS = Object.freeze({
-      INIT:              0, /* initial state */
-      IN_PROGRESS:       1, /* position reading in progress */
-      POSITION_AQQUIRED: 2, /* positions has been read */
-      ERROR:             3, /* some error occured */
+      INIT:              '', /* initial state */
+      IN_PROGRESS:       'rgb(255,255,177,.5)', /* position reading in progress */
+      POSITION_ACQUIRED: 'rgb(170,255,127,.5)', /* positions has been read */
+      ERROR:             'rgb(0,255,255,.5)', /* some error occured */
     })
 
 
@@ -450,7 +416,8 @@ function GeolocationOnMap(map, iconId) {
         console.log('get position...')
 
         if (!("geolocation" in navigator)) {
-          console.error('Geolocation not supported by browser!')
+          console.error('Geolocation not supported by browser!');
+          this.changeGeolocIconStatus(obj.STATUS.ERROR);
           return;
         }
 
@@ -460,15 +427,12 @@ function GeolocationOnMap(map, iconId) {
                 this.getSuccessCallback(),
                 this.getErrorCallback(),
                 { enableHighAccuracy: true }
-        )
+        );
     }
 
     // set new status and its icon
     this.changeGeolocIconStatus = function(newStatus) {
-
-        // change icon for given status
-        $('#'+this.iconId).attr('src','/images/map_geolocation_' +
-            newStatus + '.png')
+        $(iconSelector).css('background-color', newStatus);
     }
 
     this.getSuccessCallback = function() {
@@ -476,23 +440,24 @@ function GeolocationOnMap(map, iconId) {
         var obj = this;
 
         return function(position) {
-            console.log('position read')
-            console.log(position)
+            console.log('position read: ', position);
 
-            lat = position.coords.latitude
-            lon = position.coords.longitude
+            obj.changeGeolocIconStatus(obj.STATUS.POSITION_ACQUIRED);
 
-            currCoords = ol.proj.fromLonLat([lon, lat])
-            accuracy = position.coords.accuracy
+            lat = position.coords.latitude;
+            lon = position.coords.longitude;
 
-            view = obj.map.getView()
-            view.setCenter(currCoords)
-            view.setZoom(obj.calculateZoomForAccuracy(accuracy))
+            currCoords = ol.proj.fromLonLat([lon, lat]);
+            accuracy = position.coords.accuracy;
+
+            view = obj.map.getView();
+            view.setCenter(currCoords);
+            view.setZoom(obj.calculateZoomForAccuracy(accuracy));
 
             // draw position marker
             var accuracyFeature = new ol.Feature({
-              geometry: new ol.geom.Circle(currCoords, accuracy)
-            })
+              geometry: new ol.geom.Circle(currCoords, accuracy),
+            });
 
             accuracyFeature.setStyle([
                 new ol.style.Style({ //circle
@@ -514,42 +479,21 @@ function GeolocationOnMap(map, iconId) {
                     radius2: 0,
                     angle: Math.PI / 4
                   })
-                })
+                }),
                 ]
             )
 
-            var positionFeature = new ol.Feature({
-              geometry: new ol.geom.Point(currCoords)
-            })
-
-            positionFeature.setStyle(
-                new ol.style.Style({
-                  image: new ol.style.RegularShape({
-                    stroke: new ol.style.Stroke({
-                      color: DynamicMapServices.styler.fgColor,
-                      width: 2
-                    }),
-                    points: 4,
-                    radius: 10,
-                    radius2: 0,
-                    angle: Math.PI / 4
-                  })
-                })
-            )
-
-            obj.positionMarkersCollection.clear()
-            obj.positionMarkersCollection.push(accuracyFeature)
-            obj.positionMarkersCollection.push(positionFeature)
+            obj.positionMarkersCollection.clear();
+            obj.positionMarkersCollection.push(accuracyFeature);
 
             if (obj.positionMarkersLayer == null) {
               obj.positionMarkersLayer = new ol.layer.Vector({
                 map: obj.map,
                 source: new ol.source.Vector({
-                  features: obj.positionMarkersCollection
-                })
+                  features: obj.positionMarkersCollection,
+                }),
               });
             }
-
         }
     }
 
@@ -557,15 +501,14 @@ function GeolocationOnMap(map, iconId) {
         var obj = this;
 
         return function(positionError) {
-            console.error('OC Map: positions reading error!')
-            console.error(positionError)
+            console.error('OC Map: positions reading error!', positionError);
 
             if (positionError.code === 1) { // Permission denied
                 // User has denied geolocation - return to initial state
-                obj.changeGeolocStatus(obj.STATUS.INIT);
+                obj.changeGeolocIconStatus(obj.STATUS.INIT);
             } else {
                 // Indicate actual problem with getting position
-                obj.changeGeolocStatus(obj.STATUS.ERROR);
+                obj.changeGeolocIconStatus(obj.STATUS.ERROR);
             }
         }
     }

@@ -17,24 +17,35 @@
   right: 5px;
 }
 
-.dynamicMap_attribution {
+.dynamicMap_layerSwitcher select {
+  padding: 7px;
+  margin: 5px;
+  border: none;
+  background-color: rgba(255,255,255,0.5);
+  color: #555;
+}
+
+/* all 3 classes to be sure that it overrride OL defaults */
+div.dynamicMap_attribution.ol-control.ol-attribution {
   bottom: 5px;
   right: 5px;
+  background-color: rgba(238,238,238, .4);
 }
 
-.dynamicMap_mapScale {
-  bottom: 3px;
-  left: 250px;
-  font-size: 13px;
-}
-
-.dynamicMap_mapScale .customScale {
-  border-width: 4px;
+/* for OL scale overriding default classes 
+   is a best way to customize look of scale */
+.ol-scale-line {
+  bottom: 5px;
+  left: 250px;  
   border-color: #000;
-  border-style: none solid solid solid;
+  border-style: none solid none solid;
   background-color: rgb(238,238,238);
   opacity: 0.4;
-  text-align: center;
+}
+
+.ol-scale-line-inner {
+  color: #000;
+  font-size: 0.7rem;
 }
 
 .dynamicMap_gpsLocator {
@@ -54,7 +65,9 @@
   flex-direction: column;
 }
 
-.dynamicMap_mapZoom img, .dynamicMap_gpsLocator img, .dynamicMap_compassDiv img {
+.dynamicMap_mapZoom img, 
+.dynamicMap_gpsLocator img, 
+.dynamicMap_compassDiv img {
   width: 25px;
   height: 25px;
   margin: 5px;
@@ -63,9 +76,10 @@
 .dynamicMap_mousePosition {
   bottom: 5px;
   left: 5px;
-  background-color: rgb(238,238,238);
-  font-size: 13px;
+  background-color: rgb(238,238,238,0.4);
+  color: #555;
   padding: 2px 10px;
+  font-size: 0.8rem;
 }
 
 
