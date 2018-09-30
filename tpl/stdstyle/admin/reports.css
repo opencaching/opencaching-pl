@@ -63,6 +63,7 @@ textarea#form-email-textarea, textarea#form-log-textarea, textarea#form-reason-t
 
 .reports-form {
 	font-size: 12px;
+	width: 100%;
 }
 
 fieldset.reports-fieldset {
