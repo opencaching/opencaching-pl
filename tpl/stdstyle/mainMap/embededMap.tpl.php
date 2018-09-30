@@ -1,5 +1,4 @@
 
-
 <div class="content2-container">
 
     <div style="display:none">
@@ -15,21 +14,13 @@
 
           <img id="refreshButton" src="/images/icons/refresh.svg"
                title="<?=tr('refresh_map')?>" alt="<?=tr('refresh_map')?>">
-
-          <img id="filtersToggle" src="/images/icons/marker.svg"
-               title="<?=tr('toggle_filters')?>" alt="<?=tr('toggle_filters')?>">
-        </div>
-
-        <div id="mapFilters" class="ol-control mapFiltersFullScreen">
-          <?=$view->callSubTpl("/mainMap/mainMapFilters")?>
         </div>
     </div>
     <div id="mapCanvasEmbeded"></div>
 
-    <div>
-        <div id="mapFilters" class="mapFiltersEmbeded">
-          <?=$view->callSubTpl("/mainMap/mainMapFilters")?>
-        </div>
+
+    <div id="mapFilters" class="mapFiltersEmbeded">
+      <?=$view->callSubTpl("/mainMap/mainMapFilters")?>
     </div>
 </div>
 
