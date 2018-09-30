@@ -47,6 +47,33 @@ class GeoCacheCommons extends BaseObject {
 
     const ICON_PATH = '/tpl/stdstyle/images/cache/'; //path to the dir with cache icons
 
+    const TYPE_TRADITIONAL_TR_KEY    = 'cacheType_1';
+    const TYPE_OTHERTYPE_TR_KEY      = 'cacheType_5';
+    const TYPE_MULTICACHE_TR_KEY     = 'cacheType_2';
+    const TYPE_VIRTUAL_TR_KEY        = 'cacheType_8';
+    const TYPE_WEBCAM_TR_KEY         = 'cacheType_7';
+    const TYPE_EVENT_TR_KEY          = 'cacheType_6';
+    const TYPE_QUIZ_TR_KEY           = 'cacheType_3';
+    const TYPE_MOVING_TR_KEY         = 'cachetype_4';
+    const TYPE_GEOPATHFINAL_TR_KEY   = 'cacheType_9';
+    const TYPE_OWNCACHE_TR_KEY       = 'cacheType_10';
+
+    const STATUS_READY_TR_KEY            = 'cacheStatus_1';
+    const STATUS_UNAVAILABLE_TR_KEY      = 'cacheStatus_2';
+    const STATUS_ARCHIVED_TR_KEY         = 'cacheStatus_3';
+    const STATUS_WAITAPPROVERS_TR_KEY    = 'cacheStatus_4';
+    const STATUS_NOTYETAVAILABLE_TR_KEY  = 'cacheStatus_5';
+    const STATUS_BLOCKED_TR_KEY          = 'cacheStatus_6';
+
+    const SIZE_OTHER_TR_KEY   = 'cacheSize_other';
+    const SIZE_NANO_TR_KEY   = 'cacheSize_nano';
+    const SIZE_MICRO_TR_KEY   = 'cacheSize_micro';
+    const SIZE_SMALL_TR_KEY   = 'cacheSize_small';
+    const SIZE_REGULAR_TR_KEY = 'cacheSize_regular';
+    const SIZE_LARGE_TR_KEY   = 'cacheSize_large';
+    const SIZE_XLARGE_TR_KEY  = 'cacheSize_xLarge';
+    const SIZE_NONE_TR_KEY   = 'cacheSize_none';
+
     public function __construct()
     {
         parent::__construct();
@@ -55,29 +82,28 @@ class GeoCacheCommons extends BaseObject {
     public static function CacheTypeTranslationKey($type){
 
         switch($type){
-            case self::TYPE_TRADITIONAL:    return 'cacheType_1';
-            case self::TYPE_OTHERTYPE:      return 'cacheType_5';
-            case self::TYPE_MULTICACHE:     return 'cacheType_2';
-            case self::TYPE_VIRTUAL:        return 'cacheType_8';
-            case self::TYPE_WEBCAM:         return 'cacheType_7';
-            case self::TYPE_EVENT:          return 'cacheType_6';
-            case self::TYPE_QUIZ:           return 'cacheType_3';
-            case self::TYPE_MOVING:         return 'cachetype_4';
-            case self::TYPE_GEOPATHFINAL:   return 'cacheType_9';
-            case self::TYPE_OWNCACHE:       return 'cacheType_10';
+            case self::TYPE_TRADITIONAL:    return self::TYPE_TRADITIONAL_TR_KEY;
+            case self::TYPE_OTHERTYPE:      return self::TYPE_OTHERTYP_TR_KEY;
+            case self::TYPE_MULTICACHE:     return self::TYPE_MULTICACHE_TR_KEY;
+            case self::TYPE_VIRTUAL:        return self::TYPE_VIRTUAL_TR_KEY;
+            case self::TYPE_WEBCAM:         return self::TYPE_WEBCAM_TR_KEY;
+            case self::TYPE_EVENT:          return self::TYPE_EVENT_TR_KEY;
+            case self::TYPE_QUIZ:           return self::TYPE_QUIZ_TR_KEY;
+            case self::TYPE_MOVING:         return self::TYPE_MOVING_TR_KEY;
+            case self::TYPE_GEOPATHFINAL:   return self::TYPE_GEOPATHFINAL_TR_KEY;
+            case self::TYPE_OWNCACHE:       return self::TYPE_OWNCACHE_TR_KEY;
         }
     }
 
     public static function CacheStatusTranslationKey($type){
 
         switch($type){
-            case self::STATUS_READY:            return 'cacheStatus_1';
-            case self::STATUS_UNAVAILABLE:      return 'cacheStatus_2';
-            case self::STATUS_ARCHIVED:         return 'cacheStatus_3';
-            case self::STATUS_WAITAPPROVERS:    return 'cacheStatus_4';
-            case self::STATUS_NOTYETAVAILABLE:  return 'cacheStatus_5';
-            case self::STATUS_BLOCKED:          return 'cacheStatus_6';
-
+            case self::STATUS_READY:            return self::STATUS_READY_TR_KEY;
+            case self::STATUS_UNAVAILABLE:      return self::STATUS_UNAVAILABLE_TR_KEY;
+            case self::STATUS_ARCHIVED:         return self::STATUS_ARCHIVED_TR_KEY;
+            case self::STATUS_WAITAPPROVERS:    return self::STATUS_WAITAPPROVERS_TR_KEY;
+            case self::STATUS_NOTYETAVAILABLE:  return self::STATUS_NOTYETAVAILABLE_TR_KEY;
+            case self::STATUS_BLOCKED:          return self::STATUS_BLOCKED_TR_KEY;
         }
     }
     /**
@@ -89,14 +115,15 @@ class GeoCacheCommons extends BaseObject {
     public static function CacheSizeTranslationKey($sizeId)
     {
         switch ($sizeId) {
-            case self::SIZE_OTHER:  return 'cacheSize_other';
-            case self::SIZE_NANO:   return 'cacheSize_nano';
-            case self::SIZE_MICRO:  return 'cacheSize_micro';
-            case self::SIZE_SMALL:  return 'cacheSize_small';
-            case self::SIZE_REGULAR:return 'cacheSize_regular';
-            case self::SIZE_LARGE:  return 'cacheSize_large';
-            case self::SIZE_XLARGE: return 'cacheSize_xLarge';
-            case self::SIZE_NONE:   return 'cacheSize_none';
+            case self::SIZE_OTHER:   return self::SIZE_OTHER_TR_KEY;
+            case self::SIZE_NANO:    return self::SIZE_NANO_TR_KEY;
+            case self::SIZE_MICRO:   return self::SIZE_MICRO_TR_KEY;
+            case self::SIZE_SMALL:   return self::SIZE_SMALL_TR_KEY;
+            case self::SIZE_REGULAR: return self::SIZE_REGULAR_TR_KEY;
+            case self::SIZE_LARGE:   return self::SIZE_LARGE_TR_KEY;
+            case self::SIZE_XLARGE:  return self::SIZE_XLARGE_TR_KEY;
+            case self::SIZE_NONE:    return self::SIZE_NONE_TR_KEY;
+
             default:
                 error_log(__METHOD__ . ' Unknown cache sizeId: ' . $sizeId);
                 return 'size_04';

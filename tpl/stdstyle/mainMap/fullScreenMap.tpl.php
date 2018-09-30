@@ -9,13 +9,13 @@
       <input id="searchControlButton" value="<?=tr('search')?>" type="button">
        -->
       <img id="fullscreenToggle" src="/images/icons/embeded.svg"
-           title="<?=tr('disable_fullscreen')?>" alt="<?=tr('disable_fullscreen')?>">
+           title="<?=tr('map_disableFullscreen')?>" alt="<?=tr('map_disableFullscreen')?>">
 
       <img id="refreshButton" src="/images/icons/refresh.svg"
-           title="<?=tr('refresh_map')?>" alt="<?=tr('refresh_map')?>">
+           title="<?=tr('map_refresh')?>" alt="<?=tr('map_refresh')?>">
 
       <img id="filtersToggle" src="/images/icons/marker.svg"
-           title="<?=tr('toggle_filters')?>" alt="<?=tr('toggle_filters')?>">
+           title="<?=tr('map_toggleFilters')?>" alt="<?=tr('map_toggleFilters')?>">
     </div>
 
     <div id="mapFilters" class="ol-control mapFiltersFullScreen">

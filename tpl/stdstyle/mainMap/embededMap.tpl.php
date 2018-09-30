@@ -10,10 +10,10 @@
           <input id="searchControlButton" value="<?=tr('search')?>" type="button">
            -->
           <img id="fullscreenToggle" src="/images/icons/fullscreen.svg"
-               title="<?=tr('disable_fullscreen')?>" alt="<?=tr('disable_fullscreen')?>">
+               title="<?=tr('map_disableFullscreen')?>" alt="<?=tr('map_disableFullscreen')?>">
 
           <img id="refreshButton" src="/images/icons/refresh.svg"
-               title="<?=tr('refresh_map')?>" alt="<?=tr('refresh_map')?>">
+               title="<?=tr('map_refresh')?>" alt="<?=tr('map_refresh')?>">
         </div>
     </div>
     <div id="mapCanvasEmbeded"></div>

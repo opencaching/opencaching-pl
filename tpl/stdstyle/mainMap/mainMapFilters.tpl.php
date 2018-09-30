@@ -1,28 +1,34 @@
+<?php
+use lib\Objects\GeoCache\GeoCache;
+?>
 
 
 <div class="mapFilterContainer">
-    <div class="mapFiltersHeader"><?=tr('hide_caches_type')?></div>
+    <div class="mapFiltersHeader"><?=tr('map_excludeCachesByType')?></div>
     <div class="mapFiltersControls">
         <div class="col">
           <div>
             <input id="exTypeTraditional" type="checkbox" class="filterParam">
             <label for="exTypeTraditional">
-              <?=tr('traditional')?>
-              <img src="/okapi/static/tilemap/legend_traditional.png" alt="<?=tr('traditional')?>">
+              <?=tr(GeoCache::TYPE_TRADITIONAL_TR_KEY)?>
+              <img src="/okapi/static/tilemap/legend_traditional.png"
+                   alt="<?=tr(GeoCache::TYPE_TRADITIONAL_TR_KEY)?>">
             </label>
           </div>
           <div>
             <input id="exTypeMulti" type="checkbox" class="filterParam">
             <label for="exTypeMulti">
-              <?=tr('multicache')?>
-              <img src="/okapi/static/tilemap/legend_multi.png" alt="<?=tr('multicache')?>">
+              <?=tr(GeoCache::TYPE_MULTICACHE_TR_KEY)?>
+              <img src="/okapi/static/tilemap/legend_multi.png"
+                   alt="<?=tr(GeoCache::TYPE_MULTICACHE_TR_KEY)?>">
             </label>
           </div>
           <div>
             <input id="exTypeQuiz" type="checkbox" class="filterParam">
             <label for="exTypeQuiz">
-              <?=tr('quiz')?>
-              <img src="/okapi/static/tilemap/legend_quiz.png" alt="<?=tr('quiz')?>">
+              <?=tr(GeoCache::TYPE_QUIZ_TR_KEY)?>
+              <img src="/okapi/static/tilemap/legend_quiz.png"
+                   alt="<?=tr(GeoCache::TYPE_QUIZ_TR_KEY)?>">
             </label>
           </div>
         </div>
@@ -30,22 +36,23 @@
           <div>
             <input id="exTypeVirtual" type="checkbox" class="filterParam">
             <label for="exTypeVirtual">
-              <?=tr('virtual')?>
-              <img src="/okapi/static/tilemap/legend_virtual.png" alt="<?=tr('virtual')?>">
+              <?=tr(GeoCache::TYPE_VIRTUAL_TR_KEY)?>
+              <img src="/okapi/static/tilemap/legend_virtual.png"
+                   alt="<?=tr(GeoCache::TYPE_VIRTUAL_TR_KEY)?>">
             </label>
           </div>
           <div>
             <input id="exTypeEvent" type="checkbox" class="filterParam">
             <label for="exTypeEvent">
-              <?=tr('event')?>
-              <img src="/okapi/static/tilemap/legend_event.png" alt="<?=tr('event')?>">
+              <?=tr(GeoCache::TYPE_EVENT_TR_KEY)?>
+              <img src="/okapi/static/tilemap/legend_event.png" alt="<?=tr(GeoCache::TYPE_EVENT_TR_KEY)?>">
             </label>
           </div>
           <div>
             <input id="exTypeOther" type="checkbox" class="filterParam">
             <label for="exTypeOther">
-              <?=tr('unknown_type')?>
-              <img src="/okapi/static/tilemap/legend_unknown.png" alt="<?=tr('unknown_type')?>">
+              <?=tr(GeoCache::TYPE_OTHERTYPE_TR_KEY)?>
+              <img src="/okapi/static/tilemap/legend_unknown.png" alt="<?=tr(GeoCache::TYPE_OTHERTYPE_TR_KEY)?>">
             </label>
           </div>
         </div>
@@ -53,22 +60,22 @@
           <div>
             <input id="exTypeWebcam" type="checkbox" class="filterParam">
             <label for="exTypeWebcam">
-              <?=tr('webcam')?>
-              <img src="/okapi/static/tilemap/legend_webcam.png" alt="<?=tr('webcam')?>">
+              <?=tr(GeoCache::TYPE_WEBCAM_TR_KEY)?>
+              <img src="/okapi/static/tilemap/legend_webcam.png" alt="<?=tr(GeoCache::TYPE_WEBCAM_TR_KEY)?>">
             </label>
           </div>
           <div>
             <input id="exTypeMoving" type="checkbox" class="filterParam">
             <label for="exTypeMoving">
-              <?=tr('moving')?>
-              <img src="/okapi/static/tilemap/legend_moving.png" alt="<?=tr('moving')?>">
+              <?=tr(GeoCache::TYPE_MOVING_TR_KEY)?>
+              <img src="/okapi/static/tilemap/legend_moving.png" alt="<?=tr(GeoCache::TYPE_MOVING_TR_KEY)?>">
             </label>
           </div>
           <div>
             <input id="exTypeOwn" type="checkbox" class="filterParam">
             <label for="exTypeOwn">
-              <?=tr('owncache')?>
-              <img src="/okapi/static/tilemap/legend_own.png" alt="<?=tr('owncache')?>">
+              <?=tr(GeoCache::TYPE_OWNCACHE_TR_KEY)?>
+              <img src="/okapi/static/tilemap/legend_own.png" alt="<?=tr(GeoCache::TYPE_OWNCACHE_TR_KEY)?>">
             </label>
           </div>
         </div>
@@ -76,65 +83,65 @@
 </div>
 
 <div class="mapFilterContainer">
-    <div class="mapFiltersHeader"><?=tr('hide_caches')?></div>
+    <div class="mapFiltersHeader"><?=tr('map_excludeCaches')?></div>
     <div class="mapFiltersControls">
         <div class="col">
           <div>
             <input id="exIgnored" type="checkbox" class="filterParam">
-            <label for="exIgnored"><?=tr('ignored')?></label>
+            <label for="exIgnored"><?=tr('map_excludeIgnored')?></label>
           </div>
           <div>
             <input id="exMyOwn" type="checkbox" class="filterParam">
-            <label for="exMyOwn"><?=tr('own')?></label>
+            <label for="exMyOwn"><?=tr('map_excludeOwned')?></label>
           </div>
           <div>
             <input id="exFound" type="checkbox" class="filterParam">
-            <label for="exFound"><?=tr('founds')?></label>
+            <label for="exFound"><?=tr('map_excludeFound')?></label>
           </div>
           <div>
             <input id="exNoYetFound" type="checkbox" class="filterParam">
-            <label for="exNoYetFound"><?=tr('not_yet_found')?></label>
+            <label for="exNoYetFound"><?=tr('map_excludeNotYetFound')?></label>
           </div>
 
           <div>
             <input id="exNoGeokret" type="checkbox" class="filterParam">
-            <label for="exNoGeokret"><?=tr('without_geokret')?></label>
+            <label for="exNoGeokret"><?=tr('map_excludeWithoutGeokret')?></label>
           </div>
         </div>
 
         <div class="col">
           <div>
             <input id="exTempUnavail" type="checkbox" class="filterParam">
-            <label for="exTempUnavail"><?=tr('temp_unavailables')?></label>
+            <label for="exTempUnavail"><?=tr('map_excludeTempUnavailable')?></label>
           </div>
           <div>
             <input id="exArchived" type="checkbox" class="filterParam">
-            <label for="exArchived"><?=tr('archived_plural')?></label>
+            <label for="exArchived"><?=tr('map_excludeArchived_plural')?></label>
           </div>
         </div>
     </div>
 </div>
 
 <div class="mapFilterContainer">
-    <div class="mapFiltersHeader"><?=tr('hide_caches')?></div>
+    <div class="mapFiltersHeader"><?=tr('map_displayOnlyCaches')?></div>
     <div class="mapFiltersControls">
 
         <div class="col">
             <div>
               <input id="ftfHunter" type="checkbox" class="filterParam">
-              <label for="ftfHunter"><?=tr('map_01')?></label>
+              <label for="ftfHunter"><?=tr('map_onlyFtfs')?></label>
             </div>
             <div>
               <input id="powertrailOnly" type="checkbox" class="filterParam">
-              <label for="powertrailOnly"><?=tr('map_05')?></label>
+              <label for="powertrailOnly"><?=tr('map_onlyCacheFromGeopaths')?></label>
             </div>
 
-            <?=tr('map_02')?>
+            <?=tr('map_onlyWithMinScore')?>
             <select id="rating" class="filterParam">
-                <option value="1-5|X"><?=tr('map_03')?></option>
-                <option value="2-5|X"><?=tr('rating_ge_average')?></option>
-                <option value="3-5|X"><?=tr('rating_ge_good')?></option>
-                <option value="4-5|X"><?=tr('rating_ge_excellent')?></option>
+                <option value="1-5|X"><?=tr('map_scoreAny')?></option>
+                <option value="2-5|X"><?=tr('map_scoreGeAverange')?></option>
+                <option value="3-5|X"><?=tr('map_scoreGeGood')?></option>
+                <option value="4-5|X"><?=tr('map_scoreGeExcellent')?></option>
             </select>
         </div>
     </div>
@@ -142,7 +149,7 @@
 
 <?php if( isset($view->cacheSet) ) { ?>
 <div class="mapFilterContainer">
-    <div class="mapFiltersHeader"><?=tr('gp_mainTitile')?></div>
+    <div class="mapFiltersHeader"><?=tr('map_csFilter')?></div>
     <div class="mapFiltersControls">
       <div class="col">
         <div>
@@ -152,7 +159,7 @@
             <a href='<?=$view->cacheSet->getUrl()?>'
               title='<?=$view->cacheSet->getName()?>' target='_blank'>
               <img width="20px" height="20px" src="<?=$view->cacheSet->getIcon()?>"
-                   alt="<?=tr('gp_mainTitile')?>"
+                   alt="<?=tr('map_csFilter')?>"
                    title="<?=$view->cacheSet->getName()?>">
               <?=$view->cacheSet->getName()?>
             </a>

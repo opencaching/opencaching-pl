@@ -434,7 +434,7 @@ class OpenCheckerCore {
             </td>
             <td>
                 (' . tr('ready_to_find') . ')<br />
-                (' . tr('temp_unavailables') . ')
+                (' . tr('openchecker_excludeTempUnavailable') . ')
             </td>
             <td align="center">' . $attempts . '</td>
             <td align="center">' . $hits . '</td>
