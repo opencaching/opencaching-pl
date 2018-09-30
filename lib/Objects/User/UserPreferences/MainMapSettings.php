@@ -35,6 +35,7 @@ class MainMapSettings extends UserPreferencesBaseData
                 'powertrailOnly' => false,
                 'exWithoutRecommendation' => false,
                 'rating' => "1-5|X",
+                'size2' => "any",
              ],
             'map' => 'OSM',                 /* last used map */
         ];

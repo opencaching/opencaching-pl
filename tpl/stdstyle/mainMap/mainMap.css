@@ -77,3 +77,7 @@
 .mapFilterContainer input {
   vertical-align: middle;
 }
+
+.mapFiltersControls select {
+  margin: 0 0 5px 5px;
+}

@@ -306,7 +306,6 @@ class MainMapAjaxController extends BaseController
             $this->searchParams['min_rcmds'] = "1";
         }
 
-
         // ftfHunter (hunt for FTFs) - convert to OKAPI's "ftf_hunter" parameter.
         if ( isset($_GET['ftfHunter']) ) {
             $this->searchParams['ftf_hunter'] = "true";
@@ -324,6 +323,23 @@ class MainMapAjaxController extends BaseController
         // min_score - convert to OKAPI's "rating" filter
         if ( isset($_GET['rating']) && preg_match('/^[1-4]-[1-5]|X$/', $_GET['rating']) ){
             $this->searchParams['rating'] = $_GET['rating'];
+        }
+
+
+        // min_score - convert to OKAPI's "rating" filter
+        if ( isset($_GET['size2']) ){
+            //'none', 'nano', 'micro', 'small', 'regular', 'large', 'xlarge', 'other'.
+            switch($_GET['size2']){
+                case "micro":
+                    $this->searchParams['size2'] = 'small|regular|large|xlarge|other';
+                    break;
+                case "small":
+                    $this->searchParams['size2'] = 'regular|large|xlarge|other';
+                    break;
+                case "regular":
+                    $this->searchParams['size2'] = 'large|xlarge|other';
+                    break;
+            }
         }
 
         // powertrail_ids (only caches from powerTrails with id) - convert to OKAPI's "powertrail_ids" param.

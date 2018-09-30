@@ -119,9 +119,11 @@ use lib\Objects\GeoCache\GeoCache;
             <label for="exArchived"><?=tr('map_excludeArchived_plural')?></label>
           </div>
           <div>
-              <input id="exWithoutRecommendation" type="checkbox" class="filterParam">
-              <label for="exWithoutRecommendation"><?=tr('map_exWithoutRecomendation')?></label>
-            </div>
+            <input id="exWithoutRecommendation" type="checkbox" class="filterParam">
+            <label for="exWithoutRecommendation"><?=tr('map_exWithoutRecomendation')?></label>
+          </div>
+
+
 
         </div>
     </div>
@@ -140,6 +142,8 @@ use lib\Objects\GeoCache\GeoCache;
               <input id="powertrailOnly" type="checkbox" class="filterParam">
               <label for="powertrailOnly"><?=tr('map_onlyCacheFromGeopaths')?></label>
             </div>
+        </div>
+        <div class="col">
 
             <div>
                 <label for="rating"><?=tr('map_onlyWithMinScore')?></label>
@@ -150,6 +154,17 @@ use lib\Objects\GeoCache\GeoCache;
                     <option value="4-5|X"><?=tr('map_scoreGeExcellent')?></option>
                 </select>
             </div>
+
+          <div>
+            <label for="size2"><?=tr('map_biggerSizeThan')?></label>
+            <select id="size2" class="filterParam">
+              <option value="any"><?=tr('map_sizeAny')?></option>
+              <option value="micro"><?=lcfirst(tr(GeoCache::SIZE_MICRO_TR_KEY))?></option>
+              <option value="small"><?=lcfirst(tr(GeoCache::SIZE_SMALL_TR_KEY))?></option>
+              <option value="regular"><?=lcfirst(tr(GeoCache::SIZE_REGULAR_TR_KEY))?></option>
+            </select>
+          </div>
+
         </div>
     </div>
 </div>
