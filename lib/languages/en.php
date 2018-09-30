@@ -118,6 +118,8 @@ $translations = array(
     'map_excludeNotYetFound' => 'Not yet found',
     'map_excludeTempUnavailable' => 'Temporarily unavailable',
     'map_displayOnlyCaches' => 'Display only caches',
+    'map_exWithoutRecomendation' => 'without recommendation',
+
     'ready_to_find' => 'Ready to be found',
     'other_options' => 'Other options',
     'show_signes' => 'Show signatures',

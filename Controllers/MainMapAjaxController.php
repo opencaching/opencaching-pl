@@ -301,6 +301,12 @@ class MainMapAjaxController extends BaseController
         }
         $this->searchParams['status'] = implode("|", $status);
 
+        // exNoGeokret - Convert to OKAPI's "with_trackables_only" parameter.
+        if ( isset($_GET['exWithoutRecommendation']) ) {
+            $this->searchParams['min_rcmds'] = "1";
+        }
+
+
         // ftfHunter (hunt for FTFs) - convert to OKAPI's "ftf_hunter" parameter.
         if ( isset($_GET['ftfHunter']) ) {
             $this->searchParams['ftf_hunter'] = "true";

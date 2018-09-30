@@ -94,8 +94,6 @@ function getCommonUrlParams(){
     }
   }
 
-  console.log('urlParams:', urlParamsArr)
-
   return urlParamsArr;
 }
 

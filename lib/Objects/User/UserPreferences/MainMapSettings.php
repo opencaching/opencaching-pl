@@ -33,6 +33,7 @@ class MainMapSettings extends UserPreferencesBaseData
                 'ftfHunter'     => false,
                 'exNoYetFound'  => false,
                 'powertrailOnly' => false,
+                'exWithoutRecommendation' => false,
                 'rating' => "1-5|X",
              ],
             'map' => 'OSM',                 /* last used map */

@@ -117,6 +117,7 @@ $translations = array(
     'map_excludeIgnored' => 'ignorowane',
     'map_excludeNotYetFound' => 'jeszcze nieznalezione',
     'map_excludeTempUnavailable' => 'tymczasowo niedostępne',
+    'map_exWithoutRecomendation' => 'bez rekomendacji',
     'ready_to_find' => 'gotowe do szukania',
     'other_options' => 'Pozostałe opcje',
     'show_signes' => 'pokaż podpisy',

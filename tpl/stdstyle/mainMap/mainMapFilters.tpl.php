@@ -118,6 +118,11 @@ use lib\Objects\GeoCache\GeoCache;
             <input id="exArchived" type="checkbox" class="filterParam">
             <label for="exArchived"><?=tr('map_excludeArchived_plural')?></label>
           </div>
+          <div>
+              <input id="exWithoutRecommendation" type="checkbox" class="filterParam">
+              <label for="exWithoutRecommendation"><?=tr('map_exWithoutRecomendation')?></label>
+            </div>
+
         </div>
     </div>
 </div>
@@ -136,13 +141,15 @@ use lib\Objects\GeoCache\GeoCache;
               <label for="powertrailOnly"><?=tr('map_onlyCacheFromGeopaths')?></label>
             </div>
 
-            <?=tr('map_onlyWithMinScore')?>
-            <select id="rating" class="filterParam">
-                <option value="1-5|X"><?=tr('map_scoreAny')?></option>
-                <option value="2-5|X"><?=tr('map_scoreGeAverange')?></option>
-                <option value="3-5|X"><?=tr('map_scoreGeGood')?></option>
-                <option value="4-5|X"><?=tr('map_scoreGeExcellent')?></option>
-            </select>
+            <div>
+                <label for="rating"><?=tr('map_onlyWithMinScore')?></label>
+                <select id="rating" class="filterParam">
+                    <option value="1-5|X"><?=tr('map_scoreAny')?></option>
+                    <option value="2-5|X"><?=tr('map_scoreGeAverange')?></option>
+                    <option value="3-5|X"><?=tr('map_scoreGeGood')?></option>
+                    <option value="4-5|X"><?=tr('map_scoreGeExcellent')?></option>
+                </select>
+            </div>
         </div>
     </div>
 </div>
