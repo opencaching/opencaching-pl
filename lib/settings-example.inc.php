@@ -171,8 +171,6 @@ $googleAnalytics_key = '';      // google Analytics key: UA-XXXXX-Y - if not set
 
 $dberrormail = 'rt@localhost';
 
-$cachemap_mapper = "lib/mapper_okapi.php";
-
 //Links to blog page on oc site
 //NOT-USED: $blogsite_url = 'http://blog.opencaching.pl';
 
