@@ -136,6 +136,7 @@ function mapClickInit(params) {
           {
             id: 'mapClickMarker',
             element: clickMarkerDiv[0],
+            positioning: 'center-center',
             position: coords,
             autoPanAnimation: {
               duration: 250
@@ -221,13 +222,7 @@ function mapClickInit(params) {
             }
         ));
 
-        /* TODO
-        // assign click on popup close button handler
-        $("#mapPopup-closer").click(function() {
-          popup.setPosition(undefined);
-          return false;
-        });
-        */
+
       }
 
       // load popup data
@@ -239,6 +234,12 @@ function mapClickInit(params) {
 
       var cacheCords = ol.proj.transform([data.coords.lon,data.coords.lat],'EPSG:4326','EPSG:3857');
       popup.setPosition(cacheCords);
+
+      // assign click on popup close button handler
+      $("#mapPopup-closer").click(function() {
+        popup.setPosition(undefined);
+        return false;
+      });
 
 
     });

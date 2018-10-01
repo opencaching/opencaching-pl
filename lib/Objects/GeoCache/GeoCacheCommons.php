@@ -83,7 +83,7 @@ class GeoCacheCommons extends BaseObject {
 
         switch($type){
             case self::TYPE_TRADITIONAL:    return self::TYPE_TRADITIONAL_TR_KEY;
-            case self::TYPE_OTHERTYPE:      return self::TYPE_OTHERTYP_TR_KEY;
+            case self::TYPE_OTHERTYPE:      return self::TYPE_OTHERTYPE_TR_KEY;
             case self::TYPE_MULTICACHE:     return self::TYPE_MULTICACHE_TR_KEY;
             case self::TYPE_VIRTUAL:        return self::TYPE_VIRTUAL_TR_KEY;
             case self::TYPE_WEBCAM:         return self::TYPE_WEBCAM_TR_KEY;

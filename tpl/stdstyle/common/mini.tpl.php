@@ -2,10 +2,14 @@
 <html lang="<?=$view->getLang()?>">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
   <link rel="stylesheet" type="text/css" media="screen" href="<?=$view->screenCss?>">
   <link rel="stylesheet" type="text/css" media="print" href="<?=$view->printCss?>">
   <link rel="shortcut icon" href="/images/<?=$config['headerFavicon']?>">
   <link rel="apple-touch-icon-precomposed" href="/images/oc_logo_144.png">
+
+
 
   <?php foreach( $view->getLocalCss() as $css ) { ?>
     <link rel="stylesheet" type="text/css" href="<?=$css?>">

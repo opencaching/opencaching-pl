@@ -19,6 +19,7 @@ global $tpl_subtitle;
   <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png">
   <link rel="manifest" href="/images/icons/site.webmanifest">
   <link rel="mask-icon" href="/images/icons/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="apple-mobile-web-app-title" content="Opencaching">
   <meta name="application-name" content="Opencaching">
   <meta name="msapplication-TileColor" content="#04bd00">
@@ -27,6 +28,9 @@ global $tpl_subtitle;
 
   <link rel="stylesheet" type="text/css" media="screen" href="<?=$view->screenCss?>">
   <link rel="stylesheet" type="text/css" media="print" href="<?=$view->printCss?>">
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+
 
   <?php if ($view->_showVideoBanner) {
     foreach($view->_topBannerVideo as $videoPath) { ?>

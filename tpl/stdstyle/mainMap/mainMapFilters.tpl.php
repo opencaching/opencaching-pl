@@ -2,7 +2,6 @@
 use lib\Objects\GeoCache\GeoCache;
 ?>
 
-
 <div class="mapFilterContainer">
     <div class="mapFiltersHeader"><?=tr('map_excludeCachesByType')?></div>
     <div class="mapFiltersControls">
