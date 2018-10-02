@@ -408,7 +408,7 @@ function initControls(params){
       }
   ));
 
-  // init fullscreen - embeded map toggler
+  // init fullscreen <-> embeded map toggler
   $('#fullscreenToggle').click(function() {
 
     zoom = map.getView().getZoom();
@@ -416,15 +416,17 @@ function initControls(params){
     projection = map.getView().getProjection().getCode();
     wgs84Coords = ol.proj.transform(coords, projection, 'EPSG:4326');
 
-    if(params.isFullScreenMap){
-      var uri = '/MainMap/embeded/';
-    }else{
-      var uri = '/MainMap/fullscreen/';
+    var currentLocation = window.location.href;
+    if( params.isFullScreenMap ){
+      // this is fullscreen map -> user switch to embeded
+      document.cookie = "forceFullScreenMap=off;"; //remember user decision in cookie
+        url = currentLocation.replace(/fullScreen/i, "embeded");
+    } else {
+        document.cookie = "forceFullScreenMap=on;";
+        url = currentLocation.replace(/embeded/i, "fullScreen");
     }
-    uri += '?lon=' + wgs84Coords[0] + '&lat=' + wgs84Coords[1];
-    uri += '&zoom=' + zoom;
 
-    window.location.href = uri;
+    window.location.href = url;
   });
 
 

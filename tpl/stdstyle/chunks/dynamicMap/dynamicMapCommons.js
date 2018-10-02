@@ -262,8 +262,6 @@ var CoordinatesUtil = {
   };
 
 function cordsUnderCursorInit(params) {
-  console.log('width:', jQuery(window).width());
-
 
   if( jQuery(window).width() < 800 ){
     console.log('CordsUnderCursor control skipped because of window width.')
