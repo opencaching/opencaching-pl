@@ -162,7 +162,12 @@ function mapClickInit(params) {
     }
   }
 
-  var _getPopupDataUrl = function(coords) {
+  /**
+   * Returns url to retrive cache data
+   * @param coords - OL coords of click
+   * @param skipFilters boolean - if set filters are skiped
+   */
+  var _getPopupDataUrl = function(coords, skipFilters=null) {
 
     var url='/MainMapAjax/getPopupData/';
 
@@ -175,23 +180,25 @@ function mapClickInit(params) {
     // add userId param
     url += '/' + params.userId;
 
-    // collect filter params, search data etc.
-    urlParamsArr = getCommonUrlParams();
-    if(urlParamsArr.length > 0){
-      url += '?' + urlParamsArr.join('&');
+    if(!skipFilters){
+      // collect filter params, search data etc.
+      urlParamsArr = getCommonUrlParams();
+      if(urlParamsArr.length > 0){
+        url += '?' + urlParamsArr.join('&');
+      }
     }
 
     return url;
   }
 
-  var onLeftClickFunc = function(coords) {
+  var onLeftClickFunc = function(coords, skipFilters=null) {
 
     _abortPreviousRequests();
 
     _displayClickMarker(coords);
 
     pendingClickRequest = jQuery.ajax({
-      url: _getPopupDataUrl(coords),
+      url: _getPopupDataUrl(coords, skipFilters),
     });
 
     pendingClickRequest.always( function() {
@@ -267,7 +274,7 @@ function mapClickInit(params) {
   })
 
   if(params.openPopupAtCenter){
-    onLeftClickFunc(map.getView().getCenter());
+    onLeftClickFunc(map.getView().getCenter(), true);
   }
 
 }

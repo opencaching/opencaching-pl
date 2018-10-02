@@ -62,7 +62,7 @@ class MainMapController extends BaseController
 
         $this->mapCommonInit(false);
 
-        $this->view->buildView();
+        $this->view->buildInMiniTpl();
     }
 
     private function mapCommonInit()

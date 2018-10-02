@@ -456,7 +456,8 @@ use Controllers\MainMapController;
 
             <?php if ($view->isUserAuthorized || $view->alwaysShowCoords) { ?>
               <div class="img-shadow">
-                <a data-fancybox data-type="iframe" data-src="<?=SimpleRouter::getLink(MainMapController::class, 'mini')?>?lat=<?=$view->geoCache->getCoordinates()->getLatitude()?>&lon=<?=$view->geoCache->getCoordinates()->getLongitude()?>&zoom=14" href="javascript:;">
+                <a data-fancybox data-type="iframe"
+                   data-src="<?=SimpleRouter::getLink(MainMapController::class, 'fullScreen')?>?lat=<?=$view->geoCache->getCoordinates()->getLatitude()?>&lon=<?=$view->geoCache->getCoordinates()->getLongitude()?>&openPopup" href="javascript:;">
                   <img src="<?=$view->mapImgLink?>" alt="<?=tr('map')?>" title="<?=tr('map')?>">
                  </a>
               </div>
