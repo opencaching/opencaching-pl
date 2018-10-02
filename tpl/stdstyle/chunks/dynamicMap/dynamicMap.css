@@ -36,12 +36,24 @@ div.dynamicMap_attribution.ol-control.ol-attribution {
    is a best way to customize look of scale */
 .ol-scale-line {
   bottom: 5px;
-  left: 250px;  
   border-color: #000;
   border-style: none solid none solid;
   background-color: rgb(238,238,238);
   opacity: 0.4;
 }
+
+@media screen and (max-width: 800px) {
+  .ol-scale-line {
+    left: 5px;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .ol-scale-line {
+    left: 40vw;
+  }
+}
+
 
 .ol-scale-line-inner {
   color: #000;

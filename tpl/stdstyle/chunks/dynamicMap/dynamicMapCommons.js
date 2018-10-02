@@ -262,6 +262,13 @@ var CoordinatesUtil = {
   };
 
 function cordsUnderCursorInit(params) {
+  console.log('width:', jQuery(window).width());
+
+
+  if( jQuery(window).width() < 800 ){
+    console.log('CordsUnderCursor control skipped because of window width.')
+    return;
+  }
 
   params.curPos = {};
   params.curPos.positionDiv = $('<div class="ol-control dynamicMap_mousePosition"></div>');
