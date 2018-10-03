@@ -101,19 +101,15 @@ class MainMapAjaxController extends BaseController
         $this->searchParams['y'] = $y;    // y-index of tile
         $this->searchParams['z'] = $zoom; // zoom of the tile
 
-        /*
-         * There are two "modes" (see the mapper_okapi for details):
-         * - without "searchdata" - the normal version.
-         * - with "searchdata" - ONLY "searchdata" is taken into account (All other
-         * parameters are ignored).
-         */
+
         if ($searchData = $this->getSearchDataParam()) {
-            $this->loadSearchData($searchData); // load searchdata
-        } else {
-            $this->parseUrlSearchParams(); // parse filter params
+            // searchData = set of caches - the rest of caches are excluded
+            $this->loadSearchData($searchData);
         }
 
-        # Get OKAPI's response and display it. Add proper Cache-Control headers.
+        $this->parseUrlSearchParams(); // parse filter params
+
+        // Get OKAPI's response and display it. Add proper Cache-Control headers.
         Facade::service_display('services/caches/map/tile', $userId, $this->searchParams);
     }
 
@@ -137,18 +133,14 @@ class MainMapAjaxController extends BaseController
 
     private function getCache($forUserId, $bboxStr)
     {
-        /*
-         * There are two "modes" (see the mapper_okapi for details):
-         * - without "searchdata" - the normal version.
-         * - with "searchdata" - ONLY "searchdata" is taken into account (All other
-         * parameters are ignored).
-         */
+
         if ($searchData = $this->getSearchDataParam()) {
+            // searchData = set of caches - the rest of caches are excluded
             $this->loadSearchData($searchData);
-        } else {
-            $this->parseUrlSearchParams();
         }
 
+        // load the rest of params
+        $this->parseUrlSearchParams();
 
         $this->searchParams['bbox'] = $bboxStr;
         $this->searchParams['limit'] = 1;
@@ -165,7 +157,7 @@ class MainMapAjaxController extends BaseController
         $params['wrap'] = 'false';
 
 
-        //call OKAPI
+        // call OKAPI
         /** @var \ArrayObject */
         $okapiResp = Facade::service_call(
             'services/caches/shortcuts/search_and_retrieve',

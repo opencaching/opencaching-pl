@@ -69,7 +69,7 @@ function getCommonUrlParams(){
   urlParamsArr = [];
 
   if ( params.searchData ) {
-    urlParamsArr.push("searchdata="+params.searchdata);
+    urlParamsArr.push("searchdata="+params.searchData);
   }
 
   // load filters data
