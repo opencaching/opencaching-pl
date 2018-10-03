@@ -31,9 +31,6 @@
       if( $view->isFancyBoxEnabled()){
           $view->callChunk('fancyBoxLoader', true, false);
       }
-      if( $view->isGMapApiEnabled()){
-          $view->callChunk('googleMapsApi', $GLOBALS['googlemap_key'], $view->getLang());
-      }
 
       foreach ( $view->getHeaderChunks() as $chunkName => $args )
       {
