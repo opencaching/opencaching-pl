@@ -56,15 +56,6 @@ class MainMapController extends BaseController
         $this->view->buildView();
     }
 
-    public function mini()
-    {
-        $this->view->setTemplate('mainMap/miniMap');
-
-        $this->mapCommonInit(false);
-
-        $this->view->buildInMiniTpl();
-    }
-
     private function mapCommonInit()
     {
         $this->view->addHeaderChunk('openLayers5');
@@ -129,7 +120,7 @@ class MainMapController extends BaseController
             $mapModel->setZoom($zoom);
         }
 
-
+        // load previously saved map settings
         $savedUserPrefs = UserPreferences::getUserPrefsByKey(MainMapSettings::KEY);
         $this->view->setVar('savedUserPrefs', $savedUserPrefs->getJsonValues());
 
