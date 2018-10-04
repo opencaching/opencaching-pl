@@ -533,11 +533,11 @@ if ($error == false) {
                             $log_uuid = Uuid::create();
                             XDb::xSql(
                                 "INSERT INTO `cache_logs` (
-                                    `id`, `cache_id`, `user_id`, `type`, `date`, `text`,
+                                    `cache_id`, `user_id`, `type`, `date`, `text`,
                                     `text_html`, `text_htmledit`, `date_created`, `last_modified`,
                                     `uuid`, `node`)
                                  VALUES (
-                                    '', ?, ?, ?, NOW(), ?, ?, ?, NOW(), NOW(), ?, ?)",
+                                    ?, ?, ?, NOW(), ?, ?, ?, NOW(), NOW(), ?, ?)",
                                  $cache_id, $usr['userid'], 11, $log_text, 0, 0, $log_uuid, $oc_nodeid);
                         }
                         if (( $status_old == $STATUS['READY'] ||
@@ -548,11 +548,11 @@ if ($error == false) {
                             $log_uuid = Uuid::create();
                             XDb::xSql(
                                 "INSERT INTO `cache_logs` (
-                                    `id`, `cache_id`, `user_id`, `type`, `date`, `text`,
+                                    `cache_id`, `user_id`, `type`, `date`, `text`,
                                     `text_html`, `text_htmledit`, `date_created`, `last_modified`,
                                     `uuid`, `node`)
                                  VALUES (
-                                    '', ?, ?, ?, NOW(), ?, ?, ?, NOW(), NOW(), ?, ?)",
+                                    ?, ?, ?, NOW(), ?, ?, ?, NOW(), NOW(), ?, ?)",
                                  $cache_id, $usr['userid'], 9, $log_text, 0, 0, $log_uuid, $oc_nodeid);
                         }
 
@@ -564,11 +564,11 @@ if ($error == false) {
                             $log_uuid = Uuid::create();
                             XDb::xSql(
                                 "INSERT INTO `cache_logs` (
-                                    `id`, `cache_id`, `user_id`, `type`, `date`,
+                                    `cache_id`, `user_id`, `type`, `date`,
                                     `text`, `text_html`, `text_htmledit`, `date_created`,
                                     `last_modified`, `uuid`, `node`)
                                  VALUES (
-                                    '', ?, ?, ?, NOW(), ?, ?, ?, NOW(), NOW(), ?, ?)",
+                                    ?, ?, ?, NOW(), ?, ?, ?, NOW(), NOW(), ?, ?)",
                                     $cache_id, $usr['userid'], 10, $log_text, 0, 0, $log_uuid, $oc_nodeid);
                         }
 
@@ -580,10 +580,10 @@ if ($error == false) {
                             $log_uuid = Uuid::create();
                             XDb::xSql(
                                 "INSERT INTO `cache_logs` (
-                                    `id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`,
+                                    `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`,
                                     `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
                                  VALUES (
-                                    '', ?, ?, ?, NOW(), ?, ?, ?, NOW(), NOW(), ?, ?)",
+                                    ?, ?, ?, NOW(), ?, ?, ?, NOW(), NOW(), ?, ?)",
                                     $cache_id, $usr['userid'], 12, $log_text, 0, 0, $log_uuid, $oc_nodeid);
                         }
 
