@@ -419,7 +419,7 @@ $view->callChunk('tinyMCE');
             if (document.newcacheform.lat_h.value == "0" && document.newcacheform.lon_h.value == "0") {
     alert("{{input_coord}}");
     } else {
-    window.open('/CacheMap/embeded?circle=1&inputZoom=17&lat=' + lat + '&lon=' + lon); }
+    window.open(<?=SimpleRouter::getLink(MainMapController::class, 'fullscreen')?>.'?circle&lat='+lat+'&lon='+lon); }
     return false;
     }
 </script>

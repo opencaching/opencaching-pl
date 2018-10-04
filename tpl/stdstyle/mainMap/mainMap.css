@@ -1,0 +1,98 @@
+
+#mapCanvasFullScreen {
+  width: 100%; 
+  height: 100%; 
+  position: absolute; 
+  top: 0px;
+}
+
+#mapCanvasEmbeded {
+  height: 550px; 
+  margin-bottom: 10px;
+}
+
+#mapClickMarker {
+  width: 32px;
+  height: 32px;
+  border: 3px solid green;
+}
+
+#mainMapControls {
+  top: 10px;
+  left: 20px;
+}
+
+#mainMapControls img {
+  width: 25px;
+  height: 25px;
+  margin: 5px;
+}
+
+.mapFiltersFullScreen {
+  top: 38px;
+  left: 2px;
+  width: 400px;
+  
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0 0 5px;
+
+}
+
+@media screen and (max-width: 414px) {
+  .mapFiltersFullScreen {
+    max-width: calc(100vw - 24px);
+    overflow-x: scroll;
+  }
+}
+
+@media screen and (max-height: 400px) {
+  .mapFiltersFullScreen {
+    max-height: calc(100vh - 120px);
+    overflow-y: scroll;
+  }
+}
+
+.mapFiltersEmbeded {
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  
+}
+
+.mapFilterContainer {
+  margin: 5px 5px 0 5px;
+  padding-bottom: 5px;
+  min-width: 370px;
+}
+
+.mapFiltersHeader {
+  padding: 5px 10px;
+  background-color: #777;
+  text-align: center;
+  border-radius: 4px 4px 0 0;
+  color: #fff;
+  font-weight: bold;
+  
+}
+
+.mapFiltersControls {
+  background-color: #eee;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 5px;
+}
+
+.mapFilterContainer label,
+.mapFilterContainer input {
+  vertical-align: middle;
+}
+
+.mapFiltersControls select {
+  margin: 0 0 5px 5px;
+}
+

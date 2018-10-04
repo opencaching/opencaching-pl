@@ -15,6 +15,8 @@ if ($error == false) {
         tpl_redirect('login.php?target=' . $target);
     } else {
         $tplname = 'myroutes_add_map2';
+        $view = tpl_getView();
+
         tpl_set_var('cachemap_header', '<script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&amp;key=' . $googlemap_key . '&amp;language=' . $lang . '"></script>');
 
         // set map center

@@ -28,6 +28,7 @@ class UserPreferences extends BaseObject
         UserProfilePref::KEY => UserProfilePref::class,
         NeighbourhoodPref::KEY => NeighbourhoodPref::class,
         UserMapSettings::KEY => UserMapSettings::class,
+        MainMapSettings::KEY => MainMapSettings::class,
     ];
 
     /** @var UserPreferencesBaseData[] */

@@ -33,16 +33,7 @@
         if( $view->isFancyBoxEnabled()){
             $view->callChunk('fancyBoxLoader', true, false);
         }
-        if( $view->isGMapApiEnabled() ){
-            if( !isset($GLOBALS['googlemap_key']) || empty($GLOBALS['googlemap_key']) ){
-                $view->errorLog("There is no googlemap_key value in site settings?!".
-                            "Map can't be loaded!");
-            }else{
-                $callback = isset($view->GMapApiCallback)?$view->GMapApiCallback:null;
-                $view->callChunk('googleMapsApi',
-                    $GLOBALS['googlemap_key'], $view->getLang(), $callback);
-            }
-        }
+
         foreach( $view->getLocalJs() as $js ) {
             if (! $js['defer']) {?>
               <script src="<?=$js['url']?>"<?=$js['async'] ? ' async' : ''?>></script>

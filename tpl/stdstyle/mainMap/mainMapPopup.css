@@ -1,0 +1,80 @@
+
+#mapPopup {
+  position: absolute;
+  bottom: 25px;
+  left: -48px;
+  
+  background-color: white;
+  
+  -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+  filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+  
+  cursor: default;
+  padding: 8px;
+  border-radius: 0px;
+  border: 1px solid #cccccc;
+
+  min-width: 250px;
+  z-index: 1500;
+}
+
+/* tail of the popup */
+#mapPopup:after, #mapPopup:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+#mapPopup:after { /* white triangle */
+  border-top-color: white;
+  border-width: 10px;
+  left: 48px;
+  margin-left: -10px;
+}
+
+#mapPopup:before { /* and its "border" */
+  border-top-color: #cccccc;
+  border-width: 11px;
+  left: 48px;
+  margin-left: -11px;
+}
+
+#mapPopup .col {
+  display: flex;
+  flex-direction: column; 
+}
+
+#mapPopup .row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+#mapPopup a {
+  text-decoration: none 
+}
+
+#mapPopup #cacheIcon {
+  margin: auto 5px;
+}
+
+#mapPopup-closer {
+  color: #777;
+  text-decoration: none;
+  position: absolute;
+  top: 1px;
+  right: 3px;
+  font-size: 1rem;
+}
+
+#cacheName {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
