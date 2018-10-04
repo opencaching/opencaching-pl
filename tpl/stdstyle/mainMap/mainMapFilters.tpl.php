@@ -9,25 +9,25 @@ use lib\Objects\GeoCache\GeoCache;
           <div>
             <input id="exTypeTraditional" type="checkbox" class="filterParam">
             <label for="exTypeTraditional">
-              <?=tr(GeoCache::TYPE_TRADITIONAL_TR_KEY)?>
+              <?=tr('map_traditionalType')?>
               <img src="/okapi/static/tilemap/legend_traditional.png"
-                   alt="<?=tr(GeoCache::TYPE_TRADITIONAL_TR_KEY)?>">
+                   alt="<?=tr('map_traditionalType')?>">
             </label>
           </div>
           <div>
             <input id="exTypeMulti" type="checkbox" class="filterParam">
             <label for="exTypeMulti">
-              <?=tr(GeoCache::TYPE_MULTICACHE_TR_KEY)?>
+              <?=tr('map_multicacheType')?>
               <img src="/okapi/static/tilemap/legend_multi.png"
-                   alt="<?=tr(GeoCache::TYPE_MULTICACHE_TR_KEY)?>">
+                   alt="<?=tr('map_multicacheType')?>">
             </label>
           </div>
           <div>
             <input id="exTypeQuiz" type="checkbox" class="filterParam">
             <label for="exTypeQuiz">
-              <?=tr(GeoCache::TYPE_QUIZ_TR_KEY)?>
+              <?=tr('map_quizType')?>
               <img src="/okapi/static/tilemap/legend_quiz.png"
-                   alt="<?=tr(GeoCache::TYPE_QUIZ_TR_KEY)?>">
+                   alt="<?=tr('map_quizType')?>">
             </label>
           </div>
         </div>
@@ -35,23 +35,25 @@ use lib\Objects\GeoCache\GeoCache;
           <div>
             <input id="exTypeVirtual" type="checkbox" class="filterParam">
             <label for="exTypeVirtual">
-              <?=tr(GeoCache::TYPE_VIRTUAL_TR_KEY)?>
+              <?=tr('map_virtualType')?>
               <img src="/okapi/static/tilemap/legend_virtual.png"
-                   alt="<?=tr(GeoCache::TYPE_VIRTUAL_TR_KEY)?>">
+                   alt="<?=tr('map_virtualType')?>">
             </label>
           </div>
           <div>
             <input id="exTypeEvent" type="checkbox" class="filterParam">
             <label for="exTypeEvent">
-              <?=tr(GeoCache::TYPE_EVENT_TR_KEY)?>
-              <img src="/okapi/static/tilemap/legend_event.png" alt="<?=tr(GeoCache::TYPE_EVENT_TR_KEY)?>">
+              <?=tr('map_eventType')?>
+              <img src="/okapi/static/tilemap/legend_event.png"
+                   alt="<?=tr('map_eventType')?>">
             </label>
           </div>
           <div>
             <input id="exTypeOther" type="checkbox" class="filterParam">
             <label for="exTypeOther">
-              <?=tr(GeoCache::TYPE_OTHERTYPE_TR_KEY)?>
-              <img src="/okapi/static/tilemap/legend_unknown.png" alt="<?=tr(GeoCache::TYPE_OTHERTYPE_TR_KEY)?>">
+              <?=tr('map_otherType')?>
+              <img src="/okapi/static/tilemap/legend_unknown.png"
+                   alt="<?=tr('map_otherType')?>">
             </label>
           </div>
         </div>
@@ -59,22 +61,25 @@ use lib\Objects\GeoCache\GeoCache;
           <div>
             <input id="exTypeWebcam" type="checkbox" class="filterParam">
             <label for="exTypeWebcam">
-              <?=tr(GeoCache::TYPE_WEBCAM_TR_KEY)?>
-              <img src="/okapi/static/tilemap/legend_webcam.png" alt="<?=tr(GeoCache::TYPE_WEBCAM_TR_KEY)?>">
+              <?=tr('map_webcamType')?>
+              <img src="/okapi/static/tilemap/legend_webcam.png"
+                   alt="<?=tr('map_webcamType')?>">
             </label>
           </div>
           <div>
             <input id="exTypeMoving" type="checkbox" class="filterParam">
             <label for="exTypeMoving">
-              <?=tr(GeoCache::TYPE_MOVING_TR_KEY)?>
-              <img src="/okapi/static/tilemap/legend_moving.png" alt="<?=tr(GeoCache::TYPE_MOVING_TR_KEY)?>">
+              <?=tr('map_movingType')?>
+              <img src="/okapi/static/tilemap/legend_moving.png"
+                   alt="<?=tr('map_movingType')?>">
             </label>
           </div>
           <div>
             <input id="exTypeOwn" type="checkbox" class="filterParam">
             <label for="exTypeOwn">
-              <?=tr(GeoCache::TYPE_OWNCACHE_TR_KEY)?>
-              <img src="/okapi/static/tilemap/legend_own.png" alt="<?=tr(GeoCache::TYPE_OWNCACHE_TR_KEY)?>">
+              <?=tr('map_owncacheType')?>
+              <img src="/okapi/static/tilemap/legend_own.png"
+                   alt="<?=tr('map_owncacheType')?>">
             </label>
           </div>
         </div>

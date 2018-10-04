@@ -113,6 +113,7 @@ $translations = array(
     'moving' => 'Moving',
     'podcast' => 'Podcast',
     'owncache' => 'Owncache',
+
     'map_excludeCaches' => 'Hide caches',
     'map_excludeIgnored' => 'Ignored',
     'map_excludeNotYetFound' => 'Not yet found',
@@ -121,7 +122,15 @@ $translations = array(
     'map_exWithoutRecomendation' => 'Without recommendation',
     'map_biggerSizeThan' => 'only bigger than',
     'map_sizeAny' => 'any size',
-
+    'map_otherType' => 'Other type',
+    'map_traditionalType' => 'Traditional',
+    'map_multicacheType' => 'Multicache',
+    'map_virtualType' => 'Virtual',
+    'map_webcamType' => 'Webcam',
+    'map_eventType' => 'Event',
+    'map_quizType' => 'Puzzle',
+    'map_movingType' => 'Moving',
+    'map_owncacheType' => 'Owncache',
 
     'ready_to_find' => 'Ready to be found',
     'other_options' => 'Other options',
