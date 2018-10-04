@@ -42,7 +42,7 @@ class OcMemCache
             try {
                 apcu_store($key, $var, $ttl);
             } catch(Exception $e) {
-                Debug::errorLog("Can't serialize object");
+                Debug::errorLog("Can't serialize object! error: ".$e->getMessage()." ");
             }
         }
 

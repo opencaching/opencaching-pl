@@ -75,9 +75,6 @@ class GeoCache extends GeoCacheCommons
      */
     private $distance = -1;
 
-    /** @var $owner User */
-    private $founder;
-
     /** @var $dictionary \cache */
     public $dictionary;
 
@@ -85,6 +82,12 @@ class GeoCache extends GeoCacheCommons
 
     /** @var $owner User */
     private $owner = null;
+
+
+    /** @var $founder User */
+    private $founder = null;
+
+    private $founderId = null;
 
     /** @var CacheAdditions */
     private $cacheAddtitions = null;
@@ -390,9 +393,11 @@ class GeoCache extends GeoCacheCommons
         $this->ownerId = (int) $geocacheDbRow['user_id'];
         $this->owner = null; //reset owner data
 
-        if ($geocacheDbRow['org_user_id'] != '') {
-            $this->founder = new User(array('userId' => $geocacheDbRow['org_user_id']));
+        $this->founder = null;
+        if (!empty($geocacheDbRow['org_user_id'])) {
+            $this->founderId = $geocacheDbRow['org_user_id'];
         }
+
         $this->score = $geocacheDbRow['score'];
 
         $this->ratingId = self::ScoreAsRatingNum($this->score); //rating is returned by OKAPI only-
@@ -590,13 +595,25 @@ class GeoCache extends GeoCacheCommons
         return $this->geocacheWaypointId;
     }
 
+    /**
+     * Gets userId of the first author of the cache (for caches after adoption)
+     * @return integer
+     */
+    public function getFounderId()
+    {
+        return $this->founderId;
+    }
 
     /**
-     *
+     * Gets User obj of the first author of the cache (for caches after adoption)
      * @return User
      */
     public function getFounder()
     {
+        if ( !is_null($this->getFounderId()) && is_null($this->founder) ) {
+            $this->founder = User::fromUserIdFactory( $this->getFounderId() );
+        }
+
         return $this->founder;
     }
 
