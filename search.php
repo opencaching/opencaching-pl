@@ -626,7 +626,7 @@ if ($usr == false) {
 //          Necessary, if searching for "Baden" => the town "Baden-Baden" was duplicate in the list.
 //                          if ($wordscount > 1)
 //                          {
-                                XDb::xSql('CREATE TEMPORARY TABLE `tmpuniids2` (`uni_id` int(11) NOT NULL, `cnt` int(11) NOT NULL, `olduni` int(11) NOT NULL) ENGINE=MEMORY SELECT `uni_id`, COUNT(*) `cnt`, 0 olduni FROM `tmpuniids` GROUP BY `uni_id` HAVING `cnt` >= ' . $wordscount);
+                                XDb::xSql('CREATE TEMPORARY TABLE `tmpuniids2` (`uni_id` int(11) NOT NULL, `cnt` int(11) NOT NULL DEFAULT \'0\', `olduni` int(11) NOT NULL) ENGINE=MEMORY SELECT `uni_id`, COUNT(*) `cnt`, 0 olduni FROM `tmpuniids` GROUP BY `uni_id` HAVING `cnt` >= ' . $wordscount);
                                 XDb::xSql('ALTER TABLE `tmpuniids2` ADD INDEX (`uni_id`)');
                                 XDb::xSql('DROP TABLE `tmpuniids`');
                                 XDb::xSql('ALTER TABLE `tmpuniids2` RENAME `tmpuniids`');
