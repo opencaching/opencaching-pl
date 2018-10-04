@@ -155,7 +155,7 @@ use lib\Objects\GeoCache\GeoCache;
             </div>
 
           <div>
-            <label for="size2"><?=tr('map_biggerSizeThan')?></label>
+            <label for="size2"><?=tr('map_biggerSizeThan')?>:</label>
             <select id="size2" class="filterParam">
               <option value="any"><?=tr('map_sizeAny')?></option>
               <option value="micro"><?=lcfirst(tr(GeoCache::SIZE_MICRO_TR_KEY))?></option>

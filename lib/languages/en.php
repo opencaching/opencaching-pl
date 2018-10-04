@@ -117,8 +117,11 @@ $translations = array(
     'map_excludeIgnored' => 'Ignored',
     'map_excludeNotYetFound' => 'Not yet found',
     'map_excludeTempUnavailable' => 'Temporarily unavailable',
-    'map_displayOnlyCaches' => 'Display only caches',
-    'map_exWithoutRecomendation' => 'without recommendation',
+    'map_displayOnlyCaches' => 'Display caches',
+    'map_exWithoutRecomendation' => 'Without recommendation',
+    'map_biggerSizeThan' => 'only bigger than',
+    'map_sizeAny' => 'any size',
+
 
     'ready_to_find' => 'Ready to be found',
     'other_options' => 'Other options',
@@ -1096,7 +1099,7 @@ $translations = array(
     'map_onlyWithMinScore' => 'with minimum rating:',
     'map_csFilter' => 'Power taril',
     'map_scoreAny' => 'Any rating',
-    'map_onlyCacheFromGeopaths' => 'Show from geoPath only',
+    'map_onlyCacheFromGeopaths' => 'only belongs to geoPath',
     'print_all' => 'Print all',
     'remove_all' => 'Remove all',
     'no_logtype_choosen' => 'No log type chosen!',
