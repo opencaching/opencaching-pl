@@ -53,7 +53,7 @@ var params = {
     circle150m: <?=isset($view->circle150m)?"true":"false"?>,
     userId: "<?=$view->mapUserId?>",
     userName: "<?=$view->mapUserName?>",
-    searchData: "<?=isset($view->searchData)?$view->searchData:"null"?>",
+    searchData: <?=isset($view->searchData)?'"'.$view->searchData.'"':"null"?>,
     cacheSetId: <?=isset($view->cacheSetId)?$view->cacheSetId:"null"?>,
     initUserPrefs: <?=$view->savedUserPrefs?>,
   };
