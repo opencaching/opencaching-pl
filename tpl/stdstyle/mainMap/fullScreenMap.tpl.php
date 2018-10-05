@@ -39,7 +39,7 @@ var params = {
   openPopupAtCenter: <?=isset($view->openPopup)?"true":"false"?>,
   circle150m: <?=isset($view->circle150m)?"true":"false"?>,
   userName: "<?=$view->mapUserName?>",
-  searchData: "<?=isset($view->searchData)?$view->searchData:"null"?>",
+  searchData: <?=isset($view->searchData)?'"'.$view->searchData.'"':"null"?>,
   cacheSetId: <?=isset($view->cacheSet)?$view->cacheSet->getId():"null"?>,
   initUserPrefs: <?=$view->savedUserPrefs?>,
 };
