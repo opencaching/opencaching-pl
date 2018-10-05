@@ -1,4 +1,5 @@
 <?php
+use Utils\Uri\SimpleRouter;
 $view->callChunk('tinyMCE');
 ?>
 
