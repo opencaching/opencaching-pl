@@ -58,6 +58,9 @@ function dynamicMapEntryPoint( params ) {
   // init mouse position coords
   cordsUnderCursorInit(params);
 
+  // init infoMessage control
+  infoMessageInit(params);
+
   // initialize markers on map
   loadMarkers(params);
 }
@@ -313,6 +316,29 @@ function cordsUnderCursorInit(params) {
     default:
       params.curPos.coordsFormat = CoordinatesUtil.FORMAT.DEG_MIN;
     }
+  });
+
+}
+
+function infoMessageInit(params) {
+
+  var $infoMsgId = params.prefix+'_infoMsg';
+
+  $msgDiv = $('<div id="'+$infoMsgId+'" class="ol-control dynamicMap_infoMsg"></div>');
+  $closeBtn = $('<div class="dynamicMap_infoMsgClose">✖</div>');
+  $msgDiv.append($closeBtn);
+
+  params.map.addControl( new ol.control.Control( { element: $msgDiv[0] } ));
+
+  if( params.infoMessage ){
+    $msgDiv.prepend(params.infoMessage);
+    $msgDiv.show();
+  }else{
+    $msgDiv.hide(0);
+  }
+
+  $closeBtn.click(function(){
+    $('#'+$infoMsgId).hide();
   });
 
 }

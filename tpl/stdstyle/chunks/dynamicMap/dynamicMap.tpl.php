@@ -43,6 +43,7 @@ var dynamicMapParams_<?=$canvasId?> = {
   startExtent: <?=$mapModel->getStartExtentJson()?>,
   mapLayersConfig: getMapLayersConfig(), // loaded in header by openlayers5 chunk
   selectedLayerKey: "<?=$mapModel->getSelectedLayerName()?>",
+  infoMessage: "<?=$mapModel->getInfoMessage()?>",
   markerData: <?=$mapModel->getMarkersDataJson()?>,
   markerMgr: {
     <?php foreach($mapModel->getMarkerTypes() as $markerType) { ?>

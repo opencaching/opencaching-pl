@@ -25,6 +25,8 @@ class DynamicMapModel
     private $forceZoom;      // force given zoom even if some markers will be hidden
     private $mapLayerName;   // name of the default map layer
 
+    private $infoMessage;    // short message to display at map
+
     private $markerModels = [];
 
     public function __construct(){
@@ -168,6 +170,16 @@ class DynamicMapModel
         }else{
             return "null";
         }
+    }
+
+    public function setInfoMessage($msg)
+    {
+        $this->infoMessage = $msg;
+    }
+    
+    public function getInfoMessage()
+    {
+        return $this->infoMessage;
     }
 
 }
