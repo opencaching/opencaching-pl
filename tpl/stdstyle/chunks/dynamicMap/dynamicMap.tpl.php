@@ -40,6 +40,7 @@ var dynamicMapParams_<?=$canvasId?> = {
   centerOn: <?=$mapModel->getCoords()->getAsOpenLayersFormat()?>,
   mapStartZoom: <?=$mapModel->getZoom()?>,
   forceMapZoom: <?=$mapModel->isZoomForced()?'true':'false'?>,
+  startExtent: <?=$mapModel->getStartExtentJson()?>,
   mapLayersConfig: getMapLayersConfig(), // loaded in header by openlayers5 chunk
   selectedLayerKey: "<?=$mapModel->getSelectedLayerName()?>",
   markerData: <?=$mapModel->getMarkersDataJson()?>,

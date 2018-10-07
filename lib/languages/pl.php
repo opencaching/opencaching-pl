@@ -129,6 +129,7 @@ $translations = array(
     'map_quizType' => 'Quiz',
     'map_movingType' => 'Mobilna',
     'map_owncacheType' => 'Owncache',
+    'map_incorectMapParams' => 'Niepoprawne dane wejsciowe!',
 
     'ready_to_find' => 'gotowe do szukania',
     'other_options' => 'Pozostałe opcje',

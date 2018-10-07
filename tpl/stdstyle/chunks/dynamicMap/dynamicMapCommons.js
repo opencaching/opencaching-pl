@@ -19,7 +19,6 @@ function dynamicMapEntryPoint( params ) {
           ),
       zoom: params.mapStartZoom,
     }),
-
     controls: ol.control.defaults({
       attributionOptions:
       { // attribution can't be display in custom control :( -
@@ -34,6 +33,15 @@ function dynamicMapEntryPoint( params ) {
       new ol.control.ScaleLine({ minWidth: 100 })]
     ),
   });
+
+  if(params.startExtent){
+    // fit map to given extent
+    var ex = params.startExtent;
+    var sw = ol.proj.fromLonLat([ex.sw.lon, ex.sw.lat]);
+    var ne = ol.proj.fromLonLat([ex.ne.lon, ex.ne.lat]);
+
+    params.map.getView().fit([sw[0], sw[1], ne[0], ne[1]], { nearest:true });
+  }
 
   // init layer switcher
   layerSwitcherInit(params);

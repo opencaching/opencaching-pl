@@ -1,4 +1,5 @@
-<div id="mapCanvasFullScreen"></div>
+
+<div id="mainMap" class="mapCanvasFullScreen"></div>
 
 <div style="display:none">
 
@@ -24,7 +25,7 @@
 </div>
 
 <!-- map-chunk start -->
-  <?php $view->callChunk('dynamicMap/dynamicMap', $view->mapModel, "mapCanvasFullScreen");?>
+  <?php $view->callChunk('dynamicMap/dynamicMap', $view->mapModel, "mainMap");?>
 <!-- map-chunk end -->
 
 <script id="mainMapPopupTpl" type="text/x-handlebars-template">
@@ -32,21 +33,8 @@
 </script>
 
 <script>
-var params = {
-  mapId: "mapCanvasFullScreen",
-  isFullScreenMap: true,
-  userId: "<?=$view->mapUserId?>",
-  openPopupAtCenter: <?=isset($view->openPopup)?"true":"false"?>,
-  circle150m: <?=isset($view->circle150m)?"true":"false"?>,
-  userName: "<?=$view->mapUserName?>",
-  searchData: <?=isset($view->searchData)?'"'.$view->searchData.'"':"null"?>,
-  cacheSetId: <?=isset($view->cacheSet)?$view->cacheSet->getId():"null"?>,
-  initUserPrefs: <?=$view->savedUserPrefs?>,
-};
-
 $(function() {
-  mainMapEntryPoint(params);
+  mainMapEntryPoint(<?=$view->mapParams?>);
 });
-
 </script>
 

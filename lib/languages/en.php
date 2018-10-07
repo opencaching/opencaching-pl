@@ -131,6 +131,7 @@ $translations = array(
     'map_quizType' => 'Puzzle',
     'map_movingType' => 'Moving',
     'map_owncacheType' => 'Owncache',
+    'map_incorectMapParams' => 'Incorrect map params - default map is presented!',
 
     'ready_to_find' => 'Ready to be found',
     'other_options' => 'Other options',
