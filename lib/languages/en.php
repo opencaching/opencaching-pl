@@ -114,6 +114,9 @@ $translations = array(
     'podcast' => 'Podcast',
     'owncache' => 'Owncache',
 
+    'ignored' => 'ignored',
+    'founds' => 'found',
+
     'map_excludeCaches' => 'Hide caches',
     'map_excludeIgnored' => 'Ignored',
     'map_excludeNotYetFound' => 'Not yet found',

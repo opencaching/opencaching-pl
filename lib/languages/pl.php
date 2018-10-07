@@ -113,6 +113,10 @@ $translations = array(
     'moving' => 'Mobilna',
     'podcast' => 'Podcast',
     'owncache' => 'Owncache',
+
+    'ignored' => 'ignorowane',
+    'founds' => 'znalezione',
+
     'map_excludeCaches' => 'Ukryj skrzynki',
     'map_excludeIgnored' => 'ignorowane',
     'map_excludeNotYetFound' => 'jeszcze nieznalezione',
