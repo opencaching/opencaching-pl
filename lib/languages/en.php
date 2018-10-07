@@ -972,7 +972,7 @@ $translations = array(
     'openchecker_attempts_info_05' => 'minutes</b> before you can try again.',
     'openchecker_excludeTempUnavailable' => 'Temporarily unavailable',
 
-    'choose_log' => 'Chose log type',
+    'choose_log' => 'Choose log type',
     'new_coords' => 'New coordinates',
     'viewlog_aktywnosc' => 'Total user activity (total of caches found, not found and hidden)',
     'viewlog_kordy' => 'Cache coordinates after moving',
